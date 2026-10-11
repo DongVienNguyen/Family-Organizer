@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import ts from 'typescript';
+import {it,expect} from 'vitest';
+import {UserRole,isAdultRole} from '../../src/types.js';
+it('actual Child task reward input is read-only while adults retain editing',()=>{
+ const source=fs.readFileSync(new URL('../../src/components/Tasks.tsx',import.meta.url),'utf8');const tree=ts.createSourceFile('Tasks.tsx',source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);let field:ts.JsxSelfClosingElement|undefined;
+ const visit=(node:ts.Node)=>{if(ts.isJsxSelfClosingElement(node)&&node.tagName.getText(tree)==='input'&&node.attributes.properties.some(p=>ts.isJsxAttribute(p)&&p.name.getText(tree)==='value'&&p.initializer?.getText(tree).includes('newRewardPoints')))field=node;ts.forEachChild(node,visit);};visit(tree);expect(field).toBeDefined();
+ const prop=field!.attributes.properties.find(p=>ts.isJsxAttribute(p)&&p.name.getText(tree)==='readOnly') as ts.JsxAttribute|undefined;expect(prop).toBeDefined();const expr=(prop!.initializer as ts.JsxExpression).expression!.getText(tree);
+ for(const role of Object.values(UserRole))expect(vm.runInNewContext(expr,{currentUser:{role},UserRole,isAdultRole})).toBe(role===UserRole.CHILD||role===UserRole.GUEST);
+ expect(source).toContain('tasks.formPointsAdultOnly');
+});
+for(const locale of ['vi','en','zh'])it('explains adult reward allocation in '+locale,()=>{const messages=JSON.parse(fs.readFileSync(new URL('../../src/i18n/locales/'+locale+'.json',import.meta.url),'utf8'));expect(typeof messages.tasks.formPointsAdultOnly).toBe('string');expect(messages.tasks.formPointsAdultOnly.length).toBeGreaterThan(8);});
+
+it('actual task form keeps positive-reward assignment read-only for Child while retaining adult and zero-point assignment',()=>{
+ const source=fs.readFileSync(new URL('../../src/components/Tasks.tsx',import.meta.url),'utf8');const tree=ts.createSourceFile('Tasks.tsx',source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);let field:ts.JsxSelfClosingElement|undefined,policy:string|undefined;
+ const visit=(node:ts.Node)=>{if(ts.isJsxSelfClosingElement(node)&&node.tagName.getText(tree)==='FancySelect'&&node.attributes.properties.some(p=>ts.isJsxAttribute(p)&&p.name.getText(tree)==='value'&&p.initializer?.getText(tree)==='{newAssignee}'))field=node;if(ts.isVariableDeclaration(node)&&node.name.getText(tree)==='canEditRewardAssignment')policy=node.initializer!.getText(tree);ts.forEachChild(node,visit);};visit(tree);expect(field).toBeDefined();expect(policy).toBeDefined();let branch:ts.Node|undefined=field;while(branch&&!ts.isConditionalExpression(branch))branch=branch.parent;expect(branch).toBeDefined();
+ const FancySelect=()=>null;
+ for(const [role,points,editable] of [[UserRole.CHILD,20,false],[UserRole.CHILD,0,true],[UserRole.ADMIN,20,true],[UserRole.MEMBER,20,true]] as const){const context:any={currentUser:{role},isAdultRole,UserRole,editingTaskId:'synthetic',tasks:[{id:'synthetic',rewardPoints:points}],newRewardPoints:points,newAssignee:UserRole.CHILD,setNewAssignee:()=>{},users:[{id:UserRole.CHILD,fullName:'Synthetic child'}],t:(s:string)=>s,FancySelect,React:{createElement:(tag:any,props:any,...children:any[])=>({tag,props,children})}};context.canEditRewardAssignment=vm.runInNewContext(policy!,context);const view=vm.runInNewContext(ts.transpileModule('const view='+branch!.getText(tree)+';view;', {compilerOptions:{jsx:ts.JsxEmit.React}}).outputText,context);expect(view.tag===FancySelect).toBe(editable);}
+});
+
+it('actual task form restricts sharing to the creator or adults',()=>{
+ const source=fs.readFileSync(new URL('../../src/components/Tasks.tsx',import.meta.url),'utf8');const tree=ts.createSourceFile('Tasks.tsx',source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);let policy:string|undefined,field:ts.JsxSelfClosingElement|undefined;
+ const visit=(node:ts.Node)=>{if(ts.isVariableDeclaration(node)&&node.name.getText(tree)==='canEditTaskSharing')policy=node.initializer!.getText(tree);if(ts.isJsxSelfClosingElement(node)&&node.tagName.getText(tree)==='FancySelect'&&node.attributes.properties.some(p=>ts.isJsxAttribute(p)&&p.name.getText(tree)==='value'&&p.initializer?.getText(tree).includes('newIsShared')))field=node;ts.forEachChild(node,visit);};visit(tree);expect(policy).toBeDefined();expect(field).toBeDefined();let branch:ts.Node|undefined=field;while(branch&&!ts.isConditionalExpression(branch))branch=branch.parent;expect(branch).toBeDefined();const FancySelect=()=>null;
+ for(const [role,creator,editable] of [[UserRole.CHILD,UserRole.ADMIN,false],[UserRole.CHILD,UserRole.CHILD,true],[UserRole.ADMIN,UserRole.CHILD,true],[UserRole.MEMBER,UserRole.ADMIN,true]] as const){const context:any={currentUser:{id:role,role},isAdultRole,editingTaskId:'synthetic',tasks:[{id:'synthetic',creatorId:creator}],newIsShared:true,setNewIsShared:()=>{},t:(s:string)=>s,FancySelect,React:{createElement:(tag:any,props:any)=>({tag,props})}};context.canEditTaskSharing=vm.runInNewContext(policy!,context);expect(context.canEditTaskSharing).toBe(editable);const view=vm.runInNewContext(ts.transpileModule('const view='+branch!.getText(tree)+';view;', {compilerOptions:{jsx:ts.JsxEmit.React}}).outputText,context);expect(view.tag===FancySelect).toBe(editable);if(!editable)expect(view.props.readOnly).toBe(true);}
+});

@@ -1,3 +1,4 @@
+import {sqliteLoad} from './sqlite.js';
 import { randomUUID } from 'node:crypto';
 import http from 'node:http';
 import { once } from 'node:events';
@@ -37,7 +38,10 @@ for (const [route, collection, create] of [
     const base = '2026-01-01T00:00:00.000Z';
     withAppWriteTransaction({ actorId: 'synthetic', command: 'synthetic:timestamp', requestId: randomUUID(), payloadHash: 'fixture' }, tx => { tx.legacy[collection].find(item => item.id === record.id)!.updatedAt = base; });
     await serve(async send => {
-      const body = { ...record, title: 'Synthetic saved update', baseUpdatedAt: base };
+      // Read the fixture after its synthetic version stamp: a real fresh edit
+      // sends the same canonical read-model timestamp as its baseUpdatedAt.
+      const currentRecord=sqliteLoad()[collection].find(item=>item.id===record.id)!;
+      const body = { ...currentRecord, title: 'Synthetic saved update', baseUpdatedAt: base };
       const requestId = randomUUID();
       const first = await send(route, body, requestId);
       expect(first.status).toBe(200);

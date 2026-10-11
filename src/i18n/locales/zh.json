@@ -383,6 +383,7 @@
     "formScopePublic": "共享（全家可见）",
     "formScopePrivate": "私密（仅管理员和负责人可见）",
     "formPointsLabel": "奖励积分",
+    "formPointsAdultOnly": "奖励积分及有奖励任务的负责人由成年人设置。",
     "formRecurLabel": "重复任务",
     "formRecurNone": "不重复",
     "formRecurDaily": "每天",

@@ -221,6 +221,8 @@ export function Tasks({
   const canEditTask = (task: Task) =>
     isAdultRole(currentUser.role) ||
     (currentUser.role === UserRole.CHILD && (task.creatorId === currentUser.id || task.assigneeId === currentUser.id));
+  const canEditRewardAssignment = isAdultRole(currentUser.role) || !editingTaskId || !((tasks.find(task => task.id === editingTaskId)?.rewardPoints || 0) > 0);
+  const canEditTaskSharing = isAdultRole(currentUser.role) || !editingTaskId || tasks.find(task => task.id === editingTaskId)?.creatorId === currentUser.id;
   const canDeleteTask = (_task: Task) => isAdultRole(currentUser.role);
 
   const resetTaskForm = () => {
@@ -1625,6 +1627,7 @@ export function Tasks({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1 min-w-0">
                   <label className="text-slate-400 block font-semibold">{t("tasks.formAssigneeLabel")}</label>
+                  {canEditRewardAssignment ? (
                   <FancySelect
                     value={newAssignee}
                     onChange={setNewAssignee}
@@ -1634,10 +1637,14 @@ export function Tasks({
                       ...users.filter(u => !u.isDeleted).map(u => ({ value: u.id, label: u.fullName }))
                     ]}
                   />
+                  ) : (
+                    <input type="text" readOnly value={users.find(user => user.id === newAssignee)?.fullName || t("tasks.formAssigneeShared")} aria-label={t("tasks.formAssigneeLabel")} className="w-full bg-slate-950 neu-pressed-sm rounded-lg p-2.5 text-slate-400" />
+                  )}
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-slate-400 block font-semibold">{t("tasks.formScopeLabel")}</label>
+                  {canEditTaskSharing ? (
                   <FancySelect
                     value={newIsShared ? "true" : "false"}
                     onChange={(v) => setNewIsShared(v === "true")}
@@ -1647,6 +1654,9 @@ export function Tasks({
                       { value: "false", label: t("tasks.formScopePrivate") }
                     ]}
                   />
+                  ) : (
+                    <input type="text" readOnly value={newIsShared ? t("tasks.formScopePublic") : t("tasks.formScopePrivate")} aria-label={t("tasks.formScopeLabel")} className="w-full bg-slate-950 neu-pressed-sm rounded-lg p-2.5 text-slate-400" />
+                  )}
                 </div>
               </div>
 
@@ -1657,10 +1667,13 @@ export function Tasks({
                     type="number"
                     min="0"
                     value={newRewardPoints || ""}
+                    readOnly={!isAdultRole(currentUser.role)}
+                    aria-describedby={!isAdultRole(currentUser.role) ? "task-reward-policy" : undefined}
                     onChange={(e) => setNewRewardPoints(Number(e.target.value))}
-                    placeholder="VD: 5"
+                    placeholder={isAdultRole(currentUser.role) ? "VD: 5" : "0"}
                     className="w-full bg-slate-950 neu-pressed-sm rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-amber-500"
                   />
+                  {!isAdultRole(currentUser.role) && <p id="task-reward-policy" className="text-[10px] text-slate-500">{t("tasks.formPointsAdultOnly")}</p>}
                 </div>
                 <div className="space-y-1">
                   <label className="text-slate-400 block font-semibold">{t("tasks.formRecurLabel")}</label>

@@ -522,6 +522,7 @@
     "formScopePublic": "Chung (Cả gia đình đều xem được)",
     "formScopePrivate": "Riêng tư (Chỉ Admin & người phân công thấy)",
     "formPointsLabel": "Điểm thưởng",
+    "formPointsAdultOnly": "Điểm thưởng và người nhận việc có điểm do người lớn thiết lập.",
     "formRecurLabel": "Task lặp lại",
     "formRecurNone": "Không lặp",
     "formRecurDaily": "Hàng ngày",

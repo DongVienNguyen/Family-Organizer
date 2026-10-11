@@ -161,6 +161,23 @@ try {
     const search=await request(port,'/api/search?q=synthetic',undefined,childToken);assert.equal(search.status,200);assert.equal(search.text.includes('synthetic-private'),false);assert.equal(search.text.includes('synthetic-shared-note'),true);
     const feedInfo=await request(port,'/api/calendar/feed-info',undefined,childToken);assert.equal(feedInfo.status,200);const calendar=await request(port,'/api/calendar.ics?token='+encodeURIComponent(JSON.parse(feedInfo.text).token));assert.equal(calendar.status,200);assert.match(calendar.text,/synthetic-shared-plan/);assert.equal(calendar.text.includes('synthetic-private-plan'),false);
 
+    // Compiled native task authority, Child submission and exactly-once rewards.
+    const rewardBase=JSON.parse((await request(port,'/api/rewards',undefined,token)).text).entries.length;
+    const taskCreate=await request(port,'/api/tasks',{title:'Synthetic authority probe',assigneeId:'synthetic-child',isShared:false,rewardPoints:20},token);assert.equal(taskCreate.status,200);const taskId=JSON.parse(taskCreate.text).task.id;
+    assert.equal((await request(port,'/api/tasks',{id:taskId,rewardPoints:999,status:'completed'},childToken)).status,403);
+    assert.equal((await request(port,'/api/tasks',{id:taskId,assigneeId:'synthetic-adult',submittedById:'synthetic-child',status:'completed'},childToken)).status,403);
+    const submitted=await request(port,'/api/tasks',{id:taskId,status:'completed',proofNote:'Synthetic completed'},childToken);assert.equal(submitted.status,200);assert.equal(JSON.parse(submitted.text).task.pendingApproval,true);assert.equal(JSON.parse(submitted.text).task.submittedById,'synthetic-child');
+    assert.equal((await request(port,'/api/tasks',{id:taskId,assigneeId:'synthetic-adult',status:'completed'},childToken)).status,403);
+    assert.equal(JSON.parse((await request(port,'/api/rewards',undefined,token)).text).entries.length,rewardBase);
+    assert.equal((await request(port,'/api/tasks/'+taskId+'/approve',{},token)).status,200);
+    assert.equal((await request(port,'/api/tasks',{id:taskId,status:'completed'},token)).status,200);
+    assert.equal(JSON.parse((await request(port,'/api/rewards',undefined,token)).text).entries.length,rewardBase+1);
+    assert.equal((await request(port,'/api/tasks',{id:taskId,status:'todo'},childToken)).status,200);
+    assert.equal((await request(port,'/api/tasks',{id:taskId,status:'completed'},childToken)).status,200);
+    assert.equal((await request(port,'/api/tasks/'+taskId+'/approve',{},token)).status,200);
+    const rewards=JSON.parse((await request(port,'/api/rewards',undefined,token)).text).entries;assert.equal(rewards.length,rewardBase+2);assert.deepEqual(rewards.filter(row=>row.taskId===taskId).map(row=>row.points),[20,20]);
+    assert.equal((await request(port,'/api/tasks/'+taskId,undefined,token,'DELETE')).status,200);
+
     if(iteration===1){
       assert.equal((await request(port,'/api/auth/logout',{},token)).status,200);
       assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);
@@ -217,7 +234,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

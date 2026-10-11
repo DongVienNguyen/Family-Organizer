@@ -383,6 +383,7 @@
     "formScopePublic": "Shared (whole family can see)",
     "formScopePrivate": "Private (Admin & assignee only)",
     "formPointsLabel": "Reward points",
+    "formPointsAdultOnly": "Reward points and assignees for rewarded tasks are managed by adults.",
     "formRecurLabel": "Recurring task",
     "formRecurNone": "No repeat",
     "formRecurDaily": "Daily",

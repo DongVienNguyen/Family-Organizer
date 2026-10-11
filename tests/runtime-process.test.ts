@@ -52,10 +52,10 @@ async function scenario(crash:boolean,rotateKey=false){
       expect(fs.existsSync(networkFile)?fs.readFileSync(networkFile,'utf8'):'').toBe('');
       return;
     }
-    const saved=await call(port,'/api/tasks',{title:'Synthetic persisted task',assignedToId:'synthetic-user',status:'todo'},token);expect(saved.status,JSON.stringify(saved)).toBe(200);
+    const saved=await call(port,'/api/tasks',{title:'Synthetic persisted task',assigneeId:'synthetic-user',status:'todo'},token);expect(saved.status,JSON.stringify(saved)).toBe(200);
     if(crash){const exited=once(child!,'exit');child!.kill('SIGKILL');await exited;}else await stop();
     const dbPath=path.join(data,'family.db');fs.renameSync(dbPath,dbPath+'.probe');fs.renameSync(dbPath+'.probe',dbPath);
-    port=await launch();const rows=await call(port,'/api/tasks',undefined,token);expect(rows.status).toBe(200);expect(JSON.stringify(rows.body)).toContain('Synthetic persisted task');await stop();
+    port=await launch();const rows=await call(port,'/api/tasks',undefined,token);expect(rows.status).toBe(200);expect(JSON.stringify(rows.body)).toContain('Synthetic persisted task');expect(rows.body.tasks.find((task:any)=>task.id===saved.body.task.id).assigneeId).toBe('synthetic-user');await stop();
     const db=new Database(dbPath);try{expect(db.pragma('integrity_check',{simple:true})).toBe('ok');}finally{db.close();}
     expect(JSON.parse(fs.readFileSync(path.join(data,'db.json'),'utf8'))).toEqual(legacy);
     expect(fs.existsSync(networkFile)?fs.readFileSync(networkFile,'utf8'):'').toBe('');

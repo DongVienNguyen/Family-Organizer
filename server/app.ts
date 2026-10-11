@@ -1,3 +1,4 @@
+import {validateTaskComment} from './taskPolicy.js';
 import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
 import {createRealtimeHub} from './realtime.js';
 import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canEditLegacyTask,canEditLegacyNote} from './legacyVisibility.js';
@@ -752,10 +753,7 @@ app.post("/api/tasks/:id/comments", requireAuth, (req: AuthRequest, res: Respons
   const existing=FamilyDB.getTasks().find(task=>task.id===id);
   if(!existing||!canViewLegacyTask(existing,session)){res.status(404).json({error:'Không tìm thấy công việc'});return;}
 
-  if (!content || content.trim() === "") {
-    res.status(400).json({ error: "Nội dung bình luận không được bỏ trống!" });
-    return;
-  }
+  try { validateTaskComment(content); } catch(error) { res.status(400).json(httpErrorBody(error)); return; }
 
   try {
     const updatedTask = FamilyDB.addCommentToTask(id, content, session.userId, session.username);
