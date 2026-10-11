@@ -33,13 +33,17 @@ legacy.healthProfiles=['synthetic-child','synthetic-adult'].map(userId=>({id:'hp
 const mediaPng=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aT1kAAAAASUVORK5CYII=','base64');
 fs.mkdirSync(path.join(dataRoot,'uploads','notes'),{recursive:true});
 for(const scope of ['shared','private']){fs.writeFileSync(path.join(dataRoot,'uploads','notes',scope+'.png'),mediaPng);legacy.notes.find(row=>row.id==='synthetic-'+scope+'-note').content+=' ![synthetic](/uploads/notes/'+scope+'.png)';}
+const digestExpiry=days=>{const date=new Date();date.setDate(date.getDate()+days);return date.toISOString().slice(0,10);};
+legacy.documents=[...Array.from({length:7},(_,i)=>({id:'digest-private-'+i,title:'SYNTHETIC_COMPILED_DIGEST_PRIVATE_'+i,type:'other',creatorId:'synthetic-child',ownerId:'synthetic-child',isShared:false,expiryDate:digestExpiry(3),files:[]})),{id:'digest-visible',title:'SYNTHETIC_COMPILED_DIGEST_VISIBLE',type:'other',creatorId:'synthetic-adult',ownerId:'synthetic-adult',isShared:false,expiryDate:digestExpiry(10),files:[]},{id:'digest-shared',title:'SYNTHETIC_COMPILED_DIGEST_SHARED',type:'other',creatorId:'synthetic-child',ownerId:'synthetic-child',isShared:true,expiryDate:digestExpiry(10),files:[]}];
 fs.writeFileSync(path.join(dataRoot, 'db.json'), JSON.stringify(legacy));
 fs.writeFileSync(path.join(configRoot, 'session_secret.key'), 'synthetic-session-key');
 fs.writeFileSync(path.join(configRoot, 'app_settings.json'), JSON.stringify({ marker: 'synthetic' }));
 const networkFile = path.join(fixtureRoot, 'external-attempts.jsonl');
+const digestCapture=path.join(fixtureRoot,'synthetic-digest-deliveries.jsonl');
+const digestFixture=fileURLToPath(new URL('./digest-fixture.cjs',import.meta.url));
 const blockNetwork = fileURLToPath(new URL('./block-network.cjs', import.meta.url));
 const Database = createRequire(path.join(packageRoot, 'package.json'))('better-sqlite3');
-const env = { ...process.env, NODE_ENV: 'production', DATA_DIR: dataRoot, CONFIG_DIR: configRoot, LOG_DIR: logRoot, FO_NETWORK_ATTEMPTS: networkFile };
+const env = { ...process.env, NODE_ENV: 'production', DATA_DIR: dataRoot, CONFIG_DIR: configRoot, LOG_DIR: logRoot, FO_NETWORK_ATTEMPTS: networkFile,FO_DIGEST_CAPTURE:digestCapture };
 for (const name of ['APP_CODE_ROOT', 'APP_VERSION', 'GEMINI_API_KEY', 'API_KEY', 'VAPID_PUBLIC_KEY', 'VAPID_PRIVATE_KEY', 'GITHUB_TOKEN', 'GH_TOKEN', 'NODE_OPTIONS']) delete env[name];
 let child;
 let serverOutput = '';
@@ -104,7 +108,7 @@ async function launch(dataDirectory = dataRoot) {
   await once(reservation, 'listening');
   const port = reservation.address().port;
   await new Promise(resolve => reservation.close(resolve));
-  child = spawn(process.execPath, ['--require', blockNetwork, path.join(packageRoot, 'dist', 'server.cjs')], { cwd: foreignCwd, env: { ...env, DATA_DIR: dataDirectory, PORT: String(port) }, stdio: ['pipe', 'pipe', 'pipe'] });
+  child = spawn(process.execPath, ['--require', blockNetwork,'--require',digestFixture, path.join(packageRoot, 'dist', 'server.cjs')], { cwd: foreignCwd, env: { ...env, DATA_DIR: dataDirectory, PORT: String(port) }, stdio: ['pipe', 'pipe', 'pipe'] });
   child.stdout.on('data', text => { serverOutput += text; });
   child.stderr.on('data', text => { serverOutput += text; });
   child.on('error', error => { serverOutput += error.message; });
@@ -136,6 +140,18 @@ try {
     assert.equal(JSON.parse(login.text).user.id, 'synthetic-adult');
     const token=JSON.parse(login.text).token;assert.match(token,/^fo1\./);assert.equal(login.headers['cache-control'],'no-store');
     assert.equal((await request(port,'/api/auth/me',undefined,token)).status,200);
+    if(iteration===0){
+      assert.equal((await request(port,'/api/settings/telegram-backup',{botToken:'synthetic-compiled-digest-token',chatId:'synthetic-compiled-digest-chat',weeklyDigestEnabled:false},token)).status,200);
+      const settingsFile=path.join(configRoot,'app_settings.json'),settings=JSON.parse(fs.readFileSync(settingsFile,'utf8'));
+      assert.equal(settings.telegramWeeklyDigestOwnerId,'synthetic-adult');
+      assert.equal((await request(port,'/api/settings/telegram-digest/test',{},token)).status,200);
+      const deliveries=fs.readFileSync(digestCapture,'utf8').trim().split('\n').map(line=>JSON.parse(line));assert.equal(deliveries.length,1);
+      assert.ok(deliveries[0].text.includes('SYNTHETIC_COMPILED_DIGEST_VISIBLE'));assert.ok(deliveries[0].text.includes('SYNTHETIC_COMPILED_DIGEST_SHARED'));assert.ok(!deliveries[0].text.includes('SYNTHETIC_COMPILED_DIGEST_PRIVATE'));
+      fs.writeFileSync(settingsFile,JSON.stringify({...settings,telegramWeeklyDigestOwnerId:'synthetic-child'}));
+      const refused=await request(port,'/api/settings/telegram-digest/test',{},token);assert.equal(refused.status,400);assert.ok(!refused.text.includes('synthetic-compiled-digest-token'));
+      assert.equal(fs.readFileSync(digestCapture,'utf8').trim().split('\n').length,1);fs.writeFileSync(settingsFile,JSON.stringify({marker:'synthetic'}));
+    }
+
     const privateUsers=await request(port,'/api/users',undefined,token);assert.equal(privateUsers.status,200);assert.equal(privateUsers.headers['cache-control'],'no-store');assert.match(privateUsers.headers.vary,/Authorization/i);
     const unauthorizedUsers=await request(port,'/api/users');assert.equal(unauthorizedUsers.status,401);assert.equal(unauthorizedUsers.headers['cache-control'],'no-store');
     const absentMedia=await request(port,'/uploads/synthetic-not-present.png',undefined,token);assert.equal(absentMedia.status,404);assert.equal(absentMedia.headers['cache-control'],'no-store');
@@ -262,7 +278,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

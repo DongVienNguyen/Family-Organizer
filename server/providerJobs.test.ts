@@ -4,13 +4,14 @@ import { AppJobs } from './appJobs.js';
 import { AppJobStore } from './jobStore.js';
 import { sqliteConnection } from './sqlite.js';
 import { afterEach, expect, it, vi } from 'vitest';
-import { setAppSetting, getAppSettings } from './db.js';
+import { setAppSetting, getAppSettings,FamilyDB } from './db.js';
 import { runTelegramBackupTick } from './telegramBackup.js';
 import { runWeeklyDigestTick } from './weeklyDigest.js';
 vi.mock('./fullBackup.js', () => ({ streamFullBackup: async (out: any) => { out.end(Buffer.from('synthetic archive')); }, fullBackupFilename: () => 'synthetic.zip' }));
 afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 function configure() {
   setAppSetting('telegramBotToken', 'synthetic-provider-token'); setAppSetting('telegramChatId', 'synthetic-chat');
+  setAppSetting('telegramWeeklyDigestOwnerId',FamilyDB.getUsers()[0].id);
   setAppSetting('telegramBackupEnabled', '1'); setAppSetting('telegramWeeklyDigestEnabled', '1');
 }
 

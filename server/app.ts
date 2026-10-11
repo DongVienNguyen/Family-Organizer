@@ -1,3 +1,4 @@
+import {telegramSettingsPatch} from './telegramSettings.js';
 import {validateTaskComment} from './taskPolicy.js';
 import {validateContentHeader} from './contentInput.js';
 import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
@@ -608,13 +609,14 @@ app.get("/api/settings/telegram-backup", requireAuth, requireRole([UserRole.ADMI
 });
 
 app.post("/api/settings/telegram-backup", requireAuth, requireRole([UserRole.ADMIN]), (req: AuthRequest, res: Response) => {
-  const { botToken, chatId, enabled, weeklyDigestEnabled } = req.body || {};
-  // botToken/chatId chỉ ghi đè khi client gửi lên (giữ nguyên khi chỉ bật/tắt).
-  if (botToken !== undefined) setAppSetting("telegramBotToken", String(botToken).trim() || null);
-  if (chatId !== undefined) setAppSetting("telegramChatId", String(chatId).trim() || null);
-  if (enabled !== undefined) setAppSetting("telegramBackupEnabled", enabled ? "1" : null);
-  if (weeklyDigestEnabled !== undefined) setAppSetting("telegramWeeklyDigestEnabled", weeklyDigestEnabled ? "1" : null);
-  res.json(telegramBackupStatus());
+  try {
+    const patch=telegramSettingsPatch(req.body,req.userSession!.userId,getAppSettings());
+    dependencies.db.patchAppSettings(patch);
+    res.json(telegramBackupStatus());
+  } catch(error) {
+    const status=(error as {status?:number})?.status;
+    res.status(status===400?400:503).json({error:status===400?'Cấu hình Telegram không hợp lệ.':'Không lưu được cấu hình Telegram. Hãy thử lại.'});
+  }
 });
 
 // Gửi thử ngay 1 bản backup (kiểm tra token/chat id đúng chưa).
@@ -628,12 +630,13 @@ app.post("/api/settings/telegram-backup/test", requireAuth, requireRole([UserRol
 });
 
 // Gửi thử bản tin tuần ngay (không chờ thứ Hai).
-app.post("/api/settings/telegram-digest/test", requireAuth, requireRole([UserRole.ADMIN]), async (_req: AuthRequest, res: Response) => {
+app.post("/api/settings/telegram-digest/test", requireAuth, requireRole([UserRole.ADMIN]), async (req: AuthRequest, res: Response) => {
   try {
-    const { aiUsed } = await sendWeeklyDigest();
+    const actorId=req.userSession!.userId,token=(req.get("authorization")||"").slice(7);
+    const { aiUsed } = await sendWeeklyDigest(new Date(),{userId:actorId,isCurrent:()=>dependencies.auth.verify(token)?.id===actorId});
     res.json({ success: true, message: `Đã gửi bản tin tuần${aiUsed ? " (AI)" : ""} — kiểm tra chat Telegram nhé.` });
   } catch (err: any) {
-    res.status(400).json({ error: err.message || "Gửi bản tin tuần thất bại." });
+    res.status(400).json({ error: "Gửi bản tin tuần thất bại. Kiểm tra cấu hình và quyền nhận tin." });
   }
 });
 

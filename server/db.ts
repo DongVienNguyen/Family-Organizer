@@ -6,7 +6,7 @@ import {canViewLegacyTask} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
 import {managedMarkdownUrls,canonicalMediaUrl} from './mediaPolicy.js';
 import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
-import { durableWrite, validBackupFilename, sha256 } from './snapshotFiles.js';
+import { durableWrite, validBackupFilename, sha256, readSettings } from './snapshotFiles.js';
 import { revokeUserSessions } from './authStore.js';
 /**
  * @license
@@ -141,6 +141,26 @@ export function getAppSettings(): Record<string, string> {
     console.error("Không đọc được app_settings.json:", e);
   }
   return {};
+}
+
+/** One synchronous atomic replacement for a validated settings command. */
+export function patchAppSettings(patch: Record<string,string|null>): void {
+  getAppCommandContext()?.assertWriteOwnership?.();
+  const temporary = SETTINGS_FILE + '.tmp-' + crypto.randomUUID();
+  try {
+    const settings = readSettings();
+    for (const [key,value] of Object.entries(patch)) {
+      if (value === null || value === '') delete settings[key];
+      else settings[key] = value;
+    }
+    durableWrite(temporary, JSON.stringify(settings,null,2));
+    getAppCommandContext()?.assertWriteOwnership?.();
+    fs.renameSync(temporary, SETTINGS_FILE);
+  } catch {
+    throw new AppStoreError('Không lưu được cấu hình Telegram. Hãy thử lại.',503);
+  } finally {
+    if (fs.existsSync(temporary)) fs.unlinkSync(temporary);
+  }
 }
 
 export function setAppSetting(key: string, value: string | null): void {

@@ -1,0 +1,74 @@
+{
+  "task": "F04-l",
+  "baseSha": "6be5cd5e8a1585e43ac643542444d58591c8ce67",
+  "branch": "codex/f04-digest-privacy",
+  "observedRed": {
+    "initialNative": 23,
+    "correctedHttpFixture": 13,
+    "disableDuringAI": 1,
+    "requiredEvidence": 3,
+    "legacyOversizedFallback": 1,
+    "legacyCategoryMarkupAndUnsafeKey": 2,
+    "totalUniqueContractCases": 43,
+    "newOwnerBindingRequirementIncluded": 1
+  },
+  "initialValidCharacterizations": 5,
+  "fixtureCorrections": {
+    "httpDraft": "mock provider error moved before route construction; unexpected network attempt was blocked, draft not counted; correct baseline13fail/4pass retained",
+    "categoryRed": "3 failures include already-counted oversized fallback; only two new category cases counted",
+    "enabledRed": "explicit test-name selection produced24 unselected tests, full suites never skipped"
+  },
+  "dependencies": "unchanged frozen lock from merged F04-k; production-only npm ci verified",
+  "cloudEvidenceSha256": {
+    "f04-l-native-red.log": "fa0ee26fa11582e3bfa1460dc50616613eeac3e57bd2b662185a4f520941bc46",
+    "f04-l-http-red.log": "c06cb773532d044374392814499b43c7c0b0eb39e53bf79b388954dbe57b3a2b",
+    "f04-l-enabled-red.log": "9f3eb7c536434fd5aa411bb04f941b3d502159003b152d3e6d9ae055cdbd68e8",
+    "f04-l-evidence-red.log": "bf74d88835e0c2b56d9be789db9e0e636aad3e68377625eba76675cbe2a439ac",
+    "f04-l-fallback-red.log": "83f92fe461032b5f95e7977cf371e9bb41ddc2c9190fd28faa6f383bb5f711f5",
+    "f04-l-category-red.log": "6e7f9636dff15b82d044c6baf06e3a5d25e023a62f6a57b78a69b5fa528f4f04",
+    "f04-l-verified-target.log": "5e852f11462b1caf487153f0952a135b35cf5d37c38d4517ee336a3905127edb",
+    "f04-l-verified-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-l-verified-full.log": "b53fb99ea665179b00c925a11767d3ae34ccec8b60c683c282013ce545c0f1ce",
+    "f04-l-verified-build.log": "03d5a6ab8bce43aa2af4f5fa3ce2cddade064d2e9574b711dbc7e7b95682d5c5",
+    "f04-l-production-install.log": "939e3c1e837ad29139345008e27a87c294756f3b8e6969afe4ebac22a9db6563",
+    "f04-l-cloud-production.log": "7c4f272d54536d246661d28de45c11fa554e88da9b8b1d234da180f042185f5f",
+    "f04-l-source-target.log": "59c55a654b296df265ec82acc9ecaab33e8ac728e82724219bae7906ccef5d5c",
+    "f04-l-source-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-l-source-full.log": "655a26fce2cd6c115b40b903b315ca297857c9c8976108d87fb882d2f5c08d75"
+  },
+  "windowsAcceptance": false,
+  "server2019Acceptance": "not-run",
+  "additionalSupportedSdkSanitization": 1,
+  "cloud": {
+    "initialFull": {
+      "passed": 1071,
+      "files": 76
+    },
+    "latestVerifiedFull": {
+      "passed": 1074,
+      "files": 76,
+      "skipped": 0
+    },
+    "finalSourceWithSdkSanitization": {
+      "passed": 1075,
+      "files": 76,
+      "skipped": 0,
+      "targeted": {
+        "passed": 131,
+        "files": 4
+      },
+      "lint": 0,
+      "build": "previous source build0; only supported-SDK test added afterward"
+    },
+    "lint": 0,
+    "build": 0,
+    "productionOnlyFrozenNpmCi": 0,
+    "compiledProductionSmoke": {
+      "exitCode": 0,
+      "checks": 22,
+      "platform": "linux",
+      "windowsAcceptance": false,
+      "workspace": "uncommitted pre-PR workspace; not an exact source commit proof"
+    }
+  }
+}

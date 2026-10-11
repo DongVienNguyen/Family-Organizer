@@ -16,7 +16,8 @@
 | F04-h | Reviewed, exact Windows GREEN, merged PR14 | HEAD63ef3ad/run38179151696;918/91871files per runtime |
 | F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
 | F04-j | Reviewed, exact Windows GREEN, merged PR16 | HEADcc45fe8/run38182693480;978/97873files per runtime; maine41e97d |
-| F04-k | Reviewed, corrected; final Windows pending PR17 | First HEAD441fd8b/run38184447965;1022/102274files;39actualRED/9chars; audit9→0 |
+| F04-k | Reviewed, exact Windows GREEN, merged PR17 | HEADd614a78/run38185059520;1026/102674files per runtime; main6be5cd5 |
+| F04-l | Digest provider privacy implemented; source tests GREEN; Windows/review pending | BASE6be5cd5;43observedREDincl1newownerrequirement;5initialchars+1supportedSDKcase |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -534,10 +535,49 @@ The single fresh review had no Critical/Important and one accepted Minor: valida
 nativeAuditExitCode independently of wrapper exit0. Four actual RED cases then
 GREEN; corrected targeted105/105twofiles, full1026/102674files, lint/build0.
 Total39actualRED/9chars; one correction pass, no rereview. Final corrected HEAD
-Windows proof pending; see f04-k-review.md. No final CI-pass claim.
+`d614a78b795a224bb5c476d49c68d471893e884d` Windows run38185059520 verified
+1026/102674files per Node22/24, no skips, seven exits0/nativeAuditExit0,21 compiled
+proofs/evidence/ci-gate. Full report/log hashes recorded in immutable proof
+https://github.com/DongVienNguyen/Family-Organizer/pull/17#issuecomment-6115228322.
+Authorized squash main6be5cd5e8a1585e43ac643542444d58591c8ce67 verified before F04-l.
 
 Remaining F04 provider/backup/log/privacy and final proxy/browser gates; F05
 browser/coverage/enforcement still incomplete, actual protection writes403 despite
 user authorization. F06 packaging/wrapper/schema, F07 service/encrypted recovery,
 F08 release preparation, F09 full regressions/performance remain. No release/tag,
 VPS access/deployment, Server2019 acceptance or new domain features.
+
+## F04-l — Weekly digest provider privacy (in progress)
+
+BASE/main6be5cd5e8a1585e43ac643542444d58591c8ce67 verified after PR17 squash;
+branchcodex/f04-digest-privacy. See provider-digest-privacy.md and
+ evidence/f04-l-digest-regressions.json for scope/RED provenance/declined limits.
+
+Current Admin saving bot/chat/weekly toggle becomes the accountable digest owner;
+legacy unbound configs require resave, with UI explanation of operator-controlled
+recipient trust. Existing task/plan/document ACL filters before summaries/top-five
+and AI context. Current role/password/deletion/session, owner/enable/bot/chat/key
+and derived visible payload are revalidated after asynchronous work before dispatch.
+Stale sends are known failures; durable unknown-outcome no-replay remains. AI owns
+15second deadline/abort/HTTP timeout/token+text bounds and safe logs/errors; actual
+SDK string text works, HTML escaped. Long legacy fallback is entity-safe shortened;
+category markup and unsafe-key lookup handled without altering canonical records.
+Validated configuration+owner written atomically via existing settings/snapshot
+helpers; failed save503 preserves prior file. Existing backup toggles/assertions
+and provider job behavior remain, explicit synthetic owner fixtures. No new API.
+
+43 unique observed RED contract cases include1new owner-binding requirement;
+5 initial valid characterizations +1 supported-SDK sanitization case. Corrected
+HTTP fixture reran13RED before source; draft blocked unexpected attempt and isn't
+counted. Category RED repeats one known failure, not counted twice. The enabled
+selected RED report has unselected cases; full suites don't skip. Two suites and
+22nd actual compiled provider privacy proof are mandatory evidence. Cloud full1074/
+107476files/lint/build and fresh production-only npmci/22proof smoke passed;
+final supported-SDK source test run1075/107576files (zero skips), targeted131/131
+4files, lint0. Build/compiled smoke0 before the test-only addition; unchanged source. No Cloud smoke claim for Windows.
+PR/SHA/exact Windows artifacts and one fresh whole-branch review pending.
+
+Remaining F04 ordinary backup/redaction/encrypted provider backup and log audit;
+F05 browser/coverage and actual Administration write/protection still403; F06–F09
+package/service/release-prep/full acceptance. Main protection isn't proven by a
+GREEN workflow. R02 Server2019 unrun; no release/tag/VPS or new domains.

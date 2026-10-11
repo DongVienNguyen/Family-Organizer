@@ -2001,7 +2001,7 @@ export function Settings({
                     📋 Bản tin tuần gia đình
                   </p>
                   <p className="text-[11px] text-slate-500">
-                    Sáng thứ Hai 7h–10h gửi tóm tắt: chi tiêu tuần, task trễ, lịch & sinh nhật sắp tới, giấy tờ hết hạn.
+                    Sáng thứ Hai 7h–10h gửi tóm tắt theo quyền của Admin lưu cấu hình hoặc bật bản tin. Giấy tờ riêng ngoài quyền của tài khoản đó không được gửi. Chỉ chọn chat mà bạn cho phép nhận dữ liệu này; hãy lưu lại cấu hình cũ để xác nhận người nhận.
                     {tgStatus.weeklyDigestEnabled ? " AI viết bản tin thân thiện nếu đã cấu hình Gemini." : ""}
                   </p>
                 </div>
