@@ -25,6 +25,8 @@ export async function startApplication(config: AppConfig = appConfig) {
   try {
     sqlite = await import('./sqlite.js');
     const storage = sqlite;
+    const { recoverAppRestore } = await import('./appSnapshot.js');
+    recoverAppRestore();
     const db = await import('./db.js');
     const media = await import('./media.js');
     const fullBackup = await import('./fullBackup.js');

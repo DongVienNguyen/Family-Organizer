@@ -159,7 +159,34 @@ describe('shared synchronous application write ownership', () => {
       changed = false;
       for (const [name, targets] of calls) if (!writers.has(name) && [...targets].some(target => writers.has(target))) { writers.add(name); changed = true; }
     }
-    const unowned = methods.filter(method => method.modifiers?.some(m => m.kind === ts.SyntaxKind.PublicKeyword) && writers.has(method.name.getText(source)) && !method.body?.getText(source).includes('return runLegacyCommand(')).map(m => m.name.getText(source));
+    // Restore is now an async coordinator, so a synchronous outer transaction
+    // cannot own it. Require its explicit awaited gateway and allow only already
+    // owned logging/delegation, never a local collection writer outside the gateway.
+    const restoreOwned = new Set<string>();
+    for (const method of methods) {
+      if (!method.modifiers?.some(m => m.kind === ts.SyntaxKind.AsyncKeyword)) continue;
+      let awaitsGateway = false;
+      const scan = (node: ts.Node) => {
+        if (ts.isAwaitExpression(node) && ts.isCallExpression(node.expression) && ts.isIdentifier(node.expression.expression) && node.expression.expression.text === 'restoreAppSnapshot') awaitsGateway = true;
+        ts.forEachChild(node,scan);
+      };
+      if (method.body) scan(method.body);
+      const targets=calls.get(method.name.getText(source))!;
+      if (awaitsGateway && [...targets].every(target=>['readRaw','logActivity'].includes(target))) restoreOwned.add(method.name.getText(source));
+    }
+    for (const method of methods) {
+      if (!method.modifiers?.some(m => m.kind === ts.SyntaxKind.AsyncKeyword)) continue;
+      let awaitsOwnedRestore=false;
+      const scan=(node:ts.Node)=>{
+        if(ts.isAwaitExpression(node)&&ts.isCallExpression(node.expression)&&ts.isPropertyAccessExpression(node.expression.expression)&&node.expression.expression.expression.kind===ts.SyntaxKind.ThisKeyword&&restoreOwned.has(node.expression.expression.name.text))awaitsOwnedRestore=true;
+        ts.forEachChild(node,scan);
+      };
+      if(method.body)scan(method.body);
+      const targets=calls.get(method.name.getText(source))!;
+      if(awaitsOwnedRestore&&[...targets].every(target=>target==='readRaw'||restoreOwned.has(target)))restoreOwned.add(method.name.getText(source));
+    }
+    const unowned = methods.filter(method => method.modifiers?.some(m => m.kind === ts.SyntaxKind.PublicKeyword) && writers.has(method.name.getText(source)) && !method.body?.getText(source).includes('return runLegacyCommand(') && !restoreOwned.has(method.name.getText(source))).map(m => m.name.getText(source));
+    expect([...restoreOwned].sort()).toEqual(['restoreBackup','restoreFromSnapshot']);
     expect(unowned).toEqual([]);
     expect(writers.has('saveTask')).toBe(true);
     expect(writers.has('approveTaskCompletion')).toBe(true);

@@ -1,3 +1,5 @@
+import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, type RestoreOptions } from './appSnapshot.js';
+import { durableWrite } from './snapshotFiles.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -233,7 +235,7 @@ const initialDBState = (): FamilyOrganizerDB => {
 };
 
 // Ensure all collections exist even when loading an older db.json that predates a field.
-function normalizeDB(db: any): FamilyOrganizerDB {
+export function normalizeDB(db: any): FamilyOrganizerDB {
   db.users = db.users || [];
   db.tasks = db.tasks || [];
   db.plans = db.plans || [];
@@ -380,14 +382,14 @@ export class FamilyDB {
     return runLegacyCommand("createBackup", [type, userId, username], userId, () => {
     const db = this.readRaw();
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const filename = `backup_${type}_${timestamp}.json`;
+    const filename = `backup_${type}_${timestamp}_${crypto.randomUUID()}.json`;
     const destPath = path.join(BACKUP_DIR, filename);
 
     try {
       // Snapshot the live SQLite data to a JSON file (human-readable, restore-friendly).
       // The gateway already holds a consistent WAL read/write transaction.
       // A checkpoint inside that transaction would fail with SQLITE_LOCKED.
-      fs.writeFileSync(destPath, JSON.stringify(db, null, 2), "utf8");
+      durableWrite(destPath, JSON.stringify(collectAppSnapshot(currentAppWriteTx()!), null, 2));
 
       const stats = fs.statSync(destPath);
       const sizeKb = Math.ceil(stats.size / 1024);
@@ -486,49 +488,18 @@ export class FamilyDB {
   }
 
   // Nạp một snapshot DB (đã parse từ tệp backup) vào SQLite — dùng cho import toàn phần.
-  public static restoreFromSnapshot(parsedData: any, userId: string, username: string, sourceLabel: string): void {
-    return runLegacyCommand("restoreFromSnapshot", [parsedData, userId, username, sourceLabel], userId, () => {
-    if (!parsedData || !parsedData.users || !parsedData.tasks) {
-      throw new Error("Dữ liệu backup không hợp lệ hoặc thiếu thông tin cốt lõi (users/tasks)!");
-    }
-    const restored = normalizeDB(parsedData);
-    this.reconcileBackupsWithDisk(restored);
-    currentAppWriteTx()!.legacy = restored;
-    this.logActivity(userId, username, "Phục hồi toàn phần", `Đã khôi phục toàn bộ hệ thống từ ${sourceLabel}.`);
-
-    });
+  public static async restoreFromSnapshot(parsedData: any, userId: string, username: string, sourceLabel: string, options: RestoreOptions): Promise<void> {
+    const snapshot=parsedData?.manifest?.schemaVersion ? validateAppSnapshot(parsedData) : legacySnapshot(normalizeDB(parsedData));
+    await restoreAppSnapshot(snapshot,options);
+    this.logActivity(userId,username,"Phục hồi toàn phần",`Đã khôi phục hệ thống từ ${sourceLabel}.`);
   }
 
-  public static restoreBackup(backupId: string, userId: string, username: string): void {
-    return runLegacyCommand("restoreBackup", [backupId, userId, username], userId, () => {
-    const db = this.readRaw();
-    const backup = db.backups.find(b => b.id === backupId);
-    if (!backup) throw new Error("Không tìm thấy tệp sao lưu này!");
-
-    const filepath = path.join(BACKUP_DIR, backup.filename);
-    if (!fs.existsSync(filepath)) throw new Error("Tệp sao lưu vật lý không tồn tại trên đĩa!");
-
-    try {
-      // Read backed up file content
-      const fileData = fs.readFileSync(filepath, "utf8");
-      const parsedData = JSON.parse(fileData);
-
-      // Validate integrity at least check users & tasks
-      if (!parsedData.users || !parsedData.tasks) {
-        throw new Error("Tệp sao lưu không hợp lệ hoặc thiếu thông tin cốt lõi!");
-      }
-
-      // Load the snapshot back into SQLite (atomic replace)
-      currentAppWriteTx()!.legacy = normalizeDB(parsedData);
-
-      // Re-log the activity to the newly loaded db!
-      this.logActivity(userId, username, "Phục hồi hệ thống", `Đã phục hồi dữ liệu về điểm sao lưu: ${backup.filename}.`);
-    } catch (err) {
-      console.error("Lỗi phục hồi dữ liệu:", err);
-      throw err;
-    }
-
-    });
+  public static async restoreBackup(backupId: string, userId: string, username: string, options: RestoreOptions): Promise<void> {
+    const backup=this.readRaw().backups.find(item=>item.id===backupId);
+    if (!backup || !/^backup_[a-z0-9_.-]+\.json$/i.test(backup.filename)) throw new Error("Không tìm thấy tệp sao lưu hợp lệ!");
+    const file=path.join(BACKUP_DIR,backup.filename);
+    if (fs.lstatSync(file).isSymbolicLink() || fs.statSync(file).size > 256*1024*1024) throw new Error("Tệp sao lưu vượt giới hạn hoặc là liên kết!");
+    await this.restoreFromSnapshot(JSON.parse(fs.readFileSync(file,'utf8')),userId,username,backup.filename,options);
   }
 
   // Generic Getters

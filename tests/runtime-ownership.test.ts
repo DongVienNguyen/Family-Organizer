@@ -63,3 +63,13 @@ it('rejects unsupported durable job versions on every bootstrap even after the i
     sqlite.sqliteClose();
   `);
 },15000);
+
+it('rejects changed snapshot journal schemas on bootstrap even when the initializer command is cached',async()=>{
+  const snapshotUrl=pathToFileURL(path.join(repo,'server/appSnapshot.ts')).href;
+  await run(`
+    await import(${JSON.stringify(snapshotUrl)});const sqlite=await import(${JSON.stringify(sqliteUrl)});
+    sqlite.sqliteConnection().exec('ALTER TABLE app_restore_commits ADD COLUMN synthetic_future TEXT');
+    await assert.rejects(import(${JSON.stringify(snapshotUrl+'?synthetic-rebootstrap')}),/Unsupported snapshot/);
+    sqlite.sqliteClose();
+  `);
+},15000);

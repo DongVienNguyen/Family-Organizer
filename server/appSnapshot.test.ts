@@ -24,8 +24,10 @@ function fixture() {
     applyDomainMigrations({ enabled: ['wallet'], pilot: true });
     initialized = true;
   }
+  fs.mkdirSync(UPLOADS_DIR,{recursive:true});
   fs.writeFileSync(file, 'synthetic original bytes');
   setAppSetting('rewardsEnabled', '1'); setAppSetting('geminiApiKey', 'synthetic-secret-excluded');
+  setAppSetting('homelabLinks', JSON.stringify([{id:'synthetic-link',name:'Synthetic service',url:'https://service.invalid/synthetic'}]));
   withAppWriteTransaction(meta(), tx => {
     tx.run('INSERT OR REPLACE INTO wallet_snapshot_fixture VALUES (?,?)', 'synthetic-wallet', 1700);
     tx.legacy.tasks = [{ id: 'synthetic-snapshot-task', title: 'Synthetic task', status: 'todo', createdAt: '2026-01-01' } as any];
@@ -42,6 +44,7 @@ it('collects one consistent WAL snapshot of task, Wallet rows, canonical points,
   expect(snapshot.tables.wallet_snapshot_fixture).toEqual([{ id: 'synthetic-wallet', minor: 1700 }]);
   expect(snapshot.legacy.rewardLedger.some((row: any) => row.points === 4)).toBe(true);
   expect(snapshot.manifest.mediaManifest).toContainEqual(expect.objectContaining({ path: 'synthetic.bin', sha256: createHash('sha256').update('synthetic original bytes').digest('hex') }));
+  expect(snapshot.settings.homelabLinks).toBe(getAppSettings().homelabLinks);
   expect(snapshot.settings.rewardsEnabled).toBe('1'); expect(JSON.stringify(snapshot)).not.toContain('synthetic-secret-excluded');
   withAppWriteTransaction(meta(), tx => { tx.legacy.tasks = []; tx.legacy.rewardLedger = []; tx.run('UPDATE wallet_snapshot_fixture SET minor=99'); });
   fs.writeFileSync(file, 'synthetic changed'); setAppSetting('rewardsEnabled', '0');
@@ -106,4 +109,60 @@ it('rolls files and SQL back if promotion fails before commit, then leaves no ac
   expect(getAppSettings().rewardsEnabled).toBe('0');
   expect(sqliteConnection().prepare('SELECT minor FROM wallet_snapshot_fixture').get()).toEqual({ minor: 99 });
   expect(fs.existsSync(path.join(process.env.DATA_DIR!, 'restore-journal.json'))).toBe(false);
+});
+
+function rehash(snapshot: any) {
+  const sort = (value: any): any => Array.isArray(value) ? value.map(sort) : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(key => [key,sort(value[key])])) : value;
+  const { checksum: _checksum, ...manifest } = snapshot.manifest;
+  snapshot.manifest.checksum = createHash('sha256').update(JSON.stringify(sort({ ...snapshot,manifest }))).digest('hex');
+  return snapshot;
+}
+it.each(['directory-alias','file-parent','core-version','migration-version','dangling-claim','column-alias'])('rejects structurally unsafe %s even when the uploaded checksum is correct', mode => {
+  fixture(); const snapshot = JSON.parse(JSON.stringify(capture()));
+  if (mode === 'directory-alias' || mode === 'file-parent') {
+    snapshot.media = mode === 'directory-alias' ? { 'A/x': 'eA==', 'a/y': 'eQ==' } : { a: 'eA==', 'a/b': 'eQ==' };
+    snapshot.manifest.mediaManifest = Object.entries(snapshot.media).map(([path,data]: any) => ({ path,size:Buffer.from(data,'base64').length,sha256:createHash('sha256').update(Buffer.from(data,'base64')).digest('hex') }));
+  }
+  if (mode === 'core-version') snapshot.tables.app_meta.find((row: any) => row.key === 'job_store_version').value = '900';
+  if (mode === 'migration-version') snapshot.tables.app_migrations.find((row: any) => row.namespace === 'wallet').version = 900;
+  if (mode === 'column-alias') snapshot.tables.server_metrics = [{ 'cpu,disk,ram,ssd,t,temp': 42 }];
+  if (mode === 'dangling-claim') snapshot.tables.app_reward_claims[0].grant_entry_id = 'synthetic-missing-reward';
+  expect(() => validateAppSnapshot(rehash(snapshot))).toThrow();
+});
+
+it('returns a committed restore result on the same request retry without overwriting later writes', async () => {
+  const { withAppCommandContext } = await import('./commandContext.js');
+  fixture(); const snapshot = validateAppSnapshot(capture()); const context = { actorId: 'synthetic-admin', requestId: randomUUID() };
+  const first = await withAppCommandContext(context, () => restoreAppSnapshot(snapshot, options));
+  withAppWriteTransaction(meta(), tx => { tx.legacy.tasks.push({ id: 'synthetic-after-restore', title: 'Preserve later write' } as any); });
+  const later = sqliteLoad();
+  expect(await withAppCommandContext(context, () => restoreAppSnapshot(snapshot, options))).toEqual(first);
+  expect(sqliteLoad()).toEqual(later);
+});
+
+it('keeps repeated snapshot reads bounded instead of embedding earlier snapshot results recursively', () => {
+  fixture(); const first = capture(); const firstSize = Buffer.byteLength(JSON.stringify(first));
+  let latest = first;
+  for (let index = 0; index < 4; index++) latest = capture();
+  expect(Buffer.byteLength(JSON.stringify(latest))).toBeLessThan(firstSize * 1.5);
+});
+it('refuses a non-retryable full snapshot result from a command that mutated canonical storage', () => {
+  fixture(); const before = sqliteLoad();
+  expect(() => withAppWriteTransaction(meta(), tx => { tx.legacy.tasks = []; return collectAppSnapshot(tx); })).toThrow(/snapshot.*read|read.*snapshot/i);
+  expect(sqliteLoad()).toEqual(before);
+});
+
+it('fails closed on a structurally plausible but corrupt restore journal without deleting live files', async () => {
+  fixture(); const { recoverAppRestore }=await import('./appSnapshot.js');const journal=path.join(process.env.DATA_DIR!,'restore-journal.json');
+  const before=sqliteLoad();const bytes=fs.readFileSync(file);
+  fs.writeFileSync(journal,JSON.stringify({id:randomUUID(),checksum:'0'.repeat(64),hadMedia:false,hadSettings:false,media:[],settingsHash:'0'.repeat(64)}));
+  try{expect(()=>recoverAppRestore()).toThrow();expect(sqliteLoad()).toEqual(before);expect(fs.readFileSync(file)).toEqual(bytes);}
+  finally{fs.rmSync(journal,{force:true});}
+});
+it('cleans only its own staging after a pre-journal failure, retaining live bytes and the native safety copy',async()=>{
+  fixture();const snapshot=validateAppSnapshot(capture());const before=sqliteLoad();const bytes=fs.readFileSync(file);
+  await expect(restoreAppSnapshot(snapshot,{...options,onBoundary:phase=>{if(phase==='staging-complete')throw new Error('Synthetic pre-journal failure');}})).rejects.toThrow('Synthetic pre-journal failure');
+  expect(sqliteLoad()).toEqual(before);expect(fs.readFileSync(file)).toEqual(bytes);
+  expect(fs.readdirSync(process.env.DATA_DIR!).filter(name=>name.startsWith('.restore-'))).toEqual([]);
+  expect(fs.readdirSync(path.join(process.env.DATA_DIR!,'backups')).some(name=>name.startsWith('pre-restore_')&&name.endsWith('.sqlite'))).toBe(true);
 });

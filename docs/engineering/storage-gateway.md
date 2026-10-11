@@ -8,8 +8,9 @@ The user now authorizes all reviewed, verified PR merges. Release publication
 and VPS access/deployment remain outside authorization.
 
 I01 is split into focused PRs: (a) gateway, migration registry and legacy writer
-ownership; (b) consistent snapshots and durable job leases/retry/outbox. I01 is
-incomplete until both meet the master plan acceptance tests. No new domain
+ownership; (b) durable job leases/retry/outbox; (c) consistent snapshots and
+journaled restore. I01 is incomplete until all three meet the master acceptance
+tests. Parts(a)/(b) are merged; part(c) requires review and exact-HEAD Windows CI. No new domain
 features or live provider delivery are introduced by part (a).
 
 The existing SQLite connection remains the only connection manager. Gateway
@@ -82,3 +83,14 @@ Corrected source `3a75f74be75f72f7196681b8b823f89bec9166db` passed
 Node22/24 each239/23928files, allsix command exit codes0 and CI gate success.
 Complete artifacts/logs independently verified, including the review regressions.
 Final documentation HEAD is checked again before merge.
+
+Snapshot reads have a deliberate exception to business-result caching: the full
+immutable snapshot is marked as a read result and only a small marker is stored.
+Returning that result from a command that changed SQL, legacy rows or schema is
+refused and rolled back. Reusing a read request ID returns409 requiring a fresh
+ID; business-result retries retain their existing contract. This prevents backup
+snapshots from recursively embedding prior snapshots in app_commands.
+Async restoration is awaited through the managed coordinator, which performs
+its SQL commit through this same gateway after owners drain. The legacy writer
+AST audit retains every prior assertion and additionally proves the coordinator
+is awaited without local collection writes. See `shared-snapshots.md`.
