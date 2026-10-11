@@ -97,3 +97,10 @@ owned-transport successful response regression verifies the happy path. The full
 corrected Cloud suite is265/265 in34files, with lint/build checked separately.
 Corrected exact-HEAD Windows CI and final documentation HEAD still require their
 own runs before merge; the first GREEN does not prove the corrected SHA.
+
+Corrected Windows acceptance: HEAD `79c46aec9e51126ebce03ee7031c1e003a06f362`,
+[38150238422](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38150238422).
+Both runtime artifacts independently confirm265/265 tests34files, six exit checks0,
+native/production/ACL/restart/crash proofs and ci-gate success. Full source evidence
+and report hashes: `evidence/i01-b-corrected-source.json`. Final documentation HEAD
+is verified separately in the PR evidence comment before merge.

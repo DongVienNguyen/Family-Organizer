@@ -170,3 +170,10 @@
 - One review found four Important defects; one RED→GREEN pass addresses daily/weekly unknown delivery replay, cleanup certainty, cached-bootstrap compatibility and push transport total deadline/cancellation. See `i01-b-review-and-decisions.md`. Corrected Cloud265/26534files, lint/build separately; source/final exact-HEAD Windows verification pending push. No dependency change; lockfile unchanged.
 - Remaining: I01-c WAL/domain/media/version snapshot, HTTP/job drain and filesystem journal/recovery. Whole I01 remains incomplete. F04 auth/privacy/audit; F05/F09 browser/coverage/performance; F06/F07 packaging/service; R02 Server2019 are not run by this PR. No release/tag/VPS.
 - Next: exact corrected Windows checks, read artifacts, merge authorized PR #5 after acceptance; continue I01-c from merged main.
+
+### I01-b — Corrected Windows acceptance
+
+- Corrected source HEAD `79c46aec9e51126ebce03ee7031c1e003a06f362`; PR https://github.com/DongVienNguyen/Family-Organizer/pull/5; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38150238422 success.
+- Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: each265/265 tests34files, zero failed/skipped/todo, npmci/native/lint/test/build/production exit0; ci-gate success. Both full logs/artifacts downloaded and independently read; JUnit/JSON/native/production/report hashes in `evidence/i01-b-corrected-source.json`.
+- All four Important findings fixed in one RED→GREEN pass. Owned request deadline/cancellation is tested through actual synthetic loopback sockets; no real provider/AI calls. No dependency/lock change. Existing bundle warning and dependency audit remain their F04/F09 gates.
+- This documentation commit needs its own exact-HEAD run; final evidence comment on PR #5 will record that SHA/run before authorized merge. I01-c snapshot/recovery/restore remains next; no whole-I01, service, portable ZIP or Server2019 completion claim. No release/tag/VPS.
