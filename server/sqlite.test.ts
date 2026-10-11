@@ -72,4 +72,14 @@ describe('SQLite collection adapter with synthetic data', () => {
     fs.rmSync(databasePath);
     expect(fs.existsSync(databasePath)).toBe(false);
   });
+
+  it('refuses an unsupported stored schema without resetting its version', async () => {
+    store.sqliteConnection().prepare('UPDATE app_meta SET value = ? WHERE key = ?').run('2', 'schema_version');
+    store.sqliteClose();
+    vi.resetModules();
+    await expect(import('./sqlite.js')).rejects.toThrow('Unsupported legacy schema version');
+    const verify = new Database(path.join(directory, 'data', 'family.db'), { readonly: true });
+    try { expect(verify.prepare('SELECT value FROM app_meta WHERE key = ?').get('schema_version')).toEqual({ value: '2' }); }
+    finally { verify.close(); }
+  });
 });

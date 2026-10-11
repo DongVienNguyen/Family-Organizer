@@ -81,7 +81,11 @@ function initializeDatabase() {
     }
     const getMetaStmt = db.prepare("SELECT value FROM app_meta WHERE key = ?");
     const setMetaStmt = db.prepare("INSERT OR REPLACE INTO app_meta (key, value) VALUES (?, ?)");
-    setMetaStmt.run("schema_version", String(SCHEMA_VERSION));
+    const schema = getMetaStmt.get("schema_version") as { value: string } | undefined;
+    if (schema && schema.value !== String(SCHEMA_VERSION)) {
+      throw new Error(`Unsupported legacy schema version: ${schema.value}`);
+    }
+    if (!schema) setMetaStmt.run("schema_version", String(SCHEMA_VERSION));
 
     // Prepared per-collection replace statements.
     const deleteStmts = new Map<string, Database.Statement>();
@@ -91,21 +95,23 @@ function initializeDatabase() {
       insertStmts.set(table, db.prepare(`INSERT INTO ${table} (id, seq, data) VALUES (?, ?, ?)`));
     }
 
-    /** Persist the full in-memory DB object atomically (single WAL transaction). */
-    const sqliteSave = db.transaction((data: FamilyOrganizerDB) => {
+    // Replace only caller-owned, changed collections. Domain tables are independent.
+    const saveCollections = (data: FamilyOrganizerDB, keys: readonly (keyof FamilyOrganizerDB)[]) => {
       for (const { key, table } of COLLECTIONS) {
+        if (!keys.includes(key)) continue;
         deleteStmts.get(table)!.run();
         const insert = insertStmts.get(table)!;
-        const arr: any[] = (data as any)[key] || [];
-        arr.forEach((item, i) => {
+        const arr = (data as any)[key] || [];
+        if (!Array.isArray(arr)) throw new Error(`Invalid legacy collection: ${key}`);
+        arr.forEach((item: any, i: number) => {
           const id = item && item.id != null ? String(item.id) : `row_${i}`;
           insert.run(id, i, JSON.stringify(item));
         });
       }
       for (const key of SINGLETON_KEYS) {
-        setMetaStmt.run(`singleton:${key}`, JSON.stringify((data as any)[key] ?? null));
+        if (keys.includes(key)) setMetaStmt.run(`singleton:${key}`, JSON.stringify((data as any)[key] ?? null));
       }
-    }) as unknown as (data: FamilyOrganizerDB) => void;
+    };
 
     db.exec(`
       CREATE TABLE IF NOT EXISTS server_metrics (
@@ -126,14 +132,55 @@ function initializeDatabase() {
       "SELECT t, cpu, ram, temp, ssd, disk FROM server_metrics WHERE t >= ? ORDER BY t ASC"
     );
 
-    return { getMetaStmt, sqliteSave, insertMetricStmt, pruneMetricStmt, selectMetricsStmt };
+    return { getMetaStmt, saveCollections, insertMetricStmt, pruneMetricStmt, selectMetricsStmt };
   } catch (error) {
     if (db.open) db.close();
     throw error;
   }
 }
-const { getMetaStmt, sqliteSave, insertMetricStmt, pruneMetricStmt, selectMetricsStmt } = initializeDatabase();
-export { sqliteSave };
+const { getMetaStmt, saveCollections, insertMetricStmt, pruneMetricStmt, selectMetricsStmt } = initializeDatabase();
+export const LEGACY_KEYS = [...COLLECTIONS.map(c => c.key), ...SINGLETON_KEYS] as const;
+const baselines = new WeakMap<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>>();
+let writeScope: Map<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>> | undefined;
+const encodeCollection = (data: FamilyOrganizerDB, key: keyof FamilyOrganizerDB) =>
+  JSON.stringify(data[key] ?? (SINGLETON_KEYS.includes(key) ? null : []));
+
+/** The gateway passes its complete native transaction here, including COMMIT. */
+export function withSqliteWriteScope<T>(commit: () => T): T {
+  if (writeScope || db.inTransaction) throw new Error('Nested SQLite write scope is not permitted');
+  const pending = new Map<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>>();
+  writeScope = pending;
+  try {
+    const result = commit();
+    if (db.inTransaction) throw new Error('SQLite write scope did not commit');
+    for (const [document, baseline] of pending) baselines.set(document, baseline);
+    return result;
+  } finally { writeScope = undefined; }
+}
+
+/** Loaded documents retain their read baseline; untracked seed/restore documents replace all. */
+export function sqliteSave(data: FamilyOrganizerDB): void {
+  const ownsCommit = !db.inTransaction;
+  if (!ownsCommit && !writeScope) throw new Error('Nested legacy saves require the application gateway');
+  db.transaction(() => {
+    const baseline = writeScope?.get(data) ?? baselines.get(data);
+    const dirty = baseline ? LEGACY_KEYS.filter(key => encodeCollection(data, key) !== baseline.get(key)) : [...LEGACY_KEYS];
+    if (baseline && dirty.length) {
+      const current = sqliteLoad();
+      for (const key of dirty) {
+        if (encodeCollection(current, key) !== baseline.get(key)) throw new Error(`Stale legacy collection: ${key}`);
+      }
+    }
+    saveCollections(data, dirty);
+  }).immediate();
+  const saved = new Map(LEGACY_KEYS.map(key => [key, encodeCollection(data, key)]));
+  // Publish only after the actual outer COMMIT; rollback discards pending maps.
+  if (writeScope) writeScope.set(data, saved);
+  else baselines.set(data, saved);
+}
+
+/** Internal shared connection port; never create a second application handle. */
+export function sqliteConnection(): Database.Database { return db; }
 
 /** True when the database has never been seeded (no user accounts yet). */
 export function sqliteIsEmpty(): boolean {
@@ -152,6 +199,7 @@ export function sqliteLoad(): FamilyOrganizerDB {
     const row = getMetaStmt.get(`singleton:${key}`) as { value: string } | undefined;
     out[key] = row && row.value ? JSON.parse(row.value) : null;
   }
+  baselines.set(out, new Map(LEGACY_KEYS.map(key => [key, encodeCollection(out, key)])));
   return out as FamilyOrganizerDB;
 }
 

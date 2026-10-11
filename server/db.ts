@@ -44,9 +44,14 @@ import {
 import { SEED_DISHES } from "../src/utils/mealPlan.js";
 import { isDebtFullyPaid } from "../src/utils/debt.js";
 import { sqliteIsEmpty, sqliteLoad, sqliteSave, sqliteCheckpoint } from "./sqlite.js";
-import { deleteMediaByUrl } from "./media.js";
+import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
 import { dispatchPush } from "./push.js";
-import { trackAppEffect } from "./appEffects.js";
+import { assertEditVersion, type EditVersionPayload } from "./appErrors.js";
+import { currentAppWriteTx, runLegacyCommand, afterAppCommit } from "./appStore.js";
+
+function deleteMediaByUrl(url: string | undefined | null): void {
+  afterAppCommit(() => deleteCommittedMedia(url));
+}
 
 // Whitelist of valid asset types (mirrors AssetType in src/types.ts).
 const VALID_ASSET_TYPES = new Set<string>([
@@ -319,20 +324,21 @@ function advanceDateString(value: string, recurrenceType: string, interval = 1, 
 // Core DB operations helper
 export class FamilyDB {
   private static readRaw(): FamilyOrganizerDB {
-    return normalizeDB(sqliteLoad());
+    return normalizeDB(currentAppWriteTx()?.legacy ?? sqliteLoad());
   }
 
   private static writeRaw(db: FamilyOrganizerDB): void {
-    // better-sqlite3 is synchronous; the save runs in a single atomic WAL transaction.
-    try {
-      sqliteSave(db);
-    } catch (e) {
-      console.error("Lỗi ghi dữ liệu vào SQLite:", e);
+    const tx = currentAppWriteTx();
+    if (tx) {
+      if (tx.legacy !== db) throw new Error("Legacy writer must use the current transaction document");
+      return; // The outer gateway saves the changed collections once, at commit.
     }
+    sqliteSave(db);
   }
 
   // Activity logs helper
   public static logActivity(userId: string, username: string, action: string, details: string) {
+    return runLegacyCommand("logActivity", [userId, username, action, details], userId, () => {
     const db = this.readRaw();
     db.activityLogs.unshift({
       id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
@@ -342,15 +348,18 @@ export class FamilyDB {
       details,
       createdAt: new Date().toISOString()
     });
-    // Cap logs at 300 to keep it lightweight on Raspberry Pi 5
+    // Cap logs at 300 to keep the activity view lightweight
     if (db.activityLogs.length > 300) {
       db.activityLogs = db.activityLogs.slice(0, 300);
     }
     this.writeRaw(db);
+
+    });
   }
 
   // Backup management
   public static createBackup(type: "auto" | "manual", userId: string, username: string): { filename: string; sizeKb: number } {
+    return runLegacyCommand("createBackup", [type, userId, username], userId, () => {
     const db = this.readRaw();
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
     const filename = `backup_${type}_${timestamp}.json`;
@@ -358,7 +367,8 @@ export class FamilyDB {
 
     try {
       // Snapshot the live SQLite data to a JSON file (human-readable, restore-friendly).
-      sqliteCheckpoint();
+      // The gateway already holds a consistent WAL read/write transaction.
+      // A checkpoint inside that transaction would fail with SQLITE_LOCKED.
       fs.writeFileSync(destPath, JSON.stringify(db, null, 2), "utf8");
 
       const stats = fs.statSync(destPath);
@@ -397,9 +407,12 @@ export class FamilyDB {
       console.error("Không thể tạo backup tệp:", err);
       throw new Error(`Sao lưu dữ liệu thất bại: ${err}`);
     }
+
+    });
   }
 
   public static deleteBackup(backupId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteBackup", [backupId, userId, username], userId, () => {
     const db = this.readRaw();
     const backupIndex = db.backups.findIndex(b => b.id === backupId);
     if (backupIndex === -1) return;
@@ -418,6 +431,8 @@ export class FamilyDB {
       console.error("Lỗi xóa file backup:", err);
       throw err;
     }
+
+    });
   }
 
   // Snapshot đầy đủ của DB (đã checkpoint WAL) — dùng cho backup toàn phần.
@@ -454,16 +469,20 @@ export class FamilyDB {
 
   // Nạp một snapshot DB (đã parse từ tệp backup) vào SQLite — dùng cho import toàn phần.
   public static restoreFromSnapshot(parsedData: any, userId: string, username: string, sourceLabel: string): void {
+    return runLegacyCommand("restoreFromSnapshot", [parsedData, userId, username, sourceLabel], userId, () => {
     if (!parsedData || !parsedData.users || !parsedData.tasks) {
       throw new Error("Dữ liệu backup không hợp lệ hoặc thiếu thông tin cốt lõi (users/tasks)!");
     }
     const restored = normalizeDB(parsedData);
     this.reconcileBackupsWithDisk(restored);
-    sqliteSave(restored);
+    currentAppWriteTx()!.legacy = restored;
     this.logActivity(userId, username, "Phục hồi toàn phần", `Đã khôi phục toàn bộ hệ thống từ ${sourceLabel}.`);
+
+    });
   }
 
   public static restoreBackup(backupId: string, userId: string, username: string): void {
+    return runLegacyCommand("restoreBackup", [backupId, userId, username], userId, () => {
     const db = this.readRaw();
     const backup = db.backups.find(b => b.id === backupId);
     if (!backup) throw new Error("Không tìm thấy tệp sao lưu này!");
@@ -482,7 +501,7 @@ export class FamilyDB {
       }
 
       // Load the snapshot back into SQLite (atomic replace)
-      sqliteSave(normalizeDB(parsedData));
+      currentAppWriteTx()!.legacy = normalizeDB(parsedData);
 
       // Re-log the activity to the newly loaded db!
       this.logActivity(userId, username, "Phục hồi hệ thống", `Đã phục hồi dữ liệu về điểm sao lưu: ${backup.filename}.`);
@@ -490,6 +509,8 @@ export class FamilyDB {
       console.error("Lỗi phục hồi dữ liệu:", err);
       throw err;
     }
+
+    });
   }
 
   // Generic Getters
@@ -549,6 +570,7 @@ export class FamilyDB {
   
   // Create User (Admin Only)
   public static createUser(u: { username: string; fullName: string; role: UserRole; passwordPlain: string; avatarColor: string; dateOfBirth?: string; gender?: "male" | "female"; phone?: string; familyRelation?: FamilyRelation }, adminId: string, adminUser: string): User {
+    return runLegacyCommand("createUser", [u, adminId, adminUser], adminId, () => {
     const db = this.readRaw();
     if (db.users.some(existing => existing.username === u.username.toLowerCase())) {
       throw new Error("Tài khoản này đã tồn tại trong gia đình!");
@@ -575,10 +597,13 @@ export class FamilyDB {
     // Return safe user without secret passwordHash
     const { passwordHash, ...safeUser } = newUser;
     return safeUser;
+
+    });
   }
 
   // Update own profile (self-service personalization)
   public static updateProfile(userId: string, data: { fullName?: string; dateOfBirth?: string; gender?: "male" | "female" | ""; phone?: string; avatarImage?: string; avatarColor?: string }): User {
+    return runLegacyCommand("updateProfile", [userId, data], userId, () => {
     const db = this.readRaw();
     const idx = db.users.findIndex(u => u.id === userId);
     if (idx === -1) {
@@ -618,11 +643,14 @@ export class FamilyDB {
 
     const { passwordHash, ...safeUser } = user;
     return safeUser;
+
+    });
   }
 
   // Generate in-app notifications for birthdays happening within the next 7 days.
   // Deduplicated per user per year so it is safe to call repeatedly.
   public static generateBirthdayNotifications(): void {
+    return runLegacyCommand("generateBirthdayNotifications", [], "system:legacy", () => {
     const db = this.readRaw();
     const today = new Date();
     const year = today.getFullYear();
@@ -658,7 +686,7 @@ export class FamilyDB {
         createdAt: new Date().toISOString()
       };
       db.notifications.unshift(bdayNotif);
-      void trackAppEffect(dispatchPush(db, bdayNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
+      void afterAppCommit(() => dispatchPush(db, bdayNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
       modified = true;
     });
 
@@ -666,10 +694,13 @@ export class FamilyDB {
       db.notifications = db.notifications.slice(0, 200);
     }
     if (modified) this.writeRaw(db);
+
+    });
   }
 
   // Delete User (Admin Only)
   public static deleteUser(userId: string, adminId: string, adminUser: string): void {
+    return runLegacyCommand("deleteUser", [userId, adminId, adminUser], adminId, () => {
     const db = this.readRaw();
     const target = db.users.find(u => u.id === userId);
     if (!target) {
@@ -696,10 +727,13 @@ export class FamilyDB {
     this.writeRaw(db);
     if (avatarToDelete) deleteMediaByUrl(avatarToDelete);
     this.logActivity(adminId, adminUser, "Xóa thành viên", `Đã xóa tài khoản ${target.fullName} (@${target.username}).`);
+
+    });
   }
 
   // Change own password (requires current password)
   public static changePassword(userId: string, currentPassword: string, newPassword: string): void {
+    return runLegacyCommand("changePassword", [userId, currentPassword, newPassword], userId, () => {
     const db = this.readRaw();
     const idx = db.users.findIndex(u => u.id === userId);
     if (idx === -1) throw new Error("Không tìm thấy tài khoản!");
@@ -712,6 +746,8 @@ export class FamilyDB {
     db.users[idx].passwordHash = hashPassword(newPassword);
     this.writeRaw(db);
     this.logActivity(userId, db.users[idx].username, "Đổi mật khẩu", "Đã đổi mật khẩu đăng nhập của mình.");
+
+    });
   }
 
   // Admin updates another member's profile + role
@@ -721,6 +757,7 @@ export class FamilyDB {
     adminId: string,
     adminUser: string
   ): User {
+    return runLegacyCommand("adminUpdateUser", [targetId, data, adminId, adminUser], adminId, () => {
     const db = this.readRaw();
     const idx = db.users.findIndex(u => u.id === targetId);
     if (idx === -1) throw new Error("Không tìm thấy thành viên!");
@@ -752,10 +789,13 @@ export class FamilyDB {
 
     const { passwordHash, ...safeUser } = user;
     return safeUser;
+
+    });
   }
 
   // Admin resets another member's password (no current password needed)
   public static adminResetPassword(targetId: string, newPassword: string, adminId: string, adminUser: string): void {
+    return runLegacyCommand("adminResetPassword", [targetId, newPassword, adminId, adminUser], adminId, () => {
     const db = this.readRaw();
     const idx = db.users.findIndex(u => u.id === targetId);
     if (idx === -1) throw new Error("Không tìm thấy thành viên!");
@@ -765,10 +805,16 @@ export class FamilyDB {
     db.users[idx].passwordHash = hashPassword(newPassword);
     this.writeRaw(db);
     this.logActivity(adminId, adminUser, "Đặt lại mật khẩu", `Đã đặt lại mật khẩu cho ${db.users[idx].fullName} (@${db.users[idx].username}).`);
+
+    });
   }
 
   // Tasks Management
-  public static saveTask(taskData: Partial<Task>, userId: string, username: string): Task {
+  public static saveTask(taskData: Partial<Task> & EditVersionPayload, userId: string, username: string): Task {
+    return runLegacyCommand("saveTask", [taskData, userId, username], userId, () => {
+    taskData = { ...taskData };
+    const baseUpdatedAt = taskData.baseUpdatedAt;
+    delete taskData.baseUpdatedAt;
     const db = this.readRaw();
     const nowStr = new Date().toISOString();
 
@@ -778,6 +824,7 @@ export class FamilyDB {
       if (idx === -1) throw new Error("Task không tồn tại");
 
       const oldTask = db.tasks[idx];
+      assertEditVersion(oldTask, baseUpdatedAt);
       const isCompleting = taskData.status === "completed" && oldTask.status !== "completed";
 
       // Gating duyệt: trẻ (CHILD) tự báo hoàn thành một task có điểm > ngưỡng tự duyệt
@@ -1000,6 +1047,8 @@ export class FamilyDB {
       this.logActivity(userId, username, "Tạo Task", `Đã lập công việc mới "${newTask.title}".`);
       return newTask;
     }
+
+    });
   }
 
   // Gửi thông báo (in-app + push) tới mọi người lớn trong nhà (Admin + Member).
@@ -1012,15 +1061,19 @@ export class FamilyDB {
   // Người lớn DUYỆT việc trẻ đã báo xong → hoàn thành + cộng điểm (tái dùng saveTask
   // với actor là người lớn nên không bị gate lại; điểm vẫn về cho trẻ nhận việc).
   public static approveTaskCompletion(taskId: string, approverId: string, approverName: string): Task {
+    return runLegacyCommand("approveTaskCompletion", [taskId, approverId, approverName], approverId, () => {
     const db = this.readRaw();
     const task = db.tasks.find(t => t.id === taskId);
     if (!task) throw new Error("Task không tồn tại");
     if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
     return this.saveTask({ id: taskId, status: "completed" as any }, approverId, approverName);
+
+    });
   }
 
   // Người lớn TRẢ LẠI việc → về "đang làm", ghi lý do, báo trẻ làm lại. Không cộng điểm.
   public static rejectTaskCompletion(taskId: string, approverId: string, approverName: string, reason?: string): Task {
+    return runLegacyCommand("rejectTaskCompletion", [taskId, approverId, approverName, reason], approverId, () => {
     const db = this.readRaw();
     const idx = db.tasks.findIndex(t => t.id === taskId);
     if (idx === -1) throw new Error("Task không tồn tại");
@@ -1056,9 +1109,12 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(approverId, approverName, "Trả lại Task", `Đã trả lại công việc "${task.title}" để làm lại.`);
     return task;
+
+    });
   }
 
   public static addCommentToTask(taskId: string, commentContent: string, userId: string, username: string): Task {
+    return runLegacyCommand("addCommentToTask", [taskId, commentContent, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.tasks.findIndex(t => t.id === taskId);
     if (idx === -1) throw new Error("Task không tồn tại");
@@ -1086,9 +1142,12 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Bình luận Task", `Đã bình luận trong công việc "${task.title}".`);
     return task;
+
+    });
   }
 
   public static deleteTask(taskId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteTask", [taskId, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.tasks.findIndex(t => t.id === taskId);
     if (idx === -1) return;
@@ -1097,10 +1156,13 @@ export class FamilyDB {
     db.tasks.splice(idx, 1);
     this.writeRaw(db);
     this.logActivity(userId, username, "Xóa Task", `Đã xóa công việc "${taskTitle}".`);
+
+    });
   }
 
   // Plans Management
   public static savePlan(planData: Partial<FamilyPlan>, userId: string, username: string): FamilyPlan {
+    return runLegacyCommand("savePlan", [planData, userId, username], userId, () => {
     const db = this.readRaw();
     const nowStr = new Date().toISOString();
 
@@ -1153,9 +1215,12 @@ export class FamilyDB {
 
       return newPlan;
     }
+
+    });
   }
 
   public static deletePlan(planId: string, userId: string, username: string): void {
+    return runLegacyCommand("deletePlan", [planId, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.plans.findIndex(p => p.id === planId);
     if (idx === -1) return;
@@ -1164,6 +1229,8 @@ export class FamilyDB {
     db.plans.splice(idx, 1);
     this.writeRaw(db);
     this.logActivity(userId, username, "Xóa Lịch trình", `Đã xóa sự kiện "${title}".`);
+
+    });
   }
 
   // Notes Management
@@ -1172,7 +1239,11 @@ export class FamilyDB {
     return String(content || "").match(/\/uploads\/notes\/[a-zA-Z0-9_\-./]+/g) || [];
   }
 
-  public static saveNote(noteData: Partial<Note>, userId: string, username: string): Note {
+  public static saveNote(noteData: Partial<Note> & EditVersionPayload, userId: string, username: string): Note {
+    return runLegacyCommand("saveNote", [noteData, userId, username], userId, () => {
+    noteData = { ...noteData };
+    const baseUpdatedAt = noteData.baseUpdatedAt;
+    delete noteData.baseUpdatedAt;
     const db = this.readRaw();
     const nowStr = new Date().toISOString();
 
@@ -1182,6 +1253,7 @@ export class FamilyDB {
       if (idx === -1) throw new Error("Ghi chú không tồn tại");
 
       const oldNote = db.notes[idx];
+      assertEditVersion(oldNote, baseUpdatedAt);
 
       const updatedNote: Note = {
         ...oldNote,
@@ -1222,9 +1294,12 @@ export class FamilyDB {
 
       return newNote;
     }
+
+    });
   }
 
   public static deleteNote(noteId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteNote", [noteId, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.notes.findIndex(n => n.id === noteId);
     if (idx === -1) return;
@@ -1235,6 +1310,8 @@ export class FamilyDB {
     db.notes.splice(idx, 1);
     this.writeRaw(db);
     this.logActivity(userId, username, "Xóa Ghi chú", `Đã xóa ghi chú "${title}".`);
+
+    });
   }
 
   // Nhãn tiếng Việt cho nhật ký tài chính (đồng bộ với translateCategory/translateAccount phía client).
@@ -1271,6 +1348,7 @@ export class FamilyDB {
 
   // Financial transactions management
   public static saveTransaction(txData: Partial<FinancialTransaction>, userId: string, username: string): FinancialTransaction {
+    return runLegacyCommand("saveTransaction", [txData, userId, username], userId, () => {
     const db = this.readRaw();
 
     const newTx: FinancialTransaction = {
@@ -1311,9 +1389,12 @@ export class FamilyDB {
 
     this.writeRaw(db);
     return newTx;
+
+    });
   }
 
   public static deleteTransaction(txId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteTransaction", [txId, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.transactions.findIndex(t => t.id === txId);
     if (idx === -1) return;
@@ -1323,10 +1404,13 @@ export class FamilyDB {
     this.writeRaw(db);
     deleteMediaByUrl(tx.receiptImage); // remove the stored receipt file, if any
     this.logActivity(userId, username, "Xóa giao dịch tài chính", `Đã xóa giao dịch "${tx.description}" (${tx.amount.toLocaleString()} VNĐ).`);
+
+    });
   }
 
   // --- REWARD POINTS ---
   public static addRewardEntry(data: Partial<RewardPointEntry>, userId: string, username: string): RewardPointEntry {
+    return runLegacyCommand("addRewardEntry", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const target = db.users.find(u => u.id === data.userId);
     if (!target) throw new Error("Không tìm thấy thành viên nhận điểm");
@@ -1346,6 +1430,8 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Điểm thưởng", `Đã cập nhật ${points} điểm cho ${target.fullName}.`);
     return entry;
+
+    });
   }
 
   // --- CỬA HÀNG ĐỔI THƯỞNG (quà đổi bằng điểm rewardLedger) ---
@@ -1355,6 +1441,7 @@ export class FamilyDB {
   }
 
   public static saveRewardItem(data: Partial<RewardItem>, userId: string, username: string): RewardItem {
+    return runLegacyCommand("saveRewardItem", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     const name = String(data.name || "").trim();
@@ -1387,15 +1474,20 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Đổi thưởng", `Đã thêm quà "${name}" (${cost} điểm).`);
     return item;
+
+    });
   }
 
   public static deleteRewardItem(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteRewardItem", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const item = db.rewardItems.find(i => i.id === id);
     if (!item) return;
     db.rewardItems = db.rewardItems.filter(i => i.id !== id);
     this.writeRaw(db);
     this.logActivity(userId, username, "Đổi thưởng", `Đã xóa quà "${item.name}".`);
+
+    });
   }
 
   /**
@@ -1403,6 +1495,7 @@ export class FamilyDB {
    * với điểm thưởng task — lịch sử cộng/trừ nằm một chỗ). Báo cả nhà biết cho vui.
    */
   public static redeemRewardItem(itemId: string, childId: string, byUserId: string, byUsername: string): RewardPointEntry {
+    return runLegacyCommand("redeemRewardItem", [itemId, childId, byUserId, byUsername], byUserId, () => {
     const db = this.readRaw();
     const item = db.rewardItems.find(i => i.id === itemId);
     if (!item || !item.isActive) throw new Error("Món quà không tồn tại hoặc đã tắt");
@@ -1429,10 +1522,13 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(byUserId, byUsername, "Đổi thưởng", `${child.fullName} đổi quà "${item.name}" (−${item.cost} điểm).`);
     return entry;
+
+    });
   }
 
   /** Mẫu quà sẵn — chỉ thêm nếu danh sách hiện tại TRỐNG (không ghi đè quà đã có). */
   public static seedDefaultRewardItems(userId: string, username: string): RewardItem[] {
+    return runLegacyCommand("seedDefaultRewardItems", [userId, username], userId, () => {
     const db = this.readRaw();
     if (db.rewardItems.length > 0) return db.rewardItems; // đã có quà, không thêm
     const now = new Date().toISOString();
@@ -1454,6 +1550,8 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Đổi thưởng", "Đã tạo 8 món quà mẫu mặc định.");
     return db.rewardItems;
+
+    });
   }
 
   /**
@@ -1463,6 +1561,7 @@ export class FamilyDB {
   public static redeemMysteryItem(childId: string, byUserId: string, byUsername: string): {
     entry: RewardPointEntry; item: RewardItem; mysteryCost: number
   } {
+    return runLegacyCommand("redeemMysteryItem", [childId, byUserId, byUsername], byUserId, () => {
     const db = this.readRaw();
     const active = db.rewardItems.filter(i => i.isActive);
     if (active.length === 0) throw new Error("Cửa hàng chưa có món quà nào để chọn ngẫu nhiên.");
@@ -1494,10 +1593,13 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(byUserId, byUsername, "Đổi thưởng", `${child.fullName} đổi quà bất ngờ "${item.name}" (−${mysteryCost} điểm).`);
     return { entry, item, mysteryCost };
+
+    });
   }
 
   // --- BUDGETS + RECURRING BILLS ---
   public static saveBudget(data: Partial<BudgetLimit>, userId: string, username: string): BudgetLimit {
+    return runLegacyCommand("saveBudget", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.month || !data.category || !data.limit) throw new Error("Thiếu tháng, hạng mục hoặc hạn mức ngân sách");
@@ -1525,12 +1627,17 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Ngân sách", `Đã đặt ngân sách ${budget.category} tháng ${budget.month}.`);
     return budget;
+
+    });
   }
 
   public static deleteBudget(id: string): void {
+    return runLegacyCommand("deleteBudget", [id], "system:legacy", () => {
     const db = this.readRaw();
     db.budgets = db.budgets.filter(b => b.id !== id);
     this.writeRaw(db);
+
+    });
   }
 
   // ─── Hạng mục CHI tùy chỉnh (Admin) ──────────────────────────────────────
@@ -1544,6 +1651,7 @@ export class FamilyDB {
   }
 
   public static saveCustomCategory(data: Partial<CustomExpenseCategory>, userId: string, username: string): CustomExpenseCategory {
+    return runLegacyCommand("saveCustomCategory", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     const label = String(data.label || "").trim();
@@ -1574,24 +1682,32 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Hạng mục chi", `Đã thêm hạng mục "${label}".`);
     return cat;
+
+    });
   }
 
   public static deleteCustomCategory(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteCustomCategory", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const cat = db.customCategories.find(c => c.id === id);
     db.customCategories = db.customCategories.filter(c => c.id !== id);
     this.writeRaw(db);
     if (cat) this.logActivity(userId, username, "Hạng mục chi", `Đã xóa hạng mục "${cat.label}".`);
+
+    });
   }
 
   // Đặt danh sách key hạng mục MẶC ĐỊNH bị ẩn (chỉ giữ chuỗi hợp lệ, khử trùng lặp).
   public static setHiddenBuiltinCategories(keys: string[], userId: string, username: string): string[] {
+    return runLegacyCommand("setHiddenBuiltinCategories", [keys, userId, username], userId, () => {
     const db = this.readRaw();
     const cleaned = Array.from(new Set((Array.isArray(keys) ? keys : []).map(k => String(k || "").trim()).filter(Boolean)));
     db.hiddenBuiltinCategories = cleaned;
     this.writeRaw(db);
     this.logActivity(userId, username, "Hạng mục chi", `Đã cập nhật danh sách hạng mục mặc định bị ẩn (${cleaned.length}).`);
     return cleaned;
+
+    });
   }
 
   /**
@@ -1599,6 +1715,7 @@ export class FamilyDB {
    * chép toàn bộ từ tháng gần nhất trước đó. Idempotent — gọi lại không nhân đôi.
    */
   public static carryForwardBudgets(targetMonth: string, userId: string, username: string): BudgetLimit[] {
+    return runLegacyCommand("carryForwardBudgets", [targetMonth, userId, username], userId, () => {
     if (!targetMonth || !/^\d{4}-\d{2}$/.test(targetMonth)) throw new Error("Tháng không hợp lệ");
     const db = this.readRaw();
     // Đã có hạn mức cho tháng đích → không làm gì
@@ -1627,9 +1744,12 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Ngân sách", `Tự động mang ${copied.length} hạn mức từ tháng ${sourceMonth} sang ${targetMonth}.`);
     return copied;
+
+    });
   }
 
   public static saveRecurringBill(data: Partial<RecurringBill>, userId: string, username: string): RecurringBill {
+    return runLegacyCommand("saveRecurringBill", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.title || !data.amount || !data.nextDueDate) throw new Error("Thiếu tên hóa đơn, số tiền hoặc ngày đến hạn");
@@ -1666,12 +1786,17 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Hóa đơn định kỳ", `Đã tạo hóa đơn định kỳ "${bill.title}".`);
     return bill;
+
+    });
   }
 
   public static deleteRecurringBill(id: string): void {
+    return runLegacyCommand("deleteRecurringBill", [id], "system:legacy", () => {
     const db = this.readRaw();
     db.recurringBills = db.recurringBills.filter(b => b.id !== id);
     this.writeRaw(db);
+
+    });
   }
 
   // --- Mục tiêu tiết kiệm ---
@@ -1680,6 +1805,7 @@ export class FamilyDB {
   }
 
   public static saveSavingsGoal(data: Partial<SavingsGoal>, userId: string, username: string): SavingsGoal {
+    return runLegacyCommand("saveSavingsGoal", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.name || !data.name.trim()) throw new Error("Thiếu tên mục tiêu tiết kiệm");
@@ -1722,15 +1848,20 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Tiết kiệm", `Đã tạo mục tiêu "${goal.name}".`);
     return goal;
+
+    });
   }
 
   public static deleteSavingsGoal(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteSavingsGoal", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const goal = db.savingsGoals.find(g => g.id === id);
     if (!goal) return;
     db.savingsGoals = db.savingsGoals.filter(g => g.id !== id);
     this.writeRaw(db);
     this.logActivity(userId, username, "Tiết kiệm", `Đã xóa mục tiêu "${goal.name}".`);
+
+    });
   }
 
   public static addSavingsContribution(
@@ -1738,6 +1869,7 @@ export class FamilyDB {
     data: { amount?: number; date?: string; note?: string },
     userId: string
   ): SavingsGoal {
+    return runLegacyCommand("addSavingsContribution", [goalId, data, userId], userId, () => {
     const db = this.readRaw();
     const goal = db.savingsGoals.find(g => g.id === goalId);
     if (!goal) throw new Error("Không tìm thấy mục tiêu tiết kiệm");
@@ -1755,9 +1887,12 @@ export class FamilyDB {
     goal.updatedAt = new Date().toISOString();
     this.writeRaw(db);
     return goal;
+
+    });
   }
 
   public static removeSavingsContribution(goalId: string, contributionId: string): SavingsGoal {
+    return runLegacyCommand("removeSavingsContribution", [goalId, contributionId], "system:legacy", () => {
     const db = this.readRaw();
     const goal = db.savingsGoals.find(g => g.id === goalId);
     if (!goal) throw new Error("Không tìm thấy mục tiêu tiết kiệm");
@@ -1765,6 +1900,8 @@ export class FamilyDB {
     goal.updatedAt = new Date().toISOString();
     this.writeRaw(db);
     return goal;
+
+    });
   }
 
   // --- Theo dõi vay / cho mượn (nợ) ---
@@ -1773,6 +1910,7 @@ export class FamilyDB {
   }
 
   public static saveDebt(data: Partial<Debt>, userId: string, username: string): Debt {
+    return runLegacyCommand("saveDebt", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.counterparty || !data.counterparty.trim()) throw new Error("Thiếu tên người/ngân hàng");
@@ -1834,15 +1972,20 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Nợ", `Đã thêm khoản ${direction === "lent" ? "cho mượn" : "vay"} với "${debt.counterparty}".`);
     return debt;
+
+    });
   }
 
   public static deleteDebt(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteDebt", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const debt = db.debts.find(d => d.id === id);
     if (!debt) return;
     db.debts = db.debts.filter(d => d.id !== id);
     this.writeRaw(db);
     this.logActivity(userId, username, "Nợ", `Đã xóa khoản nợ với "${debt.counterparty}".`);
+
+    });
   }
 
   public static addDebtPayment(
@@ -1850,6 +1993,7 @@ export class FamilyDB {
     data: { amount?: number; date?: string; note?: string },
     userId: string
   ): Debt {
+    return runLegacyCommand("addDebtPayment", [debtId, data, userId], userId, () => {
     const db = this.readRaw();
     const debt = db.debts.find(d => d.id === debtId);
     if (!debt) throw new Error("Không tìm thấy khoản nợ");
@@ -1869,9 +2013,12 @@ export class FamilyDB {
     debt.updatedAt = new Date().toISOString();
     this.writeRaw(db);
     return debt;
+
+    });
   }
 
   public static removeDebtPayment(debtId: string, paymentId: string): Debt {
+    return runLegacyCommand("removeDebtPayment", [debtId, paymentId], "system:legacy", () => {
     const db = this.readRaw();
     const debt = db.debts.find(d => d.id === debtId);
     if (!debt) throw new Error("Không tìm thấy khoản nợ");
@@ -1880,6 +2027,8 @@ export class FamilyDB {
     debt.updatedAt = new Date().toISOString();
     this.writeRaw(db);
     return debt;
+
+    });
   }
 
   // --- Sức khỏe trẻ: tiêm chủng ---
@@ -1888,6 +2037,7 @@ export class FamilyDB {
   }
 
   public static saveVaccination(data: Partial<VaccinationRecord>, userId: string, username: string): VaccinationRecord {
+    return runLegacyCommand("saveVaccination", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.childId) throw new Error("Thiếu thông tin trẻ");
@@ -1929,12 +2079,17 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Tiêm chủng", `Đã thêm mũi "${rec.name}".`);
     return rec;
+
+    });
   }
 
   public static deleteVaccination(id: string): void {
+    return runLegacyCommand("deleteVaccination", [id], "system:legacy", () => {
     const db = this.readRaw();
     db.vaccinations = db.vaccinations.filter(v => v.id !== id);
     this.writeRaw(db);
+
+    });
   }
 
   // --- Sức khỏe trẻ: tăng trưởng ---
@@ -1943,6 +2098,7 @@ export class FamilyDB {
   }
 
   public static saveGrowthRecord(data: Partial<GrowthRecord>, userId: string, username: string): GrowthRecord {
+    return runLegacyCommand("saveGrowthRecord", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.childId) throw new Error("Thiếu thông tin trẻ");
@@ -1989,12 +2145,17 @@ export class FamilyDB {
     db.growthRecords.unshift(rec);
     this.writeRaw(db);
     return rec;
+
+    });
   }
 
   public static deleteGrowthRecord(id: string): void {
+    return runLegacyCommand("deleteGrowthRecord", [id], "system:legacy", () => {
     const db = this.readRaw();
     db.growthRecords = db.growthRecords.filter(g => g.id !== id);
     this.writeRaw(db);
+
+    });
   }
 
   // --- Thẻ khẩn cấp / hồ sơ sức khỏe (mỗi thành viên đúng 1 hồ sơ, id = hp_<userId>) ---
@@ -2004,6 +2165,7 @@ export class FamilyDB {
   }
 
   public static saveHealthProfile(data: Partial<EmergencyProfile>, userId: string, username: string): EmergencyProfile {
+    return runLegacyCommand("saveHealthProfile", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.userId) throw new Error("Thiếu thông tin thành viên");
@@ -2046,9 +2208,12 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Thẻ khẩn cấp", `Đã cập nhật hồ sơ sức khỏe của ${member.fullName}.`);
     return profile;
+
+    });
   }
 
   public static payRecurringBill(id: string, userId: string, username: string): { bill: RecurringBill; transaction: FinancialTransaction } {
+    return runLegacyCommand("payRecurringBill", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.recurringBills.findIndex(b => b.id === id);
     if (idx === -1) throw new Error("Không tìm thấy hóa đơn định kỳ");
@@ -2074,10 +2239,13 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Thanh toán hóa đơn", `Đã thanh toán "${bill.title}" (${bill.amount.toLocaleString()} VND).`);
     return { bill, transaction: tx };
+
+    });
   }
 
   // --- FAMILY ASSETS ---
   public static saveAsset(data: Partial<FamilyAsset>, userId: string, username: string): FamilyAsset {
+    return runLegacyCommand("saveAsset", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     const safeQuantity = Number.isFinite(Number(data.quantity)) ? Number(data.quantity) : 1;
@@ -2149,9 +2317,12 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Thêm tài sản", `Đã thêm tài sản "${asset.name}" (${asset.estimatedValue.toLocaleString()} ${asset.currency}).`);
     return asset;
+
+    });
   }
 
   public static deleteAsset(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteAsset", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.assets.findIndex(a => a.id === id);
     if (idx === -1) return;
@@ -2161,6 +2332,8 @@ export class FamilyDB {
     // Remove all stored photo files for this asset.
     assetPhotoUrls(asset).forEach(deleteMediaByUrl);
     this.logActivity(userId, username, "Xóa tài sản", `Đã xóa tài sản "${asset.name}".`);
+
+    });
   }
 
   // --- SHOPPING LIST ---
@@ -2169,6 +2342,7 @@ export class FamilyDB {
   }
 
   public static saveShoppingItem(data: Partial<ShoppingItem>, userId: string, username: string): ShoppingItem {
+    return runLegacyCommand("saveShoppingItem", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
 
@@ -2197,9 +2371,12 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Thêm đồ đi chợ", `Đã thêm "${newItem.name}" vào danh sách mua sắm.`);
     return newItem;
+
+    });
   }
 
   public static toggleShoppingItem(id: string, userId: string): ShoppingItem {
+    return runLegacyCommand("toggleShoppingItem", [id, userId], userId, () => {
     const db = this.readRaw();
     const idx = db.shoppingItems.findIndex(i => i.id === id);
     if (idx === -1) throw new Error("Món đồ không tồn tại");
@@ -2209,9 +2386,12 @@ export class FamilyDB {
     item.updatedAt = new Date().toISOString();
     this.writeRaw(db);
     return item;
+
+    });
   }
 
   public static deleteShoppingItem(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteShoppingItem", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.shoppingItems.findIndex(i => i.id === id);
     if (idx === -1) return;
@@ -2219,9 +2399,12 @@ export class FamilyDB {
     db.shoppingItems.splice(idx, 1);
     this.writeRaw(db);
     this.logActivity(userId, username, "Xóa đồ đi chợ", `Đã xóa "${name}" khỏi danh sách mua sắm.`);
+
+    });
   }
 
   public static clearPurchasedShopping(userId: string, username: string): number {
+    return runLegacyCommand("clearPurchasedShopping", [userId, username], userId, () => {
     const db = this.readRaw();
     const before = db.shoppingItems.length;
     db.shoppingItems = db.shoppingItems.filter(i => !i.isPurchased);
@@ -2231,9 +2414,12 @@ export class FamilyDB {
       this.logActivity(userId, username, "Dọn đồ đã mua", `Đã xóa ${removed} món đã mua khỏi danh sách đi chợ.`);
     }
     return removed;
+
+    });
   }
 
   public static clearAllShopping(userId: string, username: string): number {
+    return runLegacyCommand("clearAllShopping", [userId, username], userId, () => {
     const db = this.readRaw();
     const removed = db.shoppingItems.length;
     if (removed > 0) {
@@ -2242,11 +2428,14 @@ export class FamilyDB {
       this.logActivity(userId, username, "Xóa toàn bộ đi chợ", `Đã xóa tất cả ${removed} món khỏi danh sách đi chợ.`);
     }
     return removed;
+
+    });
   }
 
   // --- MEAL PLANNER DISH LIBRARY ---
   // Seeded from SEED_DISHES on first use; grows as AI suggests new dishes.
   public static getDishLibrary(): StoredDish[] {
+    return runLegacyCommand("getDishLibrary", [], "system:legacy", () => {
     const db = this.readRaw();
     if (!db.dishLibrary) db.dishLibrary = [];
     // Top up any seed dishes (name+slot) the library is missing — so expanding
@@ -2275,6 +2464,8 @@ export class FamilyDB {
     });
     if (added > 0) this.writeRaw(db);
     return db.dishLibrary;
+
+    });
   }
 
   // The single shared weekly menu shown on the shopping view.
@@ -2283,9 +2474,12 @@ export class FamilyDB {
   }
 
   public static setMealPlan(plan: StoredMealPlan | null): void {
+    return runLegacyCommand("setMealPlan", [plan], "system:legacy", () => {
     const db = this.readRaw();
     db.mealPlan = plan;
     this.writeRaw(db);
+
+    });
   }
 
   // --- Lịch sử giá thị trường (BTC/ETH/Vàng/USD) cho sparkline ở Tổng quan ---
@@ -2302,6 +2496,7 @@ export class FamilyDB {
     point: Omit<MarketHistoryPoint, "id" | "at">,
     minGapMs = 9 * 60 * 1000
   ): boolean {
+    return runLegacyCommand("appendMarketHistory", [point, minGapMs], "system:legacy", () => {
     // Không có số liệu nào thì khỏi ghi (upstream lỗi toàn bộ).
     if (point.btcUsd === null && point.ethUsd === null && point.goldSell === null && point.usdVnd === null) {
       return false;
@@ -2321,12 +2516,15 @@ export class FamilyDB {
     db.marketHistory = db.marketHistory.filter(p => new Date(p.at).getTime() >= cutoff);
     this.writeRaw(db);
     return true;
+
+    });
   }
 
   // Add AI-suggested dishes, skipping ones already known (same name + slot).
   public static addDishesFromAI(
     dishes: { name: string; slot: DishSlot; ingredients: MealIngredient[] }[]
   ): number {
+    return runLegacyCommand("addDishesFromAI", [dishes], "system:legacy", () => {
     const db = this.readRaw();
     if (!db.dishLibrary) db.dishLibrary = [];
     const known = new Set(db.dishLibrary.map(d => `${d.name.trim().toLowerCase()}|${d.slot}`));
@@ -2350,10 +2548,13 @@ export class FamilyDB {
     });
     if (added > 0) this.writeRaw(db);
     return added;
+
+    });
   }
 
   // --- MEDICATION REMINDERS ---
   public static saveMedication(data: Partial<MedicationReminder>, userId: string, username: string): MedicationReminder {
+    return runLegacyCommand("saveMedication", [data, userId, username], userId, () => {
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.name || !data.patientId || !data.times || data.times.length === 0) {
@@ -2386,14 +2587,19 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Nhắc thuốc", `Đã tạo lịch thuốc "${med.name}".`);
     return med;
+
+    });
   }
 
   public static deleteMedication(id: string): void {
+    return runLegacyCommand("deleteMedication", [id], "system:legacy", () => {
     const db = this.readRaw();
     db.medications = db.medications.filter(m => m.id !== id);
     // Dọn nhật ký liều của lịch thuốc đã xoá để tránh bản ghi mồ côi.
     db.medicationLogs = db.medicationLogs.filter(l => l.medicationId !== id);
     this.writeRaw(db);
+
+    });
   }
 
   // --- Nhật ký uống thuốc (adherence) ---
@@ -2414,6 +2620,7 @@ export class FamilyDB {
     data: { medicationId?: string; date?: string; time?: string; status?: string; notes?: string },
     userId: string
   ): { log: MedicationLog | null; cleared: boolean } {
+    return runLegacyCommand("logMedicationDose", [data, userId], userId, () => {
     const db = this.readRaw();
     const med = db.medications.find(m => m.id === data.medicationId);
     if (!med) throw new Error("Không tìm thấy lịch thuốc");
@@ -2462,6 +2669,8 @@ export class FamilyDB {
     db.medicationLogs.unshift(log);
     this.writeRaw(db);
     return { log, cleared: false };
+
+    });
   }
 
   // --- Kho giấy tờ gia đình ---
@@ -2469,7 +2678,11 @@ export class FamilyDB {
     return this.readRaw().documents;
   }
 
-  public static saveDocument(data: Partial<FamilyDocument>, userId: string, username: string): FamilyDocument {
+  public static saveDocument(data: Partial<FamilyDocument> & EditVersionPayload, userId: string, username: string): FamilyDocument {
+    return runLegacyCommand("saveDocument", [data, userId, username], userId, () => {
+    data = { ...data };
+    const baseUpdatedAt = data.baseUpdatedAt;
+    delete data.baseUpdatedAt;
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.title || !data.title.trim()) throw new Error("Thiếu tên giấy tờ");
@@ -2481,6 +2694,7 @@ export class FamilyDB {
       const idx = db.documents.findIndex(d => d.id === data.id);
       if (idx === -1) throw new Error("Không tìm thấy giấy tờ");
       const prev = db.documents[idx];
+      assertEditVersion(prev, baseUpdatedAt);
       // Xoá file đính kèm đã bị gỡ khỏi danh sách mới để không để lại rác trên đĩa.
       const newUrls = new Set(files.map(f => f.url));
       (prev.files || []).forEach(f => { if (!newUrls.has(f.url)) deleteMediaByUrl(f.url); });
@@ -2517,9 +2731,12 @@ export class FamilyDB {
     this.writeRaw(db);
     this.logActivity(userId, username, "Giấy tờ", `Đã thêm giấy tờ "${doc.title}".`);
     return doc;
+
+    });
   }
 
   public static deleteDocument(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteDocument", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const doc = db.documents.find(d => d.id === id);
     if (!doc) return;
@@ -2528,11 +2745,14 @@ export class FamilyDB {
     db.documents = db.documents.filter(d => d.id !== id);
     this.writeRaw(db);
     this.logActivity(userId, username, "Giấy tờ", `Đã xóa giấy tờ "${doc.title}".`);
+
+    });
   }
 
   // Pre-deadline reminders: notify before tasks are due and before plans start.
   // Deduplicated by notification id so each window fires only once.
   public static generateReminders(): void {
+    return runLegacyCommand("generateReminders", [], "system:legacy", () => {
     const db = this.readRaw();
     const now = Date.now();
     let modified = false;
@@ -2541,7 +2761,7 @@ export class FamilyDB {
       if (db.notifications.some(n => n.id === id)) return;
       const notif: Notification = { id, userId, title, content, type, isRead: false, createdAt: new Date().toISOString() };
       db.notifications.unshift(notif);
-      void trackAppEffect(dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
+      void afterAppCommit(() => dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
       modified = true;
     };
     const parse = (s: string): number | null => {
@@ -2701,6 +2921,8 @@ export class FamilyDB {
       db.notifications = db.notifications.slice(0, 200);
     }
     if (modified) this.writeRaw(db);
+
+    });
   }
 
   // ---- Web Push subscriptions (one per device/browser) ----
@@ -2714,6 +2936,7 @@ export class FamilyDB {
     subscription: PushSubscriptionRecord["subscription"],
     userAgent?: string
   ): void {
+    return runLegacyCommand("addPushSubscription", [userId, subscription, userAgent], userId, () => {
     const endpoint = subscription?.endpoint;
     if (!endpoint) throw new Error("Đăng ký thông báo không hợp lệ (thiếu endpoint).");
     const db = this.readRaw();
@@ -2727,29 +2950,38 @@ export class FamilyDB {
       createdAt: new Date().toISOString()
     });
     this.writeRaw(db);
+
+    });
   }
 
   public static removePushSubscriptionByEndpoint(endpoint: string): void {
+    return runLegacyCommand("removePushSubscriptionByEndpoint", [endpoint], "system:legacy", () => {
     if (!endpoint) return;
     const db = this.readRaw();
     const before = db.pushSubscriptions.length;
     db.pushSubscriptions = db.pushSubscriptions.filter(s => s.endpoint !== endpoint);
     if (db.pushSubscriptions.length !== before) this.writeRaw(db);
+
+    });
   }
 
   // Bulk-remove expired/dead subscriptions reported by the push service (404/410).
   public static removePushSubscriptionsByEndpoints(endpoints: string[]): void {
+    return runLegacyCommand("removePushSubscriptionsByEndpoints", [endpoints], "system:legacy", () => {
     if (!endpoints || endpoints.length === 0) return;
     const db = this.readRaw();
     const dead = new Set(endpoints);
     const before = db.pushSubscriptions.length;
     db.pushSubscriptions = db.pushSubscriptions.filter(s => !dead.has(s.endpoint));
     if (db.pushSubscriptions.length !== before) this.writeRaw(db);
+
+    });
   }
 
   // Manual person-to-person nudge: targeted in-app notification + push.
   // Excludes the sender's own devices (so a "cả nhà" broadcast doesn't buzz them).
   public static sendManualNotification(fromName: string, fromUserId: string, toUserId: string, message: string): void {
+    return runLegacyCommand("sendManualNotification", [fromName, fromUserId, toUserId, message], fromUserId, () => {
     const db = this.readRaw();
     const isBroadcast = toUserId === "all";
     const notif: Notification = {
@@ -2765,8 +2997,10 @@ export class FamilyDB {
     if (db.notifications.length > 200) {
       db.notifications = db.notifications.slice(0, 200);
     }
-    void trackAppEffect(dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead), fromUserId));
+    void afterAppCommit(() => dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead), fromUserId));
     this.writeRaw(db);
+
+    });
   }
 
   // Internal notification builder
@@ -2786,20 +3020,24 @@ export class FamilyDB {
       db.notifications = db.notifications.slice(0, 200);
     }
     // Deliver as a system push notification too (no-op if push unconfigured).
-    void trackAppEffect(dispatchPush(db, newNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
+    void afterAppCommit(() => dispatchPush(db, newNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
   }
 
   // Read notification status mark
   public static markNotificationRead(notifId: string, userId: string): void {
+    return runLegacyCommand("markNotificationRead", [notifId, userId], userId, () => {
     const db = this.readRaw();
     const idx = db.notifications.findIndex(n => n.id === notifId);
     if (idx !== -1) {
       db.notifications[idx].isRead = true;
       this.writeRaw(db);
     }
+
+    });
   }
 
   public static markAllNotificationsRead(userId: string): void {
+    return runLegacyCommand("markAllNotificationsRead", [userId], userId, () => {
     const db = this.readRaw();
     let modified = false;
     db.notifications.forEach(n => {
@@ -2811,5 +3049,7 @@ export class FamilyDB {
     if (modified) {
       this.writeRaw(db);
     }
+
+    });
   }
 }
