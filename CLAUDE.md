@@ -13,7 +13,7 @@ checklist ở cuối DESIGN.md trước khi hoàn tất.
 > **Quy trình hiện hành — Windows-native (F01):** đọc [AGENTS.md](AGENTS.md),
 > [baseline](docs/engineering/windows-baseline.md) và
 > [tiến độ](docs/engineering/implementation-status.md). CI dùng Windows2022/pwsh,
-> kiểm Node22 và probe Node24 riêng. Workflow release Pi/GHCR đã gỡ; F08 sẽ tạo
+> giữ baseline Node22 và kiểm runtime default Node24 riêng. Workflow release Pi/GHCR đã gỡ; F08 sẽ tạo
 > workflow Windows có cổng duyệt. Không chạy `npm run release`, tạo tag/release,
 > merge hoặc triển khai VPS trong PR nền tảng. Server2019 chưa nghiệm thu (R02).
 

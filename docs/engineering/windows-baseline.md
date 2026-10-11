@@ -13,18 +13,16 @@ Branch thực thi: `codex/f01-windows-baseline`. HEAD/PR/run mới được ghi 
 ## Toolchain và quyết định runtime
 
 [Manifest](windows-toolchain.json) pin exact Node22.23.3/npm10.9.9 (ABI127) baseline,
-probe riêng Node24.21.0 LTS/npm11.19.0 (ABI137), x64. Phiên bản lấy từ Node official
-dist index; SHA256 Windows ZIP lấy từ SHASUMS256 chính thức. `.node-version` hiện giữ
-Node22. Không promote Node24 chỉ từ source review hoặc kết quả Cloud.
+Node24.21.0 LTS/npm11.19.0 (ABI137), x64, đã được chọn làm default sau compatibility run. Phiên bản lấy từ Node official
+dist index; SHA256 Windows ZIP lấy từ SHASUMS256 chính thức. `.node-version` pin
+Node24; Node22 vẫn có job CI riêng. Quyết định dựa trên Windows logs/artifacts đúng SHA d993577… (run38134448734), không dựa vào Cloud.
 
 Lockfile baseline: better-sqlite3 11.10.0, React19, Express4, TS5.8, Vite6,
-Vitest4.1.8. Vite khai báo cả dependencies và devDependencies; cleanup chỉ thực hiện
-khi quyết định runtime/addon, không nâng toàn bộ dependency. @types/node22 hiện phù hợp baseline.
+Vitest4.1.8. Vite duplicate devDependency đã bỏ; giữ dependency production vì server.ts import Vite ở module scope. @types/node24.19.2 được pin cùng runtime major. better-sqlite3 pin exact11.10.0; không đổi addon/SQLite major khi compile/load/regression đã đạt.
 Npm cài frozen lock bằng `npm ci`, giữ TLS và integrity checks, không ignore-scripts/force.
 
 Upstream better-sqlite3 v11.10.0 có prebuilt Windows x64 ABI127 nhưng **không có ABI137**
-(đã đọc assets API release chính thức). Windows Node24 job sẽ chứng minh khả năng
-compile/load hoặc ghi failure thật. Manifest artifacts ghi addon version, SQLite version,
+(đã đọc assets API release chính thức). Windows Node24 đã compile/load thành công với node-gyp12.4.0, Visual Studio2022 17.14.37710.0, runner image20261004.326.1. CI assert VS version để builder thay đổi phải được review; image revision được ghi lại. Manifest artifacts ghi addon version, SQLite version,
 ABI và SHA256 binary đã load; install.log phân biệt prebuilt với compile fallback.
 Chưa lựa chọn WinSW/Caddy cho production trong PR bootstrap; kiểm checksum/toolchain đó
 thuộc PR service/package sau. Server2019 chưa được nghiệm thu: R02 not-run.
@@ -56,7 +54,7 @@ Full backup có thể chứa app_settings/API key: ownership I01/F07, không upl
 Bộ gốc: 9 files / 122 tests (7 utils, ICS, legacy updater). Không có HTTP integration,
 browser, service/package, migration/restore full suite. Các helper tests không chứng minh ACL.
 PR thêm 4 SQLite tests (order/Unicode/singletons, transaction rollback, committed WAL
-backup/reopen/integrity, close idempotent/file delete) và 1 updater repository regression.
+backup/reopen/integrity, close idempotent/file delete) và 1 updater repository regression. Thêm11 regressions cho evidence gate: nhận report hợp lệ, reject metadata native mâu thuẫn/thiếu check/hash lỗi, suite rỗng/thiếu/skipped và normalize đường dẫn Windows. Bộ hiện tại11files/138tests; số127 trong bootstrap evidence là kết quả lịch sử trước khi thêm gate tests.
 Fixture cleanup không nuốt lỗi Windows; test imports dùng synthetic temporary cwd,
 fetch ngoài fixtures bị chặn, credentials provider bị bỏ khỏi worker env.
 
@@ -79,7 +77,7 @@ fetch ngoài fixtures bị chặn, credentials provider bị bỏ khỏi worker 
 
 [Inventory từng route](windows-route-inventory.json) map mọi literal route và ghi
 static/PWA mounts riêng; chưa có HTTP contract suite nào đạt. Tính năng flag-off
-cũng cần test ở F05/F09. Không coi 127 tests là regression toàn bộ app.
+cũng cần test ở F05/F09. Không coi 138 tests là regression toàn bộ app.
 
 ## Evidence contract và giới hạn
 
@@ -92,12 +90,12 @@ Checkout PR **HEAD**, không dùng merge SHA để chứng minh HEAD; evidence c
 OS/image version, Node/npm, suites/counts, ABI/addon hash và Server2019 not-run.
 `ci-gate` chưa được cấu hình ruleset required ở F01; enforcement thuộc F05.
 
-Cloud Linux x64 kiểm độc lập: npm ci Node22 pass, bộ gốc122 pass, bộ mới127 pass,
+Cloud Linux x64 kiểm độc lập trước promote runtime: npm ci Node22 pass, bộ gốc122 pass, bộ mới127 pass,
 lint và build pass, native load/rollback/WAL/cleanup pass. Build cảnh báo chunk >500kB
 (owner F09/performance); chưa tối ưu hoặc giảm threshold. Install đầu trên Node24.19.0
 Cloud fail vì node-gyp cache ngoài sandbox; chuyển Cloud sang Node22 và cache workspace,
 không dùng lỗi đó để kết luận Windows Node24. Cloud dependencies không đóng gói Windows.
-Kết quả Windows, CI failures/corrections và exact run links nằm trong status/evidence.
+Windows bootstrap run38134448734 đúng SHA d9935772551d71f4e3b893772990685219360799: cả Node22 và Node24 npm ci/native/lint/tests127/build/evidence + ci-gate pass. Logs và JUnit/JSON artifacts đã download/read; zero failed/skipped. Bản pin runtime/types/actions tiếp theo phải có CI riêng đúng HEAD, ghi trong status/evidence. Annotation Actions dùng Node20 cũ đã được xử lý bằng checkout/setup-node v5 và upload-artifact v6 (pin SHA), sẽ kiểm lại.
 
 Tài liệu README/CLAUDE/AGENTS cập nhật hướng Windows; guide/site cũ gắn nhãn lịch sử
 và đổi repository links. Dockerfile/compose/deploy updater còn lại chỉ là migration input
@@ -107,3 +105,17 @@ Không release, merge, đọc production data hoặc truy cập VPS trong F01.
 Thứ tự tiếp theo: review/merge F01 → F02 paths/scripts → F03 lifecycle → I01 → F04/F05
 → F06/F07 → F08/F09. Chưa có số đo service/package/restore để chốt effort toàn giai đoạn;
 re-estimate sau failures Windows và throughput các PR, không biến ước lượng plan thành deadline.
+
+## Review và quyết định F01
+
+Review độc lập phát hiện gate chấp nhận native report sai metadata và suite rỗng.
+Reproduction đã quan sát11tests fail trước sửa; sau sửa11/11 pass, toàn suite138/138
+pass trong Cloud Node24.21.0. Validator đối chiếu runtime/ABI/addon/OS/hash/checks,
+require mỗi baseline suite, đối chiếu assertions với aggregate totals; paths Windows
+normalize trước strip cwd. Windows CI HEAD mới vẫn cần chạy để chốt.
+
+Quyết định giữ addon11.10.0 sau compile/load/regression Windows đạt: giảm đổi SQLite
+engine không cần thiết; chi phí là compiler VS2022 trên builder phải được pin và binary
+phải được đóng vào ZIP ở F06. Không mặc định npm install/compile trên production.
+Cảnh báo chunk size vẫn giữ, ownership F09. WinSW/Caddy/service/package/full regression
+chưa thực hiện; không gọi toàn nền tảng hoặc Server2019-ready.

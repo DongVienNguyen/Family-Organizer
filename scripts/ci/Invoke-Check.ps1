@@ -13,8 +13,14 @@ New-Item -ItemType Directory -Force reports | Out-Null
 if ($Check -eq 'install') {
     $npmVersion = & npm.cmd --version
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    @{ npmVersion = "$npmVersion" } | ConvertTo-Json | Set-Content reports/toolchain.json
+    $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+    $vsJson = & $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -format json
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    $visualStudio = @($vsJson | ConvertFrom-Json)[0].installationVersion
+    @{ npmVersion = "$npmVersion"; visualStudioVersion = "$visualStudio" } |
+        ConvertTo-Json | Set-Content reports/toolchain.json
     if ("$npmVersion" -ne $env:EXPECTED_NPM) { throw 'npm differs from pinned toolchain' }
+    if ("$visualStudio" -ne $env:EXPECTED_VS) { throw 'Visual Studio differs from validated builder; review toolchain change' }
 }
 
 switch ($Check) {

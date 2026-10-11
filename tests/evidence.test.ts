@@ -1,0 +1,81 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import { describe, expect, it } from 'vitest';
+
+const source = fs.readFileSync(new URL('../scripts/ci/write-evidence.mjs', import.meta.url), 'utf8')
+  .replace(/^import .*;\r?\n/gm, '');
+const sha = '1234567890123456789012345678901234567890';
+const suiteNames = [
+  'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
+  'src/utils/assetValue.test.ts', 'src/utils/bmi.test.ts', 'src/utils/debt.test.ts',
+  'src/utils/financePeriod.test.ts', 'src/utils/recurrence.test.ts',
+  'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',
+];
+
+function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
+  const reports: Record<string, any> = {
+    'toolchain.json': { npmVersion: '11.19.0', visualStudioVersion: '17.14.37710.0' },
+    'native.json': {
+      nodeVersion: 'v24.21.0', nodeABI: '137', platform: 'win32', architecture: 'x64',
+      addonVersion: '11.10.0', sqliteVersion: '3.49.2', binarySha256: 'a'.repeat(64),
+      checks: ['native-load', 'write-read', 'transaction-rollback', 'WAL-backup', 'integrity-check', 'file-cleanup'],
+    },
+    'vitest.json': {
+      success: true, numTotalTests: suiteNames.length, numPassedTests: suiteNames.length,
+      numFailedTests: 0, numPendingTests: 0, numTodoTests: 0,
+      testResults: suiteNames.map(name => ({ name: `D:/a/Family-Organizer/${name}`, assertionResults: [{ status: 'passed' }] })),
+    },
+  };
+  for (const check of ['install', 'native', 'lint', 'test', 'build']) reports[`${check}-exit.json`] = { exitCode: 0 };
+  change(reports);
+  const writes: Record<string, string> = {};
+  const processFixture = {
+    cwd: () => 'D:\\a\\Family-Organizer', platform: 'win32', arch: 'x64', version: 'v24.21.0',
+    versions: { modules: '137' }, exitCode: 0,
+    env: {
+      EXPECTED_NODE: '24.21.0', EXPECTED_NPM: '11.19.0', EXPECTED_VS: '17.14.37710.0',
+      EXPECTED_SQLITE_ADDON: '11.10.0',
+      TEST_COMMIT_SHA: sha, GITHUB_RUN_ATTEMPT: '1',
+      CHECK_INSTALL: 'success', CHECK_NATIVE: 'success', CHECK_LINT: 'success', CHECK_TEST: 'success', CHECK_BUILD: 'success',
+    },
+  };
+  vm.runInNewContext(source, {
+    process: processFixture, console: { log: () => {} },
+    execFileSync: () => sha, os: { type: () => 'Windows_NT', release: () => '10.0.20348' },
+    fs: {
+      mkdirSync: () => {}, existsSync: (file: string) => file === 'reports/junit.xml' || file.slice(8) in reports,
+      readFileSync: (file: string) => file === 'reports/junit.xml' ? '<testcase name="synthetic" />' : JSON.stringify(reports[file.slice(8)]),
+      writeFileSync: (file: string, text: string) => { writes[file] = text; },
+    },
+  });
+  return { code: processFixture.exitCode, evidence: JSON.parse(writes['reports/evidence.json']) };
+}
+
+describe('Windows CI evidence gate', () => {
+  it('accepts consistent synthetic reports and normalizes Windows suite paths', () => {
+    const result = runEvidence();
+    expect(result.code).toBe(0);
+    expect(result.evidence.suites[0].name).toBe('server/icsFeed.test.ts');
+  });
+
+  it.each([
+    ['platform', 'linux'], ['architecture', 'arm64'], ['nodeVersion', 'v22.0.0'],
+    ['nodeABI', '127'], ['addonVersion', '0.0.0'], ['binarySha256', 'invalid'], ['checks', []],
+  ])('rejects contradictory native %s', (field, value) => {
+    expect(runEvidence(reports => { reports['native.json'][field] = value; }).code).toBe(1);
+  });
+
+  it('rejects an empty suite even when global test totals claim success', () => {
+    expect(runEvidence(reports => {
+      reports['vitest.json'].testResults.push({ name: 'D:/a/Family-Organizer/empty.test.ts', assertionResults: [] });
+    }).code).toBe(1);
+  });
+
+  it('rejects a missing expected suite', () => {
+    expect(runEvidence(reports => { reports['vitest.json'].testResults.pop(); }).code).toBe(1);
+  });
+
+  it('rejects skipped assertions hidden by successful aggregate totals', () => {
+    expect(runEvidence(reports => { reports['vitest.json'].testResults[0].assertionResults[0].status = 'skipped'; }).code).toBe(1);
+  });
+});

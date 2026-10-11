@@ -7,8 +7,7 @@ Hệ thống quản lý gia đình tất-cả-trong-một — tài chính, lịc
 ## Phát triển và kiểm thử Windows-native
 
 Code được sửa trong Codex Cloud; GitHub Actions chạy `npm ci`, `npm run lint`,
-`npm test` và `npm run build` trên **windows-2022 / pwsh / x64**. Node22 là baseline,
-Node24 LTS được kiểm ở job riêng trước khi quyết định nâng runtime.
+`npm test` và `npm run build` trên **windows-2022 / pwsh / x64**. Node24.21.0 LTS là default đã kiểm chứng; Node22 baseline vẫn có job riêng để theo dõi compatibility.
 
 Xem [baseline và coverage gaps](docs/engineering/windows-baseline.md),
 [tiến độ implementation](docs/engineering/implementation-status.md) và
@@ -180,7 +179,7 @@ Giao diện Neumorphism, hỗ trợ Light / Dark mode với hiệu ứng chuyể
 
 ## Các kiểm tra phát triển
 
-Runtime baseline exact nằm ở `.node-version`; phiên bản toolchain/ABI/checksums
+Runtime default exact nằm ở `.node-version`; phiên bản toolchain/ABI/checksums
 nằm trong `docs/engineering/windows-toolchain.json`. Mỗi npm/native command trong
 PowerShell phải kiểm `$LASTEXITCODE` ngay, như `scripts/ci/Invoke-Check.ps1`.
 CI tạo log từng bước, native-addon evidence, JUnit và JSON test reports. Tests dùng

@@ -8,8 +8,9 @@
   Matrix/Kanban/Wallet features. No public integration API, scoped tokens, MCP or bank sync.
 - Windows CI uses windows-2022, x64 and pwsh. Check LASTEXITCODE immediately
   after every npm/native invocation, including commands piped into logs.
-- .node-version pins the Node22 baseline. Node24 is a separate mandatory probe;
-  promote runtime only after Windows evidence demonstrates addon compatibility.
+- .node-version pins Node24.21.0 after the F01 Windows compatibility run.
+  Keep the Node22 baseline job. Node24 addon11.10.0 compiles on the pinned VS2022
+  builder; production packaging must carry its Windows binary, never compile on VPS.
 - Use synthetic, isolated fixtures and offline provider adapters. Never use
   production keys/data or deliver notifications from tests. Preserve assertions.
 - Save JUnit/JSON reports, logs, exact tested HEAD SHA and CI URLs; keep
