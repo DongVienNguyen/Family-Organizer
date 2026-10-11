@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 
 fs.mkdirSync('reports', { recursive: true });
 const errors = [];
-const checks = Object.fromEntries(['install', 'native', 'lint', 'test', 'build'].map(name => [name, process.env[`CHECK_${name.toUpperCase()}`] || 'missing']));
+const checks = Object.fromEntries(['install', 'native', 'lint', 'test', 'build', 'production'].map(name => [name, process.env[`CHECK_${name.toUpperCase()}`] || 'missing']));
 for (const [name, outcome] of Object.entries(checks)) {
   if (outcome !== 'success') errors.push(`${name}: ${outcome}`);
   const exitPath = `reports/${name}-exit.json`;
@@ -17,6 +17,7 @@ const readReport = name => {
 const tests = readReport('vitest.json');
 const native = readReport('native.json');
 const toolchain = readReport('toolchain.json');
+const production = readReport('production.json');
 const npmVersion = toolchain?.npmVersion;
 const cwd = process.cwd().replaceAll('\\', '/');
 const suites = (tests?.testResults || []).map(suite => ({
@@ -31,6 +32,7 @@ const requiredSuites = [
   'src/utils/assetValue.test.ts', 'src/utils/bmi.test.ts', 'src/utils/debt.test.ts',
   'src/utils/financePeriod.test.ts', 'src/utils/recurrence.test.ts',
   'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',
+  'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
 ];
 for (const required of requiredSuites) {
   if (!suites.some(suite => suite.name === required)) errors.push(`required suite missing: ${required}`);
@@ -52,6 +54,10 @@ for (const check of ['native-load', 'write-read', 'transaction-rollback', 'WAL-b
 if (!fs.existsSync('reports/junit.xml') || !fs.readFileSync('reports/junit.xml', 'utf8').includes('<testcase')) errors.push('JUnit test cases missing');
 const commitSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 if (commitSha !== process.env.TEST_COMMIT_SHA) errors.push('checkout SHA differs from requested HEAD');
+if (production?.commitSha !== commitSha || production?.nodeVersion !== process.version || production?.platform !== 'win32' || production?.architecture !== 'x64' || !Array.isArray(production?.checks)) errors.push('production startup evidence missing or contradicts tested runtime/SHA');
+for (const check of ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers']) {
+  if (!production?.checks?.includes(check)) errors.push(`production probe check missing: ${check}`);
+}
 if (process.version !== `v${process.env.EXPECTED_NODE}` || npmVersion !== process.env.EXPECTED_NPM) errors.push('Node/npm differs from pinned toolchain');
 if (toolchain?.visualStudioVersion !== process.env.EXPECTED_VS) errors.push('builder differs from validated Visual Studio toolchain');
 if (process.platform !== 'win32' || process.arch !== 'x64') errors.push('runner is not Windows x64');
@@ -59,7 +65,7 @@ const evidence = {
   commitSha, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT),
   runnerOS: `${os.type()} ${os.release()}`, runnerImage: process.env.ImageOS,
   runnerImageVersion: process.env.ImageVersion, nodeVersion: process.version, npmVersion, toolchain,
-  checks, suites, native, server2019Acceptance: 'not-run', errors,
+  checks, suites, native, production, server2019Acceptance: 'not-run', errors,
 };
 fs.writeFileSync('reports/evidence.json', JSON.stringify(evidence, null, 2) + '\n');
 console.log(JSON.stringify(evidence, null, 2));

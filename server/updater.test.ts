@@ -28,8 +28,8 @@ describe("parseEnv", () => {
   });
 });
 
-// Các ca dưới chạy module trong thư mục tạm (module tính data/ theo process.cwd()
-// lúc import) để không đụng dữ liệu thật của máy dev.
+// Các ca dưới chọn DATA_DIR/APP_CODE_ROOT synthetic tường minh trước import.
+// CWD không được dùng để chọn database.
 describe("hộp thư với dịch vụ cập nhật", () => {
   const origCwd = process.cwd();
   let tmp = "";
@@ -51,6 +51,8 @@ describe("hộp thư với dịch vụ cập nhật", () => {
     upd = path.join(tmp, "data", "update");
     fs.writeFileSync(path.join(tmp, "package.json"), JSON.stringify({ version: "1.0.0" }));
     process.chdir(tmp);
+    vi.stubEnv("DATA_DIR", path.join(tmp, "data"));
+    vi.stubEnv("APP_CODE_ROOT", tmp);
   });
   afterEach(async () => {
     if (fs.existsSync(path.join(tmp, "data", "family.db"))) {

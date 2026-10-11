@@ -12,7 +12,9 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 
-export const UPLOADS_DIR = path.join(process.cwd(), "data", "uploads");
+import { appConfig } from "./config.js";
+
+export const UPLOADS_DIR = path.join(appConfig.dataRoot, "uploads");
 export const UPLOADS_URL_PREFIX = "/uploads/";
 
 // Ensure the base uploads directory exists so static serving works from boot.

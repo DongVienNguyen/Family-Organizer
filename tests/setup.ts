@@ -8,6 +8,9 @@ import { afterAll, expect } from 'vitest';
 const originalCwd = process.cwd();
 const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'fo test synthetic '));
 process.chdir(fixture);
+const originalRoots = Object.fromEntries(["DATA_DIR", "APP_CODE_ROOT", "CONFIG_DIR", "LOG_DIR"].map(name => [name, process.env[name]]));
+process.env.DATA_DIR = path.join(fixture, "data");
+for (const name of ["APP_CODE_ROOT", "CONFIG_DIR", "LOG_DIR"]) delete process.env[name];
 const originalFetch = globalThis.fetch;
 const unexpectedRequests: string[] = [];
 globalThis.fetch = async input => {
@@ -27,6 +30,9 @@ afterAll(async () => {
   } finally {
     process.chdir(originalCwd);
     globalThis.fetch = originalFetch;
+    for (const [name, value] of Object.entries(originalRoots)) {
+      if (value === undefined) delete process.env[name]; else process.env[name] = value;
+    }
     fs.rmSync(fixture, { recursive: true, force: true });
   }
   expect(fs.existsSync(fixture)).toBe(false);
