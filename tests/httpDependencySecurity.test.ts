@@ -33,14 +33,21 @@ it('enforces the comma array bound before wrapping a bracket key',()=>{
   expect(()=>qs.parse('a[]=1,2,3,4',{comma:true,arrayLimit:3,throwOnLimitExceeded:true})).toThrow(RangeError);
   expect(qs.parse('a[]=1,2,3',{comma:true,arrayLimit:3,throwOnLimitExceeded:true})).toEqual({a:[['1','2','3']]});
 });
-async function readExpressIp(subnets:string[],forwarded:string){
-  const app=express();app.set('trust proxy',subnets);app.get('/',(req,res)=>res.json({ip:req.ip}));
-  const server=http.createServer(app).listen(0,'127.0.0.1');await once(server,'listening');
+async function readExpressIp(subnets:string[],forwarded:string,options:{deadlineMs?:number;reply?:express.RequestHandler;onServer?:(server:http.Server)=>void}={}){
+  const app=express();app.set('trust proxy',subnets);app.get('/',options.reply??((req,res)=>res.json({ip:req.ip})));
+  const server=http.createServer(app).listen(0,'127.0.0.1');await once(server,'listening');options.onServer?.(server);
   try{
     return await new Promise<string>((resolve,reject)=>{
+      let deadline:ReturnType<typeof setTimeout>|undefined;
+      const fail=(error:Error)=>{if(deadline)clearTimeout(deadline);req.destroy();reject(error);};
       const req=http.get({hostname:'127.0.0.1',port:(server.address() as {port:number}).port,path:'/',agent:false,headers:{'X-Forwarded-For':forwarded}},res=>{
-        let text='';res.on('data',bytes=>{text+=bytes;});res.on('end',()=>{try{expect(res.statusCode).toBe(200);resolve(JSON.parse(text).ip);}catch(error){reject(error);}});
-      });req.on('error',reject);
+        res.once('error',fail);res.once('aborted',()=>fail(new Error('HTTP probe response aborted')));
+        let text='';res.on('data',bytes=>{text+=bytes;});res.once('end',()=>{
+          if(deadline)clearTimeout(deadline);
+          try{expect(res.statusCode).toBe(200);resolve(JSON.parse(text).ip);}catch(error){fail(error as Error);}
+        });
+      });req.once('error',fail);
+      deadline=setTimeout(()=>fail(new Error('HTTP probe request deadline exceeded')),options.deadlineMs??5000);
     });
   }finally{server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));}
 }
@@ -49,4 +56,29 @@ it.each(['198.51.100.8','::ffff:198.51.100.8'])('uses the real socket when IPv6-
 });
 it('preserves an explicitly trusted loopback proxy and its client address',async()=>{
   expect(await readExpressIp(['127.0.0.1/32'],'192.0.2.8')).toBe('192.0.2.8');
+});
+
+it('rejects a delayed dependency response at the request deadline and closes its fixture',async()=>{
+  let server:http.Server|undefined;
+  await expect(readExpressIp(['127.0.0.1/32'],'192.0.2.8',{
+    deadlineMs:75,onServer:value=>{server=value;},reply:(_req,res)=>{res.flushHeaders();setTimeout(()=>res.end('{"ip":"late"}'),300);},
+  })).rejects.toThrow(/deadline/i);
+  expect(server?.listening).toBe(false);
+});
+it('settles an aborted dependency response and closes its fixture',async()=>{
+  let server:http.Server|undefined;let guard:ReturnType<typeof setTimeout>|undefined;
+  const work=readExpressIp(['127.0.0.1/32'],'192.0.2.8',{
+    deadlineMs:2000,onServer:value=>{server=value;},reply:(_req,res)=>{res.flushHeaders();setImmediate(()=>res.destroy());},
+  });
+  try{
+    const outcome=await Promise.race([
+      work.then(()=> 'unexpected success',error=>String(error.message)),
+      new Promise<string>(resolve=>{guard=setTimeout(()=>resolve('fixture remained pending'),3000);}),
+    ]);
+    expect(outcome).toMatch(/response aborted|ECONNRESET|aborted/i);
+    expect(server?.listening).toBe(false);
+  }finally{
+    if(guard)clearTimeout(guard);
+    if(server?.listening){server.closeAllConnections();await new Promise<void>(resolve=>server!.close(()=>resolve()));}
+  }
 });

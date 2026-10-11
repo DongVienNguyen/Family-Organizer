@@ -987,5 +987,35 @@
       "build": "3b2518bd1f05c4f21c18e3058a78e20e37d7c77716395ce05ea5ff97d7b181bf",
       "target-green": "ea73a5df6e33d2cd4b6d4f4f42e9c1930aa743df2ddd9068806065c9dcdb176f"
     }
+  },
+  "reviewCorrection": {
+    "grading": {
+      "Critical": 0,
+      "Important": 0,
+      "MinorAccepted": 1
+    },
+    "passes": 1,
+    "rereview": false,
+    "actualRedAdded": 2,
+    "totalActualRed": 16,
+    "characterizations": 4,
+    "tests": 938,
+    "files": 72,
+    "skipped": 0,
+    "target": 85,
+    "checks": {
+      "npm-ci": 0,
+      "lint": 0,
+      "test": 0,
+      "build": 0
+    },
+    "frozenInstall": "same patched lock as first source, unchanged in correction",
+    "logSha256": {
+      "review-red": "54b96c37581fedce290108d4429d59142e45f978013a45f13482d386f9812721",
+      "review-green": "d2448539bb0d90f901115184374e14aa976440d99c90869f3e8b766dbdf16da3",
+      "corrected-lint": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "final-full-tests": "1c367b62a45582350330e508a195ec1ee26c075b1c1b909a5dcb6215fd462a83",
+      "corrected-build": "b03411db11a411429b6eb13cdfd66f3c1d26938191b2f322b55e75996ec23991"
+    }
   }
 }
