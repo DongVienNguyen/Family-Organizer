@@ -15,7 +15,7 @@ const suiteNames = [
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
   'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
   'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
-  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts',
+  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -130,3 +130,5 @@ it('requires compiled object visibility proof',()=>{expect(runEvidence(reports=>
 
 it.each(['server/mediaHttp.test.ts','server/mediaMetadata.test.ts','tests/media-cold-restore.test.ts','src/utils/mediaResource.test.ts','tests/ui/authenticated-media.test.ts'])('rejects missing authenticated media suite %s',name=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((suite:any)=>!suite.name.replaceAll('\\','/').endsWith(name));});expect(result.evidence.errors).toContain('required suite missing: '+name);});
 it('rejects missing compiled authenticated media evidence',()=>{const result=runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((name:string)=>name!=='authenticated-media');});expect(result.evidence.errors).toContain('production probe check missing: authenticated-media');});
+
+it('rejects missing compiled Markdown media policy suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((suite:any)=>!suite.name.replaceAll('\\','/').endsWith('tests/compiled-media-policy.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/compiled-media-policy.test.ts');});

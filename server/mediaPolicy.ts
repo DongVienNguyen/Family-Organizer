@@ -1,6 +1,6 @@
-import {unified} from 'unified';
-import remarkParse from 'remark-parse';
-import remarkGfm from 'remark-gfm';
+import {fromMarkdown} from 'mdast-util-from-markdown';
+import {gfmFromMarkdown} from 'mdast-util-gfm';
+import {gfm} from 'micromark-extension-gfm';
 import type {FamilyOrganizerDB} from '../src/types.js';
 import {UserRole} from '../src/types.js';
 import type {AppWriteTx} from './appStore.js';
@@ -22,9 +22,8 @@ export function parseMediaMetadata(value:string):MediaMetadata {
  if(!row||JSON.stringify(Object.keys(row).sort())!==JSON.stringify(['version','ownerId','createdAt','bindings'].sort())||row.version!==1||!(row.ownerId===null||typeof row.ownerId==='string'&&row.ownerId.length>0&&row.ownerId.length<=256)||!Number.isSafeInteger(row.createdAt)||row.createdAt<0||!Array.isArray(row.bindings)||row.bindings.length>1000||row.bindings.some((b:any)=>!b||Object.keys(b).sort().join(',')!=='domain,id'||!domains.includes(b.domain)||typeof b.id!=='string'||!b.id||b.id.length>256)||new Set(row.bindings.map((b:any)=>JSON.stringify(b))).size!==row.bindings.length)throw new Error('Invalid media metadata');
  if(!row.bindings.length&&!row.ownerId)throw new Error('Unowned media staging');return row;
 }
-const markdownParser=unified().use(remarkParse).use(remarkGfm);
 function markdownDestinations(content:string):string[] {
- const tree=markdownParser.parse(content),definitions=new Map<string,string>(),urls:string[]=[];
+ const tree=fromMarkdown(content,{extensions:[gfm()],mdastExtensions:[gfmFromMarkdown()]}),definitions=new Map<string,string>(),urls:string[]=[];
  const walk=(node:any,visit:(node:any)=>void)=>{visit(node);for(const child of node.children??[])walk(child,visit);};
  walk(tree,node=>{if(node.type==='definition')definitions.set(node.identifier,node.url);});
  walk(tree,node=>{
