@@ -1,5 +1,13 @@
 # Family-Organizer — Plan cuối cùng: Windows-native, Codex Cloud và Windows CI
 
+> **F01 checkout verification (11/10/2026):** HEAD thực thi ban đầu là
+> `68cb753c13c35e13dd120b217040aa12365e3b40`, sau baseline
+> `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91` đúng một commit thêm7tài liệu;
+> source/tests/dependencies không đổi. Xem [baseline](../../engineering/windows-baseline.md)
+> và [implementation status](../../engineering/implementation-status.md) cho SHA/PR/CI thực.
+> Các tuyên bố khảo sát bên dưới là lịch sử; không dùng chúng làm bằng chứng CI hiện tại.
+
+
 **Repo đích duy nhất:** [DongVienNguyen/Family-Organizer](https://github.com/DongVienNguyen/Family-Organizer), public, default branch `main`. Đã xác minh HEAD là `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91`, trùng baseline khảo sát. Mọi Cloud environment, branch/PR, GitHub Actions, ruleset, release và artifact của plan phải thuộc repo này. Kiểm tra lại HEAD trước thực thi; không tạo PR/release ở repo nguồn trước đây.
 
 > **For agentic workers:** Đây là **entry point cuối cùng**, cập nhật11/10/2026 theo mô hình ba giai đoạn của người dùng. Thực thi trong Codex Cloud bằng PR nhỏ, kiểm thử GitHub Actions Windows, nghiệm thu Windows Server2019 trước production. Đọc AGENTS và plan liên kết; kỹ năng Superpowers chỉ áp dụng khi có trong môi trường thực thi, không giả định plugins trên PC được đưa vào Cloud.

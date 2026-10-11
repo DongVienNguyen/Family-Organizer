@@ -1,5 +1,13 @@
 # Hướng dẫn Codex Cloud → GitHub Actions Windows → VPS Server 2019
 
+> **F01 checkout verification (11/10/2026):** HEAD thực thi ban đầu là
+> `68cb753c13c35e13dd120b217040aa12365e3b40`, sau baseline
+> `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91` đúng một commit thêm7tài liệu;
+> source/tests/dependencies không đổi. Xem [baseline](../../engineering/windows-baseline.md)
+> và [implementation status](../../engineering/implementation-status.md) cho SHA/PR/CI thực.
+> Các tuyên bố khảo sát bên dưới là lịch sử; không dùng chúng làm bằng chứng CI hiện tại.
+
+
 **Repo đích duy nhất:** [DongVienNguyen/Family-Organizer](https://github.com/DongVienNguyen/Family-Organizer), public, branch `main`. Chọn chính repo này khi attach Cloud environment, upload tài liệu, mở PR, xem Actions, cấu hình ruleset và tạo release. Repo public không tự cấp quyền ghi: kết nối GitHub vẫn phải có quyền trên repo của bạn. HEAD đã kiểm tra trùng SHA baseline của plan.
 
 Ngày11/10/2026. Đọc [master cuối cùng](2026-10-11-family-organizer-upgrade-master.md) và [plan Windows-native](2026-10-11-windows-native-foundation.md) trước. Những script/command npm đề xuất chưa tồn tại cho tới khi các task F được implement. Tài liệu này là hướng dẫn và prompt, không phải xác nhận đã cấu hình GitHub hoặc VPS.

@@ -10,6 +10,9 @@ import zlib from "zlib";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { compareVersions, parseEnv } from "./updater.js";
 
+// Notifications import the full DB lazily; mailbox tests never deliver messages.
+vi.mock("./telegramBackup.js", () => ({ notifyTelegram: vi.fn(async () => {}) }));
+
 describe("compareVersions", () => {
   it("so số từng phần, không so chuỗi (1.10.0 > 1.9.0)", () => {
     expect(compareVersions("1.10.0", "1.9.0")).toBeGreaterThan(0);
@@ -43,19 +46,27 @@ describe("hộp thư với dịch vụ cập nhật", () => {
   };
 
   beforeEach(() => {
+    vi.stubEnv("GITHUB_REPO", undefined);
     tmp = fs.mkdtempSync(path.join(os.tmpdir(), "fo-updater-"));
     upd = path.join(tmp, "data", "update");
     fs.writeFileSync(path.join(tmp, "package.json"), JSON.stringify({ version: "1.0.0" }));
     process.chdir(tmp);
   });
-  afterEach(() => {
+  afterEach(async () => {
+    if (fs.existsSync(path.join(tmp, "data", "family.db"))) {
+      const { sqliteClose } = await import("./sqlite.js");
+      sqliteClose();
+    }
     process.chdir(origCwd);
     vi.unstubAllGlobals();
-    try {
-      fs.rmSync(tmp, { recursive: true, force: true });
-    } catch {
-      /* Windows: family.db còn mở trong tiến trình test — để OS tự dọn thư mục tạm */
-    }
+    vi.unstubAllEnvs();
+    fs.rmSync(tmp, { recursive: true, force: true });
+    expect(fs.existsSync(tmp)).toBe(false);
+  });
+
+  it("mặc định đọc releases từ đúng repo Family-Organizer hiện tại", async () => {
+    const m = await load();
+    expect(m.GITHUB_REPO).toBe("DongVienNguyen/Family-Organizer");
   });
 
   it("chưa có updater → không sống; nhịp tim cũ hơn 45s → coi như chết", async () => {

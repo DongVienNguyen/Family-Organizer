@@ -1,29 +1,107 @@
 name: CI
 
-# Kiểm tra mỗi lần push/PR. KHÔNG build image — image chỉ build khi phát hành
-# (tag vX.Y.Z, xem release.yml), để máy đang chạy chỉ nhận bản đã phát hành.
-
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: pwsh
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
+  quality:
+    name: Windows Node${{ matrix.major }} baseline
+    runs-on: windows-2022
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - major: 22
+            node: '22.23.3'
+            npm: '10.9.9'
+          - major: 24
+            node: '24.21.0'
+            npm: '11.19.0'
+    env:
+      CI: 'true'
+      TZ: Asia/Saigon
+      EXPECTED_NODE: ${{ matrix.node }}
+      EXPECTED_NPM: ${{ matrix.npm }}
+      EXPECTED_VS: '17.14.37710.0'
+      EXPECTED_SQLITE_ADDON: '11.10.0'
+      TEST_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
-          node-version: 22
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: ${{ matrix.node }}
+          architecture: x64
           cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
-      - run: npm run build
-      - name: Kiểm tra cú pháp shell
-        run: sh -n deploy/updater.sh && bash -n scripts/release.sh
+      - name: Install from lockfile
+        id: install
+        run: ./scripts/ci/Invoke-Check.ps1 -Check install
+      - name: Native SQLite compatibility
+        id: native
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check native
+      - name: TypeScript check
+        id: lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check lint
+      - name: Unit and SQLite regression tests
+        id: test
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check test
+      - name: Production build
+        id: build
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check build
+      - name: Validate and record evidence
+        if: ${{ always() }}
+        env:
+          CHECK_INSTALL: ${{ steps.install.outcome }}
+          CHECK_NATIVE: ${{ steps.native.outcome }}
+          CHECK_LINT: ${{ steps.lint.outcome }}
+          CHECK_TEST: ${{ steps.test.outcome }}
+          CHECK_BUILD: ${{ steps.build.outcome }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          node scripts/ci/write-evidence.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: ${{ always() }}
+        with:
+          name: windows-node${{ matrix.major }}-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14
+
+  ci-gate:
+    runs-on: windows-2022
+    timeout-minutes: 5
+    needs: quality
+    if: ${{ always() }}
+    steps:
+      - name: Require both runtime checks to succeed
+        env:
+          QUALITY_RESULT: ${{ needs.quality.result }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          if ($env:QUALITY_RESULT -ne 'success') {
+            throw "Windows baseline matrix result: $env:QUALITY_RESULT"
+          }

@@ -1,0 +1,98 @@
+{
+  "commitSha": "d9935772551d71f4e3b893772990685219360799",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38134448734",
+  "runAttempt": 1,
+  "runnerOS": "Windows_NT 10.0.20348",
+  "runnerImage": "win22",
+  "runnerImageVersion": "20261004.326.1",
+  "nodeVersion": "v24.21.0",
+  "npmVersion": "11.19.0",
+  "checks": {
+    "install": "success",
+    "native": "success",
+    "lint": "success",
+    "test": "success",
+    "build": "success"
+  },
+  "suites": [
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/server/icsFeed.test.ts",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/server/sqlite.test.ts",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/server/updater.test.ts",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/src/utils/assetValue.test.ts",
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/src/utils/bmi.test.ts",
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/src/utils/debt.test.ts",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/src/utils/financePeriod.test.ts",
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/src/utils/recurrence.test.ts",
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/src/utils/searchText.test.ts",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "D:/a/Family-Organizer/Family-Organizer/src/utils/vietnamHolidays.test.ts",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "native": {
+    "nodeVersion": "v24.21.0",
+    "nodeABI": "137",
+    "platform": "win32",
+    "architecture": "x64",
+    "addonVersion": "11.10.0",
+    "sqliteVersion": "3.49.2",
+    "binarySha256": "79bb5cc30805c79ae10d674d1d41c8962a873ade85f22113309fa2188b3fe701",
+    "checks": [
+      "native-load",
+      "write-read",
+      "transaction-rollback",
+      "WAL-backup",
+      "integrity-check",
+      "file-cleanup"
+    ]
+  },
+  "server2019Acceptance": "not-run",
+  "errors": []
+}

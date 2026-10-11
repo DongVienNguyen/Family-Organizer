@@ -33,7 +33,7 @@ const STATE_FILE = path.join(UPDATE_DIR, "state.env");
 const LOG_FILE = path.join(UPDATE_DIR, "log.txt");
 const SETTINGS_FILE = path.join(UPDATE_DIR, "settings.json");
 
-export const GITHUB_REPO = process.env.GITHUB_REPO || "happysmartlight/Family-Organizer";
+export const GITHUB_REPO = process.env.GITHUB_REPO || "DongVienNguyen/Family-Organizer";
 const MAX_SNAPSHOTS = 5;
 const CHECK_EVERY_MS = 6 * 60 * 60 * 1000;
 const SEMVER = /^\d+\.\d+\.\d+([-.][0-9A-Za-z.]+)?$/;

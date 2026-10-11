@@ -1,3 +1,9 @@
+> **Trạng thái hiện hành:** repo đang chuyển Windows-native. Nội dung Pi/Docker
+> bên dưới là tài liệu lịch sử, không dùng để cài Windows. Xem
+> [README hiện hành](../README.md), [baseline](engineering/windows-baseline.md) và
+> [plan Windows](superpowers/plans/2026-10-11-windows-native-foundation.md).
+> Không chạy scripts release/updater cũ. Server2019 chưa nghiệm thu (R02).
+
 # Family Organizer - app quản lý gia đình tự host
 
 ![Ảnh bìa Family Organizer](./assets/family-organizer-cover.png)
@@ -111,7 +117,7 @@ Yêu cầu:
 Các bước cơ bản:
 
 ```bash
-git clone https://github.com/happysmartlight/Family-Organizer.git
+git clone https://github.com/DongVienNguyen/Family-Organizer.git
 cd Family-Organizer
 cp .env.example .env
 ```
