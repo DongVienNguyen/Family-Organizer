@@ -13,7 +13,8 @@ Important by effect and performed one regression-first fix pass.
 | HTTP catch handlers converted typed409 to400 | Pure common error ports preserve typed4xx and edit-conflict body shape through legacy handlers. Real reward HTTP same-hash retry200/different-hash409. |
 
 The seven new regressions failed before the fixes (plus two unhandled errors from
-the defective async migration path). The corrected targeted suite passes20/20.
+the defective async migration path). The corrected targeted suite passes20/20; the complete Cloud suite passes239/239
+in28files, with lint and build successful.
 Whole-suite and exact Windows evidence are recorded in implementation-status and
 the PR evidence comment. Earlier232-test Windows GREEN is superseded by the
 corrected HEAD, and is not evidence for these fixes. No deferred review minors.

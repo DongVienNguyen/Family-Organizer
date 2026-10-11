@@ -76,3 +76,9 @@ One fresh review nevertheless reproduced four defects; see
 [i01-a-review-and-decisions.md](i01-a-review-and-decisions.md). Seven regressions
 failed before the fix pass; targeted20/20 now passes. This first GREEN does not
 prove the corrected code. Snapshot/jobs remain pending I01-b.
+
+Corrected source `3a75f74be75f72f7196681b8b823f89bec9166db` passed
+[Windows run38146607782](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38146607782):
+Node22/24 each239/23928files, allsix command exit codes0 and CI gate success.
+Complete artifacts/logs independently verified, including the review regressions.
+Final documentation HEAD is checked again before merge.
