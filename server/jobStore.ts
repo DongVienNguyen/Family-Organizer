@@ -24,6 +24,9 @@ withAppWriteTransaction({ actorId: 'system:bootstrap', command: 'core:job-store:
   tx.exec(schema);
   tx.run('INSERT OR IGNORE INTO app_meta (key,value) VALUES (?,?)', 'job_store_version', '1');
 });
+// Initialization can be cached; persisted compatibility must be checked on every startup.
+const persistedVersion = connection.prepare('SELECT value FROM app_meta WHERE key = ?').get('job_store_version') as { value?: string } | undefined;
+if (persistedVersion?.value !== '1') throw new Error('Unsupported durable job store version');
 // Fail during explicit storage bootstrap, before readiness, on a damaged schema.
 connection.prepare('SELECT id, namespace, type, unique_key, payload, payload_hash, kind, status, available_at, lease_token, lease_until, attempts, max_attempts, error_code, created_at, completed_at FROM app_jobs LIMIT 0').all();
 

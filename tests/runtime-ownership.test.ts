@@ -52,3 +52,14 @@ it('duplicate startup cannot close another runtime and restarting requires a fre
     }finally{await runtime.close();}
   `);
 },15000);
+
+it('rejects unsupported durable job versions on every bootstrap even after the initialization command was cached', async () => {
+  const jobsUrl=pathToFileURL(path.join(repo,'server/jobStore.ts')).href;
+  await run(`
+    const jobs=await import(${JSON.stringify(jobsUrl)});new jobs.AppJobStore();
+    const sqlite=await import(${JSON.stringify(sqliteUrl)});
+    sqlite.sqliteConnection().prepare("UPDATE app_meta SET value='2' WHERE key='job_store_version'").run();
+    await assert.rejects(import(${JSON.stringify(jobsUrl+'?synthetic-rebootstrap')}),/Unsupported durable job store version/);
+    sqlite.sqliteClose();
+  `);
+},15000);

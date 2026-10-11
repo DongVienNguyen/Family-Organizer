@@ -1,6 +1,7 @@
 import { expect, it, vi } from 'vitest';
-const provider = vi.hoisted(() => ({ setVapidDetails: vi.fn(), sendNotification: vi.fn(async () => ({})) }));
+const provider = vi.hoisted(() => ({ setVapidDetails: vi.fn(), generateRequestDetails: vi.fn((subscription, payload, options) => ({ subscription, payload, options })), sendNotification: vi.fn(async (_subscription?: unknown, _payload?: unknown, _options?: unknown) => ({})) }));
 vi.mock('web-push', () => ({ default: provider }));
+vi.mock('./pushTransport.js', () => ({ sendPushRequest: (details: any) => provider.sendNotification(details.subscription, details.payload, details.options) }));
 vi.stubEnv('VAPID_PUBLIC_KEY', 'synthetic-public-vapid');
 vi.stubEnv('VAPID_PRIVATE_KEY', 'synthetic-private-vapid');
 const push = await import('./push.js');

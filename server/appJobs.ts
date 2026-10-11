@@ -12,6 +12,7 @@ interface ScheduledJob {
   durableOnly: boolean;
   kind: AppJobKind;
   nextIntervalAt?: number;
+  occurrenceKey?: (now: Date) => string | undefined;
 }
 
 /** One registry owns both legacy intervals and persistent namespaced commands. */
@@ -27,14 +28,14 @@ export class AppJobs {
   }
   get durableEnabled(): boolean { return !!this.storage; }
 
-  registerAppJob(namespace: string, type: string, handler: JobHandler, schedule?: { everyMs: number; initialMs?: number; kind?: AppJobKind }): void {
+  registerAppJob(namespace: string, type: string, handler: JobHandler, schedule?: { everyMs: number; initialMs?: number; kind?: AppJobKind; occurrenceKey?: (now: Date) => string | undefined }): void {
     const key = `${namespace}:${type}`;
     if (!namespace || !type || namespace.includes(':') || type.includes(':')) throw new Error('Invalid job namespace/type');
     if (this.running || this.stopped) throw new Error('Register jobs before starting');
     if (this.jobs.has(key)) throw new Error(`Job already registered: ${key}`);
     if (!schedule && !this.storage) throw new Error('Durable handlers require the shared job storage port');
     if (schedule && (!(schedule.everyMs > 0) || !Number.isFinite(schedule.everyMs) || (schedule.initialMs !== undefined && (!Number.isFinite(schedule.initialMs) || !(schedule.initialMs >= 0))))) throw new Error('Invalid job interval');
-    this.jobs.set(key, { handler, everyMs: schedule?.everyMs ?? this.pollMs, initialMs: schedule?.initialMs ?? (schedule ? undefined : 0), durableOnly: !schedule, kind: schedule?.kind ?? 'command' });
+    this.jobs.set(key, { handler, everyMs: schedule?.everyMs ?? this.pollMs, initialMs: schedule?.initialMs ?? (schedule ? undefined : 0), durableOnly: !schedule, kind: schedule?.kind ?? 'command', occurrenceKey: schedule?.occurrenceKey });
   }
 
   private async executePersisted(key: string, job: ScheduledJob): Promise<void> {
@@ -44,7 +45,8 @@ export class AppJobs {
       // Align daily buckets with the product timezone; minute/hour schedules
       // retain stable slots. Restarts reuse the slot rather than replaying it.
       const slot = Math.floor((now + 7 * 3600_000) / job.everyMs);
-      storage.enqueue({ namespace, type, key: `interval:${slot}`, payload: {}, kind: job.kind });
+      const occurrence = job.occurrenceKey ? job.occurrenceKey(new Date(now)) : `interval:${slot}`;
+      if (occurrence !== undefined) storage.enqueue({ namespace, type, key: occurrence, payload: {}, kind: job.kind });
       job.nextIntervalAt = now + job.everyMs;
     }
     const lease = storage.claim(namespace, type, now, this.leaseMs);

@@ -398,13 +398,15 @@ export async function runWeeklyDigestTick(now = new Date()): Promise<void> {
   if (s.telegramWeeklyDigestLastSent === mondayKey) return;
 
   sending = true;
+  let acknowledged = false;
   try {
     const { aiUsed } = await sendWeeklyDigest(now);
+    acknowledged = true;
     setAppSetting("telegramWeeklyDigestLastSent", mondayKey);
     console.log(`[weeklyDigest] Bản tin tuần đã gửi (AI=${aiUsed}).`);
   } catch (e: any) {
     console.error("[weeklyDigest] Gửi thất bại.");
-    throw e instanceof AppDeliveryError ? e : new AppDeliveryError('Automatic weekly digest failed', false);
+    throw e instanceof AppDeliveryError ? e : new AppDeliveryError('Automatic weekly digest failed', acknowledged);
   } finally {
     sending = false;
   }

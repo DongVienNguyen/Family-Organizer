@@ -162,3 +162,11 @@
 - New fixtures observed RED→GREEN:8queue/fence,3durable registry,2push outbox,3bounded push provider,2scheduled provider failure tests. Cloud Node24 whole suite257/257tests33files, lint/build pass; exact Windows GREEN pending source commit. No dependency/lockfile change. No real providers, notifications or AI calls in tests.
 - One local shell-wrapper run printed7passed but exited1; direct targeted rerun exited0 and later full suite passed257. Preserve this ambiguity and final explicit exit-code/Windows proof, not an inferred success from printed tests.
 - I01-b review/Windows verification pending. Next after verified authorized merge: I01-c snapshot/recovery/coordinator, then F04/F05 and remaining milestones. Full51-task plan remains incomplete. No release/tag/VPS.
+
+### I01-b — First Windows GREEN and reviewed correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/5, base/main `ab83299eb91760dcdebde571ed852d14fdb0b76e`.
+- First source `f9bbdc00eba6f49247309a14014047d98638f3f2`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38149368740: both Windows2022 x64 Node22/24 jobs and ci-gate success. Independently downloaded/read logs, JUnit/JSON/native/production artifacts:257/257 tests33files each, no failed/skipped, npmci/native/lint/test/build/production exit0. Snapshot/hashes `evidence/i01-b-first-source.json`.
+- One review found four Important defects; one RED→GREEN pass addresses daily/weekly unknown delivery replay, cleanup certainty, cached-bootstrap compatibility and push transport total deadline/cancellation. See `i01-b-review-and-decisions.md`. Corrected Cloud265/26534files, lint/build separately; source/final exact-HEAD Windows verification pending push. No dependency change; lockfile unchanged.
+- Remaining: I01-c WAL/domain/media/version snapshot, HTTP/job drain and filesystem journal/recovery. Whole I01 remains incomplete. F04 auth/privacy/audit; F05/F09 browser/coverage/performance; F06/F07 packaging/service; R02 Server2019 are not run by this PR. No release/tag/VPS.
+- Next: exact corrected Windows checks, read artifacts, merge authorized PR #5 after acceptance; continue I01-c from merged main.

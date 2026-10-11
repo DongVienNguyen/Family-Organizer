@@ -10,7 +10,8 @@
 // web-push là CommonJS — dưới ESM ("type": "module") không destructure named export
 // trực tiếp được (Node báo "does not provide an export named ..."). Import default rồi lấy field.
 import webpush from "web-push";
-const { setVapidDetails, sendNotification } = webpush;
+const { setVapidDetails, generateRequestDetails } = webpush;
+import { sendPushRequest } from './pushTransport.js';
 import { FamilyOrganizerDB, Notification, PushSubscriptionRecord } from "../src/types.js";
 import { AppDeliveryError } from './appErrors.js';
 import { getAppCommandContext } from './commandContext.js';
@@ -59,7 +60,7 @@ function unreadCountFor(db: Pick<FamilyOrganizerDB, 'notifications'>, userId: st
 // Send one payload to one subscription. Returns "ok" | "dead" | "error".
 async function sendOne(sub: PushSubscriptionRecord, payload: string): Promise<"ok" | "dead" | "error"> {
   try {
-    await sendNotification(sub.subscription, payload, { timeout: 15_000 });
+    await sendPushRequest(generateRequestDetails(sub.subscription, payload, { timeout: 15_000 }), new AbortController().signal);
     return "ok";
   } catch (err: any) {
     const code = err?.statusCode;
@@ -77,11 +78,12 @@ export async function sendQueuedNotification(db: Pick<FamilyOrganizerDB, 'notifi
   getAppCommandContext()?.assertWriteOwnership?.();
   const payload = JSON.stringify({ title: notif.title, body: notif.content, tag: notif.id, tab: tabForNotification(notif), badge: unreadCountFor(db, sub.userId) });
   try {
-    await sendNotification(sub.subscription, payload, { timeout: 15_000 });
+    await sendPushRequest(generateRequestDetails(sub.subscription, payload, { timeout: 15_000 }), signal);
     return 'ok';
   } catch (error: any) {
     const code = error?.statusCode;
     if (code === 404 || code === 410) return 'dead';
+    if (error instanceof AppDeliveryError) throw error;
     throw new AppDeliveryError('Push provider delivery failed', !(typeof code === 'number' && code >= 400 && code < 500));
   }
 }

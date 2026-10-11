@@ -11,7 +11,8 @@ transaction as the domain/legacy write. Namespace/type/key is unique; canonical
 payload, kind, retry limit and an explicit schedule form the hash. Matching retries
 return the prior ID; changed payload returns409. Payloads have a1MiB limit; large
 objects require managed references. Core job schema is versioned and initialized
-through the existing gateway before readiness. Domain migrations remain flag-off.
+through the existing gateway before readiness. Persisted version compatibility is
+checked on every bootstrap even when the initialization command is cached. Domain migrations remain flag-off.
 
 Claims serialize on the same handle, increment attempts and assign an unguessable
 lease token/deadline. Completion, renewal and failure require the current token
@@ -31,14 +32,20 @@ banners; they are not proof that every recipient received the message.
 Legacy intervals enqueue stable timezone-aligned period keys and use this same
 registry. Pausing gates new claims, aborts accepted work and awaits handlers;
 maintenance resume waits the usual next interval rather than rerunning startup
-work. Scheduled Telegram backup/digest jobs are external effects. Their bounded
+work. Scheduled Telegram backup/digest jobs are external effects. Daily backup and Monday digest use durable local-calendar occurrence keys,
+so an unknown outcome also blocks subsequent 30-minute ticks and restarts for
+that occurrence. A later day/week is a separate operation. Their bounded
 provider calls propagate failure/uncertain outcome, await failure alerts and
 temporary-file cleanup, and no longer acknowledge a caught delivery failure.
+Cleanup failure cannot replace an uncertain primary delivery outcome; errors
+after acknowledgement cannot trigger automatic redelivery. A locked temporary
+file is reported without exposing its path and may require operator cleanup.
 
 All four legacy notification producers enqueue per-recipient push references in
 their owning command. No provider call occurs before commit or on rollback. The
 same registry resolves current notification, user and subscription before sending,
-checks cancellation/lease ownership, uses a15s provider timeout and removes dead
+checks cancellation/lease ownership, uses an owned HTTPS request with an absolute15s deadline and cancellation,
+awaits request closure, caps response data at64KiB, and removes dead
 subscriptions through the gateway. Queue payloads contain references, not push
 subscription keys or provider credentials. Known provider rejection can retry;
 network/acknowledgement uncertainty becomes `unknown`.
@@ -77,3 +84,16 @@ worker-aware restore, filesystem staging/journal and interrupted-startup recover
 The shared I01 task is incomplete until then. F04 privacy/auth/media/dependency
 audit, F05/F09 browser/coverage/performance, F06 ZIP, F07 WinSW/recovery encryption
 and R02 Server2019 remain their own gates. No release/tag/VPS.
+
+### I01-b review correction
+
+First Windows GREEN [38149368740](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38149368740)
+at `f9bbdc00eba6f49247309a14014047d98638f3f2` independently proved257/33 on both
+runtimes, all six exit checks0 and ci-gate. Its artifacts/hashes are preserved in
+`evidence/i01-b-first-source.json`. It is superseded for acceptance by the review
+fixes: see `i01-b-review-and-decisions.md`. Four Important findings received one
+fix pass, with seven regression cases observed RED and then GREEN. An additional
+owned-transport successful response regression verifies the happy path. The full
+corrected Cloud suite is265/265 in34files, with lint/build checked separately.
+Corrected exact-HEAD Windows CI and final documentation HEAD still require their
+own runs before merge; the first GREEN does not prove the corrected SHA.

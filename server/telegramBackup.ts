@@ -83,6 +83,8 @@ export async function sendBackupToTelegram(): Promise<{ sizeMb: number; fileName
 
   // Nén ra file tạm (không dồn RAM) rồi đọc lên gửi.
   const tmpFile = path.join(os.tmpdir(), `fo-backup-${Date.now()}-${crypto.randomBytes(4).toString("hex")}.zip`);
+  let primaryFailure: unknown;
+  let acknowledged = false;
   try {
     const out = fs.createWriteStream(tmpFile);
     // Đăng ký listener TRƯỚC khi nén — archive.pipe tự end stream khi xong,
@@ -107,11 +109,22 @@ export async function sendBackupToTelegram(): Promise<{ sizeMb: number; fileName
     form.append("document", new Blob([await fs.promises.readFile(tmpFile)], { type: "application/zip" }), fileName);
 
     await postTelegram(token, 'sendDocument', { body: form });
+    acknowledged = true;
 
     setAppSetting("telegramBackupLastSent", localDateKey(new Date()));
     return { sizeMb, fileName };
+  } catch (error) {
+    primaryFailure = acknowledged ? new AppDeliveryError('Backup acknowledged but local finalization failed', true) : error;
+    throw primaryFailure;
   } finally {
-    await fs.promises.unlink(tmpFile).catch(error => { if (error?.code !== 'ENOENT') throw error; });
+    try { await fs.promises.unlink(tmpFile); }
+    catch (error: any) {
+      if (error?.code !== 'ENOENT') {
+        console.error('Telegram backup temporary-file cleanup failed.');
+        // Await cleanup, retain the original delivery outcome, and never retry an acknowledged send.
+        if (!primaryFailure) throw new AppDeliveryError('Backup temporary-file cleanup failed', acknowledged);
+      }
+    }
   }
 }
 

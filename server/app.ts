@@ -1,3 +1,4 @@
+import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -631,8 +632,8 @@ app.post("/api/settings/telegram-digest/test", requireAuth, requireRole([UserRol
 });
 
 // Vòng kiểm tra gửi backup + bản tin tuần (mỗi 30 phút, module tự lo dedupe + khung giờ).
-jobs.registerAppJob('legacy', 'telegram-backup', () => runTelegramBackupTick(), { everyMs: 30 * 60 * 1000, kind: 'effect' });
-jobs.registerAppJob('legacy', 'weekly-digest', () => runWeeklyDigestTick(), { everyMs: 30 * 60 * 1000, kind: 'effect' });
+jobs.registerAppJob('legacy', 'telegram-backup', () => runTelegramBackupTick(), { everyMs: 30 * 60 * 1000, kind: 'effect', occurrenceKey: backupOccurrence });
+jobs.registerAppJob('legacy', 'weekly-digest', () => runWeeklyDigestTick(), { everyMs: 30 * 60 * 1000, kind: 'effect', occurrenceKey: digestOccurrence });
 
 // --- AUTH API ENDPOINTS ---
 
