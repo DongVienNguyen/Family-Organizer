@@ -1,0 +1,48 @@
+{
+  "task": "F04-a",
+  "headSha": "17932af41f5ef2f3ce941f4a8edf4cb824b683c9",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38155413684",
+  "intentionalRed": true,
+  "runtimes": [
+    {
+      "artifact": "windows-node22-17932af41f5ef2f3ce941f4a8edf4cb824b683c9-1",
+      "node": "v22.23.3",
+      "checks": {
+        "install": "success",
+        "native": "success",
+        "lint": "success",
+        "test": "failure",
+        "build": "success",
+        "production": "success"
+      },
+      "passedTests": 311,
+      "failedTests": 22,
+      "failedSuites": [
+        "Family-Organizer/server/auth.test.ts",
+        "Family-Organizer/server/authStore.test.ts"
+      ],
+      "pending": 0,
+      "todo": 0
+    },
+    {
+      "artifact": "windows-node24-17932af41f5ef2f3ce941f4a8edf4cb824b683c9-1",
+      "node": "v24.21.0",
+      "checks": {
+        "install": "success",
+        "native": "success",
+        "lint": "success",
+        "test": "failure",
+        "build": "success",
+        "production": "success"
+      },
+      "passedTests": 311,
+      "failedTests": 22,
+      "failedSuites": [
+        "Family-Organizer/server/auth.test.ts",
+        "Family-Organizer/server/authStore.test.ts"
+      ],
+      "pending": 0,
+      "todo": 0
+    }
+  ]
+}

@@ -45,7 +45,7 @@ export async function startManagedServer(handle: ManagedApp, options: {
     await new Promise<void>((resolve, reject) => {
       const error = (cause: Error) => reject(cause);
       server.once('error', error);
-      server.listen(options.port, options.host ?? '0.0.0.0', () => { server.off('error', error); resolve(); });
+      server.listen(options.port, options.host ?? '127.0.0.1', () => { server.off('error', error); resolve(); });
     });
     state.phase = 'ready';
     handle.jobs.start();

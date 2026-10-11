@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { endClientSession } from './utils/clientSession';
 import { flushSync } from "react-dom";
 import { 
   Home, 
@@ -896,15 +897,17 @@ export default function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("family_token");
-    localStorage.removeItem("family_user_id"); // clean up legacy key
-    localStorage.removeItem("family_active_tab");
-    setAuthToken(null);
-    setCurrentUser(null);
-    if (sseRef.current) {
-      sseRef.current.close();
-      sseRef.current = null;
-    }
+    void endClientSession(authToken,()=>{
+      localStorage.removeItem("family_token");
+      localStorage.removeItem("family_user_id"); // clean up legacy key
+      localStorage.removeItem("family_active_tab");
+      setAuthToken(null);
+      setCurrentUser(null);
+      if (sseRef.current) {
+        sseRef.current.close();
+        sseRef.current = null;
+      }
+    });
   };
 
   const openSettingsTab = (tab: SettingsTab) => {
@@ -1567,7 +1570,7 @@ export default function App() {
       const data = await res.json();
       throw new Error(data.error);
     }
-    return res.json();
+    const result=await res.json();handleLogout();return result;
   };
 
   const handleResetUserPassword = async (userId: string, newPassword: string) => {

@@ -20,6 +20,7 @@ import { httpErrorStatus, httpErrorBody } from "./appErrors.js";
 import { registerPushDelivery } from './registerOutbox.js';
 import { withAppCommandContext } from "./commandContext.js";
 import { isReady, type RuntimeState } from "./runtimeState.js";
+import type { AuthService } from './auth.js';
 
 export interface AppDependencies {
   db: typeof import('./db.js'); sqlite: typeof import('./sqlite.js');
@@ -29,11 +30,12 @@ export interface AppDependencies {
   build: { version: string; commit: string; buildTime: string };
   state: RuntimeState; jobs: AppJobs; metrics: ReturnType<typeof createSystemMetrics>;
   checkStorage?: () => void;
+  auth:AuthService;
 }
 
 /** Route construction does not open storage, bind HTTP or start scheduled jobs. */
 export async function createApp(appConfig: AppConfig, dependencies: AppDependencies) {
-  const { FamilyDB, verifyPassword, getSessionSecret, getAppSettings, setAppSetting } = dependencies.db;
+  const { FamilyDB, verifyPassword, getAppSettings, setAppSetting } = dependencies.db;
   const { sqliteAppendServerMetric, sqliteGetServerMetrics } = dependencies.sqlite;
   const { saveDataUrlToFile, UPLOADS_DIR } = dependencies.media;
   const { streamFullBackup, fullBackupFilename, importFullBackup } = dependencies.fullBackup;
@@ -196,6 +198,7 @@ async function geminiGenerate(ai: any, params: any, retries = 2): Promise<any> {
 }
 
 // Body parser - supports rich receipt images in finances
+app.use('/api/auth',(_req,res,next)=>{res.setHeader('Cache-Control','no-store');next();});
 app.use(express.json({ limit: "15mb" }));
 // A request accepted before maintenance may still be parsing its body.
 app.use((_req, res, next) => {
@@ -203,30 +206,7 @@ app.use((_req, res, next) => {
   next();
 });
 
-// --- SESSION TOKEN SIGNING ---
-// Tokens are stateless: "userId.HMAC(userId)". They cannot be forged without the
-// per-install secret, so a guessable userId alone is no longer a valid session.
-const SESSION_SECRET = getSessionSecret();
-
-function signToken(userId: string): string {
-  const sig = crypto.createHmac("sha256", SESSION_SECRET).update(userId).digest("hex");
-  return `${userId}.${sig}`;
-}
-
-function verifyToken(token: string): string | null {
-  const dotIndex = token.lastIndexOf(".");
-  if (dotIndex <= 0) return null;
-  const userId = token.slice(0, dotIndex);
-  const sig = token.slice(dotIndex + 1);
-  const expected = crypto.createHmac("sha256", SESSION_SECRET).update(userId).digest("hex");
-  if (sig.length !== expected.length) return null;
-  try {
-    if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return null;
-  } catch {
-    return null;
-  }
-  return userId;
-}
+// Internal opaque Bearer sessions are owned by the injected revocation service.
 
 // --- SIMPLE LOGIN RATE LIMITING (in-memory, per IP) ---
 const loginAttempts = new Map<string, { count: number; first: number }>();
@@ -284,15 +264,12 @@ const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => 
     return;
   }
 
-  const token = authHeader.split(" ")[1];
-  const userId = verifyToken(token);
-  if (!userId) {
+  const token = authHeader.slice(7);
+  const matchedUser=dependencies.auth.verify(token);
+  if (!matchedUser) {
     next();
     return;
   }
-
-  const users = FamilyDB.getUsers();
-  const matchedUser = users.find(u => u.id === userId);
 
   if (matchedUser && !matchedUser.isDeleted) {
     req.userSession = {
@@ -670,7 +647,11 @@ app.post("/api/auth/login", (req: Request, res: Response) => {
   }
 
   const { passwordHash, ...safeUser } = user;
-  res.json({ user: safeUser, token: signToken(user.id) });
+  res.json({ user: safeUser, token: dependencies.auth.issue(user) });
+});
+
+app.post('/api/auth/logout',requireAuth,(req:AuthRequest,res:Response)=>{
+  dependencies.auth.logout(req.headers.authorization!.slice(7));res.json({success:true});
 });
 
 app.get("/api/auth/me", (req: AuthRequest, res: Response) => {

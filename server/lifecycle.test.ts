@@ -106,3 +106,7 @@ it('passes the exact internal restore owner to handler drain while retaining nor
     await runtime.close(); expect(drained).toEqual([owner, undefined]);
   } finally { await runtime.close(); }
 });
+it('defaults the managed HTTP listener to loopback before reverse-proxy acceptance',async()=>{
+  const {startManagedServer}=await load();const runtime=await startManagedServer({app:express(),jobs:new AppJobs(),endStreams:()=>{},dispose:async()=>{}},{port:0,closeStorage:()=>{}});
+  try{expect((runtime.server.address() as any).address).toBe('127.0.0.1');}finally{await runtime.close();}
+});

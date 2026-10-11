@@ -8,7 +8,7 @@ const sha = '1234567890123456789012345678901234567890';
 const suiteNames = [
   'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
-  'server/jobStore.test.ts', 'server/appJobs.durable.test.ts', 'server/pushOutbox.test.ts', 'server/pushDelivery.test.ts', 'server/providerJobs.test.ts', 'server/pushTransport.test.ts', 'server/appSnapshot.test.ts', 'server/fullBackup.test.ts', 'tests/snapshot-recovery.test.ts', 'tests/snapshot-http.test.ts',
+  'server/jobStore.test.ts', 'server/appJobs.durable.test.ts', 'server/pushOutbox.test.ts', 'server/pushDelivery.test.ts', 'server/providerJobs.test.ts', 'server/pushTransport.test.ts', 'server/auth.test.ts', 'server/authStore.test.ts', 'server/authHttp.test.ts', 'src/utils/clientSession.test.ts', 'server/appSnapshot.test.ts', 'server/fullBackup.test.ts', 'tests/snapshot-recovery.test.ts', 'tests/snapshot-http.test.ts',
   'src/utils/assetValue.test.ts', 'src/utils/bmi.test.ts', 'src/utils/debt.test.ts',
   'src/utils/financePeriod.test.ts', 'src/utils/recurrence.test.ts',
   'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',
@@ -29,7 +29,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     'production.json': {
       commitSha: sha, nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64',
       checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets',
-        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery'],
+        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout'],
     },
     'vitest.json': {
       success: true, numTotalTests: suiteNames.length, numPassedTests: suiteNames.length,
@@ -97,6 +97,9 @@ describe('Windows CI evidence gate', () => {
 
   it('rejects production startup evidence from another SHA', () => {
     expect(runEvidence(reports => { reports['production.json'].commitSha = 'f'.repeat(40); }).code).toBe(1);
+  });
+  it.each(['auth-session-restart','auth-session-logout'])('rejects missing compiled production %s evidence',check=>{
+    expect(runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((name:string)=>name!==check);}).code).toBe(1);
   });
 
   it('rejects production reports that omit the permission or offline checks', () => {

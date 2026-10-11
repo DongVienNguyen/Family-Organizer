@@ -196,6 +196,7 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
         for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => row[column]));
         tx.legacy = JSON.parse(JSON.stringify(checked.legacy));
         reconcileBackupReferences(tx.legacy);
+        if(tx.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auth_sessions'"))tx.run('DELETE FROM auth_sessions');
         new AppJobStore().restorePolicy(tx,Date.now());
         tx.run('INSERT INTO app_restore_commits VALUES (?,?,?)',id,checked.manifest.checksum,new Date().toISOString());
         return { restoredFiles: Object.keys(checked.media).length };

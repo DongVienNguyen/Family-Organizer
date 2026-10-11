@@ -43,13 +43,13 @@ async function stop() {
     try { const [code, signal] = await exited; assert.equal(signal, null); assert.equal(code, 0, serverOutput); assert.match(serverOutput, /Shutdown complete/); } finally { clearTimeout(timer); }
   }
 }
-function request(port, pathname, body) {
+function request(port, pathname, body, token) {
   return new Promise((resolve, reject) => {
-    const req = http.request({ hostname: '127.0.0.1', port, path: pathname, method: body ? 'POST' : 'GET', headers: body ? { 'Content-Type': 'application/json' } : {} }, res => {
+    const req = http.request({ hostname: '127.0.0.1', port, path: pathname, method: body ? 'POST' : 'GET', headers: { ...(body ? { 'Content-Type': 'application/json' } : {}),...(token?{Authorization:'Bearer '+token}:{}) } }, res => {
       let text = '';
       res.setEncoding('utf8');
       res.on('data', chunk => { text += chunk; });
-      res.on('end', () => resolve({ status: res.statusCode, text }));
+      res.on('end', () => resolve({ status: res.statusCode, text,headers:res.headers }));
     });
     req.setTimeout(2000, () => req.destroy(new Error('HTTP probe timeout')));
     req.on('error', reject);
@@ -69,6 +69,7 @@ async function launch(dataDirectory = dataRoot) {
   return port;
 }
 try {
+  let previousToken;
   for (let iteration = 0; iteration < 2; iteration++) {
     const port = await launch();
     const deadline = Date.now() + 15000;
@@ -86,9 +87,17 @@ try {
     assert.equal(html.status, 200);
     assert.match(html.text, /<div id="root"/);
     assert.equal((await request(port, '/sw.js')).status, 200);
+    if(previousToken)assert.equal((await request(port,'/api/auth/me',undefined,previousToken)).status,200,'Issued session must survive a graceful process restart');
     const login = await request(port, '/api/auth/login', { username: 'synthetic', password });
     assert.equal(login.status, 200, login.text);
     assert.equal(JSON.parse(login.text).user.id, 'synthetic-adult');
+    const token=JSON.parse(login.text).token;assert.match(token,/^fo1\./);assert.equal(login.headers['cache-control'],'no-store');
+    assert.equal((await request(port,'/api/auth/me',undefined,token)).status,200);
+    if(iteration===1){
+      assert.equal((await request(port,'/api/auth/logout',{},token)).status,200);
+      assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);
+      assert.equal((await request(port,'/api/auth/me',undefined,previousToken)).status,200,'Logout must not revoke a separate active session');
+    }else previousToken=token;
     await stop();
     assert.ok(fs.existsSync(path.join(dataRoot, 'family.db')));
     const db = new Database(path.join(dataRoot, 'family.db'), { readonly: iteration !== 0 });
@@ -140,7 +149,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

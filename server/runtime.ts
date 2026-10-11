@@ -28,6 +28,9 @@ export async function startApplication(config: AppConfig = appConfig) {
     const { recoverAppRestore } = await import('./appSnapshot.js');
     recoverAppRestore();
     const db = await import('./db.js');
+    const {createAuth}=await import('./auth.js');const {NativeSessionStore}=await import('./authStore.js');
+    const auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:db.getSessionSecret});
+    auth.initialize(); // Validate and persist key rotation before readiness, even without auth traffic.
     const media = await import('./media.js');
     const fullBackup = await import('./fullBackup.js');
     const telegram = await import('./telegramBackup.js');
@@ -37,7 +40,7 @@ export async function startApplication(config: AppConfig = appConfig) {
     const { AppJobStore } = await import('./jobStore.js');
     state.migrating = false; state.storageWritable = true;
     handle = await createApp(config, {
-      db, sqlite, media, fullBackup, telegram, digest, ics, push,
+      db, sqlite, media, fullBackup, telegram, digest, ics, push,auth,
       build: readBuildInfo(config.codeRoot, process.env), state,
       jobs: new AppJobs(undefined, new AppJobStore()), metrics: createSystemMetrics(config.dataRoot),
       checkStorage: () => prepareStorage(config),
@@ -46,7 +49,7 @@ export async function startApplication(config: AppConfig = appConfig) {
     if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error('Invalid PORT');
     delegated = true;
     return await startManagedServer(handle, {
-      port, state, drainEffects: drainAppEffects,
+      port,host:'127.0.0.1', state, drainEffects: drainAppEffects,
       closeStorage() { storage.sqliteCheckpoint(); storage.sqliteClose(); },
     });
   } catch (error) {
