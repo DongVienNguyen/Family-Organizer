@@ -13,12 +13,21 @@ async function fixture(handler: http.RequestListener) {
 
 it('destroys a continuously active response at the absolute deadline and awaits socket closure', async () => {
   let closed = false; let chunks = 0;
+  let started!:()=>void;const streaming=new Promise<void>(resolve=>{started=resolve;});
   const details = await fixture((_req, res) => {
     res.writeHead(200); res.write('synthetic');
-    const timer = setInterval(() => { chunks++; res.write('chunk'); }, 10);
+    const timer = setInterval(() => { chunks++; res.write('chunk'); if(chunks===2)started(); }, 10);
     res.on('close', () => { clearInterval(timer); closed = true; });
   });
-  await expect(sendPushRequest(details, new AbortController().signal, 100)).rejects.toMatchObject({ unknownOutcome: true });
+  // Start the deadline clock after observing real streaming, rather than racing
+  // connection establishment against 100ms of a busy suite's wall clock.
+  vi.useFakeTimers({toFake:['setTimeout','clearTimeout']});
+  try {
+    const result=expect(sendPushRequest(details, new AbortController().signal, 100)).rejects.toMatchObject({unknownOutcome:true});
+    await streaming;
+    await vi.advanceTimersByTimeAsync(100);
+    await result;
+  } finally {vi.useRealTimers();}
   await vi.waitFor(() => expect(closed).toBe(true));
   expect(chunks).toBeGreaterThan(1);
 });

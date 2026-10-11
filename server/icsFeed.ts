@@ -105,7 +105,7 @@ export function planToIcsEvent(p: FamilyPlan, dtstamp: string): string[] {
   ];
 }
 
-/** Dựng toàn bộ nội dung file .ics: mọi sự kiện lịch + sinh nhật thành viên (lặp hằng năm). */
+/** Family subscription has no actor identity: shared plans and family birthdays only. */
 export function buildIcsFeed(): string {
   const lines: string[] = [
     "BEGIN:VCALENDAR",
@@ -118,7 +118,7 @@ export function buildIcsFeed(): string {
   ];
   const now = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 
-  for (const p of FamilyDB.getPlans()) {
+  for (const p of FamilyDB.getPlans().filter(plan=>plan.isShared===true)) {
     lines.push(...planToIcsEvent(p, now));
   }
 
