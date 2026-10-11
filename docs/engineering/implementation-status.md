@@ -12,7 +12,7 @@
 | F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
 | F04-e | Reviewed, exact Windows GREEN, merged PR11 | HEADc2b0f88/run38171963503;664/66463files per runtime |
 | F04-f | Reviewed, exact Windows GREEN, merged PR12 | HEAD8aa5299/run38174580999;762/76266files per runtime |
-| F04-g | PR13 first Windows verified; two Important review corrections in progress | HEAD9730254/run38176066061;850/85069files per runtime |
+| F04-g | PR13 reviewed/corrected Windows GREEN; final documentation HEAD pending | HEADec77266/run38176775633;860/86069files per runtime |
 | F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -403,3 +403,5 @@ Canonical-destination follow-up validation: Cloud664/66463files, zero failed/ski
 - Fresh single whole-branch review: noCritical, twoImportant accepted/fixed in one TDD pass (retained attachment historical fields; downstream canonical type/title preservation), noMinor/no rereview. Seven more actualRED regressions and three rejection characterizations; corrected Cloud lint/full860/86069files/build all exit0, zero skips. Frozen lockfile unchanged; exact corrected/final Windows pending. No dependency/lockfile changes.
 - Browser/PWA and coverage F05, other F04/privacy/provider/bootstrap/dependency work, package/service F06/F07, performance F09 and Server2019 R02 remain. F05 ruleset and branch-protection writes are actually blocked403; evidence/f05-enforcement-blocked.json contains exact requests/responses. No release/tag/VPS operation.
 - Next: corrected full Cloud validation, exact corrected/final Windows logs/artifacts, authorized merge; continue remaining F04 and independent F05–F08 preparation.
+
+- Corrected F04-g source ec772661516ad2549cb0604777b2a3a5c56e4fe6: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38176775633 independently verified both Windows Node22/24,860/86069files zero skips; all six command exits0,19 compiled proofs/evidence/ci-gate. Full logs/JUnit/JSON/native/production artifacts and SHA256 recorded in evidence/f04-g-corrected-source.json. Final documentation HEAD must pass its own run before merge; immutable PR proof comment records that exact SHA.
