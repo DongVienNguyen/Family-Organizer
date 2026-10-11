@@ -15,7 +15,7 @@ const suiteNames = [
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
   'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
   'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
-  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts',
+  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -29,7 +29,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     'production.json': {
       commitSha: sha, nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64',
       checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets',
-        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility'],
+        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media'],
     },
     'vitest.json': {
       success: true, numTotalTests: suiteNames.length, numPassedTests: suiteNames.length,
@@ -127,3 +127,6 @@ it.each(['server/realtimeHttp.test.ts','server/realtime.test.ts','server/legacyV
 
 it('requires authoritative object ACL suite evidence',()=>{expect(runEvidence(reports=>{const v=reports['vitest.json'];v.testResults=v.testResults.filter((suite:any)=>!suite.name.endsWith('server/objectAclHttp.test.ts'));v.numTotalTests=v.numPassedTests=v.testResults.length;}).code).toBe(1);});
 it('requires compiled object visibility proof',()=>{expect(runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((check:string)=>check!=='object-visibility');}).code).toBe(1);});
+
+it.each(['server/mediaHttp.test.ts','server/mediaMetadata.test.ts','tests/media-cold-restore.test.ts','src/utils/mediaResource.test.ts','tests/ui/authenticated-media.test.ts'])('rejects missing authenticated media suite %s',name=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((suite:any)=>!suite.name.replaceAll('\\','/').endsWith(name));});expect(result.evidence.errors).toContain('required suite missing: '+name);});
+it('rejects missing compiled authenticated media evidence',()=>{const result=runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((name:string)=>name!=='authenticated-media');});expect(result.evidence.errors).toContain('production probe check missing: authenticated-media');});

@@ -39,7 +39,7 @@ export interface AppDependencies {
 export async function createApp(appConfig: AppConfig, dependencies: AppDependencies) {
   const { FamilyDB, verifyPassword, getAppSettings, setAppSetting } = dependencies.db;
   const { sqliteAppendServerMetric, sqliteGetServerMetrics } = dependencies.sqlite;
-  const { saveDataUrlToFile, UPLOADS_DIR } = dependencies.media;
+  const { UPLOADS_DIR } = dependencies.media;
   const { streamFullBackup, fullBackupFilename, importFullBackup } = dependencies.fullBackup;
   const { telegramBackupStatus, sendBackupToTelegram, runTelegramBackupTick } = dependencies.telegram;
   const { sendWeeklyDigest, runWeeklyDigestTick } = dependencies.digest;
@@ -307,11 +307,6 @@ app.use(authMiddleware as any);
 // --- OPTIMISTIC LOCKING (chống 2 người cùng sửa một bản ghi đè nhau) ---
 // Optimistic edit checks run inside the write gateway, after retry lookup.
 
-// Serve uploaded media (avatars/assets/receipts) as static files. Filenames are
-// random/unguessable; the app runs on a private LAN/Tailscale network. Mounted
-// before the SPA catch-all so image URLs resolve in both dev and production.
-app.use("/uploads", express.static(UPLOADS_DIR, { cacheControl:false, fallthrough: false }));
-
 // Enforce authentication on APIs
 const requireAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
   if (!req.userSession) {
@@ -320,6 +315,19 @@ const requireAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
   }
   next();
 };
+
+// Bearer-authenticated immutable files; current domain ACL precedes any bytes.
+app.use('/uploads',requireAuth,(req:AuthRequest,res:Response)=>{
+  const missing=()=>res.status(404).json({error:'Không tìm thấy tệp.'});
+  if(req.method!=='GET'&&req.method!=='HEAD'){missing();return;}
+  const url=req.originalUrl.split('?')[0];
+  if(!dependencies.media.authorizeMedia?.(url,req.userSession!)){missing();return;}
+  try{const {bytes,mime}=dependencies.media.readManagedMedia(url);
+    res.setHeader('X-Content-Type-Options','nosniff');
+    res.setHeader('Content-Security-Policy',"sandbox; default-src 'none'");
+    res.type(mime).send(bytes);
+  }catch{missing();}
+});
 
 // Enforce specific role level
 const requireRole = (roles: UserRole[]) => {
@@ -367,7 +375,7 @@ const canManageDocument = (
 // --- MEDIA UPLOAD ---
 // Accepts an optimized base64 data URL, writes it to disk under the given
 // category folder, and returns the "/uploads/..." URL to store in the DB.
-const UPLOAD_CATEGORIES = new Set(["avatars", "assets", "receipts", "documents"]);
+const UPLOAD_CATEGORIES = new Set(["avatars", "assets", "receipts", "documents", "debts", "notes"]);
 
 app.post("/api/uploads", requireAuth, (req: AuthRequest, res: Response) => {
   const { dataUrl, category, subfolder } = req.body || {};
@@ -376,7 +384,8 @@ app.post("/api/uploads", requireAuth, (req: AuthRequest, res: Response) => {
     return;
   }
   try {
-    const saved = saveDataUrlToFile(dataUrl, category, subfolder);
+    if(!Object.values(UserRole).includes(req.userSession!.role)||["assets","receipts","documents","debts"].includes(category)&&!isAdult(req.userSession!)){res.status(403).json({error:"Không được tải tệp này."});return;}
+    const saved = dependencies.media.uploadMedia(dataUrl, category, subfolder,req.userSession!.userId);
     res.json(saved);
   } catch (err: any) {
     res.status(400).json({ error: err.message || "Tải ảnh lên thất bại." });

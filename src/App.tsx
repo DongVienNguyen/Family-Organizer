@@ -1,3 +1,4 @@
+import {invalidateManagedMedia} from './utils/mediaResource.js';
 import {sessionFetch as fetch} from './utils/browserSession.js';
 /**
  * @license
@@ -779,8 +780,9 @@ export default function App() {
     // Establish Server-Sent Events client loop pipeline
     let opened=false;
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
-      setIsOnline(online);if(online){if(opened)fetchAllData();opened=true;}
+      setIsOnline(online);if(online){if(opened){invalidateManagedMedia();fetchAllData();}opened=true;}
     },onMessage:payload=>{
+        invalidateManagedMedia();
         switch (payload.type) {
           case "TASKS_UPDATE":
             fetchTasks();

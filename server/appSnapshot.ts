@@ -1,4 +1,5 @@
 import type { AppWriteTx } from './appStore.js';
+import {reconcileMediaMetadata,canonicalMediaUrl,parseMediaMetadata} from './mediaPolicy.js';
 import { withAppWriteTransaction, AppStoreError, markSnapshotReadResult } from './appStore.js';
 import { getAppCommandContext } from './commandContext.js';
 import { sqliteConnection, sqliteBackupTo, LEGACY_KEYS } from './sqlite.js';
@@ -105,6 +106,8 @@ export function validateAppSnapshot(input: unknown): ValidatedAppSnapshot {
     if (!Array.isArray(rows) || rows.some(row => !row || JSON.stringify(Object.keys(row).sort()) !== JSON.stringify([...columns].sort()) || Object.values(row).some(value => value !== null && typeof value !== 'string' && !(typeof value === 'number' && Number.isFinite(value))))) throw new Error('Invalid snapshot table rows');
     rowCount += rows.length;
   }
+  for(const row of s.tables.app_meta)if(row.key.startsWith('media:')){canonicalMediaUrl(row.key.slice(6));parseMediaMetadata(row.value);}
+  const mediaVersion=s.tables.app_meta.find(row=>row.key==='media_version');if(mediaVersion&&mediaVersion.value!=='1')throw new Error('Unsupported media metadata version');
   // Validate native primary keys, persisted schema versions and cross-table references
   // before staging files, even if a caller recomputed a valid content checksum.
   for (const [name] of trusted) {
@@ -196,6 +199,7 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
         for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => row[column]));
         tx.legacy = JSON.parse(JSON.stringify(checked.legacy));
         reconcileBackupReferences(tx.legacy);
+        reconcileMediaMetadata(tx);
         if(tx.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auth_sessions'"))tx.run('DELETE FROM auth_sessions');
         new AppJobStore().restorePolicy(tx,Date.now());
         tx.run('INSERT INTO app_restore_commits VALUES (?,?,?)',id,checked.manifest.checksum,new Date().toISOString());
@@ -218,6 +222,7 @@ export function legacySnapshot(legacy: unknown, media?: Record<string,string>, s
   if (Object.values(getDomainVersions()).some(version => version !== 0) || connection.prepare('SELECT claim_id FROM app_reward_claims LIMIT 1').get()) throw new Error('A shared manifest is required after domain or completion-claim cutover');
   return withAppWriteTransaction({actorId:'system:snapshot',command:'core:snapshot:legacy-read',requestId:randomUUID(),payloadHash:sha256('legacy-read')},tx=>{
     const snapshot=collectAppSnapshot(tx);snapshot.legacy=legacy;
+    snapshot.tables.app_meta=snapshot.tables.app_meta.filter(row=>!row.key.startsWith('media:')&&row.key!=='media_version');
     if (media) snapshot.media=media;
     if (settings) snapshot.settings=Object.fromEntries(publicSettingKeys.filter(key=>typeof settings[key]==='string').map(key=>[key,settings[key]]));
     snapshot.tables.app_commands=snapshot.tables.app_commands.filter(row=>['core:job-store:init','core:snapshot:init'].includes(row.command));

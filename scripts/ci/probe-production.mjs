@@ -29,6 +29,9 @@ const shared={creatorId:'synthetic-adult',isShared:true,description:'synthetic v
 legacy.plans=[{...shared,id:'synthetic-shared-plan',title:'Synthetic shared',startDate:'2026-10-11 09:00'}, {...shared,id:'synthetic-private-plan',title:'Synthetic private',startDate:'2026-10-11 09:00',isShared:false}];
 legacy.notes=[{...shared,id:'synthetic-shared-note',title:'Synthetic shared',content:'synthetic visibility',allowedRolesToEdit:[]}, {...shared,id:'synthetic-private-note',title:'Synthetic private',content:'synthetic visibility',allowedRolesToEdit:[],isShared:false}];
 legacy.healthProfiles=['synthetic-child','synthetic-adult'].map(userId=>({id:'hp_'+userId,userId,emergencyContacts:[],createdAt:'2026-10-11',updatedAt:'2026-10-11'}));
+const mediaPng=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aT1kAAAAASUVORK5CYII=','base64');
+fs.mkdirSync(path.join(dataRoot,'uploads','notes'),{recursive:true});
+for(const scope of ['shared','private']){fs.writeFileSync(path.join(dataRoot,'uploads','notes',scope+'.png'),mediaPng);legacy.notes.find(row=>row.id==='synthetic-'+scope+'-note').content+=' ![synthetic](/uploads/notes/'+scope+'.png)';}
 fs.writeFileSync(path.join(dataRoot, 'db.json'), JSON.stringify(legacy));
 fs.writeFileSync(path.join(configRoot, 'session_secret.key'), 'synthetic-session-key');
 fs.writeFileSync(path.join(configRoot, 'app_settings.json'), JSON.stringify({ marker: 'synthetic' }));
@@ -50,13 +53,11 @@ async function stop() {
     try { const [code, signal] = await exited; assert.equal(signal, null); assert.equal(code, 0, serverOutput); assert.match(serverOutput, /Shutdown complete/); } finally { clearTimeout(timer); }
   }
 }
-function request(port, pathname, body, token) {
+function request(port, pathname, body, token, method) {
   return new Promise((resolve, reject) => {
-    const req = http.request({ hostname: '127.0.0.1', port, path: pathname, method: body ? 'POST' : 'GET', headers: { ...(body ? { 'Content-Type': 'application/json' } : {}),...(token?{Authorization:'Bearer '+token}:{}) } }, res => {
-      let text = '';
-      res.setEncoding('utf8');
-      res.on('data', chunk => { text += chunk; });
-      res.on('end', () => resolve({ status: res.statusCode, text,headers:res.headers }));
+    const req = http.request({ hostname: '127.0.0.1', port, path: pathname, method: method ?? (body ? 'POST' : 'GET'), headers: { ...(body ? { 'Content-Type': 'application/json' } : {}),...(token?{Authorization:'Bearer '+token}:{}) } }, res => {
+      const chunks=[];res.on('data',chunk=>chunks.push(chunk));
+      res.on('end',()=>{const bytes=Buffer.concat(chunks);resolve({status:res.statusCode,text:bytes.toString('utf8'),bytes,headers:res.headers});});
     });
     req.setTimeout(2000, () => req.destroy(new Error('HTTP probe timeout')));
     req.on('error', reject);
@@ -140,6 +141,18 @@ try {
     assert.equal((await request(port,'/api/realtime?token='+encodeURIComponent(token))).status,401);
     await probeRealtime(port,token);
     const childLogin=await request(port,'/api/auth/login',{username:'synthetic-child',password});assert.equal(childLogin.status,200);const childToken=JSON.parse(childLogin.text).token;
+    assert.equal((await request(port,'/uploads/notes/shared.png')).status,401);
+    assert.equal((await request(port,'/uploads/notes/shared.png?token='+encodeURIComponent(token))).status,401);
+    const sharedMedia=await request(port,'/uploads/notes/shared.png',undefined,childToken);assert.equal(sharedMedia.status,200);assert.deepEqual(sharedMedia.bytes,mediaPng);assert.equal(sharedMedia.headers['cache-control'],'no-store');assert.equal(sharedMedia.headers['x-content-type-options'],'nosniff');assert.match(sharedMedia.headers['content-type'],/^image\/png/);
+    const deniedMedia=await request(port,'/uploads/notes/private.png',undefined,childToken);assert.equal(deniedMedia.status,404);assert.equal(deniedMedia.text,(await request(port,'/uploads/notes/missing.png',undefined,childToken)).text);
+    assert.equal((await request(port,'/uploads/notes/private.png',undefined,token)).status,200);
+    const staged=await request(port,'/api/uploads',{category:'notes',dataUrl:'data:image/png;base64,'+mediaPng.toString('base64')},token);assert.equal(staged.status,200);const mediaUrl=JSON.parse(staged.text).url;
+    assert.equal((await request(port,mediaUrl,undefined,token)).status,200);assert.equal((await request(port,mediaUrl,undefined,childToken)).status,404);
+    const bound=await request(port,'/api/notes',{title:'Synthetic bound media',content:'![synthetic]('+mediaUrl+')',isShared:false},token);assert.equal(bound.status,200);const boundId=JSON.parse(bound.text).note.id;
+    assert.equal((await request(port,mediaUrl,undefined,token)).status,200);
+    // Remove its attachment and record through ordinary owner routes; the binding remains a tombstone.
+    const unbound=await request(port,'/api/notes',{id:boundId,title:'Synthetic bound media',content:'synthetic removed attachment',isShared:false},token);assert.equal(unbound.status,200);assert.equal((await request(port,mediaUrl,undefined,token)).status,404);
+    assert.equal((await request(port,'/api/notes/'+boundId,undefined,token,'DELETE')).status,200);
     const visibleNotes=await request(port,'/api/notes',undefined,childToken);assert.equal(visibleNotes.status,200);assert.deepEqual(JSON.parse(visibleNotes.text).notes.map(row=>row.id),['synthetic-shared-note']);
     const visiblePlans=await request(port,'/api/plans',undefined,childToken);assert.equal(visiblePlans.status,200);assert.deepEqual(JSON.parse(visiblePlans.text).plans.map(row=>row.id),['synthetic-shared-plan']);
     const visibleTasks=await request(port,'/api/tasks',undefined,childToken);assert.equal(visibleTasks.status,200);assert.deepEqual(JSON.parse(visibleTasks.text).tasks,[]);
@@ -204,7 +217,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

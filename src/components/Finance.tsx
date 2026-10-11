@@ -1,3 +1,4 @@
+import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -2008,7 +2009,7 @@ export function Finance({
           id="receipt-preview-modal"
         >
           <div ref={receiptRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label={t("finance.receiptDialogAriaLabel")} className="relative max-w-full max-h-[85vh] p-1.5 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl outline-none">
-            <img
+            <AuthenticatedImage
               src={selectedReceipt}
               alt={t("finance.receiptAlt")} 
               className="max-w-full max-h-[80vh] object-contain rounded-xl"

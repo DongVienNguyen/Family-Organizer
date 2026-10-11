@@ -1,3 +1,4 @@
+import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -40,7 +41,7 @@ const components: Components = {
   thead: ({ node, ...p }) => <thead className="bg-slate-950" {...p} />,
   th: ({ node, ...p }) => <th className="border border-slate-800 px-2 py-1 text-left font-bold text-slate-200" {...p} />,
   td: ({ node, ...p }) => <td className="border border-slate-800 px-2 py-1 text-slate-300" {...p} />,
-  img: ({ node, ...p }) => <img className="max-w-full rounded-lg my-2 border border-slate-800" loading="lazy" referrerPolicy="no-referrer" {...p} />,
+  img: ({ node, ...p }) => <AuthenticatedImage className="max-w-full rounded-lg my-2 border border-slate-800" loading="lazy" referrerPolicy="no-referrer" {...p} />,
 };
 
 export default function Markdown({ content }: { content: string }) {

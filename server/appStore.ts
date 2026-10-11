@@ -4,6 +4,7 @@ import { sqliteConnection, sqliteLoad, sqliteSave, withSqliteWriteScope } from '
 import { getAppCommandContext } from './commandContext.js';
 import { trackAppEffect } from './appEffects.js';
 import { AppStoreError } from './appErrors.js';
+import {mediaReferences,bindMediaChanges} from './mediaPolicy.js';
 export { AppStoreError } from './appErrors.js';
 export interface AppWriteTx {
   legacy: FamilyOrganizerDB;
@@ -64,6 +65,7 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
     }
     let active = true;
     let legacy = sqliteLoad();
+    const priorMediaReferences=mediaReferences(legacy);
     const assertActive = () => { if (!active) throw new AppStoreError('Transaction handle is closed', 409); };
     const statement = (sql: string) => { assertActive(); assertSql(sql); return connection.prepare(sql); };
     const tx: AppWriteTx = {
@@ -81,6 +83,7 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
     try {
       const value = invokeSynchronousWrite(fn, tx);
       const snapshotRead = !!value && typeof value === 'object' && snapshotReadResults.has(value as object);
+      bindMediaChanges(tx,priorMediaReferences,meta.actorId);
       sqliteSave(legacy);
       if (snapshotRead && ((connection.prepare('SELECT total_changes() AS count').get() as { count: number }).count !== initialChanges.count || connection.pragma('schema_version', { simple: true }) !== initialSchema)) throw new AppStoreError('A full snapshot result is only valid for a read command',400);
       const serialized = JSON.stringify(snapshotRead ? { snapshotRead: true } : { value });

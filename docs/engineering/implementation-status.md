@@ -9,7 +9,7 @@
 | F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
 | F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
 | F04-c | Reviewed, exact Windows GREEN, merged PR9 | HEAD8cce8ee/run38165065503;512/51256files per runtime |
-| F04-d | Reviewed source Windows GREEN; final HEAD proof pending PR10 | Source273b57c/run38167343486;572/57257files per runtime |
+| F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
 | F04 remaining | Media/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -321,3 +321,10 @@ Entries below are historical snapshots; later entries supersede earlier remainin
 - Native13.0.3/N-API10/SQLite3.53.4 with unchanged verified Windows binary. System32/Unicode roots, four launches/three graceful stops/crash recovery/write-denied/offline proof retained. No real provider calls. Two Important review findings fixed; no deferred Minor; deterministic transport fixture preserves assertions.
 - This report belongs to source273b57c. Final documentation HEAD requires independent exact-SHA Windows acceptance; final proof URL/SHA/report hashes will be recorded on PR10 before its authorized merge.
 - Remaining errors/gates: production audit6 entries (including one critical), development audit13, bundle >500kB warning; triage stays mandatory in F04/F09. Media/input/proxy/bootstrap/derivative and backup/log privacy pending. F05 browser/coverage/required checks and F06–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS action. Next: F04-e authenticated media from merged main.
+
+### F04-d integration / F04-e source
+
+- PR10 merged as `c2960a210570d68aa44650aacb846a23a266d63a` after exact final HEAD `a86857a79a12ddf18d6acf9fca2a7ae9cb86e024`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38167640833: both Node22/24 each572/57257files, all six exits0,16production checks/evidence/ci-gate success. Logs and artifacts independently read; proof https://github.com/DongVienNguyen/Family-Organizer/pull/10#issuecomment-6112795981.
+- F04-e `codex/f04-authenticated-media`, BASE that squash. Existing media URLs are protected by current domain ACL and versioned owner/binding metadata in the I01 gateway/snapshot; migrated shared references survive cleanup. Strict path/link/content controls replace public static files. UI uses captured header fetch/owned blob cleanup, on-demand PDF actions, keyboard activation and generic invalidation. Details and costs: `authenticated-media.md`.
+- Source Cloud642/64262files, zero skips, lint/build exit0.45 actual RED cases across HTTP/client/JSX/realtime/viewer/keyboard/evidence gates then GREEN; native rollback/migration/expiry/cold-restore and additional roles characterize preserved behavior. Initial627/628full run failed a new test's Headers-object assumption; `new Headers` normalizes the fixture while retaining the Bearer assertion. Reports retained. No dependency/lock update.
+- PR/first Windows/fresh whole-branch review pending. Compiled media proof is required with all earlier probes. Full F04 and browser F05 remain incomplete; audit13total/6production and bundle warning remain explicit. No release/tag/VPS or Server2019 acceptance. Next after this reviewed exact-HEAD PR: remaining F04 input/proxy/bootstrap/privacy/dependency slices, then F05.

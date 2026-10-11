@@ -32,6 +32,7 @@ export async function startApplication(config: AppConfig = appConfig) {
     const auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:db.getSessionSecret});
     auth.initialize(); // Validate and persist key rotation before readiness, even without auth traffic.
     const media = await import('./media.js');
+    media.initializeMediaMetadata();
     const fullBackup = await import('./fullBackup.js');
     const telegram = await import('./telegramBackup.js');
     const digest = await import('./weeklyDigest.js');

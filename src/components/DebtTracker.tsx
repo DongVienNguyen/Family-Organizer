@@ -1,3 +1,4 @@
+import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -224,7 +225,7 @@ export function DebtTracker({
         {debt.attachments && debt.attachments.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {debt.attachments.map((url, i) => (
-              <img
+              <AuthenticatedImage
                 key={url}
                 src={url}
                 alt={t("debtTracker.attachmentAlt", { n: i + 1 })}
@@ -378,7 +379,7 @@ export function DebtTracker({
                 <div className="flex flex-wrap gap-2">
                   {attachments.map((url, i) => (
                     <div key={url} className="relative group">
-                      <img src={url} alt={t("debtTracker.attachmentFormAlt", { n: i + 1 })} onClick={() => setLightbox(url)} className="w-14 h-14 object-cover rounded-lg border border-slate-700 cursor-pointer" referrerPolicy="no-referrer" />
+                      <AuthenticatedImage src={url} alt={t("debtTracker.attachmentFormAlt", { n: i + 1 })} onClick={() => setLightbox(url)} className="w-14 h-14 object-cover rounded-lg border border-slate-700 cursor-pointer" referrerPolicy="no-referrer" />
                       <button type="button" onClick={() => setAttachments(prev => prev.filter(u => u !== url))} className="absolute -top-1.5 -right-1.5 bg-rose-500 text-white rounded-full p-0.5 shadow cursor-pointer" title={t("debtTracker.removeAttachmentTitle")}>
                         <X className="w-3 h-3" />
                       </button>
@@ -430,7 +431,7 @@ export function DebtTracker({
             className="fixed inset-0 bg-slate-950/90 backdrop-blur-sm flex items-center justify-center z-50 p-4 cursor-pointer"
           >
             <div className="relative max-w-full max-h-[85vh] p-1.5 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()}>
-              <img src={lightbox} alt={t("debtTracker.lightboxAlt")} className="max-w-full max-h-[80vh] object-contain rounded-xl" referrerPolicy="no-referrer" />
+              <AuthenticatedImage src={lightbox} alt={t("debtTracker.lightboxAlt")} className="max-w-full max-h-[80vh] object-contain rounded-xl" referrerPolicy="no-referrer" />
               <button onClick={() => setLightbox(null)} className="absolute top-3 right-3 bg-slate-950/80 hover:bg-slate-800 p-2 text-slate-200 neu-btn rounded-lg cursor-pointer" title={t("common.close")}>
                 <X className="w-4 h-4" />
               </button>
