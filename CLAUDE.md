@@ -10,6 +10,15 @@ checklist ở cuối DESIGN.md trước khi hoàn tất.
 
 ## Phiên bản & phát hành
 
+> **Quy trình hiện hành — Windows-native (F01):** đọc [AGENTS.md](AGENTS.md),
+> [baseline](docs/engineering/windows-baseline.md) và
+> [tiến độ](docs/engineering/implementation-status.md). CI dùng Windows2022/pwsh,
+> kiểm Node22 và probe Node24 riêng. Workflow release Pi/GHCR đã gỡ; F08 sẽ tạo
+> workflow Windows có cổng duyệt. Không chạy `npm run release`, tạo tag/release,
+> merge hoặc triển khai VPS trong PR nền tảng. Server2019 chưa nghiệm thu (R02).
+
+### Mô tả lịch sử trước chuyển đổi (không dùng để thực thi)
+
 App có số phiên bản (semver) — push lên `main` chỉ chạy CI kiểm tra, **không** tạo image
 và máy đang chạy không nhận code mới. Muốn người dùng có bản mới thì phải phát hành:
 

@@ -1,42 +1,25 @@
 # 🏡 Family Organizer
 
-Hệ thống quản lý gia đình tất-cả-trong-một — tài chính, lịch trình, nhiệm vụ, sức khỏe, giấy tờ, mua sắm, thưởng điểm cho trẻ và trợ lý AI — thiết kế để chạy ổn định 24/7 trên **Raspberry Pi 5** hoặc bất kỳ Linux server nào.
+Hệ thống quản lý gia đình tất-cả-trong-một — tài chính, lịch trình, nhiệm vụ, sức khỏe, giấy tờ, mua sắm, thưởng điểm cho trẻ và trợ lý AI — đang chuyển sang **Windows-native x64**, runtime đích Windows Server2019; chưa nghiệm thu hoặc triển khai production.
 
 ---
 
-## 🏠 Chạy Ngay Tại Nhà Bạn (Self-hosted / Homelab)
+## Phát triển và kiểm thử Windows-native
 
-Đây **không phải** dịch vụ trên mây thuê bao hàng tháng. Family Organizer chạy trên
-**chính chiếc máy nhỏ đặt trong nhà bạn** — giống một "máy chủ gia đình" tí hon cắm
-điện góc nhà, chạy êm 24/7. Toàn bộ dữ liệu (tài chính, sức khỏe, giấy tờ, ảnh hóa
-đơn…) **nằm trên ổ đĩa nhà bạn**, không gửi lên máy chủ của bên thứ ba nào.
+Code được sửa trong Codex Cloud; GitHub Actions chạy `npm ci`, `npm run lint`,
+`npm test` và `npm run build` trên **windows-2022 / pwsh / x64**. Node22 là baseline,
+Node24 LTS được kiểm ở job riêng trước khi quyết định nâng runtime.
 
-### Chạy được trên thiết bị gì?
+Xem [baseline và coverage gaps](docs/engineering/windows-baseline.md),
+[tiến độ implementation](docs/engineering/implementation-status.md) và
+[plan nền tảng](docs/superpowers/plans/2026-10-11-windows-native-foundation.md).
+Không cần máy cá nhân chạy build/test/runner. Reports synthetic nằm trong Actions artifacts.
 
-Bất kỳ máy nào cài được **Docker** — chọn theo túi tiền và nhu cầu:
-
-| Thiết bị | Phù hợp với | Ghi chú |
-| :--- | :--- | :--- |
-| **Raspberry Pi 5** (hoặc Pi 4) | Đa số gia đình | Nhỏ bằng lòng bàn tay, điện ~5W, êm và mát |
-| **Mini PC** (Intel N100, NUC…) | Cần nhanh hơn, nhiều người dùng | Mạnh hơn Pi, vẫn tiết kiệm điện |
-| **NAS** (Synology, TrueNAS…) | Nhà đã có sẵn NAS | Chạy chung như một ứng dụng Docker |
-| **Máy tính cũ / Linux server** | Tận dụng máy sẵn có | Cài Docker là chạy |
-
-> Không cần máy khủng: một chiếc **Pi mini ~1–2 triệu** là đủ cho cả gia đình dùng thoải mái.
-
-### Vì sao chọn cách này?
-
-- 🔒 **Riêng tư tuyệt đối** — dữ liệu ở nhà bạn, không ai khác đọc được.
-- 💸 **Không phí thuê bao** — mua máy một lần, tiền điện mỗi tháng chỉ vài nghìn đồng.
-- 📶 **Dùng mọi lúc mọi nơi** — trong nhà truy cập qua Wi-Fi/LAN; khi ra ngoài dùng
-  **Tailscale** để vào an toàn mà *không cần mở cổng router hay IP tĩnh*.
-- 📱 **Như một app điện thoại** — cài lên màn hình chính iPhone/Android (PWA), có
-  thông báo đẩy, chạy toàn màn hình như ứng dụng thật.
-- ♻️ **Tự cập nhật & tự sao lưu** — bấm một nút trong app để lên bản mới (tự sao lưu
-  trước, bản mới lỗi thì tự quay về), hoặc bật tự cập nhật ban đêm; backup tự động mỗi
-  đêm, có thể gửi kèm ra Telegram để cất offsite.
-
-Xem hướng dẫn cài đặt chi tiết ở mục [🚀 Triển Khai Production (Raspberry Pi)](#-triển-khai-production-raspberry-pi) bên dưới.
+Windows service/ZIP, DATA_DIR ngoài release và deploy automation sẽ được bổ sung
+ở F02–F08. CI Windows2022 không thay nghiệm thu Windows Server2019 ở R02.
+Chưa có hướng dẫn cài production Windows đã được nghiệm thu. Không dùng các scripts
+Pi/Docker/Bash cũ hoặc nút updater của runtime cũ cho triển khai Windows.
+Workflow release Pi/GHCR đã gỡ; chưa tạo release hay truy cập VPS trong F01.
 
 ---
 
@@ -195,158 +178,18 @@ Giao diện Neumorphism, hỗ trợ Light / Dark mode với hiệu ứng chuyể
 
 ---
 
-## 🚀 Triển Khai Production (Raspberry Pi)
+## Các kiểm tra phát triển
 
-Ứng dụng chạy từ image CI build và publish lên **GitHub Container Registry (GHCR)** mỗi bản phát hành (tag `vX.Y.Z`). Container **`family-organizer-updater`** đi kèm lo việc cập nhật khi bấm nút trong app — không cần terminal sau lần cài đầu.
+Runtime baseline exact nằm ở `.node-version`; phiên bản toolchain/ABI/checksums
+nằm trong `docs/engineering/windows-toolchain.json`. Mỗi npm/native command trong
+PowerShell phải kiểm `$LASTEXITCODE` ngay, như `scripts/ci/Invoke-Check.ps1`.
+CI tạo log từng bước, native-addon evidence, JUnit và JSON test reports. Tests dùng
+thư mục tạm riêng, chặn fetch ngoài fixtures và không chứa production secrets.
 
-### Yêu cầu hệ thống
-
-- Raspberry Pi 5 (hoặc bất kỳ Linux server nào)
-- Docker Engine **29+** và Docker Compose v2
-
-### Cài lần đầu
-
-**Bước 1 — Cài Docker:**
-
-```bash
-curl -fsSL https://get.docker.com | sudo sh
-```
-
-**Bước 2 — Clone repo và tạo `.env`:**
-
-```bash
-git clone https://github.com/happysmartlight/Family-Organizer.git
-cd Family-Organizer
-cp .env.example .env
-echo "STACK_DIR=$PWD" >> .env   # dịch vụ cập nhật cần đường dẫn tuyệt đối của thư mục này
-nano .env
-```
-
-**Bước 3 — Khởi chạy:**
-
-```bash
-docker compose up -d
-```
-
-Lần đầu tự pull image từ GHCR. Ứng dụng khả dụng tại:
-
-- `http://localhost:3001` — từ chính máy server
-- `http://<ip-lan-cua-pi>:3001` — từ mạng nội bộ
-
-Dữ liệu lưu bền vững tại `./data/` trên máy host.
-
-### 🌐 Bonus — Truy Cập Từ Xa Qua Tailscale (ra ngoài vẫn dùng được)
-
-Mặc định app chỉ chạy trong **mạng nội bộ (LAN)** — ở nhà thì tiện, nhưng ra ngoài
-đường là không vào được. Giải pháp gọn và an toàn nhất là **Tailscale**: nó tạo một
-mạng riêng ảo giữa các thiết bị của bạn, **không cần mở cổng router, không cần IP
-tĩnh, không lộ app ra Internet công cộng**. Miễn phí cho nhu cầu gia đình.
-
-> 💡 **Ý tưởng:** cài Tailscale lên *máy chủ (Pi)* và lên *điện thoại/laptop* của các
-> thành viên. Chúng "nhìn thấy" nhau như đang cùng một mạng, dù bạn đang ở bất cứ đâu.
-
-**Bước 1 — Tạo tài khoản Tailscale:** đăng ký miễn phí tại [tailscale.com](https://tailscale.com) (đăng nhập bằng Google/Microsoft/GitHub).
-
-**Bước 2 — Cài Tailscale lên máy chủ (Pi/mini PC):**
-
-```bash
-curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up
-```
-
-Chạy xong, terminal hiện một đường link — mở link đó bằng trình duyệt để đăng nhập và
-xác nhận thiết bị. Kiểm tra địa chỉ IP Tailscale (dạng `100.x.x.x`) của máy:
-
-```bash
-tailscale ip -4
-```
-
-**Bước 3 — Cài Tailscale lên điện thoại/laptop:** tải app **Tailscale** trên
-App Store / Google Play (hoặc bản desktop), đăng nhập *cùng một tài khoản*, rồi bật kết nối.
-
-**Bước 4 — Vào app từ bất cứ đâu:** chỉ cần điện thoại đã bật Tailscale, mở trình duyệt:
-
-```text
-http://100.x.x.x:3001
-```
-
-(thay `100.x.x.x` bằng IP Tailscale của Pi ở Bước 2). Cứ để mở bằng địa chỉ này là
-dùng được cả khi ở nhà lẫn khi ra ngoài — không cần đổi qua lại IP LAN nữa.
-
-#### (Tùy chọn) Có HTTPS + tên đẹp để bật thông báo đẩy trên iPhone
-
-Thông báo đẩy PWA trên iPhone **yêu cầu HTTPS**. Tailscale cấp sẵn HTTPS miễn phí qua
-lệnh `tailscale serve` — trỏ tên miền `*.ts.net` của bạn về app:
-
-```bash
-sudo tailscale serve --bg 3001
-```
-
-Sau đó vào app bằng địa chỉ HTTPS mà lệnh in ra (dạng `https://ten-may.ten-tailnet.ts.net`).
-Dùng chính địa chỉ HTTPS này khi **Cài lên màn hình chính (PWA)** và đặt vào biến
-`APP_URL` trong `.env` để deep-link trong thông báo đẩy hoạt động đúng.
-
-> ⚠️ **Đừng dùng `tailscale funnel`** trừ khi bạn thực sự muốn mở app ra Internet công
-> khai. `serve` chỉ chia sẻ trong mạng riêng của bạn — đúng nhu cầu gia đình và an toàn hơn.
-
-### Cập nhật
-
-Vào **Thiết lập → Hệ thống & Sao lưu → Phiên bản & Cập nhật** (Admin):
-
-- Danh sách phiên bản kèm ghi chú thay đổi (lấy từ GitHub Releases), app tự kiểm tra mỗi 6 giờ.
-- **Cập nhật ngay**: app chụp lại database → container `family-organizer-updater` kéo image
-  mới, khởi động lại, chờ `/api/health` báo đúng phiên bản. Bản mới không lên được → **tự quay
-  về bản cũ** và khôi phục database lúc trước khi cập nhật.
-- **Quay về** bất kỳ bản cũ nào, tùy chọn khôi phục cả dữ liệu từ bản chụp trước cập nhật.
-- **Tự cập nhật ban đêm** theo giờ chọn; báo qua Telegram nếu đã cấu hình bot.
-- Mọi máy đang mở app thấy banner **"Đã có bản mới vX.Y.Z"** để tải lại.
-
-Dịch vụ cập nhật không mở cổng mạng: app và nó trao đổi qua file trong `data/update/`
-(script: [deploy/updater.sh](deploy/updater.sh)). Phiên bản đang chạy nằm ở biến
-`FAMILY_ORGANIZER_VERSION` trong `.env` — đừng sửa tay khi đã dùng nút cập nhật.
-
-**Thủ công** (khi dịch vụ cập nhật không chạy):
-
-```bash
-cd ~/Family-Organizer && sed -i 's/^FAMILY_ORGANIZER_VERSION=.*/FAMILY_ORGANIZER_VERSION=1.2.3/' .env && docker compose up -d
-```
-
-**Phát hành bản mới (người phát triển):** thêm mục `## [X.Y.Z]` vào [CHANGELOG.md](CHANGELOG.md)
-→ `npm run release -- X.Y.Z` → `git push && git push --tags`. GitHub Actions build image arm64 +
-tạo Release; app trên máy chủ thấy bản mới trong trang Cập nhật.
-
----
-
-## 💻 Môi Trường Dev (Local)
-
-### Yêu cầu phần mềm
-
-- Node.js 22+
-
-### Chạy dev server
-
-```bash
-npm install
-cp .env.example .env
-npm run dev
-```
-
-Ứng dụng khởi động tại `http://localhost:3000`.
-
-> Để test AI trong dev: nhập Gemini key trực tiếp trong **Settings → Thiết lập AI** (hoặc đặt `GEMINI_API_KEY` trong `.env` làm fallback).
-
-### Build production
-
-```bash
-npm run build && npm start
-```
-
-### Tests
-
-```bash
-npm test            # chạy một lần
-npm run test:watch  # theo dõi khi sửa code
-```
+Các lệnh hiện có: `npm ci`, `npm run lint`, `npm test`, `npm run build`,
+`npm run dev` (tsx Express + Vite), `npm start` (dist/server.cjs).
+`clean` và `release` vẫn là scripts lịch sử, sẽ thay ở F02; không chạy chúng trên Windows.
+CI không khởi động full server trong F01 vì lifecycle/jobs còn cần cô lập ở F03.
 
 ---
 
@@ -424,18 +267,18 @@ Bộ chọn ngôn ngữ trong Settings sẽ tự hiện lựa chọn mới — k
 
 ## 🔧 Biến Môi Trường
 
-Các biến đặt trong file `.env` ở thư mục gốc (được `docker-compose.yml` đọc tự động).
+Các biến ứng dụng được cung cấp qua process/service hoặc `.env` khi dev. Tests không đọc `.env` của checkout. Các biến STACK_DIR/FAMILY_ORGANIZER_VERSION chỉ thuộc runtime lịch sử, không dùng cho Windows.
 
 | Biến | Bắt buộc | Mô tả |
 | :--- | :---: | :--- |
-| `STACK_DIR` | Có | Đường dẫn tuyệt đối tới thư mục chứa `docker-compose.yml` — dịch vụ cập nhật cần để chạy `docker compose` |
-| `FAMILY_ORGANIZER_VERSION` | Không | Phiên bản image đang chạy (vd `1.0.0`); trống = `latest`. Nút cập nhật tự đổi biến này |
+| `STACK_DIR` | Legacy | Đường dẫn tuyệt đối tới thư mục chứa `docker-compose.yml` — dịch vụ cập nhật cần để chạy `docker compose` |
+| `FAMILY_ORGANIZER_VERSION` | Legacy | Phiên bản image đang chạy (vd `1.0.0`); trống = `latest`. Nút cập nhật tự đổi biến này |
 | `GEMINI_API_KEY` | Không | Fallback Gemini key khi chưa cấu hình qua Settings UI |
 | `VAPID_PUBLIC_KEY` | Không | VAPID public key — bật thông báo đẩy PWA |
 | `VAPID_PRIVATE_KEY` | Không | VAPID private key |
 | `VAPID_SUBJECT` | Không | Email liên hệ cho VAPID (dạng `mailto:you@example.com`) |
 | `APP_URL` | Không | URL ngoài của app — dùng cho deep-link trong thông báo đẩy |
-| `GITHUB_REPO` | Không | Repo GitHub để đọc danh sách bản phát hành (mặc định: `happysmartlight/Family-Organizer`) |
+| `GITHUB_REPO` | Không | Repo GitHub để đọc danh sách bản phát hành (mặc định: `DongVienNguyen/Family-Organizer`) |
 
 > **Gemini key và cấu hình Telegram** được quản lý qua **Settings → Thiết lập AI / Telegram** trong giao diện — lưu vào `app_settings.json`, không vào backup. Biến môi trường `GEMINI_API_KEY` chỉ là fallback nếu chưa nhập qua UI.
 > **VAPID keys** tạo bằng: `npx web-push generate-vapid-keys`

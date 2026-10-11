@@ -1,5 +1,13 @@
 # Family-Organizer — nền tảng Windows-native và cổng phát hành
 
+> **F01 checkout verification (11/10/2026):** HEAD thực thi ban đầu là
+> `68cb753c13c35e13dd120b217040aa12365e3b40`, sau baseline
+> `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91` đúng một commit thêm7tài liệu;
+> source/tests/dependencies không đổi. Xem [baseline](../../engineering/windows-baseline.md)
+> và [implementation status](../../engineering/implementation-status.md) cho SHA/PR/CI thực.
+> Các tuyên bố khảo sát bên dưới là lịch sử; không dùng chúng làm bằng chứng CI hiện tại.
+
+
 **Repo thực thi:** [DongVienNguyen/Family-Organizer](https://github.com/DongVienNguyen/Family-Organizer), public, branch `main`; HEAD đã xác minh trùng baseline bên dưới. CI, package và release chỉ dùng repo này. F01 phải rà cả repo URL hard-code trong updater/workflows/docs còn kế thừa từ source trước đây; thay bằng repo đích hoặc `github.repository` phù hợp, giữ nguyên thông tin tác giả/license.
 
 Ngày rà soát: 11/10/2026. Đây là plan thực thi, **chưa có code chuyển đổi, CI pass hoặc nghiệm thu VPS**. Repo được đọc tại commit `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91`. Các file đề xuất bên dưới cần được tạo trong repo Family-Organizer khi thực thi trên Codex Cloud.

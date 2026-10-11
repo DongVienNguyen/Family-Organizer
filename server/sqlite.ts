@@ -126,6 +126,11 @@ export async function sqliteBackupTo(dest: string): Promise<void> {
   await db.backup(dest);
 }
 
+/** Release native file handles; safe to call again during fixture teardown. */
+export function sqliteClose(): void {
+  if (db.open) db.close();
+}
+
 export function sqliteCheckpoint(): void {
   try {
     db.pragma("wal_checkpoint(TRUNCATE)");
