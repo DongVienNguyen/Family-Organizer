@@ -10,7 +10,7 @@
 | F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
 | F04-c | Reviewed, exact Windows GREEN, merged PR9 | HEAD8cce8ee/run38165065503;512/51256files per runtime |
 | F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
-| F04-e | Authenticated media reviewed; corrected source Windows GREEN; final documentation HEAD pending | PR11 sourceb2e1f37/run38171014457;653/65363files per runtime |
+| F04-e | Authenticated media reviewed; corrected source Windows GREEN; final documentation HEAD pending | PR11 sourcecaabd29/run38171684606;664/66463files per runtime |
 | F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -356,3 +356,9 @@ Owned-builder correction Cloud lint/tests653/65363files zero skips/build all exi
 Follow-up within review finding1: own tracing found the old Notes cleanup regex remained a second interpretation of destinations. Eight native regressions reproduced editing/deleting external/code/literal/unused-definition text deleting another actor's unbound staging file; one reproduced leaving a reference-style PDF orphan; two reproduced duplicate definitions interpreted last instead of CommonMark first. All11 actual RED→GREEN. Authorization and cleanup now share canonical managedMarkdownUrls with first-definition semantics. No new feature or re-review; one correction pass continues until final exact-HEAD verification. Prior documentation69d173c/run38171300389 is reported green by Actions but superseded by these source fixes and is not merge authority.
 
 Canonical-destination follow-up validation: Cloud664/66463files, zero failed/skipped, lint/build exit0.11 additional regressions observed RED→GREEN. Same PR11; exact updated-source/final Windows proof pending. Prior653-test source evidence remains historical.
+
+### F04-e — canonical destination implementation verified
+
+- Source HEAD `caabd29621b4c5f1697a0735b590b21d28eda511`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/11, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38171684606 attempt1 successful. Each Windows2022 x64 Node22/24:664/66463files, zero failed/skipped/todo; npm ci/native/lint/tests/build/production17checks recorded exits0, evidence and ci-gate success. Full logs/both JUnit/JSON/native/production report sets independently read; hashes in `evidence/f04-e-canonical-source.json`.
+- Same reviewed correction pass closes both Important findings and their cleanup/parser consumers;66 total actual RED→GREEN cases, including11 canonical cleanup/duplicate-definition regressions. Existing reference ownership/tombstones/rollback/coldrestore/roles/async cleanup retained. Named parser dependencies are existing locked transitive versions, now explicit. Two failed Windows source runs remain recorded, with fixes and no assertion weakening.
+- Final documentation HEAD still requires exact-SHA Windows verification before the authorized merge; final proof comment records its SHA/run/hashes. Remaining errors/gates and next F04-f task payload/reward authority are unchanged; no fullF04, browser, Server2019, release/tag/VPS acceptance.
