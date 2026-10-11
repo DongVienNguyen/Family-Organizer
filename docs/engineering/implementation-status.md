@@ -7,7 +7,7 @@
 | F01–F03 | Reviewed, exact Windows GREEN, merged | PR1–3; historical entries below |
 | I01 | Gateway, durable jobs and shared recovery integrated | PR4–6 |
 | F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
-| F04-b | Client/cache review corrected; final Windows verification pending | Entries below; no browser acceptance claim |
+| F04-b | Client/cache source accepted; final documentation HEAD verification pending | Entries below; no browser acceptance claim |
 | F04 remaining | SSE/media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -269,3 +269,10 @@ Entries below are historical snapshots; later entries supersede earlier remainin
 
 - Corrected application HEAD `35c41a770db25af493884f9e747fe0b463aaaacc`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38160905793 **failed**. Full logs/two artifacts read: both Node22/24 install/native/lint/build/production exit0, test exit1;434passed/1failed in51files, zero skipped/todo. `ci-gate` correctly failed. Failure is the cross-tab VM fixture slicing LF-only source and executing main JSX on CRLF checkout. Exact failed reports/hashes retained in `evidence/f04-b-crlf-failure.json`; build success is not test acceptance.
 - Added explicit LF/CRLF cross-tab source cases: CRLF reproduced the same SyntaxError on Cloud, then GREEN after selecting the semantic createRoot boundary. Assertions preserved; no application change, no skip/retry masking. Final Cloud436/43651files, lint exit0; application build previously exit0 and Windows will rebuild exact HEAD. Updated source/final Windows acceptance still pending, PR8 not merged.
+
+### F04-b corrected Windows source acceptance
+
+- Corrected source HEAD `36ff534457c433ee3843cdb2512bf834d950722d`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/8, exact Windows2022 x64 CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38161262854 success.
+- Independently downloaded/read full logs and both artifacts. Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each436/436 tests51files, zero failed/skipped/todo, install/native/lint/test/build/production exits0; ci-gate success. JUnit/JSON/native/production hashes and14 mandatory production checks verified in `evidence/f04-b-corrected-source.json`. Explicit LF/CRLF cross-tab cases pass on Windows; previous failed run remains historical evidence.
+- Three Important findings fixed in one TDD pass; deferred Minor stream cancellation/iterator owner parity recorded for next authenticated realtime slice. No dependency/lock changes, real providers, skipped assertions or retry masking. This documentation HEAD still requires its own Windows execution; final SHA/run/report proof will be recorded in the PR evidence comment before authorized merge.
+- Next: F04-c authenticated realtime and owned streaming, followed by media/object/input/proxy/bootstrap/privacy/dependency gates and F05 actual browser proof. Full F04/foundation/master acceptance remains incomplete. Server2019/service/encryption/package/powerloss/performance remain unrun; no release/tag or VPS access/deployment.
