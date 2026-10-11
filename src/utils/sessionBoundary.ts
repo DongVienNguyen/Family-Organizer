@@ -52,17 +52,19 @@ export function createSessionBoundary(deps:SessionBoundaryDependencies):SessionB
     const guardStream=(stream:ReadableStream<Uint8Array>,complete:()=>void):ReadableStream<Uint8Array>=>new Proxy(stream,{
       get(target,property){
         if(property==='getReader')return (...args:any[])=>{
-          assert();const reader=(target.getReader as Function).apply(target,args);
+          assert();const reader=(target.getReader as Function).apply(target,args);let released=false;
           return new Proxy(reader,{get(r,p){
-            if(p==='read')return async(...values:any[])=>{assert();const result=await r.read(...values);assert();if(result.done)complete();return result;};
-            if(p==='cancel')return async(...values:any[])=>{try{return await r.cancel(...values);}finally{complete();}};
+            if(p==='read')return async(...values:any[])=>{assert();try{const result=await r.read(...values);assert();if(result.done)complete();return result;}catch(error){if(!released)complete();throw error;}};
+            if(p==='cancel')return async(...values:any[])=>{try{return await r.cancel(...values);}finally{if(!released)complete();}};
+            if(p==='releaseLock')return ()=>{const result=r.releaseLock();released=true;return result;};
             const value=Reflect.get(r,p,r);return typeof value==='function'?value.bind(r):value;
           }});
         };
+        if(property==='cancel')return async(reason?:unknown)=>{const locked=target.locked;try{return await target.cancel(reason);}finally{if(!locked)complete();}};
         if(property==='tee')return ()=>{assert();let remaining=2;return target.tee().map(stream=>{let done=false;return guardStream(stream,()=>{if(!done){done=true;if(--remaining===0)complete();}});});};
-        if(property==='pipeTo')return (destination:WritableStream,options:StreamPipeOptions={})=>{assert();const pipe=combineAbortSignals([signal,...(options.signal?[options.signal]:[])]);return target.pipeTo(destination,{...options,signal:pipe.signal}).finally(()=>{pipe.dispose();complete();});};
+        if(property==='pipeTo')return (destination:WritableStream,options:StreamPipeOptions={})=>{assert();const pipe=combineAbortSignals([signal,...(options.signal?[options.signal]:[])]);const unavailable=target.locked||destination.locked||pipe.signal.aborted;return target.pipeTo(destination,{...options,signal:pipe.signal}).then(()=>complete(),error=>{if(!options.preventCancel&&!unavailable)complete();throw error;}).finally(()=>pipe.dispose());};
         if(property==='pipeThrough')return (transform:ReadableWritablePair,options:StreamPipeOptions={})=>{assert();const pipe=combineAbortSignals([signal,...(options.signal?[options.signal]:[])]);try{return guardStream(target.pipeThrough(transform,{...options,signal:pipe.signal}),()=>{pipe.dispose();complete();});}catch(error){pipe.dispose();throw error;}};
-        if(property===Symbol.asyncIterator||property==='values')return async function*(){const reader=guardStream(target,complete).getReader();try{while(true){const next=await reader.read();if(next.done)return;yield next.value;}}finally{reader.releaseLock();}};
+        if(property===Symbol.asyncIterator||property==='values')return async function*(options:{preventCancel?:boolean}={}){const reader=guardStream(target,complete).getReader();try{while(true){const next=await reader.read();if(next.done)return;yield next.value;}}finally{try{if(!options.preventCancel)await reader.cancel();}finally{reader.releaseLock();}}};
         const value=Reflect.get(target,property,target);return typeof value==='function'?value.bind(target):value;
       },
     });

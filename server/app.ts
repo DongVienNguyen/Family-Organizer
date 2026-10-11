@@ -1,4 +1,6 @@
 import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
+import {createRealtimeHub} from './realtime.js';
+import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument} from './legacyVisibility.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -235,19 +237,29 @@ function recordLoginFailure(ip: string): void {
   }
 }
 
-// Server-Sent Events client pool for real-time synchronization
-let sseClients: Response[] = [];
+function canReceiveRealtime(user:{id:string;role:UserRole},event:{type:string;data:Record<string,unknown>}){
+  const actor={userId:user.id,role:user.role},data=event.data;
+  if(!VALID_ROLES.has(actor.role))return false;
+  const target=(getter:()=>{id:string}[],id:unknown,allow:(row:any,recipient:{userId:string;role:UserRole})=>boolean)=>typeof id==='string'&&getter().some(row=>row.id===id&&allow(row,actor));
+  switch(event.type){
+    case 'TASKS_UPDATE':return (Array.isArray(data.taskIds)?data.taskIds:[data.taskId??data.deletedId]).some(id=>target(()=>FamilyDB.getTasks(),id,canViewLegacyTask));
+    case 'PLANS_UPDATE':return target(()=>FamilyDB.getPlans(),data.planId??data.deletedId,canViewLegacyPlan);
+    case 'NOTES_UPDATE':return target(()=>FamilyDB.getNotes(),data.noteId??data.deletedId,canViewLegacyNote);
+    case 'DOCUMENTS_UPDATE':return target(()=>FamilyDB.getDocuments(),data.documentId??data.deletedId,canViewLegacyDocument);
+    case 'FINANCE_UPDATE':return isAdult(actor)&&(!('savingsGoalId' in data||'deletedGoalId' in data)||target(()=>FamilyDB.getSavingsGoals(),data.savingsGoalId??data.deletedGoalId,canViewSavingsGoal));
+    case 'BACKUPS_UPDATE':return actor.role===UserRole.ADMIN;
+    case 'MEDICATIONS_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getMedications(),data.medicationId??data.deletedId,row=>row.patientId===actor.userId);
+    case 'CHILD_HEALTH_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getHealthProfiles(),data.healthProfileId,row=>row.userId===actor.userId)||target(()=>FamilyDB.getVaccinations(),data.vaccinationId??data.deletedVaccinationId,row=>row.childId===actor.userId)||target(()=>FamilyDB.getGrowthRecords(),data.growthId??data.deletedGrowthId,row=>row.childId===actor.userId);
+    case 'REWARDS_UPDATE':case 'SHOPPING_UPDATE':case 'USERS_UPDATE':case 'NOTIFICATIONS_UPDATE':case 'SETTINGS_UPDATE':case 'RESTORE_COMPLETED':return true;
+    default:return false;
+  }
+}
+const realtime=createRealtimeHub({verify:token=>dependencies.auth.verify(token),allow:(user,event)=>canReceiveRealtime(user,event)||!!event.previous?.has(user.id)});
+const realtimeAudience=(type:string,data:Record<string,unknown>)=>new Set(FamilyDB.getUsers().filter(user=>!user.isDeleted&&canReceiveRealtime(user,{type,data})).map(user=>user.id));
 
 // Realtime sync broadcast helper
-function broadcastSyncEvent(eventType: string, extraData: any = {}) {
-  const payload = JSON.stringify({ type: eventType, timestamp: new Date().toISOString(), ...extraData });
-  sseClients.forEach(client => {
-    try {
-      client.write(`data: ${payload}\n\n`);
-    } catch (e) {
-      console.error("SSE broadcast write failed:", e);
-    }
-  });
+function broadcastSyncEvent(eventType: string, extraData: any = {},previous?:Set<string>) {
+  realtime.emit({type:eventType,data:extraData,previous});
 }
 
 // Authentication middleware to extract current user session
@@ -325,7 +337,7 @@ const requireRole = (roles: UserRole[]) => {
 
 const canViewSavingsGoal = (goal: { isShared: boolean; creatorId: string }, session: AuthRequest["userSession"]) => {
   if (!session) return false;
-  return goal.isShared || goal.creatorId === session.userId;
+  return goal.isShared===true || goal.creatorId === session.userId;
 };
 
 const canManageSavingsGoal = (goal: { isShared: boolean; creatorId: string }, session: AuthRequest["userSession"]) => {
@@ -338,7 +350,7 @@ const canViewDocument = (
   session: AuthRequest["userSession"]
 ) => {
   if (!session) return false;
-  return doc.isShared || doc.creatorId === session.userId || doc.ownerId === session.userId;
+  return canViewLegacyDocument(doc,session);
 };
 
 const canManageDocument = (
@@ -516,7 +528,7 @@ app.get("/api/server/stats", requireAuth, requireRole([UserRole.ADMIN]), async (
       data: {
         ...dataSizes,
         pushDevices: FamilyDB.getPushSubscriptions().length,
-        sseClients: sseClients.length,
+        sseClients: realtime.size,
         users: FamilyDB.getUsers().length
       }
     });
@@ -654,7 +666,7 @@ app.post("/api/auth/login", (req: Request, res: Response) => {
 });
 
 app.post('/api/auth/logout',requireAuth,(req:AuthRequest,res:Response)=>{
-  dependencies.auth.logout(req.headers.authorization!.slice(7));res.json({success:true});
+  dependencies.auth.logout(req.headers.authorization!.slice(7));realtime.recheck();res.json({success:true});
 });
 
 app.get("/api/auth/me", (req: AuthRequest, res: Response) => {
@@ -683,6 +695,7 @@ app.post("/api/auth/change-password", requireAuth, (req: AuthRequest, res: Respo
 
   try {
     FamilyDB.changePassword(session.userId, currentPassword, newPassword);
+    realtime.recheck();
     res.json({ success: true });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -691,21 +704,8 @@ app.post("/api/auth/change-password", requireAuth, (req: AuthRequest, res: Respo
 
 // --- REALTIME SSE CONNECTION FOR REPLICATION ---
 
-app.get("/api/realtime", (req: Request, res: Response) => {
-  res.writeHead(200, {
-    "Content-Type": "text/event-stream",
-    "Cache-Control": "no-store",
-    "Connection": "keep-alive"
-  });
-
-  // Pulse to keep alive
-  res.write(`data: ${JSON.stringify({ type: "init", message: "Đã thiết lập kết nối thời gian thực" })}\n\n`);
-
-  sseClients.push(res);
-
-  req.on("close", () => {
-    sseClients = sseClients.filter(client => client !== res);
-  });
+app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
+  if(!realtime.open(req.headers.authorization!.slice(7),res)&&!res.headersSent)res.status(401).json({error:'Phiên đăng nhập đã kết thúc.'});
 });
 
 // --- TASK API ENDPOINTS ---
@@ -728,8 +728,10 @@ app.post("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
   }
 
   try {
+    const previous=realtimeAudience('TASKS_UPDATE',{taskId:req.body.id});
+    const beforeIds=new Set(FamilyDB.getTasks().map(task=>task.id));
     const savedTask = FamilyDB.saveTask(req.body, session.userId, session.username);
-    broadcastSyncEvent("TASKS_UPDATE", { taskId: savedTask.id });
+    broadcastSyncEvent("TASKS_UPDATE", { taskIds: [savedTask.id,...FamilyDB.getTasks().filter(task=>!beforeIds.has(task.id)).map(task=>task.id)] },previous);
     res.json({ task: savedTask });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -759,8 +761,10 @@ app.post("/api/tasks/:id/comments", requireAuth, (req: AuthRequest, res: Respons
 app.post("/api/tasks/:id/approve", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   try {
+    const beforeIds=new Set(FamilyDB.getTasks().map(task=>task.id));
+    const previous=realtimeAudience('TASKS_UPDATE',{taskId:req.params.id});
     const task = FamilyDB.approveTaskCompletion(req.params.id, session.userId, session.username);
-    broadcastSyncEvent("TASKS_UPDATE", { taskId: task.id });
+    broadcastSyncEvent("TASKS_UPDATE", { taskIds: [task.id,...FamilyDB.getTasks().filter(task=>!beforeIds.has(task.id)).map(task=>task.id)] },previous);
     broadcastSyncEvent("REWARDS_UPDATE", { taskId: task.id });
     res.json({ task });
   } catch (err: any) {
@@ -785,8 +789,9 @@ app.delete("/api/tasks/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.
   const { id } = req.params;
 
   try {
+    const previous=realtimeAudience('TASKS_UPDATE',{taskId:id});
     FamilyDB.deleteTask(id, session.userId, session.username);
-    broadcastSyncEvent("TASKS_UPDATE", { deletedId: id });
+    broadcastSyncEvent("TASKS_UPDATE", { deletedId: id },previous);
     res.json({ success: true });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -813,8 +818,9 @@ app.post("/api/plans", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER
   }
 
   try {
+    const previous=realtimeAudience('PLANS_UPDATE',{planId:planData.id});
     const savedPlan = FamilyDB.savePlan(planData, session.userId, session.username);
-    broadcastSyncEvent("PLANS_UPDATE", { planId: savedPlan.id });
+    broadcastSyncEvent("PLANS_UPDATE", { planId: savedPlan.id },previous);
     res.json({ plan: savedPlan });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -832,8 +838,9 @@ app.delete("/api/plans/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.
   }
 
   try {
+    const previous=realtimeAudience('PLANS_UPDATE',{planId:id});
     FamilyDB.deletePlan(id, session.userId, session.username);
-    broadcastSyncEvent("PLANS_UPDATE", { deletedId: id });
+    broadcastSyncEvent("PLANS_UPDATE", { deletedId: id },previous);
     res.json({ success: true });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -883,8 +890,9 @@ app.post("/api/notes", requireAuth, (req: AuthRequest, res: Response) => {
   }
 
   try {
+    const previous=realtimeAudience('NOTES_UPDATE',{noteId:noteData.id});
     const savedNote = FamilyDB.saveNote(noteData, session.userId, session.username);
-    broadcastSyncEvent("NOTES_UPDATE", { noteId: savedNote.id });
+    broadcastSyncEvent("NOTES_UPDATE", { noteId: savedNote.id },previous);
     res.json({ note: savedNote });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -907,8 +915,9 @@ app.delete("/api/notes/:id", requireAuth, (req: AuthRequest, res: Response) => {
   }
 
   try {
+    const previous=realtimeAudience('NOTES_UPDATE',{noteId:id});
     FamilyDB.deleteNote(id, session.userId, session.username);
-    broadcastSyncEvent("NOTES_UPDATE", { deletedId: id });
+    broadcastSyncEvent("NOTES_UPDATE", { deletedId: id },previous);
     res.json({ success: true });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1240,8 +1249,9 @@ app.post("/api/finance/savings-goals", requireAuth, requireRole([UserRole.ADMIN,
     }
   }
   try {
+    const previous=realtimeAudience('FINANCE_UPDATE',{savingsGoalId:req.body?.id});
     const goal = FamilyDB.saveSavingsGoal(req.body, session.userId, session.username);
-    broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id });
+    broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id },previous);
     res.json({ goal });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1256,8 +1266,9 @@ app.delete("/api/finance/savings-goals/:id", requireAuth, requireRole([UserRole.
     return;
   }
   try {
+    const previous=realtimeAudience('FINANCE_UPDATE',{savingsGoalId:req.params.id});
     FamilyDB.deleteSavingsGoal(req.params.id, session.userId, session.username);
-    broadcastSyncEvent("FINANCE_UPDATE", { deletedGoalId: req.params.id });
+    broadcastSyncEvent("FINANCE_UPDATE", { deletedGoalId: req.params.id },previous);
     res.json({ success: true });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1508,8 +1519,9 @@ app.get("/api/medications", requireAuth, (req: AuthRequest, res: Response) => {
 app.post("/api/medications", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   try {
+    const previous=realtimeAudience('MEDICATIONS_UPDATE',{medicationId:req.body?.id});
     const medication = FamilyDB.saveMedication(req.body, session.userId, session.username);
-    broadcastSyncEvent("MEDICATIONS_UPDATE", { medicationId: medication.id });
+    broadcastSyncEvent("MEDICATIONS_UPDATE", { medicationId: medication.id },previous);
     res.json({ medication });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1517,8 +1529,9 @@ app.post("/api/medications", requireAuth, requireRole([UserRole.ADMIN, UserRole.
 });
 
 app.delete("/api/medications/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
+  const previous=realtimeAudience('MEDICATIONS_UPDATE',{deletedId:req.params.id});
   FamilyDB.deleteMedication(req.params.id);
-  broadcastSyncEvent("MEDICATIONS_UPDATE", { deletedId: req.params.id });
+  broadcastSyncEvent("MEDICATIONS_UPDATE", { deletedId: req.params.id },previous);
   res.json({ success: true });
 });
 
@@ -1562,8 +1575,9 @@ app.post("/api/documents", requireAuth, requireRole([UserRole.ADMIN, UserRole.ME
     }
   }
   try {
+    const previous=realtimeAudience('DOCUMENTS_UPDATE',{documentId:req.body?.id});
     const document = FamilyDB.saveDocument(req.body, session.userId, session.username);
-    broadcastSyncEvent("DOCUMENTS_UPDATE", { documentId: document.id });
+    broadcastSyncEvent("DOCUMENTS_UPDATE", { documentId: document.id },previous);
     res.json({ document });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1578,8 +1592,9 @@ app.delete("/api/documents/:id", requireAuth, requireRole([UserRole.ADMIN, UserR
     return;
   }
   try {
+    const previous=realtimeAudience('DOCUMENTS_UPDATE',{documentId:req.params.id});
     FamilyDB.deleteDocument(req.params.id, session.userId, session.username);
-    broadcastSyncEvent("DOCUMENTS_UPDATE", { deletedId: req.params.id });
+    broadcastSyncEvent("DOCUMENTS_UPDATE", { deletedId: req.params.id },previous);
     res.json({ success: true });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1600,8 +1615,9 @@ app.get("/api/child-health", requireAuth, (_req: AuthRequest, res: Response) => 
 app.post("/api/child-health/emergency", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   try {
+    const previous=realtimeAudience('CHILD_HEALTH_UPDATE',{healthProfileId:req.body?.id});
     const profile = FamilyDB.saveHealthProfile(req.body, session.userId, session.username);
-    broadcastSyncEvent("CHILD_HEALTH_UPDATE", { healthProfileId: profile.id });
+    broadcastSyncEvent("CHILD_HEALTH_UPDATE", { healthProfileId: profile.id },previous);
     res.json({ profile });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1611,8 +1627,9 @@ app.post("/api/child-health/emergency", requireAuth, requireRole([UserRole.ADMIN
 app.post("/api/child-health/vaccinations", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   try {
+    const previous=realtimeAudience('CHILD_HEALTH_UPDATE',{vaccinationId:req.body?.id});
     const vaccination = FamilyDB.saveVaccination(req.body, session.userId, session.username);
-    broadcastSyncEvent("CHILD_HEALTH_UPDATE", { vaccinationId: vaccination.id });
+    broadcastSyncEvent("CHILD_HEALTH_UPDATE", { vaccinationId: vaccination.id },previous);
     res.json({ vaccination });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1620,16 +1637,18 @@ app.post("/api/child-health/vaccinations", requireAuth, requireRole([UserRole.AD
 });
 
 app.delete("/api/child-health/vaccinations/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
+  const previous=realtimeAudience('CHILD_HEALTH_UPDATE',{deletedVaccinationId:req.params.id});
   FamilyDB.deleteVaccination(req.params.id);
-  broadcastSyncEvent("CHILD_HEALTH_UPDATE", { deletedVaccinationId: req.params.id });
+  broadcastSyncEvent("CHILD_HEALTH_UPDATE", { deletedVaccinationId: req.params.id },previous);
   res.json({ success: true });
 });
 
 app.post("/api/child-health/growth", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   try {
+    const previous=realtimeAudience('CHILD_HEALTH_UPDATE',{growthId:req.body?.id});
     const record = FamilyDB.saveGrowthRecord(req.body, session.userId, session.username);
-    broadcastSyncEvent("CHILD_HEALTH_UPDATE", { growthId: record.id });
+    broadcastSyncEvent("CHILD_HEALTH_UPDATE", { growthId: record.id },previous);
     res.json({ record });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1637,8 +1656,9 @@ app.post("/api/child-health/growth", requireAuth, requireRole([UserRole.ADMIN, U
 });
 
 app.delete("/api/child-health/growth/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
+  const previous=realtimeAudience('CHILD_HEALTH_UPDATE',{deletedGrowthId:req.params.id});
   FamilyDB.deleteGrowthRecord(req.params.id);
-  broadcastSyncEvent("CHILD_HEALTH_UPDATE", { deletedGrowthId: req.params.id });
+  broadcastSyncEvent("CHILD_HEALTH_UPDATE", { deletedGrowthId: req.params.id },previous);
   res.json({ success: true });
 });
 
@@ -2674,7 +2694,7 @@ app.use((error: unknown, _req: Request, res: Response, next: NextFunction) => {
 });
 return {
   app, jobs,
-  endStreams() { for (const client of sseClients) client.end(); sseClients = []; },
+  endStreams() { realtime.end(); },
   setMaintenance(port: typeof maintenancePort) { maintenancePort=port; },
   async drainHandlers(exceptOwner?: object) {
     while (true) {
@@ -2683,6 +2703,6 @@ return {
       await Promise.all(pending);
     }
   },
-  async dispose() { await disposeAssets(); },
+  async dispose() { realtime.end();await disposeAssets(); },
 };
 }
