@@ -8,7 +8,7 @@
 | I01 | Gateway, durable jobs and shared recovery integrated | PR4–6 |
 | F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
 | F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
-| F04-c | Authenticated scoped realtime in progress | No Windows acceptance until exact HEAD reports verified |
+| F04-c | Reviewed correction accepted; final documentation HEAD pending | Sourcec7d7ddc/run38164770740;512/51256files per runtime |
 | F04 remaining | Media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -290,3 +290,12 @@ Entries below are historical snapshots; later entries supersede earlier remainin
 - Fresh whole-branch review retained three Important/no Critical/Minor. One TDD pass: native stalled socket ownership1; rejected stream preconditions4 plus native loopback transports2; actual native SQLite recurring completion/approval successor recipients2. Nine actual RED cases then GREEN. Corrected Cloud512/51256files, lint/build exit0. See `f04-c-review.md`; no dependencies/lock change. Corrected source/final HEAD Windows remains pending until reports are read; first-source reports do not certify fixes.
 - Remaining: authoritative HTTP/object/search/AI/export filtering, media owner/reference/authenticated UI access, input/proxy/bootstrap/notification/backup/log privacy and dependency triage. F05 real browser acceptance unrun. Bundle >500kB warning retained for F09; no threshold change. F06–F09/P/W/I02/I03/R01–R03 incomplete; Windows2022 does not certify Server2019. No release/tag or VPS action.
 - Next after exact corrected/final Windows acceptance and authorized PR9 merge: F04-d authoritative legacy object reads/actions from actual merged main. All reviewed exact-HEAD Windows-GREEN PR merges authorized; no additional merge question required.
+
+
+### F04-c — corrected Windows implementation verified
+
+- Corrected source HEAD `c7d7ddce4115d7013aa69489c67a32b39989d929`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38164770740, attempt1, success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: npm ci/native SQLite/lint/tests/build/compiled production all success, six exit reports0; evidence and ci-gate success. Each512passed56files, zero failures/errors/skips/todo; nine review regressions included. Full logs and both JUnit/JSON/native/production artifact sets downloaded and independently read; immutable source/report hashes in `evidence/f04-c-corrected-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 verified with unchanged Windows binary SHA256 `e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a`. Compiled production-only launch from System32/Unicode external roots validates15checks including header-authenticated SSE, anonymous/URL-token denial, no-store initialization and bounded stream cleanup. Four launches/three graceful stops/crash recovery/write-denied/offline evidence preserved. Not portable ZIP/service/Server2019 acceptance.
+- First-source503-test result is superseded by this512-test correction. Dependency audit remains13development/6production entries in the install logs; no automatic update performed in this focused PR. Input/proxy/bootstrap/privacy/dependency gates remain required before Internet readiness.
+- This evidence belongs to sourcec7d7ddc, preceding this documentation commit. The final documentation HEAD must pass the same Windows CI; exact SHA/run/report hashes are recorded in PR checks and its final proof comment, without attributing parent reports to a newer SHA. PR9 is not merged until that proof is independently read. No deferred review Minor; rulings/costs recorded in f04-c-review.md.
+- Next: authorized PR9 merge then F04-d authoritative legacy reads/actions from merged main. Remaining F04/F05–F09/productivity/wallet/integration/release-prep tasks continue; actual release/tag/VPS actions remain unauthorized. Browser F05 and Server2019 R02 unrun.
