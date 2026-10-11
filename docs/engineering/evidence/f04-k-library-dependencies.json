@@ -110,7 +110,8 @@
       "dist": {
         "integrity": "sha512-oCu2wfipvX3AePSgmOuKkIywOu+8n9psz7hXYmk56ghpu3+7KzNIBopaOs4c9BrtdnTtW30unG9GTfHo7EwERQ==",
         "tarball": "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.11.0.tgz"
-      }
+      },
+      "name": "baseline-browser-mapping"
     },
     {
       "version": "5.0.12",
@@ -121,7 +122,8 @@
       "dist": {
         "integrity": "sha512-YovQ3rzhaLMIrDjNDMkNS01tea93qhEhG5xy8f6+R0l+dw3Ki+5sCoIoI942iuLZTHWogWktgwVDhU09iNEimQ==",
         "tarball": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-5.0.12.tgz"
-      }
+      },
+      "name": "brace-expansion"
     },
     {
       "version": "4.28.7",
@@ -132,7 +134,8 @@
       "dist": {
         "integrity": "sha512-JxV13hNrFxqjOc8alRbq9dK1MM79NEXYpma2B2J4wAtpWS5zIEIKqWPGCl7N4o7Uc7B7itylh7SuDujATRyyTw==",
         "tarball": "https://registry.npmjs.org/browserslist/-/browserslist-4.28.7.tgz"
-      }
+      },
+      "name": "browserslist"
     },
     {
       "version": "3.3.18",
@@ -143,7 +146,8 @@
       "dist": {
         "integrity": "sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w==",
         "tarball": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz"
-      }
+      },
+      "name": "nanoid"
     },
     {
       "version": "8.5.23",
@@ -154,7 +158,8 @@
       "dist": {
         "integrity": "sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==",
         "tarball": "https://registry.npmjs.org/postcss/-/postcss-8.5.23.tgz"
-      }
+      },
+      "name": "postcss"
     },
     {
       "version": "7.6.5",
@@ -165,7 +170,8 @@
       "dist": {
         "integrity": "sha512-/FPD0nUc9jH6rfFjji9IBqOz4pcSE3CsT1m7Ep6Mdb0LxSUMj8hgl6GomOvZzpNpAqqGaXA0P3VSrZLFzIhQrw==",
         "tarball": "https://registry.npmjs.org/protobufjs/-/protobufjs-7.6.5.tgz"
-      }
+      },
+      "name": "protobufjs"
     },
     {
       "version": "1.2.2",
@@ -176,7 +182,8 @@
       "dist": {
         "integrity": "sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==",
         "tarball": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.2.tgz"
-      }
+      },
+      "name": "source-map-js"
     },
     {
       "version": "4.1.11",
@@ -187,7 +194,8 @@
       "dist": {
         "integrity": "sha512-fhACrNXUidIbGSBr5FlbuBkO7VWC1ZyLl0DO4CU2DrQoAPxX84Ysxs+HeGQpii5lZWV1Q4gBZTTu49mF+A6Edw==",
         "tarball": "https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz"
-      }
+      },
+      "name": "vitest"
     }
   ],
   "audit": {
@@ -629,14 +637,15 @@
   "regressions": {
     "libraryObservedRed": 19,
     "positiveCharacterizations": 9,
-    "requiredEvidenceObservedRed": 1
+    "requiredEvidenceObservedRed": 1,
+    "auditGateObservedRed": 15
   },
   "cloud": {
     "frozenNpmCi": 0,
     "audit": 0,
     "lint": 0,
     "tests": {
-      "passed": 1007,
+      "passed": 1022,
       "files": 74,
       "failed": 0,
       "skipped": 0
@@ -646,7 +655,12 @@
       "passed": 86,
       "files": 2
     },
-    "windowsAcceptance": false
+    "windowsAcceptance": false,
+    "finalAuditGateTarget": {
+      "passed": 101,
+      "files": 2
+    },
+    "powerShellAuditWrapper": "not-run-in-Linux-Cloud; Windows CI required"
   },
   "cloudEvidenceSha256": {
     "f04-k-security-red.log": "bcf18b3957310751d4ee2e854b5cbe0fd63deb838bf217e55d7d810cb8299068",
@@ -657,6 +671,11 @@
     "f04-k-tests.log": "1c108f9489f00e8277b61e0acde990fc1e7358257d48701bfb317a4fa62586c4",
     "f04-k-build.log": "3e30deb83399f0fcc3c064bf02b879bac2fa6927eb2c8bedac5e38c5888877fd",
     "f04-k-final-target.log": "461566ba8ea71f2a1ffdb5d1f71b9819d6a8d91c9a9a4a4ef39c6e9ce6667a39",
-    "f04-k-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    "f04-k-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-k-audit-gate-red.log": "01d782d57dfd3ab47481edfde1661f9684099ff4219977dfc57e7c4200a99225",
+    "f04-k-audit-gate-green.log": "7146c34318bb3ef0e704710def6833d615e0f3b8132b528ecc249830a0654e34",
+    "f04-k-audit-gate-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-k-final-tests.log": "714f9d1ea6e39bd5d7ea9fa3cd7c410f277b5ded224b1aa1b567492262c4e9a3",
+    "f04-k-final-build.log": "5c0e77ee91401e0db5b24711f05279e24c49fd1a998be4d10e4178480049fe6c"
   }
 }

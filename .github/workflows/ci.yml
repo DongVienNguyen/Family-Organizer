@@ -53,6 +53,10 @@ jobs:
       - name: Install from lockfile
         id: install
         run: ./scripts/ci/Invoke-Check.ps1 -Check install
+      - name: Dependency advisory audit
+        id: audit
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Test-Audit.ps1
       - name: Native SQLite compatibility
         id: native
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
@@ -77,6 +81,7 @@ jobs:
         if: ${{ always() }}
         env:
           CHECK_INSTALL: ${{ steps.install.outcome }}
+          CHECK_AUDIT: ${{ steps.audit.outcome }}
           CHECK_NATIVE: ${{ steps.native.outcome }}
           CHECK_LINT: ${{ steps.lint.outcome }}
           CHECK_TEST: ${{ steps.test.outcome }}

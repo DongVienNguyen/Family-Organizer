@@ -1,10 +1,13 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createHash} from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 
 const source = fs.readFileSync(new URL('../scripts/ci/write-evidence.mjs', import.meta.url), 'utf8')
   .replace(/^import .*;\r?\n/gm, '');
 const sha = '1234567890123456789012345678901234567890';
+const lockText='synthetic frozen lockfile';
+const lockHash=createHash('sha256').update(lockText).digest('hex');
 const suiteNames = [
   'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
@@ -20,6 +23,8 @@ const suiteNames = [
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
   const reports: Record<string, any> = {
+    'audit.json':{vulnerabilities:{},metadata:{vulnerabilities:{info:0,low:0,moderate:0,high:0,critical:0,total:0}}},
+    'audit-context.json':{commitSha:sha,nodeVersion:'v24.21.0',platform:'win32',architecture:'x64',lockSha256:lockHash},
     'toolchain.json': { npmVersion: '11.19.0', visualStudioVersion: '17.14.37710.0' },
     'native.json': {
       nodeVersion: 'v24.21.0', nodeABI: '137', platform: 'win32', architecture: 'x64',
@@ -37,7 +42,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
       testResults: suiteNames.map(name => ({ name: `D:/a/Family-Organizer/${name}`, assertionResults: [{ status: 'passed' }] })),
     },
   };
-  for (const check of ['install', 'native', 'lint', 'test', 'build', 'production']) reports[`${check}-exit.json`] = { exitCode: 0 };
+  for (const check of ['install', 'native', 'lint', 'test', 'build', 'production','audit']) reports[`${check}-exit.json`] = { exitCode: 0 };
   change(reports);
   const writes: Record<string, string> = {};
   const processFixture = {
@@ -48,15 +53,15 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
       EXPECTED_SQLITE_ADDON: '13.0.3',
       TEST_COMMIT_SHA: sha, GITHUB_RUN_ATTEMPT: '1',
       CHECK_INSTALL: 'success', CHECK_NATIVE: 'success', CHECK_LINT: 'success', CHECK_TEST: 'success', CHECK_BUILD: 'success',
-      CHECK_PRODUCTION: 'success',
+      CHECK_PRODUCTION: 'success', CHECK_AUDIT:'success',
     },
   };
   vm.runInNewContext(source, {
-    process: processFixture, console: { log: () => {} },
+    createHash, process: processFixture, console: { log: () => {} },
     execFileSync: () => sha, os: { type: () => 'Windows_NT', release: () => '10.0.20348' },
     fs: {
       mkdirSync: () => {}, existsSync: (file: string) => file === 'reports/junit.xml' || file.slice(8) in reports,
-      readFileSync: (file: string) => file === 'reports/junit.xml' ? '<testcase name="synthetic" />' : JSON.stringify(reports[file.slice(8)]),
+      readFileSync: (file: string) => file === 'package-lock.json'?lockText:file === 'reports/junit.xml' ? '<testcase name="synthetic" />' : JSON.stringify(reports[file.slice(8)]),
       writeFileSync: (file: string, text: string) => { writes[file] = text; },
     },
   });
@@ -148,3 +153,12 @@ it('rejects missing first-account initialization regressions',()=>{const result=
 it('rejects missing compiled first-account initialization proof',()=>{const result=runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((name:string)=>name!=='explicit-first-account');});expect(result.evidence.errors).toContain('production probe check missing: explicit-first-account');});
 
 it('rejects missing dependency library security regressions',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('tests/librarySecurity.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/librarySecurity.test.ts');});
+
+it.each(['audit.json','audit-context.json','audit-exit.json'])('rejects missing dependency audit evidence %s',name=>{expect(runEvidence(reports=>{delete reports[name];}).code).toBe(1);});
+it('rejects nonzero native audit exit even when other checks pass',()=>{expect(runEvidence(reports=>{reports['audit-exit.json'].exitCode=1;}).code).toBe(1);});
+it.each(['low','moderate','high','critical'])('rejects dependency audit with remaining %s vulnerabilities',severity=>{expect(runEvidence(reports=>{reports['audit.json'].metadata.vulnerabilities[severity]=1;reports['audit.json'].metadata.vulnerabilities.total=1;reports['audit.json'].vulnerabilities.synthetic={severity};}).code).toBe(1);});
+it('rejects audit error JSON despite a zero native exit',()=>{expect(runEvidence(reports=>{reports['audit.json'].error={code:'SYNTHETIC_REGISTRY_ERROR'};}).code).toBe(1);});
+it('rejects zero audit totals contradicting nonempty vulnerability records',()=>{expect(runEvidence(reports=>{reports['audit.json'].vulnerabilities.synthetic={severity:'high'};}).code).toBe(1);});
+it('rejects an audit of another lockfile',()=>{expect(runEvidence(reports=>{reports['audit-context.json'].lockSha256='b'.repeat(64);}).code).toBe(1);});
+it('rejects an audit of another HEAD',()=>{expect(runEvidence(reports=>{reports['audit-context.json'].commitSha='f'.repeat(40);}).code).toBe(1);});
+it.each([['nodeVersion','v22.23.3'],['platform','synthetic-other-platform'],['architecture','arm64']])('rejects audit context with mismatched %s',(field,value)=>{expect(runEvidence(reports=>{reports['audit-context.json'][field]=value;}).code).toBe(1);});
