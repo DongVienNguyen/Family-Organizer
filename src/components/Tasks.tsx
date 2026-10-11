@@ -1655,8 +1655,9 @@ export function Tasks({
                     ]}
                   />
                   ) : (
-                    <input type="text" readOnly value={newIsShared ? t("tasks.formScopePublic") : t("tasks.formScopePrivate")} aria-label={t("tasks.formScopeLabel")} className="w-full bg-slate-950 neu-pressed-sm rounded-lg p-2.5 text-slate-400" />
+                    <input type="text" readOnly value={newIsShared ? t("tasks.formScopePublic") : t("tasks.formScopePrivate")} aria-label={t("tasks.formScopeLabel")} aria-describedby="task-sharing-policy" className="w-full bg-slate-950 neu-pressed-sm rounded-lg p-2.5 text-slate-400" />
                   )}
+                  {!canEditTaskSharing && <p id="task-sharing-policy" className="text-[10px] text-slate-500">{t("tasks.formSharingCreatorOnly")}</p>}
                 </div>
               </div>
 

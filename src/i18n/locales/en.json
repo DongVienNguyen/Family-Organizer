@@ -384,6 +384,7 @@
     "formScopePrivate": "Private (Admin & assignee only)",
     "formPointsLabel": "Reward points",
     "formPointsAdultOnly": "Reward points and assignees for rewarded tasks are managed by adults.",
+    "formSharingCreatorOnly": "Only the creator or an adult can change sharing. Ask them if this task needs to be shared.",
     "formRecurLabel": "Recurring task",
     "formRecurNone": "No repeat",
     "formRecurDaily": "Daily",

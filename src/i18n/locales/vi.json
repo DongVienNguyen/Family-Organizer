@@ -523,6 +523,7 @@
     "formScopePrivate": "Riêng tư (Chỉ Admin & người phân công thấy)",
     "formPointsLabel": "Điểm thưởng",
     "formPointsAdultOnly": "Điểm thưởng và người nhận việc có điểm do người lớn thiết lập.",
+    "formSharingCreatorOnly": "Chỉ người tạo hoặc người lớn mới được đổi phạm vi chia sẻ. Hãy nhờ họ nếu cần chia sẻ công việc này.",
     "formRecurLabel": "Task lặp lại",
     "formRecurNone": "Không lặp",
     "formRecurDaily": "Hàng ngày",

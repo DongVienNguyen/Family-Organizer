@@ -55,14 +55,14 @@ export function validateTaskPayload(input:Record<string,any>,old:Task|undefined,
    case 'status':valid=Object.values(TaskStatus).includes(value)&&Boolean(old||value===TaskStatus.TODO||value===TaskStatus.IN_PROGRESS);break;
    case 'priority':valid=Object.values(TaskPriority).includes(value);break;
    case 'dueDate':valid=validDate(value,true);break;
-   case 'assigneeId':valid=value===null||liveId(value);break;
+   case 'assigneeId':if(old&&same(value,old.assigneeId))continue;valid=value===null||liveId(value);break;
    case 'isShared':valid=typeof value==='boolean';break;
    case 'tags':valid=Array.isArray(value)&&value.length<=40&&value.every(v=>text(v,128,false));break;
    case 'rewardPoints':valid=Number.isSafeInteger(value)&&value>=0&&value<=1000000;break;
    case 'recurrenceType':valid=['none','daily','weekly','monthly','yearly'].includes(value);break;
    case 'recurrenceInterval':valid=Number.isSafeInteger(value)&&value>=1&&value<=10000;break;
    case 'recurrenceEndDate':valid=value===''||validDate(value,false);break;
-   case 'rotationMemberIds':valid=Array.isArray(value)&&value.length<=100&&new Set(value).size===value.length&&value.every(liveId);break;
+   case 'rotationMemberIds':if(old&&same(value,old.rotationMemberIds))continue;valid=Array.isArray(value)&&value.length<=100&&new Set(value).size===value.length&&value.every(liveId);break;
    case 'proofImage':valid=validImage(value);break;
    case 'proofNote':valid=value===null||text(value,8000);break;
   }

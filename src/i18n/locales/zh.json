@@ -384,6 +384,7 @@
     "formScopePrivate": "私密（仅管理员和负责人可见）",
     "formPointsLabel": "奖励积分",
     "formPointsAdultOnly": "奖励积分及有奖励任务的负责人由成年人设置。",
+    "formSharingCreatorOnly": "只有创建者或成年人可以更改共享范围。如需共享此任务，请联系他们。",
     "formRecurLabel": "重复任务",
     "formRecurNone": "不重复",
     "formRecurDaily": "每天",
