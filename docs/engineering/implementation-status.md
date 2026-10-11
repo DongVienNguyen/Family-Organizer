@@ -9,7 +9,8 @@
 | F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
 | F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
 | F04-c | Reviewed, exact Windows GREEN, merged PR9 | HEAD8cce8ee/run38165065503;512/51256files per runtime |
-| F04 remaining | Media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
+| F04-d | Reviewed source Windows GREEN; final HEAD proof pending PR10 | Source273b57c/run38167343486;572/57257files per runtime |
+| F04 remaining | Media/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
@@ -313,3 +314,10 @@ Entries below are historical snapshots; later entries supersede earlier remainin
 - Fresh whole-branch review found two Important assistant authorization races, no Critical/Minor. One TDD pass: four regressions observed retry after revocation or200/private answers after object visibility loss, then GREEN. Authorized retry remains characterized. Live session/object checks precede every provider dispatch and follow its completion. Details and deferred acceptance/costs: `f04-d-review.md`.
 - Corrected-source/final HEAD Windows remains pending. First-source evidence does not validate corrections. Media/input/proxy/bootstrap/reward/notification/backup/log privacy/dependencies and browser F05 remain required; Server2019 R02 unrun. No dependency or lock changes; no release/tag/VPS actions.
 - Corrected Cloud validation:572/57257files, zero skips, lint/build exit0. Initial571/572 transport timing failure and deterministic-fixture correction retained in f04-d-review.md; production transport/deadline unchanged. All existing chunk/socket/uncertainty assertions remain.
+
+### F04-d — corrected Windows implementation verified
+
+- Corrected source HEAD `273b57c157a3366410cc96757b0c5cb3c5f59d7d`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38167343486, attempt1 success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each572/57257files, zero failed/skipped/todo. npm ci/native/lint/tests/build/compiled production16checks exit0; evidence and ci-gate success. Full logs and both JUnit/JSON/native/production artifacts independently read; hashes retained in `evidence/f04-d-corrected-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 with unchanged verified Windows binary. System32/Unicode roots, four launches/three graceful stops/crash recovery/write-denied/offline proof retained. No real provider calls. Two Important review findings fixed; no deferred Minor; deterministic transport fixture preserves assertions.
+- This report belongs to source273b57c. Final documentation HEAD requires independent exact-SHA Windows acceptance; final proof URL/SHA/report hashes will be recorded on PR10 before its authorized merge.
+- Remaining errors/gates: production audit6 entries (including one critical), development audit13, bundle >500kB warning; triage stays mandatory in F04/F09. Media/input/proxy/bootstrap/derivative and backup/log privacy pending. F05 browser/coverage/required checks and F06–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS action. Next: F04-e authenticated media from merged main.
