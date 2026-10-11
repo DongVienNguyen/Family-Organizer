@@ -12,7 +12,8 @@
 | F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
 | F04-e | Reviewed, exact Windows GREEN, merged PR11 | HEADc2b0f88/run38171963503;664/66463files per runtime |
 | F04-f | Reviewed, exact Windows GREEN, merged PR12 | HEAD8aa5299/run38174580999;762/76266files per runtime |
-| F04-g | PR13 reviewed/corrected Windows GREEN; final documentation HEAD pending | HEADec77266/run38176775633;860/86069files per runtime |
+| F04-g | Reviewed, exact Windows GREEN, merged PR13 | HEAD7a46a62/run38177081124;860/86069files per runtime |
+| F04-h | PR14 first Windows verified; three Important review corrections in progress | HEADb56de22/run38177773857;891/89171files per runtime |
 | F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -405,3 +406,16 @@ Canonical-destination follow-up validation: Cloud664/66463files, zero failed/ski
 - Next: corrected full Cloud validation, exact corrected/final Windows logs/artifacts, authorized merge; continue remaining F04 and independent F05–F08 preparation.
 
 - Corrected F04-g source ec772661516ad2549cb0604777b2a3a5c56e4fe6: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38176775633 independently verified both Windows Node22/24,860/86069files zero skips; all six command exits0,19 compiled proofs/evidence/ci-gate. Full logs/JUnit/JSON/native/production artifacts and SHA256 recorded in evidence/f04-g-corrected-source.json. Final documentation HEAD must pass its own run before merge; immutable PR proof comment records that exact SHA.
+
+## F04-g merge and F04-h derived privacy
+
+- PR13 final HEAD7a46a62adbb8c6175d0922f06c9038fb27e61884 independently passed exact Windows run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177081124 on Node22/24:860/86069files per runtime, all six command exits0,19 compiled proofs/evidence/gate. Full logs/JUnit/JSON/native/production artifacts/hash proof: https://github.com/DongVienNguyen/Family-Organizer/pull/13#issuecomment-6114087923. Authorized squash main67bffd8650de46d95d2d4f697ce5251f3a56954e.
+- F04-h branch codex/f04-derived-object-privacy starts from that actual merge. Current source ACL now filters/redacts task-derived reward history, notifications/read acknowledgments/push badges and private-document activity details. Family point balances/items/history data remain canonical; new optional source metadata is internal. No new Wallet functionality or API. See derived-object-privacy.md for explicit historical redaction costs.
+- TDD:24actualRED+4chars, evidence3actualRED ->27actualRED/four chars. Cloud frozen npm ci/lint/tests891/89171files/build all exit0, zero skips; no deps/lock changes. Existing mocked HTTP ACL read port updated without removing assertions.20th compiled proof added. First source PR/exact Windows and one fresh wholebranch review pending.
+- Other F04 and F05–F09 remain incomplete. Main protected:false and rulesets:[] read back after F05 writes403; negative failing-PR enforcement proof remains blocked. Browser/coverage/package/service/provider/bootstrap/dependency and Server2019 gates are not inferred from these tests. No release/tag/VPS operation.
+- Next: source commit/PR, exact Windows and fresh review; grade findings, one correction pass, final exact verification and authorized merge, then continue remaining foundation.
+
+- F04-h PR: https://github.com/DongVienNguyen/Family-Organizer/pull/14; first sourceb56de22a6860e3bddf033919498dc82a38757079 Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177773857 independently891/89171files per runtime, all six exits0,20 compiled proofs/evidence/gate. Full logs/artifacts/hashes in evidence/f04-h-first-source.json.
+- One fresh wholebranch review found threeImportant/noCritical/noMinor: adult unproven system content, source-bearing historical IDs/extensions/push tags, frozen medication/vaccination patient markers. All accepted before mutation,25actualRED+two chars added, corrected in one pass/no rereview.110 target assertions GREEN; corrected Cloud lint/full918/91871files/build all exit0, zero skips; frozen lock unchanged. Exact corrected/final Windows pending. See f04-h-review.md for costs/limits.52actualRED/six characterizations in this focused PR.
+
+- F04-h corrected source887367f06266425947fd89b15740ea236c40c785: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38178880558 independently verified both Windows Node22/24,918/91871files zero skips, six command exits0,20 compiled proofs/evidence/ci-gate. Full logs/artifacts/JUnit/JSON/native/production hashes in evidence/f04-h-corrected-source.json. Final documentation HEAD still requires its own run; immutable PR proof records exact SHA before authorized merge.

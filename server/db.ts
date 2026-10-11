@@ -1,3 +1,4 @@
+import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
 import {currentLegacyActor} from './legacyActor.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
 import {canViewLegacyTask} from './legacyVisibility.js';
@@ -42,6 +43,7 @@ import {
   EmergencyProfile,
   ShoppingItem,
   Notification,
+  LegacySourceRef,
   PushSubscriptionRecord,
   StoredDish,
   StoredMealPlan,
@@ -359,8 +361,8 @@ export class FamilyDB {
   }
 
   // Activity logs helper
-  public static logActivity(userId: string, username: string, action: string, details: string) {
-    return runLegacyCommand("logActivity", [userId, username, action, details], userId, () => {
+  public static logActivity(userId: string, username: string, action: string, details: string, sourceRef?:LegacySourceRef) {
+    return runLegacyCommand("logActivity", [userId, username, action, details, sourceRef], userId, () => {
     const db = this.readRaw();
     db.activityLogs.unshift({
       id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
@@ -368,6 +370,7 @@ export class FamilyDB {
       username,
       action,
       details,
+      ...(sourceRef?{sourceRef}:{}),
       createdAt: new Date().toISOString()
     });
     // Cap logs at 300 to keep the activity view lightweight
@@ -503,6 +506,20 @@ export class FamilyDB {
     return this.readRaw().transactions;
   }
 
+  public static getRewardLedgerForActor(userId:string) {
+    const db=this.readRaw();return projectRewards(db,legacyReader(db,userId));
+  }
+  public static getNotificationsForActor(userId:string) {
+    const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId),getSessionSecret());
+  }
+  // Trusted outbox port resolves a canonical reference; HTTP only sees projected IDs.
+  public static getQueuedNotificationForActor(id:string,userId:string) {
+    const db=this.readRaw(),actor=legacyReader(db,userId),notification=db.notifications.find(row=>row.id===id);
+    return notification?projectNotification(db,actor,notification,getSessionSecret()):undefined;
+  }
+  public static getActivityLogsForActor(userId:string) {
+    const db=this.readRaw();return projectActivityLogs(db,legacyReader(db,userId));
+  }
   public static getRewardLedger() {
     return this.readRaw().rewardLedger;
   }
@@ -651,6 +668,7 @@ export class FamilyDB {
         title: "🎂 Sắp đến sinh nhật!",
         content: `${u.fullName} sẽ tròn ${age} tuổi ${when} (ngày ${dob.getDate()}/${dob.getMonth() + 1}). Cả nhà chuẩn bị chúc mừng nhé!`,
         type: "system",
+        sourceRef: {domain:'family'},
         isRead: false,
         createdAt: new Date().toISOString()
       };
@@ -902,7 +920,7 @@ export class FamilyDB {
 
       if (needsApproval) {
         const submitter = db.users.find(u => u.id === userId);
-        this.notifyAdults(db, "⏳ Chờ duyệt hoàn thành", `${submitter?.fullName || "Bé"} báo đã xong "${updatedTask.title}". Vào duyệt để cộng ${updatedTask.rewardPoints} điểm nhé.`, "task");
+        this.notifyAdults(db, "⏳ Chờ duyệt hoàn thành", `${submitter?.fullName || "Bé"} báo đã xong "${updatedTask.title}". Vào duyệt để cộng ${updatedTask.rewardPoints} điểm nhé.`, "task", {domain:'task',id:updatedTask.id});
       }
 
       if (effectiveCompleting && updatedTask.rewardPoints && updatedTask.rewardPoints > 0) {
@@ -923,7 +941,7 @@ export class FamilyDB {
             createdById: userId,
             createdAt: nowStr
           });
-          this.addNotificationInternal(db, awardUserId, "Diem thuong moi", `Con vua nhan ${updatedTask.rewardPoints} diem vi hoan thanh "${updatedTask.title}".`, "task");
+          this.addNotificationInternal(db, awardUserId, "Diem thuong moi", `Con vua nhan ${updatedTask.rewardPoints} diem vi hoan thanh "${updatedTask.title}".`, "task", {domain:'task',id:updatedTask.id});
         }
       }
 
@@ -1020,9 +1038,9 @@ export class FamilyDB {
 
       // Push notification to assignee
       if (newTask.assigneeId && newTask.assigneeId !== userId) {
-        this.addNotificationInternal(db, newTask.assigneeId, "Công việc mới được giao", `Bạn vừa được giao nhiệm vụ: "${newTask.title}"`);
+        this.addNotificationInternal(db, newTask.assigneeId, "Công việc mới được giao", `Bạn vừa được giao nhiệm vụ: "${newTask.title}"`, 'task', {domain:'task',id:newTask.id});
       } else if (newTask.isShared) {
-        this.addNotificationInternal(db, "all", "Công việc gia đình mới", `Cả nhà ơi có nhiệm vụ: "${newTask.title}"`);
+        this.addNotificationInternal(db, "all", "Công việc gia đình mới", `Cả nhà ơi có nhiệm vụ: "${newTask.title}"`, 'task', {domain:'task',id:newTask.id});
       }
 
       this.writeRaw(db);
@@ -1034,10 +1052,10 @@ export class FamilyDB {
   }
 
   // Gửi thông báo (in-app + push) tới mọi người lớn trong nhà (Admin + Member).
-  private static notifyAdults(db: FamilyOrganizerDB, title: string, content: string, type: Notification["type"] = "system"): void {
+  private static notifyAdults(db: FamilyOrganizerDB, title: string, content: string, type: Notification["type"] = "system", sourceRef:LegacySourceRef={domain:'family'}): void {
     db.users
       .filter(u => u.role === UserRole.ADMIN || u.role === UserRole.MEMBER)
-      .forEach(u => this.addNotificationInternal(db, u.id, title, content, type));
+      .forEach(u => this.addNotificationInternal(db, u.id, title, content, type, sourceRef));
   }
 
   // Người lớn DUYỆT việc trẻ đã báo xong → hoàn thành + cộng điểm (tái dùng saveTask
@@ -1088,7 +1106,8 @@ export class FamilyDB {
         task.assigneeId,
         "🔁 Cần làm lại",
         reasonText ? `Ba mẹ trả lại việc "${task.title}": ${reasonText}` : `Ba mẹ trả lại việc "${task.title}", con làm lại nhé.`,
-        "task"
+        "task",
+        {domain:'task',id:task.id}
       );
     }
     this.writeRaw(db);
@@ -1203,7 +1222,7 @@ export class FamilyDB {
       this.logActivity(userId, username, "Tạo Lịch trình", `Đã lập lịch trình mới: "${newPlan.title}".`);
 
       if (newPlan.isShared) {
-        this.addNotificationInternal(db, "all", "Sự kiện gia đình mới", `Lịch gia đình có sự kiện mới: "${newPlan.title}" vào ngày ${newPlan.startDate.substring(0, 10)}`);
+        this.addNotificationInternal(db, "all", "Sự kiện gia đình mới", `Lịch gia đình có sự kiện mới: "${newPlan.title}" vào ngày ${newPlan.startDate.substring(0, 10)}`, 'plan', {domain:'plan',id:newPlan.id});
       }
 
       return newPlan;
@@ -2713,7 +2732,7 @@ export class FamilyDB {
       } as FamilyDocument;
       db.documents[idx] = updated;
       this.writeRaw(db);
-      this.logActivity(userId, username, "Giấy tờ", `Đã cập nhật giấy tờ "${updated.title}".`);
+      this.logActivity(userId, username, "Giấy tờ", `Đã cập nhật giấy tờ "${updated.title}".`, {domain:'document',id:updated.id});
       return updated;
     }
 
@@ -2735,7 +2754,7 @@ export class FamilyDB {
     };
     db.documents.unshift(doc);
     this.writeRaw(db);
-    this.logActivity(userId, username, "Giấy tờ", `Đã thêm giấy tờ "${doc.title}".`);
+    this.logActivity(userId, username, "Giấy tờ", `Đã thêm giấy tờ "${doc.title}".`, {domain:'document',id:doc.id});
     return doc;
 
     });
@@ -2751,7 +2770,7 @@ export class FamilyDB {
     (doc.files || []).forEach(f => deleteMediaByUrl(f.url));
     db.documents = db.documents.filter(d => d.id !== id);
     this.writeRaw(db);
-    this.logActivity(userId, username, "Giấy tờ", `Đã xóa giấy tờ "${doc.title}".`);
+    this.logActivity(userId, username, "Giấy tờ", `Đã xóa giấy tờ "${doc.title}".`, {domain:'document',id:doc.id});
 
     });
   }
@@ -2764,9 +2783,9 @@ export class FamilyDB {
     const now = Date.now();
     let modified = false;
 
-    const ensure = (id: string, userId: string, title: string, content: string, type: Notification["type"]) => {
+    const ensure = (id: string, userId: string, title: string, content: string, type: Notification["type"], sourceRef:LegacySourceRef) => {
       if (db.notifications.some(n => n.id === id)) return;
-      const notif: Notification = { id, userId, title, content, type, isRead: false, createdAt: new Date().toISOString() };
+      const notif: Notification = { id, userId, title, content, type, sourceRef, isRead: false, createdAt: new Date().toISOString() };
       db.notifications.unshift(notif);
       queuePush(db, notif);
       modified = true;
@@ -2784,11 +2803,11 @@ export class FamilyDB {
       const diffMin = (due - now) / 60000;
       const recipient = t.assigneeId || "all";
       if (diffMin > 60 && diffMin <= 24 * 60) {
-        ensure(`notif_taskdue1d_${t.id}`, recipient, "⏰ Sắp đến hạn công việc", `"${t.title}" đến hạn lúc ${t.dueDate}.`, "task");
+        ensure(`notif_taskdue1d_${t.id}`, recipient, "⏰ Sắp đến hạn công việc", `"${t.title}" đến hạn lúc ${t.dueDate}.`, "task", {domain:'task',id:t.id});
       } else if (diffMin > 0 && diffMin <= 60) {
-        ensure(`notif_taskdue1h_${t.id}`, recipient, "⏰ Công việc sắp đến hạn!", `"${t.title}" sẽ đến hạn trong vòng 1 giờ (${t.dueDate}).`, "task");
+        ensure(`notif_taskdue1h_${t.id}`, recipient, "⏰ Công việc sắp đến hạn!", `"${t.title}" sẽ đến hạn trong vòng 1 giờ (${t.dueDate}).`, "task", {domain:'task',id:t.id});
       } else if (diffMin <= 0) {
-        ensure(`notif_taskoverdue_${t.id}`, recipient, "🔴 Công việc đã quá hạn", `"${t.title}" đã quá hạn (${t.dueDate}) mà chưa hoàn thành.`, "task");
+        ensure(`notif_taskoverdue_${t.id}`, recipient, "🔴 Công việc đã quá hạn", `"${t.title}" đã quá hạn (${t.dueDate}) mà chưa hoàn thành.`, "task", {domain:'task',id:t.id});
       }
     });
 
@@ -2798,9 +2817,9 @@ export class FamilyDB {
       const diffMin = (start - now) / 60000;
       const recipient = p.isShared ? "all" : p.creatorId;
       if (diffMin > 60 && diffMin <= 24 * 60) {
-        ensure(`notif_plansoon1d_${p.id}`, recipient, "📅 Sự kiện sắp diễn ra", `"${p.title}" bắt đầu lúc ${p.startDate}.`, "plan");
+        ensure(`notif_plansoon1d_${p.id}`, recipient, "📅 Sự kiện sắp diễn ra", `"${p.title}" bắt đầu lúc ${p.startDate}.`, "plan", {domain:'plan',id:p.id});
       } else if (diffMin > 0 && diffMin <= 60) {
-        ensure(`notif_plansoon1h_${p.id}`, recipient, "📅 Sự kiện sắp bắt đầu!", `"${p.title}" sẽ bắt đầu trong vòng 1 giờ (${p.startDate}).`, "plan");
+        ensure(`notif_plansoon1h_${p.id}`, recipient, "📅 Sự kiện sắp bắt đầu!", `"${p.title}" sẽ bắt đầu trong vòng 1 giờ (${p.startDate}).`, "plan", {domain:'plan',id:p.id});
       }
     });
 
@@ -2818,11 +2837,11 @@ export class FamilyDB {
       const diffDays = Math.round((dueMidnight - nowMidnight) / 86400000);
       const amt = b.amount.toLocaleString("vi-VN");
       if (diffDays > 0 && diffDays <= 3) {
-        ensure(`notif_billdue_${b.id}_${b.nextDueDate}`, "all", "🧾 Hóa đơn sắp đến hạn", `"${b.title}" đến hạn ngày ${b.nextDueDate} (còn ${diffDays} ngày) — ${amt} đ.`, "finance");
+        ensure(`notif_billdue_${b.id}_${b.nextDueDate}`, "all", "🧾 Hóa đơn sắp đến hạn", `"${b.title}" đến hạn ngày ${b.nextDueDate} (còn ${diffDays} ngày) — ${amt} đ.`, "finance", {domain:'finance'});
       } else if (diffDays === 0) {
-        ensure(`notif_billdue0_${b.id}_${b.nextDueDate}`, "all", "🧾 Hóa đơn đến hạn hôm nay", `"${b.title}" đến hạn thanh toán hôm nay — ${amt} đ.`, "finance");
+        ensure(`notif_billdue0_${b.id}_${b.nextDueDate}`, "all", "🧾 Hóa đơn đến hạn hôm nay", `"${b.title}" đến hạn thanh toán hôm nay — ${amt} đ.`, "finance", {domain:'finance'});
       } else if (diffDays < 0) {
-        ensure(`notif_billover_${b.id}_${b.nextDueDate}`, "all", "🔴 Hóa đơn đã quá hạn", `"${b.title}" quá hạn từ ${b.nextDueDate} — ${amt} đ. Đã trả rồi thì bấm "Đã trả" để dời sang kỳ sau nhé.`, "finance");
+        ensure(`notif_billover_${b.id}_${b.nextDueDate}`, "all", "🔴 Hóa đơn đã quá hạn", `"${b.title}" quá hạn từ ${b.nextDueDate} — ${amt} đ. Đã trả rồi thì bấm "Đã trả" để dời sang kỳ sau nhé.`, "finance", {domain:'finance'});
       }
     });
 
@@ -2843,7 +2862,8 @@ export class FamilyDB {
             m.patientId || "all",
             "Den gio uong thuoc",
             `${patient?.fullName || "Thanh vien"} can uong ${m.name}${m.dosage ? ` (${m.dosage})` : ""} luc ${time}.`,
-            "medication"
+            "medication",
+            {domain:'medication',id:m.id}
           );
         }
       });
@@ -2868,13 +2888,13 @@ export class FamilyDB {
       const exp = doc.expiryDate;
       const typeLabel = DOCUMENT_TYPE_LABELS[doc.type] || "Giấy tờ";
       if (diffDays > 7 && diffDays <= 30) {
-        ensure(`notif_docexp30_${doc.id}_${exp}`, recipient, "📄 Giấy tờ sắp hết hạn", `"${doc.title}" (${typeLabel}) sẽ hết hạn ngày ${exp} — còn ${diffDays} ngày.`, "system");
+        ensure(`notif_docexp30_${doc.id}_${exp}`, recipient, "📄 Giấy tờ sắp hết hạn", `"${doc.title}" (${typeLabel}) sẽ hết hạn ngày ${exp} — còn ${diffDays} ngày.`, "system", {domain:'document',id:doc.id});
       } else if (diffDays > 0 && diffDays <= 7) {
-        ensure(`notif_docexp7_${doc.id}_${exp}`, recipient, "📄 Giấy tờ sắp hết hạn!", `"${doc.title}" (${typeLabel}) chỉ còn ${diffDays} ngày là hết hạn (${exp}).`, "system");
+        ensure(`notif_docexp7_${doc.id}_${exp}`, recipient, "📄 Giấy tờ sắp hết hạn!", `"${doc.title}" (${typeLabel}) chỉ còn ${diffDays} ngày là hết hạn (${exp}).`, "system", {domain:'document',id:doc.id});
       } else if (diffDays === 0) {
-        ensure(`notif_docexp0_${doc.id}_${exp}`, recipient, "📄 Giấy tờ hết hạn hôm nay", `"${doc.title}" (${typeLabel}) hết hạn hôm nay (${exp}).`, "system");
+        ensure(`notif_docexp0_${doc.id}_${exp}`, recipient, "📄 Giấy tờ hết hạn hôm nay", `"${doc.title}" (${typeLabel}) hết hạn hôm nay (${exp}).`, "system", {domain:'document',id:doc.id});
       } else if (diffDays < 0) {
-        ensure(`notif_docexpover_${doc.id}_${exp}`, recipient, "🔴 Giấy tờ đã hết hạn", `"${doc.title}" (${typeLabel}) đã hết hạn từ ${exp}.`, "system");
+        ensure(`notif_docexpover_${doc.id}_${exp}`, recipient, "🔴 Giấy tờ đã hết hạn", `"${doc.title}" (${typeLabel}) đã hết hạn từ ${exp}.`, "system", {domain:'document',id:doc.id});
       }
     });
 
@@ -2895,11 +2915,11 @@ export class FamilyDB {
       const who = d.counterparty;
       const amt = remaining.toLocaleString();
       if (diffDays > 0 && diffDays <= 7) {
-        ensure(`notif_debtdue7_${d.id}_${d.dueDate}`, recipient, "💸 Khoản nợ sắp đến hạn", `Còn ${diffDays} ngày đến hạn ${verb} ${amt}đ với "${who}".`, "finance");
+        ensure(`notif_debtdue7_${d.id}_${d.dueDate}`, recipient, "💸 Khoản nợ sắp đến hạn", `Còn ${diffDays} ngày đến hạn ${verb} ${amt}đ với "${who}".`, "finance", {domain:'finance'});
       } else if (diffDays === 0) {
-        ensure(`notif_debtdue0_${d.id}_${d.dueDate}`, recipient, "💸 Khoản nợ đến hạn hôm nay", `Hôm nay đến hạn ${verb} ${amt}đ với "${who}".`, "finance");
+        ensure(`notif_debtdue0_${d.id}_${d.dueDate}`, recipient, "💸 Khoản nợ đến hạn hôm nay", `Hôm nay đến hạn ${verb} ${amt}đ với "${who}".`, "finance", {domain:'finance'});
       } else if (diffDays < 0) {
-        ensure(`notif_debtover_${d.id}_${d.dueDate}`, recipient, "🔴 Khoản nợ đã quá hạn", `Đã quá hạn ${verb} ${amt}đ với "${who}" (hẹn ${d.dueDate}).`, "finance");
+        ensure(`notif_debtover_${d.id}_${d.dueDate}`, recipient, "🔴 Khoản nợ đã quá hạn", `Đã quá hạn ${verb} ${amt}đ với "${who}" (hẹn ${d.dueDate}).`, "finance", {domain:'finance'});
       }
     });
 
@@ -2916,11 +2936,11 @@ export class FamilyDB {
       const childName = child?.fullName || "Bé";
       const dose = v.doseLabel ? ` (${v.doseLabel})` : "";
       if (diffDays > 0 && diffDays <= 7) {
-        ensure(`notif_vacsoon_${v.id}_${v.scheduledDate}`, "all", "💉 Sắp đến lịch tiêm", `${childName} còn ${diffDays} ngày đến lịch tiêm "${v.name}"${dose} (${v.scheduledDate}).`, "medication");
+        ensure(`notif_vacsoon_${v.id}_${v.scheduledDate}`, "all", "💉 Sắp đến lịch tiêm", `${childName} còn ${diffDays} ngày đến lịch tiêm "${v.name}"${dose} (${v.scheduledDate}).`, "medication", {domain:'vaccination',id:v.id});
       } else if (diffDays === 0) {
-        ensure(`notif_vacday_${v.id}_${v.scheduledDate}`, "all", "💉 Hôm nay đến lịch tiêm", `${childName} có lịch tiêm "${v.name}"${dose} hôm nay.`, "medication");
+        ensure(`notif_vacday_${v.id}_${v.scheduledDate}`, "all", "💉 Hôm nay đến lịch tiêm", `${childName} có lịch tiêm "${v.name}"${dose} hôm nay.`, "medication", {domain:'vaccination',id:v.id});
       } else if (diffDays < 0) {
-        ensure(`notif_vacover_${v.id}_${v.scheduledDate}`, "all", "🔴 Trễ lịch tiêm", `${childName} đã trễ lịch tiêm "${v.name}"${dose} (hẹn ${v.scheduledDate}).`, "medication");
+        ensure(`notif_vacover_${v.id}_${v.scheduledDate}`, "all", "🔴 Trễ lịch tiêm", `${childName} đã trễ lịch tiêm "${v.name}"${dose} (hẹn ${v.scheduledDate}).`, "medication", {domain:'vaccination',id:v.id});
       }
     });
 
@@ -2997,6 +3017,7 @@ export class FamilyDB {
       title: isBroadcast ? `📣 ${fromName} nhắn cả nhà` : `📣 ${fromName} nhắc bạn`,
       content: message,
       type: "system",
+      sourceRef: {domain:'message'},
       isRead: false,
       createdAt: new Date().toISOString()
     };
@@ -3011,13 +3032,14 @@ export class FamilyDB {
   }
 
   // Internal notification builder
-  private static addNotificationInternal(db: FamilyOrganizerDB, userId: string, title: string, content: string, type: Notification["type"] = "system") {
+  private static addNotificationInternal(db: FamilyOrganizerDB, userId: string, title: string, content: string, type: Notification["type"] = "system", sourceRef:LegacySourceRef={domain:'family'}) {
     const newNotif: Notification = {
       id: `notif_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
       userId,
       title,
       content,
       type,
+      sourceRef,
       isRead: false,
       createdAt: new Date().toISOString()
     };
@@ -3034,7 +3056,9 @@ export class FamilyDB {
   public static markNotificationRead(notifId: string, userId: string): void {
     return runLegacyCommand("markNotificationRead", [notifId, userId], userId, () => {
     const db = this.readRaw();
-    const idx = db.notifications.findIndex(n => n.id === notifId);
+    const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
+    const idx=db.notifications.findIndex(n=>projectNotification(db,actor,n,privacyKey)?.id===notifId);
+    if(idx===-1)throw new AppStoreError('Không tìm thấy thông báo.',404);
     if (idx !== -1) {
       db.notifications[idx].isRead = true;
       this.writeRaw(db);
@@ -3047,8 +3071,9 @@ export class FamilyDB {
     return runLegacyCommand("markAllNotificationsRead", [userId], userId, () => {
     const db = this.readRaw();
     let modified = false;
+    const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
     db.notifications.forEach(n => {
-      if ((n.userId === "all" || n.userId === userId) && !n.isRead) {
+      if (projectNotification(db,actor,n,privacyKey) && !n.isRead) {
         n.isRead = true;
         modified = true;
       }
