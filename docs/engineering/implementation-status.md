@@ -227,3 +227,10 @@
 - Fresh whole-branch review found one Important idle-startup signing-key rotation defect, no Critical/Minor. One fix pass: three-process regression observed old token HTTP200 instead of401; explicit auth initialization now persists generation before readiness, GREEN401 after reverting the prior key. Pure factory construction remains free of storage/key I/O. Details/rulings: `f04-a-review.md`.
 - Corrected Cloud Node24 full suite352/35242files, zero skipped, lint/build exit0. No dependency/lock change. Corrected source/final documentation HEAD still require exact Windows verification before authorized merge; first-source evidence is historical.
 - Next F04-b/c media/object/cache/SSE/privacy/input/dependency gates plus F05 browser proof. Full F04/foundation/master plan remain incomplete; Server2019 R02/service/package/encryption/performance remain unrun. No release/tag or VPS access/deployment.
+
+### F04-a corrected Windows source acceptance
+
+- Corrected HEAD `67831edaa6f2980f05307cb485492931ae5c1fb1`; PR https://github.com/DongVienNguyen/Family-Organizer/pull/7; exact Windows2022 x64 CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38157389074 success.
+- Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: each352/352 tests42files, zero failed/skipped/todo, npmci/native/lint/test/build/compiled-production exit0; ci-gate success. Both full logs/artifacts independently read, JUnit/JSON/native/production/hashes validated in `evidence/f04-a-corrected-source.json`. The three-process idle key-rotation regression is included.
+- One Important review finding fixed in one RED→GREEN pass; no minors or dependency/lock changes. This documentation HEAD still needs exact Windows CI; final SHA/run/report proof will be in the PR evidence comment before authorized merge.
+- Next F04-b browser session/cache boundary, followed by remaining F04 media/SSE/object/input/privacy/dependency and F05 browser gates. Full F04/foundation/master plan remain incomplete; Server2019/service/encryption/package/performance are unrun. No release/tag or VPS access/deployment.
