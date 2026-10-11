@@ -12,9 +12,12 @@ import crypto from "crypto";
 import { createServer as createViteServer } from "vite";
 import { FamilyDB, verifyPassword, getSessionSecret, getAppSettings, setAppSetting } from "./server/db.js";
 import { sqliteAppendServerMetric, sqliteGetServerMetrics } from "./server/sqlite.js";
-import { UserRole, isLimitedViewer, DishSlot, MealIngredient, DOCUMENT_TYPE_LABELS } from "./src/types.js";
+import { sanitizeTaskWrite } from "./server/permissions.js";
+import type { Task } from "./src/types.js";
+import { UserRole, DishSlot, MealIngredient, DOCUMENT_TYPE_LABELS } from "./src/types.js";
 import { buildPlanFromLibrary, dedupeAndAnnotateGroceries } from "./src/utils/mealPlan.js";
 import { normalizeSearchText, matchesQuery, excerptAround } from "./src/utils/searchText.js";
+import { canSeeTask, canSeePlan, canSeeFinance, Viewer } from "./src/utils/visibility.js";
 import { saveDataUrlToFile, UPLOADS_DIR } from "./server/media.js";
 import { streamFullBackup, fullBackupFilename, importFullBackup } from "./server/fullBackup.js";
 import { telegramBackupStatus, sendBackupToTelegram, runTelegramBackupTick } from "./server/telegramBackup.js";
@@ -292,6 +295,8 @@ const requireRole = (roles: UserRole[]) => {
     next();
   };
 };
+
+const viewerOf = (req: AuthRequest): Viewer => ({ id: req.userSession!.userId, role: req.userSession!.role });
 
 const canViewSavingsGoal = (goal: { isShared: boolean; creatorId: string }, session: AuthRequest["userSession"]) => {
   if (!session) return false;
@@ -900,33 +905,33 @@ app.get("/api/realtime", (req: Request, res: Response) => {
 // --- TASK API ENDPOINTS ---
 
 app.get("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
-  const tasks = FamilyDB.getTasks();
+  const viewer = viewerOf(req);
+  const tasks = FamilyDB.getTasks().filter(t => canSeeTask(t, viewer));
   res.json({ tasks });
 });
 
 app.post("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   
-  // Guard write permissions - Child/Guest can only edit tasks they created or are assigned to.
-  if (isLimitedViewer(session.role) && req.body.id && !req.body.comments) {
-    const existing = FamilyDB.getTasks().find(t => t.id === req.body.id);
-    if (existing && existing.creatorId !== session.userId && existing.assigneeId !== session.userId) {
-      res.status(403).json({ error: "Bạn chỉ được sửa đổi công việc do mình tạo hoặc được giao!" });
-      return;
-    }
+  // Kiểm quyền + làm sạch body: bỏ trường server quản lý, giới hạn trường trẻ/khách được ghi.
+  const existingTask = req.body.id ? FamilyDB.getTasks().find(t => t.id === req.body.id) : undefined;
+  const checked = sanitizeTaskWrite(req.body, existingTask, session);
+  if (checked.ok === false) {
+    res.status(403).json({ error: checked.error });
+    return;
   }
+  const taskInput = checked.data as Partial<Task>;
 
   // Chống 2 người cùng sửa đè nhau (chỉ khi form gửi kèm baseUpdatedAt)
-  if (req.body.id) {
-    const existing = FamilyDB.getTasks().find(t => t.id === req.body.id);
-    if (hasEditConflict(existing, req.body)) {
+  if (taskInput.id) {
+    if (hasEditConflict(existingTask, taskInput)) {
       res.status(409).json({ error: CONFLICT_MSG, conflict: true });
       return;
     }
   }
 
   try {
-    const savedTask = FamilyDB.saveTask(req.body, session.userId, session.username);
+    const savedTask = FamilyDB.saveTask(taskInput, session.userId, session.username);
     broadcastSyncEvent("TASKS_UPDATE", { taskId: savedTask.id });
     res.json({ task: savedTask });
   } catch (err: any) {
@@ -994,7 +999,8 @@ app.delete("/api/tasks/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.
 // --- PLANS / SCHEDULE API ENDPOINTS ---
 
 app.get("/api/plans", requireAuth, (req: AuthRequest, res: Response) => {
-  const plans = FamilyDB.getPlans();
+  const viewer = viewerOf(req);
+  const plans = FamilyDB.getPlans().filter(p => canSeePlan(p, viewer));
   res.json({ plans });
 });
 
@@ -1146,9 +1152,11 @@ app.get("/api/search", requireAuth, (req: AuthRequest, res: Response) => {
   const take = <T,>(list: T[], map: (x: T) => SearchResultItem) =>
     list.slice(0, SEARCH_LIMIT_PER_KIND).forEach(x => results.push(map(x)));
 
-  // Công việc — title/description/tags (route GET gốc trả tất cả cho mọi role)
+  const viewer = viewerOf(req);
+
+  // Công việc — title/description/tags (cùng luật xem với GET /api/tasks)
   take(
-    FamilyDB.getTasks().filter(t => matchesQuery(q, t.title, t.description, t.tags)),
+    FamilyDB.getTasks().filter(t => canSeeTask(t, viewer) && matchesQuery(q, t.title, t.description, t.tags)),
     t => ({
       kind: "task", id: t.id, title: t.title,
       snippet: excerptAround(t.description, q) || "Công việc",
@@ -1158,7 +1166,7 @@ app.get("/api/search", requireAuth, (req: AuthRequest, res: Response) => {
 
   // Lịch / sự kiện — title/description
   take(
-    FamilyDB.getPlans().filter(p => matchesQuery(q, p.title, p.description)),
+    FamilyDB.getPlans().filter(p => canSeePlan(p, viewer) && matchesQuery(q, p.title, p.description)),
     p => ({
       kind: "plan", id: p.id, title: p.title,
       snippet: excerptAround(p.description, q) || "Sự kiện",
@@ -1916,7 +1924,9 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
   try {
     const [{ GoogleGenAI }] = await Promise.all([import("@google/genai")]);
     const ai = new GoogleGenAI({ apiKey });
-    const tasks = FamilyDB.getTasks().slice(-30).map(t => ({
+    // Chỉ đưa vào prompt những gì người hỏi được xem — AI sẽ kể lại cho họ.
+    const viewer = viewerOf(req);
+    const tasks = FamilyDB.getTasks().filter(t => canSeeTask(t, viewer)).slice(-30).map(t => ({
       id: t.id,
       title: t.title,
       status: t.status,
@@ -1925,14 +1935,16 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       assigneeId: t.assigneeId,
       rewardPoints: t.rewardPoints
     }));
-    const plans = FamilyDB.getPlans().slice(-30).map(p => ({
+    const plans = FamilyDB.getPlans().filter(p => canSeePlan(p, viewer)).slice(-30).map(p => ({
       id: p.id,
       title: p.title,
       startDate: p.startDate,
       endDate: p.endDate,
       isShared: p.isShared
     }));
-    const transactions = FamilyDB.getTransactions().slice(-30).map(({ receiptImage, ...tx }) => tx);
+    const transactions = canSeeFinance(viewer.role)
+      ? FamilyDB.getTransactions().slice(-30).map(({ receiptImage, ...tx }) => tx)
+      : [];
     const medications = FamilyDB.getMedications().map(m => ({
       id: m.id,
       name: m.name,
@@ -1954,7 +1966,9 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       `Nguoi hoi: ${req.userSession?.fullName}`,
       `Tasks gan day: ${JSON.stringify(tasks)}`,
       `Lich gan day: ${JSON.stringify(plans)}`,
-      `Giao dich gan day: ${JSON.stringify(transactions)}`,
+      canSeeFinance(viewer.role)
+        ? `Giao dich gan day: ${JSON.stringify(transactions)}`
+        : "Nguoi hoi KHONG co quyen xem thu chi. Neu duoc hoi ve tien/chi tieu/thu nhap, tra loi rang tai khoan nay khong xem duoc thu chi.",
       `Lich thuoc: ${JSON.stringify(medications)}`,
       `Danh sach di cho hien tai: ${JSON.stringify(shoppingItems)}`,
       `Cau hoi: ${message}`
