@@ -1,4 +1,6 @@
-import {managedMarkdownUrls} from './mediaPolicy.js';
+import {canViewLegacyTask} from './legacyVisibility.js';
+import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
+import {managedMarkdownUrls,canonicalMediaUrl} from './mediaPolicy.js';
 import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
 import { durableWrite, validBackupFilename, sha256 } from './snapshotFiles.js';
 import { revokeUserSessions } from './authStore.js';
@@ -52,9 +54,12 @@ import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
 import { isPushConfigured } from "./push.js";
 import { enqueueAppJob } from "./jobStore.js";
 import { getAppCommandContext } from "./commandContext.js";
-import { assertEditVersion, type EditVersionPayload } from "./appErrors.js";
+import { AppStoreError, assertEditVersion, type EditVersionPayload } from "./appErrors.js";
 import { currentAppWriteTx, runLegacyCommand, afterAppCommit } from "./appStore.js";
 
+function validateTaskProofUrl(value:unknown):void {
+ if(typeof value==='string'&&value.startsWith('/uploads/')){try{canonicalMediaUrl(value);}catch{throw new AppStoreError('Tệp bằng chứng không hợp lệ.',400);}}
+}
 function deleteMediaByUrl(url: string | undefined | null): void {
   afterAppCommit(() => deleteCommittedMedia(url));
 }
@@ -779,19 +784,25 @@ export class FamilyDB {
   // Tasks Management
   public static saveTask(taskData: Partial<Task> & EditVersionPayload, userId: string, username: string): Task {
     return runLegacyCommand("saveTask", [taskData, userId, username], userId, () => {
+    taskPayloadObject(taskData);
     taskData = { ...taskData };
     const baseUpdatedAt = taskData.baseUpdatedAt;
     delete taskData.baseUpdatedAt;
     const db = this.readRaw();
     const nowStr = new Date().toISOString();
+    const actor = taskActor(db,userId);
+    if(baseUpdatedAt!==undefined&&(typeof baseUpdatedAt!=='string'||baseUpdatedAt.length>64))throw new AppStoreError('Phiên bản sửa không hợp lệ.',400);
 
     if (taskData.id) {
       // UPDATE Task
       const idx = db.tasks.findIndex(t => t.id === taskData.id);
-      if (idx === -1) throw new Error("Task không tồn tại");
+      if (idx === -1) throw new AppStoreError("Không tìm thấy công việc",404);
 
       const oldTask = db.tasks[idx];
+      requireTaskEdit(oldTask,actor);
       assertEditVersion(oldTask, baseUpdatedAt);
+      taskData = validateTaskPayload(taskData,oldTask,actor,db);
+      validateTaskProofUrl(taskData.proofImage);
       const isCompleting = taskData.status === "completed" && oldTask.status !== "completed";
 
       // Gating duyệt: trẻ (CHILD) tự báo hoàn thành một task có điểm > ngưỡng tự duyệt
@@ -969,6 +980,8 @@ export class FamilyDB {
       return updatedTask;
     } else {
       // CREATE Task
+      taskData = validateTaskPayload(taskData,undefined,actor,db);
+      validateTaskProofUrl(taskData.proofImage);
       const newTask: Task = {
         id: `task_${Date.now()}`,
         title: taskData.title || "Công việc mới",
@@ -1030,6 +1043,7 @@ export class FamilyDB {
   public static approveTaskCompletion(taskId: string, approverId: string, approverName: string): Task {
     return runLegacyCommand("approveTaskCompletion", [taskId, approverId, approverName], approverId, () => {
     const db = this.readRaw();
+    requireTaskAdult(taskActor(db,approverId));
     const task = db.tasks.find(t => t.id === taskId);
     if (!task) throw new Error("Task không tồn tại");
     if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
@@ -1042,6 +1056,8 @@ export class FamilyDB {
   public static rejectTaskCompletion(taskId: string, approverId: string, approverName: string, reason?: string): Task {
     return runLegacyCommand("rejectTaskCompletion", [taskId, approverId, approverName, reason], approverId, () => {
     const db = this.readRaw();
+    requireTaskAdult(taskActor(db,approverId));
+    if(reason!==undefined&&reason!==null&&(typeof reason!=='string'||reason.length>8000))throw new AppStoreError('Lý do không hợp lệ.',400);
     const idx = db.tasks.findIndex(t => t.id === taskId);
     if (idx === -1) throw new Error("Task không tồn tại");
     const task = db.tasks[idx];
@@ -1083,8 +1099,10 @@ export class FamilyDB {
   public static addCommentToTask(taskId: string, commentContent: string, userId: string, username: string): Task {
     return runLegacyCommand("addCommentToTask", [taskId, commentContent, userId, username], userId, () => {
     const db = this.readRaw();
+    const actor=taskActor(db,userId);
+    validateTaskComment(commentContent);
     const idx = db.tasks.findIndex(t => t.id === taskId);
-    if (idx === -1) throw new Error("Task không tồn tại");
+    if (idx === -1 || !canViewLegacyTask(db.tasks[idx],actor)) throw new AppStoreError("Không tìm thấy công việc",404);
 
     const task = db.tasks[idx];
     const newComment = {
@@ -1116,6 +1134,7 @@ export class FamilyDB {
   public static deleteTask(taskId: string, userId: string, username: string): void {
     return runLegacyCommand("deleteTask", [taskId, userId, username], userId, () => {
     const db = this.readRaw();
+    requireTaskAdult(taskActor(db,userId));
     const idx = db.tasks.findIndex(t => t.id === taskId);
     if (idx === -1) return;
 
