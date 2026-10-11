@@ -17,7 +17,7 @@ function call(port:number,route:string,body?:unknown,token?:string):Promise<any>
     });req.on('error',reject);req.end(body?JSON.stringify(body):undefined);
   });
 }
-async function scenario(crash:boolean){
+async function scenario(crash:boolean,rotateKey=false){
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo lifecycle dữ liệu ')), data=path.join(root,'data');fs.mkdirSync(data);
   const legacy={users:[{id:'synthetic-user',username:'synthetic',role:'admin',fullName:'Synthetic',passwordHash:crypto.pbkdf2Sync('synthetic','family_organizer_salt_2026',1000,64,'sha512').toString('hex')}],tasks:[]};
   fs.writeFileSync(path.join(data,'db.json'),JSON.stringify(legacy));fs.writeFileSync(path.join(data,'session_secret.key'),'synthetic-key');
@@ -41,6 +41,17 @@ async function scenario(crash:boolean){
   try{
     let port=await launch();const ready=await call(port,'/api/ready');expect(ready.status).toBe(200);expect(ready.body.ready).toBe(true);
     const login=await call(port,'/api/auth/login',{username:'synthetic',password:'synthetic'});expect(login.status).toBe(200);const token=login.body.token;
+    if(rotateKey){
+      await stop();
+      fs.writeFileSync(path.join(data,'session_secret.key'),'synthetic-replacement-key');
+      port=await launch();expect((await call(port,'/api/ready')).status).toBe(200);
+      await stop(); // No authentication request under the replacement key.
+      fs.writeFileSync(path.join(data,'session_secret.key'),'synthetic-key');
+      port=await launch();expect((await call(port,'/api/auth/me',undefined,token)).status).toBe(401);
+      await stop();
+      expect(fs.existsSync(networkFile)?fs.readFileSync(networkFile,'utf8'):'').toBe('');
+      return;
+    }
     const saved=await call(port,'/api/tasks',{title:'Synthetic persisted task',assignedToId:'synthetic-user',status:'todo'},token);expect(saved.status,JSON.stringify(saved)).toBe(200);
     if(crash){const exited=once(child!,'exit');child!.kill('SIGKILL');await exited;}else await stop();
     const dbPath=path.join(data,'family.db');fs.renameSync(dbPath,dbPath+'.probe');fs.renameSync(dbPath+'.probe',dbPath);
@@ -55,3 +66,4 @@ async function scenario(crash:boolean){
 }
 it('graceful stdin stop releases native files and restart retains HTTP writes',()=>scenario(false),20000);
 it('crash/restart recovers committed WAL writes without overwriting legacy input',()=>scenario(true),20000);
+it('idle startup persists signing-key rotation so reverting the key cannot revive sessions',()=>scenario(false,true),30000);

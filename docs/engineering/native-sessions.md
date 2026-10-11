@@ -7,7 +7,7 @@ or public API are introduced; existing React/Express/SQLite behavior remains.
 
 `server/auth.ts` is pure dependency-injected authentication. `NativeSessionStore`
 uses the existing connection/write gateway. `createApp` receives that service;
-runtime explicitly initializes it and checks the installation signing key before
+runtime explicitly initializes it and persists the installation signing-key generation before
 readiness. Factory import/construction does not open storage or read secrets.
 Runtime and the managed listener default to127.0.0.1. Caddy/trusted proxy/service
 acceptance remains later work; this branch does not publish a server.
@@ -24,7 +24,9 @@ Logout revokes one session. Password changes, administrator resets, deletion and
 role changes increment the user's version and revoke sessions in the same legacy
 gateway transaction; outer rollback restores both user data and revocation. The
 last-admin safeguards remain. Key fingerprint changes advance a persisted key
-generation and clear sessions; reverting a previous key cannot resurrect them.
+generation and clear sessions before startup readiness and on authentication requests;
+reverting a previous key cannot resurrect them, including after an otherwise idle
+startup under the replacement key.
 Existing key files must be ordinary, nonempty and bounded. Read/write failures
 propagate rather than silently generating an ephemeral replacement. Fresh keys
 are exclusive-created, fsynced and stored under CONFIG_DIR.

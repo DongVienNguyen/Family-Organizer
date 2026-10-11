@@ -29,8 +29,8 @@ export async function startApplication(config: AppConfig = appConfig) {
     recoverAppRestore();
     const db = await import('./db.js');
     const {createAuth}=await import('./auth.js');const {NativeSessionStore}=await import('./authStore.js');
-    db.getSessionSecret(); // Fail startup before readiness on inaccessible/invalid key.
     const auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:db.getSessionSecret});
+    auth.initialize(); // Validate and persist key rotation before readiness, even without auth traffic.
     const media = await import('./media.js');
     const fullBackup = await import('./fullBackup.js');
     const telegram = await import('./telegramBackup.js');

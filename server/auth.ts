@@ -6,7 +6,7 @@ export interface SessionRecord { tokenHash:string;userId:string;userVersion:stri
 export interface SessionStore { get(hash:string):SessionRecord|undefined;insert(record:SessionRecord):void;version(userId:string):number;keyVersion(fingerprint:string):string;revoke(hash:string,now:number):void }
 export interface AuthDependencies { store:SessionStore;getUsers:()=>AuthUser[];getSecret:()=>string;now?:()=>number }
 export const SESSION_TTL_MS=12*60*60*1000;
-export interface AuthService { issue(user:AuthUser):string;verify(token:string):AuthUser|null;logout(token:string):void }
+export interface AuthService { initialize():void;issue(user:AuthUser):string;verify(token:string):AuthUser|null;logout(token:string):void }
 const hash=(value:string)=>createHash('sha256').update(value).digest('hex');
 export function createAuth(deps:AuthDependencies):AuthService {
   const now=()=>{const time=(deps.now??Date.now)();if(!Number.isSafeInteger(time)||time<0)throw new Error('Invalid session clock');return time;};
@@ -14,6 +14,7 @@ export function createAuth(deps:AuthDependencies):AuthService {
   const key=()=>{const secret=deps.getSecret();if(!secret||secret.length>4096)throw new Error('Invalid session signing key');return {secret,version:deps.store.keyVersion(hash(secret))};};
   const parse=(token:string)=>{if(typeof token!=='string'||!/^fo1\.[A-Za-z0-9_-]{43}\.[a-f0-9]{64}$/.test(token))return;const [,identifier,signature]=token.split('.');if(Buffer.from(identifier,'base64url').toString('base64url')!==identifier)return;return {identifier,signature,tokenHash:hash(identifier)};};
   const service:AuthService={
+    initialize(){key();},
     issue(user){
       const current=deps.getUsers().find(item=>item.id===user.id);
       if(!current||current.isDeleted||!current.passwordHash||userVersion(current)!==userVersion(user))throw new AppStoreError('Phiên đăng nhập không hợp lệ.',401);
