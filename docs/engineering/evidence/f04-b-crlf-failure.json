@@ -1,0 +1,170 @@
+{
+  "testedHeadSha": "35c41a770db25af493884f9e747fe0b463aaaacc",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38160905793",
+  "overall": "failure",
+  "cause": "Cross-tab callback fixture used LF-only boundary, executing main JSX on CRLF Windows checkout",
+  "runtimes": [
+    {
+      "artifact": "windows-node22-35c41a770db25af493884f9e747fe0b463aaaacc-1",
+      "node": "v22.23.3",
+      "exits": {
+        "install": 0,
+        "native": 0,
+        "lint": 0,
+        "test": 1,
+        "build": 0,
+        "production": 0
+      },
+      "passed": 434,
+      "failed": 1,
+      "files": 51,
+      "failures": [
+        {
+          "name": "overlapping tab logins converge on the stored token despite earlier queued events",
+          "messages": [
+            "evalmachine.<anonymous>:5\ncreateRoot(document.getElementById('root')!).render(\n                                         ^\n\nSyntaxError: missing ) after argument list\n    at new Script (node:vm:117:7)\n    at createScript (node:vm:269:10)\n    at Object.runInNewContext (node:vm:310:10)\n    at D:/a/Family-Organizer/Family-Organizer/tests/ui/session-bootstrap.test.ts:21:39\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20"
+          ]
+        }
+      ],
+      "reportSha256": {
+        "vitest.json": "e7aeda3d88fd9b6a0d94f24f4fc81078cd8126133bd116022b6dfb9173916de0",
+        "junit.xml": "279923d066ac106867c203733d0b382827f48b9531a10737212bd793a4706266",
+        "native.json": "839df92b2d80b06766cdd3e8fb73e680345e948ff71404c1f0b95e562cdd3d8c",
+        "production.json": "d706bfb5938fce77a6ba01255be339f1686c5693da0db4dd3dfa2e1de36e50b0",
+        "evidence.json": "b1380eb86da40682b8471a010d955c728c459b8bbd0706d70267f0843d8997ab"
+      },
+      "production": {
+        "commitSha": "35c41a770db25af493884f9e747fe0b463aaaacc",
+        "nodeVersion": "v22.23.3",
+        "platform": "win32",
+        "architecture": "x64",
+        "cwd": "C:\\Windows\\System32",
+        "productionRoot": "D:\\a\\_temp\\fo production d\u1eef li\u1ec7u 20af9d2f-98d3-4d7e-8cf5-174c55fcdc6d\\release with spaces",
+        "checks": [
+          "production-dependencies-only",
+          "no-source-ts",
+          "foreign-cwd",
+          "static-assets",
+          "legacy-preserved",
+          "restart-persistence",
+          "write-permission-fail-fast",
+          "offline-providers",
+          "graceful-shutdown",
+          "readiness",
+          "crash-recovery",
+          "auth-session-restart",
+          "auth-session-logout",
+          "private-response-cache"
+        ]
+      },
+      "native": {
+        "nodeVersion": "v22.23.3",
+        "nodeABI": "127",
+        "platform": "win32",
+        "architecture": "x64",
+        "addonVersion": "13.0.3",
+        "bindingApi": "N-API",
+        "nodeNapi": "10",
+        "binaryPath": "prebuilds/win32-x64.node",
+        "sqliteVersion": "3.53.4",
+        "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+        "checks": [
+          "native-load",
+          "write-read",
+          "transaction-rollback",
+          "WAL-backup",
+          "integrity-check",
+          "file-cleanup"
+        ]
+      },
+      "errors": [
+        "test: failure",
+        "test: missing or nonzero exit evidence",
+        "test run failed, skipped tests, or zero tests",
+        "empty, failed or skipped suite: tests/ui/session-bootstrap.test.ts",
+        "suite assertions contradict aggregate test totals"
+      ]
+    },
+    {
+      "artifact": "windows-node24-35c41a770db25af493884f9e747fe0b463aaaacc-1",
+      "node": "v24.21.0",
+      "exits": {
+        "install": 0,
+        "native": 0,
+        "lint": 0,
+        "test": 1,
+        "build": 0,
+        "production": 0
+      },
+      "passed": 434,
+      "failed": 1,
+      "files": 51,
+      "failures": [
+        {
+          "name": "overlapping tab logins converge on the stored token despite earlier queued events",
+          "messages": [
+            "evalmachine.<anonymous>:5\ncreateRoot(document.getElementById('root')!).render(\n                                         ^\n\nSyntaxError: missing ) after argument list\n    at new Script (node:vm:117:7)\n    at createScript (node:vm:269:10)\n    at Object.runInNewContext (node:vm:310:10)\n    at D:/a/Family-Organizer/Family-Organizer/tests/ui/session-bootstrap.test.ts:21:39\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\n    at new Promise (<anonymous>)\n    at runWithCancel (file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\n    at file:///D:/a/Family-Organizer/Family-Organizer/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20"
+          ]
+        }
+      ],
+      "reportSha256": {
+        "vitest.json": "a4c1a515453ddeaba0bc61165484d4f5d514820658ce9989226c4da192193d86",
+        "junit.xml": "ff9a35c4fc3604a2802c1faf924a9d152698afe5b74154b8ce18033b8e9a6798",
+        "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+        "production.json": "a0fab70a704636667227e2f1ebec51bdcfe93f1f81f4b12814f45c903d4ab496",
+        "evidence.json": "51cfb34cc30dd62b1aadbf0af55e7536ae285b48ba5acbcb45d7856c54621f21"
+      },
+      "production": {
+        "commitSha": "35c41a770db25af493884f9e747fe0b463aaaacc",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64",
+        "cwd": "C:\\Windows\\System32",
+        "productionRoot": "D:\\a\\_temp\\fo production d\u1eef li\u1ec7u f4ef5b3a-1f59-4534-ac6e-b79211f7a0fe\\release with spaces",
+        "checks": [
+          "production-dependencies-only",
+          "no-source-ts",
+          "foreign-cwd",
+          "static-assets",
+          "legacy-preserved",
+          "restart-persistence",
+          "write-permission-fail-fast",
+          "offline-providers",
+          "graceful-shutdown",
+          "readiness",
+          "crash-recovery",
+          "auth-session-restart",
+          "auth-session-logout",
+          "private-response-cache"
+        ]
+      },
+      "native": {
+        "nodeVersion": "v24.21.0",
+        "nodeABI": "137",
+        "platform": "win32",
+        "architecture": "x64",
+        "addonVersion": "13.0.3",
+        "bindingApi": "N-API",
+        "nodeNapi": "10",
+        "binaryPath": "prebuilds/win32-x64.node",
+        "sqliteVersion": "3.53.4",
+        "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+        "checks": [
+          "native-load",
+          "write-read",
+          "transaction-rollback",
+          "WAL-backup",
+          "integrity-check",
+          "file-cleanup"
+        ]
+      },
+      "errors": [
+        "test: failure",
+        "test: missing or nonzero exit evidence",
+        "test run failed, skipped tests, or zero tests",
+        "empty, failed or skipped suite: tests/ui/session-bootstrap.test.ts",
+        "suite assertions contradict aggregate test totals"
+      ]
+    }
+  ]
+}

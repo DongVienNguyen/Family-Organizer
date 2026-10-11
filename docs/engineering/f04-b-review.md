@@ -22,3 +22,5 @@ Guarded body.cancel/early async iterator break does not consistently cancel or r
 - Server2019, packaging/service/encryption/power-loss/performance remain F06/F07/F09/R02. Cost: source Windows2022 proof cannot certify deployment.
 
 Existing implementation rulings and costs remain in client-session-isolation.md. No release/tag or VPS access/deployment.
+
+Windows correction verification found a LF-only fixture slicing error, not an application failure: exact35c41a7/run38160905793 has434passed/1failed each runtime. LF/CRLF parameterization reproduced that SyntaxError, then GREEN by selecting a semantic source boundary. Final Cloud436/43651files; failed evidence is retained, and exact corrected/final Windows acceptance remains required. This verification repair is part of the same unfinished correction pass.
