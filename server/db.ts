@@ -1,5 +1,5 @@
-import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, type RestoreOptions } from './appSnapshot.js';
-import { durableWrite } from './snapshotFiles.js';
+import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
+import { durableWrite, validBackupFilename, sha256 } from './snapshotFiles.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -410,6 +410,7 @@ export class FamilyDB {
         const toRemove = autoBackups.slice(MAX_AUTO_BACKUPS);
         for (const old of toRemove) {
           try {
+            validBackupFilename(old.filename);
             const oldPath = path.join(BACKUP_DIR, old.filename);
             if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
           } catch (e) {
@@ -438,6 +439,7 @@ export class FamilyDB {
     if (backupIndex === -1) return;
 
     const backup = db.backups[backupIndex];
+    validBackupFilename(backup.filename);
     const filepath = path.join(BACKUP_DIR, backup.filename);
 
     try {
@@ -461,45 +463,21 @@ export class FamilyDB {
     return this.readRaw();
   }
 
-  // Đối soát danh sách backup trong DB với các file thật trong data/backups:
-  // bỏ mục thiếu file, nhận nuôi file mồ côi (vd: backup an toàn tạo ngay trước khi import).
-  private static reconcileBackupsWithDisk(db: FamilyOrganizerDB): void {
-    try {
-      const onDisk = new Set(
-        fs.readdirSync(BACKUP_DIR).filter(f => f.startsWith("backup_") && f.endsWith(".json"))
-      );
-      db.backups = (db.backups || []).filter(b => onDisk.has(b.filename));
-      const listed = new Set(db.backups.map(b => b.filename));
-      for (const filename of onDisk) {
-        if (listed.has(filename)) continue;
-        const stats = fs.statSync(path.join(BACKUP_DIR, filename));
-        db.backups.push({
-          id: `backup_${stats.mtimeMs}_${Math.random().toString(36).slice(2, 7)}`,
-          filename,
-          createdAt: stats.mtime.toISOString(),
-          sizeKb: Math.ceil(stats.size / 1024),
-          type: filename.includes("_auto_") ? "auto" : "manual"
-        });
-      }
-      db.backups.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-    } catch (e) {
-      console.error("Không đối soát được danh sách backup với đĩa:", e);
-    }
-  }
-
   // Nạp một snapshot DB (đã parse từ tệp backup) vào SQLite — dùng cho import toàn phần.
   public static async restoreFromSnapshot(parsedData: any, userId: string, username: string, sourceLabel: string, options: RestoreOptions): Promise<void> {
+    const identity=options.identity??sha256('json:'+JSON.stringify(parsedData));if(getCommittedRestore(identity))return;
     const snapshot=parsedData?.manifest?.schemaVersion ? validateAppSnapshot(parsedData) : legacySnapshot(normalizeDB(parsedData));
-    await restoreAppSnapshot(snapshot,options);
+    await restoreAppSnapshot(snapshot,{...options,identity});
     this.logActivity(userId,username,"Phục hồi toàn phần",`Đã khôi phục hệ thống từ ${sourceLabel}.`);
   }
 
   public static async restoreBackup(backupId: string, userId: string, username: string, options: RestoreOptions): Promise<void> {
+    const identity=sha256('backup-id:'+backupId);if(getCommittedRestore(identity))return;
     const backup=this.readRaw().backups.find(item=>item.id===backupId);
-    if (!backup || !/^backup_[a-z0-9_.-]+\.json$/i.test(backup.filename)) throw new Error("Không tìm thấy tệp sao lưu hợp lệ!");
+    if (!backup) throw new Error("Không tìm thấy tệp sao lưu hợp lệ!");validBackupFilename(backup.filename);
     const file=path.join(BACKUP_DIR,backup.filename);
-    if (fs.lstatSync(file).isSymbolicLink() || fs.statSync(file).size > 256*1024*1024) throw new Error("Tệp sao lưu vượt giới hạn hoặc là liên kết!");
-    await this.restoreFromSnapshot(JSON.parse(fs.readFileSync(file,'utf8')),userId,username,backup.filename,options);
+    if (!fs.lstatSync(file).isFile() || fs.lstatSync(file).isSymbolicLink() || fs.statSync(file).size > 256*1024*1024) throw new Error("Tệp sao lưu vượt giới hạn hoặc là liên kết!");
+    await this.restoreFromSnapshot(JSON.parse(fs.readFileSync(file,'utf8')),userId,username,backup.filename,{...options,identity});
   }
 
   // Generic Getters

@@ -166,3 +166,31 @@ it('cleans only its own staging after a pre-journal failure, retaining live byte
   expect(fs.readdirSync(process.env.DATA_DIR!).filter(name=>name.startsWith('.restore-'))).toEqual([]);
   expect(fs.readdirSync(path.join(process.env.DATA_DIR!,'backups')).some(name=>name.startsWith('pre-restore_')&&name.endsWith('.sqlite'))).toBe(true);
 });
+
+it.each(['../synthetic-sentinel.txt','C:\\synthetic.json','backup_x.json:stream'])('rejects imported backup filename %s with a correct snapshot checksum', filename=>{
+  fixture();const snapshot=JSON.parse(JSON.stringify(capture()));
+  snapshot.legacy.backups=[{id:'synthetic-malicious',filename,type:'manual',createdAt:'2026-01-01',sizeKb:1}];
+  expect(()=>validateAppSnapshot(rehash(snapshot))).toThrow(/backup/i);
+});
+it('replaces absent public settings with defaults while retaining local-only credentials',async()=>{
+  fixture();const snapshot=JSON.parse(JSON.stringify(capture()));snapshot.settings={};
+  setAppSetting('rewardApprovalThreshold','999');setAppSetting('telegramBackupEnabled','1');
+  await restoreAppSnapshot(validateAppSnapshot(rehash(snapshot)),options);
+  const settings=getAppSettings();expect(settings.rewardApprovalThreshold).toBeUndefined();expect(settings.telegramBackupEnabled).toBeUndefined();expect(settings.homelabLinks).toBeUndefined();expect(settings.geminiApiKey).toBe('synthetic-secret-excluded');
+});
+it('can read the journal emitted for an accepted large media manifest before any promotion',async()=>{
+  fixture();const {writeJournal,readJournal,journalFile}=await import('./snapshotFiles.js');const snapshot=JSON.parse(JSON.stringify(capture()));
+  snapshot.media=Object.fromEntries(Array.from({length:8500},(_,i)=>[`${'a'.repeat(200)}/${'b'.repeat(200)}/${String(i).padStart(6,'0')}.bin`, '']));
+  snapshot.manifest.mediaManifest=Object.keys(snapshot.media).map(path=>({path,size:0,sha256:createHash('sha256').update('').digest('hex')}));
+  const accepted=validateAppSnapshot(rehash(snapshot));const journal={id:randomUUID(),checksum:accepted.manifest.checksum,hadMedia:true,hadSettings:true,media:accepted.manifest.mediaManifest,settingsHash:'0'.repeat(64)};
+  try{writeJournal(journal);expect(fs.statSync(journalFile).size).toBeGreaterThan(4*1024*1024);expect(readJournal()?.media).toEqual(journal.media);}finally{fs.rmSync(journalFile,{force:true});}
+});
+it.each(['delete','retention'])('constrains %s of previously persisted malicious backup metadata',action=>{
+  fixture();const sentinel=path.join(process.env.DATA_DIR!,'synthetic-sentinel.txt');fs.writeFileSync(sentinel,'synthetic must survive');
+  withAppWriteTransaction(meta(),tx=>{tx.legacy.backups=Array.from({length:31},(_,i)=>({id:`synthetic-unsafe-${i}`,filename:'../synthetic-sentinel.txt',type:'auto',createdAt:'2026-01-01',sizeKb:1}));});
+  try{
+    if(action==='delete')expect(()=>FamilyDB.deleteBackup('synthetic-unsafe-0','user_admin','Synthetic')).toThrow(/backup/i);
+    else expect(()=>FamilyDB.createBackup('auto','user_admin','Synthetic')).toThrow(/backup/i);
+    expect(fs.readFileSync(sentinel,'utf8')).toBe('synthetic must survive');
+  }finally{fs.rmSync(sentinel,{force:true});withAppWriteTransaction(meta(),tx=>{tx.legacy.backups=[];});}
+});

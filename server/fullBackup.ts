@@ -9,8 +9,8 @@ import { Open } from 'unzipper';
 import { randomUUID } from 'node:crypto';
 import { FamilyDB, normalizeDB } from './db.js';
 import { withAppWriteTransaction } from './appStore.js';
-import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, type RestoreOptions } from './appSnapshot.js';
-import { snapshotLimits, validMediaPath } from './snapshotFiles.js';
+import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
+import { snapshotLimits, validMediaPath, sha256 } from './snapshotFiles.js';
 const APP='family-organizer';
 export function streamFullBackup(out:NodeJS.WritableStream):Promise<void> {
   const snapshot=withAppWriteTransaction({actorId:'system:snapshot',command:'core:snapshot:zip-read',requestId:randomUUID(),payloadHash:'shared-zip-v2'},collectAppSnapshot);
@@ -25,6 +25,7 @@ export function streamFullBackup(out:NodeJS.WritableStream):Promise<void> {
 export function fullBackupFilename():string {return `family-organizer_full_${new Date().toISOString().slice(0,16).replace(/[:T]/g,'-')}.zip`;}
 export async function importFullBackup(buffer:Buffer,userId:string,username:string,options:RestoreOptions):Promise<{restoredFiles:number}> {
   if(!Buffer.isBuffer(buffer)||!buffer.length||buffer.length>snapshotLimits.bytes)throw new Error('Backup ZIP is empty or exceeds256MiB');
+  const identity=sha256('zip:'+sha256(buffer));const prior=getCommittedRestore(identity);if(prior)return prior;
   const archive=await Open.buffer(buffer).catch(()=>{throw new Error('Invalid backup ZIP');});
   if(archive.files.length>snapshotLimits.files+4)throw new Error('Backup ZIP entry limit exceeded');
   const names=new Set<string>();let advertised=0;
@@ -58,7 +59,7 @@ export async function importFullBackup(buffer:Buffer,userId:string,username:stri
     const legacy=parse('db.json');if(!legacy||!Array.isArray(legacy.users)||!Array.isArray(legacy.tasks))throw new Error('Invalid legacy backup records');
     snapshot=legacySnapshot(normalizeDB(legacy),media,parse('app_settings.json'));
   }
-  const report=await restoreAppSnapshot(snapshot,options);
+  const report=await restoreAppSnapshot(snapshot,{...options,identity});
   FamilyDB.logActivity(userId,username,'Phục hồi toàn phần','Đã khôi phục backup đã xác minh manifest và tệp media.');
   return report;
 }

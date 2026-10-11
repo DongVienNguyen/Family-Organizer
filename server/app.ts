@@ -2328,7 +2328,7 @@ app.post("/api/admin/backups/:id/restore", requireAuth, requireRole([UserRole.AD
     broadcastSyncEvent("RESTORE_COMPLETED");
     res.json({ success: true });
   } catch (err: any) {
-    res.status(500).json({ error: err.message });
+    res.status(httpErrorStatus(err,500)).json(httpErrorBody(err));
   }
 });
 
@@ -2364,7 +2364,7 @@ app.post(
       res.json({ success: true, restoredFiles: result.restoredFiles });
     } catch (err: any) {
       console.error("Lỗi import backup toàn phần:", err);
-      res.status(400).json({ error: err.message || "Không khôi phục được từ tệp backup" });
+      res.status(httpErrorStatus(err)).json(httpErrorBody(err));
     }
   }
 );

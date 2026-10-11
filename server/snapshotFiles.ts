@@ -2,8 +2,35 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { appConfig } from './config.js';
+import type { FamilyOrganizerDB } from '../src/types.js';
 
 export const snapshotLimits = { bytes: 256 * 1024 * 1024, files: 10_000, rows: 100_000 };
+// 10k entries, each with at most512 UTF-16 path units plus hashes/metadata,
+// fit below32MiB even when every path unit needs3 UTF-8 bytes.
+export const journalByteLimit = 32 * 1024 * 1024;
+export function validBackupFilename(name: unknown): asserts name is string {
+  if(typeof name!=='string'||name.length>255||!/^backup_[a-z0-9_.-]+\.json$/i.test(name))throw new Error('Invalid backup filename');
+}
+/** Backup references describe installation-local ordinary files, never uploaded paths. */
+export function reconcileBackupReferences(legacy:FamilyOrganizerDB):void {
+  const directory=path.join(appConfig.dataRoot,'backups');
+  if(!fs.existsSync(directory)){legacy.backups=[];return;}
+  const root=fs.lstatSync(directory);if(root.isSymbolicLink()||!root.isDirectory())throw new Error('Backup directory must be ordinary');
+  const files=new Map<string,fs.Stats>();
+  for(const name of fs.readdirSync(directory)){
+    try{validBackupFilename(name);}catch{continue;}
+    const stat=fs.lstatSync(path.join(directory,name));
+    if(stat.isFile()&&!stat.isSymbolicLink()&&stat.size<=snapshotLimits.bytes)files.set(name,stat);
+  }
+  legacy.backups=legacy.backups.filter(backup=>files.has(backup.filename));
+  const listed=new Set(legacy.backups.map(backup=>backup.filename)),ids=new Set(legacy.backups.map(backup=>backup.id));
+  for(const [filename,stat] of files){
+    if(listed.has(filename))continue;
+    const base='backup_disk_'+sha256(filename).slice(0,24);let id=base,index=0;while(ids.has(id))id=base+'_'+(++index);ids.add(id);
+    legacy.backups.push({id,filename,createdAt:stat.mtime.toISOString(),sizeKb:Math.ceil(stat.size/1024),type:filename.includes('_auto_')?'auto':'manual'});
+  }
+  legacy.backups.sort((a,b)=>String(b.createdAt??'').localeCompare(String(a.createdAt??'')));
+}
 export const publicSettingKeys = ['homelabLinks','rewardsEnabled','rewardApprovalThreshold','telegramBackupEnabled','telegramWeeklyDigestEnabled','telegramBackupLastSent','telegramWeeklyDigestLastSent'];
 export const mediaRoot = path.join(appConfig.dataRoot, 'uploads');
 export const settingsFile = path.join(appConfig.configRoot, 'app_settings.json');
@@ -64,13 +91,15 @@ export function restorePaths(id: string) {
 }
 export function writeJournal(journal: RestoreJournal): void {
   if (fs.existsSync(journalFile)) throw new Error('An unfinished restore already exists');
+  const bytes=JSON.stringify({...journal,journalHash:sha256(JSON.stringify(journal))});
+  if(Buffer.byteLength(bytes)>journalByteLimit)throw new Error('Invalid restore journal size');
   const tmp = journalFile + '.' + journal.id;
-  durableWrite(tmp, JSON.stringify({...journal,journalHash:sha256(JSON.stringify(journal))})); fs.renameSync(tmp, journalFile);
+  durableWrite(tmp, bytes); fs.renameSync(tmp, journalFile);
 }
 export function readJournal(): RestoreJournal | undefined {
   if (!fs.existsSync(journalFile)) return;
   ordinaryFile(journalFile);
-  if (fs.statSync(journalFile).size > 4 * 1024 * 1024) throw new Error('Invalid restore journal size');
+  if (fs.statSync(journalFile).size > journalByteLimit) throw new Error('Invalid restore journal size');
   const value = JSON.parse(fs.readFileSync(journalFile, 'utf8'));
   if (!value || JSON.stringify(Object.keys(value).sort()) !== JSON.stringify(['id','checksum','hadMedia','hadSettings','media','settingsHash','journalHash'].sort()) || typeof value.hadMedia !== 'boolean' || typeof value.hadSettings !== 'boolean' || !/^[a-f0-9]{64}$/.test(value.checksum) || !/^[a-f0-9]{64}$/.test(value.settingsHash) || !Array.isArray(value.media) || value.media.length > snapshotLimits.files) throw new Error('Invalid restore journal');
   const {journalHash,...content}=value;

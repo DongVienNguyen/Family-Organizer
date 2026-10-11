@@ -15,10 +15,10 @@ import * as sqlite from '../server/sqlite.js';
 import * as media from '../server/media.js';
 import * as fullBackup from '../server/fullBackup.js';
 const repo=fileURLToPath(new URL('..',import.meta.url));
-function send(server:http.Server,pathname:string,body?:Buffer,token?:string){
+function send(server:http.Server,pathname:string,body?:Buffer,token?:string,requestId=crypto.randomUUID()){
   let req:http.ClientRequest;
   const promise=new Promise<{status:number;body:any}>((resolve,reject)=>{
-    req=http.request({hostname:'127.0.0.1',port:(server.address() as any).port,path:pathname,method:body?'POST':'GET',agent:false,headers:{...(token?{Authorization:`Bearer ${token}`}:{}),...(body?{'Content-Type':'application/zip','Content-Length':body.length,'X-Request-Id':crypto.randomUUID()}: {})}},res=>{let text='';res.on('data',bytes=>{text+=bytes;});res.on('end',()=>resolve({status:res.statusCode!,body:JSON.parse(text)}));});req.on('error',reject);req.end(body);
+    req=http.request({hostname:'127.0.0.1',port:(server.address() as any).port,path:pathname,method:body?'POST':'GET',agent:false,headers:{...(token?{Authorization:`Bearer ${token}`}:{}),...(body?{'Content-Type':'application/zip','Content-Length':body.length,'X-Request-Id':requestId}: {})}},res=>{let text='';res.on('data',bytes=>{text+=bytes;});res.on('end',()=>resolve({status:res.statusCode!,body:JSON.parse(text)}));});req.on('error',reject);req.end(body);
   });return {req:req!,promise};
 }
 async function capture(){const out=new PassThrough();const chunks:Buffer[]=[];out.on('data',bytes=>chunks.push(bytes));const ended=once(out,'end');await fullBackup.streamFullBackup(out);await ended;return Buffer.concat(chunks);}
@@ -39,4 +39,21 @@ it.each([false,true])('owns restore while client disconnect=%s, drains other wor
     else{release();expect((await response) as any).toMatchObject({value:{status:200,body:{success:true}}});expect(runtime.state.phase).toBe('ready');}
     expect(errors).toEqual([]);
   }finally{release();await response;await runtime.close();}
+},15_000);
+it.each(['zip','json'])('returns HTTP409 for changed %s restore input reusing a committed request',async format=>{
+  const state={phase:'starting',storageWritable:true};const deps=syntheticDependencies(state);Object.assign(deps,{db,sqlite,media,fullBackup});
+  const handle=await createApp({production:true,codeRoot:repo,dataRoot:process.env.DATA_DIR!,configRoot:process.env.DATA_DIR!,logRoot:path.join(process.env.DATA_DIR!,'logs')},deps);
+  const runtime=await startManagedServer(handle,{port:0,host:'127.0.0.1',state:state as any,closeStorage:()=>{}});
+  const user=db.FamilyDB.getUsers().find(user=>user.role==='admin')!;const token=`${user.id}.${crypto.createHmac('sha256',db.getSessionSecret()).update(user.id).digest('hex')}`;const id=crypto.randomUUID();
+  try{
+    if(format==='zip'){
+      const first=await capture(),different=await capture();expect(different.equals(first)).toBe(false);
+      expect((await send(runtime.server,'/api/admin/backups/full/import',first,token,id).promise).status).toBe(200);
+      expect((await send(runtime.server,'/api/admin/backups/full/import',different,token,id).promise).status).toBe(409);
+    }else{
+      db.FamilyDB.createBackup('manual',user.id,user.username);const backup=db.FamilyDB.getBackups()[0];
+      expect((await send(runtime.server,`/api/admin/backups/${backup.id}/restore`,Buffer.from('{}'),token,id).promise).status).toBe(200);
+      expect((await send(runtime.server,'/api/admin/backups/synthetic-different/restore',Buffer.from('{}'),token,id).promise).status).toBe(409);
+    }
+  }finally{await runtime.close();}
 },15_000);

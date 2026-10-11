@@ -29,7 +29,8 @@ hashes, so ZIP export never archives changing live paths. Limits are256MiB for
 serialized/expanded input,10,000media files and100,000rows; immutable capture uses
 bounded RAM. Settings include rewards, delivery flags/last-sent dates and external
 service links. Named API keys, Telegram credentials and session signing secrets
-stay local; restore merges retained local configuration. Canonical DB content
+stay local; restore replaces the complete public allowlist (including absent keys),
+while retaining local-only configuration. Canonical DB content
 still includes private user/auth/push records. These backups are not encrypted;
 F04/F07 must provide the privacy audit and separate encrypted portable recovery.
 
@@ -42,7 +43,9 @@ F04/F07 must provide the privacy audit and separate encrypted portable recovery.
    shutdown still waits for its work after client disconnect.
 2. Revalidate after drain, retain a native SQLite safety copy under backups/, and
    stage fsynced immutable media/settings under UUID-derived configured roots.
-   Persist a self-checksummed restore journal before any promotion. Uploaded
+   Persist a self-checksummed restore journal before any promotion. Writer and
+   reader share a32MiB bound covering all10k supported512-unit media paths; writer
+   refuses unsupported size before publication/promotion. Uploaded
    documents cannot supply journal paths.
 3. Promote old/staged media and config, restore trusted rows and legacy data in
    the same gateway transaction, drop restored historical pending/leased work
@@ -63,7 +66,13 @@ are not a power-loss claim.
 
 Restore command retries use the authenticated actor/request/hash. A committed
 retry returns its prior result without overwriting subsequent writes; conflicting
-actor/hash returns409. Old JSON/ZIP format1 is accepted only while all domain
+actor/hash returns409 through both HTTP restore routes. ZIP retries hash original
+archive bytes; JSON inputs hash the original document; file-backed requests bind
+to the backup ID before mutable metadata lookup. Compatibility timestamps/current
+tables cannot change a committed retry identity. Backup metadata filenames are
+validated before restore and at every delete/retention consumer. Within the SQL
+transaction, references are reconciled with ordinary bounded local JSON files;
+missing files are removed and existing orphan files are retained safely. Old JSON/ZIP format1 is accepted only while all domain
 versions are0 and completion claims absent. It cannot reconstruct old command
 caches, so only bootstrap records survive that compatibility conversion. After
 cutover, the shared manifest is required to avoid silent domain/points loss.
@@ -84,8 +93,13 @@ settings preservation. Supplementary HTTP tests prove live worker/request drain
 and shutdown after disconnect. Six fresh-process crash boundaries cover journal
 publication, media moves, settings moves and SQL commit.
 
-Full Cloud acceptance suite300/300 in38files; lint/build separately pass. Exact
-source/final-HEAD Windows CI and one whole-branch review remain pending. No skips,
+First source `af8961f93ef4f000bfacb8f252b6bf8cfb366fc3` independently verified on
+Windows run [38153439050](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38153439050):
+both Node22/24 passed300/300 in38files, all six command exits0 and ci-gate.
+One fresh whole-branch review found six Important issues; all received a single
+RED→GREEN fix pass with11 additional regression cases. Corrected full Cloud
+suite311/311 in38files passes; lint/build separately recorded. Corrected/final-HEAD
+Windows CI remains pending; first source GREEN is historical. No skips,
 weakened business assertions or real provider/AI calls. No dependency/lock changes.
 The first pre-journal failure test was affected by the preceding corrupt-journal
 fixture deleting its directory; it did not independently prove cleanup RED.

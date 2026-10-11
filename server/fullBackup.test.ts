@@ -10,6 +10,7 @@ import { FamilyDB, getAppSettings, setAppSetting } from './db.js';
 import { UPLOADS_DIR } from './media.js';
 import { withAppWriteTransaction } from './appStore.js';
 import { randomUUID } from 'node:crypto';
+import { withAppCommandContext } from './commandContext.js';
 const options={maintenance:async <T>(work:()=>Promise<T>)=>work()};
 async function capture() { const out=new PassThrough();const chunks:Buffer[]=[];out.on('data',chunk=>chunks.push(chunk));const finished=once(out,'end');await streamFullBackup(out);await finished;return Buffer.concat(chunks); }
 async function zip(entries:Record<string,string|Buffer>) {
@@ -34,4 +35,21 @@ it('imports a pre-domain format1 backup while preserving local provider credenti
   change('Synthetic changed');setAppSetting('geminiApiKey','synthetic-local-key');
   await (importFullBackup as any)(buffer,'user_admin','Synthetic',options);
   expect(FamilyDB.getTasks()[0].title).toBe('Synthetic legacy');expect(getAppSettings().geminiApiKey).toBe('synthetic-local-key');expect(fs.readFileSync(path.join(UPLOADS_DIR,'legacy.bin'),'utf8')).toBe('legacy bytes');
+});
+it('retries identical legacy ZIP input without rerunning restore or losing later writes',async()=>{
+  const buffer=await zip({'db.json':JSON.stringify(FamilyDB.getFullSnapshot())});const context={actorId:'synthetic-admin',requestId:randomUUID()};let calls=0;
+  const owned={maintenance:async<T>(work:()=>Promise<T>)=>{calls++;return work();}};
+  const first=await withAppCommandContext(context,()=>importFullBackup(buffer,'user_admin','Synthetic',owned));change('Synthetic later preserved');
+  expect(await withAppCommandContext(context,()=>importFullBackup(buffer,'user_admin','Synthetic',owned))).toEqual(first);
+  expect(calls).toBe(1);expect(FamilyDB.getTasks()[0].title).toBe('Synthetic later preserved');
+});
+it('resolves committed file-backed restore retries independently of mutable backup references',async()=>{
+  FamilyDB.createBackup('manual','user_admin','Synthetic');const backup=FamilyDB.getFullSnapshot().backups[0];const context={actorId:'synthetic-admin',requestId:randomUUID()};let calls=0;
+  const owned={maintenance:async<T>(work:()=>Promise<T>)=>{calls++;return work();}};
+  await withAppCommandContext(context,()=>FamilyDB.restoreBackup(backup.id,'user_admin','Synthetic',owned));
+  expect(FamilyDB.getBackups().some(item=>item.filename===backup.filename)).toBe(true);
+  // Even explicit later metadata deletion must not invalidate a committed response.
+  withAppWriteTransaction({actorId:'synthetic',command:'synthetic:delete-reference',requestId:randomUUID(),payloadHash:'fixture'},tx=>{tx.legacy.backups=[];});change('Synthetic later preserved');
+  await withAppCommandContext(context,()=>FamilyDB.restoreBackup(backup.id,'user_admin','Synthetic',owned));
+  expect(calls).toBe(1);expect(FamilyDB.getTasks()[0].title).toBe('Synthetic later preserved');
 });

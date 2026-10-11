@@ -7,12 +7,12 @@ import { AppJobStore } from './jobStore.js';
 import { randomUUID } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import { snapshotLimits, publicSettingKeys, mediaRoot, settingsFile, readSettings, readMedia, validMediaPath, sha256, durableWrite, restorePaths, writeJournal, readJournal, recoverFiles, cleanupStaging } from './snapshotFiles.js';
+import { snapshotLimits, publicSettingKeys, mediaRoot, settingsFile, readSettings, readMedia, validMediaPath, validBackupFilename, reconcileBackupReferences, sha256, durableWrite, restorePaths, writeJournal, readJournal, recoverFiles, cleanupStaging } from './snapshotFiles.js';
 
 interface SnapshotManifest { schemaVersion: number; domains: Record<string,number>; legacyVersion: number; mediaManifest: { path: string; size: number; sha256: string }[]; checksum: string; createdAt: string }
 export interface AppSnapshot { manifest: SnapshotManifest; legacy: any; tables: Record<string, any[]>; settings: Record<string,string>; media: Record<string,string> }
 export type ValidatedAppSnapshot = AppSnapshot & { readonly __validated: unique symbol };
-export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void }
+export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string }
 const connection = sqliteConnection();
 const core = new Map<string, readonly string[]>([
   ['app_meta',['key','value']], ['app_commands',['command','request_id','actor_id','payload_hash','result','committed_at']],
@@ -97,6 +97,7 @@ export function validateAppSnapshot(input: unknown): ValidatedAppSnapshot {
     rowCount += rows.length;
   }
   if (!s.legacy.users.some((user: any) => user.role === 'admin')) throw new Error('Snapshot requires an administrator');
+  for(const backup of s.legacy.backups)validBackupFilename(backup.filename);
   const trusted = tables();
   if (!s.tables || JSON.stringify(Object.keys(s.tables).sort()) !== JSON.stringify([...trusted.keys()].sort())) throw new Error('Missing or untrusted snapshot tables');
   for (const [name,columns] of trusted) {
@@ -148,17 +149,23 @@ export function recoverAppRestore(): void {
   if (marker && marker.checksum !== journal.checksum) throw new Error('Restore marker checksum mismatch');
   recoverFiles(journal, !!marker);
 }
+/** Internal adapters bind retries to original input before reading mutable state. */
+export function getCommittedRestore(identity:string): {restoredFiles:number}|undefined {
+  const context=getAppCommandContext();if(!context)return;
+  const prior=connection.prepare('SELECT actor_id,payload_hash,result FROM app_commands WHERE command=? AND request_id=?').get('core:snapshot:restore',context.requestId) as any;
+  if(!prior)return;
+  if(prior.actor_id!==context.actorId||prior.payload_hash!==identity)throw new AppStoreError('Restore request conflicts with committed command',409);
+  return JSON.parse(prior.result).value;
+}
 export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options: RestoreOptions): Promise<{ restoredFiles: number }> {
   if (!validated.has(snapshot)) throw new Error('Restore requires a validated immutable snapshot');
   const checked = validateAppSnapshot(snapshot);
   if (!options?.maintenance) throw new Error('Restore requires the runtime maintenance owner');
   const context = getAppCommandContext();
   const actorId = context?.actorId ?? 'system:restore', requestId = context?.requestId ?? randomUUID();
-  const prior = connection.prepare('SELECT actor_id,payload_hash,result FROM app_commands WHERE command=? AND request_id=?').get('core:snapshot:restore',requestId) as any;
-  if (prior) {
-    if (prior.actor_id !== actorId || prior.payload_hash !== checked.manifest.checksum) throw new AppStoreError('Restore request conflicts with committed command',409);
-    return JSON.parse(prior.result).value;
-  }
+  const identity=options.identity??checked.manifest.checksum;
+  if(!/^[a-f0-9]{64}$/.test(identity))throw new Error('Invalid internal restore identity');
+  const prior=getCommittedRestore(identity);if(prior)return prior;
   let failure: unknown;
   const result = await options.maintenance(async () => {
     const id = randomUUID(); const paths = restorePaths(id);
@@ -170,7 +177,8 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
       const safetyFd = fs.openSync(paths.safety,'r+'); try { fs.fsyncSync(safetyFd); } finally { fs.closeSync(safetyFd); }
       fs.mkdirSync(paths.stageMedia);
       for (const [name,data] of Object.entries(checked.media)) { const target = path.join(paths.stageMedia,...name.split('/')); fs.mkdirSync(path.dirname(target),{recursive:true}); durableWrite(target,Buffer.from(data,'base64')); }
-      const localSettings = readSettings(); const settings = JSON.stringify({ ...localSettings, ...checked.settings },null,2);
+      const localSettings = readSettings();for(const key of publicSettingKeys)delete localSettings[key];
+      const settings = JSON.stringify({ ...localSettings, ...checked.settings },null,2);
       durableWrite(paths.stageSettings, settings);
       options.onBoundary?.('staging-complete');
       // Verify current files are ordinary before moving any root.
@@ -181,12 +189,13 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
       fs.renameSync(paths.stageMedia,mediaRoot); options.onBoundary?.('media-promoted');
       if (journal.hadSettings) fs.renameSync(settingsFile,paths.oldSettings); options.onBoundary?.('settings-old-renamed');
       fs.renameSync(paths.stageSettings,settingsFile); options.onBoundary?.('settings-promoted');
-      withAppWriteTransaction({ actorId, command: 'core:snapshot:restore', requestId, payloadHash: checked.manifest.checksum }, tx => {
+      withAppWriteTransaction({ actorId, command: 'core:snapshot:restore', requestId, payloadHash: identity }, tx => {
         tx.exec('PRAGMA defer_foreign_keys=ON');
         const definitions = [...tables()];
         for (const [name] of [...definitions].reverse()) tx.run(`DELETE FROM ${name}`);
         for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => row[column]));
         tx.legacy = JSON.parse(JSON.stringify(checked.legacy));
+        reconcileBackupReferences(tx.legacy);
         new AppJobStore().restorePolicy(tx,Date.now());
         tx.run('INSERT INTO app_restore_commits VALUES (?,?,?)',id,checked.manifest.checksum,new Date().toISOString());
         return { restoredFiles: Object.keys(checked.media).length };
