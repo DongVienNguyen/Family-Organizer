@@ -43,6 +43,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     },
   };
   for (const check of ['install', 'native', 'lint', 'test', 'build', 'production','audit']) reports[`${check}-exit.json`] = { exitCode: 0 };
+  reports['audit-exit.json'].nativeAuditExitCode=0;
   change(reports);
   const writes: Record<string, string> = {};
   const processFixture = {
@@ -155,10 +156,12 @@ it('rejects missing compiled first-account initialization proof',()=>{const resu
 it('rejects missing dependency library security regressions',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('tests/librarySecurity.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/librarySecurity.test.ts');});
 
 it.each(['audit.json','audit-context.json','audit-exit.json'])('rejects missing dependency audit evidence %s',name=>{expect(runEvidence(reports=>{delete reports[name];}).code).toBe(1);});
-it('rejects nonzero native audit exit even when other checks pass',()=>{expect(runEvidence(reports=>{reports['audit-exit.json'].exitCode=1;}).code).toBe(1);});
+it('rejects nonzero audit wrapper exit even when other checks pass',()=>{expect(runEvidence(reports=>{reports['audit-exit.json'].exitCode=1;}).code).toBe(1);});
 it.each(['low','moderate','high','critical'])('rejects dependency audit with remaining %s vulnerabilities',severity=>{expect(runEvidence(reports=>{reports['audit.json'].metadata.vulnerabilities[severity]=1;reports['audit.json'].metadata.vulnerabilities.total=1;reports['audit.json'].vulnerabilities.synthetic={severity};}).code).toBe(1);});
 it('rejects audit error JSON despite a zero native exit',()=>{expect(runEvidence(reports=>{reports['audit.json'].error={code:'SYNTHETIC_REGISTRY_ERROR'};}).code).toBe(1);});
 it('rejects zero audit totals contradicting nonempty vulnerability records',()=>{expect(runEvidence(reports=>{reports['audit.json'].vulnerabilities.synthetic={severity:'high'};}).code).toBe(1);});
 it('rejects an audit of another lockfile',()=>{expect(runEvidence(reports=>{reports['audit-context.json'].lockSha256='b'.repeat(64);}).code).toBe(1);});
 it('rejects an audit of another HEAD',()=>{expect(runEvidence(reports=>{reports['audit-context.json'].commitSha='f'.repeat(40);}).code).toBe(1);});
 it.each([['nodeVersion','v22.23.3'],['platform','synthetic-other-platform'],['architecture','arm64']])('rejects audit context with mismatched %s',(field,value)=>{expect(runEvidence(reports=>{reports['audit-context.json'][field]=value;}).code).toBe(1);});
+
+it.each([undefined,-1,1,null])('rejects missing or contradictory native audit exit %s despite wrapper exit0',value=>{const result=runEvidence(reports=>{if(value===undefined)delete reports['audit-exit.json'].nativeAuditExitCode;else reports['audit-exit.json'].nativeAuditExitCode=value;});expect(result.code).toBe(1);expect(result.evidence.errors).toContain('audit: missing or nonzero native exit evidence');});

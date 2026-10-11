@@ -9,7 +9,9 @@ const checks = Object.fromEntries(['install', 'native', 'lint', 'test', 'build',
 for (const [name, outcome] of Object.entries(checks)) {
   if (outcome !== 'success') errors.push(`${name}: ${outcome}`);
   const exitPath = `reports/${name}-exit.json`;
-  if (!fs.existsSync(exitPath) || JSON.parse(fs.readFileSync(exitPath, 'utf8')).exitCode !== 0) errors.push(`${name}: missing or nonzero exit evidence`);
+  const exitReport = fs.existsSync(exitPath) ? JSON.parse(fs.readFileSync(exitPath, 'utf8')) : null;
+  if (exitReport?.exitCode !== 0) errors.push(`${name}: missing or nonzero exit evidence`);
+  if (name === 'audit' && exitReport?.nativeAuditExitCode !== 0) errors.push('audit: missing or nonzero native exit evidence');
 }
 const readReport = name => {
   try { return JSON.parse(fs.readFileSync(`reports/${name}`, 'utf8')); }

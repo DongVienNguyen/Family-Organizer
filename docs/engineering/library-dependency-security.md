@@ -37,12 +37,13 @@ suite; no skips, continue-on-error or lower standards.
 CI now runs a mandatory native npm audit on each Windows Node22/24 job. PowerShell
 captures the Node and npm exits immediately, saves raw JSON/stderr and reports
 exact SHA/runtime/hash of the scanned lock. Fifteen additional actual RED cases
-require audit files/native failure evidence, zero consistent vulnerability counts,
+require audit files/wrapper failure evidence, zero consistent vulnerability counts,
 and matching HEAD/runtime/lock. The writer rejects registry error JSON even with
 an exit0 and contradictory zero totals. Audit is a seventh required check;
 ci-gate still requires the whole matrix. This does not prove main branch protection:
-the F05 ruleset/protection API remains403. Cloud full1022/102274files, zero skips,
-lint/build/audit passed; actual PowerShell wrapper requires Windows CI.
+the F05 ruleset/protection API remains403. Cloud corrected full1026/102674files, zero skips,
+lint/build/audit passed; first-source Windows run38184447965 independently verified the actual wrapper
+on both pinned runtimes. Final corrected HEAD remains pending Windows CI.
 
 These reproduce library behavior, not proof that every advisory is exploitable
 through the application. CSS/browser tools operate during trusted builds; current
@@ -54,3 +55,9 @@ claim an independent HTTP exploit/cache-OOM reproduction. Audit count is a regis
 snapshot, not complete security acceptance. F04 provider/backup/log privacy,
 F05 browser/coverage/enforcement and F06/F07/F09 package/service/full-regression
 gates remain; Windows2022 is not R02 Server2019. No release/tag/VPS operation.
+
+The single review accepted one Minor before mutation: recorded nativeAuditExitCode
+was not independently validated by the writer. Four observed RED cases delete it
+or set -1,1,null while the wrapper remains0. Both exits now require numeric0;
+valid reports retain all assertions. No Critical/Important or rereview. Targeted
+105/105twofiles, full1026/102674files, lint/build passed; zero skips.

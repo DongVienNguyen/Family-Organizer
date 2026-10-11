@@ -462,7 +462,7 @@
                 "source": 1130709,
                 "name": "postcss",
                 "dependency": "postcss",
-                "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q — attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset",
+                "title": "PostCSS: incomplete fix of GHSA-6g55-p6wh-862q \u2014 attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset",
                 "url": "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp",
                 "severity": "moderate",
                 "cwe": [
@@ -638,14 +638,15 @@
     "libraryObservedRed": 19,
     "positiveCharacterizations": 9,
     "requiredEvidenceObservedRed": 1,
-    "auditGateObservedRed": 15
+    "auditGateObservedRed": 15,
+    "reviewNativeAuditExitObservedRed": 4
   },
   "cloud": {
     "frozenNpmCi": 0,
     "audit": 0,
     "lint": 0,
     "tests": {
-      "passed": 1022,
+      "passed": 1026,
       "files": 74,
       "failed": 0,
       "skipped": 0
@@ -660,7 +661,11 @@
       "passed": 101,
       "files": 2
     },
-    "powerShellAuditWrapper": "not-run-in-Linux-Cloud; Windows CI required"
+    "powerShellAuditWrapper": "Windows first-source run38184447965 verified for both pinned runtimes; final corrected HEAD pending",
+    "finalReviewTarget": {
+      "passed": 105,
+      "files": 2
+    }
   },
   "cloudEvidenceSha256": {
     "f04-k-security-red.log": "bcf18b3957310751d4ee2e854b5cbe0fd63deb838bf217e55d7d810cb8299068",
@@ -676,6 +681,11 @@
     "f04-k-audit-gate-green.log": "7146c34318bb3ef0e704710def6833d615e0f3b8132b528ecc249830a0654e34",
     "f04-k-audit-gate-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
     "f04-k-final-tests.log": "714f9d1ea6e39bd5d7ea9fa3cd7c410f277b5ded224b1aa1b567492262c4e9a3",
-    "f04-k-final-build.log": "5c0e77ee91401e0db5b24711f05279e24c49fd1a998be4d10e4178480049fe6c"
+    "f04-k-final-build.log": "5c0e77ee91401e0db5b24711f05279e24c49fd1a998be4d10e4178480049fe6c",
+    "f04-k-review-red.log": "8d56198dee7c901bb800395908f23ec852e9809ef58ca10ef4066fe6159252de",
+    "f04-k-review-green.log": "e0e50d3475bcf04dbc6670c76580ef133a457a39fb004bd3fdc4e6b2ea9a76f8",
+    "f04-k-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-k-review-full.log": "30f475a1be6b400e1a7d3242eceb9fd31cc11e8aea51e6ca87d3e153eeb133ad",
+    "f04-k-review-build.log": "4bde2306fbbdb616dcd05b18fd106c6befdef8ac129cabc9a9e52174af6ebf34"
   }
 }

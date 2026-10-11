@@ -16,7 +16,7 @@
 | F04-h | Reviewed, exact Windows GREEN, merged PR14 | HEAD63ef3ad/run38179151696;918/91871files per runtime |
 | F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
 | F04-j | Reviewed, exact Windows GREEN, merged PR16 | HEADcc45fe8/run38182693480;978/97873files per runtime; maine41e97d |
-| F04-k | Scoped library patches implemented; full validation pending | BASEe41e97d;35actualRED/9chars; audit9→0 |
+| F04-k | Reviewed, corrected; final Windows pending PR17 | First HEAD441fd8b/run38184447965;1022/102274files;39actualRED/9chars; audit9→0 |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -521,12 +521,20 @@ refusals;9 existing safe or
 valid characterizations retained. Owned offline child processes bound heap,
 startup/execution, output and cleanup for parser/generator/brace/mapping inputs;
 PostCSS source map and indexed offset/browser stats regressions use synthetic
-fixtures. Final selected minimum-version frozen npm ci, audit exit0, lint, full1022/1022
+fixtures. Final selected minimum-version frozen npm ci, audit exit0, lint, corrected full1026/1026
 74files (zero skips) and build passed; captured child output additionally bounded
 without changing library assertions. New Windows audit step captures native exits
 and exact HEAD/runtime/lock context; required writer rejects missing/error/nonzero/
-vulnerable or mismatched reports. PowerShell execution still pending Windows. PR URL, SHA, exact Windows results and fresh
-whole-branch review pending; no final CI-pass claim.
+vulnerable or mismatched reports. First-source HEAD441fd8b19eaea12927085f30cf8fc60ed6f62344 / Windows
+run38184447965 independently verified1022/102274files per Node22/24, seven native
+command exits0,21 compiled proofs/evidence/ci-gate. Raw report and full-log hashes
+are in evidence/f04-k-first-source.json.
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/17.
+The single fresh review had no Critical/Important and one accepted Minor: validate
+nativeAuditExitCode independently of wrapper exit0. Four actual RED cases then
+GREEN; corrected targeted105/105twofiles, full1026/102674files, lint/build0.
+Total39actualRED/9chars; one correction pass, no rereview. Final corrected HEAD
+Windows proof pending; see f04-k-review.md. No final CI-pass claim.
 
 Remaining F04 provider/backup/log/privacy and final proxy/browser gates; F05
 browser/coverage/enforcement still incomplete, actual protection writes403 despite
