@@ -1,110 +1,66 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-// File-based media storage. Images are written to data/uploads/<category>/<subfolder>/
-// and referenced from the DB by a short "/uploads/..." URL instead of being inlined
-// as base64. This keeps the SQLite document rows (and every full-DB write/backup)
-// small and fast. Files are served statically by the app.
-
-import fs from "fs";
-import path from "path";
-import crypto from "crypto";
-
-import { appConfig } from "./config.js";
-
-export const UPLOADS_DIR = path.join(appConfig.dataRoot, "uploads");
-export const UPLOADS_URL_PREFIX = "/uploads/";
-
-// Ensure the base uploads directory exists so static serving works from boot.
-fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-
-// Categories map to top-level folders ("tab/chủ đề" buckets).
-const ALLOWED_CATEGORIES = new Set(["avatars", "assets", "receipts", "documents", "debts", "notes"]);
-
-// Reject anything larger than this per single image (after client-side optimize).
-const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
-// PDF không được optimize phía client nên cho trần riêng, rộng hơn.
-const MAX_PDF_BYTES = 10 * 1024 * 1024;
-
-const MIME_EXT: Record<string, string> = {
-  "image/png": "png",
-  "image/jpeg": "jpg",
-  "image/jpg": "jpg",
-  "image/webp": "webp",
-  "image/gif": "gif",
-  "image/svg+xml": "svg",
-  "application/pdf": "pdf"
-};
-
-const DATA_URL_RE = /^data:(image\/[a-z0-9.+-]+|application\/pdf);base64,(.+)$/i;
-
-function sanitizeSegment(value: unknown): string {
-  return String(value || "").replace(/[^a-z0-9_-]/gi, "").slice(0, 40);
+/** @license SPDX-License-Identifier: Apache-2.0 */
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {appConfig} from './config.js';
+import {sqliteConnection,sqliteLoad} from './sqlite.js';
+import {runLegacyCommand,currentAppWriteTx} from './appStore.js';
+import {canonicalMediaUrl,mediaPath,mediaKey,parseMediaMetadata,mayReadMedia,mediaReferences,reconcileMediaMetadata} from './mediaPolicy.js';
+import type {LegacyActor} from './legacyVisibility.js';
+export const UPLOADS_DIR=path.join(appConfig.dataRoot,'uploads');
+export const UPLOADS_URL_PREFIX='/uploads/';
+directory(appConfig.dataRoot);directory(UPLOADS_DIR,true);
+const categories=new Set(['avatars','assets','receipts','documents','debts','notes']);
+const extensions:Record<string,string>={'image/png':'png','image/jpeg':'jpg','image/jpg':'jpg','image/webp':'webp','image/gif':'gif','application/pdf':'pdf'};
+export interface SavedMedia {url:string;sizeKb:number}
+export const isManagedUrl=(url:unknown):url is string=>typeof url==='string'&&url.startsWith(UPLOADS_URL_PREFIX);
+export function detectedMediaType(bytes:Buffer):string|undefined {
+ if(bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])))return 'image/png';
+ if(bytes.length>=4&&bytes[0]===255&&bytes[1]===216&&bytes[2]===255&&bytes[bytes.length-2]===255&&bytes[bytes.length-1]===217)return 'image/jpeg';
+ if(/^GIF8[79]a$/.test(bytes.subarray(0,6).toString('ascii')))return 'image/gif';
+ if(bytes.subarray(0,4).toString()==='RIFF'&&bytes.subarray(8,12).toString()==='WEBP')return 'image/webp';
+ if(/^%PDF-[12]\./.test(bytes.subarray(0,8).toString()))return 'application/pdf';
 }
-
-export interface SavedMedia {
-  url: string;
-  sizeKb: number;
+function directory(dir:string,create=false):void {
+ if(create&&!fs.existsSync(dir))fs.mkdirSync(dir,{recursive:false});
+ const stat=fs.lstatSync(dir);if(stat.isSymbolicLink()||!stat.isDirectory())throw new Error('Media directory must be ordinary');
+ if(path.resolve(fs.realpathSync(dir)).toLowerCase()!==path.resolve(dir).toLowerCase())throw new Error('Media directory escape');
 }
-
-/** True for URLs this module owns (and may delete from disk). */
-export function isManagedUrl(url: unknown): url is string {
-  return typeof url === "string" && url.startsWith(UPLOADS_URL_PREFIX);
+function location(url:string,create=false):string {
+ const relative=mediaPath(url),parts=relative.split('/');directory(appConfig.dataRoot);directory(UPLOADS_DIR,create);
+ let current=UPLOADS_DIR;for(const part of parts.slice(0,-1)){current=path.join(current,part);directory(current,create);}return path.join(current,parts.at(-1)!);
 }
-
-/**
- * Decode a base64 data URL and persist it under data/uploads/<category>/<subfolder>.
- * Returns the public "/uploads/..." URL to store in the DB.
- */
-export function saveDataUrlToFile(dataUrl: unknown, category: string, subfolder?: string): SavedMedia {
-  if (!ALLOWED_CATEGORIES.has(category)) {
-    throw new Error("Loại thư mục lưu ảnh không hợp lệ.");
-  }
-  if (typeof dataUrl !== "string") {
-    throw new Error("Dữ liệu ảnh không hợp lệ.");
-  }
-  const match = dataUrl.match(DATA_URL_RE);
-  if (!match) {
-    throw new Error("Tệp phải là ảnh (data:image) hoặc PDF (data:application/pdf) hợp lệ.");
-  }
-  const mime = match[1].toLowerCase();
-  const ext = MIME_EXT[mime];
-  if (!ext) {
-    throw new Error("Định dạng ảnh không được hỗ trợ.");
-  }
-
-  const buffer = Buffer.from(match[2], "base64");
-  if (buffer.length === 0) throw new Error("Tệp rỗng hoặc hỏng.");
-  const maxBytes = ext === "pdf" ? MAX_PDF_BYTES : MAX_IMAGE_BYTES;
-  if (buffer.length > maxBytes) {
-    throw new Error(ext === "pdf" ? "PDF quá lớn (tối đa 10MB)." : "Ảnh quá lớn. Vui lòng để app tối ưu ảnh trước khi lưu.");
-  }
-
-  const sub = sanitizeSegment(subfolder);
-  const dir = sub ? path.join(UPLOADS_DIR, category, sub) : path.join(UPLOADS_DIR, category);
-  fs.mkdirSync(dir, { recursive: true });
-
-  const fileName = `${Date.now()}_${crypto.randomBytes(8).toString("hex")}.${ext}`;
-  fs.writeFileSync(path.join(dir, fileName), buffer);
-
-  const url = sub
-    ? `${UPLOADS_URL_PREFIX}${category}/${sub}/${fileName}`
-    : `${UPLOADS_URL_PREFIX}${category}/${fileName}`;
-  return { url, sizeKb: Math.max(1, Math.round(buffer.length / 1024)) };
+export function saveDataUrlToFile(dataUrl:unknown,category:string,subfolder?:string):SavedMedia {
+ if(!categories.has(category)||typeof dataUrl!=='string'||dataUrl.length>15*1024*1024)throw new Error('Dữ liệu tệp không hợp lệ.');
+ const match=/^data:([^;,]+);base64,([A-Za-z0-9+/]+={0,2})$/.exec(dataUrl);if(!match)throw new Error('Dữ liệu tệp không hợp lệ.');
+ const mime=match[1].toLowerCase(),ext=extensions[mime];if(!ext)throw new Error('Định dạng tệp không được hỗ trợ.');
+ const bytes=Buffer.from(match[2],'base64'),limit=ext==='pdf'?10*1024*1024:4*1024*1024;
+ if(!bytes.length||bytes.length>limit||bytes.toString('base64')!==match[2]||detectedMediaType(bytes)!==(mime==='image/jpg'?'image/jpeg':mime))throw new Error('Nội dung hoặc kích thước tệp không hợp lệ.');
+ const sub=String(subfolder??'').replace(/[^a-z0-9_-]/gi,'').slice(0,40);
+ const url='/uploads/'+category+'/'+(sub?sub+'/':'')+Date.now()+'_'+crypto.randomBytes(16).toString('hex')+'.'+ext;
+ fs.writeFileSync(location(url,true),bytes,{flag:'wx',mode:0o600});return {url,sizeKb:Math.max(1,Math.round(bytes.length/1024))};
 }
-
-/** Delete a file previously created by saveDataUrlToFile. No-ops for legacy/base64/external URLs. */
-export function deleteMediaByUrl(url: unknown): void {
-  if (!isManagedUrl(url)) return;
-  try {
-    const rel = decodeURIComponent(url.slice(UPLOADS_URL_PREFIX.length));
-    const target = path.resolve(UPLOADS_DIR, rel);
-    // Guard against path traversal — must stay inside UPLOADS_DIR.
-    if (target !== UPLOADS_DIR && !target.startsWith(UPLOADS_DIR + path.sep)) return;
-    if (fs.existsSync(target)) fs.unlinkSync(target);
-  } catch (e) {
-    console.error("Không xóa được tệp ảnh:", url, e);
-  }
+export function initializeMediaMetadata():void {runLegacyCommand('initializeMediaMetadata',[],'system:media',()=>reconcileMediaMetadata(currentAppWriteTx()!));}
+export function uploadMedia(dataUrl:unknown,category:string,subfolder:string|undefined,actorId:string):SavedMedia {
+ let created:string|undefined;
+ try{return runLegacyCommand('uploadMedia',[dataUrl,category,subfolder],actorId,()=>{
+  const saved=saveDataUrlToFile(dataUrl,category,subfolder);created=saved.url;
+  currentAppWriteTx()!.run('INSERT INTO app_meta VALUES (?,?)',mediaKey(saved.url),JSON.stringify({version:1,ownerId:actorId,createdAt:Date.now(),bindings:[]}));return saved;
+ });}catch(error){if(created){try{fs.unlinkSync(location(created));}catch{}}throw error;}
+}
+export function authorizeMedia(url:string,actor:LegacyActor):boolean {
+ try{url=canonicalMediaUrl(url);const row=sqliteConnection().prepare('SELECT value FROM app_meta WHERE key=?').get(mediaKey(url)) as any;return mayReadMedia(url,row?parseMediaMetadata(row.value):undefined,sqliteLoad(),actor);}catch{return false;}
+}
+export function readManagedMedia(url:string):{bytes:Buffer;mime:string} {
+ const file=location(url),before=fs.lstatSync(file);if(!before.isFile()||before.isSymbolicLink()||before.nlink!==1||before.size>10*1024*1024)throw new Error('Media file must be ordinary');
+ const fd=fs.openSync(file,fs.constants.O_RDONLY|(fs.constants.O_NOFOLLOW??0));
+ try{const after=fs.fstatSync(fd);if(!after.isFile()||after.nlink!==1||after.dev!==before.dev||after.ino!==before.ino||after.size>10*1024*1024)throw new Error('Media file changed');
+  const bytes=fs.readFileSync(fd),mime=detectedMediaType(bytes);if(!mime||bytes.length>(mime==='application/pdf'?10:4)*1024*1024)throw new Error('Unsupported media content');return {bytes,mime};
+ }finally{fs.closeSync(fd);}
+}
+export function deleteMediaByUrl(url:unknown):void {
+ if(!isManagedUrl(url))return;
+ try{const canonical=canonicalMediaUrl(url);if(mediaReferences(sqliteLoad()).has(canonical))return;
+  const file=location(canonical),stat=fs.lstatSync(file);if(stat.isFile()&&!stat.isSymbolicLink()&&stat.nlink===1)fs.unlinkSync(file);
+ }catch(error:any){if(error.code!=='ENOENT')console.error('Managed media cleanup failed.');}
 }

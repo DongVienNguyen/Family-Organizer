@@ -1,3 +1,4 @@
+import {AuthenticatedImage,AuthenticatedMediaLink} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -66,6 +67,10 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
   const [filterType, setFilterType] = useState<string>("all");
   // Trình xem ảnh (lightbox): ảnh của một giấy tờ + vị trí đang xem.
   const [viewer, setViewer] = useState<{ files: DocumentFile[]; index: number; title: string } | null>(null);
+
+  useEffect(()=>{
+    if(viewer&&!viewer.files.every(file=>documents.some(doc=>doc.files.some(current=>current.url===file.url))))setViewer(null);
+  },[documents,viewer]);
 
   const formRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<HTMLDivElement>(null);
@@ -390,12 +395,12 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
                 {files.map(f => (
                   <div key={f.id} className="relative group">
                     {isPdfFile(f) ? (
-                      <a href={f.url} target="_blank" rel="noreferrer" title={f.fileName} className="w-16 h-16 rounded-lg border border-slate-700 bg-slate-900 flex flex-col items-center justify-center gap-0.5 text-rose-400 hover:bg-slate-800">
+                      <AuthenticatedMediaLink href={f.url} target="_blank" rel="noreferrer" title={f.fileName} className="w-16 h-16 rounded-lg border border-slate-700 bg-slate-900 flex flex-col items-center justify-center gap-0.5 text-rose-400 hover:bg-slate-800">
                         <FileText className="w-5 h-5" />
                         <span className="text-[8px] font-bold">PDF</span>
-                      </a>
+                      </AuthenticatedMediaLink>
                     ) : (
-                      <img src={f.url} alt={f.fileName} className="w-16 h-16 object-cover rounded-lg border border-slate-700" />
+                      <AuthenticatedImage src={f.url} alt={f.fileName} className="w-16 h-16 object-cover rounded-lg border border-slate-700" />
                     )}
                     <button type="button" onClick={() => removeFile(f.id)} className="absolute -top-1.5 -right-1.5 bg-rose-500 text-white rounded-full p-0.5 cursor-pointer" title={t("documents.removeFileTooltip")}>
                       <X className="w-3 h-3" />
@@ -501,7 +506,7 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
                     <div className="flex flex-wrap gap-2 pt-1">
                       {doc.files.map((f, i) => (
                         isPdfFile(f) ? (
-                          <a
+                          <AuthenticatedMediaLink
                             key={f.id}
                             href={f.url}
                             target="_blank"
@@ -511,7 +516,7 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
                           >
                             <FileText className="w-5 h-5" />
                             <span className="text-[8px] font-bold">PDF</span>
-                          </a>
+                          </AuthenticatedMediaLink>
                         ) : (
                           <button
                             key={f.id}
@@ -523,7 +528,7 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
                             className="relative group cursor-pointer"
                             title={t("documents.viewFile", { name: f.fileName })}
                           >
-                            <img src={f.url} alt={f.fileName} className="w-14 h-14 object-cover rounded-lg border border-slate-700" />
+                            <AuthenticatedImage src={f.url} alt={f.fileName} className="w-14 h-14 object-cover rounded-lg border border-slate-700" />
                             <span className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/40 rounded-lg flex items-center justify-center transition-colors">
                               <ExternalLink className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" />
                             </span>
@@ -554,16 +559,16 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
                 </p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
-                <a href={viewer.files[viewer.index].url} target="_blank" rel="noreferrer" aria-label={t("documents.openOriginalAria")} title={t("documents.openOriginalTooltip")} className="size-8 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 flex items-center justify-center">
+                <AuthenticatedMediaLink href={viewer.files[viewer.index].url} target="_blank" rel="noreferrer" aria-label={t("documents.openOriginalAria")} title={t("documents.openOriginalTooltip")} className="size-8 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 flex items-center justify-center">
                   <ExternalLink className="size-4" />
-                </a>
+                </AuthenticatedMediaLink>
                 <button type="button" onClick={closeViewer} aria-label={t("documents.closeViewerAria")} className="size-8 rounded-lg bg-slate-800 text-slate-400 hover:text-slate-200 flex items-center justify-center">
                   <X className="size-4" />
                 </button>
               </div>
             </div>
             <div className="min-h-0 flex-1 bg-slate-950 flex items-center justify-center p-3 relative">
-              <img src={viewer.files[viewer.index].url} alt={viewer.files[viewer.index].fileName} className="max-h-[72vh] max-w-full object-contain rounded-lg" />
+              <AuthenticatedImage src={viewer.files[viewer.index].url} alt={viewer.files[viewer.index].fileName} className="max-h-[72vh] max-w-full object-contain rounded-lg" />
               {viewer.files.length > 1 && (
                 <>
                   <button type="button" onClick={viewerPrev} aria-label={t("documents.prevImage")} className="absolute left-3 top-1/2 -translate-y-1/2 size-9 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-200 flex items-center justify-center border border-slate-700">

@@ -1,3 +1,4 @@
+import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -29,7 +30,7 @@ export function Avatar({ user, className = "w-8.5 h-8.5 rounded-xl text-sm", ext
 
   if (user.avatarImage) {
     return (
-      <img
+      <AuthenticatedImage
         src={user.avatarImage}
         alt={user.fullName}
         referrerPolicy="no-referrer"

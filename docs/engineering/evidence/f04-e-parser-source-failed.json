@@ -1,0 +1,93 @@
+{
+  "task": "F04-e named parser source failure",
+  "headSha": "544c9d42186f2f2f1b8bff39c1659e1866ce0086",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38170534891",
+  "conclusion": "failure",
+  "ciGate": "failure",
+  "cause": "Persistent esbuild worker/service held synthetic fixture CWD; EBUSY/EPERM cleanup failure",
+  "artifactsDownloadedAndRead": true,
+  "runtimes": [
+    {
+      "artifactName": "windows-node22-544c9d42186f2f2f1b8bff39c1659e1866ce0086-1",
+      "checks": {
+        "install": "success",
+        "native": "success",
+        "lint": "success",
+        "test": "failure",
+        "build": "success",
+        "production": "success"
+      },
+      "testAssertionsPassed": 653,
+      "testCommandExitCode": 1,
+      "suiteTeardownFailure": "tests/compiled-media-policy.test.ts: Windows EBUSY/EPERM fixture CWD held by esbuild service",
+      "errors": [
+        "test: failure",
+        "test: missing or nonzero exit evidence",
+        "test run failed, skipped tests, or zero tests"
+      ],
+      "reportSha256": {
+        "test.log": "17496e13121364eaed808b220fbb4a390262c6a1fc24509086f480c0b45cc6b1",
+        "production.json": "176ecd792493d818c16d5b401b4cd730e6e950c3c31cdcadcfac94694dfda4e5",
+        "build.log": "1a9927657e98c0e21e80a604d280d64588df8e812386974023de5ff67f080a79",
+        "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+        "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+        "test-exit.json": "82cc4956d5340d072c71e65b6eeaec1a3bb8a9c05897226fefcd5808aee51fc8",
+        "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+        "production.log": "5733594c149d40640803b4aab68bd6cb45cd2c6a2ba10bdce9eed0622ee583ec",
+        "junit.xml": "b7272416a3c5e4fcea11c079773ec93d89fb75d03a84650f62bd63dd049e8481",
+        "toolchain.json": "45a4d4619cdee2741b9e4bf868fab5ffeb77e7fa1c1e096f5c5db4e0d3c861e2",
+        "build-exit.json": "0b3245a583c253852bc2f24a41caef588421e9eda25466e1f475ea8c74f8eb89",
+        "native.log": "8fda14cf9ea15d0d67a02dacf772ed5b0e6a8b3c1246cb7b2a318e0870c3cd24",
+        "native.json": "839df92b2d80b06766cdd3e8fb73e680345e948ff71404c1f0b95e562cdd3d8c",
+        "install.log": "48e5fefe2cea6c347d07584723600ab1735d5502f052812568ab31fd86c040ca",
+        "evidence.json": "4c72b58611deff9ee80f9e8a8fd03c1c046bc5b8bd33db46c260b75a120f35bc",
+        "lint-exit.json": "5d6c365bed03c5aaaf3987831b8d8b41c00c3776b01202f8d71e32be26e5762d",
+        "production-server.log": "3dff4dd4bfd5d516e8313a11960f3f15631ec7bf7718480b21c29ca215916639",
+        "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+        "vitest.json": "65f7fb016f5f9053c14859ea4f65447c3fe98f3d792dbd419d5c318985fa36cc",
+        "production-install.log": "24b4831604cf8cee55f7d96ce0ba7d285c285f786b6ad8f595a021d7b39dc93a"
+      }
+    },
+    {
+      "artifactName": "windows-node24-544c9d42186f2f2f1b8bff39c1659e1866ce0086-1",
+      "checks": {
+        "install": "success",
+        "native": "success",
+        "lint": "success",
+        "test": "failure",
+        "build": "success",
+        "production": "success"
+      },
+      "testAssertionsPassed": 653,
+      "testCommandExitCode": 1,
+      "suiteTeardownFailure": "tests/compiled-media-policy.test.ts: Windows EBUSY/EPERM fixture CWD held by esbuild service",
+      "errors": [
+        "test: failure",
+        "test: missing or nonzero exit evidence",
+        "test run failed, skipped tests, or zero tests"
+      ],
+      "reportSha256": {
+        "test.log": "c9981612714aafebd325636a93440518f24dc2541856c8355c4657426c7e2cf4",
+        "production.json": "77bc65ea441cd3b9095479053bacfabe00af6cfeab863977a23ad515c5d699e4",
+        "build.log": "4cb0f789e23a9992347853bff8a1bac694a00d80107fdd91f38b188694b77445",
+        "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+        "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+        "test-exit.json": "97fdabd308f1e0c0321b9e9c3da9fb56530988f2e5bebe2d6a5977c5e3dbcc17",
+        "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+        "production.log": "044c7aeee46c6c6a9ebd7d9c27eb95efe836f5068db7c94a1414e02e15fdd014",
+        "junit.xml": "e6e83c9447eea41f19c9e9a11f956a1b56d3b56be0eb7060dedfc0c586dab488",
+        "toolchain.json": "aa37346c2d22b806763ed5ba1faebfc9578688769f6be6963593ad06e7c4ea8f",
+        "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+        "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+        "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+        "install.log": "9c12b348ec60c98689b75a45ebdcad3e48472a04143735d5e721576c4af8047b",
+        "evidence.json": "2cca20112b1e9e738aa7a6cd65baafab95eddc76cbf05c1b2ade696eae7fcc64",
+        "lint-exit.json": "5d6c365bed03c5aaaf3987831b8d8b41c00c3776b01202f8d71e32be26e5762d",
+        "production-server.log": "4036836746a4c967dc1d8e4a89d568bea1afeb905b28a9ffa436ffa62b6e2e66",
+        "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+        "vitest.json": "7e395b63d5ee4cb9ceff8d02d9cc917d5ea4ac5d2c843caf08aea39d60675e21",
+        "production-install.log": "a18a2a9e4dab6ff93d9c3da3a8c87fd9c78257c15b1c28cb61e747af41abf7ee"
+      }
+    }
+  ]
+}

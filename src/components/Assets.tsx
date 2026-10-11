@@ -1,3 +1,4 @@
+import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -781,7 +782,7 @@ export function Assets({
                     aria-label={firstPhoto ? t("assets.viewPhotoAriaLabel", { name: asset.name }) : t("assets.noPhotoAriaLabel", { name: asset.name })}
                   >
                     {firstPhoto ? (
-                      <img src={firstPhoto.thumbnailDataUrl} alt={asset.name} className="size-full object-cover" />
+                      <AuthenticatedImage src={firstPhoto.thumbnailDataUrl} alt={asset.name} className="size-full object-cover" />
                     ) : (
                       <Icon className="size-8 text-slate-600" />
                     )}
@@ -904,7 +905,7 @@ export function Assets({
                       <div className="flex flex-wrap gap-2">
                         {asset.photos.map(photo => (
                           <button key={photo.id} type="button" onClick={() => setSelectedPhoto({ asset, photo })} className="size-10 rounded-lg neu-btn overflow-hidden bg-slate-950 cursor-pointer" aria-label={t("assets.viewPhotoButtonAriaLabel", { name: photo.fileName })}>
-                            <img src={photo.thumbnailDataUrl} alt={photo.fileName} className="size-full object-cover" />
+                            <AuthenticatedImage src={photo.thumbnailDataUrl} alt={photo.fileName} className="size-full object-cover" />
                           </button>
                         ))}
                       </div>
@@ -1148,7 +1149,7 @@ export function Assets({
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                       {formPhotos.map(photo => (
                         <div key={photo.id} className="relative rounded-xl overflow-hidden neu-pressed-sm bg-slate-950 aspect-square">
-                          <img src={photo.thumbnailDataUrl} alt={photo.fileName} className="size-full object-cover" />
+                          <AuthenticatedImage src={photo.thumbnailDataUrl} alt={photo.fileName} className="size-full object-cover" />
                           <button type="button" onClick={() => setFormPhotos(prev => prev.filter(p => p.id !== photo.id))} aria-label={t("assets.deletePhotoAriaLabel", { name: photo.fileName })} className="absolute right-1 top-1 size-6 rounded-lg bg-slate-950/90 text-slate-400 hover:text-rose-400 flex items-center justify-center">
                             <X className="size-3.5" />
                           </button>
@@ -1185,7 +1186,7 @@ export function Assets({
               </button>
             </div>
             <div className="min-h-0 flex-1 bg-slate-950 flex items-center justify-center p-3">
-              <img src={selectedPhoto.photo.fullDataUrl} alt={selectedPhoto.photo.fileName} className="max-h-[72vh] max-w-full object-contain rounded-lg" />
+              <AuthenticatedImage src={selectedPhoto.photo.fullDataUrl} alt={selectedPhoto.photo.fileName} className="max-h-[72vh] max-w-full object-contain rounded-lg" />
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -1321,7 +1322,7 @@ export function Tasks({
                                 {task.pendingApproval && (task.proofImage || task.proofNote) && (
                                   <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2 space-y-1.5">
                                     {task.proofImage && (
-                                      <img
+                                      <AuthenticatedImage
                                         src={task.proofImage}
                                         alt={t("tasks.proofAlt")}
                                         onClick={() => setProofPreview(task.proofImage || "")}
@@ -1765,7 +1766,7 @@ export function Tasks({
                 <label className="text-slate-400 font-semibold block">{t("tasks.submitProofLabel")}</label>
                 {submitProofImage ? (
                   <div className="relative">
-                    <img src={submitProofImage} alt={t("tasks.proofAlt")} className="w-full max-h-52 object-cover rounded-xl" />
+                    <AuthenticatedImage src={submitProofImage} alt={t("tasks.proofAlt")} className="w-full max-h-52 object-cover rounded-xl" />
                     <button
                       type="button"
                       onClick={() => setSubmitProofImage("")}
@@ -1873,7 +1874,7 @@ export function Tasks({
           className="fixed inset-0 bg-slate-950/90 flex items-center justify-center z-[60] p-4 cursor-zoom-out"
           onClick={() => setProofPreview("")}
         >
-          <img src={proofPreview} alt={t("tasks.proofAlt")} className="max-w-full max-h-[90vh] rounded-xl" />
+          <AuthenticatedImage src={proofPreview} alt={t("tasks.proofAlt")} className="max-w-full max-h-[90vh] rounded-xl" />
         </div>
       )}
 

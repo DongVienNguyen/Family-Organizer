@@ -1,3 +1,4 @@
+import {AuthenticatedImage,AuthenticatedMediaLink} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -17,7 +18,7 @@ const components: Components = {
   h3: ({ node, ...p }) => <h3 className="text-sm font-bold text-slate-100 mt-2.5 mb-1" {...p} />,
   h4: ({ node, ...p }) => <h4 className="text-xs font-bold text-slate-200 mt-2 mb-1 uppercase tracking-wide" {...p} />,
   p:  ({ node, ...p }) => <p className="my-1.5 text-slate-300" {...p} />,
-  a:  ({ node, ...p }) => <a className="text-sky-400 underline underline-offset-2 hover:text-sky-300 break-all" target="_blank" rel="noreferrer noopener" {...p} />,
+  a:  ({ node, ...p }) => <AuthenticatedMediaLink className="text-sky-400 underline underline-offset-2 hover:text-sky-300 break-all" target="_blank" rel="noreferrer noopener" {...p} />,
   strong: ({ node, ...p }) => <strong className="font-bold text-slate-100" {...p} />,
   em: ({ node, ...p }) => <em className="italic" {...p} />,
   del: ({ node, ...p }) => <del className="text-slate-500" {...p} />,
@@ -40,7 +41,7 @@ const components: Components = {
   thead: ({ node, ...p }) => <thead className="bg-slate-950" {...p} />,
   th: ({ node, ...p }) => <th className="border border-slate-800 px-2 py-1 text-left font-bold text-slate-200" {...p} />,
   td: ({ node, ...p }) => <td className="border border-slate-800 px-2 py-1 text-slate-300" {...p} />,
-  img: ({ node, ...p }) => <img className="max-w-full rounded-lg my-2 border border-slate-800" loading="lazy" referrerPolicy="no-referrer" {...p} />,
+  img: ({ node, ...p }) => <AuthenticatedImage className="max-w-full rounded-lg my-2 border border-slate-800" loading="lazy" referrerPolicy="no-referrer" {...p} />,
 };
 
 export default function Markdown({ content }: { content: string }) {
