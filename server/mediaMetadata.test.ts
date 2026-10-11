@@ -8,6 +8,7 @@ import {collectAppSnapshot,validateAppSnapshot,restoreAppSnapshot} from './appSn
 import {initializeMediaMetadata,uploadMedia,authorizeMedia,deleteMediaByUrl,UPLOADS_DIR} from './media.js';
 import {mediaKey,parseMediaMetadata,mediaReferences,mayReadMedia} from './mediaPolicy.js';
 import {UserRole} from '../src/types.js';
+import {FamilyDB} from './db.js';
 const png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aT1kAAAAASUVORK5CYII=';
 const change=(work:(tx:any)=>any,actor='synthetic-member')=>withAppWriteTransaction({actorId:actor,command:'synthetic:media',requestId:randomUUID(),payloadHash:'synthetic'},work);
 const row=(url:string)=>(sqliteConnection().prepare('SELECT value FROM app_meta WHERE key=?').get(mediaKey(url)) as any)?.value;
@@ -51,3 +52,15 @@ it('binds actual reference-style destinations but rejects copying a private refe
  change(tx=>{tx.legacy.notes.push({id,creatorId:'synthetic-member',content,isShared:false});});expect(parseMediaMetadata(row(staged.url)).bindings).toEqual([{domain:'notes',id}]);
  expect(()=>change(tx=>{tx.legacy.notes.push({id:randomUUID(),creatorId:'synthetic-member',content:`[private][file]\n\n[file]: ${url}`,isShared:true});})).toThrow(/gắn tệp/);
 });
+
+for(const action of ['edit','delete'])for(const kind of ['external','code','literal','unused-definition'])it('does not delete another actor staging file while '+action+' removes '+kind+' Markdown',()=>{
+ fixture();const staged=uploadMedia('data:image/png;base64,'+png,'notes',undefined,'synthetic-member');const file=path.join(UPLOADS_DIR,staged.url.slice(9));
+ const content=kind==='external'?`![external](https://synthetic.invalid${staged.url})`:kind==='code'?`Use \`${staged.url}\` as a path example.`:kind==='literal'?`Use ${staged.url} as a path example.`:`[unused]: ${staged.url}`;
+ const note=FamilyDB.saveNote({title:'Synthetic external/path note',content,isShared:false},'synthetic-child','synthetic-child');expect(fs.existsSync(file)).toBe(true);
+ if(action==='edit')FamilyDB.saveNote({id:note.id,title:note.title,content:'Synthetic removed'},'synthetic-child','synthetic-child');else FamilyDB.deleteNote(note.id,'synthetic-child','synthetic-child');
+ expect(fs.existsSync(file)).toBe(true);expect(parseMediaMetadata(row(staged.url)).bindings).toEqual([]);expect(authorizeMedia(staged.url,{userId:'synthetic-member',role:UserRole.MEMBER})).toBe(true);
+});
+it('removes an actual bound reference-style PDF after its canonical note is deleted',()=>{fixture();const staged=uploadMedia('data:application/pdf;base64,'+Buffer.from('%PDF-1.7\nSynthetic fixture\n%%EOF').toString('base64'),'documents',undefined,'synthetic-member');const file=path.join(UPLOADS_DIR,staged.url.slice(9));const note=FamilyDB.saveNote({title:'Synthetic PDF',content:`[PDF][file]\n\n[file]: ${staged.url}`,isShared:false},'synthetic-member','synthetic-member');expect(fs.existsSync(file)).toBe(true);FamilyDB.deleteNote(note.id,'synthetic-member','synthetic-member');expect(fs.existsSync(file)).toBe(false);expect(authorizeMedia(staged.url,{userId:'synthetic-member',role:UserRole.MEMBER})).toBe(false);});
+
+it('rejects copying the first managed reference destination even when a later duplicate definition is external',()=>{const {url}=fixture();expect(()=>change(tx=>{tx.legacy.notes.push({id:randomUUID(),creatorId:'synthetic-child',content:`[PDF][file]\n\n[file]: ${url}\n[file]: https://synthetic.invalid/example.pdf`,isShared:true});},'synthetic-child')).toThrow(/gắn tệp/);});
+it('preserves an external first reference destination despite a later unused managed duplicate',()=>{const {url}=fixture();expect(()=>change(tx=>{tx.legacy.notes.push({id:randomUUID(),creatorId:'synthetic-child',content:`[PDF][file]\n\n[file]: https://synthetic.invalid/example.pdf\n[file]: ${url}`,isShared:true});},'synthetic-child')).not.toThrow();});

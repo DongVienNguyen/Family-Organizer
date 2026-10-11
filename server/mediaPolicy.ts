@@ -25,11 +25,17 @@ export function parseMediaMetadata(value:string):MediaMetadata {
 function markdownDestinations(content:string):string[] {
  const tree=fromMarkdown(content,{extensions:[gfm()],mdastExtensions:[gfmFromMarkdown()]}),definitions=new Map<string,string>(),urls:string[]=[];
  const walk=(node:any,visit:(node:any)=>void)=>{visit(node);for(const child of node.children??[])walk(child,visit);};
- walk(tree,node=>{if(node.type==='definition')definitions.set(node.identifier,node.url);});
+ walk(tree,node=>{if(node.type==='definition'&&!definitions.has(node.identifier))definitions.set(node.identifier,node.url);});
  walk(tree,node=>{
   if(node.type==='link'||node.type==='image')urls.push(node.url);
   else if(node.type==='linkReference'||node.type==='imageReference'){const url=definitions.get(node.identifier);if(url)urls.push(url);}
  });return urls;
+}
+/** Exact rendered managed destinations, shared by authorization and cleanup. */
+export function managedMarkdownUrls(content:string):string[] {
+ const urls=new Set<string>();
+ for(const value of markdownDestinations(content))if(value.startsWith('/uploads/')){try{urls.add(canonicalMediaUrl(value));}catch{}}
+ return [...urls];
 }
 export function mediaReferences(legacy:FamilyOrganizerDB):Map<string,MediaBinding[]> {
  const refs=new Map<string,MediaBinding[]>();
@@ -39,7 +45,7 @@ export function mediaReferences(legacy:FamilyOrganizerDB):Map<string,MediaBindin
  };
  for(const row of legacy.users??[])add(row.avatarImage,'users',row.id);
  for(const row of legacy.tasks??[])add(row.proofImage,'tasks',row.id);
- for(const row of legacy.notes??[])for(const url of markdownDestinations(String(row.content??'')))add(url,'notes',row.id);
+ for(const row of legacy.notes??[])for(const url of managedMarkdownUrls(String(row.content??'')))add(url,'notes',row.id);
  for(const row of legacy.documents??[])for(const file of row.files??[])add(file.url,'documents',row.id);
  for(const row of legacy.transactions??[])add(row.receiptImage,'transactions',row.id);
  for(const row of legacy.assets??[])for(const photo of row.photos??[]){add(photo.thumbnailDataUrl,'assets',row.id);add(photo.fullDataUrl,'assets',row.id);}

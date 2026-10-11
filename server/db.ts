@@ -1,3 +1,4 @@
+import {managedMarkdownUrls} from './mediaPolicy.js';
 import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
 import { durableWrite, validBackupFilename, sha256 } from './snapshotFiles.js';
 import { revokeUserSessions } from './authStore.js';
@@ -1202,7 +1203,7 @@ export class FamilyDB {
   // Notes Management
   // Các URL ảnh do app quản lý (/uploads/notes/...) nhúng trong markdown của ghi chú.
   private static extractNoteImageUrls(content: string | undefined): string[] {
-    return String(content || "").match(/\/uploads\/notes\/[a-zA-Z0-9_\-./]+/g) || [];
+    return managedMarkdownUrls(String(content || ""));
   }
 
   public static saveNote(noteData: Partial<Note> & EditVersionPayload, userId: string, username: string): Note {
