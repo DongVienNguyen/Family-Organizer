@@ -177,3 +177,9 @@
 - Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: each265/265 tests34files, zero failed/skipped/todo, npmci/native/lint/test/build/production exit0; ci-gate success. Both full logs/artifacts downloaded and independently read; JUnit/JSON/native/production/report hashes in `evidence/i01-b-corrected-source.json`.
 - All four Important findings fixed in one RED→GREEN pass. Owned request deadline/cancellation is tested through actual synthetic loopback sockets; no real provider/AI calls. No dependency/lock change. Existing bundle warning and dependency audit remain their F04/F09 gates.
 - This documentation commit needs its own exact-HEAD run; final evidence comment on PR #5 will record that SHA/run before authorized merge. I01-c snapshot/recovery/restore remains next; no whole-I01, service, portable ZIP or Server2019 completion claim. No release/tag/VPS.
+
+### I01-b integration / I01-c RED baseline
+
+- PR #5 final HEAD `f8bf7d625292b920a24b4640b221e189d19939f7`; exact Windows CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38150500165 independently proved265/26534files per Node22/24, all6exit checks0+ci-gate. Evidence comment https://github.com/DongVienNguyen/Family-Organizer/pull/5#issuecomment-6110505226. Authorized squash merge `fb583fe82348ba5299c60d03a18c1d7b72412c1a`.
+- I01-c branch `codex/i01-shared-snapshot`, baseline/main `fb583fe82348ba5299c60d03a18c1d7b72412c1a`; baseline delta is the reviewed I01-b queue/outbox/provider implementation. No unrelated branch change.
+- Start synthetic acceptance tests for consistent WAL legacy/Wallet/points/media/version snapshot, invalid-input refusal, historical-effect restore policy, accepted-worker drain and filesystem rollback. Ports are explicit RED stubs; they are not a completed implementation. Windows RED run follows before source implementation. Whole I01 remains incomplete; release/tag/VPS forbidden.
