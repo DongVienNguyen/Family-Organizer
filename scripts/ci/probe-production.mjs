@@ -179,6 +179,15 @@ try {
     assert.equal((await request(port,'/api/tasks/'+taskId,undefined,token,'DELETE')).status,200);
 
     // Compiled content grants do not delegate ownership/privacy changes.
+    // Current source ACL also applies to reward history and queued-derived notices.
+    const childRewards=await request(port,'/api/rewards',undefined,childToken);assert.equal(childRewards.status,200);
+    assert.equal(childRewards.text.includes(taskId),false);assert.equal(childRewards.text.includes('Synthetic authority probe'),false);
+    const adultBalances=JSON.parse((await request(port,'/api/rewards',undefined,token)).text).totals;
+    assert.deepEqual(JSON.parse(childRewards.text).totals,adultBalances,'Privacy must not change the existing family point balances');
+    const childNotices=await request(port,'/api/notifications',undefined,childToken);assert.equal(childNotices.status,200);assert.equal(childNotices.text.includes('Synthetic authority probe'),false);
+    assert.equal((await request(port,'/api/notifications/send',{toUserId:'synthetic-child',message:'Synthetic authorized nudge'},token)).status,200);
+    const nudge=JSON.parse((await request(port,'/api/notifications',undefined,childToken)).text).notifications.find(row=>row.content==='Synthetic authorized nudge');assert.ok(nudge);assert.equal((await request(port,'/api/notifications/'+nudge.id+'/read',{},childToken)).status,200);
+
     const noteCreate=await request(port,'/api/notes',{title:'Synthetic delegated content',isShared:true,allowedRolesToEdit:['child']},token);assert.equal(noteCreate.status,200);const noteId=JSON.parse(noteCreate.text).note.id;
     for(const payload of [{creatorId:'synthetic-child'},{isShared:false},{allowedRolesToEdit:['admin','child']}])assert.equal((await request(port,'/api/notes',{id:noteId,...payload},childToken)).status,403);
     const noteEdit=await request(port,'/api/notes',{id:noteId,content:'Synthetic authorized content'},childToken);assert.equal(noteEdit.status,200);assert.equal(JSON.parse(noteEdit.text).note.creatorId,'synthetic-adult');assert.equal(JSON.parse(noteEdit.text).note.isShared,true);
@@ -251,7 +260,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

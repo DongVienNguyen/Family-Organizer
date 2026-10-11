@@ -75,8 +75,12 @@ export interface UserSession {
   role: UserRole;
 }
 
+// Internal derivative provenance; supplied by canonical writers, never clients.
+export type LegacySourceRef = {domain:'task'|'plan'|'note'|'document'|'patient';id:string}|{domain:'finance'|'message'|'family';id?:string};
+
 // Notification system
 export interface Notification {
+  sourceRef?: LegacySourceRef;
   id: string;
   userId: string; // Recipient (or 'all' for everyone)
   title: string;
@@ -611,6 +615,7 @@ export interface FamilyOrganizerDB {
   notifications: Notification[];
   pushSubscriptions: PushSubscriptionRecord[];
   activityLogs: {
+    sourceRef?: LegacySourceRef;
     id: string;
     userId: string;
     username: string;

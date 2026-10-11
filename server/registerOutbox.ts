@@ -1,3 +1,4 @@
+import {UserRole} from '../src/types.js';
 import type { AppJobs } from './appJobs.js';
 import type { FamilyDB } from './db.js';
 import type * as Push from './push.js';
@@ -8,11 +9,13 @@ export function registerPushDelivery(jobs: AppJobs, db: typeof FamilyDB, push: t
   jobs.registerAppJob('legacy', 'push-delivery', async (signal, job) => {
     const payload = job?.payload;
     if (!payload || !['notificationId', 'endpoint', 'userId'].every(key => typeof payload[key] === 'string')) throw new Error('Invalid push outbox reference');
-    const notification = db.getNotifications().find(item => item.id === payload.notificationId);
     const subscription = db.getPushSubscriptions().find(item => item.endpoint === payload.endpoint && item.userId === payload.userId);
     const recipient = db.getUsers().find(user => user.id === payload.userId && !user.isDeleted);
-    if (!notification || !subscription || !recipient || (notification.userId !== 'all' && notification.userId !== recipient.id) || payload.excludeUserId === recipient.id) return;
-    const outcome = await push.sendQueuedNotification({ notifications: db.getNotifications() }, notification, subscription, signal);
+    if (!subscription || !recipient || !Object.values(UserRole).includes(recipient.role) || payload.excludeUserId === recipient.id) return;
+    const notifications=db.getNotificationsForActor(recipient.id);
+    const notification=notifications.find(item=>item.id===payload.notificationId);
+    if(!notification)return;
+    const outcome = await push.sendQueuedNotification({ notifications }, notification, subscription, signal);
     if (outcome === 'dead') db.removePushSubscriptionByEndpoint(subscription.endpoint);
   });
 }

@@ -1,3 +1,4 @@
+import {projectNotifications} from './derivedPrivacy.js';
 import http from 'node:http';
 import {once} from 'node:events';
 import {expect,it,vi,beforeEach} from 'vitest';
@@ -18,6 +19,7 @@ async function fixture(work:(f:any)=>Promise<void>){
     getMedications:()=>records('medication').slice(0,4),getVaccinations:()=>records('vaccination').slice(0,4),getGrowthRecords:()=>records('growth').slice(0,4),getHealthProfiles:()=>records('health').slice(0,4),
     getTransactions:()=>[{id:'synthetic-finance-secret',amount:17,description:'synthetic financial private',date:'2026-10-11'}],getShoppingItems:()=>[],
     getNotifications:()=>[{id:'private-notification',userId:UserRole.MEMBER},{id:'shared-notification',userId:'all'}],
+    getNotificationsForActor:(userId:string)=>projectNotifications({users,tasks,notes,plans,documents,notifications:[{id:'private-notification',userId:UserRole.MEMBER},{id:'shared-notification',userId:'all'}]} as any,{userId,role:users.find(user=>user.id===userId)!.role}),
     addCommentToTask:vi.fn((id:string)=>tasks.find(row=>row.id===id)),saveTask:vi.fn((body:any)=>({...tasks.find(row=>row.id===body.id),...body})),saveNote:vi.fn((body:any)=>({...notes.find(row=>row.id===body.id),...body})),savePlan:vi.fn((body:any)=>({...plans.find(row=>row.id===body.id),...body})),saveDocument:vi.fn((body:any)=>({...documents.find(row=>row.id===body.id),...body})),deletePlan:vi.fn(),deleteDocument:vi.fn(),markNotificationRead:vi.fn(),
   });
   deps.db.getAppSettings=()=>({geminiApiKey:'synthetic-not-real'});

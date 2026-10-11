@@ -1055,7 +1055,7 @@ app.delete("/api/finance/:id", requireAuth, requireRole([UserRole.ADMIN, UserRol
 // --- REWARDS API ENDPOINTS ---
 
 app.get("/api/rewards", requireAuth, (req: AuthRequest, res: Response) => {
-  const entries = FamilyDB.getRewardLedger();
+  const entries = FamilyDB.getRewardLedgerForActor(req.userSession!.userId);
   const totals: Record<string, number> = {};
   entries.forEach(entry => {
     totals[entry.userId] = (totals[entry.userId] || 0) + entry.points;
@@ -2209,14 +2209,14 @@ app.post("/api/users/:id/reset-password", requireAuth, requireRole([UserRole.ADM
 
 app.get("/api/notifications", requireAuth, (req: AuthRequest, res: Response) => {
   const userId = req.userSession!.userId;
-  const list = FamilyDB.getNotifications().filter(n => canViewLegacyNotification(n,req.userSession!));
+  const list = FamilyDB.getNotificationsForActor(userId);
   res.json({ notifications: list });
 });
 
 app.post("/api/notifications/:id/read", requireAuth, (req: AuthRequest, res: Response) => {
   const userId = req.userSession!.userId;
   const { id } = req.params;
-  const notification=FamilyDB.getNotifications().find(row=>row.id===id);
+  const notification=FamilyDB.getNotificationsForActor(userId).find(row=>row.id===id);
   if(!notification||!canViewLegacyNotification(notification,req.userSession!)){res.status(404).json({error:'Không tìm thấy thông báo'});return;}
   FamilyDB.markNotificationRead(id, userId);
   res.json({ success: true });
@@ -2326,7 +2326,7 @@ app.post("/api/push/test", requireAuth, async (req: AuthRequest, res: Response) 
 // --- LOGS & BACKUPS (ADMIN ONLY) ---
 
 app.get("/api/admin/logs", requireAuth, requireRole([UserRole.ADMIN]), (req: AuthRequest, res: Response) => {
-  const logs = FamilyDB.getActivityLogs();
+  const logs = FamilyDB.getActivityLogsForActor(req.userSession!.userId);
   res.json({ logs });
 });
 
