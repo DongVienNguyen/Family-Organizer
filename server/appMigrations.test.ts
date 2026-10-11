@@ -39,4 +39,24 @@ describe('shared pilot migration registry', () => {
     expect(() => applyDomainMigrations({ enabled: [namespace], pilot: true })).toThrow(/gap|version/i);
     expect(() => applyDomainMigrations({ enabled: ['unregistered-synthetic'], pilot: true })).toThrow(/unknown/i);
   });
+
+  it('rejects async migration callbacks before invocation and never commits their version', async () => {
+    const namespace = 'synthetic_' + randomUUID().replaceAll('-', '');
+    let called = false;
+    registerDomainMigration(namespace, 1, async tx => { called = true; tx.exec('CREATE TABLE migration_async_synthetic (id TEXT)'); await Promise.resolve(); tx.run('INSERT INTO migration_async_synthetic VALUES (?)', 'required'); }, 'fixture-async');
+    expect(() => applyDomainMigrations({ enabled: [namespace], pilot: true })).toThrow(/synchronous/i);
+    await Promise.resolve();
+    expect(called).toBe(false);
+    expect(getDomainVersions()[namespace] ?? 0).toBe(0);
+    expect(sqliteConnection().prepare("SELECT name FROM sqlite_master WHERE name = 'migration_async_synthetic'").get()).toBeUndefined();
+  });
+
+  it('rejects and observes thenable migration results, rolling back DDL and version records', async () => {
+    const namespace = 'synthetic_' + randomUUID().replaceAll('-', '');
+    registerDomainMigration(namespace, 1, tx => { tx.exec('CREATE TABLE migration_thenable_synthetic (id TEXT)'); return Promise.reject(new Error('synthetic rejected migration promise')); }, 'fixture-thenable');
+    expect(() => applyDomainMigrations({ enabled: [namespace], pilot: true })).toThrow(/synchronous/i);
+    await Promise.resolve();
+    expect(getDomainVersions()[namespace] ?? 0).toBe(0);
+    expect(sqliteConnection().prepare("SELECT name FROM sqlite_master WHERE name = 'migration_thenable_synthetic'").get()).toBeUndefined();
+  });
 });

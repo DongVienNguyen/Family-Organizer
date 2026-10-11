@@ -89,6 +89,21 @@ describe('shared synchronous application write ownership', () => {
     expect(sqliteLoad().notes.some(n => n.id === 'first-note')).toBe(true);
   });
 
+  it('does not advance a loaded document baseline until its outer transaction commits', () => {
+    const document = sqliteLoad();
+    document.notes.push({ id: 'synthetic-retry-after-rollback' } as any);
+    expect(() => withAppWriteTransaction(meta(), () => { sqliteSave(document); throw new Error('outer abort'); })).toThrow('outer abort');
+    expect(sqliteLoad().notes.some(n => n.id === 'synthetic-retry-after-rollback')).toBe(false);
+    sqliteSave(document);
+    expect(sqliteLoad().notes.some(n => n.id === 'synthetic-retry-after-rollback')).toBe(true);
+    const committed = sqliteLoad();
+    committed.notes.push({ id: 'synthetic-savepoint-commit' } as any);
+    withAppWriteTransaction(meta(), () => sqliteSave(committed));
+    committed.notes.push({ id: 'synthetic-savepoint-next-edit' } as any);
+    sqliteSave(committed);
+    expect(sqliteLoad().notes.some(n => n.id === 'synthetic-savepoint-next-edit')).toBe(true);
+  });
+
   it('keeps nested activity writes and task creation in one canonical document', () => {
     const actor = sqliteLoad().users[0];
     const before = FamilyDB.getActivityLogs().length;

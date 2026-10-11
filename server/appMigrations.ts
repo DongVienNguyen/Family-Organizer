@@ -1,5 +1,5 @@
 import type { AppWriteTx } from './appStore.js';
-import { withAppWriteTransaction } from './appStore.js';
+import { withAppWriteTransaction, invokeSynchronousWrite } from './appStore.js';
 import { sqliteConnection } from './sqlite.js';
 import { createHash, randomUUID } from 'node:crypto';
 
@@ -44,7 +44,7 @@ export function applyDomainMigrations(options: { enabled: string[]; pilot: boole
       }
       for (const migration of [...migrations.values()].sort((a, b) => a.version - b.version)) {
         if (migration.version <= applied.length) continue;
-        migration.apply(tx);
+        invokeSynchronousWrite(migration.apply, tx);
         tx.run('INSERT INTO app_migrations VALUES (?, ?, ?, ?)', namespace, migration.version, migration.checksum, new Date().toISOString());
       }
     }

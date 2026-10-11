@@ -29,7 +29,7 @@ const suites = (tests?.testResults || []).map(suite => ({
 if (!tests?.success || !(tests.numTotalTests > 0) || tests.numPassedTests !== tests.numTotalTests || suites.length === 0) errors.push('test run failed, skipped tests, or zero tests');
 const requiredSuites = [
   'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
-  'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts',
+  'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
   'src/utils/assetValue.test.ts', 'src/utils/bmi.test.ts', 'src/utils/debt.test.ts',
   'src/utils/financePeriod.test.ts', 'src/utils/recurrence.test.ts',
   'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',

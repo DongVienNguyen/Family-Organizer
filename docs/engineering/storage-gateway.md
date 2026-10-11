@@ -67,3 +67,12 @@ migration tests failed at deliberately unimplemented ports. Full logs and both
 artifacts were downloaded/read. No assertions were skipped or weakened. Additional
 Cloud regression tests prove unsupported schema refusal and transitive legacy
 writer ownership against the original implementation before restoring GREEN.
+
+## Review correction
+
+The first implementation passed Windows232/27 at exact `361eeab` in
+[38145880020](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38145880020).
+One fresh review nevertheless reproduced four defects; see
+[i01-a-review-and-decisions.md](i01-a-review-and-decisions.md). Seven regressions
+failed before the fix pass; targeted20/20 now passes. This first GREEN does not
+prove the corrected code. Snapshot/jobs remain pending I01-b.

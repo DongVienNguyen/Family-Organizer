@@ -1,8 +1,10 @@
 import type { FamilyOrganizerDB } from '../src/types.js';
 import { randomUUID, createHash } from 'node:crypto';
-import { sqliteConnection, sqliteLoad, sqliteSave } from './sqlite.js';
+import { sqliteConnection, sqliteLoad, sqliteSave, withSqliteWriteScope } from './sqlite.js';
 import { getAppCommandContext } from './commandContext.js';
 import { trackAppEffect } from './appEffects.js';
+import { AppStoreError } from './appErrors.js';
+export { AppStoreError } from './appErrors.js';
 export interface AppWriteTx {
   legacy: FamilyOrganizerDB;
   exec(sql: string): void;
@@ -12,7 +14,6 @@ export interface AppWriteTx {
   afterCommit(effect: () => unknown): void;
 }
 export interface AppWriteMetadata { actorId: string; command: string; requestId: string; payloadHash: string }
-export class AppStoreError extends Error { constructor(message: string, public status = 409) { super(message); } }
 const connection = sqliteConnection();
 connection.exec(`CREATE TABLE IF NOT EXISTS app_commands (
   command TEXT NOT NULL, request_id TEXT NOT NULL, actor_id TEXT NOT NULL,
@@ -31,14 +32,25 @@ function assertSql(sql: string): void {
   }
 }
 
+export function invokeSynchronousWrite<T>(fn: (tx: AppWriteTx) => T, tx: AppWriteTx): T {
+  if (fn.constructor.name === 'AsyncFunction') throw new AppStoreError('Transaction callback must be synchronous', 400);
+  const value = fn(tx);
+  if (value && typeof (value as any).then === 'function') {
+    // Promise/thenable continuations cannot own the native transaction. Observe
+    // rejection, including a late attempt to access the invalidated tx handle.
+    Promise.resolve(value).catch(() => {});
+    throw new AppStoreError('Transaction callback must be synchronous', 400);
+  }
+  return value;
+}
+
 export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppWriteTx) => T): T {
   if (current) throw new AppStoreError('Nested public transaction is not permitted', 409);
-  if (fn.constructor.name === 'AsyncFunction') throw new AppStoreError('Transaction callback must be synchronous', 400);
   for (const key of ['actorId', 'command', 'requestId', 'payloadHash'] as const) {
     if (typeof meta[key] !== 'string' || !meta[key].trim() || meta[key].length > 256) throw new AppStoreError(`Invalid command ${key}`, 400);
   }
   const effects: (() => unknown)[] = [];
-  const result = connection.transaction(() => {
+  const result = withSqliteWriteScope(() => connection.transaction(() => {
     const prior = connection.prepare('SELECT actor_id, payload_hash, result FROM app_commands WHERE command = ? AND request_id = ?').get(meta.command, meta.requestId) as any;
     if (prior) {
       if (prior.actor_id !== meta.actorId || prior.payload_hash !== meta.payloadHash) throw new AppStoreError('Request conflicts with committed command', 409);
@@ -59,18 +71,13 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
     };
     current = tx;
     try {
-      const value = fn(tx);
-      if (value && typeof (value as any).then === 'function') {
-        // Observe a returned promise, but never commit it or hold the native tx.
-        Promise.resolve(value).catch(() => {});
-        throw new AppStoreError('Transaction callback must be synchronous', 400);
-      }
+      const value = invokeSynchronousWrite(fn, tx);
       const serialized = JSON.stringify({ value });
       sqliteSave(legacy);
       connection.prepare('INSERT INTO app_commands VALUES (?, ?, ?, ?, ?, ?)').run(meta.command, meta.requestId, meta.actorId, meta.payloadHash, serialized, new Date().toISOString());
       return value;
     } finally { active = false; current = undefined; }
-  }).immediate();
+  }).immediate());
   for (const effect of effects) {
     try {
       const pending = effect();

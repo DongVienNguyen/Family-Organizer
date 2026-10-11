@@ -46,6 +46,7 @@ import { isDebtFullyPaid } from "../src/utils/debt.js";
 import { sqliteIsEmpty, sqliteLoad, sqliteSave, sqliteCheckpoint } from "./sqlite.js";
 import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
 import { dispatchPush } from "./push.js";
+import { assertEditVersion, type EditVersionPayload } from "./appErrors.js";
 import { currentAppWriteTx, runLegacyCommand, afterAppCommit } from "./appStore.js";
 
 function deleteMediaByUrl(url: string | undefined | null): void {
@@ -809,8 +810,11 @@ export class FamilyDB {
   }
 
   // Tasks Management
-  public static saveTask(taskData: Partial<Task>, userId: string, username: string): Task {
+  public static saveTask(taskData: Partial<Task> & EditVersionPayload, userId: string, username: string): Task {
     return runLegacyCommand("saveTask", [taskData, userId, username], userId, () => {
+    taskData = { ...taskData };
+    const baseUpdatedAt = taskData.baseUpdatedAt;
+    delete taskData.baseUpdatedAt;
     const db = this.readRaw();
     const nowStr = new Date().toISOString();
 
@@ -820,6 +824,7 @@ export class FamilyDB {
       if (idx === -1) throw new Error("Task không tồn tại");
 
       const oldTask = db.tasks[idx];
+      assertEditVersion(oldTask, baseUpdatedAt);
       const isCompleting = taskData.status === "completed" && oldTask.status !== "completed";
 
       // Gating duyệt: trẻ (CHILD) tự báo hoàn thành một task có điểm > ngưỡng tự duyệt
@@ -1234,8 +1239,11 @@ export class FamilyDB {
     return String(content || "").match(/\/uploads\/notes\/[a-zA-Z0-9_\-./]+/g) || [];
   }
 
-  public static saveNote(noteData: Partial<Note>, userId: string, username: string): Note {
+  public static saveNote(noteData: Partial<Note> & EditVersionPayload, userId: string, username: string): Note {
     return runLegacyCommand("saveNote", [noteData, userId, username], userId, () => {
+    noteData = { ...noteData };
+    const baseUpdatedAt = noteData.baseUpdatedAt;
+    delete noteData.baseUpdatedAt;
     const db = this.readRaw();
     const nowStr = new Date().toISOString();
 
@@ -1245,6 +1253,7 @@ export class FamilyDB {
       if (idx === -1) throw new Error("Ghi chú không tồn tại");
 
       const oldNote = db.notes[idx];
+      assertEditVersion(oldNote, baseUpdatedAt);
 
       const updatedNote: Note = {
         ...oldNote,
@@ -2669,8 +2678,11 @@ export class FamilyDB {
     return this.readRaw().documents;
   }
 
-  public static saveDocument(data: Partial<FamilyDocument>, userId: string, username: string): FamilyDocument {
+  public static saveDocument(data: Partial<FamilyDocument> & EditVersionPayload, userId: string, username: string): FamilyDocument {
     return runLegacyCommand("saveDocument", [data, userId, username], userId, () => {
+    data = { ...data };
+    const baseUpdatedAt = data.baseUpdatedAt;
+    delete data.baseUpdatedAt;
     const db = this.readRaw();
     const now = new Date().toISOString();
     if (!data.title || !data.title.trim()) throw new Error("Thiếu tên giấy tờ");
@@ -2682,6 +2694,7 @@ export class FamilyDB {
       const idx = db.documents.findIndex(d => d.id === data.id);
       if (idx === -1) throw new Error("Không tìm thấy giấy tờ");
       const prev = db.documents[idx];
+      assertEditVersion(prev, baseUpdatedAt);
       // Xoá file đính kèm đã bị gỡ khỏi danh sách mới để không để lại rác trên đĩa.
       const newUrls = new Set(files.map(f => f.url));
       (prev.files || []).forEach(f => { if (!newUrls.has(f.url)) deleteMediaByUrl(f.url); });

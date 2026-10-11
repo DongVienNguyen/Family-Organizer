@@ -141,13 +141,29 @@ function initializeDatabase() {
 const { getMetaStmt, saveCollections, insertMetricStmt, pruneMetricStmt, selectMetricsStmt } = initializeDatabase();
 export const LEGACY_KEYS = [...COLLECTIONS.map(c => c.key), ...SINGLETON_KEYS] as const;
 const baselines = new WeakMap<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>>();
+let writeScope: Map<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>> | undefined;
 const encodeCollection = (data: FamilyOrganizerDB, key: keyof FamilyOrganizerDB) =>
   JSON.stringify(data[key] ?? (SINGLETON_KEYS.includes(key) ? null : []));
 
+/** The gateway passes its complete native transaction here, including COMMIT. */
+export function withSqliteWriteScope<T>(commit: () => T): T {
+  if (writeScope || db.inTransaction) throw new Error('Nested SQLite write scope is not permitted');
+  const pending = new Map<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>>();
+  writeScope = pending;
+  try {
+    const result = commit();
+    if (db.inTransaction) throw new Error('SQLite write scope did not commit');
+    for (const [document, baseline] of pending) baselines.set(document, baseline);
+    return result;
+  } finally { writeScope = undefined; }
+}
+
 /** Loaded documents retain their read baseline; untracked seed/restore documents replace all. */
 export function sqliteSave(data: FamilyOrganizerDB): void {
+  const ownsCommit = !db.inTransaction;
+  if (!ownsCommit && !writeScope) throw new Error('Nested legacy saves require the application gateway');
   db.transaction(() => {
-    const baseline = baselines.get(data);
+    const baseline = writeScope?.get(data) ?? baselines.get(data);
     const dirty = baseline ? LEGACY_KEYS.filter(key => encodeCollection(data, key) !== baseline.get(key)) : [...LEGACY_KEYS];
     if (baseline && dirty.length) {
       const current = sqliteLoad();
@@ -157,7 +173,10 @@ export function sqliteSave(data: FamilyOrganizerDB): void {
     }
     saveCollections(data, dirty);
   }).immediate();
-  baselines.set(data, new Map(LEGACY_KEYS.map(key => [key, encodeCollection(data, key)])));
+  const saved = new Map(LEGACY_KEYS.map(key => [key, encodeCollection(data, key)]));
+  // Publish only after the actual outer COMMIT; rollback discards pending maps.
+  if (writeScope) writeScope.set(data, saved);
+  else baselines.set(data, saved);
 }
 
 /** Internal shared connection port; never create a second application handle. */

@@ -15,6 +15,7 @@ import { normalizeSearchText, matchesQuery, excerptAround } from "../src/utils/s
 import type { AppConfig } from "./config.js";
 import type { AppJobs } from "./appJobs.js";
 import type { createSystemMetrics } from "./systemMetrics.js";
+import { httpErrorStatus, httpErrorBody } from "./appErrors.js";
 import { withAppCommandContext } from "./commandContext.js";
 import { isReady, type RuntimeState } from "./runtimeState.js";
 
@@ -312,18 +313,7 @@ app.use("/api", (req: Request, res: Response, next: NextFunction) => {
 });
 
 // --- OPTIMISTIC LOCKING (chống 2 người cùng sửa một bản ghi đè nhau) ---
-// Form sửa gửi kèm baseUpdatedAt = updatedAt của bản đang mở trong form. Server
-// so với bản hiện tại: lệch nghĩa là có người khác đã lưu trong lúc form còn mở
-// → trả 409 để client hiện lỗi thay vì lặng lẽ ghi đè. Thao tác nhanh 1 field
-// (toggle trạng thái...) KHÔNG gửi baseUpdatedAt nên không bị chặn — server đã
-// merge field với bản mới nhất. Field chỉ dùng để so, luôn xóa khỏi payload
-// trước khi lưu để không dính vào bản ghi.
-const hasEditConflict = (existing: { updatedAt?: string } | undefined, body: any): boolean => {
-  const base = body?.baseUpdatedAt;
-  if (body && "baseUpdatedAt" in body) delete body.baseUpdatedAt;
-  return typeof base === "string" && base !== "" && !!existing?.updatedAt && existing.updatedAt !== base;
-};
-const CONFLICT_MSG = "Bản ghi này vừa được người khác lưu trong lúc bạn đang mở form. Đóng form để xem nội dung mới nhất rồi sửa tiếp nhé.";
+// Optimistic edit checks run inside the write gateway, after retry lookup.
 
 // Serve uploaded media (avatars/assets/receipts) as static files. Filenames are
 // random/unguessable; the app runs on a private LAN/Tailscale network. Mounted
@@ -712,7 +702,7 @@ app.post("/api/auth/change-password", requireAuth, (req: AuthRequest, res: Respo
     FamilyDB.changePassword(session.userId, currentPassword, newPassword);
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -754,21 +744,12 @@ app.post("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
     }
   }
 
-  // Chống 2 người cùng sửa đè nhau (chỉ khi form gửi kèm baseUpdatedAt)
-  if (req.body.id) {
-    const existing = FamilyDB.getTasks().find(t => t.id === req.body.id);
-    if (hasEditConflict(existing, req.body)) {
-      res.status(409).json({ error: CONFLICT_MSG, conflict: true });
-      return;
-    }
-  }
-
   try {
     const savedTask = FamilyDB.saveTask(req.body, session.userId, session.username);
     broadcastSyncEvent("TASKS_UPDATE", { taskId: savedTask.id });
     res.json({ task: savedTask });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -787,7 +768,7 @@ app.post("/api/tasks/:id/comments", requireAuth, (req: AuthRequest, res: Respons
     broadcastSyncEvent("TASKS_UPDATE", { taskId: id });
     res.json({ task: updatedTask });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -800,7 +781,7 @@ app.post("/api/tasks/:id/approve", requireAuth, requireRole([UserRole.ADMIN, Use
     broadcastSyncEvent("REWARDS_UPDATE", { taskId: task.id });
     res.json({ task });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -812,7 +793,7 @@ app.post("/api/tasks/:id/reject", requireAuth, requireRole([UserRole.ADMIN, User
     broadcastSyncEvent("TASKS_UPDATE", { taskId: task.id });
     res.json({ task });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -825,7 +806,7 @@ app.delete("/api/tasks/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.
     broadcastSyncEvent("TASKS_UPDATE", { deletedId: id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -853,7 +834,7 @@ app.post("/api/plans", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER
     broadcastSyncEvent("PLANS_UPDATE", { planId: savedPlan.id });
     res.json({ plan: savedPlan });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -872,7 +853,7 @@ app.delete("/api/plans/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.
     broadcastSyncEvent("PLANS_UPDATE", { deletedId: id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -915,10 +896,6 @@ app.post("/api/notes", requireAuth, (req: AuthRequest, res: Response) => {
         res.status(403).json({ error: "Bạn không có quyền sửa ghi chú này!" });
         return;
       }
-      if (hasEditConflict(existing, noteData)) {
-        res.status(409).json({ error: CONFLICT_MSG, conflict: true });
-        return;
-      }
     }
   }
 
@@ -927,7 +904,7 @@ app.post("/api/notes", requireAuth, (req: AuthRequest, res: Response) => {
     broadcastSyncEvent("NOTES_UPDATE", { noteId: savedNote.id });
     res.json({ note: savedNote });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -951,7 +928,7 @@ app.delete("/api/notes/:id", requireAuth, (req: AuthRequest, res: Response) => {
     broadcastSyncEvent("NOTES_UPDATE", { deletedId: id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1057,7 +1034,7 @@ app.post("/api/finance", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMB
     broadcastSyncEvent("FINANCE_UPDATE", { txId: savedTx.id });
     res.json({ transaction: savedTx });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1070,7 +1047,7 @@ app.delete("/api/finance/:id", requireAuth, requireRole([UserRole.ADMIN, UserRol
     broadcastSyncEvent("FINANCE_UPDATE", { deletedId: id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1092,7 +1069,7 @@ app.post("/api/rewards", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMB
     broadcastSyncEvent("REWARDS_UPDATE", { rewardId: entry.id });
     res.json({ entry });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1104,7 +1081,7 @@ app.post("/api/rewards/items", requireAuth, requireRole([UserRole.ADMIN, UserRol
     broadcastSyncEvent("REWARDS_UPDATE", { itemId: item.id });
     res.json({ item });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1115,7 +1092,7 @@ app.delete("/api/rewards/items/:id", requireAuth, requireRole([UserRole.ADMIN, U
     broadcastSyncEvent("REWARDS_UPDATE", { deletedItemId: req.params.id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1129,7 +1106,7 @@ app.post("/api/rewards/items/:id/redeem", requireAuth, (req: AuthRequest, res: R
     broadcastSyncEvent("REWARDS_UPDATE", { rewardId: entry.id });
     res.json({ entry });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1141,7 +1118,7 @@ app.post("/api/rewards/items/seed-defaults", requireAuth, requireRole([UserRole.
     broadcastSyncEvent("REWARDS_UPDATE", { seeded: true });
     res.json({ items });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1155,7 +1132,7 @@ app.post("/api/rewards/items/mystery", requireAuth, (req: AuthRequest, res: Resp
     broadcastSyncEvent("REWARDS_UPDATE", { rewardId: result.entry.id });
     res.json(result);
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1172,7 +1149,7 @@ app.post("/api/finance/budgets", requireAuth, requireRole([UserRole.ADMIN, UserR
     broadcastSyncEvent("FINANCE_UPDATE", { budgetId: budget.id });
     res.json({ budget });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1183,7 +1160,7 @@ app.post("/api/finance/budgets/carry-forward", requireAuth, requireRole([UserRol
     if (copied.length > 0) broadcastSyncEvent("FINANCE_UPDATE", { carriedForward: copied.length });
     res.json({ budgets: FamilyDB.getBudgets(), copied: copied.length });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1205,7 +1182,7 @@ app.post("/api/finance/categories", requireAuth, requireRole([UserRole.ADMIN]), 
     broadcastSyncEvent("FINANCE_UPDATE", { categoryId: category.id });
     res.json({ category, ...FamilyDB.getCategoryConfig() });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1223,7 +1200,7 @@ app.put("/api/finance/categories/hidden", requireAuth, requireRole([UserRole.ADM
     broadcastSyncEvent("FINANCE_UPDATE", { hiddenCategories: hiddenBuiltinCategories.length });
     res.json({ hiddenBuiltinCategories });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1238,7 +1215,7 @@ app.post("/api/finance/recurring-bills", requireAuth, requireRole([UserRole.ADMI
     broadcastSyncEvent("FINANCE_UPDATE", { billId: bill.id });
     res.json({ bill });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1249,7 +1226,7 @@ app.post("/api/finance/recurring-bills/:id/pay", requireAuth, requireRole([UserR
     broadcastSyncEvent("FINANCE_UPDATE", { billId: result.bill.id, txId: result.transaction.id });
     res.json(result);
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1284,7 +1261,7 @@ app.post("/api/finance/savings-goals", requireAuth, requireRole([UserRole.ADMIN,
     broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id });
     res.json({ goal });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1300,7 +1277,7 @@ app.delete("/api/finance/savings-goals/:id", requireAuth, requireRole([UserRole.
     broadcastSyncEvent("FINANCE_UPDATE", { deletedGoalId: req.params.id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1316,7 +1293,7 @@ app.post("/api/finance/savings-goals/:id/contributions", requireAuth, requireRol
     broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id });
     res.json({ goal });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1333,7 +1310,7 @@ app.delete("/api/finance/savings-goals/:id/contributions/:cid", requireAuth, req
     broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id });
     res.json({ goal });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1349,7 +1326,7 @@ app.post("/api/finance/debts", requireAuth, requireRole([UserRole.ADMIN, UserRol
     broadcastSyncEvent("FINANCE_UPDATE", { debtId: debt.id });
     res.json({ debt });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1367,7 +1344,7 @@ app.post("/api/finance/debts/:id/payments", requireAuth, requireRole([UserRole.A
     broadcastSyncEvent("FINANCE_UPDATE", { debtId: debt.id });
     res.json({ debt });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1377,7 +1354,7 @@ app.delete("/api/finance/debts/:id/payments/:pid", requireAuth, requireRole([Use
     broadcastSyncEvent("FINANCE_UPDATE", { debtId: debt.id });
     res.json({ debt });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1392,7 +1369,7 @@ app.post("/api/finance/assets", requireAuth, requireRole([UserRole.ADMIN, UserRo
   try {
     validateAssetPhotosPayload(assetData.photos);
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
     return;
   }
 
@@ -1409,7 +1386,7 @@ app.post("/api/finance/assets", requireAuth, requireRole([UserRole.ADMIN, UserRo
     broadcastSyncEvent("FINANCE_UPDATE", { assetId: asset.id });
     res.json({ asset });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1427,7 +1404,7 @@ app.delete("/api/finance/assets/:id", requireAuth, requireRole([UserRole.ADMIN, 
     broadcastSyncEvent("FINANCE_UPDATE", { deletedAssetId: req.params.id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1552,7 +1529,7 @@ app.post("/api/medications", requireAuth, requireRole([UserRole.ADMIN, UserRole.
     broadcastSyncEvent("MEDICATIONS_UPDATE", { medicationId: medication.id });
     res.json({ medication });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1576,7 +1553,7 @@ app.post("/api/medications/logs", requireAuth, requireRole([UserRole.ADMIN, User
     broadcastSyncEvent("MEDICATIONS_UPDATE", { medicationId: req.body?.medicationId });
     res.json(result);
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1600,17 +1577,13 @@ app.post("/api/documents", requireAuth, requireRole([UserRole.ADMIN, UserRole.ME
       res.status(403).json({ error: "Bạn không có quyền sửa giấy tờ này." });
       return;
     }
-    if (hasEditConflict(existing, req.body)) {
-      res.status(409).json({ error: CONFLICT_MSG, conflict: true });
-      return;
-    }
   }
   try {
     const document = FamilyDB.saveDocument(req.body, session.userId, session.username);
     broadcastSyncEvent("DOCUMENTS_UPDATE", { documentId: document.id });
     res.json({ document });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1626,7 +1599,7 @@ app.delete("/api/documents/:id", requireAuth, requireRole([UserRole.ADMIN, UserR
     broadcastSyncEvent("DOCUMENTS_UPDATE", { deletedId: req.params.id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1648,7 +1621,7 @@ app.post("/api/child-health/emergency", requireAuth, requireRole([UserRole.ADMIN
     broadcastSyncEvent("CHILD_HEALTH_UPDATE", { healthProfileId: profile.id });
     res.json({ profile });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1659,7 +1632,7 @@ app.post("/api/child-health/vaccinations", requireAuth, requireRole([UserRole.AD
     broadcastSyncEvent("CHILD_HEALTH_UPDATE", { vaccinationId: vaccination.id });
     res.json({ vaccination });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -1676,7 +1649,7 @@ app.post("/api/child-health/growth", requireAuth, requireRole([UserRole.ADMIN, U
     broadcastSyncEvent("CHILD_HEALTH_UPDATE", { growthId: record.id });
     res.json({ record });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2041,7 +2014,7 @@ app.post("/api/shopping", requireAuth, (req: AuthRequest, res: Response) => {
     broadcastSyncEvent("SHOPPING_UPDATE", { itemId: item.id });
     res.json({ item });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2052,7 +2025,7 @@ app.post("/api/shopping/:id/toggle", requireAuth, (req: AuthRequest, res: Respon
     broadcastSyncEvent("SHOPPING_UPDATE", { itemId: item.id });
     res.json({ item });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2078,7 +2051,7 @@ app.delete("/api/shopping/:id", requireAuth, (req: AuthRequest, res: Response) =
     broadcastSyncEvent("SHOPPING_UPDATE", { deletedId: req.params.id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2121,7 +2094,7 @@ app.post("/api/users", requireAuth, requireRole([UserRole.ADMIN]), (req: AuthReq
     broadcastSyncEvent("USERS_UPDATE");
     res.json({ user: newUser });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2143,7 +2116,7 @@ app.post("/api/profile", requireAuth, (req: AuthRequest, res: Response) => {
     broadcastSyncEvent("USERS_UPDATE", { updatedId: session.userId });
     res.json({ user: updated });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2156,7 +2129,7 @@ app.delete("/api/users/:id", requireAuth, requireRole([UserRole.ADMIN]), (req: A
     broadcastSyncEvent("USERS_UPDATE", { deletedId: id });
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2175,7 +2148,7 @@ app.post("/api/users/:id", requireAuth, requireRole([UserRole.ADMIN]), (req: Aut
     broadcastSyncEvent("USERS_UPDATE", { updatedId: id });
     res.json({ user: updated });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
@@ -2193,7 +2166,7 @@ app.post("/api/users/:id/reset-password", requireAuth, requireRole([UserRole.ADM
     FamilyDB.adminResetPassword(id, newPassword, session.userId, session.username);
     res.json({ success: true });
   } catch (err: any) {
-    res.status(400).json({ error: err.message });
+    res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
 });
 
