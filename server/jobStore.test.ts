@@ -4,8 +4,9 @@ import { withAppWriteTransaction } from './appStore.js';
 import { AppJobStore, enqueueAppJob } from './jobStore.js';
 import { sqliteConnection, sqliteLoad } from './sqlite.js';
 import { FamilyDB } from './db.js';
+import { withAppCommandContext } from './commandContext.js';
 
-const meta = (id = randomUUID()) => ({ actorId: 'synthetic-job', command: 'synthetic:job', requestId: id, payloadHash: createHash('sha256').update('fixture').digest('hex') });
+const meta = (id: string = randomUUID()) => ({ actorId: 'synthetic-job', command: 'synthetic:job', requestId: id, payloadHash: createHash('sha256').update('fixture').digest('hex') });
 const input = (extra = {}) => ({ namespace: 'synthetic', type: 'fixture', key: randomUUID(), payload: { synthetic: true }, availableAt: 1000, ...extra });
 const status = (id: string) => sqliteConnection().prepare('SELECT status, attempts, available_at, error_code FROM app_jobs WHERE id = ?').get(id) as any;
 
@@ -93,5 +94,18 @@ describe('shared durable jobs and transactional outbox', () => {
     expect(store.claim('synthetic', 'restore', 5000, 100)!.id).toBe(future);
     const fresh = store.enqueue(input({ type: 'fresh-after-restore', availableAt: 6000 }));
     expect(store.claim('synthetic', 'fresh-after-restore', 6000, 100)!.id).toBe(fresh);
+  });
+
+  it('refuses writes by an expired job owner and rolls back a callback that outlives its lease', () => {
+    const store = new AppJobStore(), job = input({ type: 'fenced-write' }); store.enqueue(job);
+    const lease = store.claim(job.namespace, job.type, 1000, 100)!;
+    const before = sqliteLoad(); const owner = before.users[0]; let clock = 1100;
+    const context = { actorId: 'synthetic-job', requestId: lease.id, assertWriteOwnership: () => store.assertLease(lease, clock) };
+    const execute = () => withAppWriteTransaction(meta(), () => FamilyDB.addRewardEntry({ userId: owner.id, points: 17 }, owner.id, 'Synthetic'));
+    expect(() => withAppCommandContext(context, execute)).toThrow(/lease/i);
+    expect(sqliteLoad()).toEqual(before);
+    clock = 1050;
+    expect(() => withAppCommandContext(context, () => withAppWriteTransaction(meta(), () => { FamilyDB.addRewardEntry({ userId: owner.id, points: 17 }, owner.id, 'Synthetic'); clock = 1100; }))).toThrow(/lease/i);
+    expect(sqliteLoad()).toEqual(before);
   });
 });

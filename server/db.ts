@@ -45,12 +45,28 @@ import { SEED_DISHES } from "../src/utils/mealPlan.js";
 import { isDebtFullyPaid } from "../src/utils/debt.js";
 import { sqliteIsEmpty, sqliteLoad, sqliteSave, sqliteCheckpoint } from "./sqlite.js";
 import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
-import { dispatchPush } from "./push.js";
+import { isPushConfigured } from "./push.js";
+import { enqueueAppJob } from "./jobStore.js";
+import { getAppCommandContext } from "./commandContext.js";
 import { assertEditVersion, type EditVersionPayload } from "./appErrors.js";
 import { currentAppWriteTx, runLegacyCommand, afterAppCommit } from "./appStore.js";
 
 function deleteMediaByUrl(url: string | undefined | null): void {
   afterAppCommit(() => deleteCommittedMedia(url));
+}
+
+// Queue managed references in the owning command; workers recheck recipient ACL.
+function queuePush(db: FamilyOrganizerDB, notification: Notification, excludeUserId?: string): void {
+  if (!isPushConfigured()) return;
+  const tx = currentAppWriteTx();
+  if (!tx) throw new Error("Push outbox requires the current write transaction");
+  for (const subscription of db.pushSubscriptions) {
+    if ((notification.userId !== "all" && notification.userId !== subscription.userId) || subscription.userId === excludeUserId) continue;
+    enqueueAppJob(tx, { namespace: "legacy", type: "push-delivery", kind: "effect",
+      key: `${notification.id}:${crypto.createHash("sha256").update(subscription.endpoint).digest("hex")}`,
+      payload: { notificationId: notification.id, endpoint: subscription.endpoint, userId: subscription.userId, excludeUserId },
+    });
+  }
 }
 
 // Whitelist of valid asset types (mirrors AssetType in src/types.ts).
@@ -146,6 +162,7 @@ export function getAppSettings(): Record<string, string> {
 }
 
 export function setAppSetting(key: string, value: string | null): void {
+  getAppCommandContext()?.assertWriteOwnership?.();
   const settings = getAppSettings();
   if (value === null || value === "") delete settings[key];
   else settings[key] = value;
@@ -158,6 +175,7 @@ export function setAppSetting(key: string, value: string | null): void {
 
 // Thay TOÀN BỘ app settings (dùng khi khôi phục từ backup toàn phần — ghi đè, không merge).
 export function replaceAppSettings(settings: Record<string, string>): void {
+  getAppCommandContext()?.assertWriteOwnership?.();
   try {
     fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings || {}, null, 2), "utf8");
   } catch (e) {
@@ -686,7 +704,7 @@ export class FamilyDB {
         createdAt: new Date().toISOString()
       };
       db.notifications.unshift(bdayNotif);
-      void afterAppCommit(() => dispatchPush(db, bdayNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
+      queuePush(db, bdayNotif);
       modified = true;
     });
 
@@ -2761,7 +2779,7 @@ export class FamilyDB {
       if (db.notifications.some(n => n.id === id)) return;
       const notif: Notification = { id, userId, title, content, type, isRead: false, createdAt: new Date().toISOString() };
       db.notifications.unshift(notif);
-      void afterAppCommit(() => dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
+      queuePush(db, notif);
       modified = true;
     };
     const parse = (s: string): number | null => {
@@ -2997,7 +3015,7 @@ export class FamilyDB {
     if (db.notifications.length > 200) {
       db.notifications = db.notifications.slice(0, 200);
     }
-    void afterAppCommit(() => dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead), fromUserId));
+    queuePush(db, notif, fromUserId);
     this.writeRaw(db);
 
     });
@@ -3020,7 +3038,7 @@ export class FamilyDB {
       db.notifications = db.notifications.slice(0, 200);
     }
     // Deliver as a system push notification too (no-op if push unconfigured).
-    void afterAppCommit(() => dispatchPush(db, newNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
+    queuePush(db, newNotif);
   }
 
   // Read notification status mark

@@ -16,6 +16,7 @@ import type { AppConfig } from "./config.js";
 import type { AppJobs } from "./appJobs.js";
 import type { createSystemMetrics } from "./systemMetrics.js";
 import { httpErrorStatus, httpErrorBody } from "./appErrors.js";
+import { registerPushDelivery } from './registerOutbox.js';
 import { withAppCommandContext } from "./commandContext.js";
 import { isReady, type RuntimeState } from "./runtimeState.js";
 
@@ -41,6 +42,7 @@ export async function createApp(appConfig: AppConfig, dependencies: AppDependenc
   const { getVapidPublicKey, isPushConfigured, sendTestPush } = dependencies.push;
   const BUILD = dependencies.build;
   const { jobs, state, metrics } = dependencies;
+  registerPushDelivery(jobs, FamilyDB, dependencies.push);
   let disposeAssets = async () => {};
 // Accepted permission roles for write validation
 const VALID_ROLES = new Set<string>([UserRole.ADMIN, UserRole.MEMBER, UserRole.CHILD, UserRole.GUEST]);
@@ -629,8 +631,8 @@ app.post("/api/settings/telegram-digest/test", requireAuth, requireRole([UserRol
 });
 
 // Vòng kiểm tra gửi backup + bản tin tuần (mỗi 30 phút, module tự lo dedupe + khung giờ).
-jobs.registerAppJob('legacy', 'telegram-backup', () => runTelegramBackupTick(), { everyMs: 30 * 60 * 1000 });
-jobs.registerAppJob('legacy', 'weekly-digest', () => runWeeklyDigestTick(), { everyMs: 30 * 60 * 1000 });
+jobs.registerAppJob('legacy', 'telegram-backup', () => runTelegramBackupTick(), { everyMs: 30 * 60 * 1000, kind: 'effect' });
+jobs.registerAppJob('legacy', 'weekly-digest', () => runWeeklyDigestTick(), { everyMs: 30 * 60 * 1000, kind: 'effect' });
 
 // --- AUTH API ENDPOINTS ---
 

@@ -12,6 +12,8 @@
 import webpush from "web-push";
 const { setVapidDetails, sendNotification } = webpush;
 import { FamilyOrganizerDB, Notification, PushSubscriptionRecord } from "../src/types.js";
+import { AppDeliveryError } from './appErrors.js';
+import { getAppCommandContext } from './commandContext.js';
 
 const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || "";
 const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || "";
@@ -50,14 +52,14 @@ function tabForNotification(notif: Notification): string {
   }
 }
 
-function unreadCountFor(db: FamilyOrganizerDB, userId: string): number {
+function unreadCountFor(db: Pick<FamilyOrganizerDB, 'notifications'>, userId: string): number {
   return db.notifications.filter(n => (n.userId === "all" || n.userId === userId) && !n.isRead).length;
 }
 
 // Send one payload to one subscription. Returns "ok" | "dead" | "error".
 async function sendOne(sub: PushSubscriptionRecord, payload: string): Promise<"ok" | "dead" | "error"> {
   try {
-    await sendNotification(sub.subscription, payload);
+    await sendNotification(sub.subscription, payload, { timeout: 15_000 });
     return "ok";
   } catch (err: any) {
     const code = err?.statusCode;
@@ -65,6 +67,22 @@ async function sendOne(sub: PushSubscriptionRecord, payload: string): Promise<"o
     if (code === 404 || code === 410) return "dead";
     console.error("Gửi push thất bại:", code || err?.message || err);
     return "error";
+  }
+}
+
+/** One outbox recipient, resolved again at send time; no retry on uncertain delivery. */
+export async function sendQueuedNotification(db: Pick<FamilyOrganizerDB, 'notifications'>, notif: Notification, sub: PushSubscriptionRecord, signal: AbortSignal): Promise<'ok' | 'dead'> {
+  if (signal.aborted) throw new AppDeliveryError('Push cancelled before delivery', false);
+  if (!configured) throw new AppDeliveryError('Push provider is not configured', false);
+  getAppCommandContext()?.assertWriteOwnership?.();
+  const payload = JSON.stringify({ title: notif.title, body: notif.content, tag: notif.id, tab: tabForNotification(notif), badge: unreadCountFor(db, sub.userId) });
+  try {
+    await sendNotification(sub.subscription, payload, { timeout: 15_000 });
+    return 'ok';
+  } catch (error: any) {
+    const code = error?.statusCode;
+    if (code === 404 || code === 410) return 'dead';
+    throw new AppDeliveryError('Push provider delivery failed', !(typeof code === 'number' && code >= 400 && code < 500));
   }
 }
 

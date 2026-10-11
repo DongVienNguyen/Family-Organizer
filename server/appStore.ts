@@ -46,6 +46,7 @@ export function invokeSynchronousWrite<T>(fn: (tx: AppWriteTx) => T, tx: AppWrit
 
 export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppWriteTx) => T): T {
   if (current) throw new AppStoreError('Nested public transaction is not permitted', 409);
+  getAppCommandContext()?.assertWriteOwnership?.();
   for (const key of ['actorId', 'command', 'requestId', 'payloadHash'] as const) {
     if (typeof meta[key] !== 'string' || !meta[key].trim() || meta[key].length > 256) throw new AppStoreError(`Invalid command ${key}`, 400);
   }
@@ -75,6 +76,9 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
       const serialized = JSON.stringify({ value });
       sqliteSave(legacy);
       connection.prepare('INSERT INTO app_commands VALUES (?, ?, ?, ?, ?, ?)').run(meta.command, meta.requestId, meta.actorId, meta.payloadHash, serialized, new Date().toISOString());
+      // Fence a delayed worker before native COMMIT, including callbacks whose
+      // synchronous writes exceeded their lease. A lost owner rolls back all.
+      getAppCommandContext()?.assertWriteOwnership?.();
       return value;
     } finally { active = false; current = undefined; }
   }).immediate());

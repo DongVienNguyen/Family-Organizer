@@ -4,7 +4,7 @@
  */
 
 // Tự động gửi backup toàn phần (.zip) qua Telegram bot — bản sao offsite miễn phí:
-// Pi/SSD hỏng thì file backup vẫn nằm trong chat Telegram (lưu trên cloud Telegram).
+// Máy chủ/ổ dữ liệu hỏng thì file backup vẫn nằm trong chat Telegram.
 //
 // Cấu hình (Thiết lập → admin, lưu ở app_settings.json ngoài DB):
 //   telegramBotToken   — token bot từ @BotFather
@@ -20,6 +20,8 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 import { getAppSettings, setAppSetting } from "./db.js";
+import { AppDeliveryError } from './appErrors.js';
+import { postTelegram } from './telegramDelivery.js';
 import { streamFullBackup, fullBackupFilename } from "./fullBackup.js";
 
 const TELEGRAM_MAX_BYTES = 49 * 1024 * 1024; // chừa lề dưới trần 50MB của Bot API
@@ -54,7 +56,7 @@ export function telegramBackupStatus(): TelegramBackupStatus {
 /** Gửi tin nhắn văn bản (thông báo lỗi/thành công kèm file). Best-effort. */
 async function sendTelegramText(token: string, chatId: string, text: string): Promise<void> {
   try {
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    await postTelegram(token, 'sendMessage', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id: chatId, text })
@@ -104,16 +106,12 @@ export async function sendBackupToTelegram(): Promise<{ sizeMb: number; fileName
     form.append("caption", `🗄 Backup Family Organizer ${new Date().toLocaleString("vi-VN")} — ${sizeMb}MB`);
     form.append("document", new Blob([await fs.promises.readFile(tmpFile)], { type: "application/zip" }), fileName);
 
-    const res = await fetch(`https://api.telegram.org/bot${token}/sendDocument`, { method: "POST", body: form });
-    const data: any = await res.json().catch(() => ({}));
-    if (!res.ok || !data.ok) {
-      throw new Error(`Telegram trả lỗi: ${data.description || `HTTP ${res.status}`}`);
-    }
+    await postTelegram(token, 'sendDocument', { body: form });
 
     setAppSetting("telegramBackupLastSent", localDateKey(new Date()));
     return { sizeMb, fileName };
   } finally {
-    fs.promises.unlink(tmpFile).catch(() => { /* file tạm đã bị dọn */ });
+    await fs.promises.unlink(tmpFile).catch(error => { if (error?.code !== 'ENOENT') throw error; });
   }
 }
 
@@ -138,8 +136,9 @@ export async function runTelegramBackupTick(now = new Date()): Promise<void> {
     const { sizeMb } = await sendBackupToTelegram();
     console.log(`Đã gửi backup tự động qua Telegram (${sizeMb}MB).`);
   } catch (e: any) {
-    console.error("Gửi backup Telegram tự động thất bại:", e?.message || e);
-    void sendTelegramText(s.telegramBotToken, s.telegramChatId, `⚠️ Backup tự động thất bại: ${e?.message || "lỗi không rõ"}`);
+    console.error("Gửi backup Telegram tự động thất bại.");
+    await sendTelegramText(s.telegramBotToken, s.telegramChatId, '⚠️ Backup tự động thất bại; kiểm tra trạng thái job trên máy chủ.');
+    throw e instanceof AppDeliveryError ? e : new AppDeliveryError('Automatic Telegram backup failed', false);
   } finally {
     sending = false;
   }
