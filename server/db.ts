@@ -1,3 +1,4 @@
+import {hashPassword,verifyPassword} from './passwords.js';
 import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
 import {currentLegacyActor} from './legacyActor.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
@@ -53,7 +54,7 @@ import {
 } from "../src/types.js";
 import { SEED_DISHES } from "../src/utils/mealPlan.js";
 import { isDebtFullyPaid } from "../src/utils/debt.js";
-import { sqliteIsEmpty, sqliteLoad, sqliteSave, sqliteCheckpoint } from "./sqlite.js";
+import { sqliteIsEmpty, sqliteHasLegacyData, sqliteLoad, sqliteSave, sqliteCheckpoint } from "./sqlite.js";
 import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
 import { isPushConfigured } from "./push.js";
 import { enqueueAppJob } from "./jobStore.js";
@@ -114,34 +115,9 @@ const SECRET_FILE = path.join(appConfig.configRoot, "session_secret.key");
 // Kept in its own file — NOT in db.json — so it never ends up in data backups.
 const SETTINGS_FILE = path.join(appConfig.configRoot, "app_settings.json");
 
-// Legacy salt kept only to verify passwords hashed by the old scheme.
-const LEGACY_SALT = "family_organizer_salt_2026";
-const PBKDF2_ITERATIONS = 120000;
-
 // Keep only the most recent N automatic backups (manual backups are kept indefinitely).
 const MAX_AUTO_BACKUPS = 7;
-
-// Password hashing: per-user random salt, stored as "salt$hash".
-export function hashPassword(password: string, salt?: string): string {
-  const useSalt = salt || crypto.randomBytes(16).toString("hex");
-  const hash = crypto.pbkdf2Sync(password, useSalt, PBKDF2_ITERATIONS, 64, "sha512").toString("hex");
-  return `${useSalt}$${hash}`;
-}
-
-// Verify a plaintext password against a stored hash (supports legacy format).
-export function verifyPassword(password: string, stored: string): boolean {
-  if (stored && stored.includes("$")) {
-    const sepIndex = stored.indexOf("$");
-    const salt = stored.slice(0, sepIndex);
-    const hash = stored.slice(sepIndex + 1);
-    const computed = crypto.pbkdf2Sync(password, salt, PBKDF2_ITERATIONS, 64, "sha512").toString("hex");
-    if (computed.length !== hash.length) return false;
-    return crypto.timingSafeEqual(Buffer.from(computed), Buffer.from(hash));
-  }
-  // Legacy fallback: old global-salt, 1000-iteration scheme.
-  const legacy = crypto.pbkdf2Sync(password, LEGACY_SALT, 1000, 64, "sha512").toString("hex");
-  return legacy === stored;
-}
+export { hashPassword, verifyPassword } from './passwords.js';
 
 // Stable per-install secret used to sign session tokens. Generated once.
 export function getSessionSecret(): string {
@@ -189,56 +165,6 @@ export function replaceAppSettings(settings: Record<string, string>): void {
   }
 }
 
-// Initial seed data — a blank database with only a single admin account.
-// All demo members and sample content (tasks/plans/notes/transactions) were removed.
-// At least one admin is required because the app has no public sign-up; the
-// admin creates real members afterwards from the Settings screen.
-const initialDBState = (): FamilyOrganizerDB => {
-  const users = [
-    {
-      id: "user_admin",
-      username: "admin",
-      fullName: "Gia Trưởng (Admin)",
-      role: UserRole.ADMIN,
-      avatarColor: "bg-red-500",
-      passwordHash: hashPassword("admin123"),
-      createdAt: new Date().toISOString()
-    }
-  ];
-
-  return {
-    users,
-    tasks: [],
-    plans: [],
-    notes: [],
-    transactions: [],
-    rewardLedger: [],
-    rewardItems: [],
-    budgets: [],
-    customCategories: [],
-    hiddenBuiltinCategories: [],
-    recurringBills: [],
-    savingsGoals: [],
-    debts: [],
-    assets: [],
-    medications: [],
-    medicationLogs: [],
-    vaccinations: [],
-    growthRecords: [],
-    healthProfiles: [],
-    documents: [],
-    shoppingItems: [],
-    dishLibrary: [],
-    mealPlan: null,
-    marketHistory: [],
-    notifications: [],
-    pushSubscriptions: [],
-    activityLogs: [],
-    backups: []
-  };
-};
-
-// Ensure all collections exist even when loading an older db.json that predates a field.
 export function normalizeDB(db: any): FamilyOrganizerDB {
   db.users = db.users || [];
   db.tasks = db.tasks || [];
@@ -295,26 +221,27 @@ if (!fs.existsSync(BACKUP_DIR)) {
 }
 
 // One-time storage bootstrap: if SQLite is empty, import the existing db.json
-// (preserving ids so sessions/frontend keep working), otherwise seed a blank DB.
+// (preserving IDs), otherwise require explicit local installation initialization.
 // The original db.json is left untouched as a pre-migration rollback snapshot.
 (function bootstrapStorage() {
   try {
     if (!sqliteIsEmpty()) return;
+    if(sqliteHasLegacyData())throw new Error('Existing legacy business data requires explicit recovery; initialization cannot overwrite it.');
     let seed: FamilyOrganizerDB;
     if (fs.existsSync(DB_FILE)) {
       try {
         seed = normalizeDB(JSON.parse(fs.readFileSync(DB_FILE, "utf8")));
         console.log("Đã nhập dữ liệu từ db.json sang SQLite (family.db).");
       } catch (e) {
-        throw new Error('Cannot import selected db.json; repair or explicitly restore it before startup', { cause: e });
+        throw new Error('Cannot import selected db.json; repair or explicitly restore it before startup');
       }
     } else {
-      seed = initialDBState();
+      throw new Error('Installation initialization is required; use the trusted local operator command.');
     }
     sqliteSave(seed);
   } catch (e) {
-    console.error("Lỗi bootstrap SQLite:", e);
-    throw e;
+    console.error("SQLite initialization failed; existing input was retained.");
+    throw new Error('Installation initialization failed; selected db.json or SQLite data requires repair or explicit initialization.');
   }
 })();
 

@@ -25,6 +25,7 @@ import { registerPushDelivery } from './registerOutbox.js';
 import { withAppCommandContext } from "./commandContext.js";
 import { isReady, type RuntimeState } from "./runtimeState.js";
 import type { AuthService } from './auth.js';
+import { isActiveAuthUser } from './auth.js';
 
 export interface AppDependencies {
   db: typeof import('./db.js'); sqlite: typeof import('./sqlite.js');
@@ -643,7 +644,6 @@ jobs.registerAppJob('legacy', 'weekly-digest', () => runWeeklyDigestTick(), { ev
 // --- AUTH API ENDPOINTS ---
 
 app.post("/api/auth/login", (req: Request, res: Response) => {
-  const { username, password } = req.body;
   const ip = req.ip || "unknown";
 
   if (isRateLimited(ip)) {
@@ -651,7 +651,8 @@ app.post("/api/auth/login", (req: Request, res: Response) => {
     return;
   }
 
-  if (!username || !password) {
+  const {username,password}=req.body&&typeof req.body==='object'&&!Array.isArray(req.body)?req.body:{};
+  if (typeof username!=='string'||!username.trim()||username.length>512||typeof password!=='string'||!password||password.length>4096||Buffer.byteLength(password,'utf8')>4096) {
     res.status(400).json({ error: "Vui lòng nhập đầy đủ tài khoản và mật khẩu!" });
     return;
   }
@@ -659,7 +660,7 @@ app.post("/api/auth/login", (req: Request, res: Response) => {
   const users = FamilyDB.getUsers();
   const user = users.find(u => u.username === username.toLowerCase().trim());
 
-  if (!user || user.isDeleted || !verifyPassword(password, user.passwordHash)) {
+  if (!isActiveAuthUser(user) || !verifyPassword(password, user.passwordHash)) {
     recordLoginFailure(ip);
     res.status(401).json({ error: "Tài khoản hoặc mật khẩu không chính xác!" });
     return;

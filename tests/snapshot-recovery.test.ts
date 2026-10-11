@@ -1,3 +1,4 @@
+import { writeSyntheticInstallation } from './synthetic-installation.js';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -23,6 +24,7 @@ async function child(root: string, script: string, expected: number) {
 it.each(['journal-written','media-old-renamed','media-promoted','settings-old-renamed','settings-promoted','sql-committed'])('recovers interrupted %s before runtime readiness in a fresh process',async phase=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo restore crash synthetic '));
   try {
+    writeSyntheticInstallation(path.join(root,'dữ liệu'));
     await child(root,`
       import fs from 'node:fs';import path from 'node:path';import {randomUUID} from 'node:crypto';
       const db=await import(${moduleUrl('db')});const store=await import(${moduleUrl('appStore')});const snapshots=await import(${moduleUrl('appSnapshot')});

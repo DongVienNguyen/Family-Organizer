@@ -14,7 +14,8 @@
 | F04-f | Reviewed, exact Windows GREEN, merged PR12 | HEAD8aa5299/run38174580999;762/76266files per runtime |
 | F04-g | Reviewed, exact Windows GREEN, merged PR13 | HEAD7a46a62/run38177081124;860/86069files per runtime |
 | F04-h | Reviewed, exact Windows GREEN, merged PR14 | HEAD63ef3ad/run38179151696;918/91871files per runtime |
-| F04-i | PR15 first Windows GREEN, review Minor fixed; final Windows pending | Firstc1b2167/run38179696236:936/936; corrected Cloud938/93872files |
+| F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
+| F04-j | Local first account and bounded credential checks implemented; validation pending | BASE26953ea; focused branch codex/f04-account-initialization |
 | F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -428,3 +429,44 @@ Canonical-destination follow-up validation: Cloud664/66463files, zero failed/ski
 - Other F04/bootstrap/provider/backup/log and F05–F09/browser/package/service/performance remain incomplete. Main protection:false/rulesets[] still read back after APIs403; enforcement proof blocked. Server2019 R02 unrun; no release/tag/VPS. Next: source Windows/review, grade and correct once if needed, final exact Windows verification/authorized merge, continue foundation.
 
 - F04-i PR https://github.com/DongVienNguyen/Family-Organizer/pull/15; firstHEADc1b216754f7dc3cf46858123960e6d6a4a79be07 exactWindows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38179696236 independently verified both936/93672files/sixexits0/20production/evidence/gate. Full logs/artifacts/hash in evidence/f04-i-first-source.json. One fresh review noCritical/Important, oneMinor accepted and fixed once via two actualRED HTTP deadline/abort cleanup regressions. Total16actualRED/four chars; target85/85, corrected Cloud full938/93872files zero skips lint/build0. Same patched lock/frozen install; final exact Windows pending. No re-review or remaining Minor; other foundation gates remain.
+
+## F04-j — Explicit first account / credential input (in progress)
+
+BASE/main `26953ea8015ba4925bf61fd34ae4a6d942b6d7cd` verified after authorized
+PR15 squash. Prior exact HEAD `e22b542cc531b1ad1edea0df4a0de1da594cc3a4`, Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38180187720:
+938/93872files per runtime; six command exits0,20 compiled proofs, evidence and
+ci-gate verified independently; final proof PR15 comment6114591137.
+
+F04-j bounds login types/bytes and current session roles/hash shapes; preserves
+opaque sessions and historical password verification. New compiled local operator
+reads bounded stdin, creates exactly one chosen Admin through the existing gateway,
+and refuses selected legacy/partial/initialized data. No default credentials,
+public bootstrap API, guessed repair or reset. Actual SQLite/login/restart and
+unchanged logical-row regressions retained. README removes obsolete default login.
+No dependencies changed; frozen lockfile retained. See `account-initialization.md`.
+
+Observed RED:16 existing auth input/session vulnerabilities, blank default-account
+startup, stale JSON overwriting userless partial SQLite, two required-evidence
+omissions (20 actual RED). Twelve initializer tests initially failed because the
+required operator entry was absent; five auth cases characterize existing valid or
+already rejected behavior. The first implementation exposed an omitted empty
+server_metrics table; all original assertions retained when the pristine whitelist
+was corrected. Focused native/auth tests76/76 passed; frozen npm ci, lint, full975/97573files
+(zero skips), build and Linux compiled-entry smoke passed. Full-suite changes
+retain existing assertions: explicit synthetic input for media/cold/crash recovery;
+safe db.json error context. Fresh review, PR URL, exact SHA and Windows artifacts pending. No CI-pass claim yet.
+
+F05 authorized permission retry still returned HTTP403 for both ruleset POST and
+branch-protection PUT; main protected:false and rulesets:[] confirmed. User approval
+in chat does not change installation permissions. Available tools cannot grant
+Administration:write. Concrete requests/responses saved in
+`evidence/f05-enforcement-blocked.json`; external GitHub owner/integration permission
+application remains required. This was a GitHub authorization failure, not an
+automatic approval rejection. Independent foundation source work continues.
+
+Next: exact Windows Node22/24 first-account compiled proof, one fresh review and
+one correction pass if needed, then authorized merge; remaining provider/backup/log
+privacy, browser/coverage, packaging and service preparation. PowerShell initializer
+wrapper is F06; reset/encrypted recovery F07; Server2019 acceptance R02 unrun.
+No releases, tags, VPS access/deployment or new domain features.

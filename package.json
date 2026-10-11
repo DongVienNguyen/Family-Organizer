@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs --define:import.meta.dirname=__dirname",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs --define:import.meta.dirname=__dirname && esbuild server/operator.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/operator.cjs --define:import.meta.dirname=__dirname",
     "start": "node dist/server.cjs",
     "clean": "node scripts/clean.mjs",
     "lint": "tsc --noEmit",
@@ -14,7 +14,8 @@
     "seed:demo": "tsx scripts/seed-demo.ts",
     "release": "node scripts/release-disabled.mjs",
     "release:notes": "node scripts/release-notes.mjs",
-    "data:migrate": "node scripts/migrate-data.mjs"
+    "data:migrate": "node scripts/migrate-data.mjs",
+    "installation:initialize": "node dist/operator.cjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

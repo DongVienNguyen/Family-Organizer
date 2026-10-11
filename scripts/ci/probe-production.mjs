@@ -8,6 +8,7 @@ import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { probeFirstAccount } from './probe-first-account.mjs';
 
 const [packageRoot, fixtureRoot, foreignCwd, deniedDirectory, reportPath] = process.argv.slice(2);
 assert.equal(process.argv.length, 7, 'Expected package/fixture/cwd/denied/report paths');
@@ -110,6 +111,7 @@ async function launch(dataDirectory = dataRoot) {
   return port;
 }
 try {
+  await probeFirstAccount({packageRoot,fixtureRoot,foreignCwd,blockNetwork,env,Database});
   let previousToken;
   for (let iteration = 0; iteration < 2; iteration++) {
     const port = await launch();
@@ -260,7 +262,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

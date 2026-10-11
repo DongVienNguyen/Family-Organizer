@@ -188,6 +188,27 @@ export function sqliteIsEmpty(): boolean {
   return row.c === 0;
 }
 
+/** Detect prior legacy initialization even when every user has been removed. */
+export function sqliteHasLegacyData():boolean {
+  for(const {table} of COLLECTIONS){
+    if((db.prepare('SELECT COUNT(*) AS c FROM "'+table+'"').get() as {c:number}).c>0)return true;
+  }
+  return (db.prepare("SELECT COUNT(*) AS c FROM app_meta WHERE substr(key,1,10)='singleton:'").get() as {c:number}).c>0;
+}
+
+/** Trusted first-install port: no business, command history or unknown schema. */
+export function sqliteInstallationPristine():boolean {
+  const known=new Set([...COLLECTIONS.map(({table})=>table),'app_meta','app_commands','server_metrics']);
+  const tables=db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").all() as {name:string}[];
+  for(const {name} of tables){
+    if(!known.has(name))return false;
+    if(name==='app_meta'){
+      if((db.prepare("SELECT COUNT(*) AS c FROM app_meta WHERE key <> 'schema_version'").get() as {c:number}).c!==0)return false;
+    }else if((db.prepare('SELECT COUNT(*) AS c FROM "'+name.replaceAll('"','""')+'"').get() as {c:number}).c!==0)return false;
+  }
+  return true;
+}
+
 /** Reconstruct the full in-memory DB object from SQLite, preserving order. */
 export function sqliteLoad(): FamilyOrganizerDB {
   const out: any = {};
