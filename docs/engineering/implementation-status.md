@@ -15,8 +15,8 @@
 | F04-g | Reviewed, exact Windows GREEN, merged PR13 | HEAD7a46a62/run38177081124;860/86069files per runtime |
 | F04-h | Reviewed, exact Windows GREEN, merged PR14 | HEAD63ef3ad/run38179151696;918/91871files per runtime |
 | F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
-| F04-j | Local first account and bounded credential checks implemented; validation pending | BASE26953ea; focused branch codex/f04-account-initialization |
-| F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
+| F04-j | PR16 first Windows GREEN; review Important fixed, final verification pending | First05d24c4/run38182062049:975/97573files per runtime |
+| F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
@@ -470,3 +470,31 @@ one correction pass if needed, then authorized merge; remaining provider/backup/
 privacy, browser/coverage, packaging and service preparation. PowerShell initializer
 wrapper is F06; reset/encrypted recovery F07; Server2019 acceptance R02 unrun.
 No releases, tags, VPS access/deployment or new domain features.
+
+### F04-j — First Windows artifacts / single review
+
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/16, first source HEAD
+`05d24c4df334c1334f51ae01e852dfd0276c53e4`, Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38182062049.
+Both pinned runtimes:975/97573files, zero failed/skipped, npm ci/native/lint/tests/
+build/production exits0,21 compiled proofs, evidence and ci-gate successful.
+Full logs, JUnit/JSON/native/production and hashes independently read in
+`evidence/f04-j-first-source.json`. This report belongs only to that first HEAD.
+
+One fresh whole-branch review: no Critical/Minor; one Important accepted before
+mutation. Existing SQLite import changed schema/journal metadata before refusing
+foreign, incomplete or unsupported installations. Three actual native RED cases
+retain exact sqlite_master/logical rows/journal mode and closed ownership. The
+same-connection internal first-account mode now inspects under IMMEDIATE before
+DDL/meta; the final gateway guard remains. Compiled production probe adds the
+same three refusals. Total23actualRED,12initially absent operator requirements,
+five characterizations. No dropped assertions, dependencies, skip or rereview.
+Corrected Cloud lint/full978/97873files (zero skips)/build and compiled smoke
+passed; frozen lock unchanged. Final source/docs need their own exact Windows run
+before authorized merge.
+
+Broader F04/provider/backup/log/audit gates remain incomplete; F05 enforcement
+still blocked by actual GitHub403 despite authorized retry. Package, masked PS
+wrapper and normal runtime unsupported-schema acceptance are F06; service/reset/
+encrypted recovery F07; release/promotion preparation F08; full app browser/
+performance F05/F09. Server2019 R02 remains unrun; no release/tag/VPS operation.

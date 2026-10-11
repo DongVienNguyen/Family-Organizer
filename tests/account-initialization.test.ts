@@ -113,3 +113,19 @@ it('does not reimport stale legacy JSON over a partial initialized business stor
   expect(rows(f).tasks).toEqual(before.tasks);expect(rows(f).users).toEqual(before.users);
   expect(fs.readFileSync(legacyFile,'utf8')).toBe(legacy);
 }));
+
+it.each(['unrelated','incomplete','unsupported-version'])('refuses %s SQLite without writing schema, metadata, journal mode or records',kind=>fixture(async f=>{
+  fs.mkdirSync(f.env.DATA_DIR!,{recursive:true});
+  const sql=new Database(database(f));
+  try{
+    if(kind==='unrelated')sql.exec("CREATE TABLE synthetic_external(id TEXT PRIMARY KEY,data TEXT);INSERT INTO synthetic_external VALUES('synthetic-sentinel','retained');");
+    if(kind==='incomplete')sql.exec("CREATE TABLE users(id TEXT PRIMARY KEY,seq INTEGER NOT NULL,data TEXT NOT NULL);INSERT INTO users VALUES('synthetic-sentinel',0,'{\"id\":\"synthetic-sentinel\"}');");
+    if(kind==='unsupported-version')sql.exec("CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('schema_version','999');");
+  }finally{sql.close();}
+  const inspect=()=>{const owned=new Database(database(f),{readonly:true});try{return {schema:owned.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all(),mode:owned.pragma('journal_mode',{simple:true}),rows:rows(f)};}finally{owned.close();}};
+  const before=inspect(),result=await operator(f);
+  expect(result.code).toBe(1);expect(inspect()).toEqual(before);
+  expect(result.response).toEqual({error:'INSTALLATION_NOT_PRISTINE'});
+  const moved=database(f)+'.closed';fs.renameSync(database(f),moved);fs.renameSync(moved,database(f));
+  assertNoPlaintext(f);
+}));

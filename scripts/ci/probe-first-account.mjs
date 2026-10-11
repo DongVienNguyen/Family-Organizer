@@ -12,8 +12,8 @@ export async function probeFirstAccount({ packageRoot, fixtureRoot, foreignCwd, 
   const probeEnv={...env,DATA_DIR:dataRoot,CONFIG_DIR:configRoot,LOG_DIR:logRoot,PORT:'0'};
   const password='synthetic-initializer-password-2026';
   const identity={username:'first-admin',fullName:'Synthetic first admin',password};
-  const run=(entry,input)=>new Promise((resolve,reject)=>{
-    const child=spawn(process.execPath,['--require',blockNetwork,path.join(packageRoot,'dist',entry)],{cwd:foreignCwd,env:probeEnv,stdio:['pipe','pipe','pipe']});
+  const run=(entry,input,selectedDataRoot=dataRoot)=>new Promise((resolve,reject)=>{
+    const child=spawn(process.execPath,['--require',blockNetwork,path.join(packageRoot,'dist',entry)],{cwd:foreignCwd,env:{...probeEnv,DATA_DIR:selectedDataRoot},stdio:['pipe','pipe','pipe']});
     let output='',failure;
     const timer=setTimeout(()=>{failure=new Error('Compiled initialization probe deadline');child.kill('SIGKILL');},15000);
     const collect=chunk=>{output+=chunk;if(Buffer.byteLength(output)>65536){failure=new Error('Compiled initialization probe output limit');child.kill('SIGKILL');}};
@@ -48,5 +48,21 @@ export async function probeFirstAccount({ packageRoot, fixtureRoot, foreignCwd, 
   const inspect=directory=>{for(const entry of fs.readdirSync(directory,{withFileTypes:true})){const file=path.join(directory,entry.name);if(entry.isDirectory())inspect(file);else assert.equal(fs.readFileSync(file).includes(Buffer.from(password)),false,'Plaintext must not enter selected roots');}};
   for(const directory of [dataRoot,configRoot,logRoot])inspect(directory);
   assert.equal(JSON.stringify(before).includes(password),false);
+  for(const kind of ['unrelated','incomplete','unsupported-version']){
+    const selected=path.join(root,'existing '+kind);fs.mkdirSync(selected,{recursive:true});
+    const file=path.join(selected,'family.db'),owned=new Database(file);
+    try{
+      if(kind==='unrelated')owned.exec("CREATE TABLE synthetic_external(id TEXT PRIMARY KEY,data TEXT);INSERT INTO synthetic_external VALUES('synthetic-sentinel','retained');");
+      if(kind==='incomplete')owned.exec("CREATE TABLE users(id TEXT PRIMARY KEY,seq INTEGER NOT NULL,data TEXT NOT NULL);INSERT INTO users VALUES('synthetic-sentinel',0,'{}');");
+      if(kind==='unsupported-version')owned.exec("CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('schema_version','999');");
+    }finally{owned.close();}
+    const inspect=()=>{const db=new Database(file,{readonly:true});try{return {schema:db.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all(),mode:db.pragma('journal_mode',{simple:true}),tables:db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all().map(({name})=>({name,rows:db.prepare('SELECT * FROM "'+name.replaceAll('"','""')+'"').all()}))};}finally{db.close();}};
+    const before=inspect(),result=await run('operator.cjs',JSON.stringify(identity),selected);
+    assert.equal(result.code,1);assert.equal(result.signal,null);
+    assert.deepEqual(inspect(),before,'Refusal must precede schema/metadata/journal writes');
+    assert.deepEqual(JSON.parse(result.output.trim()),{error:'INSTALLATION_NOT_PRISTINE'});
+    assert.equal(result.output.includes(password),false);
+    fs.renameSync(file,file+'.closed');fs.renameSync(file+'.closed',file);
+  }
   const moved=databaseFile+'.closed';fs.renameSync(databaseFile,moved);fs.renameSync(moved,databaseFile);
 }

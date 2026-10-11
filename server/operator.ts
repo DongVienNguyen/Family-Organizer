@@ -5,6 +5,7 @@ import { createHash,randomUUID } from 'node:crypto';
 import { createInitialData } from './initialData.js';
 import { hashPassword,MAX_PASSWORD_BYTES } from './passwords.js';
 import { UserRole } from '../src/types.js';
+import {requestFirstAccountStorage,InstallationNotPristineError} from './installationMode.js';
 
 class OperatorError extends Error {}
 function refuse(code:string):never{throw new OperatorError(code);}
@@ -36,6 +37,7 @@ async function main(){
   prepareStorage(appConfig);
   const legacyFile=path.join(appConfig.dataRoot,'db.json');
   if(fs.existsSync(legacyFile))refuse('LEGACY_DATA_PRESENT');
+  requestFirstAccountStorage();
   const sqlite=await import('./sqlite.js');
   try{
     if(!sqlite.sqliteInstallationPristine())refuse('INSTALLATION_NOT_PRISTINE');
@@ -50,4 +52,4 @@ async function main(){
     sqlite.sqliteCheckpoint();process.stdout.write(JSON.stringify(result)+'\n');
   }finally{sqlite.sqliteClose();}
 }
-main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});
+main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError||error instanceof InstallationNotPristineError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});

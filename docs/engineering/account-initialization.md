@@ -25,7 +25,11 @@ fresh16byte salt with the existing120000-iteration PBKDF2/SHA512 verifier.
 The command refuses any selected db.json before opening storage. It requires a
 pristine known SQLite schema with empty business/commands/metrics and only the
 schema-version metadata. Unknown tables, other metadata, data or prior creation
-are refused. The existing IMMEDIATE gateway rechecks the guard and commits all
+are refused. The operator selects an internal first-account storage mode. Its
+same SQLite connection inspects existing schema/version/columns and data under an
+IMMEDIATE lock before any DDL or metadata writes, and preserves journal mode on
+refusal. Accepted schema creation commits under that lock; normal runtime enables
+WAL later. The existing IMMEDIATE gateway rechecks the guard and commits all
 original collection defaults and one chosen account together. Its command cache
 contains the public result and hash metadata, never the plaintext password. Native
 ownership closes on success and refusal. This command does not repair, migrate,
