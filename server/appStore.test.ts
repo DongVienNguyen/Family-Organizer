@@ -4,7 +4,8 @@ import { FamilyDB } from './db.js';
 import { sqliteLoad, sqliteSave, sqliteConnection } from './sqlite.js';
 import { withAppWriteTransaction, AppStoreError } from './appStore.js';
 import { withAppCommandContext } from './commandContext.js';
-import type { FamilyOrganizerDB } from '../src/types.js';
+import fs from 'node:fs';
+import ts from 'typescript';
 
 const meta = (command = 'synthetic', requestId = randomUUID(), payload = 'fixture') => ({
   actorId: 'synthetic-actor', command, requestId,
@@ -74,9 +75,10 @@ describe('shared synchronous application write ownership', () => {
     const stale = sqliteLoad();
     const owner = sqliteLoad().users[0];
     FamilyDB.addRewardEntry({ userId: owner.id, points: 2 }, owner.id, 'Synthetic');
+    const committedPoints = sqliteLoad().rewardLedger;
     stale.notes.push({ id: 'synthetic-independent-note' } as any);
     sqliteSave(stale);
-    expect(sqliteLoad().rewardLedger).toEqual(FamilyDB.getRewardLedger());
+    expect(sqliteLoad().rewardLedger).toEqual(committedPoints);
     expect(sqliteLoad().rewardLedger.some(e => e.points === 2)).toBe(true);
     const first = sqliteLoad();
     const second = sqliteLoad();
@@ -117,5 +119,35 @@ describe('shared synchronous application write ownership', () => {
     expect(command.actor_id).toBe(context.actorId);
     expect(command.payload_hash).toMatch(/^[a-f0-9]{64}$/);
     expect(JSON.stringify(command)).not.toContain('synthetic-private-payload');
+  });
+
+  it('audits every public legacy method that can reach a collection writer', () => {
+    const source = ts.createSourceFile('db.ts', fs.readFileSync(new URL('./db.ts', import.meta.url), 'utf8'), ts.ScriptTarget.Latest, true);
+    const declaration = source.statements.find(s => ts.isClassDeclaration(s) && s.name?.text === 'FamilyDB') as ts.ClassDeclaration;
+    const methods = declaration.members.filter(ts.isMethodDeclaration);
+    const calls = new Map<string, Set<string>>();
+    for (const method of methods) {
+      const targets = new Set<string>();
+      const scan = (node: ts.Node) => {
+        if (ts.isCallExpression(node)) {
+          if (ts.isPropertyAccessExpression(node.expression) && node.expression.expression.kind === ts.SyntaxKind.ThisKeyword) targets.add(node.expression.name.text);
+          if (ts.isIdentifier(node.expression) && node.expression.text === 'sqliteSave') targets.add('writeRaw');
+        }
+        ts.forEachChild(node, scan);
+      };
+      if (method.body) scan(method.body);
+      calls.set(method.name.getText(source), targets);
+    }
+    const writers = new Set(['writeRaw', 'addNotificationInternal']);
+    let changed = true;
+    while (changed) {
+      changed = false;
+      for (const [name, targets] of calls) if (!writers.has(name) && [...targets].some(target => writers.has(target))) { writers.add(name); changed = true; }
+    }
+    const unowned = methods.filter(method => method.modifiers?.some(m => m.kind === ts.SyntaxKind.PublicKeyword) && writers.has(method.name.getText(source)) && !method.body?.getText(source).includes('return runLegacyCommand(')).map(m => m.name.getText(source));
+    expect(unowned).toEqual([]);
+    expect(writers.has('saveTask')).toBe(true);
+    expect(writers.has('approveTaskCompletion')).toBe(true);
+    expect(writers.has('redeemRewardItem')).toBe(true);
   });
 });

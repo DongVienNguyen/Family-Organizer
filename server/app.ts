@@ -15,6 +15,7 @@ import { normalizeSearchText, matchesQuery, excerptAround } from "../src/utils/s
 import type { AppConfig } from "./config.js";
 import type { AppJobs } from "./appJobs.js";
 import type { createSystemMetrics } from "./systemMetrics.js";
+import { withAppCommandContext } from "./commandContext.js";
 import { isReady, type RuntimeState } from "./runtimeState.js";
 
 export interface AppDependencies {
@@ -289,7 +290,11 @@ const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => 
       role: matchedUser.role
     };
   }
-  next();
+  if (req.userSession) {
+    const supplied = req.get('x-request-id');
+    const requestId = supplied && /^[A-Za-z0-9_-]{1,128}$/.test(supplied) ? supplied : crypto.randomUUID();
+    withAppCommandContext({ actorId: req.userSession.userId, requestId }, next);
+  } else next();
 };
 
 app.use(authMiddleware as any);

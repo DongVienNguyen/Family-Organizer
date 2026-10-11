@@ -19,7 +19,8 @@ checklist ở cuối DESIGN.md trước khi hoàn tất.
 > [tiến độ](docs/engineering/implementation-status.md). CI dùng Windows2022/pwsh,
 > giữ baseline Node22 và kiểm runtime default Node24 riêng. Workflow release Pi/GHCR đã gỡ; F08 sẽ tạo
 > workflow Windows có cổng duyệt. Không chạy `npm run release`, tạo tag/release,
-> merge hoặc triển khai VPS trong PR nền tảng. Server2019 chưa nghiệm thu (R02).
+> hoặc triển khai VPS trong PR nền tảng. User đã cho phép merge mọi PR sau review
+> và CI Windows đúng HEAD đạt; không hỏi lại quyền merge. Server2019 chưa nghiệm thu (R02).
 
 ### Lifecycle hiện hành (F03)
 
