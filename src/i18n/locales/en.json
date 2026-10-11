@@ -41,7 +41,10 @@
     "footer": "Private data • Runs on your family's own server",
     "errorEmpty": "Please enter your username and password!",
     "errorInvalid": "Incorrect password!",
-    "errorConnect": "Unable to connect to the server"
+    "errorConnect": "Unable to connect to the server",
+    "sessionPreparing": "Preparing your session…",
+    "sessionCleanupFailed": "Could not clear the previous session data.",
+    "sessionRetry": "Try again"
   },
   "nav": {
     "dashboard": "Overview",

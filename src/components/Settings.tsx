@@ -1,3 +1,4 @@
+import {sessionFetch as fetch,browserSession} from '../utils/browserSession.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -827,6 +828,7 @@ export function Settings({
   const fullImportInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleDownloadFullBackup = async () => {
+    const checkSession=browserSession.capture();
     setActionError("");
     setActionSuccess("");
     setLoadingAction("full-export");
@@ -845,6 +847,7 @@ export function Settings({
       const disposition = res.headers.get("Content-Disposition") || "";
       const filename = disposition.match(/filename="([^"]+)"/)?.[1] || "family-organizer_full.zip";
       const blob = await res.blob();
+      checkSession();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;

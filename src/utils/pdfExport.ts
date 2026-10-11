@@ -10,6 +10,7 @@
 
 import type { TDocumentDefinitions, Content } from "pdfmake/interfaces";
 import { normalizeSearchText } from "./searchText.js";
+import { browserSession } from './browserSession.js';
 
 // Bảng màu in ấn (PDF nền trắng — không theo theme app)
 const INK = "#0f172a";      // chữ chính (slate-900)
@@ -32,7 +33,8 @@ async function createPdfBlob(docDefinition: TDocumentDefinitions): Promise<Blob>
 }
 
 /** Chia sẻ (iOS share sheet) hoặc tải xuống file PDF. */
-async function deliverPdf(blob: Blob, fileName: string): Promise<void> {
+async function deliverPdf(blob: Blob, fileName: string,checkSession:()=>void): Promise<void> {
+  checkSession();
   const file = new File([blob], fileName, { type: "application/pdf" });
   // iOS/Android PWA: share sheet cho phép Lưu vào Tệp / In / gửi Zalo...
   if (typeof navigator.canShare === "function" && navigator.canShare({ files: [file] })) {
@@ -44,6 +46,7 @@ async function deliverPdf(blob: Blob, fileName: string): Promise<void> {
       // NotAllowedError... → rơi xuống tải file
     }
   }
+  checkSession();
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -79,6 +82,7 @@ export interface FinanceReportPdfData {
 }
 
 export async function exportFinanceReportPdf(data: FinanceReportPdfData): Promise<void> {
+  const checkSession=browserSession.capture();
   const { totals } = data;
 
   const summaryCell = (label: string, value: string, color: string): Content => ({
@@ -206,7 +210,7 @@ export async function exportFinanceReportPdf(data: FinanceReportPdfData): Promis
 
   const blob = await createPdfBlob(doc);
   const stamp = new Date().toISOString().slice(0, 10);
-  await deliverPdf(blob, `bao-cao-thu-chi_${stamp}.pdf`);
+  await deliverPdf(blob, `bao-cao-thu-chi_${stamp}.pdf`,checkSession);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -229,6 +233,7 @@ export interface EmergencyCardPdfData {
 }
 
 export async function exportEmergencyCardPdf(p: EmergencyCardPdfData): Promise<void> {
+  const checkSession=browserSession.capture();
   const row = (label: string, value?: string, valueColor = INK): Content[] => value ? [{
     columns: [
       { text: label, fontSize: 7.5, color: MUTED, width: 62 },
@@ -295,5 +300,5 @@ export async function exportEmergencyCardPdf(p: EmergencyCardPdfData): Promise<v
 
   const blob = await createPdfBlob(doc);
   const slug = normalizeSearchText(p.fullName).replace(/\s+/g, "-");
-  await deliverPdf(blob, `the-khan-cap_${slug}.pdf`);
+  await deliverPdf(blob, `the-khan-cap_${slug}.pdf`,checkSession);
 }

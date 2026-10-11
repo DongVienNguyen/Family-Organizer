@@ -1,3 +1,4 @@
+import {sessionFetch as fetch} from './utils/browserSession.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -5,6 +6,8 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { endClientSession } from './utils/clientSession';
+import { browserSession } from './utils/browserSession.js';
+import { watchServiceWorker } from './utils/serviceWorkerWatch.js';
 import { flushSync } from "react-dom";
 import { 
   Home, 
@@ -183,31 +186,10 @@ export default function App() {
       .catch(() => {/* nếu trình duyệt huỷ transition thì thôi, theme vẫn đã đổi */});
   };
 
-  useEffect(() => {
-    if (!("serviceWorker" in navigator)) return;
-    // Chỉ reload khi controller ĐỔI do một bản SW mới tiếp quản (cập nhật thật).
-    // Lần cài đầu tiên, clients.claim() cũng bắn controllerchange nhưng lúc đó
-    // chưa có controller cũ — bỏ qua để không tự reload thừa khi mới mở app.
-    const hadController = !!navigator.serviceWorker.controller;
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (!hadController) return;
-      reloadOnce();
-    });
-    navigator.serviceWorker.register("/sw.js").then(reg => {
-      if (reg.waiting) setSwWaiting(reg.waiting);
-      reg.addEventListener("updatefound", () => {
-        const installing = reg.installing;
-        if (!installing) return;
-        installing.addEventListener("statechange", () => {
-          if (installing.state === "installed" && navigator.serviceWorker.controller) {
-            setSwWaiting(reg.waiting || installing);
-          }
-        });
-      });
-    }).catch(err => {
-      console.warn("Service worker registration failed:", err);
-    });
-  }, []);
+  useEffect(() => watchServiceWorker({
+    container:navigator.serviceWorker,onWaiting:setSwWaiting,onControllerChanged:reloadOnce,
+    onError:error=>console.warn('Service worker registration failed:',error),
+  }), []);
 
   // Push notifications: clear the app-icon badge when the app is opened/focused,
   // and deep-link to the right tab when a push notification is tapped.
@@ -399,6 +381,7 @@ export default function App() {
 
   // Authentication persistence check
   useEffect(() => {
+    const checkSession=browserSession.capture();
     const savedToken = localStorage.getItem("family_token");
     if (savedToken) {
       fetch(`/api/auth/me`, {
@@ -412,8 +395,8 @@ export default function App() {
           setCurrentUser(data.user);
         })
         .catch(() => {
-          localStorage.removeItem("family_token");
-          setAuthToken(null);
+          try{checkSession();}catch{return;} // A stale bootstrap must not clear a newer session.
+          void browserSession.change(null).catch(()=>{});
         })
         .finally(() => {
           setSessionInitialized(true);
@@ -888,25 +871,13 @@ export default function App() {
   }, [currentUser]);
 
   // Auth helper triggers
-  const handleLoginSuccess = (user: User, token: string) => {
-    localStorage.setItem("family_token", token);
-    localStorage.setItem("family_active_tab", "dashboard");
-    setAuthToken(token);
-    setCurrentUser(user);
-    setActiveTab("dashboard");
+  const handleLoginSuccess = (_user: User, token: string) => {
+    void browserSession.change(token).catch(()=>{});
   };
 
   const handleLogout = () => {
     void endClientSession(authToken,()=>{
-      localStorage.removeItem("family_token");
-      localStorage.removeItem("family_user_id"); // clean up legacy key
-      localStorage.removeItem("family_active_tab");
-      setAuthToken(null);
-      setCurrentUser(null);
-      if (sseRef.current) {
-        sseRef.current.close();
-        sseRef.current = null;
-      }
+      void browserSession.change(null).catch(()=>{});
     });
   };
 

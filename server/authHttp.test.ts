@@ -60,3 +60,9 @@ it('keeps login throttling effective despite spoofed forwarded headers',()=>serv
   for(let i=0;i<8;i++)expect((await send('/api/auth/login',{username:'synthetic-missing',password:'bad'},undefined,{'X-Forwarded-For':`192.0.2.${i+1}`})).status).toBe(401);
   expect((await send('/api/auth/login',{username:'synthetic-missing',password:'bad'},undefined,{'X-Forwarded-For':'198.51.100.9'})).status).toBe(429);
 }));
+
+it('marks internal API data and authentication failures no-store',()=>serve(async send=>{
+  const login=await send('/api/auth/login',credentials);expect(login.status).toBe(200);
+  const users=await send('/api/users',undefined,login.body.token);expect(users.status).toBe(200);expect(users.headers['cache-control']).toBe('no-store');
+  const denied=await send('/api/users');expect(denied.status).toBe(401);expect(denied.headers['cache-control']).toBe('no-store');
+}));

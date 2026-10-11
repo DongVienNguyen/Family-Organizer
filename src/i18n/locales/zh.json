@@ -41,7 +41,10 @@
     "footer": "数据私密 • 运行在家庭自己的服务器上",
     "errorEmpty": "请输入账号和密码！",
     "errorInvalid": "密码不正确！",
-    "errorConnect": "无法连接到服务器"
+    "errorConnect": "无法连接到服务器",
+    "sessionPreparing": "正在准备会话…",
+    "sessionCleanupFailed": "无法清除上次会话的数据。",
+    "sessionRetry": "重试"
   },
   "nav": {
     "dashboard": "总览",
