@@ -2,7 +2,7 @@
 import {isDeepStrictEqual} from 'node:util';
 import {UserRole,TaskStatus,TaskPriority,type FamilyOrganizerDB,type Task} from '../src/types.js';
 import {AppStoreError} from './appErrors.js';
-import {getAppCommandContext} from './commandContext.js';
+export {currentLegacyActor as taskActor} from './legacyActor.js';
 import {isAdult,canViewLegacyTask,canEditLegacyTask,type LegacyActor} from './legacyVisibility.js';
 import {detectedMediaType} from './mediaContent.js';
 const invalid=()=>new AppStoreError('Dữ liệu công việc không hợp lệ.',400);
@@ -10,11 +10,6 @@ const forbidden=()=>new AppStoreError('Bạn không có quyền thay đổi trư
 const same=isDeepStrictEqual;
 const protectedFields=new Set(['creatorId','comments','history','completedById','completedAt','pendingApproval','submittedById','submittedAt','rejectionReason','sourceRecurringTaskId','createdAt','updatedAt']);
 const editableFields=new Set(['id','baseUpdatedAt','title','description','status','priority','dueDate','assigneeId','isShared','tags','rewardPoints','recurrenceType','recurrenceInterval','recurrenceEndDate','rotationMemberIds','proofImage','proofNote']);
-export function taskActor(db:FamilyOrganizerDB,id:string):LegacyActor {
- const context=getAppCommandContext(),user=db.users.find(u=>u.id===id);
- if(context&&context.actorId!==id||!user||user.isDeleted||!Object.values(UserRole).includes(user.role))throw forbidden();
- return {userId:id,role:user.role};
-}
 export function requireTaskAdult(actor:LegacyActor):void {if(!isAdult(actor))throw forbidden();}
 export function requireTaskEdit(task:Task|undefined,actor:LegacyActor):void {
  if(!isAdult(actor)&&actor.role!==UserRole.CHILD)throw forbidden();

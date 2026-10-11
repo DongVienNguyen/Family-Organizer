@@ -643,6 +643,7 @@
     "tagsPlaceholder": "例如：重要、食谱、设备...",
     "pinCheckbox": "置顶到主屏幕",
     "shareCheckbox": "公开分享，所有成员均可查看",
+    "sharingOwnerOnly": "内容编辑权限不包括更改共享范围。请联系创建者或有权编辑此笔记的管理员。",
     "closeBtn": "关闭",
     "saveBtn": "保存笔记",
     "readerReading": "正在阅读家庭文档：",

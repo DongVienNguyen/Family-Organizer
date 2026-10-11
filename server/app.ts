@@ -1,4 +1,5 @@
 import {validateTaskComment} from './taskPolicy.js';
+import {validateContentHeader} from './contentInput.js';
 import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
 import {createRealtimeHub} from './realtime.js';
 import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canEditLegacyTask,canEditLegacyNote} from './legacyVisibility.js';
@@ -273,6 +274,11 @@ interface AuthRequest extends Request {
     role: UserRole;
   };
 }
+
+const validateContentRequest=(req:Request,res:Response,next:NextFunction)=>{
+  try {validateContentHeader(req.body);next();}
+  catch(error){res.status(httpErrorStatus(error)).json(httpErrorBody(error));}
+};
 
 const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
@@ -812,7 +818,7 @@ app.get("/api/plans", requireAuth, (req: AuthRequest, res: Response) => {
   res.json({ plans });
 });
 
-app.post("/api/plans", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER, UserRole.CHILD]), (req: AuthRequest, res: Response) => {
+app.post("/api/plans", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER, UserRole.CHILD]), validateContentRequest, (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   const planData = req.body;
 
@@ -882,7 +888,7 @@ app.get("/api/notes", requireAuth, (req: AuthRequest, res: Response) => {
   res.json({ notes });
 });
 
-app.post("/api/notes", requireAuth, (req: AuthRequest, res: Response) => {
+app.post("/api/notes", requireAuth, validateContentRequest, (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   const noteData = req.body;
 
@@ -1564,7 +1570,7 @@ app.get("/api/documents", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEM
   res.json({ documents });
 });
 
-app.post("/api/documents", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
+app.post("/api/documents", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), validateContentRequest, (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   if (req.body?.id) {
     const existing = FamilyDB.getDocuments().find(d => d.id === req.body.id);

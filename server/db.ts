@@ -1,3 +1,5 @@
+import {currentLegacyActor} from './legacyActor.js';
+import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
 import {canViewLegacyTask} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
 import {managedMarkdownUrls,canonicalMediaUrl} from './mediaPolicy.js';
@@ -1149,13 +1151,17 @@ export class FamilyDB {
   // Plans Management
   public static savePlan(planData: Partial<FamilyPlan>, userId: string, username: string): FamilyPlan {
     return runLegacyCommand("savePlan", [planData, userId, username], userId, () => {
+    validateContentHeader(planData);
+    planData={...planData};
     const db = this.readRaw();
+    const actor=currentLegacyActor(db,userId);
     const nowStr = new Date().toISOString();
 
     if (planData.id) {
       // UPDATE
       const idx = db.plans.findIndex(p => p.id === planData.id);
-      if (idx === -1) throw new Error("Kế hoạch không tồn tại");
+      if (idx === -1) throw new AppStoreError("Không tìm thấy sự kiện",404);
+      planData=validateContentPayload('plan',planData,db.plans[idx],actor,db);
 
       const updated = {
         ...db.plans[idx],
@@ -1168,6 +1174,7 @@ export class FamilyDB {
       return updated;
     } else {
       // CREATE
+      planData=validateContentPayload('plan',planData,undefined,actor,db);
       const newPlan: FamilyPlan = {
         id: `plan_${Date.now()}`,
         title: planData.title || "Kế hoạch mới",
@@ -1209,6 +1216,7 @@ export class FamilyDB {
     return runLegacyCommand("deletePlan", [planId, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.plans.findIndex(p => p.id === planId);
+    requireContentDelete('plan',db.plans[idx],currentLegacyActor(db,userId));
     if (idx === -1) return;
 
     const title = db.plans[idx].title;
@@ -1227,19 +1235,23 @@ export class FamilyDB {
 
   public static saveNote(noteData: Partial<Note> & EditVersionPayload, userId: string, username: string): Note {
     return runLegacyCommand("saveNote", [noteData, userId, username], userId, () => {
+    validateContentHeader(noteData);
     noteData = { ...noteData };
     const baseUpdatedAt = noteData.baseUpdatedAt;
     delete noteData.baseUpdatedAt;
     const db = this.readRaw();
+    const actor=currentLegacyActor(db,userId);
     const nowStr = new Date().toISOString();
 
     if (noteData.id) {
       // UPDATE Note
       const idx = db.notes.findIndex(n => n.id === noteData.id);
-      if (idx === -1) throw new Error("Ghi chú không tồn tại");
+      if (idx === -1) throw new AppStoreError("Không tìm thấy ghi chú",404);
 
       const oldNote = db.notes[idx];
+      requireContentEdit('note',oldNote,actor);
       assertEditVersion(oldNote, baseUpdatedAt);
+      noteData=validateContentPayload('note',noteData,oldNote,actor,db);
 
       const updatedNote: Note = {
         ...oldNote,
@@ -1261,6 +1273,7 @@ export class FamilyDB {
       return updatedNote;
     } else {
       // CREATE Note
+      noteData=validateContentPayload('note',noteData,undefined,actor,db);
       const newNote: Note = {
         id: `note_${Date.now()}`,
         title: noteData.title || "Ghi chú không tên",
@@ -1288,6 +1301,7 @@ export class FamilyDB {
     return runLegacyCommand("deleteNote", [noteId, userId, username], userId, () => {
     const db = this.readRaw();
     const idx = db.notes.findIndex(n => n.id === noteId);
+    requireContentDelete('note',db.notes[idx],currentLegacyActor(db,userId));
     if (idx === -1) return;
 
     const title = db.notes[idx].title;
@@ -2666,13 +2680,20 @@ export class FamilyDB {
 
   public static saveDocument(data: Partial<FamilyDocument> & EditVersionPayload, userId: string, username: string): FamilyDocument {
     return runLegacyCommand("saveDocument", [data, userId, username], userId, () => {
+    validateContentHeader(data);
     data = { ...data };
     const baseUpdatedAt = data.baseUpdatedAt;
     delete data.baseUpdatedAt;
     const db = this.readRaw();
+    const actor=currentLegacyActor(db,userId);
+    const previous=data.id?db.documents.find(document=>document.id===data.id):undefined;
+    if(data.id&&!previous)throw new AppStoreError('Không tìm thấy giấy tờ',404);
+    requireContentEdit('document',previous,actor);
+    if(previous)assertEditVersion(previous,baseUpdatedAt);
+    data=validateContentPayload('document',data,previous,actor,db);
     const now = new Date().toISOString();
-    if (!data.title || !data.title.trim()) throw new Error("Thiếu tên giấy tờ");
-    if (!data.type || !VALID_DOCUMENT_TYPES.has(data.type)) throw new Error("Loại giấy tờ không hợp lệ");
+    if ((!previous || data.title !== previous.title) && (!data.title || !data.title.trim())) throw new AppStoreError("Thiếu tên giấy tờ",400);
+    if ((!previous || data.type !== previous.type) && (!data.type || !VALID_DOCUMENT_TYPES.has(data.type))) throw new AppStoreError("Loại giấy tờ không hợp lệ",400);
 
     const files = Array.isArray(data.files) ? data.files : [];
 
@@ -2680,14 +2701,13 @@ export class FamilyDB {
       const idx = db.documents.findIndex(d => d.id === data.id);
       if (idx === -1) throw new Error("Không tìm thấy giấy tờ");
       const prev = db.documents[idx];
-      assertEditVersion(prev, baseUpdatedAt);
       // Xoá file đính kèm đã bị gỡ khỏi danh sách mới để không để lại rác trên đĩa.
       const newUrls = new Set(files.map(f => f.url));
       (prev.files || []).forEach(f => { if (!newUrls.has(f.url)) deleteMediaByUrl(f.url); });
       const updated: FamilyDocument = {
         ...prev,
         ...data,
-        title: data.title.trim(),
+        title: data.title === prev.title ? prev.title : data.title!.trim(),
         files,
         updatedAt: now
       } as FamilyDocument;
@@ -2725,6 +2745,7 @@ export class FamilyDB {
     return runLegacyCommand("deleteDocument", [id, userId, username], userId, () => {
     const db = this.readRaw();
     const doc = db.documents.find(d => d.id === id);
+    requireContentDelete('document',doc,currentLegacyActor(db,userId));
     if (!doc) return;
     // Dọn các tệp scan/ảnh đính kèm trên đĩa.
     (doc.files || []).forEach(f => deleteMediaByUrl(f.url));

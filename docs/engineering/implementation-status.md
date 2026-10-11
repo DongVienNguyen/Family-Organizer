@@ -11,8 +11,10 @@
 | F04-c | Reviewed, exact Windows GREEN, merged PR9 | HEAD8cce8ee/run38165065503;512/51256files per runtime |
 | F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
 | F04-e | Reviewed, exact Windows GREEN, merged PR11 | HEADc2b0f88/run38171963503;664/66463files per runtime |
+| F04-f | Reviewed, exact Windows GREEN, merged PR12 | HEAD8aa5299/run38174580999;762/76266files per runtime |
+| F04-g | PR13 reviewed/corrected Windows GREEN; final documentation HEAD pending | HEADec77266/run38176775633;860/86069files per runtime |
 | F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
-| F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
+| F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
 
@@ -381,3 +383,25 @@ Canonical-destination follow-up validation: Cloud664/66463files, zero failed/ski
 - Reviewed source HEAD `461e28a5b679bb72ca4ed33539990bdd1ef1ceac`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/12, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38174265137 attempt1 success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each762/76266files, zero failed/skipped/todo; npm ci/native/lint/tests/build/production18 checks all recorded exits0, evidence/ci-gate success. Both full artifact sets and logs independently read, hashes in evidence/f04-f-corrected-source.json.
 - One Important and one Minor fixed in a single reviewed TDD pass;90 actual RED→GREEN and eight characterizations. No source assertions dropped, skipped tests, dependency/lock changes or unchanged failed-run retries. Native13.0.3/N-API10/SQLite3.53.4 retained.
 - Final documentation HEAD needs its own exact-SHA Windows verification; immutable proof comment records final SHA/run/report hashes before authorized merge. Remaining F04 payloads/proxy/bootstrap/derivative/provider/log/audit and F05–F09/P/W/I02/I03/R01 remain incomplete; browser/PWA and Server2019 R02 unrun. No release/tag/VPS action. Next focused taskF04-g content write authority from merged main.
+
+### F04-f integration / F04-g source
+
+- PR12 merged as `7efdb40ba591bdf0364cb92ab277c8ca461a57df` after final HEAD `8aa52999036c2b2232bc5a75dab11602efee06d1`. Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38174580999: both Node22/24 each762/76266files, zero skips, all six exits0,18 production checks/evidence/ci-gate. Full logs/artifacts independently read; final proof https://github.com/DongVienNguyen/Family-Organizer/pull/12#issuecomment-6113740334.
+- F04-g branch `codex/f04-content-write-authority`, BASE that squash SHA. Current live actor/context, existing role/object management, immutable creator/timestamps and changed-value schema checks now apply inside native Notes/Plans/Documents commands. Notes content grants do not delegate privacy/edit-role changes. Unchanged canonical read-model values/extensions are retained; omitted document files retain attachments. HTTP shape guards are pure, preserving F03 app construction; details/costs in legacy-content-authority.md.
+- Cloud frozen npm ci/lint/build exits0; full850/85069files with zero skips.79 regressions observed RED→GREEN and nine preservation/boundary characterizations; existing assertions retained, no dependency/lock changes. New required suites and19th compiled content authority proof. PR/source Windows/one fresh whole-branch review pending. Remaining F04 derivatives/proxy/bootstrap/provider/backup/log/audit (13 findings, critical included), bundle warning and F05–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS.
+
+### F05 — concrete repository enforcement blocker
+
+- Read main protected:false, rulesets:[], integration-reported admin/maintain/push:true; actual ci-gate check publisher GitHub Actions app15368 verified. Attempted POST repository rulesets and fallback PUT main protection with PR+strict required ci-gate/no bypass. Both gh exits1, HTTP403 Resource not accessible by integration. Exact requests/responses are in evidence/f05-enforcement-blocked.json. No enforcement or failing-PR merge-block proof claimed; with enforcement absent, no unsafe failing merge attempt was made.
+- Required external action: grant the integration GitHub Administration:write, or repository owner applies equivalent settings; then read back policy and verify a failing synthetic PR is blocked. This access question is pending asynchronously while independent source/CI continues. Browser/coverage and remaining F05 work are still pending. No token, production credential, PC runner, release or VPS requested.
+
+## F04-g — Content writes and historical-value preservation
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/13; BASE7efdb40, first source9730254f4b390341807684749bc5b8ff3a7f1b1b.
+- First Windows: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38176066061. Both Node22/24: npm ci/native/lint/test/build/production/evidence all successful;850/85069files, zero skips,19 compiled production proofs and ci-gate. Full logs/JUnit/JSON/native/production artifacts independently read; hashes in evidence/f04-g-first-source.json.
+- Current actor/context and native Notes/Plans/Documents management guards, typed header/changed-field validation, server-owned creator/timestamps, Notes delegated editor privacy controls/localized help, omitted attachment preservation and reserved URL roundtrip rejection. Existing role/object rights and genuine409/cache ordering retained.
+- Fresh single whole-branch review: noCritical, twoImportant accepted/fixed in one TDD pass (retained attachment historical fields; downstream canonical type/title preservation), noMinor/no rereview. Seven more actualRED regressions and three rejection characterizations; corrected Cloud lint/full860/86069files/build all exit0, zero skips. Frozen lockfile unchanged; exact corrected/final Windows pending. No dependency/lockfile changes.
+- Browser/PWA and coverage F05, other F04/privacy/provider/bootstrap/dependency work, package/service F06/F07, performance F09 and Server2019 R02 remain. F05 ruleset and branch-protection writes are actually blocked403; evidence/f05-enforcement-blocked.json contains exact requests/responses. No release/tag/VPS operation.
+- Next: corrected full Cloud validation, exact corrected/final Windows logs/artifacts, authorized merge; continue remaining F04 and independent F05–F08 preparation.
+
+- Corrected F04-g source ec772661516ad2549cb0604777b2a3a5c56e4fe6: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38176775633 independently verified both Windows Node22/24,860/86069files zero skips; all six command exits0,19 compiled proofs/evidence/ci-gate. Full logs/JUnit/JSON/native/production artifacts and SHA256 recorded in evidence/f04-g-corrected-source.json. Final documentation HEAD must pass its own run before merge; immutable PR proof comment records that exact SHA.

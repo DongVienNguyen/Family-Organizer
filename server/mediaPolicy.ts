@@ -13,7 +13,7 @@ export const mediaKey=(url:string)=>'media:'+url;
 export function mediaPath(url:string):string {
  if(!url.startsWith('/uploads/')||/[?#]/.test(url)||/%(?:2f|5c|25)/i.test(url))throw new Error('Invalid managed media URL');
  const value=decodeURIComponent(url.slice(9));validMediaPath(value);
- if(value.normalize('NFC')!==value)throw new Error('Invalid managed media normalization');return value;
+ if(value.normalize('NFC')!==value||/[?#]/.test(value))throw new Error('Invalid managed media normalization');return value;
 }
 export const canonicalMediaUrl=(url:string)=>'/uploads/'+mediaPath(url);
 const domains=['users','tasks','notes','documents','transactions','assets','debts'] as const;
