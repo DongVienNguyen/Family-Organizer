@@ -5,7 +5,7 @@
 - Repo: `DongVienNguyen/Family-Organizer`, base `main`, branch `codex/f01-windows-baseline`.
 - Source checkout SHA: `68cb753c13c35e13dd120b217040aa12365e3b40`;
   planning baseline `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91`; diff chỉ7tài liệu.
-- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/1 (open; không merge).
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/1 (merged theo phê duyệt riêng của user ngày11/10/2026).
 - Last verified Windows HEAD: `d9935772551d71f4e3b893772990685219360799`.
 - CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38134448734
   (PR, attempt1, success); both Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0
@@ -48,3 +48,43 @@
 - Next sau review/merge PR này: F02 scripts/path configuration (DATA_DIR absolute,
   Unicode/spaces/CWD cases); rồi F03 lifecycle và I01 theo dependency. Không tự bắt đầu
   features hoặc deployment. Required-status ruleset `ci-gate` enforcement thuộc F05.
+
+## F01 — Final artifacts recovered and authorized merge
+
+- Exact final PR HEAD `198e50aee8dd7e8944ceb91bfc0d9cc384abcdcc`; run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38135532244.
+- Final JUnit/JSON/native/evidence ZIPs now downloaded and independently read:138passed tests/11files per runtime, zero failed/skipped, exact SHA. Previous proxy download blocker resolved in this environment session. Hash summaries: `evidence/f01-final-head.json`.
+- User authorized merge **only PR #1**; squash main commit `903e6401f33fa08ad8b95fc3e4865dff27fa45c0`.
+- Main CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38137109865 reports success for that exact merge SHA. No subsequent PR merge, release/tag or VPS permission granted.
+
+## F02 — Native scripts / config roots (implemented; awaiting PR review/merge)
+
+- Branch `codex/f02-native-paths`; BASE/main `903e6401f33fa08ad8b95fc3e4865dff27fa45c0`. PR #2 and verified Windows results are recorded below. Intermediate results remain historical snapshots.
+- Implemented source: stable code/data/config/log roots; production absolute external DATA_DIR; selected configRoot dotenv; actual write checks; rooted media/DB/settings/updater/static assets. Corrupt legacy JSON fails instead of silently seeding a new family.
+- Native clean/changelog scripts; old Bash release removed and release command explicitly disabled. Explicit offline copy migration has dry-run/report/backup, SQLite staging, integrity/hashes, source preservation and refusal of overlapping/existing/linked targets. See `native-paths.md`.
+- Initial implementation moved Vite and its two build plugins to devDependencies after lazy-loading development Vite. Production-only install previously retained tsx via Vite's optional peer. Subsequent native/version and i18next changes are recorded below; the final lockfile includes those changes.
+- Cloud RED: root/scripts/migration contracts; corrupt legacy import; provider .env must not change launch roots/NODE_ENV; production evidence missing/wrong SHA/checks. GREEN whole suite161tests/14files, lint/build (before final CI/reviewer updates). Do not interpret Cloud as Windows.
+- Windows CI adds production-only clean layout, System32 cwd, static/PWA/login/legacy IDs/restart, ACL-denied write startup, blocked external providers, explicit exit/log/evidence and finally process/ACL/file cleanup. Final execution results are below.
+- Real SQLite finding: readonly opens create source WAL/SHM. Migration opens only a private copied database, keeps original source untouched. This offline copier does not replace the online snapshot engine required by I01.
+- Remaining/unrun: portable ZIP F06; graceful lifecycle F03; HTTP/browser/full regression F05/F09; service/online restore F07/I01; R02 Server2019; release/VPS gates remain unauthorized. Existing chunk-size warning stays F09.
+- Next after F02 review/merge: F03 lifecycle/telemetry/remove Docker updater. Later PRs require review; do not silently merge to advance the plan.
+
+### F02 — PR/review and first actual Windows failures
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/2 (open; do not merge without review/authorization).
+- First Windows HEAD `92621a84cd7d2f6e0d622ab23511dba754ebdf98`; run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38138220750 failed. Logs read: Node24 unit worker native ObjectWrap abort (156passed of161;13of14files); both production smokes rejected retained TypeScript; ci-gate correctly failed. No pass claim for that SHA.
+- Root cause isolated: i18next optional TypeScript peers remain under production install; browser i18next packages moved to devDependencies. SQLite11.10.0/Node24.21.0 failed allocation-driven statement GC (SIGABRT), matching nodejs/node#65446. Pin13.0.3 N-API to remove the ObjectWrap path; retain Node22/24 pins. Lockfile removes obsolete native prebuild-install dependencies and adds node-addon-api; no unrelated major upgrades.
+- New deterministic native-GC regression RED on11.10.0 → GREEN13.0.3; actual loaded native binary is hashed rather than assuming old build/Release location. Cloud SQLite3.53.4. Windows startup/native/GC compatibility rerun pending.
+- Fresh review: three Important path/migration findings (Windows root-relative paths, report alias via ancestor junction, invalid JSON-only migration) addressed with RED→GREEN tests. Restart smoke strengthening also requires a post-import mutation survive restart, not merely the same legacy JSON read twice. See `f02-review-and-decisions.md`.
+- The failures above were intermediate results. Verified corrected results are below; next PRs await user review and separate merge approval. Full plan is not complete; no release or VPS access.
+
+### F02 — Verified corrected Windows implementation
+
+- Verified source HEAD: `f622ded54d3d71d02998f617edde7d0629d80420`.
+- CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139108034 (PR, attempt1, success); both Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0, `ci-gate` success.
+- Each runtime: `npm ci`, native SQLite probe, `npm run lint`, `npm test`, `npm run build`, production-only System32 smoke all success with individually recorded exit code0. JUnit and Vitest JSON independently confirm175passed/16test files, zero failures/errors/skipped/todo. No assertions removed, retry masking, continue-on-error or lowered chunk threshold.
+- Full logs and both artifacts downloaded/read. Immutable evidence/report hashes: `evidence/f02-validated-source.json`; exact documentation HEAD/run is additionally recorded in the PR evidence comment after its own CI, avoiding assigning parent-SHA reports to a newer commit.
+- Native: exact better-sqlite3 13.0.3, N-API10, SQLite3.53.4; both runtimes load `prebuilds/win32-x64.node`, SHA256 `e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a`. Allocation-driven GC regression and existing SQLite/backup/migration tests pass. Historical F01 ObjectWrap evidence remains unchanged.
+- Production fixture: no source TypeScript/dev dependencies; Unicode/spaces external roots, actual `C:\Windows\System32` cwd, static/PWA/login/legacy IDs; new task write persists after restart while legacy JSON stays unchanged. Real ACL denial yields expected EPERM/fail-fast, then ACL/process/file cleanup succeeds. External providers blocked, no attempted real delivery, only synthetic data.
+- Fresh whole-branch review findings fixed in one RED→GREEN pass; full Cloud Node24 suite175/175, lint/build/native and production-only fixture also pass. Decisions and costs: `f02-review-and-decisions.md`.
+- Remaining/unrun: F03 graceful jobs/HTTP/DB lifecycle and Docker-updater removal; I01 online snapshot/restore; F04 auth/media; F05/F09 full HTTP/browser/E2E/regression/performance; F06 actual portable ZIP; F07 service; R02 Server2019. Existing >500kB chunk warning remains for F09. No full-phase or Server2019 acceptance claim.
+- Next: review and separately authorize merge of PR #2, then F03 from the merged main SHA. Only PR #1 has merge permission. All51 master tasks remain tracked by the approved plan; F02 implementation is verified, not merged. No release/tag/VPS access or deployment.

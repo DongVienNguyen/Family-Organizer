@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import "dotenv/config";
+import { appConfig } from "./server/config.js";
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import os from "os";
 import fsp from "fs/promises";
 import crypto from "crypto";
-import { createServer as createViteServer } from "vite";
 import { FamilyDB, verifyPassword, getSessionSecret, getAppSettings, setAppSetting } from "./server/db.js";
 import { sqliteAppendServerMetric, sqliteGetServerMetrics } from "./server/sqlite.js";
 import { UserRole, isLimitedViewer, DishSlot, MealIngredient, DOCUMENT_TYPE_LABELS } from "./src/types.js";
@@ -552,7 +551,7 @@ const readMemory = async () => {
 const readDisk = async () => {
   try {
     if (typeof fsp.statfs !== "function") return null; // Node < 18.15
-    const st = await fsp.statfs(process.cwd());
+    const st = await fsp.statfs(appConfig.dataRoot);
     const totalBytes = Number(st.blocks) * Number(st.bsize);
     const freeBytes = Number(st.bavail) * Number(st.bsize);
     if (!Number.isFinite(totalBytes) || totalBytes <= 0) return null;
@@ -656,7 +655,7 @@ let uploadsSizeCache: { at: number; bytes: number } | null = null;
 async function readDataSizes(): Promise<{ dbBytes: number; uploadsBytes: number }> {
   let dbBytes = 0;
   for (const f of ["family.db", "family.db-wal", "family.db-shm"]) {
-    try { dbBytes += (await fsp.stat(path.join(process.cwd(), "data", f))).size; } catch { /* file chưa tồn tại */ }
+    try { dbBytes += (await fsp.stat(path.join(appConfig.dataRoot, f))).size; } catch { /* file chưa tồn tại */ }
   }
   if (!uploadsSizeCache || Date.now() - uploadsSizeCache.at > 5 * 60 * 1000) {
     let bytes = 0;
@@ -2807,7 +2806,9 @@ app.get("/api/widgets/history", requireAuth, (req: AuthRequest, res: Response) =
 
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
+      root: appConfig.codeRoot,
       server: {
         middlewareMode: true,
         watch: {
@@ -2818,7 +2819,7 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), "dist");
+    const distPath = path.join(appConfig.codeRoot, "dist");
     const pwaAssets: Record<string, { file: string; type: string; cacheControl: string }> = {
       "/manifest.webmanifest": {
         file: "manifest.webmanifest",
@@ -2843,7 +2844,7 @@ async function startServer() {
         res.setHeader("Cache-Control", asset.cacheControl);
         res.sendFile(path.join(distPath, asset.file), err => {
           if (err && !res.headersSent) {
-            res.status(404).send(`${asset.file} not found. Rebuild the Docker image with the public/ directory included.`);
+            res.status(404).send(`${asset.file} not found. Rebuild the Windows package with the public/ directory included.`);
           }
         });
       });

@@ -1,0 +1,244 @@
+{
+  "task": "F01",
+  "commitSha": "198e50aee8dd7e8944ceb91bfc0d9cc384abcdcc",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38135532244",
+  "independentlyDownloadedAndRead": true,
+  "runtimes": [
+    {
+      "evidence": {
+        "commitSha": "198e50aee8dd7e8944ceb91bfc0d9cc384abcdcc",
+        "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38135532244",
+        "runAttempt": 1,
+        "runnerOS": "Windows_NT 10.0.20348",
+        "runnerImage": "win22",
+        "runnerImageVersion": "20261004.326.1",
+        "nodeVersion": "v22.23.3",
+        "npmVersion": "10.9.9",
+        "toolchain": {
+          "npmVersion": "10.9.9",
+          "visualStudioVersion": "17.14.37710.0"
+        },
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success"
+        },
+        "suites": [
+          {
+            "name": "server/icsFeed.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/sqlite.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/updater.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/evidence.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/assetValue.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/bmi.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/debt.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/financePeriod.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/recurrence.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/searchText.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/vietnamHolidays.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "native": {
+          "nodeVersion": "v22.23.3",
+          "nodeABI": "127",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "11.10.0",
+          "sqliteVersion": "3.49.2",
+          "binarySha256": "c6770a96c516d2b3e78308ecfcc146c38c0eb0875e180c8028d77f1e93914c6d",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "server2019Acceptance": "not-run",
+        "errors": []
+      },
+      "passedTests": 138,
+      "junitCases": 138,
+      "hashes": {
+        "evidence.json": "2cd21672cc1590829b88762331de289c047394d417009d14b7d6ed0fa176f375",
+        "junit.xml": "b008e877feb7e5f5f10309ccd6d392bfc1123a3a295756a0a627fe75d07a40b6",
+        "vitest.json": "49c66351252f80b74e6b7b50f33ce9d89b39c96e461fe3abaab07f08325227e3",
+        "native.json": "fe94918e6ee0dcfaf0fc1d406620fb3f8f317ef7188f8d15cf0d0440d2d2b662"
+      }
+    },
+    {
+      "evidence": {
+        "commitSha": "198e50aee8dd7e8944ceb91bfc0d9cc384abcdcc",
+        "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38135532244",
+        "runAttempt": 1,
+        "runnerOS": "Windows_NT 10.0.20348",
+        "runnerImage": "win22",
+        "runnerImageVersion": "20261004.326.1",
+        "nodeVersion": "v24.21.0",
+        "npmVersion": "11.19.0",
+        "toolchain": {
+          "npmVersion": "11.19.0",
+          "visualStudioVersion": "17.14.37710.0"
+        },
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success"
+        },
+        "suites": [
+          {
+            "name": "server/icsFeed.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/sqlite.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/updater.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/evidence.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/assetValue.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/bmi.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/debt.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/financePeriod.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/recurrence.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/searchText.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/vietnamHolidays.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "native": {
+          "nodeVersion": "v24.21.0",
+          "nodeABI": "137",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "11.10.0",
+          "sqliteVersion": "3.49.2",
+          "binarySha256": "233d096d6787a605df750e90d9d05be89a5a3b51e0745d82357725ab64f50669",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "server2019Acceptance": "not-run",
+        "errors": []
+      },
+      "passedTests": 138,
+      "junitCases": 138,
+      "hashes": {
+        "evidence.json": "8e0f905ecff374666fa15703923a525d85ca80c4d2134cac56ed03ea15443cf9",
+        "junit.xml": "aded8e5452cf7150e0a6bd954198e845df8e9524649e28d0394b7a022dd06137",
+        "vitest.json": "102d0ef9e0408c1d63cfb2b4bcf428882d8dacee84f49e5efba9f20d73a854a8",
+        "native.json": "e2c9312e3b852d5d5b19e4fc793c7fd82d5ee327093d965370f983b49f08eac2"
+      }
+    }
+  ]
+}

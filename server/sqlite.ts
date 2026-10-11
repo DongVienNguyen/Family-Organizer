@@ -8,7 +8,10 @@ import path from "path";
 import Database from "better-sqlite3";
 import { FamilyOrganizerDB } from "../src/types.js";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+import { appConfig, prepareStorage } from "./config.js";
+
+const DATA_DIR = appConfig.dataRoot;
+prepareStorage(appConfig);
 const DB_PATH = path.join(DATA_DIR, "family.db");
 const SCHEMA_VERSION = 1;
 

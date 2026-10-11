@@ -1,3 +1,8 @@
+> Windows paths/scripts: [F02 native-paths guide](docs/engineering/native-paths.md).
+> Production requires absolute external DATA_DIR; roots are set in service/process
+> environment. Provider dotenv is loaded only from CONFIG_DIR, never the current
+> directory. Release creation remains disabled pending the reviewed F08 workflow.
+
 # 🏡 Family Organizer
 
 Hệ thống quản lý gia đình tất-cả-trong-một — tài chính, lịch trình, nhiệm vụ, sức khỏe, giấy tờ, mua sắm, thưởng điểm cho trẻ và trợ lý AI — đang chuyển sang **Windows-native x64**, runtime đích Windows Server2019; chưa nghiệm thu hoặc triển khai production.

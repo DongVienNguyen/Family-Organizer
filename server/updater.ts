@@ -24,7 +24,9 @@ import crypto from "crypto";
 import zlib from "zlib";
 import { pipeline } from "stream/promises";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+import { appConfig } from "./config.js";
+
+const DATA_DIR = appConfig.dataRoot;
 const UPDATE_DIR = path.join(DATA_DIR, "update");
 const SNAPSHOT_DIR = path.join(UPDATE_DIR, "snapshots");
 const STAGED_DIR = path.join(UPDATE_DIR, "staged");
@@ -55,7 +57,7 @@ async function notify(text: string): Promise<void> {
 
 function readPkgVersion(): string {
   try {
-    return JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")).version || "0.0.0";
+    return JSON.parse(fs.readFileSync(path.join(appConfig.codeRoot, "package.json"), "utf8")).version || "0.0.0";
   } catch {
     return "0.0.0";
   }

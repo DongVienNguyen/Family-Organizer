@@ -9,8 +9,9 @@
 - Windows CI uses windows-2022, x64 and pwsh. Check LASTEXITCODE immediately
   after every npm/native invocation, including commands piped into logs.
 - .node-version pins Node24.21.0 after the F01 Windows compatibility run.
-  Keep the Node22 baseline job. Node24 addon11.10.0 compiles on the pinned VS2022
-  builder; production packaging must carry its Windows binary, never compile on VPS.
+  Keep the Node22 baseline job. F02 pins addon13.0.3/N-API after11.10.0 failed
+  allocation-driven GC/startup on Node24. Production packaging must carry the
+  verified Windows binary, never compile on VPS. F01 reports remain historical.
 - Use synthetic, isolated fixtures and offline provider adapters. Never use
   production keys/data or deliver notifications from tests. Preserve assertions.
 - Save JUnit/JSON reports, logs, exact tested HEAD SHA and CI URLs; keep

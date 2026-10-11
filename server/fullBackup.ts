@@ -21,7 +21,9 @@ import { Open as unzipOpen } from "unzipper";
 import { FamilyDB, getAppSettings, replaceAppSettings } from "./db.js";
 import { UPLOADS_DIR } from "./media.js";
 
-const DATA_DIR = path.dirname(UPLOADS_DIR); // .../data
+import { appConfig } from "./config.js";
+
+const DATA_DIR = appConfig.dataRoot;
 const MANIFEST_APP = "family-organizer";
 const MANIFEST_FORMAT = 1;
 

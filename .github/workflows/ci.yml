@@ -38,7 +38,7 @@ jobs:
       EXPECTED_NODE: ${{ matrix.node }}
       EXPECTED_NPM: ${{ matrix.npm }}
       EXPECTED_VS: '17.14.37710.0'
-      EXPECTED_SQLITE_ADDON: '11.10.0'
+      EXPECTED_SQLITE_ADDON: '13.0.3'
       TEST_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
@@ -69,6 +69,10 @@ jobs:
         id: build
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: ./scripts/ci/Invoke-Check.ps1 -Check build
+      - name: Production layout from System32 and denied-write startup
+        id: production
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: ./scripts/ci/Test-Production.ps1
       - name: Validate and record evidence
         if: ${{ always() }}
         env:
@@ -77,6 +81,7 @@ jobs:
           CHECK_LINT: ${{ steps.lint.outcome }}
           CHECK_TEST: ${{ steps.test.outcome }}
           CHECK_BUILD: ${{ steps.build.outcome }}
+          CHECK_PRODUCTION: ${{ steps.production.outcome }}
         run: |
           $ErrorActionPreference = 'Stop'
           Set-StrictMode -Version Latest

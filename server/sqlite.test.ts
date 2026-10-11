@@ -13,6 +13,7 @@ describe('SQLite collection adapter with synthetic data', () => {
   beforeEach(async () => {
     directory = fs.mkdtempSync(path.join(os.tmpdir(), 'fo SQLite dữ liệu '));
     process.chdir(directory);
+    vi.stubEnv("DATA_DIR", path.join(directory, "data"));
     vi.resetModules();
     store = await import('./sqlite.js');
   });
@@ -22,6 +23,7 @@ describe('SQLite collection adapter with synthetic data', () => {
       store?.sqliteClose();
     } finally {
       process.chdir(originalCwd);
+      vi.unstubAllEnvs();
       fs.rmSync(directory, { recursive: true, force: true });
     }
     expect(fs.existsSync(directory)).toBe(false);

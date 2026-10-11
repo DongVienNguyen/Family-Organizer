@@ -69,13 +69,15 @@ function assetPhotoUrls(asset: { photos?: any[] } | undefined | null): string[] 
   return urls;
 }
 
-const DATA_DIR = path.join(process.cwd(), "data");
+import { appConfig } from "./config.js";
+
+const DATA_DIR = appConfig.dataRoot;
 const DB_FILE = path.join(DATA_DIR, "db.json");
 const BACKUP_DIR = path.join(DATA_DIR, "backups");
-const SECRET_FILE = path.join(DATA_DIR, "session_secret.key");
+const SECRET_FILE = path.join(appConfig.configRoot, "session_secret.key");
 // App-level config the admin can edit from the UI (e.g. Gemini API key).
 // Kept in its own file — NOT in db.json — so it never ends up in data backups.
-const SETTINGS_FILE = path.join(DATA_DIR, "app_settings.json");
+const SETTINGS_FILE = path.join(appConfig.configRoot, "app_settings.json");
 
 // Legacy salt kept only to verify passwords hashed by the old scheme.
 const LEGACY_SALT = "family_organizer_salt_2026";
@@ -274,8 +276,7 @@ if (!fs.existsSync(BACKUP_DIR)) {
         seed = normalizeDB(JSON.parse(fs.readFileSync(DB_FILE, "utf8")));
         console.log("Đã nhập dữ liệu từ db.json sang SQLite (family.db).");
       } catch (e) {
-        console.error("db.json hỏng, khởi tạo CSDL trắng:", e);
-        seed = initialDBState();
+        throw new Error('Cannot import selected db.json; repair or explicitly restore it before startup', { cause: e });
       }
     } else {
       seed = initialDBState();
@@ -283,6 +284,7 @@ if (!fs.existsSync(BACKUP_DIR)) {
     sqliteSave(seed);
   } catch (e) {
     console.error("Lỗi bootstrap SQLite:", e);
+    throw e;
   }
 })();
 

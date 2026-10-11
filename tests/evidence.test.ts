@@ -10,6 +10,8 @@ const suiteNames = [
   'src/utils/assetValue.test.ts', 'src/utils/bmi.test.ts', 'src/utils/debt.test.ts',
   'src/utils/financePeriod.test.ts', 'src/utils/recurrence.test.ts',
   'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',
+  'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
+  'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -17,8 +19,13 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     'toolchain.json': { npmVersion: '11.19.0', visualStudioVersion: '17.14.37710.0' },
     'native.json': {
       nodeVersion: 'v24.21.0', nodeABI: '137', platform: 'win32', architecture: 'x64',
-      addonVersion: '11.10.0', sqliteVersion: '3.49.2', binarySha256: 'a'.repeat(64),
+      addonVersion: '13.0.3', sqliteVersion: '3.49.2', binarySha256: 'a'.repeat(64),
       checks: ['native-load', 'write-read', 'transaction-rollback', 'WAL-backup', 'integrity-check', 'file-cleanup'],
+    },
+    'production.json': {
+      commitSha: sha, nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64',
+      checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets',
+        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers'],
     },
     'vitest.json': {
       success: true, numTotalTests: suiteNames.length, numPassedTests: suiteNames.length,
@@ -26,7 +33,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
       testResults: suiteNames.map(name => ({ name: `D:/a/Family-Organizer/${name}`, assertionResults: [{ status: 'passed' }] })),
     },
   };
-  for (const check of ['install', 'native', 'lint', 'test', 'build']) reports[`${check}-exit.json`] = { exitCode: 0 };
+  for (const check of ['install', 'native', 'lint', 'test', 'build', 'production']) reports[`${check}-exit.json`] = { exitCode: 0 };
   change(reports);
   const writes: Record<string, string> = {};
   const processFixture = {
@@ -34,9 +41,10 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     versions: { modules: '137' }, exitCode: 0,
     env: {
       EXPECTED_NODE: '24.21.0', EXPECTED_NPM: '11.19.0', EXPECTED_VS: '17.14.37710.0',
-      EXPECTED_SQLITE_ADDON: '11.10.0',
+      EXPECTED_SQLITE_ADDON: '13.0.3',
       TEST_COMMIT_SHA: sha, GITHUB_RUN_ATTEMPT: '1',
       CHECK_INSTALL: 'success', CHECK_NATIVE: 'success', CHECK_LINT: 'success', CHECK_TEST: 'success', CHECK_BUILD: 'success',
+      CHECK_PRODUCTION: 'success',
     },
   };
   vm.runInNewContext(source, {
@@ -77,5 +85,17 @@ describe('Windows CI evidence gate', () => {
 
   it('rejects skipped assertions hidden by successful aggregate totals', () => {
     expect(runEvidence(reports => { reports['vitest.json'].testResults[0].assertionResults[0].status = 'skipped'; }).code).toBe(1);
+  });
+
+  it('rejects missing production startup evidence', () => {
+    expect(runEvidence(reports => { delete reports['production.json']; }).code).toBe(1);
+  });
+
+  it('rejects production startup evidence from another SHA', () => {
+    expect(runEvidence(reports => { reports['production.json'].commitSha = 'f'.repeat(40); }).code).toBe(1);
+  });
+
+  it('rejects production reports that omit the permission or offline checks', () => {
+    expect(runEvidence(reports => { reports['production.json'].checks = []; }).code).toBe(1);
   });
 });

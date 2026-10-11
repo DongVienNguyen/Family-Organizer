@@ -8,6 +8,10 @@ cho người và AI. Khi tạo màn hình hoặc component mới, hãy tuân the
 tiên tái dùng các lớp Tailwind mẫu sẵn có thay vì tự nghĩ ra giá trị mới, và bám
 checklist ở cuối DESIGN.md trước khi hoàn tất.
 
+## Windows paths/scripts
+
+Đọc [native-paths.md](docs/engineering/native-paths.md): production DATA_DIR tuyệt đối ngoài release, roots đặt bằng environment; provider .env ở CONFIG_DIR. `clean`/`release:notes`/`data:migrate` dùng Node; `release` bị chặn, không gọi Bash/tag.
+
 ## Phiên bản & phát hành
 
 > **Quy trình hiện hành — Windows-native (F01):** đọc [AGENTS.md](AGENTS.md),
