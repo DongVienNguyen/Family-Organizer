@@ -135,6 +135,9 @@ function initializeDatabase() {
 const { getMetaStmt, sqliteSave, insertMetricStmt, pruneMetricStmt, selectMetricsStmt } = initializeDatabase();
 export { sqliteSave };
 
+/** Internal shared connection port; never create a second application handle. */
+export function sqliteConnection(): Database.Database { return db; }
+
 /** True when the database has never been seeded (no user accounts yet). */
 export function sqliteIsEmpty(): boolean {
   const row = db.prepare("SELECT COUNT(*) AS c FROM users").get() as { c: number };
