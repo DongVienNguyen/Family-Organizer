@@ -67,3 +67,8 @@ effects and metrics. Real source process tests exercise HTTP writes, graceful st
 file rename/cleanup, restart and abrupt crash recovery. CI also tests the compiled
 production-only layout from System32, Unicode/spaces roots and actual ACL denial.
 This is not full browser/domain/restore coverage or a portable ZIP/service acceptance.
+
+F04-a: production runtime and managed listener now default to127.0.0.1. Internal
+auth is injected; runtime explicitly initializes the native session store and
+validates the local key before readiness. See [native-sessions.md](native-sessions.md)
+for expiry/revocation and remaining F04 privacy gates. No public deployment claim.

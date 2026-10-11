@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import http from 'node:http';
-import crypto from 'node:crypto';
 import { startManagedServer } from './lifecycle.js';
 import { once } from 'node:events';
 import { describe, it, expect } from 'vitest';
@@ -56,13 +55,13 @@ describe('application factory', () => {
   });
   it('client disconnect does not release an unfinished async route owner', async () => {
     const { createApp } = await load(); const state={phase:'ready',storageWritable:true}; const deps=syntheticDependencies(state);
-    deps.db.FamilyDB.getUsers=()=>[{id:'synthetic',username:'synthetic',fullName:'Synthetic',role:'admin'}];
+    deps.db.FamilyDB.getUsers=()=>[{id:'synthetic',username:'synthetic',fullName:'Synthetic',role:'admin',passwordHash:'synthetic-hash',avatarColor:'synthetic',createdAt:'2026-01-01'}];
     let release!:()=>void, entered!:()=>void;const held=new Promise<void>(resolve=>{release=resolve;}),started=new Promise<void>(resolve=>{entered=resolve;});
     const metrics=deps.metrics;deps.metrics={async sample(){entered();await held;return metrics.sample();}};
     const handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!},deps);
     const server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');
-    const sig=crypto.createHmac('sha256','synthetic-key').update('synthetic').digest('hex');
-    const req=http.get({hostname:'127.0.0.1',port:(server.address() as any).port,path:'/api/server/stats',headers:{Authorization:`Bearer synthetic.${sig}`}});req.on('error',()=>{});
+    const token=deps.auth.issue(deps.db.FamilyDB.getUsers()[0]);
+    const req=http.get({hostname:'127.0.0.1',port:(server.address() as any).port,path:'/api/server/stats',headers:{Authorization:`Bearer ${token}`}});req.on('error',()=>{});
     await started;req.destroy();let drained=false;const draining=handle.drainHandlers().then(()=>{drained=true;});
     await new Promise(resolve=>setTimeout(resolve,15));expect(drained).toBe(false);release();await draining;expect(drained).toBe(true);
     await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.dispose();

@@ -1,4 +1,4 @@
-import { createHmac, randomUUID } from 'node:crypto';
+import { randomUUID } from 'node:crypto';
 import http from 'node:http';
 import { once } from 'node:events';
 import { expect, it } from 'vitest';
@@ -14,8 +14,7 @@ async function serve(test: (send: (route: string, body: any, requestId: string, 
   const handle = await createApp({ production: true, codeRoot: process.cwd(), dataRoot: process.env.DATA_DIR! } as any, dependencies);
   const server = http.createServer(handle.app).listen(0, '127.0.0.1');
   await once(server, 'listening');
-  const signature = createHmac('sha256', 'synthetic-key').update(user.id).digest('hex');
-  const token = `${user.id}.${signature}`;
+  const token = dependencies.auth.issue(user);
   const send = (route: string, body: any, requestId: string, auth = token) => new Promise<{ status: number; body: any }>((resolve, reject) => {
     const data = JSON.stringify(body);
     const request = http.request({ hostname: '127.0.0.1', port: (server.address() as any).port, path: route, method: 'POST', agent: false, headers: { Authorization: `Bearer ${auth}`, 'x-request-id': requestId, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) } }, response => {

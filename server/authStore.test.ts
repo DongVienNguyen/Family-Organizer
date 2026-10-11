@@ -7,6 +7,8 @@ import { withAppWriteTransaction } from './appStore.js';
 import { collectAppSnapshot,validateAppSnapshot,restoreAppSnapshot } from './appSnapshot.js';
 import { sqliteConnection } from './sqlite.js';
 import { UserRole } from '../src/types.js';
+import fs from 'node:fs';
+import path from 'node:path';
 const meta=()=>({actorId:'synthetic-auth',command:'synthetic:auth-fixture',requestId:randomUUID(),payloadHash:'synthetic'});
 const service=(store=new NativeSessionStore())=>createAuth({store,getUsers:()=>FamilyDB.getUsers(),getSecret:getSessionSecret});
 it('persists logout on the existing native connection across new service instances',()=>{
@@ -37,4 +39,13 @@ it.each(['version','columns'])('validates native session %s even when bootstrap 
   new NativeSessionStore();const sql=sqliteConnection();
   if(mode==='version')sql.prepare('UPDATE auth_store_meta SET value=? WHERE key=?').run('900','version');else sql.exec('ALTER TABLE auth_sessions ADD COLUMN unsupported TEXT');
   try{expect(()=>new NativeSessionStore()).toThrow(/Unsupported.*session/i);}finally{if(mode==='version')sql.prepare('UPDATE auth_store_meta SET value=? WHERE key=?').run('1','version');else sql.exec('ALTER TABLE auth_sessions DROP COLUMN unsupported');}
+});
+it('persists signing key generations so reverting a prior key cannot resurrect sessions',()=>{
+  let key='synthetic-first-key';const make=()=>createAuth({store:new NativeSessionStore(),getUsers:()=>FamilyDB.getUsers(),getSecret:()=>key});
+  const user=FamilyDB.getUsers()[0],token=make().issue(user);key='synthetic-second-key';expect(make().verify(token)).toBeNull();key='synthetic-first-key';expect(make().verify(token)).toBeNull();expect(make().verify(make().issue(user))?.id).toBe(user.id);
+});
+it.each(['empty','directory','oversize'])('fails closed on an existing %s installation key rather than replacing it silently',mode=>{
+  const file=path.join(process.env.DATA_DIR!,'session_secret.key'),before=fs.existsSync(file)?fs.readFileSync(file):undefined;
+  fs.rmSync(file,{force:true});if(mode==='directory')fs.mkdirSync(file);else fs.writeFileSync(file,mode==='empty'?'':'x'.repeat(5000));
+  try{expect(()=>getSessionSecret()).toThrow(/session.*key|signing.*key/i);}finally{fs.rmSync(file,{recursive:true,force:true});if(before)fs.writeFileSync(file,before);}
 });

@@ -1,5 +1,6 @@
 import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
 import { durableWrite, validBackupFilename, sha256 } from './snapshotFiles.js';
+import { revokeUserSessions } from './authStore.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -134,21 +135,14 @@ export function verifyPassword(password: string, stored: string): boolean {
 
 // Stable per-install secret used to sign session tokens. Generated once.
 export function getSessionSecret(): string {
-  try {
-    if (fs.existsSync(SECRET_FILE)) {
-      const existing = fs.readFileSync(SECRET_FILE, "utf8").trim();
-      if (existing) return existing;
-    }
-  } catch (e) {
-    console.error("Không đọc được session secret:", e);
+  if(fs.existsSync(SECRET_FILE)){
+    const stat=fs.lstatSync(SECRET_FILE);
+    if(!stat.isFile()||stat.isSymbolicLink()||stat.size>4096)throw new Error('Invalid session signing key');
+    const existing=fs.readFileSync(SECRET_FILE,'utf8').trim();
+    if(!existing)throw new Error('Invalid session signing key');return existing;
   }
-  const secret = crypto.randomBytes(48).toString("hex");
-  try {
-    fs.writeFileSync(SECRET_FILE, secret, "utf8");
-  } catch (e) {
-    console.error("Không ghi được session secret:", e);
-  }
-  return secret;
+  const secret=crypto.randomBytes(48).toString('hex');
+  fs.mkdirSync(appConfig.configRoot,{recursive:true});durableWrite(SECRET_FILE,secret);return secret;
 }
 
 // --- App settings (admin-editable, stored outside the DB & backups) ---
@@ -692,6 +686,7 @@ export class FamilyDB {
     db.users[idx].passwordHash = "";
     db.users[idx].avatarImage = undefined;
     this.writeRaw(db);
+    revokeUserSessions(currentAppWriteTx()!,userId);
     if (avatarToDelete) deleteMediaByUrl(avatarToDelete);
     this.logActivity(adminId, adminUser, "Xóa thành viên", `Đã xóa tài khoản ${target.fullName} (@${target.username}).`);
 
@@ -712,6 +707,7 @@ export class FamilyDB {
     }
     db.users[idx].passwordHash = hashPassword(newPassword);
     this.writeRaw(db);
+    revokeUserSessions(currentAppWriteTx()!,userId);
     this.logActivity(userId, db.users[idx].username, "Đổi mật khẩu", "Đã đổi mật khẩu đăng nhập của mình.");
 
     });
@@ -743,6 +739,7 @@ export class FamilyDB {
       if (!trimmed) throw new Error("Tên hiển thị không được để trống!");
       user.fullName = trimmed;
     }
+    const roleChanged=data.role!==undefined&&data.role!==user.role;
     if (data.role !== undefined) user.role = data.role;
     if (data.familyRelation !== undefined) user.familyRelation = data.familyRelation || undefined;
     if (data.dateOfBirth !== undefined) user.dateOfBirth = data.dateOfBirth || undefined;
@@ -752,6 +749,7 @@ export class FamilyDB {
 
     db.users[idx] = user;
     this.writeRaw(db);
+    if(roleChanged)revokeUserSessions(currentAppWriteTx()!,targetId);
     this.logActivity(adminId, adminUser, "Cập nhật thành viên", `Đã cập nhật ${user.fullName} (@${user.username}) — vai trò: ${user.role}.`);
 
     const { passwordHash, ...safeUser } = user;
@@ -771,6 +769,7 @@ export class FamilyDB {
     }
     db.users[idx].passwordHash = hashPassword(newPassword);
     this.writeRaw(db);
+    revokeUserSessions(currentAppWriteTx()!,targetId);
     this.logActivity(adminId, adminUser, "Đặt lại mật khẩu", `Đã đặt lại mật khẩu cho ${db.users[idx].fullName} (@${db.users[idx].username}).`);
 
     });
