@@ -29,13 +29,29 @@ function date(value:unknown,time=false):boolean {
  if(parsed.getUTCFullYear()!==year||parsed.getUTCMonth()!==month-1||parsed.getUTCDate()!==day||match[4]&&Number(match[4])>=24||match[5]&&Number(match[5])>=60||match[6]&&Number(match[6])>=60)return false;
  if(match[7]&&match[7]!=='Z'){const [hour,minute]=match[7].slice(1).split(':').map(Number);if(hour>14||minute>=60||hour===14&&minute!==0)return false;}return true;
 }
-function documentFiles(value:unknown):boolean {
+function documentFiles(value:unknown,previous:unknown):boolean {
  if(!Array.isArray(value)||value.length>100)return false;
- const ids=new Set<string>();
+ const ids=new Set<string>(),oldFiles=Array.isArray(previous)?previous:[];
  return value.every(file=>{
-  if(!plain(file)||Object.keys(file).some(key=>!['id','fileName','url','sizeKb','createdAt'].includes(key))||!text(file.id,256,false)||ids.has(file.id)||!text(file.fileName,500,false)||!text(file.url,4096,false)||!text(file.createdAt,64,false)||!date(file.createdAt,true)||file.sizeKb!==undefined&&(!Number.isFinite(file.sizeKb)||file.sizeKb<0||file.sizeKb>10240))return false;
-  ids.add(file.id);if(file.url.startsWith('/uploads/')){try{canonicalMediaUrl(file.url);return true;}catch{return false;}}
-  try{return ['http:','https:'].includes(new URL(file.url).protocol);}catch{return false;}
+  if(!plain(file)||!text(file.id,256,false)||ids.has(file.id))return false;
+  ids.add(file.id);
+  const old=oldFiles.find(candidate=>plain(candidate)&&candidate.id===file.id);
+  for(const key of ['fileName','url','createdAt'])if(!Object.hasOwn(file,key)&&(!old||Object.hasOwn(old,key)))return false;
+  return Object.entries(file).every(([key,entry])=>{
+   if(old&&Object.hasOwn(old,key)&&same(entry,old[key]))return true;
+   switch(key){
+    case 'id':return text(entry,256,false);
+    case 'fileName':return text(entry,500,false);
+    case 'createdAt':return text(entry,64,false)&&date(entry,true);
+    case 'sizeKb':return entry===undefined||typeof entry==='number'&&Number.isFinite(entry)&&entry>=0&&entry<=10240;
+    case 'url':{
+     if(typeof entry!=='string'||!text(entry,4096,false))return false;
+     if(entry.startsWith('/uploads/')){try{canonicalMediaUrl(entry);return true;}catch{return false;}}
+     try{return ['http:','https:'].includes(new URL(entry).protocol);}catch{return false;}
+    }
+    default:return false;
+   }
+  });
  });
 }
 const fields={
@@ -72,7 +88,7 @@ export function validateContentPayload(kind:ContentKind,input:Record<string,any>
    case 'ownerId':valid=value===''||liveId(value);break;
    case 'documentNumber':case 'issuer':valid=text(value,500);break;
    case 'issueDate':case 'expiryDate':valid=value===''||date(value);break;
-   case 'files':valid=documentFiles(value);break;
+   case 'files':valid=documentFiles(value,old?.files);break;
   }
   if(!valid)throw invalid();
   if(kind==='note'&&old&&['isShared','allowedRolesToEdit'].includes(key)&&old.creatorId!==actor.userId&&actor.role!==UserRole.ADMIN)throw forbidden();

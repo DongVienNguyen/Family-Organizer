@@ -2692,8 +2692,8 @@ export class FamilyDB {
     if(previous)assertEditVersion(previous,baseUpdatedAt);
     data=validateContentPayload('document',data,previous,actor,db);
     const now = new Date().toISOString();
-    if (!data.title || !data.title.trim()) throw new AppStoreError("Thiếu tên giấy tờ",400);
-    if (!data.type || !VALID_DOCUMENT_TYPES.has(data.type)) throw new AppStoreError("Loại giấy tờ không hợp lệ",400);
+    if ((!previous || data.title !== previous.title) && (!data.title || !data.title.trim())) throw new AppStoreError("Thiếu tên giấy tờ",400);
+    if ((!previous || data.type !== previous.type) && (!data.type || !VALID_DOCUMENT_TYPES.has(data.type))) throw new AppStoreError("Loại giấy tờ không hợp lệ",400);
 
     const files = Array.isArray(data.files) ? data.files : [];
 
@@ -2707,7 +2707,7 @@ export class FamilyDB {
       const updated: FamilyDocument = {
         ...prev,
         ...data,
-        title: data.title.trim(),
+        title: data.title === prev.title ? prev.title : data.title!.trim(),
         files,
         updatedAt: now
       } as FamilyDocument;

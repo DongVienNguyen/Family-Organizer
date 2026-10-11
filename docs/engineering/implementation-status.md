@@ -12,7 +12,7 @@
 | F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
 | F04-e | Reviewed, exact Windows GREEN, merged PR11 | HEADc2b0f88/run38171963503;664/66463files per runtime |
 | F04-f | Reviewed, exact Windows GREEN, merged PR12 | HEAD8aa5299/run38174580999;762/76266files per runtime |
-| F04-g | Content authority Cloud GREEN; PR/Windows/review pending | BASE7efdb40;850/85069files |
+| F04-g | PR13 first Windows verified; two Important review corrections in progress | HEAD9730254/run38176066061;850/85069files per runtime |
 | F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -394,3 +394,12 @@ Canonical-destination follow-up validation: Cloud664/66463files, zero failed/ski
 
 - Read main protected:false, rulesets:[], integration-reported admin/maintain/push:true; actual ci-gate check publisher GitHub Actions app15368 verified. Attempted POST repository rulesets and fallback PUT main protection with PR+strict required ci-gate/no bypass. Both gh exits1, HTTP403 Resource not accessible by integration. Exact requests/responses are in evidence/f05-enforcement-blocked.json. No enforcement or failing-PR merge-block proof claimed; with enforcement absent, no unsafe failing merge attempt was made.
 - Required external action: grant the integration GitHub Administration:write, or repository owner applies equivalent settings; then read back policy and verify a failing synthetic PR is blocked. This access question is pending asynchronously while independent source/CI continues. Browser/coverage and remaining F05 work are still pending. No token, production credential, PC runner, release or VPS requested.
+
+## F04-g — Content writes and historical-value preservation
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/13; BASE7efdb40, first source9730254f4b390341807684749bc5b8ff3a7f1b1b.
+- First Windows: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38176066061. Both Node22/24: npm ci/native/lint/test/build/production/evidence all successful;850/85069files, zero skips,19 compiled production proofs and ci-gate. Full logs/JUnit/JSON/native/production artifacts independently read; hashes in evidence/f04-g-first-source.json.
+- Current actor/context and native Notes/Plans/Documents management guards, typed header/changed-field validation, server-owned creator/timestamps, Notes delegated editor privacy controls/localized help, omitted attachment preservation and reserved URL roundtrip rejection. Existing role/object rights and genuine409/cache ordering retained.
+- Fresh single whole-branch review: noCritical, twoImportant accepted/fixed in one TDD pass (retained attachment historical fields; downstream canonical type/title preservation), noMinor/no rereview. Seven more actualRED regressions and three rejection characterizations; corrected Cloud lint/full860/86069files/build all exit0, zero skips. Frozen lockfile unchanged; exact corrected/final Windows pending. No dependency/lockfile changes.
+- Browser/PWA and coverage F05, other F04/privacy/provider/bootstrap/dependency work, package/service F06/F07, performance F09 and Server2019 R02 remain. F05 ruleset and branch-protection writes are actually blocked403; evidence/f05-enforcement-blocked.json contains exact requests/responses. No release/tag/VPS operation.
+- Next: corrected full Cloud validation, exact corrected/final Windows logs/artifacts, authorized merge; continue remaining F04 and independent F05–F08 preparation.
