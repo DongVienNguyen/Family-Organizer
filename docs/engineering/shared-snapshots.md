@@ -98,8 +98,11 @@ Windows run [38153439050](https://github.com/DongVienNguyen/Family-Organizer/act
 both Node22/24 passed300/300 in38files, all six command exits0 and ci-gate.
 One fresh whole-branch review found six Important issues; all received a single
 RED→GREEN fix pass with11 additional regression cases. Corrected full Cloud
-suite311/311 in38files passes; lint/build separately recorded. Corrected/final-HEAD
-Windows CI remains pending; first source GREEN is historical. No skips,
+suite311/311 in38files passes; lint/build separately recorded. Corrected source `7473483486e7499ed169ca3208a4d3fdbabf0adc` independently verified
+on Windows run [38154465590](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38154465590):
+both runtimes311/311, all six command exits0 and ci-gate success. Reports/hashes
+are in `evidence/i01-c-corrected-source.json`. Final documentation HEAD must also
+pass exact Windows CI; its proof belongs in the PR evidence comment. No skips,
 weakened business assertions or real provider/AI calls. No dependency/lock changes.
 The first pre-journal failure test was affected by the preceding corrupt-journal
 fixture deleting its directory; it did not independently prove cleanup RED.
