@@ -108,7 +108,7 @@ for (const method of ['get', 'post', 'put', 'delete', 'patch'] as const) {
 }
 app.get('/api/health', (_req, res) => res.json({ ok: !['failed','stopped'].includes(state.phase), version: BUILD.version }));
 app.get('/api/ready', (_req, res) => {
-  if (dependencies.checkStorage) {
+  if (state.phase === 'ready' && !state.migrating && dependencies.checkStorage) {
     try { dependencies.checkStorage(); state.storageWritable = true; }
     catch { state.storageWritable = false; }
   }
@@ -2698,17 +2698,22 @@ jobs.registerAppJob('legacy', 'reminders', () => {
   broadcastSyncEvent('NOTIFICATIONS_UPDATE');
 }, { everyMs: 30 * 60 * 1000, initialMs: 0 });
 jobs.registerAppJob('legacy', 'daily-backup-birthdays', () => {
-  const lastAuto = FamilyDB.getBackups().find(b => b.type === 'auto');
-  if (!lastAuto || Date.now() - new Date(lastAuto.createdAt).getTime() > 20 * 60 * 60 * 1000) {
-    FamilyDB.createBackup('auto', 'system', 'Hệ thống');
-  }
-  FamilyDB.generateBirthdayNotifications();
+  try {
+    const lastAuto = FamilyDB.getBackups().find(b => b.type === 'auto');
+    if (!lastAuto || Date.now() - new Date(lastAuto.createdAt).getTime() > 20 * 60 * 60 * 1000) {
+      FamilyDB.createBackup('auto', 'system', 'Hệ thống');
+    }
+  } catch (error) { console.error('Automatic backup failed', error); }
+  try { FamilyDB.generateBirthdayNotifications(); }
+  catch (error) { console.error('Birthday notifications failed', error); }
 }, { everyMs: 24 * 60 * 60 * 1000, initialMs: 0 });
 await setupAssets();
 app.use((error: unknown, _req: Request, res: Response, next: NextFunction) => {
   console.error('Request failed', error);
   if (res.headersSent) { next(error); return; }
-  res.status(500).json({ error: 'Không xử lý được yêu cầu.' });
+  const status = (error as { status?: unknown })?.status;
+  res.status(typeof status === 'number' && Number.isInteger(status) && status >= 400 && status < 500 ? status : 500)
+    .json({ error: 'Không xử lý được yêu cầu.' });
 });
 return {
   app, jobs,

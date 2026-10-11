@@ -57,4 +57,36 @@ describe('runtime lifecycle', () => {
     const close=runtime.close();await delay(15);expect(closed).toBe(false);release();await maintenance;await close;expect(closed).toBe(true);
   });
 
+  it('closes storage once even when asset disposal rejects after drained shutdown', async () => {
+    const { startManagedServer } = await load(); let closed=0;
+    const runtime=await startManagedServer({app:express(),jobs:new AppJobs(),endStreams:()=>{},dispose:async()=>{throw new Error('asset disposal failed');}},{port:0,host:'127.0.0.1',closeStorage:()=>{closed++;}});
+    await expect(runtime.close()).rejects.toThrow('asset disposal failed');
+    await expect(runtime.close()).rejects.toThrow('asset disposal failed');
+    expect(closed).toBe(1);expect(runtime.state.phase).toBe('failed');expect(runtime.server.listening).toBe(false);
+  });
+  it('failed startup still closes storage if asset disposal rejects', async () => {
+    const { startManagedServer } = await load();const blocker=http.createServer().listen(0,'127.0.0.1');await new Promise<void>(resolve=>blocker.once('listening',resolve));let closed=0;
+    try{
+      await expect(startManagedServer({app:express(),jobs:new AppJobs(),endStreams:()=>{},dispose:async()=>{throw new Error('asset disposal failed');}},{port:(blocker.address() as any).port,host:'127.0.0.1',closeStorage:()=>{closed++;}})).rejects.toThrow();
+      expect(closed).toBe(1);
+    }finally{await new Promise<void>(resolve=>blocker.close(()=>resolve()));}
+  });
+  it('bounds pending asset disposal and still closes drained storage', async () => {
+    const { startManagedServer } = await load();let release!:()=>void,closed=0;
+    const held=new Promise<void>(resolve=>{release=resolve;});
+    const runtime=await startManagedServer({app:express(),jobs:new AppJobs(),endStreams:()=>{},dispose:()=>held},{port:0,host:'127.0.0.1',timeoutMs:40,closeStorage:()=>{closed++;}});
+    const close=runtime.close();let timer:ReturnType<typeof setTimeout>|undefined;
+    const outcome=await Promise.race([close.then(()=> 'resolved',error=>String(error)),new Promise<string>(resolve=>{timer=setTimeout(()=>resolve('unbounded disposal'),200);})]);
+    clearTimeout(timer);release();await close.catch(()=>{});
+    expect(outcome).toMatch(/timed out/);expect(closed).toBe(1);
+  });
+  it('bounds asynchronous storage closure and reports shutdown failure', async () => {
+    const { startManagedServer } = await load();let release!:()=>void,closed=0;
+    const held=new Promise<void>(resolve=>{release=resolve;});
+    const runtime=await startManagedServer({app:express(),jobs:new AppJobs(),endStreams:()=>{},dispose:async()=>{}},{port:0,host:'127.0.0.1',timeoutMs:40,closeStorage:()=>{closed++;return held;}});
+    const close=runtime.close();let timer:ReturnType<typeof setTimeout>|undefined;
+    const outcome=await Promise.race([close.then(()=> 'resolved',error=>String(error)),new Promise<string>(resolve=>{timer=setTimeout(()=>resolve('unbounded storage closure'),200);})]);
+    clearTimeout(timer);release();await close.catch(()=>{});
+    expect(outcome).toMatch(/timed out/);expect(closed).toBe(1);expect(runtime.state.phase).toBe('failed');
+  });
 });

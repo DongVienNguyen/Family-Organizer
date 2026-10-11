@@ -20,6 +20,17 @@ async function bounded<T>(promise: Promise<T>, ms: number): Promise<T> {
   } finally { clearTimeout(timer!); }
 }
 
+/** Call only after storage owners have drained; asset disposal never owns DB. */
+export async function disposeDrainedResources(dispose: () => Promise<void>, closeStorage: () => void | Promise<void>, timeoutMs = 30_000): Promise<void> {
+  const failures: unknown[] = [];
+  try { await bounded(Promise.resolve().then(dispose), timeoutMs); }
+  catch (error) { failures.push(error); }
+  try { await bounded(Promise.resolve().then(closeStorage), timeoutMs); }
+  catch (error) { failures.push(error); }
+  if (failures.length === 1) throw failures[0];
+  if (failures.length) throw new AggregateError(failures, 'Runtime resource cleanup failed');
+}
+
 export async function startManagedServer(handle: ManagedApp, options: {
   port: number; host?: string; timeoutMs?: number; state?: RuntimeState;
   closeStorage(): void | Promise<void>;
@@ -27,6 +38,8 @@ export async function startManagedServer(handle: ManagedApp, options: {
 }) {
   const state = options.state ?? { phase: 'starting', storageWritable: true };
   const server = http.createServer(handle.app);
+  const timeout = options.timeoutMs ?? 30_000;
+  const disposeAndCloseStorage = () => disposeDrainedResources(() => handle.dispose(), () => options.closeStorage(), timeout);
   try {
     await new Promise<void>((resolve, reject) => {
       const error = (cause: Error) => reject(cause);
@@ -37,12 +50,18 @@ export async function startManagedServer(handle: ManagedApp, options: {
     handle.jobs.start();
   } catch (error) {
     state.phase = 'failed';
-    await handle.jobs.stop(); await handle.dispose(); await options.closeStorage();
+    const drained = server.listening
+      ? new Promise<void>((resolve, reject) => server.close(cause => cause ? reject(cause) : resolve()))
+      : Promise.resolve();
+    server.closeIdleConnections();
+    await bounded(Promise.all([drained, handle.jobs.stop(), handle.drainHandlers?.()]), timeout);
+    await bounded(options.drainEffects?.() ?? Promise.resolve(), timeout);
+    try { await disposeAndCloseStorage(); }
+    catch (cleanupError) { throw new AggregateError([error, cleanupError], 'Runtime startup and cleanup failed'); }
     throw error;
   }
   let closing: Promise<void> | undefined;
   let maintenanceWork: Promise<unknown> | undefined;
-  const timeout = options.timeoutMs ?? 30_000;
   function maintenance<T>(work: () => Promise<T>): Promise<T> {
     if (state.phase !== 'ready' || maintenanceWork) return Promise.reject(new Error('Runtime is not ready for maintenance'));
     state.phase = 'maintenance';
@@ -73,8 +92,7 @@ export async function startManagedServer(handle: ManagedApp, options: {
       try {
         await bounded(Promise.all([drained, handle.jobs.stop(), handle.drainHandlers?.(), maintenanceWork]), timeout);
         await bounded(options.drainEffects?.() ?? Promise.resolve(), timeout);
-        await handle.dispose();
-        await options.closeStorage();
+        await disposeAndCloseStorage();
         state.phase = 'stopped';
       } catch (error) {
         state.phase = 'failed'; server.closeAllConnections(); throw error;

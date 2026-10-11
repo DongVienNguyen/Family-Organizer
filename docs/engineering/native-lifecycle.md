@@ -5,13 +5,18 @@ Dependencies include the legacy DB/media/provider modules, a shared AppJobs regi
 a metrics sampler, build identity and RuntimeState. Type-only module imports keep
 factory import free of SQLite, HTTP and scheduler startup. Pure fixtures can inject
 these ports; production startup explicitly selects one installation per process.
-The legacy store is not rewritten into a second database manager.
+The legacy store is not rewritten into a second database manager. Startup claims
+this process before any asynchronous work; another start is rejected without touching
+the current owner. After stop or startup failure, restart requires a fresh process
+because the legacy modules cache one connection. SQLite initialization closes the
+native handle itself if schema/statement preparation throws before exports exist.
 
 `startApplication()` validates selected roots/write permissions, imports SQLite and
 bootstraps legacy storage, creates routes/assets, then calls startManagedServer.
 Readiness is false before initialization/migration completes. `/api/health` retains
 its liveness/version response; `/api/ready` returns503 during migration, maintenance,
-drain or failed storage probes. Both are minimal service-health endpoints; all
+drain or failed storage probes. Only a ready, non-migrating phase invokes the
+write-permission probe; unavailable phases never recreate or write storage. Both are minimal service-health endpoints; all
 existing business API authentication remains. No public integration/control API.
 
 Maintenance is an internal `runtime.maintenance(work)` operation for I01. It gates
@@ -23,7 +28,11 @@ socket disconnect. Startup jobs are not replayed immediately on maintenance resu
 
 Close is idempotent and bounded: stop intake, end SSE, close idle HTTP connections,
 abort/drain jobs, drain handlers/responses/effects, dispose dev Vite, checkpoint/close
-SQLite. Timeout is a failed shutdown, never a green result; storage is not closed
+SQLite. Asset disposal and storage closure have separate bounded attempts after
+ownership drains; an asset error or timeout still attempts native close and reports
+failed shutdown. Asset disposal may release Vite resources but must not access DB.
+The configured timeout bounds each drain/disposal/close stage; CLI additionally
+forces a nonzero process exit after35seconds. Timeout is a failed shutdown, never a green result; storage is not closed
 under a still-running handler. CLI then exits nonzero and OS releases resources.
 Operators must investigate the failure rather than treat it as graceful success.
 CLI supports stdin line `stop`, SIGINT and SIGTERM, and handles fatal HTTP/process
@@ -34,6 +43,9 @@ Actual WinSW stop wiring remains F07 and Server2019 acceptance remains R02.
 AppJobs owns every legacy schedule: reminders, daily backup/birthdays, metrics,
 market history, Telegram backup and weekly digest. Each namespace/type is unique;
 per-handler execution is serial, errors are logged, no timer starts on registration.
+Automatic backup and birthday generation retain independent error handling so a
+failed backup does not suppress birthdays. Parser errors keep400/413 status codes
+with a generic response body.
 I01 must add durable leases/retry/outbox to this same registry; F03 does not claim
 that engine is finished. Provider routines still drain rather than guaranteeing
 remote cancellation; a hung call hits the shutdown deadline and fails explicitly.

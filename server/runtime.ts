@@ -4,20 +4,27 @@ import { AppJobs } from './appJobs.js';
 import { drainAppEffects } from './appEffects.js';
 import { createSystemMetrics } from './systemMetrics.js';
 import { readBuildInfo } from './updater.js';
-import { startManagedServer } from './lifecycle.js';
+import { startManagedServer, disposeDrainedResources } from './lifecycle.js';
 import type { RuntimeState } from './runtimeState.js';
 
 /** The legacy store is one installation per process; it is loaded explicitly here. */
+let applicationClaimed = false;
 export async function startApplication(config: AppConfig = appConfig) {
+  // Cached legacy modules hold one connection. Restart after stop/failure uses a
+  // fresh process, so another launch can never dispose this process's owner.
+  if (applicationClaimed) throw new Error('Application already started; restart in a fresh process');
+  applicationClaimed = true;
   const state: RuntimeState = { phase: 'starting', storageWritable: false, migrating: true };
   prepareStorage(config);
   for (const key of ['codeRoot', 'dataRoot', 'configRoot', 'logRoot'] as const) {
     if (config[key] !== appConfig[key]) throw new Error('Storage roots must match the launch configuration');
   }
-  const sqlite = await import('./sqlite.js');
+  let sqlite: typeof import('./sqlite.js') | undefined;
   let handle: Awaited<ReturnType<typeof createApp>> | undefined;
   let delegated = false;
   try {
+    sqlite = await import('./sqlite.js');
+    const storage = sqlite;
     const db = await import('./db.js');
     const media = await import('./media.js');
     const fullBackup = await import('./fullBackup.js');
@@ -37,13 +44,14 @@ export async function startApplication(config: AppConfig = appConfig) {
     delegated = true;
     return await startManagedServer(handle, {
       port, state, drainEffects: drainAppEffects,
-      closeStorage() { sqlite.sqliteCheckpoint(); sqlite.sqliteClose(); },
+      closeStorage() { storage.sqliteCheckpoint(); storage.sqliteClose(); },
     });
   } catch (error) {
     state.phase = 'failed';
     if (!delegated) {
-      await handle?.jobs.stop(); await handle?.dispose();
-      await drainAppEffects(); sqlite.sqliteClose();
+      await handle?.jobs.stop();
+      await drainAppEffects();
+      await disposeDrainedResources(async () => { await handle?.dispose(); }, () => sqlite?.sqliteClose());
     }
     throw error;
   }

@@ -68,4 +68,40 @@ describe('application factory', () => {
     await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.dispose();
   });
 
+  it('readiness never probes or recreates storage while maintenance owns it', async () => {
+    const { createApp }=await load();const state={phase:'ready',storageWritable:true,migrating:false};const deps=syntheticDependencies(state);
+    const probeRoot=process.env.DATA_DIR!+'/readiness-owned';let probes=0;
+    deps.checkStorage=()=>{probes++;fs.mkdirSync(probeRoot,{recursive:true});};
+    const handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!},deps);
+    const runtime=await startManagedServer(handle,{port:0,host:'127.0.0.1',state:state as any,closeStorage:()=>{}});
+    try{
+      expect((await request(runtime.server,'/api/ready')).status).toBe(200);expect(probes).toBe(1);
+      await runtime.maintenance(async()=>{
+        fs.rmSync(probeRoot,{recursive:true});
+        for(let i=0;i<3;i++)expect((await request(runtime.server,'/api/ready')).status).toBe(503);
+        expect(fs.existsSync(probeRoot)).toBe(false);expect(probes).toBe(1);
+      });
+      for(const phase of ['starting','draining','failed','stopped']){
+        state.phase=phase;expect((await request(runtime.server,'/api/ready')).status).toBe(503);expect(probes).toBe(1);
+      }
+      state.phase='ready';state.migrating=true;expect((await request(runtime.server,'/api/ready')).status).toBe(503);expect(probes).toBe(1);
+    }finally{await runtime.close();}
+  });
+  it('backup failure does not suppress birthday generation', async () => {
+    const { createApp }=await load();const deps=syntheticDependencies({phase:'ready',storageWritable:true});let birthdays=0,backups=0;
+    deps.db.FamilyDB.createBackup=()=>{backups++;throw new Error('Synthetic backup destination unwritable');};
+    let done!:()=>void;const generated=new Promise<void>(resolve=>{done=resolve;});
+    deps.db.FamilyDB.generateBirthdayNotifications=()=>{birthdays++;done();};
+    const handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!},deps);
+    handle.jobs.start();let timer:ReturnType<typeof setTimeout>|undefined;
+    await Promise.race([generated,new Promise<void>(resolve=>{timer=setTimeout(resolve,100);})]);clearTimeout(timer);
+    await handle.jobs.stop();await handle.dispose();expect(backups).toBe(1);expect(birthdays).toBe(1);
+  });
+  it('malformed and oversized JSON keep client error status codes', async () => {
+    const { createApp }=await load();const handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!},syntheticDependencies({phase:'ready',storageWritable:true}));
+    const server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');
+    const send=(body:string)=>new Promise<number>((resolve,reject)=>{const req=http.request({hostname:'127.0.0.1',port:(server.address() as any).port,path:'/api/auth/login',method:'POST',headers:{'Content-Type':'application/json','Content-Length':Buffer.byteLength(body)}},res=>{res.resume();res.on('end',()=>resolve(res.statusCode!));});req.on('error',reject);req.end(body);});
+    try{expect(await send('{')).toBe(400);expect(await send(JSON.stringify({padding:'x'.repeat(15*1024*1024)}))).toBe(413);}
+    finally{await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.dispose();}
+  });
 });

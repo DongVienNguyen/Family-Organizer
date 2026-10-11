@@ -13,7 +13,7 @@ const suiteNames = [
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
   'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
   'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
-  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx',
+  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -100,7 +100,7 @@ describe('Windows CI evidence gate', () => {
   it('rejects production reports that omit the permission or offline checks', () => {
     expect(runEvidence(reports => { reports['production.json'].checks = []; }).code).toBe(1);
   });
-  it.each(['server/app.test.ts','server/lifecycle.test.ts','server/appJobs.test.ts','server/appEffects.test.ts','server/systemMetrics.test.ts','tests/runtime-process.test.ts','tests/ui/windows-version.test.tsx'])('rejects missing F03 suite %s', name => {
+  it.each(['server/app.test.ts','server/lifecycle.test.ts','server/appJobs.test.ts','server/appEffects.test.ts','server/systemMetrics.test.ts','tests/runtime-process.test.ts','tests/ui/windows-version.test.tsx','tests/runtime-ownership.test.ts'])('rejects missing F03 suite %s', name => {
     expect(runEvidence(reports => { const v=reports['vitest.json']; v.testResults=v.testResults.filter((s:any)=>!s.name.endsWith(name)); v.numTotalTests=v.numPassedTests=v.testResults.length; }).code).toBe(1);
   });
   it.each(['graceful-shutdown','readiness','crash-recovery'])('rejects missing compiled-production lifecycle evidence %s', check => {
