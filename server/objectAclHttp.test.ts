@@ -84,3 +84,30 @@ it('rejects an assistant result if its session was revoked during the provider w
   const result=await pending;expect(result.status).toBe(401);expect(JSON.stringify(result.body)).not.toContain('private reply');
 }));
 it('does not widen the existing note write-role grant for a nonauthor admin',()=>fixture(async({send,deps}:any)=>{expect((await send('/api/notes',UserRole.ADMIN,{id:'note-child',title:'synthetic'})).status).toBe(403);expect(deps.db.FamilyDB.saveNote).not.toHaveBeenCalled();}));
+
+it('does not redispatch captured context after session revocation during provider backoff',()=>fixture(async({send,deps,tokens}:any)=>{
+  generate.mockRejectedValueOnce(new Error('429 synthetic overload'));
+  const pending=send('/api/assistant/chat',UserRole.MEMBER,{message:'synthetic'});
+  await vi.waitFor(()=>expect(generate).toHaveBeenCalledOnce());deps.auth.logout(tokens[UserRole.MEMBER]);
+  const result=await pending;expect(result.status).toBe(401);expect(generate).toHaveBeenCalledOnce();expect(JSON.stringify(result.body)).not.toContain('synthetic private');
+}));
+it('does not redispatch a shared plan after visibility revocation during provider backoff',()=>fixture(async({send,plans}:any)=>{
+  const plan=plans.find((row:any)=>row.id==='plan-shared');plan.creatorId=UserRole.ADMIN;
+  generate.mockRejectedValueOnce(new Error('429 synthetic overload'));
+  const pending=send('/api/assistant/chat',UserRole.MEMBER,{message:'synthetic'});
+  await vi.waitFor(()=>expect(generate).toHaveBeenCalledOnce());plan.isShared=false;
+  const result=await pending;expect(result.status).toBe(409);expect(generate).toHaveBeenCalledOnce();expect(JSON.stringify(result.body)).not.toContain('Synthetic shared plan');
+}));
+it.each(['plan','task'])('discards assistant replies after captured %s loses visibility while the session stays valid',kind=>fixture(async({send,plans,tasks,deps,tokens}:any)=>{
+  const role=kind==='plan'?UserRole.MEMBER:UserRole.CHILD;
+  const row=(kind==='plan'?plans:tasks).find((item:any)=>item.id===kind+'-shared');row.creatorId=UserRole.ADMIN;row.isShared=kind==='plan';row.assigneeId=role;
+  let finish!:(value:any)=>void;generate.mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve;}));
+  const pending=send('/api/assistant/chat',role,{message:'synthetic'});await vi.waitFor(()=>expect(generate).toHaveBeenCalledOnce());
+  expect(generate.mock.calls[0][0].contents).toContain(kind+'-shared');row.isShared=false;row.assigneeId=UserRole.ADMIN;
+  expect(deps.auth.verify(tokens[role])).toBeTruthy();finish({text:'{"reply":"synthetic private reply","actions":[]}'});
+  const result=await pending;expect(result.status).toBe(409);expect(JSON.stringify(result.body)).not.toContain('private reply');
+}));
+it('preserves assistant overload retry when the captured context remains authorized',()=>fixture(async({send}:any)=>{
+  generate.mockRejectedValueOnce(new Error('429 synthetic overload'));
+  expect((await send('/api/assistant/chat',UserRole.MEMBER,{message:'synthetic'})).status).toBe(200);expect(generate).toHaveBeenCalledTimes(2);
+}));

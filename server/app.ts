@@ -188,9 +188,10 @@ function geminiErrorMessage(err: any): string {
   return err?.message || "AI đang gặp lỗi, vui lòng thử lại.";
 }
 // Gọi Gemini có tự thử lại khi bị quá tải (503/429) với backoff nhẹ.
-async function geminiGenerate(ai: any, params: any, retries = 2): Promise<any> {
+async function geminiGenerate(ai: any, params: any, retries = 2, beforeAttempt?: () => void): Promise<any> {
   let lastErr: any;
   for (let attempt = 0; attempt <= retries; attempt++) {
+    beforeAttempt?.();
     try {
       return await ai.models.generateContent(params);
     } catch (err) {
@@ -1754,6 +1755,23 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       times: m.times,
       isActive: m.isActive
     }));
+    // Captured prompts remain usable only while every included object is visible.
+    // Check immediately before every dispatch and again after the provider await.
+    const assertContextAuthorized = () => {
+      const current=dependencies.auth.verify(req.headers.authorization!.slice(7));
+      if(!current) throw Object.assign(new Error('Phiên đăng nhập đã kết thúc.'),{assistantStatus:401});
+      const currentActor={userId:current.id,role:current.role};
+      const visible=(captured:any[],rows:any[],allow:(row:any,actor:any)=>boolean)=>captured.every(item=>{
+        const row=rows.find(candidate=>candidate.id===item.id);
+        return row!==undefined&&allow(row,currentActor);
+      });
+      if(!visible(tasks,FamilyDB.getTasks(),canViewLegacyTask)||
+        !visible(plans,FamilyDB.getPlans(),canViewLegacyPlan)||
+        !visible(medications,FamilyDB.getMedications(),(row,actor)=>canViewLegacyPatient(row.patientId,actor))||
+        (transactions.length>0&&!isAdult(currentActor))) {
+        throw Object.assign(new Error('Quyền xem dữ liệu đã thay đổi. Vui lòng gửi lại câu hỏi.'),{assistantStatus:409});
+      }
+    };
     const shoppingItems = FamilyDB.getShoppingItems()
       .filter(item => !item.isPurchased)
       .slice(0, 80)
@@ -1764,7 +1782,7 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       "Schema: {\"reply\":\"câu trả lời cho người dùng\",\"actions\":[{\"type\":\"create_shopping_items\",\"title\":\"tiêu đề hành động\",\"items\":[{\"name\":\"tên món cần mua\",\"quantity\":\"số lượng nếu biết\",\"note\":\"ghi chú nếu cần\"}]}]}",
       "Chỉ tạo action create_shopping_items khi người dùng yêu cầu thêm/tạo/lập danh sách đi chợ, mua sắm, hoặc hỏi menu và nhờ thêm nguyên liệu vào danh sách đi chợ. Nếu chỉ hỏi gợi ý hoặc hỏi thông tin, actions phải là [].",
       "Không tạo quá 20 món. Gộp món trùng nhau. Không tự ý tạo task, giao dịch, thuốc hoặc lịch vì app hiện chỉ cho phép action đi chợ.",
-      `Nguoi hoi: ${req.userSession?.fullName}`,
+      `Nguoi hoi: ${user.fullName}`,
       `Tasks gan day: ${JSON.stringify(tasks)}`,
       `Lich gan day: ${JSON.stringify(plans)}`,
       `Giao dich gan day: ${JSON.stringify(transactions)}`,
@@ -1776,8 +1794,8 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       model: "gemini-2.5-flash",
       contents: prompt,
       config: { responseMimeType: "application/json" }
-    } as any);
-    if(!dependencies.auth.verify(req.headers.authorization!.slice(7))){res.status(401).json({error:'Phiên đăng nhập đã kết thúc.'});return;}
+    } as any, 2, assertContextAuthorized);
+    assertContextAuthorized();
     const rawText = response.text || "";
     const parsed = parseAssistantJson(rawText);
     if (!parsed) {
@@ -1789,6 +1807,7 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       actions: normalizeAssistantActions(parsed.actions)
     });
   } catch (err: any) {
+    if(err.assistantStatus===401||err.assistantStatus===409){res.status(err.assistantStatus).json({error:err.message});return;}
     console.error("Assistant error:", err);
     res.status(500).json({ error: err.message || "Trợ lý AI đang gặp lỗi" });
   }
