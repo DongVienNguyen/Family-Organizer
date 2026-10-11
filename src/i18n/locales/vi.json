@@ -41,7 +41,10 @@
     "footer": "Dữ liệu riêng tư • Chạy trên máy chủ của gia đình",
     "errorEmpty": "Vui lòng điền tài khoản và mật khẩu!",
     "errorInvalid": "Mật khẩu không chính xác!",
-    "errorConnect": "Không thể kết nối đến máy chủ"
+    "errorConnect": "Không thể kết nối đến máy chủ",
+    "sessionPreparing": "Đang chuẩn bị phiên…",
+    "sessionCleanupFailed": "Không thể dọn dữ liệu phiên trước.",
+    "sessionRetry": "Thử lại"
   },
   "nav": {
     "dashboard": "Tổng quan",

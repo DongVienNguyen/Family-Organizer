@@ -96,6 +96,9 @@ function validateAssetPhotosPayload(photos: unknown) {
 }
 
 const app = express();
+app.use(['/api','/uploads'],(_req,res,next)=>{
+  res.setHeader('Cache-Control','no-store');res.setHeader('Pragma','no-cache');res.setHeader('Expires','0');res.vary('Authorization');next();
+});
 const handlers = new Map<Promise<unknown>,object>();
 const responses = new Map<Promise<void>,object>();
 const requestOwners = new WeakMap<Request,object>();
@@ -294,7 +297,7 @@ app.use(authMiddleware as any);
 // Serve uploaded media (avatars/assets/receipts) as static files. Filenames are
 // random/unguessable; the app runs on a private LAN/Tailscale network. Mounted
 // before the SPA catch-all so image URLs resolve in both dev and production.
-app.use("/uploads", express.static(UPLOADS_DIR, { maxAge: "7d", immutable: true, fallthrough: false }));
+app.use("/uploads", express.static(UPLOADS_DIR, { cacheControl:false, fallthrough: false }));
 
 // Enforce authentication on APIs
 const requireAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -691,7 +694,7 @@ app.post("/api/auth/change-password", requireAuth, (req: AuthRequest, res: Respo
 app.get("/api/realtime", (req: Request, res: Response) => {
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
-    "Cache-Control": "no-cache",
+    "Cache-Control": "no-store",
     "Connection": "keep-alive"
   });
 
@@ -852,7 +855,7 @@ app.get("/api/calendar.ics", (req: Request, res: Response) => {
   }
   res.setHeader("Content-Type", "text/calendar; charset=utf-8");
   res.setHeader("Content-Disposition", 'inline; filename="family-calendar.ics"');
-  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Cache-Control", "no-store");
   res.send(buildIcsFeed());
 });
 

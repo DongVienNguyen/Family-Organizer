@@ -1,5 +1,20 @@
 # Tiến độ Windows-native
 
+## Current integration state — 2026-10-11
+
+| Task | Current result | Evidence |
+|---|---|---|
+| F01–F03 | Reviewed, exact Windows GREEN, merged | PR1–3; historical entries below |
+| I01 | Gateway, durable jobs and shared recovery integrated | PR4–6 |
+| F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
+| F04-b | Client/cache source accepted; final documentation HEAD verification pending | Entries below; no browser acceptance claim |
+| F04 remaining | SSE/media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
+| F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
+| P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
+| R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
+
+Entries below are historical snapshots; later entries supersede earlier remaining-work lists and runtime choices. All51 master tasks are not yet complete. The user authorizes reviewed exact-HEAD Windows-GREEN PR merges without another question.
+
 ## F01 — Baseline/Windows CI bootstrap
 
 - Repo: `DongVienNguyen/Family-Organizer`, base `main`, branch `codex/f01-windows-baseline`.
@@ -234,3 +249,30 @@
 - Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: each352/352 tests42files, zero failed/skipped/todo, npmci/native/lint/test/build/compiled-production exit0; ci-gate success. Both full logs/artifacts independently read, JUnit/JSON/native/production/hashes validated in `evidence/f04-a-corrected-source.json`. The three-process idle key-rotation regression is included.
 - One Important review finding fixed in one RED→GREEN pass; no minors or dependency/lock changes. This documentation HEAD still needs exact Windows CI; final SHA/run/report proof will be in the PR evidence comment before authorized merge.
 - Next F04-b browser session/cache boundary, followed by remaining F04 media/SSE/object/input/privacy/dependency and F05 browser gates. Full F04/foundation/master plan remain incomplete; Server2019/service/encryption/package/performance are unrun. No release/tag or VPS access/deployment.
+
+### F04-a integrated; F04-b client/cache implementation for review
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/7 merged as `91d569509e537729e6d6cd373d7e4a43eeedef0c`. Final HEAD `8af9efe9b3424abf007c31eea5c33854fc3cf027`, exact Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38157656295 independently verified352/35242files per Node22/24, all six command exits0 plus ci-gate. Full logs/both artifacts/JUnit/JSON/native/production/hashes read. Final proof https://github.com/DongVienNguyen/Family-Organizer/pull/7#issuecomment-6111469048.
+- F04-b BASE `91d569509e537729e6d6cd373d7e4a43eeedef0c`, branch `codex/f04-client-session-isolation`. Internal request/session revision boundary, owned cancellation/deadlines/body+clone+stream guards and old401 isolation; React root remount purges private in-memory state. New session opens only after private cache/IndexedDB cleanup and safe controlling-worker acknowledgement. Cross-tab/restore/expired-session handling and late bootstrap/export guards. Theme/language/public shell/assets preserved; private URL-only offline fallback removed under approved privacy/no-store requirements. See `client-session-isolation.md` for limits/rulings/costs.
+- Actual worker-source tests11RED/one public characterization→12GREEN; boundary16port RED plus clone-owner/browser-signal actual regressions→18GREEN; storage/worker13GREEN (one initially weak timeout assertion strengthened), listeners4RED→GREEN, HTTP no-store RED→GREEN, logout compatibility RED→GREEN, actual App bootstrap and late PDF export RED→GREEN. Existing finance/emergency PDF delivery characterized; providers synthetic/offline. New compiled production check requires private API/denial/media no-store proof; missing evidence gate observed RED→GREEN. All previous assertions retained.
+- Final Cloud Node24 full suite406/406 tests49files, zero failed/skipped/todo, lint/build exit0. No dependencies/lock change. Exact source/final Windows CI and fresh whole-branch review remain pending; no merge claim.
+- Remaining F04 authenticated SSE/media/object/privacy/input/proxy/bootstrap/dependency and notification gates; real browser logout/switch/offline/IndexedDB acceptance F05 remains unrun. F06–F09 and full master feature milestones follow foundation acceptance. Server2019 R02 separate; no release/tag or VPS access/deployment.
+
+### F04-b first Windows proof and review correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/8; firstsource HEAD `351cf8ea60fa947abb43c2c34fefb825e233c496`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38159784805. Downloaded/read full logs and both artifacts: each Node22/24 has406/406 tests49files, zero failed/skipped/todo, install/native/lint/test/build/production exit0, ci-gate success. JUnit/JSON/native/production hashes and14 mandatory production checks independently validated; `evidence/f04-b-first-source.json`.
+- Fresh wholebranch review found three Important issues: async A callbacks adopting B credentials, successful SSE/ICS overriding no-store, and obsolete cross-tab events leaving endless cleanup retry. One TDD fix pass with actual RED→GREEN regressions, including continuation audit for batch uploads/restore confirmation/lazy PDF import. Deferred Minor: native stream cancellation/iterator owner parity; documented in `f04-b-review.md` for following streaming slice. No second review and no assertions weakened.
+- Corrected Cloud Node24 full suite435/435 tests51files, lint/build exit0, zero failed/skipped/todo. Two additional suites are mandatory in evidence validation. No dependency/lock change. Corrected source/final exact Windows CI remains required before authorized merge; firstsource proof is historical.
+- Next: authenticated SSE/media/object and remaining F04 privacy/input/proxy/bootstrap/dependencies plus F05 actual browser proof. Full F04/F01–F09/master acceptance remains incomplete. Server2019/package/service/encryption/powerloss/performance unrun; no release/tag or VPS access/deployment.
+
+### F04-b actual Windows failure and fixture correction
+
+- Corrected application HEAD `35c41a770db25af493884f9e747fe0b463aaaacc`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38160905793 **failed**. Full logs/two artifacts read: both Node22/24 install/native/lint/build/production exit0, test exit1;434passed/1failed in51files, zero skipped/todo. `ci-gate` correctly failed. Failure is the cross-tab VM fixture slicing LF-only source and executing main JSX on CRLF checkout. Exact failed reports/hashes retained in `evidence/f04-b-crlf-failure.json`; build success is not test acceptance.
+- Added explicit LF/CRLF cross-tab source cases: CRLF reproduced the same SyntaxError on Cloud, then GREEN after selecting the semantic createRoot boundary. Assertions preserved; no application change, no skip/retry masking. Final Cloud436/43651files, lint exit0; application build previously exit0 and Windows will rebuild exact HEAD. Updated source/final Windows acceptance still pending, PR8 not merged.
+
+### F04-b corrected Windows source acceptance
+
+- Corrected source HEAD `36ff534457c433ee3843cdb2512bf834d950722d`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/8, exact Windows2022 x64 CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38161262854 success.
+- Independently downloaded/read full logs and both artifacts. Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each436/436 tests51files, zero failed/skipped/todo, install/native/lint/test/build/production exits0; ci-gate success. JUnit/JSON/native/production hashes and14 mandatory production checks verified in `evidence/f04-b-corrected-source.json`. Explicit LF/CRLF cross-tab cases pass on Windows; previous failed run remains historical evidence.
+- Three Important findings fixed in one TDD pass; deferred Minor stream cancellation/iterator owner parity recorded for next authenticated realtime slice. No dependency/lock changes, real providers, skipped assertions or retry masking. This documentation HEAD still requires its own Windows execution; final SHA/run/report proof will be recorded in the PR evidence comment before authorized merge.
+- Next: F04-c authenticated realtime and owned streaming, followed by media/object/input/proxy/bootstrap/privacy/dependency gates and F05 actual browser proof. Full F04/foundation/master acceptance remains incomplete. Server2019/service/encryption/package/powerloss/performance remain unrun; no release/tag or VPS access/deployment.

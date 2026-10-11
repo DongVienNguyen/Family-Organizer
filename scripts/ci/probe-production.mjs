@@ -93,6 +93,9 @@ try {
     assert.equal(JSON.parse(login.text).user.id, 'synthetic-adult');
     const token=JSON.parse(login.text).token;assert.match(token,/^fo1\./);assert.equal(login.headers['cache-control'],'no-store');
     assert.equal((await request(port,'/api/auth/me',undefined,token)).status,200);
+    const privateUsers=await request(port,'/api/users',undefined,token);assert.equal(privateUsers.status,200);assert.equal(privateUsers.headers['cache-control'],'no-store');assert.match(privateUsers.headers.vary,/Authorization/i);
+    const unauthorizedUsers=await request(port,'/api/users');assert.equal(unauthorizedUsers.status,401);assert.equal(unauthorizedUsers.headers['cache-control'],'no-store');
+    const absentMedia=await request(port,'/uploads/synthetic-not-present.png',undefined,token);assert.equal(absentMedia.status,404);assert.equal(absentMedia.headers['cache-control'],'no-store');
     if(iteration===1){
       assert.equal((await request(port,'/api/auth/logout',{},token)).status,200);
       assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);
@@ -149,7 +152,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

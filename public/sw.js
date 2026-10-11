@@ -1,101 +1,60 @@
-// Family Organizer service worker.
-// Strategies:
-//  - App navigations: network-first, fall back to cached shell (offline open).
-//  - Static assets (Vite-hashed JS/CSS/img/fonts): cache-first.
-//  - API GET: network-first, fall back to last-known-good cache (offline read).
-//  - API writes (POST/DELETE) and SSE (/api/realtime): not intercepted.
-
-const VERSION = "v4";
+// Cache only the public shell/assets. Internal API/media always use the network.
+const VERSION = "v5";
 const STATIC_CACHE = `family-static-${VERSION}`;
-const API_CACHE = `family-api-${VERSION}`;
 const APP_SHELL = ["/", "/manifest.webmanifest", "/pwa-icon.svg"];
+const isOwnedCache = key => key.startsWith("family-static-") || key.startsWith("family-api-") || key.startsWith("family-private-");
 
 self.addEventListener("install", event => {
-  // Không tự skipWaiting: một SW mới sẽ CHỜ ở trạng thái "waiting" để người dùng
-  // chủ động bấm cập nhật (trang gửi "SKIP_WAITING"), tránh tự reload cắt ngang.
-  // Riêng lần cài đầu tiên trình duyệt vẫn kích hoạt ngay vì chưa có SW nào chạy.
-  event.waitUntil(
-    caches.open(STATIC_CACHE).then(cache => cache.addAll(APP_SHELL))
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await (await caches.open(STATIC_CACHE)).addAll(APP_SHELL);
+    // One security migration: replace workers that stored private API/media.
+    // Once migrated, ordinary updates keep the existing explicit waiting flow.
+    if (keys.some(key => /^family-static-v[1-4]$/.test(key) || key.startsWith("family-api-"))) await self.skipWaiting();
+  })());
 });
-
 self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(
-        keys.filter(key => key !== STATIC_CACHE && key !== API_CACHE).map(key => caches.delete(key))
-      ))
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil(caches.keys()
+    .then(keys => Promise.all(keys.filter(key => isOwnedCache(key) && key !== STATIC_CACHE).map(key => caches.delete(key))))
+    .then(() => self.clients.claim()));
 });
-
-// Allow the page to trigger an immediate update.
 self.addEventListener("message", event => {
   if (event.data === "SKIP_WAITING") self.skipWaiting();
+  if (event.data === "GET_PRIVACY_POLICY") event.ports?.[0]?.postMessage({privacyPolicy:1});
 });
 
-function isStaticAsset(url) {
-  return (
-    url.pathname.startsWith("/assets/") ||
-    /\.(?:js|css|svg|png|jpg|jpeg|gif|webp|ico|woff2?|ttf)$/.test(url.pathname)
-  );
+function cacheable(request, response) {
+  const directive = response.headers.get("Cache-Control") || "";
+  const vary = response.headers.get("Vary") || "";
+  return response.ok && !request.headers.has("Authorization") &&
+    !/(?:^|,)\s*(?:no-store|private)(?:\s|,|=|$)/i.test(directive) &&
+    !/(?:^|,)\s*(?:Authorization|\*)(?:\s|,|$)/i.test(vary) &&
+    !response.headers.has("Set-Cookie");
 }
-
+function isStaticAsset(url) {
+  return url.pathname.startsWith("/assets/") || APP_SHELL.includes(url.pathname);
+}
 self.addEventListener("fetch", event => {
   const request = event.request;
-  if (request.method !== "GET") return; // writes go straight to network
+  if (request.method !== "GET") return;
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return; // ignore cross-origin
-
-  // Never intercept the realtime Server-Sent Events stream.
-  if (url.pathname === "/api/realtime") return;
-
-  // API GET: network-first, fall back to cached last-known-good.
-  if (url.pathname.startsWith("/api/")) {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(API_CACHE).then(cache => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(() => caches.match(request))
-    );
-    return;
-  }
-
-  // App navigations: network-first, fall back to cached shell.
+  if (url.origin !== self.location.origin || request.headers.has("Authorization")) return;
+  if (/^\/(?:api|uploads)(?:\/|$)/.test(url.pathname)) return;
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          const copy = response.clone();
-          caches.open(STATIC_CACHE).then(cache => cache.put("/", copy));
-          return response;
-        })
-        .catch(() => caches.match(request).then(cached => cached || caches.match("/")))
-    );
+    event.respondWith(fetch(request).then(async response => {
+      if (cacheable(request,response)) await (await caches.open(STATIC_CACHE)).put("/",response.clone());
+      return response;
+    }).catch(() => caches.match("/")));
     return;
   }
-
-  // Static assets: cache-first with background refresh (stale-while-revalidate).
-  if (isStaticAsset(url)) {
-    event.respondWith(
-      caches.match(request).then(cached => {
-        const network = fetch(request)
-          .then(response => {
-            if (response.ok) {
-              const copy = response.clone();
-              caches.open(STATIC_CACHE).then(cache => cache.put(request, copy));
-            }
-            return response;
-          })
-          .catch(() => cached);
-        return cached || network;
-      })
-    );
+  if (isStaticAsset(url) && !url.search) {
+    event.respondWith(caches.match(request).then(cached => {
+      const network = fetch(request).then(async response => {
+        if (cacheable(request,response)) await (await caches.open(STATIC_CACHE)).put(request,response.clone());
+        return response;
+      }).catch(() => cached);
+      return cached || network;
+    }));
   }
 });
 

@@ -1,3 +1,4 @@
+import {browserSession,sessionFetch as fetch} from './browserSession.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -36,7 +37,10 @@ export async function optimizeAndUpload(
   options?: Parameters<typeof optimizeImageFile>[1],
   subfolder?: string
 ): Promise<UploadedImage> {
+  const checkSession = browserSession.capture();
   const optimized = await optimizeImageFile(file, options);
+  checkSession();
   const url = await uploadDataUrl(optimized.dataUrl, category, subfolder);
+  checkSession();
   return { ...optimized, url };
 }

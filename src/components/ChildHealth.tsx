@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useMemo, useState } from "react";
+import { browserSession } from "../utils/browserSession.js";
 import { Syringe, Plus, Trash2, Check, Calendar, Ruler, HeartPulse, Pill, ShieldAlert, Phone, Pencil, X, Droplet, AlertTriangle, Stethoscope, Cake, FileDown } from "lucide-react";
 import { VaccinationRecord, GrowthRecord, MedicationReminder, MedicationLog, User, UserRole, EmergencyProfile, EmergencyContact, BLOOD_TYPE_OPTIONS, FAMILY_RELATION_LABELS } from "../types.js";
 import { motion, AnimatePresence } from "motion/react";
@@ -314,11 +315,13 @@ export function ChildHealth({
   // Xuất thẻ khẩn cấp ra PDF khổ A6 ngang (in gập bỏ ví). pdfmake lazy-load khi bấm.
   const [exportingCardId, setExportingCardId] = useState<string | null>(null);
   const exportCardPdf = async (member: User, p?: EmergencyProfile) => {
+    const checkSession = browserSession.capture();
     if (exportingCardId) return;
     setExportingCardId(member.id);
     try {
       const measure = latestMeasureFor(member.id);
       const { exportEmergencyCardPdf } = await import("../utils/pdfExport.js");
+      checkSession();
       await exportEmergencyCardPdf({
         fullName: member.fullName,
         relationLabel: member.familyRelation ? FAMILY_RELATION_LABELS[member.familyRelation] : undefined,

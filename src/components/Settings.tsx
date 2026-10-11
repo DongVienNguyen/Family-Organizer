@@ -1,3 +1,4 @@
+import {sessionFetch as fetch,browserSession} from '../utils/browserSession.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -664,6 +665,7 @@ export function Settings({
   };
 
   const handleAvatarFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checkSession = browserSession.capture();
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
@@ -679,7 +681,9 @@ export function Settings({
         qualities: [0.86, 0.76, 0.66, 0.56],
         backgroundColor: "#ffffff"
       });
+      checkSession();
       const url = await uploadDataUrl(optimized.dataUrl, "avatars");
+      checkSession();
       setProfAvatarImage(url);
       setActionSuccess(`Đã tải ảnh đại diện (~${optimized.sizeKb}KB, ${optimized.width}x${optimized.height}). Bấm "Lưu hồ sơ cá nhân" để áp dụng.`);
     } catch (err: any) {
@@ -827,6 +831,7 @@ export function Settings({
   const fullImportInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleDownloadFullBackup = async () => {
+    const checkSession=browserSession.capture();
     setActionError("");
     setActionSuccess("");
     setLoadingAction("full-export");
@@ -845,6 +850,7 @@ export function Settings({
       const disposition = res.headers.get("Content-Disposition") || "";
       const filename = disposition.match(/filename="([^"]+)"/)?.[1] || "family-organizer_full.zip";
       const blob = await res.blob();
+      checkSession();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -860,6 +866,7 @@ export function Settings({
   };
 
   const handleFullImportFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checkSession = browserSession.capture();
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
@@ -874,6 +881,7 @@ export function Settings({
     if (!ok) return;
     setLoadingAction("full-import");
     try {
+      checkSession();
       const res = await fetch("/api/admin/backups/full/import", {
         method: "POST",
         headers: { ...authHeaders(), "Content-Type": "application/zip" },

@@ -1,3 +1,4 @@
+import {sessionFetch as fetch} from './browserSession.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0

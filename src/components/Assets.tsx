@@ -43,6 +43,7 @@ import {
 import { useConfirm } from "./ConfirmDialog.js";
 import { optimizeImageFile } from "../utils/image.js";
 import { uploadDataUrl } from "../utils/uploadImage.js";
+import { browserSession } from "../utils/browserSession.js";
 import { useModalA11y } from "../hooks/useModalA11y.js";
 import { useTabFab } from "./FabHost.js";
 import { ShimmerLine, Reveal, staggerDelay } from "./Lively.js";
@@ -393,6 +394,7 @@ export function Assets({
   };
 
   const addPhotoFiles = async (files: File[]) => {
+    const checkSession = browserSession.capture();
     if (files.length === 0) return;
     if (formPhotos.length + files.length > MAX_ASSET_PHOTOS) {
       setFormError(t("assets.errorMaxPhotos", { max: MAX_ASSET_PHOTOS }));
@@ -403,6 +405,7 @@ export function Assets({
     try {
       const optimizedPhotos: AssetPhoto[] = [];
       for (const file of files) {
+        checkSession();
         const full = await optimizeImageFile(file, {
           maxSourceBytes: 25 * 1024 * 1024,
           targetBytes: 900 * 1024,
@@ -410,6 +413,7 @@ export function Assets({
           qualities: [0.86, 0.76, 0.66, 0.56],
           backgroundColor: "#ffffff"
         });
+        checkSession();
         const thumb = await optimizeImageFile(file, {
           maxSourceBytes: 25 * 1024 * 1024,
           targetBytes: 120 * 1024,
@@ -417,11 +421,13 @@ export function Assets({
           qualities: [0.82, 0.7, 0.6],
           backgroundColor: "#ffffff"
         });
+        checkSession();
         // Persist as files on disk (organized under uploads/assets/<type>) and keep only the URLs.
         const [fullUrl, thumbUrl] = await Promise.all([
           uploadDataUrl(full.dataUrl, "assets", formType),
           uploadDataUrl(thumb.dataUrl, "assets", formType)
         ]);
+        checkSession();
         optimizedPhotos.push({
           id: `photo_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
           fileName: file.name,

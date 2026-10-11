@@ -8,6 +8,7 @@ import { FileText, Plus, Trash2, Pencil, X, Calendar, User as UserIcon, Papercli
 import { FamilyDocument, DocumentFile, DocumentType, DOCUMENT_TYPE_LABELS, User, UserRole } from "../types.js";
 import { motion, AnimatePresence } from "motion/react";
 import { optimizeAndUpload, uploadDataUrl } from "../utils/uploadImage.js";
+import { browserSession } from "../utils/browserSession.js";
 import { useTabFab } from "./FabHost.js";
 import { useConfirm } from "./ConfirmDialog.js";
 import { useModalA11y } from "../hooks/useModalA11y.js";
@@ -136,6 +137,7 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
 
   // Nhận cả ảnh (tối ưu trước khi tải) lẫn PDF (tải nguyên bản, tối đa 10MB).
   const addPickedFiles = async (picked: File[]) => {
+    const checkSession = browserSession.capture();
     if (picked.length === 0) return;
     if (files.length + picked.length > MAX_DOC_FILES) {
       setError(t("documents.errorMaxFiles", { max: MAX_DOC_FILES }));
@@ -146,6 +148,7 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
     try {
       const added: DocumentFile[] = [];
       for (const file of picked) {
+        checkSession();
         const isPdf = file.type === "application/pdf" || /\.pdf$/i.test(file.name);
         let url: string; let sizeKb: number;
         if (isPdf) {
@@ -156,7 +159,9 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
             r.onerror = () => reject(new Error(t("documents.errorPdfRead")));
             r.readAsDataURL(file);
           });
+          checkSession();
           url = await uploadDataUrl(dataUrl, "documents");
+          checkSession();
           sizeKb = Math.max(1, Math.round(file.size / 1024));
         } else {
           const up = await optimizeAndUpload(file, "documents", {
@@ -166,6 +171,7 @@ export function Documents({ currentUser, users, documents, onSaveDocument, onDel
             qualities: [0.86, 0.78, 0.68, 0.58],
             backgroundColor: "#ffffff"
           });
+          checkSession();
           url = up.url;
           sizeKb = up.sizeKb;
         }

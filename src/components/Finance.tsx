@@ -51,6 +51,7 @@ import { DebtTracker } from "./DebtTracker.js";
 import { ShimmerLine, Reveal } from "./Lively.js";
 import { FancySelect } from "./FancySelect.js";
 import { optimizeAndUpload } from "../utils/uploadImage.js";
+import { browserSession } from "../utils/browserSession.js";
 import { useModalA11y } from "../hooks/useModalA11y.js";
 import {
   PeriodMode, periodBounds, toDateStr, stepAnchor,
@@ -650,10 +651,12 @@ export function Finance({
   // pdfmake được lazy-load trong utils/pdfExport — chỉ tải khi bấm nút.
   const [exportingPdf, setExportingPdf] = useState(false);
   const exportReportPdf = async () => {
+    const checkSession = browserSession.capture();
     if (exportingPdf) return;
     setExportingPdf(true);
     try {
       const { exportFinanceReportPdf } = await import("../utils/pdfExport.js");
+      checkSession();
       await exportFinanceReportPdf({
         periodLabel: tPeriodLabel(periodMode, anchor),
         totals: metrics,

@@ -60,3 +60,21 @@ it('keeps login throttling effective despite spoofed forwarded headers',()=>serv
   for(let i=0;i<8;i++)expect((await send('/api/auth/login',{username:'synthetic-missing',password:'bad'},undefined,{'X-Forwarded-For':`192.0.2.${i+1}`})).status).toBe(401);
   expect((await send('/api/auth/login',{username:'synthetic-missing',password:'bad'},undefined,{'X-Forwarded-For':'198.51.100.9'})).status).toBe(429);
 }));
+
+it('marks internal API data and authentication failures no-store',()=>serve(async send=>{
+  const login=await send('/api/auth/login',credentials);expect(login.status).toBe(200);
+  const users=await send('/api/users',undefined,login.body.token);expect(users.status).toBe(200);expect(users.headers['cache-control']).toBe('no-store');
+  const denied=await send('/api/users');expect(denied.status).toBe(401);expect(denied.headers['cache-control']).toBe('no-store');
+}));
+
+it.each(['/api/realtime','/api/calendar.ics?token=synthetic'])('keeps a successful private %s response no-store',async route=>{
+  const deps=syntheticDependencies({phase:'ready',storageWritable:true});deps.ics={icsFeedToken:()=> 'synthetic',isValidIcsToken:()=>true,buildIcsFeed:()=> 'BEGIN:VCALENDAR\nSUMMARY:Synthetic private appointment\nEND:VCALENDAR'};
+  const handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!} as any,deps);
+  const server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');
+  try{
+    const received=await new Promise<any>((resolve,reject)=>{
+      const req=http.get({hostname:'127.0.0.1',port:(server.address() as any).port,path:route,agent:false},res=>res.once('data',bytes=>{const result={status:res.statusCode,headers:res.headers,body:String(bytes)};res.destroy();resolve(result);}));req.on('error',reject);
+    });
+    expect(received.status).toBe(200);expect(received.body).toContain(route.includes('calendar')?'Synthetic private appointment':'init');expect(received.headers['cache-control']).toBe('no-store');expect(received.headers.vary).toContain('Authorization');
+  }finally{server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.drainHandlers();await handle.dispose();}
+});
