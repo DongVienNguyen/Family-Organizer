@@ -98,6 +98,12 @@ describe('native storage roots', () => {
     expect(() => resolveConfig({ NODE_ENV: 'production', DATA_DIR: path.join(codeRoot, 'data') }, codeRoot)).toThrow(/outside.*codeRoot/);
   });
 
+  it.each(['DATA_DIR', 'CONFIG_DIR', 'LOG_DIR', 'APP_CODE_ROOT'])('rejects a non-fully-qualified %s', async name => {
+    const { resolveConfig } = await import('./config.js');
+    expect(() => resolveConfig({ [name]: '\\data' }, fixture)).toThrow(/absolute|qualified/);
+    expect(() => resolveConfig({ [name]: process.platform === 'win32' ? '/data' : 'relative' }, fixture)).toThrow(/absolute|qualified/);
+  });
+
   it('fails storage initialization without falling back when a selected directory cannot be written', async () => {
     const { resolveConfig, prepareStorage } = await import('./config.js');
     const obstruction = path.join(fixture, 'file-not-directory');

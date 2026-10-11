@@ -74,7 +74,7 @@ try {
     const deadline = Date.now() + 15000;
     let health;
     while (Date.now() < deadline) {
-      if (child.exitCode !== null) throw new Error(`Production process exited before ready: ${serverOutput}`);
+      if (child.exitCode !== null || child.signalCode !== null) throw new Error(`Production process exited before ready: ${serverOutput}`);
       try { health = await request(port, '/api/health'); } catch { /* wait for startup, not a retry of a test */ }
       if (health?.status === 200) break;
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -90,9 +90,14 @@ try {
     assert.equal(JSON.parse(login.text).user.id, 'synthetic-adult');
     await stop();
     assert.ok(fs.existsSync(path.join(dataRoot, 'family.db')));
-    const db = new Database(path.join(dataRoot, 'family.db'), { readonly: true });
+    const db = new Database(path.join(dataRoot, 'family.db'), { readonly: iteration !== 0 });
     try {
-      assert.equal(JSON.parse(db.prepare('SELECT data FROM tasks WHERE id = ?').get('synthetic-task').data).title, 'Giữ ID');
+      const storedTask = JSON.parse(db.prepare('SELECT data FROM tasks WHERE id = ?').get('synthetic-task').data);
+      assert.equal(storedTask.title, iteration === 0 ? 'Giữ ID' : 'Changed after import');
+      if (iteration === 0) {
+        storedTask.title = 'Changed after import';
+        db.prepare('UPDATE tasks SET data = ? WHERE id = ?').run(JSON.stringify(storedTask), 'synthetic-task');
+      }
       assert.equal(db.pragma('integrity_check', { simple: true }), 'ok');
     } finally { db.close(); }
   }

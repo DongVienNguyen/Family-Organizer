@@ -38,7 +38,7 @@ jobs:
       EXPECTED_NODE: ${{ matrix.node }}
       EXPECTED_NPM: ${{ matrix.npm }}
       EXPECTED_VS: '17.14.37710.0'
-      EXPECTED_SQLITE_ADDON: '11.10.0'
+      EXPECTED_SQLITE_ADDON: '13.0.3'
       TEST_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:

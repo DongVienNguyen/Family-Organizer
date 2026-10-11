@@ -3,9 +3,10 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import Database from 'better-sqlite3';
+import { isFullyQualifiedPath, assertNoLinkedAncestors } from './lib/native-paths.mjs';
 
 function absolute(value, name) {
-  if (typeof value !== 'string' || !path.isAbsolute(value)) throw new Error(`${name} requires an absolute path`);
+  if (!isFullyQualifiedPath(value)) throw new Error(`${name} requires a fully qualified absolute path`);
   return path.resolve(value);
 }
 function overlaps(a, b) {
@@ -16,6 +17,7 @@ function overlaps(a, b) {
   return inside(a, b) || inside(b, a);
 }
 function resolvedDestination(target) {
+  assertNoLinkedAncestors(target);
   let existing = target;
   const missing = [];
   while (!fs.existsSync(existing)) {
@@ -64,6 +66,7 @@ async function copySnapshot(source, destination, files) {
 /** Explicit copy only. The operator must stop the old application first. */
 export async function migrateData(options) {
   const sourceInput = absolute(options.source, 'source');
+  assertNoLinkedAncestors(sourceInput);
   if (fs.lstatSync(sourceInput).isSymbolicLink()) throw new Error('Symlink/reparse source is forbidden');
   const source = fs.realpathSync(sourceInput);
   if (!fs.statSync(source).isDirectory()) throw new Error('Source must be a directory');
@@ -73,6 +76,19 @@ export async function migrateData(options) {
   if (fs.existsSync(target)) throw new Error('Target already exists; refusing overwrite');
   const files = inventory(source);
   if (!files.some(file => ['family.db', 'db.json'].includes(file.path))) throw new Error('Source has no legacy database');
+  if (!files.some(file => file.path === 'family.db')) {
+    try {
+      const legacy = JSON.parse(fs.readFileSync(path.join(source, 'db.json'), 'utf8'));
+      if (!legacy || typeof legacy !== 'object' || !Array.isArray(legacy.users) || !Array.isArray(legacy.tasks)) throw new Error('users/tasks arrays are required');
+      for (const key of ['plans', 'notes', 'transactions', 'rewardLedger', 'rewardItems', 'budgets', 'customCategories', 'recurringBills', 'savingsGoals', 'debts', 'assets', 'medications', 'medicationLogs', 'vaccinations', 'growthRecords', 'healthProfiles', 'documents', 'shoppingItems', 'dishLibrary', 'marketHistory', 'notifications', 'pushSubscriptions', 'activityLogs', 'backups']) {
+        if (legacy[key] !== undefined && !Array.isArray(legacy[key])) throw new Error(`invalid ${key} collection`);
+      }
+      for (const key of ['users', 'tasks']) {
+        if (legacy[key].some(row => !row || typeof row !== 'object' || typeof row.id !== 'string' || !row.id)) throw new Error(`invalid ${key} record`);
+        if (new Set(legacy[key].map(row => row.id)).size !== legacy[key].length) throw new Error(`duplicate ${key} IDs`);
+      }
+    } catch (cause) { throw new Error('Invalid selected db.json syntax or legacy shape', { cause }); }
+  }
   const report = { format: 1, mode: 'dry-run', source, target, backup, files };
   if (!options.apply) return report;
   if (!backup) throw new Error('An external backup path is required for apply');
@@ -114,7 +130,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     if (!reportPath) throw new Error('--report absolute path is required');
     if (fs.existsSync(reportPath)) throw new Error('Report already exists; refusing overwrite');
     for (const root of [options.source, options.target, options.backup].filter(Boolean)) {
-      if (overlaps(absolute(root, 'root'), resolvedDestination(reportPath))) throw new Error('Report must be outside source/target/backup');
+      if (overlaps(resolvedDestination(absolute(root, 'root')), resolvedDestination(reportPath))) throw new Error('Report must be outside source/target/backup');
     }
     // Reserve report before mutation so an unwritable report cannot go unnoticed.
     const reportFd = fs.openSync(reportPath, 'wx', 0o600);

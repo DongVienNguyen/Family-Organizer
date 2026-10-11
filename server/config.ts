@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { config as loadEnv } from 'dotenv';
+import { isFullyQualifiedPath } from '../scripts/lib/native-paths.mjs';
 
 export interface AppConfig {
   codeRoot: string;
@@ -13,7 +14,7 @@ export interface AppConfig {
 
 function absolute(value: string | undefined, fallback: string, name: string): string {
   if (value === undefined) return fallback;
-  if (!value || !path.isAbsolute(value)) throw new Error(`${name} must be an absolute path`);
+  if (!isFullyQualifiedPath(value)) throw new Error(`${name} must be a fully qualified absolute path`);
   return path.resolve(value);
 }
 

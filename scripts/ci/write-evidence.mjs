@@ -33,6 +33,7 @@ const requiredSuites = [
   'src/utils/financePeriod.test.ts', 'src/utils/recurrence.test.ts',
   'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
+  'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
 ];
 for (const required of requiredSuites) {
   if (!suites.some(suite => suite.name === required)) errors.push(`required suite missing: ${required}`);

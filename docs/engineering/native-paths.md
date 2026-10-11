@@ -3,7 +3,7 @@
 The application resolves its installation root from the source module or the
 bundled `dist/server.cjs`, never from the working directory. Development defaults
 to `<codeRoot>/data`; production requires an absolute `DATA_DIR` outside the
-release. Relative, drive-relative and empty roots fail startup. `APP_CODE_ROOT`
+release. Relative, Windows root-relative (`\\data`, `/data`), drive-relative and empty roots fail startup; Windows requires a drive-qualified path or complete UNC share. `APP_CODE_ROOT`
 is an optional absolute override for development/test tooling.
 
 | Launch-time environment | Default | Contents |
@@ -43,8 +43,8 @@ JSON retains IDs and the original JSON file. No database is discovered from CWD.
 Run only against synthetic data in CI. For a real installation an operator must
 stop the old application and all writers first; no production migration is
 authorized by this foundation task. The destination and recovery backup must be
-new, absolute, nonoverlapping directories. Source and nested file symlinks/junctions
-are refused. A report must be outside all three roots and have a new filename.
+new, absolute, nonoverlapping directories. Source/target/backup/report ancestor and nested input symlinks/junctions
+are refused; all containment comparisons use canonical roots before report reservation. A report must be outside all three roots and have a new filename.
 
 ```powershell
 # Dry-run: source remains untouched; no destination or backup is created.
@@ -70,7 +70,7 @@ I01/F07. This offline copier is not a second online snapshot engine.
 ## Verification scope
 
 Unit/native regressions cover root selection, Unicode/spaces, safe clean,
-changelog extraction, legacy JSON preservation/corruption, offline copy,
+changelog extraction, legacy JSON preservation/corruption, JSON-only shape validation/older omitted collections, offline copy,
 integrity/hash verification, overlap/existing target and linked inputs. Windows
 CI also installs only production dependencies into a clean Unicode/spaces layout,
 runs bundled Node entry from System32 with synthetic external storage, checks
@@ -81,3 +81,15 @@ It stores `production.json`, npm/server/probe logs and explicit exit evidence.
 This verifies a production layout, not a finished ZIP/service. Exact portable
 runtime/native packaging belongs to F06, graceful lifecycle/drain to F03, full
 regression to F05/F09, and Windows Server2019 acceptance to R02.
+
+Native compatibility delta: F02 pins better-sqlite3 13.0.3, whose N-API binding
+avoids the Node24 ObjectWrap cleanup abort reproduced with11.10.0. The previous
+F01 native-load/build proof remains historical; it did not exercise allocation GC
+or full production startup. `tests/native-gc.test.ts` uses allocation-driven
+statement finalization and is required by the evidence gate. No stress-test retry,
+skip or threshold relaxation is used. Vite/plugins and browser i18next packages
+are devDependencies so production installation excludes tsx/vitest/typescript;
+frontend production build remains required. Production smoke mutates a synthetic
+SQLite task after first import and verifies that mutation after restart while
+original db.json stays unchanged. Windows verification remains distinct from
+Server2019 acceptance R02.

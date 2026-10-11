@@ -11,6 +11,7 @@ const suiteNames = [
   'src/utils/financePeriod.test.ts', 'src/utils/recurrence.test.ts',
   'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
+  'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -18,7 +19,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     'toolchain.json': { npmVersion: '11.19.0', visualStudioVersion: '17.14.37710.0' },
     'native.json': {
       nodeVersion: 'v24.21.0', nodeABI: '137', platform: 'win32', architecture: 'x64',
-      addonVersion: '11.10.0', sqliteVersion: '3.49.2', binarySha256: 'a'.repeat(64),
+      addonVersion: '13.0.3', sqliteVersion: '3.49.2', binarySha256: 'a'.repeat(64),
       checks: ['native-load', 'write-read', 'transaction-rollback', 'WAL-backup', 'integrity-check', 'file-cleanup'],
     },
     'production.json': {
@@ -40,7 +41,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     versions: { modules: '137' }, exitCode: 0,
     env: {
       EXPECTED_NODE: '24.21.0', EXPECTED_NPM: '11.19.0', EXPECTED_VS: '17.14.37710.0',
-      EXPECTED_SQLITE_ADDON: '11.10.0',
+      EXPECTED_SQLITE_ADDON: '13.0.3',
       TEST_COMMIT_SHA: sha, GITHUB_RUN_ATTEMPT: '1',
       CHECK_INSTALL: 'success', CHECK_NATIVE: 'success', CHECK_LINT: 'success', CHECK_TEST: 'success', CHECK_BUILD: 'success',
       CHECK_PRODUCTION: 'success',

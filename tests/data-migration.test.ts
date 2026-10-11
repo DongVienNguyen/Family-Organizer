@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import Database from 'better-sqlite3';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 describe('explicit offline data migration', () => {
@@ -88,5 +90,55 @@ describe('explicit offline data migration', () => {
     await expect(migrateData({ source, target, backup, apply: true, confirmOffline: true })).rejects.toThrow();
     expect(fs.existsSync(target)).toBe(false);
     expect(fs.readFileSync(path.join(source, 'family.db'), 'utf8')).toBe('corrupt synthetic database');
+  });
+
+  it.each(['broken JSON', '{}', '{"users":{},"tasks":[]}', '{"users":[],"tasks":[],"notes":{}}'])('rejects JSON-only invalid syntax or shape %s before promoting a target', async contents => {
+    const { migrateData } = await import('../scripts/migrate-data.mjs');
+    fs.rmSync(path.join(source, 'family.db'));
+    fs.writeFileSync(path.join(source, 'db.json'), contents);
+    await expect(migrateData({ source, target, backup, apply: true, confirmOffline: true })).rejects.toThrow(/db.json/);
+    expect(fs.existsSync(target)).toBe(false);
+    expect(fs.readFileSync(path.join(source, 'db.json'), 'utf8')).toBe(contents);
+  });
+
+  it('accepts an older JSON-only snapshot with omitted newer collections', async () => {
+    const { migrateData } = await import('../scripts/migrate-data.mjs');
+    fs.rmSync(path.join(source, 'family.db'));
+    const legacy = fs.readFileSync(path.join(source, 'db.json'));
+    const report = await migrateData({ source, target, backup, apply: true, confirmOffline: true });
+    expect(report.mode).toBe('applied');
+    expect(fs.readFileSync(path.join(target, 'db.json'))).toEqual(legacy);
+    expect(fs.readFileSync(path.join(source, 'db.json'))).toEqual(legacy);
+  });
+
+  it('includes committed WAL rows while leaving source database and sidecars unchanged', async () => {
+    const { migrateData } = await import('../scripts/migrate-data.mjs');
+    const writer = new Database(path.join(source, 'family.db'));
+    try {
+      writer.pragma('wal_autocheckpoint=0');
+      writer.prepare('INSERT INTO tasks VALUES (?, ?)').run('wal-task', 'Committed in WAL');
+      expect(fs.statSync(path.join(source, 'family.db-wal')).size).toBeGreaterThan(0);
+      const original = fs.readFileSync(path.join(source, 'family.db-wal'));
+      await migrateData({ source, target, backup, apply: true, confirmOffline: true });
+      expect(fs.readFileSync(path.join(source, 'family.db-wal'))).toEqual(original);
+      const restored = new Database(path.join(target, 'family.db'), { readonly: true });
+      try { expect(restored.prepare('SELECT title FROM tasks WHERE id=?').get('wal-task')).toEqual({ title: 'Committed in WAL' }); }
+      finally { restored.close(); }
+    } finally { writer.close(); }
+  });
+
+  it('rejects a report reached through a source ancestor junction before reserving or changing any source file', () => {
+    const alias = path.join(fixture, 'linked ancestor');
+    fs.symlinkSync(fixture, alias, process.platform === 'win32' ? 'junction' : 'dir');
+    const sourceAlias = path.join(alias, path.basename(source));
+    const report = path.join(source, 'preview.json');
+    const before = fs.readdirSync(source);
+    const result = spawnSync(process.execPath, [fileURLToPath(new URL('../scripts/migrate-data.mjs', import.meta.url)), '--source', sourceAlias, '--target', target, '--report', report], { encoding: 'utf8' });
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toMatch(/outside|link|reparse/);
+    expect(fs.readdirSync(source)).toEqual(before);
+    expect(fs.existsSync(report)).toBe(false);
+    // Remove our link before recursive teardown; it points to the fixture itself.
+    fs.unlinkSync(alias);
   });
 });

@@ -25,11 +25,15 @@ try {
   snapshot = new Database(destination, { readonly: true });
   assert.equal(snapshot.prepare('SELECT label FROM fixture').get().label, 'Gia đình');
   assert.equal(snapshot.pragma('integrity_check', { simple: true }), 'ok');
-  const binary = require.resolve('better-sqlite3/build/Release/better_sqlite3.node');
+  const loadedBinaries = Object.keys(require.cache).filter(file => file.endsWith('.node') && file.includes('better-sqlite3'));
+  assert.equal(loadedBinaries.length, 1, 'Expected exactly one loaded SQLite native binary');
+  const binary = loadedBinaries[0];
   const evidence = {
     nodeVersion: process.version, nodeABI: process.versions.modules,
     platform: process.platform, architecture: process.arch,
     addonVersion: require('better-sqlite3/package.json').version,
+    bindingApi: 'N-API', nodeNapi: process.versions.napi,
+    binaryPath: path.relative(path.dirname(require.resolve('better-sqlite3/package.json')), binary).split(path.sep).join('/'),
     sqliteVersion: database.prepare('SELECT sqlite_version() AS version').get().version,
     binarySha256: crypto.createHash('sha256').update(fs.readFileSync(binary)).digest('hex'),
     checks: ['native-load', 'write-read', 'transaction-rollback', 'WAL-backup', 'integrity-check', 'file-cleanup'],
