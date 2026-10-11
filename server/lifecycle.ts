@@ -7,7 +7,8 @@ interface ManagedApp {
   app: Express;
   jobs: AppJobs;
   endStreams(): void;
-  drainHandlers?(): Promise<void>;
+  drainHandlers?(exceptOwner?: object): Promise<void>;
+  setMaintenance?(port: <T>(work: () => Promise<T>, exceptOwner?: object) => Promise<T>): void;
   dispose(): Promise<void>;
 }
 
@@ -62,13 +63,13 @@ export async function startManagedServer(handle: ManagedApp, options: {
   }
   let closing: Promise<void> | undefined;
   let maintenanceWork: Promise<unknown> | undefined;
-  function maintenance<T>(work: () => Promise<T>): Promise<T> {
+  function maintenance<T>(work: () => Promise<T>, exceptOwner?: object): Promise<T> {
     if (state.phase !== 'ready' || maintenanceWork) return Promise.reject(new Error('Runtime is not ready for maintenance'));
     state.phase = 'maintenance';
     const operation = (async () => {
       try {
         handle.endStreams();
-        await bounded(Promise.all([handle.jobs.pause(), handle.drainHandlers?.()]), timeout);
+        await bounded(Promise.all([handle.jobs.pause(), handle.drainHandlers?.(exceptOwner)]), timeout);
         await bounded(options.drainEffects?.() ?? Promise.resolve(), timeout);
         return await work();
       } catch (error) {
@@ -100,5 +101,6 @@ export async function startManagedServer(handle: ManagedApp, options: {
     })();
     return closing;
   }
+  handle.setMaintenance?.(maintenance);
   return { server, state, close, maintenance };
 }

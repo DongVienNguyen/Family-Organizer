@@ -90,3 +90,19 @@ describe('runtime lifecycle', () => {
     expect(outcome).toMatch(/timed out/);expect(closed).toBe(1);expect(runtime.state.phase).toBe('failed');
   });
 });
+
+it('passes the exact internal restore owner to handler drain while retaining normal shutdown ownership', async () => {
+  const { startManagedServer } = await load(); const owner = {}; const drained: (object | undefined)[] = [];
+  let maintenancePort: any;
+  const handle = { app: express(), jobs: new AppJobs(), endStreams: () => {}, dispose: async () => {},
+    drainHandlers: async (exceptOwner?: object) => { drained.push(exceptOwner); },
+    setMaintenance: (port: any) => { maintenancePort = port; },
+  };
+  const runtime = await startManagedServer(handle, { port: 0, host: '127.0.0.1', closeStorage: () => {} });
+  try {
+    expect(maintenancePort).toBeTypeOf('function');
+    await maintenancePort(async () => {}, owner);
+    expect(drained).toEqual([owner]);
+    await runtime.close(); expect(drained).toEqual([owner, undefined]);
+  } finally { await runtime.close(); }
+});

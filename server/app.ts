@@ -94,8 +94,15 @@ function validateAssetPhotosPayload(photos: unknown) {
 }
 
 const app = express();
-const handlers = new Set<Promise<unknown>>();
-const responses = new Set<Promise<void>>();
+const handlers = new Map<Promise<unknown>,object>();
+const responses = new Map<Promise<void>,object>();
+const requestOwners = new WeakMap<Request,object>();
+let maintenancePort: (<T>(work: () => Promise<T>, owner?: object) => Promise<T>) | undefined;
+function maintenanceFor<T>(req: Request, work: () => Promise<T>): Promise<T> {
+  const owner=requestOwners.get(req);
+  if (!maintenancePort || !owner) return Promise.reject(new Error('Restore requires a managed runtime request owner'));
+  return maintenancePort(work,owner);
+}
 for (const method of ['get', 'post', 'put', 'delete', 'patch'] as const) {
   const original = app[method].bind(app) as (...args: any[]) => any;
   (app as any)[method] = (...args: any[]) => original(...args.map((arg, index) => {
@@ -105,7 +112,7 @@ for (const method of ['get', 'post', 'put', 'delete', 'patch'] as const) {
         const result = arg(req, res, next);
         if (result && typeof result.then === 'function') {
           const pending = Promise.resolve(result).catch(next).finally(() => { handlers.delete(pending); });
-          handlers.add(pending);
+          handlers.set(pending,requestOwners.get(req)!);
         }
       } catch (error) { next(error); }
     };
@@ -121,11 +128,12 @@ app.get('/api/ready', (_req, res) => {
 });
 app.use((req, res, next) => {
   if (!isReady(state)) { res.status(503).json({ error: 'Ứng dụng đang bảo trì hoặc dừng. Vui lòng thử lại sau.' }); return; }
+  const owner={}; requestOwners.set(req,owner);
   const completed = new Promise<void>(resolve => {
     const done = () => { res.off('finish', done); res.off('close', done); responses.delete(completed); resolve(); };
     res.once('finish', done); res.once('close', done);
   });
-  responses.add(completed);
+  responses.set(completed,owner);
   next();
 });
 
@@ -302,18 +310,6 @@ const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => 
 };
 
 app.use(authMiddleware as any);
-
-// --- CỜ BẢO TRÌ (chặn ghi trong lúc import backup toàn phần) ---
-// Import có các bước await dài (giải nén media); ghi song song trong lúc đó sẽ
-// bị snapshot restore nuốt mất nên chặn hẳn với 503 cho tới khi import xong.
-let maintenanceMode = false;
-app.use("/api", (req: Request, res: Response, next: NextFunction) => {
-  if (maintenanceMode && req.method !== "GET") {
-    res.status(503).json({ error: "Server đang khôi phục dữ liệu từ backup — vui lòng thử lại sau ít giây." });
-    return;
-  }
-  next();
-});
 
 // --- OPTIMISTIC LOCKING (chống 2 người cùng sửa một bản ghi đè nhau) ---
 // Optimistic edit checks run inside the write gateway, after retry lookup.
@@ -2324,15 +2320,15 @@ app.delete("/api/admin/backups/:id", requireAuth, requireRole([UserRole.ADMIN]),
   }
 });
 
-app.post("/api/admin/backups/:id/restore", requireAuth, requireRole([UserRole.ADMIN]), (req: AuthRequest, res: Response) => {
+app.post("/api/admin/backups/:id/restore", requireAuth, requireRole([UserRole.ADMIN]), async (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   const { id } = req.params;
   try {
-    FamilyDB.restoreBackup(id, session.userId, session.username);
+    await FamilyDB.restoreBackup(id, session.userId, session.username, { maintenance: work => maintenanceFor(req,work) });
     broadcastSyncEvent("RESTORE_COMPLETED");
     res.json({ success: true });
   } catch (err: any) {
-    res.status(500).json({ error: err.message });
+    res.status(httpErrorStatus(err,500)).json(httpErrorBody(err));
   }
 });
 
@@ -2358,21 +2354,17 @@ app.post(
   "/api/admin/backups/full/import",
   requireAuth,
   requireRole([UserRole.ADMIN]),
-  express.raw({ type: () => true, limit: "2gb" }),
+  express.raw({ type: () => true, limit: "256mb" }),
   async (req: AuthRequest, res: Response) => {
     const session = req.userSession!;
-    // Chặn mọi ghi khác trong lúc import (các bước await dài) — ghi song song
-    // sẽ bị snapshot restore nuốt mất nên trả 503 cho tới khi xong.
-    maintenanceMode = true;
+    // The injected runtime owns maintenance/drain and excludes only this request.
     try {
-      const result = await importFullBackup(req.body as Buffer, session.userId, session.username);
+      const result = await importFullBackup(req.body as Buffer, session.userId, session.username, { maintenance: work => maintenanceFor(req,work) });
       broadcastSyncEvent("RESTORE_COMPLETED");
       res.json({ success: true, restoredFiles: result.restoredFiles });
     } catch (err: any) {
       console.error("Lỗi import backup toàn phần:", err);
-      res.status(400).json({ error: err.message || "Không khôi phục được từ tệp backup" });
-    } finally {
-      maintenanceMode = false;
+      res.status(httpErrorStatus(err)).json(httpErrorBody(err));
     }
   }
 );
@@ -2699,7 +2691,14 @@ app.use((error: unknown, _req: Request, res: Response, next: NextFunction) => {
 return {
   app, jobs,
   endStreams() { for (const client of sseClients) client.end(); sseClients = []; },
-  async drainHandlers() { while (handlers.size || responses.size) await Promise.all([...handlers, ...responses]); },
+  setMaintenance(port: typeof maintenancePort) { maintenancePort=port; },
+  async drainHandlers(exceptOwner?: object) {
+    while (true) {
+      const pending=[...handlers,...responses].filter(([,owner])=>!exceptOwner || owner!==exceptOwner).map(([promise])=>promise);
+      if (!pending.length) return;
+      await Promise.all(pending);
+    }
+  },
   async dispose() { await disposeAssets(); },
 };
 }

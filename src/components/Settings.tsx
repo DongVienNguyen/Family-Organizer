@@ -1453,16 +1453,16 @@ export function Settings({
           ) : (
             /* Active backup panel */
             <div className="space-y-3.5">
-              {/* Sao lưu toàn phần: 1 tệp .zip khôi phục 100% hệ thống trên server mới */}
+              {/* Sao lưu chung dữ liệu, media và thiết lập không chứa provider keys */}
               <div className="bg-slate-950/60 border border-emerald-500/20 rounded-2xl p-4 space-y-3">
                 <h4 className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-                  <Archive className="w-4 h-4 text-emerald-400" /> Sao lưu toàn phần — khôi phục 100% hệ thống
+                  <Archive className="w-4 h-4 text-emerald-400" /> Sao lưu toàn phần — dữ liệu và media
                 </h4>
                 <p className="text-[11px] text-slate-500 leading-relaxed">
                   Đóng gói <b className="text-slate-300">toàn bộ</b> dữ liệu + tất cả ảnh hóa đơn, avatar, ảnh ghi chú,
-                  ảnh tài sản, tệp giấy tờ + cấu hình (gồm cả Gemini key) vào một tệp <b className="text-slate-300">.zip</b> duy nhất.
+                  ảnh tài sản, tệp giấy tờ và thiết lập ứng dụng vào một tệp <b className="text-slate-300">.zip</b> duy nhất.
                   Tải về và cất ở nơi an toàn <b className="text-slate-300">ngoài server</b> — nếu server hỏng, chỉ cần cài mới
-                  rồi bấm "Nhập tệp & khôi phục" là hệ thống trở lại y nguyên thời điểm sao lưu.
+                  rồi bấm "Nhập tệp & khôi phục". Gemini key, Telegram token và khóa đăng nhập được giữ riêng trên máy chủ; hãy cấu hình lại khi chuyển máy. Giới hạn tệp: 256MB.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <button
@@ -1922,7 +1922,7 @@ export function Settings({
               </h3>
               <p className="text-[11px] text-slate-500">
                 {tgStatus?.configured
-                  ? `Bot ${tgStatus.maskedToken} → chat ${tgStatus.chatId}.${tgStatus.lastSent ? ` Gửi gần nhất: ${tgStatus.lastSent}.` : " Chưa gửi lần nào."} Tự gửi file .zip toàn phần lúc 2h–4h sáng hằng đêm — Pi hỏng vẫn còn backup trên Telegram.`
+                  ? `Bot ${tgStatus.maskedToken} → chat ${tgStatus.chatId}.${tgStatus.lastSent ? ` Gửi gần nhất: ${tgStatus.lastSent}.` : " Chưa gửi lần nào."} Tự gửi file .zip toàn phần lúc 2h–4h sáng hằng đêm — máy chủ Windows hỏng vẫn còn backup trên Telegram.`
                   : "Tạo bot qua @BotFather, lấy chat ID từ @userinfobot rồi dán vào đây — mỗi đêm app tự gửi file backup toàn phần vào chat (tối đa 50MB)."}
               </p>
             </div>

@@ -21,6 +21,9 @@ connection.exec(`CREATE TABLE IF NOT EXISTS app_commands (
   PRIMARY KEY (command, request_id)
 )`);
 let current: AppWriteTx | undefined;
+const snapshotReadResults = new WeakSet<object>();
+/** Internal read-result marker; full snapshot bytes must not enter the command cache. */
+export function markSnapshotReadResult<T extends object>(value: T): T { snapshotReadResults.add(value); return value; }
 export function currentAppWriteTx(): AppWriteTx | undefined { return current; }
 
 function assertSql(sql: string): void {
@@ -55,7 +58,9 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
     const prior = connection.prepare('SELECT actor_id, payload_hash, result FROM app_commands WHERE command = ? AND request_id = ?').get(meta.command, meta.requestId) as any;
     if (prior) {
       if (prior.actor_id !== meta.actorId || prior.payload_hash !== meta.payloadHash) throw new AppStoreError('Request conflicts with committed command', 409);
-      return JSON.parse(prior.result).value as T;
+      const cached = JSON.parse(prior.result);
+      if (cached.snapshotRead === true) throw new AppStoreError('Snapshot reads require a fresh request ID',409);
+      return cached.value as T;
     }
     let active = true;
     let legacy = sqliteLoad();
@@ -71,10 +76,14 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
       afterCommit(effect) { assertActive(); effects.push(effect); },
     };
     current = tx;
+    const initialChanges = connection.prepare('SELECT total_changes() AS count').get() as { count: number };
+    const initialSchema = connection.pragma('schema_version', { simple: true });
     try {
       const value = invokeSynchronousWrite(fn, tx);
-      const serialized = JSON.stringify({ value });
+      const snapshotRead = !!value && typeof value === 'object' && snapshotReadResults.has(value as object);
       sqliteSave(legacy);
+      if (snapshotRead && ((connection.prepare('SELECT total_changes() AS count').get() as { count: number }).count !== initialChanges.count || connection.pragma('schema_version', { simple: true }) !== initialSchema)) throw new AppStoreError('A full snapshot result is only valid for a read command',400);
+      const serialized = JSON.stringify(snapshotRead ? { snapshotRead: true } : { value });
       connection.prepare('INSERT INTO app_commands VALUES (?, ?, ?, ?, ?, ?)').run(meta.command, meta.requestId, meta.actorId, meta.payloadHash, serialized, new Date().toISOString());
       // Fence a delayed worker before native COMMIT, including callbacks whose
       // synchronous writes exceeded their lease. A lost owner rolls back all.
