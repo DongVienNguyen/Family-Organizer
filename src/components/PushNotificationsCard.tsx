@@ -1,4 +1,4 @@
-import {sessionFetch as fetch} from '../utils/browserSession.js';
+import {browserSession,sessionFetch as fetch} from '../utils/browserSession.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -50,34 +50,41 @@ export function PushNotificationsCard() {
   }, []);
 
   const enable = async () => {
+    const checkSession = browserSession.capture();
     setBusy(true); setMsg(null);
     try {
       // Permission must be requested from a user gesture — this click qualifies (key on iOS).
       const p = await Notification.requestPermission();
+      checkSession();
       setPerm(p);
       if (p !== "granted") {
         setMsg({ kind: "err", text: t("pushNotifications.errPermDenied") });
         return;
       }
       const reg = await navigator.serviceWorker.ready;
+      checkSession();
       const keyRes = await fetch("/api/push/vapid-public-key");
       const keyData = await keyRes.json().catch(() => ({}));
+      checkSession();
       if (!keyData.publicKey) {
         setMsg({ kind: "err", text: t("pushNotifications.errVapidMissing") });
         return;
       }
       let sub = await reg.pushManager.getSubscription();
+      checkSession();
       if (!sub) {
         sub = await reg.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: urlBase64ToUint8Array(keyData.publicKey),
         });
+        checkSession();
       }
       const res = await fetch("/api/push/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ subscription: sub }),
       });
+      checkSession();
       if (!res.ok) throw new Error(t("pushNotifications.errSaveSubscription"));
       setSubscribed(true);
       setMsg({ kind: "ok", text: t("pushNotifications.okEnabled") });
@@ -89,17 +96,22 @@ export function PushNotificationsCard() {
   };
 
   const disable = async () => {
+    const checkSession = browserSession.capture();
     setBusy(true); setMsg(null);
     try {
       const reg = await navigator.serviceWorker.ready;
+      checkSession();
       const sub = await reg.pushManager.getSubscription();
+      checkSession();
       if (sub) {
         await fetch("/api/push/unsubscribe", {
           method: "POST",
           headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify({ endpoint: sub.endpoint }),
         }).catch(() => {});
+        checkSession();
         await sub.unsubscribe().catch(() => {});
+        checkSession();
       }
       setSubscribed(false);
       try { (navigator as any).clearAppBadge?.(); } catch { /* ignore */ }

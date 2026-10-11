@@ -665,6 +665,7 @@ export function Settings({
   };
 
   const handleAvatarFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checkSession = browserSession.capture();
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
@@ -680,7 +681,9 @@ export function Settings({
         qualities: [0.86, 0.76, 0.66, 0.56],
         backgroundColor: "#ffffff"
       });
+      checkSession();
       const url = await uploadDataUrl(optimized.dataUrl, "avatars");
+      checkSession();
       setProfAvatarImage(url);
       setActionSuccess(`Đã tải ảnh đại diện (~${optimized.sizeKb}KB, ${optimized.width}x${optimized.height}). Bấm "Lưu hồ sơ cá nhân" để áp dụng.`);
     } catch (err: any) {
@@ -863,6 +866,7 @@ export function Settings({
   };
 
   const handleFullImportFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checkSession = browserSession.capture();
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
@@ -877,6 +881,7 @@ export function Settings({
     if (!ok) return;
     setLoadingAction("full-import");
     try {
+      checkSession();
       const res = await fetch("/api/admin/backups/full/import", {
         method: "POST",
         headers: { ...authHeaders(), "Content-Type": "application/zip" },

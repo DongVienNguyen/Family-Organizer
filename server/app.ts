@@ -694,7 +694,7 @@ app.post("/api/auth/change-password", requireAuth, (req: AuthRequest, res: Respo
 app.get("/api/realtime", (req: Request, res: Response) => {
   res.writeHead(200, {
     "Content-Type": "text/event-stream",
-    "Cache-Control": "no-cache",
+    "Cache-Control": "no-store",
     "Connection": "keep-alive"
   });
 
@@ -855,7 +855,7 @@ app.get("/api/calendar.ics", (req: Request, res: Response) => {
   }
   res.setHeader("Content-Type", "text/calendar; charset=utf-8");
   res.setHeader("Content-Disposition", 'inline; filename="family-calendar.ics"');
-  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Cache-Control", "no-store");
   res.send(buildIcsFeed());
 });
 

@@ -7,7 +7,7 @@
 | F01–F03 | Reviewed, exact Windows GREEN, merged | PR1–3; historical entries below |
 | I01 | Gateway, durable jobs and shared recovery integrated | PR4–6 |
 | F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
-| F04-b | Client/cache source verification and review in progress | Entries below; no browser acceptance claim |
+| F04-b | Client/cache review corrected; final Windows verification pending | Entries below; no browser acceptance claim |
 | F04 remaining | SSE/media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -257,3 +257,10 @@ Entries below are historical snapshots; later entries supersede earlier remainin
 - Actual worker-source tests11RED/one public characterization→12GREEN; boundary16port RED plus clone-owner/browser-signal actual regressions→18GREEN; storage/worker13GREEN (one initially weak timeout assertion strengthened), listeners4RED→GREEN, HTTP no-store RED→GREEN, logout compatibility RED→GREEN, actual App bootstrap and late PDF export RED→GREEN. Existing finance/emergency PDF delivery characterized; providers synthetic/offline. New compiled production check requires private API/denial/media no-store proof; missing evidence gate observed RED→GREEN. All previous assertions retained.
 - Final Cloud Node24 full suite406/406 tests49files, zero failed/skipped/todo, lint/build exit0. No dependencies/lock change. Exact source/final Windows CI and fresh whole-branch review remain pending; no merge claim.
 - Remaining F04 authenticated SSE/media/object/privacy/input/proxy/bootstrap/dependency and notification gates; real browser logout/switch/offline/IndexedDB acceptance F05 remains unrun. F06–F09 and full master feature milestones follow foundation acceptance. Server2019 R02 separate; no release/tag or VPS access/deployment.
+
+### F04-b first Windows proof and review correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/8; firstsource HEAD `351cf8ea60fa947abb43c2c34fefb825e233c496`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38159784805. Downloaded/read full logs and both artifacts: each Node22/24 has406/406 tests49files, zero failed/skipped/todo, install/native/lint/test/build/production exit0, ci-gate success. JUnit/JSON/native/production hashes and14 mandatory production checks independently validated; `evidence/f04-b-first-source.json`.
+- Fresh wholebranch review found three Important issues: async A callbacks adopting B credentials, successful SSE/ICS overriding no-store, and obsolete cross-tab events leaving endless cleanup retry. One TDD fix pass with actual RED→GREEN regressions, including continuation audit for batch uploads/restore confirmation/lazy PDF import. Deferred Minor: native stream cancellation/iterator owner parity; documented in `f04-b-review.md` for following streaming slice. No second review and no assertions weakened.
+- Corrected Cloud Node24 full suite435/435 tests51files, lint/build exit0, zero failed/skipped/todo. Two additional suites are mandatory in evidence validation. No dependency/lock change. Corrected source/final exact Windows CI remains required before authorized merge; firstsource proof is historical.
+- Next: authenticated SSE/media/object and remaining F04 privacy/input/proxy/bootstrap/dependencies plus F05 actual browser proof. Full F04/F01–F09/master acceptance remains incomplete. Server2019/package/service/encryption/powerloss/performance unrun; no release/tag or VPS access/deployment.

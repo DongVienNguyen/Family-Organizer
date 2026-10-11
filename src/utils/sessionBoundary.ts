@@ -24,8 +24,11 @@ export function createSessionBoundary(deps:SessionBoundaryDependencies):SessionB
       await purge();
       if(current.revision!==revision)return;
       if(persist)deps.writeToken(token);
-      else if(deps.readToken()!==token)throw stale();
-      publish({revision,status:'ready',token});
+      // Storage events are queued notifications; their values may already be obsolete.
+      // A non-writing transition adopts the authoritative token after cleanup.
+      const readyToken=persist?token:deps.readToken();
+      intendedToken=readyToken;
+      publish({revision,status:'ready',token:readyToken});
     } catch(error) {
       if(current.revision===revision)publish({revision,status:'error',token:null,error:'Không thể dọn dữ liệu phiên. Hãy thử lại.'});
       throw error;

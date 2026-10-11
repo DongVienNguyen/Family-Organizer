@@ -26,3 +26,9 @@ it('preserves internal requests on browsers without AbortSignal.any',async()=>{
   try{const f=await fixture(),abort=new AbortController();const response=await f.boundary.request(origin+'/api/finance',{...options,signal:abort.signal});expect(await response.json()).toEqual({private:'A'});await f.boundary.change(null);}
   finally{Object.defineProperty(AbortSignal,'any',descriptor);}
 });
+
+it('reconciles the latest cross-tab token if storage changes again during cleanup',async()=>{
+  const f=await fixture();let finish!:()=>void;f.purge.mockImplementationOnce(()=>new Promise<void>(resolve=>{finish=resolve;}));f.externalChange('B');
+  const pending=f.boundary.change('B',false);f.externalChange('C');finish();await pending;
+  expect(f.boundary.snapshot()).toMatchObject({status:'ready',token:'C'});expect(f.read()).toBe('C');expect(f.write).toHaveBeenCalledTimes(2);
+});

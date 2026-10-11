@@ -8,6 +8,7 @@ import { HandCoins, Plus, Trash2, Pencil, Calendar, ChevronDown, ChevronUp, X, A
 import { Debt, User } from "../types.js";
 import { motion, AnimatePresence } from "motion/react";
 import { optimizeAndUpload } from "../utils/uploadImage.js";
+import { browserSession } from "../utils/browserSession.js";
 import { ShimmerLine, Reveal, IconChip } from "./Lively.js";
 import { DateInputDMY, formatDateVN } from "./DateTimePicker24.js";
 import { debtPaid, debtRemaining } from "../utils/debt.js";
@@ -111,6 +112,7 @@ export function DebtTracker({
   };
 
   const handleAttach = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checkSession = browserSession.capture();
     const files = Array.from(e.target.files || []);
     e.target.value = "";
     if (!files.length) return;
@@ -119,6 +121,7 @@ export function DebtTracker({
     try {
       const remaining = Math.max(0, 12 - attachments.length);
       for (const file of files.slice(0, remaining)) {
+        checkSession();
         const uploaded = await optimizeAndUpload(file, "debts", {
           maxSourceBytes: 20 * 1024 * 1024,
           targetBytes: 600 * 1024,
@@ -126,6 +129,7 @@ export function DebtTracker({
           qualities: [0.82, 0.72, 0.62],
           backgroundColor: "#ffffff"
         });
+        checkSession();
         setAttachments(prev => [...prev, uploaded.url]);
       }
     } catch (err: any) {

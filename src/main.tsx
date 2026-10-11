@@ -7,7 +7,7 @@ import './i18n/index.ts'; // khởi tạo đa ngôn ngữ trước khi render Ap
 
 void browserSession.change(localStorage.getItem('family_token'),false).catch(()=>{});
 window.addEventListener('storage',event=>{
-  if(event.storageArea===localStorage && event.key==='family_token')void browserSession.change(event.newValue,false).catch(()=>{});
+  if(event.storageArea===localStorage && event.key==='family_token')void browserSession.change(localStorage.getItem('family_token'),false).catch(()=>{});
 });
 
 createRoot(document.getElementById('root')!).render(
