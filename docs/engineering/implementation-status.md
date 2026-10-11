@@ -96,7 +96,7 @@
 - Authorized squash main SHA `d178b170838cea44a10f83014681c240239156e4`. Main CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139931589 reports success for that merge SHA.
 - F03 branch `codex/f03-native-lifecycle`, BASE `d178b170838cea44a10f83014681c240239156e4`. No later merge/release/VPS authority.
 
-## F03 — Lifecycle / telemetry / Docker runtime removal (in progress)
+## F03 — Lifecycle / telemetry / Docker runtime removal (implemented; awaiting PR review/merge)
 
 - Factory with injected legacy dependencies; explicit storage bootstrap/bind; readiness/liveness/maintenance gates. Bounded idempotent drain handles accepted bodies, async requests after disconnect, SSE, active maintenance, jobs and detached push callbacks before native close.
 - Shared AppJobs process registry, namespaced/serial schedules and pause/resume without startup replay. I01 durable lease/retry/outbox remains pending. CLI stdin stop supports Windows graceful tests; POSIX signals retained. Actual WinSW wiring F07.
@@ -106,3 +106,18 @@
 - Corrected Cloud Node24 suite216/216 in24files, lint/build and compiled production-only graceful/restart/crash/offline/write-obstruction fixture pass. Local fixture is labeled working-tree-f03-review-fixed and is not Windows/exact-SHA evidence. Corrected Windows CI remains pending until the fix commit is pushed and verified. No dependencies changed in F03, so lockfile remains unchanged.
 - Unrun: I01 online snapshot/restore, full HTTP/domain/browser/performance F05/F09, portable ZIP F06, service F07, Server2019 R02. Existing >500kB bundle warning remains F09, threshold unchanged.
 - Next after F03 review/merge: I01 gateway/migration/snapshot using this same jobs/store lifecycle. Only PR #1/#2 merges approved so far; PR F03 must wait for review and separate merge approval. Full51-task plan remains incomplete; no release/tag or VPS access/deployment.
+
+### F03 — Verified corrected Windows implementation
+
+- Task F03, PR https://github.com/DongVienNguyen/Family-Organizer/pull/3, branch `codex/f03-native-lifecycle`, BASE/main `d178b170838cea44a10f83014681c240239156e4`.
+- Corrected verified source HEAD `89f99c85dbdb73545758438ef1e85cf4f5bdc293`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38142346992, attempt1, success. Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 on Windows2022 x64; `ci-gate` success.
+- Each runtime: npm ci/native SQLite/npm run lint/npm test/npm run build/compiled production smoke all success, six individually recorded exit codes0. Independent JUnit/JSON reads confirm216passed in24files, zero failed/errors/skipped/todo. Full logs and both artifact sets downloaded/read. Source snapshot and every report/log SHA256: `evidence/f03-validated-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 load/CRUD/transaction rollback/WAL backup/integrity/file cleanup and allocation-driven GC pass on both runtimes. Loaded Windows binary SHA256 remains `e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a`.
+- Real malformed-schema regression observes the native connection closed before rejection, then renames/deletes fixture files while the process remains alive on Windows. Duplicate/concurrent starts cannot dispose the running store; original owner still reads/writes/closes. Maintenance readiness never mutates its storage. Disposal reject/timeout still attempts safe native close after owner drain; undrained owners retain storage and report failed shutdown.
+- Compiled production-only layout: System32 cwd, Unicode/spaces external roots, real ACL-denied fail-fast/EPERM, preserved legacy IDs/session/settings and post-import task writes. Four launches/three graceful stdin stops plus abrupt crash/recovery; actual native files/ACLs/processes cleaned up. Providers blocked and synthetic data only. This is not a portable ZIP or WinSW/Server2019 acceptance.
+- Four Important/two Minor whole-branch review findings addressed with one RED→GREEN fix pass; no deferred review code defect. Rulings/costs: `f03-review-and-decisions.md`. Earlier206-test green run remains historical and is explicitly superseded by this correction.
+- Evidence above belongs to the source SHA, preceding this documentation commit. The final documentation HEAD must also pass the same Windows CI; its exact SHA/run and report hashes are recorded in PR checks and the final evidence comment, avoiding self-referential commits or attributing parent reports to a newer SHA.
+- Remaining/unrun: I01 online gateway/migration/snapshot/restore; F04 auth/media/privacy; F05/F09 full browser/domain/performance; F06 portable ZIP; F07 service/WinSW; R02 Server2019. Existing bundle-size warning remains F09, limit unchanged. F03 changes no dependency or lockfile.
+- Next: review PR #3 and separately authorize its merge, then I01 from merged main. Only PR #1/#2 merges have authorization. Full51-task plan is not complete; release/tag and all VPS access/deployment remain unauthorized.
+
+- Dependency audit limitation: Windows install logs report13 findings for the development install and6 for production. A separate Cloud `npm audit --omit=dev --json` returned exit1 with10 affected package entries (4 moderate/4 high/2 critical, including inherited Express severity from proxy-addr), no automatic fixes offered. Registry audit metadata differs by query time; preserve each actual result. Snapshot: `evidence/f03-production-audit.json`. F04 must triage affected paths/updates before Internet readiness; F03 CI is not security acceptance. Lockfile is unchanged by this audit.
