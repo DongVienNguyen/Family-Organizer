@@ -28,6 +28,7 @@ const suites = (tests?.testResults || []).map(suite => ({
 }));
 if (!tests?.success || !(tests.numTotalTests > 0) || tests.numPassedTests !== tests.numTotalTests || suites.length === 0) errors.push('test run failed, skipped tests, or zero tests');
 const requiredSuites = [
+  'server/objectAclHttp.test.ts',
   'server/realtime.test.ts', 'server/realtimeHttp.test.ts', 'server/legacyVisibility.test.ts', 'src/utils/realtimeClient.test.ts', 'tests/ui/realtime-session.test.ts',
   'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
@@ -61,7 +62,7 @@ if (!fs.existsSync('reports/junit.xml') || !fs.readFileSync('reports/junit.xml',
 const commitSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 if (commitSha !== process.env.TEST_COMMIT_SHA) errors.push('checkout SHA differs from requested HEAD');
 if (production?.commitSha !== commitSha || production?.nodeVersion !== process.version || production?.platform !== 'win32' || production?.architecture !== 'x64' || !Array.isArray(production?.checks)) errors.push('production startup evidence missing or contradicts tested runtime/SHA');
-for (const check of ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime']) {
+for (const check of ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility']) {
   if (!production?.checks?.includes(check)) errors.push(`production probe check missing: ${check}`);
 }
 if (process.version !== `v${process.env.EXPECTED_NODE}` || npmVersion !== process.env.EXPECTED_NPM) errors.push('Node/npm differs from pinned toolchain');

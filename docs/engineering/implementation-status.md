@@ -8,7 +8,7 @@
 | I01 | Gateway, durable jobs and shared recovery integrated | PR4–6 |
 | F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
 | F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
-| F04-c | Reviewed correction accepted; final documentation HEAD pending | Sourcec7d7ddc/run38164770740;512/51256files per runtime |
+| F04-c | Reviewed, exact Windows GREEN, merged PR9 | HEAD8cce8ee/run38165065503;512/51256files per runtime |
 | F04 remaining | Media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -299,3 +299,10 @@ Entries below are historical snapshots; later entries supersede earlier remainin
 - First-source503-test result is superseded by this512-test correction. Dependency audit remains13development/6production entries in the install logs; no automatic update performed in this focused PR. Input/proxy/bootstrap/privacy/dependency gates remain required before Internet readiness.
 - This evidence belongs to sourcec7d7ddc, preceding this documentation commit. The final documentation HEAD must pass the same Windows CI; exact SHA/run/report hashes are recorded in PR checks and its final proof comment, without attributing parent reports to a newer SHA. PR9 is not merged until that proof is independently read. No deferred review Minor; rulings/costs recorded in f04-c-review.md.
 - Next: authorized PR9 merge then F04-d authoritative legacy reads/actions from merged main. Remaining F04/F05–F09/productivity/wallet/integration/release-prep tasks continue; actual release/tag/VPS actions remain unauthorized. Browser F05 and Server2019 R02 unrun.
+
+
+### F04-c integration / F04-d source in progress
+
+- PR9 merged after fresh review and exact final HEAD `8cce8ee033fe6e23350483c9cf8b9e456c9c8ca5` Windows run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38165065503. Both Node22/24: install/native/lint/tests512/build/production15checks/evidence success, ci-gate success;56files, zero failed/skipped. Full logs/JUnit/JSON/native/production artifacts independently read. Proof https://github.com/DongVienNguyen/Family-Organizer/pull/9#issuecomment-6112440498. Squash main `ea72f67a59ac17335753ad2bb29d999bbc8e4326`.
+- F04-d branch `codex/f04-authoritative-reads`, BASE that squash; source/tests in progress, PR/Windows pending. Shared server helpers govern HTTP/search/AI/patient and object membership. Calendar subscription shared-only; health UI gets own choices for limited roles. Scope/rulings: `legacy-object-visibility.md`. Media/input/proxy/bootstrap/reward/notification content/backup/log privacy/dependencies and F05 browser remain incomplete; no full foundation or Internet-readiness claim.
+- F04-d source validation: Cloud Node24567/567 in57files, lint/build exit0. Actual RED→GREEN:30 object/ICS cases, four provider-session/patient-UI cases, two missing-proof/suite cases, one accidental note write-grant widening found during own diff review. Authorized behavior characterization remains alongside denials. An evidence fixture-order mistake produced one failure565/566; moving the new fixture name to the end retained the original path-normalization assertion. It is not counted as a production defect. Final source Windows567-test/16production-check proof and one fresh whole-branch review pending before merge. No dependencies/lock changes.

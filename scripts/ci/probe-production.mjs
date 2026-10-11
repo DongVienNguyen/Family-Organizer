@@ -22,6 +22,13 @@ const salt = 'synthetic-test-salt';
 const password = 'synthetic-only-password';
 const passwordHash = `${salt}$${crypto.pbkdf2Sync(password, salt, 120000, 64, 'sha512').toString('hex')}`;
 const legacy = { users: [{ id: 'synthetic-adult', username: 'synthetic', fullName: 'Synthetic adult', role: 'admin', passwordHash }], tasks: [{ id: 'synthetic-task', title: 'Giữ ID', createdById: 'synthetic-adult', assignedToId: 'synthetic-adult', status: 'todo' }] };
+// Mixed private/shared fixtures exercise compiled actor filtering, not only startup.
+legacy.users.push({id:'synthetic-child',username:'synthetic-child',fullName:'Synthetic child',role:'child',passwordHash});
+Object.assign(legacy.tasks[0],{creatorId:'synthetic-adult',assigneeId:'synthetic-adult',isShared:false});
+const shared={creatorId:'synthetic-adult',isShared:true,description:'synthetic visibility',createdAt:'2026-10-11',updatedAt:'2026-10-11'};
+legacy.plans=[{...shared,id:'synthetic-shared-plan',title:'Synthetic shared',startDate:'2026-10-11 09:00'}, {...shared,id:'synthetic-private-plan',title:'Synthetic private',startDate:'2026-10-11 09:00',isShared:false}];
+legacy.notes=[{...shared,id:'synthetic-shared-note',title:'Synthetic shared',content:'synthetic visibility',allowedRolesToEdit:[]}, {...shared,id:'synthetic-private-note',title:'Synthetic private',content:'synthetic visibility',allowedRolesToEdit:[],isShared:false}];
+legacy.healthProfiles=['synthetic-child','synthetic-adult'].map(userId=>({id:'hp_'+userId,userId,emergencyContacts:[],createdAt:'2026-10-11',updatedAt:'2026-10-11'}));
 fs.writeFileSync(path.join(dataRoot, 'db.json'), JSON.stringify(legacy));
 fs.writeFileSync(path.join(configRoot, 'session_secret.key'), 'synthetic-session-key');
 fs.writeFileSync(path.join(configRoot, 'app_settings.json'), JSON.stringify({ marker: 'synthetic' }));
@@ -132,6 +139,15 @@ try {
     assert.equal((await request(port,'/api/realtime')).status,401);
     assert.equal((await request(port,'/api/realtime?token='+encodeURIComponent(token))).status,401);
     await probeRealtime(port,token);
+    const childLogin=await request(port,'/api/auth/login',{username:'synthetic-child',password});assert.equal(childLogin.status,200);const childToken=JSON.parse(childLogin.text).token;
+    const visibleNotes=await request(port,'/api/notes',undefined,childToken);assert.equal(visibleNotes.status,200);assert.deepEqual(JSON.parse(visibleNotes.text).notes.map(row=>row.id),['synthetic-shared-note']);
+    const visiblePlans=await request(port,'/api/plans',undefined,childToken);assert.equal(visiblePlans.status,200);assert.deepEqual(JSON.parse(visiblePlans.text).plans.map(row=>row.id),['synthetic-shared-plan']);
+    const visibleTasks=await request(port,'/api/tasks',undefined,childToken);assert.equal(visibleTasks.status,200);assert.deepEqual(JSON.parse(visibleTasks.text).tasks,[]);
+    assert.equal((await request(port,'/api/finance',undefined,childToken)).status,403);
+    const visibleHealth=await request(port,'/api/child-health',undefined,childToken);assert.equal(visibleHealth.status,200);assert.deepEqual(JSON.parse(visibleHealth.text).healthProfiles.map(row=>row.userId),['synthetic-child']);
+    const search=await request(port,'/api/search?q=synthetic',undefined,childToken);assert.equal(search.status,200);assert.equal(search.text.includes('synthetic-private'),false);assert.equal(search.text.includes('synthetic-shared-note'),true);
+    const feedInfo=await request(port,'/api/calendar/feed-info',undefined,childToken);assert.equal(feedInfo.status,200);const calendar=await request(port,'/api/calendar.ics?token='+encodeURIComponent(JSON.parse(feedInfo.text).token));assert.equal(calendar.status,200);assert.match(calendar.text,/synthetic-shared-plan/);assert.equal(calendar.text.includes('synthetic-private-plan'),false);
+
     if(iteration===1){
       assert.equal((await request(port,'/api/auth/logout',{},token)).status,200);
       assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);
@@ -188,7 +204,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

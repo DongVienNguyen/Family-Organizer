@@ -2042,7 +2042,7 @@ export default function App() {
               {activeTab === "child-health" && (
                 <ChildHealth
                   currentUser={currentUser}
-                  users={users}
+                  users={canAccessFinance(currentUser.role)?users:users.filter(user=>user.id===currentUser.id)}
                   vaccinations={vaccinations}
                   growthRecords={growthRecords}
                   healthProfiles={healthProfiles}

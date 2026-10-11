@@ -1,6 +1,6 @@
 import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
 import {createRealtimeHub} from './realtime.js';
-import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument} from './legacyVisibility.js';
+import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canEditLegacyTask,canEditLegacyNote} from './legacyVisibility.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -248,8 +248,8 @@ function canReceiveRealtime(user:{id:string;role:UserRole},event:{type:string;da
     case 'DOCUMENTS_UPDATE':return target(()=>FamilyDB.getDocuments(),data.documentId??data.deletedId,canViewLegacyDocument);
     case 'FINANCE_UPDATE':return isAdult(actor)&&(!('savingsGoalId' in data||'deletedGoalId' in data)||target(()=>FamilyDB.getSavingsGoals(),data.savingsGoalId??data.deletedGoalId,canViewSavingsGoal));
     case 'BACKUPS_UPDATE':return actor.role===UserRole.ADMIN;
-    case 'MEDICATIONS_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getMedications(),data.medicationId??data.deletedId,row=>row.patientId===actor.userId);
-    case 'CHILD_HEALTH_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getHealthProfiles(),data.healthProfileId,row=>row.userId===actor.userId)||target(()=>FamilyDB.getVaccinations(),data.vaccinationId??data.deletedVaccinationId,row=>row.childId===actor.userId)||target(()=>FamilyDB.getGrowthRecords(),data.growthId??data.deletedGrowthId,row=>row.childId===actor.userId);
+    case 'MEDICATIONS_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getMedications(),data.medicationId??data.deletedId,row=>canViewLegacyPatient(row.patientId,actor));
+    case 'CHILD_HEALTH_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getHealthProfiles(),data.healthProfileId,row=>canViewLegacyPatient(row.userId,actor))||target(()=>FamilyDB.getVaccinations(),data.vaccinationId??data.deletedVaccinationId,row=>canViewLegacyPatient(row.childId,actor))||target(()=>FamilyDB.getGrowthRecords(),data.growthId??data.deletedGrowthId,row=>canViewLegacyPatient(row.childId,actor));
     case 'REWARDS_UPDATE':case 'SHOPPING_UPDATE':case 'USERS_UPDATE':case 'NOTIFICATIONS_UPDATE':case 'SETTINGS_UPDATE':case 'RESTORE_COMPLETED':return true;
     default:return false;
   }
@@ -711,20 +711,17 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 // --- TASK API ENDPOINTS ---
 
 app.get("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
-  const tasks = FamilyDB.getTasks();
+  const tasks = FamilyDB.getTasks().filter(task=>canViewLegacyTask(task,req.userSession!));
   res.json({ tasks });
 });
 
-app.post("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
+app.post("/api/tasks", requireAuth, requireRole([UserRole.ADMIN,UserRole.MEMBER,UserRole.CHILD]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   
-  // Guard write permissions - Child/Guest can only edit tasks they created or are assigned to.
-  if (isLimitedViewer(session.role) && req.body.id && !req.body.comments) {
-    const existing = FamilyDB.getTasks().find(t => t.id === req.body.id);
-    if (existing && existing.creatorId !== session.userId && existing.assigneeId !== session.userId) {
-      res.status(403).json({ error: "Bạn chỉ được sửa đổi công việc do mình tạo hoặc được giao!" });
-      return;
-    }
+  if(req.body?.id){
+    const existing=FamilyDB.getTasks().find(task=>task.id===req.body.id);
+    if(!existing||!canViewLegacyTask(existing,session)){res.status(404).json({error:'Không tìm thấy công việc'});return;}
+    if(!canEditLegacyTask(existing,session)){res.status(403).json({error:'Bạn không có quyền sửa công việc này.'});return;}
   }
 
   try {
@@ -742,6 +739,8 @@ app.post("/api/tasks/:id/comments", requireAuth, (req: AuthRequest, res: Respons
   const session = req.userSession!;
   const { id } = req.params;
   const { content } = req.body;
+  const existing=FamilyDB.getTasks().find(task=>task.id===id);
+  if(!existing||!canViewLegacyTask(existing,session)){res.status(404).json({error:'Không tìm thấy công việc'});return;}
 
   if (!content || content.trim() === "") {
     res.status(400).json({ error: "Nội dung bình luận không được bỏ trống!" });
@@ -801,7 +800,7 @@ app.delete("/api/tasks/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.
 // --- PLANS / SCHEDULE API ENDPOINTS ---
 
 app.get("/api/plans", requireAuth, (req: AuthRequest, res: Response) => {
-  const plans = FamilyDB.getPlans();
+  const plans = FamilyDB.getPlans().filter(plan=>canViewLegacyPlan(plan,req.userSession!));
   res.json({ plans });
 });
 
@@ -811,6 +810,7 @@ app.post("/api/plans", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER
 
   if (planData.id) {
     const existing = FamilyDB.getPlans().find(p => p.id === planData.id);
+    if(!existing||!canViewLegacyPlan(existing,session)){res.status(404).json({error:'Không tìm thấy sự kiện'});return;}
     if (existing && existing.creatorId !== session.userId && session.role !== UserRole.ADMIN) {
       res.status(403).json({ error: "Bạn chỉ có thể chỉnh sửa sự kiện do mình tạo. Admin có toàn quyền chỉnh sửa lịch." });
       return;
@@ -831,6 +831,7 @@ app.delete("/api/plans/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.
   const session = req.userSession!;
   const { id } = req.params;
   const existing = FamilyDB.getPlans().find(p => p.id === id);
+  if(!existing||!canViewLegacyPlan(existing,session)){res.status(404).json({error:'Không tìm thấy sự kiện'});return;}
 
   if (existing && existing.creatorId !== session.userId && session.role !== UserRole.ADMIN) {
     res.status(403).json({ error: "Bạn chỉ có thể xóa sự kiện do mình tạo. Admin có toàn quyền quản lý lịch." });
@@ -869,7 +870,7 @@ app.get("/api/calendar.ics", (req: Request, res: Response) => {
 // --- NOTES API ENDPOINTS ---
 
 app.get("/api/notes", requireAuth, (req: AuthRequest, res: Response) => {
-  const notes = FamilyDB.getNotes();
+  const notes = FamilyDB.getNotes().filter(note=>canViewLegacyNote(note,req.userSession!));
   res.json({ notes });
 });
 
@@ -877,16 +878,10 @@ app.post("/api/notes", requireAuth, (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   const noteData = req.body;
 
-  // Role validation for modification
-  if (noteData.id) {
-    const existing = FamilyDB.getNotes().find(n => n.id === noteData.id);
-    if (existing) {
-      // Check author or edit permission
-      if (existing.creatorId !== session.userId && !existing.allowedRolesToEdit.includes(session.role)) {
-        res.status(403).json({ error: "Bạn không có quyền sửa ghi chú này!" });
-        return;
-      }
-    }
+  if(noteData.id){
+    const existing=FamilyDB.getNotes().find(note=>note.id===noteData.id);
+    if(!existing||!canViewLegacyNote(existing,session)){res.status(404).json({error:'Không tìm thấy ghi chú'});return;}
+    if(!canEditLegacyNote(existing,session)){res.status(403).json({error:'Bạn không có quyền sửa ghi chú này.'});return;}
   }
 
   try {
@@ -904,7 +899,7 @@ app.delete("/api/notes/:id", requireAuth, (req: AuthRequest, res: Response) => {
   const { id } = req.params;
 
   const existing = FamilyDB.getNotes().find(n => n.id === id);
-  if (!existing) {
+  if (!existing||!canViewLegacyNote(existing,session)) {
     res.status(404).json({ error: "Không tìm thấy ghi chú" });
     return;
   }
@@ -928,7 +923,7 @@ app.delete("/api/notes/:id", requireAuth, (req: AuthRequest, res: Response) => {
 // Gộp kết quả từ tasks + lịch + ghi chú + thu chi + giấy tờ trong MỘT request.
 // So khớp không phân biệt hoa/thường & bỏ dấu tiếng Việt ("giay to" khớp "Giấy tờ").
 // Quyền xem soi đúng theo từng route GET gốc: thu chi + giấy tờ chỉ Admin/Member,
-// giấy tờ lọc thêm canViewDocument; các nhóm còn lại mọi thành viên đều thấy.
+// All domain visibility filters run before matching and result limits.
 
 interface SearchResultItem {
   kind: "task" | "plan" | "note" | "transaction" | "document";
@@ -953,9 +948,9 @@ app.get("/api/search", requireAuth, (req: AuthRequest, res: Response) => {
   const take = <T,>(list: T[], map: (x: T) => SearchResultItem) =>
     list.slice(0, SEARCH_LIMIT_PER_KIND).forEach(x => results.push(map(x)));
 
-  // Công việc — title/description/tags (route GET gốc trả tất cả cho mọi role)
+  // Tasks — same authoritative visibility as the list route.
   take(
-    FamilyDB.getTasks().filter(t => matchesQuery(q, t.title, t.description, t.tags)),
+    FamilyDB.getTasks().filter(t => canViewLegacyTask(t,session)&&matchesQuery(q, t.title, t.description, t.tags)),
     t => ({
       kind: "task", id: t.id, title: t.title,
       snippet: excerptAround(t.description, q) || "Công việc",
@@ -965,7 +960,7 @@ app.get("/api/search", requireAuth, (req: AuthRequest, res: Response) => {
 
   // Lịch / sự kiện — title/description
   take(
-    FamilyDB.getPlans().filter(p => matchesQuery(q, p.title, p.description)),
+    FamilyDB.getPlans().filter(p => canViewLegacyPlan(p,session)&&matchesQuery(q, p.title, p.description)),
     p => ({
       kind: "plan", id: p.id, title: p.title,
       snippet: excerptAround(p.description, q) || "Sự kiện",
@@ -975,7 +970,7 @@ app.get("/api/search", requireAuth, (req: AuthRequest, res: Response) => {
 
   // Ghi chú — title/content/tags
   take(
-    FamilyDB.getNotes().filter(n => matchesQuery(q, n.title, n.content, n.tags)),
+    FamilyDB.getNotes().filter(n => canViewLegacyNote(n,session)&&matchesQuery(q, n.title, n.content, n.tags)),
     n => ({
       kind: "note", id: n.id, title: n.title,
       snippet: excerptAround(n.content, q) || "Ghi chú",
@@ -1513,7 +1508,7 @@ app.get("/api/market-prices", requireAuth, async (_req: AuthRequest, res: Respon
 // --- MEDICATION API ENDPOINTS ---
 
 app.get("/api/medications", requireAuth, (req: AuthRequest, res: Response) => {
-  res.json({ medications: FamilyDB.getMedications() });
+  res.json({ medications: FamilyDB.getMedications().filter(row=>canViewLegacyPatient(row.patientId,req.userSession!)) });
 });
 
 app.post("/api/medications", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
@@ -1565,7 +1560,7 @@ app.post("/api/documents", requireAuth, requireRole([UserRole.ADMIN, UserRole.ME
   const session = req.userSession!;
   if (req.body?.id) {
     const existing = FamilyDB.getDocuments().find(d => d.id === req.body.id);
-    if (!existing) {
+    if (!existing||!canViewDocument(existing,session)) {
       res.status(404).json({ error: "Không tìm thấy giấy tờ" });
       return;
     }
@@ -1587,6 +1582,7 @@ app.post("/api/documents", requireAuth, requireRole([UserRole.ADMIN, UserRole.ME
 app.delete("/api/documents/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   const existing = FamilyDB.getDocuments().find(d => d.id === req.params.id);
+  if(!existing||!canViewDocument(existing,session)){res.status(404).json({error:'Không tìm thấy giấy tờ'});return;}
   if (existing && !canManageDocument(existing, session)) {
     res.status(403).json({ error: "Bạn không có quyền xóa giấy tờ này." });
     return;
@@ -1602,16 +1598,16 @@ app.delete("/api/documents/:id", requireAuth, requireRole([UserRole.ADMIN, UserR
 });
 
 // --- SỨC KHỎE TRẺ: TIÊM CHỦNG & TĂNG TRƯỞNG (chỉ Admin/Member) ---
-// Sổ sức khỏe cả nhà đều xem được; thêm/sửa/xóa vẫn giới hạn Admin/Member ở các route ghi bên dưới.
-app.get("/api/child-health", requireAuth, (_req: AuthRequest, res: Response) => {
+// Adults manage family care; limited viewers receive only their own patient records.
+app.get("/api/child-health", requireAuth, (req: AuthRequest, res: Response) => {
   res.json({
-    vaccinations: FamilyDB.getVaccinations(),
-    growthRecords: FamilyDB.getGrowthRecords(),
-    healthProfiles: FamilyDB.getHealthProfiles()
+    vaccinations: FamilyDB.getVaccinations().filter(row=>canViewLegacyPatient(row.childId,req.userSession!)),
+    growthRecords: FamilyDB.getGrowthRecords().filter(row=>canViewLegacyPatient(row.childId,req.userSession!)),
+    healthProfiles: FamilyDB.getHealthProfiles().filter(row=>canViewLegacyPatient(row.userId,req.userSession!))
   });
 });
 
-// Thẻ khẩn cấp: mọi thành viên xem được (GET ở trên), Admin/Member cập nhật.
+// Emergency profile: patient or adult read; adults update.
 app.post("/api/child-health/emergency", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   try {
@@ -1729,8 +1725,11 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
 
   try {
     const [{ GoogleGenAI }] = await Promise.all([import("@google/genai")]);
+    const user=dependencies.auth.verify(req.headers.authorization!.slice(7));
+    if(!user){res.status(401).json({error:'Phiên đăng nhập đã kết thúc.'});return;}
+    const actor={userId:user.id,role:user.role};
     const ai = new GoogleGenAI({ apiKey });
-    const tasks = FamilyDB.getTasks().slice(-30).map(t => ({
+    const tasks = FamilyDB.getTasks().filter(task=>canViewLegacyTask(task,actor)).slice(-30).map(t => ({
       id: t.id,
       title: t.title,
       status: t.status,
@@ -1739,15 +1738,15 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       assigneeId: t.assigneeId,
       rewardPoints: t.rewardPoints
     }));
-    const plans = FamilyDB.getPlans().slice(-30).map(p => ({
+    const plans = FamilyDB.getPlans().filter(plan=>canViewLegacyPlan(plan,actor)).slice(-30).map(p => ({
       id: p.id,
       title: p.title,
       startDate: p.startDate,
       endDate: p.endDate,
       isShared: p.isShared
     }));
-    const transactions = FamilyDB.getTransactions().slice(-30).map(({ receiptImage, ...tx }) => tx);
-    const medications = FamilyDB.getMedications().map(m => ({
+    const transactions = (isAdult(actor)?FamilyDB.getTransactions():[]).slice(-30).map(({ receiptImage, ...tx }) => tx);
+    const medications = FamilyDB.getMedications().filter(row=>canViewLegacyPatient(row.patientId,actor)).map(m => ({
       id: m.id,
       name: m.name,
       dosage: m.dosage,
@@ -1778,6 +1777,7 @@ app.post("/api/assistant/chat", requireAuth, async (req: AuthRequest, res: Respo
       contents: prompt,
       config: { responseMimeType: "application/json" }
     } as any);
+    if(!dependencies.auth.verify(req.headers.authorization!.slice(7))){res.status(401).json({error:'Phiên đăng nhập đã kết thúc.'});return;}
     const rawText = response.text || "";
     const parsed = parseAssistantJson(rawText);
     if (!parsed) {
@@ -2177,13 +2177,15 @@ app.post("/api/users/:id/reset-password", requireAuth, requireRole([UserRole.ADM
 
 app.get("/api/notifications", requireAuth, (req: AuthRequest, res: Response) => {
   const userId = req.userSession!.userId;
-  const list = FamilyDB.getNotifications().filter(n => n.userId === "all" || n.userId === userId);
+  const list = FamilyDB.getNotifications().filter(n => canViewLegacyNotification(n,req.userSession!));
   res.json({ notifications: list });
 });
 
 app.post("/api/notifications/:id/read", requireAuth, (req: AuthRequest, res: Response) => {
   const userId = req.userSession!.userId;
   const { id } = req.params;
+  const notification=FamilyDB.getNotifications().find(row=>row.id===id);
+  if(!notification||!canViewLegacyNotification(notification,req.userSession!)){res.status(404).json({error:'Không tìm thấy thông báo'});return;}
   FamilyDB.markNotificationRead(id, userId);
   res.json({ success: true });
 });

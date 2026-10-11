@@ -7,3 +7,8 @@ export const canViewLegacyTask=(task:SharedObject&{assigneeId?:string|null},acto
 export const canViewLegacyPlan=(plan:SharedObject,actor:LegacyActor)=>known(actor)&&(plan.isShared===true||plan.creatorId===actor.userId||actor.role===UserRole.ADMIN);
 export const canViewLegacyNote=canViewLegacyPlan;
 export const canViewLegacyDocument=(doc:SharedObject&{ownerId?:string},actor:LegacyActor)=>isAdult(actor)&&(doc.isShared===true||doc.creatorId===actor.userId||doc.ownerId===actor.userId);
+
+export const canViewLegacyPatient=(patientId:unknown,actor:LegacyActor)=>known(actor)&&(isAdult(actor)||(typeof patientId==='string'&&patientId===actor.userId));
+export const canViewLegacyNotification=(notification:{userId:string},actor:LegacyActor)=>known(actor)&&(notification.userId==='all'||notification.userId===actor.userId);
+export const canEditLegacyTask=(task:SharedObject&{assigneeId?:string|null},actor:LegacyActor)=>isAdult(actor)||(actor.role===UserRole.CHILD&&(task.creatorId===actor.userId||task.assigneeId===actor.userId));
+export const canEditLegacyNote=(note:SharedObject&{allowedRolesToEdit?:UserRole[]},actor:LegacyActor)=>canViewLegacyNote(note,actor)&&(note.creatorId===actor.userId||Array.isArray(note.allowedRolesToEdit)&&note.allowedRolesToEdit.includes(actor.role));

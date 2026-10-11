@@ -4,7 +4,9 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { planToIcsEvent } from "./icsFeed.js";
+import {vi} from "vitest";
+import {FamilyDB} from "./db.js";
+import { planToIcsEvent, buildIcsFeed } from "./icsFeed.js";
 import type { FamilyPlan } from "../src/types.js";
 
 const base: FamilyPlan = {
@@ -51,4 +53,10 @@ describe("planToIcsEvent — sự kiện lặp KHÔNG kéo dài mỗi lần từ
   it("startDate hỏng → không sinh VEVENT", () => {
     expect(mk({ startDate: "khong-phai-ngay" })).toEqual([]);
   });
+});
+
+it('restricts the family subscription to truly shared plans while preserving birthdays',()=>{
+  const plans=vi.spyOn(FamilyDB,'getPlans').mockReturnValue([{...base,id:'shared-synthetic',title:'Shared synthetic'}, {...base,id:'private-synthetic',title:'Private synthetic',isShared:false}, {...base,id:'malformed-synthetic',title:'Malformed synthetic',isShared:'false' as any}]);
+  const users=vi.spyOn(FamilyDB,'getUsers').mockReturnValue([{id:'birthday-synthetic',fullName:'Synthetic birthday',dateOfBirth:'2020-10-11'} as any]);
+  try{const feed=buildIcsFeed();expect(feed).toContain('shared-synthetic');expect(feed).not.toContain('private-synthetic');expect(feed).not.toContain('malformed-synthetic');expect(feed).toContain('bday-birthday-synthetic');expect(feed).toContain('BEGIN:VCALENDAR');}finally{plans.mockRestore();users.mockRestore();}
 });
