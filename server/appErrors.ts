@@ -1,6 +1,9 @@
 export class AppStoreError extends Error {
   constructor(message: string, public status = 409, public code?: string) { super(message); }
 }
+export class AppDeliveryError extends Error {
+  constructor(message: string, public unknownOutcome: boolean) { super(message); }
+}
 
 export interface EditVersionPayload { baseUpdatedAt?: string }
 export function assertEditVersion(existing: { updatedAt?: string }, base: unknown): void {

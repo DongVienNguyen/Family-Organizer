@@ -32,11 +32,12 @@ export async function startApplication(config: AppConfig = appConfig) {
     const digest = await import('./weeklyDigest.js');
     const ics = await import('./icsFeed.js');
     const push = await import('./push.js');
+    const { AppJobStore } = await import('./jobStore.js');
     state.migrating = false; state.storageWritable = true;
     handle = await createApp(config, {
       db, sqlite, media, fullBackup, telegram, digest, ics, push,
       build: readBuildInfo(config.codeRoot, process.env), state,
-      jobs: new AppJobs(), metrics: createSystemMetrics(config.dataRoot),
+      jobs: new AppJobs(undefined, new AppJobStore()), metrics: createSystemMetrics(config.dataRoot),
       checkStorage: () => prepareStorage(config),
     });
     const port = process.env.PORT === undefined ? 3000 : Number(process.env.PORT);

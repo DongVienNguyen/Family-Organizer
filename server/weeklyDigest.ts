@@ -16,6 +16,8 @@
 
 import { FamilyDB, getAppSettings, setAppSetting } from "./db.js";
 import { TaskStatus } from "../src/types.js";
+import { AppDeliveryError } from './appErrors.js';
+import { postTelegram } from './telegramDelivery.js';
 
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 
@@ -333,15 +335,11 @@ ${JSON.stringify({
 // ─── GỬI QUA TELEGRAM ────────────────────────────────────────────────────────
 
 async function sendTelegramHtml(token: string, chatId: string, html: string): Promise<void> {
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  await postTelegram(token, 'sendMessage', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ chat_id: chatId, text: html, parse_mode: "HTML" })
   });
-  const data: any = await res.json().catch(() => ({}));
-  if (!res.ok || !data.ok) {
-    throw new Error(`Telegram lỗi: ${data.description || `HTTP ${res.status}`}`);
-  }
 }
 
 // ─── ĐIỂM VÀO CÔNG KHAI ─────────────────────────────────────────────────────
@@ -400,13 +398,15 @@ export async function runWeeklyDigestTick(now = new Date()): Promise<void> {
   if (s.telegramWeeklyDigestLastSent === mondayKey) return;
 
   sending = true;
+  let acknowledged = false;
   try {
     const { aiUsed } = await sendWeeklyDigest(now);
+    acknowledged = true;
     setAppSetting("telegramWeeklyDigestLastSent", mondayKey);
     console.log(`[weeklyDigest] Bản tin tuần đã gửi (AI=${aiUsed}).`);
   } catch (e: any) {
-    console.error("[weeklyDigest] Gửi thất bại:", e?.message || e);
-    // best-effort: không set lastSent để thử lại lần tick tiếp
+    console.error("[weeklyDigest] Gửi thất bại.");
+    throw e instanceof AppDeliveryError ? e : new AppDeliveryError('Automatic weekly digest failed', acknowledged);
   } finally {
     sending = false;
   }
