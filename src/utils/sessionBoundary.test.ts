@@ -1,3 +1,6 @@
+import http from 'node:http';
+import {once} from 'node:events';
+import {Readable} from 'node:stream';
 import { expect,it,vi } from 'vitest';
 import { createSessionBoundary } from './sessionBoundary.js';
 const origin='https://family.test';
@@ -54,4 +57,29 @@ it('retains a body after failed pipeTo with preventCancel until it is cancelled 
   const response=await f.boundary.request(origin+'/api/realtime',options);
   await expect(response.body!.pipeTo(new WritableStream({write(){throw new Error('Synthetic destination failure');}}),{preventCancel:true})).rejects.toThrow('Synthetic destination failure');
   expect(cancel).not.toHaveBeenCalled();await f.boundary.change('B');expect(f.network.mock.calls[0][1].signal.aborted).toBe(true);
+});
+
+it.each(['locked-body-cancel','released-reader-read','released-reader-cancel','locked-pipe'])('retains live transport ownership after rejected %s',async method=>{
+  const f=await fixture();f.network.mockImplementation(async()=>new Response(new ReadableStream({start(controller){controller.enqueue(new Uint8Array([1]));}})));
+  const response=await f.boundary.request(origin+'/api/realtime',options),reader=response.body!.getReader(),signal=f.network.mock.calls[0][1].signal;
+  await reader.read();
+  if(method==='locked-body-cancel')await expect(response.body!.cancel()).rejects.toBeInstanceOf(TypeError);
+  else if(method==='locked-pipe')await expect(response.body!.pipeTo(new WritableStream())).rejects.toBeInstanceOf(TypeError);
+  else{reader.releaseLock();if(method==='released-reader-read')await expect(reader.read()).rejects.toBeInstanceOf(TypeError);else await expect(reader.cancel()).rejects.toBeInstanceOf(TypeError);}
+  await f.boundary.change('B');expect(signal.aborted).toBe(true);if(method==='locked-body-cancel'||method==='locked-pipe')reader.releaseLock();
+});
+
+it.each(['locked-body','released-reader'])('aborts a native loopback SSE transport after rejected %s operation',async mode=>{
+  let transport!:http.IncomingMessage,signal!:AbortSignal;
+  const server=http.createServer((_req,res)=>{res.writeHead(200,{'Content-Type':'text/event-stream'});res.write('data: {"type":"init"}\n\n');}).listen(0,'127.0.0.1');await once(server,'listening');
+  let token:string|null='A';const localOrigin='http://127.0.0.1:'+(server.address() as any).port;
+  const request=(input:any,init:any)=>new Promise<Response>((resolve,reject)=>{
+    signal=init.signal;const req=http.get(input,{agent:false,signal,headers:Object.fromEntries(new Headers(init.headers))},res=>{transport=res;resolve(new Response(Readable.toWeb(res) as ReadableStream<Uint8Array>,{status:res.statusCode,headers:{'Content-Type':'text/event-stream'}}));});req.on('error',reject);
+  });
+  const boundary=createSessionBoundary({origin:localOrigin,request:request as typeof fetch,readToken:()=>token,writeToken:next=>{token=next;},purge:async()=>{}});await boundary.change('A');
+  try{
+    const response=await boundary.request(localOrigin+'/api/realtime',options),reader=response.body!.getReader();expect((await reader.read()).done).toBe(false);
+    if(mode==='locked-body')await expect(response.body!.cancel()).rejects.toBeInstanceOf(TypeError);else{reader.releaseLock();await expect(reader.read()).rejects.toBeInstanceOf(TypeError);}
+    await boundary.change('B');expect(signal.aborted).toBe(true);await vi.waitFor(()=>expect(transport.destroyed).toBe(true));if(mode==='locked-body')reader.releaseLock();
+  }finally{transport?.destroy();server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));}
 });

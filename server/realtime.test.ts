@@ -1,8 +1,11 @@
+import http from 'node:http';
+import net from 'node:net';
+import {once} from 'node:events';
 import {EventEmitter} from 'node:events';
 import {afterEach,expect,it,vi} from 'vitest';
 import {createRealtimeHub} from './realtime.js';
 const actor={id:'synthetic-user',role:'member'} as any;
-function sink(){const response=Object.assign(new EventEmitter(),{destroyed:false,writableEnded:false,writableLength:0,writeHead:vi.fn(),write:vi.fn(()=>true),end:vi.fn()});return response as any;}
+function sink(){const response=Object.assign(new EventEmitter(),{destroyed:false,writableEnded:false,writableLength:0,writeHead:vi.fn(),write:vi.fn(()=>true),end:vi.fn()});Object.assign(response,{destroy:vi.fn(()=>{response.destroyed=true;response.emit('close');})});return response as any;}
 afterEach(()=>vi.useRealTimers());
 it('constructs without verifying sessions or starting timers and preserves generic authenticated emission',()=>{
   const verify=vi.fn(()=>actor),timer=vi.spyOn(globalThis,'setInterval'),allow=vi.fn(()=>true);const hub=createRealtimeHub({verify,allow});
@@ -30,4 +33,16 @@ it('bounds per-user and total connections without treating capacity as logout',(
 });
 it('fails closed when live session verification throws and disposes the response listener',()=>{
   const verify=vi.fn(()=>actor),hub=createRealtimeHub({verify,allow:()=>true}),response=sink();hub.open('synthetic',response);verify.mockImplementation(()=>{throw new Error('Synthetic auth failure');});hub.emit({type:'NOTES_UPDATE',data:{}});expect(hub.size).toBe(0);expect(response.end).toHaveBeenCalledOnce();expect(response.listenerCount('close')).toBe(0);hub.end();
+});
+
+it('terminates a backpressured native response before releasing its admission slot',async()=>{
+  const hub=createRealtimeHub({verify:()=>actor,allow:()=>true,maxClients:1});let response!:http.ServerResponse;
+  const server=http.createServer((_req,res)=>{response=res;hub.open('synthetic',res as any);}).listen(0,'127.0.0.1');await once(server,'listening');
+  const client=net.connect((server.address() as net.AddressInfo).port,'127.0.0.1');await once(client,'connect');client.pause();client.write('GET /api/realtime HTTP/1.1\r\nHost: synthetic\r\n\r\n');
+  try{
+    await vi.waitFor(()=>expect(response).toBeDefined());
+    for(let index=0;index<20000&&hub.size;index++)hub.emit({type:'NOTES_UPDATE',data:{}});
+    expect(response.writableEnded).toBe(true);expect(response.destroyed).toBe(true);
+    await vi.waitFor(()=>expect(hub.size).toBe(0));expect(response.listenerCount('close')).toBe(0);
+  }finally{client.destroy();hub.end();server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));}
 });

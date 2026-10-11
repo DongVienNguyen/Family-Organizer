@@ -242,7 +242,7 @@ function canReceiveRealtime(user:{id:string;role:UserRole},event:{type:string;da
   if(!VALID_ROLES.has(actor.role))return false;
   const target=(getter:()=>{id:string}[],id:unknown,allow:(row:any,recipient:{userId:string;role:UserRole})=>boolean)=>typeof id==='string'&&getter().some(row=>row.id===id&&allow(row,actor));
   switch(event.type){
-    case 'TASKS_UPDATE':return target(()=>FamilyDB.getTasks(),data.taskId??data.deletedId,canViewLegacyTask);
+    case 'TASKS_UPDATE':return (Array.isArray(data.taskIds)?data.taskIds:[data.taskId??data.deletedId]).some(id=>target(()=>FamilyDB.getTasks(),id,canViewLegacyTask));
     case 'PLANS_UPDATE':return target(()=>FamilyDB.getPlans(),data.planId??data.deletedId,canViewLegacyPlan);
     case 'NOTES_UPDATE':return target(()=>FamilyDB.getNotes(),data.noteId??data.deletedId,canViewLegacyNote);
     case 'DOCUMENTS_UPDATE':return target(()=>FamilyDB.getDocuments(),data.documentId??data.deletedId,canViewLegacyDocument);
@@ -729,8 +729,9 @@ app.post("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
 
   try {
     const previous=realtimeAudience('TASKS_UPDATE',{taskId:req.body.id});
+    const beforeIds=new Set(FamilyDB.getTasks().map(task=>task.id));
     const savedTask = FamilyDB.saveTask(req.body, session.userId, session.username);
-    broadcastSyncEvent("TASKS_UPDATE", { taskId: savedTask.id },previous);
+    broadcastSyncEvent("TASKS_UPDATE", { taskIds: [savedTask.id,...FamilyDB.getTasks().filter(task=>!beforeIds.has(task.id)).map(task=>task.id)] },previous);
     res.json({ task: savedTask });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -760,8 +761,10 @@ app.post("/api/tasks/:id/comments", requireAuth, (req: AuthRequest, res: Respons
 app.post("/api/tasks/:id/approve", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   try {
+    const beforeIds=new Set(FamilyDB.getTasks().map(task=>task.id));
+    const previous=realtimeAudience('TASKS_UPDATE',{taskId:req.params.id});
     const task = FamilyDB.approveTaskCompletion(req.params.id, session.userId, session.username);
-    broadcastSyncEvent("TASKS_UPDATE", { taskId: task.id });
+    broadcastSyncEvent("TASKS_UPDATE", { taskIds: [task.id,...FamilyDB.getTasks().filter(task=>!beforeIds.has(task.id)).map(task=>task.id)] },previous);
     broadcastSyncEvent("REWARDS_UPDATE", { taskId: task.id });
     res.json({ task });
   } catch (err: any) {

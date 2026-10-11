@@ -1,11 +1,13 @@
+import {FamilyDB} from './db.js';
+import {sqliteLoad,sqliteSave} from './sqlite.js';
 import http from 'node:http';
 import {once} from 'node:events';
 import {expect,it} from 'vitest';
 import {createApp} from './app.js';
 import {syntheticDependencies} from '../tests/app-fixture.js';
 import {UserRole} from '../src/types.js';
-async function fixture(work:(f:any)=>Promise<void>){
-  const users=[{id:'adult',username:'synthetic-adult',fullName:'Synthetic adult',role:UserRole.ADMIN,passwordHash:'synthetic'},{id:'child',username:'synthetic-child',fullName:'Synthetic child',role:UserRole.CHILD,passwordHash:'synthetic'},{id:'peer',username:'synthetic-peer',fullName:'Synthetic peer',role:UserRole.MEMBER,passwordHash:'synthetic'}];
+async function fixture(work:(f:any)=>Promise<void>,native=false){
+  const users=[{id:'next-child',username:'synthetic-next-child',fullName:'Synthetic next child',role:UserRole.CHILD,passwordHash:'synthetic'},{id:'adult',username:'synthetic-adult',fullName:'Synthetic adult',role:UserRole.ADMIN,passwordHash:'synthetic'},{id:'child',username:'synthetic-child',fullName:'Synthetic child',role:UserRole.CHILD,passwordHash:'synthetic'},{id:'peer',username:'synthetic-peer',fullName:'Synthetic peer',role:UserRole.MEMBER,passwordHash:'synthetic'}];
   const deps=syntheticDependencies({phase:'ready',storageWritable:true});let transaction:any,notes:any[]=[],plans:any[]=[],documents:any[]=[],tasks:any[]=[],goals:any[]=[],profiles:any[]=[],medications:any[]=[];
   deps.db.FamilyDB.getUsers=()=>users;deps.db.FamilyDB.saveTransaction=(body:any)=>transaction={...body,id:'synthetic-private-finance'};deps.db.FamilyDB.getTransactions=()=>transaction?[transaction]:[];
   deps.db.FamilyDB.getSavingsGoals=()=>goals;deps.db.FamilyDB.saveSavingsGoal=(body:any,actor:string)=>{const row={...body,id:'synthetic-goal',creatorId:actor};goals=[row];return row;};
@@ -17,6 +19,7 @@ async function fixture(work:(f:any)=>Promise<void>){
     deps.db.FamilyDB['delete'+kind[0].toUpperCase()+kind.slice(1)]=(id:string)=>{if(kind==='note')notes=notes.filter(row=>row.id!==id);};
     deps.db.FamilyDB[write]=(body:any,actor:string)=>{const row={...body,id:'synthetic-'+kind,creatorId:actor,allowedRolesToEdit:[],files:[]};if(kind==='note')notes=[row];else if(kind==='plan')plans=[row];else if(kind==='task')tasks=[row];else documents=[row];return row;};
   }
+  if(native){sqliteSave({...sqliteLoad(),users:users as any,tasks:[]});deps.db.FamilyDB=FamilyDB;}
   const tokens=Object.fromEntries(users.map(user=>[user.id,deps.auth.issue(user)]));
   const handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!} as any,deps);const server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');
   const pending:http.IncomingMessage[]=[];
@@ -81,3 +84,12 @@ it('ends an already-open stream when its session is revoked',()=>fixture(async({
   expect(await post('/api/auth/logout',{},tokens.adult)).toBe(200);
   await new Promise(resolve=>setTimeout(resolve,50));expect(ended).toBe(true);
 }));
+
+it.each(['complete','approve'])('notifies the next child after real recurring task rotation via %s',mode=>fixture(async({open,post,tokens}:any)=>{
+  const task=FamilyDB.saveTask({title:'Synthetic rotation',isShared:false,assigneeId:'child',dueDate:'2026-10-11 09:00',recurrenceType:'daily',rotationMemberIds:['child','next-child'],rewardPoints:3},'peer','synthetic-peer');
+  if(mode==='approve')FamilyDB.saveTask({id:task.id,status:'completed'} as any,'child','synthetic-child');
+  const next=await open('/api/realtime',tokens['next-child']);
+  expect(await post(mode==='approve'?'/api/tasks/'+task.id+'/approve':'/api/tasks',mode==='approve'?{}:{id:task.id,status:'completed'},tokens.adult)).toBe(200);
+  const successor=FamilyDB.getTasks().find(row=>row.sourceRecurringTaskId===task.id);expect(successor?.assigneeId).toBe('next-child');
+  await new Promise(resolve=>setTimeout(resolve,30));expect(next.text).toContain('TASKS_UPDATE');expect(next.text).not.toContain(successor!.id);
+},true));
