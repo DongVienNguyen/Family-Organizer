@@ -1,7 +1,14 @@
 import type { User } from '../src/types.js';
 import { createHash,createHmac,randomBytes,timingSafeEqual } from 'node:crypto';
 import { AppStoreError } from './appErrors.js';
+import { UserRole } from '../src/types.js';
 export type AuthUser=User&{passwordHash:string};
+const roles=new Set<string>(Object.values(UserRole));
+export function isActiveAuthUser(value:unknown):value is AuthUser {
+  if(!value||typeof value!=='object')return false;
+  const user=value as Partial<AuthUser>;
+  return typeof user.id==='string'&&!!user.id&&!user.isDeleted&&typeof user.role==='string'&&roles.has(user.role)&&typeof user.passwordHash==='string'&&user.passwordHash.length>0&&user.passwordHash.length<=4096;
+}
 export interface SessionRecord { tokenHash:string;userId:string;userVersion:string;keyVersion:string;createdAt:number;expiresAt:number;revokedAt:number|null }
 export interface SessionStore { get(hash:string):SessionRecord|undefined;insert(record:SessionRecord):void;version(userId:string):number;keyVersion(fingerprint:string):string;revoke(hash:string,now:number):void }
 export interface AuthDependencies { store:SessionStore;getUsers:()=>AuthUser[];getSecret:()=>string;now?:()=>number }
@@ -16,8 +23,8 @@ export function createAuth(deps:AuthDependencies):AuthService {
   const service:AuthService={
     initialize(){key();},
     issue(user){
-      const current=deps.getUsers().find(item=>item.id===user.id);
-      if(!current||current.isDeleted||!current.passwordHash||userVersion(current)!==userVersion(user))throw new AppStoreError('Phiên đăng nhập không hợp lệ.',401);
+      const current=deps.getUsers().find(item=>item?.id===user?.id);
+      if(!isActiveAuthUser(user)||!isActiveAuthUser(current)||userVersion(current)!==userVersion(user))throw new AppStoreError('Phiên đăng nhập không hợp lệ.',401);
       const signing=key(),createdAt=now(),identifier=randomBytes(32).toString('base64url');
       const token=`fo1.${identifier}.${createHmac('sha256',signing.secret).update('fo1.'+identifier).digest('hex')}`;
       deps.store.insert({tokenHash:hash(identifier),userId:current.id,userVersion:userVersion(current),keyVersion:signing.version,createdAt,expiresAt:createdAt+SESSION_TTL_MS,revokedAt:null});
@@ -29,8 +36,8 @@ export function createAuth(deps:AuthDependencies):AuthService {
       if(!timingSafeEqual(Buffer.from(parsed.signature,'hex'),Buffer.from(expected,'hex')))return null;
       const row=deps.store.get(parsed.tokenHash),time=now();
       if(!row||row.revokedAt!==null||row.keyVersion!==signing.version||!Number.isSafeInteger(row.createdAt)||!Number.isSafeInteger(row.expiresAt)||time<row.createdAt||time>=row.expiresAt||row.expiresAt-row.createdAt!==SESSION_TTL_MS)return null;
-      const user=deps.getUsers().find(item=>item.id===row.userId);
-      return user&&!user.isDeleted&&user.passwordHash&&row.userVersion===userVersion(user)?user:null;
+      const user=deps.getUsers().find(item=>item?.id===row.userId);
+      return isActiveAuthUser(user)&&row.userVersion===userVersion(user)?user:null;
     },
     logout(token){if(service.verify(token)){const parsed=parse(token)!;deps.store.revoke(parsed.tokenHash,now());}},
   };return service;

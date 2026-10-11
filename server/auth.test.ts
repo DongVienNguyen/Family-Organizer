@@ -23,3 +23,10 @@ it.each(['password','role','deleted','version'])('invalidates stale sessions whe
 });
 it('invalidates previous key sessions even when the installation key rotates back',()=>{const service=auth(),token=service.issue(user);key='synthetic-rotated-signing-key';expect(service.verify(token)).toBeNull();expect(service.verify(service.issue(user))?.id).toBe(user.id);key='synthetic-auth-signing-key';expect(auth().verify(token)).toBeNull();});
 it('fails closed when the configured key cannot be read',()=>{const service=createAuth({store,getUsers:()=>[user],getSecret:()=>{throw new Error('Synthetic inaccessible key');},now:()=>now});expect(()=>service.issue(user)).toThrow('Synthetic inaccessible key');expect(()=>service.verify('fo1.'+'A'.repeat(43)+'.'+'0'.repeat(64))).toThrow('Synthetic inaccessible key');});
+
+it.each(['synthetic-unknown',null,42])('refuses issuing a session for unknown current role %#',role=>{
+  user.role=role as any;expect(()=>auth().issue(user)).toThrow();expect(records.size).toBe(0);
+});
+it.each([{},['synthetic'],'x'.repeat(4097)])('refuses issuing a session for a malformed current credential hash %#',value=>{
+  user.passwordHash=value as any;expect(()=>auth().issue(user)).toThrow();expect(records.size).toBe(0);
+});

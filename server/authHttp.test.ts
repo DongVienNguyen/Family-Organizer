@@ -79,3 +79,34 @@ it.each(['/api/realtime','/api/calendar.ics?token=synthetic'])('keeps a successf
     expect(received.status).toBe(200);expect(received.body).toContain(route.includes('calendar')?'Synthetic private appointment':'init');expect(received.headers['cache-control']).toBe('no-store');expect(received.headers.vary).toContain('Authorization');
   }finally{server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.drainHandlers();await handle.dispose();}
 });
+
+it.each([
+  {username:42,password:'synthetic'},
+  {username:['admin'],password:'synthetic'},
+  {username:{value:'admin'},password:'synthetic'},
+  {username:'admin',password:42},
+  {username:'admin',password:['synthetic']},
+  {username:'admin',password:{value:'synthetic'}},
+  {username:'x'.repeat(513),password:'synthetic'},
+  {username:'admin',password:'x'.repeat(4097)},
+])('rejects malformed/beyond-bound login inputs before crypto %#',body=>serve(async send=>{
+  const before=db.FamilyDB.getFullSnapshot();
+  expect((await send('/api/auth/login',body)).status).toBe(400);
+  expect(db.FamilyDB.getFullSnapshot()).toEqual(before);
+}));
+it('refuses login for an unknown current role without issuing a session',()=>serve(async send=>{
+  withAppWriteTransaction({actorId:'synthetic-auth',command:'synthetic:unknown-login-role',requestId:randomUUID(),payloadHash:'fixture'},tx=>{tx.legacy.users[0].role='synthetic-unknown' as any;});
+  const before=db.FamilyDB.getFullSnapshot();expect((await send('/api/auth/login',credentials)).status).toBe(401);
+  expect(db.FamilyDB.getFullSnapshot()).toEqual(before);
+}));
+it.each([{},['synthetic']])('handles a corrupted non-string legacy password hash as unauthenticated %#',badHash=>serve(async send=>{
+  withAppWriteTransaction({actorId:'synthetic-auth',command:'synthetic:bad-login-hash',requestId:randomUUID(),payloadHash:'fixture'},tx=>{tx.legacy.users[0].passwordHash=badHash as any;});
+  const before=db.FamilyDB.getFullSnapshot();expect((await send('/api/auth/login',credentials)).status).toBe(401);
+  expect(db.FamilyDB.getFullSnapshot()).toEqual(before);
+}));
+it.each([UserRole.ADMIN,UserRole.MEMBER,UserRole.CHILD,UserRole.GUEST])('preserves valid internal login for %s',role=>serve(async send=>{
+  withAppWriteTransaction({actorId:'synthetic-auth',command:'synthetic:valid-login-role',requestId:randomUUID(),payloadHash:'fixture'},tx=>{tx.legacy.users[0].role=role;});
+  const login=await send('/api/auth/login',credentials);expect(login.status).toBe(200);
+  const me=await send('/api/auth/me',undefined,login.body.token);expect(me.status).toBe(200);expect(me.body.user.role).toBe(role);
+  expect(JSON.stringify(login.body)).not.toContain(db.FamilyDB.getUsers()[0].passwordHash);
+}));

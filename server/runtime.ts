@@ -6,6 +6,8 @@ import { createSystemMetrics } from './systemMetrics.js';
 import { readBuildInfo } from './updater.js';
 import { startManagedServer, disposeDrainedResources } from './lifecycle.js';
 import type { RuntimeState } from './runtimeState.js';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /** The legacy store is one installation per process; it is loaded explicitly here. */
 let applicationClaimed = false;
@@ -23,6 +25,9 @@ export async function startApplication(config: AppConfig = appConfig) {
   let handle: Awaited<ReturnType<typeof createApp>> | undefined;
   let delegated = false;
   try {
+    if(!fs.existsSync(path.join(config.dataRoot,'family.db'))&&!fs.existsSync(path.join(config.dataRoot,'db.json'))){
+      throw new Error('Installation initialization is required; use the trusted local operator command.');
+    }
     sqlite = await import('./sqlite.js');
     const storage = sqlite;
     const { recoverAppRestore } = await import('./appSnapshot.js');

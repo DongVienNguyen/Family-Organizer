@@ -6,9 +6,11 @@ import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import Database from 'better-sqlite3';
 import { it, expect } from 'vitest';
+import { writeSyntheticInstallation } from './synthetic-installation.js';
 const repo=fileURLToPath(new URL('..',import.meta.url));
 async function run(script:string, malformed=false){
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo ownership synthetic ')),data=path.join(root,'data');fs.mkdirSync(data);
+  if(!malformed)writeSyntheticInstallation(data);
   if(malformed){const db=new Database(path.join(data,'family.db'));try{db.exec('CREATE TABLE app_meta (key TEXT PRIMARY KEY)');}finally{db.close();}}
   const env:NodeJS.ProcessEnv={};for(const name of ['PATH','SystemRoot','windir','TEMP','TMP','HOME','USERPROFILE'])if(process.env[name])env[name]=process.env[name];
   Object.assign(env,{NODE_ENV:'production',DATA_DIR:data,CONFIG_DIR:data,LOG_DIR:path.join(data,'logs'),PORT:'0',FO_NETWORK_ATTEMPTS:path.join(root,'external.jsonl')});

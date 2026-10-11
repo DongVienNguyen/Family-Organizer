@@ -1,3 +1,4 @@
+import { writeSyntheticInstallation } from './synthetic-installation.js';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -17,6 +18,7 @@ async function child(root:string,script:string){
 it('cold restore and repeated startup preserve media ownership and permanent bound-file revocation',async()=>{
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo media cold synthetic '));
  try{
+  writeSyntheticInstallation(path.join(root,'dữ liệu'));
   await child(root,`
    import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {randomUUID} from 'node:crypto';
    const db=await import(${moduleUrl('db')});const store=await import(${moduleUrl('appStore')});const sqlite=await import(${moduleUrl('sqlite')});const media=await import(${moduleUrl('media')});const snapshots=await import(${moduleUrl('appSnapshot')});

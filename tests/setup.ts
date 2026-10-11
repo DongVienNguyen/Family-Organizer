@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { afterAll, expect } from 'vitest';
+import { writeSyntheticInstallation } from './synthetic-installation.js';
 
 // Setup runs before test imports, including the legacy ICS -> DB import chain.
 // Every file gets disposable synthetic storage; no checkout data/.env is read.
@@ -10,6 +11,7 @@ const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'fo test synthetic '));
 process.chdir(fixture);
 const originalRoots = Object.fromEntries(["DATA_DIR", "APP_CODE_ROOT", "CONFIG_DIR", "LOG_DIR"].map(name => [name, process.env[name]]));
 process.env.DATA_DIR = path.join(fixture, "data");
+writeSyntheticInstallation(process.env.DATA_DIR);
 for (const name of ["APP_CODE_ROOT", "CONFIG_DIR", "LOG_DIR"]) delete process.env[name];
 const originalFetch = globalThis.fetch;
 const unexpectedRequests: string[] = [];

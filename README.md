@@ -192,20 +192,21 @@ thư mục tạm riêng, chặn fetch ngoài fixtures và không chứa producti
 
 Các lệnh hiện có: `npm ci`, `npm run lint`, `npm test`, `npm run build`,
 `npm run dev` (tsx Express + Vite), `npm start` (dist/server.cjs).
-`clean` và `release` vẫn là scripts lịch sử, sẽ thay ở F02; không chạy chúng trên Windows.
-CI không khởi động full server trong F01 vì lifecycle/jobs còn cần cô lập ở F03.
+`clean` dùng Node và chỉ xóa build target; `release` bị chặn. CI hiện kiểm server
+đã build từ thư mục khác, đóng SQLite đúng lifecycle và lưu bằng chứng riêng.
 
 ---
 
-## 🔑 Tài Khoản Mặc Định
+## 🔑 Tài khoản đầu tiên
 
-Khi khởi động lần đầu hoặc sau khi xóa `data/family.db`, hệ thống tự tạo:
+Installation mới cần khởi tạo Admin bằng công cụ operator nội bộ trước khi chạy
+server. Không còn tài khoản hoặc mật khẩu mặc định. Installation hiện hữu tiếp tục
+đọc SQLite/legacy data; không xóa database để đặt lại mật khẩu.
 
-| Vai trò | Username | Mật khẩu |
-| :--- | :--- | :--- |
-| Admin | `admin` | `admin123` |
-
-> **Đổi mật khẩu ngay** sau khi deploy. Vào **Settings → Thành viên & Phân quyền** để thêm tài khoản cho từng thành viên.
+Đọc [hướng dẫn khởi tạo](docs/engineering/account-initialization.md). Công cụ đã
+build nhận username, tên và mật khẩu qua stdin; F06 sẽ cung cấp wrapper PowerShell
+với nhập mật khẩu ẩn và bundled Node. Sau khi đăng nhập, dùng
+**Settings → Thành viên & Phân quyền** để thêm thành viên.
 
 ---
 

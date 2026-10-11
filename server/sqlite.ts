@@ -9,6 +9,7 @@ import Database from "better-sqlite3";
 import { FamilyOrganizerDB } from "../src/types.js";
 
 import { appConfig, prepareStorage } from "./config.js";
+import {isFirstAccountStorage,InstallationNotPristineError} from "./installationMode.js";
 
 const DATA_DIR = appConfig.dataRoot;
 prepareStorage(appConfig);
@@ -58,9 +59,14 @@ const SINGLETON_KEYS: (keyof FamilyOrganizerDB)[] = ["mealPlan", "hiddenBuiltinC
 // Module evaluation owns the native connection even if a schema/statement fails.
 function initializeDatabase() {
   try {
-    db.pragma("journal_mode = WAL");
     db.pragma("foreign_keys = ON");
     db.pragma("busy_timeout = 5000");
+    if(isFirstAccountStorage()){
+      // Hold the same native connection/write lock through inspection and DDL.
+      // Preserve the selected journal mode; normal runtime enables WAL later.
+      db.exec('BEGIN IMMEDIATE');
+      if(!sqliteInstallationPristine())throw new InstallationNotPristineError();
+    }else db.pragma("journal_mode = WAL");
 
     // Schema: a document-style table per collection (id, seq, data JSON) + app_meta.
     db.exec(`
@@ -132,9 +138,10 @@ function initializeDatabase() {
       "SELECT t, cpu, ram, temp, ssd, disk FROM server_metrics WHERE t >= ? ORDER BY t ASC"
     );
 
+    if(isFirstAccountStorage())db.exec('COMMIT');
     return { getMetaStmt, saveCollections, insertMetricStmt, pruneMetricStmt, selectMetricsStmt };
   } catch (error) {
-    if (db.open) db.close();
+    try{if(db.inTransaction)db.exec('ROLLBACK');}finally{if(db.open)db.close();}
     throw error;
   }
 }
@@ -186,6 +193,36 @@ export function sqliteConnection(): Database.Database { return db; }
 export function sqliteIsEmpty(): boolean {
   const row = db.prepare("SELECT COUNT(*) AS c FROM users").get() as { c: number };
   return row.c === 0;
+}
+
+/** Detect prior legacy initialization even when every user has been removed. */
+export function sqliteHasLegacyData():boolean {
+  for(const {table} of COLLECTIONS){
+    if((db.prepare('SELECT COUNT(*) AS c FROM "'+table+'"').get() as {c:number}).c>0)return true;
+  }
+  return (db.prepare("SELECT COUNT(*) AS c FROM app_meta WHERE substr(key,1,10)='singleton:'").get() as {c:number}).c>0;
+}
+
+/** Trusted first-install port: no business, command history or unknown schema. */
+export function sqliteInstallationPristine():boolean {
+  const columns=new Map<string,string[]>(COLLECTIONS.map(({table})=>[table,['id','seq','data']]));
+  columns.set('app_meta',['key','value']);columns.set('server_metrics',['t','cpu','ram','temp','ssd','disk']);
+  columns.set('app_commands',['command','request_id','actor_id','payload_hash','result','committed_at']);
+  const objects=db.prepare("SELECT type,name FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").all() as {type:string;name:string}[];
+  const tables=objects.filter(row=>row.type==='table');
+  if(!tables.length)return objects.length===0;
+  if(objects.some(row=>row.type==='view'||row.type==='trigger'))return false;
+  for(const name of [...COLLECTIONS.map(({table})=>table),'app_meta','server_metrics'])if(!tables.some(row=>row.name===name))return false;
+  for(const {name} of tables){
+    const expected=columns.get(name);if(!expected)return false;
+    const actual=db.prepare('PRAGMA table_info("'+name.replaceAll('"','""')+'")').all() as {name:string}[];
+    if(actual.length!==expected.length||actual.some((row,index)=>row.name!==expected[index]))return false;
+    if(name==='app_meta'){
+      if((db.prepare("SELECT COUNT(*) AS c FROM app_meta WHERE key <> 'schema_version'").get() as {c:number}).c!==0)return false;
+      if((db.prepare("SELECT value FROM app_meta WHERE key='schema_version'").get() as {value:string}|undefined)?.value!==String(SCHEMA_VERSION))return false;
+    }else if((db.prepare('SELECT COUNT(*) AS c FROM "'+name.replaceAll('"','""')+'"').get() as {c:number}).c!==0)return false;
+  }
+  return true;
 }
 
 /** Reconstruct the full in-memory DB object from SQLite, preserving order. */
