@@ -76,7 +76,7 @@ export interface UserSession {
 }
 
 // Internal derivative provenance; supplied by canonical writers, never clients.
-export type LegacySourceRef = {domain:'task'|'plan'|'note'|'document'|'patient';id:string}|{domain:'finance'|'message'|'family';id?:string};
+export type LegacySourceRef = {domain:'task'|'plan'|'note'|'document'|'medication'|'vaccination';id:string}|{domain:'finance'|'message'|'family';id?:string};
 
 // Notification system
 export interface Notification {

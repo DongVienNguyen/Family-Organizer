@@ -1,0 +1,1067 @@
+{
+  "task": "F04-h-first-source",
+  "verifiedHeadSha": "b56de22a6860e3bddf033919498dc82a38757079",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177773857",
+  "artifactsDownloadedAndIndependentlyRead": true,
+  "runtimes": [
+    {
+      "artifactName": "windows-node22-b56de22a6860e3bddf033919498dc82a38757079-1",
+      "evidence": {
+        "commitSha": "b56de22a6860e3bddf033919498dc82a38757079",
+        "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177773857",
+        "runAttempt": 1,
+        "runnerOS": "Windows_NT 10.0.20348",
+        "runnerImage": "win22",
+        "runnerImageVersion": "20261004.326.1",
+        "nodeVersion": "v22.23.3",
+        "npmVersion": "10.9.9",
+        "toolchain": {
+          "visualStudioVersion": "17.14.37710.0",
+          "npmVersion": "10.9.9"
+        },
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success"
+        },
+        "suites": [
+          {
+            "name": "server/app.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appEffects.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.durable.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appMigrations.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appSnapshot.test.ts",
+            "passed": 27,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appStore.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/auth.test.ts",
+            "passed": 14,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authHttp.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authStore.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/commandHttp.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/config.test.ts",
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayload.test.ts",
+            "passed": 82,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayloadHttp.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyHttp.test.ts",
+            "passed": 21,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyNative.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/fullBackup.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/icsFeed.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/jobStore.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/legacyVisibility.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/lifecycle.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaHttp.test.ts",
+            "passed": 33,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaMetadata.test.ts",
+            "passed": 25,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/objectAclHttp.test.ts",
+            "passed": 53,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/providerJobs.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushDelivery.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushOutbox.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushTransport.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtime.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtimeHttp.test.ts",
+            "passed": 21,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/rewardStore.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/sqlite.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/systemMetrics.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayload.test.ts",
+            "passed": 74,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayloadHttp.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/updater.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/compiled-media-policy.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/data-migration.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/evidence.test.ts",
+            "passed": 54,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/media-cold-restore.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-gc.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-paths.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-scripts.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-ownership.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-process.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-http.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-recovery.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/sw-cache.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/assetValue.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/bmi.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/clientSession.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/debt.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/financePeriod.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/mediaResource.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/pdfExport.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privacyWorker.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privateStorage.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/realtimeClient.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/recurrence.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/searchText.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/serviceWorkerWatch.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/sessionBoundary.test.ts",
+            "passed": 30,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/uploadImage.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/vietnamHolidays.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/authenticated-media.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/note-sharing-policy.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/realtime-session.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-actions.test.ts",
+            "passed": 23,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-bootstrap.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/task-reward-policy.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/windows-version.test.tsx",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "native": {
+          "nodeVersion": "v22.23.3",
+          "nodeABI": "127",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "13.0.3",
+          "bindingApi": "N-API",
+          "nodeNapi": "10",
+          "binaryPath": "prebuilds/win32-x64.node",
+          "sqliteVersion": "3.53.4",
+          "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "production": {
+          "commitSha": "b56de22a6860e3bddf033919498dc82a38757079",
+          "nodeVersion": "v22.23.3",
+          "platform": "win32",
+          "architecture": "x64",
+          "cwd": "C:\\Windows\\System32",
+          "productionRoot": "D:\\a\\_temp\\fo production dữ liệu 058f0bf3-5ada-47de-a774-241448a6f442\\release with spaces",
+          "checks": [
+            "production-dependencies-only",
+            "no-source-ts",
+            "foreign-cwd",
+            "static-assets",
+            "legacy-preserved",
+            "restart-persistence",
+            "write-permission-fail-fast",
+            "offline-providers",
+            "graceful-shutdown",
+            "readiness",
+            "crash-recovery",
+            "auth-session-restart",
+            "auth-session-logout",
+            "private-response-cache",
+            "authenticated-realtime",
+            "object-visibility",
+            "authenticated-media",
+            "task-write-authority",
+            "content-write-authority",
+            "derived-object-privacy"
+          ]
+        },
+        "server2019Acceptance": "not-run",
+        "errors": []
+      },
+      "passedTests": 891,
+      "testFiles": 71,
+      "reportSha256": {
+        "build-exit.json": "0b3245a583c253852bc2f24a41caef588421e9eda25466e1f475ea8c74f8eb89",
+        "build.log": "ccbdee4414a8663602fdfa0377fd211779425ab2c90518bc3d974a81065dc1c2",
+        "evidence.json": "4870e83833a1b90f3ba0366078e623047c53622791f87464d855e2622e03cce5",
+        "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+        "install.log": "48e5fefe2cea6c347d07584723600ab1735d5502f052812568ab31fd86c040ca",
+        "junit.xml": "b052ef623f32f4f92b43cf1e38062e5d3c69d62dad4271a527084e837b5d40b8",
+        "lint-exit.json": "788f1ad1253ff0deb4227f24304e77d95b258bd81d6dfd750b04408e9e6879ab",
+        "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+        "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+        "native.json": "839df92b2d80b06766cdd3e8fb73e680345e948ff71404c1f0b95e562cdd3d8c",
+        "native.log": "8fda14cf9ea15d0d67a02dacf772ed5b0e6a8b3c1246cb7b2a318e0870c3cd24",
+        "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+        "production-install.log": "73befd66253c6c28e5abc28e6d9415e63e77eb6513cc32a366f0624bc0bc6bc6",
+        "production-server.log": "b2f396308caccea49e39849b178d1d6fcac1add3bd6660f6f06dd7ceb8bd70db",
+        "production.json": "e9e3b8a989b6b72656ec25d1b19f4d985749d88f9e083c5a1b05845d60f656e5",
+        "production.log": "210f7c14ff73a527bcea5744168f1198785ceedcd5bec551a62b487a200f7050",
+        "test-exit.json": "a97bf24e3e07dde6bf94d216306d401598f94035263015286e419f73d71e8e48",
+        "test.log": "9d14f88c18c1a5156ace6a2d3423231e36606a629d1c09434826af6a00b56a13",
+        "toolchain.json": "45a4d4619cdee2741b9e4bf868fab5ffeb77e7fa1c1e096f5c5db4e0d3c861e2",
+        "vitest.json": "b0de222350b87c301b65c31a280940237d13bb5479e897fdd9cdad8cf5d953b9"
+      }
+    },
+    {
+      "artifactName": "windows-node24-b56de22a6860e3bddf033919498dc82a38757079-1",
+      "evidence": {
+        "commitSha": "b56de22a6860e3bddf033919498dc82a38757079",
+        "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177773857",
+        "runAttempt": 1,
+        "runnerOS": "Windows_NT 10.0.20348",
+        "runnerImage": "win22",
+        "runnerImageVersion": "20261004.326.1",
+        "nodeVersion": "v24.21.0",
+        "npmVersion": "11.19.0",
+        "toolchain": {
+          "npmVersion": "11.19.0",
+          "visualStudioVersion": "17.14.37710.0"
+        },
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success"
+        },
+        "suites": [
+          {
+            "name": "server/app.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appEffects.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.durable.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appMigrations.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appSnapshot.test.ts",
+            "passed": 27,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appStore.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/auth.test.ts",
+            "passed": 14,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authHttp.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authStore.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/commandHttp.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/config.test.ts",
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayload.test.ts",
+            "passed": 82,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayloadHttp.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyHttp.test.ts",
+            "passed": 21,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyNative.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/fullBackup.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/icsFeed.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/jobStore.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/legacyVisibility.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/lifecycle.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaHttp.test.ts",
+            "passed": 33,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaMetadata.test.ts",
+            "passed": 25,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/objectAclHttp.test.ts",
+            "passed": 53,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/providerJobs.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushDelivery.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushOutbox.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushTransport.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtime.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtimeHttp.test.ts",
+            "passed": 21,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/rewardStore.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/sqlite.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/systemMetrics.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayload.test.ts",
+            "passed": 74,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayloadHttp.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/updater.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/compiled-media-policy.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/data-migration.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/evidence.test.ts",
+            "passed": 54,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/media-cold-restore.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-gc.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-paths.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-scripts.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-ownership.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-process.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-http.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-recovery.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/sw-cache.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/assetValue.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/bmi.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/clientSession.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/debt.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/financePeriod.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/mediaResource.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/pdfExport.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privacyWorker.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privateStorage.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/realtimeClient.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/recurrence.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/searchText.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/serviceWorkerWatch.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/sessionBoundary.test.ts",
+            "passed": 30,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/uploadImage.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/vietnamHolidays.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/authenticated-media.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/note-sharing-policy.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/realtime-session.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-actions.test.ts",
+            "passed": 23,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-bootstrap.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/task-reward-policy.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/windows-version.test.tsx",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "native": {
+          "nodeVersion": "v24.21.0",
+          "nodeABI": "137",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "13.0.3",
+          "bindingApi": "N-API",
+          "nodeNapi": "10",
+          "binaryPath": "prebuilds/win32-x64.node",
+          "sqliteVersion": "3.53.4",
+          "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "production": {
+          "commitSha": "b56de22a6860e3bddf033919498dc82a38757079",
+          "nodeVersion": "v24.21.0",
+          "platform": "win32",
+          "architecture": "x64",
+          "cwd": "C:\\Windows\\System32",
+          "productionRoot": "D:\\a\\_temp\\fo production dữ liệu e568f476-deec-4840-8c85-5c07c59c1141\\release with spaces",
+          "checks": [
+            "production-dependencies-only",
+            "no-source-ts",
+            "foreign-cwd",
+            "static-assets",
+            "legacy-preserved",
+            "restart-persistence",
+            "write-permission-fail-fast",
+            "offline-providers",
+            "graceful-shutdown",
+            "readiness",
+            "crash-recovery",
+            "auth-session-restart",
+            "auth-session-logout",
+            "private-response-cache",
+            "authenticated-realtime",
+            "object-visibility",
+            "authenticated-media",
+            "task-write-authority",
+            "content-write-authority",
+            "derived-object-privacy"
+          ]
+        },
+        "server2019Acceptance": "not-run",
+        "errors": []
+      },
+      "passedTests": 891,
+      "testFiles": 71,
+      "reportSha256": {
+        "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+        "build.log": "e894934ba2323554af7dc9610b314a7399d05e4cc0336ec57ffdad14340f2fc1",
+        "evidence.json": "eb8bcb17c6be1503e3e04512b4e9644b28d5c03ff7771daa6138a2e268c17bbe",
+        "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+        "install.log": "6e47c855adbae8e5e8922a4da403185f2dd96f1f9d14a7c981297c4d4056cade",
+        "junit.xml": "5cd355bc81c9bee3e7600bdbbf5887e771a35b8021ddddb6328333c38ff892e7",
+        "lint-exit.json": "788f1ad1253ff0deb4227f24304e77d95b258bd81d6dfd750b04408e9e6879ab",
+        "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+        "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+        "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+        "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+        "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+        "production-install.log": "3c2c1fee74fdbf00d756bea7b8ba114d6f2394988f2085f29656bd163070e881",
+        "production-server.log": "75622da9e8884a190df7646bed4839fd5b80e3ea968b973249371a5739aa940f",
+        "production.json": "81655391fa8d2f0fc8c8234821e3383f533b962c1573ca8d52145ae5078e4cb2",
+        "production.log": "bf1baab434c7f98b62c5783c253d9e389df43ce40ff34d42d0f1b7207ec4f392",
+        "test-exit.json": "a97bf24e3e07dde6bf94d216306d401598f94035263015286e419f73d71e8e48",
+        "test.log": "137ca99cca6798e17d39ff0707e2a376db386a9b8267e6bd45ff6cc86ef0d6ca",
+        "toolchain.json": "aa37346c2d22b806763ed5ba1faebfc9578688769f6be6963593ad06e7c4ea8f",
+        "vitest.json": "7276808badf15f9696e4749616ce6cd02c78a8c3089d8dfb04ac5b9eabda5843"
+      }
+    }
+  ],
+  "fullLogSha256": "3bd3071fee0b64fd39cfcbf6db4808d4ccdfcac59ad030f30b0b375255ca51bc"
+}

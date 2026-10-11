@@ -1,3 +1,4 @@
+import {createHmac} from 'node:crypto';
 /** @license SPDX-License-Identifier: Apache-2.0 */
 import {UserRole,type FamilyOrganizerDB,type Notification} from '../src/types.js';
 import {AppStoreError} from './appErrors.js';
@@ -13,7 +14,8 @@ function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['
  if(ref.domain==='finance')return isAdult(actor);
  if(typeof ref.id!=='string'||!ref.id)return false;
  switch(ref.domain){
-  case 'patient':return canViewLegacyPatient(ref.id,actor);
+  case 'medication':return db.medications.some(row=>row.id===ref.id&&canViewLegacyPatient(row.patientId,actor));
+  case 'vaccination':return db.vaccinations.some(row=>row.id===ref.id&&canViewLegacyPatient(row.childId,actor));
   case 'task':return db.tasks.some(row=>row.id===ref.id&&canViewLegacyTask(row,actor));
   case 'plan':return db.plans.some(row=>row.id===ref.id&&canViewLegacyPlan(row,actor));
   case 'note':return db.notes.some(row=>row.id===ref.id&&canViewLegacyNote(row,actor));
@@ -21,7 +23,7 @@ function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['
   default:return false;
  }
 }
-export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notification:Notification):Notification|undefined {
+export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notification:Notification,privacyKey?:string):Notification|undefined {
  if(!canViewLegacyNotification(notification,actor))return;
  if(notification.type==='finance'&&!isAdult(actor))return;
  if(notification.sourceRef){
@@ -30,12 +32,18 @@ export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notif
  }
  // Historical recipient information alone cannot establish the source ACL.
  if(notification.type==='medication'&&!isAdult(actor)&&notification.userId!==actor.userId)return;
- const unproven=notification.type==='system'&&!isAdult(actor)||['task','plan','note'].includes(notification.type)&&!(notification.type==='task'?isAdult(actor):actor.role===UserRole.ADMIN);
- if(unproven){const {sourceRef,...safe}=notification;return {...safe,title:'Thông báo',content:'Nội dung lịch sử được ẩn vì không xác minh được quyền xem nguồn.'};}
+ const knownType=['system','task','plan','note','finance','medication'].includes(notification.type);
+ const unproven=!knownType||notification.type==='system'||notification.type==='medication'&&!isAdult(actor)||['task','plan','note'].includes(notification.type)&&!(notification.type==='task'?isAdult(actor):actor.role===UserRole.ADMIN);
+ if(unproven){
+  if(!privacyKey)return;
+  const id='legacy-notice-'+createHmac('sha256',privacyKey).update('legacy-notification-id-v1\0'+actor.userId+'\0'+notification.id).digest('hex');
+  // Only these historical fields are known safe; source-bearing extensions stay private.
+  return {id,userId:notification.userId,type:knownType?notification.type:'system',isRead:notification.isRead,createdAt:notification.createdAt,title:'Thông báo',content:'Nội dung lịch sử được ẩn vì không xác minh được quyền xem nguồn.'};
+ }
  return {...notification};
 }
-export function projectNotifications(db:FamilyOrganizerDB,actor:LegacyActor):Notification[] {
- return db.notifications.flatMap(notification=>{const visible=projectNotification(db,actor,notification);return visible?[visible]:[];});
+export function projectNotifications(db:FamilyOrganizerDB,actor:LegacyActor,privacyKey?:string):Notification[] {
+ return db.notifications.flatMap(notification=>{const visible=projectNotification(db,actor,notification,privacyKey);return visible?[visible]:[];});
 }
 export function projectRewards(db:FamilyOrganizerDB,actor:LegacyActor) {
  return db.rewardLedger.map(entry=>{

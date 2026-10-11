@@ -13,7 +13,7 @@ export function registerPushDelivery(jobs: AppJobs, db: typeof FamilyDB, push: t
     const recipient = db.getUsers().find(user => user.id === payload.userId && !user.isDeleted);
     if (!subscription || !recipient || !Object.values(UserRole).includes(recipient.role) || payload.excludeUserId === recipient.id) return;
     const notifications=db.getNotificationsForActor(recipient.id);
-    const notification=notifications.find(item=>item.id===payload.notificationId);
+    const notification=db.getQueuedNotificationForActor(payload.notificationId,recipient.id);
     if(!notification)return;
     const outcome = await push.sendQueuedNotification({ notifications }, notification, subscription, signal);
     if (outcome === 'dead') db.removePushSubscriptionByEndpoint(subscription.endpoint);

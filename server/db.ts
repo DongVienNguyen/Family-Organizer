@@ -510,7 +510,12 @@ export class FamilyDB {
     const db=this.readRaw();return projectRewards(db,legacyReader(db,userId));
   }
   public static getNotificationsForActor(userId:string) {
-    const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId));
+    const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId),getSessionSecret());
+  }
+  // Trusted outbox port resolves a canonical reference; HTTP only sees projected IDs.
+  public static getQueuedNotificationForActor(id:string,userId:string) {
+    const db=this.readRaw(),actor=legacyReader(db,userId),notification=db.notifications.find(row=>row.id===id);
+    return notification?projectNotification(db,actor,notification,getSessionSecret()):undefined;
   }
   public static getActivityLogsForActor(userId:string) {
     const db=this.readRaw();return projectActivityLogs(db,legacyReader(db,userId));
@@ -2858,7 +2863,7 @@ export class FamilyDB {
             "Den gio uong thuoc",
             `${patient?.fullName || "Thanh vien"} can uong ${m.name}${m.dosage ? ` (${m.dosage})` : ""} luc ${time}.`,
             "medication",
-            {domain:'patient',id:m.patientId}
+            {domain:'medication',id:m.id}
           );
         }
       });
@@ -2931,11 +2936,11 @@ export class FamilyDB {
       const childName = child?.fullName || "Bé";
       const dose = v.doseLabel ? ` (${v.doseLabel})` : "";
       if (diffDays > 0 && diffDays <= 7) {
-        ensure(`notif_vacsoon_${v.id}_${v.scheduledDate}`, "all", "💉 Sắp đến lịch tiêm", `${childName} còn ${diffDays} ngày đến lịch tiêm "${v.name}"${dose} (${v.scheduledDate}).`, "medication", {domain:'patient',id:v.childId});
+        ensure(`notif_vacsoon_${v.id}_${v.scheduledDate}`, "all", "💉 Sắp đến lịch tiêm", `${childName} còn ${diffDays} ngày đến lịch tiêm "${v.name}"${dose} (${v.scheduledDate}).`, "medication", {domain:'vaccination',id:v.id});
       } else if (diffDays === 0) {
-        ensure(`notif_vacday_${v.id}_${v.scheduledDate}`, "all", "💉 Hôm nay đến lịch tiêm", `${childName} có lịch tiêm "${v.name}"${dose} hôm nay.`, "medication", {domain:'patient',id:v.childId});
+        ensure(`notif_vacday_${v.id}_${v.scheduledDate}`, "all", "💉 Hôm nay đến lịch tiêm", `${childName} có lịch tiêm "${v.name}"${dose} hôm nay.`, "medication", {domain:'vaccination',id:v.id});
       } else if (diffDays < 0) {
-        ensure(`notif_vacover_${v.id}_${v.scheduledDate}`, "all", "🔴 Trễ lịch tiêm", `${childName} đã trễ lịch tiêm "${v.name}"${dose} (hẹn ${v.scheduledDate}).`, "medication", {domain:'patient',id:v.childId});
+        ensure(`notif_vacover_${v.id}_${v.scheduledDate}`, "all", "🔴 Trễ lịch tiêm", `${childName} đã trễ lịch tiêm "${v.name}"${dose} (hẹn ${v.scheduledDate}).`, "medication", {domain:'vaccination',id:v.id});
       }
     });
 
@@ -3051,9 +3056,9 @@ export class FamilyDB {
   public static markNotificationRead(notifId: string, userId: string): void {
     return runLegacyCommand("markNotificationRead", [notifId, userId], userId, () => {
     const db = this.readRaw();
-    const idx = db.notifications.findIndex(n => n.id === notifId);
-    const actor=currentLegacyActor(db,userId);
-    if(idx===-1||!projectNotification(db,actor,db.notifications[idx]))throw new AppStoreError('Không tìm thấy thông báo.',404);
+    const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
+    const idx=db.notifications.findIndex(n=>projectNotification(db,actor,n,privacyKey)?.id===notifId);
+    if(idx===-1)throw new AppStoreError('Không tìm thấy thông báo.',404);
     if (idx !== -1) {
       db.notifications[idx].isRead = true;
       this.writeRaw(db);
@@ -3066,9 +3071,9 @@ export class FamilyDB {
     return runLegacyCommand("markAllNotificationsRead", [userId], userId, () => {
     const db = this.readRaw();
     let modified = false;
-    const actor=currentLegacyActor(db,userId);
+    const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
     db.notifications.forEach(n => {
-      if (projectNotification(db,actor,n) && !n.isRead) {
+      if (projectNotification(db,actor,n,privacyKey) && !n.isRead) {
         n.isRead = true;
         modified = true;
       }

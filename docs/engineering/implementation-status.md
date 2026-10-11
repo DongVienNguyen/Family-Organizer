@@ -13,7 +13,7 @@
 | F04-e | Reviewed, exact Windows GREEN, merged PR11 | HEADc2b0f88/run38171963503;664/66463files per runtime |
 | F04-f | Reviewed, exact Windows GREEN, merged PR12 | HEAD8aa5299/run38174580999;762/76266files per runtime |
 | F04-g | Reviewed, exact Windows GREEN, merged PR13 | HEAD7a46a62/run38177081124;860/86069files per runtime |
-| F04-h | Derived privacy Cloud GREEN; PR/Windows/review pending | BASE67bffd8;891/89171files |
+| F04-h | PR14 first Windows verified; three Important review corrections in progress | HEADb56de22/run38177773857;891/89171files per runtime |
 | F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -414,3 +414,6 @@ Canonical-destination follow-up validation: Cloud664/66463files, zero failed/ski
 - TDD:24actualRED+4chars, evidence3actualRED ->27actualRED/four chars. Cloud frozen npm ci/lint/tests891/89171files/build all exit0, zero skips; no deps/lock changes. Existing mocked HTTP ACL read port updated without removing assertions.20th compiled proof added. First source PR/exact Windows and one fresh wholebranch review pending.
 - Other F04 and F05–F09 remain incomplete. Main protected:false and rulesets:[] read back after F05 writes403; negative failing-PR enforcement proof remains blocked. Browser/coverage/package/service/provider/bootstrap/dependency and Server2019 gates are not inferred from these tests. No release/tag/VPS operation.
 - Next: source commit/PR, exact Windows and fresh review; grade findings, one correction pass, final exact verification and authorized merge, then continue remaining foundation.
+
+- F04-h PR: https://github.com/DongVienNguyen/Family-Organizer/pull/14; first sourceb56de22a6860e3bddf033919498dc82a38757079 Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177773857 independently891/89171files per runtime, all six exits0,20 compiled proofs/evidence/gate. Full logs/artifacts/hashes in evidence/f04-h-first-source.json.
+- One fresh wholebranch review found threeImportant/noCritical/noMinor: adult unproven system content, source-bearing historical IDs/extensions/push tags, frozen medication/vaccination patient markers. All accepted before mutation,25actualRED+two chars added, corrected in one pass/no rereview.110 target assertions GREEN; corrected Cloud lint/full918/91871files/build all exit0, zero skips; frozen lock unchanged. Exact corrected/final Windows pending. See f04-h-review.md for costs/limits.52actualRED/six characterizations in this focused PR.
