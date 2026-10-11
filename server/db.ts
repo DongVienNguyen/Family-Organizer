@@ -46,6 +46,7 @@ import { isDebtFullyPaid } from "../src/utils/debt.js";
 import { sqliteIsEmpty, sqliteLoad, sqliteSave, sqliteCheckpoint } from "./sqlite.js";
 import { deleteMediaByUrl } from "./media.js";
 import { dispatchPush } from "./push.js";
+import { trackAppEffect } from "./appEffects.js";
 
 // Whitelist of valid asset types (mirrors AssetType in src/types.ts).
 const VALID_ASSET_TYPES = new Set<string>([
@@ -657,7 +658,7 @@ export class FamilyDB {
         createdAt: new Date().toISOString()
       };
       db.notifications.unshift(bdayNotif);
-      void dispatchPush(db, bdayNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead));
+      void trackAppEffect(dispatchPush(db, bdayNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
       modified = true;
     });
 
@@ -2540,7 +2541,7 @@ export class FamilyDB {
       if (db.notifications.some(n => n.id === id)) return;
       const notif: Notification = { id, userId, title, content, type, isRead: false, createdAt: new Date().toISOString() };
       db.notifications.unshift(notif);
-      void dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead));
+      void trackAppEffect(dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
       modified = true;
     };
     const parse = (s: string): number | null => {
@@ -2764,7 +2765,7 @@ export class FamilyDB {
     if (db.notifications.length > 200) {
       db.notifications = db.notifications.slice(0, 200);
     }
-    void dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead), fromUserId);
+    void trackAppEffect(dispatchPush(db, notif, (dead) => this.removePushSubscriptionsByEndpoints(dead), fromUserId));
     this.writeRaw(db);
   }
 
@@ -2785,7 +2786,7 @@ export class FamilyDB {
       db.notifications = db.notifications.slice(0, 200);
     }
     // Deliver as a system push notification too (no-op if push unconfigured).
-    void dispatchPush(db, newNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead));
+    void trackAppEffect(dispatchPush(db, newNotif, (dead) => this.removePushSubscriptionsByEndpoints(dead)));
   }
 
   // Read notification status mark

@@ -88,3 +88,20 @@
 - Fresh whole-branch review findings fixed in one RED→GREEN pass; full Cloud Node24 suite175/175, lint/build/native and production-only fixture also pass. Decisions and costs: `f02-review-and-decisions.md`.
 - Remaining/unrun: F03 graceful jobs/HTTP/DB lifecycle and Docker-updater removal; I01 online snapshot/restore; F04 auth/media; F05/F09 full HTTP/browser/E2E/regression/performance; F06 actual portable ZIP; F07 service; R02 Server2019. Existing >500kB chunk warning remains for F09. No full-phase or Server2019 acceptance claim.
 - Next: review and separately authorize merge of PR #2, then F03 from the merged main SHA. Only PR #1 has merge permission. All51 master tasks remain tracked by the approved plan; F02 implementation is verified, not merged. No release/tag/VPS access or deployment.
+
+## F02 — Authorized merge / F03 baseline
+
+- User explicitly authorized merge only PR #2 and continuation to F03.
+- PR #2 final HEAD `fe6b3ece85142e650e2ac20d6806056930792940`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139609734 success. Downloaded/read both exact-HEAD artifacts:175/175tests16files each, six exit checks0, production/System32/ACL/native13 success. Final hashes recorded in PR evidence comment https://github.com/DongVienNguyen/Family-Organizer/pull/2#issuecomment-6109078173.
+- Authorized squash main SHA `d178b170838cea44a10f83014681c240239156e4`. Main CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139931589 reports success for that merge SHA.
+- F03 branch `codex/f03-native-lifecycle`, BASE `d178b170838cea44a10f83014681c240239156e4`. No later merge/release/VPS authority.
+
+## F03 — Lifecycle / telemetry / Docker runtime removal (in progress)
+
+- Factory with injected legacy dependencies; explicit storage bootstrap/bind; readiness/liveness/maintenance gates. Bounded idempotent drain handles accepted bodies, async requests after disconnect, SSE, active maintenance, jobs and detached push callbacks before native close.
+- Shared AppJobs process registry, namespaced/serial schedules and pause/resume without startup replay. I01 durable lease/retry/outbox remains pending. CLI stdin stop supports Windows graceful tests; POSIX signals retained. Actual WinSW wiring F07.
+- Native os/process/statfs(DATA_DIR) metrics, unsupported temperatures/load clearly null/UI text. App apply/restart/Immich management routes/jobs/UI/mailbox writers removed; readonly version and configured external-service links retained. Documentation updated; release remains disabled.
+- RED→GREEN: registry/metrics/factory/lifecycle/effects/readonly version/UI; maintenance ownership/partial body; required lifecycle CI evidence. Real source process stop/restart/crash preserves synthetic HTTP writes and legacy input; native files rename/clean up. Full Cloud suite206/206 in23files, lint/build pass after drain additions; Windows evidence pending.
+- PR/HEAD/Windows run will be recorded after verification and creation. No Windows pass claim yet. Fresh whole-branch review pending.
+- Unrun: I01 online snapshot/restore, full HTTP/domain/browser/performance F05/F09, portable ZIP F06, service F07, Server2019 R02. Existing >500kB bundle warning remains F09, threshold unchanged.
+- Next after F03 review/merge: I01 gateway/migration/snapshot using this same jobs/store lifecycle. Only PR #1/#2 merges approved so far; PR F03 must wait for review and separate merge approval. Full51-task plan remains incomplete; no release/tag or VPS access/deployment.

@@ -1,0 +1,86 @@
+import http from 'node:http';
+import type { Express } from 'express';
+import type { AppJobs } from './appJobs.js';
+import type { RuntimeState } from './runtimeState.js';
+
+interface ManagedApp {
+  app: Express;
+  jobs: AppJobs;
+  endStreams(): void;
+  drainHandlers?(): Promise<void>;
+  dispose(): Promise<void>;
+}
+
+async function bounded<T>(promise: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout>;
+  try {
+    return await Promise.race([promise, new Promise<never>((_, reject) => {
+      timer = setTimeout(() => reject(new Error('Runtime drain timed out')), ms);
+    })]);
+  } finally { clearTimeout(timer!); }
+}
+
+export async function startManagedServer(handle: ManagedApp, options: {
+  port: number; host?: string; timeoutMs?: number; state?: RuntimeState;
+  closeStorage(): void | Promise<void>;
+  drainEffects?(): Promise<void>;
+}) {
+  const state = options.state ?? { phase: 'starting', storageWritable: true };
+  const server = http.createServer(handle.app);
+  try {
+    await new Promise<void>((resolve, reject) => {
+      const error = (cause: Error) => reject(cause);
+      server.once('error', error);
+      server.listen(options.port, options.host ?? '0.0.0.0', () => { server.off('error', error); resolve(); });
+    });
+    state.phase = 'ready';
+    handle.jobs.start();
+  } catch (error) {
+    state.phase = 'failed';
+    await handle.jobs.stop(); await handle.dispose(); await options.closeStorage();
+    throw error;
+  }
+  let closing: Promise<void> | undefined;
+  let maintenanceWork: Promise<unknown> | undefined;
+  const timeout = options.timeoutMs ?? 30_000;
+  function maintenance<T>(work: () => Promise<T>): Promise<T> {
+    if (state.phase !== 'ready' || maintenanceWork) return Promise.reject(new Error('Runtime is not ready for maintenance'));
+    state.phase = 'maintenance';
+    const operation = (async () => {
+      try {
+        handle.endStreams();
+        await bounded(Promise.all([handle.jobs.pause(), handle.drainHandlers?.()]), timeout);
+        await bounded(options.drainEffects?.() ?? Promise.resolve(), timeout);
+        return await work();
+      } catch (error) {
+        if (state.phase === 'maintenance') state.phase = 'failed';
+        throw error;
+      } finally {
+        maintenanceWork = undefined;
+        if (state.phase === 'maintenance') { state.phase = 'ready'; handle.jobs.resume(); }
+      }
+    })();
+    maintenanceWork = operation;
+    return operation;
+  }
+  function close(): Promise<void> {
+    if (closing) return closing;
+    state.phase = 'draining';
+    handle.endStreams();
+    const drained = new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
+    server.closeIdleConnections();
+    closing = (async () => {
+      try {
+        await bounded(Promise.all([drained, handle.jobs.stop(), handle.drainHandlers?.(), maintenanceWork]), timeout);
+        await bounded(options.drainEffects?.() ?? Promise.resolve(), timeout);
+        await handle.dispose();
+        await options.closeStorage();
+        state.phase = 'stopped';
+      } catch (error) {
+        state.phase = 'failed'; server.closeAllConnections(); throw error;
+      }
+    })();
+    return closing;
+  }
+  return { server, state, close, maintenance };
+}

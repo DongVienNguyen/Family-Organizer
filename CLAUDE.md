@@ -21,23 +21,12 @@ checklist ở cuối DESIGN.md trước khi hoàn tất.
 > workflow Windows có cổng duyệt. Không chạy `npm run release`, tạo tag/release,
 > merge hoặc triển khai VPS trong PR nền tảng. Server2019 chưa nghiệm thu (R02).
 
-### Mô tả lịch sử trước chuyển đổi (không dùng để thực thi)
+### Lifecycle hiện hành (F03)
 
-App có số phiên bản (semver) — push lên `main` chỉ chạy CI kiểm tra, **không** tạo image
-và máy đang chạy không nhận code mới. Muốn người dùng có bản mới thì phải phát hành:
-
-1. Thêm mục `## [X.Y.Z] - YYYY-MM-DD` vào đầu [CHANGELOG.md](CHANGELOG.md) — tiếng Việt,
-   viết cho người dùng gia đình (nội dung hiện nguyên văn trong trang Cập nhật).
-2. `npm run release -- X.Y.Z` (đặt version, lint + test, commit `release: vX.Y.Z`, tag).
-3. `git push && git push --tags` → [release.yml](.github/workflows/release.yml) build image
-   arm64 lên GHCR + tạo GitHub Release.
-
-Cơ chế cập nhật: [server/updater.ts](server/updater.ts) (app, giao tiếp qua file trong
-`data/update/`) + [deploy/updater.sh](deploy/updater.sh) (container `family-organizer-updater`,
-sh thuần/busybox — CI chạy `sh -n`). Trên Pi app nằm trong stack **liu-homelab** (dùng chung
-với Immich…), nên updater chỉ được đụng service `family-organizer` (và, với hành động
-`immich` do admin bấm ở Quản lý Server, các service trong `IMMICH_SERVICES` mà nó tự dò
-thấy trong compose) — không thay compose. App chỉ gửi tên hành động, không gửi lệnh/service.
-Đổi `updater.sh` thì máy đang chạy tự nhận bản mới ở lần cập nhật kế tiếp (tải từ tag).
-Dữ liệu mới nên thêm theo kiểu không phá bản cũ — người dùng có thể "Quay về" bản trước
-trên cùng database.
+`server/app.ts` tạo routes từ config/dependencies, không mở storage hoặc start jobs
+khi import. `server/runtime.ts` mở một installation store/process và bind HTTP.
+`server/lifecycle.ts` quản lý maintenance/drain/close; jobs ở `server/appJobs.ts`.
+CLI nhận stdin `stop` hoặc SIGINT/SIGTERM; Windows service stop cần F07 xác minh.
+App chỉ hiển thị phiên bản; operator quản lý release/rollback, không app auto-apply.
+Đọc [native-lifecycle.md](docs/engineering/native-lifecycle.md) và status cho giới hạn
+đã/chưa kiểm chứng. Tài liệu/scripts Pi/Docker cũ chỉ là đầu vào migration.

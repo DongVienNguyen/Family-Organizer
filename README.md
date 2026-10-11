@@ -19,11 +19,11 @@ Xem [baseline và coverage gaps](docs/engineering/windows-baseline.md),
 [plan nền tảng](docs/superpowers/plans/2026-10-11-windows-native-foundation.md).
 Không cần máy cá nhân chạy build/test/runner. Reports synthetic nằm trong Actions artifacts.
 
-Windows service/ZIP, DATA_DIR ngoài release và deploy automation sẽ được bổ sung
-ở F02–F08. CI Windows2022 không thay nghiệm thu Windows Server2019 ở R02.
+DATA_DIR ngoài release và lifecycle native được thiết lập ở F02/F03.
+Windows service/ZIP và release automation còn thuộc F06–F08. CI Windows2022 không thay nghiệm thu Windows Server2019 ở R02.
 Chưa có hướng dẫn cài production Windows đã được nghiệm thu. Không dùng các scripts
-Pi/Docker/Bash cũ hoặc nút updater của runtime cũ cho triển khai Windows.
-Workflow release Pi/GHCR đã gỡ; chưa tạo release hay truy cập VPS trong F01.
+Pi/Docker/Bash cũ cho triển khai Windows. App đã gỡ nút auto-apply/restart/Immich manage.
+Workflow release Pi/GHCR đã gỡ; chưa tạo release hay truy cập VPS trong giai đoạn nền tảng.
 
 ---
 
@@ -135,11 +135,11 @@ Giao diện Neumorphism, hỗ trợ Light / Dark mode với hiệu ứng chuyể
 
 ### 🖥️ Quản Lý Server (Server Monitor — chỉ Admin)
 
-- Theo dõi CPU, RAM, nhiệt độ, ổ đĩa theo thời gian thực
+- Theo dõi CPU, RAM và phân vùng DATA_DIR bằng APIs native; nhiệt CPU/SSD không hỗ trợ được hiển thị rõ.
 - Lịch sử 7 ngày dạng sparkline
 - Shortcut link tới các dịch vụ homelab (Immich, Portainer, v.v.)
-- **Cập nhật Immich** (khi chạy chung stack liu-homelab): so bản đang chạy với bản mới nhất trên GitHub, cảnh báo nếu có breaking changes, bấm để `docker compose pull` + `up -d` immich-server/immich-machine-learning
-- Phiên bản & Cập nhật nằm ở **Thiết lập → Hệ thống & Sao lưu** (xem mục [Cập nhật](#cập-nhật))
+- Dịch vụ ngoài chỉ là shortcut do admin cấu hình; app không quản lý Immich/Docker.
+- Phiên bản hiện tại nằm ở **Thiết lập → Hệ thống & Sao lưu**; operator áp gói phát hành đã kiểm thử.
 
 ### 🤖 Trợ Lý AI (Gemini)
 
@@ -271,12 +271,10 @@ Bộ chọn ngôn ngữ trong Settings sẽ tự hiện lựa chọn mới — k
 
 ## 🔧 Biến Môi Trường
 
-Các biến ứng dụng được cung cấp qua process/service hoặc `.env` khi dev. Tests không đọc `.env` của checkout. Các biến STACK_DIR/FAMILY_ORGANIZER_VERSION chỉ thuộc runtime lịch sử, không dùng cho Windows.
+Roots/NODE_ENV đặt trước launch bằng process/service environment. Provider config chỉ đọc CONFIG_DIR/.env. Tests dùng fixtures riêng. STACK_DIR/FAMILY_ORGANIZER_VERSION không còn được runtime Windows sử dụng.
 
 | Biến | Bắt buộc | Mô tả |
 | :--- | :---: | :--- |
-| `STACK_DIR` | Legacy | Đường dẫn tuyệt đối tới thư mục chứa `docker-compose.yml` — dịch vụ cập nhật cần để chạy `docker compose` |
-| `FAMILY_ORGANIZER_VERSION` | Legacy | Phiên bản image đang chạy (vd `1.0.0`); trống = `latest`. Nút cập nhật tự đổi biến này |
 | `GEMINI_API_KEY` | Không | Fallback Gemini key khi chưa cấu hình qua Settings UI |
 | `VAPID_PUBLIC_KEY` | Không | VAPID public key — bật thông báo đẩy PWA |
 | `VAPID_PRIVATE_KEY` | Không | VAPID private key |

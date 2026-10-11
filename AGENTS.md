@@ -21,4 +21,7 @@
 - Docker/Pi files are migration inputs only; no new Docker/Linux/WSL/GHCR pipeline.
   Release automation is disabled pending F08. Do not invoke the old Bash release.
 - No merge, release or VPS access/deployment without separate user authorization.
+- F03: import server/app.ts for isolated route construction; startApplication explicitly
+  loads storage. Register all schedules in AppJobs, drain requests/effects before
+  sqliteClose. No app apply/restart/Immich management routes; retain external links.
 - UI work must follow DESIGN.md; preserve original author/license attribution.

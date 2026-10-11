@@ -12,6 +12,8 @@ const suiteNames = [
   'src/utils/searchText.test.ts', 'src/utils/vietnamHolidays.test.ts', 'tests/evidence.test.ts',
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
   'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
+  'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
+  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -25,7 +27,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     'production.json': {
       commitSha: sha, nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64',
       checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets',
-        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers'],
+        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery'],
     },
     'vitest.json': {
       success: true, numTotalTests: suiteNames.length, numPassedTests: suiteNames.length,
@@ -98,4 +100,11 @@ describe('Windows CI evidence gate', () => {
   it('rejects production reports that omit the permission or offline checks', () => {
     expect(runEvidence(reports => { reports['production.json'].checks = []; }).code).toBe(1);
   });
+  it.each(['server/app.test.ts','server/lifecycle.test.ts','server/appJobs.test.ts','server/appEffects.test.ts','server/systemMetrics.test.ts','tests/runtime-process.test.ts','tests/ui/windows-version.test.tsx'])('rejects missing F03 suite %s', name => {
+    expect(runEvidence(reports => { const v=reports['vitest.json']; v.testResults=v.testResults.filter((s:any)=>!s.name.endsWith(name)); v.numTotalTests=v.numPassedTests=v.testResults.length; }).code).toBe(1);
+  });
+  it.each(['graceful-shutdown','readiness','crash-recovery'])('rejects missing compiled-production lifecycle evidence %s', check => {
+    expect(runEvidence(reports=>{ reports['production.json'].checks=reports['production.json'].checks.filter((c:string)=>c!==check); }).code).toBe(1);
+  });
+
 });

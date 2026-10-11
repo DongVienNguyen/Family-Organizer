@@ -1,164 +1,21 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import fs from "fs";
-import os from "os";
-import path from "path";
-import zlib from "zlib";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { compareVersions, parseEnv } from "./updater.js";
-
-// Notifications import the full DB lazily; mailbox tests never deliver messages.
-vi.mock("./telegramBackup.js", () => ({ notifyTelegram: vi.fn(async () => {}) }));
-
-describe("compareVersions", () => {
-  it("so số từng phần, không so chuỗi (1.10.0 > 1.9.0)", () => {
-    expect(compareVersions("1.10.0", "1.9.0")).toBeGreaterThan(0);
-    expect(compareVersions("1.0.0", "1.0.0")).toBe(0);
-    expect(compareVersions("v2.0.0", "1.99.99")).toBeGreaterThan(0);
-    expect(compareVersions("1.0.0", "1.0.1")).toBeLessThan(0);
+import fs from 'node:fs';
+import path from 'node:path';
+import { describe,it,expect } from 'vitest';
+import * as updater from './updater.js';
+describe('operator-managed build metadata',()=>{
+  const read = (...args: any[]) => { expect((updater as any).readBuildInfo).toBeTypeOf('function'); return (updater as any).readBuildInfo(...args); };
+  it('reads the selected installation version without creating an update mailbox',()=>{
+    const root=process.env.DATA_DIR!; fs.mkdirSync(root,{recursive:true}); fs.writeFileSync(path.join(root,'package.json'),'{"version":"1.2.3"}');
+    expect(read(root,{})).toEqual({version:'1.2.3',commit:'',buildTime:''}); expect(fs.existsSync(path.join(root,'update'))).toBe(false);
   });
-});
-
-describe("parseEnv", () => {
-  it("đọc key=value, chịu CRLF và giá trị có dấu =", () => {
-    expect(parseEnv("a=1\r\nmessage=x=y\n\nbad line\n")).toEqual({ a: "1", message: "x=y" });
+  it('uses validated release version/build identity when explicitly supplied',()=>{
+    expect(read(process.cwd(),{APP_VERSION:'v2.3.4',GIT_SHA:'a'.repeat(40),BUILD_TIME:'2026-10-11T00:00:00Z'})).toMatchObject({version:'2.3.4',commit:'a'.repeat(40)});
   });
-});
-
-// Các ca dưới chọn DATA_DIR/APP_CODE_ROOT synthetic tường minh trước import.
-// CWD không được dùng để chọn database.
-describe("hộp thư với dịch vụ cập nhật", () => {
-  const origCwd = process.cwd();
-  let tmp = "";
-  let upd = "";
-
-  const writeState = (kv: Record<string, string | number>) => {
-    fs.mkdirSync(upd, { recursive: true });
-    fs.writeFileSync(path.join(upd, "state.env"), Object.entries(kv).map(([k, v]) => `${k}=${v}`).join("\n") + "\n");
-  };
-  const now = () => Math.floor(Date.now() / 1000);
-  const load = async () => {
-    vi.resetModules();
-    return import("./updater.js");
-  };
-
-  beforeEach(() => {
-    vi.stubEnv("GITHUB_REPO", undefined);
-    tmp = fs.mkdtempSync(path.join(os.tmpdir(), "fo-updater-"));
-    upd = path.join(tmp, "data", "update");
-    fs.writeFileSync(path.join(tmp, "package.json"), JSON.stringify({ version: "1.0.0" }));
-    process.chdir(tmp);
-    vi.stubEnv("DATA_DIR", path.join(tmp, "data"));
-    vi.stubEnv("APP_CODE_ROOT", tmp);
-  });
-  afterEach(async () => {
-    if (fs.existsSync(path.join(tmp, "data", "family.db"))) {
-      const { sqliteClose } = await import("./sqlite.js");
-      sqliteClose();
-    }
-    process.chdir(origCwd);
-    vi.unstubAllGlobals();
-    vi.unstubAllEnvs();
-    fs.rmSync(tmp, { recursive: true, force: true });
-    expect(fs.existsSync(tmp)).toBe(false);
-  });
-
-  it("mặc định đọc releases từ đúng repo Family-Organizer hiện tại", async () => {
-    const m = await load();
-    expect(m.GITHUB_REPO).toBe("DongVienNguyen/Family-Organizer");
-  });
-
-  it("chưa có updater → không sống; nhịp tim cũ hơn 45s → coi như chết", async () => {
-    const m = await load();
-    expect(m.readUpdaterState()).toMatchObject({ alive: false, phase: "unknown" });
-    writeState({ heartbeat: now() - 120, phase: "idle" });
-    expect(m.readUpdaterState().alive).toBe(false);
-    writeState({ heartbeat: now(), phase: "idle", request_id: "r1", result: "ok", finished_at: now() });
-    expect(m.readUpdaterState()).toMatchObject({ alive: true, phase: "idle", requestId: "r1", result: "ok" });
-  });
-
-  it("khởi động lại: từ chối khi updater không chạy hoặc đang bận, ghi request.env khi rảnh", async () => {
-    const m = await load();
-    expect(() => m.requestRestart()).toThrow(/không chạy/);
-    writeState({ heartbeat: now(), phase: "pulling" });
-    expect(() => m.requestRestart()).toThrow(/chạy dở/);
-    writeState({ heartbeat: now(), phase: "idle" });
-    const id = m.requestRestart();
-    const req = parseEnv(fs.readFileSync(path.join(upd, "request.env"), "utf8"));
-    expect(req).toEqual({ id, action: "restart" });
-    // Còn yêu cầu chưa được nhận → không ghi đè.
-    expect(() => m.requestRestart()).toThrow(/chạy dở/);
-  });
-
-  it("bản mới = bản phát hành chính thức mới nhất lớn hơn bản đang chạy (bỏ qua bản thử nghiệm)", async () => {
-    fs.mkdirSync(upd, { recursive: true });
-    const rel = (version: string, prerelease = false) => ({ version, name: `v${version}`, notes: "", publishedAt: "2026-10-09T00:00:00Z", prerelease, url: "" });
-    fs.writeFileSync(
-      path.join(upd, "settings.json"),
-      JSON.stringify({ releases: [rel("99.0.0-beta.1", true), rel("98.0.0"), rel("1.0.0"), rel("0.9.0")] })
-    );
-    const m = await load();
-    expect(m.updateAvailable()?.version).toBe("98.0.0");
-    const ov = m.getUpdateOverview();
-    expect(ov.releases.find(r => r.version === "98.0.0")?.isNewer).toBe(true);
-    expect(ov.releases.find(r => r.version === "1.0.0")?.isCurrent).toBe(true);
-    expect(ov.releases.find(r => r.version === "0.9.0")?.isNewer).toBe(false);
-  });
-
-  it("cập nhật: chụp DB (.db.gz đọc lại được) rồi ghi yêu cầu kèm đường dẫn bản chụp", async () => {
-    // GitHub không có script cho bản đích → updater giữ script hiện có.
-    vi.stubGlobal("fetch", vi.fn(async () => new Response("not found", { status: 404 })));
-    writeState({ heartbeat: now(), phase: "idle" });
-    const m = await load();
-    await expect(m.startUpdate(m.BUILD.version, { reason: "manual" })).rejects.toThrow(/rồi/);
-    await expect(m.startUpdate("1.0", { reason: "manual" })).rejects.toThrow(/không hợp lệ/);
-
-    const r = await m.startUpdate("99.0.0", { reason: "manual" });
-    const req = parseEnv(fs.readFileSync(path.join(upd, "request.env"), "utf8"));
-    expect(req).toMatchObject({ id: r.requestId, action: "update", target: "99.0.0", backup: `update/snapshots/${r.snapshot}` });
-    expect(req.script).toBeUndefined();
-    expect(req.restore).toBeUndefined();
-
-    const gz = fs.readFileSync(path.join(tmp, "data", req.backup));
-    expect(zlib.gunzipSync(gz).subarray(0, 15).toString()).toBe("SQLite format 3");
-    expect(m.listSnapshots()).toHaveLength(1);
-    expect(m.listSnapshots()[0]).toMatchObject({ from: m.BUILD.version, to: "99.0.0" });
-    // Đang có yêu cầu chờ → không chạy lượt thứ hai.
-    await expect(m.startUpdate("99.0.1", { reason: "manual" })).rejects.toThrow(/chạy dở/);
-  });
-
-  it("Immich: chỉ bật khi updater ≥ v2 báo có service Immich; so bản đang chạy với bản mới nhất", async () => {
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async (url: string) =>
-        String(url).endsWith("/api/server/version") ? Response.json({ major: 1, minor: 130, patch: 2 }) : new Response("nf", { status: 404 })
-      )
-    );
-    fs.mkdirSync(upd, { recursive: true });
-    fs.writeFileSync(
-      path.join(upd, "settings.json"),
-      JSON.stringify({ immich: { latest: { version: "1.131.0", name: "v1.131.0", url: "u", publishedAt: "2026-10-01T00:00:00Z", breaking: true } } })
-    );
-    const m = await load();
-    expect((await m.getImmichOverview()).status).toBe("updater_down");
-    writeState({ heartbeat: now(), phase: "idle", script_version: 1 });
-    expect((await m.getImmichOverview()).status).toBe("updater_old");
-    writeState({ heartbeat: now(), phase: "idle", script_version: 2, immich: "" });
-    expect((await m.getImmichOverview()).status).toBe("no_immich");
-    await expect(m.startImmichUpdate()).rejects.toThrow(/không có Immich/);
-
-    writeState({ heartbeat: now(), phase: "idle", script_version: 2, immich: "immich-server immich-machine-learning" });
-    const ov = await m.getImmichOverview();
-    expect(ov).toMatchObject({ status: "ready", services: ["immich-server", "immich-machine-learning"], updateAvailable: true });
-    expect(ov.running.version).toBe("1.130.2");
-
-    const r = await m.startImmichUpdate();
-    expect(r.from).toBe("1.130.2");
-    // Yêu cầu chỉ có action — danh sách service do updater quyết định, app không gửi.
-    expect(parseEnv(fs.readFileSync(path.join(upd, "request.env"), "utf8"))).toEqual({ id: r.requestId, action: "immich" });
-    await expect(m.startImmichUpdate()).rejects.toThrow(/chạy dở/);
+  it.each(['../target','1.2','not-a-version'])('refuses malformed build version %s',value=>{expect(()=>read(process.cwd(),{APP_VERSION:value})).toThrow(/version/i);});
+  it('refuses missing installation metadata instead of reporting a fake version',()=>{expect(()=>read(process.env.DATA_DIR!+'/missing',{})).toThrow();});
+  it('retains numeric semver comparison',()=>{expect(updater.compareVersions('1.10.0','1.9.0')).toBeGreaterThan(0);expect(updater.compareVersions('v2.0.0','2.0.0')).toBe(0);expect(updater.compareVersions('1.0.0','1.0.1')).toBeLessThan(0);});
+  it('retains readonly parsing of historical migration input',()=>{expect(updater.parseEnv('a=1\r\nmessage=x=y\n\nbad line\n')).toEqual({a:'1',message:'x=y'});});
+  it('exports no app/Immich apply, restart, schedule or mailbox writer',()=>{
+    for(const name of ['startUpdate','requestRestart','setAutoUpdate','startImmichUpdate','runUpdateTick','checkImmichRelease']) expect((updater as any)[name],name).toBeUndefined();
   });
 });

@@ -38,9 +38,9 @@ async function stop() {
   child = undefined;
   if (current.exitCode === null && current.signalCode === null) {
     const exited = once(current, 'exit');
-    current.kill('SIGTERM');
+    current.stdin.write('stop\n');
     const timer = setTimeout(() => current.kill('SIGKILL'), 5000);
-    try { await exited; } finally { clearTimeout(timer); }
+    try { const [code, signal] = await exited; assert.equal(signal, null); assert.equal(code, 0, serverOutput); assert.match(serverOutput, /Shutdown complete/); } finally { clearTimeout(timer); }
   }
 }
 function request(port, pathname, body) {
@@ -62,7 +62,7 @@ async function launch(dataDirectory = dataRoot) {
   await once(reservation, 'listening');
   const port = reservation.address().port;
   await new Promise(resolve => reservation.close(resolve));
-  child = spawn(process.execPath, ['--require', blockNetwork, path.join(packageRoot, 'dist', 'server.cjs')], { cwd: foreignCwd, env: { ...env, DATA_DIR: dataDirectory, PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'] });
+  child = spawn(process.execPath, ['--require', blockNetwork, path.join(packageRoot, 'dist', 'server.cjs')], { cwd: foreignCwd, env: { ...env, DATA_DIR: dataDirectory, PORT: String(port) }, stdio: ['pipe', 'pipe', 'pipe'] });
   child.stdout.on('data', text => { serverOutput += text; });
   child.stderr.on('data', text => { serverOutput += text; });
   child.on('error', error => { serverOutput += error.message; });
@@ -80,6 +80,7 @@ try {
       await new Promise(resolve => setTimeout(resolve, 100));
     }
     assert.equal(health?.status, 200, `Startup timeout: ${serverOutput}`);
+    const ready = await request(port, '/api/ready'); assert.equal(ready.status, 200); assert.equal(JSON.parse(ready.text).ready, true);
     assert.equal(JSON.parse(health.text).version, JSON.parse(fs.readFileSync(path.join(packageRoot, 'package.json'), 'utf8')).version);
     const html = await request(port, '/');
     assert.equal(html.status, 200);
@@ -101,6 +102,30 @@ try {
       assert.equal(db.pragma('integrity_check', { simple: true }), 'ok');
     } finally { db.close(); }
   }
+  // Compiled crash/restart: commit into the active WAL, then terminate abruptly.
+  async function waitReady(port) {
+    const deadline = Date.now() + 15000;
+    while (Date.now() < deadline) {
+      if (child.exitCode !== null || child.signalCode !== null) throw new Error(serverOutput);
+      try { const response = await request(port, '/api/ready'); if (response.status === 200 && JSON.parse(response.text).ready === true) return; } catch { /* startup wait */ }
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    throw new Error('Compiled crash/restart readiness timeout');
+  }
+  let crashPort = await launch(); await waitReady(crashPort);
+  const activeDb = new Database(path.join(dataRoot, 'family.db'));
+  try {
+    const task = JSON.parse(activeDb.prepare('SELECT data FROM tasks WHERE id = ?').get('synthetic-task').data);
+    task.title = 'Committed before crash';
+    activeDb.prepare('UPDATE tasks SET data = ? WHERE id = ?').run(JSON.stringify(task), 'synthetic-task');
+  } finally { activeDb.close(); }
+  const crashExit = once(child, 'exit'); child.kill('SIGKILL'); await crashExit; child = undefined;
+  crashPort = await launch(); await waitReady(crashPort); await stop();
+  const recovered = new Database(path.join(dataRoot, 'family.db'));
+  try {
+    assert.equal(JSON.parse(recovered.prepare('SELECT data FROM tasks WHERE id = ?').get('synthetic-task').data).title, 'Committed before crash');
+    assert.equal(recovered.pragma('integrity_check', { simple: true }), 'ok');
+  } finally { recovered.close(); }
   const outputBeforeDenial = serverOutput.length;
   await launch(deniedDirectory);
   const failed = child;
@@ -115,7 +140,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {
