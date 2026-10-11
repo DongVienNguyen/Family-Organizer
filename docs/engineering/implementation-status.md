@@ -15,7 +15,8 @@
 | F04-g | Reviewed, exact Windows GREEN, merged PR13 | HEAD7a46a62/run38177081124;860/86069files per runtime |
 | F04-h | Reviewed, exact Windows GREEN, merged PR14 | HEAD63ef3ad/run38179151696;918/91871files per runtime |
 | F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
-| F04-j | PR16 first Windows GREEN; review Important fixed, final verification pending | First05d24c4/run38182062049:975/97573files per runtime |
+| F04-j | Reviewed, exact Windows GREEN, merged PR16 | HEADcc45fe8/run38182693480;978/97873files per runtime; maine41e97d |
+| F04-k | Scoped library patches implemented; full validation pending | BASEe41e97d;20actualRED/9chars; audit9→0 |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -498,3 +499,34 @@ still blocked by actual GitHub403 despite authorized retry. Package, masked PS
 wrapper and normal runtime unsupported-schema acceptance are F06; service/reset/
 encrypted recovery F07; release/promotion preparation F08; full app browser/
 performance F05/F09. Server2019 R02 remains unrun; no release/tag/VPS operation.
+
+## F04-k — Remaining library advisories (in progress)
+
+BASE/main `e41e97d35f538f62f123ccfb1558425627ece3da` verified after authorized
+PR16 squash. Previous final HEAD `cc45fe894caf8e70a1f20f57af4b7b35483ffb55`, run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38182693480:
+both Node22/24 independently978/97873files, zero skips, six command exits0,
+21 compiled production/evidence/ci-gate; proof PR16 comment6114910877.
+
+F04-k fixes the remaining public advisory ranges with a scoped18-node lock update
+plus exact Vitest root pin. Seven affected libraries use published minimum fixes;
+eight Vitest ecosystem nodes stay together; three compatible browser datasets
+satisfy the patched Browserslist minimums. No package paths added/removed, native
+or Node runtime upgrade. Metadata/engines/licenses and seven downloaded tarball
+integrities verified. npm audit9(0critical,5high,4moderate)→0; actual exits1→0.
+See `library-dependency-security.md` and `evidence/f04-k-library-dependencies.json`.
+
+Actual RED19 library cases plus one required-evidence omission;9 existing safe or
+valid characterizations retained. Owned offline child processes bound heap,
+startup/execution, output and cleanup for parser/generator/brace/mapping inputs;
+PostCSS source map and indexed offset/browser stats regressions use synthetic
+fixtures. Final selected minimum-version frozen npm ci, audit exit0, lint, full1007/1007
+74files (zero skips) and build passed; captured child output additionally bounded
+without changing library assertions. PR URL, SHA, exact Windows results and fresh
+whole-branch review pending; no final CI-pass claim.
+
+Remaining F04 provider/backup/log/privacy and final proxy/browser gates; F05
+browser/coverage/enforcement still incomplete, actual protection writes403 despite
+user authorization. F06 packaging/wrapper/schema, F07 service/encrypted recovery,
+F08 release preparation, F09 full regressions/performance remain. No release/tag,
+VPS access/deployment, Server2019 acceptance or new domain features.
