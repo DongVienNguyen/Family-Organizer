@@ -52,33 +52,88 @@ if (!fs.existsSync(DATA_DIR)) {
 }
 
 const db = new Database(DB_PATH);
-db.pragma("journal_mode = WAL");
-db.pragma("foreign_keys = ON");
-db.pragma("busy_timeout = 5000");
-
-// Schema: a document-style table per collection (id, seq, data JSON) + app_meta.
-db.exec(`
-  CREATE TABLE IF NOT EXISTS app_meta (
-    key TEXT PRIMARY KEY,
-    value TEXT
-  );
-`);
-for (const { table } of COLLECTIONS) {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS ${table} (
-      id   TEXT PRIMARY KEY,
-      seq  INTEGER NOT NULL,
-      data TEXT NOT NULL
-    );
-    CREATE INDEX IF NOT EXISTS idx_${table}_seq ON ${table}(seq);
-  `);
-}
-const getMetaStmt = db.prepare("SELECT value FROM app_meta WHERE key = ?");
-const setMetaStmt = db.prepare("INSERT OR REPLACE INTO app_meta (key, value) VALUES (?, ?)");
-setMetaStmt.run("schema_version", String(SCHEMA_VERSION));
-
 // Singleton (non-array) fields stored as a single JSON row in app_meta.
 const SINGLETON_KEYS: (keyof FamilyOrganizerDB)[] = ["mealPlan", "hiddenBuiltinCategories"];
+
+// Module evaluation owns the native connection even if a schema/statement fails.
+function initializeDatabase() {
+  try {
+    db.pragma("journal_mode = WAL");
+    db.pragma("foreign_keys = ON");
+    db.pragma("busy_timeout = 5000");
+
+    // Schema: a document-style table per collection (id, seq, data JSON) + app_meta.
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS app_meta (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      );
+    `);
+    for (const { table } of COLLECTIONS) {
+      db.exec(`
+        CREATE TABLE IF NOT EXISTS ${table} (
+          id   TEXT PRIMARY KEY,
+          seq  INTEGER NOT NULL,
+          data TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_${table}_seq ON ${table}(seq);
+      `);
+    }
+    const getMetaStmt = db.prepare("SELECT value FROM app_meta WHERE key = ?");
+    const setMetaStmt = db.prepare("INSERT OR REPLACE INTO app_meta (key, value) VALUES (?, ?)");
+    setMetaStmt.run("schema_version", String(SCHEMA_VERSION));
+
+    // Prepared per-collection replace statements.
+    const deleteStmts = new Map<string, Database.Statement>();
+    const insertStmts = new Map<string, Database.Statement>();
+    for (const { table } of COLLECTIONS) {
+      deleteStmts.set(table, db.prepare(`DELETE FROM ${table}`));
+      insertStmts.set(table, db.prepare(`INSERT INTO ${table} (id, seq, data) VALUES (?, ?, ?)`));
+    }
+
+    /** Persist the full in-memory DB object atomically (single WAL transaction). */
+    const sqliteSave = db.transaction((data: FamilyOrganizerDB) => {
+      for (const { key, table } of COLLECTIONS) {
+        deleteStmts.get(table)!.run();
+        const insert = insertStmts.get(table)!;
+        const arr: any[] = (data as any)[key] || [];
+        arr.forEach((item, i) => {
+          const id = item && item.id != null ? String(item.id) : `row_${i}`;
+          insert.run(id, i, JSON.stringify(item));
+        });
+      }
+      for (const key of SINGLETON_KEYS) {
+        setMetaStmt.run(`singleton:${key}`, JSON.stringify((data as any)[key] ?? null));
+      }
+    }) as unknown as (data: FamilyOrganizerDB) => void;
+
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS server_metrics (
+        t    INTEGER PRIMARY KEY,
+        cpu  REAL,
+        ram  REAL,
+        temp REAL,
+        ssd  REAL,
+        disk REAL
+      );
+    `);
+
+    const insertMetricStmt = db.prepare(
+      "INSERT OR REPLACE INTO server_metrics (t, cpu, ram, temp, ssd, disk) VALUES (?, ?, ?, ?, ?, ?)"
+    );
+    const pruneMetricStmt = db.prepare("DELETE FROM server_metrics WHERE t < ?");
+    const selectMetricsStmt = db.prepare(
+      "SELECT t, cpu, ram, temp, ssd, disk FROM server_metrics WHERE t >= ? ORDER BY t ASC"
+    );
+
+    return { getMetaStmt, sqliteSave, insertMetricStmt, pruneMetricStmt, selectMetricsStmt };
+  } catch (error) {
+    if (db.open) db.close();
+    throw error;
+  }
+}
+const { getMetaStmt, sqliteSave, insertMetricStmt, pruneMetricStmt, selectMetricsStmt } = initializeDatabase();
+export { sqliteSave };
 
 /** True when the database has never been seeded (no user accounts yet). */
 export function sqliteIsEmpty(): boolean {
@@ -99,30 +154,6 @@ export function sqliteLoad(): FamilyOrganizerDB {
   }
   return out as FamilyOrganizerDB;
 }
-
-// Prepared per-collection replace statements.
-const deleteStmts = new Map<string, Database.Statement>();
-const insertStmts = new Map<string, Database.Statement>();
-for (const { table } of COLLECTIONS) {
-  deleteStmts.set(table, db.prepare(`DELETE FROM ${table}`));
-  insertStmts.set(table, db.prepare(`INSERT INTO ${table} (id, seq, data) VALUES (?, ?, ?)`));
-}
-
-/** Persist the full in-memory DB object atomically (single WAL transaction). */
-export const sqliteSave = db.transaction((data: FamilyOrganizerDB) => {
-  for (const { key, table } of COLLECTIONS) {
-    deleteStmts.get(table)!.run();
-    const insert = insertStmts.get(table)!;
-    const arr: any[] = (data as any)[key] || [];
-    arr.forEach((item, i) => {
-      const id = item && item.id != null ? String(item.id) : `row_${i}`;
-      insert.run(id, i, JSON.stringify(item));
-    });
-  }
-  for (const key of SINGLETON_KEYS) {
-    setMetaStmt.run(`singleton:${key}`, JSON.stringify((data as any)[key] ?? null));
-  }
-}) as unknown as (data: FamilyOrganizerDB) => void;
 
 /** Chụp nguyên file SQLite (gồm cả phần đang nằm trong WAL) ra `dest` — dùng trước khi cập nhật app. */
 export async function sqliteBackupTo(dest: string): Promise<void> {
@@ -147,17 +178,6 @@ export function sqliteCheckpoint(): void {
 // (không rewrite cả DB), tự cắt dữ liệu quá hạn. Không nằm trong backup JSON —
 // telemetry là dữ liệu tạm, không cần khôi phục.
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS server_metrics (
-    t    INTEGER PRIMARY KEY,
-    cpu  REAL,
-    ram  REAL,
-    temp REAL,
-    ssd  REAL,
-    disk REAL
-  );
-`);
-
 export interface ServerMetricRow {
   t: number;                 // epoch ms
   cpu: number | null;        // % CPU
@@ -166,14 +186,6 @@ export interface ServerMetricRow {
   ssd: number | null;        // °C SSD NVMe
   disk: number | null;       // % ổ đĩa
 }
-
-const insertMetricStmt = db.prepare(
-  "INSERT OR REPLACE INTO server_metrics (t, cpu, ram, temp, ssd, disk) VALUES (?, ?, ?, ?, ?, ?)"
-);
-const pruneMetricStmt = db.prepare("DELETE FROM server_metrics WHERE t < ?");
-const selectMetricsStmt = db.prepare(
-  "SELECT t, cpu, ram, temp, ssd, disk FROM server_metrics WHERE t >= ? ORDER BY t ASC"
-);
 
 export function sqliteAppendServerMetric(row: ServerMetricRow, keepMs = 7 * 24 * 3600 * 1000): void {
   insertMetricStmt.run(row.t, row.cpu, row.ram, row.temp, row.ssd, row.disk);

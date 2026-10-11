@@ -7,7 +7,6 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Cpu, Thermometer, MemoryStick, HardDrive, Server, Clock, AlertTriangle, Activity, Network, Globe, Copy, Check, Database, Smartphone, Users as UsersIcon, Wifi, ExternalLink, Plus, Pencil, Trash2, X, Save } from "lucide-react";
 import { ShimmerLine, Reveal, IconChip, Accent } from "./Lively.js";
 import { User, UserRole } from "../types.js";
-import { ImmichUpdateCard } from "./ImmichUpdateCard.js";
 import { useTranslation } from "react-i18next";
 
 // Client chỉ tải dữ liệu 1 phút/lần (server cũng tự ghi telemetry 1 phút/lần
@@ -19,7 +18,7 @@ type HistoryRange = "24h" | "7d";
 interface NetworkAddr {
   name: string;
   address: string;
-  kind: "tailscale" | "docker" | "lan";
+  kind: "tailscale" | "lan";
 }
 
 interface ServerStats {
@@ -27,7 +26,7 @@ interface ServerStats {
   hostname: string;
   platform: string;
   uptimeSec: number;
-  loadAvg: number[];
+  loadAvg: number[] | null;
   cpu: { percent: number | null; cores: number; model: string };
   tempC: number | null;
   ssdTempC: number | null;
@@ -120,7 +119,6 @@ function CopyValue({ value, className = "" }: { value: string; className?: strin
 const ADDR_KIND_BADGE: Record<NetworkAddr["kind"], { label: string; cls: string }> = {
   tailscale: { label: "Tailscale", cls: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
   lan: { label: "LAN", cls: "bg-sky-500/10 text-sky-400 border-sky-500/20" },
-  docker: { label: "Docker", cls: "bg-slate-800 text-slate-400 border-slate-800" }
 };
 
 // Ngưỡng màu theo mức độ "nóng" của chỉ số (% hoặc °C).
@@ -426,7 +424,7 @@ export function ServerMonitor({ authHeaders, currentUser }: ServerMonitorProps) 
       <div className="flex items-center gap-x-4 gap-y-1 flex-wrap text-[11px] text-slate-400">
         <span className="flex items-center gap-1.5 font-mono"><Server className="w-3.5 h-3.5 text-sky-400" /> {stats.hostname} · {stats.platform}</span>
         <span className="flex items-center gap-1.5 font-mono"><Clock className="w-3.5 h-3.5 text-amber-400" /> Uptime {fmtUptime(stats.uptimeSec)}</span>
-        <span className="flex items-center gap-1.5 font-mono"><Activity className="w-3.5 h-3.5 text-emerald-400" /> Load {stats.loadAvg.map(n => n.toFixed(2)).join(" / ")}</span>
+        <span className="flex items-center gap-1.5 font-mono"><Activity className="w-3.5 h-3.5 text-emerald-400" /> Load {stats.loadAvg ? stats.loadAvg.map(n => n.toFixed(2)).join(" / ") : "Không hỗ trợ"}</span>
       </div>
     );
   }, [stats, t]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -490,7 +488,7 @@ export function ServerMonitor({ authHeaders, currentUser }: ServerMonitorProps) 
           <div>
             {stats ? (
               <span className={`text-2xl md:text-3xl font-extrabold tabular-nums ${LEVEL_TEXT[tempAccent]}`}>
-                {stats.tempC === null ? "—" : fmtTemp(stats.tempC)}
+                {stats.tempC === null ? "Không hỗ trợ" : fmtTemp(stats.tempC)}
               </span>
             ) : skeleton}
             <p className="text-slate-500 text-[10px] mt-1 font-mono">
@@ -503,7 +501,7 @@ export function ServerMonitor({ authHeaders, currentUser }: ServerMonitorProps) 
                 : t("serverMonitor.reading")}
             </p>
           </div>
-          <LevelBar pct={stats?.tempC ? (stats.tempC / 90) * 100 : 0} accent={tempAccent} />
+          {stats?.tempC != null && <LevelBar pct={(stats.tempC / 90) * 100} accent={tempAccent} />}
         </Reveal>
 
         {/* RAM */}
@@ -593,9 +591,7 @@ export function ServerMonitor({ authHeaders, currentUser }: ServerMonitorProps) 
               </div>
             )}
 
-            {stats?.network && stats.network.interfaces.every(ni => ni.kind === "docker") && (
-              <p className="text-[10px] text-slate-500 px-1">{t("serverMonitor.networkDockerNote")}</p>
-            )}
+
           </div>
         </Reveal>
 
@@ -720,7 +716,6 @@ export function ServerMonitor({ authHeaders, currentUser }: ServerMonitorProps) 
       )}
 
       {/* ─── Cập nhật Immich (admin; ẩn nếu stack không có Immich) ─── */}
-      {isAdmin && <ImmichUpdateCard authHeaders={authHeaders} delay={0.28} />}
 
       {/* Chọn khoảng xem lịch sử */}
       <Reveal delay={0.2} className="flex items-center justify-between gap-2 flex-wrap">
