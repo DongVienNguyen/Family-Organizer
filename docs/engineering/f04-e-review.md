@@ -1,0 +1,12 @@
+# F04-e review and decisions
+
+Fresh whole-branch review of c2960a2..55340d7 found two Important findings, no Critical/Minor. Both retained after inspecting the gateway and actual Markdown renderer. One TDD correction pass, no re-review.
+
+1. The URL regex treated external URL substrings, literal/code paths and unused definitions as attachment claims, causing ordinary note saves to fail403. Seven native-gateway regressions observed this rejection, then passed. The server now parses the same CommonMark/GFM destinations as the UI, resolving actual used reference links/images. A native characterization retains first-binding of reference-style attachments and rejection of copied private reference destinations. `unified`11.0.5 and `remark-parse`11.0.0 were already transitive dependencies; both are declared directly with the lockfile updated, without changing their versions.
+2. Managed Markdown links used ordinary anchors and failed401 even for authorized readers. One actual-renderer regression observed the ordinary anchor, then passed with `AuthenticatedMediaLink`; external link props remain. Its existing keyboard/session/realtime/denial/repeated-action regressions remain required.
+
+Eight actual review regressions RED→GREEN; one new reference-style native characterization passed before and after. Together with45 original actual RED cases, these establish the focused change; they do not replace browser acceptance. First-source Windows642/64262files on both runtimes is independently recorded separately and does not certify these corrections.
+
+Rulings for reviewer-declined gates: exact-HEAD Windows logs/artifacts are verified by the author before merge. Synthetic hooks/SSR/native HTTP do not certify real PDF/popup/download, keyboard, PWA or session-switch behavior; F05 owns that gate. File signatures do not certify hostile parsing or antivirus; privileged filesystem races require F07 service ACLs. Service/package/power-loss and Server2019 R02 remain unrun. Parsing/reference scans and generic media invalidation require F09 measurement. Remaining F04 input/proxy/bootstrap, derivative/provider/backup/log privacy and dependency checks remain required. No release/tag/deployment/VPS readiness claim.
+
+Ruling: reuse CommonMark/GFM AST parsing through explicit dependencies instead of maintaining a divergent attachment regex — preserves external/code text and protects actual internal destinations — cost is parser/reference-scan overhead to measure in F09 and compatibility tests to retain. No deferred Minor.

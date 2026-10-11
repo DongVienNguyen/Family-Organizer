@@ -1,4 +1,4 @@
-import {AuthenticatedImage} from './AuthenticatedMedia.js';
+import {AuthenticatedImage,AuthenticatedMediaLink} from './AuthenticatedMedia.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -18,7 +18,7 @@ const components: Components = {
   h3: ({ node, ...p }) => <h3 className="text-sm font-bold text-slate-100 mt-2.5 mb-1" {...p} />,
   h4: ({ node, ...p }) => <h4 className="text-xs font-bold text-slate-200 mt-2 mb-1 uppercase tracking-wide" {...p} />,
   p:  ({ node, ...p }) => <p className="my-1.5 text-slate-300" {...p} />,
-  a:  ({ node, ...p }) => <a className="text-sky-400 underline underline-offset-2 hover:text-sky-300 break-all" target="_blank" rel="noreferrer noopener" {...p} />,
+  a:  ({ node, ...p }) => <AuthenticatedMediaLink className="text-sky-400 underline underline-offset-2 hover:text-sky-300 break-all" target="_blank" rel="noreferrer noopener" {...p} />,
   strong: ({ node, ...p }) => <strong className="font-bold text-slate-100" {...p} />,
   em: ({ node, ...p }) => <em className="italic" {...p} />,
   del: ({ node, ...p }) => <del className="text-slate-500" {...p} />,

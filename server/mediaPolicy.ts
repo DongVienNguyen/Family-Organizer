@@ -1,3 +1,6 @@
+import {unified} from 'unified';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
 import type {FamilyOrganizerDB} from '../src/types.js';
 import {UserRole} from '../src/types.js';
 import type {AppWriteTx} from './appStore.js';
@@ -19,6 +22,16 @@ export function parseMediaMetadata(value:string):MediaMetadata {
  if(!row||JSON.stringify(Object.keys(row).sort())!==JSON.stringify(['version','ownerId','createdAt','bindings'].sort())||row.version!==1||!(row.ownerId===null||typeof row.ownerId==='string'&&row.ownerId.length>0&&row.ownerId.length<=256)||!Number.isSafeInteger(row.createdAt)||row.createdAt<0||!Array.isArray(row.bindings)||row.bindings.length>1000||row.bindings.some((b:any)=>!b||Object.keys(b).sort().join(',')!=='domain,id'||!domains.includes(b.domain)||typeof b.id!=='string'||!b.id||b.id.length>256)||new Set(row.bindings.map((b:any)=>JSON.stringify(b))).size!==row.bindings.length)throw new Error('Invalid media metadata');
  if(!row.bindings.length&&!row.ownerId)throw new Error('Unowned media staging');return row;
 }
+const markdownParser=unified().use(remarkParse).use(remarkGfm);
+function markdownDestinations(content:string):string[] {
+ const tree=markdownParser.parse(content),definitions=new Map<string,string>(),urls:string[]=[];
+ const walk=(node:any,visit:(node:any)=>void)=>{visit(node);for(const child of node.children??[])walk(child,visit);};
+ walk(tree,node=>{if(node.type==='definition')definitions.set(node.identifier,node.url);});
+ walk(tree,node=>{
+  if(node.type==='link'||node.type==='image')urls.push(node.url);
+  else if(node.type==='linkReference'||node.type==='imageReference'){const url=definitions.get(node.identifier);if(url)urls.push(url);}
+ });return urls;
+}
 export function mediaReferences(legacy:FamilyOrganizerDB):Map<string,MediaBinding[]> {
  const refs=new Map<string,MediaBinding[]>();
  const add=(value:unknown,domain:MediaBinding['domain'],id:string)=>{
@@ -27,7 +40,7 @@ export function mediaReferences(legacy:FamilyOrganizerDB):Map<string,MediaBindin
  };
  for(const row of legacy.users??[])add(row.avatarImage,'users',row.id);
  for(const row of legacy.tasks??[])add(row.proofImage,'tasks',row.id);
- for(const row of legacy.notes??[])for(const url of String(row.content??'').match(/\/uploads\/[^\s)\]<>"']+/g)??[])add(url,'notes',row.id);
+ for(const row of legacy.notes??[])for(const url of markdownDestinations(String(row.content??'')))add(url,'notes',row.id);
  for(const row of legacy.documents??[])for(const file of row.files??[])add(file.url,'documents',row.id);
  for(const row of legacy.transactions??[])add(row.receiptImage,'transactions',row.id);
  for(const row of legacy.assets??[])for(const photo of row.photos??[]){add(photo.thumbnailDataUrl,'assets',row.id);add(photo.fullDataUrl,'assets',row.id);}

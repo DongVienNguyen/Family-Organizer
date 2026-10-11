@@ -34,3 +34,20 @@ it('extracts canonical avatars/proofs/markdown/documents/receipts/assets/debts r
 it('restores metadata and files together without reviving a deleted binding',async()=>{const {url,id}=fixture();const snapshot=change(tx=>collectAppSnapshot(tx));change(tx=>{tx.legacy.notes=[];});fs.writeFileSync(path.join(UPLOADS_DIR,url.slice(9)),'synthetic changed');
  await restoreAppSnapshot(validateAppSnapshot(snapshot),{maintenance:async work=>work()});expect(sqliteLoad().notes.map(n=>n.id)).toContain(id);expect(authorizeMedia(url,{userId:'synthetic-member',role:UserRole.MEMBER})).toBe(true);expect(fs.readFileSync(path.join(UPLOADS_DIR,url.slice(9))).toString('base64')).toBe(png);expect(row(url)).toBe(snapshot.tables.app_meta.find(r=>r.key===mediaKey(url))!.value);
 });
+
+for(const content of [
+ '![external](https://synthetic.invalid/uploads/photo.png)',
+ '[external](https://synthetic.invalid/uploads/example.pdf)',
+ 'Use `/uploads/photo.png` as a path example.',
+ 'Use /uploads/photo.png as a path example.',
+ '```text\n![example](/uploads/photo.png)\n```',
+ '[unused]: /uploads/photo.png',
+ '![external][image]\n\n[image]: https://synthetic.invalid/uploads/photo.png',
+])it('preserves ordinary Markdown without claiming managed attachments: '+content,()=>{
+ fixture();const id=randomUUID();expect(()=>change(tx=>{tx.legacy.notes.push({id,creatorId:'synthetic-member',content,isShared:false});})).not.toThrow();expect(sqliteLoad().notes.find(n=>n.id===id)?.content).toBe(content);
+});
+it('binds actual reference-style destinations but rejects copying a private reference-style attachment',()=>{
+ const {url}=fixture();const staged=uploadMedia('data:image/png;base64,'+png,'notes',undefined,'synthetic-member');const id=randomUUID();const content=`[PDF][file]\n![image][file]\n\n[file]: ${staged.url}`;
+ change(tx=>{tx.legacy.notes.push({id,creatorId:'synthetic-member',content,isShared:false});});expect(parseMediaMetadata(row(staged.url)).bindings).toEqual([{domain:'notes',id}]);
+ expect(()=>change(tx=>{tx.legacy.notes.push({id:randomUUID(),creatorId:'synthetic-member',content:`[private][file]\n\n[file]: ${url}`,isShared:true});})).toThrow(/gắn tệp/);
+});
