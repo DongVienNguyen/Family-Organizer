@@ -1,5 +1,5 @@
 {
-  "status": "F02 candidate:13.0.3 N-API selected after allocation-driven ObjectWrap abort; Windows validation pending",
+  "status": "F02 Windows2022 x64 validated on Node22/24 with13.0.3 N-API; Server2019 pending R02",
   "runner": "windows-2022",
   "architecture": "x64",
   "runtimes": [
@@ -35,7 +35,18 @@
     "selection": "Official13.0.3 npm tarball includes platform prebuilds; actual loaded binary path/SHA256 is recorded per CI run",
     "reason": "11.10.0 aborts under allocation-driven GC with Node24.21.0;12.x retains the affected ObjectWrap path.13 removes that path via node-addon-api.",
     "cloudSQLite": "3.53.4",
-    "windowsValidation": "pending",
+    "windowsValidation": {
+      "sha": "f622ded54d3d71d02998f617edde7d0629d80420",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139108034",
+      "sqliteVersion": "3.53.4",
+      "bindingApi": "N-API",
+      "nodeNapi": "10",
+      "binaryPath": "prebuilds/win32-x64.node",
+      "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+      "testsPerRuntime": 175,
+      "testFilesPerRuntime": 16,
+      "productionSystem32Smoke": "success"
+    },
     "server2019Acceptance": "not-run"
   },
   "productionServiceTools": {
@@ -47,13 +58,13 @@
     "visualStudio": "17.14.37710.0",
     "nodeGyp": "12.4.0 (bundled npm11.19.0)",
     "observedImage": "20261004.326.1",
-    "policy": "VS version asserted in CI; hosted image revision recorded for each run. F06 must carry compiled native addon in package; VPS does not compile."
+    "policy": "VS version asserted in CI; hosted image revision recorded for each run. F06 must carry the verified Windows native addon in package; VPS does not compile."
   },
   "decisionEvidence": {
     "redSha": "92621a84cd7d2f6e0d622ab23511dba754ebdf98",
     "redRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38138220750",
     "nativeRegression": "tests/native-gc.test.ts",
-    "windowsGreenRun": "pending"
+    "windowsGreenRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139108034"
   },
   "legacyF01NativeAddon": {
     "addon": "11.10.0",

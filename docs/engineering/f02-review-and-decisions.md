@@ -33,6 +33,9 @@ Execution rulings:
    requires SQLite/migration/startup and Windows proof; Server2019 remains R02.
 5. Strengthen restart evidence to preserve a post-import write. Cost: one extra
    synthetic mutation; no production data is used.
+6. F02 mentions ZIP startup, but the portable ZIP is produced by later F06.
+   Verify the compiled production-only layout now and retain exact ZIP/runtime
+   acceptance for F06. Cost: layout proof cannot be treated as package acceptance.
 
 Native investigation sources:
 
