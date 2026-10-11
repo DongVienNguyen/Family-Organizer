@@ -7,8 +7,9 @@
 | F01–F03 | Reviewed, exact Windows GREEN, merged | PR1–3; historical entries below |
 | I01 | Gateway, durable jobs and shared recovery integrated | PR4–6 |
 | F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
-| F04-b | Client/cache source accepted; final documentation HEAD verification pending | Entries below; no browser acceptance claim |
-| F04 remaining | SSE/media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
+| F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
+| F04-c | Authenticated scoped realtime in progress | No Windows acceptance until exact HEAD reports verified |
+| F04 remaining | Media/object/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
@@ -276,3 +277,9 @@ Entries below are historical snapshots; later entries supersede earlier remainin
 - Independently downloaded/read full logs and both artifacts. Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each436/436 tests51files, zero failed/skipped/todo, install/native/lint/test/build/production exits0; ci-gate success. JUnit/JSON/native/production hashes and14 mandatory production checks verified in `evidence/f04-b-corrected-source.json`. Explicit LF/CRLF cross-tab cases pass on Windows; previous failed run remains historical evidence.
 - Three Important findings fixed in one TDD pass; deferred Minor stream cancellation/iterator owner parity recorded for next authenticated realtime slice. No dependency/lock changes, real providers, skipped assertions or retry masking. This documentation HEAD still requires its own Windows execution; final SHA/run/report proof will be recorded in the PR evidence comment before authorized merge.
 - Next: F04-c authenticated realtime and owned streaming, followed by media/object/input/proxy/bootstrap/privacy/dependency gates and F05 actual browser proof. Full F04/foundation/master acceptance remains incomplete. Server2019/service/encryption/package/powerloss/performance remain unrun; no release/tag or VPS access/deployment.
+
+
+### F04-b integration / F04-c in progress
+
+- PR8 https://github.com/DongVienNguyen/Family-Organizer/pull/8 merged after fresh review and exact final HEAD Windows evidence. Final HEAD `e24825dab337e536724ab2f6f6097b09c4a879af`, run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38161521729: each Node22/24 install/native/lint/tests436/build/production14checks/evidence success, ci-gate success;51files, zero failures/skips. Full logs/JUnit/JSON/native/production artifacts independently read. Proof: https://github.com/DongVienNguyen/Family-Organizer/pull/8#issuecomment-6111965091. Squash main `f774488ea863019112a96a57f932c7676a558bb1`.
+- F04-c branch `codex/f04-authenticated-realtime`, BASE that squash SHA. Source/testing in progress, PR/run pending; see `authenticated-realtime.md`. Does not declare full F04 or browser acceptance. No dependencies/lock change.

@@ -69,11 +69,12 @@ it('marks internal API data and authentication failures no-store',()=>serve(asyn
 
 it.each(['/api/realtime','/api/calendar.ics?token=synthetic'])('keeps a successful private %s response no-store',async route=>{
   const deps=syntheticDependencies({phase:'ready',storageWritable:true});deps.ics={icsFeedToken:()=> 'synthetic',isValidIcsToken:()=>true,buildIcsFeed:()=> 'BEGIN:VCALENDAR\nSUMMARY:Synthetic private appointment\nEND:VCALENDAR'};
+  const user={id:'synthetic-cache-user',username:'synthetic-cache-user',fullName:'Synthetic cache user',role:UserRole.MEMBER,passwordHash:'synthetic'};deps.db.FamilyDB.getUsers=()=>[user];const token=deps.auth.issue(user);
   const handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!} as any,deps);
   const server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');
   try{
     const received=await new Promise<any>((resolve,reject)=>{
-      const req=http.get({hostname:'127.0.0.1',port:(server.address() as any).port,path:route,agent:false},res=>res.once('data',bytes=>{const result={status:res.statusCode,headers:res.headers,body:String(bytes)};res.destroy();resolve(result);}));req.on('error',reject);
+      const req=http.get({hostname:'127.0.0.1',port:(server.address() as any).port,path:route,agent:false,headers:{Authorization:'Bearer '+token}},res=>res.once('data',bytes=>{const result={status:res.statusCode,headers:res.headers,body:String(bytes)};res.destroy();resolve(result);}));req.on('error',reject);
     });
     expect(received.status).toBe(200);expect(received.body).toContain(route.includes('calendar')?'Synthetic private appointment':'init');expect(received.headers['cache-control']).toBe('no-store');expect(received.headers.vary).toContain('Authorization');
   }finally{server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.drainHandlers();await handle.dispose();}

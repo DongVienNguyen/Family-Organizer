@@ -56,6 +56,39 @@ function request(port, pathname, body, token) {
     req.end(body ? JSON.stringify(body) : undefined);
   });
 }
+// Bound the entire SSE handshake, including silent or endless responses.
+function probeRealtime(port, token) {
+  return new Promise((resolve, reject) => {
+    let response;
+    let text = '';
+    let passed = false;
+    const req = http.get({hostname: '127.0.0.1', port, path: '/api/realtime', agent: false,
+      headers: {Authorization: 'Bearer ' + token, Accept: 'text/event-stream'}}, res => {
+      response = res;
+      res.setEncoding('utf8');
+      res.on('error', reject);
+      res.once('close', () => {clearTimeout(timer); if (passed) resolve(); else reject(new Error('SSE closed before initialization'));});
+      try {
+        assert.equal(res.statusCode, 200);
+        assert.match(res.headers['content-type'] || '', /text\/event-stream/);
+        assert.equal(res.headers['cache-control'], 'no-store');
+        res.on('data', chunk => {
+          try {
+            text += chunk;
+            assert.ok(Buffer.byteLength(text) <= 65536, 'SSE initialization too large');
+            if (!text.includes('\n\n')) return;
+            const frame = JSON.parse(text.split('\n\n')[0].replace(/^data: /, ''));
+            assert.equal(frame.type, 'init');
+            passed = true;
+            res.destroy();
+          } catch (error) {reject(error); res.destroy();}
+        });
+      } catch (error) {reject(error); res.destroy();}
+    });
+    const timer = setTimeout(() => {const error = new Error('SSE absolute handshake timeout'); reject(error); response?.destroy(); req.destroy();}, 2000);
+    req.on('error', error => {clearTimeout(timer); reject(error);});
+  });
+}
 async function launch(dataDirectory = dataRoot) {
   const reservation = net.createServer();
   reservation.listen(0, '127.0.0.1');
@@ -96,6 +129,9 @@ try {
     const privateUsers=await request(port,'/api/users',undefined,token);assert.equal(privateUsers.status,200);assert.equal(privateUsers.headers['cache-control'],'no-store');assert.match(privateUsers.headers.vary,/Authorization/i);
     const unauthorizedUsers=await request(port,'/api/users');assert.equal(unauthorizedUsers.status,401);assert.equal(unauthorizedUsers.headers['cache-control'],'no-store');
     const absentMedia=await request(port,'/uploads/synthetic-not-present.png',undefined,token);assert.equal(absentMedia.status,404);assert.equal(absentMedia.headers['cache-control'],'no-store');
+    assert.equal((await request(port,'/api/realtime')).status,401);
+    assert.equal((await request(port,'/api/realtime?token='+encodeURIComponent(token))).status,401);
+    await probeRealtime(port,token);
     if(iteration===1){
       assert.equal((await request(port,'/api/auth/logout',{},token)).status,200);
       assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);
@@ -152,7 +188,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

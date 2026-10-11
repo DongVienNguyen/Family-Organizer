@@ -7,6 +7,7 @@ import {sessionFetch as fetch} from './utils/browserSession.js';
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { endClientSession } from './utils/clientSession';
 import { browserSession } from './utils/browserSession.js';
+import {startAuthenticatedRealtime} from './utils/realtimeClient.js';
 import { watchServiceWorker } from './utils/serviceWorkerWatch.js';
 import { flushSync } from "react-dom";
 import { 
@@ -371,7 +372,7 @@ export default function App() {
   const [notifOpen, setNotifOpen] = useState(false);
 
   // Server-Sent Events (SSE) reference
-  const sseRef = useRef<EventSource | null>(null);
+  const sseRef = useRef<ReturnType<typeof startAuthenticatedRealtime> | null>(null);
 
   // Notification popover wrapper (for click-away dismissal)
   const notifRef = useRef<HTMLDivElement | null>(null);
@@ -776,22 +777,10 @@ export default function App() {
     const widgetTimer = setInterval(() => { fetchWidgets(); }, 10 * 60 * 1000);
 
     // Establish Server-Sent Events client loop pipeline
-    const sse = new EventSource("/api/realtime");
-    sseRef.current = sse;
-
-    sse.onopen = () => {
-      setIsOnline(true);
-    };
-
-    sse.onerror = () => {
-      setIsOnline(false);
-    };
-
-    sse.onmessage = (event) => {
-      try {
-        const payload = JSON.parse(event.data);
-        console.log("⚓ Đã đồng bộ tài liệu thời gian thực:", payload);
-
+    let opened=false;
+    const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
+      setIsOnline(online);if(online){if(opened)fetchAllData();opened=true;}
+    },onMessage:payload=>{
         switch (payload.type) {
           case "TASKS_UPDATE":
             fetchTasks();
@@ -856,10 +845,8 @@ export default function App() {
           default:
             break;
         }
-      } catch (err) {
-        console.error("SSE message parsing failed:", err);
-      }
-    };
+    }});
+    sseRef.current = sse;
 
     return () => {
       clearInterval(widgetTimer);

@@ -32,3 +32,26 @@ it('reconciles the latest cross-tab token if storage changes again during cleanu
   const pending=f.boundary.change('B',false);f.externalChange('C');finish();await pending;
   expect(f.boundary.snapshot()).toMatchObject({status:'ready',token:'C'});expect(f.read()).toBe('C');expect(f.write).toHaveBeenCalledTimes(2);
 });
+
+it.each(['body','iterator','reader-error'])('releases completed %s stream ownership and preserves cancellation',async method=>{
+  const f=await fixture(),cancel=vi.fn(),stream=new ReadableStream<Uint8Array>({start(controller){if(method==='reader-error')controller.error(new Error('Synthetic stream failure'));else controller.enqueue(new Uint8Array([1]));},cancel});
+  f.network.mockImplementation(async()=>new Response(stream));const response=await f.boundary.request(origin+'/api/realtime',options),signal=f.network.mock.calls[0][1].signal;
+  if(method==='body')await response.body!.cancel();
+  else if(method==='iterator'){for await(const chunk of response.body! as any){expect(chunk).toEqual(new Uint8Array([1]));break;}}
+  else await expect(response.body!.getReader().read()).rejects.toThrow('Synthetic stream failure');
+  expect(cancel).toHaveBeenCalledTimes(method==='reader-error'?0:1);await f.boundary.change('B');expect(signal.aborted).toBe(false);
+});
+
+it('preserves preventCancel iteration while retaining ownership of the remaining body',async()=>{
+  const f=await fixture(),cancel=vi.fn();let controller!:ReadableStreamDefaultController<Uint8Array>;
+  f.network.mockImplementation(async()=>new Response(new ReadableStream<Uint8Array>({start(value){controller=value;controller.enqueue(new Uint8Array([1]));},cancel})));
+  const response=await f.boundary.request(origin+'/api/realtime',options);for await(const chunk of (response.body as any).values({preventCancel:true})){expect(chunk).toEqual(new Uint8Array([1]));break;}
+  expect(cancel).not.toHaveBeenCalled();controller.enqueue(new Uint8Array([2]));controller.close();const reader=response.body!.getReader();expect(await reader.read()).toEqual({done:false,value:new Uint8Array([2])});expect((await reader.read()).done).toBe(true);reader.releaseLock();await f.boundary.change('B');expect(f.network.mock.calls[0][1].signal.aborted).toBe(false);
+});
+
+it('retains a body after failed pipeTo with preventCancel until it is cancelled or the session ends',async()=>{
+  const f=await fixture(),cancel=vi.fn();f.network.mockImplementation(async()=>new Response(new ReadableStream({start(controller){controller.enqueue(new Uint8Array([1]));},cancel})));
+  const response=await f.boundary.request(origin+'/api/realtime',options);
+  await expect(response.body!.pipeTo(new WritableStream({write(){throw new Error('Synthetic destination failure');}}),{preventCancel:true})).rejects.toThrow('Synthetic destination failure');
+  expect(cancel).not.toHaveBeenCalled();await f.boundary.change('B');expect(f.network.mock.calls[0][1].signal.aborted).toBe(true);
+});
