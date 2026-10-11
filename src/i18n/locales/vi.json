@@ -782,6 +782,7 @@
     "tagsPlaceholder": "Ví dụ: Quan trọng, Món ngon, Thiết bị...",
     "pinCheckbox": "Ghim trực tiếp lên màn hình chính (Pin)",
     "shareCheckbox": "Chia sẻ công khai cho các thành viên đều xem được",
+    "sharingOwnerOnly": "Quyền sửa nội dung không bao gồm đổi chia sẻ. Hãy nhờ người tạo hoặc Admin có quyền sửa ghi chú này.",
     "closeBtn": "Đóng lại",
     "saveBtn": "Lưu trữ ghi chú",
     "readerReading": "Đang đọc tài liệu gia đình:",

@@ -178,6 +178,23 @@ try {
     const rewards=JSON.parse((await request(port,'/api/rewards',undefined,token)).text).entries;assert.equal(rewards.length,rewardBase+2);assert.deepEqual(rewards.filter(row=>row.taskId===taskId).map(row=>row.points),[20,20]);
     assert.equal((await request(port,'/api/tasks/'+taskId,undefined,token,'DELETE')).status,200);
 
+    // Compiled content grants do not delegate ownership/privacy changes.
+    const noteCreate=await request(port,'/api/notes',{title:'Synthetic delegated content',isShared:true,allowedRolesToEdit:['child']},token);assert.equal(noteCreate.status,200);const noteId=JSON.parse(noteCreate.text).note.id;
+    for(const payload of [{creatorId:'synthetic-child'},{isShared:false},{allowedRolesToEdit:['admin','child']}])assert.equal((await request(port,'/api/notes',{id:noteId,...payload},childToken)).status,403);
+    const noteEdit=await request(port,'/api/notes',{id:noteId,content:'Synthetic authorized content'},childToken);assert.equal(noteEdit.status,200);assert.equal(JSON.parse(noteEdit.text).note.creatorId,'synthetic-adult');assert.equal(JSON.parse(noteEdit.text).note.isShared,true);
+    const staleNote=await request(port,'/api/notes',{id:noteId,title:'Synthetic stale content',baseUpdatedAt:'2026-01-01T00:00:00Z'},token);assert.equal(staleNote.status,409);assert.equal(JSON.parse(staleNote.text).conflict,true);
+    assert.equal((await request(port,'/api/notes',{content:42},token)).status,400);
+    assert.equal((await request(port,'/api/notes/'+noteId,undefined,token,'DELETE')).status,200);
+    const planCreate=await request(port,'/api/plans',{title:'Synthetic Child schedule',startDate:'2026-10-11 09:00',endDate:'2026-10-11 10:00',recurrenceWeekdays:[0,2]},childToken);assert.equal(planCreate.status,200);const planId=JSON.parse(planCreate.text).plan.id;
+    assert.equal((await request(port,'/api/plans',{id:planId,creatorId:'synthetic-adult'},childToken)).status,403);
+    assert.equal((await request(port,'/api/plans',{title:'Synthetic invalid schedule',startDate:'2026-02-30 09:00'},token)).status,400);
+    assert.equal((await request(port,'/api/plans/'+planId,undefined,childToken,'DELETE')).status,200);
+    const docCreate=await request(port,'/api/documents',{title:'Synthetic content document',type:'other',files:[]},token);assert.equal(docCreate.status,200);const docId=JSON.parse(docCreate.text).document.id;
+    assert.equal((await request(port,'/api/documents',undefined,childToken)).status,403);
+    assert.equal((await request(port,'/api/documents',{id:docId,title:'Synthetic content document',type:'other',creatorId:'synthetic-child'},token)).status,403);
+    assert.equal((await request(port,'/api/documents',{title:'Synthetic invalid files',type:'other',files:'forged'},token)).status,400);
+    assert.equal((await request(port,'/api/documents/'+docId,undefined,token,'DELETE')).status,200);
+
     if(iteration===1){
       assert.equal((await request(port,'/api/auth/logout',{},token)).status,200);
       assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);
@@ -234,7 +251,7 @@ try {
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
   const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

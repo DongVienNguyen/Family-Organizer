@@ -647,12 +647,15 @@ export function Notes({
                   <input 
                     type="checkbox" 
                     checked={formIsShared}
+                    disabled={!!editingNote && editingNote.creatorId !== currentUser.id && currentUser.role !== UserRole.ADMIN}
+                    aria-describedby={editingNote && editingNote.creatorId !== currentUser.id && currentUser.role !== UserRole.ADMIN ? "note-sharing-policy" : undefined}
                     onChange={(e) => setFormIsShared(e.target.checked)}
                     className="rounded bg-slate-950 border-slate-800 text-sky-500 focus:ring-0 w-4 h-4 cursor-pointer"
                   />
                   <span>{t("notes.shareCheckbox")}</span>
                 </label>
               </div>
+              {editingNote && editingNote.creatorId !== currentUser.id && currentUser.role !== UserRole.ADMIN && <p id="note-sharing-policy" className="text-[10px] text-slate-500">{t("notes.sharingOwnerOnly")}</p>}
 
               </div>
 

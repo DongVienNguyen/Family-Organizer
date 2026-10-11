@@ -643,6 +643,7 @@
     "tagsPlaceholder": "E.g.: Important, Recipes, Appliances...",
     "pinCheckbox": "Pin to main screen (Pin)",
     "shareCheckbox": "Share publicly so all members can view",
+    "sharingOwnerOnly": "Content editing does not grant sharing control. Ask the creator or an Admin authorized to edit this note.",
     "closeBtn": "Close",
     "saveBtn": "Save note",
     "readerReading": "Reading family document:",
