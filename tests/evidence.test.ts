@@ -15,7 +15,7 @@ const suiteNames = [
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
   'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
   'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
-  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts',
+  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'tests/httpDependencySecurity.test.ts',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -141,3 +141,5 @@ it('rejects missing compiled content write authority proof',()=>{const result=ru
 
 it.each(['server/derivedPrivacyHttp.test.ts','server/derivedPrivacyNative.test.ts'])('rejects missing derivative privacy suite %s',name=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(name));});expect(result.evidence.errors).toContain('required suite missing: '+name);});
 it('rejects missing compiled derivative privacy proof',()=>{const result=runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((name:string)=>name!=='derived-object-privacy');});expect(result.evidence.errors).toContain('production probe check missing: derived-object-privacy');});
+
+it('rejects missing HTTP dependency security regressions',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('tests/httpDependencySecurity.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/httpDependencySecurity.test.ts');});
