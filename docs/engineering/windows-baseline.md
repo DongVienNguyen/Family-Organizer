@@ -112,7 +112,7 @@ Review độc lập phát hiện gate chấp nhận native report sai metadata v
 Reproduction đã quan sát11tests fail trước sửa; sau sửa11/11 pass, toàn suite138/138
 pass trong Cloud Node24.21.0. Validator đối chiếu runtime/ABI/addon/OS/hash/checks,
 require mỗi baseline suite, đối chiếu assertions với aggregate totals; paths Windows
-normalize trước strip cwd. Windows CI HEAD mới vẫn cần chạy để chốt.
+normalize trước strip cwd. Runtime/gate HEAD b03765da4d1fb44028d002f87bc7f908acd68a12 đã chạy Windows run38135149119: cả hai jobs11files/138tests pass, ci-gate pass, logs và reports đã đọc. Final documentation HEAD sẽ được kiểm lại riêng.
 
 Quyết định giữ addon11.10.0 sau compile/load/regression Windows đạt: giảm đổi SQLite
 engine không cần thiết; chi phí là compiler VS2022 trên builder phải được pin và binary

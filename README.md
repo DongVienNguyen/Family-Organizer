@@ -309,13 +309,11 @@ Settings → Thành viên & Phân quyền → Tạo mới hoặc chỉnh sửa v
 - **Khôi phục**: Chọn điểm backup → Khôi phục → Server tự reload
 - **Telegram offsite**: bật trong Settings → Telegram để gửi ZIP backup ra ngoài mỗi đêm
 
-### Reset toàn bộ
+### Thao tác dữ liệu trên Windows
 
-```bash
-docker compose down
-rm data/family.db
-docker compose up -d
-```
+Runbook stop/backup/restore/reset Windows sẽ được kiểm ở F02/F07. Không áp dụng
+lệnh Docker/rm cũ; không xóa SQLite live khi service còn chạy. F01 chỉ dùng fixtures
+synthetic và không thao tác dữ liệu production.
 
 ---
 
@@ -326,12 +324,12 @@ docker compose up -d
 | **Frontend** | React 19, TypeScript 5.8, Vite 6, Tailwind CSS 4 |
 | **Animation** | Motion 12 (Framer Motion successor) |
 | **Markdown** | react-markdown 10 + remark-gfm |
-| **Backend** | Express 4, Better-SQLite3 11, Node.js 22 |
+| **Backend** | Express 4, Better-SQLite3 11.10.0, Node.js 24.21.0; CI giữ baseline Node22 |
 | **AI** | Google GenAI SDK 2 (Gemini 2.5 Flash) |
 | **Notifications** | Web Push / VAPID, SSE |
 | **Export** | pdfmake 0.3 (báo cáo tài chính), archiver 8 (ZIP backup) |
-| **Container** | Docker multi-stage (Alpine), GHCR, dịch vụ cập nhật riêng (`docker:cli` + sh) |
-| **Testing** | Vitest 4 |
+| **Runtime đích** | Windows-native x64; service/ZIP ở F06–F08, Server2019 nghiệm thu riêng R02 |
+| **Testing** | Vitest 4, Windows2022/pwsh, JUnit/JSON và native evidence |
 
 ---
 
