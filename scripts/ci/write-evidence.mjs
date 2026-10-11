@@ -1,14 +1,17 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import { execFileSync } from 'node:child_process';
+import {createHash} from 'node:crypto';
 
 fs.mkdirSync('reports', { recursive: true });
 const errors = [];
-const checks = Object.fromEntries(['install', 'native', 'lint', 'test', 'build', 'production'].map(name => [name, process.env[`CHECK_${name.toUpperCase()}`] || 'missing']));
+const checks = Object.fromEntries(['install', 'native', 'lint', 'test', 'build', 'production','audit'].map(name => [name, process.env[`CHECK_${name.toUpperCase()}`] || 'missing']));
 for (const [name, outcome] of Object.entries(checks)) {
   if (outcome !== 'success') errors.push(`${name}: ${outcome}`);
   const exitPath = `reports/${name}-exit.json`;
-  if (!fs.existsSync(exitPath) || JSON.parse(fs.readFileSync(exitPath, 'utf8')).exitCode !== 0) errors.push(`${name}: missing or nonzero exit evidence`);
+  const exitReport = fs.existsSync(exitPath) ? JSON.parse(fs.readFileSync(exitPath, 'utf8')) : null;
+  if (exitReport?.exitCode !== 0) errors.push(`${name}: missing or nonzero exit evidence`);
+  if (name === 'audit' && exitReport?.nativeAuditExitCode !== 0) errors.push('audit: missing or nonzero native exit evidence');
 }
 const readReport = name => {
   try { return JSON.parse(fs.readFileSync(`reports/${name}`, 'utf8')); }
@@ -18,6 +21,8 @@ const tests = readReport('vitest.json');
 const native = readReport('native.json');
 const toolchain = readReport('toolchain.json');
 const production = readReport('production.json');
+const audit=readReport('audit.json');
+const auditContext=readReport('audit-context.json');
 const npmVersion = toolchain?.npmVersion;
 const cwd = process.cwd().replaceAll('\\', '/');
 const suites = (tests?.testResults || []).map(suite => ({
@@ -30,7 +35,7 @@ if (!tests?.success || !(tests.numTotalTests > 0) || tests.numPassedTests !== te
 const requiredSuites = [
   'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts',
   'server/realtime.test.ts', 'server/realtimeHttp.test.ts', 'server/legacyVisibility.test.ts', 'src/utils/realtimeClient.test.ts', 'tests/ui/realtime-session.test.ts',
-  'tests/account-initialization.test.ts', 'tests/httpDependencySecurity.test.ts', 'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
+  'tests/librarySecurity.test.ts', 'tests/account-initialization.test.ts', 'tests/httpDependencySecurity.test.ts', 'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
   'server/jobStore.test.ts', 'server/appJobs.durable.test.ts', 'server/pushOutbox.test.ts', 'server/pushDelivery.test.ts', 'server/providerJobs.test.ts', 'server/pushTransport.test.ts', 'server/auth.test.ts', 'server/authStore.test.ts', 'server/authHttp.test.ts', 'src/utils/clientSession.test.ts', 'src/utils/sessionBoundary.test.ts', 'src/utils/privateStorage.test.ts', 'src/utils/privacyWorker.test.ts', 'src/utils/serviceWorkerWatch.test.ts', 'tests/sw-cache.test.ts', 'tests/ui/session-bootstrap.test.ts', 'tests/ui/session-actions.test.ts', 'src/utils/uploadImage.test.ts', 'src/utils/pdfExport.test.ts', 'server/appSnapshot.test.ts', 'server/fullBackup.test.ts', 'tests/snapshot-recovery.test.ts', 'tests/snapshot-http.test.ts',
   'src/utils/assetValue.test.ts', 'src/utils/bmi.test.ts', 'src/utils/debt.test.ts',
@@ -61,6 +66,9 @@ for (const check of ['native-load', 'write-read', 'transaction-rollback', 'WAL-b
 if (!fs.existsSync('reports/junit.xml') || !fs.readFileSync('reports/junit.xml', 'utf8').includes('<testcase')) errors.push('JUnit test cases missing');
 const commitSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 if (commitSha !== process.env.TEST_COMMIT_SHA) errors.push('checkout SHA differs from requested HEAD');
+const lockSha256=createHash('sha256').update(fs.readFileSync('package-lock.json')).digest('hex');
+if(!audit||audit.error||!audit.vulnerabilities||typeof audit.vulnerabilities!=='object'||Array.isArray(audit.vulnerabilities)||Object.keys(audit.vulnerabilities).length!==0||!['info','low','moderate','high','critical','total'].every(name=>audit.metadata?.vulnerabilities?.[name]===0))errors.push('dependency audit missing, invalid, or contains remaining vulnerabilities');
+if(auditContext?.commitSha!==commitSha||auditContext?.nodeVersion!==process.version||auditContext?.platform!=='win32'||auditContext?.architecture!=='x64'||auditContext?.lockSha256!==lockSha256)errors.push('dependency audit context differs from tested HEAD/runtime/lockfile');
 if (production?.commitSha !== commitSha || production?.nodeVersion !== process.version || production?.platform !== 'win32' || production?.architecture !== 'x64' || !Array.isArray(production?.checks)) errors.push('production startup evidence missing or contradicts tested runtime/SHA');
 for (const check of ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account']) {
   if (!production?.checks?.includes(check)) errors.push(`production probe check missing: ${check}`);
@@ -72,7 +80,7 @@ const evidence = {
   commitSha, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT),
   runnerOS: `${os.type()} ${os.release()}`, runnerImage: process.env.ImageOS,
   runnerImageVersion: process.env.ImageVersion, nodeVersion: process.version, npmVersion, toolchain,
-  checks, suites, native, production, server2019Acceptance: 'not-run', errors,
+  checks, suites, native, production, audit, auditContext, lockSha256, server2019Acceptance: 'not-run', errors,
 };
 fs.writeFileSync('reports/evidence.json', JSON.stringify(evidence, null, 2) + '\n');
 console.log(JSON.stringify(evidence, null, 2));
