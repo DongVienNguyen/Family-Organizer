@@ -10,7 +10,8 @@
 | F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
 | F04-c | Reviewed, exact Windows GREEN, merged PR9 | HEAD8cce8ee/run38165065503;512/51256files per runtime |
 | F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
-| F04 remaining | Media/input/proxy/privacy/dependency gates pending | F04 checklist remains incomplete |
+| F04-e | Authenticated media reviewed; corrected source Windows GREEN; final documentation HEAD pending | PR11 sourceb2e1f37/run38171014457;653/65363files per runtime |
+| F04 remaining | Input/proxy/bootstrap/privacy/dependency gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
@@ -344,3 +345,10 @@ Named-export parser corrected Cloud acceptance: frozen npm ci/lint/tests653/6536
 Source544c9d4/run38170534891: both Windows production17checks succeeded, but test command/ci-gate failed despite653 passed assertions because the new compiled-policy fixture teardown failed EBUSY/EPERM. The esbuild persistent service inherited fixture CWD. Source assertions and cleanup checks are retained; builder now runs in a bounded synchronous child from repo CWD, with ESBUILD_WORKER_THREADS=0 so its native process completes before return. No sleep, retry, teardown suppression or test skip. Failed reports/hashes retained in f04-e-parser-source-failed.json. Full corrected validation/Windows required before merge; no second review.
 
 Owned-builder correction Cloud lint/tests653/65363files zero skips/build all exit0; unchanged frozen lock already installed. Native builder bounded to completed subprocess, all parser/destination/auth/coldrestore/cleanup assertions retained. Windows source retry follows fixture ownership correction, never unchanged rerun.
+
+### F04-e — corrected Windows source verified
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/11. Corrected source HEAD `b2e1f370d555e2d9aa91ca534f2dcae3fef99655`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38171014457 attempt1 success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each653/65363files; zero failed/skipped/todo. npm ci/native/lint/tests/build/production17checks all recorded exits0, evidence and ci-gate success. Full logs and both JUnit/JSON/native/production artifact sets independently read, hashes in `evidence/f04-e-corrected-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 verified unchanged binary. System32/Unicode roots, four launches/three graceful stops/crash recovery/write-denied/offline proof retained. Both previous failures are preserved with their causes, despite passed assertions/builds; no retry unchanged, skipped tests, softened assertion, teardown suppression or continue-on-error. Two Important review findings fixed in one ongoing pass until green, plus compiled parser/gate regressions; no Minor/re-review.
+- This evidence belongs to sourceb2e1f37; final documentation HEAD requires separate exact-SHA Windows acceptance. Its immutable proof comment will record final SHA/run/report hashes before authorized merge.
+- Remaining: F04 field/schema/proxy/bootstrap, reward/notification derivatives, provider/backup/log privacy and audit13total/6production entries (critical included); bundle >500kB warning retained. F05 real browsers/coverage/required-check enforcement and F06–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS action. Next: F04-f task payload/reward authority from merged main, then other remaining security slices.
