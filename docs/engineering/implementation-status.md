@@ -21,7 +21,8 @@
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
 | F05-a | Reviewed, exact Windows GREEN, merged PR19 | HEAD1697bf939a57e7a463a95ea8141c30a4368822b7; run38190289782;1146/114678files per runtime,7checks0/audit0/22proof;15browser first-attempt cases, full artifact hashes verified; mainb0f9a01 |
 | F05-b | Reviewed, exact Windows GREEN, merged PR20 | HEAD27e0691f92ba6e5ccbcfa39af3fbf4d9fdaf4a04/run38193519702;1222/80 each runtime;8checks0/audit0/22compiledproof;15first-attempt browsers;104coveragefiles;main01b9a21 |
-| F06-a | Compatibility source under review correction / Windows pending | PR21; firstHEADa113d30327459707458b2126e47879847ad24883/run38194460620: quality1243/81 both8checks0/23proof, browsers14pass1fail WebKitB05; corrected Cloud1248/81 |
+| F06-a | Reviewed, exact Windows GREEN, merged PR21 | HEAD8271d1337e2b239d3772346edcf1754a0dc8fa50/run38195122408:1248/81 both8checks0/audit0/23proof/seven incompatible schemas;15first-attempt browsers/104coverage files;main8a898259cc1fd9d1e66921e480614c6be14c057c |
+| F06-b | PR22 under one review correction pass; Windows package not yet accepted | FirstHEADdc76fc0/run38197262191: both quality1311/82/all8checks0 +15browser/104coverage verified, ZIP preflight failed; actual native RED4fb3139/run38197846395 seven unsafe extraction cases |
 | F05–F09 | Enforcement/coverage/package/service/encryption/release-prep/performance pending | Actual Oct12 ruleset/protection writes still403 despite user authorization; mainprotected:false; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
@@ -666,3 +667,27 @@ Single freshreview1Important1Minor allacceptedbeforeoneTDDpass: literal internal
 SQLite prefix for normal/operator refusal and typed hash metadata. Five actualRED
 thenGREEN, target157/157 fivefiles, full1248/124881files/lint/build0 and seven
 compiled preservation fixtures passed in Cloud. Corrected exactWindows pending.
+
+## F06-a — Final verified merge
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/21
+- Exact reviewed/tested HEAD: `8271d1337e2b239d3772346edcf1754a0dc8fa50`.
+- Windows CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38195122408.
+- Both pinned runtimes:1248/1248 tests in81files, eight native checks exit0, audit0,23 compiled proofs including seven incompatible SQLite cases preserving bytes/schema/rows/journal and closed handles.
+- Browsers:15/15 first-attempt cases, no skip/retry/flaky; coverage104sources passed unchanged floors. All three artifacts/full logs independently read and hashes verified.
+- Immutable final proof: https://github.com/DongVienNguyen/Family-Organizer/pull/21#issuecomment-6116616877. Main squash `8a898259cc1fd9d1e66921e480614c6be14c057c`.
+- First failed WebKit run remains documented; assertions retained and authorized image decode readiness added before reload. No Server2019/service/package/deployment claim.
+
+## F06-b — Windows ZIP producer and clean consumer
+
+- Base main: `8a898259cc1fd9d1e66921e480614c6be14c057c`; focused branch `codex/f06-windows-package`.
+- Implementation/review/Windows evidence pending; PR, tested HEAD and CI run will be recorded after actual creation.
+- New package contract:51 initial harness RED cases plus3 license-byte/runtime-data RED cases; all observed before corresponding implementation. Disk inventory/hash/metadata drift tests added.
+- Eight frontend-only dependency classifications changed; lockfile changed dev flags only, no added/removed nodes or version upgrades. Windows build/browser/production dependency closure must pass before acceptance.
+- Initial Cloud npm ci failed because default node-gyp headers cache was outside writable workspace. Retained actual failed log; retry uses existing workspace headers cache. Linux diagnostics do not prove Windows. Corrected Cloud install/lint/build0; final1311/1311 tests in82files. New production-only installation passed all11 functional checks (finance CRUD/reward/restart/migration/shared snapshot/restore/session revocation/core rows/offline/closed handles). Earlier probe fixture errors (harness preload layout, adult completion without Child approval) retained and corrected; no assertions removed.
+- Required next proof: exact-HEAD Windows22/24 quality/coverage, browsers, ZIP producer and independent no-checkout consumer; all reports/raw hashes read before merge.
+- Remaining: F05 protection HTTP403, F06 service template/license findings, F07 service/portable encryption/update/rollback, F08 release preparation, F09 full regression/performance, R02 real Server2019. Releases/tags/VPS remain unauthorized.
+
+- F06-b PR: https://github.com/DongVienNguyen/Family-Organizer/pull/22. First HEAD `dc76fc0796cdb6dc4230c0249bcda2acc5120cf1`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38197262191. Both quality1311/82, all8checks0/audit0/23compiledproofs/sevenincompatible schemas,15first-attempt browser cases and104coverage files independently verified. Producer failed missing assembly on PS5.1; consumer skipped dependency, not accepted. Evidence `f06-b-first-source.json`.
+- Review: two Important/two Minor accepted before one correction pass; no Critical/no re-review. Six JS device cases RED then GREEN. Native Windows RED `4fb3139421f84f3c482bdd95b468297b44031697`/run38197846395:26cases+Unicode positive; six devices leave paths and forged1-byte length writes2097152bytes before rejection. A prior regression fixture empty-Sum failure is retained and corrected, not counted as the intended RED.
+- Native fixes, absolute producer reports and failure/cleanup evidence prepared; corrected full Cloud1317/1317 in82files+lint/build0. Final exact-HEAD Windows alljobs/ZIP consumer still pending. Main ruleset/protection retry after PR22 still403; readbackprotectedfalse/rulesets[]. No release/tag/VPS/Server2019 claim.

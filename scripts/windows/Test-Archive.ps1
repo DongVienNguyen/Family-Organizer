@@ -1,0 +1,55 @@
+﻿param([Parameter(Mandatory=$true)][string]$ReportPath)
+$ErrorActionPreference='Stop'
+Set-StrictMode -Version Latest
+. (Join-Path $PSScriptRoot 'Archive.ps1')
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$fixture=Join-Path $env:TEMP ('fo-archive-contract-'+[guid]::NewGuid())
+New-Item -ItemType Directory -Path $fixture | Out-Null
+$results=@()
+$failures=@()
+try {
+    $cases=@('../outside','/outside','C:/outside','app\outside','app/file:stream','app/CON.txt','app/NUL','app/file.','app/file ','app//file','app/./file','app/../file','app/COM1.log','app/LPT9.log','case-alias','file-parent','symlink','reparse','bomb','COM¹','COM².txt','COM³','LPT¹','LPT².log','LPT³','forged-size')
+    foreach ($case in $cases) {
+        $zipPath=Join-Path $fixture ([guid]::NewGuid().ToString()+'.zip')
+        $zip=[IO.Compression.ZipFile]::Open($zipPath,[IO.Compression.ZipArchiveMode]::Create)
+        try {
+            if ($case -eq 'case-alias') { $zip.CreateEntry('app/file') | Out-Null; $zip.CreateEntry('APP/FILE') | Out-Null }
+            elseif ($case -eq 'file-parent') { $zip.CreateEntry('app') | Out-Null; $zip.CreateEntry('app/file') | Out-Null }
+            else {
+                $name=if ($case -in @('symlink','reparse','bomb','forged-size')) {'app/file'} else {$case}
+                $entry=$zip.CreateEntry($name)
+                if ($case -eq 'symlink') { $entry.ExternalAttributes=-1610612736 }
+                elseif ($case -eq 'reparse') { $entry.ExternalAttributes=1024 }
+                elseif ($case -in @('bomb','forged-size')) { $stream=$entry.Open(); try { $stream.Write((New-Object byte[] 2097152),0,2097152) } finally { $stream.Dispose() } }
+            }
+        } finally { $zip.Dispose() }
+        if ($case -eq 'forged-size') {
+            $bytes=[IO.File]::ReadAllBytes($zipPath)
+            # Forge only declared lengths: actual deflated payload still expands to2MiB.
+            [Array]::Copy([BitConverter]::GetBytes([uint32]1),0,$bytes,22,4)
+            $found=$false
+            for ($i=0; $i -lt $bytes.Length-46; $i++) {
+                if ([BitConverter]::ToUInt32($bytes,$i) -eq 0x02014b50) { [Array]::Copy([BitConverter]::GetBytes([uint32]1),0,$bytes,$i+24,4); $found=$true; break }
+            }
+            if (!$found) { throw 'Malformed archive fixture central directory missing' }
+            [IO.File]::WriteAllBytes($zipPath,$bytes)
+        }
+        $target=Join-Path $fixture ([guid]::NewGuid().ToString())
+        $rejected=$false
+        try { Expand-VerifiedArchive $zipPath $target } catch { $rejected=$true }
+        $noFiles=!(Test-Path -LiteralPath $target)
+        if (!$rejected -or !$noFiles) { $failures+=$case }
+        [long]$remainingBytes=0
+        if (Test-Path -LiteralPath $target) { foreach ($file in Get-ChildItem -LiteralPath $target -Recurse -File) { $remainingBytes+=$file.Length } }
+        $results+=@{case=$case;rejected=$rejected;noFilesWritten=$noFiles;remainingBytes=$remainingBytes}
+
+    }
+    $safeZip=Join-Path $fixture 'safe.zip'
+    $zip=[IO.Compression.ZipFile]::Open($safeZip,[IO.Compression.ZipArchiveMode]::Create)
+    try { $entry=$zip.CreateEntry('app/dữ liệu with spaces.txt'); $writer=New-Object IO.StreamWriter($entry.Open()); try {$writer.Write('synthetic')}finally{$writer.Dispose()} } finally {$zip.Dispose()}
+    $safe=Join-Path $fixture 'safe'
+    Expand-VerifiedArchive $safeZip $safe
+    if ((Get-Content -LiteralPath (Join-Path $safe 'app/dữ liệu with spaces.txt') -Raw) -cne 'synthetic') { throw 'Safe Unicode archive failed' }
+    @{powershell=$PSVersionTable.PSVersion.ToString();rejected=$results;safeUnicodeExtract=$true;failures=$failures} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $ReportPath -Encoding utf8
+    if ($failures.Count -ne 0) { throw ('Unsafe archives accepted or wrote files: '+($failures -join ', ')) }
+} finally { Remove-Item -LiteralPath $fixture -Recurse -Force }
