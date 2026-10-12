@@ -42,3 +42,16 @@ Native Number-identity diagnostics contain only synthetic numeric IDs, no paths
 or secrets. Windows2022 success will not certify Server2019/reboot/off-host/RPO/RTO.
 F09 financial source is preserved separately pending this baseline correction.
 No release/tag/VPS operation is authorized or performed.
+
+One fresh review0Critical1Important0Minor found ancestor baselines reset between
+read retries. The inter-attempt parent replacement regression reproduced acceptance
+and is now refused with one shared baseline, no durable mark and the first
+descriptor closed. Target219/5 is green; a corrected full run is still required.
+
+Initial ECC Windows CI38314999862 has1922/1924 on both runtimes: bound leaf
+publication and three-replacement count fail, despite Cloud positives. Native
+rename/descriptor failure details were hidden by the safe control error. The next
+checkpoint collects actual Node-rename and .NET-replace/removed-backup observations
+without declaring them acceptance. Every native child exit/signal/error and
+fixture/descriptor cleanup is checked; required unit/browser/package/service
+assertions remain. Corrected exact Windows proof still required before merge.

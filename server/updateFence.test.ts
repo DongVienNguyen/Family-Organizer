@@ -11,6 +11,7 @@ const schema={legacy:{min:1,max:1},jobs:{min:1,max:1},snapshot:{min:1,max:1},dom
 const versions={legacy:1,jobs:1,snapshot:1,domains:{wallet:0,productivity:0}};
 const config={...appConfig,codeRoot:path.join(root,'app')};let control:any;
 function publish(phase='held'){fs.writeFileSync(controlFile,JSON.stringify({...control,phase}));}
+function publishLeaf(staged:string,fixed:string){try{fs.renameSync(staged,fixed);}catch(error){const e=error as NodeJS.ErrnoException;console.error('ATOMIC_LEAF_NATIVE_DIAGNOSTIC '+JSON.stringify({platform:process.platform,code:e.code,syscall:e.syscall}));throw error;}}
 beforeEach(()=>{fs.mkdirSync(config.codeRoot,{recursive:true});fs.writeFileSync(manifestFile,JSON.stringify({format:1,commitSha:'a'.repeat(40),appVersion:'1.1.0',schema}));control={format:1,operationId:randomUUID(),manifestSha256:createHash('sha256').update(fs.readFileSync(manifestFile)).digest('hex'),phase:'held'};});
 afterEach(()=>{vi.restoreAllMocks();fs.rmSync(root,{recursive:true,force:true});fs.rmSync(controlFile,{force:true});});
 it('absence keeps normal startup and valid control binds the installed manifest',async()=>{const {loadUpdateAttempt}=await load();expect(loadUpdateAttempt).toBeTypeOf('function');expect(loadUpdateAttempt(config)).toBeUndefined();publish();expect(loadUpdateAttempt(config)).toMatchObject({operationId:control.operationId,manifestSha256:control.manifestSha256,appVersion:'1.1.0',schema});});
@@ -46,7 +47,7 @@ it.each(['bound-approval','foreign-approval'])('handles atomic fixed-leaf public
  vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{
   const count=(originalRead as any)(...args);
   if(!replaced&&args[1]instanceof Buffer&&args[1].subarray(0,count).toString().includes('"phase":"held"')){
-   replaced=true;const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve',operationId:mode==='foreign-approval'?randomUUID():control.operationId}));fs.renameSync(staged,controlFile);
+   replaced=true;const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve',operationId:mode==='foreign-approval'?randomUUID():control.operationId}));publishLeaf(staged,controlFile);
   }
   return count;
  })as any);
@@ -63,7 +64,17 @@ it('bounds repeated atomic leaf replacement to three reads and closes every cont
  app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
  vi.spyOn(fs,'openSync').mockImplementation(((...args:any[])=>{const fd=(originalOpen as any)(...args);if(args[0]===controlFile){opened++;owned.add(fd);}return fd;})as any);
  vi.spyOn(fs,'closeSync').mockImplementation(((fd:number)=>{originalClose(fd);if(owned.delete(fd))closed++;})as any);
- vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args);if(owned.has(args[0])&&count>0){replacements++;const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve'}));fs.renameSync(staged,controlFile);}return count;})as any);
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args);if(owned.has(args[0])&&count>0){replacements++;const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve'}));publishLeaf(staged,controlFile);}return count;})as any);
  const runtime=await startManagedServer({app,jobs:new(await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});
  try{await expect(runtime.ready).rejects.toThrow('UPDATE_CONTROL_INVALID');expect(mark).not.toHaveBeenCalled();expect(replacements).toBe(3);expect(opened).toBe(3);expect(closed).toBe(3);expect(owned.size).toBe(0);expect(runtime.state.phase).toBe('failed');}finally{await runtime.close();}
+});
+
+it('refuses a control parent replaced between publication retry attempts and closes the first descriptor',async()=>{
+ const {loadUpdateAttempt,validateUpdateStartup}=await load(),privateRoot=path.join(root,'retry-control-root'),movedRoot=path.join(root,'moved-retry-root'),fixed=path.join(privateRoot,'update-control.json');fs.mkdirSync(privateRoot);fs.writeFileSync(fixed,JSON.stringify(control));const attempt=loadUpdateAttempt({...config,configRoot:privateRoot}),app=express(),mark=vi.fn(),originalRead=fs.readSync.bind(fs),originalOpen=fs.openSync.bind(fs),originalClose=fs.closeSync.bind(fs);const owned=new Set<number>();let leafReplaced=false,parentReplaced=false,opened=0,closed=0;
+ app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
+ vi.spyOn(fs,'openSync').mockImplementation(((...args:any[])=>{const fd=(originalOpen as any)(...args);if(args[0]===fixed){owned.add(fd);opened++;}return fd;})as any);
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args);if(!leafReplaced&&owned.has(args[0])&&count>0){leafReplaced=true;const staged=fixed+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve'}));publishLeaf(staged,fixed);}return count;})as any);
+ vi.spyOn(fs,'closeSync').mockImplementation(((fd:number)=>{originalClose(fd);if(owned.delete(fd)){closed++;if(leafReplaced&&!parentReplaced){parentReplaced=true;fs.renameSync(privateRoot,movedRoot);fs.mkdirSync(privateRoot);fs.writeFileSync(fixed,JSON.stringify({...control,phase:'approve'}));}}})as any);
+ const runtime=await startManagedServer({app,jobs:new(await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});
+ try{await expect(runtime.ready).rejects.toThrow('UPDATE_CONTROL_INVALID');expect(leafReplaced&&parentReplaced).toBe(true);expect(mark).not.toHaveBeenCalled();expect(opened).toBe(1);expect(closed).toBe(1);expect(owned.size).toBe(0);expect(runtime.state.phase).toBe('failed');}finally{await runtime.close();}
 });

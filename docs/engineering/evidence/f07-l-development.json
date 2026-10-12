@@ -47,9 +47,39 @@
     "sourceFrozen": true
   },
   "nativeCauseLimits": "Two defect classes reproduced; old generic service log cannot prove exact native error code, no false native diagnosis or correctedWindows claim",
-  "review": "pending onefresh wholebranch",
+  "review": {
+    "count": 1,
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "ruling": "accepted",
+    "actualParentBoundaryRed": 1,
+    "priorPassed": 27,
+    "targetGreen": 219,
+    "files": 5
+  },
   "releaseVps": "forbidden",
   "lintExit": 0,
   "buildExit": 0,
-  "dependencyLockRuntimeChanges": false
+  "dependencyLockRuntimeChanges": false,
+  "checkpoint": "Inter-attempt shared ancestor baseline corrected; native publication diagnostic added after both Windows unit fixtures fail; no corrected whole-Windows claim",
+  "nativeCheckpoint": {
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38314999862",
+    "headSha": "ecc4bbd6b585bb570606970464f4379a4a110307",
+    "node22": {
+      "total": 1924,
+      "passed": 1922,
+      "failed": 2
+    },
+    "node24": {
+      "total": 1924,
+      "passed": 1922,
+      "failed": 2
+    },
+    "failures": [
+      "bound atomic leaf publication UPDATE_CONTROL_INVALID",
+      "repeated publication replacement count1 expected3"
+    ],
+    "diagnosis": "Underlying native errno/fstat not exposed; new diagnostics required before choosing native correction"
+  }
 }

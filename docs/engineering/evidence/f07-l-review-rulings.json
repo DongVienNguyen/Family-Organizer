@@ -1,0 +1,23 @@
+{
+  "taskId": "F07-l",
+  "reviewCount": 1,
+  "reviewedHeadSha": "ecc4bbd6b585bb570606970464f4379a4a110307",
+  "critical": 0,
+  "important": 1,
+  "minor": 0,
+  "rulings": [
+    {
+      "severity": "Important",
+      "finding": "Control reader recaptures ancestor identity between retry attempts; parent replaced during descriptor close is accepted",
+      "ruling": "accepted",
+      "reviewerReproduction": {
+        "leafReplaced": true,
+        "parentReplaced": true,
+        "marked": true,
+        "result": "accepted",
+        "node": "v24.21.0"
+      },
+      "correction": "Pin one exact ancestor snapshot across all three complete reads; check it before retry opens or accepts data; regression no mark and all descriptors closed"
+    }
+  ]
+}

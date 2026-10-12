@@ -18,16 +18,18 @@ function object(value:unknown):value is Record<string,any>{return !!value&&typeo
 // A stable parent may publish a new fixed control leaf atomically. A changed
 // snapshot is never returned; callers can perform a bounded complete reread.
 class ControlPublicationChanged extends UpdateFenceError {}
-function readPublic(file:string,limit:number,code:string,allowLeafPublication=false):Buffer{
+type AncestorIdentity={file:string;dev:bigint;ino:bigint};
+function readPublic(file:string,limit:number,code:string,allowLeafPublication=false,pinnedAncestors?:AncestorIdentity[]):Buffer{
  let fd:number|undefined,bytes:Buffer|undefined,complete=false;
  try{
-  assertNoLinkedAncestors(file);const ancestors:Array<{file:string;dev:bigint;ino:bigint}>=[];
-  for(let current=path.dirname(path.resolve(file));;current=path.dirname(current)){
+  assertNoLinkedAncestors(file);const ancestors=pinnedAncestors??[];
+  if(ancestors.length===0)for(let current=path.dirname(path.resolve(file));;current=path.dirname(current)){
    const ancestor=fs.lstatSync(current,{bigint:true});if(!ancestor.isDirectory()||ancestor.isSymbolicLink())refuse(code);
    ancestors.push({file:current,dev:ancestor.dev,ino:ancestor.ino});if(path.dirname(current)===current)break;
   }
   const parentsUnchanged=()=>{assertNoLinkedAncestors(file);for(const ancestor of ancestors){const current=fs.lstatSync(ancestor.file,{bigint:true});if(!current.isDirectory()||current.isSymbolicLink()||current.dev!==ancestor.dev||current.ino!==ancestor.ino)refuse(code);}};
   const ordinary=(stat:fs.BigIntStats)=>{if(!stat.isFile()||stat.isSymbolicLink()||stat.nlink!==1n||stat.size>BigInt(limit)||stat.size<0n)refuse(code);};
+  parentsUnchanged(); // A retry must retain the first read's parent identities.
   const prior=fs.lstatSync(file,{bigint:true});ordinary(prior);
   fd=fs.openSync(file,'r');const stat=fs.fstatSync(fd,{bigint:true});
   if(stat.dev!==prior.dev||stat.ino!==prior.ino||stat.nlink!==1n){
@@ -46,10 +48,11 @@ function readPublic(file:string,limit:number,code:string,allowLeafPublication=fa
  finally{if(!complete)bytes?.fill(0);if(fd!==undefined){try{fs.closeSync(fd);}catch{bytes?.fill(0);refuse(code);}}}
 }
 function readControl(file:string):Control{
+ const ancestors:AncestorIdentity[]=[];
  for(let attempt=0;attempt<3;attempt++){
   let bytes:Buffer|undefined;
   try{
-   bytes=readPublic(file,8192,'UPDATE_CONTROL_INVALID',true);const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+   bytes=readPublic(file,8192,'UPDATE_CONTROL_INVALID',true,ancestors);const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
    if(!object(value)||Object.keys(value).sort().join(',')!=='format,manifestSha256,operationId,phase'||value.format!==1||!uuid(value.operationId)||typeof value.manifestSha256!=='string'||!/^[a-f0-9]{64}$/.test(value.manifestSha256)||!['held','approve'].includes(value.phase))refuse();
    return value as unknown as Control;
   }catch(error){if(error instanceof ControlPublicationChanged&&attempt<2)continue;refuse();}
