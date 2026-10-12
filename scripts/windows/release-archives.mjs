@@ -17,9 +17,10 @@ function storageUrl(location){
 // collector. This utility authenticates archive bytes, not report contents.
 export function createArtifactDownloader(token,{fetchImpl=globalThis.fetch,maxBytes=512*1024*1024,timeoutMs=120000}={}){
  requireFact(typeof token==='string'&&token.length>0&&!/[\r\n]/.test(token)&&typeof fetchImpl==='function'&&positive(maxBytes)&&maxBytes<=512*1024*1024&&positive(timeoutMs)&&timeoutMs<=120000);
- return async(artifact,file)=>{
+ return async(artifact,file,byteAllowance=maxBytes)=>{
   let fd,reader,response,owned=false,identity;
   try{
+   requireFact(positive(byteAllowance));const limit=Math.min(maxBytes,byteAllowance);
    requireFact(positive(artifact?.id)&&typeof artifact.digest==='string'&&/^sha256:[a-f0-9]{64}$/.test(artifact.digest));
    requireFact(isFullyQualifiedPath(file));assertNoLinkedAncestors(file);
    const parents=[];for(let current=path.dirname(file);;current=path.dirname(current)){const stat=fs.lstatSync(current,{bigint:true});requireFact(stat.isDirectory()&&!stat.isSymbolicLink());parents.push({file:current,dev:stat.dev,ino:stat.ino});if(path.dirname(current)===current)break;}
@@ -30,10 +31,10 @@ export function createArtifactDownloader(token,{fetchImpl=globalThis.fetch,maxBy
    // Signed storage GET deliberately carries no Authorization or other API headers.
    response=await fetchImpl(location,{method:'GET',redirect:'manual',signal});
    if(response.status!==200){await response.body?.cancel();reject();}
-   const declared=response.headers.get('content-length');requireFact(declared===null||(/^[0-9]+$/.test(declared)&&positive(Number(declared))&&Number(declared)<=maxBytes));
+   const declared=response.headers.get('content-length');requireFact(declared===null||(/^[0-9]+$/.test(declared)&&positive(Number(declared))&&Number(declared)<=limit));
    requireFact(response.body&&typeof response.body.getReader==='function');reader=response.body.getReader();
    let size=0;const hash=createHash('sha256');
-   for(;;){const part=await reader.read();if(part.done)break;requireFact(part.value instanceof Uint8Array);size+=part.value.length;requireFact(size<=maxBytes);hash.update(part.value);let offset=0;while(offset<part.value.length){const count=fs.writeSync(fd,part.value,offset,part.value.length-offset);requireFact(count>0);offset+=count;}}
+   for(;;){const part=await reader.read();if(part.done)break;requireFact(part.value instanceof Uint8Array);size+=part.value.length;requireFact(size<=limit);hash.update(part.value);let offset=0;while(offset<part.value.length){const count=fs.writeSync(fd,part.value,offset,part.value.length-offset);requireFact(count>0);offset+=count;}}
    const archiveSha256=hash.digest('hex');requireFact(size>0&&(declared===null||Number(declared)===size)&&'sha256:'+archiveSha256===artifact.digest);
    assertNoLinkedAncestors(file);for(const parent of parents){const stat=fs.lstatSync(parent.file,{bigint:true});requireFact(stat.isDirectory()&&!stat.isSymbolicLink()&&stat.dev===parent.dev&&stat.ino===parent.ino);}
    const fixed=fs.lstatSync(file,{bigint:true}),descriptor=fs.fstatSync(fd,{bigint:true});requireFact(fixed.isFile()&&!fixed.isSymbolicLink()&&fixed.dev===identity.dev&&fixed.ino===identity.ino&&fixed.nlink===1n&&descriptor.size===BigInt(size)&&fixed.size===descriptor.size);
@@ -67,7 +68,8 @@ export async function collectReleaseArchives(request,authority,directory,{maxTot
   assertNoLinkedAncestors(directory);fs.mkdirSync(directory);owned=true;identity=fs.lstatSync(directory,{bigint:true});
   const archives=[];let totalBytes=0;
   for(const artifact of metadata.artifacts){
-   const file=path.join(directory,artifact.id+'.zip'),receipt=await authority.download(artifact,file);
+   const remaining=maxTotalBytes-totalBytes;requireFact(remaining>0);
+   const file=path.join(directory,artifact.id+'.zip'),receipt=await authority.download(artifact,file,remaining);
    requireFact(receipt?.artifactId===artifact.id&&receipt.file===file&&positive(receipt.bytes)&&'sha256:'+receipt.archiveSha256===artifact.digest);
    const stat=fs.lstatSync(file);requireFact(stat.isFile()&&!stat.isSymbolicLink()&&stat.nlink===1&&stat.size===receipt.bytes);
    totalBytes+=receipt.bytes;requireFact(totalBytes<=maxTotalBytes);archives.push({...receipt,name:artifact.name});

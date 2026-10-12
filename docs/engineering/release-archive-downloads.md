@@ -33,3 +33,14 @@ budget and cleanup. New-function availability REDs are distinguished from actual
 new-code defects; no historical application bug is claimed from these tests.
 Full source verification, review, exact Windows CI and live read-only main dispatch
 remain required before this slice is accepted.
+
+One fresh review found the aggregate check ran after a whole archive download.
+Two RED assertions prove an exhausted budget sent a third request, and a headerless
+partial third response was not cancelled at the remaining allowance. The collector
+now refuses when no budget remains and passes the remaining byte allowance into
+the downloader's declared/streamed caps. A true headerless backpressured fixture
+proves reading, overflow cancellation, one-byte partial output and owned cleanup.
+The former headerless fixture still had a content-length header; corrected coverage
+is not an additional historical application defect. Frozen corrected Cloud1973/105,
+247 target/3files, lint/build0 passed. Main rebase, exact Windows and live archives
+remain mandatory; no rereview or completed candidate acceptance is claimed.

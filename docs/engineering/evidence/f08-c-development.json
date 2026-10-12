@@ -1,6 +1,6 @@
 {
   "taskId": "F08-c",
-  "baseSha": "90c926a0c31615db5a2ee1d90a428c33a704ba1c",
+  "baseSha": "e79fdd835ba08a4e59a88fb55b8e398db33b5747",
   "branch": "codex/f08-authenticated-archive-download",
   "newFunctionAvailabilityReds": {
     "downloader": 34,
@@ -11,9 +11,9 @@
     "sameSizedArchiveTampering": 1
   },
   "mandatorySuiteOmissionRed": 1,
-  "targetGreen": 246,
+  "targetGreen": 247,
   "targetFiles": 3,
-  "fullGreen": 1972,
+  "fullGreen": 1973,
   "fullFiles": 105,
   "failed": 0,
   "pending": 0,
@@ -23,7 +23,7 @@
   "nodeVersion": "v24.21.0",
   "workers": 1,
   "sourceFrozen": true,
-  "fullReportSha256": "d0bdba7c27f23730afb989733b3608fffee0e0fafe7120b78a1625aa34769f1b",
+  "fullReportSha256": "3a9cfecc80ac2b6d949c7846fe69ebd28eecdec3d0f830b4e16b8e5962947876",
   "kind": "github-artifact-archives",
   "publicationAllowed": false,
   "reportsVerified": false,
@@ -32,8 +32,8 @@
     "perDownloadMilliseconds": 120000,
     "aggregateBytes": 1073741824
   },
-  "review": "pending one wholebranch",
-  "windows": "not-run: held pending baseline38 accepted/main rebase",
+  "review": "one fresh0Critical1Important1Minor; author grades2Important, allaccepted/onefixpass/no rereview",
+  "windows": "not-run: finalmain rebase thenexactWindows mandatory",
   "liveArchiveAdapter": "not-run",
   "remaining": [
     "full raw report/ZIP/package/manifest/license validator",
@@ -42,5 +42,16 @@
     "F05 Administration403/main enforcement unverified",
     "actualServer2019/reboot/offhost R02 not-run"
   ],
-  "releaseVps": "forbidden"
+  "releaseVps": "forbidden",
+  "preReviewFull": {
+    "passed": 1972,
+    "files": 105,
+    "target": 246,
+    "base": "90c926a0c31615db5a2ee1d90a428c33a704ba1c"
+  },
+  "actualReviewBudgetRed": {
+    "assertions": 2,
+    "priorPassed": 44,
+    "underlyingDefects": 1
+  }
 }
