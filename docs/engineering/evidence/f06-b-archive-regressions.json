@@ -1,0 +1,180 @@
+{
+  "task": "F06-b",
+  "commitSha": "4fb3139421f84f3c482bdd95b468297b44031697",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38197846395",
+  "powershell": "5.1.20348.5622",
+  "nativeArchiveRegression": {
+    "powershell": "5.1.20348.5622",
+    "rejected": [
+      {
+        "remainingBytes": 0,
+        "case": "../outside",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "/outside",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "C:/outside",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app\\outside",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/file:stream",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/CON.txt",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/NUL",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/file.",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/file ",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app//file",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/./file",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/../file",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/COM1.log",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "app/LPT9.log",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "case-alias",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "file-parent",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "symlink",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "reparse",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "bomb",
+        "rejected": true,
+        "noFilesWritten": true
+      },
+      {
+        "remainingBytes": 0,
+        "case": "COM¹",
+        "rejected": true,
+        "noFilesWritten": false
+      },
+      {
+        "remainingBytes": 0,
+        "case": "COM².txt",
+        "rejected": true,
+        "noFilesWritten": false
+      },
+      {
+        "remainingBytes": 0,
+        "case": "COM³",
+        "rejected": true,
+        "noFilesWritten": false
+      },
+      {
+        "remainingBytes": 0,
+        "case": "LPT¹",
+        "rejected": true,
+        "noFilesWritten": false
+      },
+      {
+        "remainingBytes": 0,
+        "case": "LPT².log",
+        "rejected": true,
+        "noFilesWritten": false
+      },
+      {
+        "remainingBytes": 0,
+        "case": "LPT³",
+        "rejected": true,
+        "noFilesWritten": false
+      },
+      {
+        "remainingBytes": 2097152,
+        "case": "forged-size",
+        "rejected": true,
+        "noFilesWritten": false
+      }
+    ],
+    "failures": [
+      "COM¹",
+      "COM².txt",
+      "COM³",
+      "LPT¹",
+      "LPT².log",
+      "LPT³",
+      "forged-size"
+    ],
+    "safeUnicodeExtract": true
+  },
+  "reportSha256": "a38a4e9ed86b0ab972cffcc7935c7004a6fcc6a9f52adcbfe2ebd0b774c3a516",
+  "producerLogSha256": "b1135f3f3eca3824391941fc297d354635f58a27fbeffcb2b2a64e2d0ef8f2cf",
+  "interpretation": "Actual pre-correction Windows RED: six superscript devices leave extraction directories; forged1-byte length writes2MiB before rejection. Native/extractor assertions retained."
+}

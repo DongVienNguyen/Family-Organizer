@@ -12,7 +12,7 @@ function Get-VerifiedArchiveEntries {
         $directory = $name.EndsWith('/')
         $key = $name.TrimEnd('/').ToLowerInvariant()
         foreach ($part in $name.TrimEnd('/').Split('/')) {
-            if (!$part -or $part -eq '.' -or $part -eq '..' -or $part.Length -gt 255 -or $part -match '[<>:"|?*\x00-\x1f]' -or $part -match '[. ]$' -or $part -match '^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\.|$)') { throw 'Unsafe ZIP path' }
+            if (!$part -or $part -eq '.' -or $part -eq '..' -or $part.Length -gt 255 -or $part -match '[<>:"|?*\x00-\x1f]' -or $part -match '[. ]$' -or $part -match '^(con|prn|aux|nul|com[1-9\u00b9\u00b2\u00b3]|lpt[1-9\u00b9\u00b2\u00b3])(\.|$)') { throw 'Unsafe ZIP path' }
         }
         if ($names.ContainsKey($key)) { throw 'Duplicate or aliased ZIP entry' }
         $names[$key] = $directory
@@ -40,14 +40,28 @@ function Expand-VerifiedArchive {
     try {
         $entries = @(Get-VerifiedArchiveEntries $archive)
         New-Item -ItemType Directory -Path $Destination | Out-Null
+        [long]$expandedTotal = 0
+        $buffer = New-Object byte[] 65536
         foreach ($entry in $entries) {
             $target = Join-Path $Destination $entry.FullName.Replace('/', [IO.Path]::DirectorySeparatorChar)
             if ($entry.FullName.EndsWith('/')) { New-Item -ItemType Directory -Path $target -Force | Out-Null; continue }
             New-Item -ItemType Directory -Path ([IO.Path]::GetDirectoryName($target)) -Force | Out-Null
             $source = $entry.Open()
             $output = [IO.File]::Open($target, [IO.FileMode]::CreateNew)
-            try { $source.CopyTo($output) } finally { $output.Dispose(); $source.Dispose() }
+            try {
+                [long]$written = 0
+                while (($count = $source.Read($buffer, 0, $buffer.Length)) -gt 0) {
+                    if ($written + $count -gt $entry.Length -or $written + $count -gt 134217728 -or $expandedTotal + $count -gt 1073741824) { throw 'Actual ZIP expansion exceeds declared length/budget' }
+                    $output.Write($buffer, 0, $count)
+                    $written += $count
+                    $expandedTotal += $count
+                }
+            } finally { $output.Dispose(); $source.Dispose() }
             if ((Get-Item -LiteralPath $target).Length -ne $entry.Length) { throw 'Extracted size differs from ZIP' }
         }
+    } catch {
+        $originalError = $_
+        if (Test-Path -LiteralPath $Destination) { Remove-Item -LiteralPath $Destination -Recurse -Force }
+        throw $originalError
     } finally { $archive.Dispose() }
 }

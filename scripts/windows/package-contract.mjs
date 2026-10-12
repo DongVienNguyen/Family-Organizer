@@ -4,7 +4,7 @@ const integer = value => Number.isSafeInteger(value) && value>=0;
 export function safeArchivePath(value) {
   if(typeof value!=='string'||!value||value.length>1024||value.includes('\\')||value.normalize('NFC')!==value)return false;
   const parts=value.replace(/\/$/,'').split('/');
-  return parts.every(part=>part&&part!=='.'&&part!=='..'&&part.length<=255&&!/[<>:"|?*\x00-\x1f]/.test(part)&&!/[. ]$/.test(part)&&!/^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(part));
+  return parts.every(part=>part&&part!=='.'&&part!=='..'&&part.length<=255&&!/[<>:"|?*\x00-\x1f]/.test(part)&&!/[. ]$/.test(part)&&!/^(?:con|prn|aux|nul|com[1-9\u00b9\u00b2\u00b3]|lpt[1-9\u00b9\u00b2\u00b3])(?:\.|$)/i.test(part));
 }
 export function validateArchiveEntries(entries) {
   const errors=[],names=new Map();let total=0;

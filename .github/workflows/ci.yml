@@ -229,6 +229,18 @@ jobs:
           & powershell.exe -NoProfile -File scripts/windows/Test-Archive.ps1 -ReportPath reports/package-build/archive-contract.json
           $code = $LASTEXITCODE
           if ($code -ne 0) { exit $code }
+      - name: Verify producer refusal and cleanup evidence
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & powershell.exe -NoProfile -File scripts/windows/Build-Package.ps1 -CommitSha ('0' * 40) -OutputDirectory reports/package-build/negative-producer 2>&1 | Tee-Object reports/package-build/producer-refusal.log
+          $refusalCode = $LASTEXITCODE
+          if ($refusalCode -ne 1) { throw "Expected source refusal exit1, received $refusalCode" }
+          $report = Get-Content reports/package-build/negative-producer/producer-exit.json -Raw | ConvertFrom-Json
+          if ($report.exitCode -ne 1 -or $report.nativeExitCodes.git -ne 0 -or !$report.fixtureCleanup -or $report.failure -notmatch 'source SHA mismatch' -or (Test-Path reports/package-build/negative-producer/family-organizer-win-x64.zip)) {
+            throw 'Producer failure/native/cleanup evidence rejected'
+          }
       - name: Build verified Windows ZIP
         run: ./scripts/windows/Build-Package.ps1 -CommitSha $env:TEST_COMMIT_SHA -OutputDirectory reports/package-build
       - name: Prepare independent consumer harness

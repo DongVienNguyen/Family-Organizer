@@ -307,7 +307,7 @@
     "blocker": "Both actual writes still HTTP403 Resource not accessible by integration. No permission-management tool available. Owner must apply integration Administration:write in GitHub installation or saved exact policy. No failed-PR merge probe while unprotected."
   },
   "latestPostGrantRetry": {
-    "date": "2026-10-12T01:52:23.052109+00:00",
+    "date": "2026-10-12T02:49:28.820095+00:00",
     "userAuthorizationPersists": true,
     "attempts": [
       {
@@ -401,104 +401,112 @@
       }
     ],
     "mainReadback": {
-      "name": "main",
-      "commit": {
-        "sha": "b0f9a01d6160026dbb139bf5ac90549d43db612d",
-        "node_id": "C_kwDOVErV69oAKGIwZjlhMDFkNjE2MDAyNmRiYjEzOWJmNWFjOTA1NDlkNDNkYjYxMmQ",
+      "nativeExitCode": 0,
+      "response": {
+        "name": "main",
         "commit": {
+          "sha": "8a898259cc1fd9d1e66921e480614c6be14c057c",
+          "node_id": "C_kwDOVErV69oAKDhhODk4MjU5Y2MxZmQ5ZDFlNjY5MjFlNDgwNjE0YzZiZTE0YzA1N2M",
+          "commit": {
+            "author": {
+              "name": "\u0110\u00f4ng Vi\u1ec5n Nguy\u1ec5n",
+              "email": "ngviendong@gmail.com",
+              "date": "2026-10-12T02:23:04Z"
+            },
+            "committer": {
+              "name": "GitHub",
+              "email": "noreply@github.com",
+              "date": "2026-10-12T02:23:04Z"
+            },
+            "message": "fix: refuse incompatible SQLite before bootstrap writes (#21)\n\n* fix: preserve incompatible SQLite before initialization writes\n\n* fix: inspect literal SQLite prefix and complete browser image loads",
+            "tree": {
+              "sha": "3c0339f01a06be3ef9544a56874fe5774e873065",
+              "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/git/trees/3c0339f01a06be3ef9544a56874fe5774e873065"
+            },
+            "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/git/commits/8a898259cc1fd9d1e66921e480614c6be14c057c",
+            "comment_count": 0,
+            "verification": {
+              "verified": true,
+              "reason": "valid",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqzESICRC1aQ7uu5UhlAAAcXQQAEKnZLy+9TSKkYMNpv//95j8\nyccc1sHV056gAhngRM5vAbUGIEkU2ZaUFPkbyDw91XVXIIuDoWywCWDEEv9rB9sn\nxaVMr45Xjgf/2HU7o+lnfRNvKu+X/eDk1+LKzqaZzMtVBz+L8It4Wx1MehiayCLN\niae+H+KtZ3xIU7G2HwlBLQBI9YJJuLPHhk5p99z5bsjHpyLYTaENFp77TtDMom3N\nsqNOWUMHe3FPTvWpsiTyRtv4Mv5Aigsha+tRH4K94nuXPsKV/2wUeLm9nncAx5TY\nPeVhuf4cauA1y0spn5m7xkZn6nJCmEqkSYroaywaPysEnRvJQu1O03pDNMr78F9t\nL/sssViv5B6DRx0WyVlaaPm2jBgO55gjPPQBcwelvzdkOwWtQc2gxBCwShxFVvyc\n+l+NcbE1JRPMHNIgpzrYryxnxyp/LMhwihVVWnlDejOuCpfkYMIPWZBQcI7lETg0\n3cZOwFcdNmq/+g0wlk837xfLWEhFWfCtS0kn/YTK2d+DXa820YsWJPZ1e0WUkhl9\nl8uJhZLX003owJjtxPGnHPss3SHlipwN0dOCOkk54KMp0iZdYxHF7gYHCt/+WLGL\nHBQ035melt19DWH1gD9CsuwQkq+4+adLABJexXcDnVZVTOkewNDQWxLgYRiO3GHs\nWPNqG4XjM22WP4qlLMF8\n=H1Sc\n-----END PGP SIGNATURE-----\n",
+              "payload": "tree 3c0339f01a06be3ef9544a56874fe5774e873065\nparent 01b9a210caddcaf280b4835476829d90274d51f3\nauthor \u0110\u00f4ng Vi\u1ec5n Nguy\u1ec5n <ngviendong@gmail.com> 1791771784 +0700\ncommitter GitHub <noreply@github.com> 1791771784 +0700\n\nfix: refuse incompatible SQLite before bootstrap writes (#21)\n\n* fix: preserve incompatible SQLite before initialization writes\n\n* fix: inspect literal SQLite prefix and complete browser image loads",
+              "verified_at": "2026-10-12T02:23:04Z"
+            }
+          },
+          "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/8a898259cc1fd9d1e66921e480614c6be14c057c",
+          "html_url": "https://github.com/DongVienNguyen/Family-Organizer/commit/8a898259cc1fd9d1e66921e480614c6be14c057c",
+          "comments_url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/8a898259cc1fd9d1e66921e480614c6be14c057c/comments",
           "author": {
-            "name": "\u0110\u00f4ng Vi\u1ec5n Nguy\u1ec5n",
-            "email": "ngviendong@gmail.com",
-            "date": "2026-10-12T01:08:27Z"
+            "login": "DongVienNguyen",
+            "id": 29496653,
+            "node_id": "MDQ6VXNlcjI5NDk2NjUz",
+            "avatar_url": "https://avatars.githubusercontent.com/u/29496653?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/DongVienNguyen",
+            "html_url": "https://github.com/DongVienNguyen",
+            "followers_url": "https://api.github.com/users/DongVienNguyen/followers",
+            "following_url": "https://api.github.com/users/DongVienNguyen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/DongVienNguyen/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/DongVienNguyen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/DongVienNguyen/subscriptions",
+            "organizations_url": "https://api.github.com/users/DongVienNguyen/orgs",
+            "repos_url": "https://api.github.com/users/DongVienNguyen/repos",
+            "events_url": "https://api.github.com/users/DongVienNguyen/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/DongVienNguyen/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
           },
           "committer": {
-            "name": "GitHub",
-            "email": "noreply@github.com",
-            "date": "2026-10-12T01:08:27Z"
+            "login": "web-flow",
+            "id": 19864447,
+            "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+            "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/web-flow",
+            "html_url": "https://github.com/web-flow",
+            "followers_url": "https://api.github.com/users/web-flow/followers",
+            "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+            "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+            "organizations_url": "https://api.github.com/users/web-flow/orgs",
+            "repos_url": "https://api.github.com/users/web-flow/repos",
+            "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/web-flow/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
           },
-          "message": "F05-a: require Windows production browser regression (#19)\n\n* ci(windows): require offline production browser regression\n\n* test(windows): validate browser build identity and session boundaries\n\n* test(windows): scope reader image and deliver late responses with PWA\n\n* ci(windows): retain declared Playwright hidden report",
-          "tree": {
-            "sha": "cbb59e3e934bbdf8004bf48a4aaf1f1b939cebf5",
-            "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/git/trees/cbb59e3e934bbdf8004bf48a4aaf1f1b939cebf5"
-          },
-          "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/git/commits/b0f9a01d6160026dbb139bf5ac90549d43db612d",
-          "comment_count": 0,
-          "verification": {
-            "verified": true,
-            "reason": "valid",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqzDMLCRC1aQ7uu5UhlAAAGfYQAEO8uvOHMpSZzgAQcq3wKE5h\n0eRjHwvXf7ndS7suXl8J4zyjVl1HCEsRkQXY4neVkwFGeNg+LDABQUExUIbRIzOf\nwkVFE4EfQ1NmhynBK/WlErlvGGUILS97u9HuGol0YkOgKRk67hnrdaGtEJOoPnUf\nWQh+mYSoZXMaCPnL9TSnOUI9Vm3AmKrQoSEpoZ3YE56jUrwsdtvFDUXSqGMmQ3oA\nDOufRVKU/tndlYlCUuMr8KHv31DhRG6U2QktBlwI/VBzC2G4oBp98v4Ve7X6Loiq\nmuPkv8FqnHaAAiv9Fz2WsVd4NWA8YwrFImYrQKVoBevV26iiJSv4pE2wHY/apdXy\nhuP8Dh0XlPLXx97q7x1Qqcwe/wE7DJYdM/DPViDQIIT88JyRkbwGlH+Y86v1jw0u\n0TfR7nBqZRhXuTiWpomnd/1JqN1e1qs8aRzJ78ND936cnwkb/otvOOm8kozK7EFr\nrc2Oc8VnQxK261wuTzkuTJ0UOJouexiGNloW4rgiWHBOMyHL3VGQKun+XberF9uR\njvu6wgi/pGzoYLkIH57hCVnIyVIRo4gV+3iuETvs0tb79KDMK3kmpbaEl839PXtn\ncsvBZyvvXj0XOomyVavMwelw7CHShmyJibBOcLslQs+v5EI7FmXXj4/tCcdYj1qp\nR2R59i48vt5ZzXyqkeF3\n=U3DY\n-----END PGP SIGNATURE-----\n",
-            "payload": "tree cbb59e3e934bbdf8004bf48a4aaf1f1b939cebf5\nparent c24486bfb0d1051d45925735f098864d87178975\nauthor \u0110\u00f4ng Vi\u1ec5n Nguy\u1ec5n <ngviendong@gmail.com> 1791767307 +0700\ncommitter GitHub <noreply@github.com> 1791767307 +0700\n\nF05-a: require Windows production browser regression (#19)\n\n* ci(windows): require offline production browser regression\n\n* test(windows): validate browser build identity and session boundaries\n\n* test(windows): scope reader image and deliver late responses with PWA\n\n* ci(windows): retain declared Playwright hidden report",
-            "verified_at": "2026-10-12T01:08:28Z"
+          "parents": [
+            {
+              "sha": "01b9a210caddcaf280b4835476829d90274d51f3",
+              "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/01b9a210caddcaf280b4835476829d90274d51f3",
+              "html_url": "https://github.com/DongVienNguyen/Family-Organizer/commit/01b9a210caddcaf280b4835476829d90274d51f3"
+            }
+          ]
+        },
+        "_links": {
+          "self": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/branches/main",
+          "html": "https://github.com/DongVienNguyen/Family-Organizer/tree/main"
+        },
+        "protected": false,
+        "protection": {
+          "enabled": false,
+          "required_status_checks": {
+            "enforcement_level": "off",
+            "contexts": [],
+            "checks": []
           }
         },
-        "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/b0f9a01d6160026dbb139bf5ac90549d43db612d",
-        "html_url": "https://github.com/DongVienNguyen/Family-Organizer/commit/b0f9a01d6160026dbb139bf5ac90549d43db612d",
-        "comments_url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/b0f9a01d6160026dbb139bf5ac90549d43db612d/comments",
-        "author": {
-          "login": "DongVienNguyen",
-          "id": 29496653,
-          "node_id": "MDQ6VXNlcjI5NDk2NjUz",
-          "avatar_url": "https://avatars.githubusercontent.com/u/29496653?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/DongVienNguyen",
-          "html_url": "https://github.com/DongVienNguyen",
-          "followers_url": "https://api.github.com/users/DongVienNguyen/followers",
-          "following_url": "https://api.github.com/users/DongVienNguyen/following{/other_user}",
-          "gists_url": "https://api.github.com/users/DongVienNguyen/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/DongVienNguyen/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/DongVienNguyen/subscriptions",
-          "organizations_url": "https://api.github.com/users/DongVienNguyen/orgs",
-          "repos_url": "https://api.github.com/users/DongVienNguyen/repos",
-          "events_url": "https://api.github.com/users/DongVienNguyen/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/DongVienNguyen/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "web-flow",
-          "id": 19864447,
-          "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
-          "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/web-flow",
-          "html_url": "https://github.com/web-flow",
-          "followers_url": "https://api.github.com/users/web-flow/followers",
-          "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
-          "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
-          "organizations_url": "https://api.github.com/users/web-flow/orgs",
-          "repos_url": "https://api.github.com/users/web-flow/repos",
-          "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/web-flow/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "c24486bfb0d1051d45925735f098864d87178975",
-            "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/c24486bfb0d1051d45925735f098864d87178975",
-            "html_url": "https://github.com/DongVienNguyen/Family-Organizer/commit/c24486bfb0d1051d45925735f098864d87178975"
-          }
-        ]
+        "protection_url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/branches/main/protection"
       },
-      "_links": {
-        "self": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/branches/main",
-        "html": "https://github.com/DongVienNguyen/Family-Organizer/tree/main"
-      },
-      "protected": false,
-      "protection": {
-        "enabled": false,
-        "required_status_checks": {
-          "enforcement_level": "off",
-          "contexts": [],
-          "checks": []
-        }
-      },
-      "protection_url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/branches/main/protection"
+      "stderr": ""
     },
-    "rulesetsReadback": []
+    "rulesetReadback": {
+      "nativeExitCode": 0,
+      "response": [],
+      "stderr": ""
+    }
   }
 }

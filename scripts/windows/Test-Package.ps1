@@ -14,6 +14,9 @@ $code=1
 $native=@{}
 $originalPath=$env:PATH
 try {
+    $execution=Get-Content -LiteralPath (Join-Path $ArtifactDirectory 'producer-exit.json') -Raw | ConvertFrom-Json
+    if ($execution.commitSha -cne $CommitSha -or $execution.exitCode -ne 0 -or $execution.fixtureCleanup -ne $true) { throw 'Producer execution/cleanup failed' }
+    foreach ($name in @('git','install','prepare','manifest')) { if ($execution.nativeExitCodes.$name -ne 0) { throw 'Producer native execution failed' } }
     $producer=Get-Content -LiteralPath (Join-Path $ArtifactDirectory 'producer-evidence.json') -Raw | ConvertFrom-Json
     if ($producer.commitSha -cne $CommitSha -or $producer.platform -cne 'win32' -or $producer.architecture -cne 'x64' -or $producer.zipSha256 -cnotmatch '^[a-f0-9]{64}$') { throw 'Producer identity rejected' }
     foreach ($name in @('install','prepare','manifest')) { if ($producer.nativeExitCodes.$name -ne 0) { throw 'Producer native command failed' } }
