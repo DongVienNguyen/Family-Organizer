@@ -1,0 +1,54 @@
+{
+  "task": "F07-a",
+  "baseSha": "05a59962da1a2459e0f08fc79de94512dc1625cd",
+  "cloudDiagnosticsOnly": true,
+  "tests": 1386,
+  "files": 84,
+  "targetTests": 184,
+  "renderRegressionRed": {
+    "failed": 3,
+    "passed": 20
+  },
+  "mandatorySuiteRed": {
+    "failed": 1,
+    "passed": 119
+  },
+  "sourceChecks": {
+    "lint": 0,
+    "test": 0,
+    "build": 0
+  },
+  "nativeServiceWindowsResult": "not-run",
+  "review": "pending",
+  "rawLogHashes": {
+    "f07-a-service-config-red.log": "2a71d7303a2e23d34c51e55a39a980e69cf7963e6ab0beb899e75f7d0bd93c19",
+    "f07-a-service-config-green.log": "3085170a1afa412aae4cfc938f5ae50a0b78987fb98542fb4b654e082bebbb69",
+    "f07-a-mandatory-suite-red.log": "d1c65131df5b0bb63b66c1dcfb71f0882aedf427863607f5a14aab0e9df2e676",
+    "f07-a-target-green.log": "ab396635c52a91538e65fcce56a5ab6d70fa01e323b7c942864c7ddf699a22f4",
+    "f07-a-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f07-a-full-tests.log": "cf8a778f3143f063c4a0156ace9859c3767a15e094ccab00ba99342ce1453b57",
+    "f07-a-build.log": "7f7fc8a53ec68c6d511c56f659e55b30b89ce05b1cf20b64ec3975ce9d136bb9"
+  },
+  "wrapperProvenance": {
+    "releaseUrl": "https://github.com/winsw/winsw/releases/tag/v2.12.0",
+    "assetId": 93386826,
+    "asset": "WinSW.NET461.exe",
+    "assetSize": 655872,
+    "sha256": "b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f",
+    "originalLicenseBlob": "59ea54d754baf11dca3300a7e5ce9edcd27db4cc",
+    "licenseSha256": "1cdf703c10a70e5973bf3acf2a5eeabe7746237155b92db2034aeae26fdf7802",
+    "upstreamAssetDigest": null,
+    "checksumSource": "Pinned observed bytes from official immutable versioned release asset over TLS; upstream API provides no digest",
+    "hostFramework": "NET Framework4.8 or later",
+    "minimumRelease": 528040
+  },
+  "remaining": [
+    "Fresh review",
+    "Exact-HEAD Windows native service proof",
+    "F05 actual enforcement403",
+    "F07 remaining backup/proxy/update/rollback",
+    "F08/F09",
+    "R02 realServer2019/reboot",
+    "No release/tag/VPS authorized"
+  ]
+}

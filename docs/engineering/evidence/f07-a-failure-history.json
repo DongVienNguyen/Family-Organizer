@@ -1,0 +1,167 @@
+{
+  "task": "F07-a",
+  "firstSource": {
+    "headSha": "16568a5a89d9a76717d1c51f4a322fd71c824cc4",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38204750730",
+    "quality": {
+      "Node22": {
+        "testsPassed": 1386,
+        "files": 84,
+        "nativeCommandsAllZero": true
+      },
+      "Node24": {
+        "testsPassed": 1386,
+        "files": 84,
+        "nativeCommandsAllZero": true
+      }
+    },
+    "browser": {
+      "passed": 15,
+      "engines": 3,
+      "skips": 0,
+      "retries": 0
+    },
+    "package": {
+      "cleanConsumerPassed": true,
+      "zipSha256": "12b19434720774219660fcfbee07e2bd3d45c27c88a2cbdd8d5ebef1735beb7c"
+    },
+    "service": {
+      "exitCode": 1,
+      "failure": "manifest application version mismatch",
+      "fixtureCleanup": true,
+      "serviceRemoved": true,
+      "functionalServiceChecks": "not-run"
+    },
+    "gate": "failure"
+  },
+  "harnessFailure": {
+    "headSha": "364bea6d71369b719c75487521306c3c4d426868",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38205448152",
+    "packageValidationExitCode": 0,
+    "serviceExitCode": 1,
+    "failure": "script-scoped ServiceNativeResults absent in child security harness",
+    "isSecurityRegressionRed": false,
+    "fixtureCleanup": true,
+    "functionalServiceChecks": "not-run",
+    "wholeRun": "cancelled by next PR push; service actually failed"
+  },
+  "firstServiceLog": {
+    "sha256": "8504ffa26b4e1edb660307372c4ab1919621dc3d644811af1f42c5cb9593d654"
+  },
+  "harnessFailureLog": {
+    "sha256": "d65005c086c47daceee44957c0659397380a6df8afc2c2db64b7ba6c064be292"
+  },
+  "secondHarnessFailure": {
+    "headSha": "344b4a60229e228454ff2a419557796b50cdb294",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38205697986",
+    "failure": "AddAccessRule could not translate SID passed as account-name string",
+    "serviceExitCode": 1,
+    "isSecurityRegressionRed": false,
+    "packageValidationExitCode": 0,
+    "securityRenderExitCode": 0,
+    "fixtureCleanup": true,
+    "functionalServiceChecks": "not-run"
+  },
+  "partialSecurityRed": {
+    "headSha": "a8c3228da085d9cdb764d9fb55f785476ce99e92",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38205925094",
+    "realFailedAssertions": [
+      "self-hashed-alternate-service-xml",
+      "installed-clr-config-tampering"
+    ],
+    "laterHarnessFailure": "Node NODE_OPTIONS parser consumed backslashes; synthetic preload module not found",
+    "remainingSecurityCases": "not-run",
+    "functionalServiceChecks": "not-run",
+    "fixtureCleanup": true,
+    "rawJobLogSha256": "5f90b26d6009dd9baa5bd47226a79d25a35062a02cd8446acccde21195dd5884"
+  },
+  "completeSecurityRed": {
+    "headSha": "2ebf8da24f1bd112b34a5839f5d4ba3ab458f878",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38206260411",
+    "failedAssertions": [
+      "self-hashed-alternate-service-xml",
+      "installed-clr-config-tampering",
+      "administrative-node-preload-not-executed",
+      "uninstall-requires-independent-trust",
+      "existing-explicit-write-grant-removed",
+      "descendant-junction-refused-before-acl"
+    ],
+    "passingControls": [
+      "administrative-node-environment-restored",
+      "junction-target-acl-unchanged"
+    ],
+    "serviceExitCode": 1,
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "realCanariesExecutedBeforeGuards": true,
+    "functionalServiceChecks": "not-run",
+    "reportSha256": "64df7d58a67934c29848246ae2a6f010d5acaf6bf82a46930415ccfe89a33174",
+    "jobLogSha256": "3d113b545b2b1248b90e7e3d6e3ce830b7625d61bbc9746c5ce1ff8e7dbfe64c"
+  },
+  "correctedSecurityGreenWhatIfFailure": {
+    "headSha": "08797032dff4d51cf32338c0ee5664b6cc43f451",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38206812699",
+    "securityAssertionsPassed": 8,
+    "earlySourceRefusalReport": "passed with native1/cleanuptrue/no helper invocation",
+    "validateOnlyExitCode": 0,
+    "whatIfExitCode": 1,
+    "failure": "Windows PowerShell5.1 WhatIf preference suppressed read-only hash/provider lookup; Hash property absent",
+    "functionalSCMChecks": "not-run",
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "securityReportSha256": "03fc3070aea38386f9ce8435027663e9882b182c828c86476e61a59fa45c6a77",
+    "jobLogSha256": "f11bb1ab65dec9bc4c3fd5289183bf55fb33478da8f1c4bbb48d1eb100571530"
+  },
+  "whatIfScopeFixInsufficient": {
+    "headSha": "53042fa03a78bfba2593a2a17539f57796eef1dd",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38207123766",
+    "securityAssertionsPassed": 8,
+    "earlySourceRefusalReport": "passed",
+    "validateOnlyExitCode": 0,
+    "whatIfExitCode": 1,
+    "failure": "Windows PS5.1 Get-FileHash module still suppressed provider lookup despite local WhatIfPreference=false",
+    "functionalSCMChecks": "not-run",
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "otherFiveJobs": "success",
+    "gate": "failure",
+    "jobLogSha256": "97ed34e14426cc4495f281d1537a6117a7f26fca41b2f2a786318a4f5aa5e9a4"
+  },
+  "unicodeMarkerFailure": {
+    "headSha": "e743b3cf2e4cdad56fb902490712a52e08f94be9",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38207585120",
+    "securityAssertionsPassed": 8,
+    "validateOnlyExitCode": 0,
+    "whatIfExitCode": 0,
+    "scmInstall": "WinSW installed service successfully; sc sidtype exit0",
+    "installExitCode": 1,
+    "failure": "post-install UTF8 descriptor read with Windows PS5.1 default ANSI failed ownership comparison for Unicode paths",
+    "cleanupExitCode": 1,
+    "fixtureCleanup": false,
+    "serviceRemoved": false,
+    "functionalSCMChecks": "not-run",
+    "otherFiveJobs": "success",
+    "gate": "failure",
+    "jobLogSha256": "fb1090fd0660cd22046b3879b8ace8d3cc7668ffedb32afa6d90f972380eb283"
+  },
+  "stopPendingRace": {
+    "headSha": "9b5387f0a428c4773dba6d053e635f18f12a3ae8",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38208055518",
+    "securityAssertionsPassed": 8,
+    "validateOnlyWhatIf": "native0/no mutation",
+    "installIdempotentAclLoopbackFinance": "passed",
+    "stopExitCode": 0,
+    "failure": "Immediate SCM Stopped assertion raced StopPending; WinSW worker exited32ms after command acknowledgement and stdout has Shutdown complete",
+    "laterRestartRecoveryClosedDbChecks": "not-run",
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "otherFiveJobs": "success",
+    "gate": "failure",
+    "jobLogSha256": "b3d991c7075c9755a0e2e11e796049987564bfc2bbc7030eb280d679f3592bf9",
+    "retainedServiceLogHashes": {
+      "FamilyOrganizer-CI0de62e97d318443c9a516242088a5ce4.err.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "FamilyOrganizer-CI0de62e97d318443c9a516242088a5ce4.wrapper.log": "c56fe810953dbc69b9ab5fa00d7459af7da3770c12798c37850386286a6969c4",
+      "FamilyOrganizer-CI0de62e97d318443c9a516242088a5ce4.out.log": "7f5e095bf56582fe8f1b39b4c82a712f39be65b871fe529032aeb0cce8c9b91c"
+    }
+  }
+}

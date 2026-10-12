@@ -249,7 +249,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null
-          Copy-Item scripts/windows/Archive.ps1, scripts/windows/Test-Package.ps1, scripts/windows/verify-package.mjs, scripts/windows/package-files.mjs, scripts/windows/package-contract.mjs, scripts/windows/license-policy.mjs, scripts/windows/license-inventory.mjs, scripts/windows/reviewed-notices.mjs, scripts/windows/probe-package-functional.mjs reports/package-harness
+          Copy-Item scripts/windows/Archive.ps1, scripts/windows/Test-Package.ps1, scripts/windows/verify-package.mjs, scripts/windows/package-files.mjs, scripts/windows/package-contract.mjs, scripts/windows/license-policy.mjs, scripts/windows/license-inventory.mjs, scripts/windows/reviewed-notices.mjs, scripts/windows/service-config.mjs, scripts/windows/Test-Service.ps1, scripts/windows/Test-ServiceSecurity.ps1, scripts/windows/probe-service.mjs, scripts/windows/probe-package-functional.mjs reports/package-harness
           Copy-Item scripts/ci/probe-production.mjs, scripts/ci/probe-first-account.mjs, scripts/ci/probe-schema-compatibility.mjs, scripts/ci/block-network.cjs, scripts/ci/digest-fixture.cjs reports/package-harness
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: ${{ always() }}
@@ -293,18 +293,60 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  service-test:
+    name: Windows disposable service
+    runs-on: windows-2022
+    timeout-minutes: 15
+    needs: [package-build, package-test]
+    env:
+      CI: 'true'
+      TEST_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: windows-package-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/service-artifact
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: windows-package-harness-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/service-harness
+      - name: Verify early service failure produces typed cleanup evidence
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $negative = "$env:RUNNER_TEMP/service-reports/early-refusal"
+          & powershell.exe -NoProfile -NonInteractive -File "$env:RUNNER_TEMP/service-harness/Test-Service.ps1" -ArtifactDirectory "$env:RUNNER_TEMP/service-artifact" -CommitSha ('0' * 40) -ReportDirectory $negative 2>&1 | Tee-Object "$env:RUNNER_TEMP/service-refusal.log"
+          $code = $LASTEXITCODE
+          if ($code -ne 1) { throw "Expected source refusal exit1, received $code" }
+          $report = Get-Content "$negative/service-exit.json" -Raw | ConvertFrom-Json
+          if ($report.commitSha -cne ('0' * 40) -or $report.exitCode -ne 1 -or !$report.fixtureCleanup -or !$report.serviceRemoved -or $report.failure -notmatch 'Service package source/producer proof rejected' -or @($report.nativeExitCodes).Count -ne 0 -or @($report.preflightNativeExitCodes).Count -ne 0) { throw 'Early service failure report rejected' }
+          Copy-Item "$env:RUNNER_TEMP/service-refusal.log" "$negative/refusal.log"
+          exit 0
+      - name: Verify actual service on disposable Windows without checkout or rebuild
+        run: '& "$env:RUNNER_TEMP/service-harness/Test-Service.ps1" -ArtifactDirectory "$env:RUNNER_TEMP/service-artifact" -CommitSha $env:TEST_COMMIT_SHA -ReportDirectory "$env:RUNNER_TEMP/service-reports"'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: ${{ always() }}
+        with:
+          name: windows-service-tests-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/service-reports/
+          if-no-files-found: error
+          retention-days: 14
+
   ci-gate:
     runs-on: windows-2022
     timeout-minutes: 5
-    needs: [quality, browser, package-build, package-test]
+    needs: [quality, browser, package-build, package-test, service-test]
     if: ${{ always() }}
     steps:
-      - name: Require runtime and browser checks to succeed
+      - name: Require Windows quality, browser, package and service checks to succeed
         env:
           QUALITY_RESULT: ${{ needs.quality.result }}
           BROWSER_RESULT: ${{ needs.browser.result }}
           PACKAGE_BUILD_RESULT: ${{ needs.package-build.result }}
           PACKAGE_TEST_RESULT: ${{ needs.package-test.result }}
+          SERVICE_TEST_RESULT: ${{ needs.service-test.result }}
         run: |
           $ErrorActionPreference = 'Stop'
           Set-StrictMode -Version Latest
@@ -316,4 +358,7 @@ jobs:
           }
           if ($env:PACKAGE_BUILD_RESULT -ne 'success' -or $env:PACKAGE_TEST_RESULT -ne 'success') {
             throw "Windows package producer/consumer failed: $env:PACKAGE_BUILD_RESULT/$env:PACKAGE_TEST_RESULT"
+          }
+          if ($env:SERVICE_TEST_RESULT -ne 'success') {
+            throw "Windows disposable service failed: $env:SERVICE_TEST_RESULT"
           }

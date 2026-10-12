@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {verifyPackage,hashFile} from './package-files.mjs';
+import {verifyLicenseInventory} from './license-inventory.mjs';
+import {serviceRuntime} from './service-config.mjs';
+const [root,commitSha,appVersion]=process.argv.slice(2);
+assert.equal(process.platform,'win32');assert.equal(process.arch,'x64');
+const manifest=verifyPackage(root,{commitSha,appVersion});verifyLicenseInventory(root,manifest);
+assert.deepEqual(manifest.service,serviceRuntime,'Service compatibility pins changed');
+assert.equal(hashFile(path.join(root,'bin/family-organizer-service.exe')),serviceRuntime.sha256);
+assert.equal(hashFile(path.join(root,'bin/node.exe')),serviceRuntime.nodeExeSha256);
+assert.equal(hashFile(path.join(root,'licenses/WinSW-LICENSE.txt')),serviceRuntime.licenseSha256);
+assert.equal(fs.readFileSync(path.join(root,'bin/family-organizer-service.exe.config'),'utf8'),'<configuration><startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8"/></startup></configuration>\n');
+console.log(JSON.stringify({commitSha,wrapperVersion:serviceRuntime.version,wrapperSha256:serviceRuntime.sha256,frameworkMinRelease:serviceRuntime.frameworkMinRelease,platform:process.platform,architecture:process.arch}));

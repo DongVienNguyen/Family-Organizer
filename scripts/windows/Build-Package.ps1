@@ -25,6 +25,9 @@ try {
     Expand-VerifiedArchive $nodeZip $nodeFiles
     Copy-Item -LiteralPath (Join-Path $nodeFiles 'node-v24.21.0-win-x64/node.exe') -Destination (Join-Path $root 'bin/node.exe')
     Copy-Item -LiteralPath (Join-Path $nodeFiles 'node-v24.21.0-win-x64/LICENSE') -Destination (Join-Path $root 'licenses/node-LICENSE.txt')
+    $wrapper=Join-Path $root 'bin/family-organizer-service.exe'
+    Invoke-WebRequest 'https://github.com/winsw/winsw/releases/download/v2.12.0/WinSW.NET461.exe' -OutFile $wrapper
+    if ((Get-FileHash -LiteralPath $wrapper -Algorithm SHA256).Hash.ToLowerInvariant() -cne 'b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f') { throw 'Official WinSW checksum mismatch' }
     Copy-Item -LiteralPath (Join-Path $repoRoot 'package.json'), (Join-Path $repoRoot 'package-lock.json') -Destination (Join-Path $root 'app')
     Push-Location (Join-Path $root 'app')
     try {

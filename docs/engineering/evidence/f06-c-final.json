@@ -1,0 +1,66 @@
+{
+  "task": "F06-c",
+  "pullRequest": "https://github.com/DongVienNguyen/Family-Organizer/pull/23",
+  "headSha": "1c34994de03716a76c9afc578539fdc1493e4136",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38203277836",
+  "allSixJobs": "success",
+  "testsPerRuntime": 1362,
+  "testFiles": 83,
+  "browserFirstAttemptCases": 15,
+  "coverageSources": 104,
+  "mainSquash": "05a59962da1a2459e0f08fc79de94512dc1625cd",
+  "proofComment": "https://github.com/DongVienNguyen/Family-Organizer/pull/23#issuecomment-6117726946",
+  "package": {
+    "task": "F06-c",
+    "commitSha": "1c34994de03716a76c9afc578539fdc1493e4136",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38203277836",
+    "zipSha256": "8e049cf3b039a64d7f97a76e617a627a69a40683630a007c4b854ad05e5213db",
+    "zipSize": 54237390,
+    "files": 4563,
+    "dependencies": 236,
+    "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+    "manifestHash": "87f1259c695f81b665ce579272cbb305e6164306eea11ee6dc2b1ccc0ea4ef7c",
+    "consumerNoCheckoutInstallBuild": true,
+    "consumerBundledNodeOnly": true,
+    "producerCleanup": true,
+    "consumerCleanup": true,
+    "archiveFixtures": 26,
+    "archiveSafeUnicode": true,
+    "producerExpectedRefusalExitCode": 1,
+    "compiledProofs": 23,
+    "additionalFunctionalProofs": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed"
+    ],
+    "licenseAudit": {
+      "policyVersion": 1,
+      "dependencies": 236,
+      "embeddedReadmeNotices": [
+        "cookie-signature",
+        "data-uri-to-buffer",
+        "isarray"
+      ],
+      "mplSourceFiles": 8,
+      "termsVerified": true,
+      "originalCopyrightPreserved": true
+    },
+    "reviewedOriginalNoticePinsVerified": true
+  },
+  "independentSummaryHashes": {
+    "verified-summary.json": "fd8a6fdc2e210816d0f3979f90a7a68fc769b67b1e3a5503fbfacb625e65ff7d",
+    "browser-verified-summary.json": "b782dd59032c5094c73c4dc3c1ecc707cc1f9d20a220ac88fc0457aaa7de0aca",
+    "coverage-verified-summary.json": "d056dd29aa1b8026708095a3bd573cbff01d3b7af04b3287bfa89346b38b3485",
+    "package-verified-summary.json": "ace1e589f26bfc13d240ede94ebbd2e64c22f0590425887f98b8e4d5d4b7e593"
+  },
+  "fullLogsSha256": "f1ac09bce4c138e433a785c49ef563e06ffe42f3b9b12655277c10b15f70de5d"
+}

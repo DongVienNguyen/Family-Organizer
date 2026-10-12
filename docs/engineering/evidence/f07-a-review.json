@@ -1,0 +1,57 @@
+{
+  "task": "F07-a",
+  "reviewedHeadSha": "16568a5a89d9a76717d1c51f4a322fd71c824cc4",
+  "review": "one fresh whole-branch read-only reviewer",
+  "findings": [
+    {
+      "severity": "Important",
+      "finding": "manifest appVersion argument",
+      "decision": "accept"
+    },
+    {
+      "severity": "Important",
+      "finding": "canonical XML ownership",
+      "decision": "accept"
+    },
+    {
+      "severity": "Important",
+      "finding": "installed CLR config authentication",
+      "decision": "accept"
+    },
+    {
+      "severity": "Important",
+      "finding": "independent uninstall trust anchor",
+      "decision": "accept"
+    },
+    {
+      "severity": "Important",
+      "finding": "administrative NODE_OPTIONS/NODE_PATH",
+      "decision": "accept"
+    },
+    {
+      "severity": "Important",
+      "finding": "exact protected ACLs",
+      "decision": "accept"
+    },
+    {
+      "severity": "Important",
+      "finding": "descendant reparse preflight",
+      "decision": "accept"
+    },
+    {
+      "severity": "Important",
+      "finding": "restart graceful completion and worker/data continuity",
+      "decision": "accept"
+    },
+    {
+      "severity": "Minor",
+      "finding": "early failure reports and service logs",
+      "decision": "accept"
+    }
+  ],
+  "gradedBeforeCorrections": true,
+  "correctionPassesAllowed": 1,
+  "rereview": "none",
+  "nativeSecurityEvidence": "six genuine Windows RED assertions before guard corrections, two passing controls; see failure-history",
+  "correctionPass": "in progress; one pass/no rereview"
+}
