@@ -132,15 +132,16 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
       // Preserve a complete native safety copy before any file/SQL promotion.
       fs.mkdirSync(path.dirname(paths.safety), { recursive: true }); await sqliteBackupTo(paths.safety);
       const safetyFd = fs.openSync(paths.safety,'r+'); try { fs.fsyncSync(safetyFd); } finally { fs.closeSync(safetyFd); }
+      // Publish recoverable ownership before writing any plaintext stage bytes.
+      // Verify current files are ordinary before moving any root.
+      readMedia();
+      const journal = { id, checksum: checked.manifest.checksum, hadMedia: fs.existsSync(mediaRoot), hadSettings: fs.existsSync(settingsFile), media: checked.manifest.mediaManifest, settingsHash: sha256(settings),...(keySelected?{signingKey:{hadFile:hadKey,sha256:keyBytes===null?null:sha256(keyBytes),size:keyBytes===null?null:keyBytes.length}}:{}) };
+      writeJournal(journal); options.onBoundary?.('journal-written');
       fs.mkdirSync(paths.stageMedia);
       for (const [name,data] of Object.entries(checked.media)) { const target = path.join(paths.stageMedia,...name.split('/')); fs.mkdirSync(path.dirname(target),{recursive:true}); durableWrite(target,Buffer.from(data,'base64')); }
       durableWrite(paths.stageSettings, settings);
       if(keySelected&&keyBytes!==null)durableWrite(paths.stageSigningKey,keyBytes);
       options.onBoundary?.('staging-complete');
-      // Verify current files are ordinary before moving any root.
-      readMedia();
-      const journal = { id, checksum: checked.manifest.checksum, hadMedia: fs.existsSync(mediaRoot), hadSettings: fs.existsSync(settingsFile), media: checked.manifest.mediaManifest, settingsHash: sha256(settings),...(keySelected?{signingKey:{hadFile:hadKey,sha256:keyBytes===null?null:sha256(keyBytes),size:keyBytes===null?null:keyBytes.length}}:{}) };
-      writeJournal(journal); options.onBoundary?.('journal-written');
       if (journal.hadMedia) fs.renameSync(mediaRoot,paths.oldMedia); options.onBoundary?.('media-old-renamed');
       fs.renameSync(paths.stageMedia,mediaRoot); options.onBoundary?.('media-promoted');
       if (journal.hadSettings) fs.renameSync(settingsFile,paths.oldSettings); options.onBoundary?.('settings-old-renamed');

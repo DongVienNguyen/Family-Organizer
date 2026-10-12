@@ -160,7 +160,7 @@ it('fails closed on a structurally plausible but corrupt restore journal without
   try{expect(()=>recoverAppRestore()).toThrow();expect(sqliteLoad()).toEqual(before);expect(fs.readFileSync(file)).toEqual(bytes);}
   finally{fs.rmSync(journal,{force:true});}
 });
-it('cleans only its own staging after a pre-journal failure, retaining live bytes and the native safety copy',async()=>{
+it('cleans only its own staging after a pre-promotion failure, retaining live bytes and the native safety copy',async()=>{
   fixture();const snapshot=validateAppSnapshot(capture());const before=sqliteLoad();const bytes=fs.readFileSync(file);
   await expect(restoreAppSnapshot(snapshot,{...options,onBoundary:phase=>{if(phase==='staging-complete')throw new Error('Synthetic pre-journal failure');}})).rejects.toThrow('Synthetic pre-journal failure');
   expect(sqliteLoad()).toEqual(before);expect(fs.readFileSync(file)).toEqual(bytes);
@@ -216,4 +216,12 @@ it('rejects an unbranded private file patch before maintenance or staging',async
 it('promotes an explicitly selected signing key with the shared SQL/files restore',async()=>{
  fixture();const {appConfig}=await import('./config.js');const {captureRecoveryFiles,selectRecoveryFiles}=await import('./recoveryFiles.js');const keyFile=path.join(appConfig.configRoot,'session_secret.key');fs.mkdirSync(appConfig.configRoot,{recursive:true});fs.writeFileSync(keyFile,'synthetic-current-session-key');const snapshot=validateAppSnapshot(capture());
  const patch=selectRecoveryFiles(captureRecoveryFiles({sessionSigningKey:Buffer.from('synthetic-selected-session-key\n')},['sessionSigningKey']),['sessionSigningKey']);await restoreAppSnapshot(snapshot,{...options,privateFiles:patch} as any);expect(fs.readFileSync(keyFile,'utf8')).toBe('synthetic-selected-session-key\n');expect(sqliteLoad().tasks).toEqual(snapshot.legacy.tasks);
+});
+
+it.each(['early-eof','partial-read-error','growth-read-error'])('clears the partial signing-key buffer after %s and closes its handle',async mode=>{
+ const {appConfig}=await import('./config.js'),{readSigningKeyFile}=await import('./snapshotFiles.js');const keyFile=path.join(appConfig.configRoot,'session_secret.key');fs.mkdirSync(appConfig.configRoot,{recursive:true});fs.writeFileSync(keyFile,'synthetic-read-fault-signing-key');
+ const originalOpen=fs.openSync;let descriptor:number|undefined,captured:Buffer|undefined,calls=0;
+ vi.spyOn(fs,'openSync').mockImplementation(((...args:any[])=>{descriptor=(originalOpen as any)(...args);return descriptor;}) as any);
+ vi.spyOn(fs,'readSync').mockImplementation(((_fd:number,buffer:Buffer)=>{calls++;if(calls===1){captured=buffer;buffer.fill(65);return mode==='growth-read-error'?buffer.length:2;}if(mode==='early-eof')return 0;throw new Error('Synthetic native read failure');}) as any);
+ try{expect(()=>readSigningKeyFile()).toThrow();expect(captured).toBeDefined();expect(captured!.every(byte=>byte===0)).toBe(true);expect(()=>fs.fstatSync(descriptor!)).toThrow();}finally{vi.restoreAllMocks();}
 });

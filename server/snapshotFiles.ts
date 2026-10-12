@@ -57,11 +57,12 @@ export function readSettings(): Record<string,string> {
 /** Fixed ordinary config file; missing key is an explicit selectable absence. */
 export function readSigningKeyFile():Buffer|undefined {
  const stat=fs.lstatSync(signingKeyFile,{throwIfNoEntry:false});if(!stat)return;
- ordinaryFile(signingKeyFile);const fd=fs.openSync(signingKeyFile,'r');
+ ordinaryFile(signingKeyFile);const fd=fs.openSync(signingKeyFile,'r');let bytes:Buffer|undefined,complete=false;
  try{const current=fs.fstatSync(fd);if(!current.isFile()||current.size>signingKeyByteLimit)throw new Error('Invalid signing key file');
-  const bytes=Buffer.alloc(current.size);let count=0;while(count<bytes.length){const read=fs.readSync(fd,bytes,count,bytes.length-count,null);if(!read)throw new Error('Invalid signing key file');count+=read;}
-  if(fs.readSync(fd,Buffer.alloc(1),0,1,null)!==0){bytes.fill(0);throw new Error('Invalid signing key file');}return bytes;
- }finally{fs.closeSync(fd);}
+  bytes=Buffer.alloc(current.size);let count=0;while(count<bytes.length){const read=fs.readSync(fd,bytes,count,bytes.length-count,null);if(!read)throw new Error('Invalid signing key file');count+=read;}
+  const extra=Buffer.alloc(1);try{if(fs.readSync(fd,extra,0,1,null)!==0)throw new Error('Invalid signing key file');}finally{extra.fill(0);}
+  complete=true;return bytes;
+ }finally{if(!complete)bytes?.fill(0);try{fs.closeSync(fd);}catch(error){bytes?.fill(0);throw error;}}
 }
 function removeSigningFile(file:string):void {if(!fs.lstatSync(file,{throwIfNoEntry:false}))return;ordinaryFile(file);fs.unlinkSync(file);}
 export function readMedia(root = mediaRoot): Record<string,string> {

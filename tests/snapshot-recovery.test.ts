@@ -83,7 +83,7 @@ it.each(['journal-written','media-old-renamed','media-promoted','settings-old-re
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 },35_000);
 
-it.each(['replace','remove'].flatMap(mode=>['journal-written','signing-key-old-renamed','signing-key-promoted','sql-committed'].map(phase=>({mode,phase}))))('recovers selected signing key $mode at $phase using the shared commit marker before auth readiness',async({mode,phase})=>{
+it.each(['replace','remove'].flatMap(mode=>['staging-complete','journal-written','signing-key-old-renamed','signing-key-promoted','sql-committed'].map(phase=>({mode,phase}))))('recovers selected signing key $mode at $phase using the shared commit marker before auth readiness',async({mode,phase})=>{
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo signing key crash synthetic '));
  try{
   writeSyntheticInstallation(path.join(root,'dữ liệu'));

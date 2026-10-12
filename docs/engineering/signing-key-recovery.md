@@ -27,7 +27,8 @@ read-only snapshot compatibility inspection precede writable storage bootstrap.
 The existing shared restore journal has one optional strictly validated signingKey
 entry recording original existence and selected hash/size (null/null means removal).
 Old exact journal fields remain accepted. Fixed UUID-derived key staging/old paths
-live in protected CONFIG_DIR. The coordinator fsyncs staging, renames old key,
+live in protected CONFIG_DIR. The coordinator publishes its durable ownership journal before any plaintext stage
+bytes, fsyncs staging, renames old key,
 promotes the selected key/removal, then commits the existing SQL marker with business
 rows. The same marker decides rollback or commit for media, settings and key. Startup
 recovery finishes before signing-key/auth initialization. Committed key hash/size or
@@ -36,7 +37,7 @@ no separate backup engine or public endpoint is added.
 
 Actual Cloud REDs:22 helper,4 CLI selection,2 shared boundary/promotion and6 crash
 cases (two rollback controls already passed). Replacement and removal are checked at
-journal creation, old-key rename, key promotion and SQL commit; old media/settings
+staging completion, journal creation, old-key rename, key promotion and SQL commit; old media/settings
 crash cases remain. Mandatory-suite omission also failed before the gate update.
 The Cloud target109/4 passed. Full Cloud1544/1544 in89 files passed with two workers,
 unchanged assertions/timeouts and zero failed/pending/todo; lint/build0. Earlier native
@@ -51,3 +52,12 @@ Provider .env/VAPID recovery, online backup/one-owner schedule/age/disk-full/ret
 offhost encrypted copy and update write-fence/guarded rollback remain later F07 work.
 F05 Administration403 still prevents enforced main protection. No release/tag/VPS
 access/deployment or Server2019/reboot/RPO/RTO acceptance is claimed.
+
+One fresh wholebranch review returned0Critical/0Important/2Minor, all accepted before
+one correction pass. Two actual pre-publication process-exit regressions and three
+read-failure buffer regressions failed before their fixes. The shared journal now
+registers operation ownership before writing media/settings/signing-key stage bytes,
+so normal startup recovery discovers and removes them if staging is interrupted.
+The bounded reader clears partial key/EOF buffers on failed reads and close errors.
+Target114/4 passed; corrected full Cloud and exact corrected-HEAD Windows remain
+required. No rereview or weakening of assertions/timeouts.
