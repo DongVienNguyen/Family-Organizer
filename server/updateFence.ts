@@ -17,11 +17,11 @@ function object(value:unknown):value is Record<string,any>{return !!value&&typeo
 function readPublic(file:string,limit:number,code:string):Buffer{
  let fd:number|undefined,bytes:Buffer|undefined,complete=false;
  try{
-  assertNoLinkedAncestors(file);const prior=fs.lstatSync(file);if(!prior.isFile()||prior.nlink!==1||prior.size>limit)refuse(code);
+  assertNoLinkedAncestors(file);const ancestors:Array<{file:string;dev:number;ino:number}>=[];for(let current=path.dirname(path.resolve(file));;current=path.dirname(current)){const ancestor=fs.lstatSync(current);if(!ancestor.isDirectory()||ancestor.isSymbolicLink())refuse(code);ancestors.push({file:current,dev:ancestor.dev,ino:ancestor.ino});if(path.dirname(current)===current)break;}const prior=fs.lstatSync(file);if(!prior.isFile()||prior.nlink!==1||prior.size>limit)refuse(code);
   fd=fs.openSync(file,'r');const stat=fs.fstatSync(fd);if(stat.dev!==prior.dev||stat.ino!==prior.ino||stat.size!==prior.size||stat.nlink!==1)refuse(code);
   bytes=Buffer.alloc(stat.size);let offset=0;while(offset<bytes.length){const count=fs.readSync(fd,bytes,offset,bytes.length-offset,null);if(!count)refuse(code);offset+=count;}
   const extra=Buffer.alloc(1);try{if(fs.readSync(fd,extra,0,1,null))refuse(code);}finally{extra.fill(0);}
-  const after=fs.fstatSync(fd);if(after.size!==stat.size||after.mtimeMs!==stat.mtimeMs||after.ctimeMs!==stat.ctimeMs)refuse(code);complete=true;return bytes;
+  const after=fs.fstatSync(fd);if(after.dev!==stat.dev||after.ino!==stat.ino||after.nlink!==1||after.size!==stat.size||after.mtimeMs!==stat.mtimeMs||after.ctimeMs!==stat.ctimeMs)refuse(code);assertNoLinkedAncestors(file);for(const ancestor of ancestors){const current=fs.lstatSync(ancestor.file);if(!current.isDirectory()||current.isSymbolicLink()||current.dev!==ancestor.dev||current.ino!==ancestor.ino)refuse(code);}const fixed=fs.lstatSync(file);if(!fixed.isFile()||fixed.isSymbolicLink()||fixed.dev!==stat.dev||fixed.ino!==stat.ino||fixed.nlink!==1||fixed.size!==stat.size||fixed.mtimeMs!==stat.mtimeMs||fixed.ctimeMs!==stat.ctimeMs)refuse(code);complete=true;return bytes;
  }catch{refuse(code);}finally{if(!complete)bytes?.fill(0);if(fd!==undefined){try{fs.closeSync(fd);}catch{bytes?.fill(0);refuse(code);}}}
 }
 function readControl(file:string):Control{
@@ -54,7 +54,7 @@ async function health(server:http.Server,signal:AbortSignal,version:string):Prom
 }
 export async function validateUpdateStartup(attempt:UpdateAttempt,server:http.Server,signal:AbortSignal,ports:{inspectStorage:()=>{integrity:string;users:number;schemas:StoredUpdateSchemas};markWritesPossible:(attempt:UpdateAttempt)=>void},options:{pollMs?:number;timeoutMs?:number}={}):Promise<void>{
  const pollMs=options.pollMs??100,timeoutMs=options.timeoutMs??30000;if(!Number.isSafeInteger(pollMs)||pollMs<1||!Number.isSafeInteger(timeoutMs)||timeoutMs<1)refuse();const deadline=performance.now()+timeoutMs;
- while(true){cancelled(signal);if(performance.now()>=deadline)refuse('UPDATE_APPROVAL_TIMEOUT');const control=checkControl(attempt);if(control.phase==='approve')break;try{await delay(Math.min(pollMs,Math.max(1,deadline-performance.now())),undefined,{signal});}catch{cancelled(signal);refuse('UPDATE_STARTUP_CANCELLED');}}
+ while(true){cancelled(signal);if(performance.now()>=deadline)refuse('UPDATE_APPROVAL_TIMEOUT');const control=checkControl(attempt);if(performance.now()>=deadline)refuse('UPDATE_APPROVAL_TIMEOUT');if(control.phase==='approve')break;try{await delay(Math.min(pollMs,Math.max(1,deadline-performance.now())),undefined,{signal});}catch{cancelled(signal);refuse('UPDATE_STARTUP_CANCELLED');}}
  const loaded=manifest(attempt.manifestFile,attempt.manifestSha256);await health(server,signal,loaded.appVersion);cancelled(signal);
  const storage=ports.inspectStorage();if(storage.integrity!=='ok'||!Number.isSafeInteger(storage.users)||storage.users<1)refuse('UPDATE_STORAGE_FAILED');assertSchemaCompatibility(loaded.schema,storage.schemas);
  if(checkControl(attempt).phase!=='approve')refuse('UPDATE_CONTROL_INVALID');manifest(attempt.manifestFile,attempt.manifestSha256);cancelled(signal);

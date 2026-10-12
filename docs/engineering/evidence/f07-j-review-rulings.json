@@ -1,0 +1,57 @@
+{
+  "taskId": "F07-j",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/33",
+  "reviewedHeadSha": "79210b62ee0af19fddfa59fa537be0da81da8dae",
+  "baseSha": "45522657cc5bc1f553728e8c53caa2c97916bfbd",
+  "reviewCount": 1,
+  "critical": 0,
+  "important": 1,
+  "minor": 1,
+  "rulings": [
+    {
+      "severity": "Important",
+      "finding": "Fixed control pathname or parent can be replaced during descriptor read",
+      "ruling": "accepted",
+      "correction": "Compare ordinary ancestor identities and final pathname identity, link count and stable metadata against descriptor before consuming bytes",
+      "regression": "Actual parent rename/replacement during the final control descriptor read must fail before mark/Ready"
+    },
+    {
+      "severity": "Minor",
+      "finding": "Control read may cross strict monotonic approval deadline",
+      "ruling": "accepted",
+      "correction": "Check deadline again after control read before accepting approve",
+      "regression": "Monotonic clock crosses deadline during control read; must refuse approval and never mark"
+    }
+  ],
+  "red": {
+    "failed": 2,
+    "passed": 22,
+    "files": 1,
+    "exitCode": 1,
+    "logSha256": "d4406f8afc4e8b7b5424011551bd472e67b34b7e5f8b6d8be15f862778a5dbe2"
+  },
+  "targeted": {
+    "passed": 44,
+    "files": 3,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "fullVerification": {
+    "tests": 1759,
+    "files": 98,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "lintExitCode": 0,
+    "buildExitCode": 0,
+    "reportSha256": "793d5a60b534c7fa206b12d0d406430eb057935237eae0834d5402bacc42b670"
+  },
+  "correctedWindows": "not-run-yet",
+  "unrun": [
+    "F07-k coordinator/swap/rollback",
+    "Server2019/reboot/power-loss",
+    "actual independent offhost RPO/RTO"
+  ],
+  "secondReview": false
+}

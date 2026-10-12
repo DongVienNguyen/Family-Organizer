@@ -1,0 +1,25 @@
+{
+  "taskId": "F07-j",
+  "headSha": "79210b62ee0af19fddfa59fa537be0da81da8dae",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38281793387",
+  "checksFromApi": "all7 success",
+  "serviceReport": {
+    "checks": 13,
+    "positivePhases": 41,
+    "exitCode": 0,
+    "removed": true,
+    "cleanup": true
+  },
+  "updateReport": {
+    "checks": 5,
+    "nativeExits": 7,
+    "completed": true
+  },
+  "files": {
+    "service-exit.json": "1ecd38fbd978482d243d8b5273ef22bc7aa1b6340eda28beb747c5149e11a6af",
+    "service-update-fence.json": "41f94fd4347c2bff8751fa74c78ae57fdb5103af534eca06b9d7b84a85cb7baa"
+  },
+  "acceptance": "native ACL/startup checkpoint; review corrections still require new exact-HEAD full Windows CI",
+  "server2019": "not-run",
+  "releaseOrVps": false
+}
