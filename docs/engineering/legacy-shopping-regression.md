@@ -32,3 +32,8 @@ restart and shutdown behavior.
 
 Remaining F09 rows, Caddy compatibility, F08 authenticated collection, F05 GitHub
 enforcement and actual Server2019 acceptance still gate full foundation acceptance.
+
+Review correction strengthens B06 with actual meal table cells, every grocery
+name/quantity and restored household controls before and after reload. Cross-actor
+HTTP sharing remains a deferred minor before complete F09 acceptance; current
+role loops only exercise items created by that same role.

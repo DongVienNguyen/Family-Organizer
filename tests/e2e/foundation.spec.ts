@@ -242,8 +242,8 @@ test('B06 shopping and offline meal persistence', async ({ page }) => {
   expect(toggleResponse.status()).toBe(200);
   expect((await toggleResponse.json()).item).toMatchObject({ id: item.id, isPurchased: true, purchasedById: 'browser-admin' });
   const menu = page.locator('#shopping-weekly-menu');
-  await menu.getByLabel('Người lớn', { exact: true }).fill('2');
-  await menu.getByLabel('Trẻ em', { exact: true }).fill('1');
+  await menu.getByLabel('Người lớn', { exact: true }).fill('3');
+  await menu.getByLabel('Trẻ em', { exact: true }).fill('2');
   await menu.getByLabel('Số ngày', { exact: true }).fill('2');
   const generated = page.waitForResponse(response => new URL(response.url()).pathname === '/api/shopping/meal-plan/random' && response.request().method() === 'POST');
   await menu.getByRole('button', { name: /^(Tạo|Đổi) thực đơn$/ }).click();
@@ -252,14 +252,35 @@ test('B06 shopping and offline meal persistence', async ({ page }) => {
   const plan = await planResponse.json();
   expect(plan.days).toHaveLength(2);
   expect(plan.groceries.length).toBeGreaterThan(0);
+  const assertRenderedMenu = async () => {
+    await expect(menu.getByLabel('Người lớn', { exact: true })).toHaveValue('3');
+    await expect(menu.getByLabel('Trẻ em', { exact: true })).toHaveValue('2');
+    await expect(menu.getByLabel('Số ngày', { exact: true })).toHaveValue('2');
+    const rows = menu.locator('table tbody tr');
+    await expect(rows).toHaveCount(plan.days.length);
+    for (const [index, day] of plan.days.entries()) {
+      await expect(rows.nth(index)).toBeVisible();
+      for (const [column, name] of ['Sáng', 'Trưa', 'Tối'].entries()) {
+        const dishes = day.meals.find((meal: any) => meal.meal === name)?.dishes.join(', ') || '—';
+        await expect(rows.nth(index).locator('td').nth(column + 1)).toHaveText(dishes);
+      }
+    }
+    for (const grocery of plan.groceries) {
+      const button = menu.getByRole('button').filter({ has: page.getByText(grocery.name, { exact: true }) });
+      await expect(button).toBeVisible();
+      await expect(button.getByText(grocery.quantity, { exact: true })).toBeVisible();
+    }
+  };
+  await assertRenderedMenu();
   await page.reload();
   await expect(page.locator('#shopping-module')).toBeVisible();
+  await assertRenderedMenu();
   const shopping = await api(page, '/api/shopping', token);
   expect(shopping.status).toBe(200);
   expect(JSON.parse(shopping.text).shoppingItems.find((row: any) => row.id === item.id)).toMatchObject({ isPurchased: true, purchasedById: 'browser-admin', quantity: '2 packages' });
   const current = await api(page, '/api/shopping/meal-plan/current', token);
   expect(current.status).toBe(200);
-  expect(JSON.parse(current.text).mealPlan).toMatchObject({ adults: 2, children: 1, days: plan.days, groceries: plan.groceries, updatedById: 'browser-admin' });
+  expect(JSON.parse(current.text).mealPlan).toMatchObject({ adults: 3, children: 2, days: plan.days, groceries: plan.groceries, updatedById: 'browser-admin' });
   await page.getByRole('button', { name: 'Dọn các món đã mua', exact: true }).click();
   const cleared = page.waitForResponse(response => new URL(response.url()).pathname === '/api/shopping/purchased' && response.request().method() === 'DELETE');
   await page.getByRole('button', { name: 'Xóa hết đã mua', exact: true }).click();

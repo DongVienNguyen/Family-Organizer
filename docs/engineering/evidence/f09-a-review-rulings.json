@@ -1,0 +1,37 @@
+{
+  "taskId": "F09-a",
+  "reviewCount": 1,
+  "headSha": "e21b6ff1cc72d0bbaa8d7d3d5b18ab3f4ee4a7c6",
+  "critical": 0,
+  "important": 1,
+  "minor": 1,
+  "rulings": [
+    {
+      "finding": "B06 verifies API data but not meal render/controls/groceries after reload",
+      "grade": "Important",
+      "ruling": "accepted",
+      "correction": "Assert actual table/cells, every grocery name/quantity, household controls before and after reload, retain APIs; no app UI defect claimed"
+    },
+    {
+      "finding": "per-role HTTP tests operate only on same-role-created shopping item",
+      "grade": "Minor",
+      "ruling": "deferred",
+      "reason": "native cross-role contracts plus existing shared source unchanged; add cross-actor HTTP matrix before final F09 acceptance"
+    }
+  ],
+  "declinedToJudge": [
+    {
+      "item": "actual three-engine and exactHEADWindows/package/service",
+      "ruling": "mandatory real CI before focused slice merge; browser newflow currently unrun"
+    },
+    {
+      "item": "historicalRED/fullsuite/lintbuild",
+      "ruling": "author actual pinned24.21 verified evidence retained; reviewer supplementary213 target ran24.19, not counted as required pinned runtime proof"
+    },
+    {
+      "item": "predecessor35 acceptance/rebase/fullmatrix/Caddy/F08b/F05/Server2019",
+      "ruling": "external remaining gates explicitly unaccepted; no premature foundation or release/VPS claim"
+    }
+  ],
+  "testOnlyCoverageCorrection": "static missing assertion finding; actual UI assertions require Windows; no fabricated product UI RED or Browser GREEN"
+}
