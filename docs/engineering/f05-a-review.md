@@ -40,6 +40,14 @@ assertions, zero retries and the same timeout. This is continued validation of
 the one review correction pass; no rereview or skipped engine. Raw second-run
 reports/traces/video/log hashes are in evidence/f05-a-corrected-source.json.
 
+HEAD9bfd3c9/run38189740360 reached Windows1146/78perruntime, all seven quality
+checks,15/15browser cases with0skips/retries/flaky and ci-gate GREEN. Independent
+downloaded-artifact verification then rejected one missing declared hash file:
+upload-artifact's default hidden-file exclusion dropped browser-results/.last-run.json.
+All present hashes and primary JSON/JUnit case identities agreed. Enable hidden
+files only within synthetic reports and rerun the new exact SHA before merge;
+this changes no tests or standards. Evidence is in evidence/f05-a-artifact-source.json.
+
 Main protection remains blocked by actual Administration-write HTTP403. F05-b
 coverage, full legacy matrix, packaging/service/encryption and Server2019 remain
 subsequent work. No release/tag/VPS actions occurred.

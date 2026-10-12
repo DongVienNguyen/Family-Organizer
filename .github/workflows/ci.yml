@@ -154,6 +154,8 @@ jobs:
         with:
           name: windows-browsers-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
           path: reports/
+          # Only synthetic reports; include Playwright's declared .last-run.json.
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
 
