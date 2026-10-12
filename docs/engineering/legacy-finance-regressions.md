@@ -36,3 +36,10 @@ isolated GC completed4.2s and full serial1worker passed without changing timeout
 probe workload or assertions. Fresh review and exact-HEAD Windows still pending. Existing browser18 flows are retained; this slice
 does not yet add financial UI smoke. Remaining legacy UI/domain rows, Caddy,
 full F08 collector/promotion, F05 enforcement and Server2019 acceptance remain.
+
+One fresh review found0Critical0Important1Minor: bill-payment replay coverage was
+missing at the fourth UUID site. The corrected test repeats the same command,
+requires identical response/transaction ID and whole SQLite state/logs, and one
+due-date advance. A different target bill with the same command must409; ignored
+request metadata retains the same cached result. This is a coverage correction,
+not a newly demonstrated product defect. Final rebased full source/Windows required.
