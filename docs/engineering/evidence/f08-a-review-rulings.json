@@ -1,0 +1,42 @@
+{
+  "taskId": "F08-a",
+  "reviewCount": 1,
+  "headSha": "c1258538791b2c465b81c6a96e555f39ad2ca2de",
+  "critical": 0,
+  "important": 1,
+  "minor": 2,
+  "rulings": [
+    {
+      "finding": "unvalidated runId interpolated into regex can hang",
+      "grade": "Important",
+      "ruling": "accepted",
+      "correction": "literal URL prefix plus fixed digits expression; timeout bounded child regression"
+    },
+    {
+      "finding": "numeric prerelease leading zero/unsupported semver forms",
+      "grade": "Minor",
+      "ruling": "deferred",
+      "reason": "publication locked; collector not implemented; handle alongside F08-b version parsing before actual candidate use"
+    },
+    {
+      "finding": "malformed nonarray quality throws",
+      "grade": "Minor",
+      "ruling": "deferred",
+      "reason": "CLI already rejects constant; pure interface consistency only; no authenticity or publication bypass"
+    }
+  ],
+  "declinedToJudge": [
+    {
+      "item": "authenticated API/download provenance and actual package contents",
+      "ruling": "F08-b authorized work still required; pure contract is not provenance"
+    },
+    {
+      "item": "PowerShell execution and exactHEAD Windows CI",
+      "ruling": "required actual Windows run before merge; static inspection insufficient"
+    },
+    {
+      "item": "Server2019 and historical F07-k proof",
+      "ruling": "Server2019 not-run; F07-k actual run reports independently verified by author and final proof archived"
+    }
+  ]
+}

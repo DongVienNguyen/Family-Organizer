@@ -67,6 +67,17 @@ jobs:
       - name: Install from lockfile
         id: install
         run: ./scripts/ci/Invoke-Check.ps1 -Check install
+      - name: Windows PowerShell release verifier rejects missing evidence
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $missing = Join-Path $env:RUNNER_TEMP ('missing-release-evidence-' + [guid]::NewGuid() + '.json')
+          & powershell.exe -NoProfile -File ./scripts/windows/Test-ReleaseEvidence.ps1 -EvidenceFile $missing
+          $nativeCode = $LASTEXITCODE
+          @{ commitSha = $env:TEST_COMMIT_SHA; phase = 'release-evidence-missing-refusal'; expectedExitCode = 1; actualExitCode = $nativeCode } | ConvertTo-Json | Set-Content reports/release-policy-native.json
+          if ($nativeCode -ne 1) { throw 'Release evidence verifier did not propagate native refusal' }
       - name: Dependency advisory audit
         id: audit
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}

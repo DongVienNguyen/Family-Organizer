@@ -1,3 +1,4 @@
+import {spawnSync} from 'node:child_process';
 import {describe,it,expect} from 'vitest';
 import * as contract from '../scripts/windows/release-evidence.mjs';
 const sha='a'.repeat(40),hash='b'.repeat(64);
@@ -13,3 +14,12 @@ describe('immutable Windows release evidence',()=>{
  it('publication stays disabled even for valid evidence',()=>{expect(()=>(contract as any).assertPublicationAllowed(fixture())).toThrow('RELEASE_PUBLICATION_DISABLED');});
  it('promotion requires actual Windows2019 approval bound to original asset',()=>{const value=fixture();const acceptance={os:'Windows Server 2019',build:17763,architecture:'x64',runtime:'v24.21.0',commitSha:sha,zipSha256:value.package.zipSha256,operatorApproved:true,checks:{reboot:true,tls:true,restore:true,rollback:true}};expect((contract as any).validatePromotion(value,acceptance)).toEqual([]);for(const key of ['os','build','architecture','runtime','commitSha','zipSha256','operatorApproved']){const bad={...acceptance,[key]:null};expect((contract as any).validatePromotion(value,bad).length).toBeGreaterThan(0);}expect((contract as any).validatePromotion(value,{...acceptance,checks:{...acceptance.checks,reboot:false}}).length).toBeGreaterThan(0);});
 });
+
+it('rejects regex syntax in runId without hanging the isolated validator',()=>{
+ const value:any=fixture();value.request.runId='([0-9]+)+';
+ value.checks[0].details_url='https://github.com/DongVienNguyen/Family-Organizer/actions/runs/'+'1'.repeat(40)+'!/job/1';
+ const moduleUrl=new URL('../scripts/windows/release-evidence.mjs',import.meta.url).href;
+ const script=`const {validateReleaseEvidence}=await import(${JSON.stringify(moduleUrl)}); const errors=validateReleaseEvidence(JSON.parse(process.argv[1])); if(!Array.isArray(errors)||errors.length===0)process.exitCode=1;`;
+ const result=spawnSync(process.execPath,['--input-type=module','-e',script,JSON.stringify(value)],{timeout:5000,encoding:'utf8'});
+ expect(result.error).toBeUndefined();expect(result.signal).toBeNull();expect(result.status).toBe(0);
+},10000);
