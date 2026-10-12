@@ -23,6 +23,8 @@ async function runPowerShell(label,arguments_,value){
 const invoke=(label,extra=[],value)=>runPowerShell(label,args.concat(extra),value);
 const Database=createRequire(path.join(release,'app/package.json'))('better-sqlite3');
 function rows(){const db=new Database(database,{readonly:true});try{return Object.fromEntries(db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT GLOB 'sqlite_*' ORDER BY name").all().map(({name})=>[name,db.prepare('SELECT * FROM "'+name+'" ORDER BY rowid').all()]));}finally{db.close();}}
+evidence.completed=false;
+try{
 if(phase==='active'){
  const host=await runPowerShell('desktop-host-validation',['-NoProfile','-NonInteractive','-Command','$ErrorActionPreference="Stop"; $command=Get-Command Get-Acl; $manifest=Get-Module -ListAvailable -Name Microsoft.PowerShell.Security | Select-Object -First 1; @{major=$PSVersionTable.PSVersion.Major;edition=$PSVersionTable.PSEdition;securityModulePath=$manifest.Path;commandModule=$command.ModuleName} | ConvertTo-Json -Compress']);
  assert.equal(host.exitCode,0,host.stdout+host.stderr);evidence.powershellHost=JSON.parse(host.stdout.trim());
@@ -31,15 +33,16 @@ if(phase==='active'){
  const result=await invoke('active-refusal',['-ValidateOnly']);assert.equal(result.exitCode,1);assert.match(result.stderr+result.stdout,/owned service stopped/);evidence.checks.push('running-service-refused-before-input');
 }else{
  assert.equal(phase,'stopped');const beforeValidation=rows();
- for(const flag of ['-ValidateOnly','-WhatIf']){const result=await invoke(flag);assert.equal(result.exitCode,0,result.stdout+result.stderr);assert.deepEqual(rows(),beforeValidation);}
+ for(const flag of ['-ValidateOnly','-WhatIf']){const result=await invoke(flag,[flag]);assert.equal(result.exitCode,0,result.stdout+result.stderr);assert.deepEqual(rows(),beforeValidation);}
  evidence.checks.push('validation-whatif-no-input-no-mutation');
  const db=new Database(database);try{const user=JSON.parse(db.prepare('SELECT data FROM users WHERE id=?').get('service-admin').data);delete user.passwordHash;db.prepare('UPDATE users SET data=? WHERE id=?').run(JSON.stringify(user),user.id);db.pragma('wal_checkpoint(TRUNCATE)');}finally{db.close();}
  const before=rows(),userBefore=JSON.parse(before.users[0].data);
- const invalid=await invoke('invalid-batch',[],{users:[{id:'service-admin',password},{id:'missing-user',password}]});assert.equal(invalid.exitCode,1);assert.deepEqual(rows(),before);evidence.checks.push('invalid-batch-atomic-no-secret-output');
+ const invalid=await invoke('invalid-batch',[],{users:[{id:'service-admin',password},{id:'missing-user',password}]});assert.equal(invalid.exitCode,1);assert.match(invalid.stdout+invalid.stderr,/native exit 1 \(CREDENTIAL_REENTRY_INVALID\)/);assert.deepEqual(rows(),before);evidence.checks.push('invalid-batch-atomic-no-secret-output');
  const valid=await invoke('credential-reentry',[],{users:[{id:'service-admin',password}]});assert.equal(valid.exitCode,0,valid.stdout+valid.stderr);
  const lines=valid.stdout.trim().split(/\r?\n/),result=JSON.parse(lines.at(-1));assert.deepEqual(result,{resetUserIds:['service-admin'],sessionsRevoked:true});
  const after=rows(),userAfter=JSON.parse(after.users[0].data),{passwordHash,...safe}=userAfter;assert.match(passwordHash,/^[a-f0-9]+\$[a-f0-9]+$/);assert.deepEqual(safe,userBefore);
  for(const [table,values] of Object.entries(before))if(!['users','app_commands','auth_sessions','auth_user_versions'].includes(table))assert.deepEqual(after[table],values);
  assert.ok(!JSON.stringify(after).includes(password));evidence.checks.push('owned-compiled-operator-reentry-preserves-ids-roles-business');
 }
-fs.writeFileSync(report,JSON.stringify(evidence,null,2)+'\n');
+evidence.completed=true;
+}finally{fs.writeFileSync(report,JSON.stringify(evidence,null,2)+'\n');}

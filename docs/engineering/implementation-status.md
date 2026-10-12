@@ -863,3 +863,22 @@ Same one-pass CI correction: constrain the probe's child PSModulePath to the Win
 Desktop system module root and assert actual PowerShell5/Desktop/Get-Acl module
 provenance. Application/runtime source unchanged. Exact Windows rerun remains
 required; no repeated Cloud suite is needed for this Windows-only probe change.
+
+HEAD `8f0d31b1702a5a27d5accd7bcecd583610bc726c`, run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38215634042:
+Desktop5/Get-Acl system module proof and active-service refusal passed; graceful
+stop, native handles closed and integrity passed. Probe then failed before validating
+`ValidateOnly`/`WhatIf`: its label was recorded but the actual child flag was omitted,
+so empty stdin reached the real operator and was rejected with native exit1. This is
+another harness invocation failure, not proof of either no-mutation mode. Cleanup
+and service removal succeeded. Later batch/reentry/restart tests remain unrun.
+
+Same one-pass fix forwards each flag to the child, preserving all no-input/no-mutation
+assertions, and writes partial credential evidence in finally with a typed completion
+flag. No application change or repeated Cloud suite; exact Windows rerun required.
+The flag failure's actual host/active-refusal evidence and independent five green
+job reports are retained in `evidence/f07-b-validation-flag-failure.json`. The wrapper
+now forwards only whitelisted constant operator error codes; raw stdout/stderr and
+confidential input remain suppressed on failure. The invalid-batch Windows probe
+requires `CREDENTIAL_REENTRY_INVALID`, so parser/startup failure cannot masquerade
+as successful atomic batch rejection. Native exit1 is still checked explicitly.

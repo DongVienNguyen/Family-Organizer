@@ -51,7 +51,15 @@ try{
     if(!$process.WaitForExit(30000)){$process.Kill();$process.WaitForExit();throw 'Credential operator timeout'}
     $code=$process.ExitCode
     $script:ServiceNativeResults.Add(@{phase='credential-reentry';exitCode=$code})
-    if($code -ne 0){throw "Credential operator native exit $code"}
+    if($code -ne 0){
+        # Forward only bounded constant error codes, never raw stdout/stderr/input.
+        $safeCode='CREDENTIAL_OPERATOR_FAILED'
+        try{
+            $failure=$stdout.Result.Trim() | ConvertFrom-Json
+            if($failure.error -is [string] -and $failure.error -cin @('CREDENTIAL_REENTRY_INVALID','CREDENTIAL_REENTRY_STORE_REQUIRED','INITIALIZATION_INPUT_INVALID','INITIALIZATION_INPUT_LIMIT','INITIALIZATION_INPUT_TIMEOUT','INITIALIZATION_CONFIGURATION_INVALID','INITIALIZATION_STORAGE_FAILED')){$safeCode=$failure.error}
+        }catch{}
+        throw "Credential operator native exit $code ($safeCode)"
+    }
     # Only the authenticated operator's safe success result is printed.
     $result=$stdout.Result.Trim() | ConvertFrom-Json
     if(!$result.sessionsRevoked -or @($result.resetUserIds).Count -eq 0){throw 'Credential operator result invalid'}
