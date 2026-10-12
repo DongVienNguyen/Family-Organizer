@@ -64,7 +64,7 @@ try {
   const salt = '00112233445566778899aabbccddeeff';
   const passwordHash = `${salt}$${pbkdf2Sync('synthetic-browser-password', salt, 120000, 64, 'sha512').toString('hex')}`;
   const users = ['admin', 'member', 'child', 'guest'].map(role => ({ id: `browser-${role}`, username: `browser-${role}`, fullName: `Synthetic ${role}`, role, passwordHash }));
-  const note = (scope, creatorId, isShared) => ({ id: `browser-note-${scope}`, title: `Synthetic ${scope} note`, content: `Synthetic ${scope} content ![synthetic ${scope}](/uploads/notes/${scope}.png)`, creatorId, isShared, allowedRolesToEdit: [], createdAt: '2026-10-12', updatedAt: '2026-10-12' });
+  const note = (scope, creatorId, isShared) => ({ id: `browser-note-${scope}`, title: `Synthetic ${scope} note`, content: `Synthetic ${scope} content ![synthetic ${scope}](/uploads/notes/${scope}.png)`, tags: [], isPinned: false, creatorId, isShared, allowedRolesToEdit: [], createdAt: '2026-10-12', updatedAt: '2026-10-12' });
   const legacy = { users, notes: [note('private', 'browser-member', false), note('shared', 'browser-admin', true), note('child', 'browser-child', false)], transactions: [{ id: 'browser-finance', amount: 123456, type: 'expense', category: 'food', date: '2026-10-12', description: 'Synthetic adult finance' }] };
   const legacyText = JSON.stringify(legacy);
   fs.writeFileSync(path.join(data, 'db.json'), legacyText);

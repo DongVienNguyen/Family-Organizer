@@ -11,11 +11,11 @@ Each of Chromium, Firefox and WebKit runs these same five first-attempt flows:
 
 | Case | Observable behavior |
 |---|---|
-| B01 | Invalid login denied; valid Admin login, reload, finance access, logout and token revocation |
+| B01 | Invalid login denied; valid Admin login, reload, finance access, mobile navigation/theme persistence, logout and token revocation |
 | B02 | Child finance deep link has no finance navigation/data; authenticated direct API returns403 |
 | B03 | Child own/shared notes and media visible; other member's private media denied; actual image decodes; Guest sees only shared note |
 | B04 | Active PWA worker; logout deletes seeded private CacheStorage/IndexedDB and private entries in the shell cache, preserves a public asset |
-| B05 | Member's private note/media visible before logout; Child switch removes it and old member token is rejected |
+| B05 | Member's private note/media visible before logout; hold Member response across Child switch, release it, verify private content remains absent and old member token is rejected |
 
 `run-browser.mjs` owns a fresh synthetic four-role legacy fixture outside the
 checkout, with Unicode/spaces in its path, absolute roots, a separately reserved
@@ -41,7 +41,8 @@ versions and executable SHA256, source/lock/native/build hashes, process exits,
 server/provider logs and failure trace/video/screenshots are uploaded with
 `if: always()` and retention14 days. The machine gate rejects missing cases or
 engines, empty reports, skips, retries, expected failures, aggregate disagreement,
-wrong source/runtime/lock/native hashes and incomplete cleanup. Synthetic negative
+wrong source/runtime/lock/native/production-build hashes, JUnit case identity
+disagreement and incomplete cleanup. Synthetic negative
 evidence fixtures exercise this gate; they are not evidence of browser execution.
 
 Playwright tests are excluded from Vitest discovery because this separate

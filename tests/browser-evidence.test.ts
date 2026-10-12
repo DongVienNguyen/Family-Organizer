@@ -5,10 +5,10 @@ import { validateBrowserReports } from '../scripts/ci/browser-contract.mjs';
 const names = ['B01 login reload logout', 'B02 child finance boundary', 'B03 note and media visibility', 'B04 logout purges private storage', 'B05 account switch removes previous data'];
 function fixture(): any {
   return {
-    expected: { commitSha: 'a'.repeat(40), lockSha256: 'b'.repeat(64), nodeVersion: 'v24.21.0' },
+    expected: { commitSha: 'a'.repeat(40), lockSha256: 'b'.repeat(64), nodeVersion: 'v24.21.0', productionBuild: { serverSha256: 'e'.repeat(64), indexSha256: 'f'.repeat(64) } },
     report: { errors: [], config: { forbidOnly: true, workers: 1, projects: ['chromium', 'firefox', 'webkit'].map(name => ({ name, retries: 0 })) }, stats: { expected: 15, unexpected: 0, flaky: 0, skipped: 0 }, suites: [{ specs: names.map(title => ({ title, ok: true, tests: ['chromium', 'firefox', 'webkit'].map(projectName => ({ projectName, expectedStatus: 'passed', status: 'expected', results: [{ status: 'passed', retry: 0, errors: [] }] })) })) }] },
-    junit: '<testsuites tests="15" failures="0" errors="0" skipped="0">' + '<testcase name="synthetic" />'.repeat(15) + '</testsuites>',
-    manifest: { commitSha: 'a'.repeat(40), lockSha256: 'b'.repeat(64), nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64', addonSha256: 'c'.repeat(64), legacyPreserved: true, integrity: 'ok', databaseClosed: true, fixtureRemoved: true, externalAttempts: [], serverExitCode: 0, serverSignal: null, cliExitCode: 0, cliSignal: null },
+    junit: '<testsuites tests="15" failures="0" errors="0" skipped="0">' + ['chromium', 'firefox', 'webkit'].map(engine => `<testsuite hostname="${engine}" tests="5" failures="0" errors="0" skipped="0">` + names.map(name => `<testcase name="${name}" />`).join('') + '</testsuite>').join('') + '</testsuites>',
+    manifest: { commitSha: 'a'.repeat(40), lockSha256: 'b'.repeat(64), nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64', addonSha256: 'c'.repeat(64), productionBuild: { serverSha256: 'e'.repeat(64), indexSha256: 'f'.repeat(64) }, legacyPreserved: true, integrity: 'ok', databaseClosed: true, fixtureRemoved: true, externalAttempts: [], serverExitCode: 0, serverSignal: null, cliExitCode: 0, cliSignal: null },
     engines: ['chromium', 'firefox', 'webkit'].map(browserName => ({ browserName, browserVersion: '123.4.5', executableSha256: 'd'.repeat(64), platform: 'win32', architecture: 'x64', nodeVersion: 'v24.21.0' })),
     exits: Object.fromEntries(['install', 'native', 'build', 'browsers-install', 'browser'].map(name => [name, { exitCode: 0 }])),
     native: { platform: 'win32', architecture: 'x64', nodeVersion: 'v24.21.0', binarySha256: 'c'.repeat(64), addonVersion: '13.0.3' },
@@ -19,6 +19,15 @@ function fixture(): any {
 describe('browser evidence fails closed', () => {
   it('accepts three consistent first-attempt browser reports', () => { expect(validateBrowserReports(fixture())).toEqual([]); });
   const corruptions: [string, (f: any) => void][] = [
+    ['missing production identity', f => delete f.manifest.productionBuild],
+    ['missing server identity', f => delete f.manifest.productionBuild.serverSha256],
+    ['missing index identity', f => delete f.manifest.productionBuild.indexSha256],
+    ['malformed server hash', f => f.manifest.productionBuild.serverSha256 = 'invalid'],
+    ['server mismatch', f => f.manifest.productionBuild.serverSha256 = '1'.repeat(64)],
+    ['index mismatch', f => f.manifest.productionBuild.indexSha256 = '1'.repeat(64)],
+    ['JUnit other case', f => f.junit = f.junit.replace('name="B01 login reload logout"', 'name="unrelated"')],
+    ['JUnit duplicate case', f => f.junit = f.junit.replace('name="B01 login reload logout"', 'name="B02 child finance boundary"')],
+    ['JUnit duplicate engine', f => f.junit = f.junit.replace('hostname="firefox"', 'hostname="chromium"')],
     ['missing engine', f => f.report.suites[0].specs.forEach((s: any) => s.tests.pop())],
     ['missing flow', f => f.report.suites[0].specs.pop()],
     ['zero tests', f => f.report.suites = []],

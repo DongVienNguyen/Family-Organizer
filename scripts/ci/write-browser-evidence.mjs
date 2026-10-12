@@ -12,7 +12,8 @@ const read = name => {
 };
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const commitSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-const expected = { commitSha, lockSha256: sha256(fs.readFileSync('package-lock.json')), nodeVersion: process.version };
+const buildHash = file => { try { return sha256(fs.readFileSync(file)); } catch { errors.push(`missing production build ${file}`); return null; } };
+const expected = { commitSha, lockSha256: sha256(fs.readFileSync('package-lock.json')), nodeVersion: process.version, productionBuild: { serverSha256: buildHash('dist/server.cjs'), indexSha256: buildHash('dist/index.html') } };
 const report = read('browser.json');
 const manifest = read('browser-fixture.json');
 const engines = browserProjects.map(name => read(`browser-runtime-${name}.json`));

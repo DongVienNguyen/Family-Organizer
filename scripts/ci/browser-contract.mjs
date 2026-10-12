@@ -39,7 +39,14 @@ export function validateBrowserReports(input) {
     const value = root.match(new RegExp(`\\b${name}="(\\d+)"`))?.[1];
     return value !== undefined && Number(value) === (name === 'tests' ? 15 : 0);
   }) && (junit.match(/<testcase\b/g) || []).length === 15 && !/<(?:failure|error|skipped)\b/.test(junit), 'missing or contradictory JUnit');
+  const junitCases = [];
+  for (const suite of (typeof junit === 'string' ? junit.matchAll(/<testsuite\b([^>]*)>([\s\S]*?)<\/testsuite>/g) : [])) {
+    const engine = suite[1].match(/\bhostname="([^"]+)"/)?.[1];
+    for (const testcase of suite[2].matchAll(/<testcase\b([^>]*)>/g)) junitCases.push(`${engine}/${testcase[1].match(/\bname="([^"]+)"/)?.[1]}`);
+  }
+  require(junitCases.length === 15 && new Set(junitCases).size === 15 && browserProjects.every(engine => browserCases.every(title => junitCases.includes(`${engine}/${title}`))) && !/<!DOCTYPE|<!ENTITY/.test(junit || ''), 'JUnit engine/case identity contradicts JSON');
   require(manifest?.commitSha === expected.commitSha && manifest?.lockSha256 === expected.lockSha256 && manifest?.nodeVersion === expected.nodeVersion && manifest?.platform === 'win32' && manifest?.architecture === 'x64', 'fixture source/runtime/lock mismatch');
+  require(['serverSha256', 'indexSha256'].every(name => /^[a-f0-9]{64}$/.test(manifest?.productionBuild?.[name] || '') && manifest.productionBuild[name] === expected.productionBuild?.[name]), 'missing or mismatched production build identity');
   require(native?.platform === 'win32' && native?.architecture === 'x64' && native?.nodeVersion === expected.nodeVersion && native?.addonVersion === '13.0.3' && /^[a-f0-9]{64}$/.test(native?.binarySha256 || '') && native.binarySha256 === manifest?.addonSha256, 'native addon mismatch');
   require(manifest?.legacyPreserved === true && manifest?.integrity === 'ok' && manifest?.databaseClosed === true && manifest?.fixtureRemoved === true, 'fixture preservation or cleanup failed');
   require(Array.isArray(manifest?.externalAttempts) && manifest.externalAttempts.length === 0, 'provider network attempted');

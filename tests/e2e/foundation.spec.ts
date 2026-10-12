@@ -66,6 +66,20 @@ test(browserCases[0], async ({ page }) => {
   await page.reload();
   await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic admin', exact: true })).toBeVisible();
   expect((await api(page, '/api/finance', token)).status).toBe(200);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('header button').filter({ has: page.locator('svg.lucide-menu') }).click();
+  const menu = page.getByRole('dialog', { name: 'Menu điều hướng', exact: true });
+  await expect(menu).toBeVisible();
+  await menu.getByRole('button', { name: 'Ghi chú', exact: true }).click();
+  await expect(menu).toHaveCount(0);
+  await expect(page.getByText('Synthetic shared note', { exact: true })).toBeVisible();
+  const wasDark = await page.locator('html').evaluate(element => element.classList.contains('dark'));
+  await page.getByTitle(wasDark ? 'Chuyển sang Giao diện Sáng' : 'Chuyển sang Giao diện Tối', { exact: true }).click();
+  await expect.poll(() => page.locator('html').evaluate(element => element.classList.contains('dark'))).toBe(!wasDark);
+  await page.reload();
+  await expect(page.getByText('Synthetic shared note', { exact: true })).toBeVisible();
+  expect(await page.locator('html').evaluate(element => element.classList.contains('dark'))).toBe(!wasDark);
+  await page.setViewportSize({ width: 1440, height: 1000 });
   await logout(page);
   expect((await api(page, '/api/finance', token)).status).toBe(401);
 });
@@ -90,7 +104,9 @@ test(browserCases[2], async ({ page }) => {
   expect(list.status).toBe(200); expect(list.cache).toBe('no-store');
   expect(JSON.parse(list.text).notes.map((note: any) => note.id).sort()).toEqual(['browser-note-child', 'browser-note-shared']);
   const forbidden = await api(page, '/uploads/notes/private.png', childToken);
-  expect(forbidden.status).toBe(403); expect(forbidden.cache).toBe('no-store');
+  // Existing media policy hides resource existence: denied and missing both404.
+  expect(forbidden.status).toBe(404); expect(forbidden.cache).toBe('no-store');
+  expect(forbidden.text).toBe((await api(page, '/uploads/notes/missing.png', childToken)).text);
   const shared = await api(page, '/uploads/notes/shared.png', childToken);
   expect(shared.status).toBe(200); expect(shared.cache).toBe('no-store');
   await notes(page);
@@ -106,7 +122,7 @@ test(browserCases[2], async ({ page }) => {
   const guestToken = await login(page, 'guest');
   const guest = await api(page, '/api/notes', guestToken);
   expect(JSON.parse(guest.text).notes.map((note: any) => note.id)).toEqual(['browser-note-shared']);
-  expect((await api(page, '/uploads/notes/child.png', guestToken)).status).toBe(403);
+  expect((await api(page, '/uploads/notes/child.png', guestToken)).status).toBe(404);
 });
 
 test(browserCases[3], async ({ page }) => {
@@ -147,17 +163,47 @@ test(browserCases[3], async ({ page }) => {
   expect(remaining.deleted).toBe(true); expect(remaining.worker).toBe(true);
 });
 
-test(browserCases[4], async ({ page }) => {
+test(browserCases[4], async ({ page, context }) => {
   await page.goto('/');
   const memberToken = await login(page, 'member');
   await notes(page);
   await expect(page.getByText('Synthetic private note', { exact: true })).toBeVisible();
   expect((await api(page, '/uploads/notes/private.png', memberToken)).status).toBe(200);
-  await logout(page);
-  const childToken = await login(page, 'child');
-  await notes(page);
-  await expect(page.getByText('Synthetic private note', { exact: true })).toHaveCount(0);
-  await expect(page.getByText('Synthetic child note', { exact: true })).toBeVisible();
-  expect((await api(page, '/uploads/notes/private.png', childToken)).status).toBe(403);
-  expect((await api(page, '/api/notes', memberToken)).status).toBe(401);
+  let release!: () => void, held!: () => void, finished!: () => void;
+  const barrier = new Promise<void>(resolve => { release = resolve; });
+  const captured = new Promise<void>(resolve => { held = resolve; });
+  const delivered = new Promise<void>(resolve => { finished = resolve; });
+  let hold = true, routeError: unknown, aborted: string | null = null;
+  await context.route('**/api/notes', async route => {
+    if (!hold || route.request().headers().authorization !== 'Bearer ' + memberToken) return route.continue();
+    hold = false;
+    try {
+      const response = await route.fetch();
+      expect(response.status()).toBe(200);
+      expect(await response.text()).toContain('Synthetic private note');
+      held();
+      await barrier;
+      try { await route.fulfill({ response }); }
+      catch (error) { aborted = route.request().failure()?.errorText || null; if (!aborted) throw error; }
+    } catch (error) { routeError = error; held(); }
+    finally { finished(); }
+  });
+  try {
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await captured;
+    expect(routeError).toBeUndefined();
+    await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic member', exact: true })).toBeVisible();
+    await logout(page);
+    const childToken = await login(page, 'child');
+    await notes(page);
+    release();
+    await delivered;
+    expect(routeError).toBeUndefined();
+    if (aborted) expect(aborted).toMatch(/abort|cancel/i);
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await expect(page.getByText('Synthetic private note', { exact: true })).toHaveCount(0);
+    await expect(page.getByText('Synthetic child note', { exact: true })).toBeVisible();
+    expect((await api(page, '/uploads/notes/private.png', childToken)).status).toBe(404);
+    expect((await api(page, '/api/notes', memberToken)).status).toBe(401);
+  } finally { release(); }
 });
