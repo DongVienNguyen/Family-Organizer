@@ -1,0 +1,37 @@
+{
+  "taskId": "F07-k",
+  "headSha": "52fe32b24a68d55a07e8f341a568eb456386b1a6",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38293844372",
+  "fiveChecks": "quality1799/100 both plus browser/producer/consumer success; independently verified",
+  "serviceGate": "failure at strict final review-results aggregate",
+  "securityOwnershipCipher": [
+    {
+      "name": "mutable-candidate-executable-refused-before-elevated-execution",
+      "actualExitCode": 1,
+      "expectedExitCode": 1
+    },
+    {
+      "name": "stale-authorized-uninstall-refused-under-guard",
+      "actualExitCode": 1,
+      "expectedExitCode": 1
+    },
+    {
+      "name": "journal-snapshot-no-service-writer-after-reinstall",
+      "actualExitCode": 0,
+      "expectedExitCode": 0
+    }
+  ],
+  "sourceCapturePoints": [
+    17,
+    17
+  ],
+  "positiveFlows": "preapproval restore/fresh finance/source/key/claim1; healthy update/idempotence; postapproval snapshot/schema refusal; compatible binary rollback/closed storage all reached",
+  "faultInjection": "script-line breakpoint within declared function did not execute; no marker asserted in initial fixture, ordinary explicit rollback succeeded0 and remained running as expected for a successful operation",
+  "correction": "command breakpoint gated on old-approved control + rollback-binary journal; require constant injection marker and retain exit1/stopped/data/latch assertions",
+  "productionSourceChanges": false,
+  "serviceRemoved": true,
+  "fixtureCleanup": true,
+  "reportSha256": "314adfa59aaa1dc0af496ce31173ece6734861938e4b43e34f02d4d327b9f1d0",
+  "correctedNative": "next exactHEAD required",
+  "releaseVps": false
+}

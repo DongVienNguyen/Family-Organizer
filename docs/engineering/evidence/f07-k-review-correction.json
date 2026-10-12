@@ -1,0 +1,58 @@
+{
+  "taskId": "F07-k",
+  "reviewCount": 1,
+  "critical": 0,
+  "important": 9,
+  "minor": 1,
+  "allGradedBeforeOnePass": true,
+  "secondReview": false,
+  "nativeRedHeadSha": "daa1ab6285741d195d4543f0a5e2fd08dd23b790",
+  "nativeRedRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38291959145",
+  "actualNativeRedResults": [
+    {
+      "name": "mutable-candidate-executable-refused-before-elevated-execution",
+      "actualExitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "name": "stale-authorized-uninstall-refused-under-guard",
+      "actualExitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "name": "journal-snapshot-no-service-writer-after-reinstall",
+      "actualExitCode": 1,
+      "expectedExitCode": 0
+    }
+  ],
+  "nativeCleanup": true,
+  "nativeServiceRemoved": true,
+  "sourceCaptureProbe": "original candidate backup adds null user points where original field absent (undefined); actual mutation and refusal recorded; corrected fixture targets existing17-point canonical grant and coupled claim hash, retains all business-value assertions",
+  "cloudReviewRed": {
+    "snapshot": 3,
+    "openedBinding": 6,
+    "newBoundaryAvailability": 2
+  },
+  "cloudCorrected": {
+    "tests": 1799,
+    "files": 100,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "target": 61,
+    "targetFiles": 4,
+    "lintExit": 0,
+    "buildExit": 0,
+    "vitestSha256": "88998bdde8d5aa45fd580cfbce62e77579193bad41512a9eec9502260eaf0d85"
+  },
+  "nativeCorrected": "not-run-yet; PowerShell/harness behavior must pass new exact-HEAD Windows",
+  "sourceFrozenDuringVerification": true,
+  "lateChanges": "native-only synthetic point probe adjusted to actual17-point ledger after inspecting old report; no source/Cloud test changes",
+  "unrun": [
+    "corrected SCM/NTFS/PowerShell5.1",
+    "Server2019/reboot/powerloss",
+    "offhost independence/RPO/RTO"
+  ],
+  "releaseVps": false
+}

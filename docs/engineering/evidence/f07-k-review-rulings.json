@@ -1,0 +1,77 @@
+{
+  "taskId": "F07-k",
+  "baseSha": "0b3b0aeba83a85126e1d4092c9c19c0223233086",
+  "reviewedHeadSha": "e2e1eaf7160286b1e37bb168583ebcd7a5a06797",
+  "reviewCount": 1,
+  "critical": 0,
+  "important": 9,
+  "minor": {
+    "finding": "ValidateOnly does not parse existing journal/control contents",
+    "ruling": "No independent polish pass; common read-only boundary validator needed for Important5/6 will also run before preview return"
+  },
+  "allFindingsGradedBeforeCorrection": true,
+  "rulings": [
+    {
+      "id": 1,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Release/import-tree protection before elevated execution"
+    },
+    {
+      "id": 2,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Revalidate authoritative ownership/configuration after guard acquisition"
+    },
+    {
+      "id": 3,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Capture source snapshot with authenticated old-release operator before candidate bootstrap"
+    },
+    {
+      "id": 4,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Read persisted snapshot schema version without reset"
+    },
+    {
+      "id": 5,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Binary rollback must validate current control/DB/journal boundary"
+    },
+    {
+      "id": 6,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Next Apply requires coherent previous terminal control/opened boundary"
+    },
+    {
+      "id": 7,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Completed retries require exact opened metadata AND I01 command identity/result"
+    },
+    {
+      "id": 8,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Explicit rollback failure must stop authenticated started service while retaining latch/data"
+    },
+    {
+      "id": 9,
+      "severity": "Important",
+      "ruling": "accepted",
+      "finding": "Reinstall/backup reconfiguration must preserve journal-referenced snapshot ACLs"
+    }
+  ],
+  "secondReview": false,
+  "nativeCorrections": "not-run",
+  "declined": {
+    "actualWindowsCI": "author reads exact reports/logs; pending",
+    "distinctVersionMigration": "copied-current-ZIP fixture alone insufficient; source-operator capture ordering regression required",
+    "Server2019RebootPowerlossOffhostRpoRto": "not-run external/R02, no release/VPS authority",
+    "partialOwnershipInterruption": "explicit stopped/manual recovery remains documented; no automatic crash-resume promise"
+  }
+}

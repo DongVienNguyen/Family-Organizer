@@ -1,0 +1,35 @@
+{
+  "taskId": "F07-k",
+  "headSha": "324fbe1d522ee28920b083614547f519ca7f47ed",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38295645133",
+  "fiveChecks": "independently verified1799/100 both/118sources/15browsers/ZIP",
+  "nativePositive": [
+    {
+      "name": "mutable-candidate-executable-refused-before-elevated-execution",
+      "actualExitCode": 1,
+      "expectedExitCode": 1
+    },
+    {
+      "name": "stale-authorized-uninstall-refused-under-guard",
+      "actualExitCode": 1,
+      "expectedExitCode": 1
+    },
+    {
+      "name": "journal-snapshot-no-service-writer-after-reinstall",
+      "actualExitCode": 0,
+      "expectedExitCode": 0
+    }
+  ],
+  "sourceCapturePoints": [
+    17,
+    17
+  ],
+  "failure": "required marker absent; command breakpoint did not inject fault in nested caller; rollback succeeded0, so no ordinary caught failure was executed",
+  "correction": "authenticate inspector fault hook inside synthetic candidate fixture manifest, enable via synthetic log marker, damage exact operation opened metadata after old approval then require observed marker; never production source/ZIP hook",
+  "productionChanges": false,
+  "serviceRemoved": true,
+  "fixtureCleanup": true,
+  "allAssertionsRetained": true,
+  "nextWindows": "required exact newHEAD; not merged",
+  "releaseVps": false
+}

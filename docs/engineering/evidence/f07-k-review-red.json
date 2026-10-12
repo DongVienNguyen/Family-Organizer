@@ -1,0 +1,38 @@
+{
+  "taskId": "F07-k",
+  "headSha": "a9e19030088a20fe403dcbe558f52e2247edd459",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38289439387",
+  "nativeSecurityReds": [
+    {
+      "name": "mutable-candidate-executable-refused-before-elevated-execution",
+      "actualExitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "name": "journal-snapshot-no-service-writer-after-reinstall",
+      "actualExitCode": 1,
+      "expectedExitCode": 0
+    }
+  ],
+  "sourceCaptureProbe": {
+    "completed": false,
+    "businessDigestAfterPreapprovalRestore": "dd31a3ef3991503771b9f0bbb25229f16fd5fd53c4874f5433353c0b05a3bc47",
+    "businessDigestBefore": "9b0471bc6a912f5cff704ae094d87a778fa9f67e79c4cddd3aad32471b32fe3f",
+    "note": "Candidate-only backup mutation probe plus parsed-object key ordering both affect original hash oracle; scalar points were not recorded in this checkpoint. Preserve entire parsed values in canonical hash and add explicit points before/after, not a claimed numeric result."
+  },
+  "cloudReviewRed": {
+    "snapshotCases": 3,
+    "openedBindingCases": 6,
+    "passedExisting": 9,
+    "exitCode": 1
+  },
+  "newBoundaryFunctionAvailabilityRed": 2,
+  "fixtureCleanup": true,
+  "serviceRemoved": true,
+  "reports": {
+    "service-update-coordinator.json": "b7de729f9b5912b3294c23a926e12ee60fbbb27a6f847cfdd524fd2c72113876",
+    "service-exit.json": "f9ce93436b7a1d98e2b3ab209697e3f49898a895b91d81b9406407e4ac876a57"
+  },
+  "correctedNative": "pending exact newHEAD",
+  "releaseVps": false
+}

@@ -1,0 +1,32 @@
+{
+  "taskId": "F07-k",
+  "baseSha": "0b3b0aeba83a85126e1d4092c9c19c0223233086",
+  "cloud": {
+    "tests": 1788,
+    "files": 100,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "lintExitCode": 0,
+    "buildExitCode": 0,
+    "targeted": 253,
+    "targetFiles": 4,
+    "vitestSha256": "482036a5c73b76de09c54574686d4986a44e0ab46484b6c62e40b162e4bb71be"
+  },
+  "newModuleAvailabilityRed": {
+    "journal": 10,
+    "inspection": 9,
+    "note": "missing-function/module assertions, not19 proven old product defects"
+  },
+  "fixtureCorrection": "4 existing valid manifests lacked4 newly required ops assets; repaired fixture data, preserved every assertion",
+  "native": "not-run; PowerShell-only idempotent retries and counted key-read added after Cloud verification, not executed by Cloud tests",
+  "review": "pending one fresh wholebranch review",
+  "dependencyLockRuntimeChanges": false,
+  "unrun": [
+    "native SCM/NTFS/Desktop5.1 orchestration",
+    "exact new-HEAD Windows",
+    "Server2019/reboot/power loss/offhost RPO/RTO"
+  ],
+  "releaseOrVps": false
+}

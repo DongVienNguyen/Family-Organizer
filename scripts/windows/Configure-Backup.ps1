@@ -26,6 +26,8 @@ function Write-BackupDurable {
 }
 try{
     $operationGuard=Enter-OwnedDataOperation $context
+    Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json)
+    $protectedSnapshots=@(Get-OwnedUpdateSnapshotFiles $context)
     if($Operation -eq 'Enable'){
         $configurationPhase='input';$inputStream=[Console]::OpenStandardInput();$readBuffer=New-Object byte[] 4096
         $deadline=[DateTime]::UtcNow.AddSeconds(20)
@@ -72,6 +74,7 @@ try{
         if(!(Test-Path -LiteralPath $backupRoot)){New-Item -ItemType Directory -Path $backupRoot | Out-Null}
         if(!(Get-Item -LiteralPath $backupRoot).PSIsContainer){throw 'Backup output is not a directory'}
         $configurationPhase='output-acl';Set-OwnedServiceAcl $backupRoot $ServiceId 'M'
+        Protect-OwnedUpdateSnapshots $protectedSnapshots
         $configuration=@{format=1;enabled=$true;backupRoot=$backupRoot;keyFile=$keyFile;includeCredentials=$true;includeSettings=@($request.includeSettings | Sort-Object);includeFiles=@($request.includeFiles | Sort-Object);includeEnv=@($request.includeEnv | Sort-Object)}
     }else{$configuration=@{format=1;enabled=$false}}
     $configurationPhase='config-publish';$text=$configuration | ConvertTo-Json -Depth 4 -Compress

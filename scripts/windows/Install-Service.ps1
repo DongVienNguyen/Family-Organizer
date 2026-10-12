@@ -11,6 +11,7 @@ if (Test-Path -LiteralPath $context.marker) {
     $descriptor=Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-ServiceOwner $context $descriptor
 } elseif ($existing -or ((Test-Path -LiteralPath $context.instance) -and @(Get-ChildItem -LiteralPath $context.instance -Force).Count -gt 0)) { throw 'Refuse unowned existing service/instance; no data overwrite' }
+$hadDescriptor=$null -ne $descriptor
 if ($ValidateOnly -or !$PSCmdlet.ShouldProcess($context.instance,'Install owned Family Organizer service')) { return }
 Assert-ServiceAdministrator
 if($existing -and $existing.Status -ne 'Stopped'){throw 'Stop the owned service before ACL reconfiguration'}
@@ -24,7 +25,13 @@ if (!$descriptor) {
     Invoke-ServiceNative 'write-config' $context.node @((Join-Path $context.release 'ops/write-service-config.mjs'),$context.release,$context.instance,$context.id,[string]$context.port,$context.xml)
     $descriptor=@{format=1;serviceId=$ServiceId;releaseRoot=$context.release;instanceRoot=$context.instance;manifestHash=$context.manifestHash;commitSha=$context.commitSha;port=$Port;xmlSha256=(Get-ServiceHash $context.xml)}
     [IO.File]::WriteAllText($context.marker,($descriptor | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
+    Set-OwnedServiceAcl $context.marker '' 'RX'
 }
+$installGuard=$null
+try{
+$installGuard=Enter-OwnedDataOperation $context
+if($hadDescriptor){Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json);$freshService=Get-Service -Name $ServiceId -ErrorAction SilentlyContinue;if($freshService -and $freshService.Status -ne 'Stopped'){throw 'Stop the owned service before ACL reconfiguration'}}
+$protectedSnapshots=@(Get-OwnedUpdateSnapshotFiles $context)
 # Seal critical files and verify canonical configuration before elevated WinSW use.
 Set-OwnedServiceAcl $context.directory '' 'RX'
 Assert-ServiceOwner $context $descriptor
@@ -36,9 +43,12 @@ foreach ($name in @('data','config','logs')) { Set-OwnedServiceAcl (Join-Path $c
 # Reapply private operator controls after the recursive instance/config ACLs.
 $backupRoot=Join-Path $context.instance 'backups'
 if(Test-Path -LiteralPath $backupRoot){Set-OwnedServiceAcl $backupRoot $ServiceId 'M'}
+Protect-OwnedUpdateSnapshots $protectedSnapshots
 foreach($name in @('recovery-backup.key','recovery-backup.json','update-control.json')){
     $file=Join-Path (Join-Path $context.instance 'config') $name
     if(Test-Path -LiteralPath $file){Set-OwnedServiceAcl $file $ServiceId 'R';Assert-BackupSecretAcl $file $ServiceId}
 }
 Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json)
 @{serviceId=$ServiceId;commitSha=$context.commitSha;frameworkRelease=$context.frameworkRelease;alreadyInstalled=[bool]$existing;nativeExitCodes=$script:ServiceNativeResults.ToArray()} | ConvertTo-Json -Depth 8
+
+}finally{if($installGuard){$installGuard.Dispose()}}

@@ -11,6 +11,10 @@ $context=Get-ServiceContext $ReleaseRoot $instance $ServiceId $descriptor.port $
 Assert-ServiceOwner $context $descriptor
 if ($ValidateOnly -or !$PSCmdlet.ShouldProcess($instance,'Stop and uninstall owned service')) { return }
 Assert-ServiceAdministrator
+$uninstallGuard=$null
+try{
+$uninstallGuard=Enter-OwnedDataOperation $context
+Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json)
 $existing=Get-Service -Name $ServiceId -ErrorAction SilentlyContinue
 if ($existing) {
     if ($existing.Status -ne 'Stopped') {
@@ -23,3 +27,5 @@ if ($existing) {
     if (Get-Service -Name $ServiceId -ErrorAction SilentlyContinue) { throw 'Service still registered after uninstall' }
 }
 @{serviceId=$ServiceId;removed=$true;dataRetained=$true;nativeExitCodes=$script:ServiceNativeResults.ToArray()} | ConvertTo-Json -Depth 8
+
+}finally{if($uninstallGuard){$uninstallGuard.Dispose()}}

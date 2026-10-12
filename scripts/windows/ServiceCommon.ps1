@@ -204,3 +204,28 @@ function Assert-RecoveryCopyAncestors {
         if($parent -eq $current){break};$current=$parent
     }
 }
+
+function Get-OwnedUpdateSnapshotFiles {
+    param($Context)
+    $file=Join-Path $Context.instance 'service/update-journal.json'
+    if(!(Test-Path -LiteralPath $file)){return @()}
+    Assert-ServiceMetadataAcl $file
+    . (Join-Path $Context.release 'ops/UpdateCommon.ps1')
+    $state=Invoke-OwnedUpdateNode $Context 'protected-snapshot-journal' (Join-Path $Context.release 'ops/update-journal.mjs') @($Context.instance,'read') $null
+    $root=Join-Path $Context.instance 'backups'
+    $result=New-Object 'System.Collections.Generic.HashSet[string]'
+    foreach($row in @($state.journal.history)+@($state.journal.current)){
+        if($row.PSObject.Properties['snapshot']){
+            $snapshot=$row.snapshot
+            if([IO.Path]::GetDirectoryName($snapshot.file) -ine $root -or [IO.Path]::GetFileName($snapshot.file) -cnotmatch '^recovery_[a-f0-9-]{36}\.fo-recovery$'){throw 'UPDATE_SNAPSHOT_PATH_INVALID'}
+            Assert-ServiceMetadataAcl $snapshot.file
+            if((Get-ServiceHash $snapshot.file) -cne $snapshot.sha256 -or (Get-Item -LiteralPath $snapshot.file).Length -ne $snapshot.bytes){throw 'UPDATE_SNAPSHOT_CHANGED'}
+            [void]$result.Add($snapshot.file)
+        }
+    }
+    return @($result)
+}
+function Protect-OwnedUpdateSnapshots {
+    param([string[]]$Files)
+    foreach($file in $Files){Set-OwnedServiceAcl $file '' 'RX';Assert-ServiceMetadataAcl $file}
+}
