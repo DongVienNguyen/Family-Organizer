@@ -1,4 +1,4 @@
-import { appConfig, prepareStorage, type AppConfig } from './config.js';
+import { appConfig, prepareStorage, reloadProviderEnvironment, type AppConfig } from './config.js';
 import { createApp } from './app.js';
 import { AppJobs } from './appJobs.js';
 import { drainAppEffects } from './appEffects.js';
@@ -32,6 +32,7 @@ export async function startApplication(config: AppConfig = appConfig) {
     const storage = sqlite;
     const { recoverAppRestore } = await import('./appSnapshot.js');
     recoverAppRestore();
+    reloadProviderEnvironment(); // Recovered .env precedes db -> push/provider module evaluation.
     const db = await import('./db.js');
     const {createAuth}=await import('./auth.js');const {NativeSessionStore}=await import('./authStore.js');
     const auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:db.getSessionSecret});

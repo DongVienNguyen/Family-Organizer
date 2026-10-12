@@ -114,3 +114,17 @@ describe('native storage roots', () => {
     expect(fs.existsSync(path.join(fixture, 'data'))).toBe(false);
   });
 });
+
+describe('provider environment after restore recovery',()=>{
+ it('reloads replaced provider values, clears selected removals, and keeps explicit host overrides',async()=>{
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo recovered provider env '));
+  vi.stubEnv('DATA_DIR',root);vi.stubEnv('CONFIG_DIR',root);vi.stubEnv('GEMINI_API_KEY',undefined);vi.stubEnv('API_KEY',undefined);vi.stubEnv('VAPID_PUBLIC_KEY','synthetic-host-public');vi.stubEnv('VAPID_PRIVATE_KEY',undefined);vi.stubEnv('VAPID_SUBJECT',undefined);vi.resetModules();
+  try{const file=path.join(root,'.env');fs.writeFileSync(file,'GEMINI_API_KEY=synthetic-before\nAPI_KEY=synthetic-remove\nVAPID_PUBLIC_KEY=synthetic-before-public\nVAPID_PRIVATE_KEY=synthetic-before-private\n');const config=await import('./config.js');expect(process.env.GEMINI_API_KEY).toBe('synthetic-before');fs.writeFileSync(file,'GEMINI_API_KEY=synthetic-after\nVAPID_PUBLIC_KEY=synthetic-after-public\nVAPID_PRIVATE_KEY=synthetic-after-private\nVAPID_SUBJECT=mailto:synthetic@example.invalid\n');config.reloadProviderEnvironment();expect(process.env.GEMINI_API_KEY).toBe('synthetic-after');expect(process.env.API_KEY).toBeUndefined();expect(process.env.VAPID_PUBLIC_KEY).toBe('synthetic-host-public');expect(process.env.VAPID_PRIVATE_KEY).toBe('synthetic-after-private');expect(process.env.VAPID_SUBJECT).toBe('mailto:synthetic@example.invalid');}
+  finally{vi.unstubAllEnvs();vi.resetModules();fs.rmSync(root,{recursive:true,force:true});}
+ });
+});
+it('preserves a mixed-case host provider variable using the actual platform environment semantics',async()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo mixed host env '));vi.stubEnv('DATA_DIR',root);vi.stubEnv('CONFIG_DIR',root);vi.stubEnv('gemini_api_key','synthetic-mixed-host');if(process.platform!=='win32')vi.stubEnv('GEMINI_API_KEY',undefined);vi.resetModules();
+ try{const file=path.join(root,'.env');fs.writeFileSync(file,'GEMINI_API_KEY=synthetic-file-before\n');const config=await import('./config.js');fs.writeFileSync(file,'GEMINI_API_KEY=synthetic-file-after\n');config.reloadProviderEnvironment();expect(process.env.GEMINI_API_KEY).toBe(process.platform==='win32'?'synthetic-mixed-host':'synthetic-file-after');expect(process.env.gemini_api_key).toBe('synthetic-mixed-host');}
+ finally{vi.unstubAllEnvs();vi.resetModules();fs.rmSync(root,{recursive:true,force:true});}
+});

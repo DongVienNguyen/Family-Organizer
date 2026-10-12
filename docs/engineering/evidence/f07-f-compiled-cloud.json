@@ -1,0 +1,263 @@
+{
+  "taskId": "F07-f",
+  "kind": "compiled-Cloud-only-development-diagnostic",
+  "platform": "linux",
+  "windowsEvidence": false,
+  "uncommittedWorkingTree": true,
+  "reports": {
+    "functional": {
+      "commitSha": "uncommitted-f07-f-source",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "platform": "linux",
+      "architecture": "x64",
+      "checks": [
+        "legacy-migration-source-preserved",
+        "finance-create-read-update",
+        "task-reward-once",
+        "restart-preserves-finance-reward",
+        "finance-delete",
+        "ordinary-backup-excludes-credentials",
+        "restore-requires-explicit-credential-reentry",
+        "compiled-offline-reentry-preserves-user-ids",
+        "shared-snapshot-restore",
+        "restore-revokes-session",
+        "restore-preserves-reward-no-replay",
+        "snapshot-core-rows-preserved",
+        "offline-providers",
+        "native-handles-closed"
+      ],
+      "networkAttempts": [],
+      "snapshotChecksum": "d56c70c18871fdfeb9c199300c2a201d9c3fe6a37bafdde655c69cec995d47c9"
+    },
+    "recovery": {
+      "commitSha": "uncommitted-f07-f-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-recovery-whole-release-excluded",
+        "compiled-recovery-encrypted-no-key-plaintext",
+        "compiled-recovery-authentication-before-mutation",
+        "compiled-portable-restore-ids-finance-reward-media",
+        "compiled-recovery-no-claim-command-replay",
+        "compiled-recovery-native-handles-closed"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "release-root-refusal",
+          "exitCode": 1
+        },
+        {
+          "phase": "release-bin-refusal",
+          "exitCode": 1
+        },
+        {
+          "phase": "release-ops-refusal",
+          "exitCode": 1
+        },
+        {
+          "phase": "encrypted-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "wrong-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "tampered-ciphertext",
+          "exitCode": 1
+        },
+        {
+          "phase": "portable-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "0d464788f080d97ae1adb4118f543ebc9649c70ffb77ebcce6bdb0eb7e31ff99",
+      "encryptedBytes": 23819
+    },
+    "private-settings": {
+      "commitSha": "uncommitted-f07-f-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-explicit-settings-encrypted-no-plaintext",
+        "compiled-selected-settings-wrong-key-no-mutation",
+        "compiled-authenticated-invalid-snapshot-unwarmed-schema-rows-journal-files-preserved",
+        "compiled-selected-subset-unselected-settings-retained",
+        "compiled-private-settings-business-claims-session-preserved",
+        "compiled-private-settings-offline-source-retained-closed-handles"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "selected-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "wrong-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-manifest",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-checksum",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-primary-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-migrations",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-credentials",
+          "exitCode": 1
+        },
+        {
+          "phase": "selected-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "2ea45892ed82ebe4048e43cebc7b17ee627d2480e04e72c7454b18a7c3f33b76"
+    },
+    "signing-key": {
+      "commitSha": "uncommitted-f07-f-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-explicit-signing-key-encrypted-no-plaintext",
+        "compiled-signing-key-wrong-key-missing-selection-no-mutation",
+        "compiled-unselected-signing-key-retained",
+        "compiled-selected-signing-key-business-claims-sessions-preserved",
+        "compiled-selected-signing-key-removal-provider-env-retained",
+        "compiled-signing-key-offline-source-retained-closed-handles"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "signing-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-wrong-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "signing-raw-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-missing-group",
+          "exitCode": 1
+        },
+        {
+          "phase": "signing-omitted",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-selected",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-absent-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-absent-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "36dd3559902a907b6e2d7791dac3f8afce0aad97bd20f78f73a3b84a5cdd636f"
+    },
+    "provider-env": {
+      "commitSha": "uncommitted-f07-f-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-explicit-provider-env-encrypted-no-plaintext",
+        "compiled-provider-env-wrong-key-missing-selection-no-mutation",
+        "compiled-unselected-provider-env-bytes-retained",
+        "compiled-provider-env-subset-vapid-pair-host-text-preserved",
+        "compiled-provider-env-business-claims-sessions-source-preserved",
+        "compiled-selected-provider-env-removal-unselected-values-retained",
+        "compiled-provider-env-offline-closed-handles"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "env-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "env-target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "env-wrong-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "env-raw-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "env-missing-group",
+          "exitCode": 1
+        },
+        {
+          "phase": "env-omitted",
+          "exitCode": 0
+        },
+        {
+          "phase": "env-gemini-selected",
+          "exitCode": 0
+        },
+        {
+          "phase": "env-vapid-selected",
+          "exitCode": 0
+        },
+        {
+          "phase": "env-absent-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "env-absent-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "46a7a2d132393eff96adc994052d957a03c2b9bc85dbc92c18e4c27f9a20c030"
+    }
+  },
+  "reportHashes": {
+    "functional": "22fe2876f2d9a5fd91c28b3ec83f3a5d5e4219e1dfee1ae3ce4a8e4f31dd207f",
+    "recovery": "299deffe3a357412645132674355f2441bae3c8cd307e7ef06efc76125b5a6cf",
+    "private-settings": "fe91fa77a5253c012c301f9b1f8f6b1e83c9b3a9602ca317c9e3fff1080ab1ee",
+    "signing-key": "eb98a4a2e2094300cf6b7c09b11480300b565566f3e22c3ed3862d7548624444",
+    "provider-env": "7f59ae130ad4653e11a8389a4cd47309bdc99a2962fbd99a882335ce69bf8543"
+  }
+}
