@@ -25,5 +25,9 @@ async function main() {
   runtime.server.on('error', error => { console.error('HTTP server failed', error); void stop(true); });
   process.on('uncaughtException', error => { console.error('Fatal runtime error', error); void stop(true); });
   process.on('unhandledRejection', error => { console.error('Fatal background error', error); void stop(true); });
+  return runtime;
 }
-main().catch(error => { console.error('Startup failed', error); process.exitCode = 1; });
+// Local automation receives the same owning runtime used by the CLI, never a
+// second server/connection. Startup and normal service handling stay explicit.
+export const application = main();
+application.catch(error => { console.error('Startup failed', error); process.exitCode = 1; });

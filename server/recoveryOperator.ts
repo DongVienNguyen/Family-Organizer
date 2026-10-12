@@ -40,6 +40,13 @@ function readEncrypted(file:string){
 }
 /** Offline local operator; the owned Windows wrapper confirms Stopped/closed handles. */
 export async function runRecoveryOperator(value:unknown,restore:boolean){
+ return runRecovery(value,restore,true);
+}
+/** Internal runtime port borrows its live SQLite owner; it never closes that owner. */
+export async function runOnlineRecoveryBackup(value:unknown,assertReady:()=>void){
+ return runRecovery(value,false,false,assertReady);
+}
+async function runRecovery(value:unknown,restore:boolean,ownsStorage:boolean,assertReady?:()=>void){
  const selected=input(value);let plaintext:Buffer|undefined;
  try{
   // Authenticate before configuration/storage imports; wrong keys never open the target DB.
@@ -73,6 +80,7 @@ export async function runRecoveryOperator(value:unknown,restore:boolean){
    }
    const {withAppWriteTransaction,markSnapshotReadResult}=await import('./appStore.js');
    const {readSettings,readSigningKeyFile,readEnvFile}=await import('./snapshotFiles.js');
+   assertReady?.();
    const collected=withAppWriteTransaction({actorId:'operator:recovery',command:'operator:recovery:read',requestId:randomUUID(),payloadHash:'encrypted-recovery-v1'},tx=>{
     const snapshot=engine.collectAppSnapshot(tx);
     if(selected.envGroups.length){const bytes=selected.fileGroups.length?readSigningKeyFile():undefined;try{return markSnapshotReadResult({format:'family-organizer-private-env-v1',snapshot,privateSettings:captureRecoverySettings(selected.settingGroups.length?readSettings():{},selected.settingGroups),privateFiles:captureRecoveryFiles({sessionSigningKey:bytes},selected.fileGroups),privateEnv:captureRecoveryEnv(readEnvFile()??'',selected.envGroups)});}finally{bytes?.fill(0);}}
@@ -84,7 +92,7 @@ export async function runRecoveryOperator(value:unknown,restore:boolean){
    checkPath(selected.file,appConfig,false);let created=false;
    try{const fd=fs.openSync(selected.file,'wx',0o600);created=true;try{fs.writeFileSync(fd,bytes);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}}catch(error){if(created)fs.unlinkSync(selected.file);throw error;}
    return {encrypted:true,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),...(selected.settingGroups.length?{includedSettings:selected.settingGroups}:{}),...(selected.fileGroups.length?{includedFiles:selected.fileGroups}:{}),...(selected.envGroups.length?{includedEnv:selected.envGroups}:{})};
-  }finally{sqlite.sqliteClose();}
+  }finally{if(ownsStorage)sqlite.sqliteClose();}
  }catch(error){if(error instanceof RecoverySettingsError||error instanceof RecoveryFilesError||error instanceof RecoveryEnvError)refuse(error.message);if(error instanceof RecoveryEnvelopeError||error instanceof RecoveryOperatorError)throw error;refuse('RECOVERY_OPERATION_FAILED');}
  finally{selected.key.fill(0);plaintext?.fill(0);}
 }

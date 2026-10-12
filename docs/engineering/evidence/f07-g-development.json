@@ -1,0 +1,97 @@
+{
+  "taskId": "F07-g",
+  "featureRedTests": 6,
+  "featureRedCause": "runtime.backupRecovery absent; all six child behavioral assertions failed, not a module resolution failure",
+  "requiredSuiteOmissionRed": 1,
+  "postSourceHarnessFailure": {
+    "failed": 5,
+    "cause": "Synthetic fetch blocks even loopback; HTTP loopback changed to node:http while external blocking remained enabled",
+    "notProductFailure": true
+  },
+  "additionalPassingCases": [
+    "synthetic partial ENOSPC publication cleanup",
+    "concurrent exclusive output",
+    "post-shutdown refusal"
+  ],
+  "targetGreen": {
+    "tests": 139,
+    "files": 2,
+    "exitCode": 0
+  },
+  "fullCloud": {
+    "tests": 1606,
+    "files": 91,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "nativeExitCodes": {
+      "full": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reports": {
+      "f07-g-online-red.log": "bd4152fecba695b91cc07ae100e33eb42f9117da86f8f9ee89f4781d8684d43e",
+      "f07-g-online-first-green.log": "25c4a3f90dae39c87841a8dccc869ee41d879449626379e1aaefb300b01959b2",
+      "f07-g-target-green.log": "cf7054b175247ab49731124ce9c9619f354680534179107f85e274ac63469830",
+      "f07-g-cloud-vitest.json": "131c44e8144fbfc499e59d06fd6e2396a9bc534b994e130cdc19cd6da4c8c2f0",
+      "f07-g-cloud-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-g-cloud-build.log": "fd7d856446b3e4e162c80cfb1d7f3f1677f0d62d5877b6e1bdc6861933a0ee46"
+    }
+  },
+  "compiledDiagnostic": {
+    "platform": "linux",
+    "windowsEvidence": false,
+    "workingTree": true,
+    "functionalChecks": 14,
+    "online": {
+      "commitSha": "uncommitted-f07-g-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-online-live-wal-selected-secrets-encrypted",
+        "compiled-online-failed-capture-keeps-runtime-and-prior-output",
+        "compiled-online-native-denied-output-keeps-runtime",
+        "compiled-online-concurrent-exclusive-publication",
+        "compiled-online-later-http-write-owner-retained",
+        "compiled-online-shutdown-fence-drained",
+        "compiled-online-shared-offline-restore-point-in-time-claims-config-sessions",
+        "compiled-online-offline-network-closed-handles"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "online-live-capture",
+          "exitCode": 0
+        },
+        {
+          "phase": "online-target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "online-offline-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "8fae2aa406d708accfb5d06e2d2d92c002b7e5ef532a681ca3fe96790edf837f"
+    },
+    "nativeFilesystemRefusal": "POSIX denied directory, not Windows DACL",
+    "firstFixtureFailure": {
+      "completed": false,
+      "actualPassedOnlineChecks": 6,
+      "cause": "standalone old functional fixture lacks claim metadata; canonical 17-point entry is retained and used to seed synthetic claim in CLOSED copied source",
+      "notBehaviorRed": true,
+      "logSha256": "c1aa027f53bf53fb02f61ee2c0f92e9a34a2208460aac65b1a96d52ebce0cbc7"
+    },
+    "correctedReportSha256": "d1de7ce4a8484be7d20c31f4ee130ce7993ea423c9ac0e3dd48b8b29dcdfcd31"
+  },
+  "remaining": [
+    "One fresh review and exact-HEAD Windows quality/browser/ZIP/owned-service CI",
+    "Backup scheduler/age/retention/offhost/update/rollback",
+    "F08/F09/F05 Administration403",
+    "Server2019/reboot/RPO/RTO unrun",
+    "No release/tag/VPS authorization"
+  ]
+}
