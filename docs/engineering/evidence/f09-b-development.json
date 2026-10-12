@@ -66,7 +66,7 @@
     "failure": "native-gc child15s timeout even one worker; no timeout/assert/workload change",
     "report": "outside f09-b-rebased-vitest.json"
   },
-  "fullNewBaseAcceptance": "Cloud1942/105 source frozen/lintbuild0; PR38 exactnative/mainmerge stillpending, thenmainrebase/newexactWindows mandatory",
+  "fullNewBaseAcceptance": "Cloud1942/105/lintbuild0 source unchanged after exactmain rebase; finalPR Windows required",
   "historicalSourceFull": {
     "baseSha": "de66d95c447a2b773e376bb55553f1cb6821d908",
     "fullGreen": 1872,
@@ -76,5 +76,8 @@
   "provisionalBaselineSha": "e79fdd835ba08a4e59a88fb55b8e398db33b5747",
   "fullReportSha256": "6149d8b59859d5a98935709dd2bb6cb663ffcc070972a59ac0d49aedaf19242f",
   "sourceParity": "server/db.ts, finance/shopping HTTP suites and both critical-gate source files identical to reviewed/corrected7930c74 after rebase",
-  "baselineGcChange": "F07-l parent adds controlled old64/semi8 measuredheap<=128MiB/noexplicitGC;300000 SQL workload and15s budget preserved, no F09-specific change"
+  "baselineGcChange": "F07-l parent adds controlled old64/semi8 measuredheap<=128MiB/noexplicitGC;300000 SQL workload and15s budget preserved, no F09-specific change",
+  "mergedBaselineSha": "4e62d737b1e7e09f8c6fde2799e23214f56c1a82",
+  "rebasedReviewedSourceSha": "46d197320735b8af02a1df0e9a336c4ac5d5d2a6",
+  "mainRebaseSourceParity": "App/source/tests/scripts/workflows/package/lock byteidentical to fullyverified334f749; onlycommitlineage rebased onto exact e79-equivalent mergedmain tree"
 }
