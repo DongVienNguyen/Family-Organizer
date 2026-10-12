@@ -1,6 +1,6 @@
 import {expect,it} from 'vitest';
 import {randomBytes} from 'node:crypto';
-import {encryptRecovery,decryptRecovery,recoveryEnvelopeLimit,RecoveryEnvelopeError} from './recoveryEnvelope.js';
+import {encryptRecovery,decryptRecovery,authenticateRecovery,recoveryEnvelopeLimit,RecoveryEnvelopeError} from './recoveryEnvelope.js';
 const key=randomBytes(32),plain=Buffer.from('Synthetic recovery passwordHash and private business data');
 it('round-trips opaque bytes across independent keys/roots without exposing plaintext',()=>{
  const envelope=encryptRecovery(plain,key);expect(envelope.includes(plain)).toBe(false);expect(envelope.includes(key)).toBe(false);expect(decryptRecovery(envelope,Buffer.from(key))).toEqual(plain);
@@ -25,3 +25,6 @@ it('rejects empty, forged oversized and non-buffer inputs before decryption/allo
  expect(()=>decryptRecovery(forged,key)).toThrow('RECOVERY_ENVELOPE_INVALID');
  expect(()=>encryptRecovery('text' as any,key)).toThrow('RECOVERY_ENVELOPE_INVALID');expect(()=>decryptRecovery({} as any,key)).toThrow('RECOVERY_ENVELOPE_INVALID');
 });
+
+it('authenticates opaque ciphertext without returning or changing plaintext/cipher/key buffers',()=>{const before=Buffer.from(key),bytes=encryptRecovery(Buffer.alloc(200000,17),key),cipher=Buffer.from(bytes);expect(authenticateRecovery(bytes,key)).toBeUndefined();expect(bytes).toEqual(cipher);expect(key).toEqual(before);});
+it.each(['key','magic','length','nonce','ciphertext','tag','truncated','trailing'])('authentication-only refuses %s tampering',kind=>{let bytes=encryptRecovery(plain,key),secret=key;if(kind==='key')secret=randomBytes(32);else if(kind==='truncated')bytes=bytes.subarray(0,bytes.length-1);else if(kind==='trailing')bytes=Buffer.concat([bytes,Buffer.from([0])]);else bytes[kind==='magic'?0:kind==='length'?16:kind==='nonce'?20:kind==='ciphertext'?32:bytes.length-1]^=1;expect(()=>authenticateRecovery(bytes,secret)).toThrow('RECOVERY_ENVELOPE_INVALID');});

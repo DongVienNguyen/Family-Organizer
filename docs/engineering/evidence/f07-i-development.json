@@ -1,0 +1,37 @@
+{
+  "baseSha": "236038203f5be617a57963ac85ccec6c78603ee6",
+  "taskId": "F07-i manual encrypted maintenance primitives",
+  "scope": "Owned offline Copy/Prune; automatic policy/catalog and actual off-host/RPO/RTO remain subsequent work",
+  "actualRedAssertions": {
+    "coreAndAuthentication": 45,
+    "offlineCli": 5,
+    "missingRequiredSuite": 2
+  },
+  "preImplementationPassingNegatives": "Initial9 generic rejection cases passed the throw-only scaffold; tightened to precise error codes before production implementation, then actual45 REDs. Not falsely counted as initial REDs.",
+  "diagnostic": {
+    "os": "Linux Cloud",
+    "tests": 1718,
+    "files": 96,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "lintExit": 0,
+    "buildExit": 0,
+    "targeted": 201
+  },
+  "nativeWindows": "source harness only; exact HEAD CI pending",
+  "noDependenciesOrLockRuntimeChanges": true,
+  "secretBuffers": "authentication chunks/decryption pending/config-key and PowerShell owned byte buffers cleared; no plaintext copy/stage",
+  "logs": {
+    "f07-i-core-red.log": "864f5f18f51f556045aae03e2638294249dd9fae2e64568ddc582b063e1f2d0a",
+    "f07-i-auth-core-red.log": "bb83275d43d5c5683c70b0f688f11ef95539f000288d61854c5419fe1571a9f3",
+    "f07-i-cli-red.log": "9a3f994fd5f954b7cc3bb63dd2c6fdb37b95c19bd60bfaa86ed40efa1fd6c836",
+    "f07-i-suite-red.log": "23977fbec263f747c79b42725444cbe15accfc61786147eb8c594b4dcdd76d2c",
+    "f07-i-target-green.log": "35b8976412cd905e2fa2b125ab08149756e6d5acf2ee8332ecc55302f053b921",
+    "f07-i-full.log": "59f6524c8d5cf3dcaf822c81b4e6c8ae23e2805d6039f70e39d2cbc4242decf0",
+    "f07-i-vitest.json": "c617cc3cb3b4c26e3883737c6ae7a858184e5ef99876c747215a7095dd32b6b2",
+    "f07-i-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f07-i-build.log": "5e0ff18a286965a3c50116158798065c88a184f592193b5a010d4b85d4a369a6"
+  }
+}

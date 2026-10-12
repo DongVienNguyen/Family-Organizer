@@ -12,12 +12,22 @@ export function encryptRecovery(bytes:Buffer,key:Buffer):Buffer{
  const cipher=createCipheriv('aes-256-gcm',key,header.subarray(20),{authTagLength:16});cipher.setAAD(header);
  return Buffer.concat([header,cipher.update(bytes),cipher.final(),cipher.getAuthTag()]);
 }
-export function decryptRecovery(bytes:Buffer,key:Buffer):Buffer{
+function checkedDecipher(bytes:Buffer,key:Buffer){
  validKey(key);if(!Buffer.isBuffer(bytes)||bytes.length<=recoveryEnvelopeOverhead||bytes.length>recoveryEnvelopeLimit+recoveryEnvelopeOverhead||!bytes.subarray(0,16).equals(magic))refuse();
  const size=bytes.readUInt32BE(16);if(!size||size>recoveryEnvelopeLimit||bytes.length!==size+recoveryEnvelopeOverhead)refuse();
+ const decipher=createDecipheriv('aes-256-gcm',key,bytes.subarray(20,32),{authTagLength:16});decipher.setAAD(bytes.subarray(0,32));decipher.setAuthTag(bytes.subarray(bytes.length-16));return decipher;
+}
+export function decryptRecovery(bytes:Buffer,key:Buffer):Buffer{
  try{
-  const decipher=createDecipheriv('aes-256-gcm',key,bytes.subarray(20,32),{authTagLength:16});decipher.setAAD(bytes.subarray(0,32));decipher.setAuthTag(bytes.subarray(bytes.length-16));
-  const pending=decipher.update(bytes.subarray(32,bytes.length-16));
-  try{return Buffer.concat([pending,decipher.final()]);}catch{pending.fill(0);refuse();}
+  const decipher=checkedDecipher(bytes,key),pending=decipher.update(bytes.subarray(32,bytes.length-16));
+  try{return Buffer.concat([pending,decipher.final()]);}finally{pending.fill(0);}
+ }catch{refuse();}
+}
+/** Authentication-only transport inspection: never return decrypted values. */
+export function authenticateRecovery(bytes:Buffer,key:Buffer):void{
+ try{
+  const decipher=checkedDecipher(bytes,key);
+  for(let offset=32;offset<bytes.length-16;offset+=65536){const plain=decipher.update(bytes.subarray(offset,Math.min(bytes.length-16,offset+65536)));plain.fill(0);}
+  const final=decipher.final();final.fill(0);
  }catch{refuse();}
 }
