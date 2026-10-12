@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest';
-import { validateArchiveEntries, validateManifest } from '../scripts/windows/package-contract.mjs';
+import { validateArchiveEntries, validateManifest, retainsSnapshotRows } from '../scripts/windows/package-contract.mjs';
 const sha='a'.repeat(40),hash='b'.repeat(64);
 const nodeArchive='158f7685b44de51f6c0df1d153526cbcd3e1bc739a8dfc607721cef75de9e541';
-const paths=['bin/node.exe','app/dist/server.cjs','app/dist/operator.cjs','app/dist/index.html','app/package.json','app/package-lock.json','app/node_modules/better-sqlite3/prebuilds/win32-x64.node','ops/Start-App.ps1','licenses/node-LICENSE.txt','app/node_modules/better-sqlite3/LICENSE','app/node_modules/better-sqlite3/package.json'];
+const paths=['bin/node.exe','app/dist/server.cjs','app/dist/operator.cjs','app/dist/index.html','app/package.json','app/package-lock.json','app/node_modules/better-sqlite3/prebuilds/win32-x64.node','ops/Start-App.ps1','ops/Reset-Credentials.ps1','licenses/node-LICENSE.txt','app/node_modules/better-sqlite3/LICENSE','app/node_modules/better-sqlite3/package.json'];
 function fixture():any{return {format:1,commitSha:sha,appVersion:'1.1.0',platform:'win32',architecture:'x64',runtime:{version:'v24.21.0',abi:'137',napi:'10',archiveSha256:nodeArchive,nodeExeSha256:hash},native:{version:'13.0.3',path:paths[6],sha256:hash},schema:{legacy:{min:1,max:1},jobs:{min:1,max:1},snapshot:{min:1,max:1},domains:{}},files:paths.map(path=>({path,size:1,sha256:hash})),dependencies:[{name:'better-sqlite3',version:'13.0.3',license:'MIT',path:'app/node_modules/better-sqlite3',licenseFiles:['app/node_modules/better-sqlite3/LICENSE']}],server2019Acceptance:'not-run'};}
 it('accepts a known Windows manifest and safe Unicode/space archive paths',()=>{expect(validateManifest(fixture(),{commitSha:sha,appVersion:'1.1.0'})).toEqual([]);expect(validateArchiveEntries([{path:'app/dữ liệu with spaces.txt',size:1,compressedSize:1,attributes:0}])).toEqual([]);});
 it.each(['../outside','/outside','C:/outside','app\\outside','app/file:stream','app/CON.txt','app/NUL','app/file.','app/file ','app//file','app/./file','app/../file','app/COM1.log','app/LPT9.log','app/COM¹.log','app/COM²','app/COM³','app/LPT¹','app/LPT².log','app/LPT³'])('rejects unsafe Windows ZIP path %s',path=>{expect(validateArchiveEntries([{path,size:1,compressedSize:1,attributes:0}]).length).toBeGreaterThan(0);});
@@ -34,3 +34,16 @@ it.each(['modified file','missing file','extra file','dependency name','dependen
 
 it('allows static license metadata for a build input named @playwright/test',()=>{const f=fixture();for(const name of ['package.json','LICENSE'])f.files.push({path:'licenses/build-inputs/@playwright/test/'+name,size:1,sha256:hash});expect(validateManifest(f,{commitSha:sha,appVersion:'1.1.0'})).toEqual([]);});
 it.each(['synthetic.test.ts','.env'])('rejects license-directory camouflage of %s',name=>{const f=fixture();f.files.push({path:'licenses/build-inputs/example/tests/'+name,size:1,sha256:hash});expect(validateManifest(f,{commitSha:sha,appVersion:'1.1.0'}).length).toBeGreaterThan(0);});
+
+it('rejects a package missing its offline credential reentry script',()=>{const f=fixture();f.files=f.files.filter((file:any)=>file.path!=='ops/Reset-Credentials.ps1');expect(validateManifest(f,{commitSha:sha,appVersion:'1.1.0'})).toContain('missing package asset: ops/Reset-Credentials.ps1');});
+
+it('retains exact snapshot columns/values despite JSON canonical key ordering',()=>{
+ const actual=[{command:'legacy:saveTransaction',request_id:'synthetic-id',actor_id:'synthetic',payload_hash:'synthetic-digest',result:'{"value":{"id":"synthetic-finance","amount":321}}',committed_at:'synthetic-time'}];
+ const canonical=actual.map(row=>Object.fromEntries(Object.entries(row).sort(([a],[b])=>a.localeCompare(b))));
+ expect(JSON.stringify(actual)).not.toBe(JSON.stringify(canonical));expect(retainsSnapshotRows(actual,canonical)).toBe(true);
+});
+it.each(['result','payload_hash','request_id','actor_id','committed_at','command'])('rejects loss/change of snapshot %s despite other matching columns',field=>{
+ const saved={command:'synthetic',request_id:'synthetic-id',actor_id:'synthetic',payload_hash:'synthetic-digest',result:'{"value":321}',committed_at:'synthetic-time'};
+ expect(retainsSnapshotRows([{...saved,[field]:'changed'}],[saved])).toBe(false);
+ const missing={...saved} as any;delete missing[field];expect(retainsSnapshotRows([missing],[saved])).toBe(false);
+});

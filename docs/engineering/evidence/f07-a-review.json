@@ -53,5 +53,7 @@
   "correctionPassesAllowed": 1,
   "rereview": "none",
   "nativeSecurityEvidence": "six genuine Windows RED assertions before guard corrections, two passing controls; see failure-history",
-  "correctionPass": "in progress; one pass/no rereview"
+  "correctionPass": "completed; final exact-HEAD all seven Windows checks verified/no rereview",
+  "finalTestedHeadSha": "fac6dbd6cab26450f07d0e22718f24781e6045a1",
+  "finalRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38208688551"
 }

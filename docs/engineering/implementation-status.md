@@ -761,3 +761,141 @@ DACLs with owned metadata and non-following tree preflight. It also verifies
 restart graceful completion/PID/data and preserves logs/early failure reports.
 Cloud full1386/84 + lint/build0 after corrections; corrected exactWindows still
 pending. No tests/assertions skipped or weakened; no dependency/lockfile change.
+
+F07-a completed reviewed service slice: PR https://github.com/DongVienNguyen/Family-Organizer/pull/24
+merged2026-10-12T05:50:03Z, sourcefac6dbd6cab26450f07d0e22718f24781e6045a1,
+main66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f. Exact Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38208688551:
+all7 jobsGREEN/app15368; Node22/24 each1386/84,8native0/audit0/coverage0;
+15first-attemptbrowser cases; producer/ZIPconsumer all26malicious+Unicode,
+23compiled/sevenincompatible and11functional checks/236reviewednotices.
+Actual8security+9service checks/19positive native0/threegracefulcompletions:
+restart newworker/finance andcrashrecovery persisted, exclusiveDBopening/native
+integrity passed, idempotentinstall/uninstall retaineddata, serviceRemovedtrue
+andfixtureCleanuptrue. UTF8marker andearlyPS5.1typedrefusal independentlyread.
+ZIP9b4580315145af52146cd29988df8cf0049adc9021c6536782860e4c31b739b5;
+immutable proof https://github.com/DongVienNguyen/Family-Organizer/pull/24#issuecomment-6118537588;
+fullsummary/hashes inevidence/f07-a-final.json. Earlier actual failures (including
+failedcleanup) retained; no assertions/skips/threshold relaxation. Onefreshreview,
+8Important+1Minor accepted/onepass/no rereview. AllPR1–24 attachments confirmed.
+
+Next F07-b: ordinary backup/export credential redaction and explicit offline
+credential reentry, preserving canonical users/tasks/finance/points/media,
+command IDs/results/dedupe and reward claims. Remaining F07 portable encrypted
+recovery/onebackup owner/age/diskfull/retention/offhost/Caddy/TLS/update/rollback,
+F08 preparation/F09 mapping/performance. F05 main enforcement403 still blocks
+foundation acceptance and feature work. Server2019/reboot/RPO/RTO are R02 unrun;
+no release/tag/VPS action. Work continues from cleanmain66b2caa.
+
+### F07-b — Ordinary backup credentials and explicit offline reentry (in progress)
+
+Base main SHA: `66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f` (reviewed F07-a PR24).
+Branch: `codex/f07-backup-credentials`. PR URL, source HEAD and exact Windows CI URL
+will be recorded after commit/run; no Windows pass is claimed for this working tree.
+
+JSON/ZIP exports and historical ordinary imports project the shared I01 snapshot:
+credential exclusion, preserved canonical IDs/claims/non-credential command cache,
+removed push capabilities, explicit missing-password reentry on existing users.
+The compiled operator and owned stopped-service PowerShell wrapper take bounded
+UTF8 stdin, with atomic validation and safe output. See
+[ordinary-backup-credentials.md](ordinary-backup-credentials.md).
+No dependency/runtime changes; existing lockfile is retained for `npm ci`.
+
+Actual Cloud RED evidence:3 ordinary-export assertions,2 historical-restore
+assertions,1 missing CLI mode,1 push-capability/verifier assertion,1 missing required
+privacy suite and1 missing operator package asset. A malformed SQL fixture initially
+failed before the capability assertion; this harness error is not counted as RED.
+Cloud targeted51 tests/4 files and typecheck passed before the full regression run.
+Full Cloud regression1411 tests/85 files passed, including deleted/unsupported-role
+refusal; final lint and build exited0. Fresh whole-branch review and Windows
+quality/browser/ZIP/service checks are pending; reports and logs are retained outside the tracked repository.
+
+F05 enforcement retry at2026-10-12T06:28:37Z still returnedHTTP403 for ruleset and
+branch protection despite the user's Administration:write authorization. Readback:
+`main` unprotected, no rulesets. Updated evidence is in
+`docs/engineering/evidence/f05-enforcement-blocked.json`; this requirement stays
+blocked. Independent F07/F08/F09 source can proceed; foundation acceptance and new
+feature tasks remain dependent on the enforcement requirement. Encrypted recovery,
+scheduler/off-host/retention and update/rollback are next focused F07 tasks. No
+release/tag, VPS access, Server2019/reboot or RPO/RTO acceptance has occurred.
+
+F07-b first source HEAD: `39545fd2a1798fa5fd06ef1e55a60fbeb814ac7d`.
+PR: https://github.com/DongVienNguyen/Family-Organizer/pull/25 (attached).
+CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38213941757.
+Consumer validation/compiled production passed; functional probe exited1 at cache
+row preservation and cleanup succeeded. Service did not run. Canonical key ordering
+caused the old string comparison to report a lost row; new tests reproduce that
+failure and retain exact checks on every column/value. This SHA is not accepted.
+
+One fresh whole-branch review found one Important issue: actual cached `jobs:claim`
+lease payloads retained push endpoints. All findings were graded ACCEPT before one
+correction pass. Real enqueue/claim regressions failed for ZIP and JSON, then passed
+with contextual cached-lease redaction. Command IDs/results, notification IDs and
+noncredential business fields remain. Review/source fixes and targeted94 tests/2
+files passed; full corrected Cloud and exact Windows rerun pending. No rereview,
+assertion removal, skipped critical suite or continue-on-error was used.
+
+Independent inspection of run38213941757 confirms both Node22/24 each1411/85,
+all8 native/check exits0, zero advisory findings and unchanged coverage floors across
+106 source files. All15 browser cases passed on first attempt across Chromium,
+Firefox and WebKit, with zero skips/retries/flakiness. Producer passed; consumer
+failed, service was skipped, ci-gate failed. The complete failure record/report hashes
+are in `docs/engineering/evidence/f07-b-initial-failure.json`.
+
+ONE correction pass completed:2 real cached-claim REDs and1 canonical row comparison
+RED now pass, with6 changed/missing-column regressions retained. Corrected full Cloud
+1420 tests/85 files, lint and build passed. Corrected exact-HEAD Windows run is the
+next gate; the first SHA must not be merged. No new dependency or lockfile changes.
+
+Corrected HEAD `3a93a4588a6090b5ff932fcad5cf93a915d94aaa`, Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38214818352:
+both runtimes1420/85 with all8 exits0/audit0/106-source coverage floors;15 first-attempt
+browser cases and independent ZIP consumer14 functional checks/23 compiled checks,
+all236 original notice pins and26 archive refusals passed. Service failed before the
+new active-service guard because Node-spawned PowerShell5 inherited PowerShell7's
+module path and could not load Get-Acl. This is a harness environment failure,
+not successful active-service rejection. Native install/start/finance and cleanup
+passed; later credential/stopped/restart/recovery tests did not run. Fixture cleanup
+and service removal are true. Full logs/reports are retained and summarized in
+`evidence/f07-b-service-harness-failure.json`.
+
+Same one-pass CI correction: constrain the probe's child PSModulePath to the Windows
+Desktop system module root and assert actual PowerShell5/Desktop/Get-Acl module
+provenance. Application/runtime source unchanged. Exact Windows rerun remains
+required; no repeated Cloud suite is needed for this Windows-only probe change.
+
+HEAD `8f0d31b1702a5a27d5accd7bcecd583610bc726c`, run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38215634042:
+Desktop5/Get-Acl system module proof and active-service refusal passed; graceful
+stop, native handles closed and integrity passed. Probe then failed before validating
+`ValidateOnly`/`WhatIf`: its label was recorded but the actual child flag was omitted,
+so empty stdin reached the real operator and was rejected with native exit1. This is
+another harness invocation failure, not proof of either no-mutation mode. Cleanup
+and service removal succeeded. Later batch/reentry/restart tests remain unrun.
+
+Same one-pass fix forwards each flag to the child, preserving all no-input/no-mutation
+assertions, and writes partial credential evidence in finally with a typed completion
+flag. No application change or repeated Cloud suite; exact Windows rerun required.
+The flag failure's actual host/active-refusal evidence and independent five green
+job reports are retained in `evidence/f07-b-validation-flag-failure.json`. The wrapper
+now forwards only whitelisted constant operator error codes; raw stdout/stderr and
+confidential input remain suppressed on failure. The invalid-batch Windows probe
+requires `CREDENTIAL_REENTRY_INVALID`, so parser/startup failure cannot masquerade
+as successful atomic batch rejection. Native exit1 is still checked explicitly.
+
+HEAD `b4a12992fe4e8ca34a61dffda96868248612b411`, Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38216455596:
+five independent jobs again passed. Actual Desktop module/active refusal and
+ValidateOnly/WhatIf passed without input or row changes. The strengthened negative
+batch test caught `INITIALIZATION_INPUT_INVALID` rather than
+`CREDENTIAL_REENTRY_INVALID`: the operator failed parsing before user validation.
+No atomic-batch or valid reentry pass was claimed. Cleanup/service removal succeeded.
+Raw logs and typed partial evidence are in `evidence/f07-b-utf8-failure.json`.
+
+Three genuine Cloud REDs reproduce UTF8-preamble rejection in both initialization
+and reentry plus silent malformed-byte replacement. One-pass fix uses fatal UTF8
+TextDecoder, which consumes a standard leading BOM and rejects malformed UTF8
+before opening storage. Input size/deadline, password/schema/role validation and all
+prior assertions remain. Corrected Cloud1423/85, lint and build passed. The Windows
+probe also records host input encoding/preamble without confidential input bytes;
+corrected exact-HEAD Windows evidence remains pending.

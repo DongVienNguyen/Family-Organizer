@@ -53,3 +53,73 @@ it('resolves committed file-backed restore retries independently of mutable back
   await withAppCommandContext(context,()=>FamilyDB.restoreBackup(backup.id,'user_admin','Synthetic',owned));
   expect(calls).toBe(1);expect(FamilyDB.getTasks()[0].title).toBe('Synthetic later preserved');
 });
+
+function syntheticCredentialFixture(){
+  const requestId=randomUUID(),hash='synthetic-backup-credential-canary';
+  const before=FamilyDB.getFullSnapshot();
+  withAppWriteTransaction({actorId:'synthetic',command:'synthetic:backup-credential-fixture',requestId:randomUUID(),payloadHash:'fixture'},tx=>{
+    tx.legacy.users[0].passwordHash=hash;
+    tx.run('INSERT INTO app_commands(command,request_id,actor_id,payload_hash,result,committed_at) VALUES(?,?,?,?,?,?)',['synthetic:cached-user',requestId,'synthetic','synthetic-stable-digest',JSON.stringify({user:{id:tx.legacy.users[0].id,passwordHash:hash},transaction:{id:'synthetic-preserved-finance-id',amount:321},success:true}),Date.now()]);
+  });
+  return {requestId,hash,userIds:before.users.map(user=>user.id)};
+}
+function assertCredentialFreeSnapshot(snapshot:any,fixture:ReturnType<typeof syntheticCredentialFixture>){
+  expect(JSON.stringify(snapshot)).not.toContain(fixture.hash);
+  expect(snapshot.legacy.users.map((user:any)=>user.id)).toEqual(fixture.userIds);
+  expect(snapshot.legacy.users.every((user:any)=>!Object.hasOwn(user,'passwordHash'))).toBe(true);
+  const row=snapshot.tables.app_commands.find((command:any)=>command.request_id===fixture.requestId);
+  expect(row).toMatchObject({command:'synthetic:cached-user',request_id:fixture.requestId,actor_id:'synthetic',payload_hash:'synthetic-stable-digest'});
+  expect(JSON.parse(row.result)).toEqual({user:{id:fixture.userIds[0]},transaction:{id:'synthetic-preserved-finance-id',amount:321},success:true});
+  expect(FamilyDB.getUsers()[0].passwordHash).toBe(fixture.hash);
+}
+it('ordinary ZIP excludes user/cached credentials while retaining IDs and command dedupe/results',async()=>{
+  const fixture=syntheticCredentialFixture();const archive=await Open.buffer(await capture());
+  const snapshot=JSON.parse((await archive.files.find(file=>file.path==='snapshot.json')!.buffer()).toString('utf8'));
+  assertCredentialFreeSnapshot(snapshot,fixture);
+});
+it.each(['manual','auto'] as const)('ordinary %s JSON backup excludes credentials without changing live authentication',type=>{
+  const fixture=syntheticCredentialFixture();const result=FamilyDB.createBackup(type,'user_admin','Synthetic');
+  const snapshot=JSON.parse(fs.readFileSync(path.join(process.env.DATA_DIR!,'backups',result.filename),'utf8'));
+  assertCredentialFreeSnapshot(snapshot,fixture);
+});
+
+it.each(['legacy-zip','legacy-json'])('ordinary %s restore excludes historical credentials and preserves canonical user IDs',async format=>{
+  const fixture=syntheticCredentialFixture();const legacy=FamilyDB.getFullSnapshot();
+  if(format==='legacy-zip')await importFullBackup(await zip({'manifest.json':JSON.stringify({app:'family-organizer',format:1}),'db.json':JSON.stringify(legacy)}),'user_admin','Synthetic',options);
+  else await FamilyDB.restoreFromSnapshot(legacy,'user_admin','Synthetic','synthetic legacy JSON',options);
+  expect(FamilyDB.getUsers().map(user=>user.id)).toEqual(fixture.userIds);
+  expect(FamilyDB.getUsers().every(user=>!Object.hasOwn(user,'passwordHash'))).toBe(true);
+});
+
+it('ordinary backup removes push capabilities and password-command verifiers without losing finance dedupe',async()=>{
+  const endpoint='https://push.synthetic.invalid/synthetic-capability-canary';
+  const verifier='synthetic-unsalted-password-verifier';
+  const requestId=randomUUID();
+  withAppWriteTransaction({actorId:'synthetic',command:'synthetic:capability-fixture',requestId:randomUUID(),payloadHash:'fixture'},tx=>{
+    tx.legacy.pushSubscriptions=[{id:'synthetic-subscription',userId:tx.legacy.users[0].id,subscription:{endpoint,keys:{auth:'synthetic-auth',p256dh:'synthetic-key'}}} as any];
+    tx.run('INSERT INTO app_commands VALUES(?,?,?,?,?,?)',['legacy:changePassword',requestId,'synthetic',verifier,JSON.stringify({value:{success:true}}),new Date().toISOString()]);
+    tx.run('INSERT INTO app_jobs VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',['synthetic-push','legacy','push-delivery','synthetic-push-dedupe',JSON.stringify({notificationId:'synthetic-notification',endpoint,userId:tx.legacy.users[0].id}),verifier,'effect','pending',Date.now(),null,null,0,5,null,new Date().toISOString(),null]);
+  });
+  const archive=await Open.buffer(await capture());const snapshot=JSON.parse((await archive.files.find(file=>file.path==='snapshot.json')!.buffer()).toString());
+  expect(JSON.stringify(snapshot)).not.toContain(endpoint);expect(JSON.stringify(snapshot)).not.toContain(verifier);
+  expect(snapshot.legacy.pushSubscriptions).toEqual([]);
+  expect(snapshot.tables.app_commands.find((row:any)=>row.request_id===requestId)).toMatchObject({command:'legacy:changePassword',request_id:requestId,actor_id:'synthetic',result:JSON.stringify({value:{success:true}})});
+  expect(snapshot.tables.app_jobs.find((row:any)=>row.id==='synthetic-push')).toMatchObject({id:'synthetic-push',unique_key:'synthetic-push-dedupe',type:'push-delivery',lease_token:null});
+});
+
+it.each(['zip','json'])('ordinary %s export/import removes capabilities from actual cached push claims',async format=>{
+  const {AppJobStore}=await import('./jobStore.js');const {collectOrdinaryAppSnapshot}=await import('./appSnapshot.js');
+  const endpoint='https://push.synthetic.invalid/claimed-private-capability-'+randomUUID();
+  withAppWriteTransaction({actorId:'synthetic',command:'synthetic:claim-preparation',requestId:randomUUID(),payloadHash:'fixture'},tx=>{tx.run("UPDATE app_jobs SET status='unknown',lease_token=NULL,lease_until=NULL WHERE namespace='legacy' AND type='push-delivery'");});
+  const store=new AppJobStore(),now=Date.now();const id=store.enqueue({namespace:'legacy',type:'push-delivery',kind:'effect',key:randomUUID(),availableAt:now,payload:{notificationId:'synthetic-preserved-notification',userId:FamilyDB.getUsers()[0].id,endpoint}});
+  const claimed=store.claim('legacy','push-delivery',now,10000)!;expect(claimed.id).toBe(id);expect(claimed.payload.endpoint).toBe(endpoint);
+  let snapshot:any;
+  if(format==='zip'){const archive=await Open.buffer(await capture());snapshot=JSON.parse((await archive.files.find(file=>file.path==='snapshot.json')!.buffer()).toString());}
+  else{const backup=FamilyDB.createBackup('manual','user_admin','Synthetic');snapshot=JSON.parse(fs.readFileSync(path.join(process.env.DATA_DIR!,'backups',backup.filename),'utf8'));}
+  expect(JSON.stringify(snapshot)).not.toContain(endpoint);expect(JSON.stringify(snapshot)).not.toContain(claimed.token);
+  const cache=snapshot.tables.app_commands.map((row:any)=>({row,result:JSON.parse(row.result)})).find((entry:any)=>entry.result.value?.id===id&&entry.result.value?.type==='push-delivery');
+  expect(cache.row.command).toBe('jobs:claim');expect(cache.result.value).toMatchObject({id,namespace:'legacy',type:'push-delivery',payload:{notificationId:'synthetic-preserved-notification',userId:claimed.payload.userId}});
+  await FamilyDB.restoreFromSnapshot(snapshot,'user_admin','Synthetic','synthetic claimed push',options);
+  const restored=withAppWriteTransaction({actorId:'synthetic',command:'synthetic:claim-post-restore',requestId:randomUUID(),payloadHash:'fixture'},collectOrdinaryAppSnapshot);
+  expect(JSON.stringify(restored)).not.toContain(endpoint);expect(restored.tables.app_commands.find(row=>row.request_id===cache.row.request_id)).toEqual(cache.row);
+});

@@ -5,7 +5,7 @@ import {validateContentHeader,requireContentEdit,requireContentDelete,validateCo
 import {canViewLegacyTask} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
 import {managedMarkdownUrls,canonicalMediaUrl} from './mediaPolicy.js';
-import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
+import { collectOrdinaryAppSnapshot, ordinaryAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
 import { durableWrite, validBackupFilename, sha256, readSettings, settingsByteLimit } from './snapshotFiles.js';
 import { revokeUserSessions } from './authStore.js';
 /**
@@ -343,7 +343,7 @@ export class FamilyDB {
       // Snapshot the live SQLite data to a JSON file (human-readable, restore-friendly).
       // The gateway already holds a consistent WAL read/write transaction.
       // A checkpoint inside that transaction would fail with SQLITE_LOCKED.
-      durableWrite(destPath, JSON.stringify(collectAppSnapshot(currentAppWriteTx()!), null, 2));
+      durableWrite(destPath, JSON.stringify(collectOrdinaryAppSnapshot(currentAppWriteTx()!), null, 2));
 
       const stats = fs.statSync(destPath);
       const sizeKb = Math.ceil(stats.size / 1024);
@@ -421,7 +421,7 @@ export class FamilyDB {
   public static async restoreFromSnapshot(parsedData: any, userId: string, username: string, sourceLabel: string, options: RestoreOptions): Promise<void> {
     const identity=options.identity??sha256('json:'+JSON.stringify(parsedData));if(getCommittedRestore(identity))return;
     const snapshot=parsedData?.manifest?.schemaVersion ? validateAppSnapshot(parsedData) : legacySnapshot(normalizeDB(parsedData));
-    await restoreAppSnapshot(snapshot,{...options,identity});
+    await restoreAppSnapshot(ordinaryAppSnapshot(snapshot),{...options,identity});
     this.logActivity(userId,username,"Phục hồi toàn phần",`Đã khôi phục hệ thống từ ${sourceLabel}.`);
   }
 

@@ -307,114 +307,34 @@
     "blocker": "Both actual writes still HTTP403 Resource not accessible by integration. No permission-management tool available. Owner must apply integration Administration:write in GitHub installation or saved exact policy. No failed-PR merge probe while unprotected."
   },
   "latestPostGrantRetry": {
-    "date": "2026-10-12T04:56:35.471533+00:00",
-    "userAuthorizationPersists": true,
+    "checkedAt": "2026-10-12T06:28:37.845438+00:00",
+    "checkedHead": "66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f",
     "attempts": [
       {
         "method": "POST",
-        "endpoint": "rulesets",
-        "request": {
-          "name": "Windows CI required on main",
-          "target": "branch",
-          "enforcement": "active",
-          "bypass_actors": [],
-          "conditions": {
-            "ref_name": {
-              "include": [
-                "refs/heads/main"
-              ],
-              "exclude": []
-            }
-          },
-          "rules": [
-            {
-              "type": "pull_request",
-              "parameters": {
-                "required_approving_review_count": 0,
-                "dismiss_stale_reviews_on_push": true,
-                "require_code_owner_review": false,
-                "require_last_push_approval": false,
-                "required_review_thread_resolution": true
-              }
-            },
-            {
-              "type": "required_status_checks",
-              "parameters": {
-                "required_status_checks": [
-                  {
-                    "context": "ci-gate",
-                    "integration_id": 15368
-                  }
-                ],
-                "strict_required_status_checks_policy": true,
-                "do_not_enforce_on_create": false
-              }
-            },
-            {
-              "type": "non_fast_forward"
-            },
-            {
-              "type": "deletion"
-            }
-          ]
-        },
-        "nativeExitCode": 1,
+        "path": "repos/DongVienNguyen/Family-Organizer/rulesets",
+        "ghExitCode": 1,
         "response": {
           "message": "Resource not accessible by integration",
           "documentation_url": "https://docs.github.com/rest/repos/rules#create-a-repository-ruleset",
           "status": "403"
         },
-        "stderr": "gh: Resource not accessible by integration (HTTP 403)\n"
+        "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
       },
       {
         "method": "PUT",
-        "endpoint": "branches/main/protection",
-        "request": {
-          "required_status_checks": {
-            "strict": true,
-            "checks": [
-              {
-                "context": "ci-gate",
-                "app_id": 15368
-              }
-            ]
-          },
-          "enforce_admins": true,
-          "required_pull_request_reviews": {
-            "dismiss_stale_reviews": true,
-            "require_code_owner_reviews": false,
-            "required_approving_review_count": 0,
-            "require_last_push_approval": false
-          },
-          "restrictions": null,
-          "required_conversation_resolution": true,
-          "allow_force_pushes": false,
-          "allow_deletions": false
-        },
-        "nativeExitCode": 1,
+        "path": "repos/DongVienNguyen/Family-Organizer/branches/main/protection",
+        "ghExitCode": 1,
         "response": {
           "message": "Resource not accessible by integration",
           "documentation_url": "https://docs.github.com/rest/branches/branch-protection#update-branch-protection",
           "status": "403"
         },
-        "stderr": "gh: Resource not accessible by integration (HTTP 403)\n"
+        "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
       }
     ],
-    "readbacks": {
-      "main": {
-        "nativeExitCode": 0,
-        "response": {
-          "protected": false,
-          "sha": "05a59962da1a2459e0f08fc79de94512dc1625cd"
-        },
-        "stderr": ""
-      },
-      "rulesets": {
-        "nativeExitCode": 0,
-        "response": [],
-        "stderr": ""
-      }
-    }
+    "branchProtected": "false",
+    "rulesets": []
   },
   "postGrantRetryHistory": [
     {
@@ -440,6 +360,116 @@
         }
       ],
       "originalFullReadbackPreservedInCommit": "05a59962da1a2459e0f08fc79de94512dc1625cd"
+    },
+    {
+      "date": "2026-10-12T04:56:35.471533+00:00",
+      "userAuthorizationPersists": true,
+      "attempts": [
+        {
+          "method": "POST",
+          "endpoint": "rulesets",
+          "request": {
+            "name": "Windows CI required on main",
+            "target": "branch",
+            "enforcement": "active",
+            "bypass_actors": [],
+            "conditions": {
+              "ref_name": {
+                "include": [
+                  "refs/heads/main"
+                ],
+                "exclude": []
+              }
+            },
+            "rules": [
+              {
+                "type": "pull_request",
+                "parameters": {
+                  "required_approving_review_count": 0,
+                  "dismiss_stale_reviews_on_push": true,
+                  "require_code_owner_review": false,
+                  "require_last_push_approval": false,
+                  "required_review_thread_resolution": true
+                }
+              },
+              {
+                "type": "required_status_checks",
+                "parameters": {
+                  "required_status_checks": [
+                    {
+                      "context": "ci-gate",
+                      "integration_id": 15368
+                    }
+                  ],
+                  "strict_required_status_checks_policy": true,
+                  "do_not_enforce_on_create": false
+                }
+              },
+              {
+                "type": "non_fast_forward"
+              },
+              {
+                "type": "deletion"
+              }
+            ]
+          },
+          "nativeExitCode": 1,
+          "response": {
+            "message": "Resource not accessible by integration",
+            "documentation_url": "https://docs.github.com/rest/repos/rules#create-a-repository-ruleset",
+            "status": "403"
+          },
+          "stderr": "gh: Resource not accessible by integration (HTTP 403)\n"
+        },
+        {
+          "method": "PUT",
+          "endpoint": "branches/main/protection",
+          "request": {
+            "required_status_checks": {
+              "strict": true,
+              "checks": [
+                {
+                  "context": "ci-gate",
+                  "app_id": 15368
+                }
+              ]
+            },
+            "enforce_admins": true,
+            "required_pull_request_reviews": {
+              "dismiss_stale_reviews": true,
+              "require_code_owner_reviews": false,
+              "required_approving_review_count": 0,
+              "require_last_push_approval": false
+            },
+            "restrictions": null,
+            "required_conversation_resolution": true,
+            "allow_force_pushes": false,
+            "allow_deletions": false
+          },
+          "nativeExitCode": 1,
+          "response": {
+            "message": "Resource not accessible by integration",
+            "documentation_url": "https://docs.github.com/rest/branches/branch-protection#update-branch-protection",
+            "status": "403"
+          },
+          "stderr": "gh: Resource not accessible by integration (HTTP 403)\n"
+        }
+      ],
+      "readbacks": {
+        "main": {
+          "nativeExitCode": 0,
+          "response": {
+            "protected": false,
+            "sha": "05a59962da1a2459e0f08fc79de94512dc1625cd"
+          },
+          "stderr": ""
+        },
+        "rulesets": {
+          "nativeExitCode": 0,
+          "response": [],
+          "stderr": ""
+        }
+      }
     }
   ]
 }

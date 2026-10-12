@@ -1,3 +1,4 @@
+import {ordinaryBackupValue,ordinaryBackupSettings} from './backupCredentials.js';
 import type { AppWriteTx } from './appStore.js';
 import {reconcileMediaMetadata,canonicalMediaUrl,parseMediaMetadata} from './mediaPolicy.js';
 import { withAppWriteTransaction, AppStoreError, markSnapshotReadResult } from './appStore.js';
@@ -10,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { snapshotLimits, publicSettingKeys, mediaRoot, settingsFile, readSettings, readMedia, validMediaPath, validBackupFilename, reconcileBackupReferences, sha256, durableWrite, restorePaths, writeJournal, readJournal, recoverFiles, cleanupStaging } from './snapshotFiles.js';
 
-interface SnapshotManifest { schemaVersion: number; domains: Record<string,number>; legacyVersion: number; mediaManifest: { path: string; size: number; sha256: string }[]; checksum: string; createdAt: string }
+interface SnapshotManifest { credentials?: 'excluded-v1'; schemaVersion: number; domains: Record<string,number>; legacyVersion: number; mediaManifest: { path: string; size: number; sha256: string }[]; checksum: string; createdAt: string }
 export interface AppSnapshot { manifest: SnapshotManifest; legacy: any; tables: Record<string, any[]>; settings: Record<string,string>; media: Record<string,string> }
 export type ValidatedAppSnapshot = AppSnapshot & { readonly __validated: unique symbol };
 export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string }
@@ -80,12 +81,34 @@ export function collectAppSnapshot(tx: AppWriteTx): AppSnapshot {
   validateAppSnapshot(snapshot);
   return markSnapshotReadResult(snapshot);
 }
+/** Project the shared engine's snapshot; do not mutate live records or drop command/claim IDs. */
+export function ordinaryAppSnapshot(source:AppSnapshot):ValidatedAppSnapshot {
+  const snapshot:AppSnapshot={...source,manifest:{...source.manifest,credentials:'excluded-v1'},legacy:ordinaryBackupValue(source.legacy),tables:{...source.tables},settings:ordinaryBackupSettings(source.settings)};
+  // Browser subscriptions are revocable capabilities, re-established on the target.
+  snapshot.legacy.pushSubscriptions=[];
+  const credentialCommands=new Set(['legacy:createUser','legacy:changePassword','legacy:adminResetPassword','legacy:addPushSubscription','legacy:removePushSubscriptionByEndpoint','legacy:removePushSubscriptionsByEndpoints']);
+  snapshot.tables.app_commands=source.tables.app_commands.map(row=>({...row,
+    // Retain nonce tombstones. A pre-restore credential request must conflict,
+    // rather than exporting a weak-password verifier or executing it twice.
+    ...(credentialCommands.has(row.command)?{payload_hash:'excluded-v1:'+sha256(JSON.stringify([row.command,row.request_id]))}:{}),
+    result:JSON.stringify(ordinaryBackupValue(JSON.parse(row.result)))}));
+  snapshot.tables.app_jobs=source.tables.app_jobs.map(row=>{
+    const payload=ordinaryBackupValue(JSON.parse(row.payload));
+    const push=row.namespace==='legacy'&&row.type==='push-delivery';
+    if(push&&payload&&typeof payload==='object')delete payload.endpoint;
+    return {...row,payload:JSON.stringify(payload),...(push?{payload_hash:'excluded-v1:'+sha256(row.id)}:{}),lease_token:null,lease_until:null,...(row.status==='leased'?{status:'unknown'}:{})};
+  });
+  snapshot.manifest.checksum=checksum(snapshot);
+  return markSnapshotReadResult(validateAppSnapshot(snapshot));
+}
+export function collectOrdinaryAppSnapshot(tx:AppWriteTx):ValidatedAppSnapshot{return ordinaryAppSnapshot(collectAppSnapshot(tx));}
 function freeze(value: any): any { if (value && typeof value === 'object') { for (const item of Object.values(value)) freeze(item); Object.freeze(value); } return value; }
 export function validateAppSnapshot(input: unknown): ValidatedAppSnapshot {
   const encoded = JSON.stringify(canonical(input));
   if (Buffer.byteLength(encoded) > snapshotLimits.bytes) throw new Error('Snapshot exceeds 256MiB limit');
   const s = JSON.parse(encoded) as AppSnapshot;
   if (JSON.stringify(Object.keys(s).sort()) !== JSON.stringify(['manifest','legacy','tables','settings','media'].sort())) throw new Error('Invalid snapshot fields');
+  if(s.manifest?.credentials!==undefined&&s.manifest.credentials!=='excluded-v1')throw new Error('Unsupported snapshot credential policy');
   if (!s.manifest || s.manifest.schemaVersion !== 1 || s.manifest.legacyVersion !== 1 || !s.manifest.domains || !/^\d{4}-/.test(s.manifest.createdAt) || !Number.isFinite(Date.parse(s.manifest.createdAt))) throw new Error('Unsupported snapshot manifest');
   const versions = getDomainVersions();
   if (JSON.stringify(canonical(s.manifest.domains)) !== JSON.stringify(canonical(versions))) throw new Error('Missing or unsupported snapshot namespace version');

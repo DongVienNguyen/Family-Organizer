@@ -1,3 +1,4 @@
+import {retainsSnapshotRows} from './package-contract.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -29,7 +30,7 @@ async function start(){const reservation=net.createServer();reservation.listen(0
  const deadline=Date.now()+15000;while(Date.now()<deadline){if(child.exitCode!==null)throw new Error(output);try{if((await request(port,'/api/ready')).status===200)return port;}catch{}await new Promise(resolve=>setTimeout(resolve,100));}throw new Error('Package startup timeout');
 }
 async function stop(){if(!child)return;const current=child;child=undefined;if(current.exitCode!==null)return;const exited=once(current,'exit');current.stdin.write('stop\n');const timer=setTimeout(()=>current.kill('SIGKILL'),5000);try{const [code,signal]=await exited;assert.equal(code,0,output);assert.equal(signal,null);}finally{clearTimeout(timer);}}
-async function login(port){const result=await request(port,'/api/auth/login',{username:user.username,password});assert.equal(result.status,200);return result.json.token;}
+async function login(port,loginPassword=password){const result=await request(port,'/api/auth/login',{username:user.username,password:loginPassword});assert.equal(result.status,200);return result.json.token;}
 const checks=[];
 try{
  let port=await start(),token=await login(port);
@@ -46,9 +47,20 @@ try{
  const snapshot=JSON.parse(fs.readFileSync(path.join(data,'backups',backup.json.filename),'utf8'));assert.equal(snapshot.manifest.schemaVersion,1);assert.ok(snapshot.tables.app_commands.length>0);assert.ok(snapshot.tables.app_jobs.length>0);
  assert.equal((await request(port,'/api/finance/'+id,undefined,token,'DELETE')).status,200);assert.ok(!(await request(port,'/api/finance',undefined,token)).json.transactions.some(row=>row.id===id));checks.push('finance-delete');
  const restored=await request(port,'/api/admin/backups/'+backupId+'/restore',{},token);assert.equal(restored.status,200,restored.text);
- assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);token=await login(port);
+ assert.equal((await request(port,'/api/auth/me',undefined,token)).status,401);
+ assert.equal((await request(port,'/api/auth/login',{username:user.username,password})).status,401);
+ assert.equal(snapshot.manifest.credentials,'excluded-v1');assert.ok(snapshot.legacy.users.every(row=>!Object.hasOwn(row,'passwordHash')));assert.ok(!JSON.stringify(snapshot).includes(user.passwordHash));
+ checks.push('ordinary-backup-excludes-credentials','restore-requires-explicit-credential-reentry');
+ await stop();
+ const restoredPassword='Synthetic explicit package reentry passphrase';
+ const reset=spawn(process.execPath,['--require',preload,path.join(app,'dist/operator.cjs'),'--reset-credentials'],{cwd,env:{...env,APP_CODE_ROOT:app},stdio:['pipe','pipe','pipe']});
+ let resetOutput='',resetErrors='';reset.stdout.on('data',chunk=>{resetOutput+=chunk;});reset.stderr.on('data',chunk=>{resetErrors+=chunk;});
+ reset.stdin.on('error',()=>{});reset.stdin.end(JSON.stringify({users:[{id:user.id,password:restoredPassword},{id:rewardChild.id,password:restoredPassword}]}));
+ const timeout=setTimeout(()=>reset.kill('SIGKILL'),15000);
+ try{const [exitCode,signal]=await once(reset,'close');assert.equal(exitCode,0,resetOutput+resetErrors);assert.equal(signal,null);assert.deepEqual(JSON.parse(resetOutput.trim()),{resetUserIds:[user.id,rewardChild.id],sessionsRevoked:true});assert.ok(!(resetOutput+resetErrors).includes(restoredPassword));}finally{clearTimeout(timeout);}
+ port=await start();token=await login(port,restoredPassword);checks.push('compiled-offline-reentry-preserves-user-ids');
  assert.equal((await request(port,'/api/finance',undefined,token)).json.transactions.find(row=>row.id===id).amount,40000);assert.deepEqual((await request(port,'/api/rewards',undefined,token)).json.entries,rewards);checks.push('shared-snapshot-restore','restore-revokes-session','restore-preserves-reward-no-replay');
- await stop();const db=new Database(path.join(data,'family.db'),{readonly:true});try{assert.equal(db.pragma('integrity_check',{simple:true}),'ok');for(const name of ['app_commands','app_reward_claims','app_migrations']){const rows=db.prepare(`SELECT * FROM ${name}`).all();for(const saved of snapshot.tables[name])assert.ok(rows.some(row=>JSON.stringify(row)===JSON.stringify(saved)),`Snapshot ${name} row lost`);}}finally{db.close();}
+ await stop();const db=new Database(path.join(data,'family.db'),{readonly:true});try{assert.equal(db.pragma('integrity_check',{simple:true}),'ok');for(const name of ['app_commands','app_reward_claims','app_migrations']){const rows=db.prepare(`SELECT * FROM ${name}`).all();assert.ok(retainsSnapshotRows(rows,snapshot.tables[name]),`Snapshot ${name} row lost`);}}finally{db.close();}
  assert.equal(fs.existsSync(network)?fs.readFileSync(network,'utf8'):'','');checks.push('snapshot-core-rows-preserved','offline-providers','native-handles-closed');
  fs.writeFileSync(report,JSON.stringify({commitSha:process.env.TEST_COMMIT_SHA,nodeVersion:process.version,nodeExecutable:process.execPath,platform:process.platform,architecture:process.arch,checks,networkAttempts:[],snapshotChecksum:snapshot.manifest.checksum},null,2)+'\n');
 }finally{await stop();fs.writeFileSync(path.join(path.dirname(report),'package-functional-server.log'),output);}

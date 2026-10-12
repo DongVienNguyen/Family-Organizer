@@ -22,7 +22,7 @@ async function fixture(work:(value:Fixture)=>Promise<void>){
   try{await work({root,env});expect(fs.existsSync(env.FO_NETWORK_ATTEMPTS!)?fs.readFileSync(env.FO_NETWORK_ATTEMPTS!,'utf8'):'').toBe('');}
   finally{fs.rmSync(root,{recursive:true,force:true});}
 }
-async function child(f:Fixture,args:string[],input?:string,keepInputOpen=false){
+async function child(f:Fixture,args:string[],input?:string|Buffer,keepInputOpen=false){
   const processHandle=spawn(process.execPath,['--require',path.join(repo,'scripts/ci/block-network.cjs'),'--import',tsx,...args],{cwd:f.root,env:f.env,stdio:['pipe','pipe','pipe']});
   let stdout='',stderr='';processHandle.stdout.on('data',bytes=>{stdout+=bytes;});processHandle.stderr.on('data',bytes=>{stderr+=bytes;});
   // A rejected operator may close before the parent finishes writing synthetic input.
@@ -130,4 +130,66 @@ it.each(['unrelated','incomplete','unsupported-version','sqliteX','sqliteData'])
   expect(result.response).toEqual({error:'INSTALLATION_NOT_PRISTINE'});
   const moved=database(f)+'.closed';fs.renameSync(database(f),moved);fs.renameSync(moved,database(f));
   assertNoPlaintext(f);
+}));
+
+it('explicit offline credential reentry retains existing IDs/roles and never creates a replacement admin',()=>fixture(async f=>{
+  expect((await operator(f)).code).toBe(0);
+  const removeScript=`const {withAppWriteTransaction}=await import(${JSON.stringify(pathToFileURL(path.join(repo,'server/appStore.ts')).href)});const sqlite=await import(${JSON.stringify(pathToFileURL(path.join(repo,'server/sqlite.ts')).href)});try{withAppWriteTransaction({actorId:'synthetic',command:'synthetic:ordinary-restore',requestId:crypto.randomUUID(),payloadHash:'fixture'},tx=>{delete tx.legacy.users[0].passwordHash;});}finally{sqlite.sqliteClose();}`;
+  expect((await child(f,['--input-type=module','--eval',removeScript])).code).toBe(0);
+  const before=rows(f);const restored=JSON.parse((before.users as any[])[0].data);
+  const password='Synthetic khôi phục mật khẩu 2026';
+  const result=await child(f,[path.join(repo,'server/operator.ts'),'--reset-credentials'],JSON.stringify({users:[{id:restored.id,password}]}));
+  expect(result.code,result.stdout+result.stderr).toBe(0);
+  expect(result.response).toEqual({resetUserIds:[restored.id],sessionsRevoked:true});
+  expect(result.stdout+result.stderr).not.toContain(password);
+  const after=rows(f);const user=JSON.parse((after.users as any[])[0].data);const {passwordHash,...safe}=user;
+  expect(safe).toEqual(restored);expect(passwordHash).toMatch(/^[a-f0-9]+\$[a-f0-9]+$/);
+  for(const [table,values] of Object.entries(before))if(!['users','app_commands','auth_user_versions','auth_sessions'].includes(table))expect(after[table]).toEqual(values);
+  expect(JSON.stringify(after)).not.toContain(password);
+}));
+
+it('credential reentry refuses a missing store without creating an installation',()=>fixture(async f=>{
+  const result=await child(f,[path.join(repo,'server/operator.ts'),'--reset-credentials'],JSON.stringify({users:[{id:'user_admin',password:identity.password}]}));
+  expect(result.code).toBe(1);expect(result.response).toEqual({error:'CREDENTIAL_REENTRY_STORE_REQUIRED'});expect(fs.existsSync(database(f))).toBe(false);
+}));
+it.each([
+  {users:[]}, {users:[{id:'user_admin',password:'short'}]},
+  {users:[{id:'user_admin',password:identity.password,role:'admin'}]},
+  {users:[{id:'user_admin',password:identity.password},{id:'user_admin',password:identity.password}]},
+  {users:[{id:'missing-user',password:identity.password}]},
+  {users:[{id:'user_admin',password:identity.password}]},
+])('rejects invalid credential reentry batch %# without changing canonical rows',value=>fixture(async f=>{
+  expect((await operator(f)).code).toBe(0);const before=rows(f);
+  const result=await child(f,[path.join(repo,'server/operator.ts'),'--reset-credentials'],JSON.stringify(value));
+  expect(result.code).toBe(1);expect(result.response).toEqual({error:'CREDENTIAL_REENTRY_INVALID'});expect(rows(f)).toEqual(before);expect(result.stdout+result.stderr).not.toContain(identity.password);
+}));
+it('validates the entire reentry batch before changing any user or session',()=>fixture(async f=>{
+  expect((await operator(f)).code).toBe(0);
+  const sql=new Database(database(f));try{const row=sql.prepare('SELECT data FROM users WHERE id=?').get('user_admin') as any;const user=JSON.parse(row.data);delete user.passwordHash;sql.prepare('UPDATE users SET data=? WHERE id=?').run(JSON.stringify(user),user.id);}finally{sql.close();}
+  const before=rows(f);const result=await child(f,[path.join(repo,'server/operator.ts'),'--reset-credentials'],JSON.stringify({users:[{id:'user_admin',password:identity.password},{id:'missing-user',password:identity.password}]}));
+  expect(result.code).toBe(1);expect(result.response).toEqual({error:'CREDENTIAL_REENTRY_INVALID'});expect(rows(f)).toEqual(before);
+}));
+
+it.each(['deleted','unsupported-role'])('refuses credential reentry for a %s restored user',kind=>fixture(async f=>{
+  expect((await operator(f)).code).toBe(0);
+  const sql=new Database(database(f));try{const user=JSON.parse((sql.prepare('SELECT data FROM users WHERE id=?').get('user_admin') as any).data);delete user.passwordHash;if(kind==='deleted')user.isDeleted=true;else user.role='unsupported-role';sql.prepare('UPDATE users SET data=? WHERE id=?').run(JSON.stringify(user),user.id);}finally{sql.close();}
+  const before=rows(f);const result=await child(f,[path.join(repo,'server/operator.ts'),'--reset-credentials'],JSON.stringify({users:[{id:'user_admin',password:identity.password}]}));
+  expect(result.code).toBe(1);expect(result.response).toEqual({error:'CREDENTIAL_REENTRY_INVALID'});expect(rows(f)).toEqual(before);
+}));
+
+it.each(['initialize','reentry'])('accepts UTF8 console preamble without changing %s input semantics',mode=>fixture(async f=>{
+  let payload:unknown=identity,args=[path.join(repo,'server/operator.ts')];
+  if(mode==='reentry'){
+    expect((await operator(f)).code).toBe(0);
+    const sql=new Database(database(f));try{const user=JSON.parse((sql.prepare('SELECT data FROM users WHERE id=?').get('user_admin') as any).data);delete user.passwordHash;sql.prepare('UPDATE users SET data=? WHERE id=?').run(JSON.stringify(user),user.id);}finally{sql.close();}
+    args.push('--reset-credentials');payload={users:[{id:'user_admin',password:identity.password}]};
+  }
+  const result=await child(f,args,'\uFEFF'+JSON.stringify(payload));expect(result.code,result.stdout+result.stderr).toBe(0);expect(result.stdout+result.stderr).not.toContain(identity.password);
+  if(mode==='initialize')expect(result.response).toEqual({initialized:true,username:identity.username});else expect(result.response).toEqual({resetUserIds:['user_admin'],sessionsRevoked:true});
+  expect((rows(f).users as any[]).map(row=>JSON.parse(row.data).id)).toEqual(['user_admin']);
+}));
+it('rejects malformed UTF8 bytes instead of silently changing the submitted password',()=>fixture(async f=>{
+  const prefix=JSON.stringify(identity).slice(0,-2),input=Buffer.concat([Buffer.from(prefix),Buffer.from([0xff]),Buffer.from('"}')]);
+  const result=await child(f,[path.join(repo,'server/operator.ts')],input);
+  expect(result.code).toBe(1);expect(result.response).toEqual({error:'INITIALIZATION_INPUT_INVALID'});expect(fs.existsSync(database(f))).toBe(false);
 }));

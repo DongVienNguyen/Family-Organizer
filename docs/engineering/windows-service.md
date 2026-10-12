@@ -68,9 +68,10 @@ All native commands check LASTEXITCODE immediately; logs/typed failure/exit/chec
 cleanup reports and stdout/stderr/wrapper logs are retained14days; service logs
 are copied before fixture removal. A service failure or skip fails ci-gate.
 
-Source regressions pass1386/84 in Cloud after the correction pass; six genuine
-security RED failures were witnessed on Windows before the guards. Corrected
-actual SCM/positive lifecycle evidence remains pending and will be recorded in implementation-status.md. F05 main enforcement
+Final sourcefac6dbd passed all seven Windows jobs in run38208688551: each Node22/24
+passed1386/84, all8 security assertions and9 service checks passed, three graceful
+completions and19 positive native exit0 commands verified; service and fixture
+removed. Raw reports, logs and immutable proof are recorded in implementation-status.md. F05 main enforcement
 still returns403. Portable encrypted recovery, credential-redacted ordinary backup,
 one backup owner, off-host encrypted copy, disk-full/age/retention, Caddy and fenced
 update/rollback remain pending; this service PR does not complete F07/F09.
