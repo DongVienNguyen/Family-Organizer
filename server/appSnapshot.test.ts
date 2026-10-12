@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { afterEach, expect, it, vi } from 'vitest';
+import {captureRecoverySettings,selectRecoverySettings} from './recoverySettings.js';
 import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, registerSnapshotTable } from './appSnapshot.js';
 import { withAppWriteTransaction } from './appStore.js';
 import { registerDomainMigration, applyDomainMigrations } from './appMigrations.js';
@@ -193,4 +194,17 @@ it.each(['delete','retention'])('constrains %s of previously persisted malicious
     else expect(()=>FamilyDB.createBackup('auto','user_admin','Synthetic')).toThrow(/backup/i);
     expect(fs.readFileSync(sentinel,'utf8')).toBe('synthetic must survive');
   }finally{fs.rmSync(sentinel,{force:true});withAppWriteTransaction(meta(),tx=>{tx.legacy.backups=[];});}
+});
+
+it('refuses an unbranded private setting override before maintenance or file staging',async()=>{
+ fixture();const saved=validateAppSnapshot(capture());let calls=0;
+ await expect(restoreAppSnapshot(saved,{maintenance:async work=>{calls++;return work();},privateSettings:{geminiApiKey:'synthetic-forged'} as any} as any)).rejects.toThrow('RECOVERY_SETTINGS_INVALID');
+ expect(calls).toBe(0);expect(FamilyDB.getTasks()[0].id).toBe(saved.legacy.tasks[0].id);
+});
+
+it('rejects merged private/public settings beyond the existing byte budget without promotion',async()=>{
+ fixture();setAppSetting('homelabLinks',JSON.stringify(Array.from({length:3},(_,index)=>({id:'synthetic-'+index,url:'https://synthetic.invalid/'+ 'x'.repeat(1500)}))));const saved=validateAppSnapshot(capture());
+ const {settingsFile,settingsByteLimit}=await import('./snapshotFiles.js');const before=Buffer.from(JSON.stringify({unselectedPrivate:'x'.repeat(settingsByteLimit-3000),geminiApiKey:'synthetic-target',homelabLinks:'[]'}));fs.writeFileSync(settingsFile,before);
+ const patch=selectRecoverySettings(captureRecoverySettings({geminiApiKey:'x'.repeat(512)},['gemini']),['gemini']);
+ await expect(restoreAppSnapshot(saved,{...options,privateSettings:patch} as any)).rejects.toThrow('Local settings size limit exceeded');expect(fs.readFileSync(settingsFile).equals(before)).toBe(true);
 });
