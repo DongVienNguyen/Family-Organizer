@@ -1,0 +1,18 @@
+{
+  "taskId": "F08-a",
+  "headSha": "d2fe3f87338058c65c177178c55419f37e3dee59",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38300820576",
+  "jobId": 114983298895,
+  "actualNativeReport": {
+    "expectedExitCode": 1,
+    "commitSha": "d2fe3f87338058c65c177178c55419f37e3dee59",
+    "actualExitCode": 1,
+    "phase": "release-evidence-missing-refusal"
+  },
+  "actualTestsPassed": 1838,
+  "qualityEvidenceErrors": [],
+  "failure": "Expected child1 verified but retained LASTEXITCODE1 became outer GitHub pwsh step exit1",
+  "correction": "Explicit exit0 only after strict required nativeCode1 assertion and report; assertions unchanged; no continue-on-error",
+  "productionSourceChange": false,
+  "all7Acceptance": false
+}

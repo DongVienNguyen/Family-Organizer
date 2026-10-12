@@ -1,0 +1,19 @@
+{
+  "taskId": "F08-a",
+  "headSha": "32aeea5e97ff40726b3da53ea37171caa17c2860",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38303275359",
+  "jobId": 114992200633,
+  "qualityBrowserPackage": "five independent success1838/101 both/118source/15browsers/package",
+  "failurePhase": "coordinator-closed-storage",
+  "actualExitCode": 1,
+  "capturedOutput": "",
+  "coordinatorChecksBeforeLast": 9,
+  "otherUpdateRollbackAssertions": "retained with5reviewProofs1/1/0/1/0,17points andcaughtrollbackstop",
+  "serviceRemoved": true,
+  "fixtureCleanup": true,
+  "diagnosis": "PowerShell -Command may retain failed $? after a typed caught FileNotFound with empty conditional body; empty captured output and phase1 match this",
+  "newDiagnosticRegression": "Windows PS5.1 same typed caught missing-file script must yield1/empty; identical code with explicit verified marker+exit0 must yield0/marker, on Node22/24 quality jobs",
+  "correction": "mandatory success marker plus explicit exit0 only after SCMStopped/no workers/mainDB exclusive/sidecar exclusive-or-absent checks; unhandled failure still stops before marker/exit",
+  "runtimeSourceTests": "unchanged",
+  "required": "next exactHEAD Windows; do not claimall7pass"
+}

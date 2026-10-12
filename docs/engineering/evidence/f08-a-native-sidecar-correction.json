@@ -1,0 +1,27 @@
+{
+  "taskId": "F08-a",
+  "headSha": "bb7581cb801e912b42f85737396e560bc359ea63",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38301539541",
+  "jobId": 114986927694,
+  "fiveOtherChecks": "success and independently verified1838/101 both/118source/15browsers/package",
+  "nativeReviewAssertions": [
+    1,
+    1,
+    0,
+    1,
+    0
+  ],
+  "sourceCapturePoints": [
+    17,
+    17
+  ],
+  "explicitRollbackFaultInjected": true,
+  "failedPhase": "coordinator-closed-storage",
+  "failure": "FileNotFoundException for family.db-wal after parent exists sample but before child Open",
+  "serviceRemoved": true,
+  "fixtureCleanup": true,
+  "correction": "Wait SCM Stopped and zero original/candidate owned Node workers (exclude this known probe PID); mainDB always mandatory exclusive Open; sidecars exclusive Open if still present, only FileNotFound accepted after rechecking absent; other IO/share errors fail",
+  "assertionSemantics": "Previous parent exists filter already allowed absent SQLite sidecars; retain this policy at actual Open boundary, strengthen worker drain, no skip/assertion removal",
+  "productionSourceChange": false,
+  "windowsNewHeadRequired": true
+}

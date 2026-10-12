@@ -1,0 +1,21 @@
+{
+  "taskId": "F08-a",
+  "reviewedHeadSha": "c1258538791b2c465b81c6a96e555f39ad2ca2de",
+  "reviewCount": 1,
+  "correctionPasses": 1,
+  "importantFixed": "regex-injected runId hangs validator",
+  "actualRed": "native child timeout5000ms;1failed37passed",
+  "targetGreen": 178,
+  "targetFiles": 2,
+  "fullGreen": 1838,
+  "fullFiles": 101,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceFrozenDuringVerification": true,
+  "deferredMinors": 2,
+  "windowsNativeVerifier": "mandatory PS5.1 missing-evidence exit1 step added; execution pending exact newHEAD CI",
+  "publication": "unconditionally disabled"
+}
