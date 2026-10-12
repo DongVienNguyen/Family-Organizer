@@ -1,0 +1,18 @@
+{
+  "taskId": "F08-b",
+  "reviewCount": 1,
+  "critical": 0,
+  "important": 1,
+  "minor": 0,
+  "reviewedHeadSha": "fa9f51f89360dd68e5abb83d4f188de33589b3c9",
+  "rulings": [
+    {
+      "severity": "Important",
+      "finding": "Exact-six artifact inventory rejects normal seven-artifact CI output",
+      "ruling": "accepted",
+      "evidenceRunId": 38306861864,
+      "correction": "Require all seven explicit names, including windows-package-harness; preserve all identity/digest/unique/unexpected safeguards",
+      "regression": "Actual seven-artifact fixture: three positive assertions failed, 54 passed before fix; single underlying defect"
+    }
+  ]
+}

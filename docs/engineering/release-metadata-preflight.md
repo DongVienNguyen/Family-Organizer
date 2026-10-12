@@ -20,8 +20,9 @@ transports and never call real providers.
 
 The policy requires the explicit successful first-attempt main push, CI workflow
 381168350 at .github/workflows/ci.yml, seven distinct GitHub Actions checks
-(app15368) and corresponding successful jobs, and six unique unexpired artifact
-identities/digests bound to the same run/SHA. It never searches for latest success.
+(app15368) and corresponding successful jobs, and seven unique unexpired artifact
+identities/digests bound to the same run/SHA, including the package harness used
+by both consumers. Unknown, duplicate and missing artifacts fail closed. It never searches for latest success.
 
 Output kind github-metadata-preflight has publicationAllowed:false. API digests
 refer to archives not yet downloaded or checked. This output is not a completed
@@ -43,3 +44,8 @@ are separated so the preflight does not reject its own check. Each accepted chec
 URL must match its actual job ID. More than100 records fail closed; pagination
 expansion is not silently assumed. These two policy defects have actual RED/GREEN
 regressions.
+
+One fresh whole-branch review found the original six-artifact inventory rejected
+every successful real CI run. The seven-artifact fixture reproduced three failing
+positive assertions; explicit harness validation fixes the single underlying defect.
+Negative tests retain complete inventory, unique ID/name and identity/digest checks.

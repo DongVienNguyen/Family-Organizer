@@ -24,9 +24,9 @@ export async function collectReleaseMetadata(request,authority){
   const jobs=list(await get(`${base}/actions/runs/${r.runId}/attempts/1/jobs?per_page=100`),'jobs',7);
   requireFact(new Set(jobs.map(j=>j?.name)).size===7&&new Set(jobs.map(j=>j?.id)).size===7);
   for(const name of releaseChecks){const j=jobs.find(j=>j?.name===name),c=checks.find(c=>c?.name===name);requireFact(positive(j?.id)&&j?.run_id===r.runId&&j?.status==='completed'&&j?.conclusion==='success'&&j?.check_run_url===`https://api.github.com/repos/${releaseRepository}/check-runs/${c.id}`&&c.details_url===`https://github.com/${releaseRepository}/actions/runs/${r.runId}/job/${j.id}`);}
-  const artifacts=list(await get(`${base}/actions/runs/${r.runId}/artifacts?per_page=100`),'artifacts',6);
-  const artifactNames=['windows-node22','windows-node24','windows-browsers','windows-package','windows-package-tests','windows-service-tests'].map(prefix=>`${prefix}-${r.commitSha}-1`);
-  requireFact(new Set(artifacts.map(a=>a?.name)).size===6&&new Set(artifacts.map(a=>a?.id)).size===6);
+  const artifacts=list(await get(`${base}/actions/runs/${r.runId}/artifacts?per_page=100`),'artifacts',7);
+  const artifactNames=['windows-node22','windows-node24','windows-browsers','windows-package','windows-package-harness','windows-package-tests','windows-service-tests'].map(prefix=>`${prefix}-${r.commitSha}-1`);
+  requireFact(new Set(artifacts.map(a=>a?.name)).size===7&&new Set(artifacts.map(a=>a?.id)).size===7);
   for(const name of artifactNames){const a=artifacts.find(a=>a?.name===name);requireFact(positive(a?.id)&&a?.expired===false&&typeof a?.digest==='string'&&/^sha256:[a-f0-9]{64}$/.test(a.digest)&&a?.workflow_run?.id===r.runId&&a?.workflow_run?.head_sha===r.commitSha&&a?.workflow_run?.head_branch==='main');}
   return {format:1,kind:'github-metadata-preflight',publicationAllowed:false,request:r,source:s,run,workflow,checks,jobs,artifacts,artifact:artifacts.find(a=>a.name===`windows-package-${r.commitSha}-1`)};
  }catch{throw new Error('RELEASE_METADATA_REJECTED');}
