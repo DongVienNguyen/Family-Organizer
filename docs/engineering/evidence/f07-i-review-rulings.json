@@ -1,0 +1,43 @@
+{
+  "reviewedHead": "3e77a4522312b1abb1cfb53908e283aa13458a99",
+  "baseSha": "236038203f5be617a57963ac85ccec6c78603ee6",
+  "reviewCount": 1,
+  "critical": 0,
+  "important": 4,
+  "minor": 0,
+  "allFindingsGradedBeforeCorrection": true,
+  "rulings": [
+    {
+      "id": 1,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "existing destination file owner/explicit writer ACE"
+    },
+    {
+      "id": 2,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "DeleteSubdirectoriesAndFiles permission"
+    },
+    {
+      "id": 3,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "physical Windows8.3 source/protected-root aliases"
+    },
+    {
+      "id": 4,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "untrusted ancestor replacement permissions"
+    }
+  ],
+  "declinedToJudge": [
+    "actual PS5/NTFS/SCM and exact CI acceptance require author evidence",
+    "automatic catalog/policy and actual off-host storage/RPO/RTO deferred",
+    "Server2019/reboot/power-loss/F08F09/F05 Administration403 deferred",
+    "no new P/W/domain implementation"
+  ],
+  "correctionPass": "one after actual regression REDs",
+  "rereview": false
+}
