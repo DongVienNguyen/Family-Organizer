@@ -28,5 +28,27 @@
     "f05-b-cloud-final-vitest.json": "2a2b37bdac95024c7befccf8b34140c3c11faf41d8f0621e508021f75a651685",
     "f05-b-cloud-final-build.log": "6f140d3b1d3d37427743de79d466016b68c2863fe1815d8e524d1af8b6f2f7a5",
     "f05-b-cloud-final-audit.json": "e39fa33794a0732d11d4f0f0e3469c9456ee2f1822d344dd0ed9c402eb5b9832"
+  },
+  "review": {
+    "critical": 0,
+    "importantAccepted": 2,
+    "minorAccepted": 1,
+    "correctionPasses": 1,
+    "rereview": false,
+    "observedRedCases": 7,
+    "priorPositiveCases": 46,
+    "correctedTarget": 158,
+    "correctedFull": 1222,
+    "files": 80,
+    "lintExit": 0,
+    "buildExit": 0,
+    "logsSha256": {
+      "f05-b-review-red.log": "9ccddd11b1237434e998b0dedaf35b203c08c96024dd5580b51203d8df829e4a",
+      "f05-b-review-green.log": "073379211372131f01b9691ab830201454ac267f87ac6b0d651e0887f6f631c0",
+      "f05-b-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f05-b-corrected-tests.log": "3daebbf06b633b89fd06bf57771cdd9ecb6d8016fc6ec917fd24d165037a7b6c",
+      "f05-b-corrected-build.log": "4fc412858e35f99528472bee83b696e1f9f878200661501dc00b09cc8b1b2a8e",
+      "f05-b-corrected-actual-cloud-coverage.json": "6c816c97f738cbdde479b7923541d0488087004b8a9338c10001c48bbe471916"
+    }
   }
 }

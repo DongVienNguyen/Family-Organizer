@@ -19,8 +19,12 @@ it('accounts for unexecuted source, excludes test/type declarations and hashes a
   fs.writeFileSync(path.join(root, 'src/unexecuted.tsx'), 'export const synthetic = 3;');
   expect(productionSources(root)[1].sha256).not.toBe(first[1].sha256);
 }));
-it.each(['v8', 'c8', 'istanbul'])('rejects undeclared %s coverage exclusions', pragma => fixture(root => {
+it.each(['v8', 'c8', 'istanbul', 'node:coverage'])('rejects undeclared %s coverage exclusions', pragma => fixture(root => {
   fs.writeFileSync(path.join(root, 'server/runtime.ts'), `/* ${pragma} ignore next */\nexport const synthetic = 1;`);
+  expect(() => productionSources(root)).toThrow('Undeclared coverage exclusion');
+}));
+it('rejects a preserved JSDoc-style exclusion accepted by the coverage provider', () => fixture(root => {
+  fs.writeFileSync(path.join(root, 'server/runtime.ts'), '/** v8 ignore next -- @preserve */\nexport function synthetic() { return 1; }');
   expect(() => productionSources(root)).toThrow('Undeclared coverage exclusion');
 }));
 it('rejects a linked source directory rather than silently shrinking the inventory', () => fixture(root => {

@@ -2,7 +2,7 @@ const metrics = ['lines', 'statements', 'functions', 'branches'];
 const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const count = value => Number.isSafeInteger(value) && value >= 0;
 const sameKeys = (a, b) => record(a) && record(b) && JSON.stringify(Object.keys(a).sort()) === JSON.stringify(Object.keys(b).sort());
-const sameNumbers = (a, b) => JSON.stringify([...a].sort((x, y) => x - y)) === JSON.stringify([...b].sort((x, y) => x - y));
+const sameRows = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
 const percentage = (total, covered) => total ? Math.floor(10000 * covered / total) / 100 : 100;
 
 export function validateCoverageReports({ summary, full, lcov, sourceFiles, floor }) {
@@ -38,7 +38,19 @@ export function validateCoverageReports({ summary, full, lcov, sourceFiles, floo
     const values = { statements: measure(statements), functions: measure(functions), branches: measure(branches), lines: measure([...lines.values()]) };
     compare(summary?.[file], values, file);
     for (const name of metrics) { totals[name].total += values[name].total; totals[name].covered += values[name].covered; }
-    derived.set(file, { values, lines, functions, branches });
+    const functionDefinitions = [], functionExecutions = [], branchExecutions = [];
+    for (const [key, meta] of Object.entries(data.fnMap)) {
+      const line = (meta?.decl || meta?.loc)?.start?.line;
+      require(Number.isSafeInteger(line) && line > 0 && typeof meta?.name === 'string', `${file}: invalid function identity`);
+      functionDefinitions.push(`FN:${line},${meta?.name}`);
+      functionExecutions.push(`FNDA:${data.f[key]},${meta?.name}`);
+    }
+    for (const [key, hits] of Object.entries(data.b)) {
+      const line = data.branchMap[key]?.loc?.start?.line;
+      require(Number.isSafeInteger(line) && line > 0, `${file}: invalid branch line`);
+      if (Array.isArray(hits)) hits.forEach((hit, index) => branchExecutions.push(`BRDA:${line},${key},${index},${hit}`));
+    }
+    derived.set(file, { values, lines, functionDefinitions, functionExecutions, branchExecutions });
   }
   compare(summary?.total, totals, 'global');
   for (const name of metrics) {
@@ -69,11 +81,11 @@ export function validateCoverageReports({ summary, full, lcov, sourceFiles, floo
     }
     require(lineValues.size === raw.lines.size && number('LF') === raw.values.lines.total && number('LH') === raw.values.lines.covered, `${file}: LCOV line totals mismatch`);
     const functionRows = rows.filter(row => row.startsWith('FN:'));
-    const functionHits = rows.filter(row => row.startsWith('FNDA:')).map(row => row.match(/^FNDA:(\d+),.*$/));
-    require(functionRows.every(row => /^FN:\d+,.*$/.test(row)) && functionRows.length === raw.values.functions.total && functionHits.every(Boolean) && sameNumbers(functionHits.map(row => Number(row?.[1])), raw.functions) && number('FNF') === raw.values.functions.total && number('FNH') === raw.values.functions.covered, `${file}: LCOV function counters mismatch`);
+    const functionHits = rows.filter(row => row.startsWith('FNDA:'));
+    require(sameRows(functionRows, raw.functionDefinitions) && sameRows(functionHits, raw.functionExecutions) && number('FNF') === raw.values.functions.total && number('FNH') === raw.values.functions.covered, `${file}: LCOV function identities/counters mismatch`);
     const branchRows = rows.filter(row => row.startsWith('BRDA:')).map(row => row.match(/^BRDA:(\d+),(\d+),(\d+),(\d+|-)$/));
     const branchKeys = branchRows.map(row => row?.slice(1, 4).join(','));
-    require(branchRows.every(Boolean) && new Set(branchKeys).size === branchRows.length && sameNumbers(branchRows.map(row => row?.[4] === '-' ? 0 : Number(row?.[4])), raw.branches) && number('BRF') === raw.values.branches.total && number('BRH') === raw.values.branches.covered, `${file}: duplicate or contradictory LCOV branch counters`);
+    require(branchRows.every(Boolean) && new Set(branchKeys).size === branchRows.length && sameRows(rows.filter(row => row.startsWith('BRDA:')), raw.branchExecutions) && number('BRF') === raw.values.branches.total && number('BRH') === raw.values.branches.covered, `${file}: duplicate or contradictory LCOV branch identities/counters`);
   }
   require(lcovSources.length === inventory.length && new Set(lcovSources).size === inventory.length && JSON.stringify(lcovSources.sort()) === JSON.stringify(inventory), 'LCOV differs from source inventory');
   return errors;

@@ -49,6 +49,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           architecture: x64
+          package-manager-cache: false
       - name: Resolve npm cache directory
         id: npm-cache
         run: |
@@ -139,6 +140,7 @@ jobs:
         with:
           node-version: '24.21.0'
           architecture: x64
+          package-manager-cache: false
       - name: Resolve npm cache directory
         id: npm-cache
         run: |

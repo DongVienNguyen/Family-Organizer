@@ -13,7 +13,7 @@ export function productionSources(root) {
       if (entry.isDirectory()) walk(absolute);
       else if (entry.isFile() && /\.tsx?$/.test(entry.name) && !/\.test\.tsx?$|\.d\.ts$/.test(entry.name)) {
         const bytes = fs.readFileSync(absolute);
-        if (/\/[*\/]\s*(?:v8|c8|istanbul)\s+ignore\b/i.test(bytes.toString('utf8'))) throw new Error('Undeclared coverage exclusion pragma');
+        if (/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(bytes.toString('utf8'))) throw new Error('Undeclared coverage exclusion pragma');
         files.push({ path: path.relative(root, absolute).replaceAll('\\', '/'), sha256: sha256(bytes) });
       }
     }

@@ -33,10 +33,15 @@ Windows. Cloud is development evidence only. In-process Vitest coverage does not
 include compiled-process/browser execution; those have separate functional proof.
 Unmounted legacy React components retain visible low coverage. Percentages alone
 do not prove all behavior; new domain branches need acceptance-invariant tests.
-Final gated Windows HEAD and the fresh whole-branch review are still pending.
+The single fresh review accepted two Important and one Minor findings; all were
+fixed in one TDD pass with seven actual RED regressions. LCOV now binds function
+declaration/name/hits and branch line/map-key/index/hits, rather than aggregate
+hit multisets. All provider-supported exclusion aliases are rejected. Final
+corrected exact-HEAD Windows proof remains pending.
 
 Npm caches now use explicit Windows architecture/Node/npm/lockfile keys via
-the official SHA-pinned actions/cache v5. Only npm tarballs are cached, with no
+the official SHA-pinned actions/cache v5. Implicit setup-node package-manager caching is explicitly disabled on both jobs.
+Only npm tarballs are cached, with no
 cross-Node restore prefix or node_modules transfer. PowerShell checks the native
 cache-path npm command exit immediately.
 

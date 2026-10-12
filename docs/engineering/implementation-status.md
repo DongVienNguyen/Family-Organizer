@@ -617,3 +617,13 @@ Coverage is not full app acceptance; F09 legacy matrix/package/services remain u
 Actual main ruleset/protection writes403 despite authorized Administration request;
 F05 enforcement is not accepted. F04 backup/log privacy and F06–F09 remain next;
 new P/W features wait foundation acceptance; no release/tag/VPS access/deployment.
+
+Single fresh F05-b review: noCritical;2Important implicitcache/provider-exclusion
+aliases and1Minor LCOVidentity accepted before one TDD correctionpass. Seven
+actualRED then correction; no rereview. Final Cloud/Windows proof pending.
+
+First gated source5722cc5/run38193135741 independently verified1215/121580files
+on both Windows runtimes, all8checks0/audit0/22proof;15 first-attempt browsers,
+all104 raw coverage/LCOV inventories and hashes match. Still superseded by review
+fixes. Corrected target158/158 threefiles, full Cloud1222/122280files/lint/build0;
+actual104file coverage validation agrees. Corrected Windows HEAD pending.

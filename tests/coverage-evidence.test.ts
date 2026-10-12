@@ -8,7 +8,7 @@ function fixture(): any {
   return {
     sourceFiles: ['server/synthetic.ts'],
     summary: { total: structuredClone(metrics), 'server/synthetic.ts': structuredClone(metrics) },
-    full: { 'server/synthetic.ts': { path: 'server/synthetic.ts', statementMap: { 0: { start: { line: 1 } }, 1: { start: { line: 2 } }, 2: { start: { line: 2 } } }, s: { 0: 1, 1: 1, 2: 0 }, fnMap: { 0: { name: 'synthetic', loc: { start: { line: 1 } } } }, f: { 0: 1 }, branchMap: { 0: { locations: [{ start: { line: 2 } }, { start: { line: 2 } }] } }, b: { 0: [1, 0] } } },
+    full: { 'server/synthetic.ts': { path: 'server/synthetic.ts', statementMap: { 0: { start: { line: 1 } }, 1: { start: { line: 2 } }, 2: { start: { line: 2 } } }, s: { 0: 1, 1: 1, 2: 0 }, fnMap: { 0: { name: 'synthetic', loc: { start: { line: 1 } } } }, f: { 0: 1 }, branchMap: { 0: { loc: { start: { line: 2 } }, locations: [{ start: { line: 2 } }, { start: { line: 2 } }] } }, b: { 0: [1, 0] } } },
     lcov: 'TN:\nSF:server/synthetic.ts\nFN:1,synthetic\nFNDA:1,synthetic\nFNF:1\nFNH:1\nDA:1,1\nDA:2,1\nLF:2\nLH:2\nBRDA:2,0,0,1\nBRDA:2,0,1,0\nBRF:2\nBRH:1\nend_of_record\n',
     floor: { lines: 100, statements: 66.66, functions: 100, branches: 50 },
   };
@@ -42,6 +42,11 @@ const corruptions: [string, (f: any) => void][] = [
   ['LCOV source mismatch', f => f.lcov = f.lcov.replace('server/synthetic.ts', 'src/other.ts')],
   ['LCOV wrong line count', f => f.lcov = f.lcov.replace('LF:2', 'LF:1')],
   ['LCOV wrong line execution', f => f.lcov = f.lcov.replace('DA:2,1', 'DA:2,0')],
+  ['LCOV wrong function definition', f => f.lcov = f.lcov.replace('FN:1,synthetic', 'FN:999,other')],
+  ['LCOV wrong function name', f => f.lcov = f.lcov.replace('FNDA:1,synthetic', 'FNDA:1,unrelated')],
+  ['LCOV swapped branch hits', f => f.lcov = f.lcov.replace('BRDA:2,0,0,1', 'BRDA:2,0,0,0').replace('BRDA:2,0,1,0', 'BRDA:2,0,1,1')],
+  ['LCOV wrong branch line', f => f.lcov = f.lcov.replace('BRDA:2,0,0,1', 'BRDA:999,0,0,1')],
+  ['LCOV wrong branch identity', f => f.lcov = f.lcov.replace('BRDA:2,0,0,1', 'BRDA:2,99,0,1')],
   ['LCOV wrong function count', f => f.lcov = f.lcov.replace('FNH:1', 'FNH:0')],
   ['LCOV wrong branch execution', f => f.lcov = f.lcov.replace('BRDA:2,0,0,1', 'BRDA:2,0,0,0')],
   ['LCOV duplicate source', f => f.lcov += f.lcov],
