@@ -2,9 +2,9 @@
   "task": "F06-c",
   "baseSha": "d353c7bd8b7a73ac41bde401d875fe4cfb98e56f",
   "cloudDiagnosticsOnly": true,
-  "tests": 1361,
+  "tests": 1362,
   "files": 83,
-  "targetTests": 159,
+  "targetTests": 160,
   "sourceChecks": {
     "lint": 0,
     "test": 0,
@@ -40,7 +40,13 @@
     "f06-c-review-full-tests.log": "0608aac7c4844c5503b990dd1d2a7f403ced97cff15eaae31f6d91e67c5bba8a",
     "f06-c-review-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
     "f06-c-review-build.log": "595f29ebb16c39bc8c6663c1266ad7570dfeb5784899dc53262a4817637cbe0b",
-    "f06-c-review-closure-audit.json": "d2a0e961691ab4ae8e5946862ca0a5249b928b2703e45d018cc9ee7fe75e6ff2"
+    "f06-c-review-closure-audit.json": "d2a0e961691ab4ae8e5946862ca0a5249b928b2703e45d018cc9ee7fe75e6ff2",
+    "f06-c-consumer-harness-red.log": "1e663db2e5d912d4e8a4aa76671527abcc7f30d44ef288f9be9b67b25729acd8",
+    "f06-c-consumer-harness-green.log": "41bc79c5a3a94d79e5f77d2d7519062272434a9f06f045c7c05b9ec650b73b3a",
+    "f06-c-consumer-fix-full-tests.log": "5ebc9dd73adaa697abc3bd2d5be85c9d6f4554c4cee99bd461ab2ec696a88032",
+    "f06-c-consumer-fix-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f06-c-consumer-fix-build.log": "1fe97d25d052868669c7655a46274219637705f084b44ddc1cab0dabbf8149e1",
+    "f06-c-consumer-failed-job.log": "956daad899254d8ec347675b41a9773d57eb850405bcd1516e3b6764e1290d0f"
   },
   "windowsRun": null,
   "review": {
@@ -82,5 +88,11 @@
     "zipSha256": "aa006fb67449e47eec3795ffc8a246e59b9dc785fa5ed4f95b3f2e5270443ad5",
     "httpEceSupplement": "Original upstream notice recorded above"
   },
-  "earlierReviewFixtureImportErrorNotCountedAsRed": true
+  "earlierReviewFixtureImportErrorNotCountedAsRed": true,
+  "consumerRegression": {
+    "redFailed": 1,
+    "redPassed": 40,
+    "greenLicenseCases": 41,
+    "workflowDefinedIsolatedHarnessImport": true
+  }
 }

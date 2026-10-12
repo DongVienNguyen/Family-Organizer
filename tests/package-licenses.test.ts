@@ -81,3 +81,14 @@ it.each(['minimatch','inherits','dotenv','ieee754'])('retains complete reviewed 
  const file=fs.readdirSync(directory).find(n=>/^license(?:[._-]|$)/i.test(n))!;
  const result=classifyLicenseNotice(metadata,[{name:file,text:fs.readFileSync(path.join(directory,file),'utf8')}]);expect(result.license).toBe(metadata.license);expect(result.licenseTextStatus).toBe('license-file');
 });
+
+import {spawnSync} from 'node:child_process';
+it('loads the actual independent consumer license harness without checkout modules',()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'isolated license harness '));try{
+  const line=read('.github/workflows/ci.yml').split('\n').find(line=>line.includes('Copy-Item scripts/windows/Archive.ps1'))!;
+  const files=line.trim().replace(/^Copy-Item /,'').replace(/ reports\/package-harness$/,'').split(/,\s*/);
+  for(const file of files)fs.copyFileSync(path.join(repoRoot,file),path.join(root,path.basename(file)));
+  const result=spawnSync(process.execPath,['--input-type=module','-e',"await import('./license-inventory.mjs')"],{cwd:root,env:{...process.env,NODE_PATH:'',NODE_OPTIONS:''},encoding:'utf8'});
+  expect(result.status,result.stderr).toBe(0);
+ }finally{fs.rmSync(root,{recursive:true,force:true});}
+});
