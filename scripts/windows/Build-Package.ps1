@@ -38,7 +38,7 @@ try {
     $prepareCode=$LASTEXITCODE
     $native.prepare=$prepareCode
     if ($prepareCode -ne 0) { throw "Package preparation exited $prepareCode" }
-    & $node (Join-Path $PSScriptRoot 'write-manifest.mjs') $root $CommitSha 2>&1 | Tee-Object -FilePath (Join-Path $OutputDirectory 'manifest-validation.log')
+    & $node (Join-Path $PSScriptRoot 'write-manifest.mjs') $root $CommitSha $repoRoot 2>&1 | Tee-Object -FilePath (Join-Path $OutputDirectory 'manifest-validation.log')
     $manifestCode=$LASTEXITCODE
     $native.manifest=$manifestCode
     if ($manifestCode -ne 0) { throw "Package manifest validation exited $manifestCode" }

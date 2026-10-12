@@ -1,0 +1,59 @@
+{
+  "task": "F06-c",
+  "baseSha": "d353c7bd8b7a73ac41bde401d875fe4cfb98e56f",
+  "cloudDiagnosticsOnly": true,
+  "tests": 1351,
+  "files": 83,
+  "targetTests": 149,
+  "sourceChecks": {
+    "lint": 0,
+    "test": 0,
+    "build": 0
+  },
+  "redEvidence": {
+    "initialClassification": {
+      "failed": 13,
+      "passed": 4
+    },
+    "declarationMismatch": {
+      "failed": 3,
+      "passed": 17
+    },
+    "mandatorySuite": {
+      "failed": 1,
+      "passed": 118
+    }
+  },
+  "earlierImportErrorsNotCountedAsRed": true,
+  "rawLogHashes": {
+    "f06-c-license-policy-actual-red.log": "3dc53ce625eadd706f0db89a9af31a691e851e72be430fc5f8eb329029cbfbec",
+    "f06-c-license-policy-actual-green.log": "1bab6acbf14f50135ee9deec17b14ff4c56bc0f829c08639d1098b5eff89bd1e",
+    "f06-c-declaration-mismatch-red.log": "5cfea612f90c03aae4c5491550d07a88151a487999acf7ae5d814b7dca180132",
+    "f06-c-declaration-mismatch-green.log": "d9c853dced2f2a9583877bc69f09f5b113054d17d40529eafd28d4a7fe0c7ace",
+    "f06-c-mandatory-license-suite-red.log": "93c628130ebc13a53d4508622175a9ef442be6a3286901f5589eab71372735fc",
+    "f06-c-license-evidence-green.log": "c2ffeba286c71ddf733c70915acc5103056981e58b0cd760c15ed319777b6651",
+    "f06-c-full-tests.log": "50c7cf3b1305206b8734075dda026acf979165149fddac3b8a38c2928ce993a1",
+    "f06-c-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f06-c-build.log": "ab34711ea64d9af278db0cb2ed5f392a8682fdf96edb02d4de2531299e47989d"
+  },
+  "windowsRun": null,
+  "review": null,
+  "provenance": {
+    "httpEceRegistryGitHead": "0562510a30819f52424724a6fd5504becacd98a1",
+    "httpEceLicenseBlob": "d6a83c0df8d8f56a8d49f0b666f2033edd26cf18",
+    "mplTextRepository": "spdx/license-list-data",
+    "mplTextCommit": "31ba1a50e5397e00a304dbadc76531740e89ee48",
+    "mplTextBlob": "ee6256cdb62a765749a71aae3abea32884301cd1",
+    "sourceApacheTermsUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+  },
+  "remaining": [
+    "Windows proof",
+    "Fresh review",
+    "F05 protection HTTP403",
+    "F06 service templates",
+    "F07 operations",
+    "F08 release preparation",
+    "F09 acceptance",
+    "R02 real Server2019"
+  ]
+}

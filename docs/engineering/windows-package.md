@@ -1,4 +1,4 @@
-# Windows package — F06-b
+# Windows package — F06-b/F06-c
 
 This focused change adds a Windows2022 producer and a different clean Windows2022
 consumer. It prepares CI artifacts; it does not create a tag/release or deploy.
@@ -18,8 +18,14 @@ hash; detached producer evidence hashes the complete ZIP, including the manifest
 The JSON schema describes structural fields; package-contract.mjs additionally
 checks path/size budgets, exact pins and cross-field relations. Full source and
 license inventory checks run after extraction. Dependency notices distinguish
-actual license files from metadata/README-only declarations; missing full license
-texts remain explicit license-review findings rather than invented copyrights.
+standalone notices from complete original MIT notices embedded in upstream READMEs.
+The producer and consumer reject unresolved runtime license evidence. The missing
+http_ece1.2.0 MIT notice is copied verbatim from its npm gitHead, with commit/blob
+and byte hashes pinned. Shared MPL2 and source Apache2 terms are included; the
+original web-push3.6.7 copyright and preferred-form src/*.js bytes are preserved
+and verified against the build input. Unknown license identifiers require review.
+This recognition policy verifies the reviewed runtime closure; it does not claim
+automated legal compatibility certification or full frontend/font license review.
 Original README/source SPDX attribution and bundled upstream notices are kept.
 
 The consumer downloads that ZIP and a separate built-in-only test harness. It has
@@ -42,7 +48,7 @@ both package jobs in addition to both quality runtimes and browser regressions.
 
 Remaining F06/F07 work: actual Windows service templates/install/start/stop/recovery,
 launcher production service integration, authenticated portable encrypted recovery,
-operator update/rollback and full license finding resolution. F09 still requires
+operator update/rollback and remaining frontend/font license review. F09 still requires
 all legacy features' regression mapping/performance and all required jobs green
 at the same SHA. Main protection API enforcement is currently HTTP403 despite
 user authorization. None of those pending checks is inferred from ZIP success.

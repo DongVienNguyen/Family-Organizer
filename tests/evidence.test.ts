@@ -11,7 +11,7 @@ const lockHash=createHash('sha256').update(lockText).digest('hex');
 const coverageFloor={lines:1,statements:1,functions:1,branches:1};
 const coveragePolicyText=JSON.stringify({schema:1,providerVersion:'4.1.11',floors:{'v24.21.0':coverageFloor}});
 const suiteNames = [
-  'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts',
+  'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts',
   'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
@@ -211,3 +211,5 @@ it.each(['absent','missing','duplicate'])('rejects %s compiled incompatible-sche
 it('rejects an array-valued compiled database hash instead of coercing it to text',()=>{expect(runEvidence(reports=>{reports['production.json'].incompatibleSchemas[0].databaseSha256=['d'.repeat(64)];}).code).toBe(1);});
 
 it('rejects missing Windows package contract and byte regressions',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('tests/windows-package.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/windows-package.test.ts');});
+
+it('rejects missing package license and source-retention regressions',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('tests/package-licenses.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/package-licenses.test.ts');});
