@@ -56,7 +56,7 @@ function Get-ServiceContext {
         Assert-NoServiceReparse $file
         if ($entries.Count -ne 1 -or (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -cne $entries[0].sha256) { throw 'Service helper import hash mismatch' }
     }
-    Invoke-ServiceNative 'package-validation' $node @((Join-Path $release 'ops/verify-installed-service.mjs'),$release,$manifest.commitSha)
+    Invoke-ServiceNative 'package-validation' $node @((Join-Path $release 'ops/verify-installed-service.mjs'),$release,$manifest.commitSha,$manifest.appVersion)
     return @{release=$release;instance=$instance;id=$ServiceId;port=$Port;node=$node;manifestHash=$ExpectedManifestSha256;commitSha=$manifest.commitSha;frameworkRelease=$framework.Release;directory=(Join-Path $instance 'service');wrapper=(Join-Path $instance "service/$ServiceId.exe");xml=(Join-Path $instance "service/$ServiceId.xml");marker=(Join-Path $instance 'service/installation.json')}
 }
 function Assert-ServiceAdministrator {

@@ -57,6 +57,8 @@ try {
     $listener.Start();$port=$listener.LocalEndpoint.Port;$listener.Stop()
     $context=Get-ServiceContext $release $instance $id $port $manifestHash
     if ($context.commitSha -cne $CommitSha) { throw 'Service manifest source mismatch' }
+    & (Join-Path $PSScriptRoot 'Test-ServiceSecurity.ps1') -Context $context -ReportDirectory $ReportDirectory
+    $checks.Add('synthetic-service-security-refusals')
     $env:PATH=Join-Path $env:windir 'System32'
     Remove-Item Env:NODE_PATH,Env:NODE_OPTIONS -ErrorAction SilentlyContinue
     $powershell=Join-Path $env:windir 'System32/WindowsPowerShell/v1.0/powershell.exe'
