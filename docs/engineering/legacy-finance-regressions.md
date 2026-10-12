@@ -43,3 +43,9 @@ requires identical response/transaction ID and whole SQLite state/logs, and one
 due-date advance. A different target bill with the same command must409; ignored
 request metadata retains the same cached result. This is a coverage correction,
 not a newly demonstrated product defect. Final rebased full source/Windows required.
+
+After provisional rebase onto F07-l e79, reviewed finance/HTTP/gate source bytes are
+unchanged. Frozen Cloud1942/105,169 target/3files, lint/build0 now pass. Earlier
+serial1933/1934 GCfailure remains recorded. F07-l supplies stronger controlled
+heap pressure while retaining300000 SQL assertions and15s; finance adds no runtime
+flags. Final main rebase and exact Windows remain mandatory after PR38 acceptance.

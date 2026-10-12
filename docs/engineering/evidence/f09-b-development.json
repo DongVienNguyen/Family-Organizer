@@ -3,10 +3,10 @@
   "baseSha": "de66d95c447a2b773e376bb55553f1cb6821d908",
   "actualProductReds": 4,
   "mandatoryGateRed": 1,
-  "targetGreen": 168,
+  "targetGreen": 169,
   "targetFiles": 3,
-  "fullGreen": 1872,
-  "fullFiles": 104,
+  "fullGreen": 1942,
+  "fullFiles": 105,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -66,5 +66,15 @@
     "failure": "native-gc child15s timeout even one worker; no timeout/assert/workload change",
     "report": "outside f09-b-rebased-vitest.json"
   },
-  "fullNewBaseAcceptance": "not accepted: GC environment failure retained; independent main Windows Node24 retention path failure needs separate F07 correction"
+  "fullNewBaseAcceptance": "Cloud1942/105 source frozen/lintbuild0; PR38 exactnative/mainmerge stillpending, thenmainrebase/newexactWindows mandatory",
+  "historicalSourceFull": {
+    "baseSha": "de66d95c447a2b773e376bb55553f1cb6821d908",
+    "fullGreen": 1872,
+    "fullFiles": 104,
+    "targetGreen": 168
+  },
+  "provisionalBaselineSha": "e79fdd835ba08a4e59a88fb55b8e398db33b5747",
+  "fullReportSha256": "6149d8b59859d5a98935709dd2bb6cb663ffcc070972a59ac0d49aedaf19242f",
+  "sourceParity": "server/db.ts, finance/shopping HTTP suites and both critical-gate source files identical to reviewed/corrected7930c74 after rebase",
+  "baselineGcChange": "F07-l parent adds controlled old64/semi8 measuredheap<=128MiB/noexplicitGC;300000 SQL workload and15s budget preserved, no F09-specific change"
 }
