@@ -15,6 +15,8 @@ function Invoke-ServiceNative {
 }
 function Assert-NoServiceReparse {
     param([string]$Path)
+    # Read-only verification must still execute under the caller's WhatIf.
+    $WhatIfPreference=$false
     $current=[IO.Path]::GetFullPath($Path)
     while ($current) {
         if (Test-Path -LiteralPath $current) {
@@ -27,6 +29,8 @@ function Assert-NoServiceReparse {
 }
 function Get-ServiceRoot {
     param([string]$Path)
+    # Read-only verification must still execute under the caller's WhatIf.
+    $WhatIfPreference=$false
     if ($Path -notmatch '^[A-Za-z]:[\\/]' -or $Path.Contains('%') -or $Path.Normalize() -cne $Path) { throw 'Literal fully qualified local service path required' }
     $tail=$Path.Substring(3).Replace('/','\').TrimEnd('\')
     foreach ($part in $tail.Split('\')) {
@@ -39,6 +43,8 @@ function Get-ServiceRoot {
 }
 function Get-ServiceContext {
     param([string]$ReleaseRoot,[string]$InstanceRoot,[string]$ServiceId,[int]$Port,[string]$ExpectedManifestSha256)
+    # Read-only verification must still execute under the caller's WhatIf.
+    $WhatIfPreference=$false
     if ($ServiceId -cnotmatch '^FamilyOrganizer(-[A-Za-z0-9]{1,48})?$' -or $Port -lt 1 -or $Port -gt 65535 -or $ExpectedManifestSha256 -cnotmatch '^[a-f0-9]{64}$') { throw 'Invalid owned service identity/evidence' }
     $release=Get-ServiceRoot $ReleaseRoot
     $instance=Get-ServiceRoot $InstanceRoot
@@ -70,6 +76,8 @@ function Assert-ServiceAdministrator {
 }
 function Assert-ServiceOwner {
     param($Context,$Descriptor)
+    # Read-only verification must still execute under the caller's WhatIf.
+    $WhatIfPreference=$false
     if ($Descriptor.format -ne 1 -or $Descriptor.serviceId -cne $Context.id -or $Descriptor.releaseRoot -ine $Context.release -or $Descriptor.instanceRoot -ine $Context.instance -or $Descriptor.manifestHash -cne $Context.manifestHash -or $Descriptor.port -ne $Context.port) { throw 'Existing service ownership/configuration mismatch' }
     foreach($critical in @($Context.instance,$Context.directory,$Context.marker,$Context.wrapper,$Context.xml,($Context.wrapper+'.config'))){Assert-ServiceMetadataAcl $critical}
     Assert-NoServiceReparse $Context.wrapper
@@ -82,6 +90,8 @@ function Assert-ServiceOwner {
 }
 function Get-ServiceTree {
     param([string]$Path)
+    # Read-only verification must still execute under the caller's WhatIf.
+    $WhatIfPreference=$false
     Assert-NoServiceReparse $Path
     $items=New-Object System.Collections.Generic.List[string]
     $pending=New-Object System.Collections.Generic.Stack[string]
@@ -97,6 +107,8 @@ function Get-ServiceTree {
 }
 function Assert-ServiceMetadataAcl {
     param([string]$Path)
+    # Read-only verification must still execute under the caller's WhatIf.
+    $WhatIfPreference=$false
     Assert-NoServiceReparse $Path
     $acl=Get-Acl -LiteralPath $Path
     $owner=$acl.GetOwner([Security.Principal.SecurityIdentifier]).Value

@@ -97,5 +97,19 @@
     "functionalServiceChecks": "not-run",
     "reportSha256": "64df7d58a67934c29848246ae2a6f010d5acaf6bf82a46930415ccfe89a33174",
     "jobLogSha256": "3d113b545b2b1248b90e7e3d6e3ce830b7625d61bbc9746c5ce1ff8e7dbfe64c"
+  },
+  "correctedSecurityGreenWhatIfFailure": {
+    "headSha": "08797032dff4d51cf32338c0ee5664b6cc43f451",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38206812699",
+    "securityAssertionsPassed": 8,
+    "earlySourceRefusalReport": "passed with native1/cleanuptrue/no helper invocation",
+    "validateOnlyExitCode": 0,
+    "whatIfExitCode": 1,
+    "failure": "Windows PowerShell5.1 WhatIf preference suppressed read-only hash/provider lookup; Hash property absent",
+    "functionalSCMChecks": "not-run",
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "securityReportSha256": "03fc3070aea38386f9ce8435027663e9882b182c828c86476e61a59fa45c6a77",
+    "jobLogSha256": "f11bb1ab65dec9bc4c3fd5289183bf55fb33478da8f1c4bbb48d1eb100571530"
   }
 }
