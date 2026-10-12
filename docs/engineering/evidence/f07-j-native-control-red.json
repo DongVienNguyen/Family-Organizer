@@ -1,0 +1,33 @@
+{
+  "taskId": "F07-j native control-reader regression",
+  "headSha": "7e5ade332298c8ce163a91503deda8b0a8815d4f",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38280590026",
+  "actualNativeRedAssertions": 1,
+  "nativeExitCodes": [
+    {
+      "phase": "update-configure-held-seal",
+      "exitCode": 0
+    },
+    {
+      "phase": "update-configure-held-reinstall",
+      "exitCode": 0
+    },
+    {
+      "phase": "update-configure-held-reinstall-acl",
+      "exitCode": 1
+    }
+  ],
+  "cause": "recursive reinstall grants the service Modify on the fixed control file; exact private reader check refuses an untrusted writer",
+  "correction": "reapply protected Administrator/SYSTEM/full + unique service-SID read exception for update-control.json after recursive config ACLs",
+  "allExistingServiceRecoveryScheduleBeforeUpdatePassed": true,
+  "fixtureCleanup": true,
+  "serviceRemoved": true,
+  "sourceFull": {
+    "tests": 1757,
+    "files": 98,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "correctedNativeWindows": "pending new exact HEAD",
+  "logSha256": "34d48b332773ae04e2ad38529a47cfe3ffd473152c6418fff0431bcbd74bad77"
+}
