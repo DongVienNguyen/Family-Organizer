@@ -19,7 +19,8 @@
 | F04-k | Reviewed, exact Windows GREEN, merged PR17 | HEADd614a78/run38185059520;1026/102674files per runtime; main6be5cd5 |
 | F04-l | Reviewed, exact Windows GREEN, merged PR18 | HEADcbc677bea9c0b3dc6b1f7267417290f5d6257400; run38186890169;1080/108076files per runtime; mainc24486b |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
-| F05-a | PR19 reviewed; complete artifact verification pending final SHA | HEAD9bfd3c9/run38189740360 quality1146/787checks0 per runtime; browser15/15/ci-gate GREEN; independent verifier found uploader omitted declared hidden .last-run.json; upload setting corrected |
+| F05-a | Reviewed, exact Windows GREEN, merged PR19 | HEAD1697bf939a57e7a463a95ea8141c30a4368822b7; run38190289782;1146/114678files per runtime,7checks0/audit0/22proof;15browser first-attempt cases, full artifact hashes verified; mainb0f9a01 |
+| F05-b | Coverage measurement and OS/Node/npm/lock cache in progress | branchcodex/f05-coverage-ratchet; mainBASEb0f9a01; Windows baseline not yet measured/frozen |
 | F05–F09 | Enforcement/coverage/package/service/encryption/release-prep/performance pending | Actual Oct12 ruleset/protection writes still403 despite user authorization; mainprotected:false; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
