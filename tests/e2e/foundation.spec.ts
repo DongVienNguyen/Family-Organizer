@@ -113,7 +113,7 @@ test(browserCases[2], async ({ page }) => {
   await expect(page.getByText('Synthetic child note', { exact: true })).toBeVisible();
   await expect(page.getByText('Synthetic private note', { exact: true })).toHaveCount(0);
   await page.getByText('Synthetic shared note', { exact: true }).click();
-  const image = page.getByRole('img', { name: 'synthetic shared', exact: true });
+  const image = page.locator('#note-reader-modal').getByRole('img', { name: 'synthetic shared', exact: true });
   await expect(image).toBeVisible();
   await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   await page.reload(); // closes the reader without depending on an unlabeled icon button
@@ -169,41 +169,45 @@ test(browserCases[4], async ({ page, context }) => {
   await notes(page);
   await expect(page.getByText('Synthetic private note', { exact: true })).toBeVisible();
   expect((await api(page, '/uploads/notes/private.png', memberToken)).status).toBe(200);
-  let release!: () => void, held!: () => void, finished!: () => void;
-  const barrier = new Promise<void>(resolve => { release = resolve; });
-  const captured = new Promise<void>(resolve => { held = resolve; });
-  const delivered = new Promise<void>(resolve => { finished = resolve; });
-  let hold = true, routeError: unknown, aborted: string | null = null;
-  await context.route('**/api/notes', async route => {
-    if (!hold || route.request().headers().authorization !== 'Bearer ' + memberToken) return route.continue();
-    hold = false;
-    try {
-      const response = await route.fetch();
-      expect(response.status()).toBe(200);
-      expect(await response.text()).toContain('Synthetic private note');
-      held();
-      await barrier;
-      try { await route.fulfill({ response }); }
-      catch (error) { aborted = route.request().failure()?.errorText || null; if (!aborted) throw error; }
-    } catch (error) { routeError = error; held(); }
-    finally { finished(); }
-  });
+  // WebKit can send this request through its active service worker without a
+  // Playwright route event. Delay the real fetch response inside the page instead.
+  // Capture all real bytes before logout, then deliberately deliver them after
+  // cancellation to test the session boundary when transport cannot stop delivery.
+  await context.addInitScript(({ token }) => {
+    const original = window.fetch.bind(window);
+    const state = { capturing: false, held: false, delivered: false, status: 0, body: '', error: null as string | null, release: () => {} };
+    (window as any).__foLateNotes = state;
+    window.fetch = async (input, init) => {
+      const request = new Request(input, init);
+      if (state.capturing || new URL(request.url).pathname !== '/api/notes' || request.headers.get('Authorization') !== 'Bearer ' + token) return original(input, init);
+      state.capturing = true;
+      try {
+        const response = await original(input, init);
+        state.status = response.status;
+        state.body = await response.text();
+        state.held = true;
+        await new Promise<void>(resolve => { state.release = resolve; });
+        state.delivered = true;
+        return new Response(state.body, { status: response.status, headers: response.headers });
+      } catch (error) { state.error = String(error); state.held = true; throw error; }
+    };
+  }, { token: memberToken });
   try {
     await page.reload({ waitUntil: 'domcontentloaded' });
-    await captured;
-    expect(routeError).toBeUndefined();
+    await expect.poll(() => page.evaluate(() => (window as any).__foLateNotes.held)).toBe(true);
+    const captured = await page.evaluate(() => ({ status: (window as any).__foLateNotes.status, body: (window as any).__foLateNotes.body, error: (window as any).__foLateNotes.error }));
+    expect(captured.error).toBeNull(); expect(captured.status).toBe(200);
+    expect(captured.body).toContain('Synthetic private note');
     await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic member', exact: true })).toBeVisible();
     await logout(page);
     const childToken = await login(page, 'child');
     await notes(page);
-    release();
-    await delivered;
-    expect(routeError).toBeUndefined();
-    if (aborted) expect(aborted).toMatch(/abort|cancel/i);
+    await page.evaluate(() => (window as any).__foLateNotes.release());
+    await expect.poll(() => page.evaluate(() => (window as any).__foLateNotes.delivered)).toBe(true);
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     await expect(page.getByText('Synthetic private note', { exact: true })).toHaveCount(0);
     await expect(page.getByText('Synthetic child note', { exact: true })).toBeVisible();
     expect((await api(page, '/uploads/notes/private.png', childToken)).status).toBe(404);
     expect((await api(page, '/api/notes', memberToken)).status).toBe(401);
-  } finally { release(); }
+  } finally { await page.evaluate(() => (window as any).__foLateNotes?.release()); }
 });

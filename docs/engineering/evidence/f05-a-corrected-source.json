@@ -1,0 +1,1321 @@
+{
+  "task": "F05-a-corrected-source",
+  "headSha": "ca105038299047f882fc07b043ec8d78a0ffaa35",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38189120605",
+  "conclusion": "failure",
+  "runAttempt": 1,
+  "quality": [
+    {
+      "artifactName": "windows-node22-ca105038299047f882fc07b043ec8d78a0ffaa35-1",
+      "evidence": {
+        "commitSha": "ca105038299047f882fc07b043ec8d78a0ffaa35",
+        "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38189120605",
+        "runAttempt": 1,
+        "runnerOS": "Windows_NT 10.0.20348",
+        "runnerImage": "win22",
+        "runnerImageVersion": "20261004.326.1",
+        "nodeVersion": "v22.23.3",
+        "npmVersion": "10.9.9",
+        "toolchain": {
+          "npmVersion": "10.9.9",
+          "visualStudioVersion": "17.14.37710.0"
+        },
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success",
+          "audit": "success"
+        },
+        "suites": [
+          {
+            "name": "server/app.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appEffects.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.durable.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appMigrations.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appSnapshot.test.ts",
+            "passed": 27,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appStore.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/auth.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authHttp.test.ts",
+            "passed": 26,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authStore.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/commandHttp.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/config.test.ts",
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayload.test.ts",
+            "passed": 82,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayloadHttp.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyHttp.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyNative.test.ts",
+            "passed": 26,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/fullBackup.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/icsFeed.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/jobStore.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/legacyVisibility.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/lifecycle.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaHttp.test.ts",
+            "passed": 33,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaMetadata.test.ts",
+            "passed": 25,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/objectAclHttp.test.ts",
+            "passed": 53,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/providerJobs.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushDelivery.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushOutbox.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushTransport.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtime.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtimeHttp.test.ts",
+            "passed": 21,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/rewardStore.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/sqlite.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/systemMetrics.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayload.test.ts",
+            "passed": 74,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayloadHttp.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/updater.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/weeklyDigestHttp.test.ts",
+            "passed": 18,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/weeklyDigestPrivacy.test.ts",
+            "passed": 33,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/account-initialization.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/browser-evidence.test.ts",
+            "passed": 55,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/browser-providers.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/compiled-media-policy.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/data-migration.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/evidence.test.ts",
+            "passed": 82,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/httpDependencySecurity.test.ts",
+            "passed": 19,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/librarySecurity.test.ts",
+            "passed": 28,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/media-cold-restore.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-gc.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-paths.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-scripts.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-ownership.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-process.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-http.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-recovery.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/sw-cache.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/assetValue.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/bmi.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/clientSession.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/debt.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/financePeriod.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/mediaResource.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/pdfExport.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privacyWorker.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privateStorage.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/realtimeClient.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/recurrence.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/searchText.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/serviceWorkerWatch.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/sessionBoundary.test.ts",
+            "passed": 30,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/uploadImage.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/vietnamHolidays.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/authenticated-media.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/note-sharing-policy.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/realtime-session.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-actions.test.ts",
+            "passed": 23,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-bootstrap.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/task-reward-policy.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/windows-version.test.tsx",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "native": {
+          "nodeVersion": "v22.23.3",
+          "nodeABI": "127",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "13.0.3",
+          "bindingApi": "N-API",
+          "nodeNapi": "10",
+          "binaryPath": "prebuilds/win32-x64.node",
+          "sqliteVersion": "3.53.4",
+          "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "production": {
+          "commitSha": "ca105038299047f882fc07b043ec8d78a0ffaa35",
+          "nodeVersion": "v22.23.3",
+          "platform": "win32",
+          "architecture": "x64",
+          "cwd": "C:\\Windows\\System32",
+          "productionRoot": "D:\\a\\_temp\\fo production dữ liệu 3c54edc4-9332-4bd0-8c0a-f84ca33bc4c3\\release with spaces",
+          "checks": [
+            "production-dependencies-only",
+            "no-source-ts",
+            "foreign-cwd",
+            "static-assets",
+            "legacy-preserved",
+            "restart-persistence",
+            "write-permission-fail-fast",
+            "offline-providers",
+            "graceful-shutdown",
+            "readiness",
+            "crash-recovery",
+            "auth-session-restart",
+            "auth-session-logout",
+            "private-response-cache",
+            "authenticated-realtime",
+            "object-visibility",
+            "authenticated-media",
+            "task-write-authority",
+            "content-write-authority",
+            "derived-object-privacy",
+            "explicit-first-account",
+            "provider-digest-privacy"
+          ]
+        },
+        "audit": {
+          "auditReportVersion": 2,
+          "vulnerabilities": {},
+          "metadata": {
+            "vulnerabilities": {
+              "info": 0,
+              "low": 0,
+              "moderate": 0,
+              "high": 0,
+              "critical": 0,
+              "total": 0
+            },
+            "dependencies": {
+              "prod": 311,
+              "dev": 231,
+              "optional": 107,
+              "peer": 2,
+              "peerOptional": 0,
+              "total": 543
+            }
+          }
+        },
+        "auditContext": {
+          "architecture": "x64",
+          "platform": "win32",
+          "lockSha256": "af767896ca79f00283f5457fe7c4b425ac13cbb89b284467d27187a8bb4880c5",
+          "nodeVersion": "v22.23.3",
+          "commitSha": "ca105038299047f882fc07b043ec8d78a0ffaa35"
+        },
+        "lockSha256": "af767896ca79f00283f5457fe7c4b425ac13cbb89b284467d27187a8bb4880c5",
+        "server2019Acceptance": "not-run",
+        "errors": []
+      },
+      "passedTests": 1146,
+      "testFiles": 78,
+      "reportSha256": {
+        "audit-context.json": "77261455e5ea70569ee42a56c7118552f5cfa71db6783d9e3b003cb880c589e9",
+        "audit-exit.json": "e03c4bca6e62509e0750ec17f7e57a6abd12f30e04a835b31745e1430623f432",
+        "audit.json": "88e3471ecefc1fce49ba05721fa083865ff2c9da21975ce26e735c21b2be4476",
+        "audit.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+        "build.log": "9f46841bff396980cae2640033248c3c8f994c228186fd59916963cc6d5c0951",
+        "evidence.json": "8430a6de9e94efa9f8d245ff12fdf901e4e8d325e207f877c9d043112f6d9d98",
+        "install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+        "install.log": "8731890de26f7d9901012ac82293668d268fcb80bc9466484b402b31800eda80",
+        "junit.xml": "8e92550acf16f00ed98b746f4845b4507f966aecfa944b3940c1d0ed5302f145",
+        "lint-exit.json": "788f1ad1253ff0deb4227f24304e77d95b258bd81d6dfd750b04408e9e6879ab",
+        "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+        "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+        "native.json": "839df92b2d80b06766cdd3e8fb73e680345e948ff71404c1f0b95e562cdd3d8c",
+        "native.log": "8fda14cf9ea15d0d67a02dacf772ed5b0e6a8b3c1246cb7b2a318e0870c3cd24",
+        "production-exit.json": "aafd991c38898765ed84121dc8a8463f7b5977fcab48223bc920f2c72c1404fc",
+        "production-install.log": "2a8286e51fdeed5848f1b988bed49d45d072ebca8d00a92674dc625877653b02",
+        "production-server.log": "a58f086e97e0e5c109e5c63772b4132d81cb3e1e9ab6b9f325e587c2eb35af18",
+        "production.json": "bed3a0153841c4b8fd7dd9ef2ca07bf301f09d30ae5d647de9e9ceafd573bd15",
+        "production.log": "6f63fb0f8a2ff53088252f437f66994027c5d4e298a976aeb0a7ab0af6db9f61",
+        "test-exit.json": "a97bf24e3e07dde6bf94d216306d401598f94035263015286e419f73d71e8e48",
+        "test.log": "cfa4514266d91581053c233aa526bc81c28fd02578f6b4e464609014143e11bc",
+        "toolchain.json": "51271ea9302f2035dfb9d0e995f3105d6274c9e01db1ae74f1832b61275e43e3",
+        "vitest.json": "b05fb3a719e3c2843a8efad70372895a64d2c19aaebaaa8e215d6f28c3f89141"
+      }
+    },
+    {
+      "artifactName": "windows-node24-ca105038299047f882fc07b043ec8d78a0ffaa35-1",
+      "evidence": {
+        "commitSha": "ca105038299047f882fc07b043ec8d78a0ffaa35",
+        "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38189120605",
+        "runAttempt": 1,
+        "runnerOS": "Windows_NT 10.0.20348",
+        "runnerImage": "win22",
+        "runnerImageVersion": "20261004.326.1",
+        "nodeVersion": "v24.21.0",
+        "npmVersion": "11.19.0",
+        "toolchain": {
+          "visualStudioVersion": "17.14.37710.0",
+          "npmVersion": "11.19.0"
+        },
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success",
+          "audit": "success"
+        },
+        "suites": [
+          {
+            "name": "server/app.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appEffects.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.durable.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appJobs.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appMigrations.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appSnapshot.test.ts",
+            "passed": 27,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/appStore.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/auth.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authHttp.test.ts",
+            "passed": 26,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/authStore.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/commandHttp.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/config.test.ts",
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayload.test.ts",
+            "passed": 82,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/contentPayloadHttp.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyHttp.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/derivedPrivacyNative.test.ts",
+            "passed": 26,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/fullBackup.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/icsFeed.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/jobStore.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/legacyVisibility.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/lifecycle.test.ts",
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaHttp.test.ts",
+            "passed": 33,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/mediaMetadata.test.ts",
+            "passed": 25,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/objectAclHttp.test.ts",
+            "passed": 53,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/providerJobs.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushDelivery.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushOutbox.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/pushTransport.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtime.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/realtimeHttp.test.ts",
+            "passed": 21,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/rewardStore.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/sqlite.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/systemMetrics.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayload.test.ts",
+            "passed": 74,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/taskPayloadHttp.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/updater.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/weeklyDigestHttp.test.ts",
+            "passed": 18,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "server/weeklyDigestPrivacy.test.ts",
+            "passed": 33,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/account-initialization.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/browser-evidence.test.ts",
+            "passed": 55,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/browser-providers.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/compiled-media-policy.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/data-migration.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/evidence.test.ts",
+            "passed": 82,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/httpDependencySecurity.test.ts",
+            "passed": 19,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/librarySecurity.test.ts",
+            "passed": 28,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/media-cold-restore.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-gc.test.ts",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-paths.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/native-scripts.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-ownership.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/runtime-process.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-http.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/snapshot-recovery.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/sw-cache.test.ts",
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/assetValue.test.ts",
+            "passed": 29,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/bmi.test.ts",
+            "passed": 17,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/clientSession.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/debt.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/financePeriod.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/mediaResource.test.ts",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/pdfExport.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privacyWorker.test.ts",
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/privateStorage.test.ts",
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/realtimeClient.test.ts",
+            "passed": 13,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/recurrence.test.ts",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/searchText.test.ts",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/serviceWorkerWatch.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/sessionBoundary.test.ts",
+            "passed": 30,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/uploadImage.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "src/utils/vietnamHolidays.test.ts",
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/authenticated-media.test.ts",
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/note-sharing-policy.test.ts",
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/realtime-session.test.ts",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-actions.test.ts",
+            "passed": 23,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/session-bootstrap.test.ts",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/task-reward-policy.test.ts",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "name": "tests/ui/windows-version.test.tsx",
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "native": {
+          "nodeVersion": "v24.21.0",
+          "nodeABI": "137",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "13.0.3",
+          "bindingApi": "N-API",
+          "nodeNapi": "10",
+          "binaryPath": "prebuilds/win32-x64.node",
+          "sqliteVersion": "3.53.4",
+          "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "production": {
+          "commitSha": "ca105038299047f882fc07b043ec8d78a0ffaa35",
+          "nodeVersion": "v24.21.0",
+          "platform": "win32",
+          "architecture": "x64",
+          "cwd": "C:\\Windows\\System32",
+          "productionRoot": "D:\\a\\_temp\\fo production dữ liệu f07b96bf-bf60-4a26-b792-8ba70fdab80b\\release with spaces",
+          "checks": [
+            "production-dependencies-only",
+            "no-source-ts",
+            "foreign-cwd",
+            "static-assets",
+            "legacy-preserved",
+            "restart-persistence",
+            "write-permission-fail-fast",
+            "offline-providers",
+            "graceful-shutdown",
+            "readiness",
+            "crash-recovery",
+            "auth-session-restart",
+            "auth-session-logout",
+            "private-response-cache",
+            "authenticated-realtime",
+            "object-visibility",
+            "authenticated-media",
+            "task-write-authority",
+            "content-write-authority",
+            "derived-object-privacy",
+            "explicit-first-account",
+            "provider-digest-privacy"
+          ]
+        },
+        "audit": {
+          "auditReportVersion": 2,
+          "vulnerabilities": {},
+          "metadata": {
+            "vulnerabilities": {
+              "info": 0,
+              "low": 0,
+              "moderate": 0,
+              "high": 0,
+              "critical": 0,
+              "total": 0
+            },
+            "dependencies": {
+              "prod": 311,
+              "dev": 231,
+              "optional": 107,
+              "peer": 2,
+              "peerOptional": 0,
+              "total": 543
+            }
+          }
+        },
+        "auditContext": {
+          "commitSha": "ca105038299047f882fc07b043ec8d78a0ffaa35",
+          "platform": "win32",
+          "lockSha256": "af767896ca79f00283f5457fe7c4b425ac13cbb89b284467d27187a8bb4880c5",
+          "nodeVersion": "v24.21.0",
+          "architecture": "x64"
+        },
+        "lockSha256": "af767896ca79f00283f5457fe7c4b425ac13cbb89b284467d27187a8bb4880c5",
+        "server2019Acceptance": "not-run",
+        "errors": []
+      },
+      "passedTests": 1146,
+      "testFiles": 78,
+      "reportSha256": {
+        "audit-context.json": "cefc2e51959e4d423cd4a02b0507a0be749ef3587fc580c0456df29af01dcee9",
+        "audit-exit.json": "e03c4bca6e62509e0750ec17f7e57a6abd12f30e04a835b31745e1430623f432",
+        "audit.json": "88e3471ecefc1fce49ba05721fa083865ff2c9da21975ce26e735c21b2be4476",
+        "audit.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+        "build.log": "a78bf534aa058a184d16d79a09d07b76c9aaf2344b8a04fe079dafcd3f5479f9",
+        "evidence.json": "ceaf603383e5cf9369e3d1f10daf867e829607a3b6eb66ac33c2df099ed61cb5",
+        "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+        "install.log": "1919befb7be2a03048636f6340da118e0c6b7e5ee680fd5f2c18ea1c75f9fd47",
+        "junit.xml": "5e0f648d5e23b97d6c6cea4f80bc266ea6cef30019f599f3d9c6eed2829e83aa",
+        "lint-exit.json": "788f1ad1253ff0deb4227f24304e77d95b258bd81d6dfd750b04408e9e6879ab",
+        "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+        "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+        "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+        "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+        "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+        "production-install.log": "7d0ed4a75949d241564fecbfdb140af97e6507c9ab0cedc5a238928250cb00bf",
+        "production-server.log": "526a53c7d4ad1405898a559e7cb8d2079dbb3c5aab1412838ca0a4588d8b7e5d",
+        "production.json": "ba42ac99ccce54b1d83354a6a70b241b96d0262a417000adacde7c27fed4e653",
+        "production.log": "27557c4949f93080b10f484a6e784c55c83fbce43b29117a50311d5a1ae6cdf1",
+        "test-exit.json": "a97bf24e3e07dde6bf94d216306d401598f94035263015286e419f73d71e8e48",
+        "test.log": "43e3d246a67f9558b20010e56539dad5417e22834ea4841e794d0c10b7654d0c",
+        "toolchain.json": "9197d488a377e254a43847f25cd8b0ee4085ece6ad3a2ac98dea6137b2d2fe06",
+        "vitest.json": "d87d469bf2f9e5d695e8a0f203813f130475696a10d27711c28182d5f059fc9e"
+      }
+    }
+  ],
+  "browserStats": {
+    "startTime": "2026-10-12T00:46:19.573Z",
+    "duration": 151277.131,
+    "expected": 11,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  },
+  "browserNativeExit": 1,
+  "browserWrapperExit": 1,
+  "browserCleanup": {
+    "integrity": "ok",
+    "databaseClosed": true,
+    "fixtureRemoved": true,
+    "externalAttempts": [],
+    "serverExitCode": 0
+  },
+  "cause": "B03 all3engines locator matches preview and reader image; scope reader modal while preserving decoded-image assertion. B05 WebKit active service-worker request has no Playwright route event; deterministic real-fetch response delay inside page replaces route-based hold, keeps service worker enabled and deliberately delivers actual Member bytes after Child login. No skip/retry/timeout increase/assertion removal.",
+  "fullLogSha256": "beabed98c23d234b875edb96732b5465531d3ac770f1e7ebce140b96b69053bd",
+  "browserReportsSha256": {
+    "browser-server.log": "2698b5c92aa710fb2494b9a2bd421a71b5bd7c314f8156a21e0d9e2adb188bd7",
+    "browsers-install.log": "e45e5a33fa37dc80dce0e6a49d2f7a44804daa969516c70e8f700e6ead4a1b98",
+    "build.log": "e6512ec651b71cd07900ba50e60a6380f7635df55e1dfbbe7765c73d4834d3b4",
+    "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+    "browser.junit.xml": "da34354e745ea36b905757c34c53a0906d11c9666258ef194d776cbf19bad947",
+    "browser-runtime-webkit.json": "47a86e8b8d7410179978b3af2f53fbee246328337cdfd20cda965155a414c1fd",
+    "browser-run.log": "f04919c136acb56739d04eec8955b3a511a550ab639118729aae807ead9e008c",
+    "toolchain.json": "aa37346c2d22b806763ed5ba1faebfc9578688769f6be6963593ad06e7c4ea8f",
+    "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+    "browser-evidence.json": "e6c67454fd36993df80c1aa197a4cd29bd7b2e27b0b56c936d31ca965f96bfe3",
+    "browser-runtime-chromium.json": "e8426a517887dc799b9cc0c7ed83750dd77c1a72cb51fad6459c4aa337a9562e",
+    "browsers-install-exit.json": "7aee3541b2f850bfb90a8c551fe85a13b26aa6ad7916a7e2f89a5bba16afe2c1",
+    "browser-exit.json": "433da21081aab85dc869de5b75f2eaf3e7faf4ab2ae70200028ae95d4cf5b3aa",
+    "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+    "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+    "install.log": "1919befb7be2a03048636f6340da118e0c6b7e5ee680fd5f2c18ea1c75f9fd47",
+    "browser-cli.log": "3bf5a21b2e0135f30fcf1d2448d982387e8b8a80d8e06f8f1b07e8c954cb38a0",
+    "browser-runtime-firefox.json": "3fc5ac0efaa8807b364ec9906ab240544fd57b55ea7d06fec6c16bab722712bc",
+    "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+    "browser.json": "e4ef5e0eedc4ec640963be7c724d79d937bcc293a665f6a87718c4ace777f30e",
+    "browser-fixture.json": "8fde68bf38966d1a911656207810be63aff1f72784f2f9561a9b84f65e04a367",
+    "browser-provider-fixtures.log": "c96bffcb247ea61fc0035865cd6f1b247ccace572b165ef8187bd5419dd775f7",
+    "browser-html/index.html": "f2ebc48ee85a32a1c792fd7987e6a576f04f3064346315fa827fae9e183c81d1",
+    "browser-html/data/4c90307ddfbd105114dae1a57efa05002ce5bab2.png": "81750fc4951116d1ff92adb8d8a27c7a2278ffc69ecf9db0fdc2c6d2b8e01fc8",
+    "browser-html/data/c2fca3b14b7d3d4f10e9a71fdb6ae7eb5b6d5440.png": "1b25d32bcc69b4395e9df5690b9fc90522c5be6511aa60a36942e505aed0630a",
+    "browser-html/data/4a9d87c20d206be01c3a738b5e8b541ec6127c79.zip": "1c91452861a13b1164253bd96c3249812d7a662b353b370b490e2f334023c45d",
+    "browser-html/data/b26b38296f925d3710d76e6988a6d345c46e5703.md": "1dcbde600b8435d1a5432cc5d179f65b94dc7412d1ee8fd8888ba728fb460e9e",
+    "browser-html/data/df48d612298c06dafa92e1899f256c92e976120b.md": "e4515dd73828717af4989b7feb598d74749a3059de7cefd55774a8836e937b5d",
+    "browser-html/data/458e11438eba89cffe81f27f83a682cebf4a06b0.webm": "b01a93c53efe18e4c3f0b507578c3627e51c23ff1ff9140614fd021918e930e7",
+    "browser-html/data/611e668dac46f34a9065d0009bd24271ba30289d.md": "528b2f12e854222eda4ee42b6c78853fc8b6a818b332e191128855dbb952d091",
+    "browser-html/data/94c919aedbadb7ba1eaf49078e2792b9a54a364b.zip": "ee08540fe174ca56a9106087e61704abbfdcc3a05a1ad5afd9860188a78faf3f",
+    "browser-html/data/48dfb87a4b956010dee0840ac6b380e929e188f6.zip": "6bb7995037a54a68c21b9c7da29f33a60a76fec088fa19ea46d43c51c431064c",
+    "browser-html/data/19a8c248be304063765c812a51f285f0cac1db72.webm": "8a62d27009f78535a1c744810e3d9666283502bb2af8b0e143c9cc1a1e4785fd",
+    "browser-html/data/4553ef5529a2095d8dc53c4bb0eb94c6e478e6bf.webm": "74b4ba0e0a08d682274daa8d2a192c5ad6fed56141e3b99aa7052e6e810b666d",
+    "browser-html/data/a1e99edd136e158a86fbb38ce737d9a66a8f4059.png": "7c21e454558e304b5ae76d0696985f4a29ce868cbedc490e606132ab07751c1c",
+    "browser-html/data/a1f72d4de142cf47a04fe27bddc83b961076d71d.webm": "fb943785493f080900bcacdd604de46d2485e8f2d5368b682fb0b43ef8771361",
+    "browser-html/data/682da0a9983c29ac7553672f0f9e025d24e1ad73.md": "d8bfa2268a10c8c1d2a73b649a7dcd93a5d46f030f6a640bd9e390450e2dad2a",
+    "browser-html/data/bb143e6625415b4c4ff3a1f7c454b501dc839bc5.zip": "c1d29201a8d64f80a04166932969e0eab81dd878e0000b12cf5e5854c3bda328",
+    "browser-html/data/1178f3902c001ba7ccbfad9955b6bc2a9c2812be.png": "25fcceef54d71ece8aaad24f8fb0631d3c2f16bb52eeabab5ef18960cc07298e",
+    "browser-html/trace/snapshot.html": "c608c8899c95c5a74d3f556e20146c3d852b9df85ae2854c659a7cc773c9b727",
+    "browser-html/trace/index.B_TqY17P.css": "08a212fcacae1866f44f065654afcc4c7d03409c68c74b3315c5bda17a0ca003",
+    "browser-html/trace/uiMode.html": "6de2f5db7f7532c30e8b1381752a1daf23facbdef6bea130cef0cfa5a003eb22",
+    "browser-html/trace/sw.bundle.js": "d1d6fec6687eb3fd93a8990bd9daa3951422695afffae2382f97f10811cf1c30",
+    "browser-html/trace/index.7-c5LSTW.js": "ce1eb956b15739b52a45c9fc2b9a0c529448242426b2b124d5c3167915910ff1",
+    "browser-html/trace/playwright-logo.svg": "6b0a4367bdeab10995bc239278f04c68c10e48adbec15e799e01909a0d66dcb9",
+    "browser-html/trace/uiMode.CyMfwkXJ.css": "fb403cf0b07007bc1d771e29737f7408924da300e2fab8b289a3ef2e8fc08d7b",
+    "browser-html/trace/manifest.webmanifest": "d8540500603a32a39fe7e5a0375dc0f9ebafd11118e06a846db7efc608223ab9",
+    "browser-html/trace/xtermModule.kHJ-D0s7.css": "0dd60056134e6a2994a86b59a1e9789b9f04e92924da109aef8c923acaf08ce5",
+    "browser-html/trace/uiMode.CYwC_gH1.js": "c920eaa161f65b6c0dd431a642c4bdf2e6262ae51335c02d155b187f48c0296c",
+    "browser-html/trace/index.html": "b80661d46bc580d1e7be45c2c2b0e891c466f3f67e52c33e4f111f000f3532c6",
+    "browser-html/trace/codicon.DCmgc-ay.ttf": "0f1d5219934e96e83b8db162d60b4d8c09b5de1e7d38031cbafe4a3c0f2889c9",
+    "browser-html/trace/defaultSettingsView.C8BeHuxd.css": "278101b68ab48ee6323a6afbf4e0e629324e10e96902a62a0875643a1bba3d94",
+    "browser-html/trace/snapshot.B_Jk1wbt.js": "d4d09e05451d107d8e1a6bbd041405fe518b9fd2833890e4ebaaad83b7f554f5",
+    "browser-html/trace/codeMirrorModule.-QdMvsKi.css": "20be824a82832b62cc04642d31da3c609fd280b23f1cdcb1e622c4f40aac5ab8",
+    "browser-html/trace/assets/urlMatch-L3liM589.js": "1bc6321e32d11c31a452bc75896f0b344e6153321854d9f1658818be7f845c16",
+    "browser-html/trace/assets/defaultSettingsView-D-g2vrvf.js": "554bdef910d18e763118f1221667b809edafba46e29e3f8de4b9dcf21c6b7d79",
+    "browser-html/trace/assets/codeMirrorModule-BEB2e8M3.js": "0da75d228abc1d8b940aa04ec086570dace7b2e7b2ccc5f4bc16f05e79bdb7d7",
+    "browser-results/foundation-B05-account-switch-removes-previous-data-webkit/error-context.md": "e4515dd73828717af4989b7feb598d74749a3059de7cefd55774a8836e937b5d",
+    "browser-results/foundation-B05-account-switch-removes-previous-data-webkit/video.webm": "8a62d27009f78535a1c744810e3d9666283502bb2af8b0e143c9cc1a1e4785fd",
+    "browser-results/foundation-B05-account-switch-removes-previous-data-webkit/test-failed-1.png": "81750fc4951116d1ff92adb8d8a27c7a2278ffc69ecf9db0fdc2c6d2b8e01fc8",
+    "browser-results/foundation-B05-account-switch-removes-previous-data-webkit/trace.zip": "ee08540fe174ca56a9106087e61704abbfdcc3a05a1ad5afd9860188a78faf3f",
+    "browser-results/foundation-B03-note-and-media-visibility-webkit/error-context.md": "1dcbde600b8435d1a5432cc5d179f65b94dc7412d1ee8fd8888ba728fb460e9e",
+    "browser-results/foundation-B03-note-and-media-visibility-webkit/video.webm": "b01a93c53efe18e4c3f0b507578c3627e51c23ff1ff9140614fd021918e930e7",
+    "browser-results/foundation-B03-note-and-media-visibility-webkit/test-failed-1.png": "25fcceef54d71ece8aaad24f8fb0631d3c2f16bb52eeabab5ef18960cc07298e",
+    "browser-results/foundation-B03-note-and-media-visibility-webkit/trace.zip": "1c91452861a13b1164253bd96c3249812d7a662b353b370b490e2f334023c45d",
+    "browser-results/foundation-B03-note-and-media-visibility-firefox/error-context.md": "528b2f12e854222eda4ee42b6c78853fc8b6a818b332e191128855dbb952d091",
+    "browser-results/foundation-B03-note-and-media-visibility-firefox/video.webm": "74b4ba0e0a08d682274daa8d2a192c5ad6fed56141e3b99aa7052e6e810b666d",
+    "browser-results/foundation-B03-note-and-media-visibility-firefox/test-failed-1.png": "7c21e454558e304b5ae76d0696985f4a29ce868cbedc490e606132ab07751c1c",
+    "browser-results/foundation-B03-note-and-media-visibility-firefox/trace.zip": "c1d29201a8d64f80a04166932969e0eab81dd878e0000b12cf5e5854c3bda328",
+    "browser-results/foundation-B03-note-and-media-visibility-chromium/error-context.md": "d8bfa2268a10c8c1d2a73b649a7dcd93a5d46f030f6a640bd9e390450e2dad2a",
+    "browser-results/foundation-B03-note-and-media-visibility-chromium/video.webm": "fb943785493f080900bcacdd604de46d2485e8f2d5368b682fb0b43ef8771361",
+    "browser-results/foundation-B03-note-and-media-visibility-chromium/test-failed-1.png": "1b25d32bcc69b4395e9df5690b9fc90522c5be6511aa60a36942e505aed0630a",
+    "browser-results/foundation-B03-note-and-media-visibility-chromium/trace.zip": "6bb7995037a54a68c21b9c7da29f33a60a76fec088fa19ea46d43c51c431064c"
+  },
+  "server2019": "not-run",
+  "releaseTagVps": "not-authorized/not-accessed"
+}

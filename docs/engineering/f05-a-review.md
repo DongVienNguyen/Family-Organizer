@@ -29,6 +29,17 @@ and positive authorized access. Finance denial remains403. No source behavior or
 existing assertion is weakened. Raw reports, failure screenshots/video/trace and
 full logs were downloaded; hashes are in evidence/f05-a-first-source.json.
 
+Corrected HEADca10503/run38189120605 passed1146tests in78files and all seven
+quality/native checks per runtime, with the nine review regression tests GREEN.
+Browser11/15passed: B03's image locator matched both preview and reader in all
+engines; B05 WebKit did not emit a Playwright route event for its active service
+worker request. Scope the image to the reader modal and delay the real complete
+Member fetch response within the page, then deliberately deliver those captured
+bytes after Child login. Preserve service workers, all privacy/decoded-image
+assertions, zero retries and the same timeout. This is continued validation of
+the one review correction pass; no rereview or skipped engine. Raw second-run
+reports/traces/video/log hashes are in evidence/f05-a-corrected-source.json.
+
 Main protection remains blocked by actual Administration-write HTTP403. F05-b
 coverage, full legacy matrix, packaging/service/encryption and Server2019 remain
 subsequent work. No release/tag/VPS actions occurred.
