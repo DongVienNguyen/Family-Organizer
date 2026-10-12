@@ -5,6 +5,7 @@ import { appConfig } from './config.js';
 import type { FamilyOrganizerDB } from '../src/types.js';
 
 export const snapshotLimits = { bytes: 256 * 1024 * 1024, files: 10_000, rows: 100_000 };
+export const settingsByteLimit = 1024 * 1024;
 // 10k entries, each with at most512 UTF-16 path units plus hashes/metadata,
 // fit below32MiB even when every path unit needs3 UTF-8 bytes.
 export const journalByteLimit = 32 * 1024 * 1024;
@@ -46,7 +47,7 @@ function ordinaryFile(file: string): void {
 export function readSettings(): Record<string,string> {
   if (!fs.existsSync(settingsFile)) return {};
   ordinaryFile(settingsFile);
-  if (fs.statSync(settingsFile).size > 1024 * 1024) throw new Error('Local settings size limit exceeded');
+  if (fs.statSync(settingsFile).size > settingsByteLimit) throw new Error('Local settings size limit exceeded');
   const parsed = JSON.parse(fs.readFileSync(settingsFile, 'utf8'));
   if (!parsed || Array.isArray(parsed) || typeof parsed !== 'object' || Object.values(parsed).some(value => typeof value !== 'string')) throw new Error('Invalid local settings');
   return parsed;

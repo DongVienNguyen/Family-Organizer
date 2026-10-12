@@ -20,6 +20,7 @@ import { AppDeliveryError } from './appErrors.js';
 import { postTelegram } from './telegramDelivery.js';
 import {canViewLegacyDocument,canViewLegacyTask,canViewLegacyPlan,type LegacyActor} from './legacyVisibility.js';
 import {isActiveAuthUser} from './auth.js';
+import {getAppCommandContext} from './commandContext.js';
 
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 
@@ -385,6 +386,7 @@ export async function sendWeeklyDigest(now = new Date(), requester?:DigestReques
 
   const captured=JSON.stringify(data);
   const assertCurrent=()=>{
+    getAppCommandContext()?.assertWriteOwnership?.();
     const current=FamilyDB.getUsers().find(user=>user.id===ownerId),settings=getAppSettings();
     const key=(settings.geminiApiKey||'').trim()||(process.env.GEMINI_API_KEY||process.env.API_KEY||'').trim();
     if(!isActiveAuthUser(current)||current.role!==UserRole.ADMIN||current.passwordHash!==passwordHash||settings.telegramWeeklyDigestEnabled!==s.telegramWeeklyDigestEnabled||settings.telegramWeeklyDigestOwnerId!==ownerId||settings.telegramBotToken!==token||settings.telegramChatId!==chatId||key!==geminiKey||requester&&!requester.isCurrent()||JSON.stringify(buildDigestData(now,actor))!==captured)fail();

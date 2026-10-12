@@ -17,7 +17,7 @@
 | F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
 | F04-j | Reviewed, exact Windows GREEN, merged PR16 | HEADcc45fe8/run38182693480;978/97873files per runtime; maine41e97d |
 | F04-k | Reviewed, exact Windows GREEN, merged PR17 | HEADd614a78/run38185059520;1026/102674files per runtime; main6be5cd5 |
-| F04-l | Digest provider privacy implemented; source tests GREEN; Windows/review pending | BASE6be5cd5;43observedREDincl1newownerrequirement;5initialchars+1supportedSDKcase |
+| F04-l | Reviewed and corrected; final Windows pending PR18 | First HEAD2d65f18/run38186316145;1075/107576files;46observedRED/8chars |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
 | F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
@@ -575,7 +575,16 @@ selected RED report has unselected cases; full suites don't skip. Two suites and
 107476files/lint/build and fresh production-only npmci/22proof smoke passed;
 final supported-SDK source test run1075/107576files (zero skips), targeted131/131
 4files, lint0. Build/compiled smoke0 before the test-only addition; unchanged source. No Cloud smoke claim for Windows.
-PR/SHA/exact Windows artifacts and one fresh whole-branch review pending.
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/18. First-source
+HEAD2d65f182c7f313dfd882a9065631a4d3a85fe880 / Windows38186316145
+independently1075/107576files per Node22/24, all seven command exits0/auditnative0,
+22 compiled proofs/evidence/ci-gate; raw hashes in evidence/f04-l-first-source.json.
+Single wholebranch review: no Critical; one Important/two Minor accepted before
+mutation, one TDD pass/no rereview. Lease before Gemini across import and shared
+serialized settings1MiB limits add3actualRED; supported raw/escaped string bounds
+add2alreadyGREENchars. Corrected target136/136fourfiles, full1080/108076files zero
+skips, lint/build0. Total46RED/8chars inclone newly required owner binding.
+Final corrected HEAD Windows proof pending; see f04-l-review.md.
 
 Remaining F04 ordinary backup/redaction/encrypted provider backup and log audit;
 F05 browser/coverage and actual Administration write/protection still403; F06–F09

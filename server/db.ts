@@ -6,7 +6,7 @@ import {canViewLegacyTask} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
 import {managedMarkdownUrls,canonicalMediaUrl} from './mediaPolicy.js';
 import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
-import { durableWrite, validBackupFilename, sha256, readSettings } from './snapshotFiles.js';
+import { durableWrite, validBackupFilename, sha256, readSettings, settingsByteLimit } from './snapshotFiles.js';
 import { revokeUserSessions } from './authStore.js';
 /**
  * @license
@@ -153,7 +153,9 @@ export function patchAppSettings(patch: Record<string,string|null>): void {
       if (value === null || value === '') delete settings[key];
       else settings[key] = value;
     }
-    durableWrite(temporary, JSON.stringify(settings,null,2));
+    const serialized = JSON.stringify(settings,null,2);
+    if (Buffer.byteLength(serialized,'utf8') > settingsByteLimit) throw new Error('Local settings size limit exceeded');
+    durableWrite(temporary, serialized);
     getAppCommandContext()?.assertWriteOwnership?.();
     fs.renameSync(temporary, SETTINGS_FILE);
   } catch {

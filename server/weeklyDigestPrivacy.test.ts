@@ -1,3 +1,5 @@
+import {withAppCommandContext} from './commandContext.js';
+import {AppStoreError} from './appErrors.js';
 import {randomUUID} from 'node:crypto';
 import {afterEach,beforeEach,expect,it,vi} from 'vitest';
 import {FamilyDB,getAppSettings,replaceAppSettings,setAppSetting} from './db.js';
@@ -67,3 +69,11 @@ it('keeps oversized legacy fallback deliverable without breaking escaped entitie
 it('escapes legacy expense category markup in the fallback',async()=>{write(db=>{db.transactions=[{id:'synthetic-markup-expense',type:'expense',amount:25,date:'2026-01-04',category:'SYNTHETIC_CATEGORY_<a href="https://synthetic.invalid">link</a>'}];});await send();expect(body()).toContain('SYNTHETIC_CATEGORY_&lt;a');expect(body()).not.toContain('<a ');});
 it('retains an unsafe-key legacy category as ordinary own data',async()=>{write(db=>{db.transactions=[{id:'synthetic-prototype-expense',type:'expense',amount:25,date:'2026-01-04',category:'__proto__'}];});await send();expect(body()).toContain('Top chi: __proto__ 25');expect(({} as any).polluted).toBeUndefined();});
 it('escapes HTML from the supported SDK text property while retaining AI success',async()=>{configure(true);generate.mockResolvedValue({text:'<a href="https://synthetic.invalid">Synthetic supported link</a>'});expect(await send()).toEqual({aiUsed:true});expect(body()).toBe('&lt;a href="https://synthetic.invalid"&gt;Synthetic supported link&lt;/a&gt;');expect(body()).not.toContain('<a ');});
+
+it.each(['initial','across-import'])('fences an expired owned lease %s before Gemini dispatch',async timing=>{
+ configure(true);generate.mockResolvedValue({text:'Synthetic fenced AI response'});let owned=timing!=='initial';
+ const pending=withAppCommandContext({actorId:admin.id,requestId:randomUUID(),assertWriteOwnership:()=>{if(!owned)throw new AppStoreError('Synthetic digest lease expired',409);}},()=>runWeeklyDigestTick(now));
+ owned=false;
+ await expect(pending).rejects.toMatchObject({unknownOutcome:false});expect(generate).not.toHaveBeenCalled();expect(fetch).not.toHaveBeenCalled();expect(getAppSettings().telegramWeeklyDigestLastSent).toBeUndefined();
+});
+it.each(['raw','escaped'])('refuses oversized supported SDK %s text and delivers filtered bounded fallback',async kind=>{documents();configure(true);generate.mockResolvedValue({text:kind==='raw'?'SYNTHETIC_RAW_OVERSIZE_'.repeat(300):'<'.repeat(2000)});expect(await send()).toEqual({aiUsed:false});expect(generate).toHaveBeenCalledTimes(1);expect(fetch).toHaveBeenCalledTimes(1);expect(body()).toContain('SYNTHETIC_VISIBLE');expect(body()).not.toContain('SYNTHETIC_PRIVATE');expect(body()).not.toContain('SYNTHETIC_RAW_OVERSIZE');expect(body().length).toBeLessThanOrEqual(4096);});

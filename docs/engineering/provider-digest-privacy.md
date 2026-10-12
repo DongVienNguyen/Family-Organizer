@@ -54,3 +54,13 @@ retained evidence before merge. This is not complete F04 acceptance: ordinary
 backup redaction/encrypted Telegram backup, whole-app log audit, F05 browser/
 coverage/actual branch enforcement, F06/F07 package/service, F09 regressions and
 R02 Server2019 remain. No release/tag/VPS or live provider delivery.
+
+The single review accepted one Important (lease fencing before Gemini) and two
+Minor (serialized settings byte limit; supported-SDK bounds coverage). Three
+additional actual RED cases now pass; two supported-string bounds cases were
+already GREEN. Revalidation uses existing durable ownership across module import;
+serialized settings use the same1MiB UTF8 byte limit as the reader. Corrected
+Cloud target136/136fourfiles, full1080/108076files (zero skips), lint/build0.
+Total46 observed RED contract cases/8characterizations, one pass/no rereview.
+First-source Windows38186316145 verified1075/1075 per runtime/all7+22+gate;
+final corrected HEAD remains pending Windows. See f04-l-review.md.

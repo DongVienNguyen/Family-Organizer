@@ -13,6 +13,8 @@ import {withAppWriteTransaction} from './appStore.js';
 import {syntheticDependencies} from '../tests/app-fixture.js';
 import {UserRole} from '../src/types.js';
 import {appConfig} from './config.js';
+import {readSettings} from './snapshotFiles.js';
+import path from 'node:path';
 const seed=db.FamilyDB.getUsers()[0];
 const admin={...seed,id:'digest-http-admin',username:'digest-http-admin',role:UserRole.ADMIN,isDeleted:false};
 const alternate={...seed,id:'digest-http-other',username:'digest-http-other',role:UserRole.ADMIN,isDeleted:false};
@@ -45,3 +47,12 @@ it('returns save failure without acknowledging or partially replacing settings',
 it('keeps raw provider payloads out of the manual digest response',()=>serve(async send=>{const result=await send('/api/settings/telegram-digest/test',{});expect(result.status).toBe(400);expect(JSON.stringify(result.body)).not.toContain('SYNTHETIC_PRIVATE');},deps=>{deps.digest.sendWeeklyDigest=async()=>{throw new Error('SYNTHETIC_PRIVATE_PROVIDER_KEY');};}));
 it('does not let another Admin route the bound owner digest manually',()=>serve(async send=>{db.setAppSetting('telegramWeeklyDigestOwnerId',admin.id);const fetch=vi.fn(async()=>({ok:true,status:200,json:async()=>({ok:true})}));vi.stubGlobal('fetch',fetch);expect((await send('/api/settings/telegram-digest/test',{},alternate)).status).toBe(400);expect(fetch).not.toHaveBeenCalled();}));
 it('preserves ordinary backup enable toggles without changing an existing digest owner',()=>serve(async send=>{db.setAppSetting('telegramWeeklyDigestOwnerId',alternate.id);expect((await send('/api/settings/telegram-backup',{enabled:true})).status).toBe(200);expect(db.getAppSettings().telegramWeeklyDigestOwnerId).toBe(alternate.id);expect(db.getAppSettings().telegramBackupEnabled).toBe('1');}));
+
+it('refuses a Unicode settings patch crossing the reader byte limit without modifying its file',()=>serve(async send=>{
+ const limit=1024*1024,base={telegramBotToken:'synthetic-http-token',telegramChatId:'synthetic-http-chat',syntheticPadding:''};
+ base.syntheticPadding='ắ'.repeat(Math.floor((limit-Buffer.byteLength(JSON.stringify(base))-16)/3));
+ const original=Buffer.from(JSON.stringify(base)),file=path.join(appConfig.configRoot,'app_settings.json');
+ expect(original.length).toBeLessThanOrEqual(limit);expect(original.length).toBeGreaterThan(limit-20);expect(original.toString().length).toBeLessThan(limit/2);
+ fs.writeFileSync(file,original);expect(readSettings()).toEqual(base);
+ const result=await send('/api/settings/telegram-backup',{weeklyDigestEnabled:true});expect(result.status).toBe(503);expect(fs.readFileSync(file).equals(original)).toBe(true);expect(fs.readdirSync(appConfig.configRoot).filter(name=>name.includes('.tmp-'))).toEqual([]);
+}));
