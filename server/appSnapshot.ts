@@ -1,3 +1,4 @@
+import {recoveryFileBytes,type ValidatedFilePatch} from './recoveryFiles.js';
 import {applyRecoverySettings,type ValidatedSettingPatch} from './recoverySettings.js';
 import {ordinaryBackupValue,ordinaryBackupSettings} from './backupCredentials.js';
 import type { AppWriteTx } from './appStore.js';
@@ -13,9 +14,9 @@ import { AppJobStore } from './jobStore.js';
 import { randomUUID } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import { settingsByteLimit, publicSettingKeys, mediaRoot, settingsFile, readSettings, readMedia, reconcileBackupReferences, sha256, durableWrite, restorePaths, writeJournal, readJournal, recoverFiles, cleanupStaging } from './snapshotFiles.js';
+import { settingsByteLimit, publicSettingKeys, mediaRoot, settingsFile, readSettings, readMedia, readSigningKeyFile, signingKeyFile, reconcileBackupReferences, sha256, durableWrite, restorePaths, writeJournal, readJournal, recoverFiles, cleanupStaging } from './snapshotFiles.js';
 
-export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string; privateSettings?: ValidatedSettingPatch }
+export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string; privateSettings?: ValidatedSettingPatch; privateFiles?: ValidatedFilePatch }
 const connection = sqliteConnection();
 const core = snapshotCoreTables;
 const domainTables = new Map<string, { namespace: string; columns: readonly string[] }>();
@@ -108,6 +109,7 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
   const checked = validateAppSnapshot(snapshot);
   if (!options?.maintenance) throw new Error('Restore requires the runtime maintenance owner');
   if(options.privateSettings!==undefined)applyRecoverySettings({},options.privateSettings);
+  if(options.privateFiles!==undefined){const files=recoveryFileBytes(options.privateFiles);for(const bytes of Object.values(files))bytes?.fill(0);}
   const context = getAppCommandContext();
   const actorId = context?.actorId ?? 'system:restore', requestId = context?.requestId ?? randomUUID();
   const identity=options.identity??checked.manifest.checksum;
@@ -116,6 +118,9 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
   let failure: unknown;
   const result = await options.maintenance(async () => {
     const id = randomUUID(); const paths = restorePaths(id);
+    const privateFiles=options.privateFiles===undefined?{}:recoveryFileBytes(options.privateFiles);
+    const keySelected=Object.hasOwn(privateFiles,'session_secret.key'),keyBytes=privateFiles['session_secret.key'];
+    let hadKey=false;
     try {
       if (readJournal()) throw new Error('An unfinished restore must be recovered before another restore');
       validateAppSnapshot(checked); // Accepted owners may have changed schema while maintenance drained.
@@ -123,21 +128,24 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
       if(options.privateSettings!==undefined)localSettings=applyRecoverySettings(localSettings,options.privateSettings);
       const settings=JSON.stringify({...localSettings,...checked.settings},null,2);
       if(Buffer.byteLength(settings)>settingsByteLimit)throw new Error('Local settings size limit exceeded');
+      if(keySelected){const existing=readSigningKeyFile();hadKey=existing!==undefined;existing?.fill(0);}
       // Preserve a complete native safety copy before any file/SQL promotion.
       fs.mkdirSync(path.dirname(paths.safety), { recursive: true }); await sqliteBackupTo(paths.safety);
       const safetyFd = fs.openSync(paths.safety,'r+'); try { fs.fsyncSync(safetyFd); } finally { fs.closeSync(safetyFd); }
       fs.mkdirSync(paths.stageMedia);
       for (const [name,data] of Object.entries(checked.media)) { const target = path.join(paths.stageMedia,...name.split('/')); fs.mkdirSync(path.dirname(target),{recursive:true}); durableWrite(target,Buffer.from(data,'base64')); }
       durableWrite(paths.stageSettings, settings);
+      if(keySelected&&keyBytes!==null)durableWrite(paths.stageSigningKey,keyBytes);
       options.onBoundary?.('staging-complete');
       // Verify current files are ordinary before moving any root.
       readMedia();
-      const journal = { id, checksum: checked.manifest.checksum, hadMedia: fs.existsSync(mediaRoot), hadSettings: fs.existsSync(settingsFile), media: checked.manifest.mediaManifest, settingsHash: sha256(settings) };
+      const journal = { id, checksum: checked.manifest.checksum, hadMedia: fs.existsSync(mediaRoot), hadSettings: fs.existsSync(settingsFile), media: checked.manifest.mediaManifest, settingsHash: sha256(settings),...(keySelected?{signingKey:{hadFile:hadKey,sha256:keyBytes===null?null:sha256(keyBytes),size:keyBytes===null?null:keyBytes.length}}:{}) };
       writeJournal(journal); options.onBoundary?.('journal-written');
       if (journal.hadMedia) fs.renameSync(mediaRoot,paths.oldMedia); options.onBoundary?.('media-old-renamed');
       fs.renameSync(paths.stageMedia,mediaRoot); options.onBoundary?.('media-promoted');
       if (journal.hadSettings) fs.renameSync(settingsFile,paths.oldSettings); options.onBoundary?.('settings-old-renamed');
       fs.renameSync(paths.stageSettings,settingsFile); options.onBoundary?.('settings-promoted');
+      if(keySelected){if(hadKey)fs.renameSync(signingKeyFile,paths.oldSigningKey);options.onBoundary?.('signing-key-old-renamed');if(keyBytes!==null)fs.renameSync(paths.stageSigningKey,signingKeyFile);options.onBoundary?.('signing-key-promoted');}
       withAppWriteTransaction({ actorId, command: 'core:snapshot:restore', requestId, payloadHash: identity }, tx => {
         tx.exec('PRAGMA defer_foreign_keys=ON');
         const definitions = [...tables()];
@@ -157,7 +165,7 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
       // A failed recovery propagates inside maintenance and keeps the runtime failed.
       // A fully rolled-back operation can resume owners, then report its original failure.
       recoverAppRestore(); cleanupStaging(id); failure = error; return { restoredFiles: 0 };
-    }
+    }finally{keyBytes?.fill(0);}
   });
   if (failure) throw failure;
   return result;

@@ -1,0 +1,208 @@
+{
+  "taskId": "F07-e",
+  "kind": "compiled-Cloud-only-development-diagnostic",
+  "platform": "linux",
+  "windowsEvidence": false,
+  "uncommittedWorkingTree": true,
+  "reports": {
+    "functional": {
+      "commitSha": "uncommitted-f07-e-source",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "platform": "linux",
+      "architecture": "x64",
+      "checks": [
+        "legacy-migration-source-preserved",
+        "finance-create-read-update",
+        "task-reward-once",
+        "restart-preserves-finance-reward",
+        "finance-delete",
+        "ordinary-backup-excludes-credentials",
+        "restore-requires-explicit-credential-reentry",
+        "compiled-offline-reentry-preserves-user-ids",
+        "shared-snapshot-restore",
+        "restore-revokes-session",
+        "restore-preserves-reward-no-replay",
+        "snapshot-core-rows-preserved",
+        "offline-providers",
+        "native-handles-closed"
+      ],
+      "networkAttempts": [],
+      "snapshotChecksum": "de4bc82b1335c95244d1833dbdeb8f2222989d7d7f5b711af88f628af1ff3dc2"
+    },
+    "recovery": {
+      "commitSha": "uncommitted-f07-e-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-recovery-whole-release-excluded",
+        "compiled-recovery-encrypted-no-key-plaintext",
+        "compiled-recovery-authentication-before-mutation",
+        "compiled-portable-restore-ids-finance-reward-media",
+        "compiled-recovery-no-claim-command-replay",
+        "compiled-recovery-native-handles-closed"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "release-root-refusal",
+          "exitCode": 1
+        },
+        {
+          "phase": "release-bin-refusal",
+          "exitCode": 1
+        },
+        {
+          "phase": "release-ops-refusal",
+          "exitCode": 1
+        },
+        {
+          "phase": "encrypted-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "wrong-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "tampered-ciphertext",
+          "exitCode": 1
+        },
+        {
+          "phase": "portable-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "f24382bc5666f855ffb9150e82f1c4b79a2abd1a39e28cfc32687e95a117a8b1",
+      "encryptedBytes": 23819
+    },
+    "private-settings": {
+      "commitSha": "uncommitted-f07-e-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-explicit-settings-encrypted-no-plaintext",
+        "compiled-selected-settings-wrong-key-no-mutation",
+        "compiled-authenticated-invalid-snapshot-unwarmed-schema-rows-journal-files-preserved",
+        "compiled-selected-subset-unselected-settings-retained",
+        "compiled-private-settings-business-claims-session-preserved",
+        "compiled-private-settings-offline-source-retained-closed-handles"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "selected-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "wrong-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-manifest",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-checksum",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-primary-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-migrations",
+          "exitCode": 1
+        },
+        {
+          "phase": "invalid-snapshot-credentials",
+          "exitCode": 1
+        },
+        {
+          "phase": "selected-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "b46dadd8bd787f8888e317d42d414b9944b6b2fcb17579d4b940ac893a10731a"
+    },
+    "signing-key": {
+      "commitSha": "uncommitted-f07-e-source",
+      "platform": "linux",
+      "architecture": "x64",
+      "nodeVersion": "v24.21.0",
+      "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+      "completed": true,
+      "checks": [
+        "compiled-explicit-signing-key-encrypted-no-plaintext",
+        "compiled-signing-key-wrong-key-missing-selection-no-mutation",
+        "compiled-unselected-signing-key-retained",
+        "compiled-selected-signing-key-business-claims-sessions-preserved",
+        "compiled-selected-signing-key-removal-provider-env-retained",
+        "compiled-signing-key-offline-source-retained-closed-handles"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "signing-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-target-initialize",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-wrong-key",
+          "exitCode": 1
+        },
+        {
+          "phase": "signing-raw-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-missing-group",
+          "exitCode": 1
+        },
+        {
+          "phase": "signing-omitted",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-selected",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-absent-backup",
+          "exitCode": 0
+        },
+        {
+          "phase": "signing-absent-restore",
+          "exitCode": 0
+        }
+      ],
+      "encryptedSha256": "98517628552cddb598b7dc254ac9f726c2e28b08465e2b79bf451b510cf05754"
+    }
+  },
+  "reportHashes": {
+    "functional": "7cb669e1a465276ced18428c4ae851ea99f354edddc1eafbbfb80ef3ce6a6230",
+    "recovery": "d15de9de40c817a09e1accec222b662492ff4b066ac4dc5f04319fa684031851",
+    "private-settings": "38222b9ba43c5d307076431ff2fb3b3f330cc29d4bb0ce31789d91800596b846",
+    "signing-key": "34a174226f993b30967f8d9d9aa4f840d9e85189dbb072925b8bdd1f577315b3"
+  },
+  "harnessFixtureFailure": {
+    "observed": "RECOVERY_ENVELOPE_INVALID before missing-group validation because prior probe portable.fo-recovery used an independent encryption key",
+    "change": "Generate an old raw envelope in the signing probe with its own same external key, then select a missing file group. Preserve exact RECOVERY_FILES_INVALID assertion.",
+    "notBehavioralRed": true,
+    "partialReportSha256": "2ffaf2a5af0401d8b7740d64587e85d8b7558ca5e74f8c574b367a308a637f42"
+  }
+}

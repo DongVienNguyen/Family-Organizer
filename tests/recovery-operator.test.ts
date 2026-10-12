@@ -121,3 +121,25 @@ it.each(['raw','private'].flatMap(format=>['manifest','checksum','primary-key','
  const result=await run('target','--restore-recovery',request);expect(result.code).toBe(1);expect(result.value).toEqual({error:'RECOVERY_SNAPSHOT_INVALID'});
  expect(inspect()).toEqual(before);expect(files()).toEqual(beforeFiles);expect(fs.readFileSync(request.file)).toEqual(forged);
 }));
+
+it('explicit encrypted signing key recovery preserves omitted target key then restores selected bytes',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);expect((await run('target','',initialize)).code).toBe(0);
+ const keyFile=(id:string)=>path.join(env(id).CONFIG_DIR!,'session_secret.key');const source=Buffer.from('synthetic-source-signing-key\n'),local=Buffer.from('synthetic-target-signing-key');fs.writeFileSync(keyFile('source'),source);fs.writeFileSync(keyFile('target'),local);
+ const request={file:path.join(root,'selected-key.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true};
+ const backup=await run('source','--backup-recovery',{...request,includeFiles:['sessionSigningKey']});expect(backup.code,backup.output+backup.errors).toBe(0);expect(backup.value.includedFiles).toEqual(['sessionSigningKey']);const encrypted=fs.readFileSync(request.file);expect(encrypted.includes(source)).toBe(false);
+ expect((await run('target','--restore-recovery',request)).code).toBe(0);expect(fs.readFileSync(keyFile('target'))).toEqual(local);
+ const result=await run('target','--restore-recovery',{...request,includeFiles:['sessionSigningKey']});expect(result.code,result.output+result.errors).toBe(0);expect(result.value.restoredFilesSelection).toEqual(['sessionSigningKey']);expect(fs.readFileSync(keyFile('target'))).toEqual(source);expect(fs.readFileSync(keyFile('source'))).toEqual(source);expect(fs.readFileSync(request.file)).toEqual(encrypted);
+ const commands=rows(path.join(env('target').DATA_DIR!,'family.db')).app_commands as any[];expect(JSON.stringify(commands)).not.toContain(source.toString('base64'));expect(JSON.stringify(commands)).not.toContain(source.toString().trim());const identity=createHash('sha256').update(encrypted).update(JSON.stringify([])).update('files:'+JSON.stringify(['sessionSigningKey'])).digest('hex');expect(commands.some(row=>row.command==='core:snapshot:restore'&&row.payload_hash===identity)).toBe(true);
+}));
+it('explicit absent signing key removes only that target file and leaves local provider config',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);expect((await run('target','',initialize)).code).toBe(0);const config=env('target').CONFIG_DIR!,secret=path.join(config,'session_secret.key');fs.writeFileSync(secret,'synthetic-target-removed');fs.writeFileSync(path.join(config,'.env'),'GEMINI_API_KEY=synthetic-retained-env\n');
+ const request={file:path.join(root,'missing-key.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true,includeFiles:['sessionSigningKey']};expect((await run('source','--backup-recovery',request)).code).toBe(0);expect((await run('target','--restore-recovery',request)).code).toBe(0);expect(fs.existsSync(secret)).toBe(false);expect(fs.readFileSync(path.join(config,'.env'),'utf8')).toBe('GEMINI_API_KEY=synthetic-retained-env\n');
+}));
+it('refuses selecting a signing key absent from an old raw envelope before opening target',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);const request={file:path.join(root,'old-key.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true};expect((await run('source','--backup-recovery',request)).code).toBe(0);const result=await run('absent','--restore-recovery',{...request,includeFiles:['sessionSigningKey']});expect(result.code).toBe(1);expect(result.value).toEqual({error:'RECOVERY_FILES_INVALID'});expect(fs.existsSync(env('absent').DATA_DIR!)).toBe(false);
+}));
+it('malformed authenticated signing key is rejected before creating target directories',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);const request={file:path.join(root,'invalid-key.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true,includeFiles:['sessionSigningKey']};expect((await run('source','--backup-recovery',request)).code).toBe(0);
+ const payload=JSON.parse(decryptRecovery(fs.readFileSync(request.file),Buffer.from(request.key,'hex')).toString());payload.privateFiles.values.sessionSigningKey='malformed base64';fs.writeFileSync(request.file,encryptRecovery(Buffer.from(JSON.stringify(payload)),Buffer.from(request.key,'hex')));
+ const result=await run('absent','--restore-recovery',request);expect(result.code).toBe(1);expect(result.value).toEqual({error:'RECOVERY_FILES_INVALID'});expect(fs.existsSync(env('absent').DATA_DIR!)).toBe(false);
+}));

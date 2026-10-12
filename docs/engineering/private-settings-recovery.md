@@ -44,8 +44,9 @@ The owned Windows wrapper keeps its existing package/service/ACL/closed-handle a
 exclusive operation scope, ValidateOnly/WhatIf and bounded UTF8/native exit policy.
 Tests are synthetic/offline, with only names/hashes/exit codes in reports. Initial Windows run38230366670 at4ada42c passed all seven jobs, including the
 new selection proofs. The single review then identified the un-warmed rejection gap;
-ten actual preservation regressions failed before correction. Corrected exact-HEAD
-Windows quality/ZIP/service execution remains required before merge.
+ten actual preservation regressions failed before correction. Corrected HEADdf3c65cc844305343054fea86a76336a6e352ed8 passed all seven jobs in
+run38231777792; reports/logs/JSON/JUnit were independently verified and PR27 merged
+as main39a8e92. See evidence/f07-d-final.json for the actual final checks.
 
 This focused PR covers private app_settings groups. Provider .env/VAPID values and
 session_secret.key are not captured or overwritten. Their explicit portable file

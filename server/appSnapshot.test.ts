@@ -208,3 +208,12 @@ it('rejects merged private/public settings beyond the existing byte budget witho
  const patch=selectRecoverySettings(captureRecoverySettings({geminiApiKey:'x'.repeat(512)},['gemini']),['gemini']);
  await expect(restoreAppSnapshot(saved,{...options,privateSettings:patch} as any)).rejects.toThrow('Local settings size limit exceeded');expect(fs.readFileSync(settingsFile).equals(before)).toBe(true);
 });
+
+it('rejects an unbranded private file patch before maintenance or staging',async()=>{
+ fixture();const snapshot=validateAppSnapshot(capture()),maintenance=vi.fn(async work=>work());
+ await expect(restoreAppSnapshot(snapshot,{maintenance,privateFiles:{sessionSigningKey:'c3ludGhldGlj'} as any} as any)).rejects.toThrow('RECOVERY_FILES_INVALID');expect(maintenance).not.toHaveBeenCalled();
+});
+it('promotes an explicitly selected signing key with the shared SQL/files restore',async()=>{
+ fixture();const {appConfig}=await import('./config.js');const {captureRecoveryFiles,selectRecoveryFiles}=await import('./recoveryFiles.js');const keyFile=path.join(appConfig.configRoot,'session_secret.key');fs.mkdirSync(appConfig.configRoot,{recursive:true});fs.writeFileSync(keyFile,'synthetic-current-session-key');const snapshot=validateAppSnapshot(capture());
+ const patch=selectRecoveryFiles(captureRecoveryFiles({sessionSigningKey:Buffer.from('synthetic-selected-session-key\n')},['sessionSigningKey']),['sessionSigningKey']);await restoreAppSnapshot(snapshot,{...options,privateFiles:patch} as any);expect(fs.readFileSync(keyFile,'utf8')).toBe('synthetic-selected-session-key\n');expect(sqliteLoad().tasks).toEqual(snapshot.legacy.tasks);
+});

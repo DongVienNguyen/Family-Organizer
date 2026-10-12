@@ -82,3 +82,28 @@ it.each(['journal-written','media-old-renamed','media-promoted','settings-old-re
   `,0);
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 },35_000);
+
+it.each(['replace','remove'].flatMap(mode=>['journal-written','signing-key-old-renamed','signing-key-promoted','sql-committed'].map(phase=>({mode,phase}))))('recovers selected signing key $mode at $phase using the shared commit marker before auth readiness',async({mode,phase})=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo signing key crash synthetic '));
+ try{
+  writeSyntheticInstallation(path.join(root,'dữ liệu'));
+  await child(root,`
+   import fs from 'node:fs';import path from 'node:path';import {randomUUID} from 'node:crypto';
+   const db=await import(${moduleUrl('db')}),store=await import(${moduleUrl('appStore')}),snapshots=await import(${moduleUrl('appSnapshot')}),files=await import(${moduleUrl('recoveryFiles')});
+   const meta=()=>({actorId:'synthetic',command:'synthetic:key-crash',requestId:randomUUID(),payloadHash:'synthetic'});
+   store.withAppWriteTransaction(meta(),tx=>{tx.legacy.tasks=[{id:'snapshot-key-task',title:'Synthetic recovered key task'}];});const captured=store.withAppWriteTransaction(meta(),snapshots.collectAppSnapshot);
+   store.withAppWriteTransaction(meta(),tx=>{tx.legacy.tasks=[{id:'current-key-task',title:'Synthetic retained key task'}];});
+   fs.mkdirSync(process.env.CONFIG_DIR,{recursive:true});fs.writeFileSync(path.join(process.env.CONFIG_DIR,'session_secret.key'),'synthetic-current-signing-key');
+   const patch=files.selectRecoveryFiles(files.captureRecoveryFiles(${mode==='replace'?"{sessionSigningKey:Buffer.from('synthetic-restored-signing-key')}" :'{}'},['sessionSigningKey']),['sessionSigningKey']);
+   await snapshots.restoreAppSnapshot(snapshots.validateAppSnapshot(captured),{maintenance:async work=>work(),privateFiles:patch,onBoundary:value=>{if(value===${JSON.stringify(phase)})process.exit(41);}});throw new Error('Synthetic signing-key crash boundary was not reached');
+  `,41);
+  await child(root,`
+   import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';
+   const {startApplication}=await import(${moduleUrl('runtime')});const runtime=await startApplication();
+   try{assert.equal(runtime.state.phase,'ready');const sqlite=await import(${moduleUrl('sqlite')});assert.equal(sqlite.sqliteLoad().tasks[0].id,${JSON.stringify(phase==='sql-committed'?'snapshot-key-task':'current-key-task')});
+    const key=fs.readFileSync(path.join(process.env.CONFIG_DIR,'session_secret.key'),'utf8');${phase==='sql-committed'&&mode==='remove'?"assert.match(key,/^[a-f0-9]{96}$/);assert.notEqual(key,'synthetic-current-signing-key');":`assert.equal(key,${JSON.stringify(phase==='sql-committed'?'synthetic-restored-signing-key':'synthetic-current-signing-key')});`}
+    assert.equal(fs.existsSync(path.join(process.env.DATA_DIR,'restore-journal.json')),false);assert.equal(fs.readdirSync(process.env.CONFIG_DIR).some(name=>name.startsWith('.restore-')),false);
+   }finally{await runtime.close();}
+  `,0);
+ }finally{fs.rmSync(root,{recursive:true,force:true});}
+},35000);
