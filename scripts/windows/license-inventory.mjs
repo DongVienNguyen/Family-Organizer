@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
+import {reviewedNotices} from './reviewed-notices.mjs';
 import {classifyLicenseNotice} from './license-policy.mjs';
 export const licenseTerms=Object.freeze([
  {path:'licenses/MPL-2.0.txt',sha256:'66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172'},
@@ -32,6 +33,9 @@ export function verifyLicenseInventory(root,manifest){
  for(const dependency of manifest.dependencies){
   const metadata=JSON.parse(fs.readFileSync(path.join(root,dependency.path,'package.json'),'utf8'));
   const entries=dependency.licenseFiles.filter(file=>!file.endsWith('/package.json')).map(file=>({name:path.basename(file),text:fs.readFileSync(path.join(root,file),'utf8')}));
+  const reviewed=reviewedNotices[metadata.name+'@'+metadata.version];
+  assert.ok(reviewed,'Dependency notice/version requires review');assert.equal(metadata.license?.type??metadata.license,reviewed.license,'Reviewed license declaration changed');
+  assert.deepEqual(Object.fromEntries(dependency.licenseFiles.map(file=>[path.relative(path.join(root,dependency.path),path.join(root,file)).split(path.sep).join('/'),hash(path.join(root,file))])),reviewed.files,'Original reviewed notice bytes changed');
   const classified=classifyLicenseNotice(metadata,entries);
   assert.equal(classified.license,dependency.license);assert.equal(classified.licenseTextStatus,dependency.licenseTextStatus);
   assert.deepEqual(classified.licenseFiles.map(file=>dependency.path+'/'+file),dependency.licenseFiles,'License notice inventory changed');

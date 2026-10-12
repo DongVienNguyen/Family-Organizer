@@ -21,7 +21,10 @@ license inventory checks run after extraction. Dependency notices distinguish
 standalone notices from complete original MIT notices embedded in upstream READMEs.
 The producer and consumer reject unresolved runtime license evidence. The missing
 http_ece1.2.0 MIT notice is copied verbatim from its npm gitHead, with commit/blob
-and byte hashes pinned. Shared MPL2 and source Apache2 terms are included; the
+and byte hashes pinned. Every reviewed production dependency notice (including
+README/package metadata where the MIT text is embedded) is also pinned to its
+original bytes from the independently verified F06-b Windows package. Plausible
+rewrites, truncated terms and newly introduced versions require explicit review. Shared MPL2 and source Apache2 terms are included; the
 original web-push3.6.7 copyright and preferred-form src/*.js bytes are preserved
 and verified against the build input. Unknown license identifiers require review.
 This recognition policy verifies the reviewed runtime closure; it does not claim

@@ -11,7 +11,7 @@ fs.copyFileSync(path.join(repo,'scripts/windows/licenses/http_ece-1.2.0-LICENSE.
 for(const name of ['MPL-2.0.txt','source-APACHE-2.0.txt'])fs.copyFileSync(path.join(repo,'scripts/windows/licenses',name),path.join(root,'licenses',name));
 fs.cpSync(path.join(repo,'dist'),path.join(app,'dist'),{recursive:true,filter:file=>!file.endsWith('.map')});
 fs.mkdirSync(path.join(root,'ops'),{recursive:true});
-for(const name of ['Start-App.ps1','package-contract.mjs','package-files.mjs','license-policy.mjs','license-inventory.mjs','release-manifest.schema.json'])fs.copyFileSync(path.join(repo,'scripts/windows',name),path.join(root,'ops',name));
+for(const name of ['Start-App.ps1','package-contract.mjs','package-files.mjs','license-policy.mjs','license-inventory.mjs','reviewed-notices.mjs','release-manifest.schema.json'])fs.copyFileSync(path.join(repo,'scripts/windows',name),path.join(root,'ops',name));
 fs.copyFileSync(path.join(repo,'README.md'),path.join(root,'licenses','original-README.md'));
 fs.writeFileSync(path.join(root,'licenses','source-attribution.txt'),`Family Organizer source: https://github.com/DongVienNguyen/Family-Organizer\nSource server.ts declares: @license SPDX-License-Identifier: Apache-2.0\nOriginal source/UI author attribution is preserved. No new copyright owner is asserted.\n`);
 // Retain exact license/author metadata and available license texts for all build inputs,

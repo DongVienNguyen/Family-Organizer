@@ -58,3 +58,26 @@ it.each(['missing policy','altered terms','altered upstream provenance','notice 
  if(kind==='metadata fallback')manifest.dependencies[0].licenseTextStatus='metadata-and-readme';
  expect(()=>verifyLicenseInventory(root,manifest)).toThrow();
 }));
+
+it.each([
+ ['Apache title','Apache-2.0','Apache License Version 2.0'],
+ ['ISC grant only','ISC','Permission to use, copy, modify, and/or distribute'],
+ ['BlueOak title','BlueOak-1.0.0','Blue Oak Model License 1.0.0'],
+ ['truncated MIT','MIT',mit.replace(/to deal\s+in the Software[\s\S]*?persons to whom the Software is\s+furnished to do so,/, '')],
+ ['BSD2 declared BSD3','BSD-3-Clause',read('node_modules/dotenv/LICENSE')],
+])('rejects incomplete or clause-mismatched reviewed notice: %s',(_name,license,text)=>{expect(()=>classifyLicenseNotice({...metadata,license},[{name:'LICENSE',text}])).toThrow();});
+
+it('refuses plausible rewritten notices even when declared family remains valid',()=>installedFixture((root,manifest)=>{
+ const directory='app/node_modules/dotenv';fs.mkdirSync(path.join(root,directory));
+ const metadata=JSON.parse(read('node_modules/dotenv/package.json'));fs.writeFileSync(path.join(root,directory,'package.json'),JSON.stringify(metadata));
+ const original=read('node_modules/dotenv/LICENSE');const changed=original.replace('Scott Motte','Synthetic replacement owner');expect(changed).not.toBe(original);
+ fs.writeFileSync(path.join(root,directory,'LICENSE'),changed);
+ manifest.dependencies.push({name:metadata.name,version:metadata.version,path:directory,license:metadata.license,licenseTextStatus:'license-file',licenseFiles:[directory+'/LICENSE']});
+ expect(()=>verifyLicenseInventory(root,manifest)).toThrow();
+}));
+
+it.each(['minimatch','inherits','dotenv','ieee754'])('retains complete reviewed non-MIT notice for %s',name=>{
+ const directory=path.join(repoRoot,'node_modules',name);const metadata=JSON.parse(fs.readFileSync(path.join(directory,'package.json'),'utf8'));
+ const file=fs.readdirSync(directory).find(n=>/^license(?:[._-]|$)/i.test(n))!;
+ const result=classifyLicenseNotice(metadata,[{name:file,text:fs.readFileSync(path.join(directory,file),'utf8')}]);expect(result.license).toBe(metadata.license);expect(result.licenseTextStatus).toBe('license-file');
+});
