@@ -1,0 +1,72 @@
+{
+  "taskId": "F07-f",
+  "kind": "development harness diagnosis and genuine regression evidence",
+  "initialHelperReds": 26,
+  "additionalBomRed": 1,
+  "casingAliasReds": 2,
+  "cliSelectionReds": 4,
+  "configReloadRed": 1,
+  "sharedBoundaryReds": 2,
+  "newEnvCrashPhaseReds": 2,
+  "sqlCommitCrash": {
+    "firstAttempt": "tmp-eval bare dotenv import MODULE_NOT_FOUND, not counted as behavioral RED",
+    "correctedCounterfactual": "disable env staging only; genuine synthetic-current-env vs synthetic-restored-env assertion failure",
+    "exitCode": 1
+  },
+  "initialTargetRun": {
+    "tests": 144,
+    "passed": 141,
+    "failed": 3,
+    "cause": "dotenv resolution from temporary eval directory; createRequire anchored to repo package corrects harness",
+    "notProductFailure": true
+  },
+  "subsequentRealDefect": {
+    "test": "env-old-renamed fresh runtime startup",
+    "observed": "APP_URL undefined because file temporarily absent during initial config import",
+    "correction": "Reconcile all file-derived names after recovery while preserving actual launch environment and launch-root exclusions"
+  },
+  "targetGreen": {
+    "tests": 144,
+    "files": 5,
+    "exitCode": 0
+  },
+  "afterCaseAliasChange": {
+    "tests": 46,
+    "files": 2,
+    "exitCode": 0
+  },
+  "reports": {
+    "f07-f-env-red.log": "9ad223ed054b39ae8d199657dde9ca2a2bbb9d6f3d8c10e4dee8edfd96322880",
+    "f07-f-cli-config-red.log": "d8f097937a7c9c85173da8243f5f1781a56e03eb5a6d486fa856088d8aa5380b",
+    "f07-f-boundaries-red.log": "54c13651bf0dd97ab040131a19b8e4e30ba75d3902334558973d3e5c96dd7d1a",
+    "f07-f-target-green.log": "2f68593b00ae546ef27538d0bd84d8cb7c48d2d2a0f2cd889e4a02095c2928c6",
+    "f07-f-env-commit-real-red.log": "0381e9574a278b40ba0fa00390b194d42e02e2f48f97d7352721a4dc5aac5245",
+    "f07-f-target-corrected.log": "7f5b07e07bb2bccbded0cd1cb343261ca8e36a342c0fd6c297378162c3e7ab47",
+    "f07-f-target-final.log": "a31a868864924c0d37a897682b75d6bf64163e90594ed6cf53e9fef68e88309b",
+    "f07-f-env-casing-red.log": "626f48131e632380266c14df31009a9cfef45daa192075c30686ad1ab9e9bcea",
+    "f07-f-env-casing-green.log": "f62f7dcde3ee459b7d75fdf42cf4bc43a1f2b95733d4dc2025c1f1dcf2bab18e"
+  },
+  "fullCloud": {
+    "tests": 1591,
+    "files": 90,
+    "passed": 1591,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "nativeExitCodes": {
+      "test": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reports": {
+      "f07-f-cloud-vitest.json": "98a6b6da070e95f33a365237fc6d79a0e6b252e4d592619bd934040496a66518",
+      "f07-f-cloud-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-f-cloud-build.log": "22526dd39e90955244b9786ead75d018c1b1004dd77d9d0c92ab812b0ea951d1"
+    },
+    "initialLint": {
+      "exitCode": 2,
+      "cause": "TypeScript did not narrow unknown through compound guard before serializer; erased cast after guard corrected lint with no runtime behavior change"
+    }
+  }
+}

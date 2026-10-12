@@ -107,3 +107,20 @@ it.each(['replace','remove'].flatMap(mode=>['staging-complete','journal-written'
   `,0);
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 },35000);
+
+it.each(['env-old-renamed','env-promoted','sql-committed'])('recovers provider env %s before runtime/provider initialization',async phase=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo provider env crash synthetic '));
+ try{writeSyntheticInstallation(path.join(root,'dữ liệu'));
+  await child(root,`
+   import fs from 'node:fs';import path from 'node:path';import {randomUUID} from 'node:crypto';
+   fs.mkdirSync(process.env.CONFIG_DIR,{recursive:true});fs.writeFileSync(path.join(process.env.CONFIG_DIR,'.env'),'GEMINI_API_KEY=synthetic-current-env\\nAPI_KEY=synthetic-current-fallback\\nAPP_URL=https://retained.invalid\\n');
+   const db=await import(${moduleUrl('db')}),store=await import(${moduleUrl('appStore')}),snapshots=await import(${moduleUrl('appSnapshot')}),env=await import(${moduleUrl('recoveryEnv')});const meta=()=>({actorId:'synthetic',command:'synthetic:env-crash',requestId:randomUUID(),payloadHash:'synthetic'});
+   store.withAppWriteTransaction(meta(),tx=>{tx.legacy.tasks=[{id:'snapshot-env-task',title:'Synthetic recovered env task'}];});const captured=store.withAppWriteTransaction(meta(),snapshots.collectAppSnapshot);store.withAppWriteTransaction(meta(),tx=>{tx.legacy.tasks=[{id:'current-env-task',title:'Synthetic retained env task'}];});
+   const patch=env.selectRecoveryEnv(env.captureRecoveryEnv('GEMINI_API_KEY=synthetic-restored-env\\n',['gemini']),['gemini']);await snapshots.restoreAppSnapshot(snapshots.validateAppSnapshot(captured),{maintenance:async work=>work(),privateEnv:patch,onBoundary:value=>{if(value===${JSON.stringify(phase)})process.exit(41);}});throw new Error('Synthetic env crash boundary was not reached');
+  `,41);
+  await child(root,`
+   import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';const {parse}=createRequire(${JSON.stringify(path.join(repo,'package.json'))})('dotenv');
+   const {startApplication}=await import(${moduleUrl('runtime')});const runtime=await startApplication();try{assert.equal(runtime.state.phase,'ready');const sqlite=await import(${moduleUrl('sqlite')});assert.equal(sqlite.sqliteLoad().tasks[0].id,${JSON.stringify(phase==='sql-committed'?'snapshot-env-task':'current-env-task')});assert.equal(process.env.GEMINI_API_KEY,${JSON.stringify(phase==='sql-committed'?'synthetic-restored-env':'synthetic-current-env')});assert.equal(process.env.API_KEY,${phase==='sql-committed'?'undefined':"'synthetic-current-fallback'"});assert.equal(process.env.APP_URL,'https://retained.invalid');assert.equal(parse(fs.readFileSync(path.join(process.env.CONFIG_DIR,'.env'))).GEMINI_API_KEY,process.env.GEMINI_API_KEY);assert.equal(fs.existsSync(path.join(process.env.DATA_DIR,'restore-journal.json')),false);assert.equal(fs.readdirSync(process.env.CONFIG_DIR).some(name=>name.startsWith('.restore-')),false);}finally{await runtime.close();}
+  `,0);
+ }finally{fs.rmSync(root,{recursive:true,force:true});}
+},35000);

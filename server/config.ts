@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { config as loadEnv } from 'dotenv';
+import { providerEnvKeys } from './recoveryEnv.js';
 import { isFullyQualifiedPath } from '../scripts/lib/native-paths.mjs';
 
 export interface AppConfig {
@@ -60,8 +61,17 @@ export function prepareStorage(config: AppConfig): void {
 export const appConfig = resolveConfig(process.env, path.resolve(import.meta.dirname, '..'));
 // Roots/NODE_ENV are launch-time environment settings. Optional provider values
 // come from this explicit installation config location; cwd/.env is never read.
+const environmentName=(name:string)=>process.platform==='win32'?name.toUpperCase():name;
+const launchEnvironmentNames=new Set(Object.keys(process.env).map(environmentName));
 const fileEnv = loadEnv({ path: path.join(appConfig.configRoot, '.env'), processEnv: {}, quiet: true }).parsed || {};
 const launchKeys = new Set(['NODE_ENV', 'APP_CODE_ROOT', 'DATA_DIR', 'CONFIG_DIR', 'LOG_DIR']);
 for (const [name, value] of Object.entries(fileEnv)) {
-  if (!launchKeys.has(name) && process.env[name] === undefined) process.env[name] = value;
+  if (!launchKeys.has(environmentName(name)) && process.env[name] === undefined) process.env[name] = value;
+}
+
+/** Reconcile file-derived provider values after restore recovery; host overrides win. */
+export function reloadProviderEnvironment():void {
+ const current=loadEnv({path:path.join(appConfig.configRoot,'.env'),processEnv:{},quiet:true}).parsed||{};
+ const names=new Map<string,string>();for(const name of Object.keys(current))if(!names.has(environmentName(name)))names.set(environmentName(name),name);
+ for(const key of new Set([...Object.keys(fileEnv).map(environmentName),...names.keys(),...providerEnvKeys.map(environmentName)])){if(launchKeys.has(key)||launchEnvironmentNames.has(key))continue;const name=names.get(key);if(name!==undefined)process.env[name]=current[name];else delete process.env[key];}
 }

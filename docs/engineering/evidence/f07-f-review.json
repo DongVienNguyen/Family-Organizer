@@ -1,0 +1,72 @@
+{
+  "taskId": "F07-f",
+  "baseSha": "44d0fddbf3c0dee8113365e9df7eb6d2cd0ed0fc",
+  "reviewedHeadSha": "2dbb6885d887b035837c836d6c823ae71cbbb093",
+  "freshWholebranchReviews": 1,
+  "critical": 0,
+  "important": 0,
+  "minor": 2,
+  "allFindingsGradedBeforeCorrection": true,
+  "secondReview": false,
+  "findings": [
+    {
+      "severity": "Minor",
+      "accepted": true,
+      "trigger": "Valid quoted Windows path ending in backslash is rejected",
+      "correction": "Accept dotenv terminal quote with trailing whitespace/comment; retain roundtrip and unterminated refusal",
+      "actualRedTests": 4
+    },
+    {
+      "severity": "Minor",
+      "accepted": true,
+      "trigger": "500000-newline unselected bounded multiline value rescans quadratically",
+      "correction": "Scan each physical line once and join logical block once",
+      "actualRedTests": 1
+    }
+  ],
+  "developmentHarnessFailures": [
+    {
+      "file": "f07-f-review-red.log",
+      "cause": "tsx bare resolution from synthetic cwd, not product RED"
+    },
+    {
+      "file": "f07-f-review-red-corrected.log",
+      "cause": "Large fixture encoded in argument hits E2BIG, not product RED"
+    }
+  ],
+  "actualRedEvidence": {
+    "f07-f-review-red-final.log": "d7d19ed9b914534826f301a2cbce6ba2ddc64ea1d28d4b9b90351a4234ec5db9",
+    "f07-f-review-serializer-red.log": "6f368a59a6dcf07f65bf2555d9d8a95c88eb1424dc3fc9ac178ab5d7c7e5847c"
+  },
+  "targetedGreen": {
+    "tests": 87,
+    "files": 3,
+    "exitCode": 0,
+    "note": "Two supplied filenames did not exist; three actual selected suites executed. Full suite required."
+  },
+  "externalLimits": [
+    "Server2019/reboot/power-loss/RPO/RTO not executed",
+    "No live provider calls",
+    "F05 Administration403 remains",
+    "No release/tag/VPS authorization"
+  ],
+  "correctedFullCloud": {
+    "tests": 1596,
+    "files": 90,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "nativeExitCodes": {
+      "full": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reports": {
+      "f07-f-review-full-vitest.json": "8b21b118670b807161dfb84ff4eed2b2a550a34f5a0ec10bcf5fd9797ac34384",
+      "f07-f-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-f-review-build.log": "07f5fd6cadad2d3289ba0c75a72667cb60ab247641fd34acd09546357841078c"
+    },
+    "postFullHarnessOnlyAdjustment": "Windows-safe pathToFileURL for --import; all34 helper cases passed after adjustment; Windows full-suite on exact new SHA required"
+  }
+}

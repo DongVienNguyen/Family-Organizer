@@ -58,6 +58,9 @@ try {
     & $node (Join-Path $PSScriptRoot 'probe-signing-key.mjs') $release $fixture (Join-Path $ReportDirectory 'package-signing-key.json') 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-signing-key.log')
     $native.signingKey=$LASTEXITCODE
     if ($native.signingKey -ne 0) { throw 'Compiled signing key recovery regression failed' }
+    & $node (Join-Path $PSScriptRoot 'probe-provider-env.mjs') $release $fixture (Join-Path $ReportDirectory 'package-provider-env.json') 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-provider-env.log')
+    $native.providerEnv=$LASTEXITCODE
+    if ($native.providerEnv -ne 0) { throw 'Compiled provider env recovery regression failed' }
     $code=0
 } catch { $_ | Out-String | Set-Content -LiteralPath (Join-Path $ReportDirectory 'failure.log'); Write-Host $_; $code=1 }
 finally {

@@ -1,0 +1,755 @@
+{
+  "taskId": "F07-e",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/28",
+  "baseSha": "39a8e92f768be5d3c44789e55b0a94459a3b40c2",
+  "testedHeadSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38236244829",
+  "runner": "windows-2022 x64/pwsh; actual owned service host Windows PowerShell5.1 Desktop",
+  "review": {
+    "freshWholebranchReviews": 1,
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "allFindingsAcceptedBeforeOneCorrectionPass": true,
+    "actualReviewCorrectionRedTests": 5,
+    "rereview": false
+  },
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "ci-gate",
+      "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "quality": {
+    "sha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+    "run": "38236244829",
+    "runtimes": [
+      {
+        "node": "v22.23.3",
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success",
+          "audit": "success",
+          "coverage": "success"
+        },
+        "tests": 1549,
+        "files": 89,
+        "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a"
+      },
+      {
+        "node": "v24.21.0",
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success",
+          "audit": "success",
+          "coverage": "success"
+        },
+        "tests": 1549,
+        "files": 89,
+        "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a"
+      }
+    ]
+  },
+  "coverage": {
+    "headSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+    "run": "38236244829",
+    "runtimes": [
+      {
+        "nodeVersion": "v22.23.3",
+        "sourceFiles": 113,
+        "totals": {
+          "lines": {
+            "total": 11236,
+            "covered": 3603,
+            "skipped": 0,
+            "pct": 32.06
+          },
+          "statements": {
+            "total": 14543,
+            "covered": 5028,
+            "skipped": 0,
+            "pct": 34.57
+          },
+          "functions": {
+            "total": 3171,
+            "covered": 1029,
+            "skipped": 0,
+            "pct": 32.45
+          },
+          "branches": {
+            "total": 11213,
+            "covered": 3339,
+            "skipped": 0,
+            "pct": 29.77
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "rawReportHashes": {
+          "coverage-final.json": "0faad1a24377d265563908651045994f2511fdeb46fa1f1251da58c161a1fa94",
+          "coverage-summary.json": "38fb4a4a0b269ab7b8bc08be878d5d352825ccc369ac653f74af4d6b7c434d46",
+          "lcov.info": "a7588c792cfa655e59024ceaffae743e3405bd0cb5de2ee5ca18055289cfff81",
+          "index.html": "008a134a0f2ceb34ee83aaa6d06a61f490941bed9d13499684e9a20995358ee9"
+        },
+        "independentRawCountersLcovInventoryVerified": true
+      },
+      {
+        "nodeVersion": "v24.21.0",
+        "sourceFiles": 113,
+        "totals": {
+          "lines": {
+            "total": 11236,
+            "covered": 3603,
+            "skipped": 0,
+            "pct": 32.06
+          },
+          "statements": {
+            "total": 14543,
+            "covered": 5028,
+            "skipped": 0,
+            "pct": 34.57
+          },
+          "functions": {
+            "total": 3171,
+            "covered": 1029,
+            "skipped": 0,
+            "pct": 32.45
+          },
+          "branches": {
+            "total": 11213,
+            "covered": 3339,
+            "skipped": 0,
+            "pct": 29.77
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "rawReportHashes": {
+          "coverage-final.json": "e9fe7a158bce0bf6a3e7743def7768d34652c4cf669bb15a1b16ee04c9c246a0",
+          "coverage-summary.json": "38fb4a4a0b269ab7b8bc08be878d5d352825ccc369ac653f74af4d6b7c434d46",
+          "lcov.info": "686deee206a7d40ae29bbec87f50aca7760714d6e564e7aeab3cd99c87a8ed30",
+          "index.html": "a9f24b2105d3d0ab5a133891e8cec37908037b6f39edae8e8199f2fe28f412cc"
+        },
+        "independentRawCountersLcovInventoryVerified": true
+      }
+    ]
+  },
+  "browser": {
+    "verifiedHeadSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38236244829",
+    "firstAttemptCases": [
+      [
+        "chromium",
+        "B01 login reload logout"
+      ],
+      [
+        "chromium",
+        "B02 child finance boundary"
+      ],
+      [
+        "chromium",
+        "B03 note and media visibility"
+      ],
+      [
+        "chromium",
+        "B04 logout purges private storage"
+      ],
+      [
+        "chromium",
+        "B05 account switch removes previous data"
+      ],
+      [
+        "firefox",
+        "B01 login reload logout"
+      ],
+      [
+        "firefox",
+        "B02 child finance boundary"
+      ],
+      [
+        "firefox",
+        "B03 note and media visibility"
+      ],
+      [
+        "firefox",
+        "B04 logout purges private storage"
+      ],
+      [
+        "firefox",
+        "B05 account switch removes previous data"
+      ],
+      [
+        "webkit",
+        "B01 login reload logout"
+      ],
+      [
+        "webkit",
+        "B02 child finance boundary"
+      ],
+      [
+        "webkit",
+        "B03 note and media visibility"
+      ],
+      [
+        "webkit",
+        "B04 logout purges private storage"
+      ],
+      [
+        "webkit",
+        "B05 account switch removes previous data"
+      ]
+    ],
+    "engines": [
+      {
+        "browserName": "chromium",
+        "browserVersion": "156.0.8078.4",
+        "executableSha256": "7f08161bbeb2853ffe1780a9ded4985087f52efb9725d7d8207aabdd42f7cfb9",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "firefox",
+        "browserVersion": "157.0",
+        "executableSha256": "c949e57fba9a65ab6c434a76e32d2c72eb43f8b99a7c48ee7e927a4fad4b2a36",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "webkit",
+        "browserVersion": "27.2",
+        "executableSha256": "5c2f7bf3592d67bf74a32b01d08ad3b156fd4fff0fea0fabe8dbf99bd37d48f3",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      }
+    ],
+    "manifest": {
+      "commitSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+      "nodeVersion": "v24.21.0",
+      "platform": "win32",
+      "architecture": "x64",
+      "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+      "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+      "productionBuild": {
+        "serverSha256": "a9ac12d34435591482350691beb87bd812f05ff8dcbdec519b003a646325b408",
+        "indexSha256": "5c512d46ec909139bf4e19a2cbb0b4aed40521b1c82c3306d91c895cea5695b8"
+      },
+      "legacyPreserved": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "fixtureRemoved": true,
+      "externalAttempts": [],
+      "serverExitCode": 0,
+      "serverSignal": null,
+      "cliExitCode": 0,
+      "cliSignal": null,
+      "error": null
+    },
+    "independentReportSha256": {
+      "browser-server.log": "d0016e5fc66320d143b8955358d28da1a4de13e6a82c1f68eabc0f5db5d7e823",
+      "browsers-install.log": "c5ac052ad2f3c2e18ac916df783967a6510d554c1e67b263c34879977057c016",
+      "build.log": "0d806fc1cf89a7dc39153f3cb07c26a4ec5ede3308eeaba53e4439666c922612",
+      "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+      "browser.junit.xml": "dce35ccc3d756bf4f10308e031196779d54a866d0047517f315a4198811aee2a",
+      "browser-runtime-webkit.json": "47a86e8b8d7410179978b3af2f53fbee246328337cdfd20cda965155a414c1fd",
+      "browser-run.log": "5bed4365d302e79fbfde60c1f3e2420397d82b14c378fa026e584f89bf5fd659",
+      "toolchain.json": "9197d488a377e254a43847f25cd8b0ee4085ece6ad3a2ac98dea6137b2d2fe06",
+      "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+      "browser-evidence.json": "d82a755d979ae4bb806e899160e60680db216c0d9ba960f9a1af956acc08dd01",
+      "browser-runtime-chromium.json": "e8426a517887dc799b9cc0c7ed83750dd77c1a72cb51fad6459c4aa337a9562e",
+      "browsers-install-exit.json": "258ef3b93d9a1fe09ec51f561ce763f59c1fde6699f15e313424beb397eca55e",
+      "browser-exit.json": "9bc78f4c35adce41a98032220f2f05abc7e93f1c4ee4bf15763fef5edf01f156",
+      "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+      "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+      "install.log": "2a9385c8cfa339b4b72724e933ec3b859727fdfc2d1702b21dbe80e37360d466",
+      "browser-cli.log": "c29a2ec42990b703c4e185a469f85edd14e1d1d5668dfdc6f46fad105e10971b",
+      "browser-runtime-firefox.json": "3fc5ac0efaa8807b364ec9906ab240544fd57b55ea7d06fec6c16bab722712bc",
+      "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+      "browser.json": "4ab18b637ba63fff8e936f8de49aee77a5c5d9391ecebd76ba61ac15543e46a3",
+      "browser-fixture.json": "2e8bebea64c29333de594f824d19223f8e5ff64566483a856db5aa7b471d9258",
+      "browser-provider-fixtures.log": "c96bffcb247ea61fc0035865cd6f1b247ccace572b165ef8187bd5419dd775f7",
+      "browser-html/index.html": "da950b87a8d8b73d019fab88b6a9273c1e2e45d6d61c352b0d42f5a3c3222e7d",
+      "browser-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    "server2019Acceptance": "not-run"
+  },
+  "package": {
+    "task": "F07-e",
+    "commitSha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38236244829",
+    "zipSha256": "2bb90fe15b064e76eab85042fd071e2db6896a99f239a630c0a81ee09f5528eb",
+    "zipSize": 54520614,
+    "files": 4576,
+    "dependencies": 236,
+    "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+    "manifestHash": "e4b4febac1b00f406574f88b77ac592aff8f4ed5dd11754144ee3af64fc07db6",
+    "consumerNoCheckoutInstallBuild": true,
+    "consumerBundledNodeOnly": true,
+    "producerCleanup": true,
+    "consumerCleanup": true,
+    "archiveFixtures": 26,
+    "archiveSafeUnicode": true,
+    "producerExpectedRefusalExitCode": 1,
+    "compiledProofs": 23,
+    "additionalFunctionalProofs": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "ordinary-backup-excludes-credentials",
+      "restore-requires-explicit-credential-reentry",
+      "compiled-offline-reentry-preserves-user-ids",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed"
+    ],
+    "licenseAudit": {
+      "policyVersion": 1,
+      "dependencies": 236,
+      "embeddedReadmeNotices": [
+        "cookie-signature",
+        "data-uri-to-buffer",
+        "isarray"
+      ],
+      "mplSourceFiles": 8,
+      "termsVerified": true,
+      "originalCopyrightPreserved": true
+    },
+    "reviewedOriginalNoticePinsVerified": true,
+    "rawReportHashes": {
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/release-manifest.json": "e4b4febac1b00f406574f88b77ac592aff8f4ed5dd11754144ee3af64fc07db6",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/build.log": "cd02a20749637a45806328fbd2e8f56fd0f49d7ef3f0eb3778666e260efbe77f",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/archive-contract.json": "95823fd144c523ed14e4efa367ce90b80359aa98a87ace3117245a52af327398",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/family-organizer-win-x64.zip": "2bb90fe15b064e76eab85042fd071e2db6896a99f239a630c0a81ee09f5528eb",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/producer-refusal.log": "28edf6ad2d687f31e4af359f0cb565b0992dc2b299448bf8ce174c7536c3bada",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/manifest-validation.log": "b4dee33ddbd120de8784c7c192c11dc4292b359d2e23a06b93fe899d30bb67e8",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/install.log": "67abd372f7422059ac1a906ddbb169f6f559e6e01ed29495fca58a03f76015dc",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/producer-exit.json": "67c10f20d186057d40cb7532cf202928a426832cbe8754b38685366081cdb83a",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/production-install.log": "73f95564995a35f496876c1a10a9810e4819f115a6bc2321dcbb7dd02e3f84a0",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/producer-evidence.json": "fdc8a15ec17cd372ed397cb5e69b0e352615529d93cc700601f7c741663c5ff2",
+      "windows-package-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/negative-producer/producer-exit.json": "95168df412678e7071e2bf90cac242312bb8d2393a8f8350af541f185b86ff73",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/production.json": "46288e1a67415f94ede12122b6ae56b727346aa6f80e6c1f3905f26303069ec0",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/package-validation.json": "8a08d37e8a67173c705cdeb53dae10e87f7f3d41678df5e4d70cf252aacd0969",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/package-functional.json": "1d5fd38e1d969119bd0545e17b3f843eb20d18b74e63af83c1542416c0bf276f",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/production.log": "d91e0a8d0693cdbcdf68bfd19afa5738a0971a57a68ada7c71cbd62fb3ae6f99",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/package-functional-server.log": "cb7f2ba761aba3270aeddb13155fb76246272435095d3dd84d5eded46d5dce24",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/package-signing-key.json": "ad133b900d7b1efac3af9a476fbff0101cc8c0eeb00a53c2e858dc52d8d2ee93",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/package-private-settings.json": "77aec86d9d472a25c85116fb1c6301131a9165d9146cc51f19a3064c2f553a95",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/production-server.log": "4723856117d0c1fd8018f562cefe7ddaeca17a9d6bb0fd04e926a1ed85452b87",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/package-exit.json": "7ef6a1d593df88be3caa8f82ddba9a8ae3e01fabad7854daa48da7cca868f8cb",
+      "windows-package-tests-aea7e7cdf30abcda0512ac0c7e1defdd1c31be89-1/package-recovery.json": "cccebe96aa3c18d727a7b6cb28afdcf4810639f619d740573b73f62f33ec34cb"
+    },
+    "serviceCompatibilityManifest": {
+      "version": "2.12.0",
+      "asset": "WinSW.NET461.exe",
+      "sha256": "b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f",
+      "licenseSha256": "1cdf703c10a70e5973bf3acf2a5eeabe7746237155b92db2034aeae26fdf7802",
+      "frameworkMinRelease": 528040,
+      "framework": "NET Framework 4.8 or later",
+      "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32"
+    },
+    "actualWrapperConfigLicenseBytesVerified": true,
+    "signingKeyChecks": [
+      "compiled-explicit-signing-key-encrypted-no-plaintext",
+      "compiled-signing-key-wrong-key-missing-selection-no-mutation",
+      "compiled-unselected-signing-key-retained",
+      "compiled-selected-signing-key-business-claims-sessions-preserved",
+      "compiled-selected-signing-key-removal-provider-env-retained",
+      "compiled-signing-key-offline-source-retained-closed-handles"
+    ],
+    "signingKeyNativeExitCodes": [
+      {
+        "phase": "signing-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-raw-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-restore",
+        "exitCode": 0
+      }
+    ],
+    "privateSettingsChecks": [
+      "compiled-explicit-settings-encrypted-no-plaintext",
+      "compiled-selected-settings-wrong-key-no-mutation",
+      "compiled-authenticated-invalid-snapshot-unwarmed-schema-rows-journal-files-preserved",
+      "compiled-selected-subset-unselected-settings-retained",
+      "compiled-private-settings-business-claims-session-preserved",
+      "compiled-private-settings-offline-source-retained-closed-handles"
+    ],
+    "privateSettingsNativeExitCodes": [
+      {
+        "phase": "selected-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-manifest",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-checksum",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-primary-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-migrations",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-credentials",
+        "exitCode": 1
+      },
+      {
+        "phase": "selected-restore",
+        "exitCode": 0
+      }
+    ],
+    "recoveryChecks": [
+      "compiled-recovery-whole-release-excluded",
+      "compiled-recovery-encrypted-no-key-plaintext",
+      "compiled-recovery-authentication-before-mutation",
+      "compiled-portable-restore-ids-finance-reward-media",
+      "compiled-recovery-no-claim-command-replay",
+      "compiled-recovery-native-handles-closed"
+    ],
+    "recoveryNativeExitCodes": [
+      {
+        "phase": "release-root-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "release-bin-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "release-ops-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "encrypted-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "tampered-ciphertext",
+        "exitCode": 1
+      },
+      {
+        "phase": "portable-restore",
+        "exitCode": 0
+      }
+    ],
+    "encryptedRecoverySha256": "b820461f01f7ac50fff34ff03ec634a490fb69fd6c48f0777e82dafde23ae407"
+  },
+  "service": {
+    "task": "F07-e",
+    "recoveryChecks": [
+      "owned-recovery-running-service-refused-before-input",
+      "owned-recovery-validation-whatif-no-input-mutation",
+      "owned-recovery-operation-lock-overlap-no-journal-mutation",
+      "owned-recovery-encrypted-backup-external-key",
+      "owned-recovery-wrong-key-no-mutation",
+      "owned-recovery-restore-business-ids-session-revocation",
+      "owned-private-settings-missing-group-no-mutation",
+      "owned-private-settings-selected-restore-business-preserved",
+      "owned-unselected-signing-key-retained",
+      "owned-selected-signing-key-business-session-policy-preserved"
+    ],
+    "recoveryNativeExitCodes": [
+      {
+        "phase": "active-Backup",
+        "exitCode": 1
+      },
+      {
+        "phase": "active-Restore",
+        "exitCode": 1
+      },
+      {
+        "phase": "Backup-ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "Backup-WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "Restore-ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "Restore-WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "overlap-Backup",
+        "exitCode": 1
+      },
+      {
+        "phase": "overlap-Restore",
+        "exitCode": 1
+      },
+      {
+        "phase": "overlap-Reset",
+        "exitCode": 1
+      },
+      {
+        "phase": "encrypted-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "encrypted-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "private-settings-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "private-settings-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "private-settings-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-key-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-key-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-key-selected",
+        "exitCode": 0
+      }
+    ],
+    "credentialChecks": [
+      "windows-desktop-host-security-module-validated",
+      "running-service-refused-before-input",
+      "validation-whatif-no-input-no-mutation",
+      "invalid-batch-atomic-no-secret-output",
+      "owned-compiled-operator-reentry-preserves-ids-roles-business"
+    ],
+    "credentialOperatorExits": [
+      {
+        "phase": "desktop-host-validation",
+        "exitCode": 0
+      },
+      {
+        "phase": "active-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "-ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "-WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "invalid-batch",
+        "exitCode": 1
+      },
+      {
+        "phase": "credential-reentry",
+        "exitCode": 0
+      }
+    ],
+    "sha": "aea7e7cdf30abcda0512ac0c7e1defdd1c31be89",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38236244829",
+    "serviceChecks": [
+      "synthetic-service-security-refusals",
+      "validate-only-whatif-no-mutation",
+      "owned-idempotent-install-data-preserved",
+      "localservice-per-service-sid-acl",
+      "automatic-delayed-start-bounded-logs",
+      "start-stop-graceful-closed-handles",
+      "owned-offline-credential-reentry",
+      "owned-encrypted-recovery",
+      "restart-graceful-worker-replacement-persistence",
+      "restart-crash-recovery-persistence",
+      "owned-uninstall-idempotent-data-retained"
+    ],
+    "securityFixtures": [
+      "self-hashed-alternate-service-xml",
+      "installed-clr-config-tampering",
+      "administrative-node-preload-not-executed",
+      "administrative-node-environment-restored",
+      "uninstall-requires-independent-trust",
+      "existing-explicit-write-grant-removed",
+      "descendant-junction-refused-before-acl",
+      "junction-target-acl-unchanged"
+    ],
+    "allPositiveNativeExitCodes": 0,
+    "expectedCanonicalRefusalExitCodes": [
+      1,
+      1
+    ],
+    "shutdownCompletions": 3,
+    "serviceRemoved": true,
+    "fixtureCleanup": true,
+    "zipSha256": "2bb90fe15b064e76eab85042fd071e2db6896a99f239a630c0a81ee09f5528eb",
+    "retainedLogs": {
+      "FamilyOrganizer-CIdb5dc064f5434251951ed9052869389a.out.log": "5bb86b17631861b85ac9c408640a5cbf40ad63bd03c659a0f1a8bb0e43f289a3",
+      "FamilyOrganizer-CIdb5dc064f5434251951ed9052869389a.err.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "FamilyOrganizer-CIdb5dc064f5434251951ed9052869389a.wrapper.log": "ae6783d0047a6e90caaef64999b001344fbe97b4a660e7ecbf354ba9266caaf0"
+    },
+    "server2019Acceptance": "not-run",
+    "actualReboot": "not-run"
+  },
+  "fullCiLogSha256": "84200c85c47fc7f88339f8d0ce615a33434087a15eca44626e09296285fd3d3b",
+  "independentSummaryHashes": {
+    "quality-verified-summary.json": "a80fee36c157bd9211ffd97743ca71a763904526e21e90b797578081164187e5",
+    "coverage-verified-summary.json": "751005d08a20a2c8977310514161f6c8b0f41936f69d0688168b21422db8de73",
+    "browser-verified-summary.json": "e066ba0adf2428ef2e4963bf3b8d1ab8761cdf765214f9632a71682c11d7ad7d",
+    "package-verified-summary.json": "e07281012e7479d4a4b8484b099a6091811152448ee318b54d7afd7974509f42",
+    "service-verified-summary.json": "761c9c74191b2e5dd44d7506c6b07bbb73dde1545e1b78d5e826561689280f09"
+  },
+  "cloud": {
+    "tests": 1549,
+    "files": 89,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "nativeExitCodes": {
+      "test": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reportHashes": {
+      "f07-e-review-vitest.json": "d56e0106a21c0c9fa5232752fb5ede228029b207b879fe90cf5f9611d6109056",
+      "f07-e-review-red.log": "56193968ece668d16b47e275fa066ce04eb4db079dae353e3c8aa0b10d0e1f54",
+      "f07-e-review-target-green.log": "e7300b0b69664f1c8a9c549306df44f5d50b39833087ee44d9b9bfe7639369cd",
+      "f07-e-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-e-review-build.log": "69474fd9bc09811982e75c52e86eb60f6d0b7cf6f356ddb8786d8e4c7f6d4c8d"
+    }
+  },
+  "initialGreenWithoutReviewGapCoverage": {
+    "headSha": "4094b28d87dac5503f6efa91282be114fd9153e6",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38234856024",
+    "merged": false,
+    "evidence": "f07-e-initial-green.json"
+  },
+  "remaining": [
+    "explicit .env/VAPID recovery",
+    "online backup/one-owner schedule/age/disk-full/retention/offhost encrypted copy",
+    "update write fence/health/smoke/guarded rollback",
+    "F08/F09",
+    "F05 Administration403/main protection not enforced",
+    "Server2019/reboot/RPO/RTO not run",
+    "release/tag/VPS not authorized"
+  ]
+}
