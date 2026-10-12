@@ -41,7 +41,8 @@ export function validateManifest(manifest,expected) {
   for(const file of files){
     require(hex(file?.sha256,64),'invalid asset hash');
     const name=typeof file?.path==='string'?file.path:'';
-    require(!/(?:^|\/)(?:\.env(?:\.[^/]+)?|tests?|fixtures|reports)(?:\/|$)/i.test(name)&&!/^(?:app\/)?data(?:\/|$)/i.test(name)&&!/^app\/node_modules\/(?:vitest|tsx|typescript|vite|esbuild|@playwright\/test)(?:\/|$)/i.test(name),'excluded secrets/data/tests/devtools in package');
+    const staticBuildNotice=name.startsWith('licenses/build-inputs/')&&/\/(?:package\.json|(?:license|licence|copying|copyright|readme)(?:\.(?:md|txt|html|rst|markdown))?)$/i.test(name);
+    require(!/(?:^|\/)\.env(?:\.[^/]+)?(?:\/|$)/i.test(name)&&(staticBuildNotice||!/(?:^|\/)(?:tests?|fixtures|reports)(?:\/|$)/i.test(name))&&!/^(?:app\/)?data(?:\/|$)/i.test(name)&&!/^app\/node_modules\/(?:vitest|tsx|typescript|vite|esbuild|@playwright\/test)(?:\/|$)/i.test(name),'excluded secrets/data/tests/devtools in package');
   }
   const required=['bin/node.exe','app/dist/server.cjs','app/dist/operator.cjs','app/dist/index.html','app/package.json','app/package-lock.json','app/node_modules/better-sqlite3/prebuilds/win32-x64.node','ops/Start-App.ps1','licenses/node-LICENSE.txt'];
   for(const name of required)require(files.some(f=>f.path===name),`missing package asset: ${name}`);
