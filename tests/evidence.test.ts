@@ -11,7 +11,7 @@ const lockHash=createHash('sha256').update(lockText).digest('hex');
 const coverageFloor={lines:1,statements:1,functions:1,branches:1};
 const coveragePolicyText=JSON.stringify({schema:1,providerVersion:'4.1.11',floors:{'v24.21.0':coverageFloor}});
 const suiteNames = [
-  'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
+  'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts',
   'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
@@ -42,8 +42,9 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     },
     'production.json': {
       commitSha: sha, nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64',
+      incompatibleSchemas: ['future','missing-version','foreign','malformed-metadata','malformed-owned-table'].map(name=>({name,exitCode:1,bytesSchemaRowsJournalPreserved:true,databaseSha256:'d'.repeat(64),journal:'delete',nativeHandlesReleased:true,networkAttempts:[]})),
       checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets',
-        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy'],
+        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy','incompatible-schema-preserved'],
     },
     'vitest.json': {
       success: true, numTotalTests: suiteNames.length, numPassedTests: suiteNames.length,
@@ -200,3 +201,9 @@ it.each([undefined,-1,1,null])('rejects missing or contradictory native audit ex
 
 it.each(['server/weeklyDigestPrivacy.test.ts','server/weeklyDigestHttp.test.ts'])('requires the provider privacy suite %s',name=>{const result=runEvidence(reports=>{const tests=reports['vitest.json'];tests.testResults=tests.testResults.filter((suite:any)=>!suite.name.endsWith(name));tests.numTotalTests--;tests.numPassedTests--;});expect(result.code).toBe(1);expect(result.evidence.errors).toContain('required suite missing: '+name);});
 it('requires the compiled provider digest privacy proof',()=>{const result=runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((check:string)=>check!=='provider-digest-privacy');});expect(result.code).toBe(1);expect(result.evidence.errors).toContain('production probe check missing: provider-digest-privacy');});
+
+it('requires pre-DDL native compatibility regressions',()=>{const result=runEvidence(reports=>{const v=reports['vitest.json'];v.testResults=v.testResults.filter((suite:any)=>!suite.name.endsWith('server/sqliteCompatibility.test.ts'));v.numTotalTests=v.numPassedTests=v.testResults.length;});expect(result.evidence.errors).toContain('required suite missing: server/sqliteCompatibility.test.ts');});
+it('requires actual compiled incompatible-schema preservation proof',()=>{const result=runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((check:string)=>check!=='incompatible-schema-preserved');});expect(result.evidence.errors).toContain('production probe check missing: incompatible-schema-preserved');});
+
+it.each(['exitCode','bytesSchemaRowsJournalPreserved','databaseSha256','journal','nativeHandlesReleased','networkAttempts'])('rejects contradictory compiled incompatible-schema %s',field=>{const result=runEvidence(reports=>{const entry=reports['production.json'].incompatibleSchemas[0];entry[field]=field==='networkAttempts'?['synthetic external attempt']:field==='databaseSha256'?'invalid':field==='journal'?'wal':field==='exitCode'?0:false;});expect(result.code).toBe(1);});
+it.each(['absent','missing','duplicate'])('rejects %s compiled incompatible-schema cases',kind=>{const result=runEvidence(reports=>{if(kind==='absent')delete reports['production.json'].incompatibleSchemas;else if(kind==='missing')reports['production.json'].incompatibleSchemas.pop();else reports['production.json'].incompatibleSchemas[1]=reports['production.json'].incompatibleSchemas[0];});expect(result.code).toBe(1);});

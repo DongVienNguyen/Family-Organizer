@@ -61,12 +61,23 @@ function initializeDatabase() {
   try {
     db.pragma("foreign_keys = ON");
     db.pragma("busy_timeout = 5000");
+    // Inspect and initialize under the same native write lock. Incompatible
+    // databases must not gain owned tables/indexes or a different journal mode.
+    db.exec('BEGIN IMMEDIATE');
     if(isFirstAccountStorage()){
       // Hold the same native connection/write lock through inspection and DDL.
       // Preserve the selected journal mode; normal runtime enables WAL later.
-      db.exec('BEGIN IMMEDIATE');
       if(!sqliteInstallationPristine())throw new InstallationNotPristineError();
-    }else db.pragma("journal_mode = WAL");
+    }else {
+      const objects = db.prepare("SELECT type,name FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").all() as {type:string;name:string}[];
+      if (objects.length) {
+        if (!objects.some(item => item.type === 'table' && item.name === 'app_meta')) throw new Error('Unsupported legacy schema: missing metadata');
+        // Preparing this before DDL also preserves the existing native diagnostic
+        // for malformed app_meta columns used by runtime ownership checks.
+        const stored = db.prepare("SELECT value FROM app_meta WHERE key = 'schema_version'").get() as {value:string}|undefined;
+        if (!stored || stored.value !== String(SCHEMA_VERSION)) throw new Error(`Unsupported legacy schema version: ${stored?.value ?? 'missing'}`);
+      }
+    }
 
     // Schema: a document-style table per collection (id, seq, data JSON) + app_meta.
     db.exec(`
@@ -138,7 +149,8 @@ function initializeDatabase() {
       "SELECT t, cpu, ram, temp, ssd, disk FROM server_metrics WHERE t >= ? ORDER BY t ASC"
     );
 
-    if(isFirstAccountStorage())db.exec('COMMIT');
+    db.exec('COMMIT');
+    if(!isFirstAccountStorage())db.pragma("journal_mode = WAL");
     return { getMetaStmt, saveCollections, insertMetricStmt, pruneMetricStmt, selectMetricsStmt };
   } catch (error) {
     try{if(db.inTransaction)db.exec('ROLLBACK');}finally{if(db.open)db.close();}
