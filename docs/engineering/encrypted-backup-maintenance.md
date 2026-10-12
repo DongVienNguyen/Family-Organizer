@@ -19,8 +19,11 @@ and every existing declared ciphertext file. DeleteSubdirectoriesAndFiles is a
 write capability. Ancestors must have trusted owners and no untrusted permissions
 that can replace the protected child; inherit-only grants do not apply to the ancestor
 itself. New declared files are sealed before success; existing trusted files keep
-their ACLs. Use a dedicated protected destination under ProgramData or another
-ancestor chain meeting this policy.
+their ACLs. Use a dedicated protected destination on a local volume whose ancestor chain
+meets this policy (the native fixture uses a sealed directory directly under C:).
+Default ProgramData permissions are not implicitly trusted; the initial corrected
+Windows fixture there was refused by the ancestor check. No system ancestor ACL
+is changed to make a fixture pass.
 ValidateOnly/WhatIf return before stdin/mutation. No directory is created implicitly. Source, destination and protected roots are
 compared using filesystem paths, including Windows8.3 expansion and directory
 identity; a different lexical spelling cannot authorize a source/protected-root alias.
