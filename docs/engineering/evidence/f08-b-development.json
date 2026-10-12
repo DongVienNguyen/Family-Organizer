@@ -1,0 +1,36 @@
+{
+  "taskId": "F08-b",
+  "baseSha": "de66d95c447a2b773e376bb55553f1cb6821d908",
+  "newFunctionAvailabilityReds": {
+    "metadata": 33,
+    "reader": 9,
+    "gitFacts": 11
+  },
+  "actualPolicyReds": {
+    "deferredSemVerAndQuality": 4,
+    "ownPreflightCheckAndJobBinding": 2,
+    "mandatorySuiteOmission": 1,
+    "normalSevenArtifactInventory": 1
+  },
+  "targetGreen": 242,
+  "targetFiles": 3,
+  "fullGreen": 1918,
+  "fullFiles": 104,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceFrozenDuringVerification": true,
+  "dependencyRuntimeLockChanges": false,
+  "liveMetadataWorkflow": "not-dispatched; require reviewedmerge and realmainCI",
+  "scope": "metadata preflight only; no archive/report/fullcandidate orpromotion proof",
+  "publication": "unconditionally disabled",
+  "windows": "pending exactHEAD allmandatoryCI",
+  "reviewCount": 1,
+  "reviewImportant": 1,
+  "reviewCritical": 0,
+  "reviewMinor": 0,
+  "reviewCorrection": "Explicit seven-artifact inventory including package harness; 3 positive RED assertions for one defect, 54 passing before fix",
+  "preReviewHeadSha": "fa9f51f89360dd68e5abb83d4f188de33589b3c9"
+}
