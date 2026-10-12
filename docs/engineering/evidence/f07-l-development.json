@@ -113,5 +113,24 @@
     "pending": 0,
     "todo": 0,
     "nodeVersion": "v24.21.0"
+  },
+  "checkpoint3": {
+    "headSha": "7b622cc0003edeaa9f1f2d0e2361d103b7bb1ac8",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38318772976",
+    "node22": {
+      "total": 1926,
+      "passed": 1926,
+      "failed": 0,
+      "pending": 0
+    },
+    "node24": {
+      "total": 1926,
+      "passed": 1926,
+      "failed": 0,
+      "pending": 0
+    },
+    "nativeDiagnostic": "Both quality jobs fail: asynchronous PowerShell child still SIGTERM after10seconds despite reader closed; exact publisher boundary not yet exposed",
+    "service": "pending",
+    "next": "Add constant publisher step markers, read completed service read-stage logs before choosing correction; no Windows gate/merge claim"
   }
 }
