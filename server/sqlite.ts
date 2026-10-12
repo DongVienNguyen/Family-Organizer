@@ -6,6 +6,7 @@
 import fs from "fs";
 import path from "path";
 import Database from "better-sqlite3";
+import { COLLECTIONS, SINGLETON_KEYS, LEGACY_KEYS } from "./legacySchema.js";
 import { FamilyOrganizerDB } from "../src/types.js";
 
 import { appConfig, prepareStorage } from "./config.js";
@@ -19,34 +20,6 @@ const SCHEMA_VERSION = 1;
 // Map each FamilyOrganizerDB collection key -> SQLite table name.
 // Each row keeps the full record as JSON plus a `seq` column so array order
 // (newest-first lists, etc.) is preserved exactly across save/load.
-const COLLECTIONS: { key: keyof FamilyOrganizerDB; table: string }[] = [
-  { key: "users", table: "users" },
-  { key: "tasks", table: "tasks" },
-  { key: "plans", table: "plans" },
-  { key: "notes", table: "notes" },
-  { key: "transactions", table: "transactions" },
-  { key: "rewardLedger", table: "reward_ledger" },
-  { key: "rewardItems", table: "reward_items" },
-  { key: "budgets", table: "budgets" },
-  { key: "customCategories", table: "custom_categories" },
-  { key: "recurringBills", table: "recurring_bills" },
-  { key: "savingsGoals", table: "savings_goals" },
-  { key: "debts", table: "debts" },
-  { key: "assets", table: "assets" },
-  { key: "medications", table: "medications" },
-  { key: "medicationLogs", table: "medication_logs" },
-  { key: "vaccinations", table: "vaccinations" },
-  { key: "growthRecords", table: "growth_records" },
-  { key: "healthProfiles", table: "health_profiles" },
-  { key: "documents", table: "documents" },
-  { key: "shoppingItems", table: "shopping_items" },
-  { key: "dishLibrary", table: "dish_library" },
-  { key: "marketHistory", table: "market_history" },
-  { key: "notifications", table: "notifications" },
-  { key: "pushSubscriptions", table: "push_subscriptions" },
-  { key: "activityLogs", table: "activity_logs" },
-  { key: "backups", table: "backup_records" }
-];
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -54,7 +27,7 @@ if (!fs.existsSync(DATA_DIR)) {
 
 const db = new Database(DB_PATH);
 // Singleton (non-array) fields stored as a single JSON row in app_meta.
-const SINGLETON_KEYS: (keyof FamilyOrganizerDB)[] = ["mealPlan", "hiddenBuiltinCategories"];
+
 
 // Module evaluation owns the native connection even if a schema/statement fails.
 function initializeDatabase() {
@@ -158,7 +131,7 @@ function initializeDatabase() {
   }
 }
 const { getMetaStmt, saveCollections, insertMetricStmt, pruneMetricStmt, selectMetricsStmt } = initializeDatabase();
-export const LEGACY_KEYS = [...COLLECTIONS.map(c => c.key), ...SINGLETON_KEYS] as const;
+export { LEGACY_KEYS } from './legacySchema.js';
 const baselines = new WeakMap<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>>();
 let writeScope: Map<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>> | undefined;
 const encodeCollection = (data: FamilyOrganizerDB, key: keyof FamilyOrganizerDB) =>

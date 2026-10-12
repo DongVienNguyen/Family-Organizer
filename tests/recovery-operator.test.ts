@@ -100,3 +100,24 @@ it('binds private recovery restore metadata to opaque ciphertext, never a plaint
  const target=rows(path.join(env('target').DATA_DIR!,'family.db'));const command=(target.app_commands as any[]).find(row=>row.command==='core:snapshot:restore');const identity=createHash('sha256').update(encrypted).update(JSON.stringify(['gemini'])).digest('hex');expect(command.payload_hash===identity).toBe(true);expect(JSON.stringify(target.app_commands).includes('synthetic-private-digest-canary')).toBe(false);
  const source=rows(path.join(env('source').DATA_DIR!,'family.db'));const reads=(source.app_commands as any[]).filter(row=>row.command==='operator:recovery:read');expect(reads.length>0).toBe(true);expect(reads.every(row=>JSON.parse(row.result).snapshotRead===true)).toBe(true);expect(JSON.stringify(reads).includes('synthetic-private-digest-canary')).toBe(false);
 }));
+
+// An un-warmed first-account database must not acquire runtime/snapshot bootstrap
+// tables, WAL mode or command records merely because an authenticated payload is bad.
+it.each(['raw','private'].flatMap(format=>['manifest','checksum','primary-key','migrations','credentials'].map(invalid=>({format,invalid}))))('rejects $format authenticated $invalid snapshot without initializing the target',({format,invalid})=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);expect((await run('target','',initialize)).code).toBe(0);
+ const request={file:path.join(root,'unwarmed.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true,...(format==='private'?{includeSettings:['gemini']}: {})};
+ expect((await run('source','--backup-recovery',request)).code).toBe(0);
+ const payload=JSON.parse(decryptRecovery(fs.readFileSync(request.file),Buffer.from(request.key,'hex')).toString());const snapshot=format==='private'?payload.snapshot:payload;
+ if(invalid==='manifest')snapshot.manifest.schemaVersion=999;
+ if(invalid==='checksum')snapshot.manifest.checksum='0'.repeat(64);
+ if(invalid==='primary-key')snapshot.tables.app_meta.push({...snapshot.tables.app_meta[0]});
+ if(invalid==='migrations')snapshot.tables.app_migrations.push({namespace:'wallet',version:1,checksum:'synthetic-unrecognized',applied_at:'2026-10-12T00:00:00Z'});
+ if(invalid==='credentials')snapshot.manifest.credentials='excluded-v1';
+ const forged=encryptRecovery(Buffer.from(JSON.stringify(payload)),Buffer.from(request.key,'hex'));fs.writeFileSync(request.file,forged);
+ const data=env('target').DATA_DIR!,dbfile=path.join(data,'family.db');
+ const inspect=()=>{const db=new Database(dbfile,{readonly:true});try{return {schema:db.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master ORDER BY type,name").all(),journal:db.pragma('journal_mode',{simple:true}),rows:rows(dbfile)};}finally{db.close();}};
+ const files=()=>{const result:Record<string,string>={};const walk=(directory:string)=>{for(const name of fs.readdirSync(directory).sort()){const file=path.join(directory,name);if(fs.lstatSync(file).isDirectory())walk(file);else result[path.relative(path.join(root,'target'),file)]=createHash('sha256').update(fs.readFileSync(file)).digest('hex');}};walk(path.join(root,'target'));return result;};
+ const before=inspect(),beforeFiles=files();expect(Object.hasOwn(before.rows,'app_restore_commits')).toBe(false);expect(before.journal).toBe('delete');
+ const result=await run('target','--restore-recovery',request);expect(result.code).toBe(1);expect(result.value).toEqual({error:'RECOVERY_SNAPSHOT_INVALID'});
+ expect(inspect()).toEqual(before);expect(files()).toEqual(beforeFiles);expect(fs.readFileSync(request.file)).toEqual(forged);
+}));

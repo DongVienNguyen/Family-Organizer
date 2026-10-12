@@ -1,0 +1,133 @@
+{
+  "taskId": "F07-d",
+  "reviewedHeadSha": "4ada42c5e0f2ee0a2a41e24cd98d9b178549b7c7",
+  "reviewer": "one fresh gpt-6-astra high read-only wholebranch review",
+  "critical": 0,
+  "important": 1,
+  "minor": 0,
+  "allFindingsGradedBeforeCorrection": true,
+  "findings": [
+    {
+      "severity": "Important",
+      "grade": "accepted",
+      "trigger": "Authenticated invalid raw or private-wrapped snapshot on an initialized target that has never imported the snapshot engine",
+      "consequence": "Runtime import changes journal mode and creates snapshot/job metadata and command records before rejection",
+      "provenance": "Import ordering inherited F07-c; F07-d whole-payload acceptance gap",
+      "correction": "Reuse shared payload validator with read-only target schema/migration inspection before storage bootstrap; keep normal engine revalidation and existing immutable runtime brand",
+      "actualRedTests": 10,
+      "redLog": "f07-d-unwarmed-red.log",
+      "redExitCode": 1,
+      "targetGreenTests": 61,
+      "correctionPasses": 1
+    }
+  ],
+  "secondReview": false,
+  "declinedToJudge": [
+    "actual Windows execution",
+    "Windows crash durability",
+    "live providers",
+    "independent execution of test results"
+  ],
+  "externalGates": [
+    "F05 GitHub Administration403",
+    "Server2019 R02",
+    "remaining F07",
+    "release/tag/VPS not authorized"
+  ],
+  "fullCloud": {
+    "tests": 1506,
+    "files": 88,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "nativeExitCodes": {
+      "test": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reports": {
+      "f07-d-review-vitest.json": "b92f5b04622e547158e21ac67b3a84fc4bb3a50445a9b563acdb93caee21564c",
+      "f07-d-unwarmed-red.log": "c73395c72918f8142d76ee43758673d934a92386495c1f9caf0f60a3783e2287",
+      "f07-d-unwarmed-green.log": "05a9b3a5b0f9907a3318add5791249d466f7ba2841897498b2085556079542d6",
+      "f07-d-review-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-d-review-build.log": "08b0095d3a11c41a0fc372cd9d178f31126687997758fc6547ca1d0c9bb220bd"
+    }
+  },
+  "lintFailure": {
+    "exitCode": 2,
+    "cause": "Shared-validator extraction left duplicate type declarations in appSnapshot; removed erased types without runtime behavior change",
+    "logSha256": "af33fc029127edf8ff505861d28f64d77bdf0c94addc2f51be70b4238f394941"
+  },
+  "compiledCloudDiagnostic": {
+    "platform": "linux",
+    "windowsEvidence": false,
+    "existingFunctionalChecks": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "ordinary-backup-excludes-credentials",
+      "restore-requires-explicit-credential-reentry",
+      "compiled-offline-reentry-preserves-user-ids",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed"
+    ],
+    "privateSettingsChecks": [
+      "compiled-explicit-settings-encrypted-no-plaintext",
+      "compiled-selected-settings-wrong-key-no-mutation",
+      "compiled-authenticated-invalid-snapshot-unwarmed-schema-rows-journal-files-preserved",
+      "compiled-selected-subset-unselected-settings-retained",
+      "compiled-private-settings-business-claims-session-preserved",
+      "compiled-private-settings-offline-source-retained-closed-handles"
+    ],
+    "nativeExitCodes": [
+      {
+        "phase": "selected-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-manifest",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-checksum",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-primary-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-migrations",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-credentials",
+        "exitCode": 1
+      },
+      {
+        "phase": "selected-restore",
+        "exitCode": 0
+      }
+    ],
+    "completed": true,
+    "reportHashes": {
+      "functional.json": "6e50d1031aed339213590fb56b8a0f041ade74c0b58fc52f0171d4a4387870bf",
+      "private-settings.json": "df8b622dea4f9b94bb0d0f811d5f15ad7b3c4eedf02a23373902795ad7ed6954"
+    },
+    "harnessFailure": "Initial diagnostic invoked functional probe with release instead of app and swapped cwd/report arguments; MODULE_NOT_FOUND occurred before app execution. Corrected argument order, retained failure separately. Not counted as behavioral RED."
+  }
+}

@@ -54,6 +54,9 @@ export async function runRecoveryOperator(value:unknown,restore:boolean){
   const {appConfig}=await import('./config.js');checkPath(selected.file,appConfig,restore);
   if(fs.lstatSync(path.join(appConfig.dataRoot,'restore-journal.json'),{throwIfNoEntry:false}))refuse('RECOVERY_PENDING_RESTORE');
   if(!fs.existsSync(path.join(appConfig.dataRoot,'family.db')))refuse('RECOVERY_STORE_REQUIRED');
+  if(restore){
+   try{const {inspectRecoverySnapshot}=await import('./recoverySnapshotInspection.js');inspectRecoverySnapshot(snapshot,path.join(appConfig.dataRoot,'family.db'));}catch{refuse('RECOVERY_SNAPSHOT_INVALID');}
+  }
   const sqlite=await import('./sqlite.js');
   try{
    const engine=await import('./appSnapshot.js');
