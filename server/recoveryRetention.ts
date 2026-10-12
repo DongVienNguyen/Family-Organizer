@@ -57,7 +57,8 @@ export async function maintainRecoveryBackups(value:unknown,config:AppConfig,pru
   const configuration=readBackupConfiguration(config);if(!configuration.enabled)refuse('RECOVERY_MAINTENANCE_CONFIGURATION_REQUIRED');
   let target:string;try{
    const checked=validateBackupConfig({...configuration,backupRoot:input.copyRoot},config);if(!checked.enabled)refuse();target=checked.backupRoot;
-   const sourceStat=fs.lstatSync(configuration.backupRoot),targetStat=fs.lstatSync(target);
+   // NTFS file indexes can exceed Number precision; distinct directories must stay distinct.
+   const sourceStat=fs.lstatSync(configuration.backupRoot,{bigint:true}),targetStat=fs.lstatSync(target,{bigint:true});
    if(!sourceStat.isDirectory()||!targetStat.isDirectory()||(sourceStat.dev===targetStat.dev&&sourceStat.ino===targetStat.ino))refuse();
    const sourcePhysical=physicalPath(configuration.backupRoot),targetPhysical=physicalPath(target),protectedRoots=recoveryProtectedRoots(config).map(physicalPath);
    if(contains(sourcePhysical,targetPhysical)||contains(targetPhysical,sourcePhysical)||[sourcePhysical,targetPhysical].some(root=>protectedRoots.some(protectedRoot=>contains(root,protectedRoot)||contains(protectedRoot,root))))refuse();

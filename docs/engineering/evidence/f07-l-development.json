@@ -1,0 +1,175 @@
+{
+  "taskId": "F07-l",
+  "triggerRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38312242120",
+  "triggerSha": "a571d62bc5ce8a905ffc690702dcb16bf9eb704d",
+  "node24": {
+    "total": 1918,
+    "passed": 1916,
+    "failed": 2,
+    "failures": [
+      "recoveryRetention pruning PATH_INVALID",
+      "recoveryRetention wrong-key expectedAUTH_INVALID gotPATH_INVALID"
+    ]
+  },
+  "service": {
+    "failurePhase": "update-ready",
+    "error": "ECONNREFUSED; service log Startup validation failed without reason",
+    "fixtureCleanup": true,
+    "serviceRemoved": true
+  },
+  "fullCiLogSha256": "5c903b8bfb2f192db603f6ace63dc09e50910df3cbda4fc60fffd9309263a41b",
+  "actualReds": {
+    "directoryNumberPrecision": {
+      "failed": 1,
+      "priorPassed": 39
+    },
+    "atomicLeafPublication": {
+      "failed": 1,
+      "priorPassed": 25
+    }
+  },
+  "diagnosticContractReds": {
+    "gcPressureReceiptAvailability": 1,
+    "safeStartupBindingCode": 1
+  },
+  "gcTrial": "old-space64 alone yielded observed totalheap256MiB and timeout afterloopmarker; semi-space8 added, totalheap<=128MiB asserted; all300000 checks/15s timeout/nativeexit preserved",
+  "sourceTargetGreen": 220,
+  "sourceTargetFiles": 5,
+  "fullSource": {
+    "passed": 1926,
+    "total": 1926,
+    "files": 104,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "workers": 1,
+    "nodeVersion": "v24.21.0",
+    "sourceFrozen": true,
+    "reportSha256": "c566d23ec8de33306839cdbc1eebebd44aceee740a42843713882c33620807ea"
+  },
+  "nativeCauseLimits": "Two defect classes reproduced; old generic service log cannot prove exact native error code, no false native diagnosis or correctedWindows claim",
+  "review": {
+    "count": 1,
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "ruling": "accepted",
+    "actualParentBoundaryRed": 1,
+    "priorPassed": 27,
+    "targetGreen": 219,
+    "files": 5
+  },
+  "releaseVps": "forbidden",
+  "lintExit": 0,
+  "buildExit": 0,
+  "dependencyLockRuntimeChanges": false,
+  "checkpoint": "Actual Remove-Item diagnostic boundary isolated; direct .NET File.Delete with before/after backup/fixed approval assertions, native exit/signal/10s preserved; exact new Windows required; app/tests unchanged from actual1926 green checkpoint",
+  "nativeCheckpoint": {
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38314999862",
+    "headSha": "ecc4bbd6b585bb570606970464f4379a4a110307",
+    "node22": {
+      "total": 1924,
+      "passed": 1922,
+      "failed": 2
+    },
+    "node24": {
+      "total": 1924,
+      "passed": 1922,
+      "failed": 2
+    },
+    "failures": [
+      "bound atomic leaf publication UPDATE_CONTROL_INVALID",
+      "repeated publication replacement count1 expected3"
+    ],
+    "diagnosis": "Underlying native errno/fstat not exposed; new diagnostics required before choosing native correction"
+  },
+  "checkpoint2": {
+    "headSha": "2eaccb786dc826bec2cd429e406c9151a6c4b001",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38316300066",
+    "conclusion": "failure",
+    "qualityNativeDiagnostic": "PowerShell publisher timed out while parent synchronously held reader descriptor",
+    "unitFixtureNativeError": "EPERM rename-overwrite open fixed leaf",
+    "serviceFailure": "explicit rollback UPDATE_HEALTH_FAILED; service worker UPDATE_CONTROL_INVALID; fault hook did not execute",
+    "nativeCause": "control read stage still unconfirmed; add allowlisted stage diagnostic, do not claim old-directory collision observed",
+    "allChecks": "producer/consumer/browser success; both baseline/service/ci-gate failure",
+    "node22": {
+      "total": 1925,
+      "passed": 1923,
+      "failed": 2,
+      "pending": 0
+    },
+    "node24": {
+      "total": 1925,
+      "passed": 1923,
+      "failed": 2,
+      "pending": 0
+    }
+  },
+  "fullSourceReviewCheckpoint": {
+    "passed": 1925,
+    "total": 1925,
+    "files": 104,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "nodeVersion": "v24.21.0"
+  },
+  "checkpoint3": {
+    "headSha": "7b622cc0003edeaa9f1f2d0e2361d103b7bb1ac8",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38318772976",
+    "node22": {
+      "total": 1926,
+      "passed": 1926,
+      "failed": 0,
+      "pending": 0
+    },
+    "node24": {
+      "total": 1926,
+      "passed": 1926,
+      "failed": 0,
+      "pending": 0
+    },
+    "nativeDiagnostic": "Both quality jobs fail: asynchronous PowerShell child still SIGTERM after10seconds despite reader closed; exact publisher boundary not yet exposed",
+    "service": {
+      "conclusion": "success",
+      "checks": 14,
+      "coordinatorChecks": 10,
+      "coordinatorNativePhases": 31,
+      "shutdownCompletions": 11,
+      "serviceRemoved": true,
+      "fixtureCleanup": true,
+      "independentValidatorExit": 0
+    },
+    "next": "Add constant publisher step markers, read completed service read-stage logs before choosing correction; no Windows gate/merge claim",
+    "independentValidators": {
+      "quality": 0,
+      "coverage": 0,
+      "browser": 0,
+      "package": 0,
+      "service": 0
+    },
+    "fullCiLogSha256": "e36dfb44328a8c7245e28f881cf37cb23000ced895a6f5f7827745be6228592b",
+    "zipSha256": "22a9964ae0bb6ca63629ca2f9c42b7cca49f3d12f77c598cc3e53305fd9937cc",
+    "conclusion": "failure: diagnostic publisher only in both quality jobs, plus ci-gate; all application suites and browser/package/service evidence passed"
+  },
+  "publisherDiagnosis": {
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38319737827",
+    "testedHeadSha": "90c926a0c31615db5a2ee1d90a428c33a704ba1c",
+    "runAcceptance": "cancel requested after diagnostic failure; partial/unrun suites not pass",
+    "markers": [
+      "PUBLICATION_ATTEMPTING",
+      "PUBLICATION_REPLACED"
+    ],
+    "absentMarkers": [
+      "PUBLICATION_BACKUP_REMOVED",
+      "PUBLICATION_NATIVE_FAILURE"
+    ],
+    "readerClosedBeforeAwaitingPublisher": true,
+    "actualSignal": "SIGTERM",
+    "budgetMs": 10000,
+    "confirmedBoundary": "File.Replace completed; PowerShell Remove-Item did not complete by deadline",
+    "causeLimit": "PowerShell provider/module internal cause unconfirmed; native service using normal environment separately passed this publication path",
+    "correction": "Diagnostic uses direct .NET File.Delete with backup existence-before/absence-after assertions; two-method observation and all native exit/signal/deadline checks retained",
+    "correctedWindows": "not-run"
+  }
+}

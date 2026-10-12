@@ -9,7 +9,7 @@ const source=path.join(process.cwd(),'owned ciphertext'),target=path.join(proces
 const key=Buffer.alloc(32,17),now=Date.parse('2026-10-12T00:00:00Z'),day=86400000;
 function record(age:number,payload='synthetic recovery value'):RecoveryRecord {const fileName='recovery_'+randomUUID()+'.fo-recovery',bytes=encryptRecovery(Buffer.from(payload),key);fs.writeFileSync(path.join(source,fileName),bytes);return {fileName,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),capturedAt:now-age*day};}
 const request=(records:RecoveryRecord[])=>({copyRoot:target,records,keepCount:2,keepDays:7});
-beforeEach(()=>{vi.useFakeTimers();vi.setSystemTime(now);fs.mkdirSync(source);fs.mkdirSync(target);fs.writeFileSync(keyFile,key);fs.writeFileSync(configFile,JSON.stringify({format:1,enabled:true,backupRoot:source,keyFile,includeCredentials:true,includeSettings:[],includeFiles:[],includeEnv:[]}));});
+beforeEach(()=>{vi.useFakeTimers();vi.setSystemTime(now);fs.mkdirSync(source);fs.mkdirSync(target);const a=fs.lstatSync(source,{bigint:true}),b=fs.lstatSync(target,{bigint:true});console.log(JSON.stringify({phase:'native-directory-identity',sourceIno:a.ino.toString(),targetIno:b.ino.toString(),sourceDev:a.dev.toString(),targetDev:b.dev.toString(),numberIdentityCollides:Number(a.dev)===Number(b.dev)&&Number(a.ino)===Number(b.ino)}));fs.writeFileSync(keyFile,key);fs.writeFileSync(configFile,JSON.stringify({format:1,enabled:true,backupRoot:source,keyFile,includeCredentials:true,includeSettings:[],includeFiles:[],includeEnv:[]}));});
 afterEach(()=>{vi.restoreAllMocks();vi.useRealTimers();fs.rmSync(source,{recursive:true});fs.rmSync(target,{recursive:true});for(const file of [keyFile,configFile])if(fs.existsSync(file))fs.unlinkSync(file);});
 it('retention preserves newest count and every recent source',()=>{const records=[record(20),record(1),record(15),record(0),record(6)];const result=planRecoveryRetention(records,{keepCount:2,keepDays:7},now);expect(new Set(result.retained.map(x=>x.fileName))).toEqual(new Set([records[1],records[3],records[4]].map(x=>x.fileName)));expect(new Set(result.prunable.map(x=>x.fileName))).toEqual(new Set([records[0],records[2]].map(x=>x.fileName)));expect(records.map(x=>x.capturedAt)).toEqual([now-20*day,now-day,now-15*day,now,now-6*day]);});
 it('count floor protects newest sources even when every timestamp is old',()=>{const records=[record(20),record(30),record(40)];expect(planRecoveryRetention(records,{keepCount:2,keepDays:7},now).prunable).toEqual([records[2]]);});
@@ -23,3 +23,27 @@ it.each([source,appConfig.codeRoot,appConfig.dataRoot,appConfig.configRoot,appCo
 it('partial native full copy removes only its new output and retains all source/prior copies',async()=>{const records=[record(0),record(1)];fs.copyFileSync(path.join(source,records[0].fileName),path.join(target,records[0].fileName));const original=fs.writeSync;vi.spyOn(fs,'writeSync').mockImplementation(((fd:any,bytes:any,...args:any[])=>{original(fd,bytes.subarray(0,8));throw Object.assign(new Error('synthetic full'),{code:'ENOSPC'});}) as any);await expect(maintainRecoveryBackups(request(records),appConfig)).rejects.toThrow('RECOVERY_STORAGE_FULL');expect(fs.readdirSync(source).sort()).toEqual(records.map(x=>x.fileName).sort());expect(fs.readdirSync(target)).toEqual([records[0].fileName]);});
 
 it.each(['source-alias','protected-target-alias','protected-source-alias'])('refuses physical %s despite disjoint lexical spelling',async mode=>{const records=[record(0)],original=fs.realpathSync.native,physicalSource=original(source),physicalData=original(appConfig.dataRoot);vi.spyOn(fs.realpathSync,'native').mockImplementation(((file:any,...args:any[])=>{if(file===target&&mode==='source-alias')return physicalSource;if(file===target&&mode==='protected-target-alias')return physicalData;if(file===source&&mode==='protected-source-alias')return physicalData;return original(file,...args as []);}) as any);await expect(maintainRecoveryBackups(request(records),appConfig)).rejects.toThrow('RECOVERY_MAINTENANCE_PATH_INVALID');expect(fs.readdirSync(source)).toEqual([records[0].fileName]);expect(fs.readdirSync(target)).toEqual([]);});
+
+it('keeps distinct 64-bit directory identities whose Number inode values collide',async()=>{
+ const records=[record(0)],original=fs.lstatSync;
+ const nativeSource=original(source,{bigint:true}),nativeTarget=original(target,{bigint:true});
+ console.log(JSON.stringify({phase:'native-directory-identity',sourceIno:nativeSource.ino.toString(),targetIno:nativeTarget.ino.toString(),sourceDev:nativeSource.dev.toString(),targetDev:nativeTarget.dev.toString(),numberIdentityCollides:Number(nativeSource.dev)===Number(nativeTarget.dev)&&Number(nativeSource.ino)===Number(nativeTarget.ino)}));
+ vi.spyOn(fs,'lstatSync').mockImplementation(((file:any,options:any)=>{
+  const stat=original(file,options);
+  if(stat&&(file===source||file===target)){const exact=9007199254740992n+(file===target?1n:0n);(stat as any).ino=options?.bigint===true?exact:Number(exact);}
+  return stat;
+ })as any);
+ expect(await maintainRecoveryBackups(request(records),appConfig)).toMatchObject({copied:1,pruned:0,retained:1});
+ expect(fs.readFileSync(path.join(target,records[0].fileName))).toEqual(fs.readFileSync(path.join(source,records[0].fileName)));
+});
+
+it('still refuses exactly equal native directory identities',async()=>{
+ const records=[record(0)],original=fs.lstatSync;
+ vi.spyOn(fs,'lstatSync').mockImplementation(((file:any,options:any)=>{
+  const stat=original(file,options);
+  if(stat&&(file===source||file===target)){(stat as any).dev=options?.bigint===true?1n:1;(stat as any).ino=options?.bigint===true?9007199254740992n:9007199254740992;}
+  return stat;
+ })as any);
+ await expect(maintainRecoveryBackups(request(records),appConfig)).rejects.toThrow('RECOVERY_MAINTENANCE_PATH_INVALID');
+ expect(fs.readdirSync(target)).toEqual([]);expect(fs.readdirSync(source)).toEqual([records[0].fileName]);
+});

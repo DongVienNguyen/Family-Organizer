@@ -6,7 +6,7 @@ import {createHash} from 'node:crypto';
 import {setTimeout as delay} from 'node:timers/promises';
 import type {AppConfig} from './config.js';
 import {assertNoLinkedAncestors} from '../scripts/lib/native-paths.mjs';
-export class UpdateFenceError extends Error {}
+export class UpdateFenceError extends Error {readStage?:string;}
 function refuse(code='UPDATE_CONTROL_INVALID'):never{throw new UpdateFenceError(code);}
 const uuid=(value:unknown):value is string=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(value);
 interface Bounds {min:number;max:number}
@@ -15,18 +15,50 @@ export interface StoredUpdateSchemas {legacy:number;jobs:number;snapshot:number;
 interface Control {format:1;operationId:string;manifestSha256:string;phase:'held'|'approve'}
 export interface UpdateAttempt {readonly controlFile:string;readonly manifestFile:string;readonly operationId:string;readonly manifestSha256:string;readonly appVersion:string;readonly schema:UpdateSchema}
 function object(value:unknown):value is Record<string,any>{return !!value&&typeof value==='object'&&!Array.isArray(value);}
-function readPublic(file:string,limit:number,code:string):Buffer{
- let fd:number|undefined,bytes:Buffer|undefined,complete=false;
+// A stable parent may publish a new fixed control leaf atomically. A changed
+// snapshot is never returned; callers can perform a bounded complete reread.
+class ControlPublicationChanged extends UpdateFenceError {}
+type AncestorIdentity={file:string;dev:bigint;ino:bigint};
+function readPublic(file:string,limit:number,code:string,allowLeafPublication=false,pinnedAncestors?:AncestorIdentity[]):Buffer{
+ let fd:number|undefined,bytes:Buffer|undefined,complete=false,readStage='ancestors';
  try{
-  assertNoLinkedAncestors(file);const ancestors:Array<{file:string;dev:number;ino:number}>=[];for(let current=path.dirname(path.resolve(file));;current=path.dirname(current)){const ancestor=fs.lstatSync(current);if(!ancestor.isDirectory()||ancestor.isSymbolicLink())refuse(code);ancestors.push({file:current,dev:ancestor.dev,ino:ancestor.ino});if(path.dirname(current)===current)break;}const prior=fs.lstatSync(file);if(!prior.isFile()||prior.nlink!==1||prior.size>limit)refuse(code);
-  fd=fs.openSync(file,'r');const stat=fs.fstatSync(fd);if(stat.dev!==prior.dev||stat.ino!==prior.ino||stat.size!==prior.size||stat.nlink!==1)refuse(code);
-  bytes=Buffer.alloc(stat.size);let offset=0;while(offset<bytes.length){const count=fs.readSync(fd,bytes,offset,bytes.length-offset,null);if(!count)refuse(code);offset+=count;}
-  const extra=Buffer.alloc(1);try{if(fs.readSync(fd,extra,0,1,null))refuse(code);}finally{extra.fill(0);}
-  const after=fs.fstatSync(fd);if(after.dev!==stat.dev||after.ino!==stat.ino||after.nlink!==1||after.size!==stat.size||after.mtimeMs!==stat.mtimeMs||after.ctimeMs!==stat.ctimeMs)refuse(code);assertNoLinkedAncestors(file);for(const ancestor of ancestors){const current=fs.lstatSync(ancestor.file);if(!current.isDirectory()||current.isSymbolicLink()||current.dev!==ancestor.dev||current.ino!==ancestor.ino)refuse(code);}const fixed=fs.lstatSync(file);if(!fixed.isFile()||fixed.isSymbolicLink()||fixed.dev!==stat.dev||fixed.ino!==stat.ino||fixed.nlink!==1||fixed.size!==stat.size||fixed.mtimeMs!==stat.mtimeMs||fixed.ctimeMs!==stat.ctimeMs)refuse(code);complete=true;return bytes;
- }catch{refuse(code);}finally{if(!complete)bytes?.fill(0);if(fd!==undefined){try{fs.closeSync(fd);}catch{bytes?.fill(0);refuse(code);}}}
+  assertNoLinkedAncestors(file);const ancestors=pinnedAncestors??[];
+  if(ancestors.length===0)for(let current=path.dirname(path.resolve(file));;current=path.dirname(current)){
+   const ancestor=fs.lstatSync(current,{bigint:true});if(!ancestor.isDirectory()||ancestor.isSymbolicLink())refuse(code);
+   ancestors.push({file:current,dev:ancestor.dev,ino:ancestor.ino});if(path.dirname(current)===current)break;
+  }
+  const parentsUnchanged=()=>{assertNoLinkedAncestors(file);for(const ancestor of ancestors){const current=fs.lstatSync(ancestor.file,{bigint:true});if(!current.isDirectory()||current.isSymbolicLink()||current.dev!==ancestor.dev||current.ino!==ancestor.ino)refuse(code);}};
+  const ordinary=(stat:fs.BigIntStats)=>{if(!stat.isFile()||stat.isSymbolicLink()||stat.nlink!==1n||stat.size>BigInt(limit)||stat.size<0n)refuse(code);};
+  parentsUnchanged(); // A retry must retain the first read's parent identities.
+  readStage='leaf-stat';const prior=fs.lstatSync(file,{bigint:true});ordinary(prior);
+  readStage='descriptor-open';fd=fs.openSync(file,'r');const stat=fs.fstatSync(fd,{bigint:true});
+  if(stat.dev!==prior.dev||stat.ino!==prior.ino||stat.nlink!==1n){
+   parentsUnchanged();const fixed=fs.lstatSync(file,{bigint:true});ordinary(fixed);
+   if(allowLeafPublication&&(fixed.dev!==prior.dev||fixed.ino!==prior.ino))throw new ControlPublicationChanged(code);
+   refuse(code);
+  }
+  if(stat.size!==prior.size||stat.size>BigInt(limit))refuse(code);
+  readStage='descriptor-read';bytes=Buffer.alloc(Number(stat.size));let offset=0;while(offset<bytes.length){const count=fs.readSync(fd,bytes,offset,bytes.length-offset,null);if(!count)refuse(code);offset+=count;}
+  readStage='descriptor-eof';const extra=Buffer.alloc(1);try{if(fs.readSync(fd,extra,0,1,null))refuse(code);}finally{extra.fill(0);}
+  readStage='descriptor-after';const after=fs.fstatSync(fd,{bigint:true});readStage='parents-after';parentsUnchanged();readStage='leaf-after';const fixed=fs.lstatSync(file,{bigint:true});ordinary(fixed);
+  if(fixed.dev!==stat.dev||fixed.ino!==stat.ino){if(allowLeafPublication)throw new ControlPublicationChanged(code);refuse(code);}
+  readStage='metadata-after';if(after.dev!==stat.dev||after.ino!==stat.ino||after.nlink!==1n||after.size!==stat.size||after.mtimeNs!==stat.mtimeNs||after.ctimeNs!==stat.ctimeNs||fixed.size!==stat.size||fixed.mtimeNs!==stat.mtimeNs||fixed.ctimeNs!==stat.ctimeNs)refuse(code);
+  complete=true;return bytes;
+ }catch(error){if(error instanceof ControlPublicationChanged)throw error;const failure=new UpdateFenceError(code);failure.readStage=readStage;throw failure;}
+ finally{if(!complete)bytes?.fill(0);if(fd!==undefined){try{fs.closeSync(fd);}catch{bytes?.fill(0);refuse(code);}}}
 }
 function readControl(file:string):Control{
- let bytes:Buffer|undefined;try{bytes=readPublic(file,8192,'UPDATE_CONTROL_INVALID');const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));if(!object(value)||Object.keys(value).sort().join(',')!=='format,manifestSha256,operationId,phase'||value.format!==1||!uuid(value.operationId)||typeof value.manifestSha256!=='string'||!/^[a-f0-9]{64}$/.test(value.manifestSha256)||!['held','approve'].includes(value.phase))refuse();return value as unknown as Control;}catch{refuse();}finally{bytes?.fill(0);}
+ const ancestors:AncestorIdentity[]=[];
+ for(let attempt=0;attempt<3;attempt++){
+  let bytes:Buffer|undefined;
+  try{
+   bytes=readPublic(file,8192,'UPDATE_CONTROL_INVALID',true,ancestors);const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+   if(!object(value)||Object.keys(value).sort().join(',')!=='format,manifestSha256,operationId,phase'||value.format!==1||!uuid(value.operationId)||typeof value.manifestSha256!=='string'||!/^[a-f0-9]{64}$/.test(value.manifestSha256)||!['held','approve'].includes(value.phase))refuse();
+   return value as unknown as Control;
+  }catch(error){if(error instanceof ControlPublicationChanged&&attempt<2)continue;if(error instanceof UpdateFenceError)throw error;refuse();}
+  finally{bytes?.fill(0);}
+ }
+ refuse();
 }
 function bounds(value:unknown):value is Bounds{return object(value)&&Object.keys(value).sort().join(',')==='max,min'&&Number.isSafeInteger(value.min)&&value.min>=1&&Number.isSafeInteger(value.max)&&value.max>=value.min;}
 export function assertSchemaCompatibility(schema:unknown,versions:unknown):void{

@@ -11,8 +11,19 @@ const schema={legacy:{min:1,max:1},jobs:{min:1,max:1},snapshot:{min:1,max:1},dom
 const versions={legacy:1,jobs:1,snapshot:1,domains:{wallet:0,productivity:0}};
 const config={...appConfig,codeRoot:path.join(root,'app')};let control:any;
 function publish(phase='held'){fs.writeFileSync(controlFile,JSON.stringify({...control,phase}));}
-beforeEach(()=>{fs.mkdirSync(config.codeRoot,{recursive:true});fs.writeFileSync(manifestFile,JSON.stringify({format:1,commitSha:'a'.repeat(40),appVersion:'1.1.0',schema}));control={format:1,operationId:randomUUID(),manifestSha256:createHash('sha256').update(fs.readFileSync(manifestFile)).digest('hex'),phase:'held'};});
-afterEach(()=>{vi.restoreAllMocks();fs.rmSync(root,{recursive:true,force:true});fs.rmSync(controlFile,{force:true});});
+// Model an atomic namespace publication with real immutable file bytes/identities.
+// Windows refuses Node rename-overwrite while the destination descriptor is open;
+// the disposable native service separately exercises actual .NET publication.
+const publishedLeaves=new Map<string,string>(),replacedParents=new Map<string,string>(),publicationFiles=new Set<string>();let publicationNumber=0;
+function publicationPath(file:any):any{if(typeof file!=='string')return file;for(const [parent,replacement]of replacedParents)if(file===parent||file.startsWith(parent+path.sep))return path.join(replacement,path.relative(parent,file));return publishedLeaves.get(file)??file;}
+const nativeOpen=fs.openSync.bind(fs),nativeLstat=fs.lstatSync.bind(fs);
+const publicationOpen=(file:any,...args:any[])=>(nativeOpen as any)(publicationPath(file),...args);
+const publicationLstat=(file:any,...args:any[])=>(nativeLstat as any)(publicationPath(file),...args);
+function publishLeaf(staged:string,fixed:string){const immutable=staged+'.publication-'+(++publicationNumber);publicationFiles.add(staged);publicationFiles.add(immutable);fs.renameSync(staged,immutable);publishedLeaves.set(fixed,immutable);}
+function replaceParent(parent:string,replacement:string,body:string){fs.mkdirSync(replacement);fs.writeFileSync(path.join(replacement,'update-control.json'),body);replacedParents.set(parent,replacement);}
+
+beforeEach(()=>{publishedLeaves.clear();replacedParents.clear();publicationFiles.clear();publicationNumber=0;vi.spyOn(fs,'openSync').mockImplementation(publicationOpen as any);vi.spyOn(fs,'lstatSync').mockImplementation(publicationLstat as any);fs.mkdirSync(config.codeRoot,{recursive:true});fs.writeFileSync(manifestFile,JSON.stringify({format:1,commitSha:'a'.repeat(40),appVersion:'1.1.0',schema}));control={format:1,operationId:randomUUID(),manifestSha256:createHash('sha256').update(fs.readFileSync(manifestFile)).digest('hex'),phase:'held'};});
+afterEach(()=>{vi.restoreAllMocks();publishedLeaves.clear();replacedParents.clear();for(const file of publicationFiles)fs.rmSync(file,{force:true});publicationFiles.clear();fs.rmSync(root,{recursive:true,force:true});fs.rmSync(controlFile,{force:true});});
 it('absence keeps normal startup and valid control binds the installed manifest',async()=>{const {loadUpdateAttempt}=await load();expect(loadUpdateAttempt).toBeTypeOf('function');expect(loadUpdateAttempt(config)).toBeUndefined();publish();expect(loadUpdateAttempt(config)).toMatchObject({operationId:control.operationId,manifestSha256:control.manifestSha256,appVersion:'1.1.0',schema});});
 it.each(['format','id','hash','phase','extra','json','utf8','oversize','link','hardlink'])('refuses invalid startup control %s',async mode=>{const {loadUpdateAttempt}=await load();expect(loadUpdateAttempt).toBeTypeOf('function');publish();if(mode==='format')control.format=2;if(mode==='id')control.operationId='other';if(mode==='hash')control.manifestSha256='b'.repeat(64);if(mode==='phase')control.phase='open';if(mode==='extra')control.token='unwanted';if(['format','id','hash','phase','extra'].includes(mode))fs.writeFileSync(controlFile,JSON.stringify(control));if(mode==='json')fs.writeFileSync(controlFile,'{');if(mode==='utf8')fs.writeFileSync(controlFile,Buffer.from([255]));if(mode==='oversize')fs.writeFileSync(controlFile,' '.repeat(8193));if(mode==='link'){fs.unlinkSync(controlFile);fs.symlinkSync(manifestFile,controlFile);}if(mode==='hardlink'){fs.unlinkSync(controlFile);fs.linkSync(manifestFile,controlFile);}expect(()=>loadUpdateAttempt(config)).toThrow(/UPDATE_(CONTROL|BINDING)_INVALID/);});
 it('rollback bounds cover every persisted core and enabled domain version',async()=>{const {assertSchemaCompatibility}=await load();expect(assertSchemaCompatibility).toBeTypeOf('function');expect(()=>assertSchemaCompatibility(schema,versions)).not.toThrow();for(const key of ['legacy','jobs','snapshot'])expect(()=>assertSchemaCompatibility(schema,{...versions,[key]:2})).toThrow('UPDATE_SCHEMA_INCOMPATIBLE');expect(()=>assertSchemaCompatibility(schema,{...versions,domains:{wallet:1}})).toThrow('UPDATE_SCHEMA_INCOMPATIBLE');expect(()=>assertSchemaCompatibility({...schema,domains:{wallet:{min:1,max:2}}},{...versions,domains:{wallet:2}})).not.toThrow();expect(()=>assertSchemaCompatibility(schema,{...versions,jobs:NaN})).toThrow('UPDATE_SCHEMA_INCOMPATIBLE');});
@@ -32,10 +43,50 @@ it('rejects approval observed after the monotonic approval deadline',async()=>{c
 
 it('refuses replacement of the fixed control parent during its final descriptor read',async()=>{
  const {loadUpdateAttempt,validateUpdateStartup}=await load();const originalRead=fs.readSync.bind(fs),privateRoot=path.join(root,'control-root'),movedRoot=path.join(root,'moved-control-root'),fixed=path.join(privateRoot,'update-control.json');fs.mkdirSync(privateRoot);fs.writeFileSync(fixed,JSON.stringify({...control,phase:'approve'}));const attempt=loadUpdateAttempt({...config,configRoot:privateRoot}),app=express(),mark=vi.fn();let armed=false,replaced=false;const identity=fs.statSync(fixed);app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
- vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args),stat=fs.fstatSync(args[0]);if(armed&&!replaced&&stat.dev===identity.dev&&stat.ino===identity.ino){replaced=true;fs.renameSync(privateRoot,movedRoot);fs.mkdirSync(privateRoot);fs.writeFileSync(fixed,JSON.stringify({...control,phase:'held'}));}return count;})as any);
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args),stat=fs.fstatSync(args[0]);if(armed&&!replaced&&stat.dev===identity.dev&&stat.ino===identity.ino){replaceParent(privateRoot,movedRoot,JSON.stringify({...control,phase:'held'}));replaced=true;}return count;})as any);
  const runtime=await startManagedServer({app,jobs:new (await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>{armed=true;return {integrity:'ok',users:1,schemas:versions};},markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});try{await expect(runtime.ready).rejects.toThrow('UPDATE_CONTROL_INVALID');expect(replaced).toBe(true);expect(mark).not.toHaveBeenCalled();expect(runtime.state.phase).toBe('failed');}finally{await runtime.close();}
 });
 it('refuses approval whose control read crosses the monotonic deadline',async()=>{
  const {loadUpdateAttempt,validateUpdateStartup}=await load();publish('approve');const attempt=loadUpdateAttempt(config),app=express(),mark=vi.fn();app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));vi.spyOn(performance,'now').mockReturnValueOnce(0).mockReturnValueOnce(1).mockReturnValue(10);
  const runtime=await startManagedServer({app,jobs:new (await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:5}),closeStorage:()=>{}});try{await expect(runtime.ready).rejects.toThrow('UPDATE_APPROVAL_TIMEOUT');expect(mark).not.toHaveBeenCalled();}finally{await runtime.close();}
 });
+
+it.each(['bound-approval','foreign-approval'])('handles atomic fixed-leaf publication %s while retaining all startup fences',async mode=>{
+ const {loadUpdateAttempt,validateUpdateStartup}=await load();publish();const attempt=loadUpdateAttempt(config),app=express(),mark=vi.fn(),originalRead=fs.readSync.bind(fs);let replaced=false;
+ app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{
+  const count=(originalRead as any)(...args);
+  if(!replaced&&args[1]instanceof Buffer&&args[1].subarray(0,count).toString().includes('"phase":"held"')){
+   const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve',operationId:mode==='foreign-approval'?randomUUID():control.operationId}));publishLeaf(staged,controlFile);replaced=true;
+  }
+  return count;
+ })as any);
+ const runtime=await startManagedServer({app,jobs:new(await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});
+ try{
+  if(mode==='bound-approval'){await runtime.ready;expect(runtime.state.phase).toBe('ready');expect(mark).toHaveBeenCalledTimes(1);}
+  else{await expect(runtime.ready).rejects.toThrow(/UPDATE_/);expect(runtime.state.phase).toBe('failed');expect(mark).not.toHaveBeenCalled();}
+  expect(replaced).toBe(true);
+ }finally{await runtime.close();}
+});
+
+it('bounds repeated atomic leaf replacement to three reads and closes every control descriptor',async()=>{
+ const {loadUpdateAttempt,validateUpdateStartup}=await load();publish();const attempt=loadUpdateAttempt(config),app=express(),mark=vi.fn(),originalRead=fs.readSync.bind(fs),originalOpen=publicationOpen,originalClose=fs.closeSync.bind(fs);let replacements=0,opened=0,closed=0;const owned=new Set<number>();
+ app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
+ vi.spyOn(fs,'openSync').mockImplementation(((...args:any[])=>{const fd=(originalOpen as any)(...args);if(args[0]===controlFile){opened++;owned.add(fd);}return fd;})as any);
+ vi.spyOn(fs,'closeSync').mockImplementation(((fd:number)=>{originalClose(fd);if(owned.delete(fd))closed++;})as any);
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args);if(owned.has(args[0])&&count>0){replacements++;const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve'}));publishLeaf(staged,controlFile);}return count;})as any);
+ const runtime=await startManagedServer({app,jobs:new(await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});
+ try{await expect(runtime.ready).rejects.toThrow('UPDATE_CONTROL_INVALID');expect(mark).not.toHaveBeenCalled();expect(replacements).toBe(3);expect(opened).toBe(3);expect(closed).toBe(3);expect(owned.size).toBe(0);expect(runtime.state.phase).toBe('failed');}finally{await runtime.close();}
+});
+
+it('refuses a control parent replaced between publication retry attempts and closes the first descriptor',async()=>{
+ const {loadUpdateAttempt,validateUpdateStartup}=await load(),privateRoot=path.join(root,'retry-control-root'),movedRoot=path.join(root,'moved-retry-root'),fixed=path.join(privateRoot,'update-control.json');fs.mkdirSync(privateRoot);fs.writeFileSync(fixed,JSON.stringify(control));const attempt=loadUpdateAttempt({...config,configRoot:privateRoot}),app=express(),mark=vi.fn(),originalRead=fs.readSync.bind(fs),originalOpen=publicationOpen,originalClose=fs.closeSync.bind(fs);const owned=new Set<number>();let leafReplaced=false,parentReplaced=false,opened=0,closed=0;
+ app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
+ vi.spyOn(fs,'openSync').mockImplementation(((...args:any[])=>{const fd=(originalOpen as any)(...args);if(args[0]===fixed){owned.add(fd);opened++;}return fd;})as any);
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args);if(!leafReplaced&&owned.has(args[0])&&count>0){const staged=fixed+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve'}));publishLeaf(staged,fixed);leafReplaced=true;}return count;})as any);
+ vi.spyOn(fs,'closeSync').mockImplementation(((fd:number)=>{originalClose(fd);if(owned.delete(fd)){closed++;if(leafReplaced&&!parentReplaced){replaceParent(privateRoot,movedRoot,JSON.stringify({...control,phase:'approve'}));parentReplaced=true;}}})as any);
+ const runtime=await startManagedServer({app,jobs:new(await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});
+ try{await expect(runtime.ready).rejects.toThrow('UPDATE_CONTROL_INVALID');expect(leafReplaced&&parentReplaced).toBe(true);expect(mark).not.toHaveBeenCalled();expect(opened).toBe(1);expect(closed).toBe(1);expect(owned.size).toBe(0);expect(runtime.state.phase).toBe('failed');}finally{await runtime.close();}
+});
+
+it('reports only a fixed read stage for invalid control filesystem metadata',async()=>{const {loadUpdateAttempt}=await load();publish();fs.linkSync(controlFile,controlFile+'.linked');try{let failure:any;try{loadUpdateAttempt(config);}catch(error){failure=error;}expect(failure?.message).toBe('UPDATE_CONTROL_INVALID');expect(failure?.readStage).toBe('leaf-stat');expect(String(failure)).not.toContain(controlFile);}finally{fs.unlinkSync(controlFile+'.linked');}});

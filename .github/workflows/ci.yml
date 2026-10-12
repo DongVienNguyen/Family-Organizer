@@ -104,6 +104,16 @@ jobs:
         id: native
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: ./scripts/ci/Invoke-Check.ps1 -Check native
+      - name: Capture native fixed-file publication diagnostics
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & node ./scripts/windows/probe-file-publication.mjs reports/file-publication-native.json
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
       - name: TypeScript check
         id: lint
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
