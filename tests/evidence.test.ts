@@ -42,7 +42,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     },
     'production.json': {
       commitSha: sha, nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64',
-      incompatibleSchemas: ['future','missing-version','foreign','malformed-metadata','malformed-owned-table'].map(name=>({name,exitCode:1,bytesSchemaRowsJournalPreserved:true,databaseSha256:'d'.repeat(64),journal:'delete',nativeHandlesReleased:true,networkAttempts:[]})),
+      incompatibleSchemas: ['future','missing-version','foreign','sqliteX','sqliteData','malformed-metadata','malformed-owned-table'].map(name=>({name,exitCode:1,bytesSchemaRowsJournalPreserved:true,databaseSha256:'d'.repeat(64),journal:'delete',nativeHandlesReleased:true,networkAttempts:[]})),
       checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets',
         'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy','incompatible-schema-preserved'],
     },
@@ -207,3 +207,5 @@ it('requires actual compiled incompatible-schema preservation proof',()=>{const 
 
 it.each(['exitCode','bytesSchemaRowsJournalPreserved','databaseSha256','journal','nativeHandlesReleased','networkAttempts'])('rejects contradictory compiled incompatible-schema %s',field=>{const result=runEvidence(reports=>{const entry=reports['production.json'].incompatibleSchemas[0];entry[field]=field==='networkAttempts'?['synthetic external attempt']:field==='databaseSha256'?'invalid':field==='journal'?'wal':field==='exitCode'?0:false;});expect(result.code).toBe(1);});
 it.each(['absent','missing','duplicate'])('rejects %s compiled incompatible-schema cases',kind=>{const result=runEvidence(reports=>{if(kind==='absent')delete reports['production.json'].incompatibleSchemas;else if(kind==='missing')reports['production.json'].incompatibleSchemas.pop();else reports['production.json'].incompatibleSchemas[1]=reports['production.json'].incompatibleSchemas[0];});expect(result.code).toBe(1);});
+
+it('rejects an array-valued compiled database hash instead of coercing it to text',()=>{expect(runEvidence(reports=>{reports['production.json'].incompatibleSchemas[0].databaseSha256=['d'.repeat(64)];}).code).toBe(1);});

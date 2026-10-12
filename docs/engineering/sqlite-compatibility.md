@@ -25,16 +25,26 @@ foreign SQLite, malformed metadata and a malformed owned table. They compare
 original bytes, sqlite_master, all records and journal mode, verify close and
 rename the database while the test process lives. Two positive characterizations
 cover fresh persistence/restart and v1 partial/schema extensions. Mandatory compiled
-production smoke adds five genuine failed-startup fixtures from a foreign cwd;
+production smoke initially added five; the corrected final matrix adds seven genuine failed-startup fixtures from a foreign cwd;
 all preserve bytes/schema/records/DELETE journal and release file handles, with
 bounded offline child processes and cleanup. Evidence refuses missing/contradictory
 case identities, exits, preservation/hash/cleanup/network metadata. Eleven actual
 new-evidence RED cases protect the required suite/proof and report gate.
 
 Full Cloud1243/1243 tests81files, target152/152 fivefiles, lint/build/audit0,
-fresh production-only npmci and allfive compiled failed-startup preservation
+fresh production-only npmci and allfive initial compiled failed-startup preservation
 fixtures passed. Actual104file Cloud coverage agrees with the unchanged measured
 floors. These are development diagnostics. Final exact-HEAD Windows proof/review
 are pending. Windows2022
 source/compiled layout is not F06 ZIP acceptance or R02 Server2019 acceptance.
 No release/tag/VPS access/deployment.
+
+Single whole-branch review fixed1Important literal reserved-prefix enumeration
+(SQLite LIKE underscore had hidden legal sqliteX/sqliteData foreign tables from
+normal startup and first-account pristine guards) and1Minor string hash typing.
+Five actual review RED cases thenGREEN. Corrected target157/5, full1248/81,
+lint/build0 and allseven compiled preservation fixtures passed in Cloud. First
+Windows quality1243/81 passed both runtimes but browser14/15 WebKitB05 failed
+on unfinished initial-image fetches during reload; trace preserved and positive
+image decode completion added before reload. Corrected exactWindows is pending;
+no assertion/error filter/skip/retry/coverage threshold changed.

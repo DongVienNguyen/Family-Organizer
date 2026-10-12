@@ -169,6 +169,15 @@ test(browserCases[4], async ({ page, context }) => {
   await notes(page);
   await expect(page.getByText('Synthetic private note', { exact: true })).toBeVisible();
   expect((await api(page, '/uploads/notes/private.png', memberToken)).status).toBe(200);
+  // Finish the initial authorized image loads before deliberately navigating.
+  // WebKit reports navigation-cancelled fetches as access-control page errors;
+  // the delayed response below must isolate the notes session boundary instead.
+  for (const scope of ['private', 'shared']) {
+    const image = page.getByRole('img', { name: `synthetic ${scope}`, exact: true });
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+  }
   // WebKit can send this request through its active service worker without a
   // Playwright route event. Delay the real fetch response inside the page instead.
   // Capture all real bytes before logout, then deliberately deliver them after

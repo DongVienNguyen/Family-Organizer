@@ -125,5 +125,137 @@
     "f06-a-production-install.log": "2f9bad6ee02d2f0e937f70fe849488638639ae4e535da8ec18634c0d69826b6c",
     "f06-a-compiled-cloud-proof.json": "4c4a5bedb473cc258feb36852b464484d11196c0c288b768973e92704d6f4e36",
     "f06-a-cloud-coverage-contract.json": "462ad17aa0d5edf51e4efeb4b4b9deff58e4264a5dbc823b1699c1005f2b9ef7"
+  },
+  "review": {
+    "critical": 0,
+    "importantAccepted": 1,
+    "minorAccepted": 1,
+    "correctionPasses": 1,
+    "rereview": false,
+    "observedRed": 5,
+    "priorPositive": 143,
+    "targetPassed": 157,
+    "targetFiles": 5,
+    "fullPassed": 1248,
+    "fullFiles": 81,
+    "skipped": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "compiledProductionOnly": {
+      "cloudDiagnosticOnly": true,
+      "nodeVersion": "v24.21.0",
+      "platform": "linux",
+      "cases": [
+        {
+          "name": "future",
+          "exitCode": 1,
+          "bytesSchemaRowsJournalPreserved": true,
+          "databaseSha256": "2d336a83dcfbd2038bc9d5e518daeb2e10fb1676fc01ddbf94e6331bfaaaa453",
+          "journal": "delete",
+          "nativeHandlesReleased": true,
+          "networkAttempts": []
+        },
+        {
+          "name": "missing-version",
+          "exitCode": 1,
+          "bytesSchemaRowsJournalPreserved": true,
+          "databaseSha256": "a1b28bf7be16433f5d48aa91ebbbade3ada8f926b625958fc156380d01582cb3",
+          "journal": "delete",
+          "nativeHandlesReleased": true,
+          "networkAttempts": []
+        },
+        {
+          "name": "foreign",
+          "exitCode": 1,
+          "bytesSchemaRowsJournalPreserved": true,
+          "databaseSha256": "71be8446d3e03cf9d754c3ef379c9d16fb504b20eb4853ffe8c6836b41473d16",
+          "journal": "delete",
+          "nativeHandlesReleased": true,
+          "networkAttempts": []
+        },
+        {
+          "name": "sqliteX",
+          "exitCode": 1,
+          "bytesSchemaRowsJournalPreserved": true,
+          "databaseSha256": "ed53ae6945d6863fdbf47ec551383a57dfc0d46f6c1af87d63e0501eda302742",
+          "journal": "delete",
+          "nativeHandlesReleased": true,
+          "networkAttempts": []
+        },
+        {
+          "name": "sqliteData",
+          "exitCode": 1,
+          "bytesSchemaRowsJournalPreserved": true,
+          "databaseSha256": "db26f3e71540c5eaf03576eaaef36a87619d14466e6a829e2808579c443647a8",
+          "journal": "delete",
+          "nativeHandlesReleased": true,
+          "networkAttempts": []
+        },
+        {
+          "name": "malformed-metadata",
+          "exitCode": 1,
+          "bytesSchemaRowsJournalPreserved": true,
+          "databaseSha256": "d5f45a1374e634c285e99e7cf1cb02be2898ebee8552486cfc5ceb6e10f13ab9",
+          "journal": "delete",
+          "nativeHandlesReleased": true,
+          "networkAttempts": []
+        },
+        {
+          "name": "malformed-owned-table",
+          "exitCode": 1,
+          "bytesSchemaRowsJournalPreserved": true,
+          "databaseSha256": "f9ea917a9435b67fd961115f7526ccde1f7ec70b49b44e72c1449d6abb143ec0",
+          "journal": "delete",
+          "nativeHandlesReleased": true,
+          "networkAttempts": []
+        }
+      ]
+    },
+    "coverage": {
+      "cloudDiagnosticOnly": true,
+      "files": 104,
+      "total": {
+        "lines": {
+          "total": 11010,
+          "covered": 3470,
+          "skipped": 0,
+          "pct": 31.51
+        },
+        "statements": {
+          "total": 14051,
+          "covered": 4747,
+          "skipped": 0,
+          "pct": 33.78
+        },
+        "functions": {
+          "total": 3107,
+          "covered": 984,
+          "skipped": 0,
+          "pct": 31.67
+        },
+        "branches": {
+          "total": 10780,
+          "covered": 3084,
+          "skipped": 0,
+          "pct": 28.6
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "errors": []
+    },
+    "logsSha256": {
+      "f06-a-review-red.log": "e87e20d016aac3b4fd52333e5623b52c323453db7d5c04634221a4b9d5200bee",
+      "f06-a-review-green.log": "23e82bde35239503e326ba63a3048ba8a924bb638c34168d7e6ecbbcb7c15e08",
+      "f06-a-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f06-a-corrected-tests.log": "26efea3a03e2ca418b75564d73a43ffdb99429b21389bad73433f6f4b4efd6af",
+      "f06-a-corrected-build.log": "505e9436772434fe6435906562302e3b0c3024cd87c34634cdbcff52218c8bd4",
+      "f06-a-browser-fix-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f06-a-corrected-compiled-cloud-proof.json": "84dea09b1cfd50aed212323636091465bf2cc3604b53f47b07735997f9026c37"
+    }
   }
 }

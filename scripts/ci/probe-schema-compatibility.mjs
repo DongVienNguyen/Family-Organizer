@@ -13,6 +13,8 @@ export async function probeSchemaCompatibility(packageRoot, fixtureRoot, foreign
     ['future', "CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('schema_version','999');"],
     ['missing-version', "CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('synthetic_setting','preserve-me');"],
     ['foreign', "CREATE TABLE synthetic_foreign(id TEXT PRIMARY KEY,value TEXT);INSERT INTO synthetic_foreign VALUES('synthetic','preserve-me');"],
+    ['sqliteX', "CREATE TABLE sqliteX(value TEXT);INSERT INTO sqliteX VALUES('preserve-me');"],
+    ['sqliteData', "CREATE TABLE sqliteData(value TEXT);INSERT INTO sqliteData VALUES('preserve-me');"],
     ['malformed-metadata', 'CREATE TABLE app_meta(key TEXT PRIMARY KEY);'],
     ['malformed-owned-table', "CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('schema_version','1');CREATE TABLE tasks(id TEXT PRIMARY KEY,payload TEXT);INSERT INTO tasks VALUES('synthetic-task','preserve-me');"],
   ];
@@ -21,7 +23,7 @@ export async function probeSchemaCompatibility(packageRoot, fixtureRoot, foreign
   function snapshot(file) {
     const sql = new Database(file, { readonly: true });
     try {
-      const schema = sql.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all();
+      const schema = sql.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT GLOB 'sqlite_*' ORDER BY type,name").all();
       const rows = Object.fromEntries(schema.filter(item => item.type === 'table').map(item => [item.name, sql.prepare('SELECT * FROM "' + item.name.replaceAll('"', '""') + '"').all()]));
       return { sha256: createHash('sha256').update(fs.readFileSync(file)).digest('hex'), schema, rows, journal: sql.pragma('journal_mode', { simple: true }) };
     } finally { sql.close(); }

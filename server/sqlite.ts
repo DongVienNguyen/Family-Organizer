@@ -69,7 +69,7 @@ function initializeDatabase() {
       // Preserve the selected journal mode; normal runtime enables WAL later.
       if(!sqliteInstallationPristine())throw new InstallationNotPristineError();
     }else {
-      const objects = db.prepare("SELECT type,name FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").all() as {type:string;name:string}[];
+      const objects = db.prepare("SELECT type,name FROM sqlite_master WHERE name NOT GLOB 'sqlite_*'").all() as {type:string;name:string}[];
       if (objects.length) {
         if (!objects.some(item => item.type === 'table' && item.name === 'app_meta')) throw new Error('Unsupported legacy schema: missing metadata');
         // Preparing this before DDL also preserves the existing native diagnostic
@@ -220,7 +220,7 @@ export function sqliteInstallationPristine():boolean {
   const columns=new Map<string,string[]>(COLLECTIONS.map(({table})=>[table,['id','seq','data']]));
   columns.set('app_meta',['key','value']);columns.set('server_metrics',['t','cpu','ram','temp','ssd','disk']);
   columns.set('app_commands',['command','request_id','actor_id','payload_hash','result','committed_at']);
-  const objects=db.prepare("SELECT type,name FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").all() as {type:string;name:string}[];
+  const objects=db.prepare("SELECT type,name FROM sqlite_master WHERE name NOT GLOB 'sqlite_*'").all() as {type:string;name:string}[];
   const tables=objects.filter(row=>row.type==='table');
   if(!tables.length)return objects.length===0;
   if(objects.some(row=>row.type==='view'||row.type==='trigger'))return false;

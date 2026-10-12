@@ -17,7 +17,7 @@ async function fixture(run: (root: string, file: string) => Promise<void>) {
 function inspect(file: string) {
   const sql = new Database(file, { readonly: true });
   try {
-    const schema = sql.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all() as { type: string; name: string }[];
+    const schema = sql.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT GLOB 'sqlite_*' ORDER BY type,name").all() as { type: string; name: string }[];
     const rows = Object.fromEntries(schema.filter(item => item.type === 'table').map(item => [item.name, sql.prepare('SELECT * FROM "' + item.name.replaceAll('"', '""') + '"').all()]));
     return { journal: sql.pragma('journal_mode', { simple: true }), schema, rows, sha256: createHash('sha256').update(fs.readFileSync(file)).digest('hex') };
   } finally { sql.close(); }
@@ -29,6 +29,8 @@ const incompatible: [string, string][] = [
   ['missing version with records', "CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('synthetic_setting','preserve-me');"],
   ['missing version without records', 'CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);'],
   ['foreign database', "CREATE TABLE synthetic_foreign(id TEXT PRIMARY KEY,value TEXT);INSERT INTO synthetic_foreign VALUES('synthetic','preserve-me');"],
+  ['legal sqliteX foreign table', "CREATE TABLE sqliteX(value TEXT);INSERT INTO sqliteX VALUES('preserve-me');"],
+  ['legal sqliteData foreign table', "CREATE TABLE sqliteData(value TEXT);INSERT INTO sqliteData VALUES('preserve-me');"],
   ['malformed metadata', "CREATE TABLE app_meta(key TEXT PRIMARY KEY);INSERT INTO app_meta VALUES('schema_version');"],
   ['malformed owned table on supported version', "CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('schema_version','1');CREATE TABLE tasks(id TEXT PRIMARY KEY,payload TEXT);INSERT INTO tasks VALUES('synthetic-task','preserve-me');"],
 ];
