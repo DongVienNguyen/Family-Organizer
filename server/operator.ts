@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash,randomUUID } from 'node:crypto';
 import {TextDecoder} from 'node:util';
+import {runRecoveryOperator,RecoveryOperatorError} from './recoveryOperator.js';
+import {RecoveryEnvelopeError} from './recoveryEnvelope.js';
 import { createInitialData } from './initialData.js';
 import { hashPassword,MAX_PASSWORD_BYTES } from './passwords.js';
 import { UserRole } from '../src/types.js';
@@ -32,8 +34,10 @@ function identity(value:unknown){
   return {username,fullName,password};
 }
 async function main(){
+  const recovery=process.argv.length===3&&['--backup-recovery','--restore-recovery'].includes(process.argv[2]);
   const reset=process.argv.length===3&&process.argv[2]==='--reset-credentials';
-  if((process.argv.length!==2&&!reset)||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  if((process.argv.length!==2&&!reset&&!recovery)||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  if(recovery){process.stdout.write(JSON.stringify(await runRecoveryOperator(await readInput(),process.argv[2]==='--restore-recovery'))+'\n');return;}
   if(reset){
     const input=await readInput();
     const {appConfig}=await import('./config.js');
@@ -67,4 +71,4 @@ async function main(){
     sqlite.sqliteCheckpoint();process.stdout.write(JSON.stringify(result)+'\n');
   }finally{sqlite.sqliteClose();}
 }
-main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError||error instanceof InstallationNotPristineError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});
+main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError||error instanceof InstallationNotPristineError||error instanceof RecoveryOperatorError||error instanceof RecoveryEnvelopeError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});

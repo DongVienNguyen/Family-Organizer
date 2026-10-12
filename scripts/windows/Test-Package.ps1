@@ -49,6 +49,9 @@ try {
     & $node (Join-Path $PSScriptRoot 'probe-package-functional.mjs') (Join-Path $release 'app') $fixture (Join-Path $env:windir 'System32') (Join-Path $ReportDirectory 'package-functional.json') 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-functional.log')
     $native.functional=$LASTEXITCODE
     if ($native.functional -ne 0) { throw 'Packaged CRUD/restart/shared snapshot regression failed' }
+    & $node (Join-Path $PSScriptRoot 'probe-recovery.mjs') $release $fixture (Join-Path $ReportDirectory 'package-recovery.json') 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-recovery.log')
+    $native.recovery=$LASTEXITCODE
+    if ($native.recovery -ne 0) { throw 'Compiled encrypted recovery regression failed' }
     $code=0
 } catch { $_ | Out-String | Set-Content -LiteralPath (Join-Path $ReportDirectory 'failure.log'); Write-Host $_; $code=1 }
 finally {
