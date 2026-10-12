@@ -113,7 +113,7 @@ export async function startManagedServer(handle: ManagedApp, options: {
       if (startupController.signal.aborted || state.phase !== 'starting') throw new Error('Startup validation cancelled');
       state.phase = 'ready'; handle.jobs.start();
     }).catch(error => {
-      if (!startupController.signal.aborted) { startupFailed = true; if (state.phase === 'starting') state.phase = 'failed'; }
+      if (!startupController.signal.aborted) { startupFailed = true; state.phase = 'failed'; }
       throw error;
     }) : Promise.resolve();
   startupWork = ready;

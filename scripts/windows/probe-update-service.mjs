@@ -17,7 +17,7 @@ const call=(endpoint,body)=>new Promise((resolve,reject)=>{const request=http.re
 try{
  if(phase==='configure-held'||phase==='configure-approve'){
   const control={format:1,operationId:randomUUID(),manifestSha256:manifestHash,phase:'held'};evidence.operationId=control.operationId;fs.writeFileSync(controlFile,JSON.stringify(control));
-  await run('update-'+phase+'-seal',`Assert-RecoveryCopyAncestors ${quote(path.join(instance,'config'))}; Set-OwnedServiceAcl ${quote(controlFile)} ${quote(id)} 'R'; Assert-BackupSecretAcl ${quote(controlFile)} ${quote(id)}`);
+  await run('update-'+phase+'-seal',`Assert-BackupSecretAcl ${quote(path.dirname(instance))} ${quote(id)}; Assert-RecoveryCopyAncestors ${quote(path.join(instance,'config'))}; Set-OwnedServiceAcl ${quote(controlFile)} ${quote(id)} 'R'; Assert-BackupSecretAcl ${quote(controlFile)} ${quote(id)}`);
   await run('update-'+phase+'-reinstall',`& ${quote(path.join(release,'ops/Install-Service.ps1'))} -ReleaseRoot ${quote(release)} -InstanceRoot ${quote(instance)} -ServiceId ${quote(id)} -Port ${port} -ExpectedManifestSha256 ${quote(manifestHash)}`);
   await run('update-'+phase+'-reinstall-acl',`Assert-BackupSecretAcl ${quote(controlFile)} ${quote(id)}`);
   assert.deepEqual(JSON.parse(fs.readFileSync(controlFile,'utf8')),control);const before=inspect();assert.equal(before.opened,undefined);assert.equal(before.commandCount,0);assert.equal(before.integrity,'ok');assert.equal(before.pointClaimCount,1);evidence.businessSha256=before.businessSha256;evidence.jobsSha256=before.jobsSha256;

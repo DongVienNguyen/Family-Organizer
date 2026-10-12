@@ -1,0 +1,45 @@
+{
+  "taskId": "F07-j initial fixture correction",
+  "headSha": "3b9fe67949962dc74343faa3d70e75ce7feda71f",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38279163369",
+  "fiveCompletedJobConclusions": "success",
+  "failure": "Windows service readiness timeout",
+  "lastNativeExitCodes": [
+    {
+      "phase": "what-if",
+      "exitCode": 0
+    },
+    {
+      "phase": "install",
+      "exitCode": 0
+    },
+    {
+      "phase": "version",
+      "exitCode": 0
+    },
+    {
+      "phase": "seed",
+      "exitCode": 0
+    },
+    {
+      "phase": "install-again",
+      "exitCode": 0
+    },
+    {
+      "phase": "start",
+      "exitCode": 0
+    },
+    {
+      "phase": "cleanup-service",
+      "exitCode": 0
+    }
+  ],
+  "fixtureCleanup": true,
+  "serviceRemoved": true,
+  "actualCause": "Node startup EPERM lstat sealed C-volume fixture ancestor; unique service SID lacked read metadata there",
+  "correction": "add unique per-service SID ReadAndExecute on this owned parent only after registration, without recursion or untrusted writer grants",
+  "controlReinstallRegressionReached": false,
+  "noNativeControlAclRedClaim": true,
+  "cloudActivationRegression": "separate actualRED jobs.start failure left phase ready; set failed when startup controller was not intentionally aborted",
+  "logSha256": "f10fe224a66ea00e35fc83a1b3dbff471654fa52397d5e953f973b2b57608f1c"
+}

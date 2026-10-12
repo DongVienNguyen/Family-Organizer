@@ -75,6 +75,13 @@ try {
     if ((Test-Path -LiteralPath $instance) -or (Get-Service -Name $id -ErrorAction SilentlyContinue)) { throw 'Validation changed service/storage' }
     $checks.Add('validate-only-whatif-no-mutation')
     Invoke-TestNative 'install' $powershell $installArgs
+    # The sealed synthetic parent also needs metadata reads for Node realpath.
+    # Grant only this installation SID, only on this owned parent (no recursion).
+    $parentAcl=Get-Acl -LiteralPath $fixture
+    $fixtureSid=(New-Object Security.Principal.NTAccount('NT SERVICE',$id)).Translate([Security.Principal.SecurityIdentifier])
+    $parentAcl.AddAccessRule((New-Object Security.AccessControl.FileSystemAccessRule($fixtureSid,'ReadAndExecute','Allow')))
+    Set-Acl -LiteralPath $fixture -AclObject $parentAcl
+    Assert-BackupSecretAcl $fixture $id
     Invoke-TestNative 'version' $context.wrapper @('version')
     $version=[Diagnostics.FileVersionInfo]::GetVersionInfo($context.wrapper).FileVersion
     if ($version -notmatch '^2\.12\.0') { throw 'Unexpected wrapper version' }
