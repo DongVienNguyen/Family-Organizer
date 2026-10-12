@@ -20,7 +20,13 @@ function checkPath(file:string,config:AppConfig|undefined,restore:boolean){
   if(components.some(part=>!part||part.normalize('NFC')!==part||/[<>:\x22|?*\x00-\x1f]/.test(part)||/[. ]$/.test(part)||/^(con|prn|aux|nul|com[1-9\u00b9\u00b2\u00b3]|lpt[1-9\u00b9\u00b2\u00b3])(?:\.|$)/i.test(part)))refuse('RECOVERY_PATH_INVALID');
   assertNoLinkedAncestors(file);
   if(!fs.statSync(path.dirname(file)).isDirectory())refuse('RECOVERY_PATH_INVALID');
-  if(config&&[config.codeRoot,config.dataRoot,config.configRoot,config.logRoot].some(root=>contained(root,file)))refuse('RECOVERY_PATH_INVALID');
+  if(config){
+   const roots=[config.codeRoot,config.dataRoot,config.configRoot,config.logRoot];
+   const entry=path.resolve(process.argv[1]??''),dist=path.dirname(entry),app=path.dirname(dist);
+   // The executing bundled entry supplies the release boundary independently of env roots.
+   if(path.basename(entry).toLowerCase()==='operator.cjs'&&path.basename(dist).toLowerCase()==='dist'&&path.basename(app).toLowerCase()==='app')roots.push(path.dirname(app));
+   if(roots.some(root=>contained(root,file)))refuse('RECOVERY_PATH_INVALID');
+  }
   const stat=fs.lstatSync(file,{throwIfNoEntry:false});
   if(restore?(!stat?.isFile()||stat.size>recoveryEnvelopeLimit+recoveryEnvelopeOverhead):!!stat)refuse('RECOVERY_PATH_INVALID');
  }catch{refuse('RECOVERY_PATH_INVALID');}
@@ -40,6 +46,7 @@ export async function runRecoveryOperator(value:unknown,restore:boolean){
    try{snapshot=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(plaintext));}catch{refuse('RECOVERY_SNAPSHOT_INVALID');}
   }
   const {appConfig}=await import('./config.js');checkPath(selected.file,appConfig,restore);
+  if(fs.lstatSync(path.join(appConfig.dataRoot,'restore-journal.json'),{throwIfNoEntry:false}))refuse('RECOVERY_PENDING_RESTORE');
   if(!fs.existsSync(path.join(appConfig.dataRoot,'family.db')))refuse('RECOVERY_STORE_REQUIRED');
   const sqlite=await import('./sqlite.js');
   try{

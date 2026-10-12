@@ -53,3 +53,32 @@ it.each(['journal-written','media-old-renamed','media-promoted','settings-old-re
     `,0);
   } finally { fs.rmSync(root,{recursive:true,force:true}); }
 },35_000);
+
+it.each(['journal-written','media-old-renamed','media-promoted','settings-old-renamed','settings-promoted','sql-committed'])('offline encrypted backup refuses interrupted %s without changing journal/files, then succeeds after normal recovery',async phase=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'fo offline recovery crash synthetic '));
+ try{
+  writeSyntheticInstallation(path.join(root,'dữ liệu'));
+  await child(root,`
+   import fs from 'node:fs';import path from 'node:path';import {randomUUID} from 'node:crypto';
+   const db=await import(${moduleUrl('db')});const store=await import(${moduleUrl('appStore')});const snapshots=await import(${moduleUrl('appSnapshot')});
+   const meta=()=>({actorId:'synthetic',command:'synthetic:offline-crash',requestId:randomUUID(),payloadHash:'fixture'});
+   const media=path.join(process.env.DATA_DIR,'uploads');fs.mkdirSync(media,{recursive:true});fs.writeFileSync(path.join(media,'synthetic.bin'),'snapshot bytes');db.setAppSetting('rewardsEnabled','1');
+   store.withAppWriteTransaction(meta(),tx=>{tx.legacy.tasks=[{id:'snapshot-task',title:'Synthetic snapshot'}];});const captured=store.withAppWriteTransaction(meta(),snapshots.collectAppSnapshot);
+   store.withAppWriteTransaction(meta(),tx=>{tx.legacy.tasks=[{id:'current-task',title:'Synthetic current'}];});fs.writeFileSync(path.join(media,'synthetic.bin'),'current bytes');db.setAppSetting('rewardsEnabled','0');
+   await snapshots.restoreAppSnapshot(snapshots.validateAppSnapshot(captured),{maintenance:async work=>work(),onBoundary:value=>{if(value===${JSON.stringify(phase)})process.exit(41);}});throw new Error('Crash fixture not reached');
+  `,41);
+  await child(root,`
+   import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
+   const hashes=()=>{const result={};function walk(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())walk(file);else result[path.relative(process.cwd(),file)]=createHash('sha256').update(fs.readFileSync(file)).digest('hex');}}walk(process.cwd());return result;};
+   const before=hashes(),request={file:path.join(process.cwd(),'refused.fo-recovery'),key:'a'.repeat(64),includeCredentials:true};const {runRecoveryOperator}=await import(${moduleUrl('recoveryOperator')});
+   await assert.rejects(runRecoveryOperator(request,false),{message:'RECOVERY_PENDING_RESTORE'});assert.deepEqual(hashes(),before);assert.equal(fs.existsSync(request.file),false);
+   const {startApplication}=await import(${moduleUrl('runtime')});const runtime=await startApplication();await runtime.close();
+  `,0);
+  await child(root,`
+   import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';
+   const {runRecoveryOperator}=await import(${moduleUrl('recoveryOperator')});const {decryptRecovery}=await import(${moduleUrl('recoveryEnvelope')});const file=path.join(process.cwd(),'consistent.fo-recovery');const key='a'.repeat(64);
+   const result=await runRecoveryOperator({file,key,includeCredentials:true},false);assert.equal(result.encrypted,true);
+   const snapshot=JSON.parse(decryptRecovery(fs.readFileSync(file),Buffer.from(key,'hex')).toString());assert.equal(snapshot.legacy.tasks[0].id,${JSON.stringify(phase==='sql-committed'?'snapshot-task':'current-task')});assert.equal(Buffer.from(snapshot.media['synthetic.bin'],'base64').toString(),${JSON.stringify(phase==='sql-committed'?'snapshot bytes':'current bytes')});assert.equal(snapshot.settings.rewardsEnabled,${JSON.stringify(phase==='sql-committed'?'1':'0')});
+  `,0);
+ }finally{fs.rmSync(root,{recursive:true,force:true});}
+},35_000);

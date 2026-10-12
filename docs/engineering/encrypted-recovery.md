@@ -32,7 +32,7 @@ operator has the same boundary. Native `.ExitCode` is checked immediately.
 
 Input has exactly `file`, `key`, `includeCredentials:true`. The selected file is a
 fully qualified local path with `.fo-recovery` suffix, outside release/code/data/
-config/log roots. Its existing parent must be ordinary; UNC/device/linked ancestors,
+config/log roots and the whole release derived from the executing packaged entry. Its existing parent must be ordinary; UNC/device/linked ancestors,
 Windows device aliases, ADS and unsafe names are refused. Backup uses exclusive
 creation and fsync, never overwrites an old file and never writes plaintext staging.
 Only encrypted size/SHA or restored-file count/session-revocation is printed.
@@ -41,6 +41,9 @@ shared-engine maintenance callback represents an offline operator, not the runni
 HTTP owner's write barrier. Windows entrypoint supplies stopped-service checks.
 
 Restore authenticates before importing configuration or opening the target DB.
+An unfinished restore journal causes RECOVERY_PENDING_RESTORE before target storage
+opens. Resolve it through normal runtime recovery, stop/close again, then retry; the
+operator does not collect or recover another operation's intermediate files.
 It requires an existing compatible initialized target, validates the raw shared
 snapshot, and uses the existing staged-media/settings + native safety-copy journal
 coordinator. It preserves IDs, business rows, command metadata and claims; revokes
