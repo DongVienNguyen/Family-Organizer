@@ -47,10 +47,12 @@ try {
     [IO.File]::WriteAllText($canary,'require("node:fs").writeFileSync('+($marker|ConvertTo-Json -Compress)+',"synthetic");')
     $priorOptions=$env:NODE_OPTIONS;$priorPath=$env:NODE_PATH
     try {
-        $env:NODE_OPTIONS='--require="'+$canary+'"';$env:NODE_PATH=$root
-        $null=Get-ServiceContext $Context.release $Context.instance $Context.id $Context.port $Context.manifestHash
-        $results.Add(@{name='administrative-node-preload-not-executed';passed=!(Test-Path $marker)})
-        $results.Add(@{name='administrative-node-environment-restored';passed=($env:NODE_OPTIONS -ceq ('--require="'+$canary+'"') -and $env:NODE_PATH -ceq $root)})
+        $preloadOption='--require="'+$canary.Replace('\','/')+'"'
+        $env:NODE_OPTIONS=$preloadOption;$env:NODE_PATH=$root
+        $preloadValidation=$true
+        try{$null=Get-ServiceContext $Context.release $Context.instance $Context.id $Context.port $Context.manifestHash}catch{$preloadValidation=$false}
+        $results.Add(@{name='administrative-node-preload-not-executed';passed=($preloadValidation -and !(Test-Path $marker))})
+        $results.Add(@{name='administrative-node-environment-restored';passed=($env:NODE_OPTIONS -ceq $preloadOption -and $env:NODE_PATH -ceq $root)})
     } finally {$env:NODE_OPTIONS=$priorOptions;$env:NODE_PATH=$priorPath}
     $fake=Join-Path $root 'fake-release';New-Item -ItemType Directory -Path (Join-Path $fake 'bin'),(Join-Path $fake 'ops') -Force | Out-Null
     Copy-Item $Context.node (Join-Path $fake 'bin/node.exe')
