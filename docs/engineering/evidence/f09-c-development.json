@@ -1,0 +1,38 @@
+{
+  "taskId": "F09-c",
+  "baseSha": "da508ca48a942af46fc1ab791c14e9cdefe436b2",
+  "scope": "Existing finance GUI create/edit/delete and displayed expense total/persistence, no feature or app source change",
+  "gateReds": {
+    "assertions": 2,
+    "priorPassed": 55,
+    "underlyingMissingFlowRequirement": 1
+  },
+  "gateTargetGreen": 57,
+  "fullGreen": 1943,
+  "fullFiles": 105,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "sourceFrozenDuringAggregate": true,
+  "fullReportSha256": "015c3aae15e4a879ab7d8a65bd5c730cc9348d8d6d4fd16f4c1400322b27149e",
+  "afterAggregateAdjustment": "Excluded Playwright spec only: real confirmdialog has no accessible name; select scoped role plus visible heading; exact cancel label H\u1ee7yb\u1ecf. Static fixture correction, not appbug/browserRED. Lint/discovery checked again. Vitest/application bytes unchanged.",
+  "browserDiscovery": {
+    "cases": 21,
+    "executed": false,
+    "meaning": "Configuration only, not browser success"
+  },
+  "review": "pending one wholebranch",
+  "windows": "not-run; finalmain rebase and exact21 cases required",
+  "financialUiAcceptance": false,
+  "remaining": [
+    "assets/debts/goals otherUI/legacy matrix rows",
+    "F08 full collector/Caddy",
+    "F05Administration403",
+    "actualServer2019/reboot/offhostnot-run"
+  ],
+  "releaseVps": "forbidden"
+}
