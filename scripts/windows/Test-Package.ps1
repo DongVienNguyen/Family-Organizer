@@ -52,6 +52,9 @@ try {
     & $node (Join-Path $PSScriptRoot 'probe-recovery.mjs') $release $fixture (Join-Path $ReportDirectory 'package-recovery.json') 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-recovery.log')
     $native.recovery=$LASTEXITCODE
     if ($native.recovery -ne 0) { throw 'Compiled encrypted recovery regression failed' }
+    & $node (Join-Path $PSScriptRoot 'probe-private-settings.mjs') $release $fixture (Join-Path $ReportDirectory 'package-private-settings.json') 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-private-settings.log')
+    $native.privateSettings=$LASTEXITCODE
+    if ($native.privateSettings -ne 0) { throw 'Compiled private settings recovery regression failed' }
     $code=0
 } catch { $_ | Out-String | Set-Content -LiteralPath (Join-Path $ReportDirectory 'failure.log'); Write-Host $_; $code=1 }
 finally {

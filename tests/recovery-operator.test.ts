@@ -67,3 +67,36 @@ it('bounds an oversized recovery file before reading it or opening the target',(
  const file=path.join(root,'oversize.fo-recovery');const fd=fs.openSync(file,'wx');try{fs.ftruncateSync(fd,256*1024*1024+49);}finally{fs.closeSync(fd);}
  const result=await run('absent','--restore-recovery',{file,key:randomBytes(32).toString('hex'),includeCredentials:true});expect(result.code).toBe(1);expect(result.value).toEqual({error:'RECOVERY_PATH_INVALID'});expect(fs.existsSync(env('absent').DATA_DIR!)).toBe(false);
 }));
+
+it('explicit encrypted settings selection restores only Gemini and retains target Telegram/config fields',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);expect((await run('target','',initialize)).code).toBe(0);
+ const sourceSettings={geminiApiKey:'synthetic-private-gemini-source',telegramBotToken:'synthetic-private-bot-source',telegramChatId:'synthetic-private-chat-source',telegramWeeklyDigestOwnerId:'user_admin',rewardsEnabled:'1',unselectedPrivate:'synthetic-retained-elsewhere'};
+ const targetSettings={geminiApiKey:'synthetic-private-gemini-target',telegramBotToken:'synthetic-private-bot-target',telegramChatId:'synthetic-private-chat-target',telegramWeeklyDigestOwnerId:'synthetic-target-owner',unselectedPrivate:'synthetic-target-retained'};
+ for(const [id,settings] of [['source',sourceSettings],['target',targetSettings]] as const)fs.writeFileSync(path.join(env(id).CONFIG_DIR!,'app_settings.json'),JSON.stringify(settings));
+ const key=randomBytes(32).toString('hex'),file=path.join(root,'selected.fo-recovery'),request={file,key,includeCredentials:true};
+ const backup=await run('source','--backup-recovery',{...request,includeSettings:['gemini','telegram']});expect(backup.code,backup.output+backup.errors).toBe(0);expect(backup.value.includedSettings).toEqual(['gemini','telegram']);
+ const bytes=fs.readFileSync(file);for(const value of Object.values(sourceSettings))if(value.startsWith('synthetic-private'))expect(bytes.includes(Buffer.from(value))).toBe(false);
+ const restore=await run('target','--restore-recovery',{...request,includeSettings:['gemini']});expect(restore.code,restore.output+restore.errors).toBe(0);expect(restore.value.restoredSettings).toEqual(['gemini']);
+ const actual=JSON.parse(fs.readFileSync(path.join(env('target').CONFIG_DIR!,'app_settings.json'),'utf8'));expect(isDeepStrictEqual(actual,{...targetSettings,geminiApiKey:sourceSettings.geminiApiKey,rewardsEnabled:'1'})).toBe(true);expect(fs.readFileSync(file)).toEqual(bytes);
+}));
+it('private groups omitted on restore remain local, while explicitly selected absent keys are removed',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);expect((await run('target','',initialize)).code).toBe(0);const target={geminiApiKey:'synthetic-keep-then-remove',telegramBotToken:'synthetic-retain-unselected'};const settings=path.join(env('target').CONFIG_DIR!,'app_settings.json');fs.writeFileSync(settings,JSON.stringify(target));
+ const request={file:path.join(root,'absent-selected.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true};expect((await run('source','--backup-recovery',{...request,includeSettings:['gemini']})).code).toBe(0);
+ expect((await run('target','--restore-recovery',request)).code).toBe(0);expect(isDeepStrictEqual(JSON.parse(fs.readFileSync(settings,'utf8')),target)).toBe(true);
+ expect((await run('target','--restore-recovery',{...request,includeSettings:['gemini']})).code).toBe(0);const actual=JSON.parse(fs.readFileSync(settings,'utf8'));expect(Object.hasOwn(actual,'geminiApiKey')).toBe(false);expect(actual.telegramBotToken===target.telegramBotToken).toBe(true);
+}));
+it('refuses a settings group absent from the authenticated backup before opening the target',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);const request={file:path.join(root,'missing-group.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true};expect((await run('source','--backup-recovery',{...request,includeSettings:['gemini']})).code).toBe(0);
+ const result=await run('absent','--restore-recovery',{...request,includeSettings:['telegram']});expect(result.code).toBe(1);expect(result.value).toEqual({error:'RECOVERY_SETTINGS_INVALID'});expect(fs.existsSync(env('absent').DATA_DIR!)).toBe(false);
+}));
+it('rejects authenticated malformed private settings before storage or promotion',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);const request={file:path.join(root,'malformed-settings.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true};expect((await run('source','--backup-recovery',{...request,includeSettings:['gemini']})).code).toBe(0);
+ const payload=JSON.parse(decryptRecovery(fs.readFileSync(request.file),Buffer.from(request.key,'hex')).toString());payload.privateSettings.values.forbiddenSetting='synthetic-forbidden';fs.writeFileSync(request.file,encryptRecovery(Buffer.from(JSON.stringify(payload)),Buffer.from(request.key,'hex')));
+ const result=await run('absent','--restore-recovery',{...request,includeSettings:['gemini']});expect(result.code).toBe(1);expect(result.value).toEqual({error:'RECOVERY_SETTINGS_INVALID'});expect(fs.existsSync(env('absent').DATA_DIR!)).toBe(false);
+}));
+it('binds private recovery restore metadata to opaque ciphertext, never a plaintext settings verifier',()=>fixture(async(root,run,env)=>{
+ expect((await run('source','',initialize)).code).toBe(0);expect((await run('target','',initialize)).code).toBe(0);fs.writeFileSync(path.join(env('source').CONFIG_DIR!,'app_settings.json'),JSON.stringify({geminiApiKey:'synthetic-private-digest-canary'}));
+ const request={file:path.join(root,'metadata.fo-recovery'),key:randomBytes(32).toString('hex'),includeCredentials:true,includeSettings:['gemini']};expect((await run('source','--backup-recovery',request)).code).toBe(0);const encrypted=fs.readFileSync(request.file);expect((await run('target','--restore-recovery',request)).code).toBe(0);
+ const target=rows(path.join(env('target').DATA_DIR!,'family.db'));const command=(target.app_commands as any[]).find(row=>row.command==='core:snapshot:restore');const identity=createHash('sha256').update(encrypted).update(JSON.stringify(['gemini'])).digest('hex');expect(command.payload_hash===identity).toBe(true);expect(JSON.stringify(target.app_commands).includes('synthetic-private-digest-canary')).toBe(false);
+ const source=rows(path.join(env('source').DATA_DIR!,'family.db'));const reads=(source.app_commands as any[]).filter(row=>row.command==='operator:recovery:read');expect(reads.length>0).toBe(true);expect(reads.every(row=>JSON.parse(row.result).snapshotRead===true)).toBe(true);expect(JSON.stringify(reads).includes('synthetic-private-digest-canary')).toBe(false);
+}));

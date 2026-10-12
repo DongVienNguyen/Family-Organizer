@@ -1,3 +1,4 @@
+import {applyRecoverySettings,type ValidatedSettingPatch} from './recoverySettings.js';
 import {ordinaryBackupValue,ordinaryBackupSettings} from './backupCredentials.js';
 import type { AppWriteTx } from './appStore.js';
 import {reconcileMediaMetadata,canonicalMediaUrl,parseMediaMetadata} from './mediaPolicy.js';
@@ -9,12 +10,12 @@ import { AppJobStore } from './jobStore.js';
 import { randomUUID } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import { snapshotLimits, publicSettingKeys, mediaRoot, settingsFile, readSettings, readMedia, validMediaPath, validBackupFilename, reconcileBackupReferences, sha256, durableWrite, restorePaths, writeJournal, readJournal, recoverFiles, cleanupStaging } from './snapshotFiles.js';
+import { snapshotLimits, settingsByteLimit, publicSettingKeys, mediaRoot, settingsFile, readSettings, readMedia, validMediaPath, validBackupFilename, reconcileBackupReferences, sha256, durableWrite, restorePaths, writeJournal, readJournal, recoverFiles, cleanupStaging } from './snapshotFiles.js';
 
 interface SnapshotManifest { credentials?: 'excluded-v1'; schemaVersion: number; domains: Record<string,number>; legacyVersion: number; mediaManifest: { path: string; size: number; sha256: string }[]; checksum: string; createdAt: string }
 export interface AppSnapshot { manifest: SnapshotManifest; legacy: any; tables: Record<string, any[]>; settings: Record<string,string>; media: Record<string,string> }
 export type ValidatedAppSnapshot = AppSnapshot & { readonly __validated: unique symbol };
-export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string }
+export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string; privateSettings?: ValidatedSettingPatch }
 const connection = sqliteConnection();
 const core = new Map<string, readonly string[]>([
   ['app_meta',['key','value']], ['app_commands',['command','request_id','actor_id','payload_hash','result','committed_at']],
@@ -187,6 +188,7 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
   if (!validated.has(snapshot)) throw new Error('Restore requires a validated immutable snapshot');
   const checked = validateAppSnapshot(snapshot);
   if (!options?.maintenance) throw new Error('Restore requires the runtime maintenance owner');
+  if(options.privateSettings!==undefined)applyRecoverySettings({},options.privateSettings);
   const context = getAppCommandContext();
   const actorId = context?.actorId ?? 'system:restore', requestId = context?.requestId ?? randomUUID();
   const identity=options.identity??checked.manifest.checksum;
@@ -198,13 +200,15 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
     try {
       if (readJournal()) throw new Error('An unfinished restore must be recovered before another restore');
       validateAppSnapshot(checked); // Accepted owners may have changed schema while maintenance drained.
+      let localSettings=readSettings();for(const key of publicSettingKeys)delete localSettings[key];
+      if(options.privateSettings!==undefined)localSettings=applyRecoverySettings(localSettings,options.privateSettings);
+      const settings=JSON.stringify({...localSettings,...checked.settings},null,2);
+      if(Buffer.byteLength(settings)>settingsByteLimit)throw new Error('Local settings size limit exceeded');
       // Preserve a complete native safety copy before any file/SQL promotion.
       fs.mkdirSync(path.dirname(paths.safety), { recursive: true }); await sqliteBackupTo(paths.safety);
       const safetyFd = fs.openSync(paths.safety,'r+'); try { fs.fsyncSync(safetyFd); } finally { fs.closeSync(safetyFd); }
       fs.mkdirSync(paths.stageMedia);
       for (const [name,data] of Object.entries(checked.media)) { const target = path.join(paths.stageMedia,...name.split('/')); fs.mkdirSync(path.dirname(target),{recursive:true}); durableWrite(target,Buffer.from(data,'base64')); }
-      const localSettings = readSettings();for(const key of publicSettingKeys)delete localSettings[key];
-      const settings = JSON.stringify({ ...localSettings, ...checked.settings },null,2);
       durableWrite(paths.stageSettings, settings);
       options.onBoundary?.('staging-complete');
       // Verify current files are ordinary before moving any root.
