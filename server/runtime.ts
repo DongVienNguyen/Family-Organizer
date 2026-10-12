@@ -58,7 +58,7 @@ export async function startApplication(config: AppConfig = appConfig) {
     let backupHealth:()=>BackupHealth;
     try{
       backupHealth=registerRecoveryBackupSchedule(jobs,readBackupConfiguration(config),{
-        readRestoreEpoch(){const row=storage.sqliteConnection().prepare('SELECT id FROM app_restore_commits ORDER BY committed_at DESC,id DESC LIMIT 1').get() as {id:string}|undefined;return row?.id??'initial';},
+        readRestoreEpoch(){const row=storage.sqliteConnection().prepare('SELECT id FROM app_restore_commits ORDER BY rowid DESC LIMIT 1').get() as {id:string}|undefined;return row?.id??'initial';},
         capture:async value=>await backupRecovery(value) as import('./recoverySchedule.js').BackupReceipt,
         readState(){const row=storage.sqliteConnection().prepare('SELECT value FROM app_meta WHERE key=?').get('recovery_backup_last_success') as {value:string}|undefined;try{return row?JSON.parse(row.value):null;}catch{throw new RecoveryScheduleError('RECOVERY_BACKUP_STATE_INVALID');}},
         writeState(value){const serialized=JSON.stringify(value);withAppWriteTransaction({actorId:'system:backup-monitor',command:'core:backup:state',requestId:randomUUID(),payloadHash:createHash('sha256').update(serialized).digest('hex')},tx=>tx.run('INSERT OR REPLACE INTO app_meta(key,value) VALUES(?,?)','recovery_backup_last_success',serialized));},

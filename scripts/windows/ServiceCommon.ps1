@@ -164,3 +164,21 @@ function Enter-OwnedDataOperation {
     try { return [IO.File]::Open($Context.marker,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::Read) }
     catch [IO.IOException] { throw 'Owned operator operation already active' }
 }
+
+function Assert-BackupSecretAcl {
+    param([string]$Path,[string]$ServiceId)
+    $WhatIfPreference=$false
+    Assert-ServiceMetadataAcl $Path
+    $acl=Get-Acl -LiteralPath $Path
+    if(!$acl.AreAccessRulesProtected){throw 'Backup secret DACL must be protected'}
+    $sid=(New-Object Security.Principal.NTAccount('NT SERVICE',$ServiceId)).Translate([Security.Principal.SecurityIdentifier]).Value
+    $seen=@{}
+    foreach($rule in $acl.GetAccessRules($true,$true,[Security.Principal.SecurityIdentifier])){
+        $identity=$rule.IdentityReference.Value
+        if($rule.IsInherited -or $rule.AccessControlType -ne 'Allow' -or $identity -notin @('S-1-5-18','S-1-5-32-544',$sid) -or $seen.ContainsKey($identity)){throw 'Backup secret has unexpected reader/rule'}
+        $expected=if($identity -eq $sid){[Security.AccessControl.FileSystemRights]'ReadAndExecute,Synchronize'}else{[Security.AccessControl.FileSystemRights]::FullControl}
+        if($rule.FileSystemRights -ne $expected){throw 'Backup secret access mismatch'}
+        $seen[$identity]=$true
+    }
+    if($seen.Count -ne 3){throw 'Backup secret principal missing'}
+}

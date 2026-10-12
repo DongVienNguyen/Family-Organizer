@@ -31,8 +31,8 @@ server stats add redacted backup health. Age is based on successful completion:
 24hours is stale; negative/backward clocks are invalid. Latest output must exist as
 an ordinary single-link file with the recorded size. Health stat checks do not
 certify AEAD integrity; restore evidence validates authenticity/contents separately.
-ENOSPC/EDQUOT produce a safe storage-full code and diskFull flag. Failed capture keeps
-prior success evidence. Malformed optional setup does not disable legacy functionality
+ENOSPC/EDQUOT/SQLITE_FULL produce a safe storage-full code and diskFull flag. Failed capture keeps
+prior success evidence. A format2 redacted status persists the last safe failure alongside the prior receipt; format1 receipts remain readable. Restore occurrence identity uses installation-local commit row order, independent of wall-clock correction. Reinstall reseals specialized key/config read ACLs and backup output modify ACLs. Matching existing keys have their reader grants resealed without replacing bytes. Malformed optional setup does not disable legacy functionality
 or claim backups are working.
 
 Evidence:29 config/key/age,10 durable schedule,4 startup,3 missing/sized/linked output,
@@ -46,3 +46,5 @@ key and session-revocation policy through the existing offline restore.
 Retention and off-host encrypted copy, guarded update/rollback, F08/F09 and enforced
 main protection remain separate. Server2019/reboot/power-loss/RPO24h/RTO60m are R02
 acceptance work. No release/tag/VPS or new domain feature is performed here.
+
+Review correction: five Important and one Minor findings were graded together before one correction pass. Five actual diagnostic RED assertions cover native SQLite-full capture, schedule capture/receipt, terminal restart health and actual runtime restore-marker ordering. One earlier restore-marker fixture failed schema bootstrap and is retained as a harness failure, not a product RED. Windows regressions add extra-reader/missing-service-read resealing and configure → reinstall → LocalService capture. The initial Windows run failed on the second Enable at config-publish; explicit public backup filename avoids PowerShell 5.1 null-string binding at File.Replace, followed by resealing/verification. Native corrected evidence remains pending.

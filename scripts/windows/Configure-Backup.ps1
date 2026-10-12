@@ -15,8 +15,9 @@ foreach($file in @($keyFile,$configFile)){if(Test-Path -LiteralPath $file){Asser
 if($ValidateOnly -or !$PSCmdlet.ShouldProcess($context.instance,'Configure one owned encrypted backup schedule')){return}
 Assert-ServiceAdministrator
 $operationGuard=$null;$inputStream=$null;$memory=New-Object IO.MemoryStream
-$keyBytes=$null;$oldKeyBytes=$null;$readBuffer=$null;$request=$null;$decodedText=$null
+$keyBytes=$null;$oldKeyBytes=$null;$readBuffer=$null;$decodeBytes=$null;$request=$null;$decodedText=$null
 $stage=$configFile+'.tmp-'+[guid]::NewGuid().ToString('N')
+$oldConfig=$stage+'.old'
 $keyCreated=$false;$keyReady=$false;$configurationPhase='guard'
 function Write-BackupDurable {
     param([string]$File,[byte[]]$Bytes,[IO.FileMode]$Mode)
@@ -37,7 +38,7 @@ try{
             $memory.Write($readBuffer,0,$count)
         }
         $decoder=New-Object Text.UTF8Encoding($false,$true)
-        $decodedText=$decoder.GetString($memory.ToArray()).TrimStart([char]0xFEFF)
+        $decodeBytes=$memory.ToArray();$decodedText=$decoder.GetString($decodeBytes).TrimStart([char]0xFEFF)
         $request=$decodedText | ConvertFrom-Json
         $configurationPhase='shape';$names=@($request.PSObject.Properties.Name | Sort-Object)
         if(($names -join ',') -cne 'includeCredentials,includeEnv,includeFiles,includeSettings,key'){throw 'Backup input shape'}
@@ -59,6 +60,7 @@ try{
             }finally{$stream.Dispose()}
             $difference=0;for($index=0;$index -lt 32;$index++){$difference=$difference -bor ($keyBytes[$index] -bxor $oldKeyBytes[$index])}
             if($difference -ne 0){throw 'Changing an existing recovery key is forbidden'}
+            Set-OwnedServiceAcl $keyFile $ServiceId 'R'
         }else{
             if(Test-Path -LiteralPath $backupRoot){if(@(Get-ChildItem -LiteralPath $backupRoot -Filter '*.fo-recovery' -Force).Count -gt 0){throw 'Existing ciphertext requires its original recovery key'}}
             # Create the final key name with its protected read-only service DACL
@@ -76,17 +78,20 @@ try{
     $bytes=[Text.Encoding]::UTF8.GetBytes($text)
     try{Write-BackupDurable $stage $bytes ([IO.FileMode]::CreateNew)}finally{[Array]::Clear($bytes,0,$bytes.Length)}
     Set-OwnedServiceAcl $stage $ServiceId 'R'
-    if(Test-Path -LiteralPath $configFile){[IO.File]::Replace($stage,$configFile,$null)}else{[IO.File]::Move($stage,$configFile)}
-    Assert-ServiceMetadataAcl $configFile
-    if(Test-Path -LiteralPath $keyFile){Assert-ServiceMetadataAcl $keyFile}
+    $configurationPhase='config-replace'
+    if(Test-Path -LiteralPath $configFile){[IO.File]::Replace($stage,$configFile,$oldConfig)}else{[IO.File]::Move($stage,$configFile)}
+    $configurationPhase='config-seal';Set-OwnedServiceAcl $configFile $ServiceId 'R'
+    Assert-BackupSecretAcl $configFile $ServiceId
+    if(Test-Path -LiteralPath $keyFile){Assert-BackupSecretAcl $keyFile $ServiceId}
     @{configured=$true;enabled=($Operation -eq 'Enable');keyReplaced=$false} | ConvertTo-Json -Compress
-}catch{throw ('RECOVERY_BACKUP_CONFIGURATION_FAILED ('+$configurationPhase+')')}
+}catch{throw ('RECOVERY_BACKUP_CONFIGURATION_FAILED ('+$configurationPhase+';hresult='+$_.Exception.HResult+')')}
 finally{
     try{
-        if(Test-Path -LiteralPath $stage){Remove-Item -LiteralPath $stage -Force}
-        if($keyCreated -and !$keyReady -and (Test-Path -LiteralPath $keyFile)){Remove-Item -LiteralPath $keyFile -Force}
-        foreach($buffer in @($keyBytes,$oldKeyBytes,$readBuffer)){if($buffer){[Array]::Clear($buffer,0,$buffer.Length)}}
+        try{foreach($file in @($stage,$oldConfig)){if(Test-Path -LiteralPath $file){Remove-Item -LiteralPath $file -Force}}}
+        finally{try{if($keyCreated -and !$keyReady -and (Test-Path -LiteralPath $keyFile)){Remove-Item -LiteralPath $keyFile -Force}}finally{
+        foreach($buffer in @($keyBytes,$oldKeyBytes,$readBuffer,$decodeBytes)){if($buffer){[Array]::Clear($buffer,0,$buffer.Length)}}
         if($request -and $request.PSObject.Properties['key']){$request.key=$null};$request=$null;$decodedText=$null
         if($memory.Length -gt 0){$owned=$memory.GetBuffer();[Array]::Clear($owned,0,$owned.Length)}
+        }}
     }finally{try{$memory.Dispose();if($inputStream){$inputStream.Dispose()}}finally{if($operationGuard){$operationGuard.Dispose()}}}
 }
