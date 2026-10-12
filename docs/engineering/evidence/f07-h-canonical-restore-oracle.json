@@ -1,0 +1,95 @@
+{
+  "failedHead": "6490c01b897868b74a8744adca23ef9dc5a38cf8",
+  "failedRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38257798150",
+  "quality": "both Node22/24 full1666/94 zero failures/skips/todos; browser/producer/consumer succeed; service/gate failure",
+  "serviceProofsBeforeFailure": [
+    "owned-schedule-validation-whatif-no-input-no-mutation",
+    "owned-schedule-explicit-portable-key-idempotent-no-rotation",
+    "owned-schedule-existing-key-readers-resealed-bytes-retained",
+    "owned-schedule-reinstall-private-key-config-acls-preserved",
+    "owned-localservice-scheduled-capture-ready-private-health-key-excluded"
+  ],
+  "nestedNativeExits": [
+    {
+      "phase": "schedule--ValidateOnly",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule--WhatIf",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-invalid-selection",
+      "exitCode": 1
+    },
+    {
+      "phase": "schedule-enable",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-enable-again",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-key-change-refusal",
+      "exitCode": 1
+    },
+    {
+      "phase": "schedule-extra-reader-fixture",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-extra-reader-reseal",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-extra-reader-acl",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-missing-service-read-fixture",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-missing-service-read-reseal",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-missing-service-read-acl",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-reinstall",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-reinstall-acl",
+      "exitCode": 0
+    },
+    {
+      "phase": "schedule-running-refusal",
+      "exitCode": 1
+    },
+    {
+      "phase": "schedule-shared-offline-restore",
+      "exitCode": 0
+    }
+  ],
+  "reason": "snapshotValidation canonical() sorts JSON object keys and returns that representation. Comparing SQLite data text falsely treats key order as business data loss. Parse every data JSON column; retain all IDs, sequence, rows, types and values in deep equality.",
+  "diagnosis": "Actual shared schedule/offline-restore Cloud reproduction first fails users raw JSON key order. After parsed comparison, deliberately later source task correctly absent from earlier snapshot; record expected baseline at capture before that write, assert later source write survives until explicit restore. Both oracle failures retained separately from product defects.",
+  "diagnostic": {
+    "node22Passed": 5,
+    "node24Passed": 5,
+    "newEndToEndProof": "scheduled authenticated ciphertext -> close runtime -> trusted offline shared restore -> all six canonical tables equal capture-time baseline; source ciphertext unchanged; late task present before restore and absent from older snapshot",
+    "productionSourceChanged": false,
+    "nativeFinalAcceptance": false
+  },
+  "logHashes": {
+    "f07-h-final-service-failed.log": "8e7d9ed483d010e9914098d4a04e30dfd922745418c0a4ad9ab3d640ead99223",
+    "f07-h-canonical-row-format-red.log": "2e57ffb6d642fff5a4dae23242eed6721117704ca603eca5e326ad7336db2251",
+    "f07-h-canonical-green22.log": "beb5ef48f2b7d1af8193b314bf17b8dda9ff7bc699e695c0fd16409b1ab32efd",
+    "f07-h-canonical-green24.log": "886ce9abe44e09e5eeaf73ef0c5573ee83641faacd94c7ac46576413c881c4e0",
+    "f07-h-canonical-point-in-time-green22.log": "d2a49cdf6da02758b9c01ad45b7b1bb9544c5b20dd27d758d3d0bbd507c4ae55",
+    "f07-h-canonical-point-in-time-green24.log": "11439d40ba1f62e8264d54d7ee831e1b2c32b1eb8e35004c009b235ceb6f3e0a"
+  }
+}
