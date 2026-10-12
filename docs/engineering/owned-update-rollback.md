@@ -5,6 +5,10 @@ operator. It does not publish a release or deploy to a machine. Windows2022
 synthetic proofs must be read at the exact PR HEAD; Server2019/reboot/power-loss
 acceptance remains R02. Actual off-host independence and RPO/RTO are unmeasured.
 
+Release file/directory owners and every executable/import-tree DACL are checked
+before any candidate helper runs. The actual owner/SCM/canonical XML and coherent
+journal/control/opened boundary are read again under the acquired operation guard.
+
 The elevated authenticated `Update.ps1`/`Rollback.ps1` operator validates both
 complete release manifests, official Node/WinSW pins, canonical service ownership,
 physical roots and protected ancestor permissions. Release directories are distinct
@@ -23,8 +27,9 @@ or notification is invoked by the offline recovery engine.
 The existing installation metadata handle is the shared operation guard. Recovery,
 credential/maintenance operators and install/uninstall/update contend for it. After
 stopping and draining SCM, the operator proves exclusive SQLite handles closed,
-checks the actual stored schema/integrity/users without bootstrap writes and takes
-a fresh authenticated encrypted I01 snapshot. This captures business writes
+checks the actual stored legacy/jobs/snapshot/domain schema/integrity/users without bootstrap writes and takes
+a fresh authenticated encrypted I01 snapshot with the old release operator before
+any candidate storage/bootstrap execution. This captures business writes
 accepted immediately before the stop. It never copies a live DB while omitting WAL.
 
 Completed exact apply/rollback requests verify the current owner, journal, approval
@@ -78,3 +83,16 @@ checks preapproval recovery retains a fresh finance write, tests postapproval
 snapshot refusal and incompatible schema refusal, and proves compatible binary
 rollback retains a later finance write. Reports contain public IDs/digests/exit
 codes, never the recovery key, credentials, token or raw business rows.
+
+Completed and previous terminal operations require the exact opened metadata
+plus I01 actor/payload/result/timestamp binding, not presence/count alone. Any
+ordinary rollback exception after starting a release stops that still-authenticated
+owned service while retaining the conservative latch and data. Reinstall and
+backup reconfiguration reseal every current/history journal-referenced ciphertext
+for Administrator/SYSTEM after broader backup-directory ACL operations.
+
+The native fixture also uses an authenticated candidate-only backup bootstrap
+mutation probe and deterministic PowerShell breakpoint races/faults. It changes
+only synthetic fixture package/data/ownership and repairs that isolated fixture;
+none of these hooks enter the production ZIP/controller. Canonical business hashes
+preserve all parsed values/array order while ignoring JSON object-key order.

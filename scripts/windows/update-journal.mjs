@@ -39,16 +39,41 @@ function validateJournal(value,instance){
 export function assertUpdateRoots(instance,oldRelease,candidateRelease){
  const roots=[instance,oldRelease,candidateRelease];for(const root of roots){if(!absolute(root))refuse('UPDATE_ROOTS_INVALID');ordinary(root);const actual=fs.realpathSync.native(root),same=process.platform==='win32'?actual.toLowerCase()===root.toLowerCase():actual===root;if(!same||!fs.statSync(root).isDirectory())refuse('UPDATE_ROOTS_INVALID');}for(let i=0;i<roots.length;i++)for(let j=i+1;j<roots.length;j++)if(inside(roots[i],roots[j])||inside(roots[j],roots[i]))refuse('UPDATE_ROOTS_INVALID');return {rootsVerified:true};
 }
-export function readJournal(instance){
- const file=path.join(instance,'service/update-journal.json');let fd,bytes;
+function readPublicJson(file,limit){
+ let fd,bytes;
  try{
-  ordinary(file);const ancestors=[];for(let current=path.dirname(file);;current=path.dirname(current)){const stat=fs.lstatSync(current);if(!stat.isDirectory())refuse();ancestors.push({file:current,dev:stat.dev,ino:stat.ino});if(path.dirname(current)===current)break;}const prior=fs.lstatSync(file);if(!prior.isFile()||prior.nlink!==1||prior.size>131072)refuse();
+  ordinary(file);const ancestors=[];for(let current=path.dirname(file);;current=path.dirname(current)){const stat=fs.lstatSync(current);if(!stat.isDirectory())refuse();ancestors.push({file:current,dev:stat.dev,ino:stat.ino});if(path.dirname(current)===current)break;}const prior=fs.lstatSync(file);if(!prior.isFile()||prior.nlink!==1||prior.size>limit)refuse();
   fd=fs.openSync(file,'r');const initial=fs.fstatSync(fd);if(initial.dev!==prior.dev||initial.ino!==prior.ino||initial.size!==prior.size||initial.nlink!==1)refuse();
   bytes=Buffer.alloc(initial.size);let offset=0;while(offset<bytes.length){const count=fs.readSync(fd,bytes,offset,bytes.length-offset,null);if(!count)refuse();offset+=count;}
   if(fs.readSync(fd,Buffer.alloc(1),0,1,null))refuse();const after=fs.fstatSync(fd);ordinary(file);for(const ancestor of ancestors){const stat=fs.lstatSync(ancestor.file);if(!stat.isDirectory()||stat.dev!==ancestor.dev||stat.ino!==ancestor.ino)refuse();}const fixed=fs.lstatSync(file);if(after.nlink!==1||after.size!==initial.size||after.mtimeMs!==initial.mtimeMs||after.ctimeMs!==initial.ctimeMs||fixed.dev!==initial.dev||fixed.ino!==initial.ino||fixed.nlink!==1||fixed.mtimeMs!==initial.mtimeMs||fixed.ctimeMs!==initial.ctimeMs||fixed.size!==initial.size)refuse();
-  const journal=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));validateJournal(journal,instance);return {journal,sha256:digest(bytes)};
+  return {value:JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),sha256:digest(bytes)};
  }catch{refuse();}finally{bytes?.fill(0);if(fd!==undefined)fs.closeSync(fd);}
 }
+export function readJournal(instance){const result=readPublicJson(path.join(instance,'service/update-journal.json'),131072);validateJournal(result.value,instance);return {journal:result.value,sha256:result.sha256};}
+export function assertUpdateBoundary(journal,owner,control,storage,mode){
+ try{
+  if(!object(journal)||!object(owner)||!object(storage)||!['terminal','rollback'].includes(mode))refuse();validateJournal(journal,owner.instanceRoot);const row=journal.current;
+  if(!keys(control,['format','operationId','manifestSha256','phase'])||control.format!==1||!uuid(control.operationId)||!hash(control.manifestSha256)||!['held','approve'].includes(control.phase)||owner.format!==1||owner.serviceId!==row.serviceId||owner.instanceRoot!==row.instanceRoot||typeof storage.writesMayHaveOpened!=='boolean'||typeof storage.openedBindingVerified!=='boolean')refuse();
+  const old=mode==='terminal'&&['rolled-back','binary-rolled-back'].includes(row.phase),release=old?row.oldRelease:row.candidateRelease,id=old&&row.phase==='binary-rolled-back'?row.rollbackOperationId:row.operationId;
+  if(owner.releaseRoot!==release.root||owner.manifestHash!==release.manifestSha256||control.operationId!==id||control.manifestSha256!==release.manifestSha256||storage.boundManifestSha256!==release.manifestSha256)refuse();
+  if(mode==='terminal'){if(!terminal.includes(row.phase)||row.writesMayOpen!==true||control.phase!=='approve'||!storage.writesMayHaveOpened||!storage.openedBindingVerified)refuse();}
+  else{
+   if(!['held','failed','opening','committed'].includes(row.phase))refuse();
+   if(!row.writesMayOpen){if(control.phase!=='held'||storage.writesMayHaveOpened)refuse();}
+   else if(row.phase==='committed'){if(control.phase!=='approve'||!storage.openedBindingVerified)refuse();}
+   else if(control.phase==='held'){if(storage.writesMayHaveOpened)refuse();}
+   else if(storage.writesMayHaveOpened&&!storage.openedBindingVerified)refuse();
+  }
+  return {boundaryVerified:true};
+ }catch{refuse('UPDATE_BOUNDARY_INVALID');}
+}
+function readUpdateBoundary(instance,packet){
+ if(!keys(packet,['owner','storage','mode','expectedSha256'])||!hash(packet.expectedSha256))refuse('UPDATE_BOUNDARY_INVALID');
+ const current=readJournal(instance);if(current.sha256!==packet.expectedSha256)refuse('UPDATE_JOURNAL_CHANGED');
+ let control;try{control=readPublicJson(path.join(instance,'config/update-control.json'),8192).value;}catch{refuse('UPDATE_BOUNDARY_INVALID');}
+ return assertUpdateBoundary(current.journal,packet.owner,control,packet.storage,packet.mode);
+}
+
 function persist(instance,journal,expected){
  validateJournal(journal,instance);const file=path.join(instance,'service/update-journal.json'),directory=path.dirname(file);ordinary(directory);if(!fs.statSync(directory).isDirectory())refuse();
  const bytes=Buffer.from(JSON.stringify(journal)+'\n');if(bytes.length>131072)refuse();const stage=file+'.stage-'+randomUUID();let fd,created=false;
@@ -76,8 +101,8 @@ export function transitionJournal(instance,expected,event){
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  try{
-  const [instance,action,expected]=process.argv.slice(2);if(!absolute(instance)||!['read','roots','initialize','transition'].includes(action)||process.argv.length!==(action==='transition'?5:4))refuse();
+  const [instance,action,expected]=process.argv.slice(2);if(!absolute(instance)||!['read','roots','boundary','initialize','transition'].includes(action)||process.argv.length!==(action==='transition'?5:4))refuse();
   let value;if(action!=='read'){const chunks=[];let total=0;for await(const chunk of process.stdin){total+=chunk.length;if(total>16384)refuse();chunks.push(chunk);}value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(Buffer.concat(chunks)));}
-  const result=action==='roots'?assertUpdateRoots(instance,value.oldReleaseRoot,value.candidateReleaseRoot):action==='read'?readJournal(instance):action==='initialize'?initializeJournal(instance,value):transitionJournal(instance,expected,value);process.stdout.write(JSON.stringify(result)+'\n');
+  const result=action==='boundary'?readUpdateBoundary(instance,value):action==='roots'?assertUpdateRoots(instance,value.oldReleaseRoot,value.candidateReleaseRoot):action==='read'?readJournal(instance):action==='initialize'?initializeJournal(instance,value):transitionJournal(instance,expected,value);process.stdout.write(JSON.stringify(result)+'\n');
  }catch(error){process.stdout.write(JSON.stringify({error:/^UPDATE_[A-Z_]+$/.test(error?.message)?error.message:'UPDATE_JOURNAL_INVALID'})+'\n');process.exitCode=1;}
 }

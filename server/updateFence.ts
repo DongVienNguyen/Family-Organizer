@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
+import {isDeepStrictEqual} from 'node:util';
 import {createHash} from 'node:crypto';
 import {setTimeout as delay} from 'node:timers/promises';
 import type {AppConfig} from './config.js';
@@ -34,6 +35,12 @@ export function assertSchemaCompatibility(schema:unknown,versions:unknown):void{
  if(!object(schema.domains)||!object(versions.domains))refuse(code);
  for(const [name,bound]of Object.entries(schema.domains))if(!/^[a-z][a-z0-9_]{0,79}$/.test(name)||!bounds(bound))refuse(code);
  for(const [name,version]of Object.entries(versions.domains))if(!/^[a-z][a-z0-9_]{0,79}$/.test(name)||typeof version!=='number'||!Number.isSafeInteger(version)||version<0||(version>0&&(!bounds(schema.domains[name])||version<schema.domains[name].min||version>schema.domains[name].max)))refuse(code);
+}
+/** Presence blocks restore; only the exact record/command certifies completion. */
+export function openedUpdateBindingVerified(metadata:unknown,commands:unknown,operationId:unknown,manifestSha256:unknown):boolean{
+ if(!uuid(operationId)||typeof manifestSha256!=='string'||!/^[a-f0-9]{64}$/.test(manifestSha256)||typeof metadata!=='string'||!Array.isArray(commands)||commands.length!==1)return false;
+ const record={format:1,operationId,manifestSha256,writesMayOpen:true},command=commands[0];
+ try{return isDeepStrictEqual(JSON.parse(metadata),record)&&object(command)&&command.command==='core:update:open-writes'&&command.request_id===operationId&&command.actor_id==='system:update-validation'&&command.payload_hash===createHash('sha256').update(JSON.stringify(record)).digest('hex')&&isDeepStrictEqual(JSON.parse(command.result),{value:{writesMayOpen:true}})&&typeof command.committed_at==='string'&&new Date(command.committed_at).toISOString()===command.committed_at;}catch{return false;}
 }
 /** Approval is an independent durable latch: DB restore cannot erase permission. */
 export function assertSnapshotRollbackAllowed(operationId:unknown,persisted:unknown,approvalPhase:unknown):void{if(!uuid(operationId))refuse();if(persisted!==undefined||approvalPhase!=='held')refuse('UPDATE_WRITES_MAY_HAVE_OPENED');}

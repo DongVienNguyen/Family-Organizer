@@ -14,6 +14,7 @@ Assert-ServiceAdministrator
 $uninstallGuard=$null
 try{
 $uninstallGuard=Enter-OwnedDataOperation $context
+Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json)
 $existing=Get-Service -Name $ServiceId -ErrorAction SilentlyContinue
 if ($existing) {
     if ($existing.Status -ne 'Stopped') {

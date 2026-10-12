@@ -72,8 +72,8 @@ function Stop-OwnedUpdateService {
     $closed=[IO.File]::Open($database,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None);$closed.Dispose()
 }
 function Inspect-OwnedUpdateStorage {
-    param($Tool,[string]$OperationId,$Schema)
-    return (Invoke-OwnedUpdateNode $Tool 'update-inspect' (Join-Path $Tool.release 'app/dist/operator.cjs') @('--inspect-update') @{operationId=$OperationId;schema=$Schema})
+    param($Tool,[string]$OperationId,$Schema,[string]$ManifestSha256)
+    return (Invoke-OwnedUpdateNode $Tool 'update-inspect' (Join-Path $Tool.release 'app/dist/operator.cjs') @('--inspect-update') @{operationId=$OperationId;schema=$Schema;manifestSha256=$ManifestSha256})
 }
 function Switch-OwnedUpdateRelease {
     param($Context,$Guard)
@@ -111,4 +111,37 @@ function Wait-OwnedUpdateHttp {
 function Invoke-OwnedUpdateRecovery {
     param($Tool,[ValidateSet('Backup','Restore')][string]$Operation,[string]$File,[string]$Key)
     return (Invoke-OwnedUpdateNode $Tool ('update-recovery-'+$Operation.ToLowerInvariant()) (Join-Path $Tool.release 'app/dist/operator.cjs') @($(if($Operation -eq 'Backup'){'--backup-recovery'}else{'--restore-recovery'})) @{file=$File;key=$Key;includeCredentials=$true;includeSettings=@('gemini','telegram');includeFiles=@('sessionSigningKey');includeEnv=@('gemini','vapid')})
+}
+function Get-ProtectedUpdateContext {
+    param([string]$ReleaseRoot,[string]$InstanceRoot,[string]$ServiceId,[int]$Port,[string]$ExpectedManifestSha256)
+    $root=Get-ServiceRoot $ReleaseRoot
+    Assert-ServiceAdministrator
+    Assert-RecoveryCopyAncestors $root
+    $pending=New-Object 'System.Collections.Generic.Stack[string]';$pending.Push($root);$count=0
+    $writes=[Security.AccessControl.FileSystemRights]'Write,Delete,DeleteSubdirectoriesAndFiles,ChangePermissions,TakeOwnership'
+    while($pending.Count -gt 0){
+        $file=$pending.Pop();$count++;if($count -gt 100000){throw 'UPDATE_RELEASE_TREE_LIMIT'}
+        $attributes=[IO.File]::GetAttributes($file);if($attributes -band [IO.FileAttributes]::ReparsePoint){throw 'UPDATE_RELEASE_REPARSE'}
+        $directory=($attributes -band [IO.FileAttributes]::Directory) -ne 0
+        $acl=if($directory){[IO.Directory]::GetAccessControl($file)}else{[IO.File]::GetAccessControl($file)}
+        if($acl.GetOwner([Security.Principal.SecurityIdentifier]).Value -notin @('S-1-5-18','S-1-5-32-544') -or ($directory -and !$acl.AreAccessRulesProtected)){throw 'UPDATE_RELEASE_OWNER_INVALID'}
+        foreach($rule in $acl.GetAccessRules($true,$true,[Security.Principal.SecurityIdentifier])){if($rule.AccessControlType -eq 'Allow' -and ($rule.FileSystemRights -band $writes) -and $rule.IdentityReference.Value -notin @('S-1-5-18','S-1-5-32-544')){throw 'UPDATE_RELEASE_WRITER_INVALID'}}
+        # Check each parent before enumerating its children, without repeated
+        # provider/ancestor walks per file. Native ACLs still cover every entry.
+        if($directory){foreach($child in [IO.Directory]::EnumerateFileSystemEntries($file)){$pending.Push($child)}}
+    }
+    # Protection precedes hashing and executing the authenticated import closure.
+    return (Get-ServiceContext $root $InstanceRoot $ServiceId $Port $ExpectedManifestSha256)
+}
+function Assert-OwnedUpdateBoundary {
+    param($Tool,$State,$Current,[ValidateSet('terminal','rollback')][string]$Mode)
+    Assert-ServiceMetadataAcl (Join-Path $Current.instance 'service/update-journal.json')
+    $descriptor=Get-Content -LiteralPath $Current.marker -Raw -Encoding UTF8 | ConvertFrom-Json
+    Assert-ServiceOwner $Current $descriptor
+    $schema=(Get-Content -LiteralPath (Join-Path $Current.release 'release-manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json).schema
+    $row=$State.journal.current
+    $operationId=if($row.phase -eq 'binary-rolled-back'){$row.rollbackOperationId}else{$row.operationId}
+    $storage=Inspect-OwnedUpdateStorage $Tool $operationId $schema $Current.manifestHash
+    $null=Invoke-OwnedUpdateNode $Tool 'update-boundary' (Join-Path $Tool.release 'ops/update-journal.mjs') @($Current.instance,'boundary') @{owner=$descriptor;storage=$storage;mode=$Mode;expectedSha256=$State.sha256}
+    return $storage
 }
