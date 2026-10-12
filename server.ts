@@ -28,7 +28,7 @@ async function main() {
   process.on('unhandledRejection', error => { console.error('Fatal background error', error); void stop(true); });
   runtime.ready.then(()=>{
     console.log(`Server is running at http://127.0.0.1:${typeof address === 'object' && address ? address.port : address}`);
-  },error=>{if(!stopping){const code=error instanceof UpdateFenceError&&['UPDATE_CONTROL_INVALID','UPDATE_BINDING_INVALID','UPDATE_SCHEMA_INCOMPATIBLE','UPDATE_STARTUP_CANCELLED','UPDATE_HEALTH_FAILED','UPDATE_STORAGE_FAILED','UPDATE_APPROVAL_TIMEOUT'].includes(error.message)?` [${error.message}]`:'';console.error('Startup validation failed'+code);void stop(true);}});
+  },error=>{if(!stopping){const code=error instanceof UpdateFenceError&&['UPDATE_CONTROL_INVALID','UPDATE_BINDING_INVALID','UPDATE_SCHEMA_INCOMPATIBLE','UPDATE_STARTUP_CANCELLED','UPDATE_HEALTH_FAILED','UPDATE_STORAGE_FAILED','UPDATE_APPROVAL_TIMEOUT'].includes(error.message)?` [${error.message}]`:'';const stage=error instanceof UpdateFenceError&&['ancestors','leaf-stat','descriptor-open','descriptor-read','descriptor-eof','descriptor-after','parents-after','leaf-after','metadata-after'].includes(error.readStage??'')?` [read-stage:${error.readStage}]`:'';console.error('Startup validation failed'+code+stage);void stop(true);}});
   return runtime;
 }
 // Local automation receives the same owning runtime used by the CLI, never a

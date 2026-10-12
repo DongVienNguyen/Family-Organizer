@@ -33,18 +33,19 @@
     "safeStartupBindingCode": 1
   },
   "gcTrial": "old-space64 alone yielded observed totalheap256MiB and timeout afterloopmarker; semi-space8 added, totalheap<=128MiB asserted; all300000 checks/15s timeout/nativeexit preserved",
-  "sourceTargetGreen": 218,
+  "sourceTargetGreen": 220,
   "sourceTargetFiles": 5,
   "fullSource": {
-    "passed": 1924,
-    "total": 1924,
+    "passed": 1926,
+    "total": 1926,
     "files": 104,
     "failed": 0,
     "pending": 0,
     "todo": 0,
     "workers": 1,
     "nodeVersion": "v24.21.0",
-    "sourceFrozen": true
+    "sourceFrozen": true,
+    "reportSha256": "c566d23ec8de33306839cdbc1eebebd44aceee740a42843713882c33620807ea"
   },
   "nativeCauseLimits": "Two defect classes reproduced; old generic service log cannot prove exact native error code, no false native diagnosis or correctedWindows claim",
   "review": {
@@ -62,7 +63,7 @@
   "lintExit": 0,
   "buildExit": 0,
   "dependencyLockRuntimeChanges": false,
-  "checkpoint": "Inter-attempt shared ancestor baseline corrected; native publication diagnostic added after both Windows unit fixtures fail; no corrected whole-Windows claim",
+  "checkpoint": "Namespace model and asynchronous publisher correction verified Cloud1926/104; allowlisted read stage added for actual service failure diagnosis; new exact Windows still required",
   "nativeCheckpoint": {
     "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38314999862",
     "headSha": "ecc4bbd6b585bb570606970464f4379a4a110307",
@@ -81,5 +82,36 @@
       "repeated publication replacement count1 expected3"
     ],
     "diagnosis": "Underlying native errno/fstat not exposed; new diagnostics required before choosing native correction"
+  },
+  "checkpoint2": {
+    "headSha": "2eaccb786dc826bec2cd429e406c9151a6c4b001",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38316300066",
+    "conclusion": "failure",
+    "qualityNativeDiagnostic": "PowerShell publisher timed out while parent synchronously held reader descriptor",
+    "unitFixtureNativeError": "EPERM rename-overwrite open fixed leaf",
+    "serviceFailure": "explicit rollback UPDATE_HEALTH_FAILED; service worker UPDATE_CONTROL_INVALID; fault hook did not execute",
+    "nativeCause": "control read stage still unconfirmed; add allowlisted stage diagnostic, do not claim old-directory collision observed",
+    "allChecks": "producer/consumer/browser success; both baseline/service/ci-gate failure",
+    "node22": {
+      "total": 1925,
+      "passed": 1923,
+      "failed": 2,
+      "pending": 0
+    },
+    "node24": {
+      "total": 1925,
+      "passed": 1923,
+      "failed": 2,
+      "pending": 0
+    }
+  },
+  "fullSourceReviewCheckpoint": {
+    "passed": 1925,
+    "total": 1925,
+    "files": 104,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "nodeVersion": "v24.21.0"
   }
 }
