@@ -26,7 +26,7 @@ function rows(){const db=new Database(database,{readonly:true});try{return Objec
 evidence.completed=false;
 try{
 if(phase==='active'){
- const host=await runPowerShell('desktop-host-validation',['-NoProfile','-NonInteractive','-Command','$ErrorActionPreference="Stop"; $command=Get-Command Get-Acl; $manifest=Get-Module -ListAvailable -Name Microsoft.PowerShell.Security | Select-Object -First 1; @{major=$PSVersionTable.PSVersion.Major;edition=$PSVersionTable.PSEdition;securityModulePath=$manifest.Path;commandModule=$command.ModuleName} | ConvertTo-Json -Compress']);
+ const host=await runPowerShell('desktop-host-validation',['-NoProfile','-NonInteractive','-Command','$ErrorActionPreference="Stop"; $command=Get-Command Get-Acl; $manifest=Get-Module -ListAvailable -Name Microsoft.PowerShell.Security | Select-Object -First 1; @{major=$PSVersionTable.PSVersion.Major;edition=$PSVersionTable.PSEdition;securityModulePath=$manifest.Path;commandModule=$command.ModuleName;inputEncoding=[Console]::InputEncoding.WebName;inputPreamble=[BitConverter]::ToString([Console]::InputEncoding.GetPreamble())} | ConvertTo-Json -Compress']);
  assert.equal(host.exitCode,0,host.stdout+host.stderr);evidence.powershellHost=JSON.parse(host.stdout.trim());
  assert.equal(evidence.powershellHost.major,5);assert.equal(evidence.powershellHost.edition,'Desktop');assert.equal(evidence.powershellHost.commandModule,'Microsoft.PowerShell.Security');assert.ok(evidence.powershellHost.securityModulePath.toLowerCase().startsWith((desktopModules+path.sep).toLowerCase()));
  evidence.checks.push('windows-desktop-host-security-module-validated');

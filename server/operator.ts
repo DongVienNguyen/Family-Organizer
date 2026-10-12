@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash,randomUUID } from 'node:crypto';
+import {TextDecoder} from 'node:util';
 import { createInitialData } from './initialData.js';
 import { hashPassword,MAX_PASSWORD_BYTES } from './passwords.js';
 import { UserRole } from '../src/types.js';
@@ -17,7 +18,7 @@ function readInput():Promise<unknown>{
     const cleanup=()=>{clearTimeout(deadline);process.stdin.off('data',data);process.stdin.off('end',end);process.stdin.off('error',failed);process.stdin.pause();};
     const failed=(error:Error)=>{if(settled)return;settled=true;cleanup();reject(error);};
     const data=(chunk:Buffer)=>{size+=chunk.length;if(size>16384){failed(new OperatorError('INITIALIZATION_INPUT_LIMIT'));return;}chunks.push(chunk);};
-    const end=()=>{if(settled)return;let value:unknown;try{value=JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{failed(new OperatorError('INITIALIZATION_INPUT_INVALID'));return;}settled=true;cleanup();resolve(value);};
+    const end=()=>{if(settled)return;let value:unknown;try{value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(Buffer.concat(chunks)));}catch{failed(new OperatorError('INITIALIZATION_INPUT_INVALID'));return;}settled=true;cleanup();resolve(value);};
     const deadline=setTimeout(()=>failed(new OperatorError('INITIALIZATION_INPUT_TIMEOUT')),timeout);
     process.stdin.on('data',data);process.stdin.once('end',end);process.stdin.once('error',failed);
   });

@@ -40,7 +40,8 @@ For an actual change, an elevated local operator provides UTF8 JSON on stdin:
 `{"users":[{"id":"<existing user ID>","password":"<new passphrase>"}]}`.
 Read confidential input locally; do not put actual passwords in shell arguments,
 environment variables, saved JSON files or transcripts. Close stdin after the JSON.
-Input is limited to16KiB and20seconds; at most32 distinct existing active users can
+A standard leading UTF8 console BOM is accepted; malformed UTF8 is refused before
+storage instead of silently changing a password. Input is limited to16KiB and20seconds; at most32 distinct existing active users can
 be selected. Each passphrase needs16 non-whitespace characters and at most4096 UTF8
 bytes. IDs, names, roles and business data cannot be changed by this command.
 Only missing/empty password hashes are eligible. Unknown/deleted users, duplicates,

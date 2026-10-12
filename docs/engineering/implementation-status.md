@@ -882,3 +882,20 @@ now forwards only whitelisted constant operator error codes; raw stdout/stderr a
 confidential input remain suppressed on failure. The invalid-batch Windows probe
 requires `CREDENTIAL_REENTRY_INVALID`, so parser/startup failure cannot masquerade
 as successful atomic batch rejection. Native exit1 is still checked explicitly.
+
+HEAD `b4a12992fe4e8ca34a61dffda96868248612b411`, Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38216455596:
+five independent jobs again passed. Actual Desktop module/active refusal and
+ValidateOnly/WhatIf passed without input or row changes. The strengthened negative
+batch test caught `INITIALIZATION_INPUT_INVALID` rather than
+`CREDENTIAL_REENTRY_INVALID`: the operator failed parsing before user validation.
+No atomic-batch or valid reentry pass was claimed. Cleanup/service removal succeeded.
+Raw logs and typed partial evidence are in `evidence/f07-b-utf8-failure.json`.
+
+Three genuine Cloud REDs reproduce UTF8-preamble rejection in both initialization
+and reentry plus silent malformed-byte replacement. One-pass fix uses fatal UTF8
+TextDecoder, which consumes a standard leading BOM and rejects malformed UTF8
+before opening storage. Input size/deadline, password/schema/role validation and all
+prior assertions remain. Corrected Cloud1423/85, lint and build passed. The Windows
+probe also records host input encoding/preamble without confidential input bytes;
+corrected exact-HEAD Windows evidence remains pending.
