@@ -1,6 +1,6 @@
 {
   "taskId": "F08-c",
-  "baseSha": "e79fdd835ba08a4e59a88fb55b8e398db33b5747",
+  "baseSha": "f25af441163fb9b82433c5f24096e4c727461bce",
   "branch": "codex/f08-authenticated-archive-download",
   "newFunctionAvailabilityReds": {
     "downloader": 34,
@@ -11,10 +11,10 @@
     "sameSizedArchiveTampering": 1
   },
   "mandatorySuiteOmissionRed": 1,
-  "targetGreen": 247,
+  "targetGreen": 248,
   "targetFiles": 3,
-  "fullGreen": 1973,
-  "fullFiles": 105,
+  "fullGreen": 1989,
+  "fullFiles": 106,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -23,7 +23,7 @@
   "nodeVersion": "v24.21.0",
   "workers": 1,
   "sourceFrozen": true,
-  "fullReportSha256": "3a9cfecc80ac2b6d949c7846fe69ebd28eecdec3d0f830b4e16b8e5962947876",
+  "fullReportSha256": "b3ab278d7655604fb4b1f386c83e73b559971cc0ef9239004f0a5fa65e7a98f6",
   "kind": "github-artifact-archives",
   "publicationAllowed": false,
   "reportsVerified": false,
@@ -53,5 +53,13 @@
     "assertions": 2,
     "priorPassed": 44,
     "underlyingDefects": 1
-  }
+  },
+  "preMainRebase": {
+    "baseSha": "e79fdd835ba08a4e59a88fb55b8e398db33b5747",
+    "fullGreen": 1973,
+    "fullFiles": 105,
+    "targetGreen": 247,
+    "fullReportSha256": "3a9cfecc80ac2b6d949c7846fe69ebd28eecdec3d0f830b4e16b8e5962947876"
+  },
+  "mainRebase": "Reviewed archive implementation/workflow/tests byte-identical; finance and archive mandatory suites retained; fresh full/target/lint/build all0"
 }

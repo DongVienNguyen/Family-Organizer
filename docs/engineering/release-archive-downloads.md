@@ -44,3 +44,9 @@ The former headerless fixture still had a content-length header; corrected cover
 is not an additional historical application defect. Frozen corrected Cloud1973/105,
 247 target/3files, lint/build0 passed. Main rebase, exact Windows and live archives
 remain mandatory; no rereview or completed candidate acceptance is claimed.
+
+After merging the reviewed finance baseline PR39, the archive implementation,
+workflow and tests remained byte-identical. Fresh frozen Cloud verification on
+main f25af44 passed1989 tests/106files and248 target/3files, with lint/build exit0.
+Both finance and archive suites remain mandatory. Exact Windows/live archives
+are still pending; this is development evidence only.
