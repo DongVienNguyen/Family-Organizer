@@ -1,0 +1,22 @@
+{
+  "taskId": "F08-a",
+  "baseSha": "595f7df1569ee637f5f62ab9b470bb71738011a3",
+  "contractAvailabilityRed": 37,
+  "contractGreen": 37,
+  "existingGateOmissionRed": 1,
+  "existingGatePassedWhileRed": 139,
+  "targetTests": 177,
+  "targetFiles": 2,
+  "fullTests": 1837,
+  "fullFiles": 101,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceFrozenDuringVerification": true,
+  "runtimeDependencyLockChanges": false,
+  "windows": "pending exact-HEAD CI",
+  "publication": "disabled; no release/tag/VPS",
+  "scope": "pure contract; authenticated collector/workflows follow F08-b"
+}
