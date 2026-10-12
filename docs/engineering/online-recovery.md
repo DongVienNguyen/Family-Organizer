@@ -39,3 +39,14 @@ This port is preparation for a single AppJobs scheduling owner. No backup schedu
 age/retention/offhost copy, guarded update/rollback or RPO/RTO claim is made here.
 Those remain later focused F07 PRs. Real LocalService scheduled capture and actual
 Server2019/reboot acceptance remain separate. No release/tag/VPS operation is run.
+
+Wholebranch review found a launch-path protection defect: the old complete-release
+boundary was recognized only through operator.cjs argv. Online server/orchestration
+now derive that boundary from the actual loaded bundle directory; the offline guard
+is retained. An actual compiled regression first accepted release-root/bin/ops
+outputs and now refuses all3 without writing. The review also identified a missing
+overlap-writer acceptance check, regraded as a required coverage gap. Added TS rows/
+settings/media generation consistency plus compiled overlapping HTTP writer/restore
+proof. No claim of a reproduced business race: the missing-proof assertion failed,
+while new consistency controls pass. Corrected full Cloud1607/91/lintbuild0; compiled
+Linux9 online checks/4 phases0. Exact corrected Windows evidence remains required.

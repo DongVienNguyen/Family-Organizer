@@ -29,6 +29,10 @@ function checkPath(file:string,config:AppConfig|undefined,restore:boolean){
    const entry=path.resolve(process.argv[1]??''),dist=path.dirname(entry),app=path.dirname(dist);
    // The executing bundled entry supplies the release boundary independently of env roots.
    if(path.basename(entry).toLowerCase()==='operator.cjs'&&path.basename(dist).toLowerCase()==='dist'&&path.basename(app).toLowerCase()==='app')roots.push(path.dirname(app));
+   // CJS bundling defines import.meta.dirname as the actual loaded bundle's
+   // __dirname. Server and local orchestration launches share this boundary.
+   const loadedDist=path.resolve(import.meta.dirname),loadedApp=path.dirname(loadedDist);
+   if(path.basename(loadedDist).toLowerCase()==='dist'&&path.basename(loadedApp).toLowerCase()==='app')roots.push(path.dirname(loadedApp));
    if(roots.some(root=>contained(root,file)))refuse('RECOVERY_PATH_INVALID');
   }
   const stat=fs.lstatSync(file,{throwIfNoEntry:false});
