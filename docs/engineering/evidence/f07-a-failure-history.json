@@ -111,5 +111,20 @@
     "serviceRemoved": true,
     "securityReportSha256": "03fc3070aea38386f9ce8435027663e9882b182c828c86476e61a59fa45c6a77",
     "jobLogSha256": "f11bb1ab65dec9bc4c3fd5289183bf55fb33478da8f1c4bbb48d1eb100571530"
+  },
+  "whatIfScopeFixInsufficient": {
+    "headSha": "53042fa03a78bfba2593a2a17539f57796eef1dd",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38207123766",
+    "securityAssertionsPassed": 8,
+    "earlySourceRefusalReport": "passed",
+    "validateOnlyExitCode": 0,
+    "whatIfExitCode": 1,
+    "failure": "Windows PS5.1 Get-FileHash module still suppressed provider lookup despite local WhatIfPreference=false",
+    "functionalSCMChecks": "not-run",
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "otherFiveJobs": "success",
+    "gate": "failure",
+    "jobLogSha256": "97ed34e14426cc4495f281d1537a6117a7f26fca41b2f2a786318a4f5aa5e9a4"
   }
 }

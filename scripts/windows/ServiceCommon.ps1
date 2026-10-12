@@ -13,6 +13,15 @@ function Invoke-ServiceNative {
     $script:ServiceNativeResults.Add(@{phase=$Phase;exitCode=$code})
     if ($code -ne 0) { throw "$Phase native exit $code" }
 }
+function Get-ServiceHash {
+    param([string]$Path)
+    # Windows PowerShell5.1 Get-FileHash can skip provider lookup under WhatIf.
+    # Literal streaming reads always validate bytes, independently of ShouldProcess.
+    $stream=[IO.File]::Open($Path,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+    $algorithm=[Security.Cryptography.SHA256]::Create()
+    try{return ([BitConverter]::ToString($algorithm.ComputeHash($stream))).Replace('-','').ToLowerInvariant()}
+    finally{$algorithm.Dispose();$stream.Dispose()}
+}
 function Assert-NoServiceReparse {
     param([string]$Path)
     # Read-only verification must still execute under the caller's WhatIf.
@@ -53,18 +62,18 @@ function Get-ServiceContext {
     if ($framework.Release -lt 528040) { throw 'Supported NET Framework4.8 or later is required' }
     $manifestPath=Join-Path $release 'release-manifest.json'
     Assert-NoServiceReparse $manifestPath
-    if ((Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant() -cne $ExpectedManifestSha256) { throw 'Trusted manifest hash mismatch' }
+    if ((Get-ServiceHash $manifestPath) -cne $ExpectedManifestSha256) { throw 'Trusted manifest hash mismatch' }
     $manifest=Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
     $node=Join-Path $release 'bin/node.exe'
     Assert-NoServiceReparse $node
-    if ((Get-FileHash -LiteralPath $node -Algorithm SHA256).Hash.ToLowerInvariant() -cne 'ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32') { throw 'Official bundled Node executable hash mismatch' }
+    if ((Get-ServiceHash $node) -cne 'ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32') { throw 'Official bundled Node executable hash mismatch' }
     # Authenticate the import closure before executing any package helper code.
     foreach ($name in @('verify-installed-service.mjs','verify-service-owner.mjs','write-service-config.mjs','package-files.mjs','package-contract.mjs','license-inventory.mjs','license-policy.mjs','reviewed-notices.mjs','service-config.mjs')) {
         $relative='ops/'+$name
         $entries=@($manifest.files | Where-Object { $_.path -ceq $relative })
         $file=Join-Path $release $relative
         Assert-NoServiceReparse $file
-        if ($entries.Count -ne 1 -or (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -cne $entries[0].sha256) { throw 'Service helper import hash mismatch' }
+        if ($entries.Count -ne 1 -or (Get-ServiceHash $file) -cne $entries[0].sha256) { throw 'Service helper import hash mismatch' }
     }
     Invoke-ServiceNative 'package-validation' $node @((Join-Path $release 'ops/verify-installed-service.mjs'),$release,$manifest.commitSha,$manifest.appVersion)
     return @{release=$release;instance=$instance;id=$ServiceId;port=$Port;node=$node;manifestHash=$ExpectedManifestSha256;commitSha=$manifest.commitSha;frameworkRelease=$framework.Release;directory=(Join-Path $instance 'service');wrapper=(Join-Path $instance "service/$ServiceId.exe");xml=(Join-Path $instance "service/$ServiceId.xml");marker=(Join-Path $instance 'service/installation.json')}
@@ -84,7 +93,7 @@ function Assert-ServiceOwner {
     Assert-NoServiceReparse $Context.xml
     Assert-NoServiceReparse ($Context.wrapper+'.config')
     Invoke-ServiceNative 'owned-configuration' $Context.node @((Join-Path $Context.release 'ops/verify-service-owner.mjs'),$Context.release,$Context.instance,$Context.id,[string]$Context.port,$Context.xml,($Context.wrapper+'.config'))
-    if ((Get-FileHash -LiteralPath $Context.wrapper -Algorithm SHA256).Hash.ToLowerInvariant() -cne 'b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f' -or (Get-FileHash -LiteralPath $Context.xml -Algorithm SHA256).Hash.ToLowerInvariant() -cne $Descriptor.xmlSha256) { throw 'Installed wrapper/configuration hash mismatch' }
+    if ((Get-ServiceHash $Context.wrapper) -cne 'b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f' -or (Get-ServiceHash $Context.xml) -cne $Descriptor.xmlSha256) { throw 'Installed wrapper/configuration hash mismatch' }
     $service=Get-CimInstance Win32_Service -Filter "Name='$($Context.id)'"
     if ($service -and ($service.PathName.Trim('"') -ine $Context.wrapper -or $service.StartName -ine 'NT AUTHORITY\LocalService')) { throw 'Service registry ownership/account mismatch' }
 }

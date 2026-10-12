@@ -22,7 +22,7 @@ if (!$descriptor) {
     Copy-Item -LiteralPath (Join-Path $context.release 'bin/family-organizer-service.exe') -Destination $context.wrapper
     Copy-Item -LiteralPath (Join-Path $context.release 'bin/family-organizer-service.exe.config') -Destination ($context.wrapper+'.config')
     Invoke-ServiceNative 'write-config' $context.node @((Join-Path $context.release 'ops/write-service-config.mjs'),$context.release,$context.instance,$context.id,[string]$context.port,$context.xml)
-    $descriptor=@{format=1;serviceId=$ServiceId;releaseRoot=$context.release;instanceRoot=$context.instance;manifestHash=$context.manifestHash;commitSha=$context.commitSha;port=$Port;xmlSha256=(Get-FileHash -LiteralPath $context.xml -Algorithm SHA256).Hash.ToLowerInvariant()}
+    $descriptor=@{format=1;serviceId=$ServiceId;releaseRoot=$context.release;instanceRoot=$context.instance;manifestHash=$context.manifestHash;commitSha=$context.commitSha;port=$Port;xmlSha256=(Get-ServiceHash $context.xml)}
     [IO.File]::WriteAllText($context.marker,($descriptor | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
 }
 # Seal critical files and verify canonical configuration before elevated WinSW use.
