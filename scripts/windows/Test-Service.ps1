@@ -99,8 +99,11 @@ try {
     $listeners=@(Get-NetTCPConnection -LocalPort $port -State Listen)
     if ($listeners.Count -ne 1 -or $listeners[0].LocalAddress -cne '127.0.0.1') { throw 'Service listener is not loopback only' }
     Invoke-TestNative 'first-functional' $context.node @((Join-Path $PSScriptRoot 'probe-service.mjs'),'first',$release,$instance,[string]$port,(Join-Path $ReportDirectory 'service-functional.json'))
+    Invoke-TestNative 'credential-active' $context.node @((Join-Path $PSScriptRoot 'probe-credential-service.mjs'),'active',$release,$instance,$id,[string]$port,$manifestHash,(Join-Path $ReportDirectory 'service-credentials.json'))
     $prior=Get-ShutdownCount
     Invoke-TestNative 'stop' $context.wrapper @('stop');Assert-ServiceClosed $prior;$checks.Add('start-stop-graceful-closed-handles')
+    Invoke-TestNative 'credential-stopped' $context.node @((Join-Path $PSScriptRoot 'probe-credential-service.mjs'),'stopped',$release,$instance,$id,[string]$port,$manifestHash,(Join-Path $ReportDirectory 'service-credentials.json'))
+    $checks.Add('owned-offline-credential-reentry')
     Invoke-TestNative 'restart-start' $context.wrapper @('start');Wait-ServiceReady
     Invoke-TestNative 'restarted-functional' $context.node @((Join-Path $PSScriptRoot 'probe-service.mjs'),'restarted',$release,$instance,[string]$port,(Join-Path $ReportDirectory 'service-functional.json'))
     $beforeRestart=@(Get-CimInstance Win32_Process | Where-Object {$_.ExecutablePath -ieq $context.node})

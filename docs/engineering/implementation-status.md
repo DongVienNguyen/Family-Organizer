@@ -761,3 +761,60 @@ DACLs with owned metadata and non-following tree preflight. It also verifies
 restart graceful completion/PID/data and preserves logs/early failure reports.
 Cloud full1386/84 + lint/build0 after corrections; corrected exactWindows still
 pending. No tests/assertions skipped or weakened; no dependency/lockfile change.
+
+F07-a completed reviewed service slice: PR https://github.com/DongVienNguyen/Family-Organizer/pull/24
+merged2026-10-12T05:50:03Z, sourcefac6dbd6cab26450f07d0e22718f24781e6045a1,
+main66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f. Exact Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38208688551:
+all7 jobsGREEN/app15368; Node22/24 each1386/84,8native0/audit0/coverage0;
+15first-attemptbrowser cases; producer/ZIPconsumer all26malicious+Unicode,
+23compiled/sevenincompatible and11functional checks/236reviewednotices.
+Actual8security+9service checks/19positive native0/threegracefulcompletions:
+restart newworker/finance andcrashrecovery persisted, exclusiveDBopening/native
+integrity passed, idempotentinstall/uninstall retaineddata, serviceRemovedtrue
+andfixtureCleanuptrue. UTF8marker andearlyPS5.1typedrefusal independentlyread.
+ZIP9b4580315145af52146cd29988df8cf0049adc9021c6536782860e4c31b739b5;
+immutable proof https://github.com/DongVienNguyen/Family-Organizer/pull/24#issuecomment-6118537588;
+fullsummary/hashes inevidence/f07-a-final.json. Earlier actual failures (including
+failedcleanup) retained; no assertions/skips/threshold relaxation. Onefreshreview,
+8Important+1Minor accepted/onepass/no rereview. AllPR1–24 attachments confirmed.
+
+Next F07-b: ordinary backup/export credential redaction and explicit offline
+credential reentry, preserving canonical users/tasks/finance/points/media,
+command IDs/results/dedupe and reward claims. Remaining F07 portable encrypted
+recovery/onebackup owner/age/diskfull/retention/offhost/Caddy/TLS/update/rollback,
+F08 preparation/F09 mapping/performance. F05 main enforcement403 still blocks
+foundation acceptance and feature work. Server2019/reboot/RPO/RTO are R02 unrun;
+no release/tag/VPS action. Work continues from cleanmain66b2caa.
+
+### F07-b — Ordinary backup credentials and explicit offline reentry (in progress)
+
+Base main SHA: `66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f` (reviewed F07-a PR24).
+Branch: `codex/f07-backup-credentials`. PR URL, source HEAD and exact Windows CI URL
+will be recorded after commit/run; no Windows pass is claimed for this working tree.
+
+JSON/ZIP exports and historical ordinary imports project the shared I01 snapshot:
+credential exclusion, preserved canonical IDs/claims/non-credential command cache,
+removed push capabilities, explicit missing-password reentry on existing users.
+The compiled operator and owned stopped-service PowerShell wrapper take bounded
+UTF8 stdin, with atomic validation and safe output. See
+[ordinary-backup-credentials.md](ordinary-backup-credentials.md).
+No dependency/runtime changes; existing lockfile is retained for `npm ci`.
+
+Actual Cloud RED evidence:3 ordinary-export assertions,2 historical-restore
+assertions,1 missing CLI mode,1 push-capability/verifier assertion,1 missing required
+privacy suite and1 missing operator package asset. A malformed SQL fixture initially
+failed before the capability assertion; this harness error is not counted as RED.
+Cloud targeted51 tests/4 files and typecheck passed before the full regression run.
+Full Cloud regression1411 tests/85 files passed, including deleted/unsupported-role
+refusal; final lint and build exited0. Fresh whole-branch review and Windows
+quality/browser/ZIP/service checks are pending; reports and logs are retained outside the tracked repository.
+
+F05 enforcement retry at2026-10-12T06:28:37Z still returnedHTTP403 for ruleset and
+branch protection despite the user's Administration:write authorization. Readback:
+`main` unprotected, no rulesets. Updated evidence is in
+`docs/engineering/evidence/f05-enforcement-blocked.json`; this requirement stays
+blocked. Independent F07/F08/F09 source can proceed; foundation acceptance and new
+feature tasks remain dependent on the enforcement requirement. Encrypted recovery,
+scheduler/off-host/retention and update/rollback are next focused F07 tasks. No
+release/tag, VPS access, Server2019/reboot or RPO/RTO acceptance has occurred.

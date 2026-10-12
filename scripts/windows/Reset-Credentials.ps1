@@ -1,0 +1,62 @@
+[CmdletBinding(SupportsShouldProcess=$true)]
+param([Parameter(Mandatory=$true)][string]$ReleaseRoot,[Parameter(Mandatory=$true)][string]$InstanceRoot,[Parameter(Mandatory=$true)][string]$ExpectedManifestSha256,[string]$ServiceId='FamilyOrganizer',[ValidateRange(1,65535)][int]$Port=3000,[switch]$ValidateOnly)
+. (Join-Path $PSScriptRoot 'ServiceCommon.ps1')
+$context=Get-ServiceContext $ReleaseRoot $InstanceRoot $ServiceId $Port $ExpectedManifestSha256
+Assert-ServiceMetadataAcl $context.marker
+$descriptor=Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json
+Assert-ServiceOwner $context $descriptor
+$service=Get-Service -Name $ServiceId -ErrorAction Stop
+if($service.Status -ne 'Stopped'){throw 'Credential reentry requires the owned service stopped'}
+$database=Join-Path $context.instance 'data/family.db'
+Assert-NoServiceReparse $database
+# Confirm all native SQLite handles are closed before accepting confidential stdin.
+$probe=[IO.File]::Open($database,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)
+$probe.Dispose()
+if($ValidateOnly -or !$PSCmdlet.ShouldProcess($context.instance,'Reenter missing credentials on existing user IDs')){return}
+Assert-ServiceAdministrator
+$inputStream=[Console]::OpenStandardInput()
+$memory=New-Object IO.MemoryStream
+$process=New-Object Diagnostics.Process
+$started=$false
+try{
+    # Bounded UTF8 stdin only: no passwords in arguments, environment, files or logs.
+    $buffer=New-Object byte[] 4096
+    $deadline=[DateTime]::UtcNow.AddSeconds(20)
+    while($true){
+        $remaining=[int][Math]::Max(0,($deadline-[DateTime]::UtcNow).TotalMilliseconds)
+        $read=$inputStream.ReadAsync($buffer,0,$buffer.Length)
+        if(!$read.Wait($remaining)){throw 'Credential input timeout'}
+        $count=$read.Result
+        if($count -eq 0){break}
+        if($memory.Length+$count -gt 16384){throw 'Credential input limit'}
+        $memory.Write($buffer,0,$count)
+    }
+    $info=New-Object Diagnostics.ProcessStartInfo
+    $info.FileName=$context.node
+    $info.Arguments='"'+(Join-Path $context.release 'app/dist/operator.cjs')+'" --reset-credentials'
+    $info.WorkingDirectory=Join-Path $context.release 'app'
+    $info.UseShellExecute=$false
+    $info.RedirectStandardInput=$true;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
+    $info.EnvironmentVariables.Remove('NODE_OPTIONS');$info.EnvironmentVariables.Remove('NODE_PATH')
+    $info.EnvironmentVariables['NODE_ENV']='production'
+    $info.EnvironmentVariables['APP_CODE_ROOT']=Join-Path $context.release 'app'
+    $info.EnvironmentVariables['DATA_DIR']=Join-Path $context.instance 'data'
+    $info.EnvironmentVariables['CONFIG_DIR']=Join-Path $context.instance 'config'
+    $info.EnvironmentVariables['LOG_DIR']=Join-Path $context.instance 'logs'
+    $process.StartInfo=$info
+    if(!$process.Start()){throw 'Credential operator could not start'}
+    $started=$true
+    $stdout=$process.StandardOutput.ReadToEndAsync();$stderr=$process.StandardError.ReadToEndAsync()
+    $memory.Position=0;$memory.CopyTo($process.StandardInput.BaseStream);$process.StandardInput.Close()
+    if(!$process.WaitForExit(30000)){$process.Kill();$process.WaitForExit();throw 'Credential operator timeout'}
+    $code=$process.ExitCode
+    $script:ServiceNativeResults.Add(@{phase='credential-reentry';exitCode=$code})
+    if($code -ne 0){throw "Credential operator native exit $code"}
+    # Only the authenticated operator's safe success result is printed.
+    $result=$stdout.Result.Trim() | ConvertFrom-Json
+    if(!$result.sessionsRevoked -or @($result.resetUserIds).Count -eq 0){throw 'Credential operator result invalid'}
+    $result | ConvertTo-Json -Compress
+}finally{
+    if($started -and !$process.HasExited){$process.Kill();$process.WaitForExit()}
+    $process.Dispose();$memory.Dispose()
+}

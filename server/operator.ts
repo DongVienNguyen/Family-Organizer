@@ -31,7 +31,21 @@ function identity(value:unknown){
   return {username,fullName,password};
 }
 async function main(){
-  if(process.argv.length!==2||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  const reset=process.argv.length===3&&process.argv[2]==='--reset-credentials';
+  if((process.argv.length!==2&&!reset)||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  if(reset){
+    const input=await readInput();
+    const {appConfig}=await import('./config.js');
+    if(!fs.existsSync(path.join(appConfig.dataRoot,'family.db')))refuse('CREDENTIAL_REENTRY_STORE_REQUIRED');
+    const sqlite=await import('./sqlite.js');
+    try{
+      const {reenterCredentials,CredentialResetError}=await import('./credentialReset.js');
+      let result;
+      try{result=reenterCredentials(input);}catch(error){if(error instanceof CredentialResetError)refuse(error.message);throw error;}
+      sqlite.sqliteCheckpoint();process.stdout.write(JSON.stringify(result)+'\n');
+    }finally{sqlite.sqliteClose();}
+    return;
+  }
   const admin=identity(await readInput());
   const {appConfig,prepareStorage}=await import('./config.js');
   prepareStorage(appConfig);

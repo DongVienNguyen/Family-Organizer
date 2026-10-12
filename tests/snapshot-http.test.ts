@@ -15,8 +15,9 @@ import * as sqlite from '../server/sqlite.js';
 import * as media from '../server/media.js';
 import * as fullBackup from '../server/fullBackup.js';
 import { createAuth } from '../server/auth.js';
+import {reenterCredentials} from '../server/credentialReset.js';
 import { NativeSessionStore } from '../server/authStore.js';
-function useNativeAuth(deps:any){deps.auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:db.getSessionSecret});}
+function useNativeAuth(deps:any){const admin=db.FamilyDB.getUsers().find(user=>user.role==='admin')!;if(!admin.passwordHash)reenterCredentials({users:[{id:admin.id,password:'Synthetic snapshot reentry passphrase'}]});deps.auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:db.getSessionSecret});}
 const repo=fileURLToPath(new URL('..',import.meta.url));
 function send(server:http.Server,pathname:string,body?:Buffer,token?:string,requestId=crypto.randomUUID()){
   let req:http.ClientRequest;
@@ -54,12 +55,12 @@ it.each(['zip','json'])('returns HTTP409 for changed %s restore input reusing a 
     if(format==='zip'){
       const first=await capture(),different=await capture();expect(different.equals(first)).toBe(false);
       expect((await send(runtime.server,'/api/admin/backups/full/import',first,token,id).promise).status).toBe(200);
-      expect(deps.auth.verify(token)).toBeNull();const fresh=deps.auth.issue(db.FamilyDB.getUsers().find(user=>user.role==='admin')!);
+      expect(deps.auth.verify(token)).toBeNull();reenterCredentials({users:[{id:user.id,password:'Synthetic snapshot reentry passphrase'}]});const fresh=deps.auth.issue(db.FamilyDB.getUsers().find(user=>user.role==='admin')!);
       expect((await send(runtime.server,'/api/admin/backups/full/import',different,fresh,id).promise).status).toBe(409);
     }else{
       db.FamilyDB.createBackup('manual',user.id,user.username);const backup=db.FamilyDB.getBackups()[0];
       expect((await send(runtime.server,`/api/admin/backups/${backup.id}/restore`,Buffer.from('{}'),token,id).promise).status).toBe(200);
-      expect(deps.auth.verify(token)).toBeNull();const fresh=deps.auth.issue(db.FamilyDB.getUsers().find(user=>user.role==='admin')!);
+      expect(deps.auth.verify(token)).toBeNull();reenterCredentials({users:[{id:user.id,password:'Synthetic snapshot reentry passphrase'}]});const fresh=deps.auth.issue(db.FamilyDB.getUsers().find(user=>user.role==='admin')!);
       expect((await send(runtime.server,'/api/admin/backups/synthetic-different/restore',Buffer.from('{}'),fresh,id).promise).status).toBe(409);
     }
   }finally{await runtime.close();}

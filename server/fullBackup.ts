@@ -9,11 +9,11 @@ import { Open } from 'unzipper';
 import { randomUUID } from 'node:crypto';
 import { FamilyDB, normalizeDB } from './db.js';
 import { withAppWriteTransaction } from './appStore.js';
-import { collectAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
+import { collectOrdinaryAppSnapshot, ordinaryAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
 import { snapshotLimits, validMediaPath, sha256 } from './snapshotFiles.js';
 const APP='family-organizer';
 export function streamFullBackup(out:NodeJS.WritableStream):Promise<void> {
-  const snapshot=withAppWriteTransaction({actorId:'system:snapshot',command:'core:snapshot:zip-read',requestId:randomUUID(),payloadHash:'shared-zip-v2'},collectAppSnapshot);
+  const snapshot=withAppWriteTransaction({actorId:'system:snapshot',command:'core:snapshot:zip-read',requestId:randomUUID(),payloadHash:'shared-zip-v2'},collectOrdinaryAppSnapshot);
   return new Promise((resolve,reject)=>{
     const archive=new ZipArchive({zlib:{level:6}});archive.on('error',reject);archive.on('warning',reject);out.on('error',reject);archive.on('end',resolve);archive.pipe(out);
     archive.append(JSON.stringify({app:APP,format:2,createdAt:snapshot.manifest.createdAt}),{name:'manifest.json'});
@@ -59,7 +59,7 @@ export async function importFullBackup(buffer:Buffer,userId:string,username:stri
     const legacy=parse('db.json');if(!legacy||!Array.isArray(legacy.users)||!Array.isArray(legacy.tasks))throw new Error('Invalid legacy backup records');
     snapshot=legacySnapshot(normalizeDB(legacy),media,parse('app_settings.json'));
   }
-  const report=await restoreAppSnapshot(snapshot,{...options,identity});
+  const report=await restoreAppSnapshot(ordinaryAppSnapshot(snapshot),{...options,identity});
   FamilyDB.logActivity(userId,username,'Phục hồi toàn phần','Đã khôi phục backup đã xác minh manifest và tệp media.');
   return report;
 }

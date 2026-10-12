@@ -112,3 +112,10 @@ Remaining gates include F04 auth/media/privacy/dependency audit, F05/F09 full
 browser/coverage/performance, F06 portable ZIP, F07 service/encrypted recovery,
 R02 Server2019 and all later domain/integration milestones. Windows2022 is not
 Server2019 acceptance. No release/tag or VPS access/deployment occurred.
+
+F07-b ordinary exports/imports additionally apply credential exclusion to this same
+snapshot engine; see [ordinary-backup-credentials.md](ordinary-backup-credentials.md).
+Internal raw snapshots remain available for the encrypted recovery work. Public
+ordinary restore never reinstates an old password or browser push capability,
+including from historical formats. Reentry is an explicit offline operator action
+on existing user IDs; review the restored roles before granting new credentials.
