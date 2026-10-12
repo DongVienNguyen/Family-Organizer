@@ -1,4 +1,4 @@
-# Script shell chạy trong container Linux — luôn LF dù checkout trên Windows
+# Historical shell scripts retain LF; Windows runtime does not invoke them.
 *.sh text eol=lf
 
 # Preserve verbatim upstream license byte hashes on every checkout.

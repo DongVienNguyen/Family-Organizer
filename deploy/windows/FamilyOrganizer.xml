@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service>
+  <id>FamilyOrganizer</id>
+  <name>Family Organizer</name>
+  <description>Family Organizer Windows native application</description>
+  <executable>C:\Program Files\FamilyOrganizer\releases\1.1.0\bin\node.exe</executable>
+  <arguments>&quot;C:\Program Files\FamilyOrganizer\releases\1.1.0\app\dist\server.cjs&quot;</arguments>
+  <workingdirectory>C:\Program Files\FamilyOrganizer\releases\1.1.0\app</workingdirectory>
+  <startmode>Automatic</startmode>
+  <delayedAutoStart/>
+  <stoptimeout>45 sec</stoptimeout>
+  <serviceaccount><domain>NT AUTHORITY</domain><user>LocalService</user></serviceaccount>
+  <onfailure action="restart" delay="5 sec"/>
+  <onfailure action="none"/>
+  <resetfailure>1 hour</resetfailure>
+  <logpath>C:\ProgramData\FamilyOrganizer\logs</logpath>
+  <log mode="roll-by-size"><sizeThreshold>10240</sizeThreshold><keepFiles>8</keepFiles></log>
+  <env name="NODE_ENV" value="production"/>
+  <env name="APP_CODE_ROOT" value="C:\Program Files\FamilyOrganizer\releases\1.1.0\app"/>
+  <env name="DATA_DIR" value="C:\ProgramData\FamilyOrganizer\data"/>
+  <env name="CONFIG_DIR" value="C:\ProgramData\FamilyOrganizer\config"/>
+  <env name="LOG_DIR" value="C:\ProgramData\FamilyOrganizer\logs"/>
+  <env name="HOST" value="127.0.0.1"/>
+  <env name="PORT" value="3000"/>
+  <env name="NODE_PATH" value=""/>
+  <env name="NODE_OPTIONS" value=""/>
+</service>

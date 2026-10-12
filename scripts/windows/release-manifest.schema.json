@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Family Organizer Windows package manifest format 1",
   "type": "object",
-  "required": ["format", "commitSha", "appVersion", "platform", "architecture", "runtime", "native", "schema", "files", "dependencies", "licensePolicy", "server2019Acceptance"],
+  "required": ["format", "commitSha", "appVersion", "platform", "architecture", "runtime", "native", "schema", "files", "dependencies", "licensePolicy", "service", "server2019Acceptance"],
   "properties": {
     "format": {"const": 1},
     "commitSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
@@ -15,6 +15,7 @@
     "files": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["path", "size", "sha256"], "properties": {"path": {"type": "string"}, "size": {"type": "integer", "minimum": 0}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
     "dependencies": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["name", "version", "path", "license", "licenseFiles"]}},
     "licensePolicy": {"type": "object", "required": ["version", "terms", "httpEce", "mplSource"], "properties": {"version": {"const": 1}, "terms": {"type": "array", "minItems": 2}, "httpEce": {"type": "object", "required": ["path", "version", "commitSha", "blobSha", "sha256"]}, "mplSource": {"type": "object", "required": ["dependencyPath", "version", "noticeSha256", "files"]}}},
+    "service": {"type": "object", "required": ["version", "asset", "sha256", "licenseSha256", "frameworkMinRelease", "framework", "nodeExeSha256"]},
     "server2019Acceptance": {"const": "not-run"}
   },
   "$comment": "package-contract.mjs adds exact runtime/schema pins, path/size budgets, required assets, hash relations and license byte inventory. This schema alone does not prove those cross-field checks."

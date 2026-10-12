@@ -716,3 +716,18 @@ compiled preservation fixtures passed in Cloud. Corrected exactWindows pending.
 
 - Corrected `9153d723bf243a7af7461137a02eb2602e45e334` / https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38202918037: producer success with reviewed original notice pins, both quality success; clean consumer native validation1/cleanuptrue because independent harness omitted reviewed-notices.mjs. Later positive consumer checks did not run. Actual job log/report/hashes saved in evidence/f06-c-consumer-failure.json; overall CI not accepted.
 - Same correction pass fixes harness closure. Actual isolated workflow-defined import1RED/40pass then41GREEN;160target/1362full83files and lint/build0 on Cloud. Next exact-HEAD Windows run pending, no skipped assertions/continue-on-error/re-review.
+
+## F06-c — Final verified merge
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/23; exact reviewed/tested HEAD `1c34994de03716a76c9afc578539fdc1493e4136`; Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38203277836 all6jobs success. Both1362/83/all8native0/audit0/23compiled+7preservation proofs;15browser first-attempt/104coverage unchanged floors. All raw reports/JSON/JUnit/LCOV/source bytes/ZIP hashes independently read before merge.
+- ZIP54,237,390bytes/4563assets/236runtime dependencies SHA256 `8e049cf3b039a64d7f97a76e617a627a69a40683630a007c4b854ad05e5213db`; actual clean consumer verifies every reviewed original notice hash, three complete MIT README notices, original http_ece notice and full MPL/Apache terms/eight original MPL source files. Runtime/native unchanged;26archive refusals/Unicode positive/expected producer refusal1/23compiled+11functional proofs/both cleanups.
+- Full logs `f1ac09bce4c138e433a785c49ef563e06ffe42f3b9b12655277c10b15f70de5d`; immutable proof https://github.com/DongVienNguyen/Family-Organizer/pull/23#issuecomment-6117726946; authorized main squash `05a59962da1a2459e0f08fc79de94512dc1625cd`. Failed run38202918037 retained; no acceptance of unrun consumer checks.
+- Latest authorized main-policy retry still POST403/PUT403/mainprotectedfalse/rulesets[]. F05 enforcement remains blocked; no full foundation/Server2019/legal compatibility certification. Next F07 service start/stop/restart/recovery and least-privilege ACL; encrypted recovery/update/rollback/F08/F09/R02 still pending. No release/tag/VPS.
+
+## F07-a — Windows service
+
+- Base/main `05a59962da1a2459e0f08fc79de94512dc1625cd`, branch codex/f07-windows-service. Source/review/Windows evidence pending.
+- Pin official stable WinSW2.12.0 NET461 managed wrapper SHA256 `b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f`, asset93386826. Require supported .NET Framework4.8+ (Release>=528040), not an obsolete self-contained runtime. Exact original WinSW MIT notice retained SHA256 `1cdf703c10a70e5973bf3acf2a5eeabe7746237155b92db2034aeae26fdf7802`.
+- Target focused work: owned idempotent service installation/removal, ValidateOnly/WhatIf, LocalService plus per-service SID ACL, rotation, automatic start/recovery; disposable actualWindows start/stop/restart/crash-recovery/closed-handle/cleanup proof. Server2019/reboot acceptance stays R02; no production service or VPS access.
+
+- F07-a source:3render RED +1mandatory suite RED witnessed,23service cases/184target/1386full84files pass on Cloud, lint/build0. Service job added to requiredci-gate; native SCM/start/stop/recovery/ACL/closed handles remain unrun until actualWindows. Source and official asset/license provenance hashes in evidence/f07-a-source.json; fresh review/PR/run pending. No dependency version/lockfile change.
