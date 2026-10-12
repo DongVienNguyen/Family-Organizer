@@ -2046,7 +2046,7 @@ app.get("/api/shopping", requireAuth, (req: AuthRequest, res: Response) => {
 
 app.post("/api/shopping", requireAuth, (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
-  if (!req.body.id && (!req.body.name || !req.body.name.trim())) {
+  if (!req.body.id && (typeof req.body.name !== "string" || !req.body.name.trim())) {
     res.status(400).json({ error: "Vui lòng nhập tên món đồ cần mua!" });
     return;
   }

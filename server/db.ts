@@ -2324,7 +2324,7 @@ export class FamilyDB {
     }
 
     const newItem: ShoppingItem = {
-      id: `shop_${Date.now()}`,
+      id: `shop_${Date.now()}_${crypto.randomUUID()}`,
       name: (data.name || "Món đồ").trim(),
       quantity: data.quantity?.trim() || "",
       note: data.note?.trim() || "",

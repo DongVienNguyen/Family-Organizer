@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { browserProjects, validateBrowserReports } from './browser-contract.mjs';
+import { browserProjects, browserCases, validateBrowserReports } from './browser-contract.mjs';
 
 fs.mkdirSync('reports', { recursive: true });
 const errors = [];
@@ -35,4 +35,4 @@ function record(directory) {
 record('reports');
 fs.writeFileSync('reports/browser-evidence.json', JSON.stringify({ ...expected, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT), checks, engines, manifest, reportSha256: hashes['browser.json'], hashes, errors }, null, 2));
 if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1; }
-else console.log('All 15 required browser cases passed on their first attempt; cleanup and evidence verified.');
+else console.log(`All ${browserProjects.length * browserCases.length} required browser cases passed on their first attempt; cleanup and evidence verified.`);
