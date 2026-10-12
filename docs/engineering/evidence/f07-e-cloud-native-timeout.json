@@ -1,0 +1,54 @@
+{
+  "taskId": "F07-e",
+  "kind": "Cloud-only native GC timeout investigation",
+  "initial": {
+    "tests": 1544,
+    "passed": 1543,
+    "failed": 1,
+    "files": 89,
+    "nativeExitCode": 1,
+    "failedTest": "tests/native-gc.test.ts: survives allocation-driven SQLite statement finalization without a native abort"
+  },
+  "isolatedTest": {
+    "exitCode": 1,
+    "error": "ETIMEDOUT after unchanged15000ms timeout"
+  },
+  "directNativeProbe": {
+    "exitCode": 0,
+    "message": "allocation-driven native statement cleanup passed"
+  },
+  "standaloneSpawnSyncDiagnostics": [
+    {
+      "cwd": "repository",
+      "exitCode": 0,
+      "elapsedMs": 7338.781222
+    },
+    {
+      "cwd": "synthetic-temp",
+      "exitCode": 0,
+      "elapsedMs": 7784.084604999999
+    }
+  ],
+  "observedCpu": {
+    "quotaCores": 4,
+    "nodeAvailableParallelism": 4
+  },
+  "fullAggregateWithTwoWorkers": {
+    "tests": 1544,
+    "passed": 1544,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 89,
+    "exitCode": 0
+  },
+  "sourceTestAssertionsTimeoutsChanged": false,
+  "causeLimit": "Timing/resource variation is consistent with these measurements, but its exact root cause is not independently established. No native abort was observed; Windows exact-HEAD remains required.",
+  "reportHashes": {
+    "f07-e-cloud-initial-failure-vitest.json": "a356819553dfc1f152273f6486592dacc96132b5080b1b324efed9a499c5bf89",
+    "f07-e-native-gc-diagnostic.log": "45021df9195ff62cd155fefcdbede67e5466d84f300a92491b3c23ec46e2259e",
+    "f07-e-native-gc-direct.log": "554dfd6cc308ca3ff21785a32c7975ee21a8e4bb1eced3f32257b09b818ac373",
+    "f07-e-spawn-gc.log": "7dd91dc6f2b8c67183c9f668a6d1b9f978299c3162ec8104881bf8053f6e8029",
+    "f07-e-cloud-vitest.json": "bbcdd740a1d0cda449b222402daa6fd5df6b379440273caaa137bb30f1867b19"
+  }
+}

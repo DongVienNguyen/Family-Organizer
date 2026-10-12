@@ -1,0 +1,127 @@
+{
+  "taskId": "F07-e",
+  "reviewedHeadSha": "4094b28d87dac5503f6efa91282be114fd9153e6",
+  "reviewer": "one fresh read-only gpt-6-astra high wholebranch review",
+  "critical": 0,
+  "important": 0,
+  "minor": 2,
+  "allFindingsGradedBeforeCorrection": true,
+  "findings": [
+    {
+      "severity": "Minor",
+      "grade": "accepted",
+      "trigger": "Process exits at staging-complete before old journal publication",
+      "consequence": "Plaintext signing-key stage remains undiscoverable inside protected CONFIG_DIR",
+      "correction": "Publish the existing shared journal before writing staging bytes; normal recovery removes orphanable stages using the same SQL marker",
+      "actualRedTests": 2,
+      "sourceProvenance": "New signing-key plaintext stage inherits pre-journal crash cleanup gap"
+    },
+    {
+      "severity": "Minor",
+      "grade": "accepted",
+      "trigger": "Early EOF or native read failure after a partial key read, including growth probe",
+      "consequence": "Caller never receives partially filled key buffer and cannot clear it",
+      "correction": "Retain ownership and clear failed key and EOF probe buffers, including close failures; successful caller ownership unchanged",
+      "actualRedTests": 3,
+      "sourceProvenance": "New bounded reader"
+    }
+  ],
+  "correctionPasses": 1,
+  "secondReview": false,
+  "actualRedExitCode": 1,
+  "targetGreen": {
+    "tests": 114,
+    "files": 4,
+    "exitCode": 0
+  },
+  "coverageLimitationsNotSourceFindings": [
+    "initially absent target-key crash cases",
+    "committed-key tamper/hash/size/removal negatives"
+  ],
+  "declinedToJudge": [
+    "Windows execution",
+    "NTFS ACL enforcement",
+    "Windows crash durability",
+    "live providers",
+    "independent execution of test results"
+  ],
+  "externalGates": [
+    "F05 Administration403",
+    "remainingF07/F08/F09",
+    "Server2019/reboot/RPO/RTO",
+    "release/tag/VPS not authorized"
+  ],
+  "correctedFullCloud": {
+    "tests": 1549,
+    "files": 89,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "nativeExitCodes": {
+      "test": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reportHashes": {
+      "f07-e-review-vitest.json": "d56e0106a21c0c9fa5232752fb5ede228029b207b879fe90cf5f9611d6109056",
+      "f07-e-review-red.log": "56193968ece668d16b47e275fa066ce04eb4db079dae353e3c8aa0b10d0e1f54",
+      "f07-e-review-target-green.log": "e7300b0b69664f1c8a9c549306df44f5d50b39833087ee44d9b9bfe7639369cd",
+      "f07-e-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-e-review-build.log": "69474fd9bc09811982e75c52e86eb60f6d0b7cf6f356ddb8786d8e4c7f6d4c8d"
+    }
+  },
+  "correctedCompiledCloud": {
+    "platform": "linux",
+    "windowsEvidence": false,
+    "functionalChecks": 14,
+    "rawRecoveryChecks": 6,
+    "privateSettingsChecks": 6,
+    "signingKeyChecks": 6,
+    "allCompleted": true,
+    "signingNativeExitCodes": [
+      {
+        "phase": "signing-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-raw-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-restore",
+        "exitCode": 0
+      }
+    ],
+    "reportHashes": {
+      "functional": "e171ca710bc0c7962b4bcc828cc8ee4203694eba43f964ba7d84270fec29357b",
+      "recovery": "99cb8c0cd6ca1db126df827f61965d05c7aa453016d5c8a7c057d51a85c79b62",
+      "private-settings": "e29b51d8130d13745df45744ca2a91b49f9cb5553eb0c9909a85d31db76d70a7",
+      "signing-key": "9d35fd79122a98fa326f6107c80712a8661739b4296f29d0e0959ed7a25e77be"
+    }
+  }
+}
