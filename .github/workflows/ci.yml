@@ -79,6 +79,23 @@ jobs:
           @{ commitSha = $env:TEST_COMMIT_SHA; phase = 'release-evidence-missing-refusal'; expectedExitCode = 1; actualExitCode = $nativeCode } | ConvertTo-Json | Set-Content reports/release-policy-native.json
           if ($nativeCode -ne 1) { throw 'Release evidence verifier did not propagate native refusal' }
           exit 0 # The required refusal was verified; do not leave the child's expected exit1 as the step result.
+      - name: Windows PowerShell handled absent sidecar exit regression
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $env:FO_SYNTHETIC_MISSING_SIDECAR = Join-Path $env:RUNNER_TEMP ('missing-sidecar-' + [guid]::NewGuid())
+          $script = '$ErrorActionPreference="Stop"; try { $file=[IO.File]::Open($env:FO_SYNTHETIC_MISSING_SIDECAR,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None); $file.Dispose() } catch [IO.FileNotFoundException] { if([IO.File]::Exists($env:FO_SYNTHETIC_MISSING_SIDECAR)){throw} }'
+          $beforeOutput = @(& powershell.exe -NoProfile -NonInteractive -Command $script 2>&1)
+          $beforeCode = $LASTEXITCODE
+          if ($beforeCode -ne 1 -or $beforeOutput.Count -ne 0) { throw 'Expected handled missing-file exit1 without error output' }
+          $afterOutput = @(& powershell.exe -NoProfile -NonInteractive -Command ($script + '; Write-Output "SIDECAR_ABSENT_VERIFIED"; exit 0') 2>&1)
+          $afterCode = $LASTEXITCODE
+          if ($afterCode -ne 0 -or $afterOutput.Count -ne 1 -or $afterOutput[0] -cne 'SIDECAR_ABSENT_VERIFIED') { throw 'Handled missing-file completion was not verified' }
+          @{ commitSha = $env:TEST_COMMIT_SHA; beforeExitCode = $beforeCode; beforeOutputEmpty = $true; afterExitCode = $afterCode; marker = $afterOutput[0] } | ConvertTo-Json | Set-Content reports/release-sidecar-native.json
+          Remove-Item Env:FO_SYNTHETIC_MISSING_SIDECAR
+          exit 0
       - name: Dependency advisory audit
         id: audit
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
