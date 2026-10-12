@@ -241,6 +241,8 @@ jobs:
           if ($report.exitCode -ne 1 -or $report.nativeExitCodes.git -ne 0 -or !$report.fixtureCleanup -or $report.failure -notmatch 'source SHA mismatch' -or (Test-Path reports/package-build/negative-producer/family-organizer-win-x64.zip)) {
             throw 'Producer failure/native/cleanup evidence rejected'
           }
+          # The native exit1 is expected only after all refusal assertions above pass.
+          exit 0
       - name: Build verified Windows ZIP
         run: ./scripts/windows/Build-Package.ps1 -CommitSha $env:TEST_COMMIT_SHA -OutputDirectory reports/package-build
       - name: Prepare independent consumer harness
