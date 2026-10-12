@@ -8,8 +8,11 @@ const source = fs.readFileSync(new URL('../scripts/ci/write-evidence.mjs', impor
 const sha = '1234567890123456789012345678901234567890';
 const lockText='synthetic frozen lockfile';
 const lockHash=createHash('sha256').update(lockText).digest('hex');
+const coverageFloor={lines:1,statements:1,functions:1,branches:1};
+const coveragePolicyText=JSON.stringify({schema:1,providerVersion:'4.1.11',floors:{'v24.21.0':coverageFloor}});
 const suiteNames = [
   'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
+  'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
   'server/jobStore.test.ts', 'server/appJobs.durable.test.ts', 'server/pushOutbox.test.ts', 'server/pushDelivery.test.ts', 'server/providerJobs.test.ts', 'server/pushTransport.test.ts', 'server/auth.test.ts', 'server/authStore.test.ts', 'server/authHttp.test.ts', 'src/utils/clientSession.test.ts', 'src/utils/sessionBoundary.test.ts', 'src/utils/privateStorage.test.ts', 'src/utils/privacyWorker.test.ts', 'src/utils/serviceWorkerWatch.test.ts', 'tests/sw-cache.test.ts', 'server/realtimeHttp.test.ts', 'server/realtime.test.ts', 'server/legacyVisibility.test.ts', 'src/utils/realtimeClient.test.ts', 'tests/ui/realtime-session.test.ts', 'tests/ui/session-bootstrap.test.ts', 'tests/ui/session-actions.test.ts', 'src/utils/uploadImage.test.ts', 'src/utils/pdfExport.test.ts', 'server/appSnapshot.test.ts', 'server/fullBackup.test.ts', 'tests/snapshot-recovery.test.ts', 'tests/snapshot-http.test.ts',
@@ -24,6 +27,11 @@ const suiteNames = [
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
   const reports: Record<string, any> = {
+    'coverage/coverage-final.json': {synthetic:true},
+    'coverage/coverage-summary.json': {synthetic:true},
+    'coverage/lcov.info': 'synthetic LCOV',
+    'coverage/index.html': 'synthetic HTML',
+    'coverage-evidence.json': {commitSha:sha,nodeVersion:'v24.21.0',platform:'win32',architecture:'x64',providerVersion:'4.1.11',lockSha256:lockHash,baselineSha256:createHash('sha256').update(coveragePolicyText).digest('hex'),sourceInventory:[{path:'server/synthetic.ts',sha256:'c'.repeat(64)}],errors:[],floor:coverageFloor,total:Object.fromEntries(['lines','statements','functions','branches'].map(name=>[name,{total:1,covered:1,skipped:0,pct:100}]))},
     'audit.json':{vulnerabilities:{},metadata:{vulnerabilities:{info:0,low:0,moderate:0,high:0,critical:0,total:0}}},
     'audit-context.json':{commitSha:sha,nodeVersion:'v24.21.0',platform:'win32',architecture:'x64',lockSha256:lockHash},
     'toolchain.json': { npmVersion: '11.19.0', visualStudioVersion: '17.14.37710.0' },
@@ -45,6 +53,9 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
   };
   for (const check of ['install', 'native', 'lint', 'test', 'build', 'production','audit']) reports[`${check}-exit.json`] = { exitCode: 0 };
   reports['audit-exit.json'].nativeAuditExitCode=0;
+  reports['coverage-exit.json']={exitCode:0,nativeCoverageExitCode:0};
+  reports['coverage-evidence.json'].sourceInventorySha256=createHash('sha256').update(JSON.stringify(reports['coverage-evidence.json'].sourceInventory)).digest('hex');
+  reports['coverage-evidence.json'].reportHashes=Object.fromEntries(['coverage-final.json','coverage-summary.json','lcov.info','index.html'].map(name=>[name,createHash('sha256').update(JSON.stringify(reports['coverage/'+name])).digest('hex')]));
   change(reports);
   const writes: Record<string, string> = {};
   const processFixture = {
@@ -55,7 +66,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
       EXPECTED_SQLITE_ADDON: '13.0.3',
       TEST_COMMIT_SHA: sha, GITHUB_RUN_ATTEMPT: '1',
       CHECK_INSTALL: 'success', CHECK_NATIVE: 'success', CHECK_LINT: 'success', CHECK_TEST: 'success', CHECK_BUILD: 'success',
-      CHECK_PRODUCTION: 'success', CHECK_AUDIT:'success',
+      CHECK_PRODUCTION: 'success', CHECK_AUDIT:'success', CHECK_COVERAGE:'success',
     },
   };
   vm.runInNewContext(source, {
@@ -63,7 +74,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     execFileSync: () => sha, os: { type: () => 'Windows_NT', release: () => '10.0.20348' },
     fs: {
       mkdirSync: () => {}, existsSync: (file: string) => file === 'reports/junit.xml' || file.slice(8) in reports,
-      readFileSync: (file: string) => file === 'package-lock.json'?lockText:file === 'reports/junit.xml' ? '<testcase name="synthetic" />' : JSON.stringify(reports[file.slice(8)]),
+      readFileSync: (file: string) => file === 'docs/engineering/evidence/windows-coverage-baseline.json'?coveragePolicyText:file === 'package-lock.json'?lockText:file === 'reports/junit.xml' ? '<testcase name="synthetic" />' : JSON.stringify(reports[file.slice(8)]),
       writeFileSync: (file: string, text: string) => { writes[file] = text; },
     },
   });
@@ -71,6 +82,22 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
 }
 
 describe('Windows CI evidence gate', () => {
+  it.each(['commitSha','nodeVersion','platform','architecture','providerVersion','lockSha256','baselineSha256','sourceInventorySha256'])('rejects mismatched coverage %s', name => {
+    expect(runEvidence(reports=>{reports['coverage-evidence.json'][name]='invalid';}).code).toBe(1);
+  });
+  it.each(['coverage-evidence.json','coverage-exit.json','coverage/coverage-final.json','coverage/coverage-summary.json','coverage/lcov.info','coverage/index.html'])('rejects missing coverage %s', name => {
+    expect(runEvidence(reports=>{delete reports[name];}).code).toBe(1);
+  });
+  it.each([-1,1,null])('rejects a nonzero or absent native coverage exit %s', code => {
+    expect(runEvidence(reports=>{reports['coverage-exit.json'].nativeCoverageExitCode=code;}).code).toBe(1);
+  });
+  it('rejects remaining coverage errors',()=>{expect(runEvidence(reports=>{reports['coverage-evidence.json'].errors=['synthetic mismatch'];}).code).toBe(1);});
+  it('rejects an empty coverage inventory',()=>{expect(runEvidence(reports=>{reports['coverage-evidence.json'].sourceInventory=[];}).code).toBe(1);});
+  it('rejects a lowered unmeasured coverage floor',()=>{expect(runEvidence(reports=>{reports['coverage-evidence.json'].floor={...coverageFloor,branches:0};}).code).toBe(1);});
+  it('rejects changed coverage report bytes',()=>{expect(runEvidence(reports=>{reports['coverage/lcov.info']='changed';}).code).toBe(1);});
+  it.each(['tests/coverage-evidence.test.ts','tests/coverage-input.test.ts'])('requires coverage regression suite %s', name => {
+    expect(runEvidence(reports => { reports['vitest.json'].testResults = reports['vitest.json'].testResults.filter((suite: any) => !suite.name.endsWith(name)); }).evidence.errors).toContain(`required suite missing: ${name}`);
+  });
   it.each(['tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts'])('requires the browser harness regression suite %s', name => {
     const result = runEvidence(reports => { reports['vitest.json'].testResults = reports['vitest.json'].testResults.filter((suite: any) => !suite.name.endsWith(name)); });
     expect(result.evidence.errors).toContain(`required suite missing: ${name}`);

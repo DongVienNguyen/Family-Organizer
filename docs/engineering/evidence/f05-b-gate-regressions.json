@@ -1,0 +1,32 @@
+{
+  "task": "F05-b",
+  "coverageContract": {
+    "observedNewContractRedCases": 40,
+    "green": 41
+  },
+  "aggregateGate": {
+    "observedNewContractRedCases": 23,
+    "existingPositive": 82,
+    "green": 105
+  },
+  "sourceInventoryCharacterizations": 5,
+  "combinedTarget": 151,
+  "cloudFull": {
+    "passed": 1215,
+    "files": 80,
+    "skipped": 0,
+    "buildExit": 0,
+    "lintExit": 0,
+    "auditExit": 0
+  },
+  "cloudOnly": true,
+  "logSha256": {
+    "f05-b-quality-gate-red.log": "9eb995733de4c40cb04b15359aa7ff2c503d8a549c0eefea539ac5adf89d263b",
+    "f05-b-gates-green.log": "ca9192586d70d0b82800fead8d48a4f0ce54cc3a473c6278b032e5750924dcf3",
+    "f05-b-gates-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f05-b-cloud-final-tests.log": "992351197148013d13761c143367a00549f36517bb0f687dbf9cc28b5efee0df",
+    "f05-b-cloud-final-vitest.json": "2a2b37bdac95024c7befccf8b34140c3c11faf41d8f0621e508021f75a651685",
+    "f05-b-cloud-final-build.log": "6f140d3b1d3d37427743de79d466016b68c2863fe1815d8e524d1af8b6f2f7a5",
+    "f05-b-cloud-final-audit.json": "e39fa33794a0732d11d4f0f0e3469c9456ee2f1822d344dd0ed9c402eb5b9832"
+  }
+}

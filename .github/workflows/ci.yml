@@ -86,6 +86,10 @@ jobs:
         id: build
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: ./scripts/ci/Invoke-Check.ps1 -Check build
+      - name: Validate measured coverage ratchets
+        id: coverage
+        if: ${{ !cancelled() && steps.test.outcome == 'success' }}
+        run: ./scripts/ci/Test-Coverage.ps1
       - name: Production layout from System32 and denied-write startup
         id: production
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
@@ -98,6 +102,7 @@ jobs:
           CHECK_NATIVE: ${{ steps.native.outcome }}
           CHECK_LINT: ${{ steps.lint.outcome }}
           CHECK_TEST: ${{ steps.test.outcome }}
+          CHECK_COVERAGE: ${{ steps.coverage.outcome }}
           CHECK_BUILD: ${{ steps.build.outcome }}
           CHECK_PRODUCTION: ${{ steps.production.outcome }}
         run: |

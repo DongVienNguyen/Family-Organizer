@@ -1,25 +1,39 @@
 # F05-b: coverage baseline and ratchet
 
-Measurement is in progress; no coverage acceptance or frozen Windows threshold
-is claimed yet. The quality job runs the full Vitest suite with the matching
-dev-only coverage-v8 4.1.11 provider. Coverage includes every production TS/TSX
-file in src/server; tests and type-only declarations are excluded, and no ignore
-pragmas are present. JSON detail/summary, LCOV and HTML are retained under
-reports/coverage with the existing always-uploaded quality evidence.
+Windows measurement at HEAD `5b83bcadd9254c9534c4ed52c80b03c355432632`
+passed in [run38191398754](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38191398754).
+Both Node22.23.3 and Node24.21.0 passed1146/1146 tests in78files, all seven
+native checks, audit0 and22 compiled proofs. All15 browser cases passed on their
+first attempt. Three artifacts, full logs, raw coverage counters, complete source
+inventory and LCOV were independently read; this was measurement, not gate acceptance.
 
-The first Cloud diagnostic passed1146tests/78files, npmci/audit0/lint/build and
-accounted for all104source files. Its totals are31.48%lines,33.73%statements,
-31.64%functions and28.52%branches. These figures measure in-process Vitest
-execution; actual browser and compiled/native-process behavior has separate
-functional evidence. Low coverage in unmounted legacy React components remains
-visible. No files/assertions are removed to improve the percentages.
+The matching dev-only coverage-v8 4.1.11 provider includes all104 production
+TS/TSX files under src/server, including unexecuted files. Only tests and type
+ declarations are excluded. The native gate rejects symlinks and coverage ignore
+pragmas; missing reports, source files, inconsistent counters/percentages or LCOV
+fail CI. JSON detail/summary, LCOV and HTML remain in always-uploaded reports/coverage.
 
-The Node22/24 Windows measurements must be read independently before freezing
-the ratchet. The final gate will reject missing reports, inconsistent raw
-counters/LCOV/source inventories and percentages below the measured baseline.
-New domain branches require acceptance-invariant tests; coverage percentages
-alone do not prove all behavior. This draft measurement stage will not be merged
-as completed F05-b before that gate and exact-HEAD Windows proof exist.
+| Metric | Windows covered/total | Required floor on both pinned runtimes |
+|---|---|---|
+| Lines |3465/11005|31.48%|
+| Statements |4737/14043|33.73%|
+| Functions |983/3106|31.64%|
+| Branches |3073/10768|28.53%|
+
+The measured policy and raw report hashes are in
+[evidence/windows-coverage-baseline.json](evidence/windows-coverage-baseline.json).
+Each native coverage check validates the actual source bytes, provider, lockfile,
+policy, requested HEAD/runtime and four raw reports. Its immediate native exit
+is checked separately from the wrapper exit. The aggregate quality writer requires
+this eighth check and both coverage regression suites. Floors cannot be lowered
+to make a failure green; runtime/provider changes require reviewed Windows measurement.
+
+The Cloud diagnostic branches figure is28.52%, one covered branch fewer than
+Windows. Cloud is development evidence only. In-process Vitest coverage does not
+include compiled-process/browser execution; those have separate functional proof.
+Unmounted legacy React components retain visible low coverage. Percentages alone
+do not prove all behavior; new domain branches need acceptance-invariant tests.
+Final gated Windows HEAD and the fresh whole-branch review are still pending.
 
 Npm caches now use explicit Windows architecture/Node/npm/lockfile keys via
 the official SHA-pinned actions/cache v5. Only npm tarballs are cached, with no
