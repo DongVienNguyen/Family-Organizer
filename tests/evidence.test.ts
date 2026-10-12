@@ -18,7 +18,7 @@ const suiteNames = [
   'server/config.test.ts', 'tests/data-migration.test.ts', 'tests/native-scripts.test.ts',
   'tests/native-paths.test.ts', 'tests/native-gc.test.ts',
   'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
-  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'tests/httpDependencySecurity.test.ts', 'tests/account-initialization.test.ts', 'tests/librarySecurity.test.ts',
+  'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'tests/httpDependencySecurity.test.ts', 'tests/account-initialization.test.ts', 'tests/librarySecurity.test.ts', 'server/weeklyDigestPrivacy.test.ts', 'server/weeklyDigestHttp.test.ts',
 ];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -34,7 +34,7 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
     'production.json': {
       commitSha: sha, nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64',
       checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets',
-        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account'],
+        'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy'],
     },
     'vitest.json': {
       success: true, numTotalTests: suiteNames.length, numPassedTests: suiteNames.length,
@@ -165,3 +165,6 @@ it('rejects an audit of another HEAD',()=>{expect(runEvidence(reports=>{reports[
 it.each([['nodeVersion','v22.23.3'],['platform','synthetic-other-platform'],['architecture','arm64']])('rejects audit context with mismatched %s',(field,value)=>{expect(runEvidence(reports=>{reports['audit-context.json'][field]=value;}).code).toBe(1);});
 
 it.each([undefined,-1,1,null])('rejects missing or contradictory native audit exit %s despite wrapper exit0',value=>{const result=runEvidence(reports=>{if(value===undefined)delete reports['audit-exit.json'].nativeAuditExitCode;else reports['audit-exit.json'].nativeAuditExitCode=value;});expect(result.code).toBe(1);expect(result.evidence.errors).toContain('audit: missing or nonzero native exit evidence');});
+
+it.each(['server/weeklyDigestPrivacy.test.ts','server/weeklyDigestHttp.test.ts'])('requires the provider privacy suite %s',name=>{const result=runEvidence(reports=>{const tests=reports['vitest.json'];tests.testResults=tests.testResults.filter((suite:any)=>!suite.name.endsWith(name));tests.numTotalTests--;tests.numPassedTests--;});expect(result.code).toBe(1);expect(result.evidence.errors).toContain('required suite missing: '+name);});
+it('requires the compiled provider digest privacy proof',()=>{const result=runEvidence(reports=>{reports['production.json'].checks=reports['production.json'].checks.filter((check:string)=>check!=='provider-digest-privacy');});expect(result.code).toBe(1);expect(result.evidence.errors).toContain('production probe check missing: provider-digest-privacy');});

@@ -15,9 +15,12 @@
 //   telegramWeeklyDigestLastSent — "YYYY-MM-DD" của thứ Hai đã gửi (dedupe)
 
 import { FamilyDB, getAppSettings, setAppSetting } from "./db.js";
-import { TaskStatus } from "../src/types.js";
+import { TaskStatus, UserRole } from "../src/types.js";
 import { AppDeliveryError } from './appErrors.js';
 import { postTelegram } from './telegramDelivery.js';
+import {canViewLegacyDocument,canViewLegacyTask,canViewLegacyPlan,type LegacyActor} from './legacyVisibility.js';
+import {isActiveAuthUser} from './auth.js';
+import {getAppCommandContext} from './commandContext.js';
 
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 
@@ -72,8 +75,9 @@ interface DigestData {
   expiringDocs: Array<{ title: string; owner: string; daysUntil: number; dateLabel: string }>;
 }
 
-function buildDigestData(now: Date): DigestData {
-  const db = FamilyDB["readRaw"]();            // truy cập nội bộ
+function buildDigestData(now: Date, actor:LegacyActor): DigestData {
+  const raw = FamilyDB["readRaw"]();
+  const db={...raw,tasks:raw.tasks.filter(row=>canViewLegacyTask(row,actor)),plans:raw.plans.filter(row=>canViewLegacyPlan(row,actor)),documents:raw.documents.filter(row=>canViewLegacyDocument(row,actor))};            // truy cập nội bộ
   const todayStr = localDateKey(now);
 
   // ── Tuần trước (7 ngày qua) ──────────────────────────────────────────────
@@ -88,7 +92,7 @@ function buildDigestData(now: Date): DigestData {
 
   let income = 0;
   let expense = 0;
-  const catMap: Record<string, number> = {};
+  const catMap: Record<string, number> = Object.create(null);
   for (const tx of recentTxs) {
     if (tx.type === "income") income += tx.amount;
     else {
@@ -99,7 +103,7 @@ function buildDigestData(now: Date): DigestData {
   const topExpense = Object.entries(catMap)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 3)
-    .map(([cat, total]) => ({ cat: CATEGORY_LABEL[cat] || cat, total }));
+    .map(([cat, total]) => ({ cat: Object.hasOwn(CATEGORY_LABEL,cat)?CATEGORY_LABEL[cat]:cat, total }));
 
   // ── Task quá hạn / sắp hạn ───────────────────────────────────────────────
   const userMap: Record<string, string> = {};
@@ -221,7 +225,7 @@ function buildFallbackText(d: DigestData): string {
     lines.push(`  Chênh lệch: ${sign}${fmt(balance)}`);
   }
   if (d.topExpense.length > 0) {
-    lines.push(`  Top chi: ${d.topExpense.map(e => `${e.cat} ${fmt(e.total)}`).join(" · ")}`);
+    lines.push(`  Top chi: ${d.topExpense.map(e => `${escapeHtml(e.cat)} ${fmt(e.total)}`).join(" · ")}`);
   }
   lines.push("");
 
@@ -287,11 +291,26 @@ function buildFallbackText(d: DigestData): string {
   return lines.join("\n");
 }
 
+/** Preserve short formatting; long fallback is entity-safe plain HTML text. */
+function boundTelegramHtml(html:string):string {
+  if(html.length<=4096)return html;
+  const plain=html.replace(/<\/?b>/g,'');
+  let text='';
+  for(const unit of plain.matchAll(/&(?:amp|lt|gt);|[\s\S]/gu)) {
+    if(text.length+unit[0].length>4094)break;
+    text+=unit[0];
+  }
+  return text+'\n…';
+}
+
 // ─── NÂNG CAO VỚI GEMINI (tùy chọn) ─────────────────────────────────────────
 
-async function enhanceWithAI(data: DigestData, apiKey: string): Promise<string | null> {
+async function enhanceWithAI(data: DigestData, apiKey: string, assertCurrent:()=>void): Promise<string | null> {
+  const controller=new AbortController();
+  let timer:ReturnType<typeof setTimeout>|undefined;
   try {
     const { GoogleGenAI } = await import("@google/genai");
+    assertCurrent();
     const ai = new GoogleGenAI({ apiKey });
 
     const prompt = `Bạn là trợ lý gia đình thân thiện. Dưới đây là dữ liệu tóm tắt tuần của gia đình.
@@ -318,18 +337,21 @@ ${JSON.stringify({
   "Giấy tờ hết hạn": data.expiringDocs.map(d => `${d.title} (${d.owner}) — ${d.dateLabel}`)
 }, null, 2)}`;
 
-    const res = await ai.models.generateContent({
+    const deadline=new Promise<never>((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(new Error("Digest AI deadline exceeded"));},15_000);});
+    const res = await Promise.race([deadline,ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
-      config: { responseMimeType: "text/plain" }
-    } as any);
+      config: { responseMimeType: "text/plain", maxOutputTokens:700, abortSignal:controller.signal, httpOptions:{timeout:15_000} }
+    })]);
 
-    const text = (res as any).text?.() || "";
-    return text.trim() || null;
-  } catch (err: any) {
-    console.error("[weeklyDigest] Gemini thất bại, dùng fallback:", err?.message || err);
+    const text = res.text;
+    if(typeof text!=="string"||text.length>4096)return null;
+    const escaped=escapeHtml(text.trim());
+    return escaped.length<=4096?escaped||null:null;
+  } catch {
+    console.error("[weeklyDigest] Gemini thất bại, dùng fallback.");
     return null;
-  }
+  } finally {if(timer)clearTimeout(timer);}
 }
 
 // ─── GỬI QUA TELEGRAM ────────────────────────────────────────────────────────
@@ -348,20 +370,33 @@ async function sendTelegramHtml(token: string, chatId: string, html: string): Pr
  * Thu thập dữ liệu, tạo bản tin, gửi Telegram.
  * Ném Error nếu chưa cấu hình hoặc gửi thất bại.
  */
-export async function sendWeeklyDigest(now = new Date()): Promise<{ aiUsed: boolean }> {
+export interface DigestRequester {userId:string;isCurrent:()=>boolean}
+export async function sendWeeklyDigest(now = new Date(), requester?:DigestRequester): Promise<{ aiUsed: boolean }> {
   const s = getAppSettings();
   const token = s.telegramBotToken || "";
   const chatId = s.telegramChatId || "";
-  if (!token || !chatId) throw new Error("Chưa cấu hình Telegram bot token / chat ID.");
-
-  const data = buildDigestData(now);
+  const fail=()=>{throw new AppDeliveryError('Cấu hình hoặc quyền bản tin đã thay đổi. Admin cần lưu lại cấu hình Telegram.',false);};
+  const ownerId=s.telegramWeeklyDigestOwnerId;
+  const owner=FamilyDB.getUsers().find(user=>user.id===ownerId);
+  if(!token||!chatId||!isActiveAuthUser(owner)||owner.role!==UserRole.ADMIN||requester&&(requester.userId!==ownerId||typeof requester.isCurrent!=='function'||!requester.isCurrent()))fail();
+  const actor:LegacyActor={userId:owner!.id,role:owner!.role};
+  const passwordHash=owner!.passwordHash;
+  const data = buildDigestData(now,actor);
   const geminiKey = (s.geminiApiKey || "").trim() || (process.env.GEMINI_API_KEY || process.env.API_KEY || "").trim();
 
+  const captured=JSON.stringify(data);
+  const assertCurrent=()=>{
+    getAppCommandContext()?.assertWriteOwnership?.();
+    const current=FamilyDB.getUsers().find(user=>user.id===ownerId),settings=getAppSettings();
+    const key=(settings.geminiApiKey||'').trim()||(process.env.GEMINI_API_KEY||process.env.API_KEY||'').trim();
+    if(!isActiveAuthUser(current)||current.role!==UserRole.ADMIN||current.passwordHash!==passwordHash||settings.telegramWeeklyDigestEnabled!==s.telegramWeeklyDigestEnabled||settings.telegramWeeklyDigestOwnerId!==ownerId||settings.telegramBotToken!==token||settings.telegramChatId!==chatId||key!==geminiKey||requester&&!requester.isCurrent()||JSON.stringify(buildDigestData(now,actor))!==captured)fail();
+  };
+  assertCurrent();
   let text: string;
   let aiUsed = false;
 
   if (geminiKey) {
-    const aiText = await enhanceWithAI(data, geminiKey);
+    const aiText = await enhanceWithAI(data, geminiKey,assertCurrent);
     if (aiText) {
       text = aiText;
       aiUsed = true;
@@ -372,7 +407,8 @@ export async function sendWeeklyDigest(now = new Date()): Promise<{ aiUsed: bool
     text = buildFallbackText(data);
   }
 
-  await sendTelegramHtml(token, chatId, text);
+  assertCurrent();
+  await sendTelegramHtml(token, chatId, boundTelegramHtml(text));
   return { aiUsed };
 }
 

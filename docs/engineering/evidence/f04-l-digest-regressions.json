@@ -1,0 +1,117 @@
+{
+  "task": "F04-l",
+  "baseSha": "6be5cd5e8a1585e43ac643542444d58591c8ce67",
+  "branch": "codex/f04-digest-privacy",
+  "observedRed": {
+    "initialNative": 23,
+    "correctedHttpFixture": 13,
+    "disableDuringAI": 1,
+    "requiredEvidence": 3,
+    "legacyOversizedFallback": 1,
+    "legacyCategoryMarkupAndUnsafeKey": 2,
+    "totalUniqueContractCases": 43,
+    "newOwnerBindingRequirementIncluded": 1
+  },
+  "initialValidCharacterizations": 5,
+  "fixtureCorrections": {
+    "httpDraft": "mock provider error moved before route construction; unexpected network attempt was blocked, draft not counted; correct baseline13fail/4pass retained",
+    "categoryRed": "3 failures include already-counted oversized fallback; only two new category cases counted",
+    "enabledRed": "explicit test-name selection produced24 unselected tests, full suites never skipped"
+  },
+  "dependencies": "unchanged frozen lock from merged F04-k; production-only npm ci verified",
+  "cloudEvidenceSha256": {
+    "f04-l-native-red.log": "fa0ee26fa11582e3bfa1460dc50616613eeac3e57bd2b662185a4f520941bc46",
+    "f04-l-http-red.log": "c06cb773532d044374392814499b43c7c0b0eb39e53bf79b388954dbe57b3a2b",
+    "f04-l-enabled-red.log": "9f3eb7c536434fd5aa411bb04f941b3d502159003b152d3e6d9ae055cdbd68e8",
+    "f04-l-evidence-red.log": "bf74d88835e0c2b56d9be789db9e0e636aad3e68377625eba76675cbe2a439ac",
+    "f04-l-fallback-red.log": "83f92fe461032b5f95e7977cf371e9bb41ddc2c9190fd28faa6f383bb5f711f5",
+    "f04-l-category-red.log": "6e7f9636dff15b82d044c6baf06e3a5d25e023a62f6a57b78a69b5fa528f4f04",
+    "f04-l-verified-target.log": "5e852f11462b1caf487153f0952a135b35cf5d37c38d4517ee336a3905127edb",
+    "f04-l-verified-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-l-verified-full.log": "b53fb99ea665179b00c925a11767d3ae34ccec8b60c683c282013ce545c0f1ce",
+    "f04-l-verified-build.log": "03d5a6ab8bce43aa2af4f5fa3ce2cddade064d2e9574b711dbc7e7b95682d5c5",
+    "f04-l-production-install.log": "939e3c1e837ad29139345008e27a87c294756f3b8e6969afe4ebac22a9db6563",
+    "f04-l-cloud-production.log": "7c4f272d54536d246661d28de45c11fa554e88da9b8b1d234da180f042185f5f",
+    "f04-l-source-target.log": "59c55a654b296df265ec82acc9ecaab33e8ac728e82724219bae7906ccef5d5c",
+    "f04-l-source-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-l-source-full.log": "655a26fce2cd6c115b40b903b315ca297857c9c8976108d87fb882d2f5c08d75",
+    "f04-l-review-red.log": "9748aa1c4eec14b624c7d966384469c19d1c9cae44031aaa534d9a1c9e231431",
+    "f04-l-review-green.log": "d6edde955b056fc60c9b8ba28a54cc26a3ca4ca758c030574ec5591c2aee33c7",
+    "f04-l-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f04-l-review-full.log": "cd496f78ae20be94cc745a1ecebf47662da59e3cfb6992df0475f3d45f223bb5",
+    "f04-l-review-build.log": "554b5de6e4c4b620737ce8aa859a76ae9ad379a288b6c6fe181e38936b11c283",
+    "f04-l-review-production.log": "95c8d1b498a946d31ffc37067db57c2956dc9094ad08b93d5aec375652e02857"
+  },
+  "windowsAcceptance": false,
+  "server2019Acceptance": "not-run",
+  "additionalSupportedSdkSanitization": 1,
+  "cloud": {
+    "initialFull": {
+      "passed": 1071,
+      "files": 76
+    },
+    "latestVerifiedFull": {
+      "passed": 1074,
+      "files": 76,
+      "skipped": 0
+    },
+    "finalSourceWithSdkSanitization": {
+      "passed": 1075,
+      "files": 76,
+      "skipped": 0,
+      "targeted": {
+        "passed": 131,
+        "files": 4
+      },
+      "lint": 0,
+      "build": "previous source build0; only supported-SDK test added afterward"
+    },
+    "lint": 0,
+    "build": 0,
+    "productionOnlyFrozenNpmCi": 0,
+    "compiledProductionSmoke": {
+      "exitCode": 0,
+      "checks": 22,
+      "platform": "linux",
+      "windowsAcceptance": false,
+      "workspace": "uncommitted pre-PR workspace; not an exact source commit proof"
+    },
+    "reviewCorrected": {
+      "targeted": {
+        "passed": 136,
+        "files": 4
+      },
+      "full": {
+        "passed": 1080,
+        "files": 76,
+        "skipped": 0
+      },
+      "lint": 0,
+      "build": 0,
+      "productionSmoke": {
+        "exitCode": 0,
+        "checks": 22,
+        "platform": "linux",
+        "windowsAcceptance": false
+      }
+    }
+  },
+  "review": {
+    "singleReviewHead": "2d65f182c7f313dfd882a9065631a4d3a85fe880",
+    "critical": 0,
+    "important": 1,
+    "minor": 2,
+    "allFindingsGradedBeforeMutation": "accepted",
+    "oneCorrectionPass": true,
+    "rereview": false,
+    "observedAdditionalRed": 3,
+    "additionalSupportedSdkBoundCharacterizations": 2,
+    "totalObservedRedContractCases": 46,
+    "totalCharacterizations": 8,
+    "fixes": [
+      "durable lease ownership assertion before Gemini across import",
+      "shared1MiB serialized UTF8 settings limit before atomic replacement",
+      "supported SDK raw and escaped length tests; existing guards already GREEN"
+    ]
+  }
+}
