@@ -18,6 +18,14 @@ function input(value:unknown){
  return {file:path.resolve(row.file),key:Buffer.from(row.key,'hex'),settingGroups,fileGroups,envGroups};
 }
 function contained(root:string,file:string){const relative=path.relative(root,file);return relative===''||(!relative.startsWith('..'+path.sep)&&relative!=='..'&&!path.isAbsolute(relative));}
+export function recoveryProtectedRoots(config:AppConfig):string[]{
+ const roots=[config.codeRoot,config.dataRoot,config.configRoot,config.logRoot];
+ const entry=path.resolve(process.argv[1]??''),dist=path.dirname(entry),app=path.dirname(dist);
+ if(path.basename(entry).toLowerCase()==='operator.cjs'&&path.basename(dist).toLowerCase()==='dist'&&path.basename(app).toLowerCase()==='app')roots.push(path.dirname(app));
+ const loadedDist=path.resolve(import.meta.dirname),loadedApp=path.dirname(loadedDist);
+ if(path.basename(loadedDist).toLowerCase()==='dist'&&path.basename(loadedApp).toLowerCase()==='app')roots.push(path.dirname(loadedApp));
+ return roots;
+}
 function checkPath(file:string,config:AppConfig|undefined,restore:boolean){
  try{
   const components=file.slice(path.parse(file).root.length).split(path.sep);
@@ -25,14 +33,7 @@ function checkPath(file:string,config:AppConfig|undefined,restore:boolean){
   assertNoLinkedAncestors(file);
   if(!fs.statSync(path.dirname(file)).isDirectory())refuse('RECOVERY_PATH_INVALID');
   if(config){
-   const roots=[config.codeRoot,config.dataRoot,config.configRoot,config.logRoot];
-   const entry=path.resolve(process.argv[1]??''),dist=path.dirname(entry),app=path.dirname(dist);
-   // The executing bundled entry supplies the release boundary independently of env roots.
-   if(path.basename(entry).toLowerCase()==='operator.cjs'&&path.basename(dist).toLowerCase()==='dist'&&path.basename(app).toLowerCase()==='app')roots.push(path.dirname(app));
-   // CJS bundling defines import.meta.dirname as the actual loaded bundle's
-   // __dirname. Server and local orchestration launches share this boundary.
-   const loadedDist=path.resolve(import.meta.dirname),loadedApp=path.dirname(loadedDist);
-   if(path.basename(loadedDist).toLowerCase()==='dist'&&path.basename(loadedApp).toLowerCase()==='app')roots.push(path.dirname(loadedApp));
+   const roots=recoveryProtectedRoots(config);
    if(roots.some(root=>contained(root,file)))refuse('RECOVERY_PATH_INVALID');
   }
   const stat=fs.lstatSync(file,{throwIfNoEntry:false});
@@ -97,6 +98,6 @@ async function runRecovery(value:unknown,restore:boolean,ownsStorage:boolean,ass
    try{const fd=fs.openSync(selected.file,'wx',0o600);created=true;try{fs.writeFileSync(fd,bytes);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}}catch(error){if(created)fs.unlinkSync(selected.file);throw error;}
    return {encrypted:true,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),...(selected.settingGroups.length?{includedSettings:selected.settingGroups}:{}),...(selected.fileGroups.length?{includedFiles:selected.fileGroups}:{}),...(selected.envGroups.length?{includedEnv:selected.envGroups}:{})};
   }finally{if(ownsStorage)sqlite.sqliteClose();}
- }catch(error){if(error instanceof RecoverySettingsError||error instanceof RecoveryFilesError||error instanceof RecoveryEnvError)refuse(error.message);if(error instanceof RecoveryEnvelopeError||error instanceof RecoveryOperatorError)throw error;refuse('RECOVERY_OPERATION_FAILED');}
+ }catch(error){if(error instanceof RecoverySettingsError||error instanceof RecoveryFilesError||error instanceof RecoveryEnvError)refuse(error.message);if(error instanceof RecoveryEnvelopeError||error instanceof RecoveryOperatorError)throw error;if(error&&typeof error==='object'&&['ENOSPC','EDQUOT','SQLITE_FULL'].includes(String((error as NodeJS.ErrnoException).code)))refuse('RECOVERY_STORAGE_FULL');refuse('RECOVERY_OPERATION_FAILED');}
  finally{selected.key.fill(0);plaintext?.fill(0);}
 }

@@ -131,6 +131,13 @@ try {
     $checks.Add('restart-crash-recovery-persistence')
     $prior=Get-ShutdownCount
     Invoke-TestNative 'final-stop' $context.wrapper @('stop');Assert-ServiceClosed $prior
+    Invoke-TestNative 'scheduled-configure' $context.node @((Join-Path $PSScriptRoot 'probe-scheduled-service.mjs'),'configure',$release,$instance,$id,[string]$port,$manifestHash,(Join-Path $ReportDirectory 'service-scheduled-backup.json'))
+    Invoke-TestNative 'scheduled-start' $context.wrapper @('start');Wait-ServiceReady
+    Invoke-TestNative 'scheduled-active' $context.node @((Join-Path $PSScriptRoot 'probe-scheduled-service.mjs'),'active',$release,$instance,$id,[string]$port,$manifestHash,(Join-Path $ReportDirectory 'service-scheduled-backup.json'))
+    $prior=Get-ShutdownCount
+    Invoke-TestNative 'scheduled-stop' $context.wrapper @('stop');Assert-ServiceClosed $prior
+    Invoke-TestNative 'scheduled-finalize' $context.node @((Join-Path $PSScriptRoot 'probe-scheduled-service.mjs'),'finalize',$release,$instance,$id,[string]$port,$manifestHash,(Join-Path $ReportDirectory 'service-scheduled-backup.json'))
+    $checks.Add('owned-localservice-scheduled-encrypted-backup')
     $uninstallArgs=@('-NoProfile','-File',$uninstall,'-ReleaseRoot',$release,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
     Invoke-TestNative 'uninstall' $powershell $uninstallArgs
     Invoke-TestNative 'uninstall-again' $powershell $uninstallArgs

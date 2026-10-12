@@ -1,0 +1,95 @@
+{
+  "failedHead": "5e6f6a7c5eac560e3f3ab5046e17fb76c0fe9e9b",
+  "failedRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38256696436",
+  "node22": {
+    "passed": 1665,
+    "failed": 1,
+    "reason": "Restore marker fixture seeded after managed startup; boot schedule could already have captured initial epoch. Deterministic 25ms reproduction confirms harness race. Seed valid native schema/markers before managed startup, keep strict latest-epoch assertion."
+  },
+  "service": {
+    "reason": "Harness sliced 15 bytes from the 16-byte FO-RECOVERY-0001 magic. Correct length; preserve exact magic assertion.",
+    "verifiedConfigChecks": [
+      "owned-schedule-validation-whatif-no-input-no-mutation",
+      "owned-schedule-explicit-portable-key-idempotent-no-rotation",
+      "owned-schedule-existing-key-readers-resealed-bytes-retained",
+      "owned-schedule-reinstall-private-key-config-acls-preserved"
+    ],
+    "nativeExitCodes": [
+      {
+        "phase": "schedule--ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule--WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-invalid-selection",
+        "exitCode": 1
+      },
+      {
+        "phase": "schedule-enable",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-enable-again",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-key-change-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "schedule-extra-reader-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-extra-reader-reseal",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-extra-reader-acl",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-missing-service-read-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-missing-service-read-reseal",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-missing-service-read-acl",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-reinstall",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-reinstall-acl",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-running-refusal",
+        "exitCode": 1
+      }
+    ],
+    "activeAndRestoreAcceptance": false
+  },
+  "correctedDiagnostic": {
+    "node22TargetPassed": 5,
+    "node24TargetPassed": 5,
+    "fullSuite": "Prior production-correction Cloud1666/94; full exact-new-head Windows mandatory",
+    "productionChanges": false,
+    "newReview": false
+  },
+  "logs": {
+    "f07-h-node22-failed.log": "e6e83e74e1b1c4a2d547396dad4bf2bc62a7b39939321f83e0a892c7f51dbbce",
+    "f07-h-corrected-service-failed.log": "545f180f24413c682fe2870fa74ebfd56354d2ceea23480aec00e483cfe55511",
+    "f07-h-epoch-race-red.log": "45d9f914b370602cab37201539db0ffac293bc54cdb9f973c1d42e3a3086a5d7",
+    "f07-h-ci-harness-green22.log": "a1834b08b9d5a972ddeae7307d8242349ed0b318f1d768f104756559fd4df970",
+    "f07-h-ci-harness-green24.log": "53a3920f0314d3733a1cd850185215fae43a1f38e2d800262aed564c5f270d6d"
+  }
+}

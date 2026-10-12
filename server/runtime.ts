@@ -3,6 +3,8 @@ import { createApp } from './app.js';
 import { AppJobs } from './appJobs.js';
 import { drainAppEffects, trackAppEffect } from './appEffects.js';
 import { runOnlineRecoveryBackup, RecoveryOperatorError } from './recoveryOperator.js';
+import {readBackupConfiguration,registerRecoveryBackupSchedule,RecoveryScheduleError,type BackupHealth} from './recoverySchedule.js';
+import {randomUUID,createHash} from 'node:crypto';
 import { createSystemMetrics } from './systemMetrics.js';
 import { readBuildInfo } from './updater.js';
 import { startManagedServer, disposeDrainedResources } from './lifecycle.js';
@@ -46,11 +48,31 @@ export async function startApplication(config: AppConfig = appConfig) {
     const ics = await import('./icsFeed.js');
     const push = await import('./push.js');
     const { AppJobStore } = await import('./jobStore.js');
+    const {withAppWriteTransaction}=await import('./appStore.js');
+    const jobs=new AppJobs(undefined,new AppJobStore());
+    const backupRecovery=(value:unknown)=>{
+      const assertReady=()=>{if(state.phase!=='ready')throw new RecoveryOperatorError('RECOVERY_RUNTIME_NOT_READY');};
+      try{assertReady();}catch(error){return Promise.reject(error);}
+      return trackAppEffect(runOnlineRecoveryBackup(value,assertReady));
+    };
+    let backupHealth:()=>BackupHealth;
+    try{
+      backupHealth=registerRecoveryBackupSchedule(jobs,readBackupConfiguration(config),{
+        readRestoreEpoch(){const row=storage.sqliteConnection().prepare('SELECT id FROM app_restore_commits ORDER BY rowid DESC LIMIT 1').get() as {id:string}|undefined;return row?.id??'initial';},
+        capture:async value=>await backupRecovery(value) as import('./recoverySchedule.js').BackupReceipt,
+        readState(){const row=storage.sqliteConnection().prepare('SELECT value FROM app_meta WHERE key=?').get('recovery_backup_last_success') as {value:string}|undefined;try{return row?JSON.parse(row.value):null;}catch{throw new RecoveryScheduleError('RECOVERY_BACKUP_STATE_INVALID');}},
+        writeState(value){const serialized=JSON.stringify(value);withAppWriteTransaction({actorId:'system:backup-monitor',command:'core:backup:state',requestId:randomUUID(),payloadHash:createHash('sha256').update(serialized).digest('hex')},tx=>tx.run('INSERT OR REPLACE INTO app_meta(key,value) VALUES(?,?)','recovery_backup_last_success',serialized));},
+      });
+    }catch(error){
+      const code=error instanceof RecoveryScheduleError&&error.message==='RECOVERY_BACKUP_STATE_INVALID'?error.message:'RECOVERY_BACKUP_CONFIG_INVALID';
+      console.error('Encrypted backup setup failed: '+code);
+      backupHealth=()=>({enabled:true,status:'failed',lastSuccessAt:null,ageMs:null,diskFull:false,lastError:code});
+    }
     state.migrating = false; state.storageWritable = true;
     handle = await createApp(config, {
       db, sqlite, media, fullBackup, telegram, digest, ics, push,auth,
       build: readBuildInfo(config.codeRoot, process.env), state,
-      jobs: new AppJobs(undefined, new AppJobStore()), metrics: createSystemMetrics(config.dataRoot),
+      jobs,backupHealth, metrics: createSystemMetrics(config.dataRoot),
       checkStorage: () => prepareStorage(config),
     });
     const port = process.env.PORT === undefined ? 3000 : Number(process.env.PORT);
@@ -61,12 +83,7 @@ export async function startApplication(config: AppConfig = appConfig) {
       closeStorage() { storage.sqliteCheckpoint(); storage.sqliteClose(); },
     });
     return Object.assign(managed, {
-      backupRecovery(value:unknown) {
-        const assertReady=()=>{if(state.phase!=='ready')throw new RecoveryOperatorError('RECOVERY_RUNTIME_NOT_READY');};
-        try { assertReady(); }
-        catch(error) { return Promise.reject(error); }
-        return trackAppEffect(runOnlineRecoveryBackup(value,assertReady));
-      },
+      backupRecovery,backupHealth,
     });
   } catch (error) {
     state.phase = 'failed';

@@ -1,0 +1,80 @@
+{
+  "reviewedHead": "c4d4c5f1a69476224b920143dea6ef99b29962f3",
+  "reviewCount": 1,
+  "critical": 0,
+  "important": 5,
+  "minor": 1,
+  "rulings": [
+    {
+      "id": 1,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "reinstall specialized backup ACLs"
+    },
+    {
+      "id": 2,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "reseal matching existing key read grants"
+    },
+    {
+      "id": 3,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "restore commit insertion order independent of clock"
+    },
+    {
+      "id": 4,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "SQLite full at capture and receipt"
+    },
+    {
+      "id": 5,
+      "severity": "Important",
+      "action": "fix",
+      "topic": "persist redacted failure across terminal restart"
+    },
+    {
+      "id": 6,
+      "severity": "Minor",
+      "action": "fix",
+      "topic": "clear confidential decoding copy independently of cleanup"
+    }
+  ],
+  "initialCi": {
+    "url": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38254797866",
+    "jobs": [
+      {
+        "name": "Windows production browsers",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows package producer",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows Node22 baseline",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows Node24 baseline",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows package clean consumer",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows disposable service",
+        "conclusion": "failure"
+      },
+      {
+        "name": "ci-gate",
+        "conclusion": "failure"
+      }
+    ]
+  },
+  "failure": "scheduled-configure failed at config-publish; canonical XML/CLR refusals earlier in log are expected security tests",
+  "nativeRegressionRedBeforeFix": "not-run; Cloud has no PowerShell/NTFS/SCM"
+}

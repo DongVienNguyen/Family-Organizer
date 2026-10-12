@@ -1,0 +1,62 @@
+{
+  "taskId": "F07-h",
+  "baseSha": "c0705cd6f03003d747481c85e6ff706447756a2a",
+  "actualRedTests": {
+    "configurationKeyAge": 29,
+    "durableSchedule": 10,
+    "managedStartup": 4,
+    "latestMissingSizedLinkedFile": 3,
+    "partialEnospcClassification": 1,
+    "restoredSameBucket": 1,
+    "requiredSuitesMissing": 3,
+    "packageKeyConfigCipherExclusion": 3
+  },
+  "notClaimedRed": {
+    "packageFixtureFailures": 4,
+    "reason": "Four valid fixtures lacked the newly required Configure-Backup asset; add fixture file, retain assertions"
+  },
+  "targetGreen": {
+    "tests": 57,
+    "files": 4,
+    "exitCode": 0
+  },
+  "fullCloud": {
+    "tests": 1661,
+    "files": 94,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "nativeExitCodes": {
+      "full": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reports": {
+      "f07-h-config-red.log": "a077e0f3cbf0672b35273dceb21d1025e5958ad5b764b77f084f7ae01173b628",
+      "f07-h-jobs-red.log": "73e4fe79cbcdb2faefa2e3f7b041d6b8c8e1533af0d02532823617285282cf39",
+      "f07-h-runtime-red.log": "dc303be3958385d49a513c3089886586efec96cdf92ce1575e826045ce056449",
+      "f07-h-file-health-red.log": "fb4226e03da9e44570fc31f5f12d348c366ebf3e0dd19b51cc2f6e0cdce1abfe",
+      "f07-h-disk-full-red.log": "dc01fe2514830509e3e0c240dfbf09d7070f0964f150a282df20599d9057e4b2",
+      "f07-h-restore-epoch-red.log": "8313706f2307336e39ffd5a931daee48fab86011281c84ae76acbb21e0cb0be1",
+      "f07-h-suites-red.log": "127bbd9cd25e9b1009ca4ceebfc2dc1f73f53615ab3a966d5c7e479a77d9613f",
+      "f07-h-package-secrets-red.log": "19cb1e7a5b0c02792a5da99c55c5edde5aaa2b4f98c2d9d5c93cba9020838767",
+      "f07-h-target-green.log": "8dd3fbcf5f32437a4174395002de5a089e5842fcba7ea5ddff96acbdaf35694a",
+      "f07-h-cloud-vitest.json": "22567368529770a9cf34503e673e2c320bb6504791c1f5cccaf2bd3a82455a24",
+      "f07-h-cloud-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-h-cloud-build.log": "c865a81c89c7f341f0adf05776db254d1adcf1e50446d3bb070b931b0fbb4c15"
+    }
+  },
+  "windowsNotYetRun": [
+    "PowerShell5.1 Configure-Backup ValidateOnly/WhatIf/strictstdin/ACL/idempotency/key-rotation refusal",
+    "Actual WinSW LocalService scheduled capture and shared offline restore",
+    "Exact Node22/24 quality/browser/ZIP/owned-service CI"
+  ],
+  "remaining": [
+    "One fresh wholebranch review",
+    "Retention/offhost/update/rollback",
+    "F08/F09/F05 Administration403",
+    "Server2019/reboot/RPO/RTO unrun",
+    "No release/tag/VPS authorization"
+  ]
+}
