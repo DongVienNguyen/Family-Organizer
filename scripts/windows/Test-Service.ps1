@@ -36,7 +36,10 @@ function Get-ShutdownCount {
 }
 function Assert-ServiceClosed {
     param([int]$PriorCount)
-    if ((Get-Service -Name $id).Status -ne 'Stopped') { throw 'Service did not stop' }
+    $controller=Get-Service -Name $id
+    $controller.WaitForStatus([ServiceProcess.ServiceControllerStatus]::Stopped,[TimeSpan]::FromSeconds(50))
+    $controller.Refresh()
+    if ($controller.Status -ne 'Stopped') { throw 'Service did not stop' }
     $workers=@(Get-CimInstance Win32_Process | Where-Object { $_.ExecutablePath -ieq $context.node })
     if ($workers.Count -ne 0) { throw 'Bundled Node worker still running' }
     $stream=[IO.File]::Open((Join-Path $instance 'data/family.db'),[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)

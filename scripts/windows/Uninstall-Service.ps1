@@ -13,7 +13,12 @@ if ($ValidateOnly -or !$PSCmdlet.ShouldProcess($instance,'Stop and uninstall own
 Assert-ServiceAdministrator
 $existing=Get-Service -Name $ServiceId -ErrorAction SilentlyContinue
 if ($existing) {
-    if ($existing.Status -ne 'Stopped') { Invoke-ServiceNative 'stop' $context.wrapper @('stop') }
+    if ($existing.Status -ne 'Stopped') {
+        Invoke-ServiceNative 'stop' $context.wrapper @('stop')
+        $existing.WaitForStatus([ServiceProcess.ServiceControllerStatus]::Stopped,[TimeSpan]::FromSeconds(50))
+        $existing.Refresh()
+        if($existing.Status -ne 'Stopped'){throw 'Owned service did not finish stopping'}
+    }
     Invoke-ServiceNative 'uninstall' $context.wrapper @('uninstall')
     if (Get-Service -Name $ServiceId -ErrorAction SilentlyContinue) { throw 'Service still registered after uninstall' }
 }

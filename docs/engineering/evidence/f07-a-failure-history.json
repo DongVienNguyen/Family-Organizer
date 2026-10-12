@@ -143,5 +143,25 @@
     "otherFiveJobs": "success",
     "gate": "failure",
     "jobLogSha256": "fb1090fd0660cd22046b3879b8ace8d3cc7668ffedb32afa6d90f972380eb283"
+  },
+  "stopPendingRace": {
+    "headSha": "9b5387f0a428c4773dba6d053e635f18f12a3ae8",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38208055518",
+    "securityAssertionsPassed": 8,
+    "validateOnlyWhatIf": "native0/no mutation",
+    "installIdempotentAclLoopbackFinance": "passed",
+    "stopExitCode": 0,
+    "failure": "Immediate SCM Stopped assertion raced StopPending; WinSW worker exited32ms after command acknowledgement and stdout has Shutdown complete",
+    "laterRestartRecoveryClosedDbChecks": "not-run",
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "otherFiveJobs": "success",
+    "gate": "failure",
+    "jobLogSha256": "b3d991c7075c9755a0e2e11e796049987564bfc2bbc7030eb280d679f3592bf9",
+    "retainedServiceLogHashes": {
+      "FamilyOrganizer-CI0de62e97d318443c9a516242088a5ce4.err.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "FamilyOrganizer-CI0de62e97d318443c9a516242088a5ce4.wrapper.log": "c56fe810953dbc69b9ab5fa00d7459af7da3770c12798c37850386286a6969c4",
+      "FamilyOrganizer-CI0de62e97d318443c9a516242088a5ce4.out.log": "7f5e095bf56582fe8f1b39b4c82a712f39be65b871fe529032aeb0cce8c9b91c"
+    }
   }
 }
