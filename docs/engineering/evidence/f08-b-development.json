@@ -1,0 +1,29 @@
+{
+  "taskId": "F08-b",
+  "baseSha": "de66d95c447a2b773e376bb55553f1cb6821d908",
+  "newFunctionAvailabilityReds": {
+    "metadata": 33,
+    "reader": 9,
+    "gitFacts": 11
+  },
+  "actualPolicyReds": {
+    "deferredSemVerAndQuality": 4,
+    "ownPreflightCheckAndJobBinding": 2,
+    "mandatorySuiteOmission": 1
+  },
+  "targetGreen": 240,
+  "targetFiles": 3,
+  "fullGreen": 1916,
+  "fullFiles": 104,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceFrozenDuringVerification": true,
+  "dependencyRuntimeLockChanges": false,
+  "liveMetadataWorkflow": "not-dispatched; require reviewedmerge and realmainCI",
+  "scope": "metadata preflight only; no archive/report/fullcandidate orpromotion proof",
+  "publication": "unconditionally disabled",
+  "windows": "pending exactHEAD allmandatoryCI"
+}

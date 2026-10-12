@@ -23,3 +23,7 @@ it('rejects regex syntax in runId without hanging the isolated validator',()=>{
  const result=spawnSync(process.execPath,['--input-type=module','-e',script,JSON.stringify(value)],{timeout:5000,encoding:'utf8'});
  expect(result.error).toBeUndefined();expect(result.signal).toBeNull();expect(result.status).toBe(0);
 },10000);
+
+it.each(['1.1.0-01','1.1.0-alpha.01'])('refuses numeric prerelease leading zero %s',version=>{const value=fixture();value.request.version=value.source.packageVersion=value.package.appVersion=version;value.request.tag='v'+version;expect(validate(value).length).toBeGreaterThan(0);});
+it('accepts valid SemVer uppercase prerelease and build metadata',()=>{const value=fixture();const version='1.1.0-Alpha.1+BUILD.001';value.request.version=value.source.packageVersion=value.package.appVersion=version;value.request.tag='v'+version;expect(validate(value)).toEqual([]);});
+it('returns errors for malformed nonarray quality without throwing',()=>{const value:any=fixture();value.reports.quality={find:42};let errors:any;expect(()=>{errors=validate(value);}).not.toThrow();expect(errors.length).toBeGreaterThan(0);});
