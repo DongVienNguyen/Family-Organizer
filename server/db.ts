@@ -1320,7 +1320,7 @@ export class FamilyDB {
     const db = this.readRaw();
 
     const newTx: FinancialTransaction = {
-      id: txData.id ? txData.id : `tx_${Date.now()}`,
+      id: txData.id ? txData.id : `tx_${Date.now()}_${crypto.randomUUID()}`,
       type: txData.type || ("expense" as any),
       amount: txData.amount || 0,
       category: txData.category || "other",
@@ -1583,7 +1583,7 @@ export class FamilyDB {
 
     const existingIdx = db.budgets.findIndex(b => b.month === data.month && b.category === data.category);
     const budget: BudgetLimit = {
-      id: existingIdx >= 0 ? db.budgets[existingIdx].id : `budget_${Date.now()}`,
+      id: existingIdx >= 0 ? db.budgets[existingIdx].id : `budget_${Date.now()}_${crypto.randomUUID()}`,
       month: data.month,
       category: data.category,
       limit: Number(data.limit),
@@ -1737,7 +1737,7 @@ export class FamilyDB {
     }
 
     const bill: RecurringBill = {
-      id: `bill_${Date.now()}`,
+      id: `bill_${Date.now()}_${crypto.randomUUID()}`,
       title: data.title.trim(),
       amount: Number(data.amount),
       category: data.category || "utilities",
@@ -2188,7 +2188,7 @@ export class FamilyDB {
     const bill = db.recurringBills[idx];
     const paidDate = new Date().toISOString().slice(0, 10);
     const tx: FinancialTransaction = {
-      id: `tx_${Date.now()}`,
+      id: `tx_${Date.now()}_${crypto.randomUUID()}`,
       type: "expense" as any,
       amount: bill.amount,
       category: bill.category,
