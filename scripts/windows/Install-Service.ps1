@@ -33,10 +33,10 @@ Invoke-ServiceNative 'service-sid' (Join-Path $env:windir 'System32/sc.exe') @('
 Set-OwnedServiceAcl $context.instance $ServiceId 'RX'
 Set-OwnedServiceAcl $context.release $ServiceId 'RX'
 foreach ($name in @('data','config','logs')) { Set-OwnedServiceAcl (Join-Path $context.instance $name) $ServiceId 'M' }
-# Reapply private backup exceptions after the general recursive instance/config ACLs.
+# Reapply private operator controls after the recursive instance/config ACLs.
 $backupRoot=Join-Path $context.instance 'backups'
 if(Test-Path -LiteralPath $backupRoot){Set-OwnedServiceAcl $backupRoot $ServiceId 'M'}
-foreach($name in @('recovery-backup.key','recovery-backup.json')){
+foreach($name in @('recovery-backup.key','recovery-backup.json','update-control.json')){
     $file=Join-Path (Join-Path $context.instance 'config') $name
     if(Test-Path -LiteralPath $file){Set-OwnedServiceAcl $file $ServiceId 'R';Assert-BackupSecretAcl $file $ServiceId}
 }

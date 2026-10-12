@@ -9,7 +9,7 @@ $ReportDirectory=(Resolve-Path -LiteralPath $ReportDirectory).Path
 $script:ServiceNativeResults=New-Object System.Collections.Generic.List[object]
 $native=New-Object System.Collections.Generic.List[object]
 $checks=New-Object System.Collections.Generic.List[string]
-$fixture=Join-Path $env:RUNNER_TEMP ('fo-service-'+[guid]::NewGuid())
+$fixture=Join-Path ([IO.Path]::GetPathRoot($env:ProgramData)) ('fo-service-'+[guid]::NewGuid())
 $release=Join-Path $fixture 'release dữ liệu with spaces'
 $instance=Join-Path $fixture 'instance dữ liệu with spaces'
 $id='FamilyOrganizer-CI'+([guid]::NewGuid().ToString('N'))
@@ -57,6 +57,7 @@ try {
     Expand-VerifiedArchive $zip $release
     $manifestHash=(Get-FileHash -LiteralPath (Join-Path $release 'release-manifest.json') -Algorithm SHA256).Hash.ToLowerInvariant()
     . (Join-Path $release 'ops/ServiceCommon.ps1')
+    Set-OwnedServiceAcl $fixture '' 'RX'
     $listener=New-Object Net.Sockets.TcpListener([Net.IPAddress]::Loopback,0)
     $listener.Start();$port=$listener.LocalEndpoint.Port;$listener.Stop()
     $context=Get-ServiceContext $release $instance $id $port $manifestHash
@@ -74,6 +75,13 @@ try {
     if ((Test-Path -LiteralPath $instance) -or (Get-Service -Name $id -ErrorAction SilentlyContinue)) { throw 'Validation changed service/storage' }
     $checks.Add('validate-only-whatif-no-mutation')
     Invoke-TestNative 'install' $powershell $installArgs
+    # The sealed synthetic parent also needs metadata reads for Node realpath.
+    # Grant only this installation SID, only on this owned parent (no recursion).
+    $parentAcl=Get-Acl -LiteralPath $fixture
+    $fixtureSid=(New-Object Security.Principal.NTAccount('NT SERVICE',$id)).Translate([Security.Principal.SecurityIdentifier])
+    $parentAcl.AddAccessRule((New-Object Security.AccessControl.FileSystemAccessRule($fixtureSid,'ReadAndExecute','Allow')))
+    Set-Acl -LiteralPath $fixture -AclObject $parentAcl
+    Assert-BackupSecretAcl $fixture $id
     Invoke-TestNative 'version' $context.wrapper @('version')
     $version=[Diagnostics.FileVersionInfo]::GetVersionInfo($context.wrapper).FileVersion
     if ($version -notmatch '^2\.12\.0') { throw 'Unexpected wrapper version' }
@@ -138,6 +146,21 @@ try {
     Invoke-TestNative 'scheduled-stop' $context.wrapper @('stop');Assert-ServiceClosed $prior
     Invoke-TestNative 'scheduled-finalize' $context.node @((Join-Path $PSScriptRoot 'probe-scheduled-service.mjs'),'finalize',$release,$instance,$id,[string]$port,$manifestHash,(Join-Path $ReportDirectory 'service-scheduled-backup.json'))
     $checks.Add('owned-localservice-scheduled-encrypted-backup')
+    $updateProbe=Join-Path $PSScriptRoot 'probe-update-service.mjs'
+    $updateReport=Join-Path $ReportDirectory 'service-update-fence.json'
+    Invoke-TestNative 'update-configure-held' $context.node @($updateProbe,'configure-held',$release,$instance,$id,[string]$port,$manifestHash,$updateReport)
+    Invoke-TestNative 'update-start-held' $context.wrapper @('start')
+    Invoke-TestNative 'update-held' $context.node @($updateProbe,'held',$release,$instance,$id,[string]$port,$manifestHash,$updateReport)
+    $prior=Get-ShutdownCount
+    Invoke-TestNative 'update-stop-held' $context.wrapper @('stop');Assert-ServiceClosed $prior
+    Invoke-TestNative 'update-stopped-held' $context.node @($updateProbe,'stopped-held',$release,$instance,$id,[string]$port,$manifestHash,$updateReport)
+    Invoke-TestNative 'update-configure-approve' $context.node @($updateProbe,'configure-approve',$release,$instance,$id,[string]$port,$manifestHash,$updateReport)
+    Invoke-TestNative 'update-start-candidate' $context.wrapper @('start')
+    Invoke-TestNative 'update-approve' $context.node @($updateProbe,'approve',$release,$instance,$id,[string]$port,$manifestHash,$updateReport)
+    Invoke-TestNative 'update-ready' $context.node @($updateProbe,'ready',$release,$instance,$id,[string]$port,$manifestHash,$updateReport)
+    $prior=Get-ShutdownCount
+    Invoke-TestNative 'update-stop-approved' $context.wrapper @('stop');Assert-ServiceClosed $prior
+    $checks.Add('owned-update-startup-fence-durable-rollback-boundary')
     $uninstallArgs=@('-NoProfile','-File',$uninstall,'-ReleaseRoot',$release,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
     Invoke-TestNative 'uninstall' $powershell $uninstallArgs
     Invoke-TestNative 'uninstall-again' $powershell $uninstallArgs

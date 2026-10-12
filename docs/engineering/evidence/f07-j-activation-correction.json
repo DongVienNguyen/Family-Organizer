@@ -1,0 +1,27 @@
+{
+  "taskId": "F07-j pre-review correction",
+  "productionActivationActualRed": 1,
+  "productionActivationEffect": "jobs.start failure must force failed rather than leave ready",
+  "cloud": {
+    "tests": 1757,
+    "files": 98,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "workers": 2,
+    "targeted": 42,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "windowsParentFixtureActualFailure": "EPERM lstat parent before any update-control case",
+  "parentCorrection": "unique service SID ReadAndExecute on sealed test parent only, assert exact ACL; no recursive or writer grants",
+  "controlReinstallNativeRed": "not reached; next exact HEAD pending",
+  "logs": {
+    "f07-j-activation-red.log": "4436570bff4127c0569888074140e6d0d0edea75afdd509bc6c75f20aefba4f7",
+    "f07-j-activation-green.log": "48aa24dbbcffb6732700cfdf8a20532f50083fe26494baa5903477cafd653ce7",
+    "f07-j-activation-full.log": "c28a5e63b7aa639362b3754937f66ee48ebb6574abd5f07e77302735fbefd858",
+    "f07-j-activation-vitest.json": "c41fb044aaa6c7ac02c64441610284847bc421e2450d393167c35f7ca2190fee",
+    "f07-j-activation-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f07-j-activation-build.log": "6ddad2e84d44ccf36a5da936c6000173c3768b9d5ca1ff0dc45abb314e871e6f"
+  }
+}

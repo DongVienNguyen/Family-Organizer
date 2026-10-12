@@ -36,10 +36,14 @@ export async function startManagedServer(handle: ManagedApp, options: {
   port: number; host?: string; timeoutMs?: number; state?: RuntimeState;
   closeStorage(): void | Promise<void>;
   drainEffects?(): Promise<void>;
+  validateStartup?(server: http.Server, signal: AbortSignal): Promise<void>;
 }) {
   const state = options.state ?? { phase: 'starting', storageWritable: true };
   const server = http.createServer(handle.app);
   const timeout = options.timeoutMs ?? 30_000;
+  const startupController = new AbortController();
+  let startupWork: Promise<void> | undefined;
+  let startupFailed = false;
   const disposeAndCloseStorage = () => disposeDrainedResources(() => handle.dispose(), () => options.closeStorage(), timeout);
   try {
     await new Promise<void>((resolve, reject) => {
@@ -47,9 +51,9 @@ export async function startManagedServer(handle: ManagedApp, options: {
       server.once('error', error);
       server.listen(options.port, options.host ?? '127.0.0.1', () => { server.off('error', error); resolve(); });
     });
-    state.phase = 'ready';
-    handle.jobs.start();
+    if (!options.validateStartup) { state.phase = 'ready'; handle.jobs.start(); }
   } catch (error) {
+    startupController.abort();
     state.phase = 'failed';
     const drained = server.listening
       ? new Promise<void>((resolve, reject) => server.close(cause => cause ? reject(cause) : resolve()))
@@ -85,16 +89,17 @@ export async function startManagedServer(handle: ManagedApp, options: {
   }
   function close(): Promise<void> {
     if (closing) return closing;
+    startupController.abort();
     state.phase = 'draining';
     handle.endStreams();
     const drained = new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
     server.closeIdleConnections();
     closing = (async () => {
       try {
-        await bounded(Promise.all([drained, handle.jobs.stop(), handle.drainHandlers?.(), maintenanceWork]), timeout);
+        await bounded(Promise.all([drained, handle.jobs.stop(), handle.drainHandlers?.(), maintenanceWork, startupWork?.catch(error => { if (!startupController.signal.aborted) throw error; })]), timeout);
         await bounded(options.drainEffects?.() ?? Promise.resolve(), timeout);
         await disposeAndCloseStorage();
-        state.phase = 'stopped';
+        state.phase = startupFailed ? 'failed' : 'stopped';
       } catch (error) {
         state.phase = 'failed'; server.closeAllConnections(); throw error;
       }
@@ -102,5 +107,18 @@ export async function startManagedServer(handle: ManagedApp, options: {
     return closing;
   }
   handle.setMaintenance?.(maintenance);
-  return { server, state, close, maintenance };
+  const ready = options.validateStartup ? Promise.resolve()
+    .then(() => { if (startupController.signal.aborted || state.phase !== 'starting') throw new Error('Startup validation cancelled'); return options.validateStartup!(server,startupController.signal); })
+    .then(() => {
+      if (startupController.signal.aborted || state.phase !== 'starting') throw new Error('Startup validation cancelled');
+      state.phase = 'ready'; handle.jobs.start();
+    }).catch(error => {
+      if (!startupController.signal.aborted) { startupFailed = true; state.phase = 'failed'; }
+      throw error;
+    }) : Promise.resolve();
+  startupWork = ready;
+  // The owning caller observes ready. Keep rejection handled during the brief
+  // interval before that caller installs its failure/stop handler.
+  ready.catch(() => {});
+  return { server, state, close, maintenance, ready };
 }

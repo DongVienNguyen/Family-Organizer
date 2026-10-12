@@ -110,3 +110,22 @@ it('defaults the managed HTTP listener to loopback before reverse-proxy acceptan
   const {startManagedServer}=await load();const runtime=await startManagedServer({app:express(),jobs:new AppJobs(),endStreams:()=>{},dispose:async()=>{}},{port:0,closeStorage:()=>{}});
   try{expect((runtime.server.address() as any).address).toBe('127.0.0.1');}finally{await runtime.close();}
 });
+
+it('holds readiness, writes and jobs until owned startup validation completes',async()=>{
+ const {startManagedServer}=await load();const jobs=new AppJobs(),app=express(),state:any={phase:'starting',storageWritable:true};let release!:()=>void,jobRuns=0,writes=0;
+ const held=new Promise<void>(resolve=>{release=resolve;});jobs.registerAppJob('legacy','startup-gated',async()=>{jobRuns++;},{everyMs:1000,initialMs:0});
+ app.get('/health',(_req,res)=>res.json({phase:state.phase}));app.post('/write',(_req,res)=>{if(state.phase!=='ready'){res.status(503).json({held:true});return;}writes++;res.json({ok:true});});
+ const runtime=await startManagedServer({app,jobs,endStreams:()=>{},dispose:async()=>{}},{port:0,state,closeStorage:()=>{},validateStartup:async()=>held} as any);
+ try{expect(runtime.ready).toBeInstanceOf(Promise);expect(state.phase).toBe('starting');await delay(15);expect(jobRuns).toBe(0);expect((await request(runtime.server,'/health')).body).toEqual({phase:'starting'});expect((await request(runtime.server,'/write','POST')).status).toBe(503);expect(writes).toBe(0);release();await runtime.ready;expect(state.phase).toBe('ready');expect((await request(runtime.server,'/write','POST')).status).toBe(200);expect(writes).toBe(1);await delay(15);expect(jobRuns).toBe(1);}finally{release();await runtime.close();}
+});
+it('failed startup validation never starts jobs and closes owned storage once',async()=>{
+ const {startManagedServer}=await load();const jobs=new AppJobs();let jobRuns=0,closed=0;jobs.registerAppJob('legacy','startup-failed',async()=>{jobRuns++;},{everyMs:1000,initialMs:0});
+ const runtime=await startManagedServer({app:express(),jobs,endStreams:()=>{},dispose:async()=>{}},{port:0,closeStorage:()=>{closed++;},validateStartup:async()=>{throw new Error('synthetic validation failed');}} as any);
+ try{expect(runtime.ready).toBeInstanceOf(Promise);await expect(runtime.ready).rejects.toThrow('synthetic validation failed');expect(runtime.state.phase).toBe('failed');expect(jobRuns).toBe(0);}finally{await runtime.close();}expect(closed).toBe(1);expect(runtime.state.phase).toBe('failed');
+});
+it('abort and drain pending startup validation before closing storage',async()=>{
+ const {startManagedServer}=await load(),order:string[]=[];let entered!:()=>void;const started=new Promise<void>(resolve=>{entered=resolve;});
+ const runtime=await startManagedServer({app:express(),jobs:new AppJobs(),endStreams:()=>{},dispose:async()=>{order.push('dispose');}},{port:0,closeStorage:()=>{order.push('db-close');},validateStartup:async(_server:any,signal:AbortSignal)=>new Promise<void>((_resolve,reject)=>{entered();signal.addEventListener('abort',()=>{order.push('validation-aborted');reject(new Error('synthetic aborted'));},{once:true});})} as any);
+ try{expect(runtime.ready).toBeInstanceOf(Promise);await started;await runtime.close();await expect(runtime.ready).rejects.toThrow('synthetic aborted');expect(order).toEqual(['validation-aborted','dispose','db-close']);expect(runtime.state.phase).toBe('stopped');}finally{await runtime.close();}
+});
+it('a job activation failure after validation keeps HTTP unavailable',async()=>{const {startManagedServer}=await load();const jobs=new AppJobs(),original=jobs.start;jobs.start=()=>{throw new Error('synthetic activation failed');};const runtime=await startManagedServer({app:express(),jobs,endStreams:()=>{},dispose:async()=>{}},{port:0,validateStartup:async()=>{},closeStorage:()=>{}});try{await expect(runtime.ready).rejects.toThrow('synthetic activation failed');expect(runtime.state.phase).toBe('failed');}finally{jobs.start=original;await runtime.close();}});

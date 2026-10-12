@@ -11,6 +11,8 @@ import { startManagedServer, disposeDrainedResources } from './lifecycle.js';
 import type { RuntimeState } from './runtimeState.js';
 import fs from 'node:fs';
 import path from 'node:path';
+import {isDeepStrictEqual} from 'node:util';
+import {loadUpdateAttempt,validateUpdateStartup,UpdateFenceError} from './updateFence.js';
 
 /** The legacy store is one installation per process; it is loaded explicitly here. */
 let applicationClaimed = false;
@@ -28,6 +30,7 @@ export async function startApplication(config: AppConfig = appConfig) {
   let handle: Awaited<ReturnType<typeof createApp>> | undefined;
   let delegated = false;
   try {
+    const updateAttempt=loadUpdateAttempt(config); // Bind before any SQLite/bootstrap writes.
     if(!fs.existsSync(path.join(config.dataRoot,'family.db'))&&!fs.existsSync(path.join(config.dataRoot,'db.json'))){
       throw new Error('Installation initialization is required; use the trusted local operator command.');
     }
@@ -81,6 +84,23 @@ export async function startApplication(config: AppConfig = appConfig) {
     const managed = await startManagedServer(handle, {
       port,host:'127.0.0.1', state, drainEffects: drainAppEffects,
       closeStorage() { storage.sqliteCheckpoint(); storage.sqliteClose(); },
+      validateStartup:updateAttempt ? (server,signal)=>validateUpdateStartup(updateAttempt,server,signal,{
+        inspectStorage(){
+          const connection=storage.sqliteConnection(),number=(key:string)=>{const row=connection.prepare('SELECT value FROM app_meta WHERE key=?').get(key) as {value:string}|undefined;return row&&/^[1-9][0-9]*$/.test(row.value)?Number(row.value):NaN;};
+          const domains=Object.fromEntries((connection.prepare('SELECT namespace, MAX(version) AS version FROM app_migrations GROUP BY namespace').all() as {namespace:string;version:number}[]).map(row=>[row.namespace,row.version]));
+          return {integrity:String(connection.pragma('integrity_check',{simple:true})),users:db.FamilyDB.getUsers().length,schemas:{legacy:number('schema_version'),jobs:number('job_store_version'),snapshot:1,domains}};
+        },
+        markWritesPossible(attempt){
+          if(signal.aborted||state.phase!=='starting')throw new UpdateFenceError('UPDATE_STARTUP_CANCELLED');
+          const key='update_writes_opened:'+attempt.operationId,record={format:1,operationId:attempt.operationId,manifestSha256:attempt.manifestSha256,writesMayOpen:true},serialized=JSON.stringify(record);
+          const existing=storage.sqliteConnection().prepare('SELECT value FROM app_meta WHERE key=?').get(key) as {value:string}|undefined;
+          if(existing){try{if(!isDeepStrictEqual(JSON.parse(existing.value),record))throw new Error();}catch{throw new UpdateFenceError('UPDATE_BINDING_INVALID');}}
+          withAppWriteTransaction({actorId:'system:update-validation',command:'core:update:open-writes',requestId:attempt.operationId,payloadHash:createHash('sha256').update(serialized).digest('hex')},tx=>{tx.run('INSERT OR IGNORE INTO app_meta(key,value) VALUES(?,?)',key,serialized);return {writesMayOpen:true};});
+          // Cached command results are not sufficient evidence if metadata was damaged.
+          const durable=storage.sqliteConnection().prepare('SELECT value FROM app_meta WHERE key=?').get(key) as {value:string}|undefined;
+          try{if(!durable||!isDeepStrictEqual(JSON.parse(durable.value),record))throw new Error();}catch{throw new UpdateFenceError('UPDATE_STORAGE_FAILED');}
+        },
+      }) : undefined,
     });
     return Object.assign(managed, {
       backupRecovery,backupHealth,
