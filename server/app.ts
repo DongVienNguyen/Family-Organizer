@@ -35,6 +35,7 @@ export interface AppDependencies {
   ics: typeof import('./icsFeed.js'); push: typeof import('./push.js');
   build: { version: string; commit: string; buildTime: string };
   state: RuntimeState; jobs: AppJobs; metrics: ReturnType<typeof createSystemMetrics>;
+  backupHealth?:()=>import('./recoverySchedule.js').BackupHealth;
   checkStorage?: () => void;
   auth:AuthService;
 }
@@ -545,6 +546,7 @@ app.get("/api/server/stats", requireAuth, requireRole([UserRole.ADMIN]), async (
         rssBytes: process.memoryUsage.rss()
       },
       data: {
+        backup: dependencies.backupHealth?.(),
         ...dataSizes,
         pushDevices: FamilyDB.getPushSubscriptions().length,
         sseClients: realtime.size,

@@ -1,0 +1,13 @@
+{
+  "taskId": "F07-g",
+  "initialMergeHttpStatus": 504,
+  "firstIntegratedCommit": "02a162cffffe7ee001dc9b7ed7c1811226e5f5cf",
+  "initialPrRestGraphqlState": "open/merged:false despite exact source tree integration",
+  "reconciliation": "One supported REST merge request with exact source HEAD",
+  "finalMergeCommit": "c0705cd6f03003d747481c85e6ff706447756a2a",
+  "prState": "closed",
+  "merged": true,
+  "testedHeadSha": "84de62f17b9047f4df90e7f7942192d4b535c8e4",
+  "mainTreeEqualsTestedHead": true,
+  "noHistoryRewrite": true
+}
