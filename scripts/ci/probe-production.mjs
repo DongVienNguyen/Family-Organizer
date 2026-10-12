@@ -9,6 +9,7 @@ import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { probeFirstAccount } from './probe-first-account.mjs';
+import { probeSchemaCompatibility } from './probe-schema-compatibility.mjs';
 
 const [packageRoot, fixtureRoot, foreignCwd, deniedDirectory, reportPath] = process.argv.slice(2);
 assert.equal(process.argv.length, 7, 'Expected package/fixture/cwd/denied/report paths');
@@ -276,9 +277,10 @@ try {
   assert.deepEqual(JSON.parse(fs.readFileSync(path.join(configRoot, 'app_settings.json'), 'utf8')), { marker: 'synthetic' });
   assert.deepEqual(JSON.parse(fs.readFileSync(path.join(dataRoot, 'db.json'), 'utf8')), legacy);
   assert.equal(fs.existsSync(networkFile) ? fs.readFileSync(networkFile, 'utf8') : '', '');
-  const report = { commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
+  const incompatibleSchemas = await probeSchemaCompatibility(packageRoot, fixtureRoot, foreignCwd);
+  const report = { incompatibleSchemas, commitSha: process.env.TEST_COMMIT_SHA, nodeVersion: process.version, platform: process.platform, architecture: process.arch,
     cwd: foreignCwd, productionRoot: packageRoot,
-    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy'] };
+    checks: ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy','incompatible-schema-preserved'] };
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
 } finally {

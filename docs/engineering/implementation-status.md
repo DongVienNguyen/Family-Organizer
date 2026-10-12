@@ -20,7 +20,8 @@
 | F04-l | Reviewed, exact Windows GREEN, merged PR18 | HEADcbc677bea9c0b3dc6b1f7267417290f5d6257400; run38186890169;1080/108076files per runtime; mainc24486b |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
 | F05-a | Reviewed, exact Windows GREEN, merged PR19 | HEAD1697bf939a57e7a463a95ea8141c30a4368822b7; run38190289782;1146/114678files per runtime,7checks0/audit0/22proof;15browser first-attempt cases, full artifact hashes verified; mainb0f9a01 |
-| F05-b | Windows baseline independently measured; eight-check ratchet gate awaiting review/exact Windows | PR20; measurement HEAD5b83bcadd9254c9534c4ed52c80b03c355432632/run38191398754;1146/78 both runtimes;15 browsers;104 coverage files |
+| F05-b | Reviewed, exact Windows GREEN, merged PR20 | HEAD27e0691f92ba6e5ccbcfa39af3fbf4d9fdaf4a04/run38193519702;1222/80 each runtime;8checks0/audit0/22compiledproof;15first-attempt browsers;104coveragefiles;main01b9a21 |
+| F06-a | Compatibility source under review correction / Windows pending | PR21; firstHEADa113d30327459707458b2126e47879847ad24883/run38194460620: quality1243/81 both8checks0/23proof, browsers14pass1fail WebKitB05; corrected Cloud1248/81 |
 | F05–F09 | Enforcement/coverage/package/service/encryption/release-prep/performance pending | Actual Oct12 ruleset/protection writes still403 despite user authorization; mainprotected:false; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
@@ -627,3 +628,41 @@ on both Windows runtimes, all8checks0/audit0/22proof;15 first-attempt browsers,
 all104 raw coverage/LCOV inventories and hashes match. Still superseded by review
 fixes. Corrected target158/158 threefiles, full Cloud1222/122280files/lint/build0;
 actual104file coverage validation agrees. Corrected Windows HEAD pending.
+
+
+## F06-a — Pre-DDL SQLite compatibility (in progress)
+
+BASE main01b9a210caddcaf280b4835476829d90274d51f3 verified after authorized PR20
+squash. F05-b final source27e0691/run38193519702 independently verified1222/1222
+80files on both runtimes,8checks0/audit0/22compiledproof,15 first-attempt browsers,
+104file coverage counters/LCOV/source bytes and disabled implicit cache. Immutable
+proof https://github.com/DongVienNguyen/Family-Organizer/pull/20#issuecomment-6116381748.
+F05 enforcement remains blocked by actual POST/PUT403, mainprotectedfalse/rulesets[].
+
+Branchcodex/f06-schema-compatibility; PR/Windows HEAD pending. Normal runtime
+now checks existing schema under one native write lock before DDL/WAL, initializes
+atomically and rolls back/closes failures. Supported v1 partial schemas/domain
+extensions and fresh/restart persistence remain. Eight actual native RED cases
+then GREEN; two valid characterizations. Eleven new report-gate RED cases protect
+required native suite/compiled smoke and missing/contradictory preservation reports.
+The first full diagnostic included those final9 intentionally RED gate cases:
+1234passed/9failed in81files; it is retained, not a successful full-run claim.
+Final Cloud1243/124381files, target152/152fivefiles/lint/build/audit0, fresh
+production-only npmci and five compiled preservation fixtures passed;104file
+coverage agrees with unchanged floors. Review/Windows pending. See sqlite-compatibility.md. Portable ZIP/bundled runtime/manifest remains
+F06-b; F04 backup/log/F07 encrypted recovery/services/F08 preparation/F09 full legacy
+matrix remain. No new domain features, release/tag or VPS access/deployment.
+
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/21. First-source HEAD
+a113d30327459707458b2126e47879847ad24883 Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38194460620:
+quality1243/124381files on both Node22/24,8checks0/audit0/23compiledproof and
+104coveragefiles independently verified. Browser14pass1fail WebKitB05, no skips/
+flaky/retries: navigation interrupted unfinished initial-image fetches. Exact
+trace/JSON/JUnit/logs/raw hashes saved in evidence/f06-a-first-source.json. Positive
+Member private/shared image visibility/decode asserted before deliberate reload,
+all existing errors/ACL/late-response assertions retained. ci-gate correctly failed.
+Single freshreview1Important1Minor allacceptedbeforeoneTDDpass: literal internal
+SQLite prefix for normal/operator refusal and typed hash metadata. Five actualRED
+thenGREEN, target157/157 fivefiles, full1248/124881files/lint/build0 and seven
+compiled preservation fixtures passed in Cloud. Corrected exactWindows pending.

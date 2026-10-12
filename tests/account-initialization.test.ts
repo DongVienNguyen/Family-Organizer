@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import {createHash} from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -42,7 +43,7 @@ const runtimeScript=`const {startApplication}=await import(${JSON.stringify(runt
 function database(f:Fixture){return path.join(f.env.DATA_DIR!,'family.db');}
 function rows(f:Fixture){
   const sql=new Database(database(f),{readonly:true});
-  try{return Object.fromEntries((sql.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all() as {name:string}[]).map(({name})=>[name,sql.prepare('SELECT * FROM "'+name.replaceAll('"','""')+'" ORDER BY rowid').all()]));}
+  try{return Object.fromEntries((sql.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT GLOB 'sqlite_*' ORDER BY name").all() as {name:string}[]).map(({name})=>[name,sql.prepare('SELECT * FROM "'+name.replaceAll('"','""')+'" ORDER BY rowid').all()]));}
   finally{sql.close();}
 }
 function assertNoPlaintext(f:Fixture){
@@ -114,15 +115,16 @@ it('does not reimport stale legacy JSON over a partial initialized business stor
   expect(fs.readFileSync(legacyFile,'utf8')).toBe(legacy);
 }));
 
-it.each(['unrelated','incomplete','unsupported-version'])('refuses %s SQLite without writing schema, metadata, journal mode or records',kind=>fixture(async f=>{
+it.each(['unrelated','incomplete','unsupported-version','sqliteX','sqliteData'])('refuses %s SQLite without writing schema, metadata, journal mode or records',kind=>fixture(async f=>{
   fs.mkdirSync(f.env.DATA_DIR!,{recursive:true});
   const sql=new Database(database(f));
   try{
+    if(kind==='sqliteX'||kind==='sqliteData')sql.exec('CREATE TABLE '+kind+'(value TEXT);INSERT INTO '+kind+" VALUES('preserve-me');");
     if(kind==='unrelated')sql.exec("CREATE TABLE synthetic_external(id TEXT PRIMARY KEY,data TEXT);INSERT INTO synthetic_external VALUES('synthetic-sentinel','retained');");
     if(kind==='incomplete')sql.exec("CREATE TABLE users(id TEXT PRIMARY KEY,seq INTEGER NOT NULL,data TEXT NOT NULL);INSERT INTO users VALUES('synthetic-sentinel',0,'{\"id\":\"synthetic-sentinel\"}');");
     if(kind==='unsupported-version')sql.exec("CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('schema_version','999');");
   }finally{sql.close();}
-  const inspect=()=>{const owned=new Database(database(f),{readonly:true});try{return {schema:owned.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all(),mode:owned.pragma('journal_mode',{simple:true}),rows:rows(f)};}finally{owned.close();}};
+  const inspect=()=>{const owned=new Database(database(f),{readonly:true});try{return {sha256:createHash('sha256').update(fs.readFileSync(database(f))).digest('hex'),schema:owned.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT GLOB 'sqlite_*' ORDER BY type,name").all(),mode:owned.pragma('journal_mode',{simple:true}),rows:rows(f)};}finally{owned.close();}};
   const before=inspect(),result=await operator(f);
   expect(result.code).toBe(1);expect(inspect()).toEqual(before);
   expect(result.response).toEqual({error:'INSTALLATION_NOT_PRISTINE'});

@@ -37,7 +37,9 @@ The single fresh review accepted two Important and one Minor findings; all were
 fixed in one TDD pass with seven actual RED regressions. LCOV now binds function
 declaration/name/hits and branch line/map-key/index/hits, rather than aggregate
 hit multisets. All provider-supported exclusion aliases are rejected. Final
-corrected exact-HEAD Windows proof remains pending.
+corrected HEAD27e0691/run38193519702 independently verified1222/80 per runtime,
+all8checks0,15 first-attempt browsers and all104 raw coverage sources; mergedPR20
+as main01b9a21. Proof: https://github.com/DongVienNguyen/Family-Organizer/pull/20#issuecomment-6116381748.
 
 Npm caches now use explicit Windows architecture/Node/npm/lockfile keys via
 the official SHA-pinned actions/cache v5. Implicit setup-node package-manager caching is explicitly disabled on both jobs.

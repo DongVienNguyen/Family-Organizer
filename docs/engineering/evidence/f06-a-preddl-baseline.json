@@ -1,0 +1,256 @@
+{
+  "task": "F06 pre-DDL baseline gap",
+  "cloudDiagnosticOnly": true,
+  "baselineHead": "27e0691f92ba6e5ccbcfa39af3fbf4d9fdaf4a04",
+  "childExit": 3,
+  "stderr": "Unsupported legacy schema version: 999",
+  "before": {
+    "sha256": "ac0ab22e594b708b621bf16d4350b9bde03e2185ec4ca3ade5711972e8a8d59f",
+    "journal": "delete",
+    "schema": [
+      {
+        "name": "app_meta",
+        "sql": "CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT)"
+      },
+      {
+        "name": "synthetic_future",
+        "sql": "CREATE TABLE synthetic_future(id TEXT PRIMARY KEY,value TEXT)"
+      }
+    ],
+    "future": [
+      {
+        "id": "synthetic",
+        "value": "preserve-me"
+      }
+    ]
+  },
+  "after": {
+    "sha256": "a3d6db1dec6a90b970929158f88b880062de243e9e2ea5116eb68a81ef2d2bb0",
+    "journal": "wal",
+    "schema": [
+      {
+        "name": "activity_logs",
+        "sql": "CREATE TABLE activity_logs (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "app_meta",
+        "sql": "CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT)"
+      },
+      {
+        "name": "assets",
+        "sql": "CREATE TABLE assets (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "backup_records",
+        "sql": "CREATE TABLE backup_records (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "budgets",
+        "sql": "CREATE TABLE budgets (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "custom_categories",
+        "sql": "CREATE TABLE custom_categories (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "debts",
+        "sql": "CREATE TABLE debts (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "dish_library",
+        "sql": "CREATE TABLE dish_library (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "documents",
+        "sql": "CREATE TABLE documents (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "growth_records",
+        "sql": "CREATE TABLE growth_records (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "health_profiles",
+        "sql": "CREATE TABLE health_profiles (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "idx_activity_logs_seq",
+        "sql": "CREATE INDEX idx_activity_logs_seq ON activity_logs(seq)"
+      },
+      {
+        "name": "idx_assets_seq",
+        "sql": "CREATE INDEX idx_assets_seq ON assets(seq)"
+      },
+      {
+        "name": "idx_backup_records_seq",
+        "sql": "CREATE INDEX idx_backup_records_seq ON backup_records(seq)"
+      },
+      {
+        "name": "idx_budgets_seq",
+        "sql": "CREATE INDEX idx_budgets_seq ON budgets(seq)"
+      },
+      {
+        "name": "idx_custom_categories_seq",
+        "sql": "CREATE INDEX idx_custom_categories_seq ON custom_categories(seq)"
+      },
+      {
+        "name": "idx_debts_seq",
+        "sql": "CREATE INDEX idx_debts_seq ON debts(seq)"
+      },
+      {
+        "name": "idx_dish_library_seq",
+        "sql": "CREATE INDEX idx_dish_library_seq ON dish_library(seq)"
+      },
+      {
+        "name": "idx_documents_seq",
+        "sql": "CREATE INDEX idx_documents_seq ON documents(seq)"
+      },
+      {
+        "name": "idx_growth_records_seq",
+        "sql": "CREATE INDEX idx_growth_records_seq ON growth_records(seq)"
+      },
+      {
+        "name": "idx_health_profiles_seq",
+        "sql": "CREATE INDEX idx_health_profiles_seq ON health_profiles(seq)"
+      },
+      {
+        "name": "idx_market_history_seq",
+        "sql": "CREATE INDEX idx_market_history_seq ON market_history(seq)"
+      },
+      {
+        "name": "idx_medication_logs_seq",
+        "sql": "CREATE INDEX idx_medication_logs_seq ON medication_logs(seq)"
+      },
+      {
+        "name": "idx_medications_seq",
+        "sql": "CREATE INDEX idx_medications_seq ON medications(seq)"
+      },
+      {
+        "name": "idx_notes_seq",
+        "sql": "CREATE INDEX idx_notes_seq ON notes(seq)"
+      },
+      {
+        "name": "idx_notifications_seq",
+        "sql": "CREATE INDEX idx_notifications_seq ON notifications(seq)"
+      },
+      {
+        "name": "idx_plans_seq",
+        "sql": "CREATE INDEX idx_plans_seq ON plans(seq)"
+      },
+      {
+        "name": "idx_push_subscriptions_seq",
+        "sql": "CREATE INDEX idx_push_subscriptions_seq ON push_subscriptions(seq)"
+      },
+      {
+        "name": "idx_recurring_bills_seq",
+        "sql": "CREATE INDEX idx_recurring_bills_seq ON recurring_bills(seq)"
+      },
+      {
+        "name": "idx_reward_items_seq",
+        "sql": "CREATE INDEX idx_reward_items_seq ON reward_items(seq)"
+      },
+      {
+        "name": "idx_reward_ledger_seq",
+        "sql": "CREATE INDEX idx_reward_ledger_seq ON reward_ledger(seq)"
+      },
+      {
+        "name": "idx_savings_goals_seq",
+        "sql": "CREATE INDEX idx_savings_goals_seq ON savings_goals(seq)"
+      },
+      {
+        "name": "idx_shopping_items_seq",
+        "sql": "CREATE INDEX idx_shopping_items_seq ON shopping_items(seq)"
+      },
+      {
+        "name": "idx_tasks_seq",
+        "sql": "CREATE INDEX idx_tasks_seq ON tasks(seq)"
+      },
+      {
+        "name": "idx_transactions_seq",
+        "sql": "CREATE INDEX idx_transactions_seq ON transactions(seq)"
+      },
+      {
+        "name": "idx_users_seq",
+        "sql": "CREATE INDEX idx_users_seq ON users(seq)"
+      },
+      {
+        "name": "idx_vaccinations_seq",
+        "sql": "CREATE INDEX idx_vaccinations_seq ON vaccinations(seq)"
+      },
+      {
+        "name": "market_history",
+        "sql": "CREATE TABLE market_history (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "medication_logs",
+        "sql": "CREATE TABLE medication_logs (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "medications",
+        "sql": "CREATE TABLE medications (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "notes",
+        "sql": "CREATE TABLE notes (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "notifications",
+        "sql": "CREATE TABLE notifications (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "plans",
+        "sql": "CREATE TABLE plans (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "push_subscriptions",
+        "sql": "CREATE TABLE push_subscriptions (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "recurring_bills",
+        "sql": "CREATE TABLE recurring_bills (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "reward_items",
+        "sql": "CREATE TABLE reward_items (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "reward_ledger",
+        "sql": "CREATE TABLE reward_ledger (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "savings_goals",
+        "sql": "CREATE TABLE savings_goals (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "shopping_items",
+        "sql": "CREATE TABLE shopping_items (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "synthetic_future",
+        "sql": "CREATE TABLE synthetic_future(id TEXT PRIMARY KEY,value TEXT)"
+      },
+      {
+        "name": "tasks",
+        "sql": "CREATE TABLE tasks (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "transactions",
+        "sql": "CREATE TABLE transactions (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "users",
+        "sql": "CREATE TABLE users (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      },
+      {
+        "name": "vaccinations",
+        "sql": "CREATE TABLE vaccinations (\n          id   TEXT PRIMARY KEY,\n          seq  INTEGER NOT NULL,\n          data TEXT NOT NULL\n        )"
+      }
+    ],
+    "future": [
+      {
+        "id": "synthetic",
+        "value": "preserve-me"
+      }
+    ]
+  },
+  "unchanged": false
+}
