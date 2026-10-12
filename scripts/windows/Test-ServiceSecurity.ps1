@@ -30,8 +30,8 @@ try {
         $acl=Get-Acl $file;$acl.SetAccessRuleProtection($true,$false)
         foreach($rule in @($acl.Access)){$acl.RemoveAccessRuleSpecific($rule)}
         foreach($sid in @('S-1-5-18','S-1-5-32-544')){
-            if((Get-Item $file).PSIsContainer){$rule=New-Object Security.AccessControl.FileSystemAccessRule($sid,'FullControl','ContainerInherit,ObjectInherit','None','Allow')}
-            else{$rule=New-Object Security.AccessControl.FileSystemAccessRule($sid,'FullControl','Allow')}
+            if((Get-Item $file).PSIsContainer){$rule=New-Object Security.AccessControl.FileSystemAccessRule((New-Object Security.Principal.SecurityIdentifier($sid)),'FullControl','ContainerInherit,ObjectInherit','None','Allow')}
+            else{$rule=New-Object Security.AccessControl.FileSystemAccessRule((New-Object Security.Principal.SecurityIdentifier($sid)),'FullControl','Allow')}
             $acl.AddAccessRule($rule)
         }
         $acl.SetOwner((New-Object Security.Principal.SecurityIdentifier('S-1-5-32-544')));Set-Acl $file $acl
@@ -66,7 +66,7 @@ try {
     $uninstallExit=$LASTEXITCODE
     $results.Add(@{name='uninstall-requires-independent-trust';passed=($uninstallExit -ne 0 -and !(Test-Path $uninstallCanary));exitCode=$uninstallExit})
     $aclRoot=Join-Path $root 'acl';New-Item -ItemType Directory -Path $aclRoot | Out-Null
-    $acl=Get-Acl $aclRoot;$acl.AddAccessRule((New-Object Security.AccessControl.FileSystemAccessRule('S-1-1-0','Modify','ContainerInherit,ObjectInherit','None','Allow')));Set-Acl $aclRoot $acl
+    $acl=Get-Acl $aclRoot;$acl.AddAccessRule((New-Object Security.AccessControl.FileSystemAccessRule((New-Object Security.Principal.SecurityIdentifier('S-1-1-0')),'Modify','ContainerInherit,ObjectInherit','None','Allow')));Set-Acl $aclRoot $acl
     Set-OwnedServiceAcl $aclRoot 'TrustedInstaller' 'RX'
     $broad=@((Get-Acl $aclRoot).Access|Where-Object {$_.IdentityReference.Translate([Security.Principal.SecurityIdentifier]).Value -eq 'S-1-1-0' -and ($_.FileSystemRights -band [Security.AccessControl.FileSystemRights]::Write)})
     $results.Add(@{name='existing-explicit-write-grant-removed';passed=($broad.Count -eq 0)})
