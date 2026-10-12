@@ -18,9 +18,9 @@ function Get-ServiceHash {
     # Windows PowerShell5.1 Get-FileHash can skip provider lookup under WhatIf.
     # Literal streaming reads always validate bytes, independently of ShouldProcess.
     $stream=[IO.File]::Open($Path,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
-    $algorithm=[Security.Cryptography.SHA256]::Create()
-    try{return ([BitConverter]::ToString($algorithm.ComputeHash($stream))).Replace('-','').ToLowerInvariant()}
-    finally{$algorithm.Dispose();$stream.Dispose()}
+    $algorithm=$null
+    try{$algorithm=[Security.Cryptography.SHA256]::Create();return ([BitConverter]::ToString($algorithm.ComputeHash($stream))).Replace('-','').ToLowerInvariant()}
+    finally{if($algorithm){$algorithm.Dispose()};$stream.Dispose()}
 }
 function Assert-NoServiceReparse {
     param([string]$Path)
@@ -63,7 +63,7 @@ function Get-ServiceContext {
     $manifestPath=Join-Path $release 'release-manifest.json'
     Assert-NoServiceReparse $manifestPath
     if ((Get-ServiceHash $manifestPath) -cne $ExpectedManifestSha256) { throw 'Trusted manifest hash mismatch' }
-    $manifest=Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+    $manifest=Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
     $node=Join-Path $release 'bin/node.exe'
     Assert-NoServiceReparse $node
     if ((Get-ServiceHash $node) -cne 'ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32') { throw 'Official bundled Node executable hash mismatch' }

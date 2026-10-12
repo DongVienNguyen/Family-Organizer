@@ -8,7 +8,7 @@ if (Test-Path -LiteralPath $context.marker) {
     Assert-ServiceMetadataAcl $context.instance
     Assert-ServiceMetadataAcl $context.directory
     Assert-ServiceMetadataAcl $context.marker
-    $descriptor=Get-Content -LiteralPath $context.marker -Raw | ConvertFrom-Json
+    $descriptor=Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-ServiceOwner $context $descriptor
 } elseif ($existing -or ((Test-Path -LiteralPath $context.instance) -and @(Get-ChildItem -LiteralPath $context.instance -Force).Count -gt 0)) { throw 'Refuse unowned existing service/instance; no data overwrite' }
 if ($ValidateOnly -or !$PSCmdlet.ShouldProcess($context.instance,'Install owned Family Organizer service')) { return }
@@ -33,5 +33,5 @@ Invoke-ServiceNative 'service-sid' (Join-Path $env:windir 'System32/sc.exe') @('
 Set-OwnedServiceAcl $context.instance $ServiceId 'RX'
 Set-OwnedServiceAcl $context.release $ServiceId 'RX'
 foreach ($name in @('data','config','logs')) { Set-OwnedServiceAcl (Join-Path $context.instance $name) $ServiceId 'M' }
-Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw | ConvertFrom-Json)
+Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json)
 @{serviceId=$ServiceId;commitSha=$context.commitSha;frameworkRelease=$context.frameworkRelease;alreadyInstalled=[bool]$existing;nativeExitCodes=$script:ServiceNativeResults.ToArray()} | ConvertTo-Json -Depth 8

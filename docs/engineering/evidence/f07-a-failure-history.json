@@ -126,5 +126,22 @@
     "otherFiveJobs": "success",
     "gate": "failure",
     "jobLogSha256": "97ed34e14426cc4495f281d1537a6117a7f26fca41b2f2a786318a4f5aa5e9a4"
+  },
+  "unicodeMarkerFailure": {
+    "headSha": "e743b3cf2e4cdad56fb902490712a52e08f94be9",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38207585120",
+    "securityAssertionsPassed": 8,
+    "validateOnlyExitCode": 0,
+    "whatIfExitCode": 0,
+    "scmInstall": "WinSW installed service successfully; sc sidtype exit0",
+    "installExitCode": 1,
+    "failure": "post-install UTF8 descriptor read with Windows PS5.1 default ANSI failed ownership comparison for Unicode paths",
+    "cleanupExitCode": 1,
+    "fixtureCleanup": false,
+    "serviceRemoved": false,
+    "functionalSCMChecks": "not-run",
+    "otherFiveJobs": "success",
+    "gate": "failure",
+    "jobLogSha256": "fb1090fd0660cd22046b3879b8ace8d3cc7668ffedb32afa6d90f972380eb283"
   }
 }

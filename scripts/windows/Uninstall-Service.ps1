@@ -6,7 +6,7 @@ $marker=Join-Path $instance 'service/installation.json'
 Assert-ServiceMetadataAcl $instance
 Assert-ServiceMetadataAcl (Join-Path $instance 'service')
 Assert-ServiceMetadataAcl $marker
-$descriptor=Get-Content -LiteralPath $marker -Raw | ConvertFrom-Json
+$descriptor=Get-Content -LiteralPath $marker -Raw -Encoding UTF8 | ConvertFrom-Json
 $context=Get-ServiceContext $ReleaseRoot $instance $ServiceId $descriptor.port $ExpectedManifestSha256
 Assert-ServiceOwner $context $descriptor
 if ($ValidateOnly -or !$PSCmdlet.ShouldProcess($instance,'Stop and uninstall owned service')) { return }

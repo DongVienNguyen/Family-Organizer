@@ -136,7 +136,10 @@ finally {
             $cleanupArgs=@('-NoProfile','-File',(Join-Path $release 'ops/Uninstall-Service.ps1'),'-ReleaseRoot',$release,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
             Invoke-TestNative 'cleanup-service' (Join-Path $env:windir 'System32/WindowsPowerShell/v1.0/powershell.exe') $cleanupArgs
         }
-        if (Get-Service -Name $id -ErrorAction SilentlyContinue) { throw 'Fixture service remains installed' }
+    } catch { if (!$failure) { $failure=$_ }; $code=1 }
+    # Preserve logs/metadata even when owned uninstallation fails; never delete a
+    # fixture whose service remains registered. These files contain no credentials.
+    try {
         $serviceLogs=Join-Path $instance 'logs'
         if(Test-Path -LiteralPath $serviceLogs){
             $logsTarget=Join-Path $ReportDirectory 'service-logs'
@@ -146,6 +149,14 @@ finally {
                 Copy-Item -LiteralPath $log.FullName -Destination $logsTarget
             }
         }
+        if($context){
+            foreach($file in @($context.marker,$context.xml,($context.wrapper+'.config'))){
+                if(Test-Path -LiteralPath $file){Assert-NoServiceReparse $file;Copy-Item -LiteralPath $file -Destination $ReportDirectory}
+            }
+        }
+    } catch { if (!$failure) { $failure=$_ }; $code=1 }
+    try {
+        if (Get-Service -Name $id -ErrorAction SilentlyContinue) { throw 'Fixture service remains installed' }
         if (Test-Path -LiteralPath $fixture) { Remove-Item -LiteralPath $fixture -Recurse -Force }
         $cleanup=!(Test-Path -LiteralPath $fixture)
     } catch { if (!$failure) { $failure=$_ }; $code=1 }
