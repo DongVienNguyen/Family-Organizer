@@ -1,0 +1,57 @@
+{
+  "task": "F06-b",
+  "pullRequest": "https://github.com/DongVienNguyen/Family-Organizer/pull/22",
+  "commitSha": "15081a7a99f922dd4102fcfcb73a9b983eb0bce5",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38199047306",
+  "mainSquash": "d353c7bd8b7a73ac41bde401d875fe4cfb98e56f",
+  "allSixJobs": "success",
+  "qualityTestsPerRuntime": 1320,
+  "qualityFiles": 82,
+  "browserCases": 15,
+  "coverageSources": 104,
+  "package": {
+    "task": "F06-b",
+    "commitSha": "15081a7a99f922dd4102fcfcb73a9b983eb0bce5",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38199047306",
+    "zipSha256": "aa006fb67449e47eec3795ffc8a246e59b9dc785fa5ed4f95b3f2e5270443ad5",
+    "zipSize": 54214319,
+    "files": 4557,
+    "dependencies": 236,
+    "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+    "manifestHash": "1ade1844f72b376a4714d8092dc4be3d96209e992b21522b908bcb2264ae9274",
+    "consumerNoCheckoutInstallBuild": true,
+    "consumerBundledNodeOnly": true,
+    "producerCleanup": true,
+    "consumerCleanup": true,
+    "archiveFixtures": 26,
+    "archiveSafeUnicode": true,
+    "producerExpectedRefusalExitCode": 1,
+    "compiledProofs": 23,
+    "additionalFunctionalProofs": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed"
+    ],
+    "licenseMetadataOnly": [
+      "cookie-signature",
+      "data-uri-to-buffer",
+      "http_ece",
+      "isarray"
+    ]
+  },
+  "independentSummaryHashes": {
+    "verified-summary.json": "cda84fb7b2dcebbb898d98b8fe440eb6df34f836910968a83aaac9ef22256e57",
+    "browser-verified-summary.json": "ca9794cec2a0a33ca231355fd8a7faa0cd5fe6e793bb014fe64f6be2ce586e53",
+    "coverage-verified-summary.json": "36d54e4c863867b60cba428c99661664ea8dceaec0c83375524eebeefcd0cb34",
+    "package-verified-summary.json": "7263381187bd98fd6292d0dd2b37610f7013dc42154c9ee89c31ac171ef95fbf"
+  }
+}

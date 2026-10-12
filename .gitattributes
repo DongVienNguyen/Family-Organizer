@@ -1,2 +1,5 @@
 # Script shell chạy trong container Linux — luôn LF dù checkout trên Windows
 *.sh text eol=lf
+
+# Preserve verbatim upstream license byte hashes on every checkout.
+scripts/windows/licenses/*.txt text eol=lf

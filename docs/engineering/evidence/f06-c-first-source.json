@@ -1,0 +1,65 @@
+{
+  "task": "F06-c first source",
+  "pullRequest": "https://github.com/DongVienNguyen/Family-Organizer/pull/23",
+  "commitSha": "2c20b6f15cabdd69b8c4e65403aa25eb1b0013a9",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38202337144",
+  "allSixJobs": "success",
+  "qualityTestsPerRuntime": 1351,
+  "qualityFiles": 83,
+  "browserCases": 15,
+  "coverageSources": 104,
+  "package": {
+    "task": "F06-c",
+    "commitSha": "2c20b6f15cabdd69b8c4e65403aa25eb1b0013a9",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38202337144",
+    "zipSha256": "f37162b65546ae93ab7aa8d6cead4a3f218369242e9ba3948bc63071d5cd5af1",
+    "zipSize": 54228464,
+    "files": 4562,
+    "dependencies": 236,
+    "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+    "manifestHash": "d98b1d5cc8e6b4f90a4d867663c6c493329df6d6d593fc23f5881d77969dede6",
+    "consumerNoCheckoutInstallBuild": true,
+    "consumerBundledNodeOnly": true,
+    "producerCleanup": true,
+    "consumerCleanup": true,
+    "archiveFixtures": 26,
+    "archiveSafeUnicode": true,
+    "producerExpectedRefusalExitCode": 1,
+    "compiledProofs": 23,
+    "additionalFunctionalProofs": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed"
+    ],
+    "licenseAudit": {
+      "policyVersion": 1,
+      "dependencies": 236,
+      "embeddedReadmeNotices": [
+        "cookie-signature",
+        "data-uri-to-buffer",
+        "isarray"
+      ],
+      "mplSourceFiles": 8,
+      "termsVerified": true,
+      "originalCopyrightPreserved": true
+    }
+  },
+  "mergeAccepted": false,
+  "reason": "Important review finding requires correction and exact-HEAD rerun",
+  "independentSummaryHashes": {
+    "verified-summary.json": "a6243cabcf18e75e71337239d8d546f9eab9c695f81c619bb03701f4467bd1a3",
+    "browser-verified-summary.json": "eff13b6556818b1e944d1950a3299e83d910181af52a72ab2b0ddfbf7a99246f",
+    "coverage-verified-summary.json": "7dfa38869e78a357d4fb559437c2ced95982fe4e278e5353ab466eb7e2dc706b",
+    "package-verified-summary.json": "7db327f6097b83e8ee5f84c4d4aabc5fe8e585b10447821fec41b96b430cecc7"
+  },
+  "fullLogsSha256": "e6d068b4afc11c30db9ef6650926bf7d7ed4069f333fbb4c1f26f440248ab7e5"
+}

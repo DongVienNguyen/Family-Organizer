@@ -1,0 +1,30 @@
+{
+  "task": "F06-c consumer failure",
+  "commitSha": "9153d723bf243a7af7461137a02eb2602e45e334",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38202918037",
+  "consumer": {
+    "commitSha": "9153d723bf243a7af7461137a02eb2602e45e334",
+    "nativeExitCodes": {
+      "validation": 1
+    },
+    "consumerInstall": false,
+    "exitCode": 1,
+    "fixtureCleanup": true,
+    "sourceCheckoutPresent": false,
+    "consumerRebuild": false,
+    "zipSha256": "0b14d1f181367128e034447a6263817575d53a12f8e520fa6b9b95d2b5394342",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38202918037"
+  },
+  "cause": "reviewed-notices.mjs absent from independent consumer harness; ERR_MODULE_NOT_FOUND",
+  "consumerPositiveChecksAfterValidation": "not run",
+  "artifactHashes": {
+    "failure.log": "7212c1f01cecabd9e41e14754a4bc5626763fbe87d96882fff1e0dbcdffc455b",
+    "package-validation.log": "6a1c6519186891705d5b45e245ab8c0cfbc9fbeb3e45b5f77831397cf9a995f2",
+    "package-exit.json": "9aa245d9f460ca83750d12356328622b314a1241e959dbde05fbc950d151ba4a"
+  },
+  "actualCloudRed": {
+    "failed": 1,
+    "passed": 40
+  },
+  "harnessFix": "include module and test isolated workflow-defined import closure"
+}

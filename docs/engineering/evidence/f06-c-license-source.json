@@ -1,0 +1,98 @@
+{
+  "task": "F06-c",
+  "baseSha": "d353c7bd8b7a73ac41bde401d875fe4cfb98e56f",
+  "cloudDiagnosticsOnly": true,
+  "tests": 1362,
+  "files": 83,
+  "targetTests": 160,
+  "sourceChecks": {
+    "lint": 0,
+    "test": 0,
+    "build": 0
+  },
+  "redEvidence": {
+    "initialClassification": {
+      "failed": 13,
+      "passed": 4
+    },
+    "declarationMismatch": {
+      "failed": 3,
+      "passed": 17
+    },
+    "mandatorySuite": {
+      "failed": 1,
+      "passed": 118
+    }
+  },
+  "earlierImportErrorsNotCountedAsRed": true,
+  "rawLogHashes": {
+    "f06-c-license-policy-actual-red.log": "3dc53ce625eadd706f0db89a9af31a691e851e72be430fc5f8eb329029cbfbec",
+    "f06-c-license-policy-actual-green.log": "1bab6acbf14f50135ee9deec17b14ff4c56bc0f829c08639d1098b5eff89bd1e",
+    "f06-c-declaration-mismatch-red.log": "5cfea612f90c03aae4c5491550d07a88151a487999acf7ae5d814b7dca180132",
+    "f06-c-declaration-mismatch-green.log": "d9c853dced2f2a9583877bc69f09f5b113054d17d40529eafd28d4a7fe0c7ace",
+    "f06-c-mandatory-license-suite-red.log": "93c628130ebc13a53d4508622175a9ef442be6a3286901f5589eab71372735fc",
+    "f06-c-license-evidence-green.log": "c2ffeba286c71ddf733c70915acc5103056981e58b0cd760c15ed319777b6651",
+    "f06-c-full-tests.log": "50c7cf3b1305206b8734075dda026acf979165149fddac3b8a38c2928ce993a1",
+    "f06-c-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f06-c-build.log": "ab34711ea64d9af278db0cb2ed5f392a8682fdf96edb02d4de2531299e47989d",
+    "f06-c-review-notice-bytes-red.log": "44a360f286e670206fcb17a5e745c3345e92420cf0e39634a453b9c81f976cb6",
+    "f06-c-review-target-green.log": "4a0fdbad075b1eeec7c1716de42ccd39c549443f5cf5cd0a6d1aad408a3cc3fc",
+    "f06-c-review-full-tests.log": "0608aac7c4844c5503b990dd1d2a7f403ced97cff15eaae31f6d91e67c5bba8a",
+    "f06-c-review-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f06-c-review-build.log": "595f29ebb16c39bc8c6663c1266ad7570dfeb5784899dc53262a4817637cbe0b",
+    "f06-c-review-closure-audit.json": "d2a0e961691ab4ae8e5946862ca0a5249b928b2703e45d018cc9ee7fe75e6ff2",
+    "f06-c-consumer-harness-red.log": "1e663db2e5d912d4e8a4aa76671527abcc7f30d44ef288f9be9b67b25729acd8",
+    "f06-c-consumer-harness-green.log": "41bc79c5a3a94d79e5f77d2d7519062272434a9f06f045c7c05b9ec650b73b3a",
+    "f06-c-consumer-fix-full-tests.log": "5ebc9dd73adaa697abc3bd2d5be85c9d6f4554c4cee99bd461ab2ec696a88032",
+    "f06-c-consumer-fix-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f06-c-consumer-fix-build.log": "1fe97d25d052868669c7655a46274219637705f084b44ddc1cab0dabbf8149e1",
+    "f06-c-consumer-failed-job.log": "956daad899254d8ec347675b41a9773d57eb850405bcd1516e3b6764e1290d0f"
+  },
+  "windowsRun": null,
+  "review": {
+    "reviewer": "f06_c_review",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "finding": "Truncated notices and BSD clause identity accepted",
+    "grade": "accepted before one correction pass",
+    "correction": "Full-family checks and exact original notice hashes for reviewed runtime closure",
+    "actualRegressionRed": {
+      "failed": 6,
+      "passed": 30
+    },
+    "greenPackageLicenseCases": 40,
+    "noRereview": true
+  },
+  "provenance": {
+    "httpEceRegistryGitHead": "0562510a30819f52424724a6fd5504becacd98a1",
+    "httpEceLicenseBlob": "d6a83c0df8d8f56a8d49f0b666f2033edd26cf18",
+    "mplTextRepository": "spdx/license-list-data",
+    "mplTextCommit": "31ba1a50e5397e00a304dbadc76531740e89ee48",
+    "mplTextBlob": "ee6256cdb62a765749a71aae3abea32884301cd1",
+    "sourceApacheTermsUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+  },
+  "remaining": [
+    "Windows proof",
+    "Fresh review",
+    "F05 protection HTTP403",
+    "F06 service templates",
+    "F07 operations",
+    "F08 release preparation",
+    "F09 acceptance",
+    "R02 real Server2019"
+  ],
+  "reviewedNoticeProvenance": {
+    "sourceRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38199047306",
+    "sourceSha": "15081a7a99f922dd4102fcfcb73a9b983eb0bce5",
+    "zipSha256": "aa006fb67449e47eec3795ffc8a246e59b9dc785fa5ed4f95b3f2e5270443ad5",
+    "httpEceSupplement": "Original upstream notice recorded above"
+  },
+  "earlierReviewFixtureImportErrorNotCountedAsRed": true,
+  "consumerRegression": {
+    "redFailed": 1,
+    "redPassed": 40,
+    "greenLicenseCases": 41,
+    "workflowDefinedIsolatedHarnessImport": true
+  }
+}
