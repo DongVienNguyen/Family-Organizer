@@ -1,5 +1,5 @@
 [CmdletBinding(SupportsShouldProcess=$true)]
-param([Parameter(Mandatory=$true)][string]$ReleaseRoot,[Parameter(Mandatory=$true)][ValidateSet('Backup','Restore')][string]$Operation,[Parameter(Mandatory=$true)][string]$InstanceRoot,[Parameter(Mandatory=$true)][string]$ExpectedManifestSha256,[string]$ServiceId='FamilyOrganizer',[ValidateRange(1,65535)][int]$Port=3000,[switch]$ValidateOnly)
+param([Parameter(Mandatory=$true)][string]$ReleaseRoot,[Parameter(Mandatory=$true)][ValidateSet('Backup','Restore','Copy','Prune')][string]$Operation,[Parameter(Mandatory=$true)][string]$InstanceRoot,[Parameter(Mandatory=$true)][string]$ExpectedManifestSha256,[string]$ServiceId='FamilyOrganizer',[ValidateRange(1,65535)][int]$Port=3000,[switch]$ValidateOnly)
 . (Join-Path $PSScriptRoot 'ServiceCommon.ps1')
 $context=Get-ServiceContext $ReleaseRoot $InstanceRoot $ServiceId $Port $ExpectedManifestSha256
 Assert-ServiceMetadataAcl $context.marker
@@ -19,8 +19,11 @@ $operationGuard=$null
 $memory=New-Object IO.MemoryStream
 $process=New-Object Diagnostics.Process
 $started=$false
+$existingDestinations=New-Object 'System.Collections.Generic.HashSet[string]'
+$buffer=$null;$inspectionBytes=$null;$inspectionText=$null;$inspectionPacket=$null
 try{
     $operationGuard=Enter-OwnedDataOperation $context
+    if($Operation -in @('Copy','Prune')){foreach($name in @('recovery-backup.key','recovery-backup.json')){Assert-BackupSecretAcl (Join-Path (Join-Path $context.instance 'config') $name) $ServiceId}}
     # A constant readiness line lets an operator coordinate input after the guard.
     Write-Output 'OWNED_OPERATOR_INPUT_READY'
     $inputStream=[Console]::OpenStandardInput()
@@ -36,9 +39,23 @@ try{
         if($memory.Length+$count -gt 16384){throw 'Recovery input limit'}
         $memory.Write($buffer,0,$count)
     }
+    if($Operation -in @('Copy','Prune')){
+        $inspectionBytes=$memory.ToArray()
+        try{$decoder=New-Object Text.UTF8Encoding($false,$true);$inspectionText=$decoder.GetString($inspectionBytes).TrimStart([char]0xFEFF);$inspectionPacket=$inspectionText | ConvertFrom-Json}
+        catch{throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
+        if($inspectionPacket.copyRoot -isnot [string]){throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
+        Assert-ServiceMetadataAcl $inspectionPacket.copyRoot
+        Assert-RecoveryCopyAncestors $inspectionPacket.copyRoot
+        if($inspectionPacket.records -isnot [array]){throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
+        foreach($record in $inspectionPacket.records){
+            if($record.fileName -isnot [string] -or $record.fileName -cnotmatch '^recovery_[a-f0-9-]{36}\.fo-recovery$'){throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
+            $destination=Join-Path $inspectionPacket.copyRoot $record.fileName
+            if(Test-Path -LiteralPath $destination){Assert-ServiceMetadataAcl $destination;[void]$existingDestinations.Add($record.fileName)}
+        }
+    }
     $info=New-Object Diagnostics.ProcessStartInfo
     $info.FileName=$context.node
-    $mode=if($Operation -eq 'Backup'){'--backup-recovery'}else{'--restore-recovery'}
+    $mode=switch($Operation){'Backup'{'--backup-recovery'}'Restore'{'--restore-recovery'}'Copy'{'--copy-recovery'}'Prune'{'--prune-recovery'}}
     $info.Arguments='"'+(Join-Path $context.release 'app/dist/operator.cjs')+'" '+$mode
     $info.WorkingDirectory=Join-Path $context.release 'app'
     $info.UseShellExecute=$false
@@ -62,20 +79,31 @@ try{
         $safeCode='RECOVERY_OPERATION_FAILED'
         try{
             $failure=$stdout.Result.Trim() | ConvertFrom-Json
-            if($failure.error -is [string] -and $failure.error -cin @('RECOVERY_STORAGE_FULL','RECOVERY_ENV_INVALID','RECOVERY_FILES_INVALID','RECOVERY_SETTINGS_INVALID','RECOVERY_PENDING_RESTORE','RECOVERY_INPUT_INVALID','RECOVERY_PATH_INVALID','RECOVERY_ENVELOPE_INVALID','RECOVERY_SNAPSHOT_INVALID','RECOVERY_STORE_REQUIRED','RECOVERY_OPERATION_FAILED','INITIALIZATION_INPUT_INVALID','INITIALIZATION_INPUT_LIMIT','INITIALIZATION_INPUT_TIMEOUT','INITIALIZATION_CONFIGURATION_INVALID','INITIALIZATION_STORAGE_FAILED')){$safeCode=$failure.error}
+            if($failure.error -is [string] -and $failure.error -cin @('RECOVERY_MAINTENANCE_INPUT_INVALID','RECOVERY_MAINTENANCE_PATH_INVALID','RECOVERY_MAINTENANCE_AUTH_INVALID','RECOVERY_MAINTENANCE_COPY_REQUIRED','RECOVERY_MAINTENANCE_CONFIGURATION_REQUIRED','RECOVERY_MAINTENANCE_FAILED','RECOVERY_STORAGE_FULL','RECOVERY_ENV_INVALID','RECOVERY_FILES_INVALID','RECOVERY_SETTINGS_INVALID','RECOVERY_PENDING_RESTORE','RECOVERY_INPUT_INVALID','RECOVERY_PATH_INVALID','RECOVERY_ENVELOPE_INVALID','RECOVERY_SNAPSHOT_INVALID','RECOVERY_STORE_REQUIRED','RECOVERY_OPERATION_FAILED','INITIALIZATION_INPUT_INVALID','INITIALIZATION_INPUT_LIMIT','INITIALIZATION_INPUT_TIMEOUT','INITIALIZATION_CONFIGURATION_INVALID','INITIALIZATION_STORAGE_FAILED')){$safeCode=$failure.error}
         }catch{}
         throw "Recovery operator native exit $code ($safeCode)"
     }
     # Only the authenticated operator's safe success result is printed.
     $result=$stdout.Result.Trim() | ConvertFrom-Json
     if($Operation -eq 'Backup'){if($result.encrypted -ne $true -or $result.sha256 -cnotmatch '^[a-f0-9]{64}$' -or $result.bytes -le 48){throw 'Recovery operator result invalid'}}
+    elseif($Operation -in @('Copy','Prune')){if(($result.copied -isnot [int] -and $result.copied -isnot [long]) -or ($result.pruned -isnot [int] -and $result.pruned -isnot [long]) -or ($result.retained -isnot [int] -and $result.retained -isnot [long]) -or $result.copied -lt 0 -or $result.copied -gt 64 -or $result.pruned -lt 0 -or $result.pruned -gt 64 -or $result.retained -lt 1 -or $result.retained -gt 64 -or $result.receipts -isnot [array] -or $result.receipts.Count -lt 1 -or $result.receipts.Count -gt 64 -or $result.pruned+$result.retained -ne $result.receipts.Count){throw 'Recovery maintenance result invalid'}}
     elseif($result.sessionsRevoked -ne $true -or $result.restoredFiles -lt 0){throw 'Recovery operator result invalid'}
-    $result | ConvertTo-Json -Compress
+    if($Operation -eq 'Copy'){
+        # New files inherit protected grants, but Windows can assign the elevated
+        # caller's SID as owner. Seal only declared authenticated outputs.
+        foreach($receipt in $result.receipts){
+            if($receipt.fileName -isnot [string] -or $receipt.fileName -cnotmatch '^recovery_[a-f0-9-]{36}\.fo-recovery$'){throw 'Recovery maintenance result invalid'}
+            $destination=Join-Path $inspectionPacket.copyRoot $receipt.fileName
+            if(!$existingDestinations.Contains($receipt.fileName)){Set-OwnedServiceAcl $destination '' 'RX'}
+            Assert-ServiceMetadataAcl $destination
+        }
+    }
+    $result | ConvertTo-Json -Depth 6 -Compress
 }finally{
     try{
         if($started -and !$process.HasExited){$process.Kill();$process.WaitForExit()}
     }finally{
-        try{$process.Dispose();$memory.Dispose();if($inputStream){$inputStream.Dispose()}}
+        try{try{$process.Dispose()}finally{foreach($owned in @($buffer,$inspectionBytes)){if($owned){[Array]::Clear($owned,0,$owned.Length)}};if($memory.Length -gt 0){$ownedMemory=$memory.GetBuffer();[Array]::Clear($ownedMemory,0,$ownedMemory.Length)};$inspectionText=$null;$inspectionPacket=$null;$memory.Dispose();if($inputStream){$inputStream.Dispose()}}}
         finally{if($operationGuard){$operationGuard.Dispose()}}
     }
 }

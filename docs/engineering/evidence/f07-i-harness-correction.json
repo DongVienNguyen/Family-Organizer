@@ -1,0 +1,61 @@
+{
+  "task": "F07-i harness correction",
+  "headSha": "19528302dfb2fcf40c298096622b58c43ccd828c",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38270553522",
+  "quality": {
+    "eachRuntimePassed": 1718,
+    "eachRuntimeFailed": 3,
+    "failedCases": "three physical-path seam cases",
+    "cause": "mock returned original short-parent spelling while actual native realpath returned expanded physical spelling",
+    "correction": "return original native realpath(source/dataRoot), preserving refusal and no-output assertions"
+  },
+  "service": {
+    "failure": "scheduled-finalize exited 1",
+    "lastScheduledPhases": [
+      {
+        "phase": "schedule-shared-offline-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance--ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance--WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-seal-copy-root",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-untrusted-writer-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-untrusted-writer-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-reseal-copy-root",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-copy",
+        "exitCode": 1
+      }
+    ],
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "cause": "positive fixture under ProgramData refused by ancestor replacement-permission gate",
+    "correction": "dedicated sealed C-volume-root directories; unchanged gate/system ancestor ACLs; public actual ancestor ACL inventory"
+  },
+  "productionSourceChanged": false,
+  "rereview": false,
+  "logs": {
+    "f07-i-195-node22-failed.log": "def27231e0c614bb06e3ab8fc444cfad6367882fc362eac3526d6f30bce2670f",
+    "f07-i-195-node24-failed.log": "1d2ed8aeda63730fac241a17f7136ef0925fef5be6e62a3791683ed521fa8b11",
+    "f07-i-195-service-failed.log": "5fde8c379fcb0742dd36769bae89059a0268182edcc8202e82d13251f28914ad",
+    "f07-i-physical-seam-green.log": "8d29258928532226cd83a3db9072547ac65bc7d51ea604e009e58fcb979bec24"
+  }
+}

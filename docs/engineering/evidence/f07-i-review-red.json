@@ -1,0 +1,120 @@
+{
+  "task": "F07-i review correction",
+  "headSha": "3a0e26567a36ef9af797dcd10668a95e00f36e99",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38269087123",
+  "nativeRegressions": [
+    {
+      "phase": "maintenance-file-writer-refusal",
+      "exitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "phase": "maintenance-file-owner-refusal",
+      "exitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "phase": "maintenance-delete-child-refusal",
+      "exitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "phase": "maintenance-source-short-alias-refusal",
+      "exitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "phase": "maintenance-protected-short-alias-refusal",
+      "exitCode": 0,
+      "expectedExitCode": 1
+    },
+    {
+      "phase": "maintenance-hostile-parent-refusal",
+      "exitCode": 0,
+      "expectedExitCode": 1
+    }
+  ],
+  "nativeFixtureSetupExits": [
+    {
+      "phase": "maintenance-review-anchor-seal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-file-writer-fixture",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-file-writer-refusal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-file-writer-reseal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-file-owner-fixture",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-file-owner-refusal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-file-owner-reseal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-delete-child-fixture",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-delete-child-refusal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-delete-child-reseal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-short-name-fixture",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-alias-files-seal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-source-short-alias-refusal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-protected-short-alias-refusal",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-hostile-parent-fixture",
+      "exitCode": 0
+    },
+    {
+      "phase": "maintenance-hostile-parent-refusal",
+      "exitCode": 0
+    }
+  ],
+  "sourceRetained": true,
+  "fixtureCleanup": true,
+  "serviceRemoved": true,
+  "cloudPhysicalAliasRegression": {
+    "testsFailed": 3,
+    "existingTestsPassed": 36,
+    "npmExit": 1
+  },
+  "logs": {
+    "windows-service-tests-3a0e26567a36ef9af797dcd10668a95e00f36e99-1/service-exit.json": "36c9aee70779f713ab1df3bee6ef6369a9eddd57f9f605d3c337def50b561ff7",
+    "windows-service-tests-3a0e26567a36ef9af797dcd10668a95e00f36e99-1/service-scheduled-backup.json": "2d161108648ddbb924b8ea00ee03976717671a2b597fbfe4ba6ab82dd64dd6fa",
+    "full-ci.log": "9cf67091f05a54b9403a385b4e2715b1409c8f7fd7d5e613cf040cb57122209a"
+  },
+  "oneCorrectionPass": true,
+  "reviewCount": 1,
+  "rereview": false,
+  "server2019Acceptance": "not-run"
+}

@@ -123,7 +123,7 @@ function Assert-ServiceMetadataAcl {
     $owner=$acl.GetOwner([Security.Principal.SecurityIdentifier]).Value
     if($owner -notin @('S-1-5-18','S-1-5-32-544')){throw 'Service metadata owner is not Administrator/SYSTEM'}
     if((Get-Item -LiteralPath $Path).PSIsContainer -and !$acl.AreAccessRulesProtected){throw 'Service metadata directory must have protected ACL'}
-    $writes=[Security.AccessControl.FileSystemRights]'Write,Delete,ChangePermissions,TakeOwnership'
+    $writes=[Security.AccessControl.FileSystemRights]'Write,Delete,DeleteSubdirectoriesAndFiles,ChangePermissions,TakeOwnership'
     foreach($rule in $acl.Access){
         $sid=$rule.IdentityReference.Translate([Security.Principal.SecurityIdentifier]).Value
         if($rule.AccessControlType -eq 'Allow' -and ($rule.FileSystemRights -band $writes) -and $sid -notin @('S-1-5-18','S-1-5-32-544')){throw 'Service metadata has an untrusted writer'}
@@ -181,4 +181,26 @@ function Assert-BackupSecretAcl {
         $seen[$identity]=$true
     }
     if($seen.Count -ne 3){throw 'Backup secret principal missing'}
+}
+
+function Assert-RecoveryCopyAncestors {
+    param([string]$Path)
+    Assert-ServiceAdministrator
+    Assert-NoServiceReparse $Path
+    # An ancestor may grant creation of a new child, but must not let an
+    # untrusted principal replace an already protected destination directory.
+    $trusted=@('S-1-5-18','S-1-5-32-544',([Security.Principal.WindowsIdentity]::GetCurrent().User.Value))
+    $trusted+=((New-Object Security.Principal.NTAccount('NT SERVICE','TrustedInstaller')).Translate([Security.Principal.SecurityIdentifier]).Value)
+    $replacement=[Security.AccessControl.FileSystemRights]'WriteData,WriteExtendedAttributes,WriteAttributes,Delete,DeleteSubdirectoriesAndFiles,ChangePermissions,TakeOwnership'
+    $current=[IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($Path).TrimEnd('\'))
+    while($current){
+        $acl=Get-Acl -LiteralPath $current
+        if($acl.GetOwner([Security.Principal.SecurityIdentifier]).Value -notin $trusted){throw 'Recovery copy ancestor has an untrusted owner'}
+        foreach($rule in $acl.GetAccessRules($true,$true,[Security.Principal.SecurityIdentifier])){
+            if(($rule.PropagationFlags -band [Security.AccessControl.PropagationFlags]::InheritOnly) -ne 0){continue}
+            if($rule.AccessControlType -eq 'Allow' -and ($rule.FileSystemRights -band $replacement) -and $rule.IdentityReference.Value -notin $trusted){throw 'Recovery copy ancestor has an untrusted replacement permission'}
+        }
+        $parent=[IO.Path]::GetDirectoryName($current)
+        if($parent -eq $current){break};$current=$parent
+    }
 }

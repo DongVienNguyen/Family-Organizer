@@ -4,6 +4,7 @@ import path from 'node:path';
 import { createHash,randomUUID } from 'node:crypto';
 import {TextDecoder} from 'node:util';
 import {runRecoveryOperator,RecoveryOperatorError} from './recoveryOperator.js';
+import {maintainRecoveryBackups,RecoveryRetentionError} from './recoveryRetention.js';
 import {RecoveryEnvelopeError} from './recoveryEnvelope.js';
 import { createInitialData } from './initialData.js';
 import { hashPassword,MAX_PASSWORD_BYTES } from './passwords.js';
@@ -35,8 +36,10 @@ function identity(value:unknown){
 }
 async function main(){
   const recovery=process.argv.length===3&&['--backup-recovery','--restore-recovery'].includes(process.argv[2]);
+  const maintenance=process.argv.length===3&&['--copy-recovery','--prune-recovery'].includes(process.argv[2]);
   const reset=process.argv.length===3&&process.argv[2]==='--reset-credentials';
-  if((process.argv.length!==2&&!reset&&!recovery)||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  if((process.argv.length!==2&&!reset&&!recovery&&!maintenance)||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  if(maintenance){const {appConfig}=await import('./config.js');process.stdout.write(JSON.stringify(await maintainRecoveryBackups(await readInput(),appConfig,process.argv[2]==='--prune-recovery'))+'\n');return;}
   if(recovery){process.stdout.write(JSON.stringify(await runRecoveryOperator(await readInput(),process.argv[2]==='--restore-recovery'))+'\n');return;}
   if(reset){
     const input=await readInput();
@@ -71,4 +74,4 @@ async function main(){
     sqlite.sqliteCheckpoint();process.stdout.write(JSON.stringify(result)+'\n');
   }finally{sqlite.sqliteClose();}
 }
-main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError||error instanceof InstallationNotPristineError||error instanceof RecoveryOperatorError||error instanceof RecoveryEnvelopeError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});
+main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError||error instanceof InstallationNotPristineError||error instanceof RecoveryOperatorError||error instanceof RecoveryEnvelopeError||error instanceof RecoveryRetentionError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});
