@@ -1,0 +1,36 @@
+{
+  "base": "c0705cd6f03003d747481c85e6ff706447756a2a",
+  "reviewedHead": "c4d4c5f1a69476224b920143dea6ef99b29962f3",
+  "correctedSource": "ca190e8b09e28fce6ed6169b37c977537ee2e469",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/31",
+  "reviewCount": 1,
+  "critical": 0,
+  "important": 5,
+  "minor": 1,
+  "correctionPass": 1,
+  "actualRegressionRedAssertions": 5,
+  "harnessFailure": "Initial restore-epoch fixture pre-created marker-only SQLite without app_meta; corrected fixture seeds initialized synthetic connection. Not product RED.",
+  "diagnostic": {
+    "os": "Linux Cloud",
+    "passed": 1666,
+    "files": 94,
+    "describeSuites": 145,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "lintExit": 0,
+    "buildExit": 0,
+    "targetedPassed": 33
+  },
+  "native": "Corrected Windows CI pending; no PS5.1/NTFS/SCM claim from Cloud",
+  "logs": {
+    "f07-h-review-red.log": "52066f568a7142f0d90918457aecc8d20307bc5a11a993387afd2be52f4547bc",
+    "f07-h-epoch-red.log": "4cc4f309a494de68eb459ca8466746c8de4fe766cb97f0b06ead44170b62c4e4",
+    "f07-h-review-green.log": "e04ebb0911ae7aefdf1417421d4d26fcca2e2dab7536f6b3fe791d2391aca6c7",
+    "f07-h-corrected-full.log": "3587544fe273c3bc0f0cf0e17eff330928954fe32893317a45a6021d6c11f79c",
+    "f07-h-corrected-vitest.json": "34b6c32a5ebda96c5b3ae060197f5c47e92d615797a385c85fd32481564c65b5",
+    "f07-h-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f07-h-corrected-build.log": "44ada29768b2bee7cd0036180f2c3ad9cf8f533f6b2651a004628cfa40f5ae23"
+  }
+}
