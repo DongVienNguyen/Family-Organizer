@@ -84,3 +84,19 @@ Corrected frozen Cloud run:1926/1926 tests104files, zero failed/pending/todo;
 220 targeted5files, lint/build exits0. The full native-GC stress passed11.235s
 within the original15-second limit. New exact Windows still required; service
 filesystem read-stage diagnosis remains pending, no native whole-run claim.
+
+Actual7b Windows checkpoint38318772976: both1926/104 source tests,118-source
+coverage,18 first-attempt browsers, package and native service evidence passed
+five independent validators. Service14checks/42phases, coordinator10checks/31phases,
+11 shutdowns, service removal and cleanup are verified. Overall CI still failed
+because the additional diagnostic child and ci-gate failed.
+
+Separate90c diagnostic38319737827 was intentionally cancelled after the diagnostic
+failure to obtain logs early; its partial/unrun suites are not acceptance. Constant
+markers prove File.Replace completed, but PowerShell Remove-Item did not complete
+within10s, after the reader had closed. Provider/module internals remain unconfirmed.
+The native service uses the original PowerShell publication path and passed.
+The probe now directly calls .NET File.Delete, with backup existence before,
+absence after, final fixed approval text, native exit0/null signal and the unchanged
+10s deadline. Two-method observations remain diagnostic-only. Application/tests
+are unchanged from verified1926 source; corrected exact Windows still required.

@@ -22,7 +22,7 @@ try{
     // Wait for the publisher to begin, then release the reader before waiting
     // for publisher completion. A synchronous wait with the descriptor held
     // deadlocks when Windows sharing rules delay File.Replace.
-    const child=spawn(path.join(process.env.windir,'System32/WindowsPowerShell/v1.0/powershell.exe'),['-NoProfile','-NonInteractive','-Command','$ErrorActionPreference="Stop"; [Console]::Out.WriteLine("PUBLICATION_ATTEMPTING"); [Console]::Out.Flush(); try { [IO.File]::Replace($env:FO_PUBLICATION_STAGED,$env:FO_PUBLICATION_FIXED,$env:FO_PUBLICATION_BACKUP); [Console]::Out.WriteLine("PUBLICATION_REPLACED"); [Console]::Out.Flush(); Remove-Item -LiteralPath $env:FO_PUBLICATION_BACKUP -Force; [Console]::Out.WriteLine("PUBLICATION_BACKUP_REMOVED"); [Console]::Out.Flush(); exit 0 } catch { [Console]::Out.WriteLine("PUBLICATION_NATIVE_FAILURE"); [Console]::Out.Flush(); exit 1 }'],{env,stdio:['ignore','pipe','pipe']});
+    const child=spawn(path.join(process.env.windir,'System32/WindowsPowerShell/v1.0/powershell.exe'),['-NoProfile','-NonInteractive','-Command','$ErrorActionPreference="Stop"; [Console]::Out.WriteLine("PUBLICATION_ATTEMPTING"); [Console]::Out.Flush(); try { [IO.File]::Replace($env:FO_PUBLICATION_STAGED,$env:FO_PUBLICATION_FIXED,$env:FO_PUBLICATION_BACKUP); [Console]::Out.WriteLine("PUBLICATION_REPLACED"); [Console]::Out.Flush(); if(![IO.File]::Exists($env:FO_PUBLICATION_BACKUP)){throw "PUBLICATION_BACKUP_MISSING"}; [IO.File]::Delete($env:FO_PUBLICATION_BACKUP); if([IO.File]::Exists($env:FO_PUBLICATION_BACKUP)){throw "PUBLICATION_BACKUP_RETAINED"}; [Console]::Out.WriteLine("PUBLICATION_BACKUP_REMOVED"); [Console]::Out.Flush(); exit 0 } catch { [Console]::Out.WriteLine("PUBLICATION_NATIVE_FAILURE"); [Console]::Out.Flush(); exit 1 }'],{env,stdio:['ignore','pipe','pipe']});
     let output='',outputBytes=0,ended=false,nativeError;
     let readyResolve,readyReject;
     const ready=new Promise((resolve,reject)=>{readyResolve=resolve;readyReject=reject;});
@@ -44,6 +44,7 @@ try{
 
    }
    const extra=closed?operation.observedBeforeClose.extra:observe(()=>fs.readSync(fd,Buffer.alloc(1),0,1,null)),after=closed?operation.observedBeforeClose.descriptor:stat(()=>fs.fstatSync(fd,{bigint:true})),fixedStat=stat(()=>fs.lstatSync(fixed,{bigint:true})),fixedText=observe(()=>fs.readFileSync(fixed,'utf8'));
+   if(method==='dotnet-replace-remove-backup'){assert.equal(fixedText.value,'approve');assert.equal(fs.existsSync(backup),false);}
    if(!closed){fs.closeSync(fd);closed=true;}cases.push({method,before,operation,extra,after,fixedStat,fixedText,descriptorClosed:true});
   }finally{if(!closed)fs.closeSync(fd);}
  }

@@ -63,7 +63,7 @@
   "lintExit": 0,
   "buildExit": 0,
   "dependencyLockRuntimeChanges": false,
-  "checkpoint": "Namespace model and asynchronous publisher correction verified Cloud1926/104; allowlisted read stage added for actual service failure diagnosis; new exact Windows still required",
+  "checkpoint": "Actual Remove-Item diagnostic boundary isolated; direct .NET File.Delete with before/after backup/fixed approval assertions, native exit/signal/10s preserved; exact new Windows required; app/tests unchanged from actual1926 green checkpoint",
   "nativeCheckpoint": {
     "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38314999862",
     "headSha": "ecc4bbd6b585bb570606970464f4379a4a110307",
@@ -130,7 +130,46 @@
       "pending": 0
     },
     "nativeDiagnostic": "Both quality jobs fail: asynchronous PowerShell child still SIGTERM after10seconds despite reader closed; exact publisher boundary not yet exposed",
-    "service": "pending",
-    "next": "Add constant publisher step markers, read completed service read-stage logs before choosing correction; no Windows gate/merge claim"
+    "service": {
+      "conclusion": "success",
+      "checks": 14,
+      "coordinatorChecks": 10,
+      "coordinatorNativePhases": 31,
+      "shutdownCompletions": 11,
+      "serviceRemoved": true,
+      "fixtureCleanup": true,
+      "independentValidatorExit": 0
+    },
+    "next": "Add constant publisher step markers, read completed service read-stage logs before choosing correction; no Windows gate/merge claim",
+    "independentValidators": {
+      "quality": 0,
+      "coverage": 0,
+      "browser": 0,
+      "package": 0,
+      "service": 0
+    },
+    "fullCiLogSha256": "e36dfb44328a8c7245e28f881cf37cb23000ced895a6f5f7827745be6228592b",
+    "zipSha256": "22a9964ae0bb6ca63629ca2f9c42b7cca49f3d12f77c598cc3e53305fd9937cc",
+    "conclusion": "failure: diagnostic publisher only in both quality jobs, plus ci-gate; all application suites and browser/package/service evidence passed"
+  },
+  "publisherDiagnosis": {
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38319737827",
+    "testedHeadSha": "90c926a0c31615db5a2ee1d90a428c33a704ba1c",
+    "runAcceptance": "cancel requested after diagnostic failure; partial/unrun suites not pass",
+    "markers": [
+      "PUBLICATION_ATTEMPTING",
+      "PUBLICATION_REPLACED"
+    ],
+    "absentMarkers": [
+      "PUBLICATION_BACKUP_REMOVED",
+      "PUBLICATION_NATIVE_FAILURE"
+    ],
+    "readerClosedBeforeAwaitingPublisher": true,
+    "actualSignal": "SIGTERM",
+    "budgetMs": 10000,
+    "confirmedBoundary": "File.Replace completed; PowerShell Remove-Item did not complete by deadline",
+    "causeLimit": "PowerShell provider/module internal cause unconfirmed; native service using normal environment separately passed this publication path",
+    "correction": "Diagnostic uses direct .NET File.Delete with backup existence-before/absence-after assertions; two-method observation and all native exit/signal/deadline checks retained",
+    "correctedWindows": "not-run"
   }
 }
