@@ -1,0 +1,110 @@
+{
+  "taskId": "F07-g",
+  "baseSha": "bb89dbf71f2554e7c865854f9147a1cf0ba3e4f5",
+  "reviewedHeadSha": "f7b64fa70d92f3e33e3da6c1bbb4e5d82461209b",
+  "freshWholebranchReviews": 1,
+  "reviewerCritical": 0,
+  "reviewerImportant": 1,
+  "reviewerMinor": 1,
+  "allFindingsGradedBeforeCorrection": true,
+  "secondReview": false,
+  "findings": [
+    {
+      "reviewerSeverity": "Important",
+      "controllerSeverity": "Important",
+      "accepted": true,
+      "trigger": "Online argv server.cjs/orchestration bypasses whole-release output guard",
+      "correction": "Derive loaded bundled release root independently of launch argv and retain offline guard"
+    },
+    {
+      "reviewerSeverity": "Minor",
+      "controllerSeverity": "Important acceptance coverage gap",
+      "accepted": true,
+      "trigger": "Concurrent backup-only scenarios do not test business writer overlapping capture",
+      "correction": "Add overlap writer capture consistency proof plus required native evidence control",
+      "notProvenProductRace": true
+    }
+  ],
+  "declinedToJudge": [
+    "Exact-HEAD Windows/DACL execution must be independently verified",
+    "Actual LocalService scheduled online job deferred scheduler task",
+    "Retention/offhost/update/F08/F09/F05 Administration403 remain",
+    "Server2019/reboot/power-loss/RPO/RTO unrun",
+    "Release/tag/VPS unauthorized"
+  ],
+  "actualReleaseRootRegression": {
+    "redExitCode": 1,
+    "acceptedForbiddenDirectories": [
+      "release-root",
+      "bin",
+      "ops"
+    ],
+    "greenExitCode": 0,
+    "redLogSha256": "2c104fc3fe7dbd90d247a93397c945fc8eebe781f4bdac9f594070863be895b3",
+    "greenLogSha256": "9311e1de93b725169df935d60f0e230ae29d2f92997b2c6145460b0ce17f8226"
+  },
+  "overlapAcceptance": {
+    "initialWindowsRequiredProofMissingRedExitCode": 1,
+    "notProductRaceFailure": true,
+    "newTsGenerationConsistencyCasesPassed": 10,
+    "newCompiledChecks": 9,
+    "newCompiledNativePhases": 4,
+    "linuxDiagnosticOnly": true
+  },
+  "correctedFullCloud": {
+    "tests": 1607,
+    "files": 91,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 2,
+    "nativeExitCodes": {
+      "full": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "reports": {
+      "f07-g-review-cloud-vitest.json": "2e235de28a6e83842a7ed8fd2d76264b41b968c23657b8b7d4679b64f3ca3f04",
+      "f07-g-review-cloud-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f07-g-review-cloud-build.log": "f8a70e07d657807bafb731093728bd0e03e16abe0d5ddab0963150983ccb7e96"
+    }
+  },
+  "correctedCompiledDiagnostic": {
+    "commitSha": "uncommitted-f07-g-one-pass-correction",
+    "platform": "linux",
+    "architecture": "x64",
+    "nodeVersion": "v24.21.0",
+    "nodeExecutable": "/workspace/toolchains/node-v24.21.0-linux-x64/bin/node",
+    "completed": true,
+    "checks": [
+      "compiled-online-live-wal-selected-secrets-encrypted",
+      "compiled-online-failed-capture-keeps-runtime-and-prior-output",
+      "compiled-online-native-denied-output-keeps-runtime",
+      "compiled-online-concurrent-exclusive-publication",
+      "compiled-online-later-http-write-owner-retained",
+      "compiled-online-shutdown-fence-drained",
+      "compiled-online-shared-offline-restore-point-in-time-claims-config-sessions",
+      "compiled-online-overlapping-live-writer-snapshot-consistent",
+      "compiled-online-offline-network-closed-handles"
+    ],
+    "nativeExitCodes": [
+      {
+        "phase": "online-live-capture",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-offline-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-overlap-restore",
+        "exitCode": 0
+      }
+    ],
+    "encryptedSha256": "855f1c01b27e2dca37c1e7d2e73f206ed68169c5669b73e89007f6c0abfd9064"
+  }
+}

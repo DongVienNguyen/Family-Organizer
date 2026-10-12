@@ -1,7 +1,8 @@
 import { appConfig, prepareStorage, reloadProviderEnvironment, type AppConfig } from './config.js';
 import { createApp } from './app.js';
 import { AppJobs } from './appJobs.js';
-import { drainAppEffects } from './appEffects.js';
+import { drainAppEffects, trackAppEffect } from './appEffects.js';
+import { runOnlineRecoveryBackup, RecoveryOperatorError } from './recoveryOperator.js';
 import { createSystemMetrics } from './systemMetrics.js';
 import { readBuildInfo } from './updater.js';
 import { startManagedServer, disposeDrainedResources } from './lifecycle.js';
@@ -55,9 +56,17 @@ export async function startApplication(config: AppConfig = appConfig) {
     const port = process.env.PORT === undefined ? 3000 : Number(process.env.PORT);
     if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error('Invalid PORT');
     delegated = true;
-    return await startManagedServer(handle, {
+    const managed = await startManagedServer(handle, {
       port,host:'127.0.0.1', state, drainEffects: drainAppEffects,
       closeStorage() { storage.sqliteCheckpoint(); storage.sqliteClose(); },
+    });
+    return Object.assign(managed, {
+      backupRecovery(value:unknown) {
+        const assertReady=()=>{if(state.phase!=='ready')throw new RecoveryOperatorError('RECOVERY_RUNTIME_NOT_READY');};
+        try { assertReady(); }
+        catch(error) { return Promise.reject(error); }
+        return trackAppEffect(runOnlineRecoveryBackup(value,assertReady));
+      },
     });
   } catch (error) {
     state.phase = 'failed';
