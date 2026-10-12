@@ -47,7 +47,7 @@
   },
   "timeoutsAssertionsWorkloadChanged": false,
   "dependencyLockRuntimeChanges": false,
-  "review": "pending one fresh whole-branch review",
+  "review": "one fresh0Critical0Important1Minor, payment replay corrected, no rereview",
   "windows": "pending corrected final SHA",
   "remaining": [
     "financial UI smoke/other legacy rows/Caddy",
@@ -55,5 +55,16 @@
     "F05 ruleset Administration403/main currently unprotected",
     "Server2019/offhost/reboot acceptance not-run",
     "no release/tag/VPS authorization"
-  ]
+  ],
+  "rebasedBaseSha": "a571d62bc5ce8a905ffc690702dcb16bf9eb704d",
+  "rebasedTargetGreen": 169,
+  "rebasedFull": {
+    "total": 1934,
+    "passed": 1933,
+    "failed": 1,
+    "files": 105,
+    "failure": "native-gc child15s timeout even one worker; no timeout/assert/workload change",
+    "report": "outside f09-b-rebased-vitest.json"
+  },
+  "fullNewBaseAcceptance": "not accepted: GC environment failure retained; independent main Windows Node24 retention path failure needs separate F07 correction"
 }
