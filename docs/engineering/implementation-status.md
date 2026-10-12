@@ -1,6 +1,6 @@
 # Tiến độ Windows-native
 
-## Current integration state — 2026-10-11
+## Current integration state — 2026-10-12
 
 | Task | Current result | Evidence |
 |---|---|---|
@@ -17,9 +17,10 @@
 | F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
 | F04-j | Reviewed, exact Windows GREEN, merged PR16 | HEADcc45fe8/run38182693480;978/97873files per runtime; maine41e97d |
 | F04-k | Reviewed, exact Windows GREEN, merged PR17 | HEADd614a78/run38185059520;1026/102674files per runtime; main6be5cd5 |
-| F04-l | Reviewed and corrected; final Windows pending PR18 | First HEAD2d65f18/run38186316145;1075/107576files;46observedRED/8chars |
+| F04-l | Reviewed, exact Windows GREEN, merged PR18 | HEADcbc677bea9c0b3dc6b1f7267417290f5d6257400; run38186890169;1080/108076files per runtime; mainc24486b |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
-| F05–F09 | Browser/coverage/package/service/encryption/release-prep/performance pending | F05 protection writes403; Windows2022 does not prove Server2019 |
+| F05-a | PR19 reviewed; complete artifact verification pending final SHA | HEAD9bfd3c9/run38189740360 quality1146/787checks0 per runtime; browser15/15/ci-gate GREEN; independent verifier found uploader omitted declared hidden .last-run.json; upload setting corrected |
+| F05–F09 | Enforcement/coverage/package/service/encryption/release-prep/performance pending | Actual Oct12 ruleset/protection writes still403 despite user authorization; mainprotected:false; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
 
