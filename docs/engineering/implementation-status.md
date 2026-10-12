@@ -899,3 +899,35 @@ before opening storage. Input size/deadline, password/schema/role validation and
 prior assertions remain. Corrected Cloud1423/85, lint and build passed. The Windows
 probe also records host input encoding/preamble without confidential input bytes;
 corrected exact-HEAD Windows evidence remains pending.
+
+F07-b final: PR25 source92e4db001b0da92299ba5f77d7194829f61b7be2, exact Windows run38217369654 all7 jobs success, independently1423/85 both runtimes/all8 checks and native exits0/audit0/106-source ratchet/15 first-attempt browsers/14 bundled functional/23 compiled/26 malicious archives/236 license pins/10 service checks/21 positive native phases. Credential nested probes0/1/0/0/1/0 and completedtrue; invalid batch reached CREDENTIAL_REENTRY_INVALID, valid reentry preserved IDs/roles/business, shutdowns3 and cleanuptrue. Proof PR25#issuecomment-6119788871; authorized squash merge7fbd536f418a416d8fb36e563161e9197e039ea3. Full evidence in evidence/f07-b-final.json; all four failed Windows runs retained. F07-c portable authenticated encrypted recovery is next. Actual fresh main enforcement POST/PUT still403 after user authorization; no F05/foundation acceptance, feature development, release/tag or VPS action.
+
+## F07-c — portable authenticated encrypted snapshot recovery (in progress)
+
+Branch codex/f07-encrypted-recovery, BASE7fbd536f418a416d8fb36e563161e9197e039ea3.
+Adds AEAD envelope + explicit bounded local compiled operator + owned Windows
+Recovery.ps1. Reuses I01 snapshots/journal/claims/migration/restore; ordinary exports
+remain excluded-v1. Key is supplied via UTF8 stdin and never embedded in backup or
+artifacts; authentication precedes target storage import. Input selects credentials
+explicitly and uses an exclusive local .fo-recovery file outside storage/code roots.
+Windows wrapper requires trusted package/owned service Stopped and closed DB handles;
+ValidateOnly/WhatIf stop before confidential stdin. No public recovery endpoint.
+
+Actual Cloud16 envelope REDs +10 operator REDs → implementation; a missing-module
+import failure and temporary diagnostic filtered run are not full-suite evidence.
+Final Cloud1459/1459 tests,87 files, zero failed/pending/todo, lint/build native exits0.
+Three mandatory-suite/package gate counterfactual REDs are retained. Windows compiled
+ZIP and actual service probes are added but not yet executed; exact-HEAD Windows
+quality/browser/package/service remains required before merge. One fresh wholebranch
+review is next, all finding grades before ONE TDD correction pass, no rereview.
+
+Provider .env/nonpublic app_settings/signing/VAPID config-file recovery, online
+backup scheduling/retention/off-host encrypted copy, update write fence/rollback
+remain subsequent F07 work. F05 Administration writes still403; Server2019/reboot/
+RPO/RTO/release/VPS unrun. See encrypted-recovery.md for current operator contract.
+
+F07-c firstsource9c8c3d2/run38222736027: both Windows1459/87/all8 exits0/audit0/108-source coverage and15 first-attempt browsers independently verified; producer success, consumer recovery1 before actual backup because claim fixture was empty, service skipped, gate failure. Original14 functional/23 compiled checks passed and cleanuptrue. Preserve full artifacts/logs and evidence/f07-c-initial-failure.json. Single review returned3Important/noCritical/noMinor, ALL accepted before ONE correction pass. Six actual interrupted-restore refusal REDs now GREEN; compiled operator really wrote into release during boundary RED, source now blocks whole executing package tree. Claim fixture is corrected without removing preservation assertions. Native owned-operation overlap regression is added before implementing the lock; Windows RED required. No rereview.
+
+F07-c correction validation: Cloud1465/87 zero failed/pending/todo; lint/build0. Compiled Cloud-only diagnostic now6 recovery proofs complete, native exits1/1/1/0/0/1/1/0, preserving all identity/finance/reward/media/claim/command assertions. No Windows claim from that diagnostic. Next exact Windows run deliberately exercises the new concurrent owned-operation regression against the still-unlocked wrapper before adding its lock; this is the remaining Important finding in the same ONE correction pass.
+
+HEAD59b682d/run38224670144: Windows ZIP consumer including6 recovery proofs/8 nested exits passed, and both quality/browser/producer passed. Actual service held-first-Backup regression failed exactly because no per-instance exclusive marker handle was held before stdin; this is the native RED for review finding3, not a harness startup failure. Service/fixture cleanup succeeded. ONE-pass fix adds protected ReadWrite/FileShare.Read marker ownership to Recovery and Reset-Credentials until child completion/cleanup, leaves validation/WhatIf before input/mutation, and releases via nested finally. Final exact-HEAD Windows rerun required; no rereview or repeated Cloud suite for this PowerShell-only native fix.

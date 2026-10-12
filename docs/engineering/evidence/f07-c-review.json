@@ -1,0 +1,46 @@
+{
+  "task": "F07-c",
+  "baseSha": "7fbd536f418a416d8fb36e563161e9197e039ea3",
+  "reviewedSha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/26",
+  "reviewer": "one fresh most-capable wholebranch read-only reviewer",
+  "critical": [],
+  "important": [
+    {
+      "finding": "unfinished restore journal bypass",
+      "grade": "ACCEPT",
+      "reason": "Offline backup can combine precommit SQL with promoted replacement files or missing media; refuse before storage until normal journal recovery completes.",
+      "status": "six-real-crash-boundary-tests-RED-to-GREEN"
+    },
+    {
+      "finding": "whole release boundary missing",
+      "grade": "ACCEPT",
+      "reason": "codeRoot is release/app, allowing unmanifested encrypted output in enclosing release/bin/ops; derive/carry trusted full boundary and reject before storage.",
+      "status": "real-compiled-RED-to-GREEN-and-Windows-whole-release-refusals-verified"
+    },
+    {
+      "finding": "owned operator overlap not serialized",
+      "grade": "ACCEPT",
+      "reason": "Closed-handle probe is released before child; concurrent backup/restore can read intermediate files or recover another operation journal. Hold protected exclusive per-instance handle through child and cleanup.",
+      "status": "actual-Windows-missing-lock-RED-observed-source-fixed-final-Windows-pending"
+    }
+  ],
+  "minor": [],
+  "gradingCompletedBeforeCorrection": true,
+  "correctionPassesAllowed": 1,
+  "correctionPassesUsed": 1,
+  "rereview": false,
+  "declinedToJudge": [
+    "final exact Windows evidence/PS5.1/ACL/reparse/aliases/failurehandling",
+    "disk-full/process-interruption outcomes",
+    "Server2019/reboot/RPO/RTO",
+    "F05 external enforcement403",
+    "private configuration/online/scheduler/offhost/update/rollback subsequent F07 work"
+  ],
+  "nativeLockRed": {
+    "sha": "59b682d6b1a0431edde1cc65c652ba609fcb6307",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38224670144",
+    "failure": "owned recovery did not hold an exclusive operation lock before stdin",
+    "serviceCleanup": true
+  }
+}

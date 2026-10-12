@@ -1,0 +1,338 @@
+{
+  "task": "F07-c first Windows run",
+  "sourceSha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38222736027",
+  "overall": "failure",
+  "jobs": {
+    "Windows Node22 baseline": "success",
+    "Windows Node24 baseline": "success",
+    "Windows production browsers": "success",
+    "Windows package producer": "success",
+    "Windows package clean consumer": "failure",
+    "Windows disposable service": "skipped",
+    "ci-gate": "failure"
+  },
+  "quality": {
+    "sha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+    "run": "38222736027",
+    "runtimes": [
+      {
+        "node": "v22.23.3",
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success",
+          "audit": "success",
+          "coverage": "success"
+        },
+        "tests": 1459,
+        "files": 87,
+        "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a"
+      },
+      {
+        "node": "v24.21.0",
+        "checks": {
+          "install": "success",
+          "native": "success",
+          "lint": "success",
+          "test": "success",
+          "build": "success",
+          "production": "success",
+          "audit": "success",
+          "coverage": "success"
+        },
+        "tests": 1459,
+        "files": 87,
+        "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a"
+      }
+    ]
+  },
+  "coverage": {
+    "headSha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+    "run": "38222736027",
+    "runtimes": [
+      {
+        "nodeVersion": "v22.23.3",
+        "sourceFiles": 108,
+        "totals": {
+          "lines": {
+            "total": 11131,
+            "covered": 3536,
+            "skipped": 0,
+            "pct": 31.76
+          },
+          "statements": {
+            "total": 14277,
+            "covered": 4854,
+            "skipped": 0,
+            "pct": 33.99
+          },
+          "functions": {
+            "total": 3139,
+            "covered": 1005,
+            "skipped": 0,
+            "pct": 32.01
+          },
+          "branches": {
+            "total": 10965,
+            "covered": 3189,
+            "skipped": 0,
+            "pct": 29.08
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "rawReportHashes": {
+          "coverage-final.json": "b1e8f5de1aa8c992505414e0f198aa0fd86650aa9c8b1ae411848042e8b587cd",
+          "coverage-summary.json": "ab535132a52ed7c6ece9a302af5057bd1ca6b0b27358ab371b42da9d03393c64",
+          "lcov.info": "1ea8f7fe3b29c5df1135e97603dc7f97d1ea7ae19c90bffedcdca9ca86efe2e3",
+          "index.html": "197912e703152c6fae792167e24de83836f03698ddf053c86f4ccfd2bf804659"
+        },
+        "independentRawCountersLcovInventoryVerified": true
+      },
+      {
+        "nodeVersion": "v24.21.0",
+        "sourceFiles": 108,
+        "totals": {
+          "lines": {
+            "total": 11131,
+            "covered": 3535,
+            "skipped": 0,
+            "pct": 31.75
+          },
+          "statements": {
+            "total": 14277,
+            "covered": 4853,
+            "skipped": 0,
+            "pct": 33.99
+          },
+          "functions": {
+            "total": 3139,
+            "covered": 1005,
+            "skipped": 0,
+            "pct": 32.01
+          },
+          "branches": {
+            "total": 10965,
+            "covered": 3189,
+            "skipped": 0,
+            "pct": 29.08
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "rawReportHashes": {
+          "coverage-final.json": "f29e9ae5a795838db5c3b3ba13ae76de9137b454dcad6dacf488762284f7bc49",
+          "coverage-summary.json": "9260f74e2d7157919e012cc5cbe04fb661690c9093b68c94709277395ecbe21e",
+          "lcov.info": "9eb3d9eb9a7c8b41b7dc8dd6307e63f311df47fc6f1f411ab7b0ded3579d7212",
+          "index.html": "3d3a2f6e47f064a2e3477bf70401e5233a0a740cb597dccc3d5e2ca6de08d961"
+        },
+        "independentRawCountersLcovInventoryVerified": true
+      }
+    ]
+  },
+  "browser": {
+    "verifiedHeadSha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38222736027",
+    "firstAttemptCases": [
+      [
+        "chromium",
+        "B01 login reload logout"
+      ],
+      [
+        "chromium",
+        "B02 child finance boundary"
+      ],
+      [
+        "chromium",
+        "B03 note and media visibility"
+      ],
+      [
+        "chromium",
+        "B04 logout purges private storage"
+      ],
+      [
+        "chromium",
+        "B05 account switch removes previous data"
+      ],
+      [
+        "firefox",
+        "B01 login reload logout"
+      ],
+      [
+        "firefox",
+        "B02 child finance boundary"
+      ],
+      [
+        "firefox",
+        "B03 note and media visibility"
+      ],
+      [
+        "firefox",
+        "B04 logout purges private storage"
+      ],
+      [
+        "firefox",
+        "B05 account switch removes previous data"
+      ],
+      [
+        "webkit",
+        "B01 login reload logout"
+      ],
+      [
+        "webkit",
+        "B02 child finance boundary"
+      ],
+      [
+        "webkit",
+        "B03 note and media visibility"
+      ],
+      [
+        "webkit",
+        "B04 logout purges private storage"
+      ],
+      [
+        "webkit",
+        "B05 account switch removes previous data"
+      ]
+    ],
+    "engines": [
+      {
+        "browserName": "chromium",
+        "browserVersion": "156.0.8078.4",
+        "executableSha256": "7f08161bbeb2853ffe1780a9ded4985087f52efb9725d7d8207aabdd42f7cfb9",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "firefox",
+        "browserVersion": "157.0",
+        "executableSha256": "c949e57fba9a65ab6c434a76e32d2c72eb43f8b99a7c48ee7e927a4fad4b2a36",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "webkit",
+        "browserVersion": "27.2",
+        "executableSha256": "5c2f7bf3592d67bf74a32b01d08ad3b156fd4fff0fea0fabe8dbf99bd37d48f3",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      }
+    ],
+    "manifest": {
+      "commitSha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+      "nodeVersion": "v24.21.0",
+      "platform": "win32",
+      "architecture": "x64",
+      "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+      "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+      "productionBuild": {
+        "serverSha256": "f20007d6c5ae57cb60b7d1ec3e27725b9042adbd71ae68fb2f8ea0e6a59f0b11",
+        "indexSha256": "5c512d46ec909139bf4e19a2cbb0b4aed40521b1c82c3306d91c895cea5695b8"
+      },
+      "legacyPreserved": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "fixtureRemoved": true,
+      "externalAttempts": [],
+      "serverExitCode": 0,
+      "serverSignal": null,
+      "cliExitCode": 0,
+      "cliSignal": null,
+      "error": null
+    },
+    "independentReportSha256": {
+      "browser-server.log": "9b8edcf077c0cf100d8aa3ed99861b1ed95d2b7819ccf61a01a94d6abef892fc",
+      "browsers-install.log": "15badce73d8305b2f2098bb4f5ac7d60971a107886a1eb3611be1d4e84fc6ec6",
+      "build.log": "4f8f32468374abda2b362d0c9adf9c6aaf42d79219747d4c7f5299ae218037a3",
+      "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+      "browser.junit.xml": "105813dd0028e9a9c2c5a64d96cd84e23deef4c66b9d65111d086cd0032fe0af",
+      "browser-runtime-webkit.json": "47a86e8b8d7410179978b3af2f53fbee246328337cdfd20cda965155a414c1fd",
+      "browser-run.log": "07297c431104c5b87cd2785d50da4a166855037427d7e27f2d12c1a5fe393a2d",
+      "toolchain.json": "9197d488a377e254a43847f25cd8b0ee4085ece6ad3a2ac98dea6137b2d2fe06",
+      "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+      "browser-evidence.json": "b9470cb791539b15a06fcd55b6b77106302d0394340be6f5fff56f116705b498",
+      "browser-runtime-chromium.json": "e8426a517887dc799b9cc0c7ed83750dd77c1a72cb51fad6459c4aa337a9562e",
+      "browsers-install-exit.json": "258ef3b93d9a1fe09ec51f561ce763f59c1fde6699f15e313424beb397eca55e",
+      "browser-exit.json": "9bc78f4c35adce41a98032220f2f05abc7e93f1c4ee4bf15763fef5edf01f156",
+      "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+      "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+      "install.log": "2a9385c8cfa339b4b72724e933ec3b859727fdfc2d1702b21dbe80e37360d466",
+      "browser-cli.log": "d1402b891c251af2a9e7e26db962dd3a237f8043387c1b50adfae9c84030ea5c",
+      "browser-runtime-firefox.json": "3fc5ac0efaa8807b364ec9906ab240544fd57b55ea7d06fec6c16bab722712bc",
+      "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+      "browser.json": "ebef90a25234711e84db7f7469ba3ae6c0ca1bdcab193db04d492fb3a7df2324",
+      "browser-fixture.json": "5612baf40043fa08ebebf4b71dc710e2034e8f679e025bb0d2b41615356e8a32",
+      "browser-provider-fixtures.log": "c96bffcb247ea61fc0035865cd6f1b247ccace572b165ef8187bd5419dd775f7",
+      "browser-html/index.html": "c695a98409840c9bf26c0463c8a30d8604883cf25a46eb7b61b6e525737dbff3",
+      "browser-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    "server2019Acceptance": "not-run"
+  },
+  "consumerExit": {
+    "consumerRebuild": false,
+    "nativeExitCodes": {
+      "denyAcl": 0,
+      "production": 0,
+      "restoreAcl": 0,
+      "validation": 0,
+      "launchWhatIf": 0,
+      "functional": 0,
+      "recovery": 1,
+      "launchValidation": 0
+    },
+    "fixtureCleanup": true,
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38222736027",
+    "sourceCheckoutPresent": false,
+    "zipSha256": "883b3d989fda901b91fbc2b02e150694c52c95ec745745d8d270ad6b8f56d2f4",
+    "commitSha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+    "consumerInstall": false,
+    "exitCode": 1
+  },
+  "recoveryPartial": {
+    "commitSha": "9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3",
+    "platform": "win32",
+    "architecture": "x64",
+    "nodeVersion": "v24.21.0",
+    "nodeExecutable": "D:\\a\\_temp\\fo package d\u1eef li\u1ec7u 62379473-228a-47ea-bc60-a7ca64297c85\\release with spaces\\bin\\node.exe",
+    "completed": false,
+    "checks": [],
+    "nativeExitCodes": []
+  },
+  "previousCompiledChecks": 23,
+  "previousFunctionalChecks": 14,
+  "failure": "Recovery harness asserted a canonical reward claim exists, but existing legacy approval fixture legitimately produced no app_reward_claims row. Failure occurs before recovery operator execution; not proof of encryption or restore.",
+  "correction": "Preserve claim assertion; seed a synthetic canonical claim referring to the existing real17-point reward entry, then require all rows/claim IDs remain exact after restore.",
+  "compiledCloudReproduced": true,
+  "unrun": [
+    "actual recovery backup/decrypt/portable restore",
+    "actual service operations"
+  ],
+  "fullCiLogSha256": "52a85130ee006e856f01b0f79bb2914dde43b179503d5bdd2f97228a8ccb0aae",
+  "reportHashes": {
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/production.json": "2bd0045a0adf1f991b6b3cb118df1bfa1f839935aab85fca5829a3efa306961e",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/package-recovery.log": "bbd76f0abd14e5a5631c53e4f0f23f1698e2404fbc2ee89d40b3e225b1384182",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/package-validation.json": "8f8d95cb3e12d01efb7d89807e3abb7e409cebf03e0810b421cad80b9ff33eba",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/failure.log": "37a2ea1d27217408ff8d3cf5eb2ebe48438f4169c02b44acd0c0f2299697012a",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/package-functional.json": "c466a8d81f19b4d8265676549bc440d72e6015c092d96da39a0a960823e5794d",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/production.log": "963003194d1b9dafe5f5eb2b855610188e5e0fc853e819cc6c4a25b2be898899",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/package-functional-server.log": "9853256919539dd9b803dfbf852b26c5d558387940df3320524d3f749e182e8a",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/production-server.log": "cf96893b1696d1f23d448a9ffbd3187d988fb227c48bf5303269b4e0db6ef661",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/package-exit.json": "1c6f29baf9fa3725b4a2d3e8eabaf916d35b460d7172b7810adce82aa38a3cdd",
+    "windows-package-tests-9c8c3d2c42a18a0391184e1de8a4891f4ea7c7f3-1/package-recovery.json": "6823c0116a72dabcf3d3c62575d0559e8677261fbd33d6c6eeceb1552b30eca1"
+  }
+}

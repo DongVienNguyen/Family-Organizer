@@ -11,7 +11,7 @@
       "grade": "ACCEPT",
       "reason": "Claim returns namespace/type/payload and the command cache serializes that result. Generic redaction only recognizes subscription key shapes, while explicit push removal currently only applies to app_jobs.",
       "correction": "Exercise real enqueue/claim before export; remove push endpoint in cached lease context and retain business fields, IDs and nonce tombstones. Verify JSON and ZIP and ordinary restore.",
-      "status": "corrected-source-actual-two-export-red-to-green-windows-pending"
+      "status": "corrected-and-exact-Windows-verified"
     }
   ],
   "minor": [],
@@ -34,5 +34,10 @@
     "tests": 94,
     "files": 2,
     "result": "passed"
+  },
+  "exactWindowsFinal": {
+    "sha": "92e4db001b0da92299ba5f77d7194829f61b7be2",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38217369654",
+    "result": "all seven jobs success; artifacts independently verified"
   }
 }

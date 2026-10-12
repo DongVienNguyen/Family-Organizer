@@ -307,12 +307,58 @@
     "blocker": "Both actual writes still HTTP403 Resource not accessible by integration. No permission-management tool available. Owner must apply integration Administration:write in GitHub installation or saved exact policy. No failed-PR merge probe while unprotected."
   },
   "latestPostGrantRetry": {
-    "checkedAt": "2026-10-12T06:28:37.845438+00:00",
-    "checkedHead": "66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f",
+    "checkedAt": "2026-10-12T07:32:25.917278+00:00",
+    "checkedHead": "7fbd536f418a416d8fb36e563161e9197e039ea3",
+    "userAuthorizationPersists": true,
     "attempts": [
       {
         "method": "POST",
         "path": "repos/DongVienNguyen/Family-Organizer/rulesets",
+        "request": {
+          "name": "Windows CI required on main",
+          "target": "branch",
+          "enforcement": "active",
+          "bypass_actors": [],
+          "conditions": {
+            "ref_name": {
+              "include": [
+                "refs/heads/main"
+              ],
+              "exclude": []
+            }
+          },
+          "rules": [
+            {
+              "type": "pull_request",
+              "parameters": {
+                "required_approving_review_count": 0,
+                "dismiss_stale_reviews_on_push": true,
+                "require_code_owner_review": false,
+                "require_last_push_approval": false,
+                "required_review_thread_resolution": true
+              }
+            },
+            {
+              "type": "required_status_checks",
+              "parameters": {
+                "required_status_checks": [
+                  {
+                    "context": "ci-gate",
+                    "integration_id": 15368
+                  }
+                ],
+                "strict_required_status_checks_policy": true,
+                "do_not_enforce_on_create": false
+              }
+            },
+            {
+              "type": "non_fast_forward"
+            },
+            {
+              "type": "deletion"
+            }
+          ]
+        },
         "ghExitCode": 1,
         "response": {
           "message": "Resource not accessible by integration",
@@ -324,6 +370,28 @@
       {
         "method": "PUT",
         "path": "repos/DongVienNguyen/Family-Organizer/branches/main/protection",
+        "request": {
+          "required_status_checks": {
+            "strict": true,
+            "checks": [
+              {
+                "context": "ci-gate",
+                "app_id": 15368
+              }
+            ]
+          },
+          "enforce_admins": true,
+          "required_pull_request_reviews": {
+            "dismiss_stale_reviews": true,
+            "require_code_owner_reviews": false,
+            "required_approving_review_count": 0,
+            "require_last_push_approval": false
+          },
+          "restrictions": null,
+          "required_conversation_resolution": true,
+          "allow_force_pushes": false,
+          "allow_deletions": false
+        },
         "ghExitCode": 1,
         "response": {
           "message": "Resource not accessible by integration",
@@ -333,8 +401,112 @@
         "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
       }
     ],
-    "branchProtected": "false",
-    "rulesets": []
+    "branch": {
+      "exitCode": 0,
+      "response": {
+        "name": "main",
+        "commit": {
+          "sha": "7fbd536f418a416d8fb36e563161e9197e039ea3",
+          "node_id": "C_kwDOVErV69oAKDdmYmQ1MzZmNDE4YTQxNmQ4ZmIzNmU1NjMxNjFlOTE5N2UwMzllYTM",
+          "commit": {
+            "author": {
+              "name": "\u0110\u00f4ng Vi\u1ec5n Nguy\u1ec5n",
+              "email": "ngviendong@gmail.com",
+              "date": "2026-10-12T07:32:01Z"
+            },
+            "committer": {
+              "name": "GitHub",
+              "email": "noreply@github.com",
+              "date": "2026-10-12T07:32:01Z"
+            },
+            "message": "F07: exclude ordinary backup credentials and add offline Windows reentry (#25)\n\n* F07: exclude ordinary backup credentials and add offline reentry\n\n* F07: redact cached push claims and compare canonical snapshot rows\n\n* F07: isolate Windows Desktop module discovery in service probe\n\n* F07: forward validation flags and retain typed credential failures\n\n* F07: decode bounded operator stdin as strict UTF8",
+            "tree": {
+              "sha": "a853302b2f68b0ecea229cdf712d3e2d819587b5",
+              "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/git/trees/a853302b2f68b0ecea229cdf712d3e2d819587b5"
+            },
+            "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/git/commits/7fbd536f418a416d8fb36e563161e9197e039ea3",
+            "comment_count": 0,
+            "verification": {
+              "verified": true,
+              "reason": "valid",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqzIzxCRC1aQ7uu5UhlAAAsD8QADImgZKCxfN9GhK/Aht+HH3g\nb/5qm/hI91nAOqdH2ABWgUVgYN2QKJZyHLckF6R4eV2TJtMOYNsDm+Xe6oCsrrUE\nl9s8cz0rRNrAdCOTiuaSx2gOTX6ep0ERWMTj81CnzNzZENh1kaQHJmZmhQsZlihb\n5Gvt+PBKUft95BfSi0FgCq6M2ssNlAmQLb2PyiOGYaQnLAUDW5dzr8Mv4/HbDEGJ\nsSBP5FGNY75O1FlTPTaj4kiwVWE29Jt0nz9aXRuDelwzZ73xlX9BDYOPsvCzJNgO\nEfCvHW9lIDc3bBSFcvuH2tTRpePZbszN4tcVOPCeQeD4UVNspjKoKAmRnoBw4d+1\nkJTX6ZwnMRYmLgHOHFGX151wqm7N6EvchWzRNP1bvwAHzmhpd1rvHVArXbz3ovkU\nas9JLrad7D4j8Uow0soznoMLDypgsLTJqKd7uBP6izKSDUdZ7I7/U7zI63Bt6ofQ\nqG5bTdwDgOxJ8SuGSMpmTGXUqRFS/AfStH9aFM3T3Vp4OSej7NfXazSgwh0IO6cD\nc2AYHm9f4E7CveY1TdVbjsS6WIW9seXAA2dpOa6/e8AKK6Q7hF8EamWgzyEHycJ0\nAN4XuiR6G3wuFjH6vth18npb6QyfwGOemkl/sG1CDAxPOUknubc4Yjy8oRFQNmQD\n/1PcyodwtWUTGE1Aud1j\n=LHCz\n-----END PGP SIGNATURE-----\n",
+              "payload": "tree a853302b2f68b0ecea229cdf712d3e2d819587b5\nparent 66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f\nauthor \u0110\u00f4ng Vi\u1ec5n Nguy\u1ec5n <ngviendong@gmail.com> 1791790321 +0700\ncommitter GitHub <noreply@github.com> 1791790321 +0700\n\nF07: exclude ordinary backup credentials and add offline Windows reentry (#25)\n\n* F07: exclude ordinary backup credentials and add offline reentry\n\n* F07: redact cached push claims and compare canonical snapshot rows\n\n* F07: isolate Windows Desktop module discovery in service probe\n\n* F07: forward validation flags and retain typed credential failures\n\n* F07: decode bounded operator stdin as strict UTF8",
+              "verified_at": "2026-10-12T07:32:01Z"
+            }
+          },
+          "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/7fbd536f418a416d8fb36e563161e9197e039ea3",
+          "html_url": "https://github.com/DongVienNguyen/Family-Organizer/commit/7fbd536f418a416d8fb36e563161e9197e039ea3",
+          "comments_url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/7fbd536f418a416d8fb36e563161e9197e039ea3/comments",
+          "author": {
+            "login": "DongVienNguyen",
+            "id": 29496653,
+            "node_id": "MDQ6VXNlcjI5NDk2NjUz",
+            "avatar_url": "https://avatars.githubusercontent.com/u/29496653?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/DongVienNguyen",
+            "html_url": "https://github.com/DongVienNguyen",
+            "followers_url": "https://api.github.com/users/DongVienNguyen/followers",
+            "following_url": "https://api.github.com/users/DongVienNguyen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/DongVienNguyen/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/DongVienNguyen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/DongVienNguyen/subscriptions",
+            "organizations_url": "https://api.github.com/users/DongVienNguyen/orgs",
+            "repos_url": "https://api.github.com/users/DongVienNguyen/repos",
+            "events_url": "https://api.github.com/users/DongVienNguyen/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/DongVienNguyen/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "committer": {
+            "login": "web-flow",
+            "id": 19864447,
+            "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+            "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/web-flow",
+            "html_url": "https://github.com/web-flow",
+            "followers_url": "https://api.github.com/users/web-flow/followers",
+            "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+            "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+            "organizations_url": "https://api.github.com/users/web-flow/orgs",
+            "repos_url": "https://api.github.com/users/web-flow/repos",
+            "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/web-flow/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "parents": [
+            {
+              "sha": "66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f",
+              "url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/commits/66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f",
+              "html_url": "https://github.com/DongVienNguyen/Family-Organizer/commit/66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f"
+            }
+          ]
+        },
+        "_links": {
+          "self": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/branches/main",
+          "html": "https://github.com/DongVienNguyen/Family-Organizer/tree/main"
+        },
+        "protected": false,
+        "protection": {
+          "enabled": false,
+          "required_status_checks": {
+            "enforcement_level": "off",
+            "contexts": [],
+            "checks": []
+          }
+        },
+        "protection_url": "https://api.github.com/repos/DongVienNguyen/Family-Organizer/branches/main/protection"
+      }
+    },
+    "rulesets": {
+      "exitCode": 0,
+      "response": []
+    }
   },
   "postGrantRetryHistory": [
     {
@@ -470,6 +642,36 @@
           "stderr": ""
         }
       }
+    },
+    {
+      "checkedAt": "2026-10-12T06:28:37.845438+00:00",
+      "checkedHead": "66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f",
+      "attempts": [
+        {
+          "method": "POST",
+          "path": "repos/DongVienNguyen/Family-Organizer/rulesets",
+          "ghExitCode": 1,
+          "response": {
+            "message": "Resource not accessible by integration",
+            "documentation_url": "https://docs.github.com/rest/repos/rules#create-a-repository-ruleset",
+            "status": "403"
+          },
+          "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
+        },
+        {
+          "method": "PUT",
+          "path": "repos/DongVienNguyen/Family-Organizer/branches/main/protection",
+          "ghExitCode": 1,
+          "response": {
+            "message": "Resource not accessible by integration",
+            "documentation_url": "https://docs.github.com/rest/branches/branch-protection#update-branch-protection",
+            "status": "403"
+          },
+          "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
+        }
+      ],
+      "branchProtected": "false",
+      "rulesets": []
     }
   ]
 }

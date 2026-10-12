@@ -155,3 +155,12 @@ function Set-OwnedServiceAcl {
         Set-Acl -LiteralPath $file -AclObject $acl
     }
 }
+
+function Enter-OwnedDataOperation {
+    param([hashtable]$Context)
+    Assert-ServiceMetadataAcl $Context.marker
+    # Protected existing per-instance metadata: allow ownership reads, but only
+    # one ReadWrite claimant. No new lock file or marker bytes are written.
+    try { return [IO.File]::Open($Context.marker,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::Read) }
+    catch [IO.IOException] { throw 'Owned operator operation already active' }
+}
