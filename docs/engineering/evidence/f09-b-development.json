@@ -1,0 +1,59 @@
+{
+  "taskId": "F09-b",
+  "baseSha": "de66d95c447a2b773e376bb55553f1cb6821d908",
+  "actualProductReds": 4,
+  "mandatoryGateRed": 1,
+  "targetGreen": 168,
+  "targetFiles": 3,
+  "fullGreen": 1872,
+  "fullFiles": 104,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "cloudNodeVersion": "v24.21.0",
+  "fullWorkers": 1,
+  "lintExit": 0,
+  "buildExit": 0,
+  "priorFullFailurePreserved": {
+    "taskId": "F09-b",
+    "initialFull": {
+      "tests": 1872,
+      "passed": 1871,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 104,
+      "failure": "tests/native-gc.test.ts child spawnSync15s timeout while source/lint/build ran concurrently",
+      "report": "f09-b-vitest.json"
+    },
+    "isolatedDiagnostic": {
+      "elapsedMs": 4209.012223000001,
+      "status": 0,
+      "signal": null,
+      "stdout": "allocation-driven native statement cleanup passed\n",
+      "stderr": ""
+    },
+    "cgroupCpuQuota": {
+      "quotaMicros": 400000,
+      "periodMicros": 100000
+    },
+    "existingCpuHeavyProcess": {
+      "pid": 67094,
+      "cpuPercent": 99.4,
+      "ownershipUnverified": true,
+      "notTerminated": true
+    },
+    "nextVerification": "serial maxWorkers1 full suite; no source/timeout/assertion change"
+  },
+  "timeoutsAssertionsWorkloadChanged": false,
+  "dependencyLockRuntimeChanges": false,
+  "review": "pending one fresh whole-branch review",
+  "windows": "pending corrected final SHA",
+  "remaining": [
+    "financial UI smoke/other legacy rows/Caddy",
+    "full F08 archive+promotion collector",
+    "F05 ruleset Administration403/main currently unprotected",
+    "Server2019/offhost/reboot acceptance not-run",
+    "no release/tag/VPS authorization"
+  ]
+}

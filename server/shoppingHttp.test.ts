@@ -30,3 +30,12 @@ it('persists an offline random shared meal plan and supports preview without rep
  expect((await send('/api/shopping/meal-plan/random',UserRole.GUEST,{adults:1,children:0,days:1,save:false})).status).toBe(200);expect((await send('/api/shopping/meal-plan/current',UserRole.MEMBER)).body.mealPlan).toEqual(current.body.mealPlan);
  const before=sqliteLoad();expect((await send('/api/shopping/meal-plan/random',UserRole.ADMIN,{adults:0,children:0,save:true})).status).toBe(400);expect(sqliteLoad()).toEqual(before);
 }));
+it('shares shopping ownership and purchase changes across all authenticated household roles',()=>fixture(async send=>{
+ const created=await send('/api/shopping',UserRole.ADMIN,{name:'Synthetic cross-actor rice',quantity:'1 kg'});expect(created.status).toBe(200);const id=created.body.item.id;
+ for(const role of Object.values(UserRole)){const read=await send('/api/shopping',role);expect(read.status).toBe(200);expect(read.body.shoppingItems).toEqual([expect.objectContaining({id,creatorId:UserRole.ADMIN,isPurchased:false})]);}
+ expect((await send('/api/shopping',UserRole.MEMBER,{id,quantity:'3 kg'})).status).toBe(200);
+ const purchased=await send('/api/shopping/'+id+'/toggle',UserRole.CHILD,{});expect(purchased.status).toBe(200);expect(purchased.body.item).toMatchObject({id,creatorId:UserRole.ADMIN,quantity:'3 kg',isPurchased:true,purchasedById:UserRole.CHILD});
+ for(const role of Object.values(UserRole)){expect((await send('/api/shopping',role)).body.shoppingItems).toEqual([expect.objectContaining({id,creatorId:UserRole.ADMIN,quantity:'3 kg',isPurchased:true,purchasedById:UserRole.CHILD})]);}
+ expect((await send('/api/shopping/purchased',UserRole.GUEST,undefined,'DELETE')).body.removed).toBe(1);
+ for(const role of Object.values(UserRole))expect((await send('/api/shopping',role)).body.shoppingItems).toEqual([]);
+}));
