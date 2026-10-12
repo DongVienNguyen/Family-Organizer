@@ -16,7 +16,11 @@ export function ordinaryBackupValue(value:any):any {
   if(Array.isArray(value))return value.map(ordinaryBackupValue);
   if(!value||typeof value!=='object')return value;
   const push=typeof value.endpoint==='string'&&(value.keys?.p256dh!==undefined||value.subscription?.keys?.p256dh!==undefined);
-  return Object.fromEntries(Object.entries(value).filter(([key])=>!credentialField(key)&&!(push&&['endpoint','keys','subscription'].includes(key))).map(([key,item])=>[key,ordinaryBackupValue(item)]));
+  const result=Object.fromEntries(Object.entries(value).filter(([key])=>!credentialField(key)&&!(push&&['endpoint','keys','subscription'].includes(key))).map(([key,item])=>[key,ordinaryBackupValue(item)]));
+  // jobs:claim caches a lease, including its payload. Such payloads have no
+  // subscription encryption keys; namespace/type identify the capability.
+  if(value.namespace==='legacy'&&value.type==='push-delivery'&&result.payload&&typeof result.payload==='object')delete result.payload.endpoint;
+  return result;
 }
 export function ordinaryBackupSettings(settings:Record<string,string>):Record<string,string>{
   const result={...settings};

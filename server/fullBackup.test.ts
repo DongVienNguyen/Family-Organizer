@@ -106,3 +106,20 @@ it('ordinary backup removes push capabilities and password-command verifiers wit
   expect(snapshot.tables.app_commands.find((row:any)=>row.request_id===requestId)).toMatchObject({command:'legacy:changePassword',request_id:requestId,actor_id:'synthetic',result:JSON.stringify({value:{success:true}})});
   expect(snapshot.tables.app_jobs.find((row:any)=>row.id==='synthetic-push')).toMatchObject({id:'synthetic-push',unique_key:'synthetic-push-dedupe',type:'push-delivery',lease_token:null});
 });
+
+it.each(['zip','json'])('ordinary %s export/import removes capabilities from actual cached push claims',async format=>{
+  const {AppJobStore}=await import('./jobStore.js');const {collectOrdinaryAppSnapshot}=await import('./appSnapshot.js');
+  const endpoint='https://push.synthetic.invalid/claimed-private-capability-'+randomUUID();
+  withAppWriteTransaction({actorId:'synthetic',command:'synthetic:claim-preparation',requestId:randomUUID(),payloadHash:'fixture'},tx=>{tx.run("UPDATE app_jobs SET status='unknown',lease_token=NULL,lease_until=NULL WHERE namespace='legacy' AND type='push-delivery'");});
+  const store=new AppJobStore(),now=Date.now();const id=store.enqueue({namespace:'legacy',type:'push-delivery',kind:'effect',key:randomUUID(),availableAt:now,payload:{notificationId:'synthetic-preserved-notification',userId:FamilyDB.getUsers()[0].id,endpoint}});
+  const claimed=store.claim('legacy','push-delivery',now,10000)!;expect(claimed.id).toBe(id);expect(claimed.payload.endpoint).toBe(endpoint);
+  let snapshot:any;
+  if(format==='zip'){const archive=await Open.buffer(await capture());snapshot=JSON.parse((await archive.files.find(file=>file.path==='snapshot.json')!.buffer()).toString());}
+  else{const backup=FamilyDB.createBackup('manual','user_admin','Synthetic');snapshot=JSON.parse(fs.readFileSync(path.join(process.env.DATA_DIR!,'backups',backup.filename),'utf8'));}
+  expect(JSON.stringify(snapshot)).not.toContain(endpoint);expect(JSON.stringify(snapshot)).not.toContain(claimed.token);
+  const cache=snapshot.tables.app_commands.map((row:any)=>({row,result:JSON.parse(row.result)})).find((entry:any)=>entry.result.value?.id===id&&entry.result.value?.type==='push-delivery');
+  expect(cache.row.command).toBe('jobs:claim');expect(cache.result.value).toMatchObject({id,namespace:'legacy',type:'push-delivery',payload:{notificationId:'synthetic-preserved-notification',userId:claimed.payload.userId}});
+  await FamilyDB.restoreFromSnapshot(snapshot,'user_admin','Synthetic','synthetic claimed push',options);
+  const restored=withAppWriteTransaction({actorId:'synthetic',command:'synthetic:claim-post-restore',requestId:randomUUID(),payloadHash:'fixture'},collectOrdinaryAppSnapshot);
+  expect(JSON.stringify(restored)).not.toContain(endpoint);expect(restored.tables.app_commands.find(row=>row.request_id===cache.row.request_id)).toEqual(cache.row);
+});

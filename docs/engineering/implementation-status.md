@@ -818,3 +818,31 @@ blocked. Independent F07/F08/F09 source can proceed; foundation acceptance and n
 feature tasks remain dependent on the enforcement requirement. Encrypted recovery,
 scheduler/off-host/retention and update/rollback are next focused F07 tasks. No
 release/tag, VPS access, Server2019/reboot or RPO/RTO acceptance has occurred.
+
+F07-b first source HEAD: `39545fd2a1798fa5fd06ef1e55a60fbeb814ac7d`.
+PR: https://github.com/DongVienNguyen/Family-Organizer/pull/25 (attached).
+CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38213941757.
+Consumer validation/compiled production passed; functional probe exited1 at cache
+row preservation and cleanup succeeded. Service did not run. Canonical key ordering
+caused the old string comparison to report a lost row; new tests reproduce that
+failure and retain exact checks on every column/value. This SHA is not accepted.
+
+One fresh whole-branch review found one Important issue: actual cached `jobs:claim`
+lease payloads retained push endpoints. All findings were graded ACCEPT before one
+correction pass. Real enqueue/claim regressions failed for ZIP and JSON, then passed
+with contextual cached-lease redaction. Command IDs/results, notification IDs and
+noncredential business fields remain. Review/source fixes and targeted94 tests/2
+files passed; full corrected Cloud and exact Windows rerun pending. No rereview,
+assertion removal, skipped critical suite or continue-on-error was used.
+
+Independent inspection of run38213941757 confirms both Node22/24 each1411/85,
+all8 native/check exits0, zero advisory findings and unchanged coverage floors across
+106 source files. All15 browser cases passed on first attempt across Chromium,
+Firefox and WebKit, with zero skips/retries/flakiness. Producer passed; consumer
+failed, service was skipped, ci-gate failed. The complete failure record/report hashes
+are in `docs/engineering/evidence/f07-b-initial-failure.json`.
+
+ONE correction pass completed:2 real cached-claim REDs and1 canonical row comparison
+RED now pass, with6 changed/missing-column regressions retained. Corrected full Cloud
+1420 tests/85 files, lint and build passed. Corrected exact-HEAD Windows run is the
+next gate; the first SHA must not be merged. No new dependency or lockfile changes.

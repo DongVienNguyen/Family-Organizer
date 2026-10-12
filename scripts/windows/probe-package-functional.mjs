@@ -1,3 +1,4 @@
+import {retainsSnapshotRows} from './package-contract.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -59,7 +60,7 @@ try{
  try{const [exitCode,signal]=await once(reset,'close');assert.equal(exitCode,0,resetOutput+resetErrors);assert.equal(signal,null);assert.deepEqual(JSON.parse(resetOutput.trim()),{resetUserIds:[user.id,rewardChild.id],sessionsRevoked:true});assert.ok(!(resetOutput+resetErrors).includes(restoredPassword));}finally{clearTimeout(timeout);}
  port=await start();token=await login(port,restoredPassword);checks.push('compiled-offline-reentry-preserves-user-ids');
  assert.equal((await request(port,'/api/finance',undefined,token)).json.transactions.find(row=>row.id===id).amount,40000);assert.deepEqual((await request(port,'/api/rewards',undefined,token)).json.entries,rewards);checks.push('shared-snapshot-restore','restore-revokes-session','restore-preserves-reward-no-replay');
- await stop();const db=new Database(path.join(data,'family.db'),{readonly:true});try{assert.equal(db.pragma('integrity_check',{simple:true}),'ok');for(const name of ['app_commands','app_reward_claims','app_migrations']){const rows=db.prepare(`SELECT * FROM ${name}`).all();for(const saved of snapshot.tables[name])assert.ok(rows.some(row=>JSON.stringify(row)===JSON.stringify(saved)),`Snapshot ${name} row lost`);}}finally{db.close();}
+ await stop();const db=new Database(path.join(data,'family.db'),{readonly:true});try{assert.equal(db.pragma('integrity_check',{simple:true}),'ok');for(const name of ['app_commands','app_reward_claims','app_migrations']){const rows=db.prepare(`SELECT * FROM ${name}`).all();assert.ok(retainsSnapshotRows(rows,snapshot.tables[name]),`Snapshot ${name} row lost`);}}finally{db.close();}
  assert.equal(fs.existsSync(network)?fs.readFileSync(network,'utf8'):'','');checks.push('snapshot-core-rows-preserved','offline-providers','native-handles-closed');
  fs.writeFileSync(report,JSON.stringify({commitSha:process.env.TEST_COMMIT_SHA,nodeVersion:process.version,nodeExecutable:process.execPath,platform:process.platform,architecture:process.arch,checks,networkAttempts:[],snapshotChecksum:snapshot.manifest.checksum},null,2)+'\n');
 }finally{await stop();fs.writeFileSync(path.join(path.dirname(report),'package-functional-server.log'),output);}

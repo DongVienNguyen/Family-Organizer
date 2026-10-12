@@ -8,7 +8,7 @@ live installation. This is a business-data backup, not a portable credential arc
 
 The projection removes structured password/hash/key/token fields, cached response
 credentials, URL userinfo and known credential query parameters, browser push
-subscriptions, push-delivery endpoints and worker lease tokens. Structured
+subscriptions, push-delivery endpoints (including cached claim/lease results) and worker lease tokens. Structured
 `homelabLinks` are sanitized; malformed or primitive values are omitted. Arbitrary
 free-text notes, attachments and business content are preserved: operators must
 avoid placing passwords in that content. Provider settings and the session key
@@ -65,7 +65,11 @@ command/claim/migration rows. The disposable service job must also exercise the
 PowerShell wrapper under Windows PowerShell5.1 with Unicode paths, active-service
 refusal, ValidateOnly/WhatIf, invalid-batch rollback and valid reentry.
 
-Exact-HEAD Windows results are pending for this branch; source/tests alone are not
+First Windows run38213941757 at39545fd failed the consumer row-preservation probe:
+canonical JSON key order differed from native SQL column order. A real Cloud
+regression reproduced that comparison failure; the probe now compares all columns
+and values semantically and still rejects changed/missing fields. Service was
+skipped behind that failure. Corrected exact-HEAD Windows results are pending; source/tests alone are not
 Windows evidence. Encrypted authenticated portable recovery archives, backup
 scheduling/retention/off-host copies and update/rollback orchestration remain later
 F07 tasks. Local pre-restore SQLite safety copies may contain credentials; keep them

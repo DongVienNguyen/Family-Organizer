@@ -1,3 +1,4 @@
+import {isDeepStrictEqual} from 'node:util';
 export const windowsRuntime = Object.freeze({version:'v24.21.0',abi:'137',napi:'10',archiveSha256:'158f7685b44de51f6c0df1d153526cbcd3e1bc739a8dfc607721cef75de9e541'});
 const hex = (value,length) => typeof value==='string' && new RegExp(`^[a-f0-9]{${length}}$`).test(value);
 const integer = value => Number.isSafeInteger(value) && value>=0;
@@ -64,3 +65,5 @@ export function validateManifest(manifest,expected) {
   }
   return errors;
 }
+
+export function retainsSnapshotRows(actual,saved){return saved.every(row=>actual.some(candidate=>isDeepStrictEqual(candidate,row)));}

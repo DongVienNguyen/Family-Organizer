@@ -1,0 +1,38 @@
+{
+  "task": "F07-b",
+  "baseSha": "66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f",
+  "reviewedSha": "39545fd2a1798fa5fd06ef1e55a60fbeb814ac7d",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/25",
+  "reviewer": "one fresh most-capable whole-branch read-only reviewer",
+  "critical": [],
+  "important": [
+    {
+      "finding": "jobs:claim cached lease results retain push-delivery endpoint capabilities",
+      "grade": "ACCEPT",
+      "reason": "Claim returns namespace/type/payload and the command cache serializes that result. Generic redaction only recognizes subscription key shapes, while explicit push removal currently only applies to app_jobs.",
+      "correction": "Exercise real enqueue/claim before export; remove push endpoint in cached lease context and retain business fields, IDs and nonce tombstones. Verify JSON and ZIP and ordinary restore.",
+      "status": "corrected-source-actual-two-export-red-to-green-windows-pending"
+    }
+  ],
+  "minor": [],
+  "gradingCompletedBeforeCorrection": true,
+  "correctionPassesAllowed": 1,
+  "rereview": false,
+  "executionNotEstablishedByReview": [
+    "Windows PowerShell5.1",
+    "packaged native execution",
+    "SCM behavior",
+    "Server2019",
+    "reboot",
+    "RPO/RTO"
+  ],
+  "externalBlockers": [
+    "F05 GitHub Administration integration still returns HTTP403"
+  ],
+  "correctionPassesUsed": 1,
+  "targetedCorrectionTests": {
+    "tests": 94,
+    "files": 2,
+    "result": "passed"
+  }
+}
