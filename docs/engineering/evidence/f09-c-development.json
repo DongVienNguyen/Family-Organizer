@@ -1,6 +1,6 @@
 {
   "taskId": "F09-c",
-  "baseSha": "da508ca48a942af46fc1ab791c14e9cdefe436b2",
+  "baseSha": "f25af441163fb9b82433c5f24096e4c727461bce",
   "scope": "Existing finance GUI create/edit/delete and displayed expense total/persistence, no feature or app source change",
   "gateReds": {
     "assertions": 2,
@@ -19,13 +19,13 @@
   "workers": 1,
   "sourceFrozenDuringAggregate": true,
   "fullReportSha256": "015c3aae15e4a879ab7d8a65bd5c730cc9348d8d6d4fd16f4c1400322b27149e",
-  "afterAggregateAdjustment": "Excluded Playwright spec only: real confirmdialog has no accessible name; select scoped role plus visible heading; exact cancel label H\u1ee7yb\u1ecf. Static fixture correction, not appbug/browserRED. Lint/discovery checked again. Vitest/application bytes unchanged.",
+  "afterAggregateAdjustment": "Excluded Playwright spec only: real confirmdialog has no accessible name; select scoped role plus visible heading; exact cancel label Hủybỏ. Static fixture correction, not appbug/browserRED. Lint/discovery checked again. Vitest/application bytes unchanged.",
   "browserDiscovery": {
     "cases": 21,
     "executed": false,
     "meaning": "Configuration only, not browser success"
   },
-  "review": "pending one wholebranch",
+  "review": "one fresh 0Critical1Important2Minor; all graded/accepted before one pass, no rereview",
   "windows": "not-run; finalmain rebase and exact21 cases required",
   "financialUiAcceptance": false,
   "remaining": [
@@ -34,5 +34,19 @@
     "F05Administration403",
     "actualServer2019/reboot/offhostnot-run"
   ],
-  "releaseVps": "forbidden"
+  "releaseVps": "forbidden",
+  "reviewCorrections": [
+    "Observe DELETE before first dialog; zero after cancel plus HTTP/reload entire collection; exactly one final matching DELETE",
+    "Saved transaction exactly equals created plus amount change; full collection preserved after creation/edit",
+    "Fixed browser Date 2026-10-15T12:00:00Z before first navigation, timers keep running"
+  ],
+  "postReviewChecks": {
+    "lintExit": 0,
+    "gatePassed": 57,
+    "gateFiles": 1,
+    "discoveryExit": 0,
+    "discovered": 21,
+    "executedBrowsers": false,
+    "aggregateUnchangedVitestSource": true
+  }
 }

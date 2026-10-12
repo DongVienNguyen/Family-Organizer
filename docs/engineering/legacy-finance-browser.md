@@ -22,3 +22,13 @@ Playwright discovery enumerates21 cases and establishes configuration only.
 Actual Windows browser execution, one review and final main rebase/exact CI remain
 mandatory. Assets/debt/goals and other F09 matrix UI rows remain separate; this is
 not complete financial UI or foundation acceptance. No release/tag/VPS operation.
+
+One complete review found0Critical/1Important/2Minor. All were graded and
+accepted before one correction pass. Cancellation now observes DELETE requests
+from before the first dialog, requires none after cancellation, then checks the
+full HTTP collection and reload before intentional deletion; final matching
+DELETE count must be exactly one. Editing requires the full created transaction
+with only amount changed, and whole collections after creation/edit/cancel.
+The browser date is fixed safely inside a month before first navigation; timers
+continue normally across reloads. These are characterization coverage fixes,
+not demonstrated application defects. Actual21 Windows cases remain unrun.

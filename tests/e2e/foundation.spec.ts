@@ -290,11 +290,13 @@ test('B06 shopping and offline meal persistence', async ({ page }) => {
 });
 
 test('B07 legacy finance create edit delete persistence', async ({ page }) => {
+  await page.clock.setFixedTime(new Date('2026-10-15T12:00:00.000Z'));
   await page.goto('/');
   const token = await login(page, 'admin');
   const initial = await api(page, '/api/finance', token);
   expect(initial.status).toBe(200);
   const original = JSON.parse(initial.text).transactions;
+  const stable = (records: any[]) => [...records].sort((a, b) => a.id.localeCompare(b.id));
   const today = await page.evaluate(() => new Date().toISOString().slice(0, 10));
   const expenseBefore = original.filter((row: any) => row.type === 'expense' && row.date.startsWith(today.slice(0, 7))).reduce((sum: number, row: any) => sum + row.amount, 0);
   await page.locator('aside nav').getByRole('button', { name: 'Chi tiêu', exact: true }).click();
@@ -327,6 +329,7 @@ test('B07 legacy finance create edit delete persistence', async ({ page }) => {
   await expect(expenseSummary).toHaveText(expenseText(expenseBefore + 25000));
   const persisted = JSON.parse((await api(page, '/api/finance', token)).text).transactions.find((value: any) => value.id === created.id);
   expect(persisted).toEqual(created);
+  expect(stable(JSON.parse((await api(page, '/api/finance', token)).text).transactions)).toEqual(stable([...original, created]));
   await row.getByTitle('Sửa giao dịch này', { exact: true }).click();
   await expect(modal).toBeVisible();
   await modal.getByPlaceholder('Điền số giá trị...', { exact: true }).fill('35000');
@@ -335,7 +338,7 @@ test('B07 legacy finance create edit delete persistence', async ({ page }) => {
   const edited = await editing;
   expect(edited.status()).toBe(200);
   const saved = (await edited.json()).transaction;
-  expect(saved).toMatchObject({ id: created.id, description: title, amount: 35000, creatorId: created.creatorId, createdAt: created.createdAt, date: today });
+  expect(saved).toEqual({ ...created, amount: 35000 });
   await expect(modal).toHaveCount(0);
   await expect(row).toHaveCount(1);
   await expect(row).toContainText('-35.000 VNĐ');
@@ -343,7 +346,11 @@ test('B07 legacy finance create edit delete persistence', async ({ page }) => {
   await page.reload();
   await expect(row).toContainText('-35.000 VNĐ');
   await expect(expenseSummary).toHaveText(expenseText(expenseBefore + 35000));
-  expect(JSON.parse((await api(page, '/api/finance', token)).text).transactions.filter((value: any) => value.id === created.id)).toEqual([saved]);
+  expect(stable(JSON.parse((await api(page, '/api/finance', token)).text).transactions)).toEqual(stable([...original, saved]));
+  const deleteRequests: string[] = [];
+  page.on('request', request => {
+    if (request.method() === 'DELETE' && new URL(request.url()).pathname === '/api/finance/' + created.id) deleteRequests.push(request.url());
+  });
   await row.getByTitle('Xóa giao dịch này', { exact: true }).click();
   const confirmation = page.locator('#confirm-dialog').getByRole('dialog');
   await expect(confirmation).toBeVisible();
@@ -351,6 +358,14 @@ test('B07 legacy finance create edit delete persistence', async ({ page }) => {
   await confirmation.getByRole('button', { name: 'Hủy bỏ', exact: true }).click();
   await expect(confirmation).toHaveCount(0);
   await expect(row).toContainText('-35.000 VNĐ');
+  expect(deleteRequests).toEqual([]);
+  expect(stable(JSON.parse((await api(page, '/api/finance', token)).text).transactions)).toEqual(stable([...original, saved]));
+  await page.reload();
+  await expect(page.locator('#finance-module')).toBeVisible();
+  await expect(row).toContainText('-35.000 VNĐ');
+  await expect(expenseSummary).toHaveText(expenseText(expenseBefore + 35000));
+  expect(stable(JSON.parse((await api(page, '/api/finance', token)).text).transactions)).toEqual(stable([...original, saved]));
+  expect(deleteRequests).toEqual([]);
   await row.getByTitle('Xóa giao dịch này', { exact: true }).click();
   const deleting = page.waitForResponse(response => new URL(response.url()).pathname === '/api/finance/' + created.id && response.request().method() === 'DELETE');
   await confirmation.getByRole('button', { name: 'Xóa bản ghi', exact: true }).click();
@@ -362,6 +377,6 @@ test('B07 legacy finance create edit delete persistence', async ({ page }) => {
   await expect(row).toHaveCount(0);
   await expect(expenseSummary).toHaveText(expenseText(expenseBefore));
   const final = JSON.parse((await api(page, '/api/finance', token)).text).transactions;
-  const stable = (records: any[]) => [...records].sort((a, b) => a.id.localeCompare(b.id));
   expect(stable(final)).toEqual(stable(original));
+  expect(deleteRequests).toHaveLength(1);
 });
