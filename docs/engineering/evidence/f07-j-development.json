@@ -1,0 +1,43 @@
+{
+  "taskId": "F07-j runtime startup fence/policy",
+  "baseSha": "45522657cc5bc1f553728e8c53caa2c97916bfbd",
+  "actualRedAssertions": {
+    "lifecycleMissingReadyPort": 3,
+    "newModuleFunctionAvailability": 20,
+    "sourceRuntimeBehavior": 4,
+    "approvalBoundaryAndMonotonicDeadline": 2,
+    "intentionalCliHeldStop": 1,
+    "packageAndMissingRequiredSuites": 5
+  },
+  "availabilityIsNotTwentyProductDefects": true,
+  "cloud": {
+    "os": "Linux",
+    "tests": 1756,
+    "files": 98,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "workers": 2,
+    "targeted": 265,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "nativeWindows": "pending; new strict reinstall-control read-ACL regression source expects native checkpoint before exception fix",
+  "initialTscNarrowingFailure": "constant never-return arrow did not narrow unknown; function declaration/number guard corrected without behavior weakening",
+  "dependenciesLockRuntimeChanged": false,
+  "logs": {
+    "f07-j-lifecycle-red.log": "87aa13a8b9f65f01e799a565523180968a306cf65e2af9742bf074f8487069e6",
+    "f07-j-control-red.log": "33928316534d82d050e6dba08843e8a5fe41c73de6cd9b44211bfcc3b2501d94",
+    "f07-j-runtime-red.log": "679aeded02e8bf455ece89843e3a1a275df8a1d7e6ecca1e0a681a838d20baf3",
+    "f07-j-boundary-red.log": "5293e341a4b163e5f8230f4f42ebacc571da3d2e50227504230928b826ee9a5c",
+    "f07-j-cli-stop-red.log": "255795c05118b02427929a7288e709946dfc50945792c55605bd64349cc849b1",
+    "f07-j-gates-red.log": "d1c1cf888a8d55c8f954bfdd0a188a529ade899ce062ea6b07319dad1880562e",
+    "f07-j-target-final.log": "4429e77b68f4df5acb9d0d6a7131f1a93d989dd4ded989a4fe45bbbdc7747e18",
+    "f07-j-full.log": "cda7fb5a1c4b2de5019f9db6f698d56d6b9352af8ad8085f5516b5d95877e053",
+    "f07-j-vitest.json": "4110e3a917a5be885e2a47b5d441c44191cdc054fec6b38d51e53572622bfe38",
+    "f07-j-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f07-j-build.log": "104ff41c0bd93e7194a9eff4acbb3e76e3bb0036b19088ee5d62fbe6cdab27b6"
+  },
+  "server2019Acceptance": "not-run",
+  "actualUpdateRollbackController": "F07-k; not implemented/accepted by these ports"
+}

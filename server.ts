@@ -6,7 +6,7 @@ import { startApplication } from './server/runtime.js';
 async function main() {
   const runtime = await startApplication();
   const address = runtime.server.address();
-  console.log(`Server is running at http://0.0.0.0:${typeof address === 'object' && address ? address.port : address}`);
+
   const input = readline.createInterface({ input: process.stdin });
   let stopping = false;
   async function stop(failed = false) {
@@ -25,6 +25,9 @@ async function main() {
   runtime.server.on('error', error => { console.error('HTTP server failed', error); void stop(true); });
   process.on('uncaughtException', error => { console.error('Fatal runtime error', error); void stop(true); });
   process.on('unhandledRejection', error => { console.error('Fatal background error', error); void stop(true); });
+  runtime.ready.then(()=>{
+    console.log(`Server is running at http://127.0.0.1:${typeof address === 'object' && address ? address.port : address}`);
+  },()=>{if(!stopping){console.error('Startup validation failed');void stop(true);}});
   return runtime;
 }
 // Local automation receives the same owning runtime used by the CLI, never a
