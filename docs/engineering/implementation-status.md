@@ -846,3 +846,20 @@ ONE correction pass completed:2 real cached-claim REDs and1 canonical row compar
 RED now pass, with6 changed/missing-column regressions retained. Corrected full Cloud
 1420 tests/85 files, lint and build passed. Corrected exact-HEAD Windows run is the
 next gate; the first SHA must not be merged. No new dependency or lockfile changes.
+
+Corrected HEAD `3a93a4588a6090b5ff932fcad5cf93a915d94aaa`, Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38214818352:
+both runtimes1420/85 with all8 exits0/audit0/106-source coverage floors;15 first-attempt
+browser cases and independent ZIP consumer14 functional checks/23 compiled checks,
+all236 original notice pins and26 archive refusals passed. Service failed before the
+new active-service guard because Node-spawned PowerShell5 inherited PowerShell7's
+module path and could not load Get-Acl. This is a harness environment failure,
+not successful active-service rejection. Native install/start/finance and cleanup
+passed; later credential/stopped/restart/recovery tests did not run. Fixture cleanup
+and service removal are true. Full logs/reports are retained and summarized in
+`evidence/f07-b-service-harness-failure.json`.
+
+Same one-pass CI correction: constrain the probe's child PSModulePath to the Windows
+Desktop system module root and assert actual PowerShell5/Desktop/Get-Acl module
+provenance. Application/runtime source unchanged. Exact Windows rerun remains
+required; no repeated Cloud suite is needed for this Windows-only probe change.

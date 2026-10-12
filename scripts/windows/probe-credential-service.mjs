@@ -10,16 +10,24 @@ assert.equal(path.resolve(process.execPath).toLowerCase(),path.join(release,'bin
 const password='synthetic-service-only-password',database=path.join(instance,'data/family.db');
 const evidence=fs.existsSync(report)?JSON.parse(fs.readFileSync(report,'utf8')):{commitSha:process.env.TEST_COMMIT_SHA,platform:process.platform,architecture:process.arch,checks:[],nativeExitCodes:[]};
 const args=['-NoProfile','-NonInteractive','-File',path.join(release,'ops/Reset-Credentials.ps1'),'-ReleaseRoot',release,'-InstanceRoot',instance,'-ServiceId',id,'-Port',port,'-ExpectedManifestSha256',manifestHash];
-async function invoke(label,extra=[],value){
- const child=spawn(path.join(process.env.windir,'System32/WindowsPowerShell/v1.0/powershell.exe'),args.concat(extra),{stdio:['pipe','pipe','pipe']});
+// pwsh7->Node->powershell5 bypasses pwsh's native PowerShell compatibility
+// handling. Use the Windows Desktop module root, never inherited Core modules.
+const desktopModules=path.join(process.env.windir,'System32/WindowsPowerShell/v1.0/Modules');
+async function runPowerShell(label,arguments_,value){
+ const child=spawn(path.join(process.env.windir,'System32/WindowsPowerShell/v1.0/powershell.exe'),arguments_,{env:{...process.env,PSModulePath:desktopModules},stdio:['pipe','pipe','pipe']});
  let stdout='',stderr='';child.stdout.on('data',chunk=>{stdout+=chunk;});child.stderr.on('data',chunk=>{stderr+=chunk;});child.stdin.on('error',()=>{});
  const closed=once(child,'close');child.stdin.end(value===undefined?undefined:JSON.stringify(value));
  const timer=setTimeout(()=>child.kill('SIGKILL'),45000);
  try{const [exitCode,signal]=await closed;assert.equal(signal,null);assert.ok(!(stdout+stderr).includes(password));evidence.nativeExitCodes.push({phase:label,exitCode});return {exitCode,stdout,stderr};}finally{clearTimeout(timer);}
 }
+const invoke=(label,extra=[],value)=>runPowerShell(label,args.concat(extra),value);
 const Database=createRequire(path.join(release,'app/package.json'))('better-sqlite3');
 function rows(){const db=new Database(database,{readonly:true});try{return Object.fromEntries(db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT GLOB 'sqlite_*' ORDER BY name").all().map(({name})=>[name,db.prepare('SELECT * FROM "'+name+'" ORDER BY rowid').all()]));}finally{db.close();}}
 if(phase==='active'){
+ const host=await runPowerShell('desktop-host-validation',['-NoProfile','-NonInteractive','-Command','$ErrorActionPreference="Stop"; $command=Get-Command Get-Acl; $manifest=Get-Module -ListAvailable -Name Microsoft.PowerShell.Security | Select-Object -First 1; @{major=$PSVersionTable.PSVersion.Major;edition=$PSVersionTable.PSEdition;securityModulePath=$manifest.Path;commandModule=$command.ModuleName} | ConvertTo-Json -Compress']);
+ assert.equal(host.exitCode,0,host.stdout+host.stderr);evidence.powershellHost=JSON.parse(host.stdout.trim());
+ assert.equal(evidence.powershellHost.major,5);assert.equal(evidence.powershellHost.edition,'Desktop');assert.equal(evidence.powershellHost.commandModule,'Microsoft.PowerShell.Security');assert.ok(evidence.powershellHost.securityModulePath.toLowerCase().startsWith((desktopModules+path.sep).toLowerCase()));
+ evidence.checks.push('windows-desktop-host-security-module-validated');
  const result=await invoke('active-refusal',['-ValidateOnly']);assert.equal(result.exitCode,1);assert.match(result.stderr+result.stdout,/owned service stopped/);evidence.checks.push('running-service-refused-before-input');
 }else{
  assert.equal(phase,'stopped');const beforeValidation=rows();
