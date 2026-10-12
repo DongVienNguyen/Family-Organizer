@@ -55,3 +55,13 @@ without sending notifications. Server2019/reboot/power-loss/RPO/RTO are not prov
 Remaining F07 work: online backup/one-owner scheduler/age/disk-full/retention/offhost
 encrypted copy and guarded update/rollback. F05 Administration403 remains an external
 main-protection blocker. No release/tag/VPS access/deployment or new domain features.
+
+One fresh wholebranch review identified two Minor scanner defects, accepted together
+before one correction pass: valid quoted Windows paths ending in a backslash and
+quadratic rescanning of a bounded multiline entry. Five actual regression failures
+were reproduced; corrected full Cloud1596/90 passed with no failed/pending/todo tests.
+The initial child harness resolution/E2BIG failures are retained separately. The
+loader-only Windows file-URL adjustment was then verified by all34 helper cases;
+the exact-HEAD Windows full suite remains mandatory. Compiled consumer fixtures now
+retain a quoted Windows path and a500000-newline unselected value under the same
+operator deadline. No second review or weakened assertions.

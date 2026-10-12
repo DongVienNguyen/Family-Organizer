@@ -29,12 +29,14 @@ export function mergeRecoveryEnv(local:string,patch:ValidatedEnvPatch):string{
  const expected={...parse(local)};for(const name of Object.keys(expected))if(selected.includes(name.toUpperCase()))delete expected[name];for(const key of selected)if(patch[key]!==null)expected[key]=patch[key];
  const bom=local.startsWith('\uFEFF')?'\uFEFF':'';const lines=local.slice(bom.length).match(/[^\n]*\n|[^\n]+$/g)??[],kept:string[]=[];
  for(let index=0;index<lines.length;index++){
-  let block=lines[index];const match=/^[ \t]*(?:export[ \t]+)?([\w.-]+)[ \t]*(?:=[ \t]*|:[ \t]+)([\s\S]*)$/.exec(block);
+  const blocks=[lines[index]];const match=/^[ \t]*(?:export[ \t]+)?([\w.-]+)[ \t]*(?:=[ \t]*|:[ \t]+)([\s\S]*)$/.exec(lines[index]);
   if(match){let body=match[2].trimStart();const quote=body[0];if(["'",'"','`'].includes(quote)){
-   body=body.slice(1);const closed=()=>{for(let offset=0;offset<body.length;offset++)if(body[offset]===quote&&body[offset-1]!=='\\')return true;return false;};
-   while(!closed()){if(++index>=lines.length)refuse();block+=lines[index];body+=lines[index];}
+   body=body.slice(1);const closed=(segment:string)=>{for(let offset=0;offset<segment.length;offset++)if(segment[offset]===quote&&(segment[offset-1]!=='\\'||/^[ \t\r]*(?:#[^\n]*)?\n?$/.test(segment.slice(offset+1))))return true;return false;};
+   // Scan each physical line once. Dotenv also accepts a terminal quote after
+   // a backslash when the remainder of the line is whitespace or a comment.
+   while(!closed(body)){if(++index>=lines.length)refuse();body=lines[index];blocks.push(body);}
   }}
-  if(!match||!selected.includes(match[1].toUpperCase()))kept.push(block);
+  if(!match||!selected.includes(match[1].toUpperCase()))kept.push(blocks.join(''));
  }
  const ending=local.includes('\r\n')?'\r\n':'\n';let result=bom+kept.join('');if(result&&!result.endsWith('\n'))result+=ending;
  for(const key of selected)if(patch[key]!==null)result+=assignment(key,patch[key])+ending;
