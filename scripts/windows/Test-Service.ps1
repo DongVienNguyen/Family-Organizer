@@ -161,6 +161,8 @@ try {
     $prior=Get-ShutdownCount
     Invoke-TestNative 'update-stop-approved' $context.wrapper @('stop');Assert-ServiceClosed $prior
     $checks.Add('owned-update-startup-fence-durable-rollback-boundary')
+    Invoke-TestNative 'owned-update-coordinator' $context.node @((Join-Path $PSScriptRoot 'probe-update-coordinator.mjs'),$release,$instance,$id,[string]$port,$manifestHash,(Join-Path $ReportDirectory 'service-update-coordinator.json'))
+    $checks.Add('owned-native-update-pre-post-write-compatible-rollback')
     $uninstallArgs=@('-NoProfile','-File',$uninstall,'-ReleaseRoot',$release,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
     Invoke-TestNative 'uninstall' $powershell $uninstallArgs
     Invoke-TestNative 'uninstall-again' $powershell $uninstallArgs
@@ -172,7 +174,10 @@ finally {
     try {
         if (Get-Service -Name $id -ErrorAction SilentlyContinue) {
             if (!$context) { throw 'Cannot prove failed fixture service ownership' }
-            $cleanupArgs=@('-NoProfile','-File',(Join-Path $release 'ops/Uninstall-Service.ps1'),'-ReleaseRoot',$release,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
+            $cleanupRelease=$release
+            $cleanupOwner=Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json
+            if($cleanupOwner.releaseRoot -ine $release){$knownCandidate=Join-Path $fixture 'candidate release dữ liệu';if($cleanupOwner.releaseRoot -ine $knownCandidate -or $cleanupOwner.manifestHash -cne $manifestHash){throw 'Unknown failed fixture release'};$cleanupRelease=$knownCandidate}
+            $cleanupArgs=@('-NoProfile','-File',(Join-Path $cleanupRelease 'ops/Uninstall-Service.ps1'),'-ReleaseRoot',$cleanupRelease,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
             Invoke-TestNative 'cleanup-service' (Join-Path $env:windir 'System32/WindowsPowerShell/v1.0/powershell.exe') $cleanupArgs
         }
     } catch { if (!$failure) { $failure=$_ }; $code=1 }

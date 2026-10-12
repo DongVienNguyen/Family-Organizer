@@ -1,5 +1,6 @@
 /** @license SPDX-License-Identifier: Apache-2.0 */
 import fs from 'node:fs';
+import {UpdateFenceError} from './updateFence.js';
 import path from 'node:path';
 import { createHash,randomUUID } from 'node:crypto';
 import {TextDecoder} from 'node:util';
@@ -35,10 +36,12 @@ function identity(value:unknown){
   return {username,fullName,password};
 }
 async function main(){
+  const updateInspection=process.argv.length===3&&process.argv[2]==='--inspect-update';
   const recovery=process.argv.length===3&&['--backup-recovery','--restore-recovery'].includes(process.argv[2]);
   const maintenance=process.argv.length===3&&['--copy-recovery','--prune-recovery'].includes(process.argv[2]);
   const reset=process.argv.length===3&&process.argv[2]==='--reset-credentials';
-  if((process.argv.length!==2&&!reset&&!recovery&&!maintenance)||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  if((process.argv.length!==2&&!reset&&!recovery&&!maintenance&&!updateInspection)||process.env.NODE_ENV!=='production')refuse('INITIALIZATION_CONFIGURATION_INVALID');
+  if(updateInspection){const input=await readInput();if(!input||typeof input!=='object'||Array.isArray(input)||Object.keys(input).sort().join(',')!=='operationId,schema')refuse('UPDATE_CONTROL_INVALID');const packet=input as Record<string,unknown>;const {appConfig}=await import('./config.js');const {inspectUpdateStorage}=await import('./updateInspection.js');process.stdout.write(JSON.stringify(inspectUpdateStorage(path.join(appConfig.dataRoot,'family.db'),packet.operationId,packet.schema))+'\n');return;}
   if(maintenance){const {appConfig}=await import('./config.js');process.stdout.write(JSON.stringify(await maintainRecoveryBackups(await readInput(),appConfig,process.argv[2]==='--prune-recovery'))+'\n');return;}
   if(recovery){process.stdout.write(JSON.stringify(await runRecoveryOperator(await readInput(),process.argv[2]==='--restore-recovery'))+'\n');return;}
   if(reset){
@@ -74,4 +77,4 @@ async function main(){
     sqlite.sqliteCheckpoint();process.stdout.write(JSON.stringify(result)+'\n');
   }finally{sqlite.sqliteClose();}
 }
-main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError||error instanceof InstallationNotPristineError||error instanceof RecoveryOperatorError||error instanceof RecoveryEnvelopeError||error instanceof RecoveryRetentionError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});
+main().catch(error=>{process.exitCode=1;process.stdout.write(JSON.stringify({error:error instanceof OperatorError||error instanceof InstallationNotPristineError||error instanceof RecoveryOperatorError||error instanceof UpdateFenceError||error instanceof RecoveryEnvelopeError||error instanceof RecoveryRetentionError?error.message:'INITIALIZATION_STORAGE_FAILED'})+'\n');}).finally(()=>{process.stdin.destroy();});

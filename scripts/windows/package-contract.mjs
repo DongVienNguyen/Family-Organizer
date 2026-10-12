@@ -43,9 +43,9 @@ export function validateManifest(manifest,expected) {
     require(hex(file?.sha256,64),'invalid asset hash');
     const name=typeof file?.path==='string'?file.path:'';
     const staticBuildNotice=name.startsWith('licenses/build-inputs/')&&/\/(?:package\.json|(?:license|licence|copying|copyright|readme)(?:\.(?:md|txt|html|rst|markdown))?)$/i.test(name);
-    require(!/(?:^|\/)(?:recovery-backup\.(?:key|json)|update-control\.json|[^/]+\.fo-recovery)(?:\/|$)/i.test(name)&&!/(?:^|\/)\.env(?:\.[^/]+)?(?:\/|$)/i.test(name)&&(staticBuildNotice||!/(?:^|\/)(?:tests?|fixtures|reports)(?:\/|$)/i.test(name))&&!/^(?:app\/)?data(?:\/|$)/i.test(name)&&!/^app\/node_modules\/(?:vitest|tsx|typescript|vite|esbuild|@playwright\/test)(?:\/|$)/i.test(name),'excluded secrets/data/tests/devtools in package');
+    require(!/(?:^|\/)(?:recovery-backup\.(?:key|json)|update-(?:control|journal)\.json|[^/]+\.fo-recovery)(?:\/|$)/i.test(name)&&!/(?:^|\/)\.env(?:\.[^/]+)?(?:\/|$)/i.test(name)&&(staticBuildNotice||!/(?:^|\/)(?:tests?|fixtures|reports)(?:\/|$)/i.test(name))&&!/^(?:app\/)?data(?:\/|$)/i.test(name)&&!/^app\/node_modules\/(?:vitest|tsx|typescript|vite|esbuild|@playwright\/test)(?:\/|$)/i.test(name),'excluded secrets/data/tests/devtools in package');
   }
-  const required=['bin/node.exe','app/dist/server.cjs','app/dist/operator.cjs','app/dist/index.html','app/package.json','app/package-lock.json','app/node_modules/better-sqlite3/prebuilds/win32-x64.node','ops/Start-App.ps1','ops/Reset-Credentials.ps1','ops/Recovery.ps1','ops/Configure-Backup.ps1','licenses/node-LICENSE.txt'];
+  const required=['bin/node.exe','app/dist/server.cjs','app/dist/operator.cjs','app/dist/index.html','app/package.json','app/package-lock.json','app/node_modules/better-sqlite3/prebuilds/win32-x64.node','ops/Start-App.ps1','ops/Reset-Credentials.ps1','ops/Recovery.ps1','ops/Configure-Backup.ps1','licenses/node-LICENSE.txt','ops/Update.ps1','ops/Rollback.ps1','ops/UpdateCommon.ps1','ops/update-journal.mjs'];
   for(const name of required)require(files.some(f=>f.path===name),`missing package asset: ${name}`);
   const find=name=>files.find(f=>f.path===name);
   require(hex(manifest?.runtime?.nodeExeSha256,64)&&manifest.runtime.nodeExeSha256===find('bin/node.exe')?.sha256,'bundled node executable hash mismatch');

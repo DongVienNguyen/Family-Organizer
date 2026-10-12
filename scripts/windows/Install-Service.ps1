@@ -24,7 +24,11 @@ if (!$descriptor) {
     Invoke-ServiceNative 'write-config' $context.node @((Join-Path $context.release 'ops/write-service-config.mjs'),$context.release,$context.instance,$context.id,[string]$context.port,$context.xml)
     $descriptor=@{format=1;serviceId=$ServiceId;releaseRoot=$context.release;instanceRoot=$context.instance;manifestHash=$context.manifestHash;commitSha=$context.commitSha;port=$Port;xmlSha256=(Get-ServiceHash $context.xml)}
     [IO.File]::WriteAllText($context.marker,($descriptor | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
+    Set-OwnedServiceAcl $context.marker '' 'RX'
 }
+$installGuard=$null
+try{
+$installGuard=Enter-OwnedDataOperation $context
 # Seal critical files and verify canonical configuration before elevated WinSW use.
 Set-OwnedServiceAcl $context.directory '' 'RX'
 Assert-ServiceOwner $context $descriptor
@@ -42,3 +46,5 @@ foreach($name in @('recovery-backup.key','recovery-backup.json','update-control.
 }
 Assert-ServiceOwner $context (Get-Content -LiteralPath $context.marker -Raw -Encoding UTF8 | ConvertFrom-Json)
 @{serviceId=$ServiceId;commitSha=$context.commitSha;frameworkRelease=$context.frameworkRelease;alreadyInstalled=[bool]$existing;nativeExitCodes=$script:ServiceNativeResults.ToArray()} | ConvertTo-Json -Depth 8
+
+}finally{if($installGuard){$installGuard.Dispose()}}
