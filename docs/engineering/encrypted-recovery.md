@@ -26,7 +26,13 @@ with explicit `-Operation Backup` or `Restore`, release/instance roots, service 
 port and independently trusted manifest SHA256, as for Install/Reset-Credentials.
 The wrapper validates the entire package and exact owned service configuration,
 requires Stopped plus an exclusive probe of closed SQLite handles, and requires
-Administrator before mutation. `ValidateOnly` and `WhatIf` stop before reading stdin
+Administrator before mutation. Backup/Restore/credential reentry claim the same
+protected per-instance installation marker as ReadWrite with FileShare.Read and
+retain that handle through stdin, child completion and cleanup. Other ownership
+reads remain possible; a second data operator is rejected before input or journal/
+SQL promotion. No lock file or marker bytes are written. Validation/WhatIf acquire
+no mutation scope. This is serialization of the owned data operators; online update/
+SCM orchestration and process-interruption stress remain subsequent F07/R02 work. `ValidateOnly` and `WhatIf` stop before reading stdin
 or changing data. Raw UTF8 JSON stdin is bounded16KiB/20seconds; the compiled Node
 operator has the same boundary. Native `.ExitCode` is checked immediately.
 

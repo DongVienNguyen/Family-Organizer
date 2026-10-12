@@ -14,11 +14,14 @@ $probe=[IO.File]::Open($database,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,
 $probe.Dispose()
 if($ValidateOnly -or !$PSCmdlet.ShouldProcess($context.instance,'Reenter missing credentials on existing user IDs')){return}
 Assert-ServiceAdministrator
-$inputStream=[Console]::OpenStandardInput()
+$inputStream=$null
+$operationGuard=$null
 $memory=New-Object IO.MemoryStream
 $process=New-Object Diagnostics.Process
 $started=$false
 try{
+    $operationGuard=Enter-OwnedDataOperation $context
+    $inputStream=[Console]::OpenStandardInput()
     # Bounded UTF8 stdin only: no passwords in arguments, environment, files or logs.
     $buffer=New-Object byte[] 4096
     $deadline=[DateTime]::UtcNow.AddSeconds(20)
@@ -65,6 +68,10 @@ try{
     if(!$result.sessionsRevoked -or @($result.resetUserIds).Count -eq 0){throw 'Credential operator result invalid'}
     $result | ConvertTo-Json -Compress
 }finally{
-    if($started -and !$process.HasExited){$process.Kill();$process.WaitForExit()}
-    $process.Dispose();$memory.Dispose()
+    try{
+        if($started -and !$process.HasExited){$process.Kill();$process.WaitForExit()}
+    }finally{
+        try{$process.Dispose();$memory.Dispose();if($inputStream){$inputStream.Dispose()}}
+        finally{if($operationGuard){$operationGuard.Dispose()}}
+    }
 }
