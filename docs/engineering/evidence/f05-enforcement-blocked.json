@@ -203,5 +203,107 @@
     ],
     "blocker": "GitHub integration token still returns403 after chat authorization; installation permission cannot be changed with the available tools. Owner must approve/apply the permission in GitHub or configure the saved equivalent policy.",
     "automaticApprovalReviewRejection": false
+  },
+  "f05SourceRetry": {
+    "date": "2026-10-12",
+    "checkedHead": "c24486bfb0d1051d45925735f098864d87178975",
+    "userAuthorizationPersists": true,
+    "branch": {
+      "protected": false,
+      "sha": "c24486bfb0d1051d45925735f098864d87178975"
+    },
+    "rulesets": [],
+    "attempts": [
+      {
+        "method": "POST",
+        "path": "repos/DongVienNguyen/Family-Organizer/rulesets",
+        "request": {
+          "name": "Windows CI required on main",
+          "target": "branch",
+          "enforcement": "active",
+          "bypass_actors": [],
+          "conditions": {
+            "ref_name": {
+              "include": [
+                "refs/heads/main"
+              ],
+              "exclude": []
+            }
+          },
+          "rules": [
+            {
+              "type": "pull_request",
+              "parameters": {
+                "required_approving_review_count": 0,
+                "dismiss_stale_reviews_on_push": true,
+                "require_code_owner_review": false,
+                "require_last_push_approval": false,
+                "required_review_thread_resolution": true
+              }
+            },
+            {
+              "type": "required_status_checks",
+              "parameters": {
+                "required_status_checks": [
+                  {
+                    "context": "ci-gate",
+                    "integration_id": 15368
+                  }
+                ],
+                "strict_required_status_checks_policy": true,
+                "do_not_enforce_on_create": false
+              }
+            },
+            {
+              "type": "non_fast_forward"
+            },
+            {
+              "type": "deletion"
+            }
+          ]
+        },
+        "response": {
+          "message": "Resource not accessible by integration",
+          "documentation_url": "https://docs.github.com/rest/repos/rules#create-a-repository-ruleset",
+          "status": "403"
+        },
+        "exitCode": 1
+      },
+      {
+        "method": "PUT",
+        "path": "repos/DongVienNguyen/Family-Organizer/branches/main/protection",
+        "request": {
+          "required_status_checks": {
+            "strict": true,
+            "checks": [
+              {
+                "context": "ci-gate",
+                "app_id": 15368
+              }
+            ]
+          },
+          "enforce_admins": true,
+          "required_pull_request_reviews": {
+            "dismiss_stale_reviews": true,
+            "require_code_owner_reviews": false,
+            "required_approving_review_count": 0,
+            "require_last_push_approval": false
+          },
+          "restrictions": null,
+          "required_conversation_resolution": true,
+          "allow_force_pushes": false,
+          "allow_deletions": false
+        },
+        "response": {
+          "message": "Resource not accessible by integration",
+          "documentation_url": "https://docs.github.com/rest/branches/branch-protection#update-branch-protection",
+          "status": "403"
+        },
+        "exitCode": 1
+      }
+    ],
+    "integrationAdministrationWriteConfirmed": false,
+    "automaticApprovalReviewRejection": false,
+    "blocker": "Both actual writes still HTTP403 Resource not accessible by integration. No permission-management tool available. Owner must apply integration Administration:write in GitHub installation or saved exact policy. No failed-PR merge probe while unprotected."
   }
 }

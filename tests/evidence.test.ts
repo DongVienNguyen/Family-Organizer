@@ -10,6 +10,7 @@ const lockText='synthetic frozen lockfile';
 const lockHash=createHash('sha256').update(lockText).digest('hex');
 const suiteNames = [
   'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts',
+  'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
   'server/jobStore.test.ts', 'server/appJobs.durable.test.ts', 'server/pushOutbox.test.ts', 'server/pushDelivery.test.ts', 'server/providerJobs.test.ts', 'server/pushTransport.test.ts', 'server/auth.test.ts', 'server/authStore.test.ts', 'server/authHttp.test.ts', 'src/utils/clientSession.test.ts', 'src/utils/sessionBoundary.test.ts', 'src/utils/privateStorage.test.ts', 'src/utils/privacyWorker.test.ts', 'src/utils/serviceWorkerWatch.test.ts', 'tests/sw-cache.test.ts', 'server/realtimeHttp.test.ts', 'server/realtime.test.ts', 'server/legacyVisibility.test.ts', 'src/utils/realtimeClient.test.ts', 'tests/ui/realtime-session.test.ts', 'tests/ui/session-bootstrap.test.ts', 'tests/ui/session-actions.test.ts', 'src/utils/uploadImage.test.ts', 'src/utils/pdfExport.test.ts', 'server/appSnapshot.test.ts', 'server/fullBackup.test.ts', 'tests/snapshot-recovery.test.ts', 'tests/snapshot-http.test.ts',
   'src/utils/assetValue.test.ts', 'src/utils/bmi.test.ts', 'src/utils/debt.test.ts',
@@ -70,6 +71,10 @@ function runEvidence(change: (reports: Record<string, any>) => void = () => {}) 
 }
 
 describe('Windows CI evidence gate', () => {
+  it.each(['tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts'])('requires the browser harness regression suite %s', name => {
+    const result = runEvidence(reports => { reports['vitest.json'].testResults = reports['vitest.json'].testResults.filter((suite: any) => !suite.name.endsWith(name)); });
+    expect(result.evidence.errors).toContain(`required suite missing: ${name}`);
+  });
   it('accepts consistent synthetic reports and normalizes Windows suite paths', () => {
     const result = runEvidence();
     expect(result.code).toBe(0);

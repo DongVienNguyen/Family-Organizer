@@ -1,0 +1,37 @@
+{
+  "task": "F05-a",
+  "baseMainSha": "c24486bfb0d1051d45925735f098864d87178975",
+  "cloudOnly": true,
+  "windowsBrowserExecution": "pending",
+  "newGateRequirementRedCases": 47,
+  "redCasesAreNewHarnessRequirementsNotOldExploits": true,
+  "providerCharacterizations": 9,
+  "cloud": {
+    "npmCiExitCode": 0,
+    "auditExitCode": 0,
+    "lintExitCode": 0,
+    "testExitCode": 0,
+    "tests": 1137,
+    "files": 78,
+    "buildExitCode": 0,
+    "browserDiscovery": 15,
+    "browserExecution": "not-run"
+  },
+  "hashes": {
+    "f05-a-evidence-red.log": "323845e10f2ad8a68231b43c024968f2642f9dd3fae14c58ddaf7e602528cc5a",
+    "f05-a-test.log": "da7bdfe088687a37bffaa79a4e0a2bbf99a294979f0b7c571e50c2dbe43e79ee",
+    "f05-a-target-green.log": "06ceaca05aab484587a14a81e0046c725ff92909210565745420b4d0df050241",
+    "f05-a-playwright-install.log": "8cba344d9b69411e4f8b26aa473d93c4422864da69618d58b9485a1b23ab631c",
+    "f05-a-ci.log": "c3e74301c8478f7c18e68dbe0a0789e8c4f4722c464ef5b95aa433aeb9d90588",
+    "f05-a-required-suite-red.log": "3de40d63ecae1e81a8c44988f1bab01b255692ab91a4ea49ff7364c0325e4a0a",
+    "f05-a-vitest.json": "6084865b1026f07299b138574220f76cfcf30122fdd87931889a39044c3a81a1",
+    "f05-a-evidence-green.log": "d90fdc9353e4213333617acd0db7d1a652181ff57429f9997f3738db1841e0ff",
+    "f05-a-build.log": "38f49f9b2578f175c052c12acc55507339bd2f0bba6575a32ba155ecf12ca69f",
+    "f05-a-audit.json": "12b72a9281cb5ecef44c5f156bc20b8f3c86fbf8d3d28c693d5d4361ddbe8d42",
+    "f05-a-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f05-a-browser-list.log": "253d67ae9c63732f1143c3de0221de935d698d4e602340aa4c5b48145037a83b"
+  },
+  "mainEnforcement": "actual Oct12 POST ruleset and PUT branch protection HTTP403; main protected false; user permission remains authorized",
+  "server2019": "not-run",
+  "releaseTagVps": "not-authorized/not-accessed"
+}

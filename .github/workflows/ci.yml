@@ -100,18 +100,79 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  browser:
+    name: Windows production browsers
+    runs-on: windows-2022
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      TZ: Asia/Saigon
+      EXPECTED_NODE: '24.21.0'
+      EXPECTED_NPM: '11.19.0'
+      EXPECTED_VS: '17.14.37710.0'
+      EXPECTED_SQLITE_ADDON: '13.0.3'
+      TEST_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24.21.0'
+          architecture: x64
+          cache: npm
+      - name: Install from lockfile
+        id: install
+        run: ./scripts/ci/Invoke-Check.ps1 -Check install
+      - name: Native SQLite compatibility
+        id: native
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check native
+      - name: Production build
+        id: build
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check build
+      - name: Offline browser regression
+        id: browser
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
+        run: ./scripts/ci/Test-Browser.ps1
+      - name: Validate browser evidence
+        if: ${{ always() }}
+        env:
+          CHECK_INSTALL: ${{ steps.install.outcome }}
+          CHECK_NATIVE: ${{ steps.native.outcome }}
+          CHECK_BUILD: ${{ steps.build.outcome }}
+          CHECK_BROWSER: ${{ steps.browser.outcome }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          node scripts/ci/write-browser-evidence.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: ${{ always() }}
+        with:
+          name: windows-browsers-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 14
+
   ci-gate:
     runs-on: windows-2022
     timeout-minutes: 5
-    needs: quality
+    needs: [quality, browser]
     if: ${{ always() }}
     steps:
-      - name: Require both runtime checks to succeed
+      - name: Require runtime and browser checks to succeed
         env:
           QUALITY_RESULT: ${{ needs.quality.result }}
+          BROWSER_RESULT: ${{ needs.browser.result }}
         run: |
           $ErrorActionPreference = 'Stop'
           Set-StrictMode -Version Latest
           if ($env:QUALITY_RESULT -ne 'success') {
             throw "Windows baseline matrix result: $env:QUALITY_RESULT"
+          }
+          if ($env:BROWSER_RESULT -ne 'success') {
+            throw "Windows browser result: $env:BROWSER_RESULT"
           }
