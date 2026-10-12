@@ -307,13 +307,12 @@
     "blocker": "Both actual writes still HTTP403 Resource not accessible by integration. No permission-management tool available. Owner must apply integration Administration:write in GitHub installation or saved exact policy. No failed-PR merge probe while unprotected."
   },
   "latestPostGrantRetry": {
-    "date": "2026-10-12T04:23:32.442003+00:00",
+    "date": "2026-10-12T04:56:35.471533+00:00",
     "userAuthorizationPersists": true,
     "attempts": [
       {
         "method": "POST",
         "endpoint": "rulesets",
-        "nativeExitCode": 1,
         "request": {
           "name": "Windows CI required on main",
           "target": "branch",
@@ -359,6 +358,7 @@
             }
           ]
         },
+        "nativeExitCode": 1,
         "response": {
           "message": "Resource not accessible by integration",
           "documentation_url": "https://docs.github.com/rest/repos/rules#create-a-repository-ruleset",
@@ -369,7 +369,6 @@
       {
         "method": "PUT",
         "endpoint": "branches/main/protection",
-        "nativeExitCode": 1,
         "request": {
           "required_status_checks": {
             "strict": true,
@@ -392,6 +391,7 @@
           "allow_force_pushes": false,
           "allow_deletions": false
         },
+        "nativeExitCode": 1,
         "response": {
           "message": "Resource not accessible by integration",
           "documentation_url": "https://docs.github.com/rest/branches/branch-protection#update-branch-protection",
@@ -405,7 +405,7 @@
         "nativeExitCode": 0,
         "response": {
           "protected": false,
-          "sha": "d353c7bd8b7a73ac41bde401d875fe4cfb98e56f"
+          "sha": "05a59962da1a2459e0f08fc79de94512dc1625cd"
         },
         "stderr": ""
       },

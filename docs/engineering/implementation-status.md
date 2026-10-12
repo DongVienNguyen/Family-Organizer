@@ -731,3 +731,33 @@ compiled preservation fixtures passed in Cloud. Corrected exactWindows pending.
 - Target focused work: owned idempotent service installation/removal, ValidateOnly/WhatIf, LocalService plus per-service SID ACL, rotation, automatic start/recovery; disposable actualWindows start/stop/restart/crash-recovery/closed-handle/cleanup proof. Server2019/reboot acceptance stays R02; no production service or VPS access.
 
 - F07-a source:3render RED +1mandatory suite RED witnessed,23service cases/184target/1386full84files pass on Cloud, lint/build0. Service job added to requiredci-gate; native SCM/start/stop/recovery/ACL/closed handles remain unrun until actualWindows. Source and official asset/license provenance hashes in evidence/f07-a-source.json; fresh review/PR/run pending. No dependency version/lockfile change.
+
+F07-a PR https://github.com/DongVienNguyen/Family-Organizer/pull/24 first source
+16568a5a89d9a76717d1c51f4a322fd71c824cc4 / run38204750730: both Windows
+Node22/24 full1386/84,15first-attemptbrowser cases,coverage and producer/clean ZIP
+consumer independently verified; service failed manifestappVersion/native1,
+cleanuptrue, functional SCM tests unrun, ci-gate failed. Authenticated appVersion
+fixed. Fresh single review:8Important/1Minor, all accepted before one correction
+pass. Native security RED fixtures still pending after two harness failures;
+these are recorded as harness failures, not evidence of security regressions.
+Current source includes synthetic fixtures and will be retested on Windows;
+no service/Server2019 acceptance is claimed. Failure history is retained in
+`evidence/f07-a-failure-history.json`.
+
+F05 actual post-grant retry2026-10-12T04:56:35Z: POST rulesets and PUT
+branches/main/protection bothHTTP403 Resource not accessible by integration;
+main protectedfalse at05a59962, rulesets empty. User Administration:write
+authorization persists; accessible GitHub credentials still cannot apply policy.
+This blocks F05 enforcement/foundation acceptance and dependent feature work,
+while independent F07/F08/F09 preparation continues. No release/tag/VPS access.
+
+F07-a2ebf8da24f1bd112b34a5839f5d4ba3ab458f878 /
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38206260411:
+six genuine synthetic security RED failures and two passing controls witnessed
+before guards, serviceexit1, cleanuptrue/serviceRemovedtrue. The one correction
+pass now authenticates canonical XML/installed CLR config, independent uninstall
+release/hash, sanitized/restored administrative Node environment, exact protected
+DACLs with owned metadata and non-following tree preflight. It also verifies
+restart graceful completion/PID/data and preserves logs/early failure reports.
+Cloud full1386/84 + lint/build0 after corrections; corrected exactWindows still
+pending. No tests/assertions skipped or weakened; no dependency/lockfile change.

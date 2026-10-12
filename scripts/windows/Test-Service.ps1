@@ -6,6 +6,7 @@ $PSNativeCommandUseErrorActionPreference=$false
 . (Join-Path $PSScriptRoot 'Archive.ps1')
 New-Item -ItemType Directory -Path $ReportDirectory -Force | Out-Null
 $ReportDirectory=(Resolve-Path -LiteralPath $ReportDirectory).Path
+$script:ServiceNativeResults=New-Object System.Collections.Generic.List[object]
 $native=New-Object System.Collections.Generic.List[object]
 $checks=New-Object System.Collections.Generic.List[string]
 $fixture=Join-Path $env:RUNNER_TEMP ('fo-service-'+[guid]::NewGuid())
@@ -99,7 +100,14 @@ try {
     Invoke-TestNative 'stop' $context.wrapper @('stop');Assert-ServiceClosed $prior;$checks.Add('start-stop-graceful-closed-handles')
     Invoke-TestNative 'restart-start' $context.wrapper @('start');Wait-ServiceReady
     Invoke-TestNative 'restarted-functional' $context.node @((Join-Path $PSScriptRoot 'probe-service.mjs'),'restarted',$release,$instance,[string]$port,(Join-Path $ReportDirectory 'service-functional.json'))
+    $beforeRestart=@(Get-CimInstance Win32_Process | Where-Object {$_.ExecutablePath -ieq $context.node})
+    if($beforeRestart.Count -ne 1){throw 'Pre-restart owned worker missing'}
+    $prior=Get-ShutdownCount
     Invoke-TestNative 'restart' $context.wrapper @('restart');Wait-ServiceReady
+    $afterRestart=@(Get-CimInstance Win32_Process | Where-Object {$_.ExecutablePath -ieq $context.node})
+    if($afterRestart.Count -ne 1 -or $afterRestart[0].ProcessId -eq $beforeRestart[0].ProcessId -or (Get-ShutdownCount) -le $prior){throw 'Restart lacks worker replacement/graceful shutdown proof'}
+    Invoke-TestNative 'restart-graceful-functional' $context.node @((Join-Path $PSScriptRoot 'probe-service.mjs'),'restarted',$release,$instance,[string]$port,(Join-Path $ReportDirectory 'service-functional.json'))
+    $checks.Add('restart-graceful-worker-replacement-persistence')
     $service=Get-CimInstance Win32_Service -Filter "Name='$id'"
     $workers=@(Get-CimInstance Win32_Process | Where-Object { $_.ParentProcessId -eq $service.ProcessId -and $_.ExecutablePath -ieq $context.node })
     if ($workers.Count -ne 1) { throw 'Owned service Node process missing' }
@@ -114,7 +122,7 @@ try {
     $checks.Add('restart-crash-recovery-persistence')
     $prior=Get-ShutdownCount
     Invoke-TestNative 'final-stop' $context.wrapper @('stop');Assert-ServiceClosed $prior
-    $uninstallArgs=@('-NoProfile','-File',$uninstall,'-InstanceRoot',$instance,'-ServiceId',$id)
+    $uninstallArgs=@('-NoProfile','-File',$uninstall,'-ReleaseRoot',$release,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
     Invoke-TestNative 'uninstall' $powershell $uninstallArgs
     Invoke-TestNative 'uninstall-again' $powershell $uninstallArgs
     if ((Get-Service -Name $id -ErrorAction SilentlyContinue) -or !(Test-Path -LiteralPath (Join-Path $instance 'data/family.db'))) { throw 'Uninstall ownership/data retention failed' }
@@ -125,10 +133,19 @@ finally {
     try {
         if (Get-Service -Name $id -ErrorAction SilentlyContinue) {
             if (!$context) { throw 'Cannot prove failed fixture service ownership' }
-            $cleanupArgs=@('-NoProfile','-File',(Join-Path $release 'ops/Uninstall-Service.ps1'),'-InstanceRoot',$instance,'-ServiceId',$id)
+            $cleanupArgs=@('-NoProfile','-File',(Join-Path $release 'ops/Uninstall-Service.ps1'),'-ReleaseRoot',$release,'-ExpectedManifestSha256',$manifestHash,'-InstanceRoot',$instance,'-ServiceId',$id)
             Invoke-TestNative 'cleanup-service' (Join-Path $env:windir 'System32/WindowsPowerShell/v1.0/powershell.exe') $cleanupArgs
         }
         if (Get-Service -Name $id -ErrorAction SilentlyContinue) { throw 'Fixture service remains installed' }
+        $serviceLogs=Join-Path $instance 'logs'
+        if(Test-Path -LiteralPath $serviceLogs){
+            $logsTarget=Join-Path $ReportDirectory 'service-logs'
+            New-Item -ItemType Directory -Path $logsTarget -Force | Out-Null
+            foreach($log in Get-ChildItem -LiteralPath $serviceLogs -File -Force){
+                Assert-NoServiceReparse $log.FullName
+                Copy-Item -LiteralPath $log.FullName -Destination $logsTarget
+            }
+        }
         if (Test-Path -LiteralPath $fixture) { Remove-Item -LiteralPath $fixture -Recurse -Force }
         $cleanup=!(Test-Path -LiteralPath $fixture)
     } catch { if (!$failure) { $failure=$_ }; $code=1 }

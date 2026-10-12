@@ -1,0 +1,101 @@
+{
+  "task": "F07-a",
+  "firstSource": {
+    "headSha": "16568a5a89d9a76717d1c51f4a322fd71c824cc4",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38204750730",
+    "quality": {
+      "Node22": {
+        "testsPassed": 1386,
+        "files": 84,
+        "nativeCommandsAllZero": true
+      },
+      "Node24": {
+        "testsPassed": 1386,
+        "files": 84,
+        "nativeCommandsAllZero": true
+      }
+    },
+    "browser": {
+      "passed": 15,
+      "engines": 3,
+      "skips": 0,
+      "retries": 0
+    },
+    "package": {
+      "cleanConsumerPassed": true,
+      "zipSha256": "12b19434720774219660fcfbee07e2bd3d45c27c88a2cbdd8d5ebef1735beb7c"
+    },
+    "service": {
+      "exitCode": 1,
+      "failure": "manifest application version mismatch",
+      "fixtureCleanup": true,
+      "serviceRemoved": true,
+      "functionalServiceChecks": "not-run"
+    },
+    "gate": "failure"
+  },
+  "harnessFailure": {
+    "headSha": "364bea6d71369b719c75487521306c3c4d426868",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38205448152",
+    "packageValidationExitCode": 0,
+    "serviceExitCode": 1,
+    "failure": "script-scoped ServiceNativeResults absent in child security harness",
+    "isSecurityRegressionRed": false,
+    "fixtureCleanup": true,
+    "functionalServiceChecks": "not-run",
+    "wholeRun": "cancelled by next PR push; service actually failed"
+  },
+  "firstServiceLog": {
+    "sha256": "8504ffa26b4e1edb660307372c4ab1919621dc3d644811af1f42c5cb9593d654"
+  },
+  "harnessFailureLog": {
+    "sha256": "d65005c086c47daceee44957c0659397380a6df8afc2c2db64b7ba6c064be292"
+  },
+  "secondHarnessFailure": {
+    "headSha": "344b4a60229e228454ff2a419557796b50cdb294",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38205697986",
+    "failure": "AddAccessRule could not translate SID passed as account-name string",
+    "serviceExitCode": 1,
+    "isSecurityRegressionRed": false,
+    "packageValidationExitCode": 0,
+    "securityRenderExitCode": 0,
+    "fixtureCleanup": true,
+    "functionalServiceChecks": "not-run"
+  },
+  "partialSecurityRed": {
+    "headSha": "a8c3228da085d9cdb764d9fb55f785476ce99e92",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38205925094",
+    "realFailedAssertions": [
+      "self-hashed-alternate-service-xml",
+      "installed-clr-config-tampering"
+    ],
+    "laterHarnessFailure": "Node NODE_OPTIONS parser consumed backslashes; synthetic preload module not found",
+    "remainingSecurityCases": "not-run",
+    "functionalServiceChecks": "not-run",
+    "fixtureCleanup": true,
+    "rawJobLogSha256": "5f90b26d6009dd9baa5bd47226a79d25a35062a02cd8446acccde21195dd5884"
+  },
+  "completeSecurityRed": {
+    "headSha": "2ebf8da24f1bd112b34a5839f5d4ba3ab458f878",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38206260411",
+    "failedAssertions": [
+      "self-hashed-alternate-service-xml",
+      "installed-clr-config-tampering",
+      "administrative-node-preload-not-executed",
+      "uninstall-requires-independent-trust",
+      "existing-explicit-write-grant-removed",
+      "descendant-junction-refused-before-acl"
+    ],
+    "passingControls": [
+      "administrative-node-environment-restored",
+      "junction-target-acl-unchanged"
+    ],
+    "serviceExitCode": 1,
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "realCanariesExecutedBeforeGuards": true,
+    "functionalServiceChecks": "not-run",
+    "reportSha256": "64df7d58a67934c29848246ae2a6f010d5acaf6bf82a46930415ccfe89a33174",
+    "jobLogSha256": "3d113b545b2b1248b90e7e3d6e3ce830b7625d61bbc9746c5ce1ff8e7dbfe64c"
+  }
+}

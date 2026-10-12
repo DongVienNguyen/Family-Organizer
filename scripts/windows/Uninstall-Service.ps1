@@ -1,11 +1,13 @@
 [CmdletBinding(SupportsShouldProcess=$true)]
-param([Parameter(Mandatory=$true)][string]$InstanceRoot,[string]$ServiceId='FamilyOrganizer',[switch]$ValidateOnly)
+param([Parameter(Mandatory=$true)][string]$ReleaseRoot,[Parameter(Mandatory=$true)][string]$ExpectedManifestSha256,[Parameter(Mandatory=$true)][string]$InstanceRoot,[string]$ServiceId='FamilyOrganizer',[switch]$ValidateOnly)
 . (Join-Path $PSScriptRoot 'ServiceCommon.ps1')
 $instance=Get-ServiceRoot $InstanceRoot
 $marker=Join-Path $instance 'service/installation.json'
-Assert-NoServiceReparse $marker
+Assert-ServiceMetadataAcl $instance
+Assert-ServiceMetadataAcl (Join-Path $instance 'service')
+Assert-ServiceMetadataAcl $marker
 $descriptor=Get-Content -LiteralPath $marker -Raw | ConvertFrom-Json
-$context=Get-ServiceContext $descriptor.releaseRoot $instance $ServiceId $descriptor.port $descriptor.manifestHash
+$context=Get-ServiceContext $ReleaseRoot $instance $ServiceId $descriptor.port $ExpectedManifestSha256
 Assert-ServiceOwner $context $descriptor
 if ($ValidateOnly -or !$PSCmdlet.ShouldProcess($instance,'Stop and uninstall owned service')) { return }
 Assert-ServiceAdministrator

@@ -6,10 +6,10 @@ $results=New-Object System.Collections.Generic.List[object]
 $root=Join-Path $env:RUNNER_TEMP ('fo-service-security-'+[guid]::NewGuid())
 New-Item -ItemType Directory -Path $root | Out-Null
 function Test-Refusal {
-    param([string]$Name,[scriptblock]$Action)
-    $refused=$false
-    try { & $Action | Out-Host } catch { $refused=$true }
-    $results.Add(@{name=$Name;passed=$refused})
+    param([string]$Name,[scriptblock]$Action,[string]$ExpectedMessage)
+    $refused=$false;$failureText=$null
+    try { & $Action | Out-Host } catch { $failureText=$_.ToString();$refused=(!$ExpectedMessage -or $failureText -match $ExpectedMessage) }
+    $results.Add(@{name=$Name;passed=$refused;failure=$failureText})
 }
 try {
     $owned=Join-Path $root 'owned'
@@ -39,10 +39,10 @@ try {
     $original=Get-Content $testContext.xml -Raw
     [IO.File]::WriteAllText($testContext.xml,$original.Replace('<user>LocalService</user>','<user>LocalSystem</user>'))
     $descriptor.xmlSha256=(Get-FileHash $testContext.xml).Hash.ToLowerInvariant()
-    Test-Refusal 'self-hashed-alternate-service-xml' {Assert-ServiceOwner $testContext $descriptor}
+    Test-Refusal 'self-hashed-alternate-service-xml' {Assert-ServiceOwner $testContext $descriptor} 'owned-configuration native exit 1'
     [IO.File]::WriteAllText($testContext.xml,$original);$descriptor.xmlSha256=(Get-FileHash $testContext.xml).Hash.ToLowerInvariant()
     [IO.File]::WriteAllText(($testContext.wrapper+'.config'),'<configuration><runtime><appDomainManagerType value="SyntheticCanary"/></runtime></configuration>')
-    Test-Refusal 'installed-clr-config-tampering' {Assert-ServiceOwner $testContext $descriptor}
+    Test-Refusal 'installed-clr-config-tampering' {Assert-ServiceOwner $testContext $descriptor} 'owned-configuration native exit 1'
     $canary=Join-Path $root 'preload.cjs';$marker=Join-Path $root 'preload-ran.txt'
     [IO.File]::WriteAllText($canary,'require("node:fs").writeFileSync('+($marker|ConvertTo-Json -Compress)+',"synthetic");')
     $priorOptions=$env:NODE_OPTIONS;$priorPath=$env:NODE_PATH
@@ -75,11 +75,11 @@ try {
     $outside=Join-Path $root 'outside';New-Item -ItemType Directory -Path $outside | Out-Null
     $link=Join-Path $aclRoot 'junction';New-Item -ItemType Junction -Path $link -Target $outside | Out-Null
     $before=(Get-Acl $outside).Sddl
-    Test-Refusal 'descendant-junction-refused-before-acl' {Set-OwnedServiceAcl $aclRoot 'TrustedInstaller' 'RX'}
+    Test-Refusal 'descendant-junction-refused-before-acl' {Set-OwnedServiceAcl $aclRoot 'TrustedInstaller' 'RX'} 'tree contains reparse point'
     $results.Add(@{name='junction-target-acl-unchanged';passed=((Get-Acl $outside).Sddl -ceq $before)})
     [IO.Directory]::Delete($link)
 } finally {
-    $results.ToArray() | ConvertTo-Json -Depth 8 | Set-Content (Join-Path $ReportDirectory 'service-security.json') -Encoding utf8
+    ConvertTo-Json -InputObject $results.ToArray() -Depth 8 | Set-Content (Join-Path $ReportDirectory 'service-security.json') -Encoding utf8
     if(Test-Path (Join-Path $root 'acl/junction')){[IO.Directory]::Delete((Join-Path $root 'acl/junction'))}
     Remove-Item -LiteralPath $root -Recurse -Force
 }

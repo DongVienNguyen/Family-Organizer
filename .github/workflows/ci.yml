@@ -311,6 +311,19 @@ jobs:
         with:
           name: windows-package-harness-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/service-harness
+      - name: Verify early service failure produces typed cleanup evidence
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $negative = "$env:RUNNER_TEMP/service-reports/early-refusal"
+          & powershell.exe -NoProfile -NonInteractive -File "$env:RUNNER_TEMP/service-harness/Test-Service.ps1" -ArtifactDirectory "$env:RUNNER_TEMP/service-artifact" -CommitSha ('0' * 40) -ReportDirectory $negative 2>&1 | Tee-Object "$env:RUNNER_TEMP/service-refusal.log"
+          $code = $LASTEXITCODE
+          if ($code -ne 1) { throw "Expected source refusal exit1, received $code" }
+          $report = Get-Content "$negative/service-exit.json" -Raw | ConvertFrom-Json
+          if ($report.commitSha -cne ('0' * 40) -or $report.exitCode -ne 1 -or !$report.fixtureCleanup -or !$report.serviceRemoved -or $report.failure -notmatch 'Service package source/producer proof rejected' -or @($report.nativeExitCodes).Count -ne 0 -or @($report.preflightNativeExitCodes).Count -ne 0) { throw 'Early service failure report rejected' }
+          Copy-Item "$env:RUNNER_TEMP/service-refusal.log" "$negative/refusal.log"
+          exit 0
       - name: Verify actual service on disposable Windows without checkout or rebuild
         run: '& "$env:RUNNER_TEMP/service-harness/Test-Service.ps1" -ArtifactDirectory "$env:RUNNER_TEMP/service-artifact" -CommitSha $env:TEST_COMMIT_SHA -ReportDirectory "$env:RUNNER_TEMP/service-reports"'
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6

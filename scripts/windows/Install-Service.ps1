@@ -5,20 +5,29 @@ $context=Get-ServiceContext $ReleaseRoot $InstanceRoot $ServiceId $Port $Expecte
 $existing=Get-Service -Name $ServiceId -ErrorAction SilentlyContinue
 $descriptor=$null
 if (Test-Path -LiteralPath $context.marker) {
-    Assert-NoServiceReparse $context.marker
+    Assert-ServiceMetadataAcl $context.instance
+    Assert-ServiceMetadataAcl $context.directory
+    Assert-ServiceMetadataAcl $context.marker
     $descriptor=Get-Content -LiteralPath $context.marker -Raw | ConvertFrom-Json
     Assert-ServiceOwner $context $descriptor
 } elseif ($existing -or ((Test-Path -LiteralPath $context.instance) -and @(Get-ChildItem -LiteralPath $context.instance -Force).Count -gt 0)) { throw 'Refuse unowned existing service/instance; no data overwrite' }
 if ($ValidateOnly -or !$PSCmdlet.ShouldProcess($context.instance,'Install owned Family Organizer service')) { return }
 Assert-ServiceAdministrator
+if($existing -and $existing.Status -ne 'Stopped'){throw 'Stop the owned service before ACL reconfiguration'}
+# Preflight all existing trees before recursive ACL operations/install commands.
+foreach($root in @($context.instance,$context.release)){if(Test-Path -LiteralPath $root){$null=Get-ServiceTree $root}}
 if (!$descriptor) {
     New-Item -ItemType Directory -Path $context.directory,(Join-Path $context.instance 'data'),(Join-Path $context.instance 'config'),(Join-Path $context.instance 'logs') -Force | Out-Null
+    Set-OwnedServiceAcl $context.instance '' 'RX'
     Copy-Item -LiteralPath (Join-Path $context.release 'bin/family-organizer-service.exe') -Destination $context.wrapper
     Copy-Item -LiteralPath (Join-Path $context.release 'bin/family-organizer-service.exe.config') -Destination ($context.wrapper+'.config')
     Invoke-ServiceNative 'write-config' $context.node @((Join-Path $context.release 'ops/write-service-config.mjs'),$context.release,$context.instance,$context.id,[string]$context.port,$context.xml)
     $descriptor=@{format=1;serviceId=$ServiceId;releaseRoot=$context.release;instanceRoot=$context.instance;manifestHash=$context.manifestHash;commitSha=$context.commitSha;port=$Port;xmlSha256=(Get-FileHash -LiteralPath $context.xml -Algorithm SHA256).Hash.ToLowerInvariant()}
     [IO.File]::WriteAllText($context.marker,($descriptor | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
 }
+# Seal critical files and verify canonical configuration before elevated WinSW use.
+Set-OwnedServiceAcl $context.directory '' 'RX'
+Assert-ServiceOwner $context $descriptor
 if (!$existing) { Invoke-ServiceNative 'install' $context.wrapper @('install') }
 Invoke-ServiceNative 'service-sid' (Join-Path $env:windir 'System32/sc.exe') @('sidtype',$ServiceId,'unrestricted')
 Set-OwnedServiceAcl $context.instance $ServiceId 'RX'
