@@ -1,3 +1,5 @@
+Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
 # Preflight every entry before writing any extracted file. Compatible with Windows PowerShell 5.1.
 function Get-VerifiedArchiveEntries {
     param([System.IO.Compression.ZipArchive]$Archive)
