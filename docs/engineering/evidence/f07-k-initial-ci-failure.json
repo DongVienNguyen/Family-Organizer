@@ -1,0 +1,15 @@
+{
+  "headSha": "e2e1eaf7160286b1e37bb168583ebcd7a5a06797",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38287009712",
+  "quality": "Node22/24 success (reports retained, full1788/100)",
+  "browserProducerConsumer": "success",
+  "serviceGate": "failure",
+  "failure": "owned-update-coordinator exited 13",
+  "source": "unsettled Node top-level await exit13 while closing owned half-closed fault socket; all baseline steps reached/passed, cleanup true",
+  "serviceRemoved": true,
+  "fixtureCleanup": true,
+  "coordinatorReport": "not-written because unsettled top-level await exited without unwinding finally",
+  "correction": "fault socket destroys accepted connections so holder.close callback completes; same assertions/timeouts retained",
+  "review": "all9Important/1Minor graded, native mutable-candidate/snapshot-ACL and candidate-bootstrap-order checkpoint next",
+  "releaseVps": false
+}
