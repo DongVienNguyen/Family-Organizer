@@ -1,0 +1,17 @@
+{
+  "taskId": "F09-a",
+  "reviewedHeadSha": "e21b6ff1cc72d0bbaa8d7d3d5b18ab3f4ee4a7c6",
+  "reviewCount": 1,
+  "importantCorrections": 1,
+  "correctionPasses": 1,
+  "correction": "actual menu rows/cells, every grocery name/quantity and3adults2children2days controls before/afterreload;API assertions retained",
+  "applicationSourceAfter1856Verification": "unchanged",
+  "cloudSourceUnitTests": 1856,
+  "cloudSourceFiles": 103,
+  "sourceFailedPendingTodo": 0,
+  "lintAfterBrowserAssertionsExit": 0,
+  "browserAssertionsExecution": "not-run; require exact HEAD Windows",
+  "testOnlyCoverageFinding": "no fabricated app UI RED",
+  "deferredMinors": 1,
+  "publication": "held until predecessor35 merged/rebase"
+}

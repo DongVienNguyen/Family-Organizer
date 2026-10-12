@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { validateBrowserReports } from '../scripts/ci/browser-contract.mjs';
 
 // Corrupted synthetic evidence tests the gate, not a claim of browser execution.
-const names = ['B01 login reload logout', 'B02 child finance boundary', 'B03 note and media visibility', 'B04 logout purges private storage', 'B05 account switch removes previous data'];
+const names = ['B01 login reload logout', 'B02 child finance boundary', 'B03 note and media visibility', 'B04 logout purges private storage', 'B05 account switch removes previous data', 'B06 shopping and offline meal persistence'];
 function fixture(): any {
   return {
     expected: { commitSha: 'a'.repeat(40), lockSha256: 'b'.repeat(64), nodeVersion: 'v24.21.0', productionBuild: { serverSha256: 'e'.repeat(64), indexSha256: 'f'.repeat(64) } },
-    report: { errors: [], config: { forbidOnly: true, workers: 1, projects: ['chromium', 'firefox', 'webkit'].map(name => ({ name, retries: 0 })) }, stats: { expected: 15, unexpected: 0, flaky: 0, skipped: 0 }, suites: [{ specs: names.map(title => ({ title, ok: true, tests: ['chromium', 'firefox', 'webkit'].map(projectName => ({ projectName, expectedStatus: 'passed', status: 'expected', results: [{ status: 'passed', retry: 0, errors: [] }] })) })) }] },
-    junit: '<testsuites tests="15" failures="0" errors="0" skipped="0">' + ['chromium', 'firefox', 'webkit'].map(engine => `<testsuite hostname="${engine}" tests="5" failures="0" errors="0" skipped="0">` + names.map(name => `<testcase name="${name}" />`).join('') + '</testsuite>').join('') + '</testsuites>',
+    report: { errors: [], config: { forbidOnly: true, workers: 1, projects: ['chromium', 'firefox', 'webkit'].map(name => ({ name, retries: 0 })) }, stats: { expected: 18, unexpected: 0, flaky: 0, skipped: 0 }, suites: [{ specs: names.map(title => ({ title, ok: true, tests: ['chromium', 'firefox', 'webkit'].map(projectName => ({ projectName, expectedStatus: 'passed', status: 'expected', results: [{ status: 'passed', retry: 0, errors: [] }] })) })) }] },
+    junit: '<testsuites tests="18" failures="0" errors="0" skipped="0">' + ['chromium', 'firefox', 'webkit'].map(engine => `<testsuite hostname="${engine}" tests="6" failures="0" errors="0" skipped="0">` + names.map(name => `<testcase name="${name}" />`).join('') + '</testsuite>').join('') + '</testsuites>',
     manifest: { commitSha: 'a'.repeat(40), lockSha256: 'b'.repeat(64), nodeVersion: 'v24.21.0', platform: 'win32', architecture: 'x64', addonSha256: 'c'.repeat(64), productionBuild: { serverSha256: 'e'.repeat(64), indexSha256: 'f'.repeat(64) }, legacyPreserved: true, integrity: 'ok', databaseClosed: true, fixtureRemoved: true, externalAttempts: [], serverExitCode: 0, serverSignal: null, cliExitCode: 0, cliSignal: null },
     engines: ['chromium', 'firefox', 'webkit'].map(browserName => ({ browserName, browserVersion: '123.4.5', executableSha256: 'd'.repeat(64), platform: 'win32', architecture: 'x64', nodeVersion: 'v24.21.0' })),
     exits: Object.fromEntries(['install', 'native', 'build', 'browsers-install', 'browser'].map(name => [name, { exitCode: 0 }])),
@@ -45,7 +45,7 @@ describe('browser evidence fails closed', () => {
     ['flaky aggregate', f => f.report.stats.flaky = 1],
     ['missing JSON', f => f.report = null],
     ['missing JUnit', f => f.junit = ''],
-    ['contradictory JUnit', f => f.junit = f.junit.replace('tests="15"', 'tests="14"')],
+    ['contradictory JUnit', f => f.junit = f.junit.replace('tests="18"', 'tests="14"')],
     ['JUnit failure', f => f.junit = f.junit.replace('failures="0"', 'failures="1"')],
     ['JUnit skipped detail', f => f.junit = f.junit.replace('<testcase', '<skipped/><testcase')],
     ['wrong source', f => f.manifest.commitSha = 'e'.repeat(40)],
@@ -75,4 +75,10 @@ describe('browser evidence fails closed', () => {
     ['missing engine version', f => f.engines[0].browserVersion = ''],
   ];
   it.each(corruptions)('rejects %s', (_name, change) => { const f = fixture(); change(f); expect(validateBrowserReports(f).length).toBeGreaterThan(0); });
+});
+
+it('requires the shopping and offline meal-plan flow in every browser engine',()=>{
+ const value=fixture();value.report.suites[0].specs=value.report.suites[0].specs.filter((row:any)=>row.title!=='B06 shopping and offline meal persistence');
+ const errors=validateBrowserReports(value);
+ for(const engine of ['chromium','firefox','webkit'])expect(errors).toContain(`missing ${engine}/B06 shopping and offline meal persistence`);
 });

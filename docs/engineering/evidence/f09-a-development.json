@@ -1,0 +1,39 @@
+{
+  "taskId": "F09-a",
+  "sourceBaseCheckpoint": "bb7581cb801e912b42f85737396e560bc359ea63",
+  "publicationOfBranch": "pending PR35 merge and rebase",
+  "actualProductReds": [
+    {
+      "case": "same-millisecond shopping creation",
+      "error": "shopping_items UNIQUE constraint",
+      "red": 1,
+      "otherCharacterizationsPassed": 4
+    },
+    {
+      "case": "numeric shopping name HTTP",
+      "expected": 400,
+      "actual": 500,
+      "red": 1,
+      "otherCharacterizationsPassed": 9
+    }
+  ],
+  "fixtureErrorsNotProductReds": "four tests reused intentionally closed singleton; corrected independent readonly readers",
+  "newRequiredGateReds": {
+    "browserFlowOmission": 1,
+    "qualitySuiteOmissions": 2
+  },
+  "targetGreen": 213,
+  "targetFiles": 4,
+  "fullGreen": 1856,
+  "fullFiles": 103,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceFrozenDuringVerification": true,
+  "browserCasesRequired": 18,
+  "browserExecution": "pending exact-HEAD Windows",
+  "dependencyRuntimeLockChanges": false,
+  "allF09Acceptance": false
+}
