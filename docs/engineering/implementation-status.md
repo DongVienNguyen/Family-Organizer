@@ -19,7 +19,8 @@
 | F04-k | Reviewed, exact Windows GREEN, merged PR17 | HEADd614a78/run38185059520;1026/102674files per runtime; main6be5cd5 |
 | F04-l | Reviewed, exact Windows GREEN, merged PR18 | HEADcbc677bea9c0b3dc6b1f7267417290f5d6257400; run38186890169;1080/108076files per runtime; mainc24486b |
 | F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
-| F05-a | PR19 reviewed; complete artifact verification pending final SHA | HEAD9bfd3c9/run38189740360 quality1146/787checks0 per runtime; browser15/15/ci-gate GREEN; independent verifier found uploader omitted declared hidden .last-run.json; upload setting corrected |
+| F05-a | Reviewed, exact Windows GREEN, merged PR19 | HEAD1697bf939a57e7a463a95ea8141c30a4368822b7; run38190289782;1146/114678files per runtime,7checks0/audit0/22proof;15browser first-attempt cases, full artifact hashes verified; mainb0f9a01 |
+| F05-b | Windows baseline independently measured; eight-check ratchet gate awaiting review/exact Windows | PR20; measurement HEAD5b83bcadd9254c9534c4ed52c80b03c355432632/run38191398754;1146/78 both runtimes;15 browsers;104 coverage files |
 | F05–F09 | Enforcement/coverage/package/service/encryption/release-prep/performance pending | Actual Oct12 ruleset/protection writes still403 despite user authorization; mainprotected:false; Windows2022 does not prove Server2019 |
 | P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
 | R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
@@ -591,3 +592,38 @@ Remaining F04 ordinary backup/redaction/encrypted provider backup and log audit;
 F05 browser/coverage and actual Administration write/protection still403; F06–F09
 package/service/release-prep/full acceptance. Main protection isn't proven by a
 GREEN workflow. R02 Server2019 unrun; no release/tag/VPS or new domains.
+
+
+## F05-b — Coverage ratchet and cache identity (in progress)
+
+BASE mainb0f9a01d6160026dbb139bf5ac90549d43db612d; branchcodex/f05-coverage-ratchet;
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/20.
+Measured HEAD5b83bcadd9254c9534c4ed52c80b03c355432632 in Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38191398754:
+both Node22/24 passed1146/114678files, seven command checks0/audit0/22 compiled
+proofs;15 first-attempt browser cases. All3 artifacts/logs/raw counters/LCOV/source
+inventory independently verified. Floors31.48lines/33.73statements/31.64functions/
+28.53branches include all104 production files, no ignore pragmas. Exact matching
+coverage provider4.1.11 adds13 dev-only lock nodes; no production dependency changes.
+Caches identify OS/architecture/exactNode/npm/lockSHA and hold npm tarballs only.
+
+New gate rejects missing/malformed counters, source inventory, LCOV, runtime/HEAD,
+policy and changed raw-report bytes. Forty actual new-contract RED cases then41
+GREEN coverage tests;23 actual aggregate evidence RED cases then105 GREEN; five
+source-inventory characterizations, combined151/151 threefiles/lint0. All are new
+harness requirements, not claimed vulnerabilities in the previous application.
+Full Cloud1215/121580files, lint/build/audit0 passed. Final gated Windows run/review pending.
+Coverage is not full app acceptance; F09 legacy matrix/package/services remain unrun.
+Actual main ruleset/protection writes403 despite authorized Administration request;
+F05 enforcement is not accepted. F04 backup/log privacy and F06–F09 remain next;
+new P/W features wait foundation acceptance; no release/tag/VPS access/deployment.
+
+Single fresh F05-b review: noCritical;2Important implicitcache/provider-exclusion
+aliases and1Minor LCOVidentity accepted before one TDD correctionpass. Seven
+actualRED then correction; no rereview. Final Cloud/Windows proof pending.
+
+First gated source5722cc5/run38193135741 independently verified1215/121580files
+on both Windows runtimes, all8checks0/audit0/22proof;15 first-attempt browsers,
+all104 raw coverage/LCOV inventories and hashes match. Still superseded by review
+fixes. Corrected target158/158 threefiles, full Cloud1222/122280files/lint/build0;
+actual104file coverage validation agrees. Corrected Windows HEAD pending.

@@ -29,7 +29,7 @@ switch ($Check) {
     lint { $program = 'npm.cmd'; $arguments = @('run', 'lint') }
     test {
         $program = 'npm.cmd'
-        $arguments = @('test', '--', '--reporter=default', '--reporter=junit',
+        $arguments = @('test', '--', '--coverage', '--reporter=default', '--reporter=junit',
             '--outputFile.junit=reports/junit.xml', '--reporter=json', '--outputFile.json=reports/vitest.json')
     }
     build { $program = 'npm.cmd'; $arguments = @('run', 'build') }

@@ -1,0 +1,127 @@
+{
+  "schema": 1,
+  "providerVersion": "4.1.11",
+  "scope": "all production src/server TS/TSX excluding tests/type declarations; no ignore pragmas",
+  "floors": {
+    "v22.23.3": {
+      "lines": 31.48,
+      "statements": 33.73,
+      "functions": 31.64,
+      "branches": 28.53
+    },
+    "v24.21.0": {
+      "lines": 31.48,
+      "statements": 33.73,
+      "functions": 31.64,
+      "branches": 28.53
+    }
+  },
+  "measurements": [
+    {
+      "nodeVersion": "v22.23.3",
+      "headSha": "5b83bcadd9254c9534c4ed52c80b03c355432632",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38191398754",
+      "sourceFiles": 104,
+      "total": {
+        "lines": {
+          "total": 11005,
+          "covered": 3465,
+          "skipped": 0,
+          "pct": 31.48
+        },
+        "statements": {
+          "total": 14043,
+          "covered": 4737,
+          "skipped": 0,
+          "pct": 33.73
+        },
+        "functions": {
+          "total": 3106,
+          "covered": 983,
+          "skipped": 0,
+          "pct": 31.64
+        },
+        "branches": {
+          "total": 10768,
+          "covered": 3073,
+          "skipped": 0,
+          "pct": 28.53
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "reportHashes": {
+        "favicon.png": "5b0cfd52dc0bfbe544f4e1a9c77aa46b8629b0e0aad6c54f95eef457b86c2a89",
+        "sorter.js": "f8cc5d157379d844fd695ad567b6c29b3c1f0812964ddf6f95c26327e434bab5",
+        "sort-arrow-sprite.png": "42c895355f9838ede83fdfdca90127d8471aefed5ecf5342374f65ec7c3f10ab",
+        "base.css": "3f876e51f0a46864ffa7665b4b7a1f5fb5f6f37fb6a28f014e2b12d82962c852",
+        "coverage-final.json": "61d23f056536fa04daee0a4dbb15c1ff7501bdacf73cec32006132a30e08d925",
+        "coverage-summary.json": "8747a08d7b28727731e643cbb0858127a0f3fde4089d6f1b941a6faf4d622784",
+        "index.html": "8a62e1084e47a900a5f1388cd1163b5253eac8f75d257b484202c5c31866eecb",
+        "prettify.css": "ea3fe433f9450698ca8a230271688e7aeec12f99c8a7ef6c94379abb38f27823",
+        "lcov.info": "3746de90be6eb1b1ff7612ed65e78c7e96768f78af9a2c028ff8fb35277f0ac4",
+        "prettify.js": "fa1b1e1b906ddcfa08b46f161c0f924f506e1a31b4f3e09b8caaa2463ef52c18",
+        "block-navigation.js": "cd8db34b1fbeb973354a93f8b4133c7c7eab34cdda9429a0434be91384783b7e"
+      },
+      "independentRawCountersLcovInventoryVerified": true
+    },
+    {
+      "nodeVersion": "v24.21.0",
+      "headSha": "5b83bcadd9254c9534c4ed52c80b03c355432632",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38191398754",
+      "sourceFiles": 104,
+      "total": {
+        "lines": {
+          "total": 11005,
+          "covered": 3465,
+          "skipped": 0,
+          "pct": 31.48
+        },
+        "statements": {
+          "total": 14043,
+          "covered": 4737,
+          "skipped": 0,
+          "pct": 33.73
+        },
+        "functions": {
+          "total": 3106,
+          "covered": 983,
+          "skipped": 0,
+          "pct": 31.64
+        },
+        "branches": {
+          "total": 10768,
+          "covered": 3073,
+          "skipped": 0,
+          "pct": 28.53
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "reportHashes": {
+        "favicon.png": "5b0cfd52dc0bfbe544f4e1a9c77aa46b8629b0e0aad6c54f95eef457b86c2a89",
+        "sorter.js": "f8cc5d157379d844fd695ad567b6c29b3c1f0812964ddf6f95c26327e434bab5",
+        "sort-arrow-sprite.png": "42c895355f9838ede83fdfdca90127d8471aefed5ecf5342374f65ec7c3f10ab",
+        "base.css": "3f876e51f0a46864ffa7665b4b7a1f5fb5f6f37fb6a28f014e2b12d82962c852",
+        "coverage-final.json": "265f12ce1f2d57f24b615286028da167cf4629bf990a6267cf0fdf96a7fac642",
+        "coverage-summary.json": "8747a08d7b28727731e643cbb0858127a0f3fde4089d6f1b941a6faf4d622784",
+        "index.html": "8b174991007a72781da26eb2eaff6650f470c5973b9fb15a6a41694044b3c57b",
+        "prettify.css": "ea3fe433f9450698ca8a230271688e7aeec12f99c8a7ef6c94379abb38f27823",
+        "lcov.info": "2c6ccafe7fa883de2afdd81d6739ef9560f116ffcd0d994aea76728c55b30930",
+        "prettify.js": "fa1b1e1b906ddcfa08b46f161c0f924f506e1a31b4f3e09b8caaa2463ef52c18",
+        "block-navigation.js": "cd8db34b1fbeb973354a93f8b4133c7c7eab34cdda9429a0434be91384783b7e"
+      },
+      "independentRawCountersLcovInventoryVerified": true
+    }
+  ],
+  "baselineFullLogSha256": "bff9c713390d9240770c81923e6eb40015507d5c8a1bd20f589d29277c564905",
+  "policy": "Floors come from actual Windows measurement. Do not lower them to green. Raising floors or compatible provider/runtime changes requires a reviewed exact-HEAD Windows measurement. New acceptance invariants require meaningful tests; this metric does not instrument browser/native subprocess execution."
+}

@@ -49,7 +49,21 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           architecture: x64
-          cache: npm
+          package-manager-cache: false
+      - name: Resolve npm cache directory
+        id: npm-cache
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $cachePath = & npm.cmd config get cache
+          $cacheCode = $LASTEXITCODE
+          if ($cacheCode -ne 0) { exit $cacheCode }
+          "cache-path=$($cachePath.Trim())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: ${{ steps.npm-cache.outputs.cache-path }}
+          key: npm-${{ runner.os }}-${{ runner.arch }}-node${{ matrix.node }}-npm${{ matrix.npm }}-${{ hashFiles('package-lock.json') }}
       - name: Install from lockfile
         id: install
         run: ./scripts/ci/Invoke-Check.ps1 -Check install
@@ -73,6 +87,10 @@ jobs:
         id: build
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: ./scripts/ci/Invoke-Check.ps1 -Check build
+      - name: Validate measured coverage ratchets
+        id: coverage
+        if: ${{ !cancelled() && steps.test.outcome == 'success' }}
+        run: ./scripts/ci/Test-Coverage.ps1
       - name: Production layout from System32 and denied-write startup
         id: production
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
@@ -85,6 +103,7 @@ jobs:
           CHECK_NATIVE: ${{ steps.native.outcome }}
           CHECK_LINT: ${{ steps.lint.outcome }}
           CHECK_TEST: ${{ steps.test.outcome }}
+          CHECK_COVERAGE: ${{ steps.coverage.outcome }}
           CHECK_BUILD: ${{ steps.build.outcome }}
           CHECK_PRODUCTION: ${{ steps.production.outcome }}
         run: |
@@ -121,7 +140,21 @@ jobs:
         with:
           node-version: '24.21.0'
           architecture: x64
-          cache: npm
+          package-manager-cache: false
+      - name: Resolve npm cache directory
+        id: npm-cache
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $cachePath = & npm.cmd config get cache
+          $cacheCode = $LASTEXITCODE
+          if ($cacheCode -ne 0) { exit $cacheCode }
+          "cache-path=$($cachePath.Trim())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: ${{ steps.npm-cache.outputs.cache-path }}
+          key: npm-${{ runner.os }}-${{ runner.arch }}-node24.21.0-npm11.19.0-${{ hashFiles('package-lock.json') }}
       - name: Install from lockfile
         id: install
         run: ./scripts/ci/Invoke-Check.ps1 -Check install

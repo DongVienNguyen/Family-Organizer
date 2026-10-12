@@ -5,13 +5,14 @@ import {createHash} from 'node:crypto';
 
 fs.mkdirSync('reports', { recursive: true });
 const errors = [];
-const checks = Object.fromEntries(['install', 'native', 'lint', 'test', 'build', 'production','audit'].map(name => [name, process.env[`CHECK_${name.toUpperCase()}`] || 'missing']));
+const checks = Object.fromEntries(['install', 'native', 'lint', 'test', 'build', 'production','audit','coverage'].map(name => [name, process.env[`CHECK_${name.toUpperCase()}`] || 'missing']));
 for (const [name, outcome] of Object.entries(checks)) {
   if (outcome !== 'success') errors.push(`${name}: ${outcome}`);
   const exitPath = `reports/${name}-exit.json`;
   const exitReport = fs.existsSync(exitPath) ? JSON.parse(fs.readFileSync(exitPath, 'utf8')) : null;
   if (exitReport?.exitCode !== 0) errors.push(`${name}: missing or nonzero exit evidence`);
   if (name === 'audit' && exitReport?.nativeAuditExitCode !== 0) errors.push('audit: missing or nonzero native exit evidence');
+  if (name === 'coverage' && exitReport?.nativeCoverageExitCode !== 0) errors.push('coverage: missing or nonzero native exit evidence');
 }
 const readReport = name => {
   try { return JSON.parse(fs.readFileSync(`reports/${name}`, 'utf8')); }
@@ -23,6 +24,7 @@ const toolchain = readReport('toolchain.json');
 const production = readReport('production.json');
 const audit=readReport('audit.json');
 const auditContext=readReport('audit-context.json');
+const coverage=readReport('coverage-evidence.json');
 const npmVersion = toolchain?.npmVersion;
 const cwd = process.cwd().replaceAll('\\', '/');
 const suites = (tests?.testResults || []).map(suite => ({
@@ -33,6 +35,7 @@ const suites = (tests?.testResults || []).map(suite => ({
 }));
 if (!tests?.success || !(tests.numTotalTests > 0) || tests.numPassedTests !== tests.numTotalTests || suites.length === 0) errors.push('test run failed, skipped tests, or zero tests');
 const requiredSuites = [
+  'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts',
   'server/realtime.test.ts', 'server/realtimeHttp.test.ts', 'server/legacyVisibility.test.ts', 'src/utils/realtimeClient.test.ts', 'tests/ui/realtime-session.test.ts',
@@ -68,6 +71,26 @@ if (!fs.existsSync('reports/junit.xml') || !fs.readFileSync('reports/junit.xml',
 const commitSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 if (commitSha !== process.env.TEST_COMMIT_SHA) errors.push('checkout SHA differs from requested HEAD');
 const lockSha256=createHash('sha256').update(fs.readFileSync('package-lock.json')).digest('hex');
+try {
+  const policyBytes = fs.readFileSync('docs/engineering/evidence/windows-coverage-baseline.json');
+  const policy = JSON.parse(policyBytes);
+  const metrics = ['lines', 'statements', 'functions', 'branches'];
+  const floor = policy.floors?.[process.version];
+  if (policy.schema !== 1 || policy.providerVersion !== '4.1.11' || !floor) throw new Error('unmeasured coverage policy');
+  if (coverage?.commitSha !== commitSha || coverage?.nodeVersion !== process.version || coverage?.platform !== 'win32' || coverage?.architecture !== 'x64' || coverage?.providerVersion !== policy.providerVersion || coverage?.lockSha256 !== lockSha256 || coverage?.baselineSha256 !== createHash('sha256').update(policyBytes).digest('hex')) errors.push('coverage context differs from tested HEAD/runtime/lockfile/policy');
+  if (!Array.isArray(coverage?.errors) || coverage.errors.length !== 0) errors.push('coverage validation errors remain');
+  const inventory = coverage?.sourceInventory;
+  if (!Array.isArray(inventory) || inventory.length === 0 || inventory.some(item => typeof item?.path !== 'string' || !/^(src|server)\/.+\.tsx?$/.test(item.path) || !/^[a-f0-9]{64}$/.test(item?.sha256 || '')) || new Set(inventory.map(item => item.path)).size !== inventory.length || coverage?.sourceInventorySha256 !== createHash('sha256').update(JSON.stringify(inventory)).digest('hex')) errors.push('coverage inventory is empty, invalid or changed');
+  for (const name of metrics) {
+    const metric = coverage?.total?.[name];
+    if (typeof floor[name] !== 'number' || floor[name] < 0 || floor[name] > 100 || coverage?.floor?.[name] !== floor[name] || !Number.isInteger(metric?.total) || metric.total <= 0 || !Number.isInteger(metric?.covered) || metric.covered < 0 || metric.covered > metric.total || metric.skipped !== 0 || typeof metric.pct !== 'number' || metric.pct < floor[name] || metric.pct > 100) errors.push(`coverage ${name} differs from measured floor or has invalid counters`);
+  }
+  for (const name of ['coverage-final.json', 'coverage-summary.json', 'lcov.info', 'index.html']) {
+    const reportPath = `reports/coverage/${name}`;
+    const recordedHash = coverage?.reportHashes?.[name];
+    if (!/^[a-f0-9]{64}$/.test(recordedHash || '') || !fs.existsSync(reportPath) || createHash('sha256').update(fs.readFileSync(reportPath)).digest('hex') !== recordedHash) errors.push(`coverage report missing or changed: ${name}`);
+  }
+} catch (error) { errors.push(`coverage policy/reports invalid: ${error.message}`); }
 if(!audit||audit.error||!audit.vulnerabilities||typeof audit.vulnerabilities!=='object'||Array.isArray(audit.vulnerabilities)||Object.keys(audit.vulnerabilities).length!==0||!['info','low','moderate','high','critical','total'].every(name=>audit.metadata?.vulnerabilities?.[name]===0))errors.push('dependency audit missing, invalid, or contains remaining vulnerabilities');
 if(auditContext?.commitSha!==commitSha||auditContext?.nodeVersion!==process.version||auditContext?.platform!=='win32'||auditContext?.architecture!=='x64'||auditContext?.lockSha256!==lockSha256)errors.push('dependency audit context differs from tested HEAD/runtime/lockfile');
 if (production?.commitSha !== commitSha || production?.nodeVersion !== process.version || production?.platform !== 'win32' || production?.architecture !== 'x64' || !Array.isArray(production?.checks)) errors.push('production startup evidence missing or contradicts tested runtime/SHA');
@@ -81,7 +104,7 @@ const evidence = {
   commitSha, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT),
   runnerOS: `${os.type()} ${os.release()}`, runnerImage: process.env.ImageOS,
   runnerImageVersion: process.env.ImageVersion, nodeVersion: process.version, npmVersion, toolchain,
-  checks, suites, native, production, audit, auditContext, lockSha256, server2019Acceptance: 'not-run', errors,
+  checks, suites, native, production, audit, auditContext, coverage, lockSha256, server2019Acceptance: 'not-run', errors,
 };
 fs.writeFileSync('reports/evidence.json', JSON.stringify(evidence, null, 2) + '\n');
 console.log(JSON.stringify(evidence, null, 2));
