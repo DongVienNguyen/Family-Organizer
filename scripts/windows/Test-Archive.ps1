@@ -39,7 +39,9 @@ try {
         try { Expand-VerifiedArchive $zipPath $target } catch { $rejected=$true }
         $noFiles=!(Test-Path -LiteralPath $target)
         if (!$rejected -or !$noFiles) { $failures+=$case }
-        $results+=@{case=$case;rejected=$rejected;noFilesWritten=$noFiles;remainingBytes=if (Test-Path -LiteralPath $target) { [long](Get-ChildItem -LiteralPath $target -Recurse -File | Measure-Object -Property Length -Sum).Sum } else {0}}
+        [long]$remainingBytes=0
+        if (Test-Path -LiteralPath $target) { foreach ($file in Get-ChildItem -LiteralPath $target -Recurse -File) { $remainingBytes+=$file.Length } }
+        $results+=@{case=$case;rejected=$rejected;noFilesWritten=$noFiles;remainingBytes=$remainingBytes}
 
     }
     $safeZip=Join-Path $fixture 'safe.zip'
