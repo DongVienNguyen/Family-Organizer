@@ -1,0 +1,55 @@
+{
+  "taskId": "F07-l",
+  "triggerRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38312242120",
+  "triggerSha": "a571d62bc5ce8a905ffc690702dcb16bf9eb704d",
+  "node24": {
+    "total": 1918,
+    "passed": 1916,
+    "failed": 2,
+    "failures": [
+      "recoveryRetention pruning PATH_INVALID",
+      "recoveryRetention wrong-key expectedAUTH_INVALID gotPATH_INVALID"
+    ]
+  },
+  "service": {
+    "failurePhase": "update-ready",
+    "error": "ECONNREFUSED; service log Startup validation failed without reason",
+    "fixtureCleanup": true,
+    "serviceRemoved": true
+  },
+  "fullCiLogSha256": "5c903b8bfb2f192db603f6ace63dc09e50910df3cbda4fc60fffd9309263a41b",
+  "actualReds": {
+    "directoryNumberPrecision": {
+      "failed": 1,
+      "priorPassed": 39
+    },
+    "atomicLeafPublication": {
+      "failed": 1,
+      "priorPassed": 25
+    }
+  },
+  "diagnosticContractReds": {
+    "gcPressureReceiptAvailability": 1,
+    "safeStartupBindingCode": 1
+  },
+  "gcTrial": "old-space64 alone yielded observed totalheap256MiB and timeout afterloopmarker; semi-space8 added, totalheap<=128MiB asserted; all300000 checks/15s timeout/nativeexit preserved",
+  "sourceTargetGreen": 218,
+  "sourceTargetFiles": 5,
+  "fullSource": {
+    "passed": 1924,
+    "total": 1924,
+    "files": 104,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "workers": 1,
+    "nodeVersion": "v24.21.0",
+    "sourceFrozen": true
+  },
+  "nativeCauseLimits": "Two defect classes reproduced; old generic service log cannot prove exact native error code, no false native diagnosis or correctedWindows claim",
+  "review": "pending onefresh wholebranch",
+  "releaseVps": "forbidden",
+  "lintExit": 0,
+  "buildExit": 0,
+  "dependencyLockRuntimeChanges": false
+}

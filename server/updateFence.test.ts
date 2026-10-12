@@ -39,3 +39,31 @@ it('refuses approval whose control read crosses the monotonic deadline',async()=
  const {loadUpdateAttempt,validateUpdateStartup}=await load();publish('approve');const attempt=loadUpdateAttempt(config),app=express(),mark=vi.fn();app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));vi.spyOn(performance,'now').mockReturnValueOnce(0).mockReturnValueOnce(1).mockReturnValue(10);
  const runtime=await startManagedServer({app,jobs:new (await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:5}),closeStorage:()=>{}});try{await expect(runtime.ready).rejects.toThrow('UPDATE_APPROVAL_TIMEOUT');expect(mark).not.toHaveBeenCalled();}finally{await runtime.close();}
 });
+
+it.each(['bound-approval','foreign-approval'])('handles atomic fixed-leaf publication %s while retaining all startup fences',async mode=>{
+ const {loadUpdateAttempt,validateUpdateStartup}=await load();publish();const attempt=loadUpdateAttempt(config),app=express(),mark=vi.fn(),originalRead=fs.readSync.bind(fs);let replaced=false;
+ app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{
+  const count=(originalRead as any)(...args);
+  if(!replaced&&args[1]instanceof Buffer&&args[1].subarray(0,count).toString().includes('"phase":"held"')){
+   replaced=true;const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve',operationId:mode==='foreign-approval'?randomUUID():control.operationId}));fs.renameSync(staged,controlFile);
+  }
+  return count;
+ })as any);
+ const runtime=await startManagedServer({app,jobs:new(await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});
+ try{
+  if(mode==='bound-approval'){await runtime.ready;expect(runtime.state.phase).toBe('ready');expect(mark).toHaveBeenCalledTimes(1);}
+  else{await expect(runtime.ready).rejects.toThrow(/UPDATE_/);expect(runtime.state.phase).toBe('failed');expect(mark).not.toHaveBeenCalled();}
+  expect(replaced).toBe(true);
+ }finally{await runtime.close();}
+});
+
+it('bounds repeated atomic leaf replacement to three reads and closes every control descriptor',async()=>{
+ const {loadUpdateAttempt,validateUpdateStartup}=await load();publish();const attempt=loadUpdateAttempt(config),app=express(),mark=vi.fn(),originalRead=fs.readSync.bind(fs),originalOpen=fs.openSync.bind(fs),originalClose=fs.closeSync.bind(fs);let replacements=0,opened=0,closed=0;const owned=new Set<number>();
+ app.get('/api/health',(_req,res)=>res.json({ok:true,version:'1.1.0'}));
+ vi.spyOn(fs,'openSync').mockImplementation(((...args:any[])=>{const fd=(originalOpen as any)(...args);if(args[0]===controlFile){opened++;owned.add(fd);}return fd;})as any);
+ vi.spyOn(fs,'closeSync').mockImplementation(((fd:number)=>{originalClose(fd);if(owned.delete(fd))closed++;})as any);
+ vi.spyOn(fs,'readSync').mockImplementation(((...args:any[])=>{const count=(originalRead as any)(...args);if(owned.has(args[0])&&count>0){replacements++;const staged=controlFile+'.staged';fs.writeFileSync(staged,JSON.stringify({...control,phase:'approve'}));fs.renameSync(staged,controlFile);}return count;})as any);
+ const runtime=await startManagedServer({app,jobs:new(await import('./appJobs.js')).AppJobs(),dispose:async()=>{},endStreams:()=>{}},{port:0,validateStartup:(server,signal)=>validateUpdateStartup(attempt,server,signal,{inspectStorage:()=>({integrity:'ok',users:1,schemas:versions}),markWritesPossible:mark},{pollMs:1,timeoutMs:1000}),closeStorage:()=>{}});
+ try{await expect(runtime.ready).rejects.toThrow('UPDATE_CONTROL_INVALID');expect(mark).not.toHaveBeenCalled();expect(replacements).toBe(3);expect(opened).toBe(3);expect(closed).toBe(3);expect(owned.size).toBe(0);expect(runtime.state.phase).toBe('failed');}finally{await runtime.close();}
+});

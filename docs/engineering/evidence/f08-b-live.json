@@ -1,0 +1,23 @@
+{
+  "taskId": "F08-b-live",
+  "workflowSourceSha": "a571d62bc5ce8a905ffc690702dcb16bf9eb704d",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38312563391",
+  "workflowConclusion": "success",
+  "workflowPath": ".github/workflows/release-candidate.yml",
+  "runnerLabels": [
+    "windows-2022"
+  ],
+  "explicitTargetSha": "de66d95c447a2b773e376bb55553f1cb6821d908",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38309067494",
+  "counts": {
+    "checks": 7,
+    "jobs": 7,
+    "artifacts": 7
+  },
+  "publicationAllowed": false,
+  "metadataSha256": "d8862313471ef7a7c16b799ad6aa5b8e69012d12fb0e0623aa22cba2def2ab6d",
+  "fullWorkflowLogSha256": "23bad2d929c0045f975b4e4126f9b5902c8625f8bd14d7078924d0727412f02f",
+  "scope": "Real Windows trusted-main Git facts and authenticated fetch metadata adapter only; no archive/report/fullcandidate/publication proof",
+  "server2019Acceptance": "not-run",
+  "verifierCorrection": "Initial outside proof script guessed wrong constant marker; actual source/log constant verified, workflow never failed"
+}
