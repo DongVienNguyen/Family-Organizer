@@ -16,7 +16,13 @@ function launch(label,operation,extra=[],credential=false){
  const args=['-NoProfile','-NonInteractive','-File',path.join(release,credential?'ops/Reset-Credentials.ps1':'ops/Recovery.ps1'),...(credential?[]:['-Operation',operation]),'-ReleaseRoot',release,'-InstanceRoot',instance,'-ServiceId',id,'-Port',port,'-ExpectedManifestSha256',manifestHash,...extra];
  const child=spawn(path.join(process.env.windir,'System32/WindowsPowerShell/v1.0/powershell.exe'),args,{env:{...process.env,PSModulePath:path.join(process.env.windir,'System32/WindowsPowerShell/v1.0/Modules')},stdio:['pipe','pipe','pipe']});let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);child.stdin.on('error',()=>{});const closed=once(child,'close');const timeout=setTimeout(()=>child.kill('SIGKILL'),45000);
  const done=(async()=>{try{const [exitCode,signal]=await closed;assert.equal(signal,null);assert.ok(!(stdout+stderr).includes(key),'recovery wrapper leaked key');evidence.nativeExitCodes.push({phase:label,exitCode});return {exitCode,stdout,stderr};}finally{clearTimeout(timeout);}})();
- return {child,done};
+ const waitReady=()=>new Promise((resolve,reject)=>{
+  let settled=false;const finish=error=>{if(settled)return;settled=true;clearTimeout(deadline);child.stdout.off('data',inspect);error?reject(error):resolve();};
+  const inspect=()=>{if(stdout.split(/\r?\n/).includes('OWNED_OPERATOR_INPUT_READY'))finish();};
+  const deadline=setTimeout(()=>finish(new Error('Owned operator readiness timeout')),8000);
+  child.stdout.on('data',inspect);done.then(result=>finish(new Error('Owned operator exited '+result.exitCode+' before ready: '+result.stdout+result.stderr)),finish);inspect();
+ });
+ return {child,done,waitReady};
 }
 async function invoke(label,operation,extra=[],input,credential=false){const task=launch(label,operation,extra,credential);task.child.stdin.end(input===undefined?undefined:JSON.stringify(input));return task.done;}
 async function lockProbe(){
@@ -36,8 +42,11 @@ try{
   const input={file,key,includeCredentials:true};assert.equal(await lockProbe(),0,'lock positive control failed');
   const first=launch('encrypted-backup','Backup');let backup;
   try{
-   const deadline=Date.now()+8000;let locked=false;while(Date.now()<deadline){if(await lockProbe()===1){locked=true;break;}}
-   assert.equal(locked,true,'owned recovery did not hold an exclusive operation lock before stdin');
+   // Polling ReadWrite opens before the holder starts can itself block its
+   // metadata reads/guard. Wait for its explicit post-guard signal, then prove
+   // actual sharing denial once; no retry or extra deadline is introduced.
+   await first.waitReady();evidence.operationInputReady=true;
+   assert.equal(await lockProbe(),1,'owned recovery did not hold an exclusive operation lock before stdin');
    const journal=path.join(instance,'data/restore-journal.json');assert.equal(fs.existsSync(journal),false);const journalBytes=Buffer.from('synthetic pending journal must remain untouched');fs.writeFileSync(journal,journalBytes);
    try{
     for(const operation of ['Backup','Restore']){const denied=await invoke('overlap-'+operation,operation,[],input);assert.equal(denied.exitCode,1);assert.match(denied.stdout+denied.stderr,/Owned operator operation already active/);assert.ok(fs.readFileSync(journal).equals(journalBytes));assert.ok(isDeepStrictEqual(rows(),before),'overlap changed rows');assert.equal(fs.existsSync(file),false);}

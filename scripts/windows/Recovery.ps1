@@ -21,6 +21,8 @@ $process=New-Object Diagnostics.Process
 $started=$false
 try{
     $operationGuard=Enter-OwnedDataOperation $context
+    # A constant readiness line lets an operator coordinate input after the guard.
+    Write-Output 'OWNED_OPERATOR_INPUT_READY'
     $inputStream=[Console]::OpenStandardInput()
     # Bounded UTF8 stdin only: no passwords in arguments, environment, files or logs.
     $buffer=New-Object byte[] 4096
