@@ -14,8 +14,16 @@ lastSuccessAt to capturedAt; these operator-supplied timestamps are not signed a
 certificates. Batches contain1–64 distinct records, keepCount2–64 and keepDays7–365.
 Copy roots must already exist, be dedicated and disjoint from source, code, storage,
 configuration, logs and the whole executing release. PowerShell verifies protected
-Administrator/SYSTEM metadata ownership with no untrusted writer at the destination.
-ValidateOnly/WhatIf return before stdin/mutation. No directory is created implicitly.
+Administrator/SYSTEM ownership and writer permissions on the destination directory
+and every existing declared ciphertext file. DeleteSubdirectoriesAndFiles is a
+write capability. Ancestors must have trusted owners and no untrusted permissions
+that can replace the protected child; inherit-only grants do not apply to the ancestor
+itself. New declared files are sealed before success; existing trusted files keep
+their ACLs. Use a dedicated protected destination under ProgramData or another
+ancestor chain meeting this policy.
+ValidateOnly/WhatIf return before stdin/mutation. No directory is created implicitly. Source, destination and protected roots are
+compared using filesystem paths, including Windows8.3 expansion and directory
+identity; a different lexical spelling cannot authorize a source/protected-root alias.
 
 Copy authenticates every declared source and existing destination before publication.
 The shared FO-RECOVERY-0001/AES256-GCM implementation validates exact framing, key,
@@ -38,7 +46,8 @@ of an all-or-nothing filesystem transaction or power-loss durability is made.
 Copy/Prune do not open SQLite or alter business tables, sessions, settings or keys.
 Restore still uses the existing staged I01 coordinator, schema/hash/constraints,
 canonical claims and session policy. The Windows harness copies actual scheduled
-ciphertext, verifies idempotency/age-count retention/untrusted-writer refusal, then
+ciphertext, verifies idempotency/age-count retention and refusals for file owners,
+explicit writers, DeleteChild, source/protected-root8.3 aliases and hostile parents, then
 restores from the copy and checks17 points/claim/business/source/key/session policy.
 Only synthetic data is used. No external provider or production destination is used.
 

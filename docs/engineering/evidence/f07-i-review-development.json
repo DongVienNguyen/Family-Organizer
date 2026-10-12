@@ -1,0 +1,32 @@
+{
+  "task": "F07-i",
+  "oneReview": true,
+  "critical": 0,
+  "important": 4,
+  "allFindingsGradedBeforeOnePass": true,
+  "nativeActualRedAssertions": 6,
+  "cloudActualRedAssertions": 3,
+  "diagnostic": {
+    "os": "Linux Cloud",
+    "tests": 1721,
+    "files": 96,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "workers": 2,
+    "targeted": 69,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "logs": {
+    "f07-i-alias-red.log": "3b60f3414b70aaad15ba7f82b4fb5157035feff03756c260dd16c9379974a47a",
+    "f07-i-review-target-green.log": "16c58faaad1a47c51ab2c7817364b220356cd4b53ab19e129b1c99afafd15298",
+    "f07-i-review-full.log": "d1046f8e9c9b801265fc0168d0d2b52de2110f9eb97d2a35d79ee359b9a65109",
+    "f07-i-review-vitest.json": "913d4a6923a64f186a0ab897b5771f5c42b719794bfb34f00ac9d84d4cdcee3b",
+    "f07-i-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f07-i-review-build.log": "cf362b105926858d70ea5e6f014b899d9342958d4a29f4b99aee0935446fb0e4"
+  },
+  "windowsCorrectedHead": "pending; prior checkpoint intentionally failed six native refusals",
+  "dependenciesLockRuntimeChanged": false,
+  "server2019Acceptance": "not-run"
+}

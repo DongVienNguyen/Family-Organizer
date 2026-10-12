@@ -39,5 +39,8 @@
     "no new P/W/domain implementation"
   ],
   "correctionPass": "one after actual regression REDs",
-  "rereview": false
+  "rereview": false,
+  "regressionEvidence": "f07-i-review-red.json",
+  "nativeRedAssertions": 6,
+  "cloudRedAssertions": 3
 }

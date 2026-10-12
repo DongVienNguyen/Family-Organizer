@@ -19,6 +19,7 @@ $operationGuard=$null
 $memory=New-Object IO.MemoryStream
 $process=New-Object Diagnostics.Process
 $started=$false
+$existingDestinations=New-Object 'System.Collections.Generic.HashSet[string]'
 $buffer=$null;$inspectionBytes=$null;$inspectionText=$null;$inspectionPacket=$null
 try{
     $operationGuard=Enter-OwnedDataOperation $context
@@ -44,6 +45,13 @@ try{
         catch{throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
         if($inspectionPacket.copyRoot -isnot [string]){throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
         Assert-ServiceMetadataAcl $inspectionPacket.copyRoot
+        Assert-RecoveryCopyAncestors $inspectionPacket.copyRoot
+        if($inspectionPacket.records -isnot [array]){throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
+        foreach($record in $inspectionPacket.records){
+            if($record.fileName -isnot [string] -or $record.fileName -cnotmatch '^recovery_[a-f0-9-]{36}\.fo-recovery$'){throw 'RECOVERY_MAINTENANCE_INPUT_INVALID'}
+            $destination=Join-Path $inspectionPacket.copyRoot $record.fileName
+            if(Test-Path -LiteralPath $destination){Assert-ServiceMetadataAcl $destination;[void]$existingDestinations.Add($record.fileName)}
+        }
     }
     $info=New-Object Diagnostics.ProcessStartInfo
     $info.FileName=$context.node
@@ -80,6 +88,16 @@ try{
     if($Operation -eq 'Backup'){if($result.encrypted -ne $true -or $result.sha256 -cnotmatch '^[a-f0-9]{64}$' -or $result.bytes -le 48){throw 'Recovery operator result invalid'}}
     elseif($Operation -in @('Copy','Prune')){if(($result.copied -isnot [int] -and $result.copied -isnot [long]) -or ($result.pruned -isnot [int] -and $result.pruned -isnot [long]) -or ($result.retained -isnot [int] -and $result.retained -isnot [long]) -or $result.copied -lt 0 -or $result.copied -gt 64 -or $result.pruned -lt 0 -or $result.pruned -gt 64 -or $result.retained -lt 1 -or $result.retained -gt 64 -or $result.receipts -isnot [array] -or $result.receipts.Count -lt 1 -or $result.receipts.Count -gt 64 -or $result.pruned+$result.retained -ne $result.receipts.Count){throw 'Recovery maintenance result invalid'}}
     elseif($result.sessionsRevoked -ne $true -or $result.restoredFiles -lt 0){throw 'Recovery operator result invalid'}
+    if($Operation -eq 'Copy'){
+        # New files inherit protected grants, but Windows can assign the elevated
+        # caller's SID as owner. Seal only declared authenticated outputs.
+        foreach($receipt in $result.receipts){
+            if($receipt.fileName -isnot [string] -or $receipt.fileName -cnotmatch '^recovery_[a-f0-9-]{36}\.fo-recovery$'){throw 'Recovery maintenance result invalid'}
+            $destination=Join-Path $inspectionPacket.copyRoot $receipt.fileName
+            if(!$existingDestinations.Contains($receipt.fileName)){Set-OwnedServiceAcl $destination '' 'RX'}
+            Assert-ServiceMetadataAcl $destination
+        }
+    }
     $result | ConvertTo-Json -Depth 6 -Compress
 }finally{
     try{

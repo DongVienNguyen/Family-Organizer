@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import type {AppConfig} from './config.js';
+import {recoveryProtectedRoots} from './recoveryOperator.js';
 import {readBackupConfiguration,readBackupKey,validateBackupConfig} from './recoverySchedule.js';
 import {authenticateRecovery,recoveryEnvelopeLimit,recoveryEnvelopeOverhead} from './recoveryEnvelope.js';
 import {assertNoLinkedAncestors} from '../scripts/lib/native-paths.mjs';
@@ -12,6 +13,13 @@ export class RecoveryRetentionError extends Error {}
 function refuse(code='RECOVERY_MAINTENANCE_INPUT_INVALID'):never{throw new RecoveryRetentionError(code);}
 function noLinks(file:string){try{assertNoLinkedAncestors(file);}catch{refuse('RECOVERY_MAINTENANCE_PATH_INVALID');}}
 function contains(root:string,file:string){const rel=path.relative(root,file);return rel===''||(!rel.startsWith('..'+path.sep)&&rel!=='..'&&!path.isAbsolute(rel));}
+// Resolve existing ancestors as well as the final directory. Windows native
+// realpath expands 8.3 names; lexical spelling alone is not a storage boundary.
+function physicalPath(file:string):string{
+ noLinks(file);let existing=file;const tail:string[]=[];
+ while(!fs.lstatSync(existing,{throwIfNoEntry:false})){const parent=path.dirname(existing);if(parent===existing)refuse('RECOVERY_MAINTENANCE_PATH_INVALID');tail.unshift(path.basename(existing));existing=parent;}
+ return path.join(fs.realpathSync.native(existing),...tail);
+}
 function validate(records:unknown,policy:RecoveryRetentionPolicy,now:number):RecoveryRecord[]{
  if(!policy||Object.keys(policy).sort().join(',')!=='keepCount,keepDays'||!Number.isSafeInteger(policy.keepCount)||policy.keepCount<2||policy.keepCount>64||!Number.isSafeInteger(policy.keepDays)||policy.keepDays<7||policy.keepDays>365||!Number.isSafeInteger(now)||now<0||!Array.isArray(records)||records.length<1||records.length>64)refuse();
  const seen=new Set<string>();
@@ -47,7 +55,13 @@ export async function maintainRecoveryBackups(value:unknown,config:AppConfig,pru
  try{
   if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).sort().join(',')!=='copyRoot,keepCount,keepDays,records')refuse();const input=value as RecoveryMaintenanceRequest,policy={keepCount:input.keepCount,keepDays:input.keepDays},records=validate(input.records,policy,Date.now());
   const configuration=readBackupConfiguration(config);if(!configuration.enabled)refuse('RECOVERY_MAINTENANCE_CONFIGURATION_REQUIRED');
-  let target:string;try{const checked=validateBackupConfig({...configuration,backupRoot:input.copyRoot},config);if(!checked.enabled)refuse();target=checked.backupRoot;if(contains(configuration.backupRoot,target)||contains(target,configuration.backupRoot))refuse();for(const root of [configuration.backupRoot,target]){noLinks(root);if(!fs.lstatSync(root).isDirectory())refuse();}}catch{refuse('RECOVERY_MAINTENANCE_PATH_INVALID');}
+  let target:string;try{
+   const checked=validateBackupConfig({...configuration,backupRoot:input.copyRoot},config);if(!checked.enabled)refuse();target=checked.backupRoot;
+   const sourceStat=fs.lstatSync(configuration.backupRoot),targetStat=fs.lstatSync(target);
+   if(!sourceStat.isDirectory()||!targetStat.isDirectory()||(sourceStat.dev===targetStat.dev&&sourceStat.ino===targetStat.ino))refuse();
+   const sourcePhysical=physicalPath(configuration.backupRoot),targetPhysical=physicalPath(target),protectedRoots=recoveryProtectedRoots(config).map(physicalPath);
+   if(contains(sourcePhysical,targetPhysical)||contains(targetPhysical,sourcePhysical)||[sourcePhysical,targetPhysical].some(root=>protectedRoots.some(protectedRoot=>contains(root,protectedRoot)||contains(protectedRoot,root))))refuse();
+  }catch{refuse('RECOVERY_MAINTENANCE_PATH_INVALID');}
   key=readBackupKey(configuration.keyFile);
   // Authenticate every declared source and existing destination before any write/delete.
   const existing=new Set<string>();
