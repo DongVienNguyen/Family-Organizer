@@ -1724,7 +1724,7 @@ export default function App() {
             </div>
             <div>
               <span className="text-md font-extrabold text-slate-100 block tracking-tight">Family Organizer</span>
-              <span className="text-[9px] uppercase font-mono tracking-widest text-slate-500">Raspberry Pi 5 Hub</span>
+              <span className="text-[9px] uppercase font-mono tracking-widest text-slate-500">Không gian gia đình</span>
             </div>
           </div>
 
@@ -2137,7 +2137,7 @@ export default function App() {
                   </div>
                   <div>
                     <span className="text-sm font-bold text-slate-100 block">Family Hub</span>
-                    <span className="text-[9px] uppercase font-mono text-slate-500">Raspberry Pi Server</span>
+                    <span className="text-[9px] uppercase font-mono text-slate-500">Không gian gia đình</span>
                   </div>
                 </div>
                 <button 

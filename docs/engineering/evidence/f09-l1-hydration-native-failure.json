@@ -1,0 +1,48 @@
+{
+  "taskId": "F09-l1",
+  "testedHeadSha": "44cbc5ac5d9f58627f57980af299442fd99e062e",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38427772120",
+  "checks": "Five quality/package/service pass; browser and ci-gate failed",
+  "qualityEach": 2804,
+  "filesEach": 136,
+  "browser": {
+    "passedFirstAttempt": 41,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0,
+    "case": "B15 calendar private edit reload and child boundary/webkit",
+    "causeEvidence": "New fixture hydration failure, not45s budget. Trace frontend GETplans433382 returnedempty beforeAPI POSTplans433449 createdrecord200; SSE request433518 startedaftercreation. DOMinitialMember/agenda remainedempty/connecting, heading assertionfailed10s. API fixture does not run UI local-state update; explicitly reload/hydrate before UI editor."
+  },
+  "nonBrowserIndependentValidators": 7,
+  "fixture": {
+    "commitSha": "44cbc5ac5d9f58627f57980af299442fd99e062e",
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "lockSha256": "4df93eb09b90073da9a8fd5714b77e5b49d0be906aef3bf346a371ad0c0e0075",
+    "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "productionBuild": {
+      "serverSha256": "c8ca2842d98c8470d3f4e8302f467ff3ff3f18f4fb0af4356bb57be7a70264f0",
+      "indexSha256": "8d47f11576cce2b1b4de6d0442053f11e6fe55e0bb8e53e8c605893c7a3aae8f"
+    },
+    "legacyPreserved": true,
+    "integrity": "ok",
+    "databaseClosed": true,
+    "fixtureRemoved": true,
+    "externalAttempts": [],
+    "serverExitCode": 0,
+    "serverSignal": null,
+    "cliExitCode": 1,
+    "cliSignal": null,
+    "error": "Playwright native exit was nonzero\n\n1 !== 0\n"
+  },
+  "reportHashes": {
+    "browser.json": "3cec2c6d43ec56a865bd71a1a9616642e732f87bce8eb3bdb562ef8568aa8dc0",
+    "browser.junit.xml": "88b79ce6e4445d0bac45d8f8b93af63ed00a466e5071cb65c5dcd543663568dd",
+    "browser-fixture.json": "20e6b286354ac814668a04f4b88f41b5598769c62069cdc959929007e862cd3f"
+  },
+  "fullLogSha256": "62d557202539fd5bea215d795bbf99c4e43f8840fe9ecca2e5b6d63b52b30602",
+  "allSevenArtifactsRetained": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

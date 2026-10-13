@@ -1,0 +1,48 @@
+{
+  "taskId": "F09-l",
+  "baseSha": "8d44da8925698c7b2067769a181904f62f42ec99",
+  "scope": "Existing document create/edit/persistence/search drilldown/child API/UI boundaries and two stalePi subtitle replacements, currentWindows root/backup docs; no new feature/style/API/provider",
+  "actualGateRed": 2,
+  "actualBrandingBrowserRed": 1,
+  "targetGreen": 168,
+  "fullGreen": 2801,
+  "fullFiles": 136,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "originalTwelveFlowBytePrefixPreserved": true,
+  "sourceHashes": {
+    "README.md": "377cc2f3c8c07d15e82892a365464b6749a0bce1255dde5d3dbf9670069edc85",
+    "scripts/ci/browser-contract.mjs": "9d7b43e1de5519cc1f370574ffd75316df65b3506bb703444c119f3dfca2c131",
+    "src/App.tsx": "8ee6c85221b5773dda8db6116c1268ad45d6ebdebfdf9d5b1930038365921e31",
+    "tests/browser-evidence.test.ts": "56c53814103fed34e4221b5f5295d4e75f04e5f529d0016025c193b73dbb65f9",
+    "tests/e2e/foundation.spec.ts": "bc6dde8fc1b8711ac223b1b8b93e947d5d810b290de8220b82d34bc35879ecab"
+  },
+  "verificationHashes": {
+    "f09-l-gate-red.json": "c5702d0d64ab51071ba60215592abd271852a2cff84a15d23e7682e82f98954d",
+    "f09-l-target.json": "29316a7adff033c5e933e34d00996bb8264427459758cd1c7f9af486106adac6",
+    "f09-l-full.json": "9402e74c3c3d75f2894b31d4d990febc2e3e764d78120fd371b46415d856cced",
+    "f09-l-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "f09-l-build.log": "7a40d053c1d6963c71afa6d1bca39158fec7e03cda3d53729b0fe840ede53469",
+    "f09-l-cloud-red-reports/browser.json": "84e28d7aa983b36c875c0f0a5cf7ea90fe68e31f79d21c66564cc84b132781c7",
+    "f09-l-cloud-red-reports/browser.junit.xml": "078e5d6d5d7b2d79dc81ba119a4746c9d39cb83537d659667a89ac8e282f1ccf",
+    "f09-l-cloud-green-reports/browser-cli.log": "6a0807516259e310d85a86072cf9e49d33d7c015c3fec9b0f3e121b33979304c",
+    "f09-l-cloud-green-reports/browser-fixture.json": "29f89b60f4872d88dc9ae38aa68559d650a612a669b3a1651cdf25c4b406511c"
+  },
+  "cloudBrowserDiagnostic": "ActualB13ChromiumbrandingREDmissinghouseholdlabel beforetwoUIcopyreplacements; afterbuildoneB13PASS16seconds/compiled0/closedDB/cleanup/noexternal. Linuxdiagnostic only; app+testsourcehashbounddirtydraft atbase8d",
+  "uiStylesPreserved": true,
+  "readDesign": "DESIGN.md originalpatterns/class/styleunchanged",
+  "windows": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": [
+    "Acceptedparents/native39",
+    "Notification/dashboard/inventory/flagmapping/fullF09",
+    "First-accountmaskedPSwrapper actualcoveragegap",
+    "F05Administration403",
+    "Server2019/R02",
+    "Actualrelease/tag/VPS unauthorized"
+  ]
+}
