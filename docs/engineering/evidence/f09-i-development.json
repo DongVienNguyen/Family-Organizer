@@ -15,7 +15,7 @@
   "sourceHashes": {
     "scripts/ci/browser-contract.mjs": "e944f1af17c653f1a64dcc02356f08829b201fcc72bd4f3c403aae24a951d896",
     "tests/browser-evidence.test.ts": "aaed956313b1da9daadca480d368c4baa27632ffd8445d837aedf32875c24a45",
-    "tests/e2e/foundation.spec.ts": "1dcf4b115977f53b212ce4e73bce809cfee7022033a42a8c35c14cc1211bc48b"
+    "tests/e2e/foundation.spec.ts": "d036ac5fae5fb94a00fb1e9be23193c89b8a8ceddc6e47227d7f9fa4493a3ce4"
   },
   "verificationHashes": {
     "f09-i-gate-red.json": "de15f7d4e585f556682d6d3376414e9f0a97c6427a1e451e231d4746b01c670e",
@@ -44,6 +44,9 @@
     "Release/tag/VPS unauthorized"
   ],
   "priorCorrectedCloudTests": 2733,
-  "reviewedOwnSourceByteAgreement": true,
-  "review": "ONE3d30054/base7640 reviewer/author0C0I1M ALLgraded beforeactions; Minor historical21/24negativefixtures deferred, zero sourcefixpass/no rereview"
+  "reviewedOwnSourceByteAgreement": false,
+  "review": "ONE3d30054/base7640 reviewer/author0C0I1M ALLgraded beforeactions; Minor historical21/24negativefixtures deferred, zero sourcefixpass/no rereview",
+  "reviewedNineFlowPrefixByteAgreement": true,
+  "nativeCorrectionPassCount": 1,
+  "nativeCorrection": "ActualWindows38404820753 WebKitrouteboundary failure; fixturegate moved beforefetch, all assertions/budgets/SW retained. No app/unit source change; prior2772 Cloud unit evidence unchanged. NewexactWindowsall30pending."
 }
