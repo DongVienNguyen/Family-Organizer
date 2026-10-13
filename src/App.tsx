@@ -1,3 +1,4 @@
+import {completeNotificationRead} from './utils/notificationRead.js';
 import {invalidateManagedMedia} from './utils/mediaResource.js';
 import {sessionFetch as fetch} from './utils/browserSession.js';
 /**
@@ -1603,21 +1604,15 @@ export default function App() {
   };
 
   const handleMarkNotifRead = async (id: string) => {
-    await fetch(`/api/notifications/${id}/read`, {
-      method: "POST",
-      headers: getAuthHeader()
-    });
-    // refresh
-    fetchNotifications();
+    await completeNotificationRead(() => fetch(`/api/notifications/${id}/read`, {
+      method: "POST", headers: getAuthHeader()
+    }), () => { void fetchNotifications(); });
   };
 
   const handleMarkAllNotifsRead = async () => {
-    await fetch(`/api/notifications/read-all`, {
-      method: "POST",
-      headers: getAuthHeader()
-    });
-    // refresh
-    fetchNotifications();
+    await completeNotificationRead(() => fetch("/api/notifications/read-all", {
+      method: "POST", headers: getAuthHeader()
+    }), () => { void fetchNotifications(); });
   };
 
   // Escape-to-close + background scroll lock for overlay surfaces

@@ -77,6 +77,13 @@ try {
   const users = ['admin', 'member', 'child', 'guest'].map(role => ({ id: `browser-${role}`, username: `browser-${role}`, fullName: `Synthetic ${role}`, role, passwordHash }));
   const note = (scope, creatorId, isShared) => ({ id: `browser-note-${scope}`, title: `Synthetic ${scope} note`, content: `Synthetic ${scope} content ![synthetic ${scope}](/uploads/notes/${scope}.png)`, tags: [], isPinned: false, creatorId, isShared, allowedRolesToEdit: [], createdAt: '2026-10-12', updatedAt: '2026-10-12' });
   const legacy = { users, notes: [note('private', 'browser-member', false), note('shared', 'browser-admin', true), note('child', 'browser-child', false)], transactions: [{ id: 'browser-finance', amount: 123456, type: 'expense', category: 'food', date: '2026-10-12', description: 'Synthetic adult finance' }] };
+  // Stored synthetic notices only: seed data bypasses all send/outbox adapters.
+  legacy.notifications = ['member', 'child'].flatMap(role => ['chromium', 'firefox', 'webkit'].map(engine => ({
+    id: 'browser-notification-' + role + '-' + engine, userId: 'browser-' + role,
+    title: 'Synthetic ' + role + ' notification ' + engine, content: 'Synthetic stored-only notice',
+    type: 'note', sourceRef: { domain: 'note', id: role === 'member' ? 'browser-note-private' : 'browser-note-child' },
+    isRead: false, createdAt: '2026-10-13T00:00:00.000Z',
+  })));
   const legacyText = JSON.stringify(legacy);
   fs.writeFileSync(path.join(data, 'db.json'), legacyText);
   fs.writeFileSync(path.join(config, 'app_settings.json'), '{}');

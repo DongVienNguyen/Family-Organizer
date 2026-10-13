@@ -1,0 +1,36 @@
+{
+  "taskId": "F09-m",
+  "reviewCount": 1,
+  "reviewedHead": "ba8b5915701b22368fdde624dd6658ce8f286cf4",
+  "baseSha": "93f2f5018033547af375331590e94967902382cd",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 1,
+  "reReview": false,
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Important",
+      "decision": "fix in the single correction pass",
+      "effect": "B14 current-month summary and Finance drilldown require the October2026 synthetic transaction. Current wall-clock month can make balance trivially zero and expected row absent.",
+      "verification": "Reproduce out-of-month actual browser failure, then use existing B07 fixed October time before navigation without changing assertions."
+    },
+    {
+      "id": 2,
+      "grade": "Minor",
+      "decision": "defer",
+      "effect": "Isolated three-engine B14 execution expects text 0 for final unread notice; App renders no zero badge. Full-suite B08 additional adult notices currently mask the dependency.",
+      "next": "Future focused isolated-flow coverage correction; retain current full-suite assertions in this pass."
+    }
+  ],
+  "scopeRulings": "Nine source and twelve evidence hashes and original thirteen-flow prefix verified by reviewer. Consume guarded acknowledgement JSON before refresh retains owner completion and obsolete-actor rejection. Exact new Windows42 required; Cloud diagnostics are not acceptance."
+}

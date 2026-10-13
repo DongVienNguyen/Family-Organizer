@@ -15,6 +15,7 @@ export const browserCases = [
   'B12 calendar recurrence edit and ICS',
   'B13 documents search and household navigation',
   'B15 calendar private edit reload and child boundary',
+  'B14 dashboard and notification actor isolation',
 ];
 export function validateBrowserReports(input, policy) {
   const requiredProjects=policy?.projects??browserProjects,requiredFlows=policy?.cases??browserCases;
