@@ -10,9 +10,10 @@ const nativeFailureCodes=['EBUSY','EACCES','EPERM','ENOENT','EMFILE','ENFILE','E
 export class UpdateFenceError extends Error {readStage?:string;nativeCode?:string;}
 export function formatUpdateStartupFailure(error:unknown):string{
  if(!(error instanceof UpdateFenceError))return '';
- const code=['UPDATE_CONTROL_INVALID','UPDATE_BINDING_INVALID','UPDATE_SCHEMA_INCOMPATIBLE','UPDATE_STARTUP_CANCELLED','UPDATE_HEALTH_FAILED','UPDATE_STORAGE_FAILED','UPDATE_APPROVAL_TIMEOUT'].includes(error.message)?` [${error.message}]`:'';
- const stage=['ancestors','leaf-stat','descriptor-open','descriptor-read','descriptor-eof','descriptor-after','parents-after','leaf-after','metadata-after'].includes(error.readStage??'')?` [read-stage:${error.readStage}]`:'';
- const native=nativeFailureCodes.includes(error.nativeCode??'')?` [native-code:${error.nativeCode}]`:'';
+ const [message,readStage,nativeCode]=['message','readStage','nativeCode'].map(name=>Object.getOwnPropertyDescriptor(error,name)?.value);
+ const code=['UPDATE_CONTROL_INVALID','UPDATE_BINDING_INVALID','UPDATE_SCHEMA_INCOMPATIBLE','UPDATE_STARTUP_CANCELLED','UPDATE_HEALTH_FAILED','UPDATE_STORAGE_FAILED','UPDATE_APPROVAL_TIMEOUT'].includes(message)?` [${message}]`:'';
+ const stage=['ancestors','leaf-stat','descriptor-open','descriptor-read','descriptor-eof','descriptor-after','parents-after','leaf-after','metadata-after'].includes(readStage)?` [read-stage:${readStage}]`:'';
+ const native=nativeFailureCodes.includes(nativeCode)?` [native-code:${nativeCode}]`:'';
  return code+stage+native;
 }
 function refuse(code='UPDATE_CONTROL_INVALID'):never{throw new UpdateFenceError(code);}
