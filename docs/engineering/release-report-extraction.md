@@ -29,14 +29,29 @@ preexisting/replaced roots and partial failures. The native probe uses trusted
 checkout scripts only and does not authenticate GitHub evidence.
 
 This is a staged preflight: rawQualityAssertionsVerified is true only after both
-JSON/JUnit/native-exit policies pass; reportsVerified and publicationAllowed stay
-false. Native/production/audit/raw coverage, browser engines/cases, inner package
-bytes/manifest/licenses, consumer, service/coordinator and cleanup still need the
-complete collector. Root certificate and Caddy execution acceptance belongs to
-PR43 evidence, not to this ZIP slice. No Server2019, release/tag or VPS claim.
+JSON/JUnit/native-exit policies pass. F08-f additionally reads both runtimes'
+actual native.json, production.json, audit.json and audit-context.json, requiring
+exact agreement with their quality receipt and the expected target Git context.
+It checks pinned Node/addon/SQLite/binary identity, six native checks, 23 compiled
+production checks, seven schema-preservation refusals and zero audit vulnerabilities.
 
-Source checks are215 targeted assertions across4files and frozen corrected full2214/113
-Cloud assertions with zero failed/pending/todo and lint/build0. Native source,
-the single wholebranch review is complete (0Critical/1Important/1Minor, both\naccepted before one correction pass). Exact-HEAD Windows and a post-merge trusted-main
-live dispatch are mandatory before this slice is accepted. Historical errors and
-filtered RED runs are not complete suite success.
+Raw coverage is read from coverage-final.json, coverage-summary.json, LCOV and
+HTML. Its exact byte hashes, counters, source inventory and floors must agree
+with the target Git policy and quality receipt. Only unique safe Windows source
+suffixes are normalized; extra/missing sources, aliases and mismatched counters
+are refused. runtimeProductionAuditVerified and rawCoverageVerified are set only
+after both runtimes pass. Each reader is bounded and rejects linked/replaced files.
+
+reportsVerified and publicationAllowed remain false. Browser engines/cases, inner
+package bytes/manifest/licenses, consumer, service/coordinator, SDK/Caddy and all
+cleanup reports still need the complete collector. No report supplied separately
+by an operator is authenticated authority. The live adapter reads the same-process
+API-bound extracted archives; it never executes downloaded code.
+
+PR44 accepted Windows2249/114 with both pinned local SDKs and native synthetic
+archive extraction. The real trusted-main dispatch38345761738 accepted seven
+archives/743files/100984074 expanded bytes and raw2150/110 assertions from explicit
+targetfb11d05/mainCI38339664320. Both were staged checks, not full F08 acceptance.
+F08-f has232 targeted assertions; its new exact-HEAD Windows and post-merge live
+checks must be recorded separately. Root certificate/Caddy proof belongs to PR43.
+Server2019, release/tag and VPS are unrun and unauthorized.

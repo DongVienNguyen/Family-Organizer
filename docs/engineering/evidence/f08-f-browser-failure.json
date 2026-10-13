@@ -1,0 +1,36 @@
+{
+  "taskId": "F08-f",
+  "testedHeadSha": "0eff5de2c5f2a8ea2aadcd25bd89b7113ce14bc3",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38347967630",
+  "failedCase": "B01 login reload logout/firefox",
+  "passedBrowserCases": 23,
+  "failedBrowserCases": 1,
+  "skipped": 0,
+  "retries": 0,
+  "actualError": "uncaught dynamically imported Markdown module failed",
+  "traceSha256": "6643795b68c51f13b02cb8304425be3356126788959cc4fffd05aa4ea5b2a40f",
+  "observations": {
+    "sharedNoteTitleVisible": 73588.846,
+    "reloadStart": 73972.672,
+    "MarkdownRequestStart": 73989.299,
+    "MarkdownRequestFailure": "NS_BINDING_ABORTED",
+    "nextNavigationMarkdownResponse": 200
+  },
+  "ruling": "Note title visibility did not prove lazy Markdown content had loaded before navigation; add real rendered-content assertions before/after reload. Preserve pageerror assertion, zero retry and45s timeout; no application defect claim",
+  "sourceCorrection": "two additional Synthetic shared content visible assertions in B01",
+  "windowsCorrected": "not-run",
+  "qualityBoth": {
+    "passed": 2325,
+    "files": 117,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0
+  },
+  "otherIndependentValidators": "quality/coverage/package/service/Caddy/extraction-SDK all exited0; browser23/24 failed",
+  "review": "One original wholebranch0C0I0M; subsequent actual CI cause correction authored without rereview",
+  "server2019": "not-run",
+  "publicationAllowed": false,
+  "conclusion": "failure",
+  "ciGate": "failure",
+  "fullCiLogSha256": "29cf4a57d5f5c47ca8887f19668e491eafbfc48cff9b3194bfc5e04a4e1159cd"
+}

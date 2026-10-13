@@ -14,11 +14,13 @@ New-Item -ItemType Directory -Path $root | Out-Null
 $headers=Join-Path $root 'headers.tar.gz'
 $library=Join-Path $root 'node.lib'
 # Retry bounded transfers only for transient network failures. No npm/test retries.
-& curl.exe --fail --location --proto '=https' --proto-redir '=https' --max-time 60 --retry 2 --retry-delay 1 --retry-max-time 60 --silent --show-error --output $headers $policy.headersUrl 2>&1 | Tee-Object reports/node-sdk-headers.log
+# A 60s transfer timeout must leave time for the two permitted retries; a 60s
+# total window exhausted by the first timeout prevented any retry (main CI38347336919).
+& curl.exe --fail --location --proto '=https' --proto-redir '=https' --max-time 60 --retry 2 --retry-delay 1 --retry-max-time 180 --silent --show-error --output $headers $policy.headersUrl 2>&1 | Tee-Object reports/node-sdk-headers.log
 $native.headers=$LASTEXITCODE
 if ($native.headers -ne 0) { throw 'Pinned SDK headers transfer failed' }
 if ((Get-Item -LiteralPath $headers).Length -gt 67108864 -or (Get-FileHash -LiteralPath $headers -Algorithm SHA256).Hash.ToLowerInvariant() -cne $policy.headersSha256) { throw 'SDK headers hash rejected' }
-& curl.exe --fail --location --proto '=https' --proto-redir '=https' --max-time 60 --retry 2 --retry-delay 1 --retry-max-time 60 --silent --show-error --output $library $policy.libraryUrl 2>&1 | Tee-Object reports/node-sdk-library.log
+& curl.exe --fail --location --proto '=https' --proto-redir '=https' --max-time 60 --retry 2 --retry-delay 1 --retry-max-time 180 --silent --show-error --output $library $policy.libraryUrl 2>&1 | Tee-Object reports/node-sdk-library.log
 $native.library=$LASTEXITCODE
 if ($native.library -ne 0) { throw 'Pinned SDK library transfer failed' }
 if ((Get-Item -LiteralPath $library).Length -gt 134217728 -or (Get-FileHash -LiteralPath $library -Algorithm SHA256).Hash.ToLowerInvariant() -cne $policy.librarySha256) { throw 'SDK library hash rejected' }

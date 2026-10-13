@@ -1,0 +1,45 @@
+{
+  "taskId": "F08-f",
+  "scope": "Staged native/runtime/production/audit/raw coverage collector; whole reports and publication remain disabled",
+  "baseSha": "edb09e0d03a12648a6b245fef621d5ab009b7ff8",
+  "availabilityRed": {
+    "runtimePolicy": 44,
+    "runtimeFiles": 8,
+    "coverageFiles": 20
+  },
+  "gateRed": 3,
+  "targetGreen": 232,
+  "fullGreen": 2328,
+  "fullFiles": 118,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "20e6244f30f55bc443f602c79ee7bd4df026cc3a33f629655a273664b3ec197b",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "actualOldWindowsRawFiles": "Both PR44 runtimes validated by Cloud helper only; not new Windows/live adapter acceptance",
+  "ci": "initial0eff5de/38347967630 failedFirefoxB01 only; newcorrectedHEAD pending",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false,
+  "reportsVerified": false,
+  "historicalSourceProof": {
+    "baseSha": "1f4cef43655b43b32ff018460fcf4b58a28cc0c1",
+    "fullGreen": 2324,
+    "fullFiles": 117,
+    "fullReportSha256": "05cde9152d8200696beb7817df038abaa88dce6e2963101010e887ec22377f88"
+  },
+  "review": "One original wholebranch0C0I0M; subsequent actualCI-cause B01/SDK corrections authored without rereview",
+  "preCiCorrectionSourceProof": {
+    "fullGreen": 2325,
+    "fullFiles": 117,
+    "fullReportSha256": "4f3693dc2a6846c1df44850c1b7a480cdb89ddddc6a7b207204a1cd8f3cbec00"
+  },
+  "ciCorrectionTargetGreen": 163,
+  "nativeCiCauseRed": {
+    "curlTimeout": 2,
+    "missingSuite": 1
+  },
+  "fixtureError": "First SDK test attempted relativepath under isolated cwd and failedENOENT; fixed to moduleURL before observing actual curl28 RED; not counted as productfailure"
+}

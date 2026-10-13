@@ -1,0 +1,25 @@
+{
+  "taskId": "F08-f",
+  "reviewCount": 1,
+  "reviewedHeadSha": "488a32bc3417e031124c514d34f35b2bebe1a9b6",
+  "baseSha": "edb09e0d03a12648a6b245fef621d5ab009b7ff8",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "rulings": [],
+  "declinedRulings": [
+    "Current runtime/provider/binary pins are accepted foundation contract; broader version support requires reviewed source",
+    "Per-reader budgets plus complete extraction bound satisfy staged design",
+    "Browser/package/licenses/consumer/service/coordinator/publication/Server2019 and source-to-instrumentation regeneration remain outside this slice, no such acceptance claim",
+    "Historical Windows/raw-file compatibility does not prove new exactHEAD native or live adapter"
+  ],
+  "fixPass": "No findings or source corrections",
+  "rereview": false
+}
