@@ -11,16 +11,16 @@
 | Legacy UI regression | PR60/62/63/64/65 accepted: assistant, health, calendar, documents/search, dashboard/notification and earlier flows; original assertions, synthetic offline boundary and owned cleanup retained |
 | Calendar fixture | Original45s failures and hydration failure retained. B12 realUI create/recurrence/ICS/grid/detail; B15 canonical authenticated API fixture, explicitreload then realUI edit/private/reload/Child. All27 original assertion lines retained, each45s/10s/zero retries. Continuous export/detail→edit session no longer checked |
 | Native Caddy diagnostics | PR64 accepted; bounded failure-only output and child-close drain, ONE0C1I1M/all authorgraded before one pass,2 lifecycleREDs→GREEN. Both native runtimes pass latest acceptedCI. Original66c/38430254887 failure retained; its cause remains unknown. Existing UTF8 chunk-decoder Minor deferred |
+| Browser driver diagnostics | Bounded synthetic native lifecycle/UTF8stderr capture; ONE0C2I0M/allgradedbeforeonepass, real spawn/stale-evidence/descriptor regressions. Original a234/38438080677 failed44/45 atcontext close after21 expectations; cause unknown, all7artifacts/log/trace/seven nonbrowser raw passes retained |
 | Notification ownership | PR65 accepted: actual acknowledgement JSON consumed before refresh; four owner/stale actor regressions and actual browser clockRED→GREEN. ONE0C1I1M/one correction pass/no rereview; isolated zero badge Minor deferred |
-| Foundation flags/inventory F09-n | ONE0C2I0M/all authorgraded before one pass; initial failed lint/incorrect0 claim corrected and retained. Cloud2824/139 all0,192target/lintbuild0. Same-HEAD Windows45 pending |
+| Foundation flags/inventory F09-n | ONE0C2I0M/all authorgraded before one pass; initial failed lint/incorrect0 claim corrected and retained. Cloud2835/139 all0,192target/lintbuild0. PR66 source checkpoint `58171755315daca8bd8b881fa4703c4cbb668153`, [CI38442852074](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38442852074): all7/eightraw0, both2835/139/45firstattempt; final documentation HEAD needs separateCI, acceptance recorded in PR comment |
 | Read-only candidate/promotion | PR61 trusted-main candidate38414439837 and promotion38414445312 independently verified historical ZIP/full raw/normalized/handoff. Publication/tag/release false |
-| Browser driver F09-p | PR66 a234/CI38438080677 failed44/45 onlyB01 Chromium context teardown afterall21expectations, both2824/139/fiveotherchecks/sevennonbrowserraw0; all7artifacts/log/trace retained. Boundedsyntheticnativeprocessdiagnostics8RED→112target/fullCloud2832/139 all0/lintbuild0; actualCloudB01pass; ONEreview0C2I0M/allgradedbeforeONEpass, actual spawn/stale evidence/descriptor REDs→115target/fullCloud2835/139 all0/lintbuild0/CloudB01pass; initial wrong-CWD regression fixture report retained and causalPromiseRED rerun with correctURL. NewWindows required. Originalnativecauseunknown |
 | F05 blocker | Actual ruleset/branch-protection writes HTTP403; main remains unprotected with no ruleset. User authorization persists, usable integration Administration scope/enforcement still absent |
 | R02/R03 | Actual Server2019/build17763/reboot/off-host/load/RPO/RTO not-run. Windows2022 is not R02. No release/tag/VPS access or deployment authorized/performed |
 
 Historical failed runs and raw proof bytes remain intact. Deferred review rulings remain per task. Existing compiled bounded-stdin first-account initialization is verified; the historical optional masked PowerShell wrapper is unimplemented and is not a formal requirement.
 
-Next: final flags/inventory same-HEAD Windows45, then F05 enforced PR+ci-gate before P01. No repeated merge permission is needed.
+Next: verify final documentation HEAD on Windows45 and merge, then F05 enforced PR+ci-gate before P01. No repeated merge permission is needed.
 
 ## Earlier integration checkpoints — through PR46
 

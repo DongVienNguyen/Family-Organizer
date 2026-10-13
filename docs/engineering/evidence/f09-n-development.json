@@ -19,7 +19,7 @@
     "scripts/ci/write-evidence.mjs": "ad9345dfc4e4c9a6f8d69430395607ab273ee9b38d2b0cae5927e8681ccca180",
     "tests/evidence.test.ts": "61b53a7b9476b2376ecc08fa9465e552a372af74c4fe74b17fc4c378b119c4cb",
     "README.md": "fc27c8e291e9e4eba5d29b97cdf412dcfda5128a39164d8c878f6d7a523dfafb",
-    "docs/engineering/foundation-acceptance.md": "26682a122f97eebe9dfbc1d74a76ebffbba5b037149270fa57e2981449bba624",
+    "docs/engineering/foundation-acceptance.md": "8fa70f861cd0639b43f5e279df5742dfd61d6c35011f0b045ed7db94cc7b807e",
     "docs/engineering/windows-current-route-inventory.json": "cff768254b9c03e759ac62985ea8ecb86da5f21d0b7adbdfb03be32a9063b016",
     "docs/engineering/windows-operations.md": "041d546141961c670a25ec593d9adff3baf812a68c87101492570d47694fb7c2"
   },
@@ -81,5 +81,73 @@
     },
     "review": "Original ONE0C2I0M retained; no extra source correction/rereview.",
     "native": "pending parent64/M acceptance and new45-case Windows"
+  },
+  "sourceCheckpointBeforeDocumentationRefresh": {
+    "taskId": "F09-n",
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/66",
+    "testedHeadSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38442852074",
+    "checks": [
+      {
+        "name": "ci-gate",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows disposable service",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package clean consumer",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package producer",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node22 baseline",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node24 baseline",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows production browsers",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      }
+    ],
+    "summaryHashes": {
+      "quality": "a029b60328fb6fa9d1bec06e883f0618102aa14b79c69980c1c82e7d7cee1aba",
+      "coverage": "3f14d2174b3b57453be1a8645bc328fa800f2b95ee6d19c4d9df15109ab54264",
+      "browser": "a1fc5b2ecff069487b1068d715266aec2bca3e98a27d0cf038e7a475100181aa",
+      "package": "dcd7d96cc1d3a949104bfc4f0a3385cc748d07ba7e11fa75be7867c8f46a2611",
+      "service": "19e915225c2d6adf13e4de9b622fb302a3ed1bab921d8533a26fb40137d2e21d",
+      "caddy": "f73d126c31ae31c9dadb065b6e6e9e4a04732337b5a60ff13b7b5f81c7394696",
+      "extraction-sdk": "f695099410a50d676463e6891b35ad8be87a971cf146500b0a4691a55a06d44c",
+      "inner-native": "b0f74ffb830f0740c88f0a40885ecbd20cb8c7a43302b67811580901183d9fd0"
+    },
+    "fullCiLogSha256": "e71babfaf8fc6389c8cbbe9c299bc8a79ac0e56bf69ea711ec79c73681f72bbb",
+    "qualityEach": 2835,
+    "qualityFilesEach": 139,
+    "browserFirstAttempt": 45,
+    "rawValidators": 8,
+    "zipSha256": "9be8e015c79830223209099e1e4da972643bd421a90784be5566edc85b891ee6",
+    "merged": false,
+    "scope": "Exact source checkpoint before this documentation refresh. Final documentation HEAD needs its own Windows CI; recorded in PR acceptance comment."
   }
 }

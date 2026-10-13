@@ -18,7 +18,7 @@ is not Windows acceptance; a build is not the aggregate test result.
 | F06 | Same immutable Windows ZIP built/tested across independent clean producer/consumer, bundled runtime/addon, source/schema/file/license manifest and hostile archive refusal. Cloud node_modules never packaged |
 | F07 | Actual disposable Windows service/LocalService SID/ACL/ownership, graceful stops/restarts/crash recovery, native file-lock release, encrypted online/offline backup, guarded restore/update/rollback and scheduled retention. Actual reboot/off-host destination/RPO/RTO remain R02 |
 | F08 | Trusted-main explicit source/run authentication, all raw report families and original ZIP/native/license binding, normalized full evidence and read-only candidate/promotion handoff. Publication remains blocked; no release/tag has been created |
-| F09 | Legacy feature ownership and current route inventory below; focused browser/HTTP regression slices. Final acceptance requires same-HEAD Windows tests and evidence, plus resolving the explicit F05 enforcement gate |
+| F09 | Legacy feature ownership and current route inventory below; focused browser/HTTP regression slices. Source checkpoint PR66/CI38442852074 independently passes all7 checks/eightraw readers, both2835/139 and45 first-attempt browser cases. This documentation refresh needs its own exact-HEAD CI before merge; the F05 enforcement gate remains unresolved |
 
 ## Existing feature regression owners
 
@@ -58,9 +58,7 @@ internal auth/command table.
 
 ## Remaining gates
 
-1. Finish same-HEAD Windows acceptance for the current source and retain raw
-   JUnit/JSON/logs/artifacts and independent hashes. Do not substitute earlier PR
-   reports for a changed HEAD.
+1. Source checkpoint `58171755315daca8bd8b881fa4703c4cbb668153` passed [CI38442852074](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38442852074), all7/eightraw readers,2835/139 each runtime and45 browsers. Validate this final documentation HEAD separately before merge; retain both exact-source checkpoints and all original raw bytes. Final acceptance evidence is recorded in the PR comment.
 2. Resolve F05 GitHub Administration integration HTTP403 and actually enforce PR
    plus required GitHub Actions ci-gate without bypass. The user already granted
    permission, but the integration still lacks usable scope. No bypass is asserted.

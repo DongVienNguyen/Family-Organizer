@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "scope": "Foundation implementation draft after accepted notification/dashboard Windows snapshot; final flags/inventory same-HEAD Windows pending.",
+  "scope": "Foundation implementation source checkpoint verified on Windows2022; complete master plan and F05 enforcement unfinished.",
   "foundationGate": "blocked",
   "acceptedWindowsSnapshot": {
     "taskId": "F09-m",
@@ -90,7 +90,7 @@
     "cloudFailed": 0,
     "cloudPending": 0,
     "cloudTodo": 0,
-    "windows": "not-run",
+    "windows": "Source checkpoint independently verified; final documentation HEAD checks recorded in PR acceptance comment.",
     "review": "ONE0C2I0M, all graded before one correction pass; both actual source/evidence findings corrected; no rereview",
     "lintExit": 0,
     "buildExit": 0,
@@ -98,7 +98,9 @@
     "browserCasesRequired": 45,
     "calendarFixture": "ONE0C0I0M review,zero findingfixes/two authored nativecorrections: B12 realUIcreation, B15canonicalAPIfixture with explicitreload hydration thenrealUI edit/reload/Child, original27assertionlines/45s10s/retries0 retained. Continuous UIcreate/export\u2192edit journey no longer checked. Native45pending.",
     "caddyDiagnostics": "Separately reviewed failure-only diagnostic/close-drain correction included; seven tests plus mandatory suite. Original native failure retained, old rootcause unknown, current same-HEAD Windows pending.",
-    "browserDriverDiagnostics": "Distinct ONEreview0C2I0M/one correction pass; actual spawn/stale evidence/descriptor regressions; original44of45 teardown failure retained, cause unknown, corrected same-HEAD45-case Windows pending."
+    "browserDriverDiagnostics": "Distinct ONEreview0C2I0M/one correction pass; native44of45 context teardown failure retained and original cause unknown. Same45cases/allassertions/45s10s/retries0 unchanged.",
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/66",
+    "sourceCheckpointSha": "58171755315daca8bd8b881fa4703c4cbb668153"
   },
   "blockers": [
     {
@@ -176,5 +178,73 @@
     ]
   },
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "verifiedSourceCheckpoint": {
+    "taskId": "F09-n",
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/66",
+    "testedHeadSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38442852074",
+    "checks": [
+      {
+        "name": "ci-gate",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows disposable service",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package clean consumer",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package producer",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node22 baseline",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node24 baseline",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows production browsers",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      }
+    ],
+    "summaryHashes": {
+      "quality": "a029b60328fb6fa9d1bec06e883f0618102aa14b79c69980c1c82e7d7cee1aba",
+      "coverage": "3f14d2174b3b57453be1a8645bc328fa800f2b95ee6d19c4d9df15109ab54264",
+      "browser": "a1fc5b2ecff069487b1068d715266aec2bca3e98a27d0cf038e7a475100181aa",
+      "package": "dcd7d96cc1d3a949104bfc4f0a3385cc748d07ba7e11fa75be7867c8f46a2611",
+      "service": "19e915225c2d6adf13e4de9b622fb302a3ed1bab921d8533a26fb40137d2e21d",
+      "caddy": "f73d126c31ae31c9dadb065b6e6e9e4a04732337b5a60ff13b7b5f81c7394696",
+      "extraction-sdk": "f695099410a50d676463e6891b35ad8be87a971cf146500b0a4691a55a06d44c",
+      "inner-native": "b0f74ffb830f0740c88f0a40885ecbd20cb8c7a43302b67811580901183d9fd0"
+    },
+    "fullCiLogSha256": "e71babfaf8fc6389c8cbbe9c299bc8a79ac0e56bf69ea711ec79c73681f72bbb",
+    "qualityEach": 2835,
+    "qualityFilesEach": 139,
+    "browserFirstAttempt": 45,
+    "rawValidators": 8,
+    "zipSha256": "9be8e015c79830223209099e1e4da972643bd421a90784be5566edc85b891ee6",
+    "merged": false,
+    "scope": "Exact source checkpoint before this documentation refresh. Final documentation HEAD needs its own Windows CI; recorded in PR acceptance comment."
+  }
 }
