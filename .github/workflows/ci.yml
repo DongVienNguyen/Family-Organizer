@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+# Canonical official distribution route; node-gyp retains TLS/SHA verification.
+env:
+  npm_config_disturl: https://nodejs.org/dist
+
 defaults:
   run:
     shell: pwsh
