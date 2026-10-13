@@ -1,0 +1,77 @@
+{
+  "taskId": "F08-m",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/59",
+  "testedHeadSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38401974884",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "summaryHashes": {
+    "quality": "cfb8287e70e7c38af1d1312d50e10a11dcfc7912425e10cc745e2a50d8257054",
+    "coverage": "df644cba66877366546d3c8fb27f13912b2139ffd28307a2976d88cd34c342b3",
+    "browser": "808e4b14e82604bc114c7ec0a212b216f099bf4f712e14ceedd3ffb1e745d3d6",
+    "package": "9866dafaf9fbd2d9a7f39a14ea29b20826070d1ae1a9b4ecf18cb5da9ce1690f",
+    "service": "bc81965034abaafa2f0e1da033a8147ffd8e2064e90924877b925ef19e74d42c",
+    "caddy": "fcaa11dd745674e34aa2417860f88a7a7b0f72ce72953913d93e7e7f55b7c648",
+    "extraction-sdk": "9f214dd4375fb8a5f6944e31c45bdcdd60b47ec731a8ae0d623aa9fc3eaaca9f",
+    "inner-native": "9464d02ff033b4941f7cb6f76e8379be69c418248e1b7db3cce2c61f4eb4f3c9"
+  },
+  "fullCiLogSha256": "6cb3711c812e20a216e7490f459fdb623d409f5d3e3ff4ea459543917d9b5d6d",
+  "testedHead": "48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3",
+  "mergeSha": "f6c7610a06bed4e39135a3ac14a57151dc9d1802",
+  "mainTreeEqualsTestedHead": true,
+  "qualityEach": 2769,
+  "qualityFilesEach": 134,
+  "browserFirstAttempt": 27,
+  "rawValidators": 8,
+  "zipSha256": "e4536cd01fd4ee0c7e539deb9230d1dbb8d4a0555b8320383c6e72d137e642ab",
+  "reviewGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 1
+  },
+  "publicationAllowed": false,
+  "trustedMainLive": "pending run38404316314",
+  "server2019Acceptance": "not-run"
+}

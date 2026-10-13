@@ -558,3 +558,85 @@ test('B09 self profile settings persistence', async ({ page, browser, browserNam
   await expect(name).toHaveValue(original.fullName);
   await expect(phone).toHaveValue(original.phone || '');
 });
+
+test('B10 assistant loading error close', async ({ page }) => {
+  await page.goto('/');
+  const token = await login(page, 'member');
+  const headers = { Authorization: 'Bearer ' + token };
+  const snapshot = async () => {
+    const rows: Record<string, unknown> = {};
+    for (const route of ['/api/tasks', '/api/plans', '/api/notes', '/api/shopping']) {
+      const response = await page.request.get(route, { headers });
+      expect(response.status(), route).toBe(200);
+      rows[route] = await response.json();
+    }
+    return rows;
+  };
+  const before = await snapshot();
+  const launch = page.getByRole('button', { name: 'AI assistant', exact: true });
+  await launch.click();
+  const dialog = page.getByRole('dialog', { name: 'Trợ lý AI', exact: true });
+  await expect(dialog).toBeVisible();
+  const question = dialog.getByPlaceholder('Hỏi: lên menu trưa và thêm đồ đi chợ');
+  const send = dialog.locator('button[type="submit"]');
+  const voice = dialog.locator('form button[type="button"]');
+  // Windows WebKit can bypass page.route once its real privacy worker controls
+  // the page. Hold only this fetch before native dispatch; keep the worker,
+  // original input/init/signal and actual backend response unchanged.
+  await page.evaluate(() => {
+    const original = window.fetch;
+    let release!: () => void;
+    const hold = new Promise<void>(resolve => { release = resolve; });
+    const requests: Array<{ method: string; authorization: string | undefined; body: unknown }> = [];
+    const wrapped: typeof window.fetch = async (input, init) => {
+      const url = new URL(typeof input === 'string' ? input : input instanceof URL ? input.href : input.url, location.origin);
+      const method = init?.method ?? (input instanceof Request ? input.method : 'GET');
+      if (url.origin === location.origin && url.pathname === '/api/assistant/chat' && method === 'POST') {
+        requests.push({ method, authorization: new Headers(init?.headers).get('Authorization') ?? undefined, body: JSON.parse(String(init?.body)) });
+        await hold;
+      }
+      return original.call(window, input, init);
+    };
+    window.fetch = wrapped;
+    (window as any).__ownedAssistantGate = { requests, release, restore: () => { release(); if (window.fetch === wrapped) window.fetch = original; delete (window as any).__ownedAssistantGate; } };
+  });
+  const requests = () => page.evaluate(() => (window as any).__ownedAssistantGate.requests as Array<{ method: string; authorization: string | undefined; body: unknown }>);
+  const release = () => page.evaluate(() => (window as any).__ownedAssistantGate.release());
+  try {
+    await question.fill('   ');
+    await send.click();
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    expect(await requests()).toEqual([]);
+    await question.fill('Synthetic browser assistant question');
+    const responsePending = page.waitForResponse(response => new URL(response.url()).pathname === '/api/assistant/chat' && response.request().method() === 'POST');
+    void responsePending.catch(() => {});
+    await send.click();
+    await expect.poll(async () => (await requests()).length).toBe(1);
+    expect(await requests()).toEqual([{ method: 'POST', authorization: 'Bearer ' + token, body: { message: 'Synthetic browser assistant question' } }]);
+    await expect(dialog.getByText('Đang suy nghĩ...', { exact: true })).toBeVisible();
+    await expect(send).toBeDisabled();
+    await expect(voice).toBeDisabled();
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+    await expect(launch).toBeFocused();
+    await release();
+    const response = await responsePending;
+    expect(response.status()).toBe(400);
+    const error = 'Chưa cấu hình Gemini API key. Vào Thiết lập để nhập key.';
+    expect(await response.json()).toEqual({ error });
+    await launch.click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByText(error, { exact: true })).toBeVisible();
+    await expect(dialog.getByText('Đang suy nghĩ...', { exact: true })).not.toBeVisible();
+    await expect(question).toHaveValue('');
+    await expect(send).toBeEnabled();
+    await expect(voice).toBeEnabled();
+    expect(await requests()).toHaveLength(1);
+    expect(await snapshot()).toEqual(before);
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+    await expect(launch).toBeFocused();
+  } finally {
+    await page.evaluate(() => (window as any).__ownedAssistantGate?.restore());
+  }
+});

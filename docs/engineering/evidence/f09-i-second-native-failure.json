@@ -1,0 +1,27 @@
+{
+  "taskId": "F09-i-native-focus-failure",
+  "headSha": "e417bc73460895889b2450acd6303300d6e915aa",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38406556796",
+  "workflowConclusion": "failure",
+  "qualityEach": 2772,
+  "qualityFilesEach": 134,
+  "nonbrowserRawValidators": 7,
+  "rawSummaryHashes": {
+    "quality": "7c178cdd12bfb0aa1a3023d415df339eedc13adec4ca4335ac1f1c0132f39edd",
+    "coverage": "4a1c5c2ed3afc3283f77607d36950a2049da1b2180c16cba55d98a54e9cd81c7",
+    "package": "965195d7bc71ad6c5e7b18764d3b117e44b70a449f746d90efeb3b497ce3050e",
+    "service": "4c825fb7aef34839046db446f966b488c53c5ec8e34d3bd18ebebcb77c1fb653",
+    "caddy": "64ef7a3e6412b47d01a9912cfbdb30cf8406cc4c49a3ea786a903b634cefdcbc",
+    "extraction-sdk": "efbab2750700bfc8c2f8269f42726a9b0cd8ebe7cd214f597fd959912b7bb771",
+    "inner-native": "f78dc781a36b0a4c2afef9ad6df4389e8b63e9fa7adea80e6e13e41d0b235b71"
+  },
+  "fullCiLogSha256": "9b454c3b7d6ab7e38e54236c5437d332b3b99c843a6e398173e152ad25290766",
+  "browserPassed": 29,
+  "browserFailed": 1,
+  "browserRetry": 0,
+  "browserSkipped": 0,
+  "failingCase": "B10/webkit afterEscape expectslauncherfocused",
+  "acceptance": false,
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}
