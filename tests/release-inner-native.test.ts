@@ -1,0 +1,7 @@
+import {it,expect} from 'vitest';
+import * as inner from '../scripts/windows/release-inner-package.mjs';
+const sha='a'.repeat(40);
+const fixture=()=>({commitSha:sha,nodeVersion:'v24.21.0',platform:'win32',architecture:'x64',archiveCount:2,extractedFiles:1,expandedBytes:20,positiveNativeExit:0,negativeNativeExit:1,negativeBeforeWriteAbsent:true,fixtureCleanup:true,scope:'synthetic-no-github-authentication',publicationAllowed:false,server2019Acceptance:'not-run'});
+const validate=(row:any)=>(inner as any).validateReleaseInnerExtractionNative(row,{commitSha:sha,nodeVersion:'v24.21.0'});
+it('accepts synthetic native inner extraction/refusal without full release authority',()=>{expect(typeof(inner as any).validateReleaseInnerExtractionNative).toBe('function');expect(validate(fixture())).toEqual([]);});
+it.each(['commitSha','nodeVersion','platform','architecture','archiveCount','extractedFiles','expandedBytes','positiveNativeExit','negativeNativeExit','negativeBeforeWriteAbsent','fixtureCleanup','scope','publicationAllowed','server2019Acceptance'])('refuses missing or contradictory native inner evidence %s',key=>{expect(typeof(inner as any).validateReleaseInnerExtractionNative).toBe('function');const row:any=fixture();delete row[key];expect(validate(row).length).toBeGreaterThan(0);const changed:any=fixture();changed[key]='foreign';expect(validate(changed).length).toBeGreaterThan(0);});
