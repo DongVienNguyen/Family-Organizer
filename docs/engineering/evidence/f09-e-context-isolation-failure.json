@@ -1,0 +1,33 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "7d9265c4054e72d2b6f5af39bfaa67ed14411ac4",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38354321339",
+  "conclusion": "failure",
+  "ciGate": "failure",
+  "browserPassed": 26,
+  "browserFailed": 1,
+  "skipped": 0,
+  "retries": 0,
+  "failedCase": "B09/WebKit",
+  "failedBoundary": "Settings header CSS query missing within original10s",
+  "hypothesisRejected": "Isolating synthetic fixture into a separate context did not resolve boundary",
+  "nextStep": "User requested unchanged assertions and DOM/driver investigation; add static-only document/click facts, no speculative fix",
+  "traceSha256": "208b141c20c3a5a4aedf14bdd07cacb375953f52b404a3b303d08c9d37f02b07",
+  "fullCiLogSha256": "46a24457cd75bcf2f1eb5bdb0dbe72deb6bf306ce4d3da50e5aba4548f5fd05a",
+  "otherIndependentValidators": {
+    "count": 6,
+    "exits": 0,
+    "bothQuality": "2329/118",
+    "summaryHashes": {
+      "quality": "59e0968a31c3f4809231b183c05598f3cfb37798dd31b5c793fc6c3f30eb9b7d",
+      "coverage": "36eaeccda228b37aa82d92f233b8e71aca69ef477becb740797cfede1db38f9b",
+      "package": "8401273fad1e111aacb1d0a276e7b1aa24e26a997b8f53208057e01ac56304fb",
+      "service": "f5fccafa52a7093e11248ebc37d14b45c721b7352e6e00ccee88bd9f65e9bc82",
+      "caddy": "181fc225988a4238936592003ab7c1af0c22e646dd1a0d702a12041ddf69ef8d",
+      "extraction-sdk": "bfac9ba67718ccc0ee9692ff6d15c4339de7510e6623f5dc492a136e8320d0c3"
+    }
+  },
+  "correctedWindows": "not-run",
+  "review": "one original only; diagnosis instrumentation authored after review, no rereview",
+  "releaseTagVps": "forbidden"
+}

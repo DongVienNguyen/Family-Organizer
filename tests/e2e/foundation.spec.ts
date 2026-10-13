@@ -489,9 +489,27 @@ test('B09 self profile settings persistence', async ({ page, browser, browserNam
   const originalUsers = await users();
   const original = originalUsers.find(row => row.id === 'browser-child')!;
   expect(original).toMatchObject({ id: 'browser-child', username: 'browser-child', role: 'child', fullName: 'Synthetic child' });
+  // Diagnose the real document and selector worlds without changing click,
+  // assertion, retry or timeout behavior. Only static UI structure is recorded.
+  const settingsDocumentFacts = async () => page.evaluate(() => {
+    const element = document.querySelector('#settings-sub-header');
+    const nav = [...document.querySelectorAll('aside nav button')].find(button=>button.textContent?.trim()==='Thiết lập');
+    const rectangle = element?.getBoundingClientRect();
+    const style = element ? getComputedStyle(element) : undefined;
+    return { readyState:document.readyState, path:location.pathname, settingsHeaderCount:document.querySelectorAll('#settings-sub-header').length, settingsModuleCount:document.querySelectorAll('#settings-module').length, profileCount:document.querySelectorAll('#settings-tab-profile').length, navConnected:nav?.isConnected??false, navSelected:nav?.getAttribute('aria-selected')??null, headerConnected:element?.isConnected??false, headerRectangle:rectangle?{x:rectangle.x,y:rectangle.y,width:rectangle.width,height:rectangle.height}:null, headerStyle:style?{display:style.display,visibility:style.visibility,opacity:style.opacity}:null, tabLabels:element?[...element.querySelectorAll('button')].map(button=>button.textContent?.trim()):[], clickFacts:(window as any).__syntheticB09SettingsClicks??[] };
+  });
+  await page.evaluate(() => {
+    (window as any).__syntheticB09SettingsClicks=[];
+    document.addEventListener('click',event=>{
+      const button=(event.target as Element)?.closest('aside nav button');
+      if(button?.textContent?.trim()==='Thiết lập')(window as any).__syntheticB09SettingsClicks.push({trusted:event.isTrusted,connected:button.isConnected,defaultPrevented:event.defaultPrevented});
+    },{capture:true});
+  });
+  console.log('B09_SETTINGS_DOCUMENT_BEFORE',JSON.stringify(await settingsDocumentFacts()));
   await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
   const settingsTabs = page.locator('#settings-sub-header');
-  await expect(settingsTabs).toBeVisible();
+  try { await expect(settingsTabs).toBeVisible(); }
+  finally { console.log('B09_SETTINGS_DOCUMENT_AFTER',JSON.stringify(await settingsDocumentFacts())); }
   const renderedTabs = await settingsTabs.locator('button').allTextContents();
   expect(renderedTabs.map(text=>text.trim())).toContain('Thành viên và Phân quyền');
   console.log('B09_SETTINGS_TABS_RENDERED', JSON.stringify(renderedTabs.map(text=>text.trim())));

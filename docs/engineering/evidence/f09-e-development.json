@@ -91,5 +91,17 @@
     },
     "fullReportSha256": "ee4cef861f3360ec3cc32382b73a3601aba02ea30f6bf341338eb4391efea73f"
   },
-  "nativeHypothesis": "Owned synthetic document replacement/selector-negative probes move to separate disposablebrowsercontext; realappPage remainsfresh; retainall27flows/assertions/10s-expect/45s-test/zero-retry; actualWebKit mechanism unconfirmed untilnewrun"
+  "nativeHypothesis": "Owned synthetic document replacement/selector-negative probes move to separate disposablebrowsercontext; realappPage remainsfresh; retainall27flows/assertions/10s-expect/45s-test/zero-retry; actualWebKit mechanism unconfirmed untilnewrun",
+  "domDriverDiagnostic": {
+    "fullGreen": 2329,
+    "fullFiles": 118,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "f32eb8a8bf4660dacfff2ad38e6ba0837e56a4eff294467bb275be01deb37622",
+    "change": "Static-only native document query, real click capture and geometric/style facts before/after original assertion; no asserted flow removed/timeout raised/retry enabled",
+    "windows": "pending, diagnostic-only, no fix claim"
+  }
 }
