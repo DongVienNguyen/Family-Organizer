@@ -1,0 +1,59 @@
+{
+  "taskId": "F07-m",
+  "reviewedHead": "3eaee88602d785a54b962a4737e94369d4efaca7",
+  "reviewCount": 1,
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "id": "M1",
+      "decision": "promote and accept",
+      "grade": "Important",
+      "effect": "Exported formatter re-reads mutable metadata after allowlisting and can print arbitrary text or throw. Diagnostics promise a strict no-private-payload boundary; harden that boundary before ship.",
+      "scopeLimitation": "Standard native FS ingress is already safe and creates fresh data fields; no ordinary native-error privacy exploit claimed.",
+      "fix": "Read own data descriptor values once, ignore accessors, interpolate only captured allowlisted strings."
+    }
+  ],
+  "rulings": [
+    {
+      "behavior": "All original refusal/reread/ownership/deadline semantics unchanged",
+      "decision": "accept",
+      "costIfWrong": "Premature functional repair claim; independently verify new native outputs."
+    },
+    {
+      "behavior": "Native capture safely ignores inherited/accessor/unknown codes",
+      "decision": "accept",
+      "costIfWrong": "Private payload could leak if capture regressed; existing own-descriptor guard retained."
+    },
+    {
+      "behavior": "Pathological proxy traps have no production ingress",
+      "decision": "accept limitation",
+      "costIfWrong": "Caller-controlled executable side effect could still throw; no remote ingress or arbitrary getter invocation added."
+    },
+    {
+      "behavior": "Archived proofs/source hashes/saved counts independently match",
+      "decision": "accept",
+      "costIfWrong": "Historical proof mistaken for current native acceptance; new exactHEAD CI remains required."
+    },
+    {
+      "behavior": "Native failing errno/rootcause/reboot/Server2019/fullrelease/VPS unverified",
+      "decision": "accept",
+      "costIfWrong": "False operational certification; explicit incomplete status retained."
+    },
+    {
+      "behavior": "Master financial/task/restore concerns receive no new acceptance",
+      "decision": "accept",
+      "costIfWrong": "Broader foundation claim unsupported; diagnostics-only scope."
+    }
+  ],
+  "allGradedBeforeOneFixPass": true,
+  "fixPass": "one TDD pass, no rereview"
+}

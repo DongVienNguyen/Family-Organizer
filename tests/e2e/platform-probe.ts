@@ -8,7 +8,7 @@ export const platformProbeSource=String.raw`function installPlatformProbe(target
   while(owner&&!(descriptor=Object.getOwnPropertyDescriptor(owner,key)))owner=Object.getPrototypeOf(owner);
   if(!descriptor||!descriptor.configurable){emit(name,'unobservable');return;}
   const original=descriptor.get??descriptor.value;if(typeof original!=='function'){emit(name,'unobservable');return;}
-  const observed=function(...args){emit(name,'before');try{const value=Reflect.apply(original,this,args);emit(name,'returned');return value;}catch(error){emit(name,'threw');throw error;}};
+  const observed=function(...args){emit(name,'before');try{const value=Reflect.apply(original,this,args);emit(name,'returned');const then=target.Promise?.prototype?.then;if(name==='PushManager.getSubscription'&&typeof then==='function'&&value instanceof target.Promise)Reflect.apply(then,value,[()=>emit(name,'fulfilled'),()=>emit(name,'rejected')]);return value;}catch(error){emit(name,'threw');throw error;}};
   Object.defineProperty(owner,key,{...descriptor,...(descriptor.get?{get:observed}:{value:observed})});emit(name,'installed');
  };
  wrap(target.Notification,'permission','Notification.permission');
