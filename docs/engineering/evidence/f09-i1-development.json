@@ -1,0 +1,54 @@
+{
+  "taskId": "F09-i1",
+  "baseSha": "e417bc73460895889b2450acd6303300d6e915aa",
+  "scope": "Distinct existing assistant launcher focus defect discovered after actualWindowsWebKit request gate fix; tinyapphelper/onClickchange, originalallB10assertions/clicks unchanged",
+  "actualFocusUnitRed": 1,
+  "actualMandatorySuiteRed": 1,
+  "gateSelection": "1failure/177othersunselected; not fullsuite",
+  "targetGreen": 179,
+  "fullGreen": 2774,
+  "fullFiles": 135,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "src/utils/assistantFocus.ts": "19a9092ae8b183fdbf815ef5bc7422a7365138cdda1d850aba6423bbfe8738cc",
+    "src/utils/assistantFocus.test.ts": "a52812023e2e0a5a35461c77cb06dd4272f394ce4f00bf5eec96512e5c85e3f8",
+    "src/components/Assistant.tsx": "e74c35a7894e4175289aaba66ce23b495ac7af0012fe26bab406d970dcd87ce1",
+    "scripts/ci/write-evidence.mjs": "5dd725ad3c8a891ffe172cc92b1bda7502d10f1d82635d5a1df45a9286aea7fd",
+    "tests/evidence.test.ts": "10f50ef936a027eef540216ac12af9af9cb5a36a29bcfc9a7116d658acd851f8"
+  },
+  "verificationHashes": {
+    "f09-i1-focus-red.json": "9f00704a64378295a44bedc4cf87b69bd81b7c2914a6a28432ff4428f8d560fb",
+    "f09-i1-gate-red.json": "bb6aafcd9b54dd37ff7ba5b105a8cfb15a3748e208d051eb23f9c1aef034e07d",
+    "f09-i1-target.json": "adc8b73141b22caa7bef9e8fbf72640bb7965ca1ef0b29954c3d159fd052bc96",
+    "f09-i1-full.json": "208e9fb7981a491b6fe9c7c66f59d71e3c06645d7b700ab2b3fff7c4b0114f1c",
+    "f09-i1-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "f09-i1-build.log": "2da56dad1d107907795cf2a0ac60f93036dada654731dfd8475caa09beab8a87",
+    "f09-i1-cloud-browser.log": "240e83c664151886a76b5fd05ec26c24c03d3c7bd5f0442bf8bdeda85f2218f9",
+    "f09-i1-cloud-reports/browser-cli.log": "ed9e1f8a51bbd5be8039d32c7b81d41d0faedd591c66ac8b2292117f62980bb6",
+    "f09-i1-cloud-reports/browser-fixture.json": "5e8c97f4df4b341cfd16dc7f8dc0ed05bb9f8733498b784aa3d7c6760ca8c422"
+  },
+  "nativeBefore": {
+    "headSha": "e417bc73460895889b2450acd6303300d6e915aa",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38406556796",
+    "browserPassed": 29,
+    "browserFailed": 1,
+    "failure": "WebKit B10 originallauncherfocus assertion fails10s after allownedfetch/loading/closeassertions; actualPOST400",
+    "traceSha256": "a5d4021caa8c0b85b369cc8d113d14c223293da8925f15b51c4bfd701f1e4b80",
+    "fullCiLogSha256": "9b454c3b7d6ab7e38e54236c5437d332b3b99c843a6e398173e152ad25290766",
+    "nonbrowserRawValidators": 7,
+    "checks": "Allfive quality/package/consumer/service checks pass, browser+ci-gatefail; no acceptance"
+  },
+  "cloudBrowser": "OneactualChromiumB10passes unchangedclick/focusassertions; Linuxdiagnostic only, sourcehashbounddirtydraft",
+  "windows": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": [
+    "Newall30exactWindowsafterfreshcorrectiveappreview",
+    "F08n/health/calendarreviewedslicesnativepending",
+    "FullF09/F05Administration403/Server2019/release/VPS"
+  ]
+}

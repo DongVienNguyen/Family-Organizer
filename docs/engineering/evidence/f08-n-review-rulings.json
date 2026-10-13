@@ -1,0 +1,21 @@
+{
+  "taskId": "F08-n",
+  "reviewCount": 1,
+  "reviewedHead": "9e381f0e5aeace3e6bd34c1fa81cf11b91b6f472",
+  "baseSha": "f6c7610a06bed4e39135a3ac14a57151dc9d1802",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 0,
+  "reReview": false,
+  "findings": [],
+  "scopeRulings": "Preparation-only intent/source lock/read-only exactcollector checks passed review; all7source+6verificationhashes matched. No actualpublication/tag/ZIPcopy/deploy/approvalinput; no newapp/dependencies. ExactWindows/trustedmainlive pending. FullF09/F05Administration403/actual2019 unresolved."
+}

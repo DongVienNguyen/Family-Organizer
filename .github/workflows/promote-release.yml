@@ -1,0 +1,96 @@
+name: Windows publication-disabled promotion preparation
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: Explicit main commit SHA (40 lowercase hex characters)
+        required: true
+        type: string
+      version:
+        description: Exact version from the target package.json
+        required: true
+        type: string
+      ci_run_id:
+        description: Explicit successful first-attempt main CI run ID
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+  checks: read
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  metadata:
+    name: Windows trusted-main promotion preparation without publication
+    runs-on: windows-2022
+    timeout-minutes: 20
+    env:
+      CANDIDATE_COMMIT_SHA: ${{ inputs.commit_sha }}
+      CANDIDATE_VERSION: ${{ inputs.version }}
+      CANDIDATE_CI_RUN_ID: ${{ inputs.ci_run_id }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Require trusted main dispatch
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          if ($env:GITHUB_REF -cne 'refs/heads/main' -or $env:GITHUB_EVENT_NAME -cne 'workflow_dispatch' -or $env:GITHUB_REPOSITORY -cne 'DongVienNguyen/Family-Organizer') { throw 'Trusted main dispatch required' }
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24.21.0'
+          architecture: x64
+          package-manager-cache: false
+      - name: Prepare pinned builder SDK for locked validator tooling
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & ./scripts/ci/Prepare-NodeSdk.ps1 -Version '24.21.0' -CommitSha $env:GITHUB_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
+      - name: Install locked validator tooling
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & npm.cmd ci 2>&1 | Tee-Object -FilePath reports/validator-install.log
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
+      - name: Collect authenticated archive bytes without rebuild or publication
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $env:FO_PWSH_PATH = (Get-Process -Id $PID).Path
+          & node ./scripts/windows/collect-release-archives.mjs
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: promotion-preparation-${{ inputs.commit_sha }}-${{ github.run_id }}
+          path: |
+            reports/release-metadata.json
+            reports/release-archives.json
+            reports/release-report-preflight.json
+            reports/release-evidence.json
+            reports/candidate-handoff.json
+            reports/node-sdk.json
+            reports/node-sdk-headers.log
+            reports/node-sdk-library.log
+            reports/validator-install.log
+          if-no-files-found: error
+          retention-days: 14
