@@ -934,6 +934,7 @@ test('B13 documents search and household navigation', async ({ page }) => {
 });
 
 test('B14 dashboard and notification actor isolation', async ({ page, browserName }) => {
+  await page.clock.setFixedTime(new Date('2026-10-15T12:00:00.000Z'));
   await page.goto('/');
   const token = await login(page, 'member');
   const headers = { Authorization: 'Bearer ' + token };
