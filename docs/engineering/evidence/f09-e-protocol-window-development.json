@@ -1,0 +1,27 @@
+{
+  "taskId": "F09-e",
+  "fullPassed": 2452,
+  "files": 121,
+  "targetPassed": 181,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "correction": "SDK protocol MAX_LOG_LENGTH262144, redacted capture begins only at WebKit B09 window. Assertions/27flows/timeouts/zero retries unchanged. Unknown/truncated protocol lines redacted to parseRejected; ordinary test/native stderr retained. No driver/app fix inferred.",
+  "actualCaptureWindowRed": 1,
+  "sourceHashes": {
+    "scripts/ci/browser-protocol.mjs": "01371780c3b96b1c3700254f527bd350ecd8c4ce93aca3ba17a6242651c71e85",
+    "scripts/ci/run-browser.mjs": "910ba274e135bda9aafdc82a59fb459fd3d0d46b85f84cdb28d054e7712a712e",
+    "tests/browser-protocol.test.ts": "192e03da289a373f8f93260ee8463c034839656d4e611991338f7afda06083d6",
+    "tests/e2e/foundation.spec.ts": "00e58c8df5b8f5c423327c7d3aeda009ae26926942488518c0ba5e82ebfaa1e3"
+  },
+  "verificationHashes": {
+    "f09-e-protocol-window-red.log": "3df7a236754fdfa842cb87704eecd98f30fce038fb7f31e9c54e838af079493a",
+    "f09-e-protocol-window-target.json": "eca9eeee6373958e101cbaed795dc80c7da7c0f4bda159968de83af7c40a426d",
+    "f09-e-protocol-window-full.json": "e5008ffbfef1f852c158cd30b8036c7a85c7fe4b3cb66eefb2c65262e3e1459b",
+    "f09-e-protocol-window-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f09-e-protocol-window-build.log": "33d4bb68215c8add1f005ee2e6521d5ff16bfe35916dc5cbba96017fd54caaa2"
+  },
+  "windows": "new exact HEAD pending"
+}

@@ -470,6 +470,7 @@ test('B08 adult child approval rewards persistence', async ({ page, browserName 
 
 
 test('B09 self profile settings persistence', async ({ page, browser, browserName }) => {
+  console.log('B09_PROTOCOL_WINDOW '+browserName);
   // Keep synthetic document replacement in its own disposable context; the
   // application page must retain a fresh browser document/selector context.
   const boundaryContext = await browser.newContext();

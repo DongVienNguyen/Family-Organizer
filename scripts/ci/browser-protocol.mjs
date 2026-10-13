@@ -22,15 +22,16 @@ export function redactBrowserProtocolLine(line){
   return redact(JSON.parse(match[2].replace(/\s+\+\d+(?:ms|s|m)\s*$/,'')));
  }catch{return {direction,parseRejected:true};}
 }
-export function createBrowserProtocolCapture({writeRecord,appendOrdinary,maxRawLineBytes=1024*1024,maxReportBytes=8*1024*1024,maxRecords=50000}){
+export function createBrowserProtocolCapture({writeRecord,appendOrdinary,acceptRecord=()=>true,maxRawLineBytes=1024*1024,maxReportBytes=8*1024*1024,maxRecords=50000}){
  const reject=()=>{throw Error('BROWSER_PROTOCOL_DIAGNOSTIC_REJECTED');};
  const positive=value=>Number.isSafeInteger(value)&&value>0;
- if(typeof writeRecord!=='function'||typeof appendOrdinary!=='function'||!positive(maxRawLineBytes)||maxRawLineBytes>1024*1024||!positive(maxReportBytes)||maxReportBytes>8*1024*1024||!positive(maxRecords)||maxRecords>50000)reject();
+ if(typeof writeRecord!=='function'||typeof appendOrdinary!=='function'||typeof acceptRecord!=='function'||!positive(maxRawLineBytes)||maxRawLineBytes>1024*1024||!positive(maxReportBytes)||maxReportBytes>8*1024*1024||!positive(maxRecords)||maxRecords>50000)reject();
  let buffer='',records=0,bytes=0,ended=false;
  const line=(value,newline)=>{
   if(Buffer.byteLength(value)>maxRawLineBytes)reject();
   const record=redactBrowserProtocolLine(value);
   if(record===null){appendOrdinary(value+newline);return;}
+  if(!acceptRecord(record))return;
   const serialized=JSON.stringify({sequence:records+1,...record})+'\n',size=Buffer.byteLength(serialized);
   if(records>=maxRecords||size>maxReportBytes-bytes)reject();
   writeRecord(serialized);records++;bytes+=size;
