@@ -4,8 +4,8 @@
   "scope": "eight bounded actual service JSON reports plus real graceful-shutdown/closed-storage logs; service14 checks42phases/coordinator10checks31phases/fiveproofs/source17",
   "availabilityRed": 51,
   "criticalSuiteRed": 1,
-  "targetGreen": 216,
-  "fullGreen": 2517,
+  "targetGreen": 240,
+  "fullGreen": 2541,
   "fullFiles": 122,
   "failed": 0,
   "pending": 0,
@@ -16,15 +16,15 @@
   "innerPackageAgreement": false,
   "reportsVerified": false,
   "publicationAllowed": false,
-  "review": "not-run",
+  "review": "one fresh0C4I2M, author0C6I0M; all corrected in one TDD pass/no rereview",
   "ci": "not-run",
   "server2019Acceptance": "not-run",
   "actualReboot": "not-run",
   "sourceHashes": {
-    "scripts/windows/release-service-reports.mjs": "1bda5e50575c8615c64829d425c9b33c7c3d7e7d92923e82ecd7ce59d1efb4d8",
+    "scripts/windows/release-service-reports.mjs": "3dd5ac7f5379df01d8895a661b635ad4962659eb8d334c8e9b2f0478b5ab0221",
     "scripts/windows/collect-release-archives.mjs": "ce9b7c5283bf5cb5e64f13a1131a18f7996855afd69fd071dc962101d5e1f410",
     "scripts/ci/write-evidence.mjs": "a3a6f264fd5d601f4eb2713ad00b7e589cd57d57879ba2f5864012debe931e0c",
-    "tests/release-service-reports.test.ts": "4d943d4f4d8d971f3bbec54d6254fac68d2f7c6cbcd3c2f4f5275ea7769d81f0",
+    "tests/release-service-reports.test.ts": "ebd9640a6e6e11ae8d7e4a6b3f5cae61ccc4ffab0ffcb56f8b8c2b9842318030",
     "tests/helpers/release-service-fixture.ts": "ca89cf1ff2726ca99d2847a3b8455f5ba7452004cd22d169a3446cd68054ec90",
     "tests/evidence.test.ts": "7a99868567914e5189b5d816a45359b045185df2aaf96133fae3be61d2b30834"
   },
@@ -36,5 +36,16 @@
     "f08-j-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
     "f08-j-build.log": "70aa2d70aac9e6a6587c01a1e1cacf633a7bfe233638dadc0760df82722bcd1c",
     "f08-j-real-windows-reports-cloud-compatibility.json": "b82505c0a599a03d9c17695e25bbf8fa633e253e2cd4ee3a21b5f4c097442b9d"
+  },
+  "reviewCorrectionRed": 21,
+  "rotationContractRed": 1,
+  "correctedVerificationHashes": {
+    "f08-j-review-red.log": "2915f9fc08ec69d64926e66cdd56a3a266da4d65a7b5cc6583f0ebd34f6f4fbb",
+    "f08-j-rotation-red.log": "519cd923a7fc34158e44c720f0d36721ac110c5a67695e7824be5017e71a93af",
+    "f08-j-corrected-target.json": "793deb4de82cd1a0f0830ee97e0010c00a6ecad03c51e72c2686c47a272b2288",
+    "f08-j-corrected-full.json": "4b77637615179436a0dbcfe1e0b6e62deb32f25828661b97d96fc9c373251e54",
+    "f08-j-corrected-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f08-j-corrected-build.log": "add4e9d4474d67d6c0537baf98388e309cd1607c46d9d1e40d26156ae8f194fa",
+    "f08-j-corrected-real-windows-cloud-compatibility.json": "ade8ad01e48b1ac6dbbcb7202a8627d3dd3bf64604d76d076ef10c1a6f1520e8"
   }
 }

@@ -833,6 +833,9 @@ const contracts={
   }
  ]
 };
+const coordinatorExpectedCodes=[0, 0, null, 0, null, 0, 0, 0, null, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, null, null, 0, 0, 0, 0, 0];
+const securityReasons={"0": "owned-configuration native exit 1", "1": "owned-configuration native exit 1", "6": "Owned service tree contains reparse point"};
+const candidateType="synthetic tested ZIP copy plus authenticated candidate-only backup bootstrap mutation probe; no published release/version";
 const reject=()=>{throw Error('RELEASE_SERVICE_REPORTS_REJECTED');};
 const requireFact=value=>{if(!value)reject();};
 const hash=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
@@ -856,17 +859,22 @@ export function readReleaseServiceReportFiles(directory,expected){
   requireFact(exit.runUrl==='https://github.com/DongVienNguyen/Family-Organizer/actions/runs/'+expected.runId&&exit.zipSha256===expected.zipSha256&&exit.exitCode===0&&exit.failure===null&&exit.fixtureCleanup===true&&exit.serviceRemoved===true&&exit.sourceCheckoutPresent===false&&exit.consumerInstall===false&&exit.consumerRebuild===false&&exit.wrapperVersion==='2.12.0'&&Number.isSafeInteger(exit.frameworkRelease)&&exit.frameworkRelease>=528040&&exit.server2019Acceptance==='not-run'&&exit.actualReboot==='not-run'&&/^FamilyOrganizer-CI[a-f0-9]{32}$/.test(exit.serviceId??''));
   same(exit.preflightNativeExitCodes,contracts['service-exit.json'].preflight);
   requireFact(functional.nodeVersion==='v24.21.0'&&hash(functional.legacySourceSha256)&&typeof functional.financeId==='string'&&functional.financeId.length>0);
-  const host=credentials.powershellHost;requireFact(host?.major===5&&host.edition==='Desktop'&&host.commandModule==='Microsoft.PowerShell.Security'&&host.inputEncoding==='utf-8'&&host.inputPreamble==='EF-BB-BF'&&typeof host.securityModulePath==='string'&&host.securityModulePath.replaceAll('\\','/').toLowerCase().includes('/system32/windowspowershell/v1.0/modules/'));
-  requireFact(recovery.operationInputReady===true&&Array.isArray(recovery.operationLockProbes)&&recovery.operationLockProbes.length>=5&&recovery.operationLockProbes.every(code=>code===0||code===1)&&recovery.operationLockProbes[0]===0&&recovery.operationLockProbes.at(-1)===0&&recovery.operationLockProbes.at(-2)===0&&recovery.operationLockProbes.at(-3)===0&&recovery.operationLockProbes.at(-4)===1);
+  for(const [index,reason]of Object.entries(securityReasons))same(data['service-security.json'][index]?.failure,reason);
+  const host=credentials.powershellHost;requireFact(host?.major===5&&host.edition==='Desktop'&&host.commandModule==='Microsoft.PowerShell.Security'&&host.inputEncoding==='utf-8'&&host.inputPreamble==='EF-BB-BF'&&typeof host.securityModulePath==='string'&&/^[a-z]:\\windows\\system32\\windowspowershell\\v1\.0\\modules\\microsoft\.powershell\.security\\microsoft\.powershell\.security\.psd1$/i.test(host.securityModulePath)&&path.win32.normalize(host.securityModulePath)===host.securityModulePath);
+  requireFact(recovery.operationInputReady===true);same(recovery.operationLockProbes,[0,1,0,0,0]);
   for(const row of [recovery,scheduled])requireFact(hash(row.encryptedSha256)&&Number.isSafeInteger(row.encryptedBytes)&&row.encryptedBytes>48&&row.encryptedBytes<=64*1024*1024);
-  requireFact(Array.isArray(scheduled.copyAncestors)&&scheduled.copyAncestors.length===1&&scheduled.copyAncestors[0]?.path?.toLowerCase()==='c:\\');same(scheduled.reviewRegressions,contracts['service-scheduled-backup.json'].reviewRegressions);
+  requireFact(typeof scheduled.nodeExecutable==='string'&&path.win32.normalize(scheduled.nodeExecutable)===scheduled.nodeExecutable&&/^[a-z]:\\fo-service-[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}\\release dữ liệu with spaces\\bin\\node\.exe$/i.test(scheduled.nodeExecutable));
+  requireFact(typeof scheduled.fileName==='string'&&/^recovery_[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}\.fo-recovery$/.test(scheduled.fileName));
+  requireFact(Array.isArray(scheduled.copyAncestors)&&scheduled.copyAncestors.length===1&&scheduled.copyAncestors[0]?.path?.toLowerCase()==='c:\\');const acl=scheduled.copyAncestors[0],sid=value=>typeof value==='string'&&value.length<=184&&/^S-1-[0-9]+(?:-[0-9]+){1,15}$/.test(value);requireFact(sid(acl.owner)&&Array.isArray(acl.rules)&&acl.rules.length>0&&acl.rules.length<=128&&acl.rules.every(row=>sid(row?.sid)&&Number.isSafeInteger(row.rights)&&row.rights>=-2147483648&&row.rights<=4294967295&&['Allow','Deny'].includes(row.type)&&Number.isInteger(row.propagation)&&row.propagation>=0&&row.propagation<=3));same(scheduled.reviewRegressions,contracts['service-scheduled-backup.json'].reviewRegressions);
   requireFact(fence.writesMayOpen===true&&uuid(fence.operationId)&&hash(fence.businessSha256)&&hash(fence.jobsSha256));
   requireFact(coordinator.sourceCapturePointsBefore===17&&coordinator.sourceCapturePointsAfter===17&&coordinator.explicitRollbackFaultInjected===true);
+  requireFact(coordinator.candidateType===candidateType);for(const key of ['freshBeforeUpdateId','postopenFinanceId'])requireFact(typeof coordinator[key]==='string'&&/^tx_[0-9]{1,16}_[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(coordinator[key]));
+  requireFact(coordinator.nativeExitCodes.every(row=>Object.hasOwn(row,'expectedExitCode')));same(coordinator.nativeExitCodes.map(row=>row.expectedExitCode),coordinatorExpectedCodes);
   for(const key of ['failedOperationId','operationId','rollbackOperationId'])requireFact(uuid(coordinator[key]));
   for(const key of ['candidateManifestSha256','preopenBusinessSha256','postopenBusinessSha256'])requireFact(hash(coordinator[key]));same(coordinator.reviewRefusals,contracts['service-update-coordinator.json'].reviewRefusals);
   requireFact(reader.text('coordinator-closed-storage.log').trim()==='OWNED_STORAGE_HANDLES_CLOSED');
-  const logRoot=path.join(directory,'service-logs');assertNoLinkedAncestors(logRoot);requireFact(fs.lstatSync(logRoot).isDirectory());const names=fs.readdirSync(logRoot);requireFact(names.length>0&&names.length<=100&&names.every(name=>safeArchivePath(name)&&!name.includes('/'))&&names.some(name=>name.endsWith('.out.log'))&&names.some(name=>name.endsWith('.err.log')));
-  let shutdownCompletions=0;for(const name of names){const text=reader.text('service-logs/'+name);if(name.endsWith('.out.log'))shutdownCompletions+=(text.match(/Shutdown complete/g)??[]).length;}
+  const logRoot=path.join(directory,'service-logs');assertNoLinkedAncestors(logRoot);requireFact(fs.lstatSync(logRoot).isDirectory());const names=fs.readdirSync(logRoot);requireFact(names.length>0&&names.length<=100&&names.every(name=>safeArchivePath(name)&&!name.includes('/'))&&names.includes(exit.serviceId+'.out.log')&&names.includes(exit.serviceId+'.err.log'));
+  let shutdownCompletions=0;for(const name of names){const text=reader.text('service-logs/'+name);if(name===exit.serviceId+'.out.log'||new RegExp('^'+exit.serviceId+'\\.[0-7]\\.out\\.log$').test(name))shutdownCompletions+=(text.match(/Shutdown complete/g)??[]).length;}
   requireFact(shutdownCompletions>=10);
   return {commitSha:expected.commitSha,runId:expected.runId,zipSha256:expected.zipSha256,rawServiceReportsVerified:true,reportsVerified:false,publicationAllowed:false,innerPackageAgreement:false,server2019Acceptance:'not-run',actualReboot:'not-run',shutdownCompletions,checks:exit.checks,coordinatorChecks:coordinator.checks,...reader.receipt()};
  }catch{reject();}
