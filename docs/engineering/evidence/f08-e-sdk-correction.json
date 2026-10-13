@@ -1,0 +1,24 @@
+{
+  "taskId": "F08-e-SDK-correction",
+  "secondFailedHeadSha": "da6b23b50fa25dc68b465858dfd4f309d329cbc4",
+  "secondRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38342341942",
+  "secondFailedJobId": 115115978934,
+  "actualHeadersHttp": 200,
+  "actualShasumsHttp": 200,
+  "actualX64LibraryHttp": 502,
+  "node22Tests": "not-run",
+  "failedJobLogSha256": "8690ad7ecc89bc456a33afda596e7ecac5a7fc4b75fe52d695bce78cf0847e2a",
+  "correction": "Prepare local pinned SDK with bounded curl transfers before one npm ci; no test retry or checksum bypass",
+  "windowsCorrection": "not-run",
+  "sdkNativeCommands": [
+    "policy",
+    "headers",
+    "library",
+    "list",
+    "listPolicy",
+    "extract"
+  ],
+  "maxTransferRetries": 2,
+  "npmRetries": 0,
+  "testRetries": 0
+}
