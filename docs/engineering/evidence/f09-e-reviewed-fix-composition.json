@@ -1,0 +1,26 @@
+{
+  "taskId": "F09-e",
+  "mergedReviewedFixSha": "77823b1120feb13d4b07bc63bffde782fd802228",
+  "acceptedBaseSha": "ebeddf69934152ea9fa62c3ef570a2b826e475f4",
+  "fixReview": "F09-e1 ONEfresha5a0C0I0M; originalPR47one review preserved",
+  "sourceByteAgreement": true,
+  "allRequiredSuitesRetained": true,
+  "cloudBeforeMain54": {
+    "passed": 2650,
+    "files": 127,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "verificationHashes": {
+    "f09-e-reviewed-fix-merge-full.json": "cbe183d210e6dc0f7d631281836e533f7c3c47c20129045391fc252dac5b2ee8",
+    "f09-e-reviewed-fix-merge-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-e-reviewed-fix-merge-build.log": "4e94c2e03efb71b1609ef6ee41bfa814c8d08689b4e0d920fc96adbce0c0558c"
+  },
+  "windowsVerification": "pending exactsource with accepted54main",
+  "original27Assertions": "unchanged",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

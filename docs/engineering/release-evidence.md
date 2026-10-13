@@ -36,3 +36,18 @@ SemVer now rejects numeric prerelease leading zeros and accepts valid uppercase/
 build metadata; malformed nonarray quality returns an error list. The publication
 lock stays unconditional. Metadata live proof is f08-b-live.json; archive/report/
 full candidate acceptance remains separate and incomplete.
+
+The F08-k collector stage also reads the actual SDK, Caddy and extraction reports
+for both builder runtimes, compares each to the corresponding quality receipt,
+and binds all independent harness files to the target Git workflow declaration.
+The declaration is parsed with pinned builder-only `yaml@2.9.1` (ISC), requires
+the literal `package-build` producer on Windows2022/pwsh, and rejects aliases,
+duplicate keys, conditional/continued steps and unsupported job contexts. Text
+in an environment value is not a declaration; target code is never executed.
+The harness directory and every ordinary file identity/size/timestamp are checked
+throughout hashing and again before a success receipt. Browser-tested server and
+index hashes must match the producer manifest. Contradictory Caddy failure/phase
+fields fail; the intentional extraction exit1 and certificate refusal remain valid.
+
+These receipts verify the stated subsets only. Inner ZIP contents, full license
+agreement, full collector acceptance and publication remain separate gates.

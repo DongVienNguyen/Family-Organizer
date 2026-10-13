@@ -1,0 +1,74 @@
+{
+  "taskId": "F09-e1-native-causal-evidence",
+  "testedHeadSha": "89be475b9fa6bc093a2d4436cc6a894b0718800e",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38382888109",
+  "conclusion": "original browser/gate failure; native diagnostic completed successfully",
+  "originalBrowser": {
+    "passed": 26,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0
+  },
+  "nativeDiagnostic": {
+    "commitSha": "89be475b9fa6bc093a2d4436cc6a894b0718800e",
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "scope": "synthetic-native-driver-diagnostic-only",
+    "rows": [
+      {
+        "nativeRead": false,
+        "events": [
+          "ready",
+          "timer"
+        ],
+        "beforeLocator": true,
+        "capabilities": {
+          "permission": "default",
+          "serviceWorker": true,
+          "pushManager": true
+        },
+        "afterLocator": true,
+        "cleanup": true
+      },
+      {
+        "nativeRead": true,
+        "events": [
+          "ready",
+          "called",
+          "timer"
+        ],
+        "beforeLocator": true,
+        "capabilities": {
+          "permission": "default",
+          "serviceWorker": true,
+          "pushManager": true
+        },
+        "afterLocator": false,
+        "cleanup": true
+      }
+    ],
+    "fixtureCleanup": true,
+    "server2019Acceptance": "not-run"
+  },
+  "nativeReportSha256": "d7d3dbb876d41bd266ac22129f1e422a1b09b804cd832a03e5f19a2d6f6b47dd",
+  "nativeLogSha256": "77069b2690cdbd5842697a025ef819d213dd323a162928d015855dc0b7c96795",
+  "sixOtherIndependentRawValidators": {
+    "exitCode": 0,
+    "eachRuntime": "2573/124",
+    "summaryHashes": {
+      "coverage-verified-summary.json": "4a14844661fa84d79ee8181aa4bb763708a011b576a38ed5e2c181c0197acfd4",
+      "quality-verified-summary.json": "ef268a77a637556f20acdd756e9694d1ba1a8ec5514423bc838e7d7537f836f4",
+      "verified-summary.json": "ef268a77a637556f20acdd756e9694d1ba1a8ec5514423bc838e7d7537f836f4",
+      "caddy-verified-summary.json": "c04bb9470ea50cc35d17f8a0db6e22b9c8490fff785545950658f7688cc48fd6",
+      "service-verified-summary.json": "146d97bf13974113ea7a98326504d91575050736fabdd397de855235b4487173",
+      "package-verified-summary.json": "eca239dbe53cf214096261e8192b9ea02fb39252552ee769d635c420eb85fc4e",
+      "extraction-sdk-verified-summary.json": "de987df762bcdaa013a4ceea6d651abfb72ead43c1d341fb652cf5c329d22314"
+    }
+  },
+  "fullCiLogSha256": "62d4f11991e926b987b074903b972a933249dc4021d47d61ad97b646597c7a83",
+  "causalFinding": "Two fresh owned Windows WebKit pages; only native subscription read differs. Default permission: before locator succeeds in both; after locator succeeds only without native read; ready/called/timer but no settlement in native case. Same boundary reproduced outside React.",
+  "fixVerification": "not yet tested on Windows; preserve all27 original functional flows",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}

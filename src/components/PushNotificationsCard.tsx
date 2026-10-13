@@ -1,4 +1,5 @@
 import {browserSession,sessionFetch as fetch} from '../utils/browserSession.js';
+import {readExistingPushSubscription} from '../utils/pushSubscription.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -42,8 +43,7 @@ export function PushNotificationsCard() {
   useEffect(() => {
     if (!SUPPORTED) return;
     let alive = true;
-    navigator.serviceWorker.ready
-      .then(reg => reg.pushManager.getSubscription())
+    readExistingPushSubscription(perm, () => navigator.serviceWorker.ready)
       .then(sub => { if (alive) setSubscribed(!!sub); })
       .catch(() => {});
     return () => { alive = false; };
