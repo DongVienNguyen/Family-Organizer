@@ -197,6 +197,7 @@ jobs:
     timeout-minutes: 25
     env:
       CI: 'true'
+      FO_BROWSER_PROTOCOL_DIAGNOSTICS: '1'
       TZ: Asia/Saigon
       EXPECTED_NODE: '24.21.0'
       EXPECTED_NPM: '11.19.0'

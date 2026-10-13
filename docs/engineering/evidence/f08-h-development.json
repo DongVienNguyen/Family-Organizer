@@ -1,0 +1,43 @@
+{
+  "taskId": "F08-h",
+  "scope": "raw producer/consumer metadata and actual ZIP digest agreement only",
+  "baseSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+  "availabilityRed": 34,
+  "criticalSuiteRed": 1,
+  "targetGreen": 34,
+  "fullGreen": 2433,
+  "fullFiles": 120,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "792dd5934de5cf21eb2ec9647f2bcb99b1ecf654dc46367198544d274d2a408b",
+  "realWindowsMetadataCompatibility": "Cloud helper checked acceptedPR48 raw producer/consumer files and54558209 ZIP bytes; not new native/live acceptance or inner ZIP proof",
+  "fixtureScope": "positive fixture is synthetic non-ZIP bytes; reader does not certify ZIP structure, executability or functional/license reports",
+  "packageReportAgreement": true,
+  "innerPackageAgreement": false,
+  "consumerFunctionalVerified": false,
+  "reportsVerified": false,
+  "publicationAllowed": false,
+  "review": "one fresh 0C4I0M, author0C4I0M; one TDD pass no rereview",
+  "ci": "not-run",
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden",
+  "preReview": {
+    "targetGreen": 34,
+    "fullGreen": 2428,
+    "fullFiles": 120,
+    "fullReportSha256": "7c098ca50608e8592f12be69112c4baa9b680d06b2a4ab97292cb31d7ec9f78a"
+  },
+  "reviewRed": 5,
+  "reviewTargetGreen": 202,
+  "verifiedSourceFiles": {
+    "scripts/windows/release-package-reports.mjs": "7697b3cee1567027c6aac53d37fe03af97d1aded89109492c41f2309b7acd026",
+    "scripts/windows/collect-release-archives.mjs": "a9ed4621e7ff32fac0983a38aae753179d4cbc8cd5fbc96d4d39995ec27c3143",
+    "scripts/ci/write-evidence.mjs": "21fc34f75197f51ea61b541a065541de8f333843808bcf52600f47eb20adbddc",
+    "tests/release-package-reports.test.ts": "5b958543d7e8859b3945380ce42e0d45ca80b6cc6e18fabceafc1526879aed28",
+    "tests/evidence.test.ts": "b7ee69a24095b0ee07429b408ea885cc5b6aa6ad8856f82982afcd2630e7e109"
+  },
+  "realOldWindowsCompatibility": "corrected Cloudhelper validates acceptedPR48 Windows metadata/digest54558209bytes; no new native/live proof"
+}
