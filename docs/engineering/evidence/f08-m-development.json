@@ -1,13 +1,13 @@
 {
   "taskId": "F08-m",
-  "baseSha": "10f70a9db627b89c1504163449eb132742350ac3",
+  "baseSha": "7640a12aac2a25e9deacbaa1b32f8de5aeec9767",
   "scope": "Complete same-authenticated-process raw-reader normalization into release-evidence.json; publication remains unconditionally disabled",
   "availabilityRed": 32,
   "actualMandatorySuiteRed": 1,
   "redSelection": "gate1selectedRED/174othersunselected, not full-suite result",
-  "targetGreen": 214,
-  "fullGreen": 2762,
-  "fullFiles": 133,
+  "targetGreen": 215,
+  "fullGreen": 2769,
+  "fullFiles": 134,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -17,8 +17,8 @@
     "scripts/windows/release-collector-evidence.mjs": "ff3a93d1627b021167acfa20c5b3d79afdb233ecd2d2a47bc512f25a066b3f2a",
     "scripts/windows/collect-release-archives.mjs": "2ab3a0ba603cd2521a60031cb834fb47a3733ce42b624fb7ad41c4cb4f47d8a0",
     ".github/workflows/release-candidate.yml": "d8549174bd5445a426bb063c78cc4f0849684e732ea424db45b26745624686e4",
-    "scripts/ci/write-evidence.mjs": "de597f6dc3e9f1383ec5b7c196ad65c0fee5ab7a30a41c5ea21d9b6b772b302c",
-    "tests/evidence.test.ts": "5361f6b2e729d02d3f9b9d88aeb9d6b3431c9770a79a0ccd3a71c02e1419c14e",
+    "scripts/ci/write-evidence.mjs": "656538130bb20a8aec8c80f9f685c45146e4cb82355a4d8104f37c158aaa9565",
+    "tests/evidence.test.ts": "d6fee9df47c503dcd9ac49ec66c702a57da983d6a43294d9d67559adb9056b5b",
     "tests/release-collector-evidence.test.ts": "480efbd006089d32e67a30d914d243954e18d1b1bf3a7397a6a8f593b2ded96c"
   },
   "verificationHashes": {
@@ -35,7 +35,11 @@
     "f08-m-review-full.json": "bcc8e67dd8fa3e667e32341266d25aa6f5fa8f299ef6586391b609c99e2358cf",
     "f08-m-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
     "f08-m-review-build.log": "0d8ec9b68bf21b39b96664f1c156c8e8fe7d91a55eedf8d978bfd1d885ee9baf",
-    "f08-m-review-historical-data-compatibility.json": "8dee1c4877128e6666169a4dab3f3eafe6e3c3c21dace4138cf4a56f82886cd5"
+    "f08-m-review-historical-data-compatibility.json": "8dee1c4877128e6666169a4dab3f3eafe6e3c3c21dace4138cf4a56f82886cd5",
+    "f08-m-main58-target.json": "f31689d51fc72f63bdddf0834081d0b0c608fd756120387d90b3349ef03a7fbd",
+    "f08-m-main58-full.json": "b0e253e26091fcfdf19bc1826a570b8037982464860a3e5f9a7be273a03cd087",
+    "f08-m-main58-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f08-m-main58-build.log": "ccf4f0b1a483e89b2a6e5c94d3306827f8fd21e07805b9260d3b3bf694a061ba"
   },
   "historicalCompatibility": "Actual authenticated reader receipts from live38395149608 inspected as Clouddata; pure helper simulated priorprocess context; no new authority/native/foundation2019 acceptance",
   "review": "ONEc95/base10f0C2I1M ALLauthorgradedbeforeONEfixpass, extraction4/coverage2 actualRED\u2192GREEN; logMinor deferred/no rereview",
@@ -44,5 +48,6 @@
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
   "reviewActualRed": 6,
-  "priorCorrectedCloudTests": 2756
+  "priorCorrectedCloudTests": 2762,
+  "reviewedOwnSourceByteAgreement": true
 }
