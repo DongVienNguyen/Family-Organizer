@@ -86,6 +86,7 @@ jobs:
             reports/release-metadata.json
             reports/release-archives.json
             reports/release-report-preflight.json
+            reports/release-evidence.json
             reports/node-sdk.json
             reports/node-sdk-headers.log
             reports/node-sdk-library.log

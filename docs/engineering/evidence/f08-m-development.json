@@ -1,0 +1,40 @@
+{
+  "taskId": "F08-m",
+  "baseSha": "10f70a9db627b89c1504163449eb132742350ac3",
+  "scope": "Complete same-authenticated-process raw-reader normalization into release-evidence.json; publication remains unconditionally disabled",
+  "availabilityRed": 32,
+  "actualMandatorySuiteRed": 1,
+  "redSelection": "gate1selectedRED/174othersunselected, not full-suite result",
+  "targetGreen": 208,
+  "fullGreen": 2756,
+  "fullFiles": 133,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "scripts/windows/release-collector-evidence.mjs": "cae1d843d31ee93f2800d757df933773f2faeec23e35955641c4222d49cf862f",
+    "scripts/windows/collect-release-archives.mjs": "8b49820df27d11ab9ddd19826143c8f1044986f882728d0da83a6afc13e39395",
+    ".github/workflows/release-candidate.yml": "d8549174bd5445a426bb063c78cc4f0849684e732ea424db45b26745624686e4",
+    "scripts/ci/write-evidence.mjs": "de597f6dc3e9f1383ec5b7c196ad65c0fee5ab7a30a41c5ea21d9b6b772b302c",
+    "tests/evidence.test.ts": "5361f6b2e729d02d3f9b9d88aeb9d6b3431c9770a79a0ccd3a71c02e1419c14e",
+    "tests/release-collector-evidence.test.ts": "2e286179461773a57af545d91d0d8760ee67f9435d9a3a8290f9b8c892d98412"
+  },
+  "verificationHashes": {
+    "f08-m-availability-red.json": "069fa30530f3be2b6e4944770f32435e9a5bf9c6c02ef29397f4917c70aeaf1b",
+    "f08-m-gate-red.json": "3cb4dac52383e2ed7374d695bddf03ffb30be15bf36f5cd2922dfb615f3d3ef1",
+    "f08-m-normalizer-green.json": "e78c2f6afd82b9134a5b875d4098f7b9a7fee6f10f07592894280e315e5b7d10",
+    "f08-m-main57-target.json": "a44b438f2007123502f6ee939f0c9715a820af61f58a6c96207dc2ed71333e0b",
+    "f08-m-main57-full.json": "789ccdc6b2e5f9d650e0f2fb84c459dbf019e85b19c1eaa9f37dc43615cb8555",
+    "f08-m-main57-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f08-m-main57-build.log": "1f5462107250fe841fadfcfb4da5cab050ab124c21944d0ac60a953a309b7bd6",
+    "f08-m-historical-data-compatibility.json": "bacfc5462472046ea6da279850ffa226e0e9993b76f0729ba5c617e9bd7f27dd"
+  },
+  "historicalCompatibility": "Actual authenticated reader receipts from live38395149608 inspected as Clouddata; pure helper simulated priorprocess context; no new authority/native/foundation2019 acceptance",
+  "review": "pending ONEfreshwholebranch",
+  "windows": "not-run",
+  "live": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
