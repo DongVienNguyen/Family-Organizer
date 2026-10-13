@@ -8,11 +8,11 @@ import {spawn,spawnSync} from 'node:child_process';
 import {createHash,X509Certificate} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {once} from 'node:events';
-import {caddyRuntime,syntheticCaddyConfiguration,ownSyntheticProxyFixture,syntheticCaddyEnvironment,isSyntheticCertificateRefusal,syntheticCaddyFailureDiagnostic} from './caddy-contract.mjs';
+import {caddyRuntime,syntheticCaddyConfiguration,ownSyntheticProxyFixture,syntheticCaddyEnvironment,isSyntheticCertificateRefusal,syntheticCaddyFailureDiagnostic,observeSyntheticChildClose} from './caddy-contract.mjs';
 import {assertNoLinkedAncestors,isFullyQualifiedPath} from '../lib/native-paths.mjs';
 const [executable,fixture,report,commitSha]=process.argv.slice(2);
 try{assert.equal(process.argv.length,6);assert.equal(process.platform,'win32');assert.equal(process.arch,'x64');assert.match(commitSha??'',/^[a-f0-9]{40}$/);for(const file of [executable,fixture,report]){assert(isFullyQualifiedPath(file));assertNoLinkedAncestors(file);}assert(fs.statSync(path.dirname(report)).isDirectory());assert.equal(fs.existsSync(report),false);}catch{console.error('CADDY_NATIVE_REJECTED');process.exit(1);}
-let child,childExit,backend,proxyReady=false,output='';const reserves=[],phases=[],requests=[];
+let child,childExit,childClose,backend,proxyReady=false,output='';const reserves=[],phases=[],requests=[];
 let minimalEnv,trustStoreObservation;
 const hashFile=file=>{const fd=fs.openSync(file,'r'),buffer=Buffer.alloc(65536),hash=createHash('sha256');try{for(;;){const count=fs.readSync(fd,buffer,0,buffer.length,null);if(!count)break;hash.update(buffer.subarray(0,count));}return hash.digest('hex');}finally{buffer.fill(0);fs.closeSync(fd);}};
 function native(args,name){const r=spawnSync(executable,args,{env:minimalEnv,timeout:15000,maxBuffer:65536,windowsHide:true});phases.push({name,exitCode:r.status,signal:r.signal});assert.equal(r.error,undefined);assert.equal(r.status,0);assert.equal(r.signal,null);return r.stdout.toString('utf8');}
@@ -32,6 +32,7 @@ let failure,ownedFixture,diagnosticPhase='preflight';try{
  for(const server of reserves)await new Promise((resolve,reject)=>server.close(error=>error?reject(error):resolve()));reserves.length=0;
  diagnosticPhase='startup';
  child=spawn(executable,['run','--config',configFile],{env:minimalEnv,windowsHide:true,stdio:['ignore','pipe','pipe']});
+ childClose=observeSyntheticChildClose(child);
  childExit=new Promise((resolve,reject)=>{child.once('exit',(code,signal)=>resolve({code,signal}));child.once('error',reject);});childExit.catch(()=>{});
  for(const stream of [child.stdout,child.stderr])stream.on('data',bytes=>{output+=bytes.toString('utf8');if(Buffer.byteLength(output)>65536)child.kill();});
  const caFile=path.join(fixture,'caddy storage','pki','authorities','synthetic','root.crt');const deadline=Date.now()+15000;let ca,held;
@@ -56,4 +57,4 @@ let failure,ownedFixture,diagnosticPhase='preflight';try{
  ownedFixture.dispose();assert.equal(fs.existsSync(fixture),false);
  fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify({commitSha,nodeVersion:process.version,platform:process.platform,architecture:process.arch,caddyVersion:caddyRuntime.version,binarySha256:caddyRuntime.binarySha256,phases,trustStoreObservation,fixtureCleanup:true,systemTrustInstalled:false,backend:'synthetic-loopback-only',server2019Acceptance:'not-run'},null,2)+'\n',{flag:'wx'});console.log('CADDY_SYNTHETIC_NATIVE_TLS_PROXY_STOP_VERIFIED');
 }catch(error){failure=error;throw Error('CADDY_NATIVE_REJECTED');}
-finally{for(const server of reserves)server.close();if(child&&child.exitCode===null&&child.signalCode===null){child.kill();try{await childExit;}catch{}}if(backend)await new Promise(resolve=>backend.close(resolve));if(ownedFixture)ownedFixture.dispose();if(failure){fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify({commitSha,phases,failed:true,diagnostic:syntheticCaddyFailureDiagnostic({phase:diagnosticPhase,error:failure,output,exitCode:child?.exitCode??null,signal:child?.signalCode??null}),fixtureCleanup:!fs.existsSync(fixture),systemTrustInstalled:false,server2019Acceptance:'not-run'},null,2)+'\n',{flag:'wx'});}}
+finally{for(const server of reserves)server.close();if(child&&child.exitCode===null&&child.signalCode===null){child.kill();try{await childExit;}catch{}}if(backend)await new Promise(resolve=>backend.close(resolve));if(ownedFixture)ownedFixture.dispose();if(failure){const childOutputComplete=childClose?await childClose.wait(1000):true;fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify({commitSha,phases,failed:true,childOutputComplete,diagnostic:syntheticCaddyFailureDiagnostic({phase:diagnosticPhase,error:failure,output,exitCode:child?.exitCode??null,signal:child?.signalCode??null}),fixtureCleanup:!fs.existsSync(fixture),systemTrustInstalled:false,server2019Acceptance:'not-run'},null,2)+'\n',{flag:'wx'});}}

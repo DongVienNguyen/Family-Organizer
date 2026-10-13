@@ -1,4 +1,5 @@
 import {it,expect} from 'vitest';
+import {EventEmitter} from 'node:events';
 import * as policy from '../scripts/windows/caddy-contract.mjs';
 const diagnostic=(value:any)=>(policy as any).syntheticCaddyFailureDiagnostic(value);
 it('retains only bounded synthetic child output and primitive failure observations',()=>{
@@ -20,4 +21,22 @@ it('rejects caller-supplied diagnostic phases rather than accepting arbitrary co
 it('does not serialize arbitrary error codes or error cause objects',()=>{
  const result=diagnostic({phase:'tls',error:{code:'synthetic secret / arbitrary',message:'synthetic secret',cause:{token:'synthetic secret'}},output:'synthetic',exitCode:1,signal:null});
  expect(result.errorCode).toBeNull();expect(JSON.stringify(result)).not.toContain('secret');
+});
+
+it('captures final stderr after exit and waits for close before snapshotting diagnostics',async()=>{
+ const child=new EventEmitter();const stderr=new EventEmitter();let output='';
+ stderr.on('data',bytes=>{output+=bytes.toString('utf8');});
+ const completion=(policy as any).observeSyntheticChildClose(child);
+ child.emit('exit',1,null);
+ stderr.emit('data',Buffer.from('synthetic final startup error'));
+ child.emit('close',1,null);
+ expect(await completion.wait(100)).toBe(true);
+ expect(diagnostic({phase:'startup',error:new Error(),output,exitCode:1,signal:null}).output).toBe('synthetic final startup error');
+});
+it('bounds diagnostic close waiting without converting missing stream completion into success',async()=>{
+ const child=new EventEmitter();const completion=(policy as any).observeSyntheticChildClose(child);
+ child.emit('exit',1,null);
+ expect(await completion.wait(5)).toBe(false);
+ child.emit('close',1,null);
+ expect(await completion.wait(100)).toBe(true);
 });

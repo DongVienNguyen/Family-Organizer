@@ -32,5 +32,35 @@
   "rootCause": "Original Caddy failure remains unknown; diagnostic source is not a functional fix or Windows acceptance.",
   "windows": "not-run",
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "correctedVerification": {
+    "actualCloseLifecycleRed": 2,
+    "targetGreen": 187,
+    "targetFiles": 3,
+    "fullGreen": 2812,
+    "fullFiles": 137,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "950dd3788e8baa9e77ee86b9fa45e86034ea85105ae1c2ca9f4379cb7fc5cb84",
+      "scripts/windows/caddy-contract.mjs": "d8f1bb125770f510480bb8bfc2853830eac60dc897a90f6bc1e718a608149bdc",
+      "scripts/windows/probe-caddy-native.mjs": "b42f917cb5836ca5d510b86ede27a5499af9626fc80e5edb447910d440bd966a",
+      "tests/evidence.test.ts": "1a4e814917435ac7b1f597f35310384d30f2b03a57ebd5e64ac2249ddfb078bf",
+      "tests/caddy-failure-diagnostics.test.ts": "f4469371b4c09595176dd1ba5dc9fda7db390c33931b6e6a3a8c50e2eac4f12c"
+    },
+    "verificationHashes": {
+      "f09-o-close-red.json": "a7c18f46e01e44a724e32b0d54cb01ab3ee159d2fae5721668e3702c37eff5c0",
+      "f09-o-close-target.json": "a49363c3214abfeeda870890b6ed88ed99c4a7686a05aeaf546f4816aaba0c2a",
+      "f09-o-close-full.json": "f19e41a6a5fe1a898175be5e1a8ffaa2575dc3d7ef840ca2530e9dfc29025461",
+      "f09-o-close-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f09-o-close-build.log": "b75aa8d1c7bbe6a399d8708a097e1d091095862033379fbbb5d8f74afcec9272"
+    },
+    "reviewFixPassCount": 1,
+    "rereview": false,
+    "childOutputCompletion": "Registered close promise immediately after spawn; after cleanup waits up to1000ms before diagnostic snapshot, completion boolean recorded, never grants native success.",
+    "deferredMinor": "Existing independent chunk UTF8 decoding can replace split multibyte characters; tail test does not certify stream decoding."
+  }
 }

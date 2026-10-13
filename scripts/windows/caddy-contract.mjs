@@ -91,3 +91,15 @@ export function syntheticCaddyFailureDiagnostic({phase,error,output,exitCode,sig
  let code=null;try{if(typeof error?.code==='string'&&/^[A-Z][A-Z0-9_]{0,63}$/.test(error.code))code=error.code;}catch{/* Unknown error objects cannot expose cause/message. */}
  return {scope:'synthetic-loopback-only',diagnosticOnly:true,phase,errorCode:code,childExitCode:exitCode,childSignal:signal,output:bytes.subarray(start).toString('utf8'),observedOutputBytes:bytes.length,outputTruncated:start>0};
 }
+
+// Register immediately after spawn. Process exit alone does not drain stdio.
+// A missing close is diagnostic incompleteness, never native success.
+export function observeSyntheticChildClose(child){
+ let closed=false;
+ const completion=new Promise(resolve=>child.once('close',()=>{closed=true;resolve(true);}));
+ return {async wait(timeoutMs){
+  if(!Number.isSafeInteger(timeoutMs)||timeoutMs<1||timeoutMs>5000)throw Error('CADDY_DIAGNOSTIC_REJECTED');
+  if(closed)return true;
+  let timer;try{return await Promise.race([completion,new Promise(resolve=>{timer=setTimeout(()=>resolve(false),timeoutMs);})]);}finally{clearTimeout(timer);}
+ }};
+}
