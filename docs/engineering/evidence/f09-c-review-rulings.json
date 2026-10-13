@@ -1,0 +1,48 @@
+{
+  "taskId": "F09-c",
+  "reviewCount": 1,
+  "reviewedHeadSha": "071134f8a4f1f103d89c4840e408976de6fc5224",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 2
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 2
+  },
+  "rulings": [
+    {
+      "severity": "Important",
+      "finding": "Cancelled deletion lacks persisted-state and HTTP proof",
+      "ruling": "accepted",
+      "correction": "Observe matching DELETE from before first dialog, require none after cancel and HTTP/reload full persisted collection; require exactly one after intentional delete",
+      "classification": "Coverage gap, no demonstrated application defect"
+    },
+    {
+      "severity": "Minor",
+      "finding": "Amount-only edit does not assert unchanged category/account",
+      "ruling": "accepted",
+      "correction": "Compare saved transaction to complete original plus changed amount and full collection after create/edit"
+    },
+    {
+      "severity": "Minor",
+      "finding": "UTC midnight/local finance period wall-clock dependence",
+      "ruling": "accepted",
+      "correction": "Fix browser clock inside month before first navigation and preserve advancing timers across reloads"
+    }
+  ],
+  "declinedRulings": [
+    {
+      "finding": "Windows browsers, engine timing and exact main CI not executed",
+      "ruling": "Retain actual 21 first-attempt Windows execution gate; no discovery-only acceptance"
+    },
+    {
+      "finding": "Native service/Server2019 and broader legacy/master acceptance outside reviewed range",
+      "ruling": "Retain independent native/external and remaining matrix gates; no renewed domain or full foundation claim"
+    }
+  ],
+  "fixPass": "One correction pass completed; all findings graded before edits; lint/gate/discovery and exact Windows still required",
+  "rereview": false
+}

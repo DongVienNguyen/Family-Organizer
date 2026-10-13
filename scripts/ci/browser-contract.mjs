@@ -6,6 +6,7 @@ export const browserCases = [
   'B04 logout purges private storage',
   'B05 account switch removes previous data',
   'B06 shopping and offline meal persistence',
+  'B07 legacy finance create edit delete persistence',
 ];
 export function validateBrowserReports(input) {
   const errors = [];

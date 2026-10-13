@@ -1,0 +1,58 @@
+{
+  "taskId": "F09-c",
+  "baseSha": "ff13cb6f25c88024d108b67953855cddf7917fa2",
+  "scope": "Existing finance GUI create/edit/delete and displayed expense total/persistence, no feature or app source change",
+  "gateReds": {
+    "assertions": 2,
+    "priorPassed": 55,
+    "underlyingMissingFlowRequirement": 1
+  },
+  "gateTargetGreen": 57,
+  "fullGreen": 1990,
+  "fullFiles": 106,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "sourceFrozenDuringAggregate": true,
+  "fullReportSha256": "f76697ec289418ac146f4bc7294e1300a152488eb95698b3bdb8699bb6eaff13",
+  "afterAggregateAdjustment": "Excluded Playwright spec only: real confirmdialog has no accessible name; select scoped role plus visible heading; exact cancel label Hủybỏ. Static fixture correction, not appbug/browserRED. Lint/discovery checked again. Vitest/application bytes unchanged.",
+  "browserDiscovery": {
+    "cases": 21,
+    "executed": false,
+    "meaning": "Configuration only, not browser success"
+  },
+  "review": "one fresh 0Critical1Important2Minor; all graded/accepted before one pass, no rereview",
+  "windows": "not-run; finalmain rebase and exact21 cases required",
+  "financialUiAcceptance": false,
+  "remaining": [
+    "assets/debts/goals otherUI/legacy matrix rows",
+    "F08 full collector/Caddy",
+    "F05Administration403",
+    "actualServer2019/reboot/offhostnot-run"
+  ],
+  "releaseVps": "forbidden",
+  "reviewCorrections": [
+    "Observe DELETE before first dialog; zero after cancel plus HTTP/reload entire collection; exactly one final matching DELETE",
+    "Saved transaction exactly equals created plus amount change; full collection preserved after creation/edit",
+    "Fixed browser Date 2026-10-15T12:00:00Z before first navigation, timers keep running"
+  ],
+  "postReviewChecks": {
+    "lintExit": 0,
+    "gatePassed": 57,
+    "gateFiles": 1,
+    "discoveryExit": 0,
+    "discovered": 21,
+    "executedBrowsers": false,
+    "aggregateUnchangedVitestSource": true
+  },
+  "preArchiveBaseline": {
+    "fullGreen": 1943,
+    "fullFiles": 105,
+    "fullReportSha256": "015c3aae15e4a879ab7d8a65bd5c730cc9348d8d6d4fd16f4c1400322b27149e"
+  },
+  "mainRebase": "All scripts/workflows/application/dependencies/tests byte-identical to fully verified3bb6f52; no new broad run warranted"
+}
