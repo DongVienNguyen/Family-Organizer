@@ -1,13 +1,13 @@
 {
   "taskId": "F08-n",
-  "baseSha": "f6c7610a06bed4e39135a3ac14a57151dc9d1802",
+  "baseSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
   "scope": "Publication-disabled handoff intent from complete authenticated collector, read-only promotion preparation workflow; no copying/rebuilding/publishing release assets",
   "availabilityRed": 16,
   "actualMandatorySuiteRed": 1,
   "redSelection": "1 selectedgatefailure/177othersunselected, not fullsuite",
-  "targetGreen": 233,
-  "fullGreen": 2787,
-  "fullFiles": 135,
+  "targetGreen": 234,
+  "fullGreen": 2792,
+  "fullFiles": 136,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -19,8 +19,8 @@
     "scripts/windows/collect-release-archives.mjs": "bf25ceb8df33850a39ff30cf2cd1d184c9e6fe5b4dc40c16bb2dc209ada4a691",
     ".github/workflows/release-candidate.yml": "00237ae58051231484d8cac7364bfd58602d0757fa72e78f5e0de4db3a41074b",
     ".github/workflows/promote-release.yml": "f2797c3452e49f6239062da8dc074223aa31b79d8e9c0b2bf0a4f825c8510e4c",
-    "scripts/ci/write-evidence.mjs": "d9504b948849c6282f9562c2cf750caa058f582547978a228ed36f8eb424295a",
-    "tests/evidence.test.ts": "9f125e6c6c9b77fac7112a439048f4fdbd3b0911f35f1aef9426f10a66d341c5"
+    "scripts/ci/write-evidence.mjs": "2460e764b42321deb1c9169cf8a9a3a0f1d56692819cc13565007718a9534cee",
+    "tests/evidence.test.ts": "7879e684f6f943d3fa57095bddbcae67d4eeba1e96f4ee2e9853f6ce848ad262"
   },
   "verificationHashes": {
     "f08-n-availability-red.json": "728786a50d13216fda81c7a4d0a27857f61e4c49421eda8404cd78574cdba7c5",
@@ -28,7 +28,11 @@
     "f08-n-target.json": "a3ee99f2c704fe8c42f45258399951e4a0a30bfbf2c7c86500955302bf9e377f",
     "f08-n-full.json": "226c9c0b48d224d4ae5d69591f090de664dbb1376e0203b3da9bae7d7b8e4067",
     "f08-n-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
-    "f08-n-build.log": "b94505672d2b5f73fd0ff2e59520267553066d8ec3a1b14dac0650461afbd267"
+    "f08-n-build.log": "b94505672d2b5f73fd0ff2e59520267553066d8ec3a1b14dac0650461afbd267",
+    "f08-n-parent60-target.json": "dee87f92edb093a8f728f1c20b5d6528ed2ebb65202e1e106c8b68cb7c06f5d2",
+    "f08-n-parent60-full.json": "aeaef8ccc711196c6a9cea9ca7f97b59d52abc55c7c7ba5817b567858334dcda",
+    "f08-n-parent60-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "f08-n-parent60-build.log": "d1d76ae947fa4e79d23ef6b638e7626a5850dd2c77eb2e89bd51a87dd7b10166"
   },
   "syntheticPolicyFactsNotGithubAuthority": true,
   "windows": "not-run",
@@ -43,5 +47,9 @@
     "FullF09",
     "F05Administration403",
     "Server2019/release/VPS"
-  ]
+  ],
+  "baseState": "Provisional reviewed parent60, native/mainacceptance pending",
+  "priorCorrectedCloudTests": 2787,
+  "reviewedOwnSourceByteAgreement": true,
+  "review": "ONE9e381/basef6 0C0I0M, allgraded beforeactions, zero sourcefixpass/no rereview; parentassistantFocus+allgatesretained"
 }
