@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto';
+import ts from 'typescript';
 import {readTrustedSourceFacts} from './release-metadata.mjs';
 import {safeArchivePath} from './package-contract.mjs';
 const reject=()=>{throw new Error('RELEASE_SOURCE_POLICY_REJECTED');};
@@ -32,8 +33,23 @@ export function readTrustedReleasePolicy(request,authority){
   requireFact(inventoryNames.length>0&&inventoryNames.length<=1500&&requiredSuites.length>0&&requiredSuites.length<=1500);
   // Preflight every mode before reading any source through a possible symlink.
   for(const name of [...inventoryNames,...requiredSuites]){const file=files.get(name);requireFact(file.type==='blob'&&['100644','100755'].includes(file.mode));}
+  const browserContract=read('scripts/ci/browser-contract.mjs');
+  // The pinned builder parser reads syntax only; target code is never executed.
+  const syntax=ts.createSourceFile('browser-contract.mjs',browserContract,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);
+  requireFact(syntax.parseDiagnostics.length===0);
+  const literalArray=name=>{
+   const declarations=syntax.statements.flatMap(statement=>ts.isVariableStatement(statement)?statement.declarationList.declarations.filter(declaration=>ts.isIdentifier(declaration.name)&&declaration.name.text===name).map(declaration=>({statement,declaration})):[]);
+   requireFact(declarations.length===1);
+   const {statement,declaration}=declarations[0],value=declaration.initializer;
+   requireFact(statement.modifiers?.some(modifier=>modifier.kind===ts.SyntaxKind.ExportKeyword)&&(statement.declarationList.flags&ts.NodeFlags.Const)!==0&&statement.declarationList.declarations.length===1&&ts.isArrayLiteralExpression(value)&&value.elements.length>0&&value.elements.length<=99);
+   // Continue to support only the reviewed unescaped single-quoted literals.
+   return value.elements.map(element=>{requireFact(ts.isStringLiteral(element));const match=element.getText(syntax).match(/^'([^'\\\r\n]+)'$/);requireFact(match);return match[1];});
+  };
+  const projects=literalArray('browserProjects'),cases=literalArray('browserCases');
+  requireFact(JSON.stringify(projects)===JSON.stringify(['chromium','firefox','webkit'])&&new Set(cases).size===cases.length&&cases.every((name,index)=>/^B[0-9]{2} [A-Za-z0-9][A-Za-z0-9 _-]{0,120}$/.test(name)&&name.startsWith('B'+String(index+1).padStart(2,'0')+' ')));
+  const browserPolicy={projects,cases,contractSha256:hash(windowsBytes(browserContract))};
   const sourceInventory=inventoryNames.sort((a,b)=>a.localeCompare(b,'en')).map(name=>{const text=read(name);requireFact(!/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(text));return {path:name,sha256:hash(windowsBytes(text))};});
   requireFact(Date.now()-started<=120000);
-  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy};
+  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy};
  }catch{reject();}
 }
