@@ -48,8 +48,24 @@ export function readTrustedReleasePolicy(request,authority){
   const projects=literalArray('browserProjects'),cases=literalArray('browserCases');
   requireFact(JSON.stringify(projects)===JSON.stringify(['chromium','firefox','webkit'])&&new Set(cases).size===cases.length&&cases.every((name,index)=>/^B[0-9]{2} [A-Za-z0-9][A-Za-z0-9 _-]{0,120}$/.test(name)&&name.startsWith('B'+String(index+1).padStart(2,'0')+' ')));
   const browserPolicy={projects,cases,contractSha256:hash(windowsBytes(browserContract))};
+  const workflowText=read('.github/workflows/ci.yml'),workflow=workflowText.replaceAll('\r\n','\n');
+  const markers=[...workflow.matchAll(/^      - name: Prepare independent consumer harness\n/gm)];requireFact(markers.length===1);
+  const beginning=markers[0].index+markers[0][0].length,end=workflow.indexOf('\n      - ',beginning);requireFact(end>beginning);
+  const commands=workflow.slice(beginning,end).split('\n');
+  requireFact(commands.length===5&&commands[0]==='        run: |'&&commands[1]==="          $ErrorActionPreference = 'Stop'"&&commands[2]==='          New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null');
+  const flattened=new Set(),harnessSources=[];
+  for(const command of commands.slice(3)){
+   const match=command.match(/^          Copy-Item ([A-Za-z0-9/_. ,\-]+) reports\/package-harness$/);requireFact(match);
+   for(const name of match[1].split(',').map(value=>value.trim())){
+    requireFact(/^scripts\/(?:windows|ci)\/[A-Za-z0-9_-]+\.(?:mjs|cjs|ps1)$/.test(name)&&safeArchivePath(name));
+    const flat=name.split('/').at(-1);requireFact(!flattened.has(flat.toLowerCase()));flattened.add(flat.toLowerCase());
+    harnessSources.push({sourcePath:name,path:flat,sha256:hash(windowsBytes(read(name)))});
+   }
+  }
+  requireFact(harnessSources.length>0&&harnessSources.length<=100);
+  const harnessPolicy={workflowSha256:hash(windowsBytes(workflowText)),files:harnessSources.sort((a,b)=>a.sourcePath.localeCompare(b.sourcePath,'en'))};
   const sourceInventory=inventoryNames.sort((a,b)=>a.localeCompare(b,'en')).map(name=>{const text=read(name);requireFact(!/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(text));return {path:name,sha256:hash(windowsBytes(text))};});
   requireFact(Date.now()-started<=120000);
-  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy};
+  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,harnessPolicy};
  }catch{reject();}
 }
