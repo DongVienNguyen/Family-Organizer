@@ -1,0 +1,32 @@
+{
+  "taskId": "F07-m",
+  "baseSha": "6e54e0d37bf3eb7e76b47c609f1d9dae49b967b9",
+  "scope": "Allowlisted native filesystem code diagnosis only; no retry/admission/ownership/binding/deadline changes",
+  "observedFailure": "421fb6c/CI38370988128 service update-ready failure after UPDATE_CONTROL_INVALID/read-stage:descriptor-open; actual errno still unknown",
+  "diagnosticRed": 6,
+  "otherTargetBeforeFixPassed": 30,
+  "targetGreen": 42,
+  "fullGreen": 2548,
+  "fullFiles": 122,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "server/updateFence.ts": "fa75f7c5d619b6edf9cadfa9d944234d0709bdf82e077bee573b95e8431f762d",
+    "server.ts": "b722f756d4af96decc08d78b0385d184ab614e62c3a608c5f8ffa77feb557d52",
+    "server/updateFence.test.ts": "34f02d1fa706d6c727a37a36c6cf3f5b7af45b20e2663d9ad923c6227cf99618"
+  },
+  "verificationHashes": {
+    "f07-m-native-code-red.log": "e1683e306384672fe3c312741dc65c3bf726b532e1525b1ff3ca882ca551f8f4",
+    "f07-m-target.json": "c28e5d1b73d16f438210c00fe1f181b46652a75afd1bba674258b487d81d3d2b",
+    "f07-m-full.json": "e5f32a4f912ca97fc1f35c4e5e9714de03db40db07192fe5c9d335cf6b4b6649",
+    "f07-m-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f07-m-build.log": "535e291ed489bf2724d020cc05a3fe03b0ee7b076e0e4bc40eceedf00e58b30c"
+  },
+  "review": "pending one fresh wholebranch",
+  "ci": "not-run",
+  "nativeRootCause": "unconfirmed; this does not claim functional repair",
+  "server2019Acceptance": "not-run"
+}

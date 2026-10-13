@@ -1,0 +1,240 @@
+{
+  "taskId": "F08-j",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/51",
+  "baseSha": "727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d",
+  "testedHeadSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38373438183",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "79391f6ee70ec1067f78e629730f0beb78715253",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "review": {
+    "taskId": "F08-j",
+    "reviewCount": 1,
+    "reviewedHead": "b9ff7bfcd730d045ed9cdf173e48c181df5b2dae",
+    "baseSha": "727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d",
+    "reviewerGrades": {
+      "critical": 0,
+      "important": 4,
+      "minor": 2
+    },
+    "authorGrades": {
+      "critical": 0,
+      "important": 6,
+      "minor": 0
+    },
+    "findings": [
+      {
+        "id": 1,
+        "grade": "Important",
+        "decision": "accept",
+        "effect": "Missing scheduled bundled executable/recovery filename/typed ACL identities can certify incomplete or contradictory backup evidence."
+      },
+      {
+        "id": 2,
+        "grade": "Important",
+        "decision": "accept",
+        "effect": "Missing coordinator candidate classification and fresh/postapproval write identities leaves preservation evidence incomplete."
+      },
+      {
+        "id": 3,
+        "grade": "Important",
+        "decision": "accept",
+        "effect": "Credential substring accepts foreign/relative system module lookalikes."
+      },
+      {
+        "id": 4,
+        "grade": "Important",
+        "decision": "accept",
+        "effect": "Unrelated service logs can satisfy shutdown assertions because serviceID not bound to log filenames."
+      },
+      {
+        "id": 5,
+        "reviewerGrade": "Minor",
+        "grade": "Important",
+        "decision": "promote and accept",
+        "effect": "Gate claims native report subset verified but allows missing expected-code contract or foreign lock-probe sequence; proof completeness is material to acceptance."
+      },
+      {
+        "id": 6,
+        "reviewerGrade": "Minor",
+        "grade": "Important",
+        "decision": "promote and accept",
+        "effect": "Missing/contradictory refusal explanations allow unrelated native errors to stand as intended ownership refusals; strict proof gate needs actual existing reason."
+      }
+    ],
+    "rulings": [
+      {
+        "behavior": "Historical proof and Cloud counts not independently certified by reviewer",
+        "decision": "accept limitation",
+        "reason": "Author actual reports/hash verifications are separate gates; new exactWindows/live still required",
+        "costIfWrong": "False native acceptance; prevented by external report gates."
+      },
+      {
+        "behavior": "innerZIP/license/build/SDK/Caddy/full collector deferred",
+        "decision": "accept",
+        "reason": "Explicit stage/publication false flags; no full acceptance inferred",
+        "costIfWrong": "Premature release trust if labels mistaken."
+      },
+      {
+        "behavior": "Helper fixtures not GitHub authority",
+        "decision": "accept",
+        "reason": "Same-process collector obtains authenticated Git/API/archive and validated package digest",
+        "costIfWrong": "Forged source/ZIP provenance if boundaries bypassed."
+      },
+      {
+        "behavior": "Exact14/42 service10/31 coordinator/fiveproofs/source17 present",
+        "decision": "accept",
+        "reason": "Existing strict inventories/refusal exits retained",
+        "costIfWrong": "Incomplete regression proof, independently checked native artifacts."
+      },
+      {
+        "behavior": "Shared reader/cleanup boundaries reused, no new ownership defect found",
+        "decision": "accept",
+        "reason": "No mutations/recursive cleanup added; ordinary files/budgets/ancestor checks remain",
+        "costIfWrong": "Untrusted file or removal evidence accepted; new native/source gates remain."
+      },
+      {
+        "behavior": "No need reconstruct every business assertion from checklist strings",
+        "decision": "accept",
+        "reason": "Check existing emitted raw fields directly; native harness retains real business assertions",
+        "costIfWrong": "Overstating proof subset; full/publication flags remain false."
+      },
+      {
+        "behavior": "No app/deps/lock/release/VPS or reboot/Server2019 certification",
+        "decision": "accept",
+        "reason": "Scope unchanged; actual acceptance separately required",
+        "costIfWrong": "Premature foundation/deployment certification."
+      }
+    ],
+    "allGradedBeforeOneFixPass": true,
+    "fixPass": "one TDD pass, no rereview",
+    "observedCorrectionRed": 21,
+    "otherExistingAndNewPassedBeforeFix": 53,
+    "rotationContract": {
+      "source": "WinSWv2.12.0 src/WinSW.Core/LogAppenders.cs lines273-286",
+      "observed": "roll-by-size creates .0.out.log through .7.out.log for keepFiles8",
+      "standaloneRed": 1,
+      "remaining": "fixed with persistent actualRED\u2192GREEN .0..7 owned-service rotations"
+    }
+  },
+  "correction": {
+    "taskId": "F08-j",
+    "baseSha": "727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d",
+    "scope": "eight bounded actual service JSON reports plus real graceful-shutdown/closed-storage logs; service14 checks42phases/coordinator10checks31phases/fiveproofs/source17",
+    "availabilityRed": 51,
+    "criticalSuiteRed": 1,
+    "targetGreen": 240,
+    "fullGreen": 2541,
+    "fullFiles": 122,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "rawServiceReportsVerified": true,
+    "innerPackageAgreement": false,
+    "reportsVerified": false,
+    "publicationAllowed": false,
+    "review": "one fresh0C4I2M, author0C6I0M; all corrected in one TDD pass/no rereview",
+    "ci": "not-run",
+    "server2019Acceptance": "not-run",
+    "actualReboot": "not-run",
+    "sourceHashes": {
+      "scripts/windows/release-service-reports.mjs": "3dd5ac7f5379df01d8895a661b635ad4962659eb8d334c8e9b2f0478b5ab0221",
+      "scripts/windows/collect-release-archives.mjs": "ce9b7c5283bf5cb5e64f13a1131a18f7996855afd69fd071dc962101d5e1f410",
+      "scripts/ci/write-evidence.mjs": "a3a6f264fd5d601f4eb2713ad00b7e589cd57d57879ba2f5864012debe931e0c",
+      "tests/release-service-reports.test.ts": "ebd9640a6e6e11ae8d7e4a6b3f5cae61ccc4ffab0ffcb56f8b8c2b9842318030",
+      "tests/helpers/release-service-fixture.ts": "ca89cf1ff2726ca99d2847a3b8455f5ba7452004cd22d169a3446cd68054ec90",
+      "tests/evidence.test.ts": "7a99868567914e5189b5d816a45359b045185df2aaf96133fae3be61d2b30834"
+    },
+    "verificationHashes": {
+      "f08-j-availability-red.log": "7df3f782f4e2652dcde596f9d0c764e18b16d9e77616781587ddcd75b37dea92",
+      "f08-j-missing-suite-red.log": "c6831f43e5ebb012d029c8cc63e9c20cd5edbc50bb79aec369d73ab06450d12c",
+      "f08-j-target-full.json": "34b3ce8d580e45328ef3aa7cc9dbc84dd7eb790b91abb5b72afa9533680d4272",
+      "f08-j-full.json": "f626666ddcc85db4bec822e902c6c8a57ca5abb695a337eea5f89b383f70ceff",
+      "f08-j-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "f08-j-build.log": "70aa2d70aac9e6a6587c01a1e1cacf633a7bfe233638dadc0760df82722bcd1c",
+      "f08-j-real-windows-reports-cloud-compatibility.json": "b82505c0a599a03d9c17695e25bbf8fa633e253e2cd4ee3a21b5f4c097442b9d"
+    },
+    "reviewCorrectionRed": 21,
+    "rotationContractRed": 1,
+    "correctedVerificationHashes": {
+      "f08-j-review-red.log": "2915f9fc08ec69d64926e66cdd56a3a266da4d65a7b5cc6583f0ebd34f6f4fbb",
+      "f08-j-rotation-red.log": "519cd923a7fc34158e44c720f0d36721ac110c5a67695e7824be5017e71a93af",
+      "f08-j-corrected-target.json": "793deb4de82cd1a0f0830ee97e0010c00a6ecad03c51e72c2686c47a272b2288",
+      "f08-j-corrected-full.json": "4b77637615179436a0dbcfe1e0b6e62deb32f25828661b97d96fc9c373251e54",
+      "f08-j-corrected-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "f08-j-corrected-build.log": "add4e9d4474d67d6c0537baf98388e309cd1607c46d9d1e40d26156ae8f194fa",
+      "f08-j-corrected-real-windows-cloud-compatibility.json": "ade8ad01e48b1ac6dbbcb7202a8627d3dd3bf64604d76d076ef10c1a6f1520e8"
+    }
+  },
+  "fullCiLogSha256": "a3c2e7ec5ea0944e87b4e9e63c90f3efe0d4c450993fa66b85b3964b9bee79c4",
+  "summaryHashes": {
+    "quality": "7a48d48ff25804150339d7a7b506f5209854829d861b8195ccae319b77d1edc6",
+    "coverage": "21b0c5af82ab68d5d8e889040c01e759620639c9c288d04903126cdef45dc2d5",
+    "browser": "7b4f3de56563cd21a8c937a50560ebe9315f9a29c4e3ed7cc0d66147995ad720",
+    "package": "6fc5f435bf9ed3a2924c781d5fcc151ddc02a69d468e1d7ee95415ad9e6bdb3b",
+    "service": "1d8a3283cadf2fe19984917bb795ebf74908416aaee01fe895662c6d6d704b6d",
+    "caddy": "9f5785f2b39994958286d3fc5ebf10725d3122dcb1252e0e46a338c09cae4150",
+    "extraction-sdk": "adb8c2368b4aa66d38647da6c9ec8b6374e9970f0ba1e5f4901fbcf1886c0f21"
+  },
+  "remaining": [
+    "Full archive/report collector and promotion workflows still pending",
+    "Other legacy matrix rows/Caddy/F08 full artifact+promotion collector",
+    "F05 unprotected main/Administration403",
+    "actualServer2019/reboot/offhost/RPO/RTO not-run",
+    "no release/tag/VPS authorization"
+  ],
+  "mergedMainSha": "6e54e0d37bf3eb7e76b47c609f1d9dae49b967b9",
+  "nativeSummary": {
+    "both": "2541/122",
+    "failedPendingTodo": 0,
+    "firstAttemptBrowsers": 24,
+    "sourceCoverage": 118,
+    "zipSha256": "f9ed33f9b7d91bf3e2dcba60b6bcdf8ecb2b4ff8694521a9cd760fa3039fa40c",
+    "sevenIndependentValidatorsExit": 0
+  },
+  "completeProofLocation": "/workspace/family-evidence/run-38373438183/final-proof.json",
+  "completeProofSha256": "6ecc52a39594f7cb603f6c37cc801dc0b346b87d162e97f7e9084e3c1d13793c"
+}

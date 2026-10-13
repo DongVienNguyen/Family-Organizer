@@ -6,7 +6,15 @@ import {createHash} from 'node:crypto';
 import {setTimeout as delay} from 'node:timers/promises';
 import type {AppConfig} from './config.js';
 import {assertNoLinkedAncestors} from '../scripts/lib/native-paths.mjs';
-export class UpdateFenceError extends Error {readStage?:string;}
+const nativeFailureCodes=['EBUSY','EACCES','EPERM','ENOENT','EMFILE','ENFILE','EIO'];
+export class UpdateFenceError extends Error {readStage?:string;nativeCode?:string;}
+export function formatUpdateStartupFailure(error:unknown):string{
+ if(!(error instanceof UpdateFenceError))return '';
+ const code=['UPDATE_CONTROL_INVALID','UPDATE_BINDING_INVALID','UPDATE_SCHEMA_INCOMPATIBLE','UPDATE_STARTUP_CANCELLED','UPDATE_HEALTH_FAILED','UPDATE_STORAGE_FAILED','UPDATE_APPROVAL_TIMEOUT'].includes(error.message)?` [${error.message}]`:'';
+ const stage=['ancestors','leaf-stat','descriptor-open','descriptor-read','descriptor-eof','descriptor-after','parents-after','leaf-after','metadata-after'].includes(error.readStage??'')?` [read-stage:${error.readStage}]`:'';
+ const native=nativeFailureCodes.includes(error.nativeCode??'')?` [native-code:${error.nativeCode}]`:'';
+ return code+stage+native;
+}
 function refuse(code='UPDATE_CONTROL_INVALID'):never{throw new UpdateFenceError(code);}
 const uuid=(value:unknown):value is string=>typeof value==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(value);
 interface Bounds {min:number;max:number}
@@ -44,7 +52,9 @@ function readPublic(file:string,limit:number,code:string,allowLeafPublication=fa
   if(fixed.dev!==stat.dev||fixed.ino!==stat.ino){if(allowLeafPublication)throw new ControlPublicationChanged(code);refuse(code);}
   readStage='metadata-after';if(after.dev!==stat.dev||after.ino!==stat.ino||after.nlink!==1n||after.size!==stat.size||after.mtimeNs!==stat.mtimeNs||after.ctimeNs!==stat.ctimeNs||fixed.size!==stat.size||fixed.mtimeNs!==stat.mtimeNs||fixed.ctimeNs!==stat.ctimeNs)refuse(code);
   complete=true;return bytes;
- }catch(error){if(error instanceof ControlPublicationChanged)throw error;const failure=new UpdateFenceError(code);failure.readStage=readStage;throw failure;}
+ }catch(error){if(error instanceof ControlPublicationChanged)throw error;const failure=new UpdateFenceError(code);failure.readStage=readStage;
+  if(error!==null&&typeof error==='object'){const native=Object.getOwnPropertyDescriptor(error,'code')?.value;if(typeof native==='string'&&nativeFailureCodes.includes(native))failure.nativeCode=native;}
+  throw failure;}
  finally{if(!complete)bytes?.fill(0);if(fd!==undefined){try{fs.closeSync(fd);}catch{bytes?.fill(0);refuse(code);}}}
 }
 function readControl(file:string):Control{
