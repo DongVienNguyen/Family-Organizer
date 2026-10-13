@@ -1,0 +1,31 @@
+{
+  "taskId": "F09-f",
+  "baseSha": "29ae90be91f6ca4ffdd3288f416edd2285f0c2f0",
+  "scope": "Existing real HTTP/SQLite health flows; no app behaviour/dependency/runtime changes",
+  "initialCharacterizationPassed": 5,
+  "mandatorySuiteActualRed": 1,
+  "targetGreen": 171,
+  "fullGreen": 2558,
+  "fullFiles": 123,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "server/legacyHealthHttp.test.ts": "7c5eeafe660a10701795843bff4f4167678afc5ab3fd7f9eda3a20a2961d5c72",
+    "scripts/ci/write-evidence.mjs": "25e0a56738f8d0559dd85fc20650d728186941ce565375053a2d1e9e8b6b37b5",
+    "tests/evidence.test.ts": "3a16069262cf7fe434d63c2f92c4793b5f926fb3e4ce5a70fec3a0e48446faa5"
+  },
+  "verificationHashes": {
+    "f09-f-initial.log": "bffe2922ebf04e649bae0a7406b4f17fe3a486b8d2292cc112d60a539b56393c",
+    "f09-f-target.json": "6ffb98b75f2520442921a6bb913fbef3733b14c68b21961b92da293ea6258b70",
+    "f09-f-full.json": "661a12d0a898b7127c24efa2a4ec8a7c0703104128fa6e8279e5b8a906fd0e13",
+    "f09-f-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-f-build.log": "e8f18b64f7e31b460643026571538315a817ad1f54c78572d6221f26461db846"
+  },
+  "review": "pending one fresh after acceptedmain53 rebase",
+  "windowsVerification": "not-run",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}
