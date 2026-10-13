@@ -1,0 +1,40 @@
+{
+  "taskId": "F08-j",
+  "baseSha": "727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d",
+  "scope": "eight bounded actual service JSON reports plus real graceful-shutdown/closed-storage logs; service14 checks42phases/coordinator10checks31phases/fiveproofs/source17",
+  "availabilityRed": 51,
+  "criticalSuiteRed": 1,
+  "targetGreen": 216,
+  "fullGreen": 2517,
+  "fullFiles": 122,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "rawServiceReportsVerified": true,
+  "innerPackageAgreement": false,
+  "reportsVerified": false,
+  "publicationAllowed": false,
+  "review": "not-run",
+  "ci": "not-run",
+  "server2019Acceptance": "not-run",
+  "actualReboot": "not-run",
+  "sourceHashes": {
+    "scripts/windows/release-service-reports.mjs": "1bda5e50575c8615c64829d425c9b33c7c3d7e7d92923e82ecd7ce59d1efb4d8",
+    "scripts/windows/collect-release-archives.mjs": "ce9b7c5283bf5cb5e64f13a1131a18f7996855afd69fd071dc962101d5e1f410",
+    "scripts/ci/write-evidence.mjs": "a3a6f264fd5d601f4eb2713ad00b7e589cd57d57879ba2f5864012debe931e0c",
+    "tests/release-service-reports.test.ts": "4d943d4f4d8d971f3bbec54d6254fac68d2f7c6cbcd3c2f4f5275ea7769d81f0",
+    "tests/helpers/release-service-fixture.ts": "ca89cf1ff2726ca99d2847a3b8455f5ba7452004cd22d169a3446cd68054ec90",
+    "tests/evidence.test.ts": "7a99868567914e5189b5d816a45359b045185df2aaf96133fae3be61d2b30834"
+  },
+  "verificationHashes": {
+    "f08-j-availability-red.log": "7df3f782f4e2652dcde596f9d0c764e18b16d9e77616781587ddcd75b37dea92",
+    "f08-j-missing-suite-red.log": "c6831f43e5ebb012d029c8cc63e9c20cd5edbc50bb79aec369d73ab06450d12c",
+    "f08-j-target-full.json": "34b3ce8d580e45328ef3aa7cc9dbc84dd7eb790b91abb5b72afa9533680d4272",
+    "f08-j-full.json": "f626666ddcc85db4bec822e902c6c8a57ca5abb695a337eea5f89b383f70ceff",
+    "f08-j-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f08-j-build.log": "70aa2d70aac9e6a6587c01a1e1cacf633a7bfe233638dadc0760df82722bcd1c",
+    "f08-j-real-windows-reports-cloud-compatibility.json": "b82505c0a599a03d9c17695e25bbf8fa633e253e2cd4ee3a21b5f4c097442b9d"
+  }
+}
