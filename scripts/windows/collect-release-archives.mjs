@@ -7,6 +7,7 @@ import {extractReleaseReportArchives} from './release-report-extraction.mjs';
 import {readReleaseQualityFiles,openReleaseReportFiles} from './release-report-files.mjs';
 import {readReleaseRuntimeFiles} from './release-runtime-reports.mjs';
 import {readReleaseCoverageFiles} from './release-coverage-files.mjs';
+import {readReleaseConsumerReportFiles} from './release-consumer-reports.mjs';
 import {readReleasePackageReportFiles} from './release-package-reports.mjs';
 import {readReleaseBrowserFiles} from './release-browser-files.mjs';
 import {fileURLToPath} from 'node:url';
@@ -26,8 +27,9 @@ try{
  const browser=readReleaseBrowserFiles(browserDirectory,policy,{commitSha:request.commitSha,runId:request.runId,nodeVersion:'v24.21.0'});
  const packageDirectory=extraction.archives.find(row=>row.name==='windows-package-'+request.commitSha+'-1')?.directory,consumerDirectory=extraction.archives.find(row=>row.name==='windows-package-tests-'+request.commitSha+'-1')?.directory;
  const packageReports=readReleasePackageReportFiles(packageDirectory,consumerDirectory,{commitSha:request.commitSha,runId:request.runId,appVersion:policy.source.packageVersion});
- fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,innerPackageAgreement:false,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports},null,2)+'\n');
+ const consumerReports=readReleaseConsumerReportFiles(consumerDirectory,packageReports,{commitSha:request.commitSha,runId:request.runId});
+ fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,innerPackageAgreement:false,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports,consumerReports},null,2)+'\n');
  fs.writeFileSync('reports/release-metadata.json',JSON.stringify(receipt.metadata,null,2)+'\n');
  fs.writeFileSync('reports/release-archives.json',JSON.stringify(receipt,null,2)+'\n');
- console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_BROWSER_PACKAGE_RECEIPTS_VERIFIED_OTHER_REPORTS_UNVERIFIED_PUBLICATION_DISABLED');
+ console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_BROWSER_PACKAGE_RECEIPTS_CONSUMER_REPORTS_VERIFIED_OTHER_REPORTS_UNVERIFIED_PUBLICATION_DISABLED');
 }catch{console.error('RELEASE_ARCHIVE_REJECTED');process.exitCode=1;}
