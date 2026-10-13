@@ -83,3 +83,11 @@ still rejects even a complete normalized receipt. The pure normalizer accepts
 synthetic prior facts for unit tests; only its invocation after the authenticated
 API/download/Git/raw/native readers in trusted-main dispatch confers CI provenance.
 No operator JSON ingestion, write-token job, release/tag or VPS action is added.
+
+Composition also matches each extraction row's original artifact ID, archive
+SHA256, byte count and file to the authenticated download receipt. The independent
+read supplying coverage retains its actual `evidence.json` digest, and that digest
+must match quality/runtime/auxiliary evidence before normalized verification.
+These bindings were added after six actual contradiction failures in review.
+The old preflight console marker is a deferred wording note; the normalized JSON
+and explicit publication lock determine the new final result.

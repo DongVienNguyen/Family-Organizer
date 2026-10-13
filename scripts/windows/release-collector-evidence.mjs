@@ -16,6 +16,7 @@ export function normalizeReleaseCollectorEvidence(receipt,p){
   for(const row of receipt.archives){const a=m.artifacts.find(x=>x.id===row.artifactId);requireFact(a?.name===row.name&&a.expired===false&&a.workflow_run.id===r.runId&&a.workflow_run.head_sha===r.commitSha&&hex(row.archiveSha256)&&a.digest==='sha256:'+row.archiveSha256&&positive(row.bytes));}
   requireFact(isDeepStrictEqual(m.artifact,m.artifacts.find(x=>x.id===m.artifact.id)));
   const extraction=p.extraction;requireFact(extraction.publicationAllowed===false&&positive(extraction.files)&&positive(extraction.expandedBytes)&&isDeepStrictEqual(extraction.archives.map(x=>x.name).sort(),receipt.archives.map(x=>x.name).sort()));
+  for(const extracted of extraction.archives){const original=receipt.archives.find(row=>row.name===extracted.name);requireFact(['artifactId','archiveSha256','bytes','file'].every(key=>extracted[key]===original[key]));}
   const policy=p.sourcePolicy;requireFact(positive(policy.requiredSuites.length)&&positive(policy.sourceInventory.length)&&positive(policy.harnessPolicy.files.length));
   requireFact(p.quality.length===2&&p.runtimeAndCoverage.length===2&&p.auxiliaryReports.length===2&&new Set(p.quality.map(x=>x.major)).size===2&&new Set(p.runtimeAndCoverage.map(x=>x.major)).size===2);
   const quality=[];
@@ -23,7 +24,7 @@ export function normalizeReleaseCollectorEvidence(receipt,p){
    const q=p.quality.find(x=>x.major===major),v=p.runtimeAndCoverage.find(x=>x.major===major),a=p.auxiliaryReports.find(x=>x.nodeVersion===nodeVersion);same(q);
    requireFact(q.rawAssertionsVerified===true&&positive(q.tests)&&q.passed===q.tests&&q.failed===0&&q.pending===0&&q.todo===0&&q.files===policy.requiredSuites.length);
    requireFact(v.runtime.commitSha===r.commitSha&&v.coverage.commitSha===r.commitSha&&a.commitSha===r.commitSha&&v.runtime.nodeVersion===nodeVersion&&v.coverage.nodeVersion===nodeVersion&&v.runtime.runtimeProductionAuditVerified===true&&v.coverage.coverageVerified===true&&v.coverage.sources===policy.sourceInventory.length&&a.rawAuxiliaryReportsVerified===true);
-   requireFact(hex(q.reportHashes['evidence.json'])&&q.reportHashes['evidence.json']===v.runtime.reportHashes['evidence.json']&&q.reportHashes['evidence.json']===a.reportHashes['evidence.json']);
+   requireFact(hex(q.reportHashes['evidence.json'])&&v.coverage.evidenceSha256===q.reportHashes['evidence.json']&&q.reportHashes['evidence.json']===v.runtime.reportHashes['evidence.json']&&q.reportHashes['evidence.json']===a.reportHashes['evidence.json']);
    quality.push({major,tests:q.tests,passed:q.passed,files:q.files,failed:0,pending:0,todo:0});
   }
   const browser=p.browser;same(browser);requireFact(browser.rawBrowserVerified===true&&browser.fixtureCleanup===true&&positive(browser.cases)&&browser.cases===policy.browserPolicy.projects.length*policy.browserPolicy.cases.length);
