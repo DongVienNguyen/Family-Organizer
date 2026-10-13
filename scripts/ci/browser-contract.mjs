@@ -12,6 +12,7 @@ export const browserCases = [
   'B09 self profile settings persistence',
   'B10 assistant loading error close',
   'B11 health growth and dose persistence',
+  'B12 calendar recurrence edit and ICS',
 ];
 export function validateBrowserReports(input, policy) {
   const requiredProjects=policy?.projects??browserProjects,requiredFlows=policy?.cases??browserCases;

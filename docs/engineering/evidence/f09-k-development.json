@@ -1,0 +1,42 @@
+{
+  "taskId": "F09-k",
+  "baseSha": "b64bfc6b9206f055c1f69a6d1ced1836b3cf2506",
+  "scope": "Existing calendar create/daily recurrence/grid/detail/agenda/edit/private/reload/client ICS bytes; no app change",
+  "actualGateRed": 2,
+  "targetGreen": 165,
+  "fullGreen": 2778,
+  "fullFiles": 134,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "originalElevenFlowBytePrefixPreserved": true,
+  "sourceHashes": {
+    "scripts/ci/browser-contract.mjs": "1a1704d56543d2e40d955fce4f76c04fc33498d5589dbc01d2eb5d55de12f77d",
+    "tests/browser-evidence.test.ts": "6e1890b84d2d28290a5670ccdfecbaa1372695d8443116c3defcfc91de3b0717",
+    "tests/e2e/foundation.spec.ts": "df3eec1bcdd4e7343ecba93cc721302b445bd77937f5f295f9f6b886e14708d5"
+  },
+  "verificationHashes": {
+    "f09-k-gate-red.json": "af5c775e6ca9fae74ea545c573a045a82adac899cf49fede94bec08198c61ea9",
+    "f09-k-target.json": "8923648597a0d5106d69631431fca9d160ae23b2bd27795f9ce6628528c94472",
+    "f09-k-full.json": "9cd63dcc92750a5c619e3a1f3e14c222bcc1983fde665587608929255dc54049",
+    "f09-k-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "f09-k-build.log": "df31bf864618f285a0548432013d60346785c25dbc6a3afa5b08d9d30f75d656",
+    "f09-k-browser-discovery.log": "945ae6bc38c1ff5da4e299798a0e6055ebf1602c544a74cdc851c99a45ad21d1",
+    "f09-k-cloud-reports/browser-cli.log": "51a05002ef268c2d522fe2e7738d2ffc0ed495c4271ed955a907ce7c9dd6ac9b",
+    "f09-k-cloud-reports/browser-fixture.json": "02360526c9ea15ad50ce8038a4128c2053a4023156b168a66898c64850398c69"
+  },
+  "cloudBrowserDiagnostic": "One actualChromiumB12pass12sec/Linuxonly; nativeWindows36notrun; dirtydraft atrecordedbase boundbycurrenthashes",
+  "browserDiscovery": 36,
+  "windows": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": [
+    "Parent60focus/nativeacceptance",
+    "Healthparentnativeacceptance",
+    "Imports/moduleflagmapping/fullF09",
+    "F05Administration403",
+    "Server2019/release/VPS"
+  ]
+}
