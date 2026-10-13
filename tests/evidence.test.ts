@@ -119,6 +119,7 @@ const suiteNames = [
   'server/appEffects.test.ts',
   'server/systemMetrics.test.ts',
   'tests/runtime-process.test.ts',
+  'tests/ui/windows-version.test.tsx',
   'tests/runtime-ownership.test.ts',
   'server/objectAclHttp.test.ts',
   'server/mediaHttp.test.ts',
