@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
+import {assertNoLinkedAncestors,isFullyQualifiedPath} from '../lib/native-paths.mjs';
 import {openReleaseReportFiles} from './release-report-files.mjs';
 import {validateManifest,safeArchivePath} from './package-contract.mjs';
 import {verifyLicenseInventory} from './license-inventory.mjs';
@@ -28,4 +29,20 @@ export function readReleaseInnerPackage(directory,packageProof,expected){
   const licenseAudit=verifyLicenseInventory(directory,manifest),receipt=reader.receipt();requireFact(isDeepStrictEqual(inventory(),names));
   return {commitSha:expected.commitSha,runId:expected.runId,zipSha256:packageProof.zipSha256,innerPackageAgreement:true,licenseInventoryVerified:true,verifiedFiles:manifest.files.length,licenseAudit,reportsVerified:false,publicationAllowed:false,...receipt};
  }catch{reject();}
+}
+
+export function extractReleaseInnerPackage(producerDirectory,directory,packageProof,expected,{execute}){
+ try{
+  requireFact(typeof execute==='function'&&isFullyQualifiedPath(directory)&&packageProof?.packageReportAgreement===true&&packageProof.commitSha===expected?.commitSha&&packageProof.runId===expected?.runId&&packageProof.appVersion===expected?.appVersion&&/^[a-f0-9]{64}$/.test(packageProof.zipSha256??''));
+  requireFact(Number.isSafeInteger(packageProof.zipSize)&&packageProof.zipSize>0&&packageProof.zipSize<=64*1024*1024);
+  const producer=openReleaseReportFiles(producerDirectory),name='family-organizer-win-x64.zip';requireFact(producer.hash(name,64*1024*1024)===packageProof.zipSha256&&producer.receipt().bytesHashed===packageProof.zipSize);
+  assertNoLinkedAncestors(directory);fs.mkdirSync(directory);const owner=fs.lstatSync(directory,{bigint:true});
+  const fixed=()=>{assertNoLinkedAncestors(directory);const current=fs.lstatSync(directory,{bigint:true});requireFact(current.isDirectory()&&!current.isSymbolicLink()&&current.dev===owner.dev&&current.ino===owner.ino);producer.receipt();};
+  const destination=path.join(directory,'package'),result=execute({archivePath:path.join(producerDirectory,name),archiveSha256:packageProof.zipSha256,archiveBytes:packageProof.zipSize,destination});
+  requireFact(result?.status===0&&result.signal===null&&!result.error);fixed();requireFact(result.stdout instanceof Uint8Array||typeof result.stdout==='string');const bytes=typeof result.stdout==='string'?Buffer.from(result.stdout):result.stdout;requireFact(bytes.length<=65536);const native=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+  requireFact(Object.keys(native).sort().join(',')==='archiveBytes,archiveSha256,entryCount,exitCode,expandedBytes,files'&&native.exitCode===0&&native.archiveSha256===packageProof.zipSha256&&native.archiveBytes===packageProof.zipSize&&Number.isSafeInteger(native.entryCount)&&native.entryCount>=native.files&&native.entryCount<=100000&&Number.isSafeInteger(native.expandedBytes)&&native.expandedBytes>0&&native.expandedBytes<=1024*1024*1024);
+  const inner=readReleaseInnerPackage(destination,packageProof,expected),manifestSize=fs.lstatSync(path.join(destination,'release-manifest.json')).size;
+  requireFact(native.files===inner.verifiedFiles+1&&native.expandedBytes===packageProof.manifest.files.reduce((sum,row)=>sum+row.size,0)+manifestSize);fixed();
+  return {...inner,innerExtractionVerified:true,nativeExtraction:native};
+ }catch{reject();} // Preserve partial/replaced evidence; no target code or deletion.
 }
