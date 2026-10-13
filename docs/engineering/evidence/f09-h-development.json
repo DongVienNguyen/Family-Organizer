@@ -1,13 +1,13 @@
 {
   "taskId": "F09-h",
-  "baseSha": "a8f89c5e0d68c338c436bf6a05b27bf4b3e5bc92",
+  "baseSha": "10f70a9db627b89c1504163449eb132742350ac3",
   "scope": "Existing offline SDK HTTP/native SQLite/auth characterization, no app/dependency/runtime/API/token change",
   "characterizationInitiallyGreen": 6,
   "actualMandatorySuiteRed": 1,
   "redSelection": "1 selected failure,174 others not selected; not full-suite result",
-  "targetGreen": 234,
-  "fullGreen": 2726,
-  "fullFiles": 132,
+  "targetGreen": 235,
+  "fullGreen": 2730,
+  "fullFiles": 133,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -15,8 +15,8 @@
   "buildExit": 0,
   "sourceHashes": {
     "server/legacyAiHttp.test.ts": "3f7bf2f3509b0ff623595d311126f8b360ea57cb91ec045a1ed37d17c4f41e01",
-    "scripts/ci/write-evidence.mjs": "613ae88271f47847bb01ff904fe4e8fee1db04e0d7ab175fe8faa7d3ac67f712",
-    "tests/evidence.test.ts": "16c3d5ccb6731206a47c0b0b0069b4f9412188ac5d2725c8df9588ef06f1cc81"
+    "scripts/ci/write-evidence.mjs": "254de316b95f74a03f7517cacf98d76f380b15092a5acaf03b20916f5439be86",
+    "tests/evidence.test.ts": "8830af609c52f85cd1a292c2cbb588ef53ea0d1b0b2650ed57810c13ccb21db0"
   },
   "verificationHashes": {
     "f09-h-characterization.json": "7368829c83969c5d1e0df70f22ecd0d40660215f66fbc7bcfe0cfdbd48cfc79b",
@@ -24,9 +24,13 @@
     "f09-h-target.json": "fba7f3003e5232969cc847ac3614a4867c57cf4f428bb0b53bba526786efe164",
     "f09-h-full.json": "9a37d4b02db351609710ee519f0686814660fb5815f37334b26ae23639783372",
     "f09-h-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
-    "f09-h-build.log": "f3bd4aa05888813e6f23df231c3973f0891a558ff1dcc98b4f6fd38bac8bc210"
+    "f09-h-build.log": "f3bd4aa05888813e6f23df231c3973f0891a558ff1dcc98b4f6fd38bac8bc210",
+    "f09-h-main57-target.json": "47de451a44dc41c1e1a852ddb5249f57fe0803cb0abd22e1bd389175151aa7e4",
+    "f09-h-main57-full.json": "7c0b02fba596727b2a69388bef45c69650e4d7f9f0613d6f1e63e7f521228539",
+    "f09-h-main57-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-h-main57-build.log": "1c5c8bd2ef256b1d033a0b8db974846c094230cc081f5256d39d9c50d00f122c"
   },
-  "review": "pending one fresh wholebranch",
+  "review": "ONE2e9d500/basea8 reviewer/author0C0I1M, allgradedbeforeactions, zero sourcefixpass/no rereview; tracker row deferred to routine integration refresh",
   "windows": "not-run",
   "remaining": [
     "Assistant/notes browser loading/error/close",
@@ -34,5 +38,7 @@
     "Full F09"
   ],
   "server2019Acceptance": "not-run",
-  "publicationAllowed": false
+  "publicationAllowed": false,
+  "priorCorrectedCloudTests": 2726,
+  "reviewedOwnSourceByteAgreement": true
 }

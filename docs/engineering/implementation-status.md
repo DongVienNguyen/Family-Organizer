@@ -1,6 +1,6 @@
 # Tiến độ Windows-native
 
-## Current checkpoint — 2026-10-13 (before PR57 acceptance)
+## Current checkpoint — 2026-10-13 (before AI PR acceptance)
 
 **The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains
 behind the foundation gate. Historical entries below retain earlier failures and
@@ -8,12 +8,12 @@ verification snapshots; this checkpoint identifies the current accepted state.
 
 | Work | Current evidence / remaining step |
 | --- | --- |
-| Accepted main | `a8f89c5e0d68c338c436bf6a05b27bf4b3e5bc92`, PR56 squash; tree independently equals tested `2b6632c7e2c26faec6d732ad6785f880e7fd1118` |
+| Accepted main | `10f70a9db627b89c1504163449eb132742350ac3`, PR57 squash; tree independently equals tested `0fe8d4de23e2a6b94fb8a210761b6b97b67368c5` |
 | Windows quality/package/service | [CI38393561228](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38393561228): all7 checks, eight independent raw validators; Node22/24 each2719 tests/131 files, no failed/pending/todo,27 first-attempt browser cases |
 | Native inner ZIP / licenses | [PR56](https://github.com/DongVienNguyen/Family-Organizer/pull/56) accepted; both runtime synthetic native extraction/refusal and actual trusted-main [collector38395149608](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395149608) independently verified |
 | Existing member profile | [PR47](https://github.com/DongVienNguyen/Family-Organizer/pull/47) accepted;27 original cases passed; separately reviewed push startup fix [PR55](https://github.com/DongVienNguyen/Family-Organizer/pull/55) accepted |
-| F09 calendar HTTP/ICS | [PR57](https://github.com/DongVienNguyen/Family-Organizer/pull/57), HEAD`0fe8d4de23e2a6b94fb8a210761b6b97b67368c5`, [CI38395869210](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210) in progress at this checkpoint; Cloud2723/132 and lint/build passed, fresh review completed, no new Windows acceptance claim yet |
-| F09 AI HTTP | Six offline SDK characterization cases and required-suite RED; full verification/review/new Windows pending; no real provider dispatch |
+| F09 calendar HTTP/ICS | [PR57](https://github.com/DongVienNguyen/Family-Organizer/pull/57), HEAD`0fe8d4de23e2a6b94fb8a210761b6b97b67368c5`, [CI38395869210](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210) all7/eight raw validators passed and merged; Cloud2723/132 and lint/build passed, one review completed |
+| F09 AI HTTP | Six offline SDK cases and mandatory-suite RED; Cloud2730/133,235target,lint/build0 and one review completed; exact new Windows pending; no real provider dispatch |
 | F08 remaining | Normalize the complete read-only collector receipt, then source-locked candidate/promotion preparation; `reportsVerified` and publication remain false |
 | F09 remaining | Complete legacy matrix/browser/module flag-off coverage and final foundation acceptance; calendar/health/assistant UI and imports remain incomplete |
 | F05 external blocker | Ruleset and branch-protection writes returned403, Administration permission still unusable; workflow ci-gate does not establish protected main |
@@ -30,7 +30,7 @@ independent offline AI and normalized collector tasks, and close remaining F09
 coverage before dependent feature work. No repeated merge permission is needed.
 
 
-## Current integration state — 2026-10-13
+## Earlier integration checkpoints — through PR46
 
 | Task | Current result | Evidence |
 |---|---|---|
@@ -1344,3 +1344,5 @@ F09-e PR47 testedb8353ff30ae362499be531c55f56aea2702c1176 / https://github.com/D
 
 F09-h BASEa8accepted56 frozenCloud2726/132 zero failedpendingtodo/lintbuild0/234target. SixexistingAI HTTP/nativeSQLite/auth characterizationcases initiallyGREEN;1actualrequired-suiteRED(174othersnotselected)→gate. HoistedcompleteGoogleSDKmock/synthetickey/norealprovider; actual auth/blank/unconfigured refusal, normalizedboundedshoppingdrafts/noautomaticlegacywrites, rawfallback, mockedtimeout500/onecall, Markdown/guest/emptyrefusal, admin-onlymaskedsettingsvalidation/clear. AbsoluteHTTP5secwatchdog/responseerror+abort/finalclose/drain/dispose; snapshot claimslegacyonly, notallauthtable. ExistingobjectACL/revocation/overloadtests mapped; UI/loading/close/moduleflag/fullF09pending. Currentcheckpoint inserted atfrontforvisibility whilehistoricalfailuresretained. ONEfreshwholebranchreview/newbase/exactWindows next. PR57https://github.com/DongVienNguyen/Family-Organizer/pull/57 HEAD0fe8d4de23e2a6b94fb8a210761b6b97b67368c5 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210 inprogress. F08lmainactual383951 verification0; normalizedreports/pubstillfalse. F05Admin403/Server2019/release/VPS/fullplansremain.
 F08-l PR56 https://github.com/DongVienNguyen/Family-Organizer/pull/56 testedHEAD2b6632c7e2c26faec6d732ad6785f880e7fd1118 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38393561228 all7/eightindependentrawvalidators0/both2719/131/all27firstattempt. Bothactualsyntheticinnerextractpositive0/unsafe1/prewriteabsent/cleanup verified. Mergeda8f89c5e0d68c338c436bf6a05b27bf4b3e5bc92 independentPR/main/treeequal. Livehttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395149608 sourcea8 explicitold38/CI38358093544 SUCCESS:7outerarchives101242387expandedbytes; actualnativeinner4582files163645351bytes; all4581manifestpayloadhashes/236deps/originalnotices/8MPL/WinSWlicense verified. IndependentlyAPI/Git/receipt/source/rawmetadata/hash correspondence0, firstverifierinheritedoldtopinnerfalseassert updatedtonewtrue whileconsumer/full/pub stayfalse; no nativefailure/sourcechange/retest. Compactf08-l-final/live archived. Full normalizedcollector/promotionprep/F09UI/import/flags/F05Admin403/Server2019 remain; no release/tag/VPS. F09-g acceptedmaina8 merged, allmandatorynative/protocol/push/healthgates and sourcefixtures retained; correctedtestDate-onlyfreeze remains/ALLassertionsunchanged/no rereview. FinalCloud2723/132 zero failedpendingtodo/lintbuild0/205target; ONEreview0C1I2M/clockRED→GREEN/twoMinors deferred (5s socketinactivity and abortedresponse; legacy snapshot excludesauth/commandtables). NextPR/exactWindows/all27/merge; nofullplanscompleteclaim.
+
+F09-h accepted57main10f composition: ownAItestbyteidenticalreview2e9d500, allcalendar/inner/protocol/push/healthmandatorygates and VMnativefixtures retained. FinalCloud2730/133 all0/lintbuild0/235target. ONEreview0C0I1M ALLauthorgradedbeforeactions/nosourcefixpass/rereview; MinortrackerCloudrow updated during required newbase/currentcheckpoint refresh, not app change. ExactnewWindows/PR next, no UI/fullF09/Server2019/release/VPS claim. F09-g final evidence compact archived. F08-m reviewc95/base10f0C2I1M ALLgradedbeforeONEpass; extractedartifact identity/digest/size/file and coverage supplying-evidence hash needactualRED→GREEN, old finalpreflight logMinor deferred. F05Administration403/fullplans remain.
