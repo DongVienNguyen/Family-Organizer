@@ -1,0 +1,14 @@
+{
+ "taskId":"F08-m","reviewCount":1,
+ "reviewedHead":"c95ca635bef381ba3febcc0576b3d7405443024d",
+ "baseSha":"10f70a9db627b89c1504163449eb132742350ac3",
+ "reviewerGrades":{"critical":0,"important":2,"minor":1},
+ "authorGrades":{"critical":0,"important":2,"minor":1},
+ "allFindingsGradedBeforeFixPass":true,"fixPassCount":1,"reReview":false,
+ "findings":[
+ {"id":1,"grade":"Important","decision":"accept","effect":"Extracted archive names alone do not bind artifact ID/digest/bytes/file to authenticated downloads.","fix":"Require each extraction row's original identity/digest/size/file to match its authenticated download, with real receipt fields and contradiction tests."},
+ {"id":2,"grade":"Important","decision":"accept","effect":"Separate evidence read supplying coverage has no preserved hash in normalized cross-family binding.","fix":"Capture the actual supplying reader evidence digest, carry with coverage, require equality with quality/runtime/auxiliary; contradiction/missing regressions."},
+ {"id":3,"grade":"Minor","decision":"defer","effect":"Final log contains old FULL_REPORTS_UNVERIFIED after new normalized success marker.","next":"Label retained preflight log during next operator status/log cleanup; normalized JSON remains authoritative."}
+ ],
+ "scopeRulings":"Accepted reader guarantees retained; no duplicate validation/reopen of native/license/service policies or junction minor. Pure synthetic facts not authority; current CLI no operator JSON. Manifest actual digest and raw+normalized artifact retention correct. Publication unconditional disabled. ExactWindows/mainlive remains required."
+}
