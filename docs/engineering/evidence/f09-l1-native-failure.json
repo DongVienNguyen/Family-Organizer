@@ -1,0 +1,48 @@
+{
+  "taskId": "F09-l1",
+  "testedHeadSha": "d0a8a499e00fa8bac5965008a532c9721ecb32a2",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38425013464",
+  "checks": "Five quality/package/service pass; browser and ci-gate failed",
+  "qualityEach": 2804,
+  "filesEach": 136,
+  "browser": {
+    "passedFirstAttempt": 41,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0,
+    "case": "B15 calendar private edit reload and child boundary/webkit",
+    "causeEvidence": "UI creation/edit/reload/Child login already completed. Final Child agenda click began after43s and exceeded45s, causing cleanup timeout. B12 create/ICS now passed; source app bug not inferred."
+  },
+  "nonBrowserIndependentValidators": 7,
+  "fixture": {
+    "commitSha": "d0a8a499e00fa8bac5965008a532c9721ecb32a2",
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "lockSha256": "4df93eb09b90073da9a8fd5714b77e5b49d0be906aef3bf346a371ad0c0e0075",
+    "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "productionBuild": {
+      "serverSha256": "c8ca2842d98c8470d3f4e8302f467ff3ff3f18f4fb0af4356bb57be7a70264f0",
+      "indexSha256": "8d47f11576cce2b1b4de6d0442053f11e6fe55e0bb8e53e8c605893c7a3aae8f"
+    },
+    "legacyPreserved": true,
+    "integrity": "ok",
+    "databaseClosed": true,
+    "fixtureRemoved": true,
+    "externalAttempts": [],
+    "serverExitCode": 0,
+    "serverSignal": null,
+    "cliExitCode": 1,
+    "cliSignal": null,
+    "error": "Playwright native exit was nonzero\n\n1 !== 0\n"
+  },
+  "reportHashes": {
+    "browser.json": "99421898f5ca99e5106f725d9976ec47b5e39587369bc1f96fffccaf74e31602",
+    "browser.junit.xml": "f3966098ffa7b379545595ba93ba019732416a921d7d3bee5e9833b3a5a58cf6",
+    "browser-fixture.json": "e714fc4b1e6fededd09b30b49f9e0f576adf396270c518a796a5f115ad48210e"
+  },
+  "fullLogSha256": "3b08c32a5446dac0ca96ac7c0f4da49e0d2a5f067bdde34cdcfffb2a85415f5e",
+  "allSevenArtifactsRetained": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
