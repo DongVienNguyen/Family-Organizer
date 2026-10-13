@@ -1,0 +1,21 @@
+{
+  "taskId": "F09-i1",
+  "reviewCount": 1,
+  "reviewedHead": "56146d4bc9a786967aa557c2e641b1ea3ea9965d",
+  "baseSha": "e417bc73460895889b2450acd6303300d6e915aa",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 0,
+  "reReview": false,
+  "findings": [],
+  "scopeRulings": "All7changedfiles/5source+9reporthashes verified; actualcurrentTarget nativefocus beforeopen matchesmodalhookcapture, originalB10clicks/assertions unchanged. Mandatoryfocusunit actualRED\u2192GREEN and full2774/135 preserved. Distinctnewappscope notrerevieworiginali; no deps/style/API/providerchange. Newall30Windowsrequired."
+}

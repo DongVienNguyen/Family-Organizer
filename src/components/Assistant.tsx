@@ -1,3 +1,4 @@
+import {openFocusedAssistant} from '../utils/assistantFocus.js';
 import {sessionFetch as fetch} from '../utils/browserSession.js';
 /**
  * @license
@@ -200,7 +201,7 @@ export function Assistant({ currentUser, authHeaders }: AssistantProps) {
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
+        onClick={event => openFocusedAssistant(event.currentTarget, () => setOpen(true))}
         className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-5 z-30 bg-sky-500 hover:bg-sky-400 text-slate-950 rounded-full w-12 h-12 shadow-2xl shadow-sky-500/20 flex items-center justify-center"
         title={t("assistant.title")}
       >
