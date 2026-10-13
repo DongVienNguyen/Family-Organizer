@@ -14,10 +14,12 @@
     "minor": 0
   },
   "allFindingsGradedBeforeFixPass": true,
-  "fixPassCount": 0,
+  "fixPassCount": 1,
   "reReview": false,
   "findings": [],
   "scopeRulings": "Distinct fixture architecture from actual native B12 budget failure. Original F09-l review remains closed0C0I1M; historical21/24 negative fixture Minor still deferred. Both B12/B15 create via realUI, authenticated owned cleanup; all28original assertion occurrences/27distinctlines retained, otherflows byteidentical, case45sec/expect10sec/retries0/no forceclick/mock/skips. All3source/10development hashes verified.",
   "tradeoff": "Two independent UI journeys with repeated creation replace one continuous export/detail/edit/privacy journey. Editing immediately after export/detail navigation in the same session is no longer checked. All behavioral assertions/actionability/per-case limits remain; no assertion standard lowered.",
-  "acceptance": "Exact new Windows42/all7 checks/eight independent raw readers still required; Cloud2cases diagnostic only."
+  "acceptance": "Exact new Windows42/all7 checks/eight independent raw readers still required; Cloud2cases diagnostic only.",
+  "nativeCorrectionPassCount": 1,
+  "postReviewNativeCorrection": "From actuald0/38425013464 nativefailure, B15 duplicated UI creation replaced by real authenticated server fixture. B12 retains all original UI creation assertions; all27originalcalendar assertion lines retained, edit/reload/Child/cleanup stillrealUI/API. No newappscope/reviewerfindings/rereview."
 }
