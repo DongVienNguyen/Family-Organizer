@@ -1,0 +1,64 @@
+{
+  "taskId": "F08-d",
+  "scope": "Draft raw quality JSON/JUnit assertion and exit-code agreement; not a complete artifact/report collector",
+  "baseSha": "725bf8bc79dcacf8d45da8665cdf313390489665",
+  "availabilityRedAssertions": 46,
+  "reportShapeRedAssertions": 4,
+  "reportShapePriorPassed": 44,
+  "reportShapeClassification": "Collector draft initially assumed Windows label, JSON/JUnit name separators and unique parameterized names; actual synthetic Windows reports corrected these assumptions. No historical application defect.",
+  "targetGreen": 223,
+  "targetFiles": 3,
+  "historicalCompatibility": {
+    "run": "38322040612",
+    "testsPerRuntime": 1942,
+    "errors": 0
+  },
+  "currentCompatibility": {
+    "run": "38324435747",
+    "testsPerRuntime": 1989,
+    "errors": 0
+  },
+  "sourcePolicyAuthenticated": "Cloud Git-byte compatibility only; new source not executed in trusted-main native adapter yet",
+  "full": "passed post-correction2068/108 pinned/frozen/oneworker",
+  "review": "one fresh0Critical1Important2Minor; authorgrades2Important1Minor, all accepted before one correction pass",
+  "windowsForThisSource": "not-run",
+  "publicationAllowed": false,
+  "reportsVerified": false,
+  "remaining": [
+    "Exact new Windows source CI",
+    "Strict ZIP extraction and in-process adapter wiring",
+    "Full native/production/coverage/audit/browser/package/license/service validation"
+  ],
+  "releaseVps": "forbidden",
+  "rawQualityTests": 59,
+  "sourcePolicyTests": 17,
+  "mandatoryOmissionReds": 2,
+  "newCodeXmlHierarchyRedAssertions": 2,
+  "newCodeSuiteCounterRedAssertions": 2,
+  "sourcePolicyAvailabilityReds": 17,
+  "sourcePolicy": "Checked Git HEAD/origin/main ancestry/version and exact target tree; all unit suites/source hashes/lock/coverage policy derived from Git bytes. Refuse unsafe/link modes, exclusion pragmas, unsupported root/nested attributes, excessive counts/bytes/native failures. Pinned current Windows text conversion matches actual118 source hashes.",
+  "fullGreen": 2068,
+  "fullFiles": 108,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "sourceFrozen": true,
+  "fullReportSha256": "eedb4930dd5f9e935a42e707e1cb20f040c5b4c3823993621feff1ca6e096f3d",
+  "preReviewFull": {
+    "fullGreen": 2061,
+    "fullFiles": 108,
+    "fullReportSha256": "6bd6a6c059e43e56e9120743f25408d484165c5cd001cd5577915a821ac158f7",
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "reviewRedAssertions": {
+    "initial": 6,
+    "priorPassed": 53,
+    "additionalAttributeCharacterOnFrozenOldSource": 1,
+    "underlyingFindings": "linear malformed-token CPU bound and strict XML validity"
+  }
+}

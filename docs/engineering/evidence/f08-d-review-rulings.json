@@ -1,0 +1,65 @@
+{
+  "taskId": "F08-d",
+  "reviewCount": 1,
+  "reviewedHeadSha": "f12170c692d9987c2fd338b88f307ca8380f8eea",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 2
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 1
+  },
+  "rulings": [
+    {
+      "reviewerSeverity": "Important",
+      "authorSeverity": "Important",
+      "finding": "JUnit whitespace tokenizer has quadratic malformed-token CPU behavior below byte cap",
+      "ruling": "accepted",
+      "correction": "Linear scanner with bounded vocabulary and process-timeout regression on100000 whitespace characters"
+    },
+    {
+      "reviewerSeverity": "Minor",
+      "authorSeverity": "Important",
+      "finding": "Invalid declaration, NUL, forbidden XML numeric characters and malformed self-close accepted",
+      "ruling": "accepted; promoted to Important because strict malformed-XML rejection is this helper contract",
+      "correction": "Pinned reporter declaration grammar; XML1.0 characters in text/attributes/CDATA; exact self-closing syntax; negative fixtures"
+    },
+    {
+      "reviewerSeverity": "Minor",
+      "authorSeverity": "Minor",
+      "finding": "Remaining-list full Cloud execution contradicts2061/108 recorded proof",
+      "ruling": "accepted",
+      "correction": "Keep historical proof; record required fresh post-correction aggregate separately and then update final status"
+    }
+  ],
+  "declinedRulings": [
+    {
+      "finding": "Unique assertion names are not required",
+      "ruling": "Retain exact multiset and legitimate parameterized multiplicity"
+    },
+    {
+      "finding": "Suite/group aggregate is not file count",
+      "ruling": "Keep passed/total suite counters, do not equate with108files"
+    },
+    {
+      "finding": "Current source-policy tree has no further blocker",
+      "ruling": "Retain conservative Git/mode/UTF8/BOM/CRLF/attributes/floor/output/deadline gates; no universal future-policy claim"
+    },
+    {
+      "finding": "HistoricalPR41 is not new helper execution",
+      "ruling": "Exact new Windows and trusted-main adapter/extraction/fullcollector still mandatory"
+    },
+    {
+      "finding": "Master domain/Server2019/release/VPS outside unchanged application range",
+      "ruling": "No new acceptance claim; existing external gates remain"
+    }
+  ],
+  "fixPass": "one completed:7 review regression assertions fail against original source (6 initial plus1 attribute-only),223target/3 and2068full/108 green,lint/build0; no rereview",
+  "rereview": false,
+  "wholeSourceGreen": 2068,
+  "wholeSourceFiles": 108,
+  "targetGreen": 223
+}

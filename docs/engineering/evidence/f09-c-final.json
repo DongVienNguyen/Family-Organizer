@@ -1,0 +1,4440 @@
+{
+  "taskId": "F09-c",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/41",
+  "baseSha": "ff13cb6f25c88024d108b67953855cddf7917fa2",
+  "testedHeadSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "review": {
+    "taskId": "F09-c",
+    "reviewCount": 1,
+    "reviewedHeadSha": "071134f8a4f1f103d89c4840e408976de6fc5224",
+    "reviewerGrades": {
+      "critical": 0,
+      "important": 1,
+      "minor": 2
+    },
+    "authorGrades": {
+      "critical": 0,
+      "important": 1,
+      "minor": 2
+    },
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Cancelled deletion lacks persisted-state and HTTP proof",
+        "ruling": "accepted",
+        "correction": "Observe matching DELETE from before first dialog, require none after cancel and HTTP/reload full persisted collection; require exactly one after intentional delete",
+        "classification": "Coverage gap, no demonstrated application defect"
+      },
+      {
+        "severity": "Minor",
+        "finding": "Amount-only edit does not assert unchanged category/account",
+        "ruling": "accepted",
+        "correction": "Compare saved transaction to complete original plus changed amount and full collection after create/edit"
+      },
+      {
+        "severity": "Minor",
+        "finding": "UTC midnight/local finance period wall-clock dependence",
+        "ruling": "accepted",
+        "correction": "Fix browser clock inside month before first navigation and preserve advancing timers across reloads"
+      }
+    ],
+    "declinedRulings": [
+      {
+        "finding": "Windows browsers, engine timing and exact main CI not executed",
+        "ruling": "Retain actual 21 first-attempt Windows execution gate; no discovery-only acceptance"
+      },
+      {
+        "finding": "Native service/Server2019 and broader legacy/master acceptance outside reviewed range",
+        "ruling": "Retain independent native/external and remaining matrix gates; no renewed domain or full foundation claim"
+      }
+    ],
+    "fixPass": "One correction pass completed; all findings graded before edits; lint/gate/discovery and exact Windows still required",
+    "rereview": false
+  },
+  "correction": {
+    "taskId": "F09-c",
+    "baseSha": "ff13cb6f25c88024d108b67953855cddf7917fa2",
+    "scope": "Existing finance GUI create/edit/delete and displayed expense total/persistence, no feature or app source change",
+    "gateReds": {
+      "assertions": 2,
+      "priorPassed": 55,
+      "underlyingMissingFlowRequirement": 1
+    },
+    "gateTargetGreen": 57,
+    "fullGreen": 1990,
+    "fullFiles": 106,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "nodeVersion": "v24.21.0",
+    "workers": 1,
+    "sourceFrozenDuringAggregate": true,
+    "fullReportSha256": "f76697ec289418ac146f4bc7294e1300a152488eb95698b3bdb8699bb6eaff13",
+    "afterAggregateAdjustment": "Excluded Playwright spec only: real confirmdialog has no accessible name; select scoped role plus visible heading; exact cancel label Hủybỏ. Static fixture correction, not appbug/browserRED. Lint/discovery checked again. Vitest/application bytes unchanged.",
+    "browserDiscovery": {
+      "cases": 21,
+      "executed": false,
+      "meaning": "Configuration only, not browser success"
+    },
+    "review": "one fresh 0Critical1Important2Minor; all graded/accepted before one pass, no rereview",
+    "windows": "not-run; finalmain rebase and exact21 cases required",
+    "financialUiAcceptance": false,
+    "remaining": [
+      "assets/debts/goals otherUI/legacy matrix rows",
+      "F08 full collector/Caddy",
+      "F05Administration403",
+      "actualServer2019/reboot/offhostnot-run"
+    ],
+    "releaseVps": "forbidden",
+    "reviewCorrections": [
+      "Observe DELETE before first dialog; zero after cancel plus HTTP/reload entire collection; exactly one final matching DELETE",
+      "Saved transaction exactly equals created plus amount change; full collection preserved after creation/edit",
+      "Fixed browser Date 2026-10-15T12:00:00Z before first navigation, timers keep running"
+    ],
+    "postReviewChecks": {
+      "lintExit": 0,
+      "gatePassed": 57,
+      "gateFiles": 1,
+      "discoveryExit": 0,
+      "discovered": 21,
+      "executedBrowsers": false,
+      "aggregateUnchangedVitestSource": true
+    },
+    "preArchiveBaseline": {
+      "fullGreen": 1943,
+      "fullFiles": 105,
+      "fullReportSha256": "015c3aae15e4a879ab7d8a65bd5c730cc9348d8d6d4fd16f4c1400322b27149e"
+    },
+    "mainRebase": "All scripts/workflows/application/dependencies/tests byte-identical to fully verified3bb6f52; no new broad run warranted"
+  },
+  "nativeWindowsRegressions": [
+    {
+      "major": 22,
+      "sidecar": {
+        "beforeExitCode": 1,
+        "afterExitCode": 0,
+        "marker": "SIDECAR_ABSENT_VERIFIED",
+        "beforeOutputEmpty": true,
+        "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc"
+      },
+      "missingEvidence": {
+        "actualExitCode": 1,
+        "expectedExitCode": 1,
+        "phase": "release-evidence-missing-refusal",
+        "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc"
+      }
+    },
+    {
+      "major": 24,
+      "sidecar": {
+        "marker": "SIDECAR_ABSENT_VERIFIED",
+        "beforeExitCode": 1,
+        "afterExitCode": 0,
+        "beforeOutputEmpty": true,
+        "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc"
+      },
+      "missingEvidence": {
+        "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+        "actualExitCode": 1,
+        "phase": "release-evidence-missing-refusal",
+        "expectedExitCode": 1
+      }
+    }
+  ],
+  "publicationDiagnosticOnly": [
+    {
+      "major": 22,
+      "observations": {
+        "format": 1,
+        "diagnosticOnly": true,
+        "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+        "nodeVersion": "v22.23.3",
+        "platform": "win32",
+        "architecture": "x64",
+        "cases": [
+          {
+            "method": "node-rename-replace",
+            "before": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "1688849861609156",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850247869895300",
+                "ctimeNs": "1791850247869895300"
+              }
+            },
+            "operation": {
+              "errorCode": "EPERM",
+              "syscall": "rename"
+            },
+            "extra": {
+              "value": 0
+            },
+            "after": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "1688849861609156",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850247869895300",
+                "ctimeNs": "1791850247869895300"
+              }
+            },
+            "fixedStat": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "1688849861609156",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850247869895300",
+                "ctimeNs": "1791850247869895300"
+              }
+            },
+            "fixedText": {
+              "value": "held"
+            },
+            "descriptorClosed": true
+          },
+          {
+            "method": "dotnet-replace-remove-backup",
+            "before": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "1688849861609159",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850247869895300",
+                "ctimeNs": "1791850247869895300"
+              }
+            },
+            "operation": {
+              "nativeExitCode": 0,
+              "signal": null,
+              "observedBeforeClose": {
+                "extra": {
+                  "value": 0
+                },
+                "descriptor": {
+                  "value": {
+                    "dev": "1692368384",
+                    "ino": "1688849861609159",
+                    "nlink": "1",
+                    "size": "4",
+                    "mtimeNs": "1791850247869895300",
+                    "ctimeNs": "1791850247869895300"
+                  }
+                },
+                "fixedStat": {
+                  "value": {
+                    "dev": "1692368384",
+                    "ino": "1688849861609159",
+                    "nlink": "1",
+                    "size": "4",
+                    "mtimeNs": "1791850247869895300",
+                    "ctimeNs": "1791850247869895300"
+                  }
+                },
+                "fixedText": {
+                  "value": "held"
+                },
+                "publisherExited": false
+              },
+              "readerClosedBeforeAwaitingPublisher": true,
+              "publisherMarkers": [
+                "PUBLICATION_ATTEMPTING",
+                "PUBLICATION_REPLACED",
+                "PUBLICATION_BACKUP_REMOVED"
+              ]
+            },
+            "extra": {
+              "value": 0
+            },
+            "after": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "1688849861609159",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850247869895300",
+                "ctimeNs": "1791850247869895300"
+              }
+            },
+            "fixedStat": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "1407374884898504",
+                "nlink": "1",
+                "size": "7",
+                "mtimeNs": "1791850247869895300",
+                "ctimeNs": "1791850248073014700"
+              }
+            },
+            "fixedText": {
+              "value": "approve"
+            },
+            "descriptorClosed": true
+          }
+        ],
+        "fixtureCleanup": true
+      }
+    },
+    {
+      "major": 24,
+      "observations": {
+        "format": 1,
+        "diagnosticOnly": true,
+        "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64",
+        "cases": [
+          {
+            "method": "node-rename-replace",
+            "before": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "2251799815030427",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850292828236900",
+                "ctimeNs": "1791850292828236900"
+              }
+            },
+            "operation": {
+              "errorCode": "EPERM",
+              "syscall": "rename"
+            },
+            "extra": {
+              "value": 0
+            },
+            "after": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "2251799815030427",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850292828236900",
+                "ctimeNs": "1791850292828236900"
+              }
+            },
+            "fixedStat": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "2251799815030427",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850292828236900",
+                "ctimeNs": "1791850292828236900"
+              }
+            },
+            "fixedText": {
+              "value": "held"
+            },
+            "descriptorClosed": true
+          },
+          {
+            "method": "dotnet-replace-remove-backup",
+            "before": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "2814749768451742",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850292828236900",
+                "ctimeNs": "1791850292828236900"
+              }
+            },
+            "operation": {
+              "nativeExitCode": 0,
+              "signal": null,
+              "observedBeforeClose": {
+                "extra": {
+                  "value": 0
+                },
+                "descriptor": {
+                  "value": {
+                    "dev": "1692368384",
+                    "ino": "2814749768451742",
+                    "nlink": "1",
+                    "size": "4",
+                    "mtimeNs": "1791850292828236900",
+                    "ctimeNs": "1791850292828236900"
+                  }
+                },
+                "fixedStat": {
+                  "value": {
+                    "dev": "1692368384",
+                    "ino": "2814749768451742",
+                    "nlink": "1",
+                    "size": "4",
+                    "mtimeNs": "1791850292828236900",
+                    "ctimeNs": "1791850292828236900"
+                  }
+                },
+                "fixedText": {
+                  "value": "held"
+                },
+                "publisherExited": false
+              },
+              "readerClosedBeforeAwaitingPublisher": true,
+              "publisherMarkers": [
+                "PUBLICATION_ATTEMPTING",
+                "PUBLICATION_REPLACED",
+                "PUBLICATION_BACKUP_REMOVED"
+              ]
+            },
+            "extra": {
+              "value": 0
+            },
+            "after": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "2814749768451742",
+                "nlink": "1",
+                "size": "4",
+                "mtimeNs": "1791850292828236900",
+                "ctimeNs": "1791850292828236900"
+              }
+            },
+            "fixedStat": {
+              "value": {
+                "dev": "1692368384",
+                "ino": "1407374884898463",
+                "nlink": "1",
+                "size": "7",
+                "mtimeNs": "1791850292828236900",
+                "ctimeNs": "1791850293141337300"
+              }
+            },
+            "fixedText": {
+              "value": "approve"
+            },
+            "descriptorClosed": true
+          }
+        ],
+        "fixtureCleanup": true
+      }
+    }
+  ],
+  "quality": {
+    "task": "F06-a",
+    "verifiedHeadSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+    "artifactsDownloadedAndIndependentlyRead": true,
+    "runtimes": [
+      {
+        "artifactName": "windows-node22-5c4815aec9f829488fc1513dcafd0996ba9997cc-1",
+        "evidence": {
+          "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+          "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+          "runAttempt": 1,
+          "runnerOS": "Windows_NT 10.0.20348",
+          "runnerImage": "win22",
+          "runnerImageVersion": "20261004.326.1",
+          "nodeVersion": "v22.23.3",
+          "npmVersion": "10.9.9",
+          "toolchain": {
+            "npmVersion": "10.9.9",
+            "visualStudioVersion": "17.14.37710.0"
+          },
+          "checks": {
+            "install": "success",
+            "native": "success",
+            "lint": "success",
+            "test": "success",
+            "build": "success",
+            "production": "success",
+            "audit": "success",
+            "coverage": "success"
+          },
+          "suites": [
+            {
+              "name": "server/app.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appEffects.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appJobs.durable.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appJobs.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appMigrations.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appSnapshot.test.ts",
+              "passed": 36,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appStore.test.ts",
+              "passed": 11,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/auth.test.ts",
+              "passed": 20,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/authHttp.test.ts",
+              "passed": 26,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/authStore.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/backupCredentials.test.ts",
+              "passed": 6,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/commandHttp.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/config.test.ts",
+              "passed": 17,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/contentPayload.test.ts",
+              "passed": 82,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/contentPayloadHttp.test.ts",
+              "passed": 10,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/derivedPrivacyHttp.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/derivedPrivacyNative.test.ts",
+              "passed": 26,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/fullBackup.test.ts",
+              "passed": 15,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/icsFeed.test.ts",
+              "passed": 7,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/jobStore.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/legacyFinanceHttp.test.ts",
+              "passed": 14,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/legacyVisibility.test.ts",
+              "passed": 16,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/lifecycle.test.ts",
+              "passed": 15,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/mediaHttp.test.ts",
+              "passed": 33,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/mediaMetadata.test.ts",
+              "passed": 25,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/objectAclHttp.test.ts",
+              "passed": 53,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/providerJobs.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/pushDelivery.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/pushOutbox.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/pushTransport.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/realtime.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/realtimeHttp.test.ts",
+              "passed": 21,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryEnv.test.ts",
+              "passed": 34,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryEnvelope.test.ts",
+              "passed": 25,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryFiles.test.ts",
+              "passed": 22,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryRetention.test.ts",
+              "passed": 41,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoverySchedule.jobs.test.ts",
+              "passed": 17,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoverySchedule.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoverySettings.test.ts",
+              "passed": 22,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/rewardStore.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/shoppingHttp.test.ts",
+              "passed": 11,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/shoppingPersistence.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/sqlite.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/sqliteCompatibility.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/systemMetrics.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/taskPayload.test.ts",
+              "passed": 74,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/taskPayloadHttp.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/updateFence.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/updateInspection.test.ts",
+              "passed": 18,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/updater.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/weeklyDigestHttp.test.ts",
+              "passed": 18,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/weeklyDigestPrivacy.test.ts",
+              "passed": 33,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/account-initialization.test.ts",
+              "passed": 33,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/browser-evidence.test.ts",
+              "passed": 57,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/browser-providers.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/compiled-media-policy.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/coverage-evidence.test.ts",
+              "passed": 46,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/coverage-input.test.ts",
+              "passed": 7,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/data-migration.test.ts",
+              "passed": 13,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/evidence.test.ts",
+              "passed": 145,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/httpDependencySecurity.test.ts",
+              "passed": 19,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/librarySecurity.test.ts",
+              "passed": 28,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/media-cold-restore.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/native-gc.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/native-paths.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/native-scripts.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/online-recovery.test.ts",
+              "passed": 11,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/package-licenses.test.ts",
+              "passed": 41,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/recovery-maintenance-operator.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/recovery-operator.test.ts",
+              "passed": 40,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/release-archives.test.ts",
+              "passed": 46,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/release-evidence.test.ts",
+              "passed": 42,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/release-metadata.test.ts",
+              "passed": 57,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/runtime-ownership.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/runtime-process.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/scheduled-recovery.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/snapshot-http.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/snapshot-recovery.test.ts",
+              "passed": 25,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/sw-cache.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/update-journal.test.ts",
+              "passed": 14,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/update-startup.test.ts",
+              "passed": 6,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/windows-package.test.ts",
+              "passed": 93,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/windows-service.test.ts",
+              "passed": 23,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/assetValue.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/bmi.test.ts",
+              "passed": 17,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/clientSession.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/debt.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/financePeriod.test.ts",
+              "passed": 20,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/mediaResource.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/pdfExport.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/privacyWorker.test.ts",
+              "passed": 6,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/privateStorage.test.ts",
+              "passed": 7,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/realtimeClient.test.ts",
+              "passed": 13,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/recurrence.test.ts",
+              "passed": 20,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/searchText.test.ts",
+              "passed": 10,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/serviceWorkerWatch.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/sessionBoundary.test.ts",
+              "passed": 30,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/uploadImage.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/vietnamHolidays.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/authenticated-media.test.ts",
+              "passed": 16,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/note-sharing-policy.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/realtime-session.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/session-actions.test.ts",
+              "passed": 23,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/session-bootstrap.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/task-reward-policy.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/windows-version.test.tsx",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            }
+          ],
+          "native": {
+            "nodeVersion": "v22.23.3",
+            "nodeABI": "127",
+            "platform": "win32",
+            "architecture": "x64",
+            "addonVersion": "13.0.3",
+            "bindingApi": "N-API",
+            "nodeNapi": "10",
+            "binaryPath": "prebuilds/win32-x64.node",
+            "sqliteVersion": "3.53.4",
+            "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+            "checks": [
+              "native-load",
+              "write-read",
+              "transaction-rollback",
+              "WAL-backup",
+              "integrity-check",
+              "file-cleanup"
+            ]
+          },
+          "production": {
+            "incompatibleSchemas": [
+              {
+                "name": "future",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "2d336a83dcfbd2038bc9d5e518daeb2e10fb1676fc01ddbf94e6331bfaaaa453",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "missing-version",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "a1b28bf7be16433f5d48aa91ebbbade3ada8f926b625958fc156380d01582cb3",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "foreign",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "71be8446d3e03cf9d754c3ef379c9d16fb504b20eb4853ffe8c6836b41473d16",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "sqliteX",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "ed53ae6945d6863fdbf47ec551383a57dfc0d46f6c1af87d63e0501eda302742",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "sqliteData",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "db26f3e71540c5eaf03576eaaef36a87619d14466e6a829e2808579c443647a8",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "malformed-metadata",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "d5f45a1374e634c285e99e7cf1cb02be2898ebee8552486cfc5ceb6e10f13ab9",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "malformed-owned-table",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "f9ea917a9435b67fd961115f7526ccde1f7ec70b49b44e72c1449d6abb143ec0",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              }
+            ],
+            "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+            "nodeVersion": "v22.23.3",
+            "platform": "win32",
+            "architecture": "x64",
+            "cwd": "C:\\Windows\\System32",
+            "productionRoot": "D:\\a\\_temp\\fo production dữ liệu 7f8254ac-93e1-4279-b99b-5c63f6b14c64\\release with spaces",
+            "checks": [
+              "production-dependencies-only",
+              "no-source-ts",
+              "foreign-cwd",
+              "static-assets",
+              "legacy-preserved",
+              "restart-persistence",
+              "write-permission-fail-fast",
+              "offline-providers",
+              "graceful-shutdown",
+              "readiness",
+              "crash-recovery",
+              "auth-session-restart",
+              "auth-session-logout",
+              "private-response-cache",
+              "authenticated-realtime",
+              "object-visibility",
+              "authenticated-media",
+              "task-write-authority",
+              "content-write-authority",
+              "derived-object-privacy",
+              "explicit-first-account",
+              "provider-digest-privacy",
+              "incompatible-schema-preserved"
+            ]
+          },
+          "audit": {
+            "auditReportVersion": 2,
+            "vulnerabilities": {},
+            "metadata": {
+              "vulnerabilities": {
+                "info": 0,
+                "low": 0,
+                "moderate": 0,
+                "high": 0,
+                "critical": 0,
+                "total": 0
+              },
+              "dependencies": {
+                "prod": 237,
+                "dev": 320,
+                "optional": 107,
+                "peer": 2,
+                "peerOptional": 0,
+                "total": 556
+              }
+            }
+          },
+          "auditContext": {
+            "platform": "win32",
+            "architecture": "x64",
+            "nodeVersion": "v22.23.3",
+            "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+            "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11"
+          },
+          "coverage": {
+            "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+            "nodeVersion": "v22.23.3",
+            "platform": "win32",
+            "architecture": "x64",
+            "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+            "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+            "sourceInventory": [
+              {
+                "path": "server/app.ts",
+                "sha256": "0e070ff72cfc6e33b08649c8464c37b87002b894c614aa6656025ef66af97bd9"
+              },
+              {
+                "path": "server/appEffects.ts",
+                "sha256": "bdc8e78534ed313a2081fce82aa9c4ab164b77ea9550628c306beff59f2b0568"
+              },
+              {
+                "path": "server/appErrors.ts",
+                "sha256": "fcb68e4af631b7e27017837cefe01891b1d82ad0bfbb20ab16ebee70cfcd53f0"
+              },
+              {
+                "path": "server/appJobs.ts",
+                "sha256": "e1ccac1954845ddc71106776faeaccd7fc44881b537b6246a7f591a14145ac61"
+              },
+              {
+                "path": "server/appMigrations.ts",
+                "sha256": "e7c1d2a05edba1456a2e3f62cd30e2071ebf6be9e18bc7f97f2a8ef63109a1de"
+              },
+              {
+                "path": "server/appSnapshot.ts",
+                "sha256": "69c6374dbc155255fe5168601eb4d1a7b03945b36a80acabf7f929163e3d1387"
+              },
+              {
+                "path": "server/appStore.ts",
+                "sha256": "bfa131ef3792e74767ebd2e1741c87d310be89858a7dc8cb95e7638ab9384061"
+              },
+              {
+                "path": "server/auth.ts",
+                "sha256": "d8ec7731fd1cfdc9880d3c4ab2b0ffe914d2228b5470340c743ffb9729086743"
+              },
+              {
+                "path": "server/authStore.ts",
+                "sha256": "5cbdce54c8594feeca0fc2fc38aff5848402aa46e22a2a70a0f3041f4a7bd519"
+              },
+              {
+                "path": "server/backupCredentials.ts",
+                "sha256": "7fe6bf55a6e256b3c86cef87c26b99f035a58cb09ae12ad21e13e3470998e3fc"
+              },
+              {
+                "path": "server/commandContext.ts",
+                "sha256": "4f4f0f3e33468643194e189b11ba9fc0756f5750842c54832b5b9a868dadaa6d"
+              },
+              {
+                "path": "server/config.ts",
+                "sha256": "066895d1ff26ee7cb637f06c864647956a0e6c62b7cfb0ee43a645b44df88df9"
+              },
+              {
+                "path": "server/contentInput.ts",
+                "sha256": "a59bcff791b987ad339b4ddd32a52a5b9bacda3ae3f4ca2244a811a82149ad41"
+              },
+              {
+                "path": "server/contentPolicy.ts",
+                "sha256": "6869ce6526ab3c83c034353921d603ef1d44a75630d7160e582a9289b890a63d"
+              },
+              {
+                "path": "server/credentialReset.ts",
+                "sha256": "dccb09e116f93b1a09552d23417b7d8f67ecec671d54990a7b626b5480762a95"
+              },
+              {
+                "path": "server/db.ts",
+                "sha256": "d0d33753c2f157ce08a5062dffc649a4e9bbf042d38ac0c2cb233806c1f48f4e"
+              },
+              {
+                "path": "server/derivedPrivacy.ts",
+                "sha256": "8050f80dccea211190aebdcb14e57d5fd2e669978a05901bc5880cabcde3be4e"
+              },
+              {
+                "path": "server/fullBackup.ts",
+                "sha256": "04f221453a6a14dd817e86d5faaf87bed1d5e64ba935c504e848f1cb2c7b2291"
+              },
+              {
+                "path": "server/icsFeed.ts",
+                "sha256": "890f6de90f8239aca13703b3780a465ea95ce1fc83deac6dd384ffde88d97e90"
+              },
+              {
+                "path": "server/initialData.ts",
+                "sha256": "2f518298d345b6353e36a360dcbeff5262b51266970ac2214832179ada145c69"
+              },
+              {
+                "path": "server/installationMode.ts",
+                "sha256": "d36bfcfc952923d146d4faf40b01fbae8c1b591a6a946917585b7546ccf5a1f5"
+              },
+              {
+                "path": "server/jobStore.ts",
+                "sha256": "3c14db11fe779be9da0607e06fa4107bb1d214f4ce0061caa47816136ba03688"
+              },
+              {
+                "path": "server/legacyActor.ts",
+                "sha256": "36efc8aad17048371f99d216c89075969d1e3bba45a96f2b3f68a11383a521b5"
+              },
+              {
+                "path": "server/legacySchema.ts",
+                "sha256": "54f93ccfff048b8022b7e3ecce027cb05dd071e11bcca9eb15ec970c1a15bf21"
+              },
+              {
+                "path": "server/legacyVisibility.ts",
+                "sha256": "f608d71c2e43d3cdb1eb4c5ac5988825be7a6b587ba1ceacf025a4afa92b3937"
+              },
+              {
+                "path": "server/lifecycle.ts",
+                "sha256": "480c47122cdacd7bbacecbdd5d28efa97949d6d863593bf957da61a2dc489e43"
+              },
+              {
+                "path": "server/media.ts",
+                "sha256": "a9b67fee6dc102c4b0689a6fead4915cb1df2394e5f554d0ed40805b158cb14b"
+              },
+              {
+                "path": "server/mediaContent.ts",
+                "sha256": "a8ed676a7c495a435ec17a2beaf1561f4c8a5b36db085cb803df2db79e466f53"
+              },
+              {
+                "path": "server/mediaPolicy.ts",
+                "sha256": "3569eea8904506c27e56b2751d37a22797fb82c1787009b7cb75ea89060b438a"
+              },
+              {
+                "path": "server/operator.ts",
+                "sha256": "c023aaa7f8f1425f0e349c2d1d3f4d86340e6722b68e35b009c0c777262f59d0"
+              },
+              {
+                "path": "server/passwords.ts",
+                "sha256": "051a0590257445789c0399e0f1a4eab7e86db65955f1e80026bc47022be3adff"
+              },
+              {
+                "path": "server/providerOccurrences.ts",
+                "sha256": "67d45e99f66eba18c2980caae9f7753e888f1e6315c345b21629b72e44598255"
+              },
+              {
+                "path": "server/push.ts",
+                "sha256": "6ea4f059c507c4d3e28a7f0151bed6a448735a766b5fbb91968f7803a9d96ac4"
+              },
+              {
+                "path": "server/pushTransport.ts",
+                "sha256": "0bf9fa1f06704e7501bfef16f4704959092131463ba5e0dbd23ba8ed13c43937"
+              },
+              {
+                "path": "server/realtime.ts",
+                "sha256": "43dc7619d6cbf7e9dc54ecf9714686cf25f264c9a706e7e1ec1fc515dcf90515"
+              },
+              {
+                "path": "server/recoveryEnv.ts",
+                "sha256": "199bcc341d9b5cf92330cae1d053a3c926626c6f560550be874047ccc8c09602"
+              },
+              {
+                "path": "server/recoveryEnvelope.ts",
+                "sha256": "c30ffd482dd72e8ced80191ea48a867f6bed6fc37cba769c4e511d4bd64aaa1a"
+              },
+              {
+                "path": "server/recoveryFiles.ts",
+                "sha256": "9c1ec3cd77177e4a1f04133d9b011b9a9e9f605c4347fe999a9567ec53b32b45"
+              },
+              {
+                "path": "server/recoveryOperator.ts",
+                "sha256": "f03bf4d183f2c546452b33009cf841173cb4e63ce2627d62055f3d1f122d73d6"
+              },
+              {
+                "path": "server/recoveryRetention.ts",
+                "sha256": "09f0401a3c298172b076bc77eb90f1c066f20a33e4b7a910781a4ec00645bb4d"
+              },
+              {
+                "path": "server/recoverySchedule.ts",
+                "sha256": "ebc589f72cff2e447e56f6485e95586a1a421b02dcbf091d5e4ddfd3553a4e5b"
+              },
+              {
+                "path": "server/recoverySettings.ts",
+                "sha256": "dfc443ba87f6ec94c17ec351596be78d11f67a23a3c96a92ff48f48fb5aae4f2"
+              },
+              {
+                "path": "server/recoverySnapshotInspection.ts",
+                "sha256": "55035ac3ab3d56eaeaea5c8c9e2dff8ee9529427ea7576ca2071adc44544d1aa"
+              },
+              {
+                "path": "server/registerOutbox.ts",
+                "sha256": "809bbe6ae6b99b4d6f03feea1fe1d27c308f7b0cae7b623b22cfd55d950ed9b4"
+              },
+              {
+                "path": "server/rewardStore.ts",
+                "sha256": "6e2ea8720d0b974ff3a7513e51d66f0d40c346c9c4f2d867a3a70a2024783a08"
+              },
+              {
+                "path": "server/runtime.ts",
+                "sha256": "fa58a49fd6f77f9b6e6b6f19be85e891f3fe003a047692533f91cc1c7a4c50fa"
+              },
+              {
+                "path": "server/runtimeState.ts",
+                "sha256": "d70ed0d34c36a8a9abe17b63f1ad699635cd5ec9d2ba6950a2b4a13734b339d4"
+              },
+              {
+                "path": "server/snapshotFiles.ts",
+                "sha256": "a559122bff9c96a4d1a1fb988f5968a138291f05d7c042bbee8b21a5ee2d9344"
+              },
+              {
+                "path": "server/snapshotValidation.ts",
+                "sha256": "476fa46af9e66aff340c5983142f16f5155a8ed607daef811499968dcd8f98aa"
+              },
+              {
+                "path": "server/sqlite.ts",
+                "sha256": "a1c3a97609370260c42629d4ad4caca7d4071b99977498b6a8f7005a90390e56"
+              },
+              {
+                "path": "server/systemMetrics.ts",
+                "sha256": "c4d23f1c4b2099d008943261609425f67759a2e39359d87aecae103423090a87"
+              },
+              {
+                "path": "server/taskPolicy.ts",
+                "sha256": "8b78630accf73e96df127f073a3c92c06637025ce33018a470265f1c59e91138"
+              },
+              {
+                "path": "server/telegramBackup.ts",
+                "sha256": "004464850fec3f51e885e576b89ab7a3b1393d25908a719808e67a43ab4b7744"
+              },
+              {
+                "path": "server/telegramDelivery.ts",
+                "sha256": "d0e5380cfae3c8200ce2f6fd75ecadc7fa4037ffb5a51881d526090a8e2035b5"
+              },
+              {
+                "path": "server/telegramSettings.ts",
+                "sha256": "f10aff042e262dc171bf92b5c6b9d75ac080da4e1c8a36f3bdefb0a28e5d22ad"
+              },
+              {
+                "path": "server/updateFence.ts",
+                "sha256": "1fa026f5e6cbbb7bd8ba540403374cfcf0e4da1413bc4cf315562e19f295ade2"
+              },
+              {
+                "path": "server/updateInspection.ts",
+                "sha256": "62ffec871b8bda94170a27e05ee3570ed69e1c9d8a3afe4f10de838e91f87050"
+              },
+              {
+                "path": "server/updater.ts",
+                "sha256": "2c923d5f1ba5fd2ae7a74dbc1adeffcd05b979ca43598bed5030deb19df7cc55"
+              },
+              {
+                "path": "server/weeklyDigest.ts",
+                "sha256": "432827670206a6ed1b60ddec33656a16c2a52ae84304ae012638cd837da89337"
+              },
+              {
+                "path": "src/App.tsx",
+                "sha256": "41dea44a716d881db1ea29c3986b774d98633b95c727c80afa4ac61aaca18da0"
+              },
+              {
+                "path": "src/components/Assets.tsx",
+                "sha256": "5394c712d8bd5c4c76efc131f83de25f363ef0920f3cdb44a9d20c54707a7ab3"
+              },
+              {
+                "path": "src/components/Assistant.tsx",
+                "sha256": "b88d103cb76100c8756e16a69bdb5d9c242c1eb08bd577722f6bf9ca01d00680"
+              },
+              {
+                "path": "src/components/Auth.tsx",
+                "sha256": "f019fa96b2eac1182c59a0d447e27c548ff9e211409a6c5e8087a3665e5d8dfd"
+              },
+              {
+                "path": "src/components/AuthenticatedMedia.tsx",
+                "sha256": "6a29d1b9499284e121330b4bd8ea225edce99d14ea9ee4564b845ae75de04ed0"
+              },
+              {
+                "path": "src/components/Avatar.tsx",
+                "sha256": "f302639388ea80ccb9dd1b3d8e25e5b44aea4c8ecf7067546163674a355c687f"
+              },
+              {
+                "path": "src/components/BrowserSessionRoot.tsx",
+                "sha256": "23c5b426985e62629c8befef8f3accee1da0f94cadbd8e7def84999a0cbb5636"
+              },
+              {
+                "path": "src/components/ChildHealth.tsx",
+                "sha256": "313e84de68e24c1c08cb24fc9f56aff87780271de2d9c25ad5c73833fad164b0"
+              },
+              {
+                "path": "src/components/ConfirmDialog.tsx",
+                "sha256": "dbd767f01b5d98979c4fc9e5bf8039dca62c3b7a7a6d4bbc30f65cbd6ae0408b"
+              },
+              {
+                "path": "src/components/Dashboard.tsx",
+                "sha256": "568286259972eb592f76648ae679c491bc50c9f8ffc6e13a86870f9568cff412"
+              },
+              {
+                "path": "src/components/DateTimePicker24.tsx",
+                "sha256": "ac3e1e91987b5e1299341a8d58f8b14f8b62d0e465efddf4075736fd0c8d88d5"
+              },
+              {
+                "path": "src/components/DebtTracker.tsx",
+                "sha256": "134df665123992472b7f3758b02417def4cdeb927f76f9513b52583be1bab24b"
+              },
+              {
+                "path": "src/components/Documents.tsx",
+                "sha256": "4a4f7149d5abffbcdaad2f0725b25ffa67300e72c0be20bf07e2f3ee924a82d2"
+              },
+              {
+                "path": "src/components/FabHost.tsx",
+                "sha256": "b841066bacca6dc05edbc478ea03f049ffd4de9837cf0a088949878e8f014dd6"
+              },
+              {
+                "path": "src/components/FancySelect.tsx",
+                "sha256": "7ebb424886acdf4b5699d371cea599a4deea18645424fe29fd07b9e879313aa7"
+              },
+              {
+                "path": "src/components/Finance.tsx",
+                "sha256": "3f4edfb470152cb089599286c48d66cf2d337b5a9bb29934eb25536ce8137e3f"
+              },
+              {
+                "path": "src/components/GlobalSearch.tsx",
+                "sha256": "21dc176c884ff694374605727ad051b8597d0cf10fa2c03b8e0c0cac16c49802"
+              },
+              {
+                "path": "src/components/Lively.tsx",
+                "sha256": "15558129ec720daec197ee210dbcde87eb62b980e30a35a41e2df216680ef51e"
+              },
+              {
+                "path": "src/components/Markdown.tsx",
+                "sha256": "9c4791ef446d2afc5a65664315005cf0433e3db8ee10820027182ef3569a2005"
+              },
+              {
+                "path": "src/components/Medication.tsx",
+                "sha256": "de7cb94439ae98d09155e13170c32955cdd198e413031adf3a6c36270c03bbcb"
+              },
+              {
+                "path": "src/components/Notes.tsx",
+                "sha256": "be34bba333bd2b29a0f6335f4d8482d956a84001f14c9f4a9967d0abb73af504"
+              },
+              {
+                "path": "src/components/PushNotificationsCard.tsx",
+                "sha256": "fabdaf7feda13781c6a63750fadc502c21489bde4c8d8b7eab3cb16587d3259d"
+              },
+              {
+                "path": "src/components/QuickNudge.tsx",
+                "sha256": "158b2077472270a84bc6780f402ca061feeb169b40440e67883d63be62ad4ec6"
+              },
+              {
+                "path": "src/components/SavingsGoals.tsx",
+                "sha256": "92d218e77f3211ce0385ccccc1c675fc7c2224e951dcfa69b130635b1964b5c8"
+              },
+              {
+                "path": "src/components/Schedules.tsx",
+                "sha256": "3e9c89be3d14a7969ae66298d76648bc2a11d18559eeb78409cdd481f67c12b6"
+              },
+              {
+                "path": "src/components/ServerMonitor.tsx",
+                "sha256": "ab478a09c625f54b479118ae52f0873154aecfe168380a288d90ae6f687c7b83"
+              },
+              {
+                "path": "src/components/Settings.tsx",
+                "sha256": "cafef89e13463f5943232748e878e5561e895cd1bc18f4176fa1f8fd159232ee"
+              },
+              {
+                "path": "src/components/Shopping.tsx",
+                "sha256": "8a2c96ff46b2ed31dde0edec4684b2ec4ed6d801b0bd9016bc12448a2bfb433b"
+              },
+              {
+                "path": "src/components/Tasks.tsx",
+                "sha256": "7e91170a8a4946fa909491da766f2cc764e1e8b33070070043dbe1d0e600e31e"
+              },
+              {
+                "path": "src/components/UpdatePanel.tsx",
+                "sha256": "f051a8b2115772d07a4abf33b429214a797224179e44029c75991cc38b3d4a93"
+              },
+              {
+                "path": "src/hooks/useModalA11y.ts",
+                "sha256": "6a0edd9c2a87bae81f31997da96c9d2ee76ffa118a58a0764cd0c6d944dbe540"
+              },
+              {
+                "path": "src/i18n/index.ts",
+                "sha256": "1630b86dbf617568cbaf74717ee332c5d71814ec8033c01f68da70a6115529dc"
+              },
+              {
+                "path": "src/main.tsx",
+                "sha256": "9ba773245f7174a43275474caaa996d41a2959dc729c8a32c1bc05683cc1eb1a"
+              },
+              {
+                "path": "src/types.ts",
+                "sha256": "4436a999d339b65d282264ae9f8b7df73c6d41795240e55b2571f1f511f13652"
+              },
+              {
+                "path": "src/utils/abortSignals.ts",
+                "sha256": "5867830b5c8ddeecf9658107e19c4994eee93db5d82c6fb09a9470898598cef9"
+              },
+              {
+                "path": "src/utils/appReload.ts",
+                "sha256": "40ff28bbbbf664a6cda084be8ddb62da0e7c1f183283356789f17d0bdb9a04bf"
+              },
+              {
+                "path": "src/utils/appVersion.ts",
+                "sha256": "9bf70f7bf1ed417c5e5334f62f7dfba56a298d7a4a636de91a4869cbf08aefe8"
+              },
+              {
+                "path": "src/utils/assetValue.ts",
+                "sha256": "243b70037a5c559b83063da6e3a71d6e68096fd893eb90a03fcb3ed26e9c9126"
+              },
+              {
+                "path": "src/utils/bmi.ts",
+                "sha256": "14333a65af69f157e7655a26b2eeac9d862751493554f05e95c7e1b23d50c306"
+              },
+              {
+                "path": "src/utils/browserSession.ts",
+                "sha256": "a22c63440d4100b00c6bf5304f1035c398fd4720aa01140903a75bad4efdba9f"
+              },
+              {
+                "path": "src/utils/clientSession.ts",
+                "sha256": "63922d5906d51b86138b40b3edf55ead5c46f58fd21fad297d1d2849a0580539"
+              },
+              {
+                "path": "src/utils/debt.ts",
+                "sha256": "84ad57b849f66ee6433a9fbad3f2196dcdc7a518a8a61dcc35bf194ddfc1d823"
+              },
+              {
+                "path": "src/utils/expenseCategories.ts",
+                "sha256": "063ce442504d2217fd4bcc2d6a1154f3538c3307502d02834754b7f625837b37"
+              },
+              {
+                "path": "src/utils/financePeriod.ts",
+                "sha256": "81d3849be49ddd4f347794d1b7a4a12a3418c7a386c790cc1fb6dcc332126ffc"
+              },
+              {
+                "path": "src/utils/image.ts",
+                "sha256": "9c2a0d60efe592b3dfd67c22081dcec736847f53b6cacf8738793be5cd848725"
+              },
+              {
+                "path": "src/utils/marketZones.ts",
+                "sha256": "47f698d8e73f8eaf3693750838fbcc2df3c2dce8f29699335bbc50da17909fce"
+              },
+              {
+                "path": "src/utils/mealPlan.ts",
+                "sha256": "1577a042e92322078ee2a6155ab9ea333348bb854ef0631f9b52d06e60d66d75"
+              },
+              {
+                "path": "src/utils/mediaResource.ts",
+                "sha256": "60d2b0c16de39ca5796fa49bf8c08769ad676f9242daa31ffdc223399b0cd96a"
+              },
+              {
+                "path": "src/utils/pdfExport.ts",
+                "sha256": "6a4d8d52e72d2e583b384e10d2835dd97fa4319b4000c7c79e60cc48bb560a4b"
+              },
+              {
+                "path": "src/utils/privacyWorker.ts",
+                "sha256": "25daf70590fbc407d55767803b195dad4363dbd013be02bd29afceaeb6647384"
+              },
+              {
+                "path": "src/utils/privateStorage.ts",
+                "sha256": "5694d115ef034da1f9e16608512ac592ae2ab9275e6b88051203f125caaed8c1"
+              },
+              {
+                "path": "src/utils/realtimeClient.ts",
+                "sha256": "ed009c7c312e945ce5c75e9537c1b602f2ab343bdff6bb49d754190e1f116282"
+              },
+              {
+                "path": "src/utils/recurrence.ts",
+                "sha256": "d22f8e47d9369db76595393b9cf96abe5481c5705a583748b798eaecc1efb19d"
+              },
+              {
+                "path": "src/utils/searchText.ts",
+                "sha256": "dc56515b067e1593f93ea675ba481a773446a24e6a995fc4b9eb29409fc84492"
+              },
+              {
+                "path": "src/utils/serviceWorkerWatch.ts",
+                "sha256": "ef929b9477db4e0fd6134b3031814adf9f1b465318d9217fa24f49b5492cfb74"
+              },
+              {
+                "path": "src/utils/sessionBoundary.ts",
+                "sha256": "9be65a6b709291ca4905f03d77499ee34dde0340e0e38c12e84c29b5012f8f1c"
+              },
+              {
+                "path": "src/utils/uploadImage.ts",
+                "sha256": "9e61c2f9f5ec9d77d6fd2fefb518cc9884263ee16e97bfaeca66c46eebadd240"
+              },
+              {
+                "path": "src/utils/vietnamHolidays.ts",
+                "sha256": "3c329cf0be719587218591c09107ee9138fb223c871510cb95dc43d5d4c80514"
+              },
+              {
+                "path": "src/utils/vnLocations.ts",
+                "sha256": "904b779a0d5d3ae3f71e0eea67e9332960b7e035e7ed9c4f0f5a57149773e5fe"
+              }
+            ],
+            "reportHashes": {
+              "coverage-final.json": "a4358f9c652c8565b926ab63c797a8f7fc1cd559559a6cb9654d51e7028d1bad",
+              "coverage-summary.json": "eb0a6501e2e68392eef036b6c9ff87541aa91a037c32d236ae1d8ec50449953d",
+              "lcov.info": "e9f99bfb531f94cd40ccad8a9223411a213533558a3fe6ab490855b23fd5cde1",
+              "index.html": "861bc731a7934985c15bb0ee72c8d08b6b2755c1c201ec9f0c64d2a91ea9d236"
+            },
+            "errors": [],
+            "baselineSha256": "6f1cbceabee0619f839846d64a9be27f7190eadd225762bd5ab877cc2d50f78b",
+            "providerVersion": "4.1.11",
+            "floor": {
+              "lines": 31.48,
+              "statements": 33.73,
+              "functions": 31.64,
+              "branches": 28.53
+            },
+            "sourceInventorySha256": "8af5c4811c2cc5e654c177a665948dee6c159c6c0ffbddc11762adb986e089ee",
+            "total": {
+              "lines": {
+                "total": 11511,
+                "covered": 4346,
+                "skipped": 0,
+                "pct": 37.75
+              },
+              "statements": {
+                "total": 15397,
+                "covered": 6282,
+                "skipped": 0,
+                "pct": 40.8
+              },
+              "functions": {
+                "total": 3268,
+                "covered": 1205,
+                "skipped": 0,
+                "pct": 36.87
+              },
+              "branches": {
+                "total": 11982,
+                "covered": 4247,
+                "skipped": 0,
+                "pct": 35.44
+              },
+              "branchesTrue": {
+                "total": 0,
+                "covered": 0,
+                "skipped": 0,
+                "pct": 100
+              }
+            }
+          },
+          "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+          "server2019Acceptance": "not-run",
+          "errors": []
+        },
+        "passedTests": 1990,
+        "testFiles": 106,
+        "reportSha256": {
+          "audit-context.json": "5f851f27e00c49dc8b33f17661176872a07e90f292512063acc4a6a7c9e68c4f",
+          "audit-exit.json": "273716ff894665d7a10adf1031ed1db8d7feed8805239b85af44d35313dd980d",
+          "audit.json": "88fbd508c1a2ee0bb8ef77a32c330b65ac8672d20a272560f1f20d26b89b5099",
+          "audit.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "build-exit.json": "0b3245a583c253852bc2f24a41caef588421e9eda25466e1f475ea8c74f8eb89",
+          "build.log": "e991934bcf28d92ddf28bb66696a3aa7d026e8771fcd6fe022a005682863a491",
+          "coverage-evidence.json": "6cf1f6fc9938d4c16ac3b6abc445d73f78fa56ccb3d452b477ff75211cbb85f1",
+          "coverage-exit.json": "e2cea37c593c06ae2a116597a413edc5442c84e2a99ca697fd080e86f9cb50f8",
+          "coverage.log": "294888d74422e14c281abe75f3e6d43cacfcabc23f48c3405a0b2f4b87e00cd8",
+          "evidence.json": "4ffaeee2ef79d09309b0cc2ee15af6ff63555aad047261dbb490ffe5d2b86aa1",
+          "file-publication-native.json": "538b438a21ee165dc161e92178e45db0e8491ded22e7c6bd19fed147aff9a411",
+          "install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+          "install.log": "15fbb0c050fde47dc0338446c6671aa7825663388f35c95194c3ee5af7d2d29d",
+          "junit.xml": "e80cc615481aca28cdfafa1e2f59aa0df1f3dc86b44dfa2de0bb519abff80a5a",
+          "lint-exit.json": "5d6c365bed03c5aaaf3987831b8d8b41c00c3776b01202f8d71e32be26e5762d",
+          "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+          "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+          "native.json": "839df92b2d80b06766cdd3e8fb73e680345e948ff71404c1f0b95e562cdd3d8c",
+          "native.log": "8fda14cf9ea15d0d67a02dacf772ed5b0e6a8b3c1246cb7b2a318e0870c3cd24",
+          "production-exit.json": "aafd991c38898765ed84121dc8a8463f7b5977fcab48223bc920f2c72c1404fc",
+          "production-install.log": "f8929785b8a7c66eb56764c900564809002d9a81ff5194783d4372e689067195",
+          "production-server.log": "7afbcb607fd78f134f15fb6c2b8bf35bd6053eb086c715846406f50ab79f2df7",
+          "production.json": "cb8ccc2ee1055d575cb5541ac4c0b243905f79827abfae0d09604b816650ceee",
+          "production.log": "f10aefb61c5c448fba77cc4cbc96e19b7206f1ad2ab63f8117577044ae15f901",
+          "release-policy-native.json": "cf6ca2d7a9d525406a87a404291f11b8ae53c9d2445ca209e14ccae304b33ac0",
+          "release-sidecar-native.json": "c4ef00c7bbca3874adb511c5088b30405296add1d21480ff9c175af1bde65233",
+          "test-exit.json": "a97bf24e3e07dde6bf94d216306d401598f94035263015286e419f73d71e8e48",
+          "test.log": "82f068a1df548d2a16b04ec47f5e13e7729ae85dfb6af02b3edd6851b8285250",
+          "toolchain.json": "51271ea9302f2035dfb9d0e995f3105d6274c9e01db1ae74f1832b61275e43e3",
+          "vitest.json": "e95e06d4ef67f1560810caecd6cc7841295947975fe09f5393107a813b1b1632"
+        }
+      },
+      {
+        "artifactName": "windows-node24-5c4815aec9f829488fc1513dcafd0996ba9997cc-1",
+        "evidence": {
+          "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+          "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+          "runAttempt": 1,
+          "runnerOS": "Windows_NT 10.0.20348",
+          "runnerImage": "win22",
+          "runnerImageVersion": "20261004.326.1",
+          "nodeVersion": "v24.21.0",
+          "npmVersion": "11.19.0",
+          "toolchain": {
+            "visualStudioVersion": "17.14.37710.0",
+            "npmVersion": "11.19.0"
+          },
+          "checks": {
+            "install": "success",
+            "native": "success",
+            "lint": "success",
+            "test": "success",
+            "build": "success",
+            "production": "success",
+            "audit": "success",
+            "coverage": "success"
+          },
+          "suites": [
+            {
+              "name": "server/app.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appEffects.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appJobs.durable.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appJobs.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appMigrations.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appSnapshot.test.ts",
+              "passed": 36,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/appStore.test.ts",
+              "passed": 11,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/auth.test.ts",
+              "passed": 20,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/authHttp.test.ts",
+              "passed": 26,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/authStore.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/backupCredentials.test.ts",
+              "passed": 6,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/commandHttp.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/config.test.ts",
+              "passed": 17,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/contentPayload.test.ts",
+              "passed": 82,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/contentPayloadHttp.test.ts",
+              "passed": 10,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/derivedPrivacyHttp.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/derivedPrivacyNative.test.ts",
+              "passed": 26,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/fullBackup.test.ts",
+              "passed": 15,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/icsFeed.test.ts",
+              "passed": 7,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/jobStore.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/legacyFinanceHttp.test.ts",
+              "passed": 14,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/legacyVisibility.test.ts",
+              "passed": 16,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/lifecycle.test.ts",
+              "passed": 15,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/mediaHttp.test.ts",
+              "passed": 33,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/mediaMetadata.test.ts",
+              "passed": 25,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/objectAclHttp.test.ts",
+              "passed": 53,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/providerJobs.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/pushDelivery.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/pushOutbox.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/pushTransport.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/realtime.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/realtimeHttp.test.ts",
+              "passed": 21,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryEnv.test.ts",
+              "passed": 34,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryEnvelope.test.ts",
+              "passed": 25,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryFiles.test.ts",
+              "passed": 22,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoveryRetention.test.ts",
+              "passed": 41,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoverySchedule.jobs.test.ts",
+              "passed": 17,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoverySchedule.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/recoverySettings.test.ts",
+              "passed": 22,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/rewardStore.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/shoppingHttp.test.ts",
+              "passed": 11,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/shoppingPersistence.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/sqlite.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/sqliteCompatibility.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/systemMetrics.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/taskPayload.test.ts",
+              "passed": 74,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/taskPayloadHttp.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/updateFence.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/updateInspection.test.ts",
+              "passed": 18,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/updater.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/weeklyDigestHttp.test.ts",
+              "passed": 18,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "server/weeklyDigestPrivacy.test.ts",
+              "passed": 33,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/account-initialization.test.ts",
+              "passed": 33,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/browser-evidence.test.ts",
+              "passed": 57,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/browser-providers.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/compiled-media-policy.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/coverage-evidence.test.ts",
+              "passed": 46,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/coverage-input.test.ts",
+              "passed": 7,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/data-migration.test.ts",
+              "passed": 13,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/evidence.test.ts",
+              "passed": 145,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/httpDependencySecurity.test.ts",
+              "passed": 19,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/librarySecurity.test.ts",
+              "passed": 28,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/media-cold-restore.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/native-gc.test.ts",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/native-paths.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/native-scripts.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/online-recovery.test.ts",
+              "passed": 11,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/package-licenses.test.ts",
+              "passed": 41,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/recovery-maintenance-operator.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/recovery-operator.test.ts",
+              "passed": 40,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/release-archives.test.ts",
+              "passed": 46,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/release-evidence.test.ts",
+              "passed": 42,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/release-metadata.test.ts",
+              "passed": 57,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/runtime-ownership.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/runtime-process.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/scheduled-recovery.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/snapshot-http.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/snapshot-recovery.test.ts",
+              "passed": 25,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/sw-cache.test.ts",
+              "passed": 12,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/update-journal.test.ts",
+              "passed": 14,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/update-startup.test.ts",
+              "passed": 6,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/windows-package.test.ts",
+              "passed": 93,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/windows-service.test.ts",
+              "passed": 23,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/assetValue.test.ts",
+              "passed": 29,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/bmi.test.ts",
+              "passed": 17,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/clientSession.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/debt.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/financePeriod.test.ts",
+              "passed": 20,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/mediaResource.test.ts",
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/pdfExport.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/privacyWorker.test.ts",
+              "passed": 6,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/privateStorage.test.ts",
+              "passed": 7,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/realtimeClient.test.ts",
+              "passed": 13,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/recurrence.test.ts",
+              "passed": 20,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/searchText.test.ts",
+              "passed": 10,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/serviceWorkerWatch.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/sessionBoundary.test.ts",
+              "passed": 30,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/uploadImage.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "src/utils/vietnamHolidays.test.ts",
+              "passed": 4,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/authenticated-media.test.ts",
+              "passed": 16,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/note-sharing-policy.test.ts",
+              "passed": 2,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/realtime-session.test.ts",
+              "passed": 5,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/session-actions.test.ts",
+              "passed": 23,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/session-bootstrap.test.ts",
+              "passed": 3,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/task-reward-policy.test.ts",
+              "passed": 8,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "name": "tests/ui/windows-version.test.tsx",
+              "passed": 1,
+              "failed": 0,
+              "skipped": 0
+            }
+          ],
+          "native": {
+            "nodeVersion": "v24.21.0",
+            "nodeABI": "137",
+            "platform": "win32",
+            "architecture": "x64",
+            "addonVersion": "13.0.3",
+            "bindingApi": "N-API",
+            "nodeNapi": "10",
+            "binaryPath": "prebuilds/win32-x64.node",
+            "sqliteVersion": "3.53.4",
+            "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+            "checks": [
+              "native-load",
+              "write-read",
+              "transaction-rollback",
+              "WAL-backup",
+              "integrity-check",
+              "file-cleanup"
+            ]
+          },
+          "production": {
+            "incompatibleSchemas": [
+              {
+                "name": "future",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "2d336a83dcfbd2038bc9d5e518daeb2e10fb1676fc01ddbf94e6331bfaaaa453",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "missing-version",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "a1b28bf7be16433f5d48aa91ebbbade3ada8f926b625958fc156380d01582cb3",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "foreign",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "71be8446d3e03cf9d754c3ef379c9d16fb504b20eb4853ffe8c6836b41473d16",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "sqliteX",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "ed53ae6945d6863fdbf47ec551383a57dfc0d46f6c1af87d63e0501eda302742",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "sqliteData",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "db26f3e71540c5eaf03576eaaef36a87619d14466e6a829e2808579c443647a8",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "malformed-metadata",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "d5f45a1374e634c285e99e7cf1cb02be2898ebee8552486cfc5ceb6e10f13ab9",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              },
+              {
+                "name": "malformed-owned-table",
+                "exitCode": 1,
+                "bytesSchemaRowsJournalPreserved": true,
+                "databaseSha256": "f9ea917a9435b67fd961115f7526ccde1f7ec70b49b44e72c1449d6abb143ec0",
+                "journal": "delete",
+                "nativeHandlesReleased": true,
+                "networkAttempts": []
+              }
+            ],
+            "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+            "nodeVersion": "v24.21.0",
+            "platform": "win32",
+            "architecture": "x64",
+            "cwd": "C:\\Windows\\System32",
+            "productionRoot": "D:\\a\\_temp\\fo production dữ liệu 25bba3cf-b09c-4f68-a518-f6af7a570f1b\\release with spaces",
+            "checks": [
+              "production-dependencies-only",
+              "no-source-ts",
+              "foreign-cwd",
+              "static-assets",
+              "legacy-preserved",
+              "restart-persistence",
+              "write-permission-fail-fast",
+              "offline-providers",
+              "graceful-shutdown",
+              "readiness",
+              "crash-recovery",
+              "auth-session-restart",
+              "auth-session-logout",
+              "private-response-cache",
+              "authenticated-realtime",
+              "object-visibility",
+              "authenticated-media",
+              "task-write-authority",
+              "content-write-authority",
+              "derived-object-privacy",
+              "explicit-first-account",
+              "provider-digest-privacy",
+              "incompatible-schema-preserved"
+            ]
+          },
+          "audit": {
+            "auditReportVersion": 2,
+            "vulnerabilities": {},
+            "metadata": {
+              "vulnerabilities": {
+                "info": 0,
+                "low": 0,
+                "moderate": 0,
+                "high": 0,
+                "critical": 0,
+                "total": 0
+              },
+              "dependencies": {
+                "prod": 237,
+                "dev": 320,
+                "optional": 107,
+                "peer": 2,
+                "peerOptional": 0,
+                "total": 556
+              }
+            }
+          },
+          "auditContext": {
+            "nodeVersion": "v24.21.0",
+            "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+            "platform": "win32",
+            "architecture": "x64",
+            "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11"
+          },
+          "coverage": {
+            "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+            "nodeVersion": "v24.21.0",
+            "platform": "win32",
+            "architecture": "x64",
+            "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+            "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+            "sourceInventory": [
+              {
+                "path": "server/app.ts",
+                "sha256": "0e070ff72cfc6e33b08649c8464c37b87002b894c614aa6656025ef66af97bd9"
+              },
+              {
+                "path": "server/appEffects.ts",
+                "sha256": "bdc8e78534ed313a2081fce82aa9c4ab164b77ea9550628c306beff59f2b0568"
+              },
+              {
+                "path": "server/appErrors.ts",
+                "sha256": "fcb68e4af631b7e27017837cefe01891b1d82ad0bfbb20ab16ebee70cfcd53f0"
+              },
+              {
+                "path": "server/appJobs.ts",
+                "sha256": "e1ccac1954845ddc71106776faeaccd7fc44881b537b6246a7f591a14145ac61"
+              },
+              {
+                "path": "server/appMigrations.ts",
+                "sha256": "e7c1d2a05edba1456a2e3f62cd30e2071ebf6be9e18bc7f97f2a8ef63109a1de"
+              },
+              {
+                "path": "server/appSnapshot.ts",
+                "sha256": "69c6374dbc155255fe5168601eb4d1a7b03945b36a80acabf7f929163e3d1387"
+              },
+              {
+                "path": "server/appStore.ts",
+                "sha256": "bfa131ef3792e74767ebd2e1741c87d310be89858a7dc8cb95e7638ab9384061"
+              },
+              {
+                "path": "server/auth.ts",
+                "sha256": "d8ec7731fd1cfdc9880d3c4ab2b0ffe914d2228b5470340c743ffb9729086743"
+              },
+              {
+                "path": "server/authStore.ts",
+                "sha256": "5cbdce54c8594feeca0fc2fc38aff5848402aa46e22a2a70a0f3041f4a7bd519"
+              },
+              {
+                "path": "server/backupCredentials.ts",
+                "sha256": "7fe6bf55a6e256b3c86cef87c26b99f035a58cb09ae12ad21e13e3470998e3fc"
+              },
+              {
+                "path": "server/commandContext.ts",
+                "sha256": "4f4f0f3e33468643194e189b11ba9fc0756f5750842c54832b5b9a868dadaa6d"
+              },
+              {
+                "path": "server/config.ts",
+                "sha256": "066895d1ff26ee7cb637f06c864647956a0e6c62b7cfb0ee43a645b44df88df9"
+              },
+              {
+                "path": "server/contentInput.ts",
+                "sha256": "a59bcff791b987ad339b4ddd32a52a5b9bacda3ae3f4ca2244a811a82149ad41"
+              },
+              {
+                "path": "server/contentPolicy.ts",
+                "sha256": "6869ce6526ab3c83c034353921d603ef1d44a75630d7160e582a9289b890a63d"
+              },
+              {
+                "path": "server/credentialReset.ts",
+                "sha256": "dccb09e116f93b1a09552d23417b7d8f67ecec671d54990a7b626b5480762a95"
+              },
+              {
+                "path": "server/db.ts",
+                "sha256": "d0d33753c2f157ce08a5062dffc649a4e9bbf042d38ac0c2cb233806c1f48f4e"
+              },
+              {
+                "path": "server/derivedPrivacy.ts",
+                "sha256": "8050f80dccea211190aebdcb14e57d5fd2e669978a05901bc5880cabcde3be4e"
+              },
+              {
+                "path": "server/fullBackup.ts",
+                "sha256": "04f221453a6a14dd817e86d5faaf87bed1d5e64ba935c504e848f1cb2c7b2291"
+              },
+              {
+                "path": "server/icsFeed.ts",
+                "sha256": "890f6de90f8239aca13703b3780a465ea95ce1fc83deac6dd384ffde88d97e90"
+              },
+              {
+                "path": "server/initialData.ts",
+                "sha256": "2f518298d345b6353e36a360dcbeff5262b51266970ac2214832179ada145c69"
+              },
+              {
+                "path": "server/installationMode.ts",
+                "sha256": "d36bfcfc952923d146d4faf40b01fbae8c1b591a6a946917585b7546ccf5a1f5"
+              },
+              {
+                "path": "server/jobStore.ts",
+                "sha256": "3c14db11fe779be9da0607e06fa4107bb1d214f4ce0061caa47816136ba03688"
+              },
+              {
+                "path": "server/legacyActor.ts",
+                "sha256": "36efc8aad17048371f99d216c89075969d1e3bba45a96f2b3f68a11383a521b5"
+              },
+              {
+                "path": "server/legacySchema.ts",
+                "sha256": "54f93ccfff048b8022b7e3ecce027cb05dd071e11bcca9eb15ec970c1a15bf21"
+              },
+              {
+                "path": "server/legacyVisibility.ts",
+                "sha256": "f608d71c2e43d3cdb1eb4c5ac5988825be7a6b587ba1ceacf025a4afa92b3937"
+              },
+              {
+                "path": "server/lifecycle.ts",
+                "sha256": "480c47122cdacd7bbacecbdd5d28efa97949d6d863593bf957da61a2dc489e43"
+              },
+              {
+                "path": "server/media.ts",
+                "sha256": "a9b67fee6dc102c4b0689a6fead4915cb1df2394e5f554d0ed40805b158cb14b"
+              },
+              {
+                "path": "server/mediaContent.ts",
+                "sha256": "a8ed676a7c495a435ec17a2beaf1561f4c8a5b36db085cb803df2db79e466f53"
+              },
+              {
+                "path": "server/mediaPolicy.ts",
+                "sha256": "3569eea8904506c27e56b2751d37a22797fb82c1787009b7cb75ea89060b438a"
+              },
+              {
+                "path": "server/operator.ts",
+                "sha256": "c023aaa7f8f1425f0e349c2d1d3f4d86340e6722b68e35b009c0c777262f59d0"
+              },
+              {
+                "path": "server/passwords.ts",
+                "sha256": "051a0590257445789c0399e0f1a4eab7e86db65955f1e80026bc47022be3adff"
+              },
+              {
+                "path": "server/providerOccurrences.ts",
+                "sha256": "67d45e99f66eba18c2980caae9f7753e888f1e6315c345b21629b72e44598255"
+              },
+              {
+                "path": "server/push.ts",
+                "sha256": "6ea4f059c507c4d3e28a7f0151bed6a448735a766b5fbb91968f7803a9d96ac4"
+              },
+              {
+                "path": "server/pushTransport.ts",
+                "sha256": "0bf9fa1f06704e7501bfef16f4704959092131463ba5e0dbd23ba8ed13c43937"
+              },
+              {
+                "path": "server/realtime.ts",
+                "sha256": "43dc7619d6cbf7e9dc54ecf9714686cf25f264c9a706e7e1ec1fc515dcf90515"
+              },
+              {
+                "path": "server/recoveryEnv.ts",
+                "sha256": "199bcc341d9b5cf92330cae1d053a3c926626c6f560550be874047ccc8c09602"
+              },
+              {
+                "path": "server/recoveryEnvelope.ts",
+                "sha256": "c30ffd482dd72e8ced80191ea48a867f6bed6fc37cba769c4e511d4bd64aaa1a"
+              },
+              {
+                "path": "server/recoveryFiles.ts",
+                "sha256": "9c1ec3cd77177e4a1f04133d9b011b9a9e9f605c4347fe999a9567ec53b32b45"
+              },
+              {
+                "path": "server/recoveryOperator.ts",
+                "sha256": "f03bf4d183f2c546452b33009cf841173cb4e63ce2627d62055f3d1f122d73d6"
+              },
+              {
+                "path": "server/recoveryRetention.ts",
+                "sha256": "09f0401a3c298172b076bc77eb90f1c066f20a33e4b7a910781a4ec00645bb4d"
+              },
+              {
+                "path": "server/recoverySchedule.ts",
+                "sha256": "ebc589f72cff2e447e56f6485e95586a1a421b02dcbf091d5e4ddfd3553a4e5b"
+              },
+              {
+                "path": "server/recoverySettings.ts",
+                "sha256": "dfc443ba87f6ec94c17ec351596be78d11f67a23a3c96a92ff48f48fb5aae4f2"
+              },
+              {
+                "path": "server/recoverySnapshotInspection.ts",
+                "sha256": "55035ac3ab3d56eaeaea5c8c9e2dff8ee9529427ea7576ca2071adc44544d1aa"
+              },
+              {
+                "path": "server/registerOutbox.ts",
+                "sha256": "809bbe6ae6b99b4d6f03feea1fe1d27c308f7b0cae7b623b22cfd55d950ed9b4"
+              },
+              {
+                "path": "server/rewardStore.ts",
+                "sha256": "6e2ea8720d0b974ff3a7513e51d66f0d40c346c9c4f2d867a3a70a2024783a08"
+              },
+              {
+                "path": "server/runtime.ts",
+                "sha256": "fa58a49fd6f77f9b6e6b6f19be85e891f3fe003a047692533f91cc1c7a4c50fa"
+              },
+              {
+                "path": "server/runtimeState.ts",
+                "sha256": "d70ed0d34c36a8a9abe17b63f1ad699635cd5ec9d2ba6950a2b4a13734b339d4"
+              },
+              {
+                "path": "server/snapshotFiles.ts",
+                "sha256": "a559122bff9c96a4d1a1fb988f5968a138291f05d7c042bbee8b21a5ee2d9344"
+              },
+              {
+                "path": "server/snapshotValidation.ts",
+                "sha256": "476fa46af9e66aff340c5983142f16f5155a8ed607daef811499968dcd8f98aa"
+              },
+              {
+                "path": "server/sqlite.ts",
+                "sha256": "a1c3a97609370260c42629d4ad4caca7d4071b99977498b6a8f7005a90390e56"
+              },
+              {
+                "path": "server/systemMetrics.ts",
+                "sha256": "c4d23f1c4b2099d008943261609425f67759a2e39359d87aecae103423090a87"
+              },
+              {
+                "path": "server/taskPolicy.ts",
+                "sha256": "8b78630accf73e96df127f073a3c92c06637025ce33018a470265f1c59e91138"
+              },
+              {
+                "path": "server/telegramBackup.ts",
+                "sha256": "004464850fec3f51e885e576b89ab7a3b1393d25908a719808e67a43ab4b7744"
+              },
+              {
+                "path": "server/telegramDelivery.ts",
+                "sha256": "d0e5380cfae3c8200ce2f6fd75ecadc7fa4037ffb5a51881d526090a8e2035b5"
+              },
+              {
+                "path": "server/telegramSettings.ts",
+                "sha256": "f10aff042e262dc171bf92b5c6b9d75ac080da4e1c8a36f3bdefb0a28e5d22ad"
+              },
+              {
+                "path": "server/updateFence.ts",
+                "sha256": "1fa026f5e6cbbb7bd8ba540403374cfcf0e4da1413bc4cf315562e19f295ade2"
+              },
+              {
+                "path": "server/updateInspection.ts",
+                "sha256": "62ffec871b8bda94170a27e05ee3570ed69e1c9d8a3afe4f10de838e91f87050"
+              },
+              {
+                "path": "server/updater.ts",
+                "sha256": "2c923d5f1ba5fd2ae7a74dbc1adeffcd05b979ca43598bed5030deb19df7cc55"
+              },
+              {
+                "path": "server/weeklyDigest.ts",
+                "sha256": "432827670206a6ed1b60ddec33656a16c2a52ae84304ae012638cd837da89337"
+              },
+              {
+                "path": "src/App.tsx",
+                "sha256": "41dea44a716d881db1ea29c3986b774d98633b95c727c80afa4ac61aaca18da0"
+              },
+              {
+                "path": "src/components/Assets.tsx",
+                "sha256": "5394c712d8bd5c4c76efc131f83de25f363ef0920f3cdb44a9d20c54707a7ab3"
+              },
+              {
+                "path": "src/components/Assistant.tsx",
+                "sha256": "b88d103cb76100c8756e16a69bdb5d9c242c1eb08bd577722f6bf9ca01d00680"
+              },
+              {
+                "path": "src/components/Auth.tsx",
+                "sha256": "f019fa96b2eac1182c59a0d447e27c548ff9e211409a6c5e8087a3665e5d8dfd"
+              },
+              {
+                "path": "src/components/AuthenticatedMedia.tsx",
+                "sha256": "6a29d1b9499284e121330b4bd8ea225edce99d14ea9ee4564b845ae75de04ed0"
+              },
+              {
+                "path": "src/components/Avatar.tsx",
+                "sha256": "f302639388ea80ccb9dd1b3d8e25e5b44aea4c8ecf7067546163674a355c687f"
+              },
+              {
+                "path": "src/components/BrowserSessionRoot.tsx",
+                "sha256": "23c5b426985e62629c8befef8f3accee1da0f94cadbd8e7def84999a0cbb5636"
+              },
+              {
+                "path": "src/components/ChildHealth.tsx",
+                "sha256": "313e84de68e24c1c08cb24fc9f56aff87780271de2d9c25ad5c73833fad164b0"
+              },
+              {
+                "path": "src/components/ConfirmDialog.tsx",
+                "sha256": "dbd767f01b5d98979c4fc9e5bf8039dca62c3b7a7a6d4bbc30f65cbd6ae0408b"
+              },
+              {
+                "path": "src/components/Dashboard.tsx",
+                "sha256": "568286259972eb592f76648ae679c491bc50c9f8ffc6e13a86870f9568cff412"
+              },
+              {
+                "path": "src/components/DateTimePicker24.tsx",
+                "sha256": "ac3e1e91987b5e1299341a8d58f8b14f8b62d0e465efddf4075736fd0c8d88d5"
+              },
+              {
+                "path": "src/components/DebtTracker.tsx",
+                "sha256": "134df665123992472b7f3758b02417def4cdeb927f76f9513b52583be1bab24b"
+              },
+              {
+                "path": "src/components/Documents.tsx",
+                "sha256": "4a4f7149d5abffbcdaad2f0725b25ffa67300e72c0be20bf07e2f3ee924a82d2"
+              },
+              {
+                "path": "src/components/FabHost.tsx",
+                "sha256": "b841066bacca6dc05edbc478ea03f049ffd4de9837cf0a088949878e8f014dd6"
+              },
+              {
+                "path": "src/components/FancySelect.tsx",
+                "sha256": "7ebb424886acdf4b5699d371cea599a4deea18645424fe29fd07b9e879313aa7"
+              },
+              {
+                "path": "src/components/Finance.tsx",
+                "sha256": "3f4edfb470152cb089599286c48d66cf2d337b5a9bb29934eb25536ce8137e3f"
+              },
+              {
+                "path": "src/components/GlobalSearch.tsx",
+                "sha256": "21dc176c884ff694374605727ad051b8597d0cf10fa2c03b8e0c0cac16c49802"
+              },
+              {
+                "path": "src/components/Lively.tsx",
+                "sha256": "15558129ec720daec197ee210dbcde87eb62b980e30a35a41e2df216680ef51e"
+              },
+              {
+                "path": "src/components/Markdown.tsx",
+                "sha256": "9c4791ef446d2afc5a65664315005cf0433e3db8ee10820027182ef3569a2005"
+              },
+              {
+                "path": "src/components/Medication.tsx",
+                "sha256": "de7cb94439ae98d09155e13170c32955cdd198e413031adf3a6c36270c03bbcb"
+              },
+              {
+                "path": "src/components/Notes.tsx",
+                "sha256": "be34bba333bd2b29a0f6335f4d8482d956a84001f14c9f4a9967d0abb73af504"
+              },
+              {
+                "path": "src/components/PushNotificationsCard.tsx",
+                "sha256": "fabdaf7feda13781c6a63750fadc502c21489bde4c8d8b7eab3cb16587d3259d"
+              },
+              {
+                "path": "src/components/QuickNudge.tsx",
+                "sha256": "158b2077472270a84bc6780f402ca061feeb169b40440e67883d63be62ad4ec6"
+              },
+              {
+                "path": "src/components/SavingsGoals.tsx",
+                "sha256": "92d218e77f3211ce0385ccccc1c675fc7c2224e951dcfa69b130635b1964b5c8"
+              },
+              {
+                "path": "src/components/Schedules.tsx",
+                "sha256": "3e9c89be3d14a7969ae66298d76648bc2a11d18559eeb78409cdd481f67c12b6"
+              },
+              {
+                "path": "src/components/ServerMonitor.tsx",
+                "sha256": "ab478a09c625f54b479118ae52f0873154aecfe168380a288d90ae6f687c7b83"
+              },
+              {
+                "path": "src/components/Settings.tsx",
+                "sha256": "cafef89e13463f5943232748e878e5561e895cd1bc18f4176fa1f8fd159232ee"
+              },
+              {
+                "path": "src/components/Shopping.tsx",
+                "sha256": "8a2c96ff46b2ed31dde0edec4684b2ec4ed6d801b0bd9016bc12448a2bfb433b"
+              },
+              {
+                "path": "src/components/Tasks.tsx",
+                "sha256": "7e91170a8a4946fa909491da766f2cc764e1e8b33070070043dbe1d0e600e31e"
+              },
+              {
+                "path": "src/components/UpdatePanel.tsx",
+                "sha256": "f051a8b2115772d07a4abf33b429214a797224179e44029c75991cc38b3d4a93"
+              },
+              {
+                "path": "src/hooks/useModalA11y.ts",
+                "sha256": "6a0edd9c2a87bae81f31997da96c9d2ee76ffa118a58a0764cd0c6d944dbe540"
+              },
+              {
+                "path": "src/i18n/index.ts",
+                "sha256": "1630b86dbf617568cbaf74717ee332c5d71814ec8033c01f68da70a6115529dc"
+              },
+              {
+                "path": "src/main.tsx",
+                "sha256": "9ba773245f7174a43275474caaa996d41a2959dc729c8a32c1bc05683cc1eb1a"
+              },
+              {
+                "path": "src/types.ts",
+                "sha256": "4436a999d339b65d282264ae9f8b7df73c6d41795240e55b2571f1f511f13652"
+              },
+              {
+                "path": "src/utils/abortSignals.ts",
+                "sha256": "5867830b5c8ddeecf9658107e19c4994eee93db5d82c6fb09a9470898598cef9"
+              },
+              {
+                "path": "src/utils/appReload.ts",
+                "sha256": "40ff28bbbbf664a6cda084be8ddb62da0e7c1f183283356789f17d0bdb9a04bf"
+              },
+              {
+                "path": "src/utils/appVersion.ts",
+                "sha256": "9bf70f7bf1ed417c5e5334f62f7dfba56a298d7a4a636de91a4869cbf08aefe8"
+              },
+              {
+                "path": "src/utils/assetValue.ts",
+                "sha256": "243b70037a5c559b83063da6e3a71d6e68096fd893eb90a03fcb3ed26e9c9126"
+              },
+              {
+                "path": "src/utils/bmi.ts",
+                "sha256": "14333a65af69f157e7655a26b2eeac9d862751493554f05e95c7e1b23d50c306"
+              },
+              {
+                "path": "src/utils/browserSession.ts",
+                "sha256": "a22c63440d4100b00c6bf5304f1035c398fd4720aa01140903a75bad4efdba9f"
+              },
+              {
+                "path": "src/utils/clientSession.ts",
+                "sha256": "63922d5906d51b86138b40b3edf55ead5c46f58fd21fad297d1d2849a0580539"
+              },
+              {
+                "path": "src/utils/debt.ts",
+                "sha256": "84ad57b849f66ee6433a9fbad3f2196dcdc7a518a8a61dcc35bf194ddfc1d823"
+              },
+              {
+                "path": "src/utils/expenseCategories.ts",
+                "sha256": "063ce442504d2217fd4bcc2d6a1154f3538c3307502d02834754b7f625837b37"
+              },
+              {
+                "path": "src/utils/financePeriod.ts",
+                "sha256": "81d3849be49ddd4f347794d1b7a4a12a3418c7a386c790cc1fb6dcc332126ffc"
+              },
+              {
+                "path": "src/utils/image.ts",
+                "sha256": "9c2a0d60efe592b3dfd67c22081dcec736847f53b6cacf8738793be5cd848725"
+              },
+              {
+                "path": "src/utils/marketZones.ts",
+                "sha256": "47f698d8e73f8eaf3693750838fbcc2df3c2dce8f29699335bbc50da17909fce"
+              },
+              {
+                "path": "src/utils/mealPlan.ts",
+                "sha256": "1577a042e92322078ee2a6155ab9ea333348bb854ef0631f9b52d06e60d66d75"
+              },
+              {
+                "path": "src/utils/mediaResource.ts",
+                "sha256": "60d2b0c16de39ca5796fa49bf8c08769ad676f9242daa31ffdc223399b0cd96a"
+              },
+              {
+                "path": "src/utils/pdfExport.ts",
+                "sha256": "6a4d8d52e72d2e583b384e10d2835dd97fa4319b4000c7c79e60cc48bb560a4b"
+              },
+              {
+                "path": "src/utils/privacyWorker.ts",
+                "sha256": "25daf70590fbc407d55767803b195dad4363dbd013be02bd29afceaeb6647384"
+              },
+              {
+                "path": "src/utils/privateStorage.ts",
+                "sha256": "5694d115ef034da1f9e16608512ac592ae2ab9275e6b88051203f125caaed8c1"
+              },
+              {
+                "path": "src/utils/realtimeClient.ts",
+                "sha256": "ed009c7c312e945ce5c75e9537c1b602f2ab343bdff6bb49d754190e1f116282"
+              },
+              {
+                "path": "src/utils/recurrence.ts",
+                "sha256": "d22f8e47d9369db76595393b9cf96abe5481c5705a583748b798eaecc1efb19d"
+              },
+              {
+                "path": "src/utils/searchText.ts",
+                "sha256": "dc56515b067e1593f93ea675ba481a773446a24e6a995fc4b9eb29409fc84492"
+              },
+              {
+                "path": "src/utils/serviceWorkerWatch.ts",
+                "sha256": "ef929b9477db4e0fd6134b3031814adf9f1b465318d9217fa24f49b5492cfb74"
+              },
+              {
+                "path": "src/utils/sessionBoundary.ts",
+                "sha256": "9be65a6b709291ca4905f03d77499ee34dde0340e0e38c12e84c29b5012f8f1c"
+              },
+              {
+                "path": "src/utils/uploadImage.ts",
+                "sha256": "9e61c2f9f5ec9d77d6fd2fefb518cc9884263ee16e97bfaeca66c46eebadd240"
+              },
+              {
+                "path": "src/utils/vietnamHolidays.ts",
+                "sha256": "3c329cf0be719587218591c09107ee9138fb223c871510cb95dc43d5d4c80514"
+              },
+              {
+                "path": "src/utils/vnLocations.ts",
+                "sha256": "904b779a0d5d3ae3f71e0eea67e9332960b7e035e7ed9c4f0f5a57149773e5fe"
+              }
+            ],
+            "reportHashes": {
+              "coverage-final.json": "0cd6610759f0bc79b2d7a7ddfec0d134dfc893c042e71b46c0296a6ef69126f0",
+              "coverage-summary.json": "eb0a6501e2e68392eef036b6c9ff87541aa91a037c32d236ae1d8ec50449953d",
+              "lcov.info": "d2044ed715b6803e136f56fcd2c435f0af63d22250f3ef9a4d6e3064b280e882",
+              "index.html": "ba162975d8f15b5d324a695dcfec55e2c2caa79d1dce71f131e87ddfc26a436c"
+            },
+            "errors": [],
+            "baselineSha256": "6f1cbceabee0619f839846d64a9be27f7190eadd225762bd5ab877cc2d50f78b",
+            "providerVersion": "4.1.11",
+            "floor": {
+              "lines": 31.48,
+              "statements": 33.73,
+              "functions": 31.64,
+              "branches": 28.53
+            },
+            "sourceInventorySha256": "8af5c4811c2cc5e654c177a665948dee6c159c6c0ffbddc11762adb986e089ee",
+            "total": {
+              "lines": {
+                "total": 11511,
+                "covered": 4346,
+                "skipped": 0,
+                "pct": 37.75
+              },
+              "statements": {
+                "total": 15397,
+                "covered": 6282,
+                "skipped": 0,
+                "pct": 40.8
+              },
+              "functions": {
+                "total": 3268,
+                "covered": 1205,
+                "skipped": 0,
+                "pct": 36.87
+              },
+              "branches": {
+                "total": 11982,
+                "covered": 4247,
+                "skipped": 0,
+                "pct": 35.44
+              },
+              "branchesTrue": {
+                "total": 0,
+                "covered": 0,
+                "skipped": 0,
+                "pct": 100
+              }
+            }
+          },
+          "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+          "server2019Acceptance": "not-run",
+          "errors": []
+        },
+        "passedTests": 1990,
+        "testFiles": 106,
+        "reportSha256": {
+          "audit-context.json": "40063613c641c04dbc6fd927afb345ac46699fa40c4f125ade967d6981dc7099",
+          "audit-exit.json": "7db4f8a8235b12dfb2b207c42b9f2aeb69384e026d080009493543caf30ea840",
+          "audit.json": "88fbd508c1a2ee0bb8ef77a32c330b65ac8672d20a272560f1f20d26b89b5099",
+          "audit.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "build-exit.json": "0b3245a583c253852bc2f24a41caef588421e9eda25466e1f475ea8c74f8eb89",
+          "build.log": "d1195ae436e68e25f051183b8fc5855635f596fc3265ce3d2dbac4253e30424e",
+          "coverage-evidence.json": "f2984d02dafee8d00141164722596d53217e8994d740099f2997e0776cfe3b27",
+          "coverage-exit.json": "23d66b5f492d643bd019eb871ff814b250f2cad71ed7d53417519f52341ee7f3",
+          "coverage.log": "294888d74422e14c281abe75f3e6d43cacfcabc23f48c3405a0b2f4b87e00cd8",
+          "evidence.json": "940a79517aebacf026e268ebb17b92dae944caeb2c87b03d8664cf744493e902",
+          "file-publication-native.json": "6364f77b348b99e9e6829a2cd2157443677f20b7fbb1d23d267fba388e8c7966",
+          "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+          "install.log": "67abd372f7422059ac1a906ddbb169f6f559e6e01ed29495fca58a03f76015dc",
+          "junit.xml": "bd7a257ce74bf628939d4ff3e861eaaa92095104847319540a929d0d298632e4",
+          "lint-exit.json": "5d6c365bed03c5aaaf3987831b8d8b41c00c3776b01202f8d71e32be26e5762d",
+          "lint.log": "5add13d283c45ce7812fbf1b36e4b2b8144c2f793bf3058352481c637c8e1530",
+          "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+          "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+          "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+          "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+          "production-install.log": "bbc239c649b4cff7499f0cc10f136c982ee5eb0d189b407d9ee0ec61b873e836",
+          "production-server.log": "1b11a556f8165f313f91fd1e56794e7b64e97aa3a050e3c5e988764a39272169",
+          "production.json": "9cda32979b3ef26183696a8d64743523fde3cef4e87cd90dc1c53f7f6235ff34",
+          "production.log": "08f6e02635c8817553f9076b1814dd052eabc2331ec8333a957c6e5a62b37f21",
+          "release-policy-native.json": "be9b1cf06da7d0c8ec5e8107b65080d7628457a5214d3a2c97ccc19f82d96f68",
+          "release-sidecar-native.json": "022ccb1cdcd79ed4eeafe59b6dff6918eb6e3df7d952e49a1af4f20ecdf073c8",
+          "test-exit.json": "a97bf24e3e07dde6bf94d216306d401598f94035263015286e419f73d71e8e48",
+          "test.log": "af0acc262b86c29e15e3d82dc060808227b2d9093def3ce892ae5f911bff36dc",
+          "toolchain.json": "9197d488a377e254a43847f25cd8b0ee4085ece6ad3a2ac98dea6137b2d2fe06",
+          "vitest.json": "1f51bfbab38aca5752130eb61c80c5bb09d86c1b24e21e0f7e647dc61c4a6d79"
+        }
+      }
+    ]
+  },
+  "coverage": {
+    "headSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+    "run": "38325818593",
+    "runtimes": [
+      {
+        "nodeVersion": "v22.23.3",
+        "sourceFiles": 118,
+        "totals": {
+          "lines": {
+            "total": 11511,
+            "covered": 4346,
+            "skipped": 0,
+            "pct": 37.75
+          },
+          "statements": {
+            "total": 15397,
+            "covered": 6282,
+            "skipped": 0,
+            "pct": 40.8
+          },
+          "functions": {
+            "total": 3268,
+            "covered": 1205,
+            "skipped": 0,
+            "pct": 36.87
+          },
+          "branches": {
+            "total": 11982,
+            "covered": 4247,
+            "skipped": 0,
+            "pct": 35.44
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "rawReportHashes": {
+          "coverage-final.json": "a4358f9c652c8565b926ab63c797a8f7fc1cd559559a6cb9654d51e7028d1bad",
+          "coverage-summary.json": "eb0a6501e2e68392eef036b6c9ff87541aa91a037c32d236ae1d8ec50449953d",
+          "lcov.info": "e9f99bfb531f94cd40ccad8a9223411a213533558a3fe6ab490855b23fd5cde1",
+          "index.html": "861bc731a7934985c15bb0ee72c8d08b6b2755c1c201ec9f0c64d2a91ea9d236"
+        },
+        "independentRawCountersLcovInventoryVerified": true
+      },
+      {
+        "nodeVersion": "v24.21.0",
+        "sourceFiles": 118,
+        "totals": {
+          "lines": {
+            "total": 11511,
+            "covered": 4346,
+            "skipped": 0,
+            "pct": 37.75
+          },
+          "statements": {
+            "total": 15397,
+            "covered": 6282,
+            "skipped": 0,
+            "pct": 40.8
+          },
+          "functions": {
+            "total": 3268,
+            "covered": 1205,
+            "skipped": 0,
+            "pct": 36.87
+          },
+          "branches": {
+            "total": 11982,
+            "covered": 4247,
+            "skipped": 0,
+            "pct": 35.44
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "rawReportHashes": {
+          "coverage-final.json": "0cd6610759f0bc79b2d7a7ddfec0d134dfc893c042e71b46c0296a6ef69126f0",
+          "coverage-summary.json": "eb0a6501e2e68392eef036b6c9ff87541aa91a037c32d236ae1d8ec50449953d",
+          "lcov.info": "d2044ed715b6803e136f56fcd2c435f0af63d22250f3ef9a4d6e3064b280e882",
+          "index.html": "ba162975d8f15b5d324a695dcfec55e2c2caa79d1dce71f131e87ddfc26a436c"
+        },
+        "independentRawCountersLcovInventoryVerified": true
+      }
+    ]
+  },
+  "browser": {
+    "verifiedHeadSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+    "firstAttemptCases": [
+      [
+        "chromium",
+        "B01 login reload logout"
+      ],
+      [
+        "chromium",
+        "B02 child finance boundary"
+      ],
+      [
+        "chromium",
+        "B03 note and media visibility"
+      ],
+      [
+        "chromium",
+        "B04 logout purges private storage"
+      ],
+      [
+        "chromium",
+        "B05 account switch removes previous data"
+      ],
+      [
+        "chromium",
+        "B06 shopping and offline meal persistence"
+      ],
+      [
+        "chromium",
+        "B07 legacy finance create edit delete persistence"
+      ],
+      [
+        "firefox",
+        "B01 login reload logout"
+      ],
+      [
+        "firefox",
+        "B02 child finance boundary"
+      ],
+      [
+        "firefox",
+        "B03 note and media visibility"
+      ],
+      [
+        "firefox",
+        "B04 logout purges private storage"
+      ],
+      [
+        "firefox",
+        "B05 account switch removes previous data"
+      ],
+      [
+        "firefox",
+        "B06 shopping and offline meal persistence"
+      ],
+      [
+        "firefox",
+        "B07 legacy finance create edit delete persistence"
+      ],
+      [
+        "webkit",
+        "B01 login reload logout"
+      ],
+      [
+        "webkit",
+        "B02 child finance boundary"
+      ],
+      [
+        "webkit",
+        "B03 note and media visibility"
+      ],
+      [
+        "webkit",
+        "B04 logout purges private storage"
+      ],
+      [
+        "webkit",
+        "B05 account switch removes previous data"
+      ],
+      [
+        "webkit",
+        "B06 shopping and offline meal persistence"
+      ],
+      [
+        "webkit",
+        "B07 legacy finance create edit delete persistence"
+      ]
+    ],
+    "engines": [
+      {
+        "browserName": "chromium",
+        "browserVersion": "156.0.8078.4",
+        "executableSha256": "7f08161bbeb2853ffe1780a9ded4985087f52efb9725d7d8207aabdd42f7cfb9",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "firefox",
+        "browserVersion": "157.0",
+        "executableSha256": "c949e57fba9a65ab6c434a76e32d2c72eb43f8b99a7c48ee7e927a4fad4b2a36",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "webkit",
+        "browserVersion": "27.2",
+        "executableSha256": "5c2f7bf3592d67bf74a32b01d08ad3b156fd4fff0fea0fabe8dbf99bd37d48f3",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      }
+    ],
+    "manifest": {
+      "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "nodeVersion": "v24.21.0",
+      "platform": "win32",
+      "architecture": "x64",
+      "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+      "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+      "productionBuild": {
+        "serverSha256": "b091cb2a5e340ad8aeb324efd7b6de79ae550627100c65186d55354be51754fd",
+        "indexSha256": "5c512d46ec909139bf4e19a2cbb0b4aed40521b1c82c3306d91c895cea5695b8"
+      },
+      "legacyPreserved": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "fixtureRemoved": true,
+      "externalAttempts": [],
+      "serverExitCode": 0,
+      "serverSignal": null,
+      "cliExitCode": 0,
+      "cliSignal": null,
+      "error": null
+    },
+    "independentReportSha256": {
+      "browser-server.log": "1c73853e116d79039e90999d833d8ec708e92db36e8996239cf832df5cd4dc4c",
+      "browsers-install.log": "8a955fadd70b51644245d96097f6371f0eba3ab31afbcb03fbec3f748ef64184",
+      "build.log": "12fd0f0461d4951116c672f4cbd3b78e0156bf2e4df4e972ebdfd778f4b1c003",
+      "install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+      "browser.junit.xml": "d07e08dc91db2bf6649c809a0aec81d89769129b014fa5b5b966fa0893192e20",
+      "browser-runtime-webkit.json": "47a86e8b8d7410179978b3af2f53fbee246328337cdfd20cda965155a414c1fd",
+      "browser-run.log": "358e721a7bc9ea415a4e9d99c14d01562c8d944eb7c58eef115bb61155b35a29",
+      "toolchain.json": "9197d488a377e254a43847f25cd8b0ee4085ece6ad3a2ac98dea6137b2d2fe06",
+      "build-exit.json": "0b3245a583c253852bc2f24a41caef588421e9eda25466e1f475ea8c74f8eb89",
+      "browser-evidence.json": "10eaa260fadca922a251bfaee4278ef699c9fd374fa3be6171e6f1bb211b1dd3",
+      "browser-runtime-chromium.json": "e8426a517887dc799b9cc0c7ed83750dd77c1a72cb51fad6459c4aa337a9562e",
+      "browsers-install-exit.json": "258ef3b93d9a1fe09ec51f561ce763f59c1fde6699f15e313424beb397eca55e",
+      "browser-exit.json": "9bc78f4c35adce41a98032220f2f05abc7e93f1c4ee4bf15763fef5edf01f156",
+      "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+      "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+      "install.log": "2a9385c8cfa339b4b72724e933ec3b859727fdfc2d1702b21dbe80e37360d466",
+      "browser-cli.log": "c1447247082577502e99d75da2d7df9bab78c0668c6e79e7ac083e3e2dd54c06",
+      "browser-runtime-firefox.json": "3fc5ac0efaa8807b364ec9906ab240544fd57b55ea7d06fec6c16bab722712bc",
+      "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+      "browser.json": "82c82099c95df361d44f1fa1325de17eb8ee40e5211e59ac6a6304df9cf426ba",
+      "browser-fixture.json": "a01605cb729c137f6a7744b12a1812f58de0112bb0156a61cb42239a9db8a357",
+      "browser-provider-fixtures.log": "c96bffcb247ea61fc0035865cd6f1b247ccace572b165ef8187bd5419dd775f7",
+      "browser-html/index.html": "9aa95e5b1123d1f0df37381e1c8ba69e18ecbbe6005b103a3748ab2c92d586cb",
+      "browser-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    "server2019Acceptance": "not-run"
+  },
+  "package": {
+    "task": "F07-g",
+    "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+    "zipSha256": "069b9174543216f57a7d9db18ccdbfc25ac737d017a2bc387403d9aadb90dcdb",
+    "zipSize": 54558295,
+    "files": 4581,
+    "dependencies": 236,
+    "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+    "manifestHash": "ad9a50d35f61d549cbdff3cf4ca636fd2b2c242e815e06ede4b4c37883b47d9f",
+    "consumerNoCheckoutInstallBuild": true,
+    "consumerBundledNodeOnly": true,
+    "producerCleanup": true,
+    "consumerCleanup": true,
+    "archiveFixtures": 26,
+    "archiveSafeUnicode": true,
+    "producerExpectedRefusalExitCode": 1,
+    "compiledProofs": 23,
+    "additionalFunctionalProofs": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "ordinary-backup-excludes-credentials",
+      "restore-requires-explicit-credential-reentry",
+      "compiled-offline-reentry-preserves-user-ids",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed"
+    ],
+    "licenseAudit": {
+      "policyVersion": 1,
+      "dependencies": 236,
+      "embeddedReadmeNotices": [
+        "cookie-signature",
+        "data-uri-to-buffer",
+        "isarray"
+      ],
+      "mplSourceFiles": 8,
+      "termsVerified": true,
+      "originalCopyrightPreserved": true
+    },
+    "reviewedOriginalNoticePinsVerified": true,
+    "rawReportHashes": {
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/release-manifest.json": "ad9a50d35f61d549cbdff3cf4ca636fd2b2c242e815e06ede4b4c37883b47d9f",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/build.log": "eead585d8dcc8c637b54b0bb3d878ac001e4be4923aefafddeed01d059c92145",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/archive-contract.json": "95823fd144c523ed14e4efa367ce90b80359aa98a87ace3117245a52af327398",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/family-organizer-win-x64.zip": "069b9174543216f57a7d9db18ccdbfc25ac737d017a2bc387403d9aadb90dcdb",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/producer-refusal.log": "28edf6ad2d687f31e4af359f0cb565b0992dc2b299448bf8ce174c7536c3bada",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/native-syntax.json": "2679347c87adededf5c174c32f1108aa868769b70f6294775184c7ca31243ba9",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/manifest-validation.log": "d15a777289b12b13bd3984ab86b7e948e4e75f223d4655e67fe6859c4121f831",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/install.log": "2a9385c8cfa339b4b72724e933ec3b859727fdfc2d1702b21dbe80e37360d466",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/producer-exit.json": "04de46de7a9b48e574bbcf8e733294c621d44d8db309abc744c41c16b83cf776",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/production-install.log": "fa7af6f280bd68769a99edcdbd03d73755ef4964109531c9a26917d2589fe46b",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/producer-evidence.json": "d324fd6044446fadb54bb14a5fd3673b1fdd739efbe3c967f54ecaef5629270e",
+      "windows-package-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/negative-producer/producer-exit.json": "5e9ba5b370fb69cf680bf3da38533f5aed8d774cde5e8c5bca976c6a3bd0fbad",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/production.json": "56c7f89a0e81fcb5a781a47c42ede10532c875807ce5b06af3e9d9b888397451",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-validation.json": "8a5067fe9b4e17724dca58e70aac8c7dfb273ba3a2aed65a82763c20c69cd073",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-functional.json": "14c26970173822bdb14be3aae70ab0e63992e3dbea8c45378d7162bca372aae8",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/production.log": "a415f411dc0e1d213fe9eeb2644e43162fa27242d064966541a4c1c0dfba8791",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-online-recovery.json": "ffb072f2d3d363f5fc0dad194520d24d82795d47af579d7f0c84483ffd388c1a",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-provider-env.json": "7c556b795775cbee438743e435d9ca558a8e355860fee6689d2ce9f1d3388188",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-functional-server.log": "3ca2017f367d95a2ee31adc1e471e20d4889c8ab17b558f2605dcc212087afd7",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-signing-key.json": "fc589aea2799c206facbc98f75c19a9fff87f24af0112dcb72371ad36f0a43b7",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-private-settings.json": "c266d264790abfc96229768efc33de3f7fb2c67386c6ba1e6188e8c2079f9850",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/production-server.log": "1ba4c2c79f9004587952056579875927fb7db85bbff26b605b97ff0487d81dc1",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-exit.json": "1243900dc5b2125c00fdce7df2cc884b3f6a9c073a74d6ad5c6643335d114a2f",
+      "windows-package-tests-5c4815aec9f829488fc1513dcafd0996ba9997cc-1/package-recovery.json": "8ac7e26822127fc17a71818bb0d9c250a47623607640b4f8acebb6549ae6d300"
+    },
+    "serviceCompatibilityManifest": {
+      "version": "2.12.0",
+      "asset": "WinSW.NET461.exe",
+      "sha256": "b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f",
+      "licenseSha256": "1cdf703c10a70e5973bf3acf2a5eeabe7746237155b92db2034aeae26fdf7802",
+      "frameworkMinRelease": 528040,
+      "framework": "NET Framework 4.8 or later",
+      "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32"
+    },
+    "actualWrapperConfigLicenseBytesVerified": true,
+    "onlineRecoveryChecks": [
+      "compiled-online-live-wal-selected-secrets-encrypted",
+      "compiled-online-failed-capture-keeps-runtime-and-prior-output",
+      "compiled-online-native-denied-output-keeps-runtime",
+      "compiled-online-concurrent-exclusive-publication",
+      "compiled-online-later-http-write-owner-retained",
+      "compiled-online-shutdown-fence-drained",
+      "compiled-online-shared-offline-restore-point-in-time-claims-config-sessions",
+      "compiled-online-overlapping-live-writer-snapshot-consistent",
+      "compiled-online-offline-network-closed-handles"
+    ],
+    "onlineRecoveryNativeExitCodes": [
+      {
+        "phase": "online-live-capture",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-offline-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-overlap-restore",
+        "exitCode": 0
+      }
+    ],
+    "providerEnvChecks": [
+      "compiled-explicit-provider-env-encrypted-no-plaintext",
+      "compiled-provider-env-wrong-key-missing-selection-no-mutation",
+      "compiled-unselected-provider-env-bytes-retained",
+      "compiled-provider-env-subset-vapid-pair-host-text-preserved",
+      "compiled-provider-env-business-claims-sessions-source-preserved",
+      "compiled-selected-provider-env-removal-unselected-values-retained",
+      "compiled-provider-env-offline-closed-handles"
+    ],
+    "providerEnvNativeExitCodes": [
+      {
+        "phase": "env-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "env-raw-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "env-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-gemini-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-vapid-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-absent-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-absent-restore",
+        "exitCode": 0
+      }
+    ],
+    "signingKeyChecks": [
+      "compiled-explicit-signing-key-encrypted-no-plaintext",
+      "compiled-signing-key-wrong-key-missing-selection-no-mutation",
+      "compiled-unselected-signing-key-retained",
+      "compiled-selected-signing-key-business-claims-sessions-preserved",
+      "compiled-selected-signing-key-removal-provider-env-retained",
+      "compiled-signing-key-offline-source-retained-closed-handles"
+    ],
+    "signingKeyNativeExitCodes": [
+      {
+        "phase": "signing-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-raw-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-restore",
+        "exitCode": 0
+      }
+    ],
+    "privateSettingsChecks": [
+      "compiled-explicit-settings-encrypted-no-plaintext",
+      "compiled-selected-settings-wrong-key-no-mutation",
+      "compiled-authenticated-invalid-snapshot-unwarmed-schema-rows-journal-files-preserved",
+      "compiled-selected-subset-unselected-settings-retained",
+      "compiled-private-settings-business-claims-session-preserved",
+      "compiled-private-settings-offline-source-retained-closed-handles"
+    ],
+    "privateSettingsNativeExitCodes": [
+      {
+        "phase": "selected-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-manifest",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-checksum",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-primary-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-migrations",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-credentials",
+        "exitCode": 1
+      },
+      {
+        "phase": "selected-restore",
+        "exitCode": 0
+      }
+    ],
+    "recoveryChecks": [
+      "compiled-recovery-whole-release-excluded",
+      "compiled-recovery-encrypted-no-key-plaintext",
+      "compiled-recovery-authentication-before-mutation",
+      "compiled-portable-restore-ids-finance-reward-media",
+      "compiled-recovery-no-claim-command-replay",
+      "compiled-recovery-native-handles-closed"
+    ],
+    "recoveryNativeExitCodes": [
+      {
+        "phase": "release-root-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "release-bin-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "release-ops-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "encrypted-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "tampered-ciphertext",
+        "exitCode": 1
+      },
+      {
+        "phase": "portable-restore",
+        "exitCode": 0
+      }
+    ],
+    "encryptedRecoverySha256": "3da475dc69d5f7777ec51b143245ae98f8010db7d8f08d188da45bad2c2f0cc4"
+  },
+  "service": {
+    "task": "F07-k",
+    "updateCoordinator": {
+      "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "platform": "win32",
+      "architecture": "x64",
+      "checks": [
+        "owned-update-validation-whatif-no-input-no-stop-no-mutation",
+        "owned-update-install-uninstall-share-existing-operation-guard",
+        "owned-update-candidate-failure-preapproval-shared-restore-fresh-writes-retained",
+        "owned-update-stopped-fresh-encrypted-snapshot-held-approve-ready-latch-history",
+        "owned-update-source-operator-capture-before-candidate-bootstrap",
+        "owned-update-postapproval-snapshot-refused-no-data-journal-control-mutation",
+        "owned-update-incompatible-binary-refused-without-reset-or-snapshot-loss",
+        "owned-update-compatible-binary-rollback-postapproval-business-retained",
+        "owned-update-ordinary-explicit-rollback-failure-stopped-data-latch-retained",
+        "owned-update-closed-handles-claim-no-replay-source-key-snapshot-retained"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "coordinator-seal-candidate",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-review-writable-fixture",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-review-writable-refusal",
+          "exitCode": 1,
+          "expectedExitCode": null
+        },
+        {
+          "phase": "coordinator-review-writable-reseal",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-review-stale-owner-refusal",
+          "exitCode": 1,
+          "expectedExitCode": null
+        },
+        {
+          "phase": "coordinator-review-stale-owner-repair",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-review-snapshot-seal",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-review-snapshot-reinstall",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-review-snapshot-acl",
+          "exitCode": 0,
+          "expectedExitCode": null
+        },
+        {
+          "phase": "coordinator-review-snapshot-reseal",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-validateonly",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-whatif",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-overlap-apply",
+          "exitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "phase": "coordinator-overlap-install",
+          "exitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "phase": "coordinator-overlap-uninstall",
+          "exitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "phase": "coordinator-start-source",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-stop-source-for-fault",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-candidate-failure",
+          "exitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "phase": "coordinator-snapshot-rollback-idempotent",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-healthy-apply",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-apply-idempotent",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-postopen-snapshot-refusal",
+          "exitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "phase": "coordinator-stop-for-schema-refusal",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-incompatible-binary-refusal",
+          "exitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "phase": "coordinator-review-explicit-rollback-failure",
+          "exitCode": 1,
+          "expectedExitCode": null
+        },
+        {
+          "phase": "coordinator-review-explicit-rollback-stopped",
+          "exitCode": 0,
+          "expectedExitCode": null
+        },
+        {
+          "phase": "coordinator-review-explicit-rollback-repair",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-compatible-binary-rollback",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-binary-rollback-idempotent",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-final-stop",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "phase": "coordinator-closed-storage",
+          "exitCode": 0,
+          "expectedExitCode": 0
+        }
+      ],
+      "candidateType": "synthetic tested ZIP copy plus authenticated candidate-only backup bootstrap mutation probe; no published release/version",
+      "completed": true,
+      "reviewRefusals": [
+        {
+          "name": "mutable-candidate-executable-refused-before-elevated-execution",
+          "actualExitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "name": "stale-authorized-uninstall-refused-under-guard",
+          "actualExitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "name": "journal-snapshot-no-service-writer-after-reinstall",
+          "actualExitCode": 0,
+          "expectedExitCode": 0
+        },
+        {
+          "name": "damaged-opened-binding-fails-explicit-rollback",
+          "actualExitCode": 1,
+          "expectedExitCode": 1
+        },
+        {
+          "name": "explicit-rollback-postapproval-failure-stops-owned-old-service",
+          "actualExitCode": 0,
+          "expectedExitCode": 0
+        }
+      ],
+      "candidateManifestSha256": "d310e8e6617b6d9106756fb5cc43160809ded03b18bb4df1321998e3d4565a15",
+      "freshBeforeUpdateId": "tx_1791850775661_8053c558-2f60-4ac8-bfbf-340d9894ba94",
+      "sourceCapturePointsBefore": 17,
+      "sourceCapturePointsAfter": 17,
+      "failedOperationId": "c67e5ca1-6691-421f-bb16-8fc7239b96ab",
+      "preopenBusinessSha256": "f19527dcb03a35e009fb6327f9d396b000e78b4d0018c781ea32a0c028094d39",
+      "operationId": "5d5ad9a0-157a-44a3-b71a-c850f9b3f5b1",
+      "postopenFinanceId": "tx_1791850871832_0e68dcd5-03a3-4415-a76a-fbddf090897e",
+      "postopenBusinessSha256": "7a835b02c329fc681cf0344edb58ee7f1ec09a999354644817eed7ad3d38610b",
+      "explicitRollbackFaultInjected": true,
+      "rollbackOperationId": "2852fc3b-95e3-40af-877a-f5447e7f95dc"
+    },
+    "updateFence": {
+      "commitSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+      "platform": "win32",
+      "architecture": "x64",
+      "checks": [
+        "owned-update-fixed-control-private-reader-reinstall-preserved",
+        "owned-update-held-http-jobs-no-writes-open",
+        "owned-update-held-stop-graceful-closed-storage",
+        "owned-update-new-attempt-held-before-approval",
+        "owned-update-approved-health-smoke-durable-boundary-before-ready"
+      ],
+      "nativeExitCodes": [
+        {
+          "phase": "update-configure-held-seal",
+          "exitCode": 0
+        },
+        {
+          "phase": "update-configure-held-reinstall",
+          "exitCode": 0
+        },
+        {
+          "phase": "update-configure-held-reinstall-acl",
+          "exitCode": 0
+        },
+        {
+          "phase": "update-configure-approve-seal",
+          "exitCode": 0
+        },
+        {
+          "phase": "update-configure-approve-reinstall",
+          "exitCode": 0
+        },
+        {
+          "phase": "update-configure-approve-reinstall-acl",
+          "exitCode": 0
+        },
+        {
+          "phase": "update-approve-publish",
+          "exitCode": 0
+        }
+      ],
+      "completed": true,
+      "operationId": "149746f2-2a02-4484-a2c8-25411ae12565",
+      "businessSha256": "a6248ebc02e15a9a79b931bff0059806f25c69ae664899c173555a8b0cd14d2b",
+      "jobsSha256": "af6673c74e2be876ea0241267643ef972f5c9507a4c5e4adad756f3f33e399a3",
+      "writesMayOpen": true
+    },
+    "scheduledChecks": [
+      "owned-schedule-validation-whatif-no-input-no-mutation",
+      "owned-schedule-explicit-portable-key-idempotent-no-rotation",
+      "owned-schedule-existing-key-readers-resealed-bytes-retained",
+      "owned-schedule-reinstall-private-key-config-acls-preserved",
+      "owned-localservice-scheduled-capture-ready-private-health-key-excluded",
+      "owned-maintenance-validation-whatif-no-input-no-mutation",
+      "owned-maintenance-copy-root-untrusted-writer-refused",
+      "owned-maintenance-file-owner-writer-delete-child-short-alias-hostile-parent-refused",
+      "owned-encrypted-copy-retention-shared-restore-key-source-preserved",
+      "owned-scheduled-offline-restore-claims-sessions-source-key-retained"
+    ],
+    "scheduledNativeExitCodes": [
+      {
+        "phase": "schedule--ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule--WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-invalid-selection",
+        "exitCode": 1
+      },
+      {
+        "phase": "schedule-enable",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-enable-again",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-key-change-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "schedule-extra-reader-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-extra-reader-reseal",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-extra-reader-acl",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-missing-service-read-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-missing-service-read-reseal",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-missing-service-read-acl",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-reinstall",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-reinstall-acl",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-running-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "schedule-shared-offline-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance--ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance--WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-seal-copy-root",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-untrusted-writer-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-untrusted-writer-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-reseal-copy-root",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-ancestor-inventory",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-copy",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-copy-again",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-review-anchor-seal",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-file-writer-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-file-writer-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-file-writer-reseal",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-file-owner-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-file-owner-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-file-owner-reseal",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-delete-child-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-delete-child-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-delete-child-reseal",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-short-name-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-alias-files-seal",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-source-short-alias-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-protected-short-alias-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-hostile-parent-fixture",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-hostile-parent-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "maintenance-prune",
+        "exitCode": 0
+      },
+      {
+        "phase": "maintenance-copy-shared-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "schedule-disable",
+        "exitCode": 0
+      }
+    ],
+    "recoveryChecks": [
+      "owned-recovery-running-service-refused-before-input",
+      "owned-recovery-validation-whatif-no-input-mutation",
+      "owned-recovery-operation-lock-overlap-no-journal-mutation",
+      "owned-recovery-encrypted-backup-external-key",
+      "owned-recovery-wrong-key-no-mutation",
+      "owned-recovery-restore-business-ids-session-revocation",
+      "owned-private-settings-missing-group-no-mutation",
+      "owned-private-settings-selected-restore-business-preserved",
+      "owned-unselected-signing-key-retained",
+      "owned-selected-signing-key-business-session-policy-preserved",
+      "owned-unselected-provider-env-bytes-retained",
+      "owned-selected-provider-env-host-business-session-policy-preserved"
+    ],
+    "recoveryNativeExitCodes": [
+      {
+        "phase": "active-Backup",
+        "exitCode": 1
+      },
+      {
+        "phase": "active-Restore",
+        "exitCode": 1
+      },
+      {
+        "phase": "Backup-ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "Backup-WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "Restore-ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "Restore-WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "overlap-Backup",
+        "exitCode": 1
+      },
+      {
+        "phase": "overlap-Restore",
+        "exitCode": 1
+      },
+      {
+        "phase": "overlap-Reset",
+        "exitCode": 1
+      },
+      {
+        "phase": "encrypted-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "encrypted-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "private-settings-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "private-settings-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "private-settings-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-key-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-key-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-key-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "provider-env-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "provider-env-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "provider-env-selected",
+        "exitCode": 0
+      }
+    ],
+    "credentialChecks": [
+      "windows-desktop-host-security-module-validated",
+      "running-service-refused-before-input",
+      "validation-whatif-no-input-no-mutation",
+      "invalid-batch-atomic-no-secret-output",
+      "owned-compiled-operator-reentry-preserves-ids-roles-business"
+    ],
+    "credentialOperatorExits": [
+      {
+        "phase": "desktop-host-validation",
+        "exitCode": 0
+      },
+      {
+        "phase": "active-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "-ValidateOnly",
+        "exitCode": 0
+      },
+      {
+        "phase": "-WhatIf",
+        "exitCode": 0
+      },
+      {
+        "phase": "invalid-batch",
+        "exitCode": 1
+      },
+      {
+        "phase": "credential-reentry",
+        "exitCode": 0
+      }
+    ],
+    "sha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593",
+    "serviceChecks": [
+      "synthetic-service-security-refusals",
+      "validate-only-whatif-no-mutation",
+      "owned-idempotent-install-data-preserved",
+      "localservice-per-service-sid-acl",
+      "automatic-delayed-start-bounded-logs",
+      "start-stop-graceful-closed-handles",
+      "owned-offline-credential-reentry",
+      "owned-encrypted-recovery",
+      "restart-graceful-worker-replacement-persistence",
+      "restart-crash-recovery-persistence",
+      "owned-localservice-scheduled-encrypted-backup",
+      "owned-update-startup-fence-durable-rollback-boundary",
+      "owned-native-update-pre-post-write-compatible-rollback",
+      "owned-uninstall-idempotent-data-retained"
+    ],
+    "securityFixtures": [
+      "self-hashed-alternate-service-xml",
+      "installed-clr-config-tampering",
+      "administrative-node-preload-not-executed",
+      "administrative-node-environment-restored",
+      "uninstall-requires-independent-trust",
+      "existing-explicit-write-grant-removed",
+      "descendant-junction-refused-before-acl",
+      "junction-target-acl-unchanged"
+    ],
+    "allPositiveNativeExitCodes": 0,
+    "expectedCanonicalRefusalExitCodes": [
+      1,
+      1
+    ],
+    "shutdownCompletions": 11,
+    "serviceRemoved": true,
+    "fixtureCleanup": true,
+    "zipSha256": "069b9174543216f57a7d9db18ccdbfc25ac737d017a2bc387403d9aadb90dcdb",
+    "retainedLogs": {
+      "FamilyOrganizer-CIced7f92aa34a443ba6ba1fe0cae54a72.err.log": "eb1ddefcf5050f316e07f48286579c2b41c8842d033945b98938ceeae4f01d67",
+      "FamilyOrganizer-CIced7f92aa34a443ba6ba1fe0cae54a72.wrapper.log": "35506287b29037efbc0d52f02301258a8a326c0cf055ae78f47c3e3f7ee1ebd1",
+      "update-inspector-fault.observed.log": "ee4b88afdef0119b2ddf721603b43002e01e6182aa8ca318cc19ebd6ea52d75a",
+      "FamilyOrganizer-CIced7f92aa34a443ba6ba1fe0cae54a72.out.log": "a12489eb2333b0846583a310ea5092414cff39de5761bc32c10672c11fdc23e7"
+    },
+    "server2019Acceptance": "not-run",
+    "actualReboot": "not-run"
+  },
+  "fullCiLogSha256": "021596763eaa60b7626d6d43a86f491087d5cbbc112e395c39fc46350fbc09d4",
+  "summaryHashes": {
+    "quality": "fb2304858b1c12b639333494917abaaa80a885fbf5a08626e96f8f248a868696",
+    "coverage": "831f1d7b1b9142d8bb2e84f13853bb2f08694fdfecc073d1e24e71d9ac7eb6e9",
+    "browser": "33e892c433fb5b1938f882e88716af56976565d0f58e4dd06fc42f8462449c19",
+    "package": "108fafdeef57012bd72105e2b9b9ca023fa89c7a84dd9edfd8e43bf961138b54",
+    "service": "e3b1260b937dc33ae053e4256332a06ab37d88369347cab76c0b5ae02016f683"
+  },
+  "remaining": [
+    "Full archive/report collector and promotion workflows still pending",
+    "Other legacy matrix rows/Caddy/F08 full artifact+promotion collector",
+    "F05 unprotected main/Administration403",
+    "actualServer2019/reboot/offhost/RPO/RTO not-run",
+    "no release/tag/VPS authorization"
+  ],
+  "mergeSha": "725bf8bc79dcacf8d45da8665cdf313390489665",
+  "mergedTreeVerified": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/41#issuecomment-6135217980"
+}
