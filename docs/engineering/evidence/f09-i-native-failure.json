@@ -1,0 +1,31 @@
+{
+  "taskId": "F09-i",
+  "failedHeadSha": "d7b03f0af630473330749fa34741271e65122fc6",
+  "failedRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38404820753",
+  "browserPassed": 29,
+  "browserFailed": 1,
+  "failingCase": "B10 assistant loading error close/webkit",
+  "failure": "Owned page.route handler saw0 while actual nativePOST completed400; poll10s failed",
+  "traceNetworkFacts": [
+    {
+      "method": "POST",
+      "pathname": "/api/assistant/chat",
+      "status": 400,
+      "routeContinuationRecorded": false,
+      "postBodyBytes": 50
+    }
+  ],
+  "traceSha256": "f00cfec20b34cba59d028b948a10009773a63c9ed190b300867e8da7e55d2010",
+  "rawJsonSha256": "eed2d6cf37c9f63fba9ffc1321ffda7848e70d7585f0353938ab7e3ef32d448e",
+  "junitSha256": "cf1fd8fd84e699ed8998216778862cdf48676c21a5a46e2809a2ae130990ba7d",
+  "correction": "Owned page fetch gate before native dispatch forwards identical input/init/signal afterrelease; no fake status/body, privacy worker remains enabled",
+  "allOriginalNineFlowBytesPreserved": true,
+  "allB10AssertionsRetained": true,
+  "budgetsUnchanged": true,
+  "zeroRetryPolicy": true,
+  "review": "Existing ONEreview0C0I1M retained/no rereview; distinct nativefailure correction from actualtrace, no appsourcechange",
+  "nativeCorrectionPassCount": 1,
+  "cloudCorrection": "One actualChromiumB10 pass6.9s/Linuxonly; lint0",
+  "nativeAfterCorrection": "pending",
+  "publicationAllowed": false
+}

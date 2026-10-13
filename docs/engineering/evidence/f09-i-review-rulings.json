@@ -1,0 +1,29 @@
+{
+  "taskId": "F09-i",
+  "reviewCount": 1,
+  "reviewedHead": "3d30054e8f7001817ee54dabf05ee179fcd71325",
+  "baseSha": "7640a12aac2a25e9deacbaa1b32f8de5aeec9767",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 0,
+  "reReview": false,
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Minor",
+      "decision": "defer",
+      "effect": "Historical21/24 negative fixtures retain B10 after current fixture expansion, so total counts exceed their declared historical matrix; specific missing-flow assertions still hold.",
+      "next": "Remove B10 from historical21/24 fixtures in a later focused historical fixture cleanup, retaining assertions."
+    }
+  ],
+  "scopeRulings": "Own source/report hashes matched; original nine-flow exact byte prefix retained; current30 gate and explicit historical27 positive control intact. No blocking findings; accepted59 composition and exact Windows all30 remain required."
+}
