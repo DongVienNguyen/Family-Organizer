@@ -1,7 +1,8 @@
 > Windows paths/scripts: [F02 native-paths guide](docs/engineering/native-paths.md).
 > Production requires absolute external DATA_DIR; roots are set in service/process
 > environment. Provider dotenv is loaded only from CONFIG_DIR, never the current
-> directory. Release creation remains disabled pending the reviewed F08 workflow.
+> directory. Release creation remains source-locked; read-only candidate/promotion preparation
+> does not publish a release or establish Server2019 acceptance.
 
 # 🏡 Family Organizer
 
@@ -20,7 +21,9 @@ Xem [baseline và coverage gaps](docs/engineering/windows-baseline.md),
 Không cần máy cá nhân chạy build/test/runner. Reports synthetic nằm trong Actions artifacts.
 
 DATA_DIR ngoài release và lifecycle native được thiết lập ở F02/F03.
-Windows service/ZIP và release automation còn thuộc F06–F08. CI Windows2022 không thay nghiệm thu Windows Server2019 ở R02.
+ZIP và service đã có kiểm thử Windows2022; collector xác thực và chuẩn bị candidate
+chỉ đọc artifacts, chưa tạo release. Xem tiến độ để lấy đúng SHA/run; CI Windows2022
+không thay nghiệm thu Windows Server2019 ở R02.
 Chưa có hướng dẫn cài production Windows đã được nghiệm thu. Không dùng các scripts
 Pi/Docker/Bash cũ cho triển khai Windows. App đã gỡ nút auto-apply/restart/Immich manage.
 Workflow release Pi/GHCR đã gỡ; chưa tạo release hay truy cập VPS trong giai đoạn nền tảng.
@@ -204,8 +207,10 @@ server. Không còn tài khoản hoặc mật khẩu mặc định. Installation
 đọc SQLite/legacy data; không xóa database để đặt lại mật khẩu.
 
 Đọc [hướng dẫn khởi tạo](docs/engineering/account-initialization.md). Công cụ đã
-build nhận username, tên và mật khẩu qua stdin; F06 sẽ cung cấp wrapper PowerShell
-với nhập mật khẩu ẩn và bundled Node. Sau khi đăng nhập, dùng
+build nhận username, tên và mật khẩu qua stdin; gói chứa bundled Node và compiled
+operator. First boot cần operator và storage roots đã xác minh; không gửi mật khẩu
+qua argv, environment, file hoặc Codex Cloud. Xem hướng dẫn và status cho giới hạn
+wrapper/service đã kiểm chứng. Sau khi đăng nhập, dùng
 **Settings → Thành viên & Phân quyền** để thêm thành viên.
 
 ---
@@ -290,13 +295,22 @@ Roots/NODE_ENV đặt trước launch bằng process/service environment. Provid
 
 ## 📁 Cấu Trúc Dữ Liệu
 
+Production bắt buộc DATA_DIR tuyệt đối ngoài release. Service đặt riêng CONFIG_DIR
+và LOG_DIR; không chọn SQLite theo thư mục làm việc hay dùng đường dẫn Pi cũ.
+
 ```text
-./data/
-├── family.db          # Database chính (SQLite)
-├── app_settings.json  # API keys & cấu hình Telegram (không vào backup)
-├── backups/           # Backup tự động 24h và thủ công
-└── uploads/           # Ảnh hóa đơn, avatar, tài sản, giấy tờ (file, không base64)
+DATA_DIR/
+├── family.db          # SQLite canonical, một writer
+├── backups/           # ordinary snapshots, credentials đã loại
+└── uploads/           # media có ACL và domain reference
+CONFIG_DIR/
+├── app_settings.json  # provider/settings riêng, ngoài ordinary backup
+└── .env               # provider environment ngoài release
+LOG_DIR/               # app/service logs; không ghi secrets
 ```
+
+Đây là các roots được cấu hình explicit, không phải đường dẫn relative để chạy
+production. Đọc native-paths và Windows service guide trước mọi thao tác operator.
 
 ---
 
@@ -308,16 +322,27 @@ Settings → Thành viên & Phân quyền → Tạo mới hoặc chỉnh sửa v
 
 ### Backup & Restore
 
-- **Tự động**: mỗi 24h vào `./data/backups/`
-- **Thủ công**: Settings → Lưu trữ & Sao lưu → Tạo backup
-- **Khôi phục**: Chọn điểm backup → Khôi phục → Server tự reload
-- **Telegram offsite**: bật trong Settings → Telegram để gửi ZIP backup ra ngoài mỗi đêm
+- Ordinary JSON/ZIP dùng shared snapshot engine, giữ IDs/task/finance/points/media
+  và loại credentials theo manifest; không dùng chúng như bản sao secrets.
+- Restore xác minh snapshot/media, giữ dữ liệu business và thu hồi session cũ.
+  Nếu passwords bị loại, operator phải nhập lại qua công cụ đã xác minh; không có
+  tài khoản hay mật khẩu mặc định, không xóa database để đặt lại.
+- Encrypted recovery, lịch backup và update/rollback có các runbook riêng.
+  Credential recovery có chủ đích cần operator, trusted package/manifest, ACL và
+  secret input cục bộ; không dùng uploaded JSON như chứng nhận nghiệm thu.
+- Kiểm thử off-host, reboot, RPO/RTO và Server2019 vẫn thuộc R02, chưa thực hiện.
 
 ### Thao tác dữ liệu trên Windows
 
-Runbook stop/backup/restore/reset Windows sẽ được kiểm ở F02/F07. Không áp dụng
-lệnh Docker/rm cũ; không xóa SQLite live khi service còn chạy. F01 chỉ dùng fixtures
-synthetic và không thao tác dữ liệu production.
+Đọc [Windows service](docs/engineering/windows-service.md),
+[ordinary backup](docs/engineering/ordinary-backup-credentials.md),
+[encrypted recovery](docs/engineering/encrypted-recovery.md),
+[scheduled recovery](docs/engineering/scheduled-recovery.md) và
+[update/rollback](docs/engineering/owned-update-rollback.md).
+Dừng service, chờ đóng SQLite và kiểm exit code của từng native command trước
+thao tác operator. Không dùng lệnh Docker/rm cũ hoặc xóa SQLite live. Các runbook
+phản ánh bằng chứng Windows2022 và giới hạn riêng; chưa được phép phát hành hay
+triển khai production/VPS trong task này.
 
 ---
 
@@ -332,7 +357,7 @@ synthetic và không thao tác dữ liệu production.
 | **AI** | Google GenAI SDK 2 (Gemini 2.5 Flash) |
 | **Notifications** | Web Push / VAPID, SSE |
 | **Export** | pdfmake 0.3 (báo cáo tài chính), archiver 8 (ZIP backup) |
-| **Runtime đích** | Windows-native x64; service/ZIP ở F06–F08, Server2019 nghiệm thu riêng R02 |
+| **Runtime đích** | Windows-native x64; service/ZIP đã kiểm Windows2022, Server2019 nghiệm thu riêng R02 |
 | **Testing** | Vitest 4, Windows2022/pwsh, JUnit/JSON và native evidence |
 
 ---

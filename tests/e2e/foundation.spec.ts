@@ -847,3 +847,88 @@ test('B12 calendar recurrence edit and ICS', async ({ page }, testInfo) => {
     expect(await getPlans()).toEqual(before);
   }
 });
+
+test('B13 documents search and household navigation', async ({ page }) => {
+  await page.goto('/');
+  const token = await login(page, 'admin');
+  await expect(page.locator('aside').getByText('Không gian gia đình', { exact: true })).toBeVisible();
+  await expect(page.getByText('Raspberry Pi 5 Hub', { exact: true })).toHaveCount(0);
+  const headers = { Authorization: 'Bearer ' + token };
+  const getDocuments = async () => {
+    const response = await page.request.get('/api/documents', { headers });
+    expect(response.status()).toBe(200);
+    return (await response.json()).documents;
+  };
+  const before = await getDocuments();
+  let documentId: string | undefined;
+  const title = 'Synthetic B13 giấy tờ';
+  const revised = 'Synthetic B13 giấy tờ revised';
+  try {
+    await page.locator('aside nav').getByRole('button', { name: 'Giấy tờ', exact: true }).click();
+    const documents = page.locator('#documents-module');
+    await expect(documents).toBeVisible();
+    await documents.getByPlaceholder('Tên tự tạo từ loại + chủ sở hữu (có thể sửa)', { exact: true }).fill(title);
+    await documents.getByPlaceholder('Số giấy tờ', { exact: true }).fill('SYNTHETIC-B13');
+    await documents.getByPlaceholder('Nơi cấp', { exact: true }).fill('Synthetic issuer');
+    const saved = page.waitForResponse(response => new URL(response.url()).pathname === '/api/documents' && response.request().method() === 'POST');
+    await documents.getByRole('button', { name: 'Thêm giấy tờ', exact: true }).click();
+    const response = await saved;
+    expect(response.status()).toBe(200);
+    const document = (await response.json()).document;
+    documentId = document.id;
+    expect(document).toMatchObject({ title, documentNumber: 'SYNTHETIC-B13', issuer: 'Synthetic issuer', creatorId: 'browser-admin', isShared: false, files: [] });
+    expect((await getDocuments()).find((row: any) => row.id === documentId)).toEqual(document);
+    const card = documents.locator('div.neu-raised').filter({ has: page.getByRole('heading', { name: title, exact: true }) });
+    await expect(card.getByRole('heading', { name: title, exact: true })).toBeVisible();
+    await card.getByTitle('Sửa', { exact: true }).click();
+    await documents.getByPlaceholder('Tên tự tạo từ loại + chủ sở hữu (có thể sửa)', { exact: true }).fill(revised);
+    const updated = page.waitForResponse(value => new URL(value.url()).pathname === '/api/documents' && value.request().method() === 'POST');
+    await documents.getByRole('button', { name: 'Lưu thay đổi', exact: true }).click();
+    const update = await updated;
+    expect(update.status()).toBe(200);
+    const changed = (await update.json()).document;
+    expect(changed).toMatchObject({ id: documentId, title: revised, creatorId: document.creatorId, createdAt: document.createdAt, documentNumber: 'SYNTHETIC-B13', isShared: false });
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic admin', exact: true })).toBeVisible();
+    await page.locator('aside nav').getByRole('button', { name: 'Giấy tờ', exact: true }).click();
+    await expect(documents.getByRole('heading', { name: revised, exact: true })).toBeVisible();
+    expect((await getDocuments()).find((row: any) => row.id === documentId)).toEqual(changed);
+    await page.getByRole('button', { name: 'Tìm kiếm toàn cục', exact: true }).click();
+    const search = page.getByRole('dialog', { name: 'Tìm kiếm toàn cục', exact: true });
+    const answer = page.waitForResponse(value => new URL(value.url()).pathname === '/api/search' && new URL(value.url()).searchParams.get('q') === 'Synthetic shared note');
+    await search.getByPlaceholder('Tìm công việc, ghi chú, thu chi, giấy tờ...', { exact: true }).fill('Synthetic shared note');
+    const searchResponse = await answer;
+    expect(searchResponse.status()).toBe(200);
+    const results = (await searchResponse.json()).results;
+    expect(results.some((row: any) => row.id === 'browser-note-shared' && row.kind === 'note')).toBe(true);
+    await search.getByRole('button').filter({ has: page.getByText('Synthetic shared note', { exact: true }) }).click();
+    await expect(search).not.toBeVisible();
+    await expect(page.getByText('Synthetic shared content', { exact: true })).toBeVisible();
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('header button').filter({ has: page.locator('svg.lucide-menu') }).click();
+    const menu = page.getByRole('dialog', { name: 'Menu điều hướng', exact: true });
+    await expect(menu.getByText('Không gian gia đình', { exact: true })).toBeVisible();
+    await expect(menu.getByText('Raspberry Pi Server', { exact: true })).toHaveCount(0);
+    await page.keyboard.press('Escape');
+    await expect(menu).not.toBeVisible();
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await logout(page);
+    const childToken = await login(page, 'child');
+    await expect(page.locator('aside nav').getByRole('button', { name: 'Giấy tờ', exact: true })).toHaveCount(0);
+    expect((await api(page, '/api/documents', childToken)).status).toBe(403);
+    const childSearch = await api(page, '/api/search?q=Synthetic', childToken);
+    expect(childSearch.status).toBe(200);
+    const visible = JSON.parse(childSearch.text).results;
+    expect(visible.some((row: any) => row.kind === 'document' || row.kind === 'transaction' || row.id === 'browser-note-private')).toBe(false);
+    expect(visible.some((row: any) => row.id === 'browser-note-shared')).toBe(true);
+    await page.goto('/?tab=documents');
+    await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic child', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: revised, exact: true })).toHaveCount(0);
+  } finally {
+    const cleanup = await page.request.post('/api/auth/login', { data: { username: 'browser-admin', password: 'synthetic-browser-password' } });
+    expect(cleanup.status()).toBe(200);
+    headers.Authorization = 'Bearer ' + (await cleanup.json()).token;
+    if (documentId) expect((await page.request.delete('/api/documents/' + documentId, { headers })).status()).toBe(200);
+    expect(await getDocuments()).toEqual(before);
+  }
+});
