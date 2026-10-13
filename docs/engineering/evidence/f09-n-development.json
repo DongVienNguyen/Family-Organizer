@@ -1,0 +1,153 @@
+{
+  "taskId": "F09-n",
+  "baseSha": "884803a21cd0b826c6e44423217a0d6891184b1e",
+  "scope": "Existing feature flags actualHTTP characterization, strict mandatory-suite omission gate, route/module regression inventory and bounded foundation/Windows operator draft. No app/API/dependency/new domain changes.",
+  "initialFixtureFailure": "First reconstruction reused disposed AppJobs, then finally close masked startup failure as Server not running; fixture now creates a fresh AppJobs for each app. Assertions preserved; failed JSON retained.",
+  "initialActualFlagsPassed": 2,
+  "correctedActualFlagsPassed": 3,
+  "actualGateRed": 1,
+  "targetGreen": 192,
+  "fullGreen": 2824,
+  "fullFiles": 139,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "server/legacyFlagsHttp.test.ts": "d65605d382b5da9c2e45c51e3fd94fe5bfc954babdae09a1a19fff90661cb3f6",
+    "scripts/ci/write-evidence.mjs": "ad9345dfc4e4c9a6f8d69430395607ab273ee9b38d2b0cae5927e8681ccca180",
+    "tests/evidence.test.ts": "61b53a7b9476b2376ecc08fa9465e552a372af74c4fe74b17fc4c378b119c4cb",
+    "README.md": "fc27c8e291e9e4eba5d29b97cdf412dcfda5128a39164d8c878f6d7a523dfafb",
+    "docs/engineering/foundation-acceptance.md": "8fa70f861cd0639b43f5e279df5742dfd61d6c35011f0b045ed7db94cc7b807e",
+    "docs/engineering/windows-current-route-inventory.json": "cff768254b9c03e759ac62985ea8ecb86da5f21d0b7adbdfb03be32a9063b016",
+    "docs/engineering/windows-operations.md": "041d546141961c670a25ec593d9adff3baf812a68c87101492570d47694fb7c2"
+  },
+  "verificationHashes": {
+    "f09-n-flags-characterization.json": "3f9289071e41eeddd169ea5b4eeb93ca5bf7967aef15b3e02e374be618cc3a9a",
+    "f09-n-gate-red.json": "50e971ceaffe0462b526e68b47aeba2ab683f495a4883f97d649e66bfe365c07",
+    "f09-n-lint-failed.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa",
+    "f09-n-corrected-target.json": "ee35745b8e42e6906267c637f71c635bee08403f321f41c9d0c5668b034be257",
+    "f09-n-corrected-full.json": "d25a9634549d6fb4d9c99acea978b856f1a06d22f52958192f04ee9ad788e0ec",
+    "f09-n-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-n-corrected-build.log": "fa99cd3fb1e11139aebec129eaecb651ecc9f874320067d9cbe8a329feef7e7d",
+    "f09-n-corrected-inventory.log": "2f185d1b2874391af588e78472469c9de310329189e85a83949a66396556dc40",
+    "f09-n-l1-full.json": "58758d55bd227beaf3543c6cfbf7473bc8c5e92c905dfd81e14bb72d5358be52",
+    "f09-n-l1-target.json": "ce89ead31c4be98e41cb0d3fe1a179a0fa35a2abef84e3516438c59ae89adea3",
+    "f09-n-l1-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-n-l1-build.log": "ef5b722252c54f68167abe26f814b8d265a2c25bf135ce05c719cd802bced1a2",
+    "f09-n-l1-inventory.log": "2f185d1b2874391af588e78472469c9de310329189e85a83949a66396556dc40"
+  },
+  "snapshotScope": "Legacy rows/settings unchanged assertions do not certify all auth/command tables. Reconstruction is fresh HTTP app/jobs, not a SQLite process restart; native existing runtime tests own process restart.",
+  "windows": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "priorErroneousLintExitClaim": 0,
+  "initialActualLintExit": "nonzero TypeScript TS2322; exact exit was not captured by the initial shell",
+  "review": "ONE0C2I0M; ALLauthorgradesbeforeONEpass; actual TS2322 and incorrect lint0 claim corrected with failed log retained; no rereview",
+  "initialVerificationHashes": {
+    "f09-n-flags-characterization.json": "3f9289071e41eeddd169ea5b4eeb93ca5bf7967aef15b3e02e374be618cc3a9a",
+    "f09-n-gate-red.json": "50e971ceaffe0462b526e68b47aeba2ab683f495a4883f97d649e66bfe365c07",
+    "f09-n-target.json": "afe21b44f40696e4fcd816a25c5075cef2fc281e0cef02d6a2db38249af4faeb",
+    "f09-n-full.json": "53006ee966132e635095d352e3ece05d49c481555fb0a73e7035d664e416a73d",
+    "f09-n-lint.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa",
+    "f09-n-build.log": "ab9a7e66562f36b226b7803638c430b82db899fea25188ba0e093fe8a18e019c",
+    "f09-n-lint-failed.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa"
+  },
+  "correctedVerificationShell": "set -e; each npm/native invocation awaited before next command; all completed exit0. Failed initial lint and fixture attempt retained; exact initial lint exit was not recorded.",
+  "priorFullGreen": 2813,
+  "browserCasesRequired": 45,
+  "parentComposition": "Provisional reviewedM6f0 includes distinct L1calendar split; all five substantive own source hashes unchanged, two documentation hashes refreshed for B15 mapping/tradeoff. Flags/gate/assertions unchanged. No repeated review or source correction pass.",
+  "calendarNativeCorrectionComposition": "Inherited excluded E2E-only B15 actual API setup and initial review/nativefailure records; all six other own hashes unchanged, one foundation documentation hash updated for accurate tradeoff. Vitest excludes E2E;2816/138/184target unit snapshot unchanged, no redundant fullrepeat. Exact native45 required after acceptedparents.",
+  "calendarHydrationComposition": "Only inherited excluded E2Efixture and corresponding parent reports changed; all seven ownsourcehashes remain identical, Vitest2816/138 snapshot unchanged. APIfixture explicitlyreloads beforeUI editor afternativeorderingproof; native45 awaitsacceptedparents.",
+  "preCaddyCompositionSourceHashes": {
+    "server/legacyFlagsHttp.test.ts": "d65605d382b5da9c2e45c51e3fd94fe5bfc954babdae09a1a19fff90661cb3f6",
+    "scripts/ci/write-evidence.mjs": "d14cdcbe97df0b7e53a2654f47c2e06579b7602718f5806cb8a34fd50c6dde77",
+    "tests/evidence.test.ts": "9f8218537897ef10f545a253c689384f571bcec5e611ba78877404fb916bf478",
+    "README.md": "fc27c8e291e9e4eba5d29b97cdf412dcfda5128a39164d8c878f6d7a523dfafb",
+    "docs/engineering/foundation-acceptance.md": "26682a122f97eebe9dfbc1d74a76ebffbba5b037149270fa57e2981449bba624",
+    "docs/engineering/windows-current-route-inventory.json": "cff768254b9c03e759ac62985ea8ecb86da5f21d0b7adbdfb03be32a9063b016",
+    "docs/engineering/windows-operations.md": "041d546141961c670a25ec593d9adff3baf812a68c87101492570d47694fb7c2"
+  },
+  "caddyComposition": {
+    "parentReviewedHead": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+    "fiveOwnedSourcesUnchanged": true,
+    "gateUnion": "Caddy diagnostics, notification ownership and existing feature flags mandatory suites and omission tests all retained.",
+    "verificationHashes": {
+      "f09-n-o-target.json": "8f6284003cebdcc4d09533396ee00cec6ff77a885c58bf0283e072f5dd326b33",
+      "f09-n-o-full.json": "980b9ba323452f26a86ade0a965c9c5095871925227604eb74c75d5e7507eebe",
+      "f09-n-o-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f09-n-o-build.log": "5f7aa14b33c569eb2f3c833edce951d34039d84c26ffb0c7466d6aec35afdfd0"
+    },
+    "review": "Original ONE0C2I0M retained; no extra source correction/rereview.",
+    "native": "pending parent64/M acceptance and new45-case Windows"
+  },
+  "sourceCheckpointBeforeDocumentationRefresh": {
+    "taskId": "F09-n",
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/66",
+    "testedHeadSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38442852074",
+    "checks": [
+      {
+        "name": "ci-gate",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows disposable service",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package clean consumer",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package producer",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node22 baseline",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node24 baseline",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows production browsers",
+        "headSha": "58171755315daca8bd8b881fa4703c4cbb668153",
+        "conclusion": "success",
+        "githubAppId": 15368
+      }
+    ],
+    "summaryHashes": {
+      "quality": "a029b60328fb6fa9d1bec06e883f0618102aa14b79c69980c1c82e7d7cee1aba",
+      "coverage": "3f14d2174b3b57453be1a8645bc328fa800f2b95ee6d19c4d9df15109ab54264",
+      "browser": "a1fc5b2ecff069487b1068d715266aec2bca3e98a27d0cf038e7a475100181aa",
+      "package": "dcd7d96cc1d3a949104bfc4f0a3385cc748d07ba7e11fa75be7867c8f46a2611",
+      "service": "19e915225c2d6adf13e4de9b622fb302a3ed1bab921d8533a26fb40137d2e21d",
+      "caddy": "f73d126c31ae31c9dadb065b6e6e9e4a04732337b5a60ff13b7b5f81c7394696",
+      "extraction-sdk": "f695099410a50d676463e6891b35ad8be87a971cf146500b0a4691a55a06d44c",
+      "inner-native": "b0f74ffb830f0740c88f0a40885ecbd20cb8c7a43302b67811580901183d9fd0"
+    },
+    "fullCiLogSha256": "e71babfaf8fc6389c8cbbe9c299bc8a79ac0e56bf69ea711ec79c73681f72bbb",
+    "qualityEach": 2835,
+    "qualityFilesEach": 139,
+    "browserFirstAttempt": 45,
+    "rawValidators": 8,
+    "zipSha256": "9be8e015c79830223209099e1e4da972643bd421a90784be5566edc85b891ee6",
+    "merged": false,
+    "scope": "Exact source checkpoint before this documentation refresh. Final documentation HEAD needs its own Windows CI; recorded in PR acceptance comment."
+  }
+}

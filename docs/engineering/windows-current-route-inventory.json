@@ -1,0 +1,1079 @@
+{
+  "schema": 1,
+  "taskId": "F09-n",
+  "source": {
+    "path": "server/app.ts",
+    "sha256": "f98ecee3d47749f2e613a045f30fda6a5009c34a77b10d12950d065d5f931e51"
+  },
+  "historicalBaseline": {
+    "sha": "68cb753c13c35e13dd120b217040aa12365e3b40",
+    "path": "docs/engineering/windows-route-inventory.json",
+    "literalRouteCount": 126
+  },
+  "scope": "Static literal route inventory and module regression owners; group mapping does not prove every route/operation is exercised. Windows acceptance must parse actual same-HEAD JSON and JUnit.",
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "line": 133,
+      "group": "system"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ready",
+      "line": 134,
+      "group": "system"
+    },
+    {
+      "method": "USE",
+      "path": "/api/auth",
+      "line": 212,
+      "group": "auth"
+    },
+    {
+      "method": "USE",
+      "path": "/uploads",
+      "line": 330,
+      "group": "notes-search-media"
+    },
+    {
+      "method": "POST",
+      "path": "/api/uploads",
+      "line": 390,
+      "group": "notes-search-media"
+    },
+    {
+      "method": "GET",
+      "path": "/api/version",
+      "line": 416,
+      "group": "system"
+    },
+    {
+      "method": "GET",
+      "path": "/api/server/homelab-links",
+      "line": 443,
+      "group": "system"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/server/homelab-links",
+      "line": 446,
+      "group": "system"
+    },
+    {
+      "method": "GET",
+      "path": "/api/server/history",
+      "line": 461,
+      "group": "system"
+    },
+    {
+      "method": "GET",
+      "path": "/api/server/stats",
+      "line": 523,
+      "group": "system"
+    },
+    {
+      "method": "GET",
+      "path": "/api/settings/ai",
+      "line": 563,
+      "group": "settings"
+    },
+    {
+      "method": "POST",
+      "path": "/api/settings/ai",
+      "line": 568,
+      "group": "settings"
+    },
+    {
+      "method": "POST",
+      "path": "/api/settings/features",
+      "line": 590,
+      "group": "settings"
+    },
+    {
+      "method": "GET",
+      "path": "/api/settings/telegram-backup",
+      "line": 609,
+      "group": "settings"
+    },
+    {
+      "method": "POST",
+      "path": "/api/settings/telegram-backup",
+      "line": 613,
+      "group": "settings"
+    },
+    {
+      "method": "POST",
+      "path": "/api/settings/telegram-backup/test",
+      "line": 625,
+      "group": "settings"
+    },
+    {
+      "method": "POST",
+      "path": "/api/settings/telegram-digest/test",
+      "line": 635,
+      "group": "settings"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "line": 651,
+      "group": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "line": 691,
+      "group": "auth"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "line": 695,
+      "group": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/change-password",
+      "line": 710,
+      "group": "auth"
+    },
+    {
+      "method": "GET",
+      "path": "/api/realtime",
+      "line": 730,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks",
+      "line": 736,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks",
+      "line": 741,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks/:id/comments",
+      "line": 761,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks/:id/approve",
+      "line": 780,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tasks/:id/reject",
+      "line": 795,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tasks/:id",
+      "line": 806,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "GET",
+      "path": "/api/plans",
+      "line": 822,
+      "group": "calendar"
+    },
+    {
+      "method": "POST",
+      "path": "/api/plans",
+      "line": 827,
+      "group": "calendar"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/plans/:id",
+      "line": 850,
+      "group": "calendar"
+    },
+    {
+      "method": "GET",
+      "path": "/api/calendar/feed-info",
+      "line": 874,
+      "group": "calendar"
+    },
+    {
+      "method": "GET",
+      "path": "/api/calendar.ics",
+      "line": 879,
+      "group": "calendar"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notes",
+      "line": 892,
+      "group": "notes-search-media"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notes",
+      "line": 897,
+      "group": "notes-search-media"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/notes/:id",
+      "line": 917,
+      "group": "notes-search-media"
+    },
+    {
+      "method": "GET",
+      "path": "/api/search",
+      "line": 959,
+      "group": "notes-search-media"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance",
+      "line": 1032,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance",
+      "line": 1037,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/:id",
+      "line": 1048,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rewards",
+      "line": 1063,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rewards",
+      "line": 1072,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rewards/items",
+      "line": 1084,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/rewards/items/:id",
+      "line": 1095,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rewards/items/:id/redeem",
+      "line": 1107,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rewards/items/seed-defaults",
+      "line": 1121,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rewards/items/mystery",
+      "line": 1133,
+      "group": "tasks-rewards"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/budgets",
+      "line": 1148,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/budgets",
+      "line": 1152,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/budgets/carry-forward",
+      "line": 1163,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/budgets/:id",
+      "line": 1174,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/categories",
+      "line": 1181,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/categories",
+      "line": 1185,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/categories/:id",
+      "line": 1196,
+      "group": "finance-market"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/finance/categories/hidden",
+      "line": 1203,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/recurring-bills",
+      "line": 1214,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/recurring-bills",
+      "line": 1218,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/recurring-bills/:id/pay",
+      "line": 1229,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/recurring-bills/:id",
+      "line": 1240,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/savings-goals",
+      "line": 1247,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/savings-goals",
+      "line": 1253,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/savings-goals/:id",
+      "line": 1276,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/savings-goals/:id/contributions",
+      "line": 1293,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/savings-goals/:id/contributions/:cid",
+      "line": 1309,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/debts",
+      "line": 1327,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/debts",
+      "line": 1331,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/debts/:id",
+      "line": 1342,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/debts/:id/payments",
+      "line": 1349,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/debts/:id/payments/:pid",
+      "line": 1360,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/assets",
+      "line": 1370,
+      "group": "finance-market"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/assets",
+      "line": 1374,
+      "group": "finance-market"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/assets/:id",
+      "line": 1402,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/market-prices",
+      "line": 1478,
+      "group": "finance-market"
+    },
+    {
+      "method": "GET",
+      "path": "/api/medications",
+      "line": 1530,
+      "group": "health-documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/medications",
+      "line": 1534,
+      "group": "health-documents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/medications/:id",
+      "line": 1546,
+      "group": "health-documents"
+    },
+    {
+      "method": "GET",
+      "path": "/api/medications/logs",
+      "line": 1554,
+      "group": "health-documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/medications/logs",
+      "line": 1560,
+      "group": "health-documents"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "line": 1573,
+      "group": "health-documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "line": 1579,
+      "group": "health-documents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/:id",
+      "line": 1602,
+      "group": "health-documents"
+    },
+    {
+      "method": "GET",
+      "path": "/api/child-health",
+      "line": 1622,
+      "group": "health-documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/child-health/emergency",
+      "line": 1631,
+      "group": "health-documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/child-health/vaccinations",
+      "line": 1643,
+      "group": "health-documents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/child-health/vaccinations/:id",
+      "line": 1655,
+      "group": "health-documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/child-health/growth",
+      "line": 1662,
+      "group": "health-documents"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/child-health/growth/:id",
+      "line": 1674,
+      "group": "health-documents"
+    },
+    {
+      "method": "POST",
+      "path": "/api/assistant/chat",
+      "line": 1734,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "GET",
+      "path": "/api/shopping/meal-plan/current",
+      "line": 1837,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "POST",
+      "path": "/api/shopping/meal-plan/random",
+      "line": 1843,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "POST",
+      "path": "/api/shopping/meal-plan",
+      "line": 1875,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notes/ai-draft",
+      "line": 1992,
+      "group": "notes-search-media"
+    },
+    {
+      "method": "GET",
+      "path": "/api/shopping",
+      "line": 2043,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "POST",
+      "path": "/api/shopping",
+      "line": 2047,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "POST",
+      "path": "/api/shopping/:id/toggle",
+      "line": 2062,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/shopping/purchased",
+      "line": 2074,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/shopping/all",
+      "line": 2081,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/shopping/:id",
+      "line": 2088,
+      "group": "shopping-ai"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users",
+      "line": 2101,
+      "group": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/users",
+      "line": 2109,
+      "group": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/profile",
+      "line": 2143,
+      "group": "auth"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/:id",
+      "line": 2164,
+      "group": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/:id",
+      "line": 2177,
+      "group": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/:id/reset-password",
+      "line": 2196,
+      "group": "auth"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "line": 2216,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notifications/:id/read",
+      "line": 2222,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notifications/read-all",
+      "line": 2231,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notifications/send",
+      "line": 2242,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "GET",
+      "path": "/api/push/vapid-public-key",
+      "line": 2284,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "POST",
+      "path": "/api/push/subscribe",
+      "line": 2289,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "POST",
+      "path": "/api/push/unsubscribe",
+      "line": 2305,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "POST",
+      "path": "/api/push/test",
+      "line": 2314,
+      "group": "notifications-realtime"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/logs",
+      "line": 2334,
+      "group": "backup-logs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/backups",
+      "line": 2339,
+      "group": "backup-logs"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "line": 2344,
+      "group": "backup-logs"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/backups/:id",
+      "line": 2355,
+      "group": "backup-logs"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups/:id/restore",
+      "line": 2367,
+      "group": "backup-logs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/backups/full/export",
+      "line": 2380,
+      "group": "backup-logs"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups/full/import",
+      "line": 2397,
+      "group": "backup-logs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/widgets/overview",
+      "line": 2601,
+      "group": "dashboard-widgets"
+    },
+    {
+      "method": "GET",
+      "path": "/api/widgets/history",
+      "line": 2645,
+      "group": "dashboard-widgets"
+    }
+  ],
+  "nonApiLiteralRoutes": [
+    {
+      "method": "USE",
+      "path": "/api"
+    },
+    {
+      "method": "GET",
+      "path": "*"
+    }
+  ],
+  "removedOrChangedBaselineRoutes": [
+    {
+      "method": "GET",
+      "path": "/api/system/update",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    },
+    {
+      "method": "POST",
+      "path": "/api/system/update/check",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    },
+    {
+      "method": "PUT",
+      "path": "/api/system/update/config",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    },
+    {
+      "method": "POST",
+      "path": "/api/system/update/apply",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    },
+    {
+      "method": "POST",
+      "path": "/api/system/restart",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/immich",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    },
+    {
+      "method": "POST",
+      "path": "/api/system/immich/check",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    },
+    {
+      "method": "POST",
+      "path": "/api/system/immich/update",
+      "disposition": "Intentionally retired in F03: app deployment/restart and Docker/Immich management moved to the operator; external links retained. server/app.test.ts and tests/ui/windows-version.test.tsx verify the boundary."
+    }
+  ],
+  "groups": [
+    {
+      "name": "dashboard-widgets",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/derivedPrivacyHttp.test.ts",
+          "sha256": "ca622edd26a7b0bab47e662b47c0f4691ffb1981f10e2a704d09957280e68565"
+        },
+        {
+          "path": "server/weeklyDigestPrivacy.test.ts",
+          "sha256": "88ad4b6dec98ed2cc63ac986b67f8286ecffdefa2e94bf3aa45889716ba59977"
+        }
+      ],
+      "browserFlows": [
+        "B14"
+      ]
+    },
+    {
+      "name": "auth",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/authHttp.test.ts",
+          "sha256": "02444d21615bf2b55fbf26ba8ef49aa40b2e4881c4a7f8a6c89f9fdea31a33b8"
+        },
+        {
+          "path": "server/objectAclHttp.test.ts",
+          "sha256": "e6563dbc749dcb87370bd0f8652570e5398ff58f01d61c4e136592b2bb98d586"
+        },
+        {
+          "path": "tests/account-initialization.test.ts",
+          "sha256": "fc6b5daadbf2891a7a782f69f4098b36744470a4ebd80411bd29a0a66e53f49c"
+        }
+      ],
+      "browserFlows": [
+        "B01",
+        "B05",
+        "B09"
+      ]
+    },
+    {
+      "name": "tasks-rewards",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/taskPayloadHttp.test.ts",
+          "sha256": "690daa3471c4289ff1e6a6bae8cde9d5421c53c21497bab89f6aa9471b118722"
+        },
+        {
+          "path": "server/commandHttp.test.ts",
+          "sha256": "baf652034822fc2b76b33b3f2117cb0d0618fa4b09bca58edbeab8826ddf8d5b"
+        },
+        {
+          "path": "server/rewardStore.test.ts",
+          "sha256": "0a3e6926af8cbd74e16c80c833e75775c71b8422920570c74147216dafa18e74"
+        }
+      ],
+      "browserFlows": [
+        "B08"
+      ]
+    },
+    {
+      "name": "calendar",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/legacyCalendarHttp.test.ts",
+          "sha256": "6a5559fe63e7708a74e2cbc5f33c0359bfc37eb22ebc5772d10994a040651589"
+        },
+        {
+          "path": "server/contentPayloadHttp.test.ts",
+          "sha256": "a97287affb0bdf822be9e3619b3bd120ce356101094ffd8cc28a2bacbffbc011"
+        }
+      ],
+      "browserFlows": [
+        "B12",
+        "B15"
+      ]
+    },
+    {
+      "name": "notes-search-media",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/contentPayloadHttp.test.ts",
+          "sha256": "a97287affb0bdf822be9e3619b3bd120ce356101094ffd8cc28a2bacbffbc011"
+        },
+        {
+          "path": "server/mediaHttp.test.ts",
+          "sha256": "b8972201788c664692e2f879e2cbd57b5f620b2d7c2fbfdae7a4aa50e6c2724c"
+        },
+        {
+          "path": "server/objectAclHttp.test.ts",
+          "sha256": "e6563dbc749dcb87370bd0f8652570e5398ff58f01d61c4e136592b2bb98d586"
+        }
+      ],
+      "browserFlows": [
+        "B03",
+        "B13"
+      ]
+    },
+    {
+      "name": "finance-market",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/legacyFinanceHttp.test.ts",
+          "sha256": "9c883dc002c69742e4231a84061b2eee3186801e1c525984a4547134be6da898"
+        },
+        {
+          "path": "src/utils/assetValue.test.ts",
+          "sha256": "3fc217b55372318014d7596e9a2989a7d52924566585c2e69b5230b33e9f34bf"
+        },
+        {
+          "path": "src/utils/debt.test.ts",
+          "sha256": "04af383c4aecebd5c799c9de9070494c35fae7c6b2157e14275f1beb217ea9ce"
+        }
+      ],
+      "browserFlows": [
+        "B07",
+        "B14"
+      ]
+    },
+    {
+      "name": "shopping-ai",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/shoppingHttp.test.ts",
+          "sha256": "5d8f7d054375addc6540a8322de9c766898e7c24057eb719175a09bedb9f9b96"
+        },
+        {
+          "path": "server/shoppingPersistence.test.ts",
+          "sha256": "8cb594495d340d0e9a08d4b85ba880c30fbcc79d30784ea724809d9a419b381b"
+        },
+        {
+          "path": "server/legacyAiHttp.test.ts",
+          "sha256": "3f7bf2f3509b0ff623595d311126f8b360ea57cb91ec045a1ed37d17c4f41e01"
+        }
+      ],
+      "browserFlows": [
+        "B06",
+        "B10"
+      ]
+    },
+    {
+      "name": "health-documents",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/legacyHealthHttp.test.ts",
+          "sha256": "7c5eeafe660a10701795843bff4f4167678afc5ab3fd7f9eda3a20a2961d5c72"
+        },
+        {
+          "path": "server/objectAclHttp.test.ts",
+          "sha256": "e6563dbc749dcb87370bd0f8652570e5398ff58f01d61c4e136592b2bb98d586"
+        },
+        {
+          "path": "server/contentPayloadHttp.test.ts",
+          "sha256": "a97287affb0bdf822be9e3619b3bd120ce356101094ffd8cc28a2bacbffbc011"
+        }
+      ],
+      "browserFlows": [
+        "B11",
+        "B13"
+      ]
+    },
+    {
+      "name": "notifications-realtime",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/derivedPrivacyHttp.test.ts",
+          "sha256": "ca622edd26a7b0bab47e662b47c0f4691ffb1981f10e2a704d09957280e68565"
+        },
+        {
+          "path": "server/pushTransport.test.ts",
+          "sha256": "6f702088ebe666ed9401277b7a96b972252792d4b5bafe51152cada6697b383b"
+        },
+        {
+          "path": "server/pushDelivery.test.ts",
+          "sha256": "1d21a8b0c1ff6213aec2ead46dede9983e94b9ae20888bb6b04fa1c4422c7b22"
+        },
+        {
+          "path": "server/realtimeHttp.test.ts",
+          "sha256": "1781701d4b77c51b3a7f9899bd7807de2efbf9673b25c6b04e1755e9f4dbdb9b"
+        },
+        {
+          "path": "src/utils/notificationRead.test.ts",
+          "sha256": "8f591b4a4db61a00f47ed9d16028ce7e2c21f298d473c69bf391d716a6e6864b"
+        }
+      ],
+      "browserFlows": [
+        "B04",
+        "B05",
+        "B09",
+        "B14"
+      ]
+    },
+    {
+      "name": "settings",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/legacyFlagsHttp.test.ts",
+          "sha256": "d65605d382b5da9c2e45c51e3fd94fe5bfc954babdae09a1a19fff90661cb3f6"
+        },
+        {
+          "path": "server/legacyAiHttp.test.ts",
+          "sha256": "3f7bf2f3509b0ff623595d311126f8b360ea57cb91ec045a1ed37d17c4f41e01"
+        },
+        {
+          "path": "server/weeklyDigestHttp.test.ts",
+          "sha256": "25f9c80b1c2e11b20674628e2d887e1c63b808d7e850a52191cf5d741ab7351c"
+        }
+      ],
+      "browserFlows": [
+        "B09"
+      ]
+    },
+    {
+      "name": "backup-logs",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "tests/snapshot-http.test.ts",
+          "sha256": "aed5ad503d115441a0e92cfc20008bcd4a0863f38939bfb1f4506df5afb2e347"
+        },
+        {
+          "path": "server/fullBackup.test.ts",
+          "sha256": "5c08490acdb6335b0245b4686d9f82eebc74d77a9d554dd93c1d65f679a01432"
+        },
+        {
+          "path": "server/appSnapshot.test.ts",
+          "sha256": "858fb639cdabab504ba2ca8461bd65790a39d3527661b8465839f73c4f48337e"
+        },
+        {
+          "path": "tests/snapshot-recovery.test.ts",
+          "sha256": "386d2095974149e29bbeda803baa4f85991dd8509225aa4f384c3c135b0059b7"
+        }
+      ],
+      "browserFlows": []
+    },
+    {
+      "name": "system",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "server/app.test.ts",
+          "sha256": "ba5cd73a45da9b5732d7a1761bda8fa74778586de6c896441749dbe2a12f4b71"
+        },
+        {
+          "path": "server/systemMetrics.test.ts",
+          "sha256": "da0b010e0ee550fcda0f42a8805502244e487142be85cb43c628fc31f29e5999"
+        },
+        {
+          "path": "tests/runtime-process.test.ts",
+          "sha256": "9eeb22c90576c46727191dadd090d9bc3b77c885488b911995c73a83efaa915c"
+        },
+        {
+          "path": "tests/ui/windows-version.test.tsx",
+          "sha256": "c6c519ae9201f31ecf20a65afd217f3b73af4a603017c59a12c9ac56a0a95bb0"
+        }
+      ],
+      "browserFlows": []
+    },
+    {
+      "name": "external-reference",
+      "owner": "F09 regression; preserve F04 ACL/I01 writer",
+      "suites": [
+        {
+          "path": "tests/browser-providers.test.ts",
+          "sha256": "c32e69b45d656abbb666083abedab40852ea1a4abf1ca252fbd6c6486a0f096a"
+        },
+        {
+          "path": "src/utils/vietnamHolidays.test.ts",
+          "sha256": "79117a493d5c1bdcce8182b1d3b9f6d3cf918102af9b1d67a1eb8a44493223e7"
+        }
+      ],
+      "browserFlows": []
+    }
+  ],
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

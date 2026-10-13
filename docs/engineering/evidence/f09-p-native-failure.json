@@ -1,0 +1,63 @@
+{
+  "taskId": "F09-p",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/66",
+  "testedHeadSha": "a234bcfe8ff8e78ee08aea181757daf45d4f3f8b",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38438080677",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "failure"
+    }
+  ],
+  "qualityEach": 2824,
+  "qualityFilesEach": 139,
+  "browserPassed": 44,
+  "browserFailed": 1,
+  "firstAttempt": true,
+  "case": "chromium/B01 login reload logout",
+  "durationMs": 9178,
+  "failure": "browserContext.close: Target page, context or browser has been closed",
+  "completedExpectationCallsBeforeTeardown": 21,
+  "sourceNativeCause": "unknown; no driver-process diagnostics in original report; not an app assertion or45s deadline failure",
+  "traceSha256": "acecf724d5306629d65f28916a91b1a6a4abddaa8399362636d4cfd0f3dca34f",
+  "browserJsonSha256": "f8aa63734a2a78dbd2230f7ed61d6a8cd226ab85920cd8b12e86bea9da190681",
+  "browserJUnitSha256": "1f9ffdc095c7a6f5f088c57f3a4799775758e42e6645115fb7ab593a385c88dd",
+  "fullCiLogSha256": "99f5e9511005263c9d105b56ac350fd5b92bdf32b61cc55c8a430cb2dc4018b8",
+  "allSevenArtifactsRetained": true,
+  "nonBrowserReaderHashes": {
+    "quality": "6689a1083ebe1116c630d9cbbe3c655d044afe63656c253df6d8e000bd7b79a0",
+    "coverage": "2dd86dffc3807d363bbc8df8a3f107a482e6a29e1ef2598a9762c0538ee4a1f8",
+    "package": "62d03fa149634fcae819f812abbd3435db66a7d890c85870ab70af38621fc308",
+    "service": "e3468e9da5a6a28fd618f63995a8945a67f4e1bfbb476b9f63443a6780b6c37d",
+    "caddy": "6780be7ab313b9d940e23f771a59fcd10de536170851771a0df15bae276eda3b",
+    "extraction-sdk": "6352e1006942502f3366b003165068ab6a346a5fbeb987c6dce025a37d336a53",
+    "inner-native": "09545f7a2bf4a77fba468265795096406f4d2ad8e7897a60b4db0131786e09b5"
+  },
+  "overallCI": "failure",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}

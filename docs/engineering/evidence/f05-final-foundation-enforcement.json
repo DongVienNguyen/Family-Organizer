@@ -1,0 +1,40 @@
+{
+  "taskId": "F05",
+  "observedAt": "2026-10-13T17:17:51.792168+00:00",
+  "reason": "Final foundation checkpoint revalidates persistent user Administration write authorization after14hours; one bounded protection request, no retry loop.",
+  "priorEvidenceSha256": "08d0a57f4efd9d2b8ccfb3166981d89c77d913d3e2e18f5b5a6ae921736acf8e",
+  "mainSha": "3d3bbb1c9591e62e65f594bacb51a404e9bbe10b",
+  "protected": false,
+  "rulesetCount": 0,
+  "method": "PUT",
+  "path": "repos/DongVienNguyen/Family-Organizer/branches/main/protection",
+  "request": {
+    "required_status_checks": {
+      "strict": true,
+      "checks": [
+        {
+          "context": "ci-gate",
+          "app_id": 15368
+        }
+      ]
+    },
+    "enforce_admins": true,
+    "required_pull_request_reviews": {
+      "dismiss_stale_reviews": true,
+      "require_code_owner_reviews": false,
+      "required_approving_review_count": 0,
+      "require_last_push_approval": false
+    },
+    "restrictions": null,
+    "required_conversation_resolution": true,
+    "allow_force_pushes": false,
+    "allow_deletions": false
+  },
+  "exitCode": 1,
+  "response": {
+    "message": "Resource not accessible by integration",
+    "documentation_url": "https://docs.github.com/rest/branches/branch-protection#update-branch-protection",
+    "status": "403"
+  },
+  "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
+}

@@ -1,0 +1,34 @@
+{
+  "taskId": "F09-n",
+  "reviewCount": 1,
+  "reviewedHead": "c0e433f4e5ed6bb2a17890351043d184171f81d2",
+  "baseSha": "884803a21cd0b826c6e44423217a0d6891184b1e",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 1,
+  "reReview": false,
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Important",
+      "decision": "fix",
+      "effect": "Synthetic User fixture omits required avatarColor, retained lint log TS2322. Add synthetic color and verify actual lint exit."
+    },
+    {
+      "id": 2,
+      "grade": "Important",
+      "decision": "fix",
+      "effect": "Development lintExit incorrectly0 although hashed log contains actual TypeScript error; the initial shell lacked fail-fast. Retain failed log, correct historical failure record, rerun sequential checks with set-e and record actual exits."
+    }
+  ],
+  "scopeRulings": "Target184/full2813/138 and source/log hashes match. Current121-route inventory, two nonAPI middleware/fallback entries and40suite references match source. Source draft does not substitute sameHEADWindows/full foundation/Server2019 acceptance. No rereview."
+}
