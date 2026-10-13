@@ -115,5 +115,19 @@
     "fullReportSha256": "d496744d4c1212ff81f836e9964656c9edfc5dd69369440dfbb96fc677d666dc",
     "purpose": "diagnostic-only boundedstatic console observations around originalclick/assertion; no fix or acceptance claim",
     "windows": "not-run"
+  },
+  "main38MergedDiagnostic": {
+    "mainBaseSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+    "fullGreen": 2394,
+    "fullFiles": 119,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "e440d97745440d025d75e415d904b2f803d7d7dfcc94fe2577c40f63097ca297",
+    "assertions": "all existing B01-B09 unchanged,27 first-attempt engine cases; prior21/24 rejection regressions retained",
+    "fixtureAdaptation": "merge inherited older-matrix test hardcoded8→7, one actualfixture-only RED→dynamic lastcase/count transformation,69browsergate tests green; no productbug claim",
+    "windows": "pending, diagnostic-only nofixclaim"
   }
 }

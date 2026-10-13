@@ -51,6 +51,24 @@ jobs:
           node-version: '24.21.0'
           architecture: x64
           package-manager-cache: false
+      - name: Prepare pinned builder SDK for locked validator tooling
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & ./scripts/ci/Prepare-NodeSdk.ps1 -Version '24.21.0' -CommitSha $env:GITHUB_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
+      - name: Install locked validator tooling
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & npm.cmd ci 2>&1 | Tee-Object -FilePath reports/validator-install.log
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
       - name: Collect authenticated archive bytes without rebuild or publication
         run: |
           $ErrorActionPreference = 'Stop'
@@ -68,5 +86,9 @@ jobs:
             reports/release-metadata.json
             reports/release-archives.json
             reports/release-report-preflight.json
+            reports/node-sdk.json
+            reports/node-sdk-headers.log
+            reports/node-sdk-library.log
+            reports/validator-install.log
           if-no-files-found: error
           retention-days: 14

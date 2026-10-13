@@ -40,14 +40,14 @@ function readXmlToken(text,start){
   if(offset===text.length)throw Error('Incomplete XML attribute');attributes[key]=xmlValue(text.slice(before,offset));offset++;
  }
 }
-function junitTree(text){
+export function parseReleaseJUnit(text){
  if(typeof text!=='string'||text.length===0||Buffer.byteLength(text)>64*1024*1024||/<!DOCTYPE|<!ENTITY/i.test(text))throw Error('Invalid JUnit');
  validateXmlCharacters(text);
  const document={tag:'document',children:[]},stack=[document];let offset=0,nodes=0;
  while(offset<text.length){
   if(text.startsWith('<?',offset)){const end=text.indexOf('?>',offset);if(offset!==0||end<0||!/^<\?xml version="1\.0"(?: encoding="UTF-8")? ?\?>$/.test(text.slice(offset,end+2)))throw Error('Invalid XML declaration');offset=end+2;continue;}
   if(text.startsWith('<![CDATA[',offset)){const end=text.indexOf(']]>',offset);if(end<0||!['system-out','system-err'].includes(stack.at(-1).tag))throw Error('Invalid CDATA');offset=end+3;continue;}
-  if(text[offset]!=='<'){const end=text.indexOf('<',offset),stop=end<0?text.length:end;const value=text.slice(offset,stop);if(value.trim()&&!['system-out','system-err'].includes(stack.at(-1).tag))throw Error('Unexpected XML text');xmlValue(value);offset=stop;continue;}
+  if(text[offset]!=='<'){const end=text.indexOf('<',offset),stop=end<0?text.length:end;const value=text.slice(offset,stop);if((/[^ \t\r\n]/.test(value)&&!['system-out','system-err'].includes(stack.at(-1).tag))||value.includes(']]>'))throw Error('Unexpected XML text');xmlValue(value);offset=stop;continue;}
   const token=readXmlToken(text,offset),name=token.tag,attributes=token.attributes;offset=token.end;
   if(token.closing){if(stack.length===1||stack.pop().tag!==name)throw Error('Invalid XML nesting');continue;}
   if(!['testsuites','testsuite','testcase','properties','property','system-out','system-err','failure','error','skipped'].includes(name)||++nodes>100000||stack.length>32)throw Error('Unsupported/excessive XML');
@@ -84,7 +84,7 @@ export function validateReleaseQualityReports(input){
   }
   require(total===v?.numTotalTests&&sameSet(observed.map(s=>s.name),receipts.map(s=>s.name)),'suite inventory contradicts totals');
   for(const name of e?.requiredSuites??[])require(observed.some(s=>s.name===name),'missing required suite: '+name);
-  const tree=junitTree(junit),count=(a,k,n,optional=false)=>optional&&a[k]===undefined?true:/^\d+$/.test(a[k]??'')&&Number(a[k])===n;
+  const tree=parseReleaseJUnit(junit),count=(a,k,n,optional=false)=>optional&&a[k]===undefined?true:/^\d+$/.test(a[k]??'')&&Number(a[k])===n;
   require(count(tree.attributes,'tests',total)&&count(tree.attributes,'failures',0)&&count(tree.attributes,'errors',0)&&count(tree.attributes,'skipped',0,true),'JUnit root totals mismatch');
   const xmlSuites=[];
   for(const suite of tree.children){

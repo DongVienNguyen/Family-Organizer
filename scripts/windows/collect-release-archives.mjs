@@ -7,6 +7,7 @@ import {extractReleaseReportArchives} from './release-report-extraction.mjs';
 import {readReleaseQualityFiles,openReleaseReportFiles} from './release-report-files.mjs';
 import {readReleaseRuntimeFiles} from './release-runtime-reports.mjs';
 import {readReleaseCoverageFiles} from './release-coverage-files.mjs';
+import {readReleaseBrowserFiles} from './release-browser-files.mjs';
 import {fileURLToPath} from 'node:url';
 import {collectReleaseArchives,createArtifactDownloader} from './release-archives.mjs';
 try{
@@ -20,8 +21,10 @@ try{
  const extraction=extractReleaseReportArchives(receipt,path.resolve('reports/extracted'),{execute:({inputFile,directory})=>spawnSync(process.env.FO_PWSH_PATH,['-NoLogo','-NoProfile','-NonInteractive','-File',fileURLToPath(new URL('./Extract-ReleaseReportArchives.ps1',import.meta.url)),'-InputFile',inputFile,'-Destination',directory],{timeout:120000,maxBuffer:65536,windowsHide:true})});
  const quality=[22,24].map(major=>{const name='windows-node'+major+'-'+request.commitSha+'-1';const directory=extraction.archives.find(row=>row.name===name)?.directory;return readReleaseQualityFiles(directory,{commitSha:request.commitSha,runId:request.runId,major,lockSha256:policy.lockSha256,requiredSuites:policy.requiredSuites});});
  const runtimeAndCoverage=[22,24].map(major=>{const directory=extraction.archives.find(row=>row.name==='windows-node'+major+'-'+request.commitSha+'-1')?.directory;const expected={commitSha:request.commitSha,nodeVersion:major===22?'v22.23.3':'v24.21.0',lockSha256:policy.lockSha256};const evidence=openReleaseReportFiles(directory).json('evidence.json');return {major,runtime:readReleaseRuntimeFiles(directory,expected),coverage:readReleaseCoverageFiles(directory,policy,expected,evidence)};});
- fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage},null,2)+'\n');
+ const browserDirectory=extraction.archives.find(row=>row.name==='windows-browsers-'+request.commitSha+'-1')?.directory;
+ const browser=readReleaseBrowserFiles(browserDirectory,policy,{commitSha:request.commitSha,runId:request.runId,nodeVersion:'v24.21.0'});
+ fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,innerPackageAgreement:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser},null,2)+'\n');
  fs.writeFileSync('reports/release-metadata.json',JSON.stringify(receipt.metadata,null,2)+'\n');
  fs.writeFileSync('reports/release-archives.json',JSON.stringify(receipt,null,2)+'\n');
- console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_VERIFIED_OTHER_REPORTS_UNVERIFIED_PUBLICATION_DISABLED');
+ console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_BROWSER_VERIFIED_OTHER_REPORTS_UNVERIFIED_PUBLICATION_DISABLED');
 }catch{console.error('RELEASE_ARCHIVE_REJECTED');process.exitCode=1;}

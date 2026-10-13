@@ -1,0 +1,53 @@
+{
+  "reviewedHead": "8aa66811af3b920ef592122c1094bd6e02df90b4",
+  "base": "83aa2b7c4539764afb6abd103b257721d1d03088",
+  "reviewer": {
+    "critical": 0,
+    "important": 3,
+    "minor": 2
+  },
+  "author": {
+    "critical": 0,
+    "important": 5,
+    "minor": 0
+  },
+  "fixPass": "one, TDD, no rereview",
+  "findings": [
+    {
+      "id": 1,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Actual declarations must exclude comments and strings"
+    },
+    {
+      "id": 2,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Every mandatory raw input requires a byte hash"
+    },
+    {
+      "id": 3,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Case aliases and aggregate hash work must be bounded"
+    },
+    {
+      "id": 4,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Strict XML cannot accept forbidden text or non-XML document whitespace"
+    },
+    {
+      "id": 5,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Native probe checks and prebuilt path must be complete"
+    }
+  ],
+  "limitations": [
+    "No inner ZIP/build agreement",
+    "No Server2019 acceptance",
+    "No release publication",
+    "No new exact HEAD Windows/live proof yet"
+  ]
+}
