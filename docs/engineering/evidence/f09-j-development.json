@@ -1,0 +1,44 @@
+{
+  "taskId": "F09-j",
+  "baseSha": "d7b03f0af630473330749fa34741271e65122fc6",
+  "scope": "Existing health growth/BMI and medication dose UI against real compiled backend/native SQLite; no app behavior change",
+  "actualGateRed": 2,
+  "targetGreen": 162,
+  "fullGreen": 2775,
+  "fullFiles": 134,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "originalTenFlowBytePrefixPreserved": true,
+  "sourceHashes": {
+    "scripts/ci/browser-contract.mjs": "e1377b7254b7127269be9f65f2f55ba4898aa40e6ce845d2d3bc2946a3290540",
+    "tests/browser-evidence.test.ts": "1936f080ed232aa4a088ca3be3ace4ffe3867a8c1e688b57ca37815478709de5",
+    "tests/e2e/foundation.spec.ts": "803f8dcb328deecf4e9a7dfffaa4ddcbd6a2d2c329b536e63839843699f839fd"
+  },
+  "verificationHashes": {
+    "f09-j-gate-red.json": "5592f58e3dc5b44e98107b868fb1bd7483ae5e204d616e0d7c7235fb5863bf54",
+    "f09-j-target.json": "323516dfb6b01578ed41ad25dae93f51e24da83bbaad4a11e6315e2628db60ca",
+    "f09-j-corrected-target.json": "da564cf7c2e019bc5da7de34f93c8c1af95f0f18c7cc7c0b11faa7c32dbea826",
+    "f09-j-full.json": "3b32c78a4da18bc9b979834c66fe31c87507b372682711df4cad9ffcf5f5515c",
+    "f09-j-final-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "f09-j-build.log": "667bb5ea1272a643fb9a053b398c7affd47c9f38819edb71492687b38986429a",
+    "f09-j-browser-discovery.log": "1bac323ef9c980404f77ad4bfce479e540809b323c91c86d76412e93bf546a51",
+    "f09-j-cloud-reports/browser-cli.log": "46fb79d6d1ef926ffd6639ff63e5d851796e8e12894846c3cdd6bb0300371828",
+    "f09-j-cloud-reports/browser-fixture.json": "4dfe67fbd9e450ea2889f777831fb1784d6e54a930657d70d829acefbdf8b23c"
+  },
+  "draftFixtureCorrection": "First expanded original27 positive control retained B11 in JSON: actual1failure/161pass, removed B11 from historical JSON while retaining all assertions ->162passed. Not full suite acceptance of initial failure.",
+  "cloudBrowserDiagnostic": "One actual B11 Chromium pass12.7s, Linux only/no native Windows acceptance; dirty draft at recordedbaseSHA sourcehashed here",
+  "browserDiscovery": 33,
+  "windows": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": [
+    "Parent60 must pass exact nativeWindows all30 and merge before finalbase",
+    "Calendar UI/import/module flags/fullF09",
+    "F05 Administration403",
+    "Server2019/R02",
+    "Release/tag/VPS unauthorized"
+  ]
+}
