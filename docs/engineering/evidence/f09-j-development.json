@@ -1,21 +1,21 @@
 {
   "taskId": "F09-j",
-  "baseSha": "d7b03f0af630473330749fa34741271e65122fc6",
+  "baseSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
   "scope": "Existing health growth/BMI and medication dose UI against real compiled backend/native SQLite; no app behavior change",
   "actualGateRed": 2,
   "targetGreen": 162,
-  "fullGreen": 2775,
-  "fullFiles": 134,
+  "fullGreen": 2795,
+  "fullFiles": 136,
   "failed": 0,
   "pending": 0,
   "todo": 0,
   "lintExit": 0,
   "buildExit": 0,
-  "originalTenFlowBytePrefixPreserved": true,
+  "originalTenFlowBytePrefixPreserved": "Originalninebytes and acceptedcorrectedB10 prefix preserved; inherited reviewed/nativeaccepted60 fixture changed from originaldraftd7",
   "sourceHashes": {
     "scripts/ci/browser-contract.mjs": "e1377b7254b7127269be9f65f2f55ba4898aa40e6ce845d2d3bc2946a3290540",
     "tests/browser-evidence.test.ts": "1936f080ed232aa4a088ca3be3ace4ffe3867a8c1e688b57ca37815478709de5",
-    "tests/e2e/foundation.spec.ts": "803f8dcb328deecf4e9a7dfffaa4ddcbd6a2d2c329b536e63839843699f839fd"
+    "tests/e2e/foundation.spec.ts": "8ca4ebdc159aa8f60d8174fd3786bcafe033f4efc6cb05a18d3828584126eb8b"
   },
   "verificationHashes": {
     "f09-j-gate-red.json": "5592f58e3dc5b44e98107b868fb1bd7483ae5e204d616e0d7c7235fb5863bf54",
@@ -26,7 +26,11 @@
     "f09-j-build.log": "667bb5ea1272a643fb9a053b398c7affd47c9f38819edb71492687b38986429a",
     "f09-j-browser-discovery.log": "1bac323ef9c980404f77ad4bfce479e540809b323c91c86d76412e93bf546a51",
     "f09-j-cloud-reports/browser-cli.log": "46fb79d6d1ef926ffd6639ff63e5d851796e8e12894846c3cdd6bb0300371828",
-    "f09-j-cloud-reports/browser-fixture.json": "4dfe67fbd9e450ea2889f777831fb1784d6e54a930657d70d829acefbdf8b23c"
+    "f09-j-cloud-reports/browser-fixture.json": "4dfe67fbd9e450ea2889f777831fb1784d6e54a930657d70d829acefbdf8b23c",
+    "f09-j-parent61-target.json": "d8f610b966fc5b6efcd012e96792bb077a4c1c5c6eab9e36faf0e4315401929c",
+    "f09-j-parent61-full.json": "468f8607f6d43a5d91fbcf0f1169be9be549ab639a58266e7a198aa6279d6f68",
+    "f09-j-parent61-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "f09-j-parent61-build.log": "049f06c926523afdd518cbc503bcf7f49cefac811241ccb2ea858db893879427"
   },
   "draftFixtureCorrection": "First expanded original27 positive control retained B11 in JSON: actual1failure/161pass, removed B11 from historical JSON while retaining all assertions ->162passed. Not full suite acceptance of initial failure.",
   "cloudBrowserDiagnostic": "One actual B11 Chromium pass12.7s, Linux only/no native Windows acceptance; dirty draft at recordedbaseSHA sourcehashed here",
@@ -40,5 +44,10 @@
     "F05 Administration403",
     "Server2019/R02",
     "Release/tag/VPS unauthorized"
-  ]
+  ],
+  "baseState": "Reviewed61 provisional parent, exactWindows/native/mainacceptance pending",
+  "priorCorrectedCloudTests": 2775,
+  "reviewedOwnB11SuffixByteAgreement": true,
+  "accepted30PrefixByteAgreement": true,
+  "review": "ONEde3/base d7 0C0I0M allgradedbeforeactions/zero sourcefixpass/norereview; ownB11 andtwogatefilesbyteidenticalreview, inheritedaccepted60focus+reviewed61gates retained"
 }
