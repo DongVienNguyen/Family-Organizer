@@ -1,3 +1,4 @@
+import {prepareCandidateHandoff} from './release-candidate-handoff.mjs';
 import fs from 'node:fs';
 import {normalizeReleaseCollectorEvidence} from './release-collector-evidence.mjs';
 import path from 'node:path';
@@ -41,7 +42,9 @@ try{
  const innerPackage=extractReleaseInnerPackage(packageDirectory,path.resolve('reports/inner-package'),packageReports,{commitSha:request.commitSha,runId:request.runId,appVersion:policy.source.packageVersion,lockSha256:policy.lockSha256},{execute:({archivePath,archiveSha256,archiveBytes,destination})=>spawnSync(process.env.FO_PWSH_PATH,['-NoLogo','-NoProfile','-NonInteractive','-File',fileURLToPath(new URL('./Extract-ReleaseInnerPackage.ps1',import.meta.url)),'-ArchivePath',archivePath,'-ArchiveSha256',archiveSha256,'-ArchiveBytes',String(archiveBytes),'-Destination',destination],{timeout:120000,maxBuffer:65536,windowsHide:true})});
  const preflight={format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,rawServiceReportsVerified:true,rawAuxiliaryReportsVerified:true,rawHarnessFilesVerified:true,packageBuildAgreement:true,innerPackageAgreement:true,licenseInventoryVerified:true,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports,consumerReports,serviceReports,auxiliaryReports,harnessAndBuild,innerPackage};
  const evidence=normalizeReleaseCollectorEvidence(receipt,preflight);
+ const handoff=prepareCandidateHandoff(evidence);
  fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify(preflight,null,2)+'\n');
+ fs.writeFileSync('reports/candidate-handoff.json',JSON.stringify(handoff,null,2)+'\n');
  fs.writeFileSync('reports/release-evidence.json',JSON.stringify(evidence,null,2)+'\n');
  fs.writeFileSync('reports/release-metadata.json',JSON.stringify(receipt.metadata,null,2)+'\n');
  fs.writeFileSync('reports/release-archives.json',JSON.stringify(receipt,null,2)+'\n');

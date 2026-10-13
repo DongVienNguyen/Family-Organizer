@@ -1,0 +1,83 @@
+{
+  "taskId": "F09-i",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/60",
+  "testedHeadSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38409739250",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "summaryHashes": {
+    "quality": "5ec58f3ae9a09cc6ac405018409d05ef12486e6dc31a71e8cf5ead37ab446365",
+    "coverage": "d3cf0db408c864209379311147ca05d798251df173384444a828ab719b3c65b7",
+    "browser": "259bee9b8d3a45b50d69b2cb86a634f03f8e3682179339ed36e2df25ea308bfe",
+    "package": "7db514239af0b54082bf20ff07a20e9616f9c595f86fabc08cb2661f8c92f6c4",
+    "service": "07d41ccbacc07a21797ac06720c8ef0a40b153ffd5e520b8682462078fedd368",
+    "caddy": "b727edf6239a30eaa383fe0821246e7db82f6ed608eaec486f636d718d40bce4",
+    "extraction-sdk": "77637d0da062d1e261b38ee0ac174ed26a989a6349bb3ea296ab616a5ca05eca",
+    "inner-native": "da6c3ad142dc2955231a1a94daa37b7cd86653c62beb992dded2ec406865400f"
+  },
+  "fullCiLogSha256": "2f6a51306e9620a12a0114a101946880c68e3597964cde8a6049628746d8b90d",
+  "testedHead": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+  "mergeSha": "f733e1c5bd6e4016c096441df24807cc66b50277",
+  "mainTreeEqualsTestedHead": true,
+  "proofWriterCorrection": "Local copied numeric replace changed2774\u21923074, failed before any externalmutation; correctedexactactualcount thenallguardsverified. No CI/source failure or retest.",
+  "qualityEach": 2774,
+  "qualityFilesEach": 135,
+  "browserFirstAttempt": 30,
+  "rawValidators": 8,
+  "zipSha256": "e85f0637c767eb39782a46f0d6b2bd2ce59cb75cecaacd9363fffcd682532485",
+  "originalBrowserReview": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "distinctAppCorrectionReview": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remainingErratum": "Full normalization already accepted59/live38404316314; copied full-proof remaining text understates it. Pending handoff preparation/remaininglegacyF09/mainAdmin403/actual2019/release/VPS."
+}
