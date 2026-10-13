@@ -1,0 +1,20 @@
+import {it,expect,afterEach} from 'vitest';
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import * as files from '../scripts/windows/release-report-files.mjs';
+const roots:string[]=[];
+function fixture(){const root=fs.mkdtempSync(path.join(os.tmpdir(),'release synthetic reports '));roots.push(root);fs.writeFileSync(path.join(root,'report.json'),'\uFEFF{"synthetic":true}');return root;}
+afterEach(()=>{for(const root of roots.splice(0))fs.rmSync(root,{recursive:true,force:true});});
+const open=(root:string,options:any={})=>(files as any).openReleaseReportFiles(root,options);
+it('reads ordinary bounded UTF8 JSON with BOM without executing report contents',()=>{const read=open(fixture());expect(read.json('report.json')).toEqual({synthetic:true});expect(read.receipt()).toMatchObject({filesRead:1});});
+it('rejects and preserves a preexisting symbolic report leaf',()=>{const root=fixture(),outside=fixture();fs.symlinkSync(path.join(outside,'report.json'),path.join(root,'linked.json'));expect(()=>open(root).json('linked.json')).toThrow('RELEASE_REPORT_FILES_REJECTED');expect(fs.existsSync(path.join(outside,'report.json'))).toBe(true);});
+it.each(['../outside','/outside','C:/outside','file:stream','CON.txt','app\\outside','file.','file ','app//file'])('refuses unsafe relative report path %s',name=>expect(()=>open(fixture()).text(name)).toThrow('RELEASE_REPORT_FILES_REJECTED'));
+it('refuses a linked ancestor and a replaced fixed report root',()=>{const root=fixture(),reader=open(root);fs.renameSync(root,root+'-retained');roots.push(root+'-retained');fs.mkdirSync(root);fs.writeFileSync(path.join(root,'report.json'),'{"synthetic":"replacement"}');expect(()=>reader.json('report.json')).toThrow('RELEASE_REPORT_FILES_REJECTED');expect(fs.readFileSync(path.join(root,'report.json'),'utf8')).toContain('replacement');});
+it('refuses malformed UTF8 instead of replacement-character normalization',()=>{const root=fixture();fs.writeFileSync(path.join(root,'invalid'),Buffer.from([0xc3,0x28]));expect(()=>open(root).text('invalid')).toThrow('RELEASE_REPORT_FILES_REJECTED');});
+it('enforces the actual per-file and cumulative read budgets',()=>{const root=fixture();fs.writeFileSync(path.join(root,'first'),'12345678');fs.writeFileSync(path.join(root,'second'),'12345678');expect(()=>open(root,{maxFileBytes:7,maxTotalBytes:16}).text('first')).toThrow('RELEASE_REPORT_FILES_REJECTED');const reader=open(root,{maxFileBytes:8,maxTotalBytes:15});expect(reader.text('first')).toBe('12345678');expect(()=>reader.text('second')).toThrow('RELEASE_REPORT_FILES_REJECTED');});
+it('streams a bounded file hash without reading it into the JSON budget',()=>{const root=fixture();fs.writeFileSync(path.join(root,'bytes'),'synthetic');const reader=open(root,{maxFileBytes:1,maxTotalBytes:1});expect(reader.hash('bytes',9)).toBe('b3cc0475bb78a5026098858e9889acf666d31062d513d303314eca31d36e72f2');expect(()=>reader.hash('bytes',8)).toThrow('RELEASE_REPORT_FILES_REJECTED');expect(reader.receipt().bytesRead).toBe(0);});
+it('does not permit caller budget overrides above reviewed ceilings',()=>{for(const options of [{maxFileBytes:Infinity},{maxFileBytes:64*1024*1024+1},{maxTotalBytes:256*1024*1024+1},{maxFileBytes:0},{maxTotalBytes:-1}])expect(()=>open(fixture(),options)).toThrow('RELEASE_REPORT_FILES_REJECTED');});
+
+it('rejects a report linked through an intermediate ancestor',()=>{const root=fixture(),outside=fixture();fs.symlinkSync(outside,path.join(root,'intermediate'),'junction');expect(()=>open(root).json('intermediate/report.json')).toThrow('RELEASE_REPORT_FILES_REJECTED');expect(fs.readFileSync(path.join(outside,'report.json'),'utf8')).toContain('synthetic');});
+it('refuses non-files and missing leaves without reading them as reports',()=>{const root=fixture();fs.mkdirSync(path.join(root,'directory'));const reader=open(root);expect(()=>reader.text('directory')).toThrow('RELEASE_REPORT_FILES_REJECTED');expect(()=>reader.text('missing')).toThrow('RELEASE_REPORT_FILES_REJECTED');});

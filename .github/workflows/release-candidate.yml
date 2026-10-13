@@ -1,4 +1,4 @@
-name: Windows artifact archive preflight
+name: Windows artifact report preflight
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ defaults:
 
 jobs:
   metadata:
-    name: Windows trusted-main archive downloads
+    name: Windows trusted-main archive and assertion preflight
     runs-on: windows-2022
     timeout-minutes: 20
     env:
@@ -56,6 +56,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           Set-StrictMode -Version Latest
           $PSNativeCommandUseErrorActionPreference = $false
+          $env:FO_PWSH_PATH = (Get-Process -Id $PID).Path
           & node ./scripts/windows/collect-release-archives.mjs
           $nativeCode = $LASTEXITCODE
           if ($nativeCode -ne 0) { exit $nativeCode }
@@ -66,5 +67,6 @@ jobs:
           path: |
             reports/release-metadata.json
             reports/release-archives.json
+            reports/release-report-preflight.json
           if-no-files-found: error
           retention-days: 14

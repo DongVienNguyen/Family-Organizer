@@ -1,0 +1,36 @@
+{
+  "taskId": "F08-e",
+  "baseSha": "fb11d05eb565375e0a00fb6feb0c15b4c2508235",
+  "scope": "Bounded seven-archive extraction and raw quality assertion preflight; fullcollector remains incomplete",
+  "availabilityReds": {
+    "reportFiles": 16,
+    "qualityFiles": 9,
+    "extraction": 11,
+    "nativeEvidence": 15
+  },
+  "fixtureSetupError": "Initial raw-quality RED collection had missing helper directory; not a product/regression failure. Corrected before nine actual availability REDs. Synthetic SHA/body-length expectations computed before native execution.",
+  "gateReds": {
+    "criticalSuiteOmission": 3,
+    "nativeReportOmission": 1
+  },
+  "targetGreen": 211,
+  "targetFiles": 4,
+  "full": "passed frozen2210/113 Cloud; native Windows/live adapter not-run",
+  "review": "not-run",
+  "nativeExtraction": "not-run",
+  "trustedMainLiveAdapter": "not-run",
+  "reportsVerified": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden",
+  "fullGreen": 2210,
+  "fullFiles": 113,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "a9343356bb297392bd64106d4af92ef5a8ed108811eadda201edcb0c2d88451f",
+  "nodeVersion": "v24.21.0",
+  "workers": 1
+}
