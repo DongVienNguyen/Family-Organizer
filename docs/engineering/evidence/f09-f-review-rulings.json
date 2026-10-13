@@ -1,0 +1,64 @@
+{
+  "taskId": "F09-f",
+  "reviewCount": 1,
+  "reviewedHead": "6b0693edb71b9999c8a90954d99aee4243915639",
+  "baseSha": "ebeddf69934152ea9fa62c3ef570a2b826e475f4",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 2
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 2
+  },
+  "allGradedBeforeFix": true,
+  "fixPasses": 0,
+  "rereview": false,
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Minor",
+      "decision": "defer",
+      "effect": "Documentation JSON/JUnit suite enforcement phrase exceeds current JSON mandatory-suite and JUnit-presence gate. Independent acceptance validator parses full JUnit; helper gate alone does not.",
+      "next": "Correct matrix wording in F09 acceptance documentation; do not expand inherited JUnit validator in health slice."
+    },
+    {
+      "id": 2,
+      "grade": "Minor",
+      "decision": "defer",
+      "effect": "Medication characterization submits unchanged createdAt, proves ordinary edit preservation; current updater accepts caller createdAt. Immutable identity wording overstates coverage.",
+      "next": "Narrow final mapping to tested edit preservation; no unrelated app behaviour change."
+    }
+  ],
+  "deferredMinor": [
+    {
+      "id": 1,
+      "owner": "F09 final evidence/test mapping",
+      "requirement": "JSON required-suite check and JUnit report presence, full independent JSON/JUnit agreement separately."
+    },
+    {
+      "id": 2,
+      "owner": "F09 final health mapping",
+      "requirement": "Tested ID/creation timestamp preserved during ordinary edit; no adversarial timestamp immutability claim."
+    }
+  ],
+  "rulings": [
+    {
+      "decision": "accept",
+      "scope": "ActualHTTP/nativeSQLite/auth isolation and finallycleanup; required suite addition retains prior suites.",
+      "costIfWrong": "False persistence/permission regression confidence."
+    },
+    {
+      "decision": "accept limitation",
+      "scope": "HealthUI/moduleflags/fullrestartrestore/fullF09/Server2019 outside current slice; priorF08 accepted source not reopened.",
+      "costIfWrong": "Overclaimed wholefoundation completion if subset confused."
+    },
+    {
+      "decision": "accept limitation",
+      "scope": "Reviewer read-only, no Cloud/native verification certification; freshWindows/raw gates mandatory.",
+      "costIfWrong": "False accepted test counts prevented by independently reading reports."
+    }
+  ]
+}
