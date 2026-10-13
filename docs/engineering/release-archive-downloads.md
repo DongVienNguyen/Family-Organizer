@@ -50,3 +50,11 @@ workflow and tests remained byte-identical. Fresh frozen Cloud verification on
 main f25af44 passed1989 tests/106files and248 target/3files, with lint/build exit0.
 Both finance and archive suites remain mandatory. Exact Windows/live archives
 are still pending; this is development evidence only.
+
+Accepted archive slice: PR40 tested2544569, Windows CI38324435747 all seven
+checks and five independent report validators passed; both1989/106,18 browsers.
+Merged ff13cb6 with identical tree. Real read-only trusted-main workflow
+38325615728 downloaded seven exact API-digest archives,61188188 bytes, targeting
+explicit f25af44 mainCI38323451260; receipts/log hashes in f08-c-live.json.
+This proves archive transport only; reportsVerified:false/publicationAllowed:false
+remain. Full raw report/package/license validator is still mandatory.

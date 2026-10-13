@@ -1,0 +1,70 @@
+{
+  "taskId": "F08-c-live",
+  "workflowSourceSha": "ff13cb6f25c88024d108b67953855cddf7917fa2",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325615728",
+  "workflowConclusion": "success",
+  "workflowPath": ".github/workflows/release-candidate.yml",
+  "runnerLabels": [
+    "windows-2022"
+  ],
+  "explicitTargetSha": "f25af441163fb9b82433c5f24096e4c727461bce",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38323451260",
+  "counts": {
+    "checks": 7,
+    "jobs": 7,
+    "archives": 7
+  },
+  "archiveBytes": 61188188,
+  "archives": [
+    {
+      "id": 11780420598,
+      "name": "windows-browsers-f25af441163fb9b82433c5f24096e4c727461bce-1",
+      "bytes": 270351,
+      "sha256": "41cd7de68217550978fa80a344b1a34a8e2799199447fa27955a24d8763ad437"
+    },
+    {
+      "id": 11780080830,
+      "name": "windows-node24-f25af441163fb9b82433c5f24096e4c727461bce-1",
+      "bytes": 3491797,
+      "sha256": "1ac683f53db76567a957d41fb79f1e2cedc6fe0e555899ea0c83f5fcbdbcaea1"
+    },
+    {
+      "id": 11779932262,
+      "name": "windows-package-f25af441163fb9b82433c5f24096e4c727461bce-1",
+      "bytes": 53804821,
+      "sha256": "c994ac7e4ca7e8ed11d3b8ea54228aa420fc222d82a70ce67adf482430321ca3"
+    },
+    {
+      "id": 11779689320,
+      "name": "windows-service-tests-f25af441163fb9b82433c5f24096e4c727461bce-1",
+      "bytes": 31846,
+      "sha256": "f1faf11b3b00d6e98d7bb84e4ec55719738f3d1fe52f4375214196e6525f2dab"
+    },
+    {
+      "id": 11779673228,
+      "name": "windows-node22-f25af441163fb9b82433c5f24096e4c727461bce-1",
+      "bytes": 3490712,
+      "sha256": "8f096ca2e37f701c850fbf4077ef37eba9349176905079785e64f2a1ca313b53"
+    },
+    {
+      "id": 11779627893,
+      "name": "windows-package-harness-f25af441163fb9b82433c5f24096e4c727461bce-1",
+      "bytes": 89755,
+      "sha256": "536bb3694a77a2852b324f3ef28671434e47231d483953a0e2a26b5f18b70801"
+    },
+    {
+      "id": 11779378720,
+      "name": "windows-package-tests-f25af441163fb9b82433c5f24096e4c727461bce-1",
+      "bytes": 8906,
+      "sha256": "c417f0a47b51ec92f7719049f603c59195a767e4c49a369b49d2aa593fa10590"
+    }
+  ],
+  "metadataSha256": "58579011c200e238034b202b284f1bb1c3b67c0bc6279ce7c670e7de45839c07",
+  "receiptSha256": "4ee2a63c1f5ef2bd1b17451b1dd6f3cc176c54932bc0560edff5fde0d7bc3fb9",
+  "fullWorkflowLogSha256": "436c6afb13991c5b0e112031ef0efef483f3e09d44173328664f3eff5ecf637f",
+  "publicationAllowed": false,
+  "reportsVerified": false,
+  "scope": "Actual trusted-main Windows authenticated seven archive downloads and API-digest/streamed-byte verification; raw report/package/license validation remains mandatory",
+  "server2019Acceptance": "not-run",
+  "releaseVps": "forbidden"
+}
