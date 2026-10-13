@@ -1,0 +1,67 @@
+{
+  "taskId": "F09-e/F07-native-baseline",
+  "testedHeadSha": "421fb6cdf3faaaf42f1b21882bfa806830e737b9",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38370988128",
+  "conclusion": "failure",
+  "browser": {
+    "passed": 26,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0,
+    "failure": "B09WebKit same CSS Settings visibility10s despite main DOM mutation2187ms/header1; browser-process isolation did not solve it",
+    "hypothesis": "process isolation rejected as sufficient fix"
+  },
+  "service": {
+    "exitCode": 1,
+    "failure": "update-ready exited 1",
+    "fixtureCleanup": true,
+    "serviceRemoved": true,
+    "startupObservation": "UPDATE_CONTROL_INVALID/read-stage:descriptor-open; update-ready ECONNREFUSED",
+    "errno": "not emitted, unconfirmed permission/sharing/namespace cause",
+    "lastNativePhases": [
+      {
+        "exitCode": 0,
+        "phase": "database-closed"
+      },
+      {
+        "exitCode": 0,
+        "phase": "update-stopped-held"
+      },
+      {
+        "exitCode": 0,
+        "phase": "update-configure-approve"
+      },
+      {
+        "exitCode": 0,
+        "phase": "update-start-candidate"
+      },
+      {
+        "exitCode": 0,
+        "phase": "update-approve"
+      },
+      {
+        "exitCode": 1,
+        "phase": "update-ready"
+      },
+      {
+        "exitCode": 0,
+        "phase": "cleanup-service"
+      }
+    ],
+    "reportSha256": "bcb09795586244624b78b13c2b52087ab8f0acdf8c1352d491064e0f6a9b8bb1",
+    "updateReadyLogSha256": "d30417f6e01b128b453d334bdc5791edb1ac28a0a784c9c8d3db45bdbf0dc6ea"
+  },
+  "otherValidators": {
+    "qualityExit": 0,
+    "coverageExit": 0,
+    "packageExit": 0,
+    "sourceEach": "2483/122",
+    "serviceExit": 1,
+    "caddySdk": "independently validated after service failure; five successful nonbrowser validators, service rejected",
+    "caddyExit": 0,
+    "sdkExtractionExit": 0
+  },
+  "fullCiLogSha256": "68441e40beeb48a75e1ae80500bfad384bdb166e2d7372031d86eee09193090f",
+  "next": "Observe existing platform getter/calls in B09 without mocking/disabling; safe errno/publish investigation for native service baseline required. No CI pass claim.",
+  "server2019Acceptance": "not-run"
+}

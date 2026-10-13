@@ -1,0 +1,50 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "5b99b0d019ec5ced9bf4b7f4911021a2172893cb",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38367301535",
+  "conclusion": "failure",
+  "cause": "Authored diagnostic raw-line ceiling rejected large Firefox startup protocol payload; CLI SIGKILL. This run did not reach WebKit B09.",
+  "completedBrowserCases": 9,
+  "remainingBrowserCases": "18 not completed; no final browser JSON/JUnit acceptance",
+  "protocolBytes": 5499951,
+  "protocolRecords": 25825,
+  "protocolSha256": "de7820bf1f9b16745bbb2109a9c47b51d0f209dc86f2df4e5087951c21b68435",
+  "fixture": {
+    "commitSha": "5b99b0d019ec5ced9bf4b7f4911021a2172893cb",
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "lockSha256": "906a1a88d3a2c7b41fbfde9796c784aa7610b997be8cc8dd38c38e889fad5c11",
+    "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "productionBuild": {
+      "serverSha256": "b091cb2a5e340ad8aeb324efd7b6de79ae550627100c65186d55354be51754fd",
+      "indexSha256": "5c512d46ec909139bf4e19a2cbb0b4aed40521b1c82c3306d91c895cea5695b8"
+    },
+    "legacyPreserved": true,
+    "integrity": "ok",
+    "databaseClosed": true,
+    "fixtureRemoved": true,
+    "externalAttempts": [],
+    "serverExitCode": 0,
+    "serverSignal": null,
+    "cliExitCode": null,
+    "cliSignal": "SIGKILL",
+    "error": "browser protocol diagnostic budget rejected"
+  },
+  "otherValidators": {
+    "allSixExits": 0,
+    "sourceEach": "2451/121",
+    "hashes": {
+      "quality": "0a4dedec3093f4fa2c096077ea732d43a94346b349f42146bdbafff744018bca",
+      "coverage": "ea40e46f2ec25ef41e09a31db15d59e3c4c9624a55f8d752b985e8894c6b030f",
+      "package": "009de038455edf356da66f204e8b64d11c1253e3c5da8cb7c876c178765495f7",
+      "service": "93331f9a247eb00f68e5b7505421777b098d31a52a9f50f11f4c8d87cd21ab09",
+      "caddy": "de35e26c7248e1b69b6b9bfeaa000aea3447f9b4a35e9cea73b728db1fdc1e32",
+      "extraction-sdk": "6d04bb714b4af61487dbb5befab52d241d4f4256a504a7b1d3552832bd0e5f24"
+    }
+  },
+  "fullCiLogSha256": "4fbfb5b03b5865ac2a6311ba70e254cb88cf814c411bbcfa556ab19389c8565f",
+  "correction": "Existing SDK MAX_LOG_LENGTH262144 only for diagnostics; select log window at B09 WebKit. One actual capture-window RED\u2192181target. All functional assertions/timeouts/zero retry unchanged.",
+  "rootCauseWebKit": "unconfirmed",
+  "server2019Acceptance": "not-run"
+}

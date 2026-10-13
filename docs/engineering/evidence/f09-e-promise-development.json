@@ -1,0 +1,32 @@
+{
+  "taskId": "F09-e",
+  "baseSha": "29ae90be91f6ca4ffdd3288f416edd2285f0c2f0",
+  "priorHeadSha": "fee5a341870260db08f442193c5df15f6cb4d27b",
+  "scope": "Observe original getSubscription Promise settlement without changing returned identity or logging payloads. Merge accepted F07-m diagnostics; preserve original assertions and native deadlines.",
+  "regression": {
+    "actualRed": 2,
+    "targetPassed": 4,
+    "fullPassed": 2573,
+    "files": 124,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "sourceHashes": {
+    "tests/e2e/platform-probe.ts": "d0fac1fbb5e9bd7d1bb5ac1e8641f43f536bb6cf44d4c0172ecbd18d7103f5d7",
+    "tests/platform-probe.test.ts": "468a808306bed4382c05c81f25b2786935f9d5b30f55f627e583804b3a1b3fb8"
+  },
+  "cloudReportHashes": {
+    "f09-e-promise-observer-red.log": "c1411f668bd1f0eab3f75dce3e2b45452cb92deb6ed8ca0ddb5004299240e43b",
+    "f09-e-promise-target.json": "0a2fdd4a93b5a0457c98cb6cd0a66071116db986b0f0017188fee86a9611e1b4",
+    "f09-e-promise-full.json": "c30081a83e014c3f3e361bf62fbdd65b3cecfdb6482db2d03bd624f10457eaa2",
+    "f09-e-promise-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f09-e-promise-build.log": "26f46645fdc68140f8c012732c3d28fb0ef1429058f779d61fb6c1a36b75614e"
+  },
+  "windowsVerification": "pending exact new HEAD; Cloud is helper verification only",
+  "rootCause": "unconfirmed; original Promise return does not establish settlement",
+  "server2019Acceptance": false,
+  "publicationAllowed": false
+}

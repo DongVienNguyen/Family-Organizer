@@ -1,0 +1,30 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "1df162bb026368230a1057683dffa1fa1f5cf578",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38380995283",
+  "conclusion": "failure",
+  "browser": {
+    "passed": 26,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0,
+    "webkit": "main DOM rendered2312ms; getSubscription Promise returned, no settlement logged before locator timeout. Other engines settle; causality not yet proven."
+  },
+  "sixIndependentNonBrowserValidators": {
+    "exitCode": 0,
+    "qualityEach": "2573/124"
+  },
+  "retainedEvidenceHashes": {
+    "coverage-verified-summary.json": "81150559202a0c37c8604c887f17995e7c1f9cb271de4bc7b93629b6b0d16744",
+    "quality-verified-summary.json": "2bca6439c829952355ff4b72df002073097a066d1bf7c2cd6ffe861a5d8f41cd",
+    "verified-summary.json": "2bca6439c829952355ff4b72df002073097a066d1bf7c2cd6ffe861a5d8f41cd",
+    "caddy-verified-summary.json": "68f77d7919bc2c3a9178c90d152f73a5954a10c8e24712472addd6445a3d3d81",
+    "service-verified-summary.json": "bc85f46bf435a4834b5b1de0077fd2d1b7caf586dcc18914b4cc68193b7c40cd",
+    "package-verified-summary.json": "d8754f396af3474388d5f911766d6e2345ced1f09bbcd91c90294a6b68fcb74d",
+    "extraction-sdk-verified-summary.json": "b2a4819ea161eb83594549dd1be3be961491d9856ffe4e4689b06100746323f8"
+  },
+  "fullCiLogSha256": "5804644c648a0965f4cd3a2a722431f1e7d5903032774e9b99dcaa0ff40eb77b",
+  "next": "Two owned synthetic Windows WebKit pages differ only by native subscription read; record driver before/after and settlement without changing app assertions.",
+  "publicationAllowed": false,
+  "server2019Acceptance": false
+}

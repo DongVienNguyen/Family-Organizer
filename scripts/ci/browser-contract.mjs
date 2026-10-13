@@ -9,6 +9,7 @@ export const browserCases = [
   'B06 shopping and offline meal persistence',
   'B07 legacy finance create edit delete persistence',
   'B08 adult child approval rewards persistence',
+  'B09 self profile settings persistence',
 ];
 export function validateBrowserReports(input, policy) {
   const requiredProjects=policy?.projects??browserProjects,requiredFlows=policy?.cases??browserCases;

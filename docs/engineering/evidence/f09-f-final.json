@@ -74,5 +74,6 @@
     "commentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/54#issuecomment-6143900259"
   },
   "server2019Acceptance": "not-run",
-  "releaseTagVps": "not-performed"
+  "releaseTagVps": "not-performed",
+  "completeProofTaskIdErratum": "The historical full proof retained a copied F08-j taskId label; PR URL, SHA, run, checks and hashes identify the actual F09-F acceptance. Original evidence retained unchanged."
 }

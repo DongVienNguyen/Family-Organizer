@@ -1,0 +1,32 @@
+{
+  "taskId": "F09-e",
+  "scope": "Test-only existing platform getter/method boundary observation. No mock/disable/extra notification calls; native receivers/args/return/error identities preserved. No payloads printed.",
+  "helperCharacterizations": 2,
+  "initialTestOrder": "Two characterizations added after initial helper implementation; no preimplementation RED claim.",
+  "actualSerializationRed": 1,
+  "correction": "Static authored JavaScript source avoids transpiler __name reference when adding init script. Owned Cloud Chromium helper smoke now has no pageerror; not Windows/app acceptance.",
+  "fullPassed": 2485,
+  "files": 123,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "tests/e2e/platform-probe.ts": "14a4d20591afa0bfee6c11805d4476e6e6ade77a32caecc4a48a0d6e569c7fbe",
+    "tests/platform-probe.test.ts": "98e4df57fd39c51e6b6ba3a7d11a15e9e09134a29463444410b5b040f1718aea",
+    "tests/e2e/foundation.spec.ts": "17c230d9b57f21ff75354690f2d0e45ae120d4aadd85d2f202d9ab244848376f"
+  },
+  "verificationHashes": {
+    "f09-e-platform-owned-chromium.log": "9cd344bdee02747de8583e986ca3affa8c69b5510f61615b423815196f829fab",
+    "f09-e-platform-owned-chromium-green.json": "a92b2c42198623e8b0652fe5de64f47f14578d35291ea2f0e9e82b3fa08d1d65",
+    "f09-e-platform-static-target.log": "ec1bd060fc420f973e0b096ec5cf520942a2231497c0c83bc1f8417be2326742",
+    "f09-e-platform-static-full.json": "6b9dba6a92285fa04eb337fd13bbdf68b1baeb86880db8ff3f38919846a2fa48",
+    "f09-e-platform-static-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-e-platform-static-build.log": "999ec9508938dd92c17ca8f7b5b668eed539c4fe036f733cd6b5cf8f9c1dc332"
+  },
+  "previousNative": "421fb6c/38370988128 browser26/27 plus service update-ready failure; five other validators0. Process isolation did not resolve WebKit.",
+  "review": "Original single review retained; these authored post-review diagnostic changes disclosed; no rereview.",
+  "windows": "new exact HEAD pending",
+  "server2019Acceptance": "not-run"
+}
