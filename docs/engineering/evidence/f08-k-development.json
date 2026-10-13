@@ -1,6 +1,6 @@
 {
   "taskId": "F08-k",
-  "baseSha": "6e54e0d37bf3eb7e76b47c609f1d9dae49b967b9",
+  "baseSha": "29ae90be91f6ca4ffdd3288f416edd2285f0c2f0",
   "scope": "Actual SDK/Caddy/extraction receipts bothruntimes;29-file Git/workflow harness bytes and browserBuild/producer manifest agreement; innerZIP/license/fullpublication stillfalse",
   "gitPolicyRed": 8,
   "auxiliaryAvailabilityRed": 21,
@@ -8,7 +8,7 @@
   "mandatorySuiteRed": 2,
   "node22Characterization": 1,
   "targetGreen": 248,
-  "fullGreen": 2591,
+  "fullGreen": 2602,
   "fullFiles": 124,
   "failed": 0,
   "pending": 0,
@@ -39,10 +39,17 @@
     "f08-k-old-native-cloud-compatibility.json": "67881fe552abbcf5f4fc412143d57c015581010ebcfa162d91578981cf0d33d6"
   },
   "oldActualCompatibility": "29 files277958bytes and bothSDK/Caddy/extraction runtimes; old acceptedGit38/CI38358093544; simulatedworkflowauthoritycontext only, not new native/live acceptance",
-  "review": "pending afterrebase ontoaccepted52",
+  "review": "pending one fresh on finalbase/source",
   "ci": "not-run",
   "innerPackageAgreement": false,
   "reportsVerified": false,
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "previousFullGreen": 2591,
+  "rebasedSourceByteAgreement": true,
+  "rebasedVerificationHashes": {
+    "f08-k-rebased-full.json": "5bfddbd9989a8aadc235f8e6c3cd6eb0d13395876b09d6b60e7d809d8623cb80",
+    "f08-k-rebased-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f08-k-rebased-build.log": "a465c77aa99dd99112e4d9d279129a1e29f060f95c2ee1ee3b0e6c592be47857"
+  }
 }
