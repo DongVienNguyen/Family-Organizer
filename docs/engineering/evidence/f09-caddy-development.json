@@ -1,0 +1,18 @@
+{
+  "taskId": "F09-Caddy",
+  "scope": "Isolated Windows native Caddy baseline, loopback synthetic backend/PKI, no production deployment",
+  "version": "2.11.7",
+  "verifiedDownloadRecord": "outside /workspace/family-evidence/caddy-2.11.7-download-verification.json",
+  "zipSha256": "0a1edc0b799512051c57071ce0e798d3f2cf67dc98171366f1d2b326072e3b06",
+  "binarySha256": "5f93a9bd555f3aac9d33af2756ba14b3519d8cca4ffd55256bdaeab444c9db2a",
+  "availabilityReds": 17,
+  "policyTargetGreen": 17,
+  "nativeVersionValidateTlsProxyStop": "not-run",
+  "full": "not-run",
+  "review": "not-run",
+  "ci": "not-run",
+  "server2019Acceptance": "not-run",
+  "releaseVps": "forbidden",
+  "syntheticConfigurationOnly": true,
+  "systemTrustInstallation": false
+}
