@@ -19,7 +19,7 @@
     "scripts/ci/write-evidence.mjs": "d14cdcbe97df0b7e53a2654f47c2e06579b7602718f5806cb8a34fd50c6dde77",
     "tests/evidence.test.ts": "9f8218537897ef10f545a253c689384f571bcec5e611ba78877404fb916bf478",
     "README.md": "fc27c8e291e9e4eba5d29b97cdf412dcfda5128a39164d8c878f6d7a523dfafb",
-    "docs/engineering/foundation-acceptance.md": "857cb962e0451ddb02fc2567f0cb41f0e6c78072dc077b3e6ded0b9fbda3cf7d",
+    "docs/engineering/foundation-acceptance.md": "26682a122f97eebe9dfbc1d74a76ebffbba5b037149270fa57e2981449bba624",
     "docs/engineering/windows-current-route-inventory.json": "cff768254b9c03e759ac62985ea8ecb86da5f21d0b7adbdfb03be32a9063b016",
     "docs/engineering/windows-operations.md": "041d546141961c670a25ec593d9adff3baf812a68c87101492570d47694fb7c2"
   },
@@ -57,5 +57,6 @@
   "correctedVerificationShell": "set -e; each npm/native invocation awaited before next command; all completed exit0. Failed initial lint and fixture attempt retained; exact initial lint exit was not recorded.",
   "priorFullGreen": 2813,
   "browserCasesRequired": 45,
-  "parentComposition": "Provisional reviewedM6f0 includes distinct L1calendar split; all five substantive own source hashes unchanged, two documentation hashes refreshed for B15 mapping/tradeoff. Flags/gate/assertions unchanged. No repeated review or source correction pass."
+  "parentComposition": "Provisional reviewedM6f0 includes distinct L1calendar split; all five substantive own source hashes unchanged, two documentation hashes refreshed for B15 mapping/tradeoff. Flags/gate/assertions unchanged. No repeated review or source correction pass.",
+  "calendarNativeCorrectionComposition": "Inherited excluded E2E-only B15 actual API setup and initial review/nativefailure records; all six other own hashes unchanged, one foundation documentation hash updated for accurate tradeoff. Vitest excludes E2E;2816/138/184target unit snapshot unchanged, no redundant fullrepeat. Exact native45 required after acceptedparents."
 }

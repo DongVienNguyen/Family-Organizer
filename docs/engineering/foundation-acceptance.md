@@ -47,7 +47,7 @@ ignores those unrelated keys; the regression verifies no legacy/settings mutatio
 This is not a new integration API or rollout implementation. Future module flags
 and feature migrations belong to P/W after foundation acceptance.
 
-The native45s calendar failure was retained and its long case split into B12/B15 with repeated realUI creation. Every original assertion remains; editing immediately after export/detail navigation in one continuous session is no longer tested. All other flows, normal actionability,45s cases/10s expectations and zero retries remain.
+The native45s calendar failure was retained and its long case split into B12/B15 with B12 realUI creation and B15 real authenticated API fixture setup. Every original assertion remains; editing immediately after export/detail navigation in one continuous session is no longer tested. All other flows, normal actionability,45s cases/10s expectations and zero retries remain.
 
 Deferred Minor review findings remain in per-task rulings. They include historical
 negative-fixture counts, isolated B14 zero-unread badge text, a Child direct-URL

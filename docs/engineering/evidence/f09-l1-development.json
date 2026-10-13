@@ -14,7 +14,7 @@
   "skips": 0,
   "forceClick": false,
   "syntheticHttpResponse": false,
-  "uiCreateInBothCases": true,
+  "uiCreateInBothCases": false,
   "actualNewCaseGateRed": 1,
   "targetGreen": 84,
   "fullGreen": 2804,
@@ -29,7 +29,7 @@
   "sourceHashes": {
     "scripts/ci/browser-contract.mjs": "562a1f8a1325f3886492b87c9259b246e76b74780eaa374f57f1d3393d335e1f",
     "tests/browser-evidence.test.ts": "e8d472194c29f7985722ef26646c103cf18710d7a954c64d2e153150dcb06979",
-    "tests/e2e/foundation.spec.ts": "735e5e42c50897f6cb33c5ed5900b617c36445efaf9a0a055428fd9b6331e11c"
+    "tests/e2e/foundation.spec.ts": "35a56e95e467f63fa09f7dfb53bdf1768b4add9810db16d819c87ce506b21028"
   },
   "verificationHashes": {
     "f09-l1-original-calendar.txt": "79a0c1878f66ff9c4dcb664babde6e6a2b2c3af3bad61f18229ed6b98e043aba",
@@ -40,9 +40,25 @@
     "f09-l1-build.log": "c0836fe932552605f84ab76ffb8a0444070f1db7647109830c0799b74040be1c",
     "f09-l1-cloud-reports/browser.json": "c98e0505eea1817636b59091b56a252e53fe47976f428a4cf56e8b4126a158cc",
     "f09-l1-cloud-reports/browser.junit.xml": "8af7824b0f94820a146a0ab38464ef9daa73f3114a26427d186fddee556a84a8",
-    "f09-l1-cloud-reports/browser-fixture.json": "f5222b576d546f14a95fa3d113e8d8c1e94a1d7dfa8f5fa900e8f9aecedef780"
+    "f09-l1-cloud-reports/browser-fixture.json": "f5222b576d546f14a95fa3d113e8d8c1e94a1d7dfa8f5fa900e8f9aecedef780",
+    "f09-l1-native-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-l1-native-corrected-build.log": "1184f7ccd05d0b7e305305971d52da111e52b08a12b113a94cfb7ec5ae7c410b",
+    "f09-l1-native-corrected-cloud-reports/browser.json": "760a7f3fd46f2a0fbf5d404315e7cc727f9286bd1b03035b526bfb85ec65ead2",
+    "f09-l1-native-corrected-cloud-reports/browser.junit.xml": "d2d482defc10c8e7360ea9bebe848c56ecfa63a0a903a778f86861b6b24bfd0d",
+    "f09-l1-native-corrected-cloud-reports/browser-fixture.json": "e9e6ba42faf2b6e63e3009e215a6cab17db566935cc08d30b4bccd6910b329da"
   },
   "windows": "not-run",
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "initialReviewedSourceHashes": {
+    "scripts/ci/browser-contract.mjs": "562a1f8a1325f3886492b87c9259b246e76b74780eaa374f57f1d3393d335e1f",
+    "tests/browser-evidence.test.ts": "e8d472194c29f7985722ef26646c103cf18710d7a954c64d2e153150dcb06979",
+    "tests/e2e/foundation.spec.ts": "735e5e42c50897f6cb33c5ed5900b617c36445efaf9a0a055428fd9b6331e11c"
+  },
+  "uiCreation": "B12 creation/recurrence/export/grid/detail remains real UI; B15 editor fixture seeded through actual authenticated internal POST, then actual UI edit/reload/Child boundaries and owned cleanup.",
+  "nativeCorrectionPassCount": 1,
+  "secondNativeFailure": "d0a/CI38425013464 browser41of42 onlyB15WebKit exhausted45sec at finalChildagenda; allsevennonbrowserraw pass, fullreports/trace retained. RealUIcreate duplicated fixture was the measured unnecessary editor setup cost.",
+  "nativeCorrection": "B15 uses real canonical HTTP fixture creation; all original27assertion lines retained across B12/B15, no fake response/forceclick/timeouts/retries/skip changes. UI-created record editing remains indirectly composed contracts, not one continuous create/export/edit journey.",
+  "interimExcludedDiagnostic": "One diagnostic used already-built next-slice frontend; retained f09-l1-interim-next-slice-build-reports but excluded from corrected-source proof. Initial Cloud proof bytes restored unchanged; then build currentL source before final diagnostic.",
+  "cloudDiagnosticAfterNativeCorrection": "Actual rebuilt currentL source Chromium B12PASS17.7sec/B15PASS25.4sec, total45.7sec, eachcase45sec unchanged. Server0/DBclosed/fixture removed/no provider attempts; Linuxdiagnostic only."
 }
