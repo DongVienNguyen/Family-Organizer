@@ -14,7 +14,7 @@ const lockHash=createHash('sha256').update(lockText).digest('hex');
 const coverageFloor={lines:1,statements:1,functions:1,branches:1};
 const coveragePolicyText=JSON.stringify({schema:1,providerVersion:'4.1.11',floors:{'v24.21.0':coverageFloor}});
 const suiteNames = [
-  'server/icsFeed.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
+  'server/icsFeed.test.ts', 'server/legacyCalendarHttp.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
   'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
@@ -281,3 +281,4 @@ it('rejects missing real legacy health HTTP regression suite',()=>{const result=
 it.each(['tests/release-auxiliary-reports.test.ts','tests/release-harness-build.test.ts'])('rejects missing required auxiliary/harness agreement suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it('rejects missing push permission startup regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('src/utils/pushSubscription.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: src/utils/pushSubscription.test.ts');});
+it('rejects missing real legacy calendar HTTP regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('server/legacyCalendarHttp.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: server/legacyCalendarHttp.test.ts');});

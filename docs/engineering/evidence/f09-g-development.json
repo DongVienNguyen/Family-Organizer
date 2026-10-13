@@ -1,0 +1,39 @@
+{
+  "taskId": "F09-g",
+  "baseSha": "eebddef64a86aadcb8ede2e94ff7e6797f18936a",
+  "scope": "Existing calendar HTTP/SQLite/auth/ICS characterization, no app changes",
+  "characterizationInitiallyGreen": 3,
+  "actualMandatorySuiteRed": 1,
+  "redSelection": "1 failed,169 others not selected; not full-suite result",
+  "targetGreen": 200,
+  "fullGreen": 2637,
+  "fullFiles": 127,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "server/legacyCalendarHttp.test.ts": "e3ca2031eff24a793c8f2e8717ba74e237ac827dc0e4001f97a1d144b78458f0",
+    "scripts/ci/write-evidence.mjs": "2076a192b5b34219e94aa92e9755279f1ff9f8340483640e3903ae3b719fbb21",
+    "tests/evidence.test.ts": "a53dd8256196ae890614afbaa49ff0f63b9a780cb172cb576bdbd6f24469d323"
+  },
+  "verificationHashes": {
+    "f09-g-characterization.json": "2189de75b70cabd111ea342cf6fd907214276b84207d831075c1bf706a29e81d",
+    "f09-g-gate-red.json": "c31b0b8f0f7e84bd1b3145377ff1ba5ab0c044c35f70c660a2afba9e86599cc5",
+    "f09-g-target.json": "00f47f221f509c6c939c593bf568930a188c54241be801515afaaf99cd2cd516",
+    "f09-g-full.json": "47cbe58c060cdb1c060a72b29f6706dc44363480a085355a595a771221955402",
+    "f09-g-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-g-build.log": "ffc4a43379cc9eebb696f3d6023f5dbf393bd778090321a6a6c668f8f5dd3cc1"
+  },
+  "review": "pending one fresh wholebranch",
+  "windows": "not-run",
+  "remaining": [
+    "Calendar browser UI",
+    "Import behavior",
+    "Module flag-off",
+    "Complete F09"
+  ],
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}
