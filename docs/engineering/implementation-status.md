@@ -2,25 +2,24 @@
 
 ## Current checkpoint — 2026-10-13
 
-**The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains behind the foundation gate.
+**The complete master plan is not finished.** Matrix/Kanban/Wallet tasks wait for the foundation gate.
 
 | Work | Current evidence / remaining step |
 | --- | --- |
-| Accepted main | PR64 squash `3d3bbb1c9591e62e65f594bacb51a404e9bbe10b`; independently same tree as tested `929520f39a2fb59c1d9aa4e39c7f1f39af8afa80` |
-| Windows quality/package/service | [CI38434366096](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38434366096): all7 checks/eight independent raw validators; each Node22/24 2812 tests/137 files, zero failed/pending/todo;42 first-attempt browser cases |
-| Legacy assistant/health/calendar | PR60/62/63 accepted; actual original browser assertions, own cleanup and offline network boundary verified on all three engines |
-| Read-only candidate/promotion handoff | PR61 accepted; trusted-main candidate [38414439837](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414439837) and promotion [38414445312](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414445312) independently verified complete original historical ZIP/source/raw/normalized/handoff bindings. Publication/tag/release all false |
-| Documents/search F09-l | PR64 HEAD `5eddd29014c591d248d0660aa9c9a5e4ee513182`, [CI38421156681](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38421156681): five checks/seven non-browser raw readers pass, each2801/136; browser38/39 failed existing B12 WebKit45s budget, gate failed. All seven artifacts/full log/trace retained; not merged |
-| Caddy diagnostic F09-o | Fourth66c/CI38430254887 hasall42 first-attempt browserPASS, bothunit2804/136+corechecksPASS; Node24 Caddy failedafterversion/validate, underlying childoutputlost. Six independentrawreadersPASS/all7artifacts retained. Boundedsyntheticfailure diagnostic source added, InitialCloud2810/137 all0 retained; ONEfreshreview0C1I1M/allauthorgradedbeforeONEpass, close-drain lifecycle2actualRED→187target/full2812/137 all0/lintbuild0. UTF8streamdecodeMinor deferred; newWindows required. Native rootcause notclaimedfixed |
-| Calendar fixture F09-l1 | Actual trace: B12 UI actions consume about1.6–2.4s each, Child login starts after43s and is not dispatched before45s. Accepted63 B12 already44.1s. Split into independent create/ICS/grid/detail and UI-create/edit/private/reload/Child flows, retaining all27 original assertion lines and45s/10s/zero retries; adds mandatory B15. One fresh review0C0I0M; native correction pass1 after d0/38425013464 failed41/42 onlyB15 budget. UI creation staysB12; B15 actual authenticated API fixture, realUI edit/reload/Child, all27 original assertions and45s/10s/zero retries retained. Rebuilt-source Chromium2passes; Third44cbc/38427772120 failed41/42 due fixture hydration (GETempty beforeAPIcreate/SSEstartsafter), notbudget;7nonbrowserraw0/all7artifacts/fullLog/trace retained. Second authored nativecorrection reloads persistedfixture beforeUIedit; lint0/Chromium2pass, same42 currentnewWindows pending |
-| Dashboard/notifications F09-m | One review0C1I1M; meaningful acknowledgement owner regressions and actual browser clock RED→GREEN. Reviewed notification/dashboard source retained; Caddy gate composition Cloud2820/138 all0/279target/lintbuild0, seven own source files unchanged; new45-case Windows pending after L |
-| Foundation mapping F09-n | Actual existing flags HTTP/gate and inventory/acceptance/operations draft; ONEreview0C2I0M/allgradedbeforeONEpass; Caddy composition Cloud2824/139 all0,192target/lintbuild0; five own source files unchanged, all flag/notification/native gates retained; newWindows pending after M |
-| F05 blocker | Actual ruleset/branch-protection writes HTTP403; usable Administration integration scope and main enforcement absent |
-| R02/R03 | Actual Server2019/build17763/reboot/off-host/RPO/RTO not run; Windows2022 does not satisfy R02. No release/tag/VPS access/deployment authorized or performed |
+| Accepted main | PR65 squash `bd3717ffbcf21c8c7390da97aa466b0d07e3b44d`; independently same tree as tested `934623bb978b18d75db353b2ecbee5780a13ce14` |
+| Windows quality/package/service | [CI38436178499](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38436178499): all7 checks/eight independent raw validators; each Node22/24 2820 tests/138 files, zero failed/pending/todo;45 first-attempt browser cases |
+| Legacy UI regression | PR60/62/63/64/65 accepted: assistant, health, calendar, documents/search, dashboard/notification and earlier flows; original assertions, synthetic offline boundary and owned cleanup retained |
+| Calendar fixture | Original45s failures and hydration failure retained. B12 realUI create/recurrence/ICS/grid/detail; B15 canonical authenticated API fixture, explicitreload then realUI edit/private/reload/Child. All27 original assertion lines retained, each45s/10s/zero retries. Continuous export/detail→edit session no longer checked |
+| Native Caddy diagnostics | PR64 accepted; bounded failure-only output and child-close drain, ONE0C1I1M/all authorgraded before one pass,2 lifecycleREDs→GREEN. Both native runtimes pass latest acceptedCI. Original66c/38430254887 failure retained; its cause remains unknown. Existing UTF8 chunk-decoder Minor deferred |
+| Notification ownership | PR65 accepted: actual acknowledgement JSON consumed before refresh; four owner/stale actor regressions and actual browser clockRED→GREEN. ONE0C1I1M/one correction pass/no rereview; isolated zero badge Minor deferred |
+| Foundation flags/inventory F09-n | ONE0C2I0M/all authorgraded before one pass; initial failed lint/incorrect0 claim corrected and retained. Cloud2824/139 all0,192target/lintbuild0. Same-HEAD Windows45 pending |
+| Read-only candidate/promotion | PR61 trusted-main candidate38414439837 and promotion38414445312 independently verified historical ZIP/full raw/normalized/handoff. Publication/tag/release false |
+| F05 blocker | Actual ruleset/branch-protection writes HTTP403; main remains unprotected with no ruleset. User authorization persists, usable integration Administration scope/enforcement still absent |
+| R02/R03 | Actual Server2019/build17763/reboot/off-host/load/RPO/RTO not-run. Windows2022 is not R02. No release/tag/VPS access or deployment authorized/performed |
 
-Historical failures and raw proof bytes remain intact. Deferred review rulings remain per task. Compiled bounded-stdin first-account initialization is verified; an old optional masked PowerShell wrapper promise is unimplemented, not an inferred formal requirement.
+Historical failed runs and raw proof bytes remain intact. Deferred review rulings remain per task. Existing compiled bounded-stdin first-account initialization is verified; the historical optional masked PowerShell wrapper is unimplemented and is not a formal requirement.
 
-Next: PR64 composed documents/calendar/Caddy diagnostics same-HEAD Windows42 and eight independent raw readers, then reviewed Dashboard/Notifications45 and final foundation mapping. No repeated merge permission is needed.
+Next: final flags/inventory same-HEAD Windows45, then F05 enforced PR+ci-gate before P01. No repeated merge permission is needed.
 
 ## Earlier integration checkpoints — through PR46
 
