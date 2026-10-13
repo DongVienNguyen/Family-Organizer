@@ -1,0 +1,21 @@
+{
+  "taskId": "F09-j",
+  "reviewCount": 1,
+  "reviewedHead": "de3e7a75f137374e2aef98352e1a7fa39d9428b6",
+  "baseSha": "d7b03f0af630473330749fa34741271e65122fc6",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 0,
+  "reReview": false,
+  "findings": [],
+  "scopeRulings": "Allsource/report hashes and originaltenflowbyteprefix verified; ownhealth flow/cleanup/roleassertionsno blockingfindings. Existing F09-i historical21/24negativefixtureMinor deferred. Parent60 acceptance/composition and exactWindows33required."
+}

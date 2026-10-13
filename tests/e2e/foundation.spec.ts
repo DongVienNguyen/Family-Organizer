@@ -640,3 +640,108 @@ test('B10 assistant loading error close', async ({ page }) => {
     await page.evaluate(() => (window as any).__ownedAssistantGate?.restore());
   }
 });
+
+test('B11 health growth and dose persistence', async ({ page }) => {
+  await page.goto('/');
+  const token = await login(page, 'admin');
+  const headers = { Authorization: 'Bearer ' + token };
+  const health = page.locator('#child-health-module');
+  const openHealth = async () => {
+    await page.locator('aside nav').getByRole('button', { name: 'Sức khỏe gia đình', exact: true }).click();
+    await expect(health).toBeVisible();
+  };
+  const get = async (pathname: string) => {
+    const response = await page.request.get(pathname, { headers });
+    expect(response.status(), pathname).toBe(200);
+    return response.json();
+  };
+  const beforeHealth = await get('/api/child-health');
+  const beforeMeds = await get('/api/medications');
+  const beforeLogs = await get('/api/medications/logs');
+  let growthId: string | undefined;
+  let medicationId: string | undefined;
+  try {
+    await openHealth();
+    await health.getByRole('button', { name: 'Tăng trưởng', exact: true }).click();
+    await health.getByRole('button', { name: 'Ghi cho thành viên', exact: true }).click();
+    await page.getByRole('option', { name: 'Synthetic admin', exact: true }).click();
+    await health.getByPlaceholder('Cao (cm)', { exact: true }).fill('170');
+    await health.getByPlaceholder('Nặng (kg)', { exact: true }).fill('65');
+    const growthPending = page.waitForResponse(response => new URL(response.url()).pathname === '/api/child-health/growth' && response.request().method() === 'POST');
+    await health.getByRole('button', { name: 'Ghi', exact: true }).click();
+    const growthResponse = await growthPending;
+    expect(growthResponse.status()).toBe(200);
+    const record = (await growthResponse.json()).record;
+    growthId = record.id;
+    expect(record).toMatchObject({ childId: 'browser-admin', heightCm: 170, weightKg: 65 });
+    const adultCard = health.locator('div.neu-raised').filter({ hasText: 'Synthetic admin' }).filter({ hasText: 'BMI' });
+    await expect(adultCard.getByText('BMI 22.5 · Bình thường', { exact: true })).toBeVisible();
+    expect((await get('/api/child-health')).growthRecords).toEqual([record, ...beforeHealth.growthRecords]);
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic admin', exact: true })).toBeVisible();
+    await openHealth();
+    await health.getByRole('button', { name: 'Tăng trưởng', exact: true }).click();
+    await expect(adultCard.getByText('BMI 22.5 · Bình thường', { exact: true })).toBeVisible();
+    await health.getByRole('button', { name: 'Lịch thuốc', exact: true }).click();
+    const meds = page.locator('#medication-module');
+    await meds.getByPlaceholder('Tên thuốc', { exact: true }).fill('Synthetic B11 thuốc');
+    await meds.getByPlaceholder('Liều dùng', { exact: true }).fill('Synthetic dose');
+    const medicationPending = page.waitForResponse(response => new URL(response.url()).pathname === '/api/medications' && response.request().method() === 'POST');
+    await meds.getByRole('button', { name: 'Thêm lịch thuốc', exact: true }).click();
+    const medicationResponse = await medicationPending;
+    expect(medicationResponse.status()).toBe(200);
+    const medication = (await medicationResponse.json()).medication;
+    medicationId = medication.id;
+    expect(medication).toMatchObject({ name: 'Synthetic B11 thuốc', dosage: 'Synthetic dose', patientId: 'browser-admin', times: ['08:00', '20:00'], isActive: true });
+    expect((await get('/api/medications')).medications).toEqual([medication, ...beforeMeds.medications]);
+    const medicationCard = meds.locator('div.neu-raised').filter({ has: page.getByRole('heading', { name: medication.name, exact: true }) });
+    await expect(medicationCard.getByRole('heading', { name: medication.name, exact: true })).toBeVisible();
+    const logDose = async (title: string, expected: string) => {
+      const pending = page.waitForResponse(response => new URL(response.url()).pathname === '/api/medications/logs' && response.request().method() === 'POST');
+      await medicationCard.getByTitle(title, { exact: true }).first().click();
+      const response = await pending;
+      expect(response.status()).toBe(200);
+      const body = response.request().postDataJSON();
+      expect(body).toMatchObject({ medicationId, time: '08:00', status: expected });
+      return (await get('/api/medications/logs')).logs;
+    };
+    const taken = await logDose('Đánh dấu đã uống', 'taken');
+    const dose = taken.find((row: any) => row.medicationId === medicationId);
+    expect(dose).toMatchObject({ medicationId, time: '08:00', status: 'taken' });
+    await expect(meds.getByText('Hôm nay: 1/2 liều', { exact: true })).toBeVisible();
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic admin', exact: true })).toBeVisible();
+    await openHealth();
+    await health.getByRole('button', { name: 'Lịch thuốc', exact: true }).click();
+    await expect(medicationCard.getByRole('heading', { name: medication.name, exact: true })).toBeVisible();
+    await expect(meds.getByText('Hôm nay: 1/2 liều', { exact: true })).toBeVisible();
+    const skipped = await logDose('Bỏ qua liều này', 'skipped');
+    expect(skipped.find((row: any) => row.id === dose.id)).toMatchObject({ medicationId, time: '08:00', status: 'skipped' });
+    await expect(meds.getByText('Hôm nay: 0/2 liều', { exact: true })).toBeVisible();
+    expect(await logDose('Bỏ qua liều này', 'none')).toEqual(beforeLogs.logs);
+    await logout(page);
+    const childToken = await login(page, 'child');
+    await openHealth();
+    await health.getByRole('button', { name: 'Tăng trưởng', exact: true }).click();
+    const deniedGrowth = await page.request.post('/api/child-health/growth', { headers: { Authorization: 'Bearer ' + childToken }, data: { childId: 'browser-child', date: '2026-10-13', heightCm: 120, weightKg: 22 } });
+    expect(deniedGrowth.status()).toBe(403);
+    await expect(health.getByText('BMI 22.5 · Bình thường', { exact: true })).toHaveCount(0);
+    const childHealth = await api(page, '/api/child-health', childToken);
+    expect(childHealth.status).toBe(200);
+    expect(JSON.parse(childHealth.text).growthRecords.some((row: any) => row.id === growthId)).toBe(false);
+    const childMedications = await api(page, '/api/medications', childToken);
+    expect(childMedications.status).toBe(200);
+    expect(JSON.parse(childMedications.text).medications.some((row: any) => row.id === medicationId)).toBe(false);
+    expect((await api(page, '/api/medications/logs', childToken)).status).toBe(403);
+  } finally {
+    // Logout revokes the original token; acquire a fresh synthetic admin session for owned cleanup.
+    const cleanupLogin = await page.request.post('/api/auth/login', { data: { username: 'browser-admin', password: 'synthetic-browser-password' } });
+    expect(cleanupLogin.status()).toBe(200);
+    headers.Authorization = 'Bearer ' + (await cleanupLogin.json()).token;
+    if (medicationId) expect((await page.request.delete('/api/medications/' + medicationId, { headers })).status()).toBe(200);
+    if (growthId) expect((await page.request.delete('/api/child-health/growth/' + growthId, { headers })).status()).toBe(200);
+    expect(await get('/api/child-health')).toEqual(beforeHealth);
+    expect(await get('/api/medications')).toEqual(beforeMeds);
+    expect(await get('/api/medications/logs')).toEqual(beforeLogs);
+  }
+});
