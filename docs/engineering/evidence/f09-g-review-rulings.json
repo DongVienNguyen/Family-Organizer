@@ -1,0 +1,17 @@
+{
+  "taskId":"F09-g",
+  "reviewCount":1,
+  "reviewedHead":"e6dd8cde62e44f24c067d3cfbac63ce05a2d5baa",
+  "baseSha":"eebddef64a86aadcb8ede2e94ff7e6797f18936a",
+  "reviewerGrades":{"critical":0,"important":1,"minor":2},
+  "authorGrades":{"critical":0,"important":1,"minor":2},
+  "findings":[
+    {"id":1,"grade":"Important","decision":"accept","effect":"Mandatory ICS equality fails when DTSTAMP crosses a wall-clock second.","fix":"Prove failure with controlled advancing Date; freeze only Date for this test, restore it in finally and preserve all assertions."},
+    {"id":2,"grade":"Minor","decision":"defer","effect":"Socket timeout is inactivity-based and response abort can leave fixture work pending until outer test timeout.","next":"Focused HTTP fixture absolute-deadline and response error/abort hardening; current suite uses ordinary bounded local app handlers."},
+    {"id":3,"grade":"Minor","decision":"defer","effect":"sqliteLoad equality is complete legacy snapshot, not every native session/command table.","next":"Final F09 mapping must use complete legacy snapshot wording; no wider table immutability claim."}
+  ],
+  "allFindingsGradedBeforeFixPass":true,
+  "fixPassCount":1,
+  "reReview":false,
+  "scopeRulings":"Existing actor/token/time/JUnit policies retained; no demand for exhaustive combinations or unrelated tables. Browser/import/flags/native/fullF09/2019/publication remain separately pending."
+}

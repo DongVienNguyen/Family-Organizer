@@ -1,7 +1,7 @@
 import http from 'node:http';
 import {once} from 'node:events';
 import {randomUUID} from 'node:crypto';
-import {it,expect} from 'vitest';
+import {it,expect,vi} from 'vitest';
 import {createApp} from './app.js';
 import {createAuth} from './auth.js';
 import {NativeSessionStore} from './authStore.js';
@@ -32,10 +32,12 @@ it('filters persisted private plans and refuses unauthorized writes without chan
  expect((await send('/api/plans',UserRole.GUEST,{title:'Synthetic forbidden'})).status).toBe(403);expect((await send('/api/plans')).status).toBe(401);expect(sqliteLoad()).toEqual(before);
  const edited=await send('/api/plans',UserRole.ADMIN,{...before.plans[0],title:'Synthetic administrator edit'});expect(edited.status).toBe(200);expect(edited.body.plan).toMatchObject({id:'synthetic-private',creatorId:UserRole.MEMBER,isShared:false,title:'Synthetic administrator edit'});expect(sqliteLoad().plans).toEqual([edited.body.plan,before.plans[1]]);
 }));
-it('serves the existing shared ICS subscription with real recurrence, escaping, headers and token refusals',()=>fixture(async send=>{
+it('serves the existing shared ICS subscription with real recurrence, escaping, headers and token refusals',async()=>{
+ vi.useFakeTimers({toFake:['Date']});vi.setSystemTime(new Date('2026-10-13T12:00:00Z'));
+ try{await fixture(async send=>{
  const state=sqliteLoad(),common={description:'Synthetic line1\nline2',startDate:'2026-10-14 09:30',endDate:'2026-12-31 00:00',isRecurring:true,color:'sky',creatorId:UserRole.MEMBER,createdAt:'2026-10-11T00:00:00Z'};state.plans=[{...common,id:'synthetic-weekly',title:'Synthetic comma, semi; slash\\',isShared:true,recurrenceType:'weekly',recurrenceWeekdays:[1,3]},{...common,id:'synthetic-private',title:'Synthetic private secret',isShared:false,recurrenceType:'daily'}];sqliteSave(state);const before=sqliteLoad();
  expect((await send('/api/calendar/feed-info')).status).toBe(401);const info=await send('/api/calendar/feed-info',UserRole.MEMBER);expect(info.status).toBe(200);expect(info.body).toEqual({path:'/api/calendar.ics',token:ics.icsFeedToken()});
  const feed=await send('/api/calendar.ics?token='+info.body.token);expect(feed.status).toBe(200);expect(feed.headers['content-type']).toContain('text/calendar');expect(feed.headers['content-disposition']).toBe('inline; filename="family-calendar.ics"');expect(feed.headers['cache-control']).toBe('no-store');expect(feed.body).toBe(ics.buildIcsFeed());
  expect(feed.body).toContain('X-WR-TIMEZONE:Asia/Ho_Chi_Minh\r\n');expect(feed.body).toContain('DTSTART:20261014T093000\r\nDTEND:20261014T103000');expect(feed.body).toContain('RRULE:FREQ=WEEKLY;BYDAY=MO,WE;UNTIL=20261231T235959');expect(feed.body).toContain('SUMMARY:Synthetic comma\\, semi\\; slash\\\\');expect(feed.body).toContain('DESCRIPTION:Synthetic line1\\nline2');expect(feed.body).not.toContain('Synthetic private secret');expect(feed.body.match(/BEGIN:VEVENT/g)).toHaveLength(1);
  for(const query of ['', '?token=synthetic-invalid','?token[]=synthetic-invalid']){const refused=await send('/api/calendar.ics'+query);expect(refused.status).toBe(401);expect(refused.body).toBe('Invalid token');}expect(sqliteLoad()).toEqual(before);
-}));
+});}finally{vi.useRealTimers();}});

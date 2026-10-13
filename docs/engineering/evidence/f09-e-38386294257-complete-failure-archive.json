@@ -1,0 +1,34 @@
+{
+  "taskId": "F09-e-diagnostic-report-budget",
+  "testedHeadSha": "9b0bef66952143a0c0ba0e870154c210f2c3212e",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38386294257",
+  "conclusion": "failure",
+  "rawNonBrowserValidators": {
+    "quality": 0,
+    "coverage": 0,
+    "package": 0,
+    "service": 0,
+    "caddy": 0,
+    "extraction-sdk": 0
+  },
+  "node22And24": {
+    "tests": 2656,
+    "files": 128,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0
+  },
+  "summaryHashes": {
+    "quality": "1a0002df3a523eea3b3edc31c9734e9c500718067939a622c514646f2565ac06",
+    "coverage": "9a8a9bcc7fd4ff780b5d862ec0cee7c0280a1cc4b69b2a2fe45ead784310dff3",
+    "package": "8d8e5ca4b68cc4bb1ba4ee5c1accd08be8ac141ed7180fa19b4f8a8b36815222",
+    "service": "283f426cb3ad86f7ce6e41fa2518cf459953388285687338622ec03c018f918b",
+    "caddy": "19fb82a9e6e0c9a5fb08afd071e08409da99247c489bbc2408926133669dff04",
+    "extraction-sdk": "11a0ec4d770ea68222971240f37b36f77cd597f34ae06ad5005718d6d2ccf332"
+  },
+  "fullCiLogSha256": "78e1a5c06e972afb906437263b292fd023b396b92b0c36beb6262f12a0b6362f",
+  "browser": "27 original first-attempt functional cases passed; DEBUG logging enlarged valid JUnit beyond64MiB budget, browser/gate failed; not acceptance",
+  "subsequentAcceptedProfileHead": "b8353ff30ae362499be531c55f56aea2702c1176",
+  "subsequentAcceptedRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38391576329",
+  "server2019Acceptance": "not-run"
+}

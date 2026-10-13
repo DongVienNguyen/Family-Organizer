@@ -14,7 +14,7 @@
   "lintExit": 0,
   "buildExit": 0,
   "sourceHashes": {
-    "server/legacyCalendarHttp.test.ts": "e3ca2031eff24a793c8f2e8717ba74e237ac827dc0e4001f97a1d144b78458f0",
+    "server/legacyCalendarHttp.test.ts": "6a5559fe63e7708a74e2cbc5f33c0359bfc37eb22ebc5772d10994a040651589",
     "scripts/ci/write-evidence.mjs": "2076a192b5b34219e94aa92e9755279f1ff9f8340483640e3903ae3b719fbb21",
     "tests/evidence.test.ts": "a53dd8256196ae890614afbaa49ff0f63b9a780cb172cb576bdbd6f24469d323"
   },
@@ -24,9 +24,15 @@
     "f09-g-target.json": "00f47f221f509c6c939c593bf568930a188c54241be801515afaaf99cd2cd516",
     "f09-g-full.json": "47cbe58c060cdb1c060a72b29f6706dc44363480a085355a595a771221955402",
     "f09-g-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
-    "f09-g-build.log": "ffc4a43379cc9eebb696f3d6023f5dbf393bd778090321a6a6c668f8f5dd3cc1"
+    "f09-g-build.log": "ffc4a43379cc9eebb696f3d6023f5dbf393bd778090321a6a6c668f8f5dd3cc1",
+    "f09-g-clock-red.json": "24b47657425d0873be47835765f37b85551198255a41f3bafad457bf0a52319c",
+    "f09-g-clock-green.json": "402b6ba0a4da53f924c3595c2fa96d2d123438d084ac1514c067e641c9c31680",
+    "f09-g-review-target.json": "9b9614158379932b1cbd7df1d87f32362ddb8c777761df5d967abb348cf32f59",
+    "f09-g-review-full.json": "c5adafd003fb7ceb3f3fe071001579e9611b0711d40fcaafa3b9af93a6662061",
+    "f09-g-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-g-review-build.log": "6fdb76a9a06bc52d3f1ff190372f2e3dd8494bb9d84af7a5b25f10b3551ecfe7"
   },
-  "review": "pending one fresh wholebranch",
+  "review": "ONE e6dd8cd/baseeebddef reviewer/author0C1I2M; allgradedbeforeONEfixpass; clockImportant fixed;2Minors deferred/no rereview",
   "windows": "not-run",
   "remaining": [
     "Calendar browser UI",
@@ -35,5 +41,7 @@
     "Complete F09"
   ],
   "server2019Acceptance": "not-run",
-  "publicationAllowed": false
+  "publicationAllowed": false,
+  "reviewActualRed": 1,
+  "clockFaultInjectionScope": "AdvancingDate test-only preload,1selectedRED\u2192sameconditionGREEN;other2notselected, fullnormal2637allpass"
 }
