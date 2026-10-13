@@ -856,6 +856,10 @@ test('B15 calendar private edit reload and child boundary', async ({ page }) => 
     const plan = (await response.json()).plan;
     planId = plan.id;
     expect(plan).toMatchObject({ title, startDate: today.iso + ' 00:00', creatorId: 'browser-member', isShared: true, isRecurring: true, recurrenceType: 'daily' });
+    // External API setup bypasses React's mutation callback and may precede SSE.
+    // Hydrate the persisted fixture before exercising the UI editor.
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic member', exact: true })).toBeVisible();
     await page.locator('aside nav').getByRole('button', { name: 'Lập Lịch', exact: true }).click();
     await expect(schedules).toBeVisible();
     await schedules.getByTitle('Xem dạng Danh sách thời gian', { exact: true }).click();
