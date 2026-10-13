@@ -11,13 +11,41 @@
   "todo": 0,
   "lintExit": 0,
   "buildExit": 0,
-  "fullReportSha256": "a55fffee9868e41dccb71d9cf307d9e02317b4c5e700320b0c92de2166864551",
+  "fullReportSha256": "c12b7cc08c5925d872dd569be51e31b1ef6ffbdcf9ce0062f77a6fcd85d0f9f1",
   "nodeVersion": "v24.21.0",
   "workers": 1,
   "browserDiscoveryOnly": 27,
   "actualBrowserExecution": "not-run",
-  "review": "not-run",
+  "review": "One original0C1I1M; author0C2I0M; allrulings beforeonepass; member readiness RED\u2192GREEN/full2251 and source identity bound; no rereview",
   "ci": "not-run",
   "remaining": "Rebase onto corrected F08-f main, newfull, onefreshreview, exactWindows27cases",
-  "releaseTagVps": "forbidden"
+  "releaseTagVps": "forbidden",
+  "historicalSourceProof": {
+    "commitSha": "43ee20fd22305dba6129fed9f98f14a5c41dbd4c",
+    "fullGreen": 2251,
+    "fullFiles": 114,
+    "fullReportSha256": "a55fffee9868e41dccb71d9cf307d9e02317b4c5e700320b0c92de2166864551",
+    "sourceFileSha256": {
+      "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+      "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+      "tests/e2e/foundation.spec.ts": "a139f6592d785d3fd7c4812cb225ed6b13dfbe3436e3972075181d0c3faf784c"
+    }
+  },
+  "testedSourceSnapshot": {
+    "commitSha": "097ff131114d4c17026c888248f0dbabc86c3fdd",
+    "sourceFileSha256": {
+      "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+      "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+      "tests/e2e/foundation.spec.ts": "51df6f3a8fff856d5fbbf3e3970521df0a60cea13ef3822eb4352981070c3ac8",
+      "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+    },
+    "executionState": "Exact source bytes frozen during verification and committed afterward; generated evidence/review docs later"
+  },
+  "memberReadiness": {
+    "actualDomRed": 1,
+    "greenCases": 3,
+    "scope": "CloudLinux owned synthetic DOM helper; not Windows/app acceptance",
+    "redReportSha256": "ced124beaa8475ec3a551a4bd58e302a6494e57f8779c19ac24a59705ae98f80",
+    "greenReportSha256": "f62b4d5ac54cfbe16c174210302215b96a3642a91b76e60ed63e0ce205f69a76"
+  }
 }

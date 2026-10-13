@@ -1,0 +1,48 @@
+{
+  "taskId": "F09-e",
+  "reviewCount": 1,
+  "reviewedHeadSha": "43ee20fd22305dba6129fed9f98f14a5c41dbd4c",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "rulings": [
+    {
+      "finding": "Child negative controls may pass before asynchronous member rows render",
+      "ruling": "accepted",
+      "severity": "Important",
+      "correction": "Require every expected synthetic member row visible before checking absent controls; real DOM adversarial fixture demonstrates vacuity refusal"
+    },
+    {
+      "finding": "Frozen source identity omitted from development proof",
+      "ruling": "accepted",
+      "severity": "Important",
+      "reason": "Promoted from reviewerMinor: user andAGENTS require exact source identity for acceptance evidence",
+      "correction": "Record committed frozen source and Git byte hashes separately from generated laterdocs/review commits"
+    }
+  ],
+  "declinedRulings": [
+    "Broader adminCRUD/password/moduleflags/settings not proven or claimed",
+    "No new domains/SSE-specific claims/nondefault-profile relogin beyond statedrestore flow",
+    "B01Markdown issue belongs to separatecorrected F08-f source inherited aftermerge",
+    "Cloud tests/browserdiscovery are not actualWindows27cases/Server2019 acceptance"
+  ],
+  "fixPass": "One authorpass complete: realDOMmissingrows wronglyaccepted1RED\u21923GREEN; full2251/114/lintbuild0; sourceidentity recorded; newbase/exactWindows pending",
+  "rereview": false,
+  "correctedSourceSnapshot": {
+    "commitSha": "097ff131114d4c17026c888248f0dbabc86c3fdd",
+    "sourceFileSha256": {
+      "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+      "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+      "tests/e2e/foundation.spec.ts": "51df6f3a8fff856d5fbbf3e3970521df0a60cea13ef3822eb4352981070c3ac8",
+      "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+    },
+    "executionState": "Exact source bytes frozen during verification and committed afterward; generated evidence/review docs later"
+  }
+}
