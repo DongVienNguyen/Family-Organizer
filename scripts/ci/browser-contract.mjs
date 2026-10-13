@@ -7,6 +7,7 @@ export const browserCases = [
   'B05 account switch removes previous data',
   'B06 shopping and offline meal persistence',
   'B07 legacy finance create edit delete persistence',
+  'B08 adult child approval rewards persistence',
 ];
 export function validateBrowserReports(input) {
   const errors = [];

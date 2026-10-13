@@ -1,0 +1,67 @@
+{
+  "taskId": "F09-d",
+  "scope": "Existing adult-assigned Child submission/adult approval/reward persistence browser flow only; no application change or new Matrix/Kanban/Wallet feature",
+  "baseSha": "1f4cef43655b43b32ff018460fcf4b58a28cc0c1",
+  "policyAvailabilityRed": 1,
+  "targetGreen": 58,
+  "fullGreen": 2250,
+  "fullFiles": 114,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "d697855dd00435c0f77a78e76f40c08eb7aebadb2e99d2906ef79f99cfd01108",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "browserDiscovery": {
+    "count": 24,
+    "files": 1,
+    "actualBrowserExecution": false
+  },
+  "browserNative": "not-run",
+  "review": "one complete0Critical0Important1Minor; source snapshot traceability accepted in one documentation correction, no rereview",
+  "ci": "not-run",
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden",
+  "checks": [
+    "UIadultcreateandChildassignment17points",
+    "reloadcreatedTaskfullRow",
+    "Childstartandsubmitproof",
+    "pendinginprogressnotcompleted",
+    "noRewardBeforeApproval",
+    "ChildapprovalUIhiddenanddirectHTTP403",
+    "reloadpendingfullRow",
+    "adultUIapprovecompleted",
+    "exactlyoneChildgrantandtotalsdelta",
+    "priorledgerrowspreserved",
+    "freshduplicateapproval400doesnotgrant",
+    "reloadapprovedfullRowandrewards",
+    "ChildreloginandreloadseessameTaskandownGrant"
+  ],
+  "testedSourceSnapshot": {
+    "commitSha": "f5c8fc6d789238b50d53cc9274c7af24bbb4f58d",
+    "executionState": "Source frozen while dirty, these exact source bytes committed after full verification; documentation generated afterward",
+    "sourceFileSha256": {
+      "scripts/ci/browser-contract.mjs": "a7501e1a45cc356ab46345188010a8211dbf8d2fc8fa3bd87f6662d6227d7f05",
+      "tests/browser-evidence.test.ts": "fdd93172d1cdb6aa37379d0926b6cf79e5dea531fea372f153b5ad2dac7f2046",
+      "tests/e2e/foundation.spec.ts": "ecb5776c4336a369bcda62449136827bfa3d7336bc067fee8b282df82510b3fa"
+    }
+  },
+  "historicalSourceProof": {
+    "baseSha": "fb11d05eb565375e0a00fb6feb0c15b4c2508235",
+    "fullGreen": 2151,
+    "fullFiles": 110,
+    "fullReportSha256": "50a4893ad4603702469aabcea5c15ede0556b99ad7546f27feea593a319cd32b",
+    "testedSourceSnapshot": {
+      "commitSha": "f5c8fc6d789238b50d53cc9274c7af24bbb4f58d",
+      "executionState": "Source frozen while dirty, these exact source bytes committed after full verification; documentation generated afterward",
+      "sourceFileSha256": {
+        "scripts/ci/browser-contract.mjs": "a7501e1a45cc356ab46345188010a8211dbf8d2fc8fa3bd87f6662d6227d7f05",
+        "tests/browser-evidence.test.ts": "fdd93172d1cdb6aa37379d0926b6cf79e5dea531fea372f153b5ad2dac7f2046",
+        "tests/e2e/foundation.spec.ts": "ecb5776c4336a369bcda62449136827bfa3d7336bc067fee8b282df82510b3fa"
+      }
+    }
+  },
+  "rebaseSourceBytes": "Three reviewed B08 source files identical to f5c snapshot; parent SDK/extraction gates inherited from acceptedPR44"
+}

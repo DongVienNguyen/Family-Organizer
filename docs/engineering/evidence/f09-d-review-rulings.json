@@ -1,0 +1,36 @@
+{
+  "taskId": "F09-d",
+  "reviewCount": 1,
+  "reviewedHeadSha": "f5c8fc6d789238b50d53cc9274c7af24bbb4f58d",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "rulings": [
+    {
+      "severity": "Minor",
+      "finding": "Frozen source proof only names baseline, not tested dirty-source snapshot",
+      "ruling": "accepted",
+      "correction": "Bind exact committed source snapshot and three Git-byte SHA256 hashes; distinguish later docs/review commit"
+    }
+  ],
+  "declinedRulings": [
+    "Vietnamese/FancySelect/portal selectors match source",
+    "Tasks tab survives session/reload navigation; login awaits profile",
+    "Mutation waiters precede commands; full-row reload checks wait for UI",
+    "Current time/default tomorrow due/30day completed window; B07 uses separate context",
+    "Sequential engine-specific tasks preserve nonempty prior ledger rows",
+    "Child self-approval403/pendingnoReward/adult17pointgrant/freshduplicate400 match server",
+    "Reward-panel rendered balances/history not verified; no such claim",
+    "All old7flows retained/24exactfirstattemptcases required/counterfeit21 rejected",
+    "No new app/concurrency/mixed-backup/finance/Matrix/Wallet/Server2019 acceptance"
+  ],
+  "fixPass": "one documentation correction; source bytes unchanged from full2151/110/lintbuild0 and58target; native24cases unrun",
+  "rereview": false
+}
