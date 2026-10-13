@@ -1,16 +1,16 @@
 # Tiến độ Windows-native
 
-## Current checkpoint — 2026-10-13 (after handoff Windows acceptance)
+## Current checkpoint — 2026-10-13 (after health Windows acceptance)
 
 **The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains behind the foundation gate. Historical failures and earlier snapshots below remain intact.
 
 | Work | Current evidence / remaining step |
 | --- | --- |
-| Accepted main | PR61 squash `509463cd110e9d02644bf111c3a763a64e4e3613`; tree independently equals tested `4cfbb060799ac93d70b89a7180ceadbb0b2b4e16` |
-| Windows quality/package/service | [CI38412662703](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38412662703): all7 checks/eight independent raw validators; both Node22/24 each2792 tests/136 files, zero failed/pending/todo;30 first-attempt browser cases |
+| Accepted main | PR62 squash `0a0412238f6b42ecbd78ee635a5bd8705f919776`; tree independently equals tested `71e350ccfae8203054b501a7c5bf905e7a7334c4` |
+| Windows quality/package/service | [CI38414676195](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414676195): all7 checks/eight independent raw validators; both Node22/24 each2795 tests/136 files, zero failed/pending/todo;33 first-attempt browser cases |
 | Assistant UI/source correction | PR60 accepted loading/real400/Escape/reopen/settled controls; owned fetch gate retains privacy worker and original native request. Launcher focus-before-open fix has distinct fresh review and meaningful unit/gate RED. Earlier29/30 failures38404820753 and38406556796 archived |
 | Full read-only collector | PR59 accepted; [live38404316314](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38404316314) independently verified all7 archives/raw/Git/innerZIP/licenses/normalized tuple for explicit historical38/CI38358093544. Final reportsVerified/consumerFunctionalVerified=true; publicationAllowed=false |
-| Handoff preparation F08-n | One review0C0I0M; own five sources byte-identical after accepted60 composition. Cloud2792/136,234target,lint/build0; same read-only collector, candidate/promotion intent blocked. PR61 exact Windows all7/eightraw/30 accepted and merged; actual trusted-main candidate/promotion preparation live proofs pending |
+| Handoff preparation F08-n | One review0C0I0M; own five sources byte-identical after accepted60 composition. Cloud2792/136,234target,lint/build0; same read-only collector, candidate/promotion intent blocked. PR61 exact Windows all7/eightraw/30 accepted and merged; actual trusted-main [candidate38414439837](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414439837) and [promotion38414445312](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414445312) preparation independently verified; both releaseCreated/tagCreated/publicationAllowed=false |
 | Legacy health/calendar/documents/search | Focused independent slices reviewed or under review; Cloud diagnostics alone are not Windows33/36/39 acceptance. No new features enabled |
 | F09 remaining | Complete reviewed legacy browser slices, notification/dashboard/import/flag mapping and final foundation acceptance; old documentation promise of a masked first-account wrapper is unimplemented, while compiled bounded-stdin initialization is verified; no new foundation requirement is inferred |
 | F05 blocker | Actual ruleset/branch-protection writes403; integration Administration write remains unusable, main enforcement absent |
@@ -1362,3 +1362,5 @@ F09-j reviewed61/accepted60provisionalcomposition: ownB11suffix andtwogatefilesb
 
 F09-k reviewedhealth+N/i1provisionalcomposition: ALL3ownsourcefilesbyteidentical4abfreshreview0C0I0M, health33wholeprefix retained. FullCloud2798/136 all0/165target/lintbuild0; mandatorycandidate/focus/native/AI/calendar/healthgates intact. No sourcefixpass/rereview; parenthealthnative/mainthenexactWindows36required.
 F08-n PR61tested4cf/CI38412662703 all7/eightraw0/both2792/136/30firstattempt merged509463c/treeequal, compactNfinalarchived. Actualmaincandidate/promotepreparationdispatchesstarted/read-only/pubfalse. F09-j accepted509463c compositionall3sourcehashesunchangedfrom2795/136 verifiedCloud162target/lintbuild0; ownB11+2gatefilesreviewedde3 unchanged; no redundantCloudrepeat/review/sourcefixpass. NewexactWindows33required. Maskedfirstaccountwrapper olddocpromise absent; compiledboundedstdinoperator alreadyverified andformalplan doesnotrequiremaskedwrapper, notinventedentrygate.
+
+F09-j PR62tested71/CI38414676195 all7/eightraw0/both2795/136/33firstattempt merged0a04122/PR-main-treeequal, compactj-final archived. F08nmain509actualcandidate38414439837/promotion38414445312 independentlyfullGit/API/raw/hash/inner/license/normalizedtuple/handoffverified; pubfalse/releaseCreatedfalse/tagCreatedfalse/no actualrelease/VPS. F09-k accepted0amain integration all3ownsourcehashesunchanged2798/136/165target/lintbuild0 verifiedCloud, wholeaccepted33prefix retained; ONEreview0C0I0M/zero sourcefixpass/no rereview/no redundantCloudrepeat. ExactnewWindows36required.

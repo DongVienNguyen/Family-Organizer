@@ -1,0 +1,65 @@
+{
+  "taskId": "F08-n-live-candidate",
+  "workflowSourceSha": "509463cd110e9d02644bf111c3a763a64e4e3613",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414439837",
+  "explicitTargetSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38358093544",
+  "archives": 7,
+  "archiveBytes": 61283482,
+  "expandedBytes": 101242387,
+  "receiptHashes": {
+    "release-metadata.json": "ca10f9ca568f1155bdc1576a2678c47f0a645c2721103db0ab17d6548a724ff8",
+    "release-archives.json": "8ce7be723c408f8ace2d91e3b6f924dd8a4444dbf57c288cebee414af267aed0",
+    "release-report-preflight.json": "b12f5ea7d4279b9c9ead15a74d868973fcc8dd6ad3dba519c4cdea52679254af",
+    "release-evidence.json": "eef458d57209ad7a362275d14d15aaa2003a5884466d7136b6f94f86de468406",
+    "candidate-handoff.json": "908b211bcc23a47e83f22980aaaf29ba305f5d2b0bc932fc279947180dcad0ea"
+  },
+  "fullWorkflowLogSha256": "17bb5b5b211f8f15a20b76e5f013e303f4ce545d21b328730475e14f97724de4",
+  "reportsVerified": true,
+  "consumerFunctionalVerified": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "handoff": {
+    "format": 1,
+    "kind": "publication-disabled-candidate-handoff",
+    "request": {
+      "repository": "DongVienNguyen/Family-Organizer",
+      "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+      "version": "1.1.0",
+      "tag": "v1.1.0",
+      "runId": 38358093544
+    },
+    "package": {
+      "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+      "appVersion": "1.1.0",
+      "zipSha256": "59387d2933e7f2f9b95b4f50e3e310a3505ad5b319c925d6bffc017d89a4f436",
+      "zipSize": 54558233,
+      "manifestSha256": "0422c82071398635eb308cf469a7b9becec7f1339a910dd096752b1d47cd0c07"
+    },
+    "assets": {
+      "zip": {
+        "name": "family-organizer-1.1.0-38d6a3a2c166e62cc6cacf37ead6221204e68629-win-x64.zip",
+        "sha256": "59387d2933e7f2f9b95b4f50e3e310a3505ad5b319c925d6bffc017d89a4f436",
+        "bytes": 54558233
+      },
+      "manifest": {
+        "name": "release-manifest.json",
+        "sha256": "0422c82071398635eb308cf469a7b9becec7f1339a910dd096752b1d47cd0c07"
+      }
+    },
+    "candidatePublication": "blocked-source-lock",
+    "promotion": "blocked-source-lock-and-actual-server2019-acceptance",
+    "publicationAllowed": false,
+    "releaseCreated": false,
+    "tagCreated": false,
+    "server2019Acceptance": "not-run"
+  },
+  "preparationMode": "candidate",
+  "qualityEach": 2393,
+  "qualityFilesEach": 119,
+  "browserFirstAttempt": 24,
+  "innerNativeFiles": 4582,
+  "innerNativeExpandedBytes": 163645351,
+  "dependencies": 236,
+  "scope": "Actual read-only main509 preparation overexplicit historical38; independentlyAPI/Git/raw/hash/inner/license/normalizedtuple/handoff verified. No release/tag/copy/deploy/currentfullF09/Server2019authority."
+}
