@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "scope": "Foundation source draft pending same-HEAD Windows acceptance; complete master plan unfinished.",
+  "foundationGate": "blocked",
+  "acceptedWindowsSnapshot": {
+    "taskId": "F09-k",
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/63",
+    "testedHeadSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38418423525",
+    "mergeSha": "289f3cb6d69bfc90bb30691ac88e5c3546675fba",
+    "mainTreeEqualsTestedHead": true,
+    "qualityEach": 2798,
+    "qualityFilesEach": 136,
+    "browserFirstAttempt": 36,
+    "checks": [
+      {
+        "name": "ci-gate",
+        "headSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows disposable service",
+        "headSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package clean consumer",
+        "headSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node22 baseline",
+        "headSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows production browsers",
+        "headSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows Node24 baseline",
+        "headSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+        "conclusion": "success",
+        "githubAppId": 15368
+      },
+      {
+        "name": "Windows package producer",
+        "headSha": "6f477b6c6a061f08eaade63962c68855d5ded95c",
+        "conclusion": "success",
+        "githubAppId": 15368
+      }
+    ],
+    "summaryHashes": {
+      "quality": "2f23150bb8f97feae0f4a455d42ccf9bcba6adb08781c06e3e2538305be17e53",
+      "coverage": "5ea37636b4e7cc6b936af99e3a5258c47206d89dcbcf964d1a9162a0d0f6c4e9",
+      "browser": "076774a54abc7480354653958c03bf358d89d2e74c47f04b779931fd82baf860",
+      "package": "d165bd9c7144b970583e2d412523b83bb532dcd1f5ece763106e5da0385243df",
+      "service": "639f366fb204328b78fcd09719b7039e34c9ccdb0b15ef3ef95ac943d7a54d45",
+      "caddy": "cab6d7c382b4b02693a3717ae420ebd45ec1547254d06309b8d61052d9848436",
+      "extraction-sdk": "e3436a5630ef51d84204c717439d266ecca3e9ae5d0f0e862ecd5e2ab43b988c",
+      "inner-native": "6e9668da8a17eb88847388b1892b27816d32ff7b88e73151fca338e597d8b725"
+    }
+  },
+  "currentSourceDraft": {
+    "taskId": "F09-n",
+    "baseSha": "884803a21cd0b826c6e44423217a0d6891184b1e",
+    "cloudTests": 2813,
+    "cloudFiles": 138,
+    "cloudFailed": 0,
+    "cloudPending": 0,
+    "cloudTodo": 0,
+    "windows": "not-run",
+    "review": "pending"
+  },
+  "blockers": [
+    {
+      "taskId": "F05",
+      "status": "blocked",
+      "reason": "Actual GitHub ruleset and branch protection writes HTTP403 Resource not accessible by integration; main enforcement absent, no bypass claimed",
+      "evidence": "evidence/f05-restored-environment-enforcement.json"
+    },
+    {
+      "taskId": "F08/R01",
+      "status": "publication-blocked",
+      "reason": "Read-only full collector and handoff implemented; actual release/tag creation unauthorized"
+    },
+    {
+      "taskId": "R02",
+      "status": "not-run",
+      "reason": "Actual Server2019 build17763/reboot/proxy/TLS/off-host/load/RPO/RTO staging unprovisioned and unrun"
+    },
+    {
+      "taskId": "R03",
+      "status": "not-run",
+      "reason": "VPS access/deployment unauthorized"
+    }
+  ],
+  "pendingTasks": {
+    "P": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P09",
+      "P10",
+      "P11",
+      "P12",
+      "P13",
+      "P14",
+      "P15",
+      "P16",
+      "P17",
+      "P18"
+    ],
+    "W": [
+      "W01",
+      "W02",
+      "W03",
+      "W04",
+      "W05",
+      "W06",
+      "W07",
+      "W08",
+      "W09",
+      "W10",
+      "W11",
+      "W12",
+      "W13",
+      "W14",
+      "W15",
+      "W16",
+      "W17",
+      "W18"
+    ],
+    "I": [
+      "I02",
+      "I03"
+    ],
+    "R": [
+      "R01",
+      "R02",
+      "R03"
+    ]
+  },
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

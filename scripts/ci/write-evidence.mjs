@@ -65,7 +65,7 @@ const requiredSuites = [
   'tests/release-collector-evidence.test.ts',
   'src/utils/assistantFocus.test.ts',
   'tests/release-candidate-handoff.test.ts',
-  'src/utils/notificationRead.test.ts',];
+  'src/utils/notificationRead.test.ts', 'server/legacyFlagsHttp.test.ts',];
 for (const required of requiredSuites) {
   if (!suites.some(suite => suite.name === required)) errors.push(`required suite missing: ${required}`);
 }

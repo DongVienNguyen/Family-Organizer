@@ -88,7 +88,7 @@ Giao diện Neumorphism, hỗ trợ Light / Dark mode với hiệu ứng chuyể
 
 - Sự kiện đơn ngày và nhiều ngày, hiển thị dạng lưới theo thời gian
 - Xuất file `.ics` tương thích iOS / Android / Google Calendar
-- Private calendar feed (`/api/calendar.ics?token=...`) — đồng bộ 2 chiều với ứng dụng lịch bên ngoài
+- Private calendar feed (`/api/calendar.ics?token=...`) — feed chỉ đọc để ứng dụng lịch bên ngoài đăng ký
 - Deep-link từ thông báo đẩy mở thẳng vào sự kiện cụ thể
 
 ### 📝 Ghi Chú (Notes)
