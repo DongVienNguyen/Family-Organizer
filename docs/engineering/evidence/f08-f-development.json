@@ -1,0 +1,27 @@
+{
+  "taskId": "F08-f",
+  "scope": "Staged native/runtime/production/audit/raw coverage collector; whole reports and publication remain disabled",
+  "baseSha": "1f4cef43655b43b32ff018460fcf4b58a28cc0c1",
+  "availabilityRed": {
+    "runtimePolicy": 44,
+    "runtimeFiles": 8,
+    "coverageFiles": 20
+  },
+  "gateRed": 3,
+  "targetGreen": 232,
+  "fullGreen": 2324,
+  "fullFiles": 117,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "05cde9152d8200696beb7817df038abaa88dce6e2963101010e887ec22377f88",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "actualOldWindowsRawFiles": "Both PR44 runtimes validated by Cloud helper only; not new Windows/live adapter acceptance",
+  "ci": "not-run",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false,
+  "reportsVerified": false
+}
