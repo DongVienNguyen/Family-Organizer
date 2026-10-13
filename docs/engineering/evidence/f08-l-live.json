@@ -1,0 +1,46 @@
+{
+  "taskId": "F08-l-live",
+  "workflowSourceSha": "a8f89c5e0d68c338c436bf6a05b27bf4b3e5bc92",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395149608",
+  "workflowConclusion": "success",
+  "explicitTargetSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38358093544",
+  "archives": 7,
+  "archiveBytes": 61283482,
+  "outerExpandedBytes": 101242387,
+  "actualNativeInnerExtraction": {
+    "archiveSha256": "59387d2933e7f2f9b95b4f50e3e310a3505ad5b319c925d6bffc017d89a4f436",
+    "expandedBytes": 163645351,
+    "exitCode": 0,
+    "entryCount": 4582,
+    "archiveBytes": 54558233,
+    "files": 4582
+  },
+  "verifiedInnerFiles": 4581,
+  "licenseAudit": {
+    "policyVersion": 1,
+    "dependencies": 236,
+    "embeddedReadmeNotices": [
+      "cookie-signature",
+      "data-uri-to-buffer",
+      "isarray"
+    ],
+    "mplSourceFiles": 8,
+    "termsVerified": true,
+    "originalCopyrightPreserved": true
+  },
+  "innerPackageAgreement": true,
+  "licenseInventoryVerified": true,
+  "sourcePolicyVerifiedIndependently": true,
+  "receiptHashes": {
+    "release-metadata.json": "ca10f9ca568f1155bdc1576a2678c47f0a645c2721103db0ab17d6548a724ff8",
+    "release-archives.json": "8ce7be723c408f8ace2d91e3b6f924dd8a4444dbf57c288cebee414af267aed0",
+    "release-report-preflight.json": "4d46efb45bd43619889e52e60f50899c9fb1fa5c3467098a09fd7c70951266db"
+  },
+  "fullWorkflowLogSha256": "19cdb3352390fc98ad04781c54b8a7761a70568937b7b33e20daeb59ec9b1b0e",
+  "completeProofSha256": "a1f24b17aad1af0309c4aba1056c1bb39d817ba470de0659935cb6a373f2e892",
+  "reportsVerified": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "Normalized fullcollector/promotion preparation; remaininglegacyF09; F05 Administration403; no release/tag/VPS"
+}

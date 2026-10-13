@@ -30,6 +30,7 @@ const suiteNames = [
   'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'tests/httpDependencySecurity.test.ts', 'tests/account-initialization.test.ts', 'tests/librarySecurity.test.ts', 'server/weeklyDigestPrivacy.test.ts', 'server/weeklyDigestHttp.test.ts',
 
   'tests/browser-protocol.test.ts',
+  'server/legacyCalendarHttp.test.ts',
   'server/legacyAiHttp.test.ts',];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -291,4 +292,7 @@ it('requires actual native inner extraction receipt',()=>expect(runEvidence(repo
 it('rejects missing push permission startup regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('src/utils/pushSubscription.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: src/utils/pushSubscription.test.ts');});
 
 it('rejects missing browser protocol redaction regression suite',()=>{const suite='tests/browser-protocol.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it('rejects missing real legacy calendar HTTP regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('server/legacyCalendarHttp.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: server/legacyCalendarHttp.test.ts');});
+
 it('rejects missing real offline AI HTTP regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('server/legacyAiHttp.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: server/legacyAiHttp.test.ts');});
