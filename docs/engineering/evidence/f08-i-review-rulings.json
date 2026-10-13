@@ -1,0 +1,33 @@
+{
+  "taskId": "F08-i",
+  "reviewCount": 1,
+  "reviewedHead": "dbb2a638ede682fd17d0d2ff48aa06340557364c",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Runtime policy refactor inadvertently allows undeclared expected.productionRoot to override legacy release-with-spaces root requirement. Actual collector does not currently supply this field; API regression still material.",
+      "fix": "Pass only legacy commitSha/nodeVersion to shared production validator from runtime policy; consumer retains explicit app root. Direct and raw-reader regression before correction."
+    }
+  ],
+  "rulings": [
+    "Six phase/checklist families match existing writers; nonzero refusal phases must remain1, omissions/duplicates reject.",
+    "Production23 checks/seven incompatible-schema preservation invariants retained; consumer exact owned release/app root remains required.",
+    "Do not require fields actual production writer does not emit.",
+    "Synthetic helper inputs are not GitHub authority; actual collector obtains authenticated Git/API/archive bytes in one process.",
+    "Shared bounded file reader protections inherited.",
+    "InnerZIP/license/service/full reports/publication remain false; historical compatibility is not new Windows/Server2019 acceptance."
+  ],
+  "allGradedBeforeOneFixPass": true,
+  "secondReview": false
+}

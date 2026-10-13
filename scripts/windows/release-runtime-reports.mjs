@@ -31,7 +31,7 @@ export function validateReleaseRuntimeReports(input){
   for(const [name,value]of Object.entries({native:n,production:p,audit:a,auditContext:c}))require(isDeepStrictEqual(value,q?.[name]),'raw '+name+' contradicts quality receipt');
   require(windows(n)&&n?.nodeVersion===e?.nodeVersion&&n?.nodeABI===(e?.nodeVersion==='v22.23.3'?'127':'137')&&n?.addonVersion==='13.0.3'&&n?.bindingApi==='N-API'&&n?.nodeNapi==='10'&&n?.binaryPath==='prebuilds/win32-x64.node'&&n?.sqliteVersion==='3.53.4'&&n?.binarySha256===windowsSqliteBinarySha256,'unpinned native runtime/binary');
   require(sameSet(n?.checks,nativeChecks),'native checks incomplete/duplicate');
-  errors.push(...validateReleaseProductionReport(p,e));
+  errors.push(...validateReleaseProductionReport(p,{commitSha:e?.commitSha,nodeVersion:e?.nodeVersion}));
   require(a!==null&&typeof a==='object'&&!Array.isArray(a)&&!a.error&&a.vulnerabilities!==null&&typeof a.vulnerabilities==='object'&&!Array.isArray(a.vulnerabilities)&&Object.keys(a.vulnerabilities).length===0&&['info','low','moderate','high','critical','total'].every(name=>a.metadata?.vulnerabilities?.[name]===0),'audit missing/error/remaining vulnerabilities');
   require(windows(c)&&c?.commitSha===e?.commitSha&&c?.nodeVersion===e?.nodeVersion&&c?.lockSha256===e?.lockSha256,'audit runtime/source/lock context mismatch');
  }catch{errors.push('malformed native/runtime/audit reports');}return errors;
