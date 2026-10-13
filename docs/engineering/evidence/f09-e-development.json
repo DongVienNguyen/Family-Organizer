@@ -11,13 +11,13 @@
   "todo": 0,
   "lintExit": 0,
   "buildExit": 0,
-  "fullReportSha256": "ee4cef861f3360ec3cc32382b73a3601aba02ea30f6bf341338eb4391efea73f",
+  "fullReportSha256": "ca1c3a0558c7108eb96867e6052a58c879ff03a1897876eccffb1afd6f0f745a",
   "nodeVersion": "v24.21.0",
   "workers": 1,
   "browserDiscoveryOnly": 27,
   "actualBrowserExecution": "not-run",
   "review": "One originalreview0C1I1M/author0C2I0M; member readiness andsourceidentity fixed; nativeCI locator/diagnostics authoredafterreview/no rereview",
-  "ci": "Initiale9/38351043129 failedB09WebKit26/27 only; sixother independentvalidators0; newscopedlocator/headerdiagnostics hypothesis requiresnewWindows",
+  "ci": "Firste9 andsecond6c50 Windows26/27 B09WebKit failures preserved; scopedlocatoralonefailed; newcontextisolation Windows pending",
   "remaining": "Rebase onto corrected F08-f main, newfull, onefreshreview, exactWindows27cases",
   "releaseTagVps": "forbidden",
   "historicalSourceProof": {
@@ -32,14 +32,14 @@
     }
   },
   "testedSourceSnapshot": {
-    "commitSha": "9cc2f8f4f9a14d5e8f3e4b125ea1c71a0d502c7c",
+    "commitSha": "f4202b1bcf4dcddce89f7c8180d8624d8d15b4d8",
     "sourceFileSha256": {
       "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
       "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
-      "tests/e2e/foundation.spec.ts": "63ba623b80111cf04e836b112c4a04cbc0e40305164dd8037a7d7bf3e0828093",
+      "tests/e2e/foundation.spec.ts": "841ee5e8526c80746b94c0c4e59780f67e9d77471f4be07468690df38270639c",
       "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
     },
-    "executionState": "Frozen source verified then committed; generatedevidence later"
+    "executionState": "Frozen source verified andcommitted; latergeneratedevidence"
   },
   "memberReadiness": {
     "actualDomRed": 1,
@@ -77,5 +77,19 @@
       "executionState": "Rebased committed source frozen during full verification; latergenerated documentation"
     },
     "fullReportSha256": "276174276041e4b4c21b8123044f20257482127d90e93713ca5870e389d6a895"
-  }
+  },
+  "preContextIsolationSourceProof": {
+    "testedSourceSnapshot": {
+      "commitSha": "9cc2f8f4f9a14d5e8f3e4b125ea1c71a0d502c7c",
+      "sourceFileSha256": {
+        "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+        "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+        "tests/e2e/foundation.spec.ts": "63ba623b80111cf04e836b112c4a04cbc0e40305164dd8037a7d7bf3e0828093",
+        "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+      },
+      "executionState": "Frozen source verified then committed; generatedevidence later"
+    },
+    "fullReportSha256": "ee4cef861f3360ec3cc32382b73a3601aba02ea30f6bf341338eb4391efea73f"
+  },
+  "nativeHypothesis": "Owned synthetic document replacement/selector-negative probes move to separate disposablebrowsercontext; realappPage remainsfresh; retainall27flows/assertions/10s-expect/45s-test/zero-retry; actualWebKit mechanism unconfirmed untilnewrun"
 }
