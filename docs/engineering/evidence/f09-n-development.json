@@ -15,24 +15,39 @@
   "lintExit": 0,
   "buildExit": 0,
   "sourceHashes": {
-    "server/legacyFlagsHttp.test.ts": "5a7840fc0a93a89955e6bccd0d1bf1ec7f35d85e61c230002d1123f2732c8ada",
+    "server/legacyFlagsHttp.test.ts": "d65605d382b5da9c2e45c51e3fd94fe5bfc954babdae09a1a19fff90661cb3f6",
     "scripts/ci/write-evidence.mjs": "d14cdcbe97df0b7e53a2654f47c2e06579b7602718f5806cb8a34fd50c6dde77",
     "tests/evidence.test.ts": "9f8218537897ef10f545a253c689384f571bcec5e611ba78877404fb916bf478",
     "README.md": "fc27c8e291e9e4eba5d29b97cdf412dcfda5128a39164d8c878f6d7a523dfafb",
     "docs/engineering/foundation-acceptance.md": "40eded16d9ec977650b0cb5e60c4e83f8925c483d246935f46967f5a3856e101",
-    "docs/engineering/windows-current-route-inventory.json": "fd4be477a45e59a3147897e5dc5d82df10bae308a7e1f0e1cb5875a0e37100fd",
+    "docs/engineering/windows-current-route-inventory.json": "eea63b910d49561031ce4c834fd331e1f9d3c8f54d83c1791184ecfec3f3034c",
     "docs/engineering/windows-operations.md": "041d546141961c670a25ec593d9adff3baf812a68c87101492570d47694fb7c2"
   },
   "verificationHashes": {
     "f09-n-flags-characterization.json": "3f9289071e41eeddd169ea5b4eeb93ca5bf7967aef15b3e02e374be618cc3a9a",
     "f09-n-gate-red.json": "50e971ceaffe0462b526e68b47aeba2ab683f495a4883f97d649e66bfe365c07",
-    "f09-n-target.json": "afe21b44f40696e4fcd816a25c5075cef2fc281e0cef02d6a2db38249af4faeb",
-    "f09-n-full.json": "53006ee966132e635095d352e3ece05d49c481555fb0a73e7035d664e416a73d",
-    "f09-n-lint.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa",
-    "f09-n-build.log": "ab9a7e66562f36b226b7803638c430b82db899fea25188ba0e093fe8a18e019c"
+    "f09-n-lint-failed.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa",
+    "f09-n-corrected-target.json": "ee35745b8e42e6906267c637f71c635bee08403f321f41c9d0c5668b034be257",
+    "f09-n-corrected-full.json": "d25a9634549d6fb4d9c99acea978b856f1a06d22f52958192f04ee9ad788e0ec",
+    "f09-n-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-n-corrected-build.log": "fa99cd3fb1e11139aebec129eaecb651ecc9f874320067d9cbe8a329feef7e7d",
+    "f09-n-corrected-inventory.log": "2f185d1b2874391af588e78472469c9de310329189e85a83949a66396556dc40"
   },
   "snapshotScope": "Legacy rows/settings unchanged assertions do not certify all auth/command tables. Reconstruction is fresh HTTP app/jobs, not a SQLite process restart; native existing runtime tests own process restart.",
   "windows": "not-run",
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "priorErroneousLintExitClaim": 0,
+  "initialActualLintExit": "nonzero TypeScript TS2322; exact exit was not captured by the initial shell",
+  "review": "ONE0C2I0M; ALLauthorgradesbeforeONEpass; actual TS2322 and incorrect lint0 claim corrected with failed log retained; no rereview",
+  "initialVerificationHashes": {
+    "f09-n-flags-characterization.json": "3f9289071e41eeddd169ea5b4eeb93ca5bf7967aef15b3e02e374be618cc3a9a",
+    "f09-n-gate-red.json": "50e971ceaffe0462b526e68b47aeba2ab683f495a4883f97d649e66bfe365c07",
+    "f09-n-target.json": "afe21b44f40696e4fcd816a25c5075cef2fc281e0cef02d6a2db38249af4faeb",
+    "f09-n-full.json": "53006ee966132e635095d352e3ece05d49c481555fb0a73e7035d664e416a73d",
+    "f09-n-lint.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa",
+    "f09-n-build.log": "ab9a7e66562f36b226b7803638c430b82db899fea25188ba0e093fe8a18e019c",
+    "f09-n-lint-failed.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa"
+  },
+  "correctedVerificationShell": "set -e; each npm/native invocation awaited before next command; all completed exit0. Failed initial lint and fixture attempt retained; exact initial lint exit was not recorded."
 }

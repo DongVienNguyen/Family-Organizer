@@ -12,7 +12,7 @@ import {UserRole} from '../src/types.js';
 
 async function fixture(work:(send:(route:string,role?:UserRole,payload?:unknown)=>Promise<any>,restart:()=>Promise<void>)=>Promise<void>) {
   const state=sqliteLoad();
-  state.users=Object.values(UserRole).map(role=>({id:role,username:'synthetic-'+role,fullName:'Synthetic '+role,role,passwordHash:'synthetic',createdAt:'2026-10-11T00:00:00Z'}));
+  state.users=Object.values(UserRole).map(role=>({id:role,username:'synthetic-'+role,fullName:'Synthetic '+role,role,passwordHash:'synthetic',avatarColor:'bg-slate-500',createdAt:'2026-10-11T00:00:00Z'}));
   sqliteSave(state); db.setAppSetting('rewardsEnabled',null); db.setAppSetting('rewardApprovalThreshold',null);
   const auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:()=> 'synthetic-flags-key'});
   const tokens=Object.fromEntries(state.users.map(user=>[user.role,auth.issue(user)]));

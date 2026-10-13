@@ -76,7 +76,10 @@
     "cloudPending": 0,
     "cloudTodo": 0,
     "windows": "not-run",
-    "review": "pending"
+    "review": "ONE0C2I0M, all graded before one correction pass; both actual source/evidence findings corrected; no rereview",
+    "lintExit": 0,
+    "buildExit": 0,
+    "priorLintFailure": "Retained TS2322 log, initial zero claim corrected"
   },
   "blockers": [
     {
