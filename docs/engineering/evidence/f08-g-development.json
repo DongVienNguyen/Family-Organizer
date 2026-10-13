@@ -11,23 +11,38 @@
     "missingCriticalSuite": 1
   },
   "targetGreen": 334,
-  "fullGreen": 2367,
+  "fullGreen": 2393,
   "fullFiles": 119,
   "failed": 0,
   "pending": 0,
   "todo": 0,
   "lintExit": 0,
   "buildExit": 0,
-  "fullReportSha256": "ba2572a8d775baca1ab6d9c0a89ed8bcc644d5cd6b9e1efa6f5949ef2ad278b9",
+  "fullReportSha256": "a3443053c2aa3bc784a873b45cb0e278e05dcffbeaa354039b1e188871d830c4",
   "nodeVersion": "v24.21.0",
   "workers": 1,
   "realOldWindowsDataCompatibility": "Cloudhelper validated actualmain83Windows24cases/Gitpolicy; not new native/live acceptance",
   "bootstrapError": "initial missingmodule causedsuite collectionerror; emptymodule addedbefore19actualavailabilityREDs, not productbug",
-  "review": "not-run",
+  "review": "one fresh review 0C3I2M, author0C5I0M; one TDD fix pass no rereview",
   "ci": "not-run",
   "reportsVerified": false,
   "publicationAllowed": false,
   "innerPackageAgreement": false,
   "server2019Acceptance": "not-run",
-  "releaseTagVps": "forbidden"
+  "releaseTagVps": "forbidden",
+  "historicalPreReview": {
+    "targetGreen": 334,
+    "fullGreen": 2367,
+    "fullFiles": 119,
+    "fullReportSha256": "ba2572a8d775baca1ab6d9c0a89ed8bcc644d5cd6b9e1efa6f5949ef2ad278b9"
+  },
+  "reviewRed": 26,
+  "reviewTargetGreen": 157,
+  "actualOldWindowsReceiptCompatibility": {
+    "cases": 24,
+    "bytesRead": 718541,
+    "bytesHashed": 724422,
+    "scope": "Cloud helper only, not new Windows/live acceptance"
+  },
+  "validatorTooling": "existing locked TypeScript parser, no dependency/lockfile change; trusted-main preflight installs frozen tooling using pinned SDK/native exit checks; no package rebuild"
 }

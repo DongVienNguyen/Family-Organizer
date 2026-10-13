@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto';
+import ts from 'typescript';
 import {readTrustedSourceFacts} from './release-metadata.mjs';
 import {safeArchivePath} from './package-contract.mjs';
 const reject=()=>{throw new Error('RELEASE_SOURCE_POLICY_REJECTED');};
@@ -33,14 +34,16 @@ export function readTrustedReleasePolicy(request,authority){
   // Preflight every mode before reading any source through a possible symlink.
   for(const name of [...inventoryNames,...requiredSuites]){const file=files.get(name);requireFact(file.type==='blob'&&['100644','100755'].includes(file.mode));}
   const browserContract=read('scripts/ci/browser-contract.mjs');
-  // Parse the small literal declarations as data; never execute target code.
-  // Unsupported expressions/escaping need reviewed support before eligibility.
+  // The pinned builder parser reads syntax only; target code is never executed.
+  const syntax=ts.createSourceFile('browser-contract.mjs',browserContract,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);
+  requireFact(syntax.parseDiagnostics.length===0);
   const literalArray=name=>{
-   const declarations=[...browserContract.matchAll(new RegExp('export const '+name+'\\s*=\\s*\\[([^\\]]*)\\]\\s*;','g'))];
+   const declarations=syntax.statements.flatMap(statement=>ts.isVariableStatement(statement)?statement.declarationList.declarations.filter(declaration=>ts.isIdentifier(declaration.name)&&declaration.name.text===name).map(declaration=>({statement,declaration})):[]);
    requireFact(declarations.length===1);
-   const parts=declarations[0][1].split(',').map(value=>value.trim());if(parts.at(-1)==='')parts.pop();
-   requireFact(parts.length>0&&parts.length<=99);
-   return parts.map(value=>{const match=value.match(/^'([^'\\\r\n]+)'$/);requireFact(match);return match[1];});
+   const {statement,declaration}=declarations[0],value=declaration.initializer;
+   requireFact(statement.modifiers?.some(modifier=>modifier.kind===ts.SyntaxKind.ExportKeyword)&&(statement.declarationList.flags&ts.NodeFlags.Const)!==0&&statement.declarationList.declarations.length===1&&ts.isArrayLiteralExpression(value)&&value.elements.length>0&&value.elements.length<=99);
+   // Continue to support only the reviewed unescaped single-quoted literals.
+   return value.elements.map(element=>{requireFact(ts.isStringLiteral(element));const match=element.getText(syntax).match(/^'([^'\\\r\n]+)'$/);requireFact(match);return match[1];});
   };
   const projects=literalArray('browserProjects'),cases=literalArray('browserCases');
   requireFact(JSON.stringify(projects)===JSON.stringify(['chromium','firefox','webkit'])&&new Set(cases).size===cases.length&&cases.every((name,index)=>/^B[0-9]{2} [A-Za-z0-9][A-Za-z0-9 _-]{0,120}$/.test(name)&&name.startsWith('B'+String(index+1).padStart(2,'0')+' ')));

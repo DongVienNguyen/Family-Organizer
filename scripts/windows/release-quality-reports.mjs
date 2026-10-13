@@ -47,7 +47,7 @@ export function parseReleaseJUnit(text){
  while(offset<text.length){
   if(text.startsWith('<?',offset)){const end=text.indexOf('?>',offset);if(offset!==0||end<0||!/^<\?xml version="1\.0"(?: encoding="UTF-8")? ?\?>$/.test(text.slice(offset,end+2)))throw Error('Invalid XML declaration');offset=end+2;continue;}
   if(text.startsWith('<![CDATA[',offset)){const end=text.indexOf(']]>',offset);if(end<0||!['system-out','system-err'].includes(stack.at(-1).tag))throw Error('Invalid CDATA');offset=end+3;continue;}
-  if(text[offset]!=='<'){const end=text.indexOf('<',offset),stop=end<0?text.length:end;const value=text.slice(offset,stop);if(value.trim()&&!['system-out','system-err'].includes(stack.at(-1).tag))throw Error('Unexpected XML text');xmlValue(value);offset=stop;continue;}
+  if(text[offset]!=='<'){const end=text.indexOf('<',offset),stop=end<0?text.length:end;const value=text.slice(offset,stop);if((/[^ \t\r\n]/.test(value)&&!['system-out','system-err'].includes(stack.at(-1).tag))||value.includes(']]>'))throw Error('Unexpected XML text');xmlValue(value);offset=stop;continue;}
   const token=readXmlToken(text,offset),name=token.tag,attributes=token.attributes;offset=token.end;
   if(token.closing){if(stack.length===1||stack.pop().tag!==name)throw Error('Invalid XML nesting');continue;}
   if(!['testsuites','testsuite','testcase','properties','property','system-out','system-err','failure','error','skipped'].includes(name)||++nodes>100000||stack.length>32)throw Error('Unsupported/excessive XML');

@@ -4,7 +4,7 @@ import {safeArchivePath} from './package-contract.mjs';
 import {openReleaseReportFiles} from './release-report-files.mjs';
 export const legacyProductionChecks=Object.freeze(['production-dependencies-only','no-source-ts','foreign-cwd','static-assets','legacy-preserved','restart-persistence','write-permission-fail-fast','offline-providers','graceful-shutdown','readiness','crash-recovery','auth-session-restart','auth-session-logout','private-response-cache','authenticated-realtime','object-visibility','authenticated-media','task-write-authority','content-write-authority','derived-object-privacy','explicit-first-account','provider-digest-privacy','incompatible-schema-preserved']);
 export const windowsSqliteBinarySha256='e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a';
-const nativeChecks=['native-load','write-read','transaction-rollback','WAL-backup','integrity-check','file-cleanup'];
+export const nativeChecks=['native-load','write-read','transaction-rollback','WAL-backup','integrity-check','file-cleanup'];
 const schemas=['future','missing-version','foreign','sqliteX','sqliteData','malformed-metadata','malformed-owned-table'];
 const sameSet=(actual,expected)=>Array.isArray(actual)&&actual.length===expected.length&&new Set(actual).size===actual.length&&expected.every(name=>actual.includes(name));
 const hash=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
