@@ -1,0 +1,29 @@
+{
+  "taskId": "F09-l",
+  "reviewCount": 1,
+  "reviewedHead": "b7f078e9930726a429c4f96e14718da1eb170af4",
+  "baseSha": "8d44da8925698c7b2067769a181904f62f42ec99",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 0,
+  "reReview": false,
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Minor",
+      "decision": "defer",
+      "effect": "Child directURL smoke asserts privateheading absent but not entireDocumentsmodule absent; currentApp hasbothroleguards andAPI403 verified.",
+      "next": "Futurefocused boundarycoverage asserts moduleabsence/permitted destination, preservingcurrentassertions."
+    }
+  ],
+  "scopeRulings": "All5source+9reporthashes/original12flowbyteprefix verified. Existingstyles/READMEroots/backupboundaries/first-accountwrappergap accurate. Historical21/24fixtureMinor remainsdeferred; exactnewWindows39 andparentacceptance required."
+}

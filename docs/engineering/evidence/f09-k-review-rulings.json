@@ -1,0 +1,21 @@
+{
+  "taskId": "F09-k",
+  "reviewCount": 1,
+  "reviewedHead": "4abf400b8c15e396da1db38d8c9e4268a1188057",
+  "baseSha": "b64bfc6b9206f055c1f69a6d1ced1836b3cf2506",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 0,
+  "reReview": false,
+  "findings": [],
+  "scopeRulings": "All3source+8evidencehashes/original11flowbyteprefix and actualcalendarUI/ICS/persistence/visibility/cleanup verified. No newissues withinapprovedscope; historical21/24negativefixtureMinorremainsdeferred. ActualnativeWindows36 and parentacceptance/compositionpending."
+}
