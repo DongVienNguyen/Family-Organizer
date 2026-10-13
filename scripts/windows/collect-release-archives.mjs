@@ -8,6 +8,7 @@ import {readReleaseQualityFiles,openReleaseReportFiles} from './release-report-f
 import {readReleaseRuntimeFiles} from './release-runtime-reports.mjs';
 import {readReleaseCoverageFiles} from './release-coverage-files.mjs';
 import {readReleaseAuxiliaryFiles} from './release-auxiliary-reports.mjs';
+import {extractReleaseInnerPackage} from './release-inner-package.mjs';
 import {readReleaseHarnessAndBuild} from './release-harness-build.mjs';
 import {readReleaseServiceReportFiles} from './release-service-reports.mjs';
 import {readReleaseConsumerReportFiles} from './release-consumer-reports.mjs';
@@ -36,8 +37,9 @@ try{
  const serviceReports=readReleaseServiceReportFiles(serviceDirectory,{commitSha:request.commitSha,runId:request.runId,zipSha256:packageReports.zipSha256,packageReportAgreement:packageReports.packageReportAgreement});
  const harnessDirectory=extraction.archives.find(row=>row.name==='windows-package-harness-'+request.commitSha+'-1')?.directory;
  const harnessAndBuild=readReleaseHarnessAndBuild(harnessDirectory,policy,packageReports,browser,{commitSha:request.commitSha,runId:request.runId});
- fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,rawServiceReportsVerified:true,rawAuxiliaryReportsVerified:true,rawHarnessFilesVerified:true,packageBuildAgreement:true,innerPackageAgreement:false,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports,consumerReports,serviceReports,auxiliaryReports,harnessAndBuild},null,2)+'\n');
+ const innerPackage=extractReleaseInnerPackage(packageDirectory,path.resolve('reports/inner-package'),packageReports,{commitSha:request.commitSha,runId:request.runId,appVersion:policy.source.packageVersion,lockSha256:policy.lockSha256},{execute:({archivePath,archiveSha256,archiveBytes,destination})=>spawnSync(process.env.FO_PWSH_PATH,['-NoLogo','-NoProfile','-NonInteractive','-File',fileURLToPath(new URL('./Extract-ReleaseInnerPackage.ps1',import.meta.url)),'-ArchivePath',archivePath,'-ArchiveSha256',archiveSha256,'-ArchiveBytes',String(archiveBytes),'-Destination',destination],{timeout:120000,maxBuffer:65536,windowsHide:true})});
+ fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,rawServiceReportsVerified:true,rawAuxiliaryReportsVerified:true,rawHarnessFilesVerified:true,packageBuildAgreement:true,innerPackageAgreement:true,licenseInventoryVerified:true,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports,consumerReports,serviceReports,auxiliaryReports,harnessAndBuild,innerPackage},null,2)+'\n');
  fs.writeFileSync('reports/release-metadata.json',JSON.stringify(receipt.metadata,null,2)+'\n');
  fs.writeFileSync('reports/release-archives.json',JSON.stringify(receipt,null,2)+'\n');
- console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_BROWSER_PACKAGE_RECEIPTS_CONSUMER_SERVICE_AUXILIARY_HARNESS_BUILD_REPORTS_VERIFIED_INNER_PACKAGE_UNVERIFIED_PUBLICATION_DISABLED');
+ console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_BROWSER_PACKAGE_RECEIPTS_CONSUMER_SERVICE_AUXILIARY_HARNESS_BUILD_REPORTS_VERIFIED_INNER_PACKAGE_LICENSE_VERIFIED_FULL_REPORTS_UNVERIFIED_PUBLICATION_DISABLED');
 }catch{console.error('RELEASE_ARCHIVE_REJECTED');process.exitCode=1;}

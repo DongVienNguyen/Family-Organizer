@@ -46,3 +46,12 @@ export function extractReleaseInnerPackage(producerDirectory,directory,packagePr
   return {...inner,innerExtractionVerified:true,nativeExtraction:native};
  }catch{reject();} // Preserve partial/replaced evidence; no target code or deletion.
 }
+
+export function validateReleaseInnerExtractionNative(report,expected){
+ const errors=[],require=(ok,name)=>{if(!ok)errors.push(name);};
+ require(/^[a-f0-9]{40}$/.test(expected?.commitSha??'')&&['v22.23.3','v24.21.0'].includes(expected?.nodeVersion),'invalid native inner context');
+ require(report?.commitSha===expected?.commitSha&&report?.nodeVersion===expected?.nodeVersion&&report?.platform==='win32'&&report?.architecture==='x64','native inner source/runtime mismatch');
+ require(report?.archiveCount===2&&report?.extractedFiles===1&&report?.expandedBytes===20&&report?.positiveNativeExit===0&&report?.negativeNativeExit===1&&report?.negativeBeforeWriteAbsent===true,'native inner extraction/refusal incomplete');
+ require(report?.fixtureCleanup===true&&report?.scope==='synthetic-no-github-authentication'&&report?.publicationAllowed===false&&report?.server2019Acceptance==='not-run'&&!['failed','failure','error'].some(key=>Object.hasOwn(report??{},key)),'native inner cleanup/scope/failure mismatch');
+ return errors;
+}

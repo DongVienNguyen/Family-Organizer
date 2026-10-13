@@ -1,3 +1,4 @@
+import {validateReleaseInnerExtractionNative} from '../windows/release-inner-package.mjs';
 import {validateNodeSdkReceipt} from './node-sdk-policy.mjs';
 import {validateReleaseReportExtractionNative} from '../windows/release-report-extraction.mjs';
 import {validateCaddyNativeEvidence} from '../windows/caddy-contract.mjs';
@@ -24,6 +25,7 @@ const readReport = name => {
 const tests = readReport('vitest.json');
 const native = readReport('native.json');
 const nodeSdk=readReport('node-sdk.json');
+const releaseInnerExtraction=readReport('release-inner-extraction-native.json');
 const releaseReportExtraction=readReport('release-report-extraction-native.json');
 const caddy={probe:readReport('caddy-native.json'),exit:readReport('caddy-exit.json')};
 const toolchain = readReport('toolchain.json');
@@ -41,7 +43,7 @@ const suites = (tests?.testResults || []).map(suite => ({
 }));
 if (!tests?.success || !(tests.numTotalTests > 0) || tests.numPassedTests !== tests.numTotalTests || suites.length === 0) errors.push('test run failed, skipped tests, or zero tests');
 const requiredSuites = [
-  'tests/release-auxiliary-reports.test.ts', 'tests/release-harness-build.test.ts', 'tests/release-service-reports.test.ts', 'tests/release-consumer-reports.test.ts', 'tests/release-package-reports.test.ts', 'tests/release-browser-files.test.ts', 'tests/release-runtime-reports.test.ts', 'tests/release-runtime-files.test.ts', 'tests/release-coverage-files.test.ts', 'tests/sdk-transfer-retry.test.ts', 'tests/node-sdk-policy.test.ts', 'tests/release-report-files.test.ts', 'tests/release-quality-files.test.ts', 'tests/release-report-extraction.test.ts', 'tests/release-quality-reports.test.ts', 'tests/release-source-policy.test.ts', 'tests/caddy-native-policy.test.ts', 'tests/caddy-native-evidence.test.ts', 'server/legacyFinanceHttp.test.ts', 'server/shoppingPersistence.test.ts', 'server/shoppingHttp.test.ts', 'tests/release-metadata.test.ts', 'tests/release-archives.test.ts', 'tests/release-evidence.test.ts', 'server/updateFence.test.ts', 'tests/update-startup.test.ts', 'server/updateInspection.test.ts', 'tests/update-journal.test.ts', 'server/recoveryRetention.test.ts', 'tests/recovery-maintenance-operator.test.ts', 'tests/online-recovery.test.ts', 'server/recoverySchedule.test.ts', 'server/recoverySchedule.jobs.test.ts', 'tests/scheduled-recovery.test.ts', 'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
+  'tests/release-inner-package.test.ts', 'tests/release-inner-extraction.test.ts', 'tests/release-inner-native.test.ts', 'tests/release-auxiliary-reports.test.ts', 'tests/release-harness-build.test.ts', 'tests/release-service-reports.test.ts', 'tests/release-consumer-reports.test.ts', 'tests/release-package-reports.test.ts', 'tests/release-browser-files.test.ts', 'tests/release-runtime-reports.test.ts', 'tests/release-runtime-files.test.ts', 'tests/release-coverage-files.test.ts', 'tests/sdk-transfer-retry.test.ts', 'tests/node-sdk-policy.test.ts', 'tests/release-report-files.test.ts', 'tests/release-quality-files.test.ts', 'tests/release-report-extraction.test.ts', 'tests/release-quality-reports.test.ts', 'tests/release-source-policy.test.ts', 'tests/caddy-native-policy.test.ts', 'tests/caddy-native-evidence.test.ts', 'server/legacyFinanceHttp.test.ts', 'server/shoppingPersistence.test.ts', 'server/shoppingHttp.test.ts', 'tests/release-metadata.test.ts', 'tests/release-archives.test.ts', 'tests/release-evidence.test.ts', 'server/updateFence.test.ts', 'tests/update-startup.test.ts', 'server/updateInspection.test.ts', 'tests/update-journal.test.ts', 'server/recoveryRetention.test.ts', 'tests/recovery-maintenance-operator.test.ts', 'tests/online-recovery.test.ts', 'server/recoverySchedule.test.ts', 'server/recoverySchedule.jobs.test.ts', 'tests/scheduled-recovery.test.ts', 'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts',
   'server/realtime.test.ts', 'server/realtimeHttp.test.ts', 'server/legacyVisibility.test.ts', 'src/utils/realtimeClient.test.ts', 'tests/ui/realtime-session.test.ts',
@@ -77,6 +79,7 @@ if (!fs.existsSync('reports/junit.xml') || !fs.readFileSync('reports/junit.xml',
 const commitSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 if (commitSha !== process.env.TEST_COMMIT_SHA) errors.push('checkout SHA differs from requested HEAD');
 errors.push(...validateNodeSdkReceipt(nodeSdk,{commitSha,nodeVersion:process.version}));
+errors.push(...validateReleaseInnerExtractionNative(releaseInnerExtraction,{commitSha,nodeVersion:process.version}));
 errors.push(...validateReleaseReportExtractionNative(releaseReportExtraction,{commitSha,nodeVersion:process.version}));
 errors.push(...validateCaddyNativeEvidence(caddy,{commitSha,nodeVersion:process.version}));
 const lockSha256=createHash('sha256').update(fs.readFileSync('package-lock.json')).digest('hex');
@@ -116,7 +119,7 @@ const evidence = {
   commitSha, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT),
   runnerOS: `${os.type()} ${os.release()}`, runnerImage: process.env.ImageOS,
   runnerImageVersion: process.env.ImageVersion, nodeVersion: process.version, npmVersion, toolchain,
-  checks, suites, native, nodeSdk, caddy, releaseReportExtraction, production, audit, auditContext, coverage, lockSha256, server2019Acceptance: 'not-run', errors,
+  checks, suites, native, nodeSdk, caddy, releaseReportExtraction, releaseInnerExtraction, production, audit, auditContext, coverage, lockSha256, server2019Acceptance: 'not-run', errors,
 };
 fs.writeFileSync('reports/evidence.json', JSON.stringify(evidence, null, 2) + '\n');
 console.log(JSON.stringify(evidence, null, 2));
