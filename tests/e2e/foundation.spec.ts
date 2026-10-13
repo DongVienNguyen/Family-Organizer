@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import { test as base, expect, type Page } from '@playwright/test';
 import { browserCases } from '../../scripts/ci/browser-contract.mjs';
+import {assertChildMemberBoundary,exerciseMemberBoundaryFixtures} from './member-boundary';
 
 const test = base.extend<{ networkBoundary: void }>({
   networkBoundary: [async ({ context, page, baseURL }, use) => {
@@ -469,6 +470,7 @@ test('B08 adult child approval rewards persistence', async ({ page, browserName 
 
 
 test('B09 self profile settings persistence', async ({ page, browserName }) => {
+  await exerciseMemberBoundaryFixtures(page);
   await page.goto('/');
   const token = await login(page, 'child');
   const users = async () => {
@@ -484,10 +486,7 @@ test('B09 self profile settings persistence', async ({ page, browserName }) => {
   await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
   await page.getByRole('button', { name: 'Thành viên và Phân quyền', exact: true }).click();
   await expect(page.getByText('Chỉ Gia Trưởng (Admin) mới có quyền tạo thêm tài khoản thành viên gia đình.', { exact: true })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Kích hoạt tài khoản', exact: true })).toHaveCount(0);
-  for (const title of ['Sửa thông tin & vai trò của', 'Đặt lại mật khẩu cho', 'Xóa tài khoản']) {
-    await expect(page.locator('button[title^="' + title + '"]')).toHaveCount(0);
-  }
+  await assertChildMemberBoundary(page.locator('#settings-tab-members'),originalUsers.filter(row=>!row.isDeleted).map(row=>row.fullName));
   const forbidden = await page.evaluate(async token => {
     const response = await fetch('/api/users/browser-child', { method: 'POST', headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify({ role: 'admin' }) });
     return response.status;
