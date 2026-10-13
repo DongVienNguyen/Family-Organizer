@@ -3,7 +3,6 @@ import { createHash } from 'node:crypto';
 import { test as base, expect, type Page } from '@playwright/test';
 import { browserCases } from '../../scripts/ci/browser-contract.mjs';
 import {assertChildMemberBoundary,exerciseMemberBoundaryFixtures} from './member-boundary';
-import {platformProbeScript} from './platform-probe';
 
 const test = base.extend<{ networkBoundary: void }>({
   networkBoundary: [async ({ context, page, baseURL }, use) => {
@@ -471,9 +470,6 @@ test('B08 adult child approval rewards persistence', async ({ page, browserName 
 
 
 test('B09 self profile settings persistence', async ({ page, browser, browserName }) => {
-  console.log('B09_PROTOCOL_WINDOW '+browserName);
-  page.on('console',message=>{if(message.type()==='log'&&message.text().startsWith('B09_PLATFORM_BOUNDARY '))console.log(message.text());});
-  await page.addInitScript({content:platformProbeScript});
   // Isolate document-replacement fixtures in an owned browser process. The
   // application browser continues to exercise all real functional assertions.
   const boundaryBrowser = await browser.browserType().launch();
@@ -496,45 +492,11 @@ test('B09 self profile settings persistence', async ({ page, browser, browserNam
   const originalUsers = await users();
   const original = originalUsers.find(row => row.id === 'browser-child')!;
   expect(original).toMatchObject({ id: 'browser-child', username: 'browser-child', role: 'child', fullName: 'Synthetic child' });
-  // Diagnose the real document and selector worlds without changing click,
-  // assertion, retry or timeout behavior. Only static UI structure is recorded.
-  const settingsDocumentFacts = async () => page.evaluate(() => {
-    const element = document.querySelector('#settings-sub-header');
-    const nav = [...document.querySelectorAll('aside nav button')].find(button=>button.textContent?.trim()==='Thiết lập');
-    const rectangle = element?.getBoundingClientRect();
-    const style = element ? getComputedStyle(element) : undefined;
-    return { readyState:document.readyState, path:location.pathname, settingsHeaderCount:document.querySelectorAll('#settings-sub-header').length, settingsModuleCount:document.querySelectorAll('#settings-module').length, profileCount:document.querySelectorAll('#settings-tab-profile').length, navConnected:nav?.isConnected??false, navSelected:nav?.getAttribute('aria-selected')??null, headerConnected:element?.isConnected??false, headerRectangle:rectangle?{x:rectangle.x,y:rectangle.y,width:rectangle.width,height:rectangle.height}:null, headerStyle:style?{display:style.display,visibility:style.visibility,opacity:style.opacity}:null, tabLabels:element?[...element.querySelectorAll('button')].map(button=>button.textContent?.trim()):[], clickFacts:(window as any).__syntheticB09SettingsClicks??[] };
-  });
-  page.on('console',message=>{if(message.type()==='log'&&(message.text().startsWith('B09_MAIN_')||message.text().startsWith('B09_WORLD_')))console.log(message.text());});
-  await page.evaluate(() => {
-    (window as any).__syntheticB09SettingsClicks=[];
-    const started=performance.now();
-    const facts=()=>({elapsedMs:Math.round(performance.now()-started),headerCount:document.querySelectorAll('#settings-sub-header').length,moduleCount:document.querySelectorAll('#settings-module').length,profileCount:document.querySelectorAll('#settings-tab-profile').length,activeTab:localStorage.getItem('family_active_tab')});
-    let previous='',observations=0;
-    const observer=new MutationObserver(()=>{
-      const value=facts(),identity=JSON.stringify([value.headerCount,value.moduleCount,value.profileCount,value.activeTab]);
-      if(identity!==previous&&observations++<16){previous=identity;console.log('B09_MAIN_MUTATION',JSON.stringify(value));}
-      if(value.headerCount===1||observations>=16)observer.disconnect();
-    });
-    observer.observe(document.documentElement,{childList:true,subtree:true});
-    document.addEventListener('click',event=>{
-      const button=(event.target as Element)?.closest('aside nav button');
-      if(button?.textContent?.trim()==='Thiết lập'){
-        (window as any).__syntheticB09SettingsClicks.push({trusted:event.isTrusted,connected:button.isConnected,defaultPrevented:event.defaultPrevented});
-        console.log('B09_MAIN_CLICK',JSON.stringify({trusted:event.isTrusted,connected:button.isConnected,...facts()}));
-        queueMicrotask(()=>console.log('B09_MAIN_MICROTASK',JSON.stringify(facts())));
-        setTimeout(()=>console.log('B09_MAIN_TIMER',JSON.stringify(facts())),0);
-        requestAnimationFrame(()=>console.log('B09_MAIN_FRAME',JSON.stringify(facts())));
-      }
-    },{capture:true});
-  });
-  console.log('B09_SETTINGS_DOCUMENT_BEFORE',JSON.stringify(await settingsDocumentFacts()));
   await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
   const settingsTabs = page.locator('#settings-sub-header');
   await expect(settingsTabs).toBeVisible();
   const renderedTabs = await settingsTabs.locator('button').allTextContents();
   expect(renderedTabs.map(text=>text.trim())).toContain('Thành viên và Phân quyền');
-  console.log('B09_SETTINGS_TABS_RENDERED', JSON.stringify(renderedTabs.map(text=>text.trim())));
   await settingsTabs.getByRole('button', { name: 'Thành viên và Phân quyền', exact: true }).click();
   await expect(page.getByText('Chỉ Gia Trưởng (Admin) mới có quyền tạo thêm tài khoản thành viên gia đình.', { exact: true })).toBeVisible();
   await assertChildMemberBoundary(page.locator('#settings-tab-members'),originalUsers.filter(row=>!row.isDeleted).map(row=>row.fullName));

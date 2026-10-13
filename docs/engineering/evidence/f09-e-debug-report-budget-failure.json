@@ -1,0 +1,23 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "9b0bef66952143a0c0ba0e870154c210f2c3212e",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38386294257",
+  "conclusion": "browser evidence gate failure; original functional assertions passed",
+  "browser": {
+    "passed": 27,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "serverExitCode": 0,
+    "fixtureRemoved": true
+  },
+  "evidenceFailure": "invalid raw browser JUnit: DEBUG=pw:protocol is embedded into SDK JSON/JUnit; valid XML306212812bytes exceeds64MiB parser ceiling, browserJSON~312MiB exceedsboundedreader. Do not raise budgets or truncate reports.",
+  "junitBytes": 306212812,
+  "junitSha256": "9ad85d3b57f2cb20b1acf34be36a79e6994319437c7100e46aaecd39ed68bc3f",
+  "jsonBytes": 326341797,
+  "jsonSha256": "e9f5c66d03226b865795f551ba8a827ac603a47a5c8cb8bdb8f6c699ac2227d4",
+  "nativeDiagnosticSha256": "eac1b20825de2c59f455be8d0297facfcf67ab376e7742a34d1e48f0287b14da",
+  "next": "Remove temporary DEBUG/runtime observers now causalbug has a reviewedfix; all392 assertion/helper call texts and order retained. Verify same27 firstattemptcases and bounded actualJSON/JUnit on newHEAD.",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
