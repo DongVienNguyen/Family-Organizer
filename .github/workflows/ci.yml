@@ -252,6 +252,16 @@ jobs:
         id: browser
         if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
         run: ./scripts/ci/Test-Browser.ps1
+      - name: Diagnose isolated native subscription driver boundary
+        if: ${{ always() }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & node scripts/ci/probe-native-push.mjs 2>&1 | Tee-Object reports/browser-native-push-diagnostic.log
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
       - name: Validate browser evidence
         if: ${{ always() }}
         env:
