@@ -24,7 +24,7 @@
     "f09-f-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
     "f09-f-build.log": "e8f18b64f7e31b460643026571538315a817ad1f54c78572d6221f26461db846"
   },
-  "review": "pending ONE fresh frozen wholebranch",
+  "review": "ONEfresh6b0693e/baseebed0C0I2M, author accepts Minor and defers to F09 final mapping; no source fix pass/rereview",
   "windowsVerification": "not-run",
   "server2019Acceptance": "not-run",
   "publicationAllowed": false,
