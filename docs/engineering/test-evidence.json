@@ -70,8 +70,8 @@
   "currentSourceDraft": {
     "taskId": "F09-n",
     "baseSha": "884803a21cd0b826c6e44423217a0d6891184b1e",
-    "cloudTests": 2816,
-    "cloudFiles": 138,
+    "cloudTests": 2824,
+    "cloudFiles": 139,
     "cloudFailed": 0,
     "cloudPending": 0,
     "cloudTodo": 0,
@@ -81,7 +81,8 @@
     "buildExit": 0,
     "priorLintFailure": "Retained TS2322 log, initial zero claim corrected",
     "browserCasesRequired": 45,
-    "calendarFixture": "ONE0C0I0M review,zero findingfixes/two authored nativecorrections: B12 realUIcreation, B15canonicalAPIfixture with explicitreload hydration thenrealUI edit/reload/Child, original27assertionlines/45s10s/retries0 retained. Continuous UIcreate/export\u2192edit journey no longer checked. Native45pending."
+    "calendarFixture": "ONE0C0I0M review,zero findingfixes/two authored nativecorrections: B12 realUIcreation, B15canonicalAPIfixture with explicitreload hydration thenrealUI edit/reload/Child, original27assertionlines/45s10s/retries0 retained. Continuous UIcreate/export\u2192edit journey no longer checked. Native45pending.",
+    "caddyDiagnostics": "Separately reviewed failure-only diagnostic/close-drain correction included; seven tests plus mandatory suite. Original native failure retained, old rootcause unknown, current same-HEAD Windows pending."
   },
   "blockers": [
     {
