@@ -14,6 +14,7 @@ export const browserCases = [
   'B11 health growth and dose persistence',
   'B12 calendar recurrence edit and ICS',
   'B13 documents search and household navigation',
+  'B14 dashboard and notification actor isolation',
 ];
 export function validateBrowserReports(input, policy) {
   const requiredProjects=policy?.projects??browserProjects,requiredFlows=policy?.cases??browserCases;

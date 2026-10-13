@@ -34,7 +34,8 @@ const suiteNames = [
   'server/legacyAiHttp.test.ts',
   'tests/release-collector-evidence.test.ts',
   'src/utils/assistantFocus.test.ts',
-  'tests/release-candidate-handoff.test.ts',];
+  'tests/release-candidate-handoff.test.ts',
+  'src/utils/notificationRead.test.ts',];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
   const reports: Record<string, any> = {
@@ -305,3 +306,5 @@ it('rejects missing normalized release collector regression suite',()=>{const re
 it('rejects missing actual assistant launcher focus regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('src/utils/assistantFocus.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: src/utils/assistantFocus.test.ts');});
 
 it('rejects missing publication-disabled candidate handoff regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('tests/release-candidate-handoff.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/release-candidate-handoff.test.ts');});
+
+it('rejects missing notification acknowledgement ownership regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('src/utils/notificationRead.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: src/utils/notificationRead.test.ts');});
