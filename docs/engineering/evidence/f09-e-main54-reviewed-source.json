@@ -1,0 +1,27 @@
+{
+  "taskId": "F09-e",
+  "acceptedBaseSha": "b8567d45e2be9c068ecdab8aae41f5142c95a9d8",
+  "reviewedFixSha": "77823b1120feb13d4b07bc63bffde782fd802228",
+  "reviewedFixSourceByteAgreement": true,
+  "allPriorRequiredSuitesRetained": true,
+  "targetPassed": 278,
+  "targetFiles": 7,
+  "lintExit": 0,
+  "sourceHashes": {
+    "src/components/PushNotificationsCard.tsx": "7fcc9d9986b4f513f9f6f2089559994b319ff031eaeabf50095cbfdbfb233d63",
+    "src/utils/pushSubscription.ts": "0f0ff5fdcfd09acddba48ac6e29ca1982f125d23d32583f9ee339fcccbdb87bf",
+    "src/utils/pushSubscription.test.ts": "a51134874a25e5b63544b90df9803733fe3ea5a103cbdfdbe40a1162615d407a",
+    "scripts/ci/write-evidence.mjs": "f3bcaa321ac3d0e25fd32cd541499fd042d876a631e710bdcfceef72394ec0d0",
+    "tests/evidence.test.ts": "12a7a0d4d6356e52ed59b43478fc2d0a8c6bb279fde98ac762914d848aab783e",
+    "tests/e2e/foundation.spec.ts": "17c230d9b57f21ff75354690f2d0e45ae120d4aadd85d2f202d9ab244848376f"
+  },
+  "verificationHashes": {
+    "f09-e-main54-target.json": "bd9f2751a84d912c75ce749e910559bee7102aeb4e446f766a1d4d3e6c08ec17",
+    "f09-e-main54-target-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+  },
+  "priorCompositionFull": "2650/127 before accepted54main, not current full validation",
+  "currentFullWindows": "pending exactnewHEAD; all27 original cases/assertions/zero retries required",
+  "fixBranch55": "review0C0I0M, exactCIpending; do not merge47 before55 accepted",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
