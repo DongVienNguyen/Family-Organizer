@@ -60,16 +60,22 @@ export function ownSyntheticProxyFixture(directory){
 export function validateCaddyNativeEvidence(value,expected){
  const errors=[],require=(ok,name)=>{if(!ok)errors.push(name);};
  const probe=value?.probe,exit=value?.exit;
+ const noFailure=row=>row&&typeof row==='object'&&!['failed','failure','error'].some(key=>Object.hasOwn(row,key));
+ require(noFailure(probe)&&noFailure(exit),'contradictory Caddy failure markers');
  require(/^[a-f0-9]{40}$/.test(expected?.commitSha??'')&&['v22.23.3','v24.21.0'].includes(expected?.nodeVersion),'invalid expected Caddy context');
  require(probe?.commitSha===expected?.commitSha&&probe?.nodeVersion===expected?.nodeVersion&&probe?.platform==='win32'&&probe?.architecture==='x64'&&probe?.caddyVersion===caddyRuntime.version&&probe?.binarySha256===caddyRuntime.binarySha256,'native Caddy source/runtime/binary mismatch');
  require(probe?.fixtureCleanup===true&&probe?.systemTrustInstalled===false&&probe?.backend==='synthetic-loopback-only'&&probe?.server2019Acceptance==='not-run','Caddy synthetic cleanup/trust/scope mismatch');
  require(exit?.commitSha===expected?.commitSha&&exit?.exitCode===0&&exit?.fixtureCleanup===true&&exit?.systemTrustInstalled===false&&exit?.server2019Acceptance==='not-run'&&exit?.zipSha256===caddyRuntime.zipSha256&&exit?.zipSha512===caddyRuntime.zipSha512&&exit?.licenseSha256===caddyRuntime.licenseSha256,'Caddy wrapper identity/checksum/cleanup mismatch');
  require(exit?.nativeExitCodes?.download===0&&exit?.nativeExitCodes?.probe===0&&Object.keys(exit?.nativeExitCodes??{}).length===2,'Caddy native wrapper exits missing/nonzero');
  const trust=probe?.trustStoreObservation;
+ require(noFailure(trust)&&Array.isArray(trust?.stores)&&trust.stores.every(noFailure),'contradictory Caddy trust failure markers');
  require(/^[A-F0-9]{40}$/.test(trust?.fingerprintSha1??'')&&trust?.exitCode===0&&Array.isArray(trust?.stores)&&trust.stores.length===2&&['CurrentUser','LocalMachine'].every((location,index)=>trust.stores[index]?.location===location&&trust.stores[index]?.name==='Root'&&trust.stores[index]?.matchingCertificates===0),'missing/failed Windows synthetic CA Root store observations');
  const names=['version','validate','tls-held-backend-status','tls-private-ca-loopback-proxy-header-boundary','untrusted-synthetic-ca-refused','owned-admin-stop'];
  require(Array.isArray(probe?.phases)&&probe.phases.length===names.length,'missing or extra Caddy native phases');
- for(const [index,name]of names.entries()){const phase=probe?.phases?.[index];require(phase?.name===name&&([0,1,5].includes(index)?phase.exitCode===0&&phase.signal===null:phase.passed===true),'missing/failed native Caddy phase: '+name);}
+ for(const [index,name]of names.entries()){
+  const phase=probe?.phases?.[index],native=[0,1,5].includes(index),keys=native?['exitCode','name','signal']:index===4?['errorCode','name','passed']:['name','passed'];
+  require(noFailure(phase)&&Object.keys(phase??{}).sort().join(',')===keys.sort().join(',')&&phase?.name===name&&(native?phase.exitCode===0&&phase.signal===null:phase.passed===true),'missing/failed native Caddy phase: '+name);
+ }
  require(isSyntheticCertificateRefusal({code:probe?.phases?.[4]?.errorCode}),'untrusted CA refusal must be a certificate verification error');
  return errors;
 }
