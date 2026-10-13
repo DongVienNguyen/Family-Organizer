@@ -7,6 +7,8 @@ import {extractReleaseReportArchives} from './release-report-extraction.mjs';
 import {readReleaseQualityFiles,openReleaseReportFiles} from './release-report-files.mjs';
 import {readReleaseRuntimeFiles} from './release-runtime-reports.mjs';
 import {readReleaseCoverageFiles} from './release-coverage-files.mjs';
+import {readReleaseAuxiliaryFiles} from './release-auxiliary-reports.mjs';
+import {readReleaseHarnessAndBuild} from './release-harness-build.mjs';
 import {readReleaseServiceReportFiles} from './release-service-reports.mjs';
 import {readReleaseConsumerReportFiles} from './release-consumer-reports.mjs';
 import {readReleasePackageReportFiles} from './release-package-reports.mjs';
@@ -24,6 +26,7 @@ try{
  const extraction=extractReleaseReportArchives(receipt,path.resolve('reports/extracted'),{execute:({inputFile,directory})=>spawnSync(process.env.FO_PWSH_PATH,['-NoLogo','-NoProfile','-NonInteractive','-File',fileURLToPath(new URL('./Extract-ReleaseReportArchives.ps1',import.meta.url)),'-InputFile',inputFile,'-Destination',directory],{timeout:120000,maxBuffer:65536,windowsHide:true})});
  const quality=[22,24].map(major=>{const name='windows-node'+major+'-'+request.commitSha+'-1';const directory=extraction.archives.find(row=>row.name===name)?.directory;return readReleaseQualityFiles(directory,{commitSha:request.commitSha,runId:request.runId,major,lockSha256:policy.lockSha256,requiredSuites:policy.requiredSuites});});
  const runtimeAndCoverage=[22,24].map(major=>{const directory=extraction.archives.find(row=>row.name==='windows-node'+major+'-'+request.commitSha+'-1')?.directory;const expected={commitSha:request.commitSha,nodeVersion:major===22?'v22.23.3':'v24.21.0',lockSha256:policy.lockSha256};const evidence=openReleaseReportFiles(directory).json('evidence.json');return {major,runtime:readReleaseRuntimeFiles(directory,expected),coverage:readReleaseCoverageFiles(directory,policy,expected,evidence)};});
+ const auxiliaryReports=[22,24].map(major=>{const directory=extraction.archives.find(row=>row.name==='windows-node'+major+'-'+request.commitSha+'-1')?.directory;return readReleaseAuxiliaryFiles(directory,{commitSha:request.commitSha,nodeVersion:major===22?'v22.23.3':'v24.21.0'});});
  const browserDirectory=extraction.archives.find(row=>row.name==='windows-browsers-'+request.commitSha+'-1')?.directory;
  const browser=readReleaseBrowserFiles(browserDirectory,policy,{commitSha:request.commitSha,runId:request.runId,nodeVersion:'v24.21.0'});
  const packageDirectory=extraction.archives.find(row=>row.name==='windows-package-'+request.commitSha+'-1')?.directory,consumerDirectory=extraction.archives.find(row=>row.name==='windows-package-tests-'+request.commitSha+'-1')?.directory;
@@ -31,8 +34,10 @@ try{
  const consumerReports=readReleaseConsumerReportFiles(consumerDirectory,packageReports,{commitSha:request.commitSha,runId:request.runId});
  const serviceDirectory=extraction.archives.find(row=>row.name==='windows-service-tests-'+request.commitSha+'-1')?.directory;
  const serviceReports=readReleaseServiceReportFiles(serviceDirectory,{commitSha:request.commitSha,runId:request.runId,zipSha256:packageReports.zipSha256,packageReportAgreement:packageReports.packageReportAgreement});
- fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,rawServiceReportsVerified:true,innerPackageAgreement:false,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports,consumerReports,serviceReports},null,2)+'\n');
+ const harnessDirectory=extraction.archives.find(row=>row.name==='windows-package-harness-'+request.commitSha+'-1')?.directory;
+ const harnessAndBuild=readReleaseHarnessAndBuild(harnessDirectory,policy,packageReports,browser,{commitSha:request.commitSha,runId:request.runId});
+ fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify({format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,rawServiceReportsVerified:true,rawAuxiliaryReportsVerified:true,rawHarnessFilesVerified:true,packageBuildAgreement:true,innerPackageAgreement:false,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports,consumerReports,serviceReports,auxiliaryReports,harnessAndBuild},null,2)+'\n');
  fs.writeFileSync('reports/release-metadata.json',JSON.stringify(receipt.metadata,null,2)+'\n');
  fs.writeFileSync('reports/release-archives.json',JSON.stringify(receipt,null,2)+'\n');
- console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_BROWSER_PACKAGE_RECEIPTS_CONSUMER_SERVICE_REPORTS_VERIFIED_OTHER_REPORTS_UNVERIFIED_PUBLICATION_DISABLED');
+ console.log('GITHUB_ARCHIVES_EXTRACTED_QUALITY_RUNTIME_AUDIT_COVERAGE_BROWSER_PACKAGE_RECEIPTS_CONSUMER_SERVICE_AUXILIARY_HARNESS_BUILD_REPORTS_VERIFIED_INNER_PACKAGE_UNVERIFIED_PUBLICATION_DISABLED');
 }catch{console.error('RELEASE_ARCHIVE_REJECTED');process.exitCode=1;}

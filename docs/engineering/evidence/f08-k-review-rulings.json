@@ -1,0 +1,70 @@
+{
+  "taskId": "F08-k",
+  "reviewCount": 1,
+  "reviewedHead": "ea870b2ad145c9e729cda91426f808c9c71bbdf5",
+  "baseSha": "29ae90be91f6ca4ffdd3288f416edd2285f0c2f0",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 3,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 3,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Raw text decoy or disabled job can supply harness authority without executed producer declaration.",
+      "fix": "Parse supported YAML structure, reject aliases/duplicate keys/unsupported producer or step context, require literal owned job inventory."
+    },
+    {
+      "id": 2,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Contradictory top-level failure and nested native phase markers falsely certify auxiliary proof.",
+      "fix": "Validate emitted Caddy schemas at relevant nodes, retaining intended negative extraction and certificate refusal."
+    },
+    {
+      "id": 3,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Insertion/replacement of previously read harness files can escape initial inventory and final root-only check.",
+      "fix": "Bind inventory plus ordinary file metadata snapshots throughout and immediately before receipt."
+    }
+  ],
+  "rulings": [
+    {
+      "decision": "accept",
+      "scope": "No publication bypass; full/inner/publication remain false.",
+      "costIfWrong": "Premature acceptance prevented by separate full collector and promotion gates."
+    },
+    {
+      "decision": "accept",
+      "scope": "No extra app-version check; package validator already binds trusted source package version.",
+      "costIfWrong": "Version drift remains rejected in package validator."
+    },
+    {
+      "decision": "accept",
+      "scope": "Synthetic fixtures are data, production collector uses authenticated process source and previous proofs.",
+      "costIfWrong": "Forged helper authority if production adapter were bypassed."
+    },
+    {
+      "decision": "accept",
+      "scope": "Existing blob/attribute/path/hash-budget and SDK/extraction/browser checks retained.",
+      "costIfWrong": "Regression prevented by existing mandatory tests."
+    },
+    {
+      "decision": "accept limitation",
+      "scope": "Reviewer did not rerun Cloud, historical native compatibility, Windows/live/Server2019.",
+      "costIfWrong": "False verification claims prevented by fresh external evidence."
+    }
+  ],
+  "fixPassesAllowed": 1,
+  "rereview": false,
+  "deferredMinor": [],
+  "allGradedBeforeFix": true
+}
