@@ -1,0 +1,45 @@
+{
+  "taskId": "F09-e1",
+  "baseSha": "b8567d45e2be9c068ecdab8aae41f5142c95a9d8",
+  "scope": "Guard existing mount native subscription read until permission granted; same enable/disable user gesture flows and rejection handler",
+  "actualRed": 5,
+  "targetGreen": 172,
+  "fullGreen": 2633,
+  "fullFiles": 126,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "src/components/PushNotificationsCard.tsx": "7fcc9d9986b4f513f9f6f2089559994b319ff031eaeabf50095cbfdbfb233d63",
+    "src/utils/pushSubscription.ts": "0f0ff5fdcfd09acddba48ac6e29ca1982f125d23d32583f9ee339fcccbdb87bf",
+    "src/utils/pushSubscription.test.ts": "a51134874a25e5b63544b90df9803733fe3ea5a103cbdfdbe40a1162615d407a",
+    "scripts/ci/write-evidence.mjs": "6816b50f1a4aac04dfb026674466f5e4c10d2deb896d73f6e2e50462ec357e8a",
+    "tests/evidence.test.ts": "32283e18165eba29b1c5420a506009b2b23401db4afef4b416e7b2f5678fdc0a"
+  },
+  "verificationHashes": {
+    "f09-e1-push-red.log": "99ebaee5b772be1b6e49e53bdd6b20116b5a18ba1a01318f0dfb2b4e7aabf585",
+    "f09-e1-push-target.json": "4c3951c27bfa0474645c6ddeaf8c517f36c816bf70e46c25854e44579fdd5765",
+    "f09-e1-push-full.json": "a4dba1e637a2bed7dc2317a16d2c7f227813cf3c02ad0879d736030c3ca28f5d",
+    "f09-e1-push-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-e1-push-build.log": "68edbcc6b97d9432a22e3709491ab61ae6a03335ab461f28263c1f3acc443bcc"
+  },
+  "nativeCause": "actualWindows89be/CI38382888109 two minimal pages differonlygetSubscription/defaultpermission; driver failsaftercall, no-readcontrolworks; zero actualnotification requests/sends",
+  "review": "ONE fresh exacta5a/baseebed reviewer/author0C0I0M; zero sourcefixpass/rereview",
+  "windowsVerification": "pending new exactHEAD after accepted54 merge",
+  "original27BrowserCases": "PR47 remains open; must run all original assertions on reviewedfix before profile acceptance",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "priorFullGreen": 2627,
+  "rebasedVerificationHashes": {
+    "f09-e1-main54-target.json": "669e892f0d63d2ea2c5b7f8193e4742cddf4748967f18c9d6e8ed6f7b03e0abe",
+    "f09-e1-main54-full.json": "9f792c17606c5c6bd19c3a8d39b3d9213a37cdda69aaa5b9917c42a877ad7f6b",
+    "f09-e1-main54-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-e1-main54-build.log": "fb7c7422ae25c013fa7e6234da072a540a106e7be2c93b958d5a3e9310a02102"
+  },
+  "reviewedAppSourceByteAgreement": true,
+  "priorWindowsSha": "77823b1120feb13d4b07bc63bffde782fd802228",
+  "priorWindowsRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38385325024",
+  "priorWindowsResult": "all7/sevenraw0/both2627/125/24browsers, beforemain54"
+}

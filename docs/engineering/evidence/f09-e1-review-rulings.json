@@ -1,0 +1,38 @@
+{
+  "taskId": "F09-e1",
+  "reviewCount": 1,
+  "reviewedHead": "a5a825962ab069f7035f890896453c66e53c2dde",
+  "baseSha": "ebeddf69934152ea9fa62c3ef570a2b826e475f4",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "allGradedBeforeFix": true,
+  "fixPasses": 0,
+  "rereview": false,
+  "deferredMinor": [],
+  "rulings": [
+    {
+      "decision": "accept",
+      "scope": "Default/denied guard defers native worker read; granted receiver/rejection and unmount preserved; enable/disable/session/UI/delivery unchanged.",
+      "costIfWrong": "Functionality regression guarded by unit tests and original B09 native flow still pending."
+    },
+    {
+      "decision": "accept",
+      "scope": "No permission observer/effect/delivery redesign, dependency upgrade or additional native experiment justified.",
+      "costIfWrong": "Broader behavior changes avoided outside existing startup correction."
+    },
+    {
+      "decision": "accept limitation",
+      "scope": "Helper tests do not prove component wiring; original27 browser cases must run on updatedsource. Reviewer read-only/no native test certification.",
+      "costIfWrong": "Premature fixed claim prevented by exactWindows and original27 flow gates."
+    }
+  ]
+}
