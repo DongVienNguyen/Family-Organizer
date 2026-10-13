@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
-import { test as base, expect, type Page } from '@playwright/test';
+import { test as base, expect, selectors, type Page } from '@playwright/test';
 import { browserCases } from '../../scripts/ci/browser-contract.mjs';
 import {assertChildMemberBoundary,exerciseMemberBoundaryFixtures} from './member-boundary';
 
@@ -23,6 +23,12 @@ const test = base.extend<{ networkBoundary: void }>({
   }, { auto: true }],
 });
 test.beforeAll(async ({ browser, browserName }) => {
+  // Public Playwright selector APIs compare native DOM queries in both worlds.
+  // These engines are diagnostics only; every original flow assertion remains.
+  for(const [name,contentScript] of [['b09main',false],['b09utility',true]] as const)await selectors.register(name,()=>({
+    query(root: Document|Element,selector:string){return root.querySelector(selector);},
+    queryAll(root: Document|Element,selector:string){const result=[...root.querySelectorAll(selector)];console.log('B09_WORLD_QUERY',JSON.stringify({selector,count:result.length,documentRoot:root===document,path:location.pathname,connected:result.map(element=>element.isConnected)}));return result;},
+  }),{contentScript});
   const executable = browser.browserType().executablePath();
   fs.mkdirSync('reports', { recursive: true });
   fs.writeFileSync(`reports/browser-runtime-${browserName}.json`, JSON.stringify({ browserName, browserVersion: browser.version(), executableSha256: createHash('sha256').update(fs.readFileSync(executable)).digest('hex'), nodeVersion: process.version, platform: process.platform, architecture: process.arch }, null, 2));
@@ -498,7 +504,7 @@ test('B09 self profile settings persistence', async ({ page, browser, browserNam
     const style = element ? getComputedStyle(element) : undefined;
     return { readyState:document.readyState, path:location.pathname, settingsHeaderCount:document.querySelectorAll('#settings-sub-header').length, settingsModuleCount:document.querySelectorAll('#settings-module').length, profileCount:document.querySelectorAll('#settings-tab-profile').length, navConnected:nav?.isConnected??false, navSelected:nav?.getAttribute('aria-selected')??null, headerConnected:element?.isConnected??false, headerRectangle:rectangle?{x:rectangle.x,y:rectangle.y,width:rectangle.width,height:rectangle.height}:null, headerStyle:style?{display:style.display,visibility:style.visibility,opacity:style.opacity}:null, tabLabels:element?[...element.querySelectorAll('button')].map(button=>button.textContent?.trim()):[], clickFacts:(window as any).__syntheticB09SettingsClicks??[] };
   });
-  page.on('console',message=>{if(message.type()==='log'&&message.text().startsWith('B09_MAIN_'))console.log(message.text());});
+  page.on('console',message=>{if(message.type()==='log'&&(message.text().startsWith('B09_MAIN_')||message.text().startsWith('B09_WORLD_')))console.log(message.text());});
   await page.evaluate(() => {
     (window as any).__syntheticB09SettingsClicks=[];
     const started=performance.now();
@@ -524,7 +530,11 @@ test('B09 self profile settings persistence', async ({ page, browser, browserNam
   console.log('B09_SETTINGS_DOCUMENT_BEFORE',JSON.stringify(await settingsDocumentFacts()));
   await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
   const settingsTabs = page.locator('#settings-sub-header');
-  await expect(settingsTabs).toBeVisible();
+  try { await expect(settingsTabs).toBeVisible(); }
+  finally {
+    console.log('B09_NATIVE_MAIN_COUNT',await page.locator('b09main=#settings-sub-header').count());
+    console.log('B09_NATIVE_UTILITY_COUNT',await page.locator('b09utility=#settings-sub-header').count());
+  }
   const renderedTabs = await settingsTabs.locator('button').allTextContents();
   expect(renderedTabs.map(text=>text.trim())).toContain('Thành viên và Phân quyền');
   console.log('B09_SETTINGS_TABS_RENDERED', JSON.stringify(renderedTabs.map(text=>text.trim())));

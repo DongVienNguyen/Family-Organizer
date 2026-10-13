@@ -129,5 +129,17 @@
     "assertions": "all existing B01-B09 unchanged,27 first-attempt engine cases; prior21/24 rejection regressions retained",
     "fixtureAdaptation": "merge inherited older-matrix test hardcoded8→7, one actualfixture-only RED→dynamic lastcase/count transformation,69browsergate tests green; no productbug claim",
     "windows": "pending, diagnostic-only nofixclaim"
+  },
+  "crossWorldProbe": {
+    "fullGreen": 2394,
+    "fullFiles": 119,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "b6e8dc7586fe66fb44decd9f0602ef8d25c4cc3ff5ded22212c84aca4724821d",
+    "purpose": "diagnostic only through supported public Playwright selectors.register in main and utility worlds; original click/assertions/timeouts/zero retries retained",
+    "windows": "pending"
   }
 }
