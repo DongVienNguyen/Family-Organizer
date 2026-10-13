@@ -6,8 +6,8 @@
 
 | Work | Current evidence / remaining step |
 | --- | --- |
-| Accepted main | PR63 squash `289f3cb6d69bfc90bb30691ac88e5c3546675fba`; independently same tree as tested `6f477b6c6a061f08eaade63962c68855d5ded95c` |
-| Windows quality/package/service | [CI38418423525](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38418423525): all7 checks/eight independent raw validators; each Node22/24 2798 tests/136 files, zero failed/pending/todo;36 first-attempt browser cases |
+| Accepted main | PR64 squash `3d3bbb1c9591e62e65f594bacb51a404e9bbe10b`; independently same tree as tested `929520f39a2fb59c1d9aa4e39c7f1f39af8afa80` |
+| Windows quality/package/service | [CI38434366096](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38434366096): all7 checks/eight independent raw validators; each Node22/24 2812 tests/137 files, zero failed/pending/todo;42 first-attempt browser cases |
 | Legacy assistant/health/calendar | PR60/62/63 accepted; actual original browser assertions, own cleanup and offline network boundary verified on all three engines |
 | Read-only candidate/promotion handoff | PR61 accepted; trusted-main candidate [38414439837](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414439837) and promotion [38414445312](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414445312) independently verified complete original historical ZIP/source/raw/normalized/handoff bindings. Publication/tag/release all false |
 | Documents/search F09-l | PR64 HEAD `5eddd29014c591d248d0660aa9c9a5e4ee513182`, [CI38421156681](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38421156681): five checks/seven non-browser raw readers pass, each2801/136; browser38/39 failed existing B12 WebKit45s budget, gate failed. All seven artifacts/full log/trace retained; not merged |
@@ -1370,3 +1370,5 @@ F09-m provisionalBASE93f reviewedL+parents: B14readonlydashboardactualfinance su
 
 
 F09-j PR62tested71/CI38414676195 all7/eightraw0/both2795/136/33firstattempt merged0a04122/PR-main-treeequal, compactj-final archived. F08nmain509actualcandidate38414439837/promotion38414445312 independentlyfullGit/API/raw/hash/inner/license/normalizedtuple/handoffverified; pubfalse/releaseCreatedfalse/tagCreatedfalse/no actualrelease/VPS. F09-k accepted0amain integration all3ownsourcehashesunchanged2798/136/165target/lintbuild0 verifiedCloud, wholeaccepted33prefix retained; ONEreview0C0I0M/zero sourcefixpass/no rereview/no redundantCloudrepeat. ExactnewWindows36required.
+
+PR64 accepted929520f/CI38434366096 all7/eightraw0/both2812/137/42firstattempt, squash3d3bbb1 PR/main/treeequal. Originaldocumentsreview0C0I1M+distinctcalendar0C0I0M+diagnostics0C1I1M allrulingsretained; nativefourfailurecheckpoints preserved, originalCaddycauseunknown. M acceptedmain integrated with allnine own-source hashes and parentCaddy files unchanged from2820/138 verification; no redundantCloudrepeat/newreview/fixpass. NewexactWindows45required.

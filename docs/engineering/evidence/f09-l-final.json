@@ -1,0 +1,80 @@
+{
+  "taskId": "F09-l",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/64",
+  "testedHeadSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38434366096",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "summaryHashes": {
+    "quality": "471441e610bde0fc3a5769f256a66382c7e3ff95d1eb0eeacc0cb95cc438d004",
+    "coverage": "1ee1e6821177494dd348040a3173a56701627fa7da33760ff6a3609e5ade3a5d",
+    "browser": "42f75b7160b3ea23823d37f50d3765bf02cda705f10dad41aec3e0159f0ed223",
+    "package": "d563c836a863ce95318b13665c89cadf8ff7d99846ef221d914532ec55eae711",
+    "service": "0f3514cd8daac524b549b27d8636c50b70c65be039544d71aed49a6cff2074d8",
+    "caddy": "1dbf24266a6bc8f23709b03ea0348fafe017d910bbd815ffcc19450a9a90716b",
+    "extraction-sdk": "b1f9f0616e648d8d9acaa4d819501dca1ddc07560362ddd26b9ab0ed9bcb7d3c",
+    "inner-native": "22d659f4bbe67fe4a4841e70726b28348229e99d31d6d78b567eed1a58e09544"
+  },
+  "fullCiLogSha256": "5831e85d42bd9fc7cc533462dca64440eea1409b26a0e3cf014129617e5ccfbe",
+  "pr": "https://github.com/DongVienNguyen/Family-Organizer/pull/64",
+  "testedHead": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+  "mergeSha": "3d3bbb1c9591e62e65f594bacb51a404e9bbe10b",
+  "mainTreeEqualsTestedHead": true,
+  "qualityEach": 2812,
+  "qualityFilesEach": 137,
+  "browserFirstAttempt": 42,
+  "rawValidators": 8,
+  "zipSha256": "a959042b35bbecc1aa0cbcb65d6c1156387fdd4a900d80246ca0060ddf5528c4",
+  "proofSha256": "e4f8235767e2e739b04ac45851b478d40b825cecf0fb9d620d706b4041b33be0",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": [
+    "Read-only handoff liveverified; publication remains locked",
+    "Other legacy UI/inventory/flag mapping/fullF09",
+    "F05 unprotected main/Administration403",
+    "actualServer2019/reboot/offhost/RPO/RTO not-run",
+    "no release/tag/VPS authorization"
+  ]
+}
