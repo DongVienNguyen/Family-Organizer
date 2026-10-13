@@ -1,6 +1,6 @@
 {
   "taskId": "F08-n",
-  "baseSha": "a9c66aeba7aab2c0a9c00828708305845262b66b",
+  "baseSha": "f733e1c5bd6e4016c096441df24807cc66b50277",
   "scope": "Publication-disabled handoff intent from complete authenticated collector, read-only promotion preparation workflow; no copying/rebuilding/publishing release assets",
   "availabilityRed": 16,
   "actualMandatorySuiteRed": 1,
@@ -48,8 +48,9 @@
     "F05Administration403",
     "Server2019/release/VPS"
   ],
-  "baseState": "Provisional reviewed parent60, native/mainacceptance pending",
+  "baseState": "Accepted60 squash; tree independently equals tested a9/CI38409739250",
   "priorCorrectedCloudTests": 2787,
   "reviewedOwnSourceByteAgreement": true,
-  "review": "ONE9e381/basef6 0C0I0M, allgraded beforeactions, zero sourcefixpass/no rereview; parentassistantFocus+allgatesretained"
+  "review": "ONE9e381/basef6 0C0I0M, allgraded beforeactions, zero sourcefixpass/no rereview; parentassistantFocus+allgatesretained",
+  "finalCompositionSourcesByteAgreement": true
 }
