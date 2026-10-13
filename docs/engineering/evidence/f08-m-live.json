@@ -1,0 +1,29 @@
+{
+  "taskId": "F08-m-live",
+  "workflowSourceSha": "f6c7610a06bed4e39135a3ac14a57151dc9d1802",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38404316314",
+  "explicitTargetSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38358093544",
+  "archives": 7,
+  "archiveBytes": 61283482,
+  "expandedBytes": 101242387,
+  "receiptHashes": {
+    "release-metadata.json": "ca10f9ca568f1155bdc1576a2678c47f0a645c2721103db0ab17d6548a724ff8",
+    "release-archives.json": "8ce7be723c408f8ace2d91e3b6f924dd8a4444dbf57c288cebee414af267aed0",
+    "release-report-preflight.json": "6e7f9eeb06e85b239c09171525f88e4c50f96e8857ab83a2e3e970b5f882915f",
+    "release-evidence.json": "eef458d57209ad7a362275d14d15aaa2003a5884466d7136b6f94f86de468406"
+  },
+  "fullWorkflowLogSha256": "21e11a51dd65c5f06d3d524c0d2e2627f912e38dc5c900a57c74b33e3bf07552",
+  "reportsVerified": true,
+  "consumerFunctionalVerified": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "qualityEach": 2393,
+  "qualityFilesEach": 119,
+  "browserFirstAttempt": 24,
+  "manifestPayloadFiles": 4581,
+  "dependencies": 236,
+  "innerNativeFiles": 4582,
+  "innerNativeExpandedBytes": 163645351,
+  "scope": "Actual trusted-main collector over explicit historical main38/CI38358093544; independentlyAPI/Git/raw-receipts/hash/native-inner/license/normalizedtupleverified; no current-fullF09/Server2019/publication authority"
+}

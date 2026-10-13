@@ -1,34 +1,25 @@
 # Tiến độ Windows-native
 
-## Current checkpoint — 2026-10-13 (before AI PR acceptance)
+## Current checkpoint — 2026-10-13 (assistant browser Windows pending)
 
-**The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains
-behind the foundation gate. Historical entries below retain earlier failures and
-verification snapshots; this checkpoint identifies the current accepted state.
+**The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains behind the foundation gate. Historical entries below preserve failures and older verification snapshots.
 
 | Work | Current evidence / remaining step |
 | --- | --- |
-| Accepted main | `10f70a9db627b89c1504163449eb132742350ac3`, PR57 squash; tree independently equals tested `0fe8d4de23e2a6b94fb8a210761b6b97b67368c5` |
-| Windows quality/package/service | [CI38393561228](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38393561228): all7 checks, eight independent raw validators; Node22/24 each2719 tests/131 files, no failed/pending/todo,27 first-attempt browser cases |
-| Native inner ZIP / licenses | [PR56](https://github.com/DongVienNguyen/Family-Organizer/pull/56) accepted; both runtime synthetic native extraction/refusal and actual trusted-main [collector38395149608](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395149608) independently verified |
-| Existing member profile | [PR47](https://github.com/DongVienNguyen/Family-Organizer/pull/47) accepted;27 original cases passed; separately reviewed push startup fix [PR55](https://github.com/DongVienNguyen/Family-Organizer/pull/55) accepted |
-| F09 calendar HTTP/ICS | [PR57](https://github.com/DongVienNguyen/Family-Organizer/pull/57), HEAD`0fe8d4de23e2a6b94fb8a210761b6b97b67368c5`, [CI38395869210](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210) all7/eight raw validators passed and merged; Cloud2723/132 and lint/build passed, one review completed |
-| F09 AI HTTP | Six offline SDK cases and mandatory-suite RED; Cloud2730/133,235target,lint/build0 and one review completed; exact new Windows pending; no real provider dispatch |
-| F08 remaining | Normalize the complete read-only collector receipt, then source-locked candidate/promotion preparation; `reportsVerified` and publication remain false |
-| F09 remaining | Complete legacy matrix/browser/module flag-off coverage and final foundation acceptance; calendar/health/assistant UI and imports remain incomplete |
-| F05 external blocker | Ruleset and branch-protection writes returned403, Administration permission still unusable; workflow ci-gate does not establish protected main |
-| R02/R03 | Actual Server2019/build17763/reboot/off-host/RPO/RTO not run; Windows2022 is not Server2019 acceptance. No release/tag or VPS access/deployment authorized or performed |
+| Accepted main | F08-m PR59 squash `f6c7610a06bed4e39135a3ac14a57151dc9d1802`; tree independently equals tested `48bc3cbfdf636d50a8e3988cca5de29c7c1fc0e3` |
+| Windows quality/package/service | [CI38401974884](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38401974884): all7 checks/eight independent raw validators; both Node22/24 each2769 tests/134 files, zero failed/pending/todo,27 first-attempt browser cases |
+| Full read-only collector | [Live38404316314](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38404316314) actual trusted-main sourcef6c, explicit historical main38/CI38358093544; all7 archives/raw families/source/native inner/license/normalized tuple independently verified. Final normalized reportsVerified/consumerFunctionalVerified=true, publicationAllowed=false; raw preflight remains a subset receipt |
+| Existing profile/push | PR47 and separately reviewed PR55 accepted; all27 original browser cases retained |
+| Calendar/health/AI HTTP | PR57/54/58 accepted; actual Express/native SQLite/auth and offline SDK synthetic data, no real delivery |
+| Assistant browser F09-i | Original nine-flow byte prefix retained; B10 real unconfigured backend loading/400error/Escape/reopen/focus/no legacy writes. Cloud2772/134,159target,lint/build0; one fresh review0C0I1M, no source fixpass/rereview. One actual CloudChromium B10 diagnostic pass; exact Windows all30 pending |
+| F08 remaining | Source-locked candidate/promotion preparation; actual release/tag unauthorized and publication disabled |
+| F09 remaining | Health/calendar UI, imports, module flag-off mapping and full foundation acceptance |
+| F05 blocker | Actual ruleset/branch-protection writes403; granted repository admin visibility has not enabled integration Administration write. Main enforcement remains absent |
+| R02/R03 | Actual Server2019/build17763/reboot/off-host/RPO/RTO not run. Windows2022 does not establish Server2019 acceptance. No release/tag or VPS access/deployment authorized or performed |
 
-Deferred review notes are recorded in the per-task rulings: native concurrent
-junction directory creation, duplicate health-suite row, calendar socket timeout/
-response-abort handling and legacy snapshot wording. `sqliteLoad()` comparisons
-cover legacy collections/singletons, not every auth/command table. Prior care
-wording and Caddy diagnostic readability notes remain in their original records.
+Deferred review notes stay in per-task rulings, including historical21/24 browser negative fixture counts, collector old preflight log wording, native concurrent junction directory creation, duplicate health-suite row, calendar response deadline and legacy snapshot wording. `sqliteLoad()` comparisons cover legacy collections/singletons, not every native auth/command table.
 
-Next: finish exact-HEAD PR57 Windows/raw evidence, merge on success, finish the
-independent offline AI and normalized collector tasks, and close remaining F09
-coverage before dependent feature work. No repeated merge permission is needed.
-
+Next: exact-HEAD F09-i Windows all30 and raw evidence, then health/calendar UI and remaining regression matrix; source-locked release preparation independently. No repeated merge permission is needed.
 
 ## Earlier integration checkpoints — through PR46
 
@@ -1352,3 +1343,5 @@ F09-h accepted57main10f composition: ownAItestbyteidenticalreview2e9d500, allcal
 
 F09-i BASE7640accepted58: originalnineflowbytes retained, B10 real compiledassistant no-key loading/400error/Escape/reopen/focus/nolegacywrites; only ownedrequest held thencontinuedunchanged. TwoactualbrowsergateREDs→159target/fullCloud2733/133 zero failedpendingtodo/lintbuild0. ActualCloudChromium B10 onepass is Linuxdiagnostic only; discovery30 notnativeexecution. CurrentWindowsnotrun; ONEfreshreview thenaccepted59 composition/newexactWindows/all30required. No app/deps/runtime/token/providerdelivery/newcancelbehavior; health/calendarUI/flags/fullF09/Admin403/2019/release/VPS remain.
 F09-h PR58 https://github.com/DongVienNguyen/Family-Organizer/pull/58 tested8ec0b38388cecd7ac216d361b9a19a6226af4c77 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38399687908 all7/eightindependentrawvalidators0/both2730/133/all27firstattempt/zero failpendingtodo; proofcomment6146072651; merged7640a12aac2a25e9deacbaa1b32f8de5aeec9767 independentPR/main/treeequal. ONEreview0C0I1M/source unchanged/nosourcefixpass/norereview; trackerrefresh performed. F09-h-final compact archived; UI/flags/fullF09pending. F08-m accepted7640main merged: correctednormalizer/collector/test/workflowbytes identical713, allAI/calendar/native/protocol/push/healthgates+VMfixtures retained. FinalCloud2769/134 zero failpendingtodo/lintbuild0/215target; ONEreview0C2I1M ALLgradedbeforeONEpass/sixactualREDs, logMinor deferred, no rereview. NewexactWindows/PR/trustedmain normalizedcollectorfile proof next. No fullfoundation/newdomain/2019/release/VPS claim; F05403 remains.
+
+F08-m PR59 accepted48bc/CI38401974884 all7/eightraw0/2769/134/27firstattempt mergedf6c/treeequal. Actualtrustedmainlive38404316314 normalizedfullreceipt verified independently overhistorical38, pubfalse/2019notrun; rawsubsetflags retained. F09-i accepted59composition fullCloud2772/134 all0/159target/lintbuild0, ownreviewedbytesunchanged/allcriticalgatesretained. ONEreview0C0I1M/no sourcefixpass/rereview/Minorhistorical21-24negativefixture deferred; exactnewWindows30pending.

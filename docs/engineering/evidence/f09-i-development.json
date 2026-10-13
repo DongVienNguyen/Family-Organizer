@@ -1,11 +1,11 @@
 {
   "taskId": "F09-i",
-  "baseSha": "7640a12aac2a25e9deacbaa1b32f8de5aeec9767",
+  "baseSha": "f6c7610a06bed4e39135a3ac14a57151dc9d1802",
   "scope": "Existing assistant loading/error/close against real unconfigured backend; no provider delivery or app behavior change",
   "actualGateRed": 2,
   "targetGreen": 159,
-  "fullGreen": 2733,
-  "fullFiles": 133,
+  "fullGreen": 2772,
+  "fullFiles": 134,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -24,7 +24,11 @@
     "f09-i-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
     "f09-i-build.log": "01d2f8d2ebe4efaf24da65c7d1cb1412f9e55ddf5f5aacdb6d9d3580f489763f",
     "f09-i-browser-discovery.log": "c2b97f9d6863ac0b1f3de023e959a3e0fae511a1485dac0e16673771280dfda9",
-    "f09-i-cloud-browser.log": "3f04edab49f9f572ab542843a7896500fd7c81b84e0e373fcf475f02d76499ce"
+    "f09-i-cloud-browser.log": "3f04edab49f9f572ab542843a7896500fd7c81b84e0e373fcf475f02d76499ce",
+    "f09-i-main59-target.json": "5c6ad9e499be4e9d430367476a3ac41c313f5d57a29f99ee92f4aab3d02cc58d",
+    "f09-i-main59-full.json": "800c6437649b917c2da91e9330ea47cdf5ea45beaad71a27bde7723b2be59622",
+    "f09-i-main59-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f09-i-main59-build.log": "4daff27232ab17eb4bb95dac60af7a2b81198c2d8d92b0020684ff1c61f86814"
   },
   "cloudBrowserDiagnostic": "One actual Chromium B10 passed; Linux diagnostic only, not Windows acceptance",
   "browserDiscovery": 30,
@@ -38,5 +42,8 @@
     "F05 Administration403",
     "Server2019/R02",
     "Release/tag/VPS unauthorized"
-  ]
+  ],
+  "priorCorrectedCloudTests": 2733,
+  "reviewedOwnSourceByteAgreement": true,
+  "review": "ONE3d30054/base7640 reviewer/author0C0I1M ALLgraded beforeactions; Minor historical21/24negativefixtures deferred, zero sourcefixpass/no rereview"
 }
