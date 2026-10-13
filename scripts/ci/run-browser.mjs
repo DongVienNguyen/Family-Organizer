@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {StringDecoder} from 'node:string_decoder';
-import {createBrowserProtocolCapture} from './browser-protocol.mjs';
+import {createBrowserProtocolCapture,createBrowserDriverCapture} from './browser-protocol.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -42,6 +42,7 @@ function capture(child, name) {
   const exited = new Promise((resolve, reject) => { child.once('exit', (code, signal) => resolve({ code, signal })); child.once('error', reject); });
   // A spawn failure can happen before readiness; keep the promise handled until awaited.
   exited.catch(() => {});
+  const closed=once(child,'close');closed.catch(()=>{});
   const append = bytes => {
     if (name === 'server') serverOutput += bytes.toString(); else cliOutput += bytes.toString();
     if(name==='cli'&&cliOutput.includes('B09_PROTOCOL_WINDOW webkit'))protocolSelected=true;
@@ -55,8 +56,14 @@ function capture(child, name) {
     const record=text=>{if(failed)return;try{sink.writeText(text);}catch{failed=true;failure??=new Error('browser protocol diagnostic budget rejected');child.kill('SIGKILL');}};
     child.stderr.on('data',bytes=>record(decoder.write(bytes)));
     child.stderr.once('end',()=>{try{record(decoder.end());if(!failed)sink.end();}catch{failure??=new Error('browser protocol diagnostic incomplete');child.kill('SIGKILL');}finally{fs.closeSync(fd);}});
+  }else if(name==='cli'){
+    const fd=fs.openSync(path.join(reports,'browser-driver.jsonl'),'wx'),decoder=new StringDecoder('utf8');
+    const sink=createBrowserDriverCapture({writeRecord:line=>assert.equal(fs.writeSync(fd,line),Buffer.byteLength(line),'driver diagnostic write incomplete'),appendOrdinary:line=>append(Buffer.from(line))});
+    let failed=false;const record=text=>{if(failed)return;try{sink.writeText(text);}catch{failed=true;failure??=new Error('browser driver diagnostic budget rejected');child.kill('SIGKILL');}};
+    child.stderr.on('data',bytes=>record(decoder.write(bytes)));
+    child.stderr.once('end',()=>{try{record(decoder.end());if(!failed)sink.end();}catch{failure??=new Error('browser driver diagnostic incomplete');child.kill('SIGKILL');}finally{fs.closeSync(fd);}});
   }else child.stderr.on('data',append);
-  return exited;
+  return exited.then(async result=>{let timer;try{const complete=await Promise.race([closed.then(()=>true),new Promise(resolve=>{timer=setTimeout(()=>resolve(false),1000);})]);if(!complete)failure??=new Error('native output close incomplete');return result;}finally{clearTimeout(timer);}});
 }
 async function stopServer() {
   if (!server) return;
@@ -112,7 +119,7 @@ try {
     await new Promise(resolve => setTimeout(resolve, 200));
   }
   assert.equal(ready, true, 'production server readiness deadline exceeded');
-  const cliEnv={...process.env,FO_BROWSER_BASE_URL:origin};
+  const cliEnv={...process.env,FO_BROWSER_BASE_URL:origin,DEBUG:'pw:browser'};
   if(process.env.FO_BROWSER_PROTOCOL_DIAGNOSTICS==='1'){cliEnv.DEBUG='pw:protocol';cliEnv.MAX_LOG_LENGTH='262144';}
   cli = spawn(process.execPath, [require.resolve('@playwright/test/cli'), 'test', '--config', path.join(root, 'playwright.config.ts')], { cwd: root, env: cliEnv, stdio: ['ignore', 'pipe', 'pipe'] });
   const cliExited = capture(cli, 'cli');

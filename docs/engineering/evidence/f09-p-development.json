@@ -1,0 +1,39 @@
+{
+  "taskId": "F09-p",
+  "baseSha": "a234bcfe8ff8e78ee08aea181757daf45d4f3f8b",
+  "scope": "Native browser process diagnostics after actual B01 Chromium context teardown failure; no app or45 case assertions changes. Unknown original native cause, not a functional fix claim.",
+  "actualAvailabilityRed": 8,
+  "targetGreen": 112,
+  "fullGreen": 2832,
+  "fullFiles": 139,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "cloudBrowser": "One actual rebuilt-source Chromium B01 pass18.3s, synthetic server/DB/fixture cleanup0/no external attempts; Linux diagnostic only.",
+  "driverRecords": 228,
+  "driverReportBytes": 34012,
+  "sourceHashes": {
+    "scripts/ci/browser-protocol.mjs": "04ea088ae70ddb7eddc27c0bdc17411caf71431b3b83bdac83a3ffa78f1ca8cc",
+    "scripts/ci/run-browser.mjs": "5b88cf143e2ce4579696d67783e598e871020cf0db97ca18be58b33c87004590",
+    "tests/browser-protocol.test.ts": "b5dac33e16522903ac2aa107634af41de92ef6ce4400b4542800cf448a551182"
+  },
+  "verificationHashes": {
+    "f09-p-red.json": "139e76dba6cdf34dee31e5b0c6bd98a0bc57895f54f1a4028fc22ec3e2a97caf",
+    "f09-p-target.json": "a16032e6b5c9f874d77f4225cbec35ac546fbb31c04c7c83138dd833f99a0f5e",
+    "f09-p-full.json": "41bc7f6fc14ae0e375bd627fa9d5280bd9fe91e8b7a8a2430252b6a713b8f62a",
+    "f09-p-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-p-build.log": "410540aa5532603ec81402807b11e5317c71fc8f008c8ee12ed0a813dbfb8ae2",
+    "f09-p-cloud.log": "b99b6061bb827a24c735163c7460bd65d1fb059cb3999171fc98339f44ce19cc",
+    "f09-p-cloud-reports/browser.json": "18ed629dd8673910743671b0134c5c24930710ba1f21286648440e30f4293a2d",
+    "f09-p-cloud-reports/browser.junit.xml": "a007c2131640ea9d038d678128031af50f54171247751b7bb01dc9a633a555a8",
+    "f09-p-cloud-reports/browser-fixture.json": "4671838f2f91fd21054a1eb03d146366fd4cc97570e19d247c6aecdcacf5e19a",
+    "f09-p-cloud-reports/browser-driver.jsonl": "e422ae9c23f235759af1ca5c4744fb02cf4e938289b5712a3f9527d1735201ae"
+  },
+  "diagnosticPolicy": "Default DEBUGexactpw:browser; isolated stderr into dedicated hashed JSONL using UTF8decoder, boundedline/report/records and bounded per-native-stderr tail; launch args/unknown formats redacted in dedicated JSONL. Playwright may separately retain original driver stderr in JSON/JUnit; existing64MiB evidence parser budgets remain unchanged. Protocoldiagnostic opt-in remains separate. Existing ordinaryCLI65536/12min and45s/10s/retries0 unchanged. Native exit/cleanup/failures remainauthoritative.",
+  "windows": "not-run",
+  "review": "fresh review pending",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
