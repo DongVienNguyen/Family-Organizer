@@ -1,0 +1,35 @@
+{
+  "taskId": "F09-o",
+  "reviewHead": "64ba9227a38ed0c4f949a4778421bdd89ad7992f",
+  "reviewBase": "66c18866ca816fb2037816f77fe097fde38c25c5",
+  "reviewer": "/root/f09_o_review",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "allGradedBeforeAction": true,
+  "findings": [
+    {
+      "severity": "Important",
+      "decision": "accept and fix in one pass",
+      "finding": "Child exit does not guarantee stdout/stderr drained; await bounded close before diagnostic snapshot.",
+      "regression": "Synthetic child exit then final stderr then close."
+    },
+    {
+      "severity": "Minor",
+      "decision": "defer",
+      "finding": "Existing independent Buffer UTF8 decoding can corrupt split multibyte characters.",
+      "limit": "Tail boundary test is not stream-decoder coverage."
+    }
+  ],
+  "reviewFixPassCount": 1,
+  "rereview": false,
+  "windows": "not-run",
+  "publicationAllowed": false
+}
