@@ -17,5 +17,10 @@
   "systemTrustInstallation": false,
   "ownershipAvailabilityReds": 6,
   "ownershipScope": "Fresh ordinary directory/exact native parent+leaf identity; preexisting and replacement paths preserved, completed disposal idempotent",
-  "nativeProbe": "Draft only: own fixture lifecycle and exact CLI/path checks; pinned official ZIP/hash/license/extraction/native-exit PS wrapper. Still no native execution."
+  "nativeProbe": "Draft only: own fixture lifecycle and exact CLI/path checks; pinned official ZIP/hash/license/extraction/native-exit PS wrapper. Still no native execution.",
+  "evidenceAvailabilityReds": 32,
+  "gateReds": 4,
+  "targetGreen": 204,
+  "targetFiles": 3,
+  "nativeEvidenceContract": "Exact source/runtime/pinned ZIP/SHA512/binary/license,6 ordered native phases/zero exit/null signal/TLS and untrusted-CA refusal/owned cleanup/no global trust"
 }

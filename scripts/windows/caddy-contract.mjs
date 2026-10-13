@@ -29,3 +29,16 @@ export function ownSyntheticProxyFixture(directory){
   return {directory,dispose(){if(disposed)return;try{assertNoLinkedAncestors(directory);for(const parent of parents){const stat=fs.lstatSync(parent.file,{bigint:true});if(!stat.isDirectory()||stat.isSymbolicLink()||stat.dev!==parent.dev||stat.ino!==parent.ino)reject();}const current=fs.lstatSync(directory,{bigint:true});if(!current.isDirectory()||current.isSymbolicLink()||current.dev!==identity.dev||current.ino!==identity.ino)reject();fs.rmSync(directory,{recursive:true});disposed=true;}catch{reject();}}};
  }catch{reject();}
 }
+export function validateCaddyNativeEvidence(value,expected){
+ const errors=[],require=(ok,name)=>{if(!ok)errors.push(name);};
+ const probe=value?.probe,exit=value?.exit;
+ require(/^[a-f0-9]{40}$/.test(expected?.commitSha??'')&&['v22.23.3','v24.21.0'].includes(expected?.nodeVersion),'invalid expected Caddy context');
+ require(probe?.commitSha===expected?.commitSha&&probe?.nodeVersion===expected?.nodeVersion&&probe?.platform==='win32'&&probe?.architecture==='x64'&&probe?.caddyVersion===caddyRuntime.version&&probe?.binarySha256===caddyRuntime.binarySha256,'native Caddy source/runtime/binary mismatch');
+ require(probe?.fixtureCleanup===true&&probe?.systemTrustInstalled===false&&probe?.backend==='synthetic-loopback-only'&&probe?.server2019Acceptance==='not-run','Caddy synthetic cleanup/trust/scope mismatch');
+ require(exit?.commitSha===expected?.commitSha&&exit?.exitCode===0&&exit?.fixtureCleanup===true&&exit?.systemTrustInstalled===false&&exit?.server2019Acceptance==='not-run'&&exit?.zipSha256===caddyRuntime.zipSha256&&exit?.zipSha512===caddyRuntime.zipSha512&&exit?.licenseSha256===caddyRuntime.licenseSha256,'Caddy wrapper identity/checksum/cleanup mismatch');
+ require(exit?.nativeExitCodes?.download===0&&exit?.nativeExitCodes?.probe===0&&Object.keys(exit?.nativeExitCodes??{}).length===2,'Caddy native wrapper exits missing/nonzero');
+ const names=['version','validate','tls-held-backend-status','tls-private-ca-loopback-proxy-header-boundary','untrusted-synthetic-ca-refused','owned-admin-stop'];
+ require(Array.isArray(probe?.phases)&&probe.phases.length===names.length,'missing or extra Caddy native phases');
+ for(const [index,name]of names.entries()){const phase=probe?.phases?.[index];require(phase?.name===name&&([0,1,5].includes(index)?phase.exitCode===0&&phase.signal===null:phase.passed===true),'missing/failed native Caddy phase: '+name);}
+ return errors;
+}

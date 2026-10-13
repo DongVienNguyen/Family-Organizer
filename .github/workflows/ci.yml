@@ -114,6 +114,16 @@ jobs:
           $nativeCode = $LASTEXITCODE
           if ($nativeCode -ne 0) { exit $nativeCode }
           exit 0
+      - name: Pinned native Caddy isolated TLS proxy and graceful stop
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & ./scripts/windows/Test-Caddy.ps1 -ReportDirectory (Join-Path $env:GITHUB_WORKSPACE 'reports') -CommitSha $env:TEST_COMMIT_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
       - name: TypeScript check
         id: lint
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
