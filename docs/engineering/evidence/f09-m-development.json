@@ -6,8 +6,8 @@
   "actualOwnershipRed": 4,
   "actualOwnershipSuiteGateRed": 1,
   "cloudBrowserBefore": "B14 timed out45s atPlaywright response.json afteractualHTTP200 headers; incompletebody inrawtrace; oldone/allApphandlers ignoredbody",
-  "targetGreen": 298,
-  "fullGreen": 2809,
+  "targetGreen": 301,
+  "fullGreen": 2812,
   "fullFiles": 137,
   "failed": 0,
   "pending": 0,
@@ -16,14 +16,14 @@
   "buildExit": 0,
   "originalThirteenFlowBytePrefixPreserved": true,
   "sourceHashes": {
-    "scripts/ci/browser-contract.mjs": "cbed7837edceb10e4b67f9859eb776105415eadff2bc64f2e3619f5ef4c244ae",
+    "scripts/ci/browser-contract.mjs": "c170ba0bb86d0f8581526e5bbc5c60a15f0b2b6feb44b63a768bf72bacbed6dc",
     "scripts/ci/run-browser.mjs": "9535e628d1431ff884a0ce560235841ba951cd8befdd3262e5f21438b26738ff",
     "scripts/ci/write-evidence.mjs": "cd081d400e482a7c40a3b1c9847bf67fc715764de63cf43cdca75c46e78a384f",
     "src/App.tsx": "c3875784e13aaa2fe6e829ce76f0d59faa85728b041a4131ac0db98618e2b3c8",
     "src/utils/notificationRead.ts": "e8181110f49bc930dd04db41b54275cf3b3091a4ac395fc5cf1e6b61d664b7d4",
     "src/utils/notificationRead.test.ts": "8f591b4a4db61a00f47ed9d16028ce7e2c21f298d473c69bf391d716a6e6864b",
-    "tests/browser-evidence.test.ts": "0a73584c02160f53a7eca8e889e9817a77f6143526f3a00e99962da472d5d45d",
-    "tests/e2e/foundation.spec.ts": "89fa11d127b5b657efb998d5ce04b45211c9a645154afe6a67382460d561537a",
+    "tests/browser-evidence.test.ts": "e5e943acdde32c9b0bc66a5e357f3282db07fcd3a7c0092b4137e258353c2d80",
+    "tests/e2e/foundation.spec.ts": "986fd6897dc6c07f199bf1fe14609ed40415c773040ebb5dba9b4a912fc5d585",
     "tests/evidence.test.ts": "d357d8ef20c458c4e0387e39502f32aaef4ffc5f97ee83d0cf8bea4613e24ea2"
   },
   "verificationHashes": {
@@ -45,11 +45,15 @@
     "f09-m-clock-red-reports/browser-fixture.json": "71f0da196af45633fe14c6190546a05c4171f5f86fa9c5fd7005d04c16737e29",
     "f09-m-clock-green-reports/browser.json": "0c6b60e423f7611afb2a8e2611dd795c34a744b53af8c0c1b39906af2cca109e",
     "f09-m-clock-green-reports/browser.junit.xml": "b0b7c8c2ab5567cd5822f50602e789cfe3dbac498168d68b3231f2c0ab524fc3",
-    "f09-m-clock-green-reports/browser-fixture.json": "b56f9296f8b811c4c7cc424f6e4c0d13a25e2096598aed7442c60718981315d0"
+    "f09-m-clock-green-reports/browser-fixture.json": "b56f9296f8b811c4c7cc424f6e4c0d13a25e2096598aed7442c60718981315d0",
+    "f09-m-l1-full.json": "8f6ad4f1e4661c1ce2a6297b9560a8cde6876d173a34749b91266eab3c826a44",
+    "f09-m-l1-target.json": "28b5cf408c09dee572df6d9d5ddda473d8306e2285f1f0448b5b1a73c516d652",
+    "f09-m-l1-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-m-l1-build.log": "b2f93dfd68c7a084377698add0d7098e8ced1288ec0af7f7b9ae4f0aa2b64e55"
   },
   "ownershipRegression": "RealSessionBoundary.completedackowners notabortedonlaterlogout; heldbodyacrossactors rejectsAbortError/noobsolete-refresh; bothone/allhandlers consumeJSONbeforefetchNotifications callback",
   "cloudBrowserAfter": "One actualChromiumB14PASS16.8s, originalJSON/status/state/actor assertions and45s10s budgets preserved; Linuxdiagnostic only/noWindows42acceptance",
-  "browserDiscovery": 42,
+  "browserDiscovery": 45,
   "windows": "not-run",
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
@@ -73,5 +77,7 @@
   },
   "review": "ONE ba8/base93f 0C1I1M, all grades before one correction pass; Important clock corrected, Minor isolated zero unread badge deferred; no rereview",
   "actualReviewClockRed": 1,
-  "clockCorrection": "November actual Chromium Finance row assertion failed, fixed October browser time before navigation -> same B14 Chromium PASS; all previous assertions/13-flow prefix/budgets/retries retained."
+  "clockCorrection": "November actual Chromium Finance row assertion failed, fixed October browser time before navigation -> same B14 Chromium PASS; all previous assertions/13-flow prefix/budgets/retries retained.",
+  "priorFullGreen": 2809,
+  "calendarArchitectureComposition": "New distinct F09-l1 reviewed6c4 source integrated provisionally; every B14 byte unchanged, six other owned source hashes unchanged, both calendar flows/UIcreates/assertions retained; native45 requires acceptedparent."
 }
