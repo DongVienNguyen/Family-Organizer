@@ -498,18 +498,33 @@ test('B09 self profile settings persistence', async ({ page, browser, browserNam
     const style = element ? getComputedStyle(element) : undefined;
     return { readyState:document.readyState, path:location.pathname, settingsHeaderCount:document.querySelectorAll('#settings-sub-header').length, settingsModuleCount:document.querySelectorAll('#settings-module').length, profileCount:document.querySelectorAll('#settings-tab-profile').length, navConnected:nav?.isConnected??false, navSelected:nav?.getAttribute('aria-selected')??null, headerConnected:element?.isConnected??false, headerRectangle:rectangle?{x:rectangle.x,y:rectangle.y,width:rectangle.width,height:rectangle.height}:null, headerStyle:style?{display:style.display,visibility:style.visibility,opacity:style.opacity}:null, tabLabels:element?[...element.querySelectorAll('button')].map(button=>button.textContent?.trim()):[], clickFacts:(window as any).__syntheticB09SettingsClicks??[] };
   });
+  page.on('console',message=>{if(message.type()==='log'&&message.text().startsWith('B09_MAIN_'))console.log(message.text());});
   await page.evaluate(() => {
     (window as any).__syntheticB09SettingsClicks=[];
+    const started=performance.now();
+    const facts=()=>({elapsedMs:Math.round(performance.now()-started),headerCount:document.querySelectorAll('#settings-sub-header').length,moduleCount:document.querySelectorAll('#settings-module').length,profileCount:document.querySelectorAll('#settings-tab-profile').length,activeTab:localStorage.getItem('family_active_tab')});
+    let previous='',observations=0;
+    const observer=new MutationObserver(()=>{
+      const value=facts(),identity=JSON.stringify([value.headerCount,value.moduleCount,value.profileCount,value.activeTab]);
+      if(identity!==previous&&observations++<16){previous=identity;console.log('B09_MAIN_MUTATION',JSON.stringify(value));}
+      if(value.headerCount===1||observations>=16)observer.disconnect();
+    });
+    observer.observe(document.documentElement,{childList:true,subtree:true});
     document.addEventListener('click',event=>{
       const button=(event.target as Element)?.closest('aside nav button');
-      if(button?.textContent?.trim()==='Thiết lập')(window as any).__syntheticB09SettingsClicks.push({trusted:event.isTrusted,connected:button.isConnected,defaultPrevented:event.defaultPrevented});
+      if(button?.textContent?.trim()==='Thiết lập'){
+        (window as any).__syntheticB09SettingsClicks.push({trusted:event.isTrusted,connected:button.isConnected,defaultPrevented:event.defaultPrevented});
+        console.log('B09_MAIN_CLICK',JSON.stringify({trusted:event.isTrusted,connected:button.isConnected,...facts()}));
+        queueMicrotask(()=>console.log('B09_MAIN_MICROTASK',JSON.stringify(facts())));
+        setTimeout(()=>console.log('B09_MAIN_TIMER',JSON.stringify(facts())),0);
+        requestAnimationFrame(()=>console.log('B09_MAIN_FRAME',JSON.stringify(facts())));
+      }
     },{capture:true});
   });
   console.log('B09_SETTINGS_DOCUMENT_BEFORE',JSON.stringify(await settingsDocumentFacts()));
   await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
   const settingsTabs = page.locator('#settings-sub-header');
-  try { await expect(settingsTabs).toBeVisible(); }
-  finally { console.log('B09_SETTINGS_DOCUMENT_AFTER',JSON.stringify(await settingsDocumentFacts())); }
+  await expect(settingsTabs).toBeVisible();
   const renderedTabs = await settingsTabs.locator('button').allTextContents();
   expect(renderedTabs.map(text=>text.trim())).toContain('Thành viên và Phân quyền');
   console.log('B09_SETTINGS_TABS_RENDERED', JSON.stringify(renderedTabs.map(text=>text.trim())));

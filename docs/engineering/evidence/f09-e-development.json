@@ -103,5 +103,17 @@
     "fullReportSha256": "f32eb8a8bf4660dacfff2ad38e6ba0837e56a4eff294467bb275be01deb37622",
     "change": "Static-only native document query, real click capture and geometric/style facts before/after original assertion; no asserted flow removed/timeout raised/retry enabled",
     "windows": "pending, diagnostic-only, no fix claim"
+  },
+  "mainWorldEventDiagnostic": {
+    "fullGreen": 2329,
+    "fullFiles": 118,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "d496744d4c1212ff81f836e9964656c9edfc5dd69369440dfbb96fc677d666dc",
+    "purpose": "diagnostic-only boundedstatic console observations around originalclick/assertion; no fix or acceptance claim",
+    "windows": "not-run"
   }
 }
