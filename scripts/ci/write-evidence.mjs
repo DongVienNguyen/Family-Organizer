@@ -60,7 +60,8 @@ const requiredSuites = [
   'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts',
 
   'tests/browser-protocol.test.ts',
-  'server/legacyCalendarHttp.test.ts',];
+  'server/legacyCalendarHttp.test.ts',
+  'server/legacyAiHttp.test.ts',];
 for (const required of requiredSuites) {
   if (!suites.some(suite => suite.name === required)) errors.push(`required suite missing: ${required}`);
 }
