@@ -1,0 +1,33 @@
+{
+  "taskId": "F08-g",
+  "scope": "Git-target browser matrix and bounded raw browser data reader; inner package/whole reports/publication still unverified",
+  "baseSha": "83aa2b7c4539764afb6abd103b257721d1d03088",
+  "red": {
+    "sourcePolicyAvailability": 9,
+    "actualMalformedXmlAcceptance": 5,
+    "olderMatrixMismatch": 1,
+    "readerAvailability": 19,
+    "unpinnedNativeWithGuardRemoved": 3,
+    "missingCriticalSuite": 1
+  },
+  "targetGreen": 334,
+  "fullGreen": 2367,
+  "fullFiles": 119,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "ba2572a8d775baca1ab6d9c0a89ed8bcc644d5cd6b9e1efa6f5949ef2ad278b9",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "realOldWindowsDataCompatibility": "Cloudhelper validated actualmain83Windows24cases/Gitpolicy; not new native/live acceptance",
+  "bootstrapError": "initial missingmodule causedsuite collectionerror; emptymodule addedbefore19actualavailabilityREDs, not productbug",
+  "review": "not-run",
+  "ci": "not-run",
+  "reportsVerified": false,
+  "publicationAllowed": false,
+  "innerPackageAgreement": false,
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden"
+}

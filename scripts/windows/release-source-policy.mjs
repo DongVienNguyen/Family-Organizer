@@ -32,8 +32,21 @@ export function readTrustedReleasePolicy(request,authority){
   requireFact(inventoryNames.length>0&&inventoryNames.length<=1500&&requiredSuites.length>0&&requiredSuites.length<=1500);
   // Preflight every mode before reading any source through a possible symlink.
   for(const name of [...inventoryNames,...requiredSuites]){const file=files.get(name);requireFact(file.type==='blob'&&['100644','100755'].includes(file.mode));}
+  const browserContract=read('scripts/ci/browser-contract.mjs');
+  // Parse the small literal declarations as data; never execute target code.
+  // Unsupported expressions/escaping need reviewed support before eligibility.
+  const literalArray=name=>{
+   const declarations=[...browserContract.matchAll(new RegExp('export const '+name+'\\s*=\\s*\\[([^\\]]*)\\]\\s*;','g'))];
+   requireFact(declarations.length===1);
+   const parts=declarations[0][1].split(',').map(value=>value.trim());if(parts.at(-1)==='')parts.pop();
+   requireFact(parts.length>0&&parts.length<=99);
+   return parts.map(value=>{const match=value.match(/^'([^'\\\r\n]+)'$/);requireFact(match);return match[1];});
+  };
+  const projects=literalArray('browserProjects'),cases=literalArray('browserCases');
+  requireFact(JSON.stringify(projects)===JSON.stringify(['chromium','firefox','webkit'])&&new Set(cases).size===cases.length&&cases.every((name,index)=>/^B[0-9]{2} [A-Za-z0-9][A-Za-z0-9 _-]{0,120}$/.test(name)&&name.startsWith('B'+String(index+1).padStart(2,'0')+' ')));
+  const browserPolicy={projects,cases,contractSha256:hash(windowsBytes(browserContract))};
   const sourceInventory=inventoryNames.sort((a,b)=>a.localeCompare(b,'en')).map(name=>{const text=read(name);requireFact(!/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(text));return {path:name,sha256:hash(windowsBytes(text))};});
   requireFact(Date.now()-started<=120000);
-  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy};
+  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy};
  }catch{reject();}
 }

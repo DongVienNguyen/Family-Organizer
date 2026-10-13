@@ -40,7 +40,7 @@ function readXmlToken(text,start){
   if(offset===text.length)throw Error('Incomplete XML attribute');attributes[key]=xmlValue(text.slice(before,offset));offset++;
  }
 }
-function junitTree(text){
+export function parseReleaseJUnit(text){
  if(typeof text!=='string'||text.length===0||Buffer.byteLength(text)>64*1024*1024||/<!DOCTYPE|<!ENTITY/i.test(text))throw Error('Invalid JUnit');
  validateXmlCharacters(text);
  const document={tag:'document',children:[]},stack=[document];let offset=0,nodes=0;
@@ -84,7 +84,7 @@ export function validateReleaseQualityReports(input){
   }
   require(total===v?.numTotalTests&&sameSet(observed.map(s=>s.name),receipts.map(s=>s.name)),'suite inventory contradicts totals');
   for(const name of e?.requiredSuites??[])require(observed.some(s=>s.name===name),'missing required suite: '+name);
-  const tree=junitTree(junit),count=(a,k,n,optional=false)=>optional&&a[k]===undefined?true:/^\d+$/.test(a[k]??'')&&Number(a[k])===n;
+  const tree=parseReleaseJUnit(junit),count=(a,k,n,optional=false)=>optional&&a[k]===undefined?true:/^\d+$/.test(a[k]??'')&&Number(a[k])===n;
   require(count(tree.attributes,'tests',total)&&count(tree.attributes,'failures',0)&&count(tree.attributes,'errors',0)&&count(tree.attributes,'skipped',0,true),'JUnit root totals mismatch');
   const xmlSuites=[];
   for(const suite of tree.children){
