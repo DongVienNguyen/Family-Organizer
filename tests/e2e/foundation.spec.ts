@@ -484,7 +484,12 @@ test('B09 self profile settings persistence', async ({ page, browserName }) => {
   const original = originalUsers.find(row => row.id === 'browser-child')!;
   expect(original).toMatchObject({ id: 'browser-child', username: 'browser-child', role: 'child', fullName: 'Synthetic child' });
   await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
-  await page.getByRole('button', { name: 'Thành viên và Phân quyền', exact: true }).click();
+  const settingsTabs = page.locator('#settings-sub-header');
+  await expect(settingsTabs).toBeVisible();
+  const renderedTabs = await settingsTabs.locator('button').allTextContents();
+  expect(renderedTabs.map(text=>text.trim())).toContain('Thành viên và Phân quyền');
+  console.log('B09_SETTINGS_TABS_RENDERED', JSON.stringify(renderedTabs.map(text=>text.trim())));
+  await settingsTabs.getByRole('button', { name: 'Thành viên và Phân quyền', exact: true }).click();
   await expect(page.getByText('Chỉ Gia Trưởng (Admin) mới có quyền tạo thêm tài khoản thành viên gia đình.', { exact: true })).toBeVisible();
   await assertChildMemberBoundary(page.locator('#settings-tab-members'),originalUsers.filter(row=>!row.isDeleted).map(row=>row.fullName));
   const forbidden = await page.evaluate(async token => {
@@ -493,7 +498,7 @@ test('B09 self profile settings persistence', async ({ page, browserName }) => {
   }, token);
   expect(forbidden).toBe(403);
   expect(await users()).toEqual(originalUsers);
-  await page.getByRole('button', { name: 'Hồ sơ của tôi', exact: true }).click();
+  await page.locator('#settings-sub-header').getByRole('button', { name: 'Hồ sơ của tôi', exact: true }).click();
   const profile = page.locator('#settings-tab-profile');
   const name = profile.getByPlaceholder('Ví dụ: Bố Hùng');
   const phone = profile.getByPlaceholder('09xx xxx xxx');
@@ -525,7 +530,7 @@ test('B09 self profile settings persistence', async ({ page, browserName }) => {
   await page.reload();
   await expect(page.getByRole('button', { name: 'Mở hồ sơ của ' + updatedName, exact: true })).toBeVisible();
   await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
-  await page.getByRole('button', { name: 'Hồ sơ của tôi', exact: true }).click();
+  await page.locator('#settings-sub-header').getByRole('button', { name: 'Hồ sơ của tôi', exact: true }).click();
   await expect(name).toHaveValue(updatedName);
   await expect(phone).toHaveValue(updatedPhone);
   expect(await users()).toEqual(originalUsers.map(row => row.id === original.id ? updated : row));
