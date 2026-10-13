@@ -1,7 +1,7 @@
 {
   "taskId": "F08-d",
   "scope": "Draft raw quality JSON/JUnit assertion and exit-code agreement; not a complete artifact/report collector",
-  "baseSha": "ff13cb6f25c88024d108b67953855cddf7917fa2",
+  "baseSha": "5c4815aec9f829488fc1513dcafd0996ba9997cc",
   "availabilityRedAssertions": 46,
   "reportShapeRedAssertions": 4,
   "reportShapePriorPassed": 44,
@@ -19,7 +19,7 @@
     "errors": 0
   },
   "sourcePolicyAuthenticated": "Cloud Git-byte compatibility only; new source not executed in trusted-main native adapter yet",
-  "full": "not-run",
+  "full": "passed2061/108 pinned/frozen/oneworker",
   "review": "not-run",
   "windowsForThisSource": "not-run",
   "publicationAllowed": false,
@@ -37,5 +37,16 @@
   "newCodeXmlHierarchyRedAssertions": 2,
   "newCodeSuiteCounterRedAssertions": 2,
   "sourcePolicyAvailabilityReds": 17,
-  "sourcePolicy": "Checked Git HEAD/origin/main ancestry/version and exact target tree; all unit suites/source hashes/lock/coverage policy derived from Git bytes. Refuse unsafe/link modes, exclusion pragmas, unsupported root/nested attributes, excessive counts/bytes/native failures. Pinned current Windows text conversion matches actual118 source hashes."
+  "sourcePolicy": "Checked Git HEAD/origin/main ancestry/version and exact target tree; all unit suites/source hashes/lock/coverage policy derived from Git bytes. Refuse unsafe/link modes, exclusion pragmas, unsupported root/nested attributes, excessive counts/bytes/native failures. Pinned current Windows text conversion matches actual118 source hashes.",
+  "fullGreen": 2061,
+  "fullFiles": 108,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "sourceFrozen": true,
+  "fullReportSha256": "6bd6a6c059e43e56e9120743f25408d484165c5cd001cd5577915a821ac158f7"
 }
