@@ -1,0 +1,156 @@
+{
+  "taskId": "F08-i",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/50",
+  "baseSha": "6f79e3cf35d5c9f1af498ca2e8e40351912a9ef0",
+  "testedHeadSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38368160972",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "dea961a99b507847c826cfa7a619d9a439718a8d",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "review": {
+    "taskId": "F08-i",
+    "reviewCount": 1,
+    "reviewedHead": "dbb2a638ede682fd17d0d2ff48aa06340557364c",
+    "reviewerGrades": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "authorGrades": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "findings": [
+      {
+        "grade": "Important",
+        "decision": "accept",
+        "effect": "Runtime policy refactor inadvertently allows undeclared expected.productionRoot to override legacy release-with-spaces root requirement. Actual collector does not currently supply this field; API regression still material.",
+        "fix": "Pass only legacy commitSha/nodeVersion to shared production validator from runtime policy; consumer retains explicit app root. Direct and raw-reader regression before correction."
+      }
+    ],
+    "rulings": [
+      "Six phase/checklist families match existing writers; nonzero refusal phases must remain1, omissions/duplicates reject.",
+      "Production23 checks/seven incompatible-schema preservation invariants retained; consumer exact owned release/app root remains required.",
+      "Do not require fields actual production writer does not emit.",
+      "Synthetic helper inputs are not GitHub authority; actual collector obtains authenticated Git/API/archive bytes in one process.",
+      "Shared bounded file reader protections inherited.",
+      "InnerZIP/license/service/full reports/publication remain false; historical compatibility is not new Windows/Server2019 acceptance."
+    ],
+    "allGradedBeforeOneFixPass": true,
+    "secondReview": false
+  },
+  "correction": {
+    "taskId": "F08-i",
+    "baseSha": "6f79e3cf35d5c9f1af498ca2e8e40351912a9ef0",
+    "scope": "seven bounded actual compiled consumer report files; inner ZIP/license/service/whole publication remain unverified",
+    "availabilityRed": 29,
+    "criticalSuiteRed": 1,
+    "targetGreen": 247,
+    "fullGreen": 2465,
+    "fullFiles": 121,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "542f5a90130fddda017e06f5b9638fb0777c9833ba1d5c651f0b4fda701f6f9a",
+    "review": "one fresh0C1I0M; accepted and corrected in one TDD pass, no rereview",
+    "ci": "not-run",
+    "rawConsumerFunctionalReportsVerified": true,
+    "innerPackageAgreement": false,
+    "reportsVerified": false,
+    "publicationAllowed": false,
+    "server2019Acceptance": "not-run",
+    "releaseTagVps": "forbidden",
+    "realOldWindowsCompatibility": "Cloudhelper accepted previousPR49 seven actualrawWindowsreports with checkedHZIPmetadata; not new native/live",
+    "reviewCorrectionRed": 2,
+    "verifiedSourceFiles": {
+      "scripts/windows/release-consumer-reports.mjs": "843eb9c6956afa1d869dc6e4436a0497deb4b4d8cf55ace5efd71fc5fd805b37",
+      "scripts/windows/release-runtime-reports.mjs": "71857a51dabb25e9e786396bfe580ade6724f16263c68bf3c4486de69527fdbc",
+      "scripts/windows/collect-release-archives.mjs": "1557036cb8dee7d71d7cf03c0d8d31eca29bfee4ac8f4cb365e97f8592d5526b",
+      "tests/release-consumer-reports.test.ts": "810ef6360a67be51b14d7b9b964c64c6660c15652ba2184bcd7a74ffb1242c6f",
+      "tests/release-runtime-reports.test.ts": "bd0a2f701eb87d2548812901dd8ec6b144ec9bb0a05a0b10ca1aa3ac6d7f3dec",
+      "tests/release-runtime-files.test.ts": "d1339a03090c5f5ab0f108f422a4666ee62c8fb5aca47bcf370062b01925f9b0",
+      "tests/helpers/release-consumer-fixture.ts": "fd5242c27de0ad547e3830a67330c5f2beb54e961885b2ef8664e1eabacae1e9",
+      "scripts/ci/write-evidence.mjs": "68aabd148873016d95480e2dab943bad372c000c2f3466f89761e17bc6a2d452",
+      "tests/evidence.test.ts": "2d75496953a87bfd4aa1c7130ac67bea090ecd1f7645d6005cbd359521431074"
+    },
+    "verificationHashes": {
+      "f08-i-review-red.log": "ec269f6a8cbb1a46fad816bb1f00877b9da7cce4543b3b13d74ad82a06b75fac",
+      "f08-i-review-target.json": "310d5af2003dbf85f24f2e7329040c1bf494b5925d649c12de4cdb1696aacea6",
+      "f08-i-review-full.json": "542f5a90130fddda017e06f5b9638fb0777c9833ba1d5c651f0b4fda701f6f9a",
+      "f08-i-review-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "f08-i-review-build.log": "fab5d7696dc12d809fb9500fc0eb3aa228335432ab968e1b2c1daeff5069b162"
+    }
+  },
+  "fullCiLogSha256": "63c32564a1aa00e19f6cb144c528d25e7699d49006917e3556a75cdcfb84fccc",
+  "summaryHashes": {
+    "quality": "5b9500c590e0fd71aebb9ec170c6a162db9b8b857792d002d4d7c50f11ac091a",
+    "coverage": "cb1da8cc81054f6f6755fc9d91c47f96a3a8be311c91351d28b15dcbd2e63c2a",
+    "browser": "d5f02a4704f38e0c7db243bae216afd3e18996f33d0186430414b3873e96015a",
+    "package": "067ce9bc007ec05105eaf7b6934913ad284886b1eca05bd242446c4b18f5ac8b",
+    "service": "2aeced38efd3f588f19a53d94a071dfb95be41f31fad05035124a12d1f08fd2b",
+    "caddy": "d25251aab17a69b102f53c341fd82ff780f118033714fd3adcc7db6126ddfe09",
+    "extraction-sdk": "00bc79909b20c454eb54642ca0ed9f411da4a6bd2615bc36100cdb7fedce173f"
+  },
+  "remaining": [
+    "Full archive/report collector and promotion workflows still pending",
+    "Other legacy matrix rows/Caddy/F08 full artifact+promotion collector",
+    "F05 unprotected main/Administration403",
+    "actualServer2019/reboot/offhost/RPO/RTO not-run",
+    "no release/tag/VPS authorization"
+  ],
+  "mergedMainSha": "727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d",
+  "nativeSummary": {
+    "both": "2465/121",
+    "failedPendingTodo": 0,
+    "browserFirstAttemptCases": 24,
+    "sourceCoverageFiles": 118,
+    "zipSha256": "c88686f5514e6d869ec304049ad610db6691c471e41ead4dbc95a4f9aa9e2b8a",
+    "sevenIndependentValidatorsExit": 0
+  },
+  "completeProofSha256": "ea6efa3df8cdbf640405229cfb096ab6839962cdec7051e7f70988bef02b5555",
+  "completeProofLocation": "/workspace/family-evidence/run-38368160972/final-proof.json"
+}
