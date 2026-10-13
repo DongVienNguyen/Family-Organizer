@@ -1,5 +1,35 @@
 # Tiến độ Windows-native
 
+## Current checkpoint — 2026-10-13 (before PR57 acceptance)
+
+**The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains
+behind the foundation gate. Historical entries below retain earlier failures and
+verification snapshots; this checkpoint identifies the current accepted state.
+
+| Work | Current evidence / remaining step |
+| --- | --- |
+| Accepted main | `a8f89c5e0d68c338c436bf6a05b27bf4b3e5bc92`, PR56 squash; tree independently equals tested `2b6632c7e2c26faec6d732ad6785f880e7fd1118` |
+| Windows quality/package/service | [CI38393561228](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38393561228): all7 checks, eight independent raw validators; Node22/24 each2719 tests/131 files, no failed/pending/todo,27 first-attempt browser cases |
+| Native inner ZIP / licenses | [PR56](https://github.com/DongVienNguyen/Family-Organizer/pull/56) accepted; both runtime synthetic native extraction/refusal and actual trusted-main [collector38395149608](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395149608) independently verified |
+| Existing member profile | [PR47](https://github.com/DongVienNguyen/Family-Organizer/pull/47) accepted;27 original cases passed; separately reviewed push startup fix [PR55](https://github.com/DongVienNguyen/Family-Organizer/pull/55) accepted |
+| F09 calendar HTTP/ICS | [PR57](https://github.com/DongVienNguyen/Family-Organizer/pull/57), HEAD`0fe8d4de23e2a6b94fb8a210761b6b97b67368c5`, [CI38395869210](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210) in progress at this checkpoint; Cloud2723/132 and lint/build passed, fresh review completed, no new Windows acceptance claim yet |
+| F09 AI HTTP | Six offline SDK characterization cases and required-suite RED; full verification/review/new Windows pending; no real provider dispatch |
+| F08 remaining | Normalize the complete read-only collector receipt, then source-locked candidate/promotion preparation; `reportsVerified` and publication remain false |
+| F09 remaining | Complete legacy matrix/browser/module flag-off coverage and final foundation acceptance; calendar/health/assistant UI and imports remain incomplete |
+| F05 external blocker | Ruleset and branch-protection writes returned403, Administration permission still unusable; workflow ci-gate does not establish protected main |
+| R02/R03 | Actual Server2019/build17763/reboot/off-host/RPO/RTO not run; Windows2022 is not Server2019 acceptance. No release/tag or VPS access/deployment authorized or performed |
+
+Deferred review notes are recorded in the per-task rulings: native concurrent
+junction directory creation, duplicate health-suite row, calendar socket timeout/
+response-abort handling and legacy snapshot wording. `sqliteLoad()` comparisons
+cover legacy collections/singletons, not every auth/command table. Prior care
+wording and Caddy diagnostic readability notes remain in their original records.
+
+Next: finish exact-HEAD PR57 Windows/raw evidence, merge on success, finish the
+independent offline AI and normalized collector tasks, and close remaining F09
+coverage before dependent feature work. No repeated merge permission is needed.
+
+
 ## Current integration state — 2026-10-13
 
 | Task | Current result | Evidence |
@@ -1308,3 +1338,5 @@ F09-e1 PR55 77823b1/CI38385325024 all7/sevenraw0/both2627/125/24browser accepted
 F09-e integratedaccepted55/main eebddef: sourceapp/helper/unitbyteidentical55; original27browserfilebyteidenticalc099; ALLcriticalsuiteunionretained. Cloud2656/128 zero failedpendingtodo/lintbuild0/260target; initialconsistentreceiptRED caughtauthorfixturemergeomittingexisting.tsx suite, restoredbeforefinalruns. NewexactHEADWindows required; no extraappchange/rereview. Priorc099/CI38388463324 all7/sevenraw0/27firstattempt remainshistoricalprecomposition proof. NextpushsamePR47/nativeall27/merge thenF08-l.
 
 F09-e PR47 testedb8353ff30ae362499be531c55f56aea2702c1176 / https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38391576329 all7/sevenraw0/both2656/128/all27originalfirstattempt0fail-skips-retries; mergedb8ad908741dff9b6a5e747b17e21915ff9ab8829, independentPR/main/treeequal. Compactf09-e-final archived; originalreview+separate55appreview retained/norereview. F08-l acceptedb8main merged/allmaincriticalgates/nativefixture retained; correctedsourcefullCloud2719/131 all0/lintbuild0/254target, reviewedinnerhelper/nativeextractorbytes unchanged. Authorfixturemergeerrors collection/order retained thenfixed, nopartial63-test acceptance; no app/deps/lockupgrade. ONEreview0C3I2M/allgradedbeforeONEpass/sixREDs, twoMinor deferred. NewexactWindows/PR/mainlive required; fullreports/publicationfalse. Historicalfull55/54 proof hadcopiedtaskIdF08-j; compacterrata identifycorrectPR/SHA/run and keeporiginalbytes/hash unchanged. NextWindowsinnernative thenauthenticatedmaincollector, normalizefullreceipt/F09remaining; F05Admin403/Server2019/release/VPS remain.
+
+F09-h BASEa8accepted56 frozenCloud2726/132 zero failedpendingtodo/lintbuild0/234target. SixexistingAI HTTP/nativeSQLite/auth characterizationcases initiallyGREEN;1actualrequired-suiteRED(174othersnotselected)→gate. HoistedcompleteGoogleSDKmock/synthetickey/norealprovider; actual auth/blank/unconfigured refusal, normalizedboundedshoppingdrafts/noautomaticlegacywrites, rawfallback, mockedtimeout500/onecall, Markdown/guest/emptyrefusal, admin-onlymaskedsettingsvalidation/clear. AbsoluteHTTP5secwatchdog/responseerror+abort/finalclose/drain/dispose; snapshot claimslegacyonly, notallauthtable. ExistingobjectACL/revocation/overloadtests mapped; UI/loading/close/moduleflag/fullF09pending. Currentcheckpoint inserted atfrontforvisibility whilehistoricalfailuresretained. ONEfreshwholebranchreview/newbase/exactWindows next. PR57https://github.com/DongVienNguyen/Family-Organizer/pull/57 HEAD0fe8d4de23e2a6b94fb8a210761b6b97b67368c5 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210 inprogress. F08lmainactual383951 verification0; normalizedreports/pubstillfalse. F05Admin403/Server2019/release/VPS/fullplansremain.
