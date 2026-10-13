@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 // Diagnostic protocol records contain identifiers and outcomes only, never
 // request/response bodies, headers, scripts, URLs or exception text.
 export function redactBrowserProtocolLine(line){
@@ -60,4 +61,15 @@ export function redactBrowserDriverLine(line){
 }
 export function createBrowserDriverCapture(options){
  return createBrowserProtocolCapture({maxRawLineBytes:65536,maxReportBytes:1024*1024,maxRecords:5000,...options,redactLine:redactBrowserDriverLine});
+}
+
+// Extracted native ownership boundaries for regression and the harness.
+export function observeBrowserChildCompletion(child){
+ const closed=new Promise(resolve=>child.once('close',()=>resolve(true)));
+ const exited=new Promise((resolve,reject)=>{child.once('exit',(code,signal)=>resolve({code,signal}));child.once('error',reject);});exited.catch(()=>{});
+ const completion=exited.then(async result=>{let timer;try{return {...result,outputClosed:await Promise.race([closed,new Promise(resolve=>{timer=setTimeout(()=>resolve(false),1000);})])};}finally{clearTimeout(timer);}});
+ completion.catch(()=>{});return completion;
+}
+export function launchWithBrowserDiagnostic(file,launch){
+ const fd=fs.openSync(file,'wx');try{return {child:launch(),fd};}catch(error){fs.closeSync(fd);throw error;}
 }

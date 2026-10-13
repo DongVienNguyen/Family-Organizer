@@ -1,0 +1,34 @@
+{
+  "taskId": "F09-p",
+  "reviewHead": "b2b2cecaa17ce546c6b28e2126cf0941534dffba",
+  "baseSha": "a234bcfe8ff8e78ee08aea181757daf45d4f3f8b",
+  "reviewer": "/root/f09_p_review",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "allGradedBeforeAction": true,
+  "findings": [
+    {
+      "grade": "Important",
+      "decision": "accept/fix in one pass",
+      "finding": "Returned completion promise rejection is unhandled before server readiness/cleanup awaits.",
+      "regression": "Actual child Node spawn failure must remain observable after delayed awaiting without terminating parent before evidence."
+    },
+    {
+      "grade": "Important",
+      "decision": "accept/fix in one pass",
+      "finding": "Opening diagnostic file after CLI spawn can leave CLI unmanaged on refusal.",
+      "regression": "Existing evidence refuses before actual child process writes marker; stale evidence unchanged. Synchronous launch failure closes actual descriptor."
+    }
+  ],
+  "reviewFixPassCount": 1,
+  "rereview": false,
+  "publicationAllowed": false
+}

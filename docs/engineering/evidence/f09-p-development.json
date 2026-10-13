@@ -33,7 +33,50 @@
   },
   "diagnosticPolicy": "Default DEBUGexactpw:browser; isolated stderr into dedicated hashed JSONL using UTF8decoder, boundedline/report/records and bounded per-native-stderr tail; launch args/unknown formats redacted in dedicated JSONL. Playwright may separately retain original driver stderr in JSON/JUnit; existing64MiB evidence parser budgets remain unchanged. Protocoldiagnostic opt-in remains separate. Existing ordinaryCLI65536/12min and45s/10s/retries0 unchanged. Native exit/cleanup/failures remainauthoritative.",
   "windows": "not-run",
-  "review": "fresh review pending",
+  "review": "ONE0C2I0M, ALL authorgraded before ONE correction pass; both fixes + actual real-process/descriptor regressions, no rereview.",
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "correctedVerification": {
+    "targetGreen": 115,
+    "targetFiles": 2,
+    "fullGreen": 2835,
+    "fullFiles": 139,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "reviewFixPassCount": 1,
+    "rereview": false,
+    "actualCausalRed": {
+      "spawnPromise": 1,
+      "staleEvidenceLaunch": 1,
+      "descriptorLeak": 1
+    },
+    "initialRedFixtureCorrection": "Initial review3-case RED first test resolved module relative to changed synthetic CWD and failed before Promise; not causal Promise proof. Retained initial reports and114pass/1wrongimport target. URL now anchored to test file; real missing executable emits unhandled rejection when immediate completion handler removed, actual selectedRED1 thenGREEN. Actual descriptor leak selectedRED1 thenGREEN. Stale-launch RED actually started real child and produced marker; fixed path refuses before spawn, preserves stale file.",
+    "sourceHashes": {
+      "scripts/ci/browser-protocol.mjs": "64843747f564b67bfa72f00c9837a27bb82d79d30584e411f7934a4f69834d42",
+      "scripts/ci/run-browser.mjs": "5c4f9332ce67e85d41668a25a11dd66130fa8595de09a0d675515d7c6912d2d6",
+      "tests/browser-protocol.test.ts": "2da9892f685a892e46badbb469ae6b3bd700e3b9efe1e4c1b915374181dbe1f0"
+    },
+    "verificationHashes": {
+      "f09-p-review-red.json": "a5c181ff7fe8c51f32ca57e775426a2bbf72ff5ebce27de9c07af827ecb90c52",
+      "f09-p-review-ownership-red.json": "6130de517f19c3a8b763c41927a4f2b7934c60fc23655df9a5aee6174850bf0b",
+      "f09-p-review-target.json": "d053398de32680888516ede1becae3053c4a545de742f48b85373dd24bc00bbe",
+      "f09-p-spawn-fixture.log": "be296874de4c47ca357379eb497165f9b3ff00a6659b3d9fa0c72ca1fdce9e62",
+      "f09-p-real-promise-red.json": "22fc96b92850a70a4f5f9798f50b7438ce1834fcdd86ed8da0024c8826f65809",
+      "f09-p-real-descriptor-red.json": "3b3947924ea3ccdbb3776d133795f5cbca9946c1d2bd27176586524c1f9802d3",
+      "f09-p-corrected-target.json": "57114fb3b865bd8a8d8f87be07584dc2c22c8d804818ee50aa5c53fa25d3ff7e",
+      "f09-p-corrected-full.json": "6fbcb3a94c70dc9bb6dd067ae00f662fd522d0b1fe05fa53809d7f30a7c73a93",
+      "f09-p-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f09-p-corrected-build.log": "74b914884655d5dabb37cb72c2e3c636094b48cbd73993fe91eb7d5901405ae3",
+      "f09-p-corrected-cloud.log": "da43a716f662099b3224e8cc6e48dea6e68567c5b2f8028e7036b74dc7ab9766",
+      "f09-p-corrected-cloud-reports/browser.json": "b89006dcd81e9046d58213e19dd86b193c79d39e0837034f1a635e4a9e1d5935",
+      "f09-p-corrected-cloud-reports/browser.junit.xml": "844f716bd703c31e74d0992701128d41640477b43b0cc0e535030d95d23dc226",
+      "f09-p-corrected-cloud-reports/browser-fixture.json": "742fe7e7631fc6b7cdfff61cde195145f4d2caba88b8e3a433aa4b136854a9fc",
+      "f09-p-corrected-cloud-reports/browser-driver.jsonl": "7ddd6ba3c12db1c0c2c288ce1228f90d6c862412bbff23d89c44532f4795157d"
+    },
+    "cloudBrowser": "One actual rebuilt-source Chromium B01 pass, all asserts/no external attempts/DB/server/fixture cleanup0. Linuxdiagnosticonly.",
+    "ownership": "Actual returned completion immediately handled while retaining rejection for await. Diagnostic wx open before CLI spawn; synchronous launch failure closesdescriptor, asyncfailure/finally bounded fd ownership retained. Existing exit/failure/assertion/budget policy intact."
+  }
 }

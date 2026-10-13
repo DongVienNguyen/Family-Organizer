@@ -1,4 +1,9 @@
-import {it,expect} from 'vitest';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {spawn,spawnSync} from 'node:child_process';
+import {once} from 'node:events';
+import {it,expect,vi} from 'vitest';
 import * as protocol from '../scripts/ci/browser-protocol.mjs';
 import {redactBrowserProtocolLine} from '../scripts/ci/browser-protocol.mjs';
 const line=(direction:string,value:any)=>'2026-10-13T07:00:00.000Z pw:protocol '+(direction==='send'?'SEND ► ':'◀ RECV ')+JSON.stringify(value);
@@ -42,4 +47,28 @@ it.each(['raw-line','records','report-bytes'])('refuses driver diagnostic budget
 });
 it('redacts unknown driver formats instead of forwarding arbitrary payload',()=>{
  expect((protocol as any).redactBrowserDriverLine('unexpected pw:browser synthetic-private')).toEqual({diagnosticOnly:true,parseRejected:true});
+});
+
+it('keeps real spawn refusal handled until delayed evidence cleanup awaits completion',()=>{
+ const module=new URL('../scripts/ci/browser-protocol.mjs',import.meta.url).href;
+ const code=`import assert from 'node:assert/strict';import {spawn} from 'node:child_process';import {observeBrowserChildCompletion} from ${JSON.stringify(module)};const child=spawn(process.execPath+'.synthetic-missing',[],{stdio:'pipe'});const completion=observeBrowserChildCompletion(child);await new Promise(resolve=>setTimeout(resolve,50));await assert.rejects(completion,{code:'ENOENT'});console.log('SPAWN_REFUSAL_CLEANUP_OBSERVED');`;
+ const result=spawnSync(process.execPath,['--input-type=module','-e',code],{timeout:5000,encoding:'utf8'});
+ expect(result.error).toBeUndefined();expect(result.signal).toBeNull();expect(result.status,result.stderr).toBe(0);expect(result.stdout.trim()).toBe('SPAWN_REFUSAL_CLEANUP_OBSERVED');
+});
+it('refuses stale diagnostic evidence before launching a real child process',async()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'synthetic-driver-ownership-'));const file=path.join(root,'existing.jsonl'),marker=path.join(root,'unmanaged-child.txt');fs.writeFileSync(file,'synthetic existing evidence');let child:any;
+ try{
+  expect(()=>(protocol as any).launchWithBrowserDiagnostic(file,()=>{child=spawn(process.execPath,['-e',`require('node:fs').writeFileSync(${JSON.stringify(marker)},'synthetic unmanaged child')`]);return child;})).toThrow();
+  if(child)await once(child,'close');
+  expect(fs.existsSync(marker)).toBe(false);expect(fs.readFileSync(file,'utf8')).toBe('synthetic existing evidence');
+ }finally{if(child&&child.exitCode===null&&child.signalCode===null)child.kill();fs.rmSync(root,{recursive:true});}
+});
+it('closes the diagnostic descriptor when synchronous launch fails',()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'synthetic-driver-fd-'));const file=path.join(root,'driver.jsonl');let descriptor:number|undefined;
+ const actualOpen=fs.openSync.bind(fs);const spy=vi.spyOn(fs,'openSync').mockImplementation((...args:any[])=>{const fd=(actualOpen as any)(...args);if(args[0]===file)descriptor=fd;return fd;});
+ try{
+  expect(()=>(protocol as any).launchWithBrowserDiagnostic(file,()=>{throw Error('synthetic launch refusal');})).toThrow('synthetic launch refusal');
+  expect(fs.existsSync(file)).toBe(true);expect(descriptor).toBeTypeOf('number');
+  let code;try{fs.fstatSync(descriptor!);}catch(error:any){code=error.code;}expect(code).toBe('EBADF');
+ }finally{spy.mockRestore();if(descriptor!==undefined){try{fs.closeSync(descriptor);}catch{/* Already closed is required above. */}}fs.rmSync(root,{recursive:true});}
 });
