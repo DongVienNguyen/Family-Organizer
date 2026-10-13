@@ -6,7 +6,7 @@
   "zipSha256": "0a1edc0b799512051c57071ce0e798d3f2cf67dc98171366f1d2b326072e3b06",
   "binarySha256": "5f93a9bd555f3aac9d33af2756ba14b3519d8cca4ffd55256bdaeab444c9db2a",
   "availabilityReds": 17,
-  "policyTargetGreen": 17,
+  "policyTargetGreen": 23,
   "nativeVersionValidateTlsProxyStop": "not-run",
   "full": "not-run",
   "review": "not-run",
@@ -14,5 +14,8 @@
   "server2019Acceptance": "not-run",
   "releaseVps": "forbidden",
   "syntheticConfigurationOnly": true,
-  "systemTrustInstallation": false
+  "systemTrustInstallation": false,
+  "ownershipAvailabilityReds": 6,
+  "ownershipScope": "Fresh ordinary directory/exact native parent+leaf identity; preexisting and replacement paths preserved, completed disposal idempotent",
+  "nativeProbe": "Draft only: own fixture lifecycle and exact CLI/path checks; pinned official ZIP/hash/license/extraction/native-exit PS wrapper. Still no native execution."
 }

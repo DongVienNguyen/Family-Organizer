@@ -1,4 +1,7 @@
-import {it,expect} from 'vitest';
+import {it,expect,afterEach} from 'vitest';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import * as policy from '../scripts/windows/caddy-contract.mjs';
 const options={backendPort:32101,httpsPort:32102,adminPort:32103,fixtureRoot:'C:\\Temp\\synthetic dữ liệu with spaces'};
 const render=(value:any=options)=>(policy as any).syntheticCaddyConfiguration(value);
@@ -9,3 +12,14 @@ it.each(['backendPort','httpsPort','adminPort'])('rejects invalid or privileged 
 it('rejects overlapping reserved ports',()=>{expect(()=>render({...options,httpsPort:options.backendPort})).toThrow('CADDY_FIXTURE_REJECTED');expect(()=>render({...options,adminPort:options.httpsPort})).toThrow('CADDY_FIXTURE_REJECTED');});
 it.each(['relative','C:relative','\\\\server\\share','C:\\Temp\\..\\outside','C:\\Temp\\file:stream','C:\\Temp\\CON','C:\\Temp\\file.','C:\\Temp\\file ','C:\\Temp\\line\nfeed'])('rejects unsafe Windows fixture root %s',fixtureRoot=>expect(()=>render({...options,fixtureRoot})).toThrow('CADDY_FIXTURE_REJECTED'));
 it('rejects caller-supplied bind host, external backend and certificate issuer overrides',()=>{for(const extra of [{host:'0.0.0.0'},{backend:'outside.invalid'},{issuer:'acme'},{trust:true}])expect(()=>render({...options,...extra})).toThrow('CADDY_FIXTURE_REJECTED');});
+
+const temporaryRoots:string[]=[];
+function temp(){const root=fs.mkdtempSync(path.join(os.tmpdir(),'caddy synthetic fixture '));temporaryRoots.push(root);return root;}
+afterEach(()=>{for(const root of temporaryRoots.splice(0))fs.rmSync(root,{recursive:true,force:true});});
+const own=(directory:string)=>(policy as any).ownSyntheticProxyFixture(directory);
+it('creates and removes only a fresh owned fixture with outside data preserved',()=>{const root=temp(),directory=path.join(root,'owned');fs.writeFileSync(path.join(root,'outside'),'synthetic retained');const fixture=own(directory);expect(fs.statSync(directory).isDirectory()).toBe(true);fs.writeFileSync(path.join(directory,'data'),'synthetic');fixture.dispose();expect(fs.existsSync(directory)).toBe(false);expect(fs.readFileSync(path.join(root,'outside'),'utf8')).toBe('synthetic retained');});
+it('refuses and preserves a preexisting caller directory',()=>{const directory=temp();fs.writeFileSync(path.join(directory,'data'),'synthetic retained');expect(()=>own(directory)).toThrow('CADDY_FIXTURE_REJECTED');expect(fs.readFileSync(path.join(directory,'data'),'utf8')).toBe('synthetic retained');});
+it('refuses linked ancestor before fixture creation',()=>{const root=temp(),target=path.join(root,'target');fs.mkdirSync(target);fs.symlinkSync(target,path.join(root,'link'),'junction');expect(()=>own(path.join(root,'link','fixture'))).toThrow('CADDY_FIXTURE_REJECTED');expect(fs.existsSync(path.join(target,'fixture'))).toBe(false);});
+it('refuses cleanup if the fixed owned directory has been replaced',()=>{const root=temp(),directory=path.join(root,'owned'),fixture=own(directory);fs.renameSync(directory,path.join(root,'original'));fs.mkdirSync(directory);fs.writeFileSync(path.join(directory,'data'),'synthetic replacement');expect(()=>fixture.dispose()).toThrow('CADDY_FIXTURE_REJECTED');expect(fs.readFileSync(path.join(directory,'data'),'utf8')).toBe('synthetic replacement');expect(fs.existsSync(path.join(root,'original'))).toBe(true);});
+it('idempotent completed cleanup does not delete a later replacement',()=>{const root=temp(),directory=path.join(root,'owned'),fixture=own(directory);fixture.dispose();fs.mkdirSync(directory);fs.writeFileSync(path.join(directory,'data'),'synthetic replacement');fixture.dispose();expect(fs.readFileSync(path.join(directory,'data'),'utf8')).toBe('synthetic replacement');});
+it('refuses relative fixture paths',()=>expect(()=>own('synthetic-relative')).toThrow('CADDY_FIXTURE_REJECTED'));
