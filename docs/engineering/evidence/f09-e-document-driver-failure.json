@@ -1,0 +1,30 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "08d9cdddf2cfff9cff6f32113598b642db3a7f1c",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38356773440",
+  "conclusion": "failure",
+  "browserPassed": 26,
+  "browserFailed": 1,
+  "skipped": 0,
+  "retries": 0,
+  "observed": "Chromium/Firefox main document settings header1/profile1 with trustedclick; WebKit before header0, then original CSS expect missing and final main-world evaluate hung until45s test deadline",
+  "rootCause": "unconfirmed; no fix claim",
+  "nextProbe": "Owned page console logs from MutationObserver, real click, microtask/timer/frame; preserve click/assertions/timeouts/zero retries. Remove stalled postfailure evaluate from diagnostic; use emitted observations instead.",
+  "traceSha256": "fe9613530439c70c5dbe20a96a90393f20d7d99911b9b140d3a45ef8b4328546",
+  "fullCiLogSha256": "2e88c1977acbdf4ba97a0b6ce033a8476e887f242ec6facec19930c21d12f191",
+  "otherIndependentValidators": {
+    "count": 6,
+    "allExited0": true,
+    "sourceEach": "2329/118",
+    "hashes": {
+      "quality": "11001baf8c794155978f36a4f3a40d41586569180d7d9893b9b4945970b28848",
+      "coverage": "6185c5d553e82bd957c1061aa9d85e96052c2d894e06f415b36c47e5f1de7c0f",
+      "package": "2504781d028fa886de7d74ffc00026cb23db572f03cc944b4757e0859cec0f1d",
+      "service": "798a6b971ce92ae5567efb8a075d348bf92248ef42474ae6d1547fe10db48476",
+      "caddy": "fefb1db2597cae244d9381726848bbcfc50462cc263bdc0d76e48a6ae23cbd4c",
+      "extraction-sdk": "ef291e1f44281320dbd54356eed456a939b54af91b12024d67307827d810b5ba"
+    }
+  },
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden"
+}

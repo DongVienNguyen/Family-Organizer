@@ -1,0 +1,72 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "c099a40b61d1ba072d16bb00a04de101777cc4eb",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38388463324",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    }
+  ],
+  "node22And24": {
+    "tests": 2656,
+    "files": 128,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "browser": {
+    "firstAttemptCases": 27,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0
+  },
+  "independentRawValidators": {
+    "quality": 0,
+    "coverage": 0,
+    "browser": 0,
+    "package": 0,
+    "service": 0,
+    "caddy": 0,
+    "extraction-sdk": 0
+  },
+  "summaryHashes": {
+    "quality": "699fdfd4bd5abcde5157eeebc0011212c89d770943048f7312d52af7ae32ab0a",
+    "coverage": "c2d7c82b74fcc3856f695b2704d8330726e38389ef108c3a9fb5fff0add61a0c",
+    "browser": "888e4d46249bcda82e18b5b7c4588a191c9ce6c54da94466503aef4bb3f094a4",
+    "package": "28931269f75aafd3a60a5f1adfaac841861a8a53510b2baae1304242469f381d",
+    "service": "3b3c18d27cb8cdbed3550138ea27598f3c6ea34ca50d7490f6f2fe58f8e51256",
+    "caddy": "d5880ce286df2fe1fb1a4d8b4368fae9dad63c02aeb58b696c802c5d5a8456a3",
+    "extraction-sdk": "b26dbd5183e07d8a6e9a805ab9b8e701353619b839a89b2cc1a944cd693d9311"
+  },
+  "zipSha256": "363168e243b6696f3ef68ee04ff2e74d28dba3fd2b4a32279c8c84050e6392e1",
+  "fullCiLogSha256": "2c6bb6e4911bc3fff075431504d3605270bba2d361d3991256a1cb8fcd23b357",
+  "scope": "All original 27 profile flows pass; pre-main55 composition checkpoint, not final merge acceptance",
+  "next": "Merge approved55/main then new exact CI; preserve original review and assertions",
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "not-performed"
+}

@@ -1,0 +1,38 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "1ac8a09b4b44eadff862bf55facab0189545734b",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38359151937",
+  "conclusion": "failure",
+  "passed": 26,
+  "failed": 1,
+  "skipped": 0,
+  "retries": 0,
+  "case": "B09/WebKit",
+  "directPageObservations": {
+    "clickTrusted": true,
+    "activeTab": "settings",
+    "mutationElapsedMs": 1928,
+    "headerCount": 1,
+    "moduleCount": 1,
+    "profileCount": 1
+  },
+  "originalLocator": "#settings-sub-header missing within unchanged10s assertion",
+  "rootCause": "not confirmed; direct mutation demonstrates render, not utility-world correctness",
+  "nextProbe": "Public selector engine registrations contentScript false/true compare native CSS queries in main/utility worlds after original assertion, no bypass/assertion removal",
+  "otherValidators": {
+    "allSixExits": 0,
+    "sourceEach": "2394/119",
+    "hashes": {
+      "quality": "977703389f74e5d41dd057da85395ea7c77a81862e9517895a4408a3e235a30e",
+      "coverage": "2948d86cc01ae8867453e56e57e436daabda598aeff0c7930ada70eb06c36109",
+      "package": "4c65bcf3138091fba8a67ce3d192424a8dc3f88527532b8431ac1e3aeb5a3f75",
+      "service": "e28a1c19d37f820e7f5f45beb97b8b503dc4c46025371b259f0bc9ebb4b3da54",
+      "caddy": "b7231e328e447810ea16fa5968886217ee45b526ae5f5e500504a37fc948a589",
+      "extraction-sdk": "5b7616f8ee6da70be62abc680c4e289f4a005f7d47bd0755d444d8fbdfff6abb"
+    }
+  },
+  "traceSha256": "82aa152a9cdb42afb427b2fe9265068109fcaad76563b0f7dd34893f366d04cc",
+  "fullCiLogSha256": "dc0c0f0881230367ad8b2d28b39dc01840a0d5dfa32bfffa394dd4c5bd943ccd",
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden"
+}

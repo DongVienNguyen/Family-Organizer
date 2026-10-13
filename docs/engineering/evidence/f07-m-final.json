@@ -1,0 +1,77 @@
+{
+  "taskId": "F07-m",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/52",
+  "baseSha": "6e54e0d37bf3eb7e76b47c609f1d9dae49b967b9",
+  "testedHeadSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38377404347",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "ad3a2fba71ac2e3037decf82bb1fdb0e9ed64c17",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "fullCiLogSha256": "b8358e174f6d40d536817ed392911969b552bc0e44bc781a7062d383d0eeecfc",
+  "summaryHashes": {
+    "quality": "38307d4806d8cbada68580b242d358dd4f6a90b8e40c3dc21220cb91a46ca612",
+    "coverage": "d9273f4f176911fb0ce4379e3032063be4bf9ffa2e14f2658d74400d85596fb4",
+    "browser": "447019abeafa1718f873a8f7a3ecd3014a4b63f2c00b0426e4d542ec68037313",
+    "package": "e2408c7b26edb709a02430b7144acb783bf6c370b2a3b9baace7a8326dc6b9b2",
+    "service": "e061f7f9aa5ca1057ac6c19e5c2424a37855c2a1cf44cf5ce4de1dad4e27806d",
+    "caddy": "c060024ebb8c2880d5ca6d51077052ea1f421e5070f395d2fe30de159eb06fd0",
+    "extraction-sdk": "4a9a4f39ed7188291a8b76a8246760fcbff0f7e3898f23b84a7984b815ce2a99"
+  },
+  "retainedCompleteProofSha256": "107174665e0124edac089da1df596cdc02b555bf905054f753e4d26a8f1223fd",
+  "mergeSha": "29ae90be91f6ca4ffdd3288f416edd2285f0c2f0",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 0
+  },
+  "qualityEach": "2552/122",
+  "firstAttemptBrowsers": 24,
+  "independentRawValidators": 7,
+  "remaining": "Native failure errno/rootcause unreproduced; F05 Administration403; Server2019/release/VPS not-run"
+}

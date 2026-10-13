@@ -1,0 +1,34 @@
+{
+  "taskId": "F09-e",
+  "acceptedMain": "eebddef64a86aadcb8ede2e94ff7e6797f18936a",
+  "originalProfileSourceSha": "c099a40b61d1ba072d16bb00a04de101777cc4eb",
+  "reviewedAppEqualsAccepted55": true,
+  "original27AssertionsByteIdentical": true,
+  "criticalSuiteUnionRetained": true,
+  "cloudTests": 2656,
+  "cloudFiles": 128,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "targetPassed": 260,
+  "sourceHashes": {
+    "src/components/PushNotificationsCard.tsx": "7fcc9d9986b4f513f9f6f2089559994b319ff031eaeabf50095cbfdbfb233d63",
+    "src/utils/pushSubscription.ts": "0f0ff5fdcfd09acddba48ac6e29ca1982f125d23d32583f9ee339fcccbdb87bf",
+    "src/utils/pushSubscription.test.ts": "a51134874a25e5b63544b90df9803733fe3ea5a103cbdfdbe40a1162615d407a",
+    "tests/e2e/foundation.spec.ts": "27adadc97a320d7cf1b5a9f8f22e323e537f20d15654bfba7a373cc49deb09b9",
+    "scripts/ci/write-evidence.mjs": "f3bcaa321ac3d0e25fd32cd541499fd042d876a631e710bdcfceef72394ec0d0",
+    "tests/evidence.test.ts": "910e5925399ac8762db2d86f40690440f78e220ff09411925eb9f83d889d4012",
+    ".github/workflows/ci.yml": "4bf0529af9bdd8ac5770a099c3c2d780aabd137c8c870214d888f47665f0c48e"
+  },
+  "verificationHashes": {
+    "f09-e-main55-target.json": "6e1be4a9d83c48b6b1621904869e3bbfcae783cf52e1dc39bdbbbd7ed29d29ed",
+    "f09-e-main55-full.json": "3b6b3b4c406e2e3bdd5348d4fbb7ee247ac41d886853ef6756e71394155b685c",
+    "f09-e-main55-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-e-main55-build.log": "37fe1ccdfc87bf4a5bb851adb7d1b1a3efb7fba17ac6af16775c9e7cdb8f300f"
+  },
+  "authorCorrection": "Initial merge fixture omitted existing windows-version.test.tsx; actual consistent-receipt assertion failed, restored required suite before final full run; no production policy weakening",
+  "windows": "pending exactnewhead",
+  "server2019Acceptance": "not-run"
+}

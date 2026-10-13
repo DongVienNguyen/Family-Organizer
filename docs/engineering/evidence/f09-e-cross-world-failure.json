@@ -1,0 +1,34 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "2c2a7912bd73f9ce7994448edc601206e26560da",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38361389388",
+  "conclusion": "failure",
+  "passed": 26,
+  "failed": 1,
+  "skipped": 0,
+  "retries": 0,
+  "case": "B09/WebKit",
+  "mainMutation": {
+    "elapsedMs": 1953,
+    "headerCount": 1,
+    "moduleCount": 1,
+    "profileCount": 1
+  },
+  "driverObservation": "Post-assertion public main-world selector count did not return before unchanged45s test deadline; original CSS visibility assertion also failed. Rendering is demonstrated; root cause remains unconfirmed.",
+  "otherValidators": {
+    "allSixExits": 0,
+    "sourceEach": "2394/119",
+    "hashes": {
+      "quality": "9119806114ff06e769958d2a45d5d4b97950410854a542cfef15ebb2e46481aa",
+      "coverage": "c34970a752bef0c6322d760ad40ea8daf83b0e77f48d548426e1d017fd9e09cc",
+      "package": "693bf3464d63516c39d893d51c25894a26df138df63effb38367bd208c67d38d",
+      "service": "89a97e7777b958e4fd285dba398f402cd27f790372941566602f043fc1e41328",
+      "caddy": "dcedb5237c5bc9e8b9abeb1c8a8c8d9366041256a80bce1909d785768db6612f",
+      "extraction-sdk": "bef0397da5ae3d2a8be2177b50fdb6f902ff919e6998f8bfebd74028000a19f7"
+    }
+  },
+  "fullCiLogSha256": "6568e9547074a00d81e465fe6409f8d9ea61318d402f7569181e4e8bdcd87c84",
+  "nextProbe": "Redacted CLI protocol method/request/context/frame IDs with bounded output; no raw payloads. Original CSS assertion restored; hanging extra custom-selector queries removed.",
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "not-authorized"
+}
