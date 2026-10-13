@@ -1,0 +1,100 @@
+{
+  "taskId": "F05",
+  "observedAt": "2026-10-13T02:33:09.715781+00:00",
+  "reasonForRetry": "Cloud environment restored; injected GitHub authentication revalidated, user Administration write authorization persists",
+  "mainSha": "66b2b209d0b74979689cc75b2a3ed5ac65a5f93c",
+  "protected": false,
+  "rulesetCount": 0,
+  "attempts": [
+    {
+      "method": "POST",
+      "path": "repos/DongVienNguyen/Family-Organizer/rulesets",
+      "request": {
+        "name": "Windows CI required on main",
+        "target": "branch",
+        "enforcement": "active",
+        "bypass_actors": [],
+        "conditions": {
+          "ref_name": {
+            "include": [
+              "refs/heads/main"
+            ],
+            "exclude": []
+          }
+        },
+        "rules": [
+          {
+            "type": "pull_request",
+            "parameters": {
+              "required_approving_review_count": 0,
+              "dismiss_stale_reviews_on_push": true,
+              "require_code_owner_review": false,
+              "require_last_push_approval": false,
+              "required_review_thread_resolution": true
+            }
+          },
+          {
+            "type": "required_status_checks",
+            "parameters": {
+              "required_status_checks": [
+                {
+                  "context": "ci-gate",
+                  "integration_id": 15368
+                }
+              ],
+              "strict_required_status_checks_policy": true,
+              "do_not_enforce_on_create": false
+            }
+          },
+          {
+            "type": "non_fast_forward"
+          },
+          {
+            "type": "deletion"
+          }
+        ]
+      },
+      "exitCode": 1,
+      "response": {
+        "message": "Resource not accessible by integration",
+        "documentation_url": "https://docs.github.com/rest/repos/rules#create-a-repository-ruleset",
+        "status": "403"
+      },
+      "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
+    },
+    {
+      "method": "PUT",
+      "path": "repos/DongVienNguyen/Family-Organizer/branches/main/protection",
+      "request": {
+        "required_status_checks": {
+          "strict": true,
+          "checks": [
+            {
+              "context": "ci-gate",
+              "app_id": 15368
+            }
+          ]
+        },
+        "enforce_admins": true,
+        "required_pull_request_reviews": {
+          "dismiss_stale_reviews": true,
+          "require_code_owner_reviews": false,
+          "required_approving_review_count": 0,
+          "require_last_push_approval": false
+        },
+        "restrictions": null,
+        "required_conversation_resolution": true,
+        "allow_force_pushes": false,
+        "allow_deletions": false
+      },
+      "exitCode": 1,
+      "response": {
+        "message": "Resource not accessible by integration",
+        "documentation_url": "https://docs.github.com/rest/branches/branch-protection#update-branch-protection",
+        "status": "403"
+      },
+      "diagnostic": "gh: Resource not accessible by integration (HTTP 403)"
+    }
+  ],
+  "automaticApprovalReviewRejection": false
+}

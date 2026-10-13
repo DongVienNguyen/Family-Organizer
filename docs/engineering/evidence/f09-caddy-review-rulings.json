@@ -1,0 +1,49 @@
+{
+  "taskId": "F09-Caddy",
+  "reviewCount": 1,
+  "reviewedHeadSha": "9791c7c1539b9684ccbf51dd71e6f02a5bd6e624",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 3,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 3,
+    "minor": 1
+  },
+  "rulings": [
+    {
+      "severity": "Important",
+      "finding": "Autosave and profile paths escape the owned fixture",
+      "ruling": "accepted",
+      "correction": "Disable admin config persistence; isolate profile/AppData/XDG/temp paths with outside sentinel regression"
+    },
+    {
+      "severity": "Important",
+      "finding": "Outer PowerShell cleanup overrides inner ownership refusal",
+      "ruling": "accepted",
+      "correction": "One Node owner supervises actual PowerShell worker; preserve entire tree after failure or changed root; actual child replacement regressions"
+    },
+    {
+      "severity": "Important",
+      "finding": "Generic transport failure and hardcoded false are inadequate trust proof",
+      "ruling": "accepted",
+      "correction": "Certificate-verification error allowlist; read-only CurrentUser/LocalMachine Root fingerprint observations and exact evidence validation"
+    },
+    {
+      "severity": "Minor",
+      "finding": "Bounded native diagnostics discarded",
+      "ruling": "deferred",
+      "reason": "Keep private paths and certificate keys outside artifacts; constant failures and typed TLS code retained. Full sanitized diagnostic design remains separate."
+    }
+  ],
+  "declinedRulings": [
+    "Official config/issuer/admin Origin shapes are correct",
+    "Pinned checksum/extraction/native exit/order gates preserved",
+    "No additional overlap/shutdown blocker established",
+    "No application/domain or Server2019 acceptance from synthetic proxy slice"
+  ],
+  "fixPass": "one completed source correction: profile/TLS/store13RED including3 missing-store rejection; actual-worker3 availability RED;229target present in full2150/110/lintbuild0. Native Windows pending; no rereview",
+  "rereview": false
+}
