@@ -466,3 +466,83 @@ test('B08 adult child approval rewards persistence', async ({ page, browserName 
   expect(JSON.parse((await api(page, '/api/tasks', childToken)).text).tasks.find((task: any) => task.id === created.id)).toEqual(approved);
   expect(JSON.parse((await api(page, '/api/rewards', childToken)).text).entries.filter((entry: any) => entry.taskId === created.id)).toEqual(grants);
 });
+
+
+test('B09 self profile settings persistence', async ({ page, browserName }) => {
+  await page.goto('/');
+  const token = await login(page, 'child');
+  const users = async () => {
+    const response = await api(page, '/api/users', token);
+    expect(response.status).toBe(200);
+    const rows = JSON.parse(response.text).users;
+    expect(rows.every((row: any) => !Object.hasOwn(row, 'passwordHash'))).toBe(true);
+    return rows as Record<string, any>[];
+  };
+  const originalUsers = await users();
+  const original = originalUsers.find(row => row.id === 'browser-child')!;
+  expect(original).toMatchObject({ id: 'browser-child', username: 'browser-child', role: 'child', fullName: 'Synthetic child' });
+  await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
+  await page.getByRole('button', { name: 'Thành viên và Phân quyền', exact: true }).click();
+  await expect(page.getByText('Chỉ Gia Trưởng (Admin) mới có quyền tạo thêm tài khoản thành viên gia đình.', { exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Kích hoạt tài khoản', exact: true })).toHaveCount(0);
+  for (const title of ['Sửa thông tin & vai trò của', 'Đặt lại mật khẩu cho', 'Xóa tài khoản']) {
+    await expect(page.locator('button[title^="' + title + '"]')).toHaveCount(0);
+  }
+  const forbidden = await page.evaluate(async token => {
+    const response = await fetch('/api/users/browser-child', { method: 'POST', headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify({ role: 'admin' }) });
+    return response.status;
+  }, token);
+  expect(forbidden).toBe(403);
+  expect(await users()).toEqual(originalUsers);
+  await page.getByRole('button', { name: 'Hồ sơ của tôi', exact: true }).click();
+  const profile = page.locator('#settings-tab-profile');
+  const name = profile.getByPlaceholder('Ví dụ: Bố Hùng');
+  const phone = profile.getByPlaceholder('09xx xxx xxx');
+  await expect(name).toHaveValue(original.fullName);
+  await name.fill('');
+  const submissions: string[] = [];
+  const observe = (request: any) => { if (new URL(request.url()).pathname === '/api/profile' && request.method() === 'POST') submissions.push(request.url()); };
+  page.on('request', observe);
+  await profile.getByRole('button', { name: 'Lưu hồ sơ cá nhân', exact: true }).click();
+  await expect(page.getByText('Tên hiển thị không được để trống!', { exact: true })).toBeVisible();
+  page.off('request', observe);
+  expect(submissions).toEqual([]);
+  expect(await users()).toEqual(originalUsers);
+  const updatedName = 'Synthetic B09 hồ sơ ' + browserName;
+  const updatedPhone = 'synthetic-profile-' + browserName;
+  await name.fill(updatedName);
+  await phone.fill(updatedPhone);
+  const saveProfile = async () => {
+    const pending = page.waitForResponse(response => new URL(response.url()).pathname === '/api/profile' && response.request().method() === 'POST');
+    await profile.getByRole('button', { name: 'Lưu hồ sơ cá nhân', exact: true }).click();
+    const response = await pending;
+    expect(response.status()).toBe(200);
+    return (await response.json()).user;
+  };
+  const updated = await saveProfile();
+  expect(updated).toEqual({ ...original, fullName: updatedName, phone: updatedPhone, avatarColor: original.avatarColor || 'bg-indigo-500' });
+  await expect(page.getByRole('button', { name: 'Mở hồ sơ của ' + updatedName, exact: true })).toBeVisible();
+  expect(await users()).toEqual(originalUsers.map(row => row.id === original.id ? updated : row));
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Mở hồ sơ của ' + updatedName, exact: true })).toBeVisible();
+  await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
+  await page.getByRole('button', { name: 'Hồ sơ của tôi', exact: true }).click();
+  await expect(name).toHaveValue(updatedName);
+  await expect(phone).toHaveValue(updatedPhone);
+  expect(await users()).toEqual(originalUsers.map(row => row.id === original.id ? updated : row));
+  // Restore the existing account through the same UI so later engines retain their fixture identity.
+  await name.fill(original.fullName);
+  await phone.fill(original.phone || '');
+  const restored = await saveProfile();
+  expect(restored).toEqual({ ...original, avatarColor: original.avatarColor || 'bg-indigo-500' });
+  await expect(page.getByRole('button', { name: 'Mở hồ sơ của Synthetic child', exact: true })).toBeVisible();
+  expect(await users()).toEqual(originalUsers.map(row => row.id === original.id ? restored : row));
+  await logout(page);
+  const newToken = await login(page, 'child');
+  const restoredResponse = await api(page, '/api/users', newToken);
+  expect(restoredResponse.status).toBe(200);
+  expect(JSON.parse(restoredResponse.text).users).toEqual(originalUsers.map(row => row.id === original.id ? restored : row));
+  await page.locator('aside nav').getByRole('button', { name: 'Thiết lập', exact: true }).click();
+  await expect(name).toHaveValue(original.fullName);
+  await expect(phone).toHaveValue(original.phone || '');
+});

@@ -1,0 +1,23 @@
+{
+  "taskId": "F09-e",
+  "baseSha": "edb09e0d03a12648a6b245fef621d5ab009b7ff8",
+  "scope": "Existing self-profile UI persistence and Child management authority regression only",
+  "gateRed": 2,
+  "targetGreen": 59,
+  "fullGreen": 2251,
+  "fullFiles": 114,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "a55fffee9868e41dccb71d9cf307d9e02317b4c5e700320b0c92de2166864551",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "browserDiscoveryOnly": 27,
+  "actualBrowserExecution": "not-run",
+  "review": "not-run",
+  "ci": "not-run",
+  "remaining": "Rebase onto corrected F08-f main, newfull, onefreshreview, exactWindows27cases",
+  "releaseTagVps": "forbidden"
+}
