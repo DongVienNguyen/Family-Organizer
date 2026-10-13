@@ -558,3 +558,73 @@ test('B09 self profile settings persistence', async ({ page, browser, browserNam
   await expect(name).toHaveValue(original.fullName);
   await expect(phone).toHaveValue(original.phone || '');
 });
+
+test('B10 assistant loading error close', async ({ page }) => {
+  await page.goto('/');
+  const token = await login(page, 'member');
+  const headers = { Authorization: 'Bearer ' + token };
+  const snapshot = async () => {
+    const rows: Record<string, unknown> = {};
+    for (const route of ['/api/tasks', '/api/plans', '/api/notes', '/api/shopping']) {
+      const response = await page.request.get(route, { headers });
+      expect(response.status(), route).toBe(200);
+      rows[route] = await response.json();
+    }
+    return rows;
+  };
+  const before = await snapshot();
+  const launch = page.getByRole('button', { name: 'AI assistant', exact: true });
+  await launch.click();
+  const dialog = page.getByRole('dialog', { name: 'Trợ lý AI', exact: true });
+  await expect(dialog).toBeVisible();
+  const question = dialog.getByPlaceholder('Hỏi: lên menu trưa và thêm đồ đi chợ');
+  const send = dialog.locator('button[type="submit"]');
+  const voice = dialog.locator('form button[type="button"]');
+  let release!: () => void;
+  const hold = new Promise<void>(resolve => { release = resolve; });
+  const requests: Array<{ method: string; authorization: string | undefined; body: unknown }> = [];
+  const handler = async (route: import('@playwright/test').Route) => {
+    const request = route.request();
+    requests.push({ method: request.method(), authorization: request.headers().authorization, body: request.postDataJSON() });
+    await hold;
+    await route.continue();
+  };
+  await page.route('**/api/assistant/chat', handler);
+  try {
+    await question.fill('   ');
+    await send.click();
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    expect(requests).toEqual([]);
+    await question.fill('Synthetic browser assistant question');
+    const responsePending = page.waitForResponse(response => new URL(response.url()).pathname === '/api/assistant/chat' && response.request().method() === 'POST');
+    await send.click();
+    await expect.poll(() => requests.length).toBe(1);
+    expect(requests).toEqual([{ method: 'POST', authorization: 'Bearer ' + token, body: { message: 'Synthetic browser assistant question' } }]);
+    await expect(dialog.getByText('Đang suy nghĩ...', { exact: true })).toBeVisible();
+    await expect(send).toBeDisabled();
+    await expect(voice).toBeDisabled();
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+    await expect(launch).toBeFocused();
+    release();
+    const response = await responsePending;
+    expect(response.status()).toBe(400);
+    const error = 'Chưa cấu hình Gemini API key. Vào Thiết lập để nhập key.';
+    expect(await response.json()).toEqual({ error });
+    await launch.click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByText(error, { exact: true })).toBeVisible();
+    await expect(dialog.getByText('Đang suy nghĩ...', { exact: true })).not.toBeVisible();
+    await expect(question).toHaveValue('');
+    await expect(send).toBeEnabled();
+    await expect(voice).toBeEnabled();
+    expect(requests).toHaveLength(1);
+    expect(await snapshot()).toEqual(before);
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+    await expect(launch).toBeFocused();
+  } finally {
+    release();
+    await page.unroute('**/api/assistant/chat', handler);
+  }
+});
