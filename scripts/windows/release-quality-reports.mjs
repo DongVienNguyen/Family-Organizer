@@ -27,6 +27,8 @@ function junitTree(text){
   if(raw.startsWith('</')){if(!/^<\/[a-z][a-z-]*\s*>$/.test(raw)||stack.length===1||stack.pop().tag!==name)throw Error('Invalid XML nesting');continue;}
   if(!['testsuites','testsuite','testcase','properties','property','system-out','system-err','failure','error','skipped'].includes(name)||++nodes>100000||stack.length>32)throw Error('Unsupported/excessive XML');
   const attributes={};for(const match of raw.matchAll(/\s+([a-z][a-z-]*)="([^"<>]*)"/g)){if(Object.hasOwn(attributes,match[1]))throw Error('Duplicate XML attribute');attributes[match[1]]=xmlValue(match[2]);}
+  const vocabulary={document:['testsuites'],testsuites:['testsuite'],testsuite:['testcase','properties','system-out','system-err'],testcase:['system-out','system-err','failure','error','skipped'],properties:['property'],'system-out':[],'system-err':[],property:[],failure:[],error:[],skipped:[]};
+  if(!vocabulary[stack.at(-1).tag]?.includes(name))throw Error('Invalid JUnit element hierarchy');
   const node={tag:name,attributes,children:[]};stack.at(-1).children.push(node);if(!/\/\s*>$/.test(raw))stack.push(node);
  }
  if(stack.length!==1||document.children.length!==1||document.children[0].tag!=='testsuites')throw Error('Incomplete JUnit');return document.children[0];
@@ -41,7 +43,7 @@ export function validateReleaseQualityReports(input){
   require(Array.isArray(q?.errors)&&q.errors.length===0,'quality receipt contains errors');
   require(record(q?.checks)&&sameSet(Object.keys(q.checks),steps)&&steps.every(n=>q.checks[n]==='success'),'missing/skipped quality checks');
   for(const name of steps){require(exits?.[name]?.exitCode===0,`${name}: missing/nonzero exit`);if(name==='audit')require(exits?.[name]?.nativeAuditExitCode===0,'native audit failed');if(name==='coverage')require(exits?.[name]?.nativeCoverageExitCode===0,'native coverage failed');}
-  require(v?.success===true&&positive(v?.numTotalTests)&&v?.numPassedTests===v?.numTotalTests&&['numFailedTests','numPendingTests','numTodoTests','numFailedTestSuites','numPendingTestSuites'].every(k=>v?.[k]===0),'raw quality totals incomplete');
+  require(v?.success===true&&positive(v?.numTotalTestSuites)&&v?.numPassedTestSuites===v?.numTotalTestSuites&&positive(v?.numTotalTests)&&v?.numPassedTests===v?.numTotalTests&&['numFailedTests','numPendingTests','numTodoTests','numFailedTestSuites','numPendingTestSuites'].every(k=>v?.[k]===0),'raw quality totals incomplete');
   const suites=Array.isArray(v?.testResults)?v.testResults:[],receipts=Array.isArray(q?.suites)?q.suites:[];
   require(suites.length>0&&sameSet(receipts.map(s=>s?.name),receipts.map(s=>s?.name)),'missing/duplicate receipt suites');
   require(Array.isArray(e?.requiredSuites)&&e.requiredSuites.length>0&&sameSet(e.requiredSuites,e.requiredSuites),'empty/duplicate required-suite policy');

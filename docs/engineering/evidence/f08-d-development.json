@@ -1,13 +1,13 @@
 {
   "taskId": "F08-d",
   "scope": "Draft raw quality JSON/JUnit assertion and exit-code agreement; not a complete artifact/report collector",
-  "baseSha": "2544569db332673739adb5da20b19100aa121941",
+  "baseSha": "ff13cb6f25c88024d108b67953855cddf7917fa2",
   "availabilityRedAssertions": 46,
   "reportShapeRedAssertions": 4,
   "reportShapePriorPassed": 44,
   "reportShapeClassification": "Collector draft initially assumed Windows label, JSON/JUnit name separators and unique parameterized names; actual synthetic Windows reports corrected these assumptions. No historical application defect.",
-  "targetGreen": 48,
-  "targetFiles": 1,
+  "targetGreen": 216,
+  "targetFiles": 3,
   "historicalCompatibility": {
     "run": "38322040612",
     "testsPerRuntime": 1942,
@@ -18,17 +18,24 @@
     "testsPerRuntime": 1989,
     "errors": 0
   },
-  "sourcePolicyAuthenticated": false,
+  "sourcePolicyAuthenticated": "Cloud Git-byte compatibility only; new source not executed in trusted-main native adapter yet",
   "full": "not-run",
   "review": "not-run",
   "windowsForThisSource": "not-run",
   "publicationAllowed": false,
   "reportsVerified": false,
   "remaining": [
-    "Strict ZIP extraction and byte-bound source-derived suite policy",
-    "Full native/production/coverage/audit/browser/package/license/service validation",
-    "Whole source verification and one fresh review",
-    "Exact Windows and live adapter proof"
+    "Full frozen source lint/test/build and one fresh wholebranch review",
+    "Exact new Windows source CI",
+    "Strict ZIP extraction and in-process adapter wiring",
+    "Full native/production/coverage/audit/browser/package/license/service validation"
   ],
-  "releaseVps": "forbidden"
+  "releaseVps": "forbidden",
+  "rawQualityTests": 52,
+  "sourcePolicyTests": 17,
+  "mandatoryOmissionReds": 2,
+  "newCodeXmlHierarchyRedAssertions": 2,
+  "newCodeSuiteCounterRedAssertions": 2,
+  "sourcePolicyAvailabilityReds": 17,
+  "sourcePolicy": "Checked Git HEAD/origin/main ancestry/version and exact target tree; all unit suites/source hashes/lock/coverage policy derived from Git bytes. Refuse unsafe/link modes, exclusion pragmas, unsupported root/nested attributes, excessive counts/bytes/native failures. Pinned current Windows text conversion matches actual118 source hashes."
 }
