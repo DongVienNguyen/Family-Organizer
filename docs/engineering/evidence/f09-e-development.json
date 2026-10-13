@@ -11,13 +11,13 @@
   "todo": 0,
   "lintExit": 0,
   "buildExit": 0,
-  "fullReportSha256": "276174276041e4b4c21b8123044f20257482127d90e93713ca5870e389d6a895",
+  "fullReportSha256": "ee4cef861f3360ec3cc32382b73a3601aba02ea30f6bf341338eb4391efea73f",
   "nodeVersion": "v24.21.0",
   "workers": 1,
   "browserDiscoveryOnly": 27,
   "actualBrowserExecution": "not-run",
-  "review": "One original0C1I1M; author0C2I0M; allrulings beforeonepass; member readiness RED\u2192GREEN/full2251 and source identity bound; no rereview",
-  "ci": "not-run",
+  "review": "One originalreview0C1I1M/author0C2I0M; member readiness andsourceidentity fixed; nativeCI locator/diagnostics authoredafterreview/no rereview",
+  "ci": "Initiale9/38351043129 failedB09WebKit26/27 only; sixother independentvalidators0; newscopedlocator/headerdiagnostics hypothesis requiresnewWindows",
   "remaining": "Rebase onto corrected F08-f main, newfull, onefreshreview, exactWindows27cases",
   "releaseTagVps": "forbidden",
   "historicalSourceProof": {
@@ -32,14 +32,14 @@
     }
   },
   "testedSourceSnapshot": {
-    "commitSha": "07f97b606f8b15abc863655f7152f1e07f48c850",
+    "commitSha": "9cc2f8f4f9a14d5e8f3e4b125ea1c71a0d502c7c",
     "sourceFileSha256": {
       "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
       "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
-      "tests/e2e/foundation.spec.ts": "ec8d98314bfb787b2ac8f8a2025df02d4f7bd119ffbaab02bec85a181be8ddbb",
+      "tests/e2e/foundation.spec.ts": "63ba623b80111cf04e836b112c4a04cbc0e40305164dd8037a7d7bf3e0828093",
       "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
     },
-    "executionState": "Rebased committed source frozen during full verification; latergenerated documentation"
+    "executionState": "Frozen source verified then committed; generatedevidence later"
   },
   "memberReadiness": {
     "actualDomRed": 1,
@@ -64,5 +64,18 @@
       "executionState": "Exact source bytes frozen during verification and committed afterward; generated evidence/review docs later"
     }
   },
-  "rebaseSourceBytes": "Threewholefiles andexactB09body identical to097f correctedsource; parent twoB01renderedMarkdown assertions inherited"
+  "rebaseSourceBytes": "Threewholefiles andexactB09body identical to097f correctedsource; parent twoB01renderedMarkdown assertions inherited",
+  "preNativeCorrectionSourceProof": {
+    "testedSourceSnapshot": {
+      "commitSha": "07f97b606f8b15abc863655f7152f1e07f48c850",
+      "sourceFileSha256": {
+        "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+        "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+        "tests/e2e/foundation.spec.ts": "ec8d98314bfb787b2ac8f8a2025df02d4f7bd119ffbaab02bec85a181be8ddbb",
+        "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+      },
+      "executionState": "Rebased committed source frozen during full verification; latergenerated documentation"
+    },
+    "fullReportSha256": "276174276041e4b4c21b8123044f20257482127d90e93713ca5870e389d6a895"
+  }
 }
