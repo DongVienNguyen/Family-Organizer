@@ -11,6 +11,7 @@ export function releaseInnerFixture(root:string){
  // Data fixtures: never executed; authenticated prior-proof objects are simulated.
  const names=['bin/node.exe','app/dist/server.cjs','app/dist/operator.cjs','app/dist/index.html','ops/Start-App.ps1','ops/Reset-Credentials.ps1','ops/Recovery.ps1','ops/Configure-Backup.ps1','licenses/node-LICENSE.txt','ops/Update.ps1','ops/Rollback.ps1','ops/UpdateCommon.ps1','ops/update-journal.mjs','app/node_modules/better-sqlite3/prebuilds/win32-x64.node'];
  for(const name of names)write(name,'synthetic never executed '+name);
+ write('licenses/WinSW-LICENSE.txt',fs.readFileSync(path.join(repo,'scripts/windows/licenses/WinSW-2.12.0-LICENSE.txt')));
  write('app/package.json',JSON.stringify({version:'1.1.0'}));write('app/package-lock.json','{"lockfileVersion":3}');
  const dependencies:any[]=[];
  for(const [name,version,license]of [['better-sqlite3','13.0.3','MIT'],['http_ece','1.2.0','MIT'],['web-push','3.6.7','MPL-2.0']]){

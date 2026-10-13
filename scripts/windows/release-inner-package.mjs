@@ -4,6 +4,7 @@ import {isDeepStrictEqual} from 'node:util';
 import {assertNoLinkedAncestors,isFullyQualifiedPath} from '../lib/native-paths.mjs';
 import {openReleaseReportFiles} from './release-report-files.mjs';
 import {validateManifest,safeArchivePath} from './package-contract.mjs';
+import {serviceRuntime} from './service-config.mjs';
 import {verifyLicenseInventory} from './license-inventory.mjs';
 const reject=()=>{throw Error('RELEASE_INNER_PACKAGE_REJECTED');};
 const requireFact=value=>{if(!value)reject();};
@@ -15,6 +16,7 @@ export function readReleaseInnerPackage(directory,packageProof,expected){
   requireFact(packageProof?.packageReportAgreement===true&&packageProof.commitSha===expected.commitSha&&packageProof.runId===expected.runId&&packageProof.appVersion===expected.appVersion&&/^[a-f0-9]{64}$/.test(packageProof.zipSha256??''));
   const reader=openReleaseReportFiles(directory),manifest=reader.json('release-manifest.json');
   requireFact(isDeepStrictEqual(manifest,packageProof.manifest)&&validateManifest(manifest,expected).length===0);
+  const manifestDigest=reader.receipt().reportHashes['release-manifest.json'];
   const snapshots=new Map();let nodes=0;
   const inventory=()=>{
    const found=[];nodes=0;
@@ -25,8 +27,13 @@ export function readReleaseInnerPackage(directory,packageProof,expected){
   for(const row of manifest.files){requireFact(snapshots.get(row.path)?.size===BigInt(row.size)&&reader.hash(row.path,128*1024*1024)===row.sha256);}
   requireFact(reader.hash('app/package-lock.json',1024*1024)===expected.lockSha256);
   const app=reader.json('app/package.json');requireFact(app.version===expected.appVersion);
+  const installed=[...snapshots].filter(([name,stat])=>stat.isDirectory()&&name.startsWith('app/node_modules/')&&/\/node_modules\/(?:@[^/.][^/]*\/)?[^/@.][^/]*$/.test(name)).map(([name])=>name).sort();
+  requireFact(isDeepStrictEqual(installed,manifest.dependencies.map(row=>row.path).sort()));
+  requireFact(reader.hash('licenses/WinSW-LICENSE.txt',1024*1024)===serviceRuntime.licenseSha256);
   for(const dependency of manifest.dependencies){const metadata=reader.json(dependency.path+'/package.json');requireFact(metadata.name===dependency.name&&metadata.version===dependency.version&&(metadata.license?.type??metadata.license)===dependency.license);}
-  const licenseAudit=verifyLicenseInventory(directory,manifest),receipt=reader.receipt();requireFact(isDeepStrictEqual(inventory(),names));
+  const licenseAudit=verifyLicenseInventory(directory,manifest);
+  requireFact(isDeepStrictEqual(reader.json('release-manifest.json'),manifest)&&reader.receipt().reportHashes['release-manifest.json']===manifestDigest);
+  requireFact(isDeepStrictEqual(inventory(),names));const receipt=reader.receipt();
   return {commitSha:expected.commitSha,runId:expected.runId,zipSha256:packageProof.zipSha256,innerPackageAgreement:true,licenseInventoryVerified:true,verifiedFiles:manifest.files.length,licenseAudit,reportsVerified:false,publicationAllowed:false,...receipt};
  }catch{reject();}
 }

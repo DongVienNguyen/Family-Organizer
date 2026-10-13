@@ -1,0 +1,80 @@
+{
+  "taskId": "F09-E1",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/55",
+  "testedHeadSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38387968041",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "independentRawValidators": {
+    "quality": 0,
+    "coverage": 0,
+    "browser": 0,
+    "package": 0,
+    "service": 0,
+    "caddy": 0,
+    "extraction-sdk": 0
+  },
+  "zipSha256": "0eed10a45a0817ce87c0f8bfe49e476465ed629852777ad10c7ebc5bf041fd09",
+  "fullCiLogSha256": "81f9b440da70cb84d8acff41a33144c3a6052249d41d5ebb48d74a5e7b3017f6",
+  "completeProofSha256": "3f8ab6b24722765f4d0595b3a4c47594e5bb3e2644f0e14382b76d403303c4fb",
+  "summaryHashes": {
+    "quality": "bb35eda00d9c45272f30ae368acdfea24635fc23b869c5ce8cfea041bb24386d",
+    "coverage": "a6a0f4057ee639ff7424bf6f3de5c35434d5f34107c2750469c15195a5fa6969",
+    "browser": "e32460d61d94f2190b7a921a0b6d3bcc9d68d9cc78d1b69fed815a7f3bd071ed",
+    "package": "22e048bb1f1207af5b1a075658ac2942bb3f038f202582c9307e801e5c4673be",
+    "service": "4d950b2a81feb1015cb22e695de46113bd60c027c64afce9a8ac71fda228b45d",
+    "caddy": "130ab05905462431a0f5283660e57f20b4e07d885aa93ecfb5a6163c10db6e44",
+    "extraction-sdk": "2814c09a03dd6dda6420a1e9239d79194c52c4e56d535e313f4beb1a5be0fb87"
+  },
+  "postMerge": {
+    "pr": "https://github.com/DongVienNguyen/Family-Organizer/pull/55",
+    "testedHeadSha": "784266b9ad7418e64bea092a6a47bce8684ae004",
+    "mergedSha": "eebddef64a86aadcb8ede2e94ff7e6797f18936a",
+    "treeEqual": true,
+    "mainConfirmed": true
+  },
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "not-performed"
+}

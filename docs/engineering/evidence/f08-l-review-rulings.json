@@ -1,0 +1,56 @@
+{
+  "taskId": "F08-l",
+  "reviewCount": 1,
+  "reviewedHead": "c7eded5cee2c25f949734c6cf037a2d6c1b98243",
+  "baseSha": "b8567d45e2be9c068ecdab8aae41f5142c95a9d8",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 3,
+    "minor": 2
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 3,
+    "minor": 2
+  },
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Parsed manifest may change before initial snapshot.",
+      "fix": "Re-read manifest bytes through held-descriptor reader and compare original digest before returning."
+    },
+    {
+      "id": 2,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Hashed package files can contain undeclared installed dependencies without license review.",
+      "fix": "Compare actual scoped/nested package-root inventory against declared dependency paths."
+    },
+    {
+      "id": 3,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "WinSW license bytes are not tied to existing trusted pin.",
+      "fix": "Require bounded actual WinSW license digest against serviceRuntime.licenseSha256."
+    },
+    {
+      "id": 4,
+      "grade": "Minor",
+      "decision": "defer",
+      "effect": "Concurrent local junction replacement can create outside directories before subsequent rejection.",
+      "next": "Focused native ownership-before-directory-create hardening; current read-only collector refuses changed output and never deletes partial trees."
+    },
+    {
+      "id": 5,
+      "grade": "Minor",
+      "decision": "defer",
+      "effect": "Duplicate health required-suite row, no weakened validation.",
+      "next": "Remove during next evidence-list maintenance."
+    }
+  ],
+  "allFindingsGradedBeforeFixPass": true,
+  "fixPassCount": 1,
+  "reReview": false
+}
