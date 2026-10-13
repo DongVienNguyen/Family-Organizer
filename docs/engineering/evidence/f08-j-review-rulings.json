@@ -1,0 +1,110 @@
+{
+  "taskId": "F08-j",
+  "reviewCount": 1,
+  "reviewedHead": "b9ff7bfcd730d045ed9cdf173e48c181df5b2dae",
+  "baseSha": "727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 4,
+    "minor": 2
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 6,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Missing scheduled bundled executable/recovery filename/typed ACL identities can certify incomplete or contradictory backup evidence."
+    },
+    {
+      "id": 2,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Missing coordinator candidate classification and fresh/postapproval write identities leaves preservation evidence incomplete."
+    },
+    {
+      "id": 3,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Credential substring accepts foreign/relative system module lookalikes."
+    },
+    {
+      "id": 4,
+      "grade": "Important",
+      "decision": "accept",
+      "effect": "Unrelated service logs can satisfy shutdown assertions because serviceID not bound to log filenames."
+    },
+    {
+      "id": 5,
+      "reviewerGrade": "Minor",
+      "grade": "Important",
+      "decision": "promote and accept",
+      "effect": "Gate claims native report subset verified but allows missing expected-code contract or foreign lock-probe sequence; proof completeness is material to acceptance."
+    },
+    {
+      "id": 6,
+      "reviewerGrade": "Minor",
+      "grade": "Important",
+      "decision": "promote and accept",
+      "effect": "Missing/contradictory refusal explanations allow unrelated native errors to stand as intended ownership refusals; strict proof gate needs actual existing reason."
+    }
+  ],
+  "rulings": [
+    {
+      "behavior": "Historical proof and Cloud counts not independently certified by reviewer",
+      "decision": "accept limitation",
+      "reason": "Author actual reports/hash verifications are separate gates; new exactWindows/live still required",
+      "costIfWrong": "False native acceptance; prevented by external report gates."
+    },
+    {
+      "behavior": "innerZIP/license/build/SDK/Caddy/full collector deferred",
+      "decision": "accept",
+      "reason": "Explicit stage/publication false flags; no full acceptance inferred",
+      "costIfWrong": "Premature release trust if labels mistaken."
+    },
+    {
+      "behavior": "Helper fixtures not GitHub authority",
+      "decision": "accept",
+      "reason": "Same-process collector obtains authenticated Git/API/archive and validated package digest",
+      "costIfWrong": "Forged source/ZIP provenance if boundaries bypassed."
+    },
+    {
+      "behavior": "Exact14/42 service10/31 coordinator/fiveproofs/source17 present",
+      "decision": "accept",
+      "reason": "Existing strict inventories/refusal exits retained",
+      "costIfWrong": "Incomplete regression proof, independently checked native artifacts."
+    },
+    {
+      "behavior": "Shared reader/cleanup boundaries reused, no new ownership defect found",
+      "decision": "accept",
+      "reason": "No mutations/recursive cleanup added; ordinary files/budgets/ancestor checks remain",
+      "costIfWrong": "Untrusted file or removal evidence accepted; new native/source gates remain."
+    },
+    {
+      "behavior": "No need reconstruct every business assertion from checklist strings",
+      "decision": "accept",
+      "reason": "Check existing emitted raw fields directly; native harness retains real business assertions",
+      "costIfWrong": "Overstating proof subset; full/publication flags remain false."
+    },
+    {
+      "behavior": "No app/deps/lock/release/VPS or reboot/Server2019 certification",
+      "decision": "accept",
+      "reason": "Scope unchanged; actual acceptance separately required",
+      "costIfWrong": "Premature foundation/deployment certification."
+    }
+  ],
+  "allGradedBeforeOneFixPass": true,
+  "fixPass": "one TDD pass, no rereview",
+  "observedCorrectionRed": 21,
+  "otherExistingAndNewPassedBeforeFix": 53,
+  "rotationContract": {
+    "source": "WinSWv2.12.0 src/WinSW.Core/LogAppenders.cs lines273-286",
+    "observed": "roll-by-size creates .0.out.log through .7.out.log for keepFiles8",
+    "standaloneRed": 1,
+    "remaining": "fixed with persistent actualRED\u2192GREEN .0..7 owned-service rotations"
+  }
+}
