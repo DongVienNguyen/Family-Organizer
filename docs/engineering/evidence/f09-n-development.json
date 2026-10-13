@@ -58,5 +58,6 @@
   "priorFullGreen": 2813,
   "browserCasesRequired": 45,
   "parentComposition": "Provisional reviewedM6f0 includes distinct L1calendar split; all five substantive own source hashes unchanged, two documentation hashes refreshed for B15 mapping/tradeoff. Flags/gate/assertions unchanged. No repeated review or source correction pass.",
-  "calendarNativeCorrectionComposition": "Inherited excluded E2E-only B15 actual API setup and initial review/nativefailure records; all six other own hashes unchanged, one foundation documentation hash updated for accurate tradeoff. Vitest excludes E2E;2816/138/184target unit snapshot unchanged, no redundant fullrepeat. Exact native45 required after acceptedparents."
+  "calendarNativeCorrectionComposition": "Inherited excluded E2E-only B15 actual API setup and initial review/nativefailure records; all six other own hashes unchanged, one foundation documentation hash updated for accurate tradeoff. Vitest excludes E2E;2816/138/184target unit snapshot unchanged, no redundant fullrepeat. Exact native45 required after acceptedparents.",
+  "calendarHydrationComposition": "Only inherited excluded E2Efixture and corresponding parent reports changed; all seven ownsourcehashes remain identical, Vitest2816/138 snapshot unchanged. APIfixture explicitlyreloads beforeUI editor afternativeorderingproof; native45 awaitsacceptedparents."
 }

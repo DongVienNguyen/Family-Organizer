@@ -29,7 +29,7 @@
   "sourceHashes": {
     "scripts/ci/browser-contract.mjs": "562a1f8a1325f3886492b87c9259b246e76b74780eaa374f57f1d3393d335e1f",
     "tests/browser-evidence.test.ts": "e8d472194c29f7985722ef26646c103cf18710d7a954c64d2e153150dcb06979",
-    "tests/e2e/foundation.spec.ts": "35a56e95e467f63fa09f7dfb53bdf1768b4add9810db16d819c87ce506b21028"
+    "tests/e2e/foundation.spec.ts": "9667af2dbdf4c93c96bd1a89818d23dc3c63ac3eba61f4414f7b9846c0b3b36b"
   },
   "verificationHashes": {
     "f09-l1-original-calendar.txt": "79a0c1878f66ff9c4dcb664babde6e6a2b2c3af3bad61f18229ed6b98e043aba",
@@ -45,7 +45,11 @@
     "f09-l1-native-corrected-build.log": "1184f7ccd05d0b7e305305971d52da111e52b08a12b113a94cfb7ec5ae7c410b",
     "f09-l1-native-corrected-cloud-reports/browser.json": "760a7f3fd46f2a0fbf5d404315e7cc727f9286bd1b03035b526bfb85ec65ead2",
     "f09-l1-native-corrected-cloud-reports/browser.junit.xml": "d2d482defc10c8e7360ea9bebe848c56ecfa63a0a903a778f86861b6b24bfd0d",
-    "f09-l1-native-corrected-cloud-reports/browser-fixture.json": "e9e6ba42faf2b6e63e3009e215a6cab17db566935cc08d30b4bccd6910b329da"
+    "f09-l1-native-corrected-cloud-reports/browser-fixture.json": "e9e6ba42faf2b6e63e3009e215a6cab17db566935cc08d30b4bccd6910b329da",
+    "f09-l1-hydrated-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-l1-hydrated-cloud-reports/browser.json": "f5aa14d4366920f3b7e35a1dfb633669eab82310b2d979e30d11c37d6852da94",
+    "f09-l1-hydrated-cloud-reports/browser.junit.xml": "352ec35f4100f1e9309787234b91ba9c67c69a147e0c0a370837e916ed242f02",
+    "f09-l1-hydrated-cloud-reports/browser-fixture.json": "d838e90f140a64f0f9b031b04da6471c2fdffcb4aff3e282abef8e0f140bfcb7"
   },
   "windows": "not-run",
   "publicationAllowed": false,
@@ -56,9 +60,11 @@
     "tests/e2e/foundation.spec.ts": "735e5e42c50897f6cb33c5ed5900b617c36445efaf9a0a055428fd9b6331e11c"
   },
   "uiCreation": "B12 creation/recurrence/export/grid/detail remains real UI; B15 editor fixture seeded through actual authenticated internal POST, then actual UI edit/reload/Child boundaries and owned cleanup.",
-  "nativeCorrectionPassCount": 1,
+  "nativeCorrectionPassCount": 2,
   "secondNativeFailure": "d0a/CI38425013464 browser41of42 onlyB15WebKit exhausted45sec at finalChildagenda; allsevennonbrowserraw pass, fullreports/trace retained. RealUIcreate duplicated fixture was the measured unnecessary editor setup cost.",
   "nativeCorrection": "B15 uses real canonical HTTP fixture creation; all original27assertion lines retained across B12/B15, no fake response/forceclick/timeouts/retries/skip changes. UI-created record editing remains indirectly composed contracts, not one continuous create/export/edit journey.",
   "interimExcludedDiagnostic": "One diagnostic used already-built next-slice frontend; retained f09-l1-interim-next-slice-build-reports but excluded from corrected-source proof. Initial Cloud proof bytes restored unchanged; then build currentL source before final diagnostic.",
-  "cloudDiagnosticAfterNativeCorrection": "Actual rebuilt currentL source Chromium B12PASS17.7sec/B15PASS25.4sec, total45.7sec, eachcase45sec unchanged. Server0/DBclosed/fixture removed/no provider attempts; Linuxdiagnostic only."
+  "cloudDiagnosticAfterNativeCorrection": "Actual rebuilt currentL source Chromium B12PASS17.7sec/B15PASS25.4sec, total45.7sec, eachcase45sec unchanged. Server0/DBclosed/fixture removed/no provider attempts; Linuxdiagnostic only.",
+  "fixtureHydrationCorrection": "Actual44cbc/CI38427772120 failure was missingfixtureUI, not45sec: frontendGETempty beforePOSTcreated andSSE startedafterPOST. Explicit reload plus Memberidentity assertion hydratepersistedfixture beforeeditor; alloriginal assertions/budgets/normalactionability retained. No appsource change.",
+  "cloudDiagnosticAfterHydration": "ActualChromium B12PASS18.5sec/B15PASS25.4sec,2cases total47.5sec; each45s unchanged/server0/databaseclosed/fixture removed/no provider attempts. Current42Windows pending."
 }

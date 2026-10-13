@@ -81,7 +81,7 @@
     "buildExit": 0,
     "priorLintFailure": "Retained TS2322 log, initial zero claim corrected",
     "browserCasesRequired": 45,
-    "calendarFixture": "ONE0C0I0M review plus one actual native correction after41/42failure; B12 realUI creation, B15 actual canonical authenticated HTTP fixture thenrealUIedit/reload/Child, alloriginal27 assertion lines/45s10s/retries0 retained. Continuous UIcreate/export\u2192edit journey no longer checked; native45 pending."
+    "calendarFixture": "ONE0C0I0M review,zero findingfixes/two authored nativecorrections: B12 realUIcreation, B15canonicalAPIfixture with explicitreload hydration thenrealUI edit/reload/Child, original27assertionlines/45s10s/retries0 retained. Continuous UIcreate/export\u2192edit journey no longer checked. Native45pending."
   },
   "blockers": [
     {

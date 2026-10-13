@@ -23,7 +23,7 @@
     "src/utils/notificationRead.ts": "e8181110f49bc930dd04db41b54275cf3b3091a4ac395fc5cf1e6b61d664b7d4",
     "src/utils/notificationRead.test.ts": "8f591b4a4db61a00f47ed9d16028ce7e2c21f298d473c69bf391d716a6e6864b",
     "tests/browser-evidence.test.ts": "e5e943acdde32c9b0bc66a5e357f3282db07fcd3a7c0092b4137e258353c2d80",
-    "tests/e2e/foundation.spec.ts": "3f21b96bab38c935f91a7af8a0b28d9eae1aeb99f041661a82f53d3df55e1050",
+    "tests/e2e/foundation.spec.ts": "8c4d2ae1a55a0b4d0f25ba63174509866469d07bd5f21ef0f64b2e7b28b7d384",
     "tests/evidence.test.ts": "d357d8ef20c458c4e0387e39502f32aaef4ffc5f97ee83d0cf8bea4613e24ea2"
   },
   "verificationHashes": {
@@ -80,5 +80,6 @@
   "clockCorrection": "November actual Chromium Finance row assertion failed, fixed October browser time before navigation -> same B14 Chromium PASS; all previous assertions/13-flow prefix/budgets/retries retained.",
   "priorFullGreen": 2809,
   "calendarArchitectureComposition": "New distinct F09-l1 reviewed6c4 source integrated provisionally; every B14 byte unchanged, six other owned source hashes unchanged, both calendar flows/UIcreates/assertions retained; native45 requires acceptedparent.",
-  "calendarNativeCorrectionComposition": "Actual L1 nativefailure d0/38425013464 -> B15 real authenticated canonical API fixture, B12 UIcreation retained; all original assertions/budgets/no mocks. B14 bytes and eight other source hashes unchanged. Vitest excludes E2E, prior2812/137/301target/lintbuild verification remains the unchanged unit/source snapshot; current native45 required."
+  "calendarNativeCorrectionComposition": "Actual L1 nativefailure d0/38425013464 -> B15 real authenticated canonical API fixture, B12 UIcreation retained; all original assertions/budgets/no mocks. B14 bytes and eight other source hashes unchanged. Vitest excludes E2E, prior2812/137/301target/lintbuild verification remains the unchanged unit/source snapshot; current native45 required.",
+  "calendarHydrationComposition": "Excluded E2E-only B15 nowexplicitlyreloads authenticated APIfixture; actualtraceproved GETempty beforePOST/SSEafterPOST. All eight other owned sources/B14bytes/unchanged Vitest2812/137 snapshot remain; exact current45Windows required."
 }
