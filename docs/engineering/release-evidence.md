@@ -62,3 +62,32 @@ replacement or insertion while the reader validates data. Synthetic native
 positive/refusal tests exercise the extractor separately; fixture metadata is
 not GitHub authority. Full normalized release acceptance and publication stay
 closed even after the inner byte/license subset is verified.
+
+F08-m composes the authenticated collector's completed reader receipts into
+`reports/release-evidence.json`. It binds each family to the explicit target SHA,
+run and original ZIP, requires both runtime/suite/source inventories and their
+shared evidence hashes, the browser/harness counts, complete consumer/service
+readers and actual inner extraction/original-license agreement. The resulting
+request/source/run/check/artifact/download/package/report tuple must pass the
+existing `validateReleaseEvidence` policy before any success receipt is written.
+Missing or contradictory families fail; producer success flags alone are insufficient.
+
+The normalized receipt uses `reportsVerified:true` and
+`consumerFunctionalVerified:true` for that explicit artifact run. The separate
+`release-report-preflight.json` retains each reader's earlier subset receipt and
+its pre-composition flags; it is not the final normalized receipt. Both files
+are retained as Actions artifacts. These flags do not assert complete legacy
+F09 coverage, protected main, actual Server2019 or publication approval.
+`publicationAllowed:false` remains unconditional, and `assertPublicationAllowed`
+still rejects even a complete normalized receipt. The pure normalizer accepts
+synthetic prior facts for unit tests; only its invocation after the authenticated
+API/download/Git/raw/native readers in trusted-main dispatch confers CI provenance.
+No operator JSON ingestion, write-token job, release/tag or VPS action is added.
+
+Composition also matches each extraction row's original artifact ID, archive
+SHA256, byte count and file to the authenticated download receipt. The independent
+read supplying coverage retains its actual `evidence.json` digest, and that digest
+must match quality/runtime/auxiliary evidence before normalized verification.
+These bindings were added after six actual contradiction failures in review.
+The old preflight console marker is a deferred wording note; the normalized JSON
+and explicit publication lock determine the new final result.
