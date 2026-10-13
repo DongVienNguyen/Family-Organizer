@@ -1,6 +1,6 @@
 {
   "taskId": "F09-j",
-  "baseSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+  "baseSha": "509463cd110e9d02644bf111c3a763a64e4e3613",
   "scope": "Existing health growth/BMI and medication dose UI against real compiled backend/native SQLite; no app behavior change",
   "actualGateRed": 2,
   "targetGreen": 162,
@@ -45,7 +45,7 @@
     "Server2019/R02",
     "Release/tag/VPS unauthorized"
   ],
-  "baseState": "Reviewed61 provisional parent, exactWindows/native/mainacceptance pending",
+  "baseState": "Accepted61 squash independently equals tested4cf/CI38412662703; all3healthintegration source hashes unchanged",
   "priorCorrectedCloudTests": 2775,
   "reviewedOwnB11SuffixByteAgreement": true,
   "accepted30PrefixByteAgreement": true,
