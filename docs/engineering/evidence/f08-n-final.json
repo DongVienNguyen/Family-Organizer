@@ -1,0 +1,79 @@
+{
+  "taskId": "F08-n",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/61",
+  "testedHeadSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38412662703",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "summaryHashes": {
+    "quality": "2c1660246fd78c03872068bf710667f8e655dac543d7a463f1ebcafe960ede5f",
+    "coverage": "ede1bb9482c728e657293c340b8c088caf74c877a0ff76e7825920b2b1c621ad",
+    "browser": "146e3539db4846dcdb78327bde7bf633921866f2f44c9acb86990085e0fff906",
+    "package": "88e113a25af61fea5fd3d74f0e9b7b3fe0c2c52f09462b30cc92eec53c0959b1",
+    "service": "026b3a7ec48618f6d58d6c21d86b94291ecc34b9255d3e0385842d92a4dbf1ee",
+    "caddy": "ab62f687ac3afc9c6a795c3ce77b364d0547c14e34625e687fa451372d0fab89",
+    "extraction-sdk": "7beb530fecd0a3100308c74359e63a05e006798f4510792d79b13b3ec7ce91d9",
+    "inner-native": "ce355e7997df948120705a0abe134e63c985468bcc9774d575a80517618a1c86"
+  },
+  "fullCiLogSha256": "9358e862e8175fb9057191bf82df77720965d4d1abb8305fcc48ff74da68ef6d",
+  "testedHead": "4cfbb060799ac93d70b89a7180ceadbb0b2b4e16",
+  "mergeSha": "509463cd110e9d02644bf111c3a763a64e4e3613",
+  "mainTreeEqualsTestedHead": true,
+  "qualityEach": 2792,
+  "qualityFilesEach": 136,
+  "browserFirstAttempt": 30,
+  "rawValidators": 8,
+  "zipSha256": "0df729c70cce8462ea9351de6648d22840e71b27f7b6eb8eafaa1ae758642eb7",
+  "reviewGrades": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "publicationAllowed": false,
+  "candidatePublication": "blocked-source-lock",
+  "promotion": "blocked-source-lock-and-actual-server2019-acceptance",
+  "server2019Acceptance": "not-run",
+  "trustedMainLive": "pending actual candidate andpromotion preparation dispatches"
+}
