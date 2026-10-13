@@ -4,32 +4,56 @@ const positive=n=>integer(n)&&n>0;
 const record=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const sameMultiset=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&JSON.stringify([...a].sort())===JSON.stringify([...b].sort());
 const sameSet=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&new Set(a).size===a.length&&a.every(x=>b.includes(x));
+const validXmlCharacter=n=>n===9||n===10||n===13||(n>=32&&n<=0xd7ff)||(n>=0xe000&&n<=0xfffd)||(n>=0x10000&&n<=0x10ffff);
+function validateXmlCharacters(text){for(const character of text)if(!validXmlCharacter(character.codePointAt(0)))throw Error('Invalid XML character');}
 function xmlValue(text){
+ validateXmlCharacters(text);
  if(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9a-fA-F]+;)/.test(text)||text.includes('<'))throw Error('Invalid XML attribute');
  return text.replace(/&(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);/g,entity=>{
   const named={'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'"};if(named[entity])return named[entity];
   const number=entity.startsWith('&#x')?parseInt(entity.slice(3,-1),16):Number(entity.slice(2,-1));
-  if(!integer(number)||number===0||number>0x10ffff||(number>=0xd800&&number<=0xdfff)||(number<32&&![9,10,13].includes(number)))throw Error('Invalid XML character');
+  if(!integer(number)||!validXmlCharacter(number))throw Error('Invalid XML character');
   return String.fromCodePoint(number);
  });
 }
 // A bounded parser for the JUnit vocabulary emitted by the pinned reporters.
 // DTDs/entities, duplicate attributes, malformed nesting and extra roots fail.
+function readXmlToken(text,start){
+ let offset=start+1,closing=false;
+ const letter=c=>typeof c==='string'&&c>='a'&&c<='z';
+ const nameCharacter=c=>letter(c)||c==='-';
+ const space=c=>c===' '||c==='\t'||c==='\r'||c==='\n';
+ const whitespace=()=>{const before=offset;while(space(text[offset]))offset++;return offset-before;};
+ const name=()=>{const before=offset;if(!letter(text[offset]))throw Error('Invalid XML name');offset++;while(nameCharacter(text[offset]))offset++;return text.slice(before,offset);};
+ if(text[offset]==='/'){closing=true;offset++;}
+ const tag=name(),attributes={};
+ if(closing){whitespace();if(text[offset]!=='>')throw Error('Invalid XML close');return {tag,attributes,closing:true,selfClosing:false,end:offset+1};}
+ for(;;){
+  const separated=whitespace();
+  if(text[offset]==='>')return {tag,attributes,closing:false,selfClosing:false,end:offset+1};
+  if(text[offset]==='/'){if(text[offset+1]!=='>')throw Error('Invalid XML self-close');return {tag,attributes,closing:false,selfClosing:true,end:offset+2};}
+  if(!separated)throw Error('Missing XML attribute separator');
+  const key=name();if(Object.hasOwn(attributes,key))throw Error('Duplicate XML attribute');
+  whitespace();if(text[offset]!=='=')throw Error('Missing XML attribute equals');offset++;whitespace();
+  if(text[offset]!=='"')throw Error('Unsupported XML attribute quote');offset++;const before=offset;
+  while(offset<text.length&&text[offset]!=='"'){if(text[offset]==='<')throw Error('Invalid XML attribute');offset++;}
+  if(offset===text.length)throw Error('Incomplete XML attribute');attributes[key]=xmlValue(text.slice(before,offset));offset++;
+ }
+}
 function junitTree(text){
  if(typeof text!=='string'||text.length===0||Buffer.byteLength(text)>64*1024*1024||/<!DOCTYPE|<!ENTITY/i.test(text))throw Error('Invalid JUnit');
+ validateXmlCharacters(text);
  const document={tag:'document',children:[]},stack=[document];let offset=0,nodes=0;
  while(offset<text.length){
-  if(text.startsWith('<?xml',offset)){const end=text.indexOf('?>',offset);if(offset!==0||end<0)throw Error('Invalid XML declaration');offset=end+2;continue;}
+  if(text.startsWith('<?',offset)){const end=text.indexOf('?>',offset);if(offset!==0||end<0||!/^<\?xml version="1\.0"(?: encoding="UTF-8")? ?\?>$/.test(text.slice(offset,end+2)))throw Error('Invalid XML declaration');offset=end+2;continue;}
   if(text.startsWith('<![CDATA[',offset)){const end=text.indexOf(']]>',offset);if(end<0||!['system-out','system-err'].includes(stack.at(-1).tag))throw Error('Invalid CDATA');offset=end+3;continue;}
   if(text[offset]!=='<'){const end=text.indexOf('<',offset),stop=end<0?text.length:end;const value=text.slice(offset,stop);if(value.trim()&&!['system-out','system-err'].includes(stack.at(-1).tag))throw Error('Unexpected XML text');xmlValue(value);offset=stop;continue;}
-  const token=text.slice(offset).match(/^<\/?[a-z][a-z-]*(?:\s+[a-z][a-z-]*="[^"<>]*")*\s*\/?\s*>/);
-  if(!token)throw Error('Invalid XML token');const raw=token[0],name=raw.match(/^<\/?([a-z][a-z-]*)/)[1];offset+=raw.length;
-  if(raw.startsWith('</')){if(!/^<\/[a-z][a-z-]*\s*>$/.test(raw)||stack.length===1||stack.pop().tag!==name)throw Error('Invalid XML nesting');continue;}
+  const token=readXmlToken(text,offset),name=token.tag,attributes=token.attributes;offset=token.end;
+  if(token.closing){if(stack.length===1||stack.pop().tag!==name)throw Error('Invalid XML nesting');continue;}
   if(!['testsuites','testsuite','testcase','properties','property','system-out','system-err','failure','error','skipped'].includes(name)||++nodes>100000||stack.length>32)throw Error('Unsupported/excessive XML');
-  const attributes={};for(const match of raw.matchAll(/\s+([a-z][a-z-]*)="([^"<>]*)"/g)){if(Object.hasOwn(attributes,match[1]))throw Error('Duplicate XML attribute');attributes[match[1]]=xmlValue(match[2]);}
   const vocabulary={document:['testsuites'],testsuites:['testsuite'],testsuite:['testcase','properties','system-out','system-err'],testcase:['system-out','system-err','failure','error','skipped'],properties:['property'],'system-out':[],'system-err':[],property:[],failure:[],error:[],skipped:[]};
   if(!vocabulary[stack.at(-1).tag]?.includes(name))throw Error('Invalid JUnit element hierarchy');
-  const node={tag:name,attributes,children:[]};stack.at(-1).children.push(node);if(!/\/\s*>$/.test(raw))stack.push(node);
+  const node={tag:name,attributes,children:[]};stack.at(-1).children.push(node);if(!token.selfClosing)stack.push(node);
  }
  if(stack.length!==1||document.children.length!==1||document.children[0].tag!=='testsuites')throw Error('Incomplete JUnit');return document.children[0];
 }

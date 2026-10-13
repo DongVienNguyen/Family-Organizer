@@ -26,8 +26,14 @@ Availability REDs46+17 are new contract availability, not application defects.
 Actual synthetic Windows report inspection corrected assumptions about the OS label,
 reporter name separators and repeated parameterized names. Two new-code XML hierarchy
 REDs and two counter REDs now pass; two critical omission REDs enforce the new suites.
-All old assertions remain. Pure target216/3 passed; full source/review/native execution
-remain required. No full report/candidate trust, Server2019 or publication claim.
+All old assertions remain. Pre-review frozen Cloud2061/108 and216/3target,
+lint/build0 passed. One fresh review0Critical/1Important/2Minor was fully graded
+and accepted before one correction pass. The scanner is now linear, declaration
+grammar matches the pinned reporter, XML1.0 characters are checked in text,
+attributes and CDATA, and self-closing syntax must be exact. Review negatives
+were6 initial RED assertions plus one attribute-only RED against the frozen old
+source;223/3target now passes. Fresh post-correction frozen Cloud2068/108 and223/3target, lint/build0
+passed. Exact new Windows and native adapter execution remain required. No full report/candidate trust, Server2019 or publication claim.
 
 The remaining collector must authenticate archive bytes in process, extract safely,
 read bounded ordinary files, bind source-derived policy, verify native/production,

@@ -1,0 +1,10 @@
+{
+  "observedAt": "2026-10-13T00:37:04.623170+00:00",
+  "kind": "read-only-enforcement-state",
+  "mainSha": "725bf8bc79dcacf8d45da8665cdf313390489665",
+  "protected": false,
+  "rulesetCount": 0,
+  "permissionWriteRetried": false,
+  "priorWriteFailure": "Administration ruleset POST/branch-protection PUT returned HTTP403 Resource not accessible by integration; no permission-refresh capability available",
+  "sourceWorkContinues": true
+}

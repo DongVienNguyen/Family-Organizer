@@ -1,4 +1,5 @@
 import {describe,it,expect} from 'vitest';
+import {spawnSync} from 'node:child_process';
 import * as contract from '../scripts/windows/release-quality-reports.mjs';
 const sha='a'.repeat(40), lock='b'.repeat(64), runId=42;
 function fixture(){
@@ -37,3 +38,18 @@ it('rejects an undeclared testcase hidden inside JUnit properties',()=>{const v=
 it('rejects nested JUnit suites inside captured output',()=>{const v=fixture();v.junit=v.junit.replace('</testcase>','<system-out><testsuite name="hidden"/></system-out></testcase>');expect(validate(v).length).toBeGreaterThan(0);});
 
 it.each(['numTotalTestSuites','numPassedTestSuites'])('rejects contradictory raw suite-group counter %s',key=>{const v=fixture();(v.tests as any)[key]++;expect(validate(v).length).toBeGreaterThan(0);});
+
+it('rejects a100KB malformed whitespace token within a bounded child process',()=>{
+ const moduleUrl=new URL('../scripts/windows/release-quality-reports.mjs',import.meta.url).href;
+ const code=`import {validateReleaseQualityReports} from ${JSON.stringify(moduleUrl)};const errors=validateReleaseQualityReports({junit:'<testsuites'+' '.repeat(100000)+'!'});if(!errors.length)process.exit(2);console.log('MALFORMED_XML_REJECTED');`;
+ const child=spawnSync(process.execPath,['--input-type=module','-e',code],{timeout:3000,maxBuffer:8192,encoding:'utf8'});
+ expect(child.error).toBeUndefined();expect(child.status).toBe(0);expect(child.signal).toBeNull();expect(child.stdout.trim()).toBe('MALFORMED_XML_REJECTED');
+},5000);
+it.each([
+ ['invalid declaration',(v:any)=>v.junit=v.junit.replace('<?xml version="1.0"?>','<?xmlbanana arbitrary gibberish?>')],
+ ['literal NUL text',(v:any)=>v.junit=v.junit.replace('</testcase>','<system-out>\u0000</system-out></testcase>')],
+ ['forbidden numeric XML character',(v:any)=>v.junit=v.junit.replace('</testcase>','<system-out>&#xFFFF;</system-out></testcase>')],
+ ['invalid self-closing token',(v:any)=>v.junit=v.junit.replace('</testcase>','<system-out/ ></testcase>')],
+ ['literal forbidden attribute character',(v:any)=>v.junit=v.junit.replace('<testsuite name=','<testsuite hostname="synthetic\uFFFE" name=')],
+ ['forbidden CDATA character',(v:any)=>v.junit=v.junit.replace('</testcase>','<system-out><![CDATA[\u0000]]></system-out></testcase>')],
+])('rejects malformed XML %s',(_name,mutate)=>{const v=fixture();mutate(v);expect(validate(v).length).toBeGreaterThan(0);});

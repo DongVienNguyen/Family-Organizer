@@ -1,0 +1,10 @@
+{
+  "taskId": "F08-d",
+  "kind": "corrected malformed-token process diagnostic only",
+  "nodeVersion": "v24.21.0",
+  "nativeExit": 0,
+  "nativeSignal": null,
+  "timeoutMilliseconds": 3000,
+  "malformedRejected": true,
+  "milliseconds": 21.475966999999997
+}
