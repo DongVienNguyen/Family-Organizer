@@ -6,9 +6,9 @@
   "actualOwnershipRed": 4,
   "actualOwnershipSuiteGateRed": 1,
   "cloudBrowserBefore": "B14 timed out45s atPlaywright response.json afteractualHTTP200 headers; incompletebody inrawtrace; oldone/allApphandlers ignoredbody",
-  "targetGreen": 301,
-  "fullGreen": 2812,
-  "fullFiles": 137,
+  "targetGreen": 279,
+  "fullGreen": 2820,
+  "fullFiles": 138,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -18,13 +18,13 @@
   "sourceHashes": {
     "scripts/ci/browser-contract.mjs": "c170ba0bb86d0f8581526e5bbc5c60a15f0b2b6feb44b63a768bf72bacbed6dc",
     "scripts/ci/run-browser.mjs": "9535e628d1431ff884a0ce560235841ba951cd8befdd3262e5f21438b26738ff",
-    "scripts/ci/write-evidence.mjs": "cd081d400e482a7c40a3b1c9847bf67fc715764de63cf43cdca75c46e78a384f",
+    "scripts/ci/write-evidence.mjs": "8b7ed54e97e3d7a7ad5e15cae43bcf9af46a377af3c690ef1c5c0e18d9519717",
     "src/App.tsx": "c3875784e13aaa2fe6e829ce76f0d59faa85728b041a4131ac0db98618e2b3c8",
     "src/utils/notificationRead.ts": "e8181110f49bc930dd04db41b54275cf3b3091a4ac395fc5cf1e6b61d664b7d4",
     "src/utils/notificationRead.test.ts": "8f591b4a4db61a00f47ed9d16028ce7e2c21f298d473c69bf391d716a6e6864b",
     "tests/browser-evidence.test.ts": "e5e943acdde32c9b0bc66a5e357f3282db07fcd3a7c0092b4137e258353c2d80",
     "tests/e2e/foundation.spec.ts": "8c4d2ae1a55a0b4d0f25ba63174509866469d07bd5f21ef0f64b2e7b28b7d384",
-    "tests/evidence.test.ts": "d357d8ef20c458c4e0387e39502f32aaef4ffc5f97ee83d0cf8bea4613e24ea2"
+    "tests/evidence.test.ts": "c2fce915c4f0eaec2dcae108f67e451c64593197bffa8d7d8e983e66470c1b0c"
   },
   "verificationHashes": {
     "f09-m-gate-red.json": "d81fd660b745816e6eb4129bf9333b1ba2582d591f3ab0a8a701cb358e066a8d",
@@ -81,5 +81,29 @@
   "priorFullGreen": 2809,
   "calendarArchitectureComposition": "New distinct F09-l1 reviewed6c4 source integrated provisionally; every B14 byte unchanged, six other owned source hashes unchanged, both calendar flows/UIcreates/assertions retained; native45 requires acceptedparent.",
   "calendarNativeCorrectionComposition": "Actual L1 nativefailure d0/38425013464 -> B15 real authenticated canonical API fixture, B12 UIcreation retained; all original assertions/budgets/no mocks. B14 bytes and eight other source hashes unchanged. Vitest excludes E2E, prior2812/137/301target/lintbuild verification remains the unchanged unit/source snapshot; current native45 required.",
-  "calendarHydrationComposition": "Excluded E2E-only B15 nowexplicitlyreloads authenticated APIfixture; actualtraceproved GETempty beforePOST/SSEafterPOST. All eight other owned sources/B14bytes/unchanged Vitest2812/137 snapshot remain; exact current45Windows required."
+  "calendarHydrationComposition": "Excluded E2E-only B15 nowexplicitlyreloads authenticated APIfixture; actualtraceproved GETempty beforePOST/SSEafterPOST. All eight other owned sources/B14bytes/unchanged Vitest2812/137 snapshot remain; exact current45Windows required.",
+  "preCaddyCompositionSourceHashes": {
+    "scripts/ci/browser-contract.mjs": "c170ba0bb86d0f8581526e5bbc5c60a15f0b2b6feb44b63a768bf72bacbed6dc",
+    "scripts/ci/run-browser.mjs": "9535e628d1431ff884a0ce560235841ba951cd8befdd3262e5f21438b26738ff",
+    "scripts/ci/write-evidence.mjs": "cd081d400e482a7c40a3b1c9847bf67fc715764de63cf43cdca75c46e78a384f",
+    "src/App.tsx": "c3875784e13aaa2fe6e829ce76f0d59faa85728b041a4131ac0db98618e2b3c8",
+    "src/utils/notificationRead.ts": "e8181110f49bc930dd04db41b54275cf3b3091a4ac395fc5cf1e6b61d664b7d4",
+    "src/utils/notificationRead.test.ts": "8f591b4a4db61a00f47ed9d16028ce7e2c21f298d473c69bf391d716a6e6864b",
+    "tests/browser-evidence.test.ts": "e5e943acdde32c9b0bc66a5e357f3282db07fcd3a7c0092b4137e258353c2d80",
+    "tests/e2e/foundation.spec.ts": "8c4d2ae1a55a0b4d0f25ba63174509866469d07bd5f21ef0f64b2e7b28b7d384",
+    "tests/evidence.test.ts": "d357d8ef20c458c4e0387e39502f32aaef4ffc5f97ee83d0cf8bea4613e24ea2"
+  },
+  "caddyComposition": {
+    "parentReviewedHead": "929520f39a2fb59c1d9aa4e39c7f1f39af8afa80",
+    "sevenOwnedSourcesUnchanged": true,
+    "gateChanges": "Union of mandatory notification and Caddy diagnostic suites; both omission tests retained.",
+    "verificationHashes": {
+      "f09-m-o-target.json": "14cf4cead183d0cf7c65b67ba5e069c8ff17e2e1d1a60e03c91b7279159ec1a2",
+      "f09-m-o-full.json": "f5323f5a90bd1fc6e5417c4e978b1fc89b1f5e08224509e72c6af8343efbd812",
+      "f09-m-o-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f09-m-o-build.log": "7b73450d1d7004123ed9564d0fbae53ff9dc6da5fe59511f3bed070edc61a1cf"
+    },
+    "native": "pending parent64 acceptance and new45-case Windows",
+    "review": "Original ONE0C1I1M retained, no additional source correction/rereview."
+  }
 }
