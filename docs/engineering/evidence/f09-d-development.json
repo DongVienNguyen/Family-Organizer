@@ -1,0 +1,42 @@
+{
+  "taskId": "F09-d",
+  "scope": "Existing adult-assigned Child submission/adult approval/reward persistence browser flow only; no application change or new Matrix/Kanban/Wallet feature",
+  "baseSha": "fb11d05eb565375e0a00fb6feb0c15b4c2508235",
+  "policyAvailabilityRed": 1,
+  "targetGreen": 58,
+  "fullGreen": 2151,
+  "fullFiles": 110,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "50a4893ad4603702469aabcea5c15ede0556b99ad7546f27feea593a319cd32b",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "browserDiscovery": {
+    "count": 24,
+    "files": 1,
+    "actualBrowserExecution": false
+  },
+  "browserNative": "not-run",
+  "review": "not-run",
+  "ci": "not-run",
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden",
+  "checks": [
+    "UIadultcreateandChildassignment17points",
+    "reloadcreatedTaskfullRow",
+    "Childstartandsubmitproof",
+    "pendinginprogressnotcompleted",
+    "noRewardBeforeApproval",
+    "ChildapprovalUIhiddenanddirectHTTP403",
+    "reloadpendingfullRow",
+    "adultUIapprovecompleted",
+    "exactlyoneChildgrantandtotalsdelta",
+    "priorledgerrowspreserved",
+    "freshduplicateapproval400doesnotgrant",
+    "reloadapprovedfullRowandrewards",
+    "ChildreloginandreloadseessameTaskandownGrant"
+  ]
+}
