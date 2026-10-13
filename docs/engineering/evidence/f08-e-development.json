@@ -1,0 +1,65 @@
+{
+  "taskId": "F08-e",
+  "baseSha": "fb11d05eb565375e0a00fb6feb0c15b4c2508235",
+  "scope": "Bounded seven-archive extraction and raw quality assertion preflight; fullcollector remains incomplete",
+  "availabilityReds": {
+    "reportFiles": 16,
+    "qualityFiles": 9,
+    "extraction": 11,
+    "nativeEvidence": 15
+  },
+  "fixtureSetupError": "Initial raw-quality RED collection had missing helper directory; not a product/regression failure. Corrected before nine actual availability REDs. Synthetic SHA/body-length expectations computed before native execution.",
+  "gateReds": {
+    "criticalSuiteOmission": 3,
+    "nativeReportOmission": 1
+  },
+  "targetGreen": 250,
+  "targetFiles": 5,
+  "full": "passed frozen SDK-corrected Cloud2249/114; native local SDK not-run",
+  "review": "one complete0C1I1M; both accepted before one correction pass; no rereview",
+  "nativeExtraction": "not-run",
+  "trustedMainLiveAdapter": "not-run",
+  "reportsVerified": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "forbidden",
+  "fullGreen": 2249,
+  "fullFiles": 114,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "96453b4e5b62473b7848e2bc9f2b96a64debce3ed4c1e34a33dc2b01a18177e6",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "historicalSourceProof": {
+    "fullGreen": 2210,
+    "fullFiles": 113,
+    "fullReportSha256": "a9343356bb297392bd64106d4af92ef5a8ed108811eadda201edcb0c2d88451f"
+  },
+  "reviewRegressionRed": 3,
+  "reviewRulings": "f08-e-review-rulings.json",
+  "sdkSourceCorrection": {
+    "reason": "Second actual Node22HTTP502 at canonical x64node.lib afterheaders/SHASUMS200; URL-only mitigation insufficient",
+    "firstFailedRun": "38341637506",
+    "secondFailedRun": "38342341942",
+    "policyAvailabilityReds": 33,
+    "gateReds": 2,
+    "targetGreen": 250,
+    "targetFiles": 5,
+    "nativeWindowsSdk": "not-run",
+    "full": "passed2249/114/lintbuild0",
+    "scope": "Pinned official builder-only headers/library; at most2transfer retries, zero npm/test retries; exactSHA/native0/Windowsruntime/headerinventory/version/nodedir guards",
+    "noDependencyLockChange": true,
+    "fullGreen": 2249,
+    "fullFiles": 114
+  },
+  "historicalSourceProofs": [
+    {
+      "fullGreen": 2214,
+      "fullFiles": 113,
+      "fullReportSha256": "57fe32643118c6af6fb9e4741f8b9861a0924e6f5c77ab7c9c6d08f62c7dd6aa"
+    }
+  ]
+}

@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+# Canonical official distribution route; node-gyp retains TLS/SHA verification.
+env:
+  npm_config_disturl: https://nodejs.org/dist
+
 defaults:
   run:
     shell: pwsh
@@ -64,6 +68,15 @@ jobs:
         with:
           path: ${{ steps.npm-cache.outputs.cache-path }}
           key: npm-${{ runner.os }}-${{ runner.arch }}-node${{ matrix.node }}-npm${{ matrix.npm }}-${{ hashFiles('package-lock.json') }}
+      - name: Prepare pinned local native builder SDK
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & ./scripts/ci/Prepare-NodeSdk.ps1 -Version $env:EXPECTED_NODE -CommitSha $env:TEST_COMMIT_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
       - name: Install from lockfile
         id: install
         run: ./scripts/ci/Invoke-Check.ps1 -Check install
@@ -121,6 +134,16 @@ jobs:
           Set-StrictMode -Version Latest
           $PSNativeCommandUseErrorActionPreference = $false
           & ./scripts/windows/Test-Caddy.ps1 -ReportDirectory (Join-Path $env:GITHUB_WORKSPACE 'reports') -CommitSha $env:TEST_COMMIT_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
+      - name: Seven native report archives and batch budget refusal
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & node ./scripts/windows/probe-release-report-extraction.mjs (Get-Process -Id $PID).Path (Join-Path $env:GITHUB_WORKSPACE 'reports/release-report-extraction-native.json') $env:TEST_COMMIT_SHA
           $nativeCode = $LASTEXITCODE
           if ($nativeCode -ne 0) { exit $nativeCode }
           exit 0
@@ -204,6 +227,15 @@ jobs:
         with:
           path: ${{ steps.npm-cache.outputs.cache-path }}
           key: npm-${{ runner.os }}-${{ runner.arch }}-node24.21.0-npm11.19.0-${{ hashFiles('package-lock.json') }}
+      - name: Prepare pinned local native builder SDK
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & ./scripts/ci/Prepare-NodeSdk.ps1 -Version $env:EXPECTED_NODE -CommitSha $env:TEST_COMMIT_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
       - name: Install from lockfile
         id: install
         run: ./scripts/ci/Invoke-Check.ps1 -Check install
@@ -260,6 +292,15 @@ jobs:
           node-version: '24.21.0'
           architecture: x64
           package-manager-cache: false
+      - name: Prepare pinned local native builder SDK
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & ./scripts/ci/Prepare-NodeSdk.ps1 -Version $env:EXPECTED_NODE -CommitSha $env:TEST_COMMIT_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
       - name: Install and build
         run: |
           $ErrorActionPreference = 'Stop'

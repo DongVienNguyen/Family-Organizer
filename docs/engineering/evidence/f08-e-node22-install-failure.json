@@ -1,0 +1,24 @@
+{
+  "taskId": "F08-e-CI-install",
+  "failedHeadSha": "9d16bb15585d018ddc5fa3556bccca13d7e96b2c",
+  "failedRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38341637506",
+  "failedJobId": 115113709662,
+  "actualFailure": "npm ci/better-sqlite3 implicit node-gyp install fetched Node22 headers via /download/release and received HTTP502; npm nativeexit1",
+  "node22Tests": "not-run",
+  "sourceDependencyLockUnchanged": true,
+  "diagnosis": "better-sqlite3 package has binding.gyp and no install script; npm runs implicit node-gyp even though runtime uses bundled N-API prebuild",
+  "correction": "Use canonical official https://nodejs.org/dist for node-gyp distribution URL; retain TLS and node-gyp checksum verification, all npm/native checks and first-attempt critical-flow assertions",
+  "cloudCanonicalInspection": {
+    "platform": "linux",
+    "nativeWindowsProof": false,
+    "officialShasumsRead": true,
+    "headersAndX64LibDownloadedAndMatched": {
+      "node-v22.23.3-headers.tar.gz": "eff1a7e67736bdf25db421ddaa613ed605f751a7b9fe07fb473ea880d1348987",
+      "node22-x64.lib": "c243185f2347870cadb637c909bf123fc703dc65dbfa769b17ec45a4b661d782"
+    },
+    "legacyShasumsAlso200": "same bytes at observation; historical502 not a permanent route denial"
+  },
+  "newWindowsRequired": true,
+  "retriesToHideFailedTests": false,
+  "failedJobLogSha256": "309a3fdc32233c8bb164d37d3f9eaa34c8306cc57deef65348b1c679c5de3f7b"
+}
