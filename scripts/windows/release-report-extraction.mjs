@@ -39,7 +39,9 @@ export function extractReleaseReportArchives(receipt,directory,{execute}){
   const parents=[];for(let file=path.dirname(directory);;file=path.dirname(file)){const stat=fs.lstatSync(file,{bigint:true});requireFact(stat.isDirectory()&&!stat.isSymbolicLink());parents.push({file,dev:stat.dev,ino:stat.ino});if(path.dirname(file)===file)break;}
   fs.mkdirSync(directory);const identity=fs.lstatSync(directory,{bigint:true});
   const fixed=()=>{assertNoLinkedAncestors(directory);for(const parent of [{file:directory,dev:identity.dev,ino:identity.ino},...parents]){const stat=fs.lstatSync(parent.file,{bigint:true});requireFact(stat.isDirectory()&&!stat.isSymbolicLink()&&stat.dev===parent.dev&&stat.ino===parent.ino);}};
-  const input=path.join(directory,'.archive-input.json');fs.writeFileSync(input,JSON.stringify(rows),{flag:'wx'});
+  const input=path.join(directory,'.archive-input.json'),inputContent=JSON.stringify(rows);
+  requireFact(Buffer.byteLength(inputContent)<=65536);
+  fs.writeFileSync(input,inputContent,{flag:'wx'});const inputIdentity=fs.lstatSync(input,{bigint:true});
   const result=execute({inputFile:input,directory});requireFact(result?.status===0&&result.signal===null&&!result.error);fixed();
   requireFact(result.stdout instanceof Uint8Array||typeof result.stdout==='string');const bytes=typeof result.stdout==='string'?Buffer.from(result.stdout):result.stdout;requireFact(bytes.length<=65536);
   const observed=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));requireFact(observed.exitCode===0&&Array.isArray(observed.archives)&&observed.archives.length===7);
@@ -51,6 +53,13 @@ export function extractReleaseReportArchives(receipt,directory,{execute}){
    requireFact(count===matches[0].files&&size===matches[0].expandedBytes);total+=size;files+=count;requireFact(total<=1024*1024*1024&&files<=100000);
   }
   requireFact(total===observed.expandedBytes&&Number.isSafeInteger(observed.entryCount)&&observed.entryCount>=files&&observed.entryCount<=100000);fixed();
+  assertNoLinkedAncestors(input);const inputCurrent=fs.lstatSync(input,{bigint:true});
+  requireFact(inputCurrent.isFile()&&!inputCurrent.isSymbolicLink()&&inputCurrent.nlink===1n);
+  for(const key of ['dev','ino','size','mtimeNs','ctimeNs'])requireFact(inputCurrent[key]===inputIdentity[key]);
+  requireFact(openReleaseReportFiles(directory,{maxFileBytes:65536,maxTotalBytes:65536}).text('.archive-input.json')===inputContent);
+  fixed();const beforeUnlink=fs.lstatSync(input,{bigint:true});
+  requireFact(beforeUnlink.isFile()&&!beforeUnlink.isSymbolicLink()&&beforeUnlink.nlink===1n);
+  for(const key of ['dev','ino','size','mtimeNs','ctimeNs'])requireFact(beforeUnlink[key]===inputIdentity[key]);
   fs.unlinkSync(input);
   return {publicationAllowed:false,reportsVerified:false,archives:rows.map(row=>({...row,directory:path.join(directory,row.name)})),expandedBytes:total,files};
  }catch{reject();} // Preserve failed/replaced trees. Never recursive-delete an unproved owner.

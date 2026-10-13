@@ -13,24 +13,31 @@
     "criticalSuiteOmission": 3,
     "nativeReportOmission": 1
   },
-  "targetGreen": 211,
+  "targetGreen": 215,
   "targetFiles": 4,
-  "full": "passed frozen2210/113 Cloud; native Windows/live adapter not-run",
-  "review": "not-run",
+  "full": "passed frozen corrected Cloud2214/113; native Windows/live adapter not-run",
+  "review": "one complete0C1I1M; both accepted before one correction pass; no rereview",
   "nativeExtraction": "not-run",
   "trustedMainLiveAdapter": "not-run",
   "reportsVerified": false,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
   "releaseTagVps": "forbidden",
-  "fullGreen": 2210,
+  "fullGreen": 2214,
   "fullFiles": 113,
   "failed": 0,
   "pending": 0,
   "todo": 0,
   "lintExit": 0,
   "buildExit": 0,
-  "fullReportSha256": "a9343356bb297392bd64106d4af92ef5a8ed108811eadda201edcb0c2d88451f",
+  "fullReportSha256": "57fe32643118c6af6fb9e4741f8b9861a0924e6f5c77ab7c9c6d08f62c7dd6aa",
   "nodeVersion": "v24.21.0",
-  "workers": 1
+  "workers": 1,
+  "historicalSourceProof": {
+    "fullGreen": 2210,
+    "fullFiles": 113,
+    "fullReportSha256": "a9343356bb297392bd64106d4af92ef5a8ed108811eadda201edcb0c2d88451f"
+  },
+  "reviewRegressionRed": 3,
+  "reviewRulings": "f08-e-review-rulings.json"
 }

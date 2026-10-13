@@ -1,0 +1,51 @@
+{
+  "taskId": "F08-e",
+  "reviewCount": 1,
+  "reviewedHeadSha": "1d2d40679ba48be03f84554dca79fff93542a25c",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "rulings": [
+    {
+      "severity": "Important",
+      "finding": "Successful input cleanup deletes replacement ordinary leaf without independent leaf ownership proof",
+      "ruling": "accepted",
+      "correction": "Save native input identity and bind exact bytes; refuse missing/replaced/linked/modified leaf before cleanup; actual-success-path regressions"
+    },
+    {
+      "severity": "Minor",
+      "finding": "Literal newline escape in acceptance document",
+      "ruling": "accepted",
+      "correction": "Replace literal escape with actual newline while updating same acceptance evidence document"
+    }
+  ],
+  "declinedRulings": [
+    "No additional Git/API/download authority defect established",
+    "No demonstrated bounded reader/FD/root budget defect",
+    "Native seven-stream/global declared and actual budgets remain applied",
+    "Synthetic assertions justify native proof constants, not authenticated fullcollector",
+    "All suites/native proof mandatory; existing checks stable/publication disabled",
+    "Full native/production/audit/coverage/browser/package/license/consumer/service/coordinator collector remains unfinished",
+    "Unchanged application/domain/Server2019 acceptance not established"
+  ],
+  "fixPass": "one completed source correction:3actual input-leaf REDs\u2192215target/4, full2214/113 zero failedpendingtodo, lintbuild0. Native/live pending; no rereview",
+  "rereview": false,
+  "reviewRegressionRed": {
+    "replacementOrdinaryInput": true,
+    "replacementLinkedInput": true,
+    "modifiedInputBytes": true,
+    "failed": 3,
+    "passed": 30,
+    "missingLeafAlreadyRefused": true
+  },
+  "wholeSourceGreen": 2214,
+  "wholeSourceFiles": 113,
+  "targetGreen": 215
+}

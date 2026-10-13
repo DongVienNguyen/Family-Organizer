@@ -11,7 +11,9 @@ All seven ZIPs are checksum-checked again while native ZipArchive streams remain
 open. Existing ZIP path/link/alias/file-parent/ratio/per-file budgets still apply.
 The whole batch is preflighted before any report file is written; declared and
 actual expansion share a 1GiB/100000-entry ceiling. Extraction directories are
-fresh and identities remain fixed. Failed or replaced trees are preserved rather
+fresh and identities remain fixed. Input cleanup independently compares the
+original native leaf identity and exact bounded bytes; changed/missing/linked
+input leaves are refused and preserved. Failed or replaced trees are preserved rather
 than recursively deleting an uncertain owner.
 
 The report reader rejects linked ancestors/leaves, replaced fixed roots, invalid
@@ -33,7 +35,8 @@ bytes/manifest/licenses, consumer, service/coordinator and cleanup still need th
 complete collector. Root certificate and Caddy execution acceptance belongs to
 PR43 evidence, not to this ZIP slice. No Server2019, release/tag or VPS claim.
 
-Source checks are211 targeted assertions across4files and frozen full2210/113\nCloud assertions with zero failed/pending/todo and lint/build0. Native source,
-one complete wholebranch review, exact-HEAD Windows and a post-merge trusted-main
+Source checks are215 targeted assertions across4files and frozen corrected full2214/113
+Cloud assertions with zero failed/pending/todo and lint/build0. Native source,
+the single wholebranch review is complete (0Critical/1Important/1Minor, both\naccepted before one correction pass). Exact-HEAD Windows and a post-merge trusted-main
 live dispatch are mandatory before this slice is accepted. Historical errors and
 filtered RED runs are not complete suite success.
