@@ -35,8 +35,11 @@ nonarray quality returns errors. Runtime ZIP manifest compatibility remains an
 independent prerequisite of full F08.
 
 After reviewed merge and exact-HEAD Windows, a read-only trusted-main dispatch can
-validate the live adapter against an explicit successful main CI run. No dispatch
-has run yet; no live metadata/candidate/publication success is claimed.
+validate the live adapter against an explicit successful main CI run. Read-only metadata dispatch38312563391 ran successfully from main a571d62 for
+explicit de66d95/CI38309067494. Evidence f08-b-live.json records exact metadata/log
+hashes. This proves the live Git/API metadata adapter, not archive/report/candidate
+acceptance. F08-c extends the workflow to archive downloads; its live dispatch
+is still pending.
 
 Checks are requested with filter=all and a bounded100-record response. Only the
 explicit selected CI run is accepted; unrelated workflow checks on the same commit

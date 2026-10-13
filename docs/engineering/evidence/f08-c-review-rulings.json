@@ -1,0 +1,59 @@
+{
+  "taskId": "F08-c",
+  "reviewCount": 1,
+  "reviewedHeadSha": "cdc95415b977fe7ce70cac7c15f6324427e6e04e",
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "rulings": [
+    {
+      "reviewerSeverity": "Important",
+      "authorSeverity": "Important",
+      "finding": "Aggregate budget is checked after each archive; third512MiB archive can be written after1GiB exhausted",
+      "ruling": "accepted",
+      "correction": "Pass remaining allowance into streaming downloader; refuse before another request when exhausted; prove headerless partial cancellation/cleanup"
+    },
+    {
+      "reviewerSeverity": "Minor",
+      "authorSeverity": "Important",
+      "finding": "No-content-length fixture still has HTTP content-length, so it does not prove streamed bound",
+      "ruling": "accepted; promoted as required regression proof for aggregate streaming cap",
+      "reason": "An undeclared streamed overflow must exercise the byte counter and cancellation rather than declaration rejection; core resource bound otherwise unproven",
+      "classification": "Coverage gap, not additional historical product defect"
+    }
+  ],
+  "declinedRulings": [
+    {
+      "finding": "Windows/livearchive unrun",
+      "ruling": "Execution gates retained; no Cloud-only acceptance",
+      "cost": "False native/download claim if ignored"
+    },
+    {
+      "finding": "RawZIP/reports/package/license/candidate/promote beyondarchivebytes",
+      "ruling": "Explicit reportsVerifiedfalse/publicationfalse and permanent publication lock; later collector remains mandatory",
+      "cost": "False candidate trust if ignored"
+    },
+    {
+      "finding": "Application review focus unchanged",
+      "ruling": "No application-domain source changes; historical privacy/transactions/backup proof not renewed by this review",
+      "cost": "Unsupported wholefoundation claim if ignored"
+    },
+    {
+      "finding": "F05/F09/Caddy/Server19 unresolved",
+      "ruling": "Preserve external and source gates, no claimed completion",
+      "cost": "Premature feature/release acceptance if ignored"
+    }
+  ],
+  "fixPass": "one completed: budget assertions2RED/44pass ->247target and1973full/105files green; lintbuild0",
+  "rereview": false,
+  "wholeSourceGreen": 1973,
+  "wholeSourceFiles": 105,
+  "targetGreen": 247
+}

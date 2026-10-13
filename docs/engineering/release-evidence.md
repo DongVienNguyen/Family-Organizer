@@ -31,8 +31,8 @@ receipt cannot enable it. No release/tag/VPS operation is authorized in this tas
 The next F08 PR will implement read-only trusted-main artifact collection and
 explicit dispatch workflows while retaining this publication lock.
 
-Two review minors are deferred to F08-b before candidate use: the current version
-matcher accepts numeric prerelease identifiers with leading zeros and excludes
-uppercase/build metadata; malformed nonarray `quality` can throw instead of
-returning an error list. The CLI catches malformed input and refuses with a
-constant message. Neither case enables publication.
+Two F08-a review minors were corrected in F08-b with actual RED/GREEN tests:
+SemVer now rejects numeric prerelease leading zeros and accepts valid uppercase/
+build metadata; malformed nonarray quality returns an error list. The publication
+lock stays unconditional. Metadata live proof is f08-b-live.json; archive/report/
+full candidate acceptance remains separate and incomplete.

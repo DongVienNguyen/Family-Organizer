@@ -1,0 +1,65 @@
+{
+  "taskId": "F08-c",
+  "baseSha": "f25af441163fb9b82433c5f24096e4c727461bce",
+  "branch": "codex/f08-authenticated-archive-download",
+  "newFunctionAvailabilityReds": {
+    "downloader": 34,
+    "collector": 5
+  },
+  "actualNewCodeReds": {
+    "rejectedResponseBodyCancellation": 1,
+    "sameSizedArchiveTampering": 1
+  },
+  "mandatorySuiteOmissionRed": 1,
+  "targetGreen": 248,
+  "targetFiles": 3,
+  "fullGreen": 1989,
+  "fullFiles": 106,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "sourceFrozen": true,
+  "fullReportSha256": "b3ab278d7655604fb4b1f386c83e73b559971cc0ef9239004f0a5fa65e7a98f6",
+  "kind": "github-artifact-archives",
+  "publicationAllowed": false,
+  "reportsVerified": false,
+  "budgets": {
+    "perArchiveBytes": 536870912,
+    "perDownloadMilliseconds": 120000,
+    "aggregateBytes": 1073741824
+  },
+  "review": "one fresh0Critical1Important1Minor; author grades2Important, allaccepted/onefixpass/no rereview",
+  "windows": "not-run: finalmain rebase thenexactWindows mandatory",
+  "liveArchiveAdapter": "not-run",
+  "remaining": [
+    "full raw report/ZIP/package/manifest/license validator",
+    "promotion workflow source locked under current authorization",
+    "other F09 legacy rows/Caddy",
+    "F05 Administration403/main enforcement unverified",
+    "actualServer2019/reboot/offhost R02 not-run"
+  ],
+  "releaseVps": "forbidden",
+  "preReviewFull": {
+    "passed": 1972,
+    "files": 105,
+    "target": 246,
+    "base": "90c926a0c31615db5a2ee1d90a428c33a704ba1c"
+  },
+  "actualReviewBudgetRed": {
+    "assertions": 2,
+    "priorPassed": 44,
+    "underlyingDefects": 1
+  },
+  "preMainRebase": {
+    "baseSha": "e79fdd835ba08a4e59a88fb55b8e398db33b5747",
+    "fullGreen": 1973,
+    "fullFiles": 105,
+    "targetGreen": 247,
+    "fullReportSha256": "3a9cfecc80ac2b6d949c7846fe69ebd28eecdec3d0f830b4e16b8e5962947876"
+  },
+  "mainRebase": "Reviewed archive implementation/workflow/tests byte-identical; finance and archive mandatory suites retained; fresh full/target/lint/build all0"
+}

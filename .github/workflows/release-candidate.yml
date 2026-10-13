@@ -1,4 +1,4 @@
-name: Windows release metadata preflight
+name: Windows artifact archive preflight
 
 on:
   workflow_dispatch:
@@ -27,9 +27,9 @@ defaults:
 
 jobs:
   metadata:
-    name: Windows trusted-main metadata only
+    name: Windows trusted-main archive downloads
     runs-on: windows-2022
-    timeout-minutes: 10
+    timeout-minutes: 20
     env:
       CANDIDATE_COMMIT_SHA: ${{ inputs.commit_sha }}
       CANDIDATE_VERSION: ${{ inputs.version }}
@@ -51,18 +51,20 @@ jobs:
           node-version: '24.21.0'
           architecture: x64
           package-manager-cache: false
-      - name: Collect authenticated metadata without rebuild or publication
+      - name: Collect authenticated archive bytes without rebuild or publication
         run: |
           $ErrorActionPreference = 'Stop'
           Set-StrictMode -Version Latest
           $PSNativeCommandUseErrorActionPreference = $false
-          & node ./scripts/windows/collect-release-metadata.mjs
+          & node ./scripts/windows/collect-release-archives.mjs
           $nativeCode = $LASTEXITCODE
           if ($nativeCode -ne 0) { exit $nativeCode }
           exit 0
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
-          name: release-metadata-${{ inputs.commit_sha }}-${{ github.run_id }}
-          path: reports/release-metadata.json
+          name: release-archives-${{ inputs.commit_sha }}-${{ github.run_id }}
+          path: |
+            reports/release-metadata.json
+            reports/release-archives.json
           if-no-files-found: error
           retention-days: 14
