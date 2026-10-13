@@ -1,0 +1,21 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "6c50b2b83f4151ef2efbd468662d2d93970a9d8b",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38352796269",
+  "conclusion": "failure",
+  "ciGate": "failure",
+  "browserPassed": 26,
+  "browserFailed": 1,
+  "skipped": 0,
+  "retries": 0,
+  "failedCase": "B09/WebKit",
+  "failedBoundary": "Settings header missing byDOMquery at10s despiteactualUIraster rendering by5s",
+  "hypothesisRejected": "Scoping role locators alone didnot solve headerabsence",
+  "nextHypothesis": "Synthetic document replacement/failed selector probes shared realapp Page context; isolate ownedDOMfixture context, leave app page fresh",
+  "traceSha256": "16bdcf8dcaa7d6403af0a5f272c27b5d571d77dd8c4dff71443cc57aa30b1d7d",
+  "fullCiLogSha256": "f004cd28336470654e0c660f5f734fb5353ededb8b5e2472d6b9375c9aef25d1",
+  "otherIndependentValidators": "six exited0, source2329/118 both",
+  "correctedWindows": "not-run",
+  "review": "one original only, actualnativeCI correction continuing authorpass without rereview",
+  "releaseTagVps": "forbidden"
+}

@@ -1,0 +1,39 @@
+{
+  "taskId": "F09-e",
+  "purpose": "Observational protocol diagnosis, no product fix or Windows acceptance claimed",
+  "baseFailedHead": "2c2a7912bd73f9ce7994448edc601206e26560da",
+  "targetPassed": 180,
+  "fullPassed": 2451,
+  "files": 121,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "diagnosticTests": 16,
+  "mandatorySuiteRegression": 1,
+  "redEvidence": "8 initial redactor availability,4 capture availability/budgets,3 nested WebKit identity,1 unknown protocol format; plus mandatory suite omission. Helper defects/availability, not pre-existing application vulnerabilities.",
+  "protocolLimits": {
+    "rawLineBytes": 1048576,
+    "reportBytes": 8388608,
+    "records": 50000
+  },
+  "review": "Original single F09-e wholebranch review retained. These post-review authored diagnostics have no second review.",
+  "assertions": "Original27 cases/45s test/10s expectation/zero retries retained; native/test stderr outside protocol namespace preserved.",
+  "sourceHashes": {
+    "scripts/ci/browser-protocol.mjs": "5a4fe9df0f853a6cc555fb54fdbf5798a361c03e849b0162b0165168329c408e",
+    "scripts/ci/run-browser.mjs": "a56d4d8523df17b8d6f6851985cb2cba367b0940aad820bab8d8052caf8505ea",
+    "tests/browser-protocol.test.ts": "b495411efd0914fb6fdc187715abf2920d1033edd1f9f92906f779844524fd34",
+    "tests/e2e/foundation.spec.ts": "dc773c32dfb925603793e2bc8bbd6202ff396d09a8d2c4fede474a6caf462ac4",
+    "scripts/ci/write-evidence.mjs": "3db53511d1cc164634552e71967da14b928ce22e3e74f60f1a736a21b3eba810",
+    "tests/evidence.test.ts": "d2ede152d1a6f16d4f7fc52bf4cf2d4dcb7b1be9027c84c6d124876e2cdcaf4a",
+    ".github/workflows/ci.yml": "07e4862a94aecd7330454af63e25691e7a12cfd7a85e64d44371480767e663ab"
+  },
+  "reportHashes": {
+    "f09-e-protocol-target-green.json": "fcd56b0ca8ca5459eef2dad54d0f8e3f43e70182668a197cabe91e8a7120fb36",
+    "f09-e-protocol-full.json": "e8a71ad885dac3157170358709bd3644d039a814676afd92a28c65373164df31",
+    "f09-e-protocol-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f09-e-protocol-build.log": "9c4b9410ef86294c6c408c87afef2be2b9253af30264fc16fba4dd1880c8d716"
+  },
+  "windows": "new exact-HEAD run pending"
+}

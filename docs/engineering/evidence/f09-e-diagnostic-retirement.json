@@ -1,0 +1,22 @@
+{
+  "taskId": "F09-e-diagnostic-cleanup",
+  "priorHeadSha": "9b0bef66952143a0c0ba0e870154c210f2c3212e",
+  "sourceHashes": {
+    ".github/workflows/ci.yml": "4bf0529af9bdd8ac5770a099c3c2d780aabd137c8c870214d888f47665f0c48e",
+    "tests/e2e/foundation.spec.ts": "27adadc97a320d7cf1b5a9f8f22e323e537f20d15654bfba7a373cc49deb09b9"
+  },
+  "targetPassed": 158,
+  "lintExit": 0,
+  "assertionCallExpressions": 392,
+  "assertionTextAndOrderPreserved": true,
+  "parserBudgetsUnchanged": true,
+  "verificationHashes": {
+    "f09-e-assertions-preserved.json": "4ed5eec9f94ced08f96b21491dda1758183fdb969a8ae709e044a79cd429e32f",
+    "f09-e-diagnostic-cleanup-target.json": "00d18ed293be5d5c93c59ad4efc2b02626c6365d89a00da1956157c5f9612f7d",
+    "f09-e-diagnostic-cleanup-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+  },
+  "currentWindows": "pending exactnewhead, original27cases/JSON/JUnit/firstattempt/cleanup must all validate",
+  "review": "diagnostic retirement after existingreviewedappfix, no assertion changes/rereview",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

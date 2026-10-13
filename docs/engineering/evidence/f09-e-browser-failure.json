@@ -1,0 +1,22 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "e9cf7227636a36831475cc15c05f9b23caa5d8ae",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38351043129",
+  "browserPassed": 26,
+  "browserFailed": 1,
+  "skipped": 0,
+  "retries": 0,
+  "failedCase": "B09 self profile settings persistence/WebKit",
+  "failedAt": "global getByRole member tab click after Settings navigation",
+  "traceSha256": "95062d38772282aff36648839faf73ff359e9ba47ce1cc76ce97b53a30a6a73b",
+  "observation": "Last screencast shows actualSettings profile tab and member tabs visible; exact globalrole locator didnot resolve45s. Native UI/driver mechanism unconfirmed",
+  "hypothesis": "Scope targettab lookup to actualsettings-sub-header and assert renderedDOMlabels first; avoids traversal ofunrelatedsettings widgets and gives boundarydiagnostics",
+  "correctionStatus": "not-run",
+  "server2019": "not-run",
+  "releaseTagVps": "forbidden",
+  "conclusion": "failure",
+  "ciGate": "failure",
+  "otherIndependentValidators": "quality/coverage/package/service/Caddy/extraction-SDK all exited0",
+  "fullCiLogSha256": "0a3ca36c980db2173b2527fef29f6ec1f39a6c7dbe9811d3ad0745af2420576b",
+  "correction": "Scoped exact member/profile role locators to actualSettings sub-header; added visibleDOM/tablabel boundary assertions andconstant diagnostic. Underlying WebKit/globalrole mechanism unconfirmed untilnewnativeverification"
+}

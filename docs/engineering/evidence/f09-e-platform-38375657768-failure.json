@@ -1,0 +1,33 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "9f1fe6a81c4b02ef2d91c1c92da1f8e3711a0518",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38375657768",
+  "conclusion": "failure",
+  "trigger": "workflow_dispatch diagnostic",
+  "browser": {
+    "passed": 26,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0,
+    "observation": "WebKit Settings DOM rendered but original CSS visibility assertion timed out; native getSubscription returned, settlement not yet observed."
+  },
+  "sixIndependentNonBrowserValidators": {
+    "exitCode": 0,
+    "eachRuntimePassed": 2485,
+    "failed": 0,
+    "pending": 0
+  },
+  "retainedEvidenceHashes": {
+    "coverage-verified-summary.json": "5e5f9f3d6628a6cddfd32c1cc188ce9a0780beb82d701f6ed1c443db69832425",
+    "quality-verified-summary.json": "c4bc5ed8a4881f8054387c181511c236c8dccc68b0ca07348db687e660ddd384",
+    "verified-summary.json": "c4bc5ed8a4881f8054387c181511c236c8dccc68b0ca07348db687e660ddd384",
+    "caddy-verified-summary.json": "cad922dbc9402912f85176879f393e370c1a5945ebad8d8274b35622f4b08886",
+    "service-verified-summary.json": "dfdfe633ad5bec78e9a730b5688b9bdb77531d10adf4d3f6037427c297bd750e",
+    "package-verified-summary.json": "eb1d8f0cebd912ca7338373f7859277755d315ce3fc5101afa4226ac27e949da",
+    "extraction-sdk-verified-summary.json": "02c038461dddfe858841f52ce77cb59c02076ea8668e650f2e24338f9c61e8ab"
+  },
+  "fullCiLogSha256": "22d1ed28c7da7de3925d4ececb57d93171ac71c722a9ec163cf152b471363745",
+  "rootCause": "unconfirmed",
+  "server2019Acceptance": false,
+  "publicationAllowed": false
+}

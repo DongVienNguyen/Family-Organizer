@@ -1,0 +1,23 @@
+{
+  "taskId": "F09-e-native-driver-diagnostic",
+  "priorHeadSha": "1df162bb026368230a1057683dffa1fa1f5cf578",
+  "scope": "Owned minimal service-worker pages, optional original native subscription read, driver before/after and static settlement markers; actual app/27assertedcases unchanged",
+  "targetPassed": 263,
+  "failed": 0,
+  "lintExit": 0,
+  "helperChromiumCloud": "Both controls/after-locators and owned cleanup passed, original Promise fulfilled; Linux helper only, not Windows/WebKit acceptance",
+  "helperReportSha256": "3de8cb4c9c34955c25c6f9ebbbe60cc258a6fd83cc5cf88dc02a73ac9d40b57c",
+  "sourceHashes": {
+    "scripts/ci/probe-native-push.mjs": "2928da8dadcec8093b17c1e612290604b9b91c4553cf4cc639ec9316635312e8",
+    ".github/workflows/ci.yml": "d4669f68b8d66c17c528834375c959bec62517faa84bf4fa83797e8c39adfe11"
+  },
+  "verificationHashes": {
+    "f09-e-minimal-native-target.json": "d4831ddf1b7206fe384eb940254b77231b7fb160ad90e578d53417a1692e0544",
+    "f09-e-minimal-native-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+  },
+  "review": "authored diagnostic after original one review; no rereview; all original acceptance criteria retained",
+  "nativeWindows": "pending exactnewHEAD",
+  "causalFinding": "not yet demonstrated",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}

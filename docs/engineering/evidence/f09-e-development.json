@@ -1,0 +1,145 @@
+{
+  "taskId": "F09-e",
+  "baseSha": "83aa2b7c4539764afb6abd103b257721d1d03088",
+  "scope": "Existing self-profile UI persistence and Child management authority regression only",
+  "gateRed": 2,
+  "targetGreen": 59,
+  "fullGreen": 2329,
+  "fullFiles": 118,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "fullReportSha256": "ca1c3a0558c7108eb96867e6052a58c879ff03a1897876eccffb1afd6f0f745a",
+  "nodeVersion": "v24.21.0",
+  "workers": 1,
+  "browserDiscoveryOnly": 27,
+  "actualBrowserExecution": "not-run",
+  "review": "One originalreview0C1I1M/author0C2I0M; member readiness andsourceidentity fixed; nativeCI locator/diagnostics authoredafterreview/no rereview",
+  "ci": "Firste9 andsecond6c50 Windows26/27 B09WebKit failures preserved; scopedlocatoralonefailed; newcontextisolation Windows pending",
+  "remaining": "Rebase onto corrected F08-f main, newfull, onefreshreview, exactWindows27cases",
+  "releaseTagVps": "forbidden",
+  "historicalSourceProof": {
+    "commitSha": "43ee20fd22305dba6129fed9f98f14a5c41dbd4c",
+    "fullGreen": 2251,
+    "fullFiles": 114,
+    "fullReportSha256": "a55fffee9868e41dccb71d9cf307d9e02317b4c5e700320b0c92de2166864551",
+    "sourceFileSha256": {
+      "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+      "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+      "tests/e2e/foundation.spec.ts": "a139f6592d785d3fd7c4812cb225ed6b13dfbe3436e3972075181d0c3faf784c"
+    }
+  },
+  "testedSourceSnapshot": {
+    "commitSha": "f4202b1bcf4dcddce89f7c8180d8624d8d15b4d8",
+    "sourceFileSha256": {
+      "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+      "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+      "tests/e2e/foundation.spec.ts": "841ee5e8526c80746b94c0c4e59780f67e9d77471f4be07468690df38270639c",
+      "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+    },
+    "executionState": "Frozen source verified andcommitted; latergeneratedevidence"
+  },
+  "memberReadiness": {
+    "actualDomRed": 1,
+    "greenCases": 3,
+    "scope": "CloudLinux owned synthetic DOM helper; not Windows/app acceptance",
+    "redReportSha256": "ced124beaa8475ec3a551a4bd58e302a6494e57f8779c19ac24a59705ae98f80",
+    "greenReportSha256": "f62b4d5ac54cfbe16c174210302215b96a3642a91b76e60ed63e0ce205f69a76"
+  },
+  "preRebaseSourceProof": {
+    "baseSha": "edb09e0d03a12648a6b245fef621d5ab009b7ff8",
+    "fullGreen": 2251,
+    "fullFiles": 114,
+    "fullReportSha256": "c12b7cc08c5925d872dd569be51e31b1ef6ffbdcf9ce0062f77a6fcd85d0f9f1",
+    "testedSourceSnapshot": {
+      "commitSha": "097ff131114d4c17026c888248f0dbabc86c3fdd",
+      "sourceFileSha256": {
+        "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+        "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+        "tests/e2e/foundation.spec.ts": "51df6f3a8fff856d5fbbf3e3970521df0a60cea13ef3822eb4352981070c3ac8",
+        "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+      },
+      "executionState": "Exact source bytes frozen during verification and committed afterward; generated evidence/review docs later"
+    }
+  },
+  "rebaseSourceBytes": "Threewholefiles andexactB09body identical to097f correctedsource; parent twoB01renderedMarkdown assertions inherited",
+  "preNativeCorrectionSourceProof": {
+    "testedSourceSnapshot": {
+      "commitSha": "07f97b606f8b15abc863655f7152f1e07f48c850",
+      "sourceFileSha256": {
+        "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+        "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+        "tests/e2e/foundation.spec.ts": "ec8d98314bfb787b2ac8f8a2025df02d4f7bd119ffbaab02bec85a181be8ddbb",
+        "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+      },
+      "executionState": "Rebased committed source frozen during full verification; latergenerated documentation"
+    },
+    "fullReportSha256": "276174276041e4b4c21b8123044f20257482127d90e93713ca5870e389d6a895"
+  },
+  "preContextIsolationSourceProof": {
+    "testedSourceSnapshot": {
+      "commitSha": "9cc2f8f4f9a14d5e8f3e4b125ea1c71a0d502c7c",
+      "sourceFileSha256": {
+        "scripts/ci/browser-contract.mjs": "e19068c7e94f210cfbe220502708f478fd1f78831853bfe35e82322056f34872",
+        "tests/browser-evidence.test.ts": "bf43178e3df898f3d40531c45b917c264771aaebc46d0d1130749d09279cdbc0",
+        "tests/e2e/foundation.spec.ts": "63ba623b80111cf04e836b112c4a04cbc0e40305164dd8037a7d7bf3e0828093",
+        "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66"
+      },
+      "executionState": "Frozen source verified then committed; generatedevidence later"
+    },
+    "fullReportSha256": "ee4cef861f3360ec3cc32382b73a3601aba02ea30f6bf341338eb4391efea73f"
+  },
+  "nativeHypothesis": "Owned synthetic document replacement/selector-negative probes move to separate disposablebrowsercontext; realappPage remainsfresh; retainall27flows/assertions/10s-expect/45s-test/zero-retry; actualWebKit mechanism unconfirmed untilnewrun",
+  "domDriverDiagnostic": {
+    "fullGreen": 2329,
+    "fullFiles": 118,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "f32eb8a8bf4660dacfff2ad38e6ba0837e56a4eff294467bb275be01deb37622",
+    "change": "Static-only native document query, real click capture and geometric/style facts before/after original assertion; no asserted flow removed/timeout raised/retry enabled",
+    "windows": "pending, diagnostic-only, no fix claim"
+  },
+  "mainWorldEventDiagnostic": {
+    "fullGreen": 2329,
+    "fullFiles": 118,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "d496744d4c1212ff81f836e9964656c9edfc5dd69369440dfbb96fc677d666dc",
+    "purpose": "diagnostic-only boundedstatic console observations around originalclick/assertion; no fix or acceptance claim",
+    "windows": "not-run"
+  },
+  "main38MergedDiagnostic": {
+    "mainBaseSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+    "fullGreen": 2394,
+    "fullFiles": 119,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "e440d97745440d025d75e415d904b2f803d7d7dfcc94fe2577c40f63097ca297",
+    "assertions": "all existing B01-B09 unchanged,27 first-attempt engine cases; prior21/24 rejection regressions retained",
+    "fixtureAdaptation": "merge inherited older-matrix test hardcoded8→7, one actualfixture-only RED→dynamic lastcase/count transformation,69browsergate tests green; no productbug claim",
+    "windows": "pending, diagnostic-only nofixclaim"
+  },
+  "crossWorldProbe": {
+    "fullGreen": 2394,
+    "fullFiles": 119,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullReportSha256": "b6e8dc7586fe66fb44decd9f0602ef8d25c4cc3ff5ded22212c84aca4724821d",
+    "purpose": "diagnostic only through supported public Playwright selectors.register in main and utility worlds; original click/assertions/timeouts/zero retries retained",
+    "windows": "pending"
+  }
+}

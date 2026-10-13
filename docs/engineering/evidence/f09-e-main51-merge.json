@@ -1,0 +1,21 @@
+{
+  "taskId": "F09-e",
+  "mergedBase": "6e54e0d37bf3eb7e76b47c609f1d9dae49b967b9",
+  "reason": "GitHub suppresses pull_request execution while PR47 is merge-conflicting; preserve both required suite lists and historical status while merging acceptedPR51",
+  "cloudPassed": 2560,
+  "files": 124,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "hashes": {
+    "f09-e-merge51-full.json": "35a6cd23e0f46b46d612ebf2994cb29ddb207f55ba02771d8099892c49b3531d",
+    "f09-e-merge51-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f09-e-merge51-build.log": "89346ab2bf256d21a33fdcdc84324291d9bc0c2a2afba0f6c105598a26744671"
+  },
+  "previousHead": "9f1fe6a81c4b02ef2d91c1c92da1f8e3711a0518",
+  "manualDiagnosticRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38375657768",
+  "manualBrowser": "failure; report download in progress, no fix/pass claimed",
+  "next": "push resolved source; new exact final-HEAD pull_request Windows evidence required"
+}

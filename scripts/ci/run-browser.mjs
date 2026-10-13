@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import {StringDecoder} from 'node:string_decoder';
+import {createBrowserProtocolCapture} from './browser-protocol.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -34,7 +36,7 @@ const logs = path.join(fixture, 'logs');
 const cwd = path.join(fixture, 'foreign cwd');
 const networkFile = path.join(fixture, 'external-attempts.jsonl');
 const providersFile = path.join(fixture, 'offline-dashboard-fixtures.txt');
-let server, cli, serverExited, serverOutput = '', cliOutput = '', failure;
+let server, cli, serverExited, serverOutput = '', cliOutput = '', failure, protocolSelected=false;
 function capture(child, name) {
   child.stdin?.on('error', () => {});
   const exited = new Promise((resolve, reject) => { child.once('exit', (code, signal) => resolve({ code, signal })); child.once('error', reject); });
@@ -42,9 +44,18 @@ function capture(child, name) {
   exited.catch(() => {});
   const append = bytes => {
     if (name === 'server') serverOutput += bytes.toString(); else cliOutput += bytes.toString();
+    if(name==='cli'&&cliOutput.includes('B09_PROTOCOL_WINDOW webkit'))protocolSelected=true;
     if (Buffer.byteLength(name === 'server' ? serverOutput : cliOutput) > 65536) { failure ??= new Error(`${name} output limit exceeded`); child.kill('SIGKILL'); }
   };
-  child.stdout.on('data', append); child.stderr.on('data', append);
+  child.stdout.on('data', append);
+  if(name==='cli'&&process.env.FO_BROWSER_PROTOCOL_DIAGNOSTICS==='1'){
+    const fd=fs.openSync(path.join(reports,'browser-protocol.jsonl'),'wx'),decoder=new StringDecoder('utf8');
+    const sink=createBrowserProtocolCapture({writeRecord:line=>assert.equal(fs.writeSync(fd,line),Buffer.byteLength(line),'protocol diagnostic write incomplete'),appendOrdinary:line=>append(Buffer.from(line)),acceptRecord:()=>protocolSelected});
+    let failed=false;
+    const record=text=>{if(failed)return;try{sink.writeText(text);}catch{failed=true;failure??=new Error('browser protocol diagnostic budget rejected');child.kill('SIGKILL');}};
+    child.stderr.on('data',bytes=>record(decoder.write(bytes)));
+    child.stderr.once('end',()=>{try{record(decoder.end());if(!failed)sink.end();}catch{failure??=new Error('browser protocol diagnostic incomplete');child.kill('SIGKILL');}finally{fs.closeSync(fd);}});
+  }else child.stderr.on('data',append);
   return exited;
 }
 async function stopServer() {
@@ -94,7 +105,9 @@ try {
     await new Promise(resolve => setTimeout(resolve, 200));
   }
   assert.equal(ready, true, 'production server readiness deadline exceeded');
-  cli = spawn(process.execPath, [require.resolve('@playwright/test/cli'), 'test', '--config', path.join(root, 'playwright.config.ts')], { cwd: root, env: { ...process.env, FO_BROWSER_BASE_URL: origin }, stdio: ['ignore', 'pipe', 'pipe'] });
+  const cliEnv={...process.env,FO_BROWSER_BASE_URL:origin};
+  if(process.env.FO_BROWSER_PROTOCOL_DIAGNOSTICS==='1'){cliEnv.DEBUG='pw:protocol';cliEnv.MAX_LOG_LENGTH='262144';}
+  cli = spawn(process.execPath, [require.resolve('@playwright/test/cli'), 'test', '--config', path.join(root, 'playwright.config.ts')], { cwd: root, env: cliEnv, stdio: ['ignore', 'pipe', 'pipe'] });
   const cliExited = capture(cli, 'cli');
   const timer = setTimeout(() => { failure ??= new Error('browser CLI absolute deadline exceeded'); cli.kill('SIGKILL'); }, 12 * 60_000);
   try { const { code, signal } = await cliExited; manifest.cliExitCode = code; manifest.cliSignal = signal; }

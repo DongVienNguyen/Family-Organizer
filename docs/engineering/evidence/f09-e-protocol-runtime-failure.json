@@ -1,0 +1,88 @@
+{
+  "taskId": "F09-e",
+  "testedHeadSha": "2d247a8d7396d5e5e2b262bad8a5dd9bdc44d3b3",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38368917120",
+  "conclusion": "failure",
+  "passed": 26,
+  "failed": 1,
+  "skipped": 0,
+  "retries": 0,
+  "case": "B09/WebKit",
+  "mainMutation": {
+    "elapsedMs": 2192,
+    "headerCount": 1,
+    "moduleCount": 1,
+    "profileCount": 1
+  },
+  "protocol": {
+    "records": 1304,
+    "bytes": 377040,
+    "sha256": "238a0027efc726d3759d3f424267620669972aefeac2135c8a6f44d898779e0f",
+    "unanswered": [
+      {
+        "pageProxyId": "154",
+        "targetId": "page-155",
+        "sequence": 931,
+        "request": {
+          "direction": "send",
+          "id": 9317,
+          "method": "Runtime.callFunctionOn",
+          "sessionId": null,
+          "contextId": null,
+          "frameId": null,
+          "hasError": false,
+          "errorCode": null,
+          "wasThrown": false
+        }
+      },
+      {
+        "pageProxyId": "154",
+        "targetId": "page-155",
+        "sequence": 1118,
+        "request": {
+          "direction": "send",
+          "id": 9381,
+          "method": "Runtime.evaluate",
+          "sessionId": null,
+          "contextId": 3,
+          "frameId": null,
+          "hasError": false,
+          "errorCode": null,
+          "wasThrown": false
+        }
+      },
+      {
+        "pageProxyId": "154",
+        "targetId": "page-155",
+        "sequence": 1184,
+        "request": {
+          "direction": "send",
+          "id": 9404,
+          "method": "Runtime.callFunctionOn",
+          "sessionId": null,
+          "contextId": null,
+          "frameId": null,
+          "hasError": false,
+          "errorCode": null,
+          "wasThrown": false
+        }
+      }
+    ]
+  },
+  "interpretation": "Utility Runtime call does not receive reply; later main evaluate/snapshot calls also unanswered while screencast frames continue. No new execution-context destruction/navigation was observed at this boundary. Cause not established.",
+  "otherValidators": {
+    "allSixExits": 0,
+    "sourceEach": "2452/121",
+    "hashes": {
+      "quality": "e03bec7abb6287e04ef8c32b97ab1e27603829fd5559a841938cb84d8389c84c",
+      "coverage": "fc74fa6902857eb54c9020a7da07ef0cbf5bcd024cadec7d1a4fb225b07bb90d",
+      "package": "f0a99a0133fab41dbaa1d35b6e9bab7c7ac22f2a08a53a69b707653a724b34c4",
+      "service": "9ca179426bd404e577f32dfc8a00bb9ff2aeea49255c97aa473acdb972a2534b",
+      "caddy": "c4449ee49f73d4d7bbf37a5f3102ab6da41805db017dc43f24641c7b6637743a",
+      "extraction-sdk": "ff179a6efa311d2ef06d75006d51a3164292312aedcb3eb9297ce4b7c44f3af1"
+    }
+  },
+  "fullCiLogSha256": "3a283410e561ed75bdc58bf5cb2d66b9cd77dcd0e9ee4976a37ab840c23708d8",
+  "nextExperiment": "Isolate synthetic DOM replacement fixtures in a separately launched owned browser process, retain all fixture assertions and functional app assertions; close contexts/process in finally. Separate context within same browser previously did not resolve it.",
+  "server2019Acceptance": "not-run"
+}

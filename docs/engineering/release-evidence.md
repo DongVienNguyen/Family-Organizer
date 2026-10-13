@@ -51,3 +51,14 @@ fields fail; the intentional extraction exit1 and certificate refusal remain val
 
 These receipts verify the stated subsets only. Inner ZIP contents, full license
 agreement, full collector acceptance and publication remain separate gates.
+
+F08-l adds trusted-builder native extraction of the digest-bound inner Windows
+ZIP without executing its contents. One read-shared descriptor spans checksum,
+all-entry preflight and bounded extraction; unsafe paths fail before output.
+The packed manifest must equal the authenticated producer declaration. Actual
+file inventory, lengths and hashes, copied target lockfile, dependency identities
+and original pinned licenses/MPL source must agree. Final file/root checks reject
+replacement or insertion while the reader validates data. Synthetic native
+positive/refusal tests exercise the extractor separately; fixture metadata is
+not GitHub authority. Full normalized release acceptance and publication stay
+closed even after the inner byte/license subset is verified.

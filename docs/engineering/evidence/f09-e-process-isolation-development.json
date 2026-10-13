@@ -1,0 +1,27 @@
+{
+  "taskId": "F09-e",
+  "baseMainSha": "727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d",
+  "previousFailedHead": "2d247a8d7396d5e5e2b262bad8a5dd9bdc44d3b3",
+  "previousFailedRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38368917120",
+  "experiment": "Run owned synthetic document-replacement fixtures in a separately launched same-engine browser process and close context/browser in finally. Application page/browser unchanged.",
+  "why": "Protocol demonstrates nonresponding Runtime requests after settings render. Previous context separation within shared browser did not solve it; process isolation tests fixture/native-engine interaction. It does not establish an app or driver root cause.",
+  "assertions": "All original fixture assertions and27 real app cases retained,45s test/10s expectation/zero retry.",
+  "sourceHash": "a6fe292af6456c12476c1c3e14aaab93a90497c16cf4b602fd1329930c7b28b4",
+  "review": "Original one F09-e review retained, authored native-evidence investigation changes after review; no rereview.",
+  "cloud": {
+    "fullPassed": 2483,
+    "files": 122,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "windows": "not-run; new exact-HEAD required",
+  "server2019Acceptance": "not-run",
+  "verificationHashes": {
+    "f09-e-process-isolation-full.json": "a5a19d078e33f73e6ef681f55b81f378f991071a0be4cc09b0b4332046df9c54",
+    "f09-e-process-isolation-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "f09-e-process-isolation-build.log": "6b3569504d4cdc497949117bcd56980b7cd92a3d3b4566c38252411898d61ff3"
+  }
+}
