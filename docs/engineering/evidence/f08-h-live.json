@@ -1,0 +1,510 @@
+{
+  "taskId": "F08-h-live",
+  "workflowSourceSha": "6f79e3cf35d5c9f1af498ca2e8e40351912a9ef0",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38361986711",
+  "workflowConclusion": "success",
+  "explicitTargetSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38358093544",
+  "archives": 7,
+  "archiveBytes": 61283482,
+  "extractedFiles": 748,
+  "expandedBytes": 101242387,
+  "quality": [
+    {
+      "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+      "runId": 38358093544,
+      "major": 22,
+      "tests": 2393,
+      "passed": 2393,
+      "files": 119,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "rawAssertionsVerified": true,
+      "otherReportsVerified": false,
+      "publicationAllowed": false,
+      "filesRead": 11,
+      "bytesRead": 5297935,
+      "bytesHashed": 0,
+      "reportHashes": {
+        "evidence.json": "bdd7f41569b28dc81b97e593477a2cc1a1c3d9678a0f7c87575250fa0fc8db10",
+        "vitest.json": "ea51c131de7f820465b7d9902539d707b9707aa0babc14c510a08182ac349864",
+        "junit.xml": "0fb5fc722ab9d885b7a626fa00d0ec650a357825e07e7ddf187f62d4748623c2",
+        "install-exit.json": "e8e087e0eb0eec44476adef1fb1f700048bba69252138697c906f59d4d481f05",
+        "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+        "lint-exit.json": "788f1ad1253ff0deb4227f24304e77d95b258bd81d6dfd750b04408e9e6879ab",
+        "test-exit.json": "a97bf24e3e07dde6bf94d216306d401598f94035263015286e419f73d71e8e48",
+        "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+        "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+        "audit-exit.json": "5f8618e94cd9f5d68adc554c24a34b3f8f6a0e3dea837d2c0cad763bf8801d68",
+        "coverage-exit.json": "1ebf097faf822f25529018f5cf34755ae7e53b0a0076313177d7b9fc410ac00a"
+      }
+    },
+    {
+      "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+      "runId": 38358093544,
+      "major": 24,
+      "tests": 2393,
+      "passed": 2393,
+      "files": 119,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "rawAssertionsVerified": true,
+      "otherReportsVerified": false,
+      "publicationAllowed": false,
+      "filesRead": 11,
+      "bytesRead": 5298261,
+      "bytesHashed": 0,
+      "reportHashes": {
+        "evidence.json": "a19f0027317fe9904b3d25b74ada2548484848974e7783443f83b44b70ab04c9",
+        "vitest.json": "8f4c9df264d5440d8af6d37f0650c71c773d1080cf602f3196ca90111f9d31b4",
+        "junit.xml": "131ba05df3c9563fbfbfa3bd2c8af1219111df593c49effd1715ae7916b56c4f",
+        "install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+        "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+        "lint-exit.json": "788f1ad1253ff0deb4227f24304e77d95b258bd81d6dfd750b04408e9e6879ab",
+        "test-exit.json": "0aff00e8dff9124e0fca4ff56794adc8359f45beeb81e2102c8daa92734254a6",
+        "build-exit.json": "0b3245a583c253852bc2f24a41caef588421e9eda25466e1f475ea8c74f8eb89",
+        "production-exit.json": "debc7ecdfbdae4f139659f8841d51731bde4c972db92ec618091ba103d379166",
+        "audit-exit.json": "7db4f8a8235b12dfb2b207c42b9f2aeb69384e026d080009493543caf30ea840",
+        "coverage-exit.json": "e2cea37c593c06ae2a116597a413edc5442c84e2a99ca697fd080e86f9cb50f8"
+      }
+    }
+  ],
+  "runtimeAndCoverage": [
+    {
+      "major": 22,
+      "runtime": {
+        "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+        "nodeVersion": "v22.23.3",
+        "runtimeProductionAuditVerified": true,
+        "reportsVerified": false,
+        "publicationAllowed": false,
+        "native": {
+          "nodeVersion": "v22.23.3",
+          "nodeABI": "127",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "13.0.3",
+          "bindingApi": "N-API",
+          "nodeNapi": "10",
+          "binaryPath": "prebuilds/win32-x64.node",
+          "sqliteVersion": "3.53.4",
+          "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "productionChecks": [
+          "production-dependencies-only",
+          "no-source-ts",
+          "foreign-cwd",
+          "static-assets",
+          "legacy-preserved",
+          "restart-persistence",
+          "write-permission-fail-fast",
+          "offline-providers",
+          "graceful-shutdown",
+          "readiness",
+          "crash-recovery",
+          "auth-session-restart",
+          "auth-session-logout",
+          "private-response-cache",
+          "authenticated-realtime",
+          "object-visibility",
+          "authenticated-media",
+          "task-write-authority",
+          "content-write-authority",
+          "derived-object-privacy",
+          "explicit-first-account",
+          "provider-digest-privacy",
+          "incompatible-schema-preserved"
+        ],
+        "incompatibleSchemaCases": [
+          "future",
+          "missing-version",
+          "foreign",
+          "sqliteX",
+          "sqliteData",
+          "malformed-metadata",
+          "malformed-owned-table"
+        ],
+        "auditVulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "filesRead": 5,
+        "bytesRead": 45773,
+        "bytesHashed": 0,
+        "reportHashes": {
+          "native.json": "839df92b2d80b06766cdd3e8fb73e680345e948ff71404c1f0b95e562cdd3d8c",
+          "production.json": "23e61dd68070f2add426b153e76077e40c51a574147c5a7a802665924a141cd1",
+          "audit.json": "88fbd508c1a2ee0bb8ef77a32c330b65ac8672d20a272560f1f20d26b89b5099",
+          "audit-context.json": "2a08b069735b1d583e9f86b4451d5ec99e19a72445c3c249ca3a1e13e99ac7c0",
+          "evidence.json": "bdd7f41569b28dc81b97e593477a2cc1a1c3d9678a0f7c87575250fa0fc8db10"
+        }
+      },
+      "coverage": {
+        "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+        "nodeVersion": "v22.23.3",
+        "coverageVerified": true,
+        "reportsVerified": false,
+        "publicationAllowed": false,
+        "sources": 118,
+        "total": {
+          "lines": {
+            "total": 11511,
+            "covered": 4346,
+            "skipped": 0,
+            "pct": 37.75
+          },
+          "statements": {
+            "total": 15397,
+            "covered": 6282,
+            "skipped": 0,
+            "pct": 40.8
+          },
+          "functions": {
+            "total": 3268,
+            "covered": 1205,
+            "skipped": 0,
+            "pct": 36.87
+          },
+          "branches": {
+            "total": 11982,
+            "covered": 4247,
+            "skipped": 0,
+            "pct": 35.44
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "filesRead": 5,
+        "bytesRead": 4634724,
+        "bytesHashed": 0,
+        "reportHashes": {
+          "coverage-evidence.json": "73bf173334e0f1627ea2cbeab8f424c67bba1e8ddc07b97d90b0d39d424a5ac5",
+          "coverage/coverage-final.json": "09a0becd2a14c6242c6a9aa3f2d3f6abc881cad765e4f55f57b82a4ebfe9309c",
+          "coverage/coverage-summary.json": "eb0a6501e2e68392eef036b6c9ff87541aa91a037c32d236ae1d8ec50449953d",
+          "coverage/lcov.info": "10bd69dfa055cbeb5c47bd571d76963d766f6915c68bafcc6931a77874d24f95",
+          "coverage/index.html": "55ec7647bc4c56e348c852f9ec03dd73a2dca91d4b44e6b76b938fdcd45f1498"
+        }
+      }
+    },
+    {
+      "major": 24,
+      "runtime": {
+        "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+        "nodeVersion": "v24.21.0",
+        "runtimeProductionAuditVerified": true,
+        "reportsVerified": false,
+        "publicationAllowed": false,
+        "native": {
+          "nodeVersion": "v24.21.0",
+          "nodeABI": "137",
+          "platform": "win32",
+          "architecture": "x64",
+          "addonVersion": "13.0.3",
+          "bindingApi": "N-API",
+          "nodeNapi": "10",
+          "binaryPath": "prebuilds/win32-x64.node",
+          "sqliteVersion": "3.53.4",
+          "binarySha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+          "checks": [
+            "native-load",
+            "write-read",
+            "transaction-rollback",
+            "WAL-backup",
+            "integrity-check",
+            "file-cleanup"
+          ]
+        },
+        "productionChecks": [
+          "production-dependencies-only",
+          "no-source-ts",
+          "foreign-cwd",
+          "static-assets",
+          "legacy-preserved",
+          "restart-persistence",
+          "write-permission-fail-fast",
+          "offline-providers",
+          "graceful-shutdown",
+          "readiness",
+          "crash-recovery",
+          "auth-session-restart",
+          "auth-session-logout",
+          "private-response-cache",
+          "authenticated-realtime",
+          "object-visibility",
+          "authenticated-media",
+          "task-write-authority",
+          "content-write-authority",
+          "derived-object-privacy",
+          "explicit-first-account",
+          "provider-digest-privacy",
+          "incompatible-schema-preserved"
+        ],
+        "incompatibleSchemaCases": [
+          "future",
+          "missing-version",
+          "foreign",
+          "sqliteX",
+          "sqliteData",
+          "malformed-metadata",
+          "malformed-owned-table"
+        ],
+        "auditVulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "filesRead": 5,
+        "bytesRead": 45775,
+        "bytesHashed": 0,
+        "reportHashes": {
+          "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+          "production.json": "0234e2b1589cb5e38f9cd1897ea074091ba535ea8cc76c79839fead5c0eafb52",
+          "audit.json": "88fbd508c1a2ee0bb8ef77a32c330b65ac8672d20a272560f1f20d26b89b5099",
+          "audit-context.json": "92e7ca0ad9bd34e46edce60bd9ef25c390fa74d928992e4fe4bcc4118a6e8acf",
+          "evidence.json": "a19f0027317fe9904b3d25b74ada2548484848974e7783443f83b44b70ab04c9"
+        }
+      },
+      "coverage": {
+        "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+        "nodeVersion": "v24.21.0",
+        "coverageVerified": true,
+        "reportsVerified": false,
+        "publicationAllowed": false,
+        "sources": 118,
+        "total": {
+          "lines": {
+            "total": 11511,
+            "covered": 4346,
+            "skipped": 0,
+            "pct": 37.75
+          },
+          "statements": {
+            "total": 15397,
+            "covered": 6282,
+            "skipped": 0,
+            "pct": 40.8
+          },
+          "functions": {
+            "total": 3268,
+            "covered": 1205,
+            "skipped": 0,
+            "pct": 36.87
+          },
+          "branches": {
+            "total": 11982,
+            "covered": 4247,
+            "skipped": 0,
+            "pct": 35.44
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "filesRead": 5,
+        "bytesRead": 4634718,
+        "bytesHashed": 0,
+        "reportHashes": {
+          "coverage-evidence.json": "3b3e690404937b96bee595b259d48373e87619240b9d59b3fb6f064972f2a5d8",
+          "coverage/coverage-final.json": "81a9aa92d579923ba50253f1facee44f4c263b41cb85916980d81b2a914eb457",
+          "coverage/coverage-summary.json": "eb0a6501e2e68392eef036b6c9ff87541aa91a037c32d236ae1d8ec50449953d",
+          "coverage/lcov.info": "c6c347a136d95bec33162d1cab5ade40f426b322c80be2b127d562db26f95207",
+          "coverage/index.html": "ba890c13e522cb7247d8f64669342f8ac60448d7c183d82e80fcbd822129c35a"
+        }
+      }
+    }
+  ],
+  "gitRequiredSuites": 119,
+  "gitSourceFiles": 118,
+  "sourcePolicyVerifiedIndependently": true,
+  "receiptHashes": {
+    "release-metadata.json": "ca10f9ca568f1155bdc1576a2678c47f0a645c2721103db0ab17d6548a724ff8",
+    "release-archives.json": "8ce7be723c408f8ace2d91e3b6f924dd8a4444dbf57c288cebee414af267aed0",
+    "release-report-preflight.json": "ac72cc2cd99e0643d87a607c1e0a35eea85117aedbac84f7e878d8dd97f4754e"
+  },
+  "fullWorkflowLogSha256": "15db5aa28f43c2fab8cf7ae4eeff5ffa756f8e2ddd7506532ee3b36bd6fc7763",
+  "rawQualityAssertionsVerified": true,
+  "runtimeProductionAuditVerified": true,
+  "rawCoverageVerified": true,
+  "rawBrowserVerified": true,
+  "packageReportAgreement": true,
+  "consumerFunctionalVerified": false,
+  "packageReports": {
+    "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+    "runId": 38358093544,
+    "appVersion": "1.1.0",
+    "zipSha256": "59387d2933e7f2f9b95b4f50e3e310a3505ad5b319c925d6bffc017d89a4f436",
+    "zipSize": 54558233,
+    "validation": {
+      "licenseAudit": {
+        "policyVersion": 1,
+        "dependencies": 236,
+        "embeddedReadmeNotices": [
+          "cookie-signature",
+          "data-uri-to-buffer",
+          "isarray"
+        ],
+        "mplSourceFiles": 8,
+        "termsVerified": true,
+        "originalCopyrightPreserved": true
+      },
+      "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+      "appVersion": "1.1.0",
+      "platform": "win32",
+      "architecture": "x64",
+      "nodeExecutable": "D:\\a\\_temp\\fo package dữ liệu 3a39cfd6-cb93-4798-b2dd-a54fec4840c4\\release with spaces\\bin\\node.exe",
+      "nodeVersion": "v24.21.0",
+      "abi": "137",
+      "napi": "10",
+      "verifiedFiles": 4581,
+      "verifiedDependencies": 236,
+      "manifestVerified": true,
+      "nativeDatabaseClosed": true
+    },
+    "packageReportAgreement": true,
+    "innerPackageAgreement": false,
+    "consumerFunctionalVerified": false,
+    "reportsVerified": false,
+    "publicationAllowed": false,
+    "producer": {
+      "filesRead": 3,
+      "bytesRead": 912121,
+      "bytesHashed": 54558233,
+      "reportHashes": {
+        "producer-evidence.json": "fd8abb8e1ae8606ae09a2b0861f6a98e26838258b767565de823c51cfe53e935",
+        "producer-exit.json": "d9f8aa9246841c9b8f9f78e3bb559ce974dcb4000bbd30dad322a38e32f9bf2e",
+        "release-manifest.json": "0422c82071398635eb308cf469a7b9becec7f1339a910dd096752b1d47cd0c07"
+      }
+    },
+    "consumer": {
+      "filesRead": 2,
+      "bytesRead": 1403,
+      "bytesHashed": 0,
+      "reportHashes": {
+        "package-exit.json": "105fba2f737f676d06348036b003de2ef150c12d50ee2c4acb55bd7b983ec15e",
+        "package-validation.json": "24d1598e1c15c8107312197ff490153eb52024ddc770204b4cb79f235a735ac8"
+      }
+    },
+    "manifestSummary": {
+      "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+      "appVersion": "1.1.0",
+      "runtime": {
+        "version": "v24.21.0",
+        "abi": "137",
+        "napi": "10",
+        "archiveSha256": "158f7685b44de51f6c0df1d153526cbcd3e1bc739a8dfc607721cef75de9e541",
+        "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32"
+      },
+      "native": {
+        "version": "13.0.3",
+        "path": "app/node_modules/better-sqlite3/prebuilds/win32-x64.node",
+        "sha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a"
+      },
+      "service": {
+        "version": "2.12.0",
+        "asset": "WinSW.NET461.exe",
+        "sha256": "b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f",
+        "licenseSha256": "1cdf703c10a70e5973bf3acf2a5eeabe7746237155b92db2034aeae26fdf7802",
+        "frameworkMinRelease": 528040,
+        "framework": "NET Framework 4.8 or later",
+        "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32"
+      },
+      "files": 4581,
+      "dependencies": 236,
+      "sha256": "0422c82071398635eb308cf469a7b9becec7f1339a910dd096752b1d47cd0c07"
+    }
+  },
+  "innerPackageAgreement": false,
+  "browser": {
+    "commitSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+    "runId": 38358093544,
+    "nodeVersion": "v24.21.0",
+    "cases": 24,
+    "rawBrowserVerified": true,
+    "innerPackageAgreement": false,
+    "reportsVerified": false,
+    "publicationAllowed": false,
+    "productionBuild": {
+      "serverSha256": "b091cb2a5e340ad8aeb324efd7b6de79ae550627100c65186d55354be51754fd",
+      "indexSha256": "5c512d46ec909139bf4e19a2cbb0b4aed40521b1c82c3306d91c895cea5695b8"
+    },
+    "engines": [
+      {
+        "browserName": "chromium",
+        "browserVersion": "156.0.8078.4",
+        "executableSha256": "7f08161bbeb2853ffe1780a9ded4985087f52efb9725d7d8207aabdd42f7cfb9",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "firefox",
+        "browserVersion": "157.0",
+        "executableSha256": "c949e57fba9a65ab6c434a76e32d2c72eb43f8b99a7c48ee7e927a4fad4b2a36",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      },
+      {
+        "browserName": "webkit",
+        "browserVersion": "27.2",
+        "executableSha256": "5c2f7bf3592d67bf74a32b01d08ad3b156fd4fff0fea0fabe8dbf99bd37d48f3",
+        "nodeVersion": "v24.21.0",
+        "platform": "win32",
+        "architecture": "x64"
+      }
+    ],
+    "fixtureCleanup": true,
+    "filesRead": 18,
+    "bytesRead": 718426,
+    "bytesHashed": 724309,
+    "reportHashes": {
+      "browser-evidence.json": "eb085284c67adb47b58e57bfa9f1bc32a14b3acfd55ffcfcb3730c8c937db8ff",
+      "browser.json": "9d8696c3466ad46c81d0f289d23ede6581eaf84e37808469c39b08ba79f181c9",
+      "browser.junit.xml": "c39ae5a7122eb8b8fa5413231725329710d03d8bcfcdf24798da4089bb7f0fe2",
+      "browser-fixture.json": "54556a4d5a1cfc0e705eda2678b4eb4d72eaf725c1b4aa696d2a249c99fc43d7",
+      "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+      "browser-runtime-chromium.json": "e8426a517887dc799b9cc0c7ed83750dd77c1a72cb51fad6459c4aa337a9562e",
+      "browser-runtime-firefox.json": "3fc5ac0efaa8807b364ec9906ab240544fd57b55ea7d06fec6c16bab722712bc",
+      "browser-runtime-webkit.json": "47a86e8b8d7410179978b3af2f53fbee246328337cdfd20cda965155a414c1fd",
+      "install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+      "native-exit.json": "0f72e6f6fe9b3560244bc0166d2a71ccf4532827264f0c1de9ba8b486153cfe1",
+      "build-exit.json": "0b3245a583c253852bc2f24a41caef588421e9eda25466e1f475ea8c74f8eb89",
+      "browsers-install-exit.json": "7aee3541b2f850bfb90a8c551fe85a13b26aa6ad7916a7e2f89a5bba16afe2c1",
+      "browser-exit.json": "b813b13b565e75223e8309acfe14f2f3ef03123ae570e7349a5ef23fc3b9a1cf",
+      "browser-html/index.html": "f350a2d306b244e0473bac87982f5f983c54f6aeecc70a1c35dcf29814c005c2",
+      "browser-run.log": "7aec764076fbaac2bed4f227a816f9a65cf51a8581f9945dadecf4e24615a0a6",
+      "browsers-install.log": "36ea02d2f927dec45e72e8cbee0d5d1671a2cd7b6ba8bda2e12556ca03bf1f0c",
+      "browser-server.log": "db98e16f651f4d591a649ce43ca9cba0d053a57041b1492e4c61934ee9478e8c"
+    }
+  },
+  "reportsVerified": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "Package/license/consumer/service/coordinator/SDK/Caddy fullcollector and candidate/promote acceptance still unfinished; F05Administration403; no release/tag/VPS",
+  "fullProofSha256": "ac2618b6f1d34ba05dbaf757b55cec39bf9f8bb4ed7b5face6ffc6978fdaf23e",
+  "fullProofLocation": "Authenticated Actions artifact plus /workspace/family-evidence/run-38361986711/live-proof.json; manifest summary is retained here instead of duplicating its full asset inventory"
+}

@@ -471,13 +471,16 @@ test('B08 adult child approval rewards persistence', async ({ page, browserName 
 
 test('B09 self profile settings persistence', async ({ page, browser, browserName }) => {
   console.log('B09_PROTOCOL_WINDOW '+browserName);
-  // Keep synthetic document replacement in its own disposable context; the
-  // application page must retain a fresh browser document/selector context.
-  const boundaryContext = await browser.newContext();
+  // Isolate document-replacement fixtures in an owned browser process. The
+  // application browser continues to exercise all real functional assertions.
+  const boundaryBrowser = await browser.browserType().launch();
   try {
-    const boundaryPage = await boundaryContext.newPage();
-    await exerciseMemberBoundaryFixtures(boundaryPage);
-  } finally { await boundaryContext.close(); }
+    const boundaryContext = await boundaryBrowser.newContext();
+    try {
+      const boundaryPage = await boundaryContext.newPage();
+      await exerciseMemberBoundaryFixtures(boundaryPage);
+    } finally { await boundaryContext.close(); }
+  } finally { await boundaryBrowser.close(); }
   await page.goto('/');
   const token = await login(page, 'child');
   const users = async () => {
