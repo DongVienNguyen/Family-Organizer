@@ -7,8 +7,8 @@
   "harnessBuildAvailabilityRed": 18,
   "mandatorySuiteRed": 2,
   "node22Characterization": 1,
-  "targetGreen": 248,
-  "fullGreen": 2602,
+  "targetGreen": 330,
+  "fullGreen": 2622,
   "fullFiles": 124,
   "failed": 0,
   "pending": 0,
@@ -16,16 +16,19 @@
   "lintExit": 0,
   "buildExit": 0,
   "sourceHashes": {
-    "scripts/windows/release-source-policy.mjs": "85e17f1a0648c0fa7177d6f4f37d0f6a68b26a22c8493303b88e1065b3145911",
+    "scripts/windows/release-source-policy.mjs": "ddf5ad356d2a129cf0c8d415caacd01e264cc2974596e97f72597a2b8816459d",
     "scripts/windows/release-auxiliary-reports.mjs": "23285497ff54ab30f0db7b8f8876761a951f4523aa2c1639edf13e17025bd65a",
-    "scripts/windows/release-harness-build.mjs": "e0b87f2a0dbfb51322a5713d6a3556807130bf4361dffb0363340fff107451d0",
-    "scripts/windows/collect-release-archives.mjs": "cd714c7f97cde6e0fc299d1d399b3274c2db055671ca43ebd05781d7e5c9238a",
+    "scripts/windows/release-harness-build.mjs": "8480f34f316517ed22e8d8266564573b8d703791e86160e4980b58d30786973a",
+    "scripts/windows/collect-release-archives.mjs": "e8cd17b5759cac64eeabf8297ebf36da71267f4c7f34cf26da0ab5a1c5566c31",
     "scripts/ci/write-evidence.mjs": "63327c68c7b49cf0bef1b26fc179d1f9653432085f5daf643aae700b023d69ce",
-    "tests/release-source-policy.test.ts": "5fea4ce26f4f4850715d55d36996977320c7645d447dc7b213cc0fb3d82cae56",
-    "tests/release-auxiliary-reports.test.ts": "f1237aab6870a911e13605009ac33ef3fe15ec9f3e74ebe92435578b16bb88a3",
-    "tests/release-harness-build.test.ts": "d042099ef308fb09fd685ef63a5ab1881496fe00193a17b3024ec73754e8ec64",
+    "tests/release-source-policy.test.ts": "aa09f411f69fbb6a0bd48c56eaddf19a432c736dde2d8b83f559ec085b2071be",
+    "tests/release-auxiliary-reports.test.ts": "202aa9113e73fcccfa9860fdeb7e7239a2fcf783efc75221bafc1f6e551c50df",
+    "tests/release-harness-build.test.ts": "04d479e928aff5a825c7a9d9182f184b89bd3515c229b7e9bdf451d93bca7d24",
     "tests/helpers/release-auxiliary-fixture.ts": "26547a04f082c3bab46ea16a72ac5ebc7ff9fbf819f4d464cd375827ae2e5592",
-    "tests/evidence.test.ts": "c29adb9ccd7edb6aa3aad7e5fcb610d424f1aa9aed6ac46d547337468fe578ea"
+    "tests/evidence.test.ts": "c29adb9ccd7edb6aa3aad7e5fcb610d424f1aa9aed6ac46d547337468fe578ea",
+    "scripts/windows/caddy-contract.mjs": "7f6e6643f9715b36732b5f07e39018a5d27c79bd9d5f87f1b309b401041989e3",
+    "package.json": "675975bf98e51787367b093d9282ce411a90288e0095b16bf0585b0145f42507",
+    "package-lock.json": "b0ccc34492d6f6f8996bb4ffa4d790628d17038050efa925ff9bbe9f79581d7c"
   },
   "verificationHashes": {
     "f08-k-source-policy-red.log": "7a39277bcd2eecf349d7bb229a5707133d88d6546b6f773e818489832e7ea5dc",
@@ -39,8 +42,8 @@
     "f08-k-old-native-cloud-compatibility.json": "67881fe552abbcf5f4fc412143d57c015581010ebcfa162d91578981cf0d33d6"
   },
   "oldActualCompatibility": "29 files277958bytes and bothSDK/Caddy/extraction runtimes; old acceptedGit38/CI38358093544; simulatedworkflowauthoritycontext only, not new native/live acceptance",
-  "review": "pending one fresh on finalbase/source",
-  "ci": "not-run",
+  "review": "one fresh exactea870/base29ae; author accepts3Important before one correction pass, no rereview",
+  "ci": "pending new exactHEAD Windows",
   "innerPackageAgreement": false,
   "reportsVerified": false,
   "publicationAllowed": false,
@@ -51,5 +54,40 @@
     "f08-k-rebased-full.json": "5bfddbd9989a8aadc235f8e6c3cd6eb0d13395876b09d6b60e7d809d8623cb80",
     "f08-k-rebased-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
     "f08-k-rebased-build.log": "a465c77aa99dd99112e4d9d279129a1e29f060f95c2ee1ee3b0e6c592be47857"
-  }
+  },
+  "priorFullGreen": 2602,
+  "priorSourceHashes": {
+    "scripts/windows/release-source-policy.mjs": "85e17f1a0648c0fa7177d6f4f37d0f6a68b26a22c8493303b88e1065b3145911",
+    "scripts/windows/release-auxiliary-reports.mjs": "23285497ff54ab30f0db7b8f8876761a951f4523aa2c1639edf13e17025bd65a",
+    "scripts/windows/release-harness-build.mjs": "e0b87f2a0dbfb51322a5713d6a3556807130bf4361dffb0363340fff107451d0",
+    "scripts/windows/collect-release-archives.mjs": "cd714c7f97cde6e0fc299d1d399b3274c2db055671ca43ebd05781d7e5c9238a",
+    "scripts/ci/write-evidence.mjs": "63327c68c7b49cf0bef1b26fc179d1f9653432085f5daf643aae700b023d69ce",
+    "tests/release-source-policy.test.ts": "5fea4ce26f4f4850715d55d36996977320c7645d447dc7b213cc0fb3d82cae56",
+    "tests/release-auxiliary-reports.test.ts": "f1237aab6870a911e13605009ac33ef3fe15ec9f3e74ebe92435578b16bb88a3",
+    "tests/release-harness-build.test.ts": "d042099ef308fb09fd685ef63a5ab1881496fe00193a17b3024ec73754e8ec64",
+    "tests/helpers/release-auxiliary-fixture.ts": "26547a04f082c3bab46ea16a72ac5ebc7ff9fbf819f4d464cd375827ae2e5592",
+    "tests/evidence.test.ts": "c29adb9ccd7edb6aa3aad7e5fcb610d424f1aa9aed6ac46d547337468fe578ea"
+  },
+  "reviewActualRed": 18,
+  "reviewAlreadyRefusedControls": 2,
+  "reviewVerificationHashes": {
+    "f08-k-review-red.log": "371227f5eb57dffc33488b384edac90a65abe791b4fda3376741b9e3022992ed",
+    "f08-k-review-target.json": "83d97c4098c1a658e57e5d2e6d17d2c14989dfa6d4e3d62d0a4e1c4a2c911915",
+    "f08-k-review-full.json": "c1ea9047c876d5d6dd10ef5c6f0c1a7cb9e75cb7f120bfabe70f8d826f7426e4",
+    "f08-k-review-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "f08-k-review-build.log": "d7930e87b973740b112770b289099c54183973ff7a3c7849727a7abbca756c67",
+    "f08-k-review-native-cloud-compatibility.json": "67881fe552abbcf5f4fc412143d57c015581010ebcfa162d91578981cf0d33d6",
+    "f08-k-yaml-audit.json": "d3dde6806970fa1472c860881ad9e444c7b49103a242c97e59dad4584159a58c",
+    "f08-k-review-npm-ci.log": "6daa1fd25a02984ee99f430e623d7d20e00313540247dcc86b1afc348fa01917"
+  },
+  "builderDependency": {
+    "name": "yaml",
+    "version": "2.9.1",
+    "license": "ISC",
+    "licenseSha256": "5bba27375d93e9119f76c1015f7672cf9ad5f70952296e0842fb2243d6376869",
+    "scope": "development parser, no target code execution/runtime upgrade",
+    "lockfileChanged": true,
+    "auditVulnerabilities": 0
+  },
+  "npmCiExit": 0
 }

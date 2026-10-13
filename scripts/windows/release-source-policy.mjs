@@ -1,5 +1,6 @@
 import {createHash} from 'node:crypto';
 import ts from 'typescript';
+import {parseDocument,visit,isAlias} from 'yaml';
 import {readTrustedSourceFacts} from './release-metadata.mjs';
 import {safeArchivePath} from './package-contract.mjs';
 const reject=()=>{throw new Error('RELEASE_SOURCE_POLICY_REJECTED');};
@@ -48,14 +49,23 @@ export function readTrustedReleasePolicy(request,authority){
   const projects=literalArray('browserProjects'),cases=literalArray('browserCases');
   requireFact(JSON.stringify(projects)===JSON.stringify(['chromium','firefox','webkit'])&&new Set(cases).size===cases.length&&cases.every((name,index)=>/^B[0-9]{2} [A-Za-z0-9][A-Za-z0-9 _-]{0,120}$/.test(name)&&name.startsWith('B'+String(index+1).padStart(2,'0')+' ')));
   const browserPolicy={projects,cases,contractSha256:hash(windowsBytes(browserContract))};
-  const workflowText=read('.github/workflows/ci.yml'),workflow=workflowText.replaceAll('\r\n','\n');
-  const markers=[...workflow.matchAll(/^      - name: Prepare independent consumer harness\n/gm)];requireFact(markers.length===1);
-  const beginning=markers[0].index+markers[0][0].length,end=workflow.indexOf('\n      - ',beginning);requireFact(end>beginning);
-  const commands=workflow.slice(beginning,end).split('\n');
-  requireFact(commands.length===5&&commands[0]==='        run: |'&&commands[1]==="          $ErrorActionPreference = 'Stop'"&&commands[2]==='          New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null');
+  const workflowText=read('.github/workflows/ci.yml');
+  // Parse data only. Literal text in env/run blocks never declares a step.
+  // Refuse unsupported contexts instead of interpreting target expressions.
+  const document=parseDocument(workflowText,{uniqueKeys:true,strict:true});
+  requireFact(document.errors.length===0&&document.warnings.length===0);
+  visit(document,(_key,node)=>{requireFact(!isAlias(node)&&!node?.anchor);});
+  const workflow=document.toJS({maxAliasCount:0}),job=workflow?.jobs?.['package-build'];
+  requireFact(workflow?.defaults?.run?.shell==='pwsh'&&Object.keys(workflow.defaults.run).length===1&&job?.['runs-on']==='windows-2022');
+  for(const key of ['if','continue-on-error','container','strategy','uses','defaults'])requireFact(!Object.hasOwn(job,key));
+  requireFact(Array.isArray(job.steps));
+  const matches=job.steps.filter(step=>step?.name==='Prepare independent consumer harness');requireFact(matches.length===1);
+  const step=matches[0];requireFact(Object.keys(step).sort().join(',')==='name,run'&&typeof step.run==='string');
+  const commands=step.run.replaceAll('\r\n','\n').split('\n');requireFact(commands.pop()==='');
+  requireFact(commands.length===4&&commands[0]==="$ErrorActionPreference = 'Stop'"&&commands[1]==='New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null');
   const flattened=new Set(),harnessSources=[];
-  for(const command of commands.slice(3)){
-   const match=command.match(/^          Copy-Item ([A-Za-z0-9/_. ,\-]+) reports\/package-harness$/);requireFact(match);
+  for(const command of commands.slice(2)){
+   const match=command.match(/^Copy-Item ([A-Za-z0-9/_. ,\-]+) reports\/package-harness$/);requireFact(match);
    for(const name of match[1].split(',').map(value=>value.trim())){
     requireFact(/^scripts\/(?:windows|ci)\/[A-Za-z0-9_-]+\.(?:mjs|cjs|ps1)$/.test(name)&&safeArchivePath(name));
     const flat=name.split('/').at(-1);requireFact(!flattened.has(flat.toLowerCase()));flattened.add(flat.toLowerCase());
