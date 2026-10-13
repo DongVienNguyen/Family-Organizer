@@ -1,0 +1,75 @@
+{
+  "taskId": "F08-h",
+  "reviewedHead": "dbbbc9d6b7d9164b3260a7487c0e3d95140119a2",
+  "baseSha": "38d6a3a2c166e62cc6cacf37ead6221204e68629",
+  "reviewCount": 1,
+  "reviewerGrades": {
+    "critical": 0,
+    "important": 4,
+    "minor": 0
+  },
+  "authorGrades": {
+    "critical": 0,
+    "important": 4,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "id": 1,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "ZIP size must agree with actual descriptor hash byte count"
+    },
+    {
+      "id": 2,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Bundled executable provenance must match owned Unicode consumer fixture structure"
+    },
+    {
+      "id": 3,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Pinned service wrapper declaration must agree with its required inventory hash"
+    },
+    {
+      "id": 4,
+      "severity": "important",
+      "decision": "accept",
+      "reason": "Canonical SQLite dependency name/version must agree with pinned native declaration"
+    }
+  ],
+  "rulings": [
+    {
+      "behavior": "synthetic non-ZIP positive fixture",
+      "decision": "accepted",
+      "reason": "This stage asserts byte-digest/metadata agreement only; inner validity/execution/license/functionality remain false",
+      "costIfWrong": "Mislabeling partial trust would cause false release acceptance; flags remain false"
+    },
+    {
+      "behavior": "publication remains disabled",
+      "decision": "accepted",
+      "reason": "No environment/receipt can enable publication; all stage false flags retained",
+      "costIfWrong": "Premature publication, prevented by source hard gate"
+    },
+    {
+      "behavior": "extra functional reports are allowed",
+      "decision": "accepted",
+      "reason": "Named exit sets remain exact, remaining actual report files must be verified in later collector stages",
+      "costIfWrong": "False full acceptance, prevented by consumerFunctionalVerified false"
+    },
+    {
+      "behavior": "helper fixture context is not GitHub authority",
+      "decision": "accepted",
+      "reason": "Actual collector obtains expected target and archives in its authenticated process",
+      "costIfWrong": "Forged release provenance, guarded by Git/API/digest adapter"
+    },
+    {
+      "behavior": "staged APIs and native acceptance scope",
+      "decision": "accepted",
+      "reason": "Shared ordinary-file protections/budgets retained; no Windows/Server2019/release claims inferred from review",
+      "costIfWrong": "Hidden compatibility failures or false certification, requiring exact native/live checks"
+    }
+  ],
+  "fixPass": "one, TDD, no rereview"
+}
