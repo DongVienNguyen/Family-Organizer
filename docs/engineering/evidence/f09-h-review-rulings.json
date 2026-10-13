@@ -1,0 +1,10 @@
+{
+ "taskId":"F09-h","reviewCount":1,
+ "reviewedHead":"2e9d5006cb48c63b3697695e3a27e2e797297443",
+ "baseSha":"a8f89c5e0d68c338c436bf6a05b27bf4b3e5bc92",
+ "reviewerGrades":{"critical":0,"important":0,"minor":1},
+ "authorGrades":{"critical":0,"important":0,"minor":1},
+ "allFindingsGradedBeforeFixPass":true,"fixPassCount":0,"reReview":false,
+ "findings":[{"id":1,"grade":"Minor","decision":"defer","effect":"Front checkpoint says full AI verification pending although committed Cloud2726/132/234target/lintbuild completed.","next":"Refresh checkpoint during integration/acceptance status update; retain separate Cloud and exactWindows labels."}],
+ "scopeRulings":"Complete SDK replacement/synthetic keys/fetch trap/unstarted jobs sufficient; settling mocks/final cleanup verified source; native legacy snapshot bound, no unrelated cancellation or SDK-network timing requirements. Browser/flags/F09/2019/Admin/publication/VPS remain separately incomplete. Reviewer verified all source/report hashes without rerunning tests."
+}

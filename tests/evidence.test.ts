@@ -31,6 +31,7 @@ const suiteNames = [
 
   'tests/browser-protocol.test.ts',
   'server/legacyCalendarHttp.test.ts',
+  'server/legacyAiHttp.test.ts',
   'tests/release-collector-evidence.test.ts',];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
@@ -294,5 +295,7 @@ it('rejects missing push permission startup regression suite',()=>{const result=
 it('rejects missing browser protocol redaction regression suite',()=>{const suite='tests/browser-protocol.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it('rejects missing real legacy calendar HTTP regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('server/legacyCalendarHttp.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: server/legacyCalendarHttp.test.ts');});
+
+it('rejects missing real offline AI HTTP regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('server/legacyAiHttp.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: server/legacyAiHttp.test.ts');});
 
 it('rejects missing normalized release collector regression suite',()=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith('tests/release-collector-evidence.test.ts'));});expect(result.evidence.errors).toContain('required suite missing: tests/release-collector-evidence.test.ts');});

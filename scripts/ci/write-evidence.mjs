@@ -61,6 +61,7 @@ const requiredSuites = [
 
   'tests/browser-protocol.test.ts',
   'server/legacyCalendarHttp.test.ts',
+  'server/legacyAiHttp.test.ts',
   'tests/release-collector-evidence.test.ts',];
 for (const required of requiredSuites) {
   if (!suites.some(suite => suite.name === required)) errors.push(`required suite missing: ${required}`);

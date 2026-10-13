@@ -1,0 +1,99 @@
+{
+  "taskId": "F09-g",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/57",
+  "testedHeadSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210",
+  "checks": [
+    {
+      "name": "ci-gate",
+      "headSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows disposable service",
+      "headSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package clean consumer",
+      "headSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows production browsers",
+      "headSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "headSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "headSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+      "conclusion": "success",
+      "githubAppId": 15368
+    },
+    {
+      "name": "Windows package producer",
+      "headSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+      "conclusion": "success",
+      "githubAppId": 15368
+    }
+  ],
+  "node22And24": {
+    "tests": 2723,
+    "files": 132,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0
+  },
+  "browser": {
+    "cases": 27,
+    "retries": 0,
+    "skipped": 0,
+    "failed": 0
+  },
+  "independentRawValidators": {
+    "quality": 0,
+    "coverage": 0,
+    "browser": 0,
+    "package": 0,
+    "service": 0,
+    "caddy": 0,
+    "extraction-sdk": 0,
+    "inner-native": 0
+  },
+  "zipSha256": "058fc30dcfff4f85ad1d5b20bace676f28dfa64ed300336606760a24f5162749",
+  "summaryHashes": {
+    "quality": "8ef51d9e762aeeff9dcbf4d4063c5d65a52434bf6c5751736548cfc059da2e20",
+    "coverage": "4dfef847d3518cc87346a9e19daa4265a02e367b3fb3ace19185d30a7a79f43e",
+    "browser": "254c2983ad069a1b24c8fe5190e3aec764f0874835fc16278977acd9b71ace74",
+    "package": "3cd45afdd9579ccb1395f548575ab1f59e2b0b61af9f3a7f970c56661393759a",
+    "service": "8e0e475d8d271fa5e05f038472611e306c96b6d2de27a998f303d76e70f05e3c",
+    "caddy": "a4e69f9eaf0e4dc2c13f967d1e83a647ae69cb62c63d68f157cb3bc6c3783b6e",
+    "extraction-sdk": "63b22ba4cae4c871be3452b98c127b312d5e6d9244549b3db970b13ac9b8b42e",
+    "inner-native": "101fa77f52a0ba103aaa1b7ea68b0b8d132e475dcdfa3e0acaa617d2bb6295e9"
+  },
+  "fullCiLogSha256": "546cae9f0d735cfee54898abd70d444fce5062f92ff51a5f4a97a36e7e02157b",
+  "completeProofSha256": "4e71ab836698e299f61db8ae2c5f507e3edcb41ce838b5dfa55819ba7039fc3f",
+  "postMerge": {
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/57",
+    "testedHeadSha": "0fe8d4de23e2a6b94fb8a210761b6b97b67368c5",
+    "mergedSha": "10f70a9db627b89c1504163449eb132742350ac3",
+    "mainConfirmed": true,
+    "treeEqual": true
+  },
+  "deferredMinor": [
+    "HTTP socket inactivity timeout/response abort handling",
+    "sqliteLoad covers legacy snapshot, not all native auth/command tables"
+  ],
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "not-performed"
+}
