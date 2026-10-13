@@ -70,7 +70,7 @@
   "currentSourceDraft": {
     "taskId": "F09-n",
     "baseSha": "884803a21cd0b826c6e44423217a0d6891184b1e",
-    "cloudTests": 2813,
+    "cloudTests": 2816,
     "cloudFiles": 138,
     "cloudFailed": 0,
     "cloudPending": 0,
@@ -79,7 +79,9 @@
     "review": "ONE0C2I0M, all graded before one correction pass; both actual source/evidence findings corrected; no rereview",
     "lintExit": 0,
     "buildExit": 0,
-    "priorLintFailure": "Retained TS2322 log, initial zero claim corrected"
+    "priorLintFailure": "Retained TS2322 log, initial zero claim corrected",
+    "browserCasesRequired": 45,
+    "calendarFixture": "Distinct0C0I0M reviewed split preserves27original assertion lines/realUI creation in both, original45s budgets; one continuous export\u2192edit journey no longer checked; native45 pending"
   },
   "blockers": [
     {

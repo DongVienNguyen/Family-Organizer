@@ -1,6 +1,6 @@
 {
   "taskId": "F09-k",
-  "baseSha": "3aa3faff5096babfb8ae1834f8014bf78d126baa",
+  "baseSha": "0a0412238f6b42ecbd78ee635a5bd8705f919776",
   "scope": "Existing calendar create/daily recurrence/grid/detail/agenda/edit/private/reload/client ICS bytes; no app change",
   "actualGateRed": 2,
   "targetGreen": 165,
@@ -43,8 +43,9 @@
     "F05Administration403",
     "Server2019/release/VPS"
   ],
-  "baseState": "Provisional reviewedhealth integration; derivefullSHA below, acceptedparents/nativepending",
+  "baseState": "Accepted62 squash treeequals tested71/CI38414676195; all3composition source hashes unchanged",
   "priorCorrectedCloudTests": 2778,
   "reviewedOwnSourceByteAgreement": true,
-  "review": "ONE4ab/baseb64 0C0I0M allgradedbeforeactions/zero sourcefixpass/norereview; allthreeownsourcebytes identical after reviewedparents, allmandatorygatesretained"
+  "review": "ONE4ab/baseb64 0C0I0M allgradedbeforeactions/zero sourcefixpass/norereview; allthreeownsourcebytes identical after reviewedparents, allmandatorygatesretained",
+  "accepted33PrefixByteAgreement": true
 }

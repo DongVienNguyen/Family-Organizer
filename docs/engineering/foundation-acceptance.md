@@ -31,7 +31,7 @@ routes and mapped suite hashes; the original baseline inventory stays historical
 | --- | --- |
 | Login/profile/settings | B01/B05/B09; authHttp, objectAclHttp, clientSession/sessionBoundary, native account initialization and legacyFlagsHttp |
 | Tasks/approval/rewards | B08 actual child submit → adult approval → persisted points; taskPayloadHttp/commandHttp/rewardStore, duplicate command and snapshot invariants |
-| Calendar | B12 recurring create/grid/agenda/private edit/reload/real client ICS bytes; legacyCalendarHttp and recurrence helpers. Subscription feed is read-only |
+| Calendar | B12 recurring create/grid/agenda/real client ICS bytes and B15 private edit/reload/Child boundaries; legacyCalendarHttp and recurrence helpers. Subscription feed is read-only |
 | Notes/media/search | B03/B13; contentPayloadHttp/objectAclHttp/mediaHttp; Markdown/private visibility and authenticated media. Child direct-URL smoke has the recorded deferred heading-only coverage limitation |
 | Finance/assets/budget/bills/goals/debt | B07 actual create/edit/delete/reload/PDF; legacyFinanceHttp and finance/asset/debt helpers characterize existing contracts. B14 checks authorized monthly dashboard balance/drilldown |
 | Shopping/meal/assistant | B06/B10; shoppingHttp/shoppingPersistence/legacyAiHttp; actual unconfigured refusal and offline provider drafts/errors, loading/close/focus, persistence and no automatic writes |
@@ -46,6 +46,8 @@ New Matrix/Kanban/Wallet flags are absent. The existing rewards settings route
 ignores those unrelated keys; the regression verifies no legacy/settings mutation.
 This is not a new integration API or rollout implementation. Future module flags
 and feature migrations belong to P/W after foundation acceptance.
+
+The native45s calendar failure was retained and its long case split into B12/B15 with repeated realUI creation. Every original assertion remains; editing immediately after export/detail navigation in one continuous session is no longer tested. All other flows, normal actionability,45s cases/10s expectations and zero retries remain.
 
 Deferred Minor review findings remain in per-task rulings. They include historical
 negative-fixture counts, isolated B14 zero-unread badge text, a Child direct-URL

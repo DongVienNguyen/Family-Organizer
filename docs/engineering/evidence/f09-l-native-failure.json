@@ -1,0 +1,48 @@
+{
+  "taskId": "F09-l",
+  "testedHeadSha": "5eddd29014c591d248d0660aa9c9a5e4ee513182",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38421156681",
+  "checks": "Five quality/package/service pass; browser and ci-gate failed",
+  "qualityEach": 2801,
+  "filesEach": 136,
+  "browser": {
+    "passedFirstAttempt": 38,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0,
+    "case": "B12 calendar recurrence edit and ICS/webkit",
+    "causeEvidence": "45sec case budget exhausted; trace actions spend about1.6\u20132.4sec each in native actionability/stability; original child login click starts after43sec, neverdispatchesbeforetimeout; cleanup timeout consequence. Prioraccepted63 sameB12/WebKit44109ms."
+  },
+  "nonBrowserIndependentValidators": 7,
+  "fixture": {
+    "commitSha": "5eddd29014c591d248d0660aa9c9a5e4ee513182",
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "lockSha256": "4df93eb09b90073da9a8fd5714b77e5b49d0be906aef3bf346a371ad0c0e0075",
+    "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "productionBuild": {
+      "serverSha256": "c8ca2842d98c8470d3f4e8302f467ff3ff3f18f4fb0af4356bb57be7a70264f0",
+      "indexSha256": "8d47f11576cce2b1b4de6d0442053f11e6fe55e0bb8e53e8c605893c7a3aae8f"
+    },
+    "legacyPreserved": true,
+    "integrity": "ok",
+    "databaseClosed": true,
+    "fixtureRemoved": true,
+    "externalAttempts": [],
+    "serverExitCode": 0,
+    "serverSignal": null,
+    "cliExitCode": 1,
+    "cliSignal": null,
+    "error": "Playwright native exit was nonzero\n\n1 !== 0\n"
+  },
+  "reportHashes": {
+    "browser.json": "818fd81898abf00d2cdd43e89a4608e1dad80d688aa95971dc51ce8bbad83767",
+    "browser.junit.xml": "ef7fb902947889c8fc59afe47509b286930723cd0f5d0eaa2ee43e705b5ea6da",
+    "browser-fixture.json": "6f8bb0bab10a4bafcb1de3d8734eef72eb05ecc873ebfe727eb1d3c3a71cfa9d"
+  },
+  "fullLogSha256": "adf72cd32d3d71613ecbdf18c73028458b03918bb20ce970006bd148c8d52655",
+  "allSevenArtifactsRetained": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

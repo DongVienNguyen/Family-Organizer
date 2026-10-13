@@ -7,7 +7,7 @@
   "correctedActualFlagsPassed": 3,
   "actualGateRed": 1,
   "targetGreen": 184,
-  "fullGreen": 2813,
+  "fullGreen": 2816,
   "fullFiles": 138,
   "failed": 0,
   "pending": 0,
@@ -19,8 +19,8 @@
     "scripts/ci/write-evidence.mjs": "d14cdcbe97df0b7e53a2654f47c2e06579b7602718f5806cb8a34fd50c6dde77",
     "tests/evidence.test.ts": "9f8218537897ef10f545a253c689384f571bcec5e611ba78877404fb916bf478",
     "README.md": "fc27c8e291e9e4eba5d29b97cdf412dcfda5128a39164d8c878f6d7a523dfafb",
-    "docs/engineering/foundation-acceptance.md": "40eded16d9ec977650b0cb5e60c4e83f8925c483d246935f46967f5a3856e101",
-    "docs/engineering/windows-current-route-inventory.json": "eea63b910d49561031ce4c834fd331e1f9d3c8f54d83c1791184ecfec3f3034c",
+    "docs/engineering/foundation-acceptance.md": "857cb962e0451ddb02fc2567f0cb41f0e6c78072dc077b3e6ded0b9fbda3cf7d",
+    "docs/engineering/windows-current-route-inventory.json": "cff768254b9c03e759ac62985ea8ecb86da5f21d0b7adbdfb03be32a9063b016",
     "docs/engineering/windows-operations.md": "041d546141961c670a25ec593d9adff3baf812a68c87101492570d47694fb7c2"
   },
   "verificationHashes": {
@@ -31,7 +31,12 @@
     "f09-n-corrected-full.json": "d25a9634549d6fb4d9c99acea978b856f1a06d22f52958192f04ee9ad788e0ec",
     "f09-n-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
     "f09-n-corrected-build.log": "fa99cd3fb1e11139aebec129eaecb651ecc9f874320067d9cbe8a329feef7e7d",
-    "f09-n-corrected-inventory.log": "2f185d1b2874391af588e78472469c9de310329189e85a83949a66396556dc40"
+    "f09-n-corrected-inventory.log": "2f185d1b2874391af588e78472469c9de310329189e85a83949a66396556dc40",
+    "f09-n-l1-full.json": "58758d55bd227beaf3543c6cfbf7473bc8c5e92c905dfd81e14bb72d5358be52",
+    "f09-n-l1-target.json": "ce89ead31c4be98e41cb0d3fe1a179a0fa35a2abef84e3516438c59ae89adea3",
+    "f09-n-l1-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-n-l1-build.log": "ef5b722252c54f68167abe26f814b8d265a2c25bf135ce05c719cd802bced1a2",
+    "f09-n-l1-inventory.log": "2f185d1b2874391af588e78472469c9de310329189e85a83949a66396556dc40"
   },
   "snapshotScope": "Legacy rows/settings unchanged assertions do not certify all auth/command tables. Reconstruction is fresh HTTP app/jobs, not a SQLite process restart; native existing runtime tests own process restart.",
   "windows": "not-run",
@@ -49,5 +54,8 @@
     "f09-n-build.log": "ab9a7e66562f36b226b7803638c430b82db899fea25188ba0e093fe8a18e019c",
     "f09-n-lint-failed.log": "56297591a0491c063b7caa691ead2edc0bc7d225dddd819600384632b1505aaa"
   },
-  "correctedVerificationShell": "set -e; each npm/native invocation awaited before next command; all completed exit0. Failed initial lint and fixture attempt retained; exact initial lint exit was not recorded."
+  "correctedVerificationShell": "set -e; each npm/native invocation awaited before next command; all completed exit0. Failed initial lint and fixture attempt retained; exact initial lint exit was not recorded.",
+  "priorFullGreen": 2813,
+  "browserCasesRequired": 45,
+  "parentComposition": "Provisional reviewedM6f0 includes distinct L1calendar split; all five substantive own source hashes unchanged, two documentation hashes refreshed for B15 mapping/tradeoff. Flags/gate/assertions unchanged. No repeated review or source correction pass."
 }

@@ -1,24 +1,25 @@
 # Tiến độ Windows-native
 
-## Current checkpoint — 2026-10-13 (after handoff Windows acceptance)
+## Current checkpoint — 2026-10-13
 
-**The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains behind the foundation gate. Historical failures and earlier snapshots below remain intact.
+**The complete master plan is not finished.** New Matrix/Kanban/Wallet work remains behind the foundation gate.
 
 | Work | Current evidence / remaining step |
 | --- | --- |
-| Accepted main | PR61 squash `509463cd110e9d02644bf111c3a763a64e4e3613`; tree independently equals tested `4cfbb060799ac93d70b89a7180ceadbb0b2b4e16` |
-| Windows quality/package/service | [CI38412662703](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38412662703): all7 checks/eight independent raw validators; both Node22/24 each2792 tests/136 files, zero failed/pending/todo;30 first-attempt browser cases |
-| Assistant UI/source correction | PR60 accepted loading/real400/Escape/reopen/settled controls; owned fetch gate retains privacy worker and original native request. Launcher focus-before-open fix has distinct fresh review and meaningful unit/gate RED. Earlier29/30 failures38404820753 and38406556796 archived |
-| Full read-only collector | PR59 accepted; [live38404316314](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38404316314) independently verified all7 archives/raw/Git/innerZIP/licenses/normalized tuple for explicit historical38/CI38358093544. Final reportsVerified/consumerFunctionalVerified=true; publicationAllowed=false |
-| Handoff preparation F08-n | One review0C0I0M; own five sources byte-identical after accepted60 composition. Cloud2792/136,234target,lint/build0; same read-only collector, candidate/promotion intent blocked. PR61 exact Windows all7/eightraw/30 accepted and merged; actual trusted-main candidate/promotion preparation live proofs pending |
-| Legacy health/calendar/documents/search | Focused independent slices reviewed or under review; Cloud diagnostics alone are not Windows33/36/39 acceptance. No new features enabled |
-| F09 remaining | Complete reviewed legacy browser slices, notification/dashboard/import/flag mapping and final foundation acceptance; old documentation promise of a masked first-account wrapper is unimplemented, while compiled bounded-stdin initialization is verified; no new foundation requirement is inferred |
-| F05 blocker | Actual ruleset/branch-protection writes403; integration Administration write remains unusable, main enforcement absent |
-| R02/R03 | Actual Server2019/build17763/reboot/off-host/RPO/RTO not run. Windows2022 is not Server2019 acceptance. No release/tag or VPS access/deployment authorized or performed |
+| Accepted main | PR63 squash `289f3cb6d69bfc90bb30691ac88e5c3546675fba`; independently same tree as tested `6f477b6c6a061f08eaade63962c68855d5ded95c` |
+| Windows quality/package/service | [CI38418423525](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38418423525): all7 checks/eight independent raw validators; each Node22/24 2798 tests/136 files, zero failed/pending/todo;36 first-attempt browser cases |
+| Legacy assistant/health/calendar | PR60/62/63 accepted; actual original browser assertions, own cleanup and offline network boundary verified on all three engines |
+| Read-only candidate/promotion handoff | PR61 accepted; trusted-main candidate [38414439837](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414439837) and promotion [38414445312](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38414445312) independently verified complete original historical ZIP/source/raw/normalized/handoff bindings. Publication/tag/release all false |
+| Documents/search F09-l | PR64 HEAD `5eddd29014c591d248d0660aa9c9a5e4ee513182`, [CI38421156681](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38421156681): five checks/seven non-browser raw readers pass, each2801/136; browser38/39 failed existing B12 WebKit45s budget, gate failed. All seven artifacts/full log/trace retained; not merged |
+| Calendar fixture F09-l1 | Actual trace: B12 UI actions consume about1.6–2.4s each, Child login starts after43s and is not dispatched before45s. Accepted63 B12 already44.1s. Split into independent create/ICS/grid/detail and UI-create/edit/private/reload/Child flows, retaining all27 original assertion lines and45s/10s/zero retries; adds mandatory B15. Cloud2804/136 all0/lintbuild0 and two real Chromium calendar cases pass; fresh review/newWindows42 pending |
+| Dashboard/notifications F09-m | One review0C1I1M; meaningful acknowledgement owner regressions and actual browser clock RED→GREEN. Corrected Cloud2809/137; new42-case Windows pending after L |
+| Foundation mapping F09-n | Actual existing flags HTTP/gate and inventory/acceptance/operations draft; Cloud2813/138 all0,184target/lintbuild0; fresh review in progress; native pending after M |
+| F05 blocker | Actual ruleset/branch-protection writes HTTP403; usable Administration integration scope and main enforcement absent |
+| R02/R03 | Actual Server2019/build17763/reboot/off-host/RPO/RTO not run; Windows2022 does not satisfy R02. No release/tag/VPS access/deployment authorized or performed |
 
-Deferred review notes remain in per-task rulings, including historical21/24 negative fixture counts and collector old preflight log wording. Legacy snapshot comparisons do not certify every auth/command table. Original proof bytes/hashes remain; compact acceptance corrects copied stale remaining-work text.
+Historical failures and raw proof bytes remain intact. Deferred review rulings remain per task. Compiled bounded-stdin first-account initialization is verified; an old optional masked PowerShell wrapper promise is unimplemented, not an inferred formal requirement.
 
-Next: focused handoff Windows/live acceptance, then reviewed health/calendar/documents/search and remaining foundation gaps. No repeated merge permission is needed.
+Next: Documents/Search same-HEAD Windows39, then reviewed Dashboard/Notifications42 and final foundation mapping. No repeated merge permission is needed.
 
 ## Earlier integration checkpoints — through PR46
 
@@ -1365,3 +1366,6 @@ F09-k reviewedhealth+N/i1provisionalcomposition: ALL3ownsourcefilesbyteidentical
 F08-n PR61tested4cf/CI38412662703 all7/eightraw0/both2792/136/30firstattempt merged509463c/treeequal, compactNfinalarchived. Actualmaincandidate/promotepreparationdispatchesstarted/read-only/pubfalse. F09-j accepted509463c compositionall3sourcehashesunchangedfrom2795/136 verifiedCloud162target/lintbuild0; ownB11+2gatefilesreviewedde3 unchanged; no redundantCloudrepeat/review/sourcefixpass. NewexactWindows33required. Maskedfirstaccountwrapper olddocpromise absent; compiledboundedstdinoperator alreadyverified andformalplan doesnotrequiremaskedwrapper, notinventedentrygate.
 
 F09-m provisionalBASE93f reviewedL+parents: B14readonlydashboardactualfinance sum/drilldown, ownstorednoticebadge/read/reload, switchChildnoprivatestaleUI/foreignread404/neutralzerofinanceplaceholder. Sixstoredsyntheticnotices (role×engine) no sendAPI/outbox/deliveryadapters.2casegateRED+actualCloudB14responseJSONtimeout45s revealed ignoredone/allackbodies;4semanticRealSessionBoundaryREDs+1mandatorysuiteRED→helperconsumeJSONbeforerefresh/bothApphandlers. Target298/fullCloud2809/137 all0/lintbuild0/actualCloudB14PASS16.8s/noexternal/cleanup. ALL13oldflowbytes+newJSON/assertions/budgets/retries preserved; ONEfreshreview/newbase/Windows42pending. NotfullF09/2019/pub/VPS.
+
+
+F09-j PR62tested71/CI38414676195 all7/eightraw0/both2795/136/33firstattempt merged0a04122/PR-main-treeequal, compactj-final archived. F08nmain509actualcandidate38414439837/promotion38414445312 independentlyfullGit/API/raw/hash/inner/license/normalizedtuple/handoffverified; pubfalse/releaseCreatedfalse/tagCreatedfalse/no actualrelease/VPS. F09-k accepted0amain integration all3ownsourcehashesunchanged2798/136/165target/lintbuild0 verifiedCloud, wholeaccepted33prefix retained; ONEreview0C0I0M/zero sourcefixpass/no rereview/no redundantCloudrepeat. ExactnewWindows36required.

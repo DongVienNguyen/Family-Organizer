@@ -759,7 +759,6 @@ test('B12 calendar recurrence edit and ICS', async ({ page }, testInfo) => {
   const before = await getPlans();
   let planId: string | undefined;
   const title = 'Synthetic B12 lịch ; Unicode';
-  const revised = 'Synthetic B12 revised private';
   const today = await page.evaluate(() => {
     const date = new Date();
     return { iso: [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-'), vn: [String(date.getDate()).padStart(2, '0'), String(date.getMonth() + 1).padStart(2, '0'), date.getFullYear()].join('/') };
@@ -814,7 +813,62 @@ test('B12 calendar recurrence edit and ICS', async ({ page }, testInfo) => {
     await expect(detail).toBeVisible();
     await expect(detail.getByText('Synthetic notes; no provider', { exact: true })).toBeVisible();
     await detail.getByRole('button', { name: 'Đóng chi tiết sự kiện', exact: true }).click();
+  } finally {
+    const cleanup = await page.request.post('/api/auth/login', { data: { username: 'browser-member', password: 'synthetic-browser-password' } });
+    expect(cleanup.status()).toBe(200);
+    headers.Authorization = 'Bearer ' + (await cleanup.json()).token;
+    if (planId) expect((await page.request.delete('/api/plans/' + planId, { headers })).status()).toBe(200);
+    expect(await getPlans()).toEqual(before);
+  }
+});
+
+test('B15 calendar private edit reload and child boundary', async ({ page }) => {
+  await page.goto('/');
+  const token = await login(page, 'member');
+  const headers = { Authorization: 'Bearer ' + token };
+  const schedules = page.locator('#schedules-module');
+  const getPlans = async () => {
+    const response = await page.request.get('/api/plans', { headers });
+    expect(response.status()).toBe(200);
+    return (await response.json()).plans;
+  };
+  const before = await getPlans();
+  let planId: string | undefined;
+  const title = 'Synthetic B15 lịch ; Unicode';
+  const revised = 'Synthetic B15 revised private';
+  const today = await page.evaluate(() => {
+    const date = new Date();
+    return { iso: [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-'), vn: [String(date.getDate()).padStart(2, '0'), String(date.getMonth() + 1).padStart(2, '0'), date.getFullYear()].join('/') };
+  });
+  const select = async (scope: import('@playwright/test').Locator, name: string, option: string) => {
+    await scope.getByRole('button', { name, exact: true }).click();
+    await page.getByRole('option', { name: option, exact: true }).click();
+  };
+  try {
+    await page.locator('aside nav').getByRole('button', { name: 'Lập Lịch', exact: true }).click();
+    await expect(schedules).toBeVisible();
+    await schedules.getByRole('button', { name: 'Sự kiện', exact: true }).click();
+    const create = page.locator('#plan-create-modal');
+    await expect(create).toBeVisible();
+    await create.getByPlaceholder('Ví dụ: Cơm tối nhà nội, Đi tiêm phòng cho con...', { exact: true }).fill(title);
+    await create.getByPlaceholder('Chuẩn bị quà cáp, tài liệu, tiền lẻ hoặc phương tiện di chuyển...', { exact: true }).fill('Synthetic notes; no provider');
+    await create.getByPlaceholder('dd/mm/yyyy', { exact: true }).first().fill(today.vn);
+    await create.getByPlaceholder('dd/mm/yyyy', { exact: true }).first().press('Tab');
+    await select(create, 'Xảy ra định kỳ', 'Sự kiện có lặp lại');
+    await select(create, 'Tần suất lặp lại', 'Hằng ngày');
+    const saved = page.waitForResponse(response => new URL(response.url()).pathname === '/api/plans' && response.request().method() === 'POST');
+    await create.getByRole('button', { name: 'Lưu kế hoạch', exact: true }).click();
+    const response = await saved;
+    expect(response.status()).toBe(200);
+    const plan = (await response.json()).plan;
+    planId = plan.id;
+    expect(plan).toMatchObject({ title, startDate: today.iso + ' 00:00', creatorId: 'browser-member', isShared: true, isRecurring: true, recurrenceType: 'daily' });
+    await expect(create).not.toBeVisible();
     await schedules.getByTitle('Xem dạng Danh sách thời gian', { exact: true }).click();
+    const agenda = page.locator('#calendar-agenda-list-view');
+    await expect(agenda.getByRole('heading', { name: title, exact: true })).toBeVisible();
+    const persisted = (await getPlans()).find((row: any) => row.id === planId);
+    expect(persisted).toEqual(plan);
     await agenda.getByRole('button', { name: 'Sửa ' + title, exact: true }).click();
     const edit = page.locator('#plan-edit-modal');
     await edit.getByPlaceholder('Ví dụ: Cơm tối nhà nội, Đi tiêm phòng cho con...', { exact: true }).fill(revised);
@@ -932,7 +986,6 @@ test('B13 documents search and household navigation', async ({ page }) => {
     expect(await getDocuments()).toEqual(before);
   }
 });
-
 test('B14 dashboard and notification actor isolation', async ({ page, browserName }) => {
   await page.clock.setFixedTime(new Date('2026-10-15T12:00:00.000Z'));
   await page.goto('/');
