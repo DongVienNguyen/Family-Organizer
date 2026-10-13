@@ -1,15 +1,15 @@
 {
   "taskId": "F08-l",
-  "baseSha": "b8567d45e2be9c068ecdab8aae41f5142c95a9d8",
+  "baseSha": "b8ad908741dff9b6a5e747b17e21915ff9ab8829",
   "scope": "Bounded digest-held native innerZIP extraction and full actual inventory/original-license agreement; no target code execution; full reports/pub still false",
   "readerAvailabilityRed": 17,
   "extractorAvailabilityRed": 19,
   "nativeAndGateActualRed": 18,
   "actualNativeMissingReportRed": 1,
   "actualNativeMissingRedSelection": "one targeted RED, 170 other tests not selected; not full-suite result",
-  "targetGreen": 231,
-  "fullGreen": 2691,
-  "fullFiles": 128,
+  "targetGreen": 254,
+  "fullGreen": 2719,
+  "fullFiles": 131,
   "failed": 0,
   "pending": 0,
   "todo": 0,
@@ -20,14 +20,14 @@
     "scripts/windows/Extract-ReleaseInnerPackage.ps1": "8dc0de7e71a80d4d8dba1dd517293316b32b54736d525e6bb6b28b63fbcc25a1",
     "scripts/windows/probe-release-inner-extraction.mjs": "4ab52344669a821caada00a317fc44cfc4d3b442e919cac9d97c43efb74454ef",
     "scripts/windows/collect-release-archives.mjs": "66fabd16df8405a67c7967d4e86e2fa8f1071ac6b69b96facdc35554c58eda60",
-    "scripts/ci/write-evidence.mjs": "89c1ac254200e0e5ec3365fab2e3ff326febeb700c6045685b09ac4e30aeead5",
-    ".github/workflows/ci.yml": "e11d843dfa548f1de75c5a524f9a2da69981b97e435b60571cbe6007f8b600c5",
+    "scripts/ci/write-evidence.mjs": "001b18f928dc64b771162b670f988088ab42127741f734d31bd6de270b815b5c",
+    ".github/workflows/ci.yml": "ef50d064bbef971cfb7dc11ed720d29dce4827016844397ea8163c45db9856ef",
     "tests/helpers/release-inner-fixture.ts": "42f00b2b36feca09833c94bf68d1ace85bcf203912fe28fcc8f6631ff2f4476d",
     "tests/release-inner-package.test.ts": "c2103434b5e7484225d3bf82ae68dc4ebafaf1f41166506066aca358edbd7906",
     "tests/release-inner-extraction.test.ts": "baccc1831a8a4c09cfd8938cb605fe7e2bdbfe8490264b770c5a5ff3751901d3",
     "tests/release-inner-native.test.ts": "5f908502629d0873227472c681c3e943f3a08afa57e7220a5d076e92e58a7c82",
     "tests/windows/New-SyntheticInnerArchives.ps1": "b1f4d61addb7b8a0dc385140d34050f99ab745fc229495f8fd78ab5f706019a9",
-    "tests/evidence.test.ts": "7a5630cf07808d06e42a1a999e07993f7444ed3b65778aba6083ac897ad11293"
+    "tests/evidence.test.ts": "7f4da58a44ed6c0c256276e3027671e16a706868b3bf02e8325fa74814b8c3bf"
   },
   "verificationHashes": {
     "f08-l-inner-red.log": "76490d8a296f58ac22f0e19522cbe65a6d7d629232cccf27d09dbd23fd45c9bd",
@@ -44,7 +44,13 @@
     "f08-l-review-full.json": "b9092bc688f93406b132f6629a597e77d54ea6009211be85ae84ac4a16476c25",
     "f08-l-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
     "f08-l-review-build.log": "fae7b0069697635c52f647d5ca5e7a841c5e663200a3966b71670831c8fd7bc6",
-    "f08-l-review-cloud-compatibility.json": "2b68f213a61dadfc64d3acc83f819e5b72d3a35e95dc4398efee9982e3ee8009"
+    "f08-l-review-cloud-compatibility.json": "2b68f213a61dadfc64d3acc83f819e5b72d3a35e95dc4398efee9982e3ee8009",
+    "f08-l-main47-target.json": "65bf331ef2bc6d55f5aad4e82ed128f27154dcc54830b1ff2d9d3a7d1776ed10",
+    "f08-l-main47-full.json": "d9fdc3fd78b29ef94d74e65f3f2095e05f2bd0a8cd7a798ea454bc2cd31657d2",
+    "f08-l-main47-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f08-l-main47-build.log": "7adbfa9a502add87abcecd58127e6d6947696663699aa7fd0f01cfc9a59fbb8b",
+    "f08-l-main55-merge-collection-failure.json": "9a6133f5094a056c322e724d9f79986c526647dcf2899cffa453ebd55b26f8d1",
+    "f08-l-main55-fixture-order-failure.json": "53609eb12c6a53d0893de8295172709467c8fd7fd04c993617111dc2edf1a831"
   },
   "historicalCloudHelper": "actualapproved38ZIP as data only, simulatedprior authority,4581files/163018239hashbytes/236deps/8MPLsourcefiles/originalnotices verified; no execution/newnativeacceptance",
   "review": "ONE c7eded/baseb856,0C3I2M,allgradedbeforeONEpass; sixactualRED plus two preexisting/refusal controls and one scoped/nested positive; twoMinor deferred",
@@ -53,5 +59,8 @@
   "reportsVerified": false,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
-  "reviewActualRed": 6
+  "reviewActualRed": 6,
+  "reviewedOwnSourceByteAgreement": true,
+  "priorCorrectedCloudTests": 2691,
+  "mergeCorrections": "Author conflict union damaged trailing test syntax, caught collection failure; reconstructed original whole native fixture then appended actual inherited gate. Consistent-fixture assertion also caught altered first-suite order; retained original ICS first. All assertions/native report bindings preserved before final254target/2719full. Both failures retained; no63-test partial acceptance."
 }
