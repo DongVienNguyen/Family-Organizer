@@ -79,3 +79,15 @@ export function validateCaddyNativeEvidence(value,expected){
  require(isSyntheticCertificateRefusal({code:probe?.phases?.[4]?.errorCode}),'untrusted CA refusal must be a certificate verification error');
  return errors;
 }
+
+// Diagnostic facts from the isolated native synthetic fixture only. They never
+// confer native success, trust-store or release authority. Exception text/cause
+// and inherited environment are deliberately excluded.
+export function syntheticCaddyFailureDiagnostic({phase,error,output,exitCode,signal}){
+ const reject=()=>{throw Error('CADDY_DIAGNOSTIC_REJECTED');};
+ if(!['preflight','configuration','startup','tls','stop','trust','cleanup'].includes(phase)||typeof output!=='string'||!(exitCode===null||Number.isSafeInteger(exitCode))||!(signal===null||/^SIG[A-Z0-9]+$/.test(signal)))reject();
+ const bytes=Buffer.from(output,'utf8');let start=Math.max(0,bytes.length-8192);
+ while(start<bytes.length&&(bytes[start]&0xc0)===0x80)start++;
+ let code=null;try{if(typeof error?.code==='string'&&/^[A-Z][A-Z0-9_]{0,63}$/.test(error.code))code=error.code;}catch{/* Unknown error objects cannot expose cause/message. */}
+ return {scope:'synthetic-loopback-only',diagnosticOnly:true,phase,errorCode:code,childExitCode:exitCode,childSignal:signal,output:bytes.subarray(start).toString('utf8'),observedOutputBytes:bytes.length,outputTruncated:start>0};
+}

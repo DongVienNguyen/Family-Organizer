@@ -1,0 +1,36 @@
+{
+  "taskId": "F09-o",
+  "baseSha": "66c18866ca816fb2037816f77fe097fde38c25c5",
+  "scope": "Bounded synthetic Caddy failure diagnostics from actual unreadable Node24 startupfailure. No native behavior/pins/timeout/retry/assertion/gate reduction, no app change.",
+  "actualAvailabilityRed": 5,
+  "actualMandatorySuiteRed": 1,
+  "initialUnselectedGateAttempt": "Python array needle assertion failed; first gate invocation selected no test and exit0, retained but not counted as RED. Correct selected omission actually failed1 before gate change.",
+  "targetGreen": 263,
+  "fullGreen": 2810,
+  "fullFiles": 137,
+  "failed": 0,
+  "pending": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "950dd3788e8baa9e77ee86b9fa45e86034ea85105ae1c2ca9f4379cb7fc5cb84",
+    "scripts/windows/caddy-contract.mjs": "7f69f5aa5537998b197cd29de25270fcc98f1ca915ea3e84d7c1cd49e413a148",
+    "scripts/windows/probe-caddy-native.mjs": "fd80a69864d330f280c509c1543135bda0e2a069df4513e35f1fd69828d27ee1",
+    "tests/evidence.test.ts": "1a4e814917435ac7b1f597f35310384d30f2b03a57ebd5e64ac2249ddfb078bf",
+    "tests/caddy-failure-diagnostics.test.ts": "c9e3debb89ab933ce136c2f2813b0eb7abb37d8515c7b8c576adbdd46d8b16eb"
+  },
+  "verificationHashes": {
+    "f09-o-red.json": "0726b3e6d13f1fe204a5e95d58ba3af321ac727eda9968e5efb9d865c957b3a2",
+    "f09-o-gate-red.json": "cac08de09d68ceef237b9aff22b448cac37921ba2228e8d2373d223727fb078d",
+    "f09-o-target.json": "9ce283b1dc354f61fca663a52d7c0202d6cd28c4d56cd0ca53cb0c908ce845de",
+    "f09-o-full.json": "7e37b418d5a32c31c6ed32e92a3d70b3861a5f5310710f11a7030a52e7b0215b",
+    "f09-o-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f09-o-build.log": "7902ca814592a4cc01bac337cbaa77c1069048f4296749db06d1e4595ef7e704"
+  },
+  "failureDiagnostic": "Isolated signed Caddy child output tail8192UTF8bytes, original child capture65536 kill budget unchanged; phase/errorCode/child exit/signal observed after cleanup, no arbitrary exception message/cause/env. Always failed:true/diagnosticOnly:true, never authority. Existing full native Caddy gates unchanged.",
+  "rootCause": "Original Caddy failure remains unknown; diagnostic source is not a functional fix or Windows acceptance.",
+  "windows": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

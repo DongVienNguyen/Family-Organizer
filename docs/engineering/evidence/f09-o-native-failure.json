@@ -1,0 +1,71 @@
+{
+  "taskId": "F09-o",
+  "testedHeadSha": "66c18866ca816fb2037816f77fe097fde38c25c5",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38430254887",
+  "checks": "Browser/Node22/producer/consumer/service pass; Node24 Caddy andci-gate failed",
+  "qualityCore": [
+    {
+      "major": 22,
+      "tests": 2804,
+      "files": 136,
+      "jsonSha256": "1f14ae6da8412be9218287fa450a1bf3016d10446d27405fa5534baa59a1e17b",
+      "junitSha256": "62184958b6a2bbbe7487118b8fe17e6db2eafb31a09f54bb6a9e6ebcc4eb9b89"
+    },
+    {
+      "major": 24,
+      "tests": 2804,
+      "files": 136,
+      "jsonSha256": "ca8349624a4b6ab9cb17157eb83449f17a8256fc74283446816b66fc7413221f",
+      "junitSha256": "e3a5b5ab044401cd1167207b34e24db642620ac88b866802840de54a114bdc02"
+    }
+  ],
+  "browserFirstAttempt": 42,
+  "independentPassingReaders": [
+    "browser",
+    "package",
+    "service",
+    "coverage",
+    "extraction-sdk",
+    "inner-native"
+  ],
+  "caddyFailure": {
+    "probe": {
+      "commitSha": "66c18866ca816fb2037816f77fe097fde38c25c5",
+      "phases": [
+        {
+          "name": "version",
+          "exitCode": 0,
+          "signal": null
+        },
+        {
+          "name": "validate",
+          "exitCode": 0,
+          "signal": null
+        }
+      ],
+      "failed": true,
+      "fixtureCleanup": true,
+      "systemTrustInstalled": false,
+      "server2019Acceptance": "not-run"
+    },
+    "wrapper": {
+      "zipSha256": "0a1edc0b799512051c57071ce0e798d3f2cf67dc98171366f1d2b326072e3b06",
+      "licenseSha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "server2019Acceptance": "not-run",
+      "zipSha512": "c308154504e53755958ffc62d8a2657ab17eefd6dd25c45dbb2c3d93d29519971f77ca652f7d0f2bcb7f980b9ba3822478865e29969d0272d7613550a43152b1",
+      "exitCode": 1,
+      "nativeExitCodes": {
+        "probe": 1,
+        "download": 0
+      },
+      "fixtureCleanup": false,
+      "systemTrustInstalled": false,
+      "commitSha": "66c18866ca816fb2037816f77fe097fde38c25c5"
+    },
+    "underlyingCause": "unknown: prior probe discarded captured child output and exception context. Version/validate passed; no TLS held phase. Diagnostic change does not claim root cause fixed."
+  },
+  "allSevenArtifactsRetained": true,
+  "fullLogSha256": "c6dfe0e816f036695289b21fdc339df53a21348c51b17b839fb383db54005bc9",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
