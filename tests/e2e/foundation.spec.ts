@@ -73,11 +73,13 @@ test(browserCases[0], async ({ page }) => {
   await menu.getByRole('button', { name: 'Ghi chú', exact: true }).click();
   await expect(menu).toHaveCount(0);
   await expect(page.getByText('Synthetic shared note', { exact: true })).toBeVisible();
+  await expect(page.getByText('Synthetic shared content', { exact: true })).toBeVisible();
   const wasDark = await page.locator('html').evaluate(element => element.classList.contains('dark'));
   await page.getByTitle(wasDark ? 'Chuyển sang Giao diện Sáng' : 'Chuyển sang Giao diện Tối', { exact: true }).click();
   await expect.poll(() => page.locator('html').evaluate(element => element.classList.contains('dark'))).toBe(!wasDark);
   await page.reload();
   await expect(page.getByText('Synthetic shared note', { exact: true })).toBeVisible();
+  await expect(page.getByText('Synthetic shared content', { exact: true })).toBeVisible();
   expect(await page.locator('html').evaluate(element => element.classList.contains('dark'))).toBe(!wasDark);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await logout(page);

@@ -1,0 +1,29 @@
+{
+  "taskId": "F08-f/F09-d",
+  "headSha": "edb09e0d03a12648a6b245fef621d5ab009b7ff8",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38347336919",
+  "conclusion": "failure",
+  "failedCheck": "Windows Node22 baseline",
+  "cause": "Pinned SDK official transfer curl28 after60001ms;1572864 of2790906 bytes received; SDKprepare exited1 before npmci",
+  "Node22Checks": {
+    "install": "skipped",
+    "native": "skipped",
+    "lint": "skipped",
+    "test": "skipped",
+    "build": "skipped",
+    "production": "skipped",
+    "audit": "skipped",
+    "coverage": "skipped"
+  },
+  "Node22Tests": "not-run",
+  "otherChecks": [
+    "Node24",
+    "production browsers24",
+    "package producer",
+    "package clean consumer",
+    "disposable service succeeded"
+  ],
+  "ciGate": "failure",
+  "logSha256": "a9f4abb3bf9ddbd8586c451add7ee013d85327a2a48108a419bacebb20a7ee3a",
+  "remaining": "No unchanged rerun; PR46 newSHA baseline22/24 already success, otherchecks pending. Need full exactPR46 and newmain evidence; do not label failedmain as passed"
+}
