@@ -20,7 +20,7 @@
     "actualBrowserExecution": false
   },
   "browserNative": "not-run",
-  "review": "not-run",
+  "review": "one complete0Critical0Important1Minor; source snapshot traceability accepted in one documentation correction, no rereview",
   "ci": "not-run",
   "server2019Acceptance": "not-run",
   "releaseTagVps": "forbidden",
@@ -38,5 +38,14 @@
     "freshduplicateapproval400doesnotgrant",
     "reloadapprovedfullRowandrewards",
     "ChildreloginandreloadseessameTaskandownGrant"
-  ]
+  ],
+  "testedSourceSnapshot": {
+    "commitSha": "f5c8fc6d789238b50d53cc9274c7af24bbb4f58d",
+    "executionState": "Source frozen while dirty, these exact source bytes committed after full verification; documentation generated afterward",
+    "sourceFileSha256": {
+      "scripts/ci/browser-contract.mjs": "a7501e1a45cc356ab46345188010a8211dbf8d2fc8fa3bd87f6662d6227d7f05",
+      "tests/browser-evidence.test.ts": "fdd93172d1cdb6aa37379d0926b6cf79e5dea531fea372f153b5ad2dac7f2046",
+      "tests/e2e/foundation.spec.ts": "ecb5776c4336a369bcda62449136827bfa3d7336bc067fee8b282df82510b3fa"
+    }
+  }
 }
