@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { test as base, expect, type Page } from '@playwright/test';
 import { browserCases } from '../../scripts/ci/browser-contract.mjs';
 import {assertChildMemberBoundary,exerciseMemberBoundaryFixtures} from './member-boundary';
+import {platformProbeScript} from './platform-probe';
 
 const test = base.extend<{ networkBoundary: void }>({
   networkBoundary: [async ({ context, page, baseURL }, use) => {
@@ -471,6 +472,8 @@ test('B08 adult child approval rewards persistence', async ({ page, browserName 
 
 test('B09 self profile settings persistence', async ({ page, browser, browserName }) => {
   console.log('B09_PROTOCOL_WINDOW '+browserName);
+  page.on('console',message=>{if(message.type()==='log'&&message.text().startsWith('B09_PLATFORM_BOUNDARY '))console.log(message.text());});
+  await page.addInitScript({content:platformProbeScript});
   // Isolate document-replacement fixtures in an owned browser process. The
   // application browser continues to exercise all real functional assertions.
   const boundaryBrowser = await browser.browserType().launch();
