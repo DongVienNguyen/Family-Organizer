@@ -49,7 +49,6 @@ function legacyDueString(task:StoredTask):string {
 export function toLegacyTask(task:StoredTask):Task {
  const status=task.lifecycle==='in_progress'?TaskStatus.IN_PROGRESS:task.lifecycle==='completed'?TaskStatus.COMPLETED:TaskStatus.TODO;
  if(task.lifecycle==='wont_do')throw new Error('Legacy runtime cannot represent wont_do before cutover');
- if(task.priority==='none')throw new Error('Legacy runtime cannot represent priority none before cutover');
  const priority=task.priority==='high'?TaskPriority.HIGH:task.priority==='medium'?TaskPriority.MEDIUM:TaskPriority.LOW;
  return {...structuredClone(task.legacy),id:task.id,title:task.title,description:task.body,status,priority,dueDate:legacyDueString(task),creatorId:task.creatorId,assigneeId:task.assigneeId,isShared:task.isShared,tags:[...task.tagIds],pendingApproval:task.pendingApproval,rewardPoints:task.rewardPoints};
 }

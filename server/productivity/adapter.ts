@@ -39,7 +39,7 @@ export function activateCanonicalTasks(tx:Gateway.AppWriteTx,expectedDigest:stri
  if(!/^[a-f0-9]{64}$/.test(expectedDigest)||legacyTaskDigest(tx.legacy.tasks)!==expectedDigest)throw new Error('Legacy source changed since preview');
  const rows=loadTasks(tx);if(rows.length!==tx.legacy.tasks.length)throw new Error('Pilot source cardinality changed');
  const byId=new Map(rows.map(row=>[row.id,row]));
- for(const legacy of tx.legacy.tasks){const row=byId.get(legacy.id);if(!row||!isDeepStrictEqual(row.legacy,legacy)||row.deletedAt!==null)throw new Error('Pilot source changed since preview');projection(row);}
+ for(const legacy of tx.legacy.tasks){const row=byId.get(legacy.id);if(!row||!isDeepStrictEqual(row.legacy,legacy)||row.deletedAt!==null)throw new Error('Pilot source changed since preview');if(row.priority!==legacy.priority)throw new Error('Pilot priority differs from legacy source before activation');projection(row);}
  tx.run('DELETE FROM tasks');tx.run('INSERT INTO app_meta(key,value) VALUES(?,?)','productivity_active','1');
  return {alreadyActive:false,tasks:rows.length};
 }
@@ -55,7 +55,7 @@ function syncLegacyTasks(tx:Gateway.AppWriteTx,after:Task[]):void {
   const due=task.dueDate===projection(row).dueDate?row.due:parseLegacyDue(task.dueDate,'Asia/Saigon').due;
   if(due.kind==='none'&&task.dueDate!==''&&task.dueDate!==projection(row).dueDate)throw new Error('Legacy deadline needs explicit recovery');
   const lifecycle=task.status==='overdue'?(row.lifecycle==='in_progress'?'in_progress':'todo'):task.status;
-  savePilotTask(tx,{...row,title:task.title,body:task.description,lifecycle,priority:task.priority,due,creatorId:task.creatorId,assigneeId:task.assigneeId,isShared:task.isShared,tagIds:[...task.tags],pendingApproval:task.pendingApproval??false,rewardPoints:task.rewardPoints??0,legacy:structuredClone(task),revision:row.revision+1});
+  savePilotTask(tx,{...row,title:task.title,body:task.description,lifecycle,priority:task.priority===projection(row).priority?row.priority:task.priority,due,creatorId:task.creatorId,assigneeId:task.assigneeId,isShared:task.isShared,tagIds:[...task.tags],pendingApproval:task.pendingApproval??false,rewardPoints:task.rewardPoints??0,legacy:structuredClone(task),revision:row.revision+1});
  }
  for(const row of rows)if(row.deletedAt===null&&!seen.has(row.id))savePilotTask(tx,{...row,deletedAt:new Date().toISOString(),revision:row.revision+1});
 }
