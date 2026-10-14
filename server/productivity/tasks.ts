@@ -30,11 +30,22 @@ export function assertContext(ctx:AppCommand,reader:TaskReader):User {
 function assertAssignee(tx:AppWriteTx,id:string|null):void {
  if(id!==null&&!tx.legacy.users.some(user=>user.id===id&&!user.isDeleted&&Object.values(UserRole).includes(user.role)))throw new AppStoreError('Người được giao không hợp lệ.',422,'task-assignee');
 }
-function assertCreateList(reader:TaskReader,actor:AppActor,listId:string):void {
+export function assertCreateList(reader:TaskReader,actor:AppActor,listId:string):void {
  const list=reader.get('SELECT owner_id,is_shared FROM productivity_lists WHERE id=?',listId),permission=listPermission(reader,actor,listId);
  if(!list||!list.is_shared&&list.owner_id!==actor.userId&&permission===undefined&&actor.role!==UserRole.ADMIN)throw new AppStoreError('Không tìm thấy danh sách.',404,'task-list');
  if(actor.role===UserRole.ADMIN||actor.role===UserRole.CHILD&&(list.is_shared||list.owner_id===actor.userId)||actor.role===UserRole.MEMBER&&(permission==='write'||permission==='manage'))return;
  throw new AppStoreError('Bạn không có quyền tạo công việc.',403,'task-forbidden');
+}
+
+/** Trusted synchronous composition under the caller-owned gateway transaction, never a second writer. */
+export function createTaskWithinTransaction(tx:AppWriteTx,ctx:AppCommand,input:CreateTaskInput,organize?:(row:StoredTask)=>void):StoredTask {
+ payload(input,createFields);
+    const user=assertContext(ctx,tx);assertCreateList(tx,ctx.actor,input.listId);const now=new Date().toISOString(),id=randomUUID();
+    const row:StoredTask={id,listId:input.listId,sectionId:null,parentId:null,title:input.title,body:input.body??'',lifecycle:'todo',priority:input.priority??'none',due:input.due??{kind:'none'},scheduledStart:null,scheduledEnd:null,creatorId:user.id,assigneeId:input.assigneeId??null,isShared:input.isShared??false,tagIds:input.tagIds??[],blocked:false,blockedReason:null,pendingApproval:false,rewardPoints:0,revision:1,deletedAt:null,rank:1024,legacy:{id,title:input.title,description:input.body??'',status:TaskStatus.TODO,priority:TaskPriority.LOW,dueDate:'',creatorId:user.id,assigneeId:input.assigneeId??null,isShared:input.isShared??false,tags:input.tagIds??[],rewardPoints:0,pendingApproval:false,comments:[],history:[{id:randomUUID(),userId:user.id,username:user.username,action:'Tạo công việc',createdAt:now}],createdAt:now,updatedAt:now}};
+    validate(row);assertAssignee(tx,row.assigneeId);
+    const maximum=tx.get('SELECT max(rank) AS rank FROM productivity_tasks WHERE list_id=?',row.listId)?.rank??0;row.rank=maximum+1024;
+    if(!Number.isSafeInteger(row.rank))throw new AppStoreError('Thứ tự công việc vượt giới hạn.',422);
+    organize?.(row);savePilotTask(tx,row,ctx.actor);return row;
 }
 /** Explicit trusted ports keep module imports free of connections/lifecycle work.
  * Fresh ACL preflight precedes gateway cache lookup; repeats cannot bypass a
@@ -46,14 +57,7 @@ export function createTaskCommands(ports:{write:typeof withAppWriteTransaction;r
   createTask(ctx:AppCommand,input:CreateTaskInput):StoredTask {
    payload(input,createFields);try{text(input.listId,256);}catch{throw new AppStoreError('Danh sách không hợp lệ.',422,'task-list');}assertContext(ctx,ports.reader);assertCreateList(ports.reader,ctx.actor,input.listId);if(input.tagIds!==undefined)assertTagSelection(ports.reader,ctx.actor,input.tagIds);
    if(ctx.expectedRevision!==0)throw new AppStoreError('Phiên bản tạo mới phải bằng 0.',409,'edit-conflict');
-   return run(ctx,'create',input,tx=>{
-    const user=assertContext(ctx,tx);assertCreateList(tx,ctx.actor,input.listId);const now=new Date().toISOString(),id=randomUUID();
-    const row:StoredTask={id,listId:input.listId,sectionId:null,parentId:null,title:input.title,body:input.body??'',lifecycle:'todo',priority:input.priority??'none',due:input.due??{kind:'none'},scheduledStart:null,scheduledEnd:null,creatorId:user.id,assigneeId:input.assigneeId??null,isShared:input.isShared??false,tagIds:input.tagIds??[],blocked:false,blockedReason:null,pendingApproval:false,rewardPoints:0,revision:1,deletedAt:null,rank:1024,legacy:{id,title:input.title,description:input.body??'',status:TaskStatus.TODO,priority:TaskPriority.LOW,dueDate:'',creatorId:user.id,assigneeId:input.assigneeId??null,isShared:input.isShared??false,tags:input.tagIds??[],rewardPoints:0,pendingApproval:false,comments:[],history:[{id:randomUUID(),userId:user.id,username:user.username,action:'Tạo công việc',createdAt:now}],createdAt:now,updatedAt:now}};
-    validate(row);assertAssignee(tx,row.assigneeId);
-    const maximum=tx.get('SELECT max(rank) AS rank FROM productivity_tasks WHERE list_id=?',row.listId)?.rank??0;row.rank=maximum+1024;
-    if(!Number.isSafeInteger(row.rank))throw new AppStoreError('Thứ tự công việc vượt giới hạn.',422);
-    savePilotTask(tx,row,ctx.actor);return row;
-   });
+   return run(ctx,'create',input,tx=>createTaskWithinTransaction(tx,ctx,input));
   },
   updateTask(ctx:AppCommand,id:string,patch:TaskPatch):StoredTask {
    payload(patch,patchFields);assertContext(ctx,ports.reader);createTaskAccess(ports.reader).assertTaskCommand(ctx.actor,id,'update');if(patch.tagIds!==undefined)assertTagSelection(ports.reader,ctx.actor,patch.tagIds);

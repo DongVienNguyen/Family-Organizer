@@ -34,3 +34,27 @@ it('cache getters deep copy state and subscribe snapshots remain stable between 
 it('mismatched response IDs and stale revisions cannot replace the requested task',async()=>{
  const cache=createTaskCache();await cache.load(task.id,async()=>task);await expect(cache.load(task.id,async()=>({...task,id:'forged-other-task'}))).rejects.toThrow();expect(cache.record(task.id)).toBeUndefined();await cache.load(task.id,async()=>({...task,revision:8}));await expect(cache.load(task.id,async()=>({...task,revision:7}))).rejects.toThrow();expect(cache.record(task.id)).toBeUndefined();
 });
+it('a lost save response retries the same idempotency key and payload without a second command identity',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);cache.edit(task.id,{title:'Retry title'});const calls:any[][]=[];
+ const saver=async(...args:any[])=>{calls.push(args);if(calls.length===1)throw Error('Synthetic lost response');return {...task,title:'Retry title',revision:8};};
+ await expect(cache.save(task.id,saver)).rejects.toThrow('Synthetic lost response');await cache.save(task.id,saver);expect(calls[0][3]).toMatch(/^[a-f0-9-]{36}$/);expect(calls[1]).toEqual(calls[0]);expect(cache.record(task.id)?.revision).toBe(8);
+});
+it('temporary invalid form values survive editing while save validation prevents every network write',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);cache.edit(task.id,{title:''});let commands=0;await expect(cache.save(task.id,async()=>{commands++;return task;})).rejects.toThrow();expect(commands).toBe(0);expect(cache.draft(task.id)?.values.title).toBe('');cache.edit(task.id,{title:'Corrected title'});await cache.save(task.id,async()=>{commands++;return {...task,title:'Corrected title',revision:8};});expect(commands).toBe(1);expect(cache.record(task.id)?.title).toBe('Corrected title');
+});
+it('an authoritative full visible list purges omitted private drafts and retains authorized dirty drafts',async()=>{
+ const cache=createTaskCache(),other={...task,id:'synthetic-private-other',title:'Synthetic private other'};await cache.load(task.id,async()=>task);await cache.load(other.id,async()=>other);cache.open(task.id);cache.edit(task.id,{title:'Keep own draft'});cache.open(other.id);cache.edit(other.id,{body:'Revoked private draft'});
+ cache.replaceVisible([task]);expect(cache.record(other.id)).toBeUndefined();expect(cache.draft(other.id)).toBeUndefined();expect(cache.draft(task.id)?.values.title).toBe('Keep own draft');
+});
+it('full-list replacement rejects duplicates before mutating state and does not replace a newer accepted revision',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>({...task,revision:8,title:'Newer accepted task'}));expect(()=>cache.replaceVisible([task,task])).toThrow();expect(cache.record(task.id)?.title).toBe('Newer accepted task');cache.replaceVisible([task]);expect(cache.record(task.id)?.revision).toBe(8);
+});
+it('effect cleanup clears private state immediately and old loads cannot cross a fresh lifecycle generation',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);const pending=deferred<TaskRecord>(),old=cache.load(task.id,()=>pending.promise);cache.clear();expect(cache.record(task.id)).toBeUndefined();expect(cache.draft(task.id)).toBeUndefined();await cache.load(task.id,async()=>({...task,title:'Fresh lifecycle',revision:8}));pending.resolve({...task,title:'Old lifecycle private text',revision:9});await old;expect(cache.record(task.id)?.title).toBe('Fresh lifecycle');
+});
+it('a cleared lifecycle ignores old save completions and preserves the new lifecycle draft',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);cache.edit(task.id,{title:'Old pending save'});const pending=deferred<TaskRecord>(),old=cache.save(task.id,()=>pending.promise);cache.clear();await cache.load(task.id,async()=>({...task,title:'Fresh task',revision:9}));cache.open(task.id);cache.edit(task.id,{title:'Fresh draft'});pending.resolve({...task,title:'Old pending save',revision:8});await old;expect(cache.record(task.id)?.title).toBe('Fresh task');expect(cache.draft(task.id)?.values.title).toBe('Fresh draft');cache.dispose();expect(()=>cache.clear()).toThrow();
+});
+it('raw tag entry and captured labels stay with the draft across view close/refresh',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);cache.tagEditor(task.id,'Original label');cache.editTagText(task.id,'Original label, ambiguous draft');await cache.load(task.id,async()=>({...task,revision:8}));cache.open(task.id);expect(cache.draft(task.id)?.tagEditor).toEqual({originalText:'Original label',text:'Original label, ambiguous draft'});cache.clear();expect(cache.draft(task.id)).toBeUndefined();
+});

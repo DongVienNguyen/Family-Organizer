@@ -1,3 +1,4 @@
+import {taskPinSchemaSql} from '../../server/productivity/pinSchema.js';
 // CI-only synthetic seed builder; never included in the production ZIP.
 import fs from 'node:fs';
 import {UserRole} from '../../src/types.js';
@@ -20,7 +21,8 @@ try{
  command(tx=>{const row=store.loadTask(tx,'canonical-task')!;tx.run('INSERT INTO productivity_sections(id,list_id,title) VALUES(?,?,?)','canonical-section',row.listId,'Synthetic section');store.savePilotTask(tx,{...row,parentId:'canonical-parent',sectionId:'canonical-section',rank:7777});tx.run('INSERT INTO productivity_matrix_pins(view_id,task_id,quadrant) VALUES(?,?,?)','synthetic-view',row.id,'q2');bridge.activateCanonicalTasks(tx,bridge.legacyTaskDigest(tx.legacy.tasks));});
  command(tx=>tx.run('INSERT INTO productivity_check_items VALUES(?,?,?,?,?)','canonical-check','canonical-task','Synthetic compiled checklist',1,1024));
  command(tx=>{tx.run('INSERT INTO productivity_tags VALUES(?,?)','canonical-owner-tag','Synthetic owned catalog tag');tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)','canonical-owner-tag','package-admin');});
- const columns=productivityTablesAt(3);
- const value=command(tx=>({format:1,commitSha,schemaSql:productivitySchemaAt(3),v1SchemaSql:schemaSql,structureSchemaSql,tagOwnershipSchemaSql,version:3,columns,tables:Object.fromEntries(Object.keys(columns).map(name=>[name,tx.all(`SELECT * FROM ${name}`)])),migration:tx.get("SELECT * FROM app_migrations WHERE namespace='productivity' AND version=1"),migrations:tx.all("SELECT * FROM app_migrations WHERE namespace='productivity' ORDER BY version")}));
+ command(tx=>tx.run('INSERT INTO productivity_task_pins VALUES(?,?,?,?)','package-admin','canonical-task',1,1));
+ const columns=productivityTablesAt(4);
+ const value=command(tx=>({format:1,commitSha,schemaSql:productivitySchemaAt(4),v1SchemaSql:schemaSql,structureSchemaSql,tagOwnershipSchemaSql,taskPinSchemaSql,version:4,columns,tables:Object.fromEntries(Object.keys(columns).map(name=>[name,tx.all(`SELECT * FROM ${name}`)])),migration:tx.get("SELECT * FROM app_migrations WHERE namespace='productivity' AND version=1"),migrations:tx.all("SELECT * FROM app_migrations WHERE namespace='productivity' ORDER BY version")}));
  fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify(value,null,2)+'\n');
 }finally{sqlite?.sqliteClose();fs.rmSync(root,{recursive:true,force:true});}

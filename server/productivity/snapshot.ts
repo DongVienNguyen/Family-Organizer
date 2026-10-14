@@ -49,6 +49,7 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
   for(const row of tables.productivity_check_items){text(row.id,256);text(row.text,2000);integer(row.rank);if(!tasks.has(row.task_id)||![0,1].includes(row.is_done))fail();const key=JSON.stringify([row.task_id,row.rank]);if(ranks.has(key))fail();ranks.add(key);}
  }
  if(snapshot.manifest.domains.productivity>=3){if(!tables.productivity_tag_owners)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));for(const row of tables.productivity_tag_owners){text(row.tag_id,256);text(row.user_id,256);if(!tags.has(row.tag_id)||!users.has(row.user_id))fail();}}
+ if(snapshot.manifest.domains.productivity>=4){if(!tables.productivity_task_pins)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));for(const row of tables.productivity_task_pins){text(row.task_id,256);text(row.user_id,256);integer(row.revision,1);if(!tasks.has(row.task_id)||!users.has(row.user_id)||![0,1].includes(row.is_pinned))fail();}}
  if(marker==='1'){
   const order=(a:string,b:string)=>Buffer.compare(Buffer.from(a,'utf8'),Buffer.from(b,'utf8'));
   const projected=[...tasks.values()].filter(row=>row.deleted_at===null).sort((a,b)=>a.rank-b.rank||order(a.id,b.id)).map(row=>projectLegacyTask(decodeTaskRow(row,(tagRows.get(row.id)??[]).sort(order))));

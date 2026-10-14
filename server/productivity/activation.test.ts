@@ -34,13 +34,13 @@ it('activation is repeatable without changing row IDs, revision or legacy raw wr
  command(tx=>{expect(activateCanonicalTasks(tx,digest).alreadyActive).toBe(true);expect(loadTask(tx,'source')!.revision).toBe(before.revision);expect(tx.get('SELECT count(*) AS n FROM tasks').n).toBe(0);});
 });
 
-it.each([1,2,3])('active readers and writers refuse a changed migration checksum version%s',version=>{
+it.each([1,2,3,4])('active readers and writers refuse a changed migration checksum version%s',version=>{
  setup();const connection=sqlite.sqliteConnection();const prior=connection.prepare("SELECT checksum FROM app_migrations WHERE namespace='productivity' AND version=?").get(version) as {checksum:string};
  connection.prepare("UPDATE app_migrations SET checksum='unsupported' WHERE namespace='productivity' AND version=?").run(version);
  try{expect(()=>sqlite.sqliteLoad()).toThrow(/migration/i);expect(()=>command(tx=>{tx.legacy.tasks[0].title='Must not write';})).toThrow(/migration/i);}finally{connection.prepare("UPDATE app_migrations SET checksum=? WHERE namespace='productivity' AND version=?").run(prior.checksum,version);}
  expect(sqlite.sqliteLoad().tasks[0].title).toBe('Synthetic task source');
 });
 it('repeat activation rejects an unsupported newer productivity migration and rolls it back',()=>{
- setup();let activationReached=false;expect(()=>command(tx=>{const prior=tx.get("SELECT * FROM app_migrations WHERE namespace='productivity'");tx.run('INSERT INTO app_migrations(namespace,version,checksum,applied_at) VALUES(?,?,?,?)','productivity',4,'future',prior.applied_at);activationReached=true;activateCanonicalTasks(tx,'0'.repeat(64));})).toThrow('Unsupported productivity migration');expect(activationReached).toBe(true);
- expect(sqlite.sqliteConnection().prepare("SELECT version FROM app_migrations WHERE namespace='productivity' ORDER BY version").all()).toEqual([{version:1},{version:2},{version:3}]);
+ setup();let activationReached=false;expect(()=>command(tx=>{const prior=tx.get("SELECT * FROM app_migrations WHERE namespace='productivity'");tx.run('INSERT INTO app_migrations(namespace,version,checksum,applied_at) VALUES(?,?,?,?)','productivity',5,'future',prior.applied_at);activationReached=true;activateCanonicalTasks(tx,'0'.repeat(64));})).toThrow('Unsupported productivity migration');expect(activationReached).toBe(true);
+ expect(sqlite.sqliteConnection().prepare("SELECT version FROM app_migrations WHERE namespace='productivity' ORDER BY version").all()).toEqual([{version:1},{version:2},{version:3},{version:4}]);
 });

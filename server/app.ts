@@ -740,7 +740,7 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 
 // --- TASK API ENDPOINTS ---
 if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));
-if(dependencies.productivity)app.use('/api/productivity',structureRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous,false),catalog:audience=>broadcastSyncEvent('PRODUCTIVITY_CATALOG_UPDATE',{},audience)}));
+if(dependencies.productivity)app.use('/api/productivity',structureRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous,false),catalog:audience=>broadcastSyncEvent('PRODUCTIVITY_CATALOG_UPDATE',{},audience),pin:actorId=>broadcastSyncEvent('PRODUCTIVITY_PIN_UPDATE',{},new Set([actorId]))}));
 
 app.get('/api/tasks/:id',requireAuth,(req:AuthRequest,res:Response)=>{
  try{const task=FamilyDB.getTasks().find(row=>row.id===req.params.id&&canViewLegacyTask(row,req.userSession!));if(!task){res.status(404).json({error:'Không tìm thấy công việc.'});return;}res.json({task});}

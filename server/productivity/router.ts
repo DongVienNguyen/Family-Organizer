@@ -1,3 +1,4 @@
+import type {createTaskPins} from './pins.js';
 import {Router,type Request,type RequestHandler} from 'express';
 import {AppStoreError,httpErrorStatus} from '../appErrors.js';
 import {getAppCommandContext} from '../commandContext.js';
@@ -8,7 +9,7 @@ import type {createTaskCommands} from './tasks.js';
 import type {StoredTask} from './store.js';
 import type {createStructureCommands} from './structure.js';
 import type {createStructureEventScope} from './structureEvents.js';
-export interface ProductivityPorts {active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
+export interface ProductivityPorts {pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
 export interface TaskRequest extends Request {userSession?:AppActor}
 export const taskDto=(row:StoredTask)=>{const {legacy:_,rank:__,...task}=row;return task;};
 function requestBody(req:Request,field:'input'|'patch'):Record<string,any>{

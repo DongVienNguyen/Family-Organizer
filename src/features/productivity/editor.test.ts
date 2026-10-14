@@ -23,3 +23,6 @@ it('checklist/list projections can share one draft without resetting its revisio
 it('unchanged due values are semantic even when JSON property order differs',()=>{
  const task={...syntheticTask,due:{kind:'all_day' as const,date:'2028-02-29',timezone:'Asia/Saigon'}};const draft=editTaskDraft(createTaskDraft(task),{due:{timezone:'Asia/Saigon',date:'2028-02-29',kind:'all_day'}});expect(changedTaskFields(task,draft)).toEqual({});
 });
+it('an incomplete title remains in the draft but cannot become a publishable patch',()=>{
+ const draft=editTaskDraft(createTaskDraft(syntheticTask),{title:''});expect(draft.values.title).toBe('');expect(()=>changedTaskFields(syntheticTask,draft)).toThrow();expect(syntheticTask.title).toBe('Synthetic task');
+});
