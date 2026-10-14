@@ -16,3 +16,26 @@ it('ambiguous visible names refuse a new association while unchanged existing du
 it('removal and Adult legacy freeform preserve intended identities and do not consult hidden names',()=>{
  expect(resolveTagInput('Công việc',tags,['synthetic-uuid','synthetic-work'],'Gia đình, Công việc')).toEqual(['synthetic-work']);expect(resolveTagInput('New visible freeform',tags,[],'')).toEqual(['New visible freeform']);expect(resolveTagInput('',tags,['synthetic-uuid'],'Gia đình')).toEqual([]);
 });
+
+it('partial draft edits preserve captured IDs after rename and while the catalog refreshes',()=>{
+ const original=tagInput(['synthetic-uuid'],tags);
+ expect(resolveTagInput(original+', Công việc',[{id:'synthetic-uuid',name:'New'},tags[1]],['synthetic-uuid'],original)).toEqual(['synthetic-uuid','synthetic-work']);
+ const both=tagInput(['synthetic-uuid','synthetic-work'],tags);
+ expect(resolveTagInput(both+', New freeform',[],['synthetic-uuid','synthetic-work'],both)).toEqual(['synthetic-uuid','synthetic-work','New freeform']);
+ expect(resolveTagInput('Công việc',[],['synthetic-uuid','synthetic-work'],both)).toEqual(['synthetic-work']);
+});
+it('accepted punctuation-containing labels round trip losslessly through addition and removal',()=>{
+ const special=[{id:'comma',name:'Home, family'},{id:'quoted',name:'Say "hello", please'},{id:'work',name:'Work'}];
+ const original=tagInput(['comma','quoted'],special);
+ expect(resolveTagInput(original+', Work',special,['comma','quoted'],original)).toEqual(['comma','quoted','work']);
+ expect(resolveTagInput(tagInput(['quoted','work'],special),special,['comma','quoted'],original)).toEqual(['quoted','work']);
+ expect(resolveTagInput(tagInput(['comma'],special),special,[],'')).toEqual(['comma']);
+ expect(resolveTagInput('"Home, family"',[],['comma'],tagInput(['comma'],special))).toEqual(['comma']);
+ expect(()=>resolveTagInput('"Home, family',special,[],'')).toThrow();
+});
+it('unchanged duplicate groups permit unrelated additions but partial groups stay ambiguous',()=>{
+ const duplicate=[{id:'first',name:'Same'},{id:'second',name:'Same'},{id:'work',name:'Work'}],original=tagInput(['first','second'],duplicate);
+ expect(resolveTagInput(original+', Work',duplicate,['first','second'],original)).toEqual(['first','second','work']);
+ expect(()=>resolveTagInput('Same, Work',duplicate,['first','second'],original)).toThrow('task-tag-ambiguous');
+ expect(resolveTagInput('Work',duplicate,['first','second'],original)).toEqual(['work']);
+});
