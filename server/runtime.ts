@@ -36,6 +36,8 @@ export async function startApplication(config: AppConfig = appConfig) {
     }
     sqlite = await import('./sqlite.js');
     const storage = sqlite;
+    const {configureTaskStorage}=await import('./productivity/bootstrap.js');
+    await configureTaskStorage(storage);
     const { recoverAppRestore } = await import('./appSnapshot.js');
     recoverAppRestore();
     reloadProviderEnvironment(); // Recovered .env precedes db -> push/provider module evaluation.

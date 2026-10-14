@@ -1,0 +1,70 @@
+{
+  "taskId": "P02-b1",
+  "observedAt": "2026-10-14T10:40:35.666013+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/69",
+  "testedHeadSha": "8e56cb79f9a72552009fa3611418ddc2f827603f",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38506513159",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "a25bb1b5be2892738cd5b4e9adbc18847f1020b599ea04b3f523f72102a2e9fe",
+    "coverage": "35a4a647ca81143ef293efa40c21b241e287140f2a69339372dbd4f207b29bc1",
+    "package": "e5b7fd935144fa251e0eb88b6a65bd992af6915245ec55ac360cf95663f6a49a",
+    "service": "b0ba4e4fb046b15ee478044cb8dbc8c654e226bed460014e3381c0f9649fb2d1",
+    "caddy": "a5f753ed19758a00009ceac234bede197ce2efb30ca32f50dfd4afe0fd96b892",
+    "extraction-sdk": "4b215d41acd89673d78c3501b435e240d386177dcd9d7825a88699c18db6e164",
+    "inner-native": "d0d9df893a90c1f3e30d1b24cab20042345b7619eb59d41a36ca7695108f2d37",
+    "browser": "d71a4cfc17318d35c5093da0ae0c93a954aa261d2dc77a90731559a0070e3753"
+  },
+  "qualityEach": 2942,
+  "qualityFilesEach": 147,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "e1b07d5dded491cabfaae1cdda96cf95e6646392bc8e2687cda1c02334533a8e",
+  "fullCiLogZipSha256": "e553a601c9bb17fc49c21fc59c90d1a1a4e959199db8a2550b61eb8ed17ab36c",
+  "review": "ONE0C4I1M; all author-graded before one correction pass; Important4 fixed six new causal REDs plus two downstream failures\u2192GREEN; Cloud2942/147 all0 and lint/build0; no rereview",
+  "deferredMinors": [
+    "M1 new legacy task append ordering reverses after rank assignment"
+  ],
+  "sourceTaskRuntimeEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P02-b2 startup/package schema manifest and compiled runtime proofs; fullP02/P03 pending",
+  "mergedMainSha": "d3209eea818ff7eaf6624b12ad6783faba826e20",
+  "mergeTreeEqualsTestedTree": true,
+  "productionRuntimeEnabled": false,
+  "reviewMinorsDeferred": [
+    "New legacy task append order reverses after rank assignment"
+  ],
+  "fullP02Complete": false
+}

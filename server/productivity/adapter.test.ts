@@ -1,3 +1,6 @@
+import {inspectRecoverySnapshot} from '../recoverySnapshotInspection.js';
+import path from 'node:path';
+import fs from 'node:fs';
 import {it,expect} from 'vitest';
 import {randomUUID} from 'node:crypto';
 import * as sqlite from '../sqlite.js';
@@ -80,4 +83,9 @@ it('a fresh process reconstructs canonical legacy projection from persisted data
  const loader=pathToFileURL(createRequire(import.meta.url).resolve('tsx')).href;
  const result=spawnSync(process.execPath,['--import',loader,'--input-type=module','-e',code],{env:{...env,DATA_DIR:process.env.DATA_DIR!,NODE_ENV:'test'},encoding:'utf8',timeout:15000});
  expect(result.error).toBeUndefined();expect(result.status,result.stderr).toBe(0);expect(JSON.parse(result.stdout.trim())).toEqual({ids:['parent'],rawCount:0});
+});
+
+it('read-only encrypted recovery preflight understands canonical snapshot tables without changing target bytes',()=>{
+ setup();const saved=command(tx=>snapshot.collectAppSnapshot(tx));const file=path.join(process.env.DATA_DIR!,'family.db');const before=fs.readFileSync(file);expect(()=>inspectRecoverySnapshot(saved,file)).not.toThrow();expect(fs.readFileSync(file)).toEqual(before);
+ const invalid=structuredClone(saved);invalid.tables.productivity_tasks[0].due_kind='timed';invalid.tables.productivity_tasks[0].due_instant='not-a-date';invalid.manifest.checksum=checksum(invalid);expect(()=>inspectRecoverySnapshot(invalid,file)).toThrow();expect(fs.readFileSync(file)).toEqual(before);
 });

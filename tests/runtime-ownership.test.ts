@@ -75,3 +75,34 @@ it('rejects changed snapshot journal schemas on bootstrap even when the initiali
     sqlite.sqliteClose();
   `);
 },15000);
+
+const productivityUrl=(name:string)=>pathToFileURL(path.join(repo,'server/productivity/'+name+'.ts')).href;
+const gatewayUrl=pathToFileURL(path.join(repo,'server/appStore.ts')).href;
+const migrationsUrl=pathToFileURL(path.join(repo,'server/appMigrations.ts')).href;
+const snapshotUrl=pathToFileURL(path.join(repo,'server/appSnapshot.ts')).href;
+const dbUrl=pathToFileURL(path.join(repo,'server/db.ts')).href;
+const legacyFixtureUrl=pathToFileURL(path.join(repo,'tests/fixtures/productivity.ts')).href;
+function seedActiveScript(){return `
+ const sqlite=await import(${JSON.stringify(sqliteUrl)}),gateway=await import(${JSON.stringify(gatewayUrl)}),migrations=await import(${JSON.stringify(migrationsUrl)}),snapshot=await import(${JSON.stringify(snapshotUrl)});await import(${JSON.stringify(dbUrl)});
+ const bridge=await import(${JSON.stringify(productivityUrl('adapter'))}),store=await import(${JSON.stringify(productivityUrl('store'))}),fixture=await import(${JSON.stringify(legacyFixtureUrl)});
+ const meta={actorId:'system:fixture',command:'productivity:runtime-fixture',requestId:crypto.randomUUID(),payloadHash:'synthetic'};
+ gateway.withAppWriteTransaction(meta,tx=>{tx.legacy.tasks=[fixture.legacyTask('persisted',{creatorId:'user_admin',assigneeId:'user_admin'})];});
+ bridge.configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});
+ gateway.withAppWriteTransaction({...meta,requestId:crypto.randomUUID()},tx=>{bridge.activateCanonicalTasks(tx,bridge.legacyTaskDigest(tx.legacy.tasks));});sqlite.sqliteCheckpoint();sqlite.sqliteClose();
+ `;}
+const freshLoader=pathToFileURL(createRequire(path.join(repo,'package.json')).resolve('tsx')).href;
+it('fresh runtime installs the canonical bridge before legacy reads, writes and common snapshots',async()=>{
+ await run(`const {spawnSync}=await import('node:child_process');const seed=spawnSync(process.execPath,['--require',${JSON.stringify(path.join(repo,'scripts/ci/block-network.cjs'))},'--import',${JSON.stringify(freshLoader)},'--input-type=module','--eval',${JSON.stringify(seedActiveScript())}],{env:process.env,encoding:'utf8',timeout:10000});assert.equal(seed.status,0,seed.stderr);
+ const {startApplication}=await import(${JSON.stringify(runtimeUrl)});const runtime=await startApplication();try{
+ const {FamilyDB}=await import(${JSON.stringify(dbUrl)});assert.equal(FamilyDB.getTasks()[0].id,'persisted');FamilyDB.saveTask({id:'persisted',title:'Runtime canonical edit'},'user_admin','admin');
+ const sqlite=await import(${JSON.stringify(sqliteUrl)});assert.equal(sqlite.sqliteConnection().prepare('SELECT title FROM productivity_tasks WHERE id=?').get('persisted').title,'Runtime canonical edit');assert.equal(sqlite.sqliteConnection().prepare('SELECT count(*) AS n FROM tasks').get().n,0);
+ const gateway=await import(${JSON.stringify(gatewayUrl)}),snapshot=await import(${JSON.stringify(snapshotUrl)});const saved=gateway.withAppWriteTransaction({actorId:'system:fixture',command:'core:snapshot:runtime-fixture',requestId:crypto.randomUUID(),payloadHash:'synthetic'},tx=>snapshot.collectAppSnapshot(tx));assert.equal(saved.manifest.domains.productivity,1);assert.equal(saved.legacy.tasks[0].title,'Runtime canonical edit');
+ }finally{await runtime.close();}
+ `);
+},15000);
+it.each(['changed-checksum','unknown-namespace'])('fresh runtime rejects unsupported domain identity %s and releases its native handle',async kind=>{
+ await run(`const {spawnSync}=await import('node:child_process');const seed=spawnSync(process.execPath,['--require',${JSON.stringify(path.join(repo,'scripts/ci/block-network.cjs'))},'--import',${JSON.stringify(freshLoader)},'--input-type=module','--eval',${JSON.stringify(seedActiveScript())}],{env:process.env,encoding:'utf8',timeout:10000});assert.equal(seed.status,0,seed.stderr);
+ const NativeDatabase=require('better-sqlite3');const file=path.join(process.env.DATA_DIR,'family.db');const damaged=new NativeDatabase(file);try{damaged.exec(${JSON.stringify(kind==='changed-checksum'?"UPDATE app_migrations SET checksum='unsupported' WHERE namespace='productivity'":"INSERT INTO app_migrations VALUES('wallet',1,'future-wallet','2026-10-14T00:00:00Z')")});}finally{damaged.close();}
+ const opened=[];const pragma=NativeDatabase.prototype.pragma;NativeDatabase.prototype.pragma=function(...args){if(!opened.includes(this))opened.push(this);return pragma.apply(this,args);};const {startApplication}=await import(${JSON.stringify(runtimeUrl)});await assert.rejects(startApplication(),/domain|migration/i);assert.equal(opened.length,1);assert.equal(opened[0].open,false);fs.renameSync(file,file+'.closed');fs.renameSync(file+'.closed',file);
+ `);
+},15000);

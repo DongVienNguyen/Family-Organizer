@@ -12,6 +12,11 @@ export function exportProductivitySnapshot(tx:AppWriteTx):Record<string,unknown[
  * the shared engine brands a snapshot or promotes any restore files.
  */
 export function validateProductivitySnapshot(snapshot:AppSnapshot):void {
+ if(snapshot.tables.app_meta.some(row=>row.key==='productivity_active'&&row.value==='1'))requireCanonicalReader();
+ validateProductivitySnapshotData(snapshot);
+}
+/** Pure semantic inspection never authorizes promotion or installs a reader. */
+export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  const tables=snapshot.tables;
  const marker=tables.app_meta.find(row=>row.key==='productivity_active')?.value;
  if(marker!==undefined&&marker!=='1')throw new Error('Unsupported canonical task snapshot marker');
@@ -35,7 +40,6 @@ export function validateProductivitySnapshot(snapshot:AppSnapshot):void {
  for(const row of tables.productivity_matrix_pins){if(!tasks.has(row.task_id))fail();text(row.view_id,256);choice(row.quadrant,['q1','q2','q3','q4']);}
  for(const row of tables.productivity_occurrences){if(!tasks.has(row.task_id))fail();text(row.id,256);text(row.series_id,256);text(row.occurrence_key,256);integer(row.ordinal);JSON.parse(row.payload_json);}
  if(marker==='1'){
-  requireCanonicalReader();
   const order=(a:string,b:string)=>Buffer.compare(Buffer.from(a,'utf8'),Buffer.from(b,'utf8'));
   const projected=[...tasks.values()].filter(row=>row.deleted_at===null).sort((a,b)=>a.rank-b.rank||order(a.id,b.id)).map(row=>projectLegacyTask(decodeTaskRow(row,(tagRows.get(row.id)??[]).sort(order))));
   if(!isDeepStrictEqual(snapshot.legacy.tasks,projected))throw new Error('Canonical task snapshot legacy projection mismatch');
