@@ -402,7 +402,7 @@
       "src/i18n/locales/en.json": "8d1a221ae311ed16a2d9516e089825f12a1a06d9dffada1eea10ac796359f6b6",
       "src/i18n/locales/vi.json": "e1d8182d61dc582e7e2f1fd38352ac4dce9d6b10602ae38f4c0cf276e9e4ffa1",
       "src/i18n/locales/zh.json": "c2c26318f1a78d00a8353effc10291e073af7088a211c46b8b092af7e884eb41",
-      "tests/e2e/productivity.spec.ts": "7d14dbaab608c3f2d996ed2b80f6b1fd8f3faa67a37d0fcca4cbde4effd9b493",
+      "tests/e2e/productivity.spec.ts": "653e181cf2f1dbce88c779e78fbf0b08b56eb16724a4def9bc7d133b2bf431cf",
       "tests/evidence.test.ts": "f9935cfb6e69e400d2ffc4e9fbfd8ec64c03f2dece4a63e30bc245750618a74e",
       "tests/fixtures/canonicalTask.ts": "57bcb8422bf9522036ef0d04375b347f1b82d0ecc1bb75350702db29844020f5",
       "tests/helpers/release-consumer-fixture.ts": "f05b6a4b9bca0a0a01db75c7c11cbaf7c7244ba2c0f3f865d1ace03311c9e30d",
@@ -560,7 +560,11 @@
       "p04b3-subtask-preflight-red.json": "b40d821381d66f54f526799dca066aa8fbfd093330cd3603992968cddb7d8068",
       "p04b3-browser-gate-green.json": "2333eaef971fddc4d1dbfebdeddf60ea3b2c39dbb3d94af2f27086126b787f62",
       "p04b3-domain-first-full.log": "c3f671c4c476e116e93e71f10fbd87535b644cbeb4176ac6b8a1879176ca5759",
-      "p04b3-draft-intermediate-red.log": "db4225eaee9218f62cb58666cbb71cf76b7a052ce55627f4f8d07e53472e0c37"
+      "p04b3-draft-intermediate-red.log": "db4225eaee9218f62cb58666cbb71cf76b7a052ce55627f4f8d07e53472e0c37",
+      "p04b3-native-fetchgate-lint.log": "75ddb5b23e5d2b77c6b6725118530b88056c4c46b567f01c38de85975892e802",
+      "p04b3-native-fetchgate-lint-fixed.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p04b3-native-fetchgate-dom.log": "f8811eef920fd8794362a5d7e8fd58a22afda2106bf7e84d2f6fa3b06e6bf53b",
+      "p04b3-native-fetchgate-assertions.json": "0abf463df39d98ba25e0aba9f6c9d42c44d12dcdb6ed02c7df8a20f0209ffb0d"
     },
     "lintExit": 0,
     "buildExit": 0,
@@ -638,6 +642,23 @@
       "artifactFamiliesRetained": 8
     },
     "WindowsAcceptance": "pending",
-    "server2019Acceptance": "not-run"
+    "server2019Acceptance": "not-run",
+    "nativeFixtureCorrection": {
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38578198645",
+      "headSha": "8ada14af5019a8f7deb8827fc424452d1082adaf",
+      "P04": "21/24 first-attempt; WebKit C05/C07/C08 awaited route callbacks which never ran although trace shows real GET200",
+      "correction": "Before-native-fetch hold on same real privacy-worker page; original input/init/session signal/backend response retained; all8 flows Cloud passed",
+      "assertions": {
+        "original": 104,
+        "preserved": 104,
+        "added": 4,
+        "removed": 0
+      },
+      "oldBrowser": "43/45; WebKit B01/B08 pageError Fetch API access-control URL for /api/productivity/tasks; root cause not proven; all assertions/errors retained; mandatory next exact native checks",
+      "fullUnitRerun": "Not repeated: only E2E fixture changed; both Windows raw3245/171 and same source full3245/171 already verified",
+      "reviewCount": 1,
+      "rereview": false,
+      "WindowsAcceptance": "pending"
+    }
   }
 }
