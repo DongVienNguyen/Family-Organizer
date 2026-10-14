@@ -31,11 +31,11 @@ export function migrateTasks(tx:AppWriteTx,legacy:Task[]):MigrationReport {
  }
  return report;
 }
-const migrationChecksum=createHash('sha256').update(schemaSql+'\nlegacy-task-map-v1-synthetic-pilot-saigon-raw-provenance').digest('hex');
+export const productivityMigrationChecksum=createHash('sha256').update(schemaSql+'\nlegacy-task-map-v1-synthetic-pilot-saigon-raw-provenance').digest('hex');
 const apply=(tx:AppWriteTx)=>{migrateTasks(tx,tx.legacy.tasks);};
 /** Explicit I01 ports prevent imports from opening storage or registering jobs. */
 export function registerProductivityMigration(ports:{registerMigration:typeof registerDomainMigration;registerSnapshot:typeof registerSnapshotTable;registerValidator:typeof registerSnapshotValidator}):void {
  for(const [name,columns] of Object.entries(productivityTables))ports.registerSnapshot('productivity',name,columns);
- ports.registerMigration('productivity',1,apply,migrationChecksum);
+ ports.registerMigration('productivity',1,apply,productivityMigrationChecksum);
  ports.registerValidator('productivity',validateProductivitySnapshot);
 }

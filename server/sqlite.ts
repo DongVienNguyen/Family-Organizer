@@ -7,7 +7,7 @@ import fs from "fs";
 import path from "path";
 import Database from "better-sqlite3";
 import { COLLECTIONS, SINGLETON_KEYS, LEGACY_KEYS } from "./legacySchema.js";
-import { FamilyOrganizerDB } from "../src/types.js";
+import { FamilyOrganizerDB, type Task } from "../src/types.js";
 
 import { appConfig, prepareStorage } from "./config.js";
 import {isFirstAccountStorage,InstallationNotPristineError} from "./installationMode.js";
@@ -16,6 +16,13 @@ const DATA_DIR = appConfig.dataRoot;
 prepareStorage(appConfig);
 const DB_PATH = path.join(DATA_DIR, "family.db");
 const SCHEMA_VERSION = 1;
+export interface LegacyTaskStorageAdapter {enabled():boolean;read():Task[];write(rows:Task[]):void}
+let taskStorageAdapter:LegacyTaskStorageAdapter|undefined;
+/** Explicit trusted bootstrap port; storage remains owned by this connection. */
+export function installLegacyTaskStorageAdapter(adapter:LegacyTaskStorageAdapter):void {
+ if(taskStorageAdapter&&taskStorageAdapter!==adapter)throw new Error('Task storage adapter already installed');
+ taskStorageAdapter=adapter;
+}
 
 // Map each FamilyOrganizerDB collection key -> SQLite table name.
 // Each row keeps the full record as JSON plus a `seq` column so array order
@@ -89,6 +96,10 @@ function initializeDatabase() {
     const saveCollections = (data: FamilyOrganizerDB, keys: readonly (keyof FamilyOrganizerDB)[]) => {
       for (const { key, table } of COLLECTIONS) {
         if (!keys.includes(key)) continue;
+        if(key==='tasks'&&taskStorageAdapter?.enabled()){
+          if(!writeScope)throw new Error('Canonical tasks require the application gateway');
+          taskStorageAdapter.write(data.tasks);deleteStmts.get(table)!.run();continue;
+        }
         deleteStmts.get(table)!.run();
         const insert = insertStmts.get(table)!;
         const arr = (data as any)[key] || [];
@@ -137,6 +148,26 @@ let writeScope: Map<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>> | u
 const encodeCollection = (data: FamilyOrganizerDB, key: keyof FamilyOrganizerDB) =>
   JSON.stringify(data[key] ?? (SINGLETON_KEYS.includes(key) ? null : []));
 
+/** Flush only the current task view; unrelated legacy collections stay staged. */
+export function sqliteFlushLegacyTasks(data:FamilyOrganizerDB):void {
+ if(!taskStorageAdapter?.enabled())return;
+ if(!writeScope||!db.inTransaction)throw new Error('Canonical tasks require the application gateway');
+ const baseline=writeScope.get(data)??baselines.get(data);
+ if(baseline&&encodeCollection(data,'tasks')===baseline.get('tasks'))return;
+ if(baseline&&JSON.stringify(taskStorageAdapter.read())!==baseline.get('tasks'))throw new Error('Stale legacy collection: tasks');
+ saveCollections(data,['tasks']);
+ sqliteRefreshCanonicalTasks(data);
+}
+/** Only own committed SQL changes refresh this transaction's task baseline. */
+export function sqliteRefreshCanonicalTasks(data:FamilyOrganizerDB):void {
+ if(!writeScope||!db.inTransaction||!taskStorageAdapter?.enabled())throw new Error('Canonical projection requires the application gateway');
+ const baseline=writeScope.get(data)??baselines.get(data);
+ // An untracked restore document must still replace all its other collections.
+ if(!baseline)throw new Error('Canonical projection requires a tracked transaction document');
+ data.tasks=taskStorageAdapter.read();
+ const updated=new Map(baseline);updated.set('tasks',encodeCollection(data,'tasks'));writeScope.set(data,updated);
+}
+
 /** The gateway passes its complete native transaction here, including COMMIT. */
 export function withSqliteWriteScope<T>(commit: () => T): T {
   if (writeScope || db.inTransaction) throw new Error('Nested SQLite write scope is not permitted');
@@ -164,6 +195,11 @@ export function sqliteSave(data: FamilyOrganizerDB): void {
       }
     }
     saveCollections(data, dirty);
+    // Restore can change storage mode while keeping the same projected task bytes.
+    if(taskStorageAdapter?.enabled()){
+      if(!writeScope)throw new Error('Canonical tasks require the application gateway');
+      db.prepare('DELETE FROM tasks').run();
+    }
   }).immediate();
   const saved = new Map(LEGACY_KEYS.map(key => [key, encodeCollection(data, key)]));
   // Publish only after the actual outer COMMIT; rollback discards pending maps.
@@ -214,6 +250,7 @@ export function sqliteInstallationPristine():boolean {
 export function sqliteLoad(): FamilyOrganizerDB {
   const out: any = {};
   for (const { key, table } of COLLECTIONS) {
+    if(key==='tasks'&&taskStorageAdapter?.enabled()){out.tasks=taskStorageAdapter.read();continue;}
     const rows = db.prepare(`SELECT data FROM ${table} ORDER BY seq ASC`).all() as { data: string }[];
     out[key] = rows.map(r => JSON.parse(r.data));
   }
@@ -232,6 +269,7 @@ export async function sqliteBackupTo(dest: string): Promise<void> {
 
 /** Release native file handles; safe to call again during fixture teardown. */
 export function sqliteClose(): void {
+  taskStorageAdapter=undefined;
   if (db.open) db.close();
 }
 

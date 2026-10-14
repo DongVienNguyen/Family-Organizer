@@ -38,7 +38,8 @@ const suiteNames = [
   'src/utils/notificationRead.test.ts',
   'server/legacyFlagsHttp.test.ts',
   'src/features/productivity/dates.test.ts', 'src/features/productivity/filters.test.ts', 'src/features/productivity/contracts.test.ts',
-  'server/productivity/migration.test.ts', 'server/productivity/store.test.ts',];
+  'server/productivity/migration.test.ts', 'server/productivity/store.test.ts',
+  'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts',];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
   const reports: Record<string, any> = {
@@ -318,3 +319,5 @@ it('requires Caddy failure diagnostic regression suite',()=>{const suite='tests/
 it.each(['dates','filters','contracts'])('rejects missing P01 %s mandatory suite',name=>{const suite='src/features/productivity/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it.each(['migration','store'])('rejects missing P02-a %s mandatory suite',name=>{const suite='server/productivity/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it.each(['adapter','activation','bridge-order'])('rejects missing P02-b1 %s mandatory suite',name=>{const suite='server/productivity/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
