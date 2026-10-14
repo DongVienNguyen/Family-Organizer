@@ -21,6 +21,7 @@ export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Pr
 const connection = sqliteConnection();
 const core = snapshotCoreTables;
 const domainTables = new Map<string, { namespace: string; columns: readonly string[] }>();
+const domainValidators=new Map<string,(snapshot:AppSnapshot)=>void>();
 const validated = new WeakSet<object>();
 withAppWriteTransaction({ actorId: 'system:bootstrap', command: 'core:snapshot:init', requestId: 'core-snapshot-v1', payloadHash: sha256('core-snapshot-v1') }, tx => {
   tx.exec('CREATE TABLE IF NOT EXISTS app_reward_claims (claim_id TEXT PRIMARY KEY,payload_hash TEXT NOT NULL,grant_entry_id TEXT NOT NULL,reverse_entry_id TEXT)');
@@ -36,6 +37,11 @@ export function registerSnapshotTable(namespace: string, table: string, columns:
   const prior = domainTables.get(table);
   if (prior && (prior.namespace !== namespace || JSON.stringify(prior.columns) !== JSON.stringify(columns))) throw new Error('Conflicting snapshot table registration');
   domainTables.set(table, { namespace, columns: [...columns] });
+}
+/** Trusted synchronous domain validation extends the one shared restore gate. */
+export function registerSnapshotValidator(namespace:string,validate:(snapshot:AppSnapshot)=>void):void {
+ if(!['wallet','productivity'].includes(namespace)||typeof validate!=='function'||validate.constructor.name==='AsyncFunction')throw new Error('Invalid snapshot validator');
+ const prior=domainValidators.get(namespace);if(prior&&prior!==validate)throw new Error('Conflicting snapshot validator');domainValidators.set(namespace,validate);
 }
 function tables(): Map<string, readonly string[]> {
   const result = new Map(core);
@@ -88,6 +94,7 @@ export function validateAppSnapshot(input: unknown): ValidatedAppSnapshot {
     versions:getDomainVersions(), tables:trusted,
     primaryKeys:new Map([...trusted.keys()].map(name=>[name,(connection.prepare(`PRAGMA table_info(${name})`).all() as any[]).filter(column=>column.pk).sort((a,b)=>a.pk-b.pk).map(column=>column.name)])),
     migrations:connection.prepare('SELECT namespace,version,checksum FROM app_migrations').all(),
+    domainValidators,
   }) as ValidatedAppSnapshot;
   validated.add(result);return result;
 }

@@ -10,6 +10,7 @@ export interface SnapshotValidationContext {
   tables:Map<string,readonly string[]>;
   primaryKeys:Map<string,readonly string[]>;
   migrations:any[];
+  domainValidators?:ReadonlyMap<string,(snapshot:AppSnapshot)=>void>;
 }
 export const snapshotCoreTables = new Map<string, readonly string[]>([
   ['app_meta',['key','value']], ['app_commands',['command','request_id','actor_id','payload_hash','result','committed_at']],
@@ -100,5 +101,6 @@ export function validateSnapshotPayload(input: unknown, context:SnapshotValidati
   }
   if (JSON.stringify(canonical(s.manifest.mediaManifest)) !== JSON.stringify(canonical(mediaManifest(s.media)))) throw new Error('Snapshot media checksum mismatch');
   if (!/^[a-f0-9]{64}$/.test(s.manifest.checksum) || checksum(s) !== s.manifest.checksum) throw new Error('Snapshot checksum mismatch');
+  for(const validate of context.domainValidators?.values()??[])validate(s);
   return freeze(s);
 }
