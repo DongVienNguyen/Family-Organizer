@@ -41,6 +41,6 @@ it.each([1,2,3])('active readers and writers refuse a changed migration checksum
  expect(sqlite.sqliteLoad().tasks[0].title).toBe('Synthetic task source');
 });
 it('repeat activation rejects an unsupported newer productivity migration and rolls it back',()=>{
- setup();expect(()=>command(tx=>{const prior=tx.get("SELECT * FROM app_migrations WHERE namespace='productivity'");tx.run('INSERT INTO app_migrations(namespace,version,checksum,applied_at) VALUES(?,?,?,?)','productivity',3,'future',prior.applied_at);activateCanonicalTasks(tx,'0'.repeat(64));})).toThrow(/migration/i);
+ setup();let activationReached=false;expect(()=>command(tx=>{const prior=tx.get("SELECT * FROM app_migrations WHERE namespace='productivity'");tx.run('INSERT INTO app_migrations(namespace,version,checksum,applied_at) VALUES(?,?,?,?)','productivity',4,'future',prior.applied_at);activationReached=true;activateCanonicalTasks(tx,'0'.repeat(64));})).toThrow('Unsupported productivity migration');expect(activationReached).toBe(true);
  expect(sqlite.sqliteConnection().prepare("SELECT version FROM app_migrations WHERE namespace='productivity' ORDER BY version").all()).toEqual([{version:1},{version:2},{version:3}]);
 });
