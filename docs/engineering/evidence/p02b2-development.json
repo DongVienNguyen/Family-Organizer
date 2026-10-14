@@ -135,5 +135,151 @@
     "Default feature/rollout remains disabled; trusted migration and remaining characterization pending before fullP02/P03",
     "No canonical WinSW or WindowsServer2019 proof is claimed; existing service fixture remains legacy",
     "Historical review Minors remain deferred; no release/tag/VPS actions"
-  ]
+  ],
+  "correctedVerification": {
+    "review": {
+      "reviewHeadSha": "8049b968192134042a15967a6336461fcd56d9cb",
+      "critical": 0,
+      "important": 2,
+      "minor": 1,
+      "allFindingsGraded": true,
+      "criticalRemaining": 0,
+      "importantRemaining": 0,
+      "correctionPasses": 1,
+      "rereviews": 0,
+      "importantFixed": [
+        "Domain identity inspection inside original SQLite lock before owned DDL/journal changes",
+        "Authenticated offline canonical repair via validated shared snapshot replacement transaction, retaining schema/safety/rollback/post-save DTO checks"
+      ],
+      "minorDeferred": [
+        "Canonical child-process phase logs disappear during consumer cleanup"
+      ]
+    },
+    "red": {
+      "tests": 60,
+      "failed": 5,
+      "causalFailures": 4,
+      "sparseFixtureTimeout": 1,
+      "correctedSparseActualRed": 1,
+      "compiledMalformedRestoreRed": "RECOVERY_OPERATION_FAILED against old8049 bundle"
+    },
+    "targetGreen": {
+      "tests": 147,
+      "files": 6,
+      "failed": 0
+    },
+    "fullGreen": {
+      "tests": 2963,
+      "files": 147,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "junitCases": 2963
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "compiledCloudProof": {
+      "platform": "linux",
+      "completed": true,
+      "fixtureCommitSha": "8049b968192134042a15967a6336461fcd56d9cb",
+      "taskIds": [
+        "canonical-parent",
+        "canonical-task"
+      ],
+      "rawTaskRows": 0,
+      "revision": 2,
+      "malformedCurrentTaskRepaired": true,
+      "sparseCoreRefusal": {
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete",
+        "tableCount": 2
+      },
+      "snapshotChecksum": "aa40bb8a2fe8e4859703fe90a5a222ee12c8069312e45d79734db1adfc561562",
+      "encryptedSha256": "1134b1ac2789f4c0364524d8e433510bd5bf729b901bf09f7aa048e3bd5a600c",
+      "refusalCases": [
+        {
+          "kind": "changed-checksum",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "future-version",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "unknown-namespace",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        }
+      ],
+      "networkAttempts": [],
+      "nativeHandlesClosed": true
+    },
+    "coldImport": {
+      "taskId": "P02-b2",
+      "platform": "linux",
+      "modules": 9,
+      "exitCode": 0,
+      "storageCreated": false
+    },
+    "sourceHashes": {
+      ".github/workflows/ci.yml": "dba2fdc1514a5f5cab2b92cd4721f2b957cc02f6c6def5e0e2cb0c6d4f9921d4",
+      "scripts/ci/write-productivity-fixture.ts": "b86151dc3ebc2f1b160cba6114e11939988d9bf296664ac58018113125b31d7c",
+      "scripts/windows/package-contract.mjs": "0798e2588c3529c1f5269522db48de601edb738f00405fc456c057ae8e4eeb75",
+      "scripts/windows/probe-package-functional.mjs": "40c020e820b6636db1936df4638847bc1a6866c848030f4d1a1e839412672833",
+      "scripts/windows/probe-productivity-package.mjs": "fb1fd5c456239711caccc659728200b8f8aaeeaf844da8ec6fab9106be0fd2c8",
+      "scripts/windows/release-consumer-reports.mjs": "41198304bb4c740366c32d63c94efc9ff76aae5635bf4c4f6db9b59404407ead",
+      "scripts/windows/release-manifest.schema.json": "c9b0bf7662f276ad414dc61e33ebad12f3866263325446389de7a8a7a9260bcc",
+      "scripts/windows/write-manifest.mjs": "b26e06713a280d413d5f87e039489bb469f28be46204ecb2504f85503ff48cba",
+      "server/appSnapshot.ts": "65fe0961cf8bf18a20d3e74c83b7a6d9ec7678d433d1e245ca8728e062026cab",
+      "server/appStore.ts": "e54c88f3916bca4498d75ca1ca1e963d47291ebe71cd9291a0d3ba489f20cc72",
+      "server/productivity/adapter.test.ts": "1c1fb19e93cddebf9587512d172676b1c82f626ffcf20695c8341bdea571bc33",
+      "server/productivity/bootstrap.ts": "6e0e85b4230f30de672706e8d36c134f04fb7b56dbdcbb61c2060552ed404653",
+      "server/productivity/inspection.ts": "144f7554eea9eed56fb7be65940590d997af4bd61991eb865001edc019256ece",
+      "server/productivity/snapshot.ts": "2efc0f5c321053d915e8657ea2327336f0abdb1463cd4f40d5699cc7ed184a27",
+      "server/recoveryOperator.ts": "62f8f3fad3b1bd8d89a90591af076a71eab715213651623c68492012d7ffc168",
+      "server/recoverySnapshotInspection.ts": "625517a751cf4f2000a3cf010aef2348555be3a75980a2e7fdea45bfbd36e569",
+      "server/runtime.ts": "25df3228cf220f2aec1d3d83d6eb58fad1466c8256b0facc50f2b7dfb828835e",
+      "server/sqlite.ts": "8e1205cbd19fa9e6ab15959f635746aa2a96173c6e1e3eab0953997b66ccb09a",
+      "tests/helpers/release-consumer-fixture.ts": "4f6c938c5f1bcc4267e3eea0d4d849cc9150ad943aded5ce1c121b0cab97787a",
+      "tests/helpers/release-inner-fixture.ts": "34c7a63aaa87b8b66dfcca3c2bb8cb5dee619d799518be04ec56581ac08356fa",
+      "tests/release-consumer-reports.test.ts": "830e01336bbd023ff84a6fcc4c33f734f8ca38d70b94e5ff7c8c2663f23ba5f6",
+      "tests/release-package-reports.test.ts": "4bd214bceae42bb2ca5b4cb48693a08af4eccf799156f83e2bcf12c6ad925e98",
+      "tests/runtime-ownership.test.ts": "0b16e8f1e4b3a6ec60a073959f853454cf1b8804f18716ac55608df706566147",
+      "tests/windows-package.test.ts": "9b82fc675f9befe0e72f96bf7818148034c0a65f831d0d85395f8a48f1424777"
+    },
+    "reportHashes": {
+      "review-red.json": "6a6ee69c4e51d999e8a1222a39a77300e159443197c2c33abe436ea9ac16749d",
+      "sparse-causal-red.json": "722cc09be50dde42508b3fda93181bf9971e49e9864b601d39ec042a91aae08a",
+      "review-compiled-red.log": "88c821b89084d9162e180cbf14109401db9e5b8c67a2fbbff70c20c9220d872f",
+      "review-green.json": "fd72e9f4abdca00afe1125c045c4d78fff27005554a1c50481c8f19afdc81886",
+      "review-target.json": "6c1a29f2f56967d081e31efc1d1d655cc1e49a11e149229399691946f1037c33",
+      "review-full.json": "b136db8687f55a28db65752f979894df8290b68649382ba87d9599f80590de37",
+      "review-junit.xml": "bc86c02511f3728611ec2a430772cab9344598efe02127a555b929bb956bb228",
+      "review-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "review-build.log": "a1e72a7d9b65f8703a07447aa5929f859b0d885690b3effa2729af3de8313526",
+      "review-compiled-green.json": "8743e488682bc305ee8938ac438150cdc87f10cc1a11911ccca474366c7c07dd",
+      "review-import-probe.json": "784bac952435a1b5ecd4901b43f431a28d4123ef06969660bd5673104121f56d"
+    },
+    "windows": "pending corrected exact HEAD"
+  },
+  "initialWindowsCheckpoint": {
+    "headSha": "8049b968192134042a15967a6336461fcd56d9cb",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38509125340",
+    "checks": 7,
+    "rawReaders": 8,
+    "testsEach": 2960,
+    "filesEach": 147,
+    "browsersFirstAttempt": 45,
+    "acceptance": "initial source superseded by Important corrections; not corrected acceptance"
+  }
 }

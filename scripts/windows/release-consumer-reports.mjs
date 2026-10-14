@@ -264,8 +264,9 @@ export function readReleaseConsumerReportFiles(directory,packageReports,expected
    if(name==='package-functional.json'){
     requireFact(Array.isArray(row.networkAttempts)&&row.networkAttempts.length===0&&hash(row.snapshotChecksum));
     const p=row.productivity;
-    requireFact(p?.completed===true&&p.fixtureCommitSha===expected.commitSha&&isDeepStrictEqual(p.taskIds,['canonical-parent','canonical-task'])&&p.rawTaskRows===0&&Number.isSafeInteger(p.revision)&&p.revision>0&&hash(p.snapshotChecksum)&&hash(p.encryptedSha256)&&p.nativeHandlesClosed===true&&Array.isArray(p.networkAttempts)&&p.networkAttempts.length===0);
-    requireFact(isDeepStrictEqual(p.refusalCases,['changed-checksum','future-version','unknown-namespace'].map(kind=>({kind,exitCode:1,databaseBytesPreserved:true,nativeHandlesClosed:true}))));
+    requireFact(p?.completed===true&&p.fixtureCommitSha===expected.commitSha&&isDeepStrictEqual(p.taskIds,['canonical-parent','canonical-task'])&&p.rawTaskRows===0&&p.malformedCurrentTaskRepaired===true&&Number.isSafeInteger(p.revision)&&p.revision>0&&hash(p.snapshotChecksum)&&hash(p.encryptedSha256)&&p.nativeHandlesClosed===true&&Array.isArray(p.networkAttempts)&&p.networkAttempts.length===0);
+    requireFact(isDeepStrictEqual(p.sparseCoreRefusal,{exitCode:1,databaseBytesPreserved:true,nativeHandlesClosed:true,journal:'delete',tableCount:2}));
+    requireFact(isDeepStrictEqual(p.refusalCases,['changed-checksum','future-version','unknown-namespace'].map(kind=>({kind,exitCode:1,databaseBytesPreserved:true,nativeHandlesClosed:true,journal:'delete'}))));
    }
    else requireFact(row.completed===true&&hash(row.encryptedSha256)&&isDeepStrictEqual(row.nativeExitCodes,rule.nativeExitCodes));
    if(name==='package-recovery.json')requireFact(Number.isSafeInteger(row.encryptedBytes)&&row.encryptedBytes>0&&row.encryptedBytes<=64*1024*1024);

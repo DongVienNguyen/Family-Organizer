@@ -89,3 +89,11 @@ it('read-only encrypted recovery preflight understands canonical snapshot tables
  setup();const saved=command(tx=>snapshot.collectAppSnapshot(tx));const file=path.join(process.env.DATA_DIR!,'family.db');const before=fs.readFileSync(file);expect(()=>inspectRecoverySnapshot(saved,file)).not.toThrow();expect(fs.readFileSync(file)).toEqual(before);
  const invalid=structuredClone(saved);invalid.tables.productivity_tasks[0].due_kind='timed';invalid.tables.productivity_tasks[0].due_instant='not-a-date';invalid.manifest.checksum=checksum(invalid);expect(()=>inspectRecoverySnapshot(invalid,file)).toThrow();expect(fs.readFileSync(file)).toEqual(before);
 });
+
+it('shared recovery can replace malformed current canonical task data and rolls back a failed SQL promotion',async()=>{
+ setup();const saved=command(tx=>snapshot.collectAppSnapshot(tx));const connection=sqlite.sqliteConnection();connection.prepare("UPDATE productivity_tasks SET legacy_json='not-json' WHERE id='parent'").run();expect(()=>FamilyDB.getTasks()).toThrow();
+ const checked=snapshot.validateAppSnapshot(saved);
+ await expect(snapshot.restoreAppSnapshot(checked,{maintenance:async fn=>fn(),onBoundary:phase=>{if(phase==='sql-tables-restored')throw Error('synthetic SQL repair fence');}})).rejects.toThrow('synthetic SQL repair fence');
+ expect(connection.prepare("SELECT legacy_json FROM productivity_tasks WHERE id='parent'").get()).toEqual({legacy_json:'not-json'});
+ await expect(snapshot.restoreAppSnapshot(checked,{maintenance:async fn=>fn()})).resolves.toEqual({restoredFiles:0});expect(FamilyDB.getTasks().map(row=>row.id)).toEqual(['parent']);expect(connection.prepare('SELECT count(*) AS n FROM tasks').get()).toEqual({n:0});expect(connection.pragma('integrity_check',{simple:true})).toBe('ok');
+});

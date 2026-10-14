@@ -11,6 +11,7 @@ import { FamilyOrganizerDB, type Task } from "../src/types.js";
 
 import { appConfig, prepareStorage } from "./config.js";
 import {isFirstAccountStorage,InstallationNotPristineError} from "./installationMode.js";
+import {inspectProductivityStorage} from './productivity/inspection.js';
 
 const DATA_DIR = appConfig.dataRoot;
 prepareStorage(appConfig);
@@ -56,6 +57,9 @@ function initializeDatabase() {
         // for malformed app_meta columns used by runtime ownership checks.
         const stored = db.prepare("SELECT value FROM app_meta WHERE key = 'schema_version'").get() as {value:string}|undefined;
         if (!stored || stored.value !== String(SCHEMA_VERSION)) throw new Error(`Unsupported legacy schema version: ${stored?.value ?? 'missing'}`);
+        // Reject unsupported domains under this same native lock before any
+        // owned DDL or journal-mode change can alter the installation.
+        inspectProductivityStorage({get:(sql,...args)=>db.prepare(sql).get(...args),all:(sql,...args)=>db.prepare(sql).all(...args)});
       }
     }
 

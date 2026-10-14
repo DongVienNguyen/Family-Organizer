@@ -9,14 +9,20 @@ installations or create pilot domain tables.
 
 Supported persisted productivity schema is v1 with the registered immutable
 checksum. Unknown namespaces, future versions, invalid markers or incomplete
-owned table columns fail startup before readiness. The process releases its
-owned SQLite handle on rejection. Existing legacy finance/reward collections
+owned table columns are rejected under the existing native initialization lock,
+before owned DDL or a journal-mode change. The process releases its owned SQLite
+handle on rejection. DELETE-journal and sparse-core refusal cases preserve bytes. Existing legacy finance/reward collections
 remain in the same shared gateway; no shadow ledger or integration API is added.
 
 Runtime and offline encrypted recovery explicitly register productivity snapshot
 tables/semantic validation. The read-only recovery inspector validates a matching
 canonical target without bootstrapping it. Semantic inspection alone does not
 permit active restore: the shared promotion engine requires a configured reader.
+Authenticated offline recovery can replace malformed current canonical task DTOs
+from an already validated snapshot. Only the shared restore command seeds its
+transaction from replacement data; ordinary commands retain current reads and
+stale-document checks. The engine saves its native safety copy before promotion,
+rolls back failed SQL/file promotion and validates replacement reads before COMMIT.
 Recovery retains task IDs, metadata, structure, ranks and pins. Existing matching
 namespace/migration requirements remain; this slice does not prove restore into
 an uninitialized or unmigrated target.
@@ -29,11 +35,16 @@ The consumer runs the compiled server/operator from the downloaded ZIP with no
 checkout, install or rebuild. A CI-only synthetic fixture is produced from the
 same reviewed schema/store/cutover code and is carried in the consumer harness,
 never in the production ZIP. The probe exercises canonical HTTP edits, restart,
-ordinary snapshot and encrypted recovery, then rejects changed checksums, newer
+ordinary snapshot and encrypted recovery (including malformed-current JSON repair),
+then rejects changed checksums, newer
 versions and unknown namespaces while preserving database bytes and closing
 native handles. Its complete evidence is required by the release consumer gate.
 
-P02-b2 is pending fresh review/exact-HEAD Windows acceptance. Cloud compiled
+P02-b2 received one review (0 Critical,2 Important,1 Minor). Both Important
+findings are corrected; exact corrected-HEAD Windows acceptance remains pending.
+Canonical child-process phase logs are still written inside the temporary fixture
+and removed by consumer cleanup; that diagnostic retention finding remains a
+deferred Minor. Raw reports and available CI logs remain retained. Cloud compiled
 proofs are Linux only. These probes do not prove WindowsServer2019/R02 or a
 canonical installation running under WinSW; the existing service gate still uses
 its existing legacy fixture. No release, tag or VPS action is authorized.
