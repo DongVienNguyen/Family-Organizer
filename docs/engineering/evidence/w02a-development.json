@@ -1,0 +1,92 @@
+{
+  "taskId": "W02-a",
+  "baseSha": "a3e4e7acf1bf72ce2c333cbaaa653d48bc0d8a8e",
+  "scope": "Trusted explicit core pilot repositories/standalone WalletSnapshot only; no runtime registration/activation",
+  "fullGreen": {
+    "tests": 3267,
+    "files": 173,
+    "junitCases": 3267,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 1
+  },
+  "targetGreen": {
+    "tests": 231,
+    "failed": 0
+  },
+  "causalRed": {
+    "initialCore": {
+      "tests": 6,
+      "failed": 6
+    },
+    "initialSnapshot": {
+      "tests": 7,
+      "failed": 7
+    },
+    "categoryRestore": {
+      "tests": 8,
+      "failed": 1
+    },
+    "requiredSuites": {
+      "tests": 215,
+      "failed": 2
+    }
+  },
+  "fixtureCorrections": "Duplicate IDs cleared percase; legacy shoppingItems used instead of nonexistent shoppingLists; synthetic accountowner created. Original failures retained and not called causal domain RED. Valid child-before-parent category restore genuinely failed FK, corrected with deferred reference.",
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": 3,
+    "storageCreated": false,
+    "exit": 0
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "267108cccbff09f0993ab60d0076bcf0613811578e28c14df7c0abb28538d27a",
+    "server/wallet/schema.ts": "e931cb1025e898b738f70d8c33897ecb615e448d395bb100e9542eb84a3da4e6",
+    "server/wallet/snapshot.test.ts": "4651a5ea7618f69795427b7f5ad5d09b6977044c56258520e9835523f6351643",
+    "server/wallet/snapshot.ts": "47cd9e9ed7d35155fbf9d4f255813c815a70efe625a98ab685e9504a98755670",
+    "server/wallet/store.test.ts": "0cadee79baf9e32e6b2735e731cd5f9cb8c0e777987bd19c4cc5acbbcb47971d",
+    "server/wallet/store.ts": "5962c0ff4002f45572cb10f3d6f3bbaf82dd90561e9cec698d2e6f0ce1b136b0",
+    "tests/evidence.test.ts": "803633950d3e3b02c8aebcbe589f8dd417d93a2910d5e77dc0f896490a378bb2"
+  },
+  "reportHashes": {
+    "w02a-store-first.json": "12d41ada52fa97801ad1857e58c68b6af86c0744a0bcef374b00d4a63b6d4667",
+    "w02a-category-restore-red.log": "82a13e389f9b18a1669a9cb200225ab8ca58a80ed67dd7787078cef945e86f6f",
+    "w02a-suite-red.json": "7785e6c7a0717798e19fd522c9a36251e778be6f60364b114885cebd62090e80",
+    "w02a-final-build.log": "023a4cb4fc8e63feb076052452fc76b2f84c095b9cb287671191bf2c931f7dbe",
+    "w02a-snapshot-current.json": "647c37bb418abdd86e8f4525029b2c618d1e9b1932a400d532e1efde7e7e7a5c",
+    "w02a-current-cold.json": "cced89a82aecbd2607e9cf0c9099eaffb0ae1ccccf71359fc7f300ae7ff8ea5f",
+    "w02a-store-green.log": "be2938ab9c5083dbd01452b5c46ecda5a25dac7cf81e7ee3fa77327292fd3d06",
+    "w02a-current-cold.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02a-snapshot-current.log": "e7b0723ab6d2087095847796069bf96d0f80fdc9a9a4959743bd228a7d730175",
+    "w02a-snapshot-first.json": "79151a488f6733b3dee252b8697ad837121154d7f1daf27def7ef46897a410a0",
+    "w02a-snapshot-green-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02a-final-full.log": "3e5d2cc8c1ec2e86fc043b31159a020423ab2132b9d6f723c9e2eaf5fb5eec45",
+    "w02a-store-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02a-snapshot-green.log": "ff57e92d2e8730e9c2b36f025cd79ca297a3e636b019855fa0fa91f4d5476fbe",
+    "w02a-final-target.json": "a77ffb5560fbf253ca1e9bae5477d4c8ca55fb5772e30023b1466e57778d9381",
+    "w02a-final-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "w02a-store-current.log": "452d4420b23f0ed093ba82bc03fcacc87462b1006110667c9eb759044b3bedba",
+    "w02a-store-red.log": "590f60353d53af9ab3dcc37a8c63e253105d0b1e0015ce40670ba996fa4010d6",
+    "w02a-store-red.json": "5b409ea73daeaf12634dda27ceca8e47e4f04974dac45c5271ad4f736475c783",
+    "w02a-suite-red.log": "07b249d18cbc90b8f31dad3a2dd509a597d2ffb21bcb3c4a10710a28c7bd8674",
+    "w02a-final-full.json": "b886eaf8e034276d0041114eca376c081df51c2de1ec5c835b1506b62fd1bb3d",
+    "w02a-snapshot-red.log": "59cb640ea67e2356e2010a4760aefec65d5f5db6f1280f0dfe1c607b02a93cf4",
+    "w02a-store-green.json": "19658afcbcbfed426c2355fc026acdf5bbde43555da7f7ba360809d413208c8e",
+    "w02a-store-current.json": "a4a53f7304f9bbfd4e534daef44362cbe6d68a8a47b05b61fb4bce851772bc9c",
+    "w02a-snapshot-green.json": "1d219b92f0ec6f6db27789209abcab2e5f0a16647f8d388b1044a67f8ccd719e",
+    "w02a-final-target.log": "a8136892b311da289b514d6e407c0a20f02b6725b7279ab6716ac52d2dafc30d",
+    "w02a-category-restore-red.json": "dfa77fa9a1cef525fd1d7e9d68bedf3936790f2eb5f06a0ff413e99253b4ae45",
+    "w02a-snapshot-red.json": "25cc11075922810ca6cfee69cf6a8cbf967c643075a1c758746222db1389e592",
+    "w02a-snapshot-first.log": "18d08d1be6b4632b2c7acc75056fa698bef500068a8b863b31f594a937c2fcff",
+    "w02a-store-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02a-final-full.xml": "3ed1942cadbf224cb75d2edfe6d899af2331d3bcb09f6308eaa0a031434d2cad",
+    "w02a-store-first.log": "f48132e1cc4307655599ca80b22e05636a35f25c2127ded31db6de462dcba296"
+  },
+  "WindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextSlice": "W02-b remaining fields/shared AppSnapshot/runtime compatibility/compiled restore",
+  "publicationAllowed": false
+}
