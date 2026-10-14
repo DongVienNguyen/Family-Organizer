@@ -30,7 +30,7 @@ audiences. List grants invalidate previous readers when access is revoked. Catal
 changes use `PRODUCTIVITY_CATALOG_UPDATE` only for permitted catalog readers,
 including newly created lists and empty private lists. SSE sends only event type
 and timestamp; it sends no entity ID, title, body, tag label or private count.
-Failed commands send no invalidation. Repeated successful retries may invalidate
+Canonical task CRUD and retained legacy task writers also invalidate catalog for current/previous task readers when tag membership, visibility, creation or deletion can change the catalog. Structure routes batch their catalog audience once across affected descendants. Failed commands send no invalidation. Repeated successful retries may invalidate
 the authorized cache again, without repeating writes/rewards/notifications.
 
 Synthetic HTTP tests cover current auth/ACL, roles, no-store DTOs, revision/retry,
@@ -45,3 +45,9 @@ This accepts internal routes only after exact-HEAD Windows evidence. Shared UI,
 editor/cache, keyboard/phone acceptance and P04-a's three tag limitations remain
 P04-b2-owned. FullP04/P05 remain incomplete. Production/default activation belongs
 to P18; Windows2022 does not establish Server2019/R02. No release or VPS action.
+
+One review found0Critical/1Important/1Minor. The Important catalog invalidation gap
+was corrected in one pass with nine causal HTTP/SSE regressions and81 passing
+HTTP/realtime tests. The mutable PR narrative hash discrepancy is a deferred
+Minor bookkeeping issue; source and test report hashes are intact. Corrected
+verification excludes mutable narrative files. No rereview or relaxed assertions.

@@ -16,10 +16,10 @@ export function createStructureEventScope(reader:TaskReader){
  };
  const catalogAudience=(scope:StructureScope):Set<string>=>{
   const listId=scope.listId??(scope.sectionId?reader.get('SELECT list_id FROM productivity_sections WHERE id=?',scope.sectionId)?.list_id:undefined),list=listId?reader.get('SELECT id,owner_id,is_shared FROM productivity_lists WHERE id=?',listId):undefined;
-  const ids=scope.tagId?taskIds(scope):[],access=createTaskAccess(reader),audience=new Set<string>();
+  const ids=(scope.tagId||scope.taskId)?taskIds(scope):[],access=createTaskAccess(reader),audience=new Set<string>();
   for(const row of reader.all('SELECT data FROM users')){const user=JSON.parse(row.data);if(user.isDeleted||!Object.values(UserRole).includes(user.role))continue;const actor={userId:user.id,role:user.role};
    if(list&&(actor.role===UserRole.ADMIN||list.is_shared||actor.role===UserRole.MEMBER&&(list.owner_id===user.id||reader.get("SELECT permission FROM productivity_list_grants WHERE list_id=? AND user_id=? AND permission IN('read','write','manage')",list.id,user.id))))audience.add(user.id);
-   if(scope.tagId&&(actor.role===UserRole.ADMIN||ids.some(id=>access.getTask(actor,id))))audience.add(user.id);
+   if((scope.tagId||scope.taskId)&&(actor.role===UserRole.ADMIN||ids.some(id=>access.getTask(actor,id))))audience.add(user.id);
   }
   return audience;
  };
