@@ -1,0 +1,80 @@
+{
+  "taskId": "P02-b2",
+  "observedAt": "2026-10-14T11:47:07.332085+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/70",
+  "testedHeadSha": "3013c43f3be389e5fa11ecb4e98aa46fdfeccb46",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38511969825",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "1b02bee12f33566aa9071da60bfb41de1c05825cb2d3d132cff18d55c55c0ea2",
+    "coverage": "aed6dac3b70832cb75907c13aaeb3effb4a3e8325157953dc795d6c43eb03392",
+    "package": "a3b31c0018db5ee698ab58fb6a5007be0e2193d5d44e81c7ebc17afca81635e2",
+    "service": "244bd36ce70f882d6e03819124fa625c8f75c6c160930fc6fe2094aa338e295d",
+    "caddy": "308295542c4bc24265fe5867c3971e6e90cd8cec61cb1f4d7067ca3ddc49524d",
+    "extraction-sdk": "2b508de97c73ac4632895c6de674e0e6a8e74965cadf97528fb4ac578526c915",
+    "inner-native": "d4cd8ec8c79f4a548566eb7b8897ce6026ec0b7f854b5dc1bbb02a653b1561ae",
+    "browser": "3bd685ab827f00c4d26492ccb924946e4f5772df745a88ecfcadfbaa41aa917e"
+  },
+  "qualityEach": 2963,
+  "qualityFilesEach": 147,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "2ee2607ad5015d22b52f23df3b07cda88b425cee95778f221e079447a060ab4e",
+  "fullCiLogZipSha256": "ec3b524f5d56f4e59278a092fa6726a8010f419560d88c7882ab8b37509a9ba3",
+  "review": {
+    "reviewHeadSha": "8049b968192134042a15967a6336461fcd56d9cb",
+    "critical": 0,
+    "important": 2,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "correctionPasses": 1,
+    "rereviews": 0,
+    "importantFixed": [
+      "Domain identity inspection inside original SQLite lock before owned DDL/journal changes",
+      "Authenticated offline canonical repair via validated shared snapshot replacement transaction, retaining schema/safety/rollback/post-save DTO checks"
+    ],
+    "minorDeferred": [
+      "Canonical child-process phase logs disappear during consumer cleanup"
+    ]
+  },
+  "sourceTaskRuntimeEnabled": true,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P02 trusted migration/rollout preparation and remaining characterization; fullP02/P03 pending",
+  "mergedMainSha": "82fcadd9d64f167e548bf17bd3c8d162a53eebd3",
+  "mergeTreeEqualsTestedTree": true
+}

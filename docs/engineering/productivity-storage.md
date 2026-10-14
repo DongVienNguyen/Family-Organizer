@@ -40,16 +40,16 @@ then rejects changed checksums, newer
 versions and unknown namespaces while preserving database bytes and closing
 native handles. Its complete evidence is required by the release consumer gate.
 
-P02-b2 received one review (0 Critical,2 Important,1 Minor). Both Important
-findings are corrected; exact corrected-HEAD Windows acceptance remains pending.
+P02-b2 is accepted at PR70/3013c43f, CI38511969825: all7 checks/eight independently read raw families, both2963/147 and45first-attempt browser cases. Both Important findings were corrected in one pass with no rereview.
 Canonical child-process phase logs are still written inside the temporary fixture
 and removed by consumer cleanup; that diagnostic retention finding remains a
-deferred Minor. Raw reports and available CI logs remain retained. Cloud compiled
-proofs are Linux only. These probes do not prove WindowsServer2019/R02 or a
+deferred Minor. Raw reports and available CI logs remain retained. The recorded pre-CI Cloud proof is Linux; the exact Windows consumer independently
+verified the same canonical operations and repair/refusal cases. These probes do not prove WindowsServer2019/R02 or a
 canonical installation running under WinSW; the existing service gate still uses
 its existing legacy fixture. No release, tag or VPS action is authorized.
 
-FullP02 additionally needs trusted migration/rollout preparation and remaining
-legacy characterization before P03. New-task append ordering from P02-b1 remains
+FullP02 additionally needs the P02-b3 active legacy characterization and preparation
+runbook before P03. Controlled flag rollout/enabling belongs to P18 after milestone
+acceptance; no extra live activation command is introduced here. New-task append ordering from P02-b1 remains
 a recorded Minor; historical P01/P02-a Minors stay deferred. No new Matrix/Kanban
 UI, automatic live cutover or user-PC runner is introduced here.

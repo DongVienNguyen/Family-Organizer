@@ -1,0 +1,51 @@
+{
+  "taskId": "P02-b3",
+  "baseSha": "82fcadd9d64f167e548bf17bd3c8d162a53eebd3",
+  "scope": "Active legacy preservation characterization, mandatory Windows evidence gate and migration preparation runbook; rollout flag/enabling remains P18-owned",
+  "initialCharacterization": {
+    "tests": 4,
+    "failed": 0,
+    "classification": "existing behavior preserved, not causal RED-GREEN"
+  },
+  "gateRed": {
+    "tests": 191,
+    "failed": 1
+  },
+  "targetGreen": {
+    "tests": 195,
+    "files": 2,
+    "failed": 0
+  },
+  "fullGreen": {
+    "tests": 2968,
+    "files": 148,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 2968
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "sourceHashes": {
+    "server/productivity/legacy-characterization.test.ts": "6081a8b07d381939e8660a8cb4adb638c3e54da3c04e7199d0fadb694c01ad64",
+    "scripts/ci/write-evidence.mjs": "ad0f0f2b6d35045e21315cf255d017689e78f6594299195cb77fe684608124e1",
+    "tests/evidence.test.ts": "bf87aba01d4641b4c9b9b99693a4fcd75742110238e665a36c15ad8e29c99d97"
+  },
+  "reportHashes": {
+    "characterization.json": "cf6f99eb3a16a94fd25b954e39731109094d4c260dfd22990a6db6566a2c2b0c",
+    "gate-red.json": "3adc38ad3afcc1b7fb2d4d438758b8ed8b3dd7b11a0fac8457d84038ff43d200",
+    "target-green.json": "abfa63fc0d5dc9843c4a0ebcf111fd9d9008c1870d53fd392dea259622094512",
+    "full.json": "0308606fad8feec5032e116c8b7fb57fd781815241fe4595bf510e8af50598ab",
+    "junit.xml": "ab08b0a46893acb589702752284278cfbcfc9b94c3065d57ab94f267a9bbb92d",
+    "lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "build.log": "25a5d3af4733482b8a7247b218ffb340465ace2e29cca61859e7b4fe1f1ac231"
+  },
+  "windows": "pending exact PR HEAD",
+  "dependenciesChanged": false,
+  "automaticLiveActivationEnabled": false,
+  "rulings": [
+    "No extra live activation command: formalP02 library/adapter and synthetic-copy acceptance; P18 owns controlled rollout after milestone acceptance",
+    "Priority:none/lifecycle:wont_do legacy projection support is an explicit P03 consumer requirement before creating those records",
+    "Historical Minors remain deferred; no production source rewrite or release/tag/VPS action"
+  ]
+}
