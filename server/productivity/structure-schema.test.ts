@@ -1,3 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {createRequire} from 'node:module';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import Database from 'better-sqlite3';
+import {encryptRecovery} from '../recoveryEnvelope.js';
+import {checksum} from '../snapshotValidation.js';
+import {inspectRecoverySnapshot} from '../recoverySnapshotInspection.js';
+import {configureTaskStorage} from './bootstrap.js';
 import {it,expect} from 'vitest';
 import {randomUUID} from 'node:crypto';
 import * as sqlite from '../sqlite.js';
@@ -39,4 +49,19 @@ it('future structure migration3 is refused by read-only inspection before any bo
  setup();command(tx=>tx.run("INSERT INTO app_migrations VALUES('productivity',3,'unsupported-future','2026-10-14T00:00:00Z')"));
  const before=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');expect(()=>inspectProductivityStorage(reader)).toThrow(/Unsupported productivity migration/);expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(before);
  command(tx=>tx.run("DELETE FROM app_migrations WHERE namespace='productivity' AND version=3"));
+});
+
+it('authenticated recovery replaces corrupt current tree but rejects corrupt replacement and incompatible storage',async()=>{
+ setup();const saved=command(tx=>snapshot.collectAppSnapshot(tx)),root=fs.mkdtempSync(path.join(process.cwd(),'synthetic-tree-recovery-')),data=path.join(root,'data'),file=path.join(data,'family.db'),backup=path.join(root,'valid.fo-recovery'),key='b'.repeat(64),repo=fileURLToPath(new URL('../../',import.meta.url));fs.mkdirSync(data);
+ try{
+  await sqlite.sqliteBackupTo(file);const target=new Database(file);try{target.prepare('UPDATE productivity_tasks SET parent_id=id WHERE id=?').run('synthetic-structure-task');}finally{target.close();}
+  expect(()=>inspectRecoverySnapshot(saved,file)).not.toThrow();
+  const before=new Database(file);try{before.prepare("UPDATE app_migrations SET checksum='unsupported' WHERE version=2").run();expect(()=>inspectRecoverySnapshot(saved,file)).toThrow(/Unsupported productivity migration/);before.prepare('UPDATE app_migrations SET checksum=? WHERE version=2').run(saved.tables.app_migrations.find(row=>row.version===2)!.checksum);}finally{before.close();}
+  const corrupt=structuredClone(saved);corrupt.tables.productivity_tasks[0].parent_id=corrupt.tables.productivity_tasks[0].id;corrupt.manifest.checksum=checksum(corrupt);expect(()=>inspectRecoverySnapshot(corrupt,file)).toThrow('Cây công việc không hợp lệ.');
+  sqlite.sqliteConnection().prepare('UPDATE productivity_tasks SET parent_id=id WHERE id=?').run('synthetic-structure-task');try{await expect(configureTaskStorage(sqlite)).rejects.toThrow('Cây công việc không hợp lệ.');}finally{sqlite.sqliteConnection().prepare('UPDATE productivity_tasks SET parent_id=NULL WHERE id=?').run('synthetic-structure-task');}
+  fs.writeFileSync(backup,encryptRecovery(Buffer.from(JSON.stringify(saved)),Buffer.from(key,'hex')));
+  const output=spawnSync(process.execPath,['--require',path.join(repo,'scripts/ci/block-network.cjs'),'--import',pathToFileURL(createRequire(path.join(repo,'package.json')).resolve('tsx')).href,path.join(repo,'server/operator.ts'),'--restore-recovery'],{cwd:root,env:{...process.env,NODE_ENV:'production',APP_CODE_ROOT:repo,DATA_DIR:data,CONFIG_DIR:path.join(root,'config'),LOG_DIR:path.join(root,'logs'),FO_NETWORK_ATTEMPTS:path.join(root,'network.jsonl')},input:JSON.stringify({file:backup,key,includeCredentials:true}),encoding:'utf8',timeout:15000});
+  expect(output.signal,output.stdout+output.stderr).toBeNull();expect(output.status,output.stdout+output.stderr).toBe(0);expect(JSON.parse(output.stdout)).toMatchObject({sessionsRevoked:true});
+  const restored=new Database(file,{readonly:true});try{expect(restored.prepare('SELECT parent_id FROM productivity_tasks WHERE id=?').get('synthetic-structure-task')).toEqual({parent_id:null});expect(restored.pragma('integrity_check',{simple:true})).toBe('ok');expect(restored.prepare('SELECT count(*) AS n FROM reward_ledger').get()).toEqual({n:0});}finally{restored.close();}expect(fs.existsSync(path.join(root,'network.jsonl'))?fs.readFileSync(path.join(root,'network.jsonl'),'utf8'):'').toBe('');
+ }finally{fs.rmSync(root,{recursive:true,force:true});}
 });

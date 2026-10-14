@@ -89,3 +89,19 @@ it('catalog ACL filters private labels before the injected reader returns their 
  const guarded=createStructureCommands({write:gateway.withAppWriteTransaction,reader:{get:(sql,...args)=>rejectHidden(reader.get(sql,...args)),all:(sql,...args)=>rejectHidden(reader.all(sql,...args))}});
  expect(guarded.getCatalog({userId:UserRole.GUEST,role:UserRole.GUEST}).lists.some(item=>item.id===hiddenList.id)).toBe(false);
 });
+
+it('archive retry keeps its result but rechecks current list management before cached access',()=>{
+ setup();const board=structure.saveList(ctx(),{title:'Synthetic retry board',isShared:false});structure.setListGrant(ctx(UserRole.ADMIN,board.revision),board.id,{userId:UserRole.MEMBER,permission:'manage'});
+ const section=structure.saveSection(ctx(),{listId:board.id,title:'Synthetic archived'}),request=ctx(UserRole.MEMBER,section.revision);
+ const first=structure.archiveSection(request,section.id);expect(structure.archiveSection(request,section.id)).toEqual(first);
+ expect(()=>structure.archiveSection(ctx(UserRole.MEMBER,section.revision),section.id)).toThrow(expect.objectContaining({status:404}));
+ const current=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;structure.setListGrant(ctx(UserRole.ADMIN,current.revision),board.id,{userId:UserRole.MEMBER,permission:'read'});
+ expect(()=>structure.archiveSection(request,section.id)).toThrow(expect.objectContaining({status:403}));
+ const updated=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;structure.setListGrant(ctx(UserRole.ADMIN,updated.revision),board.id,{userId:UserRole.MEMBER,permission:null});expect(()=>structure.archiveSection(request,section.id)).toThrow(expect.objectContaining({status:404}));
+});
+it('same-list section changes retain parent links while cross-list moves of linked nodes are refused',()=>{
+ setup();const parent=create(),child=create(),linked=structure.setTaskParent(ctx(UserRole.ADMIN,child.revision),child.id,parent.id),section=structure.saveSection(ctx(),{listId:'legacy-family',title:'Synthetic local section'}),foreign=structure.saveList(ctx(),{title:'Synthetic foreign list',isShared:false});
+ const parentMoved=structure.moveTaskToList(ctx(UserRole.ADMIN,parent.revision),parent.id,'legacy-family',section.id),childMoved=structure.moveTaskToList(ctx(UserRole.ADMIN,linked.revision),child.id,'legacy-family',section.id);
+ expect(parentMoved).toMatchObject({id:parent.id,parentId:null,sectionId:section.id,revision:parent.revision+1,lifecycle:'todo',rewardPoints:0});expect(childMoved).toMatchObject({id:child.id,parentId:parent.id,sectionId:section.id,revision:linked.revision+1,lifecycle:'todo',rewardPoints:0});
+ for(const task of [parentMoved,childMoved])expect(()=>structure.moveTaskToList(ctx(UserRole.ADMIN,task.revision),task.id,foreign.id,null)).toThrow(expect.objectContaining({status:422}));expect(row(child.id).parentId).toBe(parent.id);expect(FamilyDB.getRewardLedger()).toEqual([]);
+});

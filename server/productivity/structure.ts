@@ -24,8 +24,8 @@ function list(reader:TaskReader,actor:AppActor,id:string,operation:'read'|'write
  if(operation==='write'&&!(actor.role===UserRole.ADMIN||actor.role===UserRole.MEMBER&&(permission==='manage'||permission==='write')))throw error(403);
  return {id:raw.id,title:reader.get('SELECT title FROM productivity_lists WHERE id=?',id).title,ownerId:raw.owner_id,isShared:!!raw.is_shared,revision:meta.revision,archivedAt:meta.archived_at};
 }
-function section(reader:TaskReader,actor:AppActor,id:string,manage=false):TaskSection {
- value(()=>text(id,256));const raw=reader.get('SELECT id,list_id FROM productivity_sections WHERE id=?',id);if(!raw)throw error(404);list(reader,actor,raw.list_id,manage?'manage':'read');const meta=metadata(reader,'section',id);if(meta.archived_at)throw error(404);return {id:raw.id,listId:raw.list_id,title:reader.get('SELECT title FROM productivity_sections WHERE id=?',id).title,revision:meta.revision,archivedAt:null};
+function section(reader:TaskReader,actor:AppActor,id:string,manage=false,allowArchived=false):TaskSection {
+ value(()=>text(id,256));const raw=reader.get('SELECT id,list_id FROM productivity_sections WHERE id=?',id);if(!raw)throw error(404);list(reader,actor,raw.list_id,manage?'manage':'read');const meta=metadata(reader,'section',id);if(meta.archived_at&&!allowArchived)throw error(404);return {id:raw.id,listId:raw.list_id,title:reader.get('SELECT title FROM productivity_sections WHERE id=?',id).title,revision:meta.revision,archivedAt:meta.archived_at};
 }
 function revision(current:number,expected:number){if(current!==expected)throw error(409);}
 function task(reader:TaskReader,ctx:AppCommand,id:string):StoredTask{value(()=>text(id,256));return createTaskAccess(reader).assertTaskCommand(ctx.actor,id,'update');}
@@ -66,7 +66,7 @@ export function createStructureCommands(ports:{write:typeof withAppWriteTransact
    });
   },
   archiveSection(ctx:AppCommand,id:string):TaskSection {
-   return run(ctx,'archive-section',{id},r=>{section(r,ctx.actor,id,true);},tx=>{
+   return run(ctx,'archive-section',{id},r=>{section(r,ctx.actor,id,true,true);},tx=>{
     const old=section(tx,ctx.actor,id,true);revision(old.revision,ctx.expectedRevision);
     for(const raw of tx.all('SELECT id FROM productivity_tasks WHERE section_id=? AND deleted_at IS NULL',id)){const before=task(tx,ctx,raw.id);saveTask(tx,{...ctx,expectedRevision:before.revision},before,{sectionId:null});}
     const now=new Date().toISOString();setMetadata(tx,'section',id,old.revision+1,now);const owner=list(tx,ctx.actor,old.listId,'manage');setMetadata(tx,'list',owner.id,owner.revision+1);return {...old,revision:old.revision+1,archivedAt:now};
@@ -76,7 +76,7 @@ export function createStructureCommands(ports:{write:typeof withAppWriteTransact
    value(()=>{text(targetListId,256);if(sectionId!==null)text(sectionId,256);});
    return run(ctx,'move-list',{id,targetListId,sectionId},r=>{if(ctx.actor.role===UserRole.CHILD||ctx.actor.role===UserRole.GUEST)throw error(403);const before=task(r,ctx,id);list(r,ctx.actor,before.listId,'write');list(r,ctx.actor,targetListId,'write');},tx=>{
     const before=task(tx,ctx,id);if(sectionId!==null){const target=section(tx,ctx.actor,sectionId);if(target.listId!==targetListId)throw error(422);}
-    if(before.parentId||tx.get('SELECT id FROM productivity_tasks WHERE parent_id=? AND deleted_at IS NULL',id))throw error(422);
+    if(before.listId!==targetListId&&(before.parentId||tx.get('SELECT id FROM productivity_tasks WHERE parent_id=? AND deleted_at IS NULL',id)))throw error(422);
     return saveTask(tx,ctx,before,{listId:targetListId,sectionId});
    });
   },

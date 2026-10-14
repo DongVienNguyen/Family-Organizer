@@ -266,5 +266,223 @@
   "fullP04Accepted": false,
   "newStructureHttpEnabled": false,
   "defaultActivationEnabled": false,
-  "releaseOrVpsActions": false
+  "releaseOrVpsActions": false,
+  "correctedVerification": {
+    "expectedWindowsCounts": {
+      "tests": 3073,
+      "files": 157,
+      "verified": false
+    },
+    "fullGreen": {
+      "tests": 3073,
+      "files": 157,
+      "junitCases": 3073,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "maxWorkers": 1
+    },
+    "review": {
+      "taskId": "P04-a",
+      "reviewedHead": "733eca54b1ddf8338a03d57897225bf761ad8c31",
+      "critical": 0,
+      "important": 3,
+      "minor": 3,
+      "allFindingsGraded": true,
+      "criticalRemaining": 0,
+      "importantRemaining": 0,
+      "correctionPasses": 1,
+      "rereview": false,
+      "importantFixes": [
+        "I1 schema compatibility separated from ordinary current-tree validation; encrypted valid replacement repairs corrupt tree",
+        "I2 archived section cached retry permits archived metadata only in fresh owner/manage preflight, new commands still refuse archived",
+        "I3 same-list section moves preserve links; cross-list linked nodes refuse"
+      ],
+      "deferredMinors": {
+        "M1": "P04-b unused Member tag discoverability/ownership policy",
+        "M2": "P04-b catalog ID mediation; retained Child free-form task tags interim compatibility exception, catalog command permissions unchanged",
+        "M3": "P04-b legacy label/search/editor alignment before new UI acceptance"
+      },
+      "declinedBoundariesAccepted": [
+        "P04-b routes/drawer/keyboard/phone/cache",
+        "P10 new lifecycle/tree reward policy",
+        "P13 templates/cloning",
+        "P18 activation/benchmarks",
+        "historical accepted PR67\u201373 deferred Minors closed",
+        "same-version restore/staged v1 upgrade; no silent conversion",
+        "ancestor ACL/comment/public family reward balance policies retained",
+        "Windows2022 separate from Server2019/R02; no release/VPS"
+      ],
+      "causalRed": {
+        "report": "p04a-review-red.json",
+        "tests": 23,
+        "failed": 3
+      },
+      "firstGreen": {
+        "report": "p04a-review-green.json",
+        "tests": 23,
+        "failed": 0
+      },
+      "replacementTreeAssertionStrengthened": "Recompute checksum before malformed replacement assertion so rejection specifically proves tree validation; final targeted report required"
+    },
+    "causalRed": {
+      "tests": 23,
+      "failed": 3
+    },
+    "targetGreen": {
+      "tests": 23,
+      "failed": 0
+    },
+    "lateAssertionStrengthening": {
+      "files": {
+        "server/productivity/structure-schema.test.ts": 1791966661797.1863
+      },
+      "supplementalFinalTargetReport": "p04a-review-final-green.json",
+      "reason": "Recomputed checksum of corrupt replacement so explicit tree refusal is tested; production source predates full suite"
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "coldImport": {
+      "imports": 7,
+      "storageCreated": false,
+      "exit": 0
+    },
+    "compiledCloud": {
+      "scope": "Cloud Linux uncommitted source check; not Windows acceptance",
+      "completed": true,
+      "fixtureCommitSha": "5b9547724ea52745459488bcb07eca54da4ca0ad",
+      "taskIds": [
+        "canonical-parent",
+        "canonical-task"
+      ],
+      "rawTaskRows": 0,
+      "revision": 2,
+      "semanticCommands": {
+        "httpEnabled": true,
+        "noneCreated": true,
+        "legacyFullFormPreserved": true,
+        "staleRevisionRefused": true,
+        "forgedFieldsRefused": true,
+        "restartPreserved": true
+      },
+      "structureStorage": {
+        "version": 2,
+        "checklistPreserved": true,
+        "catalogPreserved": true,
+        "v1StartupWithoutUpgrade": true
+      },
+      "malformedCurrentTaskRepaired": true,
+      "sparseCoreRefusal": {
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete",
+        "tableCount": 2
+      },
+      "snapshotChecksum": "8a3f2ebc409bca67c8d8f6333773f17ce9209aac8df47dc475ac8db6264f3bca",
+      "encryptedSha256": "a03920a5cf1e0c154e797a14d9894d4bbc93d03db737b88c762f879bd54e12e2",
+      "refusalCases": [
+        {
+          "kind": "changed-checksum",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "future-version",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "unknown-namespace",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        }
+      ],
+      "networkAttempts": [],
+      "nativeHandlesClosed": true
+    },
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "f9fca50704aee1e08693f28066b82371534c62890c35c545c1e5b041d37c40c8",
+      "scripts/ci/write-productivity-fixture.ts": "1d0bd96994bb04516fecffee314f5369676629a80b157bb5e65ea5a7a0387972",
+      "scripts/windows/package-contract.mjs": "c897e001cfd06efcb2b0a57116b3fa1ea1da82a5dee7a29f109abd639433d170",
+      "scripts/windows/probe-productivity-package.mjs": "09101b4c65b18638957b1adc0aea747a6fbf2ef0fd010e15e1d0609557b9b830",
+      "scripts/windows/release-consumer-reports.mjs": "bd0dc1445d3dc8556df329000395077dc594ff10d21e785745c2284832c8f8e0",
+      "scripts/windows/release-manifest.schema.json": "f4bfe43301a497fa1d8c309927435cb9074309797c9cf026555fae3400793957",
+      "scripts/windows/write-manifest.mjs": "42d1ce5fec2c5967d652f5dd9c5c7b703aa00e9b35b8063f030385bd53260183",
+      "server/db.ts": "1ac62327a684d3feb6af226370b30da713f6e3eafdf8ce8a377eb2ab383c336f",
+      "server/productivity/access.ts": "94f02943f823e8b1e592fbeac0fb48181ba3ed56d5ad57f39c7e8c91d8fa5a00",
+      "server/productivity/activation.test.ts": "3fb83ebd1b2fbd8c6f51c123b7920149f5c21fcef08423f82c055ad5af61d0af",
+      "server/productivity/adapter.ts": "d95ce90e28f51fab27cd42def1d5c9a48e693f10212ac3aa1b099545e22230ac",
+      "server/productivity/bootstrap.ts": "d79ba8b9d0fc800bc848a43f01c414aa49453746d598bcd50aed18ceeebda323",
+      "server/productivity/inspection.ts": "1c51ec8a7fa88f94276e24ede3a4e88cbfd60a264755eac601d4253d254bf982",
+      "server/productivity/migrate.ts": "4885be012b3b9a8c21be4a9043e2651ad7bf6bee7b0db01023fa4bf86727ffea",
+      "server/productivity/migration.test.ts": "75b716778f9cacf87fe1e9ce1ab40dd2c0b554570a2f98a40030afb03f6139ab",
+      "server/productivity/snapshot.ts": "0846f5b4a7df227bc27e64d4fbd943b4a6d3b2a473ef5420aff78399762591c9",
+      "server/productivity/store.ts": "6edff0dd8e907770a5e72a643e246a02e28be64a7e565c51b021042cbe936cb0",
+      "server/productivity/structure-schema.test.ts": "0c6da7cc7900719b86f4aa5efd6880972dc6eeb34bf3c9be24af8f49eefa93da",
+      "server/productivity/structure-upgrade.test.ts": "377dc8d76682dede057e13fb4b7911623f3fe16123c5e990cd3dfceab0782437",
+      "server/productivity/structure-v1.test.ts": "96953e65c5e2ec546bcbc8d9f9d789eed1d69452c3d307d578dba150f89e28fa",
+      "server/productivity/structure.test.ts": "e030e49e4d9a89e23f1b4216af548f6ae264fb7727efa569340f85e48619d5c4",
+      "server/productivity/structure.ts": "51a45cb7b8f9684d319ffbd6fa64f41607336d0ea4f9f1b7497e016a441314a1",
+      "server/productivity/structureInvariant.ts": "e0f058a711247562a887f6d0d024f97bab7556160d081a24a1e01f5d659d6914",
+      "server/productivity/structureSchema.ts": "4d9d6297236ec23001a233bd4e3a0155e43d0f94b62e2e405045f7f2d807c97d",
+      "server/productivity/tasks.ts": "4b598dba7f159e9920024c04ae0a8b35203e9ba0e9ea2b61a88b03f6d22c5111",
+      "server/recoverySnapshotInspection.ts": "f35ee7ffb270e248aa9bb6f210246e06442e38b301c9e69de84349f62a545da8",
+      "tests/evidence.test.ts": "f9ef053c713be1dd0a841d87a110240ab4b98d9d4150f60c664f416e13973c01",
+      "tests/helpers/release-consumer-fixture.ts": "fce9739cddc0e7baa67cac55188c463ac31adca99286531019ef8444cf410b1c",
+      "tests/helpers/release-inner-fixture.ts": "597d6f3ad13bd2f7bbff4c87c6ae452721389a40ac10a4a7b0b0201e7e4bcb64",
+      "tests/release-consumer-reports.test.ts": "33e1195a4bfa3dccbbec7a97636fa435700b68107d56062ddc92c1ddd1dcc9d0",
+      "tests/release-package-reports.test.ts": "9b7257a1e0444f39dd01c404ef24099ac0f8d056c5abda697dd59f82301e1e11",
+      "tests/runtime-ownership.test.ts": "2f4d83ea55e280bdaf657ff5d9b461477e7499d9de2c5ba57980c2a262978189",
+      "tests/windows-package.test.ts": "f797614a3241d37e7b1c85f93fcb3abcf1af6e84456172be34f10c47595ddcc6"
+    },
+    "reportHashes": {
+      "p04a-review-red.json": "ce9926e72aa27816893af7154e1921691a82feee950e996bb76982a5210e0651",
+      "p04a-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p04a-review-green.json": "78c7cdbe1ac1eecfd02f9632c81a38d550c7097f9d8b2fe4de08ad0a00c1d31b",
+      "p04a-review-red.log": "58e8aac1e9ccb6a34e3770123d5e1e759c6f0210755f088a326344f62bfbb535",
+      "p04a-review-rulings.json": "9d609ebdb6afa4118f91ba4f82231992fef26862894f03950c6e7d3e2abd6217",
+      "p04a-review-green.log": "3288385b5ae7f32478b3e579071985f597cdcc8fc8dac8c5db4ad80217a33de9",
+      "p04a-review-final-green.log": "c2912f4a7db73430ce7170923a3d195f4e132b89d8e40fa0ef6ae1fb0e80a03d",
+      "p04a-review-final-green.json": "b281df462c038e11f56d174ca22f990bb91f3757c7d547b3590cc42536bc07d0",
+      "p04a-corrected-full.log": "b9d44e8fd92eea41a162e6a280e641813ddf5a85d94328b36f394eda58063f71",
+      "p04a-corrected-full.xml": "73334e91b4d9a97c5c47a19cd3327cdef5290aaff347d037d20ab9135a009fd5",
+      "p04a-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p04a-corrected-build.log": "96506f4cdc5618afcdc947ad437c9410dac32b174c77cb2a75c65f352174478f",
+      "p04a-corrected-full.json": "2a7dfe05690d47aaa449e1f7896e0400328896a57d782782bdc17b5ee1d9443a",
+      "p04a-cloud/cold-corrected.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "p04a-cloud/compiled-corrected.log": "fbf5219f05ef91ee98d936e04a2cb6b5b68b5eba761ee8df53d6d242eb2bed3d"
+    },
+    "supersededWindows": {
+      "taskId": "P04-a",
+      "testedHeadSha": "733eca54b1ddf8338a03d57897225bf761ad8c31",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38534010094",
+      "conclusion": "success",
+      "accepted": false,
+      "reason": "Superseded by three Important reviewer findings; corrected HEAD Windows pending",
+      "checks": 7,
+      "testsEach": 3070,
+      "filesEach": 157,
+      "browsersFirstAttempt": 45,
+      "rawReaders": 8,
+      "summaryHashes": {
+        "quality": "8876bf25f207d8d0c80636c7000bd1cf551f6ec79f5eccab02e2d873bbcd35f4",
+        "coverage": "bfa8ab3b8c5117af1e6f580445f84c746320e91c76bdd1309b31eda114d1c827",
+        "package": "9bbfad618994973c434a758c43dbcd59262d98e745c56dccd467aed7aa5c48a6",
+        "service": "8c5b638f3535f346e744f83d0d94f68d51241007c5c9f1da94af88a26c24591b",
+        "caddy": "c71d040d35822a00a70e8c49a2ffe20428aeafc410e3920103a39ee0aa238bf7",
+        "extraction-sdk": "5c00073234c9cd2bf90ff0f301618cc6c21372197e4725e4eed6cb574f018f61",
+        "inner-native": "740174f67e274ff6921cd2f42de9a1e4444fbd601d27512f6e9f2dc1e9f5a9ff",
+        "browser": "5b33deb4540fd340dd6d4640a292b3b72429a49f00ea9fec23b16bfd770199c3"
+      },
+      "fullCiLogZipSha256": "61439d2ac11d587b27ea69569e5e1f1742e2c41851ff9f36d96009e1e0c2d9f6"
+    },
+    "windowsAcceptance": "pending"
+  }
 }

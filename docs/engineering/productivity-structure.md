@@ -53,3 +53,9 @@ Synthetic tests and the downloaded compiled consumer must verify migration,
 old-version startup, snapshot/recovery, ACL/cache revocation, tree/checklist and
 existing compatibility. Cloud checks do not establish Windows2022 acceptance or
 WindowsServer2019/R02; current results are in implementation-status and PR proof.
+
+Recovery compatibility inspection validates migration identities and table columns independently of current task data. Ordinary bootstrap still rejects corrupt current trees before gateway initialization. Authenticated encrypted recovery validates the replacement tree through the shared snapshot gate, so a valid backup can repair a damaged installation; incompatible storage and corrupt replacement trees remain refused.
+
+Archive retries authorize the live actor and owning-list management even when the section is already archived, then retrieve the committed result. A new archive request against an archived section still returns404. Same-list section moves preserve parent/child links; only cross-list moves require detachment.
+
+The one P04-a review found0Critical/3Important/3Minor. All Important corrections have dedicated regression assertions. P04-b owns three deferred tag limitations before new UI acceptance: unused Member-created tags are discoverable only after task assignment; retained free-form Child task tags remain a compatibility exception; named tags project their IDs in the old UI until label/search/editor alignment. New catalog commands still enforce Admin/Member creation. These are interim storage-slice boundaries, not fullP04 acceptance.

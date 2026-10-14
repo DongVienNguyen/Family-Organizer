@@ -1,10 +1,10 @@
 import type {AppWriteTx} from '../appStore.js';
 import {productivityTables} from './schema.js';
 import {productivityMigrationChecksum,productivityStructureChecksum} from './migrate.js';
-import {assertTaskTree,edge} from './structureInvariant.js';
 import {structureTables,productivityTablesAt} from './structureSchema.js';
 type Reader=Pick<AppWriteTx,'get'|'all'>;
-/** Inspect supported persisted storage; no schema/bootstrap writes or connection. */
+/** Inspect persisted compatibility only; damaged data is validated by ordinary
+ * bootstrap or the authenticated replacement snapshot, never by this schema gate. */
 export function inspectProductivityStorage(reader:Reader):boolean {
  const names=new Set(reader.all("SELECT name FROM sqlite_master WHERE type='table'").map(row=>row.name));
  if([...names].some(name=>name.startsWith('wallet_')||(name.startsWith('productivity_')&&!Object.hasOwn({...productivityTables,...structureTables},name))))throw new Error('Unsupported domain storage table');
@@ -20,6 +20,5 @@ export function inspectProductivityStorage(reader:Reader):boolean {
  for(const [name,columns] of Object.entries(productivityTablesAt(applied.length))){
   if(!names.has(name)||JSON.stringify(reader.all(`PRAGMA table_info(${name})`).map(row=>row.name))!==JSON.stringify(columns))throw new Error('Unsupported productivity storage schema');
  }
- if(applied.length===2)assertTaskTree(reader.all('SELECT id,list_id,parent_id,creator_id,assignee_id,is_shared,deleted_at FROM productivity_tasks').map(edge));
  return true;
 }
