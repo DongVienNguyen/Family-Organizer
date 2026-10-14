@@ -328,9 +328,83 @@
     "mainTreeEqualsTestedHead": true
   },
   "productivityP02Draft": {
-    "taskId": "P02-a",
-    "baseSha": "7c41768fb9ca5847b8310da51824e396695a4806",
-    "status": "implementing pilot only; live cutover P02-b remains pending",
+    "taskId": "P02-b1",
+    "baseSha": "e5cc13c456a59f8faf2744602af4d174c64f5ea9",
+    "status": "implementing bridge/cutover tests; startup/package manifest still pending",
     "runtimeEnabled": false
+  },
+  "productivityP02aAccepted": {
+    "taskId": "P02-a",
+    "observedAt": "2026-10-14T09:28:00.271062+07:00",
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/68",
+    "testedHeadSha": "580fd5538a1319052dc8473c37951b0be708b064",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38499969795",
+    "workflowId": 381168350,
+    "runAttempt": 1,
+    "checks": [
+      {
+        "name": "Windows Node22 baseline",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows package producer",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows production browsers",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows Node24 baseline",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows package clean consumer",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows disposable service",
+        "conclusion": "success"
+      },
+      {
+        "name": "ci-gate",
+        "conclusion": "success"
+      }
+    ],
+    "summaryHashes": {
+      "quality": "82ac225fb459b25afa68c43b37f7bfa5dbc1af193b8a0f0d565e4165419af709",
+      "coverage": "7d066160e77fd8f4dc1378b256381e5775bbd576fef0b84a83b3197d95b4bb38",
+      "package": "fed70b6d8837148460a617fe72bedb4e5cdc56ec9f937e09f3dd3aabb99dba8c",
+      "service": "7970815b4a8057ab841f050087947c4803e7aebf112a91859216bef2f1232e1f",
+      "caddy": "05213a13598b19d0883c797476faf3bac9f9a074f3cd7a2c4a116400c6ce38aa",
+      "extraction-sdk": "df910f41825b8ebbdeb6c96e1a8eeb0e410fbe6ecbddb04e7fb70c7827781b80",
+      "inner-native": "a22e18d30b1de742968743fa2085c03db2dc71f2f3f26031a38a3357ac3845fe",
+      "browser": "aa5e280661c1af6058c58d00b3c9b48159435e54792d915b3c0d2175cd951f16"
+    },
+    "qualityEach": 2918,
+    "qualityFilesEach": 144,
+    "browserFirstAttempt": 45,
+    "rawValidators": 8,
+    "zipSha256": "8016b451b21498ee54294131af921892730810ce06f3a14b0ebb8a31e4085f22",
+    "fullCiLogZipSha256": "cd68d87d350d280ab1920973fd1478503dc7e2b8e71c7685ffc1480974c088ef",
+    "review": "ONE0C4I3M; all authorgraded before one correction pass; Important4 fixed actualRED10\u2192GREEN, Cloud2918/144 all0+lintbuild0; no rereview",
+    "deferredMinors": [
+      "Canonical roundtrip alphabetizes tag order",
+      "Preexisting damaged pilot schema definitions trusted when columns match",
+      "Registered migration discards warning report; direct helper and raw provenance remain"
+    ],
+    "rulings": [
+      "P02 split into pilot storage P02-a and atomic live cutover P02-b; noP03 before fullP02",
+      "Explicit type-only injected I01 ports; no storage on module import",
+      "Changed timed legacy due emits lossless UTC; unchanged raw provenance retained",
+      "Semantic validation extends shared snapshot boundary, no new restore engine"
+    ],
+    "publicationAllowed": false,
+    "server2019Acceptance": "not-run",
+    "sourceTaskRuntimeEnabled": false,
+    "nextTask": "P02-b atomic legacy adapter cutover after reviewed green merge; fullP02/P03 pending",
+    "merged": true,
+    "mergeSha": "e5cc13c456a59f8faf2744602af4d174c64f5ea9",
+    "mainTreeEqualsTestedHead": true
   }
 }

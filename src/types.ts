@@ -90,7 +90,7 @@ export interface Notification {
   createdAt: string;
 }
 
-export type RecurrenceType = "none" | "daily" | "weekly" | "monthly";
+export type RecurrenceType = "none" | "daily" | "weekly" | "monthly" | "yearly";
 
 // TasK management
 export enum TaskStatus {

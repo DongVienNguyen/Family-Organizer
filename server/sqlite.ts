@@ -7,7 +7,7 @@ import fs from "fs";
 import path from "path";
 import Database from "better-sqlite3";
 import { COLLECTIONS, SINGLETON_KEYS, LEGACY_KEYS } from "./legacySchema.js";
-import { FamilyOrganizerDB } from "../src/types.js";
+import { FamilyOrganizerDB, type Task } from "../src/types.js";
 
 import { appConfig, prepareStorage } from "./config.js";
 import {isFirstAccountStorage,InstallationNotPristineError} from "./installationMode.js";
@@ -16,6 +16,13 @@ const DATA_DIR = appConfig.dataRoot;
 prepareStorage(appConfig);
 const DB_PATH = path.join(DATA_DIR, "family.db");
 const SCHEMA_VERSION = 1;
+export interface LegacyTaskStorageAdapter {enabled():boolean;read():Task[];write(rows:Task[]):void}
+let taskStorageAdapter:LegacyTaskStorageAdapter|undefined;
+/** Explicit trusted bootstrap port; storage remains owned by this connection. */
+export function installLegacyTaskStorageAdapter(adapter:LegacyTaskStorageAdapter):void {
+ if(taskStorageAdapter&&taskStorageAdapter!==adapter)throw new Error('Task storage adapter already installed');
+ taskStorageAdapter=adapter;
+}
 
 // Map each FamilyOrganizerDB collection key -> SQLite table name.
 // Each row keeps the full record as JSON plus a `seq` column so array order
@@ -89,6 +96,10 @@ function initializeDatabase() {
     const saveCollections = (data: FamilyOrganizerDB, keys: readonly (keyof FamilyOrganizerDB)[]) => {
       for (const { key, table } of COLLECTIONS) {
         if (!keys.includes(key)) continue;
+        if(key==='tasks'&&taskStorageAdapter?.enabled()){
+          if(!writeScope)throw new Error('Canonical tasks require the application gateway');
+          taskStorageAdapter.write(data.tasks);continue;
+        }
         deleteStmts.get(table)!.run();
         const insert = insertStmts.get(table)!;
         const arr = (data as any)[key] || [];
@@ -214,6 +225,7 @@ export function sqliteInstallationPristine():boolean {
 export function sqliteLoad(): FamilyOrganizerDB {
   const out: any = {};
   for (const { key, table } of COLLECTIONS) {
+    if(key==='tasks'&&taskStorageAdapter?.enabled()){out.tasks=taskStorageAdapter.read();continue;}
     const rows = db.prepare(`SELECT data FROM ${table} ORDER BY seq ASC`).all() as { data: string }[];
     out[key] = rows.map(r => JSON.parse(r.data));
   }
@@ -232,6 +244,7 @@ export async function sqliteBackupTo(dest: string): Promise<void> {
 
 /** Release native file handles; safe to call again during fixture teardown. */
 export function sqliteClose(): void {
+  taskStorageAdapter=undefined;
   if (db.open) db.close();
 }
 

@@ -1,0 +1,102 @@
+{
+  "taskId": "P02-b1",
+  "baseSha": "e5cc13c456a59f8faf2744602af4d174c64f5ea9",
+  "scope": "Storage bridge/cutover prototype only; production startup/package domain manifest P02-b2 remains pending, fullP02/P03 not complete",
+  "initialRed": {
+    "tests": 8,
+    "failed": 8,
+    "annualCase": "Actualexisting guard rejected yearly; other cases failed explicit unimplemented bridge stubs"
+  },
+  "initialGreen": {
+    "tests": 8,
+    "failed": 0
+  },
+  "expandedVerification": {
+    "tests": 11,
+    "failed": 1,
+    "failure": "Restart loader fixture: Vitest import.meta.resolve unsupported, retained then corrected with createRequire+fileURL"
+  },
+  "initialMirrorRed": {
+    "tests": 8,
+    "failed": 3,
+    "causalMirrorFailures": 2,
+    "fixtureFailure": 1
+  },
+  "correctedMirrorRed": {
+    "tests": 8,
+    "failed": 2
+  },
+  "readerOrderingRed": {
+    "tests": 1,
+    "failed": 1
+  },
+  "gateRed": {
+    "failed": 3
+  },
+  "targetGreen": {
+    "tests": 262,
+    "failed": 0,
+    "files": 8
+  },
+  "fullGreen": {
+    "tests": 2935,
+    "files": 147,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 2935
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImportProbe": {
+    "modules": 6,
+    "platform": "linux",
+    "exitCode": 0,
+    "storageCreated": false
+  },
+  "freshProcessProbe": "Actual source bridge/persisted projection; not compiled runtime/package or Server2019 acceptance",
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "04d3a80b5e8bdd71859a17f64b1afb638e90ae72714871d1f712f386da07bf32",
+    "server/productivity/activation.test.ts": "ed3fd67cbf07aa94af9b0bbd50f3a7381f5b6bde5d26f2324f5358089c8d154a",
+    "server/productivity/adapter.test.ts": "7a4b9cc35f934538be30697fc4e92d7d58f2e67a69d667f49571bb20f957de51",
+    "server/productivity/adapter.ts": "ad6954e9bb5bd85e34dd09ae77b2067139be471dc42dc4338786676dd01b6e34",
+    "server/productivity/bridge-order.test.ts": "863c9ff57d5179329727aa2d0a3e54cc663d624e24ae8972e1e50ed1a039f0dd",
+    "server/productivity/legacy.ts": "b4108108bcb564d3eda056cca158cc3b3fd0f6da9b498dfa741da7dc46ce4e01",
+    "server/productivity/migrate.ts": "dd2a4378a2eac9c8d6ae7559887ef42f3534d84eb32d2fd64f606750719a9746",
+    "server/productivity/migration.test.ts": "c777e8514e520584b04e350dcea1d268a464d357b960e854086f78518982d5fe",
+    "server/productivity/schema.ts": "cb50735f35da6e5e094659b68dd4d667a4914e482efda5a0167dee8654e95168",
+    "server/productivity/snapshot.ts": "3559d1c7cd47de9ec132e70cf00092513d1627fdf1a0c16cb63e7913f76c5a5d",
+    "server/productivity/store.test.ts": "7cb36cee259ff180cf7f841537656755d9b77a4a329fc004cb2c88c5ccd26668",
+    "server/productivity/store.ts": "394f8c5a7d9929c492ec60a2eca1a3151b54a6c22e3c4b39ebd80966a53083b9",
+    "server/sqlite.ts": "67106670f5c41f63e7374cf8291102e5db843aca580437f9187dcf09fdc2b780",
+    "src/types.ts": "ca85f77222d81878acf4413484424cbb56c4ffb19fb91fa3d7f57e3825d71b13",
+    "tests/evidence.test.ts": "0e082829c53052f695f9d6259b5d303b8d8c16873eda59c80a526608e6d79623",
+    "tests/fixtures/productivity.ts": "e20ff0045ecef596ba847eb0ea18960e3292f6cceb21260c20e34c2b894f5840"
+  },
+  "reportHashes": {
+    "red.json": "965f6a9e31c269a9cf49da2b5aa4a3d611a1afd9b716b22f8c3288f09025a5ff",
+    "green.json": "2a52c06b6934611645c14fa0f787106799315c3747a29cfe5a351b401c16b971",
+    "expanded-green.json": "a7ca434c26a0e14bebc84ff71fc0ac7b182d43f4f13b2063c3ac6f74cbc04b81",
+    "mirror-red.json": "2737808e6990ef6223ab063264d6d0a5cf3b18688964a76a7d6ed11fce9d2157",
+    "mirror-red-fixture-corrected.json": "53256e99b4c439d778c7ed00a173653607650a9ac9c5a2b55ab27574d6f1623b",
+    "order-red.json": "69554362aaa6c50a131c4e6367ab3f6f15a40aebcbce074eca42fa38a2fe1bdf",
+    "gate-red.json": "04ed0d2529d30348c2c5da96954d6a59d2b2b2728f651f6497fbb51b0da540fc",
+    "target-final-green.json": "6b0d77819e11e484caf69d6ce5a56967cf756b5c1699a2a0c8d33158080c168f",
+    "full.json": "755da15c821dcc5aba80d374e1c833d1171d3f742c5e63e46f71ce6d29a680b4",
+    "junit.xml": "f4babf0b3bbcc3288d13edf34ebd1df6288e3b49a7d1379e6aded6bfe3e406b9",
+    "lint-final-green.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "build.log": "8ace5ecbf4558f1475f371357bfbf94023721175e113d18c94786608b0e2bf6c",
+    "import-probe.json": "3928995a08ee3b5dfc7ae682733486a2bc0bc59c9fb06282d17ad5746d361fe2"
+  },
+  "windows": "pending exact PR HEAD",
+  "dependenciesChanged": false,
+  "productionRuntimeEnabled": false,
+  "rulings": [
+    "Split bridge/cutover tests from startup/package schema manifest support; no weakening domains:{} gate before P02-b2",
+    "Preserve existing accepted yearly recurrence metadata/type; no new UI option/label or recurrence semantics",
+    "Canonical rows soft delete to retain provenance/refs, legacy projection hides them",
+    "Use shared normalized projection for reader and active snapshot validation; original rank/structure/pin retained",
+    "Require configured reader, current migration/checksum and immutable source freshness before activation",
+    "Existing known P02-a Minor findings remain deferred"
+  ]
+}

@@ -15,5 +15,5 @@ export function assertLegacyTask(value:unknown):asserts value is Task {
  if(t.rewardPoints!==undefined)integer(t.rewardPoints);if(t.recurrenceInterval!==undefined)integer(t.recurrenceInterval,1);
  if(t.pendingApproval!==undefined)boolean(t.pendingApproval);
  if(t.rotationMemberIds!==undefined)strings(t.rotationMemberIds);
- if(t.recurrenceType!==undefined)choice(t.recurrenceType,['none','daily','weekly','monthly']);
+ if(t.recurrenceType!==undefined)choice(t.recurrenceType,['none','daily','weekly','monthly','yearly']);
 }
