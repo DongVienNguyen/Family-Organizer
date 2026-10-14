@@ -19,6 +19,10 @@ to their original actor/role. Consumption rechecks live actor, visibility, IDs
 and revisions; another actor gets404, expired/stale data gets409, malformed
 reference/clock gets400. Clock arguments are trusted domain inputs; the later
 HTTP owner must capture server time and must not accept a client expiry clock.
+Pruning expired payloads retains only reference/actor identity for the lifetime
+of this in-memory engine, so unrelated selection creation cannot change owner409
+to404. Restarting the engine discards its references; no persisted selection is
+promised. The HTTP owner must bound engine/session lifetime and selection creation.
 
 Inbox explicitly selects no-date active tasks. Today/Next7 use half-open local
 day ranges. Assigned, Overdue, Completed, WontDo and Trash are typed filters.

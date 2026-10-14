@@ -45,3 +45,11 @@ it('revoked list access invalidates a previously actor-owned selection before co
 it('invalid selection references and clocks return typed input errors without resolving cached rows',()=>{
  setup();create('Synthetic validated selection');const query=createTaskQuery({reader}),selected=query.selectTaskIds(actor,{rootsOnly:true},clock);expect(()=>query.resolveSelection(actor,'',clock)).toThrow(expect.objectContaining({status:400}));expect(()=>query.resolveSelection(actor,selected.id,{...clock,nowUtc:'ambiguous'})).toThrow(expect.objectContaining({status:400}));
 });
+it('expired selections keep owner409 and foreign404 after unrelated creation prunes their payload',()=>{
+ setup();create('Synthetic expiry identity');const query=createTaskQuery({reader}),selected=query.selectTaskIds(actor,{rootsOnly:true},clock),expired={...clock,nowUtc:'2026-10-14T05:15:00.000Z'};
+ expect(()=>query.resolveSelection(actor,selected.id,expired)).toThrow(expect.objectContaining({status:409}));
+ query.selectTaskIds(admin,{rootsOnly:true},expired);
+ expect(()=>query.resolveSelection(actor,selected.id,expired)).toThrow(expect.objectContaining({status:409}));
+ expect(()=>query.resolveSelection(admin,selected.id,expired)).toThrow(expect.objectContaining({status:404}));
+ expect(()=>query.resolveSelection(actor,'synthetic-missing',expired)).toThrow(expect.objectContaining({status:404}));
+});

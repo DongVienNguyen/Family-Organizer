@@ -22,7 +22,7 @@ export function smartTaskFilter(kind:'inbox'|'today'|'next7'|'assigned'|'overdue
 }
 interface Selection {id:string;actor:AppActor;filter:TaskFilter;clock:QueryClock;expiresAt:number;rows:{id:string;revision:number}[]}
 export function createTaskQuery(ports:{reader:TaskReader;pageSize?:number}) {
- const pageSize=ports.pageSize??100;integer(pageSize,1,100);const selections=new Map<string,Selection>();
+ const pageSize=ports.pageSize??100;integer(pageSize,1,100);const selections=new Map<string,Selection>(),expiredOwners=new Map<string,AppActor>();
  const authorize=(actor:AppActor)=>assertContext({actor,requestId:'query:read',expectedRevision:0},ports.reader);
  const collect=(actor:AppActor,filter:TaskFilter,clock:QueryClock)=>{
   authorize(actor);try{assertTaskFilter(filter);clockValid(clock);}catch{throw new AppStoreError('Bộ lọc hoặc thời điểm không hợp lệ.',400,'query-filter');}
@@ -42,10 +42,10 @@ export function createTaskQuery(ports:{reader:TaskReader;pageSize?:number}) {
    const page=rows.slice(start,start+pageSize),last=page.at(-1);return {items:page.map(row=>row.task),totalUnique:rows.length,nextCursor:last&&start+page.length<rows.length?Buffer.from(JSON.stringify({version:1,binding:bound,digest:state,id:last.task.id,rank:last.rank})).toString('base64url'):null};
   },
   selectTaskIds(actor:AppActor,filter:TaskFilter,clock:QueryClock){
-   const rows=collect(actor,filter,clock),now=utcInstant(clock.nowUtc);for(const [id,selection]of selections)if(selection.expiresAt<=now)selections.delete(id);const value:Selection={id:randomUUID(),actor:structuredClone(actor),filter:structuredClone(filter),clock:structuredClone(clock),expiresAt:now+15*60000,rows:rows.map(row=>({id:row.task.id,revision:row.task.revision}))};selections.set(value.id,value);return {id:value.id,taskIds:value.rows.map(row=>row.id),totalUnique:value.rows.length,expiresAt:new Date(value.expiresAt).toISOString(),clock:structuredClone(value.clock)};
+   const rows=collect(actor,filter,clock),now=utcInstant(clock.nowUtc);for(const [id,selection]of selections)if(selection.expiresAt<=now){expiredOwners.set(id,selection.actor);selections.delete(id);}const value:Selection={id:randomUUID(),actor:structuredClone(actor),filter:structuredClone(filter),clock:structuredClone(clock),expiresAt:now+15*60000,rows:rows.map(row=>({id:row.task.id,revision:row.task.revision}))};selections.set(value.id,value);return {id:value.id,taskIds:value.rows.map(row=>row.id),totalUnique:value.rows.length,expiresAt:new Date(value.expiresAt).toISOString(),clock:structuredClone(value.clock)};
   },
   resolveSelection(actor:AppActor,id:string,clock:QueryClock):{id:string;revision:number}[]{
-   authorize(actor);try{text(id,256);clockValid(clock);}catch{throw new AppStoreError('Lựa chọn hoặc thời điểm không hợp lệ.',400,'query-selection');}const value=selections.get(id);if(!value||value.actor.userId!==actor.userId||value.actor.role!==actor.role)throw new AppStoreError('Không tìm thấy lựa chọn công việc.',404,'query-selection');if(value.expiresAt<=utcInstant(clock.nowUtc))throw conflict();const rows=collect(actor,value.filter,value.clock).map(row=>({id:row.task.id,revision:row.task.revision}));if(hash(rows)!==hash(value.rows))throw conflict();return structuredClone(value.rows);
+   authorize(actor);try{text(id,256);clockValid(clock);}catch{throw new AppStoreError('Lựa chọn hoặc thời điểm không hợp lệ.',400,'query-selection');}const value=selections.get(id),owner=value?.actor??expiredOwners.get(id);if(!owner||owner.userId!==actor.userId||owner.role!==actor.role)throw new AppStoreError('Không tìm thấy lựa chọn công việc.',404,'query-selection');if(!value||value.expiresAt<=utcInstant(clock.nowUtc))throw conflict();const rows=collect(actor,value.filter,value.clock).map(row=>({id:row.task.id,revision:row.task.revision}));if(hash(rows)!==hash(value.rows))throw conflict();return structuredClone(value.rows);
   },
  };
 }

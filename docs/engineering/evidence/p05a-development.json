@@ -80,8 +80,87 @@
     "p05a-query-current.json": "d35dbc03b7b69ff2a5adef0241f270cb995792cb32f3c1fe9d2b20c45a26915d",
     "p05a-target-current.json": "38c51a6c24e2807b964cfae9066353e7b17fd5ec0249b50b6fd23cf477c983d8"
   },
-  "WindowsAcceptance": "pending",
+  "WindowsAcceptance": "new exactHEAD pending after reviewed correction; initial055ddb passed all8/nine raw families",
   "server2019Acceptance": "not-run",
   "nextSlice": "P05b persistedviews/index/HTTP/UI/DTOreadreference/readonlyTrash",
-  "publicationAllowed": false
+  "publicationAllowed": false,
+  "correctedVerification": {
+    "fullGreen": {
+      "tests": 3263,
+      "files": 172,
+      "junitCases": 3263,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "maxWorkers": 1
+    },
+    "targetGreen": {
+      "tests": 245,
+      "failed": 0
+    },
+    "reviewRed": {
+      "tests": 10,
+      "failed": 1
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "coldImport": {
+      "imports": 1,
+      "storageCreated": false,
+      "exit": 0
+    },
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "0463fcaa99f2609c18c97337fdd277a49df8e2b3d6e4e426d8369e8ccc9dfe63",
+      "server/productivity/access.ts": "c8c69a4d8e62af8453537d0afbc22e2306c50de926688fefc4da9f5d90b0f320",
+      "server/productivity/query.test.ts": "2d2a50fac8a63cceb14a5d56d367bf5d57aae306774890d6551b55ec48616a67",
+      "server/productivity/query.ts": "95f4548d19caeb6a79288627119fa49b723375423ddf3bef26a4a7430eee95fa",
+      "src/features/productivity/contracts.ts": "4479e853d031305b12b2017f6475cc034f29d8f6be080b27a2e030e56e71ef81",
+      "src/features/productivity/filters.test.ts": "92005ce54caba37991849dc2911926764000218ae174273a87be92c6406a5314",
+      "src/features/productivity/filters.ts": "5bbf25186f80434e11a58d25b7a642f65d1bb49c65d1810202881e0fa31d53c7",
+      "tests/evidence.test.ts": "b544b41c4a544758905129f211c69c0f643d1fb234225115ef902244927f1ca8"
+    },
+    "reportHashes": {
+      "p05a-review-build.log": "20d14325bffe0eaa672530205ce8546b8f8438ac49f7dfe3ae93fd7ae8264736",
+      "p05a-review-cold.json": "314a0b5c67f97afeaa1b7bacd1cf4a76f996348e5c118a79c0aef90410096106",
+      "p05a-review-green.json": "824c3940aecd9c4cc01a420530666a4dccf1bcb99194e5adceafd40ab5e161bf",
+      "p05a-review-green.log": "88992fdc9de06001afff15ad82da0d7fe31d9a0df13535054aa37084ea11687b",
+      "p05a-review-full.log": "d99652fa2b2bb76335e54a62c84b1a916e57a8a695aef42dc5b67a201cefc33a",
+      "p05a-review-red.log": "35dc45416e7aa1635f6db4b2fd230412eafabdf182212ff2cf8c2e980d73428f",
+      "p05a-review-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "p05a-review-cold.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "p05a-review-red.json": "4691b123dde78610f5828bc0cf6a3a3ad23248be00398c65965b74ffc5d763eb",
+      "p05a-review-full.json": "d43209eca32a25ad0383ef1d240fe8f8da4c92b441cbe8cfec23f8bab8f339b9",
+      "p05a-review-full.xml": "c19f30c63775a2217b131d73d5bbbfe8577809a26c5efd5cd8efd043e3ccff13"
+    },
+    "review": {
+      "taskId": "P05-a",
+      "reviewedHeadSha": "055ddb295245075dfd705bd94f58041fcef6e43f",
+      "reviewer": "p05a_review",
+      "reviewCount": 1,
+      "critical": 0,
+      "important": 1,
+      "minor": 0,
+      "allFindingsGraded": true,
+      "rulings": [
+        {
+          "id": "I1",
+          "severity": "Important",
+          "decision": "fix in one correction pass",
+          "reason": "Expiry must remain409 for its original actor even after unrelated selection creation prunes the payload; foreign/missing references must remain404",
+          "verification": "new collected regression before source correction; retain all previous assertions",
+          "result": "Collected10/1 causal RED to10GREEN,245target/full3263GREEN; payload pruned, actor identity retained per engine lifetime"
+        }
+      ],
+      "declinedBoundaries": {
+        "persistedViewsIndexHttpUiDtoTrash": "P05-b",
+        "newWorkflowWrites": "P10",
+        "historical67to78Minors": "closed",
+        "windowsAcceptance": "root independently validates exactHEAD"
+      },
+      "importantRemaining": 0,
+      "criticalRemaining": 0,
+      "correctionPasses": 1,
+      "rereview": false
+    }
+  }
 }
