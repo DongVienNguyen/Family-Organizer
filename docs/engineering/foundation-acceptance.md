@@ -14,11 +14,11 @@ is not Windows acceptance; a build is not the aggregate test result.
 | F03 | Explicit app/runtime/storage/job lifecycle; request/effect drain and SQLite close, readiness/maintenance/crash recovery, native metrics. App deployment/restart/Immich management intentionally retired |
 | I01 | Single write gateway, legacy dirty collection adapter, domain migration/checksum registry, commands/transaction dedupe, durable job leases and one shared snapshot/restore journal |
 | F04 | Expiring/revocable sessions, roles/object/media ACL, field/body limits, server-side derived privacy, actor-owned requests/cache purge, ordinary credential exclusion and selective encrypted recovery. Offline providers only |
-| F05 | Seven mandatory Windows2022 jobs, strict JSON/JUnit/coverage/source/native gates, first-attempt three-engine browser cases and raw artifact readers. **Repository enforcement is blocked: actual Administration writes HTTP403, main remains unprotected** |
+| F05 | Seven mandatory Windows2022 jobs, strict JSON/JUnit/coverage/source/native gates, first-attempt three-engine browser cases and raw artifact readers. **Owner configured enforcement: REST verifies main protected, required ci-gate from GitHub Actions/app15368 for everyone. Owner explicitly confirms PR, up-to-date and no bypass; detailed Administration reads remain403** |
 | F06 | Same immutable Windows ZIP built/tested across independent clean producer/consumer, bundled runtime/addon, source/schema/file/license manifest and hostile archive refusal. Cloud node_modules never packaged |
 | F07 | Actual disposable Windows service/LocalService SID/ACL/ownership, graceful stops/restarts/crash recovery, native file-lock release, encrypted online/offline backup, guarded restore/update/rollback and scheduled retention. Actual reboot/off-host destination/RPO/RTO remain R02 |
 | F08 | Trusted-main explicit source/run authentication, all raw report families and original ZIP/native/license binding, normalized full evidence and read-only candidate/promotion handoff. Publication remains blocked; no release/tag has been created |
-| F09 | Legacy feature ownership and current route inventory below; focused browser/HTTP regression slices. Source checkpoint PR66/CI38442852074 independently passes all7 checks/eightraw readers, both2835/139 and45 first-attempt browser cases. This documentation refresh needs its own exact-HEAD CI before merge; the F05 enforcement gate remains unresolved |
+| F09 | Legacy feature ownership and current route inventory below; focused browser/HTTP regression slices. Final PR66 HEAD cd2a704e8dbdfe169c56c7b06cb92469f641ea4e/CI38444771190 independently passes all7 checks/eight raw readers, both2835/139 and45 first-attempt browser cases. Squash d59193b81fcd58febad4601f847b820bad4b802a has the same tree |
 
 ## Existing feature regression owners
 
@@ -58,12 +58,9 @@ internal auth/command table.
 
 ## Remaining gates
 
-1. Source checkpoint `58171755315daca8bd8b881fa4703c4cbb668153` passed [CI38442852074](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38442852074), all7/eightraw readers,2835/139 each runtime and45 browsers. Validate this final documentation HEAD separately before merge; retain both exact-source checkpoints and all original raw bytes. Final acceptance evidence is recorded in the PR comment.
-2. Resolve F05 GitHub Administration integration HTTP403 and actually enforce PR
-   plus required GitHub Actions ci-gate without bypass. The user already granted
-   permission, but the integration still lacks usable scope. No bypass is asserted.
-3. Only after the foundation gate, begin P01–P18/W01–W18/I02–I03 in dependency
-   order. R01 additionally requires complete feature/performance/migration evidence.
+1. Foundation source accepted at final PR66 HEAD/CI above; preserve all original failures and raw bytes. New source/documentation HEADs require their own CI before merge.
+2. F05 enforcement is configured by owner: see [evidence](evidence/f05-owner-enforcement.json). Branch protected/required Actions ci-gate/everyone are API-observed; PR, up-to-date and no-bypass settings are owner-confirmed. Detailed Administration read/write remains403; this limitation does not undo owner-configured protection.
+3. Continue P01–P18/W01–W18/I02–I03 in dependency order. P01 introduces pure contracts/helpers only; P02 owns task migration and compatibility. R01 additionally requires complete feature/performance/migration evidence.
 4. R02 requires actual Windows Server2019 x64/build17763, package/hash provenance,
    reboot/TLS/proxy/restore/load and measured off-host RPO/RTO on authorized staging.
    Windows2022 evidence cannot satisfy it.

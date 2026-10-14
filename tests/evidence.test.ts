@@ -36,7 +36,8 @@ const suiteNames = [
   'src/utils/assistantFocus.test.ts',
   'tests/release-candidate-handoff.test.ts',
   'src/utils/notificationRead.test.ts',
-  'server/legacyFlagsHttp.test.ts',];
+  'server/legacyFlagsHttp.test.ts',
+  'src/features/productivity/dates.test.ts', 'src/features/productivity/filters.test.ts', 'src/features/productivity/contracts.test.ts',];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
   const reports: Record<string, any> = {
@@ -312,3 +313,5 @@ it('rejects missing notification acknowledgement ownership regression suite',()=
 
 it('rejects missing legacy feature flag HTTP regression suite',()=>{const suite='server/legacyFlagsHttp.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 it('requires Caddy failure diagnostic regression suite',()=>{const suite='tests/caddy-failure-diagnostics.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it.each(['dates','filters','contracts'])('rejects missing P01 %s mandatory suite',name=>{const suite='src/features/productivity/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});

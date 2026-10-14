@@ -1,26 +1,21 @@
 # Tiến độ Windows-native
 
-## Current checkpoint — 2026-10-13
+## Current checkpoint — 2026-10-14 (Asia/Saigon)
 
-**The complete master plan is not finished.** Matrix/Kanban/Wallet tasks wait for the foundation gate.
+**The complete master plan is not finished.** The F05 external permission blocker has been resolved through owner-configured branch protection; productivity starts with P01.
 
 | Work | Current evidence / remaining step |
 | --- | --- |
-| Accepted main | PR65 squash `bd3717ffbcf21c8c7390da97aa466b0d07e3b44d`; independently same tree as tested `934623bb978b18d75db353b2ecbee5780a13ce14` |
-| Windows quality/package/service | [CI38436178499](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38436178499): all7 checks/eight independent raw validators; each Node22/24 2820 tests/138 files, zero failed/pending/todo;45 first-attempt browser cases |
-| Legacy UI regression | PR60/62/63/64/65 accepted: assistant, health, calendar, documents/search, dashboard/notification and earlier flows; original assertions, synthetic offline boundary and owned cleanup retained |
-| Calendar fixture | Original45s failures and hydration failure retained. B12 realUI create/recurrence/ICS/grid/detail; B15 canonical authenticated API fixture, explicitreload then realUI edit/private/reload/Child. All27 original assertion lines retained, each45s/10s/zero retries. Continuous export/detail→edit session no longer checked |
-| Native Caddy diagnostics | PR64 accepted; bounded failure-only output and child-close drain, ONE0C1I1M/all authorgraded before one pass,2 lifecycleREDs→GREEN. Both native runtimes pass latest acceptedCI. Original66c/38430254887 failure retained; its cause remains unknown. Existing UTF8 chunk-decoder Minor deferred |
-| Browser driver diagnostics | Bounded synthetic native lifecycle/UTF8stderr capture; ONE0C2I0M/allgradedbeforeonepass, real spawn/stale-evidence/descriptor regressions. Original a234/38438080677 failed44/45 atcontext close after21 expectations; cause unknown, all7artifacts/log/trace/seven nonbrowser raw passes retained |
-| Notification ownership | PR65 accepted: actual acknowledgement JSON consumed before refresh; four owner/stale actor regressions and actual browser clockRED→GREEN. ONE0C1I1M/one correction pass/no rereview; isolated zero badge Minor deferred |
-| Foundation flags/inventory F09-n | ONE0C2I0M/all authorgraded before one pass; initial failed lint/incorrect0 claim corrected and retained. Cloud2835/139 all0,192target/lintbuild0. PR66 source checkpoint `58171755315daca8bd8b881fa4703c4cbb668153`, [CI38442852074](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38442852074): all7/eightraw0, both2835/139/45firstattempt; final documentation HEAD needs separateCI, acceptance recorded in PR comment |
-| Read-only candidate/promotion | PR61 trusted-main candidate38414439837 and promotion38414445312 independently verified historical ZIP/full raw/normalized/handoff. Publication/tag/release false |
-| F05 blocker | Actual ruleset/branch-protection writes HTTP403; main remains unprotected with no ruleset. User authorization persists, usable integration Administration scope/enforcement still absent |
+| Accepted foundation | [PR66](https://github.com/DongVienNguyen/Family-Organizer/pull/66) squash `d59193b81fcd58febad4601f847b820bad4b802a`, independently same tree as tested `cd2a704e8dbdfe169c56c7b06cb92469f641ea4e` |
+| Exact PR Windows evidence | [CI38444771190](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38444771190): all7 checks/eight independently read raw report families, each Node22/24 2835 tests/139 files and45 first-attempt browser cases. Final compact evidence: `evidence/f09-n-final.json` |
+| Main push CI | [CI38446600910](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38446600910): all7success, REST14-file logZIP shows2835/139 each and45 browsers; main raw artifact families not independently revalidated |
+| F05 enforcement | `main` protected; required `ci-gate` is bound to GitHub Actions/app15368, enforcement everyone. Owner explicitly confirms required PR/up-to-date/no bypass. Detailed Administration API remains403; distinguish observed fields from owner confirmation in `evidence/f05-owner-enforcement.json` |
+| Legacy regression | Assistant/health/calendar/documents/search/dashboard/notifications/feature flags and earlier flows accepted in PR60–66. Original assertion/rerun failures and review rulings retained. Calendar uses split B12 real create/ICS/detail and B15 canonical API fixture/reload/realUI edit; continuous export→edit session not checked. Original native Caddy/context-close causes remain unknown despite later passing checks |
+| P01 | Branch `codex/p01-task-clock-contracts`, BASE `d59193b81fcd58febad4601f847b820bad4b802a`. Task/view/due/filter DTOs, injected UTC clock, IANA timezone/strict legacy parse and pure facet/range filters; old runtime/Task/routes stay active. 56 tests: initial30failed/26negative guards passed against unimplemented stubs→56GREEN; mandatory-suite gate has3 actual REDs. Full Cloud2894/142 with matching JSON/JUnit and no failures/pending/todo; lint/build0. Exact Windows PR verification pending; PR/SHA/run recorded below when available |
+| Read-only release handoff | Historical PR61 candidate38414439837/promotion38414445312 independently read; publication/tag/release false |
 | R02/R03 | Actual Server2019/build17763/reboot/off-host/load/RPO/RTO not-run. Windows2022 is not R02. No release/tag/VPS access or deployment authorized/performed |
 
-Historical failed runs and raw proof bytes remain intact. Deferred review rulings remain per task. Existing compiled bounded-stdin first-account initialization is verified; the historical optional masked PowerShell wrapper is unimplemented and is not a formal requirement.
-
-Next: verify final documentation HEAD on Windows45 and merge, then F05 enforced PR+ci-gate before P01. No repeated merge permission is needed.
+Deferred review Minor findings stay deferred; old failed reports are retained. Next: review/CI/merge focused P01, then P02 using the existing I01 gateway and migration registry. No repeated merge permission is needed.
 
 ## Earlier integration checkpoints — through PR46
 
