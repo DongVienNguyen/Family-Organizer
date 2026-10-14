@@ -98,7 +98,7 @@ function initializeDatabase() {
         if (!keys.includes(key)) continue;
         if(key==='tasks'&&taskStorageAdapter?.enabled()){
           if(!writeScope)throw new Error('Canonical tasks require the application gateway');
-          taskStorageAdapter.write(data.tasks);continue;
+          taskStorageAdapter.write(data.tasks);deleteStmts.get(table)!.run();continue;
         }
         deleteStmts.get(table)!.run();
         const insert = insertStmts.get(table)!;
@@ -148,6 +148,26 @@ let writeScope: Map<FamilyOrganizerDB, Map<keyof FamilyOrganizerDB, string>> | u
 const encodeCollection = (data: FamilyOrganizerDB, key: keyof FamilyOrganizerDB) =>
   JSON.stringify(data[key] ?? (SINGLETON_KEYS.includes(key) ? null : []));
 
+/** Flush only the current task view; unrelated legacy collections stay staged. */
+export function sqliteFlushLegacyTasks(data:FamilyOrganizerDB):void {
+ if(!taskStorageAdapter?.enabled())return;
+ if(!writeScope||!db.inTransaction)throw new Error('Canonical tasks require the application gateway');
+ const baseline=writeScope.get(data)??baselines.get(data);
+ if(baseline&&encodeCollection(data,'tasks')===baseline.get('tasks'))return;
+ if(baseline&&JSON.stringify(taskStorageAdapter.read())!==baseline.get('tasks'))throw new Error('Stale legacy collection: tasks');
+ saveCollections(data,['tasks']);
+ sqliteRefreshCanonicalTasks(data);
+}
+/** Only own committed SQL changes refresh this transaction's task baseline. */
+export function sqliteRefreshCanonicalTasks(data:FamilyOrganizerDB):void {
+ if(!writeScope||!db.inTransaction||!taskStorageAdapter?.enabled())throw new Error('Canonical projection requires the application gateway');
+ const baseline=writeScope.get(data)??baselines.get(data);
+ // An untracked restore document must still replace all its other collections.
+ if(!baseline)throw new Error('Canonical projection requires a tracked transaction document');
+ data.tasks=taskStorageAdapter.read();
+ const updated=new Map(baseline);updated.set('tasks',encodeCollection(data,'tasks'));writeScope.set(data,updated);
+}
+
 /** The gateway passes its complete native transaction here, including COMMIT. */
 export function withSqliteWriteScope<T>(commit: () => T): T {
   if (writeScope || db.inTransaction) throw new Error('Nested SQLite write scope is not permitted');
@@ -175,6 +195,11 @@ export function sqliteSave(data: FamilyOrganizerDB): void {
       }
     }
     saveCollections(data, dirty);
+    // Restore can change storage mode while keeping the same projected task bytes.
+    if(taskStorageAdapter?.enabled()){
+      if(!writeScope)throw new Error('Canonical tasks require the application gateway');
+      db.prepare('DELETE FROM tasks').run();
+    }
   }).immediate();
   const saved = new Map(LEGACY_KEYS.map(key => [key, encodeCollection(data, key)]));
   // Publish only after the actual outer COMMIT; rollback discards pending maps.

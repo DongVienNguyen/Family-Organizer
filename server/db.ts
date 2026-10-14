@@ -54,7 +54,7 @@ import {
 } from "../src/types.js";
 import { SEED_DISHES } from "../src/utils/mealPlan.js";
 import { isDebtFullyPaid } from "../src/utils/debt.js";
-import { sqliteIsEmpty, sqliteHasLegacyData, sqliteLoad, sqliteSave, sqliteCheckpoint } from "./sqlite.js";
+import { sqliteIsEmpty, sqliteHasLegacyData, sqliteLoad, sqliteSave, sqliteCheckpoint, sqliteFlushLegacyTasks } from "./sqlite.js";
 import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
 import { isPushConfigured } from "./push.js";
 import { enqueueAppJob } from "./jobStore.js";
@@ -304,7 +304,8 @@ export class FamilyDB {
     const tx = currentAppWriteTx();
     if (tx) {
       if (tx.legacy !== db) throw new Error("Legacy writer must use the current transaction document");
-      return; // The outer gateway saves the changed collections once, at commit.
+      sqliteFlushLegacyTasks(db);
+      return; // Other changed collections remain staged until the outer commit.
     }
     sqliteSave(db);
   }

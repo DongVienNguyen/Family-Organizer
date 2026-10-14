@@ -47,6 +47,27 @@ it('rejects a recomputed active snapshot with legacy projection diverging from c
 it('rejects an unsupported active marker before restoring files or data',()=>{
  setup();const good=command(tx=>snapshot.collectAppSnapshot(tx));const bad=structuredClone(good);bad.tables.app_meta.find(row=>row.key==='productivity_active')!.value='2';bad.manifest.checksum=checksum(bad);expect(()=>snapshot.validateAppSnapshot(bad)).toThrow();
 });
+it('canonical then legacy edits observe one current task and commit together',()=>{
+ setup();command(tx=>{const row=loadTask(tx,'child')!;savePilotTask(tx,{...row,title:'Canonical first',revision:row.revision+1});expect(FamilyDB.getTasks().find(t=>t.id==='child')!.title).toBe('Canonical first');FamilyDB.saveTask({id:'child',description:'Legacy second'},'adult','synthetic-admin');expect(loadTask(tx,'child')!.body).toBe('Legacy second');});
+ expect(FamilyDB.getTasks().find(t=>t.id==='child')).toMatchObject({title:'Canonical first',description:'Legacy second'});
+});
+it('legacy then canonical edits observe one current task and rollback atomically on failure',()=>{
+ setup();const before=command(tx=>loadTask(tx,'child')!);
+ expect(()=>command(tx=>{FamilyDB.saveTask({id:'child',title:'Legacy first'},'adult','synthetic-admin');const row=loadTask(tx,'child')!;expect(row.title).toBe('Legacy first');savePilotTask(tx,{...row,body:'Canonical second',revision:row.revision+1});expect(FamilyDB.getTasks().find(t=>t.id==='child')!.description).toBe('Canonical second');throw Error('synthetic mixed rollback');})).toThrow('synthetic mixed rollback');
+ command(tx=>{expect(loadTask(tx,'child')).toEqual(before);});
+});
+it('external stale task documents remain rejected after own canonical projection refresh',()=>{
+ setup();const stale=sqlite.sqliteLoad();command(tx=>{const row=loadTask(tx,'child')!;savePilotTask(tx,{...row,title:'New current title',revision:row.revision+1});});stale.tasks.find(t=>t.id==='child')!.description='Stale overwrite';
+ expect(()=>command(tx=>{tx.legacy=stale;})).toThrow(/stale/i);expect(FamilyDB.getTasks().find(t=>t.id==='child')!.title).toBe('New current title');
+});
+it('inactive to active shared restore clears raw rows and failed restore preserves inactive source',async()=>{
+ setup();const active=command(tx=>snapshot.collectAppSnapshot(tx));const inactive=structuredClone(active);inactive.tables.app_meta=inactive.tables.app_meta.filter(row=>row.key!=='productivity_active');inactive.manifest.checksum=checksum(inactive);
+ await snapshot.restoreAppSnapshot(snapshot.validateAppSnapshot(inactive),{maintenance:async fn=>fn()});expect(sqlite.sqliteConnection().prepare('SELECT count(*) AS n FROM tasks').get()).toEqual({n:2});
+ const failAfter=()=>{throw Error('synthetic restore fence');};
+ await expect(snapshot.restoreAppSnapshot(snapshot.validateAppSnapshot(active),{maintenance:async fn=>fn(),onBoundary:boundary=>{if(boundary==='media-promoted')failAfter();}})).rejects.toThrow('synthetic restore fence');
+ expect(sqlite.sqliteConnection().prepare('SELECT count(*) AS n FROM tasks').get()).toEqual({n:2});
+ await snapshot.restoreAppSnapshot(snapshot.validateAppSnapshot(active),{maintenance:async fn=>fn()});expect(sqlite.sqliteConnection().prepare('SELECT count(*) AS n FROM tasks').get()).toEqual({n:0});expect(FamilyDB.getTasks().find(t=>t.id==='child')!.title).toBe('New current title');
+});
 it('legacy delete hides the task but preserves its canonical tombstone/provenance for snapshots',()=>{
  setup();FamilyDB.deleteTask('child','adult','synthetic-admin');expect(FamilyDB.getTasks().some(t=>t.id==='child')).toBe(false);
  command(tx=>{const row=loadTask(tx,'child')!;expect(row.deletedAt).not.toBeNull();expect(row.legacy.proofNote).toBe('Synthetic proof');expect(tx.get('SELECT count(*) AS n FROM tasks').n).toBe(0);});

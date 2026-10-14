@@ -6,31 +6,36 @@ import type {Task} from '../../src/types.js';
 import {createHash} from 'node:crypto';
 import {isDeepStrictEqual} from 'node:util';
 import {registerProductivityMigration,productivityMigrationChecksum,migrateTasks} from './migrate.js';
-import {loadTasks,loadTask,savePilotTask,projectLegacyTask as projection} from './store.js';
+import {loadTasks,loadTask,savePilotTask,installTaskWriteHooks,projectLegacyTask as projection} from './store.js';
+import {markCanonicalReaderReady,requireCanonicalReader} from './bridgeState.js';
 import {parseLegacyDue} from '../../src/features/productivity/dates.js';
 import {assertLegacyTask} from './legacy.js';
 export type BridgePorts={sqlite:typeof Sqlite;gateway:typeof Gateway;migrations:typeof Migrations;snapshot:typeof Snapshot};
 const configured=new WeakSet<object>();
-let bridgeReady=false;
-function active(reader:Pick<Gateway.AppWriteTx,'get'>):boolean {
+function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
+ const migrations=reader.all("SELECT version,checksum FROM app_migrations WHERE namespace='productivity' ORDER BY version");
+ if(migrations.length!==1||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum)throw new Error('Unsupported productivity migration before activation');
+}
+function active(reader:Pick<Gateway.AppWriteTx,'get'|'all'>):boolean {
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
- if(marker===undefined)return false;if(marker!=='1')throw new Error('Unsupported canonical task marker');return true;
+ if(marker===undefined)return false;if(marker!=='1')throw new Error('Unsupported canonical task marker');assertMigration(reader);return true;
 }
 export function configureCanonicalTaskBridge(ports:BridgePorts):void {
  if(configured.has(ports.sqlite))return;
  registerProductivityMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable,registerValidator:ports.snapshot.registerSnapshotValidator});
  const connection=ports.sqlite.sqliteConnection();
  const reader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args),all:(sql:string,...args:any[])=>connection.prepare(sql).all(...args)};
- ports.sqlite.installLegacyTaskStorageAdapter({enabled:()=>active(reader),read:()=>loadTasks(reader).filter(row=>row.deletedAt===null).map(projection),write(rows){const tx=ports.gateway.currentAppWriteTx();if(!tx)throw new Error('Canonical tasks require the application gateway');syncLegacyTasks(tx,rows);}});
+ let synchronizing=false;
+ ports.sqlite.installLegacyTaskStorageAdapter({enabled:()=>active(reader),read:()=>loadTasks(reader).filter(row=>row.deletedAt===null).map(projection),write(rows){const tx=ports.gateway.currentAppWriteTx();if(!tx)throw new Error('Canonical tasks require the application gateway');synchronizing=true;try{syncLegacyTasks(tx,rows);}finally{synchronizing=false;}}});
+ installTaskWriteHooks({before(tx){if(!synchronizing&&active(tx))ports.sqlite.sqliteFlushLegacyTasks(tx.legacy);},after(tx){if(!synchronizing&&active(tx))ports.sqlite.sqliteRefreshCanonicalTasks(tx.legacy);}});
  configured.add(ports.sqlite);
- bridgeReady=true;
+ markCanonicalReaderReady();
 }
 export function legacyTaskDigest(rows:Task[]):string {return createHash('sha256').update(JSON.stringify(rows)).digest('hex');}
 export function activateCanonicalTasks(tx:Gateway.AppWriteTx,expectedDigest:string):{alreadyActive:boolean;tasks:number} {
- if(!bridgeReady)throw new Error('Canonical legacy reader must be configured before activation');
+ requireCanonicalReader();
+ assertMigration(tx);
  if(active(tx))return {alreadyActive:true,tasks:loadTasks(tx).filter(r=>r.deletedAt===null).length};
- const migrations=tx.all("SELECT version,checksum FROM app_migrations WHERE namespace='productivity' ORDER BY version");
- if(migrations.length!==1||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum)throw new Error('Unsupported productivity migration before activation');
  if(!/^[a-f0-9]{64}$/.test(expectedDigest)||legacyTaskDigest(tx.legacy.tasks)!==expectedDigest)throw new Error('Legacy source changed since preview');
  const rows=loadTasks(tx);if(rows.length!==tx.legacy.tasks.length)throw new Error('Pilot source cardinality changed');
  const byId=new Map(rows.map(row=>[row.id,row]));
