@@ -49,6 +49,17 @@ export function invokeSynchronousWrite<T>(fn: (tx: AppWriteTx) => T, tx: AppWrit
 }
 
 export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppWriteTx) => T): T {
+  return executeWriteTransaction(meta,fn);
+}
+/** Trusted shared restore port. The engine has validated/branded replacement
+ * data and saved a native safety copy before invoking this synchronous owner.
+ * Ordinary commands never bypass their current document/stale-read checks.
+ */
+export function withAppSnapshotRestoreTransaction<T>(meta:AppWriteMetadata,replacement:FamilyOrganizerDB,fn:(tx:AppWriteTx)=>T):T {
+  if(meta.command!=='core:snapshot:restore')throw new AppStoreError('Replacement data belongs to shared snapshot restore',400);
+  return executeWriteTransaction(meta,fn,replacement);
+}
+function executeWriteTransaction<T>(meta:AppWriteMetadata,fn:(tx:AppWriteTx)=>T,restoreLegacy?:FamilyOrganizerDB):T {
   if (current) throw new AppStoreError('Nested public transaction is not permitted', 409);
   getAppCommandContext()?.assertWriteOwnership?.();
   for (const key of ['actorId', 'command', 'requestId', 'payloadHash'] as const) {
@@ -64,7 +75,7 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
       return cached.value as T;
     }
     let active = true;
-    let legacy = sqliteLoad();
+    let legacy = restoreLegacy ? JSON.parse(JSON.stringify(restoreLegacy)) as FamilyOrganizerDB : sqliteLoad();
     const priorMediaReferences=mediaReferences(legacy);
     const assertActive = () => { if (!active) throw new AppStoreError('Transaction handle is closed', 409); };
     const statement = (sql: string) => { assertActive(); assertSql(sql); return connection.prepare(sql); };
@@ -85,6 +96,7 @@ export function withAppWriteTransaction<T>(meta: AppWriteMetadata, fn: (tx: AppW
       const snapshotRead = !!value && typeof value === 'object' && snapshotReadResults.has(value as object);
       bindMediaChanges(tx,priorMediaReferences,meta.actorId);
       sqliteSave(legacy);
+      if(restoreLegacy)sqliteLoad(); // Replacement DTOs must be readable before COMMIT.
       if (snapshotRead && ((connection.prepare('SELECT total_changes() AS count').get() as { count: number }).count !== initialChanges.count || connection.pragma('schema_version', { simple: true }) !== initialSchema)) throw new AppStoreError('A full snapshot result is only valid for a read command',400);
       const serialized = JSON.stringify(snapshotRead ? { snapshotRead: true } : { value });
       connection.prepare('INSERT INTO app_commands VALUES (?, ?, ?, ?, ?, ?)').run(meta.command, meta.requestId, meta.actorId, meta.payloadHash, serialized, new Date().toISOString());

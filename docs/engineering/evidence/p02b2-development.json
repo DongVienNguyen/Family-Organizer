@@ -1,0 +1,285 @@
+{
+  "taskId": "P02-b2",
+  "baseSha": "d3209eea818ff7eaf6624b12ad6783faba826e20",
+  "scope": "Persisted canonical runtime/snapshot/recovery and exact Windows package schema support; automatic legacy cutover/default new feature enablement remains disabled",
+  "tdd": {
+    "initial": {
+      "tests": 105,
+      "failed": 8,
+      "messageSpecificGuardFailures": 4
+    },
+    "correctedCausal": {
+      "tests": 105,
+      "failed": 4
+    },
+    "recoveryInspector": {
+      "tests": 13,
+      "failed": 1
+    },
+    "consumerGate": {
+      "tests": 37,
+      "failed": 8
+    },
+    "unknownNamespace": {
+      "tests": 7,
+      "failed": 1
+    },
+    "compiledRed": "Old accepted8e56 bundle actual canonical HTTP returned[]; original log retained"
+  },
+  "targetGreen": {
+    "tests": 219,
+    "files": 6,
+    "failed": 0,
+    "note": "Before third namespace guard addition; final full suite includes it"
+  },
+  "fullGreen": {
+    "tests": 2960,
+    "files": 147,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 2960
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "taskId": "P02-b2",
+    "platform": "linux",
+    "modules": 9,
+    "exitCode": 0,
+    "storageCreated": false
+  },
+  "compiledCloudProof": {
+    "platform": "linux",
+    "completed": true,
+    "fixtureCommitSha": "d3209eea818ff7eaf6624b12ad6783faba826e20",
+    "taskIds": [
+      "canonical-parent",
+      "canonical-task"
+    ],
+    "rawTaskRows": 0,
+    "revision": 2,
+    "snapshotChecksum": "f70d16249248a064d3906f5bb8dac23384b3d03a824843b23a6f2d42da2dc3c4",
+    "encryptedSha256": "5212176fcc0212f8a696d50c14beca4625afec2e9f5d7660b38d5ced151ef4eb",
+    "refusalCases": [
+      {
+        "kind": "changed-checksum",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      {
+        "kind": "future-version",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      {
+        "kind": "unknown-namespace",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true
+      }
+    ],
+    "networkAttempts": [],
+    "nativeHandlesClosed": true
+  },
+  "sourceHashes": {
+    ".github/workflows/ci.yml": "dba2fdc1514a5f5cab2b92cd4721f2b957cc02f6c6def5e0e2cb0c6d4f9921d4",
+    "scripts/ci/write-productivity-fixture.ts": "b86151dc3ebc2f1b160cba6114e11939988d9bf296664ac58018113125b31d7c",
+    "scripts/windows/package-contract.mjs": "0798e2588c3529c1f5269522db48de601edb738f00405fc456c057ae8e4eeb75",
+    "scripts/windows/probe-package-functional.mjs": "40c020e820b6636db1936df4638847bc1a6866c848030f4d1a1e839412672833",
+    "scripts/windows/probe-productivity-package.mjs": "f14bf26e536fcc6d60e340b982008cf1903a16989fe7cb1af27e22c02e0c0fe4",
+    "scripts/windows/release-consumer-reports.mjs": "b45a1bfb1068191efa77c45c0eafc55e1002c1239b0b34293db9c58103eeda9f",
+    "scripts/windows/release-manifest.schema.json": "c9b0bf7662f276ad414dc61e33ebad12f3866263325446389de7a8a7a9260bcc",
+    "scripts/windows/write-manifest.mjs": "b26e06713a280d413d5f87e039489bb469f28be46204ecb2504f85503ff48cba",
+    "server/productivity/adapter.test.ts": "6d88c39929db01dac447430801bf004bd439656170ad4ada80df6d2b83b86814",
+    "server/productivity/bootstrap.ts": "c86decc1e0b90d617e03f522918478de8f93a2d39596f1b8e13c23b1c8715450",
+    "server/productivity/inspection.ts": "144f7554eea9eed56fb7be65940590d997af4bd61991eb865001edc019256ece",
+    "server/productivity/snapshot.ts": "2efc0f5c321053d915e8657ea2327336f0abdb1463cd4f40d5699cc7ed184a27",
+    "server/recoveryOperator.ts": "b76c29f949bdbb220cc7a7b9c354c4f4aa4ad8a7415cb0d16d85ab5319929a28",
+    "server/recoverySnapshotInspection.ts": "625517a751cf4f2000a3cf010aef2348555be3a75980a2e7fdea45bfbd36e569",
+    "server/runtime.ts": "25df3228cf220f2aec1d3d83d6eb58fad1466c8256b0facc50f2b7dfb828835e",
+    "tests/helpers/release-consumer-fixture.ts": "87ab2ef363f21f5919bc738579232665a0a02c7a0cecd4bd1d917fcdc05dc46e",
+    "tests/helpers/release-inner-fixture.ts": "34c7a63aaa87b8b66dfcca3c2bb8cb5dee619d799518be04ec56581ac08356fa",
+    "tests/release-consumer-reports.test.ts": "9d61627c747540f2959e1ce927f45473c36548c723714524a298a11d76685413",
+    "tests/release-package-reports.test.ts": "4bd214bceae42bb2ca5b4cb48693a08af4eccf799156f83e2bcf12c6ad925e98",
+    "tests/runtime-ownership.test.ts": "9c1f8ea6530ce668aa2515ce7c34e3c4cd290eeab6dac16b9b9e5b3226e3d50f",
+    "tests/windows-package.test.ts": "9b82fc675f9befe0e72f96bf7818148034c0a65f831d0d85395f8a48f1424777"
+  },
+  "reportHashes": {
+    "red.json": "499aa0a30b3b18db0cdcbae63f62e35a919bd9380a98d2cb3998b0ced06cd7da",
+    "causal-red.json": "52aa2990b5b43c9d46a6a9220f1834cfdabd7a0f3755ff61341fa0f152ee63d3",
+    "recovery-red.json": "91b96bdff38c11fc31a8a60c8f4b959631efeb8860d966a0d174b257570eaf99",
+    "gate-red.json": "74ee423b33c9164fe85cf8f12afc188b990b66e7a7d770a6a37f913886aa3515",
+    "unknown-red.json": "dda31c762fb04fe999f223f282902d7b216d95263957490c9ebb60024e9e038d",
+    "green.json": "3304acd6d1616760c1ba13ff9bd02c81f65e62adb21377f7e078f1ae3d9c77e4",
+    "target-green.json": "31ecb504320b1869c18a86d61498dc9630f93502fe98f78ab56328c42ede7a1e",
+    "compiled-red.log": "0274b25585ebb119a5ebda2b0fb42c1279f9619a2998497a3d93b1d6ba4bb8b0",
+    "compiled-green.json": "60b57c9b18633956388d3eae4912517b7e6244699d8f7823fd70261e6517ebb6",
+    "full.json": "affb5a13d361e55c501d749c019473dd94fc51496166e8562de3e46720847d2c",
+    "junit.xml": "0a223aab2d3659e71511be604eeb6a06b6f3fa4449a2589a961bddd3be2bd346",
+    "final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "final-build.log": "aaafd86bd8711476b871cefd0e9fe535b0857d93eb929ce0f6456654691efe64",
+    "final-compiled.json": "46fbc5d8a66c0e3038369020e92c84f6e72f150d21d154adbea28c1026b3d843",
+    "import-probe.json": "784bac952435a1b5ecd4901b43f431a28d4123ef06969660bd5673104121f56d"
+  },
+  "windows": "pending exact PR HEAD",
+  "dependenciesChanged": false,
+  "rulings": [
+    "Runtime installs adapter explicitly before FamilyDB, no automatic activation of legacy installation",
+    "Persisted active installation never falls back to raw legacy task table",
+    "Producer synthetic source fixture carried only in consumer harness, never production ZIP",
+    "Exact domains.productivity v1 bounds; no missing/unknown/future advertisements",
+    "Read-only recovery inspection does not authorize promotion; shared restore requires configured reader",
+    "Default feature/rollout remains disabled; trusted migration and remaining characterization pending before fullP02/P03",
+    "No canonical WinSW or WindowsServer2019 proof is claimed; existing service fixture remains legacy",
+    "Historical review Minors remain deferred; no release/tag/VPS actions"
+  ],
+  "correctedVerification": {
+    "review": {
+      "reviewHeadSha": "8049b968192134042a15967a6336461fcd56d9cb",
+      "critical": 0,
+      "important": 2,
+      "minor": 1,
+      "allFindingsGraded": true,
+      "criticalRemaining": 0,
+      "importantRemaining": 0,
+      "correctionPasses": 1,
+      "rereviews": 0,
+      "importantFixed": [
+        "Domain identity inspection inside original SQLite lock before owned DDL/journal changes",
+        "Authenticated offline canonical repair via validated shared snapshot replacement transaction, retaining schema/safety/rollback/post-save DTO checks"
+      ],
+      "minorDeferred": [
+        "Canonical child-process phase logs disappear during consumer cleanup"
+      ]
+    },
+    "red": {
+      "tests": 60,
+      "failed": 5,
+      "causalFailures": 4,
+      "sparseFixtureTimeout": 1,
+      "correctedSparseActualRed": 1,
+      "compiledMalformedRestoreRed": "RECOVERY_OPERATION_FAILED against old8049 bundle"
+    },
+    "targetGreen": {
+      "tests": 147,
+      "files": 6,
+      "failed": 0
+    },
+    "fullGreen": {
+      "tests": 2963,
+      "files": 147,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "junitCases": 2963
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "compiledCloudProof": {
+      "platform": "linux",
+      "completed": true,
+      "fixtureCommitSha": "8049b968192134042a15967a6336461fcd56d9cb",
+      "taskIds": [
+        "canonical-parent",
+        "canonical-task"
+      ],
+      "rawTaskRows": 0,
+      "revision": 2,
+      "malformedCurrentTaskRepaired": true,
+      "sparseCoreRefusal": {
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete",
+        "tableCount": 2
+      },
+      "snapshotChecksum": "aa40bb8a2fe8e4859703fe90a5a222ee12c8069312e45d79734db1adfc561562",
+      "encryptedSha256": "1134b1ac2789f4c0364524d8e433510bd5bf729b901bf09f7aa048e3bd5a600c",
+      "refusalCases": [
+        {
+          "kind": "changed-checksum",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "future-version",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "unknown-namespace",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        }
+      ],
+      "networkAttempts": [],
+      "nativeHandlesClosed": true
+    },
+    "coldImport": {
+      "taskId": "P02-b2",
+      "platform": "linux",
+      "modules": 9,
+      "exitCode": 0,
+      "storageCreated": false
+    },
+    "sourceHashes": {
+      ".github/workflows/ci.yml": "dba2fdc1514a5f5cab2b92cd4721f2b957cc02f6c6def5e0e2cb0c6d4f9921d4",
+      "scripts/ci/write-productivity-fixture.ts": "b86151dc3ebc2f1b160cba6114e11939988d9bf296664ac58018113125b31d7c",
+      "scripts/windows/package-contract.mjs": "0798e2588c3529c1f5269522db48de601edb738f00405fc456c057ae8e4eeb75",
+      "scripts/windows/probe-package-functional.mjs": "40c020e820b6636db1936df4638847bc1a6866c848030f4d1a1e839412672833",
+      "scripts/windows/probe-productivity-package.mjs": "fb1fd5c456239711caccc659728200b8f8aaeeaf844da8ec6fab9106be0fd2c8",
+      "scripts/windows/release-consumer-reports.mjs": "41198304bb4c740366c32d63c94efc9ff76aae5635bf4c4f6db9b59404407ead",
+      "scripts/windows/release-manifest.schema.json": "c9b0bf7662f276ad414dc61e33ebad12f3866263325446389de7a8a7a9260bcc",
+      "scripts/windows/write-manifest.mjs": "b26e06713a280d413d5f87e039489bb469f28be46204ecb2504f85503ff48cba",
+      "server/appSnapshot.ts": "65fe0961cf8bf18a20d3e74c83b7a6d9ec7678d433d1e245ca8728e062026cab",
+      "server/appStore.ts": "e54c88f3916bca4498d75ca1ca1e963d47291ebe71cd9291a0d3ba489f20cc72",
+      "server/productivity/adapter.test.ts": "1c1fb19e93cddebf9587512d172676b1c82f626ffcf20695c8341bdea571bc33",
+      "server/productivity/bootstrap.ts": "6e0e85b4230f30de672706e8d36c134f04fb7b56dbdcbb61c2060552ed404653",
+      "server/productivity/inspection.ts": "144f7554eea9eed56fb7be65940590d997af4bd61991eb865001edc019256ece",
+      "server/productivity/snapshot.ts": "2efc0f5c321053d915e8657ea2327336f0abdb1463cd4f40d5699cc7ed184a27",
+      "server/recoveryOperator.ts": "62f8f3fad3b1bd8d89a90591af076a71eab715213651623c68492012d7ffc168",
+      "server/recoverySnapshotInspection.ts": "625517a751cf4f2000a3cf010aef2348555be3a75980a2e7fdea45bfbd36e569",
+      "server/runtime.ts": "25df3228cf220f2aec1d3d83d6eb58fad1466c8256b0facc50f2b7dfb828835e",
+      "server/sqlite.ts": "8e1205cbd19fa9e6ab15959f635746aa2a96173c6e1e3eab0953997b66ccb09a",
+      "tests/helpers/release-consumer-fixture.ts": "4f6c938c5f1bcc4267e3eea0d4d849cc9150ad943aded5ce1c121b0cab97787a",
+      "tests/helpers/release-inner-fixture.ts": "34c7a63aaa87b8b66dfcca3c2bb8cb5dee619d799518be04ec56581ac08356fa",
+      "tests/release-consumer-reports.test.ts": "830e01336bbd023ff84a6fcc4c33f734f8ca38d70b94e5ff7c8c2663f23ba5f6",
+      "tests/release-package-reports.test.ts": "4bd214bceae42bb2ca5b4cb48693a08af4eccf799156f83e2bcf12c6ad925e98",
+      "tests/runtime-ownership.test.ts": "0b16e8f1e4b3a6ec60a073959f853454cf1b8804f18716ac55608df706566147",
+      "tests/windows-package.test.ts": "9b82fc675f9befe0e72f96bf7818148034c0a65f831d0d85395f8a48f1424777"
+    },
+    "reportHashes": {
+      "review-red.json": "6a6ee69c4e51d999e8a1222a39a77300e159443197c2c33abe436ea9ac16749d",
+      "sparse-causal-red.json": "722cc09be50dde42508b3fda93181bf9971e49e9864b601d39ec042a91aae08a",
+      "review-compiled-red.log": "88c821b89084d9162e180cbf14109401db9e5b8c67a2fbbff70c20c9220d872f",
+      "review-green.json": "fd72e9f4abdca00afe1125c045c4d78fff27005554a1c50481c8f19afdc81886",
+      "review-target.json": "6c1a29f2f56967d081e31efc1d1d655cc1e49a11e149229399691946f1037c33",
+      "review-full.json": "b136db8687f55a28db65752f979894df8290b68649382ba87d9599f80590de37",
+      "review-junit.xml": "bc86c02511f3728611ec2a430772cab9344598efe02127a555b929bb956bb228",
+      "review-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "review-build.log": "a1e72a7d9b65f8703a07447aa5929f859b0d885690b3effa2729af3de8313526",
+      "review-compiled-green.json": "8743e488682bc305ee8938ac438150cdc87f10cc1a11911ccca474366c7c07dd",
+      "review-import-probe.json": "784bac952435a1b5ecd4901b43f431a28d4123ef06969660bd5673104121f56d"
+    },
+    "windows": "pending corrected exact HEAD"
+  },
+  "initialWindowsCheckpoint": {
+    "headSha": "8049b968192134042a15967a6336461fcd56d9cb",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38509125340",
+    "checks": 7,
+    "rawReaders": 8,
+    "testsEach": 2960,
+    "filesEach": 147,
+    "browsersFirstAttempt": 45,
+    "acceptance": "initial source superseded by Important corrections; not corrected acceptance"
+  }
+}

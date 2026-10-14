@@ -4,7 +4,7 @@ import {applyRecoverySettings,type ValidatedSettingPatch} from './recoverySettin
 import {ordinaryBackupValue,ordinaryBackupSettings} from './backupCredentials.js';
 import type { AppWriteTx } from './appStore.js';
 import {reconcileMediaMetadata} from './mediaPolicy.js';
-import { withAppWriteTransaction, AppStoreError, markSnapshotReadResult } from './appStore.js';
+import { withAppWriteTransaction, withAppSnapshotRestoreTransaction, AppStoreError, markSnapshotReadResult } from './appStore.js';
 import { getAppCommandContext } from './commandContext.js';
 import { sqliteConnection, sqliteBackupTo } from './sqlite.js';
 import { LEGACY_KEYS } from './legacySchema.js';
@@ -159,11 +159,12 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
       fs.renameSync(paths.stageSettings,settingsFile); options.onBoundary?.('settings-promoted');
       if(envSelected){if(hadEnv)fs.renameSync(envFile,paths.oldEnv);options.onBoundary?.('env-old-renamed');fs.renameSync(paths.stageEnv,envFile);options.onBoundary?.('env-promoted');}
       if(keySelected){if(hadKey)fs.renameSync(signingKeyFile,paths.oldSigningKey);options.onBoundary?.('signing-key-old-renamed');if(keyBytes!==null)fs.renameSync(paths.stageSigningKey,signingKeyFile);options.onBoundary?.('signing-key-promoted');}
-      withAppWriteTransaction({ actorId, command: 'core:snapshot:restore', requestId, payloadHash: identity }, tx => {
+      withAppSnapshotRestoreTransaction({ actorId, command: 'core:snapshot:restore', requestId, payloadHash: identity },checked.legacy, tx => {
         tx.exec('PRAGMA defer_foreign_keys=ON');
         const definitions = [...tables()];
         for (const [name] of [...definitions].reverse()) tx.run(`DELETE FROM ${name}`);
         for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => row[column]));
+        options.onBoundary?.('sql-tables-restored');
         tx.legacy = JSON.parse(JSON.stringify(checked.legacy));
         reconcileBackupReferences(tx.legacy);
         reconcileMediaMetadata(tx);

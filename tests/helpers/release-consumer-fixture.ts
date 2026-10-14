@@ -1,6 +1,7 @@
 // Independent synthetic report fixtures match existing compiled-probe schemas.
 const records={
   "package-functional.json": {
+    "productivity": {"completed": true, "fixtureCommitSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "taskIds": ["canonical-parent", "canonical-task"], "rawTaskRows": 0, "revision": 2, "malformedCurrentTaskRepaired": true, "sparseCoreRefusal": {"exitCode": 1, "databaseBytesPreserved": true, "nativeHandlesClosed": true, "journal": "delete", "tableCount": 2}, "snapshotChecksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "encryptedSha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "refusalCases": [{"kind": "changed-checksum", "exitCode": 1, "databaseBytesPreserved": true, "nativeHandlesClosed": true, "journal": "delete"}, {"kind": "future-version", "exitCode": 1, "databaseBytesPreserved": true, "nativeHandlesClosed": true, "journal": "delete"}, {"kind": "unknown-namespace", "exitCode": 1, "databaseBytesPreserved": true, "nativeHandlesClosed": true, "journal": "delete"}], "networkAttempts": [], "nativeHandlesClosed": true},
     "commitSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "nodeVersion": "v24.21.0",
     "nodeExecutable": "C:\\synthetic\\fo package dữ liệu 11111111-2222-4333-8444-555555555555\\release with spaces\\bin\\node.exe",
@@ -20,7 +21,9 @@ const records={
       "restore-preserves-reward-no-replay",
       "snapshot-core-rows-preserved",
       "offline-providers",
-      "native-handles-closed"
+      "native-handles-closed",
+      "compiled-canonical-task-http-restart-snapshot-recovery",
+      "compiled-canonical-unsupported-migration-refusal"
     ],
     "networkAttempts": [],
     "snapshotChecksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"

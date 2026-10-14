@@ -76,6 +76,8 @@ async function runRecovery(value:unknown,restore:boolean,ownsStorage:boolean,ass
   }
   const sqlite=await import('./sqlite.js');
   try{
+   const {configureTaskStorage}=await import('./productivity/bootstrap.js');
+   await configureTaskStorage(sqlite,{validateCurrentTasks:!restore});
    const engine=await import('./appSnapshot.js');
    if(restore){
     let checked;
