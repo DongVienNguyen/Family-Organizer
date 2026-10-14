@@ -1,0 +1,101 @@
+{
+  "taskId": "P05-a",
+  "observedAt": "2026-10-14T23:20:25.763478+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/79",
+  "testedHeadSha": "2f4caa3b5be1916dc620a2fc84c688e1a4aca2d1",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38595079116",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "077cf589fcb31402c3cf4f9e97ae8b09758e77b3a6ed1181bb4d05a27713b6d5",
+    "coverage": "f49edc0b08d82cd4a0ce602145783f76ab806ee18f4051e453330d63ae386e2f",
+    "package": "36d1532f2ecf7374a97048f8c0c64ecb6d565ec0c077b30df11a5b5726bb3fec",
+    "service": "4d9e0768a001cef7dfc2efc8fd3a5d44b23978b449d7e98e8d30f81633b463f6",
+    "caddy": "1eb4935e46d2c9b572c0c5da0e3a817da8e7e0f58c5ea432f0a2c42eb359a998",
+    "extraction-sdk": "607e7338231bd799586e62ae2ab34e10686f6b2f6b46e93ecb1023c6ef911c0c",
+    "inner-native": "4dc2263be5c9519f44dab74e2edf39149f900507777cd59904001193c2ba6582",
+    "browser": "40467ee9754d9ce7b4e32435f64d43eba4a0c4fa02b53999148bbcf2cc60f18c",
+    "productivity-browser": "e03bdc40907a7aadb0e1460bc50bf5df44f60a465a3f9c61708422c2e485632e"
+  },
+  "qualityEach": 3263,
+  "qualityFilesEach": 172,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 30,
+  "rawValidators": 9,
+  "zipSha256": "4b5e01ed12fe1afa54f50a0b06818cc4b33ce938eea3dca815ec07e150cd3917",
+  "fullCiLogZipSha256": "d5f4c03da593cebfcf4162174f182363d2d70cb6989d1d63fc1b41803861f591",
+  "review": {
+    "taskId": "P05-a",
+    "reviewedHeadSha": "055ddb295245075dfd705bd94f58041fcef6e43f",
+    "reviewer": "p05a_review",
+    "reviewCount": 1,
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "rulings": [
+      {
+        "id": "I1",
+        "severity": "Important",
+        "decision": "fix in one correction pass",
+        "reason": "Expiry must remain409 for its original actor even after unrelated selection creation prunes the payload; foreign/missing references must remain404",
+        "verification": "new collected regression before source correction; retain all previous assertions",
+        "result": "Collected10/1 causal RED to10GREEN,245target/full3263GREEN; payload pruned, actor identity retained per engine lifetime"
+      }
+    ],
+    "declinedBoundaries": {
+      "persistedViewsIndexHttpUiDtoTrash": "P05-b",
+      "newWorkflowWrites": "P10",
+      "historical67to78Minors": "closed",
+      "windowsAcceptance": "root independently validates exactHEAD"
+    },
+    "importantRemaining": 0,
+    "criticalRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false
+  },
+  "newStructureHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P05-b persisted views/index/HTTP/UI",
+  "mergeSha": "283a6922ca6a0389b2aa932a43cf9a045710798c",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/79#issuecomment-6172979908"
+}

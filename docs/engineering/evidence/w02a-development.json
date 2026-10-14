@@ -176,5 +176,80 @@
       "rereview": false
     },
     "fixtureCorrection": "First target234/2 after domainfix had matcher returned from callback, causing command result serialization of Vitest internal circular task object. Callback now returns void; unchanged assertions. Original report retained."
+  },
+  "integrationVerification": {
+    "baseSha": "283a6922ca6a0389b2aa932a43cf9a045710798c",
+    "fullGreen": {
+      "tests": 3284,
+      "files": 174,
+      "junitCases": 3284,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "maxWorkers": 1
+    },
+    "targetGreen": {
+      "tests": 245,
+      "failed": 0
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "b4b54def68e41530ccfbef7700a7bfd7002369b69619dba4c8b7ac4cffa345a7",
+      "server/wallet/schema.ts": "e931cb1025e898b738f70d8c33897ecb615e448d395bb100e9542eb84a3da4e6",
+      "server/wallet/snapshot.test.ts": "e5093b802ba1bf6202d3c60bb70e6f6dfdb6b4f9987ed959556d19a606df8440",
+      "server/wallet/snapshot.ts": "581d5e56264865c43b5082733b2d7ddd354e7fa5d6d5911ad2caae67e8a34ce6",
+      "server/wallet/store.test.ts": "1ff0b7d9b5fbd26e99c76a6b270a0e61ca91973df9154a1a4198b4edd2e95c4a",
+      "server/wallet/store.ts": "080bb03564569f988c85e18e864d786d563e1b3c43822c4ffdb8ff758c8e83ab",
+      "tests/evidence.test.ts": "1828dba096e802c5ed54f51df7650b84ec21d1c23f07c41c5af62e9a34e02ad4"
+    },
+    "reportHashes": {
+      "w02a-integrated-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "w02a-integrated-build.log": "d9cbc0dd2678cfa71932e8fa8c8e690b3d6f332f523f136ebecb93abbcd47fc7",
+      "w02a-integrated-full.xml": "e84983ee881646e357f459677d109bc8dc3aacb51c1f85c3e1db0d63c2ed7aeb",
+      "w02a-integrated-full.log": "47a73162a4436b67e74b4f6d5b894866069393aba2602ae4428b18faa4b3be2c",
+      "w02a-integrated-full.json": "3f27d0206eed510832d4922dad6223f12e4bc0c0884edeee9bbe8fa30ec860bf",
+      "w02a-integrated-target.log": "bb63fb81bbcdaf32826b4c596526e64e28cddbe50842ea75d6584f3b5732e56f",
+      "w02a-integrated-target.json": "bec9d32045052e88bc9e923375a292be22ab225f48cffddfaf8a8fb0e60f96f0"
+    },
+    "review": {
+      "taskId": "W02-a",
+      "reviewedHeadSha": "32fad8be577713e8936eba23f8284f72421207d6",
+      "baseSha": "a3e4e7acf1bf72ce2c333cbaaa653d48bc0d8a8e",
+      "reviewer": "p05a_review",
+      "reviewCount": 1,
+      "critical": 0,
+      "important": 2,
+      "minor": 0,
+      "allFindingsGraded": true,
+      "rulings": [
+        {
+          "id": "I1",
+          "severity": "Important",
+          "decision": "fix",
+          "reason": "An optional note accepted by the repository must round-trip through snapshot validation/export/restore",
+          "result": "Both empty and whitespace notes export/restore unchanged:2causalRED toGREEN"
+        },
+        {
+          "id": "I2",
+          "severity": "Important",
+          "decision": "fix",
+          "reason": "Repository reads must honor optional-string representation and be reusable as WalletRecord input",
+          "result": "Missing optional fields are omitted from repository reads, matching WalletRecord; fresh-ID reinsertion regression1causalRED toGREEN"
+        }
+      ],
+      "declinedBoundaries": {
+        "fullW02Remaining": "W02-b entityfields/sharedAppSnapshot/startup/compiledRestore/activation",
+        "financialMigrationAclCommands": "W03/W04/W05",
+        "historical67to78Minors": "closed",
+        "windowsAcceptance": "root exactHEAD/rawreaders"
+      },
+      "importantRemaining": 0,
+      "criticalRemaining": 0,
+      "correctionPasses": 1,
+      "rereview": false
+    },
+    "rebaseRepair": "Original main evidence source and tests reconstructed exactly with only two Wallet suite additions and original Wallet omission assertions; no assertions/gates dropped. Incorrect local resolver detected before push, never certified.",
+    "WindowsAcceptance": "pending"
   }
 }
