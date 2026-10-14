@@ -1,0 +1,122 @@
+{
+  "taskId": "P03-b",
+  "observedAt": "2026-10-14T14:21:17.085490+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/73",
+  "testedHeadSha": "cbbd5994121f2747e377833768e610e552e83ca7",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38526387751",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "25727e97f5253e7687303d1afa9da7973df156897a4826e48a357157714eedbf",
+    "coverage": "2f94dc8252ddc02f2c3674b46068dcd9e7cd2cb5ac5726ee3172e7c0a95f511f",
+    "package": "4c0838ef784d91adb0057b21d9a3a8bf88fdb1aab6058dd808e3a1d1a2da7def",
+    "service": "5e507ff3e011a6bd9b6f70ae0224e9e0155f8b2be4e3a53c4434a3891f6c1717",
+    "caddy": "257848a9b606f801a8533ef7b08f70db8f22d535a526065126c32adff4a63ed3",
+    "extraction-sdk": "992ed4b2728712c3261a70fb6e4260c6b84342469bd59272e27d5efb069b20f9",
+    "inner-native": "22ca2b4b413a9961da0336881cacea90bc649a34325ec087d66291cf5ca9146c",
+    "browser": "c68f5ca9c14eb42f998d28ccba86e0a7d8b4f3b8c24682895fb69bf93be864cf"
+  },
+  "qualityEach": 3035,
+  "qualityFilesEach": 153,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "49fd442fbac3debe84ee0dca5a052745f27a70057e5f7bd011528a15b83bdaee",
+  "fullCiLogZipSha256": "0cf492c5f99018a2aa1091c4f37814adad16915e6160fcbfe1380055d5e9c59b",
+  "review": {
+    "base": "b03700159a8eb8a076aeae2d140d0cc39f452d6a",
+    "reviewedHead": "f52296ba528fd5bc25ed7ed7008e683ca165d25a",
+    "reviewer": "p03b_review",
+    "counts": {
+      "critical": 0,
+      "important": 3,
+      "minor": 1
+    },
+    "important": [
+      {
+        "id": "I1",
+        "finding": "legacy approval/rejection cache returns private result after grant revocation",
+        "decision": "fix current authorization before cache and retain transactional checks"
+      },
+      {
+        "id": "I2",
+        "finding": "task Markdown binding breaks retained recurrence completion",
+        "decision": "fix trusted generated successor inheritance only; foreign private references remain denied"
+      },
+      {
+        "id": "I3",
+        "finding": "active legacy approve/reject missing versus hidden existence oracle",
+        "decision": "fix active canonical missing results to same404"
+      }
+    ],
+    "minor": [
+      {
+        "id": "M1",
+        "finding": "literal backslash-n in status table",
+        "decision": "defer under review contract"
+      }
+    ],
+    "rulings": [
+      {
+        "boundary": "reader comments",
+        "decision": "preserve existing semantic commenting for visible tasks, including read-grant Members and Guest readers; read grants do not allow generic edits, lifecycle, rewards or approval",
+        "costIfWrong": "readers may add comments, the intentionally retained existing collaboration permission; grant revocation must block cached comment results as well"
+      },
+      {
+        "boundary": "P04/P10",
+        "decision": "remain future owned; recurrence fix is existing workflow regression"
+      },
+      {
+        "boundary": "compatibility grants and balances",
+        "decision": "stand as recorded, not reopened"
+      },
+      {
+        "boundary": "evidence",
+        "decision": "no exact Windows acceptance yet; intermediate overwritten report limitation retained"
+      }
+    ],
+    "correctionPassesAuthorized": 1,
+    "rereview": false,
+    "allFindingsGraded": true,
+    "importantRemaining": 0,
+    "criticalRemaining": 0,
+    "correctionPasses": 1
+  },
+  "newTaskRoutesEnabled": true,
+  "fullP03Accepted": true,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P04 organized lists, sections, tags, tree and shared task drawer",
+  "mergedMainSha": "5b9547724ea52745459488bcb07eca54da4ca0ad",
+  "mergeTreeEqualsTestedTree": true
+}

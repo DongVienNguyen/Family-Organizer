@@ -8,6 +8,7 @@ import {savePilotTask,loadTask,type StoredTask} from './store.js';
 import {createHash} from 'node:crypto';
 import {assertLegacyTask} from './legacy.js';
 import {validateProductivitySnapshot} from './snapshot.js';
+import {structureSchemaSql,structureTables,migrateStructure} from './structureSchema.js';
 export interface MigrationReport {version:number;inserted:number;existing:number;warnings:{taskId:string;rawDue:string;warnings:string[]}[]}
 export function migrateTasks(tx:AppWriteTx,legacy:Task[]):MigrationReport {
  preparePilotSchema(tx);
@@ -32,10 +33,12 @@ export function migrateTasks(tx:AppWriteTx,legacy:Task[]):MigrationReport {
  return report;
 }
 export const productivityMigrationChecksum=createHash('sha256').update(schemaSql+'\nlegacy-task-map-v1-synthetic-pilot-saigon-raw-provenance').digest('hex');
+export const productivityStructureChecksum=createHash('sha256').update(structureSchemaSql+'\nstructure-catalog-check-items-v2').digest('hex');
 const apply=(tx:AppWriteTx)=>{migrateTasks(tx,tx.legacy.tasks);};
 /** Explicit I01 ports prevent imports from opening storage or registering jobs. */
 export function registerProductivityMigration(ports:{registerMigration:typeof registerDomainMigration;registerSnapshot:typeof registerSnapshotTable;registerValidator:typeof registerSnapshotValidator}):void {
- for(const [name,columns] of Object.entries(productivityTables))ports.registerSnapshot('productivity',name,columns);
+ for(const [name,columns] of Object.entries({...productivityTables,...structureTables}))ports.registerSnapshot('productivity',name,columns);
  ports.registerMigration('productivity',1,apply,productivityMigrationChecksum);
+ ports.registerMigration('productivity',2,migrateStructure,productivityStructureChecksum);
  ports.registerValidator('productivity',validateProductivitySnapshot);
 }

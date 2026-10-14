@@ -1,0 +1,270 @@
+{
+  "taskId": "P04-a",
+  "baseSha": "5b9547724ea52745459488bcb07eca54da4ca0ad",
+  "scope": "Structure storage/domain/ACL/commands/snapshot and package compatibility; routes/shared drawer UI remain P04-b, rollout P18",
+  "redCheckpoints": {
+    "p04a-schema-red": {
+      "tests": 4,
+      "failed": 3
+    },
+    "p04a-orphan-red": {
+      "tests": 2,
+      "failed": 1
+    },
+    "p04a-structure-red": {
+      "tests": 13,
+      "failed": 13
+    },
+    "p04a-structure-tree-red": {
+      "tests": 15,
+      "failed": 5
+    },
+    "p04a-catalog-query-red": {
+      "tests": 16,
+      "failed": 1
+    },
+    "p04a-package-bounds-red": {
+      "tests": 100,
+      "failed": 1
+    },
+    "p04a-consumer-proof-red": {
+      "tests": 49,
+      "failed": 5
+    },
+    "p04a-gate-red": {
+      "tests": 198,
+      "failed": 3
+    },
+    "p04a-upgrade-tree-red": {
+      "tests": 2,
+      "failed": 1
+    },
+    "p04a-upgrade-gate-red": {
+      "tests": 199,
+      "failed": 1
+    }
+  },
+  "characterizationsNotCausalRed": [
+    "historical v1 read-only inspection",
+    "explicit active v1 to v2 shared migration and restore"
+  ],
+  "fixtureCorrections": [
+    "Expected catalog includes original home tag",
+    "Restore uses existing async maintenance owner, not synchronous transaction callback",
+    "First scaffold bookkeeping expected14 but raw13/13failed retained",
+    "Orphan fixture adds parent table required by new index",
+    "Checksum corruption/restoration is tested separately for versions1 and2; unsupported future is now3",
+    "New current snapshot assertion expects2, original task/provenance assertions retained"
+  ],
+  "supersededFullCloud": [
+    {
+      "report": "p04a-full-checkpoint.json",
+      "tests": 3070,
+      "failed": 1,
+      "cause": "old runtime snapshot1\u21922 assertion"
+    },
+    {
+      "report": "p04a-full-green.json",
+      "tests": 3070,
+      "failed": 3,
+      "cause": "unchanged child time budgets SIGKILL; resource contention suspected only, not proven"
+    }
+  ],
+  "fullGreen": {
+    "tests": 3070,
+    "files": 157,
+    "junitCases": 3070,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 1
+  },
+  "packageConsumerTarget": {
+    "tests": 213,
+    "failed": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": 7,
+    "storageCreated": false,
+    "exit": 0
+  },
+  "compiledCloud": {
+    "scope": "Cloud Linux uncommitted source check; not Windows acceptance",
+    "completed": true,
+    "fixtureCommitSha": "5b9547724ea52745459488bcb07eca54da4ca0ad",
+    "taskIds": [
+      "canonical-parent",
+      "canonical-task"
+    ],
+    "rawTaskRows": 0,
+    "revision": 2,
+    "semanticCommands": {
+      "httpEnabled": true,
+      "noneCreated": true,
+      "legacyFullFormPreserved": true,
+      "staleRevisionRefused": true,
+      "forgedFieldsRefused": true,
+      "restartPreserved": true
+    },
+    "structureStorage": {
+      "version": 2,
+      "checklistPreserved": true,
+      "catalogPreserved": true,
+      "v1StartupWithoutUpgrade": true
+    },
+    "malformedCurrentTaskRepaired": true,
+    "sparseCoreRefusal": {
+      "exitCode": 1,
+      "databaseBytesPreserved": true,
+      "nativeHandlesClosed": true,
+      "journal": "delete",
+      "tableCount": 2
+    },
+    "snapshotChecksum": "9dbc25a1a4e6ca94ab3480ec6cf7115038490514a07c02915626ec6afddf41bd",
+    "encryptedSha256": "3cdd71151bbfd359f4d39800057770d20dae8cca2b761ed58293cbe9373bc6c8",
+    "refusalCases": [
+      {
+        "kind": "changed-checksum",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "future-version",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "unknown-namespace",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      }
+    ],
+    "networkAttempts": [],
+    "nativeHandlesClosed": true
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "f9fca50704aee1e08693f28066b82371534c62890c35c545c1e5b041d37c40c8",
+    "scripts/ci/write-productivity-fixture.ts": "1d0bd96994bb04516fecffee314f5369676629a80b157bb5e65ea5a7a0387972",
+    "scripts/windows/package-contract.mjs": "c897e001cfd06efcb2b0a57116b3fa1ea1da82a5dee7a29f109abd639433d170",
+    "scripts/windows/probe-productivity-package.mjs": "09101b4c65b18638957b1adc0aea747a6fbf2ef0fd010e15e1d0609557b9b830",
+    "scripts/windows/release-consumer-reports.mjs": "bd0dc1445d3dc8556df329000395077dc594ff10d21e785745c2284832c8f8e0",
+    "scripts/windows/release-manifest.schema.json": "f4bfe43301a497fa1d8c309927435cb9074309797c9cf026555fae3400793957",
+    "scripts/windows/write-manifest.mjs": "42d1ce5fec2c5967d652f5dd9c5c7b703aa00e9b35b8063f030385bd53260183",
+    "server/db.ts": "1ac62327a684d3feb6af226370b30da713f6e3eafdf8ce8a377eb2ab383c336f",
+    "server/productivity/access.ts": "94f02943f823e8b1e592fbeac0fb48181ba3ed56d5ad57f39c7e8c91d8fa5a00",
+    "server/productivity/activation.test.ts": "3fb83ebd1b2fbd8c6f51c123b7920149f5c21fcef08423f82c055ad5af61d0af",
+    "server/productivity/adapter.ts": "d95ce90e28f51fab27cd42def1d5c9a48e693f10212ac3aa1b099545e22230ac",
+    "server/productivity/inspection.ts": "bb011730f0690e60577f7b454ef587bf2354c96f216bc728eee70e3766d88f32",
+    "server/productivity/migrate.ts": "4885be012b3b9a8c21be4a9043e2651ad7bf6bee7b0db01023fa4bf86727ffea",
+    "server/productivity/migration.test.ts": "75b716778f9cacf87fe1e9ce1ab40dd2c0b554570a2f98a40030afb03f6139ab",
+    "server/productivity/snapshot.ts": "0846f5b4a7df227bc27e64d4fbd943b4a6d3b2a473ef5420aff78399762591c9",
+    "server/productivity/store.ts": "6edff0dd8e907770a5e72a643e246a02e28be64a7e565c51b021042cbe936cb0",
+    "server/productivity/structure-schema.test.ts": "e886b0dce7993f4881bc5832d005d029eecf04b2fbb2d78f8e1a0598895d4981",
+    "server/productivity/structure-upgrade.test.ts": "377dc8d76682dede057e13fb4b7911623f3fe16123c5e990cd3dfceab0782437",
+    "server/productivity/structure-v1.test.ts": "96953e65c5e2ec546bcbc8d9f9d789eed1d69452c3d307d578dba150f89e28fa",
+    "server/productivity/structure.test.ts": "3be1a71ac11806709678c1a7f2dfeebd6423d47aa3c337e821b89fe3f5786300",
+    "server/productivity/structure.ts": "05eee9da36b3f03f255ae1ce88fd3df3e565d71a9cac0608e43b5ec67a3a8e84",
+    "server/productivity/structureInvariant.ts": "e0f058a711247562a887f6d0d024f97bab7556160d081a24a1e01f5d659d6914",
+    "server/productivity/structureSchema.ts": "4d9d6297236ec23001a233bd4e3a0155e43d0f94b62e2e405045f7f2d807c97d",
+    "server/productivity/tasks.ts": "4b598dba7f159e9920024c04ae0a8b35203e9ba0e9ea2b61a88b03f6d22c5111",
+    "server/recoverySnapshotInspection.ts": "f35ee7ffb270e248aa9bb6f210246e06442e38b301c9e69de84349f62a545da8",
+    "tests/evidence.test.ts": "f9ef053c713be1dd0a841d87a110240ab4b98d9d4150f60c664f416e13973c01",
+    "tests/helpers/release-consumer-fixture.ts": "fce9739cddc0e7baa67cac55188c463ac31adca99286531019ef8444cf410b1c",
+    "tests/helpers/release-inner-fixture.ts": "597d6f3ad13bd2f7bbff4c87c6ae452721389a40ac10a4a7b0b0201e7e4bcb64",
+    "tests/release-consumer-reports.test.ts": "33e1195a4bfa3dccbbec7a97636fa435700b68107d56062ddc92c1ddd1dcc9d0",
+    "tests/release-package-reports.test.ts": "9b7257a1e0444f39dd01c404ef24099ac0f8d056c5abda697dd59f82301e1e11",
+    "tests/runtime-ownership.test.ts": "2f4d83ea55e280bdaf657ff5d9b461477e7499d9de2c5ba57980c2a262978189",
+    "tests/windows-package.test.ts": "f797614a3241d37e7b1c85f93fcb3abcf1af6e84456172be34f10c47595ddcc6"
+  },
+  "reportHashes": {
+    "p04a-build.log": "cf5f75cc2251ba94b4cfcce85a0c590eda6b97d6d363b2190798421baf36feea",
+    "p04a-catalog-query-final-green.json": "2d65bbe7036f8a6042cf5fae010df09a18fa6bc329b8c35a3155067df0e7a1f9",
+    "p04a-catalog-query-final-green.log": "c5f12400dbf89c430cc70b46f9aff6fe7b8bdda1846b813b6493a6e9dfaacaf1",
+    "p04a-catalog-query-green.json": "f5d6c72608a443fd78f801a535c480a8ea3e2eb195f2922dcd59e047a31d53c0",
+    "p04a-catalog-query-green.log": "391d3aaa42ce897e7bce4a908facf56c2122288375277d25060966d9be3b57b5",
+    "p04a-catalog-query-red.json": "62dd7a7aa6284908bdd57515cfb8299cb6ec6099711fe55268b1ae2858b8766c",
+    "p04a-catalog-query-red.log": "4b1ca872fdb965bf0194637b52b22b920225ebdf7b9db176445fdece18da7625",
+    "p04a-compiled-build.log": "e427a9a3e0910eb26ea10da231dca14ebc2150639f2a52c47b5430107bfec446",
+    "p04a-compiled-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04a-consumer-proof-red.json": "11e27d457e8eba2cd1c18011735507dfd0fcc51bd4321a2aaa420cc8b0635c76",
+    "p04a-consumer-proof-red.log": "14638e00348a9a9c6ae9e31d128eb2662976c183d7ae2ff4a13079e95f42a7d2",
+    "p04a-current-fixture-generation.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p04a-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04a-current-productivity-fixture.json": "1a9ae32ab1a47cce7eaaf3f7488dede1e69ed57013043fb97746053c70d5f583",
+    "p04a-fixture-generation.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p04a-full-checkpoint.json": "5aa517ecf1cb57b2241d9ecdb6db6a6fef4beadfd4ba33bcc2c7663722844b9a",
+    "p04a-full-checkpoint.log": "2ca9c83f01a4aa74c3857e2ffc3e5384fdf14fce30255db1a8516ed631638eab",
+    "p04a-full-checkpoint.xml": "ac47966622597284f6870362bb35c97c4fd3f4a924407b62f18bedcb0c2798dd",
+    "p04a-full-green.json": "5181853a5d65f9cc0746859bcea0f1b00d02a5069b3c53199478ca01989c8df2",
+    "p04a-full-green.log": "1d0b92758e6b2199013ec612cb85b3f8efb10b2b22ce5d0693dd370382de1369",
+    "p04a-full-green.xml": "73fdbf2ba8102c6d4cec4f70c487976d51b6c94eca2a7b5c75648a8ede546d47",
+    "p04a-full-serial-green.json": "8f4ff7fe71e1a5e5151919b397de7501919dbf39073526a3ce257f9228dcfc8c",
+    "p04a-full-serial-green.log": "36eccaa361a2e814c02c4d860dbbfd73dcc31a2e21852d51336de8b9d9a9cff6",
+    "p04a-full-serial-green.xml": "64cef574ec210f05b0355d6cd5508357667b8d622f0dd4514d339f0e6101697a",
+    "p04a-gate-red.json": "180c9cf24e217719f78fc202ae3e96a23ff166d1482cbe3947cbc059c045b314",
+    "p04a-gate-red.log": "6bc33f02aa7138aeaea2d0e9d40c69b5bb35a92138fc6aeb7badfae24a9a3f32",
+    "p04a-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04a-orphan-red.json": "a25ff8c0eb1827272965cabbddf1f3d7f6c43dc4d889bcaaa4b8cd7396245988",
+    "p04a-orphan-red.log": "4d3feb24dd75b47666520e63d70cd97cc951a62713b84b2cbac785384766b633",
+    "p04a-package-bounds-green.json": "54ad275b25affb02cb2e3facff024e5752fcfbc4fa30cb3bcc1464eade6587e8",
+    "p04a-package-bounds-green.log": "af2db5f799edf3392bd06aaad3f4ddde040f14152562c5bdf3a2e3cf2e8371db",
+    "p04a-package-bounds-red.json": "04f25cbb2f21b95408e93d503108e53bd68438b8f75c726cc9b7affc574ec7e0",
+    "p04a-package-bounds-red.log": "5dc92af48e9c084b332bef2fcbc60d6a98f819a0c75506abffb5dfc130d27d1e",
+    "p04a-package-consumer-green.json": "cd3a43c49f1f22b85953199d611769f6d1122b3a270378eed30a2ce4c81b1434",
+    "p04a-package-consumer-green.log": "fc370ae461db269bf89eef2c37fdfa6d4e8dabe67ee60b8db9ebb294ce9847bb",
+    "p04a-prebuild-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04a-productivity-checkpoint.json": "a8aa4c93064d535eb3caa88235e3a58bf24c95a7fcdd5af506b93061d82a5bf9",
+    "p04a-productivity-checkpoint.log": "d1007212fc4297ab96013dc4f9ee4ee8065fa7df25a03a52f845bd7812ddc733",
+    "p04a-productivity-final-green.json": "aaca7fdf382b34cdc987522f1a918e1d46be27e7481929bb55f8367404f60017",
+    "p04a-productivity-final-green.log": "05998eb2b6c7b30bd119d21373286968e0d3d9a40b40ed4f87acc5f6f3aa0ccc",
+    "p04a-productivity-fixture.json": "a7c7ecd155d084168b37c9a30b1750841d71b54d46b827bca3a5422163fb3f0e",
+    "p04a-runtime-schema-green.json": "1d01241a64f48440f0c905301ef63a8e66c3d2ec638a532e10c58c3c20116460",
+    "p04a-runtime-schema-green.log": "843c97682d042ac9f98f61502a8291725e5f83e4622ac32081f17eb53eb40661",
+    "p04a-schema-final-green.json": "54dc5be9c5e47a5a633c30a90255b656ffea492ec5aea5cada242c5ce9e92074",
+    "p04a-schema-final-green.log": "ee4cb637372aa03438c7579a706aba0f872307273872f26bd8ecf96eb1e2d0b2",
+    "p04a-schema-green.json": "cf3d04f4f634022d31ed5a25890785036b6b7bd95e9035f4282455be38735774",
+    "p04a-schema-green.log": "a43274798baa840f992363468edab9359cfed321f2b3f4a6b0f0a2e090785261",
+    "p04a-schema-red.json": "12e0c6de913f6b0d95c38fc8254dcb04ad362a8d3db57c8a48781e0d507f489c",
+    "p04a-schema-red.log": "0c2ac192de49671e24d661a010d4fe55404d24b90184aada3e1f6d411dde5897",
+    "p04a-structure-final-green.json": "526454863bb52c5805cd4cf05225b2ddfb7c61cc20d52a3674689c9f59c860e1",
+    "p04a-structure-final-green.log": "19c2635ac0d50a4e701c451632697dd670f28df448bd248a5f832bd85baf952c",
+    "p04a-structure-first-green.json": "553380a16af24680c33a394ce95487c4bfb756b0459b4bcaf215243f67520557",
+    "p04a-structure-first-green.log": "71c368dfda1d0ebeda068a07347832373d82654f9308c89290c320d747684900",
+    "p04a-structure-green.json": "91658c51f678bb3ebced75ac379e0049a81ac146c549e61b4e2ea1f10424f118",
+    "p04a-structure-green.log": "4b6a7aba1716a2ad987ac687768a7fdf9d1d2467a38f9f5720738b9aee8f16d6",
+    "p04a-structure-red.json": "af405f82c68c1688c0fed5518c2698fa36984a4446d0c24bef829c2ee6d220d5",
+    "p04a-structure-red.log": "b40efb1a0823b0284f031a75818e0c38de85229e626ab521b1fe1d17f43b8886",
+    "p04a-structure-tree-red.json": "6359a461d77b9894a43bdacfed6d3a0fbee985d96f581f0382481ca29da595f0",
+    "p04a-structure-tree-red.log": "c5560cab130565f95abb95936031b3fed9e852294ede8e19b83a78b4e64d46ea",
+    "p04a-upgrade-characterization.json": "8f5a988d86c8ce6a07a2787aefa9b09593d9b7cd1acd247ec4e8aa17b732e6e3",
+    "p04a-upgrade-characterization.log": "22316a2860c79ed387f3b59b7cf31d4f5c90ed8a5106c88c57bb85b7375b2081",
+    "p04a-upgrade-final-green.json": "efb04d780554b1b216ec5d7c486e768f0183bb1e352527b26fea3f89dd353a33",
+    "p04a-upgrade-final-green.log": "c4dbb4fb49267c6175b03b417bdcee692bb75a2dc9a77dd3987ccb4212bf7e49",
+    "p04a-upgrade-gate-red.json": "e8cbbb8509c2ed4afa5d2613ce86c2c7e18466d6b6fa297b7dacebd6421cb632",
+    "p04a-upgrade-gate-red.log": "864a6d11943384fde7364fd7f012d7dd0e7aa03320b6f76de19534e8c93c9c21",
+    "p04a-upgrade-tree-red.json": "b7b4c0699bbe378b69b4aa016430d8de7711def4cdf41346ce7bddf42642f0a8",
+    "p04a-upgrade-tree-red.log": "217c34c54f987b637702c73a04bfbc9d73a35272bea76da8a834c005f7202411",
+    "p04a-cloud/cold-import.json": "7199f497c5ecd3c2c2788c175ebba369f5ad471bbe0033f5ea1bb381cdd3b9fa",
+    "p04a-cloud/cold-import.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p04a-cloud/cold.mjs": "27754869a0313512eaf9c90ef9eed1641a0f75cb2e6a14dce5ef06b6f46ce6fc",
+    "p04a-cloud/compiled-cloud-final.log": "afe021014fe8e0c3e44c098267c474d118e5d161aa38cbce04c5dca9f935075b",
+    "p04a-cloud/compiled-cloud-report.json": "40b22b4f9a8566568d8373570fb7c926729e6ce04491213a297bc7f61dcbfcbc",
+    "p04a-cloud/compiled-cloud.log": "0caec7028787aed12c9d2d88668662b3aa1212b2fcff46ca5337fe7e2a5848c8",
+    "p04a-cloud/compiled-driver.mjs": "09f27f5c53beb4c16ee07edf54b3516e2dbb34a1572f87f9bd5e8f6398335f03",
+    "p04a-cloud/harness/block-network.cjs": "25d7df0ffe31a14d85a3f75fcc218e425400f5ecd35082630485840ab056cc56",
+    "p04a-cloud/harness/probe-productivity-package.mjs": "09101b4c65b18638957b1adc0aea747a6fbf2ef0fd010e15e1d0609557b9b830"
+  },
+  "windowsAcceptance": "pending",
+  "fullP04Accepted": false,
+  "newStructureHttpEnabled": false,
+  "defaultActivationEnabled": false,
+  "releaseOrVpsActions": false
+}

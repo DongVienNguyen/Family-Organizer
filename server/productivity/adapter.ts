@@ -8,16 +8,17 @@ import type * as Snapshot from '../appSnapshot.js';
 import type {Task} from '../../src/types.js';
 import {createHash} from 'node:crypto';
 import {isDeepStrictEqual} from 'node:util';
-import {registerProductivityMigration,productivityMigrationChecksum,migrateTasks} from './migrate.js';
+import {registerProductivityMigration,productivityMigrationChecksum,productivityStructureChecksum,migrateTasks} from './migrate.js';
 import {loadTasks,loadTask,savePilotTask,installTaskWriteHooks,projectLegacyTask as projection} from './store.js';
 import {markCanonicalReaderReady,requireCanonicalReader} from './bridgeState.js';
 import {parseLegacyDue} from '../../src/features/productivity/dates.js';
 import {assertLegacyTask} from './legacy.js';
+import {assertCurrentTaskTree} from './structureInvariant.js';
 export type BridgePorts={sqlite:typeof Sqlite;gateway:typeof Gateway;migrations:typeof Migrations;snapshot:typeof Snapshot};
 const configured=new WeakSet<object>();
 function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  const migrations=reader.all("SELECT version,checksum FROM app_migrations WHERE namespace='productivity' ORDER BY version");
- if(migrations.length!==1||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum)throw new Error('Unsupported productivity migration before activation');
+ if(![1,2].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length===2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
 }
 function active(reader:Pick<Gateway.AppWriteTx,'get'|'all'>):boolean {
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
@@ -67,4 +68,5 @@ function syncLegacyTasks(tx:Gateway.AppWriteTx,after:Task[]):void {
   savePilotTask(tx,{...row,title:task.title,body:task.description,lifecycle,priority:task.priority===projection(row).priority?row.priority:task.priority,due,creatorId:task.creatorId,assigneeId:task.assigneeId,isShared:task.isShared,tagIds:[...task.tags],pendingApproval:task.pendingApproval??false,rewardPoints:task.rewardPoints??0,legacy:structuredClone(task),revision:row.revision+1});
  }
  for(const row of rows)if(row.deletedAt===null&&!seen.has(row.id))savePilotTask(tx,{...row,deletedAt:new Date().toISOString(),revision:row.revision+1});
+ assertCurrentTaskTree(tx);
 }

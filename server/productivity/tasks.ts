@@ -21,7 +21,7 @@ function currentUser(reader:TaskReader,actor:AppActor):User {
  if(!user||user.isDeleted||user.role!==actor.role||!Object.values(UserRole).includes(user.role))throw new AppStoreError('Người dùng không được phép.',403,'task-actor');
  return user;
 }
-function assertContext(ctx:AppCommand,reader:TaskReader):User {
+export function assertContext(ctx:AppCommand,reader:TaskReader):User {
  try{text(ctx.requestId,256);integer(ctx.expectedRevision);text(ctx.actor.userId,256);}catch{throw new AppStoreError('Lệnh công việc không hợp lệ.',400,'task-command');}
  if(reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value!=='1')throw new AppStoreError('Kho công việc chưa được kích hoạt.',409,'task-storage-inactive');
  return currentUser(reader,ctx.actor);

@@ -1,6 +1,7 @@
 import {hashPassword,verifyPassword} from './passwords.js';
 import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
 import {currentLegacyActor} from './legacyActor.js';
+import {assertNoOpenSubtasks} from './productivity/structureInvariant.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
 import {canViewLegacyTask,canonicalTaskPolicyActive} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
@@ -797,6 +798,7 @@ export class FamilyDB {
         && recipientRole === UserRole.CHILD
         && rewardPts > approvalThreshold;
       const effectiveCompleting = isCompleting && !needsApproval;
+      if(isCompleting)assertNoOpenSubtasks(currentAppWriteTx()!,oldTask.id);
 
       // Determine history changes
       const changelog: string[] = [];
