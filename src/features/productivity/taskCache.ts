@@ -1,21 +1,24 @@
 import {assertTaskRecord,type TaskRecord,type TaskPatch} from './contracts.js';
+import {keys,text} from './validation.js';
 import {createTaskDraft,editTaskDraft,changedTaskFields,type TaskDraft} from './editor.js';
 export type TaskLoader=(id:string)=>Promise<TaskRecord>;
 export type TaskSaver=(id:string,revision:number,patch:TaskPatch,requestId:string)=>Promise<TaskRecord>;
+export interface DrawerInputs {comment:string;newCheck:string;subtaskTitle:string}
+const emptyInputs:DrawerInputs={comment:'',newCheck:'',subtaskTitle:''};
 export interface TaskCache {
  subscribe(fn:()=>void):()=>void;snapshot():number;record(id:string):TaskRecord|undefined;draft(id:string):TaskDraft|undefined;
- load(id:string,loader:TaskLoader):Promise<void>;open(id:string):void;edit(id:string,patch:TaskPatch):void;tagEditor(id:string,initialText:string):void;editTagText(id:string,text:string):void;discard(id:string):void;
+ load(id:string,loader:TaskLoader):Promise<void>;reload(id:string,loader:TaskLoader):Promise<void>;open(id:string):boolean;inputs(id:string):DrawerInputs|undefined;editInputs(id:string,patch:Partial<DrawerInputs>):void;edit(id:string,patch:TaskPatch):void;tagEditor(id:string,initialText:string):void;editTagText(id:string,text:string):void;discard(id:string):void;
  replaceVisible(tasks:readonly TaskRecord[]):void;save(id:string,saver:TaskSaver):Promise<void>;invalidate(id:string):void;clear():void;dispose():void;
 }
 /** One in-memory owner per authenticated session. No browser storage/offline writes. */
 export function createTaskCache():TaskCache {
- const records=new Map<string,TaskRecord>(),drafts=new Map<string,TaskDraft>(),sequence=new Map<string,number>(),hidden=new Set<string>(),busy=new Set<string>(),listeners=new Set<()=>void>(),pending=new Map<string,{signature:string;requestId:string}>();
+ const inputs=new Map<string,DrawerInputs>(),records=new Map<string,TaskRecord>(),drafts=new Map<string,TaskDraft>(),sequence=new Map<string,number>(),hidden=new Set<string>(),busy=new Set<string>(),listeners=new Set<()=>void>(),pending=new Map<string,{signature:string;requestId:string}>();
  let active=true,version=0,generation=0;
  const emit=()=>{version++;for(const fn of listeners)fn();};
  const requireActive=()=>{if(!active)throw Error('Task session disposed');};
  const next=(id:string)=>{const value=(sequence.get(id)??0)+1;sequence.set(id,value);return value;};
  const allowed=(id:string)=>active&&!hidden.has(id)?records.get(id):undefined;
- const wipe=(id:string)=>{records.delete(id);drafts.delete(id);pending.delete(id);hidden.delete(id);};
+ const wipe=(id:string)=>{records.delete(id);drafts.delete(id);inputs.delete(id);pending.delete(id);hidden.delete(id);};
  const deny=(error:unknown)=>[401,403,404].includes((error as any)?.status);
  const response=(id:string,task:TaskRecord)=>{assertTaskRecord(task);if(task.id!==id||task.revision<(records.get(id)?.revision??0))throw Error('Invalid or stale task response');};
  return {
@@ -27,7 +30,10 @@ export function createTaskCache():TaskCache {
    try{const task=await loader(id);if(!active||generation!==owner||sequence.get(id)!==request)return;response(id,task);records.set(id,structuredClone(task));hidden.delete(id);emit();}
    catch(error){if(!active||generation!==owner||sequence.get(id)!==request)return;if(deny(error))wipe(id);emit();throw error;}
   },
-  open(id){requireActive();const task=allowed(id);if(!task)throw Error('Task not ready');if(!drafts.has(id)){drafts.set(id,createTaskDraft(task));emit();}},
+  async reload(id,loader){requireActive();if(busy.has(id))throw Error('Task save in progress');await this.load(id,loader);const task=allowed(id);if(!task)throw Error('Task not ready');drafts.set(id,createTaskDraft(task));inputs.delete(id);pending.delete(id);emit();},
+  open(id){requireActive();const task=allowed(id);if(!task)return false;if(!drafts.has(id)){drafts.set(id,createTaskDraft(task));emit();}return true;},
+  inputs(id){return allowed(id)?structuredClone(inputs.get(id)??emptyInputs):undefined;},
+  editInputs(id,patch){requireActive();if(!records.has(id))throw Error('Task not ready');keys(patch,['comment','newCheck','subtaskTitle']);for(const [key,value]of Object.entries(patch))text(value,key==='comment'?20000:key==='newCheck'?2000:500,false);inputs.set(id,{...(inputs.get(id)??emptyInputs),...patch});emit();},
   edit(id,patch){requireActive();if(busy.has(id))throw Error('Task save in progress');const draft=allowed(id)?drafts.get(id):undefined;if(!draft)throw Error('Task draft not ready');drafts.set(id,editTaskDraft(draft,patch));emit();},
   tagEditor(id,initialText){requireActive();const draft=allowed(id)?drafts.get(id):undefined;if(!draft)throw Error('Task draft not ready');if(!draft.tagEditor){drafts.set(id,{...draft,tagEditor:{originalText:initialText,text:initialText}});emit();}},
   editTagText(id,text){requireActive();if(busy.has(id))throw Error('Task save in progress');const draft=allowed(id)?drafts.get(id):undefined;if(!draft?.tagEditor)throw Error('Tag editor not ready');drafts.set(id,{...draft,tagEditor:{...draft.tagEditor,text}});emit();},
@@ -49,7 +55,7 @@ export function createTaskCache():TaskCache {
    finally{if(active&&generation===owner){busy.delete(id);emit();}}
   },
   invalidate(id){requireActive();next(id);hidden.add(id);emit();},
-  clear(){requireActive();generation++;records.clear();drafts.clear();sequence.clear();hidden.clear();busy.clear();pending.clear();emit();},
-  dispose(){if(!active)return;active=false;generation++;records.clear();drafts.clear();sequence.clear();hidden.clear();busy.clear();pending.clear();emit();listeners.clear();},
+  clear(){requireActive();generation++;records.clear();drafts.clear();inputs.clear();sequence.clear();hidden.clear();busy.clear();pending.clear();emit();},
+  dispose(){if(!active)return;active=false;generation++;records.clear();drafts.clear();inputs.clear();sequence.clear();hidden.clear();busy.clear();pending.clear();emit();listeners.clear();},
  };
 }

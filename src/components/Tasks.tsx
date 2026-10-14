@@ -179,7 +179,7 @@ export function Tasks({
   // Compute final filtered tasks
   const filteredTasks = useMemo(() => {
     return tasks.filter(task => {
-      if(canonical.enabled&&canonical.cache.record(task.id)?.parentId)return false;
+      if(canonical.enabled){const visible=canonical.cache.record(task.id);if(!visible||visible.parentId!==null)return false;}
       // 1. Text Search title & description & tags
       const matchText = 
         task.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -216,7 +216,7 @@ export function Tasks({
 
       return true;
     });
-  }, [tasks, searchTerm, statusFilter, assigneeFilter, priorityFilter, scopeFilter, currentUser,tagCatalog]);
+  }, [tasks, searchTerm, statusFilter, assigneeFilter, priorityFilter, scopeFilter, currentUser,tagCatalog,canonical.enabled,canonical.records]);
 
   // Set selected task details refreshed whenever task edits happen
   const activeTaskDetails = useMemo(() => {
@@ -746,7 +746,7 @@ export function Tasks({
   return (
     <div className="space-y-6" id="tasks-module">
       {(canonical.enabled||canonical.error)&&<>
-       <div className="flex gap-2"><button type="button" aria-pressed={taskProjection==='list'} onClick={()=>setTaskProjection('list')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.listView')}</button><button type="button" aria-pressed={taskProjection==='board'} onClick={()=>setTaskProjection('board')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.retainedBoard')}</button></div>
+       <div className="flex gap-2"><button type="button" aria-pressed={taskProjection==='list'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('list')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.listView')}</button><button type="button" aria-pressed={taskProjection==='board'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('board')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.retainedBoard')}</button></div>
        <div><Productivity showList={taskProjection==='list'} overlayActive={!!submitTaskTarget||!!rejectTaskTarget} user={currentUser} users={users} tasks={tasks} onComment={onAddComment} onAdvanced={handleOpenEditTask} actions={(task,disabled)=><div className="flex flex-wrap gap-2">
         {canEditTask(task)&&!task.pendingApproval&&<><button type="button" disabled={disabled} onClick={()=>void handleUpdateStatus(task,TaskStatus.IN_PROGRESS)} className="text-xs text-sky-400">{t('productivity.start')}</button><button type="button" disabled={disabled} onClick={()=>childNeedsApproval(task)?openSubmitModal(task):void handleUpdateStatus(task,TaskStatus.COMPLETED)} className="text-xs text-emerald-400">{t('productivity.complete')}</button></>}
         {task.pendingApproval&&canApproveTasks&&<><button type="button" disabled={disabled} onClick={()=>void handleApprove(task)} className="text-xs text-emerald-400">{t('productivity.approve')}</button><button type="button" disabled={disabled} onClick={()=>setRejectTaskTarget(task)} className="text-xs text-rose-400">{t('productivity.reject')}</button></>}
@@ -1220,6 +1220,7 @@ export function Tasks({
                                   <div className="flex items-center gap-1 shrink-0">
                                     <button
                                       type="button"
+                                      disabled={canonical.enabled&&(canonical.loading||!canonical.cache.record(task.id))}
                                       onClick={() => canonical.enabled?canonical.open(task.id):setSelectedTask(task)}
                                       className="size-7 bg-slate-900 hover:bg-slate-800 neu-btn rounded-lg text-slate-400 hover:text-sky-400 flex items-center justify-center cursor-pointer"
                                       title={t("tasks.detailTitle")}
@@ -1230,6 +1231,7 @@ export function Tasks({
                                     {canEditTask(task) && (
                                       <button
                                         type="button"
+                                        disabled={canonical.enabled&&(canonical.loading||!canonical.cache.record(task.id))}
                                         onClick={() => canonical.enabled?canonical.open(task.id):handleOpenEditTask(task)}
                                         className="size-7 bg-slate-900 hover:bg-slate-800 neu-btn rounded-lg text-slate-400 hover:text-amber-400 flex items-center justify-center cursor-pointer"
                                         title={t("tasks.editTitleTooltip")}
@@ -1254,7 +1256,8 @@ export function Tasks({
 
                                 <button
                                   type="button"
-                                  onClick={() => canonical.enabled?canonical.open(task.id):setSelectedTask(task)}
+                                  disabled={canonical.enabled&&(canonical.loading||!canonical.cache.record(task.id))}
+                                      onClick={() => canonical.enabled?canonical.open(task.id):setSelectedTask(task)}
                                   className="block w-full text-left cursor-pointer"
                                 >
                                   <h4 className={`text-sm font-bold leading-snug text-pretty ${task.status === TaskStatus.COMPLETED ? "line-through text-slate-500" : "text-slate-100 hover:text-sky-400"}`}>

@@ -5,12 +5,15 @@ session-owned memory cache. List and the retained board open the same task ID an
 editor. Closing a dirty drawer offers to keep its draft; explicit reload discards
 it. Logout/account changes clear records, drafts and pending command identities.
 Private draft text is never saved to browser storage. A revision conflict keeps
-the draft and requires an explicit reload; writes require an online session.
+the draft; explicit reload fetches the current authorized revision before rebuilding
+it. Unsent comment/checklist/subtask input text shares the session memory owner,
+remains hidden during reauthorization and is purged on revoked access/logout; writes require an online session.
 
 The drawer supports title, description, no/high/medium/low priority, no deadline,
 all-day or timed deadlines, assignee, named tags, blocked reason, list, section,
 parent, checklist, subtasks and personal pin. Checklist/section changes do not
-complete tasks. Atomic subtask creation derives its list/section from the freshly
+complete tasks. Checklist writes require authoritative items tied to the displayed
+task revision. Refresh hides board rows and refuses unavailable drawer entry. Atomic subtask creation derives its list/section from the freshly
 authorized parent and defaults to zero reward, no deadline and no priority.
 Retained comments, history, proof and approval/completion buttons use the existing
 business bridge. The advanced form retains recurrence, rotation and reward
@@ -28,7 +31,7 @@ writes. Ordinary snapshots and encrypted recovery carry pin rows and validate
 user/task references. Controlled activation remains P18-owned; this change adds
 no activation endpoint or production migration command.
 
-Windows CI requires the separate `Windows productivity browsers` check, all four
+Windows CI requires the separate `Windows productivity browsers` check, all eight
 named P04 flows on Chromium, Firefox and WebKit, one attempt and no skipped tests.
 The original `Windows production browsers` check still requires all45 existing
 cases. Both jobs preserve JSON, JUnit, HTML, traces, runtime/build hashes, native

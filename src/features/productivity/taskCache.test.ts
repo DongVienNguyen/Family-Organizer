@@ -58,3 +58,12 @@ it('a cleared lifecycle ignores old save completions and preserves the new lifec
 it('raw tag entry and captured labels stay with the draft across view close/refresh',async()=>{
  const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);cache.tagEditor(task.id,'Original label');cache.editTagText(task.id,'Original label, ambiguous draft');await cache.load(task.id,async()=>({...task,revision:8}));cache.open(task.id);expect(cache.draft(task.id)?.tagEditor).toEqual({originalText:'Original label',text:'Original label, ambiguous draft'});cache.clear();expect(cache.draft(task.id)).toBeUndefined();
 });
+it('an invalidated board entry refuses opening without throwing or exposing the prior record',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.invalidate(task.id);expect(cache.open(task.id)).toBe(false);expect(cache.record(task.id)).toBeUndefined();await cache.load(task.id,async()=>task);expect(cache.open(task.id)).toBe(true);
+});
+it('explicit reload reads and authorizes the current revision before discarding a conflict draft',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);cache.edit(task.id,{title:'Unsent conflict'});let reads=0;await cache.reload(task.id,async()=>{reads++;return {...task,title:'Actual remote',revision:8};});expect(reads).toBe(1);expect(cache.draft(task.id)?.baseRevision).toBe(8);expect(cache.draft(task.id)?.values.title).toBe('Actual remote');
+});
+it('unsent drawer inputs survive projection/save/refresh but are hidden and purged on revoked access or logout',async()=>{
+ const cache=createTaskCache();await cache.load(task.id,async()=>task);cache.open(task.id);cache.editInputs(task.id,{comment:'Private unsent comment',newCheck:'Unsent checklist',subtaskTitle:'Unsent subtask'});cache.discard(task.id);cache.open(task.id);cache.invalidate(task.id);expect(cache.inputs(task.id)).toBeUndefined();cache.replaceVisible([task]);expect(cache.inputs(task.id)).toEqual({comment:'Private unsent comment',newCheck:'Unsent checklist',subtaskTitle:'Unsent subtask'});cache.replaceVisible([]);await cache.load(task.id,async()=>task);expect(cache.inputs(task.id)).toEqual({comment:'',newCheck:'',subtaskTitle:''});cache.editInputs(task.id,{comment:'New private comment'});cache.clear();await cache.load(task.id,async()=>task);expect(cache.inputs(task.id)?.comment).toBe('');
+});

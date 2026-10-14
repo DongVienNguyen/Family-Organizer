@@ -24,7 +24,7 @@ export function TaskProvider({sessionKey,request,authHeaders,online,refreshEpoch
  useEffect(()=>{mountedCache.current=cache;alive.current=true;return()=>{alive.current=false;sequence.current++;cache.clear();commands.current.clear();mountedCache.current=null;queueMicrotask(()=>{if(mountedCache.current!==cache)cache.dispose();});};},[cache]);
  useEffect(()=>{void refresh();},[refresh,refreshEpoch]);
  const command=useCallback(async<T,>(scope:string,payload:unknown,work:(key:string)=>Promise<T>)=>{const signature=JSON.stringify(payload),prior=commands.current.get(scope),operation=prior?.signature===signature?prior:{signature,key:crypto.randomUUID()};commands.current.set(scope,operation);const value=await work(operation.key);if(commands.current.get(scope)===operation)commands.current.delete(scope);return value;},[]);
- const open=useCallback((id:string)=>{cache.open(id);setActiveId(id);},[cache]),close=useCallback(()=>setActiveId(null),[]);
+ const open=useCallback((id:string)=>{if(cache.open(id))setActiveId(id);},[cache]),close=useCallback(()=>setActiveId(null),[]);
  return <TaskContext.Provider value={{cache,api,ids,catalog,pins,pinEnabled,enabled,loading,error,online,activeId,command,open,close,refresh}}>{children}</TaskContext.Provider>;
 }
 export function useTasks(){const context=useContext(TaskContext);if(!context)throw Error('TaskProvider required');useSyncExternalStore(context.cache.subscribe,context.cache.snapshot,context.cache.snapshot);return {...context,records:context.ids.map(id=>context.cache.record(id)).filter((task):task is TaskRecord=>!!task)};}

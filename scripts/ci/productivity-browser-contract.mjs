@@ -4,6 +4,10 @@ export const productivityBrowserCases=[
  'P04 C02 drawer keyboard popup Escape preserves dialog and phone layout has no overflow',
  'P04 C03 actual checklist/subtask/personal pin preserve root identity and no reward side effect',
  'P04 C04 child has no private member rows and logout clears the shared draft',
+ 'P04 C05 delayed checklist read cannot delete existing items',
+ 'P04 C06 conflict reload reads the current authorized server revision',
+ 'P04 C07 retained board refuses opening while authorization refresh is pending',
+ 'P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases});
