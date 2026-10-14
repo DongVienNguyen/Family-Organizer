@@ -35,7 +35,7 @@ function setup(){
 async function fixture(work:(f:any)=>Promise<void>,grant?:'read'|'write'|'manage'){
  setup();const id=randomUUID(),sharedId=randomUUID(),url='/uploads/notes/'+id+'.png';
  fs.mkdirSync(path.join(media.UPLOADS_DIR,'notes'),{recursive:true});fs.writeFileSync(path.join(media.UPLOADS_DIR,url.slice(9)),png);
- command(tx=>{tx.run('DELETE FROM productivity_list_grants WHERE user_id=?',UserRole.MEMBER);if(grant)tx.run('INSERT INTO productivity_list_grants VALUES(?,?,?)','legacy-family',UserRole.MEMBER,grant);
+ command(tx=>{tx.legacy.tasks=[];tx.run('DELETE FROM productivity_list_grants WHERE user_id=?',UserRole.MEMBER);if(grant)tx.run('INSERT INTO productivity_list_grants VALUES(?,?,?)','legacy-family',UserRole.MEMBER,grant);
  tx.run('INSERT OR REPLACE INTO app_meta VALUES(?,?)',mediaKey(url),JSON.stringify({version:1,ownerId:null,createdAt:0,bindings:[{domain:'tasks',id}]}));
  tx.legacy.tasks.push(legacyTask(id,{title:'P03 private child synthetic '+id,creatorId:'other-child',assigneeId:'other-child',isShared:false,proofImage:url,rotationMemberIds:[],sourceRecurringTaskId:null}),legacyTask(sharedId,{title:'P03 shared synthetic '+sharedId,creatorId:UserRole.ADMIN,assigneeId:null,isShared:true,proofImage:null,rotationMemberIds:[],sourceRecurringTaskId:null}));
  });media.initializeMediaMetadata();
@@ -195,3 +195,7 @@ it('read-grant Member keeps existing semantic comments without generic edit perm
  const commented=await send('/api/tasks/'+id+'/comments',UserRole.MEMBER,{content:'Synthetic read-only discussion'});expect(commented.status).toBe(200);expect(commented.body.task.comments.at(-1)).toMatchObject({userId:UserRole.MEMBER,content:'Synthetic read-only discussion'});
  expect((await send('/api/tasks',UserRole.MEMBER,{id,title:'Forbidden field edit'})).status).toBe(403);
 },'read'));
+
+it('each HTTP fixture contains only its own live tasks, independent of earlier scenarios',()=>fixture(async({id,sharedId}:any)=>{
+ expect(db.FamilyDB.getTasks().map(task=>task.id).sort()).toEqual([id,sharedId].sort());
+}));
