@@ -1,0 +1,74 @@
+{
+  "taskId": "P01",
+  "observedAt": "2026-10-14T08:40:57.017013+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/67",
+  "testedHeadSha": "1e57b8972acd69ea7ec7ffe8b316e9231c509c06",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38495877156",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "4a797afb5a32cf22fd852cad9cff01e4d37e805af948eab17a949f29af9d0c8c",
+    "coverage": "e3002ab3d516ce05feee0f45fde4364ee6d98b10d7fadd21b86e6f07678c6477",
+    "package": "be36d0f7d3d0267427ad2b49224a4938d6b340e8b0800da086b12e8bf449d813",
+    "service": "82ae0bde77b5891a02c943f1772e03930cafc474c358e4a70e438ea5cf291188",
+    "caddy": "9a4390d875ca46600dff6ea47dcd9a5b7302cb00789872bf84579857af571dcf",
+    "extraction-sdk": "3c82944cad5bf57f546f37836365526317671d7815cd1b2bfbb88d44c462072b",
+    "inner-native": "7c4123499cc5c0f1b590d27d535e09e1462d5d301745f2b60aa5b04e86d8c28e",
+    "browser": "3ab486ee505a801537ac284844f8679d68f5bd1ebb7b7ab239e3525624d7d6a7"
+  },
+  "qualityEach": 2899,
+  "qualityFilesEach": 142,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "0e1ffa5bccb3675995077928821ee78ca24db0e68e12d451d4b80e9072506ccc",
+  "fullCiLogZipSha256": "7f9c210f89d2d2a705e7c47cffbbcc54d40da2e77df8a0a6fe18a3d1a88c040e",
+  "review": "ONE0C2I2M; all authorgraded before one correction pass; Important2 fixed actualRED3\u2192GREEN, Cloud2899/142 all0+lintbuild0; no rereview",
+  "deferredMinors": [
+    "Historical St_Johns midnight-crossing backward transitions miss first day boundary and overdue can toggle",
+    "Accepted9999-year clock projects10000 local date, lexical comparison gives wrong overdue"
+  ],
+  "rulings": [
+    "Intl/ICU named timezone adapter; no dependency change",
+    "Unambiguous existing local legacy timestamps use supplied deployment timezone and preserve raw/assumption; actual DST gaps/folds rejected",
+    "All-day range uses local start of due.date; timed projection uses QueryClock timezone",
+    "Omitted facets unrestricted; supplied empty facets no matches",
+    "Legacy types/serialization and endpoint ACL/page limits remain P02/P03/P05 ownership"
+  ],
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "sourceTaskRuntimeEnabled": false,
+  "nextTask": "P02 after reviewed green merge",
+  "merged": true,
+  "mergeSha": "7c41768fb9ca5847b8310da51824e396695a4806",
+  "mainTreeEqualsTestedHead": true
+}

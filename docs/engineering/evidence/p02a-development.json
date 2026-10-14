@@ -1,0 +1,70 @@
+{
+  "taskId": "P02-a",
+  "baseSha": "7c41768fb9ca5847b8310da51824e396695a4806",
+  "scope": "Pilot schema/store/migration/snapshot only; fullP02 and live adapter cutover P02-b pending",
+  "initialRed": {
+    "tests": 7,
+    "failed": 6,
+    "passed": 1,
+    "wrapperCountExpectationIncorrect": true,
+    "meaning": "Six positive tests failed unimplemented stubs; negative throwguard passed. Initial verification wrapper expected7failed and exited1; rawreport retained."
+  },
+  "fixtureFailuresRetained": [
+    "Initial snapshot fixture missing administrator",
+    "Vitest assertion object returned as circular command cache result",
+    "Typed synthetic administrator missing passwordHash: actualTS2322/lint2"
+  ],
+  "targetGreen": {
+    "tests": 194,
+    "failed": 0
+  },
+  "gateRed": {
+    "failed": 2
+  },
+  "lintExit": 0,
+  "fullCloud": {
+    "tests": 2908,
+    "files": 144,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 2908
+  },
+  "windows": "pending",
+  "coldImportProbe": {
+    "platform": "linux",
+    "exitCode": 0,
+    "modules": 4,
+    "storageCreated": false
+  },
+  "productionTaskWriter": "legacy, unchanged",
+  "newRuntimeFeatureEnabled": false,
+  "dependenciesChanged": false,
+  "proofImageTestScope": "Raw synthetic URL metadata only, not a new actual blob restore proof; existing common media tests remain mandatory.",
+  "buildExit": 0,
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "c9a70f8cc2f902d77582076839b176391ac62054c64308b0b23692e7bb645207",
+    "server/productivity/migrate.ts": "0d95039c373c64cb940f47171ab302cd50aa7e6c902dc91c2781e04dd3d51d6e",
+    "server/productivity/migration.test.ts": "e5e27e93c60781b198397def75ab942f33655596ffd411d1603003ae0e08d522",
+    "server/productivity/schema.ts": "cb50735f35da6e5e094659b68dd4d667a4914e482efda5a0167dee8654e95168",
+    "server/productivity/snapshot.ts": "a164ffcdf70a2169c995f08f03b998d137900a17cc8e061b183b1ebe942b2141",
+    "server/productivity/store.test.ts": "b9d8583b34cd596d3ad90dac5d19653908e30a84fa42fe2ae296361d08130fcc",
+    "server/productivity/store.ts": "c14d26e4a1a58499bd2182b38f1eff7890c4376cad3eb0a709d12f2cb9b60743",
+    "tests/evidence.test.ts": "a3a692a2719b361674b71fc39984bc7ac3b937528bca67d33f699386d82ebe72",
+    "tests/fixtures/productivity.ts": "e20ff0045ecef596ba847eb0ea18960e3292f6cceb21260c20e34c2b894f5840"
+  },
+  "reportHashes": {
+    "red.json": "e2dca68a7109b1de45e0430eb64a4de7059f34c645d7a8507885dc1958a70b31",
+    "green.json": "da6f08d02380e567bfd92278670e99b10283340ca85312a5ccb418b18b55b3a5",
+    "fixture-corrected-green.json": "e45caf27db0b67d87bbf053586950d87348a9326a04e457cdd866e517f7b32d7",
+    "target-green.json": "99b2b01a61d3a025616ec444dbaf77f92e2c873083e089828f011ae066b121cf",
+    "gate-red.json": "fd9cef5eaabaedd0910a171ce6b2c300578eebb179e0719e609e9cd30daf2d7c",
+    "target-gate-green.json": "0e9294a28f3da94b79a0186be1525645db758ded3d7af02dd77b786c544c0bf9",
+    "full.json": "8d8cf59154a641843b241ae4b32f4cf99370c4b644639177d5e378defb523d02",
+    "junit.xml": "b7ae2d6b82aca0716b8a67adcd603a9b0dcdc773ed5e3030db918109acdcdcb2",
+    "lint.log": "abfe14324d99e2869350cbe5f1d7d432b7fab6897ac30be2fa3bce6f56227120",
+    "lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "build.log": "ba837f85de052401f042c8f4efa289dd7851d5056880cfb0acf95c2c982d665d",
+    "import-probe.json": "c5f85b54fe0471f474f3f33ca823e571ed0d06bb096c171e45435467f5b3b101"
+  }
+}
