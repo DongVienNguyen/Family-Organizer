@@ -2,7 +2,7 @@ import {it,expect} from 'vitest';
 import {randomUUID} from 'node:crypto';
 import {withAppWriteTransaction} from '../appStore.js';
 import {sqliteConnection,sqliteLoad,sqliteSave} from '../sqlite.js';
-import {openWalletStore} from './store.js';
+import {openWalletStore,type WalletTx} from './store.js';
 import {prepareWalletSchema} from './schema.js';
 const meta=(requestId=randomUUID())=>({actorId:'synthetic-wallet-admin',command:'wallet:synthetic:storage',requestId,payloadHash:'synthetic-fixed-payload'});
 const store=()=>openWalletStore({write:withAppWriteTransaction});
@@ -26,4 +26,10 @@ it('the shared command owner returns a cached retry without entering a second Wa
 });
 it('async callbacks and nested public transactions cannot take ownership of the SQLite writer',()=>{
  setup();expect(()=>store().transaction(meta(),(async (tx:any)=>{tx.accounts.insert(account());}) as any)).toThrow();expect(sqliteConnection().prepare('SELECT count(*) AS n FROM wallet_accounts').get()).toEqual({n:0});expect(()=>store().transaction(meta(),()=>store().transaction(meta(),()=>null))).toThrow();
+});
+it('returned thenables roll back synchronous Wallet changes and an escaped repository cannot access a closed transaction',()=>{
+ setup();expect(()=>store().transaction(meta(),tx=>{tx.accounts.insert(account());return Promise.resolve({id:account().id});})).toThrow();expect(sqliteConnection().prepare('SELECT count(*) AS n FROM wallet_accounts').get()).toEqual({n:0});let escaped:WalletTx|undefined;store().transaction(meta(),tx=>{escaped=tx;tx.accounts.insert(account());});expect(()=>escaped!.accounts.get(account().id)).toThrow('Transaction handle is closed');
+});
+it('posting date derives from its canonical record and a duplicate record/account posting is refused atomically',()=>{
+ setup();store().transaction(meta(),tx=>tx.accounts.insert(account()));expect(()=>store().transaction(meta(),tx=>{tx.records.insert(record());tx.postings.insert({recordId:record().id,accountId:account().id,deltaMinor:'-100'});expect(sqliteConnection().prepare('SELECT effective_date FROM wallet_postings').get()).toEqual({effective_date:'2026-10-14'});tx.postings.insert({recordId:record().id,accountId:account().id,deltaMinor:'-200'});})).toThrow();expect(sqliteConnection().prepare('SELECT count(*) AS n FROM wallet_records').get()).toEqual({n:0});expect(sqliteConnection().prepare('SELECT count(*) AS n FROM wallet_postings').get()).toEqual({n:0});
 });

@@ -12,6 +12,7 @@ const recordColumns='id,kind,effective_date AS effectiveDate,timezone,source,ext
 function walletTx(tx:AppWriteTx) {
  return {
   get legacy(){return tx.legacy;},
+  sql:{get:tx.get,all:tx.all,run:tx.run},
   accounts:{
    insert(value:WalletAccount){for(const key of ['id','name','ownerUserId'] as const)text(value[key],key==='name'?500:256);choice(value.type,['cash','bank','savings','credit','e_wallet','investment','asset','liability']);currencyExponent(value.currency);choice(value.accessMode,['shared','private']);parseEffectiveDate(value.openingDate);integer(value.revision,1);tx.run('INSERT INTO wallet_accounts(id,name,type,currency,owner_user_id,access_mode,opening_minor,opening_date,revision) VALUES(?,?,?,?,?,?,?,?,?)',value.id,value.name,value.type,value.currency,value.ownerUserId,value.accessMode,minorInteger(value.openingMinor),value.openingDate,value.revision);},
    get(id:string):WalletAccount|null{text(id,256);return tx.get('SELECT '+accountColumns+' FROM wallet_accounts WHERE id=?',id)??null;},

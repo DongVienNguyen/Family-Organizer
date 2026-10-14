@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS wallet_accounts(
  currency TEXT NOT NULL REFERENCES wallet_currencies(code),owner_user_id TEXT NOT NULL,access_mode TEXT NOT NULL CHECK(access_mode IN('shared','private')),
  opening_minor INTEGER NOT NULL CHECK(typeof(opening_minor)='integer'),opening_date TEXT NOT NULL,revision INTEGER NOT NULL CHECK(revision>=1),archived_at TEXT);
 CREATE TABLE IF NOT EXISTS wallet_account_grants(account_id TEXT NOT NULL REFERENCES wallet_accounts(id),user_id TEXT NOT NULL,permission TEXT NOT NULL CHECK(permission IN('read','contribute','manage')),PRIMARY KEY(account_id,user_id));
-CREATE TABLE IF NOT EXISTS wallet_categories(id TEXT PRIMARY KEY,parent_id TEXT REFERENCES wallet_categories(id),name TEXT NOT NULL,nature TEXT NOT NULL CHECK(nature IN('must','need','want','unspecified')),archived_at TEXT);
+CREATE TABLE IF NOT EXISTS wallet_categories(id TEXT PRIMARY KEY,parent_id TEXT REFERENCES wallet_categories(id) DEFERRABLE INITIALLY DEFERRED,name TEXT NOT NULL,nature TEXT NOT NULL CHECK(nature IN('must','need','want','unspecified')),archived_at TEXT);
 CREATE TABLE IF NOT EXISTS wallet_labels(id TEXT PRIMARY KEY,name TEXT NOT NULL,archived_at TEXT);
 CREATE TABLE IF NOT EXISTS wallet_schedules(id TEXT PRIMARY KEY,payload_json TEXT NOT NULL CHECK(json_valid(payload_json)));
 CREATE TABLE IF NOT EXISTS wallet_occurrences(id TEXT PRIMARY KEY,schedule_id TEXT NOT NULL REFERENCES wallet_schedules(id),due_date TEXT NOT NULL,UNIQUE(schedule_id,due_date));
