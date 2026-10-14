@@ -34,3 +34,9 @@ No runtime call site invokes this DDL or enables Wallet. No new HTTP route, UI,
 dependency or production data is part of W02-a. Imports of schema/store/snapshot
 must be cold. Windows2022 CI checks both supported Node runtimes and all existing
 browser/service/package proofs; actual Server2019 acceptance remains R02.
+
+Repository record reads omit absent optional string fields, matching insertion
+inputs. Snapshot validation preserves optional notes, including empty or
+whitespace text, exactly as accepted by the repository. Native nullable snapshot
+columns remain explicit nulls; that storage representation is separate from the
+curated repository DTO.

@@ -23,3 +23,7 @@ it.each(['future','checksum','foreign-account','unsafe-money','unknown-table'])(
 it('restores a valid category graph independently of alphabetical parent/child ID order',()=>{
  setup();seed();store.transaction(meta(),tx=>{tx.sql.run("INSERT INTO wallet_categories VALUES('z-synthetic-parent',NULL,'Synthetic parent','unspecified',NULL)");tx.sql.run("INSERT INTO wallet_categories VALUES('a-synthetic-child','z-synthetic-parent','Synthetic child','need',NULL)");});const saved=snapshot();store.transaction(meta(),tx=>restoreWalletSnapshot(tx,saved));expect(snapshot()).toEqual(saved);expect(sqliteConnection().prepare('PRAGMA foreign_key_check').all()).toEqual([]);
 });
+it.each(['','   '])('an accepted optional note %j survives snapshot export and atomic restore',note=>{
+ setup();seed();store.transaction(meta(),tx=>tx.records.insert({id:'synthetic-empty-note-record',kind:'income',effectiveDate:'2026-10-14',timezone:'Asia/Saigon',source:'manual',note,settlementStatus:'uncleared',creatorId:'user_admin',revision:1}));
+ const saved=snapshot();expect(saved.tables.wallet_records.find(row=>row.id==='synthetic-empty-note-record')!.note).toBe(note);store.transaction(meta(),tx=>restoreWalletSnapshot(tx,saved));expect(snapshot()).toEqual(saved);store.transaction(meta(),tx=>{expect(tx.records.get('synthetic-empty-note-record')!.note).toBe(note);});
+});

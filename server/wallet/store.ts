@@ -20,7 +20,7 @@ function walletTx(tx:AppWriteTx) {
   },
   records:{
    insert(value:WalletRecord){text(value.id,256);text(value.creatorId,256);text(value.note,100000,false);choice(value.kind,['income','expense','transfer','adjustment','trade']);choice(value.source,['manual','import','schedule','legacy']);choice(value.settlementStatus,['uncleared','cleared','reconciled','voided']);parseEffectiveDate(value.effectiveDate);timezoneFormatter(value.timezone);integer(value.revision,1);for(const key of ['externalKey','categoryId','occurrenceId'] as const)if(value[key]!==undefined)text(value[key],256);tx.run('INSERT INTO wallet_records VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',value.id,value.kind,value.effectiveDate,value.timezone,value.source,value.externalKey??null,value.note,value.settlementStatus,value.creatorId,value.revision,value.categoryId??null,value.occurrenceId??null);},
-   get(id:string):WalletRecord|null{text(id,256);return tx.get('SELECT '+recordColumns+' FROM wallet_records WHERE id=?',id)??null;},
+   get(id:string):WalletRecord|null{text(id,256);const row=tx.get('SELECT '+recordColumns+' FROM wallet_records WHERE id=?',id);if(!row)return null;for(const key of ['externalKey','categoryId','occurrenceId'])if(row[key]===null)delete row[key];return row;},
   },
   postings:{
    insert(value:WalletPosting){text(value.recordId,256);text(value.accountId,256);const record=tx.get('SELECT effective_date FROM wallet_records WHERE id=?',value.recordId);if(!record)throw Error('Wallet record not found');tx.run('INSERT INTO wallet_postings VALUES(?,?,?,?)',value.recordId,value.accountId,record.effective_date,minorInteger(value.deltaMinor));},
