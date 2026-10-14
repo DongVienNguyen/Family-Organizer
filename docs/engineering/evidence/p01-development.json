@@ -1,0 +1,95 @@
+{
+  "taskId": "P01",
+  "baseSha": "d59193b81fcd58febad4601f847b820bad4b802a",
+  "initialRed": {
+    "total": 56,
+    "failed": 30,
+    "passed": 26,
+    "meaning": "Positive behavior assertions fail on explicitly unimplemented stubs; negative throw guards already pass and are not claimed causalRED."
+  },
+  "initialGreen": {
+    "total": 56,
+    "failed": 0
+  },
+  "gateRed": {
+    "failed": 3
+  },
+  "targetGreen": {
+    "total": 241,
+    "failed": 0
+  },
+  "lintExit": 0,
+  "fullSuite": {
+    "tests": 2894,
+    "files": 142,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 2894
+  },
+  "windows": "pending",
+  "dependenciesChanged": false,
+  "legacyRuntimeEnabled": true,
+  "rulings": [
+    "Built-in Intl/ICU named-timezone adapter; no new dependency",
+    "Parse deterministic existing local timestamps using deployment timezone; preserve raw/timezone assumption; reject actual DST gaps/folds",
+    "All-day dueRange uses local start of due.date; expiry at next local day",
+    "Omitted facet unrestricted; supplied empty facet no matches",
+    "Legacy types/serialization changes belong to P02 adapter, not unused P01 runtime wiring"
+  ],
+  "reportHashes": {
+    "red.json": "50d269fdd9496e253cd7bb27b78f7c31709a0f0bb42b886408739447554c4e6a",
+    "green.json": "483ff8f377556bd1c47b031079b1fc9e3f1afdfd409f62272c8b06d3c0c3b2fb",
+    "gate-red.json": "161469c0c1843900dd4b57f13f80518ada6663b9efe65d554f846f19bcd6e376",
+    "target-green.json": "44cd85d7bf67ef5c3e9d529ccf8baee991cd53bc4ce9f330f97651dc84135da7",
+    "lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "full.json": "e6c1156a3454ba96669f78fc20094c8d20d9923462311ca4cc025cf43f1af3ef",
+    "junit.xml": "d8cf523486921fd8634ab121ab083bd3ddeeb97f8a87ba52ef83179c76f55fd2",
+    "full.log": "02c1de12bd7d5c56962e9fb71e812a1929d491ec40914dffcf142b0c829d8547",
+    "build.log": "eee7ab029a50d96fb32910bc53bbcd4d3b532f6e254a008f21c46484a1925b21"
+  },
+  "buildExit": 0,
+  "sourceHashes": {
+    "src/features/productivity/contracts.test.ts": "05a09a373c66fd3262662b9a3e8cbb2e3d3b654769caae3b40a4a4cf9495e75a",
+    "src/features/productivity/contracts.ts": "669a9c7ac266913397fb9850c723b3d0f37239d601f1de24709c0513da37d166",
+    "src/features/productivity/dates.test.ts": "a354b0e04ecbf88f8f123998d267695a8a2e7ac912c43f6b6f202a77bea958a9",
+    "src/features/productivity/dates.ts": "e32f2fdd335583fb66c38e674f23b2f6435a0275ac479a81659550dee7d13005",
+    "src/features/productivity/filters.test.ts": "f6a0bf5d80b9839f5e2dcdebf94875647f75ce1328e6a63a16cb3dce4b2dd229",
+    "src/features/productivity/filters.ts": "7cdc8289a253516ab3d3ef700e379458e338b06263429048f69f2b4536293518",
+    "src/features/productivity/validation.ts": "d9928dbf6f85edf7cb69e1bb61c1c900dd40aae92c7617a666b18e79447c4822",
+    "scripts/ci/write-evidence.mjs": "6209aafe47c4b848db67fc39aa4f4a313d1299033b51c1042ef9c38d6d29f1c7",
+    "tests/evidence.test.ts": "03a4b67abba79d24e068c33224b6ad78d6efcc5c3dc2b7d934d9049b97916c03"
+  },
+  "correctedVerification": {
+    "reviewedHead": "3025cdfda21dfd74e3baf2c875cad4fc6bddd705",
+    "importantRedFailures": 3,
+    "targetGreen": 246,
+    "fullTests": 2899,
+    "fullFiles": 142,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "src/features/productivity/contracts.test.ts": "05a09a373c66fd3262662b9a3e8cbb2e3d3b654769caae3b40a4a4cf9495e75a",
+      "src/features/productivity/contracts.ts": "669a9c7ac266913397fb9850c723b3d0f37239d601f1de24709c0513da37d166",
+      "src/features/productivity/dates.test.ts": "1766c47238d61af70f13f73a5d0dbc0366178162884d1752bd91fae86f4c4bb5",
+      "src/features/productivity/dates.ts": "3c8463245ef6053f4a5bb83745a7cf7f442be9dd0a8506837653f127b2b181c3",
+      "src/features/productivity/filters.test.ts": "f6a0bf5d80b9839f5e2dcdebf94875647f75ce1328e6a63a16cb3dce4b2dd229",
+      "src/features/productivity/filters.ts": "7cdc8289a253516ab3d3ef700e379458e338b06263429048f69f2b4536293518",
+      "src/features/productivity/validation.ts": "d9928dbf6f85edf7cb69e1bb61c1c900dd40aae92c7617a666b18e79447c4822",
+      "scripts/ci/write-evidence.mjs": "6209aafe47c4b848db67fc39aa4f4a313d1299033b51c1042ef9c38d6d29f1c7",
+      "tests/evidence.test.ts": "03a4b67abba79d24e068c33224b6ad78d6efcc5c3dc2b7d934d9049b97916c03"
+    },
+    "reportHashes": {
+      "review-red.json": "ed412bdbad2a2ae8a9c9baf714ed30be98cef4f4a407419a6c3bb41b5a849c2a",
+      "review-target-green.json": "1299946c9d5ccab1dad9e1a898af110f5f3d9a007a1c8fdbd932d1bc7c26ff73",
+      "review-full.json": "a2b72bfe963d1baef27fb98920d6c87b8030be7d5476f0bff2fbc3d1b32f99e3",
+      "review-junit.xml": "64a7403ce220e4219a39d0b59c7f216f926851ccd1b665c660b321e7a507a87e",
+      "review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "review-build.log": "05de1fccd53ec5a9f71609713429fdfe77a5850837ffa9336ab4f3ec5f381e13"
+    },
+    "windows": "pending exact corrected HEAD"
+  }
+}

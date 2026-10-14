@@ -1,0 +1,68 @@
+{
+  "taskId": "P01",
+  "reviewedBase": "d59193b81fcd58febad4601f847b820bad4b802a",
+  "reviewedHead": "3025cdfda21dfd74e3baf2c875cad4fc6bddd705",
+  "reviewer": "p01_review gpt-6-astra high fresh context",
+  "oneReview": true,
+  "allFindingsGradedBeforeFixPass": true,
+  "authorGrades": {
+    "critical": 0,
+    "important": 2,
+    "minor": 2
+  },
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Important",
+      "effect": "Normal existing YYYY-MM-DD HH:mm deadlines are rejected and would disappear at P02 migration",
+      "action": "Fix unambiguous local legacy timestamp using supplied IANA zone; preserve raw+timezone warning and reject actual gaps/folds"
+    },
+    {
+      "id": 2,
+      "grade": "Important",
+      "effect": "Timed deadline day is wrong when view and task timezone differ",
+      "action": "Project timed localDate using clock.timezone"
+    },
+    {
+      "id": 3,
+      "grade": "Minor",
+      "effect": "Historical midnight-crossing rollbacks (St_Johns2010) miss first midnight and overdue can toggle",
+      "action": "Deferred; current2026 schedules unaffected, historical fidelity limitation must remain explicit"
+    },
+    {
+      "id": 4,
+      "grade": "Minor",
+      "effect": "9999 year local projection to10000 breaks lexical comparison",
+      "action": "Deferred; extreme accepted-input limitation must remain explicit"
+    }
+  ],
+  "declinedJudgments": [
+    "ACL/runtime wiring/audit/proof/page-limit belong to P02/P03/P05",
+    "I01 type-only import does not initialize SQLite; actor shares role values",
+    "View/rule/range/approval/empty-facet checks no demonstrated extra defect",
+    "Intl/ICU dependency choice remains reasonable",
+    "Historical evidence and owner-confirmed/Admin403 distinction accurate"
+  ],
+  "fixPassesAllowed": 1,
+  "rereview": false,
+  "fixPassStarted": true,
+  "importantRegressionRed": {
+    "casesFailed": 3,
+    "report": "/workspace/family-evidence/p01-cloud/review-red.json"
+  },
+  "correctedTarget": {
+    "tests": 246,
+    "failed": 0
+  },
+  "fixPassComplete": true,
+  "correctedFull": {
+    "tests": 2899,
+    "files": 142,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "fixPassesUsed": 1
+}
