@@ -1,0 +1,77 @@
+{
+  "taskId": "W01",
+  "observedAt": "2026-10-14T18:24:17.239937+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/77",
+  "testedHeadSha": "0fb45e3ec8be0fb47a45bebe93465de53c974aab",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38554745020",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "be18e9371ac1e80b88684632cb33ceda59e7e1dcc96cd3ddf76beb7e651f1bf5",
+    "coverage": "d8fd0d4fa7575de3bdeb45ae6d484ccf121099ce6fcca0c7bfe13df75a2e408f",
+    "package": "cf646037a74c1e62c81d89ca7363703111d8a0348b2eb4ef6cbf2805aaa3f725",
+    "service": "a2096bbeb3672195e3640bb9c233f68e99b86117cc3edb11bcc53dab054f1a79",
+    "caddy": "884c1555e8e93a0bb1c12dee8c7605c6ccd97bbcf61a020769a03d16873313ce",
+    "extraction-sdk": "eda96026f1ff51393f5d68b68f1b330b2d993a5a8ff2ccd41c2ad6ecc5e669c3",
+    "inner-native": "1632d5445457fe0c4c44f624283e96e85433a7cd6f04edcdd3609c4b179297c5",
+    "browser": "ac1d3e0de1d9be4bec1e51119c75905df15c65424cd1832df6bcad3a8858c442"
+  },
+  "qualityEach": 3157,
+  "qualityFilesEach": 164,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "e65f1dad5c50ec6236ea68d3cce7377853b7fb5b04df4b8c93de168f36a639ae",
+  "fullCiLogZipSha256": "a0e53a021b2ff208e33d4a8a7343571833b1a1723efb204f2c5ed91d8b3769a7",
+  "newStructureHttpEnabled": true,
+  "fullP04Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P04-b3 shared drawer/cache/keyboard/phone and realcanonical DOM",
+  "merged": true,
+  "mergeCommitSha": "49541772bae733815334f67f3be063810f48cb20",
+  "testedAndMergedTreesEqual": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/77#issuecomment-6167228885",
+  "review": {
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "deferredMinors": {
+      "M1": "effectiveDateAt localized date can leave1000..9999 at extreme timezone range boundaries; validate when next WalletdateconsumerW03/W12 implemented, no currentconsumer",
+      "M2": "Explicitnull labelMatch/transferMode becomes permissivedefault; rejectnull whenWallet query consumer W06 is wired, no activeconsumer"
+    }
+  }
+}

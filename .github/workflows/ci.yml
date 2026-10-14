@@ -293,6 +293,88 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  productivity-browser:
+    name: Windows productivity browsers
+    runs-on: windows-2022
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      TZ: Asia/Saigon
+      EXPECTED_NODE: '24.21.0'
+      EXPECTED_NPM: '11.19.0'
+      EXPECTED_VS: '17.14.37710.0'
+      EXPECTED_SQLITE_ADDON: '13.0.3'
+      TEST_COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '24.21.0'
+          architecture: x64
+          package-manager-cache: false
+      - name: Resolve npm cache directory
+        id: npm-cache
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          $cachePath = & npm.cmd config get cache
+          $cacheCode = $LASTEXITCODE
+          if ($cacheCode -ne 0) { exit $cacheCode }
+          "cache-path=$($cachePath.Trim())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: ${{ steps.npm-cache.outputs.cache-path }}
+          key: npm-${{ runner.os }}-${{ runner.arch }}-node24.21.0-npm11.19.0-${{ hashFiles('package-lock.json') }}
+      - name: Prepare pinned local native builder SDK
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & ./scripts/ci/Prepare-NodeSdk.ps1 -Version $env:EXPECTED_NODE -CommitSha $env:TEST_COMMIT_SHA
+          $nativeCode = $LASTEXITCODE
+          if ($nativeCode -ne 0) { exit $nativeCode }
+          exit 0
+      - name: Install from lockfile
+        id: install
+        run: ./scripts/ci/Invoke-Check.ps1 -Check install
+      - name: Native SQLite compatibility
+        id: native
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check native
+      - name: Production build
+        id: build
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: ./scripts/ci/Invoke-Check.ps1 -Check build
+      - name: Offline browser regression
+        id: browser
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
+        run: ./scripts/ci/Test-ProductivityBrowser.ps1
+      - name: Validate browser evidence
+        if: ${{ always() }}
+        env:
+          CHECK_INSTALL: ${{ steps.install.outcome }}
+          CHECK_NATIVE: ${{ steps.native.outcome }}
+          CHECK_BUILD: ${{ steps.build.outcome }}
+          CHECK_BROWSER: ${{ steps.browser.outcome }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          node scripts/ci/write-productivity-browser-evidence.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: ${{ always() }}
+        with:
+          name: windows-productivity-browsers-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: reports/
+          # Only synthetic reports; include Playwright's declared .last-run.json.
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
   package-build:
     name: Windows package producer
     runs-on: windows-2022
@@ -456,13 +538,14 @@ jobs:
   ci-gate:
     runs-on: windows-2022
     timeout-minutes: 5
-    needs: [quality, browser, package-build, package-test, service-test]
+    needs: [quality, browser, productivity-browser, package-build, package-test, service-test]
     if: ${{ always() }}
     steps:
       - name: Require Windows quality, browser, package and service checks to succeed
         env:
           QUALITY_RESULT: ${{ needs.quality.result }}
           BROWSER_RESULT: ${{ needs.browser.result }}
+          PRODUCTIVITY_BROWSER_RESULT: ${{ needs.productivity-browser.result }}
           PACKAGE_BUILD_RESULT: ${{ needs.package-build.result }}
           PACKAGE_TEST_RESULT: ${{ needs.package-test.result }}
           SERVICE_TEST_RESULT: ${{ needs.service-test.result }}
@@ -472,6 +555,7 @@ jobs:
           if ($env:QUALITY_RESULT -ne 'success') {
             throw "Windows baseline matrix result: $env:QUALITY_RESULT"
           }
+          if ($env:PRODUCTIVITY_BROWSER_RESULT -ne 'success') { throw "Windows productivity browser result: $env:PRODUCTIVITY_BROWSER_RESULT" }
           if ($env:BROWSER_RESULT -ne 'success') {
             throw "Windows browser result: $env:BROWSER_RESULT"
           }

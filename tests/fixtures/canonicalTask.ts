@@ -1,0 +1,2 @@
+import type {TaskRecord} from '../../src/features/productivity/contracts.js';
+export const canonicalTaskFixture:TaskRecord={id:'synthetic-drawer',listId:'legacy-family',sectionId:null,parentId:null,title:'Synthetic task',body:'Synthetic description',lifecycle:'todo',priority:'none',due:{kind:'none'},scheduledStart:null,scheduledEnd:null,creatorId:'adult',assigneeId:null,isShared:false,tagIds:['synthetic-tag-id'],blocked:false,blockedReason:null,pendingApproval:false,rewardPoints:0,revision:7,deletedAt:null};

@@ -71,6 +71,7 @@ export function useModalA11y(
     const previouslyFocused = document.activeElement as HTMLElement | null;
 
     const onKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented) return;
       if (e.key === "Escape") {
         e.stopPropagation();
         onClose();

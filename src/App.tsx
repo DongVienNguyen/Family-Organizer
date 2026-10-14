@@ -1,3 +1,4 @@
+import {TaskProvider} from './features/productivity/useTasks.js';
 import type {TagLabel} from './utils/taskTagLabels.js';
 import {completeNotificationRead} from './utils/notificationRead.js';
 import {invalidateManagedMedia} from './utils/mediaResource.js';
@@ -310,6 +311,8 @@ export default function App() {
   const handleConsumeViewPlan = () => setPlanViewRequest(prev => ({ ...prev, id: "" }));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  const [productivityRefreshEpoch,setProductivityRefreshEpoch]=useState(0);
+  const [productivityAvailable,setProductivityAvailable]=useState<boolean|undefined>(undefined);
 
   // PWA: network status, install prompt, and pending service-worker update
   const [networkOnline, setNetworkOnline] = useState<boolean>(typeof navigator !== "undefined" ? navigator.onLine : true);
@@ -735,6 +738,7 @@ export default function App() {
     const d = await fetchServerVersion();
     if (!d) return; // version is non-critical; ignore
     setAppVersion(d.version || "");
+    setProductivityAvailable(d.productivityActive===true);
     if (typeof d.rewardsEnabled === "boolean") setRewardsEnabled(d.rewardsEnabled);
     if (typeof d.rewardApprovalThreshold === "number") setRewardApprovalThreshold(d.rewardApprovalThreshold);
     const fp = versionFingerprint(d);
@@ -786,8 +790,9 @@ export default function App() {
     // Establish Server-Sent Events client loop pipeline
     let opened=false;
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
-      setIsOnline(online);if(online){if(opened){invalidateManagedMedia();fetchAllData();}opened=true;}
+      setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();fetchAllData();}opened=true;}
     },onMessage:payload=>{
+        if(["TASKS_UPDATE","PRODUCTIVITY_CATALOG_UPDATE","PRODUCTIVITY_PIN_UPDATE","RESTORE_COMPLETED","USERS_UPDATE"].includes(payload.type))setProductivityRefreshEpoch(value=>value+1);
         invalidateManagedMedia();
         switch (payload.type) {
           case "PRODUCTIVITY_CATALOG_UPDATE":
@@ -1677,6 +1682,7 @@ export default function App() {
   ];
 
   return (
+    <TaskProvider key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} available={productivityAvailable}>
     <FabProvider>
     <div className="h-screen overflow-hidden bg-slate-950 flex text-slate-200 selection:bg-sky-200 selection:text-sky-700 font-sans relative">
 
@@ -2230,5 +2236,6 @@ export default function App() {
       <Assistant currentUser={currentUser} authHeaders={getAuthHeader()} />
     </div>
     </FabProvider>
+    </TaskProvider>
   );
 }

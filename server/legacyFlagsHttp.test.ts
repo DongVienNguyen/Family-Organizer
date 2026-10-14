@@ -56,3 +56,6 @@ it('does not accept new module flags through the existing rewards settings route
   const result=await send('/api/settings/features',UserRole.ADMIN,{matrix:true,kanban:true,wallet:true});expect(result.status).toBe(200);expect(result.body).toEqual({rewardsEnabled:true,rewardApprovalThreshold:0});
   expect(db.getAppSettings()).toEqual(settings);expect(db.FamilyDB.getFullSnapshot()).toEqual(before);
 }));
+it('authenticated bootstrap reports inactive canonical storage without activating or changing feature settings',()=>fixture(async send=>{
+ const before=db.getAppSettings();const result=await send('/api/version',UserRole.MEMBER);expect(result.status).toBe(200);expect(result.body.productivityActive).toBe(false);expect(result.headers['cache-control']).toBe('no-store');expect(db.getAppSettings()).toEqual(before);expect((await send('/api/version')).status).toBe(401);
+}));
