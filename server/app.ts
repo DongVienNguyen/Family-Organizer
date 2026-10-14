@@ -1,3 +1,4 @@
+import {taskRouter,type ProductivityPorts} from './productivity/router.js';
 import {telegramSettingsPatch} from './telegramSettings.js';
 import {validateTaskComment} from './taskPolicy.js';
 import {validateContentHeader} from './contentInput.js';
@@ -38,6 +39,7 @@ export interface AppDependencies {
   backupHealth?:()=>import('./recoverySchedule.js').BackupHealth;
   checkStorage?: () => void;
   auth:AuthService;
+  productivity?:ProductivityPorts;
 }
 
 /** Route construction does not open storage, bind HTTP or start scheduled jobs. */
@@ -256,7 +258,8 @@ function canReceiveRealtime(user:{id:string;role:UserRole},event:{type:string;da
     case 'BACKUPS_UPDATE':return actor.role===UserRole.ADMIN;
     case 'MEDICATIONS_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getMedications(),data.medicationId??data.deletedId,row=>canViewLegacyPatient(row.patientId,actor));
     case 'CHILD_HEALTH_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getHealthProfiles(),data.healthProfileId,row=>canViewLegacyPatient(row.userId,actor))||target(()=>FamilyDB.getVaccinations(),data.vaccinationId??data.deletedVaccinationId,row=>canViewLegacyPatient(row.childId,actor))||target(()=>FamilyDB.getGrowthRecords(),data.growthId??data.deletedGrowthId,row=>canViewLegacyPatient(row.childId,actor));
-    case 'REWARDS_UPDATE':case 'SHOPPING_UPDATE':case 'USERS_UPDATE':case 'NOTIFICATIONS_UPDATE':case 'SETTINGS_UPDATE':case 'RESTORE_COMPLETED':return true;
+    case 'REWARDS_UPDATE':return typeof data.taskId==='string'?target(()=>FamilyDB.getTasks(),data.taskId,canViewLegacyTask):true;
+    case 'SHOPPING_UPDATE':case 'USERS_UPDATE':case 'NOTIFICATIONS_UPDATE':case 'SETTINGS_UPDATE':case 'RESTORE_COMPLETED':return true;
     default:return false;
   }
 }
@@ -732,6 +735,12 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 });
 
 // --- TASK API ENDPOINTS ---
+if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));
+
+app.get('/api/tasks/:id',requireAuth,(req:AuthRequest,res:Response)=>{
+ try{const task=FamilyDB.getTasks().find(row=>row.id===req.params.id&&canViewLegacyTask(row,req.userSession!));if(!task){res.status(404).json({error:'Không tìm thấy công việc.'});return;}res.json({task});}
+ catch(error){res.status(httpErrorStatus(error)).json(httpErrorBody(error));}
+});
 
 app.get("/api/tasks", requireAuth, (req: AuthRequest, res: Response) => {
   const tasks = FamilyDB.getTasks().filter(task=>canViewLegacyTask(task,req.userSession!));
@@ -2726,7 +2735,8 @@ jobs.registerAppJob('legacy', 'daily-backup-birthdays', () => {
 }, { everyMs: 24 * 60 * 60 * 1000, initialMs: 0 });
 await setupAssets();
 app.use((error: unknown, _req: Request, res: Response, next: NextFunction) => {
-  console.error('Request failed', error);
+  // Error objects (including body-parser errors) may carry private request bytes.
+  console.error('Request failed', {status:httpErrorStatus(error,500)});
   if (res.headersSent) { next(error); return; }
   const status = (error as { status?: unknown })?.status;
   res.status(typeof status === 'number' && Number.isInteger(status) && status >= 400 && status < 500 ? status : 500)

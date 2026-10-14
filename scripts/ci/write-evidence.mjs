@@ -68,7 +68,7 @@ const requiredSuites = [
   'src/utils/notificationRead.test.ts', 'server/legacyFlagsHttp.test.ts',
   'src/features/productivity/dates.test.ts', 'src/features/productivity/filters.test.ts', 'src/features/productivity/contracts.test.ts',
   'server/productivity/migration.test.ts', 'server/productivity/store.test.ts',
-  'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts', 'server/productivity/legacy-characterization.test.ts', 'server/productivity/access.test.ts', 'server/productivity/tasks.test.ts',];
+  'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts', 'server/productivity/legacy-characterization.test.ts', 'server/productivity/access.test.ts', 'server/productivity/tasks.test.ts', 'server/productivity/access.api.test.ts', 'server/productivity/activation-grants.test.ts',];
 for (const required of requiredSuites) {
   if (!suites.some(suite => suite.name === required)) errors.push(`required suite missing: ${required}`);
 }

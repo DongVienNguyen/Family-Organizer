@@ -1,0 +1,24 @@
+import {it,expect} from 'vitest';
+import {randomUUID} from 'node:crypto';
+import * as sqlite from '../sqlite.js';
+import * as gateway from '../appStore.js';
+import * as migrations from '../appMigrations.js';
+import * as snapshot from '../appSnapshot.js';
+import {UserRole} from '../../src/types.js';
+import {legacyTask} from '../../tests/fixtures/productivity.js';
+import {configureCanonicalTaskBridge,activateCanonicalTasks,legacyTaskDigest} from './adapter.js';
+import {canViewLegacyTask,canEditLegacyTask} from '../legacyVisibility.js';
+import {FamilyDB} from '../db.js';
+const command=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:test',command:'productivity:grant-fixture',requestId:randomUUID(),payloadHash:'synthetic'},fn);
+it('grants existing adult family compatibility once, exports/restores grants and never recreates revoked grants',async()=>{
+ command(tx=>{tx.legacy.users=Object.values(UserRole).map(role=>({id:role,role,username:'synthetic-'+role,fullName:'Synthetic '+role,passwordHash:'synthetic-offline',avatarColor:'blue',createdAt:'2026-10-10T00:00:00Z'}));tx.legacy.users.push({...tx.legacy.users[1],id:'deleted-member',role:UserRole.MEMBER,isDeleted:true});tx.legacy.tasks=[legacyTask('compat',{creatorId:UserRole.ADMIN,assigneeId:UserRole.CHILD,isShared:false,rotationMemberIds:[]})];});
+ configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});
+ const digest=command(tx=>legacyTaskDigest(tx.legacy.tasks));command(tx=>activateCanonicalTasks(tx,digest));
+ const grants=command(tx=>tx.all('SELECT * FROM productivity_list_grants'));expect(grants).toEqual([{list_id:'legacy-family',user_id:UserRole.MEMBER,permission:'manage'}]);
+ const task=FamilyDB.getTasks()[0],actor={userId:UserRole.MEMBER,role:UserRole.MEMBER};
+ expect(canViewLegacyTask(task,actor)).toBe(true);expect(canEditLegacyTask(task,actor)).toBe(true);
+ const saved=command(tx=>snapshot.collectAppSnapshot(tx));
+ command(tx=>{tx.run('DELETE FROM productivity_list_grants');tx.legacy.users.push({...tx.legacy.users[1],id:'future-member',role:UserRole.MEMBER});activateCanonicalTasks(tx,digest);expect(tx.all('SELECT * FROM productivity_list_grants')).toEqual([]);});
+ expect(canViewLegacyTask(task,actor)).toBe(false);expect(()=>FamilyDB.saveTask({id:task.id,title:'Denied'},UserRole.MEMBER,'synthetic-member')).toThrow(expect.objectContaining({status:404}));
+ await snapshot.restoreAppSnapshot(snapshot.validateAppSnapshot(saved),{maintenance:async fn=>fn()});expect(canViewLegacyTask(task,actor)).toBe(true);expect(command(tx=>tx.all('SELECT * FROM productivity_list_grants'))).toEqual(grants);
+});

@@ -2,7 +2,7 @@ import {createHmac} from 'node:crypto';
 /** @license SPDX-License-Identifier: Apache-2.0 */
 import {UserRole,type FamilyOrganizerDB,type Notification} from '../src/types.js';
 import {AppStoreError} from './appErrors.js';
-import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,type LegacyActor} from './legacyVisibility.js';
+import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canonicalTaskPolicyActive,type LegacyActor} from './legacyVisibility.js';
 export function legacyReader(db:FamilyOrganizerDB,userId:string):LegacyActor {
  const user=db.users.find(row=>row.id===userId&&!row.isDeleted&&Object.values(UserRole).includes(row.role));
  if(!user)throw new AppStoreError('Bạn không có quyền truy cập dữ liệu này.',403);
@@ -33,7 +33,7 @@ export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notif
  // Historical recipient information alone cannot establish the source ACL.
  if(notification.type==='medication'&&!isAdult(actor)&&notification.userId!==actor.userId)return;
  const knownType=['system','task','plan','note','finance','medication'].includes(notification.type);
- const unproven=!knownType||notification.type==='system'||notification.type==='medication'&&!isAdult(actor)||['task','plan','note'].includes(notification.type)&&!(notification.type==='task'?isAdult(actor):actor.role===UserRole.ADMIN);
+ const unproven=!knownType||notification.type==='system'||notification.type==='medication'&&!isAdult(actor)||['task','plan','note'].includes(notification.type)&&!(notification.type==='task'?isAdult(actor)&&(!canonicalTaskPolicyActive()||actor.role===UserRole.ADMIN):actor.role===UserRole.ADMIN);
  if(unproven){
   if(!privacyKey)return;
   const id='legacy-notice-'+createHmac('sha256',privacyKey).update('legacy-notification-id-v1\0'+actor.userId+'\0'+notification.id).digest('hex');
@@ -45,9 +45,14 @@ export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notif
 export function projectNotifications(db:FamilyOrganizerDB,actor:LegacyActor,privacyKey?:string):Notification[] {
  return db.notifications.flatMap(notification=>{const visible=projectNotification(db,actor,notification,privacyKey);return visible?[visible]:[];});
 }
-export function projectRewards(db:FamilyOrganizerDB,actor:LegacyActor) {
+export function projectRewards(db:FamilyOrganizerDB,actor:LegacyActor,privacyKey?:string) {
  return db.rewardLedger.map(entry=>{
-  if(isAdult(actor)||entry.taskId&&db.tasks.some(task=>task.id===entry.taskId&&canViewLegacyTask(task,actor))||!entry.taskId&&entry.userId===actor.userId)return {...entry};
+  if(isAdult(actor)&&(!canonicalTaskPolicyActive()||actor.role===UserRole.ADMIN)||entry.taskId&&db.tasks.some(task=>task.id===entry.taskId&&canViewLegacyTask(task,actor))||!entry.taskId&&entry.userId===actor.userId)return {...entry};
+  if(canonicalTaskPolicyActive()){
+   const id=privacyKey?'private-reward-'+createHmac('sha256',privacyKey).update('private-reward-id-v1\\0'+actor.userId+'\\0'+entry.id).digest('hex'):'private-reward';
+   // Public family balances remain, while source IDs/extensions stay private.
+   return {id,userId:entry.userId,points:entry.points,reason:'Điểm thưởng',createdById:entry.createdById,createdAt:entry.createdAt};
+  }
   const {taskId,...safe}=entry;
   return {...safe,reason:'Điểm thưởng'};
  });

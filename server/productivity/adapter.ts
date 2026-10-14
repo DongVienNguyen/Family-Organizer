@@ -1,3 +1,6 @@
+import {installCanonicalTaskVisibility} from '../legacyVisibility.js';
+import {createTaskAccess,listPermission} from './access.js';
+import {UserRole} from '../../src/types.js';
 import type * as Sqlite from '../sqlite.js';
 import type * as Gateway from '../appStore.js';
 import type * as Migrations from '../appMigrations.js';
@@ -28,6 +31,10 @@ export function configureCanonicalTaskBridge(ports:BridgePorts):void {
  let synchronizing=false;
  ports.sqlite.installLegacyTaskStorageAdapter({enabled:()=>active(reader),read:()=>loadTasks(reader).filter(row=>row.deletedAt===null).map(projection),write(rows){const tx=ports.gateway.currentAppWriteTx();if(!tx)throw new Error('Canonical tasks require the application gateway');synchronizing=true;try{syncLegacyTasks(tx,rows);}finally{synchronizing=false;}}});
  installTaskWriteHooks({before(tx){if(!synchronizing&&active(tx))ports.sqlite.sqliteFlushLegacyTasks(tx.legacy);},after(tx){if(!synchronizing&&active(tx))ports.sqlite.sqliteRefreshCanonicalTasks(tx.legacy);}});
+ const access=createTaskAccess(reader);
+ installCanonicalTaskVisibility({active:()=>active(reader),read:(task,actor)=>typeof task.id==='string'&&access.getTask(actor,task.id)!==null,
+ edit(task,actor){if(typeof task.id!=='string')return false;try{access.assertTaskCommand(actor,task.id,'update');return true;}catch(error){if(error instanceof Error&&[403,404].includes((error as any).status))return false;throw error;}},
+ create(actor){const permission=listPermission(reader,actor,'legacy-family');return actor.role===UserRole.ADMIN||actor.role===UserRole.CHILD||actor.role===UserRole.MEMBER&&(permission==='write'||permission==='manage');}});
  configured.add(ports.sqlite);
  markCanonicalReaderReady();
 }
@@ -40,6 +47,8 @@ export function activateCanonicalTasks(tx:Gateway.AppWriteTx,expectedDigest:stri
  const rows=loadTasks(tx);if(rows.length!==tx.legacy.tasks.length)throw new Error('Pilot source cardinality changed');
  const byId=new Map(rows.map(row=>[row.id,row]));
  for(const legacy of tx.legacy.tasks){const row=byId.get(legacy.id);if(!row||!isDeepStrictEqual(row.legacy,legacy)||row.deletedAt!==null)throw new Error('Pilot source changed since preview');if(row.priority!==legacy.priority)throw new Error('Pilot priority differs from legacy source before activation');projection(row);}
+ // Preserve current adult family behavior as once-only, revocable grants.
+ for(const user of tx.legacy.users)if(!user.isDeleted&&user.role===UserRole.MEMBER)tx.run("INSERT OR IGNORE INTO productivity_list_grants(list_id,user_id,permission) VALUES(?,?,?)",'legacy-family',user.id,'manage');
  tx.run('DELETE FROM tasks');tx.run('INSERT INTO app_meta(key,value) VALUES(?,?)','productivity_active','1');
  return {alreadyActive:false,tasks:rows.length};
 }

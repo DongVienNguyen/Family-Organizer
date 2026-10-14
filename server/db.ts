@@ -2,9 +2,9 @@ import {hashPassword,verifyPassword} from './passwords.js';
 import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
 import {currentLegacyActor} from './legacyActor.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
-import {canViewLegacyTask} from './legacyVisibility.js';
+import {canViewLegacyTask,canonicalTaskPolicyActive} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
-import {managedMarkdownUrls,canonicalMediaUrl} from './mediaPolicy.js';
+import {managedMarkdownUrls,canonicalMediaUrl,allowRecurringTaskMedia} from './mediaPolicy.js';
 import { collectOrdinaryAppSnapshot, ordinaryAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
 import { durableWrite, validBackupFilename, sha256, readSettings, settingsByteLimit } from './snapshotFiles.js';
 import { revokeUserSessions } from './authStore.js';
@@ -457,7 +457,7 @@ export class FamilyDB {
   }
 
   public static getRewardLedgerForActor(userId:string) {
-    const db=this.readRaw();return projectRewards(db,legacyReader(db,userId));
+    const db=this.readRaw();return projectRewards(db,legacyReader(db,userId),canonicalTaskPolicyActive()?getSessionSecret():undefined);
   }
   public static getNotificationsForActor(userId:string) {
     const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId),getSessionSecret());
@@ -753,6 +753,12 @@ export class FamilyDB {
 
   // Tasks Management
   public static saveTask(taskData: Partial<Task> & EditVersionPayload, userId: string, username: string): Task {
+    if(canonicalTaskPolicyActive()){
+      taskPayloadObject(taskData);
+      const db=this.readRaw(),actor=taskActor(db,userId);
+      if(taskData.id){const task=db.tasks.find(row=>row.id===taskData.id);if(!task)throw new AppStoreError("Không tìm thấy công việc",404);requireTaskEdit(task,actor);}
+      else requireTaskEdit(undefined,actor);
+    }
     return runLegacyCommand("saveTask", [taskData, userId, username], userId, () => {
     taskPayloadObject(taskData);
     taskData = { ...taskData };
@@ -941,6 +947,7 @@ export class FamilyDB {
             createdAt: nowStr,
             updatedAt: nowStr
           };
+          allowRecurringTaskMedia(currentAppWriteTx()!,updatedTask,nextTask,actor);
           db.tasks.push(nextTask);
         }
       }
@@ -1011,11 +1018,16 @@ export class FamilyDB {
   // Người lớn DUYỆT việc trẻ đã báo xong → hoàn thành + cộng điểm (tái dùng saveTask
   // với actor là người lớn nên không bị gate lại; điểm vẫn về cho trẻ nhận việc).
   public static approveTaskCompletion(taskId: string, approverId: string, approverName: string): Task {
+    if(canonicalTaskPolicyActive()){
+      const db=this.readRaw(),actor=taskActor(db,approverId);requireTaskAdult(actor);
+      const task=db.tasks.find(row=>row.id===taskId);if(!task)throw new AppStoreError("Không tìm thấy công việc",404);requireTaskEdit(task,actor);
+    }
     return runLegacyCommand("approveTaskCompletion", [taskId, approverId, approverName], approverId, () => {
     const db = this.readRaw();
     requireTaskAdult(taskActor(db,approverId));
     const task = db.tasks.find(t => t.id === taskId);
-    if (!task) throw new Error("Task không tồn tại");
+    if (!task){if(canonicalTaskPolicyActive())throw new AppStoreError("Không tìm thấy công việc",404);throw new Error("Task không tồn tại");}
+    requireTaskEdit(task,taskActor(db,approverId));
     if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
     return this.saveTask({ id: taskId, status: "completed" as any }, approverId, approverName);
 
@@ -1024,13 +1036,18 @@ export class FamilyDB {
 
   // Người lớn TRẢ LẠI việc → về "đang làm", ghi lý do, báo trẻ làm lại. Không cộng điểm.
   public static rejectTaskCompletion(taskId: string, approverId: string, approverName: string, reason?: string): Task {
+    if(canonicalTaskPolicyActive()){
+      const db=this.readRaw(),actor=taskActor(db,approverId);requireTaskAdult(actor);
+      const task=db.tasks.find(row=>row.id===taskId);if(!task)throw new AppStoreError("Không tìm thấy công việc",404);requireTaskEdit(task,actor);
+    }
     return runLegacyCommand("rejectTaskCompletion", [taskId, approverId, approverName, reason], approverId, () => {
     const db = this.readRaw();
     requireTaskAdult(taskActor(db,approverId));
     if(reason!==undefined&&reason!==null&&(typeof reason!=='string'||reason.length>8000))throw new AppStoreError('Lý do không hợp lệ.',400);
     const idx = db.tasks.findIndex(t => t.id === taskId);
-    if (idx === -1) throw new Error("Task không tồn tại");
+    if (idx === -1){if(canonicalTaskPolicyActive())throw new AppStoreError("Không tìm thấy công việc",404);throw new Error("Task không tồn tại");}
     const task = db.tasks[idx];
+    requireTaskEdit(task,taskActor(db,approverId));
     if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
     const nowStr = new Date().toISOString();
     const reasonText = (reason || "").trim();
@@ -1068,6 +1085,10 @@ export class FamilyDB {
   }
 
   public static addCommentToTask(taskId: string, commentContent: string, userId: string, username: string): Task {
+    if(canonicalTaskPolicyActive()){
+      const db=this.readRaw(),actor=taskActor(db,userId),task=db.tasks.find(row=>row.id===taskId);
+      if(!task||!canViewLegacyTask(task,actor))throw new AppStoreError("Không tìm thấy công việc",404);
+    }
     return runLegacyCommand("addCommentToTask", [taskId, commentContent, userId, username], userId, () => {
     const db = this.readRaw();
     const actor=taskActor(db,userId);
@@ -1107,8 +1128,9 @@ export class FamilyDB {
     const db = this.readRaw();
     requireTaskAdult(taskActor(db,userId));
     const idx = db.tasks.findIndex(t => t.id === taskId);
-    if (idx === -1) return;
+    if (idx === -1){if(canonicalTaskPolicyActive())throw new AppStoreError("Không tìm thấy công việc",404);return;}
 
+    requireTaskEdit(db.tasks[idx],taskActor(db,userId));
     const taskTitle = db.tasks[idx].title;
     db.tasks.splice(idx, 1);
     this.writeRaw(db);
