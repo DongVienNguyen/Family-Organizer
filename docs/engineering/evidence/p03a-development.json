@@ -1,0 +1,84 @@
+{
+  "taskId": "P03-a",
+  "baseSha": "3103935caf55d3df644ff99e0c672b31bbea994e",
+  "scope": "Injected SQL-filtered task ACL and owned create/update commands, immutable fields/revisions/cache permission checks, post-cutover none projection; P03-b route/media/realtime/export/search wiring pending",
+  "initialRed": {
+    "tests": 21,
+    "failed": 21,
+    "classification": "Explicit stubs collected causal assertions; prior missing-module zero-test run is not causal"
+  },
+  "gateRed": {
+    "tests": 193,
+    "failed": 2
+  },
+  "inputBoundaryRed": {
+    "tests": 17,
+    "failed": 2
+  },
+  "supersededFull": {
+    "tests": 2996,
+    "files": 150,
+    "failed": 4,
+    "classification": "One existing cutover freshness guard failed with three downstream cascades; assertions unchanged; guard restored"
+  },
+  "targetGreen": {
+    "tests": 227,
+    "files": 5,
+    "failed": 0
+  },
+  "fullGreen": {
+    "tests": 2997,
+    "files": 151,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 2997
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": 2,
+    "storageCreated": false,
+    "exit": 0
+  },
+  "sourceHashes": {
+    "server/productivity/access.ts": "ba31fb4d06ab3c1c277bd1b8d8bfb76decc1eabef45af308b49faf1885a3f8e7",
+    "server/productivity/access.test.ts": "ce0383c827586b6b49a3638e6886d744d4551d3eb5936a1c172e17476be289c5",
+    "server/productivity/tasks.ts": "d302aa42689974ab8501f9e55d1da65da722674955e1c11d3d9df44e53b7bd8c",
+    "server/productivity/tasks.test.ts": "fd48855ac83ab4abf0c9a3f8fc37b3f71ed5a1b4bd8872d2821eec7b1f062f5b",
+    "server/productivity/body-rendering.test.tsx": "923d95c33c5eed15414ad0a71d2ebba06b34844dff71de902f7ff407eb7c7437",
+    "server/productivity/store.ts": "5020e9cb8a240a0b7c69c9123be8e2c04db3fef683574cfc50da582319b16e47",
+    "server/productivity/adapter.ts": "89897c420830ca8adfc2ebf0b41394e61ea9914fc7aa3f2f3a57d8e399b492d5",
+    "scripts/ci/write-evidence.mjs": "163a4eeb4e530caf6fa42ee36b642e847f24e1dfc631fb11ba5ed053970336bb",
+    "tests/evidence.test.ts": "5a26c8d3e2b2873202ef2a9907874b875ef9d163bc5e0df1a1441ccdce9fde22"
+  },
+  "reportHashes": {
+    "body-rendering.json": "c4230889d06337b71558f132c0e1ff1bd68da476dbc0a5da722aaaeb9b55ccc7",
+    "body-rendering.log": "8fc7d04799a493fb28219cbd7e0e60eb28cad7c32bbb56e7d71dd997838dec25",
+    "build.log": "a43fa0553c96f4dccf35748b19c19d90230bcd589fc50677d5882a729dae32c3",
+    "causal-red.json": "7afe8da0d29529c12fbe454686629f290b1d60986773cf72ac26f7f034cb2007",
+    "causal-red.log": "08919b5418a542d5aba396c6e424230a675f5d91114299cc57e5f4995a6a3bfd",
+    "cold-import.json": "a610348e44a33f5bd52b048e3ec4eeb4072a07fa425e99db0b574bd9c6f6f31b",
+    "first-green.json": "936b425d3f8c0f884262469ae3ced54949028b59c8bbced893cc2f666dd8d11f",
+    "first-green.log": "771792e6f6ef8943e16b495d083426abb8fde051f8889933d754be7ea9d66ec7",
+    "full-green.json": "d6a59d512acfeab1a1ab49eaac1b79f093e69c979fc75f6d7547f2d720229f9a",
+    "full-green.log": "cf7e33994792889952e89c9bcf900d9092c4edac6b0395a2f2bb0b3e40130587",
+    "full-green.xml": "a5c9ae353de7b4f69aaf4da9bdaf94c55498c4313bd389972521404bff705073",
+    "gate-red.json": "8fb5e9ac65595a5f3e25a4f7b4a18114738eda46574accc549083efb6d3fc806",
+    "gate-red.log": "9c388d32d41ef46e61aeed96f4f299a5f84edddbd2dd88de84bbbf29f1de3229",
+    "initial-red.json": "5f38fa47da086f7fd36a680ee8fb99348ecf55cd04558b013acc5d0c96ab3073",
+    "initial-red.log": "9080f4d01ae1762cf9af971f672f32a0e34936205d0f7d46437cf0216c18710c",
+    "input-red.json": "79a6193432e53a5283a2d8fe615b381b7e766c56bf703f0e17ebdb68e81b4a80",
+    "input-red.log": "e5e0765eeeb829b5071a3af9dcab1b8c208ed0c73740296844cfcd9b9f379e7c",
+    "lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "superseded-full.json": "0ac415707a5d2ad9bcd57579dc4f15ea04bbb06ee60b5dd9b36889c138e9258e",
+    "superseded-full.log": "cf7e33994792889952e89c9bcf900d9092c4edac6b0395a2f2bb0b3e40130587",
+    "superseded-full.xml": "698d260d447d51ece5dcf0d14ffc181385ba3036b6e7696826724ee4bbfad6ff",
+    "target-green.json": "bd80e44f832a64f06d85186cdcf30c65da914e48e4b3672ed45ae75076959811",
+    "target-green.log": "e7d3d414a57e3619720b0b3177b40968f5fcc988b82eac957a4fc5614a657e7b"
+  },
+  "windowsAcceptance": "pending",
+  "fullP03Accepted": false,
+  "defaultActivationEnabled": false,
+  "releaseOrVpsActions": false
+}

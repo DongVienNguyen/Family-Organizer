@@ -1,0 +1,82 @@
+{
+  "taskId": "P02-b3",
+  "observedAt": "2026-10-14T12:10:14.956901+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/71",
+  "testedHeadSha": "fb918cba9cbf1a425332a4a40e1a4c550e78be3a",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38514157059",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "6751010571f43947dce8506b289ca0298d5b9f9f56c8263e03fb97a1da3cde5c",
+    "coverage": "6de29d4afc0e6ca2653bd859306a94431f9258198e40ae207f0d3d4081a64c6f",
+    "package": "da783ccdcdeb4192d851d9985c341383f11ace9c1d43d262e1f5b5a075e71e35",
+    "service": "e916deaff2e76ec88628dfbfa259c697ea0dba7077b9c33e53fba9af98dada3d",
+    "caddy": "bd6a20056ff73efdd62f4c866c75df7d6bb0b56d86266a7e880614820ba4e916",
+    "extraction-sdk": "84e24ca42896a0aa29a9a4124b5eb7dcf8890cbccd8bab3b7f2ed27681fff317",
+    "inner-native": "e14958b6112d20642e00e54e22a6f6001798842256dbd95a0fbef35874d3e59b",
+    "browser": "d3b4b76038a694352a101d2c73141f8e7fdaa9a4de30d05bd958ef1d202993e9"
+  },
+  "qualityEach": 2968,
+  "qualityFilesEach": 148,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "0ca781577a3511f45801e83ede2e105938e87b20808061db51f1ae779ae38da8",
+  "fullCiLogZipSha256": "98c97069d1ba3672c67c8eb61512e28acd0e4e8eee84170091ec2d67f2e2fc68",
+  "review": {
+    "reviewHeadSha": "fb918cba9cbf1a425332a4a40e1a4c550e78be3a",
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "allFindingsGraded": true,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereviews": 0,
+    "minorDeferred": [
+      "Snapshot characterization uses prerequisites established by earlier tests; isolated filter fails 3 vs4",
+      "Rejection history assertion checks nonempty history, not exact new actor/reason entry"
+    ],
+    "rulings": [
+      "No extra live activation tooling at P02: P18/milestones own rollout",
+      "P03 must support new none/wont_do projections before creating those records",
+      "Full mandatory suite and reports verified; reviewer targeted195/195, no source changes"
+    ]
+  },
+  "sourceTaskRuntimeEnabled": true,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P03 ACL and semantic task commands; controlled rollout remains P18-owned",
+  "mergedMainSha": "3103935caf55d3df644ff99e0c672b31bbea994e",
+  "mergeTreeEqualsTestedTree": true
+}
