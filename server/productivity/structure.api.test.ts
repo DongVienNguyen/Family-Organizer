@@ -1,0 +1,97 @@
+import http from 'node:http';
+import {once} from 'node:events';
+import {randomUUID} from 'node:crypto';
+import {it,expect} from 'vitest';
+import * as sqlite from '../sqlite.js';
+import * as gateway from '../appStore.js';
+import * as migrations from '../appMigrations.js';
+import * as snapshot from '../appSnapshot.js';
+import * as db from '../db.js';
+import {FamilyDB} from '../db.js';
+import {createAuth} from '../auth.js';
+import {NativeSessionStore} from '../authStore.js';
+import {createApp} from '../app.js';
+import {syntheticDependencies} from '../../tests/app-fixture.js';
+import {UserRole} from '../../src/types.js';
+import {configureCanonicalTaskBridge,activateCanonicalTasks,legacyTaskDigest} from './adapter.js';
+import {createProductivityPorts} from './ports.js';
+import {createStructureCommands} from './structure.js';
+import {createTaskCommands} from './tasks.js';
+import type {TaskReader} from './access.js';
+const fixtureCommand=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:test',command:'synthetic:structure-http',requestId:randomUUID(),payloadHash:'synthetic'},fn);
+const reader:TaskReader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args),all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)};
+const structure=createStructureCommands({reader,write:gateway.withAppWriteTransaction}),tasks=createTaskCommands({reader,write:gateway.withAppWriteTransaction});
+const ctx=(role=UserRole.ADMIN,revision=0)=>({actor:{userId:role,role},expectedRevision:revision,requestId:randomUUID()});
+let initialized=false;
+async function fixture(work:(f:any)=>Promise<void>){
+ if(!initialized){fixtureCommand(tx=>{tx.legacy.tasks=[];tx.legacy.users=Object.values(UserRole).map(role=>({id:role,role,username:'synthetic-'+role,fullName:'Synthetic '+role,passwordHash:'synthetic-offline',avatarColor:'blue',createdAt:'2026-10-10T00:00:00Z'}));});configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});fixtureCommand(tx=>activateCanonicalTasks(tx,legacyTaskDigest(tx.legacy.tasks)));initialized=true;}
+ fixtureCommand(tx=>{tx.legacy.tasks=[];tx.run('DELETE FROM productivity_list_grants WHERE user_id=?',UserRole.MEMBER);});
+ const board=structure.saveList(ctx(),{title:'Synthetic private board '+randomUUID(),isShared:false}),section=structure.saveSection(ctx(),{listId:board.id,title:'Synthetic private section'}),task=tasks.createTask(ctx(),{listId:board.id,title:'Synthetic private task'}),childTask=tasks.createTask(ctx(UserRole.CHILD),{listId:'legacy-family',title:'Synthetic own child task'});
+ const deps:any=syntheticDependencies({phase:'ready',storageWritable:true});deps.db=db;deps.sqlite=sqlite;deps.productivity=createProductivityPorts(sqlite,gateway);deps.auth=createAuth({store:new NativeSessionStore(),getUsers:()=>FamilyDB.getUsers(),getSecret:()=> 'synthetic-structure-http-key'});
+ const tokens=Object.fromEntries(FamilyDB.getUsers().map(user=>[user.id,deps.auth.issue(user)])),handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!}as any,deps),server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');const streams:http.IncomingMessage[]=[];
+ const send=(route:string,role:string|null=UserRole.ADMIN,body?:unknown,requestId=randomUUID())=>new Promise<any>((resolve,reject)=>{const value=body===undefined?'':JSON.stringify(body),req=http.request({hostname:'127.0.0.1',port:(server.address()as any).port,path:'/api/productivity'+route,agent:false,method:body===undefined?'GET':'POST',headers:{...(role?{Authorization:'Bearer '+tokens[role]}:{}),'content-type':'application/json','content-length':Buffer.byteLength(value),'x-request-id':requestId}},res=>{let text='';res.on('data',bytes=>text+=bytes);res.on('end',()=>{let body;try{body=JSON.parse(text);}catch{}resolve({status:res.statusCode,body,text,headers:res.headers});});});req.on('error',reject);req.end(value);});
+ const open=(role:string)=>new Promise<any>((resolve,reject)=>{const req=http.get({hostname:'127.0.0.1',port:(server.address()as any).port,path:'/api/realtime',agent:false,headers:{Authorization:'Bearer '+tokens[role]}},res=>{streams.push(res);const stream={text:''};res.on('data',part=>stream.text+=String(part));resolve(stream);});req.on('error',reject);});
+ try{await work({send,open,board,section,task,childTask});}finally{streams.forEach(s=>s.destroy());handle.endStreams();server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.drainHandlers();await handle.dispose();}
+}
+it('internal catalog authenticates and filters private labels with no-store response',()=>fixture(async({send,board,section}:any)=>{
+ expect((await send('/catalog',null)).status).toBe(401);const owner=await send('/catalog');expect(owner.status).toBe(200);expect(owner.body.lists.some((item:any)=>item.id===board.id)).toBe(true);expect(owner.headers['cache-control']).toBe('no-store');const guest=await send('/catalog',UserRole.GUEST);expect(guest.status).toBe(200);expect(guest.text).not.toContain(board.id);expect(guest.text).not.toContain(board.title);expect(guest.text).not.toContain(section.title);
+}));
+it('catalog HTTP creates server IDs with retry and stale-revision refusal',()=>fixture(async({send}:any)=>{
+ const request=randomUUID(),body={expectedRevision:0,input:{title:'Synthetic HTTP list',isShared:false}},first=await send('/lists',UserRole.MEMBER,body,request);expect(first.status).toBe(200);expect(first.body.list).toMatchObject({title:body.input.title,ownerId:UserRole.MEMBER,revision:1});expect((await send('/lists',UserRole.MEMBER,body,request)).body).toEqual(first.body);
+ expect((await send('/lists',UserRole.MEMBER,{expectedRevision:0,input:{...body.input,id:first.body.list.id}})).status).toBe(409);
+ const section=await send('/sections',UserRole.MEMBER,{expectedRevision:0,input:{listId:first.body.list.id,title:'Synthetic HTTP section'}});expect(section.status).toBe(200);expect(section.body.section.listId).toBe(first.body.list.id);
+ const tag=await send('/tags',UserRole.MEMBER,{expectedRevision:0,input:{name:'Synthetic named HTTP tag'}});expect(tag.status).toBe(200);expect(tag.body.tag.name).toBe('Synthetic named HTTP tag');expect(tag.body.tag.id).not.toBe(tag.body.tag.name);
+}));
+it.each([UserRole.CHILD,UserRole.GUEST])('limited role %s cannot create catalog or grant itself management',role=>fixture(async({send,board}:any)=>{
+ expect((await send('/lists',role,{expectedRevision:0,input:{title:'Forbidden',isShared:true}})).status).toBe(403);expect((await send('/lists/'+board.id+'/grant',role,{expectedRevision:1,input:{userId:role,permission:'manage'}})).status).toBe(403);
+}));
+it('checklist HTTP uses current task revision and server IDs without exposing legacy proof or changing rewards',()=>fixture(async({send,childTask}:any)=>{
+ const body={expectedRevision:childTask.revision,input:[{text:'Synthetic one',done:true},{text:'Synthetic two',done:false},{text:'Synthetic three',done:false},{text:'Synthetic four',done:false}]},request=randomUUID(),first=await send('/tasks/'+childTask.id+'/checklist',UserRole.CHILD,body,request);expect(first.status).toBe(200);expect(first.body.checklist.progress).toBe(25);expect(first.body.checklist.items).toHaveLength(4);expect(new Set(first.body.checklist.items.map((item:any)=>item.id)).size).toBe(4);expect((await send('/tasks/'+childTask.id+'/checklist',UserRole.CHILD,body,request)).body).toEqual(first.body);expect((await send('/tasks/'+childTask.id+'/checklist',UserRole.CHILD)).body).toEqual(first.body);expect(first.text).not.toContain('legacy');expect(first.text).not.toContain('proofImage');expect(FamilyDB.getRewardLedger()).toEqual([]);
+ expect((await send('/tasks/'+childTask.id+'/checklist',UserRole.CHILD,body)).status).toBe(409);expect((await send('/tasks/'+childTask.id+'/checklist',UserRole.GUEST)).status).toBe(404);
+}));
+it('private and missing checklist/organization endpoints have identical 404 responses',()=>fixture(async({send,task}:any)=>{
+ const hidden=await send('/tasks/'+task.id+'/checklist',UserRole.CHILD),missing=await send('/tasks/missing/checklist',UserRole.CHILD);expect(hidden.status).toBe(404);expect(hidden.body).toEqual(missing.body);
+ for(const suffix of ['parent','checklist']){const input=suffix==='parent'?{parentId:null}:[],a=await send('/tasks/'+task.id+'/'+suffix,UserRole.CHILD,{expectedRevision:task.revision,input}),b=await send('/tasks/missing/'+suffix,UserRole.CHILD,{expectedRevision:task.revision,input});expect(a.status).toBe(404);expect(a.body).toEqual(b.body);}
+}));
+it('organization HTTP preserves links for same-list section moves and refuses cycles/foreign sections',()=>fixture(async({send,board,section,task}:any)=>{
+ const child=tasks.createTask(ctx(),{listId:board.id,title:'Synthetic linked child'}),parent=await send('/tasks/'+child.id+'/parent',UserRole.ADMIN,{expectedRevision:child.revision,input:{parentId:task.id}});expect(parent.status).toBe(200);expect(parent.body.task.parentId).toBe(task.id);expect(parent.body.task).not.toHaveProperty('legacy');
+ const moved=await send('/tasks/'+task.id+'/list',UserRole.ADMIN,{expectedRevision:task.revision,input:{listId:board.id,sectionId:section.id}});expect(moved.status).toBe(200);expect(moved.body.task.sectionId).toBe(section.id);expect((await send('/tasks/'+task.id+'/parent',UserRole.ADMIN,{expectedRevision:moved.body.task.revision,input:{parentId:child.id}})).status).toBe(422);
+ expect((await send('/tasks/'+child.id+'/list',UserRole.ADMIN,{expectedRevision:parent.body.task.revision,input:{listId:'legacy-family',sectionId:section.id}})).status).toBe(422);
+}));
+it('archive retry returns committed result but HTTP rejects a revoked management grant',()=>fixture(async({send,board,section}:any)=>{
+ const current=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;structure.setListGrant(ctx(UserRole.ADMIN,current.revision),board.id,{userId:UserRole.MEMBER,permission:'manage'});
+ const request=randomUUID(),body={expectedRevision:section.revision},first=await send('/sections/'+section.id+'/archive',UserRole.MEMBER,body,request);expect(first.status).toBe(200);expect(first.body.section.archivedAt).toBeTruthy();expect((await send('/sections/'+section.id+'/archive',UserRole.MEMBER,body,request)).body).toEqual(first.body);
+ const updated=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;structure.setListGrant(ctx(UserRole.ADMIN,updated.revision),board.id,{userId:UserRole.MEMBER,permission:null});expect((await send('/sections/'+section.id+'/archive',UserRole.MEMBER,body,request)).status).toBe(404);
+}));
+it.each([{expectedRevision:0,input:[],unexpected:true},{expectedRevision:-1,input:[]},{expectedRevision:1,input:[{id:'forged',text:'Bad',done:true,rewardPoints:99}]}])('refuses invalid checklist envelope/items without a claim or reward %#',body=>fixture(async({send,childTask}:any)=>{
+ const before=reader.get('SELECT count(*) AS n FROM app_commands').n,result=await send('/tasks/'+childTask.id+'/checklist',UserRole.CHILD,body);expect(result.status).toBe(400);expect(reader.get('SELECT count(*) AS n FROM app_commands').n).toBe(before);expect(FamilyDB.getRewardLedger()).toEqual([]);
+}));
+it('private organization invalidates only authorized SSE audiences and never sends content/IDs',()=>fixture(async({send,open,task,section,board}:any)=>{
+ const admin=await open(UserRole.ADMIN),guest=await open(UserRole.GUEST),child=await open(UserRole.CHILD);expect((await send('/tasks/'+task.id+'/list',UserRole.ADMIN,{expectedRevision:task.revision,input:{listId:board.id,sectionId:section.id}})).status).toBe(200);await new Promise(resolve=>setTimeout(resolve,30));expect(admin.text).toContain('TASKS_UPDATE');for(const stream of [guest,child])expect(stream.text).not.toContain('TASKS_UPDATE');for(const stream of [admin,guest,child]){expect(stream.text).not.toContain(task.id);expect(stream.text).not.toContain(task.title);expect(stream.text).not.toContain(section.title);}
+}));
+it.each([null,[],{id:[],title:'Synthetic invalid ID',isShared:false}])('malformed catalog input %# returns400/422 before metadata binding',input=>fixture(async({send}:any)=>{
+ const result=await send('/lists',UserRole.ADMIN,{expectedRevision:0,input});expect(result.status).toBe(input&& !Array.isArray(input)?422:400);
+}));
+it('root HTTP counts each root once and strips storage provenance',()=>fixture(async({send,board,task}:any)=>{
+ const child=tasks.createTask(ctx(),{listId:board.id,title:'Synthetic root child'});structure.setTaskParent(ctx(UserRole.ADMIN,child.revision),child.id,task.id);
+ const result=await send('/roots');expect(result.status).toBe(200);expect(result.body.totalUnique).toBe(2);expect(result.body.tasks.map((item:any)=>item.id)).not.toContain(child.id);for(const item of result.body.tasks){expect(item).not.toHaveProperty('legacy');expect(item).not.toHaveProperty('rank');}
+}));
+it('private empty catalog updates reach owner only, with no labels or entity IDs',()=>fixture(async({send,open}:any)=>{
+ const admin=await open(UserRole.ADMIN),guest=await open(UserRole.GUEST),created=await send('/lists',UserRole.ADMIN,{expectedRevision:0,input:{title:'Synthetic private empty catalog canary',isShared:false}});expect(created.status).toBe(200);await new Promise(resolve=>setTimeout(resolve,30));expect(admin.text).toContain('PRODUCTIVITY_CATALOG_UPDATE');expect(guest.text).not.toContain('PRODUCTIVITY_CATALOG_UPDATE');for(const stream of [admin,guest]){expect(stream.text).not.toContain(created.body.list.id);expect(stream.text).not.toContain('canary');}
+}));
+it('grant revocation invalidates prior readers once and suppresses later private catalog/task events',()=>fixture(async({send,open,board,section,task}:any)=>{
+ let current=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;structure.setListGrant(ctx(UserRole.ADMIN,current.revision),board.id,{userId:UserRole.MEMBER,permission:'write'});current=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;
+ const member=await open(UserRole.MEMBER),guest=await open(UserRole.GUEST);const revoked=await send('/lists/'+board.id+'/grant',UserRole.ADMIN,{expectedRevision:current.revision,input:{userId:UserRole.MEMBER,permission:null}});expect(revoked.status).toBe(200);expect((await send('/sections',UserRole.ADMIN,{expectedRevision:section.revision,input:{id:section.id,listId:board.id,title:'Synthetic private renamed catalog'}})).status).toBe(200);expect((await send('/tasks/'+task.id+'/checklist',UserRole.MEMBER)).status).toBe(404);await new Promise(resolve=>setTimeout(resolve,30));expect(member.text.match(/TASKS_UPDATE/g)).toHaveLength(1);expect(member.text.match(/PRODUCTIVITY_CATALOG_UPDATE/g)).toHaveLength(1);expect(guest.text).not.toContain('TASKS_UPDATE');expect(guest.text).not.toContain('PRODUCTIVITY_CATALOG_UPDATE');expect(member.text).not.toContain(task.id);expect(member.text).not.toContain(section.id);
+}));
+it('changing an ancestor invalidates descendants for their old and new visible audiences',()=>fixture(async({send,open,board,task}:any)=>{
+ const current=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;structure.setListGrant(ctx(UserRole.ADMIN,current.revision),board.id,{userId:UserRole.MEMBER,permission:'write'});
+ const owned=tasks.createTask(ctx(UserRole.MEMBER),{listId:board.id,title:'Synthetic member-owned descendant'}),grandchild=tasks.createTask(ctx(UserRole.MEMBER),{listId:board.id,title:'Synthetic deeper descendant'});structure.setTaskParent(ctx(UserRole.MEMBER,grandchild.revision),grandchild.id,owned.id);
+ const member=await open(UserRole.MEMBER),admin=await open(UserRole.ADMIN);expect((await send('/tasks/'+owned.id+'/parent',UserRole.MEMBER,{expectedRevision:owned.revision,input:{parentId:task.id}})).status).toBe(200);await new Promise(resolve=>setTimeout(resolve,30));expect(member.text.match(/TASKS_UPDATE/g)).toHaveLength(2);expect(admin.text.match(/TASKS_UPDATE/g)).toHaveLength(2);for(const stream of [member,admin]){expect(stream.text).not.toContain(grandchild.id);expect(stream.text).not.toContain(owned.id);}
+}));
+it.each([false,true])('new Member list shared=%s invalidates every permitted catalog reader',isShared=>fixture(async({send,open}:any)=>{
+ const admin=await open(UserRole.ADMIN),member=await open(UserRole.MEMBER),guest=await open(UserRole.GUEST),created=await send('/lists',UserRole.MEMBER,{expectedRevision:0,input:{title:'Synthetic Member new list',isShared}});expect(created.status).toBe(200);await new Promise(resolve=>setTimeout(resolve,30));for(const stream of [admin,member])expect(stream.text).toContain('PRODUCTIVITY_CATALOG_UPDATE');expect(guest.text.includes('PRODUCTIVITY_CATALOG_UPDATE')).toBe(isShared);for(const stream of [admin,member,guest])expect(stream.text).not.toContain(created.body.list.id);
+}));
+it('named-tag changes invalidate visible task readers while keeping private labels out of SSE',()=>fixture(async({send,open,board}:any)=>{
+ const tag=structure.saveTag(ctx(),{name:'Synthetic scoped tag'});tasks.createTask(ctx(),{listId:board.id,title:'Synthetic tagged private task',tagIds:[tag.id]});const current=structure.getCatalog(ctx().actor).lists.find(item=>item.id===board.id)!;structure.setListGrant(ctx(UserRole.ADMIN,current.revision),board.id,{userId:UserRole.MEMBER,permission:'read'});
+ const member=await open(UserRole.MEMBER),guest=await open(UserRole.GUEST),renamed=await send('/tags',UserRole.ADMIN,{expectedRevision:tag.revision,input:{id:tag.id,name:'Synthetic private tag renamed'}});expect(renamed.status).toBe(200);await new Promise(resolve=>setTimeout(resolve,30));expect(member.text).toContain('TASKS_UPDATE');expect(member.text).toContain('PRODUCTIVITY_CATALOG_UPDATE');expect(guest.text).not.toContain('TASKS_UPDATE');expect(guest.text).not.toContain('PRODUCTIVITY_CATALOG_UPDATE');for(const stream of [member,guest]){expect(stream.text).not.toContain(tag.id);expect(stream.text).not.toContain('renamed');}
+}));
