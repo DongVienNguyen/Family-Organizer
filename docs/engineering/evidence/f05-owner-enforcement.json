@@ -24,5 +24,11 @@
   },
   "observedAt": "2026-10-14T08:13:57.514653+07:00",
   "status": "enforced-owner-configured",
-  "limitations": "Detailed Administration API remains403; PR/strict/no-bypass are explicit owner confirmation, not API-observed."
+  "limitations": "Detailed Administration API remains403; PR/strict/no-bypass are explicit owner confirmation, not API-observed.",
+  "prGateObservation": {
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/67",
+    "headSha": "3025cdfda21dfd74e3baf2c875cad4fc6bddd705",
+    "mergeStateStatus": "BLOCKED",
+    "context": "ci-gate still pending; this observation alone does not prove all protection options"
+  }
 }

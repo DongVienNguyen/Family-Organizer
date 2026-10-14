@@ -11,6 +11,10 @@ describe('P01 deadline clock',()=>{
   expect(resolveDue(due,clock('2026-10-11T17:00:00Z')).overdue).toBe(true);
  });
  it('none never becomes overdue',()=>expect(resolveDue({kind:'none'},clock('2026-10-15T00:00:00Z'))).toEqual({overdue:false,localDate:null}));
+ it('projects a timed deadline into the view timezone instead of the stored timezone',()=>{
+  expect(resolveDue({kind:'timed',instantUtc:'2026-10-11T17:00:00Z',timezone:zone},clock('2026-10-11T00:00:00Z','America/New_York'))).toEqual({overdue:false,localDate:'2026-10-11'});
+  expect(resolveDue({kind:'all_day',date:'2026-10-11',timezone:zone},clock('2026-10-11T00:00:00Z','America/New_York')).localDate).toBe('2026-10-11');
+ });
  it('timed deadline is reached at the explicit UTC instant',()=>{
   const due:Due={kind:'timed',instantUtc:'2026-10-11T17:00:00Z',timezone:zone};
   expect(resolveDue(due,clock('2026-10-11T16:59:59Z')).overdue).toBe(false);
@@ -40,6 +44,15 @@ describe('P01 deadline clock',()=>{
  it('rejects cross-kind deadline fields',()=>expect(()=>assertDue({kind:'none',date:'2026-10-11'})).toThrow());
 });
 describe('P01 legacy parsing report',()=>{
+ it('parses existing Saigon local deadline without losing its raw/timezone assumption',()=>{
+  const result=parseLegacyDue('2026-10-11 09:30',zone);
+  expect(result.due).toEqual({kind:'timed',instantUtc:'2026-10-11T02:30:00.000Z',timezone:zone});
+  expect(result.warnings.join(' ')).toContain('2026-10-11 09:30');expect(result.warnings.join(' ')).toContain(zone);
+ });
+ it('resolves unambiguous New York local time with the explicit zone',()=>expect(parseLegacyDue('2026-03-08 03:30','America/New_York').due).toEqual({kind:'timed',instantUtc:'2026-03-08T07:30:00.000Z',timezone:'America/New_York'}));
+ it.each(['2026-11-01 01:30','2026-03-08 02:30'])('does not silently choose a DST fold/gap for %s',raw=>{
+  const result=parseLegacyDue(raw,'America/New_York');expect(result.due.kind).toBe('none');expect(result.warnings.join(' ')).toContain(raw);
+ });
  it('preserves date semantics and records explicit timezone assumption',()=>{
   const result=parseLegacyDue('2026-10-11',zone);
   expect(result.due).toEqual({kind:'all_day',date:'2026-10-11',timezone:zone});

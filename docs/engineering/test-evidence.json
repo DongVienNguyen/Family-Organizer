@@ -234,14 +234,22 @@
   },
   "productivityP01Draft": {
     "baseSha": "d59193b81fcd58febad4601f847b820bad4b802a",
-    "status": "implementing; Windows CI pending",
+    "status": "review correction in progress; corrected Windows HEAD pending",
     "changes": [
       "typed task/view/due/filter contracts",
       "explicit clock and IANA timezone adapter",
       "legacy parsing reports",
       "pure filters; not ACL"
     ],
-    "sourceTaskRuntimeEnabled": false
+    "sourceTaskRuntimeEnabled": false,
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/67",
+    "initialHead": "3025cdfda21dfd74e3baf2c875cad4fc6bddd705",
+    "initialRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38494971189",
+    "review": "ONE0C2I2M; all authorgraded before one correction pass; no rereview",
+    "deferredMinors": [
+      "Historical St_Johns midnight-crossing rollback boundary and overdue toggling",
+      "Extreme9999-year local projection10000 lexical ordering"
+    ]
   },
   "historicalFoundationSourceDraft": {
     "taskId": "F09-n",

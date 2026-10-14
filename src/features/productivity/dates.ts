@@ -56,12 +56,32 @@ export function assertDue(value:unknown):asserts value is Due {
 export function resolveDue(due:Due,clock:QueryClock):{overdue:boolean;localDate:string|null} {
  assertDue(due);timezoneFormatter(clock.timezone);const now=utcInstant(clock.nowUtc);
  if(due.kind==='none')return {overdue:false,localDate:null};
- if(due.kind==='timed')return {overdue:now>=utcInstant(due.instantUtc),localDate:localDateAt(utcInstant(due.instantUtc),due.timezone)};
+ if(due.kind==='timed')return {overdue:now>=utcInstant(due.instantUtc),localDate:localDateAt(utcInstant(due.instantUtc),clock.timezone)};
  return {overdue:localDateAt(now,due.timezone)>due.date,localDate:due.date};
 }
 export function dueInstant(due:Due):number|null {
  assertDue(due);
  return due.kind==='none'?null:due.kind==='timed'?utcInstant(due.instantUtc):localDayStart(due.date,due.timezone);
+}
+/** Resolve a local wall timestamp only when ICU finds one unique instant.
+ * Sampling both sides collects the zone offsets around a DST transition;
+ * round-trip validation rejects nonexistent times and ambiguous folds.
+ */
+function legacyLocalInstant(raw:string,timezone:string):number {
+ const match=raw.match(/^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})(:\d{2}(?:\.\d{1,3})?)?$/);
+ if(!match)throw new Error('Unsupported local timestamp');
+ const wall=utcInstant(`${match[1]}T${match[2]}${match[3]||':00'}Z`);
+ const format=new Intl.DateTimeFormat('en-US',{timeZone:timezone,calendar:'gregory',numberingSystem:'latn',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+ const wallAt=(instant:number)=>{
+  const parts=format.formatToParts(new Date(instant));
+  const part=(key:string)=>Number(parts.find(p=>p.type===key)!.value);
+  return Date.UTC(part('year'),part('month')-1,part('day'),part('hour'),part('minute'),part('second'),new Date(instant).getUTCMilliseconds());
+ };
+ const offsets=new Set<number>();
+ for(let hour=-36;hour<=36;hour++){const sample=wall+hour*3_600_000;offsets.add(wallAt(sample)-sample);}
+ const candidates=[...offsets].map(offset=>wall-offset).filter(instant=>wallAt(instant)===wall);
+ if(candidates.length!==1)throw new Error('Ambiguous or nonexistent local timestamp');
+ return candidates[0];
 }
 export function parseLegacyDue(raw:string,timezone:string):{due:Due;warnings:string[]} {
  timezoneFormatter(timezone);
@@ -71,6 +91,10 @@ export function parseLegacyDue(raw:string,timezone:string):{due:Due;warnings:str
   if(/^\d{4}-\d{2}-\d{2}$/.test(raw)){
    const due:Due={kind:'all_day',date:raw,timezone};assertDue(due);
    return {due,warnings:[`Legacy date ${JSON.stringify(raw)} assumes timezone ${timezone}`]};
+  }
+  if(/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?$/.test(raw)){
+   const due:Due={kind:'timed',instantUtc:new Date(legacyLocalInstant(raw,timezone)).toISOString(),timezone};assertDue(due);
+   return {due,warnings:[`Legacy local timestamp ${JSON.stringify(raw)} assumes timezone ${timezone}`]};
   }
   const offset=raw.match(/([+-])(\d{2}):(\d{2})$/);
   const base=offset?raw.slice(0,-6)+'Z':raw;
