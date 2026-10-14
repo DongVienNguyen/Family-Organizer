@@ -12,9 +12,9 @@ export type Lifecycle = 'todo'|'in_progress'|'completed'|'wont_do';
 export type Priority = 'high'|'medium'|'low'|'none';
 export type Due = {kind:'none'}|{kind:'all_day';date:string;timezone:string}|{kind:'timed';instantUtc:string;timezone:string};
 export type QueryClock = {nowUtc:string;timezone:string};
-export type TaskRecord = {id:Id;listId:Id;sectionId:Id|null;parentId:Id|null;title:string;body:string;lifecycle:Lifecycle;priority:Priority;due:Due;scheduledStart:string|null;scheduledEnd:string|null;creatorId:Id;assigneeId:Id|null;isShared:boolean;tagIds:Id[];blocked:boolean;blockedReason:string|null;pendingApproval:boolean;rewardPoints:number;revision:Revision;deletedAt:string|null};
+export type TaskRecord = {id:Id;listId:Id;sectionId:Id|null;parentId:Id|null;title:string;body:string;lifecycle:Lifecycle;priority:Priority;due:Due;scheduledStart:string|null;scheduledEnd:string|null;creatorId:Id;assigneeId:Id|null;isShared:boolean;tagIds:Id[];blocked:boolean;blockedReason:string|null;pendingApproval:boolean;rewardPoints:number;revision:Revision;deletedAt:string|null;completedReferenceAt?:string|null};
 export type TaskPatch = Partial<Pick<TaskRecord,'title'|'body'|'priority'|'due'|'scheduledStart'|'scheduledEnd'|'assigneeId'|'blocked'|'blockedReason'|'tagIds'>>;
-export type TaskFilter = {query?:string;listIds?:Id[];sectionIds?:Id[];tagIds?:Id[];tagMatch?:'any'|'all';assigneeIds?:Id[];priority?:Priority[];lifecycle?:Lifecycle[];overdue?:boolean;rootsOnly:boolean;dueRange?:{from:string;toExclusive:string};includeTrash?:boolean};
+export type TaskFilter = {query?:string;listIds?:Id[];sectionIds?:Id[];tagIds?:Id[];tagMatch?:'any'|'all';assigneeIds?:Id[];priority?:Priority[];lifecycle?:Lifecycle[];overdue?:boolean;rootsOnly:boolean;dueRange?:{from:string;toExclusive:string};includeTrash?:boolean;trashOnly?:boolean;dueKinds?:Due['kind'][];completedWindowDays?:7|30|90|'all'};
 export type Page<T> = {items:T[];nextCursor:string|null;totalUnique:number};
 export type Quadrant = 'q1'|'q2'|'q3'|'q4';
 export type RuleNode = {op:'and'|'or';args:RuleNode[]}|{op:'not';arg:RuleNode}|{op:'test';field:'list'|'section'|'tag'|'assignee'|'priority'|'lifecycle'|'due';operator:'in'|'any'|'all'|'window';value:string[]|{fromDay:number;toDayExclusive:number}};
@@ -39,6 +39,7 @@ export function assertTaskRecord(value:unknown):asserts value is TaskRecord {
  for(const field of ['scheduledStart','scheduledEnd','deletedAt'])if(t[field]!==null){text(t[field],30);utcInstant(t[field] as string);}
  if((t.scheduledStart===null)!==(t.scheduledEnd===null))throw new Error('Incomplete scheduled interval');
  if(t.scheduledStart!==null&&utcInstant(t.scheduledStart as string)>=utcInstant(t.scheduledEnd as string))throw new Error('Invalid scheduled interval');
+ if(t.completedReferenceAt!==undefined&&t.completedReferenceAt!==null)utcInstant(t.completedReferenceAt as string);
  if(t.pendingApproval&&(t.lifecycle==='completed'||t.lifecycle==='wont_do'))throw new Error('Terminal task cannot await approval');
 }
 const sorts=['rank','due','priority','title'] as const;

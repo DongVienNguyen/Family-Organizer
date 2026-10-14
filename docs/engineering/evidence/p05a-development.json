@@ -1,0 +1,87 @@
+{
+  "taskId": "P05-a",
+  "baseSha": "a3e4e7acf1bf72ce2c333cbaaa653d48bc0d8a8e",
+  "scope": "Authorized query/selection engine only; no schema/routes/UI/activation",
+  "fullGreen": {
+    "tests": 3262,
+    "files": 172,
+    "junitCases": 3262,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 1
+  },
+  "targetGreen": {
+    "tests": 244,
+    "failed": 0
+  },
+  "causalRed": {
+    "query": {
+      "tests": 5,
+      "failed": 5
+    },
+    "filter": {
+      "tests": 21,
+      "failed": 3
+    },
+    "requiredSuite": {
+      "tests": 214,
+      "failed": 1
+    },
+    "selectionInput": {
+      "tests": 9,
+      "failed": 1
+    }
+  },
+  "notCausal": "Initialquery5fail contained4 stalelegacyfixture errors; fixture refresh collectedgenuine5notimplemented RED beforecode; typedtestrowlint corrected without assertions removed",
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": 1,
+    "storageCreated": false,
+    "exit": 0
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "0463fcaa99f2609c18c97337fdd277a49df8e2b3d6e4e426d8369e8ccc9dfe63",
+    "server/productivity/access.ts": "c8c69a4d8e62af8453537d0afbc22e2306c50de926688fefc4da9f5d90b0f320",
+    "server/productivity/query.test.ts": "d109f59e36370d89115175fefe5d5f32f046f74fb4e985c1efeacb85f25a614b",
+    "server/productivity/query.ts": "13efe890248457ca7efb61834fbd8f456f4c059b40bb8d03cbde8e42e08e8919",
+    "src/features/productivity/contracts.ts": "4479e853d031305b12b2017f6475cc034f29d8f6be080b27a2e030e56e71ef81",
+    "src/features/productivity/filters.test.ts": "92005ce54caba37991849dc2911926764000218ae174273a87be92c6406a5314",
+    "src/features/productivity/filters.ts": "5bbf25186f80434e11a58d25b7a642f65d1bb49c65d1810202881e0fa31d53c7",
+    "tests/evidence.test.ts": "b544b41c4a544758905129f211c69c0f643d1fb234225115ef902244927f1ca8"
+  },
+  "reportHashes": {
+    "p05a-full-current.xml": "c0228ab4c6dfe436165b54b2071f2c13b8179b9d89e34e502511de826382a263",
+    "p05a-selection-input-red.json": "9887402c415238083258c9c94e0344e84fbf0c93f73d463ec7e71d60ae624f6a",
+    "p05a-query-red.json": "076ed77c441ee9ce54eba3c2f578e03bb270e2e98dbf1bb276f25c45a42866a4",
+    "p05a-query-first.json": "f4f67ca4569b5a1f91536f0623dfa5a216ba0524c60ec3a1070fe2c75aa8bd69",
+    "p05a-suite-red.json": "be592f54ee3169b4dd6c0f10bf58f8ead6ca6c189afacd3e3416bb76dd462777",
+    "p05a-suite-red.log": "4624501be49b65bcd484b52cf52b0dc7a839c1828a812929db3a11fb012d236c",
+    "p05a-query-current.log": "fc8016562fe478db99e3ee3080a827002c850bad31fb22e9dbe66da0b4eba8cd",
+    "p05a-query-first-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p05a-full-current.json": "5be0dc8f84f08c581402d46b4c6ab9a0e77ed268d214e2e72076bafccd8018ea",
+    "p05a-filter-red.json": "6278a9d67b09250059ddc024e1d6cb66aabfaebdca59e0a74f4a3f15f6e6e39f",
+    "p05a-selection-input-red.log": "92342331741070b38b4511c5224b03e528b273fa84acb014a2e17008a6315197",
+    "p05a-full-current.log": "1a0571a00f0d564ba204a5fa6dbec68a8e9868e0977a8a6015ee2f6bb22e921f",
+    "p05a-final-build.log": "c089fb005c9b07dda4c0e08c705ae9bbcd7d993de94ea3c19edf1225edb9a48b",
+    "p05a-query-causal-red.log": "164130a5eb6190043e21deabf46904c2956cde24837df5dedf6fa91598f8a53c",
+    "p05a-query-causal-red.json": "d829ef388699891e4bd27fa978f527278b623e47b70f4b87e2ae68f0dd29b234",
+    "p05a-query-current-lint.log": "40f56b9053604455cbe75bbcef1b3599e0553a9b0349285e77a798cfeff69e5a",
+    "p05a-target-green.log": "eb8685ec99bda8d6f16bf2a899ba9f4fc03630db96b697a2fe07dedb322aa33d",
+    "p05a-current-build.log": "6000619231a398d2d53e200fc0f2eea021e1a0413eb63741995aa7194c96a2c0",
+    "p05a-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p05a-target-green.json": "38380f234d496867eb30dc63a8c08711a9e02dfd66a0f78e051cfb27ab3e26bf",
+    "p05a-query-first.log": "3afefa1595fc8b072c345b586e2345a6c1152fe25c1bc5e8e6306e33ec7080f2",
+    "p05a-target-current.log": "13082dfaaad45fcbcb0da57ed74647dc1c0f895c1f6227564b123d76af6339c9",
+    "p05a-filter-red.log": "356d5c5729ec33be3c947b27cf717c6db09112706ea1503db2255dddae84269c",
+    "p05a-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p05a-query-red.log": "015e911d530226275f0e0ade474c22c67d2a1adb4fda628b1bd2067fd26fa584",
+    "p05a-query-current.json": "d35dbc03b7b69ff2a5adef0241f270cb995792cb32f3c1fe9d2b20c45a26915d",
+    "p05a-target-current.json": "38c51a6c24e2807b964cfae9066353e7b17fd5ec0249b50b6fd23cf477c983d8"
+  },
+  "WindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "nextSlice": "P05b persistedviews/index/HTTP/UI/DTOreadreference/readonlyTrash",
+  "publicationAllowed": false
+}

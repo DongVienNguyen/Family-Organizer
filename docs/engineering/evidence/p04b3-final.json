@@ -1,0 +1,114 @@
+{
+  "taskId": "P04-b3",
+  "observedAt": "2026-10-14T22:14:08.798863+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/78",
+  "testedHeadSha": "d5b12f0599db89bd8345ccf9b84e88d563c29473",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38585055277",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "6e2a926d8f7c62f9b6578bc8dba0fd73758e5a6f7a49d0ba3a3b847f86972087",
+    "coverage": "29d74a59feeac197288725a967ea7f277ef520e205e81bda2ba69e25d22f20f3",
+    "package": "7cd16dd44b1775e7a804c7b23cc9f8c07f24449c8d0438fd37d8e53ada54e588",
+    "service": "ed35e1f0058f49a8614c826c88402f9311e023d6b9a1df707d3be54d3813c0b5",
+    "caddy": "7600b3568c9788c440e03646ce866ab37aedf427211f9c595ade61a69e007240",
+    "extraction-sdk": "de30064af2c051e43746fd086055d6a290e308e78e1fd59ecc5deefe7e173b84",
+    "inner-native": "46bccc4aa8b4534ed209544d04a6d666f444bc6e3be01c06080abf516453b0bf",
+    "browser": "7fbe1a5c72a1bd5ab19c66844d71994e1dbe2110bae8b9410f02909cf8b9aed2",
+    "productivity-browser": "3a4619100cbc02fb474e228f7ab1acd9cb768496865596dc75445752db77ffdb"
+  },
+  "qualityEach": 3249,
+  "qualityFilesEach": 171,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 30,
+  "rawValidators": 9,
+  "zipSha256": "faf89ca50d70ef7ef1c3aa5a72a20e4963f274ccc20d999aeab7498e70bcfea3",
+  "fullCiLogZipSha256": "d25e09cef449de5ee84aef608f2a9237c70be6c91e78ac5b2069e6a96680d2df",
+  "review": {
+    "taskId": "P04-b3",
+    "reviewedHead": "5a7a74d69ffc03b9198e444a636c0cc79ee12035",
+    "baseSha": "49541772bae733815334f67f3be063810f48cb20",
+    "reviewCount": 1,
+    "allFindingsGraded": true,
+    "reviewerCounts": {
+      "critical": 0,
+      "important": 4,
+      "minor": 1
+    },
+    "acceptedImportant": [
+      "I1 disable checklist replacement until authoritative items and matching revision loaded",
+      "I2 explicit reload must authorize/fetch fresh task before discarding conflicted draft",
+      "I3 refuse unavailable board/cache entry safely and show loading/retry path",
+      "I4 keep unsent comment/checklist/subtask inputs in session memory through refresh, suppress hidden and purge revoked/logout"
+    ],
+    "minorDeferred": [
+      {
+        "id": "M1",
+        "owner": "P17 organizing-capability UX",
+        "reason": "Server correctly refuses unavailable list/section commands; misleading options are minor usability, no authorization bypass. Current task correction is limited to all Important findings."
+      }
+    ],
+    "declinedBoundsAccepted": [
+      "Historical67\u201377 Minors remain closed except repaired PR76 activation fixture",
+      "P05/P06\u201310/P11/P13/P17/P18 future feature owners",
+      "F08 collector separate productivity raw family ingest owned I03/R01; mandatory current ci-gate requires job, no candidate/promotion dispatch this slice",
+      "Server2019/R02/release/tag/VPS unrun and not authorized"
+    ],
+    "correctionPasses": 1,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "nativeCauseCorrection": "Windows absolute --import D: required fileURL; original failed log/artifact retained; pathToFileURL correction reviewed; same4 Cloud browser cases pass",
+    "correctionEvidence": {
+      "cache": "20cases /3 collectedRED \u219220GREEN",
+      "actualDom": "8Chromium first-attempt cases /4 causalRED \u21928GREEN;0errors/attempts/closedcleanup; Windows pending",
+      "c07StrongerGuard": "Keep disabled assertion for stable view-entry control and additionally require card count0 during authorization refresh; safely refuse core cache.open and filter hidden records. No old45 or original4 browser assertions removed."
+    }
+  },
+  "newStructureHttpEnabled": true,
+  "fullP04Accepted": true,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P05 smart views/query/search",
+  "mergeSha": "a3e4e7acf1bf72ce2c333cbaaa653d48bc0d8a8e",
+  "mergeTreeEqualsTestedHead": true,
+  "proofComment": {
+    "id": 6171660460,
+    "url": "https://github.com/DongVienNguyen/Family-Organizer/pull/78#issuecomment-6171660460"
+  }
+}

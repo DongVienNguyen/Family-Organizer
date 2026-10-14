@@ -54,3 +54,18 @@ describe('P01 shared filters',()=>{
   {rootsOnly:false,includeTrash:'true'}, {rootsOnly:false,listIds:[7]},
  ])('rejects malformed filter %#',value=>expect(()=>assertTaskFilter(value)).toThrow());
 });
+it('explicit dueKinds distinguish Inbox/no-date from dated tasks and reject invalid choices',()=>{
+ expect(matchesFilter({...task,due:{kind:'none'}},{rootsOnly:true,dueKinds:['none']} as any,clock)).toBe(true);
+ expect(matchesFilter(task,{rootsOnly:true,dueKinds:['none']} as any,clock)).toBe(false);
+ expect(()=>assertTaskFilter({rootsOnly:true,dueKinds:['invented']})).toThrow();
+});
+it('trashOnly matches deleted records without including live tasks',()=>{
+ expect(matchesFilter({...task,deletedAt:'2026-10-10T00:00:00Z'},{rootsOnly:true,includeTrash:true,trashOnly:true} as any,clock)).toBe(true);
+ expect(matchesFilter(task,{rootsOnly:true,includeTrash:true,trashOnly:true} as any,clock)).toBe(false);
+});
+it('completed window uses an explicit read reference and preserves all-time unknown timestamps',()=>{
+ const completed={...task,lifecycle:'completed' as const,completedReferenceAt:'2026-10-11T00:00:00Z'};
+ expect(matchesFilter(completed,{rootsOnly:true,lifecycle:['completed'],completedWindowDays:7} as any,clock)).toBe(true);
+ expect(matchesFilter({...completed,completedReferenceAt:'2026-08-01T00:00:00Z'},{rootsOnly:true,completedWindowDays:30} as any,clock)).toBe(false);
+ expect(matchesFilter({...completed,completedReferenceAt:null},{rootsOnly:true,completedWindowDays:'all'} as any,clock)).toBe(true);
+});
