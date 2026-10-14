@@ -19,6 +19,7 @@ export interface AppVersionInfo {
   shortCommit?: string;
   buildTime: string;
   aiEnabled?: boolean;
+  productivityActive?: boolean;
   rewardsEnabled?: boolean;
   rewardApprovalThreshold?: number;
 }

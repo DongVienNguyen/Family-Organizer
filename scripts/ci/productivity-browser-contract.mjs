@@ -8,6 +8,8 @@ export const productivityBrowserCases=[
  'P04 C06 conflict reload reads the current authorized server revision',
  'P04 C07 retained board refuses opening while authorization refresh is pending',
  'P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh',
+ 'P04 C09 inactive bootstrap keeps legacy workspace without canonical requests',
+ 'P04 C10 active workspace survives reload and clears drafts across actor switches',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases});

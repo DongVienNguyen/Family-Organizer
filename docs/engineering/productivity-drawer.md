@@ -31,9 +31,16 @@ writes. Ordinary snapshots and encrypted recovery carry pin rows and validate
 user/task references. Controlled activation remains P18-owned; this change adds
 no activation endpoint or production migration command.
 
-Windows CI requires the separate `Windows productivity browsers` check, all eight
+Windows CI requires the separate `Windows productivity browsers` check, all ten
 named P04 flows on Chromium, Firefox and WebKit, one attempt and no skipped tests.
 The original `Windows production browsers` check still requires all45 existing
 cases. Both jobs preserve JSON, JUnit, HTML, traces, runtime/build hashes, native
 exit evidence and fixture/shutdown checks. Cloud Chromium results are development
 evidence only; Server2019 acceptance remains R02 and has not run.
+
+The existing authenticated `/api/version` bootstrap reports `productivityActive`
+from the installed canonical bridge. The frontend waits for a true capability
+before reading canonical task endpoints. Missing/false capability retains the
+legacy workspace and clears canonical session state; it does not activate or
+upgrade storage. Both inactive no-request and active reload/account-switch paths
+are required browser cases.

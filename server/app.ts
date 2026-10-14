@@ -427,6 +427,7 @@ app.get("/api/version", requireAuth, (_req: AuthRequest, res: Response) => {
     shortCommit: BUILD.commit ? BUILD.commit.slice(0, 7) : "",
     buildTime: BUILD.buildTime,
     aiEnabled: Boolean(getGeminiKey()),
+    productivityActive: dependencies.productivity?.active()===true,
     rewardsEnabled: rewardsFeatureEnabled(),
     rewardApprovalThreshold: Math.max(0, Number(getAppSettings().rewardApprovalThreshold || 0))
   });
