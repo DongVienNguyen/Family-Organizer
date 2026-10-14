@@ -39,7 +39,7 @@ const suiteNames = [
   'server/legacyFlagsHttp.test.ts',
   'src/features/productivity/dates.test.ts', 'src/features/productivity/filters.test.ts', 'src/features/productivity/contracts.test.ts',
   'server/productivity/migration.test.ts', 'server/productivity/store.test.ts',
-  'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts', 'server/productivity/legacy-characterization.test.ts', 'server/productivity/access.test.ts', 'server/productivity/tasks.test.ts',];
+  'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts', 'server/productivity/legacy-characterization.test.ts', 'server/productivity/access.test.ts', 'server/productivity/tasks.test.ts', 'server/productivity/access.api.test.ts', 'server/productivity/activation-grants.test.ts',];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
   const reports: Record<string, any> = {
@@ -325,3 +325,5 @@ it.each(['adapter','activation','bridge-order'])('rejects missing P02-b1 %s mand
 it('rejects a Windows report that omitted active legacy approval/recurrence characterization',()=>{const suite='server/productivity/legacy-characterization.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it.each(['access','tasks'])('rejects missing P03-a %s mandatory suite',name=>{const suite='server/productivity/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it.each(['access.api','activation-grants'])('rejects missing P03-b %s mandatory suite',name=>{const suite='server/productivity/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});

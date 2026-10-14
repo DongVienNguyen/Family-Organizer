@@ -44,7 +44,7 @@ export function mediaReferences(legacy:FamilyOrganizerDB):Map<string,MediaBindin
   const bindings=refs.get(url)??[];if(!bindings.some(b=>b.domain===domain&&b.id===id))bindings.push({domain,id});refs.set(url,bindings);
  };
  for(const row of legacy.users??[])add(row.avatarImage,'users',row.id);
- for(const row of legacy.tasks??[])add(row.proofImage,'tasks',row.id);
+ for(const row of legacy.tasks??[]){add(row.proofImage,'tasks',row.id);for(const url of managedMarkdownUrls(String(row.description??'')))add(url,'tasks',row.id);}
  for(const row of legacy.notes??[])for(const url of managedMarkdownUrls(String(row.content??'')))add(url,'notes',row.id);
  for(const row of legacy.documents??[])for(const file of row.files??[])add(file.url,'documents',row.id);
  for(const row of legacy.transactions??[])add(row.receiptImage,'transactions',row.id);

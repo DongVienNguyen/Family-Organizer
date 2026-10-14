@@ -3,7 +3,7 @@ import {isDeepStrictEqual} from 'node:util';
 import {UserRole,TaskStatus,TaskPriority,type FamilyOrganizerDB,type Task} from '../src/types.js';
 import {AppStoreError} from './appErrors.js';
 export {currentLegacyActor as taskActor} from './legacyActor.js';
-import {isAdult,canViewLegacyTask,canEditLegacyTask,type LegacyActor} from './legacyVisibility.js';
+import {isAdult,canViewLegacyTask,canEditLegacyTask,canCreateLegacyTask,canonicalTaskPolicyActive,type LegacyActor} from './legacyVisibility.js';
 import {detectedMediaType} from './mediaContent.js';
 const invalid=()=>new AppStoreError('Dữ liệu công việc không hợp lệ.',400);
 const forbidden=()=>new AppStoreError('Bạn không có quyền thay đổi trường công việc này.',403);
@@ -13,6 +13,7 @@ const editableFields=new Set(['id','baseUpdatedAt','title','description','status
 export function requireTaskAdult(actor:LegacyActor):void {if(!isAdult(actor))throw forbidden();}
 export function requireTaskEdit(task:Task|undefined,actor:LegacyActor):void {
  if(!isAdult(actor)&&actor.role!==UserRole.CHILD)throw forbidden();
+ if(!task&&!canCreateLegacyTask(actor))throw forbidden();
  if(task){if(!canViewLegacyTask(task,actor))throw new AppStoreError('Không tìm thấy công việc',404);if(!canEditLegacyTask(task,actor))throw forbidden();}
 }
 export function taskPayloadObject(value:unknown):asserts value is Record<string,any> {
@@ -46,10 +47,10 @@ export function validateTaskPayload(input:Record<string,any>,old:Task|undefined,
    case 'id':valid=text(value,256,false);break;
    case 'baseUpdatedAt':valid=text(value,64);break;
    case 'title':valid=text(value,500,false);break;
-   case 'description':valid=text(value,20000);break;
+   case 'description':if(canonicalTaskPolicyActive()&&old&&same(value,old.description))continue;valid=text(value,20000);break;
    case 'status':valid=Object.values(TaskStatus).includes(value)&&Boolean(old||value===TaskStatus.TODO||value===TaskStatus.IN_PROGRESS);break;
    case 'priority':valid=Object.values(TaskPriority).includes(value);break;
-   case 'dueDate':valid=validDate(value,true);break;
+   case 'dueDate':if(canonicalTaskPolicyActive()&&old&&same(value,old.dueDate))continue;valid=validDate(value,true);break;
    case 'assigneeId':if(old&&same(value,old.assigneeId))continue;valid=value===null||liveId(value);break;
    case 'isShared':valid=typeof value==='boolean';break;
    case 'tags':valid=Array.isArray(value)&&value.length<=40&&value.every(v=>text(v,128,false));break;

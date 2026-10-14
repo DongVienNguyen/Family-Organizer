@@ -1,0 +1,180 @@
+{
+  "taskId": "P03-b",
+  "baseSha": "b03700159a8eb8a076aeae2d140d0cc39f452d6a",
+  "scope": "Authenticated internal canonical task HTTP, legacy/grant/media/derived privacy/SSE integration, compiled consumer semantic proof; completion remains legacy/P10 and controlled rollout P18",
+  "redCheckpoints": {
+    "http-red": {
+      "tests": 14,
+      "failed": 11
+    },
+    "surfaces-red": {
+      "tests": 14,
+      "failed": 9
+    },
+    "boundaries-red": {
+      "tests": 14,
+      "failed": 5
+    },
+    "reward-sse-red": {
+      "tests": 16,
+      "failed": 1
+    },
+    "prior-audience-red": {
+      "tests": 17,
+      "failed": 1
+    },
+    "legacy-reward-id-red": {
+      "tests": 18,
+      "failed": 3
+    },
+    "delete-mask-red": {
+      "tests": 19,
+      "failed": 1
+    },
+    "payload-logging-red": {
+      "tests": 20,
+      "failed": 1
+    },
+    "consumer-proof-red": {
+      "tests": 44,
+      "failed": 6
+    },
+    "gate-red": {
+      "tests": 195,
+      "failed": 2
+    }
+  },
+  "fixtureCorrections": [
+    "Anonymous HTTP uses explicit null to avoid default Admin",
+    "Search assertions inspect result rows rather than query echo",
+    "Custom reward ID fixture restored; source IDs/extensions masked instead of weakening private assertions"
+  ],
+  "localReportLimitation": "An intermediate events.events typo report (2create500) was overwritten; tool observations/ledger retained, original fullJSON unavailable. Dedicated RED checkpoints and final reports retained.",
+  "targetGreen": {
+    "tests": 264,
+    "files": 5,
+    "failed": 0
+  },
+  "fullGreen": {
+    "tests": 3026,
+    "files": 153,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 3026
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": 5,
+    "storageCreated": false,
+    "exit": 0
+  },
+  "compiledCloud": {
+    "completed": true,
+    "semanticCommands": {
+      "httpEnabled": true,
+      "noneCreated": true,
+      "legacyFullFormPreserved": true,
+      "staleRevisionRefused": true,
+      "forgedFieldsRefused": true,
+      "restartPreserved": true
+    },
+    "nativeHandlesClosed": true,
+    "refusalCases": [
+      {
+        "kind": "changed-checksum",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "future-version",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "unknown-namespace",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      }
+    ],
+    "scope": "Cloud Linux uncommitted source check, not Windows acceptance"
+  },
+  "sourceHashes": {
+    "server/app.ts": "512a49196f1bca8a5fe047f2ab8d4e0eb7465518260b3a89f283b36a3ca04b47",
+    "server/runtime.ts": "f622e8df7dc6d3185dddbf9d60a4bad6fb8b1ed7e8746fb95484a5e64461190e",
+    "server/db.ts": "9d4291bbe46441a053bbab89d05341984ad5f5846674edb329ad92093d4fea4b",
+    "server/derivedPrivacy.ts": "e1e68fe86f456086c6bea2ace0a17ba6b5a5a366100b090bd5f1deb1f80d0a8b",
+    "server/legacyVisibility.ts": "f535c76043851d0486ab3683df97a91511da25e274c63e672077a65e46386eec",
+    "server/taskPolicy.ts": "74ab4e2406230c8b3c6c060278987122dad5e772599daa99b41be876c9f03dc1",
+    "server/mediaPolicy.ts": "3b096927e778478b7249c6b91af3a5a5015c9b57a94cce741a93ac254550d431",
+    "server/productivity/adapter.ts": "13e13369a2b2e6c923d7cfa5922748e66c8a51870a1b319009074d3f8e7308bf",
+    "server/productivity/router.ts": "e662006db57d63b9da3d13620cf662896d158e382d67394a47ecadba87fc391c",
+    "server/productivity/ports.ts": "6c760aa562ef8ee6a4bc50ce43e73629e25947bfcbb6ae9116d52046df5ebfdd",
+    "server/productivity/access.api.test.ts": "cd29178776dced3906139ef131d08f9f6cf0468d5234317430133c3890afb0b8",
+    "server/productivity/activation-grants.test.ts": "c4af4827651b4636f4f5440e6eb3e5d48314b7a409c979fba85c4ae48c6dbcc6",
+    "scripts/windows/probe-productivity-package.mjs": "8f2721f5cc122f650882e5d7013b8c9907ce44f320dc39d755922aa72d6bc0f1",
+    "scripts/windows/release-consumer-reports.mjs": "1c08df2b8afc7ef5d02eb686986fd4ac1b35cb02014ad9a26266bbdf3adb4d27",
+    "tests/helpers/release-consumer-fixture.ts": "923f28e34c8d528b800ee41dbab8770c705e6abecf43e0d5620567a0e5150c68",
+    "tests/release-consumer-reports.test.ts": "c51fc8319cc1385e8501bf87d32e766d50d4e6b74a9851e70e36a47d7c5864da",
+    "scripts/ci/write-evidence.mjs": "d3b74220d1d1a5172cdb0efecea67c6d5f05fe4ae42714db08a866f03710da8f",
+    "tests/evidence.test.ts": "0813a8a85994e5df1d8b028dd1069fae9990bba3f215b357d7fe32ba278bf260"
+  },
+  "reportHashes": {
+    "boundaries-red.json": "d7438c7f3b9a53656fff46c684b02143329fc48a4d4cc9a19333e833e98ddf93",
+    "boundaries-red.log": "2c89089c6b0ef311ce249e2407fa07bf1e8efce11070448a79dc29562cb347a4",
+    "build.log": "776c57318c88a726ba19a0aa5fc9b3447be7cd89768fb6c035ef7a2cd004e49f",
+    "cold-import.json": "4afbfb80fae2cb18f7eb12b9ff05542089f717bdd015eb12035e06cddd403d75",
+    "compiled-cloud-fixed-setup.log": "00e9b70f0c1e952b9fa23c0f8e061a3f0b3d1d3be3e5c861b50767759297d840",
+    "compiled-cloud-report.json": "8e268ee13301a39dff5b44affe7360437132e6d099c83efceca70e07122aec26",
+    "compiled-cloud.log": "c58863211dbbb2bf85b9fb6083f9281631f234c2553893cc502b3d0cad784b3e",
+    "compiled-last-phase.log": "5e0c97042cafce06672071908889f60239c1f833c9cf6d191b223d7675cd02fb",
+    "consumer-proof-green.json": "f44a6896d5884ed6648f22687444807d30f0c7bfcfb5ffaefcd96ed5ae51d2f0",
+    "consumer-proof-green.log": "88e55cf2cb1953fa41fe40abc67b23c41bd3213ad8110f91d6c0656b7db83ac6",
+    "consumer-proof-red.json": "a31f56929d9b424922fe49f316058859cb9020c0d3b81b818ef2e473131f2905",
+    "consumer-proof-red.log": "ff3b4db06943554dd4ab01b9b8e9d640c2e30e99a91c1006551a84e2dfb59a53",
+    "delete-mask-red.json": "c6d240a8e00223a308c1cd92ad76ddc864c9954add80151c3b34e14165a92b6d",
+    "delete-mask-red.log": "42bc1cce34a67eebad6c025067513943e014d9361d8076fde7f0855a1f4b8fa1",
+    "final-compiled-cloud-report.json": "129b50c3cf033b9da607e336f2666747134faf040977f23b1570f6278323d7e3",
+    "final-compiled-cloud.log": "bf6f5bc8335a715b056daf3c2b13e9f43d1bbf5e028c336dc92794b566858a1f",
+    "final-compiled-last-phase.log": "b4735a54afa12fff1622c274017a0fe9496f46842fc5fed80207dc9d6659a0ab",
+    "final-target-green.json": "76dae9de66c7fbdeb207b35837b0652b80ec21ac2d4709203823253f762a60a7",
+    "final-target-green.log": "02285c3486f7ca02b35a3267d2b331bf808bfad3755575e1416dc165d9b9d2d8",
+    "fixture-generation.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "full-green.json": "c4cdc712c6c25ef07faf7b25e58a0d7623a3da2b4714a6aa4b797bb8c9ddfa65",
+    "full-green.log": "9eda8f47aced4a0fa6ea7b4c54984e01ca37a4992fcfa84c73f8aaa87d3139cb",
+    "full-green.xml": "2aeb0235dcef94f8e0fdc146d70f51ca23ce6a6a22cb7cdb3e1ba3d42a05cc42",
+    "gate-red.json": "c019973c90410fee8b6eb89d983036deae1889b70b9a043de4f9b674ad07c4ad",
+    "gate-red.log": "3855ef2f32980cbd3dbc5f3cf3e1d1dc7cdf0ebe082a35b95880a993415b385e",
+    "http-grants-green.json": "4f6887324fd2980546775555bb4ce5615dd6a869ee87700621e57092cbb46f01",
+    "http-grants-green.log": "f3c38dd9b4c0a6d9156e7cae7e8670d48d5d80bad7c7941322bae540019c88c4",
+    "http-green.json": "fa9232f1a5488d20bb7a06d07a67a19196c77c57ecbc57f7f2a27065cfd46dd7",
+    "http-green.log": "780606c76c166ab61a1181c891c43427ee55eb8812cbba44aa1bccc6a551d4e4",
+    "http-red.json": "c73868cb6d3b3c23ca4f76c2926dfcec977be5ebab29555950760b464f35fdb9",
+    "http-red.log": "cb19fe1d4373ab045ca2933b535e8bae7dc0c7cb8bb637c55be5335acb6f08dc",
+    "legacy-reward-id-red.json": "2b930f72db4dc5752572ade16426e54335d1b55082ce21822a3259a73f66a23b",
+    "legacy-reward-id-red.log": "e04d4808c3a7786ca81a161915db2dbf7d6ba2a8aaefa0e2cf99bb5564e878aa",
+    "lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "payload-logging-red.json": "a4f4a3c1acb2f78ffb040a4215263359afd246a0e68841320f8d8e51cdf8d2f4",
+    "payload-logging-red.log": "be1c9f69f874cda87f5206d3de5c071aa83431ab4972b5975d85500bf157693f",
+    "prior-audience-red.json": "2379e552be0c890714311e2811dc09967385fdaf3104afc7cafbf629ec035c6f",
+    "prior-audience-red.log": "c6724e5ee6fbb43ed0dec084fb6b2cfeff3f503ea0b4294df2498cfb725f705e",
+    "productivity-fixture.json": "e8533113e64298051e41874f56b0ff2ffdd9b0a6df0d26b6219fa83d7a590033",
+    "reward-sse-red.json": "1944ff55882e2ec46aeb0f62624999ae2cf6c6bff2269cd045fef22e31304f08",
+    "reward-sse-red.log": "8f6912c757f4c6c3b8703c01fd91179da45f023a16d2d063884b732914084c84",
+    "surfaces-red.json": "2209467c2efcfe1681cf501f74635d90dd500bcd307be78b721b6b5a9830d69b",
+    "surfaces-red.log": "29b4bb287320aed47fa8e67a4c41484746834ea38b38c545dd84ed4332047b25",
+    "target-green.json": "fcba81138416b5c9dcf6a0a2a31081ccc70a54293a2ad58fd0a6f975e2dc0ca6",
+    "target-green.log": "7ec24531440c6eaeea331fa6d59191ba45d06057f7e41a2f1fea2c37053e78f1"
+  },
+  "windowsAcceptance": "pending",
+  "fullP03Accepted": false,
+  "defaultActivationEnabled": false,
+  "releaseOrVpsActions": false
+}

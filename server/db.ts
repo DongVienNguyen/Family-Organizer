@@ -2,7 +2,7 @@ import {hashPassword,verifyPassword} from './passwords.js';
 import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
 import {currentLegacyActor} from './legacyActor.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
-import {canViewLegacyTask} from './legacyVisibility.js';
+import {canViewLegacyTask,canonicalTaskPolicyActive} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
 import {managedMarkdownUrls,canonicalMediaUrl} from './mediaPolicy.js';
 import { collectOrdinaryAppSnapshot, ordinaryAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
@@ -457,7 +457,7 @@ export class FamilyDB {
   }
 
   public static getRewardLedgerForActor(userId:string) {
-    const db=this.readRaw();return projectRewards(db,legacyReader(db,userId));
+    const db=this.readRaw();return projectRewards(db,legacyReader(db,userId),canonicalTaskPolicyActive()?getSessionSecret():undefined);
   }
   public static getNotificationsForActor(userId:string) {
     const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId),getSessionSecret());
@@ -1016,6 +1016,7 @@ export class FamilyDB {
     requireTaskAdult(taskActor(db,approverId));
     const task = db.tasks.find(t => t.id === taskId);
     if (!task) throw new Error("Task không tồn tại");
+    requireTaskEdit(task,taskActor(db,approverId));
     if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
     return this.saveTask({ id: taskId, status: "completed" as any }, approverId, approverName);
 
@@ -1031,6 +1032,7 @@ export class FamilyDB {
     const idx = db.tasks.findIndex(t => t.id === taskId);
     if (idx === -1) throw new Error("Task không tồn tại");
     const task = db.tasks[idx];
+    requireTaskEdit(task,taskActor(db,approverId));
     if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
     const nowStr = new Date().toISOString();
     const reasonText = (reason || "").trim();
@@ -1107,8 +1109,9 @@ export class FamilyDB {
     const db = this.readRaw();
     requireTaskAdult(taskActor(db,userId));
     const idx = db.tasks.findIndex(t => t.id === taskId);
-    if (idx === -1) return;
+    if (idx === -1){if(canonicalTaskPolicyActive())throw new AppStoreError("Không tìm thấy công việc",404);return;}
 
+    requireTaskEdit(db.tasks[idx],taskActor(db,userId));
     const taskTitle = db.tasks[idx].title;
     db.tasks.splice(idx, 1);
     this.writeRaw(db);
