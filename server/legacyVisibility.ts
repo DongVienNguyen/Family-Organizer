@@ -13,7 +13,12 @@ export const canViewLegacyNotification=(notification:{userId:string},actor:Legac
 export const canEditLegacyTask=(task:SharedObject&{id?:string;assigneeId?:string|null},actor:LegacyActor)=>known(actor)&&(canonicalTaskPolicyActive()?taskPolicy!.edit(task,actor):isAdult(actor)||(actor.role===UserRole.CHILD&&(task.creatorId===actor.userId||task.assigneeId===actor.userId)));
 export const canEditLegacyNote=(note:SharedObject&{allowedRolesToEdit?:UserRole[]},actor:LegacyActor)=>canViewLegacyNote(note,actor)&&(note.creatorId===actor.userId||Array.isArray(note.allowedRolesToEdit)&&note.allowedRolesToEdit.includes(actor.role));
 /** Explicit canonical bootstrap installs policy without opening storage here. */
-let taskPolicy:{active():boolean;read(task:SharedObject&{id?:string;assigneeId?:string|null},actor:LegacyActor):boolean;edit(task:SharedObject&{id?:string;assigneeId?:string|null},actor:LegacyActor):boolean;create(actor:LegacyActor):boolean}|undefined;
+let taskPolicy:{active():boolean;read(task:SharedObject&{id?:string;assigneeId?:string|null},actor:LegacyActor):boolean;edit(task:SharedObject&{id?:string;assigneeId?:string|null},actor:LegacyActor):boolean;create(actor:LegacyActor):boolean;tags?(input:unknown,actor:LegacyActor,persist:boolean):string[];tagNames?(ids:readonly string[],actor:LegacyActor):string[]}|undefined;
 export function installCanonicalTaskVisibility(policy:NonNullable<typeof taskPolicy>):void {if(taskPolicy&&taskPolicy!==policy)throw Error('Task visibility already installed');taskPolicy=policy;}
 export function canonicalTaskPolicyActive():boolean {return taskPolicy?.active()??false;}
 export const canCreateLegacyTask=(actor:LegacyActor)=>known(actor)&&(canonicalTaskPolicyActive()?taskPolicy!.create(actor):isAdult(actor)||actor.role===UserRole.CHILD);
+
+/** Actor is selected from the live legacy document; no caller-selected role. */
+export function canonicalLegacyTaskTags(input:unknown,actor:LegacyActor,persist=false):string[]{return canonicalTaskPolicyActive()&&taskPolicy?.tags?taskPolicy.tags(input,actor,persist):input as string[];}
+
+export function canonicalLegacyTagNames(ids:readonly string[]|undefined,actor:LegacyActor):string[]{const values=Array.isArray(ids)?ids:[];return canonicalTaskPolicyActive()&&taskPolicy?.tagNames?taskPolicy.tagNames(values,actor):[...values];}

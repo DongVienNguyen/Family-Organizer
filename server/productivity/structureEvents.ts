@@ -1,3 +1,4 @@
+import {hasTagOwnership,canSelectTag} from './tagPolicy.js';
 import type {TaskReader} from './access.js';
 import {createTaskAccess} from './access.js';
 import {UserRole} from '../../src/types.js';
@@ -19,7 +20,7 @@ export function createStructureEventScope(reader:TaskReader){
   const ids=(scope.tagId||scope.taskId)?taskIds(scope):[],access=createTaskAccess(reader),audience=new Set<string>();
   for(const row of reader.all('SELECT data FROM users')){const user=JSON.parse(row.data);if(user.isDeleted||!Object.values(UserRole).includes(user.role))continue;const actor={userId:user.id,role:user.role};
    if(list&&(actor.role===UserRole.ADMIN||list.is_shared||actor.role===UserRole.MEMBER&&(list.owner_id===user.id||reader.get("SELECT permission FROM productivity_list_grants WHERE list_id=? AND user_id=? AND permission IN('read','write','manage')",list.id,user.id))))audience.add(user.id);
-   if((scope.tagId||scope.taskId)&&(actor.role===UserRole.ADMIN||ids.some(id=>access.getTask(actor,id))))audience.add(user.id);
+   if((scope.tagId||scope.taskId)&&(actor.role===UserRole.ADMIN||scope.tagId&&hasTagOwnership(reader)&&canSelectTag(reader,actor,scope.tagId)||ids.some(id=>access.getTask(actor,id))))audience.add(user.id);
   }
   return audience;
  };

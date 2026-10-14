@@ -1,3 +1,4 @@
+import {tagLabel,tagInput,resolveTagInput,type TagLabel} from '../utils/taskTagLabels.js';
 import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
@@ -65,6 +66,7 @@ interface TasksProps {
   currentUser: User;
   users: User[];
   tasks: Task[];
+  tagCatalog?: TagLabel[];
   rewardEntries: RewardPointEntry[];
   rewardTotals: Record<string, number>;
   rewardItems: RewardItem[];
@@ -89,6 +91,7 @@ export function Tasks({
   currentUser,
   users,
   tasks,
+  tagCatalog = [],
   rewardEntries,
   rewardTotals,
   rewardItems,
@@ -118,6 +121,7 @@ export function Tasks({
 
   // State controls for creation modal & detail modal
   const [isNewTaskOpen, setIsNewTaskOpen] = useState(false);
+  const [originalTagDraft,setOriginalTagDraft] = useState<{ids:string[];text:string}>({ids:[],text:''});
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   // updatedAt của bản task lúc mở form sửa — gửi kèm để server phát hiện 2 người cùng sửa (409)
   const [editingBaseUpdatedAt, setEditingBaseUpdatedAt] = useState("");
@@ -175,7 +179,7 @@ export function Tasks({
       const matchText = 
         task.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
         task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        task.tags.some(t => t.toLowerCase().includes(searchTerm.toLowerCase()));
+        task.tags.some(id => tagLabel(id,tagCatalog).toLowerCase().includes(searchTerm.toLowerCase()));
       if (!matchText) return false;
 
       // 2. Status (dùng trạng thái suy luận để bộ lọc "Quá hạn" bắt được task đã qua hạn)
@@ -207,7 +211,7 @@ export function Tasks({
 
       return true;
     });
-  }, [tasks, searchTerm, statusFilter, assigneeFilter, priorityFilter, scopeFilter, currentUser]);
+  }, [tasks, searchTerm, statusFilter, assigneeFilter, priorityFilter, scopeFilter, currentUser,tagCatalog]);
 
   // Set selected task details refreshed whenever task edits happen
   const activeTaskDetails = useMemo(() => {
@@ -262,7 +266,7 @@ export function Tasks({
     setNewDueDate(task.dueDate || "");
     setNewAssignee(task.assigneeId || "unassigned");
     setNewIsShared(task.isShared);
-    setNewTagsStr((task.tags || []).join(", "));
+    const labelText=tagInput(task.tags,tagCatalog);setNewTagsStr(labelText);setOriginalTagDraft({ids:[...task.tags],text:labelText});
     setNewRewardPoints(task.rewardPoints || 0);
     setNewRecurrenceType(task.recurrenceType || "none");
     setNewRecurrenceEndDate(task.recurrenceEndDate || "");
@@ -297,6 +301,7 @@ export function Tasks({
       return;
     }
 
+    let selectedTagIds:string[];try{selectedTagIds=resolveTagInput(newTagsStr,tagCatalog,editingTaskId?originalTagDraft.ids:[],editingTaskId?originalTagDraft.text:'');}catch{setFormError(t('tasks.errTagAmbiguous'));return;}
     const payload: Partial<Task> & { baseUpdatedAt?: string } = {
       title: newTitle.trim(),
       description: newDesc.trim(),
@@ -304,7 +309,7 @@ export function Tasks({
       dueDate: newDueDate || new Date(Date.now() + 86450000).toISOString().slice(0, 10) + " 17:00",
       assigneeId: newAssignee === "unassigned" ? null : newAssignee,
       isShared: newIsShared,
-      tags: newTagsStr.split(",").map(t => t.trim()).filter(Boolean),
+      tags: selectedTagIds,
       rewardPoints: Number(newRewardPoints) || 0,
       recurrenceType: newRecurrenceType,
       recurrenceInterval: 1,
@@ -1304,7 +1309,7 @@ export function Tasks({
                                     <div className="flex flex-wrap gap-1">
                                       {task.tags.slice(0, 4).map((tag, i) => (
                                         <span key={i} className="text-[10px] px-1.5 py-0.5 bg-slate-900 text-slate-500 border border-slate-800 rounded">
-                                          #{tag}
+                                          #{tagLabel(tag,tagCatalog)}
                                         </span>
                                       ))}
                                       {task.tags.length > 4 && (

@@ -1,3 +1,4 @@
+import {hasTagOwnership,assertTagSelection,visibleTagLabels} from './tagPolicy.js';
 import {installCanonicalTaskVisibility} from '../legacyVisibility.js';
 import {createTaskAccess,listPermission} from './access.js';
 import {UserRole} from '../../src/types.js';
@@ -8,7 +9,7 @@ import type * as Snapshot from '../appSnapshot.js';
 import type {Task} from '../../src/types.js';
 import {createHash} from 'node:crypto';
 import {isDeepStrictEqual} from 'node:util';
-import {registerProductivityMigration,productivityMigrationChecksum,productivityStructureChecksum,migrateTasks} from './migrate.js';
+import {registerProductivityMigration,productivityMigrationChecksum,productivityStructureChecksum,productivityTagChecksum,migrateTasks} from './migrate.js';
 import {loadTasks,loadTask,savePilotTask,installTaskWriteHooks,projectLegacyTask as projection} from './store.js';
 import {markCanonicalReaderReady,requireCanonicalReader} from './bridgeState.js';
 import {parseLegacyDue} from '../../src/features/productivity/dates.js';
@@ -18,7 +19,8 @@ export type BridgePorts={sqlite:typeof Sqlite;gateway:typeof Gateway;migrations:
 const configured=new WeakSet<object>();
 function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  const migrations=reader.all("SELECT version,checksum FROM app_migrations WHERE namespace='productivity' ORDER BY version");
- if(![1,2].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length===2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
+ if(![1,2,3].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length>=2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
+ if(migrations.length===3&&(migrations[2].version!==3||migrations[2].checksum!==productivityTagChecksum))throw new Error('Unsupported productivity migration before activation');
 }
 function active(reader:Pick<Gateway.AppWriteTx,'get'|'all'>):boolean {
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
@@ -35,6 +37,8 @@ export function configureCanonicalTaskBridge(ports:BridgePorts):void {
  const access=createTaskAccess(reader);
  installCanonicalTaskVisibility({active:()=>active(reader),read:(task,actor)=>typeof task.id==='string'&&access.getTask(actor,task.id)!==null,
  edit(task,actor){if(typeof task.id!=='string')return false;try{access.assertTaskCommand(actor,task.id,'update');return true;}catch(error){if(error instanceof Error&&[403,404].includes((error as any).status))return false;throw error;}},
+ tagNames(ids,actor){return visibleTagLabels(reader,actor,ids);},
+ tags(input,actor,persist){if(!hasTagOwnership(reader))return input as string[];const tx=ports.gateway.currentAppWriteTx(),source=tx??reader;assertTagSelection(source,actor,input);if(persist&&hasTagOwnership(source)){if(!tx)throw new Error('Legacy tag writes require the application gateway');for(const id of input as string[])if(!tx.get('SELECT id FROM productivity_tags WHERE id=?',id)){tx.run('INSERT INTO productivity_tags VALUES(?,?)',id,id);tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)',id,actor.userId);}}return [...input as string[]];},
  create(actor){const permission=listPermission(reader,actor,'legacy-family');return actor.role===UserRole.ADMIN||actor.role===UserRole.CHILD||actor.role===UserRole.MEMBER&&(permission==='write'||permission==='manage');}});
  configured.add(ports.sqlite);
  markCanonicalReaderReady();

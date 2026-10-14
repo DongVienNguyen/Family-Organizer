@@ -541,6 +541,7 @@
     "errNameRequired": "Vui lòng nhập tên công việc!",
     "errSaveCreate": "Tạo công việc thất bại",
     "errSaveEdit": "Cập nhật công việc thất bại",
+    "errTagAmbiguous": "Các nhãn này trùng tên. Hãy giữ nguyên hoặc xóa nhóm nhãn trùng.",
     "confirmDeleteTitle": "Xóa công việc?",
     "confirmDeleteMsg": "Công việc này sẽ bị xóa khỏi danh sách task gia đình. Bạn có chắc chắn muốn tiếp tục không?",
     "confirmDeleteBtn": "Xóa công việc",

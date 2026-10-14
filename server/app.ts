@@ -5,7 +5,7 @@ import {validateTaskComment} from './taskPolicy.js';
 import {validateContentHeader} from './contentInput.js';
 import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
 import {createRealtimeHub} from './realtime.js';
-import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canEditLegacyTask,canEditLegacyNote} from './legacyVisibility.js';
+import {isAdult,canViewLegacyTask,canonicalLegacyTagNames,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canEditLegacyTask,canEditLegacyNote} from './legacyVisibility.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -984,7 +984,7 @@ app.get("/api/search", requireAuth, (req: AuthRequest, res: Response) => {
 
   // Tasks — same authoritative visibility as the list route.
   take(
-    FamilyDB.getTasks().filter(t => canViewLegacyTask(t,session)&&matchesQuery(q, t.title, t.description, t.tags)),
+    FamilyDB.getTasks().filter(t => canViewLegacyTask(t,session)&&matchesQuery(q, t.title, t.description, canonicalLegacyTagNames(t.tags,session))),
     t => ({
       kind: "task", id: t.id, title: t.title,
       snippet: excerptAround(t.description, q) || "Công việc",

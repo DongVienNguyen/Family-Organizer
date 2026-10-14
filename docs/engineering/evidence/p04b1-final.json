@@ -1,0 +1,103 @@
+{
+  "taskId": "P04-b1",
+  "observedAt": "2026-10-14T16:39:24.136177+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/75",
+  "testedHeadSha": "94fefb3336821f789addee7a421b595aaefd965b",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38542280289",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "a7286b5c2d66ca5aaa7db3c61f384f89d4710679b158e841a08c046be9892d38",
+    "coverage": "f9484a075a58f3d27be0f23c24271dc138e480e09f67d4cf1b5291de50a29166",
+    "package": "c85c72868636851e2ff6d9bb73a00d3ba17c8b2d5873d2e99c818ada82e944e4",
+    "service": "a7670dc59c4688d2e4f02e8c7e1051744039dcce1a02fc3102a389ae3ea78295",
+    "caddy": "740aedfa4cfdb434eeb64faf6fccac1b39431d0a96734037feee8e9a560e6578",
+    "extraction-sdk": "ef57f93b5c9a0ab1475e276a9cfd327fdae2fd8870d4cd024f36d2addc2fb3dc",
+    "inner-native": "02b67cb0555f9f94363351c0bed32bf0b4aa6c49cb40cbcf319372c55d14b5e6",
+    "browser": "a0b8a4231a89118e020e9c13600704820ca852770170fe87c4d71735491dcb72"
+  },
+  "qualityEach": 3114,
+  "qualityFilesEach": 158,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "5ac9f5eea2588e146073c923f600934014a4ef649b26befd198a82d12a46e618",
+  "fullCiLogZipSha256": "6be6e95dc6d706e570f6c1542721302faa53c7e93b8be931e6f58d03521f9d95",
+  "review": {
+    "taskId": "P04-b1",
+    "reviewedHead": "17e7042790333098aa33269e27993713c1bd3611",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false,
+    "importantFixes": [
+      "I1 task/descendant catalog audiences derive current/previous readable tasks; central retained/canonical TASKS_UPDATE paths invalidate catalog for old/new task readers, covering tag membership, moves, sharing and creation/deletion; structure routes batch their existing catalog event to avoid duplicate delivery"
+    ],
+    "causalRed": {
+      "report": "p04b1-review-red.json",
+      "tests": 31,
+      "failed": 9
+    },
+    "targetGreen": {
+      "report": "p04b1-review-green.json",
+      "tests": 81,
+      "files": 3,
+      "failed": 0
+    },
+    "deferredMinors": {
+      "M1": "Mutable PR narrative hash mismatch is evidence bookkeeping; initial source and test report hashes match, corrected verification excludes mutable PR narrative artifacts; original discrepancy remains explicitly recorded"
+    },
+    "declinedBoundariesAccepted": [
+      "P04-b2 drawer/editor/client cache/keyboard/phone and all three prior tag Minors",
+      "fullP04/P05 not accepted",
+      "P10 completion/recurrence/tree rewards",
+      "P13 templates/import/cloning",
+      "P18 rollout/default activation/benchmarks",
+      "historical accepted67\u201374 Minors closed",
+      "approved ancestor/comment/public family reward/same-version restore policies",
+      "exactWindows parent-owned; Cloud not Windows orServer2019/R02",
+      "no publicintegration/schema/dependency/provider/delivery/release/tag/VPS actions"
+    ]
+  },
+  "newStructureHttpEnabled": true,
+  "fullP04Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P04-b2 shared drawer/cache/catalog compatibility and keyboard/phone",
+  "mergeSha": "b0e77c78d9c662f317f4a567221784c3fc2d438a",
+  "mergeTreeMatchesTestedHead": true
+}

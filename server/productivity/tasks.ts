@@ -1,3 +1,4 @@
+import {assertTagSelection} from './tagPolicy.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {AppActor,AppCommand,TaskPatch,Due,Priority} from '../../src/features/productivity/contracts.js';
 import {assertTaskRecord} from '../../src/features/productivity/contracts.js';
@@ -43,7 +44,7 @@ export function createTaskCommands(ports:{write:typeof withAppWriteTransaction;r
  const run=<T>(ctx:AppCommand,command:string,input:unknown,fn:(tx:AppWriteTx)=>T)=>ports.write({actorId:ctx.actor.userId,command:'productivity:task:'+command,requestId:ctx.requestId,payloadHash:createHash('sha256').update(JSON.stringify(input)).digest('hex')},fn);
  return {
   createTask(ctx:AppCommand,input:CreateTaskInput):StoredTask {
-   payload(input,createFields);try{text(input.listId,256);}catch{throw new AppStoreError('Danh sách không hợp lệ.',422,'task-list');}assertContext(ctx,ports.reader);assertCreateList(ports.reader,ctx.actor,input.listId);
+   payload(input,createFields);try{text(input.listId,256);}catch{throw new AppStoreError('Danh sách không hợp lệ.',422,'task-list');}assertContext(ctx,ports.reader);assertCreateList(ports.reader,ctx.actor,input.listId);if(input.tagIds!==undefined)assertTagSelection(ports.reader,ctx.actor,input.tagIds);
    if(ctx.expectedRevision!==0)throw new AppStoreError('Phiên bản tạo mới phải bằng 0.',409,'edit-conflict');
    return run(ctx,'create',input,tx=>{
     const user=assertContext(ctx,tx);assertCreateList(tx,ctx.actor,input.listId);const now=new Date().toISOString(),id=randomUUID();
@@ -51,18 +52,18 @@ export function createTaskCommands(ports:{write:typeof withAppWriteTransaction;r
     validate(row);assertAssignee(tx,row.assigneeId);
     const maximum=tx.get('SELECT max(rank) AS rank FROM productivity_tasks WHERE list_id=?',row.listId)?.rank??0;row.rank=maximum+1024;
     if(!Number.isSafeInteger(row.rank))throw new AppStoreError('Thứ tự công việc vượt giới hạn.',422);
-    savePilotTask(tx,row);return row;
+    savePilotTask(tx,row,ctx.actor);return row;
    });
   },
   updateTask(ctx:AppCommand,id:string,patch:TaskPatch):StoredTask {
-   payload(patch,patchFields);assertContext(ctx,ports.reader);createTaskAccess(ports.reader).assertTaskCommand(ctx.actor,id,'update');
+   payload(patch,patchFields);assertContext(ctx,ports.reader);createTaskAccess(ports.reader).assertTaskCommand(ctx.actor,id,'update');if(patch.tagIds!==undefined)assertTagSelection(ports.reader,ctx.actor,patch.tagIds);
    return run(ctx,'update',{id,expectedRevision:ctx.expectedRevision,patch},tx=>{
     const user=assertContext(ctx,tx),before=createTaskAccess(tx).assertTaskCommand(ctx.actor,id,'update');
     if(before.revision!==ctx.expectedRevision)throw new AppStoreError('Công việc vừa được thay đổi.',409,'edit-conflict');
     const row:StoredTask={...before,...structuredClone(patch),revision:before.revision+1,legacy:structuredClone(before.legacy)};
     validate(row);if(row.assigneeId!==before.assigneeId){assertAssignee(tx,row.assigneeId);if(ctx.actor.role===UserRole.CHILD&&before.rewardPoints>0)throw new AppStoreError('Không được đổi người nhận công việc có thưởng.',403,'task-assignee');}
     const now=new Date().toISOString();row.legacy.updatedAt=now;row.legacy.history.push({id:randomUUID(),userId:user.id,username:user.username,action:'Cập nhật công việc: '+Object.keys(patch).join(', '),createdAt:now});
-    savePilotTask(tx,row);return row;
+    savePilotTask(tx,row,ctx.actor);return row;
    });
   },
  };

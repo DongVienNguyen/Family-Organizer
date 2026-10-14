@@ -39,7 +39,7 @@ const suiteNames = [
   'server/legacyFlagsHttp.test.ts',
   'src/features/productivity/dates.test.ts', 'src/features/productivity/filters.test.ts', 'src/features/productivity/contracts.test.ts',
   'server/productivity/migration.test.ts', 'server/productivity/store.test.ts',
-  'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts', 'server/productivity/legacy-characterization.test.ts', 'server/productivity/access.test.ts', 'server/productivity/tasks.test.ts', 'server/productivity/access.api.test.ts', 'server/productivity/activation-grants.test.ts', 'server/productivity/structure.test.ts', 'server/productivity/structure-schema.test.ts', 'server/productivity/structure-v1.test.ts', 'server/productivity/structure-upgrade.test.ts', 'server/productivity/structure.api.test.ts',];
+  'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts', 'server/productivity/legacy-characterization.test.ts', 'server/productivity/access.test.ts', 'server/productivity/tasks.test.ts', 'server/productivity/access.api.test.ts', 'server/productivity/activation-grants.test.ts', 'server/productivity/structure.test.ts', 'server/productivity/structure-schema.test.ts', 'server/productivity/structure-v1.test.ts', 'server/productivity/structure-upgrade.test.ts', 'server/productivity/structure.api.test.ts', 'server/productivity/tag-ownership.test.ts', 'server/productivity/tag-upgrade.test.ts', 'src/utils/taskTagLabels.test.ts',];
 
 function runEvidence(change: (reports: Record<string, any>) => void = () => {}) {
   const reports: Record<string, any> = {
@@ -331,3 +331,5 @@ it.each(['access.api','activation-grants'])('rejects missing P03-b %s mandatory 
 it.each(['structure','structure-schema','structure-v1','structure-upgrade'])('rejects missing P04-a %s mandatory suite',name=>{const suite='server/productivity/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it('rejects missing P04-b1 structure HTTP mandatory suite',()=>{const suite='server/productivity/structure.api.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it.each(['server/productivity/tag-ownership.test.ts','server/productivity/tag-upgrade.test.ts','src/utils/taskTagLabels.test.ts'])('rejects missing P04-b2 tag compatibility suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});

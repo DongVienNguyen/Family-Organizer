@@ -1,3 +1,4 @@
+import type {TagLabel} from './utils/taskTagLabels.js';
 import {completeNotificationRead} from './utils/notificationRead.js';
 import {invalidateManagedMedia} from './utils/mediaResource.js';
 import {sessionFetch as fetch} from './utils/browserSession.js';
@@ -336,6 +337,8 @@ export default function App() {
   // Database lists
   const [users, setUsers] = useState<User[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [taskTagCatalog,setTaskTagCatalog] = useState<TagLabel[]>([]);
+  const tagCatalogSequence=useRef(0);
   const [plans, setPlans] = useState<FamilyPlan[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
   const [transactions, setTransactions] = useState<FinancialTransaction[]>([]);
@@ -427,6 +430,7 @@ export default function App() {
     }
   };
 
+  const fetchTaskTagCatalog=async()=>{if(!currentUser)return;const sequence=++tagCatalogSequence.current,checkSession=browserSession.capture();setTaskTagCatalog([]);try{const res=await fetch('/api/productivity/catalog',{headers:getAuthHeader()});const data=res.ok?await res.json():undefined;checkSession();if(sequence===tagCatalogSequence.current)setTaskTagCatalog(Array.isArray(data?.tags)?data.tags:[]);}catch{/* Session boundary aborts stale catalog responses. */}};
   const fetchTasks = async () => {
     if (!currentUser) return;
     try {
@@ -434,6 +438,7 @@ export default function App() {
       if (res.ok) {
         const data = await res.json();
         setTasks(data.tasks || []);
+        void fetchTaskTagCatalog();
       }
     } catch (e) {
       console.error(e);
@@ -785,6 +790,9 @@ export default function App() {
     },onMessage:payload=>{
         invalidateManagedMedia();
         switch (payload.type) {
+          case "PRODUCTIVITY_CATALOG_UPDATE":
+            void fetchTaskTagCatalog();
+            break;
           case "TASKS_UPDATE":
             fetchTasks();
             fetchRewards();
@@ -1945,6 +1953,7 @@ export default function App() {
                   currentUser={currentUser}
                   users={users}
                   tasks={tasks}
+                  tagCatalog={taskTagCatalog}
                   rewardEntries={rewardEntries}
                   rewardTotals={rewardTotals}
                   rewardItems={rewardItems}
