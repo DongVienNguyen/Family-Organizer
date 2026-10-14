@@ -16,6 +16,7 @@ const coverageFloor={lines:1,statements:1,functions:1,branches:1};
 const coveragePolicyText=JSON.stringify({schema:1,providerVersion:'4.1.11',floors:{'v24.21.0':coverageFloor}});
 const suiteNames = [
   'server/icsFeed.test.ts', 'src/utils/pushSubscription.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
+  'src/features/wallet/money.test.ts', 'src/features/wallet/dates.test.ts', 'src/features/wallet/filter.test.ts',
   'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
   'server/appStore.test.ts', 'server/appMigrations.test.ts', 'server/rewardStore.test.ts', 'server/commandHttp.test.ts',
@@ -333,3 +334,4 @@ it.each(['structure','structure-schema','structure-v1','structure-upgrade'])('re
 it('rejects missing P04-b1 structure HTTP mandatory suite',()=>{const suite='server/productivity/structure.api.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it.each(['server/productivity/tag-ownership.test.ts','server/productivity/tag-upgrade.test.ts','src/utils/taskTagLabels.test.ts'])('rejects missing P04-b2 tag compatibility suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+it.each(['money','dates','filter'])('rejects missing W01 %s mandatory suite',name=>{const suite='src/features/wallet/'+name+'.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});

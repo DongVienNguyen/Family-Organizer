@@ -1,0 +1,81 @@
+{
+  "taskId": "W01",
+  "baseSha": "356d1cf1cda27232869b378724e77a92d8e8c348",
+  "scope": "Pure exact money/date/filter contracts; no Wallet storage/API/UI/activation",
+  "fullGreen": {
+    "tests": 3157,
+    "files": 164,
+    "junitCases": 3157,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 1
+  },
+  "firstDomainTarget": {
+    "tests": 12,
+    "files": 3,
+    "failed": 0
+  },
+  "gateCausalRed": {
+    "report": "w01-required-collected-red.json",
+    "tests": 203,
+    "failed": 3
+  },
+  "gateTargetGreen": {
+    "tests": 215,
+    "files": 4,
+    "failed": 0
+  },
+  "notCausal": [
+    "Initial missing modules0collected/3suitefails is plan-requested absence checkpoint",
+    "Initialgate200/1 failed because new inventory entries changed firstsuite fixture order; original assertion retained and inventory placement corrected"
+  ],
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": 4,
+    "storageCreated": false,
+    "exit": 0
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "5329e8b3562108395bcd0b00e40d8ec92014444cd9d11091a322a59115e4d109",
+    "src/features/wallet/contracts.ts": "45efd51e51ba1a9564c47c8a691034b8aee911d6705350f30b791fc57f1216b6",
+    "src/features/wallet/dates.test.ts": "b2e1717ef132143e11420176baac992a1f41ed96b60ae3928017b687153f4edc",
+    "src/features/wallet/dates.ts": "eca07dca381c750304964eb6a1233b4134713e63d696a313a497e78e92bbc893",
+    "src/features/wallet/filter.test.ts": "326c0044e1ba64a970d672489a3f60623cf3c5d559444fcb4afc73b21514923e",
+    "src/features/wallet/filter.ts": "eca2f9c950ae9009ea159b5e149e03bd287635e3091bd2a434c1b4662d43cef3",
+    "src/features/wallet/money.test.ts": "e8b130e46c438bced5950c772437bffcf29787eee039a8d6d507dbf2d5c17508",
+    "src/features/wallet/money.ts": "ff191a53adbf71bbfceac7b6ac8bbdb8ab200827fe8693eb14065fbf7f197183",
+    "tests/evidence.test.ts": "cc6aa3a74967ffd2970e135842496c8558171d9ac77a1c56a7c1cf74c690f0d5"
+  },
+  "reportHashes": {
+    "w01-before-p04b2-full.json": "0873cc0abf839074304620adfa189bd197203c9734a43f2f34e240230f147513",
+    "w01-before-p04b2-full.log": "76832e6a55747fe946b764d2901994d66736cfb839b63bc3ca9e910f23fa099a",
+    "w01-before-p04b2-full.xml": "6de3dcb9094931ed131210bc65d9c16eab4d8f24b1bfffe71e815ad436f4eaf9",
+    "w01-build-integrated.log": "35ed5ec667fc7d07609c70fc89b33801222ffd6ba46ee177ac3dc218e45852b2",
+    "w01-build.log": "29ddd87e58e500dfde8c519ee0a3a2ecb272a07b52247380fec353151a821d1b",
+    "w01-cold-import.json": "73582499b019de31dea7a8e3e8b20d8ec62f2fd0276a856a79349346d3754549",
+    "w01-first-green.json": "3669333c6e9be242a825fd706ea8dbb41939507648a56bc8eb59185a28114693",
+    "w01-first-green.log": "8956ad3dccc70b10ca577f6055aadf55dc93e7cfaf7159a590f367b7167990d1",
+    "w01-full.json": "111f2d081d7b6577fc9e867ccb67111b08f9441d98bd6c23f18b33813fe5851c",
+    "w01-full.log": "284b53cfcda10cbf3a13901b253d741de7dc6472408fd6cfb8830463202d1e0c",
+    "w01-full.xml": "816d8cac5f2be416468df7335707d667c83b867e5faacdc2a4c8b65e02c58237",
+    "w01-gate-green.json": "867973ad5ea3694178a0dcdf059b3211b9ef8464dd47e270c8f38c809ca61bf9",
+    "w01-gate-green.log": "0b01d0e0db29567851a7336e93270c5ad7c0c2ba11d5c10ddc579ecc4757c1d6",
+    "w01-lint-integrated.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w01-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w01-missing-modules-red.json": "b730a8d8d1091d4782af10693d41cc255cc64b03a64bbab41577f5dae7fb782a",
+    "w01-missing-modules-red.log": "88cbb95cd21e60db7f0f52b98c9a8c039f7139e4d651dfeb49a00b1719b7bbc3",
+    "w01-required-collected-red.json": "9987b3eb64baa147df5ad31ea868adb72584b0772da2cf3f2293f4486b25b656",
+    "w01-required-collected-red.log": "3de3e43c7ebec0a29e655c29605fdcf997e5650fb0a46bea8c747868cdcd206e",
+    "w01-required-suites-red.json": "c2601bab66ee56594a31ab4e72fc3bcd7ae734a6066781e31c848f24dc8e6cca",
+    "w01-required-suites-red.log": "c3229b9ee166c5841c2bf2a3636ada34a415785ce0d17705e2efb02dd6b72e25"
+  },
+  "compiledRuntimeSourceChanged": false,
+  "review": "pending ONE whole-branch review",
+  "windowsAcceptance": "pending exact HEAD",
+  "dependencyChange": false,
+  "walletActivated": false,
+  "server2019Acceptance": "not-run",
+  "releaseOrVpsActions": false
+}

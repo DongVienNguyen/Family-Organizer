@@ -1,0 +1,76 @@
+{
+  "taskId": "P04-b2",
+  "observedAt": "2026-10-14T18:03:57.727944+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/76",
+  "testedHeadSha": "936c47d0618adaaa4105932204fd2d300a18da25",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38552567604",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "edd1c95e865bf49d938006e67db2676e9f2ec29779b89176502ff0750e2d0512",
+    "coverage": "8a84cc961da948c13f6677bf0ea0462849070423bd27ee1bca81b2d0ce39a280",
+    "package": "6b60b79b84f2fa8c1ff7184cf2f808a0c10e9074e6900a0544656eaea7c840c0",
+    "service": "03876f48693fe0a655c79d08dc7288af5e368b8f598eadff6a346c15c799a7fd",
+    "caddy": "c7fe946bc28b65cc79a5cce1ca32fe803f3998f474b5192a0c6c3bc762a367c0",
+    "extraction-sdk": "fcf0835c62fdab0e92ef5a175c494f22ed27f836f0198211bf268d4aa0d07bcc",
+    "inner-native": "3eaab718709aedea1317af59f9a8c4e7a31367c298ad323d96809457343c92d5",
+    "browser": "1bd91de972d688e9a9f0a7a3ae745ee1548f33b5b6992f7c0413680f9f0ff6f9"
+  },
+  "qualityEach": 3142,
+  "qualityFilesEach": 161,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "0b953a578e24a8615dd773109f6ead0f0c3e21beffe980e908a7662990e621b5",
+  "fullCiLogZipSha256": "1304cbc52094588201d120b6262ce345dd6dab42fb96070384d02d4c5cc65b87",
+  "newStructureHttpEnabled": true,
+  "fullP04Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P04-b3 shared drawer/cache/keyboard/phone and realcanonical DOM",
+  "merged": true,
+  "mergeCommitSha": "356d1cf1cda27232869b378724e77a92d8e8c348",
+  "testedAndMergedTreesEqual": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/76#issuecomment-6166893026",
+  "review": {
+    "critical": 0,
+    "important": 2,
+    "minor": 2,
+    "importantRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false,
+    "deferredMinors": {
+      "M2": "activation future-version test still inserts3 and passes duplicate-key; nextP04-b3 must use4 and explicit guard reached assertion. Current future4 compatibility inspector and compiled consumer refusal valid."
+    }
+  }
+}
