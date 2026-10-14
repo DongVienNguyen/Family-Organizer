@@ -70,3 +70,69 @@ const requiredSuites = [
   'src/features/productivity/dates.test.ts', 'src/features/productivity/filters.test.ts', 'src/features/productivity/contracts.test.ts',
   'server/productivity/migration.test.ts', 'server/productivity/store.test.ts',
   'server/productivity/adapter.test.ts', 'server/productivity/activation.test.ts', 'server/productivity/bridge-order.test.ts', 'server/productivity/legacy-characterization.test.ts', 'server/productivity/access.test.ts', 'server/productivity/tasks.test.ts', 'server/productivity/access.api.test.ts', 'server/productivity/activation-grants.test.ts', 'server/productivity/structure.test.ts', 'server/productivity/structure-schema.test.ts', 'server/productivity/structure-v1.test.ts', 'server/productivity/structure-upgrade.test.ts', 'server/productivity/structure.api.test.ts', 'server/productivity/tag-ownership.test.ts', 'server/productivity/tag-upgrade.test.ts', 'src/utils/taskTagLabels.test.ts','src/features/productivity/editor.test.ts','src/features/productivity/taskCache.test.ts','src/features/productivity/api.test.ts','server/productivity/pins.test.ts','server/productivity/subtasks.test.ts','server/productivity/pin-upgrade.test.ts','tests/productivity-browser-evidence.test.ts','server/productivity/query.test.ts','server/wallet/store.test.ts','server/wallet/snapshot.test.ts',];
+for (const required of requiredSuites) {
+  if (!suites.some(suite => suite.name === required)) errors.push(`required suite missing: ${required}`);
+}
+for (const suite of suites) {
+  if (!(suite.passed > 0) || suite.failed !== 0 || suite.skipped !== 0) errors.push(`empty, failed or skipped suite: ${suite.name}`);
+}
+const passedAssertions = suites.reduce((sum, suite) => sum + suite.passed, 0);
+if (passedAssertions !== tests?.numTotalTests || tests?.numFailedTests !== 0 || tests?.numPendingTests !== 0 || tests?.numTodoTests !== 0) errors.push('suite assertions contradict aggregate test totals');
+if (!native || native.nodeVersion !== process.version || native.nodeABI !== process.versions.modules ||
+    native.platform !== 'win32' || native.architecture !== 'x64' || native.addonVersion !== process.env.EXPECTED_SQLITE_ADDON ||
+    !/^\d+\.\d+\.\d+$/.test(native.sqliteVersion || '') || !/^[a-f0-9]{64}$/.test(native.binarySha256 || '') ||
+    !Array.isArray(native.checks)) {
+  errors.push('native report contradicts runtime/addon or has invalid version/hash');
+}
+for (const check of ['native-load', 'write-read', 'transaction-rollback', 'WAL-backup', 'integrity-check', 'file-cleanup']) {
+  if (!native?.checks?.includes(check)) errors.push(`native probe check missing: ${check}`);
+}
+if (!fs.existsSync('reports/junit.xml') || !fs.readFileSync('reports/junit.xml', 'utf8').includes('<testcase')) errors.push('JUnit test cases missing');
+const commitSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+if (commitSha !== process.env.TEST_COMMIT_SHA) errors.push('checkout SHA differs from requested HEAD');
+errors.push(...validateNodeSdkReceipt(nodeSdk,{commitSha,nodeVersion:process.version}));
+errors.push(...validateReleaseInnerExtractionNative(releaseInnerExtraction,{commitSha,nodeVersion:process.version}));
+errors.push(...validateReleaseReportExtractionNative(releaseReportExtraction,{commitSha,nodeVersion:process.version}));
+errors.push(...validateCaddyNativeEvidence(caddy,{commitSha,nodeVersion:process.version}));
+const lockSha256=createHash('sha256').update(fs.readFileSync('package-lock.json')).digest('hex');
+try {
+  const policyBytes = fs.readFileSync('docs/engineering/evidence/windows-coverage-baseline.json');
+  const policy = JSON.parse(policyBytes);
+  const metrics = ['lines', 'statements', 'functions', 'branches'];
+  const floor = policy.floors?.[process.version];
+  if (policy.schema !== 1 || policy.providerVersion !== '4.1.11' || !floor) throw new Error('unmeasured coverage policy');
+  if (coverage?.commitSha !== commitSha || coverage?.nodeVersion !== process.version || coverage?.platform !== 'win32' || coverage?.architecture !== 'x64' || coverage?.providerVersion !== policy.providerVersion || coverage?.lockSha256 !== lockSha256 || coverage?.baselineSha256 !== createHash('sha256').update(policyBytes).digest('hex')) errors.push('coverage context differs from tested HEAD/runtime/lockfile/policy');
+  if (!Array.isArray(coverage?.errors) || coverage.errors.length !== 0) errors.push('coverage validation errors remain');
+  const inventory = coverage?.sourceInventory;
+  if (!Array.isArray(inventory) || inventory.length === 0 || inventory.some(item => typeof item?.path !== 'string' || !/^(src|server)\/.+\.tsx?$/.test(item.path) || !/^[a-f0-9]{64}$/.test(item?.sha256 || '')) || new Set(inventory.map(item => item.path)).size !== inventory.length || coverage?.sourceInventorySha256 !== createHash('sha256').update(JSON.stringify(inventory)).digest('hex')) errors.push('coverage inventory is empty, invalid or changed');
+  for (const name of metrics) {
+    const metric = coverage?.total?.[name];
+    if (typeof floor[name] !== 'number' || floor[name] < 0 || floor[name] > 100 || coverage?.floor?.[name] !== floor[name] || !Number.isInteger(metric?.total) || metric.total <= 0 || !Number.isInteger(metric?.covered) || metric.covered < 0 || metric.covered > metric.total || metric.skipped !== 0 || typeof metric.pct !== 'number' || metric.pct < floor[name] || metric.pct > 100) errors.push(`coverage ${name} differs from measured floor or has invalid counters`);
+  }
+  for (const name of ['coverage-final.json', 'coverage-summary.json', 'lcov.info', 'index.html']) {
+    const reportPath = `reports/coverage/${name}`;
+    const recordedHash = coverage?.reportHashes?.[name];
+    if (!/^[a-f0-9]{64}$/.test(recordedHash || '') || !fs.existsSync(reportPath) || createHash('sha256').update(fs.readFileSync(reportPath)).digest('hex') !== recordedHash) errors.push(`coverage report missing or changed: ${name}`);
+  }
+} catch (error) { errors.push(`coverage policy/reports invalid: ${error.message}`); }
+if(!audit||audit.error||!audit.vulnerabilities||typeof audit.vulnerabilities!=='object'||Array.isArray(audit.vulnerabilities)||Object.keys(audit.vulnerabilities).length!==0||!['info','low','moderate','high','critical','total'].every(name=>audit.metadata?.vulnerabilities?.[name]===0))errors.push('dependency audit missing, invalid, or contains remaining vulnerabilities');
+if(auditContext?.commitSha!==commitSha||auditContext?.nodeVersion!==process.version||auditContext?.platform!=='win32'||auditContext?.architecture!=='x64'||auditContext?.lockSha256!==lockSha256)errors.push('dependency audit context differs from tested HEAD/runtime/lockfile');
+if (production?.commitSha !== commitSha || production?.nodeVersion !== process.version || production?.platform !== 'win32' || production?.architecture !== 'x64' || !Array.isArray(production?.checks)) errors.push('production startup evidence missing or contradicts tested runtime/SHA');
+const incompatibleNames = ['future', 'missing-version', 'foreign', 'sqliteX', 'sqliteData', 'malformed-metadata', 'malformed-owned-table'];
+const incompatibleCases = production?.incompatibleSchemas;
+if (!Array.isArray(incompatibleCases) || incompatibleCases.length !== incompatibleNames.length || incompatibleNames.some(name => incompatibleCases.filter(item => item?.name === name).length !== 1) || incompatibleCases.some(item => item?.exitCode !== 1 || item.bytesSchemaRowsJournalPreserved !== true || item.nativeHandlesReleased !== true || item.journal !== 'delete' || typeof item.databaseSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(item.databaseSha256) || !Array.isArray(item.networkAttempts) || item.networkAttempts.length !== 0)) errors.push('compiled incompatible-schema preservation evidence missing or contradictory');
+for (const check of ['production-dependencies-only', 'no-source-ts', 'foreign-cwd', 'static-assets', 'legacy-preserved', 'restart-persistence', 'write-permission-fail-fast', 'offline-providers', 'graceful-shutdown', 'readiness', 'crash-recovery', 'auth-session-restart', 'auth-session-logout', 'private-response-cache', 'authenticated-realtime', 'object-visibility', 'authenticated-media', 'task-write-authority', 'content-write-authority', 'derived-object-privacy', 'explicit-first-account','provider-digest-privacy','incompatible-schema-preserved']) {
+  if (!production?.checks?.includes(check)) errors.push(`production probe check missing: ${check}`);
+}
+if (process.version !== `v${process.env.EXPECTED_NODE}` || npmVersion !== process.env.EXPECTED_NPM) errors.push('Node/npm differs from pinned toolchain');
+if (toolchain?.visualStudioVersion !== process.env.EXPECTED_VS) errors.push('builder differs from validated Visual Studio toolchain');
+if (process.platform !== 'win32' || process.arch !== 'x64') errors.push('runner is not Windows x64');
+const evidence = {
+  commitSha, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT),
+  runnerOS: `${os.type()} ${os.release()}`, runnerImage: process.env.ImageOS,
+  runnerImageVersion: process.env.ImageVersion, nodeVersion: process.version, npmVersion, toolchain,
+  checks, suites, native, nodeSdk, caddy, releaseReportExtraction, releaseInnerExtraction, production, audit, auditContext, coverage, lockSha256, server2019Acceptance: 'not-run', errors,
+};
+fs.writeFileSync('reports/evidence.json', JSON.stringify(evidence, null, 2) + '\n');
+console.log(JSON.stringify(evidence, null, 2));
+if (errors.length) process.exitCode = 1;
