@@ -1,7 +1,7 @@
 import Database from 'better-sqlite3';
 import { snapshotCoreTables, validateSnapshotPayload } from './snapshotValidation.js';
 import {inspectProductivityStorage} from './productivity/inspection.js';
-import {productivityTables} from './productivity/schema.js';
+import {productivityTablesAt} from './productivity/structureSchema.js';
 import {validateProductivitySnapshotData} from './productivity/snapshot.js';
 /** Read-only compatibility context; missing runtime tables describe their supported
  * bootstrap schema without creating them in an un-warmed first-account target. */
@@ -13,7 +13,7 @@ export function inspectRecoverySnapshot(input:unknown,file:string):void {
   for(const key of ['job_store_version','snapshot_schema_version']){const row=db.prepare('SELECT value FROM app_meta WHERE key=?').get(key) as any;if(row&&row.value!=='1')throw new Error('Unsupported recovery target');}
   const hasProductivity=inspectProductivityStorage({get:(sql,...args)=>db.prepare(sql).get(...args),all:(sql,...args)=>db.prepare(sql).all(...args)});
   const tables=new Map(snapshotCoreTables);
-  if(hasProductivity)for(const [name,columns] of Object.entries(productivityTables))tables.set(name,columns);
+  if(hasProductivity)for(const [name,columns] of Object.entries(productivityTablesAt((db.prepare("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'").get() as any)?.version??1)))tables.set(name,columns);
   const primaryKeys=new Map<string,readonly string[]>();
   const defaults:Record<string,readonly string[]>={app_meta:['key'],app_commands:['command','request_id'],app_migrations:['namespace','version'],app_reward_claims:['claim_id'],app_jobs:['id'],server_metrics:['t']};
   for(const [name,columns] of tables){

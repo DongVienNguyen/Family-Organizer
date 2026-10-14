@@ -96,7 +96,7 @@ it('fresh runtime installs the canonical bridge before legacy reads, writes and 
  const {startApplication}=await import(${JSON.stringify(runtimeUrl)});const runtime=await startApplication();try{
  const {FamilyDB}=await import(${JSON.stringify(dbUrl)});assert.equal(FamilyDB.getTasks()[0].id,'persisted');FamilyDB.saveTask({id:'persisted',title:'Runtime canonical edit'},'user_admin','admin');
  const sqlite=await import(${JSON.stringify(sqliteUrl)});assert.equal(sqlite.sqliteConnection().prepare('SELECT title FROM productivity_tasks WHERE id=?').get('persisted').title,'Runtime canonical edit');assert.equal(sqlite.sqliteConnection().prepare('SELECT count(*) AS n FROM tasks').get().n,0);
- const gateway=await import(${JSON.stringify(gatewayUrl)}),snapshot=await import(${JSON.stringify(snapshotUrl)});const saved=gateway.withAppWriteTransaction({actorId:'system:fixture',command:'core:snapshot:runtime-fixture',requestId:crypto.randomUUID(),payloadHash:'synthetic'},tx=>snapshot.collectAppSnapshot(tx));assert.equal(saved.manifest.domains.productivity,1);assert.equal(saved.legacy.tasks[0].title,'Runtime canonical edit');
+ const gateway=await import(${JSON.stringify(gatewayUrl)}),snapshot=await import(${JSON.stringify(snapshotUrl)});const saved=gateway.withAppWriteTransaction({actorId:'system:fixture',command:'core:snapshot:runtime-fixture',requestId:crypto.randomUUID(),payloadHash:'synthetic'},tx=>snapshot.collectAppSnapshot(tx));assert.equal(saved.manifest.domains.productivity,2);assert.equal(saved.legacy.tasks[0].title,'Runtime canonical edit');
  }finally{await runtime.close();}
  `);
 },15000);
