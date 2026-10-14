@@ -3,7 +3,7 @@ import {randomUUID} from 'node:crypto';
 import {withAppWriteTransaction} from '../appStore.js';
 import {sqliteConnection,sqliteLoad} from '../sqlite.js';
 import {applyDomainMigrations,getDomainVersions,registerDomainMigration} from '../appMigrations.js';
-import {registerSnapshotTable} from '../appSnapshot.js';
+import {registerSnapshotTable,registerSnapshotValidator} from '../appSnapshot.js';
 import {migrateTasks,registerProductivityMigration} from './migrate.js';
 import {loadTask,toLegacyTask} from './store.js';
 import {legacyTask} from '../../tests/fixtures/productivity.js';
@@ -26,8 +26,15 @@ it('rolls back schema and rows on a malformed row instead of leaving a partial m
  command(tx=>{expect(loadTask(tx,'atomic-good')).toBeNull();expect(loadTask(tx,'atomic-bad')).toBeNull();});
 });
 it('uses I01 checksum/order/pilot migration registry and refuses nonpilot changes',()=>{
- registerProductivityMigration({registerMigration:registerDomainMigration,registerSnapshot:registerSnapshotTable});expect(()=>applyDomainMigrations({enabled:['productivity'],pilot:false})).toThrow(/pilot/i);
+ registerProductivityMigration({registerMigration:registerDomainMigration,registerSnapshot:registerSnapshotTable,registerValidator:registerSnapshotValidator});expect(()=>applyDomainMigrations({enabled:['productivity'],pilot:false})).toThrow(/pilot/i);
  applyDomainMigrations({enabled:['productivity'],pilot:true});applyDomainMigrations({enabled:['productivity'],pilot:true});expect(getDomainVersions().productivity).toBe(1);
  sqliteConnection().prepare("UPDATE app_migrations SET checksum='corrupt' WHERE namespace='productivity'").run();
  expect(()=>applyDomainMigrations({enabled:['productivity'],pilot:true})).toThrow(/checksum/i);
+});
+it('does not treat a quoted status phrase inside assignment text as workflow proof',()=>{
+ command(tx=>{migrateTasks(tx,[legacyTask('quoted',{status:TaskStatus.OVERDUE,history:[{id:'new',userId:'adult',username:'synthetic',action:"Đã thay đổi: giao việc cho trạng thái từ 'todo' thành 'in_progress'",createdAt:'2026-10-11T00:00:00Z'},{id:'old',userId:'adult',username:'synthetic',action:"Đã thay đổi: trạng thái từ 'in_progress' thành 'todo'",createdAt:'2026-10-10T00:00:00Z'}]})]);expect(loadTask(tx,'quoted')!.lifecycle).toBe('todo');});
+});
+it.each([{tags:'home'},{comments:42},{history:'bad-history'},{createdAt:0},{proofImage:17}])('rejects malformed provenance before normalization %#',patch=>{
+ const id='malformed-'+randomUUID();expect(()=>command(tx=>migrateTasks(tx,[legacyTask(id,patch as any)]))).toThrow();
+ command(tx=>{expect(loadTask(tx,id)).toBeNull();});
 });

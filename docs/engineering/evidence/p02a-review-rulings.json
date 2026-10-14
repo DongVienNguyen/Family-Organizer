@@ -1,0 +1,93 @@
+{
+  "taskId": "P02-a",
+  "reviewedBase": "7c41768fb9ca5847b8310da51824e396695a4806",
+  "reviewedHead": "b4762a6817694d21a5c072f30f24862ddaa58bc0",
+  "reviewer": "p02a_review gpt-6-astra high fresh context",
+  "oneReview": true,
+  "allFindingsGradedBeforeFixPass": true,
+  "authorGrades": {
+    "critical": 0,
+    "important": 4,
+    "minor": 3
+  },
+  "findings": [
+    {
+      "id": 1,
+      "grade": "Important",
+      "effect": "Changed timed legacy serialization shifts timezone and loses seconds/ms",
+      "action": "Fix lossless explicitUTC representation for changed timed due; preserve unchanged raw"
+    },
+    {
+      "id": 2,
+      "grade": "Important",
+      "effect": "User-controlled assignment/name text fakes history proof and changes lifecycle",
+      "action": "Require exact generated status-change structure, never arbitrary substring"
+    },
+    {
+      "id": 3,
+      "grade": "Important",
+      "effect": "Malformed tags/provenance accepted after transformation corrupts migration data",
+      "action": "Validate all legacy containers/metadata before normalization and storage"
+    },
+    {
+      "id": 4,
+      "grade": "Important",
+      "effect": "Common restore can commit invalid due/legacyJSON then canonical loader cannot read it",
+      "action": "Register productivity semantic validation at shared snapshot boundary"
+    },
+    {
+      "id": 5,
+      "grade": "Minor",
+      "effect": "Tag order alphabetized in junction load changes visible chip order",
+      "action": "Deferred"
+    },
+    {
+      "id": 6,
+      "grade": "Minor",
+      "effect": "Preexisting damaged pilot schema constraints are trusted if columns match",
+      "action": "Deferred; native pristine schema creation remains correct"
+    },
+    {
+      "id": 7,
+      "grade": "Minor",
+      "effect": "Registered migration discards warning report; raw provenance remains stored",
+      "action": "Deferred; direct helper returns full report, registered operator report exposure remains pending"
+    }
+  ],
+  "declinedJudgments": [
+    "No live dual-write/API/ACL/reward/Matrix/deployment regressions; P02-b activation pending",
+    "Immutable-copy pilot existing IDs preserve canonical changes; P02-b must check source freshness before activation",
+    "Transaction ownership/cleanup belongs to I01, no new connection/asynccallback",
+    "Duplicate IDs reject, gateway rollback propagates errors",
+    "Initial RED/fixture/lint failures reported honestly",
+    "P01 previousfindings/proof not rereviewed"
+  ],
+  "fixPassesAllowed": 1,
+  "rereview": false,
+  "fixPassStarted": true,
+  "importantRegressionRed": {
+    "tests": 17,
+    "failed": 10,
+    "actualCases": [
+      "changed due timezone+precision",
+      "quoted assignment status phrase",
+      "malformed tags/comments/history/createdAt/proofImage5cases",
+      "snapshot invalid due/invalid JSON/missing parent3cases"
+    ]
+  },
+  "correctedTarget": {
+    "tests": 240,
+    "failed": 0
+  },
+  "fullCorrectedSuite": {
+    "tests": 2918,
+    "files": 144,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "fixPassComplete": true,
+  "fixPassesUsed": 1
+}

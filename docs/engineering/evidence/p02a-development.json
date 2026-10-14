@@ -66,5 +66,40 @@
     "lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
     "build.log": "ba837f85de052401f042c8f4efa289dd7851d5056880cfb0acf95c2c982d665d",
     "import-probe.json": "c5f85b54fe0471f474f3f33ca823e571ed0d06bb096c171e45435467f5b3b101"
+  },
+  "correctedVerification": {
+    "reviewedHead": "b4762a6817694d21a5c072f30f24862ddaa58bc0",
+    "importantRedFailures": 10,
+    "targetGreen": 240,
+    "fullTests": 2918,
+    "fullFiles": 144,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "c9a70f8cc2f902d77582076839b176391ac62054c64308b0b23692e7bb645207",
+      "server/appSnapshot.ts": "741fe3c2744886e1daef502649ad62420d658d752ccd744786930b1e298726a1",
+      "server/productivity/legacy.ts": "25b40edbe9dd529cec547cc5732510286124f528c360e2665c32b12ad4e4627a",
+      "server/productivity/migrate.ts": "693a755b91d2a036c8082b885176207ab312580a0eb9e7134c3553e3a5bdf71a",
+      "server/productivity/migration.test.ts": "c777e8514e520584b04e350dcea1d268a464d357b960e854086f78518982d5fe",
+      "server/productivity/schema.ts": "cb50735f35da6e5e094659b68dd4d667a4914e482efda5a0167dee8654e95168",
+      "server/productivity/snapshot.ts": "ce3552d9b361cef3a3515cb09fa503bf92c0f7b33d8a266bd1c18eade441417b",
+      "server/productivity/store.test.ts": "7cb36cee259ff180cf7f841537656755d9b77a4a329fc004cb2c88c5ccd26668",
+      "server/productivity/store.ts": "81a85ab4b5eb0ef50a352a69f529460de8c1d84c5dd12565cf2a580b233dd00a",
+      "server/snapshotValidation.ts": "6371ff06d446d08da3afc6851d8726cf740d68d516cfccfffbf99227d2709694",
+      "tests/evidence.test.ts": "a3a692a2719b361674b71fc39984bc7ac3b937528bca67d33f699386d82ebe72",
+      "tests/fixtures/productivity.ts": "e20ff0045ecef596ba847eb0ea18960e3292f6cceb21260c20e34c2b894f5840"
+    },
+    "reportHashes": {
+      "review-red.json": "73ed694694a97b460bdaa4dd5a1f59d1c251985ba41c7dbc18b038456c96ef5b",
+      "review-target-green.json": "d4537eafe69633b827d740685e2eb08a943a7516480a71621184843b8e57a24e",
+      "review-full.json": "e8ef7a08e70abffa7fa491a56a968396a3fa9878606d949023cdb1c1ae99a20c",
+      "review-junit.xml": "4211cdd62e31fb585fffcf172859aaf894de07417c6d7d8d0383f22e6fede628",
+      "review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "review-build.log": "e70295f1ca026e3818414307fda1c8a81d64adcb4978791ec6fd3cff4345aa57"
+    },
+    "windows": "pending exact corrected HEAD"
   }
 }
