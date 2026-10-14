@@ -1,3 +1,4 @@
+import {structureRouter} from './productivity/structureRouter.js';
 import {taskRouter,type ProductivityPorts} from './productivity/router.js';
 import {telegramSettingsPatch} from './telegramSettings.js';
 import {validateTaskComment} from './taskPolicy.js';
@@ -267,8 +268,11 @@ const realtime=createRealtimeHub({verify:token=>dependencies.auth.verify(token),
 const realtimeAudience=(type:string,data:Record<string,unknown>)=>new Set(FamilyDB.getUsers().filter(user=>!user.isDeleted&&canReceiveRealtime(user,{type,data})).map(user=>user.id));
 
 // Realtime sync broadcast helper
-function broadcastSyncEvent(eventType: string, extraData: any = {},previous?:Set<string>) {
+function broadcastSyncEvent(eventType: string, extraData: any = {},previous?:Set<string>,invalidateCatalog=true) {
   realtime.emit({type:eventType,data:extraData,previous});
+  // Canonical and retained task writers can change tag membership/visibility.
+  // Use both current and prior task readers so revoked readers purge labels.
+  if(eventType==='TASKS_UPDATE'&&invalidateCatalog){const audience=realtimeAudience(eventType,extraData);for(const userId of previous??[])audience.add(userId);realtime.emit({type:'PRODUCTIVITY_CATALOG_UPDATE',data:{},previous:audience});}
 }
 
 // Authentication middleware to extract current user session
@@ -736,6 +740,7 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 
 // --- TASK API ENDPOINTS ---
 if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));
+if(dependencies.productivity)app.use('/api/productivity',structureRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous,false),catalog:audience=>broadcastSyncEvent('PRODUCTIVITY_CATALOG_UPDATE',{},audience)}));
 
 app.get('/api/tasks/:id',requireAuth,(req:AuthRequest,res:Response)=>{
  try{const task=FamilyDB.getTasks().find(row=>row.id===req.params.id&&canViewLegacyTask(row,req.userSession!));if(!task){res.status(404).json({error:'Không tìm thấy công việc.'});return;}res.json({task});}

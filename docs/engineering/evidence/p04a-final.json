@@ -1,0 +1,106 @@
+{
+  "taskId": "P04-a",
+  "observedAt": "2026-10-14T15:47:53.993503+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/74",
+  "testedHeadSha": "722f738f6ca3409047625e38facaaa1d1f0f6ec1",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38536131696",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "41c09988e311215ef51d7d8a5b62db36157bf4156717961d961e3c300a7c3ac9",
+    "coverage": "34332af110f832a3a26614ee8474a5e02c5438efee360519ecdb5f5596222a10",
+    "package": "33783622d0157caf56bc0f0a686efe13bf5314aa188dec8b43acced256045bf2",
+    "service": "beb00bd1f14372e89297174e784a387fffff097b9651edd9223678e702d6af17",
+    "caddy": "ee7035d604e0f07d0fb72d73c0d24b8dcc59429804a4732c96faae8968c03bee",
+    "extraction-sdk": "6b039c5418d7574c43007b7b59c67c092adb3386dde88c393094cfeee836c790",
+    "inner-native": "9f4d130ef8a088f30453369fad4dbcafbea669de1458e53a7037bb5bb60d2397",
+    "browser": "01ea1c759b18f020fec4171f4c46da5f786d4a141a231a0d848122abe915d08b"
+  },
+  "qualityEach": 3073,
+  "qualityFilesEach": 157,
+  "browserFirstAttempt": 45,
+  "rawValidators": 8,
+  "zipSha256": "3676ed7e374ad8239b4365e927bf94cfb37d763b5d80780066d9eef6e2a97faf",
+  "fullCiLogZipSha256": "b07666ab485f3ca9b5f07236b4f18e6e12b73f984eac88c3a864e43b7c82cc15",
+  "review": {
+    "taskId": "P04-a",
+    "reviewedHead": "733eca54b1ddf8338a03d57897225bf761ad8c31",
+    "critical": 0,
+    "important": 3,
+    "minor": 3,
+    "allFindingsGraded": true,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false,
+    "importantFixes": [
+      "I1 schema compatibility separated from ordinary current-tree validation; encrypted valid replacement repairs corrupt tree",
+      "I2 archived section cached retry permits archived metadata only in fresh owner/manage preflight, new commands still refuse archived",
+      "I3 same-list section moves preserve links; cross-list linked nodes refuse"
+    ],
+    "deferredMinors": {
+      "M1": "P04-b unused Member tag discoverability/ownership policy",
+      "M2": "P04-b catalog ID mediation; retained Child free-form task tags interim compatibility exception, catalog command permissions unchanged",
+      "M3": "P04-b legacy label/search/editor alignment before new UI acceptance"
+    },
+    "declinedBoundariesAccepted": [
+      "P04-b routes/drawer/keyboard/phone/cache",
+      "P10 new lifecycle/tree reward policy",
+      "P13 templates/cloning",
+      "P18 activation/benchmarks",
+      "historical accepted PR67\u201373 deferred Minors closed",
+      "same-version restore/staged v1 upgrade; no silent conversion",
+      "ancestor ACL/comment/public family reward balance policies retained",
+      "Windows2022 separate from Server2019/R02; no release/VPS"
+    ],
+    "causalRed": {
+      "report": "p04a-review-red.json",
+      "tests": 23,
+      "failed": 3
+    },
+    "firstGreen": {
+      "report": "p04a-review-green.json",
+      "tests": 23,
+      "failed": 0
+    },
+    "replacementTreeAssertionStrengthened": "Recompute checksum before malformed replacement assertion so rejection specifically proves tree validation; final targeted report required"
+  },
+  "newStructureHttpEnabled": false,
+  "fullP04Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P04-b internal structure routes/shared drawer/catalog compatibility and keyboard/phone",
+  "mergeSha": "cdab57bf55471ce718d98bc0d366bb51b9f3bf32",
+  "mergeTreeMatchesTestedHead": true
+}
