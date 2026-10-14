@@ -3,7 +3,7 @@ import {legacyReader,projectRewards,projectNotifications,projectNotification,pro
 import {currentLegacyActor} from './legacyActor.js';
 import {assertNoOpenSubtasks} from './productivity/structureInvariant.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
-import {canViewLegacyTask,canonicalTaskPolicyActive} from './legacyVisibility.js';
+import {canViewLegacyTask,canonicalTaskPolicyActive,canonicalLegacyTaskTags} from './legacyVisibility.js';
 import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
 import {managedMarkdownUrls,canonicalMediaUrl,allowRecurringTaskMedia} from './mediaPolicy.js';
 import { collectOrdinaryAppSnapshot, ordinaryAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
@@ -757,6 +757,7 @@ export class FamilyDB {
     if(canonicalTaskPolicyActive()){
       taskPayloadObject(taskData);
       const db=this.readRaw(),actor=taskActor(db,userId);
+      if(taskData.tags!==undefined)canonicalLegacyTaskTags(taskData.tags,actor);
       if(taskData.id){const task=db.tasks.find(row=>row.id===taskData.id);if(!task)throw new AppStoreError("Không tìm thấy công việc",404);requireTaskEdit(task,actor);}
       else requireTaskEdit(undefined,actor);
     }
@@ -768,6 +769,7 @@ export class FamilyDB {
     const db = this.readRaw();
     const nowStr = new Date().toISOString();
     const actor = taskActor(db,userId);
+    if(taskData.tags!==undefined)taskData.tags=canonicalLegacyTaskTags(taskData.tags,actor,true);
     if(baseUpdatedAt!==undefined&&(typeof baseUpdatedAt!=='string'||baseUpdatedAt.length>64))throw new AppStoreError('Phiên bản sửa không hợp lệ.',400);
 
     if (taskData.id) {

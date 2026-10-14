@@ -402,6 +402,7 @@
     "errNameRequired": "请输入任务名称！",
     "errSaveCreate": "创建任务失败",
     "errSaveEdit": "更新任务失败",
+    "errTagAmbiguous": "这些标签名称相同。请保留或移除整组同名标签。",
     "confirmDeleteTitle": "删除任务？",
     "confirmDeleteMsg": "此任务将从家庭任务列表中永久删除。确定要继续吗？",
     "confirmDeleteBtn": "删除任务",

@@ -41,13 +41,14 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  for(const row of tables.productivity_list_grants){if(!lists.has(row.list_id))fail();text(row.user_id,256);choice(row.permission,['read','write','manage']);}
  for(const row of tables.productivity_matrix_pins){if(!tasks.has(row.task_id))fail();text(row.view_id,256);choice(row.quadrant,['q1','q2','q3','q4']);}
  for(const row of tables.productivity_occurrences){if(!tasks.has(row.task_id))fail();text(row.id,256);text(row.series_id,256);text(row.occurrence_key,256);integer(row.ordinal);JSON.parse(row.payload_json);}
- if(snapshot.manifest.domains.productivity===2){
+ if(snapshot.manifest.domains.productivity>=2){
   assertTaskTree(tables.productivity_tasks.map(edge));
   if(!tables.productivity_catalog_revisions||!tables.productivity_check_items)fail();
   for(const row of tables.productivity_catalog_revisions){choice(row.entity_kind,['list','section','tag']);text(row.entity_id,256);integer(row.revision,1);if(row.archived_at!==null){text(row.archived_at,30);utcInstant(row.archived_at);}if(!(row.entity_kind==='list'?lists.has(row.entity_id):row.entity_kind==='section'?sections.has(row.entity_id):tags.has(row.entity_id)))fail();}
   const ranks=new Set<string>();
   for(const row of tables.productivity_check_items){text(row.id,256);text(row.text,2000);integer(row.rank);if(!tasks.has(row.task_id)||![0,1].includes(row.is_done))fail();const key=JSON.stringify([row.task_id,row.rank]);if(ranks.has(key))fail();ranks.add(key);}
  }
+ if(snapshot.manifest.domains.productivity>=3){if(!tables.productivity_tag_owners)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));for(const row of tables.productivity_tag_owners){text(row.tag_id,256);text(row.user_id,256);if(!tags.has(row.tag_id)||!users.has(row.user_id))fail();}}
  if(marker==='1'){
   const order=(a:string,b:string)=>Buffer.compare(Buffer.from(a,'utf8'),Buffer.from(b,'utf8'));
   const projected=[...tasks.values()].filter(row=>row.deleted_at===null).sort((a,b)=>a.rank-b.rank||order(a.id,b.id)).map(row=>projectLegacyTask(decodeTaskRow(row,(tagRows.get(row.id)??[]).sort(order))));

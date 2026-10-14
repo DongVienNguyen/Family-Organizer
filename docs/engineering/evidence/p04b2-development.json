@@ -1,0 +1,277 @@
+{
+  "taskId": "P04-b2",
+  "baseSha": "b0e77c78d9c662f317f4a567221784c3fc2d438a",
+  "scope": "Explicit ownership3/tag role and authorized label compatibility; shared drawer/cache/keyboard/phone/realcanonicalDOM acceptance remains P04-b3",
+  "causalReds": {
+    "p04b2-tag-red": {
+      "tests": 5,
+      "failed": 5
+    },
+    "p04b2-label-collected-red": {
+      "tests": 5,
+      "failed": 5
+    },
+    "p04b2-legacy-hook-red": {
+      "tests": 7,
+      "failed": 2
+    },
+    "p04b2-package-bounds-red": {
+      "tests": 100,
+      "failed": 2
+    },
+    "p04b2-consumer-proof-red": {
+      "tests": 60,
+      "failed": 1
+    },
+    "p04b2-required-all-red": {
+      "tests": 203,
+      "failed": 3
+    }
+  },
+  "notCausalCharacterizations": [
+    "Old missing import:0collected, retained before actual5collected RED",
+    "v2 to v3 ownership inference and future4 refusal initially characterization",
+    "Role downgrade and forged semantic owner references added after primary ownership implementation"
+  ],
+  "fixtureCorrections": [
+    "New userFK cascade erasedowners duringdocument usersrestore; newunmerged3 userreference semantic, tagFK retained",
+    "Future4 syntheticcorruption must use rawsameownedconnection because activegateway correctlyrollsback unsupportednamespaceversion",
+    "Malformedownersnapshot checksumrecomputed andownedrow replaced to prove semanticref ratherthan checksum/duplicatePK",
+    "Historical structure2 tests pinregistry<=2 preserving acceptedassertions/checksum1/2",
+    "PackageRED100/2not1, corrected bookkeeping; oldfuture3 negative now4",
+    "Missinggatefirst203/2removal leftlastutilitystring; final203/3actualRED retained",
+    "InitiallymisplacedDashboardcatalog prop causedTSC error, corrected toTasks",
+    "Firstfull3139/161/3fail: unchangedlegacy mock tasks lacktags; readonlylabel projection now [] foroptionalundefined, writevalidationunchanged"
+  ],
+  "supersededFullCloud": {
+    "report": "p04b2-full.json",
+    "tests": 3139,
+    "files": 161,
+    "failed": 3
+  },
+  "fullGreen": {
+    "tests": 3139,
+    "files": 161,
+    "junitCases": 3139,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 1
+  },
+  "httpTagTarget": {
+    "tests": 50,
+    "files": 4,
+    "failed": 0
+  },
+  "packageGateTarget": {
+    "tests": 365,
+    "files": 4,
+    "failed": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": 11,
+    "storageCreated": false,
+    "exit": 0
+  },
+  "compiledCloud": {
+    "scope": "Cloud Linux source-development check, not exact Windows acceptance",
+    "completed": true,
+    "fixtureCommitSha": "b0e77c78d9c662f317f4a567221784c3fc2d438a",
+    "taskIds": [
+      "canonical-parent",
+      "canonical-task"
+    ],
+    "rawTaskRows": 0,
+    "revision": 2,
+    "semanticCommands": {
+      "httpEnabled": true,
+      "noneCreated": true,
+      "legacyFullFormPreserved": true,
+      "staleRevisionRefused": true,
+      "forgedFieldsRefused": true,
+      "restartPreserved": true
+    },
+    "structureCommands": {
+      "httpEnabled": true,
+      "catalogRetry": true,
+      "checklistProgress": true,
+      "treeSectionMove": true,
+      "archiveRetry": true,
+      "staleRefused": true,
+      "invalidRefused": true,
+      "v1Refused": true
+    },
+    "structureStorage": {
+      "version": 3,
+      "checklistPreserved": true,
+      "catalogPreserved": true,
+      "tagOwnershipPreserved": true,
+      "v1StartupWithoutUpgrade": true,
+      "v2StartupWithoutUpgrade": true
+    },
+    "malformedCurrentTaskRepaired": true,
+    "sparseCoreRefusal": {
+      "exitCode": 1,
+      "databaseBytesPreserved": true,
+      "nativeHandlesClosed": true,
+      "journal": "delete",
+      "tableCount": 2
+    },
+    "snapshotChecksum": "4afb27bdfea9423a94d8fe3518f461bf58e98567ba547ffba750e94c69e1fd4d",
+    "encryptedSha256": "870ca8449b80ab6c28c745ce4c48d683c4f52696046c2a56ecd1bf746c873174",
+    "refusalCases": [
+      {
+        "kind": "changed-checksum",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "future-version",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "unknown-namespace",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      }
+    ],
+    "networkAttempts": [],
+    "nativeHandlesClosed": true
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "7bc13086b7797a8b11dda5d19ee3986be3264872a16703ee840c0c8e7c7fbc04",
+    "scripts/ci/write-productivity-fixture.ts": "b15a787d26c0c9c5addc13b6f465c87a0149004f2642e7a0c16b7326cce5a7a8",
+    "scripts/windows/package-contract.mjs": "8049a2055951ac85f19516bcb7935c18835bf4fc831195f4ea48bdf1ebb5c42b",
+    "scripts/windows/probe-productivity-package.mjs": "1fa29f2331b93315f2aa7368b188880628aa98a2cb22e1b18d7fcde53caa563b",
+    "scripts/windows/release-consumer-reports.mjs": "1a2277744ea0d6dc47c7c6c2eeb4babf26b8f53bc986ba51c059376f304de9d7",
+    "scripts/windows/release-manifest.schema.json": "9f612d1ed7144d80fc7e657774a83dc5ec216415abed295d450e92c576541daa",
+    "scripts/windows/write-manifest.mjs": "b87c96836e3bfb0b50c418ef86440ef26715bb70711313173489768306f72913",
+    "server/app.ts": "447af1005bcc46edb52de3d203d964ac7e4caf8a5d313dfbf929a731e40c03cf",
+    "server/db.ts": "1700eaa2b1d20438ba4a9a1f4c7b16ef670ca9f68191f194ad2cee0e6e3f039b",
+    "server/legacyVisibility.ts": "4213fa4b31155c12cef9d10796c0e445876cfc29d54cd19512d5d9398d55da44",
+    "server/productivity/activation.test.ts": "8713babd0e288c392407c14612ed80d2ff1cf6b1da12e5ad7f7f162857235cff",
+    "server/productivity/adapter.ts": "4f83cdefae002a0d36b3706097ad4015b349c576c44efb85d82f12bfe094a02b",
+    "server/productivity/inspection.ts": "bea1f07b582f953b947b0ac90043690b5ae9d149e9aa2d9a5d797075843fcd46",
+    "server/productivity/migrate.ts": "3332b28dbeaa8c81ef4ea335bbfd65e17c5042dd975effd27dd1a76c27db367b",
+    "server/productivity/migration.test.ts": "269776cf3ea0f09a7b89d12b5c62e10ca24c42763457dd2355e2dd6b9959208f",
+    "server/productivity/snapshot.ts": "3d37fb8851726a3b106d7e873f2b06601c0326b04f8e70653229f270ee3715a7",
+    "server/productivity/store.ts": "834e31ed88bd63f1816e83a6d5374e0b1706134ffc824cceeb41859707012b3d",
+    "server/productivity/structure-schema.test.ts": "ecebd452b189fee2377ec2033e869f0d82cca0f2411234dde90546153456209d",
+    "server/productivity/structure-upgrade.test.ts": "92b545f4bba9676f48204471b2e7e70ef2a16d22ce06f91ca4d55a9eb00f0df9",
+    "server/productivity/structure.api.test.ts": "5d736d8b2d68d8b44a8ee135f2619d371140ea063502d0beb0b03bafec33780e",
+    "server/productivity/structure.ts": "074ed29eda17361a7e38c2edcd00674eea58cda55dbee611030c11e92a4837b4",
+    "server/productivity/structureEvents.ts": "26e2833e2ee35c516eed838c5d11e0c5b60a0e61d89ac3e5059a7eb51f9253e4",
+    "server/productivity/structureInvariant.ts": "6b00f413bc837d97479f6cf3b0b4edab841b2c214b9242568f9bd4ec9f6f2cb6",
+    "server/productivity/structureSchema.ts": "bf59de2cf137717eb8f08a3ca07e1f43eeb7d2e64201759a2e8f6d92a11357d3",
+    "server/productivity/tag-ownership.test.ts": "32bd925c08512bb08b8dadd53249f83091fb8bd649f4c331eeb6351988191174",
+    "server/productivity/tag-upgrade.test.ts": "605c95a4b933e8cf193719978cad17d5b054e6ee22eaf4b2f5f93c82b16982fb",
+    "server/productivity/tagPolicy.ts": "db0d173d8b3292b94e78b1193c6c1e2046a37bcaae4b34f33f958a0ea8229db0",
+    "server/productivity/tagSchema.ts": "e5de341639f107345e6d91cf7a1f52337f88b4ad529a8b73842d5237d130b99c",
+    "server/productivity/tasks.ts": "a00edc82d9fec5d29ed4dd38409440af18abc06a355395a9e56f891e6cc99da0",
+    "src/App.tsx": "df103a227ce078be3677af601a4bc76897ee77554d925df1e97cc3bb0721eb85",
+    "src/components/Tasks.tsx": "19e87e9657bcccc38b00b5c958e2d876a04e23f333f7b49db200eef528577cc3",
+    "src/i18n/locales/en.json": "ffb9dc3b77fb88e8b7bf5937711bd371b312b87100f40b6baa1951fcdcf43d87",
+    "src/i18n/locales/vi.json": "7eebee8581ad6a50634222386ee1ca2709abd3f1f86fd364539b427f75edf099",
+    "src/i18n/locales/zh.json": "b595d27fa67f8ec083f0e46a36b470c059280330bc40a78573442b0b8b156606",
+    "src/utils/taskTagLabels.test.ts": "e14aedd88ae07e9dd8578ef700db8db52623511add298230bdc87c3cd79091e2",
+    "src/utils/taskTagLabels.ts": "629b45b2a792b68df4ee3ede769f6d48cf879ae3f80e643568d2262df39bbed3",
+    "tests/evidence.test.ts": "84f34ad84c3182eb444c8a101b217722591beb3440281514c59c84b3fc28d283",
+    "tests/helpers/release-consumer-fixture.ts": "cf6ef4aa13439531259d393e85499c9d57b693cb4a2c36eb0ff45f0e15d887a4",
+    "tests/helpers/release-inner-fixture.ts": "5e794a7523ed5f3862b29c64f98b2eab1ad378c1aa6380c413c6c0d8e1914efa",
+    "tests/release-consumer-reports.test.ts": "eaf107fa398c00e97196824e582f47dca2363119fb1c81e235192c2c36ded149",
+    "tests/release-package-reports.test.ts": "b6ec6d8e61aa626497a8614a4f3371ee5a6633ab623aa89dd15c0e7f5cccd967",
+    "tests/runtime-ownership.test.ts": "8baa0b006f31182a5ce391b3ae67d201727bf931aa360be1244c07d48aa2d6df",
+    "tests/windows-package.test.ts": "d5cf1dcd09fed6e33a34a2a3e8793822f77f47fb7f92d1f2f574ff24d4e90645"
+  },
+  "reportHashes": {
+    "p04b2-package-gate-green.log": "02dfb3ee76381fc3945d31749516c8b14f326df4337dad36a666d826a034848d",
+    "p04b2-required-all-red.json": "d51b83260f605ad67eba878fb794ae57deae4fc94b50beda7b781f94e8a862ed",
+    "p04b2-full-current.log": "8825d99b87b327b4bda751382951b43dc15b4f2a12e389889af31a031174473c",
+    "p04b2-package-bounds-red.log": "f95cdcfd3c4da2440dcbadb01b956deb1831d1b8bacd77bdbb88b230ae9b8baf",
+    "p04b2-http-tag-green.json": "20c621d4eefc03a7c489c6b149a4cfbced79d78fbfe4d5cddc7cc1f5a880095d",
+    "p04b2-legacy-hook-red.log": "e4d0bd070af7051454cf084f4e3db90386253b139a53a636fe659c1f6956d999",
+    "p04b2-full-current.xml": "d8bb6966238e5f8e20ca769aaaf1a64dbd0c99c397a9158b82da27ff1e37a93b",
+    "p04b2-upgrade-label-green.log": "7d7785e4e0319b7baa96fe1f40cffb1fd2442e7e6d116fe34dce3846ef23e5c3",
+    "p04b2-legacy-hook-red.json": "f08b8861a9b17bfc28ff9659d96cb3dcd3f17f66658166301ef2f8dff7196145",
+    "p04b2-tag-first-green.log": "2448af96b6cba437cef6f916b038b96914295d81951adb619db73ccb6e497558",
+    "p04b2-build-current.log": "641581052b06aab26e40123d261d0f87988808a8689c0274298b39515e9a8970",
+    "p04b2-productivity-first.json": "d4c3848eee7d634087639d84107d12809f5483c604537c04a7a5db2bd112ad9d",
+    "p04b2-adapter-wired.ts": "4f83cdefae002a0d36b3706097ad4015b349c576c44efb85d82f12bfe094a02b",
+    "p04b2-required-suite-red.log": "aa348c0bcbc4d9c416cc3733693a23a6d51e2cb09569c1a5f77ec2541c6ff24f",
+    "p04b2-package-bounds-red.json": "1d7e1303fa914d9cb6b82f9e4bf54e349562517125ab957f8071b9704a168ee6",
+    "p04b2-full.log": "8dd10f560353702900f03b41c5b4069afb134b6b1d540c1fee47c5d842d0c324",
+    "p04b2-search-regression-green.json": "d385931274bd7440ac3f975f8bca666c3c9b91c46d300591d084fd7b033c4255",
+    "p04b2-required-suite-red.json": "31ffbe14f83adb59338f559f4e5c36032a85ab075fc8e0d8b4c3b4ee9bf449cb",
+    "p04b2-tag-green.log": "d55e81543173aea271ab12dba12ce42516d33054456629b6b2da300019746e9f",
+    "p04b2-label-tag-green.log": "3e38273055dde098aafae7f7d4441049dc4c96f57edf0f9236ff88ba76951a57",
+    "p04b2-label-policy-green.log": "94bb931cd45becc91598dc56e913b899755cfeec10fdb92c077df8c786fbc161",
+    "p04b2-consumer-proof-red.log": "7ccb658c6fd578679fe0a3204f1ce4f136375e12fb52ac39c87eecae0bb2ad8f",
+    "p04b2-role-label-green.json": "7251d4ddbcc34d8b46732aa3ed15532fbdebc32f849b0a35feb87b2ebb89a28b",
+    "p04b2-role-label-green.log": "c2661a33aae394905849a29cbb12de9ee501f9f1eb03148b9869e35c466c1967",
+    "p04b2-required-all-red.log": "dc5d91e2fcc323e4fa096082d12b58c8ab1390aeb1cb6ac6fb26d64a75179750",
+    "p04b2-tag-first-green.json": "52f81c84b60cc9cb013f3689dc0d3bf5489882d8037bffbd3f1499f9d003f090",
+    "p04b2-tag-green.json": "3d06f59108e5b8d3454ebbac2a4df42cef122505ed5cf92b38441a4bf6d4f951",
+    "p04b2-evidence-wired-final.mjs": "7bc13086b7797a8b11dda5d19ee3986be3264872a16703ee840c0c8e7c7fbc04",
+    "p04b2-label-collected-red.json": "63e98aa97d18675bbcc4cb0ed06e3b863dc86b19adb073512daf94757d2f1277",
+    "p04b2-label-red.log": "cff953211a7e7f6e0e4285ae1da802083b9c855b194c38b5f095439e0bb68665",
+    "p04b2-upgrade-label-green.json": "535c8faf7ee3625a066d9efc5b5c57e237db77243ebe62b23bba87565c86d861",
+    "p04b2-label-policy-green.json": "d412ab6bc0c77686841720b15a54a7cd0bb4a94e7180a69471fe5c1986e03136",
+    "p04b2-package-gate-green.json": "911f82f8e1ccdb14a235daefafd6d874793b276b3d62fc6dab3f22024379e448",
+    "p04b2-lint-labels.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04b2-lint-ui.log": "ce52216d8af092648f0982c5452bf5171a5e0b441e854fe6a55dcad89168cfa3",
+    "p04b2-lint-package.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04b2-http-tag-green.log": "cf83955bb1cffc5c9b1e34f3b285454d5698aed542e1681f6f1c020f8d413dc9",
+    "p04b2-full.json": "e05051e4dd8298e735b7de9081e4c7d0a0cdf1e4037411465cc435183da498d3",
+    "p04b2-productivity-first.log": "a14d787e14a675dd6d54351c99dfdcc32cbcb6f6972760159d446381a66d4a85",
+    "p04b2-lint-initial.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04b2-tag-red.log": "a9ddee5bccc04b802705d217e3fca0edb945b3d1dc81ead6378a74137af2fe0f",
+    "p04b2-legacy-tag-check.log": "859bbf91c3d12c1e03c5b22cb39fec187b5b831725d468f1422f44c372b80aa7",
+    "p04b2-build.log": "c5b563c6c3511c16442beb8e23255b1f4e6dc9b1193214789e1c8f5a4acb1f66",
+    "p04b2-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04b2-bounds-upgrade-green.log": "7729ba06a11668303f034e4c141f9a9b358bd9b8325ca8fa35ab9aa0d20ca109",
+    "p04b2-full.xml": "98b21c00841603c752f0dd553336684fdb13ac6c2a12147da2cfc1a227c69f87",
+    "p04b2-legacy-tag-check.json": "cf6ff6f862eccb4cde62863ab93280434121ce1fe0c0080f203d7001f40cf748",
+    "p04b2-bounds-upgrade-green.json": "c955b1997af47f186ffd0201e152760019239c27302e7d721afdc360a158acde",
+    "p04b2-full-current.json": "8746790d4c97eb486d5a880933559812958c53221b66d1c1c8cefc2c0d770f85",
+    "p04b2-lint-current.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p04b2-tag-red.json": "ea8bb5ae1646cdc21f2bc30d93474c41630bf7fde8f6d66751c1c28a7d49edf2",
+    "p04b2-label-tag-green.json": "d4324ff83c2ec8ab4f8fa329fe76873df706855453986e4530df49d1ba5daa8e",
+    "p04b2-consumer-proof-red.json": "91c2378e29c10482bbbf1bb20e4ca0a555f5932133741c349c4466472c260b04",
+    "p04b2-label-collected-red.log": "f01dcb8acedfad5310191bb283e8a6b62ef85de7ef898f1a6e118520c19c2a58",
+    "p04b2-evidence-wired.mjs": "7bc13086b7797a8b11dda5d19ee3986be3264872a16703ee840c0c8e7c7fbc04",
+    "p04b2-search-regression-green.log": "ef53f065fc9d92d14c222c82393f8c37ba16478ded85daf00c6c417779c144a6",
+    "p04b2-label-red.json": "1ed2442e1a9d80a4c7854814f2409b34923123be2e28a308ccae5f311a14d31c",
+    "p04b2-cloud/cold.mjs": "f16c891aba3cf8741ee50f479e7f0a1129f30624d2fcbbbc13bfdec7b21024ed",
+    "p04b2-cloud/cold-import.json": "9cfa640499ad061d5d0805f4973c956d9910924c83b05df0fd88c3065df66867",
+    "p04b2-cloud/compiled-driver.mjs": "6ec42597ead6f0269fe064748fb31a365b3f54b2e1f21a009486da5a3f4bc916",
+    "p04b2-cloud/compiled-current.log": "882182909a3b8edf35b2e4b1c7447473a68b72e4c57939d705bcddc75aa33e33",
+    "p04b2-cloud/compiled-green.log": "e88b4c8c2432c066bc703888732178e729fd5db46b599b249be3828deb92f98e",
+    "p04b2-cloud/compiled-old-red.log": "b1a56007107a6792d2e9fc53d9cd2d658e18df82902b1ececa9caff78a58d731",
+    "p04b2-cloud/compiled-first-report.json": "bc3a875983d7465470a1b6508375b2dc2f9d11ff0a018128815a345950555ebe",
+    "p04b2-cloud/cold.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p04b2-cloud/compiled-report.json": "f3e11c3c386dd7f144801b3cfdac5cc54c5589ee0dd0ced2fc31ee861401d185",
+    "p04b2-cloud/fixture.json": "4320039ea3b05232770ac8e412853d28c95b3a36080ea312da7b8ce4de608773",
+    "p04b2-cloud/harness/block-network.cjs": "25d7df0ffe31a14d85a3f75fcc218e425400f5ecd35082630485840ab056cc56",
+    "p04b2-cloud/harness/probe-productivity-package.mjs": "1fa29f2331b93315f2aa7368b188880628aa98a2cb22e1b18d7fcde53caa563b"
+  },
+  "windowsAcceptance": "pending",
+  "review": "pending ONE whole-branch review",
+  "fullP04Accepted": false,
+  "canonicalDomKeyboardPhoneAccepted": false,
+  "defaultActivationEnabled": false,
+  "dependencyChange": false,
+  "releaseOrVpsActions": false,
+  "frozenMigrationChecksums": {
+    "1": "8f978329c9628a1c54b25a456a34c46d74c868397f78b9592ef2c026e95a9f90",
+    "2": "c8f354941f720cd1e7b973ee422180b4c1e7488d4ac23f4c900460474bce1ed3"
+  }
+}

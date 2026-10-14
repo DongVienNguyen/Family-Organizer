@@ -17,19 +17,20 @@ import * as snapshot from '../appSnapshot.js';
 import {UserRole} from '../../src/types.js';
 import {legacyTask} from '../../tests/fixtures/productivity.js';
 import {configureCanonicalTaskBridge} from './adapter.js';
-import {productivityMigrationChecksum} from './migrate.js';
+import {productivityMigrationChecksum,productivityStructureChecksum} from './migrate.js';
 import {inspectProductivityStorage} from './inspection.js';
 const command=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:test',command:'productivity:structure-schema-fixture',requestId:randomUUID(),payloadHash:'synthetic'},fn);
 let initialized=false;
 function setup(){
  if(initialized)return;
  command(tx=>{tx.legacy.users=[{id:'synthetic-admin',username:'synthetic-admin',fullName:'Synthetic admin',role:UserRole.ADMIN,passwordHash:'synthetic-offline',avatarColor:'blue',createdAt:'2026-10-10T00:00:00Z'}];tx.legacy.tasks=[legacyTask('synthetic-structure-task',{creatorId:'synthetic-admin',assigneeId:'synthetic-admin',rotationMemberIds:[],sourceRecurringTaskId:null})];});
- configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});initialized=true;
+ configureCanonicalTaskBridge({sqlite,gateway,migrations:{...migrations,registerDomainMigration:(namespace,version,apply,checksum)=>{if(version<=2)migrations.registerDomainMigration(namespace,version,apply,checksum);}},snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});initialized=true;
 }
 const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args),all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)};
 it('adds explicit structure migration2 while retaining immutable migration1 identity',()=>{
  setup();expect(reader.all("SELECT version FROM app_migrations WHERE namespace='productivity' ORDER BY version")).toEqual([{version:1},{version:2}]);
  expect(productivityMigrationChecksum).toBe('8f978329c9628a1c54b25a456a34c46d74c868397f78b9592ef2c026e95a9f90');
+ expect(productivityStructureChecksum).toBe('c8f354941f720cd1e7b973ee422180b4c1e7488d4ac23f4c900460474bce1ed3');
  expect(reader.all("SELECT name FROM sqlite_master WHERE name IN('productivity_catalog_revisions','productivity_check_items') ORDER BY name")).toEqual([{name:'productivity_catalog_revisions'},{name:'productivity_check_items'}]);
  const before=reader.all("SELECT * FROM app_migrations WHERE namespace='productivity'");migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});expect(reader.all("SELECT * FROM app_migrations WHERE namespace='productivity'")).toEqual(before);expect(inspectProductivityStorage(reader)).toBe(true);
 });

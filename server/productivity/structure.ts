@@ -1,3 +1,4 @@
+import {hasTagOwnership} from './tagPolicy.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {AppActor,AppCommand} from '../../src/features/productivity/contracts.js';
 import {UserRole} from '../../src/types.js';
@@ -14,7 +15,7 @@ export interface CheckItemInput {id?:string;text:string;done:boolean}
 const error=(status:number)=>new AppStoreError(status===404?'Không tìm thấy mục.':status===403?'Bạn không có quyền tổ chức mục này.':status===409?'Mục vừa được thay đổi.':'Cấu trúc công việc không hợp lệ.',status,status===409?'edit-conflict':'task-structure');
 function payload(input:unknown,allowed:string[]):Record<string,any>{try{const value=object(input);if(![Object.prototype,null].includes(Object.getPrototypeOf(value)))throw Error();keys(value,allowed);return value;}catch{throw error(400);}}
 function value(fn:()=>void):void{try{fn();}catch{throw error(422);}}
-function context(ctx:AppCommand,reader:TaskReader){const user=assertContext(ctx,reader);if(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version!==2)throw new AppStoreError('Cần migration cấu trúc trước khi tổ chức công việc.',409,'task-structure-inactive');return user;}
+function context(ctx:AppCommand,reader:TaskReader){const user=assertContext(ctx,reader);if(![2,3].includes(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Cần migration cấu trúc trước khi tổ chức công việc.',409,'task-structure-inactive');return user;}
 function metadata(reader:TaskReader,kind:string,id:string){return reader.get('SELECT revision,archived_at FROM productivity_catalog_revisions WHERE entity_kind=? AND entity_id=?',kind,id)??{revision:1,archived_at:null};}
 function setMetadata(tx:AppWriteTx,kind:string,id:string,revision:number,archivedAt:string|null=null){tx.run('INSERT INTO productivity_catalog_revisions VALUES(?,?,?,?) ON CONFLICT(entity_kind,entity_id) DO UPDATE SET revision=excluded.revision,archived_at=excluded.archived_at',kind,id,revision,archivedAt);}
 function list(reader:TaskReader,actor:AppActor,id:string,operation:'read'|'write'|'manage'):TaskList {
@@ -54,7 +55,7 @@ export function createStructureCommands(ports:{write:typeof withAppWriteTransact
   saveTag(ctx:AppCommand,input:{id?:string;name:string}):TaskTag {
    const data=payload(input,['id','name']);value(()=>{text(data.name,256);if(data.id!==undefined)text(data.id,256);});
    return run(ctx,'tag',input,()=>{canCatalogCreate(ctx.actor);if(input.id&&ctx.actor.role!==UserRole.ADMIN)throw error(403);},tx=>{
-    const old=input.id?tx.get('SELECT * FROM productivity_tags WHERE id=?',input.id):undefined;if(input.id&&!old)throw error(404);const meta=old?metadata(tx,'tag',old.id):undefined;revision(meta?.revision??0,ctx.expectedRevision);const id=old?.id??randomUUID();tx.run('INSERT INTO productivity_tags VALUES(?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name',id,input.name);setMetadata(tx,'tag',id,(meta?.revision??0)+1);return {id,name:input.name,revision:(meta?.revision??0)+1,archivedAt:null};
+    const old=input.id?tx.get('SELECT * FROM productivity_tags WHERE id=?',input.id):undefined;if(input.id&&!old)throw error(404);const meta=old?metadata(tx,'tag',old.id):undefined;revision(meta?.revision??0,ctx.expectedRevision);const id=old?.id??randomUUID();tx.run('INSERT INTO productivity_tags VALUES(?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name',id,input.name);setMetadata(tx,'tag',id,(meta?.revision??0)+1);if(!old&&hasTagOwnership(tx))tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)',id,ctx.actor.userId);return {id,name:input.name,revision:(meta?.revision??0)+1,archivedAt:null};
    });
   },
   setListGrant(ctx:AppCommand,id:string,input:{userId:string;permission:'read'|'write'|'manage'|null}):TaskList {
@@ -99,8 +100,8 @@ export function createStructureCommands(ports:{write:typeof withAppWriteTransact
    const listSql="SELECT l.id FROM productivity_lists l LEFT JOIN productivity_catalog_revisions m ON m.entity_kind='list' AND m.entity_id=l.id WHERE m.archived_at IS NULL AND "+visible.sql;
    const lists=ports.reader.all(listSql+' ORDER BY l.title,l.id',...visible.args).map(row=>list(ports.reader,actor,row.id,'read'));
    const sections=ports.reader.all("SELECT s.id FROM productivity_sections s LEFT JOIN productivity_catalog_revisions m ON m.entity_kind='section' AND m.entity_id=s.id WHERE m.archived_at IS NULL AND s.list_id IN("+listSql+') ORDER BY s.title,s.id',...visible.args).map(row=>section(ports.reader,actor,row.id));
-   const filter=taskScope(actor),tagSql=actor.role===UserRole.ADMIN?'SELECT id,name FROM productivity_tags ORDER BY name,id':"SELECT tag.id,tag.name FROM productivity_tags tag WHERE EXISTS(SELECT 1 FROM productivity_task_tags tt JOIN productivity_tasks t ON t.id=tt.task_id WHERE tt.tag_id=tag.id AND ("+filter.sql+')) ORDER BY tag.name,tag.id';
-   const tags:TaskTag[]=ports.reader.all(tagSql,...(actor.role===UserRole.ADMIN?[]:filter.args)).map(row=>({id:row.id,name:row.name,revision:metadata(ports.reader,'tag',row.id).revision,archivedAt:metadata(ports.reader,'tag',row.id).archived_at}));return {lists,sections,tags};
+   const filter=taskScope(actor),owned=hasTagOwnership(ports.reader)&&actor.role===UserRole.MEMBER,tagSql=actor.role===UserRole.ADMIN?'SELECT id,name FROM productivity_tags ORDER BY name,id':"SELECT tag.id,tag.name FROM productivity_tags tag WHERE "+(owned?"EXISTS(SELECT 1 FROM productivity_tag_owners o WHERE o.tag_id=tag.id AND o.user_id=?) OR ":'')+"EXISTS(SELECT 1 FROM productivity_task_tags tt JOIN productivity_tasks t ON t.id=tt.task_id WHERE tt.tag_id=tag.id AND ("+filter.sql+')) ORDER BY tag.name,tag.id';
+   const tags:TaskTag[]=ports.reader.all(tagSql,...(actor.role===UserRole.ADMIN?[]:[...(owned?[actor.userId]:[]),...filter.args])).map(row=>({id:row.id,name:row.name,revision:metadata(ports.reader,'tag',row.id).revision,archivedAt:metadata(ports.reader,'tag',row.id).archived_at}));return {lists,sections,tags};
   },
   listRootTasks(actor:AppActor){readContext(actor);const items=createTaskAccess(ports.reader).listTasks(actor,{rootsOnly:true});return {items,totalUnique:items.length};},
  };

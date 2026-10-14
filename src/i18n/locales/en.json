@@ -402,6 +402,7 @@
     "errNameRequired": "Please enter a task name!",
     "errSaveCreate": "Failed to create task",
     "errSaveEdit": "Failed to update task",
+    "errTagAmbiguous": "These tags share a name. Keep or remove the group of matching tags.",
     "confirmDeleteTitle": "Delete task?",
     "confirmDeleteMsg": "This task will be permanently removed from the family list. Are you sure?",
     "confirmDeleteBtn": "Delete task",
