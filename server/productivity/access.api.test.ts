@@ -157,3 +157,41 @@ it('returns400 for malformed task JSON without logging private payload/proof byt
  expect(result.status).toBe(400);expect(result.text).not.toContain('synthetic-P03-private-proof');expect(JSON.stringify(logging.mock.calls)).not.toContain('synthetic-P03-private-proof');}
  finally{logging.mockRestore();}
 }));
+
+it.each(['approve','reject','save','comment'])('revoked permission prevents cached legacy %s results without repeating effects',operation=>fixture(async({send,id}:any)=>{
+ db.setAppSetting('rewardApprovalThreshold','0');
+ if(operation==='approve'||operation==='reject'){
+  const submitted=await send('/api/tasks','other-child',{id,status:'completed',proofNote:'Synthetic cache private proof'});expect(submitted.status).toBe(200);expect(submitted.body.task.pendingApproval).toBe(true);
+ }
+ const route=operation==='save'?'/api/tasks':'/api/tasks/'+id+(operation==='comment'?'/comments':'/'+operation),payload=operation==='save'?{id,title:'Synthetic legacy cache edit'}:operation==='comment'?{content:'Synthetic reader discussion'}:operation==='reject'?{reason:'Synthetic retry rejection'}:{};
+ const requestId=randomUUID(),first=await send(route,UserRole.MEMBER,payload,'POST',requestId);expect(first.status).toBe(200);
+ expect((await send(route,UserRole.MEMBER,payload,'POST',requestId)).body).toEqual(first.body);
+ const stored=JSON.stringify(db.FamilyDB.getTasks().find(task=>task.id===id)),rewards=JSON.stringify(db.FamilyDB.getRewardLedger());
+ command(tx=>tx.run('DELETE FROM productivity_list_grants WHERE user_id=?',UserRole.MEMBER));
+ const replay=await send(route,UserRole.MEMBER,payload,'POST',requestId);expect(replay.status).toBe(404);expect(replay.text).not.toContain(id);expect(replay.text).not.toContain('Synthetic cache private proof');
+ expect(JSON.stringify(db.FamilyDB.getTasks().find(task=>task.id===id))).toBe(stored);expect(JSON.stringify(db.FamilyDB.getRewardLedger())).toBe(rewards);
+},'manage'));
+it.each(['approve','reject'])('active legacy %s masks unknown and private tasks identically',operation=>fixture(async({send,id}:any)=>{
+ const hidden=await send('/api/tasks/'+id+'/'+operation,UserRole.MEMBER,{}),missing=await send('/api/tasks/missing/'+operation,UserRole.MEMBER,{});
+ expect(hidden.status).toBe(404);expect(missing.status).toBe(404);expect(hidden.body).toEqual(missing.body);
+}));
+it('recurring Markdown media survives approval, rotation and retry without allowing foreign copies',()=>fixture(async({send,id,url}:any)=>{
+ db.setAppSetting('rewardApprovalThreshold','0');
+ const uploaded=await send('/api/uploads','other-child',{dataUrl:'data:image/png;base64,'+png.toString('base64'),category:'avatars'});expect(uploaded.status).toBe(200);const image=uploaded.body.url;
+ const created=await send('/api/productivity/tasks','other-child',{expectedRevision:0,input:{listId:'legacy-family',title:'Synthetic recurring image',body:'![Recurring]('+image+')',due:{kind:'all_day',date:'2026-10-14',timezone:'Asia/Ho_Chi_Minh'},assigneeId:'other-child'}});expect(created.status).toBe(200);const source=created.body.task.id;
+ expect((await send('/api/tasks',UserRole.ADMIN,{id:source,recurrenceType:'daily',rotationMemberIds:['other-child',UserRole.CHILD],rewardPoints:7})).status).toBe(200);
+ const submitted=await send('/api/tasks','other-child',{id:source,status:'completed',proofNote:'Synthetic recurring proof'});expect(submitted.status).toBe(200);expect(submitted.body.task.pendingApproval).toBe(true);
+ const requestId=randomUUID(),approved=await send('/api/tasks/'+source+'/approve',UserRole.ADMIN,{},'POST',requestId);expect(approved.status).toBe(200);expect(approved.body.task.status).toBe('completed');
+ const successors=db.FamilyDB.getTasks().filter(task=>task.sourceRecurringTaskId===source);expect(successors).toHaveLength(1);const next=successors[0];
+ expect(next).toMatchObject({status:'todo',description:'![Recurring]('+image+')',assigneeId:UserRole.CHILD,proofImage:null,proofNote:null,pendingApproval:false});expect(next.dueDate).toContain('2026-10-15');
+ expect((await send('/api/tasks/'+source+'/approve',UserRole.ADMIN,{},'POST',requestId)).body).toEqual(approved.body);expect(db.FamilyDB.getTasks().filter(task=>task.sourceRecurringTaskId===source)).toHaveLength(1);
+ expect(db.FamilyDB.getRewardLedger().filter(row=>row.taskId===source).map(row=>row.points)).toEqual([7]);
+ const bindings=command(tx=>JSON.parse(tx.get('SELECT value FROM app_meta WHERE key=?',mediaKey(image)).value).bindings);expect(bindings).toEqual(expect.arrayContaining([{domain:'tasks',id:source},{domain:'tasks',id:next.id}]));expect(bindings).toHaveLength(2);
+ expect((await send(image,UserRole.CHILD)).status).toBe(200);expect((await send(image,UserRole.GUEST)).status).toBe(404);
+ const count=db.FamilyDB.getTasks().length;expect((await send('/api/productivity/tasks',UserRole.CHILD,{expectedRevision:0,input:{listId:'legacy-family',title:'Forbidden copied recurring image',body:'![Copied]('+image+')'}})).status).toBe(403);
+ expect((await send('/api/tasks',UserRole.ADMIN,{id:next.id,description:'![Foreign]('+url+')',sourceRecurringTaskId:id})).status).toBe(403);expect(db.FamilyDB.getTasks()).toHaveLength(count);expect(db.FamilyDB.getTasks().find(task=>task.id===next.id)?.description).toBe(next.description);
+}));
+it('read-grant Member keeps existing semantic comments without generic edit permission',()=>fixture(async({send,id}:any)=>{
+ const commented=await send('/api/tasks/'+id+'/comments',UserRole.MEMBER,{content:'Synthetic read-only discussion'});expect(commented.status).toBe(200);expect(commented.body.task.comments.at(-1)).toMatchObject({userId:UserRole.MEMBER,content:'Synthetic read-only discussion'});
+ expect((await send('/api/tasks',UserRole.MEMBER,{id,title:'Forbidden field edit'})).status).toBe(403);
+},'read'));

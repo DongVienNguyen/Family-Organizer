@@ -1,12 +1,12 @@
 import {fromMarkdown} from 'mdast-util-from-markdown';
 import {gfmFromMarkdown} from 'mdast-util-gfm';
 import {gfm} from 'micromark-extension-gfm';
-import type {FamilyOrganizerDB} from '../src/types.js';
+import type {Task,FamilyOrganizerDB} from '../src/types.js';
 import {UserRole} from '../src/types.js';
 import type {AppWriteTx} from './appStore.js';
 import {AppStoreError} from './appErrors.js';
 import {validMediaPath} from './snapshotFiles.js';
-import {canViewLegacyTask,canViewLegacyNote,canViewLegacyDocument,isAdult,type LegacyActor} from './legacyVisibility.js';
+import {canViewLegacyTask,canEditLegacyTask,canViewLegacyNote,canViewLegacyDocument,isAdult,type LegacyActor} from './legacyVisibility.js';
 export interface MediaBinding {domain:'users'|'tasks'|'notes'|'documents'|'transactions'|'assets'|'debts';id:string}
 export interface MediaMetadata {version:1;ownerId:string|null;createdAt:number;bindings:MediaBinding[]}
 export const mediaKey=(url:string)=>'media:'+url;
@@ -72,13 +72,29 @@ export function reconcileMediaMetadata(tx:AppWriteTx):void {
  const version=tx.get('SELECT value FROM app_meta WHERE key=?','media_version');if(version&&version.value!=='1')throw new Error('Unsupported media version');
  tx.run('INSERT OR REPLACE INTO app_meta VALUES (?,?)','media_version','1');
 }
+const recurringMedia=new WeakMap<AppWriteTx,Map<string,{sourceId:string;urls:Set<string>}>>();
+/** Internal lifecycle capability: only the generated successor inherits the
+ * authorized source's unchanged Markdown. Payload sourceRecurringTaskId cannot
+ * create this permission. Proof images are deliberately not inherited. */
+export function allowRecurringTaskMedia(tx:AppWriteTx,source:Task,successor:Task,actor:LegacyActor):void {
+ if(!canEditLegacyTask(source,actor)||source.status!=='completed'||!source.recurrenceType||source.recurrenceType==='none'||source.description!==successor.description||successor.proofImage||successor.id===source.id||tx.legacy.tasks.some(task=>task.id===successor.id))throw new AppStoreError('Không được gắn tệp này.',403);
+ const permits=recurringMedia.get(tx)??new Map();permits.set(successor.id,{sourceId:source.id,urls:new Set(managedMarkdownUrls(String(source.description??'')))});recurringMedia.set(tx,permits);
+}
 export function bindMediaChanges(tx:AppWriteTx,before:Map<string,MediaBinding[]>,actorId:string):void {
  if(tx.get('SELECT value FROM app_meta WHERE key=?','media_version')?.value!=='1')return;
  for(const [url,bindings] of mediaReferences(tx.legacy)){
   const added=bindings.filter(b=>!(before.get(url)??[]).some(old=>old.domain===b.domain&&old.id===b.id));if(!added.length)continue;
   const stored=tx.get('SELECT value FROM app_meta WHERE key=?',mediaKey(url));if(!stored)throw new AppStoreError('Không được gắn tệp này.',403);
   const metadata=parseMediaMetadata(stored.value);
-  if(metadata.bindings.length){if(added.some(b=>!metadata.bindings.some(old=>old.domain===b.domain&&old.id===b.id)))throw new AppStoreError('Không được gắn tệp này.',403);}
+  if(metadata.bindings.length){
+   for(const binding of added){
+    if(metadata.bindings.some(old=>old.domain===binding.domain&&old.id===binding.id))continue;
+    const permit=binding.domain==='tasks'?recurringMedia.get(tx)?.get(binding.id):undefined;
+    if(!permit?.urls.has(url)||!(before.get(url)??[]).some(old=>old.domain==='tasks'&&old.id===permit.sourceId)||!metadata.bindings.some(old=>old.domain==='tasks'&&old.id===permit.sourceId))throw new AppStoreError('Không được gắn tệp này.',403);
+    metadata.bindings.push(binding);
+   }
+   tx.run('UPDATE app_meta SET value=? WHERE key=?',JSON.stringify(metadata),mediaKey(url));
+  }
   else {
    if(metadata.ownerId!==actorId||Date.now()-metadata.createdAt>=24*60*60*1000||added.length!==1)throw new AppStoreError('Không được gắn tệp này.',403);
    metadata.bindings=added;tx.run('UPDATE app_meta SET value=? WHERE key=?',JSON.stringify(metadata),mediaKey(url));

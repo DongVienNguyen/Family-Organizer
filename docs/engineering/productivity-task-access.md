@@ -9,7 +9,9 @@ provenance. Admin can manage tasks; Member can read shared/own/assigned tasks
 or tasks in lists they own/have a read/write/manage grant for. Editing requires
 ownership/assignment or write/manage permission. Child can read shared/own/assigned
 tasks and edit own/assigned tasks. Guest retains read and existing comment behavior,
-with generic writes forbidden. A read grant never implies write; list grants do
+with generic writes forbidden. A read grant never permits generic field, lifecycle, reward or approval writes.
+Existing semantic comments remain allowed on visible tasks, including for read-grant
+Members and Guest readers; revoked visibility also blocks cached comment results. List grants do
 not widen Child/Guest access.
 
 createTaskCommands({write,reader}) receives trusted ports; importing it opens
@@ -53,7 +55,9 @@ The explicit canonical bridge injects current task read/edit rules into legacy
 task routes, direct detail, comments, media, search, assistant context, notification
 and queued push projections. Legacy approve/reject/delete require edit permission
 as well as adult role; read-only grants cannot approve or reward. Private/missing
-active legacy deletes both return404. Generic completion still belongs to P10,
+active legacy approve, reject and delete all return the same404. Approval/rejection
+and legacy task/comment writes recheck current authorization before cache lookup,
+while retaining authorization inside the transaction. Generic completion still belongs to P10,
 with the current child submission/adult approval behavior retained.
 
 At explicit activation, existing live Members receive a persisted manage grant
@@ -66,7 +70,11 @@ Task/reward SSE invalidations recheck task visibility and contain event types,
 not task IDs/body/proof. Reassignment invalidates prior authorized viewers once
 to clear stale private caches. New task Markdown media references bind through
 the shared transaction/media policy; copied private proof URLs cannot be bound
-to another task. Authenticated managed media remains the delivery path.
+to another task. The trusted existing recurrence lifecycle alone can inherit
+unchanged Markdown bindings into its generated successor after checking source
+edit permission; payload IDs do not confer this capability. Approval, points,
+rotation and retries retain their existing behavior, and proof images are cleared.
+Authenticated managed media remains the delivery path.
 
 Family reward balances retain existing behavior. Hidden canonical task sources
 use an actor-specific HMAC public ledger ID and a safe field whitelist; task ID,
