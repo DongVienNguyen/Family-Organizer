@@ -1,0 +1,235 @@
+{
+  "taskId": "P08-b10",
+  "baseSha": "2d973df74f789eb27b8a1cd941378ee4551bd016",
+  "baseAcceptance": "PR100 exactcccc443/Windows38807765119/all8/TENraw/each4013-223/merge2d973df independentlytestedtreeequal",
+  "scope": "Selectedpriority/assignee/explicitDue preview/apply insideexistingupdateTaskWithinTransaction+internalHTTP/scopedSSE+19thactualZIPprobe; no newwriter/lifecycle/points/tagpersistedformat/UI/activation",
+  "fullGreen": {
+    "tests": 4053,
+    "passed": 4053,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 225
+  },
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 4053,
+      "passed": 4053,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 225
+    },
+    "junitCases": 4053,
+    "maxWorkers": 1,
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "cd8124e5903704f28f728d0f11bdb2eafd6dca5b947c9ec00ec3be877bcc03bc",
+      "scripts/windows/board-package-contract.mjs": "a2f41285d3bb9678bfd49987040859a5051716ac3d7a67cf15fe79af2ffd83ee",
+      "scripts/windows/probe-board-package.mjs": "89a5969f5608d4fd3590c97e70c26ae80991ae6dd3d69f6ca03ef1bd89a0cef6",
+      "server/productivity/boardRouter.ts": "ce5522e2ba1d5e82ed5e8005f28ce0cc5efb769d69e76521761ddba8d2af2476",
+      "server/productivity/grouped-board-moves.api.test.ts": "054c6bc6b3f4f86819594c1463a4b634929aa7943653a7b1185c3593ebe1e9ca",
+      "server/productivity/grouped-board-moves.test.ts": "aa8c3ee6ae8026ea4303532ccc6103204983bb0c4dfa4cd5b3ad277185aba7da",
+      "server/productivity/groupedBoardMoves.ts": "12e9384f086a5d485e9e2adbc62eda0a69c51cb121bf6b8ab7d72312a6930540",
+      "server/productivity/ports.ts": "2392b991b72ecd539b75edb355247ee30bc26e013bbdadef85d0e29a91b90f14",
+      "server/productivity/router.ts": "87f39abba6be8e9f73450ea2b126b40ecd3d5958506db58a6b095f337369c34d",
+      "tests/board-package-evidence.test.ts": "e9fa8950127766a0fe32cbad1d803b1285362d9c2202dd03ef8d20a72f3b8619",
+      "tests/evidence.test.ts": "1efcc887d0aec871591b81812fca2970c1dd774f7feb2f3b4476894a7039c6d6",
+      "tests/helpers/board-package-fixture.ts": "28e95b63f3e45b318b4d108804e573c1bb136de30cd4262147144b875be21bda"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "384c136822857f20f112b371add425d93faaa42d6e90476ee9ac96e7ded2beb5",
+      "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+    },
+    "reports": {
+      "p08b10-full.json": "95ff2635a38c77e09f228cb9913ca1783ceb01414ae2d4b419f09d38a4d4b64b",
+      "p08b10-full.junit.xml": "c397cf648a42e9d5625c198d369851a91d35c1bc4b048a158d8bd94377791c36",
+      "p08b10-full.log": "85ee0d27095018dd3ff35c157531b0d9a35cd35d82ed3a095df356cdd5d079f3",
+      "p08b10-pre-full-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p08b10-build.log": "2b48493c70cbd1fef47a51471a6cec21f66070a3ed2a63123c106a647d90817a"
+    }
+  },
+  "targetGreen": {
+    "tests": 380,
+    "passed": 380,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 4
+  },
+  "identityTargetGreen": {
+    "tests": 28,
+    "passed": 28,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 2
+  },
+  "coldImports": {
+    "modules": 3,
+    "importsSucceeded": true,
+    "storageOpened": false,
+    "filesCreated": 0,
+    "cloudPlatform": "linux",
+    "notWindowsAcceptance": true
+  },
+  "review": {
+    "reviewer": "one completed whole-branch self-review; skill catalogs empty/no delegated reviewer authorization",
+    "baseSha": "2d973df74f789eb27b8a1cd941378ee4551bd016",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "status": "CLOSED; target380/4pass+identity28/2pass;lint0/cold3storage0;full/build/nativepending",
+    "reviewedSourceHashes": {
+      "server/productivity/groupedBoardMoves.ts": "12e9384f086a5d485e9e2adbc62eda0a69c51cb121bf6b8ab7d72312a6930540",
+      "server/productivity/grouped-board-moves.test.ts": "aa8c3ee6ae8026ea4303532ccc6103204983bb0c4dfa4cd5b3ad277185aba7da",
+      "server/productivity/grouped-board-moves.api.test.ts": "054c6bc6b3f4f86819594c1463a4b634929aa7943653a7b1185c3593ebe1e9ca",
+      "server/productivity/ports.ts": "2392b991b72ecd539b75edb355247ee30bc26e013bbdadef85d0e29a91b90f14",
+      "server/productivity/router.ts": "87f39abba6be8e9f73450ea2b126b40ecd3d5958506db58a6b095f337369c34d",
+      "server/productivity/boardRouter.ts": "ce5522e2ba1d5e82ed5e8005f28ce0cc5efb769d69e76521761ddba8d2af2476",
+      "scripts/ci/write-evidence.mjs": "cd8124e5903704f28f728d0f11bdb2eafd6dca5b947c9ec00ec3be877bcc03bc",
+      "tests/evidence.test.ts": "1efcc887d0aec871591b81812fca2970c1dd774f7feb2f3b4476894a7039c6d6",
+      "scripts/windows/probe-board-package.mjs": "89a5969f5608d4fd3590c97e70c26ae80991ae6dd3d69f6ca03ef1bd89a0cef6",
+      "scripts/windows/board-package-contract.mjs": "a2f41285d3bb9678bfd49987040859a5051716ac3d7a67cf15fe79af2ffd83ee",
+      "tests/board-package-evidence.test.ts": "e9fa8950127766a0fe32cbad1d803b1285362d9c2202dd03ef8d20a72f3b8619",
+      "tests/helpers/board-package-fixture.ts": "28e95b63f3e45b318b4d108804e573c1bb136de30cd4262147144b875be21bda",
+      "docs/engineering/kanban-grouped-field-moves.md": "8c2e609a12a3877630d75443f98993d17c3cedca7f0fb057c825f23bd10c373a"
+    },
+    "bounds": {
+      "authority": "CurrentSQLactor +ownedview/canonicalboard/list+Taskancestor edit permission beforecachedUUID andinsideI01. Assigneeactiveuser andchildpositive-reward checks retained, freshcanonicalwriter rechecks. Actor/listrevocation tests passed.",
+      "writer": "Reuse updateTaskWithinTransaction insideonegateway, no newTaskwriter/publicnestedtransaction; onlyselectedpriority/assignee/explicitDue. No lifecycle/rank/approval/rewardforgery, terminalreadonly. CanonicalsharedWIPautomatic/nooverride. Noopkeepshistory/revision/positions inclMAX; realMAXedit422.",
+      "preview": "OpaqueUUID/Task+view+boardidentity/revisions/capturedclockzone/day+TaskRecord/ownedviewdigests;128refs/16MiB/15minactive+15minownerretention. ClonedDTO, staleownconfig409 (actual12/11/1implementationRED fixedbeforeformalreview). Backwardsclock/dayrollover/expiry/foreignIDs rejected.",
+      "restore": "Actual snapshotrestore+alternateedit21/20/1RED proves sameTask/boardrevision canrepeat with differentcontent; digestfix thenTask+viewbranchregressionspass. EarlierMatrix/section/paginggenerationintegrationtrackedI03, noclaimretrofitted. CachedcommittedUUIDafterrestorelegitimatelyacks onlyafterfreshscope.",
+      "atomicity": "FaultrollsbackTask/history/board/positions/cache/reward/notification state; filteredOut coversfilter/ACLloss; scopedSSEaftercommit/privateIDsabsent. ExactconcurrentHTTPUUIDwritesonce; retryisacknotpolicyreexecution.",
+      "native": "Appended19thZIPcheck preserves18/9server/8native/3refusals/24strictHTTP; adds1strictpreviewclock=25+100IPC. Selectedfielddelta+retryonce+ordinaryrestore/restartretry/noRewards assertions. Rawreport9mutationRED plusUTC-format85/84/1actualRED; no assertions/skips/retries/deadlines weakened.",
+      "scope": "No newformat/DDL/dep/defaultactivation/newcompletionpolicy; tagpersist/manualgrouporder/othersorts/P09/fullP10/latermaster remainunfinished. Nativeactual andServer2019notclaimed."
+    }
+  },
+  "historicalFailures": {
+    "p08b10-moves-red.json": {
+      "tests": 3,
+      "passed": 0,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b10-expanded-first.json": {
+      "tests": 12,
+      "passed": 11,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b10-http-red.json": {
+      "tests": 6,
+      "passed": 1,
+      "failed": 5,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b10-gate-red.json": {
+      "tests": 267,
+      "passed": 265,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b10-native-red.json": {
+      "tests": 84,
+      "passed": 75,
+      "failed": 9,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b10-restore-red.json": {
+      "tests": 21,
+      "passed": 20,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b10-clock-format-red.json": {
+      "tests": 85,
+      "passed": 84,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "failureRulings": "3missingimplementationRED; changedownedgroupconfig12/11/1RED returned404instead409 fixedbeforeformalreview; HTTP6/1pass/5missingroutefailures(private404alreadyfailclosednotclaimedcausal); mandatory267/265/2RED; native84/75/9RED; realrestoreABA21/20/1RED acceptsolduncommittedpreview afterrestore+alternateedit withsametask/boardrevisions. TaskRecord+ownedViewdigestfix; separateownedViewbranchcaseaddedafterfixnotclaimedcausalRED. ExplicitUTCformat85/84/1RED before strictISO/roundtripguard;380relatedGREEN. Noassertions/skips/retries/deadlinesweakened.",
+  "composition": "Accepted100main tree byteequal inheritedtestedCCCC; WIPcommit23bae65 thenhistory-onlyoursmerge5c188a7, entireworktree verifiedunchanged. This differs from earlieractualPR99sourcecomposition; no newcode dropped.",
+  "nativeWindowsAcceptance": "pending exactPR101HEAD; all19/9server/8native/3refusals/25strictHTTP/100IPC required",
+  "schema": {
+    "productivity": 8,
+    "wallet": 1,
+    "defaultRegistration": 6,
+    "autoDdl": false
+  },
+  "fullP08Accepted": false,
+  "fullP10Accepted": false,
+  "fullMasterAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "Versioned persistedtag boundary;groupmanualorder/othersorts;P09UI;fullP10reopen/recurrence/legacycutover/workflow;I03oldMatrix/section/query warmrestoregenerationaudit;laterP/W/I;F08sourcepolicydebtpreR01",
+  "reports": {
+    "p08b10-native-green.json": "c03f798722add48e0d166b04e292907fd4f9cd82218a66ef29f59bbdd922e002",
+    "p08b10-expanded-first.json": "21eb9fe975a42a57d4c5cfae41a6ae746bce3bb73746239251a3847826dae0bc",
+    "p08b10-build.log": "2b48493c70cbd1fef47a51471a6cec21f66070a3ed2a63123c106a647d90817a",
+    "p08b10-gate-green.json": "04d5cd1b130b9845c86cd4bfc9cc6412264024b97f7f42e1ae247a63adec8688",
+    "p08b10-clock-format-red.log": "59c309a611bc2eb3ee637526e386e078a51e62ec49c9141c898f132958ba5cee",
+    "p08b10-first-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b10-identity-final.json": "7fca375ea8982ffc3a078d6cef946392c925814ac77276de8448ef99a519a977",
+    "p08b10-moves-first.json": "eb8651c4181bf4708e34835f52ef289b8116de687e6b7d838bcd56388a342dd1",
+    "p08b10-pre-full-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b10-full.json": "95ff2635a38c77e09f228cb9913ca1783ceb01414ae2d4b419f09d38a4d4b64b",
+    "p08b10-field-expanded.log": "2f7a3bf71f8d2ed47c9ac101ddfd77e338060f50cbbfbf850b046677fbbebfd4",
+    "p08b10-cold-import.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p08b10-expanded-first.log": "03d880dd7408cd8655d98b494c217817a9ad078d89c6d4fb1d553e571c2dfda4",
+    "p08b10-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b10-field-expanded.json": "0acdf31cf8b7b638e9ba508f6c828b76419a181ae65e8e42edb8cb3721d3a926",
+    "p08b10-gate-red.json": "a61e1f83728dbf7341f1cf97b4cf8ed3b377dfd990a657840e2b2f543565be96",
+    "p08b10-restore-green.json": "7bc9be284127b4c9080996cd78d91845bcf82d8977b49b0ab31d652529b6db1c",
+    "p08b10-final-target.json": "babe37a3dc1415d7fff004a561e0b52721d4a0170df90bb73f53eee2edfb9f4c",
+    "p08b10-http-red.json": "b4d8b1d425e21448bc70f85493ac7fa767b8258c5d85f2fc04b7429c7e6791c1",
+    "p08b10-restore-green.log": "5ec1989ebdac8c977301a454d7a6c8ab1640168b0c0c304bdbc9cccdedace426",
+    "p08b10-native-red.json": "ab7d08773ffef4bf2df5ae2e53a22b4d6a4f105e1b586fa6569cec1f4ffaad98",
+    "p08b10-http-first.json": "4d6f537317026441d49f8fd250d754622a23b869fc755fec4a3ca7e64c24a6ed",
+    "p08b10-frozen-hashes.json": "fa0057367906b6d86e76dd66ca3792f332b1887f4efceacccfe2d3500ec3c3bc",
+    "p08b10-restore-red.json": "547be555852cd9c2a70be03dacafb3bc57f8f9800dc8690b1a6de381903628c4",
+    "p08b10-review-rulings.json": "fed56d6932296ebeb89875559dc3e8300a08f346a5edce9b2153098fad4d05ef",
+    "p08b10-restore-red.log": "7cd60999ab1df72629dc78e21a1db2af8698e2d63ab687643cac78eb7c334fdd",
+    "p08b10-moves-first.log": "189490aef7d23679cf44a03e8ca788df0f6449fe993109536014929caab7b13e",
+    "p08b10-final-target.log": "b370f7e898e99c9475a9f2ee1c08d710c0e00c01ca291d1e97479c1ee4e7efd4",
+    "p08b10-final-verification.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p08b10-expanded-corrected.log": "53f90e88d1f117b977403cce855b0db9acf055b95c958795137e1f716fc50adb",
+    "p08b10-moves-red.log": "a14424154333c01f9233fc5f18ba3035292713db7b8c71ecc8f74589f03da46a",
+    "p08b10-full.junit.xml": "c397cf648a42e9d5625c198d369851a91d35c1bc4b048a158d8bd94377791c36",
+    "p08b10-identity-final.log": "d107e0738a41f792118a73235d917fecc25a066ed016b4a1bef5c9e92ada27ae",
+    "p08b10-http-first.log": "ba971330ec087c2ae9a45ed2947580d1576b56db2a11d54d286bf775b34198d9",
+    "p08b10-gate-green.log": "9dabcd195a2f5d0fc8f556924d9342b81d36fa298327c40e965e28e1c8bab925",
+    "p08b10-cold-import.json": "1d3fe882ebaf7958f66c83183be8dfa341182ff796e956fd56c599e93bcd6fb7",
+    "p08b10-gate-red.log": "c34c914838386bb59e717e6cede0b5fd1b49ee4e6f750e8098b3efc0e80f8ac5",
+    "p08b10-full.log": "85ee0d27095018dd3ff35c157531b0d9a35cd35d82ed3a095df356cdd5d079f3",
+    "p08b10-moves-red.json": "a50da79d3545d68bbc5bf514686e1fec7a10cbc6201e9bf3676416a9227770e2",
+    "p08b10-native-red.log": "5dd68ed779142545768fe37b02de7d2272dc7643cab9e2ccb0e7b98bab11ab99",
+    "p08b10-clock-format-red.json": "2443f02c7eba49421dd46967aa2efe450c3984da34ef2240e8e8e123437e76d6",
+    "p08b10-http-red.log": "2091da1625114fdb27ca5a610ca4cb9c176bc992c8e366c73a0bee7781093e41",
+    "p08b10-native-green.log": "2c1dd634718f5439fa9d18012334dee4cf6f57f5e430eca3bf0d47e410a68818",
+    "p08b10-expanded-corrected.json": "553863dc41858e58aae96d1b148b7fdce59ebbf1be67edd0d1037e57c2682549"
+  }
+}
