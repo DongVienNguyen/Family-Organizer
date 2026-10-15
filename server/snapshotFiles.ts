@@ -7,7 +7,7 @@ import {TextDecoder} from 'node:util';
 import { signingKeyByteLimit } from './recoveryFiles.js';
 import type { FamilyOrganizerDB } from '../src/types.js';
 
-export const snapshotLimits = { bytes: 256 * 1024 * 1024, files: 10_000, rows: 100_000 };
+export const snapshotLimits = { bytes: 256 * 1024 * 1024, files: 10_000, rows: 100_000, derivedRows: 4_000_000 };
 export const settingsByteLimit = 1024 * 1024;
 // 10k entries, each with at most512 UTF-16 path units plus hashes/metadata,
 // fit below32MiB even when every path unit needs3 UTF-8 bytes.

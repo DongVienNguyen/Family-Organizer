@@ -1,4 +1,6 @@
 import {it,expect} from 'vitest';
+import {checksum} from '../snapshotValidation.js';
+import {inspectRecoverySnapshot} from '../recoverySnapshotInspection.js';
 import {randomUUID} from 'node:crypto';
 import * as sqlite from '../sqlite.js';
 import * as gateway from '../appStore.js';
@@ -9,7 +11,7 @@ import {configureCanonicalTaskBridge,activateCanonicalTasks,legacyTaskDigest} fr
 import {createTaskCommands} from './tasks.js';
 import {createTaskQuery} from './query.js';
 import {FamilyDB} from '../db.js';
-const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args),all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)};
+const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args) as Record<string,unknown>,all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args) as Record<string,unknown>[]};
 const fixture=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:test',command:'synthetic:indexed-search',requestId:randomUUID(),payloadHash:'synthetic'},fn);
 const actor={userId:UserRole.CHILD,role:UserRole.CHILD},admin={userId:UserRole.ADMIN,role:UserRole.ADMIN},clock={nowUtc:'2026-10-14T05:00:00.000Z',timezone:'Asia/Saigon'};
 let initialized=false;
@@ -35,4 +37,21 @@ it('a failed writer rolls back task and derived search rows together',()=>{
  setup();const task=create('Synthetic before rollback');const before=reader.all('SELECT * FROM productivity_search_documents');
  expect(()=>fixture(tx=>{tx.run('UPDATE productivity_search_documents SET content=? WHERE task_id=?','synthetic changed',task.id);throw Error('synthetic rollback');})).toThrow('synthetic rollback');
  expect(reader.all('SELECT * FROM productivity_search_documents')).toEqual(before);expect(createTaskQuery({reader}).queryTasks(actor,{rootsOnly:true,query:'before rollback'},clock,null).items.map(row=>row.id)).toEqual([task.id]);
+});
+it('canonical and legacy lone-surrogate writes keep native index keys unique and snapshot coherent',()=>{
+ setup();const title='Synthetic '+String.fromCharCode(0xd800,0xd801,0xd802,0xd803),created=create(title),nativeTitle=Buffer.from(title).toString('utf8');
+ expect(reader.get('SELECT title FROM productivity_tasks WHERE id=?',created.id).title).toBe(nativeTitle);
+ const legacyTitle='Synthetic retained '+String.fromCharCode(0xd800,0xd801,0xd802,0xd803);
+ FamilyDB.saveTask({id:created.id,title:legacyTitle,baseUpdatedAt:FamilyDB.getTasks().find(row=>row.id===created.id)!.updatedAt},UserRole.ADMIN,'synthetic-admin');
+ const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));expect(()=>snapshot.validateAppSnapshot(saved)).not.toThrow();
+ const expected=Buffer.from(legacyTitle).toString('utf8');expect(reader.get('SELECT content FROM productivity_search_documents WHERE task_id=?',created.id).content).toBe(expected.toLowerCase()+'\n');
+});
+it('large valid task writes retain shared backup support without relaxing canonical row limits',()=>{
+ setup();let state=173;const body=()=>Array.from({length:60000},()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return String.fromCharCode(0x1000+((state>>>16)%128));}).join('');
+ create('Synthetic long task one',body());create('Synthetic long task two',body());
+ expect(reader.get('SELECT count(*) AS n FROM productivity_search_grams').n).toBeGreaterThan(100000);
+ const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));expect(()=>snapshot.validateAppSnapshot(saved)).not.toThrow();
+ expect(()=>inspectRecoverySnapshot(saved,sqlite.sqliteConnection().name)).not.toThrow();
+ const invalid=structuredClone(saved);invalid.legacy.notes=Array.from({length:100001},(_,i)=>({id:'synthetic-budget-'+i}));invalid.manifest.checksum=checksum(invalid);
+ expect(()=>snapshot.validateAppSnapshot(invalid)).toThrow('Snapshot row limit exceeded');
 });

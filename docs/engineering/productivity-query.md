@@ -73,3 +73,22 @@ coherence before any writes. Restore keeps canonical IDs and configurations,
 without replaying notifications or rewards. The compiled package must prove
 versions1–4 startup without upgrade and version5 restart/snapshot/encrypted
 recovery/refusal. HTTP/session/client/UI wiring remains P05-b2-owned.
+
+## Review corrections and snapshot budgets
+
+Persisted saved-view revisions must be positive before maintenance or file
+staging begins. Index text uses the UTF-8 representation SQLite actually binds
+before normalization/deduplication; accepted lone UTF-16 surrogates therefore
+cannot collide as distinct JavaScript gram keys. Gram insertion is batched within
+the same transaction, with at most512 bound parameters per statement.
+
+The shared canonical100,000-row and256MiB limits remain unchanged. Trusted
+server registration classifies only the derived gram table separately, with a
+finite4,000,000-derived-row budget; snapshot input cannot choose that classification.
+Read-only encrypted-recovery inspection uses the same classification. Exact
+canonical-to-document/gram coherence and all native key/reference checks remain
+mandatory. Two large valid tasks that formerly exceeded the shared row budget
+now back up after both ordinary writes and explicit4-to5 upgrade; canonical
+100,001-row fixtures are still refused. These resource bounds do not promise
+unlimited index expansion: the unchanged byte limit and derived-row ceiling
+remain material limits, and broad size/latency acceptance belongs to later tests.

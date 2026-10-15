@@ -13,14 +13,15 @@ CREATE TABLE productivity_search_grams(task_id TEXT NOT NULL REFERENCES producti
 CREATE INDEX productivity_search_grams_lookup ON productivity_search_grams(gram,task_id);
 `;
 export const searchGrams=(content:string)=>{const chars=Array.from(content);return [...new Set(Array.from({length:Math.max(0,chars.length-2)},(_,i)=>chars.slice(i,i+3).join('')))].sort();};
-export const taskSearchContent=(task:{title:string;body:string})=>normalizeTaskSearchText(task.title+'\n'+task.body);
+export const taskSearchContent=(task:{title:string;body:string})=>normalizeTaskSearchText(Buffer.from(task.title+'\n'+task.body,'utf8').toString('utf8'));
 export function writeSearchDocument(tx:AppWriteTx,task:{id:string;title:string;body:string}):void {
  if(!tx.get("SELECT name FROM sqlite_master WHERE type='table' AND name='productivity_search_documents'"))return;
  const content=taskSearchContent(task),prior=tx.get('SELECT content FROM productivity_search_documents WHERE task_id=?',task.id);
  if(prior?.content===content)return;
  tx.run('INSERT INTO productivity_search_documents VALUES(?,?) ON CONFLICT(task_id) DO UPDATE SET content=excluded.content',task.id,content);
  tx.run('DELETE FROM productivity_search_grams WHERE task_id=?',task.id);
- for(const gram of searchGrams(content))tx.run('INSERT INTO productivity_search_grams VALUES(?,?)',task.id,gram);
+ const grams=searchGrams(content);
+ for(let start=0;start<grams.length;start+=256){const batch=grams.slice(start,start+256);tx.run('INSERT INTO productivity_search_grams VALUES '+batch.map(()=>'(?,?)').join(','),...batch.flatMap(gram=>[task.id,gram]));}
 }
 export function migrateViewsAndSearch(tx:AppWriteTx):void {
  tx.exec(viewSchemaSql);

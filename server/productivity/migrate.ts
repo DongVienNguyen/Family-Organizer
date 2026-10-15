@@ -43,7 +43,7 @@ export const productivityViewChecksum=createHash('sha256').update(viewSchemaSql+
 const apply=(tx:AppWriteTx)=>{migrateTasks(tx,tx.legacy.tasks);};
 /** Explicit I01 ports prevent imports from opening storage or registering jobs. */
 export function registerProductivityMigration(ports:{registerMigration:typeof registerDomainMigration;registerSnapshot:typeof registerSnapshotTable;registerValidator:typeof registerSnapshotValidator}):void {
- for(const [name,columns] of Object.entries({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables}))ports.registerSnapshot('productivity',name,columns);
+ for(const [name,columns] of Object.entries({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables}))ports.registerSnapshot('productivity',name,columns,{derived:name==='productivity_search_grams'});
  ports.registerMigration('productivity',1,apply,productivityMigrationChecksum);
  ports.registerMigration('productivity',2,migrateStructure,productivityStructureChecksum);
  ports.registerMigration('productivity',3,migrateTagOwnership,productivityTagChecksum);

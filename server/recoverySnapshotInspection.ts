@@ -24,7 +24,7 @@ export function inspectRecoverySnapshot(input:unknown,file:string):void {
   }
   const migrations=names.has('app_migrations')?db.prepare('SELECT namespace,version,checksum FROM app_migrations').all() as any[]:[];
   const versions:Record<string,number>={wallet:0,productivity:0};for(const row of migrations)versions[row.namespace]=Math.max(versions[row.namespace]??0,row.version);
-  const snapshot=validateSnapshotPayload(input,{tables,primaryKeys,migrations,versions,...(hasProductivity?{domainValidators:new Map([['productivity',validateProductivitySnapshotData]])}:{})});
+  const snapshot=validateSnapshotPayload(input,{tables,primaryKeys,migrations,versions,...(hasProductivity?{domainValidators:new Map([['productivity',validateProductivitySnapshotData]]),derivedRowTables:new Set(tables.has('productivity_search_grams')?['productivity_search_grams']:[])}:{})});
   if(snapshot.manifest.credentials!==undefined)throw new Error('Recovery requires the raw credential snapshot');
  }finally{db.close();}
 }
