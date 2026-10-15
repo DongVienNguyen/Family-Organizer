@@ -1,7 +1,7 @@
 {
   "taskId": "P08-b3",
-  "baseSha": "0e5ed705b0627be085e335be41d5eaf69d02d1a3",
-  "baseAcceptance": "PR91 native currently being independently read; compose acceptedmain before PR",
+  "baseSha": "e4f83d62b8b28928e833306de691a2339f1e3271",
+  "baseAcceptance": "PR91 accepted exactWindows38761727248; tested tree equals mergedmain",
   "scope": "Explicitpilot7 registration/current-image startup and shared snapshot/compiled source recovery; defaultnewregistration remains1\u20136",
   "fullGreen": {
     "tests": 3713,
@@ -229,5 +229,12 @@
   "fullP08Accepted": false,
   "exactWindowsAcceptance": "pending",
   "server2019Acceptance": "not-run",
-  "releaseOrVps": false
+  "releaseOrVps": false,
+  "reviewedBaseSha": "0e5ed705b0627be085e335be41d5eaf69d02d1a3",
+  "composition": {
+    "composedCommit": "166c7915d8137092f9f9145b5d681d723cbf3c3a",
+    "priorBranchCommit": "5449de14b983e7e1e7750de5360625c370de0fed",
+    "entireTreeEqualsPriorBranch": true,
+    "cloudReportsReusedReason": "Entire composition tree equals already checked branch. Only acceptance documentation follows; new exact-HEAD Windows mandatory."
+  }
 }

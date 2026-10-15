@@ -1,0 +1,114 @@
+{
+  "taskId": "P08-b2",
+  "observedAt": "2026-10-15T22:50:22.313970+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/91",
+  "testedHeadSha": "0e5ed705b0627be085e335be41d5eaf69d02d1a3",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38761727248",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "1b585b5570e8b22e954978fe0ce83c0fdb0ce937c3ae52d8876d1c9937b96316",
+    "coverage": "31c77c0d3ac7f191615a244a30386ca9bb7826e029b1a418d0a1d93c31998ebb",
+    "package": "3efef3335042fd33815789d24878464baf563acbbdf27e57dc5ffa652e0f2650",
+    "service": "7b2fadc4f0f0bc7c7ba1d5d07bc3f4e730a98965aec5ab5a01f8f4d003e528a0",
+    "caddy": "40e1e82393f9ed544494cdea1f9dd40dcabbae5f007f0558e1db5cd7b7b2f78d",
+    "extraction-sdk": "a40f9a7345c57e734b765d45b3cfa884238c8a74414993e983c257b2f6008eab",
+    "inner-native": "5e18268399a344ef9e8b04870ef6cd0dd17abd4f68f51f24769a734fa8c3dd0d",
+    "browser": "bd7ff678eb45d5c858822f78d6fb46f4951f86797dfcd569e77fd99e33f57879",
+    "productivity-browser": "9d0ded7c5dce66b2a933a1db254ff57ef36b9d6c5e820bfe6543c8ce971723f0"
+  },
+  "qualityEach": 3692,
+  "qualityFilesEach": 200,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 9,
+  "zipSha256": "68d338eef2f76905b37e46eb51de1bbb442fe3acc5929d6a7a4c19de7dd25f34",
+  "fullCiLogZipSha256": "7f6c19f3b648986da16c96e4d827864cd19256483d738e9b191f3ca76e882db5",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "9f20f765059601b43f73ba772fab85a50f0c7a4b",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Strengthen the native transactional regression: trigger destination rank rebalance then throw and compare all Task/position/board rows, including an unrelated occupied lane. Existing tests prove rebalance and generic rollback separately but not that combination."
+      }
+    ],
+    "declinedBounds": {
+      "scope": "Current supported migration/snapshot/runtime schema remains1\u20136. Candidate tables exercised explicitly in synthetic fixtures only; fullP08/version7/HTTP/privateDTO/override/recovery acceptance remains later.",
+      "authority": "Full canonical SQL root counts independent of UI/private filters or position seeding. Generic/legacy writers expose no implicit admin override. Private count is never returned; errors contain no hidden title/ID/count.",
+      "allWriters": "savePilotTask store boundary shared by create/update/structure/legacy bridge, under same I01 synchronous transaction; existing schema without boards returns inert. Source/native direct SQL is internal trusted infrastructure; snapshot/activation semantic admission still must be wired before candidate activation.",
+      "membership": "Task section/lifecycle remain truth; blocked/review counted, terminal/trash/subtasks excluded. Same-scope no-increase permitted. No new completion/reward/recurrence or effects.",
+      "ordering": "Accepted pure workflow/rank kernels consumed. Compound list move removes metadata before Task identity update, reinsert/rebalance and affected revisions under existing owner transaction. Safe max revision fails closed; missing/archived lane refuses.",
+      "resource": "Pure planner bounds100000; no performance benchmark claim. P18 owns measurement/index optimization; current scope does not activate or accept large production boards.",
+      "fixtures": "First5/2/3 includes2actualmissing-invariant failures and1wrongcommandfixture. Corrected existing moveTaskToList5/2/3allactual;initial5/5green. Expanded12/9/3then12/11/1 are fixture state/reset and existing7reward expectation; fixedwithoutchanging7points/lifecycle/noassertionrelaxation. Gate260/259/1actualomissionRED."
+    },
+    "reviewedSourceHashes": {
+      "server/productivity/boardInvariant.ts": "5e92b53b839d160229daeb78acc4bef98d553985b9580ffef38ada28f175ac5c",
+      "server/productivity/store.ts": "ed74c098c4ab899999c1737859bf0485ac0ea50c48b63683bebc0e2cfcaa8522",
+      "server/productivity/board-writers.test.ts": "eb336878d30dec7da243e3df4151b6ca165c78e921364c21e07ecc4556bb573f",
+      "scripts/ci/write-evidence.mjs": "71f0b6306dcbf242b7c76e28c3a2774fde8cfa5e21c71f82cdd15cc662879a24",
+      "tests/evidence.test.ts": "62d86e8ae2ade8c02ec56e695712c0831fb9f9dbd3ff8623c2b0fc834a6a1c44"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "correctedTarget": {
+      "tests": 262,
+      "files": 2,
+      "passed": 262,
+      "failed": 0
+    },
+    "minorCausalRedClaimed": false
+  },
+  "fullP07Accepted": true,
+  "fullP08Accepted": false,
+  "runtimeMigration7Registered": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P08-b3 explicit schema7/snapshot/recovery, then configuration/ACL/privateDTO/override/audit/internalHTTP",
+  "mergeSha": "e4f83d62b8b28928e833306de691a2339f1e3271",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/91#issuecomment-6196245210"
+}
