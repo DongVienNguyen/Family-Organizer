@@ -1,0 +1,149 @@
+{
+  "taskId": "F08-o1",
+  "baseSha": "1ffd1bfed0ae7d67a10ceb6b98fb7b705c16312d",
+  "baseAcceptance": "https://github.com/DongVienNguyen/Family-Organizer/pull/103/https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38819252790/all8/TENraw/each4162-237/independentlytestedtreeequal",
+  "scope": "Strict reviewed13linegeneratedfixtureharnesssourceprovenance+legacybrowserB14/B15metadataordering; no targetTypeScriptexecution/publication or runtimechange. Collector/generatedrawfixture/Productivity8jobacceptance remainsF08-o2.",
+  "preCompositionCloudGreen": {
+    "tests": 4131,
+    "passed": 4131,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 231
+  },
+  "expectedWindowsQuality": {
+    "tests": 4176,
+    "files": 237
+  },
+  "nativeVerification": {
+    "preCompositionCloudGreen": {
+      "tests": 4131,
+      "passed": 4131,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 231
+    },
+    "preCompositionBaseSha": "70abd3bfd023e36b45706c5cc615f2489e71742c",
+    "junitCases": 4131,
+    "maxWorkers": 1,
+    "composedTargetGreen": {
+      "tests": 364,
+      "passed": 364,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 7
+    },
+    "composedLintExit": 0,
+    "composedBuildExit": 0,
+    "sourceHashes": {
+      "scripts/windows/release-source-policy.mjs": "36d2881783a06b89c4e013b8ec17c2feae0dc34e48736d52942f135f44a266e0",
+      "scripts/ci/browser-contract.mjs": "626d32c63db2fd7306e37708a8a859dac4b96a277f980eb4372ea1db4101af3c",
+      ".github/workflows/ci.yml": "3a67c99e50b98774862c73cecc8f8bd295f8aafa39dc41485a9b656ebc16099c",
+      "tests/release-source-policy.test.ts": "2992a9b770e23a2443a763c5704d9d241c4f8474810ce8fc0af0ec45b572f107"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "b00df6a8f26ecc6aae44a28839de97a06a70679a86485de4b596c84d3cdbb1ba",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "f08o1-before-composition-full.json": "d9cf30e2bcbc58140a2cd37cb801c4edafeab64aa8b67d31afff3f5f1528cece",
+      "f08o1-before-composition-full.junit.xml": "193626522aad9ab67ce54faae6675018f2e9c356ecbcbd40820649d2e14f402f",
+      "f08o1-before-composition-full.log": "e048c50ff228d105d34b9236581f69992190a30ef146e4ed47322ad6bd201d6d",
+      "f08o1-lint-first.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f08o1-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f08o1-composed-target.json": "dbb0f046480f19a9b90f73a7664016a821306c1ed7e28854e82700cde9553775",
+      "f08o1-composed-target.log": "5ac4c56e732fec3be4e70849c3e535cbf41a2d4d3d992394fba15288ba409fd5",
+      "f08o1-composed-build.log": "a6e9bd7e6483d4eb3f048c284b709ec9227c043cc3382116df1a5c2f3d9f1ba1"
+    }
+  },
+  "review": {
+    "reviewer": "one completed whole-branch self-review; no delegated reviewer/current skill catalogs empty",
+    "baseSha": "70abd3bfd023e36b45706c5cc615f2489e71742c",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "allFindingsGraded": true,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "status": "CLOSED; target364/7pass; full/build/exactWindows pending",
+    "reviewedSourceHashes": {
+      "scripts/windows/release-source-policy.mjs": "36d2881783a06b89c4e013b8ec17c2feae0dc34e48736d52942f135f44a266e0",
+      "scripts/ci/browser-contract.mjs": "626d32c63db2fd7306e37708a8a859dac4b96a277f980eb4372ea1db4101af3c",
+      ".github/workflows/ci.yml": "3a67c99e50b98774862c73cecc8f8bd295f8aafa39dc41485a9b656ebc16099c",
+      "tests/release-source-policy.test.ts": "2992a9b770e23a2443a763c5704d9d241c4f8474810ce8fc0af0ec45b572f107"
+    },
+    "bounds": {
+      "targetExecution": "Read target Git bytes/hash only. Never import/execute target generator TypeScript at the pinned collector. Fixed three generator source/output/exit-variable/error-message tuples; unknown additions rejected.",
+      "nativeExit": "Only exact reviewed thirteen-line harness with immediate named LASTEXITCODE capture and nonzero throw is accepted, or previous four-line copied-only form. Existing job/step/runner/shell/if/alias/duplicate/symlink checks retained.",
+      "resource": "Static scripts plus generated outputs share existing100file bound; actual65/64/1RED\u2192GREEN. Perread1MiB/total16MiB/120s and flattened case-insensitive uniqueness preserved.",
+      "browser": "Reorder only B14/B15 metadata into original strict contiguousID contract; all15 exact names and actual browser assertions preserved. Runtime/E2E definitions unchanged.",
+      "provenance": "New optional generators array records fixed sourcePath/outputPath and targetGit Windows-byte SHA256; generated JSON never assigned a reproducible static hash. Workflow bytes also bound. Static legacy policy shape unchanged.",
+      "scope": "F08-o1 sourcepolicy compatibility only. Existing metadata/collector7-job inventory/newProductivity+touch/generatedrawfixtures still F08-o2-owned; end-to-end promotion remains failclosed. Publication disabled/actualServer2019 gate preserved; no dispatch/tag/release/VPS."
+    }
+  },
+  "historicalFailures": {
+    "f08o1-source-red.json": {
+      "tests": 64,
+      "passed": 51,
+      "failed": 13,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "f08o1-source-red-corrected-fixture.json": {
+      "tests": 64,
+      "passed": 62,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "f08o1-budget-red.json": {
+      "tests": 65,
+      "passed": 64,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "failureRulings": "First64/51/13errors fixture-relativeENOENT underVitestsyntheticcwd, notcausal. AbsoluteimportmetaURLs correctfixture only; actual64/62/2sourcepolicyRED (currentbrowserinventory+harness13). Actual65/64/1RED combined100static+3generatedoverflow, fixedexistingtotal100bound. Existing51sourcepolicycases andallbrowserassertions retained. Target364/7GREEN; firstsmalltargetrequestednonexistentrelease-harness.test.ts which Vitest didnotselect; actual3files206pass, thenactualcorrectrelease-harness-build includedin364/7.",
+  "composition": "FullCloud4131/231 ranbeforeintegratingacceptedPR103P10source. Aftercomposition focusedsourcepolicy/browser/harness/metadata/collector tests+lint/build rerun; actualcomplete4176/237 Windowsquality onexactfinalHEAD required beforeacceptance. No claimprecompositionCloudcountisfinalcomposedfull.",
+  "nativeWindowsAcceptance": "pending exactPR104HEAD/all8/TENraw/22actualZIP/27strictHTTP/100IPC+allbrowser45/57/touch1",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullPromotionAccepted": false,
+  "fullMasterAccepted": false,
+  "remaining": "F08-o2 metadata/collector8checks8artifacts+Productivitybrowser/touch+generatedJSONrawprovenance; fullP08/P09/P10/otherP/W/I; no actualServer2019/VPSauthorized",
+  "reports": {
+    "f08o1-composed-target.log": "5ac4c56e732fec3be4e70849c3e535cbf41a2d4d3d992394fba15288ba409fd5",
+    "f08o1-source-red-corrected-fixture.log": "5049170c5999988fbcc5362a3e80e397d08bade53426a6928d7c3c21f658acaf",
+    "f08o1-target-green.json": "5340ea0037e9b5800e2ce6c38390ab791b40c6d137bc70b7da531d30a340a284",
+    "f08o1-before-composition-full.junit.xml": "193626522aad9ab67ce54faae6675018f2e9c356ecbcbd40820649d2e14f402f",
+    "f08o1-before-composition-full.json": "d9cf30e2bcbc58140a2cd37cb801c4edafeab64aa8b67d31afff3f5f1528cece",
+    "f08o1-release-target.log": "8c9c1be350fd9d3645f18bef0a874f0feebbd789da13df198decfce9aacf5513",
+    "f08o1-source-first.json": "7ca9d2751ca76b9c332d2e3bb00f6ff99c2727dccf265e94a069bb5877631373",
+    "f08o1-composed-target.json": "dbb0f046480f19a9b90f73a7664016a821306c1ed7e28854e82700cde9553775",
+    "f08o1-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f08o1-release-target.json": "728fd440dab7cd67bf3d593d09756f8b5573c7457a9830a58b93131229085da0",
+    "f08o1-review-rulings.json": "7d90532952696eea2498e2180d00ebd72d1ab61149cb052f78b86da7df670d06",
+    "f08o1-source-first.log": "6b403dfaab7a28fe1ab82fb6e5dec457e912fed5c68f6020064866a0beccf4db",
+    "f08o1-source-red.json": "c9031d5dc3a6569bd6a622bac77d6b637949952dfb25d89c9422642b8bbe2c26",
+    "f08o1-lint-first.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "f08o1-source-red-corrected-fixture.json": "db24980701286414eccf25d402306c270a7dceca6f2c93296f04c128f58232fe",
+    "f08o1-before-composition-full.log": "e048c50ff228d105d34b9236581f69992190a30ef146e4ed47322ad6bd201d6d",
+    "f08o1-source-red.log": "8d85faf6938c313d2975e41f0c0ff9b1ca6f5e015a06913d330a36a61d3319ce",
+    "f08o1-budget-red.json": "166bf3804796b0d36a2035f18ae5f78ca8e6bf32cc243ab2fac28c7e7fa0a206",
+    "f08o1-before-composition-build.log": "28b45ba3e508d441cf43adbbea09779e19888e36ea1b0a47096f34cff0a07393",
+    "f08o1-composed-build.log": "a6e9bd7e6483d4eb3f048c284b709ec9227c043cc3382116df1a5c2f3d9f1ba1",
+    "f08o1-target-green.log": "b429e132ca2d653be1fd769287406a5ce46476f055f68a5d4ec79d49f93c556a",
+    "f08o1-budget-red.log": "f6b98032a2dae59cc87d35b00be6675b8df2587ca0285606ac535e1aa81f274f",
+    "f08o1-final-verification.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
