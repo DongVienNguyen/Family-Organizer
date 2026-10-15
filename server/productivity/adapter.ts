@@ -1,3 +1,4 @@
+import {registerBoardMigration,productivityBoardChecksum} from './boardMigration.js';
 import {hasTagOwnership,assertTagSelection,visibleTagLabels} from './tagPolicy.js';
 import {installCanonicalTaskVisibility} from '../legacyVisibility.js';
 import {createTaskAccess,listPermission} from './access.js';
@@ -19,11 +20,12 @@ export type BridgePorts={sqlite:typeof Sqlite;gateway:typeof Gateway;migrations:
 const configured=new WeakSet<object>();
 function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  const migrations=reader.all("SELECT version,checksum FROM app_migrations WHERE namespace='productivity' ORDER BY version");
- if(![1,2,3,4,5,6].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length>=2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
+ if(![1,2,3,4,5,6,7].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length>=2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=3&&(migrations[2].version!==3||migrations[2].checksum!==productivityTagChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=4&&(migrations[3].version!==4||migrations[3].checksum!==productivityPinChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=5&&(migrations[4].version!==5||migrations[4].checksum!==productivityViewChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=6&&(migrations[5].version!==6||migrations[5].checksum!==productivityMatrixChecksum))throw new Error('Unsupported productivity migration before activation');
+ if(migrations.length>=7&&(migrations[6].version!==7||migrations[6].checksum!==productivityBoardChecksum))throw new Error('Unsupported productivity migration before activation');
 }
 function active(reader:Pick<Gateway.AppWriteTx,'get'|'all'>):boolean {
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
@@ -33,6 +35,7 @@ export function configureCanonicalTaskBridge(ports:BridgePorts):void {
  if(configured.has(ports.sqlite))return;
  registerProductivityMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable,registerValidator:ports.snapshot.registerSnapshotValidator});
  const connection=ports.sqlite.sqliteConnection();
+ if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version===7)registerBoardMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
  const reader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args),all:(sql:string,...args:any[])=>connection.prepare(sql).all(...args)};
  let synchronizing=false;
  ports.sqlite.installLegacyTaskStorageAdapter({enabled:()=>active(reader),read:()=>loadTasks(reader).filter(row=>row.deletedAt===null).map(projection),write(rows){const tx=ports.gateway.currentAppWriteTx();if(!tx)throw new Error('Canonical tasks require the application gateway');synchronizing=true;try{syncLegacyTasks(tx,rows);}finally{synchronizing=false;}}});

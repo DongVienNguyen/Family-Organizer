@@ -1,3 +1,4 @@
+import {validateBoardStorage} from './boardSchema.js';
 import type * as Sqlite from '../sqlite.js';
 import {configureWalletStorage} from '../wallet/integration.js';
 import {configureCanonicalTaskBridge} from './adapter.js';
@@ -8,6 +9,7 @@ export async function configureTaskStorage(sqlite:typeof Sqlite,options:{validat
  const connection=sqlite.sqliteConnection();
  inspectProductivityStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  if(options.validateCurrentTasks!==false)assertCurrentTaskTree({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
+ if(options.validateCurrentTasks!==false&&(connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version===7)validateBoardStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  const gateway=await import('../appStore.js');
  const migrations=await import('../appMigrations.js');
  const snapshot=await import('../appSnapshot.js');
