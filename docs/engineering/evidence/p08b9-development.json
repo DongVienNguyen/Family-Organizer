@@ -1,0 +1,389 @@
+{
+  "taskId": "P08-b9",
+  "baseSha": "e6a0bce07055c699c271881b9a62e1eb490f44c5",
+  "baseAcceptance": "PR99 exactd2b0376/Windows38803964672/all8/TENraw/each3959-220/mergee6a0bce independentlytestedtreeequal",
+  "scope": "Pure group references/selecteddimension patches +owned normalized priority/assignee/due read/internalHTTP +18th compiledZIPprobe; no fieldapply/tagpersistedformat/UI/newpolicy/activation",
+  "beforeReadIntegrationVerification": {
+    "taskId": "P08-b9-a",
+    "baseSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+    "baseAcceptance": "PR98 exactf8b6549/Windows38801246440/all8/TENraw/merge5ca1b51 testedtreeequal",
+    "scope": "Pure grouping/reference and selected-dimension patch helpers; no persisted format, storage, HTTP, UI or runtime consumer/activation change",
+    "coldImports": {
+      "modules": 1,
+      "importsSucceeded": true,
+      "storageOpened": false,
+      "filesCreated": 0,
+      "cloudPlatform": "linux",
+      "notWindowsAcceptance": true
+    },
+    "fullGreen": {
+      "tests": 3950,
+      "passed": 3950,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 218
+    },
+    "junitCases": 3950,
+    "targetGreen": {
+      "tests": 339,
+      "passed": 339,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 4
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "maxWorkers": 1,
+    "review": {
+      "reviewer": "one completed whole-branch self-review; cloud/executor skill catalogs empty, no delegated reviewer",
+      "baseSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+      "critical": 0,
+      "important": 0,
+      "minor": 0,
+      "allFindingsGraded": true,
+      "findings": [],
+      "correctionPasses": 0,
+      "rereview": false,
+      "criticalRemaining": 0,
+      "importantRemaining": 0,
+      "minorRemaining": 0,
+      "reviewedSourceHashes": {
+        "server/productivity/grouping.ts": "dae5f0e9d9407f018b3f03482b3116cf64817b14daf76571d2869f9dc05776b5",
+        "server/productivity/grouping.test.ts": "93cce4daac93cc97dfcc606e169e676e844c924de7f759c829c6229d873dcba3",
+        "scripts/ci/write-evidence.mjs": "b5cc662b1982c2d3d5ad722b70ef90413e01673f33c59fc9c8887a2715f9b243",
+        "tests/evidence.test.ts": "c62ed2801d0fb74393a90627d353be501f2e26981bab2773be3a79237891bb6a",
+        "docs/engineering/kanban-grouping-core.md": "457860ef78af0982f2ba250395429d4548171797686778bda022556b4ef6996f"
+      },
+      "bounds": {
+        "scope": "Pure preparation only; already-authorized selections; no query/ACL boundary/storage/HTTP/default/schema/newpolicy/implicitWIP acceptance. Persistedtag format still requires explicitversionedboundary.",
+        "identity": "TaskID+kind+typedvalue JSON-framed SHA256; cards scalarrefs only, unique totals/bulkdedupe. Duplicatefacts failclosed; bodyaggregate16MiB/rows5000/refs20000; no truncation.",
+        "patch": "Strictselectedfield only; explicitvalidatedDue cloned; stale source tag/untagged refuse; literalallIDdistinctfromAllobject; explicitadd/replace;1000tagoutputbound. Fullcatalog/auth/revision/canonicalWIP remainrequiredof future transaction consumer.",
+        "dates": "All-day literal date; timed uses explicitviewzone; no hostlocalDate.parse/Date.now or inventedtimed deadline.",
+        "gate": "All existing mandatory suites remain; one added omission regression collected260/259/1actualRED before requiredsuite+fixture insertion; finalgate read before closing review."
+      },
+      "initialRed": "23cases/9pass/14fail:14missingimplementation failures;9genericfailclosedguardcasesalready pass scaffold, not claimed causalRED",
+      "validation": "target passed; lint and mandatorysuite gate pending; full/build/native still required",
+      "status": "CLOSED 0Critical/0Important/0Minor; no correction/no rereview; full/build/native still pending"
+    },
+    "sourceHashes": {
+      "server/productivity/grouping.ts": "dae5f0e9d9407f018b3f03482b3116cf64817b14daf76571d2869f9dc05776b5",
+      "server/productivity/grouping.test.ts": "93cce4daac93cc97dfcc606e169e676e844c924de7f759c829c6229d873dcba3",
+      "scripts/ci/write-evidence.mjs": "b5cc662b1982c2d3d5ad722b70ef90413e01673f33c59fc9c8887a2715f9b243",
+      "tests/evidence.test.ts": "c62ed2801d0fb74393a90627d353be501f2e26981bab2773be3a79237891bb6a",
+      "docs/engineering/kanban-grouping-core.md": "457860ef78af0982f2ba250395429d4548171797686778bda022556b4ef6996f"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "ae69f4f7fa025aadda5509d997260c6b1d3ae4d2e681198c27948840fbd99005",
+      "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+    },
+    "initialRed": {
+      "tests": 23,
+      "passed": 9,
+      "failed": 14,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "initialRedRuling": "14missingimplementationcausal failures;9genericfailclosedguardcasespassedscaffold, not claimedcausalRED",
+    "gateRed": {
+      "tests": 260,
+      "passed": 259,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "nativeWindowsAcceptance": "pending newPR exactHEAD",
+    "fullP08Accepted": false,
+    "fullMasterAccepted": false,
+    "publicationAllowed": false,
+    "server2019Acceptance": "not-run",
+    "remaining": "Versioned persisted tag grouping boundary; authorized query/preview/apply/canonicalWIP/normalized transport; P09UI andP10workflow/fullrecurrence/reopen;latermaster milestones",
+    "reports": {
+      "p08b9-build.log": "632253f4b52b46858807769fbb26ea2436c5ff1186aab5cd05e913f23b663ff5",
+      "p08b9-grouping-first.log": "955db5e9448258eff8ce71dd68afc28c16a968ffc3bd927272ca256736ee448f",
+      "p08b9-frozen-hashes.json": "2a0e4d64af3c713966c46321f1f57d78c0e051379bb1f4e9f01275846a492ed8",
+      "p08b9-gate-red.json": "2e7ad01a51a56d07a054ef6a475256c2b9bdc0b34cf707bedeefa73ba2845f2b",
+      "p08b9-final-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+      "p08b9-grouping-first.json": "43309751959857265be1c22b2c6b3cc449911162515502b7edbddce4c6165bbd",
+      "p08b9-cold-import.json": "ec60222f5ec766b635f44ecbdd47b92147ffbe194e281df8fab645f881554ca0",
+      "p08b9-grouping-red.json": "0d4e661989b3e573ae2977ec4451e864e51672abf77e7e332aa43595b00e327e",
+      "p08b9-review-rulings.json": "8c24c6e2da42f23ccb57a12f946aa027875b793c5188df1f36b03cd0da1181f0",
+      "p08b9-grouping-gate-green.json": "f2d6b8be7fd5b9e830cc4a1ab563510a66f53563d1e6adc08ba4ff57ec438e46",
+      "p08b9-full.json": "cf8250b8c209426be0d62d8e5f43bc650fe46ee015c4ab98dad87b46e510b3bc",
+      "p08b9-gate-red.log": "854a0d5a81fcb7dd1df2084f3a791d1048d72dec7b528a17ca5289691548a754",
+      "p08b9-full.junit.xml": "8b890d9e746dacf88389925c16bfa64d2b33df2bacbf213df523be2e7646a7e0",
+      "p08b9-full.log": "cf5a4984af73faa766f7c332eaf13b796cc2d5675e82cabbef698d26f4218b87",
+      "p08b9-cold-import.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "p08b9-grouping-gate-green.log": "c329d6eae6bc0c71e3d1ab1f40e4aa9db9b0df022d871d4e09c5298d50d0b2d7",
+      "p08b9-grouping-red.log": "103cfa633c5d359b1c402beaca1a45a78a56a3afe127429d6202a51ccb6878be",
+      "p08b9-grouping-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    }
+  },
+  "fullGreen": {
+    "tests": 4013,
+    "passed": 4013,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 223
+  },
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 4013,
+      "passed": 4013,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 223
+    },
+    "junitCases": 4013,
+    "maxWorkers": 1,
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "5b33a6dc256aaa0c054de79affff523b31047e9472213d283506e79b3ebb165d",
+      "scripts/windows/board-package-contract.mjs": "d626b0986845f5667274a55122b0969f7d360b7212805aa58b9fa96c7f953739",
+      "scripts/windows/probe-board-package.mjs": "1d4738b44edc9a8410bbfcfc2c86b5eac1948bacb00fb2ec4d3e91c512e8db02",
+      "server/productivity/boardRouter.ts": "ed004ccf49f8a9a0ce18feb8b5c1688dd4e18c31661bda9ac919c904003a6927",
+      "server/productivity/grouped-board.api.test.ts": "8c7406d0a351dbd49becb12131243a6b10ec3d3e834e853724272f12225a5f1b",
+      "server/productivity/grouped-board.test.ts": "bea397cff8bd0e3823f0477d7af09107154920babb95bbdf053d807021a63497",
+      "server/productivity/groupedBoard.ts": "38b7edaa729868f23000f66f33d3037673245bb476129cf1cc96c38fc066a433",
+      "server/productivity/grouping.test.ts": "93cce4daac93cc97dfcc606e169e676e844c924de7f759c829c6229d873dcba3",
+      "server/productivity/grouping.ts": "dae5f0e9d9407f018b3f03482b3116cf64817b14daf76571d2869f9dc05776b5",
+      "server/productivity/ports.ts": "db293813086d6005a80696194c0a1f81dac0b659b81d006641987f52caad574c",
+      "server/productivity/router.ts": "9162c6bb4f25bac77e98d7cb7044c84d3d361ed54ca9efebb037c5779fdab23c",
+      "tests/board-package-evidence.test.ts": "ab80ed02d442eeb87b306e890891188c1f137d62fbb2f417f712d7b4badbee1b",
+      "tests/evidence.test.ts": "ea0f3057aec26f651f2b5b359331699e66c8a5e7b07bc69d556aba4a11a85b45",
+      "tests/helpers/board-package-fixture.ts": "4591425cf71595cc280d9a80b15eb5ff08d6e6576d9938e297af4351851bf070"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "342d8151fbe4ffb0b38192ede667b1ac9b44b27b87659dad345fd7f3079d86d8",
+      "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+    },
+    "reports": {
+      "p08b9b-full.json": "b289c9c9e5951fa1076a5f91c061d49daf7c8c94db28d1f80ad5c889b7c28b2e",
+      "p08b9b-full.junit.xml": "6bb16bc48a4b89653bf1cc83ab9324e94293e52fef3d6ec9b73157502f5b33ec",
+      "p08b9b-full.log": "a4e0f461c7f3d176b530d371da92fe3c091d00c2b97954db5dd391c45b1375e1",
+      "p08b9b-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p08b9b-build.log": "79585118b21ac625a55e0109e199c107d075553b5719ad6aafaefdcaf1c62cfa"
+    }
+  },
+  "targetGreen": {
+    "tests": 105,
+    "passed": 105,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 4
+  },
+  "nativeContractGreen": {
+    "tests": 77,
+    "passed": 77,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 2
+  },
+  "coldImports": {
+    "modules": 2,
+    "importsSucceeded": true,
+    "storageOpened": false,
+    "filesCreated": 0,
+    "cloudPlatform": "linux",
+    "notWindowsAcceptance": true
+  },
+  "review": {
+    "reviewer": "one focused review of new grouped read/runtime/HTTP/ZIP evidence and real baseline composition; self-review because skill catalogs empty/no delegated agent authorization",
+    "baseSha": "e6a0bce07055c699c271881b9a62e1eb490f44c5",
+    "helperReview": "P08-b9-a CLOSED0C0I0M/no correction; grouping.ts/test bytepreserved, not rereviewed",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "status": "CLOSED; lint0/target105pass; full/build/nativepending",
+    "reviewedSourceHashes": {
+      "server/productivity/groupedBoard.ts": "38b7edaa729868f23000f66f33d3037673245bb476129cf1cc96c38fc066a433",
+      "server/productivity/grouped-board.test.ts": "bea397cff8bd0e3823f0477d7af09107154920babb95bbdf053d807021a63497",
+      "server/productivity/grouped-board.api.test.ts": "8c7406d0a351dbd49becb12131243a6b10ec3d3e834e853724272f12225a5f1b",
+      "server/productivity/ports.ts": "db293813086d6005a80696194c0a1f81dac0b659b81d006641987f52caad574c",
+      "server/productivity/router.ts": "9162c6bb4f25bac77e98d7cb7044c84d3d361ed54ca9efebb037c5779fdab23c",
+      "server/productivity/boardRouter.ts": "ed004ccf49f8a9a0ce18feb8b5c1688dd4e18c31661bda9ac919c904003a6927",
+      "scripts/ci/write-evidence.mjs": "5b33a6dc256aaa0c054de79affff523b31047e9472213d283506e79b3ebb165d",
+      "tests/evidence.test.ts": "ea0f3057aec26f651f2b5b359331699e66c8a5e7b07bc69d556aba4a11a85b45",
+      "scripts/windows/probe-board-package.mjs": "1d4738b44edc9a8410bbfcfc2c86b5eac1948bacb00fb2ec4d3e91c512e8db02",
+      "scripts/windows/board-package-contract.mjs": "d626b0986845f5667274a55122b0969f7d360b7212805aa58b9fa96c7f953739",
+      "tests/board-package-evidence.test.ts": "ab80ed02d442eeb87b306e890891188c1f137d62fbb2f417f712d7b4badbee1b",
+      "tests/helpers/board-package-fixture.ts": "4591425cf71595cc280d9a80b15eb5ff08d6e6576d9938e297af4351851bf070",
+      "docs/engineering/kanban-grouped-read.md": "f07ad2e0379eace127ed0b50a72301ffd8da2939ce0afb14796bb3e39222465d"
+    },
+    "bounds": {
+      "ACL": "Ownedview/currentactor + fresh schema8board/list + Task/ancestor SQLscope before cursor and allscalaradmission; savedfilter intersectboardlist; no rowID/body/privategroup/fullWIPcount leak",
+      "paging": "HMAC binds actor/view/config/board/clock/visibleTask/rank facts; freshACL everyread;15minexpiry/changedfacts409/calleroptions400; normalizedpage tasks onlyonce, no retainedbodycache; boundedmemory notSQLkeyset",
+      "resource": "Fullvisiblelistscalar row5000/bytes16MiB/tags20000/distinctgroup1000 admission beforeTaskdecode. Actual14/13/1monitoredRED\u2192105targetpassed; original bulklegacyignoredfixture/10sbudget failures retained andnotclaimed productRED. No timeout/assertion weakening.",
+      "writes": "Read path has no writes/outbox/notifications/positionseeding; semantic completion/source/tests/app/runtime unchanged accepted99, no nestedpublictransaction/secondwriter/newpolicy",
+      "native": "Appended18th grouped check preserves prior17/9server/8native/3refusals/21strictHTTP. New3strictHTTPnative intervals=24 +100IPC source; rawfixture independent/new10actualmutationRED thencontractgreen; nativeactual stillpending",
+      "format": "Only existing persistedpriority/assignee/due +rank; tag helper pure, no widened frozen8/Wallet1/default6/activation/newDDL. tagformat/groupmove/P09/fullP10 unfinished"
+    }
+  },
+  "helperReview": {
+    "reviewer": "one completed whole-branch self-review; cloud/executor skill catalogs empty, no delegated reviewer",
+    "baseSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "reviewedSourceHashes": {
+      "server/productivity/grouping.ts": "dae5f0e9d9407f018b3f03482b3116cf64817b14daf76571d2869f9dc05776b5",
+      "server/productivity/grouping.test.ts": "93cce4daac93cc97dfcc606e169e676e844c924de7f759c829c6229d873dcba3",
+      "scripts/ci/write-evidence.mjs": "b5cc662b1982c2d3d5ad722b70ef90413e01673f33c59fc9c8887a2715f9b243",
+      "tests/evidence.test.ts": "c62ed2801d0fb74393a90627d353be501f2e26981bab2773be3a79237891bb6a",
+      "docs/engineering/kanban-grouping-core.md": "457860ef78af0982f2ba250395429d4548171797686778bda022556b4ef6996f"
+    },
+    "bounds": {
+      "scope": "Pure preparation only; already-authorized selections; no query/ACL boundary/storage/HTTP/default/schema/newpolicy/implicitWIP acceptance. Persistedtag format still requires explicitversionedboundary.",
+      "identity": "TaskID+kind+typedvalue JSON-framed SHA256; cards scalarrefs only, unique totals/bulkdedupe. Duplicatefacts failclosed; bodyaggregate16MiB/rows5000/refs20000; no truncation.",
+      "patch": "Strictselectedfield only; explicitvalidatedDue cloned; stale source tag/untagged refuse; literalallIDdistinctfromAllobject; explicitadd/replace;1000tagoutputbound. Fullcatalog/auth/revision/canonicalWIP remainrequiredof future transaction consumer.",
+      "dates": "All-day literal date; timed uses explicitviewzone; no hostlocalDate.parse/Date.now or inventedtimed deadline.",
+      "gate": "All existing mandatory suites remain; one added omission regression collected260/259/1actualRED before requiredsuite+fixture insertion; finalgate read before closing review."
+    },
+    "initialRed": "23cases/9pass/14fail:14missingimplementation failures;9genericfailclosedguardcasesalready pass scaffold, not claimed causalRED",
+    "validation": "target passed; lint and mandatorysuite gate pending; full/build/native still required",
+    "status": "CLOSED 0Critical/0Important/0Minor; no correction/no rereview; full/build/native still pending"
+  },
+  "historicalFailures": {
+    "p08b9b-read-red.json": {
+      "tests": 8,
+      "passed": 0,
+      "failed": 8,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b9b-http-red.json": {
+      "tests": 4,
+      "passed": 0,
+      "failed": 4,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b9b-gate-red.json": {
+      "tests": 262,
+      "passed": 260,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b9b-http-gate-green.json": {
+      "tests": 278,
+      "passed": 277,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 3
+    },
+    "p08b9b-native-contract-red.json": {
+      "tests": 75,
+      "passed": 65,
+      "failed": 10,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b9b-integrated-target.json": {
+      "tests": 30,
+      "passed": 28,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 3
+    },
+    "p08b9b-integrated-corrected.json": {
+      "tests": 30,
+      "passed": 29,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 3
+    },
+    "p08b9b-admission-red.json": {
+      "tests": 14,
+      "passed": 13,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "failureRulings": "Firstbulklegacyfixtureproduced2ratherthan1003canonicalrows; pollutedfollowingclockcaseand exceededunchanged10sbudget. BulkcanonicalDMLwithderivedsearch/positions/id-dueprovenance stillcalledexpensivecanonicalrefresh16.7s. FinalfixtureI01bulkDML/norefresh/budgetcaseLASTpreservesall1003/422/countassertions. Monitoredscalar-read14/13/1RED independentlyprovesdecoderentrybeforeadmission; nowACLscalar groupkeygate beforebodydecode, target105pass. Incompletefixtureattempt278/277/1 retained (writerupdated, testfixtureanchorcount2aborted); corrected278allpass, noassertionsremoved.",
+  "nativeWindowsAcceptance": "pending exactPR100HEAD; all18/9server/8native/3refusals/24strictHTTP/100IPC required",
+  "schema": {
+    "productivity": 8,
+    "wallet": 1,
+    "defaultRegistration": 6,
+    "autoDdl": false
+  },
+  "fullP08Accepted": false,
+  "fullP10Accepted": false,
+  "fullMasterAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "Versioned persistedtag boundary; groupfieldpreview/apply andmanualorder/othersorts;P09UI;fullP10reopen/recurrence/legacycutover/workflow;laterP/W/I;F08sourcepolicydebtpreR01",
+  "reports": {
+    "p08b9b-read-red.log": "0cd7dfb2d1e9faa67c063f1dad61b6f888a5a2ce8c44ecaf783a3c601eec0db9",
+    "p08b9b-read-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b9b-http-gate-corrected.log": "3cbb591363704c735f7ca912aa0b83f17b073aa316fb2259c281046d815ff9cd",
+    "p08b9b-integrated-target.json": "039bd48118ae18ed4953be86a011124bc91602e0e8862e9e13dfa35e0cc8ec41",
+    "p08b9b-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b9b-native-contract-green.log": "2de96dc45050f21a9c7c4b50b34a95234291371d08a5007a058b20d3d1356948",
+    "p08b9b-http-red.log": "e34f5010c6b1e1c0be41564e28da7bb118e769a8e87805f0b1362cc5dc0e787c",
+    "p08b9b-read-red.json": "f1c2c47e21079ea5a14b1d66367ba00589fb3ebc4ea4dbb57d4037f4c225880a",
+    "p08b9b-build.log": "79585118b21ac625a55e0109e199c107d075553b5719ad6aafaefdcaf1c62cfa",
+    "p08b9b-cold-import.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p08b9b-review-rulings.json": "d978199b4ef5f6be286b9c79833c25adf79263af31d2452dfef4915c18528cf6",
+    "p08b9b-final-verification.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p08b9b-read-first.log": "83d8e83f0010903a21bc47f3bd53f31c7a80d101b16d4cd8c0c23a9158fe59ad",
+    "p08b9b-admission-red.log": "c742392289ad1e38969f47a2de73a278ae8b6b1ad43e2918b634e581f69a7a8b",
+    "p08b9b-full.json": "b289c9c9e5951fa1076a5f91c061d49daf7c8c94db28d1f80ad5c889b7c28b2e",
+    "p08b9b-native-contract-green.json": "d6b6ae87f2953216c38d1213f2b477b469f13fa08305983a18a4e4bd409d2a7a",
+    "p08b9b-http-gate-green.log": "3d0a8d909ef9fffe0add12243a7721595130b511c1bc318acb58f75ea7b3cee9",
+    "p08b9b-frozen-hashes.json": "3e6b6a0ad14ecad1fcf4e67ab3e5ee62bef72d5d3e421d89676ca0d46b4bdad4",
+    "p08b9b-native-contract-red.log": "14737ccc6bd5e5c1bccb321d96bf4f5e5ba861e95eab1abefc0c3de7cdb6fbfd",
+    "p08b9b-http-red.json": "08116d34926cadbe00f9bc49661a7442f8157347212ee87deef54ee6cce43bcf",
+    "p08b9b-integrated-target.log": "8972dd01a0e52fed6402dc75031641a56345d2aca5f1e1db0146db4976b568db",
+    "p08b9b-gate-red.json": "4c7b2cda93c3a4e769ea309ad9289afad1e4435a8236acedbf1fa82ee6e051e9",
+    "p08b9b-integrated-corrected.log": "f41500f7544757ba3530b424ef222ce6ca91207dc656c24fec7e8630c77f2a81",
+    "p08b9b-full.junit.xml": "6bb16bc48a4b89653bf1cc83ab9324e94293e52fef3d6ec9b73157502f5b33ec",
+    "p08b9b-native-contract-red.json": "391277e30eb1367c9074522ea1d4ab36896e75a539541b0c7a56a7b891a28e98",
+    "p08b9b-admission-green.log": "ed64d62c9c429e631b66a95df23a31b68e337df3033fafb58814d6464130877c",
+    "p08b9b-http-first.json": "00cc964d95c6c91277888932aa61813ce1c47472ee0eb3838a4ae401fec5c6b4",
+    "p08b9b-http-gate-green.json": "a17a9f29d7a1f2d88c51c043f3272d7a1d5fd49e3274b9e5ba25410e65c8fdbc",
+    "p08b9b-read-expanded.json": "9f86941cd8b05e816878690090403f4fe6df650bcc3b9487c7e3ad0c2baad212",
+    "p08b9b-integrated-corrected.json": "3b4066556aec2d7ce7959290103526651d6bf9e308069c5aaf0b455c2e4847fb",
+    "p08b9b-http-first.log": "0c4734884ef491a1d9318771e47691a8ffbb377a2103cb782e41edc6836907c5",
+    "p08b9b-admission-green.json": "55891ad15d992d11c90b7ba205ffcdfc53fb0ca2185a460936b95470149579f5",
+    "p08b9b-admission-red.json": "2f02694d5436b220dfd051c52f32da0fe648da3d99773bf774713ab1147d7650",
+    "p08b9b-full.log": "a4e0f461c7f3d176b530d371da92fe3c091d00c2b97954db5dd391c45b1375e1",
+    "p08b9b-gate-red.log": "aa5235fb6faf6b5cf62221e0a016c8487ab38dfd147d4ee33082a2c0393e6c1a",
+    "p08b9b-http-gate-corrected.json": "bc9d3c69aeb73149c96670a3fa46d3e3a10c5187cefcc0c8d9b2e43a64cc03d7",
+    "p08b9b-read-first.json": "3f1b0d917fe5b298e4a392131f68afa3e93abd8c78852c3d330f9dd551c02acc",
+    "p08b9b-read-expanded.log": "fd78c81c4f9493fd6644d24b6bc4416f523a295f74b8ab04a23c2010874975f1",
+    "p08b9b-cold-import.json": "c7abee4cd8beed54b8136778b610273c7e918a20bcb1ffd7b3f2ac7b8879845a"
+  }
+}

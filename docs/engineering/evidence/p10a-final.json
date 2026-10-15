@@ -1,0 +1,177 @@
+{
+  "taskId": "P10-a",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/99",
+  "testedHeadSha": "d2b0376f747e25d5d72fe7628d7410bb026f9465",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38803964672",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "fe4b2688ab68875dce037912f1015de2d9f604f70fed72e797bf01e4e6762880",
+    "coverage": "9a705d8a88daa0861f1505c7e944413f22a3cd6edb931af3a853229f7243cca8",
+    "package": "80cead1309c200524fdf387cae803818bb927cb3984f8ca902ec3f5479ff6819",
+    "service": "16bffb18d4db01fd19bfb77766c0b15b951568e2179dbba8a74d6830f6e1be41",
+    "caddy": "b532ccd0eb50742c52669a9bd1a7707027b613a916eb61a2c9eb636ffe26f223",
+    "extraction-sdk": "83668d403f06d291a1884cfa05eff2c0dc10b52e807906cd343aae83203e5ee8",
+    "inner-native": "effeec4409fe0ad9fa773b0da8c8eb4f58bbf1648e0e60bea099f5b669c54370",
+    "browser": "b5cae323dd718e27f39339656173b0b58b0d7803f66a573c6b79709c84b31813",
+    "productivity-browser": "b517e9d63e14a91f7ec419f7e60b262324e88a11962582b7821a07d9af7e7552",
+    "board-package": "223e8752da014209f2e7451207327ee16c5abc0a2f9d6bf65234619547ac36de"
+  },
+  "qualityEach": 3959,
+  "qualityFilesEach": 220,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "6b0117982bd6b25b806ae845da61b1822cc3e570d4afcb043c7ba38b8c95bdb4",
+  "fullCiLogZipSha256": "b54622bc06fcebdad693c8cb41710a3a5a254bd0f8269e8bd8602bc8b3790c88",
+  "review": {
+    "reviewer": "/root/p10a_review independent immutable-commit whole-branch review",
+    "baseSha": "4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b",
+    "headSha": "97435e95ed5e47471a35ac3ba5b984d4923dcc4f",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Accept: low-reward child can immediately complete admin-created private rotating task, but its successor is private and assignedtoMember. Raw result.spawnedTaskIds currently returns its ID without fresh ACL. Preserve all internal successor IDs for scoped SSE, filter public IDs after gateway cache replay on every return using fresh access, and avoid any serializable hidden-ID sidechannel. Add direct/HTTP actual private-successor cases including subsequent visibility revocation on cached replay."
+      }
+    ],
+    "declinedBounds": {
+      "authority": "currentSQL actor/session/rootTask ACL beforecache+insideI01; adultapproval role; expectedrevision onlynewwrite; no doublewriter, FamilyDB.runLegacyCommand reusescurrentI01 andwriteRaw flushescanonical beforeDTO",
+      "atomicity": "target tests exactUUID/freshapprove/no duplicatepoints orsuccessor, afterWrite faultrollsbackcanonical/rewards/notifications/successor/cache, snapshotretainscachedUUID",
+      "events": "currentTask/eachsuccessor SSE audience is freshlyscoped; distinguishresponseI1fromSSE. Earlier privacyfixturefailedbecauseexistingcurIdx=-1rotation selectedChild aslegitnewsuccessor. IsolateprivateSSEfixtureasnonrecurring; preserveallnegativeassertions.",
+      "scope": "PartialP10-a newsemanticrequest/approve/rejectreuseexistingpolicy; reopenlinkedreversal/expandedseries/jobs/legacygenericsurfacecutover/boardworkflow/rolloutremainfuturedeclaredslices. No newdefaultflag/schema/dependency/providerdelivery/release/VPS. Fullsuite/build/native pendingexplicit."
+    },
+    "reviewedSourceHashes": {
+      "docs/engineering/completion-policy-baseline.md": "3081f1953349d25d8fb54baf1c4ca01e9fc60d016bc6faa6d7177d0684485f44",
+      "scripts/ci/write-evidence.mjs": "9b057a7a1c75b968cf1a61a2ceb167c1307816c923c77953b2589c2a5ac99537",
+      "server/app.ts": "c4b26b1ea5aa3a0e60e38bc75e3d85fb6d10776e7fa7ae7d10ea8caac6532baf",
+      "server/productivity/completion-characterization.test.ts": "51e145ee89db8351a8f301b0ea421cdebb661a9a0c25cf5142459b1a58d9f201",
+      "server/productivity/completion.api.test.ts": "7903459569510150ad9b5b6f2aa30af4bc64f3bc4599a7e9c6ab48b492cacba4",
+      "server/productivity/completion.test.ts": "27c070846320d223ce5f599729959d0c07328446241bd5db649e2e99659b9771",
+      "server/productivity/completion.ts": "af50accd2bf0d56ecc04f66cf3086c276e7998eae115931f358527285325a97e",
+      "server/productivity/ports.ts": "38767c6ae1c0a29b548e357f53ef2bd3c807accf2172a252d344131c392ef033",
+      "server/productivity/router.ts": "dca28918c8b1e27e5d3adc986d24f5444ea41f3c46bb7cd32f78c30a3d656a43",
+      "server/runtime.ts": "4c71687ee0127cb8c7f1abe2dfd6c0914e399e26e42fe988e23d7a43535c5c92",
+      "tests/evidence.test.ts": "879b5a9b8881332ae1c83d68b03807849e00733d81967285133ae41fb71254dc"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 20,
+      "passed": 17,
+      "failed": 3,
+      "files": 2,
+      "report": "p10a-review-red.json"
+    },
+    "status": "one correction verified34target/full3924-217/JUnit/lint/build0;no rereview",
+    "correctedTarget": {
+      "tests": 34,
+      "passed": 34,
+      "failed": 0,
+      "files": 4
+    },
+    "correctedFull": {
+      "tests": 3924,
+      "passed": 3924,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 217
+    },
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "postCiClockReview": {
+    "reviewer": "/root/p08_clock_review fresh read-only focused post-CI clock review; no repeat Kanban review",
+    "baseSha": "eee10d11b43d159c41135283347a60de8bc96af8",
+    "headSha": "b7a1ff45df11f69183ebb317e910e98a9794a011",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "assessment": "Owned SQLite connection/read-only native OS clock, unchanged strict21HTTP intervals, every100untrusted native/monotonic observation/counter/exit/PID/completeness validated. Full/build/exact correctedWindows still mandatory.",
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "77e36a9f49bcfdfe25b83c6841ff81d1ffaf0cbc0fb92e02988236c5813de9b3",
+      "scripts/windows/board-package-contract.mjs": "f2f55e25b105e169e23bbcf437b3bdb47ea6dfa26ceeffd7cb1d17f9b524db81",
+      "scripts/windows/clock-diagnostics.mjs": "99217bfd7572b54f5da843f9627059bb79c0a1df14f02ee4ec5c40bf34614d35",
+      "scripts/windows/probe-board-package.mjs": "e61c7e8c82f16d69ac8bfdb243ec10793f502e70b7f7bab3e29e8893bf83d2c4",
+      "server/productivity/board-projection.test.ts": "891cc4ca8b1a9bf8b8d369556cf3d55fd46877f6f75c07aa73876ac8e2b7fede",
+      "server/productivity/clock.test.ts": "9b6b866021a0a66f121284b3c9e8e847507fd4bac13d803614d8e89e93f30ea8",
+      "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+      "server/productivity/ports.ts": "21ba114c55724b7b89d9e95c93488fb51ff3db9486387028ab003e35eae486e4",
+      "tests/board-package-evidence.test.ts": "fa68a8a805c5eaefcbf4abe3e6a9ab0aa37d5eebe2ec552ee9d9c04705976e43",
+      "tests/evidence.test.ts": "f4f3da11cdc96fb113f89ce42bf8d3f35f04d2387223213994764e324b4b88c5",
+      "tests/helpers/board-package-fixture.ts": "eed4a44a862372647c2fd5ae6a64c03de26c1f8d916ce0b7aa15323c50424c11"
+    }
+  },
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "boardProjectionHttpAccepted": true,
+  "sectionAndRankMovesAccepted": true,
+  "columnLayoutAndArchiveAccepted": true,
+  "semanticCompletionSeamAccepted": true,
+  "fullP10Accepted": false,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 8,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeCommitSha": "e6a0bce07055c699c271881b9a62e1eb490f44c5",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/99#issuecomment-6202101948",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 22274,
+    "zipSha256": "b54622bc06fcebdad693c8cb41710a3a5a254bd0f8269e8bd8602bc8b3790c88",
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  }
+}
