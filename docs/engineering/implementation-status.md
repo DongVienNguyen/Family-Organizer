@@ -1,8 +1,8 @@
 # Tiến độ Windows-native
 
-## Current checkpoint — 2026-10-14 (Asia/Saigon)
+## Current checkpoint — 2026-10-15 (Asia/Saigon)
 
-**The complete master plan is not finished.** The F05 external permission blocker has been resolved through owner-configured branch protection; P01–P03 have been accepted below. P04 and W01 contracts are accepted. P05 query/smart views/search is in progress; W02 storage prototype is saved separately, fullW02 remains pending.
+**The complete master plan is not finished.** The F05 external permission blocker has been resolved through owner-configured branch protection; P01–P03 have been accepted below. P04 and W01 contracts are accepted. P05-a query engine is accepted; P05-b1 persisted views/index is in progress. W02-a pilot storage is accepted; fullP05 and fullW02 remain pending.
 
 | Work | Current evidence / remaining step |
 | --- | --- |
@@ -1427,3 +1427,13 @@ PR79 https://github.com/DongVienNguyen/Family-Organizer/pull/79 tested2f4caa3b5b
 W02-a source corrections passed full3270tests/173files/3270JUnit at pre-rebase2c94377. Rebase on acceptedP05-a main283a692 required union of mandatory suite/evidence additions. Initial local resolver swallowed trailing source; detected in diff before any push/tests, restored exact main originals plus Wallet additions. All existing assertions/gates preserved by exact-source reconstruction. New integrated source full/Windows remains pending.
 
 W02-a integrated on acceptedP05-a main283a692: fullCloud3284tests/174files/3284JUnit allpassed/zero failedpendingtodo;245target/lintbuild0. All8 source hashes match current branch; integration/source/review/original causal and fixture failure evidence in evidence/w02a-development.json. Ready new exactHEAD Windows before authorized merge; fullW02 remains pending.
+
+### W02-a accepted — exact Windows and merge
+
+PR80 https://github.com/DongVienNguyen/Family-Organizer/pull/80 tested ab9b6fdcbd2109e7c6c1acf0f23e72b5004c3e99; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38598454567 all8checks/nine independently read raw report families. Node22/24 each3284tests/174files/matchingJUnit/zero failedpendingtodo,45original+30Productivity first-attempt browsers. Logs16files read, ZIP1fa1a50ae2f5d826031621c1bf63769fbd5ce00fb1b7d4772a6b634b53fd649d. Merge b7c2284e9ba57aeaa486920e4293ff7aa740bd1b has exact tested tree; proofcomment6186863266 and evidence/w02a-final.json. ONE0C2I0M/one correction/no rereview; optional notes and returned optional fields regressions fixed. PartialW02 only: remaining entityfields/sharedAppSnapshot/startup/compiledRestore/activation W02-b-owned; W03/04/05 migration/ACL/financial commands. No Wallet runtime/API/UI/activation, no release/tag/VPS; Server2019/R02 unrun.
+
+### P05-b1 persisted views/index development
+
+Branch codex/p05-saved-views from accepted P05-a main283a692; integrated accepted W02-a mainb7c2284 before final checks. Existing WIP preserved in patch/archive/stash; two evidence inventory/test conflicts resolved by retaining every Wallet assertion plus all three P05 suite requirements. Typed actor-owned saved config/revision and normalized substring/trigram SQL candidates, explicit productivity migration5/shared snapshot/compiled compatibility implemented. Earlier collected query/search/view/upgrade REDs retained; current preintegration680target/lint0, final integrated full/build/compiled proof/review/Windows pending. No HTTP/UI/activation changes; fullP05 remains incomplete, P05-b2 owns smart/saved UI/internal routes/clientDTO/readonlyTrash/GlobalSearch.
+
+P05-b1 integrated fullCloud3308tests/177files matches3308JUnit/allpassed/zero failedpendingtodo; lint/build0,11cold imports noStorage. Compiled source-development check proves allold1–4 noAutoUpgrade, current5 savedview/index/personalpin/checklist/subtask/legacy commands, restart/sharedsnapshot/encryptedrecovery/malformed-current repair/future6 checksum/unknownnamespace DELETE-byte refusal/sparsecore/offline/closedhandles. Original reports and source hashes evidence/p05b1-development.json. ONEwholebranch review in progress before one Important pass/no rereview; exactHEAD Windows stillpending. FullP05 HTTP/UI remains P05-b2-owned.

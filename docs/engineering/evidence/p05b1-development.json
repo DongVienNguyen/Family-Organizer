@@ -1,0 +1,225 @@
+{
+  "taskId": "P05-b1",
+  "baseSha": "b7c2284e9ba57aeaa486920e4293ff7aa740bd1b",
+  "scope": "Explicit schema5 actor-owned views and normalized inverted-trigram adapter; no HTTP/UI/activation",
+  "fullGreen": {
+    "tests": 3308,
+    "files": 177,
+    "junitCases": 3308,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "maxWorkers": 1
+  },
+  "targetGreenBeforeIntegration": {
+    "tests": 680,
+    "failed": 0
+  },
+  "causalRed": {
+    "viewsAndIndexedSearch": {
+      "tests": 14,
+      "failed": 8
+    },
+    "upgrade": {
+      "tests": 3,
+      "failed": 3
+    },
+    "schema5OldApis": {
+      "tests": 5,
+      "failed": 2
+    },
+    "manifest": {
+      "tests": 101,
+      "failed": 1
+    },
+    "requiredSuites": {
+      "tests": 217,
+      "failed": 3
+    }
+  },
+  "preservedFailures": "Earlier current target had stale current-version4 expectation and future5 negative fixture; updated current5/future6 without removing assertions; prior reports retained. Earlier missing scaffold/query-independent characterizations not called causal.",
+  "rulings": [
+    {
+      "decision": "Use ordinary registered normalized documents/inverted Unicode trigrams instead of FTS5 virtual tables",
+      "reason": "FTS5 probe omitted2-character substrings; exact shared substring predicate and existing I01 snapshot cover ordinary tables",
+      "costIfWrong": "Search candidate performance/space can require a compatible adapter revision; no performance acceptance claimed"
+    },
+    {
+      "decision": "Separate storage/index slice from P05-b2 HTTP/UI",
+      "reason": "Keep review and migration proof focused; no runtime activation or placeholder flow",
+      "costIfWrong": "FullP05 remains pending and consumer work cannot be accepted from this slice alone"
+    }
+  ],
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": [
+      "app.ts",
+      "productivity/router.ts",
+      "productivity/ports.ts",
+      "productivity/adapter.ts",
+      "productivity/structure.ts",
+      "productivity/structureRouter.ts",
+      "productivity/pinSchema.ts",
+      "productivity/pins.ts",
+      "productivity/viewSchema.ts",
+      "productivity/views.ts",
+      "productivity/query.ts"
+    ],
+    "storageCreated": false,
+    "exit": 0
+  },
+  "compiledSourceDevelopment": {
+    "scope": "Cloud Linux source-development check, not Windows acceptance",
+    "completed": true,
+    "fixtureCommitSha": "b7c2284e9ba57aeaa486920e4293ff7aa740bd1b",
+    "taskIds": [
+      "canonical-parent",
+      "canonical-task"
+    ],
+    "rawTaskRows": 0,
+    "revision": 2,
+    "semanticCommands": {
+      "httpEnabled": true,
+      "noneCreated": true,
+      "legacyFullFormPreserved": true,
+      "staleRevisionRefused": true,
+      "forgedFieldsRefused": true,
+      "restartPreserved": true
+    },
+    "structureCommands": {
+      "httpEnabled": true,
+      "catalogRetry": true,
+      "checklistProgress": true,
+      "treeSectionMove": true,
+      "archiveRetry": true,
+      "staleRefused": true,
+      "invalidRefused": true,
+      "v1Refused": true,
+      "atomicSubtaskRetry": true,
+      "personalPinRetry": true
+    },
+    "structureStorage": {
+      "version": 5,
+      "checklistPreserved": true,
+      "catalogPreserved": true,
+      "tagOwnershipPreserved": true,
+      "v1StartupWithoutUpgrade": true,
+      "v2StartupWithoutUpgrade": true,
+      "v3StartupWithoutUpgrade": true,
+      "v4StartupWithoutUpgrade": true,
+      "savedViewsPreserved": true,
+      "searchPreserved": true,
+      "personalPinsPreserved": true,
+      "atomicSubtaskPreserved": true
+    },
+    "malformedCurrentTaskRepaired": true,
+    "sparseCoreRefusal": {
+      "exitCode": 1,
+      "databaseBytesPreserved": true,
+      "nativeHandlesClosed": true,
+      "journal": "delete",
+      "tableCount": 2
+    },
+    "snapshotChecksum": "3fa0bea5d92392381b401d9576e07719f3bebd0286b290eae6a9df0b3e3389e2",
+    "encryptedSha256": "594f05af2bca55bb81f4d597afc2f65c544e9210cff9b607a92a587a2ae97c22",
+    "refusalCases": [
+      {
+        "kind": "changed-checksum",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "future-version",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      },
+      {
+        "kind": "unknown-namespace",
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete"
+      }
+    ],
+    "networkAttempts": [],
+    "nativeHandlesClosed": true
+  },
+  "sourceHashes": {
+    "scripts/ci/productivity-browser-contract.mjs": "256a48f9d3153994151f8c6872ea2053c97d47c11b6e9a8ef5d1141027948481",
+    "scripts/ci/run-productivity-browser.mjs": "999a0d9d0a322f37b815873a764dfc2c8b2c5e8020ba02361db26530f20a3387",
+    "scripts/ci/write-evidence.mjs": "03623cdabc8d6bb2f1550fe78a0944d1fa720846120adae5b9b10985e463f85c",
+    "scripts/ci/write-productivity-browser-fixture.ts": "2b820d5db4f1a95004be2ebe6fce64eb228dfcc05f1c3ecfe0f5bdac1f8daf28",
+    "scripts/ci/write-productivity-fixture.ts": "b0454d188c8dc1849288893be7e08f743a8891298d21695bf57aeb6787b5acc6",
+    "scripts/windows/package-contract.mjs": "5717c26b3c88b00ce859e7a2bf15dac3aefd68d4e07db84067bdbfe468a72c7a",
+    "scripts/windows/probe-productivity-package.mjs": "2936cb4341651d2fbd51da5e4fa4d7ff6fc64a4c6acd9819eb7d58542d450d9c",
+    "scripts/windows/release-consumer-reports.mjs": "a31e241b2b7abbe4805b08c595434eed4e6365a2337ec2c577c28555abf7222c",
+    "scripts/windows/release-manifest.schema.json": "cde26075daf5c1d9cc50bbbd7ccd7637258f602bd262de8f2ecdab04cdfd890f",
+    "scripts/windows/write-manifest.mjs": "4cc92d3134ab8f661d5709ba4b31803ea037f0327569e4b64ff06e8d901546f6",
+    "server/productivity/activation.test.ts": "82968fa819293ac7a11481281ddc6f9ce383095b74dc2b62c4360f41398316a7",
+    "server/productivity/adapter.ts": "2373d0d316610d0a721b09b694971b2f52467e56eee89c8ac18824a7c10fadb6",
+    "server/productivity/inspection.ts": "2b76bce4969859872b032b15e2ed3846636079f52a664126971b31977a03d7c0",
+    "server/productivity/migrate.ts": "d9c3402e7f383f7e870f867992af4900700a5c4d01dc848a2fbe9da46830e181",
+    "server/productivity/migration.test.ts": "e53b343bac130962939a03b75109cd6c31c3c41536e4bf9ad7ec6b2e24067025",
+    "server/productivity/pins.test.ts": "977ae2d4839263c144c33f245bfed159f902037a7b34fd5f04748907114ba506",
+    "server/productivity/pins.ts": "bf35e92a3b9ecc45d3caaebe7efcae8c4301b6d1897b9dc3508783bc40fbe86f",
+    "server/productivity/query.ts": "f565e22f96d1618088627c0513a9b35f1f329e2e3c033983c1262741276663d8",
+    "server/productivity/search.test.ts": "735a16a525c6d214c1b84b6fe4ab2d56143f6d32ce11198f5d49ff34d147d3cf",
+    "server/productivity/snapshot.ts": "3f0ee8501d518dabb047e4d6eed130fbb6f28b8ce743a51eeb572ddc3e419d06",
+    "server/productivity/store.ts": "2e2a6979471fef889d1165a98d39463a50fe9c715ca9cbaecbb165999a32f922",
+    "server/productivity/structure.ts": "7c01713f19bf9e49b03eabc83afb52708c25e31fdc23f5469b7a678e366d8762",
+    "server/productivity/structureInvariant.ts": "4be46ea1b0b76f8f3c3bb5fb0271a98ad63b66a89005757f2dd49532f22afe4d",
+    "server/productivity/structureSchema.ts": "36d07f2b3c7cb5e288e3f9ccd1f655703409f2958c555bab564134ec1d2f6111",
+    "server/productivity/view-upgrade.test.ts": "2c52c556742433f95dc914c113b362a10cf85ab4ec3eb8b2cdc43bc639a00992",
+    "server/productivity/viewSchema.ts": "9734f626303d27fae6107b7f99a0f63a92402df54bc28248bb72cbfe09af236f",
+    "server/productivity/views.test.ts": "2959549533a62f14effa799e2aecb1836bcacfe27d30e3538e482fec996da2bf",
+    "server/productivity/views.ts": "f474adfb58ba21ff3a1fa64298f2cefc18bcbad5412355be59eb1feccbc8cfd4",
+    "src/features/productivity/filters.ts": "f563224b25a774cc4fe1fd719d1885ae92d6f3ca4a1b26ae68ef277af7ab17c9",
+    "tests/evidence.test.ts": "e26c4ad3833e18f5ffcb0f336d0882c41204d476dfd4d5239cba78b28471b992",
+    "tests/helpers/release-consumer-fixture.ts": "b721bb2f4b2c57aaa6ae59faa35531b791b18effb4d2d74d80644eae4ff530df",
+    "tests/helpers/release-inner-fixture.ts": "d57fe18437aee7e138ec48264efee9fc8c07ff5cc14a7f3fd094b7ab1d1b9470",
+    "tests/productivity-browser-evidence.test.ts": "107cd777a2cccd6bcec029045075ccf901b3b58c17c54e5d34f10e5072f1f0a5",
+    "tests/release-consumer-reports.test.ts": "bf0ea8d5a3074ac79a873b576add6d41abdaa39bc5cf2fb82440f56c9935acae",
+    "tests/release-package-reports.test.ts": "89a5754791c44ed6bafb9dbc686cb00e370c9af0d43cf9052aaa84d835b5ea95",
+    "tests/runtime-ownership.test.ts": "c0dbaf792054ebab45570888fa054e7b6da9608d040f6120b0c0d0a4d788034e",
+    "tests/windows-package.test.ts": "dfcff002bd3c59190fa37dbcc2cbcc72ad2624007a73556f4e85f7c72547c654"
+  },
+  "reportHashes": {
+    "p05b1-compatibility-red.json": "94baececda576878e78f9767bd13a6cf36a1b597e73fb6a4e4730e5f68e204cb",
+    "p05b1-compatibility-red.log": "9340b5bbbfc913d7a462af146a17c9b20831b2b2acc50c9fd04bb9b8c36d5842",
+    "p05b1-current-target.json": "c19009bdb458f8801d26e7e5e49708cf8fc223760dfbe434ac289946f9867d2c",
+    "p05b1-current-target.log": "cd4e1da16096dd2da354263e1b3bc447c330a8030552f703ef6e59d92f52add4",
+    "p05b1-manifest-red.json": "67c250cf8ab2db96e9dee2e2c0011f2819fa88be26f28cc79067735467670f96",
+    "p05b1-manifest-red.log": "c6449d4df548581ad9ff4e7d6d9a0752de13a22d2c1a560a453d50de5c1f2152",
+    "p05b1-migration-target.json": "425abc79707a0d7f79844a29556dbf62ef96a17478691453b8888e96e93bbd71",
+    "p05b1-migration-target.log": "15c0d6c0d82ee54cb116a7f4bb13f803952e52d8b9610a960bce479c50418b4c",
+    "p05b1-suite-red.json": "7fc5d16a2c62a17a821a09d05ecded5fc70b498d6ba3b87f922b0fff71e83d95",
+    "p05b1-suite-red.log": "cb5f3d4689b172c9e2b8cf0f12d360ffd05eb2eca25ec39460dd90b333ba2c7b",
+    "p05b1-upgrade-current.json": "f805c2d3ce1c1cfe93de5cec68cfab52a147903610d5c8d20bc71f08af97dd5c",
+    "p05b1-upgrade-current.log": "823f7d70fe35a4e2458e117505cbaf9331d84277692824d8809f0f247ec396bf",
+    "p05b1-upgrade-first.json": "2ef128efe91dafa5c4e91df67a817a3e9f711050d4c5385280ea4303e5a20e3c",
+    "p05b1-upgrade-first.log": "03c5be665de6ef7e97ccfcc1995f34d6dc03ffbedc50d44950d0400601207a2d",
+    "p05b1-upgrade-red.json": "00229fefc0837db05f224d458185ef877c0d398ac45aa02b488b8101c3cfe7e5",
+    "p05b1-upgrade-red.log": "14f84af975fb6015c6fd5872d2b54445c1051eba0f430c3a77d49a4e3217e5a1",
+    "p05b1-views-search-current.json": "3314791a6b87d76070e61733cd2ca35696dadf22636ad1918b71f2afac746b58",
+    "p05b1-views-search-current.log": "f66a1151d3d0cf8dca4917576a48a59a122f9381d48012d42ba15e90f9e6f9dd",
+    "p05b1-views-search-red.json": "377fae49755ce0130958bdf662c6e1bc008238cf3ba4730022063f1cb5993acb",
+    "p05b1-views-search-red.log": "b4a8331e598a29a6b230bfcfdece5ffb93c0a8ae3d522cd2038253945efafa62",
+    "p05b1-integrated-full.log": "11ce5a09888f67e0f29239fd6f1d0af1afa7ba50011744fed0fdda43b8264dec",
+    "p05b1-resume-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "p05b1-integrated-full.json": "5dd8a3e7089d5a429957b18ee4582b3597e28e7c713a6ff002fe37996f0b7397",
+    "p05b1-integrated-build.log": "10dbd52cbe3d4b289c590a893ce8aedb89bb79e248cd302901bf39e638b3fd73",
+    "p05b1-resume-target.json": "b7d7b9956b27826aa8eb02122a45be1be057356a2133a78aefc409ba9ac44be3",
+    "p05b1-integrated-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+    "p05b1-resume-target.log": "64ffdb8749662a57698673a6263e2f9f07b149279dc2bf83377db776f585bdb0",
+    "p05b1-integrated-full.xml": "9b741f7e2eb4aa994db6cb967b1074116be08bc57f477077a69687d2057855da"
+  },
+  "WindowsAcceptance": "pending",
+  "fullP05Accepted": false,
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}

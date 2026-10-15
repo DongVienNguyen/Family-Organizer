@@ -7,7 +7,7 @@ import {loadTask,savePilotTask} from './store.js';
 import {migrateTasks} from './migrate.js';
 const command=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:test',command:'productivity:activation-fixture',requestId:randomUUID(),payloadHash:'synthetic'},fn);
 let initialized=false;
-function setup(){if(initialized)return;command(tx=>{tx.legacy.tasks=[legacyTask('source')];});configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});initialized=true;}
+function setup(){if(initialized)return;command(tx=>{tx.legacy.tasks=[legacyTask('source')];});configureCanonicalTaskBridge({sqlite,gateway,migrations:{...migrations,registerDomainMigration:(ns,v,fn,sum)=>{if(v<=4)migrations.registerDomainMigration(ns,v,fn,sum);}},snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});initialized=true;}
 it('stale source digest or modified legacy input aborts activation with raw data intact',()=>{
  setup();const digest=command(tx=>legacyTaskDigest(tx.legacy.tasks));command(tx=>{tx.legacy.tasks[0].title='Changed after preview';});
  expect(()=>command(tx=>activateCanonicalTasks(tx,digest))).toThrow(/source/i);
@@ -41,6 +41,6 @@ it.each([1,2,3,4])('active readers and writers refuse a changed migration checks
  expect(sqlite.sqliteLoad().tasks[0].title).toBe('Synthetic task source');
 });
 it('repeat activation rejects an unsupported newer productivity migration and rolls it back',()=>{
- setup();let activationReached=false;expect(()=>command(tx=>{const prior=tx.get("SELECT * FROM app_migrations WHERE namespace='productivity'");tx.run('INSERT INTO app_migrations(namespace,version,checksum,applied_at) VALUES(?,?,?,?)','productivity',5,'future',prior.applied_at);activationReached=true;activateCanonicalTasks(tx,'0'.repeat(64));})).toThrow('Unsupported productivity migration');expect(activationReached).toBe(true);
+ setup();let activationReached=false;expect(()=>command(tx=>{const prior=tx.get("SELECT * FROM app_migrations WHERE namespace='productivity'");tx.run('INSERT INTO app_migrations(namespace,version,checksum,applied_at) VALUES(?,?,?,?)','productivity',6,'future',prior.applied_at);activationReached=true;activateCanonicalTasks(tx,'0'.repeat(64));})).toThrow('Unsupported productivity migration');expect(activationReached).toBe(true);
  expect(sqlite.sqliteConnection().prepare("SELECT version FROM app_migrations WHERE namespace='productivity' ORDER BY version").all()).toEqual([{version:1},{version:2},{version:3},{version:4}]);
 });

@@ -1,3 +1,4 @@
+import {viewTables,viewSchemaSql} from './viewSchema.js';
 import {taskPinTables,taskPinSchemaSql} from './pinSchema.js';
 import {tagOwnershipTables,tagOwnershipSchemaSql} from './tagSchema.js';
 import type {AppWriteTx} from '../appStore.js';
@@ -20,8 +21,8 @@ CREATE TABLE productivity_check_items(
 CREATE INDEX productivity_tasks_parent ON productivity_tasks(parent_id,deleted_at);
 CREATE INDEX productivity_check_items_task ON productivity_check_items(task_id,rank,id);
 `;
-export function productivityTablesAt(version:number){return version>=2?{...productivityTables,...structureTables,...(version>=3?tagOwnershipTables:{}),...(version>=4?taskPinTables:{})}:productivityTables;}
-export function productivitySchemaAt(version:number):string{return schemaSql+(version>=2?structureSchemaSql:'')+(version>=3?tagOwnershipSchemaSql:'')+(version>=4?taskPinSchemaSql:'');}
+export function productivityTablesAt(version:number){return version>=2?{...productivityTables,...structureTables,...(version>=3?tagOwnershipTables:{}),...(version>=4?taskPinTables:{}),...(version>=5?viewTables:{})}:productivityTables;}
+export function productivitySchemaAt(version:number):string{return schemaSql+(version>=2?structureSchemaSql:'')+(version>=3?tagOwnershipSchemaSql:'')+(version>=4?taskPinSchemaSql:'')+(version>=5?viewSchemaSql:'');}
 export function migrateStructure(tx:AppWriteTx):void {
  assertTaskTree(tx.all('SELECT id,list_id,parent_id,creator_id,assignee_id,is_shared,deleted_at FROM productivity_tasks').map(edge));
  tx.exec(structureSchemaSql);

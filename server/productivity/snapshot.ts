@@ -1,3 +1,5 @@
+import {taskSearchContent,searchGrams} from './viewSchema.js';
+import {assertTaskView} from '../../src/features/productivity/contracts.js';
 import type {AppWriteTx} from '../appStore.js';
 import type {AppSnapshot} from '../snapshotValidation.js';
 import {decodeTaskRow,projectLegacyTask} from './store.js';
@@ -50,6 +52,15 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  }
  if(snapshot.manifest.domains.productivity>=3){if(!tables.productivity_tag_owners)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));for(const row of tables.productivity_tag_owners){text(row.tag_id,256);text(row.user_id,256);if(!tags.has(row.tag_id)||!users.has(row.user_id))fail();}}
  if(snapshot.manifest.domains.productivity>=4){if(!tables.productivity_task_pins)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));for(const row of tables.productivity_task_pins){text(row.task_id,256);text(row.user_id,256);integer(row.revision,1);if(!tasks.has(row.task_id)||!users.has(row.user_id)||![0,1].includes(row.is_pinned))fail();}}
+ if(snapshot.manifest.domains.productivity>=5){
+  const views=tables.productivity_views,documents=tables.productivity_search_documents,grams=tables.productivity_search_grams;
+  if(!views||!documents||!grams)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));
+  for(const row of views){text(row.title,500);if(!users.has(row.owner_id))fail();assertTaskView({id:row.id,ownerId:row.owner_id,revision:row.revision,filter:JSON.parse(row.filter_json),kind:row.kind,config:JSON.parse(row.config_json)});}
+  const indexed=new Map(documents.map(row=>[row.task_id,row.content])),actual=new Map<string,Set<string>>();
+  for(const row of grams){const values=actual.get(row.task_id)??new Set<string>();values.add(row.gram);actual.set(row.task_id,values);if(!indexed.has(row.task_id))throw new Error('Invalid productivity search snapshot');}
+  if(indexed.size!==tasks.size)throw new Error('Invalid productivity search snapshot');
+  for(const row of tasks.values()){const content=taskSearchContent({title:row.title,body:row.body}),expected=searchGrams(content);if(indexed.get(row.id)!==content||JSON.stringify([...(actual.get(row.id)??[])].sort())!==JSON.stringify(expected))throw new Error('Invalid productivity search snapshot');}
+ }
  if(marker==='1'){
   const order=(a:string,b:string)=>Buffer.compare(Buffer.from(a,'utf8'),Buffer.from(b,'utf8'));
   const projected=[...tasks.values()].filter(row=>row.deleted_at===null).sort((a,b)=>a.rank-b.rank||order(a.id,b.id)).map(row=>projectLegacyTask(decodeTaskRow(row,(tagRows.get(row.id)??[]).sort(order))));

@@ -1,6 +1,6 @@
 import {createHash,randomUUID} from 'node:crypto';
 import type {AppActor,TaskFilter,QueryClock,Page,TaskRecord} from '../../src/features/productivity/contracts.js';
-import {assertTaskFilter,matchesFilter} from '../../src/features/productivity/filters.js';
+import {assertTaskFilter,matchesFilter,normalizeTaskSearchText} from '../../src/features/productivity/filters.js';
 import {utcInstant,timezoneFormatter,localDateAt,calendarDate,localDayStart} from '../../src/features/productivity/dates.js';
 import {integer,text,object,keys} from '../../src/features/productivity/validation.js';
 import {AppStoreError} from '../appErrors.js';
@@ -28,6 +28,10 @@ export function createTaskQuery(ports:{reader:TaskReader;pageSize?:number}) {
   authorize(actor);try{assertTaskFilter(filter);clockValid(clock);}catch{throw new AppStoreError('Bộ lọc hoặc thời điểm không hợp lệ.',400,'query-filter');}
   const scope=taskScope(actor,{includeTrash:filter.includeTrash===true}),where=[scope.sql],args:any[]=[...scope.args];
   for(const [field,column] of [['listIds','list_id'],['sectionIds','section_id'],['assigneeIds','assignee_id'],['priority','priority'],['lifecycle','lifecycle'],['dueKinds','due_kind']] as const){const values=filter[field];if(values!==undefined){where.push(values.length?'t.'+column+' IN('+values.map(()=>'?').join(',')+')':'0');args.push(...values);}}
+  if(filter.query&&ports.reader.get("SELECT name FROM sqlite_master WHERE type='table' AND name='productivity_search_grams'")){
+   const chars=Array.from(normalizeTaskSearchText(filter.query.trim()));
+   if(chars.length>=3&&!chars.some(char=>char.length===1&&char.charCodeAt(0)>=0xd800&&char.charCodeAt(0)<=0xdfff)){where.push('t.id IN (SELECT task_id FROM productivity_search_grams WHERE gram=?)');args.push(chars.slice(0,3).join(''));}
+  }
   if(filter.rootsOnly)where.push('t.parent_id IS NULL');if(filter.trashOnly!==undefined)where.push('t.deleted_at IS '+(filter.trashOnly?'NOT ':'')+'NULL');
   if(filter.tagIds!==undefined){if(!filter.tagIds.length)where.push('0');else if(filter.tagMatch==='all')for(const id of [...new Set(filter.tagIds)]){where.push('EXISTS(SELECT 1 FROM productivity_task_tags tg WHERE tg.task_id=t.id AND tg.tag_id=?)');args.push(id);}else{where.push('EXISTS(SELECT 1 FROM productivity_task_tags tg WHERE tg.task_id=t.id AND tg.tag_id IN('+filter.tagIds.map(()=>'?').join(',')+'))');args.push(...filter.tagIds);}}
   const condition=where.map(value=>'('+value+')').join(' AND '),tagRows=ports.reader.all('SELECT tg.task_id,tg.tag_id FROM productivity_task_tags tg JOIN productivity_tasks t ON t.id=tg.task_id WHERE '+condition+' ORDER BY tg.task_id,tg.tag_id',...args),tags=new Map<string,string[]>();for(const row of tagRows)tags.set(row.task_id,[...(tags.get(row.task_id)??[]),row.tag_id]);

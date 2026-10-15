@@ -1,3 +1,4 @@
+import {viewTables,viewSchemaSql,migrateViewsAndSearch} from './viewSchema.js';
 import {taskPinTables,taskPinSchemaSql,migrateTaskPins} from './pinSchema.js';
 import {tagOwnershipTables,tagOwnershipSchemaSql,migrateTagOwnership} from './tagSchema.js';
 import type {AppWriteTx} from '../appStore.js';
@@ -38,13 +39,15 @@ export const productivityMigrationChecksum=createHash('sha256').update(schemaSql
 export const productivityStructureChecksum=createHash('sha256').update(structureSchemaSql+'\nstructure-catalog-check-items-v2').digest('hex');
 export const productivityTagChecksum=createHash('sha256').update(tagOwnershipSchemaSql+'\ntag-owner-label-compat-v3').digest('hex');
 export const productivityPinChecksum=createHash('sha256').update(taskPinSchemaSql+'\npersonal-task-pins-v4').digest('hex');
+export const productivityViewChecksum=createHash('sha256').update(viewSchemaSql+'\nactor-saved-views-normalized-trigram-v5').digest('hex');
 const apply=(tx:AppWriteTx)=>{migrateTasks(tx,tx.legacy.tasks);};
 /** Explicit I01 ports prevent imports from opening storage or registering jobs. */
 export function registerProductivityMigration(ports:{registerMigration:typeof registerDomainMigration;registerSnapshot:typeof registerSnapshotTable;registerValidator:typeof registerSnapshotValidator}):void {
- for(const [name,columns] of Object.entries({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables}))ports.registerSnapshot('productivity',name,columns);
+ for(const [name,columns] of Object.entries({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables}))ports.registerSnapshot('productivity',name,columns);
  ports.registerMigration('productivity',1,apply,productivityMigrationChecksum);
  ports.registerMigration('productivity',2,migrateStructure,productivityStructureChecksum);
  ports.registerMigration('productivity',3,migrateTagOwnership,productivityTagChecksum);
  ports.registerMigration('productivity',4,migrateTaskPins,productivityPinChecksum);
+ ports.registerMigration('productivity',5,migrateViewsAndSearch,productivityViewChecksum);
  ports.registerValidator('productivity',validateProductivitySnapshot);
 }

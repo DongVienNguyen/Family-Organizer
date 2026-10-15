@@ -41,3 +41,35 @@ All fixtures are synthetic and offline. No schema upgrade, new route, frontend
 view, activation, dependency, release or VPS operation is part of P05-a. Existing
 Windows checks and all75 first-attempt browser cases remain required. Server2019
 acceptance remains R02 and has not run.
+
+## P05-b1 explicit storage version5
+
+The explicit pilot upgrade adds actor-owned saved views and a persisted search
+document/trigram index. Existing versions1–4 remain readable without an automatic
+upgrade; their SQL and checksums remain frozen. Version6 is refused before DDL.
+The shared I01 migration/snapshot/restore owner registers all three ordinary
+tables; no virtual/shadow tables, separate writer or SQLite extension is added.
+
+Saved config validates kind/filter/config together, derives owner and server ID,
+checks fresh roles before command cache access, and uses expected revisions and
+I01 idempotency. Other actors, including another Admin, cannot read a private
+view by ID or include it in counts. Guest writes are refused. Saved filters do
+not grant access to their referenced tasks.
+
+Search normalizes Vietnamese accents and đ consistently with the pure filter.
+Canonical and retained legacy writes update the same document and unique Unicode
+trigrams in their existing transaction. Queries with at least three Unicode
+characters use an indexed candidate gram before task decoding, together with
+SQL ACL/facets; the complete shared substring predicate still decides matches.
+Short queries and lone-surrogate queries scan authorized candidates. This keeps
+short, quoted, punctuation and title-newline-body behavior; no token-prefix
+semantics are silently substituted. The current adapter indexes the full text
+with ordinary inverted trigrams rather than FTS5: a synthetic FTS5 probe missed
+two-character substrings, and the ordinary tables reuse exact shared restore
+without special virtual-table exceptions. No benchmark acceptance is claimed.
+
+Snapshot validation checks saved configs, owners and exact derived document/gram
+coherence before any writes. Restore keeps canonical IDs and configurations,
+without replaying notifications or rewards. The compiled package must prove
+versions1–4 startup without upgrade and version5 restart/snapshot/encrypted
+recovery/refusal. HTTP/session/client/UI wiring remains P05-b2-owned.
