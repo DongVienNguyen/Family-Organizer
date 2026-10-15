@@ -1,7 +1,7 @@
 {
   "taskId": "P08-b6",
-  "baseSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
-  "baseAcceptance": "PR95 pending corrected native CI; accepted main composition required before PR96",
+  "baseSha": "211f0703ecd8575710353fa2e515af335be837b8",
+  "baseAcceptance": "PR95 exactWindows38779169472/head88b9dcb; accepted merge tree equals testedHEAD",
   "scope": "Owned semantic8 canonical board read projection/internalHTTP/privateSQLcounts/bounded in-memory paging; actualZIP extended15thcheck",
   "fullGreen": {
     "tests": 3844,
@@ -177,5 +177,15 @@
   "fullP08Accepted": false,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
-  "remaining": "Preview/apply/shared WIP/adminoverrideaudit/grouping/archivepreview/P09UI/P10completion and remainingplans; F08currentCIpromotionadaptationbeforeR01"
+  "remaining": "Preview/apply/shared WIP/adminoverrideaudit/grouping/archivepreview/P09UI/P10completion and remainingplans; F08currentCIpromotionadaptationbeforeR01",
+  "composition": {
+    "checkedBranchSha": "e9ea29e",
+    "compositionSha": "9e626fa1234e1ba0791ec3db42e15419b144db06",
+    "all13ReviewedSourceHashesPreserved": true,
+    "entireApplicationAndTestTreeUnchanged": true,
+    "onlyInheritedSourceDelta": "scripts/ci/Invoke-Check.ps1 workers1 from accepted PR95",
+    "otherDelta": "accepted baseline evidence/status only",
+    "cloudReportsReusedForUnchangedApplicationAndTests": true,
+    "newExactHeadWindowsRequired": true
+  }
 }
