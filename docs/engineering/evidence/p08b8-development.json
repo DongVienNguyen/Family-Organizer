@@ -265,5 +265,46 @@
   "fullP08Accepted": false,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
-  "remaining": "P08grouping/field moves, P09UI/P10workflow andlaterplans; F08currentCIpromotionpolicy debt remainsfailclosed/preR01"
+  "remaining": "P08grouping/field moves, P09UI/P10workflow andlaterplans; F08currentCIpromotionpolicy debt remainsfailclosed/preR01",
+  "nativeCheckpoints": [
+    {
+      "headSha": "b462c8a8cf75fab292432ab4cf8f078bcf575090",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38797127519",
+      "status": "in-progress overall;consumer failed strict interprocess wall-clock interval before layout;service skipped",
+      "failure": {
+        "parentBeforeMs": 1792093993645,
+        "serverNowUtc": "2026-10-15T19:53:13.642Z",
+        "parentAfterMs": 1792093993667,
+        "serverBeforeParentLowerBoundMs": 3
+      },
+      "noNativeAcceptance": true
+    }
+  ],
+  "clockInvestigation": {
+    "stage": "diagnostic only;no production or assertion change",
+    "hypothesis": "Node24 V8 on Windows uses a process-local QPC elapsed time anchored to coarse GetSystemTimeAsFileTime with periodic1minute resync; separate process Date.now values can have different sub-tick offsets. Verify actual Windows rawDate,monotonic and directSQLite OS clock IPC observations before any fix.",
+    "cloudDiagnostic": {
+      "platform": "linux",
+      "samples": 100,
+      "exit": {
+        "exitCode": 0,
+        "signal": null
+      },
+      "dateIntervalViolations": 0,
+      "sqliteIntervalViolations": 0,
+      "monotonicIntervalViolations": 0
+    },
+    "sources": {
+      "node24-v8-time.cc": "177cf687e799f6b9c6f7c5aa53fe673604a5e1a6563122aca5abaad5ac04c275",
+      "node24-v8-default-platform.cc": "b29a56d2c7fadfb6aca4ebcfc2117fe25ffc2c28074c3a5bfa1f19e0d8b8fef3",
+      "node24-v8-platform-win32.cc": "fe7717174d74251a41da6c5f69c0da733d7f760fdaa40c87e7d5397cfd392086",
+      "better13-sqlite.c": "6a2805f8c1ef020a7086e62258519323cf98b219e9fe87a42065d916cfebaefc"
+    },
+    "strictParentIntervalAnd21ObservationsRetained": true
+  },
+  "diagnosticSourceHashes": {
+    "scripts/windows/clock-diagnostics.mjs": "e03a82f24ec9eaf1b74469df9f02fa64ccf5a07e953b7a34090cb8eb0ab50761",
+    "scripts/windows/probe-board-package.mjs": "a734cdd418f1c833682c53083547104c07f953f41ad5d726a688605dd535cada",
+    ".github/workflows/ci.yml": "f0fc887c58340395682469e3f18a9ea00c81b2905d3cb183cea618161873a060"
+  }
 }
