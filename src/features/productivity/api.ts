@@ -1,14 +1,29 @@
+import type {SavedTaskView,SaveViewInput} from '../../../server/productivity/views.js';
+import {assertTaskView,type TaskQueryInput,type TaskQueryPage,type TaskSelection,type QueryClock} from './contracts.js';
+import {assertTaskFilter} from './filters.js';
 import type {TaskPin} from '../../../server/productivity/pins.js';
 import {assertTaskRecord,type TaskRecord,type TaskPatch} from './contracts.js';
 import type {CreateTaskInput} from '../../../server/productivity/tasks.js';
 import type {TaskList,TaskSection,TaskTag,CheckItemInput} from '../../../server/productivity/structure.js';
 import {object,keys,text,integer,boolean,strings,choice} from './validation.js';
-import {assertDue} from './dates.js';
+import {assertDue,utcInstant,timezoneFormatter} from './dates.js';
 export interface TaskCatalog {lists:TaskList[];sections:TaskSection[];tags:TaskTag[]}
 export interface TaskChecklist {taskId:string;revision:number;items:{id:string;text:string;done:boolean}[];progress:number}
 export class TaskApiError extends Error {constructor(readonly status:number,message:string){super(message);}}
 const fields=['id','listId','sectionId','parentId','title','body','lifecycle','priority','due','scheduledStart','scheduledEnd','creatorId','assigneeId','isShared','tagIds','blocked','blockedReason','pendingApproval','rewardPoints','revision','deletedAt'] as const;
-function taskValue(value:unknown,id?:string):TaskRecord {assertTaskRecord(value);if(id!==undefined&&value.id!==id)throw Error('Task response identity mismatch');return structuredClone(Object.fromEntries(fields.map(key=>[key,value[key]]))) as TaskRecord;}
+function taskValue(value:unknown,id?:string):TaskRecord {assertTaskRecord(value);if(id!==undefined&&value.id!==id)throw Error('Task response identity mismatch');return structuredClone({...Object.fromEntries(fields.map(key=>[key,value[key]])),...(value.completedReferenceAt!==undefined?{completedReferenceAt:value.completedReferenceAt}:{})}) as TaskRecord;}
+function clockValue(value:unknown):QueryClock {const clock=object(value);utcInstant(clock.nowUtc as string);text(clock.timezone,100);timezoneFormatter(clock.timezone as string);return {nowUtc:clock.nowUtc as string,timezone:clock.timezone as string};}
+function queryValue(value:unknown):TaskQueryPage {
+ const page=object(value);text(page.queryId,256);integer(page.totalUnique);if(page.nextCursor!==null)text(page.nextCursor,2048);if(!Array.isArray(page.items)||page.items.length>100)throw Error('Invalid query page');
+ const items=page.items.map(task=>taskValue(task));if(items.length>page.totalUnique||new Set(items.map(task=>task.id)).size!==items.length)throw Error('Invalid query task IDs');return {items,totalUnique:page.totalUnique as number,nextCursor:page.nextCursor as string|null,queryId:page.queryId as string,clock:clockValue(page.clock)};
+}
+function savedViewValue(value:unknown):SavedTaskView {assertTaskView(value);const row=value as SavedTaskView;text(row.title,500);integer(row.revision,1);return structuredClone({id:row.id,ownerId:row.ownerId,revision:row.revision,title:row.title,filter:row.filter,kind:row.kind,config:row.config});}
+function queryInput(value:TaskQueryInput):void {
+ const data=object(value);if(data.queryId!==undefined){keys(data,['queryId','cursor']);text(data.queryId,256);text(data.cursor,2048);return;}
+ keys(data,['filter','smart','completedWindowDays','timezone']);text(data.timezone,100);timezoneFormatter(data.timezone as string);
+ if(data.smart!==undefined){if(data.filter!==undefined)throw Error('Ambiguous query filter');choice(data.smart,['inbox','today','next7','assigned','overdue','completed','wont_do','trash']);if(data.completedWindowDays!==undefined&&![7,30,90,'all'].includes(data.completedWindowDays as any))throw Error('Invalid completed window');}
+ else {if(data.completedWindowDays!==undefined)throw Error('Invalid query window');assertTaskFilter(data.filter);}
+}
 function validatePatch(value:unknown,allowed:string[]):void {
  const patch=object(value);keys(patch,allowed);
  for(const field of ['title','listId'])if(patch[field]!==undefined)text(patch[field],field==='title'?500:256);
@@ -33,6 +48,13 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  };
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
+  async query(input:TaskQueryInput):Promise<TaskQueryPage>{queryInput(input);return queryValue(await read('/api/productivity/query','POST',input,crypto.randomUUID()));},
+  async selectQuery(queryId:string):Promise<TaskSelection>{text(queryId,256);const data=await read('/api/productivity/query/'+encodeURIComponent(queryId)+'/selection','POST',{},crypto.randomUUID());text(data.id,256);if(!Array.isArray(data.taskIds)||data.taskIds.length>100000)throw Error('Invalid selection IDs');for(const id of data.taskIds)text(id,256);integer(data.totalUnique);utcInstant(data.expiresAt as string);if(data.taskIds.length!==data.totalUnique||new Set(data.taskIds).size!==data.taskIds.length)throw Error('Invalid selection IDs');return {id:data.id,taskIds:data.taskIds,totalUnique:data.totalUnique,expiresAt:data.expiresAt,clock:clockValue(data.clock)};},
+  async resolveSelection(id:string):Promise<{id:string;revision:number}[]>{text(id,256);const data=await read('/api/productivity/selections/'+encodeURIComponent(id)+'/resolve','POST',{},crypto.randomUUID());if(!Array.isArray(data.rows))throw Error('Invalid selection revisions');const rows=data.rows.map(value=>{const row=object(value);text(row.id,256);integer(row.revision,1);return {id:row.id as string,revision:row.revision as number};});if(new Set(rows.map(row=>row.id)).size!==rows.length)throw Error('Duplicate selection IDs');return rows;},
+  async readOnlyTask(id:string):Promise<TaskRecord>{text(id,256);const data=await read('/api/productivity/query/tasks/'+encodeURIComponent(id));if(data.readOnly!==true)throw Error('Expected read-only task');return taskValue(data.task,id);},
+  async views():Promise<SavedTaskView[]>{const data=await read('/api/productivity/views');if(!Array.isArray(data.views))throw Error('Invalid saved views');const views=data.views.map(savedViewValue);if(new Set(views.map(view=>view.id)).size!==views.length)throw Error('Duplicate saved views');return views;},
+  async view(id:string):Promise<SavedTaskView>{text(id,256);const data=await read('/api/productivity/views/'+encodeURIComponent(id)),view=savedViewValue(data.view);if(view.id!==id)throw Error('Saved view identity mismatch');return view;},
+  async saveView(input:SaveViewInput,revision:number,requestId:string):Promise<SavedTaskView>{integer(revision);savedViewValue({...input,id:input.id??'new',ownerId:'current-session',revision:1});const data=await read('/api/productivity/views','POST',{expectedRevision:revision,input},requestId);return savedViewValue(data.view);},
   async task(id:string){const data=await read(idPath(id));return taskValue(data.task,id);},
   async tasks(){const data=await read('/api/productivity/tasks');if(!Array.isArray(data.tasks))throw Error('Invalid task list');const tasks=data.tasks.map((item:unknown)=>taskValue(item));if(new Set(tasks.map((item:TaskRecord)=>item.id)).size!==tasks.length)throw Error('Duplicate task IDs');return tasks;},
   async catalog():Promise<TaskCatalog>{const data=await read('/api/productivity/catalog');for(const field of ['lists','sections','tags'])if(!Array.isArray(data[field]))throw Error('Invalid task catalog');return {lists:data.lists,sections:data.sections,tags:data.tags};},

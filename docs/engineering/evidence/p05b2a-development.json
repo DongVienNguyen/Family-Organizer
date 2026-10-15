@@ -1,0 +1,395 @@
+{
+  "taskId": "P05-b2a",
+  "baseSha": "42d7085fe70db64263902a0aee02f6aa01de5014",
+  "scope": "Internal session-authenticated query/smart/saved/selection HTTP, curated completion/readonly DTO, typed existing-session client and compiled proofs; no UI or activation",
+  "fullGreen": {
+    "tests": 3369,
+    "passed": 3369,
+    "failed": 0,
+    "pending": 0,
+    "files": 182,
+    "junitCases": 3369,
+    "todo": 0,
+    "maxWorkers": 2
+  },
+  "targetGreen": {
+    "tests": 689,
+    "passed": 689,
+    "failed": 0,
+    "pending": 0,
+    "files": 40
+  },
+  "beforeReviewFull": {
+    "tests": 3340,
+    "passed": 3340,
+    "failed": 0,
+    "pending": 0,
+    "files": 179
+  },
+  "causalRed": {
+    "p05b2a-http-red": {
+      "tests": 8,
+      "passed": 0,
+      "failed": 8,
+      "pending": 0,
+      "files": 1
+    },
+    "p05b2a-client-red": {
+      "tests": 8,
+      "passed": 0,
+      "failed": 8,
+      "pending": 0,
+      "files": 1
+    },
+    "p05b2a-large-selection-red": {
+      "tests": 9,
+      "passed": 8,
+      "failed": 1,
+      "pending": 0,
+      "files": 1
+    },
+    "p05b2a-reference-dto-red": {
+      "tests": 9,
+      "passed": 0,
+      "failed": 1,
+      "pending": 8,
+      "files": 1
+    },
+    "p05b2a-suite-red": {
+      "tests": 221,
+      "passed": 0,
+      "failed": 2,
+      "pending": 219,
+      "files": 1
+    },
+    "p05b2a-compiled-gate-red": {
+      "tests": 75,
+      "passed": 68,
+      "failed": 7,
+      "pending": 0,
+      "files": 1
+    },
+    "p05b2a-capacity-suite-red": {
+      "tests": 222,
+      "passed": 2,
+      "failed": 1,
+      "pending": 219,
+      "files": 1
+    }
+  },
+  "fixtureCorrections": "Original HTTP fixture retained old soft-deleted rows because the legacy bridge marks deletion at commit; separate postcommit fixture cleanup preserves exact Trash assertion. Numeric window choice and TaskStatus enum spelling type corrections retained in lint logs. Causal REDs were collected assertions, not import/collection failure; filtered runs record unselected tests and are not full acceptance. Four W02 composition fixture conflicts resolved using exact accepted HEAD plus all three P05 suite/report additions; no prior assertions dropped.",
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": [
+      "app.ts",
+      "productivity/ports.ts",
+      "productivity/query.ts",
+      "productivity/queryHttp.ts",
+      "productivity/queryRouter.ts",
+      "productivity/views.ts"
+    ],
+    "storageCreated": false,
+    "exit": 0
+  },
+  "compiledSourceDevelopment": {
+    "scope": "Cloud Linux diagnostic, not Windows acceptance",
+    "exitCode": 0,
+    "wallet": {
+      "completed": true,
+      "version": 1,
+      "exactMoneyStrings": true,
+      "integerBindings": true,
+      "restartPreserved": true,
+      "ordinaryRestorePreserved": true,
+      "encryptedRestorePreserved": true,
+      "futureVersionRefused": true,
+      "malformedSchemaRefused": true,
+      "legacyFixturePreserved": true,
+      "nativeHandlesClosed": true
+    },
+    "productivity": {
+      "completed": true,
+      "fixtureCommitSha": "42d7085fe70db64263902a0aee02f6aa01de5014",
+      "taskIds": [
+        "canonical-parent",
+        "canonical-task"
+      ],
+      "rawTaskRows": 0,
+      "revision": 2,
+      "semanticCommands": {
+        "httpEnabled": true,
+        "noneCreated": true,
+        "legacyFullFormPreserved": true,
+        "staleRevisionRefused": true,
+        "forgedFieldsRefused": true,
+        "restartPreserved": true
+      },
+      "queryCommands": {
+        "httpEnabled": true,
+        "clockCaptured": true,
+        "matchingIds": true,
+        "selectionIds": true,
+        "savedViewRetry": true,
+        "staleViewRevisionRefused": true,
+        "readOnlyDetail": true
+      },
+      "structureCommands": {
+        "httpEnabled": true,
+        "catalogRetry": true,
+        "checklistProgress": true,
+        "treeSectionMove": true,
+        "archiveRetry": true,
+        "staleRefused": true,
+        "invalidRefused": true,
+        "v1Refused": true,
+        "atomicSubtaskRetry": true,
+        "personalPinRetry": true
+      },
+      "structureStorage": {
+        "version": 5,
+        "checklistPreserved": true,
+        "catalogPreserved": true,
+        "tagOwnershipPreserved": true,
+        "v1StartupWithoutUpgrade": true,
+        "v2StartupWithoutUpgrade": true,
+        "v3StartupWithoutUpgrade": true,
+        "v4StartupWithoutUpgrade": true,
+        "savedViewsPreserved": true,
+        "searchPreserved": true,
+        "personalPinsPreserved": true,
+        "atomicSubtaskPreserved": true
+      },
+      "malformedCurrentTaskRepaired": true,
+      "sparseCoreRefusal": {
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete",
+        "tableCount": 2
+      },
+      "snapshotChecksum": "be1bbcfd16a5bda29b3c2712a3f64e6b61501f7e024ada15a8a086de74d8bbf8",
+      "encryptedSha256": "4911933c701dfe2636739fb5edef460fbe73bebfa141742444d449083796c7b0",
+      "refusalCases": [
+        {
+          "kind": "changed-checksum",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "future-version",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "unknown-namespace",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        }
+      ],
+      "networkAttempts": [],
+      "nativeHandlesClosed": true
+    },
+    "legacyChecks": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "ordinary-backup-excludes-credentials",
+      "restore-requires-explicit-credential-reentry",
+      "compiled-offline-reentry-preserves-user-ids",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed",
+      "compiled-canonical-task-http-restart-snapshot-recovery",
+      "compiled-canonical-unsupported-migration-refusal"
+    ],
+    "networkAttempts": []
+  },
+  "review": {
+    "taskId": "P05-b2a",
+    "baseSha": "037a748338e5d508178be196b58f0f4eef85a4a0",
+    "reviewer": "/root/p05b2a_review",
+    "counts": {
+      "critical": 0,
+      "important": 1,
+      "minor": 1
+    },
+    "allFindingsGraded": true,
+    "gradingBeforeCorrection": true,
+    "oneCorrectionPass": true,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "accepted": true,
+        "reason": "New authenticated HTTP selection creation exposes unbounded live ID/revision/filter payloads and permanent expired-owner tombstones. Add finite reference/row/serialized-byte admission and bounded expiry retention; preserve recent owner409/foreign404 and fresh ACL/revision."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "decision": "defer",
+        "owner": "P18 capacity/performance acceptance",
+        "reason": "Expired query references deliberately retain owner identity for an additional15min and currently count toward4096 cap. Document possible429 until30min after full allocation; no change in this Important correction pass."
+      }
+    ],
+    "declinedBoundaries": [
+      {
+        "proposal": "UI/GlobalSearch/drawer wiring",
+        "owner": "P05-b2b"
+      },
+      {
+        "proposal": "Migration/default rollout",
+        "owner": "P18"
+      },
+      {
+        "proposal": "Replace full canonical cache",
+        "decision": "preserve full cache unchanged"
+      },
+      {
+        "proposal": "Public API/token",
+        "decision": "excluded by user scope"
+      },
+      {
+        "proposal": "Later performance benchmarks",
+        "owner": "P18/I03/R01"
+      }
+    ],
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "causalRed": {
+      "tests": 3,
+      "passed": 0,
+      "failed": 3,
+      "pending": 0,
+      "files": 1
+    },
+    "correctedTarget": {
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "pending": 0,
+      "files": 4
+    }
+  },
+  "selectionLimits": {
+    "referencesIncludingExpiryIdentity": 256,
+    "aggregateRows": 100000,
+    "serializedPayloadBytes": 16777216,
+    "payloadTtlMinutes": 15,
+    "expiredIdentityRetentionMinutes": 15,
+    "afterRetirement": "404",
+    "recentExpiredOwner": "409",
+    "foreign": "404"
+  },
+  "minorDeferred": {
+    "id": "M1",
+    "owner": "P18",
+    "queryCapacity": 4096,
+    "reason": "Expired query identity counts toward capacity for another15min, so full allocation may return429 until30min."
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "62b523e32f291ac275ff2610510e9ec53b61d02e866ee666ca113a8568b849b2",
+    "scripts/windows/probe-productivity-package.mjs": "dd799ff2655393d39db62677d906ff85628e96a997605d6b3b0e19ca12045bcc",
+    "scripts/windows/release-consumer-reports.mjs": "a56cef3d3a624e3bc8803f3ceadce2e538203ae09c1716db92086b68c5aa9260",
+    "server/app.ts": "332fc98cbf961d84ec7bb5731000aa352afbf79e697644ad59722e3189b8a0be",
+    "server/productivity/ports.ts": "14ab2be17c8b58ba4236ccb4d95517da76c58f600dcb2023dd94258a2f7bbdc7",
+    "server/productivity/query-capacity.test.ts": "eadaef2e844657aa1b56c136e5b84dec120705c4c504c72ce8530eb1400aa892",
+    "server/productivity/query.ts": "8d674546c8efc498a65c81258b302a260028eca6d33c4d7176a47e0ffa71d815",
+    "server/productivity/queryHttp.ts": "b01b4fc4449bd42f4b326803e4f1a19bf36740119b4d994778fdd2d164083feb",
+    "server/productivity/queryRouter.ts": "db613cd68b356df9cd0f5f2d0dad0915e00ebd1386df16a85b8f672c29155cc8",
+    "server/productivity/router.ts": "c3df1ebf77b422ec3dfc7681238b3d0e6b570da9dcf05a6b6f2e2e539f703294",
+    "server/productivity/views.api.test.ts": "8dd4dbe708b0031aab4e13fbfafc09387f5f8a29eea85b9ee4e97948fcea6c30",
+    "src/features/productivity/api.ts": "ef01bc83f5a26a3af316ef8553e4c3d58fb60477e516ce81883f4533d3c8eaac",
+    "src/features/productivity/contracts.ts": "c4e578cecf2627387edfe6928a80313a4d6b1a9a02280cc84cc6b35f37de266d",
+    "src/features/productivity/query-api.test.ts": "7fab14377aff0b1a001ec5fe3459005517715ff7d989cb415a474916c67723f5",
+    "tests/evidence.test.ts": "dc3442bf9e821ea4fa05bfb688144afd6098b99c88d49170e0d5a3cb563cd677",
+    "tests/helpers/release-consumer-fixture.ts": "12909549f810c20af314ed4f6a376823144e67b582b456b62c18df48fe27e4d1",
+    "tests/release-consumer-reports.test.ts": "0ea896b23e665ce260aa3e1c005d629ba11bdad8ba7958687a08a2abbd90186e"
+  },
+  "reportHashes": {
+    "p05b2a-final-target.json": "00691fcf659a4150c0bc8f88ad29a61d3901d28f96499162f25f8a4c8e22bdba",
+    "p05b2a-http-isolated-green.json": "4e9a675813c04d7f0369a19efb7dc972911cf622cb18a2eace7761e97540a0ac",
+    "p05b2a-review-rulings.json": "2cd9fd2b657c010908234709bea2d53b9b2e7104671b37672664a99dedb20a54",
+    "p05b2a-consumer-green.json": "12ffa0d85a6b4eda8d9ea2a5820e4fdac2317c763370a8a2360b959b592c83b9",
+    "p05b2a-pre-review-full.json": "72c3b2370528fa89c840d4b95655f6f27f923cc0b1ec57fe1c1b37ca107683d3",
+    "p05b2a-pre-review-target.json": "a324056303338caf18806b61904fca56d8e735a8b3b21f9890dd6fc4722c8d16",
+    "p05b2a-capacity-gate-green.json": "cd9fb4178b22fd65597eff2e65973c305acf3a2ad71957718cb4d0763e89e06d",
+    "p05b2a-http-red.json": "95dc81f02fdf06f4bcb8cc89eee85377c0edd8eb0a5a4da948b0c985175db7c5",
+    "p05b2a-reference-dto-red.json": "c12dd0477460cefff5e265e26752cbdd54fffeba4b22631b1f7b7e95097d354f",
+    "p05b2a-large-selection-red.json": "e0fcce6984dd064bf92d74e5a9d917f71817c3d4db7e3d31b4b3767953793aff",
+    "p05b2a-capacity-suite-red.json": "25730be7920eba933ad89df872961f6af94c5b443f9ce3abdb6160c6fc064159",
+    "p05b2a-integrated-target.json": "95dd756b0f8ef8ab78470540610b574453dcb5962f62bdec15eaf7f11b6d98f6",
+    "p05b2a-compiled-gate-red.json": "8761f3d9c4c04ac431fb2a7835386e3a3e82407970df2777b32c608e99b0b0bc",
+    "p05b2a-current-target.json": "fe73d435c2c91a7f5ca7636b8da8a2aa0f3c0c5f566059a4bbbf5ae8859963d1",
+    "p05b2a-client-red.json": "a3cc0c1298f2169c365f21dbf85428e69d99055f12acdc698be9d022df6883ac",
+    "p05b2a-review-capacity-green.json": "45476b01ef20e8594b7850ac9542c20e1e92513cd7229b6014a17a78639fb4e9",
+    "p05b2a-suite-red.json": "9d8814ebb1232c023ee0c6b02046a5686c62132b15416987883364890f00bc3f",
+    "p05b2a-http-first-green.json": "dde9f4a6f467791513217c8e5f3cf98054338d6a410aa566d6a874905dc3387d",
+    "p05b2a-review-capacity-red.json": "0a57860d19e83f737a90944a3c399e5a39aca9eb765f280575c07a6bb3065d10",
+    "p05b2a-integrated-full.json": "5dede7ccdadc8e957562ad8d3d4b3ca004f64dc608b47bdf5eaf41010ff09317",
+    "p05b2a-http-green.json": "d136cb99be8756277b843f625fb79cae85ec4e59294ff84cbc8790a1d381ef88",
+    "p05b2a-pre-review-full.xml": "2abac5b6ce2cc03b19c7c924844e36e7e2dddd0b52ec6109751299165e334672",
+    "p05b2a-integrated-full.xml": "a7a39ea6e27731dc4b3dedd5a7738857b9262edd917196688866f0156c9749fd",
+    "p05b2a-pre-review-target.log": "7324572845c1942826fcf6ccb42d77e5d2d9ad61826f6b6e0fed44148b9d003c",
+    "p05b2a-current-target.log": "dfc3d35a07a58ad15d6c54c87a10ffc112677b9477c6f39c18b3aa6faaee125d",
+    "p05b2a-first-lint.log": "7eae47b3a13a202302615738f6d68241717043154a4343a78181792910c3926d",
+    "p05b2a-capacity-suite-red.log": "b908c4a167cc7135a7875a274158d31ebd152f59ff01043978ab8848253e4679",
+    "p05b2a-integrated-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p05b2a-compiled-gate-red.log": "827dd2684b551925a05cf2bfb977891fcae3aaf7ab4e7ada828c2104954db630",
+    "p05b2a-fixture-status-type-lint.log": "1352f5570f4af1d3c8d461ec8255995e031e608c8dce39179ce15e3f6d8dfc0a",
+    "p05b2a-review-capacity-green.log": "88039f8bc488aa0f5f3144dc369f17b0b9020f0022013654fbcee8456afe92cd",
+    "p05b2a-integrated-target.log": "27a8c7de5f382de54f0242a26afb1fa4c70ec289c9284d8bcb61b62bdee5538b",
+    "p05b2a-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p05b2a-final-target.log": "ca1a1a00a9407529409e3b4446bcb686e10563fe0c3e44a8ce95a4e0cee31bea",
+    "p05b2a-review-capacity-red.log": "23078c2d82aa6c4be792c6085b956bc5bd303b1f6dd5544c0cb4283e22ebfb98",
+    "p05b2a-pre-review-full.log": "c9c8418a1c4a441ddd36efdc99268c484a9a503ebfdc3d17c1116c05317117e4",
+    "p05b2a-suite-red.log": "a28c58341fcd931fdf6e4f8881b8e917a3ea413bec70b975811859e0e7fa309e",
+    "p05b2a-pre-review-build.log": "858dbeca5dfd19716807a44295637d50d5cffee2ebeb3b598f2813df2cfccd1b",
+    "p05b2a-capacity-gate-green.log": "c28e581cad501d0e1c0cd3f7514698709398a54ba03d5c43b605287c6b0d46b6",
+    "p05b2a-consumer-green.log": "3d7caa933eab99ee75334d7b3c989937fab5daa21e6cea9b6a2b0fa7b1b883a1",
+    "p05b2a-large-selection-red.log": "c60b11543e4b946f78d057f4f08b5248812f2b9f69edf89ea4e8408df2ea15ed",
+    "p05b2a-client-red.log": "b3b8eec71b85bae7b124e7d81c4f8c749c98e1e7cad14e2b9966f7ee7096b06c",
+    "p05b2a-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p05b2a-http-isolated-green.log": "0538983e6236ed5364f8103869751ad9c397a622222f615c98fe7bd1e44add31",
+    "p05b2a-integrated-full.log": "fd46e2a0bab7f7caa9234cbfda486adc652e8609e8a098ef2b428f2b1bf0d124",
+    "p05b2a-integrated-build.log": "9f8817efa284a5846a18f635c6f3df20097e051b5da9f88f8835decc0f24f4e6",
+    "p05b2a-http-red.log": "3bc748fb1eb21285c1ab24245778984d4686d15b966711b466bd662fc6a7bdeb",
+    "p05b2a-http-first-green.log": "b823ea64c46825c280689095afd43eb905a4b2f448e64dba459b02bcff8801c3",
+    "p05b2a-reference-dto-red.log": "33eb5c551ede28ddff119303671875a8bd0fd60080e0fc290ecfb7adb810ba04",
+    "p05b2a-http-green.log": "295046568982e2992dee6340bd1c442e30c5c02d15aee83322aa1f7e1a7da305",
+    "p05b2a-cloud/cold-import.json": "b6379ba057fc3300c9d1dbbe2df261b3d54bd15cb71ffb25196fe9634bdc1a99",
+    "p05b2a-cloud/fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p05b2a-cloud/cold.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p05b2a-cloud/cold-corrected.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p05b2a-cloud/final-wallet-fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p05b2a-cloud/compiled.log": "15ac9d1c08391447a7d78ab78361e4b5d3dd8618823a8ba996f242f15614e053",
+    "p05b2a-cloud/package-functional-server.log": "bfe85b0d2718865f961996b737afc23d407243daeba725e9f6e0649d8ae3dc6e",
+    "p05b2a-cloud/compiled-report.json": "671c0881dc6a3be73c64f8bfd3b7188e1729e856fe14779d2f85cc169d378899",
+    "p05b2a-cloud/integrated-compiled.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p05b2a-cloud/final-productivity-fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p05b2a-cloud/integrated-compiled-report.json": "898bb2afa3e8eed3b9dd4ee9f0ae13adc92d423e8f912eee591ac34345773327",
+    "p05b2a-cloud/integrated-harness/wallet-fixture.json": "2cb296aa161930dbeacf1f83dc3edd74c627e9c90257b68fbe15626a021dd6fc",
+    "p05b2a-cloud/integrated-harness/productivity-fixture.json": "cd6022ed5b555d1b79089e566b53587f46699b3450710bd65b4d2195a1f262b3",
+    "p05b2a-cloud/harness/productivity-fixture.json": "04924d1bd12e09d4d7af7a0cfb418b77e3fd4e8b3a8188503297b52fd1372df1"
+  },
+  "runtimeChanged": false,
+  "dependenciesChanged": false,
+  "fullP05Accepted": false,
+  "fullW02Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P05-b2b smart/saved UI/GlobalSearch/readonly drawer, then P06 Matrix"
+}
