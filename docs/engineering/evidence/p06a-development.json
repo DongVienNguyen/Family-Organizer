@@ -1,0 +1,161 @@
+{
+  "taskId": "P06-a",
+  "baseSha": "90ef2c99a774eac2d3a9eb9676cb3de037501806",
+  "scope": "Pure deterministic Matrix classification/typed rules/diagnostics and untrusted attribute-or-view-pin move proposals on already-authorized rows; no trusted server preview/apply/storage/API/UI",
+  "fullGreen": {
+    "tests": 3419,
+    "passed": 3419,
+    "failed": 0,
+    "pending": 0,
+    "files": 187,
+    "junitCases": 3419,
+    "todo": 0,
+    "maxWorkers": 2
+  },
+  "targetGreen": {
+    "tests": 308,
+    "passed": 308,
+    "failed": 0,
+    "pending": 0,
+    "files": 5
+  },
+  "matrixTarget": {
+    "tests": 15,
+    "passed": 15,
+    "failed": 0,
+    "pending": 0,
+    "files": 1
+  },
+  "causalRed": {
+    "p06a-matrix-red": {
+      "tests": 11,
+      "passed": 0,
+      "failed": 11,
+      "pending": 0,
+      "files": 1
+    },
+    "p06a-required-suite-red": {
+      "tests": 225,
+      "passed": 224,
+      "failed": 1,
+      "pending": 0,
+      "files": 1
+    }
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "module": "src/features/productivity/matrix.ts",
+    "foreignCwd": true,
+    "storageCreated": false,
+    "exitCode": 0
+  },
+  "review": {
+    "reviewer": "/root/p06a_review",
+    "baseSha": "5cadef54149996d6ed66b78b5c5090fe8ef2eef0",
+    "reviewedSha": "bf26763",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorDeferred": [
+      {
+        "id": "M1",
+        "owner": "P18",
+        "grade": "Minor",
+        "reproducer": "priority_only or custom without due rules, horizonDays1, clock2011-12-28T12:00:00Z Pacific/Apia; unused skipped2011-12-30 horizon throws",
+        "ruling": "Narrow historical timezone edge; defer lazy irrelevant-horizon computation to P18 temporal boundary/benchmark pass. No present-day Windows acceptance or full P06 claim."
+      }
+    ],
+    "declinedBounds": {
+      "P06-b": "fresh server ACL, trusted5min preview/revisions/day/field permissions/apply/audit/rollback/revisioned expiring pins/migration/recovery",
+      "P07": "Matrix UI, rules editor, keyboard/mobile/drag confirmation",
+      "P18": "reference performance measurements and optimization",
+      "R02": "actual Server2019 acceptance"
+    }
+  },
+  "integration": {
+    "acceptedBaseSha": "90ef2c99a774eac2d3a9eb9676cb3de037501806",
+    "ownMatrixSourceHashesUnchanged": true,
+    "acceptedSourceOnlyMandatorySuiteUnionChanged": true,
+    "combinedSuiteGate": "All accepted P05 UI suites plus Matrix required; original assertions untouched",
+    "changedPaths": [
+      "docs/engineering/implementation-status.md",
+      "docs/engineering/productivity-matrix.md",
+      "scripts/ci/write-evidence.mjs",
+      "src/features/productivity/matrix.test.ts",
+      "src/features/productivity/matrix.ts",
+      "tests/evidence.test.ts"
+    ]
+  },
+  "reviewedMatrixSourceHashesUnchanged": true,
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "7bdfae49c4e220df6055fc32481dd3ea505df6e7c289afb5313a1c80b00668f2",
+    "src/features/productivity/matrix.test.ts": "a53f22ae8610f56a2bf39ee373144593911830dc411e32a31f63afac9546eada",
+    "src/features/productivity/matrix.ts": "88f5627c4164410b810a6bed98876a776aeca361b760f5d18786bb9002c07ccf",
+    "tests/evidence.test.ts": "4d138b70e4ef4dae94d502aae50f7e8cf810937abdcb359710c81be8559b9c85"
+  },
+  "reportHashes": {
+    "p06a-build.log": "8edac9eaae111c4b862badb03241b2bfca9509fa40113c0053058ad2f69b4e7b",
+    "p06a-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p06a-cold.json": "73e6e769f877fa9de5bd7852a8e3d8ed7a01ad952b6f5f637ed0bd9bec3e59a1",
+    "p06a-integration-preservation.json": "8bc925d7e2d68de22b5340d646449948bcb5cb3a69954df18c50bed1fbe2baad",
+    "p06a-full.log": "454134d11edb2bdb748df289a57b9152e2acfa36074c8230d7f331558e21081a",
+    "p06a-required-suite-unchanged-parent.log": "9f540fbab479b8a97da421ee3ec2a00683b052b013715d8985a5f272e9835c85",
+    "p06a-integrated-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p06a-cold.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p06a-integrate-main.log": "1169f7caa35600d02bedecc5cea035b4e934ae783c889682ad6bb8562825e649",
+    "p06a-expanded-green.json": "8315f319cad9a52bc2caa04a447e8157416b34b3ae106096af1089c3493b1e3c",
+    "p06a-review-rulings.json": "197bee4baeae30b9600b3c9aedc811c3e7278f3c522c21219d70a3b275da6dd4",
+    "p06a-target-green.log": "0171e373deab052587be2b03269ce88cbb05bea2dd8822feba2be72da4257078",
+    "p06a-full.json": "c1c27ed4cb3fc4bd7165ef532d8e89e51f8e70936d84bb5d8ab5ac8b31c4d540",
+    "p06a-required-suite-red.log": "9f540fbab479b8a97da421ee3ec2a00683b052b013715d8985a5f272e9835c85",
+    "p06a-target-green.json": "6b656d383c92794c9f498169e4de6c362ad447b595849b70e50fdaf91042237a",
+    "p06a-expanded-green.log": "920cd15d79698d9eac279bffa661f0482c32983cb936e54fb388367e520fd4f9",
+    "p06a-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p06a-full.xml": "fc4ef88b4c952d710b95259be414a79bb74a118b0847a34c7d919f6721bbcefe",
+    "p06a-matrix-green.json": "1dd10d9aeb16b410e9f6d7972b41730b232011bac9cbf3bda7e38405a70ed4a4",
+    "p06a-matrix-green.log": "2046c9bbfddd1fc14061a1449bb91e49a318a4d35c1bcddf4cd02cacfd0fa086",
+    "p06a-first-lint.log": "64885e485324f7c8334e1e52a72dc38f68e485fb035c1f04e5c2b8e98240c6ed",
+    "p06a-reviewed-source-hashes.json": "456c0cbb56827a34a63c517a07808247eaa50d0da4d323b5e0722bb4676cb51f",
+    "p06a-required-suite-red.json": "65b1216c6293b32e349149568a15a2c6d4596645e81fdabc4794fab582e2519f",
+    "p06a-matrix-red.json": "677072f4a3928f9eb69d7aaee3d504db6116b0d007a82f8332341e7ba6a3efcb",
+    "p06a-integrated-target.log": "8307e4415c2620c45b448b48e9c6b4f8bc5daeeeaf2ba19a9a5b45fcb1b87ad8",
+    "p06a-required-suite-unchanged-parent.json": "b6b0223ab5ae45e8fce1b58008cc13adf9754cd0b1fe489c326c9f98bee01770",
+    "p06a-matrix-red.log": "80eca1f409e55f93905db8b4948d05779e7cb0075942784daa0870142069d05d",
+    "p06a-integrate-commit.log": "25d9adf095c611123460662f19532510491ec05ce7de1201cc8ed6dd354fb073",
+    "p06a-integrated-target.json": "028bace8a99d1cd27e74d974bcb8e6106494e40b3f732d39c3b9f1ca53e9aeca"
+  },
+  "fixtureCorrections": [
+    "Localmain ref staleP04 a3e4e7a caught/fast-forwarded to acceptedorigin5cadef5 before firstP06commit/push; two untracked sources retained. Original11collectedRED and first15GREEN diagnostic onoldparent retained; actualtarget304 and omission225/1RED rerun onaccepted5cadef5.",
+    "First missing-anchor assertion made no edit; unchanged-parent evidence run not claimed asRED.",
+    "TypeScript unionnarrowing corrected using explicit typed AST branch guard; shared contracts unchanged.",
+    "AcceptedP05-b2b main90ef2c9 integrated with both Matrixsourcehashes unchanged. Three mergeconflicts resolved by reconstructing exact acceptedmain plus mandatoryMatrixmembership/test and retaining bothstatus histories; no original assertions dropped."
+  ],
+  "deferredBounds": {
+    "P06-b": "Fresh actor/view/task ACL, trusted5min preview/token, stale revision/day validation, field permissions, I01apply/audit/rollback, revisioned/expiring persisted pins and recovery",
+    "P07": "Matrix UI/editor/keyboard/mobile/drag confirmation",
+    "P18": "Reference performance benchmark/optimization and historical skipped-date MinorM1"
+  },
+  "nativeRequired": {
+    "checks": 8,
+    "rawFamilies": 9,
+    "expectedTestsEach": 3419,
+    "expectedFilesEach": 187,
+    "oldBrowserCases": 45,
+    "productivityBrowserCases": 45
+  },
+  "dependenciesChanged": false,
+  "migrationChanged": false,
+  "fullP05Accepted": true,
+  "fullP06Accepted": false,
+  "fullW02Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "Exact-HEAD Windows and authorized merge, then P06-b authoritative Matrix preview/apply and persisted view pins"
+}
