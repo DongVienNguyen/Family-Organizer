@@ -187,5 +187,48 @@
     "otherDelta": "accepted baseline evidence/status only",
     "cloudReportsReusedForUnchangedApplicationAndTests": true,
     "newExactHeadWindowsRequired": true
+  },
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 3844,
+      "passed": 3844,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 211
+    },
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "f7d8c049b96425db3f07303d9850658c393bc5b57d25a6e2f8a585bb3c85c8e8",
+      "scripts/windows/board-package-contract.mjs": "0636b9033263e6d848590b4dcb6b10df1b0f63eea20c9de61a5eaf0fdf726645",
+      "scripts/windows/probe-board-package.mjs": "dba9e0632f7529d60545e48094b6e8e24f7f0e897e35611bc9b6af9c9ab7d4d7",
+      "server/productivity/board-projection.api.test.ts": "b061968b27b79b3faa0896b6b5d21fb8ffe5c905246e7299136d4694c4500c04",
+      "server/productivity/board-projection.test.ts": "2e064a258be1371a09159edd07109597299b46412ca7da427f87cd6002287102",
+      "server/productivity/boardProjection.ts": "b3432fb4bcc89590660ec7132fd55889366656ab4da24ce54c51218e045bc977",
+      "server/productivity/boardRouter.ts": "4384ca2b69faed4b515c00339a2c2ab454ced6c6c7f892a30e4d5b24195b284d",
+      "server/productivity/ports.ts": "ac96f88752d49c4e3ff866379c2d798b3d265e0efff846169e4360aa24f02556",
+      "server/productivity/query.ts": "b4803c5ea77577ac3eef5e6a9baf88efa4d06705a77b0b9cf438d1c14c83fe4f",
+      "server/productivity/router.ts": "c1488c53498cf6752c7fa727d7711ec78a399d0327ae4b98d86262d9e6f58367",
+      "tests/board-package-evidence.test.ts": "1733588df9f1c10d0ca54c896ca25f76320b70c9caeeef6be04b2401bb54dbff",
+      "tests/evidence.test.ts": "b03324622774787263a44973436ae8fd0a84550dc964ebe6b1713932e7a83420",
+      "tests/helpers/board-package-fixture.ts": "c5d8b91dc925a6a2d9ac44ae6668d8ad85ce5e8d8983d86129ee5e5ad2abc5b3"
+    },
+    "diagnosticOnly": true,
+    "applicationAndTestBytesUnchanged": true,
+    "cloudFullReuse": "3844/211/JUnit/lint/build checked on same application/test bytes; standalone probe diagnostics only changed",
+    "clockTarget": 70,
+    "clockRuling": {
+      "taskId": "P08-b6 native clock investigation",
+      "headSha": "3e48dafc5800184bb8dc11aa2e8ba92ed810f77a",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38781717765",
+      "grade": "Important",
+      "allFindingsGraded": true,
+      "originalWholeBranchReview": "closed; no rereview",
+      "observed": "Actual ZIP internal projection/auth/private WIP/body checks reached strict server-clock interval assertion, which failed; report omitted observed timestamps, so actual deviation and cause remain unknown. Consumer failed; service skipped.",
+      "change": "Diagnostic only: retain parent before/server UTC/parent after timestamps and assert message; exact interval assertion unchanged. Add20 further actual HTTP clock samples, every sample must satisfy the same strict bounds. No tolerance/retry/skip/continue-on-error or product code change.",
+      "next": "Preserve completed failed run all7availableartifacts/fullLogs, pushdiagnosticHEADsamePR96, inspectactualtimestampobservations before any clock/oracle redesign; cannotclaim rootcausefixed oracceptance."
+    },
+    "probeSyntaxExit": 0,
+    "windowsAcceptance": "pending diagnostic exactHEAD",
+    "originalFailedRunRetention": "pending complete run sevenavailableartifacts/fullLogs; service was skipped"
   }
 }
