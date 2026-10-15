@@ -1,3 +1,4 @@
+import {withCompletionPolicy} from '../completionPolicy.js';
 import {createHash} from 'node:crypto';
 import type {AppCommand,TaskRecord} from '../../src/features/productivity/contracts.js';
 import {keys,object,text} from '../../src/features/productivity/validation.js';
@@ -11,8 +12,8 @@ import {loadTask,type StoredTask} from './store.js';
 import {projectTaskRecord} from './query.js';
 import {workflowColumn,type WorkflowColumn} from './board.js';
 export interface TaskCompletionProof {proofImage?:string|null;proofNote?:string|null}
-export interface CompletionResult {task:TaskRecord;actualColumn:WorkflowColumn;approvalNeeded:boolean;spawnedTaskIds:string[];policy:'legacy-v1'}
-type LegacyCompletion=Pick<typeof FamilyDB,'saveTask'|'approveTaskCompletion'|'rejectTaskCompletion'>;
+export interface CompletionResult {task:TaskRecord;actualColumn:WorkflowColumn;approvalNeeded:boolean;spawnedTaskIds:string[];policy:'legacy-v1'|'linked-reversal-v1'}
+type LegacyCompletion=Pick<typeof FamilyDB,'saveTask'|'approveTaskCompletion'|'rejectTaskCompletion'|'reopenTask'>;
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'task-completion');};
 /** Semantic command owner reuses the single legacy policy/reward/recurrence writer.
  * No database is opened by import and no new policy is activated here. */
@@ -34,10 +35,14 @@ export function createCompletionCommands(ports:{reader:TaskReader;write:typeof w
   spawnedForEvents(result:CompletionResult):string[]{return [...(eventReferences.get(result)??[])];},
   requestCompletion(ctx:AppCommand,id:string,proof:TaskCompletionProof={}):CompletionResult {
    try{keys(object(proof),['proofImage','proofNote']);for(const [key,value]of Object.entries(proof)){if(value!==null)text(value,key==='proofNote'?8000:6*1024*1024,false);}}catch{fail(400,'Bằng chứng hoàn thành không hợp lệ.');}
-   return run(ctx,'request',id,proof,false,(_tx,before,username)=>{if(before.lifecycle==='completed'){if(Object.keys(proof).length)fail(422,'Công việc đã hoàn thành.');return;}if(before.lifecycle==='wont_do')fail(422,'Công việc đã ngừng thực hiện.');mutable(before);ports.legacy.saveTask({id,status:TaskStatus.COMPLETED,...proof},ctx.actor.userId,username);});
+   return run(ctx,'request',id,proof,false,(tx,before,username)=>{if(before.lifecycle==='completed'){if(Object.keys(proof).length)fail(422,'Công việc đã hoàn thành.');return;}if(before.lifecycle==='wont_do')fail(422,'Công việc đã ngừng thực hiện.');mutable(before);withCompletionPolicy(tx,{taskId:id,revision:before.revision,operation:'complete'},()=>ports.legacy.saveTask({id,status:TaskStatus.COMPLETED,...proof},ctx.actor.userId,username));});
   },
   approveCompletion(ctx:AppCommand,id:string):CompletionResult {
-   return run(ctx,'approve',id,null,true,(_tx,before,username)=>{if(before.lifecycle==='completed'&&!before.pendingApproval)return;if(!before.pendingApproval)fail(422,'Công việc không đang chờ duyệt.');mutable(before);ports.legacy.approveTaskCompletion(id,ctx.actor.userId,username);});
+   return run(ctx,'approve',id,null,true,(tx,before,username)=>{if(before.lifecycle==='completed'&&!before.pendingApproval)return;if(!before.pendingApproval)fail(422,'Công việc không đang chờ duyệt.');mutable(before);withCompletionPolicy(tx,{taskId:id,revision:before.revision,operation:'complete'},()=>ports.legacy.approveTaskCompletion(id,ctx.actor.userId,username));});
+  },
+  reopenTask(ctx:AppCommand,id:string):CompletionResult {
+   const result=run(ctx,'reopen',id,null,false,(_tx,before,username)=>{if(before.pendingApproval||before.lifecycle==='wont_do'||before.deletedAt!==null)fail(422,'Chỉ mở lại công việc đã hoàn thành.');if(before.lifecycle==='todo'||before.lifecycle==='in_progress')return;mutable(before);ports.legacy.reopenTask(id,ctx.actor.userId,username,before.revision);});
+   const value:CompletionResult={...result,policy:'linked-reversal-v1'};eventReferences.set(value,eventReferences.get(result)??[]);return value;
   },
   rejectCompletion(ctx:AppCommand,id:string,reason:string):CompletionResult {
    try{text(reason,8000);}catch{fail(422,'Cần lý do trả lại công việc.');}
