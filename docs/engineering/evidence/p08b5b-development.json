@@ -187,5 +187,144 @@
     "entireTreeEqualsCheckedBranch": true,
     "cloudReportsReusedForIdenticalTree": true,
     "exactHeadWindowsRequired": true
+  },
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 3811,
+      "passed": 3811,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 209
+    },
+    "sourceHashes": {
+      ".github/workflows/ci.yml": "eee877b4171a9d8fd14a6a354d2c7e5d0d431d12ae86c9a781c9f19746e6ca53",
+      "scripts/ci/write-evidence.mjs": "baa535f96a971cad2b9edbde86c98a1130312a133330c669138dbbb2fc94b81e",
+      "scripts/windows/Test-Package.ps1": "d837e92c5ea2f83c885aae1948dc2c6c1b84188af30fcd08bec936f8a1601389",
+      "scripts/windows/package-contract.mjs": "912909de5a91062807729bdbd33465331d0a44cf06e44e7487551d59e8cc1d74",
+      "scripts/windows/release-consumer-reports.mjs": "4cee32091b70ad02fcede9e3e0ea643c4ba5fd2730d231bfd57fe3d93c6d08c3",
+      "scripts/windows/release-manifest.schema.json": "fd1b9e8f302d1af2f0ce2e16d891a5f16fc3f5f59de2b804978b68089cdf15a2",
+      "scripts/windows/release-package-reports.mjs": "34eb41807681f78e1474834df2e3f763050505ccf464654aa6dc8bd69e08aa80",
+      "scripts/windows/write-manifest.mjs": "8a121bad21728c1c571108228fe9e090bd045f9e2050366c68cc7133faa699c2",
+      "tests/evidence.test.ts": "bad33c6d9435132e1c5d1ddbc9849e49489134c559e179542bb927abd997d841",
+      "tests/helpers/release-consumer-fixture.ts": "cecfa1f2dd5a42b3fe99379773e849e25e5d9be05e2588684c82ba7dd7f3ffaf",
+      "tests/helpers/release-inner-fixture.ts": "7ea5915f9ace46788da4a7b430ccb790a0e9391248bc513300ea9f78bc3da161",
+      "tests/release-consumer-reports.test.ts": "67a491a7db8f4c9fdf3c3fcb56e66a74515a2313c91187eee56ce79c433c5c61",
+      "tests/release-package-reports.test.ts": "52f2b7893d5d7b5e877bcc4f789da8d6b1fcd18f39701cfb2e12d087e07167d6",
+      "tests/windows-package.test.ts": "1072cdcb5c57715992d20bea2af4da9c4d91648f4ce2d732d62a019a7c1ff6d5",
+      "scripts/ci/write-board-package-fixture.ts": "d99f7d9271ad0bc411eb43daa725d105374c56ac3cac95f99743fd94a1405005",
+      "scripts/windows/board-package-contract.mjs": "4c5fa0315875fbc33b357018cda132618d74397251a9edb24df4adcd39e952ec",
+      "scripts/windows/probe-board-package.mjs": "610b37c661744e1660a25ccfb60995606596b169d7657d6e50b8464662fd7aa6",
+      "tests/board-package-evidence.test.ts": "0b491ba90cd0f2df0408107d3ba30857c678aca45e889a3a1a15bfbff6d1ae3a",
+      "tests/board-package-fixture.test.ts": "eaf99adb7bd3d1c5abf26f6b2d5992a598aaa7a161b99e2f61da36dc3dcdabb8",
+      "tests/helpers/board-package-fixture.ts": "79a9b84f3d4347cb392cdd3964903957abc0021f4f0f5e2fb0b6401b6318c451",
+      "server/wallet/integration.test.ts": "3e56ca06e8e7e9519ecd3ad3dd16eabe937010f6a387804b96f8fbe73047e04f"
+    },
+    "lintExit": 0,
+    "ruling": {
+      "taskId": "P08-b5b native CI repair",
+      "originalWholeBranchReview": "closed; no rereview",
+      "headSha": "40532c5743abc1ae8e927481f1482c5fa2167032",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38774751520",
+      "grade": "Important",
+      "allFindingsGraded": true,
+      "observedFailure": "Node24 unit integration Wallet drifted unique index: test 10000ms deadline and child TSX-loader15000ms; raw duration16964.5632ms. 3810passed/1failed, zero skips. Exact lower-level hosted delay unobserved. Node22 and actualnewZIP8consumer passed; whole run unaccepted.",
+      "correction": "Compile actual SQLite source once in bounded builder before tests, run isolated compiled fresh process for each drifted DDL. Preserve all four native drift assertions/byte/schema/journal/handle assertions; normal source-bootstrap test remains. Test timeout remains10000ms, native and builder bounded5000ms with explicit error/signal/status checks. No retry/skip/continue-on-error or assertion relaxation.",
+      "cloudTarget": {
+        "tests": 10,
+        "passed": 10,
+        "failed": 0
+      },
+      "correctedFull": {
+        "tests": 3811,
+        "files": 209,
+        "passed": 3811,
+        "failed": 0,
+        "junitCases": 3811,
+        "lintExit": 0
+      },
+      "reportsRetained": [
+        "p08b5b-node24-job.log",
+        "run-38774751520/windows-node24-40532c5743abc1ae8e927481f1482c5fa2167032-1/vitest.json",
+        "p08b5b-native-fixed-target.json"
+      ]
+    },
+    "reports": {
+      "p08b5b-native-fixed-full.json": "c06c524215e0475b7c50d926377e297cddd45a1ca9de2e10286aee3f99bf0ac2",
+      "p08b5b-native-fixed-target.log": "16ec0cc8229c89e5b6f72c986eb13f0d8fcd360578ae19898f214b9a2a0b538d",
+      "p08b5b-native-fixed-full.log": "6a99778579257b6da41945fde6881cd13e315ad8254d9033328c8f6a2030e87d",
+      "p08b5b-native-fixed-target.json": "0fa8e90aa098b20fdc6bee6b7905a7ecebc8842f0beb1b7395628e282dec6f1b",
+      "p08b5b-native-fixed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p08b5b-native-fixed-full.junit.xml": "620739025328fc32b5fd0cbc932aaa2bd537dbd42395cf6137b6dbec9189c740"
+    },
+    "buildReuse": "Test fixture only; application source and compiled server/operator unchanged since reviewed build. Exact HEAD Windows rebuild required.",
+    "originalRunRetained": {
+      "taskId": "P08-b5b original failed Windows checkpoint",
+      "headSha": "40532c5743abc1ae8e927481f1482c5fa2167032",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38774751520",
+      "accepted": false,
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "name": "Windows production browsers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows package producer",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows Node22 baseline",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows Node24 baseline",
+          "conclusion": "failure"
+        },
+        {
+          "name": "Windows productivity browsers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows package clean consumer",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows disposable service",
+          "conclusion": "success"
+        },
+        {
+          "name": "ci-gate",
+          "conclusion": "failure"
+        }
+      ],
+      "quality": [
+        {
+          "major": 22,
+          "passed": 3811,
+          "failed": 0,
+          "pending": 0,
+          "todo": 0,
+          "junitCases": 3811,
+          "failedTests": []
+        },
+        {
+          "major": 24,
+          "passed": 3810,
+          "failed": 1,
+          "pending": 0,
+          "todo": 0,
+          "junitCases": 3811,
+          "failedTests": [
+            "refuses drifted Wallet unique index before native startup mutation and closes handles"
+          ]
+        }
+      ],
+      "artifactsRetained": 8,
+      "logsZipSha256": "65e132b050ff114750121b689d1e2ba7aedd4ad99590dfaa02f9130532a3d324",
+      "cause": "Node24 Wallet unique-index drift source-loader child/test timeout; original raw native delay16964.5632ms; exact hosted delay cause unobserved",
+      "next": "Fixture compile once and isolated child bounded5s; same assertions/10s test budget; new exact HEAD Windows rerun required"
+    },
+    "windowsAcceptance": "pending new exact HEAD"
   }
 }
