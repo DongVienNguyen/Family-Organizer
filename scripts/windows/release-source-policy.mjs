@@ -64,9 +64,9 @@ export function readTrustedReleasePolicy(request,authority){
   const matches=job.steps.filter(step=>step?.name==='Prepare independent consumer harness');requireFact(matches.length===1);
   const step=matches[0];requireFact(Object.keys(step).sort().join(',')==='name,run'&&typeof step.run==='string');
   const commands=step.run.replaceAll('\r\n','\n').split('\n');requireFact(commands.pop()==='');
-  requireFact(commands.length===4&&commands[0]==="$ErrorActionPreference = 'Stop'"&&commands[1]==='New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null');
+  requireFact([4,13].includes(commands.length)&&commands[0]==="$ErrorActionPreference = 'Stop'"&&commands[1]==='New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null');
   const flattened=new Set(),harnessSources=[];
-  for(const command of commands.slice(2)){
+  for(const command of commands.slice(2,4)){
    const match=command.match(/^Copy-Item ([A-Za-z0-9/_. ,\-]+) reports\/package-harness$/);requireFact(match);
    for(const name of match[1].split(',').map(value=>value.trim())){
     requireFact(/^scripts\/(?:windows|ci)\/[A-Za-z0-9_-]+\.(?:mjs|cjs|ps1)$/.test(name)&&safeArchivePath(name));
@@ -75,7 +75,24 @@ export function readTrustedReleasePolicy(request,authority){
    }
   }
   requireFact(harnessSources.length>0&&harnessSources.length<=100);
-  const harnessPolicy={workflowSha256:hash(windowsBytes(workflowText)),files:harnessSources.sort((a,b)=>a.sourcePath.localeCompare(b.sourcePath,'en'))};
+  // Generators run only in the reviewed Windows producer. The pinned collector
+  // reads their target Git bytes as data; it never imports/executes target TS.
+  const generators=[];
+  if(commands.length===13){
+   const definitions=[
+    ['write-productivity-fixture','productivity-fixture.json','fixtureExit','Canonical synthetic fixture generation failed'],
+    ['write-board-package-fixture','board-fixture.json','boardFixtureExit','Semantic9 board synthetic fixture generation failed'],
+    ['write-wallet-fixture','wallet-fixture.json','walletFixtureExit','Wallet synthetic fixture generation failed'],
+   ];
+   for(const [index,[name,path,exitVariable,message]]of definitions.entries()){
+    const sourcePath='scripts/ci/'+name+'.ts',offset=4+index*3;
+    requireFact(commands[offset]==='& node --import tsx '+sourcePath+' reports/package-harness/'+path&&commands[offset+1]==='$'+exitVariable+' = $LASTEXITCODE'&&commands[offset+2]==='if ($'+exitVariable+" -ne 0) { throw '"+message+"' }");
+    requireFact(!flattened.has(path.toLowerCase()));flattened.add(path.toLowerCase());
+    generators.push({sourcePath,path,sourceSha256:hash(windowsBytes(read(sourcePath)))});
+   }
+  }
+  requireFact(harnessSources.length+generators.length<=100);
+  const harnessPolicy={workflowSha256:hash(windowsBytes(workflowText)),files:harnessSources.sort((a,b)=>a.sourcePath.localeCompare(b.sourcePath,'en')),...(generators.length?{generators}:{})};
   const sourceInventory=inventoryNames.sort((a,b)=>a.localeCompare(b,'en')).map(name=>{const text=read(name);requireFact(!/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(text));return {path:name,sha256:hash(windowsBytes(text))};});
   requireFact(Date.now()-started<=120000);
   return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,productivityBrowserPolicy,harnessPolicy};
