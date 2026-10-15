@@ -1,3 +1,4 @@
+import {validateBoardViewSnapshot} from './boardViewSchema.js';
 import {validateBoardSnapshot} from './boardSnapshot.js';
 import {taskSearchContent,searchGrams} from './viewSchema.js';
 import {assertTaskView} from '../../src/features/productivity/contracts.js';
@@ -67,6 +68,7 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
   for(const row of tables.productivity_matrix_overrides){text(row.view_id,256);text(row.task_id,256);choice(row.quadrant,['q1','q2','q3','q4']);integer(row.view_revision,1);integer(row.revision,1);if(row.expires_at!==null)utcInstant(row.expires_at);const view=views.get(row.view_id);if(!tasks.has(row.task_id)||!view||row.view_revision>view.revision||row.view_revision===view.revision&&view.kind!=='matrix')fail();}
  }
  validateBoardSnapshot(snapshot);
+ validateBoardViewSnapshot(snapshot);
  if(marker==='1'){
   const order=(a:string,b:string)=>Buffer.compare(Buffer.from(a,'utf8'),Buffer.from(b,'utf8'));
   const projected=[...tasks.values()].filter(row=>row.deleted_at===null).sort((a,b)=>a.rank-b.rank||order(a.id,b.id)).map(row=>projectLegacyTask(decodeTaskRow(row,(tagRows.get(row.id)??[]).sort(order))));

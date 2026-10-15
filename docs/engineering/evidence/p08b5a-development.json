@@ -1,0 +1,187 @@
+{
+  "taskId": "P08-b5a",
+  "baseSha": "b00bc380a8a5104d1a47a78e0fc2fc80295c9363",
+  "baseAcceptance": "PR93 accepted exactWindows38766687039/testedtreeequalsmain",
+  "scope": "Semantic8 optional saved Kanban board references viaexistingviewsHTTP; no board read projection/move/UI",
+  "fullGreen": {
+    "tests": 3761,
+    "passed": 3761,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 207
+  },
+  "junitCases": 3761,
+  "maxWorkers": 2,
+  "targetGreen": {
+    "tests": 266,
+    "passed": 266,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 4
+  },
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "529a231b843c3e00bde7fa6a7111319b5587bd38",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Add ordinary backup of the old7 fixture with the new compiled operator, checking migration records and native DDL unchanged. Existing old7 refusal of an8backup exits before ordinary bootstrap, so alone does not prove no automatic migration on that path."
+      }
+    ],
+    "declinedBounds": {
+      "semanticBoundary": "Optional boardId stored only after explicitsemantic8/noDDL/no rewrite. Frozen1\u20137/Wallet1 unchanged. Pilot8 refuses unsupported7refs; defaultregistration6, startupknown7/8 definitionsonly/noapply.",
+      "authority": "Fresh session/role/active-list read ACL before saved-view cache and insideI01; mode checked after objectauthorization. Childsharedallowed, foreignchild/member404, guestSave403. No Taskbody/query surface added; filters never grantaccess.",
+      "snapshot": "Pre8refs refuse with recomputedchecksum. Current8 reference existence/mode validated. Stalegrants/archive mayremain ownedconfig/snapshot; live resolve alwaysfreshACL. Typedcontractstrict unknownfields/nonstrings.",
+      "compatibility": "LegacyKanbannoRef/Matrix/structure7 retained. Existingfuture8historical fixtures refuse unknownchecksum; newnativefuture9 actualunknownversion. Existing7native test source unchanged.",
+      "native": "Compiled8realoperator encrypted independent8restore/distinctsourceboardRef/Wallet64bit/Matrixpins/old7-index-future9bytepreservingrefusals/restart/offline/closedhandles/cleanup. Sourceunit notpromotedZIP. Actualmanifest/packagecontract/schema stillmax6; bounds+new-schemaZIPfixture remainsseparatenative task.",
+      "scope": "Versionedrefs viaexistingviewsHTTP only; BoardGET/projection/privatecounts/previewapply/overrideaudit/grouping/archive/UI/completion remainlater. No fullP08/Server2019/release/VPS acceptance.",
+      "resource": "Indexedboardidentity lookups/sharedsnapshotbounds; no providers. P18ownsperformance measurement."
+    },
+    "reviewedSourceHashes": {
+      "server/productivity/structureInvariant.ts": "ae5773d225f7e45a923137aa6cd2b5cd2049d7260ae96272deb756ce260b84d3",
+      "tests/board-reference-native.test.ts": "2db6242809efe049faddd082a45f448d511b966229cdc5de79c8845f137f84ae",
+      "src/features/productivity/contracts.ts": "47d8be198728d6bf990c96208ad8756b388ef761d538fd6efe8ff65cb25aaf0b",
+      "scripts/ci/write-evidence.mjs": "94f466a8b414ffcd1496d84c4c3f70893b80aa61aeb9bdcf17674f840c6f54f6",
+      "server/productivity/bootstrap.ts": "3ccd3cf7df15d8478988433b6e5d5e4b8f8c1941902dae540a6feb8446195af9",
+      "server/productivity/boardViewSchema.ts": "7197e9a37178d7c49dee9a3bc501c3c2d9089343f2c1f26c905d62ea695e5e8e",
+      "tests/evidence.test.ts": "a4d5d2d0439c3ee8fb5d59d15c27cd93a3731eed428b032d4b768b4cf236455f",
+      "server/productivity/matrix.ts": "3370a15a45b9226c2d373dc12003559210a4db2a229640c45eb307bba3f158be",
+      "server/productivity/boardCatalog.ts": "e4af61db631e7e4dabc62ee9cc26e62a00994cccb03a574d12b51b8bc99aac3b",
+      "server/productivity/inspection.ts": "79c977d65b15a556934f25897c898bfec970d52938beff1a9619bdfa350d411f",
+      "server/productivity/adapter.ts": "e015d82dd4938bba07eaec675878cd6012e805e267acfc6cb5935e8d4ece81a4",
+      "server/productivity/structure.ts": "8fad48c8b9af8301295b5bc4a21eb4dbcc430d6a97f52eaefdf9ea0474e05284",
+      "server/productivity/snapshot.ts": "49c27a7b3d1aec8313fb619d524abbcaa9fc5715b87350b28d660454b682754d",
+      "server/productivity/views.ts": "0f83a18845c4fe0529588deba62fec97419bc6889931274c8e125ed09899b2c0",
+      "server/productivity/board-reference.api.test.ts": "18a1d464e4fb1ad40078ecf8d0f4ce7e20845e0faa9c35ec37d293362b69ba33",
+      "server/productivity/board-reference.test.ts": "40cb323f2fb4d768d78b336e732003b36a61f9d9f1937de38497888049be1e8c"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "minorCausalRedClaimed": false,
+    "correctedTarget": {
+      "tests": 266,
+      "files": 4,
+      "passed": 266,
+      "failed": 0
+    },
+    "lintExit": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "preReviewFull": {
+    "tests": 3761,
+    "passed": 3761,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 207
+  },
+  "initialReferenceRed": {
+    "tests": 4,
+    "passed": 0,
+    "failed": 4,
+    "pending": 0,
+    "todo": 0,
+    "files": 1
+  },
+  "gateOmissionRed": {
+    "tests": 249,
+    "passed": 246,
+    "failed": 3,
+    "pending": 0,
+    "todo": 0,
+    "files": 1
+  },
+  "nativeSemantic8": {
+    "compiledSource": true,
+    "independentEncrypted8Restore": true,
+    "distinctSourceTargetBoardReferences": true,
+    "wallet64bitAndMatrixPinsPreserved": true,
+    "old7IndexFuture9RefusalPreservesBytes": true,
+    "ordinaryOld7BackupMigrationIdentityAndDdlUnchanged": true,
+    "restartOfflineClosedHandlesRemovedFixture": true,
+    "promotedZipAcceptance": false
+  },
+  "coldImport": {
+    "modules": [
+      "server/productivity/boardViewSchema.ts"
+    ],
+    "foreignCwd": "/workspace/family-evidence/p08b5a-cold-2wfalvsp",
+    "storageCreated": false,
+    "exitCode": 0
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "94f466a8b414ffcd1496d84c4c3f70893b80aa61aeb9bdcf17674f840c6f54f6",
+    "server/productivity/adapter.ts": "e015d82dd4938bba07eaec675878cd6012e805e267acfc6cb5935e8d4ece81a4",
+    "server/productivity/board-reference.api.test.ts": "18a1d464e4fb1ad40078ecf8d0f4ce7e20845e0faa9c35ec37d293362b69ba33",
+    "server/productivity/board-reference.test.ts": "40cb323f2fb4d768d78b336e732003b36a61f9d9f1937de38497888049be1e8c",
+    "server/productivity/boardCatalog.ts": "e4af61db631e7e4dabc62ee9cc26e62a00994cccb03a574d12b51b8bc99aac3b",
+    "server/productivity/boardViewSchema.ts": "7197e9a37178d7c49dee9a3bc501c3c2d9089343f2c1f26c905d62ea695e5e8e",
+    "server/productivity/bootstrap.ts": "3ccd3cf7df15d8478988433b6e5d5e4b8f8c1941902dae540a6feb8446195af9",
+    "server/productivity/inspection.ts": "79c977d65b15a556934f25897c898bfec970d52938beff1a9619bdfa350d411f",
+    "server/productivity/matrix.ts": "3370a15a45b9226c2d373dc12003559210a4db2a229640c45eb307bba3f158be",
+    "server/productivity/snapshot.ts": "49c27a7b3d1aec8313fb619d524abbcaa9fc5715b87350b28d660454b682754d",
+    "server/productivity/structure.ts": "8fad48c8b9af8301295b5bc4a21eb4dbcc430d6a97f52eaefdf9ea0474e05284",
+    "server/productivity/structureInvariant.ts": "ae5773d225f7e45a923137aa6cd2b5cd2049d7260ae96272deb756ce260b84d3",
+    "server/productivity/views.ts": "0f83a18845c4fe0529588deba62fec97419bc6889931274c8e125ed09899b2c0",
+    "src/features/productivity/contracts.ts": "47d8be198728d6bf990c96208ad8756b388ef761d538fd6efe8ff65cb25aaf0b",
+    "tests/board-reference-native.test.ts": "da64e54a0e87e88291a6f780920873e2ab2102492ac0dac158fc861cde225a27",
+    "tests/evidence.test.ts": "a4d5d2d0439c3ee8fb5d59d15c27cd93a3731eed428b032d4b768b4cf236455f"
+  },
+  "reportHashes": {
+    "p08b5a-gate-red.log": "b551e4c0e03d60abd036f5e450b178f4d0f37ec227549a397df551c5724aa496",
+    "p08b5a-initial-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b5a-cold-import.json": "15cd8c2e6b10ca8318dd3db805b233a23857fadff431d91b4b62092de20dd0a0",
+    "p08b5a-review-rulings.json": "8d403125892edf90718e80818f88d69a06fa2c1ed863508009e1f182299aa446",
+    "p08b5a-compiled-initial.log": "4a7bf5f75af984ebde0caf827ede086ee1eef1546115505a57a50cf50d923c81",
+    "p08b5a-compiled-initial.json": "2f058c301ba516f5c55c12973316cd10c72a8813b8e8a9d4e79920b85570ced5",
+    "p08b5a-reference-expanded.json": "69ebcb004e179e8a8464d983f946b2ec0898036867f444f5f486e6f9794a80a6",
+    "p08b5a-pre-review-build.log": "911679fe30744503542aa78d1ca500a69ea44a2f5676dcc309e2e0fb6ebc5bb3",
+    "p08b5a-pre-review-full.log": "47a42e5abfad1687aa51e6ac533d6c28ecab5f53a3d4bdb6abf72d6851ae76d9",
+    "p08b5a-full.junit.xml": "b1244fcbe2fb49b070ecd5bd7f29a07f9773496c03b98d02c8398d3e3ab1a0d4",
+    "p08b5a-build.log": "ec1da79024d20b2f3271922a8f6b3832e55c8ac4fca6fe97930d824aa6e1c39d",
+    "p08b5a-reference-http.json": "5f207cfa0e2a8b59a83ffbe5dd98cc4ddef0f447fc5459286bb6d890e39e067b",
+    "p08b5a-pre-review-full.junit.xml": "2b8fdc55b5f5bfe6fca1d4adf207aed3408261641a98f45a92883dea2010cb54",
+    "p08b5a-gate-red.json": "fef97c0d35171fc42981179df9e4bff748f71e2c4b92618fbc6c4a0fc0574227",
+    "p08b5a-full.log": "11a411fd2ba10569e2e3745c00e8deaa872e649c2fe57d838cc370a9d9ea6c01",
+    "p08b5a-corrected-target.json": "1fbf84861f24d0a72900cac560ed12f4398fadf69dd3513f0b7a50027a8c383f",
+    "p08b5a-reference-migration.log": "f5bcd789778a1b5e75797524e8305974653f4b169cfda9eb6b2a91c580a48d2a",
+    "p08b5a-pre-review-full.json": "e69936234cdad3aee26be9b4a394ab8f13bda95b4897f3f8b7dfb91bf011b67a",
+    "p08b5a-reference-migration.json": "fbfcf3f0b587b112a00dbc87dfd6275bbbecb2075153cc260644115d868cd94b",
+    "p08b5a-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b5a-corrected-target.log": "8099d6a76235f3a6ef05ad709e42a8111ba2a301cd7d5cb90b488b7faf7d18be",
+    "p08b5a-reference-expanded.log": "67c1805407b3c2c61a5271b120fe993a8c3e1b57e6c4bdd8d6519d19b62b02ac",
+    "p08b5a-reference-http.log": "6870aac08297a2dd6f0f77195465b04346e26488297b867589e7200208d23818",
+    "p08b5a-full.json": "8ccbb1039b4a4ecb6c86d8eb07d899f3c8ff4945aa9f9f7727465164fa95830c"
+  },
+  "compiled": {
+    "serverSha256": "ca4784d0b278d7db0278ccb44dfd789e1b38cf2e600fcf0c3bcd4339b288fd60",
+    "operatorSha256": "df323e7ccd67d63da7941f40b1dc62bcab19371eb638928cb0b8dfaedad24dd4"
+  },
+  "defaultMigrationRegistration": 6,
+  "explicitPilotVersion": 8,
+  "startupAutoDdl": false,
+  "packageManifestMaxProductivity": 6,
+  "newSchemaActualZipFixtureAccepted": false,
+  "fullP08Accepted": false,
+  "exactWindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "releaseOrVps": false,
+  "reviewedBaseSha": "529a231b843c3e00bde7fa6a7111319b5587bd38",
+  "composition": {
+    "composedCommit": "86c07bc705d87f31547f68d335b621212c4dab6c",
+    "priorBranchCommit": "61448a266c0dfa220466022ad9824a77bf97fdd7",
+    "entireTreeEqualsPriorBranch": true,
+    "cloudReportsReusedReason": "Whole composition tree equals checked branch; only acceptance docs follow. New exact-HEAD Windows mandatory."
+  }
+}

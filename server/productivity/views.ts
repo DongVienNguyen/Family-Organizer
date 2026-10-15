@@ -1,3 +1,4 @@
+import {assertBoardViewReference} from './boardViewSchema.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {AppActor,AppCommand,TaskFilter,TaskView,ViewConfig} from '../../src/features/productivity/contracts.js';
 import {assertTaskView} from '../../src/features/productivity/contracts.js';
@@ -32,11 +33,11 @@ export function createTaskViews(ports:{reader:TaskReader;write:typeof withAppWri
   getView(actor:AppActor,id:string):SavedTaskView{authorize(ports.reader,actor);return own(ports.reader,actor,id);},
   listViews(actor:AppActor):SavedTaskView[]{authorize(ports.reader,actor);return ports.reader.all('SELECT * FROM productivity_views WHERE owner_id=? ORDER BY title,id',actor.userId).map(decode);},
   saveView(ctx:AppCommand,input:SaveViewInput):SavedTaskView {
-   assertContext(ctx,ports.reader);authorize(ports.reader,ctx.actor);if(ctx.actor.role===UserRole.GUEST)throw new AppStoreError('Bạn không có quyền lưu góc nhìn.',403,'view-forbidden');validated(input,ctx.actor.userId);
+   assertContext(ctx,ports.reader);authorize(ports.reader,ctx.actor);if(ctx.actor.role===UserRole.GUEST)throw new AppStoreError('Bạn không có quyền lưu góc nhìn.',403,'view-forbidden');validated(input,ctx.actor.userId);assertBoardViewReference(ports.reader,ctx.actor,input.config);
    if(input.id)own(ports.reader,ctx.actor,input.id);else if(ctx.expectedRevision!==0)throw new AppStoreError('Phiên bản tạo mới phải bằng 0.',409,'view-conflict');
    const payload=structuredClone(input);
    return ports.write({actorId:ctx.actor.userId,command:'productivity:view:save',requestId:ctx.requestId,payloadHash:createHash('sha256').update(JSON.stringify({expectedRevision:ctx.expectedRevision,input:payload})).digest('hex')},tx=>{
-    assertContext(ctx,tx);authorize(tx,ctx.actor);const before=payload.id?own(tx,ctx.actor,payload.id):null;
+    assertContext(ctx,tx);authorize(tx,ctx.actor);assertBoardViewReference(tx,ctx.actor,payload.config);const before=payload.id?own(tx,ctx.actor,payload.id):null;
     if((before?.revision??0)!==ctx.expectedRevision)throw new AppStoreError('Góc nhìn vừa được thay đổi.',409,'view-conflict');
     const value:SavedTaskView={id:before?.id??randomUUID(),ownerId:ctx.actor.userId,title:payload.title,revision:(before?.revision??0)+1,filter:payload.filter,kind:payload.kind,config:payload.config};
     tx.run('INSERT INTO productivity_views VALUES(?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,revision=excluded.revision,filter_json=excluded.filter_json,kind=excluded.kind,config_json=excluded.config_json',value.id,value.ownerId,value.title,value.revision,JSON.stringify(value.filter),value.kind,JSON.stringify(value.config));
