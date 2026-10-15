@@ -1,0 +1,126 @@
+{
+  "taskId": "P08-b1",
+  "observedAt": "2026-10-15T22:33:46.573293+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/90",
+  "testedHeadSha": "9f20f765059601b43f73ba772fab85a50f0c7a4b",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38759442203",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "4303603afb284c99dd85fa87bf80192c140ed7a3c802aed372e120597261558f",
+    "coverage": "66a5427b6bf286b2dc27254ed780e80e64bd7dbeb5757fb20367c5870dc42138",
+    "package": "57870d1ef26c8d6d0821d4d52e68ed306022f8dad0180f4fb7da9ba68f871228",
+    "service": "6fda62fe82e99763d4343fda6a92be1a83defd77a9612610fffd6d6fd77ef3e1",
+    "caddy": "fb085a78860aa60b5b27d68c8ee7ebeb5c154bd2835be58c651621a7eea23cf6",
+    "extraction-sdk": "6ce0d5ab611dbc9b8c7d3b42d38351c0f002049021219d24f582868d996bc116",
+    "inner-native": "c4e55e46509639fcb57ce58b7d82c3d8be40a9e5bb2c487143cbf814b6bf1f51",
+    "browser": "09c237cc68b2bbb8489045d6437fd25bd9e6c6addeddee9cdc5eacff74f43cd0",
+    "productivity-browser": "1f616eb177c4167e57dc0d9f0223a08e75a84607f7044499adcb2dd656f58634"
+  },
+  "qualityEach": 3671,
+  "qualityFilesEach": 199,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 9,
+  "zipSha256": "5be7bd02d03a7c9d4fefafe5e07b668a42b1f58b3f296ec801375a6d7cc4d656",
+  "fullCiLogZipSha256": "b6dd3b20615d64b1dd48f0e4e33afc3fc758d0903e597aa5021a169ef91329ec",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "d625190bcdc7a8c40518ef2c960e5966774e42cb",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Fix: semantic validation must refuse orphan board-list references even when a damaged imported image was created with foreign keys disabled; current joins start at columns and miss an otherwise empty orphan board. Check native foreign_key_check for each owned board table before semantic joins."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Fix: the frozen-schema preservation test title promises Task preservation but fixture has none; seed a canonical Task and compare its complete row before/after candidate DDL."
+      }
+    ],
+    "declinedBounds": {
+      "activation": "Unconsumed explicit schema candidate only; no registry/migration7/snapshot/runtime admission until all-writer invariants and HTTP/recovery are implemented. Current supported schema remains6. No fullP08 acceptance.",
+      "WIP": "Native schema validates policy shape only; SQL whole-scope admission/privacy/concurrency/audit/idempotency remain P08-b2. No hard-limit enforcement claimed.",
+      "ordering": "Composite FKs prevent cross-list/board/task/column references; Task deletion removes metadata; column deletion refuses occupied references. Canonical Task remains membership truth; no lifecycle/reward writes. Equal rank deterministic order belongs accepted P08-a planner.",
+      "schema": "Exact explicit owned DDL/index comparison; no IF NOT EXISTS repair or changes to frozen1..6 table SQL. Additional unique index supports native compound Task-list FK. Missing positions permitted for lazy seeding, never WIP count authority.",
+      "tests": "Initial21/4/17 reflects no-op candidate stub; four throw assertions pass for missing tables, not established regression proof. Subsequent actual native constraints21/21. Workflow/corruption/index/DDL rollback and gate omission expanded before final checks.",
+      "scope": "P09 UI/P10 completion/new default activation/Server2019/release/VPS are excluded from this preparatory slice."
+    },
+    "reviewedSourceHashes": {
+      "server/productivity/boardSchema.ts": "3c58b83faeb3d8e0d643942deb6452d1e8da82413126f00b1e7b00bc32e32676",
+      "server/productivity/board-storage.test.ts": "916beb9d4436d06dd95f229553c78c4eab76879df486d45b229b54bfc4da2032",
+      "tests/evidence.test.ts": "9e62111623ee9182d849f267f2f1d3d89ec849839d521bb0647a60c57524385d"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 31,
+      "passed": 30,
+      "failed": 1
+    },
+    "gateOmissionRed": {
+      "tests": 239,
+      "passed": 238,
+      "failed": 1
+    },
+    "correctedTarget": {
+      "tests": 270,
+      "files": 2,
+      "passed": 270,
+      "failed": 0
+    }
+  },
+  "fullP07Accepted": true,
+  "fullP08Accepted": false,
+  "runtimeMigration7Registered": false,
+  "transactionalWipAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P08-b2 all-writer invariant, then board configuration/ACL/transactions/migration/snapshot/recovery/internalHTTP",
+  "mergeSha": "bb0652e73e50cdc9b436d9bb341804bf48a46d95",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/90#issuecomment-6195917580"
+}
