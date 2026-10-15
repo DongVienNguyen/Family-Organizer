@@ -29,7 +29,8 @@ switch ($Check) {
     lint { $program = 'npm.cmd'; $arguments = @('run', 'lint') }
     test {
         $program = 'npm.cmd'
-        $arguments = @('test', '--', '--coverage', '--reporter=default', '--reporter=junit',
+        # Bound native/coverage contention on the fixed hosted runner; preserve every suite and timeout.
+        $arguments = @('test', '--', '--maxWorkers=2', '--coverage', '--reporter=default', '--reporter=junit',
             '--outputFile.junit=reports/junit.xml', '--reporter=json', '--outputFile.json=reports/vitest.json')
     }
     build { $program = 'npm.cmd'; $arguments = @('run', 'build') }

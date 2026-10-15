@@ -1,0 +1,140 @@
+{
+  "taskId": "W02-b1",
+  "observedAt": "2026-10-15T16:09:24.789596+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/82",
+  "testedHeadSha": "6e1fc3a2b6c35380d9f5e40d2c0bdb865ec2a8c3",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38708951406",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "072c4d8da4c996f3f696d87b61b619122a3e72823a1ddab9911d6f159d9b51ba",
+    "coverage": "6b9fbe8a9119e5f79982b87825c7da857fdb7860d60d3bd6781793fa5dfb97da",
+    "package": "ac28d807ec92a0e60d380202c980c59f2497f7530154c86e329d48a70412e2e3",
+    "service": "5796a58ec0b9a92353bb9053e4cf7422d8d303eae794ec13fc84212a4f6b7280",
+    "caddy": "55c1d7d6596fb7794b08349a897170c215fa38032921947e4a84937054f5f7c0",
+    "extraction-sdk": "ed038f179a69254573b7c5bcec22f6b3e30341f562cfb258841adbc0d445d067",
+    "inner-native": "2f083324e19012351944ae6dbea1bd51c2d23c04cb567e1c0d0ed1fae9a93bc6",
+    "browser": "3dbc027c65f237a37a74947ca25a58de4a9e40941d6b17cd5a6a4fc45198e83c",
+    "productivity-browser": "1aa8e502c92d09c87c683dc362f0f41b82bb1a044048f8354b8038c545316fac"
+  },
+  "qualityEach": 3337,
+  "qualityFilesEach": 179,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 30,
+  "rawValidators": 9,
+  "zipSha256": "5653b0b35c090c48bb15a54811e24808d1eb731ff4ef27eef63cf61fd4bff93f",
+  "fullCiLogZipSha256": "be1273e135ac5f9962921db815bab8fe22df1267049d13e176c8fc4f69fdf7f5",
+  "review": {
+    "taskId": "W02-b1",
+    "baseSha": "037a748338e5d508178be196b58f0f4eef85a4a0",
+    "reviewer": "/root/w02b_review",
+    "counts": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "allFindingsGraded": true,
+    "gradingBeforeCorrection": true,
+    "oneCorrectionPass": true,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "accepted": true,
+        "reason": "New runtime admission must reject frozen Wallet native schema drift before journal/DDL; REAL affinity can round accepted signed64 money. Cover money affinity, FK, unique constraint/index and native startup byte preservation/handle closure."
+      }
+    ],
+    "declinedBoundaries": [
+      {
+        "proposal": "Remaining entities/activation/HTTP ACL/UI",
+        "decision": "defer",
+        "owner": "remaining W02 and W03\u2013W18"
+      },
+      {
+        "proposal": "Additional creator/audit user reference policy",
+        "decision": "preserve accepted standalone Wallet contract",
+        "owner": "later domain commands"
+      },
+      {
+        "proposal": "Historical Productivity schema hardening",
+        "decision": "outside newly admitted Wallet scope",
+        "owner": "existing accepted contracts"
+      },
+      {
+        "proposal": "Canonical/derived budgets or old assertions",
+        "decision": "preserve unchanged"
+      }
+    ],
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "verification": {
+      "causalSchemaRed": {
+        "tests": 10,
+        "passed": 6,
+        "failed": 4,
+        "pending": 0,
+        "files": 1
+      },
+      "schemaGreen": {
+        "tests": 11,
+        "passed": 11,
+        "failed": 0,
+        "pending": 0,
+        "files": 2
+      },
+      "strictCompiledReportRed": {
+        "tests": 77,
+        "passed": 76,
+        "failed": 1,
+        "pending": 0,
+        "files": 1
+      }
+    }
+  },
+  "walletRuntimeCompatibilityRegistered": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P05-b2 HTTP/client/smart-saved UI/GlobalSearch/readonlyTrash; remainingW02 entities later",
+  "mergeSha": "42d7085fe70db64263902a0aee02f6aa01de5014",
+  "mergeTreeEqualsTestedHead": true,
+  "proofComment": "https://github.com/DongVienNguyen/Family-Organizer/pull/82#issuecomment-6188566215"
+}

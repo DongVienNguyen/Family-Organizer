@@ -1,4 +1,4 @@
-import {it,expect} from 'vitest';
+import {it,expect,describe,beforeAll} from 'vitest';
 import {checksum} from '../snapshotValidation.js';
 import {inspectRecoverySnapshot} from '../recoverySnapshotInspection.js';
 import {randomUUID} from 'node:crypto';
@@ -46,12 +46,18 @@ it('canonical and legacy lone-surrogate writes keep native index keys unique and
  const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));expect(()=>snapshot.validateAppSnapshot(saved)).not.toThrow();
  const expected=Buffer.from(legacyTitle).toString('utf8');expect(reader.get('SELECT content FROM productivity_search_documents WHERE task_id=?',created.id).content).toBe(expected.toLowerCase()+'\n');
 });
-it('large valid task writes retain shared backup support without relaxing canonical row limits',()=>{
- setup();let state=173;const body=()=>Array.from({length:60000},()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return String.fromCharCode(0x1000+((state>>>16)%128));}).join('');
- create('Synthetic long task one',body());create('Synthetic long task two',body());
- expect(reader.get('SELECT count(*) AS n FROM productivity_search_grams').n).toBeGreaterThan(100000);
- const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));expect(()=>snapshot.validateAppSnapshot(saved)).not.toThrow();
- expect(()=>inspectRecoverySnapshot(saved,sqlite.sqliteConnection().name)).not.toThrow();
+describe('large valid task shared-backup boundaries',()=>{
+ let saved:ReturnType<typeof snapshot.collectAppSnapshot>;
+ beforeAll(()=>{
+  setup();let state=173;const body=()=>Array.from({length:60000},()=>{state=(Math.imul(state,1664525)+1013904223)>>>0;return String.fromCharCode(0x1000+((state>>>16)%128));}).join('');
+  create('Synthetic long task one',body());create('Synthetic long task two',body());
+ });
+ it('captures the real large task writes beyond100000 derived rows',()=>{
+  expect(reader.get('SELECT count(*) AS n FROM productivity_search_grams').n).toBeGreaterThan(100000);
+  saved=fixture(tx=>snapshot.collectAppSnapshot(tx));
+ });
+ it('admits the captured large shared snapshot',()=>{expect(()=>snapshot.validateAppSnapshot(saved)).not.toThrow();});
+ it('admits the same large snapshot through readonly recovery inspection',()=>{expect(()=>inspectRecoverySnapshot(saved,sqlite.sqliteConnection().name)).not.toThrow();});
 });
 it('canonical100001 rows remain refused with the trusted derived index registration',()=>{
  setup();create('Synthetic canonical budget');const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));

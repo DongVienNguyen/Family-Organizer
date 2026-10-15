@@ -1,3 +1,6 @@
+import {projectTaskRecord} from './query.js';
+import type {createTaskQueryHttp} from './queryHttp.js';
+import type {createTaskViews} from './views.js';
 import type {createTaskPins} from './pins.js';
 import {Router,type Request,type RequestHandler} from 'express';
 import {AppStoreError,httpErrorStatus} from '../appErrors.js';
@@ -9,9 +12,9 @@ import type {createTaskCommands} from './tasks.js';
 import type {StoredTask} from './store.js';
 import type {createStructureCommands} from './structure.js';
 import type {createStructureEventScope} from './structureEvents.js';
-export interface ProductivityPorts {pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
+export interface ProductivityPorts {query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
 export interface TaskRequest extends Request {userSession?:AppActor}
-export const taskDto=(row:StoredTask)=>{const {legacy:_,rank:__,...task}=row;return task;};
+export const taskDto=(row:StoredTask)=>projectTaskRecord(row);
 function requestBody(req:Request,field:'input'|'patch'):Record<string,any>{
  try{const body=object(req.body);keys(body,['expectedRevision',field]);integer(body.expectedRevision);const value=object(body[field]);
  for(const [key,item] of Object.entries(value))if(item===null&&['title','body','priority','due','isShared','tagIds','blocked'].includes(key))throw Error();
