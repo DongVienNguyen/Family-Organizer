@@ -1,0 +1,155 @@
+{
+  "taskId": "P08-b9",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/100",
+  "testedHeadSha": "cccc4430af3a71622f851461c0e27d321060ce36",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38807765119",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "29c6eb58f8fd4fa6ad00a86655fbb8abca824c6033c731b364d6d2719b6bcce2",
+    "coverage": "1f242a5b0fa0877734af8154e1b705553071077e4cba86f19f3c716627e1f61b",
+    "package": "8ffec3c6f763af412661049b17b79a1bc97559edebdfbcf20ff6e8d121c7de22",
+    "service": "6b8f10ef92bcc7ce2ce70f07d3d2c8060f37b60e76346740b5b55a4df9dfe548",
+    "caddy": "3c0ca7bbb2898751cc5ad6335263b88edad5b22e80359b3476bb51c302b9bec9",
+    "extraction-sdk": "11c3e67d2c3ed78f1d47f6c244d0f97c82970f65a5c099dcb6bf39d3db13a1ab",
+    "inner-native": "2c7b3526cb46675bbd0014ef6097d43a09deb40181770c8cb36ee66fa3656c2c",
+    "browser": "da2ca9971dc6171c8d5bc6041e26af3df83926569985d27f483e1db023f76114",
+    "productivity-browser": "6dd226d03f19afc54741144a5434d9a058ec89afdf4eaa3494de657496b522f8",
+    "board-package": "15bf831ca57f45cd8c39d3b68bda7174a4fcb65b9e8f67cec66d8adfad2120c9"
+  },
+  "qualityEach": 4013,
+  "qualityFilesEach": 223,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "e419d42ebb6d595cffeac510f3836800ab91ba1d370d368b65f9285f8c333f26",
+  "fullCiLogZipSha256": "ba5d6ab44602ffa2abb6834dcfc8f2e70d8d5d68a3560e7d18c4fb64f4205bab",
+  "review": {
+    "reviewer": "one focused review of new grouped read/runtime/HTTP/ZIP evidence and real baseline composition; self-review because skill catalogs empty/no delegated agent authorization",
+    "baseSha": "e6a0bce07055c699c271881b9a62e1eb490f44c5",
+    "helperReview": "P08-b9-a CLOSED0C0I0M/no correction; grouping.ts/test bytepreserved, not rereviewed",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "status": "CLOSED; lint0/target105pass; full/build/nativepending",
+    "reviewedSourceHashes": {
+      "server/productivity/groupedBoard.ts": "38b7edaa729868f23000f66f33d3037673245bb476129cf1cc96c38fc066a433",
+      "server/productivity/grouped-board.test.ts": "bea397cff8bd0e3823f0477d7af09107154920babb95bbdf053d807021a63497",
+      "server/productivity/grouped-board.api.test.ts": "8c7406d0a351dbd49becb12131243a6b10ec3d3e834e853724272f12225a5f1b",
+      "server/productivity/ports.ts": "db293813086d6005a80696194c0a1f81dac0b659b81d006641987f52caad574c",
+      "server/productivity/router.ts": "9162c6bb4f25bac77e98d7cb7044c84d3d361ed54ca9efebb037c5779fdab23c",
+      "server/productivity/boardRouter.ts": "ed004ccf49f8a9a0ce18feb8b5c1688dd4e18c31661bda9ac919c904003a6927",
+      "scripts/ci/write-evidence.mjs": "5b33a6dc256aaa0c054de79affff523b31047e9472213d283506e79b3ebb165d",
+      "tests/evidence.test.ts": "ea0f3057aec26f651f2b5b359331699e66c8a5e7b07bc69d556aba4a11a85b45",
+      "scripts/windows/probe-board-package.mjs": "1d4738b44edc9a8410bbfcfc2c86b5eac1948bacb00fb2ec4d3e91c512e8db02",
+      "scripts/windows/board-package-contract.mjs": "d626b0986845f5667274a55122b0969f7d360b7212805aa58b9fa96c7f953739",
+      "tests/board-package-evidence.test.ts": "ab80ed02d442eeb87b306e890891188c1f137d62fbb2f417f712d7b4badbee1b",
+      "tests/helpers/board-package-fixture.ts": "4591425cf71595cc280d9a80b15eb5ff08d6e6576d9938e297af4351851bf070",
+      "docs/engineering/kanban-grouped-read.md": "f07ad2e0379eace127ed0b50a72301ffd8da2939ce0afb14796bb3e39222465d"
+    },
+    "bounds": {
+      "ACL": "Ownedview/currentactor + fresh schema8board/list + Task/ancestor SQLscope before cursor and allscalaradmission; savedfilter intersectboardlist; no rowID/body/privategroup/fullWIPcount leak",
+      "paging": "HMAC binds actor/view/config/board/clock/visibleTask/rank facts; freshACL everyread;15minexpiry/changedfacts409/calleroptions400; normalizedpage tasks onlyonce, no retainedbodycache; boundedmemory notSQLkeyset",
+      "resource": "Fullvisiblelistscalar row5000/bytes16MiB/tags20000/distinctgroup1000 admission beforeTaskdecode. Actual14/13/1monitoredRED\u2192105targetpassed; original bulklegacyignoredfixture/10sbudget failures retained andnotclaimed productRED. No timeout/assertion weakening.",
+      "writes": "Read path has no writes/outbox/notifications/positionseeding; semantic completion/source/tests/app/runtime unchanged accepted99, no nestedpublictransaction/secondwriter/newpolicy",
+      "native": "Appended18th grouped check preserves prior17/9server/8native/3refusals/21strictHTTP. New3strictHTTPnative intervals=24 +100IPC source; rawfixture independent/new10actualmutationRED thencontractgreen; nativeactual stillpending",
+      "format": "Only existing persistedpriority/assignee/due +rank; tag helper pure, no widened frozen8/Wallet1/default6/activation/newDDL. tagformat/groupmove/P09/fullP10 unfinished"
+    }
+  },
+  "postCiClockReview": {
+    "reviewer": "/root/p08_clock_review fresh read-only focused post-CI clock review; no repeat Kanban review",
+    "baseSha": "eee10d11b43d159c41135283347a60de8bc96af8",
+    "headSha": "b7a1ff45df11f69183ebb317e910e98a9794a011",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "assessment": "Owned SQLite connection/read-only native OS clock, unchanged strict21HTTP intervals, every100untrusted native/monotonic observation/counter/exit/PID/completeness validated. Full/build/exact correctedWindows still mandatory.",
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "77e36a9f49bcfdfe25b83c6841ff81d1ffaf0cbc0fb92e02988236c5813de9b3",
+      "scripts/windows/board-package-contract.mjs": "f2f55e25b105e169e23bbcf437b3bdb47ea6dfa26ceeffd7cb1d17f9b524db81",
+      "scripts/windows/clock-diagnostics.mjs": "99217bfd7572b54f5da843f9627059bb79c0a1df14f02ee4ec5c40bf34614d35",
+      "scripts/windows/probe-board-package.mjs": "e61c7e8c82f16d69ac8bfdb243ec10793f502e70b7f7bab3e29e8893bf83d2c4",
+      "server/productivity/board-projection.test.ts": "891cc4ca8b1a9bf8b8d369556cf3d55fd46877f6f75c07aa73876ac8e2b7fede",
+      "server/productivity/clock.test.ts": "9b6b866021a0a66f121284b3c9e8e847507fd4bac13d803614d8e89e93f30ea8",
+      "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+      "server/productivity/ports.ts": "21ba114c55724b7b89d9e95c93488fb51ff3db9486387028ab003e35eae486e4",
+      "tests/board-package-evidence.test.ts": "fa68a8a805c5eaefcbf4abe3e6a9ab0aa37d5eebe2ec552ee9d9c04705976e43",
+      "tests/evidence.test.ts": "f4f3da11cdc96fb113f89ce42bf8d3f35f04d2387223213994764e324b4b88c5",
+      "tests/helpers/board-package-fixture.ts": "eed4a44a862372647c2fd5ae6a64c03de26c1f8d916ce0b7aa15323c50424c11"
+    }
+  },
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "boardProjectionHttpAccepted": true,
+  "sectionAndRankMovesAccepted": true,
+  "columnLayoutAndArchiveAccepted": true,
+  "semanticCompletionSeamAccepted": true,
+  "normalizedGroupReadAccepted": true,
+  "persistedTagGroupingAccepted": false,
+  "groupFieldApplyAccepted": false,
+  "fullP10Accepted": false,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 8,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeCommitSha": "2d973df74f789eb27b8a1cd941378ee4551bd016",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/100#issuecomment-6202633491",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 22544,
+    "zipSha256": "ba5d6ab44602ffa2abb6834dcfc8f2e70d8d5d68a3560e7d18c4fb64f4205bab",
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  }
+}
