@@ -1,6 +1,6 @@
 {
   "taskId": "P08-b1",
-  "baseSha": "d625190bcdc7a8c40518ef2c960e5966774e42cb",
+  "baseSha": "62f6d4e3beb96424895b9ea5024ef6ab2d83cf3e",
   "scope": "Unconsumed candidate shared board schema; supported runtime schema remains1\u20136",
   "fullGreen": {
     "numTotalTests": 3628,
@@ -143,5 +143,62 @@
   "transactionalWipAccepted": false,
   "exactWindowsAcceptance": "pending",
   "server2019Acceptance": "not-run",
-  "releaseOrVps": false
+  "releaseOrVps": false,
+  "preComposition": {
+    "baseSha": "d625190bcdc7a8c40518ef2c960e5966774e42cb",
+    "fullGreen": {
+      "numTotalTests": 3628,
+      "numPassedTests": 3628,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "files": 197
+    },
+    "targetGreen": {
+      "numTotalTests": 270,
+      "numPassedTests": 270,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "files": 2
+    }
+  },
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 3671,
+      "passed": 3671,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 199
+    },
+    "targetGreen": {
+      "tests": 272,
+      "passed": 272,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "junitCases": 3671,
+    "maxWorkers": 2,
+    "sourceHashes": {
+      "server/productivity/boardSchema.ts": "583d99a85ccc50f37ecce6f3a3677b456d638f273313bb02eedcfb8933719d30",
+      "server/productivity/board-storage.test.ts": "908273ca5d411deeec58bd1e7ac469ade59164d8298ca09c8235a681abf6a49c",
+      "scripts/ci/write-evidence.mjs": "1f6e8b384a095c21b5b27ea94df38dac513114f1bbfbcb1aa072b82f05e27a55",
+      "tests/evidence.test.ts": "75ee31990d2d0c856554698cb1461ec9e45a3fca86403c6d3e115222eaae60fa"
+    },
+    "reportHashes": {
+      "p08b1-integrated-full.log": "fde3ccdc3f851024c24b23f9cd86785606fa5e4adcf1750c6d9b04604675c2f5",
+      "p08b1-integrated-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p08b1-integrated-target.log": "a018fa66b65510a9a429b84490acc1f8a6b4e47ea94f6de140cd20f405cc2c14",
+      "p08b1-integrated-target.json": "bc2b8ad308cbd81230a3ab6ca065fc401889bf1fd413d8e7f69c94845bbd2e89",
+      "p08b1-integrated-full.junit.xml": "a552ec4a05d20521968b91252eca14e6484bdc825076dcba0f5f4e00ad0f0d85",
+      "p08b1-integrated-full.json": "d1b26e6c0ee1fa1790231ba52af4c752d1cb10b807f003df9608fe878b109c98",
+      "p08b1-integrated-build.log": "f515d33bf62a6afbe7c25983373bde9c9f5473135b754eb38adadc7202be3894"
+    },
+    "reviewedKernelPreserved": true,
+    "lintExit": 0,
+    "buildExit": 0
+  }
 }
