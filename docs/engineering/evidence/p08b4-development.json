@@ -1,0 +1,194 @@
+{
+  "taskId": "P08-b4",
+  "baseSha": "626772f8165d2ecf6087406ff30eef955c0eef9d",
+  "baseAcceptance": "PR92 acceptedmain67473ce; compose before focusedPR",
+  "scope": "Shared canonical board configuration plus internal session HTTP, no fullboardprojection/move/UI/defaultcutover",
+  "fullGreen": {
+    "tests": 3741,
+    "passed": 3741,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 204
+  },
+  "junitCases": 3741,
+  "maxWorkers": 2,
+  "targetGreen": {
+    "tests": 272,
+    "passed": 272,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 3
+  },
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "626772f8165d2ecf6087406ff30eef955c0eef9d",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Fresh object authorization must refuse archived lists before both new configuration and committed retry cache lookup. Current authorize reads productivity_lists without catalog archived_at, allowing policy writes/cache replay after the parent list is archived. Reproduce and require active-list metadata before gateway lookup and inside transaction."
+      }
+    ],
+    "declinedBounds": {
+      "scope": "Shared configuration/internalauthenticatedHTTP only; preview/apply/privateDTO/boardquery/adminoverride/audit/grouping/columnarchivepreview/UI/completion remain later. No defaultcutover/Server2019/release/VPS acceptance.",
+      "authority": "One canonical list/mode aggregate and server-built section/workflow keys; caller private view/filter/actor/clock/ID controls refused. Admin or fresh member manage grant only; child/guest403, foreign/memberwithoutmanage404. Actor checked before cache and within I01.",
+      "privacy": "Configuration DTO has board/column/policy metadata only, no TaskIDs/titles/counts. Seeding SQL selects canonical membership scalars for authorizedlist, not bodies from unrelatedscopes. Existing internal bearer sessions/request context reused; generic catalog SSE only scoped metadata audience.",
+      "capacity": "Lowering policies preserves existing Tasks/overlimit states; allfuturegenericentrants enforced by acceptedstoreinvariant. Off-null coalesce bug caught duringimplementation10/9/1actualRED andfixedbeforethisreview. No implicitoverride or newcompletion/reward writer.",
+      "transactions": "SingleI01board/column/positions/revision/idempotentresult rollback oninjection. Existingpositionranks preserved; appended seeding uses acceptedrank planner only onoverflow; Taskcanonicalfields unchanged. Limits1000policies/activecolumns and100000missingrows explicit, no benchmarkclaim; P18ownsperformance.",
+      "compatibility": "Existing schema6 returns409 without boardDDL/migrations; explicit7 required. Required oldbrowser/schema6 fixtures retained; no schemas/dependencies/migrationchecksums changed here.",
+      "tests": "Initialcatalog9/0/9; HTTP6/1/5 (member404alreadyfailclosed, not proof ofimplementedroute); policyoff10/9/1; expanded17/17+HTTP7/7 andgate246/244/2 allretained. Wholebranch review only once; allrulingsgradedbeforeonecorrection."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "eef7811f1a9b11b1bf57574a67613d35432031fae3078c46839e1c3f5eee0625",
+      "server/productivity/ports.ts": "2e3f8ef77ead3143d825c87bde6152a4abce5782a48f0c48922e0e973fc73b07",
+      "server/productivity/board-catalog.api.test.ts": "5c3a77cd15d7842992367d24feba1fffb870b2d1b28e801e9161d7292f068d8c",
+      "server/productivity/boardCatalog.ts": "d2c0f081a5d7a93a9721484391342fef971f7c5c161bceea48a719bfb10b5ca0",
+      "server/productivity/board-catalog.test.ts": "d9770c3b48470e1684d97bcbd75481a4d8e2531d1bcbe2a578db8cc0e14de11f",
+      "server/productivity/router.ts": "1151bf237286a4011ea1cbc5d5c5fd70c308bbefd6f9d59ceb67cd13a662de12",
+      "server/app.ts": "2658656e5af5ac2b0a7843c52e7c2cbfbd4ea848e5183861060c4a7f7f0bd71e",
+      "tests/evidence.test.ts": "a5766bd6889895094fb54200b2c8310948cdbcc99e97721fbc836c5319dd10ef",
+      "server/productivity/boardRouter.ts": "73d0932c0b56615757e4e71c65bed93aa1467b22789bf177819151b1ea0ab27c"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 18,
+      "passed": 17,
+      "failed": 1
+    },
+    "correctedTarget": {
+      "tests": 272,
+      "files": 3,
+      "passed": 272,
+      "failed": 0
+    },
+    "lintExit": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "preReviewFull": {
+    "tests": 3739,
+    "passed": 3739,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 204
+  },
+  "red": {
+    "p08b4-catalog-red": {
+      "tests": 9,
+      "passed": 0,
+      "failed": 9,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b4-policy-off-red": {
+      "tests": 10,
+      "passed": 9,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b4-http-red": {
+      "tests": 6,
+      "passed": 1,
+      "failed": 5,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b4-gate-red": {
+      "tests": 246,
+      "passed": 244,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b4-review-red": {
+      "tests": 18,
+      "passed": 17,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "interpretation": "Initialcatalog9/0/9notimplemented;HTTP6/1/5includesmember404alreadyfailclosed. Off-null10/9/1fixedduringimplementation; archived-parent18/17/1reviewREDfixedinonepass, noassertion/gaterelaxation.",
+  "coldImport": {
+    "modules": [
+      "server/productivity/boardCatalog.ts",
+      "server/productivity/boardRouter.ts"
+    ],
+    "exitCode": 0,
+    "foreignCwd": "/workspace/family-evidence/p08b4-cold-bdrz35af",
+    "storageCreated": false
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "eef7811f1a9b11b1bf57574a67613d35432031fae3078c46839e1c3f5eee0625",
+    "server/app.ts": "2658656e5af5ac2b0a7843c52e7c2cbfbd4ea848e5183861060c4a7f7f0bd71e",
+    "server/productivity/board-catalog.api.test.ts": "5d46a2797cf67dbb1a447ea71c88de6e935292b78ae904814913724d10164f40",
+    "server/productivity/board-catalog.test.ts": "767a66cad1ef69bae24409a0e7b3422d1329377a2bb4794ad2b406b129f01a84",
+    "server/productivity/boardCatalog.ts": "1196110681d1d85e3c16404ce679c29c2d63132638fd4ec1cb6108ce8b837a64",
+    "server/productivity/boardRouter.ts": "73d0932c0b56615757e4e71c65bed93aa1467b22789bf177819151b1ea0ab27c",
+    "server/productivity/ports.ts": "2e3f8ef77ead3143d825c87bde6152a4abce5782a48f0c48922e0e973fc73b07",
+    "server/productivity/router.ts": "1151bf237286a4011ea1cbc5d5c5fd70c308bbefd6f9d59ceb67cd13a662de12",
+    "tests/evidence.test.ts": "a5766bd6889895094fb54200b2c8310948cdbcc99e97721fbc836c5319dd10ef"
+  },
+  "reportHashes": {
+    "p08b4-expanded.json": "42a702795137a6efb249841875508d0732807ba1317db4153317d874efed614c",
+    "p08b4-catalog-red.json": "ddc8d1c2ab293f3298c9190f1e4dccc03ef1b5d28f0ed2239689bcd5351e0471",
+    "p08b4-gate-red.json": "4717a235525dc46d450cac51fd5d24f0ae304df7091a2bb84fbaee6a378085ba",
+    "p08b4-initial-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b4-http-schema6.log": "59be7eee24d42402d7c032e8d27d1a07c5f44f5f9ff8071f98637532b5a2e3ff",
+    "p08b4-policy-off-red.log": "765339f5ad6d682207e5f099d086a77527d1b33aeea04aac9dd52d592a116f30",
+    "p08b4-http-schema6.json": "eb637257ea7929e358ecb74ad277a720c1051075827dcd11205a39e4874da9a1",
+    "p08b4-catalog-initial-green.json": "5dcf2120559489ec6e71df414e2cd490f94addf969fe72772914ca5653c4f930",
+    "p08b4-pre-review-full.json": "0513137377f1459dc818b86c09b74c4851448e5a53a0d5e2e739c34611c056a8",
+    "p08b4-review-red.json": "21f678397e1f9086ccdb8ec02cc9d4c4e9f954bc7f6a6e718326d719c7af4158",
+    "p08b4-catalog-http-initial.log": "2ac3697319a3d6da6d401ac0b7a96926dc4bbd2e263306162e6283583edb7f51",
+    "p08b4-catalog-initial-green.log": "4ea41919c9d9c8d04809d3af235bf030b8b9ba3bf4d6235dfef8fa62c0b50308",
+    "p08b4-http-red.json": "49d68420f5badc6439145b3cb297feae2fd04446f20e651af89ad10d7d5b1de4",
+    "p08b4-build.log": "f115897e2e9e18542d12b554ed32598562f8c2868186211ea94e5385944143db",
+    "p08b4-pre-review-full.log": "cd02489ee683913231c8528cda2d09aa71840782621d785aa97869703ce92b5c",
+    "p08b4-review-rulings.json": "370ce3d421403577c6e531ee92cac99a51a555764c09d37251b63c9c35a6f0e1",
+    "p08b4-policy-off-red.json": "08078e4874e944ea38ff5b646bf830eb0c7f422aa432a575dfcb1abe3a4a4680",
+    "p08b4-http-red.log": "e78fd5ef83c1be0167f547f78ebadd24094c6d63125b7dbeb0cf9e21bd130876",
+    "p08b4-review-red.log": "abec6f58673ae6c3cd10467090dca8c58109fd9afd0ebe1cbf419f80743548a1",
+    "p08b4-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b4-corrected-target.log": "fa6a0b615116a0facab71fbf1c6dea060c0eef497d0df89791ad883dc6bc81a7",
+    "p08b4-full.junit.xml": "8f1b2c6ea2464b845410ea475b2ab59925d86f8936f4da0e8e2e14d11ee23b6b",
+    "p08b4-cold-import.json": "2946d818b67c931659e6756b66f5ed517e87ee1c732f8b2e884356322aef6495",
+    "p08b4-gate-red.log": "ac173f7e055c190ab81addd1f841edd0cff61388d92ad1a7f8f6582df5eb2fcd",
+    "p08b4-full.json": "01f8f6a5f19ba36e02d71009d08a8a86fc40f63ad4cea4c0da62b0c69cf486d7",
+    "p08b4-full.log": "d5ed97eb6a9d40dfe40eb0e37ba170a1d0e8f74198a6b478ca04cfe4cffe73ba",
+    "p08b4-corrected-target.json": "83229773ee8c7087f8189e2deb2b885dd16c5a5f9f096e6b580a2beea19c0e80",
+    "p08b4-pre-review-full.junit.xml": "722a6e91108c4da9b2b86c5a40d4e04f09b9b029f29e49fe4cf8244ca8d86938",
+    "p08b4-catalog-red.log": "a6f8b3311743f9432f2d954dcef60be910f8a71c41d88b72ace11cf8818bce1a",
+    "p08b4-expanded.log": "8b0899af47b6b0d48c1b4a17ad6b25efc5bc36c33e119c27367af480dc8441b8",
+    "p08b4-pre-review-build.log": "b2005ba1ffec95e6f7424ddbd12d066f6a5ebbc7284e78ec45eb07d38119fecf",
+    "p08b4-catalog-http-initial.json": "8cb4a5f3a6076e98480bd9040fc7495798a0e9e791a8602c1d9078165f4a6739"
+  },
+  "compiled": {
+    "serverSha256": "109dcd2863371f2360d85999885251fcddf9a0140ad5ee21da2206fbe7139c73",
+    "operatorSha256": "5c6d183567e701e4eab40fe121034f34fa40dfead87969919f5bcd1b9c1ea192"
+  },
+  "internalRoute": "POST /api/productivity/boards/configure",
+  "schema6RefusesWithoutAutoDdl": true,
+  "schema7Required": true,
+  "fullP08Accepted": false,
+  "exactWindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "releaseOrVps": false
+}

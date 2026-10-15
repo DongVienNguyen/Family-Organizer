@@ -1,0 +1,39 @@
+import http from 'node:http';
+import {once} from 'node:events';
+import {randomUUID} from 'node:crypto';
+import {expect,it} from 'vitest';
+import * as sqlite from '../sqlite.js';
+import * as gateway from '../appStore.js';
+import * as migrations from '../appMigrations.js';
+import * as snapshot from '../appSnapshot.js';
+import * as db from '../db.js';
+import {createAuth} from '../auth.js';
+import {NativeSessionStore} from '../authStore.js';
+import {createApp} from '../app.js';
+import {syntheticDependencies} from '../../tests/app-fixture.js';
+import {UserRole} from '../../src/types.js';
+import {configureCanonicalTaskBridge,activateCanonicalTasks,legacyTaskDigest} from './adapter.js';
+import {registerBoardMigration} from './boardMigration.js';
+import {createProductivityPorts} from './ports.js';
+import {createTaskCommands} from './tasks.js';
+import {createStructureCommands} from './structure.js';
+const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args)as any,all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)as any[]};
+const write=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:synthetic',command:'synthetic:board-http',requestId:randomUUID(),payloadHash:'synthetic'},fn);
+const ctx=(revision=0)=>({actor:{userId:UserRole.ADMIN,role:UserRole.ADMIN},expectedRevision:revision,requestId:randomUUID()});
+let ready=false;
+async function fixture(work:(f:any)=>Promise<void>,version:6|7=7){
+ if(!ready){write(tx=>{tx.legacy.tasks=[];tx.legacy.users=Object.values(UserRole).map(role=>({id:role,role,username:'synthetic-'+role,fullName:'Synthetic '+role,passwordHash:'offline',avatarColor:'blue',createdAt:'2026-10-15T00:00:00Z'}));});configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});write(tx=>activateCanonicalTasks(tx,legacyTaskDigest(tx.legacy.tasks)));ready=true;}
+ if(version===7&&reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").version===6){registerBoardMigration({registerMigration:migrations.registerDomainMigration,registerSnapshot:snapshot.registerSnapshotTable});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});}
+ const structure=createStructureCommands({reader,write:gateway.withAppWriteTransaction}),list=structure.saveList(ctx(),{title:'Synthetic private HTTP board',isShared:false}),task=createTaskCommands({reader,write:gateway.withAppWriteTransaction}).createTask(ctx(),{listId:list.id,title:'Synthetic hidden board task'});
+ const deps:any=syntheticDependencies({phase:'ready',storageWritable:true});deps.db=db;deps.sqlite=sqlite;deps.productivity=createProductivityPorts(sqlite,gateway);deps.auth=createAuth({store:new NativeSessionStore(),getUsers:()=>db.FamilyDB.getUsers(),getSecret:()=> 'synthetic-board-http-key'});
+ const tokens=Object.fromEntries(db.FamilyDB.getUsers().map(user=>[user.id,deps.auth.issue(user)])),handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!}as any,deps),server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');
+ const send=(body:any,role:string|null=UserRole.ADMIN,requestId=randomUUID())=>new Promise<any>((resolve,reject)=>{const text=JSON.stringify(body);const req=http.request({hostname:'127.0.0.1',port:(server.address()as any).port,path:'/api/productivity/boards/configure',agent:false,method:'POST',headers:{...(role?{Authorization:'Bearer '+tokens[role]}:{}),'content-type':'application/json','content-length':Buffer.byteLength(text),'x-request-id':requestId}},res=>{let raw='';res.on('data',part=>raw+=String(part));res.on('end',()=>{let value;try{value=JSON.parse(raw);}catch{value=raw;}resolve({status:res.statusCode,body:value});});});req.on('error',reject);req.end(text);});
+ try{await work({list,task,send,structure});}finally{handle.endStreams();server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.drainHandlers();await handle.dispose();}
+}
+const packet=(id:string,revision=0)=>({expectedRevision:revision,input:{listId:id,mode:'sections',policies:[{columnKey:'none',policy:'hard',limit:2}]}});
+it('existing schema6 refuses board configuration without automatic schema writes',()=>fixture(async f=>{expect((await f.send(packet(f.list.id))).status).toBe(409);expect(reader.get("SELECT name FROM sqlite_master WHERE name='productivity_boards'")).toBeUndefined();expect(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").version).toBe(6);},6));
+it('internal board configure requires an existing session and has no caller actor/clock fields',()=>fixture(async f=>{expect((await f.send(packet(f.list.id),null)).status).toBe(401);for(const extra of [{actor:{userId:UserRole.ADMIN,role:UserRole.ADMIN}},{nowUtc:'1900-01-01T00:00:00Z'}])expect((await f.send({...packet(f.list.id),...extra})).status).toBe(400);expect(reader.all('SELECT * FROM productivity_boards WHERE list_id=?',f.list.id)).toEqual([]);}));
+it.each([UserRole.CHILD,UserRole.GUEST,UserRole.MEMBER])('role %s cannot configure a foreign private scope or see its Task identity',role=>fixture(async f=>{const result=await f.send(packet(f.list.id),role);expect(result.status).toBe(role===UserRole.MEMBER?404:403);expect(JSON.stringify(result.body)).not.toContain(f.task.id);expect(JSON.stringify(result.body)).not.toContain(f.task.title);expect(reader.all('SELECT * FROM productivity_boards WHERE list_id=?',f.list.id)).toEqual([]);}));
+it('actual HTTP config returns metadata only and unchanged request retry commits once',()=>fixture(async f=>{const request=randomUUID(),first=await f.send(packet(f.list.id),UserRole.ADMIN,request);expect(first.status).toBe(200);expect(first.body.board).toMatchObject({listId:f.list.id,mode:'sections',revision:1});expect(JSON.stringify(first.body)).not.toContain(f.task.id);expect(first.body.board).not.toHaveProperty('count');expect(await f.send(packet(f.list.id),UserRole.ADMIN,request)).toEqual(first);expect(reader.get('SELECT revision FROM productivity_boards WHERE id=?',first.body.board.id).revision).toBe(1);const changed=packet(f.list.id,first.body.board.revision);changed.input.policies[0].limit=1;expect((await f.send(changed)).status).toBe(200);expect((await f.send(packet(f.list.id,1))).status).toBe(409);expect(reader.get('SELECT lifecycle FROM productivity_tasks WHERE id=?',f.task.id).lifecycle).toBe('todo');}));
+it('revoking manage rights blocks a committed HTTP retry before command cache replay',()=>fixture(async f=>{f.structure.setListGrant(ctx(f.list.revision),f.list.id,{userId:UserRole.MEMBER,permission:'manage'});const request=randomUUID(),input=packet(f.list.id),first=await f.send(input,UserRole.MEMBER,request);expect(first.status).toBe(200);const current=f.structure.getCatalog(ctx().actor).lists.find((l:any)=>l.id===f.list.id);f.structure.setListGrant(ctx(current.revision),f.list.id,{userId:UserRole.MEMBER,permission:null});expect((await f.send(input,UserRole.MEMBER,request)).status).toBe(404);}));
+it('archived parent scope blocks committed HTTP replay and fresh configuration before any writes',()=>fixture(async f=>{const request=randomUUID(),input=packet(f.list.id),first=await f.send(input,UserRole.ADMIN,request);expect(first.status).toBe(200);write(tx=>tx.run("UPDATE productivity_catalog_revisions SET archived_at='2026-10-15T00:00:00Z' WHERE entity_kind='list' AND entity_id=?",f.list.id));expect((await f.send(input,UserRole.ADMIN,request)).status).toBe(404);expect((await f.send(packet(f.list.id,first.body.board.revision))).status).toBe(404);expect(reader.get('SELECT revision FROM productivity_boards WHERE id=?',first.body.board.id).revision).toBe(first.body.board.revision);}));
