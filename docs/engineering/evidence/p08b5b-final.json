@@ -1,0 +1,259 @@
+{
+  "taskId": "P08-b5b",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/95",
+  "testedHeadSha": "88b9dcb382a389a34d2cc0de381217e8ec33873a",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38779169472",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "3207a90ce39903f80ae17cea7f2f8e78aa3995e9307e1599af4550febe2222f9",
+    "coverage": "9ea06ccf60ce32473d3f3add2232a1af9bd6a68dad962fe8c3474ea71bbb3ed6",
+    "package": "cb21b8c0f355638e02d1749c6c8c012baca2d09d7bf3287cc5533294c0bceeac",
+    "service": "e2d0333a7d24d0154a04ec8914b5fe9124f439e8b61c9fb19ff04236f77172f2",
+    "caddy": "11b4e6f8696ea3fa93268ea515f619070d110c4ca1bc352054137ff33d117841",
+    "extraction-sdk": "e29d2dd4ba4a1dbd4983b2abbecb4d72d7b12399f07700208bb70962c0a0b37d",
+    "inner-native": "76724dae23e7e1e9cea4533a3313864bd61ec7becbe59e3e9d4762f295436741",
+    "browser": "f638e2c614ab0c1cf1041d69a321b9c84b9de7adb259a9f0aef344cc63629f7b",
+    "productivity-browser": "d12626439de0e1f4e6414fca2a8b545f9df12c75052dcbf5a290d3910ea409d2",
+    "board-package": "dc2c64dccf17d539b0dd7e2e2a15eb19982e22fe8a98a7c0ef2f3ddaed99d43b"
+  },
+  "qualityEach": 3811,
+  "qualityFilesEach": 209,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "fbd47e4ac2c5c63f12e44fb20a86e7269bf6bffc8f9fbc9473503428d4e092c9",
+  "fullCiLogZipSha256": "dbc0628efebfe0f2953df2f33893fdc0d6f110ae4d3bb2dd0def9c2c1f6c42d3",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "4668646a04d1fe5a3ca303e11c2085dba4ad7436",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "The independently seeded target uses the same board reference as source, so a restore leaving target-owned references untouched could pass. Seed a distinct target board ID across its FK rows and saved config; assert inequality before restore and exact source reference after restore; require that fact in raw contract and mutation tests."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Two package compatibility test titles still describe max6/future7 despite current max8/future9. Correct labels without removing assertions."
+      }
+    ],
+    "declinedBounds": {
+      "runtime": "Only synthetic fixture/CI/package advertisement changes; no production schema activation/new app route, migrations1\u20138 and Wallet1 frozen. No providers/network/production credentials. Existing schema6 raw assertions preserved.",
+      "evidence": "Actual Windows bundled Node/addon identity and ZIP hash mandatory, exact nine server/eight native phases and three DB-preserving refusals. Cloud is diagnostic; no platform bypass. New report mandatory at consumer and package native exits.",
+      "cleanup": "Connections close in finally, processes have bounded stop/operator deadlines, isolated roots removed. Negative restore metadata/DDL/bytes/journal preserved. Failed native report remains failure.",
+      "historicReleaseGap": "F08 fixed four-command trusted source grammar already rejects current prior generated6/Wallet1 workflow; remains failclosed/release disabled. Separate focused generated-fixture policy adaptation tracked, no relaxed acceptance or release claim.",
+      "scope": "Full P08/projection/private counts/moves/override/audit/UI/completion and Server2019/R02 remain incomplete."
+    },
+    "reviewedSourceHashes": {
+      ".github/workflows/ci.yml": "eee877b4171a9d8fd14a6a354d2c7e5d0d431d12ae86c9a781c9f19746e6ca53",
+      "scripts/ci/write-evidence.mjs": "baa535f96a971cad2b9edbde86c98a1130312a133330c669138dbbb2fc94b81e",
+      "scripts/windows/Test-Package.ps1": "d837e92c5ea2f83c885aae1948dc2c6c1b84188af30fcd08bec936f8a1601389",
+      "scripts/windows/package-contract.mjs": "912909de5a91062807729bdbd33465331d0a44cf06e44e7487551d59e8cc1d74",
+      "scripts/windows/release-consumer-reports.mjs": "4cee32091b70ad02fcede9e3e0ea643c4ba5fd2730d231bfd57fe3d93c6d08c3",
+      "scripts/windows/release-manifest.schema.json": "fd1b9e8f302d1af2f0ce2e16d891a5f16fc3f5f59de2b804978b68089cdf15a2",
+      "scripts/windows/release-package-reports.mjs": "34eb41807681f78e1474834df2e3f763050505ccf464654aa6dc8bd69e08aa80",
+      "scripts/windows/write-manifest.mjs": "8a121bad21728c1c571108228fe9e090bd045f9e2050366c68cc7133faa699c2",
+      "tests/evidence.test.ts": "bad33c6d9435132e1c5d1ddbc9849e49489134c559e179542bb927abd997d841",
+      "tests/helpers/release-consumer-fixture.ts": "cecfa1f2dd5a42b3fe99379773e849e25e5d9be05e2588684c82ba7dd7f3ffaf",
+      "tests/helpers/release-inner-fixture.ts": "7ea5915f9ace46788da4a7b430ccb790a0e9391248bc513300ea9f78bc3da161",
+      "tests/release-consumer-reports.test.ts": "67a491a7db8f4c9fdf3c3fcb56e66a74515a2313c91187eee56ce79c433c5c61",
+      "tests/release-package-reports.test.ts": "52f2b7893d5d7b5e877bcc4f789da8d6b1fcd18f39701cfb2e12d087e07167d6",
+      "tests/windows-package.test.ts": "56efd656349480a2ccbf6b6aa5ef0ed641e654df97278818ae973a518f3e9d34",
+      "scripts/ci/write-board-package-fixture.ts": "d99f7d9271ad0bc411eb43daa725d105374c56ac3cac95f99743fd94a1405005",
+      "scripts/windows/board-package-contract.mjs": "ab80ef1ac6b993639eb182452c7b44b46de20201ac70153b0fb2423457e190ed",
+      "scripts/windows/probe-board-package.mjs": "4aab3be3ac0fd2868f4ea44646768346644fbfd7a2bc42a53f8a48bc70b8fb1a",
+      "tests/board-package-evidence.test.ts": "19e618b244895bb362ebcd2c9deb90f31acf62e93a54754e83044dce35212c0c",
+      "tests/board-package-fixture.test.ts": "eaf99adb7bd3d1c5abf26f6b2d5992a598aaa7a161b99e2f61da36dc3dcdabb8",
+      "tests/helpers/board-package-fixture.ts": "6558e8be241ceca4049d0553e505874db798af2a5795c8638652f41f5be530e6"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "correctionScope": "I1 distinct target board ID and mandatory report/mutation proof; M1 current compatibility labels. No rereview. Important source assertion only runs on real Windows; no Cloud native RED claim."
+  },
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 8,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nativeRepairs": {
+    "walletFixture": {
+      "taskId": "P08-b5b native CI repair",
+      "originalWholeBranchReview": "closed; no rereview",
+      "headSha": "40532c5743abc1ae8e927481f1482c5fa2167032",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38774751520",
+      "grade": "Important",
+      "allFindingsGraded": true,
+      "observedFailure": "Node24 unit integration Wallet drifted unique index: test 10000ms deadline and child TSX-loader15000ms; raw duration16964.5632ms. 3810passed/1failed, zero skips. Exact lower-level hosted delay unobserved. Node22 and actualnewZIP8consumer passed; whole run unaccepted.",
+      "correction": "Compile actual SQLite source once in bounded builder before tests, run isolated compiled fresh process for each drifted DDL. Preserve all four native drift assertions/byte/schema/journal/handle assertions; normal source-bootstrap test remains. Test timeout remains10000ms, native and builder bounded5000ms with explicit error/signal/status checks. No retry/skip/continue-on-error or assertion relaxation.",
+      "cloudTarget": {
+        "tests": 10,
+        "passed": 10,
+        "failed": 0
+      },
+      "correctedFull": {
+        "tests": 3811,
+        "files": 209,
+        "passed": 3811,
+        "failed": 0,
+        "junitCases": 3811,
+        "lintExit": 0
+      },
+      "reportsRetained": [
+        "p08b5b-node24-job.log",
+        "run-38774751520/windows-node24-40532c5743abc1ae8e927481f1482c5fa2167032-1/vitest.json",
+        "p08b5b-native-fixed-target.json"
+      ]
+    },
+    "qualityWorkers": {
+      "ruling": {
+        "taskId": "P08-b5b second native CI failure",
+        "headSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
+        "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38776748487",
+        "originalReview": "closed; no rereview",
+        "grade": "Important",
+        "allFindingsGraded": true,
+        "observed": "Wallet compiled drift suite passed; different heavy search fixture beforeAll timed out10000ms creating two60000Unicode-character Tasks/>100000derivedrows.3808passed/3not-run duefailedhook. Exact hosted delay unobserved. Prior successful search suite9.16sec including setup +cases. No production source change in this PR.",
+        "ruling": "Reduce mandatory quality suite parallel workers2to1 on fixed Windows runner so SQLite/backup/native fixtures run without a simultaneous heavy test process. Preserve alldata sizes/assertions/test-hook/native timeouts/coverage/gates and every suite. No retries, deliberate skips, timeout increase or continue-on-error. Retain failedrunraw/logs and verify newexactSHAWindows.",
+        "correctionStatus": "implemented quality workers1; original test/hook/native budgets, fixtures and assertions unchanged; exactWindows pending"
+      },
+      "cloudTargetTests": 19,
+      "cloudTargetFiles": 2,
+      "cloudTargetPassed": 19,
+      "cloudTargetCoverage": "partial diagnostic only; full Windows measured ratchet unchanged",
+      "reports": {
+        "p08b5b-serial-target.json": "2668e139bbf669bfb1b20f5327b022c796496cccc68f82b541ceeebbba5b5032",
+        "p08b5b-serial-target.log": "d0b13d02cc22af1fce5525e5cd58dc802cb2556745c2d05ed2d60c4841c19a4f"
+      },
+      "noApplicationOrTestChangesSinceCloudFull3811": true,
+      "originalRunRetained": {
+        "taskId": "P08-b5b original failed Windows checkpoint",
+        "headSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
+        "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38776748487",
+        "accepted": false,
+        "conclusion": "failure",
+        "jobs": [
+          {
+            "name": "Windows productivity browsers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows Node24 baseline",
+            "conclusion": "failure"
+          },
+          {
+            "name": "Windows Node22 baseline",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows package producer",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows production browsers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows package clean consumer",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows disposable service",
+            "conclusion": "success"
+          },
+          {
+            "name": "ci-gate",
+            "conclusion": "failure"
+          }
+        ],
+        "quality": [
+          {
+            "major": 22,
+            "passed": 3811,
+            "failed": 0,
+            "pending": 0,
+            "todo": 0,
+            "junitCases": 3811,
+            "failedTests": [],
+            "notRunTests": [],
+            "suiteFailures": []
+          },
+          {
+            "major": 24,
+            "passed": 3808,
+            "failed": 0,
+            "pending": 3,
+            "todo": 0,
+            "junitCases": 3812,
+            "failedTests": [],
+            "notRunTests": [
+              "large valid task shared-backup boundaries captures the real large task writes beyond100000 derived rows",
+              "large valid task shared-backup boundaries admits the captured large shared snapshot",
+              "large valid task shared-backup boundaries admits the same large snapshot through readonly recovery inspection"
+            ],
+            "suiteFailures": [
+              {
+                "name": "D:/a/Family-Organizer/Family-Organizer/server/productivity/search.test.ts",
+                "message": ""
+              }
+            ]
+          }
+        ],
+        "artifactsRetained": 8,
+        "logsZipSha256": "c91fff8cf511f267f0e5a13f8b1230b444e8a0844ab0a74045264b31e3d45f10",
+        "cause": "Node24 large search/backup fixture beforeAll10s timeout;3808passed/3notrun. Wallet repaired fixture passed; exact hosted delay unobserved",
+        "next": "Mandatory native/coverage suite workers2to1; all data/assertions/coverage/timeouts retained; new exact HEAD Windows rerun required"
+      },
+      "windowsAcceptance": "pending new exactHEAD",
+      "unchangedApplicationAndTestTreeVerified": true,
+      "fullCloudReuse": "3811/209/JUnit all0 on f3ee; only CIqualityworker orchestration changed, all application/test bytes identical"
+    }
+  },
+  "mergeSha": "211f0703ecd8575710353fa2e515af335be837b8",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/95#issuecomment-6198708154"
+}
