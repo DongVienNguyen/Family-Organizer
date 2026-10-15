@@ -1,0 +1,130 @@
+{
+  "taskId": "P07-a",
+  "observedAt": "2026-10-15T19:26:57.066614+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/87",
+  "testedHeadSha": "4ca8dc229776541716c80dcc15d9bffbc48ba91e",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38732904923",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "1cbe0044ea311d359ea6b40d1d9f65ca88e07b61cd49fd44570f94384ba3d94b",
+    "coverage": "69e5b8a9432860cfdb057bf4abd43c2f80080813d0ae38eff482d47c52af6f67",
+    "package": "eb046fa2867bcfc12f166dd4e086c101080a4f324cf5519bf86e5e6e85df24b1",
+    "service": "94536d22719895c3055d0301bba487ca54d7a11360fd799bbc6041dc7dabb531",
+    "caddy": "bcf0b0136be477a17c9ae7c8e1c3f47225bbb3b8eb5f55bd4b078cf8be22ae04",
+    "extraction-sdk": "d17a72364d9ea24c21be579a5add201a9cf205db4dcb4a98497696acd28e4125",
+    "inner-native": "5848616bf047f2d529ab880179a0d87c4a43261eee111d83afaece29011cc56e",
+    "browser": "a3bdedec4b8571c4972e5bc373d412118015b213b8bf5447a146c18dfdd70d95",
+    "productivity-browser": "71efd10df0dc09a3ebd76f81b82bc974b547ad9f72e994b515ded8f5e315951e"
+  },
+  "qualityEach": 3533,
+  "qualityFilesEach": 192,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 45,
+  "rawValidators": 9,
+  "zipSha256": "7fe38d88833028886148219720d6b165785ce3d495ef92c7790bddbbf1cab941",
+  "fullCiLogZipSha256": "2ec86d65908dc80b9ab3193fd86db094dadc262d08878a5360286011c1a3170c",
+  "review": {
+    "reviewer": "/root/p07a_review",
+    "baseSha": "eba7b6f603048e602913617f3c9222152ebd8a1d",
+    "reviewedSha": "0ff1d0b",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Accept/fix in ONE pass: capture selectedtimezone for preview, supply omittedtimezone, refuse conflicts, preserveplan acrossmetadata; causalcontrollerboundary andactualHTTP proof."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Accept/fix samepass: validate unpinned firstmatch/unmatched coherence afterparsingpins; preservevalidpin/overlap."
+      }
+    ],
+    "declinedBounds": {
+      "transport": "Server DTO/revisions/pin tombstone/delta/warnings/envelopes align; historicalcommitted retryrevision correct",
+      "async": "pendingwrite lock/readfailure/sessiongeneration inspected; nootherblockingfinding",
+      "intent": "cancel/custom/deadline0mutations,409retain/block,stable explicitretrykeys inspected",
+      "P07-b": "canonicaldrawer/fullcache refresh/MatrixUI/DnD/browserinteractions explicitlypending",
+      "P18": "mutable snapshots/largeprojection/resource/performance historicalbounds deferred",
+      "preservation": "originalassertions/migration/dependencies/server/browser unchanged"
+    },
+    "causalRed": {
+      "tests": 50,
+      "passed": 46,
+      "failed": 4
+    },
+    "correctedTarget": {
+      "tests": 316,
+      "passed": 316,
+      "failed": 0,
+      "files": 6
+    },
+    "actualHttp": "Fixed clock2026-10-15T01Z/NewYorkOct14; real client/controller/server nativeHTTP priority+deadline confirmation, committed-response loss/exactretry, privatepin/reset/noTaskwrite"
+  },
+  "internalQueryHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": true,
+  "fullP06Accepted": true,
+  "fullP07Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P07-b Matrix UI/editor/accessible drag preview",
+  "merged": true,
+  "mergeSha": "1b844789cf4544099b20a85bf642e6d4af08dced",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/87#issuecomment-6192018720",
+  "fullCiLogs": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 20938,
+    "zipSha256": "2ec86d65908dc80b9ab3193fd86db094dadc262d08878a5360286011c1a3170c",
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance.",
+    "expectedSyntheticMarkerCount": 16
+  }
+}

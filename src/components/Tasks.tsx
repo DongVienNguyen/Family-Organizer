@@ -1,3 +1,4 @@
+import {MatrixWorkspace} from '../features/productivity/MatrixWorkspace.js';
 import {Productivity} from '../features/productivity/Productivity.js';
 import {useTasks} from '../features/productivity/useTasks.js';
 import {tagLabel,tagInput,resolveTagInput,type TagLabel} from '../utils/taskTagLabels.js';
@@ -113,7 +114,7 @@ export function Tasks({
 }: TasksProps) {
   const { t } = useTranslation();
   const canonical=useTasks();
-  const [taskProjection,setTaskProjection]=useState<'list'|'board'>('list');
+  const [taskProjection,setTaskProjection]=useState<'list'|'board'|'matrix'>('list');
 
   // Query Filters State
   const [searchTerm, setSearchTerm] = useState("");
@@ -746,13 +747,14 @@ export function Tasks({
   return (
     <div className="space-y-6" id="tasks-module">
       {(canonical.enabled||canonical.error)&&<>
-       <div className="flex gap-2"><button type="button" aria-pressed={taskProjection==='list'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('list')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.listView')}</button><button type="button" aria-pressed={taskProjection==='board'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('board')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.retainedBoard')}</button></div>
+       <div className="flex gap-2"><button type="button" aria-pressed={taskProjection==='list'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('list')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.listView')}</button><button type="button" aria-pressed={taskProjection==='board'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('board')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.retainedBoard')}</button><button type="button" aria-pressed={taskProjection==='matrix'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('matrix')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('matrixUi.view')}</button></div>
        <div><Productivity showList={taskProjection==='list'} overlayActive={!!submitTaskTarget||!!rejectTaskTarget} user={currentUser} users={users} tasks={tasks} onComment={onAddComment} onAdvanced={handleOpenEditTask} actions={(task,disabled)=><div className="flex flex-wrap gap-2">
         {canEditTask(task)&&!task.pendingApproval&&<><button type="button" disabled={disabled} onClick={()=>void handleUpdateStatus(task,TaskStatus.IN_PROGRESS)} className="text-xs text-sky-400">{t('productivity.start')}</button><button type="button" disabled={disabled} onClick={()=>childNeedsApproval(task)?openSubmitModal(task):void handleUpdateStatus(task,TaskStatus.COMPLETED)} className="text-xs text-emerald-400">{t('productivity.complete')}</button></>}
         {task.pendingApproval&&canApproveTasks&&<><button type="button" disabled={disabled} onClick={()=>void handleApprove(task)} className="text-xs text-emerald-400">{t('productivity.approve')}</button><button type="button" disabled={disabled} onClick={()=>setRejectTaskTarget(task)} className="text-xs text-rose-400">{t('productivity.reject')}</button></>}
        </div>}/></div>
+       {taskProjection==='matrix'&&<MatrixWorkspace user={currentUser} users={users}/>}
       </>}
-      <div className={(canonical.enabled||canonical.error)&&taskProjection==='list'?'hidden':''}>
+      <div className={(canonical.enabled||canonical.error)&&taskProjection!=='board'?'hidden':''}>
       {/* Search and Quick Filters Header */}
       <Reveal className="relative overflow-hidden bg-slate-900 neu-raised p-5 rounded-2xl shadow-xl space-y-4" id="task-filter-panel">
         <ShimmerLine accent="sky" />
