@@ -8,3 +8,7 @@ it.each(['node-binary','abi','napi','addon-version','target-reference','source',
 it.each(['missing','httpEnabled','adminCanonicalIds','childScopedIds','privateWipRedacted','readOnly','serverClock'])('requires actual compiled board projection proof %s',field=>{const r=boardReportFixture();if(field==='missing')delete r.boardProjection;else r.boardProjection[field]=false;expect(validateBoardPackageReport(r,expected).length).toBeGreaterThan(0);});
 
 it.each(['missing','httpEnabled','previewReadOnly','sectionDoneNotCompletion','requestRetryOnce','hardWipRefused','adminReasonAuditedOnce','noRewards','restartRetryOnce'])('requires actual compiled transactional board move proof %s',field=>{const r=boardReportFixture();if(field==='missing')delete r.boardMoves;else r.boardMoves[field]=false;expect(validateBoardPackageReport(r,expected).length).toBeGreaterThan(0);});
+
+it.each(['missing','httpEnabled','sectionCreateOnce','columnOrder','archivePreviewReadOnly','archiveMovesToNone','archiveRetryOnce','noRewards'])('requires actual compiled canonical layout proof %s',field=>{const r=boardReportFixture();if(field==='missing')delete r.boardLayout;else r.boardLayout[field]=false;expect(validateBoardPackageReport(r,expected).length).toBeGreaterThan(0);});
+
+it.each(['clock-source','native-interval'])('requires native OS clock evidence %s',field=>{const r=boardReportFixture();if(field==='clock-source')delete r.projectionClockSource;else r.clockDiagnostics.observations[0].child.sqliteMs+=10000;expect(validateBoardPackageReport(r,expected).length).toBeGreaterThan(0);});
