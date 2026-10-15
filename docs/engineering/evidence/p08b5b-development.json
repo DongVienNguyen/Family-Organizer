@@ -179,5 +179,13 @@
       "files": 1
     }
   },
-  "causality": "Bounds/consumer/gate REDs genuine omissions. Initial fixture TSX loader error corrected with absolute URL; invalid-source fixture strengthened to require actual generator identity error. I1 exact target-reference replacement asserted by native Windows-only probe, no Cloud causal native-RED claim."
+  "causality": "Bounds/consumer/gate REDs genuine omissions. Initial fixture TSX loader error corrected with absolute URL; invalid-source fixture strengthened to require actual generator identity error. I1 exact target-reference replacement asserted by native Windows-only probe, no Cloud causal native-RED claim.",
+  "composition": {
+    "acceptedBaseSha": "a4caf83f87a65a9dd4e560b772c3ef34436cbfdf",
+    "checkedBranchSha": "a14e83643cbc47bd8a20e56ca8485250edf7ab72",
+    "compositionSha": "114dad49dd5c32e8de1d49b0ad7fc0b24b676d10",
+    "entireTreeEqualsCheckedBranch": true,
+    "cloudReportsReusedForIdenticalTree": true,
+    "exactHeadWindowsRequired": true
+  }
 }
