@@ -32,3 +32,10 @@ These proposals are never valid server authorization or an apply token.
 No new schema, migration, internal route, UI activation, dependency or release is
 introduced by P06-a. Full P06 remains pending authoritative preview/apply,
 revisioned/expiring pin storage, audit, rollback, recovery and API regressions.
+
+Known bounded edge (review Minor M1, owned by P18): context currently resolves
+the horizon boundary even for priority-only/custom views that do not use it.
+A historical skipped local date can therefore reject an unrelated calculation
+(e.g. Pacific/Apia, clock2011-12-28T12:00:00Z, horizon1, skipped December30).
+Lazy horizon resolution is deferred to P18 with temporal boundary measurements.
+Reference Matrix latency/load targets have not been benchmarked by P06-a.
