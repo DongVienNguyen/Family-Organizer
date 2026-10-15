@@ -1,3 +1,4 @@
+import {viewSchemaSql} from '../../server/productivity/viewSchema.js';
 import {taskPinSchemaSql} from '../../server/productivity/pinSchema.js';
 // CI-only synthetic seed builder; never included in the production ZIP.
 import fs from 'node:fs';
@@ -22,7 +23,8 @@ try{
  command(tx=>tx.run('INSERT INTO productivity_check_items VALUES(?,?,?,?,?)','canonical-check','canonical-task','Synthetic compiled checklist',1,1024));
  command(tx=>{tx.run('INSERT INTO productivity_tags VALUES(?,?)','canonical-owner-tag','Synthetic owned catalog tag');tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)','canonical-owner-tag','package-admin');});
  command(tx=>tx.run('INSERT INTO productivity_task_pins VALUES(?,?,?,?)','package-admin','canonical-task',1,1));
- const columns=productivityTablesAt(4);
- const value=command(tx=>({format:1,commitSha,schemaSql:productivitySchemaAt(4),v1SchemaSql:schemaSql,structureSchemaSql,tagOwnershipSchemaSql,taskPinSchemaSql,version:4,columns,tables:Object.fromEntries(Object.keys(columns).map(name=>[name,tx.all(`SELECT * FROM ${name}`)])),migration:tx.get("SELECT * FROM app_migrations WHERE namespace='productivity' AND version=1"),migrations:tx.all("SELECT * FROM app_migrations WHERE namespace='productivity' ORDER BY version")}));
+ const {createTaskViews}=await import('../../server/productivity/views.js'),reader={get:(sql:string,...args:any[])=>sqlite!.sqliteConnection().prepare(sql).get(...args),all:(sql:string,...args:any[])=>sqlite!.sqliteConnection().prepare(sql).all(...args)};const view=createTaskViews({reader,write:gateway.withAppWriteTransaction}).saveView({actor:{userId:'package-admin',role:'admin'},requestId:randomUUID(),expectedRevision:0},{title:'Synthetic compiled saved view',filter:{rootsOnly:true,query:'compiled'},kind:'list',config:{kind:'list',sort:'rank',group:'none'}});
+ const columns=productivityTablesAt(5);
+ const value=command(tx=>({format:1,commitSha,schemaSql:productivitySchemaAt(5),v1SchemaSql:schemaSql,structureSchemaSql,tagOwnershipSchemaSql,taskPinSchemaSql,viewSchemaSql,viewId:view.id,version:5,columns,tables:Object.fromEntries(Object.keys(columns).map(name=>[name,tx.all(`SELECT * FROM ${name}`)])),migration:tx.get("SELECT * FROM app_migrations WHERE namespace='productivity' AND version=1"),migrations:tx.all("SELECT * FROM app_migrations WHERE namespace='productivity' ORDER BY version")}));
  fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify(value,null,2)+'\n');
 }finally{sqlite?.sqliteClose();fs.rmSync(root,{recursive:true,force:true});}

@@ -1,0 +1,109 @@
+{
+  "taskId": "W02-a",
+  "observedAt": "2026-10-15T14:27:31.940800+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/80",
+  "testedHeadSha": "ab9b6fdcbd2109e7c6c1acf0f23e72b5004c3e99",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38598454567",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "4b2035b15aa03101593deeaf21fa69ce452769d10759b85ebb2a600d305a8257",
+    "coverage": "52401bc4734a2566f81c395194eb1018d74aa1a00d470fbee30966f3371d365b",
+    "package": "c4494ee61ef27187b96ca68a03e82c42079a8d8e36cb5b35456a5605abd54cb9",
+    "service": "f266359a4ee103ee97b163da850c4915a0afb6891cbc1888f66b7a94650f57af",
+    "caddy": "8412ddfd763fa1691840047e152e5905f7e7fcfe6c372d95759988c1655e730a",
+    "extraction-sdk": "0c7929b426d23d88daf54ba41d4c50d879e51ce7982d007a3b3dcb30cc12b08d",
+    "inner-native": "a8995dac208120ccba1e97f32099c5a07d7d401096911e7adb742dffe34dc2b7",
+    "browser": "9566b27c282940b4021c4e423b0a1e922b5fbf19228e63c50cf34bb41ae55b36",
+    "productivity-browser": "906201f378c589bb9857624d1c0bf19b05b0c7f9d9adba6425202c23b831daf1"
+  },
+  "qualityEach": 3284,
+  "qualityFilesEach": 174,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 30,
+  "rawValidators": 9,
+  "zipSha256": "1fa1a50ae2f5d826031621c1bf63769fbd5ce00fb1b7d4772a6b634b53fd649d",
+  "fullCiLogZipSha256": "52ac05b444389f9205737a6e083f6e48a84c705232b1668154bd1dd6a4298b84",
+  "review": {
+    "taskId": "W02-a",
+    "reviewedHeadSha": "32fad8be577713e8936eba23f8284f72421207d6",
+    "baseSha": "a3e4e7acf1bf72ce2c333cbaaa653d48bc0d8a8e",
+    "reviewer": "p05a_review",
+    "reviewCount": 1,
+    "critical": 0,
+    "important": 2,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "rulings": [
+      {
+        "id": "I1",
+        "severity": "Important",
+        "decision": "fix",
+        "reason": "An optional note accepted by the repository must round-trip through snapshot validation/export/restore",
+        "result": "Both empty and whitespace notes export/restore unchanged:2causalRED toGREEN"
+      },
+      {
+        "id": "I2",
+        "severity": "Important",
+        "decision": "fix",
+        "reason": "Repository reads must honor optional-string representation and be reusable as WalletRecord input",
+        "result": "Missing optional fields are omitted from repository reads, matching WalletRecord; fresh-ID reinsertion regression1causalRED toGREEN"
+      }
+    ],
+    "declinedBoundaries": {
+      "fullW02Remaining": "W02-b entityfields/sharedAppSnapshot/startup/compiledRestore/activation",
+      "financialMigrationAclCommands": "W03/W04/W05",
+      "historical67to78Minors": "closed",
+      "windowsAcceptance": "root exactHEAD/rawreaders"
+    },
+    "importantRemaining": 0,
+    "criticalRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false
+  },
+  "newStructureHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "W02-b remaining fields/shared snapshot/startup/compiled restore",
+  "mergeSha": "b7c2284e9ba57aeaa486920e4293ff7aa740bd1b",
+  "mergeTreeMatchesTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/80#issuecomment-6186863266"
+}

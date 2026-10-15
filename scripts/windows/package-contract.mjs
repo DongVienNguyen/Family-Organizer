@@ -51,7 +51,7 @@ export function validateManifest(manifest,expected) {
   require(hex(manifest?.runtime?.nodeExeSha256,64)&&manifest.runtime.nodeExeSha256===find('bin/node.exe')?.sha256,'bundled node executable hash mismatch');
   require(manifest?.native?.version==='13.0.3'&&manifest.native.path===required[6]&&hex(manifest.native.sha256,64)&&manifest.native.sha256===find(required[6])?.sha256,'native addon metadata/hash mismatch');
   for(const name of ['legacy','jobs','snapshot'])require(manifest?.schema?.[name]?.min===1&&manifest?.schema?.[name]?.max===1,`unsupported ${name} schema bounds`);
-  require(isDeepStrictEqual(manifest?.schema?.domains,{productivity:{min:1,max:4}}),'unsupported domain schema bounds');
+  require(isDeepStrictEqual(manifest?.schema?.domains,{productivity:{min:1,max:5}}),'unsupported domain schema bounds');
   const dependencies=Array.isArray(manifest?.dependencies)?manifest.dependencies:[];
   require(dependencies.length>0,'dependency manifest missing');
   const names=new Set();

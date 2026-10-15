@@ -1,3 +1,4 @@
+import {writeSearchDocument} from './viewSchema.js';
 import {hasTagOwnership,assertTagSelection} from './tagPolicy.js';
 import type {AppActor} from '../../src/features/productivity/contracts.js';
 import type {AppWriteTx} from '../appStore.js';
@@ -38,6 +39,7 @@ export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):voi
  if(actor)assertTagSelection(tx,actor,task.tagIds);
  const values=[task.id,task.listId,task.sectionId,task.parentId,task.title,task.body,task.lifecycle,task.priority,task.due.kind,task.due.kind==='all_day'?task.due.date:null,task.due.kind==='timed'?task.due.instantUtc:null,task.due.kind==='none'?null:task.due.timezone,task.scheduledStart,task.scheduledEnd,task.creatorId,task.assigneeId,Number(task.isShared),Number(task.blocked),task.blockedReason,Number(task.pendingApproval),task.rewardPoints,task.revision,task.deletedAt,task.rank,JSON.stringify(task.legacy)];
  tx.run(`INSERT INTO productivity_tasks (${taskColumns.join(',')}) VALUES (${taskColumns.map(()=>'?').join(',')}) ON CONFLICT(id) DO UPDATE SET ${taskColumns.slice(1).map(c=>c+'=excluded.'+c).join(',')}`, ...values);
+ writeSearchDocument(tx,task);
  tx.run('DELETE FROM productivity_task_tags WHERE task_id=?',task.id);
  for(const tag of [...new Set(task.tagIds)]){const existed=tx.get('SELECT id FROM productivity_tags WHERE id=?',tag);tx.run('INSERT OR IGNORE INTO productivity_tags(id,name) VALUES(?,?)',tag,tag);if(!existed&&actor&&hasTagOwnership(tx))tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)',tag,actor.userId);tx.run('INSERT INTO productivity_task_tags(task_id,tag_id) VALUES(?,?)',task.id,tag);}
  writeHooks?.after(tx);

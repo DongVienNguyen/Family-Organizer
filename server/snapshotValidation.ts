@@ -11,6 +11,7 @@ export interface SnapshotValidationContext {
   primaryKeys:Map<string,readonly string[]>;
   migrations:any[];
   domainValidators?:ReadonlyMap<string,(snapshot:AppSnapshot)=>void>;
+  derivedRowTables?:ReadonlySet<string>;
 }
 export const snapshotCoreTables = new Map<string, readonly string[]>([
   ['app_meta',['key','value']], ['app_commands',['command','request_id','actor_id','payload_hash','result','committed_at']],
@@ -47,7 +48,7 @@ export function validateSnapshotPayload(input: unknown, context:SnapshotValidati
   const versions = context.versions;
   if (JSON.stringify(canonical(s.manifest.domains)) !== JSON.stringify(canonical(versions))) throw new Error('Missing or unsupported snapshot namespace version');
   if (!s.legacy || JSON.stringify(Object.keys(s.legacy).sort()) !== JSON.stringify([...LEGACY_KEYS].sort())) throw new Error('Invalid legacy snapshot collections');
-  let rowCount = 0;
+  let rowCount = 0, derivedRowCount = 0;
   for (const key of LEGACY_KEYS) {
     if (['mealPlan','hiddenBuiltinCategories'].includes(key)) continue;
     const rows = s.legacy[key];
@@ -61,7 +62,7 @@ export function validateSnapshotPayload(input: unknown, context:SnapshotValidati
   for (const [name,columns] of trusted) {
     const rows = s.tables[name];
     if (!Array.isArray(rows) || rows.some(row => !row || JSON.stringify(Object.keys(row).sort()) !== JSON.stringify([...columns].sort()) || Object.values(row).some(value => value !== null && typeof value !== 'string' && !(typeof value === 'number' && Number.isFinite(value))))) throw new Error('Invalid snapshot table rows');
-    rowCount += rows.length;
+    if(context.derivedRowTables?.has(name))derivedRowCount+=rows.length;else rowCount += rows.length;
   }
   for(const row of s.tables.app_meta)if(row.key.startsWith('media:')){canonicalMediaUrl(row.key.slice(6));parseMediaMetadata(row.value);}
   const mediaVersion=s.tables.app_meta.find(row=>row.key==='media_version');if(mediaVersion&&mediaVersion.value!=='1')throw new Error('Unsupported media metadata version');
@@ -85,6 +86,7 @@ export function validateSnapshotPayload(input: unknown, context:SnapshotValidati
     canonical(JSON.parse(job.payload));
   }
   if (rowCount > snapshotLimits.rows) throw new Error('Snapshot row limit exceeded');
+  if (derivedRowCount > snapshotLimits.derivedRows) throw new Error('Snapshot derived row limit exceeded');
   if (!s.settings || Object.entries(s.settings).some(([key,value]) => !publicSettingKeys.includes(key) || typeof value !== 'string' || value.length > 10000)) throw new Error('Snapshot settings contain unsupported or secret fields');
   if (!s.media || Array.isArray(s.media) || Object.keys(s.media).length > snapshotLimits.files) throw new Error('Invalid snapshot media');
   const aliases = new Set<string>();

@@ -20,7 +20,7 @@ import { settingsByteLimit, publicSettingKeys, mediaRoot, settingsFile, readSett
 export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string; privateSettings?: ValidatedSettingPatch; privateFiles?: ValidatedFilePatch; privateEnv?: ValidatedEnvPatch }
 const connection = sqliteConnection();
 const core = snapshotCoreTables;
-const domainTables = new Map<string, { namespace: string; columns: readonly string[] }>();
+const domainTables = new Map<string, { namespace: string; columns: readonly string[]; derived: boolean }>();
 const domainValidators=new Map<string,(snapshot:AppSnapshot)=>void>();
 const validated = new WeakSet<object>();
 withAppWriteTransaction({ actorId: 'system:bootstrap', command: 'core:snapshot:init', requestId: 'core-snapshot-v1', payloadHash: sha256('core-snapshot-v1') }, tx => {
@@ -32,11 +32,11 @@ const snapshotVersion=connection.prepare('SELECT value FROM app_meta WHERE key=?
 const markerColumns=(connection.prepare('PRAGMA table_info(app_restore_commits)').all() as any[]).map(row=>row.name);
 if(snapshotVersion?.value!=='1'||JSON.stringify(markerColumns)!==JSON.stringify(['id','checksum','committed_at']))throw new Error('Unsupported snapshot storage schema');
 
-export function registerSnapshotTable(namespace: string, table: string, columns: readonly string[]): void {
+export function registerSnapshotTable(namespace: string, table: string, columns: readonly string[], options:{derived?:boolean}={}): void {
   if (!['wallet','productivity'].includes(namespace) || !new RegExp(`^${namespace}_[a-z0-9_]+$`).test(table) || !columns.length || columns.length > 100 || new Set(columns).size !== columns.length || columns.some(column => !/^[a-z][a-z0-9_]*$/.test(column))) throw new Error('Invalid trusted snapshot table registration');
   const prior = domainTables.get(table);
-  if (prior && (prior.namespace !== namespace || JSON.stringify(prior.columns) !== JSON.stringify(columns))) throw new Error('Conflicting snapshot table registration');
-  domainTables.set(table, { namespace, columns: [...columns] });
+  if (prior && (prior.namespace !== namespace || JSON.stringify(prior.columns) !== JSON.stringify(columns) || prior.derived !== (options.derived===true))) throw new Error('Conflicting snapshot table registration');
+  domainTables.set(table, { namespace, columns: [...columns], derived: options.derived===true });
 }
 /** Trusted synchronous domain validation extends the one shared restore gate. */
 export function registerSnapshotValidator(namespace:string,validate:(snapshot:AppSnapshot)=>void):void {
@@ -95,6 +95,7 @@ export function validateAppSnapshot(input: unknown): ValidatedAppSnapshot {
     primaryKeys:new Map([...trusted.keys()].map(name=>[name,(connection.prepare(`PRAGMA table_info(${name})`).all() as any[]).filter(column=>column.pk).sort((a,b)=>a.pk-b.pk).map(column=>column.name)])),
     migrations:connection.prepare('SELECT namespace,version,checksum FROM app_migrations').all(),
     domainValidators,
+    derivedRowTables:new Set([...domainTables].filter(([name,definition])=>definition.derived&&trusted.has(name)).map(([name])=>name)),
   }) as ValidatedAppSnapshot;
   validated.add(result);return result;
 }
