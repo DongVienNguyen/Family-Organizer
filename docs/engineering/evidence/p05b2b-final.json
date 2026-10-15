@@ -1,0 +1,126 @@
+{
+  "taskId": "P05-b2b",
+  "observedAt": "2026-10-15T17:29:54.224138+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/84",
+  "testedHeadSha": "436bb82cfb1b94823585530902a56e3bb6f226ff",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38719206272",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "a0534dcb5a0664cbdf45785c211a7dbcb098bedd62441e97d3b4afa11a8e88a4",
+    "coverage": "34ff68b1065bdd6f6ae9a7e020a4f5a6683f2e3aeb0eb42b703715dd6ecf6891",
+    "package": "11b1f4d001b8222f6750f6080eb6409dffe61dec448edfea26102cff696ede40",
+    "service": "c1d2c037b9aaf85c5f53bedc0ddb3ca8a07952133470df4b7eec9981b27666f3",
+    "caddy": "5c15736eeab67653bcdedfcc52dcd9dcf41c826bb909ec1fb2b5b093064bbe8a",
+    "extraction-sdk": "912e46d02e194574a6237b627691ab35d14fbc74baaad382268db1cf40debc24",
+    "inner-native": "d0de3ec21d8e6e41f2b5597a26c16874a0c682d1b634e6620a6d9e42d8177cd0",
+    "browser": "864c771c766523ae912c8dbf22b8014257c1d8359f7b5e468ba5784b658b494f",
+    "productivity-browser": "d047d9ef02f85a60e6ee1ea51a6a81c457e819791da714226b6fc690b648d318"
+  },
+  "qualityEach": 3403,
+  "qualityFilesEach": 186,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 45,
+  "rawValidators": 9,
+  "zipSha256": "e9400be9ebd39efb0b36b594e14f6ab6d0e93a8a79b1b098d0141e849b404215",
+  "fullCiLogZipSha256": "99dbcc8febc7ef583de00298f83072b05dbe1cf4e1fa5daf4eb1511fcf71f160",
+  "review": {
+    "reviewer": "/root/p05b2b_review",
+    "baseSha": "5cadef54149996d6ed66b78b5c5090fe8ef2eef0",
+    "critical": 0,
+    "important": 3,
+    "minor": 2,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "importantRemaining": 0,
+    "criticalRemaining": 0,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "resolution": "Chosen immutable saved-view editing revision; SSE metadata does not replace base;409 retains draft; explicit reload updates it."
+      },
+      {
+        "id": "I2",
+        "grade": "Important",
+        "resolution": "Editing base preserves config on update/copy; unsupported saved list sort/group is explicitly refused before selecting or writing."
+      },
+      {
+        "id": "I3",
+        "grade": "Important",
+        "resolution": "Shared open helper refreshes full authorized cache on miss, revalidates current session and record then opens; failure stays in search with retry."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "resolution": "Explicit saved-view load retry."
+      },
+      {
+        "id": "M2",
+        "grade": "Minor",
+        "resolution": "Both search inputs bounded to500 canonical contract."
+      }
+    ],
+    "declinedBounds": [
+      "migration",
+      "default activation/cutover",
+      "Matrix/P10",
+      "rewrite",
+      "I01 replacement",
+      "reopening P05-b2a query-capacity Minor ownedP18"
+    ],
+    "gradingFile": "/workspace/family-evidence/p05b2b-review-grading.md",
+    "causalRed": {
+      "numTotalTests": 6,
+      "numFailedTests": 5
+    }
+  },
+  "internalQueryHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": true,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P06 Matrix classifier and inverse moves",
+  "mergeSha": "90ef2c99a774eac2d3a9eb9676cb3de037501806",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/84#issuecomment-6189983807",
+  "fullLogFilesRead": 132,
+  "fullLogLinesRead": 20656
+}
