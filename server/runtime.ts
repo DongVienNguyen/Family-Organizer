@@ -54,7 +54,7 @@ export async function startApplication(config: AppConfig = appConfig) {
     const push = await import('./push.js');
     const { AppJobStore } = await import('./jobStore.js');
     const gateway=await import('./appStore.js');const {withAppWriteTransaction}=gateway;
-    const {createProductivityPorts}=await import('./productivity/ports.js');const productivity=createProductivityPorts(storage,gateway);
+    const {createProductivityPorts}=await import('./productivity/ports.js');const productivity=createProductivityPorts(storage,gateway,{legacyCompletion:db.FamilyDB});
     const jobs=new AppJobs(undefined,new AppJobStore());
     const backupRecovery=(value:unknown)=>{
       const assertReady=()=>{if(state.phase!=='ready')throw new RecoveryOperatorError('RECOVERY_RUNTIME_NOT_READY');};

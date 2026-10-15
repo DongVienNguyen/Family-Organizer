@@ -1,0 +1,282 @@
+{
+  "taskId": "P10-a",
+  "baseSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+  "baseAcceptance": "PR98 exactf8b6549/Windows38801246440/all8/TENraw/merge5ca1b51 testedtreeequal",
+  "scope": "Characterize existing completion/approval/reopen/recurrence policy; inject one FamilyDB writer into semantic request/approve/reject ports+internalHTTP; no newpolicy/defaultcutover",
+  "fullGreen": {
+    "tests": 3924,
+    "passed": 3924,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 217
+  },
+  "junitCases": 3924,
+  "maxWorkers": 1,
+  "targetGreen": {
+    "tests": 34,
+    "passed": 34,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 4
+  },
+  "earlierRelatedTarget": {
+    "tests": 358,
+    "passed": 358,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 7
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImports": {
+    "modules": 1,
+    "storageOpened": false,
+    "cloudPlatform": "linux",
+    "notWindowsAcceptance": true
+  },
+  "review": {
+    "reviewer": "/root/p10a_review independent immutable-commit whole-branch review",
+    "baseSha": "4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b",
+    "headSha": "97435e95ed5e47471a35ac3ba5b984d4923dcc4f",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Accept: low-reward child can immediately complete admin-created private rotating task, but its successor is private and assignedtoMember. Raw result.spawnedTaskIds currently returns its ID without fresh ACL. Preserve all internal successor IDs for scoped SSE, filter public IDs after gateway cache replay on every return using fresh access, and avoid any serializable hidden-ID sidechannel. Add direct/HTTP actual private-successor cases including subsequent visibility revocation on cached replay."
+      }
+    ],
+    "declinedBounds": {
+      "authority": "currentSQL actor/session/rootTask ACL beforecache+insideI01; adultapproval role; expectedrevision onlynewwrite; no doublewriter, FamilyDB.runLegacyCommand reusescurrentI01 andwriteRaw flushescanonical beforeDTO",
+      "atomicity": "target tests exactUUID/freshapprove/no duplicatepoints orsuccessor, afterWrite faultrollsbackcanonical/rewards/notifications/successor/cache, snapshotretainscachedUUID",
+      "events": "currentTask/eachsuccessor SSE audience is freshlyscoped; distinguishresponseI1fromSSE. Earlier privacyfixturefailedbecauseexistingcurIdx=-1rotation selectedChild aslegitnewsuccessor. IsolateprivateSSEfixtureasnonrecurring; preserveallnegativeassertions.",
+      "scope": "PartialP10-a newsemanticrequest/approve/rejectreuseexistingpolicy; reopenlinkedreversal/expandedseries/jobs/legacygenericsurfacecutover/boardworkflow/rolloutremainfuturedeclaredslices. No newdefaultflag/schema/dependency/providerdelivery/release/VPS. Fullsuite/build/native pendingexplicit."
+    },
+    "reviewedSourceHashes": {
+      "docs/engineering/completion-policy-baseline.md": "3081f1953349d25d8fb54baf1c4ca01e9fc60d016bc6faa6d7177d0684485f44",
+      "scripts/ci/write-evidence.mjs": "9b057a7a1c75b968cf1a61a2ceb167c1307816c923c77953b2589c2a5ac99537",
+      "server/app.ts": "c4b26b1ea5aa3a0e60e38bc75e3d85fb6d10776e7fa7ae7d10ea8caac6532baf",
+      "server/productivity/completion-characterization.test.ts": "51e145ee89db8351a8f301b0ea421cdebb661a9a0c25cf5142459b1a58d9f201",
+      "server/productivity/completion.api.test.ts": "7903459569510150ad9b5b6f2aa30af4bc64f3bc4599a7e9c6ab48b492cacba4",
+      "server/productivity/completion.test.ts": "27c070846320d223ce5f599729959d0c07328446241bd5db649e2e99659b9771",
+      "server/productivity/completion.ts": "af50accd2bf0d56ecc04f66cf3086c276e7998eae115931f358527285325a97e",
+      "server/productivity/ports.ts": "38767c6ae1c0a29b548e357f53ef2bd3c807accf2172a252d344131c392ef033",
+      "server/productivity/router.ts": "dca28918c8b1e27e5d3adc986d24f5444ea41f3c46bb7cd32f78c30a3d656a43",
+      "server/runtime.ts": "4c71687ee0127cb8c7f1abe2dfd6c0914e399e26e42fe988e23d7a43535c5c92",
+      "tests/evidence.test.ts": "879b5a9b8881332ae1c83d68b03807849e00733d81967285133ae41fb71254dc"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 20,
+      "passed": 17,
+      "failed": 3,
+      "files": 2,
+      "report": "p10a-review-red.json"
+    },
+    "status": "one correction verified34target/full3924-217/JUnit/lint/build0;no rereview",
+    "correctedTarget": {
+      "tests": 34,
+      "passed": 34,
+      "failed": 0,
+      "files": 4
+    },
+    "correctedFull": {
+      "tests": 3924,
+      "passed": 3924,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 217
+    },
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "9b057a7a1c75b968cf1a61a2ceb167c1307816c923c77953b2589c2a5ac99537",
+    "server/app.ts": "c4b26b1ea5aa3a0e60e38bc75e3d85fb6d10776e7fa7ae7d10ea8caac6532baf",
+    "server/productivity/completion-characterization.test.ts": "51e145ee89db8351a8f301b0ea421cdebb661a9a0c25cf5142459b1a58d9f201",
+    "server/productivity/completion.api.test.ts": "f24e3e826adb1dcd0f791b723758e6078112c73fa0767a45acfa958c50579ed3",
+    "server/productivity/completion.test.ts": "922a43b97b30ac376d4eb33a7eaede8522acb4eb72286f3600398d0c12f66656",
+    "server/productivity/completion.ts": "a5ff2b654326d69c09b0a1c059ece8e6dcb8e3216037ca67c8a0cb496e9d8f9e",
+    "server/productivity/ports.ts": "38767c6ae1c0a29b548e357f53ef2bd3c807accf2172a252d344131c392ef033",
+    "server/productivity/router.ts": "a91d7cdab6be0efdd1ad55e1dd4c3839fdef2a1125a83e87fc08c77a9d37629d",
+    "server/runtime.ts": "4c71687ee0127cb8c7f1abe2dfd6c0914e399e26e42fe988e23d7a43535c5c92",
+    "tests/evidence.test.ts": "879b5a9b8881332ae1c83d68b03807849e00733d81967285133ae41fb71254dc"
+  },
+  "compiledHashes": {
+    "dist/server.cjs": "657ca1bc3ac2a0e7fcd1aeb686386b283a50baa8b6de05c2e9578ad55cf4fe24",
+    "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+  },
+  "historicalFailures": {
+    "p10a-commands-red.json": {
+      "tests": 8,
+      "passed": 0,
+      "failed": 8,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p10a-http-red.json": {
+      "tests": 6,
+      "passed": 0,
+      "failed": 6,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p10a-http-causal-red.json": {
+      "tests": 6,
+      "passed": 0,
+      "failed": 6,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p10a-gate-red.json": {
+      "tests": 259,
+      "passed": 256,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p10a-pre-review-http.json": {
+      "tests": 17,
+      "passed": 16,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "p10a-review-red.json": {
+      "tests": 20,
+      "passed": 17,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    }
+  },
+  "reports": {
+    "p10a-review-red.json": "b746814c5e6cfce9ed88f6c1acceb92a84a93df55aa911c6c6d583299e258044",
+    "p10a-http-red.json": "26db1fdbe41738a9a344098ac23a93b5c70c559a145f8a069823e3370cf02f72",
+    "p10a-pre-review-http.log": "04d7c5638812889b41b1d0a7865c73714c114da6fe0a16e0b997feafdab848ca",
+    "p10a-review-rulings.json": "4b1fa91a7fcbe3a9dbc2426329c027c6ee3f5c3202ca9247eeb2a465dbc9b53d",
+    "p10a-corrected-full.junit.xml": "5755d14647c2d2a9b9b2933aef3a21c6d19884dcd8da133cb039dee19f0096e0",
+    "p10a-gate-red.json": "e35d3a463df98834faefcaedde782e06d3ac579657a00f7866460558dc3a978f",
+    "p10a-commands-first.json": "ed1f7f9ec2aa2f095e0d3ae556d5be9321421dc3c90959673334876ccba20f5f",
+    "p10a-private-http-green.log": "e197761e826ba7dddd6244a2a43b5ffc528f1533d0cbdf203718eab715458154",
+    "p10a-commands-first.log": "0f38c865ce61e3fee69d5e2aeaf1001b54c81d9fae35bfe352c43c64989a5dc6",
+    "p10a-corrected-full.log": "4e2ed29d839444f4c8cbfde4d56675554e446c5c5719927c70bdeeb74c8139e4",
+    "p10a-http-causal-red.log": "1a9e21cdcd34e507c3c0b94ed9b460a92bf02e3696ee427fea5b91d088940322",
+    "p10a-http-first.log": "7f41cc594811f8c53e23beb761e8c6a05eeb93909bcc2cba5195cb2e456a1f32",
+    "p10a-review-corrected-target.log": "d36b5ab0a4ce48fd5b55e1c169186390233ec20dd7242f44f4077b1b8d443d15",
+    "p10a-expanded-target.log": "803d5b33f7b4a812197531a08229e7ce17ea7748daa283e9487166e0e64a8469",
+    "p10a-corrected-full.json": "d534ef4a6c113516e75b2e6b803ad7809b213c5ef6bda48173b4009f72333c91",
+    "p10a-cold-import.json": "2c7431a88aabcd3c20bed6963799149df7d5fcc86765ef9b6d67cf91ddd387ef",
+    "p10a-pre-review-http.json": "f637c18535c81290fdc7260c3072748c58330bba4d976bf758b6c0381f012cdd",
+    "p10a-http-red.log": "e97b7525a4791b02fc9807380f2e5c4353ea6c738fd0414e601c29961a1f56aa",
+    "p10a-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p10a-first-lint.log": "3f16105a420e6b2cdd8f1bfff58ce9673b171f67cea2f22b6fab58d5c38c3ba1",
+    "p10a-commands-red.json": "59e7828bbd7c40d5142ee4b8db72366cf87a77b3ba776021d455c407ff669ff9",
+    "p10a-corrected-build.log": "6e68da71b20ed646d821789c9b23c74d34b85ff9754492e4843648fc44bcdcc1",
+    "p10a-review-corrected-target.json": "402618bc07119732f212fa0624c6a5ccde46e4852a026b706f5d09fccbe5ed89",
+    "p10a-http-causal-red.json": "7a943fe5a657b9907cf19ecaa07cfc617e2db7abdd9caf0d8d8b1c068beec682",
+    "p10a-expanded-target.json": "deb2bfa53beec2f0b5f778449332afe5a6be3a4558e30882004824c275fe76f0",
+    "p10a-review-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p10a-commands-red.log": "d95e38ddf51ad2b80b5550ddeed6c77a5470a52e4579e02555cd01b46c9de757",
+    "p10a-gate-red.log": "e4ea8d19f4f3440a8070e821938e14c677ac1e618e0281a4806069d0a860503f",
+    "p10a-corrected-frozen-hashes.json": "090c02f52191abf361c361919dbc8fbcea1184b28dc378fb8105e658dfd2045c",
+    "p10a-http-first.json": "99624125cc1e132547e4d9c577891372826e8e9160124ba97bd86ce57255c8ef",
+    "p10a-review-red.log": "56c71acf3d178ef774678c2c1474c78638aa6012fc070520947c9de69d10d44e",
+    "p10a-private-http-green.json": "62ec67617c8c156ab12ad0ea08dd61212a034693911bb5ad9fe7189b005975d2"
+  },
+  "cloudPlatform": "linux",
+  "nativeWindowsAcceptance": "pending newPR99 exactHEAD; integratedCloud3959/220/JUnitall0",
+  "fullP10Accepted": false,
+  "publicSuccessorReferences": "freshACLaftercache/everyreturn;completeinternalIDsresult-boundWeakMapforSSE/nohiddenserializablefields",
+  "policyDifference": "existingreopenkeepspoints/newroundcanawardagain;approvedP10targetlinkedreversalrequirescontrolledcutoverbeforepilot/release;no implementation/defaultfliphere",
+  "fixtureRulings": "FirstdependentHTTPbodylookupTypeErrorretainednotcausal; added200preconditionthenall6missingrouteRED. PrivateSSEoriginalrecurrencelegitimatelyrotatedtosuccessorChild;isolatenonrecurringprivateSSEwithoutdroppingnegativeasserts;explicitnewrotationtestcheckschild1/member2scopedTaskevents. Invalidimport0testsinitialcharacterizationnotclaimedvalidation.",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "P10reopenreversal/newrecurrencevirtual/series/claims/jobs/legacygenericroutecutover/boardworkflow;fullP08/P09/latermastertasks;F08promotionpolicydebtpreR01",
+  "beforeCompositionVerification": {
+    "baseSha": "4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b",
+    "fullGreen": {
+      "tests": 3924,
+      "passed": 3924,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 217
+    },
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "9b057a7a1c75b968cf1a61a2ceb167c1307816c923c77953b2589c2a5ac99537",
+      "server/app.ts": "c4b26b1ea5aa3a0e60e38bc75e3d85fb6d10776e7fa7ae7d10ea8caac6532baf",
+      "server/productivity/completion-characterization.test.ts": "51e145ee89db8351a8f301b0ea421cdebb661a9a0c25cf5142459b1a58d9f201",
+      "server/productivity/completion.api.test.ts": "f24e3e826adb1dcd0f791b723758e6078112c73fa0767a45acfa958c50579ed3",
+      "server/productivity/completion.test.ts": "922a43b97b30ac376d4eb33a7eaede8522acb4eb72286f3600398d0c12f66656",
+      "server/productivity/completion.ts": "a5ff2b654326d69c09b0a1c059ece8e6dcb8e3216037ca67c8a0cb496e9d8f9e",
+      "server/productivity/ports.ts": "38767c6ae1c0a29b548e357f53ef2bd3c807accf2172a252d344131c392ef033",
+      "server/productivity/router.ts": "a91d7cdab6be0efdd1ad55e1dd4c3839fdef2a1125a83e87fc08c77a9d37629d",
+      "server/runtime.ts": "4c71687ee0127cb8c7f1abe2dfd6c0914e399e26e42fe988e23d7a43535c5c92",
+      "tests/evidence.test.ts": "879b5a9b8881332ae1c83d68b03807849e00733d81967285133ae41fb71254dc"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "657ca1bc3ac2a0e7fcd1aeb686386b283a50baa8b6de05c2e9578ad55cf4fe24",
+      "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+    }
+  },
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 3959,
+      "passed": 3959,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 220
+    },
+    "junitCases": 3959,
+    "maxWorkers": 1,
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "9f31ed86c5105435981fa0327ea9a688d60e7c6827772c5afd83e5188858f62f",
+      "server/app.ts": "c4b26b1ea5aa3a0e60e38bc75e3d85fb6d10776e7fa7ae7d10ea8caac6532baf",
+      "server/productivity/boardLayout.ts": "84cc03823b37fddff2a7e14ae2157473dc295cc34f5ae2df5882303195f729ba",
+      "server/productivity/boardRouter.ts": "a69e9abf176cb0f4000c1f08c5a8ed1aaf171295724bc9feb9dd713e06353754",
+      "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+      "server/productivity/completion-characterization.test.ts": "51e145ee89db8351a8f301b0ea421cdebb661a9a0c25cf5142459b1a58d9f201",
+      "server/productivity/completion.api.test.ts": "f24e3e826adb1dcd0f791b723758e6078112c73fa0767a45acfa958c50579ed3",
+      "server/productivity/completion.test.ts": "922a43b97b30ac376d4eb33a7eaede8522acb4eb72286f3600398d0c12f66656",
+      "server/productivity/completion.ts": "a5ff2b654326d69c09b0a1c059ece8e6dcb8e3216037ca67c8a0cb496e9d8f9e",
+      "server/productivity/ports.ts": "c46843a35957bead11ff857f1bce66de93b574b322ee82b80459be3ba0ffc093",
+      "server/productivity/router.ts": "6e6e64db9137c431e217e4dcaab5332efc1b1ede7514a5f3adb4718473330ae4",
+      "server/productivity/sectionBoards.ts": "d15b16ff81249080baad3541dd810c734a6bb1d996b9b12e43fa1b2d7c729e80",
+      "server/runtime.ts": "4c71687ee0127cb8c7f1abe2dfd6c0914e399e26e42fe988e23d7a43535c5c92",
+      "tests/evidence.test.ts": "2ac29c3c32dbaf5df40e1baf7007f669dab32ed0bbc5165aa1752514c9d24dce"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "5e198d88353172d10f0c05b230a5142786c73d57089a54dded6dfe1573ef52b1",
+      "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+    },
+    "reports": {
+      "p10a-integrated-full.json": "0739e3c141bc8669848ddf768fc5e2a8dd69341cb35cfc53698915a7fb11437b",
+      "p10a-integrated-full.junit.xml": "7c3512783c491e71348beca0e934e57a7536e23be152296d9ca4273975f7e40a",
+      "p10a-integrated-full.log": "9167ddef578829746877bf4e0ca7c0edb5b934177f45394b7e7cfbc92881c7d0",
+      "p10a-integrated-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "p10a-integrated-build.log": "8dbc983b50a65b27f7dea1ba8dae5657ddd62945de1f831fef0aad23c0e93ab3"
+    },
+    "composition": "real merge of acceptedPR98 layout/nativeOSclock; union imports/ports/mandatory suites/status. OriginalP10command/router handlers retained; acceptedB8core byteequal. Newwholeintegratedsuite, not reuse ofold3924baseline."
+  }
+}
