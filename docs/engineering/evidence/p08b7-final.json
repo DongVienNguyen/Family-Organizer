@@ -1,0 +1,90 @@
+{
+  "taskId": "P08-b7",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/97",
+  "testedHeadSha": "87959cfa1c3c80c0ad042d3f434532de6474f510",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38791522921",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "8d5a1f46f06b0de7fb61eb4b86f3940c3419d8533b62cebbd30d2746d74ed3ab",
+    "coverage": "0bb2d16c9569583eb2e22ddafc93e306610f29efabe5211611fc3b4738fbcabb",
+    "package": "9e921ba14b132c56abeea66bee33f79cacedb42701d8d983af0326117bb491b4",
+    "service": "0b0d07eed5737e66d52769b755fe881fbcfc70c027f679674e819ace74f10ddc",
+    "caddy": "418910d8b2437cfd647cf049e78964f3112cde3bd61133bb97b17af481b7294a",
+    "extraction-sdk": "af1b03f1867b9a2272a9d049bdee1ef7965f4ee39af229a151a6994fe84d7d65",
+    "inner-native": "eb9bc6e261fb729ed3f4b76fe248d9fdf43477a32dea844ff0c3b3acbcb67edc",
+    "browser": "26a25cb1640e6f9608599e3e5a40dcb24aec4d8e8afe50058a2f802b5aac4103",
+    "productivity-browser": "f1729e8de8a3febf3e91fa6bc24051cb266a8e1cb608c064fa8b8d6de32130f6",
+    "board-package": "6fe8c4a6b5267c2435788e0b6819d14aadb9b6388cb949e79718e960543b9a25"
+  },
+  "qualityEach": 3891,
+  "qualityFilesEach": 214,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "f3d8d0aaea92932effc3150edf6518ebcc1180ae1b338ba6e225adb09fd88ac4",
+  "fullCiLogZipSha256": "74f5ed9b616855a4f797a30541bfc0ba2e750c08870f10c377df8b9457595d05",
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "boardProjectionHttpAccepted": true,
+  "sectionAndRankMovesAccepted": true,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 8,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b",
+  "mergeTreeEqualsTestedHead": true,
+  "proofComment": "https://github.com/DongVienNguyen/Family-Organizer/pull/97#issuecomment-6200574077",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 21896,
+    "zipSha256": "74f5ed9b616855a4f797a30541bfc0ba2e750c08870f10c377df8b9457595d05",
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  },
+  "review": {
+    "critical": 0,
+    "important": 2,
+    "minor": 2,
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "remaining": 0,
+    "reReview": false
+  }
+}
