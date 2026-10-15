@@ -1,0 +1,240 @@
+{
+  "taskId": "P08-b3",
+  "baseSha": "e4f83d62b8b28928e833306de691a2339f1e3271",
+  "baseAcceptance": "PR91 accepted exactWindows38761727248; tested tree equals mergedmain",
+  "scope": "Explicitpilot7 registration/current-image startup and shared snapshot/compiled source recovery; defaultnewregistration remains1\u20136",
+  "fullGreen": {
+    "tests": 3713,
+    "passed": 3713,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 202
+  },
+  "junitCases": 3713,
+  "maxWorkers": 2,
+  "targetGreen": {
+    "tests": 263,
+    "passed": 263,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 3
+  },
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "0e5ed705b0627be085e335be41d5eaf69d02d1a3",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Make mixed ordinary snapshot ACL preservation concrete: current fixture has only an administrator and empty list grants. Seed a synthetic member and explicit read grant, assert the saved grant is present and compare it after restore. No source or validator relaxation."
+      }
+    ],
+    "declinedBounds": {
+      "migration": "Explicit pilot register7 only, default new registration remains1\u20136. Cold bootstrap first validates persisted7, registers existing definitions and never invokes apply. Schema0 query defect discovered/fixed during implementation before this review; original selectedRED then40/40oldrecovery retained.",
+      "checksums": "Frozen1\u20136 DDL/checksum strings and Wallet1 unchanged. Candidate7 checksum same reviewedb1 schema. Exact ownedDDL/index/FK/schema gate, future8 and nativebadindex refuse without DB byte changes.",
+      "snapshot": "Pure board validator after shared generic validation: IDs/policies/safeints/unique scopes/columns/position/membership; whole-store internal data, not ACL DTO. Existing overlimit states restore without capacitycleanup/effects. Native BigInt read preserves Wallet extremes.",
+      "recovery": "Real compiled source CommonJS operator synthetic isolated7\u2192independent7 backup/restore/restart, old6/future8/indexdrift native refusal andclosedhandles/offline/cleanup. This does not prove promotedWindowsZIP/schema7 or Server2019; CI quality will run compiledsource test on Windows, packagefixture6 retained.",
+      "authorization": "Task/structure/Matrix context admits known7 under sameexisting auth/SQL ACL; no public integration/API/newauth. New boardconfig/DTO/privatecounts/adminoverride/audit/semanticmoves/HTTP remainslaterP08.",
+      "tests": "Originalupgrade4/1/3 actual missing7supportRED, separate emptyfilter fixture refusal, expanded18/18/compiled1/1 andgate244/242/2 retained. One selectedschema0diagnostic has39unselected; all40laterfullypass, no tests skipped in acceptance.",
+      "resource": "Shared snapshot row/byte limits apply; mapbasedsemantic validation, no external network; P18 owns performance measurement."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "529edb45b8e30bec886ca417cec630bd0c681356d760b747428d8d02225cabdf",
+      "server/productivity/adapter.ts": "7facd176cc6f89a4aa65785392d66e72aa306f39c0d639ad8c05f707d69ad287",
+      "server/productivity/board-upgrade.test.ts": "575f44ad70fc4121f845b8d0c039497e9f1a8b2cc765bfa77dca5b8e60ba933b",
+      "server/productivity/boardMigration.ts": "98df86a379aa87e4b04b43c02ce15d62bd449a230268b2510014bf7227f1fbe8",
+      "server/productivity/boardSnapshot.ts": "6fef9cb33e1e9877953a812a06c24d4dd211322f93ec237df4ce4348f6736fb1",
+      "server/productivity/bootstrap.ts": "fc641d7c45e8aa544e85a32cb517b242c80e078ae723c58b2d83444158f9d3f7",
+      "server/productivity/inspection.ts": "e4f6831a111be19c41ef3617cffd269d5b518d166ea7fc8d39c391af9417705c",
+      "server/productivity/matrix.ts": "a7ec01a75edb7ebca6332672499ff936d2d2ef8cbe259ac8e8c3ed61cd3279bc",
+      "server/productivity/snapshot.ts": "78260c75809f17fea04d5728acb6f98a7755c180bb65f5789d0e014f97c894b7",
+      "server/productivity/structure.ts": "ea12eaece59bacb527487ca8760f92fbd68c0dbfb0f3c583e9606afb340d7c47",
+      "server/productivity/structureInvariant.ts": "5f86dd2031276ed2b4a5f12a222f0cf91d56bb4e09443e25bc34fe38027abe8b",
+      "server/productivity/structureSchema.ts": "a4a5220647c8f6a259943b199503cd0c1d3833567a8ee34f9a43b7ea4b331dc8",
+      "tests/evidence.test.ts": "26dd9cda342a47cecf83121e8759cd1809d778cc66564709e903ca849815cb91",
+      "tests/board-recovery-native.test.ts": "4e27846b1667277b2065bc7794176e4134d4abc971d74ba4066f511bce746a59"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "minorCausalRedClaimed": false,
+    "correctedTarget": {
+      "tests": 263,
+      "files": 3,
+      "passed": 263,
+      "failed": 0
+    },
+    "lintExit": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "preReviewFull": {
+    "tests": 3713,
+    "passed": 3713,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 202
+  },
+  "causalRed": {
+    "upgrade": {
+      "tests": 4,
+      "passed": 1,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "oldSchema0Bootstrap": {
+      "tests": 40,
+      "passed": 0,
+      "failed": 1,
+      "pending": 39,
+      "todo": 0,
+      "files": 1
+    },
+    "oldSchema0Interpretation": "One actual regression caught;39unselected in diagnostic only, laterALL40passed withzero skipped",
+    "gate": {
+      "tests": 244,
+      "passed": 242,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "originalCompiledFixtureFailures": {
+    "p08b3-compiled-initial": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b3-compiled-diagnostic": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "compiledFixtureCause": "Empty view filter lacked requiredrootsOnly; existingvalidatorcorrectlyrefused. Fixture corrected without validator/assertion relaxation. Native integer reads use BigInt before decimal normalization.",
+  "oldRecoveryAllGreen": {
+    "tests": 40,
+    "passed": 40,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 1
+  },
+  "compiledSourceNative": {
+    "report": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "independent7Restore": true,
+    "old6IndexDriftFuture8RefusalPreservesDbBytes": true,
+    "noJournalOnRefusal": true,
+    "separateProcessBackupAfterRestore": true,
+    "offlineAndHandlesClosedAndFixtureRemoved": true,
+    "promotedWindowsZipProof": false,
+    "currentRunner": "CloudLinuxdiagnostic; exactWindows pending"
+  },
+  "coldImport": {
+    "modules": [
+      "server/productivity/boardMigration.ts",
+      "server/productivity/boardSnapshot.ts"
+    ],
+    "exitCode": 0,
+    "foreignCwd": "/workspace/family-evidence/p08b3-cold-61lacohj",
+    "storageCreated": false
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "529edb45b8e30bec886ca417cec630bd0c681356d760b747428d8d02225cabdf",
+    "server/productivity/adapter.ts": "7facd176cc6f89a4aa65785392d66e72aa306f39c0d639ad8c05f707d69ad287",
+    "server/productivity/board-upgrade.test.ts": "f00748982e41f8cccca82ed0c0f3eaca1c8b3cb5e23afab211efd560c0cb5ad0",
+    "server/productivity/boardMigration.ts": "98df86a379aa87e4b04b43c02ce15d62bd449a230268b2510014bf7227f1fbe8",
+    "server/productivity/boardSnapshot.ts": "6fef9cb33e1e9877953a812a06c24d4dd211322f93ec237df4ce4348f6736fb1",
+    "server/productivity/bootstrap.ts": "fc641d7c45e8aa544e85a32cb517b242c80e078ae723c58b2d83444158f9d3f7",
+    "server/productivity/inspection.ts": "e4f6831a111be19c41ef3617cffd269d5b518d166ea7fc8d39c391af9417705c",
+    "server/productivity/matrix.ts": "a7ec01a75edb7ebca6332672499ff936d2d2ef8cbe259ac8e8c3ed61cd3279bc",
+    "server/productivity/snapshot.ts": "78260c75809f17fea04d5728acb6f98a7755c180bb65f5789d0e014f97c894b7",
+    "server/productivity/structure.ts": "ea12eaece59bacb527487ca8760f92fbd68c0dbfb0f3c583e9606afb340d7c47",
+    "server/productivity/structureInvariant.ts": "5f86dd2031276ed2b4a5f12a222f0cf91d56bb4e09443e25bc34fe38027abe8b",
+    "server/productivity/structureSchema.ts": "a4a5220647c8f6a259943b199503cd0c1d3833567a8ee34f9a43b7ea4b331dc8",
+    "tests/board-recovery-native.test.ts": "4e27846b1667277b2065bc7794176e4134d4abc971d74ba4066f511bce746a59",
+    "tests/evidence.test.ts": "26dd9cda342a47cecf83121e8759cd1809d778cc66564709e903ca849815cb91"
+  },
+  "reportHashes": {
+    "p08b3-gate-red.json": "900216cc3b4a198da731b09921551ee51c619e7ab527ad24fabb033a1be12320",
+    "p08b3-cold-import.json": "7284eedc1d105759696849d6d531f8c64a80e8079b661b84a00e557aadcb703e",
+    "p08b3-compiled-corrected-fixture.log": "813aeb880f64ee9ffc37acfd21a2e45e6ee0c797cf2529463427b13a80eff02a",
+    "p08b3-mixed-restore.json": "f91dc0ab96976c1f29eaa7f57d0b595686e2ff2956339bdbee0d640bbce0c56a",
+    "p08b3-compiled-initial.log": "6c8889ef0177d6326f5258dd6f31ea9d308c036e6016800c6c9108fac6e556a0",
+    "p08b3-pre-review-build.log": "6d63cff701217e958bfbd67d3d19d098f9cec12f4f27094e34917c6289a0c184",
+    "p08b3-upgrade-red.log": "7a7886fe6310725869a40d4710ecd3fc4c4c336395ebe066596422be87d8c386",
+    "p08b3-compiled-expanded.json": "a120d59c1b2fe0e048f528713828d653ae45e4eeee4513fbb7b3b1b114f743b7",
+    "p08b3-pre-review-full.junit.xml": "cea50957d8de8fdf45342a617104b164491392689883be7fb1920280cef328dd",
+    "p08b3-compiled-diagnostic.log": "b53781e7a4b631fa8ff4b6d58e76164cea4f17c9a9bf57cc3bb3b01ed930c9c5",
+    "p08b3-pristine-all-green.log": "2eadf56843def87d252656e76f34920b9b22862aa472adcee2a451a94e66e471",
+    "p08b3-corrected-target.json": "61bbea09b56d70fd1facafb00ead47827e2b2414daed44232ff0732119de17db",
+    "p08b3-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b3-compiled-diagnostic.json": "9259ff304fd51dbb0549aa696704b23cdac79e0a97e8fa65a4bae556f0ce82c4",
+    "p08b3-compiled-initial.json": "312434bc164f8f58b7d9d4337836b67965df2aa883462c8978a2c03e1df098a3",
+    "p08b3-full.log": "6f5a0121b9b13edc178e84a30d3b5bf06c5c0bd3360f6a533e82cab7313948d2",
+    "p08b3-compiled-corrected-fixture.json": "f5a0f14c7feb89af6419d91d722948e48de4a35d06c340da1a36110babdef04a",
+    "p08b3-upgrade-initial-green.log": "8a1e37810a1c5381ebd32726bf9ba92b1926e3b14d852bedc4eaf0060eb89e21",
+    "p08b3-pristine-red.log": "03f23f8817b8fca127fc475c5d3d5539872e235272ee550791ca44d459bf0aee",
+    "p08b3-pristine-all-green.json": "40a4acd8513242f72d142b1991dd87ebd160d27083d756f80ff42dfef155d47d",
+    "p08b3-pre-review-full.json": "c4918352c2f46e70ad4e1ed56e3a2c8148bb4a99e21ed9d804ff7aaa7b8e2ac3",
+    "p08b3-snapshot-expanded.json": "b9f097567fcfd5bcebdb3e087562d11a7379e6a3e9861638181a5efd13533a3c",
+    "p08b3-corrected-target.log": "a0b6e6643303dd8bd68d69883fb944591130cfe86fdeb5ad7b1a53b7916fda90",
+    "p08b3-mixed-restore.log": "7bf8dbaa0d111ac1f2125586bc420304b4e3b5a6ab6fc0431b4cecfdc3527963",
+    "p08b3-build.log": "f2a9b94a799a981d3a30ef5b591bc3c7042ddba639678fbab2ebb5a9bdec664b",
+    "p08b3-pristine-red.json": "6634be35c93fc39d446adccc06d64bdb9df0d5e774985f2cfd6dd705abe44c12",
+    "p08b3-full.json": "8d40036de75bb7830cf4a6d153e1b1c9cb2becfaa072433d15044dbb97875087",
+    "p08b3-upgrade-initial-green.json": "df0d3f68f59a07b1d9d754ad9310175a007a5c000eeb656d7191f875da391df4",
+    "p08b3-full.junit.xml": "62d176bec00a30299976e241f8c3fa2da6f418d2134df8293b355bf0a3ea98e0",
+    "p08b3-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b3-upgrade-red.json": "8272ab913f1c7fcee51bf9382ebeed2fef4f570e2b0d6d519d5cd9c0f4990c8c",
+    "p08b3-review-rulings.json": "15bde749b0194c8aa28113e7604d6a9525b1614ad2c3b119c393bbdb3dc1087e",
+    "p08b3-compiled-expanded.log": "b10f2febbcbbdc0a5020ff8a9ce83a2ebb5cbb20ae0314b694e94c23f0301475",
+    "p08b3-pre-review-full.log": "e424005c95f7b42a3ff50f48b08bcfe6e1f64c480adf5f68f55664fcd3dffd82",
+    "p08b3-initial-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b3-snapshot-expanded.log": "13a43805d0088ad065bf942602858ed013516bc89c539d21490c080acbc3f2b4",
+    "p08b3-gate-red.log": "a4b1786d08d8bb5152da2d9ab3903eda456523575cbaa85171365a7254a2d2dc"
+  },
+  "compiled": {
+    "serverSha256": "231659dd781d7d817ce5c24a3bf8d7d01a250e29428f54399bb23a15f43ef744",
+    "operatorSha256": "5c6d183567e701e4eab40fe121034f34fa40dfead87969919f5bcd1b9c1ea192"
+  },
+  "defaultMigrationRegistration": 6,
+  "explicitPilotVersion": 7,
+  "startupAutoDdl": false,
+  "fullP08Accepted": false,
+  "exactWindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "releaseOrVps": false,
+  "reviewedBaseSha": "0e5ed705b0627be085e335be41d5eaf69d02d1a3",
+  "composition": {
+    "composedCommit": "166c7915d8137092f9f9145b5d681d723cbf3c3a",
+    "priorBranchCommit": "5449de14b983e7e1e7750de5360625c370de0fed",
+    "entireTreeEqualsPriorBranch": true,
+    "cloudReportsReusedReason": "Entire composition tree equals already checked branch. Only acceptance documentation follows; new exact-HEAD Windows mandatory."
+  }
+}
