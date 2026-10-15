@@ -1,3 +1,4 @@
+import type {createBoardMoves} from './boardMoves.js';
 import type {createBoardProjection} from './boardProjection.js';
 import type {createBoardCatalog} from './boardCatalog.js';
 import type {createMatrixCommands} from './matrix.js';
@@ -15,7 +16,7 @@ import type {createTaskCommands} from './tasks.js';
 import type {StoredTask} from './store.js';
 import type {createStructureCommands} from './structure.js';
 import type {createStructureEventScope} from './structureEvents.js';
-export interface ProductivityPorts {boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
+export interface ProductivityPorts {boardMoves?:ReturnType<typeof createBoardMoves>;boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
 export interface TaskRequest extends Request {userSession?:AppActor}
 export const taskDto=(row:StoredTask)=>projectTaskRecord(row);
 function requestBody(req:Request,field:'input'|'patch'):Record<string,any>{
