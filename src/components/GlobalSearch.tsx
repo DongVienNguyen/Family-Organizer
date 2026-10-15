@@ -1,3 +1,6 @@
+import {openCanonicalTask} from '../features/productivity/openTask.js';
+import {useTasks} from '../features/productivity/useTasks.js';
+import {searchWithCanonicalTasks} from '../features/productivity/globalTaskSearch.js';
 import {sessionFetch as fetch} from '../utils/browserSession.js';
 /**
  * @license
@@ -38,11 +41,14 @@ interface GlobalSearchProps {
 }
 
 export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNavigate }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(),tasks=useTasks(),requestEpoch=useRef(0),pickEpoch=useRef(0);
+  useEffect(()=>()=>{pickEpoch.current++;},[tasks.api]);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResultItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [opening,setOpening]=useState(false);
+  const [searchError,setSearchError]=useState(''),[retry,setRetry]=useState(0);
   const [searchedFor, setSearchedFor] = useState(""); // query đã trả kết quả (phân biệt "chưa tìm" vs "không thấy")
   const dialogRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -64,9 +70,10 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
   getAuthHeaderRef.current = getAuthHeader;
 
   const close = useCallback(() => {
+    requestEpoch.current++;pickEpoch.current++;
     setOpen(false);
     setQuery("");
-    setResults([]);
+    setResults([]);setSearchError('');
     setSearchedFor("");
     abortRef.current?.abort();
   }, []);
@@ -87,7 +94,9 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
 
   // Gõ tới đâu tìm tới đó (debounce 250ms, hủy request cũ khi gõ tiếp)
   useEffect(() => {
+    const epoch=++requestEpoch.current;abortRef.current?.abort();setSearchError('');
     if (!open) return;
+    if(tasks.loading){setResults([]);setLoading(true);return;}
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     const q = query.trim();
     if (q.length < 2) {
@@ -96,35 +105,34 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
       setLoading(false);
       return;
     }
-    setLoading(true);
+    setLoading(true);setResults([]);
     debounceRef.current = window.setTimeout(async () => {
       abortRef.current?.abort();
       const controller = new AbortController();
       abortRef.current = controller;
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, {
-          headers: getAuthHeaderRef.current(),
-          signal: controller.signal
-        });
-        if (!res.ok) throw new Error("search failed");
-        const data = await res.json();
-        setResults(Array.isArray(data.results) ? data.results : []);
-        setSearchedFor(q);
+        const results=await searchWithCanonicalTasks({legacy:async(query,signal)=>{const res=await fetch('/api/search?q='+encodeURIComponent(query),{headers:getAuthHeaderRef.current(),signal});if(!res.ok)throw Error('search failed');const data=await res.json();return Array.isArray(data.results)?data.results:[];},...(tasks.enabled?{canonical:(input,options)=>tasks.api.query(input,options)}:{})},q,controller.signal);
+        if(epoch!==requestEpoch.current||controller.signal.aborted)return;setResults(results);setSearchedFor(q);
       } catch (err: any) {
-        if (err?.name !== "AbortError") {
+        if (epoch===requestEpoch.current&&err?.name !== "AbortError") {
+          setSearchError(t('globalSearch.error'));
           setResults([]);
           setSearchedFor(q);
         }
       } finally {
-        if (abortRef.current === controller) setLoading(false);
+        if (epoch===requestEpoch.current&&abortRef.current === controller) setLoading(false);
       }
     }, 250);
     return () => { if (debounceRef.current) window.clearTimeout(debounceRef.current); };
-  }, [query, open]);
+  }, [query,open,tasks.loading,tasks.enabled,tasks.api,retry]);
 
-  const pick = (item: SearchResultItem) => {
-    onNavigate(item.tab);
-    close();
+  const pick = async (item: SearchResultItem) => {
+    if(opening)return;const epoch=++pickEpoch.current;setOpening(true);setSearchError('');
+    try{
+      if(item.kind==='task'&&tasks.enabled){const opened=await openCanonicalTask({...tasks,current:()=>epoch===pickEpoch.current},item.id);if(!opened){if(epoch===pickEpoch.current)setSearchError(t('globalSearch.openError'));return;}}
+      if(epoch!==pickEpoch.current)return;onNavigate(item.tab);close();
+    }catch{if(epoch===pickEpoch.current)setSearchError(t('globalSearch.openError'));}
+    finally{setOpening(false);}
   };
 
   const grouped = KIND_ORDER
@@ -167,7 +175,8 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
                 <input
                   autoFocus
                   value={query}
-                  onChange={e => setQuery(e.target.value)}
+                  onChange={e => {pickEpoch.current++;setQuery(e.target.value);}}
+                  maxLength={500}
                   placeholder={t("globalSearch.placeholder")}
                   className="flex-1 bg-transparent text-slate-200 placeholder:text-slate-500 outline-none min-w-0"
                 />
@@ -185,7 +194,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
 
               {/* Kết quả */}
               <div className="max-h-[min(60vh,26rem)] overflow-y-auto overscroll-contain">
-                {query.trim().length < 2 ? (
+                {searchError ? <div className="p-4 space-y-3"><p role="alert" className="text-xs text-rose-400">{searchError}</p><button type="button" className="bg-slate-950 neu-btn rounded-xl px-4 py-2.5 text-xs text-slate-200 cursor-pointer" onClick={()=>setRetry(value=>value+1)}>{t('globalSearch.retry')}</button></div> : query.trim().length < 2 ? (
                   <p className="text-center text-xs text-slate-500 py-10 px-4">
                     {t("globalSearch.hintText")}
                   </p>
@@ -207,7 +216,8 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
                           {group.items.map(item => (
                             <button
                               key={`${item.kind}_${item.id}`}
-                              onClick={() => pick(item)}
+                              disabled={opening}
+                              onClick={() => void pick(item)}
                               className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-slate-800/40 focus:outline-none focus:ring-2 focus:ring-sky-500/40 cursor-pointer group"
                             >
                               <div className="flex-1 min-w-0">

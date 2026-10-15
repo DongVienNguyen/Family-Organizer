@@ -10,6 +10,11 @@ export const productivityBrowserCases=[
  'P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh',
  'P04 C09 inactive bootstrap keeps legacy workspace without canonical requests',
  'P04 C10 active workspace survives reload and clears drafts across actor switches',
+ "P05 C11 smart views retain the shared task identity and unsaved drawer draft",
+ "P05 C12 Vietnamese tag any-all saved filters survive reload with the same task IDs",
+ "P05 C13 Trash detail is readonly with Escape focus and no private child hits",
+ "P05 C14 GlobalSearch opens the same canonical task with normalized Vietnamese text",
+ "P05 C15 completed windows7-30-90-all use real canonical rows on phone and dark theme",
 ];
 export function validateProductivityBrowserReports(input){
  const errors=validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases});

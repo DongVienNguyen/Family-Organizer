@@ -1,3 +1,5 @@
+import {useTaskViews} from './useTaskViews.js';
+import {QueryWorkspace} from './QueryWorkspace.js';
 import React,{useState,type ReactNode} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Plus} from 'lucide-react';
@@ -7,7 +9,7 @@ import {TaskDrawer} from './TaskDrawer.js';
 import {FancySelect} from '../../components/FancySelect.js';
 import {UserRole,type User,type Task} from '../../types.js';
 export function Productivity({user,users,tasks,onComment,onAdvanced,actions,showList=true,overlayActive=false}:{user:User;users:User[];tasks:Task[];onComment:(id:string,text:string)=>Promise<unknown>;onAdvanced:(task:Task)=>void;actions:(task:Task,disabled:boolean)=>ReactNode;showList?:boolean;overlayActive?:boolean}){
- const state=useTasks(),{t}=useTranslation(),[title,setTitle]=useState(''),[listId,setListId]=useState(''),[newList,setNewList]=useState(''),[newSection,setNewSection]=useState(''),[newTag,setNewTag]=useState(''),[error,setError]=useState(''),[busy,setBusy]=useState(false);
+ const views=useTaskViews(),state=useTasks(),{t}=useTranslation(),[title,setTitle]=useState(''),[listId,setListId]=useState(''),[newList,setNewList]=useState(''),[newSection,setNewSection]=useState(''),[newTag,setNewTag]=useState(''),[error,setError]=useState(''),[busy,setBusy]=useState(false);
  const writable=state.catalog.lists.filter(list=>user.role===UserRole.ADMIN||user.role===UserRole.CHILD&&list.isShared||user.role===UserRole.MEMBER&&(list.permission==='write'||list.permission==='manage')),target=writable.find(list=>list.id===listId)?.id??writable[0]?.id??'',adult=user.role===UserRole.ADMIN||user.role===UserRole.MEMBER,disabled=busy||!state.online||user.role===UserRole.GUEST;
  const perform=async(work:()=>Promise<unknown>)=>{setBusy(true);setError('');try{await work();await state.refresh();}catch(error){setError((error as Error).message);}finally{setBusy(false);}};
  if(state.loading)return <p className="text-sm text-slate-400" aria-live="polite">{t('productivity.loading')}</p>;
@@ -26,7 +28,7 @@ export function Productivity({user,users,tasks,onComment,onAdvanced,actions,show
    <form onSubmit={event=>{event.preventDefault();void perform(async()=>{await state.command('create-section',{listId:target,title:newSection},key=>state.api.createSection(target,newSection.trim(),key));setNewSection('');});}}><input aria-label={t('productivity.newSection')} value={newSection} onChange={event=>setNewSection(event.target.value)} className="w-full bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5"/><button type="submit" disabled={disabled||!target||!newSection.trim()} className="mt-2 text-xs text-sky-400 cursor-pointer">{t('productivity.addSection')}</button></form>
    <form onSubmit={event=>{event.preventDefault();void perform(async()=>{await state.command('create-tag',{name:newTag},key=>state.api.createTag(newTag.trim(),key));setNewTag('');});}}><input aria-label={t('productivity.newTag')} value={newTag} onChange={event=>setNewTag(event.target.value)} className="w-full bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5"/><button type="submit" disabled={disabled||!newTag.trim()} className="mt-2 text-xs text-sky-400 cursor-pointer">{t('productivity.addTag')}</button></form>
   </div></details>}
-  <ListView/>
+  <QueryWorkspace views={views} user={user} users={users}/>
   </div>
   {state.activeId&&<TaskDrawer key={state.activeId} user={user} users={users} legacyTasks={tasks} onComment={onComment} onAdvanced={onAdvanced} actions={actions} overlayActive={overlayActive}/>}
  </section>;

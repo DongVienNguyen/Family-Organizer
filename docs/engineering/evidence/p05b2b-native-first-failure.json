@@ -1,0 +1,61 @@
+{
+  "headSha": "6d0310984393c65c2a72c1e8673fccde42d3f206",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38717564822",
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "artifacts": 8,
+  "fullLogFilesRead": 130,
+  "fullLogLinesRead": 20838,
+  "fullLogsSha256": "1d8301dfabd35b5ab53abead3cda6c2f97ee6cf30b906c5f2b83d105c45f2809",
+  "failedCases": [
+    "webkit P05C13 focus inactive",
+    "webkit P05C14 waitForResponse/cache-miss fixture assumption"
+  ],
+  "nativeAccepted": false,
+  "partialRawAccepted": [
+    "quality",
+    "coverage",
+    "package",
+    "service",
+    "caddy",
+    "extraction-sdk",
+    "inner-native",
+    "browser"
+  ],
+  "productivityPassed": 43,
+  "productivityExpected": 45,
+  "retryOrAssertionRelaxation": false
+}
