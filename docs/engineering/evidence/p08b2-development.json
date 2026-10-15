@@ -1,0 +1,164 @@
+{
+  "taskId": "P08-b2",
+  "baseSha": "9f20f765059601b43f73ba772fab85a50f0c7a4b",
+  "baseAcceptance": "PR90 pending; compose acceptedmain before final exactWindows",
+  "scope": "Canonical writer invariant only; candidate explicitly exercised in synthetic schema6 fixtures, no runtime7 admission",
+  "fullGreen": {
+    "tests": 3692,
+    "passed": 3692,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 200
+  },
+  "junitCases": 3692,
+  "maxWorkers": 2,
+  "targetGreen": {
+    "tests": 262,
+    "passed": 262,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 2
+  },
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "9f20f765059601b43f73ba772fab85a50f0c7a4b",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Strengthen the native transactional regression: trigger destination rank rebalance then throw and compare all Task/position/board rows, including an unrelated occupied lane. Existing tests prove rebalance and generic rollback separately but not that combination."
+      }
+    ],
+    "declinedBounds": {
+      "scope": "Current supported migration/snapshot/runtime schema remains1\u20136. Candidate tables exercised explicitly in synthetic fixtures only; fullP08/version7/HTTP/privateDTO/override/recovery acceptance remains later.",
+      "authority": "Full canonical SQL root counts independent of UI/private filters or position seeding. Generic/legacy writers expose no implicit admin override. Private count is never returned; errors contain no hidden title/ID/count.",
+      "allWriters": "savePilotTask store boundary shared by create/update/structure/legacy bridge, under same I01 synchronous transaction; existing schema without boards returns inert. Source/native direct SQL is internal trusted infrastructure; snapshot/activation semantic admission still must be wired before candidate activation.",
+      "membership": "Task section/lifecycle remain truth; blocked/review counted, terminal/trash/subtasks excluded. Same-scope no-increase permitted. No new completion/reward/recurrence or effects.",
+      "ordering": "Accepted pure workflow/rank kernels consumed. Compound list move removes metadata before Task identity update, reinsert/rebalance and affected revisions under existing owner transaction. Safe max revision fails closed; missing/archived lane refuses.",
+      "resource": "Pure planner bounds100000; no performance benchmark claim. P18 owns measurement/index optimization; current scope does not activate or accept large production boards.",
+      "fixtures": "First5/2/3 includes2actualmissing-invariant failures and1wrongcommandfixture. Corrected existing moveTaskToList5/2/3allactual;initial5/5green. Expanded12/9/3then12/11/1 are fixture state/reset and existing7reward expectation; fixedwithoutchanging7points/lifecycle/noassertionrelaxation. Gate260/259/1actualomissionRED."
+    },
+    "reviewedSourceHashes": {
+      "server/productivity/boardInvariant.ts": "5e92b53b839d160229daeb78acc4bef98d553985b9580ffef38ada28f175ac5c",
+      "server/productivity/store.ts": "ed74c098c4ab899999c1737859bf0485ac0ea50c48b63683bebc0e2cfcaa8522",
+      "server/productivity/board-writers.test.ts": "eb336878d30dec7da243e3df4151b6ca165c78e921364c21e07ecc4556bb573f",
+      "scripts/ci/write-evidence.mjs": "71f0b6306dcbf242b7c76e28c3a2774fde8cfa5e21c71f82cdd15cc662879a24",
+      "tests/evidence.test.ts": "62d86e8ae2ade8c02ec56e695712c0831fb9f9dbd3ff8623c2b0fc834a6a1c44"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "correctedTarget": {
+      "tests": 262,
+      "files": 2,
+      "passed": 262,
+      "failed": 0
+    },
+    "minorCausalRedClaimed": false
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "causalRed": {
+    "tests": 5,
+    "passed": 2,
+    "failed": 3,
+    "pending": 0,
+    "todo": 0,
+    "files": 1
+  },
+  "gateOmissionRed": {
+    "tests": 260,
+    "passed": 259,
+    "failed": 1,
+    "pending": 0,
+    "todo": 0,
+    "files": 2
+  },
+  "originalFixtureFailures": {
+    "p08b2-writers-red": {
+      "tests": 5,
+      "passed": 2,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b2-writers-expanded": {
+      "tests": 12,
+      "passed": 9,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b2-writers-expanded-corrected-fixture": {
+      "tests": 12,
+      "passed": 11,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "coldImport": {
+    "module": "server/productivity/boardInvariant.ts",
+    "exitCode": 0,
+    "storageCreated": false,
+    "foreignCwd": "/workspace/family-evidence/p08b2-cold-jpv3u8dz"
+  },
+  "sourceHashes": {
+    "server/productivity/store.ts": "ed74c098c4ab899999c1737859bf0485ac0ea50c48b63683bebc0e2cfcaa8522",
+    "server/productivity/boardInvariant.ts": "5e92b53b839d160229daeb78acc4bef98d553985b9580ffef38ada28f175ac5c",
+    "server/productivity/board-writers.test.ts": "14220793d43c6af034436fc41b6e489f9359e9199a7e9b6a1ba7e856f798af7d",
+    "scripts/ci/write-evidence.mjs": "71f0b6306dcbf242b7c76e28c3a2774fde8cfa5e21c71f82cdd15cc662879a24",
+    "tests/evidence.test.ts": "62d86e8ae2ade8c02ec56e695712c0831fb9f9dbd3ff8623c2b0fc834a6a1c44"
+  },
+  "reportHashes": {
+    "p08b2-corrected-target.log": "d8647a70efda6f69bcc2ef8e3ca8498c6f117bcdca17f7c140fd717c18d61b69",
+    "p08b2-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b2-review-rulings.json": "bcdfd1a93e85c6d5c2e7b9cb90b1fc759a0fcc026525ab2b78655d95d1eaf068",
+    "p08b2-writers-expanded.json": "2ddae82ed1d14b7535381feb7d34d2e5bc59b6cdac2fadc68020421195824da8",
+    "p08b2-writers-final-expanded.json": "4252947e1fb79b5c24d45557fd2b4077df2bdffbc07dd9f03f4000316f7f1331",
+    "p08b2-build.log": "43ad1f78c8c39c50b15e32b84ffeafa6d8e6b7cb44ce16053912328e5f96fb1b",
+    "p08b2-cold-import.json": "368cdc7650d76f5a24a776e07f19f512a5655f6c30bee0c11becf8c06c66a1b7",
+    "p08b2-target.json": "e9870246cb7d704b63b673c40c3278b40fe5371eed005216aea8348d91d7b005",
+    "p08b2-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b2-writers-causal-red.log": "87a3c0e550789a7241710fd4d1c551bffccec9e74fc9f5463330bc6b0cd80a5e",
+    "p08b2-target.log": "883f452b673218286b1a286c7a9c89f3dd44334fb2a5977121dc9924368d55cd",
+    "p08b2-writers-initial-green.json": "28abfa6e8fc0ca815ba6bc7c0fc3eef37f8521ecf60ab23628d6da6db75f2a87",
+    "p08b2-writers-expanded-corrected-fixture.json": "37419680bc5e4cf0390173cacb516bf1f3822c45ef3c3e0f447a0cbf5976ea70",
+    "p08b2-full.log": "93bc3612a55371d7ce4d813ff599627dc3d4b73c945dda7250c47ab65502f464",
+    "p08b2-writers-red.log": "ee422e1a7a059d16d2265eb502b58c3cc4f0f94ae400ba621f913a7e0d57a752",
+    "p08b2-writers-workflow.log": "3f2e4aaa48ad2d33f7c5894de2a2e073627346293cb34e694cc89a0911339b9f",
+    "p08b2-writer-gate-red.json": "743f321734fbbaff50c942e6b362db259877e9566806ac7befccd73afae70630",
+    "p08b2-writers-final-expanded.log": "ffa0aa97be21e693600305d57908a2a787f38aadc942917bcab57b68f740d56c",
+    "p08b2-writers-initial-green.log": "9fc7f88620c265c1fc7a7eef42f68c5420cc7ef70415470ab8cfb3feba404fdb",
+    "p08b2-full.json": "eb312bf54ec0de0c34d3ea9d0caec50d6a11782ac2b9f1923f81742eff0b1721",
+    "p08b2-writer-gate-red.log": "12b654779ed69465d779eec90121115215f9ef57513fc14c66e9de9a0fa7c127",
+    "p08b2-writers-expanded.log": "9e733f8b20951663501aa2c45ff89f6f3139e32f689ea7b33ee0072eb79e5f55",
+    "p08b2-writers-expanded-corrected-fixture.log": "e532b7ab18742eea149d5ef0f2964275cc0985f13ed946215a0200c30fc6cd7d",
+    "p08b2-writers-workflow.json": "e49d62cc4ab6997181b044dd0b2fbdec5a90a13b2a408260e9d7f0303c58b40e",
+    "p08b2-writers-causal-red.json": "a6360b50453c22dcbc1476436e1aa6405bc03de7e2d5f2967006e3ab8b4c74c9",
+    "p08b2-writers-red.json": "1297d60271d36c4458e4b93d77c40deae5b1cb8745ba2f8503c5c392f8f1cf78",
+    "p08b2-corrected-target.json": "700a5d30f5106011e96339eb6651a1b3028181600cb5ce15fb18f06c5dc1bc5c",
+    "p08b2-full.junit.xml": "475acc71efb612ff2b87393d42507494d1f2fb74181b1e49a0d31373d75ad9cd"
+  },
+  "compiled": {
+    "serverSha256": "9edc63a7d147b6c92cc276335d755e87231ccfbaf4053561129494f481aec3fb",
+    "operatorSha256": "46a6be8a5303ffe26e68c826b2877a825bea337ee48dd436c4127a1068ef5f7a",
+    "bothChanged": true
+  },
+  "runtimeMigration7Registered": false,
+  "fullP08Accepted": false,
+  "exactWindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "releaseOrVps": false
+}

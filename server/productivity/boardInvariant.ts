@@ -1,8 +1,9 @@
+import {workflowColumn} from './board.js';
+import {planBoardRank} from './rank.js';
 import type {AppWriteTx} from '../appStore.js';
 import type {TaskRecord} from '../../src/features/productivity/contracts.js';
 import {AppStoreError} from '../appErrors.js';
 const workflowSql="CASE WHEN deleted_at IS NOT NULL THEN 'trash' WHEN lifecycle='wont_do' THEN 'wont_do' WHEN pending_approval=1 THEN 'review' WHEN lifecycle='completed' THEN 'done' WHEN blocked=1 THEN 'waiting' WHEN lifecycle='in_progress' THEN 'doing' ELSE 'todo' END";
-const workflow=(task:TaskRecord)=>task.deletedAt!==null?'trash':task.lifecycle==='wont_do'?'wont_do':task.pendingApproval?'review':task.lifecycle==='completed'?'done':task.blocked?'waiting':task.lifecycle==='in_progress'?'doing':'todo';
 const active=(row:{parent_id:unknown;deleted_at:unknown;lifecycle:unknown}|undefined)=>!!row&&row.parent_id===null&&row.deleted_at===null&&!['completed','wont_do'].includes(row.lifecycle as string);
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'board-invariant');};
 /** Internal store boundary, always under the existing I01 transaction. No actor
@@ -18,7 +19,7 @@ export function prepareBoardTaskWrite(tx:AppWriteTx,task:TaskRecord):()=>void {
  const plans=boards.map(board=>{
   if(!Number.isSafeInteger(board.revision)||board.revision>=Number.MAX_SAFE_INTEGER)fail(422,'Phiên bản bảng đã đạt giới hạn.');
   if(board.list_id!==task.listId||board.mode==='sections'&&task.deletedAt!==null)return {board,column:null};
-  const key=board.mode==='sections'?(task.sectionId===null?'none':'section:'+task.sectionId):workflow(task);
+  const key=board.mode==='sections'?(task.sectionId===null?'none':'section:'+task.sectionId):workflowColumn(task);
   const column=tx.get('SELECT * FROM productivity_board_columns WHERE board_id=? AND column_key=? AND archived_at IS NULL',board.id,key);
   if(!column)fail(422,'Cột đích chưa sẵn sàng.');
   const candidateActive=task.parentId===null&&task.deletedAt===null&&!['completed','wont_do'].includes(task.lifecycle);
@@ -37,7 +38,12 @@ export function prepareBoardTaskWrite(tx:AppWriteTx,task:TaskRecord):()=>void {
   for(const {board,column}of plans){
    if(column){
     const prior=previous.get(board.id);
-    const rank=prior?.column_id===column.id?prior.rank:(tx.get('SELECT max(rank)AS rank FROM productivity_board_positions WHERE board_id=? AND column_id=?',board.id,column.id)?.rank??0)+1024;
+    let rank=prior?.column_id===column.id?prior.rank:undefined;
+    if(rank===undefined){
+     const positions=tx.all('SELECT task_id AS taskId,rank FROM productivity_board_positions WHERE board_id=? AND column_id=? ORDER BY rank,task_id',board.id,column.id);
+     const plan=planBoardRank({positions,taskId:task.id,beforeTaskId:null});rank=plan.rank;
+     for(const item of plan.rebalance)if(item.taskId!==task.id)tx.run('UPDATE productivity_board_positions SET rank=? WHERE board_id=? AND task_id=?',item.rank,board.id,item.taskId);
+    }
     if(!Number.isSafeInteger(rank)||rank<0)fail(422,'Thứ tự bảng đã đạt giới hạn.');
     tx.run('INSERT INTO productivity_board_positions VALUES(?,?,?,?,?)',board.id,task.id,task.listId,column.id,rank);
    }
