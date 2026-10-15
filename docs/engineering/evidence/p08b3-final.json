@@ -1,0 +1,129 @@
+{
+  "taskId": "P08-b3",
+  "observedAt": "2026-10-15T23:05:31.619302+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/92",
+  "testedHeadSha": "626772f8165d2ecf6087406ff30eef955c0eef9d",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38764042491",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "132503a207019a3337d0095f8c8632ef970b1e97cbe0e3ff4cfdd5378f2b9761",
+    "coverage": "b6c62c7e1bc3fe63d1a3164f7b4d50fa92559c97de5eb677af8cdfae2d68c923",
+    "package": "86e2a411eaae5f1ab8656669385f46c0f585a1406b281423a7487074772118f8",
+    "service": "2022020c81ab03b4f746906931b5ce07855b180992c629c5b357d12a39670bfb",
+    "caddy": "300e13f315029f5eba36ddeab4c54cf3d0bb1be52b28e905a145d2343bd62a38",
+    "extraction-sdk": "5bfa37dcfed36eb51a8adc9ce4118f8de112119735882fb8d2cc1ff1e101566f",
+    "inner-native": "5e79e824f2a5ba491c8b1842acf098b81805b7236a4b972b55420113fe86f3df",
+    "browser": "497f6833e982f1a6e04a2702d052954bdf555978a9e0c222c7d85ec7841d8ce4",
+    "productivity-browser": "9cb961c70a8e95531e92cf451cf1c8e5981be634384d88ed2afa84ee5d4ed84a"
+  },
+  "qualityEach": 3713,
+  "qualityFilesEach": 202,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 9,
+  "zipSha256": "db3fc429cc4c2a04d08048fb9a3b55223175f6d291e796a105dff753bae0f472",
+  "fullCiLogZipSha256": "a9df305552c0cdd8a0ff9e81ffaf686073b055e74e05a45a4892bcd76079795c",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "0e5ed705b0627be085e335be41d5eaf69d02d1a3",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Make mixed ordinary snapshot ACL preservation concrete: current fixture has only an administrator and empty list grants. Seed a synthetic member and explicit read grant, assert the saved grant is present and compare it after restore. No source or validator relaxation."
+      }
+    ],
+    "declinedBounds": {
+      "migration": "Explicit pilot register7 only, default new registration remains1\u20136. Cold bootstrap first validates persisted7, registers existing definitions and never invokes apply. Schema0 query defect discovered/fixed during implementation before this review; original selectedRED then40/40oldrecovery retained.",
+      "checksums": "Frozen1\u20136 DDL/checksum strings and Wallet1 unchanged. Candidate7 checksum same reviewedb1 schema. Exact ownedDDL/index/FK/schema gate, future8 and nativebadindex refuse without DB byte changes.",
+      "snapshot": "Pure board validator after shared generic validation: IDs/policies/safeints/unique scopes/columns/position/membership; whole-store internal data, not ACL DTO. Existing overlimit states restore without capacitycleanup/effects. Native BigInt read preserves Wallet extremes.",
+      "recovery": "Real compiled source CommonJS operator synthetic isolated7\u2192independent7 backup/restore/restart, old6/future8/indexdrift native refusal andclosedhandles/offline/cleanup. This does not prove promotedWindowsZIP/schema7 or Server2019; CI quality will run compiledsource test on Windows, packagefixture6 retained.",
+      "authorization": "Task/structure/Matrix context admits known7 under sameexisting auth/SQL ACL; no public integration/API/newauth. New boardconfig/DTO/privatecounts/adminoverride/audit/semanticmoves/HTTP remainslaterP08.",
+      "tests": "Originalupgrade4/1/3 actual missing7supportRED, separate emptyfilter fixture refusal, expanded18/18/compiled1/1 andgate244/242/2 retained. One selectedschema0diagnostic has39unselected; all40laterfullypass, no tests skipped in acceptance.",
+      "resource": "Shared snapshot row/byte limits apply; mapbasedsemantic validation, no external network; P18 owns performance measurement."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "529edb45b8e30bec886ca417cec630bd0c681356d760b747428d8d02225cabdf",
+      "server/productivity/adapter.ts": "7facd176cc6f89a4aa65785392d66e72aa306f39c0d639ad8c05f707d69ad287",
+      "server/productivity/board-upgrade.test.ts": "575f44ad70fc4121f845b8d0c039497e9f1a8b2cc765bfa77dca5b8e60ba933b",
+      "server/productivity/boardMigration.ts": "98df86a379aa87e4b04b43c02ce15d62bd449a230268b2510014bf7227f1fbe8",
+      "server/productivity/boardSnapshot.ts": "6fef9cb33e1e9877953a812a06c24d4dd211322f93ec237df4ce4348f6736fb1",
+      "server/productivity/bootstrap.ts": "fc641d7c45e8aa544e85a32cb517b242c80e078ae723c58b2d83444158f9d3f7",
+      "server/productivity/inspection.ts": "e4f6831a111be19c41ef3617cffd269d5b518d166ea7fc8d39c391af9417705c",
+      "server/productivity/matrix.ts": "a7ec01a75edb7ebca6332672499ff936d2d2ef8cbe259ac8e8c3ed61cd3279bc",
+      "server/productivity/snapshot.ts": "78260c75809f17fea04d5728acb6f98a7755c180bb65f5789d0e014f97c894b7",
+      "server/productivity/structure.ts": "ea12eaece59bacb527487ca8760f92fbd68c0dbfb0f3c583e9606afb340d7c47",
+      "server/productivity/structureInvariant.ts": "5f86dd2031276ed2b4a5f12a222f0cf91d56bb4e09443e25bc34fe38027abe8b",
+      "server/productivity/structureSchema.ts": "a4a5220647c8f6a259943b199503cd0c1d3833567a8ee34f9a43b7ea4b331dc8",
+      "tests/evidence.test.ts": "26dd9cda342a47cecf83121e8759cd1809d778cc66564709e903ca849815cb91",
+      "tests/board-recovery-native.test.ts": "4e27846b1667277b2065bc7794176e4134d4abc971d74ba4066f511bce746a59"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "minorCausalRedClaimed": false,
+    "correctedTarget": {
+      "tests": 263,
+      "files": 3,
+      "passed": 263,
+      "failed": 0
+    },
+    "lintExit": 0
+  },
+  "fullP07Accepted": true,
+  "fullP08Accepted": false,
+  "explicitPilotMigration7Supported": true,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "compiledCurrent7SourceTestWindows": true,
+  "current7PromotedZipAcceptance": false,
+  "existingWindowsFixtureVersion": 6,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P08-b4 shared configuration/internalHTTP; board projections/ACL/privatecounts/override/audit/previewapply still required",
+  "mergeSha": "67473cea8224332a0337178cd885862fecc717cb",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/92#issuecomment-6196561019"
+}
