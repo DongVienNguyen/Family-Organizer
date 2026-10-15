@@ -348,8 +348,87 @@
         "p08b5b-serial-target.log": "d0b13d02cc22af1fce5525e5cd58dc802cb2556745c2d05ed2d60c4841c19a4f"
       },
       "noApplicationOrTestChangesSinceCloudFull3811": true,
-      "originalRunRetained": "pending completedrun artifacts/logs beforepush",
-      "windowsAcceptance": "pending new exactHEAD"
+      "originalRunRetained": {
+        "taskId": "P08-b5b original failed Windows checkpoint",
+        "headSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
+        "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38776748487",
+        "accepted": false,
+        "conclusion": "failure",
+        "jobs": [
+          {
+            "name": "Windows productivity browsers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows Node24 baseline",
+            "conclusion": "failure"
+          },
+          {
+            "name": "Windows Node22 baseline",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows package producer",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows production browsers",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows package clean consumer",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows disposable service",
+            "conclusion": "success"
+          },
+          {
+            "name": "ci-gate",
+            "conclusion": "failure"
+          }
+        ],
+        "quality": [
+          {
+            "major": 22,
+            "passed": 3811,
+            "failed": 0,
+            "pending": 0,
+            "todo": 0,
+            "junitCases": 3811,
+            "failedTests": [],
+            "notRunTests": [],
+            "suiteFailures": []
+          },
+          {
+            "major": 24,
+            "passed": 3808,
+            "failed": 0,
+            "pending": 3,
+            "todo": 0,
+            "junitCases": 3812,
+            "failedTests": [],
+            "notRunTests": [
+              "large valid task shared-backup boundaries captures the real large task writes beyond100000 derived rows",
+              "large valid task shared-backup boundaries admits the captured large shared snapshot",
+              "large valid task shared-backup boundaries admits the same large snapshot through readonly recovery inspection"
+            ],
+            "suiteFailures": [
+              {
+                "name": "D:/a/Family-Organizer/Family-Organizer/server/productivity/search.test.ts",
+                "message": ""
+              }
+            ]
+          }
+        ],
+        "artifactsRetained": 8,
+        "logsZipSha256": "c91fff8cf511f267f0e5a13f8b1230b444e8a0844ab0a74045264b31e3d45f10",
+        "cause": "Node24 large search/backup fixture beforeAll10s timeout;3808passed/3notrun. Wallet repaired fixture passed; exact hosted delay unobserved",
+        "next": "Mandatory native/coverage suite workers2to1; all data/assertions/coverage/timeouts retained; new exact HEAD Windows rerun required"
+      },
+      "windowsAcceptance": "pending new exactHEAD",
+      "unchangedApplicationAndTestTreeVerified": true,
+      "fullCloudReuse": "3811/209/JUnit all0 on f3ee; only CIqualityworker orchestration changed, all application/test bytes identical"
     }
   }
 }
