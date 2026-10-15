@@ -32,7 +32,7 @@ export function createMatrixCommands(ports:{reader:TaskReader;write:typeof withA
  const clock=(timezone='Asia/Saigon'):QueryClock=>input(()=>{text(timezone,100);timezoneFormatter(timezone);return {nowUtc:new Date(now()).toISOString(),timezone};});
  const context=(actor:AppActor,reader:TaskReader=ports.reader)=>{assertContext({actor,expectedRevision:0,requestId:'matrix:read'},reader);if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version!==6)fail(409,'Cần migration Matrix trước khi dùng.');};
  const writable=(actor:AppActor,reader:TaskReader=ports.reader)=>{context(actor,reader);if(actor.role===UserRole.GUEST)fail(403,'Khách chỉ có quyền xem Matrix.');};
- const view=(actor:AppActor,id:string,reader:TaskReader=ports.reader):SavedTaskView&{config:MatrixConfig}=>{context(actor,reader);input(()=>text(id,256));const value=createTaskViews({reader,write:ports.write}).getView(actor,id);if(value.kind!=='matrix'||value.config.kind!=='matrix')fail(422,'Góc nhìn này không phải Matrix.');return value as SavedTaskView&{config:MatrixConfig};};
+ const view=(actor:AppActor,id:string,reader:TaskReader=ports.reader,existingPreview=false):SavedTaskView&{config:MatrixConfig}=>{context(actor,reader);input(()=>text(id,256));const value=createTaskViews({reader,write:ports.write}).getView(actor,id);if(value.kind!=='matrix'||value.config.kind!=='matrix'){if(existingPreview)stale();fail(422,'Góc nhìn này không phải Matrix.');}return value as SavedTaskView&{config:MatrixConfig};};
  const readTask=(actor:AppActor,id:string,reader:TaskReader=ports.reader):TaskRecord=>{input(()=>text(id,256));const row=createTaskAccess(reader).getTask(actor,id);if(!row)fail(404,'Không tìm thấy công việc.');return projectTaskRecord(row);};
  const pin=(reader:TaskReader,viewId:string,taskId:string):MatrixPin|null=>{const row=reader.get('SELECT quadrant,view_revision,revision,expires_at FROM productivity_matrix_overrides WHERE view_id=? AND task_id=?',viewId,taskId);if(!row)return null;choice(row.quadrant,['q1','q2','q3','q4']);integer(row.view_revision,1);integer(row.revision,1);if(row.expires_at!==null)utcInstant(row.expires_at);return {quadrant:row.quadrant,viewRevision:row.view_revision,revision:row.revision,expiresAt:row.expires_at};};
  const prune=()=>{const instant=now();for(const[id,ref]of previews){if(ref.retireAt<=instant)previews.delete(id);else if(ref.expiresAt<=instant){ref.plan=undefined;ref.bytes=0;}}};
@@ -56,6 +56,7 @@ export function createMatrixCommands(ports:{reader:TaskReader;write:typeof withA
    if(before.lifecycle==='completed'||before.lifecycle==='wont_do')fail(422,'Không di chuyển công việc đã kết thúc.');
    const proposed=proposeMatrixMove(before,saved.config,captured,packet.target,packet.mode);let patch=proposed.patch,requiresCustomChoice=saved.config.preset==='custom'&&packet.mode==='attributes'&&packet.choice===undefined;
    if(packet.choice!==undefined){if(packet.mode!=='attributes')fail(400,'Ghim không nhận thay đổi thuộc tính.');input(()=>keys(object(packet.choice),['priority','due','assigneeId','tagIds']));patch=structuredClone(packet.choice);}
+   if(patch.assigneeId!==undefined&&patch.assigneeId!==null)input(()=>text(patch.assigneeId,256));
    if(patch.tagIds!==undefined)assertTagSelection(ports.reader,actor,patch.tagIds);
    if(patch.assigneeId!==undefined&&patch.assigneeId!==before.assigneeId){if(actor.role===UserRole.CHILD&&before.rewardPoints>0)fail(403,'Không được đổi người nhận công việc có thưởng.');if(patch.assigneeId!==null){const user=ports.reader.get('SELECT data FROM users WHERE id=?',patch.assigneeId);if(!user||JSON.parse(user.data).isDeleted)fail(422,'Người được giao không hợp lệ.');}}
    const after={...before,...structuredClone(patch)};input(()=>assertTaskRecord(after));
@@ -68,11 +69,11 @@ export function createMatrixCommands(ports:{reader:TaskReader;write:typeof withA
   },
   apply(ctx:AppCommand,packet:MatrixApplyInput):MatrixResult {
    validateMatrixApplyInput(packet);
-   writable(ctx.actor);view(ctx.actor,packet.viewId);readTask(ctx.actor,packet.taskId);if(packet.mode==='attributes')createTaskAccess(ports.reader).assertTaskCommand(ctx.actor,packet.taskId,'update');
+   writable(ctx.actor);view(ctx.actor,packet.viewId,ports.reader,true);readTask(ctx.actor,packet.taskId);if(packet.mode==='attributes')createTaskAccess(ports.reader).assertTaskCommand(ctx.actor,packet.taskId,'update');
    // Cache lookup remains inside I01. Fresh ACL above also guards a successful retry
    // after process-local previews disappear; a new request still needs a live token.
    return command(ctx,'apply',packet,tx=>{
-    writable(ctx.actor,tx);const saved=view(ctx.actor,packet.viewId,tx),before=readTask(ctx.actor,packet.taskId,tx),ref=previews.get(packet.previewId);
+    writable(ctx.actor,tx);const saved=view(ctx.actor,packet.viewId,tx,true),before=readTask(ctx.actor,packet.taskId,tx),ref=previews.get(packet.previewId);
     if(!ref||ref.actor.userId!==ctx.actor.userId||ref.actor.role!==ctx.actor.role)fail(404,'Không tìm thấy bản xem trước.');if(ref.expiresAt<=now()||!ref.plan)stale();const plan=ref.plan;
     if(plan.viewId!==packet.viewId||plan.taskId!==packet.taskId||plan.mode!==packet.mode)fail(404,'Không tìm thấy bản xem trước.');
     const captured=clock(plan.clock.timezone);if(plan.day!==localDateAt(utcInstant(captured.nowUtc),captured.timezone)||saved.revision!==plan.viewRevision||packet.expectedViewRevision!==plan.viewRevision||before.revision!==plan.taskRevision||ctx.expectedRevision!==plan.taskRevision||(pin(tx,saved.id,before.id)?.revision??0)!==plan.pinRevision)stale();

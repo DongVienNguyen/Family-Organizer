@@ -22,7 +22,8 @@ encrypted recovery plus future7 refusal before accepting this work.
 
 Authoritative Matrix preview/apply, field ACL, expiry/config invalidation, atomic
 writes and audit are implemented in the development branch; exact-HEAD Windows
-acceptance and whole-branch review are still required. No Matrix UI, default activation,
+acceptance is still required. Whole-branch review found no Critical/Important
+issues; two Minor input/conflict status issues were corrected with HTTP regressions. No Matrix UI, default activation,
 release/tag or VPS operation is introduced here. Actual Server2019 acceptance
 and the performance targets remain separate.
 
@@ -68,3 +69,7 @@ edits retain the existing task audience rules.
 Pure P06-a historical skipped-date Minor M1 remains P18-owned. Current projection
 uses the existing authorized task reader and common filter predicate; reference
 latency/load targets have not been measured. No Matrix UI is claimed before P07.
+
+Malformed assignee choices are refused as typed input before native binding.
+Applying an existing preview after its owned view changes kind returns409;
+starting a new Matrix projection/preview on a non-Matrix view returns422.
