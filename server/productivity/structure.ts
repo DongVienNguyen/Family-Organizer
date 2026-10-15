@@ -8,6 +8,7 @@ import {object,keys,text,integer,boolean} from '../../src/features/productivity/
 import {createTaskAccess,listPermission,taskScope,type TaskReader} from './access.js';
 import {assertContext,assertCreateList,createTaskWithinTransaction,type CreateTaskInput} from './tasks.js';
 import {savePilotTask,type StoredTask} from './store.js';
+import {syncSectionBoard,assertMutableCatalogRevision} from './sectionBoards.js';
 export interface TaskList {id:string;title:string;ownerId:string;isShared:boolean;revision:number;archivedAt:string|null;permission?:'read'|'write'|'manage'}
 export interface TaskSection {id:string;listId:string;title:string;revision:number;archivedAt:string|null}
 export interface TaskTag {id:string;name:string;revision:number;archivedAt:string|null}
@@ -38,6 +39,18 @@ export function assertTaskListMove(reader:TaskReader,ctx:AppCommand,id:string,ta
  if(before.listId!==targetListId&&(before.parentId||reader.get('SELECT id FROM productivity_tasks WHERE parent_id=? AND deleted_at IS NULL',id)))throw error(422);return before;
 }
 export function moveTaskToListWithinTransaction(tx:AppWriteTx,ctx:AppCommand,id:string,targetListId:string,sectionId:string|null,audit?:Readonly<{id:string;userId:string;username:string;action:string;createdAt:string}>):StoredTask {return saveTask(tx,ctx,assertTaskListMove(tx,ctx,id,targetListId,sectionId),{listId:targetListId,sectionId},audit);}
+/** Board settings reuse existing structural authority and the owning I01 handle. */
+export function assertTaskListManage(reader:TaskReader,actor:AppActor,id:string):TaskList {context({actor,expectedRevision:0,requestId:'board:layout:scope'},reader);return list(reader,actor,id,'manage');}
+export function saveSectionWithinTransaction(tx:AppWriteTx,ctx:AppCommand,input:{id?:string;listId:string;title:string}):TaskSection {
+ context(ctx,tx);const owner=list(tx,ctx.actor,input.listId,'manage'),old=input.id?section(tx,ctx.actor,input.id,true):undefined;if(old&&old.listId!==input.listId)throw error(422);revision(old?.revision??0,ctx.expectedRevision);const id=old?.id??randomUUID();
+ if(old)assertMutableCatalogRevision(old.revision);assertMutableCatalogRevision(owner.revision);
+ tx.run('INSERT INTO productivity_sections VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title',id,input.listId,input.title);setMetadata(tx,'section',id,(old?.revision??0)+1);setMetadata(tx,'list',owner.id,owner.revision+1);const result=section(tx,ctx.actor,id);syncSectionBoard(tx,result);return result;
+}
+export function archiveSectionWithinTransaction(tx:AppWriteTx,ctx:AppCommand,id:string):TaskSection {
+ context(ctx,tx);const old=section(tx,ctx.actor,id,true);revision(old.revision,ctx.expectedRevision);
+ for(const raw of tx.all('SELECT id FROM productivity_tasks WHERE section_id=? AND deleted_at IS NULL',id)){const before=task(tx,ctx,raw.id);saveTask(tx,{...ctx,expectedRevision:before.revision},before,{sectionId:null});}
+ assertMutableCatalogRevision(old.revision);const now=new Date().toISOString();setMetadata(tx,'section',id,old.revision+1,now);const owner=list(tx,ctx.actor,old.listId,'manage');assertMutableCatalogRevision(owner.revision);setMetadata(tx,'list',owner.id,owner.revision+1);const result={...old,revision:old.revision+1,archivedAt:now};syncSectionBoard(tx,result);return result;
+}
 export function createStructureCommands(ports:{write:typeof withAppWriteTransaction;reader:TaskReader}){
  const run=<T>(ctx:AppCommand,name:string,input:unknown,preflight:(reader:TaskReader)=>void,fn:(tx:AppWriteTx)=>T):T=>{
   context(ctx,ports.reader);preflight(ports.reader);
@@ -63,7 +76,7 @@ export function createStructureCommands(ports:{write:typeof withAppWriteTransact
   saveSection(ctx:AppCommand,input:{id?:string;listId:string;title:string}):TaskSection {
    const data=payload(input,['id','listId','title']);value(()=>{text(data.title,500);text(data.listId,256);if(data.id!==undefined)text(data.id,256);});
    return run(ctx,'section',input,r=>{list(r,ctx.actor,input.listId,'manage');if(input.id){const old=section(r,ctx.actor,input.id,true);if(old.listId!==input.listId)throw error(422);}},tx=>{
-    const old=input.id?section(tx,ctx.actor,input.id,true):undefined;revision(old?.revision??0,ctx.expectedRevision);const id=old?.id??randomUUID();tx.run('INSERT INTO productivity_sections VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title',id,input.listId,input.title);setMetadata(tx,'section',id,(old?.revision??0)+1);const owner=list(tx,ctx.actor,input.listId,'manage');setMetadata(tx,'list',owner.id,owner.revision+1);return section(tx,ctx.actor,id);
+    return saveSectionWithinTransaction(tx,ctx,input);
    });
   },
   saveTag(ctx:AppCommand,input:{id?:string;name:string}):TaskTag {
@@ -82,9 +95,7 @@ export function createStructureCommands(ports:{write:typeof withAppWriteTransact
   },
   archiveSection(ctx:AppCommand,id:string):TaskSection {
    return run(ctx,'archive-section',{id},r=>{section(r,ctx.actor,id,true,true);},tx=>{
-    const old=section(tx,ctx.actor,id,true);revision(old.revision,ctx.expectedRevision);
-    for(const raw of tx.all('SELECT id FROM productivity_tasks WHERE section_id=? AND deleted_at IS NULL',id)){const before=task(tx,ctx,raw.id);saveTask(tx,{...ctx,expectedRevision:before.revision},before,{sectionId:null});}
-    const now=new Date().toISOString();setMetadata(tx,'section',id,old.revision+1,now);const owner=list(tx,ctx.actor,old.listId,'manage');setMetadata(tx,'list',owner.id,owner.revision+1);return {...old,revision:old.revision+1,archivedAt:now};
+    return archiveSectionWithinTransaction(tx,ctx,id);
    });
   },
   moveTaskToList(ctx:AppCommand,id:string,targetListId:string,sectionId:string|null):StoredTask {

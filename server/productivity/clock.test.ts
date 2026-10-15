@@ -1,0 +1,4 @@
+import {expect,it,vi} from 'vitest';
+import Database from 'better-sqlite3';
+import {createProductivityClock,nativeClockSql} from './clock.js';
+it('native wall clock remains inside direct OS clock bounds despite a process-local Date.now offset',()=>{const db=new Database(':memory:');try{const reader={get:(sql:string,...args:any[])=>db.prepare(sql).get(...args)as any,all:(sql:string,...args:any[])=>db.prepare(sql).all(...args)as any[]},before=reader.get(nativeClockSql).ms,real=Date.now(),mock=vi.spyOn(Date,'now').mockReturnValue(real+1000);let actual:number;try{actual=createProductivityClock(reader)();}finally{mock.mockRestore();}const after=reader.get(nativeClockSql).ms;expect(actual!).toBeGreaterThanOrEqual(before);expect(actual!).toBeLessThanOrEqual(after);expect(db.prepare('SELECT total_changes()AS n').get()).toEqual({n:0});}finally{db.close();}});

@@ -1,7 +1,7 @@
 {
   "taskId": "P10-a",
-  "baseSha": "4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b",
-  "baseAcceptance": "PR97 exact87959cf/Windows38791522921/all8/TENraw/merge4b315de testedtreeequal",
+  "baseSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+  "baseAcceptance": "PR98 exactf8b6549/Windows38801246440/all8/TENraw/merge5ca1b51 testedtreeequal",
   "scope": "Characterize existing completion/approval/reopen/recurrence policy; inject one FamilyDB writer into semantic request/approve/reject ports+internalHTTP; no newpolicy/defaultcutover",
   "fullGreen": {
     "tests": 3924,
@@ -202,12 +202,81 @@
     "p10a-private-http-green.json": "62ec67617c8c156ab12ad0ea08dd61212a034693911bb5ad9fe7189b005975d2"
   },
   "cloudPlatform": "linux",
-  "nativeWindowsAcceptance": "pending newPRHEAD;PR98basecompositionpending",
+  "nativeWindowsAcceptance": "pending newPR99 exactHEAD; integratedCloud3959/220/JUnitall0",
   "fullP10Accepted": false,
   "publicSuccessorReferences": "freshACLaftercache/everyreturn;completeinternalIDsresult-boundWeakMapforSSE/nohiddenserializablefields",
   "policyDifference": "existingreopenkeepspoints/newroundcanawardagain;approvedP10targetlinkedreversalrequirescontrolledcutoverbeforepilot/release;no implementation/defaultfliphere",
   "fixtureRulings": "FirstdependentHTTPbodylookupTypeErrorretainednotcausal; added200preconditionthenall6missingrouteRED. PrivateSSEoriginalrecurrencelegitimatelyrotatedtosuccessorChild;isolatenonrecurringprivateSSEwithoutdroppingnegativeasserts;explicitnewrotationtestcheckschild1/member2scopedTaskevents. Invalidimport0testsinitialcharacterizationnotclaimedvalidation.",
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
-  "remaining": "P10reopenreversal/newrecurrencevirtual/series/claims/jobs/legacygenericroutecutover/boardworkflow;fullP08/P09/latermastertasks;F08promotionpolicydebtpreR01"
+  "remaining": "P10reopenreversal/newrecurrencevirtual/series/claims/jobs/legacygenericroutecutover/boardworkflow;fullP08/P09/latermastertasks;F08promotionpolicydebtpreR01",
+  "beforeCompositionVerification": {
+    "baseSha": "4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b",
+    "fullGreen": {
+      "tests": 3924,
+      "passed": 3924,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 217
+    },
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "9b057a7a1c75b968cf1a61a2ceb167c1307816c923c77953b2589c2a5ac99537",
+      "server/app.ts": "c4b26b1ea5aa3a0e60e38bc75e3d85fb6d10776e7fa7ae7d10ea8caac6532baf",
+      "server/productivity/completion-characterization.test.ts": "51e145ee89db8351a8f301b0ea421cdebb661a9a0c25cf5142459b1a58d9f201",
+      "server/productivity/completion.api.test.ts": "f24e3e826adb1dcd0f791b723758e6078112c73fa0767a45acfa958c50579ed3",
+      "server/productivity/completion.test.ts": "922a43b97b30ac376d4eb33a7eaede8522acb4eb72286f3600398d0c12f66656",
+      "server/productivity/completion.ts": "a5ff2b654326d69c09b0a1c059ece8e6dcb8e3216037ca67c8a0cb496e9d8f9e",
+      "server/productivity/ports.ts": "38767c6ae1c0a29b548e357f53ef2bd3c807accf2172a252d344131c392ef033",
+      "server/productivity/router.ts": "a91d7cdab6be0efdd1ad55e1dd4c3839fdef2a1125a83e87fc08c77a9d37629d",
+      "server/runtime.ts": "4c71687ee0127cb8c7f1abe2dfd6c0914e399e26e42fe988e23d7a43535c5c92",
+      "tests/evidence.test.ts": "879b5a9b8881332ae1c83d68b03807849e00733d81967285133ae41fb71254dc"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "657ca1bc3ac2a0e7fcd1aeb686386b283a50baa8b6de05c2e9578ad55cf4fe24",
+      "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+    }
+  },
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 3959,
+      "passed": 3959,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 220
+    },
+    "junitCases": 3959,
+    "maxWorkers": 1,
+    "lintExit": 0,
+    "buildExit": 0,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "9f31ed86c5105435981fa0327ea9a688d60e7c6827772c5afd83e5188858f62f",
+      "server/app.ts": "c4b26b1ea5aa3a0e60e38bc75e3d85fb6d10776e7fa7ae7d10ea8caac6532baf",
+      "server/productivity/boardLayout.ts": "84cc03823b37fddff2a7e14ae2157473dc295cc34f5ae2df5882303195f729ba",
+      "server/productivity/boardRouter.ts": "a69e9abf176cb0f4000c1f08c5a8ed1aaf171295724bc9feb9dd713e06353754",
+      "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+      "server/productivity/completion-characterization.test.ts": "51e145ee89db8351a8f301b0ea421cdebb661a9a0c25cf5142459b1a58d9f201",
+      "server/productivity/completion.api.test.ts": "f24e3e826adb1dcd0f791b723758e6078112c73fa0767a45acfa958c50579ed3",
+      "server/productivity/completion.test.ts": "922a43b97b30ac376d4eb33a7eaede8522acb4eb72286f3600398d0c12f66656",
+      "server/productivity/completion.ts": "a5ff2b654326d69c09b0a1c059ece8e6dcb8e3216037ca67c8a0cb496e9d8f9e",
+      "server/productivity/ports.ts": "c46843a35957bead11ff857f1bce66de93b574b322ee82b80459be3ba0ffc093",
+      "server/productivity/router.ts": "6e6e64db9137c431e217e4dcaab5332efc1b1ede7514a5f3adb4718473330ae4",
+      "server/productivity/sectionBoards.ts": "d15b16ff81249080baad3541dd810c734a6bb1d996b9b12e43fa1b2d7c729e80",
+      "server/runtime.ts": "4c71687ee0127cb8c7f1abe2dfd6c0914e399e26e42fe988e23d7a43535c5c92",
+      "tests/evidence.test.ts": "2ac29c3c32dbaf5df40e1baf7007f669dab32ed0bbc5165aa1752514c9d24dce"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "5e198d88353172d10f0c05b230a5142786c73d57089a54dded6dfe1573ef52b1",
+      "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+    },
+    "reports": {
+      "p10a-integrated-full.json": "0739e3c141bc8669848ddf768fc5e2a8dd69341cb35cfc53698915a7fb11437b",
+      "p10a-integrated-full.junit.xml": "7c3512783c491e71348beca0e934e57a7536e23be152296d9ca4273975f7e40a",
+      "p10a-integrated-full.log": "9167ddef578829746877bf4e0ca7c0edb5b934177f45394b7e7cfbc92881c7d0",
+      "p10a-integrated-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "p10a-integrated-build.log": "8dbc983b50a65b27f7dea1ba8dae5657ddd62945de1f831fef0aad23c0e93ab3"
+    },
+    "composition": "real merge of acceptedPR98 layout/nativeOSclock; union imports/ports/mandatory suites/status. OriginalP10command/router handlers retained; acceptedB8core byteequal. Newwholeintegratedsuite, not reuse ofold3924baseline."
+  }
 }

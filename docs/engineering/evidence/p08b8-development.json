@@ -1,0 +1,418 @@
+{
+  "taskId": "P08-b8",
+  "baseSha": "4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b",
+  "baseAcceptance": "PR97 exact87959cf/Windows38791522921/all8/TENraw/merge4b315de treeequal",
+  "scope": "canonical column creation/order/section-archive preview/apply; current owned-view and list-manage; shared structural metadata; no completion/reward policy changes",
+  "fullGreen": {
+    "tests": 3926,
+    "passed": 3926,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 217
+  },
+  "junitCases": 3926,
+  "maxWorkers": 1,
+  "targetGreen": {
+    "tests": 67,
+    "passed": 67,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 5
+  },
+  "httpAndGateGreen": {
+    "tests": 327,
+    "passed": 327,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 3
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImports": {
+    "modules": 2,
+    "importsSucceeded": true,
+    "storageOpened": false,
+    "cloudPlatform": "linux",
+    "notWindowsAcceptance": true
+  },
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "87959cfa1c3c80c0ad042d3f434532de6474f510",
+    "critical": 0,
+    "important": 2,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Canonical snapshot format permits more than1000 columns although runtime projection/configuration are bounded. reorder reads LIMIT1001 but does not reject the overflow sentinel, so a valid restored oversized board can return/commit a truncated ordering. Reject >1000 canonical active columns before rank planning; add actual valid-snapshot1002-column regression and preserve all metadata on refusal."
+      },
+      {
+        "id": "I2",
+        "grade": "Important",
+        "ruling": "Adding layout after process restart moved the original domainRows capture past the prior restart/replay boundary, inadvertently dropping the earlier assurance that committed exact replay after restart preserves every domain row. Keep a pre-restart snapshot and assert it unchanged immediately after replay, then capture a second post-layout snapshot for ordinary/encrypted restore. Retain all prior16checks/9server/8native/3refusals/21strictclock samples; this is a native evidence assertion repair, not a claimed Cloud behavioral RED."
+      }
+    ],
+    "declinedBounds": {
+      "authority": "owned bound view/current SQL actor/list-manage before cache and inside I01. Child/Guest denied; Membermanage grants expose all list Tasks under existing ACL, so whole-section counts manager-only. Exact archive retry resolves archived target only after current scope; bodyhash/commandUUID/retainedowner prevents cross-preview/actor reuse.",
+      "atomicity": "Common section helper reused by old/new API; no nestedwriter. All Task/catalog/column/board/cache writes rollback; mutable metadata guards. Task IDs/lifecycle/approval/rewards unchanged, None hardWIP all canonical active roots checked beforepreviewandinsideTx plus centralstore. No implicit batch override.",
+      "resources": "Archive scalar rows capped1000 before any Taskbody; refs128/15min+15min owner retention, only bounded IDs/revs/digest. I1 overflow rejection remains needed forreorder. Old structural archive retains historical behavior and centralstoreWIP, newboardpreview budget documented.",
+      "events": "Section changes do not change visibility, so currentaudiences equal previous; metadata-onlyreorder/create sendscatalog, archiveTaskinvalidations scoped. SyntheticHTTP rollback compares actualdomain/cacheSQL, avoiding synthetic snapshot-collection command pollution. SSE data intentionally metadata-only; testpositiveupdated fromincorrectUUIDexpectation to eventtype whileallnegativeprivateID/body assertions preserved.",
+      "native": "Probe actualZIPbundledHTTP runtime/sourcebound, added17thlayoutcheck thenmixedordinary/encryptedrestore; I2 mustrestorecross-restart-rowequality. NoWinCloudbypass/timeoutrelaxation. FrozenDDL/checksum1..8/Wallet1 unchanged.",
+      "scope": "FullP08grouping/P09UI/P10newworkflow/remainingmilestones unfinished. F08sourcepolicygrammar/debt failclosed beforeR01. No release/tag/VPS/Server2019claim."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "37f701e870028d4920daac92a36f0b73b5a26a103a7c294206614cdfb62898d0",
+      "scripts/windows/board-package-contract.mjs": "514e3a255ef91669b02be0e5217a6c1d98355350a2d28df0732e1340b197f619",
+      "scripts/windows/probe-board-package.mjs": "fe4ac7bdf8a16575539e44a58e9812ec5e1851d6fa99fe264e71107d08ccbcfd",
+      "server/productivity/board-layout.api.test.ts": "d2492e0e97e4f965e0ddf98b1a0a9f1c5d66acd33817b578d60369916553c2c4",
+      "server/productivity/board-layout.test.ts": "b248eaa3a9ca7f3615d691a8e3af40c8d42d9f98161b84f9959d5a66b9838f32",
+      "server/productivity/boardLayout.ts": "8717388a93007048f041db843edf86291268ec0946d73b044533bbd038f7a97f",
+      "server/productivity/boardRouter.ts": "a69e9abf176cb0f4000c1f08c5a8ed1aaf171295724bc9feb9dd713e06353754",
+      "server/productivity/ports.ts": "32119becd1e45d71f0cf69ed77c733cea0b515dd155fdd0d11aa897c6d3d1a1a",
+      "server/productivity/router.ts": "c1b90373c541e8f76112df1a15bf9988b5a3f3a742f51423738e405d30f75656",
+      "server/productivity/sectionBoards.ts": "d15b16ff81249080baad3541dd810c734a6bb1d996b9b12e43fa1b2d7c729e80",
+      "server/productivity/structure.ts": "740e4177a3b71527f12766d14a43637e5185c66834c8b5c25b0d3d20d8c55cf0",
+      "tests/board-package-evidence.test.ts": "40886e09eca2d01b17b0610b53c47131697f3a6d9701d1e4eeec6b11928410db",
+      "tests/evidence.test.ts": "1e908ffe81d5df1d7457bc7ff1735cd763f4bd9e4a19af401f310e8bb7c9b869",
+      "tests/helpers/board-package-fixture.ts": "afec76951105cab99fe14ae96e5aacd3d0adb9236446da6e5224a7929646b85b"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "status": "correction verified;finalfull3926/217/JUnit/lint/build0;no rereview",
+    "beforeReviewFull": {
+      "tests": 3920,
+      "passed": 3906,
+      "failed": 14,
+      "pending": 0,
+      "todo": 0,
+      "files": 216
+    },
+    "integrationFailureRuling": "All14 errors are fresh board-revision409 at fixture configuration after legacy section create, which now increments the board as required. Update only these configuration inputs to current SQL revision; preserve all assertions/WIP scope/data/deadlines. Not a product guard relaxation.",
+    "correctedTarget": {
+      "tests": 67,
+      "passed": 67,
+      "failed": 0,
+      "files": 5
+    },
+    "causalRegression": {
+      "report": "p08b8-review-red.json",
+      "tests": 14,
+      "passed": 13,
+      "failed": 1,
+      "cause": "valid oversized restored canonical ordering was not refused"
+    },
+    "correctedFull": {
+      "tests": 3926,
+      "passed": 3926,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 217
+    },
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "postCiClockReview": {
+    "reviewer": "/root/p08_clock_review fresh read-only focused post-CI clock review; no repeat Kanban review",
+    "baseSha": "eee10d11b43d159c41135283347a60de8bc96af8",
+    "headSha": "b7a1ff45df11f69183ebb317e910e98a9794a011",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "assessment": "Owned SQLite connection/read-only native OS clock, unchanged strict21HTTP intervals, every100untrusted native/monotonic observation/counter/exit/PID/completeness validated. Full/build/exact correctedWindows still mandatory.",
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "77e36a9f49bcfdfe25b83c6841ff81d1ffaf0cbc0fb92e02988236c5813de9b3",
+      "scripts/windows/board-package-contract.mjs": "f2f55e25b105e169e23bbcf437b3bdb47ea6dfa26ceeffd7cb1d17f9b524db81",
+      "scripts/windows/clock-diagnostics.mjs": "99217bfd7572b54f5da843f9627059bb79c0a1df14f02ee4ec5c40bf34614d35",
+      "scripts/windows/probe-board-package.mjs": "e61c7e8c82f16d69ac8bfdb243ec10793f502e70b7f7bab3e29e8893bf83d2c4",
+      "server/productivity/board-projection.test.ts": "891cc4ca8b1a9bf8b8d369556cf3d55fd46877f6f75c07aa73876ac8e2b7fede",
+      "server/productivity/clock.test.ts": "9b6b866021a0a66f121284b3c9e8e847507fd4bac13d803614d8e89e93f30ea8",
+      "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+      "server/productivity/ports.ts": "21ba114c55724b7b89d9e95c93488fb51ff3db9486387028ab003e35eae486e4",
+      "tests/board-package-evidence.test.ts": "fa68a8a805c5eaefcbf4abe3e6a9ab0aa37d5eebe2ec552ee9d9c04705976e43",
+      "tests/evidence.test.ts": "f4f3da11cdc96fb113f89ce42bf8d3f35f04d2387223213994764e324b4b88c5",
+      "tests/helpers/board-package-fixture.ts": "eed4a44a862372647c2fd5ae6a64c03de26c1f8d916ce0b7aa15323c50424c11"
+    }
+  },
+  "beforeClockFull": {
+    "tests": 3921,
+    "passed": 3921,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 216
+  },
+  "clockTarget": {
+    "tests": 44,
+    "passed": 44,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 5
+  },
+  "clockGateTarget": {
+    "tests": 458,
+    "passed": 458,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 5
+  },
+  "sourceHashes": {
+    ".github/workflows/ci.yml": "f0fc887c58340395682469e3f18a9ea00c81b2905d3cb183cea618161873a060",
+    "scripts/ci/write-evidence.mjs": "77e36a9f49bcfdfe25b83c6841ff81d1ffaf0cbc0fb92e02988236c5813de9b3",
+    "scripts/windows/board-package-contract.mjs": "f2f55e25b105e169e23bbcf437b3bdb47ea6dfa26ceeffd7cb1d17f9b524db81",
+    "scripts/windows/clock-diagnostics.mjs": "99217bfd7572b54f5da843f9627059bb79c0a1df14f02ee4ec5c40bf34614d35",
+    "scripts/windows/probe-board-package.mjs": "e61c7e8c82f16d69ac8bfdb243ec10793f502e70b7f7bab3e29e8893bf83d2c4",
+    "server/productivity/board-catalog.test.ts": "4bbd019e6069d5d76f42e87dc8115a5f8e832f67700624b5296266b53d725270",
+    "server/productivity/board-layout.api.test.ts": "d2492e0e97e4f965e0ddf98b1a0a9f1c5d66acd33817b578d60369916553c2c4",
+    "server/productivity/board-layout.test.ts": "7539c17c2bfa370d67bc13563219329a6283c886cd24e2d55b451403e19d1d3c",
+    "server/productivity/board-projection.test.ts": "891cc4ca8b1a9bf8b8d369556cf3d55fd46877f6f75c07aa73876ac8e2b7fede",
+    "server/productivity/board-wip-override.test.ts": "5ffe6345dfcee6129b60f41fffe96434eed20bc3c36f26ce1cd7c3fe5647e61e",
+    "server/productivity/boardLayout.ts": "84cc03823b37fddff2a7e14ae2157473dc295cc34f5ae2df5882303195f729ba",
+    "server/productivity/boardRouter.ts": "a69e9abf176cb0f4000c1f08c5a8ed1aaf171295724bc9feb9dd713e06353754",
+    "server/productivity/clock.test.ts": "9b6b866021a0a66f121284b3c9e8e847507fd4bac13d803614d8e89e93f30ea8",
+    "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+    "server/productivity/ports.ts": "21ba114c55724b7b89d9e95c93488fb51ff3db9486387028ab003e35eae486e4",
+    "server/productivity/router.ts": "c1b90373c541e8f76112df1a15bf9988b5a3f3a742f51423738e405d30f75656",
+    "server/productivity/sectionBoards.ts": "d15b16ff81249080baad3541dd810c734a6bb1d996b9b12e43fa1b2d7c729e80",
+    "server/productivity/structure.ts": "740e4177a3b71527f12766d14a43637e5185c66834c8b5c25b0d3d20d8c55cf0",
+    "tests/board-package-evidence.test.ts": "fa68a8a805c5eaefcbf4abe3e6a9ab0aa37d5eebe2ec552ee9d9c04705976e43",
+    "tests/evidence.test.ts": "f4f3da11cdc96fb113f89ce42bf8d3f35f04d2387223213994764e324b4b88c5",
+    "tests/helpers/board-package-fixture.ts": "eed4a44a862372647c2fd5ae6a64c03de26c1f8d916ce0b7aa15323c50424c11"
+  },
+  "compiledHashes": {
+    "dist/server.cjs": "ae69f4f7fa025aadda5509d997260c6b1d3ae4d2e681198c27948840fbd99005",
+    "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+  },
+  "historicalFailures": {
+    "p08b8-layout-red.json": {
+      "tests": 6,
+      "passed": 0,
+      "failed": 6,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b8-legacy-red.json": {
+      "tests": 9,
+      "passed": 6,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b8-http-red.json": {
+      "tests": 6,
+      "passed": 0,
+      "failed": 6,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b8-http-first.json": {
+      "tests": 6,
+      "passed": 4,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b8-http-second.json": {
+      "tests": 6,
+      "passed": 5,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b8-gate-red.json": {
+      "tests": 321,
+      "passed": 311,
+      "failed": 10,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "p08b8-review-red.json": {
+      "tests": 14,
+      "passed": 13,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b8-full-before-review.json": {
+      "tests": 3920,
+      "passed": 3906,
+      "failed": 14,
+      "pending": 0,
+      "todo": 0,
+      "files": 216
+    },
+    "p08b8-native-clock-causal-red.json": {
+      "tests": 20,
+      "passed": 18,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "p08b8-clock-gate-red.json": {
+      "tests": 324,
+      "passed": 321,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    }
+  },
+  "fixtureRuling": "HTTP SSE positive originally expected private UUID although realtime intentionally emits type/timestamp only; corrected positive event type while all negative private-ID/body checks retained. Synthetic snapshot collector records its own command causing app_commands diff; switched to direct read-only domain+cache SQL comparison. Initial full14 errors all fresh-board-revision fixture409; only configuration inputs updated; all assertions preserved. Seven gate mutation TypeErrors with missing fixture are retained but not claimed causal; missing-layout and required-suite omission failures were actual contract REDs.",
+  "fixtureAssertions": {
+    "beforeAndAfterExpectCalls": {
+      "board-catalog.test.ts": 43,
+      "board-projection.test.ts": 48,
+      "board-wip-override.test.ts": 16
+    },
+    "allRetained": true,
+    "onlyCurrentSqlConfigurationRevisionChanged": true
+  },
+  "reports": {
+    "p08b8-http-first.log": "ced52180e245612b2100f8b14f0f2078a08d3726a5278541b9121a8649222ebd",
+    "p08b8-http-red.log": "c35bd585bb8f293bb8d9ea57f3fe83095178b796417c1f16cb7fd61e325f4c2d",
+    "p08b8-layout-first.log": "29dff9c6d3a0c4328b8329c6d5dd1e0a55e248546b5f5de7c6d5448b7875ec52",
+    "p08b8-layout-red.json": "05d237a89cd515ee2edcb29b012c328ee3492e2fc842e07647039b6a66dc788a",
+    "p08b8-clock-gate-red.log": "fdc13cbace15ff375d213b59a4f91ea0d90002f31717a988048c739adf4704e1",
+    "p08b8-http-second.json": "849a9d6d64237a8a496e71510df038f4c0c18a9146653ad181043c7e8c50a402",
+    "p08b8-clock-review-rulings.json": "8d7a12d8d4987f37dca82f180a3a8d3aa1d21599f4e0c2cfa36541bf689184c6",
+    "p08b8-http-gate-green.log": "cba78c19e19527c13ecea5f7ea37feef0c1e31a057ba67d7ef71330aa4d0a4a2",
+    "p08b8-layout-first.json": "70248dd2daf8fa72e9e455a4c47612b6b2af4585227e096bcf0e273cfa21a014",
+    "p08b8-native-clock-full.log": "6ea042af87ada026c9e9b4aeb72416696697210642737b748a2058bc420076e2",
+    "p08b8-expanded-target.json": "4ff93bf536ba748366e0cb76b08f02e6fa8e0de4d3b2382f4bc1b0618b8fe56d",
+    "p08b8-gate-red.json": "ae7b2cad3f1446ab9de2bb0e5de3335db7991d5f7662204438a02ac42760bb80",
+    "p08b8-http-second.log": "8b96004357f76ef1d5cfb31bed6f35d9b7e7ff8aacbfa3c2703dfa2cc4047ea3",
+    "p08b8-full-before-review.junit.xml": "36d207332ce49ee006b001f59439d4d366f5a8bce188566e5bad9db9185310fe",
+    "p08b8-legacy-red.log": "c9473462c0f3a8b3ff36dd233a8657d90c14d232d1453ab2303031b9bebd1a8c",
+    "p08b8-first-consumer-job.log": "2b6bee0f0d365283faccca8298b1ff4b7f17c8009616510a72adaeb9cae015f4",
+    "p08b8-cold-import.json": "5c379823cea5c948aa9590b45b4085d2ccfebd4cd86489c6f75e8d0e28b309db",
+    "p08b8-http-first.json": "81f1e9dd3a980f3a51fc0480c59972ec2e1b5b63487dab329595fc008cf93f65",
+    "p08b8-native-clock-build.log": "95afd12a2590af4dbeabb77541d38ab2dacc935fafdbd558d6cd08b817e9719f",
+    "p08b8-native-clock-red.log": "ab87fce922ce6052769d0d8751ac9dfc2e475c19c73a11cdebe8239932fcfc0c",
+    "p08b8-clock-gate-red.json": "64864fce0b0b14c82931f67d208627c5beb2385b7578341bc489543dfe1bf17c",
+    "p08b8-native-clock-red.json": "53f911eae9876b33ce89c9212ce76d366a92442621497c7ed5d085b8332353cc",
+    "p08b8-first-lint.log": "eac071ba1ab5f977f623f8ac7d4070c4d1bf2decdbafe5e719672ab493ae6654",
+    "p08b8-native-clock-frozen-hashes.json": "d3eeb7195cb98ba147203a3dbb4b0b1e8883f21ecb766608b346d9006573c155",
+    "p08b8-pre-review-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b8-clock-gate-green.json": "9fdfb3f23a16f9291a6134f2f83cadbb6d8f2f3a42f55caf023efc7265c63ceb",
+    "p08b8-native-clock-causal-red.json": "672174f1a8cbd6f2d90ec05d58fd3879af76da11fbc9df462690d338ef894a93",
+    "p08b8-legacy-red.json": "c1a4f6162ebe0799901d9849cc4561762e094948a54fa7df6e85456d65ceb9b8",
+    "p08b8-before-review-lint.log": "4d144a6cd3574ddc99a685027f89ebfba4b1f1642c4933a77ab31de40e7e3a4a",
+    "p08b8-corrected-full.junit.xml": "caca70738dff9a0cb63bdedb3b96ac01382511b48fdb13b043921ba2dfe6d4cb",
+    "p08b8-native-clock-causal-red.log": "c71cec44097f45f9fbc279f2122af8e90edaacb12bfaaf2849ffc48ce2c2e8d7",
+    "p08b8-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b8-http-gate-green.json": "3f44fdf4a29086a877cecdbd35a2c4c2f6fc412de3fcabe40f804541c92f125b",
+    "p08b8-layout-red.log": "4060fcbb9c2c91a983b390d8e9ca96c171db34b6407b2864b992d9545b49e0d7",
+    "p08b8-clock-gate-green.log": "d1f1acbcc4f36c503047526600e4132aba8c06d09a31d73699955c6a4a90cad9",
+    "p08b8-review-corrected-target.log": "20f36b225ec3043725156f28363cdadcd07db523222bad42a37b4555d962ae6a",
+    "p08b8-native-clock-full.junit.xml": "bbfd6c7b83949bc9bb247f6b102487e9e4cb80653a76ab3a799a0168f920f322",
+    "p08b8-windows-watch.log": "2cdf4a98a64dfca353ef93747cd31dc2867dfc118c15c608464728a33f293003",
+    "p08b8-sync-first.json": "9e1cd286b114d63d0904a9c2347621c66a4487efa35fbbff0446a1e8cec10cb9",
+    "p08b8-gate-red.log": "417133affb526005863f2237952d870925a926057498c4b8eb82ed5e346f29a9",
+    "p08b8-review-rulings.json": "17fc7cccc75c4783400e7dfb07502fd8ec9d6ec54708c1c68094226897a1f8c0",
+    "p08b8-clock-windows-raw.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p08b8-corrected-frozen-hashes.json": "340ee58811df18a064ee9a4cdab70a30e74c842d4e8cfb1761cbd4edf07cefd9",
+    "p08b8-native-clock-green.json": "0b4126f605ad4c94f3156fba58a72e26817be10c9a5c820855d80a41d2dab470",
+    "p08b8-review-red.json": "d9ba1228ca8c8083cecbbc734039a92b3ce2dcbc0a70e7d2d3988827727b698f",
+    "p08b8-full-before-review.json": "37c021c5df4b855cee48a1aeeea42b97f6bad3e608b63f4fa54c068e6905b7de",
+    "p08b8-review-corrected-target.json": "4448cb6f7f6b6ca1deaff66185ad79b3c7adcaf072f3c9ff063ecb7396bf22a0",
+    "p08b8-clock-diagnostic-cloud.json": "a9f43be06956a13abcdbe54666d4eda529a7c3bf14b77a9bbe826272bc15fcdd",
+    "p08b8-review-red.log": "710eec129db73229e9e9df96d3406d07e2d248a15c85969c12ba2371453a7d7b",
+    "p08b8-expanded-target.log": "f2789ca58e1dd9da1e46e5e21a4cba944fcccc5fd61d4507cffeb4301ce42986",
+    "p08b8-native-clock-cold-import.json": "2c7431a88aabcd3c20bed6963799149df7d5fcc86765ef9b6d67cf91ddd387ef",
+    "p08b8-native-clock-full.json": "5337bf21de4a5ca6aba7542fbd499c6c20cecbe91e5da478a4d8650e662f2e8a",
+    "p08b8-sync-first.log": "e558edd8842991cdb75e193091bc4504fd684fcd5035eab7f27b2955bcfc10e2",
+    "p08b8-corrected-full.json": "72111e028d0f61c802f6987fe1c0b0b70ca8fd24f9d67831ef3ad259b5259ad4",
+    "p08b8-http-red.json": "6a6aa8120d2030e344b7cf12aaf03db08111b40c66cd652a35aabedccefef10a",
+    "p08b8-clock-windows-watch.log": "5b0582a518d6a9b9099e3adda20932858b2c45e9371dfe3a1e22a97de27615ba",
+    "p08b8-native-clock-green.log": "fc924f3d8256aaf022b35d641621c5e9d51f3748b6aeb325f068688c9818ab7c",
+    "p08b8-fixture-assertions.json": "ebd0610ccb9a80ef1457629637195f6f91e5e3023b6c648ef62beb53dfb9f37f",
+    "p08b8-full-before-review.log": "34d1368b3c7c753c7a77b59c01eb876d3996b083d32b88f6615e48c6f7871e35",
+    "p08b8-corrected-full.log": "fd9c2e56eba091970e163465aba90166904bcfc874edb9ecd5724afe4feeaffc",
+    "p08b8-corrected-build.log": "6780cc4d8c4fe2e142f61692f54f87e08a76e29e5905ea2328b697b5ffc2d08f",
+    "p08b8-native-clock-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+  },
+  "cloudPlatform": "linux",
+  "nativeWindowsAcceptance": "pending exactnewHEAD",
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "P08grouping/field moves, P09UI/P10workflow andlaterplans; F08currentCIpromotionpolicy debt remainsfailclosed/preR01",
+  "invalidCausalClockSetup": {
+    "report": {
+      "tests": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "ruling": "Mock installed after factory captured Date.now; passed without exercising drift, retained but not claimed causal. Causal version injects fault before construction and failed2."
+  },
+  "nativeClockColdImport": {
+    "modules": 1,
+    "storageOpened": false,
+    "cloudPlatform": "linux",
+    "notWindowsAcceptance": true
+  },
+  "nativeCheckpoints": [
+    {
+      "headSha": "b462c8a8cf75fab292432ab4cf8f078bcf575090",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38797127519",
+      "overall": "failure",
+      "eachNodeTests": 3921,
+      "filesEach": 216,
+      "consumer": "failure strict3ms interprocess V8 wallclock interval",
+      "service": "skipped",
+      "bothBrowsers": "success",
+      "artifacts": 7,
+      "fullLogsRead": 123,
+      "nativeAccepted": false
+    },
+    {
+      "headSha": "eee10d11b43d159c41135283347a60de8bc96af8",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38798885741",
+      "overall": "success",
+      "allChecks": 8,
+      "rawFamiliesIndependentlyRead": 10,
+      "eachNodeTests": 3921,
+      "filesEach": 216,
+      "zipChecks": 17,
+      "clockIpcSamples": 100,
+      "v8DateIntervalViolations": 100,
+      "sqliteNativeIntervalViolations": 0,
+      "monotonicIntervalViolations": 0,
+      "fullLogsRead": 132,
+      "logLinesRead": 22180,
+      "knownSyntheticMarkers": 16,
+      "unexpectedMarkers": 0,
+      "diagnosticOnly": true,
+      "correctedRuntimeClockAccepted": false
+    }
+  ],
+  "clockRootCauseEvidence": "p08b8-clock-investigation.json;100nativeWindows IPC observations plus exact pinnedV8/SQLiteWinVFS source; unchanged strict21HTTP inequalities with native OS clock instead of independently anchored process Date.now"
+}
