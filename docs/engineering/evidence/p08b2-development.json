@@ -1,7 +1,7 @@
 {
   "taskId": "P08-b2",
-  "baseSha": "9f20f765059601b43f73ba772fab85a50f0c7a4b",
-  "baseAcceptance": "PR90 pending; compose acceptedmain before final exactWindows",
+  "baseSha": "bb0652e73e50cdc9b436d9bb341804bf48a46d95",
+  "baseAcceptance": "PR90 accepted exactWindows38759442203; merge tree equals tested9f20f765",
   "scope": "Canonical writer invariant only; candidate explicitly exercised in synthetic schema6 fixtures, no runtime7 admission",
   "fullGreen": {
     "tests": 3692,
@@ -160,5 +160,12 @@
   "fullP08Accepted": false,
   "exactWindowsAcceptance": "pending",
   "server2019Acceptance": "not-run",
-  "releaseOrVps": false
+  "releaseOrVps": false,
+  "reviewedBaseSha": "9f20f765059601b43f73ba772fab85a50f0c7a4b",
+  "composition": {
+    "composedCommit": "d197b3edd970d75a02aec7df749bd25edfd7079e",
+    "priorBranchCommit": "1d8bf20b2ea6f11afa344c3b86387338e4c71018",
+    "entireTreeEqualsPriorBranch": true,
+    "cloudReportsReusedReason": "Composition produced byte-identical entire tested branch tree; only acceptance documentation follows. No new code/test changes justify repeat Cloud checks. New exact-HEAD Windows remains mandatory."
+  }
 }
