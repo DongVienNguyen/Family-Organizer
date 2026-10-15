@@ -452,6 +452,9 @@ jobs:
           & node --import tsx scripts/ci/write-productivity-fixture.ts reports/package-harness/productivity-fixture.json
           $fixtureExit = $LASTEXITCODE
           if ($fixtureExit -ne 0) { throw 'Canonical synthetic fixture generation failed' }
+          & node --import tsx scripts/ci/write-wallet-fixture.ts reports/package-harness/wallet-fixture.json
+          $walletFixtureExit = $LASTEXITCODE
+          if ($walletFixtureExit -ne 0) { throw 'Wallet synthetic fixture generation failed' }
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: ${{ always() }}
         with:

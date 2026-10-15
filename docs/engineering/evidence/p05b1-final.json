@@ -1,0 +1,128 @@
+{
+  "taskId": "P05-b1",
+  "observedAt": "2026-10-15T15:21:46.655054+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/81",
+  "testedHeadSha": "a32f41103fce2de16477900760036e00505a6750",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38703265127",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "8d8895d31175288a915dafa03a7abd49f775f6ccfb9bbea9ebcb2602c8285ba3",
+    "coverage": "d6b7a8b3dd8dcce3ae60da617627bee863b450107dd3041ac74b2bb229e39b74",
+    "package": "f236acb840142a56fef928287c297e88d7bec377e02bfcf0a3d6971f4e78cd19",
+    "service": "5a63b52ffc5896dc0d71dfbe5c8801312c9307c268bebdb39ddbedde2ae3b6bf",
+    "caddy": "358e75ae1fe4f377bdf76d95bf65dfbcbec0bf7a0dd10a466d6cc50ab8e098d6",
+    "extraction-sdk": "82534aa5c28af7bafb2e226221f1afb4768078ac846db727035f53ced1038040",
+    "inner-native": "e7ebc11f08758c4412df08539b5dd42eb40cc5318650a02e3e93510f4060ebe5",
+    "browser": "9da3ecd5068ef10c0fa0629d90b19e3a82ef073d7aae52f355eb26023a5487a3",
+    "productivity-browser": "a358cb58f7c944477ae11d2036ab8fc83e67d55068c1bb3fce2f168943e63aa8"
+  },
+  "qualityEach": 3313,
+  "qualityFilesEach": 177,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 30,
+  "rawValidators": 9,
+  "zipSha256": "4d048609b256fca7602ab008c49bb303c78c646ef29d6b1ed43faebbed0662e8",
+  "fullCiLogZipSha256": "b5d3355a33837b337544faa4ce9f58720169e827853572dd241d567eeacf452f",
+  "review": {
+    "taskId": "P05-b1",
+    "baseSha": "b7c2284e9ba57aeaa486920e4293ff7aa740bd1b",
+    "reviewedHeadSha": "aa9797ed39034584bfa3e39769c11947cc7d46c8",
+    "reviewer": "p05b1_review",
+    "reviewCount": 1,
+    "critical": 0,
+    "important": 3,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "rulings": [
+      {
+        "id": "I1",
+        "severity": "Important",
+        "decision": "fix",
+        "reason": "Persisted view revision0 must fail snapshot admission before maintenance/file staging, matching native revision>=1",
+        "result": "Persistedrevision>=1 checked at admission; regression proves no maintenance/boundaries/SQLchange"
+      },
+      {
+        "id": "I2",
+        "severity": "Important",
+        "decision": "fix",
+        "reason": "Derived trigram expansion must not disable backups for canonical data previously within existing row/byte budgets; do not weaken canonical snapshot limits",
+        "result": "Trusted derived-row registration with separate4million finite budget; unchangedcanonical100k/256MiB; largewrites andv4upgrade backups pass,canonical100001 refused; readonlyrecovery sameclassification"
+      },
+      {
+        "id": "I3",
+        "severity": "Important",
+        "decision": "fix",
+        "reason": "Index normalization/deduplication must match persisted native Unicode representation so previously valid task writes remain valid",
+        "result": "NativeUTF8 form normalized beforegramdedup; real canonical+legacy writes andsnapshotcoherence pass"
+      }
+    ],
+    "declinedBoundaries": {
+      "ordinaryTrigramAdapter": "accepted exact substring/SQL ACL model; fix only demonstrated bugs",
+      "frozen1to4MigrationAndCommandPolicy": "accepted; unchanged",
+      "duplicates": "existing generic PK validator sufficient; no finding",
+      "onDiskCorruptionRebuildGuarantee": "not inferred",
+      "broadBenchmarks": "P18 deferred, concrete backup regression fixed now",
+      "httpUiClientGlobalSearchSseTrash": "P05-b2",
+      "historical67to80Minors": "closed",
+      "windowsEvidence": "root exactHEAD/all8/nine families/75firstattempt",
+      "W02RuntimeFinancialDependenciesProviderReleaseVpsServer2019": "not reopened"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false,
+    "policy": {
+      "canonicalRowLimit": 100000,
+      "snapshotBytes": 268435456,
+      "derivedRowLimit": 4000000,
+      "classification": "Trusted server registration only; current derived table productivity_search_grams; readonly recovery uses matching schema5 classification; domain validator requires exact canonical-derived content/gram coherence",
+      "costIfWrong": "Snapshots still have the unchanged256MiB byte limit and a finite4million derived-row cap; these explicit resource limits may require future compatible representation work for larger installations. No universal size or performance acceptance claimed."
+    }
+  },
+  "newStructureHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P05-b2 HTTP/client/smart-saved UI/GlobalSearch/readonlyTrash",
+  "mergeSha": "037a748338e5d508178be196b58f0f4eef85a4a0",
+  "mergeTreeMatchesTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/81#issuecomment-6187743755"
+}

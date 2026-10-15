@@ -1,3 +1,4 @@
+import {inspectWalletStorage} from '../wallet/integration.js';
 import {viewTables} from './viewSchema.js';
 import {taskPinTables} from './pinSchema.js';
 import {tagOwnershipTables} from './tagSchema.js';
@@ -9,10 +10,11 @@ type Reader=Pick<AppWriteTx,'get'|'all'>;
 /** Inspect persisted compatibility only; damaged data is validated by ordinary
  * bootstrap or the authenticated replacement snapshot, never by this schema gate. */
 export function inspectProductivityStorage(reader:Reader):boolean {
+ inspectWalletStorage(reader);
  const names=new Set(reader.all("SELECT name FROM sqlite_master WHERE type='table'").map(row=>row.name));
- if([...names].some(name=>name.startsWith('wallet_')||(name.startsWith('productivity_')&&!Object.hasOwn({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables},name))))throw new Error('Unsupported domain storage table');
+ if([...names].some(name=>name.startsWith('productivity_')&&!Object.hasOwn({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables},name)))throw new Error('Unsupported domain storage table');
  const records=names.has('app_migrations')?reader.all('SELECT namespace,version,checksum FROM app_migrations ORDER BY namespace,version'):[];
- if(records.some(row=>row.namespace!=='productivity'))throw new Error('Unsupported domain migration namespace');
+ if(records.some(row=>row.namespace!=='productivity'&&row.namespace!=='wallet'))throw new Error('Unsupported domain migration namespace');
  const applied=records.filter(row=>row.namespace==='productivity');
  const present=Object.keys({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables}).filter(name=>names.has(name));
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
