@@ -1581,7 +1581,7 @@
     "timezone": "Matrix timezone",
     "editMatrix": "Edit matrix",
     "moveMode": "Move mode",
-    "dragHint": "Drag by the handle or use “Move to”. Every move is reviewed first.",
+    "dragHint": "Drag the handle or open “Move to”. On touch screens, hold the handle before dragging. Every change requires a preview.",
     "emptyViews": "Choose or create a matrix to begin.",
     "reviewMove": "Review move to {{quadrant}}",
     "addTo": "Draft a task for",
@@ -1658,6 +1658,7 @@
       "q2": "Q2",
       "q3": "Q3",
       "q4": "Q4"
-    }
+    },
+    "applied": "Move applied."
   }
 }

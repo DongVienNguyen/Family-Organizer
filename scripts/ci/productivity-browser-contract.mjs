@@ -19,6 +19,7 @@ export const productivityBrowserCases=[
  'P07 C16 keyboard preview cancel apply and private pin reset retain one canonical task and deadline',
  'P07 C17 custom rule preview overlap unmatched saved config conflict and preset changes never edit tasks',
  'P07 C18 pointer deadline preview stale SSE and shared drawer draft survive phone dark reduced motion',
+ 'P07 C19 custom choices require a fresh preview and Escape restores the keyboard trigger',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases}),...validateMatrixTouchReports(input)];

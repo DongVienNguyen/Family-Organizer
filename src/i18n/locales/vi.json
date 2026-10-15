@@ -1581,7 +1581,7 @@
     "timezone": "Múi giờ Matrix",
     "editMatrix": "Sửa Matrix",
     "moveMode": "Cách di chuyển",
-    "dragHint": "Kéo bằng tay nắm hoặc mở “Chuyển tới”. Mọi thay đổi cần xem trước.",
+    "dragHint": "Kéo bằng tay nắm hoặc mở “Chuyển tới”. Trên màn hình cảm ứng, nhấn giữ tay nắm trước khi kéo. Mọi thay đổi cần xem trước.",
     "emptyViews": "Chọn hoặc tạo Matrix để bắt đầu.",
     "reviewMove": "Xem trước chuyển tới {{quadrant}}",
     "addTo": "Thêm task nháp vào",
@@ -1658,6 +1658,7 @@
       "q2": "Q2",
       "q3": "Q3",
       "q4": "Q4"
-    }
+    },
+    "applied": "Đã áp dụng di chuyển."
   }
 }
