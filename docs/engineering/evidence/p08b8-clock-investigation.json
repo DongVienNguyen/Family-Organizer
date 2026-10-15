@@ -133,7 +133,17 @@
   ],
   "correction": "Read native OS wall-clock milliseconds via the already-owned SQLite handle for default Productivity clocks and isolated probe bounds; integer seconds+fraction avoids float rounding. All same strict inequalities and21HTTPsamples retained. No tolerance/retry/timeout changes.",
   "regression": "Initial Date.now mock applied after factories captured its function and incorrectly passed20/20; retained as invalid causal setup. Move fault injection before factory construction: actual20/18/2RED ->44targetpassed,458clock/evidencepassed.",
-  "fullSuiteAndWindowsCorrectedSource": "pending",
+  "fullSuiteAndWindowsCorrectedSource": {
+    "cloudTests": 3926,
+    "cloudFiles": 217,
+    "matchingJUnit": 3926,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "nativeExactCorrectedHead": "pending"
+  },
   "noNewDependencyOrDDL": true,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run"
