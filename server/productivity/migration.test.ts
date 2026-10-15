@@ -27,7 +27,7 @@ it('rolls back schema and rows on a malformed row instead of leaving a partial m
 });
 it('uses I01 checksum/order/pilot migration registry and refuses nonpilot changes',()=>{
  registerProductivityMigration({registerMigration:registerDomainMigration,registerSnapshot:registerSnapshotTable,registerValidator:registerSnapshotValidator});expect(()=>applyDomainMigrations({enabled:['productivity'],pilot:false})).toThrow(/pilot/i);
- applyDomainMigrations({enabled:['productivity'],pilot:true});applyDomainMigrations({enabled:['productivity'],pilot:true});expect(getDomainVersions().productivity).toBe(5);
+ applyDomainMigrations({enabled:['productivity'],pilot:true});applyDomainMigrations({enabled:['productivity'],pilot:true});expect(getDomainVersions().productivity).toBe(6);
  sqliteConnection().prepare("UPDATE app_migrations SET checksum='corrupt' WHERE namespace='productivity'").run();
  expect(()=>applyDomainMigrations({enabled:['productivity'],pilot:true})).toThrow(/checksum/i);
 });

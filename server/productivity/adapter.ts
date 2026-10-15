@@ -9,7 +9,7 @@ import type * as Snapshot from '../appSnapshot.js';
 import type {Task} from '../../src/types.js';
 import {createHash} from 'node:crypto';
 import {isDeepStrictEqual} from 'node:util';
-import {registerProductivityMigration,productivityMigrationChecksum,productivityStructureChecksum,productivityTagChecksum,productivityPinChecksum,productivityViewChecksum,migrateTasks} from './migrate.js';
+import {registerProductivityMigration,productivityMigrationChecksum,productivityStructureChecksum,productivityTagChecksum,productivityPinChecksum,productivityViewChecksum,productivityMatrixChecksum,migrateTasks} from './migrate.js';
 import {loadTasks,loadTask,savePilotTask,installTaskWriteHooks,projectLegacyTask as projection} from './store.js';
 import {markCanonicalReaderReady,requireCanonicalReader} from './bridgeState.js';
 import {parseLegacyDue} from '../../src/features/productivity/dates.js';
@@ -19,10 +19,11 @@ export type BridgePorts={sqlite:typeof Sqlite;gateway:typeof Gateway;migrations:
 const configured=new WeakSet<object>();
 function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  const migrations=reader.all("SELECT version,checksum FROM app_migrations WHERE namespace='productivity' ORDER BY version");
- if(![1,2,3,4,5].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length>=2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
+ if(![1,2,3,4,5,6].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length>=2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=3&&(migrations[2].version!==3||migrations[2].checksum!==productivityTagChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=4&&(migrations[3].version!==4||migrations[3].checksum!==productivityPinChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=5&&(migrations[4].version!==5||migrations[4].checksum!==productivityViewChecksum))throw new Error('Unsupported productivity migration before activation');
+ if(migrations.length>=6&&(migrations[5].version!==6||migrations[5].checksum!==productivityMatrixChecksum))throw new Error('Unsupported productivity migration before activation');
 }
 function active(reader:Pick<Gateway.AppWriteTx,'get'|'all'>):boolean {
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;

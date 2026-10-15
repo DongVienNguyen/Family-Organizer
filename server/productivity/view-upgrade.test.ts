@@ -19,7 +19,7 @@ function upgrade(){
  configureCanonicalTaskBridge({sqlite,gateway,migrations:{...migrations,registerDomainMigration:(ns,v,fn,sum)=>{if(v<=4)migrations.registerDomainMigration(ns,v,fn,sum);}},snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});fixture(tx=>activateCanonicalTasks(tx,legacyTaskDigest(tx.legacy.tasks)));
  const frozen=reader.all("SELECT * FROM app_migrations WHERE namespace='productivity' ORDER BY version"),tasks=reader.all('SELECT * FROM productivity_tasks'),schema=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');
  expect(inspectProductivityStorage(reader)).toBe(true);expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(schema);
- registerProductivityMigration({registerMigration:migrations.registerDomainMigration,registerSnapshot:snapshot.registerSnapshotTable,registerValidator:snapshot.registerSnapshotValidator});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});
+ registerProductivityMigration({registerMigration:(ns,v,fn,sum)=>{if(v<=5)migrations.registerDomainMigration(ns,v,fn,sum);},registerSnapshot:snapshot.registerSnapshotTable,registerValidator:snapshot.registerSnapshotValidator});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});
  expect(reader.all("SELECT * FROM app_migrations WHERE namespace='productivity' AND version<=4 ORDER BY version")).toEqual(frozen);expect(reader.all('SELECT * FROM productivity_tasks')).toEqual(tasks);
  expect(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")).toEqual({version:5});upgraded=true;
 }
@@ -31,8 +31,8 @@ it('shared snapshot captures v5 documents/grams and rejects incoherent index bef
  upgrade();const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));expect(saved.manifest.domains.productivity).toBe(5);expect(saved.tables.productivity_search_grams.length).toBeGreaterThan(0);expect(saved.tables.productivity_views).toEqual([]);
  const bad=structuredClone(saved);bad.tables.productivity_search_documents[0].content='synthetic inconsistent';bad.manifest.checksum=checksum(bad);expect(()=>snapshot.validateAppSnapshot(bad)).toThrow('Invalid productivity search snapshot');
 });
-it('future6 inspection refuses before schema mutation',()=>{
- upgrade();sqlite.sqliteConnection().prepare("INSERT INTO app_migrations VALUES('productivity',6,'future','2026-10-14T00:00:00Z')").run();try{const schema=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');expect(()=>inspectProductivityStorage(reader)).toThrow('Unsupported productivity migration');expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(schema);}finally{sqlite.sqliteConnection().prepare("DELETE FROM app_migrations WHERE namespace='productivity' AND version=6").run();}
+it('future7 inspection refuses before schema mutation',()=>{
+ upgrade();sqlite.sqliteConnection().prepare("INSERT INTO app_migrations VALUES('productivity',7,'future','2026-10-14T00:00:00Z')").run();try{const schema=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');expect(()=>inspectProductivityStorage(reader)).toThrow('Unsupported productivity migration');expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(schema);}finally{sqlite.sqliteConnection().prepare("DELETE FROM app_migrations WHERE namespace='productivity' AND version=7").run();}
 });
 it('schema5 retains personal pin reads from the earlier schema4 API',async()=>{
  upgrade();const {createTaskPins}=await import('./pins.js'),pins=createTaskPins({reader,write:gateway.withAppWriteTransaction});expect(pins.getPin({userId:UserRole.ADMIN,role:UserRole.ADMIN},'synthetic-index-upgrade')).toEqual({taskId:'synthetic-index-upgrade',pinned:false,revision:0});
