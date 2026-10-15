@@ -37,7 +37,7 @@ async function fixture(work:(f:any)=>Promise<void>){
 }
 
 const previewInput=(f:any,extra:any={})=>({viewId:f.admin.id,taskId:f.visible.id,targetColumnId:f.board.columns.find((c:any)=>c.sectionId===f.section.id).id,beforeTaskId:null,...extra});
-const applyBody=(p:any)=>({expectedRevision:p.taskRevision,input:{viewId:p.viewId,taskId:p.taskId,previewId:p.id,targetColumnId:p.targetColumnId,expectedViewRevision:p.viewRevision,expectedBoardRevision:p.boardRevision}});
+const applyBody=(p:any)=>({expectedRevision:p.taskRevision,input:{viewId:p.viewId,taskId:p.taskId,previewId:p.id,targetColumnId:p.targetColumnId,operation:p.operation,expectedViewRevision:p.viewRevision,expectedBoardRevision:p.boardRevision}});
 const plan=async(f:any,extra:any={},role=UserRole.ADMIN)=>{const r=await f.post('/boards/preview',previewInput(f,extra),role);expect(r.status,JSON.stringify(r.body)).toBe(200);return r.body.plan;};
 const full=(f:any)=>f.post('/boards/configure',{expectedRevision:reader.get('SELECT revision FROM productivity_boards WHERE id=?',f.board.id).revision,input:{listId:f.list.id,mode:'sections',policies:[{columnKey:'section:'+f.section.id,policy:'hard',limit:1}]}});
 it('move preview uses existing authentication and leaves canonical Task rows untouched',()=>fixture(async f=>{expect((await f.post('/boards/preview',previewInput(f),null)).status).toBe(401);const before=reader.all('SELECT * FROM productivity_tasks ORDER BY id'),p=await plan(f);expect(p.after).toMatchObject({id:f.visible.id,sectionId:f.section.id,lifecycle:'todo'});expect(reader.all('SELECT * FROM productivity_tasks ORDER BY id')).toEqual(before);}));

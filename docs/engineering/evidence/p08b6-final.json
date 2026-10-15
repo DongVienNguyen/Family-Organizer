@@ -1,0 +1,144 @@
+{
+  "taskId": "P08-b6",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/96",
+  "testedHeadSha": "49fb64357dbc79697847d70473df3d1f557bcc6d",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38784093844",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "5b5b9b5d59fe84c5ea5d8ba272052ac9af981e863222c7d463044d172c67db69",
+    "coverage": "932159ab0674f73e8d71b7a22ddfe4cca92d6e6098a61e04ba0b89d3d5503d17",
+    "package": "464a684a89529323a19ffebf67eda741101fad747d6698cd7c8610f1189a0bfd",
+    "service": "d3f6ebbdf102885ac4fb5f2731450784f7d2a9dfc96edbb8284ccf7fd997d7c0",
+    "caddy": "7a44794b0dca9b86fda5a60422da9ba32a1a707a742da00ef23c1f51e3aba483",
+    "extraction-sdk": "36788b2baae05036d1abb8136442b018c7a23acd1c96799303bd2d27d4b67674",
+    "inner-native": "144db18a4e9dbd428ddc58290320d5b761c6ca0927fa562873edffd26f8e2d2d",
+    "browser": "fc5499044ab3bdfcfd491ef19bcf277e15cb8fe77d4a9f1c093b3fa41aa7f283",
+    "productivity-browser": "a9e112d60c0af5cabef5b345129db4f1e7125f95db9df9e2ebd95f953ea4f0ae",
+    "board-package": "0f7bdfd879a626b6d0089b2fd7eb0c45787674455c6f4d5beee76ee889572d65"
+  },
+  "qualityEach": 3844,
+  "qualityFilesEach": 211,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "7d7b08293a29ca0e059d84cc0b2cf1b681a54ca12188e744d842d8136e9c486c",
+  "fullCiLogZipSha256": "89c0cedbac102abc18c905d2ed8d25e668f7d8917b0686edceac23fd7c366ef0",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Projection filters column.archived_at but not the canonical referenced section catalog archive marker. Existing section archive moves Tasks to None without immediately reconfiguring the board, leaving an empty archived section column visible. Filter the referenced section archive marker in both column count and metadata read, add actual structure.archiveSection regression proving fresh projection omits the column and preserves Task lifecycle."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Document the intentionally bounded whole-list SQL ACL budget (5000visible rows/16MiB bodies+provenance/20000tags/1000columns) before in-memory filtering/pagination, and process-local HMAC cursor refresh on restart/TTL. Do not describe this as large-data SQL keyset pagination or full P18 performance acceptance."
+      }
+    ],
+    "declinedBounds": {
+      "authority": "Ownedview/currentuser check thenresolveboard8 freshactive-listACL. TaskScope SQL before decodingTask/provenance/positions/tagrows. PrivatebadlegacyJSON characterization passes forchild; grantedmemberrevocation/foreignview/HTTPcacheheaders proven.",
+      "counts": "Every nonadmin gets activeRootCountnull/redacted independentofvisiblecount/filter; Admintrustedwhole-scopeSQLactive roots exclude terminal/trash/children, pendingapproval/blocked counted. No remaining-slot/privateexact count DTO. Existingstore enforcesglobalWIP.",
+      "paging": "StatelessprocessHMACclock/actor/view+boardrevision/visibleTaskidentity, TTL15m, page<=100, strict options no callerclock/actor, noauthgrant fromcursor. Boardsmetadata may invalidate cursor; no TaskID leak in token.",
+      "readOnly": "No schema/migration/Taskwrite/point/notification/cutover. Existingquerycollect reusedonlyafterSQLscalar budgets, no duplicate all-pages requery orN+1Taskfetch. Existingviewfilterlist narrowedintersection boardlist.",
+      "native": "Current8actualZIPprobe extended15threquiredcheck for admin/childownedview/projectedcanonicalIDs/privateWIPredaction/serverclock anddomainrows unchanged; existing14checks/9server/8native/3refusals retained. Cloud notnativeWindowsproof.",
+      "scope": "Only canonical section/workflow +groupnone/sortrank; othergroup/sort explicit422. FullP08moves/preview/adminoverride/audit/grouping/archivepreview andP09/P10/UI/laterplans remain. F08currentCIpromotiongrammar remains failclosed/preR01debt. NoServer2019/release/VPS."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "f7d8c049b96425db3f07303d9850658c393bc5b57d25a6e2f8a585bb3c85c8e8",
+      "scripts/windows/board-package-contract.mjs": "0636b9033263e6d848590b4dcb6b10df1b0f63eea20c9de61a5eaf0fdf726645",
+      "scripts/windows/probe-board-package.mjs": "96a52c7422190d5cdd246373662664edadcc1efebb933cbad88a2f8316e0d234",
+      "server/productivity/board-projection.api.test.ts": "b061968b27b79b3faa0896b6b5d21fb8ffe5c905246e7299136d4694c4500c04",
+      "server/productivity/board-projection.test.ts": "24db59fbcda8436e1448ff1447659b079c9e56d7a0c9617857580c68baf6af6d",
+      "server/productivity/boardProjection.ts": "1d247827f97151c4dc327d6d4a072e2f222cc6887513c1822cfd1fc889ad1111",
+      "server/productivity/boardRouter.ts": "4384ca2b69faed4b515c00339a2c2ab454ced6c6c7f892a30e4d5b24195b284d",
+      "server/productivity/ports.ts": "ac96f88752d49c4e3ff866379c2d798b3d265e0efff846169e4360aa24f02556",
+      "server/productivity/query.ts": "b4803c5ea77577ac3eef5e6a9baf88efa4d06705a77b0b9cf438d1c14c83fe4f",
+      "server/productivity/router.ts": "c1488c53498cf6752c7fa727d7711ec78a399d0327ae4b98d86262d9e6f58367",
+      "tests/board-package-evidence.test.ts": "1733588df9f1c10d0ca54c896ca25f76320b70c9caeeef6be04b2401bb54dbff",
+      "tests/evidence.test.ts": "b03324622774787263a44973436ae8fd0a84550dc964ebe6b1713932e7a83420",
+      "tests/helpers/board-package-fixture.ts": "c5d8b91dc925a6a2d9ac44ae6668d8ad85ce5e8d8983d86129ee5e5ad2abc5b3"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 18,
+      "passed": 17,
+      "failed": 1,
+      "case": "real section archive immediately removes its stale board column and retains Task lifecycle"
+    },
+    "correction": "Both canonical column count and metadata filter referenced section archived_at immediately. Actual existing archiveSection regression; documentation states whole-list bounded in-memory paging and process-local cursor restart/TTL. No rereview.",
+    "correctedTarget": {
+      "tests": 437,
+      "passed": 437,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 5
+    },
+    "lintExit": 0
+  },
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "boardProjectionHttpAccepted": true,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 8,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "clockEvidence": {
+    "strictObservationsPassed": 21,
+    "intervalAssertionUnchanged": true,
+    "initialFailureCause": "unobserved; original assertion did not retain actual values",
+    "sourceClockChanged": false,
+    "toleranceAdded": false
+  },
+  "mergeSha": "0439ac0f4b716477b0846a04cee157b7d769b373",
+  "mergeTreeEqualsTestedHead": true,
+  "treeVerification": "GitHub git commit/ref API; local fetch deferred until frozen tests complete",
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/96#issuecomment-6200015607"
+}
