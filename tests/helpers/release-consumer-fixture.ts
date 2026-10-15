@@ -1,3 +1,4 @@
+import {boardReportFixture} from './board-package-fixture.js';
 // Independent synthetic report fixtures match existing compiled-probe schemas.
 const records={
   "package-functional.json": {
@@ -388,4 +389,4 @@ const records={
     ]
   }
 };
-export function releaseConsumerFixture():any{return {reports:structuredClone(records),expected:{commitSha:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",runId:42},packageReports:{commitSha:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",runId:42,appVersion:"1.1.0",zipSha256:"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",packageReportAgreement:true,validation:{nodeExecutable:"C:\\synthetic\\fo package d\u1eef li\u1ec7u 11111111-2222-4333-8444-555555555555\\release with spaces\\bin\\node.exe"}}};}
+export function releaseConsumerFixture():any{const value:any={reports:structuredClone(records),expected:{commitSha:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",runId:42},packageReports:{commitSha:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",runId:42,appVersion:"1.1.0",zipSha256:"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",packageReportAgreement:true,validation:{nodeExecutable:"C:\\synthetic\\fo package d\u1eef li\u1ec7u 11111111-2222-4333-8444-555555555555\\release with spaces\\bin\\node.exe"}}};value.reports['package-board.json']=boardReportFixture();value.reports['package-board.json'].nodeExecutable=value.packageReports.validation.nodeExecutable;value.packageReports.manifest={runtime:{nodeExeSha256:'ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32'},native:{sha256:'e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a'}};return value;}

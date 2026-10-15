@@ -64,6 +64,9 @@ try {
     & $node (Join-Path $PSScriptRoot 'probe-online-recovery.mjs') $release $fixture $denied (Join-Path $ReportDirectory 'package-online-recovery.json') 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-online-recovery.log')
     $native.onlineRecovery=$LASTEXITCODE
     if ($native.onlineRecovery -ne 0) { throw 'Compiled online recovery regression failed' }
+    & $node (Join-Path $PSScriptRoot 'probe-board-package.mjs') (Join-Path $release 'app') $fixture (Join-Path $env:windir 'System32') (Join-Path $ReportDirectory 'package-board.json') $producer.zipSha256 2>&1 | Tee-Object -FilePath (Join-Path $ReportDirectory 'package-board.log')
+    $native.boards=$LASTEXITCODE
+    if ($native.boards -ne 0) { throw 'Exact ZIP schema8 board/recovery regression failed' }
     $code=0
 } catch { $_ | Out-String | Set-Content -LiteralPath (Join-Path $ReportDirectory 'failure.log'); Write-Host $_; $code=1 }
 finally {

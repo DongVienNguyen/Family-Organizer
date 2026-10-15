@@ -1,0 +1,183 @@
+{
+  "taskId": "P08-b5b",
+  "baseSha": "a4caf83f87a65a9dd4e560b772c3ef34436cbfdf",
+  "scope": "Actual bundled Windows ZIP semantic8 HTTP/restart/ordinary+encrypted independent recovery and refusal proof; compatibility1..8; default registration6/no startup DDL",
+  "fullGreen": {
+    "tests": 3811,
+    "passed": 3811,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 209
+  },
+  "junitCases": 3811,
+  "maxWorkers": 2,
+  "targetGreen": {
+    "tests": 547,
+    "passed": 547,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 6
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "buildReuse": "Built after pre-review full3810/209. Only standalone harness/contracts/tests/labels changed in correction; application source/build inputs byte-unchanged. Exact-HEAD Windows always rebuilds.",
+  "compiledHashes": {
+    "dist/server.cjs": "ca4784d0b278d7db0278ccb44dfd789e1b38cf2e600fcf0c3bcd4339b288fd60",
+    "dist/operator.cjs": "df323e7ccd67d63da7941f40b1dc62bcab19371eb638928cb0b8dfaedad24dd4"
+  },
+  "sourceHashes": {
+    ".github/workflows/ci.yml": "eee877b4171a9d8fd14a6a354d2c7e5d0d431d12ae86c9a781c9f19746e6ca53",
+    "scripts/ci/write-evidence.mjs": "baa535f96a971cad2b9edbde86c98a1130312a133330c669138dbbb2fc94b81e",
+    "scripts/windows/Test-Package.ps1": "d837e92c5ea2f83c885aae1948dc2c6c1b84188af30fcd08bec936f8a1601389",
+    "scripts/windows/package-contract.mjs": "912909de5a91062807729bdbd33465331d0a44cf06e44e7487551d59e8cc1d74",
+    "scripts/windows/release-consumer-reports.mjs": "4cee32091b70ad02fcede9e3e0ea643c4ba5fd2730d231bfd57fe3d93c6d08c3",
+    "scripts/windows/release-manifest.schema.json": "fd1b9e8f302d1af2f0ce2e16d891a5f16fc3f5f59de2b804978b68089cdf15a2",
+    "scripts/windows/release-package-reports.mjs": "34eb41807681f78e1474834df2e3f763050505ccf464654aa6dc8bd69e08aa80",
+    "scripts/windows/write-manifest.mjs": "8a121bad21728c1c571108228fe9e090bd045f9e2050366c68cc7133faa699c2",
+    "tests/evidence.test.ts": "bad33c6d9435132e1c5d1ddbc9849e49489134c559e179542bb927abd997d841",
+    "tests/helpers/release-consumer-fixture.ts": "cecfa1f2dd5a42b3fe99379773e849e25e5d9be05e2588684c82ba7dd7f3ffaf",
+    "tests/helpers/release-inner-fixture.ts": "7ea5915f9ace46788da4a7b430ccb790a0e9391248bc513300ea9f78bc3da161",
+    "tests/release-consumer-reports.test.ts": "67a491a7db8f4c9fdf3c3fcb56e66a74515a2313c91187eee56ce79c433c5c61",
+    "tests/release-package-reports.test.ts": "52f2b7893d5d7b5e877bcc4f789da8d6b1fcd18f39701cfb2e12d087e07167d6",
+    "tests/windows-package.test.ts": "1072cdcb5c57715992d20bea2af4da9c4d91648f4ce2d732d62a019a7c1ff6d5",
+    "scripts/ci/write-board-package-fixture.ts": "d99f7d9271ad0bc411eb43daa725d105374c56ac3cac95f99743fd94a1405005",
+    "scripts/windows/board-package-contract.mjs": "4c5fa0315875fbc33b357018cda132618d74397251a9edb24df4adcd39e952ec",
+    "scripts/windows/probe-board-package.mjs": "610b37c661744e1660a25ccfb60995606596b169d7657d6e50b8464662fd7aa6",
+    "tests/board-package-evidence.test.ts": "0b491ba90cd0f2df0408107d3ba30857c678aca45e889a3a1a15bfbff6d1ae3a",
+    "tests/board-package-fixture.test.ts": "eaf99adb7bd3d1c5abf26f6b2d5992a598aaa7a161b99e2f61da36dc3dcdabb8",
+    "tests/helpers/board-package-fixture.ts": "79a9b84f3d4347cb392cdd3964903957abc0021f4f0f5e2fb0b6401b6318c451"
+  },
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "4668646a04d1fe5a3ca303e11c2085dba4ad7436",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "The independently seeded target uses the same board reference as source, so a restore leaving target-owned references untouched could pass. Seed a distinct target board ID across its FK rows and saved config; assert inequality before restore and exact source reference after restore; require that fact in raw contract and mutation tests."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Two package compatibility test titles still describe max6/future7 despite current max8/future9. Correct labels without removing assertions."
+      }
+    ],
+    "declinedBounds": {
+      "runtime": "Only synthetic fixture/CI/package advertisement changes; no production schema activation/new app route, migrations1\u20138 and Wallet1 frozen. No providers/network/production credentials. Existing schema6 raw assertions preserved.",
+      "evidence": "Actual Windows bundled Node/addon identity and ZIP hash mandatory, exact nine server/eight native phases and three DB-preserving refusals. Cloud is diagnostic; no platform bypass. New report mandatory at consumer and package native exits.",
+      "cleanup": "Connections close in finally, processes have bounded stop/operator deadlines, isolated roots removed. Negative restore metadata/DDL/bytes/journal preserved. Failed native report remains failure.",
+      "historicReleaseGap": "F08 fixed four-command trusted source grammar already rejects current prior generated6/Wallet1 workflow; remains failclosed/release disabled. Separate focused generated-fixture policy adaptation tracked, no relaxed acceptance or release claim.",
+      "scope": "Full P08/projection/private counts/moves/override/audit/UI/completion and Server2019/R02 remain incomplete."
+    },
+    "reviewedSourceHashes": {
+      ".github/workflows/ci.yml": "eee877b4171a9d8fd14a6a354d2c7e5d0d431d12ae86c9a781c9f19746e6ca53",
+      "scripts/ci/write-evidence.mjs": "baa535f96a971cad2b9edbde86c98a1130312a133330c669138dbbb2fc94b81e",
+      "scripts/windows/Test-Package.ps1": "d837e92c5ea2f83c885aae1948dc2c6c1b84188af30fcd08bec936f8a1601389",
+      "scripts/windows/package-contract.mjs": "912909de5a91062807729bdbd33465331d0a44cf06e44e7487551d59e8cc1d74",
+      "scripts/windows/release-consumer-reports.mjs": "4cee32091b70ad02fcede9e3e0ea643c4ba5fd2730d231bfd57fe3d93c6d08c3",
+      "scripts/windows/release-manifest.schema.json": "fd1b9e8f302d1af2f0ce2e16d891a5f16fc3f5f59de2b804978b68089cdf15a2",
+      "scripts/windows/release-package-reports.mjs": "34eb41807681f78e1474834df2e3f763050505ccf464654aa6dc8bd69e08aa80",
+      "scripts/windows/write-manifest.mjs": "8a121bad21728c1c571108228fe9e090bd045f9e2050366c68cc7133faa699c2",
+      "tests/evidence.test.ts": "bad33c6d9435132e1c5d1ddbc9849e49489134c559e179542bb927abd997d841",
+      "tests/helpers/release-consumer-fixture.ts": "cecfa1f2dd5a42b3fe99379773e849e25e5d9be05e2588684c82ba7dd7f3ffaf",
+      "tests/helpers/release-inner-fixture.ts": "7ea5915f9ace46788da4a7b430ccb790a0e9391248bc513300ea9f78bc3da161",
+      "tests/release-consumer-reports.test.ts": "67a491a7db8f4c9fdf3c3fcb56e66a74515a2313c91187eee56ce79c433c5c61",
+      "tests/release-package-reports.test.ts": "52f2b7893d5d7b5e877bcc4f789da8d6b1fcd18f39701cfb2e12d087e07167d6",
+      "tests/windows-package.test.ts": "56efd656349480a2ccbf6b6aa5ef0ed641e654df97278818ae973a518f3e9d34",
+      "scripts/ci/write-board-package-fixture.ts": "d99f7d9271ad0bc411eb43daa725d105374c56ac3cac95f99743fd94a1405005",
+      "scripts/windows/board-package-contract.mjs": "ab80ef1ac6b993639eb182452c7b44b46de20201ac70153b0fb2423457e190ed",
+      "scripts/windows/probe-board-package.mjs": "4aab3be3ac0fd2868f4ea44646768346644fbfd7a2bc42a53f8a48bc70b8fb1a",
+      "tests/board-package-evidence.test.ts": "19e618b244895bb362ebcd2c9deb90f31acf62e93a54754e83044dce35212c0c",
+      "tests/board-package-fixture.test.ts": "eaf99adb7bd3d1c5abf26f6b2d5992a598aaa7a161b99e2f61da36dc3dcdabb8",
+      "tests/helpers/board-package-fixture.ts": "6558e8be241ceca4049d0553e505874db798af2a5795c8638652f41f5be530e6"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "correctionScope": "I1 distinct target board ID and mandatory report/mutation proof; M1 current compatibility labels. No rereview. Important source assertion only runs on real Windows; no Cloud native RED claim."
+  },
+  "reports": {
+    "p08b5b-target-green.log": "1b2b142c864f593e84f6d07f9f357d712418db179901464ad0f8c7cc6b5c5edf",
+    "p08b5b-corrected-target.log": "cb27902b369b1991d8a8dae3d381b172c604a3349d045c8dbfa065a2c63b25ba",
+    "p08b5b-bounds-red.json": "bf73917d933297ecbfc8b9cec93bc76c3d8a2d04b243d923abe441926f73c7bf",
+    "p08b5b-gate-red.log": "8b9edddc8b8615d1b7fa6b093bb8f56233834a9daaba3696b7b83d9ec9dcd18d",
+    "p08b5b-consumer-gate-green.log": "3effc30f53773325e7773da447912c930259d7f88c260a55c7a115e3548c9996",
+    "p08b5b-consumer-gate-green.json": "7ec3659c43e13e6c48c00aa5294ca2772231f22b7918700c4c3a0eefa04116a3",
+    "p08b5b-cloud-fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p08b5b-fixture-first.json": "4a98f95088ecefb48ff86c9bdfee6f7bed30ff7dd7ff55815f8fca645e3ffe5c",
+    "p08b5b-fixture-first.log": "9368ae0ffcab0bc38e4c75f6f5dfe8694c55c963a11cd03a6efe7369b087d675",
+    "p08b5b-cloud-fixture.json": "7054c5dc7ea6509c01ccc3302ba1c09340b8ab317830642f756ac25383125d61",
+    "p08b5b-corrected-target.json": "86244acc1db55fb4215ff8c69cd85cb2bf6805aad702e6938b52ea16b27f9faf",
+    "p08b5b-build.log": "651420a820848b1c09bf52ff158d5c6d12a51590aa696ac65a10a2b010ab845e",
+    "p08b5b-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b5b-bounds-red.log": "848133c14adad0ffb8afbe5f1b461f69bb919d6140c5435c2d7f29c981d29053",
+    "p08b5b-corrected-full.log": "abcbe89193a2d7dbf6ee69c1d01ba0ebc13b2be6bd4dfa0c66e65ac34fc128ab",
+    "p08b5b-gate-red.json": "60d4a94ce8b5422c088c582282707f260d3f8d434f3f3dd6a17cb1981b1e5c3e",
+    "p08b5b-bounds-green.json": "71e9f294cc19101630eb0d233d0d96b9a94ac12ef3fb65a761b09c306195be36",
+    "p08b5b-evidence-red.log": "aa78b5c890df0bd2f2763c0b73bce5adf2ab89fe6fa85d6c529e6bf469d380ed",
+    "p08b5b-evidence-green.json": "ee585d63b5d466f32092c87a35b936c3d8041edace20f3ec564238513a95bbcc",
+    "p08b5b-review-rulings.json": "58cb7bc5de5bf782aa7c1d583e319d5e31d946edfb2ac8f31c14c367ed788094",
+    "p08b5b-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b5b-corrected-full.junit.xml": "d27d0e1c2c9a2f86f1fc7590c81d760c546255d73b7f6d438fc7a10299034b53",
+    "p08b5b-evidence-green.log": "e22a68a8a408386ac449fe212ff11481a33b0b230e458592fc495b832c1cb2bc",
+    "p08b5b-full.json": "a0075e3d20cbba4a0e63111ed6c971471d57a8d7fd53111680002e3d41e997f8",
+    "p08b5b-target-green.json": "7e43f2164019f73bd83e3faff33232a29486967c54225e52fd0e5e3ea4814d7d",
+    "p08b5b-evidence-red.json": "664a2eecb1862e92051b8ded07db3f7353eaa7495a522f0aca9fb8154bc54dc9",
+    "p08b5b-full.log": "9a7205b87f0192715477271c1030378c1b24c8159c6c27a721951b8808e7af75",
+    "p08b5b-bounds-green.log": "3e47d597e9176a5dc500df849899ee0290330a0da45b51e6f02538e87f9fffe1",
+    "p08b5b-corrected-full.json": "534e0ceb6b45f7cd4cb50b6aed0be74d6a9338bed7e9fd81b9fbc32884fd7a8c",
+    "p08b5b-full.junit.xml": "2109db893669b4a173892e5a71ac81c07102bd0644c7118ef9a46683c6e30adb",
+    "p08b5b-consumer-gate-red.log": "12d02db49d5c7319af70674ae986dae10f3b61d823d78ed54ab36f026cce32e0",
+    "p08b5b-consumer-gate-red.json": "5d3200ee6feb7f1141a0177b338785c38f22897dbe2964932bdc866120aea934"
+  },
+  "cloudPlatform": "linux",
+  "windowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "newSchemaPromotedZipAccepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "remaining": "ExactHEAD Windows native probe and ten raw families/full logs; F08generatedfixture policy; Boardprojection/privatecounts/previewapply/overrideaudit/grouping/archive/P09/P10/laterplans",
+  "historicalFailuresRetained": {
+    "boundsRed": {
+      "tests": 102,
+      "passed": 94,
+      "failed": 8,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "consumerRed": {
+      "tests": 114,
+      "passed": 106,
+      "failed": 8,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "gateRed": {
+      "tests": 253,
+      "passed": 251,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "fixtureLoader": {
+      "tests": 2,
+      "passed": 1,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "causality": "Bounds/consumer/gate REDs genuine omissions. Initial fixture TSX loader error corrected with absolute URL; invalid-source fixture strengthened to require actual generator identity error. I1 exact target-reference replacement asserted by native Windows-only probe, no Cloud causal native-RED claim."
+}
