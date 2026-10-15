@@ -1,0 +1,87 @@
+{
+  "taskId": "P07-b",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/88",
+  "testedHeadSha": "2d5696e8474afa14a5c88066d073bd813b7e286a",
+  "mergeSha": "d625190bcdc7a8c40518ef2c960e5966774e42cb",
+  "mergedTreeEqualsTested": true,
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38753326627",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "qualityEach": 3596,
+  "qualityFilesEach": 196,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 9,
+  "zipSha256": "6f019c26618de2fb4b647bb7f798fb6bb9ff27bdef8b8ddff95d07746d169883",
+  "fullCiLogZipSha256": "4eb2d50ce9c931536014ce47cf3f30261f020ea331fe424ef610521e0a6e2f14",
+  "proofComment": "https://github.com/DongVienNguyen/Family-Organizer/pull/88#issuecomment-6195083359",
+  "summaryHashes": {
+    "quality": "b8fa4cbe1f2cfb2cc3f606150e129a904ba2cf518d5b7d873da7800b873c3481",
+    "coverage": "98dc42839c1dceb8a982cf728389c9e3249af2ab741ca044cab2f86bbe6e0758",
+    "package": "c69fd395711e4d11395e9079c61e46241fd9160e54c1b1b4f3f801b81a45f57c",
+    "service": "de3cc236c961b8a7cd4e96073095a305ec2c4bca7f3e7503fe3387065ba97f92",
+    "caddy": "516fbfbf17d9955ec0bf79fd238febb200021f431ca5338dec885959fd6d67cc",
+    "extraction-sdk": "414edc5a585a2d724db238175f30e87d645fcbb7f7ef4a418666d529fd02d567",
+    "inner-native": "34367ab4ae991a23e3cdc2bdf19d8e8d8885f7e5033c2557cde3565411eab292",
+    "browser": "7afeebb2af94ba9320e98b982ab172d127f833f141509921588f786565976b70",
+    "productivity-browser": "30dceebf0744d2dabaf4b8bf1c452b0f64a09d5898208e3caf24b5415788e789"
+  },
+  "fullCiLogFiles": 132,
+  "fullCiLogLines": 21244,
+  "expectedSyntheticStderrLines": 16,
+  "unexpectedLogMarkers": 0,
+  "wholeBranchReview": {
+    "kind": "self-review",
+    "critical": 0,
+    "important": 2,
+    "minor": 2,
+    "allGraded": true,
+    "oneCorrectionPass": true,
+    "rereview": false
+  },
+  "nativeControlCorrection": {
+    "important": 1,
+    "causalRed": "46/42/4",
+    "finalBudget": "existing three complete reads; pinned parents/full validation",
+    "exactPriorNtfsInterleaving": "unobserved"
+  },
+  "fullP07Accepted": true,
+  "fullP08Accepted": false,
+  "defaultActivation": false,
+  "server2019Acceptance": "not-run",
+  "physicalTouchAcceptance": "not-run",
+  "releaseTagVps": false
+}
