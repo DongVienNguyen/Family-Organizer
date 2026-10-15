@@ -81,3 +81,9 @@ it('selection HTTP enforces finite admission and keeps recent expiry identity pr
  const page=await send('/query',UserRole.MEMBER,{filter,timezone});expect(page.status).toBe(200);const first=await send('/query/'+page.body.queryId+'/selection',UserRole.MEMBER,{});expect(first.status).toBe(200);expect((await send('/query/'+page.body.queryId+'/selection',UserRole.MEMBER,{})).status).toBe(200);expect((await send('/query/'+page.body.queryId+'/selection',UserRole.MEMBER,{})).status).toBe(429);
  setNow(Date.parse('2026-10-15T01:15:00Z'));expect((await send('/selections/'+first.body.id+'/resolve',UserRole.MEMBER,{})).status).toBe(409);expect((await send('/selections/'+first.body.id+'/resolve',UserRole.CHILD,{})).status).toBe(404);
 }));
+it('refines a smart view without replacing its assignee scope or lifecycle',()=>fixture(async({send}:any)=>{
+ tasks.createTask(ctx(),{listId:'legacy-family',title:'Synthetic assigned member',assigneeId:UserRole.MEMBER});tasks.createTask(ctx(),{listId:'legacy-family',title:'Synthetic assigned admin',assigneeId:UserRole.ADMIN});
+ const inbox=await send('/query',UserRole.MEMBER,{smart:'inbox',refine:{query:'dua don tre',priority:['none']},timezone});expect(inbox.status).toBe(200);expect(inbox.body.totalUnique).toBe(3);
+ const assigned=await send('/query',UserRole.ADMIN,{smart:'assigned',refine:{assigneeIds:[UserRole.MEMBER]},timezone});expect(assigned.status).toBe(200);expect(assigned.body.totalUnique).toBe(0);
+ for(const refine of [{includeTrash:true},{lifecycle:['completed']},{rootsOnly:false}])expect((await send('/query',UserRole.MEMBER,{smart:'inbox',refine,timezone})).status).toBe(400);
+}));
