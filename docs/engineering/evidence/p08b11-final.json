@@ -1,0 +1,137 @@
+{
+  "taskId": "P08-b11",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/102",
+  "testedHeadSha": "3178c5a1b17fbbe82a2610c3547731811a4cf401",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38816654445",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "9cb7a7a8fc5735a2de393b387c14f1a65012ed14b13c88ba985755e393567f7e",
+    "coverage": "6768f5faa74ef26c43f235f62d5a0c796e3e042cb09746905fe12d8e6216a1aa",
+    "package": "9cb8241941206924769d9b3d9465da77d7ed2c351772345a3294322cf60630d8",
+    "service": "ea3907ca42d8f8eeed4f0af1dc0e351c0256fe696fbd581022459549a49ac58d",
+    "caddy": "8085ff43c349623b46dd0b7915e454643c7a4eb06a990c546fd2c9bc05e2bf34",
+    "extraction-sdk": "ca5faf4e2d62f41a0b2ac83cf1bf6663ef19e87f3081ff408e7c29bb8a870a1c",
+    "inner-native": "420f75ea9ad09aafd074da7ad09b9bc07bac0ea15dc2e92851dff07afa94df6b",
+    "browser": "43092c82bb2cd44886b6daf0636f828c28d06bef55669710beeed2eec1d948dd",
+    "productivity-browser": "3978c6a240c9db2d6a2ed2567e883879d9aa539718ea10579d2acc368443228f",
+    "board-package": "ed90ae3f1381e33fb5b438e2a328b3045bd72b4abd7c6a3e9e63b055b7db7cc5"
+  },
+  "qualityEach": 4117,
+  "qualityFilesEach": 231,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "a3f08275876674eab549c775ae0dbfcedfa8f1f0c193ce6ed83d8d21788d8075",
+  "fullCiLogZipSha256": "0d7d70bdebabda49526ae0abb137d376b502b7d6dbff7db43b484cc9d942dc04",
+  "review": {
+    "reviewer": "one whole-branch self-review; current skill catalogs empty; no delegated reviewers",
+    "baseSha": "09724d3b04ace16518df128ca7ecd5f1be8035c5",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "allFindingsGraded": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "status": "CLOSED; full Cloud/build pending; Windows native acceptance pending",
+    "reviewedSourceHashes": {
+      "docs/engineering/kanban-tag-groups.md": "86e4069434e7a11ec9e213b722af506b9e6e86afe5884c0ce5f08c77c8bcdbb9",
+      "scripts/ci/write-board-package-fixture.ts": "5c9816dd04d4bcf517fd8f4363504b0b217eb1436eee126d9e61fc8be9ab08e9",
+      "scripts/ci/write-evidence.mjs": "f359e839e458a1fb5ac462de870e1e21d571a04c9318811f1559a8eef27b0107",
+      "scripts/windows/board-package-contract.mjs": "ef4690b0fd158411e61851c046f9338ff4e9e9d07b67e92e2f15dfc5c5f872de",
+      "scripts/windows/package-contract.mjs": "3450b27500231e2e798eecd808932e4c74174c128ea0c69fcc51a7735d3f316a",
+      "scripts/windows/probe-board-package.mjs": "81afccb6a62c9cfa0ac73ce9c772af305d86982b06215bca17ea1658265ec49e",
+      "scripts/windows/release-manifest.schema.json": "c71a48704ed4b04ed2f47bceb062d0fc0f6527ee7195617ef370d8e7cff3c5b8",
+      "scripts/windows/write-manifest.mjs": "b77bd7d222af0fb9aa27c8dbb05cfabde6f40082a1d8e9ce995f680b67acb715",
+      "server/productivity/adapter.ts": "70bf50e2821c8475f804ea245dda78a62da0b6687e60935ba55f8119ec721528",
+      "server/productivity/boardCatalog.ts": "00f27c988345e854d63cafe04d719ae2730dbaa076289ce32acfb508c3145e76",
+      "server/productivity/boardViewSchema.ts": "1cac6422d23c5cd3dddc80c540621f9d52327d5421af8393b9f7584ad6484107",
+      "server/productivity/group-view-schema.test.ts": "491ff665762763928bf9765f4d47a52b0ded6bc9b5468d839a5e9656b4fe0d53",
+      "server/productivity/groupViewSchema.ts": "7d3bdb51ddcc24c1ddfc3ca61e6169b4a2b2639386a76e0285a9eb2843b7ce0e",
+      "server/productivity/groupedBoard.ts": "c0765b62a20278e14cd7e5181ff0a241e3ab37f0bb716e1f49dda3c4fb565b4d",
+      "server/productivity/groupedBoardMoves.ts": "c16b2751b12ba146a4ea5212eb5f5bae03701d4edc36d15c2d1338665cbe34a2",
+      "server/productivity/inspection.ts": "ce45d1a8ee5999a0477e97c6245e1ecd6e45c89b01e8b2f044e686227c7bb92e",
+      "server/productivity/matrix.ts": "b3a9a9344cd44349eea9b682ab29ff76198f6c7f95b9e98953f6f5086f07bee9",
+      "server/productivity/sectionBoards.ts": "941e8ed0358536ce48979e5710d19e1c15cd1bc1eeaf68af7bc96cd6a308765d",
+      "server/productivity/snapshot.ts": "0f18064462ee0d5bfca11437041304135cfd69eefca4b82a3eae88dfdfb03224",
+      "server/productivity/structure.ts": "db5aa42b684a2a8d9368397abe20a01ed01afba25dd1a9dcc39aaee5b379da1b",
+      "server/productivity/structureInvariant.ts": "d5b6b20baa349ed4b1c7cd004c352c71e5691855c898a0f12347624d750062c9",
+      "server/productivity/tag-group-moves.test.ts": "b36db9d4d91798e9bbe62451de5a5ce429eccbd6e335079adf84b5b7fc341b0a",
+      "server/productivity/tag-groups.api.test.ts": "ced6526d489c836c384a7168212d64916190972657ae512909ba278a1413b927",
+      "server/productivity/tag-groups.test.ts": "ce4546571a972ac56ff957e2781db6a63e2a8ae59e6ddec277c63eb649662e8f",
+      "server/productivity/views.ts": "201fa08bc9809c75ca7e8b43bf5e76d8e255a206d122d7b1e80937260408ee25",
+      "src/features/productivity/api.ts": "ea59dd66669ea092f8085689d029addd40cba7e4cfe71d608ebc3fa35c94b9f4",
+      "src/features/productivity/contracts.ts": "ec25d78578389e2db766da58866fb5d5fc84245c924996d69a364f57120f4fe9",
+      "src/features/productivity/group-view-format.test.ts": "5abb1facb280e1fe017ef588342929dbcca4dc9ab4db46215774b5ed37b0c2dc",
+      "src/features/productivity/query-api.test.ts": "dd8f92d312354ced524e0e048b427190636cba2443f77fae5eba5b6a808d0c6e",
+      "src/features/productivity/savedViewDraft.test.ts": "c9d90da55ebf8157704af91bdb17f37e9e998f2790deda88be5e1b8e64075143",
+      "src/features/productivity/savedViewDraft.ts": "ad7ca96f45d2e9bc29502bdd1288c72c020c4fabbc6db61e8d6132f7abb852ec",
+      "tests/board-package-evidence.test.ts": "f8132b374993b6f0ba443b41f67af03e2782ccb36eff79b9040ccbc5137972af",
+      "tests/board-package-fixture.test.ts": "54422cece703b159d83bfc71668320efac4dc7135256ab7eaa2d388b3b203652",
+      "tests/evidence.test.ts": "0d26b78d9c2b265ecedf5f1e85670b6c0c914753242d1bf0b3cec330782d3852",
+      "tests/group-view-native.test.ts": "e2d2fcab6647ecf67e3881c43f973d09bab505d2ed5dcc2729b606d4c6fd6a64",
+      "tests/helpers/board-package-fixture.ts": "d402d0e10f89bc4b981e890a04b73f5334420df49fefb6d72e453290b070e46c",
+      "tests/helpers/release-inner-fixture.ts": "b4ccc1d4351de5cdd0db6d9dd72b91240522c966630dc625dc01508a108dbb33",
+      "tests/release-package-reports.test.ts": "7db659d4d396686f350abac5385cfce569964506ab21e73ee220fc5f51b15913",
+      "tests/windows-package.test.ts": "b9883528ca4f956ecc48c4dd9b8509cca5e4e696dcb23673b1747b5010343d0f"
+    },
+    "bounds": {
+      "format": "Explicit semantic9/noDDL; old contracts default8 and old8 tag snapshot refused; frozen1\u20138 identities untouched/default6/no startup upgrade; owned format9 saved/read/list/client marker.",
+      "read": "Existing TaskSQLACL scopes row/byte/tag/group/reference admission beforebody; canonicalbodiesunique/page, visualrefs20000 signed cursor bound; private task/tag IDs absent.",
+      "write": "Same updateTaskWithinTransaction/I01; tagtargetexisting/selectable/active pre-cache and inside transaction; metadata digest bound; All add/replace explicit; other tags preserved; actualGroups and actualdestination; no lifecycle/points/newwriter.",
+      "restore": "Compiled native schema9 mixed recovery plus old8 noDDL/refusal; new Windows ZIP retainsold7/future/index checks and previous19/25strictclocks, adds old8compat+tag; expected22/11server/10native/4refusals/27strictHTTP/100IPC. ActualWindowsstillpending.",
+      "evidence": "Six required suites/failclosed rawtag flags and nativeclocks. Actualgate374/352/22RED\u2192518/5GREEN; bounds104/95/9RED\u2192104GREEN. Pythonanchor assertion failedbeforemutation, corrected; no npm ran after that failure. OriginalgeneratorSyntaxError+NoFiles failure retained not causalRED.",
+      "scope": "PersistedTag domain/transport/recovery only; manualgroupordering/othersorts/P09UI/fullP10/I03/laterP/W/R unfinished; no release/tag/VPS/Server2019."
+    }
+  },
+  "fullP08Accepted": false,
+  "persistedTagGroupingAccepted": true,
+  "groupFieldApplyAccepted": true,
+  "fullP10Accepted": false,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 9,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeCommitSha": "70abd3bfd023e36b45706c5cc615f2489e71742c",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/102#issuecomment-6203716148"
+}

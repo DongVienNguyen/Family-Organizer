@@ -1,3 +1,4 @@
+import {completionPolicy,markAcceptedCompletion,linkedCompletionGrant,reverseAcceptedCompletion,withCompletionPolicy} from './completionPolicy.js';
 import {hashPassword,verifyPassword} from './passwords.js';
 import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
 import {currentLegacyActor} from './legacyActor.js';
@@ -23,6 +24,7 @@ import {
   UserRole,
   FamilyRelation,
   Task,
+  TaskStatus,
   FamilyPlan,
   Note,
   FinancialTransaction,
@@ -870,6 +872,7 @@ export class FamilyDB {
       // mỗi lần hoàn thành là một lượt được thưởng riêng, cộng dồn.
       const isReopening = oldTask.status === "completed" && updatedTask.status !== "completed";
       if (isReopening) {
+        if(completionPolicy(currentAppWriteTx()!,updatedTask.id)?.operation==='reopen'){updatedTask.completedAt=null;updatedTask.completedById=null;}
         updatedTask.pendingApproval = false;
         updatedTask.submittedById = null;
         updatedTask.submittedAt = null;
@@ -883,6 +886,7 @@ export class FamilyDB {
         this.notifyAdults(db, "⏳ Chờ duyệt hoàn thành", `${submitter?.fullName || "Bé"} báo đã xong "${updatedTask.title}". Vào duyệt để cộng ${updatedTask.rewardPoints} điểm nhé.`, "task", {domain:'task',id:updatedTask.id});
       }
 
+      if(effectiveCompleting)markAcceptedCompletion(currentAppWriteTx()!,updatedTask.id);
       if (effectiveCompleting && updatedTask.rewardPoints && updatedTask.rewardPoints > 0) {
         // Ưu tiên trẻ đã "báo xong" (submittedById) — để khi ba mẹ duyệt, điểm về đúng
         // trẻ đã làm chứ không phải người duyệt; nếu không có thì dùng người được giao / người bấm.
@@ -892,7 +896,8 @@ export class FamilyDB {
         // mở lại). Chốt effectiveCompleting = chỉ cộng đúng lúc CHUYỂN trạng thái nên không
         // bị cộng trùng khi chỉ sửa/lưu lại một task vốn đã hoàn thành.
         if (awardUser?.role === UserRole.CHILD) {
-          db.rewardLedger.unshift({
+          const linked=linkedCompletionGrant(currentAppWriteTx()!,{taskId:updatedTask.id,userId:awardUserId,points:updatedTask.rewardPoints,actorId:userId,reason:`Hoan thanh: ${updatedTask.title}`});
+          if(!linked)db.rewardLedger.unshift({
             id: `reward_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
             userId: awardUserId,
             taskId: updatedTask.id,
@@ -1035,6 +1040,17 @@ export class FamilyDB {
     if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
     return this.saveTask({ id: taskId, status: "completed" as any }, approverId, approverName);
 
+    });
+  }
+
+  /** Explicit semantic policy only: the original completion grant is reversed
+   * through RewardStoreTx under the same FamilyDB/I01 owner. */
+  public static reopenTask(taskId:string,userId:string,username:string,revision:number):Task {
+    return runLegacyCommand('reopenTask',[taskId,userId,username,revision],userId,()=>{
+      const db=this.readRaw(),actor=taskActor(db,userId),task=db.tasks.find(t=>t.id===taskId);if(!task)throw new AppStoreError('Không tìm thấy công việc',404);requireTaskEdit(task,actor);
+      if(task.status!==TaskStatus.COMPLETED||task.pendingApproval)throw new AppStoreError('Chỉ mở lại công việc đã được hoàn thành.',422);
+      const tx=currentAppWriteTx()!;reverseAcceptedCompletion(tx,taskId,userId);
+      return withCompletionPolicy(tx,{taskId,revision,operation:'reopen'},()=>this.saveTask({id:taskId,status:TaskStatus.TODO},userId,username));
     });
   }
 
