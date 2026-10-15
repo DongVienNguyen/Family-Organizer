@@ -229,5 +229,14 @@
   "fullP08Accepted": false,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
-  "remaining": "P08grouping/archivepreview/workflowP10/P09UI andlaterplans; F08currentCIpromotionpolicy debt failclosed/preR01"
+  "remaining": "P08grouping/archivepreview/workflowP10/P09UI andlaterplans; F08currentCIpromotionpolicy debt failclosed/preR01",
+  "composition": {
+    "checkedBranchSha": "d5f8eafe58b36d0d6052e73f13462fde079c3c73",
+    "acceptedBaseSha": "0439ac0f4b716477b0846a04cee157b7d769b373",
+    "compositionSha": "5e35509f5d9cc397de6c338085c0ec33e12ab48b",
+    "entireTreeEqualsCheckedBranch": true,
+    "conflictsResolvedFromExactCheckedBranch": 10,
+    "cloudReportsReusedForIdenticalTree": true,
+    "exactHeadWindowsRequired": true
+  }
 }
