@@ -1,7 +1,7 @@
 {
   "taskId": "P08-b4",
-  "baseSha": "626772f8165d2ecf6087406ff30eef955c0eef9d",
-  "baseAcceptance": "PR92 acceptedmain67473ce; compose before focusedPR",
+  "baseSha": "67473cea8224332a0337178cd885862fecc717cb",
+  "baseAcceptance": "PR92 accepted exactWindows38764042491; mergedtreeequaltested626772f",
   "scope": "Shared canonical board configuration plus internal session HTTP, no fullboardprojection/move/UI/defaultcutover",
   "fullGreen": {
     "tests": 3741,
@@ -190,5 +190,12 @@
   "fullP08Accepted": false,
   "exactWindowsAcceptance": "pending",
   "server2019Acceptance": "not-run",
-  "releaseOrVps": false
+  "releaseOrVps": false,
+  "reviewedBaseSha": "626772f8165d2ecf6087406ff30eef955c0eef9d",
+  "composition": {
+    "composedCommit": "891885e48e6115ec8c98ae7f5c1e685d85bd9b61",
+    "priorBranchCommit": "0459e4c1f067a549656eca08bd39d48f5c5e1f0e",
+    "entireTreeEqualsPriorBranch": true,
+    "cloudReportsReusedReason": "Entire composition tree equals checked branch; only acceptance docs follow, new exact-HEAD Windows mandatory."
+  }
 }
