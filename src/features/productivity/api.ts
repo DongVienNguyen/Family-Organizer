@@ -18,7 +18,7 @@ function queryValue(value:unknown):TaskQueryPage {
  const page=object(value);text(page.queryId,256);integer(page.totalUnique);if(page.nextCursor!==null)text(page.nextCursor,2048);if(!Array.isArray(page.items)||page.items.length>100)throw Error('Invalid query page');
  const items=page.items.map(task=>taskValue(task));if(items.length>page.totalUnique||new Set(items.map(task=>task.id)).size!==items.length)throw Error('Invalid query task IDs');return {items,totalUnique:page.totalUnique as number,nextCursor:page.nextCursor as string|null,queryId:page.queryId as string,clock:clockValue(page.clock)};
 }
-function savedViewValue(value:unknown):SavedTaskView {assertTaskView(value);const row=value as SavedTaskView;text(row.title,500);integer(row.revision,1);return structuredClone({id:row.id,ownerId:row.ownerId,revision:row.revision,title:row.title,filter:row.filter,kind:row.kind,config:row.config});}
+function savedViewValue(value:unknown):SavedTaskView {const format=object(value).formatVersion;if(format!==undefined&&format!==9)throw Error('Unsupported view format');assertTaskView(value,format===9?9:8);const row=value as SavedTaskView;text(row.title,500);integer(row.revision,1);return structuredClone({id:row.id,ownerId:row.ownerId,revision:row.revision,title:row.title,filter:row.filter,kind:row.kind,config:row.config,...(row.formatVersion===9?{formatVersion:9 as const}:{})});}
 function queryInput(value:TaskQueryInput):void {
  const data=object(value);if(data.queryId!==undefined){keys(data,['queryId','cursor']);text(data.queryId,256);text(data.cursor,2048);return;}
  keys(data,['filter','smart','completedWindowDays','timezone','refine']);text(data.timezone,100);timezoneFormatter(data.timezone as string);
