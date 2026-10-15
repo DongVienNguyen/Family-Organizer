@@ -6,6 +6,7 @@ import type {BoardConfigureInput} from './boardCatalog.js';
 /** Application-internal sessions and the existing I01 command/request owner. */
 export function boardRouter(ports:ProductivityPorts,requireAuth:RequestHandler,events:{catalog(audience:Set<string>):void}){
  const router=Router();router.use('/boards',requireAuth,(_req,res,next)=>{if(!ports.active()||!ports.boards){res.status(409).json({error:'Kho bảng chưa sẵn sàng.'});return;}next();});
+ router.get('/boards/:viewId',((req:TaskRequest,res)=>{try{if(!ports.boardProjection)throw new AppStoreError('Kho đọc bảng chưa sẵn sàng.',409);res.json(ports.boardProjection.project(req.userSession!,req.params.viewId,req.query));}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status===500?'Không đọc được bảng.':error instanceof AppStoreError?error.message:'Tùy chọn bảng không hợp lệ.'});}})as RequestHandler);
  router.post('/boards/configure',((req:TaskRequest,res)=>{
   try{
    let body:Record<string,any>;try{body=object(req.body);keys(body,['expectedRevision','input']);integer(body.expectedRevision);object(body.input);}catch{throw new AppStoreError('Dữ liệu bảng không hợp lệ.',400);}

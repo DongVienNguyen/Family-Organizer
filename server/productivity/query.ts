@@ -46,6 +46,8 @@ export function createTaskQuery(ports:{reader:TaskReader;pageSize?:number;select
  const binding=(actor:AppActor,filter:TaskFilter,clock:QueryClock)=>hash(normalized({actor,filter,clock}));
  const digest=(rows:ReturnType<typeof collect>)=>hash(rows.map(row=>[row.task.id,row.task.revision,row.rank]));
  return {
+  /** Internal projection reuse; callers apply their own row/byte SQL budget first. */
+  readFilteredTasks(actor:AppActor,filter:TaskFilter,clock:QueryClock):TaskRecord[]{return collect(actor,filter,clock).map(row=>row.task);},
   readTask(actor:AppActor,id:string,options:{includeTrash?:boolean}={}):TaskRecord|null{
    authorize(actor);try{text(id,256);}catch{throw new AppStoreError('Mã công việc không hợp lệ.',400);}
    const scope=taskScope(actor,options),row=ports.reader.get('SELECT t.* FROM productivity_tasks t WHERE t.id=? AND ('+scope.sql+')',id,...scope.args);
