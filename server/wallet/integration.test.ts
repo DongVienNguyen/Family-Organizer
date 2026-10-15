@@ -1,4 +1,9 @@
-import {it,expect} from 'vitest';
+import {it,expect,beforeAll,afterAll} from 'vitest';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {spawnSync} from 'node:child_process';
 import {randomUUID} from 'node:crypto';
 import * as sqlite from '../sqlite.js';
 import * as gateway from '../appStore.js';
@@ -10,6 +15,17 @@ import {UserRole} from '../../src/types.js';
 import {openWalletStore} from './store.js';
 import {walletCoreSql,walletCoreChecksum} from './schema.js';
 import {configureWalletStorage,inspectWalletStorage} from './integration.js';
+// Compile the fresh-process refusal fixture once. Repeated TSX loader/transpile
+// startup is unrelated to each index/constraint assertion and exhausted the fixed
+// Windows test deadline. The ordinary source-bootstrap case below stays separate.
+const repo=fileURLToPath(new URL('../..',import.meta.url));let compiledRoot='',compiledSqlite='';
+beforeAll(()=>{
+ compiledRoot=fs.mkdtempSync(path.join(os.tmpdir(),'wallet-startup-module-'));compiledSqlite=path.join(compiledRoot,'sqlite.cjs');
+ const options={entryPoints:[path.join(repo,'server/sqlite.ts')],bundle:true,write:false,platform:'node',format:'cjs',packages:'external',define:{'import.meta.dirname':'__dirname'}};
+ const built=spawnSync(process.execPath,['-e',"process.stdout.write(require('esbuild').buildSync("+JSON.stringify(options)+").outputFiles[0].text)"],{cwd:repo,env:{...process.env,ESBUILD_WORKER_THREADS:'0'},encoding:'utf8',timeout:5000,maxBuffer:4*1024*1024});
+ expect(built.error,built.stderr).toBeUndefined();expect(built.signal).toBeNull();expect(built.status,built.stderr).toBe(0);fs.writeFileSync(compiledSqlite,built.stdout);
+});
+afterAll(()=>{if(compiledRoot){fs.rmSync(compiledRoot,{recursive:true,force:true});expect(fs.existsSync(compiledRoot)).toBe(false);}});
 const meta=()=>({actorId:'synthetic-wallet-owner',command:'wallet:synthetic:shared',requestId:randomUUID(),payloadHash:'synthetic'}),write=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction(meta(),fn),store=openWalletStore({write:gateway.withAppWriteTransaction});
 const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args),all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)};
 let initialized=false;
@@ -47,13 +63,13 @@ it.each([
  ['unique constraint',(sql:string)=>sql.replace(',UNIQUE(schedule_id,due_date)','')],
  ['unique index',(sql:string)=>sql.replace(/CREATE UNIQUE INDEX IF NOT EXISTS wallet_record_external_key[^;]+;/,'')],
 ] as const)('refuses drifted Wallet %s before native startup mutation and closes handles',async(_name,drift)=>{
- const {default:Database}=await import('better-sqlite3'),fs=await import('node:fs'),os=await import('node:os'),path=await import('node:path'),{execFileSync}=await import('node:child_process');
+ const {default:Database}=await import('better-sqlite3');
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'wallet-drift-')),data=path.join(root,'data'),file=path.join(data,'family.db');fs.mkdirSync(data);
  try{
   const db=new Database(file);try{db.exec("PRAGMA journal_mode=DELETE;CREATE TABLE app_meta(key TEXT PRIMARY KEY,value TEXT);INSERT INTO app_meta VALUES('schema_version','1');CREATE TABLE app_migrations(namespace TEXT,version INTEGER,checksum TEXT,applied_at TEXT,PRIMARY KEY(namespace,version));");db.exec(drift(walletCoreSql));db.prepare('INSERT INTO app_migrations VALUES(?,?,?,?)').run('wallet',1,walletCoreChecksum,'2026-10-15T00:00:00Z');}finally{db.close();}
-  const before=fs.readFileSync(file),loader=new URL('../../node_modules/tsx/dist/loader.mjs',import.meta.url).href,sqliteUrl=new URL('../sqlite.ts',import.meta.url).href;
-  const code=`try{const sqlite=await import(${JSON.stringify(sqliteUrl)});sqlite.sqliteClose();console.log('admitted');}catch(error){console.error(error.message);process.exitCode=1;}`;
-  let codeValue=0,errors='';try{execFileSync(process.execPath,['--import',loader,'--input-type=module','--eval',code],{env:{...process.env,DATA_DIR:data,CONFIG_DIR:path.join(root,'config'),LOG_DIR:path.join(root,'logs')},encoding:'utf8',timeout:15000,stdio:['pipe','pipe','pipe']});}catch(error){const failure=error as {status:number;stderr:string};codeValue=failure.status;errors=String(failure.stderr);}
+  const before=fs.readFileSync(file),code=`try{const sqlite=require(${JSON.stringify(compiledSqlite)});sqlite.sqliteClose();console.log('admitted');}catch(error){console.error(error.message);process.exitCode=1;}`;
+  const result=spawnSync(process.execPath,['--input-type=commonjs','--eval',code],{env:{...process.env,NODE_PATH:path.join(repo,'node_modules'),DATA_DIR:data,CONFIG_DIR:path.join(root,'config'),LOG_DIR:path.join(root,'logs')},encoding:'utf8',timeout:5000,stdio:['pipe','pipe','pipe']});
+  expect(result.error,result.stderr).toBeUndefined();expect(result.signal,result.stderr).toBeNull();const codeValue=result.status,errors=result.stderr;
   expect(codeValue).toBe(1);expect(errors).toMatch(/Unsupported Wallet storage schema/);expect(fs.readFileSync(file)).toEqual(before);expect(fs.readdirSync(data)).toEqual(['family.db']);fs.renameSync(file,file+'.closed');fs.renameSync(file+'.closed',file);
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
