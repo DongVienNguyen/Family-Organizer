@@ -1,0 +1,147 @@
+{
+  "taskId": "P08-b1",
+  "baseSha": "d625190bcdc7a8c40518ef2c960e5966774e42cb",
+  "scope": "Unconsumed candidate shared board schema; supported runtime schema remains1\u20136",
+  "fullGreen": {
+    "numTotalTests": 3628,
+    "numPassedTests": 3628,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "files": 197
+  },
+  "junitCases": 3628,
+  "targetGreen": {
+    "numTotalTests": 270,
+    "numPassedTests": 270,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "files": 2
+  },
+  "red": {
+    "noOpStub": {
+      "numTotalTests": 21,
+      "numPassedTests": 4,
+      "numFailedTests": 17,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "files": 1
+    },
+    "interpretation": "Four throw assertions passed due to absent tables; not native-constraint proof",
+    "gate": {
+      "numTotalTests": 239,
+      "numPassedTests": 238,
+      "numFailedTests": 1,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "files": 1
+    },
+    "review": {
+      "numTotalTests": 31,
+      "numPassedTests": 30,
+      "numFailedTests": 1,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "files": 1
+    }
+  },
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "d625190bcdc7a8c40518ef2c960e5966774e42cb",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Fix: semantic validation must refuse orphan board-list references even when a damaged imported image was created with foreign keys disabled; current joins start at columns and miss an otherwise empty orphan board. Check native foreign_key_check for each owned board table before semantic joins."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Fix: the frozen-schema preservation test title promises Task preservation but fixture has none; seed a canonical Task and compare its complete row before/after candidate DDL."
+      }
+    ],
+    "declinedBounds": {
+      "activation": "Unconsumed explicit schema candidate only; no registry/migration7/snapshot/runtime admission until all-writer invariants and HTTP/recovery are implemented. Current supported schema remains6. No fullP08 acceptance.",
+      "WIP": "Native schema validates policy shape only; SQL whole-scope admission/privacy/concurrency/audit/idempotency remain P08-b2. No hard-limit enforcement claimed.",
+      "ordering": "Composite FKs prevent cross-list/board/task/column references; Task deletion removes metadata; column deletion refuses occupied references. Canonical Task remains membership truth; no lifecycle/reward writes. Equal rank deterministic order belongs accepted P08-a planner.",
+      "schema": "Exact explicit owned DDL/index comparison; no IF NOT EXISTS repair or changes to frozen1..6 table SQL. Additional unique index supports native compound Task-list FK. Missing positions permitted for lazy seeding, never WIP count authority.",
+      "tests": "Initial21/4/17 reflects no-op candidate stub; four throw assertions pass for missing tables, not established regression proof. Subsequent actual native constraints21/21. Workflow/corruption/index/DDL rollback and gate omission expanded before final checks.",
+      "scope": "P09 UI/P10 completion/new default activation/Server2019/release/VPS are excluded from this preparatory slice."
+    },
+    "reviewedSourceHashes": {
+      "server/productivity/boardSchema.ts": "3c58b83faeb3d8e0d643942deb6452d1e8da82413126f00b1e7b00bc32e32676",
+      "server/productivity/board-storage.test.ts": "916beb9d4436d06dd95f229553c78c4eab76879df486d45b229b54bfc4da2032",
+      "tests/evidence.test.ts": "9e62111623ee9182d849f267f2f1d3d89ec849839d521bb0647a60c57524385d"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 31,
+      "passed": 30,
+      "failed": 1
+    },
+    "gateOmissionRed": {
+      "tests": 239,
+      "passed": 238,
+      "failed": 1
+    },
+    "correctedTarget": {
+      "tests": 270,
+      "files": 2,
+      "passed": 270,
+      "failed": 0
+    }
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "module": "server/productivity/boardSchema.ts",
+    "exitCode": 0,
+    "foreignCwd": "/workspace/family-evidence/p08b1-cold-6fc4y6ao",
+    "storageCreated": false
+  },
+  "sourceHashes": {
+    "server/productivity/boardSchema.ts": "583d99a85ccc50f37ecce6f3a3677b456d638f273313bb02eedcfb8933719d30",
+    "server/productivity/board-storage.test.ts": "908273ca5d411deeec58bd1e7ac469ade59164d8298ca09c8235a681abf6a49c",
+    "scripts/ci/write-evidence.mjs": "e2f8bf07da6b996b376ca06329e9c04b36872c000e3c3442f1a17034103dfd0f",
+    "tests/evidence.test.ts": "9e62111623ee9182d849f267f2f1d3d89ec849839d521bb0647a60c57524385d"
+  },
+  "reportHashes": {
+    "p08b1-cold-import.json": "5a85abccd2f2f6255167d694c2823c9e06a90f88cdbaa9c9f49d18c68d1ee114",
+    "p08b1-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b1-lint-initial.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b1-green-initial.json": "795dffdf835691559d80175d58b231a9ac92b8b584c5502a72fb59b7b17ce0a0",
+    "p08b1-review-red.log": "34b2ea78a7b7fe7a931d0b799c890533b76e643477c6ee82ab95e0100b912c2e",
+    "p08b1-full.log": "6c8c3bfa3cc646ae270347fb834faba45415b7d0080d27cbcd5aeec0b9baea78",
+    "p08b1-target.log": "9647caabea7a84d7ae0fe3b7b611da306258ed95b61da3d053122e71e46e08ea",
+    "p08b1-full.json": "1d288225ae98da58da5f790d673366fa7d0f9b231daafc714c0da685274e636d",
+    "p08b1-full.junit.xml": "c29e11ae0242569ed8eb986b3048051b8e9748e2d96630d976de85d7625507dd",
+    "p08b1-review-rulings.json": "5ad05711092a279861dda1bdc42f9bcee04978d2c61bff3fc36a07a520f61188",
+    "p08b1-red.log": "53a06bbadb5556ecfc057f85e0cb1144e300bc1400dc3ce126e842391cc09815",
+    "p08b1-red.json": "07c9a085e6e8a6867556bdeca7111f6b752c0ef02c457a8ffcfbf0c356627d30",
+    "p08b1-build.log": "c4e384275f76412a4b488dfe55c484ae60e8da1026bd60527d1ccfe0d85cf6c1",
+    "p08b1-review-red.json": "18fc236bda1abcc75c3f1f293a2640527d5250e10bcc4e7f900b33742148c93f",
+    "p08b1-green-initial.log": "c0c63ac4fcf84e154d9ee96cfb2bc05dc7228813b89beab02cad6f1244142280",
+    "p08b1-gate-red.json": "6d33a3758767e4a8d71e5a4cbc3c46e187836c377795f1f42f4929659043632a",
+    "p08b1-gate-red.log": "9d2ca0c88d489fab910d56f974eef64466c902b314ed1a44ee1b216c27b9136f",
+    "p08b1-target.json": "08bfbeac4e26a1e4580283b67bfe0db5dde9ed274b21a6a8fdb4ab026bea874c"
+  },
+  "compiledUnchanged": {
+    "server": "78f973e46ac98a74489a1e526d2a71c40e0192508dc322b2d02e2c623cb5afa8",
+    "operator": "6700cdd4baa84161ead8fd7d4737806bc363534903cdb8ce02105ee02fa84939"
+  },
+  "runtimeMigration7Registered": false,
+  "fullP08Accepted": false,
+  "transactionalWipAccepted": false,
+  "exactWindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "releaseOrVps": false
+}
