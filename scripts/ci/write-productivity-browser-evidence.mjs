@@ -25,7 +25,8 @@ const mappedFiles={'browser-html/index.html':'productivity-browser-html/index.ht
 const files=Object.keys(mappedFiles).filter(name=>fs.existsSync(path.join('reports',mappedFiles[name]))&&fs.statSync(path.join('reports',mappedFiles[name])).size>0);
 const junit = fs.existsSync('reports/productivity-browser.junit.xml') ? fs.readFileSync('reports/productivity-browser.junit.xml', 'utf8') : '';
 if (commitSha !== process.env.TEST_COMMIT_SHA || process.version !== `v${process.env.EXPECTED_NODE}` || process.platform !== 'win32' || process.arch !== 'x64') errors.push('requested HEAD/runtime differs from actual Windows checkout');
-errors.push(...validateBrowserReports({ report, junit, manifest, engines, exits, native, checks, files, expected }));
+const touch={report:read('productivity-browser-touch.json'),runtime:read('productivity-browser-touch-runtime.json'),junit:fs.existsSync('reports/productivity-browser-touch.junit.xml')?fs.readFileSync('reports/productivity-browser-touch.junit.xml','utf8'):''};
+errors.push(...validateBrowserReports({ report, junit, manifest, engines, exits, native, checks, files, expected, touch }));
 const hashes = {};
 function record(directory) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -35,6 +36,6 @@ function record(directory) {
   }
 }
 record('reports');
-fs.writeFileSync('reports/productivity-browser-evidence.json', JSON.stringify({ ...expected, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT), checks, engines, manifest, reportSha256: hashes['productivity-browser.json'], hashes, errors }, null, 2));
+fs.writeFileSync('reports/productivity-browser-evidence.json', JSON.stringify({ ...expected, workflowRunUrl: process.env.WORKFLOW_RUN_URL, runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT), checks, engines, manifest, touch, reportSha256: hashes['productivity-browser.json'], hashes, errors }, null, 2));
 if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1; }
 else console.log(`All ${browserProjects.length * browserCases.length} required browser cases passed on their first attempt; cleanup and evidence verified.`);

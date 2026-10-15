@@ -1,3 +1,4 @@
+import {validateMatrixTouchReports} from './matrix-touch-contract.mjs';
 import {validateBrowserReports,browserProjects} from './browser-contract.mjs';
 export const productivityBrowserCases=[
  'P04 C01 shared drawer keeps no-date/none and dirty draft across close and view changes',
@@ -15,8 +16,11 @@ export const productivityBrowserCases=[
  "P05 C13 Trash detail is readonly with Escape focus and no private child hits",
  "P05 C14 GlobalSearch opens the same canonical task with normalized Vietnamese text",
  "P05 C15 completed windows7-30-90-all use real canonical rows on phone and dark theme",
+ 'P07 C16 keyboard preview cancel apply and private pin reset retain one canonical task and deadline',
+ 'P07 C17 custom rule preview overlap unmatched saved config conflict and preset changes never edit tasks',
+ 'P07 C18 pointer deadline preview stale SSE and shared drawer draft survive phone dark reduced motion',
 ];
 export function validateProductivityBrowserReports(input){
- const errors=validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases});
+ const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases}),...validateMatrixTouchReports(input)];
  if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==6||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
 }
