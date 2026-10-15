@@ -403,5 +403,114 @@
       "webkit"
     ]
   },
-  "nextTask": "Exact-HEAD Windows CI and raw proof, authorized merge, then P06 Matrix engine"
+  "nextTask": "Exact-HEAD Windows CI and raw proof, authorized merge, then P06 Matrix engine",
+  "nativeVerification": {
+    "fullGreen": {
+      "tests": 3403,
+      "passed": 3403,
+      "failed": 0,
+      "pending": 0,
+      "files": 186,
+      "junitCases": 3403,
+      "todo": 0,
+      "maxWorkers": 2
+    },
+    "fullCloudReuse": "3403tests/186files/JUnit retained: only ListView explicit trigger focus and native browser fixture changed; all unit/domain/backend sources and compiled server unchanged. Current source requires new full Windows quality rerun.",
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "64cef84709c662442d8dcdcde51a3d6f870810c31ddd4f2049a0e3e5602eb521",
+      "scripts/ci/write-evidence.mjs": "0b22ecd809a5b3a7b8b796fb32152042c5088c1666b5a30700c3238094bcd75a",
+      "scripts/ci/write-productivity-browser-fixture.ts": "3136f5b4816399785e0e098ea0a61f80deaa0099aa6638dce9a7c554e866d86c",
+      "server/productivity/queryHttp.ts": "545e89419e4d1e0d53f04a72c623ccdbfca37db7bcfe3979abd65173d934c070",
+      "server/productivity/views.api.test.ts": "6230e3bfc8d614be5b8f569c8ef9178a45cb1204c234668c065d1a40f1ba6adf",
+      "src/App.tsx": "a042e3e89f4c2317aef647bc63cfd9d3b7e1317808ed1f61ac03a9c99d65494d",
+      "src/components/GlobalSearch.tsx": "5c7e5c6f7afb31f86e26baa4534b39a0733f101e916b0fa32236bb7be8c83515",
+      "src/features/productivity/ListView.tsx": "469f6674688d5d5649281294aed37d85bf60a23bd149bd559b98188effa1f02e",
+      "src/features/productivity/Productivity.tsx": "fa1c745f105401f5ab5a874b242d8c16399071149ca00bf9989a1c54fbdfcde2",
+      "src/features/productivity/QueryWorkspace.tsx": "c13672d52066e9fc48043be8eceb72a6c865919006fb29e99f6ad3ac4da8cf75",
+      "src/features/productivity/api.ts": "ee918c81f746592b061f31213ea44825176ee460a27f768a02635ea638ba7d4d",
+      "src/features/productivity/contracts.ts": "e83ce74c075343692f8cf3512065512f84b98e7773ca58163c21dd8c037fc4ff",
+      "src/features/productivity/globalTaskSearch.test.ts": "9f006e09e17cfb6609dadbf66aebd5521333e16439369ecb7c168eaea576fb7e",
+      "src/features/productivity/globalTaskSearch.ts": "2501b3935c765e24f13c0a3b418024d2482851dfacc02c27397ade68ca59bc54",
+      "src/features/productivity/openTask.test.ts": "71edbb2d66f743eba8c9eba60a12c1f1515634eae43589b30345370ecdc2787e",
+      "src/features/productivity/openTask.ts": "6ac398ee4672b079a76afecad83a6868cba1c4f91a5a88530e3db7b967ef4f55",
+      "src/features/productivity/query-api.test.ts": "d4acc523b141122a7bd50b2ed174933fc1b419307add7185972c9d72123648ee",
+      "src/features/productivity/queryState.test.ts": "22401584e62f340d77aad4ed134a6a90c821dda3549da28dddf5649196c08dc0",
+      "src/features/productivity/queryState.ts": "474f57613c65a93703b042f2170cd34aa0ea97c729cca73d9ab4878e44c5b020",
+      "src/features/productivity/savedViewDraft.test.ts": "aae4921dd9980016041622b8653903961922340769dbe47f7dbfe2608606b0c7",
+      "src/features/productivity/savedViewDraft.ts": "af6bac517f84416119c2322b75119425714892076e5920bb5e35c5834864fb10",
+      "src/features/productivity/useTaskViews.ts": "493c6128e4b25fc6bdc6317c7ce021d77b55fdd894c1ac7f97719eb5abf40e1d",
+      "src/features/productivity/useTasks.tsx": "b07246834468e489a6837d5581d122e63acbae5d5a4d5b55bbc7755cf30ec360",
+      "src/i18n/locales/en.json": "c161ce213ba136f23c481fa1825b426acea31fba50932b6478639b5dbc0d4875",
+      "src/i18n/locales/vi.json": "fcb73cb6a57245c30b20e81392b5e36c939bc066b8ad3e867adeca4ebf85439d",
+      "src/i18n/locales/zh.json": "8aa5a5362ac94b780140db436625e3af84dd2be712658077db7ce05f12bf3747",
+      "tests/e2e/productivity.spec.ts": "946ca798254012a815d0b4a628c41f2b636899500740cb6a6ac1924c46aca017",
+      "tests/evidence.test.ts": "11da003e04605beab987032d6fbefa1ed7552dfa0a7d77dfc0ced215efaf429a",
+      "tests/productivity-browser-evidence.test.ts": "fb27d1f575a39fa2367609143901ba86ba1110b15b6e803622b9bf622cd2890a"
+    },
+    "changedSources": [
+      "src/features/productivity/ListView.tsx",
+      "tests/e2e/productivity.spec.ts"
+    ],
+    "lintExit": 0,
+    "buildExit": 0,
+    "cloudBrowser": {
+      "scope": "Cloud Chromium diagnostic only",
+      "firstAttempt": 15,
+      "stats": {
+        "startTime": "2026-10-15T10:15:11.488Z",
+        "duration": 98660.102,
+        "expected": 15,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "manifest": {
+        "commitSha": "6d0310984393c65c2a72c1e8673fccde42d3f206",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "lockSha256": "b0ccc34492d6f6f8996bb4ffa4d790628d17038050efa925ff9bbe9f79581d7c",
+        "productionBuild": {
+          "serverSha256": "5dee750dd2d57c46f3af66646ba58aeeb536fdde25b239680df75b3298e76144",
+          "indexSha256": "d6efb09d248a4574a29ab22973482cddaef71c3799817a6bf96ca2cc6dc6e0a5"
+        },
+        "synthetic": true,
+        "productivityVersion": 5,
+        "fixtureRemoved": true,
+        "nativeHandlesClosed": true,
+        "networkAttempts": [],
+        "externalAttempts": [],
+        "legacyPreserved": true,
+        "integrity": "ok",
+        "databaseClosed": true,
+        "cliExitCode": 0,
+        "cliSignal": null,
+        "serverExitCode": 0,
+        "serverSignal": null,
+        "browserExitCode": 0,
+        "browserSignal": null,
+        "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+        "error": null
+      },
+      "assertionPreservation": {
+        "original": 61,
+        "current": 108,
+        "missing": []
+      }
+    },
+    "unchangedCompiledServerSha256": "5dee750dd2d57c46f3af66646ba58aeeb536fdde25b239680df75b3298e76144",
+    "reportHashes": {
+      "p05b2b-native-corrected-chromium/productivity-browser-server.log": "c32f7d06ddcffbc2fe06089f92ad87dc6dc6d5c984fddd2977b3c33b69dfc5f9",
+      "p05b2b-native-corrected-chromium/productivity-browser.junit.xml": "dc37a1862c3f54a9fb8c2c014415d388d1bb21c69072a5e447a5254e76f7622d",
+      "p05b2b-native-corrected-chromium/productivity-browser.json": "07c8e3f9c2af90cf303c328f755ef55d632607d5ad9014be52904bcfd4b70e74",
+      "p05b2b-native-corrected-chromium/productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+      "p05b2b-native-corrected-chromium/productivity-browser-run.log": "5e32b3b51f0f049a24541f36a908e6b7f6f388d6a5c76be759f1007553f33a27",
+      "p05b2b-native-corrected-chromium/productivity-browser-fixture.json": "741d05a94039da8f053ed662c0b631369f83da832a450d5cd3ab78777759b8d8",
+      "p05b2b-native-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p05b2b-native-build.log": "e25a90081f6c3cf391d07fe8e66cab7bbfe82a61e7124f85c03bd2333ef21e00",
+      "p05b2b-native-chromium.log": "19f157614f2ed58c0f2b607f1cb57ad7adb0d221c82e24b0227c3599b2c9d0fd",
+      "p05b2b-review-grading.md": "511be1cd6327bf1a43952b05c419a48fe44d891e717944fa074805ca17e2721e"
+    }
+  },
+  "nativeFirstFailure": "p05b2b-native-first-failure.json"
 }
