@@ -41,3 +41,10 @@ isolation, handle activation and cancellation. That case does not claim physical
 phone or Firefox/WebKit touch acceptance. JSON, JUnit, traces, runtime identity,
 viewport screenshots, cleanup and exit codes are retained and checked separately.
 Cloud Chromium results are diagnostic; Windows2022 does not prove Server2019/R02.
+
+The UI entry file is `MatrixWorkspace.tsx`. Keep its basename distinct from the
+pure `matrix.ts`: TypeScript/Vite resolve `.js` source imports on Windows without
+case sensitivity, so `Matrix.tsx` beside `matrix.ts` can resolve to the wrong module.
+The module regression checks that the task shell has one case-insensitive source
+candidate. Missing runtime reports after a build failure must produce rejection
+evidence rather than preventing the evidence writer from finishing.

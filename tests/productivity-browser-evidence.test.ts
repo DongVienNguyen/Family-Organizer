@@ -18,3 +18,5 @@ it.each(['missing','runtime','executable','nativePointer','checkbox','cancel','v
 it.each(['P07 C16 keyboard preview cancel apply and private pin reset retain one canonical task and deadline','P07 C17 custom rule preview overlap unmatched saved config conflict and preset changes never edit tasks','P07 C18 pointer deadline preview stale SSE and shared drawer draft survive phone dark reduced motion'])('requires actual P07 Matrix flow %s',title=>{expect(productivityBrowserCases).toContain(title);});
 
 it('requires custom-choice and keyboard-focus regression on all engines',()=>expect(productivityBrowserCases).toContain('P07 C19 custom choices require a fresh preview and Escape restores the keyboard trigger'));
+
+it('returns rejection evidence when a build failure leaves null engine reports',()=>{const f=fixture();f.engines=[null,null,null];f.touch.report=null;f.touch.runtime=null;f.touch.junit='';let errors:string[]=[];expect(()=>{errors=validateProductivityBrowserReports(f);}).not.toThrow();expect(errors.length).toBeGreaterThan(0);});

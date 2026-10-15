@@ -1,4 +1,4 @@
-import {MatrixWorkspace} from '../features/productivity/Matrix.js';
+import {MatrixWorkspace} from '../features/productivity/MatrixWorkspace.js';
 import {Productivity} from '../features/productivity/Productivity.js';
 import {useTasks} from '../features/productivity/useTasks.js';
 import {tagLabel,tagInput,resolveTagInput,type TagLabel} from '../utils/taskTagLabels.js';

@@ -1,3 +1,6 @@
+import {fileURLToPath} from 'node:url';
+import fs from 'node:fs';
+import path from 'node:path';
 import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {it,expect,vi} from 'vitest';
@@ -13,3 +16,5 @@ it('stale preview presents re-preview and refuses apply while retaining the orig
 it('unresolved custom rule exposes an explicit choice or pin instead of an applyable guessed patch',()=>{const custom={...plan,patch:{},after:plan.before,warnings:['custom-rule-choice']},html=renderToStaticMarkup(<MovePreview {...props} plan={custom} custom/>);expect(html).toContain('matrixUi.previewChoice');expect(html).toContain('matrixUi.pinInstead');expect(html).toMatch(/data-testid="matrix-apply"[^>]*\sdisabled(?:=""|\s|>)/);});
 
 it('manual assignment and tag changes disclose their actual before/after labels',()=>{const changed={...plan,patch:{assigneeId:'synthetic-new-user',tagIds:['synthetic-new-tag']},before:{...plan.before,assigneeId:'synthetic-old-user',tagIds:['synthetic-old-tag']},after:{...plan.before,assigneeId:'synthetic-new-user',tagIds:['synthetic-new-tag']},needsChoice:false,warnings:[]},html=renderToStaticMarkup(<MovePreview {...props} plan={changed} users={[{id:'synthetic-old-user',fullName:'Synthetic original assignee'},{id:'synthetic-new-user',fullName:'Synthetic new assignee'}]as any} tags={[{id:'synthetic-old-tag',name:'Synthetic original tag'},{id:'synthetic-new-tag',name:'Synthetic new tag'}]as any}/>);for(const name of ['Synthetic original assignee','Synthetic new assignee','Synthetic original tag','Synthetic new tag'])expect(html).toContain(name);});
+
+it('Task shell UI entry resolves unambiguously on case-insensitive Windows filesystems',()=>{const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..'),shell=path.join(root,'src/components/Tasks.tsx'),source=fs.readFileSync(shell,'utf8'),entry=source.match(/import \{MatrixWorkspace\} from '([^']+)'/)![1],absolute=path.resolve(path.dirname(shell),entry),stem=path.basename(absolute,'.js').toLowerCase(),candidates=fs.readdirSync(path.dirname(absolute)).filter(name=>['.ts','.tsx'].some(ext=>name.toLowerCase()===stem+ext));expect(candidates).toHaveLength(1);expect(fs.readFileSync(path.join(path.dirname(absolute),candidates[0]),'utf8')).toContain('export function MatrixWorkspace');});
