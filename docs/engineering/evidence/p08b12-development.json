@@ -1,0 +1,85 @@
+{
+  "taskId": "P08-b12",
+  "baseSourceSha": "b22aefde0dd7e7f3ad5971c80b9e69e95a86035c",
+  "baseAcceptance": "PR105 firstWindows38824905861 failed nativeCaddyUDP onNode22 and PS7inventory onboth; both4293/239 testsallpass. MustcomposeacceptedcorrectionbeforePR106.",
+  "cloudGreen": {
+    "tests": 4325,
+    "passed": 4325,
+    "files": 240,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4325,
+    "maxWorkers": 1,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "review": {
+    "taskId": "P08-b12",
+    "type": "whole-branch-self-review",
+    "baseSourceSha": "b22aefde0dd7e7f3ad5971c80b9e69e95a86035c",
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "6b4e3f263e8349fdd7c34d9a0020dd0ac90670718e8e47fa30f38f763337bbd9",
+      "server/productivity/board-moves.test.ts": "63443e0a16f7879efbd4bfadeda0bd2e8bb17531680fb7c1c250c80d147e4bac",
+      "server/productivity/board-projection.api.test.ts": "9b14b376b528deb7d24e1f811663fce93da182467a8bb16347ddcddefd75a9ec",
+      "server/productivity/board-projection.test.ts": "c086b49684d8453451fda70e5837fcd7d5691e665a13ff39c82ecb3604e5facc",
+      "server/productivity/board-sort.test.ts": "b403359bd41db5cfc985ca61dde805b8fe7bf322aa54bb05af70cc71cab2e760",
+      "server/productivity/boardProjection.ts": "104758c0c137a259a8aacc135f929bccf382008bc1ae5c275cccbd6d14bbc650",
+      "server/productivity/boardSort.ts": "9e3cb9b4e2beafe8bb2ad82ebbcb1eef34a5306f200c3f42d595f7bdec1c6271",
+      "server/productivity/grouped-board.api.test.ts": "07d18d154a610bfbf900673884a5ff5d3cacc794db2e94d4337f7cc2d57c9600",
+      "server/productivity/grouped-board.test.ts": "eec01db4f2daa4a61d3442429cd73928c88da165c31e2cd486bf3d563096d89e",
+      "server/productivity/groupedBoard.ts": "e0d7a4f17d0faa07ba9749d8ffc66d8a602a7e725c71a04266f8234c96767565",
+      "server/productivity/tag-groups.test.ts": "36586236e0d931a9a573f8417660ddc1cb282891cc056b96c531771c01d59035",
+      "tests/evidence.test.ts": "bc2f01e96eaaff32ee6e7de2fd2acadc0a6d750fc4ca086560c171aa5c22f85a"
+    },
+    "scope": [
+      "existing persisted rank/due/priority/title enum only; no schema/migration/activation/DDL",
+      "both owned canonical board and normalized multi-tag projection keep ACL before sort and old scalar bounds",
+      "lane/group first then per-card sort; fixed Vietnamese numeric collation/canonical-ID ties; literal all-day dates/timed view timezone/DST exact instant/no-date last",
+      "no sorting writes/rank mutation/completion/rewards/notifications; existing manual rank preview refuses non-rank saved sort",
+      "signed cursors include full config/sorted IDs+revisions and captured clock; default rank semantics retained",
+      "all original tests/thresholds/assertions retained; stress fixtures stay last; two interrupted diagnostic runs retained and not claimed causalRED"
+    ]
+  },
+  "compiledHashes": {
+    "dist/server.cjs": "9e1db1f21eae45c1ee4b6842e686ff6afbedc95b6df54e4ec938e1b7ce3c2cf8",
+    "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+  },
+  "reports": {
+    "p08b12-full.junit.xml": "cedba894c3ad297e3892fac7d2a84d3318d23572f5ccd04bf0c02b158682fdba",
+    "p08b12-build.log": "a692767966a536097a11d85a63e5c6152a632dc530ee318441307e3db5d1aac8",
+    "p08b12-lanes-first.json": "cc8702518cedaf3f10ebdd6c7b3766cffc9870f9f0fb9d772f2912dba2e4667a",
+    "p08b12-related-first.log": "e886a2c69da13491e7545538309fc3e61491e964129e00e85a52258cdcab50b5",
+    "p08b12-full.json": "5cb09862e75296e0785f5a0246356a51a7294548ea8749a5e2a1ec26a75a0286",
+    "p08b12-one-red.log": "452985f627b8f1bbc7dfbe9548c65e94334d9435319ced5b27b114d549b5bdbd",
+    "p08b12-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b12-full.log": "cd810cd8f2a0918f6cf91ca35486cbe15c90617adff8dde1e04865c7963037b2",
+    "p08b12-read-red-corrected-fixture.log": "f25e45be01a31120518a8a9a4eb4a133206bc1e7b037561390ff59c4b3569243",
+    "p08b12-one-red.json": "69367984825d68510a3ce0fb626896bc1d99cee5f2eebb784f7463a97f28dabe",
+    "p08b12-related-first.json": "6250f7a1a5c54077c763c67820bf3db63448150ce85f6c201917e6366263cafa",
+    "p08b12-http-gate-red.log": "c338b0a0c1ded5f0bc92ff0a857824aa40ba0d9abe66d59e2d512744bfa0e7e3",
+    "p08b12-read-red.log": "757ef032213e9aabd3ee7a3e5ca91d05d2135b5a464c4b0f54ee44d91525c2eb",
+    "p08b12-sort-first.log": "a01d9ee2fa8ebbef058f91f2d596c91cd483c69db13d346278dc8e634bc549ce",
+    "p08b12-read-red-interrupted.json": "186d8352e74c1f5d6959fb445351605bc2279735a1ebc0d78c8cdaa6933e6c2c",
+    "p08b12-read-red-corrected-fixture.json": "c9299d474d29b682a625c3222e46db18992bf82bb67ec59ee9d9a58059707a59",
+    "p08b12-http-gate-red.json": "77119c9916881a91fb872134156b9b8ba61961c3fdce34f1c3a18044e5d8cd8d",
+    "p08b12-fixture-order-ruling.json": "d3756c8d2122b5626770a1432e0746c6780be0ab9595a27e2399756b624403bc",
+    "p08b12-self-review.json": "c75b7a50784048a667c05b9cceebc00dacd0a6c7cbee6859e56588cb14a469ed",
+    "p08b12-read-red-diagnostic.log": "0291c7f7ec7d6b553357e21f5f34eab06495bcea6163dccb784099a05cb2218e",
+    "p08b12-lint-first.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b12-lanes-first.log": "abe3eec604e4dcb31650336d601067bc9d4850f922c300115dc726f0dcb11eb7",
+    "p08b12-sort-first.json": "4475cbd13cff83e12bd4873b8ec8f8a4e7dbe5a3fd611fa5e6791e50a810f0ac"
+  },
+  "interruptedRedDiagnostic": "Two143interruptedCPU/RSSruns unknownresult; stressfixturelast restored original architecture. Fullcorrected58/50/8RED andall373relatedpassed. Isolatedtitle1RED with22filtereddiagnostic only notfullacceptance.",
+  "nativeWindowsAcceptance": "pending newPR106 exactHEAD/all8/TENraw/22ZIP/27HTTP/100IPC/103browserfirst",
+  "fullMasterAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
