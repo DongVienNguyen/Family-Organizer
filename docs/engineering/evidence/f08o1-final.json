@@ -1,0 +1,96 @@
+{
+  "taskId": "F08-o1",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/104",
+  "testedHeadSha": "6614ec72a059a3cca67b42af0426fc199191d1a5",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38820965949",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "27d271de57d673bc3d9f8f5df40c3403f6932caf3d04c0de792df743f9497655",
+    "coverage": "cf24888252902b8aafb1747e38480f5248b84f55643083e760945260984e7b18",
+    "package": "fe060d50cc7a7917acebfcf5951f034d0f52120a849d344ada80e5c86c5220df",
+    "service": "44a118392160c37b12c0b682ad9abdbdf0bebf66c0149f33c3186e1072848a20",
+    "caddy": "8110dad543de46881cb3969959154daa374b37bcff5c9d6db3a2f1436928ef6d",
+    "extraction-sdk": "e426f5b2d8215b10e9ed7ab2028ce7be6f6a9917d3e495698d146c67ef1e7baf",
+    "inner-native": "762ea2019e105438f8c2a2f94e5a65d46421bad37f57789712814843db60c060",
+    "browser": "8988946f5bae3485f97cb7257e0befe202bb79141dd1173205b8d58221cc44fe",
+    "productivity-browser": "5b4815631ab4738411cb350cc8a417960c27ceb43e4acbec7d38c7ee61833931",
+    "board-package": "99c41f529b490a4403b3f7a792e108ea80d3b71773d61184c905b283c4d5515f"
+  },
+  "qualityEach": 4176,
+  "qualityFilesEach": 237,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "628b1bc58897f54a6ce51579db8a208d8e840fa3763413dc7def9ed79574c257",
+  "fullCiLogZipSha256": "100ab32b1b2c2f6b84aa731d7612ac2cf6bad9f226a6669a0e38af8730cdb329",
+  "review": {
+    "reviewer": "one completed whole-branch self-review; no delegated reviewer/current skill catalogs empty",
+    "baseSha": "70abd3bfd023e36b45706c5cc615f2489e71742c",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "allFindingsGraded": true,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "status": "CLOSED; target364/7pass; full/build/exactWindows pending",
+    "reviewedSourceHashes": {
+      "scripts/windows/release-source-policy.mjs": "36d2881783a06b89c4e013b8ec17c2feae0dc34e48736d52942f135f44a266e0",
+      "scripts/ci/browser-contract.mjs": "626d32c63db2fd7306e37708a8a859dac4b96a277f980eb4372ea1db4101af3c",
+      ".github/workflows/ci.yml": "3a67c99e50b98774862c73cecc8f8bd295f8aafa39dc41485a9b656ebc16099c",
+      "tests/release-source-policy.test.ts": "2992a9b770e23a2443a763c5704d9d241c4f8474810ce8fc0af0ec45b572f107"
+    },
+    "bounds": {
+      "targetExecution": "Read target Git bytes/hash only. Never import/execute target generator TypeScript at the pinned collector. Fixed three generator source/output/exit-variable/error-message tuples; unknown additions rejected.",
+      "nativeExit": "Only exact reviewed thirteen-line harness with immediate named LASTEXITCODE capture and nonzero throw is accepted, or previous four-line copied-only form. Existing job/step/runner/shell/if/alias/duplicate/symlink checks retained.",
+      "resource": "Static scripts plus generated outputs share existing100file bound; actual65/64/1RED\u2192GREEN. Perread1MiB/total16MiB/120s and flattened case-insensitive uniqueness preserved.",
+      "browser": "Reorder only B14/B15 metadata into original strict contiguousID contract; all15 exact names and actual browser assertions preserved. Runtime/E2E definitions unchanged.",
+      "provenance": "New optional generators array records fixed sourcePath/outputPath and targetGit Windows-byte SHA256; generated JSON never assigned a reproducible static hash. Workflow bytes also bound. Static legacy policy shape unchanged.",
+      "scope": "F08-o1 sourcepolicy compatibility only. Existing metadata/collector7-job inventory/newProductivity+touch/generatedrawfixtures still F08-o2-owned; end-to-end promotion remains failclosed. Publication disabled/actualServer2019 gate preserved; no dispatch/tag/release/VPS."
+    }
+  },
+  "generatedFixtureSourcePolicyAccepted": true,
+  "fullPromotionAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeCommitSha": "99dfd12a24875947553711ee7fde045ea70c332b",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/104#issuecomment-6204267987"
+}

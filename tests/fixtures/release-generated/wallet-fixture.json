@@ -1,0 +1,161 @@
+{
+  "format": 1,
+  "commitSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "version": 1,
+  "checksum": "5386132badbf4a5fee4331cbf0a133bd2a106ed284f80ee479ff31df4bcb1e6a",
+  "schemaSql": "\nCREATE TABLE IF NOT EXISTS wallet_currencies(code TEXT PRIMARY KEY,exponent INTEGER NOT NULL CHECK(exponent BETWEEN 0 AND 8));\nINSERT OR IGNORE INTO wallet_currencies VALUES('VND',0),('USD',2);\nCREATE TABLE IF NOT EXISTS wallet_accounts(\n id TEXT PRIMARY KEY,name TEXT NOT NULL,type TEXT NOT NULL CHECK(type IN('cash','bank','savings','credit','e_wallet','investment','asset','liability')),\n currency TEXT NOT NULL REFERENCES wallet_currencies(code),owner_user_id TEXT NOT NULL,access_mode TEXT NOT NULL CHECK(access_mode IN('shared','private')),\n opening_minor INTEGER NOT NULL CHECK(typeof(opening_minor)='integer'),opening_date TEXT NOT NULL,revision INTEGER NOT NULL CHECK(revision>=1),archived_at TEXT);\nCREATE TABLE IF NOT EXISTS wallet_account_grants(account_id TEXT NOT NULL REFERENCES wallet_accounts(id),user_id TEXT NOT NULL,permission TEXT NOT NULL CHECK(permission IN('read','contribute','manage')),PRIMARY KEY(account_id,user_id));\nCREATE TABLE IF NOT EXISTS wallet_categories(id TEXT PRIMARY KEY,parent_id TEXT REFERENCES wallet_categories(id) DEFERRABLE INITIALLY DEFERRED,name TEXT NOT NULL,nature TEXT NOT NULL CHECK(nature IN('must','need','want','unspecified')),archived_at TEXT);\nCREATE TABLE IF NOT EXISTS wallet_labels(id TEXT PRIMARY KEY,name TEXT NOT NULL,archived_at TEXT);\nCREATE TABLE IF NOT EXISTS wallet_schedules(id TEXT PRIMARY KEY,payload_json TEXT NOT NULL CHECK(json_valid(payload_json)));\nCREATE TABLE IF NOT EXISTS wallet_occurrences(id TEXT PRIMARY KEY,schedule_id TEXT NOT NULL REFERENCES wallet_schedules(id),due_date TEXT NOT NULL,UNIQUE(schedule_id,due_date));\nCREATE TABLE IF NOT EXISTS wallet_records(\n id TEXT PRIMARY KEY,kind TEXT NOT NULL CHECK(kind IN('income','expense','transfer','adjustment','trade')),effective_date TEXT NOT NULL,timezone TEXT NOT NULL,\n source TEXT NOT NULL CHECK(source IN('manual','import','schedule','legacy')),external_key TEXT,note TEXT NOT NULL,\n settlement_status TEXT NOT NULL CHECK(settlement_status IN('uncleared','cleared','reconciled','voided')),creator_id TEXT NOT NULL,revision INTEGER NOT NULL CHECK(revision>=1),\n category_id TEXT REFERENCES wallet_categories(id),occurrence_id TEXT UNIQUE REFERENCES wallet_occurrences(id),UNIQUE(id,effective_date));\nCREATE UNIQUE INDEX IF NOT EXISTS wallet_record_external_key ON wallet_records(source,external_key) WHERE external_key IS NOT NULL;\nCREATE TABLE IF NOT EXISTS wallet_postings(record_id TEXT NOT NULL,account_id TEXT NOT NULL REFERENCES wallet_accounts(id),effective_date TEXT NOT NULL,delta_minor INTEGER NOT NULL CHECK(typeof(delta_minor)='integer'),PRIMARY KEY(record_id,account_id),FOREIGN KEY(record_id,effective_date) REFERENCES wallet_records(id,effective_date));\nCREATE INDEX IF NOT EXISTS wallet_posting_account_date ON wallet_postings(account_id,effective_date,record_id);\nCREATE TABLE IF NOT EXISTS wallet_record_labels(record_id TEXT NOT NULL REFERENCES wallet_records(id),label_id TEXT NOT NULL REFERENCES wallet_labels(id),PRIMARY KEY(record_id,label_id));\nCREATE TABLE IF NOT EXISTS wallet_allocations(record_id TEXT NOT NULL REFERENCES wallet_records(id),category_id TEXT NOT NULL REFERENCES wallet_categories(id),amount_minor INTEGER NOT NULL CHECK(typeof(amount_minor)='integer' AND amount_minor>=0),PRIMARY KEY(record_id,category_id));\nCREATE TABLE IF NOT EXISTS wallet_audit(id TEXT PRIMARY KEY,record_id TEXT REFERENCES wallet_records(id),actor_id TEXT NOT NULL,action TEXT NOT NULL);\n",
+  "columns": {
+    "wallet_currencies": [
+      "code",
+      "exponent"
+    ],
+    "wallet_accounts": [
+      "id",
+      "name",
+      "type",
+      "currency",
+      "owner_user_id",
+      "access_mode",
+      "opening_minor",
+      "opening_date",
+      "revision",
+      "archived_at"
+    ],
+    "wallet_account_grants": [
+      "account_id",
+      "user_id",
+      "permission"
+    ],
+    "wallet_categories": [
+      "id",
+      "parent_id",
+      "name",
+      "nature",
+      "archived_at"
+    ],
+    "wallet_labels": [
+      "id",
+      "name",
+      "archived_at"
+    ],
+    "wallet_schedules": [
+      "id",
+      "payload_json"
+    ],
+    "wallet_occurrences": [
+      "id",
+      "schedule_id",
+      "due_date"
+    ],
+    "wallet_records": [
+      "id",
+      "kind",
+      "effective_date",
+      "timezone",
+      "source",
+      "external_key",
+      "note",
+      "settlement_status",
+      "creator_id",
+      "revision",
+      "category_id",
+      "occurrence_id"
+    ],
+    "wallet_postings": [
+      "record_id",
+      "account_id",
+      "effective_date",
+      "delta_minor"
+    ],
+    "wallet_record_labels": [
+      "record_id",
+      "label_id"
+    ],
+    "wallet_allocations": [
+      "record_id",
+      "category_id",
+      "amount_minor"
+    ],
+    "wallet_audit": [
+      "id",
+      "record_id",
+      "actor_id",
+      "action"
+    ]
+  },
+  "moneyColumns": {
+    "wallet_accounts": [
+      "opening_minor"
+    ],
+    "wallet_postings": [
+      "delta_minor"
+    ],
+    "wallet_allocations": [
+      "amount_minor"
+    ]
+  },
+  "tables": {
+    "wallet_currencies": [
+      {
+        "code": "VND",
+        "exponent": 0
+      },
+      {
+        "code": "USD",
+        "exponent": 2
+      }
+    ],
+    "wallet_accounts": [
+      {
+        "id": "canonical-wallet-account",
+        "name": "Synthetic Wallet package account",
+        "type": "bank",
+        "currency": "VND",
+        "owner_user_id": "package-admin",
+        "access_mode": "private",
+        "opening_minor": "9223372036854775807",
+        "opening_date": "2026-10-15",
+        "revision": 1,
+        "archived_at": null
+      }
+    ],
+    "wallet_account_grants": [],
+    "wallet_categories": [],
+    "wallet_labels": [],
+    "wallet_schedules": [],
+    "wallet_occurrences": [],
+    "wallet_records": [
+      {
+        "id": "canonical-wallet-record",
+        "kind": "expense",
+        "effective_date": "2026-10-15",
+        "timezone": "Asia/Saigon",
+        "source": "manual",
+        "external_key": null,
+        "note": "",
+        "settlement_status": "cleared",
+        "creator_id": "package-admin",
+        "revision": 1,
+        "category_id": null,
+        "occurrence_id": null
+      }
+    ],
+    "wallet_postings": [
+      {
+        "record_id": "canonical-wallet-record",
+        "account_id": "canonical-wallet-account",
+        "effective_date": "2026-10-15",
+        "delta_minor": "-9223372036854775808"
+      }
+    ],
+    "wallet_record_labels": [],
+    "wallet_allocations": [],
+    "wallet_audit": []
+  },
+  "migration": {
+    "namespace": "wallet",
+    "version": 1,
+    "checksum": "5386132badbf4a5fee4331cbf0a133bd2a106ed284f80ee479ff31df4bcb1e6a",
+    "applied_at": "2026-10-15T22:47:24.400Z"
+  }
+}

@@ -1,0 +1,1099 @@
+{
+  "format": 1,
+  "commitSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "version": 9,
+  "walletVersion": 1,
+  "producerPlatform": "win32",
+  "producerArchitecture": "x64",
+  "producerNodeVersion": "v24.21.0",
+  "schemaSql": "\nCREATE TABLE IF NOT EXISTS productivity_lists(id TEXT PRIMARY KEY,title TEXT NOT NULL,owner_id TEXT NOT NULL,is_shared INTEGER NOT NULL CHECK(is_shared IN(0,1)));\nCREATE TABLE IF NOT EXISTS productivity_sections(id TEXT PRIMARY KEY,list_id TEXT NOT NULL REFERENCES productivity_lists(id),title TEXT NOT NULL,UNIQUE(id,list_id));\nCREATE TABLE IF NOT EXISTS productivity_tags(id TEXT PRIMARY KEY,name TEXT NOT NULL);\nCREATE TABLE IF NOT EXISTS productivity_tasks(\n id TEXT PRIMARY KEY,list_id TEXT NOT NULL REFERENCES productivity_lists(id),section_id TEXT,parent_id TEXT REFERENCES productivity_tasks(id) DEFERRABLE INITIALLY DEFERRED,\n title TEXT NOT NULL,body TEXT NOT NULL,lifecycle TEXT NOT NULL CHECK(lifecycle IN('todo','in_progress','completed','wont_do')),priority TEXT NOT NULL CHECK(priority IN('high','medium','low','none')),\n due_kind TEXT NOT NULL CHECK(due_kind IN('none','all_day','timed')),due_date TEXT,due_instant TEXT,due_timezone TEXT,\n scheduled_start TEXT,scheduled_end TEXT,creator_id TEXT NOT NULL,assignee_id TEXT,is_shared INTEGER NOT NULL CHECK(is_shared IN(0,1)),blocked INTEGER NOT NULL CHECK(blocked IN(0,1)),blocked_reason TEXT,\n pending_approval INTEGER NOT NULL CHECK(pending_approval IN(0,1)),reward_points INTEGER NOT NULL CHECK(reward_points>=0),revision INTEGER NOT NULL CHECK(revision>=0),deleted_at TEXT,rank INTEGER NOT NULL,legacy_json TEXT NOT NULL,\n FOREIGN KEY(section_id,list_id) REFERENCES productivity_sections(id,list_id) DEFERRABLE INITIALLY DEFERRED,\n CHECK((due_kind='none' AND due_date IS NULL AND due_instant IS NULL AND due_timezone IS NULL) OR (due_kind='all_day' AND due_date IS NOT NULL AND due_instant IS NULL AND due_timezone IS NOT NULL) OR (due_kind='timed' AND due_date IS NULL AND due_instant IS NOT NULL AND due_timezone IS NOT NULL))\n);\nCREATE INDEX IF NOT EXISTS productivity_tasks_list_rank ON productivity_tasks(list_id,rank,id);\nCREATE INDEX IF NOT EXISTS productivity_tasks_actor ON productivity_tasks(assignee_id,lifecycle,id);\nCREATE INDEX IF NOT EXISTS productivity_tasks_due ON productivity_tasks(due_kind,due_date,due_instant,id);\nCREATE TABLE IF NOT EXISTS productivity_task_tags(task_id TEXT NOT NULL REFERENCES productivity_tasks(id) ON DELETE CASCADE,tag_id TEXT NOT NULL REFERENCES productivity_tags(id),PRIMARY KEY(task_id,tag_id));\nCREATE TABLE IF NOT EXISTS productivity_list_grants(list_id TEXT NOT NULL REFERENCES productivity_lists(id),user_id TEXT NOT NULL,permission TEXT NOT NULL CHECK(permission IN('read','write','manage')),PRIMARY KEY(list_id,user_id));\nCREATE TABLE IF NOT EXISTS productivity_occurrences(id TEXT PRIMARY KEY,task_id TEXT NOT NULL REFERENCES productivity_tasks(id),series_id TEXT NOT NULL,occurrence_key TEXT NOT NULL,ordinal INTEGER NOT NULL CHECK(ordinal>=0),payload_json TEXT NOT NULL,UNIQUE(series_id,occurrence_key));\nCREATE TABLE IF NOT EXISTS productivity_matrix_pins(view_id TEXT NOT NULL,task_id TEXT NOT NULL REFERENCES productivity_tasks(id) ON DELETE CASCADE,quadrant TEXT NOT NULL CHECK(quadrant IN('q1','q2','q3','q4')),PRIMARY KEY(view_id,task_id));\n\nCREATE TABLE productivity_catalog_revisions(\n entity_kind TEXT NOT NULL CHECK(entity_kind IN('list','section','tag')),entity_id TEXT NOT NULL,\n revision INTEGER NOT NULL CHECK(revision>=1),archived_at TEXT,PRIMARY KEY(entity_kind,entity_id)\n);\nCREATE TABLE productivity_check_items(\n id TEXT PRIMARY KEY,task_id TEXT NOT NULL REFERENCES productivity_tasks(id) ON DELETE CASCADE,\n text TEXT NOT NULL,is_done INTEGER NOT NULL CHECK(is_done IN(0,1)),rank INTEGER NOT NULL,\n UNIQUE(task_id,rank)\n);\nCREATE INDEX productivity_tasks_parent ON productivity_tasks(parent_id,deleted_at);\nCREATE INDEX productivity_check_items_task ON productivity_check_items(task_id,rank,id);\nCREATE TABLE productivity_tag_owners(\n tag_id TEXT PRIMARY KEY REFERENCES productivity_tags(id) ON DELETE CASCADE,\n user_id TEXT NOT NULL\n);\nCREATE INDEX productivity_tag_owners_user ON productivity_tag_owners(user_id,tag_id);\nCREATE TABLE productivity_task_pins(\n user_id TEXT NOT NULL,\n task_id TEXT NOT NULL REFERENCES productivity_tasks(id) ON DELETE CASCADE,\n is_pinned INTEGER NOT NULL CHECK(is_pinned IN(0,1)),\n revision INTEGER NOT NULL CHECK(revision>=1),\n PRIMARY KEY(user_id,task_id)\n);\nCREATE INDEX productivity_task_pins_task ON productivity_task_pins(task_id,user_id);\n\nCREATE TABLE productivity_views(id TEXT PRIMARY KEY,owner_id TEXT NOT NULL,title TEXT NOT NULL,revision INTEGER NOT NULL CHECK(revision>=1),filter_json TEXT NOT NULL CHECK(json_valid(filter_json)),kind TEXT NOT NULL CHECK(kind IN('list','matrix','kanban','calendar','timeline')),config_json TEXT NOT NULL CHECK(json_valid(config_json)));\nCREATE INDEX productivity_views_owner ON productivity_views(owner_id,id);\nCREATE TABLE productivity_search_documents(task_id TEXT PRIMARY KEY REFERENCES productivity_tasks(id) ON DELETE CASCADE,content TEXT NOT NULL);\nCREATE TABLE productivity_search_grams(task_id TEXT NOT NULL REFERENCES productivity_search_documents(task_id) ON DELETE CASCADE,gram TEXT NOT NULL,PRIMARY KEY(task_id,gram));\nCREATE INDEX productivity_search_grams_lookup ON productivity_search_grams(gram,task_id);\n\nCREATE TABLE productivity_matrix_overrides(\n view_id TEXT NOT NULL REFERENCES productivity_views(id) ON DELETE CASCADE,task_id TEXT NOT NULL REFERENCES productivity_tasks(id) ON DELETE CASCADE,\n quadrant TEXT NOT NULL CHECK(quadrant IN('q1','q2','q3','q4')),\n view_revision INTEGER NOT NULL CHECK(typeof(view_revision)='integer' AND view_revision>=1),revision INTEGER NOT NULL CHECK(typeof(revision)='integer' AND revision>=1),expires_at TEXT,\n PRIMARY KEY(view_id,task_id)\n);\nCREATE INDEX productivity_matrix_overrides_expiry ON productivity_matrix_overrides(expires_at,view_id,task_id);\n\nCREATE TABLE productivity_boards(\n id TEXT PRIMARY KEY NOT NULL CHECK(length(trim(id)) BETWEEN 1 AND 256),\n list_id TEXT NOT NULL REFERENCES productivity_lists(id),\n mode TEXT NOT NULL CHECK(mode IN('sections','workflow')),\n revision INTEGER NOT NULL CHECK(typeof(revision)='integer' AND revision BETWEEN 1 AND 9007199254740991),\n UNIQUE(list_id,mode),UNIQUE(id,list_id)\n);\nCREATE TABLE productivity_board_columns(\n board_id TEXT NOT NULL,id TEXT NOT NULL CHECK(length(trim(id)) BETWEEN 1 AND 256),list_id TEXT NOT NULL,\n column_key TEXT NOT NULL CHECK(length(trim(column_key)) BETWEEN 1 AND 264),section_id TEXT,\n rank INTEGER NOT NULL CHECK(typeof(rank)='integer' AND rank BETWEEN 0 AND 9007199254740991),\n wip_limit INTEGER,wip_policy TEXT NOT NULL CHECK(wip_policy IN('off','soft','hard')),archived_at TEXT,\n revision INTEGER NOT NULL CHECK(typeof(revision)='integer' AND revision BETWEEN 1 AND 9007199254740991),\n PRIMARY KEY(board_id,id),UNIQUE(board_id,column_key),UNIQUE(board_id,id,list_id),\n FOREIGN KEY(board_id,list_id) REFERENCES productivity_boards(id,list_id),\n FOREIGN KEY(section_id,list_id) REFERENCES productivity_sections(id,list_id),\n CHECK((wip_policy='off' AND wip_limit IS NULL) OR (wip_policy IN('soft','hard') AND typeof(wip_limit)='integer' AND wip_limit BETWEEN 1 AND 9007199254740991))\n);\nCREATE UNIQUE INDEX productivity_tasks_board_identity ON productivity_tasks(id,list_id);\nCREATE TABLE productivity_board_positions(\n board_id TEXT NOT NULL,task_id TEXT NOT NULL,list_id TEXT NOT NULL,column_id TEXT NOT NULL,\n rank INTEGER NOT NULL CHECK(typeof(rank)='integer' AND rank BETWEEN 0 AND 9007199254740991),\n PRIMARY KEY(board_id,task_id),\n FOREIGN KEY(board_id,column_id,list_id) REFERENCES productivity_board_columns(board_id,id,list_id),\n FOREIGN KEY(task_id,list_id) REFERENCES productivity_tasks(id,list_id) ON DELETE CASCADE\n);\nCREATE INDEX productivity_board_positions_lane ON productivity_board_positions(board_id,column_id,rank,task_id);\n\nCREATE TABLE IF NOT EXISTS wallet_currencies(code TEXT PRIMARY KEY,exponent INTEGER NOT NULL CHECK(exponent BETWEEN 0 AND 8));\nINSERT OR IGNORE INTO wallet_currencies VALUES('VND',0),('USD',2);\nCREATE TABLE IF NOT EXISTS wallet_accounts(\n id TEXT PRIMARY KEY,name TEXT NOT NULL,type TEXT NOT NULL CHECK(type IN('cash','bank','savings','credit','e_wallet','investment','asset','liability')),\n currency TEXT NOT NULL REFERENCES wallet_currencies(code),owner_user_id TEXT NOT NULL,access_mode TEXT NOT NULL CHECK(access_mode IN('shared','private')),\n opening_minor INTEGER NOT NULL CHECK(typeof(opening_minor)='integer'),opening_date TEXT NOT NULL,revision INTEGER NOT NULL CHECK(revision>=1),archived_at TEXT);\nCREATE TABLE IF NOT EXISTS wallet_account_grants(account_id TEXT NOT NULL REFERENCES wallet_accounts(id),user_id TEXT NOT NULL,permission TEXT NOT NULL CHECK(permission IN('read','contribute','manage')),PRIMARY KEY(account_id,user_id));\nCREATE TABLE IF NOT EXISTS wallet_categories(id TEXT PRIMARY KEY,parent_id TEXT REFERENCES wallet_categories(id) DEFERRABLE INITIALLY DEFERRED,name TEXT NOT NULL,nature TEXT NOT NULL CHECK(nature IN('must','need','want','unspecified')),archived_at TEXT);\nCREATE TABLE IF NOT EXISTS wallet_labels(id TEXT PRIMARY KEY,name TEXT NOT NULL,archived_at TEXT);\nCREATE TABLE IF NOT EXISTS wallet_schedules(id TEXT PRIMARY KEY,payload_json TEXT NOT NULL CHECK(json_valid(payload_json)));\nCREATE TABLE IF NOT EXISTS wallet_occurrences(id TEXT PRIMARY KEY,schedule_id TEXT NOT NULL REFERENCES wallet_schedules(id),due_date TEXT NOT NULL,UNIQUE(schedule_id,due_date));\nCREATE TABLE IF NOT EXISTS wallet_records(\n id TEXT PRIMARY KEY,kind TEXT NOT NULL CHECK(kind IN('income','expense','transfer','adjustment','trade')),effective_date TEXT NOT NULL,timezone TEXT NOT NULL,\n source TEXT NOT NULL CHECK(source IN('manual','import','schedule','legacy')),external_key TEXT,note TEXT NOT NULL,\n settlement_status TEXT NOT NULL CHECK(settlement_status IN('uncleared','cleared','reconciled','voided')),creator_id TEXT NOT NULL,revision INTEGER NOT NULL CHECK(revision>=1),\n category_id TEXT REFERENCES wallet_categories(id),occurrence_id TEXT UNIQUE REFERENCES wallet_occurrences(id),UNIQUE(id,effective_date));\nCREATE UNIQUE INDEX IF NOT EXISTS wallet_record_external_key ON wallet_records(source,external_key) WHERE external_key IS NOT NULL;\nCREATE TABLE IF NOT EXISTS wallet_postings(record_id TEXT NOT NULL,account_id TEXT NOT NULL REFERENCES wallet_accounts(id),effective_date TEXT NOT NULL,delta_minor INTEGER NOT NULL CHECK(typeof(delta_minor)='integer'),PRIMARY KEY(record_id,account_id),FOREIGN KEY(record_id,effective_date) REFERENCES wallet_records(id,effective_date));\nCREATE INDEX IF NOT EXISTS wallet_posting_account_date ON wallet_postings(account_id,effective_date,record_id);\nCREATE TABLE IF NOT EXISTS wallet_record_labels(record_id TEXT NOT NULL REFERENCES wallet_records(id),label_id TEXT NOT NULL REFERENCES wallet_labels(id),PRIMARY KEY(record_id,label_id));\nCREATE TABLE IF NOT EXISTS wallet_allocations(record_id TEXT NOT NULL REFERENCES wallet_records(id),category_id TEXT NOT NULL REFERENCES wallet_categories(id),amount_minor INTEGER NOT NULL CHECK(typeof(amount_minor)='integer' AND amount_minor>=0),PRIMARY KEY(record_id,category_id));\nCREATE TABLE IF NOT EXISTS wallet_audit(id TEXT PRIMARY KEY,record_id TEXT REFERENCES wallet_records(id),actor_id TEXT NOT NULL,action TEXT NOT NULL);\n",
+  "columns": {
+    "productivity_lists": [
+      "id",
+      "title",
+      "owner_id",
+      "is_shared"
+    ],
+    "productivity_sections": [
+      "id",
+      "list_id",
+      "title"
+    ],
+    "productivity_tags": [
+      "id",
+      "name"
+    ],
+    "productivity_tasks": [
+      "id",
+      "list_id",
+      "section_id",
+      "parent_id",
+      "title",
+      "body",
+      "lifecycle",
+      "priority",
+      "due_kind",
+      "due_date",
+      "due_instant",
+      "due_timezone",
+      "scheduled_start",
+      "scheduled_end",
+      "creator_id",
+      "assignee_id",
+      "is_shared",
+      "blocked",
+      "blocked_reason",
+      "pending_approval",
+      "reward_points",
+      "revision",
+      "deleted_at",
+      "rank",
+      "legacy_json"
+    ],
+    "productivity_task_tags": [
+      "task_id",
+      "tag_id"
+    ],
+    "productivity_list_grants": [
+      "list_id",
+      "user_id",
+      "permission"
+    ],
+    "productivity_occurrences": [
+      "id",
+      "task_id",
+      "series_id",
+      "occurrence_key",
+      "ordinal",
+      "payload_json"
+    ],
+    "productivity_matrix_pins": [
+      "view_id",
+      "task_id",
+      "quadrant"
+    ],
+    "productivity_catalog_revisions": [
+      "entity_kind",
+      "entity_id",
+      "revision",
+      "archived_at"
+    ],
+    "productivity_check_items": [
+      "id",
+      "task_id",
+      "text",
+      "is_done",
+      "rank"
+    ],
+    "productivity_tag_owners": [
+      "tag_id",
+      "user_id"
+    ],
+    "productivity_task_pins": [
+      "user_id",
+      "task_id",
+      "is_pinned",
+      "revision"
+    ],
+    "productivity_views": [
+      "id",
+      "owner_id",
+      "title",
+      "revision",
+      "filter_json",
+      "kind",
+      "config_json"
+    ],
+    "productivity_search_documents": [
+      "task_id",
+      "content"
+    ],
+    "productivity_search_grams": [
+      "task_id",
+      "gram"
+    ],
+    "productivity_matrix_overrides": [
+      "view_id",
+      "task_id",
+      "quadrant",
+      "view_revision",
+      "revision",
+      "expires_at"
+    ],
+    "productivity_boards": [
+      "id",
+      "list_id",
+      "mode",
+      "revision"
+    ],
+    "productivity_board_columns": [
+      "board_id",
+      "id",
+      "list_id",
+      "column_key",
+      "section_id",
+      "rank",
+      "wip_limit",
+      "wip_policy",
+      "archived_at",
+      "revision"
+    ],
+    "productivity_board_positions": [
+      "board_id",
+      "task_id",
+      "list_id",
+      "column_id",
+      "rank"
+    ],
+    "wallet_currencies": [
+      "code",
+      "exponent"
+    ],
+    "wallet_accounts": [
+      "id",
+      "name",
+      "type",
+      "currency",
+      "owner_user_id",
+      "access_mode",
+      "opening_minor",
+      "opening_date",
+      "revision",
+      "archived_at"
+    ],
+    "wallet_account_grants": [
+      "account_id",
+      "user_id",
+      "permission"
+    ],
+    "wallet_categories": [
+      "id",
+      "parent_id",
+      "name",
+      "nature",
+      "archived_at"
+    ],
+    "wallet_labels": [
+      "id",
+      "name",
+      "archived_at"
+    ],
+    "wallet_schedules": [
+      "id",
+      "payload_json"
+    ],
+    "wallet_occurrences": [
+      "id",
+      "schedule_id",
+      "due_date"
+    ],
+    "wallet_records": [
+      "id",
+      "kind",
+      "effective_date",
+      "timezone",
+      "source",
+      "external_key",
+      "note",
+      "settlement_status",
+      "creator_id",
+      "revision",
+      "category_id",
+      "occurrence_id"
+    ],
+    "wallet_postings": [
+      "record_id",
+      "account_id",
+      "effective_date",
+      "delta_minor"
+    ],
+    "wallet_record_labels": [
+      "record_id",
+      "label_id"
+    ],
+    "wallet_allocations": [
+      "record_id",
+      "category_id",
+      "amount_minor"
+    ],
+    "wallet_audit": [
+      "id",
+      "record_id",
+      "actor_id",
+      "action"
+    ]
+  },
+  "moneyColumns": {
+    "wallet_accounts": [
+      "opening_minor"
+    ],
+    "wallet_postings": [
+      "delta_minor"
+    ],
+    "wallet_allocations": [
+      "amount_minor"
+    ]
+  },
+  "tables": {
+    "productivity_lists": [
+      {
+        "id": "legacy-family",
+        "title": "Gia đình",
+        "owner_id": "system:migration",
+        "is_shared": 1
+      }
+    ],
+    "productivity_sections": [
+      {
+        "id": "ed92b3be-ef68-44e1-becc-1c55022c75e1",
+        "list_id": "legacy-family",
+        "title": "Done"
+      }
+    ],
+    "productivity_tags": [
+      {
+        "id": "home",
+        "name": "home"
+      },
+      {
+        "id": "85c3c74d-0773-457e-82f9-ceb223f91922",
+        "name": "Synthetic packaged tag a"
+      },
+      {
+        "id": "53e9d361-bdaf-4dc0-9ad7-29a16ec317d9",
+        "name": "Synthetic packaged tag b"
+      },
+      {
+        "id": "e161c244-d31b-4b86-8771-3fc272ef8196",
+        "name": "Synthetic packaged tag private"
+      },
+      {
+        "id": "58965160-9d4f-488d-aaa7-6f68f6c57b69",
+        "name": "Synthetic packaged tag keep"
+      }
+    ],
+    "productivity_tasks": [
+      {
+        "id": "board-root",
+        "list_id": "legacy-family",
+        "section_id": null,
+        "parent_id": null,
+        "title": "Synthetic task board-root",
+        "body": "Synthetic body",
+        "lifecycle": "todo",
+        "priority": "medium",
+        "due_kind": "none",
+        "due_date": null,
+        "due_instant": null,
+        "due_timezone": null,
+        "scheduled_start": null,
+        "scheduled_end": null,
+        "creator_id": "package-admin",
+        "assignee_id": "package-child",
+        "is_shared": 1,
+        "blocked": 0,
+        "blocked_reason": null,
+        "pending_approval": 0,
+        "reward_points": 7,
+        "revision": 2,
+        "deleted_at": null,
+        "rank": 1024,
+        "legacy_json": "{\"id\":\"board-root\",\"title\":\"Synthetic task board-root\",\"description\":\"Synthetic body\",\"status\":\"todo\",\"priority\":\"medium\",\"dueDate\":\"\",\"creatorId\":\"package-admin\",\"assigneeId\":\"package-child\",\"isShared\":true,\"tags\":[\"home\"],\"rewardPoints\":7,\"comments\":[{\"id\":\"comment-board-root\",\"userId\":\"adult\",\"username\":\"synthetic\",\"content\":\"Keep comment\",\"createdAt\":\"2026-10-10T00:00:00Z\"}],\"history\":[{\"id\":\"c2f8a31e-4651-43f1-b717-74f54cbe6d9f\",\"userId\":\"package-admin\",\"username\":\"package-admin\",\"action\":\"Cập nhật công việc: tagIds\",\"createdAt\":\"2026-10-15T22:47:22.839Z\"}],\"createdAt\":\"2026-10-10T00:00:00Z\",\"updatedAt\":\"2026-10-15T22:47:22.839Z\",\"rotationMemberIds\":[]}"
+      },
+      {
+        "id": "board-private",
+        "list_id": "legacy-family",
+        "section_id": null,
+        "parent_id": null,
+        "title": "Synthetic hidden board root",
+        "body": "Synthetic body",
+        "lifecycle": "todo",
+        "priority": "medium",
+        "due_kind": "none",
+        "due_date": null,
+        "due_instant": null,
+        "due_timezone": null,
+        "scheduled_start": null,
+        "scheduled_end": null,
+        "creator_id": "package-admin",
+        "assignee_id": "package-admin",
+        "is_shared": 0,
+        "blocked": 0,
+        "blocked_reason": null,
+        "pending_approval": 0,
+        "reward_points": 7,
+        "revision": 2,
+        "deleted_at": null,
+        "rank": 2048,
+        "legacy_json": "{\"id\":\"board-private\",\"title\":\"Synthetic hidden board root\",\"description\":\"Synthetic body\",\"status\":\"todo\",\"priority\":\"medium\",\"dueDate\":\"\",\"creatorId\":\"package-admin\",\"assigneeId\":\"package-admin\",\"isShared\":false,\"tags\":[\"home\"],\"rewardPoints\":7,\"comments\":[{\"id\":\"comment-board-private\",\"userId\":\"adult\",\"username\":\"synthetic\",\"content\":\"Keep comment\",\"createdAt\":\"2026-10-10T00:00:00Z\"}],\"history\":[{\"id\":\"dff86156-663a-445b-a6bb-c6fbfe86814c\",\"userId\":\"package-admin\",\"username\":\"package-admin\",\"action\":\"Cập nhật công việc: tagIds\",\"createdAt\":\"2026-10-15T22:47:22.848Z\"}],\"createdAt\":\"2026-10-10T00:00:00Z\",\"updatedAt\":\"2026-10-15T22:47:22.848Z\",\"rotationMemberIds\":[]}"
+      },
+      {
+        "id": "board-child",
+        "list_id": "legacy-family",
+        "section_id": null,
+        "parent_id": "board-root",
+        "title": "Synthetic task board-child",
+        "body": "Synthetic body",
+        "lifecycle": "todo",
+        "priority": "medium",
+        "due_kind": "none",
+        "due_date": null,
+        "due_instant": null,
+        "due_timezone": null,
+        "scheduled_start": null,
+        "scheduled_end": null,
+        "creator_id": "package-admin",
+        "assignee_id": "package-child",
+        "is_shared": 1,
+        "blocked": 0,
+        "blocked_reason": null,
+        "pending_approval": 0,
+        "reward_points": 0,
+        "revision": 1,
+        "deleted_at": null,
+        "rank": 3072,
+        "legacy_json": "{\"id\":\"board-child\",\"title\":\"Synthetic task board-child\",\"description\":\"Synthetic body\",\"status\":\"todo\",\"priority\":\"medium\",\"dueDate\":\"\",\"creatorId\":\"package-admin\",\"assigneeId\":\"package-child\",\"isShared\":true,\"tags\":[\"home\"],\"rewardPoints\":0,\"comments\":[{\"id\":\"comment-board-child\",\"userId\":\"adult\",\"username\":\"synthetic\",\"content\":\"Keep comment\",\"createdAt\":\"2026-10-10T00:00:00Z\"}],\"history\":[],\"createdAt\":\"2026-10-10T00:00:00Z\",\"updatedAt\":\"2026-10-10T00:00:00Z\",\"rotationMemberIds\":[]}"
+      }
+    ],
+    "productivity_task_tags": [
+      {
+        "task_id": "board-child",
+        "tag_id": "home"
+      },
+      {
+        "task_id": "board-root",
+        "tag_id": "85c3c74d-0773-457e-82f9-ceb223f91922"
+      },
+      {
+        "task_id": "board-root",
+        "tag_id": "53e9d361-bdaf-4dc0-9ad7-29a16ec317d9"
+      },
+      {
+        "task_id": "board-root",
+        "tag_id": "58965160-9d4f-488d-aaa7-6f68f6c57b69"
+      },
+      {
+        "task_id": "board-private",
+        "tag_id": "e161c244-d31b-4b86-8771-3fc272ef8196"
+      }
+    ],
+    "productivity_list_grants": [
+      {
+        "list_id": "legacy-family",
+        "user_id": "package-member",
+        "permission": "manage"
+      }
+    ],
+    "productivity_occurrences": [],
+    "productivity_matrix_pins": [],
+    "productivity_catalog_revisions": [
+      {
+        "entity_kind": "list",
+        "entity_id": "legacy-family",
+        "revision": 2,
+        "archived_at": null
+      },
+      {
+        "entity_kind": "tag",
+        "entity_id": "home",
+        "revision": 1,
+        "archived_at": null
+      },
+      {
+        "entity_kind": "section",
+        "entity_id": "ed92b3be-ef68-44e1-becc-1c55022c75e1",
+        "revision": 1,
+        "archived_at": null
+      },
+      {
+        "entity_kind": "tag",
+        "entity_id": "85c3c74d-0773-457e-82f9-ceb223f91922",
+        "revision": 1,
+        "archived_at": null
+      },
+      {
+        "entity_kind": "tag",
+        "entity_id": "53e9d361-bdaf-4dc0-9ad7-29a16ec317d9",
+        "revision": 1,
+        "archived_at": null
+      },
+      {
+        "entity_kind": "tag",
+        "entity_id": "e161c244-d31b-4b86-8771-3fc272ef8196",
+        "revision": 1,
+        "archived_at": null
+      },
+      {
+        "entity_kind": "tag",
+        "entity_id": "58965160-9d4f-488d-aaa7-6f68f6c57b69",
+        "revision": 1,
+        "archived_at": null
+      }
+    ],
+    "productivity_check_items": [],
+    "productivity_tag_owners": [
+      {
+        "tag_id": "85c3c74d-0773-457e-82f9-ceb223f91922",
+        "user_id": "package-admin"
+      },
+      {
+        "tag_id": "53e9d361-bdaf-4dc0-9ad7-29a16ec317d9",
+        "user_id": "package-admin"
+      },
+      {
+        "tag_id": "e161c244-d31b-4b86-8771-3fc272ef8196",
+        "user_id": "package-admin"
+      },
+      {
+        "tag_id": "58965160-9d4f-488d-aaa7-6f68f6c57b69",
+        "user_id": "package-admin"
+      }
+    ],
+    "productivity_task_pins": [],
+    "productivity_views": [
+      {
+        "id": "ea86512b-5be1-4339-b346-d03e64a423de",
+        "owner_id": "package-admin",
+        "title": "Synthetic packaged board view",
+        "revision": 1,
+        "filter_json": "{\"rootsOnly\":true}",
+        "kind": "kanban",
+        "config_json": "{\"kind\":\"kanban\",\"mode\":\"sections\",\"group\":\"none\",\"sort\":\"rank\",\"columns\":[],\"boardId\":\"40745d8e-0417-435d-bd96-d2bda5bce2ce\"}"
+      },
+      {
+        "id": "a1130aee-1446-40f5-9a39-7093c88d690e",
+        "owner_id": "package-admin",
+        "title": "Synthetic packaged Matrix view",
+        "revision": 1,
+        "filter_json": "{\"rootsOnly\":false}",
+        "kind": "matrix",
+        "config_json": "{\"kind\":\"matrix\",\"preset\":\"priority_only\",\"horizonDays\":1,\"rules\":null,\"order\":[\"q1\",\"q2\",\"q3\",\"q4\"],\"showCompleted\":false}"
+      },
+      {
+        "id": "aba148c3-4b27-4dd5-b073-59eefcad64d6",
+        "owner_id": "package-admin",
+        "title": "Synthetic packaged tag view",
+        "revision": 1,
+        "filter_json": "{\"rootsOnly\":true}",
+        "kind": "kanban",
+        "config_json": "{\"kind\":\"kanban\",\"mode\":\"sections\",\"group\":\"tag\",\"sort\":\"rank\",\"columns\":[],\"boardId\":\"40745d8e-0417-435d-bd96-d2bda5bce2ce\"}"
+      }
+    ],
+    "productivity_search_documents": [
+      {
+        "task_id": "board-root",
+        "content": "synthetic task board-root\nsynthetic body"
+      },
+      {
+        "task_id": "board-private",
+        "content": "synthetic hidden board root\nsynthetic body"
+      },
+      {
+        "task_id": "board-child",
+        "content": "synthetic task board-child\nsynthetic body"
+      }
+    ],
+    "productivity_search_grams": [
+      {
+        "task_id": "board-root",
+        "gram": "\nsy"
+      },
+      {
+        "task_id": "board-root",
+        "gram": " bo"
+      },
+      {
+        "task_id": "board-root",
+        "gram": " ta"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "-ro"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "ard"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "ask"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "boa"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "bod"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "c b"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "c t"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "d-r"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "eti"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "het"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "ic "
+      },
+      {
+        "task_id": "board-root",
+        "gram": "k b"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "nth"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "oar"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "ody"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "oot"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "ot\n"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "rd-"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "roo"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "sk "
+      },
+      {
+        "task_id": "board-root",
+        "gram": "syn"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "t\ns"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "tas"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "the"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "tic"
+      },
+      {
+        "task_id": "board-root",
+        "gram": "ynt"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "\nsy"
+      },
+      {
+        "task_id": "board-private",
+        "gram": " bo"
+      },
+      {
+        "task_id": "board-private",
+        "gram": " hi"
+      },
+      {
+        "task_id": "board-private",
+        "gram": " ro"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "ard"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "boa"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "bod"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "c b"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "c h"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "d r"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "dde"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "den"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "en "
+      },
+      {
+        "task_id": "board-private",
+        "gram": "eti"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "het"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "hid"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "ic "
+      },
+      {
+        "task_id": "board-private",
+        "gram": "idd"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "n b"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "nth"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "oar"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "ody"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "oot"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "ot\n"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "rd "
+      },
+      {
+        "task_id": "board-private",
+        "gram": "roo"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "syn"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "t\ns"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "the"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "tic"
+      },
+      {
+        "task_id": "board-private",
+        "gram": "ynt"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "\nsy"
+      },
+      {
+        "task_id": "board-child",
+        "gram": " bo"
+      },
+      {
+        "task_id": "board-child",
+        "gram": " ta"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "-ch"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "ard"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "ask"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "boa"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "bod"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "c b"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "c t"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "chi"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "d\ns"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "d-c"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "eti"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "het"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "hil"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "ic "
+      },
+      {
+        "task_id": "board-child",
+        "gram": "ild"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "k b"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "ld\n"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "nth"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "oar"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "ody"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "rd-"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "sk "
+      },
+      {
+        "task_id": "board-child",
+        "gram": "syn"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "tas"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "the"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "tic"
+      },
+      {
+        "task_id": "board-child",
+        "gram": "ynt"
+      }
+    ],
+    "productivity_matrix_overrides": [
+      {
+        "view_id": "a1130aee-1446-40f5-9a39-7093c88d690e",
+        "task_id": "board-root",
+        "quadrant": "q2",
+        "view_revision": 1,
+        "revision": 1,
+        "expires_at": null
+      }
+    ],
+    "productivity_boards": [
+      {
+        "id": "40745d8e-0417-435d-bd96-d2bda5bce2ce",
+        "list_id": "legacy-family",
+        "mode": "sections",
+        "revision": 1
+      }
+    ],
+    "productivity_board_columns": [
+      {
+        "board_id": "40745d8e-0417-435d-bd96-d2bda5bce2ce",
+        "id": "d9293514-86f3-4aac-93fb-0032a74f8abc",
+        "list_id": "legacy-family",
+        "column_key": "none",
+        "section_id": null,
+        "rank": 0,
+        "wip_limit": 2,
+        "wip_policy": "hard",
+        "archived_at": null,
+        "revision": 1
+      },
+      {
+        "board_id": "40745d8e-0417-435d-bd96-d2bda5bce2ce",
+        "id": "094af957-bdcf-471f-8ae5-3c67e4fd1f46",
+        "list_id": "legacy-family",
+        "column_key": "section:ed92b3be-ef68-44e1-becc-1c55022c75e1",
+        "section_id": "ed92b3be-ef68-44e1-becc-1c55022c75e1",
+        "rank": 1024,
+        "wip_limit": 1,
+        "wip_policy": "hard",
+        "archived_at": null,
+        "revision": 1
+      }
+    ],
+    "productivity_board_positions": [
+      {
+        "board_id": "40745d8e-0417-435d-bd96-d2bda5bce2ce",
+        "task_id": "board-root",
+        "list_id": "legacy-family",
+        "column_id": "d9293514-86f3-4aac-93fb-0032a74f8abc",
+        "rank": 1024
+      },
+      {
+        "board_id": "40745d8e-0417-435d-bd96-d2bda5bce2ce",
+        "task_id": "board-private",
+        "list_id": "legacy-family",
+        "column_id": "d9293514-86f3-4aac-93fb-0032a74f8abc",
+        "rank": 2048
+      },
+      {
+        "board_id": "40745d8e-0417-435d-bd96-d2bda5bce2ce",
+        "task_id": "board-child",
+        "list_id": "legacy-family",
+        "column_id": "d9293514-86f3-4aac-93fb-0032a74f8abc",
+        "rank": 3072
+      }
+    ],
+    "wallet_currencies": [
+      {
+        "code": "VND",
+        "exponent": 0
+      },
+      {
+        "code": "USD",
+        "exponent": 2
+      }
+    ],
+    "wallet_accounts": [
+      {
+        "id": "board-wallet-account",
+        "name": "Synthetic packaged Wallet",
+        "type": "bank",
+        "currency": "VND",
+        "owner_user_id": "package-admin",
+        "access_mode": "private",
+        "opening_minor": "9223372036854775807",
+        "opening_date": "2026-10-15",
+        "revision": 1,
+        "archived_at": null
+      }
+    ],
+    "wallet_account_grants": [],
+    "wallet_categories": [],
+    "wallet_labels": [],
+    "wallet_schedules": [],
+    "wallet_occurrences": [],
+    "wallet_records": [
+      {
+        "id": "board-wallet-record",
+        "kind": "expense",
+        "effective_date": "2026-10-15",
+        "timezone": "Asia/Saigon",
+        "source": "manual",
+        "external_key": null,
+        "note": "",
+        "settlement_status": "cleared",
+        "creator_id": "package-admin",
+        "revision": 1,
+        "category_id": null,
+        "occurrence_id": null
+      }
+    ],
+    "wallet_postings": [
+      {
+        "record_id": "board-wallet-record",
+        "account_id": "board-wallet-account",
+        "effective_date": "2026-10-15",
+        "delta_minor": "-9223372036854775808"
+      }
+    ],
+    "wallet_record_labels": [],
+    "wallet_allocations": [],
+    "wallet_audit": []
+  },
+  "migrations": [
+    {
+      "namespace": "productivity",
+      "version": 1,
+      "checksum": "8f978329c9628a1c54b25a456a34c46d74c868397f78b9592ef2c026e95a9f90",
+      "applied_at": "2026-10-15T22:47:22.777Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 2,
+      "checksum": "c8f354941f720cd1e7b973ee422180b4c1e7488d4ac23f4c900460474bce1ed3",
+      "applied_at": "2026-10-15T22:47:22.778Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 3,
+      "checksum": "42134eeb5d73fe80d730b47a459d30b26b03f352aa5da03b1cf88f661bb04013",
+      "applied_at": "2026-10-15T22:47:22.778Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 4,
+      "checksum": "a7e65609adf72db386db0b90d3121f4fdd1b1ff37b85b27660ce694be7da03f4",
+      "applied_at": "2026-10-15T22:47:22.778Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 5,
+      "checksum": "bbaec18dc0c543465ff8a48a9e73ccd78a4f427509397978f2dc53bb8cefac51",
+      "applied_at": "2026-10-15T22:47:22.780Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 6,
+      "checksum": "4e769fd42933482921fc94d0596ab6b93e7f9eb9ba906025f34e1180a6d8807b",
+      "applied_at": "2026-10-15T22:47:22.780Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 7,
+      "checksum": "caf574d761d93b4d10ab0621ce706a6852f6ec457fe0329b765f1ff3d136adc9",
+      "applied_at": "2026-10-15T22:47:22.793Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 8,
+      "checksum": "a3a4c0791eea51e7a1b88db64d810e9c5f767adfad3071f221e586784a4f76c5",
+      "applied_at": "2026-10-15T22:47:22.797Z"
+    },
+    {
+      "namespace": "productivity",
+      "version": 9,
+      "checksum": "10fa74bc5c5749adabdcf8413b31a2418c06281536df1c27944995a16e863389",
+      "applied_at": "2026-10-15T22:47:22.800Z"
+    },
+    {
+      "namespace": "wallet",
+      "version": 1,
+      "checksum": "5386132badbf4a5fee4331cbf0a133bd2a106ed284f80ee479ff31df4bcb1e6a",
+      "applied_at": "2026-10-15T22:47:22.781Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "package-admin",
+      "username": "package-admin",
+      "fullName": "Synthetic package admin",
+      "role": "admin",
+      "passwordHash": "synthetic-offline-not-runtime-credential",
+      "avatarColor": "blue",
+      "createdAt": "2026-10-15T00:00:00Z"
+    },
+    {
+      "id": "package-member",
+      "username": "package-member",
+      "fullName": "Synthetic package member",
+      "role": "member",
+      "passwordHash": "synthetic-offline-not-runtime-credential",
+      "avatarColor": "blue",
+      "createdAt": "2026-10-15T00:00:00Z"
+    },
+    {
+      "id": "package-child",
+      "username": "package-child",
+      "fullName": "Synthetic package child",
+      "role": "child",
+      "passwordHash": "synthetic-offline-not-runtime-credential",
+      "avatarColor": "blue",
+      "createdAt": "2026-10-15T00:00:00Z"
+    },
+    {
+      "id": "package-guest",
+      "username": "package-guest",
+      "fullName": "Synthetic package guest",
+      "role": "guest",
+      "passwordHash": "synthetic-offline-not-runtime-credential",
+      "avatarColor": "blue",
+      "createdAt": "2026-10-15T00:00:00Z"
+    }
+  ],
+  "sectionId": "ed92b3be-ef68-44e1-becc-1c55022c75e1",
+  "boardId": "40745d8e-0417-435d-bd96-d2bda5bce2ce",
+  "viewId": "ea86512b-5be1-4339-b346-d03e64a423de",
+  "matrixViewId": "a1130aee-1446-40f5-9a39-7093c88d690e",
+  "tagViewId": "aba148c3-4b27-4dd5-b073-59eefcad64d6",
+  "tagIds": {
+    "a": "85c3c74d-0773-457e-82f9-ceb223f91922",
+    "b": "53e9d361-bdaf-4dc0-9ad7-29a16ec317d9",
+    "private": "e161c244-d31b-4b86-8771-3fc272ef8196",
+    "keep": "58965160-9d4f-488d-aaa7-6f68f6c57b69"
+  },
+  "taskIds": [
+    "board-root",
+    "board-private",
+    "board-child"
+  ],
+  "privateTaskId": "board-private"
+}

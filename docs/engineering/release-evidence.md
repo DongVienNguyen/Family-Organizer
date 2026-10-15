@@ -6,7 +6,7 @@ candidate, publish or promote a release. `npm run release` remains disabled.
 
 `release-evidence.mjs` binds an explicit repository, full commit SHA, run ID,
 application version and `v<version>` tag to a trusted main push, the pinned CI
-workflow and all seven first-attempt GitHub Actions checks. Missing, duplicate,
+workflow and all eight first-attempt GitHub Actions checks. Missing, duplicate,
 foreign, skipped, cancelled or rerun checks/artifacts fail. The artifact's GitHub
 SHA256 digest must equal the downloaded artifact archive's digest. The inner ZIP,
 manifest and normalized quality/browser/consumer/service receipts must agree.
@@ -91,3 +91,5 @@ must match quality/runtime/auxiliary evidence before normalized verification.
 These bindings were added after six actual contradiction failures in review.
 The old preflight console marker is a deferred wording note; the normalized JSON
 and explicit publication lock determine the new final result.
+
+Current F08-o2 protocol also requires the Productivity browser/native touch family and three generated fixtures bound to consumer-recorded SHA256 values. See [generated fixture policy](release-generated-fixture-policy.md). Historical receipts remain historical; publication stays disabled.
