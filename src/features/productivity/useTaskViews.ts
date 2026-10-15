@@ -1,0 +1,25 @@
+import {useTranslation} from 'react-i18next';
+import {createSavedViewDraft} from './savedViewDraft.js';
+import {openCanonicalTask} from './openTask.js';
+import {useEffect,useMemo,useRef,useState,useSyncExternalStore} from 'react';
+import {createTaskQueryState} from './queryState.js';
+import type {SmartTaskView,TaskFilter,TaskQueryRefinements,TaskRecord} from './contracts.js';
+import type {SavedTaskView} from '../../../server/productivity/views.js';
+import {useTasks} from './useTasks.js';
+export function useTaskViews(){
+ const {t}=useTranslation(),editor=useMemo(()=>createSavedViewDraft(),[]),state=useTasks(),{api,loading,enabled,online,queryEpoch}=state,controller=useMemo(()=>createTaskQueryState({query:(input,signal)=>api.query(input,{signal})}),[api]),mounted=useRef<typeof controller|null>(null);
+ const projection=useSyncExternalStore(controller.subscribe,controller.snapshot,controller.snapshot),[scope,setScope]=useState<SmartTaskView|'all'>('all'),[filter,setFilter]=useState<TaskFilter>({rootsOnly:true}),[search,setSearch]=useState(''),[windowDays,setWindowDays]=useState<7|30|90|'all'>(7),[saved,setSaved]=useState<SavedTaskView[]>([]),[selected,setSelected]=useState(''),[title,setTitle]=useState(''),[actionError,setActionError]=useState(''),[savedError,setSavedError]=useState(''),[busy,setBusy]=useState(false),[savedEpoch,setSavedEpoch]=useState(0),detailEpoch=useRef(0),[detail,setDetail]=useState<{task:TaskRecord|null;loading:boolean;error:string}|null>(null);
+ const refine:TaskQueryRefinements={};for(const key of ['query','listIds','sectionIds','tagIds','tagMatch','assigneeIds','priority']as const)if(filter[key]!==undefined)(refine as any)[key]=filter[key];
+ const input=scope==='all'?{filter,timezone:'Asia/Saigon'}:{smart:scope,refine,completedWindowDays:windowDays,timezone:'Asia/Saigon'},signature=JSON.stringify(input);
+ useEffect(()=>{mounted.current=controller;return()=>{mounted.current=null;detailEpoch.current++;queueMicrotask(()=>{if(mounted.current!==controller)controller.dispose();});};},[controller]);
+ useEffect(()=>{if(!loading&&enabled&&online)void controller.load(JSON.parse(signature));},[controller,signature,loading,enabled,online,queryEpoch]);
+ useEffect(()=>{if(loading||!enabled){controller.clear();detailEpoch.current++;setDetail(null);}},[controller,loading,enabled]);
+ useEffect(()=>{let cancelled=false;if(loading||!enabled){setSaved([]);return;}setSavedError('');api.views().then(rows=>{if(!cancelled)setSaved(rows);}).catch(error=>{if(!cancelled){setSaved([]);setSavedError(error instanceof Error?error.message:'Không tải được góc nhìn.');}});return()=>{cancelled=true;};},[api,loading,enabled,queryEpoch,savedEpoch]);
+ const chooseScope=(value:string)=>{setScope(value as SmartTaskView|'all');setFilter({rootsOnly:true});setSearch('');setSelected('');editor.choose();setTitle('');setActionError('');};
+ const chooseSaved=(id:string)=>{setActionError('');if(!id){setSelected('');editor.choose();return;}const view=saved.find(view=>view.id===id);if(!view)return;if(view.config.kind!=='list'||view.config.sort!=='rank'||view.config.group!=='none'){setActionError(t('productivityQuery.unsupportedConfig'));return;}editor.choose(view);setSelected(id);setScope('all');setFilter(structuredClone(view.filter));setSearch(view.filter.query??'');setTitle(view.title);};
+ const save=async(copy:boolean)=>{if(busy||!online)return;setBusy(true);setActionError('');const {input,revision}=editor.prepare(title,filter,copy);
+  try{const view=await state.command('save-view:'+String(input.id??'new'),{input,revision},key=>api.saveView(input,revision,key));if(mounted.current!==controller)return;editor.choose(view);setSelected(view.id);setTitle(view.title);setSavedEpoch(value=>value+1);}catch(error){if(mounted.current===controller)setActionError(error instanceof Error?error.message:'Không lưu được góc nhìn.');}finally{if(mounted.current===controller)setBusy(false);}
+ };
+ const open=async(task:TaskRecord)=>{setActionError('');if(!task.deletedAt){try{const opened=await openCanonicalTask({...state,current:()=>mounted.current===controller},task.id);if(!opened&&mounted.current===controller)setActionError(t('globalSearch.openError'));}catch(error){if(mounted.current===controller)setActionError(error instanceof Error?error.message:t('globalSearch.openError'));}return;}const epoch=++detailEpoch.current;setDetail({task:null,loading:true,error:''});try{const fresh=await api.readOnlyTask(task.id);if(epoch===detailEpoch.current&&mounted.current===controller)setDetail({task:fresh,loading:false,error:''});}catch(error){if(epoch===detailEpoch.current&&mounted.current===controller)setDetail({task:null,loading:false,error:error instanceof Error?error.message:'Không tải được công việc.'});}};
+ return {projection,controller,scope,filter,setFilter,search,setSearch,windowDays,setWindowDays,saved,selected,title,setTitle,busy,actionError,savedError,chooseScope,chooseSaved,reloadSelected:()=>chooseSaved(selected),save,open,detail,closeDetail:()=>{detailEpoch.current++;setDetail(null);},retry:()=>{setSavedEpoch(value=>value+1);return controller.refresh();},reset:()=>chooseScope('all')};
+}

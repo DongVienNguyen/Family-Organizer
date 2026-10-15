@@ -20,9 +20,9 @@ function queryValue(value:unknown):TaskQueryPage {
 function savedViewValue(value:unknown):SavedTaskView {assertTaskView(value);const row=value as SavedTaskView;text(row.title,500);integer(row.revision,1);return structuredClone({id:row.id,ownerId:row.ownerId,revision:row.revision,title:row.title,filter:row.filter,kind:row.kind,config:row.config});}
 function queryInput(value:TaskQueryInput):void {
  const data=object(value);if(data.queryId!==undefined){keys(data,['queryId','cursor']);text(data.queryId,256);text(data.cursor,2048);return;}
- keys(data,['filter','smart','completedWindowDays','timezone']);text(data.timezone,100);timezoneFormatter(data.timezone as string);
- if(data.smart!==undefined){if(data.filter!==undefined)throw Error('Ambiguous query filter');choice(data.smart,['inbox','today','next7','assigned','overdue','completed','wont_do','trash']);if(data.completedWindowDays!==undefined&&![7,30,90,'all'].includes(data.completedWindowDays as any))throw Error('Invalid completed window');}
- else {if(data.completedWindowDays!==undefined)throw Error('Invalid query window');assertTaskFilter(data.filter);}
+ keys(data,['filter','smart','completedWindowDays','timezone','refine']);text(data.timezone,100);timezoneFormatter(data.timezone as string);
+ if(data.smart!==undefined){if(data.filter!==undefined)throw Error('Ambiguous query filter');choice(data.smart,['inbox','today','next7','assigned','overdue','completed','wont_do','trash']);if(data.completedWindowDays!==undefined&&![7,30,90,'all'].includes(data.completedWindowDays as any))throw Error('Invalid completed window');if(data.refine!==undefined){const refine=object(data.refine);keys(refine,['query','listIds','sectionIds','tagIds','tagMatch','assigneeIds','priority']);assertTaskFilter({...refine,rootsOnly:true});}}
+ else {if(data.completedWindowDays!==undefined||data.refine!==undefined)throw Error('Invalid query window');assertTaskFilter(data.filter);}
 }
 function validatePatch(value:unknown,allowed:string[]):void {
  const patch=object(value);keys(patch,allowed);
@@ -39,16 +39,16 @@ function checklistValue(value:unknown,id:string):TaskChecklist {
 /** Transport uses existing internal session/auth. Caller owns command keys; no automatic retries or offline queue. */
 export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>HeadersInit}) {
  const idPath=(id:string)=>{text(id,256);return '/api/productivity/tasks/'+encodeURIComponent(id);};
- const read=async(path:string,method='GET',body?:unknown,requestId?:string):Promise<Record<string,any>>=>{
+ const read=async(path:string,method='GET',body?:unknown,requestId?:string,signal?:AbortSignal):Promise<Record<string,any>>=>{
   const headers=new Headers(ports.authHeaders());if(!headers.get('Authorization'))throw new TaskApiError(401,'Cần đăng nhập.');
   if(method!=='GET'){if(typeof requestId!=='string'||! /^[A-Za-z0-9_-]{1,128}$/.test(requestId))throw Error('Invalid command identity');headers.set('x-request-id',requestId);headers.set('Content-Type','application/json');}
-  const response=await ports.request(path,{method,headers,cache:'no-store',...(body===undefined?{}:{body:JSON.stringify(body)})});
+  const response=await ports.request(path,{method,headers,cache:'no-store',...(signal?{signal}:{}),...(body===undefined?{}:{body:JSON.stringify(body)})});
   let data:unknown;try{data=await response.json();}catch{throw new TaskApiError(response.status,'Phản hồi công việc không hợp lệ.');}
   if(!response.ok)throw new TaskApiError(response.status,typeof (data as any)?.error==='string'?(data as any).error.slice(0,500):'Không xử lý được yêu cầu công việc.');return object(data);
  };
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
-  async query(input:TaskQueryInput):Promise<TaskQueryPage>{queryInput(input);return queryValue(await read('/api/productivity/query','POST',input,crypto.randomUUID()));},
+  async query(input:TaskQueryInput,options:{signal?:AbortSignal}={}):Promise<TaskQueryPage>{queryInput(input);return queryValue(await read('/api/productivity/query','POST',input,crypto.randomUUID(),options.signal));},
   async selectQuery(queryId:string):Promise<TaskSelection>{text(queryId,256);const data=await read('/api/productivity/query/'+encodeURIComponent(queryId)+'/selection','POST',{},crypto.randomUUID());text(data.id,256);if(!Array.isArray(data.taskIds)||data.taskIds.length>100000)throw Error('Invalid selection IDs');for(const id of data.taskIds)text(id,256);integer(data.totalUnique);utcInstant(data.expiresAt as string);if(data.taskIds.length!==data.totalUnique||new Set(data.taskIds).size!==data.taskIds.length)throw Error('Invalid selection IDs');return {id:data.id,taskIds:data.taskIds,totalUnique:data.totalUnique,expiresAt:data.expiresAt,clock:clockValue(data.clock)};},
   async resolveSelection(id:string):Promise<{id:string;revision:number}[]>{text(id,256);const data=await read('/api/productivity/selections/'+encodeURIComponent(id)+'/resolve','POST',{},crypto.randomUUID());if(!Array.isArray(data.rows))throw Error('Invalid selection revisions');const rows=data.rows.map(value=>{const row=object(value);text(row.id,256);integer(row.revision,1);return {id:row.id as string,revision:row.revision as number};});if(new Set(rows.map(row=>row.id)).size!==rows.length)throw Error('Duplicate selection IDs');return rows;},
   async readOnlyTask(id:string):Promise<TaskRecord>{text(id,256);const data=await read('/api/productivity/query/tasks/'+encodeURIComponent(id));if(data.readOnly!==true)throw Error('Expected read-only task');return taskValue(data.task,id);},

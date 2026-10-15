@@ -312,6 +312,7 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
   const [productivityRefreshEpoch,setProductivityRefreshEpoch]=useState(0);
+  const [productivityQueryEpoch,setProductivityQueryEpoch]=useState(0);
   const [productivityAvailable,setProductivityAvailable]=useState<boolean|undefined>(undefined);
 
   // PWA: network status, install prompt, and pending service-worker update
@@ -792,6 +793,7 @@ export default function App() {
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
       setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();fetchAllData();}opened=true;}
     },onMessage:payload=>{
+        if(payload.type==='PRODUCTIVITY_VIEW_UPDATE')setProductivityQueryEpoch(value=>value+1);
         if(["TASKS_UPDATE","PRODUCTIVITY_CATALOG_UPDATE","PRODUCTIVITY_PIN_UPDATE","RESTORE_COMPLETED","USERS_UPDATE"].includes(payload.type))setProductivityRefreshEpoch(value=>value+1);
         invalidateManagedMedia();
         switch (payload.type) {
@@ -1682,7 +1684,7 @@ export default function App() {
   ];
 
   return (
-    <TaskProvider key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} available={productivityAvailable}>
+    <TaskProvider key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} available={productivityAvailable}>
     <FabProvider>
     <div className="h-screen overflow-hidden bg-slate-950 flex text-slate-200 selection:bg-sky-200 selection:text-sky-700 font-sans relative">
 

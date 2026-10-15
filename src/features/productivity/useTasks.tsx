@@ -4,10 +4,10 @@ import {createTaskCache,type TaskCache} from './taskCache.js';
 import {createTaskApi,TaskApiError,type TaskApi,type TaskCatalog} from './api.js';
 import type {TaskPin} from '../../../server/productivity/pins.js';
 const emptyCatalog:TaskCatalog={lists:[],sections:[],tags:[]};
-interface TaskState {cache:TaskCache;api:TaskApi;ids:string[];catalog:TaskCatalog;pins:TaskPin[];pinEnabled:boolean;enabled:boolean;loading:boolean;error:string;online:boolean;activeId:string|null;command<T>(scope:string,payload:unknown,work:(key:string)=>Promise<T>):Promise<T>;open(id:string):void;close():void;refresh():Promise<void>}
+interface TaskState {queryEpoch:number;cache:TaskCache;api:TaskApi;ids:string[];catalog:TaskCatalog;pins:TaskPin[];pinEnabled:boolean;enabled:boolean;loading:boolean;error:string;online:boolean;activeId:string|null;command<T>(scope:string,payload:unknown,work:(key:string)=>Promise<T>):Promise<T>;open(id:string):boolean;close():void;refresh():Promise<void>}
 const TaskContext=createContext<TaskState|null>(null);
 /** Lives above view components and beneath the existing BrowserSessionRoot epoch. */
-export function TaskProvider({sessionKey,request,authHeaders,online,refreshEpoch,available,children}:{sessionKey:string;request:typeof fetch;authHeaders:()=>HeadersInit;online:boolean;refreshEpoch:number;available:boolean|undefined;children:ReactNode}){
+export function TaskProvider({sessionKey,request,authHeaders,online,refreshEpoch,queryEpoch=0,available,children}:{sessionKey:string;request:typeof fetch;authHeaders:()=>HeadersInit;online:boolean;refreshEpoch:number;queryEpoch?:number;available:boolean|undefined;children:ReactNode}){
  const cache=useMemo(()=>createTaskCache(),[sessionKey]),api=useMemo(()=>createTaskApi({request,authHeaders}),[request,sessionKey]);
  const commands=useRef(new Map<string,{signature:string;key:string}>());
  const mountedCache=useRef<TaskCache|null>(null),sequence=useRef(0),alive=useRef(true),known=useRef<string[]>([]);
@@ -24,7 +24,7 @@ export function TaskProvider({sessionKey,request,authHeaders,online,refreshEpoch
  useEffect(()=>{mountedCache.current=cache;alive.current=true;return()=>{alive.current=false;sequence.current++;cache.clear();commands.current.clear();mountedCache.current=null;queueMicrotask(()=>{if(mountedCache.current!==cache)cache.dispose();});};},[cache]);
  useEffect(()=>{void refresh();},[refresh,refreshEpoch]);
  const command=useCallback(async<T,>(scope:string,payload:unknown,work:(key:string)=>Promise<T>)=>{const signature=JSON.stringify(payload),prior=commands.current.get(scope),operation=prior?.signature===signature?prior:{signature,key:crypto.randomUUID()};commands.current.set(scope,operation);const value=await work(operation.key);if(commands.current.get(scope)===operation)commands.current.delete(scope);return value;},[]);
- const open=useCallback((id:string)=>{if(cache.open(id))setActiveId(id);},[cache]),close=useCallback(()=>setActiveId(null),[]);
- return <TaskContext.Provider value={{cache,api,ids,catalog,pins,pinEnabled,enabled,loading,error,online,activeId,command,open,close,refresh}}>{children}</TaskContext.Provider>;
+ const open=useCallback((id:string)=>{if(cache.open(id)){setActiveId(id);return true;}return false;},[cache]),close=useCallback(()=>setActiveId(null),[]);
+ return <TaskContext.Provider value={{queryEpoch,cache,api,ids,catalog,pins,pinEnabled,enabled,loading,error,online,activeId,command,open,close,refresh}}>{children}</TaskContext.Provider>;
 }
 export function useTasks(){const context=useContext(TaskContext);if(!context)throw Error('TaskProvider required');useSyncExternalStore(context.cache.subscribe,context.cache.snapshot,context.cache.snapshot);return {...context,records:context.ids.map(id=>context.cache.record(id)).filter((task):task is TaskRecord=>!!task)};}

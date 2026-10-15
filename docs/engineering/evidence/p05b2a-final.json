@@ -1,0 +1,139 @@
+{
+  "taskId": "P05-b2a",
+  "observedAt": "2026-10-15T16:44:39.286363+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/83",
+  "testedHeadSha": "596f7c99ec4dc84ad3de072cf13a6da736d24449",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38713326891",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "533ea6cf37bb7e1cba02ad3f846c0a2e36d26fd06427d3151360b67e88350104",
+    "coverage": "84ad68e8da5a5f7f48646bbd0070c2929f84994695a25a2df269d024bc08cf8a",
+    "package": "63ec6d2659cf101aa2a9de5c81ae22c476fd2df2d36d4b143386214fe8faec87",
+    "service": "774acf50351a2104c26ed20b3e84403faf84c1a3debd04f378c0c73fe324e51d",
+    "caddy": "8fdc57d47201589407814c8b98d4cbb7d14f1a81fdc3f874655cf49476c3c85b",
+    "extraction-sdk": "8981d8af64b6ea2c065b665bfc2f736c9a8ef68fedb7802b5d01dd723b8f3a0d",
+    "inner-native": "269e30746d973c3a050dbbd91b52bbbe2220277883a9ad8ae2480bdadf819cab",
+    "browser": "673abf5f3cdcb1936b378f179e6e592c6dda718f1bbe4a0fba90154072ffd6da",
+    "productivity-browser": "dc438884bcc992a5ec731134e6bdd8e01215619a09d04fe05b6f84709c70baf0"
+  },
+  "qualityEach": 3371,
+  "qualityFilesEach": 182,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 30,
+  "rawValidators": 9,
+  "zipSha256": "233268eab7785e4ae570aa2ddc7c6a76ebb8e78b1c0a0cd29a4c4c30538d8c3a",
+  "fullCiLogZipSha256": "fa159b26b05fad5e47955f25e48adb1ff4aa13761da282925a6322e29c3b84cf",
+  "review": {
+    "taskId": "P05-b2a",
+    "baseSha": "037a748338e5d508178be196b58f0f4eef85a4a0",
+    "reviewer": "/root/p05b2a_review",
+    "counts": {
+      "critical": 0,
+      "important": 1,
+      "minor": 1
+    },
+    "allFindingsGraded": true,
+    "gradingBeforeCorrection": true,
+    "oneCorrectionPass": true,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "accepted": true,
+        "reason": "New authenticated HTTP selection creation exposes unbounded live ID/revision/filter payloads and permanent expired-owner tombstones. Add finite reference/row/serialized-byte admission and bounded expiry retention; preserve recent owner409/foreign404 and fresh ACL/revision."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "decision": "defer",
+        "owner": "P18 capacity/performance acceptance",
+        "reason": "Expired query references deliberately retain owner identity for an additional15min and currently count toward4096 cap. Document possible429 until30min after full allocation; no change in this Important correction pass."
+      }
+    ],
+    "declinedBoundaries": [
+      {
+        "proposal": "UI/GlobalSearch/drawer wiring",
+        "owner": "P05-b2b"
+      },
+      {
+        "proposal": "Migration/default rollout",
+        "owner": "P18"
+      },
+      {
+        "proposal": "Replace full canonical cache",
+        "decision": "preserve full cache unchanged"
+      },
+      {
+        "proposal": "Public API/token",
+        "decision": "excluded by user scope"
+      },
+      {
+        "proposal": "Later performance benchmarks",
+        "owner": "P18/I03/R01"
+      }
+    ],
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "causalRed": {
+      "tests": 3,
+      "passed": 0,
+      "failed": 3,
+      "pending": 0,
+      "files": 1
+    },
+    "correctedTarget": {
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "pending": 0,
+      "files": 4
+    }
+  },
+  "internalQueryHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P05-b2b smart/saved UI/GlobalSearch/readonly drawer, then P06 Matrix",
+  "mergeSha": "5cadef54149996d6ed66b78b5c5090fe8ef2eef0",
+  "mergeTreeEqualsTestedHead": true,
+  "proofComment": "https://github.com/DongVienNguyen/Family-Organizer/pull/83#issuecomment-6189187540"
+}
