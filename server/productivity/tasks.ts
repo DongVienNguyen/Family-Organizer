@@ -47,6 +47,15 @@ export function createTaskWithinTransaction(tx:AppWriteTx,ctx:AppCommand,input:C
     if(!Number.isSafeInteger(row.rank))throw new AppStoreError('Thứ tự công việc vượt giới hạn.',422);
     organize?.(row);savePilotTask(tx,row,ctx.actor);return row;
 }
+export function updateTaskWithinTransaction(tx:AppWriteTx,ctx:AppCommand,id:string,patch:TaskPatch):StoredTask {
+ payload(patch,patchFields);if(patch.tagIds!==undefined)assertTagSelection(tx,ctx.actor,patch.tagIds);
+    const user=assertContext(ctx,tx),before=createTaskAccess(tx).assertTaskCommand(ctx.actor,id,'update');
+    if(before.revision!==ctx.expectedRevision)throw new AppStoreError('Công việc vừa được thay đổi.',409,'edit-conflict');
+    const row:StoredTask={...before,...structuredClone(patch),revision:before.revision+1,legacy:structuredClone(before.legacy)};
+    validate(row);if(row.assigneeId!==before.assigneeId){assertAssignee(tx,row.assigneeId);if(ctx.actor.role===UserRole.CHILD&&before.rewardPoints>0)throw new AppStoreError('Không được đổi người nhận công việc có thưởng.',403,'task-assignee');}
+    const now=new Date().toISOString();row.legacy.updatedAt=now;row.legacy.history.push({id:randomUUID(),userId:user.id,username:user.username,action:'Cập nhật công việc: '+Object.keys(patch).join(', '),createdAt:now});
+    savePilotTask(tx,row,ctx.actor);return row;
+}
 /** Explicit trusted ports keep module imports free of connections/lifecycle work.
  * Fresh ACL preflight precedes gateway cache lookup; repeats cannot bypass a
  * revoked grant/actor. Checks repeat inside the single owned write transaction.
@@ -62,12 +71,7 @@ export function createTaskCommands(ports:{write:typeof withAppWriteTransaction;r
   updateTask(ctx:AppCommand,id:string,patch:TaskPatch):StoredTask {
    payload(patch,patchFields);assertContext(ctx,ports.reader);createTaskAccess(ports.reader).assertTaskCommand(ctx.actor,id,'update');if(patch.tagIds!==undefined)assertTagSelection(ports.reader,ctx.actor,patch.tagIds);
    return run(ctx,'update',{id,expectedRevision:ctx.expectedRevision,patch},tx=>{
-    const user=assertContext(ctx,tx),before=createTaskAccess(tx).assertTaskCommand(ctx.actor,id,'update');
-    if(before.revision!==ctx.expectedRevision)throw new AppStoreError('Công việc vừa được thay đổi.',409,'edit-conflict');
-    const row:StoredTask={...before,...structuredClone(patch),revision:before.revision+1,legacy:structuredClone(before.legacy)};
-    validate(row);if(row.assigneeId!==before.assigneeId){assertAssignee(tx,row.assigneeId);if(ctx.actor.role===UserRole.CHILD&&before.rewardPoints>0)throw new AppStoreError('Không được đổi người nhận công việc có thưởng.',403,'task-assignee');}
-    const now=new Date().toISOString();row.legacy.updatedAt=now;row.legacy.history.push({id:randomUUID(),userId:user.id,username:user.username,action:'Cập nhật công việc: '+Object.keys(patch).join(', '),createdAt:now});
-    savePilotTask(tx,row,ctx.actor);return row;
+    return updateTaskWithinTransaction(tx,ctx,id,patch);
    });
   },
  };

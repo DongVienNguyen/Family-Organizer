@@ -61,6 +61,10 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
   if(indexed.size!==tasks.size)throw new Error('Invalid productivity search snapshot');
   for(const row of tasks.values()){const content=taskSearchContent({title:row.title,body:row.body}),expected=searchGrams(content);if(indexed.get(row.id)!==content||JSON.stringify([...(actual.get(row.id)??[])].sort())!==JSON.stringify(expected))throw new Error('Invalid productivity search snapshot');}
  }
+ if(snapshot.manifest.domains.productivity>=6){
+  if(!tables.productivity_matrix_overrides)fail();const views=new Map(tables.productivity_views.map(row=>[row.id,row]));
+  for(const row of tables.productivity_matrix_overrides){text(row.view_id,256);text(row.task_id,256);choice(row.quadrant,['q1','q2','q3','q4']);integer(row.view_revision,1);integer(row.revision,1);if(row.expires_at!==null)utcInstant(row.expires_at);const view=views.get(row.view_id);if(!tasks.has(row.task_id)||!view||row.view_revision>view.revision||row.view_revision===view.revision&&view.kind!=='matrix')fail();}
+ }
  if(marker==='1'){
   const order=(a:string,b:string)=>Buffer.compare(Buffer.from(a,'utf8'),Buffer.from(b,'utf8'));
   const projected=[...tasks.values()].filter(row=>row.deleted_at===null).sort((a,b)=>a.rank-b.rank||order(a.id,b.id)).map(row=>projectLegacyTask(decodeTaskRow(row,(tagRows.get(row.id)??[]).sort(order))));

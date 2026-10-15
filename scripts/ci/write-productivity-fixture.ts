@@ -1,3 +1,4 @@
+import {matrixPinSchemaSql} from '../../server/productivity/matrixSchema.js';
 import {viewSchemaSql} from '../../server/productivity/viewSchema.js';
 import {taskPinSchemaSql} from '../../server/productivity/pinSchema.js';
 // CI-only synthetic seed builder; never included in the production ZIP.
@@ -24,7 +25,9 @@ try{
  command(tx=>{tx.run('INSERT INTO productivity_tags VALUES(?,?)','canonical-owner-tag','Synthetic owned catalog tag');tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)','canonical-owner-tag','package-admin');});
  command(tx=>tx.run('INSERT INTO productivity_task_pins VALUES(?,?,?,?)','package-admin','canonical-task',1,1));
  const {createTaskViews}=await import('../../server/productivity/views.js'),reader={get:(sql:string,...args:any[])=>sqlite!.sqliteConnection().prepare(sql).get(...args),all:(sql:string,...args:any[])=>sqlite!.sqliteConnection().prepare(sql).all(...args)};const view=createTaskViews({reader,write:gateway.withAppWriteTransaction}).saveView({actor:{userId:'package-admin',role:'admin'},requestId:randomUUID(),expectedRevision:0},{title:'Synthetic compiled saved view',filter:{rootsOnly:true,query:'compiled'},kind:'list',config:{kind:'list',sort:'rank',group:'none'}});
- const columns=productivityTablesAt(5);
- const value=command(tx=>({format:1,commitSha,schemaSql:productivitySchemaAt(5),v1SchemaSql:schemaSql,structureSchemaSql,tagOwnershipSchemaSql,taskPinSchemaSql,viewSchemaSql,viewId:view.id,version:5,columns,tables:Object.fromEntries(Object.keys(columns).map(name=>[name,tx.all(`SELECT * FROM ${name}`)])),migration:tx.get("SELECT * FROM app_migrations WHERE namespace='productivity' AND version=1"),migrations:tx.all("SELECT * FROM app_migrations WHERE namespace='productivity' ORDER BY version")}));
+ const matrixView=createTaskViews({reader,write:gateway.withAppWriteTransaction}).saveView({actor:{userId:'package-admin',role:'admin'},requestId:randomUUID(),expectedRevision:0},{title:'Synthetic compiled Matrix view',filter:{rootsOnly:false},kind:'matrix',config:{kind:'matrix',preset:'deadline_importance',horizonDays:1,rules:null,order:['q1','q2','q3','q4'],showCompleted:false}});
+ command(tx=>tx.run('INSERT INTO productivity_matrix_overrides VALUES(?,?,?,?,?,?)',matrixView.id,'canonical-task','q2',matrixView.revision,1,null));
+ const columns=productivityTablesAt(6);
+ const value=command(tx=>({format:1,commitSha,schemaSql:productivitySchemaAt(6),v1SchemaSql:schemaSql,structureSchemaSql,tagOwnershipSchemaSql,taskPinSchemaSql,viewSchemaSql,matrixPinSchemaSql,matrixViewId:matrixView.id,viewId:view.id,version:6,columns,tables:Object.fromEntries(Object.keys(columns).map(name=>[name,tx.all(`SELECT * FROM ${name}`)])),migration:tx.get("SELECT * FROM app_migrations WHERE namespace='productivity' AND version=1"),migrations:tx.all("SELECT * FROM app_migrations WHERE namespace='productivity' ORDER BY version")}));
  fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify(value,null,2)+'\n');
 }finally{sqlite?.sqliteClose();fs.rmSync(root,{recursive:true,force:true});}

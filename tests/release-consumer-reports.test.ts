@@ -21,7 +21,7 @@ it.each(['missing','forged','stale','none','legacy-form','restart'])('rejects mi
 it.each(['missing','future','checklist','catalog','v1-startup'])('rejects absent or contradictory structure storage proof %s',kind=>{
  const f=fixture(),row=f.value.reports['package-functional.json'].productivity;
  if(kind==='missing')delete row.structureStorage;
- else if(kind==='future')row.structureStorage.version=6;
+ else if(kind==='future')row.structureStorage.version=7;
  else row.structureStorage[{'checklist':'checklistPreserved','catalog':'catalogPreserved','v1-startup':'v1StartupWithoutUpgrade'}[kind]!]=false;
  f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');
 });
@@ -33,10 +33,15 @@ it.each(['tagOwnershipPreserved','v2StartupWithoutUpgrade'])('rejects absent com
 it.each(['atomicSubtaskRetry','personalPinRetry'])('requires compiled organized drawer command proof %s',field=>{const f=fixture();f.value.reports['package-functional.json'].productivity.structureCommands[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
 it.each(['v3StartupWithoutUpgrade','personalPinsPreserved','atomicSubtaskPreserved'])('requires compiled current schema4 recovery/compatibility proof %s',field=>{const f=fixture();f.value.reports['package-functional.json'].productivity.structureStorage[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
 
-it.each(['v4StartupWithoutUpgrade','savedViewsPreserved','searchPreserved'])('requires compiled saved-view/index schema5 proof %s',field=>{const f=fixture();f.value.reports['package-functional.json'].productivity.structureStorage[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
+it.each(['v4StartupWithoutUpgrade','v5StartupWithoutUpgrade','savedViewsPreserved','searchPreserved'])('requires compiled saved-view/index schema5 proof %s',field=>{const f=fixture();f.value.reports['package-functional.json'].productivity.structureStorage[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
 
 it.each(['missing','exactMoneyStrings','integerBindings','restartPreserved','ordinaryRestorePreserved','encryptedRestorePreserved','futureVersionRefused','nativeHandlesClosed'])('requires compiled Wallet storage proof %s',field=>{const f=fixture();if(field==='missing')delete f.value.reports['package-functional.json'].wallet;else f.value.reports['package-functional.json'].wallet[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
 it('requires compiled malformed Wallet schema refusal proof',()=>{const f=fixture();delete f.value.reports['package-functional.json'].wallet.malformedSchemaRefused;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
 it('requires the compiled Wallet probe to preserve the downstream legacy recovery fixture',()=>{const f=fixture();delete f.value.reports['package-functional.json'].wallet.legacyFixturePreserved;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
 
 it.each(['missing','clockCaptured','matchingIds','selectionIds','savedViewRetry','staleViewRevisionRefused','readOnlyDetail'])('requires compiled internal query/saved-view proof %s',field=>{const f=fixture();if(field==='missing')delete f.value.reports['package-functional.json'].productivity.queryCommands;else f.value.reports['package-functional.json'].productivity.queryCommands[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
+
+it.each(['missing','legacyPinsPreserved','revisionedOverridesPreserved','v5StartupWithoutUpgrade','ordinaryRestorePreserved','encryptedRestorePreserved','future7Refused','malformedSchemaRefused','nativeHandlesClosed'])('requires actual compiled Matrix6 storage proof %s',field=>{const f=fixture(),row=f.value.reports['package-functional.json'].productivity;if(field==='missing')delete row.matrixStorage;else row.matrixStorage[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
+it('requires native Matrix malformed-schema refusal cases',()=>{const f=fixture();delete f.value.reports['package-functional.json'].productivity.matrixRefusalCases;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});
+
+it.each(['missing','httpEnabled','canonicalIds','serverClock','previewNoTaskMutation','idempotentApplyAfterRestart','explicitDueConfirmation','staleTaskRefused','viewPinNoAttributes','resetPinRevisioned','noRewards'])('requires actual compiled Matrix HTTP command proof %s',field=>{const f=fixture(),row=f.value.reports['package-functional.json'].productivity;if(field==='missing')delete row.matrixCommands;else row.matrixCommands[field]=false;f.save();expect(()=>read(f)).toThrow('RELEASE_CONSUMER_REPORTS_REJECTED');});

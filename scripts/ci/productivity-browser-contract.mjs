@@ -18,5 +18,5 @@ export const productivityBrowserCases=[
 ];
 export function validateProductivityBrowserReports(input){
  const errors=validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases});
- if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==5||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
+ if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==6||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
 }

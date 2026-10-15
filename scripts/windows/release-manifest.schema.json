@@ -11,7 +11,7 @@
     "architecture": {"const": "x64"},
     "runtime": {"type": "object", "required": ["version", "abi", "napi", "archiveSha256", "nodeExeSha256"]},
     "native": {"type": "object", "required": ["version", "path", "sha256"]},
-    "schema": {"type": "object", "required": ["legacy", "jobs", "snapshot", "domains"], "properties": {"domains": {"const": {"productivity": {"min": 1, "max": 5}, "wallet": {"min": 1, "max": 1}}}}},
+    "schema": {"type": "object", "required": ["legacy", "jobs", "snapshot", "domains"], "properties": {"domains": {"const": {"productivity": {"min": 1, "max": 6}, "wallet": {"min": 1, "max": 1}}}}},
     "files": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["path", "size", "sha256"], "properties": {"path": {"type": "string"}, "size": {"type": "integer", "minimum": 0}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
     "dependencies": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["name", "version", "path", "license", "licenseFiles"]}},
     "licensePolicy": {"type": "object", "required": ["version", "terms", "httpEce", "mplSource"], "properties": {"version": {"const": 1}, "terms": {"type": "array", "minItems": 2}, "httpEce": {"type": "object", "required": ["path", "version", "commitSha", "blobSha", "sha256"]}, "mplSource": {"type": "object", "required": ["dependencyPath", "version", "noticeSha256", "files"]}}},
