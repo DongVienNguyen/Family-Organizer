@@ -218,7 +218,8 @@
       "tests/board-package-evidence.test.ts": "0b491ba90cd0f2df0408107d3ba30857c678aca45e889a3a1a15bfbff6d1ae3a",
       "tests/board-package-fixture.test.ts": "eaf99adb7bd3d1c5abf26f6b2d5992a598aaa7a161b99e2f61da36dc3dcdabb8",
       "tests/helpers/board-package-fixture.ts": "79a9b84f3d4347cb392cdd3964903957abc0021f4f0f5e2fb0b6401b6318c451",
-      "server/wallet/integration.test.ts": "3e56ca06e8e7e9519ecd3ad3dd16eabe937010f6a387804b96f8fbe73047e04f"
+      "server/wallet/integration.test.ts": "3e56ca06e8e7e9519ecd3ad3dd16eabe937010f6a387804b96f8fbe73047e04f",
+      "scripts/ci/Invoke-Check.ps1": "e1807cc8defcb44d1f1617810427e8cd2953ae73510cbf7582f11b9acd9d84b1"
     },
     "lintExit": 0,
     "ruling": {
@@ -325,6 +326,30 @@
       "cause": "Node24 Wallet unique-index drift source-loader child/test timeout; original raw native delay16964.5632ms; exact hosted delay cause unobserved",
       "next": "Fixture compile once and isolated child bounded5s; same assertions/10s test budget; new exact HEAD Windows rerun required"
     },
-    "windowsAcceptance": "pending new exact HEAD"
+    "windowsAcceptance": "pending new exact HEAD",
+    "serialQualityRepair": {
+      "ruling": {
+        "taskId": "P08-b5b second native CI failure",
+        "headSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
+        "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38776748487",
+        "originalReview": "closed; no rereview",
+        "grade": "Important",
+        "allFindingsGraded": true,
+        "observed": "Wallet compiled drift suite passed; different heavy search fixture beforeAll timed out10000ms creating two60000Unicode-character Tasks/>100000derivedrows.3808passed/3not-run duefailedhook. Exact hosted delay unobserved. Prior successful search suite9.16sec including setup +cases. No production source change in this PR.",
+        "ruling": "Reduce mandatory quality suite parallel workers2to1 on fixed Windows runner so SQLite/backup/native fixtures run without a simultaneous heavy test process. Preserve alldata sizes/assertions/test-hook/native timeouts/coverage/gates and every suite. No retries, deliberate skips, timeout increase or continue-on-error. Retain failedrunraw/logs and verify newexactSHAWindows.",
+        "correctionStatus": "implemented quality workers1; original test/hook/native budgets, fixtures and assertions unchanged; exactWindows pending"
+      },
+      "cloudTargetTests": 19,
+      "cloudTargetFiles": 2,
+      "cloudTargetPassed": 19,
+      "cloudTargetCoverage": "partial diagnostic only; full Windows measured ratchet unchanged",
+      "reports": {
+        "p08b5b-serial-target.json": "2668e139bbf669bfb1b20f5327b022c796496cccc68f82b541ceeebbba5b5032",
+        "p08b5b-serial-target.log": "d0b13d02cc22af1fce5525e5cd58dc802cb2556745c2d05ed2d60c4841c19a4f"
+      },
+      "noApplicationOrTestChangesSinceCloudFull3811": true,
+      "originalRunRetained": "pending completedrun artifacts/logs beforepush",
+      "windowsAcceptance": "pending new exactHEAD"
+    }
   }
 }
