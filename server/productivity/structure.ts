@@ -30,7 +30,14 @@ function section(reader:TaskReader,actor:AppActor,id:string,manage=false,allowAr
 }
 function revision(current:number,expected:number){if(current!==expected)throw error(409);}
 function task(reader:TaskReader,ctx:AppCommand,id:string):StoredTask{value(()=>text(id,256));return createTaskAccess(reader).assertTaskCommand(ctx.actor,id,'update');}
-function saveTask(tx:AppWriteTx,ctx:AppCommand,before:StoredTask,patch:Partial<StoredTask>){revision(before.revision,ctx.expectedRevision);const now=new Date().toISOString(),row={...before,...patch,revision:before.revision+1,legacy:structuredClone(before.legacy)};row.legacy.updatedAt=now;row.legacy.history.unshift({id:randomUUID(),userId:ctx.actor.userId,username:tx.legacy.users.find(user=>user.id===ctx.actor.userId)!.username,action:'Tổ chức công việc',createdAt:now});savePilotTask(tx,row);return row;}
+function saveTask(tx:AppWriteTx,ctx:AppCommand,before:StoredTask,patch:Partial<StoredTask>,audit?:Readonly<{id:string;userId:string;username:string;action:string;createdAt:string}>){revision(before.revision,ctx.expectedRevision);if(before.revision>=Number.MAX_SAFE_INTEGER)throw error(422);const now=new Date().toISOString(),row={...before,...patch,revision:before.revision+1,legacy:structuredClone(before.legacy)};row.legacy.updatedAt=now;row.legacy.history.unshift({id:randomUUID(),userId:ctx.actor.userId,username:tx.legacy.users.find(user=>user.id===ctx.actor.userId)!.username,action:'Tổ chức công việc',createdAt:now});if(audit)row.legacy.history.unshift({...audit});savePilotTask(tx,row);return row;}
+/** Reuse structural authority within an existing I01 command, without nesting writers. */
+export function assertTaskListMove(reader:TaskReader,ctx:AppCommand,id:string,targetListId:string,sectionId:string|null):StoredTask {
+ context(ctx,reader);if(ctx.actor.role===UserRole.CHILD||ctx.actor.role===UserRole.GUEST)throw error(403);const before=task(reader,ctx,id);list(reader,ctx.actor,before.listId,'write');list(reader,ctx.actor,targetListId,'write');
+ if(sectionId!==null){const target=section(reader,ctx.actor,sectionId);if(target.listId!==targetListId)throw error(422);}
+ if(before.listId!==targetListId&&(before.parentId||reader.get('SELECT id FROM productivity_tasks WHERE parent_id=? AND deleted_at IS NULL',id)))throw error(422);return before;
+}
+export function moveTaskToListWithinTransaction(tx:AppWriteTx,ctx:AppCommand,id:string,targetListId:string,sectionId:string|null,audit?:Readonly<{id:string;userId:string;username:string;action:string;createdAt:string}>):StoredTask {return saveTask(tx,ctx,assertTaskListMove(tx,ctx,id,targetListId,sectionId),{listId:targetListId,sectionId},audit);}
 export function createStructureCommands(ports:{write:typeof withAppWriteTransaction;reader:TaskReader}){
  const run=<T>(ctx:AppCommand,name:string,input:unknown,preflight:(reader:TaskReader)=>void,fn:(tx:AppWriteTx)=>T):T=>{
   context(ctx,ports.reader);preflight(ports.reader);
@@ -83,9 +90,7 @@ export function createStructureCommands(ports:{write:typeof withAppWriteTransact
   moveTaskToList(ctx:AppCommand,id:string,targetListId:string,sectionId:string|null):StoredTask {
    value(()=>{text(targetListId,256);if(sectionId!==null)text(sectionId,256);});
    return run(ctx,'move-list',{id,targetListId,sectionId},r=>{if(ctx.actor.role===UserRole.CHILD||ctx.actor.role===UserRole.GUEST)throw error(403);const before=task(r,ctx,id);list(r,ctx.actor,before.listId,'write');list(r,ctx.actor,targetListId,'write');},tx=>{
-    const before=task(tx,ctx,id);if(sectionId!==null){const target=section(tx,ctx.actor,sectionId);if(target.listId!==targetListId)throw error(422);}
-    if(before.listId!==targetListId&&(before.parentId||tx.get('SELECT id FROM productivity_tasks WHERE parent_id=? AND deleted_at IS NULL',id)))throw error(422);
-    return saveTask(tx,ctx,before,{listId:targetListId,sectionId});
+    return moveTaskToListWithinTransaction(tx,ctx,id,targetListId,sectionId);
    });
   },
   setTaskParent(ctx:AppCommand,id:string,parentId:string|null):StoredTask {

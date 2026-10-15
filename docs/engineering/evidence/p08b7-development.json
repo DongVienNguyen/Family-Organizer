@@ -1,0 +1,242 @@
+{
+  "taskId": "P08-b7",
+  "baseSha": "0439ac0f4b716477b0846a04cee157b7d769b373",
+  "baseAcceptance": "PR96 exact49fb643/Windows38784093844/all8/TENraw/tree-equalmerge0439ac0",
+  "scope": "Internal preview/apply section and same-lane rank moves; exact fresh structural authority before cache, full WIP/scoped admin audit, no new completion/points writer",
+  "fullGreen": {
+    "tests": 3891,
+    "passed": 3891,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 214
+  },
+  "junitCases": 3891,
+  "maxWorkers": 1,
+  "targetGreen": {
+    "tests": 53,
+    "passed": 53,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 4
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "49fb64357dbc79697847d70473df3d1f557bcc6d",
+    "critical": 0,
+    "important": 2,
+    "minor": 2,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Pre-cache apply checks Task edit rights but cannot distinguish an already committed section move from rank-only replay. A member owning the Task retains Task edit after its list-write grant is revoked, so structural retry can replay without current list-write authority. Bind server-derived operation(section/rank) in preview/apply payload and recheck structural authority before cache independently of current Task column. Require exact operation-plan match inside Tx; add own-member committed retry after grant revocation."
+      },
+      {
+        "id": "I2",
+        "grade": "Important",
+        "ruling": "Supported snapshots allow missing lazy board positions and canonical safe negative ranks (legacy ordering). lane fallback passes a negative rank to the nonnegative board rank planner, refusing an otherwise valid reorder. Normalize such a lane to a deterministic complete positive gap rebalance inside the plan and apply all metadata atomically, without changing canonical Task ranks; add validated-snapshot negative-lazy-position regression."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Preview response shares its clock object with retained Plan; HTTP serializes it safely, but a direct trusted port consumer can accidentally mutate the retained clock. Return a structured clone and characterize isolation of returned clock/Task data."
+      },
+      {
+        "id": "M2",
+        "grade": "Minor",
+        "ruling": "Extracted structural save increments MAX_SAFE_INTEGER Task revision and then throws an untyped validation error. Refuse that limit with semantic422 before attempting mutation, preserving rank-only moves that do not increment canonical Task revision."
+      }
+    ],
+    "declinedBounds": {
+      "authority": "Existing auth/requestUUID/internal routes, currentactorSQL/ownedview+boardactiveList scope, TaskAccess visibility/edit, canonicaltargetactivecatalog beforecache andinsideTx. Child section changes remain existingstructure403; rankownTaskonly. Privateanchor404/filter membership; source/destinationfixedsameboardList. I1 is remaining structural-replay authority gap.",
+      "wip": "CentralstorefullSQL roots independentofview/actor/positions; scopedWeakMapcap exactTx/Task/board/column/currentSQLadmin+activeflag/actualhardentrant/oneconsumption, finallycleared/syncguard; genericAdminaloneblocked. SuppliedimmutableAudit mustactuallypersistonTaskhistoryorrollback; typedhistory/cachedcommand survivebackup. Softwarning no exactprivatecount returned; othercanonicalboards stillstoreenforced.",
+      "atomicity": "I01oneTx/no nestedwriter; existingstructuralhelper reused roles/list/section/tree, rankmetadataonly order/rebalance updatesnocanonicalrank, TaskChangedfalse sendscatalogSSEonly. RealHTTPUUIDparallelretry/finalslot1success1stale; failureafteraudit+rebalance restoresTask/history/allpositions/boardrev. Exactcommittedretryafterfactoryrestartworksafterfreshscope; newnonce404; staleTask/view/board/laneDigest/day/TTL reject.",
+      "resource": "Fullcanonicalpositions scalarIDs/ranks only bounded100000; max128refs/16MiB retainedbytes andretiredidentities15m/expiry15m; no externalproviders or effects. I01privilegedwriter loadsinstallationdata perexistingcontract; no hiddenbody/ID/count DTO. P18 owns largedata throughput; no SQLkeyset claim.",
+      "snapshots": "No migration/schema/checksum changes; audituses existingdurableTaskhistory ratherthancapped300activitylogs. Producer8fixture addsDoneSection andhard1, actualZIP16thmoveproof retainsold15/9server/8native/3refusals. Bothsigned64Wallet/Matrix/Task/recovery coverage kept.",
+      "nativeClock": "B6exactWindows clockinterval failed withtimestamps absent; diagnostic49 keepsassertunchanged/adds20strictsamples, run38784093844 pending. Unknowndeviation/cause retained, no falseclaimfixed orcurrentNativeacceptance. B7mergesexactdiagnosticwithout weakening; probeWinonlynoCloudbypass.",
+      "scope": "Section/rankonly; workflowcrosslane422 untilP10 semantics; no newcompletion/reward/approvalwriter/UI/cutover. Grouping/archivepreview/P09/P10/fullP08/laterplans remain. F08currentCIpromotiongrammar/count/rawProductivity debt failclosed beforeR01; no release/tag/VPS/Server2019."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-board-package-fixture.ts": "74ed5f987a259fd48609caeb16d4e4c9f82d37077739c4eebda8025cffe83d23",
+      "scripts/ci/write-evidence.mjs": "236029856daf3ecfd01af96daf3d0b82b50763265413de18aee4fb3912cbc0d8",
+      "scripts/windows/board-package-contract.mjs": "7e4705fd3d0a5ad2e89eee7190751b13ad1d84b6bd3a8ff3372ccdab56d0bb21",
+      "scripts/windows/probe-board-package.mjs": "84c8b3a549dc913e79a846aae55f14daf856c06456df877d7b9142586d666f15",
+      "server/app.ts": "97a679e141ac85110a014395f7bd457cad9bfdd9ad8fbfdb0827c32e5234cc10",
+      "server/productivity/board-moves.api.test.ts": "7b2d86d0e3a33d06a90463d9a54fb379965f4213edfb30ef80eef777d0a315b3",
+      "server/productivity/board-moves.test.ts": "b0657a61aa4fbd6797f8c4a5bb64ab80c87efc88e92c84c27a4ba1ab5906203e",
+      "server/productivity/board-wip-override.test.ts": "8895b403a1ccfe4299fdda56a29af244728bf4af6d317364569252ddcbe6505f",
+      "server/productivity/boardInvariant.ts": "bc16da5f3d121140be84764cb89df0107991a011c3e6d0878cf87231773de4db",
+      "server/productivity/boardMoves.ts": "24cbe484a8219ace6b33f3c2a75914dffd1cdf7e461db93bf58366c51ebeb84b",
+      "server/productivity/boardRouter.ts": "82db38fd113a31ec28a4dda783dc59aba798c8091c2c6125a250a00ad545024b",
+      "server/productivity/boardWipOverride.ts": "274fa20d8d69a08ff9512c99f09bdd9bf357d217e5a2d98299bdfd9f79748afc",
+      "server/productivity/ports.ts": "062fbf46a33142c8cfef2d973e9a8f196194faeefefeae3d5cf29909cefee420",
+      "server/productivity/router.ts": "c1031ed5152b78769ad4db5be47b76f34fffbfde219d9287076ee07feaebb34f",
+      "server/productivity/structure.ts": "109490f532c00c6b1c1509ac4027d9908f27f9646a8a06d55e99235110091cae",
+      "tests/board-package-evidence.test.ts": "d28ff6e9d45fbb5af700f80892ebbf6f80a8e79904cdec3187119dadd496ffbe",
+      "tests/board-package-fixture.test.ts": "6b2f052ca07fec7b5bf9a45a7f630874fd6b5632633b1ffa03f83f5bfd68c785",
+      "tests/evidence.test.ts": "34f7ef6ceb814e9f0eb0677bfe67f0e9222f4f24dad1128d8c61cee2a5321f46",
+      "tests/helpers/board-package-fixture.ts": "381a3abd18fad9093a8f85822df527d615641c99eca7bfba48710f72af03f3a9"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "beforeReviewFull": {
+      "tests": 3887,
+      "files": 214,
+      "passed": 3887,
+      "failed": 0,
+      "junitCases": 3887,
+      "lintExit": 0,
+      "buildExit": 0
+    },
+    "processRulings": [
+      "Ruling: Review and four regression REDs were completed before Superpowers skills became available. Preserve this closed whole-branch review and complete its one correction pass; no re-review. Fresh reviewer dispatch applies to subsequent not-yet-reviewed branches.",
+      "Ruling: User explicitly forbids removing assertions or skipping tests. Four existing regression cases (including two graded Minor) already failed; fix all four within the authorized single correction pass rather than deleting cases. No extra approval is needed for this already authorized source/test work."
+    ],
+    "regressionRed": {
+      "tests": 14,
+      "passed": 10,
+      "failed": 4,
+      "report": "p08b7-review-causal-red.json"
+    },
+    "correctedTarget": {
+      "tests": 53,
+      "files": 4,
+      "passed": 53,
+      "failed": 0
+    },
+    "correctionSummary": "I1 server-derived section/rank operation echoed in apply and checked exactly; structural authority before cache even after own successful move. I2 accepted negative lazy canonical ranks normalize to complete positive board metadata rebalance only. M1 cloned preview DTO. M2 semantic422 before Task revision overflow, rank-only unaffected. All four actual regression REDs retained; one correction pass/no rereview. Final full/lint/build pending.",
+    "correctedFull": {
+      "tests": 3891,
+      "passed": 3891,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 214
+    },
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "sourceHashes": {
+    "scripts/ci/write-board-package-fixture.ts": "74ed5f987a259fd48609caeb16d4e4c9f82d37077739c4eebda8025cffe83d23",
+    "scripts/ci/write-evidence.mjs": "236029856daf3ecfd01af96daf3d0b82b50763265413de18aee4fb3912cbc0d8",
+    "scripts/windows/board-package-contract.mjs": "7e4705fd3d0a5ad2e89eee7190751b13ad1d84b6bd3a8ff3372ccdab56d0bb21",
+    "scripts/windows/probe-board-package.mjs": "918b16a15153b31055fb5435299fcca91d8f3a9155242225b81d20595765a948",
+    "server/app.ts": "97a679e141ac85110a014395f7bd457cad9bfdd9ad8fbfdb0827c32e5234cc10",
+    "server/productivity/board-moves.api.test.ts": "0c5475e6ef56b26faa816543e0d5029e5dbda1c14ab488fd20a587b3401631db",
+    "server/productivity/board-moves.test.ts": "b4196b0297b52fa792723ba8ead0357e2ac1ba1b1683e74a3ec3a4c095120819",
+    "server/productivity/board-wip-override.test.ts": "8895b403a1ccfe4299fdda56a29af244728bf4af6d317364569252ddcbe6505f",
+    "server/productivity/boardInvariant.ts": "bc16da5f3d121140be84764cb89df0107991a011c3e6d0878cf87231773de4db",
+    "server/productivity/boardMoves.ts": "7726bdad55c1510d3eb1835ca3f85584d046dd2b6fa687d8a9ddd8c7f3eae008",
+    "server/productivity/boardRouter.ts": "82db38fd113a31ec28a4dda783dc59aba798c8091c2c6125a250a00ad545024b",
+    "server/productivity/boardWipOverride.ts": "274fa20d8d69a08ff9512c99f09bdd9bf357d217e5a2d98299bdfd9f79748afc",
+    "server/productivity/ports.ts": "062fbf46a33142c8cfef2d973e9a8f196194faeefefeae3d5cf29909cefee420",
+    "server/productivity/router.ts": "c1031ed5152b78769ad4db5be47b76f34fffbfde219d9287076ee07feaebb34f",
+    "server/productivity/structure.ts": "b9a46a816b8a326e4fc5fa2ecc82082cd468958a05bff0cdd51473d114f422f0",
+    "tests/board-package-evidence.test.ts": "d28ff6e9d45fbb5af700f80892ebbf6f80a8e79904cdec3187119dadd496ffbe",
+    "tests/board-package-fixture.test.ts": "6b2f052ca07fec7b5bf9a45a7f630874fd6b5632633b1ffa03f83f5bfd68c785",
+    "tests/evidence.test.ts": "34f7ef6ceb814e9f0eb0677bfe67f0e9222f4f24dad1128d8c61cee2a5321f46",
+    "tests/helpers/board-package-fixture.ts": "381a3abd18fad9093a8f85822df527d615641c99eca7bfba48710f72af03f3a9"
+  },
+  "compiledHashes": {
+    "dist/server.cjs": "4de5024f11f96eafe2c8c7f74a9554e6ed4cff1aa44f315e6333c5285bb685dc",
+    "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+  },
+  "historicalFailures": {
+    "p08b7-moves-red.json": {
+      "tests": 6,
+      "passed": 0,
+      "failed": 6,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b7-wip-audit-red.json": {
+      "tests": 10,
+      "passed": 9,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "p08b7-review-causal-red.json": {
+      "tests": 14,
+      "passed": 10,
+      "failed": 4,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "reports": {
+    "p08b7-build-before-review.log": "8cf8aa20729e7bd62f7309622ea7e33d1e4b472c3f9e11e11d3188a7213ce0fc",
+    "p08b7-target-with-zip.log": "2bf3889ed85204ef19df8d2880fb0c2f897e5a80bb27ef041b7a7e7eda1f4358",
+    "p08b7-cold-import.json": "5897b229c38e96b7776f1b6f76aa42b76f1166c65e73d9525b78788b46ee35ca",
+    "p08b7-review-rulings.json": "7149a36e48ad2039bc6f926335c77d8b06ada8d6f2d01ccddd5db5d16ba4cd4f",
+    "p08b7-wip-expanded.json": "a6c53214437010cfebc69bc555dad1543a58c0a96dcdaa52bab81caf54f21e64",
+    "p08b7-review-corrected-target.json": "c6dbc8790c0d851088bb9d9461d5910cda3ca262a1c4a956b3a3c5cfcb51a85f",
+    "p08b7-wip-first-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b7-api-integration-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b7-corrected-full.json": "75027bbe78bcb3e80f1dedb91f4367c351885305a94219354e9cfd34cf0204de",
+    "p08b7-full-before-review.junit.xml": "ec2a38f83ed0710d9643044c11181a16996c2686009ac9fec5b752589a5370f7",
+    "p08b7-http-green.json": "61fea1dd45454b0c28e4f125b548d2a10916bcd7a1a02fc3771760a6c62ab4ab",
+    "p08b7-moves-first.json": "e2bffd8b7fec067ea52a91bab40e6f0c8036dd531f0786fb2259ab63e2c49114",
+    "p08b7-post-clock-target.log": "a8441cdc22769b166e0153a41c2fb906920afeec9741ef19ce3f28ce43e02492",
+    "p08b7-moves-expanded.log": "dcf72ac29e5278e796cbdd4cb5a4f2020a86fc33a858042c7fc38539b4190dd6",
+    "p08b7-moves-first-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b7-wip-first.log": "8a0153a396a9b502581b081ab668ae9e21bedb7d7680d75608c991cc80495ec5",
+    "p08b7-corrected-full.log": "b92f1569205aae307a4397fb8a078db8cfd2baa8a8363fa0400393a320d58795",
+    "p08b7-wip-expanded.log": "ae4dc42e4efc0d7d277c362717c2d2bd5579ce79b0f4ead1c92a03c86846a15c",
+    "p08b7-http-first.json": "4919fd16f2d20439e9ea3e5a42129a6e550712b8b49b59c3cb539a6b8aa448c4",
+    "p08b7-moves-first.log": "570ca8e425ce6454bd461feaac87c00e3cda6d40141559a4cb67fc1b812104c3",
+    "p08b7-http-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b7-before-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b7-wip-audit-green.json": "7c6fcd89d82f32afc1170b61a64439e0e5f38a7665f4d91783ce12eb3a0897ea",
+    "p08b7-wip-audit-red.log": "ac18e1b9ce121ce40aa52c96d9d9d11578db90e1b2ed8cefaa38703272900eea",
+    "p08b7-http-green.log": "c65bcbd9e8fdd7bbfa95bd208adacfa73985d5b506fda75a1916f8e8d376cb7d",
+    "p08b7-moves-red.log": "f6fd2875c7b0af8779b4682001e9b8200d3b98488da8224cdeb4971f3d23c67b",
+    "p08b7-http-first.log": "0bda6f7bce0d7b636cab88a2d96d995d9b245ec32b288a35eb13d8a25b249429",
+    "p08b7-full-before-review.json": "736724d76a5d5d48ab98412b602e7b5dae9c38a0565a4c44bd319bab14de4ce4",
+    "p08b7-wip-audit-green.log": "1aa499e1811cda8180ac5cb689e03698e581d045c7ee05355ba3721a3acb94d8",
+    "p08b7-full-before-review.log": "da91f53b3f3a3a7f021facd6652bf92c1d8c3792d73067bc829c2667ef75cc50",
+    "p08b7-target-with-zip.json": "6a35d1ba3e1e9bb915b3c495175b36308c55f284d153c96ae9ad2a8362f040c3",
+    "p08b7-post-clock-target.json": "ef47a13979376ab766cde05d6c296a6ae9c22780a5d89285d06f17c91fa8595b",
+    "p08b7-moves-expanded.json": "98c5100176a551fbbdf5fda48495025498be093c2d66d73b772d651afa8ce67b",
+    "p08b7-wip-audit-red.json": "a44366512210dfa379c44c964a7138fcaf92d6b1ca8eff543be0281c08de16e8",
+    "p08b7-corrected-full.junit.xml": "83429a7688ffd7dba5e669210eabe8e9aaf9d64c77dd4955a84704ce597dd1df",
+    "p08b7-pre-review-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b7-gate-green.json": "95a12c8080638da8233c427cee2aba184f6384403e9738d5a2cc700530f715df",
+    "p08b7-gate-green.log": "40ad82437387ecbed6095adf70ec7e33afd9cff23578317981abec89f56a5239",
+    "p08b7-review-causal-red.json": "fc82f2cf6725f2aa4226dab70ed624568877e6146ea1b709ffacc1ed89bcf900",
+    "p08b7-review-corrected-target.log": "c0e988c2c490c0265a21c75039a9b7604d5f99992a09cf432011b3a784bb83d8",
+    "p08b7-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b7-corrected-build.log": "46b3ef924b7fb1262ece5163dd0fdba521aa2cc57251dbe07d86e56a5b54d905",
+    "p08b7-gate-red.json": "da51cb2eed372ea16a380955c31321f1049b152b143d34ad070251775a32b2de",
+    "p08b7-gate-red.log": "663b79b9b77af9f414731dea2895008c2fadccd930829bfc5fee84d46385b86e",
+    "p08b7-wip-first.json": "49362108516bda454e566e9db8439ced9ce033b4b5d6054828a21f5729387fb5",
+    "p08b7-review-causal-red.log": "e8a311b2f84685df75ad09db1b17daf22f649059590d1d0baacfd1c68542b2b7",
+    "p08b7-moves-red.json": "51b31491be5f152cb7e0f47724426a9b81b9f70c9ac0fad10454b072a9fd6088"
+  },
+  "cloudPlatform": "linux",
+  "nativeWindowsAcceptance": "pending exactnewHEAD",
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "P08grouping/archivepreview/workflowP10/P09UI andlaterplans; F08currentCIpromotionpolicy debt failclosed/preR01",
+  "composition": {
+    "checkedBranchSha": "d5f8eafe58b36d0d6052e73f13462fde079c3c73",
+    "acceptedBaseSha": "0439ac0f4b716477b0846a04cee157b7d769b373",
+    "compositionSha": "5e35509f5d9cc397de6c338085c0ec33e12ab48b",
+    "entireTreeEqualsCheckedBranch": true,
+    "conflictsResolvedFromExactCheckedBranch": 10,
+    "cloudReportsReusedForIdenticalTree": true,
+    "exactHeadWindowsRequired": true
+  }
+}

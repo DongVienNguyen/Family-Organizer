@@ -1,3 +1,4 @@
+import {consumeBoardWipOverride} from './boardWipOverride.js';
 import {workflowColumn} from './board.js';
 import {planBoardRank} from './rank.js';
 import type {AppWriteTx} from '../appStore.js';
@@ -6,8 +7,8 @@ import {AppStoreError} from '../appErrors.js';
 const workflowSql="CASE WHEN deleted_at IS NOT NULL THEN 'trash' WHEN lifecycle='wont_do' THEN 'wont_do' WHEN pending_approval=1 THEN 'review' WHEN lifecycle='completed' THEN 'done' WHEN blocked=1 THEN 'waiting' WHEN lifecycle='in_progress' THEN 'doing' ELSE 'todo' END";
 const active=(row:{parent_id:unknown;deleted_at:unknown;lifecycle:unknown}|undefined)=>!!row&&row.parent_id===null&&row.deleted_at===null&&!['completed','wont_do'].includes(row.lifecycle as string);
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'board-invariant');};
-/** Internal store boundary, always under the existing I01 transaction. No actor
- * override is exposed here: generic/legacy writers cannot acquire one implicitly.
+/** Internal store boundary, always under the existing I01 transaction. Generic/legacy writers cannot acquire an override implicitly from an actor.
+ * Only an exact admin permit scoped to this live transaction can admit one slot.
  * An unregistered candidate is exercised explicitly in synthetic fixtures only;
  * ordinary supported schema1–6 has no board tables and remains inert. */
 export function prepareBoardTaskWrite(tx:AppWriteTx,task:TaskRecord):()=>void {
@@ -27,7 +28,7 @@ export function prepareBoardTaskWrite(tx:AppWriteTx,task:TaskRecord):()=>void {
    const same=active(old)&&old.list_id===task.listId&&(board.mode==='sections'?old.section_id===task.sectionId:old.workflow_column===key);
    const predicate=board.mode==='sections'?'section_id IS ?':workflowSql+'=?';
    const count=tx.get("SELECT count(*) AS n FROM productivity_tasks WHERE list_id=? AND id!=? AND parent_id IS NULL AND deleted_at IS NULL AND lifecycle NOT IN('completed','wont_do') AND "+predicate,task.listId,task.id,board.mode==='sections'?task.sectionId:key).n;
-   if(!same&&count>=column.wip_limit)fail(422,'Cột đích đã đạt giới hạn công việc.');
+   if(!same&&count>=column.wip_limit&&!consumeBoardWipOverride(tx,{taskId:task.id,boardId:board.id,columnId:column.id}))fail(422,'Cột đích đã đạt giới hạn công việc.');
   }
   return {board,column};
  });
