@@ -1,0 +1,181 @@
+{
+  "taskId": "P08-b6",
+  "baseSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
+  "baseAcceptance": "PR95 pending corrected native CI; accepted main composition required before PR96",
+  "scope": "Owned semantic8 canonical board read projection/internalHTTP/privateSQLcounts/bounded in-memory paging; actualZIP extended15thcheck",
+  "fullGreen": {
+    "tests": 3844,
+    "passed": 3844,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 211
+  },
+  "junitCases": 3844,
+  "maxWorkers": 2,
+  "targetGreen": {
+    "tests": 437,
+    "passed": 437,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 5
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "f3ee17e43a1184c6bae81761aefb06af1fe0ae6c",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Projection filters column.archived_at but not the canonical referenced section catalog archive marker. Existing section archive moves Tasks to None without immediately reconfiguring the board, leaving an empty archived section column visible. Filter the referenced section archive marker in both column count and metadata read, add actual structure.archiveSection regression proving fresh projection omits the column and preserves Task lifecycle."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Document the intentionally bounded whole-list SQL ACL budget (5000visible rows/16MiB bodies+provenance/20000tags/1000columns) before in-memory filtering/pagination, and process-local HMAC cursor refresh on restart/TTL. Do not describe this as large-data SQL keyset pagination or full P18 performance acceptance."
+      }
+    ],
+    "declinedBounds": {
+      "authority": "Ownedview/currentuser check thenresolveboard8 freshactive-listACL. TaskScope SQL before decodingTask/provenance/positions/tagrows. PrivatebadlegacyJSON characterization passes forchild; grantedmemberrevocation/foreignview/HTTPcacheheaders proven.",
+      "counts": "Every nonadmin gets activeRootCountnull/redacted independentofvisiblecount/filter; Admintrustedwhole-scopeSQLactive roots exclude terminal/trash/children, pendingapproval/blocked counted. No remaining-slot/privateexact count DTO. Existingstore enforcesglobalWIP.",
+      "paging": "StatelessprocessHMACclock/actor/view+boardrevision/visibleTaskidentity, TTL15m, page<=100, strict options no callerclock/actor, noauthgrant fromcursor. Boardsmetadata may invalidate cursor; no TaskID leak in token.",
+      "readOnly": "No schema/migration/Taskwrite/point/notification/cutover. Existingquerycollect reusedonlyafterSQLscalar budgets, no duplicate all-pages requery orN+1Taskfetch. Existingviewfilterlist narrowedintersection boardlist.",
+      "native": "Current8actualZIPprobe extended15threquiredcheck for admin/childownedview/projectedcanonicalIDs/privateWIPredaction/serverclock anddomainrows unchanged; existing14checks/9server/8native/3refusals retained. Cloud notnativeWindowsproof.",
+      "scope": "Only canonical section/workflow +groupnone/sortrank; othergroup/sort explicit422. FullP08moves/preview/adminoverride/audit/grouping/archivepreview andP09/P10/UI/laterplans remain. F08currentCIpromotiongrammar remains failclosed/preR01debt. NoServer2019/release/VPS."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "f7d8c049b96425db3f07303d9850658c393bc5b57d25a6e2f8a585bb3c85c8e8",
+      "scripts/windows/board-package-contract.mjs": "0636b9033263e6d848590b4dcb6b10df1b0f63eea20c9de61a5eaf0fdf726645",
+      "scripts/windows/probe-board-package.mjs": "96a52c7422190d5cdd246373662664edadcc1efebb933cbad88a2f8316e0d234",
+      "server/productivity/board-projection.api.test.ts": "b061968b27b79b3faa0896b6b5d21fb8ffe5c905246e7299136d4694c4500c04",
+      "server/productivity/board-projection.test.ts": "24db59fbcda8436e1448ff1447659b079c9e56d7a0c9617857580c68baf6af6d",
+      "server/productivity/boardProjection.ts": "1d247827f97151c4dc327d6d4a072e2f222cc6887513c1822cfd1fc889ad1111",
+      "server/productivity/boardRouter.ts": "4384ca2b69faed4b515c00339a2c2ab454ced6c6c7f892a30e4d5b24195b284d",
+      "server/productivity/ports.ts": "ac96f88752d49c4e3ff866379c2d798b3d265e0efff846169e4360aa24f02556",
+      "server/productivity/query.ts": "b4803c5ea77577ac3eef5e6a9baf88efa4d06705a77b0b9cf438d1c14c83fe4f",
+      "server/productivity/router.ts": "c1488c53498cf6752c7fa727d7711ec78a399d0327ae4b98d86262d9e6f58367",
+      "tests/board-package-evidence.test.ts": "1733588df9f1c10d0ca54c896ca25f76320b70c9caeeef6be04b2401bb54dbff",
+      "tests/evidence.test.ts": "b03324622774787263a44973436ae8fd0a84550dc964ebe6b1713932e7a83420",
+      "tests/helpers/board-package-fixture.ts": "c5d8b91dc925a6a2d9ac44ae6668d8ad85ce5e8d8983d86129ee5e5ad2abc5b3"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 18,
+      "passed": 17,
+      "failed": 1,
+      "case": "real section archive immediately removes its stale board column and retains Task lifecycle"
+    },
+    "correction": "Both canonical column count and metadata filter referenced section archived_at immediately. Actual existing archiveSection regression; documentation states whole-list bounded in-memory paging and process-local cursor restart/TTL. No rereview.",
+    "correctedTarget": {
+      "tests": 437,
+      "passed": 437,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 5
+    },
+    "lintExit": 0
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "f7d8c049b96425db3f07303d9850658c393bc5b57d25a6e2f8a585bb3c85c8e8",
+    "scripts/windows/board-package-contract.mjs": "0636b9033263e6d848590b4dcb6b10df1b0f63eea20c9de61a5eaf0fdf726645",
+    "scripts/windows/probe-board-package.mjs": "96a52c7422190d5cdd246373662664edadcc1efebb933cbad88a2f8316e0d234",
+    "server/productivity/board-projection.api.test.ts": "b061968b27b79b3faa0896b6b5d21fb8ffe5c905246e7299136d4694c4500c04",
+    "server/productivity/board-projection.test.ts": "2e064a258be1371a09159edd07109597299b46412ca7da427f87cd6002287102",
+    "server/productivity/boardProjection.ts": "b3432fb4bcc89590660ec7132fd55889366656ab4da24ce54c51218e045bc977",
+    "server/productivity/boardRouter.ts": "4384ca2b69faed4b515c00339a2c2ab454ced6c6c7f892a30e4d5b24195b284d",
+    "server/productivity/ports.ts": "ac96f88752d49c4e3ff866379c2d798b3d265e0efff846169e4360aa24f02556",
+    "server/productivity/query.ts": "b4803c5ea77577ac3eef5e6a9baf88efa4d06705a77b0b9cf438d1c14c83fe4f",
+    "server/productivity/router.ts": "c1488c53498cf6752c7fa727d7711ec78a399d0327ae4b98d86262d9e6f58367",
+    "tests/board-package-evidence.test.ts": "1733588df9f1c10d0ca54c896ca25f76320b70c9caeeef6be04b2401bb54dbff",
+    "tests/evidence.test.ts": "b03324622774787263a44973436ae8fd0a84550dc964ebe6b1713932e7a83420",
+    "tests/helpers/board-package-fixture.ts": "c5d8b91dc925a6a2d9ac44ae6668d8ad85ce5e8d8983d86129ee5e5ad2abc5b3"
+  },
+  "compiledHashes": {
+    "dist/server.cjs": "9d97b7ba5ca237ed62808f3f5b9f3732c71876d63c4ba48c735ba1f7f514acd8",
+    "dist/operator.cjs": "df323e7ccd67d63da7941f40b1dc62bcab19371eb638928cb0b8dfaedad24dd4"
+  },
+  "coldImport": {
+    "module": "boardProjection",
+    "platform": "linux",
+    "files": []
+  },
+  "historicalFailures": {
+    "scaffoldRed": {
+      "tests": 8,
+      "passed": 0,
+      "failed": 8,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "gateRed": {
+      "tests": 276,
+      "passed": 273,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 3
+    },
+    "importantCausalRed": {
+      "tests": 18,
+      "passed": 17,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "reports": {
+    "p08b6-http-first.log": "c7937c820989127be749e2b71152cedfbea92c07ead0f0f5f35c4cdf9bef2f59",
+    "p08b6-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b6-corrected-full.json": "ccdc521de80d98e28f29eaeb8959b541c01467a598d2d81d56638a5e6ed3d475",
+    "p08b6-review-causal-red.log": "560db0173f2e57a863fafc2cfc2de7564b92f3d2882ea62ce5fef3566da9fdb7",
+    "p08b6-corrected-build.log": "ce61d36fac2c611bf01a190ab44a61881524bdb862f5d34f201e6affc43cb938",
+    "p08b6-corrected-full.junit.xml": "d050f2a0c916f46c542e008c024e1fbd09d6210224f371b70a8bdcf22333adac",
+    "p08b6-integrated-lint.log": "8ec65e0b0d9474abfc5f51ad43fb656b3488aae3fe2b75103e9b4fd8ec6b3220",
+    "p08b6-projection-first.json": "42137c68b136b6f727a1f4c99d43e693cdf69e48b8047b35fd7cf4c656a7a17c",
+    "p08b6-corrected-full.log": "7e617dc889246fe91f9bf37d05cc906caf596ccd271d4a2335bfb15241c7155d",
+    "p08b6-review-rulings.json": "3c049eee9ec1d09d1927790aeafb5c4263b45643a1f23679b5ee2572f4c460ee",
+    "p08b6-projection-red.log": "c12a5715a297192e7324799429c732b112a974ae404ab10ecf9f82d8739c0ff3",
+    "p08b6-gate-red.json": "85220afe64fc47a9e27e7f263af1771cc31adb839cf76aee99b3a46101054d0c",
+    "p08b6-projection-expanded.json": "e5d2ee752a339401f0017131b9c96b25fa99586c110e6a3def72124e54d1e65f",
+    "p08b6-full-before-review.junit.xml": "99dea058f0a3bb356c255ce939a5fb689365b1ab14e76c2f8eff3c4dd8316bc4",
+    "p08b6-gate-green.json": "cecb1c8476d5a0e13754b1ffc149b13a94ed50605d3f593a2b89bdb387c202d1",
+    "p08b6-gate-green.log": "0b261e847fffa7f3b8772e2cb6a5f16f5bb8ac44a56ca20e5240268113f0ae6b",
+    "p08b6-projection-first.log": "7d33771d5c58d52aabf990e84f6f631cbd2721ed74619c2467ad524ec3633431",
+    "p08b6-corrected-target.json": "b30f432ff8016a23aac0300c9c4fa4ef08bf096de69667b710b187abbcbec3c5",
+    "p08b6-first-lint.log": "8ec65e0b0d9474abfc5f51ad43fb656b3488aae3fe2b75103e9b4fd8ec6b3220",
+    "p08b6-full-before-review.json": "156ffd454b0999cab24f3c6829189d651b26a642e7d90cfa8cf5e0255d524d92",
+    "p08b6-projection-red.json": "b88412010256107f5c4375c28a0b919b6a887cd9781e53e218bf1c5bfa1157fa",
+    "p08b6-build-before-review.log": "997384411bb99eeb4eed246b83f2c4a8292e4f3b3863d7e023edf2bbb12c1cda",
+    "p08b6-review-causal-red.json": "e7d7f0b3ad60738d6529ac1b2bbd7046c3897bd574b6146a4c0208afc74d38df",
+    "p08b6-cold-import.json": "93b8848e110c8dcaea98ebe156599d298c5a1c5138cfdbb4104733a59ea00afc",
+    "p08b6-projection-expanded.log": "40202a84f13d4b73651efe53169012595e001369d7aede40624d1369d7b9984f",
+    "p08b6-full-before-review.log": "7603965ea0ce8baed765d8315b77c5bb95803155335f03619cc160c96d3c81ca",
+    "p08b6-target-before-review.log": "a4a46bbb0b51f7771615bfaddfbc80359398455b18fe1326e803c1d7275def48",
+    "p08b6-target-before-review.json": "a2775a43eb1bbed9565888966560b10a44e5f97d07d2b7d437a6bf7dd33f0c5d",
+    "p08b6-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b6-gate-red.log": "3b1492b61d957838a2f3c075475ea58be76652c4c063407239147cbddb1fdeef",
+    "p08b6-corrected-target.log": "2b1166a0c70b2ebfff0d57e48164c055851cd4255004a04adc15dde9c8f79d00",
+    "p08b6-final-before-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p08b6-http-first.json": "fae7b426f8be4d9b009140c2f6932a7cde86bf44094f7b2c3d882c5ca656092b"
+  },
+  "cloudPlatform": "linux",
+  "nativeWindowsAcceptance": "pending new exactHEAD",
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "Preview/apply/shared WIP/adminoverrideaudit/grouping/archivepreview/P09UI/P10completion and remainingplans; F08currentCIpromotionadaptationbeforeR01"
+}
