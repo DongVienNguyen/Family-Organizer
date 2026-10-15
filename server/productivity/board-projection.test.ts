@@ -1,4 +1,6 @@
-import {beforeAll,expect,it} from 'vitest';
+import {createProductivityPorts} from './ports.js';
+import {nativeClockSql} from './clock.js';
+import {beforeAll,expect,it,vi} from 'vitest';
 import {randomUUID} from 'node:crypto';
 import * as sqlite from '../sqlite.js';
 import * as gateway from '../appStore.js';
@@ -41,3 +43,5 @@ it('honors per-board ranks and falls back for missing lazy positions without see
 it('board metadata revision changes invalidate pagination without losing canonical cards',()=>{const f=fixture(),view=f.save(),p=projector({pageSize:1}),first=p.project(ctx().actor,view.id);catalog.configure(ctx(f.board.revision),{listId:f.list.id,mode:'sections',policies:[{columnKey:'none',policy:'soft',limit:4}]});expect(()=>p.project(ctx().actor,view.id,{cursor:first.nextCursor})).toThrow(expect.objectContaining({status:409}));expect(p.project(ctx().actor,view.id).totalUnique).toBe(2);});
 it('legacy unbound Kanban refuses projection without mutating or inventing a shared board',()=>{const saved=views.saveView(ctx(),viewInput()as any),before=reader.get('SELECT total_changes()AS n');expect(()=>projector().project(ctx().actor,saved.id)).toThrow(expect.objectContaining({status:422}));expect(reader.get('SELECT total_changes()AS n')).toEqual(before);});
 it('real section archive immediately removes its stale board column and retains Task lifecycle',()=>{const f=fixture(),section=structure.saveSection(ctx(),{listId:f.list.id,title:'Synthetic archived board lane'});catalog.configure(ctx(reader.get('SELECT revision FROM productivity_boards WHERE id=?',f.board.id).revision),{listId:f.list.id,mode:'sections',policies:[]});structure.moveTaskToList(ctx(f.a.revision),f.a.id,f.list.id,section.id);const view=f.save(),p=projector();expect(p.project(ctx().actor,view.id).columns.some((c:any)=>c.sectionId===section.id)).toBe(true);structure.archiveSection(ctx(section.revision),section.id);const result=p.project(ctx().actor,view.id);expect(result.columns.some((c:any)=>c.sectionId===section.id)).toBe(false);expect(result.columns.flatMap((c:any)=>c.cards).find((c:any)=>c.task.id===f.a.id).task).toMatchObject({id:f.a.id,sectionId:null,lifecycle:'todo'});});
+
+it('default runtime board clock uses native OS time rather than a shifted process-local V8 clock',()=>{const f=fixture(),view=f.save(),before=reader.get(nativeClockSql).ms,mock=vi.spyOn(Date,'now').mockReturnValue(Date.now()+1000);let actual:number;try{actual=Date.parse(createProductivityPorts(sqlite,gateway).boardProjection!.project(ctx().actor,view.id).clock.nowUtc);}finally{mock.mockRestore();}const after=reader.get(nativeClockSql).ms;expect(actual!).toBeGreaterThanOrEqual(before);expect(actual!).toBeLessThanOrEqual(after);});

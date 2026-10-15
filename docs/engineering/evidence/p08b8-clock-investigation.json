@@ -1,0 +1,140 @@
+{
+  "taskId": "P08-b8-clock",
+  "scope": "Windows-native interprocess wall-clock root-cause investigation; source fix still pending verification",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38798885741",
+  "headSha": "eee10d11b43d159c41135283347a60de8bc96af8",
+  "rawBoardReportSha256": "bb53668d0e7446460814560f05026b8aa04cbf8bd11537e701bc358275ece70a",
+  "boardZipChecksPassed": 17,
+  "diagnostic": {
+    "format": 1,
+    "platform": "win32",
+    "nodeVersion": "v24.21.0",
+    "samples": 100,
+    "exit": {
+      "exitCode": 0,
+      "signal": null
+    },
+    "dateIntervalViolations": 100,
+    "sqliteIntervalViolations": 0,
+    "monotonicIntervalViolations": 0
+  },
+  "firstObservations": [
+    {
+      "index": 0,
+      "parentPid": 2876,
+      "before": {
+        "dateMs": 1792094860118,
+        "sqliteMs": 1792094860116,
+        "monotonicNs": "1069866266400",
+        "performanceMs": 1792094860121.5498
+      },
+      "child": {
+        "index": 0,
+        "pid": 1496,
+        "dateMs": 1792094860179,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069917487100",
+        "performanceMs": 1792094860174.229
+      },
+      "after": {
+        "dateMs": 1792094860171,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919012700",
+        "performanceMs": 1792094860174.2517
+      }
+    },
+    {
+      "index": 1,
+      "parentPid": 2876,
+      "before": {
+        "dateMs": 1792094860171,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919129300",
+        "performanceMs": 1792094860174.3596
+      },
+      "child": {
+        "index": 1,
+        "pid": 1496,
+        "dateMs": 1792094860181,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919352000",
+        "performanceMs": 1792094860175.351
+      },
+      "after": {
+        "dateMs": 1792094860172,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919519600",
+        "performanceMs": 1792094860174.7534
+      }
+    },
+    {
+      "index": 2,
+      "parentPid": 2876,
+      "before": {
+        "dateMs": 1792094860172,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919551700",
+        "performanceMs": 1792094860174.78
+      },
+      "child": {
+        "index": 2,
+        "pid": 1496,
+        "dateMs": 1792094860181,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919684600",
+        "performanceMs": 1792094860175.6821
+      },
+      "after": {
+        "dateMs": 1792094860172,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919827900",
+        "performanceMs": 1792094860175.0566
+      }
+    },
+    {
+      "index": 3,
+      "parentPid": 2876,
+      "before": {
+        "dateMs": 1792094860172,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069919869100",
+        "performanceMs": 1792094860175.096
+      },
+      "child": {
+        "index": 3,
+        "pid": 1496,
+        "dateMs": 1792094860181,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069920031600",
+        "performanceMs": 1792094860176.0288
+      },
+      "after": {
+        "dateMs": 1792094860172,
+        "sqliteMs": 1792094860179,
+        "monotonicNs": "1069920202400",
+        "performanceMs": 1792094860175.4336
+      }
+    }
+  ],
+  "rootCause": "V8 Windows Date.now uses independently initialized coarse GetSystemTimeAsFileTime+QPC process anchors, causing sub-tick wall-clock offsets. On the same100 IPC samples, all child Date.now values violate parent bounds while direct SQLite OS clock and shared monotonic counters have0violations. Prior strictHTTPfailure3ms retained.",
+  "sources": [
+    {
+      "url": "https://github.com/nodejs/node/blob/v24.21.0/deps/v8/src/base/platform/time.cc#L313",
+      "sha256": "177cf687e799f6b9c6f7c5aa53fe673604a5e1a6563122aca5abaad5ac04c275"
+    },
+    {
+      "url": "https://github.com/nodejs/node/blob/v24.21.0/deps/v8/src/base/platform/platform-win32.cc#L503",
+      "sha256": "fe7717174d74251a41da6c5f69c0da733d7f760fdaa40c87e7d5397cfd392086"
+    },
+    {
+      "url": "https://github.com/WiseLibs/better-sqlite3/blob/v13.0.3/deps/sqlite3/sqlite3.c#L55068",
+      "sha256": "6a2805f8c1ef020a7086e62258519323cf98b219e9fe87a42065d916cfebaefc"
+    }
+  ],
+  "correction": "Read native OS wall-clock milliseconds via the already-owned SQLite handle for default Productivity clocks and isolated probe bounds; integer seconds+fraction avoids float rounding. All same strict inequalities and21HTTPsamples retained. No tolerance/retry/timeout changes.",
+  "regression": "Initial Date.now mock applied after factories captured its function and incorrectly passed20/20; retained as invalid causal setup. Move fault injection before factory construction: actual20/18/2RED ->44targetpassed,458clock/evidencepassed.",
+  "fullSuiteAndWindowsCorrectedSource": "pending",
+  "noNewDependencyOrDDL": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

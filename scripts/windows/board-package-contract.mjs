@@ -1,3 +1,4 @@
+import {validateClockDiagnostics} from './clock-diagnostics.mjs';
 import {isDeepStrictEqual} from 'node:util';
 export const boardPackageChecks=Object.freeze(['exact-bundled-node-addon','explicit8-fixture-identity','current8-http-config-and-reference','canonical-hard-wip-no-task-write','child-private-task-exclusion','ordinary8-snapshot-restore','credential-reentry-preserves-ids','encrypted8-independent-restore','wallet-matrix-board-references-preserved','old7-no-auto-upgrade','old7-refusal-preserves-bytes','future9-refusal-preserves-bytes','index-refusal-preserves-bytes','offline-handles-cleanup','private-safe-board-http-projection','transactional-board-move-and-audit','canonical-column-layout-and-archive']);
 export const boardServerPhases=Object.freeze(['source-bootstrap','source-http8','source-restarted8','source-ordinary-restored8','target-bootstrap','target-http8-mutated','target-restored8','old7-bootstrap','old7-http7']);
@@ -13,6 +14,8 @@ export function validateBoardPackageReport(report,expected){
  require(typeof expected?.nodeExecutable==='string'&&report?.nodeExecutable===expected.nodeExecutable&&hash(expected?.nodeBinarySha256)&&report?.nodeBinarySha256===expected.nodeBinarySha256&&hash(expected?.nativeBinarySha256)&&report?.nativeBinarySha256===expected.nativeBinarySha256,'board report executable/addon mismatch');
  require(hash(report?.fixtureSha256)&&report?.fixtureCommitSha===expected?.commitSha&&report?.fixtureProducerPlatform==='win32'&&report?.fixtureProducerArchitecture==='x64'&&report?.fixtureProducerNodeVersion==='v24.21.0','board report fixture mismatch');
  require(isDeepStrictEqual(report?.schema,{productivity:8,wallet:1})&&isDeepStrictEqual(report?.manifestBounds,{productivity:{min:1,max:8},wallet:{min:1,max:1}}),'board report schema mismatch');
+ require(report?.projectionClockSource==='sqlite-os-clock-v1','board projection native clock source missing');
+ errors.push(...validateClockDiagnostics(report?.clockDiagnostics));
  require(isDeepStrictEqual(report?.boardLayout,{httpEnabled:true,sectionCreateOnce:true,columnOrder:true,archivePreviewReadOnly:true,archiveMovesToNone:true,archiveRetryOnce:true,noRewards:true}),'board report canonical layout proof missing');
  require(isDeepStrictEqual(report?.boardMoves,{httpEnabled:true,previewReadOnly:true,sectionDoneNotCompletion:true,requestRetryOnce:true,hardWipRefused:true,adminReasonAuditedOnce:true,noRewards:true,restartRetryOnce:true}),'board report transactional moves missing');
  require(isDeepStrictEqual(report?.boardProjection,{httpEnabled:true,adminCanonicalIds:true,childScopedIds:true,privateWipRedacted:true,readOnly:true,serverClock:true}),'board report projection proof missing');

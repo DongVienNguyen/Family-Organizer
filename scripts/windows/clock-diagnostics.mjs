@@ -14,3 +14,18 @@ export async function collectClockDiagnostics({addonPath,samples=100}){
   child.stdin.end();const exit=await done;assert.deepEqual(exit,{exitCode:0,signal:null},stderr);return {format:1,platform:process.platform,nodeVersion:process.version,samples,exit,observations,dateIntervalViolations:observations.filter(o=>o.child.dateMs<o.before.dateMs||o.child.dateMs>o.after.dateMs).length,sqliteIntervalViolations:observations.filter(o=>o.child.sqliteMs<o.before.sqliteMs||o.child.sqliteMs>o.after.sqliteMs).length,monotonicIntervalViolations:observations.filter(o=>BigInt(o.child.monotonicNs)<BigInt(o.before.monotonicNs)||BigInt(o.child.monotonicNs)>BigInt(o.after.monotonicNs)).length};
  }finally{clearTimeout(timer);lines.close();if(child.exitCode===null&&child.signalCode===null)child.kill('SIGKILL');await done;db.close();}
 }
+/** Validate every untrusted observation; known V8 offsets are reported, never
+ * treated as native OS/monotonic clock successes. */
+export function validateClockDiagnostics(value){
+ try{
+  assert.equal(value?.format,1);assert.equal(value.platform,'win32');assert.equal(value.nodeVersion,'v24.21.0');assert.equal(value.samples,100);assert.deepEqual(value.exit,{exitCode:0,signal:null});assert.equal(value.observations.length,100);let date=0,sqlite=0,monotonic=0;
+  const integer=n=>{assert.ok(Number.isSafeInteger(n)&&n>=0);},ticks=n=>{assert.match(n,/^[0-9]{1,32}$/);return BigInt(n);};let parentPid,childPid;
+  for(let index=0;index<100;index++){const o=value.observations[index];assert.equal(o.index,index);assert.equal(o.child.index,index);integer(o.parentPid);integer(o.child.pid);assert.ok(o.parentPid>0&&o.child.pid>0&&o.parentPid!==o.child.pid);parentPid??=o.parentPid;childPid??=o.child.pid;assert.equal(o.parentPid,parentPid);assert.equal(o.child.pid,childPid);
+   for(const sample of [o.before,o.child,o.after]){integer(sample.dateMs);integer(sample.sqliteMs);assert.ok(Number.isFinite(sample.performanceMs));ticks(sample.monotonicNs);}
+   if(o.child.dateMs<o.before.dateMs||o.child.dateMs>o.after.dateMs)date++;
+   if(o.child.sqliteMs<o.before.sqliteMs||o.child.sqliteMs>o.after.sqliteMs)sqlite++;
+   if(ticks(o.child.monotonicNs)<ticks(o.before.monotonicNs)||ticks(o.child.monotonicNs)>ticks(o.after.monotonicNs))monotonic++;
+  }
+  assert.equal(value.dateIntervalViolations,date);assert.equal(value.sqliteIntervalViolations,sqlite);assert.equal(value.monotonicIntervalViolations,monotonic);assert.equal(sqlite,0);assert.equal(monotonic,0);return [];
+ }catch{return ['native clock diagnostic identity/observations/exit mismatch'];}
+}
