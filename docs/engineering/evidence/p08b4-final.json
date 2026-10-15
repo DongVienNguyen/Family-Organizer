@@ -1,0 +1,128 @@
+{
+  "taskId": "P08-b4",
+  "observedAt": "2026-10-15T23:29:05.186725+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/93",
+  "testedHeadSha": "529a231b843c3e00bde7fa6a7111319b5587bd38",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38766687039",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "ab4ff2b1216a36cbf95beb522fedd2c0680570f831bd529253d85d418b051add",
+    "coverage": "d0929aa3da0ab91dd53e5640ec786e14448c8a897fcd0fbfc70c51f56091a3c1",
+    "package": "a79961a4cefcd83a65f97f862f80f3e21dc191aa2e3cdc736ff807b371e2d112",
+    "service": "d99ff79b9a75a588fbe7e08ce0105990432478fc774b994cac320ff59b1a5a36",
+    "caddy": "282539156d735f704bc6b26fe692bb98fc2fa63f641d410145b980ac562a4519",
+    "extraction-sdk": "bea29ece4a70a4a1280c9dc42e04f5790023f18868024dea26413ca420ef83b0",
+    "inner-native": "fed5245648c50ebc8485bcb0a83151e2c4a60ed85c2460d40430eeba54eaad30",
+    "browser": "e9cfb6ee6ed1cee82cc2b4668a32c6d33db7fb4af970010e0dec483d2e1c915f",
+    "productivity-browser": "fb7e02af5098d9dea5458f5566291a62454e8f8f1191f9d438df77d06256bc1a"
+  },
+  "qualityEach": 3741,
+  "qualityFilesEach": 204,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 9,
+  "zipSha256": "7374031788252012f9e5c07ad29fb293d97083c6e37f080ef345a0a4c6254e92",
+  "fullCiLogZipSha256": "8eb8779058412e1e4c966eb626f004b33f216ad2ef38df456355f1aee3e347bc",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "626772f8165d2ecf6087406ff30eef955c0eef9d",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Fresh object authorization must refuse archived lists before both new configuration and committed retry cache lookup. Current authorize reads productivity_lists without catalog archived_at, allowing policy writes/cache replay after the parent list is archived. Reproduce and require active-list metadata before gateway lookup and inside transaction."
+      }
+    ],
+    "declinedBounds": {
+      "scope": "Shared configuration/internalauthenticatedHTTP only; preview/apply/privateDTO/boardquery/adminoverride/audit/grouping/columnarchivepreview/UI/completion remain later. No defaultcutover/Server2019/release/VPS acceptance.",
+      "authority": "One canonical list/mode aggregate and server-built section/workflow keys; caller private view/filter/actor/clock/ID controls refused. Admin or fresh member manage grant only; child/guest403, foreign/memberwithoutmanage404. Actor checked before cache and within I01.",
+      "privacy": "Configuration DTO has board/column/policy metadata only, no TaskIDs/titles/counts. Seeding SQL selects canonical membership scalars for authorizedlist, not bodies from unrelatedscopes. Existing internal bearer sessions/request context reused; generic catalog SSE only scoped metadata audience.",
+      "capacity": "Lowering policies preserves existing Tasks/overlimit states; allfuturegenericentrants enforced by acceptedstoreinvariant. Off-null coalesce bug caught duringimplementation10/9/1actualRED andfixedbeforethisreview. No implicitoverride or newcompletion/reward writer.",
+      "transactions": "SingleI01board/column/positions/revision/idempotentresult rollback oninjection. Existingpositionranks preserved; appended seeding uses acceptedrank planner only onoverflow; Taskcanonicalfields unchanged. Limits1000policies/activecolumns and100000missingrows explicit, no benchmarkclaim; P18ownsperformance.",
+      "compatibility": "Existing schema6 returns409 without boardDDL/migrations; explicit7 required. Required oldbrowser/schema6 fixtures retained; no schemas/dependencies/migrationchecksums changed here.",
+      "tests": "Initialcatalog9/0/9; HTTP6/1/5 (member404alreadyfailclosed, not proof ofimplementedroute); policyoff10/9/1; expanded17/17+HTTP7/7 andgate246/244/2 allretained. Wholebranch review only once; allrulingsgradedbeforeonecorrection."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "eef7811f1a9b11b1bf57574a67613d35432031fae3078c46839e1c3f5eee0625",
+      "server/productivity/ports.ts": "2e3f8ef77ead3143d825c87bde6152a4abce5782a48f0c48922e0e973fc73b07",
+      "server/productivity/board-catalog.api.test.ts": "5c3a77cd15d7842992367d24feba1fffb870b2d1b28e801e9161d7292f068d8c",
+      "server/productivity/boardCatalog.ts": "d2c0f081a5d7a93a9721484391342fef971f7c5c161bceea48a719bfb10b5ca0",
+      "server/productivity/board-catalog.test.ts": "d9770c3b48470e1684d97bcbd75481a4d8e2531d1bcbe2a578db8cc0e14de11f",
+      "server/productivity/router.ts": "1151bf237286a4011ea1cbc5d5c5fd70c308bbefd6f9d59ceb67cd13a662de12",
+      "server/app.ts": "2658656e5af5ac2b0a7843c52e7c2cbfbd4ea848e5183861060c4a7f7f0bd71e",
+      "tests/evidence.test.ts": "a5766bd6889895094fb54200b2c8310948cdbcc99e97721fbc836c5319dd10ef",
+      "server/productivity/boardRouter.ts": "73d0932c0b56615757e4e71c65bed93aa1467b22789bf177819151b1ea0ab27c"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 18,
+      "passed": 17,
+      "failed": 1
+    },
+    "correctedTarget": {
+      "tests": 272,
+      "files": 3,
+      "passed": 272,
+      "failed": 0
+    },
+    "lintExit": 0
+  },
+  "fullP07Accepted": true,
+  "fullP08Accepted": false,
+  "sharedConfigInternalHttpAccepted": true,
+  "schema7Required": true,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "current7PromotedZipAcceptance": false,
+  "existingWindowsFixtureVersion": 6,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "P08-b5a semantic8 saved board references; readprojection/privatecounts/previewapply/overrideaudit/grouping/archive/UI/completion and new-schema actualZIP remain",
+  "mergeSha": "b00bc380a8a5104d1a47a78e0fc2fc80295c9363",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/93#issuecomment-6197051688"
+}

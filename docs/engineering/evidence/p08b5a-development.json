@@ -1,7 +1,7 @@
 {
   "taskId": "P08-b5a",
-  "baseSha": "529a231b843c3e00bde7fa6a7111319b5587bd38",
-  "baseAcceptance": "PR93 acceptedmainb00bc380; compose before focusedPR",
+  "baseSha": "b00bc380a8a5104d1a47a78e0fc2fc80295c9363",
+  "baseAcceptance": "PR93 accepted exactWindows38766687039/testedtreeequalsmain",
   "scope": "Semantic8 optional saved Kanban board references viaexistingviewsHTTP; no board read projection/move/UI",
   "fullGreen": {
     "tests": 3761,
@@ -176,5 +176,12 @@
   "fullP08Accepted": false,
   "exactWindowsAcceptance": "pending",
   "server2019Acceptance": "not-run",
-  "releaseOrVps": false
+  "releaseOrVps": false,
+  "reviewedBaseSha": "529a231b843c3e00bde7fa6a7111319b5587bd38",
+  "composition": {
+    "composedCommit": "86c07bc705d87f31547f68d335b621212c4dab6c",
+    "priorBranchCommit": "61448a266c0dfa220466022ad9824a77bf97fdd7",
+    "entireTreeEqualsPriorBranch": true,
+    "cloudReportsReusedReason": "Whole composition tree equals checked branch; only acceptance docs follow. New exact-HEAD Windows mandatory."
+  }
 }
