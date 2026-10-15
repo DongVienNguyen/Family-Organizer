@@ -66,7 +66,13 @@ function readControl(file:string):Control{
    bytes=readPublic(file,8192,'UPDATE_CONTROL_INVALID',true,ancestors);const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
    if(!object(value)||Object.keys(value).sort().join(',')!=='format,manifestSha256,operationId,phase'||value.format!==1||!uuid(value.operationId)||typeof value.manifestSha256!=='string'||!/^[a-f0-9]{64}$/.test(value.manifestSha256)||!['held','approve'].includes(value.phase))refuse();
    return value as unknown as Control;
-  }catch(error){if(error instanceof ControlPublicationChanged&&attempt<2)continue;if(error instanceof UpdateFenceError)throw error;refuse();}
+  }catch(error){
+   // Windows publication may temporarily hide this fixed leaf. Every retry below
+   // revalidates the original pinned parents and the complete file, never bytes
+   // from the interrupted read. Immutable manifests do not use this path.
+   const publicationChanged=error instanceof ControlPublicationChanged||error instanceof UpdateFenceError&&error.nativeCode==='ENOENT'&&['leaf-stat','descriptor-open','leaf-after'].includes(error.readStage??'')&&ancestors.length>0;
+   if(publicationChanged&&attempt<2)continue;if(error instanceof UpdateFenceError)throw error;refuse();
+  }
   finally{bytes?.fill(0);}
  }
  refuse();
