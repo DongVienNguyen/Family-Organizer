@@ -1,0 +1,193 @@
+{
+  "taskId": "P08-b8",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/98",
+  "testedHeadSha": "f8b6549135c580ed21bf535faf48514ffc844c12",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38801246440",
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "3206e6bf3e0033c2a0cdbbccf70ec9ac5ea064d039ae52e822093a5d2a326f20",
+    "coverage": "7ad10f50334d63e90372d0644ca205d0ec2541d3a6b9f72a47927e9378f6d1ae",
+    "package": "e418512232819f9494ddfa957f67014203451bc50f7bed51c2618f5a5dcd6f9d",
+    "service": "6d883a30d595fa905dff1ca950f077b142879947372b0169286dc9a75394f841",
+    "caddy": "4e8140bad7711e9bde6f12642eadda352a6e41c66074cc675f7edc9d06210d79",
+    "extraction-sdk": "53c68933342ec8e41956aa5aa9172f3b4a4367b48ea5c44bde232638a6809cda",
+    "inner-native": "cb5ddd21d5dc07c9d39bf0f6efcafbb56f096b48051c0ad9f97606946e533303",
+    "browser": "f88bb430bf3329c2a2aba33adff0c41a3f15f18290241fd1f470eb64b5a371ae",
+    "productivity-browser": "0d9ae007db2cb5451283db7411326dd3932941ab4de2a7d7620d643254ddbce4",
+    "board-package": "b807dc59d543b2729191101cb58ba6ddbcf8fd277b93da306ff52bf111041ef9"
+  },
+  "qualityEach": 3926,
+  "qualityFilesEach": 217,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "46b8cadeab6dbb4ec3ebb2ca3f77f01b81297b04fe699885d89b88da39d85e24",
+  "fullCiLogZipSha256": "41c76cfac067a3b72ea42e5482f5f889edf6383920417fa494662d58f74b69ae",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "87959cfa1c3c80c0ad042d3f434532de6474f510",
+    "critical": 0,
+    "important": 2,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Canonical snapshot format permits more than1000 columns although runtime projection/configuration are bounded. reorder reads LIMIT1001 but does not reject the overflow sentinel, so a valid restored oversized board can return/commit a truncated ordering. Reject >1000 canonical active columns before rank planning; add actual valid-snapshot1002-column regression and preserve all metadata on refusal."
+      },
+      {
+        "id": "I2",
+        "grade": "Important",
+        "ruling": "Adding layout after process restart moved the original domainRows capture past the prior restart/replay boundary, inadvertently dropping the earlier assurance that committed exact replay after restart preserves every domain row. Keep a pre-restart snapshot and assert it unchanged immediately after replay, then capture a second post-layout snapshot for ordinary/encrypted restore. Retain all prior16checks/9server/8native/3refusals/21strictclock samples; this is a native evidence assertion repair, not a claimed Cloud behavioral RED."
+      }
+    ],
+    "declinedBounds": {
+      "authority": "owned bound view/current SQL actor/list-manage before cache and inside I01. Child/Guest denied; Membermanage grants expose all list Tasks under existing ACL, so whole-section counts manager-only. Exact archive retry resolves archived target only after current scope; bodyhash/commandUUID/retainedowner prevents cross-preview/actor reuse.",
+      "atomicity": "Common section helper reused by old/new API; no nestedwriter. All Task/catalog/column/board/cache writes rollback; mutable metadata guards. Task IDs/lifecycle/approval/rewards unchanged, None hardWIP all canonical active roots checked beforepreviewandinsideTx plus centralstore. No implicit batch override.",
+      "resources": "Archive scalar rows capped1000 before any Taskbody; refs128/15min+15min owner retention, only bounded IDs/revs/digest. I1 overflow rejection remains needed forreorder. Old structural archive retains historical behavior and centralstoreWIP, newboardpreview budget documented.",
+      "events": "Section changes do not change visibility, so currentaudiences equal previous; metadata-onlyreorder/create sendscatalog, archiveTaskinvalidations scoped. SyntheticHTTP rollback compares actualdomain/cacheSQL, avoiding synthetic snapshot-collection command pollution. SSE data intentionally metadata-only; testpositiveupdated fromincorrectUUIDexpectation to eventtype whileallnegativeprivateID/body assertions preserved.",
+      "native": "Probe actualZIPbundledHTTP runtime/sourcebound, added17thlayoutcheck thenmixedordinary/encryptedrestore; I2 mustrestorecross-restart-rowequality. NoWinCloudbypass/timeoutrelaxation. FrozenDDL/checksum1..8/Wallet1 unchanged.",
+      "scope": "FullP08grouping/P09UI/P10newworkflow/remainingmilestones unfinished. F08sourcepolicygrammar/debt failclosed beforeR01. No release/tag/VPS/Server2019claim."
+    },
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "37f701e870028d4920daac92a36f0b73b5a26a103a7c294206614cdfb62898d0",
+      "scripts/windows/board-package-contract.mjs": "514e3a255ef91669b02be0e5217a6c1d98355350a2d28df0732e1340b197f619",
+      "scripts/windows/probe-board-package.mjs": "fe4ac7bdf8a16575539e44a58e9812ec5e1851d6fa99fe264e71107d08ccbcfd",
+      "server/productivity/board-layout.api.test.ts": "d2492e0e97e4f965e0ddf98b1a0a9f1c5d66acd33817b578d60369916553c2c4",
+      "server/productivity/board-layout.test.ts": "b248eaa3a9ca7f3615d691a8e3af40c8d42d9f98161b84f9959d5a66b9838f32",
+      "server/productivity/boardLayout.ts": "8717388a93007048f041db843edf86291268ec0946d73b044533bbd038f7a97f",
+      "server/productivity/boardRouter.ts": "a69e9abf176cb0f4000c1f08c5a8ed1aaf171295724bc9feb9dd713e06353754",
+      "server/productivity/ports.ts": "32119becd1e45d71f0cf69ed77c733cea0b515dd155fdd0d11aa897c6d3d1a1a",
+      "server/productivity/router.ts": "c1b90373c541e8f76112df1a15bf9988b5a3f3a742f51423738e405d30f75656",
+      "server/productivity/sectionBoards.ts": "d15b16ff81249080baad3541dd810c734a6bb1d996b9b12e43fa1b2d7c729e80",
+      "server/productivity/structure.ts": "740e4177a3b71527f12766d14a43637e5185c66834c8b5c25b0d3d20d8c55cf0",
+      "tests/board-package-evidence.test.ts": "40886e09eca2d01b17b0610b53c47131697f3a6d9701d1e4eeec6b11928410db",
+      "tests/evidence.test.ts": "1e908ffe81d5df1d7457bc7ff1735cd763f4bd9e4a19af401f310e8bb7c9b869",
+      "tests/helpers/board-package-fixture.ts": "afec76951105cab99fe14ae96e5aacd3d0adb9236446da6e5224a7929646b85b"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "status": "correction verified;finalfull3926/217/JUnit/lint/build0;no rereview",
+    "beforeReviewFull": {
+      "tests": 3920,
+      "passed": 3906,
+      "failed": 14,
+      "pending": 0,
+      "todo": 0,
+      "files": 216
+    },
+    "integrationFailureRuling": "All14 errors are fresh board-revision409 at fixture configuration after legacy section create, which now increments the board as required. Update only these configuration inputs to current SQL revision; preserve all assertions/WIP scope/data/deadlines. Not a product guard relaxation.",
+    "correctedTarget": {
+      "tests": 67,
+      "passed": 67,
+      "failed": 0,
+      "files": 5
+    },
+    "causalRegression": {
+      "report": "p08b8-review-red.json",
+      "tests": 14,
+      "passed": 13,
+      "failed": 1,
+      "cause": "valid oversized restored canonical ordering was not refused"
+    },
+    "correctedFull": {
+      "tests": 3926,
+      "passed": 3926,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 217
+    },
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "postCiClockReview": {
+    "reviewer": "/root/p08_clock_review fresh read-only focused post-CI clock review; no repeat Kanban review",
+    "baseSha": "eee10d11b43d159c41135283347a60de8bc96af8",
+    "headSha": "b7a1ff45df11f69183ebb317e910e98a9794a011",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "assessment": "Owned SQLite connection/read-only native OS clock, unchanged strict21HTTP intervals, every100untrusted native/monotonic observation/counter/exit/PID/completeness validated. Full/build/exact correctedWindows still mandatory.",
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "77e36a9f49bcfdfe25b83c6841ff81d1ffaf0cbc0fb92e02988236c5813de9b3",
+      "scripts/windows/board-package-contract.mjs": "f2f55e25b105e169e23bbcf437b3bdb47ea6dfa26ceeffd7cb1d17f9b524db81",
+      "scripts/windows/clock-diagnostics.mjs": "99217bfd7572b54f5da843f9627059bb79c0a1df14f02ee4ec5c40bf34614d35",
+      "scripts/windows/probe-board-package.mjs": "e61c7e8c82f16d69ac8bfdb243ec10793f502e70b7f7bab3e29e8893bf83d2c4",
+      "server/productivity/board-projection.test.ts": "891cc4ca8b1a9bf8b8d369556cf3d55fd46877f6f75c07aa73876ac8e2b7fede",
+      "server/productivity/clock.test.ts": "9b6b866021a0a66f121284b3c9e8e847507fd4bac13d803614d8e89e93f30ea8",
+      "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+      "server/productivity/ports.ts": "21ba114c55724b7b89d9e95c93488fb51ff3db9486387028ab003e35eae486e4",
+      "tests/board-package-evidence.test.ts": "fa68a8a805c5eaefcbf4abe3e6a9ab0aa37d5eebe2ec552ee9d9c04705976e43",
+      "tests/evidence.test.ts": "f4f3da11cdc96fb113f89ce42bf8d3f35f04d2387223213994764e324b4b88c5",
+      "tests/helpers/board-package-fixture.ts": "eed4a44a862372647c2fd5ae6a64c03de26c1f8d916ce0b7aa15323c50424c11"
+    }
+  },
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "boardProjectionHttpAccepted": true,
+  "sectionAndRankMovesAccepted": true,
+  "columnLayoutAndArchiveAccepted": true,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 8,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeCommitSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/98#issuecomment-6201724067",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 22066,
+    "zipSha256": "41c76cfac067a3b72ea42e5482f5f889edf6383920417fa494662d58f74b69ae",
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  }
+}
