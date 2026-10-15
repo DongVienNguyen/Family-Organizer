@@ -1,3 +1,4 @@
+import {canSelectTag} from './tagPolicy.js';
 import {createHash,randomUUID} from 'node:crypto';
 import {isDeepStrictEqual} from 'node:util';
 import type {AppActor,AppCommand,TaskPatch,QueryClock} from '../../src/features/productivity/contracts.js';
@@ -14,8 +15,8 @@ import {resolveBoardReference} from './boardViewSchema.js';
 import {groupMovePatch,projectTaskGroups,type GroupMoveIntent} from './grouping.js';
 import type {SavedTaskView} from './views.js';
 export interface GroupMovePreviewInput {viewId:string;taskId:string;intent:GroupMoveIntent;timezone?:string}
-export interface GroupMoveApplyInput {viewId:string;taskId:string;previewId:string;expectedViewRevision:number;expectedBoardRevision:number}
-interface Plan {actor:AppActor;viewId:string;viewRevision:number;boardId:string;boardRevision:number;taskId:string;taskRevision:number;kind:'priority'|'assignee'|'due';taskDigest:string;viewDigest:string;patch:TaskPatch;clock:QueryClock;day:string}
+export interface GroupMoveApplyInput {viewId:string;taskId:string;previewId:string;expectedViewRevision:number;expectedBoardRevision:number;tagTargetId?:string|null}
+interface Plan {actor:AppActor;viewId:string;viewRevision:number;boardId:string;boardRevision:number;taskId:string;taskRevision:number;kind:'priority'|'assignee'|'due'|'tag';tagTargetId?:string|null;targetDigest?:string|null;taskDigest:string;viewDigest:string;patch:TaskPatch;clock:QueryClock;day:string}
 interface Ref {actor:AppActor;expiresAt:number;retireAt:number;bytes:number;plan?:Plan}
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'grouped-board-move');},hash=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).digest('hex'),ttl=15*60000;
 const syntax=(work:()=>void)=>{try{work();}catch(error){if(error instanceof AppStoreError)throw error;fail(400,'Dữ liệu đổi nhóm không hợp lệ.');}};
@@ -25,10 +26,12 @@ export function createGroupedBoardMoves(ports:{reader:TaskReader;views:{getView(
  const reader=ports.reader,now=ports.now??Date.now,refs=new Map<string,Ref>(),limit=ports.previewLimit??128,byteLimit=ports.previewBytes??16*1024*1024;integer(limit,1,128);integer(byteLimit,1,16*1024*1024);
  const scope=(actor:AppActor,input:{viewId:string;taskId:string},r:TaskReader=reader)=>{
   assertContext({actor,expectedRevision:0,requestId:'group:scope'},r);const view=ports.views.getView(actor,input.viewId),config=view.config;
-  if(config.kind!=='kanban'||config.boardId===undefined||!['priority','assignee','due'].includes(config.group))return fail(422,'Góc nhìn chưa hỗ trợ đổi nhóm.');
+  if(config.kind!=='kanban'||config.boardId===undefined||!['priority','assignee','due','tag'].includes(config.group))return fail(422,'Góc nhìn chưa hỗ trợ đổi nhóm.');
   const board=resolveBoardReference(r,actor,config.boardId,config.mode),before=createTaskAccess(r).assertTaskCommand(actor,input.taskId,'update');if(before.listId!==board.list_id)fail(404,'Không tìm thấy công việc trong bảng.');
   return {view,board,before,kind:config.group as Plan['kind'],boardRevision:r.get('SELECT revision FROM productivity_boards WHERE id=?',board.id).revision};
  };
+ const target=(r:TaskReader,actor:AppActor,id:string|null)=>{if(id===null)return null;if(!canSelectTag(r,actor,id))return fail(404,'Không tìm thấy nhãn đích.');const row=r.get("SELECT tag.id,tag.name,m.revision FROM productivity_tags tag LEFT JOIN productivity_catalog_revisions m ON m.entity_kind='tag' AND m.entity_id=tag.id WHERE tag.id=? AND m.archived_at IS NULL",id);if(!row||row.id!==id)fail(404,'Không tìm thấy nhãn đích.');return {id:row.id,digest:hash([row.id,row.name,row.revision??1])};};
+ const targetScope=(r:TaskReader,actor:AppActor,kind:Plan['kind'],input:GroupMoveApplyInput)=>{if(kind==='tag'){if(!Object.hasOwn(input,'tagTargetId'))fail(400,'Thiếu nhãn đích của bản xem trước.');return target(r,actor,input.tagTargetId!);}if(Object.hasOwn(input,'tagTargetId'))fail(400,'Nhãn đích không thuộc kiểu nhóm này.');return null;};
  const prune=()=>{const at=now();for(const [id,ref]of refs){if(ref.retireAt<=at)refs.delete(id);else if(ref.expiresAt<=at){delete ref.plan;ref.bytes=0;}}};
  return {
   preview(actor:AppActor,input:GroupMovePreviewInput){
@@ -38,20 +41,23 @@ export function createGroupedBoardMoves(ports:{reader:TaskReader;views:{getView(
    if(before.deletedAt!==null||['completed','wont_do'].includes(before.lifecycle))fail(422,'Không đổi nhóm công việc đã kết thúc.');if(input.intent.kind!==v.kind)fail(422,'Chỉ thay đổi thuộc tính đang nhóm.');
    let patch:TaskPatch;try{patch=groupMovePatch(before,input.intent);}catch{fail(422,'Giá trị nhóm đích không hợp lệ.');}
    if(patch!.assigneeId!==undefined&&patch!.assigneeId!==before.assigneeId){if(actor.role===UserRole.CHILD&&before.rewardPoints>0)fail(403,'Không được đổi người nhận công việc có thưởng.');const raw=patch!.assigneeId===null?null:reader.get('SELECT data FROM users WHERE id=?',patch!.assigneeId);if(patch!.assigneeId!==null&&(!raw||JSON.parse(raw.data).isDeleted||!Object.values(UserRole).includes(JSON.parse(raw.data).role)))fail(422,'Người được giao không hợp lệ.');}
+   const tagTarget=v.kind==='tag'?target(reader,actor,(input.intent as Extract<GroupMoveIntent,{kind:'tag'}>).target):null;
+   if(v.kind==='tag'&&(input.intent as Extract<GroupMoveIntent,{kind:'tag'}>).target===null&&patch!.tagIds!.length>0)fail(422,'Chọn thay thế toàn bộ thẻ để bỏ phân loại.');
    prune();if(refs.size>=limit)fail(429,'Bộ nhớ xem trước nhóm đã đầy.');
-   const plan:Plan={actor:structuredClone(actor),viewId:v.view.id,viewRevision:v.view.revision,boardId:v.board.id,boardRevision:v.boardRevision,taskId:before.id,taskRevision:before.revision,kind:v.kind,taskDigest:hash(before),viewDigest:hash(v.view),patch:patch!,clock,day:localDateAt(utcInstant(clock.nowUtc),clock.timezone)},bytes=Buffer.byteLength(JSON.stringify(plan));
+   const plan:Plan={actor:structuredClone(actor),viewId:v.view.id,viewRevision:v.view.revision,boardId:v.board.id,boardRevision:v.boardRevision,taskId:before.id,taskRevision:before.revision,kind:v.kind,...(v.kind==='tag'?{tagTargetId:(input.intent as Extract<GroupMoveIntent,{kind:'tag'}>).target,targetDigest:tagTarget?.digest??null}:{}),taskDigest:hash(before),viewDigest:hash(v.view),patch:patch!,clock,day:localDateAt(utcInstant(clock.nowUtc),clock.timezone)},bytes=Buffer.byteLength(JSON.stringify(plan));
    if(bytes+[...refs.values()].reduce((sum,r)=>sum+r.bytes,0)>byteLimit)fail(429,'Bộ nhớ xem trước nhóm đã đầy.');
    const id=randomUUID(),expiresAt=now()+ttl;refs.set(id,{actor:structuredClone(actor),expiresAt,retireAt:expiresAt+ttl,bytes,plan});
-   return structuredClone({id,viewId:plan.viewId,viewRevision:plan.viewRevision,boardId:plan.boardId,boardRevision:plan.boardRevision,taskId:plan.taskId,taskRevision:plan.taskRevision,before,after:{...before,...plan.patch},clock,expiresAt:new Date(expiresAt).toISOString()});
+   return structuredClone({id,viewId:plan.viewId,viewRevision:plan.viewRevision,boardId:plan.boardId,boardRevision:plan.boardRevision,taskId:plan.taskId,taskRevision:plan.taskRevision,...(v.kind==='tag'?{tagTargetId:plan.tagTargetId}:{}),before,after:{...before,...plan.patch},clock,expiresAt:new Date(expiresAt).toISOString()});
   },
   apply(ctx:AppCommand,input:GroupMoveApplyInput){
-   syntax(()=>{keys(object(input),['viewId','taskId','previewId','expectedViewRevision','expectedBoardRevision']);for(const id of [input.viewId,input.taskId,input.previewId])text(id,256);integer(input.expectedViewRevision,1);integer(input.expectedBoardRevision,1);});scope(ctx.actor,input);
+   syntax(()=>{keys(object(input),['viewId','taskId','previewId','expectedViewRevision','expectedBoardRevision','tagTargetId']);if(Object.hasOwn(input,'tagTargetId')&&input.tagTargetId!==null)text(input.tagTargetId,256);for(const id of [input.viewId,input.taskId,input.previewId])text(id,256);integer(input.expectedViewRevision,1);integer(input.expectedBoardRevision,1);});const preflight=scope(ctx.actor,input);targetScope(reader,ctx.actor,preflight.kind,input);
    return ports.write({actorId:ctx.actor.userId,command:'productivity:grouped-board:move',requestId:ctx.requestId,payloadHash:hash({expectedRevision:ctx.expectedRevision,input})},tx=>{
-    const v=scope(ctx.actor,input,tx);prune();const ref=refs.get(input.previewId);if(!ref||ref.actor.userId!==ctx.actor.userId||ref.actor.role!==ctx.actor.role)fail(404,'Không tìm thấy bản xem trước nhóm.');if(!ref.plan||ref.expiresAt<=now())fail(409,'Bản xem trước nhóm đã hết hạn.');const plan=ref.plan!,current=now(),clock={nowUtc:new Date(current).toISOString(),timezone:plan.clock.timezone};
+    const v=scope(ctx.actor,input,tx),currentTarget=targetScope(tx,ctx.actor,v.kind,input);prune();const ref=refs.get(input.previewId);if(!ref||ref.actor.userId!==ctx.actor.userId||ref.actor.role!==ctx.actor.role)fail(404,'Không tìm thấy bản xem trước nhóm.');if(!ref.plan||ref.expiresAt<=now())fail(409,'Bản xem trước nhóm đã hết hạn.');const plan=ref.plan!,current=now(),clock={nowUtc:new Date(current).toISOString(),timezone:plan.clock.timezone};
     if(plan.viewId!==input.viewId||plan.taskId!==input.taskId||plan.boardId!==v.board.id)fail(404,'Bản xem trước không thuộc công việc này.');
+    if(v.kind==='tag'&&(plan.tagTargetId!==input.tagTargetId||(currentTarget?.digest??null)!==plan.targetDigest))fail(409,'Nhãn đích vừa thay đổi; xem trước lại.');
     if(hash(projectTaskRecord(v.before))!==plan.taskDigest||hash(v.view)!==plan.viewDigest||plan.kind!==v.kind||v.view.revision!==plan.viewRevision||input.expectedViewRevision!==plan.viewRevision||v.boardRevision!==plan.boardRevision||input.expectedBoardRevision!==plan.boardRevision||v.before.revision!==plan.taskRevision||ctx.expectedRevision!==plan.taskRevision||current<utcInstant(plan.clock.nowUtc)||localDateAt(current,clock.timezone)!==plan.day||!matchesFilter(projectTaskRecord(v.before),v.view.filter,clock))fail(409,'Góc nhìn hoặc công việc đã thay đổi; xem trước lại.');
-    const changed=Object.entries(plan.patch).some(([key,value])=>!isDeepStrictEqual(v.before[key as keyof typeof v.before],value)),row=changed?updateTaskWithinTransaction(tx,ctx,v.before.id,plan.patch):v.before,task=projectTaskRecord(row),actualGroup=projectTaskGroups([task],v.kind,clock).cards[0].group;
-    const visible=createTaskAccess(tx).getTask(ctx.actor,task.id)!==null;ports.afterWrite?.();return {viewId:v.view.id,boardId:v.board.id,boardRevision:tx.get('SELECT revision FROM productivity_boards WHERE id=?',v.board.id).revision,task,taskChanged:changed,actualGroup,filteredOut:!visible||!matchesFilter(task,v.view.filter,clock)};
+    const changed=Object.entries(plan.patch).some(([key,value])=>!isDeepStrictEqual(v.before[key as keyof typeof v.before],value)),row=changed?updateTaskWithinTransaction(tx,ctx,v.before.id,plan.patch):v.before,task=projectTaskRecord(row),actualGroups=projectTaskGroups([task],v.kind,clock).cards.map(c=>c.group),actualGroup=v.kind==='tag'?actualGroups.find(g=>g.value===plan.tagTargetId):actualGroups[0];if(!actualGroup)fail(422,'Công việc không thuộc nhãn đích.');
+    const visible=createTaskAccess(tx).getTask(ctx.actor,task.id)!==null;ports.afterWrite?.();return {viewId:v.view.id,boardId:v.board.id,boardRevision:tx.get('SELECT revision FROM productivity_boards WHERE id=?',v.board.id).revision,task,taskChanged:changed,actualGroup,...(v.kind==='tag'?{actualGroups}:{}),filteredOut:!visible||!matchesFilter(task,v.view.filter,clock)};
    });
   },
  };

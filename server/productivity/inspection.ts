@@ -1,3 +1,4 @@
+import {productivityGroupedViewChecksum} from './groupViewSchema.js';
 import {productivityBoardViewChecksum} from './boardViewSchema.js';
 import {boardTables,inspectBoardSchema} from './boardSchema.js';
 import {productivityBoardChecksum} from './boardMigration.js';
@@ -23,13 +24,14 @@ export function inspectProductivityStorage(reader:Reader):boolean {
  const present=Object.keys({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables}).filter(name=>names.has(name));
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
  if(!present.length&&!applied.length&&marker===undefined)return false;
- if(![1,2,3,4,5,6,7,8].includes(applied.length)||applied[0].version!==1||applied[0].checksum!==productivityMigrationChecksum||(applied.length>=2&&(applied[1].version!==2||applied[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration');
+ if(![1,2,3,4,5,6,7,8,9].includes(applied.length)||applied[0].version!==1||applied[0].checksum!==productivityMigrationChecksum||(applied.length>=2&&(applied[1].version!==2||applied[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration');
  if(applied.length>=3&&(applied[2].version!==3||applied[2].checksum!==productivityTagChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=4&&(applied[3].version!==4||applied[3].checksum!==productivityPinChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=5&&(applied[4].version!==5||applied[4].checksum!==productivityViewChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=6&&(applied[5].version!==6||applied[5].checksum!==productivityMatrixChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=7&&(applied[6].version!==7||applied[6].checksum!==productivityBoardChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=8&&(applied[7].version!==8||applied[7].checksum!==productivityBoardViewChecksum))throw new Error('Unsupported productivity migration');
+ if(applied.length>=9&&(applied[8].version!==9||applied[8].checksum!==productivityGroupedViewChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length<7&&(Object.keys(boardTables).some(name=>names.has(name))||reader.get("SELECT name FROM sqlite_master WHERE type='index' AND name IN('productivity_tasks_board_identity','productivity_board_positions_lane')")))throw new Error('Unsupported productivity storage schema');
  if(applied.length>=7)inspectBoardSchema(reader);
  if(applied.length<6&&Object.keys(matrixTables).some(name=>names.has(name)))throw new Error('Unsupported productivity storage schema');
