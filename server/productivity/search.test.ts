@@ -52,6 +52,9 @@ it('large valid task writes retain shared backup support without relaxing canoni
  expect(reader.get('SELECT count(*) AS n FROM productivity_search_grams').n).toBeGreaterThan(100000);
  const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));expect(()=>snapshot.validateAppSnapshot(saved)).not.toThrow();
  expect(()=>inspectRecoverySnapshot(saved,sqlite.sqliteConnection().name)).not.toThrow();
+});
+it('canonical100001 rows remain refused with the trusted derived index registration',()=>{
+ setup();create('Synthetic canonical budget');const saved=fixture(tx=>snapshot.collectAppSnapshot(tx));
  const invalid=structuredClone(saved);invalid.legacy.notes=Array.from({length:100001},(_,i)=>({id:'synthetic-budget-'+i}));invalid.manifest.checksum=checksum(invalid);
  expect(()=>snapshot.validateAppSnapshot(invalid)).toThrow('Snapshot row limit exceeded');
 });
