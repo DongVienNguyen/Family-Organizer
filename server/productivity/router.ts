@@ -1,3 +1,5 @@
+import type {createCompletionCommands} from './completion.js';
+import type {TaskCompletionProof} from './completion.js';
 import type {createBoardMoves} from './boardMoves.js';
 import type {createBoardProjection} from './boardProjection.js';
 import type {createBoardCatalog} from './boardCatalog.js';
@@ -16,7 +18,7 @@ import type {createTaskCommands} from './tasks.js';
 import type {StoredTask} from './store.js';
 import type {createStructureCommands} from './structure.js';
 import type {createStructureEventScope} from './structureEvents.js';
-export interface ProductivityPorts {boardMoves?:ReturnType<typeof createBoardMoves>;boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
+export interface ProductivityPorts {completion?:ReturnType<typeof createCompletionCommands>;boardMoves?:ReturnType<typeof createBoardMoves>;boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
 export interface TaskRequest extends Request {userSession?:AppActor}
 export const taskDto=(row:StoredTask)=>projectTaskRecord(row);
 function requestBody(req:Request,field:'input'|'patch'):Record<string,any>{
@@ -29,12 +31,14 @@ export function taskCommandContext(req:TaskRequest,revision:number):AppCommand {
  return {actor:{userId:req.userSession.userId,role:req.userSession.role},requestId:request.requestId,expectedRevision:revision};
 }
 /** Authenticated app-internal routes; no provider/API-token integration surface. */
-export function taskRouter(ports:ProductivityPorts,requireAuth:RequestHandler,events:{previous(id:string):Set<string>;emit(id:string,previous?:Set<string>):void}){
+export function taskRouter(ports:ProductivityPorts,requireAuth:RequestHandler,events:{previous(id:string):Set<string>;emit(id:string,previous?:Set<string>):void;rewards?(id:string):void}){
  const router=Router();
  router.use(requireAuth,(req,res,next)=>{if(!ports.active()){res.status(409).json({error:'Kho công việc chưa được kích hoạt.'});return;}next();});
  const handler=(fn:(req:TaskRequest)=>unknown):RequestHandler=>(req,res)=>{
   try{res.json(fn(req));}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status===500?'Không xử lý được yêu cầu công việc.':error instanceof AppStoreError?error.message:'Dữ liệu công việc không hợp lệ.'});}
  };
+ const completionBody=(req:TaskRequest,fields:string[])=>{try{const body=object(req.body);keys(body,['expectedRevision',...fields]);integer(body.expectedRevision);return body as Record<string,any>;}catch{throw new AppStoreError('Dữ liệu hoàn thành không hợp lệ.',400);}};
+ for(const operation of ['complete','approve','reject']as const)router.post('/:id/'+operation,handler(req=>{if(!ports.completion)throw new AppStoreError('Kho hoàn thành công việc chưa sẵn sàng.',409);const body=completionBody(req,operation==='complete'?['proof']:operation==='reject'?['reason']:[]),ctx=taskCommandContext(req,body.expectedRevision);if(!ports.access.getTask(ctx.actor,req.params.id))throw new AppStoreError('Không tìm thấy công việc.',404);const previous=events.previous(req.params.id),result=operation==='complete'?ports.completion.requestCompletion(ctx,req.params.id,body.proof as TaskCompletionProof):operation==='approve'?ports.completion.approveCompletion(ctx,req.params.id):ports.completion.rejectCompletion(ctx,req.params.id,body.reason);events.emit(result.task.id,previous);for(const id of result.spawnedTaskIds)events.emit(id);if(result.task.lifecycle==='completed')events.rewards?.(result.task.id);return result;}));
  router.get('/',handler(req=>{const tasks=ports.access.listTasks(req.userSession!);return {tasks:tasks.map(taskDto),totalUnique:tasks.length};}));
  router.get('/:id',handler(req=>{const task=ports.access.getTask(req.userSession!,req.params.id);if(!task)throw new AppStoreError('Không tìm thấy công việc.',404);return {task:taskDto(task)};}));
  router.post('/',handler(req=>{const body=requestBody(req,'input');const task=ports.commands.createTask(taskCommandContext(req,body.expectedRevision),body.input);events.emit(task.id);return {task:taskDto(task)};}));

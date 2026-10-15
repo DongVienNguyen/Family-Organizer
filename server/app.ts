@@ -743,7 +743,7 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 });
 
 // --- TASK API ENDPOINTS ---
-if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));
+if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id})}));
 if(dependencies.productivity)app.use('/api/productivity',queryRouter(dependencies.productivity,requireAuth as any,{view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));
 if(dependencies.productivity)app.use('/api/productivity',matrixRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));
 if(dependencies.productivity)app.use('/api/productivity',boardRouter(dependencies.productivity,requireAuth as any,{catalog:audience=>broadcastSyncEvent('PRODUCTIVITY_CATALOG_UPDATE',{},audience),previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));
