@@ -365,5 +365,195 @@
   "automaticLegacyCutoverEnabled": false,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
-  "nextTask": "Exact-HEAD Windows acceptance, then P05-b2 HTTP/smart/saved UI/GlobalSearch/readonlyTrash; remainingW02 entities later"
+  "nextTask": "Exact-HEAD Windows acceptance, then P05-b2 HTTP/smart/saved UI/GlobalSearch/readonlyTrash; remainingW02 entities later",
+  "nativeVerification": {
+    "reason": "Actual Windows consumer failure: shared Wallet recovery probe revoked sessions and left schema1 in legacy fixture path. Return synthetic path to Wallet0 and authenticate before unchanged downstream recovery tests. No product source change/assertion removal or rereview.",
+    "beforeNativeFixtureFull": {
+      "tests": 3336,
+      "passed": 3336,
+      "failed": 0,
+      "pending": 0,
+      "files": 179,
+      "junitCases": 3336,
+      "todo": 0,
+      "maxWorkers": 2
+    },
+    "fullGreen": {
+      "tests": 3337,
+      "files": 179,
+      "junitCases": 3337,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "maxWorkers": 2
+    },
+    "targetGreen": {
+      "tests": 78,
+      "failed": 0
+    },
+    "lintExit": 0,
+    "buildReusedBecauseProductionSourceIdentical": true,
+    "productionSourceFilesUnchanged": 10,
+    "sourceHashes": {
+      ".github/workflows/ci.yml": "4bbc65b91fc98ebc97342e9f0bc64737f0e0596e23273c68b767b08fb5ffaf5b",
+      "scripts/ci/write-evidence.mjs": "145a03f4fd56f649c6928963b74739c0eab62a458c8aa907e8fcc66635dd523b",
+      "scripts/ci/write-wallet-fixture.ts": "329e72ef4fcb50852f6be10fdeb2d4e2f5f61d2b2aaa1b665e907c107d561e3c",
+      "scripts/windows/package-contract.mjs": "95b4538586b55e61ec5747053dd8f4c1774018e60e0d593a1807cf38f18176b2",
+      "scripts/windows/probe-package-functional.mjs": "1abe99d78748a0245827b4374a9f83325d9bdc0f6a715ee95275309889ffe9ac",
+      "scripts/windows/probe-productivity-package.mjs": "0d488c88ed2098b25b2fd3ceda20a198dec1fe02a5b91c91bb8e45b7a35e61d9",
+      "scripts/windows/release-consumer-reports.mjs": "92f164008de3bf58eb1cce5924ead2fae1eb1f029f6c3c2dcb121f7df084c53c",
+      "scripts/windows/release-manifest.schema.json": "c38ead6abfd472bac40c729d056e21414eadbe7ccdea32321882f7b1f8488b6c",
+      "scripts/windows/write-manifest.mjs": "241e0ea3073b65eee1206c5c31de9f4080a349cbff8571d6e995b00c8733e714",
+      "server/appSnapshot.ts": "26d8c963efec44d5b9feeb22e7d5d6e1cb79ebd984463215d8bddff08ce9d3ea",
+      "server/productivity/bootstrap.ts": "d5975085964d3de312d48b04da1076b01b82a39d412ce7c76232a8e701397661",
+      "server/productivity/inspection.ts": "017d29cd7329828cf5de0cbbb8fa3dbf9a91377af09c1837ee811fde30700d9b",
+      "server/recoverySnapshotInspection.ts": "50bebb13c1639c79e24971b2b9fb09d6a756b19b13006794a96a34ba3114f424",
+      "server/wallet/coexistence.test.ts": "b91024c6481f244070602517049b9ed8ad8096af9d194e5fd5ce7bd86a7dea9a",
+      "server/wallet/integration.test.ts": "00242d0e3b27fc1c13ae05d921900ae564f0549baea32833e6f0600fd87ce666",
+      "server/wallet/integration.ts": "112ebd19e1d5cadde42cc2f7aba9899b40b80ff58b50f51bdae2c6744ba38980",
+      "server/wallet/schema.ts": "e931cb1025e898b738f70d8c33897ecb615e448d395bb100e9542eb84a3da4e6",
+      "server/wallet/snapshot.ts": "f9e4d2a0ed76cd8b0f0ccd6a4257584f4449236322532a7c029e8ccdd73a38ef",
+      "tests/evidence.test.ts": "4017ef20bb2ac18b2175945175708e0ff1d044893cfbde7ff70916c3be482de7",
+      "tests/helpers/release-consumer-fixture.ts": "da2dd70e9356782b6500860c1229822baf607dc47aa178f01c8c555ef8e0337a",
+      "tests/helpers/release-inner-fixture.ts": "43c6affad18091fe6000f049bbe70012fd43d4a21cf36f1f4a46a4a889b35e8c",
+      "tests/release-consumer-reports.test.ts": "a1d4c013b2326b233b49c6700770052a57a27508c54fda0f0a0e960e3a007ce0",
+      "tests/release-package-reports.test.ts": "796f259154d69767846a28d392da22d0103bd097413440f4f1df2c143b723a36",
+      "tests/runtime-ownership.test.ts": "b3718b1f02b9b8fe77e305b947563f667fe496452616a69b71d219e08c80ac6f",
+      "tests/windows-package.test.ts": "594922d6434718ce9f7c8aaf952798ffc2eeb0a7cc9d9fa79aab891d793e2c16"
+    },
+    "compiledSourceDevelopment": {
+      "scope": "Cloud Linux diagnostic, not Windows acceptance",
+      "wallet": {
+        "completed": true,
+        "version": 1,
+        "exactMoneyStrings": true,
+        "integerBindings": true,
+        "restartPreserved": true,
+        "ordinaryRestorePreserved": true,
+        "encryptedRestorePreserved": true,
+        "futureVersionRefused": true,
+        "malformedSchemaRefused": true,
+        "legacyFixturePreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "productivity": {
+        "completed": true,
+        "fixtureCommitSha": "81b59d23f3c81d8af3227a77b5d6c035c3094e6b",
+        "taskIds": [
+          "canonical-parent",
+          "canonical-task"
+        ],
+        "rawTaskRows": 0,
+        "revision": 2,
+        "semanticCommands": {
+          "httpEnabled": true,
+          "noneCreated": true,
+          "legacyFullFormPreserved": true,
+          "staleRevisionRefused": true,
+          "forgedFieldsRefused": true,
+          "restartPreserved": true
+        },
+        "structureCommands": {
+          "httpEnabled": true,
+          "catalogRetry": true,
+          "checklistProgress": true,
+          "treeSectionMove": true,
+          "archiveRetry": true,
+          "staleRefused": true,
+          "invalidRefused": true,
+          "v1Refused": true,
+          "atomicSubtaskRetry": true,
+          "personalPinRetry": true
+        },
+        "structureStorage": {
+          "version": 5,
+          "checklistPreserved": true,
+          "catalogPreserved": true,
+          "tagOwnershipPreserved": true,
+          "v1StartupWithoutUpgrade": true,
+          "v2StartupWithoutUpgrade": true,
+          "v3StartupWithoutUpgrade": true,
+          "v4StartupWithoutUpgrade": true,
+          "savedViewsPreserved": true,
+          "searchPreserved": true,
+          "personalPinsPreserved": true,
+          "atomicSubtaskPreserved": true
+        },
+        "malformedCurrentTaskRepaired": true,
+        "sparseCoreRefusal": {
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete",
+          "tableCount": 2
+        },
+        "snapshotChecksum": "0ada0847505cc74d60f648a1d53d9b7be855761da3d4fabb9a4033798b90da10",
+        "encryptedSha256": "c943e09cee445146f9378236ebed08391eafe6e03eab6127e29357cce50789da",
+        "refusalCases": [
+          {
+            "kind": "changed-checksum",
+            "exitCode": 1,
+            "databaseBytesPreserved": true,
+            "nativeHandlesClosed": true,
+            "journal": "delete"
+          },
+          {
+            "kind": "future-version",
+            "exitCode": 1,
+            "databaseBytesPreserved": true,
+            "nativeHandlesClosed": true,
+            "journal": "delete"
+          },
+          {
+            "kind": "unknown-namespace",
+            "exitCode": 1,
+            "databaseBytesPreserved": true,
+            "nativeHandlesClosed": true,
+            "journal": "delete"
+          }
+        ],
+        "networkAttempts": [],
+        "nativeHandlesClosed": true
+      },
+      "checks": [
+        "legacy-migration-source-preserved",
+        "finance-create-read-update",
+        "task-reward-once",
+        "restart-preserves-finance-reward",
+        "finance-delete",
+        "ordinary-backup-excludes-credentials",
+        "restore-requires-explicit-credential-reentry",
+        "compiled-offline-reentry-preserves-user-ids",
+        "shared-snapshot-restore",
+        "restore-revokes-session",
+        "restore-preserves-reward-no-replay",
+        "snapshot-core-rows-preserved",
+        "offline-providers",
+        "native-handles-closed",
+        "compiled-canonical-task-http-restart-snapshot-recovery",
+        "compiled-canonical-unsupported-migration-refusal"
+      ],
+      "networkAttempts": []
+    },
+    "reportHashes": {
+      "w02b-native-fixture-target.json": "cd1bec6cf62fde0adef81fba7baee20f7d814835ee720c23a00a21df6f29850c",
+      "w02b-native-fixture-target.log": "74808fc91a0dc168ae051f8443737a995f5465a5d23c03b3e250bc31abf061f3",
+      "w02b-native-fixture-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "w02b-native-fixture-gate-red.json": "e982566b94c3022d9694a75b523a1174b572b525919d33bf5c6d2d8654183219",
+      "w02b-native-fixture-full.log": "b95a1785f5130c7917387a5db51eb26f2729a02ea5123a1fd264146f9736830f",
+      "w02b-native-fixture-full.json": "888ed333ee8b88af0248a003f68abad99a613ddad13ddcba9860d66255d7d4d1",
+      "w02b-native-fixture-full.xml": "0ad9d2672bec976a736c2cbc326073508c5a1d86efd99ba76e677b12c42961f7",
+      "w02b-native-fixture-gate-red.log": "339d6483f247235176f48a860766314bb9ad6c9c9878e714d3eff68c5c8baaa1",
+      "w02b-cloud/isolated-compiled-report.json": "dc4a4f9144805218e47e587ec2a04d722b2358a36b01b9ac9e97a4c7f6b53e66",
+      "w02b-cloud/isolated-compiled.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "w02b-clean-consumer-first.log": "8bb48a72d63466f2e59a44722c24f62bd9f9df0499b8f69ab9b2269fafe9452b"
+    },
+    "failedWindows": {
+      "sha": "81b59d23f3c81d8af3227a77b5d6c035c3094e6b",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38707796230",
+      "consumer": "failure",
+      "service": "skipped",
+      "overallAccepted": false
+    }
+  }
 }

@@ -83,7 +83,11 @@ try{
   try{assert.deepEqual(await once(current,'close'),[1,null],name+':'+output);child=undefined;assert.match(output,/Unsupported Wallet storage schema/);assert.doesNotMatch(output,/Server is running/);assert.deepEqual(fs.readFileSync(walletFile),before);assert.ok(!fs.existsSync(walletFile+'-wal'));assert.ok(!fs.existsSync(walletFile+'-journal'));fs.renameSync(walletFile,walletFile+'.closed');fs.renameSync(walletFile+'.closed',walletFile);}finally{clearTimeout(timer);}
  }
  fs.writeFileSync(walletFile,compatibleWalletBytes);
- const wallet={completed:true,version:1,exactMoneyStrings:true,integerBindings:true,restartPreserved:true,ordinaryRestorePreserved:true,encryptedRestorePreserved:true,futureVersionRefused:true,malformedSchemaRefused:true,nativeHandlesClosed:true};
+ // New pilot probes share the original functional path. Return that synthetic
+ // path to Wallet0 and an authenticated legacy session before legacy recovery.
+ walletDb(db=>{db.pragma('foreign_keys=OFF');db.transaction(()=>{for(const name of Object.keys(walletSeed.tables).reverse())db.exec('DROP TABLE '+name);db.prepare("DELETE FROM app_migrations WHERE namespace='wallet'").run();}).immediate();});
+ port=await start();await login(port,restoredPassword);await stop();walletDb(db=>{assert.equal(db.prepare("SELECT count(*) AS n FROM sqlite_master WHERE type='table' AND name LIKE 'wallet_%'").get().n,0);assert.equal(db.prepare("SELECT count(*) AS n FROM app_migrations WHERE namespace='wallet'").get().n,0);assert.ok(db.prepare('SELECT count(*) AS n FROM auth_sessions').get().n>0);});
+ const wallet={completed:true,version:1,exactMoneyStrings:true,integerBindings:true,restartPreserved:true,ordinaryRestorePreserved:true,encryptedRestorePreserved:true,futureVersionRefused:true,malformedSchemaRefused:true,legacyFixturePreserved:true,nativeHandlesClosed:true};
  assert.equal(fs.existsSync(network)?fs.readFileSync(network,'utf8'):'','');checks.push('snapshot-core-rows-preserved','offline-providers','native-handles-closed');
  const productivity=await probeCanonicalPackage(app,fixture,cwd);checks.push('compiled-canonical-task-http-restart-snapshot-recovery','compiled-canonical-unsupported-migration-refusal');
  fs.writeFileSync(report,JSON.stringify({wallet,productivity,commitSha:process.env.TEST_COMMIT_SHA,nodeVersion:process.version,nodeExecutable:process.execPath,platform:process.platform,architecture:process.arch,checks,networkAttempts:[],snapshotChecksum:snapshot.manifest.checksum},null,2)+'\n');
