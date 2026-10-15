@@ -1,0 +1,117 @@
+{
+  "taskId": "P08-a",
+  "observedAt": "2026-10-15T22:15:38.920479+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/89",
+  "testedHeadSha": "3c9429238f3a863565320477f002849e3e4a79af",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38756565653",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "6acfebe965320911ec13c1f311baa0523b582960ee3ebece38cfc471e280cc15",
+    "coverage": "c8c272dd854e2b1b4669ca2135ef567a9c28e031c80f2e2ed9bc186e327f436a",
+    "package": "9bba52d0831be39278e942add34b94ae2901959b28b693459b955030b934dd8f",
+    "service": "9c7559bc98c2ae55d9bcacba9f7f34526fe67bef8f48d4ef3f654316d47491e1",
+    "caddy": "6e341e9263263d9dad747c1e87b21ceefad86b5014c82fdb337a1a8d2c04371f",
+    "extraction-sdk": "8eb660303d153f751ef752e15502d69a35fab060fc99f51a26898c3ca3a66bbb",
+    "inner-native": "6df7dbf1e1af66c21647ef7f620667ade3c17d3f48a46abb5435e026fad0e521",
+    "browser": "f0b5988bcbb7324583c9999c1196722d448dd923c6189fdd99d6f11855cfb44d",
+    "productivity-browser": "6b8d0b0cc1f311ff0ffc90a274870cba58841c06143acea33270afbc56311d4a"
+  },
+  "qualityEach": 3639,
+  "qualityFilesEach": 198,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 9,
+  "zipSha256": "bb8ac2cc4506283833c566df49799333a6ee37e3eae9fd6aa8679e182a03fccd",
+  "fullCiLogZipSha256": "a7146944f15aadfd24ef3efa7b8c60af514456e1ad97cc716c4816b91144fd76",
+  "review": {
+    "reviewer": "/root whole-branch self-review; no delegated review",
+    "baseSha": "1b844789cf4544099b20a85bf642e6d4af08dced",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Fix in one pass: moving an existing active root within a column that already exceeds its hard WIP limit must not require another capacity slot. Preserve the warning and unchanged count; a new entrant remains rejected absent an explicit admin override."
+      }
+    ],
+    "declinedBounds": {
+      "rank": "Safe nonnegative integer input, deterministic code-unit ties, duplicates/self/missing-anchor refusal, bounded rebalance and unchanged input inspected. No persistence or caller authorization implied.",
+      "workflow": "Trash/wont-do/review/done/waiting/doing/todo precedence uses validated TaskRecord; no completion, rewards or lifecycle write path.",
+      "WIP": "Whole-column rows and fresh actor must come from future trusted SQL consumer; helper is not an ACL/transaction/transport. Dedup conflicting facts fails closed, blocked/review roots count, terminal/trash/subtask excluded.",
+      "override": "Trusted admin only, explicit bounded nonempty reason, hard warning required; future atomic command must audit it.",
+      "resource": "100000 input rows bound, rank output at most100001; no performance/native benchmark claim. P18 owns measurement.",
+      "integration": "P08-b owns board schema/config/ACL/privacy/races/I01/recovery/HTTP, P09 UI/P10 completion. No routes/activation/runtime/schema change in this slice. Compose accepted P07 before final exact Windows acceptance.",
+      "fixtures": "Initial40:18 failclosed assertions already pass;20 notimplemented causal failures;2 rebalance parameter-table setup failures. Corrected named rows table retains every assertion;40GREEN. External deterministic300 rank operations diagnostic passed, not a native or transactional claim."
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 23,
+      "passed": 22,
+      "failed": 1
+    },
+    "correctedTarget": {
+      "tests": 277,
+      "passed": 277,
+      "failed": 0,
+      "files": 3
+    },
+    "lintExit": 0
+  },
+  "internalQueryHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": true,
+  "fullP06Accepted": true,
+  "fullP07Accepted": true,
+  "fullP08Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P08-b shared-board storage, atomic rank/WIP/ACL, snapshot and internal HTTP",
+  "mergeSha": "62f6d4e3beb96424895b9ea5024ef6ab2d83cf3e",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/89#issuecomment-6195523592"
+}
