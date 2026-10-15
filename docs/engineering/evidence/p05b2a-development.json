@@ -391,5 +391,87 @@
   "automaticLegacyCutoverEnabled": false,
   "publicationAllowed": false,
   "server2019Acceptance": "not-run",
-  "nextTask": "P05-b2b smart/saved UI/GlobalSearch/readonly drawer, then P06 Matrix"
+  "nextTask": "P05-b2b smart/saved UI/GlobalSearch/readonly drawer, then P06 Matrix",
+  "nativeVerification": {
+    "reason": "Node24 Windows3368/3369: combined large backup boundary21580.9425ms exceeds unchanged10000ms. Separate real native-write fixture/capture/explicit admission/readonly admission with all46old assertioncalls preserved; pin quality2workers instead of auto parallelism. No underlying Windows contention proof/performance benchmark claimed.",
+    "beforeNativeFixtureFull": {
+      "tests": 3369,
+      "passed": 3369,
+      "failed": 0,
+      "pending": 0,
+      "files": 182,
+      "junitCases": 3369,
+      "todo": 0,
+      "maxWorkers": 2
+    },
+    "fullGreen": {
+      "tests": 3371,
+      "files": 182,
+      "junitCases": 3371,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "maxWorkers": 2
+    },
+    "assertionPreservation": {
+      "originalHead": "5875851454be5bcdd780a18be6e1f8282fac2ecf",
+      "originalCalls": 46,
+      "currentCalls": 46,
+      "allOriginalAssertionsRetained": true,
+      "largePositiveCharsEach": 60000,
+      "largePositiveTasks": 2,
+      "originalTimeoutMs": 10000,
+      "timeoutChanged": false
+    },
+    "targetCoverage": {
+      "tests": 9,
+      "failed": 0,
+      "timeoutChanged": false
+    },
+    "lintExit": 0,
+    "buildColdCompiledReusedBecauseSourcesUnchanged": true,
+    "priorSourceFilesUnchanged": 17,
+    "sourceHashes": {
+      "scripts/ci/Invoke-Check.ps1": "09c5b29c70e7d8f1ca3d003fcb33a3a185a9500965faad6868ae5f57654906bc",
+      "scripts/ci/write-evidence.mjs": "62b523e32f291ac275ff2610510e9ec53b61d02e866ee666ca113a8568b849b2",
+      "scripts/windows/probe-productivity-package.mjs": "dd799ff2655393d39db62677d906ff85628e96a997605d6b3b0e19ca12045bcc",
+      "scripts/windows/release-consumer-reports.mjs": "a56cef3d3a624e3bc8803f3ceadce2e538203ae09c1716db92086b68c5aa9260",
+      "server/app.ts": "332fc98cbf961d84ec7bb5731000aa352afbf79e697644ad59722e3189b8a0be",
+      "server/productivity/ports.ts": "14ab2be17c8b58ba4236ccb4d95517da76c58f600dcb2023dd94258a2f7bbdc7",
+      "server/productivity/query-capacity.test.ts": "eadaef2e844657aa1b56c136e5b84dec120705c4c504c72ce8530eb1400aa892",
+      "server/productivity/query.ts": "8d674546c8efc498a65c81258b302a260028eca6d33c4d7176a47e0ffa71d815",
+      "server/productivity/queryHttp.ts": "b01b4fc4449bd42f4b326803e4f1a19bf36740119b4d994778fdd2d164083feb",
+      "server/productivity/queryRouter.ts": "db613cd68b356df9cd0f5f2d0dad0915e00ebd1386df16a85b8f672c29155cc8",
+      "server/productivity/router.ts": "c3df1ebf77b422ec3dfc7681238b3d0e6b570da9dcf05a6b6f2e2e539f703294",
+      "server/productivity/search.test.ts": "424d6545711c63eac00979beeba668949c6b7cc1a330d3183ac1aae70b6684fd",
+      "server/productivity/views.api.test.ts": "8dd4dbe708b0031aab4e13fbfafc09387f5f8a29eea85b9ee4e97948fcea6c30",
+      "src/features/productivity/api.ts": "ef01bc83f5a26a3af316ef8553e4c3d58fb60477e516ce81883f4533d3c8eaac",
+      "src/features/productivity/contracts.ts": "c4e578cecf2627387edfe6928a80313a4d6b1a9a02280cc84cc6b35f37de266d",
+      "src/features/productivity/query-api.test.ts": "7fab14377aff0b1a001ec5fe3459005517715ff7d989cb415a474916c67723f5",
+      "tests/evidence.test.ts": "dc3442bf9e821ea4fa05bfb688144afd6098b99c88d49170e0d5a3cb563cd677",
+      "tests/helpers/release-consumer-fixture.ts": "12909549f810c20af314ed4f6a376823144e67b582b456b62c18df48fe27e4d1",
+      "tests/release-consumer-reports.test.ts": "0ea896b23e665ce260aa3e1c005d629ba11bdad8ba7958687a08a2abbd90186e"
+    },
+    "reportHashes": {
+      "p05b2a-native-phase-cloud.log": "d0f7ebaa56d420d543baa3c9744ed3d85f12478f2ea0030bf576078f505a7c1d",
+      "p05b2a-native-phase-cloud.json": "958fbe5f69eb3d1f57805cefcdeb8939ffc30686aff1e27b579f51623e7171c1",
+      "p05b2a-native-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p05b2a-native-assertion-preservation.json": "20c4342d3edce8375ab8f273caa92657ffd8bb71e161b9afdf1cda387dda4e10",
+      "p05b2a-native-full.xml": "a4e04d493f512aab9b7f55df79b959c6196c8430040c556ce787bd2ca5105ba4",
+      "p05b2a-native-boundaries-green.log": "708b08607aa82f7708c5d0ed13be14e30f18da0e4fba56743747230131844189",
+      "p05b2a-native-full.json": "6beb677f0ccc39890e21df610d306a3d6769a011d1c468dbf34009b4313b9025",
+      "p05b2a-native-boundaries-green.json": "3b4aae52cf78d90afc55dce5d4c298f085814958446dea00aba6b070f868617b",
+      "p05b2a-native-full.log": "02a33f3c6f59c16e03796aaec1104e776f0e191be539212e24e731e919542bb6"
+    },
+    "failedWindows": {
+      "sha": "5875851454be5bcdd780a18be6e1f8282fac2ecf",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38711672156",
+      "node24Tests": {
+        "passed": 3368,
+        "total": 3369,
+        "failed": 1
+      },
+      "overallAccepted": false
+    }
+  }
 }
