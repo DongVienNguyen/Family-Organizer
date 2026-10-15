@@ -24,7 +24,7 @@ export type TaskSelection={id:Id;taskIds:Id[];totalUnique:number;expiresAt:strin
 export type Quadrant = 'q1'|'q2'|'q3'|'q4';
 export type RuleNode = {op:'and'|'or';args:RuleNode[]}|{op:'not';arg:RuleNode}|{op:'test';field:'list'|'section'|'tag'|'assignee'|'priority'|'lifecycle'|'due';operator:'in'|'any'|'all'|'window';value:string[]|{fromDay:number;toDayExclusive:number}};
 export type TaskSort = 'rank'|'due'|'priority'|'title';
-export type TaskGroup = 'none'|'list'|'section'|'assignee'|'priority'|'due';
+export type TaskGroup = 'none'|'list'|'section'|'assignee'|'priority'|'due'|'tag';
 export type ViewConfig =
  | {kind:'list';sort:TaskSort;group:TaskGroup}
  | {kind:'matrix';preset:'deadline_importance'|'priority_only'|'custom';horizonDays:number;rules:Record<Quadrant,RuleNode>|null;order:Quadrant[];showCompleted:boolean}
@@ -68,12 +68,13 @@ function rule(value:unknown,depth:number,budget:{conditions:number}):void {
   if(r.field==='lifecycle')for(const l of r.value)choice(l,['todo','in_progress','completed','wont_do']);
  }
 }
-export function assertTaskView(value:unknown):asserts value is TaskView {
+export function assertTaskView(value:unknown,formatVersion=8):asserts value is TaskView {
+ integer(formatVersion,1,9);const viewGroups=formatVersion===9?[...groups,'tag']as const:groups;
  const view=object(value);text(view.id,256);text(view.ownerId,256);integer(view.revision);assertTaskFilter(view.filter);
  const c=object(view.config);if(c.kind!==view.kind)throw new Error('View/config kind mismatch');
  switch(c.kind){
-  case 'list':keys(c,['kind','sort','group']);choice(c.sort,sorts);choice(c.group,groups);break;
-  case 'kanban':keys(c,['kind','mode','group','sort','columns','boardId']);if(c.boardId!==undefined)text(c.boardId,256);choice(c.mode,['sections','workflow']);choice(c.group,groups);choice(c.sort,sorts);strings(c.columns);break;
+  case 'list':keys(c,['kind','sort','group']);choice(c.sort,sorts);choice(c.group,viewGroups);break;
+  case 'kanban':keys(c,['kind','mode','group','sort','columns','boardId']);if(c.boardId!==undefined)text(c.boardId,256);choice(c.mode,['sections','workflow']);choice(c.group,viewGroups);choice(c.sort,sorts);strings(c.columns);break;
   case 'matrix':{
    keys(c,['kind','preset','horizonDays','rules','order','showCompleted']);choice(c.preset,['deadline_importance','priority_only','custom']);integer(c.horizonDays,0,366);boolean(c.showCompleted);strings(c.order);
    if(c.order.length!==4||new Set(c.order).size!==4||c.order.some(q=>!['q1','q2','q3','q4'].includes(q)))throw new Error('Invalid quadrant order');

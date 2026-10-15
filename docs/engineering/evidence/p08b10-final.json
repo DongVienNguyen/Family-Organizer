@@ -1,0 +1,147 @@
+{
+  "taskId": "P08-b10",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/101",
+  "testedHeadSha": "53381f65ddad908cd0f40ec47b6b8016d3aa0bbf",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38811185059",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "31e5b90b7189032f9615225ab11dc04b3fe54f25d453d4fa875815949f7a739d",
+    "coverage": "eb3621bec0ed5c70640b934ad14f86cb55ca6ab13a6f795b2f93fd6bbb9c11de",
+    "package": "e3d14dec826d7f5ec7f26ff10d6451711f41e0dd618920e5a7a69d96ac3c17d5",
+    "service": "f97588c8122a224ebe2c35cfcac173685e6528b6ffeba9102baded8ed428f4a6",
+    "caddy": "4b575397d841d1c46219340103588ef0d9d777b8a1a57302f05be88f5bd09790",
+    "extraction-sdk": "f37d6bab9798d29b0d5da5b05bd0f9292776a5d2c908a6d8dbd22219b971a315",
+    "inner-native": "ee1527e1028b9f84782bcf7726a9121d5b7abbc036e03b6542cfbd1e1dbd1451",
+    "browser": "9c3a3104c0d906095bd1bf9a1ca957675b8225192e0369f21cb6b1bc2fe823a4",
+    "productivity-browser": "bf05a39d8a835d46e8b469017705a13391b111a571fe6b26531b44d3e6716884",
+    "board-package": "f8d14d9c7ac1fcec0d4ce400e9b9e05569ff49eebbfc00bcf4439450423a8e07"
+  },
+  "qualityEach": 4053,
+  "qualityFilesEach": 225,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "bf07459df50b5345793ace297243fca785b1d5ec5eaf0a1fdf246b4755639ce0",
+  "fullCiLogZipSha256": "e29ba1a87e460bc7c9db8653b13248e9db79214ee82135057a22bbd56ffc5e14",
+  "review": {
+    "reviewer": "one completed whole-branch self-review; skill catalogs empty/no delegated reviewer authorization",
+    "baseSha": "2d973df74f789eb27b8a1cd941378ee4551bd016",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "status": "CLOSED; target380/4pass+identity28/2pass;lint0/cold3storage0;full/build/nativepending",
+    "reviewedSourceHashes": {
+      "server/productivity/groupedBoardMoves.ts": "12e9384f086a5d485e9e2adbc62eda0a69c51cb121bf6b8ab7d72312a6930540",
+      "server/productivity/grouped-board-moves.test.ts": "aa8c3ee6ae8026ea4303532ccc6103204983bb0c4dfa4cd5b3ad277185aba7da",
+      "server/productivity/grouped-board-moves.api.test.ts": "054c6bc6b3f4f86819594c1463a4b634929aa7943653a7b1185c3593ebe1e9ca",
+      "server/productivity/ports.ts": "2392b991b72ecd539b75edb355247ee30bc26e013bbdadef85d0e29a91b90f14",
+      "server/productivity/router.ts": "87f39abba6be8e9f73450ea2b126b40ecd3d5958506db58a6b095f337369c34d",
+      "server/productivity/boardRouter.ts": "ce5522e2ba1d5e82ed5e8005f28ce0cc5efb769d69e76521761ddba8d2af2476",
+      "scripts/ci/write-evidence.mjs": "cd8124e5903704f28f728d0f11bdb2eafd6dca5b947c9ec00ec3be877bcc03bc",
+      "tests/evidence.test.ts": "1efcc887d0aec871591b81812fca2970c1dd774f7feb2f3b4476894a7039c6d6",
+      "scripts/windows/probe-board-package.mjs": "89a5969f5608d4fd3590c97e70c26ae80991ae6dd3d69f6ca03ef1bd89a0cef6",
+      "scripts/windows/board-package-contract.mjs": "a2f41285d3bb9678bfd49987040859a5051716ac3d7a67cf15fe79af2ffd83ee",
+      "tests/board-package-evidence.test.ts": "e9fa8950127766a0fe32cbad1d803b1285362d9c2202dd03ef8d20a72f3b8619",
+      "tests/helpers/board-package-fixture.ts": "28e95b63f3e45b318b4d108804e573c1bb136de30cd4262147144b875be21bda",
+      "docs/engineering/kanban-grouped-field-moves.md": "8c2e609a12a3877630d75443f98993d17c3cedca7f0fb057c825f23bd10c373a"
+    },
+    "bounds": {
+      "authority": "CurrentSQLactor +ownedview/canonicalboard/list+Taskancestor edit permission beforecachedUUID andinsideI01. Assigneeactiveuser andchildpositive-reward checks retained, freshcanonicalwriter rechecks. Actor/listrevocation tests passed.",
+      "writer": "Reuse updateTaskWithinTransaction insideonegateway, no newTaskwriter/publicnestedtransaction; onlyselectedpriority/assignee/explicitDue. No lifecycle/rank/approval/rewardforgery, terminalreadonly. CanonicalsharedWIPautomatic/nooverride. Noopkeepshistory/revision/positions inclMAX; realMAXedit422.",
+      "preview": "OpaqueUUID/Task+view+boardidentity/revisions/capturedclockzone/day+TaskRecord/ownedviewdigests;128refs/16MiB/15minactive+15minownerretention. ClonedDTO, staleownconfig409 (actual12/11/1implementationRED fixedbeforeformalreview). Backwardsclock/dayrollover/expiry/foreignIDs rejected.",
+      "restore": "Actual snapshotrestore+alternateedit21/20/1RED proves sameTask/boardrevision canrepeat with differentcontent; digestfix thenTask+viewbranchregressionspass. EarlierMatrix/section/paginggenerationintegrationtrackedI03, noclaimretrofitted. CachedcommittedUUIDafterrestorelegitimatelyacks onlyafterfreshscope.",
+      "atomicity": "FaultrollsbackTask/history/board/positions/cache/reward/notification state; filteredOut coversfilter/ACLloss; scopedSSEaftercommit/privateIDsabsent. ExactconcurrentHTTPUUIDwritesonce; retryisacknotpolicyreexecution.",
+      "native": "Appended19thZIPcheck preserves18/9server/8native/3refusals/24strictHTTP; adds1strictpreviewclock=25+100IPC. Selectedfielddelta+retryonce+ordinaryrestore/restartretry/noRewards assertions. Rawreport9mutationRED plusUTC-format85/84/1actualRED; no assertions/skips/retries/deadlines weakened.",
+      "scope": "No newformat/DDL/dep/defaultactivation/newcompletionpolicy; tagpersist/manualgrouporder/othersorts/P09/fullP10/latermaster remainunfinished. Nativeactual andServer2019notclaimed."
+    }
+  },
+  "postCiClockReview": {
+    "reviewer": "/root/p08_clock_review fresh read-only focused post-CI clock review; no repeat Kanban review",
+    "baseSha": "eee10d11b43d159c41135283347a60de8bc96af8",
+    "headSha": "b7a1ff45df11f69183ebb317e910e98a9794a011",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "assessment": "Owned SQLite connection/read-only native OS clock, unchanged strict21HTTP intervals, every100untrusted native/monotonic observation/counter/exit/PID/completeness validated. Full/build/exact correctedWindows still mandatory.",
+    "reviewedSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "77e36a9f49bcfdfe25b83c6841ff81d1ffaf0cbc0fb92e02988236c5813de9b3",
+      "scripts/windows/board-package-contract.mjs": "f2f55e25b105e169e23bbcf437b3bdb47ea6dfa26ceeffd7cb1d17f9b524db81",
+      "scripts/windows/clock-diagnostics.mjs": "99217bfd7572b54f5da843f9627059bb79c0a1df14f02ee4ec5c40bf34614d35",
+      "scripts/windows/probe-board-package.mjs": "e61c7e8c82f16d69ac8bfdb243ec10793f502e70b7f7bab3e29e8893bf83d2c4",
+      "server/productivity/board-projection.test.ts": "891cc4ca8b1a9bf8b8d369556cf3d55fd46877f6f75c07aa73876ac8e2b7fede",
+      "server/productivity/clock.test.ts": "9b6b866021a0a66f121284b3c9e8e847507fd4bac13d803614d8e89e93f30ea8",
+      "server/productivity/clock.ts": "fcd9f5280a129322ebdfe57046569a2f1f1e44fe8f29454cd09aa747e517fbf8",
+      "server/productivity/ports.ts": "21ba114c55724b7b89d9e95c93488fb51ff3db9486387028ab003e35eae486e4",
+      "tests/board-package-evidence.test.ts": "fa68a8a805c5eaefcbf4abe3e6a9ab0aa37d5eebe2ec552ee9d9c04705976e43",
+      "tests/evidence.test.ts": "f4f3da11cdc96fb113f89ce42bf8d3f35f04d2387223213994764e324b4b88c5",
+      "tests/helpers/board-package-fixture.ts": "eed4a44a862372647c2fd5ae6a64c03de26c1f8d916ce0b7aa15323c50424c11"
+    }
+  },
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "boardProjectionHttpAccepted": true,
+  "sectionAndRankMovesAccepted": true,
+  "columnLayoutAndArchiveAccepted": true,
+  "semanticCompletionSeamAccepted": true,
+  "normalizedGroupReadAccepted": true,
+  "persistedTagGroupingAccepted": false,
+  "groupFieldApplyAccepted": true,
+  "fullP10Accepted": false,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": true,
+  "packageManifestMax": 8,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeCommitSha": "09724d3b04ace16518df128ca7ecd5f1be8035c5",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/101#issuecomment-6203048465"
+}
