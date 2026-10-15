@@ -1,0 +1,177 @@
+{
+  "taskId": "P08-a",
+  "baseSha": "d625190bcdc7a8c40518ef2c960e5966774e42cb",
+  "scope": "Pure integer rank planning, workflow classification and trusted whole-column WIP decisions; no active API/SQL write path",
+  "fullGreen": {
+    "tests": 3639,
+    "passed": 3639,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 198,
+    "junitCases": 3639,
+    "maxWorkers": 2
+  },
+  "targetGreen": {
+    "tests": 281,
+    "passed": 281,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 3
+  },
+  "review": {
+    "reviewer": "/root whole-branch self-review; no delegated review",
+    "baseSha": "1b844789cf4544099b20a85bf642e6d4af08dced",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Fix in one pass: moving an existing active root within a column that already exceeds its hard WIP limit must not require another capacity slot. Preserve the warning and unchanged count; a new entrant remains rejected absent an explicit admin override."
+      }
+    ],
+    "declinedBounds": {
+      "rank": "Safe nonnegative integer input, deterministic code-unit ties, duplicates/self/missing-anchor refusal, bounded rebalance and unchanged input inspected. No persistence or caller authorization implied.",
+      "workflow": "Trash/wont-do/review/done/waiting/doing/todo precedence uses validated TaskRecord; no completion, rewards or lifecycle write path.",
+      "WIP": "Whole-column rows and fresh actor must come from future trusted SQL consumer; helper is not an ACL/transaction/transport. Dedup conflicting facts fails closed, blocked/review roots count, terminal/trash/subtask excluded.",
+      "override": "Trusted admin only, explicit bounded nonempty reason, hard warning required; future atomic command must audit it.",
+      "resource": "100000 input rows bound, rank output at most100001; no performance/native benchmark claim. P18 owns measurement.",
+      "integration": "P08-b owns board schema/config/ACL/privacy/races/I01/recovery/HTTP, P09 UI/P10 completion. No routes/activation/runtime/schema change in this slice. Compose accepted P07 before final exact Windows acceptance.",
+      "fixtures": "Initial40:18 failclosed assertions already pass;20 notimplemented causal failures;2 rebalance parameter-table setup failures. Corrected named rows table retains every assertion;40GREEN. External deterministic300 rank operations diagnostic passed, not a native or transactional claim."
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "causalRed": {
+      "tests": 23,
+      "passed": 22,
+      "failed": 1
+    },
+    "correctedTarget": {
+      "tests": 277,
+      "passed": 277,
+      "failed": 0,
+      "files": 3
+    },
+    "lintExit": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "causalRed": {
+    "initialDomain": {
+      "tests": 40,
+      "passed": 18,
+      "failed": 22,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "initialInterpretation": "18 negative assertions already fail closed,20 notimplemented causal failures,2 parameter-table setup failures",
+    "mandatory": {
+      "tests": 236,
+      "passed": 233,
+      "failed": 3,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    "mandatoryInterpretation": "Two actual missing-suite REDs plusone fixture-ordering error; alloriginalassertions preserved",
+    "review": {
+      "tests": 23,
+      "passed": 22,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    }
+  },
+  "originalFailures": {
+    "parameterTable": {
+      "tests": 40,
+      "passed": 38,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    "fixtureOrder": {
+      "tests": 276,
+      "passed": 275,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 3
+    }
+  },
+  "coldImport": {
+    "modules": [
+      "server/productivity/rank.ts",
+      "server/productivity/board.ts"
+    ],
+    "exitCode": 0,
+    "foreignCwd": "/workspace/family-evidence/p08a-cold-v0tpz7n_",
+    "storageCreated": false
+  },
+  "reviewedSourceHashesPreserved": {
+    "server/productivity/rank.ts": "a8d4f1d638bcf7c78f14f849d1972eb142077c04f805c532e53410da97f49710",
+    "server/productivity/board.ts": "8a60ed73735ca7c4bab44863ba485789a7cf0aace6b4fdc82d1ab029dc0e203d"
+  },
+  "compiledBackendUnchanged": {
+    "serverSha256": "78f973e46ac98a74489a1e526d2a71c40e0192508dc322b2d02e2c623cb5afa8",
+    "operatorSha256": "6700cdd4baa84161ead8fd7d4737806bc363534903cdb8ce02105ee02fa84939",
+    "reference": "actual accepted PR88 Windows ZIP6f019c26618de2fb4b647bb7f798fb6bb9ff27bdef8b8ddff95d07746d169883"
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "c5581493ef070c21e07a906eeb593351f8a974b686e6957462700542ee37733a",
+    "server/productivity/board.test.ts": "393f7ecef8e746dcf56577c7f8d09692e76b34976697c8cc5fa990811e707c1c",
+    "server/productivity/board.ts": "8a60ed73735ca7c4bab44863ba485789a7cf0aace6b4fdc82d1ab029dc0e203d",
+    "server/productivity/rank.test.ts": "8a003526d165cae9d15b0ef3c7198190ffd8edec201d838755c855d050a9330c",
+    "server/productivity/rank.ts": "a8d4f1d638bcf7c78f14f849d1972eb142077c04f805c532e53410da97f49710",
+    "tests/evidence.test.ts": "2b1889fa597668eba7c101b9a1cc7f7adae2c4fe7c007c6fc50845d1e452f75c"
+  },
+  "reportHashes": {
+    "p08a-mandatory-red.json": "23b5b591c7c3ba023b16f882a3aaa62f3bf4fd2f69fbc5492fb54dabbf53497d",
+    "p08a-corrected-target.json": "cc954fb74402804474be2a36c2519073f41967b61b606363354172eb3a3b372e",
+    "p08a-precomposition-full.junit.xml": "ffd0ad686f78641fd3975a47159f289e86caa1fe6982126aae470d9e1509da85",
+    "p08a-integrated-target.json": "21dd6d2842aecd11064f52bc9857bbd242601bb9bc2d436054009d5ccd5bccaa",
+    "p08a-integrated-full.log": "418ece2d267b1f99871d5fe72c24590568c6724a9004f5f898d8b1303a1f5e6a",
+    "p08a-integrated-build.log": "3468f7db805446b2cc1c6f76443b9a226fe0df7e286f5c137164f0aa72a8f887",
+    "p08a-mandatory-red.log": "9cf1c62d94e92e91d7e01f405351467b0212a3dea9eaf2fe007d2a23f9d3b437",
+    "p08a-precomposition-full.json": "d200172fe6f839dfa062138d0e4e95e66ba074d8c8fc5d4a65d773fec251ec2b",
+    "p08a-domain-green.json": "696e75c17b2ebd47410f267ac67b628f01c4f3c68aec96b925b07f53321897c3",
+    "p08a-reviewed-source-hashes.json": "fee4012109e61275911b3704e3d76f075a361123b7358d4fc9b960abd11cedbc",
+    "p08a-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "p08a-precomposition-full.log": "f50f9809e1f9ad2ac4d22dabedea72a3f7d8b6b7660ee705d0d2ce406aaa7b1a",
+    "p08a-rebalance-fixture-failed.log": "ca059f7a5863c69330a2f938a0a4f28328d077b4f54076c3ddd4df2f24098330",
+    "p08a-rebalance-fixture-failed.json": "a02c8a1a7af771a762adace3d095e7a8480bb23a7a9f17e6c77999d8a234e162",
+    "p08a-draft-diagnostic.log": "703bfaa46f3f003f82cf46591e4c9661063995835d01368514e241fbd0249279",
+    "p08a-corrected-target.log": "ceb4df16f1679d423308efc121110f1a69a087ffcc9c91832a6e8fe47470dbc3",
+    "p08a-integrated-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "p08a-domain-red.log": "b74f2959f4cdc1e42c5d405062b57459d02c0af7f569b315d50c2d888312ad23",
+    "p08a-integrated-target.log": "c488e2808a37bdc46437a52ce334d931bf6a0fbde070d837b5ea3772db118333",
+    "p08a-domain-green.log": "ca059f7a5863c69330a2f938a0a4f28328d077b4f54076c3ddd4df2f24098330",
+    "p08a-integrated-full.json": "4989ac36127e03a22d42b3ba02151364ece2f44d235ee9056cc9eefad57e9913",
+    "p08a-cold-import.json": "4e2b1c15f58fa400dc2b314df8a8b22c037ad6a27ad05829c8bccd6706422803",
+    "p08a-integrated-full.junit.xml": "7b855b9cd6ded4072302720664bf898962d41cf114ba28da8bcdaed2f2747c10",
+    "p08a-precomposition-build.log": "1d18bf5f41309733d09da283694e4fd9385859991240ed458f152c49744bdc09",
+    "p08a-review-red.log": "e32f7a54c508ddfcca5f070d4c851d40bf5f3248eba586b16fa27b6c1cb44d2d",
+    "p08a-target-green.json": "6bc2a6c2abec900735f0bb03b709f6ced301fe8c226063251ea6d8acaa1d26f1",
+    "p08a-target-green.log": "53cf687c2999cf00752a3c08bf21a9b702ba7ec319b48d105205f98ea5bf7d45",
+    "p08a-review-rulings.json": "ab6f514024643280b0daef091cec1f3a9058b99bdcca3d5413dcd5e7bc0b6d49",
+    "p08a-domain-red.json": "1ebd12c542ef796de22314313fdf00d8bbaf9165d43d5c85143cac2c39429dc6",
+    "p08a-review-red.json": "177408ec17814c5c1192b979f3958ecdecd21587c3f3179bb2c65da107dfca80",
+    "p08a-corrected-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+  },
+  "fullP08Accepted": false,
+  "transactionalWipAcceptance": false,
+  "exactWindowsAcceptance": "pending",
+  "server2019Acceptance": "not-run",
+  "activationReleaseOrVps": false,
+  "nextTask": "P08-b shared canonical board/config ownership, all-writer transactional WIP/rank/ACL, snapshots and internal HTTP"
+}
