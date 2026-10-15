@@ -454,7 +454,7 @@ jobs:
           if ($fixtureExit -ne 0) { throw 'Canonical synthetic fixture generation failed' }
           & node --import tsx scripts/ci/write-board-package-fixture.ts reports/package-harness/board-fixture.json
           $boardFixtureExit = $LASTEXITCODE
-          if ($boardFixtureExit -ne 0) { throw 'Semantic8 board synthetic fixture generation failed' }
+          if ($boardFixtureExit -ne 0) { throw 'Semantic9 board synthetic fixture generation failed' }
           & node --import tsx scripts/ci/write-wallet-fixture.ts reports/package-harness/wallet-fixture.json
           $walletFixtureExit = $LASTEXITCODE
           if ($walletFixtureExit -ne 0) { throw 'Wallet synthetic fixture generation failed' }
