@@ -1,0 +1,128 @@
+{
+  "taskId": "P06-b",
+  "observedAt": "2026-10-15T18:51:23.904697+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/86",
+  "testedHeadSha": "320735d5c8b80c4b11ddfafa0e6320c7e127f502",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38728596365",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "283aaa37a55aecdc7698f6b1ae1838ff7af885f71bafa1152d7e9b1a4d2c56eb",
+    "coverage": "89f2a9070151e0e427464a7a727d529c77dac6f3e50e1cdf59690a8a6ef1bc7a",
+    "package": "f0df4eb6e256d960c4a1cccbc576c4773186660d6a8e445b02e348c64035a682",
+    "service": "ad3d44976236964b04ffe97e75bbd335015fb72c45cbc04d71549626c3558520",
+    "caddy": "26e73a791f86e9454873d0ff32aabe08807c8d79be5a2b2f1a39143b657f5b1f",
+    "extraction-sdk": "01b4bf752081719d0b51f268d01fc53fc4d6f00be4beb7c4e5e5e3f2116a820c",
+    "inner-native": "6fcba2ea1e29ed6930de2d7726f2a44489d1124c740eae7a37713bf3b9a2a28b",
+    "browser": "803d1809afb8ddc7985b9adcbfd5049eab21b6c64bd2c39ab6ea846d7038e7f5",
+    "productivity-browser": "71d4ed7ec4b5770ef43a3fcb387e00f283702ea142c9bbcc5113e1e2e83d006e"
+  },
+  "qualityEach": 3480,
+  "qualityFilesEach": 190,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 45,
+  "rawValidators": 9,
+  "zipSha256": "1d87c30eb3dc0e9b11810115e339f2bdb53ca6a1a1e0c8e15541cd4a3af4a780",
+  "fullCiLogZipSha256": "7275bd24b5efdea78ed9b23c541e023d532621138f157bfc15d2b2e45a15de74",
+  "review": {
+    "reviewer": "/root/p06b_review",
+    "baseSha": "13963735ee6106d77c68efda65df2e63924f6a81",
+    "reviewedSha": "c7e24cc6089fd7ee366408fa3aca1836e5eb6350",
+    "critical": 0,
+    "important": 0,
+    "minor": 2,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "findings": [
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Accept/fix now: validate nullable bounded assignee string before native binding; real HTTP bad-type zero-write regressions.",
+        "correction": "Nullable bounded string validation before tag/assignee policy SQL"
+      },
+      {
+        "id": "M2",
+        "grade": "Minor",
+        "ruling": "Accept/fix now: apply fetches owned view without new-preview kind requirement; changed kind/config returns409, initial non-Matrix usage stays422.",
+        "correction": "Apply context maps changed Matrix kind to stale409 before cache and in writer; new projection/preview retains422"
+      }
+    ],
+    "declinedBounds": {
+      "ACL": "fresh actor/private owner/task+ancestor/edit before cache and writer examined; no finding",
+      "intent": "TTL/day/task/view/pin revision, target reclassification, cloned intent, explicit due confirmation examined",
+      "pins": "ABA/safe integer/expiry/no task or reward mutations/delta/rollback examined",
+      "I01": "retry-after-restart/hash/no nested writer examined",
+      "storage": "frozen1..5/explicit6/exactDDL/snapshot/restore examined",
+      "HTTP": "scoped auth/curatedDTO/events examined",
+      "CI": "compiled assertions/strict consumer/mandatory suites/current6/future7 examined; Windows pending",
+      "P18": "previous unused horizon/resource/performance minors remain deferred",
+      "restore": "sessions revoked on authenticated restore, credential restore offline process boundary; no actionable new defect"
+    },
+    "causalRed": {
+      "report": "p06b-review-red.json",
+      "tests": 14,
+      "passed": 10,
+      "failed": 4
+    }
+  },
+  "internalQueryHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": true,
+  "fullP06Accepted": true,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P07 Matrix UI and accessible drag preview",
+  "merged": true,
+  "mergeSha": "eba7b6f603048e602913617f3c9222152ebd8a1d",
+  "mergeTreeEqualsTestedTree": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/86#issuecomment-6191377597",
+  "fullCiLogs": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 20886,
+    "zipSha256": "7275bd24b5efdea78ed9b23c541e023d532621138f157bfc15d2b2e45a15de74",
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Initial broad Error regex intentionally stopped acceptance; manually inspected surrounding native logs and matched all four unique negative scenarios to passed tests in both raw JSON/JUnit. Sixteen lines include aggregate+step log duplicates. Original scan preserved; no CI/source/assertion changes.",
+    "expectedSyntheticMarkerCount": 16
+  }
+}
