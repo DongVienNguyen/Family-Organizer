@@ -1,3 +1,4 @@
+import {createMatrixCommands} from './matrix.js';
 import type {SelectionBudget} from './query.js';
 import {createTaskQueryHttp} from './queryHttp.js';
 import {createTaskViews} from './views.js';
@@ -10,7 +11,7 @@ import {createStructureCommands} from './structure.js';
 import {createStructureEventScope} from './structureEvents.js';
 import type {ProductivityPorts} from './router.js';
 /** Called by explicit runtime setup after the single storage owner is ready. */
-export function createProductivityPorts(sqlite:typeof Sqlite,gateway:typeof Gateway,options:{queryNow?:()=>number;queryPageSize?:number;querySelectionBudget?:SelectionBudget}={}):ProductivityPorts {
+export function createProductivityPorts(sqlite:typeof Sqlite,gateway:typeof Gateway,options:{queryNow?:()=>number;queryPageSize?:number;querySelectionBudget?:SelectionBudget;matrixPreviewLimit?:number}={}):ProductivityPorts {
  const connection=sqlite.sqliteConnection(),reader:TaskReader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args),all:(sql:string,...args:any[])=>connection.prepare(sql).all(...args)};
- return {query:createTaskQueryHttp({reader,now:options.queryNow,pageSize:options.queryPageSize,selectionBudget:options.querySelectionBudget}),views:createTaskViews({reader,write:gateway.withAppWriteTransaction}),pins:createTaskPins({write:gateway.withAppWriteTransaction,reader}),active:()=>reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value==='1',structure:createStructureCommands({write:gateway.withAppWriteTransaction,reader}),structureEvents:createStructureEventScope(reader),access:createTaskAccess(reader),commands:createTaskCommands({write:gateway.withAppWriteTransaction,reader})};
+ return {matrix:createMatrixCommands({reader,write:gateway.withAppWriteTransaction,now:options.queryNow,previewLimit:options.matrixPreviewLimit}),query:createTaskQueryHttp({reader,now:options.queryNow,pageSize:options.queryPageSize,selectionBudget:options.querySelectionBudget}),views:createTaskViews({reader,write:gateway.withAppWriteTransaction}),pins:createTaskPins({write:gateway.withAppWriteTransaction,reader}),active:()=>reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value==='1',structure:createStructureCommands({write:gateway.withAppWriteTransaction,reader}),structureEvents:createStructureEventScope(reader),access:createTaskAccess(reader),commands:createTaskCommands({write:gateway.withAppWriteTransaction,reader})};
 }

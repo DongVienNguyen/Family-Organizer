@@ -1,0 +1,103 @@
+{
+  "taskId": "P06-a",
+  "observedAt": "2026-10-15T17:50:16.826165+07:00",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/85",
+  "testedHeadSha": "180050296d4a6dae939df0324411e97b8ef434ea",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38721237685",
+  "workflowId": 381168350,
+  "runAttempt": 1,
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "85696756fdfbc0d5fef2c74472b153e679ac75327f35adb01c73df37be6f5dbd",
+    "coverage": "872f137c13336e7f9ca2b43972f4e4bfe404aae269a22503763b015460bf6546",
+    "package": "996e23f08ffe349cde07c4c841600fb36b247729cf1f9497287c3a4ad0244a0e",
+    "service": "44fa3e4f2acc0dcc3773a5538a4839b03bd27d851fac17875329ed93586c629f",
+    "caddy": "80e67d35a47c0c686c05827a44e0d6fe27b4efe981d235c4713b1c0fc3084c4e",
+    "extraction-sdk": "a5ce122507c6a1896ff29bac75dce413bc864b828791e88a0e0893a8ef8f599e",
+    "inner-native": "0ea264f8e1f76f53528c0afed2b99fac588fcbcc2d5794045d7efda2273ed59d",
+    "browser": "df03235623f0768d14b9de1f93d7075802a6e3175a29d248086e1f2921449c21",
+    "productivity-browser": "7534a0d99e8133bc6115d9dc22da17dd401e2feba48ff895091609227af55fa0"
+  },
+  "qualityEach": 3419,
+  "qualityFilesEach": 187,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 45,
+  "rawValidators": 9,
+  "zipSha256": "6c77b4a50713e324747d9b1e480e10c5ee9424149711af15cab311c91e2053c2",
+  "fullCiLogZipSha256": "e095fea9abdfa26df4ae11bc072de81704ad2c5276752818f740af6042c9fd4e",
+  "review": {
+    "reviewer": "/root/p06a_review",
+    "baseSha": "5cadef54149996d6ed66b78b5c5090fe8ef2eef0",
+    "reviewedSha": "bf26763",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorDeferred": [
+      {
+        "id": "M1",
+        "owner": "P18",
+        "grade": "Minor",
+        "reproducer": "priority_only or custom without due rules, horizonDays1, clock2011-12-28T12:00:00Z Pacific/Apia; unused skipped2011-12-30 horizon throws",
+        "ruling": "Narrow historical timezone edge; defer lazy irrelevant-horizon computation to P18 temporal boundary/benchmark pass. No present-day Windows acceptance or full P06 claim."
+      }
+    ],
+    "declinedBounds": {
+      "P06-b": "fresh server ACL, trusted5min preview/revisions/day/field permissions/apply/audit/rollback/revisioned expiring pins/migration/recovery",
+      "P07": "Matrix UI, rules editor, keyboard/mobile/drag confirmation",
+      "P18": "reference performance measurements and optimization",
+      "R02": "actual Server2019 acceptance"
+    }
+  },
+  "internalQueryHttpEnabled": true,
+  "fullP04Accepted": true,
+  "fullP05Accepted": true,
+  "fullP06Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullW02Accepted": false,
+  "nextTask": "P06-b authoritative preview/apply, revisioned expiring view pins and recovery",
+  "mergeSha": "13963735ee6106d77c68efda65df2e63924f6a81",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/85#issuecomment-6190330283",
+  "fullLogFilesRead": 132,
+  "fullLogLinesRead": 20688
+}
