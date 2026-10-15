@@ -1,0 +1,261 @@
+{
+  "taskId": "P07-a",
+  "baseSha": "eba7b6f603048e602913617f3c9222152ebd8a1d",
+  "scope": "Validated Matrix client/session-scoped preview controller; actual Matrix UI and DnD remain P07-b-owned",
+  "fullGreen": {
+    "tests": 3533,
+    "passed": 3533,
+    "failed": 0,
+    "pending": 0,
+    "files": 192,
+    "junitCases": 3533,
+    "todo": 0,
+    "maxWorkers": 2
+  },
+  "targetGreen": {
+    "tests": 316,
+    "passed": 316,
+    "failed": 0,
+    "pending": 0,
+    "files": 6
+  },
+  "causalRed": {
+    "p07a-matrix-client-red": {
+      "tests": 29,
+      "passed": 0,
+      "failed": 29,
+      "pending": 0,
+      "files": 1
+    },
+    "p07a-matrix-state-red": {
+      "tests": 15,
+      "passed": 0,
+      "failed": 15,
+      "pending": 0,
+      "files": 1
+    },
+    "p07a-overlap-red": {
+      "tests": 16,
+      "passed": 15,
+      "failed": 1,
+      "pending": 0,
+      "files": 1
+    },
+    "p07a-required-suites-red": {
+      "tests": 234,
+      "passed": 232,
+      "failed": 2,
+      "pending": 0,
+      "files": 1
+    },
+    "p07a-review-red": {
+      "tests": 50,
+      "passed": 46,
+      "failed": 4,
+      "pending": 0,
+      "files": 2
+    }
+  },
+  "review": {
+    "reviewer": "/root/p07a_review",
+    "baseSha": "eba7b6f603048e602913617f3c9222152ebd8a1d",
+    "reviewedSha": "0ff1d0b",
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "ruling": "Accept/fix in ONE pass: capture selectedtimezone for preview, supply omittedtimezone, refuse conflicts, preserveplan acrossmetadata; causalcontrollerboundary andactualHTTP proof."
+      },
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Accept/fix samepass: validate unpinned firstmatch/unmatched coherence afterparsingpins; preservevalidpin/overlap."
+      }
+    ],
+    "declinedBounds": {
+      "transport": "Server DTO/revisions/pin tombstone/delta/warnings/envelopes align; historicalcommitted retryrevision correct",
+      "async": "pendingwrite lock/readfailure/sessiongeneration inspected; nootherblockingfinding",
+      "intent": "cancel/custom/deadline0mutations,409retain/block,stable explicitretrykeys inspected",
+      "P07-b": "canonicaldrawer/fullcache refresh/MatrixUI/DnD/browserinteractions explicitlypending",
+      "P18": "mutable snapshots/largeprojection/resource/performance historicalbounds deferred",
+      "preservation": "originalassertions/migration/dependencies/server/browser unchanged"
+    },
+    "causalRed": {
+      "tests": 50,
+      "passed": 46,
+      "failed": 4
+    },
+    "correctedTarget": {
+      "tests": 316,
+      "passed": 316,
+      "failed": 0,
+      "files": 6
+    },
+    "actualHttp": "Fixed clock2026-10-15T01Z/NewYorkOct14; real client/controller/server nativeHTTP priority+deadline confirmation, committed-response loss/exactretry, privatepin/reset/noTaskwrite"
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "modules": [
+      "api.ts",
+      "matrixClient.ts",
+      "matrixState.ts"
+    ],
+    "foreignCwd": true,
+    "storageCreated": false,
+    "exitCode": 0
+  },
+  "actualHttp": "Existing nativeSQLite/application server, trusted01UTC/NewYorkpreviousday, clientcontrollerdeadlineconfirmation/lostcommittedresponse/exactretry/pinresetTaskbytes preserved; permanent matrix.api.test.ts regression",
+  "chromium": {
+    "firstAttemptCases": 15,
+    "fixtureRemoved": true,
+    "nativeHandlesClosed": true,
+    "offline": true,
+    "sourceDiagnostic": true,
+    "reportSha256": "679f17a86b9d8a7c6b1e6338e3486a1b26ffe2a241aa13e2f856a3cb49af0d0a",
+    "manifest": {
+      "commitSha": "0ff1d0b293c435e52250662b34a88af82ca8e7dc",
+      "nodeVersion": "v24.21.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "lockSha256": "b0ccc34492d6f6f8996bb4ffa4d790628d17038050efa925ff9bbe9f79581d7c",
+      "productionBuild": {
+        "serverSha256": "50f4026c1bfd8106710e2cac5e264e79a3129460c74127002ce4757aea7a033a",
+        "indexSha256": "86ce54c363791f0b6590a9bb5bdbb3bd318082ae9bf1cc14acb8b779d7e2bf56"
+      },
+      "synthetic": true,
+      "productivityVersion": 6,
+      "fixtureRemoved": true,
+      "nativeHandlesClosed": true,
+      "networkAttempts": [],
+      "externalAttempts": [],
+      "legacyPreserved": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "cliExitCode": 0,
+      "cliSignal": null,
+      "serverExitCode": 0,
+      "serverSignal": null,
+      "browserExitCode": 0,
+      "browserSignal": null,
+      "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+      "error": null
+    }
+  },
+  "compiledBackendSourceUnchanged": true,
+  "compiledBackendExactAcceptedWindowsComparison": {
+    "dist/server.cjs": {
+      "acceptedWindowsSha256": "50f4026c1bfd8106710e2cac5e264e79a3129460c74127002ce4757aea7a033a",
+      "currentCloudSha256": "50f4026c1bfd8106710e2cac5e264e79a3129460c74127002ce4757aea7a033a",
+      "matches": true
+    },
+    "dist/operator.cjs": {
+      "acceptedWindowsSha256": "6700cdd4baa84161ead8fd7d4737806bc363534903cdb8ce02105ee02fa84939",
+      "currentCloudSha256": "6700cdd4baa84161ead8fd7d4737806bc363534903cdb8ce02105ee02fa84939",
+      "matches": true
+    }
+  },
+  "preservedSourceHashes": {
+    "server/productivity/matrix.ts": "c024acf98dd589fab6e0ac8bcce6879ea61fe2f1a8a27f48bbdc68bae2f01b2f",
+    "server/productivity/matrixRouter.ts": "5c4107e7a7b46e78672fcc3c1867f3fd3c2df0ff0b6d4847f8a8d4b1ab84910e",
+    "server/productivity/matrixSchema.ts": "f7fdc0bcbe174b2998ce0ab44a537a0e5086766b0d55b78d0669c0bb55cda78f",
+    "server/productivity/tasks.ts": "78fb945c5b314817059f6719dffa8bf2b42bda5ed84fec0575dd5be2201c68b8",
+    "server/productivity/adapter.ts": "07a9f5142b1ff4d1f19b245d4a33fee46104e75e37392828ec94f0ccb8132416",
+    "server/productivity/snapshot.ts": "a94d7618ed404f2dd306107d508135a012c4a00a553a35acf4f2a2ac1aaad167",
+    "tests/e2e/productivity.spec.ts": "946ca798254012a815d0b4a628c41f2b636899500740cb6a6ac1924c46aca017",
+    "package.json": "675975bf98e51787367b093d9282ce411a90288e0095b16bf0585b0145f42507",
+    "package-lock.json": "b0ccc34492d6f6f8996bb4ffa4d790628d17038050efa925ff9bbe9f79581d7c",
+    "tests/e2e/foundation.spec.ts": "8c4d2ae1a55a0b4d0f25ba63174509866469d07bd5f21ef0f64b2e7b28b7d384",
+    "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66",
+    "tests/e2e/platform-probe.ts": "d0fac1fbb5e9bd7d1bb5ac1e8641f43f536bb6cf44d4c0172ecbd18d7103f5d7"
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "eb3248b1641575d61e56466192cdcc9e3851962aa22225b84825d05e14e0a516",
+    "server/productivity/matrix.api.test.ts": "b08467e90db3bbb32853364a11a84d75453ee4a77f79db2dc3a0d7f4dcf79a1f",
+    "src/features/productivity/api.ts": "d535a433550da1b1203e804619991c11bfe274cf4f4de955f1d09e4c0c76ce8f",
+    "src/features/productivity/matrixClient.test.ts": "c4cbea6a23cc608421932a53139ad4e4320523cd3c7571ac8c9354f71e790356",
+    "src/features/productivity/matrixClient.ts": "4eda307ab8a3dd864afc456c62b6fc1a2d4d8f507fdaa704f247418f14e9dfb4",
+    "src/features/productivity/matrixState.test.ts": "0ef69c5b8ae0d93e51aade5342a6db5433549b0d13c00d52461b2f497bafce46",
+    "src/features/productivity/matrixState.ts": "46952dd9d6df9ec6bd57f24b51c448997a1c4bc63612a74464c08466d9111bee",
+    "tests/evidence.test.ts": "019c3ea6d6497ff77ad9c67dd8190b82ce706973825547927fbb04e23520e45e"
+  },
+  "reportHashes": {
+    "p07a-target-green.json": "f30a4e4c1a72dff08fa180393dc9833977d14e1be6f489bf72b5c865b43b15c4",
+    "p07a-review-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p07a-matrix-client-red.json": "08a9af9b3e152bab152537034a38ba6e2799e32a1bc05cdc8540d6aa521096dd",
+    "p07a-review-green.log": "11025bb743827a71edeace41bcce4c4c48afffe02a8a58128179c841a5ade1f3",
+    "p07a-review-green.json": "326b9d965d6e4aa3aeb8e4da3751a397622099642371b41f3a58d7a25a638cc2",
+    "p07a-target-green.log": "882befaca01464ce1845d636c9cce4d286dbbdba14ec61a031c182fb47f1b6aa",
+    "p07a-overlap-red.log": "527e6b8305852bd4c61aecea7c7bf95228881ed1474df4be985036ad71ec18d2",
+    "p07a-matrix-client-red.log": "4959fbfe3fe85e7c68475754c5d5daf775f7a9316443181021414a0644a67300",
+    "p07a-pre-review-full.xml": "8313360b75db020720340af91780d6dbefd28d7213a87f391dd09df0b55a5a12",
+    "p07a-matrix-green.json": "be9149780d3d525a4946653db5c2064d6dd867fcb36906ea5ca2d58c9e2e7e64",
+    "p07a-matrix-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p07a-first-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p07a-matrix-client-green.json": "f4106c326efa702df1d140c154c04243ec35a340cf65af35a6e4ce018d48210a",
+    "p07a-review-red.log": "417112e5c4071bd363f00de36470d38d339571160dc5e72c86a690481e288f09",
+    "p07a-compiled-backend-comparison.json": "1162d2ec82fc60f55bcca245dd6a6a7ec4f54008823c15d94215866f02699d10",
+    "p07a-corrected-full.xml": "5b2d07c1896b3c6f27a3317abb40da612eca7d64e59b6e7e31de2480080ebd79",
+    "p07a-pre-review-chromium.log": "de12135099e2b983002a711c8a127c2fa374c3fd49075152d6902c414eb9fee1",
+    "p07a-matrix-client-green.log": "0f3bc45166fe2a2a455ae17284454236546b95e2a051e3bc4a52185ca85d8018",
+    "p07a-current-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p07a-pre-review-full.log": "565455197571301da41bc52e6d96027e4b6118af5333a7a22efe6dfd19d96184",
+    "p07a-corrected-full.json": "7a516e661b001a8340efce496f995e9f3f5ce5375bf7d58d407eb8a9325344a2",
+    "p07a-matrix-state-red.json": "f09fa6b8fcff63e2ae95cc5ff4b937efbb93fb4cc75349c41543ec200627ab2b",
+    "p07a-review-rulings.json": "0a77fe39ad6b89f984483bd43889d9ab175ec1ecf250ea8fe3e51165b36b707b",
+    "p07a-matrix-state-red.log": "9d3ae8159ad2c1cc02af3971ad4bd0237bb30d6b74e3ecde26a75fb84d9d89a3",
+    "p07a-preserved-source.json": "f1100231069bbf585598633fad3d645ece6d5bf491862309e1cf853d187625a6",
+    "p07a-pre-review-full.json": "0b154cb83c95e2be93cd05426774c06f044f3e94604acddc320efd34a077db3b",
+    "p07a-pre-review-build.log": "0a6a273829ee974c5ee6059acd22392e7bea9c6ed09063875df1d0a08f6d66c0",
+    "p07a-corrected-full.log": "d25af79cbebc542a2ef5448aca17bcb213179277d21ffd6f2d8f4b75ed17de5e",
+    "p07a-required-suites-red.json": "a4b2b63a90543ca0b5776463a987cbcf8ee8a15fe51a8189fc8bde32f41a9d44",
+    "p07a-pr-body.md": "4e03d1783c38f0b860dd741ff8cea5b4a87d5e99dfd04d8a60a01dbf1e40f609",
+    "p07a-corrected-build.log": "4b644a7bdd6b96aba071084f4540bb377ad492ca044b943f75569b065761a59a",
+    "p07a-corrected-target.log": "0a753593044063bec0aa56c92de84e5b1dd52189b289009e556b69747fb43ce2",
+    "p07a-review-red.json": "e76c684952b118f7e4d32b5a60064280e511a148c365c2d51bc6b18ba14025a6",
+    "p07a-required-suites-red.log": "1b2714bf72526fde7fca2fb3991605901d6d5a83d8d0b9b22c2c272ea81ae6e0",
+    "p07a-matrix-green.log": "347745df7014282a42e31b9b32a4734e356221fc4f824b0ceaf394d4494c5d46",
+    "p07a-overlap-red.json": "2e1e8d97639a261efd21a227c42642b12512398886590a8771de2abcc4222998",
+    "p07a-corrected-target.json": "a8b2a77988962f46904a62d53051cc374f6acde8189e168c74acd670c8a7780b",
+    "p07a-corrected-chromium.log": "00b80721091e51aef0418a7f0ffbacd63e685c6ca483b4851bca15140b1648dc",
+    "p07a-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p07a-cold.json": "7f9b19f2c6fa08ca83ced385d2eb4f9385623ff7d1ec5a8fca299860d6135ce5"
+  },
+  "originalFailures": {
+    "preReviewFull": {
+      "tests": 3529,
+      "passed": 3527,
+      "failed": 2,
+      "pending": 0,
+      "files": 192
+    },
+    "ruling": "New timezone reviewREDs were added while fullrunner stillhad filesqueued; observed3529/3527/2 retained asfailed diagnostic, notstablegreen. Corrected full launchedonlyafterall tests frozen.",
+    "externalCompiledClient": "Initial harness copiedc7e24cc fixture butexpectedeba7 identity; refusedbeforelaunch, notclaimedRED/green; permanentnativeHTTPregression nowcoversactualcontract."
+  },
+  "nativeRequired": {
+    "checks": 8,
+    "rawFamilies": 9,
+    "expectedTestsEach": 3533,
+    "expectedFilesEach": 192,
+    "oldBrowserCases": 45,
+    "productivityBrowserCases": 45
+  },
+  "dependenciesChanged": false,
+  "migrationChanged": false,
+  "fullP06Accepted": true,
+  "fullP07Accepted": false,
+  "fullW02Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "Exact-HEAD Windows/authorized merge thenP07-b Matrix UI/editor/accessible drag"
+}

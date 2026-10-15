@@ -15,6 +15,9 @@ existing canonical open/refresh path remains necessary when P07-b opens a drawer
 makes no optimistic task move. Cancel aborts a pending preview and sends no
 mutation. Apply requires explicit deadline confirmation and a resolved custom
 choice; only the server decides the effective target and five-minute expiry.
+Previews inherit the selected projection timezone; a conflicting intent timezone
+is refused before transport. Unpinned placements must match the first rule match,
+with empty matches for the unmatched tray; explicit pins may override placement.
 Metadata refresh preserves the captured preview/revision rather than rebasing
 it. HTTP409 retains the preview and blocks apply until an explicit new preview.
 
