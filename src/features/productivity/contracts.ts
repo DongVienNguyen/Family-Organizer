@@ -28,7 +28,7 @@ export type TaskGroup = 'none'|'list'|'section'|'assignee'|'priority'|'due';
 export type ViewConfig =
  | {kind:'list';sort:TaskSort;group:TaskGroup}
  | {kind:'matrix';preset:'deadline_importance'|'priority_only'|'custom';horizonDays:number;rules:Record<Quadrant,RuleNode>|null;order:Quadrant[];showCompleted:boolean}
- | {kind:'kanban';mode:'sections'|'workflow';group:TaskGroup;sort:TaskSort;columns:Id[]}
+ | {kind:'kanban';mode:'sections'|'workflow';group:TaskGroup;sort:TaskSort;columns:Id[];boardId?:Id}
  | {kind:'calendar';range:{from:string;toExclusive:string};style:'month'|'week'|'agenda'}
  | {kind:'timeline';range:{from:string;toExclusive:string};style:'day'|'week'};
 export type TaskView = {id:Id;ownerId:Id;revision:Revision;filter:TaskFilter;kind:ViewConfig['kind'];config:ViewConfig};
@@ -73,7 +73,7 @@ export function assertTaskView(value:unknown):asserts value is TaskView {
  const c=object(view.config);if(c.kind!==view.kind)throw new Error('View/config kind mismatch');
  switch(c.kind){
   case 'list':keys(c,['kind','sort','group']);choice(c.sort,sorts);choice(c.group,groups);break;
-  case 'kanban':keys(c,['kind','mode','group','sort','columns']);choice(c.mode,['sections','workflow']);choice(c.group,groups);choice(c.sort,sorts);strings(c.columns);break;
+  case 'kanban':keys(c,['kind','mode','group','sort','columns','boardId']);if(c.boardId!==undefined)text(c.boardId,256);choice(c.mode,['sections','workflow']);choice(c.group,groups);choice(c.sort,sorts);strings(c.columns);break;
   case 'matrix':{
    keys(c,['kind','preset','horizonDays','rules','order','showCompleted']);choice(c.preset,['deadline_importance','priority_only','custom']);integer(c.horizonDays,0,366);boolean(c.showCompleted);strings(c.order);
    if(c.order.length!==4||new Set(c.order).size!==4||c.order.some(q=>!['q1','q2','q3','q4'].includes(q)))throw new Error('Invalid quadrant order');

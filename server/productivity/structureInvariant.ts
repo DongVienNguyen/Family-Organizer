@@ -13,7 +13,7 @@ export function assertTaskTree(rows:TaskEdge[]):void {
   while(current.parentId!==null){const parent=live.get(current.parentId);if(!parent||seen.has(parent.id)||parent.listId!==current.listId||current.isShared&&!parent.isShared||++depth>5)throw invalid();seen.add(parent.id);current=parent;}
  }
 }
-export function hasStructureStorage(reader:TaskReader):boolean{return !!reader.get("SELECT name FROM sqlite_master WHERE type='table' AND name='app_migrations'")&&[2,3,4,5,6,7].includes(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version);}
+export function hasStructureStorage(reader:TaskReader):boolean{return !!reader.get("SELECT name FROM sqlite_master WHERE type='table' AND name='app_migrations'")&&[2,3,4,5,6,7,8].includes(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version);}
 const graph=(reader:TaskReader)=>reader.all('SELECT id,list_id,parent_id,creator_id,assignee_id,is_shared,deleted_at FROM productivity_tasks').map(edge);
 export function assertCurrentTaskTree(reader:TaskReader):void {if(hasStructureStorage(reader))assertTaskTree(graph(reader));}
 /** All write paths share structure validation. Dynamic ancestor ACL still narrows
