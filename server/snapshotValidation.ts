@@ -1,3 +1,4 @@
+import {completionMarkerPrefix,semanticCompletionPrefix,completionMarker,semanticCompletionClaim} from './completionClaims.js';
 // Shared payload validation has no SQLite/storage bootstrap dependency.
 import { canonicalMediaUrl, parseMediaMetadata } from './mediaPolicy.js';
 import { LEGACY_KEYS } from './legacySchema.js';
@@ -77,6 +78,23 @@ export function validateSnapshotPayload(input: unknown, context:SnapshotValidati
   if (JSON.stringify(migrations(s.tables.app_migrations)) !== JSON.stringify(migrations(context.migrations))) throw new Error('Snapshot migration records disagree with supported versions');
   const rewards = new Map<string,any>(s.legacy.rewardLedger.map((row: any) => [row.id,row]));
   for (const claim of s.tables.app_reward_claims) if (!rewards.has(claim.grant_entry_id) || (claim.reverse_entry_id !== null && !rewards.has(claim.reverse_entry_id))) throw new Error('Snapshot completion claim has no canonical reward');
+  // Only semantic completion claims use this namespace. Historical generic I01
+  // claims keep their existing format and legacy reward rows remain unchanged.
+  const outstandingTasks=new Set<string>(),semantic=new Map<string,any>(),grantIds=new Set<string>(),reverseIds=new Set<string>();
+  for(const claim of s.tables.app_reward_claims){
+    if(!claim.claim_id.startsWith(semanticCompletionPrefix))continue;
+    const identity=semanticCompletionClaim(claim,rewards);
+    if(grantIds.has(identity.grant.id)||identity.reverse&&reverseIds.has(identity.reverse.id))throw new Error('Duplicate semantic completion linkage');
+    grantIds.add(identity.grant.id);if(identity.reverse)reverseIds.add(identity.reverse.id);
+    if(identity.reverse===null)outstandingTasks.add(identity.taskId);
+    semantic.set(claim.claim_id,{claim,taskId:identity.taskId});
+  }
+  for(const row of s.tables.app_meta){
+    if(!row.key.startsWith(completionMarkerPrefix))continue;
+    const marker=completionMarker(row.value),taskId=row.key.slice(completionMarkerPrefix.length);if(!taskId)throw new Error('Invalid completion marker');
+    if(marker.claimId===null&&outstandingTasks.has(taskId))throw new Error('Completion marker conflicts with outstanding grant');
+    if(marker.claimId!==null){const active=semantic.get(marker.claimId);if(!active||active.taskId!==taskId||active.claim.reverse_entry_id!==null)throw new Error('Invalid active completion claim');}
+  }
   for (const command of s.tables.app_commands) {
     if (['command','request_id','actor_id','payload_hash'].some(key => typeof command[key] !== 'string' || !command[key] || command[key].length > 256)) throw new Error('Invalid snapshot command metadata');
     canonical(JSON.parse(command.result));

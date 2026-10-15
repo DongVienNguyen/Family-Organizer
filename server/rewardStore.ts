@@ -1,6 +1,6 @@
 import type { AppWriteTx } from './appStore.js';
 import type { RewardPointEntry } from '../src/types.js';
-import { AppStoreError } from './appStore.js';
+import { AppStoreError } from './appErrors.js';
 import { createHash, randomUUID } from 'node:crypto';
 export interface CompletionGrant { claimId: string; taskId: string; userId: string; points: number; actorId: string; reason: string }
 export class RewardStoreTx {
