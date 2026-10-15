@@ -1,0 +1,119 @@
+{
+  "taskId": "P08-b9-a",
+  "baseSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+  "baseAcceptance": "PR98 exactf8b6549/Windows38801246440/all8/TENraw/merge5ca1b51 testedtreeequal",
+  "scope": "Pure grouping/reference and selected-dimension patch helpers; no persisted format, storage, HTTP, UI or runtime consumer/activation change",
+  "coldImports": {
+    "modules": 1,
+    "importsSucceeded": true,
+    "storageOpened": false,
+    "filesCreated": 0,
+    "cloudPlatform": "linux",
+    "notWindowsAcceptance": true
+  },
+  "fullGreen": {
+    "tests": 3950,
+    "passed": 3950,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 218
+  },
+  "junitCases": 3950,
+  "targetGreen": {
+    "tests": 339,
+    "passed": 339,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "files": 4
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "maxWorkers": 1,
+  "review": {
+    "reviewer": "one completed whole-branch self-review; cloud/executor skill catalogs empty, no delegated reviewer",
+    "baseSha": "5ca1b51585b4f1b232aed9a2323688a0e26355ab",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "reviewedSourceHashes": {
+      "server/productivity/grouping.ts": "dae5f0e9d9407f018b3f03482b3116cf64817b14daf76571d2869f9dc05776b5",
+      "server/productivity/grouping.test.ts": "93cce4daac93cc97dfcc606e169e676e844c924de7f759c829c6229d873dcba3",
+      "scripts/ci/write-evidence.mjs": "b5cc662b1982c2d3d5ad722b70ef90413e01673f33c59fc9c8887a2715f9b243",
+      "tests/evidence.test.ts": "c62ed2801d0fb74393a90627d353be501f2e26981bab2773be3a79237891bb6a",
+      "docs/engineering/kanban-grouping-core.md": "457860ef78af0982f2ba250395429d4548171797686778bda022556b4ef6996f"
+    },
+    "bounds": {
+      "scope": "Pure preparation only; already-authorized selections; no query/ACL boundary/storage/HTTP/default/schema/newpolicy/implicitWIP acceptance. Persistedtag format still requires explicitversionedboundary.",
+      "identity": "TaskID+kind+typedvalue JSON-framed SHA256; cards scalarrefs only, unique totals/bulkdedupe. Duplicatefacts failclosed; bodyaggregate16MiB/rows5000/refs20000; no truncation.",
+      "patch": "Strictselectedfield only; explicitvalidatedDue cloned; stale source tag/untagged refuse; literalallIDdistinctfromAllobject; explicitadd/replace;1000tagoutputbound. Fullcatalog/auth/revision/canonicalWIP remainrequiredof future transaction consumer.",
+      "dates": "All-day literal date; timed uses explicitviewzone; no hostlocalDate.parse/Date.now or inventedtimed deadline.",
+      "gate": "All existing mandatory suites remain; one added omission regression collected260/259/1actualRED before requiredsuite+fixture insertion; finalgate read before closing review."
+    },
+    "initialRed": "23cases/9pass/14fail:14missingimplementation failures;9genericfailclosedguardcasesalready pass scaffold, not claimed causalRED",
+    "validation": "target passed; lint and mandatorysuite gate pending; full/build/native still required",
+    "status": "CLOSED 0Critical/0Important/0Minor; no correction/no rereview; full/build/native still pending"
+  },
+  "sourceHashes": {
+    "server/productivity/grouping.ts": "dae5f0e9d9407f018b3f03482b3116cf64817b14daf76571d2869f9dc05776b5",
+    "server/productivity/grouping.test.ts": "93cce4daac93cc97dfcc606e169e676e844c924de7f759c829c6229d873dcba3",
+    "scripts/ci/write-evidence.mjs": "b5cc662b1982c2d3d5ad722b70ef90413e01673f33c59fc9c8887a2715f9b243",
+    "tests/evidence.test.ts": "c62ed2801d0fb74393a90627d353be501f2e26981bab2773be3a79237891bb6a",
+    "docs/engineering/kanban-grouping-core.md": "457860ef78af0982f2ba250395429d4548171797686778bda022556b4ef6996f"
+  },
+  "compiledHashes": {
+    "dist/server.cjs": "ae69f4f7fa025aadda5509d997260c6b1d3ae4d2e681198c27948840fbd99005",
+    "dist/operator.cjs": "54dbc14e045d5eb7bddeca8d9bd81eed12de0964ca2d8e4e20b16e37d23716b1"
+  },
+  "initialRed": {
+    "tests": 23,
+    "passed": 9,
+    "failed": 14,
+    "pending": 0,
+    "todo": 0,
+    "files": 1
+  },
+  "initialRedRuling": "14missingimplementationcausal failures;9genericfailclosedguardcasespassedscaffold, not claimedcausalRED",
+  "gateRed": {
+    "tests": 260,
+    "passed": 259,
+    "failed": 1,
+    "pending": 0,
+    "todo": 0,
+    "files": 1
+  },
+  "nativeWindowsAcceptance": "pending newPR exactHEAD",
+  "fullP08Accepted": false,
+  "fullMasterAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "remaining": "Versioned persisted tag grouping boundary; authorized query/preview/apply/canonicalWIP/normalized transport; P09UI andP10workflow/fullrecurrence/reopen;latermaster milestones",
+  "reports": {
+    "p08b9-build.log": "632253f4b52b46858807769fbb26ea2436c5ff1186aab5cd05e913f23b663ff5",
+    "p08b9-grouping-first.log": "955db5e9448258eff8ce71dd68afc28c16a968ffc3bd927272ca256736ee448f",
+    "p08b9-frozen-hashes.json": "2a0e4d64af3c713966c46321f1f57d78c0e051379bb1f4e9f01275846a492ed8",
+    "p08b9-gate-red.json": "2e7ad01a51a56d07a054ef6a475256c2b9bdc0b34cf707bedeefa73ba2845f2b",
+    "p08b9-final-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "p08b9-grouping-first.json": "43309751959857265be1c22b2c6b3cc449911162515502b7edbddce4c6165bbd",
+    "p08b9-cold-import.json": "ec60222f5ec766b635f44ecbdd47b92147ffbe194e281df8fab645f881554ca0",
+    "p08b9-grouping-red.json": "0d4e661989b3e573ae2977ec4451e864e51672abf77e7e332aa43595b00e327e",
+    "p08b9-review-rulings.json": "8c24c6e2da42f23ccb57a12f946aa027875b793c5188df1f36b03cd0da1181f0",
+    "p08b9-grouping-gate-green.json": "f2d6b8be7fd5b9e830cc4a1ab563510a66f53563d1e6adc08ba4ff57ec438e46",
+    "p08b9-full.json": "cf8250b8c209426be0d62d8e5f43bc650fe46ee015c4ab98dad87b46e510b3bc",
+    "p08b9-gate-red.log": "854a0d5a81fcb7dd1df2084f3a791d1048d72dec7b528a17ca5289691548a754",
+    "p08b9-full.junit.xml": "8b890d9e746dacf88389925c16bfa64d2b33df2bacbf213df523be2e7646a7e0",
+    "p08b9-full.log": "cf5a4984af73faa766f7c332eaf13b796cc2d5675e82cabbef698d26f4218b87",
+    "p08b9-cold-import.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "p08b9-grouping-gate-green.log": "c329d6eae6bc0c71e3d1ab1f40e4aa9db9b0df022d871d4e09c5298d50d0b2d7",
+    "p08b9-grouping-red.log": "103cfa633c5d359b1c402beaca1a45a78a56a3afe127429d6202a51ccb6878be",
+    "p08b9-grouping-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+  }
+}
