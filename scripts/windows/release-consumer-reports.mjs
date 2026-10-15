@@ -1,3 +1,4 @@
+import {validateBoardPackageReport} from './board-package-contract.mjs';
 import path from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
 import {openReleaseReportFiles} from './release-report-files.mjs';
@@ -276,6 +277,7 @@ export function readReleaseConsumerReportFiles(directory,packageReports,expected
    else requireFact(row.completed===true&&hash(row.encryptedSha256)&&isDeepStrictEqual(row.nativeExitCodes,rule.nativeExitCodes));
    if(name==='package-recovery.json')requireFact(Number.isSafeInteger(row.encryptedBytes)&&row.encryptedBytes>0&&row.encryptedBytes<=64*1024*1024);
   }
+  const board=reader.json('package-board.json');requireFact(validateBoardPackageReport(board,{commitSha:expected.commitSha,zipSha256:packageReports.zipSha256,nodeExecutable:packageReports.validation.nodeExecutable,nodeBinarySha256:packageReports.manifest?.runtime?.nodeExeSha256,nativeBinarySha256:packageReports.manifest?.native?.sha256}).length===0);reports['package-board.json']=board;
   const production=reader.json('production.json'),node=packageReports.validation.nodeExecutable;
   const productionRoot=path.win32.join(path.win32.dirname(path.win32.dirname(node)),'app');
   requireFact(validateReleaseProductionReport(production,{commitSha:expected.commitSha,nodeVersion:'v24.21.0',productionRoot}).length===0);

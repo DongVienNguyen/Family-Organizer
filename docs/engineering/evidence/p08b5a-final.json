@@ -1,0 +1,125 @@
+{
+  "taskId": "P08-b5a",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/94",
+  "testedHeadSha": "4668646a04d1fe5a3ca303e11c2085dba4ad7436",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38770160853",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "79a2f1422b18d3cb7dbb0e8ea2458c91d59fef16f07a9a1764dc9da6e65e29c8",
+    "coverage": "71bd75553d0fe5497cc8f56c2f9aecb26be1b66a3c4efc92635a9fc1fbde787d",
+    "package": "be90565848a7fc3a6a5a7645fc3cc59c13aaf8d902e87d2c640dd30e39edf23d",
+    "service": "017e853f7d537b7d41a6c89c4eb63bb141a950a658a437c939c9b6c5378b0eb2",
+    "caddy": "ec00ebca6482fb9146e14c673503590f43315aa555368e1cddafdb4ae6bff809",
+    "extraction-sdk": "5e3b0a238d5d5efb27fe0d5bc13c65badaa5c5adce2aa09a88dd090c3073c03d",
+    "inner-native": "fe80874299fe85e48bf179f7ceb8833ad263b8024787b7fb35d1294d07734579",
+    "browser": "63644d0292acf809050a09f0d65b9c20abdc5dc235e02ecdcc1e0a0a371c169b",
+    "productivity-browser": "f8897dcfccd1adc44f47e516ea602f0d852b9e810463b6f5260ca0934324f9f4"
+  },
+  "qualityEach": 3761,
+  "qualityFilesEach": 207,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 9,
+  "zipSha256": "ceb435ad4b6208550ac14b3fe4bec7151b81299c56131067e90753919f7a9736",
+  "fullCiLogZipSha256": "07af2e7ad6d009e2e2fefd7e50f5d58a04ce200b9bedb838c0409f3d8a71513b",
+  "review": {
+    "reviewer": "/root whole-branch SELF-review; no delegated agent",
+    "baseSha": "529a231b843c3e00bde7fa6a7111319b5587bd38",
+    "critical": 0,
+    "important": 0,
+    "minor": 1,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "M1",
+        "grade": "Minor",
+        "ruling": "Add ordinary backup of the old7 fixture with the new compiled operator, checking migration records and native DDL unchanged. Existing old7 refusal of an8backup exits before ordinary bootstrap, so alone does not prove no automatic migration on that path."
+      }
+    ],
+    "declinedBounds": {
+      "semanticBoundary": "Optional boardId stored only after explicitsemantic8/noDDL/no rewrite. Frozen1\u20137/Wallet1 unchanged. Pilot8 refuses unsupported7refs; defaultregistration6, startupknown7/8 definitionsonly/noapply.",
+      "authority": "Fresh session/role/active-list read ACL before saved-view cache and insideI01; mode checked after objectauthorization. Childsharedallowed, foreignchild/member404, guestSave403. No Taskbody/query surface added; filters never grantaccess.",
+      "snapshot": "Pre8refs refuse with recomputedchecksum. Current8 reference existence/mode validated. Stalegrants/archive mayremain ownedconfig/snapshot; live resolve alwaysfreshACL. Typedcontractstrict unknownfields/nonstrings.",
+      "compatibility": "LegacyKanbannoRef/Matrix/structure7 retained. Existingfuture8historical fixtures refuse unknownchecksum; newnativefuture9 actualunknownversion. Existing7native test source unchanged.",
+      "native": "Compiled8realoperator encrypted independent8restore/distinctsourceboardRef/Wallet64bit/Matrixpins/old7-index-future9bytepreservingrefusals/restart/offline/closedhandles/cleanup. Sourceunit notpromotedZIP. Actualmanifest/packagecontract/schema stillmax6; bounds+new-schemaZIPfixture remainsseparatenative task.",
+      "scope": "Versionedrefs viaexistingviewsHTTP only; BoardGET/projection/privatecounts/previewapply/overrideaudit/grouping/archive/UI/completion remainlater. No fullP08/Server2019/release/VPS acceptance.",
+      "resource": "Indexedboardidentity lookups/sharedsnapshotbounds; no providers. P18ownsperformance measurement."
+    },
+    "reviewedSourceHashes": {
+      "server/productivity/structureInvariant.ts": "ae5773d225f7e45a923137aa6cd2b5cd2049d7260ae96272deb756ce260b84d3",
+      "tests/board-reference-native.test.ts": "2db6242809efe049faddd082a45f448d511b966229cdc5de79c8845f137f84ae",
+      "src/features/productivity/contracts.ts": "47d8be198728d6bf990c96208ad8756b388ef761d538fd6efe8ff65cb25aaf0b",
+      "scripts/ci/write-evidence.mjs": "94f466a8b414ffcd1496d84c4c3f70893b80aa61aeb9bdcf17674f840c6f54f6",
+      "server/productivity/bootstrap.ts": "3ccd3cf7df15d8478988433b6e5d5e4b8f8c1941902dae540a6feb8446195af9",
+      "server/productivity/boardViewSchema.ts": "7197e9a37178d7c49dee9a3bc501c3c2d9089343f2c1f26c905d62ea695e5e8e",
+      "tests/evidence.test.ts": "a4d5d2d0439c3ee8fb5d59d15c27cd93a3731eed428b032d4b768b4cf236455f",
+      "server/productivity/matrix.ts": "3370a15a45b9226c2d373dc12003559210a4db2a229640c45eb307bba3f158be",
+      "server/productivity/boardCatalog.ts": "e4af61db631e7e4dabc62ee9cc26e62a00994cccb03a574d12b51b8bc99aac3b",
+      "server/productivity/inspection.ts": "79c977d65b15a556934f25897c898bfec970d52938beff1a9619bdfa350d411f",
+      "server/productivity/adapter.ts": "e015d82dd4938bba07eaec675878cd6012e805e267acfc6cb5935e8d4ece81a4",
+      "server/productivity/structure.ts": "8fad48c8b9af8301295b5bc4a21eb4dbcc430d6a97f52eaefdf9ea0474e05284",
+      "server/productivity/snapshot.ts": "49c27a7b3d1aec8313fb619d524abbcaa9fc5715b87350b28d660454b682754d",
+      "server/productivity/views.ts": "0f83a18845c4fe0529588deba62fec97419bc6889931274c8e125ed09899b2c0",
+      "server/productivity/board-reference.api.test.ts": "18a1d464e4fb1ad40078ecf8d0f4ce7e20845e0faa9c35ec37d293362b69ba33",
+      "server/productivity/board-reference.test.ts": "40cb323f2fb4d768d78b336e732003b36a61f9d9f1937de38497888049be1e8c"
+    },
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorRemaining": 0,
+    "minorCausalRedClaimed": false,
+    "correctedTarget": {
+      "tests": 266,
+      "files": 4,
+      "passed": 266,
+      "failed": 0
+    },
+    "lintExit": 0
+  },
+  "fullP08Accepted": false,
+  "semantic8ExistingViewsHttpAccepted": true,
+  "defaultMigrationRegistration": 6,
+  "startupAutoDdl": false,
+  "newSchemaPromotedZipAccepted": false,
+  "packageManifestMax": 6,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "a4caf83f87a65a9dd4e560b772c3ef34436cbfdf",
+  "mergeTreeEqualsTestedHead": true,
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/94#issuecomment-6197625778"
+}
