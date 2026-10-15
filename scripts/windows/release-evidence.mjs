@@ -1,6 +1,7 @@
 // Pure policy over authenticated API/download receipts. Callers supply facts, never approvals.
 export const releaseRepository='DongVienNguyen/Family-Organizer';
-export const releaseChecks=Object.freeze(['Windows Node22 baseline','Windows Node24 baseline','Windows production browsers','Windows package producer','Windows package clean consumer','Windows disposable service','ci-gate']);
+export const releaseChecks=Object.freeze(['Windows Node22 baseline','Windows Node24 baseline','Windows production browsers','Windows package producer','Windows package clean consumer','Windows disposable service','ci-gate','Windows productivity browsers']);
+export const releaseArtifactPrefixes=Object.freeze(['windows-node22','windows-node24','windows-browsers','windows-package','windows-package-harness','windows-package-tests','windows-service-tests','windows-productivity-browsers']);
 const hex=(value,size)=>typeof value==='string'&&new RegExp(`^[a-f0-9]{${size}}$`).test(value);
 const positive=value=>Number.isSafeInteger(value)&&value>0;
 export function isReleaseVersion(value){

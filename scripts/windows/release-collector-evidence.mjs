@@ -1,5 +1,5 @@
 import {isDeepStrictEqual} from 'node:util';
-import {validateReleaseEvidence} from './release-evidence.mjs';
+import {validateReleaseEvidence,releaseArtifactPrefixes} from './release-evidence.mjs';
 const reject=()=>{throw Error('RELEASE_COLLECTOR_EVIDENCE_REJECTED');};
 const requireFact=value=>{if(!value)reject();};
 const hex=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
@@ -12,7 +12,7 @@ export function normalizeReleaseCollectorEvidence(receipt,p){
   requireFact(receipt.format===1&&receipt.kind==='github-artifact-archives'&&receipt.publicationAllowed===false&&p.publicationAllowed===false&&p.commitSha===r.commitSha&&p.runId===r.runId&&p.sourcePolicy.publicationAllowed===false&&isDeepStrictEqual(p.sourcePolicy.source,source));
   const same=row=>requireFact(row?.commitSha===r.commitSha&&row?.runId===r.runId);
   const asset=row=>{same(row);requireFact(row.zipSha256===packageReports.zipSha256&&row.publicationAllowed===false);};
-  requireFact(receipt.archives.length===7&&m.artifacts.length===7&&new Set(receipt.archives.map(x=>x.artifactId)).size===7&&new Set(m.artifacts.map(x=>x.id)).size===7);
+  requireFact(receipt.archives.length===releaseArtifactPrefixes.length&&m.artifacts.length===releaseArtifactPrefixes.length&&new Set(receipt.archives.map(x=>x.artifactId)).size===releaseArtifactPrefixes.length&&new Set(m.artifacts.map(x=>x.id)).size===releaseArtifactPrefixes.length);
   for(const row of receipt.archives){const a=m.artifacts.find(x=>x.id===row.artifactId);requireFact(a?.name===row.name&&a.expired===false&&a.workflow_run.id===r.runId&&a.workflow_run.head_sha===r.commitSha&&hex(row.archiveSha256)&&a.digest==='sha256:'+row.archiveSha256&&positive(row.bytes));}
   requireFact(isDeepStrictEqual(m.artifact,m.artifacts.find(x=>x.id===m.artifact.id)));
   const extraction=p.extraction;requireFact(extraction.publicationAllowed===false&&positive(extraction.files)&&positive(extraction.expandedBytes)&&isDeepStrictEqual(extraction.archives.map(x=>x.name).sort(),receipt.archives.map(x=>x.name).sort()));

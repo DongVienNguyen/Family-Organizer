@@ -3,7 +3,7 @@ $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 Add-Type -AssemblyName System.IO.Compression
 if ($CommitSha -cnotmatch '^[a-f0-9]{40}$') { throw 'Synthetic identity rejected' }
-$prefixes=@('windows-node22','windows-node24','windows-browsers','windows-package','windows-package-harness','windows-package-tests','windows-service-tests')
+$prefixes=@('windows-node22','windows-node24','windows-browsers','windows-package','windows-package-harness','windows-package-tests','windows-service-tests','windows-productivity-browsers')
 for ($index=0;$index -lt $prefixes.Count;$index++) {
     $file=Join-Path $Root (($index+1).ToString()+'.zip')
     $stream=[IO.File]::Open($file,[IO.FileMode]::CreateNew)
@@ -16,5 +16,5 @@ for ($index=0;$index -lt $prefixes.Count;$index++) {
         } finally { $zip.Dispose() }
     } finally { $stream.Dispose() }
 }
-Write-Output 'SEVEN_SYNTHETIC_ARCHIVES_CREATED'
+Write-Output 'EIGHT_SYNTHETIC_ARCHIVES_CREATED'
 exit 0

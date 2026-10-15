@@ -1,4 +1,4 @@
-import {releaseRepository,releaseChecks,isReleaseVersion} from './release-evidence.mjs';
+import {releaseRepository,releaseChecks,releaseArtifactPrefixes,isReleaseVersion} from './release-evidence.mjs';
 const sha=value=>typeof value==='string'&&/^[a-f0-9]{40}$/.test(value);
 const positive=value=>Number.isSafeInteger(value)&&value>0;
 function requireFact(value){if(!value)throw new Error('RELEASE_METADATA_REJECTED');}
@@ -18,15 +18,15 @@ export async function collectReleaseMetadata(request,authority){
   const rawChecks=await get(`${base}/commits/${r.commitSha}/check-runs?filter=all&per_page=100`);
   requireFact(positive(rawChecks?.total_count)&&rawChecks.total_count<=100&&Array.isArray(rawChecks?.check_runs)&&rawChecks.check_runs.length===rawChecks.total_count);
   const prefix=`https://github.com/${releaseRepository}/actions/runs/${r.runId}/job/`;
-  const checks=rawChecks.check_runs.filter(c=>typeof c?.details_url==='string'&&c.details_url.startsWith(prefix));requireFact(checks.length===7);
-  requireFact(new Set(checks.map(c=>c?.name)).size===7&&new Set(checks.map(c=>c?.id)).size===7);
+  const checks=rawChecks.check_runs.filter(c=>typeof c?.details_url==='string'&&c.details_url.startsWith(prefix));requireFact(checks.length===releaseChecks.length);
+  requireFact(new Set(checks.map(c=>c?.name)).size===releaseChecks.length&&new Set(checks.map(c=>c?.id)).size===releaseChecks.length);
   for(const name of releaseChecks){const c=checks.find(c=>c?.name===name),prefix=`https://github.com/${releaseRepository}/actions/runs/${r.runId}/job/`;requireFact(positive(c?.id)&&c?.head_sha===r.commitSha&&c?.app?.id===15368&&c?.status==='completed'&&c?.conclusion==='success'&&typeof c?.details_url==='string'&&c.details_url.startsWith(prefix)&&/^[0-9]+$/.test(c.details_url.slice(prefix.length)));}
-  const jobs=list(await get(`${base}/actions/runs/${r.runId}/attempts/1/jobs?per_page=100`),'jobs',7);
-  requireFact(new Set(jobs.map(j=>j?.name)).size===7&&new Set(jobs.map(j=>j?.id)).size===7);
+  const jobs=list(await get(`${base}/actions/runs/${r.runId}/attempts/1/jobs?per_page=100`),'jobs',releaseChecks.length);
+  requireFact(new Set(jobs.map(j=>j?.name)).size===releaseChecks.length&&new Set(jobs.map(j=>j?.id)).size===releaseChecks.length);
   for(const name of releaseChecks){const j=jobs.find(j=>j?.name===name),c=checks.find(c=>c?.name===name);requireFact(positive(j?.id)&&j?.run_id===r.runId&&j?.status==='completed'&&j?.conclusion==='success'&&j?.check_run_url===`https://api.github.com/repos/${releaseRepository}/check-runs/${c.id}`&&c.details_url===`https://github.com/${releaseRepository}/actions/runs/${r.runId}/job/${j.id}`);}
-  const artifacts=list(await get(`${base}/actions/runs/${r.runId}/artifacts?per_page=100`),'artifacts',7);
-  const artifactNames=['windows-node22','windows-node24','windows-browsers','windows-package','windows-package-harness','windows-package-tests','windows-service-tests'].map(prefix=>`${prefix}-${r.commitSha}-1`);
-  requireFact(new Set(artifacts.map(a=>a?.name)).size===7&&new Set(artifacts.map(a=>a?.id)).size===7);
+  const artifacts=list(await get(`${base}/actions/runs/${r.runId}/artifacts?per_page=100`),'artifacts',releaseArtifactPrefixes.length);
+  const artifactNames=releaseArtifactPrefixes.map(prefix=>`${prefix}-${r.commitSha}-1`);
+  requireFact(new Set(artifacts.map(a=>a?.name)).size===releaseArtifactPrefixes.length&&new Set(artifacts.map(a=>a?.id)).size===releaseArtifactPrefixes.length);
   for(const name of artifactNames){const a=artifacts.find(a=>a?.name===name);requireFact(positive(a?.id)&&a?.expired===false&&typeof a?.digest==='string'&&/^sha256:[a-f0-9]{64}$/.test(a.digest)&&a?.workflow_run?.id===r.runId&&a?.workflow_run?.head_sha===r.commitSha&&a?.workflow_run?.head_branch==='main');}
   return {format:1,kind:'github-metadata-preflight',publicationAllowed:false,request:r,source:s,run,workflow,checks,jobs,artifacts,artifact:artifacts.find(a=>a.name===`windows-package-${r.commitSha}-1`)};
  }catch{throw new Error('RELEASE_METADATA_REJECTED');}
