@@ -3,6 +3,8 @@ import { snapshotCoreTables, validateSnapshotPayload } from './snapshotValidatio
 import {inspectProductivityStorage} from './productivity/inspection.js';
 import {productivityTablesAt} from './productivity/structureSchema.js';
 import {validateProductivitySnapshotData} from './productivity/snapshot.js';
+import {inspectWalletStorage,validateSharedWalletSnapshot} from './wallet/integration.js';
+import {walletSnapshotColumns} from './wallet/snapshot.js';
 /** Read-only compatibility context; missing runtime tables describe their supported
  * bootstrap schema without creating them in an un-warmed first-account target. */
 export function inspectRecoverySnapshot(input:unknown,file:string):void {
@@ -14,6 +16,8 @@ export function inspectRecoverySnapshot(input:unknown,file:string):void {
   const hasProductivity=inspectProductivityStorage({get:(sql,...args)=>db.prepare(sql).get(...args),all:(sql,...args)=>db.prepare(sql).all(...args)});
   const tables=new Map(snapshotCoreTables);
   if(hasProductivity)for(const [name,columns] of Object.entries(productivityTablesAt((db.prepare("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'").get() as any)?.version??1)))tables.set(name,columns);
+  const hasWallet=inspectWalletStorage({get:(sql,...args)=>db.prepare(sql).get(...args),all:(sql,...args)=>db.prepare(sql).all(...args)});
+  if(hasWallet)for(const [name,columns]of Object.entries(walletSnapshotColumns))tables.set(name,columns);
   const primaryKeys=new Map<string,readonly string[]>();
   const defaults:Record<string,readonly string[]>={app_meta:['key'],app_commands:['command','request_id'],app_migrations:['namespace','version'],app_reward_claims:['claim_id'],app_jobs:['id'],server_metrics:['t']};
   for(const [name,columns] of tables){
@@ -24,7 +28,8 @@ export function inspectRecoverySnapshot(input:unknown,file:string):void {
   }
   const migrations=names.has('app_migrations')?db.prepare('SELECT namespace,version,checksum FROM app_migrations').all() as any[]:[];
   const versions:Record<string,number>={wallet:0,productivity:0};for(const row of migrations)versions[row.namespace]=Math.max(versions[row.namespace]??0,row.version);
-  const snapshot=validateSnapshotPayload(input,{tables,primaryKeys,migrations,versions,...(hasProductivity?{domainValidators:new Map([['productivity',validateProductivitySnapshotData]]),derivedRowTables:new Set(tables.has('productivity_search_grams')?['productivity_search_grams']:[])}:{})});
+  const domainValidators=new Map<string,(snapshot:import('./snapshotValidation.js').AppSnapshot)=>void>();if(hasProductivity)domainValidators.set('productivity',validateProductivitySnapshotData);if(hasWallet)domainValidators.set('wallet',validateSharedWalletSnapshot);
+  const snapshot=validateSnapshotPayload(input,{tables,primaryKeys,migrations,versions,domainValidators,derivedRowTables:new Set(tables.has('productivity_search_grams')?['productivity_search_grams']:[])});
   if(snapshot.manifest.credentials!==undefined)throw new Error('Recovery requires the raw credential snapshot');
  }finally{db.close();}
 }

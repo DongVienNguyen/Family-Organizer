@@ -1,0 +1,369 @@
+{
+  "taskId": "W02-b1",
+  "baseSha": "037a748338e5d508178be196b58f0f4eef85a4a0",
+  "scope": "Frozen Wallet1 shared I01 runtime/snapshot/recovery registration; no activation, new entities, HTTP or UI",
+  "fullGreen": {
+    "tests": 3336,
+    "passed": 3336,
+    "failed": 0,
+    "pending": 0,
+    "files": 179,
+    "junitCases": 3336,
+    "todo": 0,
+    "maxWorkers": 2
+  },
+  "targetGreen": {
+    "tests": 707,
+    "passed": 707,
+    "failed": 0,
+    "pending": 0,
+    "files": 34
+  },
+  "beforeReviewFull": {
+    "tests": 3331,
+    "passed": 3331,
+    "failed": 0,
+    "pending": 0,
+    "files": 179
+  },
+  "causalRed": {
+    "w02b-integration-red": {
+      "tests": 4,
+      "passed": 0,
+      "failed": 4,
+      "pending": 0,
+      "files": 1
+    },
+    "w02b-manifest-red": {
+      "tests": 101,
+      "passed": 0,
+      "failed": 1,
+      "pending": 100,
+      "files": 1
+    },
+    "w02b-consumer-red": {
+      "tests": 73,
+      "passed": 65,
+      "failed": 8,
+      "pending": 0,
+      "files": 1
+    },
+    "w02b-suite-red": {
+      "tests": 217,
+      "passed": 216,
+      "failed": 1,
+      "pending": 0,
+      "files": 1
+    },
+    "w02b-coexistence-gate-red": {
+      "tests": 221,
+      "passed": 0,
+      "failed": 1,
+      "pending": 220,
+      "files": 1
+    }
+  },
+  "fixtureCorrections": "Stale positive manifest fixture after accepted P05-b1 integration omitted now-supported Wallet1; retained original699/698pass/1failure. Prior note/getter expectations preserved. Filtered manifest/coexistence gate REDs show unselected tests; not full-suite acceptance. One compiled-driver preparation copied nonexistent scripts/windows/block-network.cjs; corrected to scripts/ci before execution. No test assertion removed. Compiled malformed-schema fixture initially hit addon defensive-mode refusal, then direct unique-clause metadata edit left an orphan autoindex; both logs retained. Final synthetic setup enables unsafeMode only inside fixture and recreates the empty occurrences table without its unique clause, retaining the same startup error/byte/closed-handle assertions. No production unsafeMode added. Full/lint/build reports remain valid because only the compiled harness changed afterward; the complete compiled probe reran successfully.",
+  "lintExit": 0,
+  "buildExit": 0,
+  "coldImport": {
+    "imports": [
+      "app.ts",
+      "productivity/bootstrap.ts",
+      "productivity/inspection.ts",
+      "wallet/integration.ts",
+      "wallet/schema.ts",
+      "wallet/snapshot.ts"
+    ],
+    "storageCreated": false,
+    "exit": 0
+  },
+  "compiledSourceDevelopment": {
+    "scope": "Cloud Linux diagnostic, not Windows acceptance",
+    "exitCode": 0,
+    "wallet": {
+      "completed": true,
+      "version": 1,
+      "exactMoneyStrings": true,
+      "integerBindings": true,
+      "restartPreserved": true,
+      "ordinaryRestorePreserved": true,
+      "encryptedRestorePreserved": true,
+      "futureVersionRefused": true,
+      "malformedSchemaRefused": true,
+      "nativeHandlesClosed": true
+    },
+    "productivity": {
+      "completed": true,
+      "fixtureCommitSha": "037a748338e5d508178be196b58f0f4eef85a4a0",
+      "taskIds": [
+        "canonical-parent",
+        "canonical-task"
+      ],
+      "rawTaskRows": 0,
+      "revision": 2,
+      "semanticCommands": {
+        "httpEnabled": true,
+        "noneCreated": true,
+        "legacyFullFormPreserved": true,
+        "staleRevisionRefused": true,
+        "forgedFieldsRefused": true,
+        "restartPreserved": true
+      },
+      "structureCommands": {
+        "httpEnabled": true,
+        "catalogRetry": true,
+        "checklistProgress": true,
+        "treeSectionMove": true,
+        "archiveRetry": true,
+        "staleRefused": true,
+        "invalidRefused": true,
+        "v1Refused": true,
+        "atomicSubtaskRetry": true,
+        "personalPinRetry": true
+      },
+      "structureStorage": {
+        "version": 5,
+        "checklistPreserved": true,
+        "catalogPreserved": true,
+        "tagOwnershipPreserved": true,
+        "v1StartupWithoutUpgrade": true,
+        "v2StartupWithoutUpgrade": true,
+        "v3StartupWithoutUpgrade": true,
+        "v4StartupWithoutUpgrade": true,
+        "savedViewsPreserved": true,
+        "searchPreserved": true,
+        "personalPinsPreserved": true,
+        "atomicSubtaskPreserved": true
+      },
+      "malformedCurrentTaskRepaired": true,
+      "sparseCoreRefusal": {
+        "exitCode": 1,
+        "databaseBytesPreserved": true,
+        "nativeHandlesClosed": true,
+        "journal": "delete",
+        "tableCount": 2
+      },
+      "snapshotChecksum": "4cc125d4f5ddbfabb6eda19e3d19b5e48838bcaad78b5030f04c9002ba364ad1",
+      "encryptedSha256": "27d06ea20a8e10db672519e5320173d7e17efd731f31438751abd3ebbf31ca65",
+      "refusalCases": [
+        {
+          "kind": "changed-checksum",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "future-version",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        },
+        {
+          "kind": "unknown-namespace",
+          "exitCode": 1,
+          "databaseBytesPreserved": true,
+          "nativeHandlesClosed": true,
+          "journal": "delete"
+        }
+      ],
+      "networkAttempts": [],
+      "nativeHandlesClosed": true
+    },
+    "legacyChecks": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "ordinary-backup-excludes-credentials",
+      "restore-requires-explicit-credential-reentry",
+      "compiled-offline-reentry-preserves-user-ids",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed",
+      "compiled-canonical-task-http-restart-snapshot-recovery",
+      "compiled-canonical-unsupported-migration-refusal"
+    ],
+    "networkAttempts": []
+  },
+  "review": {
+    "taskId": "W02-b1",
+    "baseSha": "037a748338e5d508178be196b58f0f4eef85a4a0",
+    "reviewer": "/root/w02b_review",
+    "counts": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "allFindingsGraded": true,
+    "gradingBeforeCorrection": true,
+    "oneCorrectionPass": true,
+    "rereview": false,
+    "findings": [
+      {
+        "id": "I1",
+        "grade": "Important",
+        "accepted": true,
+        "reason": "New runtime admission must reject frozen Wallet native schema drift before journal/DDL; REAL affinity can round accepted signed64 money. Cover money affinity, FK, unique constraint/index and native startup byte preservation/handle closure."
+      }
+    ],
+    "declinedBoundaries": [
+      {
+        "proposal": "Remaining entities/activation/HTTP ACL/UI",
+        "decision": "defer",
+        "owner": "remaining W02 and W03\u2013W18"
+      },
+      {
+        "proposal": "Additional creator/audit user reference policy",
+        "decision": "preserve accepted standalone Wallet contract",
+        "owner": "later domain commands"
+      },
+      {
+        "proposal": "Historical Productivity schema hardening",
+        "decision": "outside newly admitted Wallet scope",
+        "owner": "existing accepted contracts"
+      },
+      {
+        "proposal": "Canonical/derived budgets or old assertions",
+        "decision": "preserve unchanged"
+      }
+    ],
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "verification": {
+      "causalSchemaRed": {
+        "tests": 10,
+        "passed": 6,
+        "failed": 4,
+        "pending": 0,
+        "files": 1
+      },
+      "schemaGreen": {
+        "tests": 11,
+        "passed": 11,
+        "failed": 0,
+        "pending": 0,
+        "files": 2
+      },
+      "strictCompiledReportRed": {
+        "tests": 77,
+        "passed": 76,
+        "failed": 1,
+        "pending": 0,
+        "files": 1
+      }
+    }
+  },
+  "sourceHashes": {
+    ".github/workflows/ci.yml": "4bbc65b91fc98ebc97342e9f0bc64737f0e0596e23273c68b767b08fb5ffaf5b",
+    "scripts/ci/write-evidence.mjs": "145a03f4fd56f649c6928963b74739c0eab62a458c8aa907e8fcc66635dd523b",
+    "scripts/ci/write-wallet-fixture.ts": "329e72ef4fcb50852f6be10fdeb2d4e2f5f61d2b2aaa1b665e907c107d561e3c",
+    "scripts/windows/package-contract.mjs": "95b4538586b55e61ec5747053dd8f4c1774018e60e0d593a1807cf38f18176b2",
+    "scripts/windows/probe-package-functional.mjs": "fb550a54c7c1278b9492fb28cb4ad9ebc444bde6b409664b201f5ac66397b6ee",
+    "scripts/windows/probe-productivity-package.mjs": "0d488c88ed2098b25b2fd3ceda20a198dec1fe02a5b91c91bb8e45b7a35e61d9",
+    "scripts/windows/release-consumer-reports.mjs": "35f8a5e2d6f458abbbdb8e12639347d4df08eef4e977f2caeada966be1039bdd",
+    "scripts/windows/release-manifest.schema.json": "c38ead6abfd472bac40c729d056e21414eadbe7ccdea32321882f7b1f8488b6c",
+    "scripts/windows/write-manifest.mjs": "241e0ea3073b65eee1206c5c31de9f4080a349cbff8571d6e995b00c8733e714",
+    "server/appSnapshot.ts": "26d8c963efec44d5b9feeb22e7d5d6e1cb79ebd984463215d8bddff08ce9d3ea",
+    "server/productivity/bootstrap.ts": "d5975085964d3de312d48b04da1076b01b82a39d412ce7c76232a8e701397661",
+    "server/productivity/inspection.ts": "017d29cd7329828cf5de0cbbb8fa3dbf9a91377af09c1837ee811fde30700d9b",
+    "server/recoverySnapshotInspection.ts": "50bebb13c1639c79e24971b2b9fb09d6a756b19b13006794a96a34ba3114f424",
+    "server/wallet/coexistence.test.ts": "b91024c6481f244070602517049b9ed8ad8096af9d194e5fd5ce7bd86a7dea9a",
+    "server/wallet/integration.test.ts": "00242d0e3b27fc1c13ae05d921900ae564f0549baea32833e6f0600fd87ce666",
+    "server/wallet/integration.ts": "112ebd19e1d5cadde42cc2f7aba9899b40b80ff58b50f51bdae2c6744ba38980",
+    "server/wallet/schema.ts": "e931cb1025e898b738f70d8c33897ecb615e448d395bb100e9542eb84a3da4e6",
+    "server/wallet/snapshot.ts": "f9e4d2a0ed76cd8b0f0ccd6a4257584f4449236322532a7c029e8ccdd73a38ef",
+    "tests/evidence.test.ts": "4017ef20bb2ac18b2175945175708e0ff1d044893cfbde7ff70916c3be482de7",
+    "tests/helpers/release-consumer-fixture.ts": "ce1acf3b31a5e460300dc8fd7f6b5fc8b21f7014326d6843c83402517b66d9f7",
+    "tests/helpers/release-inner-fixture.ts": "43c6affad18091fe6000f049bbe70012fd43d4a21cf36f1f4a46a4a889b35e8c",
+    "tests/release-consumer-reports.test.ts": "e31d324e930c970424cb3a64bffa900a95b8c69883d3b35df240d3a8a84f2141",
+    "tests/release-package-reports.test.ts": "796f259154d69767846a28d392da22d0103bd097413440f4f1df2c143b723a36",
+    "tests/runtime-ownership.test.ts": "b3718b1f02b9b8fe77e305b947563f667fe496452616a69b71d219e08c80ac6f",
+    "tests/windows-package.test.ts": "594922d6434718ce9f7c8aaf952798ffc2eeb0a7cc9d9fa79aab891d793e2c16"
+  },
+  "reportHashes": {
+    "w02b-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02b-bootstrap-target.json": "8ab243743bcfb2267f4ebeebc737b2827731d547ffae48d044f10e86294515d2",
+    "w02b-corrected-full.log": "e4a3b398f4cac206ca20b0a4e3c21ba5647558c74e3c45b788a5d20fba180832",
+    "w02b-review-schema-red.log": "d9baf6c7d95ee17c1b3e201662851cde44f5011fd1a854176c605141269cbab1",
+    "w02b-manifest-red.json": "c3aff193f822cf786498750e83e1c1989110a63a39e58b42b106c77c09e3aff6",
+    "w02b-review-schema-red.json": "94dbbda4804c36af76bae0cb8c42606938e318d8accbd4b609ff3e81f2de0d09",
+    "w02b-storage-package-target.json": "92a6746af02a20547a32b0af0b6eddb7791b64e1d21b0d23d7325dde142c8ba5",
+    "w02b-coexistence-gate-red.json": "15448858ec50d4618410fb79dcd05568bbffe44013a5c47d3ebb0583a8c0aa6f",
+    "w02b-integrated-target.json": "2cb16d95613f87e0b557ca5e785e2e361ad7ac9f47cc9f597dfa10c816e8a744",
+    "w02b-review-registration-typo-lint.log": "c53c31cb14fb8cf1e014cd461ba5b917a839e539ddc934be6cf851c59727e6cd",
+    "w02b-suite-red.json": "0eb9b539b3660265824421676f5b0cb4ae40abf34b0798d7d439c042be164b9c",
+    "w02b-first-green.log": "21a91a15331d0dcc51f874906185246d98501739907a7a8be2176ecf50ace685",
+    "w02b-integrated-target.log": "6debfd0756179fe0b3ce97972df748acb2763981535e3c75bbdead41a4476217",
+    "w02b-review-schema-green.json": "2ab8a7e13aef3886a7d0934d0a1448943a80c8161d6053b66e0f9d4c00207b7c",
+    "w02b-first-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02b-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02b-package-target.log": "1b54ffc05af02c9838dfcac21338e79b216d477c0610526d24044186c672ae70",
+    "w02b-consumer-red.json": "38c8916b5ce077cf25414c8428c482101d93bd016de15ff5845729c486ecf8ac",
+    "w02b-bootstrap-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02b-final-target.log": "bca14b00e48c077839027c9f301eebb6694d69290253748b0c98b914503a8dbf",
+    "w02b-integration-red.json": "db51af4e72e641f6722ed4fcb6ffa3c2ab57dac33258121a18be0d8c854a564b",
+    "w02b-review-rulings.json": "9049b152adec78c5fb5f9650146c42dc0f5d89820e276d977fa163c60f6f5325",
+    "w02b-final-build.log": "b48e824ebeb5d55f32e0758dce012582ad6f626599f220c4b801df0f16dc9353",
+    "w02b-integration-red.log": "135f2234312681b4150c5bdfadb41b5e603c286a40ad06b40c1418781f22bdd1",
+    "w02b-final-full.json": "f362b3d40dfe3c5e8254f341c9ed732933066c118dc3f6ebb22b531fc595ad3c",
+    "w02b-final-full.xml": "66f5c426a94e573e2dc0bc2d4ccda27927c1e0d854d40e14a65e2b3c1fbfad96",
+    "w02b-final-target.json": "f6a55d12a8563687006f45b011526d26ea2c9007921b717af42e45eb17d1115c",
+    "w02b-coexistence-gate-red.log": "e952760f64cf0107d66ae71d6bf4fce616888b5429264dc3d98d213a92165b04",
+    "w02b-corrected-full.xml": "f6b8592afd9c1785076c0d92fce7ea2ab97e84eadb5c05b04cfd988a719b08da",
+    "w02b-corrected-target.json": "5454e75ac83b29cdb86cbc1f0abc69bff783a285247675db51df440b292be944",
+    "w02b-storage-package-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02b-corrected-build.log": "788d8ac6eef3063b885d24d4c58ba17fd067297c549b66cf176c92b96de18561",
+    "w02b-first-green.json": "56088113387814773df0a1024652dcec8edfa09bf4ddf1b6d6c70f58c39b9790",
+    "w02b-bootstrap-target.log": "bf00f0622733691ca672db1f7285b83188e847c14d445e3563189b8be087a1fc",
+    "w02b-review-schema-green.log": "0641ad43c87cb222ea60cfab9c87e8324fd92a0b1fcfa104ddaa92eb0f578312",
+    "w02b-final-full.log": "02364cad62ef96be8896dca3a9ad66c3fafa30568430a4acc35e6d9a5b10af68",
+    "w02b-suite-red.log": "f4d8d9eefdaf56b2181a8891ded49e417680829697c545c2042ed34e2edba623",
+    "w02b-review-report-red.log": "ef2e494b2719f454471ceeafb5ea998aa358f9db9cdaff738f3fff44a6d420c7",
+    "w02b-review-report-red.json": "5bb47fe653a44a303abd2ea220cd1f355b28e45980d2cead138c2b3775c3f36a",
+    "w02b-corrected-full.json": "972aac77ad363693722390a505a885836413ad8b41a4cca929ec95af4aa6b572",
+    "w02b-combined-target.json": "0397c70b3fa82b5096d3b4d10eee7a29315bfce59b679e8c0f09b6b3eb65dbf1",
+    "w02b-storage-package-target.log": "9299bb4bf2c3e9db70a0b958ed5c70358ab8bc6a755c5f128db2674e074b3cba",
+    "w02b-source-before-native.json": "bf061191517a24bfd57c80d2d2c805aaa9153604a496ada9a455b96ba7de1eab",
+    "w02b-combined-target.log": "9107acdf86975429127a82b0246c50c1eb287254c57b38e15caf413d8af76cc7",
+    "w02b-corrected-target.log": "d1ba1c0f9d20f31c7fc7b9e2e128e1fcfcae13262f24a2e4024b811dfa1a50dc",
+    "w02b-manifest-red.log": "b3bc2407ce1da9ec2be3e1ef59442ba7c59198bd7b08e825da1c41e30fc8948e",
+    "w02b-first-build.log": "ad64e68fe773b0e89aaf1c8c6a3f21cc37f6560e9e960cd3db89b709dba07610",
+    "w02b-package-target.json": "51ca7de47ac2ed6a832cd5a1455bc416a49ca5e30ebae87656e0b4c052e1025b",
+    "w02b-consumer-red.log": "0f5aec9c634b1ff146e998dc0670ab1dd394ddfd6762b3b77c5366f5b2d2f4fe",
+    "w02b-cloud/old-compiled.log": "71fa8dcc93779a4b49343514d1a54c45d7d36ee4b239e3f5ffe2f5d61d49657e",
+    "w02b-cloud/cold-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/cold-final.json": "043d6ef80074b319cd58df9ad5a68decf8a014c86da2073c688ecc204407b744",
+    "w02b-cloud/cold-corrected.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/fixture-orphan-index-refusal.log": "88143bdfb29683141ac9169aeaa60ac0c39366718b5f5f35d2179f0efdc2a2bf",
+    "w02b-cloud/compiled-current.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/final-wallet-fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/wallet-fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/package-functional-server.log": "b7de906f0417c249d5be20423b805742b02d3dd390751c2ec3011dc8094b60d7",
+    "w02b-cloud/final-compiled.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/compiled-report.json": "f61ce31b5c81430ca3bd8cf2d9e20fe4e1e51eb26caeaf77a9f478f3b020dbc3",
+    "w02b-cloud/productivity-fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/final-productivity-fixture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "w02b-cloud/fixture-defensive-refusal.log": "50a42d2738cfc8796da52f0bd206977d13862bad5bdc1e88a6b8972330ed790e",
+    "w02b-cloud/final-compiled-report.json": "1412ccb7a0e6b7eb032a9f4414553091fe53fabc57b7f8b1ef2d3a6a62b5f4f7",
+    "w02b-cloud/final-harness/wallet-fixture.json": "4045c0b30c875718f71c2710008f38428eccb426506831f65f1e4cdb86985aa9",
+    "w02b-cloud/final-harness/productivity-fixture.json": "153288c797fd89f6eb24d2dbe6a041ca8bc9f394303a8d8aea2f21d15b30f2ac",
+    "w02b-cloud/harness/wallet-fixture.json": "ea363d4c25108c0a3cf4c228f4fcb85b161a66ef039a3baa8dac459e12232a33",
+    "w02b-cloud/harness/productivity-fixture.json": "02ad2882fc37c12ea1bad3f899eb810e160d13c59944dac42bff7464ca559916"
+  },
+  "runtimeChanged": false,
+  "dependenciesChanged": false,
+  "walletCoreChecksum": "5386132badbf4a5fee4331cbf0a133bd2a106ed284f80ee479ff31df4bcb1e6a",
+  "fullW02Accepted": false,
+  "fullP05Accepted": false,
+  "automaticLegacyCutoverEnabled": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "nextTask": "Exact-HEAD Windows acceptance, then P05-b2 HTTP/smart/saved UI/GlobalSearch/readonlyTrash; remainingW02 entities later"
+}

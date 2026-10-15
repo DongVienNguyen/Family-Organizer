@@ -7,13 +7,13 @@ import {object,keys,text,integer,choice} from '../../src/features/productivity/v
 export const walletSnapshotColumns={
  wallet_currencies:['code','exponent'],wallet_accounts:['id','name','type','currency','owner_user_id','access_mode','opening_minor','opening_date','revision','archived_at'],wallet_account_grants:['account_id','user_id','permission'],wallet_categories:['id','parent_id','name','nature','archived_at'],wallet_labels:['id','name','archived_at'],wallet_schedules:['id','payload_json'],wallet_occurrences:['id','schedule_id','due_date'],wallet_records:['id','kind','effective_date','timezone','source','external_key','note','settlement_status','creator_id','revision','category_id','occurrence_id'],wallet_postings:['record_id','account_id','effective_date','delta_minor'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id','amount_minor'],wallet_audit:['id','record_id','actor_id','action'],
 } as const;
-const moneyColumns:Record<string,readonly string[]>={wallet_accounts:['opening_minor'],wallet_postings:['delta_minor'],wallet_allocations:['amount_minor']};
+export const moneyColumns:Record<string,readonly string[]>={wallet_accounts:['opening_minor'],wallet_postings:['delta_minor'],wallet_allocations:['amount_minor']};
 const primaryKeys:Record<string,readonly string[]>={wallet_currencies:['code'],wallet_account_grants:['account_id','user_id'],wallet_postings:['record_id','account_id'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id']};
 const nullable=new Set(['archived_at','parent_id','external_key','category_id','occurrence_id','record_id']);
 type Row=Record<string,string|number|null>;
 export interface WalletSnapshot {schemaVersion:number;tables:Record<string,Row[]>;checksum:string}
 export function walletSnapshotChecksum(snapshot:WalletSnapshot):string{return createHash('sha256').update(JSON.stringify({schemaVersion:snapshot.schemaVersion,tables:snapshot.tables})).digest('hex');}
-function validate(value:unknown,userIds?:Set<string>):asserts value is WalletSnapshot {
+export function validate(value:unknown,userIds?:Set<string>):asserts value is WalletSnapshot {
  const raw=object(value);keys(raw,['schemaVersion','tables','checksum']);if(raw.schemaVersion!==2||typeof raw.checksum!=='string'||raw.checksum!==walletSnapshotChecksum(raw as unknown as WalletSnapshot))throw Error('Unsupported or invalid Wallet snapshot');const tables=object(raw.tables);keys(tables,Object.keys(walletSnapshotColumns));if(Object.keys(tables).length!==Object.keys(walletSnapshotColumns).length)throw Error('Incomplete Wallet snapshot');
  for(const [name,columns]of Object.entries(walletSnapshotColumns)){
   const rows=tables[name];if(!Array.isArray(rows)||rows.length>100000)throw Error('Invalid Wallet snapshot rows');const seen=new Set<string>();

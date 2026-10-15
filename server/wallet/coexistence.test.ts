@@ -1,0 +1,23 @@
+import {it,expect} from 'vitest';
+import {randomUUID} from 'node:crypto';
+import * as sqlite from '../sqlite.js';
+import * as gateway from '../appStore.js';
+import * as migrations from '../appMigrations.js';
+import * as snapshot from '../appSnapshot.js';
+import {configureTaskStorage} from '../productivity/bootstrap.js';
+import {activateCanonicalTasks,legacyTaskDigest} from '../productivity/adapter.js';
+import {createTaskCommands} from '../productivity/tasks.js';
+import {createTaskQuery} from '../productivity/query.js';
+import {inspectRecoverySnapshot} from '../recoverySnapshotInspection.js';
+import {openWalletStore} from './store.js';
+import {UserRole} from '../../src/types.js';
+const meta=()=>({actorId:'synthetic-coordinator',command:'synthetic:coexistence',requestId:randomUUID(),payloadHash:'synthetic'}),write=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction(meta(),fn);
+it('one coordinator restores Wallet1 money and productivity5 search IDs without replaying points or notifications',async()=>{
+ const actor={userId:'synthetic-coordinator',role:UserRole.ADMIN};write(tx=>{tx.legacy.tasks=[];tx.legacy.users=[{id:actor.userId,role:UserRole.ADMIN,username:'synthetic-coordinator',fullName:'Synthetic coordinator',passwordHash:'synthetic-offline',avatarColor:'blue',createdAt:'2026-10-15T00:00:00Z'}];});
+ await configureTaskStorage(sqlite);migrations.applyDomainMigrations({enabled:['wallet','productivity'],pilot:true});write(tx=>activateCanonicalTasks(tx,legacyTaskDigest(tx.legacy.tasks)));
+ const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args),all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)},tasks=createTaskCommands({reader,write:gateway.withAppWriteTransaction}),ctx=(revision=0)=>({actor,requestId:randomUUID(),expectedRevision:revision}),task=tasks.createTask(ctx(),{listId:'legacy-family',title:'Đưa đón trẻ'});
+ const wallet=openWalletStore({write:gateway.withAppWriteTransaction});wallet.transaction(meta(),tx=>{tx.accounts.insert({id:'synthetic-combined-account',name:'Synthetic combined account',type:'bank',currency:'VND',ownerUserId:actor.userId,accessMode:'private',openingMinor:'9223372036854775807',openingDate:'2026-10-15',revision:1});tx.records.insert({id:'synthetic-combined-record',kind:'expense',effectiveDate:'2026-10-15',timezone:'Asia/Saigon',source:'manual',note:'',settlementStatus:'cleared',creatorId:actor.userId,revision:1});tx.postings.insert({recordId:'synthetic-combined-record',accountId:'synthetic-combined-account',deltaMinor:'-9223372036854775808'});});
+ const saved=write(tx=>snapshot.collectAppSnapshot(tx));expect(saved.manifest.domains).toEqual({wallet:1,productivity:5});expect(saved.tables.wallet_postings[0].delta_minor).toBe('-9223372036854775808');expect(()=>inspectRecoverySnapshot(saved,sqlite.sqliteConnection().name)).not.toThrow();
+ tasks.updateTask(ctx(task.revision),task.id,{title:'Synthetic changed task'});wallet.transaction(meta(),tx=>tx.sql.run('UPDATE wallet_postings SET delta_minor=0'));await snapshot.restoreAppSnapshot(snapshot.validateAppSnapshot(saved),{maintenance:async fn=>fn()});
+ expect(createTaskQuery({reader}).queryTasks(actor,{rootsOnly:true,query:'dua don tre'},{nowUtc:'2026-10-15T00:00:00Z',timezone:'Asia/Saigon'},null).items.map(row=>row.id)).toEqual([task.id]);expect(write(tx=>snapshot.collectAppSnapshot(tx)).tables.wallet_postings).toEqual(saved.tables.wallet_postings);expect(sqlite.sqliteLoad().rewardLedger).toEqual([]);expect(sqlite.sqliteLoad().notifications).toEqual([]);
+});

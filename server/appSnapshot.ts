@@ -20,7 +20,7 @@ import { settingsByteLimit, publicSettingKeys, mediaRoot, settingsFile, readSett
 export interface RestoreOptions { maintenance: <T>(work: () => Promise<T>) => Promise<T>; onBoundary?: (phase: string) => void; identity?: string; privateSettings?: ValidatedSettingPatch; privateFiles?: ValidatedFilePatch; privateEnv?: ValidatedEnvPatch }
 const connection = sqliteConnection();
 const core = snapshotCoreTables;
-const domainTables = new Map<string, { namespace: string; columns: readonly string[]; derived: boolean }>();
+const domainTables = new Map<string, { namespace: string; columns: readonly string[]; derived: boolean; integerText:readonly string[] }>();
 const domainValidators=new Map<string,(snapshot:AppSnapshot)=>void>();
 const validated = new WeakSet<object>();
 withAppWriteTransaction({ actorId: 'system:bootstrap', command: 'core:snapshot:init', requestId: 'core-snapshot-v1', payloadHash: sha256('core-snapshot-v1') }, tx => {
@@ -32,11 +32,13 @@ const snapshotVersion=connection.prepare('SELECT value FROM app_meta WHERE key=?
 const markerColumns=(connection.prepare('PRAGMA table_info(app_restore_commits)').all() as any[]).map(row=>row.name);
 if(snapshotVersion?.value!=='1'||JSON.stringify(markerColumns)!==JSON.stringify(['id','checksum','committed_at']))throw new Error('Unsupported snapshot storage schema');
 
-export function registerSnapshotTable(namespace: string, table: string, columns: readonly string[], options:{derived?:boolean}={}): void {
+export function registerSnapshotTable(namespace: string, table: string, columns: readonly string[], options:{derived?:boolean;integerText?:readonly string[]}={}): void {
   if (!['wallet','productivity'].includes(namespace) || !new RegExp(`^${namespace}_[a-z0-9_]+$`).test(table) || !columns.length || columns.length > 100 || new Set(columns).size !== columns.length || columns.some(column => !/^[a-z][a-z0-9_]*$/.test(column))) throw new Error('Invalid trusted snapshot table registration');
   const prior = domainTables.get(table);
-  if (prior && (prior.namespace !== namespace || JSON.stringify(prior.columns) !== JSON.stringify(columns) || prior.derived !== (options.derived===true))) throw new Error('Conflicting snapshot table registration');
-  domainTables.set(table, { namespace, columns: [...columns], derived: options.derived===true });
+  const integerText=options.integerText??[];
+  if(!Array.isArray(integerText)||new Set(integerText).size!==integerText.length||integerText.some(column=>!columns.includes(column)))throw new Error('Invalid snapshot integer columns');
+  if (prior && (prior.namespace !== namespace || JSON.stringify(prior.columns) !== JSON.stringify(columns) || prior.derived !== (options.derived===true) || JSON.stringify(prior.integerText)!==JSON.stringify(integerText))) throw new Error('Conflicting snapshot table registration');
+  domainTables.set(table, { namespace, columns: [...columns], derived: options.derived===true,integerText:[...integerText] });
 }
 /** Trusted synchronous domain validation extends the one shared restore gate. */
 export function registerSnapshotValidator(namespace:string,validate:(snapshot:AppSnapshot)=>void):void {
@@ -60,7 +62,7 @@ export function collectAppSnapshot(tx: AppWriteTx): AppSnapshot {
   const media = readMedia(); const settings = readSettings();
   const snapshot: AppSnapshot = {
     manifest: { schemaVersion: 1, domains: getDomainVersions(), legacyVersion: 1, mediaManifest: mediaManifest(media), checksum: '', createdAt: new Date().toISOString() },
-    legacy: JSON.parse(JSON.stringify(tx.legacy)), tables: Object.fromEntries([...tables()].map(([name, columns]) => [name, tx.all(`SELECT ${columns.join(',')} FROM ${name}`)])),
+    legacy: JSON.parse(JSON.stringify(tx.legacy)), tables: Object.fromEntries([...tables()].map(([name, columns]) => [name, tx.all(`SELECT ${columns.map(column=>domainTables.get(name)?.integerText.includes(column)?`CAST(${column} AS TEXT) AS ${column}`:column).join(',')} FROM ${name}`)])),
     settings: Object.fromEntries(publicSettingKeys.filter(key => settings[key] !== undefined).map(key => [key,settings[key]])), media,
   };
   snapshot.manifest.checksum = checksum(snapshot);
@@ -164,7 +166,7 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
         tx.exec('PRAGMA defer_foreign_keys=ON');
         const definitions = [...tables()];
         for (const [name] of [...definitions].reverse()) tx.run(`DELETE FROM ${name}`);
-        for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => row[column]));
+        for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => domainTables.get(name)?.integerText.includes(column)?BigInt(row[column]):row[column]));
         options.onBoundary?.('sql-tables-restored');
         tx.legacy = JSON.parse(JSON.stringify(checked.legacy));
         reconcileBackupReferences(tx.legacy);
