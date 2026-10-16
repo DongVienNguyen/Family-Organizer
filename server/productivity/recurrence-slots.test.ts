@@ -1,5 +1,6 @@
 import {expect,it} from 'vitest';
 import {planRecurrenceSlot} from './recurrenceSlots.js';
+import * as slots from './recurrenceSlots.js';
 
 const policy=(extra:any={})=>({timezone:'Asia/Saigon',base:'due',cadence:{kind:'calendar',frequency:'monthly',interval:1,invalidDate:'clamp'},end:{kind:'never'},missed:'skip',rotationMembers:[],...extra});
 const input=(extra:any={})=>({policy:policy(),anchor:{kind:'all_day',date:'2027-01-31',timezone:'Asia/Saigon'},ordinal:1,...extra});
@@ -61,4 +62,12 @@ it('never mutates policy or anchor and returns detached due metadata',()=>{
 });
 it.each([{ordinal:0},{ordinal:100001},{ordinal:1.5},{anchor:{kind:'none'}},{anchor:{kind:'all_day',date:'2027-02-30',timezone:'Asia/Saigon'}},{anchor:{kind:'all_day',date:'2027-01-31',timezone:'UTC'}},{acceptedCompletedAt:'not-an-instant'},{policy:policy({rewardPoints:10})},{rewardPoints:10}])('rejects malformed or forged planning input %#',extra=>{
  expect(()=>planRecurrenceSlot(input(extra))).toThrow(/candidate input/i);
+});
+
+it('prepares detached validated recurrence inputs once while validating each requested ordinal',()=>{
+ const source=input(),prepare=(slots as any).createRecurrenceSlotPlanner;expect(prepare).toBeTypeOf('function');
+ const {ordinal:_,...shared}=source,plan=prepare(shared);source.policy.cadence.interval=100;source.anchor.date='2099-01-01';
+ expect(plan(1)).toMatchObject({kind:'due',ordinal:1,due:{date:'2027-02-28'}});const first=plan(2);expect(first).toMatchObject({due:{date:'2027-03-31'}});first.due.date='2099-01-01';expect(plan(2)).toMatchObject({due:{date:'2027-03-31'}});
+ for(const ordinal of [0,1.5,100001,NaN])expect(()=>plan(ordinal)).toThrow(/candidate input/i);
+ expect(()=>prepare({policy:policy(),anchor:{kind:'none'}})).toThrow(/candidate input/i);expect(()=>prepare({...shared,acceptedCompletedAt:'invalid'})).toThrow(/candidate input/i);expect(()=>prepare({...shared,ordinal:1})).toThrow(/candidate input/i);
 });

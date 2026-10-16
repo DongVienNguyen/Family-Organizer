@@ -2,7 +2,7 @@ import type {AppActor,Due} from '../../src/features/productivity/contracts.js';
 import {createTaskAccess,type TaskReader} from './access.js';
 import {assertContext} from './tasks.js';
 import {decodeSeries,decodeSeriesException,type RecurrenceSeries,type SeriesException} from './seriesRecord.js';
-import {planRecurrenceSlot,type RecurrenceSlot} from './recurrenceSlots.js';
+import {createRecurrenceSlotPlanner,type RecurrenceSlot} from './recurrenceSlots.js';
 import {AppStoreError} from '../appErrors.js';
 import {calendarDate,localDateAt,localDayStart,utcInstant} from '../../src/features/productivity/dates.js';
 import {keys,object,text} from '../../src/features/productivity/validation.js';
@@ -41,9 +41,10 @@ export function createRecurrencePreviews(ports:{reader:TaskReader}){
   if(series.endedAt!==null)return [];
   const acceptedCompletedAt=series.nextOrdinal===1&&task.lifecycle==='completed'&&!task.pendingApproval?task.completedReferenceAt:undefined;
   const overrides=new Map(exceptions.map(e=>[e.ordinal,e])),rows=new Map<number,OccurrencePreview>();
-  const candidate=(ordinal:number):RecurrenceSlot=>{try{return planRecurrenceSlot({policy:series.policy,anchor:series.anchor,ordinal,...acceptedCompletedAt?{acceptedCompletedAt}:{}});}catch{return fail(422,'Kỳ lặp ngoài phạm vi được hỗ trợ.');}};
+  const plan=createRecurrenceSlotPlanner({policy:series.policy,anchor:series.anchor,...acceptedCompletedAt?{acceptedCompletedAt}:{}});
+  const candidate=(ordinal:number):RecurrenceSlot=>{try{return plan(ordinal);}catch{return fail(422,'Kỳ lặp ngoài phạm vi được hỗ trợ.');}};
   const include=(slot:RecurrenceSlot)=>{
-   if(slot.kind==='end'||slot.kind==='awaiting-acceptance')return;
+   if(slot.kind==='end')return;
    const base={seriesId:id,taskId:series.taskId,seriesRevision:series.revision,ordinal:slot.ordinal},exception=overrides.get(slot.ordinal);let row:OccurrencePreview|undefined,date:string;
    if(exception){if(exception.kind==='skip'||exception.due.kind==='none')return;date=dueDate(exception.due);row={...base,kind:'virtual',due:structuredClone(exception.due)};}
    else if(slot.kind==='due'){if(slot.due.kind==='none')return;date=dueDate(slot.due);row={...base,kind:'virtual',due:structuredClone(slot.due)};}
@@ -59,7 +60,7 @@ export function createRecurrencePreviews(ports:{reader:TaskReader}){
   }
   // A future exception may move a slot into the requested range from anywhere
   // else in the bounded series; don't lose it through the calendar fast path.
-  for(const exception of exceptions){if(series.policy.base==='completion'&&exception.ordinal!==series.nextOrdinal)continue;include(candidate(exception.ordinal));}
+  for(const exception of exceptions)include(candidate(exception.ordinal));
   const date=(row:OccurrencePreview)=>row.kind==='virtual'?dueDate(row.due):row.date;
   return [...rows.values()].sort((a,b)=>date(a).localeCompare(date(b))||a.ordinal-b.ordinal);
  }};

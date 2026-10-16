@@ -30,7 +30,9 @@ More than1000 results fails422; exactly1000 is returned without truncation.
 Timed rules retain original wall time and milliseconds. A DST gap/fold returns
 explicit resolution metadata instead of guessing an offset. Preview contains no
 future assignee, raw policy/rotation roster, points or Wallet data. Unresolved
-completion-based futures are not invented as calendar entries.
+completion-based futures are not invented as calendar entries. Explicit due
+exceptions at current or later ordinals remain visible without inventing acceptance;
+skip/no-date, count, local end and range constraints still apply.
 
 ## Authority and internal HTTP
 
@@ -78,8 +80,19 @@ fixture was still rejected by the gateway. Later6/7 passed
 with the unsupported-identity fixture error; the boundary diagnostic proved the
 existing auth guard before correcting the HTTP pre-series fixture, then8/8 passed.
 Mandatory-suite omission317/313/4RED is retained. Consolidated470/470 target and
-lint/build passed; fullCloud5079tests/275files/matchingJUnit passed with0failed/skipped. Review and
-exact Windows are still pending.
+lint/build passed; pre-review fullCloud5079tests/275files/matchingJUnit passed
+with0failed/skipped. Fresh whole-branch review found0Critical/2Important/1Minor.
+All findings were graded before one TDD correction pass: explicit completion
+deadlines are retained, and a detached validated planner is prepared once per
+projection. Actual service21/18/3RED and planner25/24/1RED became474targetGREEN.
+The366-date regression observed368whole-policy validations before correction
+and bounds shared validation to at most2afterward, retaining all366dated results
+and ordinal checks. No test deadline or assertion was relaxed.
+
+MinorM1 is deferred: an extreme historical daily anchor can make the nominal
+range fast path exceed100000ordinals before examining moved bounded exceptions;
+it returns422. Exact Windows qualification and corrected full-suite evidence
+are recorded separately before acceptance; no rereview is required.
 
 Full P10 still needs accepted-occurrence claims/materialization, series editing,
 skip commands, scheduler restart, legacy cutover and UI integration. No pilot flag,

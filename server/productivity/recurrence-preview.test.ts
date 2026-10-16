@@ -1,4 +1,5 @@
-import {beforeAll,expect,it} from 'vitest';
+import {beforeAll,expect,it,vi} from 'vitest';
+import * as recurrencePolicy from './recurrencePolicy.js';
 import {randomUUID} from 'node:crypto';
 import * as sqlite from '../sqlite.js';
 import * as gateway from '../appStore.js';
@@ -75,4 +76,24 @@ it('returns all exactly1000 matching slots and accepts an exactly366day local ra
 });
 it.each([{from:'2027-02-30',toExclusive:'2027-03-01'},{from:'2027-03-01',toExclusive:'2027-03-01'},{from:'2027-03-02',toExclusive:'2027-03-01'},{from:'2027-01-01',toExclusive:'2028-01-03'},{...range,limit:1},{...range,acceptedCompletedAt:'2027-03-01T00:00:00Z'}])('refuses invalid, oversized or forged preview range %# without changing data',r=>{
  const f=fixture(),before=allRows();expect(()=>preview.previewOccurrences(actor(),f.series.id,r)).toThrow(expect.objectContaining({status:422}));expect(allRows()).toEqual(before);
+});
+
+it('retains explicit completion deadlines at current and later ordinals without inventing acceptance or changing tables',()=>{
+ const f=fixture(policy({base:'completion',end:{kind:'count',count:5}}));
+ store.saveException(ctx(1),f.series.id,1,{kind:'due',due:{kind:'all_day',date:'2027-02-15',timezone:'Asia/Saigon'}});
+ store.saveException(ctx(2),f.series.id,2,{kind:'due',due:{kind:'all_day',date:'2027-03-15',timezone:'Asia/Saigon'}});
+ store.saveException(ctx(3),f.series.id,3,{kind:'skip'});store.saveException(ctx(4),f.series.id,4,{kind:'due',due:{kind:'none'}});
+ const before=allRows();expect(preview.previewOccurrences(actor(),f.series.id,range)).toEqual([1,2].map((ordinal)=>({kind:'virtual',seriesId:f.series.id,taskId:f.source.id,seriesRevision:5,ordinal,due:{kind:'all_day',date:ordinal===1?'2027-02-15':'2027-03-15',timezone:'Asia/Saigon'}})));expect(allRows()).toEqual(before);
+});
+it('bounds explicitly dated unknown completion slots by count and local end date',()=>{
+ const counted=fixture(policy({base:'completion',end:{kind:'count',count:2}}));
+ write(tx=>{for(const ordinal of [1,2])tx.run('INSERT INTO productivity_series_exceptions VALUES(?,?,?,?,?)',counted.series.id,ordinal,'due',JSON.stringify({kind:'all_day',date:'2027-02-15',timezone:'Asia/Saigon'}),1);});
+ expect(preview.previewOccurrences(actor(),counted.series.id,range).map(r=>r.ordinal)).toEqual([1]);
+ const dated=fixture(policy({base:'completion',end:{kind:'date',date:'2027-02-15'}}));store.saveException(ctx(1),dated.series.id,1,{kind:'due',due:{kind:'all_day',date:'2027-02-15',timezone:'Asia/Saigon'}});store.saveException(ctx(2),dated.series.id,2,{kind:'due',due:{kind:'all_day',date:'2027-02-16',timezone:'Asia/Saigon'}});
+ expect(preview.previewOccurrences(actor(),dated.series.id,range).map(r=>r.ordinal)).toEqual([1]);
+});
+it('projects all366 explicit successor dates without revalidating the whole policy for every candidate',()=>{
+ const dates=Array.from({length:366},(_,i)=>new Date(Date.UTC(2028,0,1+i)).toISOString().slice(0,10));
+ const f=fixture(policy({cadence:{kind:'dates',dates}}),{due:{kind:'all_day',date:'2027-12-31',timezone:'Asia/Saigon'}}),before=allRows(),validation=vi.spyOn(recurrencePolicy,'normalizeRecurrencePolicy');
+ try{const rows=preview.previewOccurrences(actor(),f.series.id,{from:'2028-01-01',toExclusive:'2029-01-01'});expect(rows.map((r:any)=>r.due.date)).toEqual(dates);expect(rows.map(r=>r.ordinal)).toEqual(dates.map((_,i)=>i+1));expect(validation.mock.calls.length).toBeLessThanOrEqual(2);expect(allRows()).toEqual(before);}finally{validation.mockRestore();}
 });
