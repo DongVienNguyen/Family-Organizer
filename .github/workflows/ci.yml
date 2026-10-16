@@ -302,7 +302,10 @@ jobs:
 
   productivity-browser:
     name: Windows productivity browsers
-    needs: [quality, browser]
+    # Execute WebKit immediately; wait for original producers only before merging.
+    permissions:
+      contents: read
+      actions: read
     runs-on: windows-2022
     timeout-minutes: 25
     env:
@@ -361,6 +364,17 @@ jobs:
         id: browser
         if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
         run: ./scripts/ci/Test-ProductivityBrowser.ps1 -Project webkit
+      - name: Wait for exact-run original producers before artifact merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & node scripts/ci/wait-productivity-producers.mjs
+          $barrierCode = $LASTEXITCODE
+          if ($barrierCode -ne 0) { exit $barrierCode }
+          exit 0
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: windows-node24-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}

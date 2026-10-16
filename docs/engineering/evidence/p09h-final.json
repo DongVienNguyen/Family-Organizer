@@ -1,0 +1,243 @@
+{
+  "taskId": "P09-h",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/122",
+  "testedHeadSha": "112d398b09f2a9e26afa2edffe538eddc071ce5a",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38879051719",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "51905d20fc5c8465b6d5569c4e13a10c4e822e820267bbf1afb2ee598abd1e47",
+    "coverage": "f985e374b24e08f07810b935b530d9be2c62124ff92d8dcf379dfdefe0c4a7b0",
+    "package": "f9c5a971e5d6ba67e8be3be813cb9748cd53c2487346a1ad94b885a9fdb95c0e",
+    "service": "013225dc34e8f1f2637e435a7aef155e1c0f566028390370201376e643d34a30",
+    "caddy": "82ef2cf169a70841943b8fe86b7e47dd59853f5b16bb83ba663a5c5e8862f4af",
+    "extraction-sdk": "9cd445880f711bb16fd75a4cf2fdb3768e1c48717de564966208e1d8c3554e0c",
+    "inner-native": "e7afca3e2cfc84932102b32d10b81b7b6ff23df4b66a4464fe72dda88f0719a9",
+    "browser": "7b1d0b93724064e76d49e5dbdbcf194a4927b2b21505fe62b2b09c4f97302794",
+    "productivity-browser": "07c5e0a7c77bcb711344da385cfe8ea08e6945a7a032135605098c055d2bae12",
+    "board-package": "8a6b35c64c289b311acaff8afe72b034ce27b164183eaaf4a593dffa9889979a",
+    "port-policy": "a809f4426750e31b50381363a4979faf47cc2a628e157208d7ee5b80192b6574"
+  },
+  "qualityEach": 4926,
+  "qualityFilesEach": 268,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 78,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "isolatedProjects": 3,
+  "shardFormat": 1,
+  "windowsStackProfilerDisabled": true,
+  "zipSha256": "972fcc6fc30921ebb9dd69c067bdce15f3d44b37d0e72ca4263b336174d06f6e",
+  "fullCiLogZipSha256": "3bbff77b966627bd7413ddbd5479fe4fd8e50330bfd339d1808a4a96ebadaa5d",
+  "review": {
+    "task": "P09-h",
+    "kind": "ONE whole-branch SELF against grouped owner e0aae43; independently reviewed parents remain closed",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 1
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "importantRemaining": 0,
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "ecd89dda4253ecf96fe05c96a241b010d80dc00d2cc68fccd5f4d4995cdddcc2",
+      "scripts/ci/productivity-merge.mjs": "2bd0ffe549e4b5b73edc26f1fe5e6f5e6dfe7c310402b86fb7f96215f30c56ba",
+      "scripts/ci/write-evidence.mjs": "7de8ed02735ed7e2f28a5cba0c3b3a6d0e19f60822a2a23f1a4ee30e80640399",
+      "src/features/productivity/Kanban.tsx": "b2de789de4af00859536ba56ee218ea5c2112dbc7d560f9458906fe814498abb",
+      "src/features/productivity/KanbanGroupActions.tsx": "f82ad30c87399d7ec832f6d42087029dde6279589dea904287c98cd37fcc0362",
+      "src/features/productivity/KanbanGroupDialog.tsx": "7bbbe2f4e792619184d22bc8ae3734a2c4b8afd6be7d8bd0a81a33868c10b619",
+      "src/features/productivity/KanbanWorkspace.tsx": "977447e04aa1f7fc5c1d7590f26904c205bc6e536fa5eca5527070709a1dbe64",
+      "src/features/productivity/kanban-group-ui.test.tsx": "6e8701e9dc52262b6fbeadf9b776ff2714fcac0ee40d8f4c1f81623d146ee248",
+      "src/features/productivity/kanban-ui.test.tsx": "8dc0374a857d2e41c6a791ed4459fed96aba5bd3156d3e7a038a1f691e2c5b34",
+      "src/features/productivity/kanbanGroupMenu.test.ts": "084be3904990eba6261c554adfe86bcb6716142d29199b7ec9c9f225cc00402f",
+      "src/features/productivity/kanbanGroupMenu.ts": "f4fefe29fc11d895b5bdec385ebf31ee41cf3ec1768a7568ef001ec3d946d5c5",
+      "src/features/productivity/useKanbanWorkspace.ts": "05498324ddabc2e77882ff754dbc7ca7078175f5b9c3a5324529e714be332d17",
+      "src/i18n/locales/en.json": "fd32c7160627aa995521b3e85f84da27fab0ec83a4978dc87de3ee22b4f164a3",
+      "src/i18n/locales/vi.json": "16a9dbe8ec799e206830f64f02a9f4081be8511b39c8914f974be6e039dd5fc6",
+      "src/i18n/locales/zh.json": "126c36957ad1eeaa6c42dd9f8a7beaf17e0e9cbc30a6fcd9fbc62dbfecaf3f98",
+      "tests/e2e/productivity.spec.ts": "6471857ac632e748ea2f65f34cd81952d3bb0bf30d221b383531164db6bcb39b",
+      "tests/evidence.test.ts": "4f350d0f1f68b6b2ce3fc973340447770a45ed4a09f094ae8dd81b6db52e664c",
+      "tests/grouped-rank-import.test.ts": "9c400219e64dfb8fea01eb1d21458d12533169e54c7e2fab992e88d7f1d93b25",
+      "tests/helpers/release-productivity-browser-fixture.ts": "88a14b4a80412ae1cd09ac933ff0bcf6bf8aba2ae058f08813f7be9b9b381597",
+      "tests/productivity-merge.test.ts": "49a189d505054932d1d804113c7123f27960f182e9b884657322d42bad879dc3",
+      "tests/release-productivity-profile.test.ts": "a3b6c4fb40d6cdaace7d2a628995c50db6f2e7eabb272ce9dc741b9b652b247e"
+    },
+    "gradedFindings": [
+      {
+        "id": "H-SELF-1",
+        "severity": "minor",
+        "file": "tests/e2e/productivity.spec.ts",
+        "finding": "New applyGroup starts immediate response parsing but awaits click before attaching an aggregate rejection handler; a fast body/status failure can reject before the click finishes. Observe both promises together using Promise.all, preserving exact status/body/dialog assertions.",
+        "action": "One correction after current functional checkpoint; no repeat review."
+      }
+    ],
+    "coverage": [
+      "visible canonical Task and exact source projection; explicit source-only versus all-tags add/replace and null-tag safety",
+      "due conversion explicit all-day selected timezone and exact selected field patch only",
+      "API-bound owner retirement, late callbacks, no optimistic authority or automatic retries",
+      "adult-only grouped controls, non-rank field-only moves and read-only workflow preservation",
+      "FancySelect/modal a11y/focus/mobile light-dark/escaped titles/generic errors/locale preservation",
+      "same-view reselection regression from actual DOM/network blank-board failure",
+      "actual native response observation; status/body/canonical equality retained",
+      "first26-per-engine inventory, original23case bytes, old57/63/69 target-bound profiles retained",
+      "raw group PNG root copy and all existing native blob/assembly/cleanup assertions",
+      "cold import12paths with offline native error/signal/status/storage checks and mandatory2new suites"
+    ],
+    "remaining": [
+      "One minor observation-promise correction, fullCloud and actual26+touch checkpoint",
+      "compose accepted121 history/docs without changing reviewed source",
+      "new exact-HEAD Windows PR8checks/11raw families/all logs/124firstattempt cases",
+      "fullP09/P08/P10/Wallet/master incomplete; no release/tag/VPS/Server2019 acceptance"
+    ],
+    "publicationAllowed": false,
+    "minorRemaining": 0,
+    "correction": "H-SELF-1: Promise.all observes native body/status and real click together; assertions unchanged, no retry or timeout change",
+    "correctedSourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "ecd89dda4253ecf96fe05c96a241b010d80dc00d2cc68fccd5f4d4995cdddcc2",
+      "scripts/ci/productivity-merge.mjs": "2bd0ffe549e4b5b73edc26f1fe5e6f5e6dfe7c310402b86fb7f96215f30c56ba",
+      "scripts/ci/write-evidence.mjs": "7de8ed02735ed7e2f28a5cba0c3b3a6d0e19f60822a2a23f1a4ee30e80640399",
+      "src/features/productivity/Kanban.tsx": "b2de789de4af00859536ba56ee218ea5c2112dbc7d560f9458906fe814498abb",
+      "src/features/productivity/KanbanGroupActions.tsx": "f82ad30c87399d7ec832f6d42087029dde6279589dea904287c98cd37fcc0362",
+      "src/features/productivity/KanbanGroupDialog.tsx": "7bbbe2f4e792619184d22bc8ae3734a2c4b8afd6be7d8bd0a81a33868c10b619",
+      "src/features/productivity/KanbanWorkspace.tsx": "977447e04aa1f7fc5c1d7590f26904c205bc6e536fa5eca5527070709a1dbe64",
+      "src/features/productivity/kanban-group-ui.test.tsx": "6e8701e9dc52262b6fbeadf9b776ff2714fcac0ee40d8f4c1f81623d146ee248",
+      "src/features/productivity/kanban-ui.test.tsx": "8dc0374a857d2e41c6a791ed4459fed96aba5bd3156d3e7a038a1f691e2c5b34",
+      "src/features/productivity/kanbanGroupMenu.test.ts": "084be3904990eba6261c554adfe86bcb6716142d29199b7ec9c9f225cc00402f",
+      "src/features/productivity/kanbanGroupMenu.ts": "f4fefe29fc11d895b5bdec385ebf31ee41cf3ec1768a7568ef001ec3d946d5c5",
+      "src/features/productivity/useKanbanWorkspace.ts": "05498324ddabc2e77882ff754dbc7ca7078175f5b9c3a5324529e714be332d17",
+      "src/i18n/locales/en.json": "fd32c7160627aa995521b3e85f84da27fab0ec83a4978dc87de3ee22b4f164a3",
+      "src/i18n/locales/vi.json": "16a9dbe8ec799e206830f64f02a9f4081be8511b39c8914f974be6e039dd5fc6",
+      "src/i18n/locales/zh.json": "126c36957ad1eeaa6c42dd9f8a7beaf17e0e9cbc30a6fcd9fbc62dbfecaf3f98",
+      "tests/e2e/productivity.spec.ts": "ed28154ba331435f1d1ca6172745026981634d8e031a6119c4628f19143eeda6",
+      "tests/evidence.test.ts": "4f350d0f1f68b6b2ce3fc973340447770a45ed4a09f094ae8dd81b6db52e664c",
+      "tests/grouped-rank-import.test.ts": "9c400219e64dfb8fea01eb1d21458d12533169e54c7e2fab992e88d7f1d93b25",
+      "tests/helpers/release-productivity-browser-fixture.ts": "88a14b4a80412ae1cd09ac933ff0bcf6bf8aba2ae058f08813f7be9b9b381597",
+      "tests/productivity-merge.test.ts": "49a189d505054932d1d804113c7123f27960f182e9b884657322d42bad879dc3",
+      "tests/release-productivity-profile.test.ts": "a3b6c4fb40d6cdaace7d2a628995c50db6f2e7eabb272ce9dc741b9b652b247e"
+    }
+  },
+  "groupedConfirmationOwnerAccepted": true,
+  "groupedMenuAccepted": true,
+  "bodyDrainReview": {
+    "task": "P09-h-body-drain",
+    "kind": "ONE new3-source-file SELF after actual Windows38872944564; originalH21-file and parentG reviews stay closed",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "importantRemaining": 0,
+    "sourceHashes": {
+      "src/features/productivity/kanbanCommandState.ts": "dc6ef46adb25710501defd4a3cd7c0c1eecefaa9593ec84a23a6bfa2da97834d",
+      "src/features/productivity/kanbanCommandState.test.ts": "f8e8e95b9d1fc3cd7cd67e6753b311cf5b8fc94d871be9eec1d27851e30c0696",
+      "tests/e2e/productivity.spec.ts": "aa453d05153281918b22345373ff867810ba494ecc7ab4b2ea9aaba0ab3ea3bb"
+    },
+    "authSupportSourceHashes": {
+      "src/App.tsx": "a042e3e89f4c2317aef647bc63cfd9d3b7e1317808ed1f61ac03a9c99d65494d",
+      "src/utils/browserSession.ts": "e73cd31bf5a50827ac11102253c7419471e601626c8d02b72a556ceefd4b3c5a",
+      "src/utils/sessionBoundary.ts": "a802b3d3c0b440d0cec63a6ecec31cb6326d7bffe3acd2c14982f591f9f6f4ae",
+      "src/utils/abortSignals.ts": "3a8b0a5ebf22d7f981c70a366163bb2957439672aa3c1052b96903e0d52fc0ae"
+    },
+    "causalRed": {
+      "tests": 47,
+      "passed": 44,
+      "failed": 3
+    },
+    "correctedTarget": {
+      "tests": 118,
+      "passed": 118,
+      "files": 3
+    },
+    "browser": {
+      "cases": 26,
+      "nativeTouch": 1,
+      "failed": 0
+    },
+    "rootCause": "p09h-c25-abort-stack.json confirms Object.dispose cancels original native JSON body afterHTTP200",
+    "sourcePreservation": {
+      "allOriginal44UnitLinesExactAndInOrder": true,
+      "original23BrowserPrefixByteIdentical": true,
+      "newUnitCasesInsertedBeforeExistingFinalCase": true,
+      "initialWriterContiguousPrefixAssumptionRejected": true,
+      "rawReportsOrTestsChangedForWriterCorrection": false
+    },
+    "coverage": [
+      "passive UI disposal retires generation/private plan/UUID/listeners immediately; dispatched mutation drains without stale publication or callbacks",
+      "previews and explicit clear/selection/cancel keep original abort semantics and singleflight; all old assertions retained",
+      "real SessionBoundary revocation aborts transport/body after UI disposal; existing120second deadline unchanged",
+      "original native Response.json called once by app; original parsed value/input/init/signal/Response returned unchanged, only observation detached",
+      "driver/nativeHTTP200, sameUUID, no-store/Authboolean/signal, one request/read, exactrevision and unchanged Task/draft/freshAPI assertions",
+      "diagnostic prototype instrumentation removed; failure attachments never include bearer contents",
+      "no retries, extra mutation, response fulfillment, optimistic cache authority, provider/dependency/backend/schema/default change"
+    ],
+    "remaining": [
+      "fresh fullCloud4926/268 and exactWindows8checks/11raw/124firstattempt/alllogs",
+      "fullP08/P09/P10/Wallet/master incomplete"
+    ],
+    "publicationAllowed": false
+  },
+  "nativeJsonReadObserved": true,
+  "groupScreenshots": {
+    "productivity-browser-group-light-1280-chromium.png": "c8709924ca639a4ecd96988d6287425fd8a57c714f0834f9bda0037a81c10e83",
+    "productivity-browser-group-light-1280-firefox.png": "a6d48e9e237afd91806a4d2a99c688cb406f335b4e3d282de3647f22aea8f2f5",
+    "productivity-browser-group-light-1280-webkit.png": "23a91123728838d79e3cbb46983a52835958d7b6f54d2943d97153da6ed991c9",
+    "productivity-browser-group-dark-390-chromium.png": "5c04a28a4053791f6b771707d2609ac139f91852e4a221b1fc1dc4958ab5677a",
+    "productivity-browser-group-dark-390-firefox.png": "0b3730449c9abff35c799234d6a7de0cccae46661bc1caba53d0f72ebdd6183b",
+    "productivity-browser-group-dark-390-webkit.png": "29d5c5383827f1d8395d3be6cb66a3cdaba148360ea088f4b2a22c7d68f2ef33"
+  },
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "a51f9a0ce12148f1a053ee9a3c5fea03c85f8ebf",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "112d398b09f2a9e26afa2edffe538eddc071ce5a": "1d846ffbf40943cbf0a57aeeab4b07137eb4a7d3",
+    "a51f9a0ce12148f1a053ee9a3c5fea03c85f8ebf": "1d846ffbf40943cbf0a57aeeab4b07137eb4a7d3"
+  },
+  "fullLogs": {
+    "files": 137,
+    "lines": 25062,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}
