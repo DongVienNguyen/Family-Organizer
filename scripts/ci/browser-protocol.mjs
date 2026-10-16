@@ -49,7 +49,7 @@ export function redactBrowserDriverLine(line){
  const match=clean.match(/^(?:\d{4}-\d\d-\d\dT[0-9:.]+Z\s+)?\s*pw:browser\s+([\s\S]*?)(?:\s+\+\d+(?:ms|s|m))?$/);
  const rejected={diagnosticOnly:true,parseRejected:true};if(!match)return rejected;
  const text=match[1];const number=value=>{const n=Number(value);return Number.isSafeInteger(n)?n:null;};
- if(text.startsWith('<launching>'))return {diagnosticOnly:true,event:'launch-command-redacted'};
+ if(text.startsWith('<launching>'))return {diagnosticOnly:true,event:'launch-command-redacted',...(/\s--disable-stack-profiler(?:\s|$)/.test(text)?{windowsStackProfilerDisabled:true}:{})};
  let m=text.match(/^<launched> pid=(\d+)$/);if(m)return {diagnosticOnly:true,event:'launched',pid:number(m[1])};
  m=text.match(/^\[pid=(\d+)\] <process did exit: exitCode=(-?\d+|null), signal=(null|SIG[A-Z0-9]+)>$/);
  if(m)return {diagnosticOnly:true,event:'exit',pid:number(m[1]),exitCode:m[2]==='null'?null:number(m[2]),signal:m[3]==='null'?null:m[3]};

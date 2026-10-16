@@ -177,6 +177,9 @@ jobs:
         id: production
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: ./scripts/ci/Test-Production.ps1
+      - name: Isolated Chromium productivity and native touch
+        if: ${{ !cancelled() && matrix.major == 24 && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
+        run: ./scripts/ci/Test-ProductivityBrowser.ps1 -Project chromium
       - name: Validate and record evidence
         if: ${{ always() }}
         env:
@@ -198,6 +201,7 @@ jobs:
         with:
           name: windows-node${{ matrix.major }}-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
           path: reports/
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
 
@@ -261,6 +265,9 @@ jobs:
         id: browser
         if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
         run: ./scripts/ci/Test-Browser.ps1
+      - name: Isolated Firefox productivity
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
+        run: ./scripts/ci/Test-ProductivityBrowser.ps1 -Project firefox
       - name: Diagnose isolated native subscription driver boundary
         if: ${{ always() }}
         run: |
@@ -295,6 +302,7 @@ jobs:
 
   productivity-browser:
     name: Windows productivity browsers
+    needs: [quality, browser]
     runs-on: windows-2022
     timeout-minutes: 25
     env:
@@ -352,14 +360,33 @@ jobs:
       - name: Offline browser regression
         id: browser
         if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.native.outcome == 'success' }}
-        run: ./scripts/ci/Test-ProductivityBrowser.ps1
+        run: ./scripts/ci/Test-ProductivityBrowser.ps1 -Project webkit
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: windows-node24-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/productivity-node24
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: windows-browsers-${{ github.event.pull_request.head.sha || github.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/productivity-firefox
+      - name: Merge and validate three independently executed projects
+        id: aggregate
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-StrictMode -Version Latest
+          $PSNativeCommandUseErrorActionPreference = $false
+          & node scripts/ci/merge-productivity-browser.mjs "$env:RUNNER_TEMP/productivity-node24" "$env:RUNNER_TEMP/productivity-firefox" 2>&1 | Tee-Object reports/productivity-browser-merge.log
+          $mergeCode = $LASTEXITCODE
+          @{ check = 'browser'; exitCode = $mergeCode } | ConvertTo-Json | Set-Content reports/browser-exit.json
+          if ($mergeCode -ne 0) { exit $mergeCode }
+          exit 0
       - name: Validate browser evidence
         if: ${{ always() }}
         env:
           CHECK_INSTALL: ${{ steps.install.outcome }}
           CHECK_NATIVE: ${{ steps.native.outcome }}
           CHECK_BUILD: ${{ steps.build.outcome }}
-          CHECK_BROWSER: ${{ steps.browser.outcome }}
+          CHECK_BROWSER: ${{ steps.aggregate.outcome }}
         run: |
           $ErrorActionPreference = 'Stop'
           Set-StrictMode -Version Latest
