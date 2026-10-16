@@ -1,0 +1,414 @@
+{
+  "taskId": "P10-d4b",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/128",
+  "testedHeadSha": "481700caf96715ca39847e40f824461ff067891f",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38909569844",
+  "runAttempt": 1,
+  "conclusion": "failure",
+  "artifactCount": 8,
+  "artifacts": [
+    {
+      "id": 12050750841,
+      "name": "windows-service-tests-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 31847
+    },
+    {
+      "id": 12050038493,
+      "name": "windows-node24-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 7373179
+    },
+    {
+      "id": 12050021405,
+      "name": "windows-package-tests-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 17466
+    },
+    {
+      "id": 12049998742,
+      "name": "windows-node22-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 5538025
+    },
+    {
+      "id": 12049791905,
+      "name": "windows-package-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 54044312
+    },
+    {
+      "id": 12049714615,
+      "name": "windows-browsers-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 2439064
+    },
+    {
+      "id": 12049544127,
+      "name": "windows-productivity-browsers-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 46089784
+    },
+    {
+      "id": 12049054103,
+      "name": "windows-package-harness-481700caf96715ca39847e40f824461ff067891f-1",
+      "size": 128683
+    }
+  ],
+  "productivityRawHashes": {
+    "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+    "build.log": "51fa81e739694ba2239e8270fb3c3ece2944aa61f722992c655b747d140f6a76",
+    "install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+    "install.log": "d473fb60415dfb67a3df7625adb4b8d5a6e216024bf63fcba5f29155dc0df790",
+    "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+    "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+    "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+    "node-sdk.json": "797fc33f93f069c1c59158e970232ac59a63316f8c043f197fd2fedab53a9a1d",
+    "productivity-browser-evidence.json": "825aa1385c1948d9096e19eb160f8608113c397663a5cdc7d4059acdec35e47e",
+    "productivity-shards/webkit/reports/blob/report-webkit.zip": "da5ec09869918120523f42ae88de739c76a1d6a4f04a3990045a9af4176f01a0",
+    "productivity-shards/webkit/reports/browser-exit.json": "89c14db2ebdc2b9e4cf0cae3130413bc35761fc02b01f2f3e4848e128a53172e",
+    "productivity-shards/webkit/reports/browsers-install-exit.json": "258ef3b93d9a1fe09ec51f561ce763f59c1fde6699f15e313424beb397eca55e",
+    "productivity-shards/webkit/reports/browsers-install.log": "7f6dd869418b6c0aaec515206cdbb674bc47727257822a763a28acd363789c96",
+    "productivity-shards/webkit/reports/build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+    "productivity-shards/webkit/reports/install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+    "productivity-shards/webkit/reports/native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+    "productivity-shards/webkit/reports/native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+    "productivity-shards/webkit/reports/productivity-browser-fixture.json": "20c4b58c37b5fc2ebe18847e8b03ea1e314400c0ac007a00d58e8b081e1db0c4",
+    "productivity-shards/webkit/reports/productivity-browser-group-dark-390-webkit.png": "2a84681174c62dee749dcddd48da59aafda2d96c04c1b9f5cf0522a4a966e9b5",
+    "productivity-shards/webkit/reports/productivity-browser-group-light-1280-webkit.png": "a08d4a2d5eefe835da6c6824ac08a8137fdd0149e5333c9c1768572bf0017f0f",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/13f6081639349ea9f8e5430daa375832d66f6e62.png": "34efe24d01f0900c37d75fb93a4b3d55656da4fd907d76b690799555b3664622",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/3c4eebe70d6a56502fb4184d925730586a26f8bd.zip": "bb3e10998ed58ab207c7b6387268bd846aa912db82eb8fdf771624fd5352a04f",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/4d226fe2ff7b0854569e8ab3c569fed370d0c1de.md": "288d75add79129f0ee392168088b04058b65050b3396774630a5ab2deffff6f7",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/879e3c914d30a2d5620033bd096ce4d19166ee35.png": "f0afd54b70a080e41000cb283acaacbe5e86d0f8f58a78922f90970d24cc8107",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/906bd2f8e24457072b4856c7bc130b0c3556ee3b.webm": "af5aa338dd0a2367b5a6c10fb54a4efed7e697b980974f7367ab92c8a1e13310",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/9455b337a28f422428e93714cddf9d43325ffa12.md": "b8473003e3256e86c8edcce6faa40d8c375b470372489c767c1acafcfdc08bac",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/eba8ba0e4ae0a4e3d2882ffdc3dd7514b69fc6f1.webm": "ffe0b699ceb275e180fdaaf0340dfe4d82647c3f8675016b5568a87ddce8a07b",
+    "productivity-shards/webkit/reports/productivity-browser-html/data/f50b773cc361a07ecad70539fb0669dbc7e8d474.zip": "851e5611ae455421757415cd18f489695eadb68443ef6ef30334c758f3ea4cc8",
+    "productivity-shards/webkit/reports/productivity-browser-html/index.html": "9c19824c22c6d5f0d6b41ad27c8fa08e5e57846d9700b5ef3f62362db4946ffa",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/assets/codeMirrorModule-BEB2e8M3.js": "0da75d228abc1d8b940aa04ec086570dace7b2e7b2ccc5f4bc16f05e79bdb7d7",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/assets/defaultSettingsView-D-g2vrvf.js": "554bdef910d18e763118f1221667b809edafba46e29e3f8de4b9dcf21c6b7d79",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/assets/urlMatch-L3liM589.js": "1bc6321e32d11c31a452bc75896f0b344e6153321854d9f1658818be7f845c16",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/codeMirrorModule.-QdMvsKi.css": "20be824a82832b62cc04642d31da3c609fd280b23f1cdcb1e622c4f40aac5ab8",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/codicon.DCmgc-ay.ttf": "0f1d5219934e96e83b8db162d60b4d8c09b5de1e7d38031cbafe4a3c0f2889c9",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/defaultSettingsView.C8BeHuxd.css": "278101b68ab48ee6323a6afbf4e0e629324e10e96902a62a0875643a1bba3d94",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/index.7-c5LSTW.js": "ce1eb956b15739b52a45c9fc2b9a0c529448242426b2b124d5c3167915910ff1",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/index.B_TqY17P.css": "08a212fcacae1866f44f065654afcc4c7d03409c68c74b3315c5bda17a0ca003",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/index.html": "b80661d46bc580d1e7be45c2c2b0e891c466f3f67e52c33e4f111f000f3532c6",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/manifest.webmanifest": "d8540500603a32a39fe7e5a0375dc0f9ebafd11118e06a846db7efc608223ab9",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/playwright-logo.svg": "6b0a4367bdeab10995bc239278f04c68c10e48adbec15e799e01909a0d66dcb9",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/snapshot.B_Jk1wbt.js": "d4d09e05451d107d8e1a6bbd041405fe518b9fd2833890e4ebaaad83b7f554f5",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/snapshot.html": "c608c8899c95c5a74d3f556e20146c3d852b9df85ae2854c659a7cc773c9b727",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/sw.bundle.js": "d1d6fec6687eb3fd93a8990bd9daa3951422695afffae2382f97f10811cf1c30",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/uiMode.CYwC_gH1.js": "c920eaa161f65b6c0dd431a642c4bdf2e6262ae51335c02d155b187f48c0296c",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/uiMode.CyMfwkXJ.css": "fb403cf0b07007bc1d771e29737f7408924da300e2fab8b289a3ef2e8fc08d7b",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/uiMode.html": "6de2f5db7f7532c30e8b1381752a1daf23facbdef6bea130cef0cfa5a003eb22",
+    "productivity-shards/webkit/reports/productivity-browser-html/trace/xtermModule.kHJ-D0s7.css": "0dd60056134e6a2994a86b59a1e9789b9f04e92924da109aef8c923acaf08ce5",
+    "productivity-shards/webkit/reports/productivity-browser-kanban-dark-390-webkit.png": "00bd4ef423fd1162535d357612560d20d309da6d4dde48141340e901147eecc0",
+    "productivity-shards/webkit/reports/productivity-browser-kanban-light-1280-webkit.png": "0c2a54a6be9d78ff8815a8491cc1bb95637af79e1045569c13957734c623e3a3",
+    "productivity-shards/webkit/reports/productivity-browser-matrix-dark-1280-webkit.png": "04a0a04cf3466888ee95a33c0625b4a1e65ecc3477930ce9f972e161fa8c50e5",
+    "productivity-shards/webkit/reports/productivity-browser-matrix-dark-390-webkit.png": "4d52a7bf86da1b2842fce0acc1a2ab0b96d92fdc6c021f139c69f87f2ec68a9f",
+    "productivity-shards/webkit/reports/productivity-browser-matrix-dark-768-webkit.png": "27cd247533d73514fdbad2032ba255582273a2e60822a4daae60b05e0e5794d1",
+    "productivity-shards/webkit/reports/productivity-browser-matrix-light-1280-webkit.png": "7fc69fc730d35427dba69fa383d9a4923438ab62d09fa8f5861d70ec456c7129",
+    "productivity-shards/webkit/reports/productivity-browser-native.log": "b258d07510711fb4619350e2b03a98edb361cc3d6f8039792513dcc46edb0823",
+    "productivity-shards/webkit/reports/productivity-browser-results/.last-run.json": "58f329fbbfcff81706bc5b70dc5106f80e2446e12d500580da4920358992439a",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-webkit/error-context.md": "288d75add79129f0ee392168088b04058b65050b3396774630a5ab2deffff6f7",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-webkit/test-failed-1.png": "34efe24d01f0900c37d75fb93a4b3d55656da4fd907d76b690799555b3664622",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-webkit/trace.zip": "851e5611ae455421757415cd18f489695eadb68443ef6ef30334c758f3ea4cc8",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-webkit/video.webm": "af5aa338dd0a2367b5a6c10fb54a4efed7e697b980974f7367ab92c8a1e13310",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C30-denie-3c9e9-retaining-the-readable-Task-webkit/error-context.md": "b8473003e3256e86c8edcce6faa40d8c375b470372489c767c1acafcfdc08bac",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C30-denie-3c9e9-retaining-the-readable-Task-webkit/test-failed-1.png": "f0afd54b70a080e41000cb283acaacbe5e86d0f8f58a78922f90970d24cc8107",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C30-denie-3c9e9-retaining-the-readable-Task-webkit/trace.zip": "bb3e10998ed58ab207c7b6387268bd846aa912db82eb8fdf771624fd5352a04f",
+    "productivity-shards/webkit/reports/productivity-browser-results/productivity-P10-C30-denie-3c9e9-retaining-the-readable-Task-webkit/video.webm": "ffe0b699ceb275e180fdaaf0340dfe4d82647c3f8675016b5568a87ddce8a07b",
+    "productivity-shards/webkit/reports/productivity-browser-run.log": "5f012eb91790b14e40358f1cb4d3867fdbb760f9f7ddcdb7c5ddf85a07ae03ba",
+    "productivity-shards/webkit/reports/productivity-browser-runtime-webkit.json": "59d9e1201ad0d8118f5bcef0389074422960bdec89b03c6ee4dee9017e0fdc10",
+    "productivity-shards/webkit/reports/productivity-browser-server.log": "ad3b3deb7cc1b840936181f5447b713d1d966b36edb4fd13e43a4bcdc2498037",
+    "productivity-shards/webkit/reports/productivity-browser.json": "e51bcb602a77a61e0b1101442b589402f67b2109fb199470314c2e79b6498bdb",
+    "productivity-shards/webkit/reports/productivity-browser.junit.xml": "1d8d926edcded3626800edf2bc57d6094f748c9df3f783faf71abeb6969c3abd",
+    "toolchain.json": "aa37346c2d22b806763ed5ba1faebfc9578688769f6be6963593ad06e7c4ea8f"
+  },
+  "fullLogs": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 26652,
+    "zipSha256": "a3d214a3a77d93660ab0dfaf8efb475bc3c0d2c11ca8034bb8f6b2260c562032",
+    "expectedSyntheticMarkers": [
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 658,
+        "text": "2026-10-16T13:43:06.7183864Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 1160,
+        "text": "2026-10-16T13:47:14.8322777Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 1197,
+        "text": "2026-10-16T13:47:26.9380758Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 1373,
+        "text": "2026-10-16T13:48:35.3114020Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 133,
+        "text": "2026-10-16T13:43:06.7183855Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 635,
+        "text": "2026-10-16T13:47:14.8322436Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 672,
+        "text": "2026-10-16T13:47:26.9380741Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 848,
+        "text": "2026-10-16T13:48:35.3114004Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "6_Windows Node22 baseline.txt",
+        "line": 664,
+        "text": "2026-10-16T13:43:59.6106844Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "6_Windows Node22 baseline.txt",
+        "line": 1187,
+        "text": "2026-10-16T13:49:08.1527126Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "6_Windows Node22 baseline.txt",
+        "line": 1226,
+        "text": "2026-10-16T13:49:22.1229118Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "6_Windows Node22 baseline.txt",
+        "line": 1405,
+        "text": "2026-10-16T13:50:43.5791324Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 153,
+        "text": "2026-10-16T13:43:59.6106824Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 676,
+        "text": "2026-10-16T13:49:08.1527109Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 715,
+        "text": "2026-10-16T13:49:22.1229099Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 894,
+        "text": "2026-10-16T13:50:43.5791314Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      }
+    ],
+    "unexpectedMarkers": [
+      {
+        "file": "0_ci-gate.txt",
+        "line": 62,
+        "text": "2026-10-16T13:55:44.9314914Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "ci-gate/2_Require Windows quality, browser, package and service checks to succeed.txt",
+        "line": 32,
+        "text": "2026-10-16T13:55:44.9314895Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "3_Windows productivity browsers.txt",
+        "line": 492,
+        "text": "2026-10-16T13:49:38.8583294Z     Error: expect(locator).toBeVisible() failed"
+      },
+      {
+        "file": "3_Windows productivity browsers.txt",
+        "line": 497,
+        "text": "2026-10-16T13:49:38.8585327Z     Error: element(s) not found"
+      },
+      {
+        "file": "3_Windows productivity browsers.txt",
+        "line": 533,
+        "text": "2026-10-16T13:49:38.8647914Z     Error: expect(received).toBe(expected) // Object.is equality"
+      },
+      {
+        "file": "3_Windows productivity browsers.txt",
+        "line": 573,
+        "text": "2026-10-16T13:49:38.9040417Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "3_Windows productivity browsers.txt",
+        "line": 725,
+        "text": "2026-10-16T13:49:39.3158474Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "Windows productivity browsers/10_Offline browser regression.txt",
+        "line": 90,
+        "text": "2026-10-16T13:49:38.8583288Z     Error: expect(locator).toBeVisible() failed"
+      },
+      {
+        "file": "Windows productivity browsers/10_Offline browser regression.txt",
+        "line": 95,
+        "text": "2026-10-16T13:49:38.8585322Z     Error: element(s) not found"
+      },
+      {
+        "file": "Windows productivity browsers/10_Offline browser regression.txt",
+        "line": 131,
+        "text": "2026-10-16T13:49:38.8647911Z     Error: expect(received).toBe(expected) // Object.is equality"
+      },
+      {
+        "file": "Windows productivity browsers/10_Offline browser regression.txt",
+        "line": 171,
+        "text": "2026-10-16T13:49:38.9040389Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "Windows productivity browsers/15_Validate browser evidence.txt",
+        "line": 152,
+        "text": "2026-10-16T13:49:39.3158447Z ##[error]Process completed with exit code 1."
+      }
+    ],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  },
+  "webkit": {
+    "passed": 28,
+    "failed": 2,
+    "skipped": 0,
+    "retries": 0
+  },
+  "causes": [
+    {
+      "case": "C27",
+      "evidence": "Queued outer drawer scroll arrives after opening; trigger rectangle unchanged: top943,left721,width343,height40. FancySelect closes on every external scroll, so Escape then reaches the parent dialog.",
+      "repair": "Capture opening anchor; ignore scroll notifications that leave its rectangle unchanged, retaining genuine movement close semantics. Add deterministic no-movement event and actual drawer scroll regressions."
+    },
+    {
+      "case": "C30",
+      "evidence": "Page-specific interception registered but POST reached the real internal API and returned200. No403Route.fulfill observed. Service worker ignoresPOST and/api; no service-worker cause established.",
+      "repair": "Exact same-origin POST fetch fixture returns a real Response403. Assert one call, one JSON read, authorization presence without token logging, no-store, UUID, revision/scope/policy envelope, editor draft wipe, readableTask and serverSeries unchanged; restore and reopen original draft."
+    }
+  ],
+  "unchangedRerun": false,
+  "allAssertionsPreserved": true,
+  "windowsRepairAcceptance": "pending new source SHA",
+  "server2019Acceptance": "not-run",
+  "fullMasterPlanAccepted": false,
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "qualityRaw": [
+    {
+      "artifact": "windows-node24-481700caf96715ca39847e40f824461ff067891f-1",
+      "tests": 5344,
+      "files": 292,
+      "jsonSha256": "6c4e5fa8a6127d915392f3143418a83201d4d26e81d0fbd81aa6723103fb6c16"
+    },
+    {
+      "artifact": "windows-node22-481700caf96715ca39847e40f824461ff067891f-1",
+      "tests": 5344,
+      "files": 292,
+      "jsonSha256": "f5687fdb4f25050bf4448d8427bc2a3e3656eda4e6b6c465b0da29ddd85f3312"
+    }
+  ],
+  "browserRaw": [
+    {
+      "path": "windows-productivity-browsers-481700caf96715ca39847e40f824461ff067891f-1/productivity-shards/webkit/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T13:41:08.210Z",
+        "duration": 509640.42799999996,
+        "expected": 28,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "jsonSha256": "e51bcb602a77a61e0b1101442b589402f67b2109fb199470314c2e79b6498bdb"
+    },
+    {
+      "path": "windows-browsers-481700caf96715ca39847e40f824461ff067891f-1/productivity-shards/firefox/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T13:50:34.738Z",
+        "duration": 277096.88899999997,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "jsonSha256": "d658d71f4bf4d18d5aa966ab7de2f27b87e3f8a65c5493972ca539a64851b9cd"
+    },
+    {
+      "path": "windows-node24-481700caf96715ca39847e40f824461ff067891f-1/productivity-shards/chromium/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T13:51:31.243Z",
+        "duration": 229802.73299999998,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "jsonSha256": "9000660bfbd0f05769a67d280c3a74f0cbd053e1627d73d7f2dd2309cc387f3e"
+    }
+  ]
+}

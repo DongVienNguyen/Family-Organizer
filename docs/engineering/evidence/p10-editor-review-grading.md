@@ -1,0 +1,9 @@
+# P10-d4b review grading
+
+All0 Critical/3 Important/2 Minor findings graded before corrections. Accept I1,I2,I3 and reproduce them before one combined correction pass. M1 deferred to P10/P17 UX before rollout; M2 to controlled legacy cutover. No declines. No fresh/independent review is claimed; the whole-branch review is local. No rereview.
+
+I3 already has two actual Chromium RED cases after successful create; all26 original flows passed. Add independent UI diagnostic cases for I1/I2 so the collapse does not mask their boundaries. Final acceptance must still execute every original/new browser case with no retries/skips and strict raw provenance; targeted diagnostics are not acceptance.
+
+One correction pass applied after actual C29/C30 diagnostics both failed at the intended explicit-next-deadline and authority-clear boundaries; cache expansion also failed21/1 before its correction. Corrected targeted182 tests/eight files passed. Corrected C29/C30 diagnostics passed2/2, and native touch passed1/1. These targeted browser diagnostics are not the full browser acceptance inventory. Full Chromium30 and corrected full Cloud/JUnit are running; exact-HEAD Windows remains unrun for editor. No Critical/Important finding is left knowingly unfixed, but acceptance awaits those checks. No rereview.
+
+Acceptance-validation follow-up (not rereview): preserved C27/C28 assertions exposed the shared selector geometry and unnamed-confirm boundaries; an extended C29 pinned I1 exhausted-count behavior. All3 validation items graded before their repair, recorded separately. Target188/8 passed; full corrected Cloud5344/292/JUnit, lint/build0 and complete Chromium30+touch1 passed. MinorM1/M2 remain explicitly deferred. Windows/editor PR and current main127 raw verification remain blocked by invalid GitHub credential; no Windows acceptance is claimed.
