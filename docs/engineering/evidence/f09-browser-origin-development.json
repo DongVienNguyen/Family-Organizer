@@ -1,0 +1,326 @@
+{
+  "taskId": "F09-browser-origin",
+  "baseSha": "37a9a8ef49985b519d389517cc88ad85f16421be",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/111",
+  "scope": "shared serializable external-origin routing fixture; all old browser-error/function assertions retained",
+  "cloudGreen": {
+    "tests": 4467,
+    "passed": 4467,
+    "files": 248,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4467,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux",
+    "notBrowserSuiteAcceptance": true
+  },
+  "expectedWindowsQuality": {
+    "tests": 4467,
+    "files": 248
+  },
+  "review": {
+    "task": "F09-browser-origin",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceParent": "c7397c6c6bfe1149f769b87633ea7c499b30482a",
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "11483b7b295db64245fdac4319be37d83e6906f772a3b670089b3008ecb94f9e",
+      "tests/browser-network-boundary.test.ts": "3f27367eba444e9d8d89730f48b24336b9f87132059719a518a91229d28d9984",
+      "tests/e2e/foundation.spec.ts": "18325951e3edce628b709bafb370d830296cb5c0cbb2623af93d75c5ca3180a8",
+      "tests/e2e/matrix-touch.spec.ts": "0cc72e12a972eca6b3867edd4643eddb129b6dbcf961f0c70be64ba09730b3e5",
+      "tests/e2e/offline-network-boundary.ts": "26a946ac5a337aadd6787ea89447439dd6cb43d0a4c5db1271e2ba5366328d71",
+      "tests/e2e/productivity.spec.ts": "7f4701bade97e2195df50fa04ea656f0dae916803f79aa2f4834035aa1526959",
+      "tests/evidence.test.ts": "dd888d859ce125407e9da0f7438e6cf303e8de271959ee174b2940a4c9fc5470"
+    },
+    "focus": [
+      "exact owned IPv4 loopback origin including port; invalid/credentialed/path/query base rejected before routing",
+      "internal requests never enter driver routing/continuation during reload",
+      "HTTPS font requests fulfilled offline; every other foreign origin aborted and recorded without query credentials",
+      "all original348+199+24browser assertion expressions retained by independent TypeScript syntax proof",
+      "existing pageerror errors[]assertions unchanged; extra explicit external[]assertions inProductivity/touch",
+      "all45legacy/57Prod/1touchcases andno retries/deadlines unchanged",
+      "mandatory13newunitcases+omission regression; helpertype-onlyPlaywrightimport hasno browserlaunch/runtimeapp change"
+    ],
+    "assertionPreservation": {
+      "sourceParent": "c7397c6c6bfe1149f769b87633ea7c499b30482a",
+      "syntaxOnly": true,
+      "allExistingAssertionsRetained": true,
+      "results": [
+        {
+          "path": "tests/e2e/foundation.spec.ts",
+          "existingAssertionsRetained": 348,
+          "totalAssertions": 348,
+          "additionalAssertions": 0,
+          "beforeSha256": "8c4d2ae1a55a0b4d0f25ba63174509866469d07bd5f21ef0f64b2e7b28b7d384",
+          "afterSha256": "18325951e3edce628b709bafb370d830296cb5c0cbb2623af93d75c5ca3180a8"
+        },
+        {
+          "path": "tests/e2e/productivity.spec.ts",
+          "existingAssertionsRetained": 199,
+          "totalAssertions": 200,
+          "additionalAssertions": 1,
+          "beforeSha256": "37007acb2aa896e0357e53f8916771a3b34a93af5f1c9c629d210b3880ffa06f",
+          "afterSha256": "7f4701bade97e2195df50fa04ea656f0dae916803f79aa2f4834035aa1526959"
+        },
+        {
+          "path": "tests/e2e/matrix-touch.spec.ts",
+          "existingAssertionsRetained": 24,
+          "totalAssertions": 25,
+          "additionalAssertions": 1,
+          "beforeSha256": "9b156f435ac57f88b5a1a3cb258cdacc260bbba6088793107a85547849de27f3",
+          "afterSha256": "0cc72e12a972eca6b3867edd4643eddb129b6dbcf961f0c70be64ba09730b3e5"
+        }
+      ],
+      "noMessageFiltersAdded": true,
+      "noRetriesOrDeadlineChanges": true,
+      "notBrowserPass": true
+    },
+    "remaining": [
+      "trace shows correlation/architecturehazard; sole engine cause not claimed",
+      "full Cloud browsers inprogress and actualWindows native103firstattempt required",
+      "candidateparentPR110 notyetaccepted; do notpublishdependentPRyet",
+      "fullmaster/P08/P09/P10/laterP/W/I/R02 unfinished; no release/tag/VPS"
+    ],
+    "allFindingsGradedBeforeCorrection": true,
+    "importantRemaining": 0,
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Playwright1.64 function matchers serialize to catch-all glob, so an origin predicate alone does not remove owned-request client routing/continuation RPC",
+        "decision": "Use a serializable negative-origin RegExp; assert this in the unit fixture. Keep all571existingexpectexpressions. Document that WebKit still enables engine-wide interception and server fallback; sole engine cause is not proven."
+      }
+    ],
+    "driverSourceEvidence": {
+      "playwrightVersion": "1.64.0",
+      "bundleSha256": "2325ca4c1c83070e89dc49fb82525508f0a68e0cf12e2a624277968da216b7e0",
+      "observations": [
+        "serializeURLMatch returns regexSource/regexFlags for RegExp and undefined for functions",
+        "RouteHandler.prepareInterceptionPatterns uses glob**/* when serialization is unavailable",
+        "server dispatcher filters serialized patterns before emitting route to test client; unmatched server fallback still continues the request",
+        "WebKit updateRequestInterception enables Network interception globally, irrespective of serialized matcher"
+      ],
+      "sourceLines": [
+        4974,
+        61625,
+        55622,
+        48797
+      ]
+    },
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "11483b7b295db64245fdac4319be37d83e6906f772a3b670089b3008ecb94f9e",
+      "tests/browser-network-boundary.test.ts": "901f5ed6ae0b424a3d3b4cbe2601639fc3cbd2e4e9605e188140da0aee438699",
+      "tests/e2e/foundation.spec.ts": "18325951e3edce628b709bafb370d830296cb5c0cbb2623af93d75c5ca3180a8",
+      "tests/e2e/matrix-touch.spec.ts": "0cc72e12a972eca6b3867edd4643eddb129b6dbcf961f0c70be64ba09730b3e5",
+      "tests/e2e/offline-network-boundary.ts": "eacca7883bb5440c474b0dc867add6663b1180663f731640aa9fc8f570ab69ee",
+      "tests/e2e/productivity.spec.ts": "7f4701bade97e2195df50fa04ea656f0dae916803f79aa2f4834035aa1526959",
+      "tests/evidence.test.ts": "dd888d859ce125407e9da0f7438e6cf303e8de271959ee174b2940a4c9fc5470"
+    },
+    "correctionVerification": {
+      "red": {
+        "tests": 13,
+        "passed": 12,
+        "failed": 1,
+        "case": "serializable matcher must be RegExp; function becomes catch-all driver pattern"
+      },
+      "green": {
+        "tests": 303,
+        "passed": 303,
+        "files": 2
+      },
+      "rereview": false
+    },
+    "cloudBrowserDiagnostic": {
+      "sourceShaBeforeCorrection": "610bf96f0305940ad897ab93721e60806a201d91",
+      "platform": "linux",
+      "chromiumPassed": 15,
+      "firefoxLaunchFailedMissingBinary": true,
+      "webkitLaunchFailedMissingBinary": true,
+      "autoNotRunAfterLaunchFailures": 28,
+      "fullSuiteAccepted": false,
+      "notCurrentRegexProof": true,
+      "reportsPreserved": "/workspace/family-evidence/browser-origin-cloud-partial-reports"
+    }
+  },
+  "composition": {
+    "parentCandidateSha": "039dd06d34e6fffeb229dbc56646da651bfbf8d5",
+    "parentAcceptance": "PR110 accepted after CI38840473361/all8/11raw/both4453/247/132logs23942/0unexpected",
+    "mergeSha": "6d3b8333e7a287225374663b684ddf6a208a8e2c",
+    "automaticMergeNoConflicts": true,
+    "reviewedF09SourceUnchanged": true,
+    "expectedQuality": {
+      "tests": 4467,
+      "files": 248
+    },
+    "assertionPreservation": "all571original+2newexternalassertions, no message filters/retries/deadline changes",
+    "acceptedMainSha": "37a9a8ef49985b519d389517cc88ad85f16421be",
+    "acceptedMainTreeEqualsCandidate": true,
+    "entireTreeUnchanged": true,
+    "beforeTree": "673b56ef62cea074e9436f1c18b59af1b23f8982",
+    "afterTree": "673b56ef62cea074e9436f1c18b59af1b23f8982",
+    "historyComposition": "ours only after proving accepted main tree equals included candidate and candidate is ancestor"
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "11483b7b295db64245fdac4319be37d83e6906f772a3b670089b3008ecb94f9e",
+      "tests/browser-network-boundary.test.ts": "901f5ed6ae0b424a3d3b4cbe2601639fc3cbd2e4e9605e188140da0aee438699",
+      "tests/e2e/foundation.spec.ts": "18325951e3edce628b709bafb370d830296cb5c0cbb2623af93d75c5ca3180a8",
+      "tests/e2e/matrix-touch.spec.ts": "0cc72e12a972eca6b3867edd4643eddb129b6dbcf961f0c70be64ba09730b3e5",
+      "tests/e2e/offline-network-boundary.ts": "eacca7883bb5440c474b0dc867add6663b1180663f731640aa9fc8f570ab69ee",
+      "tests/e2e/productivity.spec.ts": "7f4701bade97e2195df50fa04ea656f0dae916803f79aa2f4834035aa1526959",
+      "tests/evidence.test.ts": "dd888d859ce125407e9da0f7438e6cf303e8de271959ee174b2940a4c9fc5470"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "222c116f47d654f0e214e39428a508c0c295ecdcab6e9808a6e7876d9d493682",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "browser-origin-full.json": "2c14e07cd028a6f9cbc7128562625792c6dfedd5794b07800f3e6733209fdf2d",
+      "browser-origin-full.junit.xml": "d48a6679f37f74e559fff3923395624469332683b0f64dd7930a1aad0b14d287",
+      "browser-origin-full.log": "323cab37eeaff963bde0731a7227065c8317890291031881262d37cb36b45830",
+      "browser-origin-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "browser-origin-build.log": "5344e320465b428404f8817d475b4ea6a700bd8b6fccc97570be784796c11b33"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/11raw/103browserfirstattempt/full logs"
+  },
+  "reports": [
+    {
+      "file": "browser-origin-full.json",
+      "sha256": "2c14e07cd028a6f9cbc7128562625792c6dfedd5794b07800f3e6733209fdf2d",
+      "tests": 4467,
+      "passed": 4467,
+      "failed": 0,
+      "files": 248
+    },
+    {
+      "file": "browser-origin-gate-red.json",
+      "sha256": "693ae9fe16df0cee09f352de9f8b4c36cff006eaeedf54dd47d09ceb46ed2b41",
+      "tests": 290,
+      "passed": 289,
+      "failed": 1,
+      "files": 1
+    },
+    {
+      "file": "browser-origin-green-first.json",
+      "sha256": "846aceeadcf8ae6636db4bd56ddb2b29893f6b5da1f666fc483fb8e6b24fd2e3",
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "browser-origin-red.json",
+      "sha256": "75a7c611eb196f12a63008550ce6a1071ee7aa89ed409c8be2053cc0f93f6334",
+      "tests": 13,
+      "passed": 0,
+      "failed": 13,
+      "files": 1
+    },
+    {
+      "file": "browser-origin-serializable-green.json",
+      "sha256": "eb59f87af773d270a5d85b039234c525f8cf5a6ee658f800240a4bedea63d845",
+      "tests": 303,
+      "passed": 303,
+      "failed": 0,
+      "files": 2
+    },
+    {
+      "file": "browser-origin-serializable-red.json",
+      "sha256": "5fbb81b7469157718407ab1a7960173d66d86e8f6705fd9cf2adb9b5ab8d9058",
+      "tests": 13,
+      "passed": 12,
+      "failed": 1,
+      "files": 1
+    },
+    {
+      "file": "browser-origin-target-green.json",
+      "sha256": "647e394e91485e68244de73bebde9fb4603b56b422879aaf2727c05faba7310b",
+      "tests": 303,
+      "passed": 303,
+      "failed": 0,
+      "files": 2
+    }
+  ],
+  "assertionPreservation": {
+    "sourceParent": "c7397c6c6bfe1149f769b87633ea7c499b30482a",
+    "syntaxOnly": true,
+    "allExistingAssertionsRetained": true,
+    "results": [
+      {
+        "path": "tests/e2e/foundation.spec.ts",
+        "existingAssertionsRetained": 348,
+        "totalAssertions": 348,
+        "additionalAssertions": 0,
+        "beforeSha256": "8c4d2ae1a55a0b4d0f25ba63174509866469d07bd5f21ef0f64b2e7b28b7d384",
+        "afterSha256": "18325951e3edce628b709bafb370d830296cb5c0cbb2623af93d75c5ca3180a8"
+      },
+      {
+        "path": "tests/e2e/productivity.spec.ts",
+        "existingAssertionsRetained": 199,
+        "totalAssertions": 200,
+        "additionalAssertions": 1,
+        "beforeSha256": "37007acb2aa896e0357e53f8916771a3b34a93af5f1c9c629d210b3880ffa06f",
+        "afterSha256": "7f4701bade97e2195df50fa04ea656f0dae916803f79aa2f4834035aa1526959"
+      },
+      {
+        "path": "tests/e2e/matrix-touch.spec.ts",
+        "existingAssertionsRetained": 24,
+        "totalAssertions": 25,
+        "additionalAssertions": 1,
+        "beforeSha256": "9b156f435ac57f88b5a1a3cb258cdacc260bbba6088793107a85547849de27f3",
+        "afterSha256": "0cc72e12a972eca6b3867edd4643eddb129b6dbcf961f0c70be64ba09730b3e5"
+      }
+    ],
+    "noMessageFiltersAdded": true,
+    "noRetriesOrDeadlineChanges": true,
+    "notBrowserPass": true
+  },
+  "cloudBrowserPreCorrection": {
+    "sourceShaBeforeCorrection": "610bf96f0305940ad897ab93721e60806a201d91",
+    "platform": "linux",
+    "chromiumPassed": 15,
+    "firefoxLaunchFailedMissingBinary": true,
+    "webkitLaunchFailedMissingBinary": true,
+    "autoNotRunAfterLaunchFailures": 28,
+    "fullSuiteAccepted": false,
+    "notCurrentRegexProof": true,
+    "reportsPreserved": "/workspace/family-evidence/browser-origin-cloud-partial-reports"
+  },
+  "redRulings": {
+    "boundary": {
+      "tests": 13,
+      "passed": 0,
+      "failed": 13
+    },
+    "mandatoryGate": {
+      "tests": 290,
+      "passed": 289,
+      "failed": 1
+    },
+    "serializationGuard": {
+      "tests": 13,
+      "passed": 12,
+      "failed": 1
+    }
+  },
+  "remaining": [
+    "trace shows correlation/architecturehazard; sole engine cause not claimed",
+    "full Cloud browsers inprogress and actualWindows native103firstattempt required",
+    "candidateparentPR110 notyetaccepted; do notpublishdependentPRyet",
+    "fullmaster/P08/P09/P10/laterP/W/I/R02 unfinished; no release/tag/VPS"
+  ],
+  "applicationRuntimeChanged": false,
+  "dependencyOrDefaultActivationChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}

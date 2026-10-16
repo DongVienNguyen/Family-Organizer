@@ -1,0 +1,131 @@
+{
+  "taskId": "F08-current23-live-candidate",
+  "workflowSourceSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38841058678",
+  "explicitTargetSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38838276184",
+  "archives": 8,
+  "qualityEach": 4431,
+  "qualityFilesEach": 246,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "nativeTouchFirstAttempt": 1,
+  "generatedFixtures": [
+    {
+      "sourcePath": "scripts/ci/write-productivity-fixture.ts",
+      "path": "productivity-fixture.json",
+      "sourceSha256": "d6089e192d0d3c16449e9d59b46899f9f6b17a4194db04d83ba46e7a7e345cd1",
+      "format": 1,
+      "version": 6,
+      "rows": 87,
+      "sha256": "f1507e9bca9b50f09fcec7cf66c0bb471f5fea0f8a236773df1a8af93f5f721d"
+    },
+    {
+      "sourcePath": "scripts/ci/write-board-package-fixture.ts",
+      "path": "board-fixture.json",
+      "sourceSha256": "3f9c7acc55d4c538b94f7cc8ba8540c7706a835a951db90bcc9aef0d2a6ee512",
+      "format": 1,
+      "version": 9,
+      "rows": 135,
+      "sha256": "4791b6b5bf05a69d7ac4c03dce3dd2ad44e1a05197ed0f9712d6a4856fa4abd2"
+    },
+    {
+      "sourcePath": "scripts/ci/write-wallet-fixture.ts",
+      "path": "wallet-fixture.json",
+      "sourceSha256": "9f708f553f9476b129640a9805efb42a73411197cdc94271f5d9297e54292b8f",
+      "format": 1,
+      "version": 1,
+      "rows": 5,
+      "sha256": "b6f8fa5cda3a5faf00885c07f922b25b954f6c50f8fb9dd640ba3eed99b72f7c"
+    }
+  ],
+  "boardPackagePolicy": {
+    "checks": [
+      "exact-bundled-node-addon",
+      "explicit9-fixture-identity",
+      "current9-http-config-and-reference",
+      "canonical-hard-wip-no-task-write",
+      "child-private-task-exclusion",
+      "ordinary9-snapshot-restore",
+      "credential-reentry-preserves-ids",
+      "encrypted9-independent-restore",
+      "wallet-matrix-board-references-preserved",
+      "old7-no-auto-upgrade",
+      "old7-refusal-preserves-bytes",
+      "future10-refusal-preserves-bytes",
+      "index-refusal-preserves-bytes",
+      "offline-handles-cleanup",
+      "private-safe-board-http-projection",
+      "transactional-board-move-and-audit",
+      "canonical-column-layout-and-archive",
+      "normalized-private-safe-grouped-board",
+      "selected-dimension-grouped-board-move",
+      "old8-no-auto-upgrade",
+      "old8-refusal-preserves-bytes",
+      "semantic9-multi-tag-view-and-moves",
+      "semantic9-grouped-rank-metadata"
+    ],
+    "groupedRanks": true,
+    "contractSha256": "a563d5f943a3849bdf91dff7bc5c173bb9361c8c6c6a103cfd1bfd6245af2109"
+  },
+  "nativeBoardChecks": 23,
+  "strictHttpClockIntervals": 28,
+  "archiveBytes": 67058543,
+  "expandedBytes": 121099022,
+  "receiptHashes": {
+    "release-metadata.json": "d282d0aad25f2d29873d2f2170f0ee34d16a1c1b26bdd4fed1505a204e1062b4",
+    "release-archives.json": "fae1bc2b978e71f58ceededeb070f050d600b24d10161ee5471a221a11e3acc5",
+    "release-report-preflight.json": "ab105a951e383766b99a5852f91fe8f2b277173c4389a691ba6be4311ed70eda",
+    "release-evidence.json": "fa4177b0377c4048307d5759e20a6f6acd97258a3e7d7bde4a950bea3c37470d",
+    "candidate-handoff.json": "7bc81e26d199230084f33de4b262a351b5d009e603191acd85a87ee2f14488ab"
+  },
+  "reportsVerified": true,
+  "consumerFunctionalVerified": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "handoff": {
+    "format": 1,
+    "kind": "publication-disabled-candidate-handoff",
+    "request": {
+      "repository": "DongVienNguyen/Family-Organizer",
+      "commitSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+      "version": "1.1.0",
+      "tag": "v1.1.0",
+      "runId": 38838276184
+    },
+    "package": {
+      "commitSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+      "appVersion": "1.1.0",
+      "zipSha256": "8eaf2f84eab108c6f86a334a5b5ef0d493b7a8763fa50fea26e60c46d6e9b3a3",
+      "zipSize": 54756949,
+      "manifestSha256": "003e3406ad9f1771f3b266f0829ce2af4bcbb684f9fcda7565ab8f493aa46d6c"
+    },
+    "assets": {
+      "zip": {
+        "name": "family-organizer-1.1.0-f41081aa77ddfb6533a4e746fb148d9c0031ca96-win-x64.zip",
+        "sha256": "8eaf2f84eab108c6f86a334a5b5ef0d493b7a8763fa50fea26e60c46d6e9b3a3",
+        "bytes": 54756949
+      },
+      "manifest": {
+        "name": "release-manifest.json",
+        "sha256": "003e3406ad9f1771f3b266f0829ce2af4bcbb684f9fcda7565ab8f493aa46d6c"
+      }
+    },
+    "candidatePublication": "blocked-source-lock",
+    "promotion": "blocked-source-lock-and-actual-server2019-acceptance",
+    "publicationAllowed": false,
+    "releaseCreated": false,
+    "tagCreated": false,
+    "server2019Acceptance": "not-run"
+  },
+  "fullMasterAccepted": false,
+  "fullWorkflowLogSha256": "18862e092c48e804e9cf46b06645339ea3770be1dbf7fae7359d678be719ae90",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 13,
+    "lines": 792,
+    "fullWorkflowLogSha256": "18862e092c48e804e9cf46b06645339ea3770be1dbf7fae7359d678be719ae90",
+    "unexpectedMarkers": []
+  },
+  "verifierWriterRuling": "Initial local log-reader calls lacked the downloaded ZIP and used a legacy summary filename. Downloaded the logs and corrected only the local writer name, then reread the same immutable runs. All CI and report assertions already passed; no CI/test retry."
+}
