@@ -1,5 +1,5 @@
 import {isDeepStrictEqual} from 'node:util';
-export const productivityFixtureVersion=12;
+export const productivityFixtureVersion=13;
 export const productivityBrowserShardFormat=1;
 import {validateProductivityShards} from './productivity-shard-contract.mjs';
 import {validateMatrixTouchReports} from './matrix-touch-contract.mjs';
@@ -35,6 +35,8 @@ export const productivityBrowserCases=[
  'P10 C28 completion-based skip requires explicit deadline and keeps stopped proof without points or rotation',
  'P10 C29 an existing current deadline cannot silently become the next deadline of a first completion-based skip',
  'P10 C30 denied series authority removes only its private editor draft while retaining the readable Task',
+ 'P10 C31 explicit legacy conversion preserves pending proof family history and exactly-once approval',
+ 'P10 C32 denied legacy conversion erases only recurrence metadata and retains unsent Task inputs',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports(input),...validateProductivityShards(input,productivityBrowserCases)];

@@ -1,6 +1,6 @@
 # Controlled legacy recurrence cutover — P10-d4c backend
 
-This is an explicit administrator pilot operation, not startup migration or production rollout. Default Productivity migration remains6. Frozen1–12 migrations/checksums/DDL stay unchanged; explicit13 adds `productivity_legacy_cutovers`. Full P10, the cutover UI and exact Windows qualification are still pending at this development checkpoint. The accepted editor parent isPR128/main4c241d6; backend fullCloud5348/295 and post-composition288/16/matchingJUnit/native0/lint/build0 are recorded in the accompanying development evidence.
+This is an explicit administrator pilot operation, not startup migration or production rollout. Default Productivity migration remains6. Frozen1–12 migrations/checksums/DDL stay unchanged; explicit13 adds `productivity_legacy_cutovers`. Backend PR129 is accepted at160d45750c639d0ce053d119678aeb35572e2a0a (Windows38924197212), merged as5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77. Each Node22/24 passed5387tests/297files with matchingJUnit; all8checks/11raw families and136first-attempt browser/touch cases passed. The controlled client/UI slice is in development. Full P10 and actual13 Windows ZIP qualification remain incomplete.
 
 The operator must first enable the complete pilot migration chain in a disposable synthetic installation. The runtime admits an already migrated13 installation without applying13 to older storage. Unknown14, checksum mismatch and drifted DDL fail closed. No release/tag, real family conversion, VPS or Server2019 qualification is authorized here.
 
@@ -31,3 +31,39 @@ The registry stores the original root, selected Task, series, actor and a bounde
 Development tests exercise real SQLite transactions/HTTP and separately compiled Node processes: encrypted restore, pending proof, UUID replay, approval once, Wallet int64 extremes, closed handles, old12 remaining12/refusing a13 replacement, unknown14, DDL drift, semantic damage and encrypted repair. No test sends a provider notification or uses production credentials/data. Reports, causal RED→GREEN histories, exact tested source hashes and Windows URLs belong in the accompanying evidence/status records; a Cloud test or build alone is not Windows acceptance.
 
 The Windows ZIP package harness currently qualifies its documented earlier pilot fixture. This backend13 test is not a claim that an actual13 release ZIP or Windows Server2019 has been accepted. Extend package/rollout evidence before production use.
+
+## Controlled editor (development; Windows qualification pending)
+
+The shared Task drawer identifies an old recurrence type, a historical source link
+or a known descendant. A current administrator reads a private family preview;
+ordinary new Tasks retain the existing series editor. “Inspect old recurrence”
+allows explicit discovery when only retained historical linkage is available.
+The preview makes no writes and is never stored in the drawer draft cache.
+
+Conversion reuses the existing policy controls. The anchor starts empty, separately
+from the current Task due date. The user must explicitly select missed handling,
+confirm the new policy/anchor and acknowledge any other open family Tasks. A
+completion-based policy may explicitly start without an anchor. Changing policy
+or anchor clears the policy acknowledgement. The existing owned confirmation
+modal allows cancellation with no writes. Pending child work may be converted
+without accepting it; ordinary series edits still refuse pending work.
+
+A coherent historical family with every old generator already disabled is also
+eligible. It contains at least two linked Tasks; conversion changes no Task rows,
+but records the same provenance and starts one series with acceptedCount0. A
+single ordinary nonrecurring Task still uses ordinary series creation. Recovery
+validates family connectivity and complete membership in both cases. No DDL or
+migration checksum changes are needed for this eligibility correction.
+
+Commands use the existing session, native no-store reads and caller-owned UUID;
+there is no automatic retry or offline mutation queue. An authority refusal clears
+only recurrence metadata/draft, preserving the readable Task and unsent comment,
+checklist and subtask inputs. Refreshing/reopening requires a current authorized
+preview. All labels are provided in Vietnamese, English and Chinese.
+
+The explicit browser-only fixture advances from12 to13 without changing the
+original39Task rows, two boards or nine saved views. New synthetic families are
+created through retained app routes after the previous30browser cases. Both new
+flows must pass independently in Chromium, Firefox and WebKit; previous90flows,
+45legacy cases and native touch remain mandatory. This fixture does not advance
+default production storage or qualify an actual13 Windows ZIP.

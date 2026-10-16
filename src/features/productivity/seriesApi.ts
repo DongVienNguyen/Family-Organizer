@@ -23,7 +23,7 @@ function legacyPreview(value:unknown,id:string):LegacyRecurrencePreview {
  const p=object(value);keys(p,['rootTaskId','selectedTaskId','familyTaskIds','disableTaskIds','otherActiveTaskIds','pendingApproval','fingerprint']);text(p.rootTaskId,256);if(p.selectedTaskId!==id||typeof p.pendingApproval!=='boolean'||typeof p.fingerprint!=='string'||! /^[a-f0-9]{64}$/.test(p.fingerprint))throw Error('Invalid legacy recurrence preview');
  for(const name of ['familyTaskIds','disableTaskIds','otherActiveTaskIds'])if(!Array.isArray(p[name])||p[name].length>10000)throw Error('Legacy recurrence family bound');
  const family=ids(p.familyTaskIds),disabled=ids(p.disableTaskIds),others=ids(p.otherActiveTaskIds),members=new Set(family);
- if(!family.length||family.length>10000||!disabled.length||!members.has(p.rootTaskId as string)||!members.has(id)||disabled.some(id=>!members.has(id))||others.some(other=>other===id||!members.has(other)))throw Error('Invalid legacy recurrence family');
+ if(!family.length||family.length>10000||(!disabled.length&&family.length<2)||!members.has(p.rootTaskId as string)||!members.has(id)||disabled.some(id=>!members.has(id))||others.some(other=>other===id||!members.has(other)))throw Error('Invalid legacy recurrence family');
  return {...p,familyTaskIds:family,disableTaskIds:disabled,otherActiveTaskIds:others}as LegacyRecurrencePreview;
 }
 function legacyInput(input:LegacyRecurrenceInput):LegacyRecurrenceInput {

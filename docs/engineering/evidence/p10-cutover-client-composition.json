@@ -1,0 +1,18 @@
+{
+  "parentSha": "5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77",
+  "browserPrefixSha256": "d230d95cc89a1f49e7b6e69b25db7a0c803f4164aa516dc14078fcd154fb6adf",
+  "original30BrowserBytes": 87492,
+  "original30BrowserPrefixPreserved": true,
+  "migrationDefinitionsAndChecksumsChanged": false,
+  "defaultProductionMigrationChanged": false,
+  "dependenciesChanged": false,
+  "expectedWindowsTestsEach": 5407,
+  "expectedWindowsFilesEach": 297,
+  "expectedFirstAttemptCases": {
+    "legacy": 45,
+    "productivity": 96,
+    "nativeTouch": 1
+  },
+  "actual13ZipQualification": "not-run",
+  "server2019Acceptance": "not-run"
+}

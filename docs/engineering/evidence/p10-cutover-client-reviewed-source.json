@@ -1,0 +1,40 @@
+{
+  "kind": "LOCAL whole-branch SELF review; not independent",
+  "baseSha": "5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77",
+  "developmentHead": "171f41989a12fd30282c3ebdfb7c463ae349526b",
+  "sourceFiles": {
+    "scripts/ci/productivity-browser-contract.mjs": "87c68a002503bab0e29c9753c8258b892ee45829ad33218d756fda41f5f98a1a",
+    "scripts/ci/productivity-shard-contract.mjs": "fc5bf6025690e45fa5f563c926efba60d61d2ae6ce25620b42d9fb9c1089b202",
+    "scripts/ci/run-productivity-browser.mjs": "9ce4c432c886b89b0565448a9848928261cede03c3843d0d74d229e65face77d",
+    "scripts/ci/write-productivity-browser-fixture.ts": "8eec695f6de860d04d91618cb4feaaae3b13a494402bb26a76e34ba5c2f45577",
+    "scripts/windows/release-collector-evidence.mjs": "8bdfc9c6a49b17c4790ccdab65468f9fc3c451598c8fb3698a53b7664f2635af",
+    "scripts/windows/release-productivity-browser-files.mjs": "bf45d23ad606ba4691ab24ed722e0a8ab007c624ac1a9253db6c30885e9c48dc",
+    "scripts/windows/release-productivity-source-policy.mjs": "35fd25c45bf887a6cf44edb7e4757f0b2f518841b3b005b2480450a3e0aeb7cf",
+    "server/productivity/legacy-cutover.test.ts": "bbce64a42b5c0d7b1898e1b08adc0abedba1228fc941778e542fbf1c4904daa9",
+    "server/productivity/legacyCutoverRecord.ts": "6d4e8b3733ef28011eea0098021861dc78003eee9b4c84d06d39ddf484b7ef11",
+    "server/productivity/legacyRecurrenceCutover.ts": "fee86d4162d172dbc81319cb592d4f5599f2982a3d678463d78dbf2e27fe025b",
+    "server/productivity/router.ts": "1f9e88bf45d3da173a641665f8efe085e8a85601885e5d8823275c4e6bd221e3",
+    "src/features/productivity/RecurrenceEditor.tsx": "0bc5f0f2bff23a5a48851770babd48d5ef32431151fdd94b4669c4b8895f21f4",
+    "src/features/productivity/TaskDrawer.tsx": "b78ac9b744fa1eb29c0991e29296b57fb1fa6dd31cea0fe1ba641ddd3c348c63",
+    "src/features/productivity/recurrence-editor-model.test.ts": "7dd26f2cd395f59dbc1d15aaa1adcf67eeb2e88225cc09bb2638153a1a71e4f1",
+    "src/features/productivity/recurrenceEditorModel.ts": "81ffa88008bdb9dd9cb47f1a607ae5f917338d94b9c7f59a2adcce1877e98025",
+    "src/features/productivity/series-api.test.ts": "3dd81a5f66312dc648ebe5b96164da42f6ebafd989378e1c7f5874905b5b123e",
+    "src/features/productivity/seriesApi.ts": "9a3aea133f0716220d753c74a1d920977e8591e7433e6024c6391eae84ad9180",
+    "src/i18n/locales/en.json": "c8db8a57a28016fe4d351b57d2f52849d13b685fdb58545e939d1549a90d6b6d",
+    "src/i18n/locales/vi.json": "7a438d22623f8d36bcec288139baaa83f0593707ba3dea82233d8cc0aa7ff4f9",
+    "src/i18n/locales/zh.json": "0bfbdb3bc306902bb77f60ad95a12b37278c19534fb133c6d78279512471662c",
+    "tests/e2e/productivity.spec.ts": "d90fa4448b755435b47cf3b8bed9df492ae017ee8202555f28a5a37f12e45e90",
+    "tests/helpers/release-productivity-browser-fixture.ts": "88a948042137a5fdca206fc0e4729e25023e78cc2e80a077b79d297ca365ab31",
+    "tests/kanban-browser-fixture.test.ts": "7cd6e51cdceb3bbdd03d07ad92ef9e7deffc746e9da7d2720e0a40d23044e1e4",
+    "tests/legacy-cutover-recovery-native.test.ts": "129d9eca7d20fd6621ed7656ebc249658f0f5b4199ff61c448bf0184b87e1aa7",
+    "tests/productivity-browser-evidence.test.ts": "894efa344df61819e5af5e7dcdf5a7c6db9f4899f2f202eb1f95693d85656fe3",
+    "tests/release-productivity-profile.test.ts": "db41e0596c5dd4eb4fb5dfca91239641178b6fe0e4be3b2e9d30d1de566b70eb"
+  },
+  "findings": {
+    "critical": 0,
+    "important": 1,
+    "minor": 0
+  },
+  "correctionPassesPlanned": 1,
+  "rereview": false
+}

@@ -1727,6 +1727,18 @@
     "invalidTarget": "Choose a valid target. To clear a Task with multiple tags, explicitly choose “Replace all tags”."
   },
   "recurrence": {
+    "legacyInspect": "Inspect old recurrence",
+    "legacyAdmin": "An administrator must preview this old recurring family before conversion.",
+    "legacyExplanation": "The old schedule will stop for the whole family. Tasks, pending proof and points remain; previous completions do not count toward the new schedule.",
+    "legacyAnchor": "New schedule starting anchor",
+    "legacyTime": "New schedule starting time",
+    "legacyExactUtc": "New schedule starting UTC instant",
+    "legacyNoAnchor": "Leave the anchor unset; start from the next accepted completion",
+    "legacyAcknowledge": "I confirm the chosen new policy and starting anchor",
+    "legacyOtherActive": "I acknowledge that {{count}} other open tasks will remain unchanged as ordinary tasks",
+    "legacyConvert": "Convert old recurrence",
+    "legacyConfirm": "Stop the old recurring schedule for the whole family and apply the chosen new policy to this task? Proof, history and points remain. Other open tasks become ordinary tasks.",
+    "legacyRequired": "Choose an explicit policy and starting anchor, and acknowledge other open tasks before conversion.",
     "title": "Recurrence",
     "historySafe": "Keep the history, proof and rewards of resolved occurrences.",
     "scope": "Edit scope",

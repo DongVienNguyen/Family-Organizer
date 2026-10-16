@@ -1,0 +1,234 @@
+{
+  "taskId": "P10-d4c-client",
+  "baseSha": "5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77",
+  "developmentHead": "171f41989a12fd30282c3ebdfb7c463ae349526b",
+  "sourceFiles": {
+    "scripts/ci/productivity-browser-contract.mjs": "87c68a002503bab0e29c9753c8258b892ee45829ad33218d756fda41f5f98a1a",
+    "scripts/ci/productivity-shard-contract.mjs": "fc5bf6025690e45fa5f563c926efba60d61d2ae6ce25620b42d9fb9c1089b202",
+    "scripts/ci/run-productivity-browser.mjs": "9ce4c432c886b89b0565448a9848928261cede03c3843d0d74d229e65face77d",
+    "scripts/ci/write-productivity-browser-fixture.ts": "8eec695f6de860d04d91618cb4feaaae3b13a494402bb26a76e34ba5c2f45577",
+    "scripts/windows/release-collector-evidence.mjs": "8bdfc9c6a49b17c4790ccdab65468f9fc3c451598c8fb3698a53b7664f2635af",
+    "scripts/windows/release-productivity-browser-files.mjs": "bf45d23ad606ba4691ab24ed722e0a8ab007c624ac1a9253db6c30885e9c48dc",
+    "scripts/windows/release-productivity-source-policy.mjs": "35fd25c45bf887a6cf44edb7e4757f0b2f518841b3b005b2480450a3e0aeb7cf",
+    "server/productivity/legacy-cutover.test.ts": "bbce64a42b5c0d7b1898e1b08adc0abedba1228fc941778e542fbf1c4904daa9",
+    "server/productivity/legacyCutoverRecord.ts": "6d4e8b3733ef28011eea0098021861dc78003eee9b4c84d06d39ddf484b7ef11",
+    "server/productivity/legacyRecurrenceCutover.ts": "fee86d4162d172dbc81319cb592d4f5599f2982a3d678463d78dbf2e27fe025b",
+    "server/productivity/router.ts": "1f9e88bf45d3da173a641665f8efe085e8a85601885e5d8823275c4e6bd221e3",
+    "src/features/productivity/RecurrenceEditor.tsx": "273f0a4a963de07e81d9a0d0b29841bed01cfaf941f842a05e8e26eb26e980df",
+    "src/features/productivity/TaskDrawer.tsx": "b78ac9b744fa1eb29c0991e29296b57fb1fa6dd31cea0fe1ba641ddd3c348c63",
+    "src/features/productivity/recurrence-editor-model.test.ts": "7dd26f2cd395f59dbc1d15aaa1adcf67eeb2e88225cc09bb2638153a1a71e4f1",
+    "src/features/productivity/recurrenceEditorModel.ts": "81ffa88008bdb9dd9cb47f1a607ae5f917338d94b9c7f59a2adcce1877e98025",
+    "src/features/productivity/series-api.test.ts": "3dd81a5f66312dc648ebe5b96164da42f6ebafd989378e1c7f5874905b5b123e",
+    "src/features/productivity/seriesApi.ts": "9a3aea133f0716220d753c74a1d920977e8591e7433e6024c6391eae84ad9180",
+    "src/i18n/locales/en.json": "c8db8a57a28016fe4d351b57d2f52849d13b685fdb58545e939d1549a90d6b6d",
+    "src/i18n/locales/vi.json": "7a438d22623f8d36bcec288139baaa83f0593707ba3dea82233d8cc0aa7ff4f9",
+    "src/i18n/locales/zh.json": "0bfbdb3bc306902bb77f60ad95a12b37278c19534fb133c6d78279512471662c",
+    "tests/e2e/productivity.spec.ts": "d90fa4448b755435b47cf3b8bed9df492ae017ee8202555f28a5a37f12e45e90",
+    "tests/helpers/release-productivity-browser-fixture.ts": "88a948042137a5fdca206fc0e4729e25023e78cc2e80a077b79d297ca365ab31",
+    "tests/kanban-browser-fixture.test.ts": "7cd6e51cdceb3bbdd03d07ad92ef9e7deffc746e9da7d2720e0a40d23044e1e4",
+    "tests/legacy-cutover-recovery-native.test.ts": "129d9eca7d20fd6621ed7656ebc249658f0f5b4199ff61c448bf0184b87e1aa7",
+    "tests/productivity-browser-evidence.test.ts": "894efa344df61819e5af5e7dcdf5a7c6db9f4899f2f202eb1f95693d85656fe3",
+    "tests/release-productivity-profile.test.ts": "db41e0596c5dd4eb4fb5dfca91239641178b6fe0e4be3b2e9d30d1de566b70eb"
+  },
+  "wholeBranchReview": {
+    "mode": "LOCAL SELF; not independent",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "correctionPasses": 1,
+    "rereview": false,
+    "correctionFiles": [
+      "src/features/productivity/RecurrenceEditor.tsx"
+    ],
+    "finding": "I1 late legacy metadata attaches empty conversion draft without erasing original policy/comment"
+  },
+  "cloud": {
+    "tests": 5407,
+    "files": 297,
+    "failed": 0,
+    "skipped": 0,
+    "junitMatched": true,
+    "nativeExits": {
+      "tests": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "chromium": 32,
+    "nativeTouch": 1,
+    "firefox": "not-run for this slice: host launch failure already preserved; Windows mandatory",
+    "webkit": "not-run in Cloud; Windows mandatory",
+    "fixtureVersion": 13,
+    "productionBuild": {
+      "serverSha256": "4f661a36c35cbc1e27ffa4ab10f6f800418d8c7ea09c91ebb4c053d6c21b2a52",
+      "indexSha256": "7f806fbc38b3d8e0b714373fb6d924b83c3c35ef47a4fb0c2826913839aaa7cd"
+    },
+    "browserFirstAttempts": [
+      "P04 C01 shared drawer keeps no-date/none and dirty draft across close and view changes",
+      "P04 C02 drawer keyboard popup Escape preserves dialog and phone layout has no overflow",
+      "P04 C03 actual checklist/subtask/personal pin preserve root identity and no reward side effect",
+      "P04 C04 child has no private member rows and logout clears the shared draft",
+      "P04 C05 delayed checklist read cannot delete existing items",
+      "P04 C06 conflict reload reads the current authorized server revision",
+      "P04 C07 retained board refuses opening while authorization refresh is pending",
+      "P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh",
+      "P04 C09 inactive bootstrap keeps legacy workspace without canonical requests",
+      "P04 C10 active workspace survives reload and clears drafts across actor switches",
+      "P05 C11 smart views retain the shared task identity and unsaved drawer draft",
+      "P05 C12 Vietnamese tag any-all saved filters survive reload with the same task IDs",
+      "P05 C13 Trash detail is readonly with Escape focus and no private child hits",
+      "P05 C14 GlobalSearch opens the same canonical task with normalized Vietnamese text",
+      "P05 C15 completed windows7-30-90-all use real canonical rows on phone and dark theme",
+      "P07 C16 keyboard preview cancel apply and private pin reset retain one canonical task and deadline",
+      "P07 C17 custom rule preview overlap unmatched saved config conflict and preset changes never edit tasks",
+      "P07 C18 pointer deadline preview stale SSE and shared drawer draft survive phone dark reduced motion",
+      "P07 C19 custom choices require a fresh preview and Escape restores the keyboard trigger",
+      "P09 C20 canonical and multi-tag Kanban share drawer drafts across saved boards",
+      "P09 C21 actor switch clears private Kanban rows and keeps workflow read-only",
+      "P09 C22 keyboard section preview cancel apply preserves canonical draft lifecycle deadline and rewards",
+      "P09 C23 authorization refresh discards a held section preview without any late apply",
+      "P09 C24 tag projection preview cancel apply preserves other tags draft and canonical lifecycle",
+      "P09 C25 non-rank grouped priority assignee and explicit all-day due moves change only their selected field",
+      "P09 C26 all-tags add and replace require fresh previews and preserve canonical deadline lifecycle and rewards",
+      "P10 C27 recurrence editor creates previews and edits one virtual slot while retaining a keyboard phone draft",
+      "P10 C28 completion-based skip requires explicit deadline and keeps stopped proof without points or rotation",
+      "P10 C29 an existing current deadline cannot silently become the next deadline of a first completion-based skip",
+      "P10 C30 denied series authority removes only its private editor draft while retaining the readable Task",
+      "P10 C31 explicit legacy conversion preserves pending proof family history and exactly-once approval",
+      "P10 C32 denied legacy conversion erases only recurrence metadata and retains unsent Task inputs"
+    ]
+  },
+  "developmentCheckpoints": {
+    "p10-cutover-client-api-red": {
+      "tests": 20,
+      "passed": 11,
+      "failed": 9,
+      "skipped": 0,
+      "files": 1,
+      "jsonSha256": "b146b0434661b83a289d1e4cf8c15df835c708f8dbee4b1d081376c034de0804"
+    },
+    "p10-cutover-client-api-green": {
+      "tests": 60,
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0,
+      "files": 3,
+      "jsonSha256": "4346b948b03082ac74ca60cc00b45518cfca816b400b21d25f1494a754a37d23"
+    },
+    "p10-cutover-client-model-red": {
+      "tests": 22,
+      "passed": 18,
+      "failed": 4,
+      "skipped": 0,
+      "files": 1,
+      "jsonSha256": "ec293cf0475340cb0733b895af389a43942e9605517a81c3f72d5092ffbb5e3c"
+    },
+    "p10-cutover-client-model-green": {
+      "tests": 64,
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0,
+      "files": 3,
+      "jsonSha256": "e03a579d5ce76aa8834dcc46401d1407aecb0ab0b1d49d5038d4d8541d32af9d"
+    },
+    "p10-cutover-disabled-family-red": {
+      "tests": 51,
+      "passed": 49,
+      "failed": 2,
+      "skipped": 0,
+      "files": 2,
+      "jsonSha256": "66435d2dab45faec2efbdb6235aa986f5ebf2b5eb73ebbeaf98ad02b9d9d4a2d"
+    },
+    "p10-cutover-disabled-family-green": {
+      "tests": 60,
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0,
+      "files": 4,
+      "jsonSha256": "e3661aef1e82e9b57f751657fc7ee82b1f2e1f20ae7c0a69a4e9d01aae56846a",
+      "junitSha256": "788dd11257f250d68375fc9d5205c2f3fdd643ed7bb0ad24f5b0c8bbd08c5f17"
+    },
+    "p10-cutover-fixture13": {
+      "tests": 130,
+      "passed": 130,
+      "failed": 0,
+      "skipped": 0,
+      "files": 4,
+      "jsonSha256": "3766436ec52ae8b22fb00490e3f3ee5939c0fbc1cf985493489b93ac06a8aafd"
+    },
+    "p10-cutover-source-policy-cwd-green": {
+      "tests": 40,
+      "passed": 40,
+      "failed": 0,
+      "skipped": 0,
+      "files": 1,
+      "jsonSha256": "62c87a66a50dc3e8e0c7007bff530c9ce71bdf2cf7185dddb17a3ecd4ab06d17"
+    },
+    "p10-cutover-ui-full-cloud": {
+      "tests": 5407,
+      "passed": 5406,
+      "failed": 1,
+      "skipped": 0,
+      "files": 297,
+      "jsonSha256": "9b44472f692c92249c3c06defe6fb428feed9d2afcd8bffcee68cd1f22a14528",
+      "junitSha256": "4a997886243483c4e1fd7899f2bb1c60f0b96ebb9d33dbefb1452f71811c72d3"
+    },
+    "p10-cutover-ui-full-green": {
+      "tests": 5407,
+      "passed": 5407,
+      "failed": 0,
+      "skipped": 0,
+      "files": 297,
+      "jsonSha256": "0aa71369eef9e500ebd7a86188d1c0065b9277531b7404a7dced4a5c0e56c752",
+      "junitSha256": "570e4d6f49c7b37a3ee356b22ce2b5a98a1f927e1470fb356be541f92d922de1"
+    },
+    "p10-cutover-ui-first": {
+      "logSha256": "2d6d53962330f55c37438c5ecd220016f6f394b2e8f645c6586c4044d2327489",
+      "nativeExit": 1,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    },
+    "p10-cutover-ui-legacy-lifecycle": {
+      "logSha256": "4f5718c27634afbf3457d3476a490b3f9711c31ae5fad56d1b44bcc740a20a32",
+      "nativeExit": 1,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    },
+    "p10-cutover-ui-explicit-policy": {
+      "logSha256": "f5cfae184e11c48fe307385154734d32596a8b90afff1154fd22f80c23358f31",
+      "nativeExit": 1,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    },
+    "p10-cutover-ui-receipts": {
+      "logSha256": "6c06849335d59e97926e2f435277d3be6c4868cf18f56463e3f33d9072deb778",
+      "nativeExit": 0,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    },
+    "p10-cutover-ui-cache-red": {
+      "logSha256": "d2f9ed83f2773db877c2bb79d59915b78fe1ed483bd0309d34ce6447143bde35",
+      "nativeExit": 1,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    },
+    "p10-cutover-ui-cache-causal-red": {
+      "logSha256": "8b0162c922ffd31876a9f2c6bd7b4666f56e24cb420e074dfc51df07d6f22bac",
+      "nativeExit": 1,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    },
+    "p10-cutover-ui-cache-green": {
+      "logSha256": "b0862935d60945075938e70426fe991a37ae110e98b2152c5fd77685a3dae89f",
+      "nativeExit": 0,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    },
+    "p10-cutover-ui-full-browser": {
+      "logSha256": "0d00079a0c146b0bc9aa93a8db0755aa365245224f3a3ed6b7219df3af0abcf4",
+      "nativeExit": 0,
+      "scope": "development only; failed and noncausal runs never qualify Windows"
+    }
+  },
+  "original30BrowserPrefixPreserved": true,
+  "migrationDefinitionsAndChecksumsChanged": false,
+  "dependenciesChanged": false,
+  "defaultStorageVersion": 6,
+  "actual13ZipQualification": "not-run",
+  "windowsAcceptance": "pending exact published HEAD; require5407/297each+142first attempts/all8checks/11raw",
+  "server2019Acceptance": "not-run",
+  "releaseTagVps": "not authorized/performed",
+  "fullMasterPlan": "incomplete"
+}

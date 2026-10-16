@@ -1727,6 +1727,18 @@
     "invalidTarget": "请选择有效目标。要清除任务的多个标签，请明确选择“替换全部标签”。"
   },
   "recurrence": {
+    "legacyInspect": "检查旧重复计划",
+    "legacyAdmin": "管理员必须先预览此旧重复任务组，才能转换。",
+    "legacyExplanation": "整个任务组的旧计划将停止。任务、待审核凭证和积分保持不变；历史完成记录不计入新计划。",
+    "legacyAnchor": "新计划起始锚点",
+    "legacyTime": "新计划起始时间",
+    "legacyExactUtc": "新计划起始 UTC 时刻",
+    "legacyNoAnchor": "暂不设置锚点；从下一次审核通过的完成开始",
+    "legacyAcknowledge": "我确认所选的新规则和起始锚点",
+    "legacyOtherActive": "我确认其他 {{count}} 个未完成任务将保持不变，作为普通任务",
+    "legacyConvert": "转换旧重复计划",
+    "legacyConfirm": "停止整个任务组的旧重复计划，并将选定的新规则应用于此任务？凭证、历史和积分保持不变。其他未完成任务将成为普通任务。",
+    "legacyRequired": "请明确选择规则与起始锚点，并确认其他未完成任务后再转换。",
     "title": "重复计划",
     "historySafe": "保留已处理次数的历史、凭证和奖励。",
     "scope": "编辑范围",
