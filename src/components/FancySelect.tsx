@@ -53,6 +53,7 @@ export function FancySelect({
   const [pos, setPos] = useState<{ left: number; top: number; width: number; openUp: boolean } | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<{ top: number; left: number; width: number; height: number } | null>(null);
   const reduce = useReducedMotion();
 
   const selected = options.find(o => o.value === value);
@@ -61,6 +62,7 @@ export function FancySelect({
     const el = triggerRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
+    anchorRef.current = { top: r.top, left: r.left, width: r.width, height: r.height };
     const margin = 8;
     // Đủ rộng để đọc (tối thiểu 200px) nhưng không vượt bề ngang màn hình
     const width = Math.min(Math.max(r.width, 200), window.innerWidth - margin * 2);
@@ -94,6 +96,12 @@ export function FancySelect({
       // chỉ đóng khi nền/trang phía sau cuộn khiến nút trigger trôi đi.
       const t = e.target as Node;
       if (listRef.current && (listRef.current === t || listRef.current.contains(t))) return;
+      // Focus may queue a scroll notification before the popup opens. Keep it
+      // open when that notification leaves the fixed popup's anchor unchanged.
+      const anchor = anchorRef.current;
+      const current = triggerRef.current?.getBoundingClientRect();
+      if (anchor && current && current.top === anchor.top && current.left === anchor.left &&
+          current.width === anchor.width && current.height === anchor.height) return;
       close();
     };
     const onResize = () => close();

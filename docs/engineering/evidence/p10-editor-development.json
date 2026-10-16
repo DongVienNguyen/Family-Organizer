@@ -477,7 +477,7 @@
     "server/productivity/series-commands.api.test.ts": "6136fcf6c13cf3630e70b3f5b1dccb42f28b997c5177fd0dfe35ebaac4a0da0e",
     "server/productivity/seriesCommands.ts": "c75af7e366532712954655cd19057d525bf815c52ae2be51b51f02bcf3e2495c",
     "src/components/ConfirmDialog.tsx": "2e8c5514757f2e39ed33200a308fd2580d2c94fc4d801ad71919cbe38c8bb07f",
-    "src/components/FancySelect.tsx": "1aa888f5fda90167b2be256ef502943b450ae0c5dd24967742cd219d544d5ecc",
+    "src/components/FancySelect.tsx": "948810356d7704d8324e68452dfc0c25d79b27e60776aaeb04fbbb0d56552051",
     "src/features/productivity/RecurrenceEditor.tsx": "2ded388cd554ca71187d57a728af7133e32c2cfcfa6db7d075fc589068f5d90d",
     "src/features/productivity/TaskDrawer.tsx": "1b8a74e53be940780961592cb13514a025d584eb4717a5d110f3f864c298a197",
     "src/features/productivity/api.ts": "9f110cd016e0fae541980cf8c1480c4362fc315c91b5f16e13fcba0e84537afa",
@@ -490,13 +490,13 @@
     "src/i18n/locales/en.json": "ce474b4dc9092f33741de747c6e42db0dc309097a990671d051978a6d1a3e1fd",
     "src/i18n/locales/vi.json": "723c845d3cc521bcc2f239e2074587b44a397069579e007b0a007c51a9fe9cec",
     "src/i18n/locales/zh.json": "424950e9642b51d7c414f39e536b4059f17ad383399eb329147c64d9b6dc77c5",
-    "tests/e2e/productivity.spec.ts": "8fbcde806a3ecee887ec0622f7a2420083e900f4dc5e341d1e4345be831c07e7",
+    "tests/e2e/productivity.spec.ts": "9833ce8d5ab0d31dedf455ea0ef923dc70ebac6ba7f038fa931555ee91c7e729",
     "tests/helpers/release-productivity-browser-fixture.ts": "4725f7ee13c451081874324d264b89ccd88f1458ef36160f3a36625844aec140",
     "tests/kanban-browser-fixture.test.ts": "e4bdead64002dcdb4aeed7cc74a088e7f262b7327cd28f8c0703d0f2dee0c2a4",
     "tests/productivity-browser-evidence.test.ts": "c4b430063c9353a3153107734fe723cafbb82f44ba88da0a295b47166e5f6eed",
     "tests/release-productivity-profile.test.ts": "f2196b77b11855eecd3aaaf080c3328ad863184260aa1a3fc8b3b8819b86f87b"
   },
-  "sourceAggregateSha256": "b9fb81bc6cfae129f4f97d5bb27acee3c92eea2073e0b242a1dfb00f64d1b940",
+  "sourceAggregateSha256": "c69ace7b9094ec7b3a069bcf51948ee19b782865ad8070d6668c0c0277f97797",
   "changedSuiteCounts": {
     "tests/kanban-browser-fixture.test.ts": 1,
     "tests/productivity-browser-evidence.test.ts": 65,
@@ -667,6 +667,23 @@
       "logSha256": "2bd103ad9199184a45c92031423bf9124eef9243f3fba454288f7778fa983c99"
     }
   },
+  "cloudExitDiscrepancy": {
+    "accepted": false,
+    "observation": {
+      "toolSession": 14652,
+      "observedExit": 1,
+      "jsonSuccess": true,
+      "passedTests": 5344,
+      "failedTests": 0,
+      "reason": "unexplained exit/report discrepancy; not accepted",
+      "hashes": {
+        "vitest.xml": "71211a1bf7e09459619b4a19ee908bbf9e84a68af730dda4fa8becd34af3d728",
+        "vitest.log": "04834f17dc3cdb6ac1c5623543d174feed671de772f91164e6ee0704446ed4d8",
+        "vitest.json": "4e0ca0befb26c31811117a4b41c80846e387a8e85a2cf7d4fb58b5d6ce22fd12"
+      }
+    },
+    "diagnostic": "Reports passed but first shell tool returned1 without a failure marker; explicit subprocess capture below is authoritative for corrected qualification; first result retained, cause unproven"
+  },
   "cloudGreen": {
     "tests": 5344,
     "passed": 5344,
@@ -674,14 +691,29 @@
     "skipped": 0,
     "todo": 0,
     "files": 292,
-    "reportSha256": "e70b473aa0baf260dc81f618d18ea6300b980ee19024ae655a225f6f33806041",
-    "logSha256": "790f37227453642f781d05278ca72647bd9382e9f5507eb792f1f9291610119f",
+    "reportSha256": "d1a459bf96fe094ebefffb1885ad2dd8e266406b25738b6fb72967786d3d2a0c",
+    "logSha256": "1c13453d7fe561b020ebef641ca95039e6e09a7c2076ff847cf1b4f43c45bcca",
+    "nativeExit": {
+      "argv": [
+        "npm",
+        "test",
+        "--",
+        "--reporter=default",
+        "--reporter=json",
+        "--reporter=junit",
+        "--outputFile.json=/workspace/family-evidence/p10-editor-full-final.json",
+        "--outputFile.junit=/workspace/family-evidence/p10-editor-full-final.xml"
+      ],
+      "exitCode": 0,
+      "npmCache": "/workspace/.cache/family-npm"
+    },
+    "nativeExitSha256": "16c9c3e195978e99b6e150e7174b4c796fb0988e6910fc097c6d5d904126024e",
     "junitTests": 5344,
-    "junitSha256": "bd568480bafd90cdbe0bd7fe2204ee57515ee046e5eea33d46f8f7b75980bedc",
+    "junitSha256": "0c28e73ead00f814c0a8fea61797e16ed0c6d5f0dc45a59a6a1cdf9948aa26af",
     "lintExit": 0,
     "buildExit": 0,
     "lintLogSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
-    "buildLogSha256": "f351095d8b72d026435ccfaadddd70191624bd9494cd002bdd98c8cceb90360d"
+    "buildLogSha256": "4418ee76679e98cd3c5e79e6480018dfda7c03ac7f43c4645a5bafdf2cdee517"
   },
   "cloudBrowser": {
     "runtime": "Linux x64 Cloud; not Windows acceptance",
@@ -691,19 +723,19 @@
     "skipped": 0,
     "retries": 0,
     "reports": {
-      "productivity-browser.json": "158e00f0511a166740fb2651e70f4d5a501097114804e42949283c41aec46cbc",
-      "productivity-browser.junit.xml": "35202a632c6ac1bee01e04596faae8b77022b7fa0c518b492fd03c3b2d906079",
-      "productivity-browser-fixture.json": "2d3c226d51885e29e82ffd7aec7119998b62df93cf57ddc161ff673732b388ac",
-      "productivity-browser-touch.json": "f09058ae772dddb9ebb1ac42cbdfebdcb38aa91fdc052dc686ba8cfb804df398",
-      "productivity-browser-touch.junit.xml": "da531893f2afcc30483f9f4434ee5d8c79462527a9f30bed53cbea5c7f07d545"
+      "productivity-browser.json": "9d3b582ef87fbb19f1ae3e4fcb5687c3ffbf3a9db07465d6dd314e8bc9b86ffb",
+      "productivity-browser.junit.xml": "65d5c13b5593513949b3cee567c853b4487e19002328cca6627891154b4f2db3",
+      "productivity-browser-fixture.json": "e6e9cd3b1eb6c5ef1c320543ac73730486f746ed6ffb662bdd49da04f8685d40",
+      "productivity-browser-touch.json": "89a85f4966ed8dea2897d9603311c4070acbc64a9f0a92d1fcf7ab5f91f663fd",
+      "productivity-browser-touch.junit.xml": "488f472c7cd2be43e1fd3c59c59529fc741a9430e5dcdf5601d3c09ac6462fb6"
     },
     "build": {
       "serverSha256": "ee918d03d3564986ac0ac50f9a75acd06d2181dc30fe87fd60b09b370ab84fe3",
-      "indexSha256": "e090efa0127dfc6f400a8b49296b670efdd75d54d15a461eb125d34d4c9338af"
+      "indexSha256": "0d00fd4b935c4568093ee60383ca9d04b2c756ac11276caf2423282198da0219"
     },
     "validationRepairs": {
       "batchCount": 1,
-      "reportSha256": "65c4052cfdc11394e9ba37d7f8a6b71a94e68dc856b4d42ecaa65a2b50a875b9",
+      "reportSha256": "bfb362a4aee861ce4025f4b14373a6201ffe0521648ce2c22db19d3c783bf1ba",
       "causes": [
         "layout shift40\u219242px closed popup beforeEscape",
         "unnamed shared confirm dialog",
@@ -730,17 +762,47 @@
     "nativeTouch": 1,
     "firstAttemptTotal": 136
   },
-  "windowsAcceptance": "not-run",
-  "windowsPrUrl": null,
-  "windowsRunUrl": null,
+  "windowsAcceptance": "first run failed; causal correction pending new exact-SHA acceptance",
+  "windowsPrUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/128",
+  "windowsRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38909569844",
+  "windowsFailureEvidenceSha256": "42f499d3f81230bbb1673fdfc9ddf20028d77e3c0379daeb02cfe9d900c16e4f",
+  "windowsCorrection": {
+    "batchCount": 1,
+    "causes": [
+      "queued scroll with unchanged anchor",
+      "page-specific POST interception did not occur"
+    ],
+    "targetedCasesPassed": 4,
+    "touchPassed": 1,
+    "targetedRawHashes": {
+      "blob/report-chromium-c1bc1dc.zip": "f6e63b1f74082ec30662382e41f10e78e53006716655c4cbc098e1669fb293df",
+      "productivity-browser-fixture.json": "e6e9cd3b1eb6c5ef1c320543ac73730486f746ed6ffb662bdd49da04f8685d40",
+      "productivity-browser-group-dark-390-chromium.png": "48d92bf0b415efd2c5053ceec93af950113e53be60625a6426946b30679dbdf7",
+      "productivity-browser-group-light-1280-chromium.png": "10f6668662e9081be516a54802c8672bdf7d8b3b96cb6fc52dd6860bf72945a2",
+      "productivity-browser-html/index.html": "9b1e680f2274a8c191b159d2ad9f58ceedd06ba1a8d7342af137b126352f427e",
+      "productivity-browser-kanban-dark-390-chromium.png": "0a3504e901b836fa94ceeff188504b4213ba2530067df360d7449175447b823b",
+      "productivity-browser-kanban-light-1280-chromium.png": "cb67fc83797060a94f24d7014d36e6b0ed6a8e13aa3fa9768a10fdbee9a3e42e",
+      "productivity-browser-matrix-dark-1280-chromium.png": "87ea38e16db2ce5de3bd595920f853af8b42f56b6ec5bfc036188bfedf9f8ea3",
+      "productivity-browser-matrix-dark-390-chromium.png": "38d92f06e49690ab92de11067780c6cfdcd18b6693bd41aa95558e99166343fb",
+      "productivity-browser-matrix-dark-768-chromium.png": "e2662586653373afe636896b694aa6e8964b72a63a8695dc17526d8c849aecbb",
+      "productivity-browser-matrix-light-1280-chromium.png": "8209b9e9294bd99b756813523c28c432329e495144574e02a7b502e75f1b5953",
+      "productivity-browser-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+      "productivity-browser-run.log": "455ca3dd7ead3e957543cd7387c196abbb40121c600eb9e020aa62433239ef97",
+      "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+      "productivity-browser-server.log": "b77df6852210f50940cd11fec1c3b177102ec6216aaa4a4e4c307a323572689f",
+      "productivity-browser-touch-html/index.html": "8823652783397bfe60959d421c1a538389cc2162ff0148c4d85aa41fffd62309",
+      "productivity-browser-touch-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+      "productivity-browser-touch-runtime.json": "8a52585ebf66047b6e894d4f7c1dfeb00387dea696726260470adef83791ee5e",
+      "productivity-browser-touch.json": "3c17fdae15d1cc10c935398edccc6bcc4bba7f7612e8a404ff8d64dee039f28e",
+      "productivity-browser-touch.junit.xml": "497f8129bcce5e73f1928b6d83de27f9e0dbd8ba861c58261d497a4af12191ce",
+      "productivity-browser.json": "e97736a8573c060b5af08d91c0e4d553c661b64b3aa5fd30956939cb1aaaea3d",
+      "productivity-browser.junit.xml": "17e1fdf088893a5cd42472b0e0b677725411dedc509dbfb19d61d17a455c06b6"
+    }
+  },
   "githubBlocker": {
-    "status": "resolved after initial HTTP401",
-    "initialDiagnostic": "gh auth status GH_TOKEN invalid; no credential helper",
-    "readinessEvidence": "p10-editor-github-readiness.json",
-    "authenticatedActionsReadReady": true,
-    "humanRefreshRequired": false,
-    "tokenPrinted": false,
-    "currentMainRawVerification": "pending separate exact-run read"
+    "status": "resolved API200",
+    "userRefreshQuestionPending": false,
+    "secretsPrinted": false
   },
   "defaultPilotMigration": 6,
   "explicitBrowserFixtureMigration": 12,
