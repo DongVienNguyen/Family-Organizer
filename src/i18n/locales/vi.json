@@ -1809,5 +1809,17 @@
     "refused": "Chưa thể hoàn thành. Kiểm tra việc con, giới hạn WIP và điều kiện duyệt rồi thử lại.",
     "failed": "Chưa xác nhận được kết quả. Kiểm tra lại hoặc thử lại cùng yêu cầu.",
     "reload": "Tải lại bảng, giữ ghi chú"
+  },
+  "productivityTransition": {
+    "dialog": "Chuyển trạng thái công việc",
+    "action": "Đổi trạng thái: {{title}}",
+    "policy": "Chỉ đổi Cần làm / Đang làm / Đang chờ. Hoàn thành và duyệt dùng lệnh riêng; không đổi hạn hoặc điểm.",
+    "target": "Trạng thái đích",
+    "choose": "Chọn trạng thái",
+    "preview": "Xem trước trạng thái",
+    "apply": "Áp dụng trạng thái",
+    "conflict": "Task hoặc bảng đã thay đổi. Xem trước lại.",
+    "refused": "Không thể chuyển trạng thái. Kiểm tra quyền và giới hạn WIP.",
+    "failed": "Lỗi chuyển trạng thái. Tải lại bảng và kiểm tra kết quả trước khi thử lại."
   }
 }

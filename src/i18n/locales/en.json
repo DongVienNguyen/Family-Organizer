@@ -1809,5 +1809,17 @@
     "refused": "Completion is unavailable. Check subtasks, WIP capacity and approval requirements, then try again.",
     "failed": "The result could not be confirmed. Check again or retry the same request.",
     "reload": "Reload board, keep note"
+  },
+  "productivityTransition": {
+    "dialog": "Change task workflow status",
+    "action": "Change status: {{title}}",
+    "policy": "Change To do / Doing / Waiting only. Completion and approval use separate actions; deadlines and points stay the same.",
+    "target": "Target status",
+    "choose": "Choose status",
+    "preview": "Preview status",
+    "apply": "Apply status",
+    "conflict": "The task or board changed. Preview again.",
+    "refused": "Cannot change status. Check permissions and WIP limits.",
+    "failed": "Status change failed. Reload the board and check the result before trying again."
   }
 }
