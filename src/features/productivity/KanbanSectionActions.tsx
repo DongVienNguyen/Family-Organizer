@@ -15,7 +15,7 @@ export function KanbanSectionActions({api,page,ready,onRefresh,children}:{api:Ta
  const task=ready&&choice?.owner===commands?page.columns.flatMap(c=>c.cards).find(c=>c.task.id===choice.taskId)?.task:undefined;
  const open=(id:string)=>{if(!ready||snapshot.writing||snapshot.previewing||!page.columns.some(c=>c.cards.some(card=>card.task.id===id)))return;commands.cancel();setChoice({owner:commands,taskId:id,target:''});};
  const close=()=>{if(commands.cancel())setChoice(null);};
- return <>{children(open)}{task&&choice&&<KanbanSectionDialog task={task} columns={page.columns} target={choice.target} plan={snapshot.plan?.value??null} busy={snapshot.writing||snapshot.previewing} ready={ready} error={snapshot.error}
+ return <>{children(open)}{task&&choice&&<KanbanSectionDialog task={task} columns={page.columns} target={choice.target} plan={snapshot.plan?.kind==='physical'?snapshot.plan.value:null} busy={snapshot.writing||snapshot.previewing} ready={ready} error={snapshot.error}
   onTarget={target=>{if(snapshot.writing||snapshot.previewing)return;commands.cancel();setChoice({...choice,target});}}
   onPreview={()=>{if(choice.target)void commands.previewPhysical({viewId:page.viewId,taskId:task.id,targetColumnId:choice.target,beforeTaskId:null,timezone:page.clock.timezone});}}
   onApply={()=>void commands.apply()} onCancel={close}/>}</>;
