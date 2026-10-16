@@ -1,0 +1,206 @@
+{
+  "taskId": "F05-port-policy",
+  "baseSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/110",
+  "scope": "one-shot synthetic Windows common TCP/UDP permitted unoccupied port selection and bounded read-only diagnostics",
+  "cloudGreen": {
+    "tests": 4451,
+    "passed": 4451,
+    "files": 247,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4451,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux",
+    "notNativeWindowsProof": true
+  },
+  "expectedWindowsQuality": {
+    "tests": 4451,
+    "files": 247
+  },
+  "review": {
+    "task": "F05-port-policy",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "3dc987369e1d293c8333eefce60b440ef7b7220e33ea9b3bcce4025d920d694f",
+      "scripts/windows/probe-caddy-native.mjs": "80bcb4bc3f714a2ca6c854c9407490524595b955dd06ac1fe9f4229ceec71675",
+      "scripts/windows/synthetic-port-policy.mjs": "d68cd39600b6fdeb2e400976e1caa89ca60fe29fcc3b052579028424d116c43b",
+      "scripts/windows/synthetic-proxy-port.mjs": "ab54e2af00e45756f1151484e2c52e5020a2ef7d1c6f3bb440f574308dd45f7e",
+      "tests/evidence.test.ts": "a1a50688b9197eb2f63de2301982bfd0b561cf42cdda6a168c46fc625b7ef0e1",
+      "tests/synthetic-port-policy.test.ts": "bbaa5bdce7404c5f7733726e1a1430a58354afa0cd35dd1560f822b5eda4c592",
+      "tests/synthetic-proxy-port.test.ts": "b290da30a35ae0b5a56b1e14219031db72f0127446381876414a94af3d69739f"
+    },
+    "focus": [
+      "read-only native TCP+UDP exclusion and occupied-endpoint commands; check each status/signal/error/output bound",
+      "strict closed parsing and common-permission selection/resource bounds; synthetic ranges are not historical OS observations",
+      "one candidate and one UDP/TCP bind, no allocation/test/native retries; original cleanup/refusal assertions retained",
+      "native policy diagnostics bounded by phase; no endpoint addresses/native exception text copied",
+      "actual integration test isolates process.platform and restores mocks; starts from a known permitted socket",
+      "Caddy HTTP3/TLS/header/trust/refusal/stop assertions/deadlines unchanged; native report contains policy facts",
+      "mandatory new suite and omission regression; no runtime app/bundle/dependency/global network changes"
+    ],
+    "remaining": [
+      "exact Windows commands/parser/native Caddy policy proof pending",
+      "historical4f6e port62684 EACCES is observed; actual excluded ranges and exact old allocation stage were not captured",
+      "race after read snapshot or release remains fail-closed; no retry",
+      "other main108 browser failure investigated separately; no all-main-pass claim",
+      "full master tasks/R02 unfinished; no release/tag/VPS"
+    ]
+  },
+  "composition": {
+    "acceptedMainSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+    "acceptedPR": 109,
+    "testedParentSha": "3d42a8468ff7a1a6d115f3ad04079bb3d6e955d3",
+    "ours": "19cb1eb",
+    "resolved": [
+      "tests/evidence.test.ts"
+    ],
+    "bothMandatoryInventoriesAndOmissionAssertionsRetained": true,
+    "productionRuntimeUnchanged": true,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "33d38d4bbbe74d0f505aa3e19886ac6466f99550a5768ef62e4e9c156d27ca1f",
+      "tests/evidence.test.ts": "119f487fc6dcac37197019e49eb6d126a4f1cdce53c8f6a916285161eec0ec52"
+    }
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "33d38d4bbbe74d0f505aa3e19886ac6466f99550a5768ef62e4e9c156d27ca1f",
+      "scripts/windows/probe-caddy-native.mjs": "80bcb4bc3f714a2ca6c854c9407490524595b955dd06ac1fe9f4229ceec71675",
+      "scripts/windows/synthetic-port-policy.mjs": "d68cd39600b6fdeb2e400976e1caa89ca60fe29fcc3b052579028424d116c43b",
+      "scripts/windows/synthetic-proxy-port.mjs": "ab54e2af00e45756f1151484e2c52e5020a2ef7d1c6f3bb440f574308dd45f7e",
+      "tests/evidence.test.ts": "119f487fc6dcac37197019e49eb6d126a4f1cdce53c8f6a916285161eec0ec52",
+      "tests/synthetic-port-policy.test.ts": "bbaa5bdce7404c5f7733726e1a1430a58354afa0cd35dd1560f822b5eda4c592",
+      "tests/synthetic-proxy-port.test.ts": "b290da30a35ae0b5a56b1e14219031db72f0127446381876414a94af3d69739f"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "222c116f47d654f0e214e39428a508c0c295ecdcab6e9808a6e7876d9d493682",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "port-policy-composed-full.json": "cb2e067260088579404877f05b32783b9d6d472fc9c57e0f29de7d06f3d10bd8",
+      "port-policy-composed-full.junit.xml": "4c9853243ac28eeb92bbeb75155707417f75856843886e224532f2206c79f26a",
+      "port-policy-composed-full.log": "34ec0ac35acec548505b0a2b1c0136fae6e97e7294d235f60032151817655a2d",
+      "port-policy-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "port-policy-composed-build.log": "e1a369b0e705ec7598d95152b2fa011387514d2ef7e82292f26a0d1bd13242ea"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/TENexisting+new11thnativePortPolicy/23boardchecks/28HTTP/100IPC/103firstattempt; actual netsh grammar unverified"
+  },
+  "reports": [
+    {
+      "file": "port-policy-composed-full.json",
+      "sha256": "cb2e067260088579404877f05b32783b9d6d472fc9c57e0f29de7d06f3d10bd8",
+      "tests": 4451,
+      "passed": 4451,
+      "failed": 0,
+      "files": 247
+    },
+    {
+      "file": "port-policy-final-target.json",
+      "sha256": "76d7e4d34ccdf02f8db3d8e38ba3126454f948b69d0abb231a922e9ebd428b4b",
+      "tests": 394,
+      "passed": 394,
+      "failed": 0,
+      "files": 6
+    },
+    {
+      "file": "port-policy-full.json",
+      "sha256": "8d53fc518bef6f2e70e8c460c99d8e27f0f3b067e984e4ea0c05a987a05043d5",
+      "tests": 4415,
+      "passed": 4415,
+      "failed": 0,
+      "files": 245
+    },
+    {
+      "file": "port-policy-red.json",
+      "sha256": "3cd37e601f55ee90afe88ec0da869a5799cab5982ed5352ff2f7fb3abf8d16aa",
+      "tests": 17,
+      "passed": 7,
+      "failed": 10,
+      "files": 1
+    },
+    {
+      "file": "port-policy-target-first.json",
+      "sha256": "9534a1618e6711f84aeaaf3e39761ad94393c02139fb8a4976cd2043497f63a2",
+      "tests": 98,
+      "passed": 98,
+      "failed": 0,
+      "files": 4
+    },
+    {
+      "file": "port-policy-target-green.json",
+      "sha256": "8888c4714f610821dbd6070898b448a0ec98768f14aa3655d48232b6bce1a9ab",
+      "tests": 386,
+      "passed": 386,
+      "failed": 0,
+      "files": 5
+    },
+    {
+      "file": "port-policy-wiring-gate-red.json",
+      "sha256": "ff5a068bfbfab4720698fd58ee3a90338167339bd12da361d2f26206cf41c826",
+      "tests": 291,
+      "passed": 289,
+      "failed": 2,
+      "files": 2
+    }
+  ],
+  "redRulings": {
+    "initialPolicy": {
+      "tests": 17,
+      "passed": 7,
+      "failed": 10,
+      "limitation": "7 unsupported-input tests already failed closed under stub; not causal new-policy evidence"
+    },
+    "wiringAndGate": {
+      "tests": 291,
+      "passed": 289,
+      "failed": 2,
+      "fixtureCorrection": "named spawnSync mock did not intercept default executor; default childProcess lookup at call and known-permitted socket fixture make actual Windows branch testable"
+    },
+    "firstLint": "four overloaded spawnSync callback type errors; explicit narrow JSDoc executor contract corrected; original log retained",
+    "precompositionFull": {
+      "tests": 4415,
+      "passed": 4415,
+      "files": 245,
+      "lintExit": 0,
+      "buildExit": 0,
+      "basis": "main108 before acceptedmain109 composition; not current combined proof"
+    }
+  },
+  "nativeContract": {
+    "policyCommands": 3,
+    "candidateSelections": 1,
+    "udpBinds": 1,
+    "tcpBinds": 1,
+    "allocationRetries": 0,
+    "systemPolicyChanged": false,
+    "caddyPhases": 6,
+    "http3Disabled": false,
+    "deadlinesChanged": false,
+    "existingSocketAndCleanupAssertionsRetained": true,
+    "diagnosticsOnly": true
+  },
+  "historicalEvidence": "f05-main107-port-failure.json",
+  "remaining": [
+    "exact Windows commands/parser/native Caddy policy proof pending",
+    "historical4f6e port62684 EACCES is observed; actual excluded ranges and exact old allocation stage were not captured",
+    "race after read snapshot or release remains fail-closed; no retry",
+    "other main108 browser failure investigated separately; no all-main-pass claim",
+    "full master tasks/R02 unfinished; no release/tag/VPS"
+  ],
+  "applicationRuntimeChanged": false,
+  "dependencyOrDefaultActivationChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}
