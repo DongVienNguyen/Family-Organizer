@@ -10,14 +10,14 @@ import {transitionRotation} from './recurrencePolicy.js';
 import {loadTask} from './store.js';
 const fail=(message:string):never=>{throw new AppStoreError(message,422,'recurrence-acceptance');};
 export function isDurableOccurrenceTask(tx:AppWriteTx,taskId:string):boolean {
- return [11,12].includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)&&!!(tx.get('SELECT id FROM productivity_series WHERE task_id=?',taskId)||tx.get('SELECT task_id FROM productivity_series_occurrences WHERE task_id=?',taskId));
+ return [11,12,13].includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)&&!!(tx.get('SELECT id FROM productivity_series WHERE task_id=?',taskId)||tx.get('SELECT task_id FROM productivity_series_occurrences WHERE task_id=?',taskId));
 }
 /** Trusted synchronous completion writer only: no client accepted timestamp,
  * independent transaction, clock, reward ledger or delivery side effect. Caller
  * flushes the accepted legacy Task first, within its existing I01 transaction. */
 export function acceptRecurringOccurrence(tx:AppWriteTx,task:Task,actorId:string,acceptedAt:string):boolean {
- const version=tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version;if(![11,12].includes(version))return false;
- if(version===12&&tx.get('SELECT task_id FROM productivity_occurrence_skips WHERE task_id=?',task.id))fail('Kỳ đã bỏ qua không được chấp nhận lại.');
+ const version=tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version;if(![11,12,13].includes(version))return false;
+ if([12,13].includes(version)&&tx.get('SELECT task_id FROM productivity_occurrence_skips WHERE task_id=?',task.id))fail('Kỳ đã bỏ qua không được chấp nhận lại.');
  const ownRow=tx.get('SELECT * FROM productivity_series_occurrences WHERE task_id=?',task.id),own=ownRow?decodeSeriesOccurrence(ownRow):undefined;
  const row=own?tx.get('SELECT * FROM productivity_series WHERE id=?',own.seriesId):tx.get('SELECT * FROM productivity_series WHERE task_id=?',task.id);if(!row)return false;
  const series=decodeSeries(row);if(own?.state==='accepted')return true;

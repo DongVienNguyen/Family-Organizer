@@ -1,3 +1,4 @@
+import {assertCutoverTaskWrite} from './legacyCutoverRecord.js';
 import {prepareBoardTaskWrite} from './boardInvariant.js';
 import {writeSearchDocument} from './viewSchema.js';
 import {hasTagOwnership,assertTagSelection} from './tagPolicy.js';
@@ -36,6 +37,7 @@ export function decodeTaskRow(r:any,tagIds:string[]):StoredTask {
 export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):void {
  assertTaskRecord(task);assertLegacyTask(task.legacy);if(task.legacy.id!==task.id||!Number.isSafeInteger(task.rank))throw new Error('Invalid pilot task provenance');
  writeHooks?.before(tx);
+ assertCutoverTaskWrite(tx,task);
  assertTaskStructure(tx,task);
  if(actor)assertTagSelection(tx,actor,task.tagIds);
  const finishBoardWrite=prepareBoardTaskWrite(tx,task);

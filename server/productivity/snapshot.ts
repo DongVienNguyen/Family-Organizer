@@ -1,3 +1,4 @@
+import {validateLegacyCutovers} from './legacyCutoverRecord.js';
 import {validateOccurrenceResolutions} from './occurrenceResolution.js';
 import {validateOwnedOccurrenceRows} from './occurrenceRecord.js';
 import {decodeSeries,validateSeriesRows} from './seriesRecord.js';
@@ -54,6 +55,7 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  }
  if(snapshot.manifest.domains.productivity===11){if(!tables.productivity_series_occurrences)fail();validateOwnedOccurrenceRows({occurrences:tables.productivity_series_occurrences,series:tables.productivity_series.map(decodeSeries),tasks:new Map([...tasks].map(([id,row])=>[id,{revision:row.revision}]))});}
  if(snapshot.manifest.domains.productivity>=12){if(!tables.productivity_occurrence_skips||!tables.productivity_series_occurrences)fail();validateOccurrenceResolutions({occurrences:tables.productivity_series_occurrences,skips:tables.productivity_occurrence_skips,series:tables.productivity_series.map(decodeSeries),tasks:new Map([...tasks].map(([id,row])=>[id,{revision:row.revision,lifecycle:row.lifecycle}])),userIds:new Set(snapshot.legacy.users.map(user=>user.id))});}
+ if(snapshot.manifest.domains.productivity>=13){if(!tables.productivity_legacy_cutovers)fail();validateLegacyCutovers({cutovers:tables.productivity_legacy_cutovers,occurrences:tables.productivity_series_occurrences,tasks,series:tables.productivity_series.map(decodeSeries),userIds:new Set(snapshot.legacy.users.map(user=>user.id))});}
  if(snapshot.manifest.domains.productivity>=2){
   assertTaskTree(tables.productivity_tasks.map(edge));
   if(!tables.productivity_catalog_revisions||!tables.productivity_check_items)fail();
@@ -66,7 +68,7 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  if(snapshot.manifest.domains.productivity>=5){
   const views=tables.productivity_views,documents=tables.productivity_search_documents,grams=tables.productivity_search_grams;
   if(!views||!documents||!grams)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));
-  for(const row of views){text(row.title,500);integer(row.revision,1);if(!users.has(row.owner_id))fail();assertTaskView({id:row.id,ownerId:row.owner_id,revision:row.revision,filter:JSON.parse(row.filter_json),kind:row.kind,config:JSON.parse(row.config_json)},[10,11,12].includes(snapshot.manifest.domains.productivity)?9:snapshot.manifest.domains.productivity);}
+  for(const row of views){text(row.title,500);integer(row.revision,1);if(!users.has(row.owner_id))fail();assertTaskView({id:row.id,ownerId:row.owner_id,revision:row.revision,filter:JSON.parse(row.filter_json),kind:row.kind,config:JSON.parse(row.config_json)},[10,11,12,13].includes(snapshot.manifest.domains.productivity)?9:snapshot.manifest.domains.productivity);}
   const indexed=new Map(documents.map(row=>[row.task_id,row.content])),actual=new Map<string,Set<string>>();
   for(const row of grams){const values=actual.get(row.task_id)??new Set<string>();values.add(row.gram);actual.set(row.task_id,values);if(!indexed.has(row.task_id))throw new Error('Invalid productivity search snapshot');}
   if(indexed.size!==tasks.size)throw new Error('Invalid productivity search snapshot');

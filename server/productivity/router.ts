@@ -1,3 +1,4 @@
+import type {createLegacyRecurrenceCutover} from './legacyRecurrenceCutover.js';
 import type {createSeriesCommands} from './seriesCommands.js';
 import type {createRecurrenceSeriesStore} from './seriesStore.js';
 import type {createRecurrencePreviews} from './recurrencePreview.js';
@@ -25,7 +26,7 @@ import type {createTaskCommands} from './tasks.js';
 import type {StoredTask} from './store.js';
 import type {createStructureCommands} from './structure.js';
 import type {createStructureEventScope} from './structureEvents.js';
-export interface ProductivityPorts {seriesCommands?:ReturnType<typeof createSeriesCommands>;series?:ReturnType<typeof createRecurrenceSeriesStore>;recurrencePreview?:ReturnType<typeof createRecurrencePreviews>;groupedRanks?:ReturnType<typeof createGroupedBoardRanks>;groupedMoves?:ReturnType<typeof createGroupedBoardMoves>;groupedBoard?:ReturnType<typeof createGroupedBoardProjection>;completion?:ReturnType<typeof createCompletionCommands>;boardLayout?:ReturnType<typeof createBoardLayout>;boardMoves?:ReturnType<typeof createBoardMoves>;boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
+export interface ProductivityPorts {legacyCutover?:ReturnType<typeof createLegacyRecurrenceCutover>;seriesCommands?:ReturnType<typeof createSeriesCommands>;series?:ReturnType<typeof createRecurrenceSeriesStore>;recurrencePreview?:ReturnType<typeof createRecurrencePreviews>;groupedRanks?:ReturnType<typeof createGroupedBoardRanks>;groupedMoves?:ReturnType<typeof createGroupedBoardMoves>;groupedBoard?:ReturnType<typeof createGroupedBoardProjection>;completion?:ReturnType<typeof createCompletionCommands>;boardLayout?:ReturnType<typeof createBoardLayout>;boardMoves?:ReturnType<typeof createBoardMoves>;boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
 export interface TaskRequest extends Request {userSession?:AppActor}
 export const taskDto=(row:StoredTask)=>projectTaskRecord(row);
 function requestBody(req:Request,field:'input'|'patch'):Record<string,any>{
@@ -45,6 +46,16 @@ export function taskRouter(ports:ProductivityPorts,requireAuth:RequestHandler,ev
   try{res.json(fn(req));}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status===500?'Không xử lý được yêu cầu công việc.':error instanceof AppStoreError?error.message:'Dữ liệu công việc không hợp lệ.'});}
  };
  const completionBody=(req:TaskRequest,fields:string[])=>{try{const body=object(req.body);keys(body,['expectedRevision',...fields]);integer(body.expectedRevision);return body as Record<string,any>;}catch{throw new AppStoreError('Dữ liệu hoàn thành không hợp lệ.',400);}};
+ router.get('/legacy-recurrence/:id/preview',handler(req=>{
+  if(!ports.legacyCutover)throw new AppStoreError('Kho chuyển lịch lặp chưa sẵn sàng.',409);
+  try{keys(object(req.query),[]);}catch{throw new AppStoreError('Truy vấn chuyển lịch lặp không hợp lệ.',400);}
+  return {preview:ports.legacyCutover.preview(req.userSession!,req.params.id)};
+ }));
+ router.post('/legacy-recurrence/:id/cutover',handler(req=>{
+  if(!ports.legacyCutover)throw new AppStoreError('Kho chuyển lịch lặp chưa sẵn sàng.',409);
+  const body=completionBody(req,['input']),result=ports.legacyCutover.apply(taskCommandContext(req,body.expectedRevision),req.params.id,body.input);
+  for(const id of result.changedTaskIds)events.emit(id);return result;
+ }));
  router.post('/series',handler(req=>{
   if(!ports.series)throw new AppStoreError('Kho lịch lặp chưa sẵn sàng.',409);
   const body=completionBody(req,['taskId','policy']),series=ports.series.create(taskCommandContext(req,body.expectedRevision),body.taskId,body.policy);
