@@ -307,7 +307,17 @@
     }
   },
   "expectedWindowsQuality": {
-    "tests": 5009,
+    "tests": 5021,
     "files": 271
-  }
+  },
+  "acceptedSchedulingParentSha": "2d5094fdc8fa91ad34299bc434fa77a0ff87af5b",
+  "combinedCiTarget": {
+    "tests": 328,
+    "files": 2,
+    "failed": 0,
+    "skipped": 0,
+    "jsonSha256": "8c9d988511045db4b594b6475f9e8e7cca94047c4093a5f988d6cf318824f313",
+    "lintExit": 0
+  },
+  "qualificationScope": "All23P10 hashes unchanged after accepted scheduling composition; Cloud full5009/271 on application-identical source plus328combined CI target. Accepted scheduling adds12tests; exact Windows full5021/271 required."
 }
