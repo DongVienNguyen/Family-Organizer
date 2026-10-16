@@ -1809,5 +1809,6 @@
     "refused": "Completion is unavailable. Check subtasks, WIP capacity and approval requirements, then try again.",
     "failed": "The result could not be confirmed. Check again or retry the same request.",
     "reload": "Reload board, keep note"
-  }
+  },
+  "productivityKanbanDrag": {"handle": "Drag task: {{title}}"}
 }

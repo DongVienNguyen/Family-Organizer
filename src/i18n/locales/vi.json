@@ -1809,5 +1809,6 @@
     "refused": "Chưa thể hoàn thành. Kiểm tra việc con, giới hạn WIP và điều kiện duyệt rồi thử lại.",
     "failed": "Chưa xác nhận được kết quả. Kiểm tra lại hoặc thử lại cùng yêu cầu.",
     "reload": "Tải lại bảng, giữ ghi chú"
-  }
+  },
+  "productivityKanbanDrag": {"handle": "Kéo công việc: {{title}}"}
 }

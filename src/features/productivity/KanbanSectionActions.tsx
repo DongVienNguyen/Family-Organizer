@@ -4,7 +4,7 @@ import type {BoardPage} from './boardClient.js';
 import {createKanbanCommandState} from './kanbanCommandState.js';
 import {KanbanSectionDialog} from './KanbanSectionDialog.js';
 /** Mounted only for the current authorized section/rank projection. */
-export function KanbanSectionActions({api,page,ready,onRefresh,children}:{api:TaskApi;page:BoardPage;ready:boolean;onRefresh():Promise<void>;children:(onMove:(id:string)=>void)=>ReactNode}){
+export function KanbanSectionActions({api,page,ready,onRefresh,children}:{api:TaskApi;page:BoardPage;ready:boolean;onRefresh():Promise<void>;children:(onMove:(id:string,targetColumnId?:string)=>void)=>ReactNode}){
  const latest=useRef({api,ready,onRefresh});latest.current={api,ready,onRefresh};
  const commands=useMemo(()=>createKanbanCommandState({...api,onCommitted:()=>latest.current.api===api&&latest.current.ready?latest.current.onRefresh():Promise.resolve()}),[api]),snapshot=useSyncExternalStore(commands.subscribe,commands.snapshot,commands.snapshot),mounted=useRef<typeof commands|null>(null);
  const [choice,setChoice]=useState<{owner:typeof commands;taskId:string;target:string}|null>(null);
@@ -13,7 +13,7 @@ export function KanbanSectionActions({api,page,ready,onRefresh,children}:{api:Ta
  const code=snapshot.error?.status;
  useEffect(()=>{if(code!==undefined&&code!==null&&[401,403,404].includes(code)){commands.clear();setChoice(null);if(latest.current.api===api&&latest.current.ready)void latest.current.onRefresh();}},[commands,api,code]);
  const task=ready&&choice?.owner===commands?page.columns.flatMap(c=>c.cards).find(c=>c.task.id===choice.taskId)?.task:undefined;
- const open=(id:string)=>{if(!ready||snapshot.writing||snapshot.previewing||!page.columns.some(c=>c.cards.some(card=>card.task.id===id)))return;commands.cancel();setChoice({owner:commands,taskId:id,target:''});};
+ const open=(id:string,targetColumnId?:string)=>{if(!ready||snapshot.writing||snapshot.previewing||!page.columns.some(c=>c.cards.some(card=>card.task.id===id)))return;commands.cancel();setChoice({owner:commands,taskId:id,target:targetColumnId&&page.columns.some(c=>c.id===targetColumnId)?targetColumnId:''});};
  const close=()=>{if(commands.cancel())setChoice(null);};
  return <>{children(open)}{task&&choice&&<KanbanSectionDialog task={task} columns={page.columns} target={choice.target} plan={snapshot.plan?.kind==='physical'?snapshot.plan.value:null} busy={snapshot.writing||snapshot.previewing} ready={ready} error={snapshot.error}
   onTarget={target=>{if(snapshot.writing||snapshot.previewing)return;commands.cancel();setChoice({...choice,target});}}
