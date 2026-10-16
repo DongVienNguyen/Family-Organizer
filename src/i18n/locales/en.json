@@ -1810,5 +1810,37 @@
     "failed": "The result could not be confirmed. Check again or retry the same request.",
     "reload": "Reload board, keep note"
   },
-  "productivityKanbanDrag": {"handle": "Drag task: {{title}}"}
+  "productivityKanbanDrag": {
+    "handle": "Drag task: {{title}}"
+  },
+  "productivityKanbanLayout": {
+    "title": "Section column settings",
+    "none": "Not Sectioned",
+    "policy": "Column changes only change classification and column order. They do not complete tasks or change deadlines, proof or reward points.",
+    "create": "Create column",
+    "rename": "Rename",
+    "renameFor": "Rename column: {{title}}",
+    "order": "Order column",
+    "orderFor": "Order column: {{title}}",
+    "archive": "Archive column",
+    "archiveFor": "Archive column: {{title}}",
+    "name": "Column name",
+    "before": "Place column before",
+    "end": "End of board",
+    "wholeSection": "Archiving covers the entire section, including tasks outside this filter. Undeleted tasks move to Not Sectioned.",
+    "preview": "Preview column archive",
+    "affected": "All {{count}} undeleted tasks will move to Not Sectioned.",
+    "expires": "Preview valid until {{time}}",
+    "acknowledge": "I confirm the entire section scope and moving its tasks to Not Sectioned.",
+    "unknown": "The previous request is awaiting confirmation. Its choices stay fixed; check its outcome before starting another request.",
+    "hidePending": "Hide and keep pending request",
+    "check": "Check request outcome",
+    "archiveConfirm": "Confirm column archive",
+    "confirm": "Confirm column change",
+    "checkPending": "Check pending column request",
+    "reload": "Read column settings again",
+    "conflict": "Permission or column data changed. Read again before confirming a new request.",
+    "failed": "The outcome is not confirmed. Read columns again or check the pending request.",
+    "pendingAffected": "The pending request uses its earlier preview of {{count}} tasks."
+  }
 }

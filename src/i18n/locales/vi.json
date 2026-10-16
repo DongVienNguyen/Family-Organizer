@@ -1810,5 +1810,37 @@
     "failed": "Chưa xác nhận được kết quả. Kiểm tra lại hoặc thử lại cùng yêu cầu.",
     "reload": "Tải lại bảng, giữ ghi chú"
   },
-  "productivityKanbanDrag": {"handle": "Kéo công việc: {{title}}"}
+  "productivityKanbanDrag": {
+    "handle": "Kéo công việc: {{title}}"
+  },
+  "productivityKanbanLayout": {
+    "title": "Thiết lập cột phân loại",
+    "none": "Không phân loại",
+    "policy": "Thay đổi cột chỉ đổi phân loại và thứ tự cột. Không hoàn thành công việc, đổi hạn, bằng chứng hoặc điểm thưởng.",
+    "create": "Tạo cột",
+    "rename": "Đổi tên",
+    "renameFor": "Đổi tên cột: {{title}}",
+    "order": "Sắp xếp cột",
+    "orderFor": "Sắp xếp cột: {{title}}",
+    "archive": "Lưu trữ cột",
+    "archiveFor": "Lưu trữ cột: {{title}}",
+    "name": "Tên cột",
+    "before": "Đặt cột trước",
+    "end": "Cuối bảng",
+    "wholeSection": "Lưu trữ áp dụng cho toàn bộ cột, kể cả công việc ngoài bộ lọc đang xem. Các công việc chưa xóa sẽ về Không phân loại.",
+    "preview": "Xem trước lưu trữ cột",
+    "affected": "Toàn bộ {{count}} công việc chưa xóa sẽ về Không phân loại.",
+    "expires": "Xem trước có hiệu lực đến {{time}}",
+    "acknowledge": "Tôi xác nhận phạm vi toàn bộ cột và chuyển các công việc về Không phân loại.",
+    "unknown": "Yêu cầu trước đang chờ xác nhận kết quả. Các lựa chọn được giữ nguyên; kiểm tra lại trước khi tạo yêu cầu khác.",
+    "hidePending": "Ẩn, giữ yêu cầu đang chờ",
+    "check": "Kiểm tra kết quả yêu cầu",
+    "archiveConfirm": "Xác nhận lưu trữ cột",
+    "confirm": "Xác nhận thay đổi cột",
+    "checkPending": "Kiểm tra yêu cầu cột đang chờ",
+    "reload": "Đọc lại thiết lập cột",
+    "conflict": "Quyền hoặc dữ liệu cột đã thay đổi. Đọc lại rồi xác nhận yêu cầu mới.",
+    "failed": "Chưa xác nhận được kết quả. Bạn có thể đọc lại cột hoặc kiểm tra yêu cầu đang chờ.",
+    "pendingAffected": "Yêu cầu đang chờ dùng bản xem trước với {{count}} công việc."
+  }
 }
