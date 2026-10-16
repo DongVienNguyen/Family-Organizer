@@ -1,0 +1,178 @@
+{
+  "taskId": "F05-port-policy",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38832237610",
+  "sourceSha": "4f6e3573892dac37a016d8c5f9e1e410db3e3e8d",
+  "sourcePR107ExactCiAccepted": true,
+  "mainPushAccepted": false,
+  "node24": {
+    "tests": 4330,
+    "passed": 4329,
+    "failed": 1,
+    "case": "holds both loopback TCP and UDP until explicit close, then makes both reusable",
+    "observedError": "listen EACCES 127.0.0.1:62684",
+    "coverage": "not-run after failed units"
+  },
+  "nativeCaddy": {
+    "phase": "preflight",
+    "errorCode": "EACCES",
+    "onlyVersionPhasePassed": true,
+    "fixtureCleanup": true,
+    "wrapperFixtureCleanup": false,
+    "noNativeSuccess": true
+  },
+  "limitations": [
+    "historical actual OS exclusions were not captured",
+    "exact failed bind stage in unit test was not recorded",
+    "no assertion about a specific historical exclusion range"
+  ],
+  "fullLogs": {
+    "files": 129,
+    "lines": 21568,
+    "sha256": "c13668ba62a5cfa4f329b3856682844082ca5f24d7754a918e16fb0039d17fa4",
+    "errorMarkers": 28
+  },
+  "allErrorMarkers": [
+    {
+      "file": "0_ci-gate.txt",
+      "line": 62,
+      "text": "2026-10-16T01:08:11.2656095Z ##[error]Process completed with exit code 1."
+    },
+    {
+      "file": "ci-gate/2_Require Windows quality, browser, package and service checks to succeed.txt",
+      "line": 32,
+      "text": "2026-10-16T01:08:11.2656069Z ##[error]Process completed with exit code 1."
+    },
+    {
+      "file": "4_Windows Node22 baseline.txt",
+      "line": 617,
+      "text": "2026-10-16T00:59:07.3886783Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m"
+    },
+    {
+      "file": "4_Windows Node22 baseline.txt",
+      "line": 1107,
+      "text": "2026-10-16T01:03:25.3471305Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m"
+    },
+    {
+      "file": "4_Windows Node22 baseline.txt",
+      "line": 1146,
+      "text": "2026-10-16T01:03:41.2735801Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m"
+    },
+    {
+      "file": "4_Windows Node22 baseline.txt",
+      "line": 1327,
+      "text": "2026-10-16T01:05:03.6720210Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m"
+    },
+    {
+      "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 106,
+      "text": "2026-10-16T00:59:07.3886763Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m"
+    },
+    {
+      "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 596,
+      "text": "2026-10-16T01:03:25.3471285Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m"
+    },
+    {
+      "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 635,
+      "text": "2026-10-16T01:03:41.2735775Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m"
+    },
+    {
+      "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 816,
+      "text": "2026-10-16T01:05:03.6720183Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m"
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 463,
+      "text": "2026-10-16T00:56:32.6791802Z \u001b[31;1mError: CADDY_NATIVE_REJECTED\u001b[0m"
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 470,
+      "text": "2026-10-16T00:56:32.8403888Z ##[error]Process completed with exit code 1."
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 637,
+      "text": "2026-10-16T00:58:18.2256022Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m"
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 1099,
+      "text": "2026-10-16T01:01:44.3936287Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m"
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 1139,
+      "text": "2026-10-16T01:01:57.9772749Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m"
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 1320,
+      "text": "2026-10-16T01:03:22.8701171Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m"
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 1574,
+      "text": "2026-10-16T01:04:51.0654247Z \u001b[31;1m\u001b[41m\u001b[1m FAIL \u001b[22m\u001b[49m tests/synthetic-proxy-port.test.ts\u001b[2m > \u001b[22mholds both loopback TCP and UDP until explicit close, then makes both reusable\u001b[0m"
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 1586,
+      "text": "2026-10-16T01:04:52.1439322Z ##[error]Process completed with exit code 1."
+    },
+    {
+      "file": "5_Windows Node24 baseline.txt",
+      "line": 3608,
+      "text": "2026-10-16T01:05:16.7825167Z ##[error]Process completed with exit code 1."
+    },
+    {
+      "file": "Windows Node24 baseline/13_Pinned native Caddy isolated TLS proxy and graceful stop.txt",
+      "line": 26,
+      "text": "2026-10-16T00:56:32.6791792Z \u001b[31;1mError: CADDY_NATIVE_REJECTED\u001b[0m"
+    },
+    {
+      "file": "Windows Node24 baseline/13_Pinned native Caddy isolated TLS proxy and graceful stop.txt",
+      "line": 33,
+      "text": "2026-10-16T00:56:32.8403867Z ##[error]Process completed with exit code 1."
+    },
+    {
+      "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 102,
+      "text": "2026-10-16T00:58:18.2256004Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m"
+    },
+    {
+      "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 564,
+      "text": "2026-10-16T01:01:44.3936257Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m"
+    },
+    {
+      "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 604,
+      "text": "2026-10-16T01:01:57.9772733Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m"
+    },
+    {
+      "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 785,
+      "text": "2026-10-16T01:03:22.8701140Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m"
+    },
+    {
+      "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 1039,
+      "text": "2026-10-16T01:04:51.0654225Z \u001b[31;1m\u001b[41m\u001b[1m FAIL \u001b[22m\u001b[49m tests/synthetic-proxy-port.test.ts\u001b[2m > \u001b[22mholds both loopback TCP and UDP until explicit close, then makes both reusable\u001b[0m"
+    },
+    {
+      "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+      "line": 1051,
+      "text": "2026-10-16T01:04:52.1439302Z ##[error]Process completed with exit code 1."
+    },
+    {
+      "file": "Windows Node24 baseline/21_Validate and record evidence.txt",
+      "line": 1781,
+      "text": "2026-10-16T01:05:16.7825154Z ##[error]Process completed with exit code 1."
+    }
+  ],
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

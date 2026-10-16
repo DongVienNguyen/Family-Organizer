@@ -1,0 +1,98 @@
+{
+  "task": "F09 browser routing investigation",
+  "sourceSha": "8cf5ab0ad6dd656ae55edb525fe68a3f23cb26f8",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38836830053",
+  "traceSha256": "5390d76d336bd3966d17ad4dc321e1581bf5d1410792e34165c431e108e93cd4",
+  "case": "B01 login reload logout",
+  "project": "webkit",
+  "failedBoundary": "uncaught browser errors",
+  "retainedAssertions": true,
+  "observations": [
+    {
+      "source": "1-trace.trace",
+      "time": 240068.473,
+      "type": "before",
+      "method": "reload"
+    },
+    {
+      "source": "1-trace.trace",
+      "time": 240264.692,
+      "type": "before",
+      "method": "continue"
+    },
+    {
+      "source": "1-trace.trace",
+      "time": 240266.171,
+      "type": "event",
+      "method": "pageError",
+      "error": "/127.0.0.1:62020/api/productivity/catalog due to access control checks."
+    },
+    {
+      "source": "1-trace.trace",
+      "time": 240266.414,
+      "type": "console",
+      "method": null,
+      "message": "TypeError: Load failed"
+    },
+    {
+      "source": "1-trace.trace",
+      "time": 240266.515,
+      "type": "console",
+      "method": null,
+      "message": "TypeError: Load failed"
+    },
+    {
+      "source": "1-trace.trace",
+      "time": 240930.827,
+      "type": "console",
+      "method": null,
+      "message": "Failed to load resource: the server responded with a status of 409 (Conflict)"
+    }
+  ],
+  "ruling": "route continuation overlaps reload and precedes WebKit same-origin catalog access-control pageError; catalog later returns normal409 unavailable. Do not infer an application CORS/auth defect or ignore the pageerror. Route only external origins so internal navigation is not intercepted by driver.",
+  "limitation": "architecture hypothesis requires unchanged full45 Windows browser assertions on corrected HEAD",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mainPushAccepted": false,
+  "all8ArtifactsPreserved": true,
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "fullLogs": {
+    "files": 130,
+    "lines": 23588,
+    "sha256": "dd957089cbaa7d3177e74735e12aced8aa8bbffc0194ae09e2080f2209c9bdb1",
+    "markers": 24
+  }
+}
