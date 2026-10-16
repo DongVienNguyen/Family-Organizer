@@ -3,9 +3,9 @@
   "baseSha": "94d10b9743562fedb52b28d92c1e215175094a03",
   "scope": "grouped command ownership only; physical menu typed union narrowing; grouped controls not activated",
   "cloudGreen": {
-    "tests": 4815,
-    "files": 261,
-    "junitCases": 4815,
+    "tests": 4886,
+    "files": 266,
+    "junitCases": 4886,
     "failed": 0,
     "pending": 0,
     "todo": 0,
@@ -124,5 +124,324 @@
   },
   "prUrl": null,
   "windowsAcceptance": "not run; parent119 and physical menu candidate acceptance/source composition required",
-  "publicationAllowed": false
+  "publicationAllowed": false,
+  "beforeComposedVerification": {
+    "tests": 4815,
+    "files": 261,
+    "junitCases": 4815,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4886,
+    "files": 266
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      ".github/workflows/ci.yml": "c7d0fedb6184382890d98715689eb66ef10194fe143cbd58b9e8d1b6c0dc928d",
+      "playwright.config.ts": "1cadd166345aaa142caea824003fb6ae2a2dc12bb94c70ec9d60b7ed6af77c8d",
+      "playwright.matrix-touch.config.ts": "d6a17a839ed07563c5787f6e7bdc521851863f8bebe3ec06dbde6a1ef4b24b2e",
+      "playwright.productivity.config.ts": "01c897ae440a396466e96b2a85ccc87f7eae619d6469356145c734e71293a8a7",
+      "scripts/ci/Test-ProductivityBrowser.ps1": "b8a210edd281b4158d9bfdcf6018e6fed1208b8c7b4bec35671f1c6f6cfeba1d",
+      "scripts/ci/browser-contract.mjs": "e207d973f5f7892bb4dbf0b0f556413d210ab198064beb72dc0a69082873c273",
+      "scripts/ci/browser-launch-policy.mjs": "280433d4a785bd5530b58ae08845cca86f0b53c06398654b83f6293c2f3785e2",
+      "scripts/ci/browser-protocol.mjs": "e0bb7ff02eed813f2afee918a0971730aa89deae6016b9311e452be61ca4ddcc",
+      "scripts/ci/merge-productivity-browser.mjs": "6471a12a365ab959e6cc742047bc68ec24c07d2a84acda04d8cb33a13970a0e9",
+      "scripts/ci/productivity-browser-contract.mjs": "c8271bcd14a031de5c1827d696ea5d57e23a6caecd9ef95846669fe81fd978af",
+      "scripts/ci/productivity-merge.mjs": "cae10683f716f5f6ad14563be837d811ce02abaacc37052b3c1b6a2c2589508b",
+      "scripts/ci/productivity-report-layout.mjs": "838b1b72436e2c680ae590f2b160dcb277c3ba27fd0ff617f0e3a78a49f6fbad",
+      "scripts/ci/productivity-shard-contract.mjs": "95f81d9800ad51a2df89dacb5e5208e97bd5b1fb6951f069e0a705a0273230a6",
+      "scripts/ci/run-productivity-browser.mjs": "a54a31eee9e82e420b022a9be253ef16c06858b6778bc5fb3458cd8cfe298391",
+      "scripts/ci/write-evidence.mjs": "6fc29d4c4f025101541f62b6932c584f26fbb4b34ae87ef21fdebbeed0e314fe",
+      "scripts/ci/write-productivity-browser-evidence.mjs": "8be01c697a12313c5da39f760298d70364385e6c5f43dcbf7cc127928a3140da",
+      "scripts/ci/write-productivity-browser-fixture.ts": "2376d9113044386c1396ef641090520dc7785b1a4f497e58315e323218340bf0",
+      "scripts/windows/release-productivity-browser-files.mjs": "eacd162cd51c7ed7b4226785640b20d7e752dcfcd29ecaeb24ab023d35582174",
+      "scripts/windows/release-productivity-source-policy.mjs": "d86017cf7eddf6da40f1a3afaf14ca3ed0c40597555d84360f00d0f6bc59465f",
+      "src/components/Tasks.tsx": "0e26fe1bafe8b5fbe57fdb9616e9810068dab0a621500ddad0103148f1e8a1fe",
+      "src/features/productivity/Kanban.tsx": "7b56eaaf88a4d4436379c4de34930f6570b0e6b02d15d709d71801388d8544c5",
+      "src/features/productivity/KanbanSectionActions.tsx": "c45ff9679e88328bc9120a74802a182b56232f834beb53866a486f6591e45f1c",
+      "src/features/productivity/KanbanSectionDialog.tsx": "ebbd44e58043036f20dfcc090761bd6ebb737c1b41d3f2e67bf3b97b36e5724e",
+      "src/features/productivity/KanbanWorkspace.tsx": "ccc9286d52a8478502f0cd8f5f43a24ccebe9c59348fb5bd034df1b4f48d6a2e",
+      "src/features/productivity/kanban-section-ui.test.tsx": "0264d992df574da26253df8ee57fed327f2293db0aae9c15426d0fb6a0439934",
+      "src/features/productivity/kanban-ui.test.tsx": "19778bd7fcc66d9759d0c7cb359771a10acaf91a697edb0c7ccefa2aa91d4456",
+      "src/features/productivity/kanbanCommandState.test.ts": "3c5c48cb1e0750ddc7bfe66113af0a2e965af755fbaaa80bde58d4a60ba99535",
+      "src/features/productivity/kanbanCommandState.ts": "3cf6d1abaf97b317a880156fea192bf48176dd7fb82f774389d8ec7341255d85",
+      "src/i18n/locales/en.json": "4043cf6b4d1a0acaaec1e8d41938a08ea718734368bb29e4518ffe488cd7b07b",
+      "src/i18n/locales/vi.json": "b49079342d4b3a938b0ef7d1cbe531ecad90bdef6bc4c7aee3287270fa783954",
+      "src/i18n/locales/zh.json": "c16f5b2beb66108a3fa20abe04d4db1a7e891b2b75b29b4ae146078253e042ec",
+      "tests/browser-launch-policy.test.ts": "7c514205e63c394e87cd1fc23dfbc2653e3bd0cdf061b7c99d27f5d6a2a978ec",
+      "tests/browser-protocol.test.ts": "4825d69ef46ca97990591e0428fffa28d4ebfc2ab19c865f5baf3409456b6203",
+      "tests/e2e/productivity.spec.ts": "8bb88e2faedea70447724849034d22d271de9ce5520249e633d92fc7518f65cf",
+      "tests/evidence.test.ts": "0c968b193fe12d1f2838412b7a2d26d4f4a24703857297ced4b1760d35e1d57a",
+      "tests/grouped-rank-import.test.ts": "8cb64c44b2b31427d8ce554124f6af5096a27e93d8bb9503dface60cc3714f26",
+      "tests/helpers/release-productivity-browser-fixture.ts": "9b4eafd0715ec4176364bc8ebf618cd5433b4d27704a50821afdda1acb66144e",
+      "tests/productivity-browser-evidence.test.ts": "19ad2fa1b107fe1ca44352c13f778f3c88f1a87002f268121c2eb854c9a93b42",
+      "tests/productivity-ci-layout.test.ts": "242c385865b6f1900f79ba666db26a16814bb0c8ed2398233952ca894dc9b5ac",
+      "tests/productivity-merge.test.ts": "3708de35a0e59a6a6d9e54871d5f22f609641094a6d7d259930d8be3f6666477",
+      "tests/productivity-report-layout.test.ts": "883d7b13559e9d0a3250361759a2fe2303d30d7c01ca62bf5cc694702497c8e6",
+      "tests/productivity-shards.test.ts": "437eaf8ada2fffec65a8a45dda087f63fcec3d1e6d37bceb5c8d1c0c6189949a",
+      "tests/release-productivity-profile.test.ts": "c38940a35fb16c43b7a41c6955e5010fa7bba51c38c45f8aea4f073e837c1f78"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "f5a1874b814d3921562c8114983395ad645408b99737dc39b5e97e65582580cb",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "frontendIndexSha256": "3f7b3efe1db177b22de4ad53cd733ef9c5e8bd3613044ebaff58c44d2a9af846",
+    "reports": {
+      "p09g-composed-full.junit.xml": "5ad9f8e278565aed7586cb5885d82791c9c777dda5ea96c79d5cfba640f0f39e",
+      "p09g-composed-full.json": "635c4e030f0977440b7b27b39b85b42a39d60caa38748732fc6fc8c20d803324",
+      "p09g-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09g-composed-build.log": "1d81b0ed8eb2d6e8ce37e9be14b4dbc678ce7853d515796647c7d8a6576a748e",
+      "p09g-composed-full.log": "f69e09902a17e09d00ca49c73f68b90c8bbf11f6974afd49fc30f36defcc9307"
+    },
+    "windowsAcceptance": "not run;119 and menu parent acceptance required"
+  },
+  "ciIsolation": {
+    "review": {
+      "task": "P09-e CI verification correction",
+      "kind": "ONE source-scoped SELF after actual main118 Windows failure; original P09-e review remains closed",
+      "reviewClosed": true,
+      "findings": {
+        "critical": 0,
+        "important": 0,
+        "minor": 0
+      },
+      "allFindingsGradedBeforeCorrection": true,
+      "correctionPasses": 0,
+      "rereview": false,
+      "sourceHashes": {
+        ".github/workflows/ci.yml": "c7d0fedb6184382890d98715689eb66ef10194fe143cbd58b9e8d1b6c0dc928d",
+        "playwright.matrix-touch.config.ts": "9437b735cb40bac7aa45991825795b4c90f54d0fa83cd1ec963d4ab4416dd798",
+        "playwright.productivity.config.ts": "01c897ae440a396466e96b2a85ccc87f7eae619d6469356145c734e71293a8a7",
+        "scripts/ci/Test-ProductivityBrowser.ps1": "b8a210edd281b4158d9bfdcf6018e6fed1208b8c7b4bec35671f1c6f6cfeba1d",
+        "scripts/ci/browser-contract.mjs": "e207d973f5f7892bb4dbf0b0f556413d210ab198064beb72dc0a69082873c273",
+        "scripts/ci/merge-productivity-browser.mjs": "6471a12a365ab959e6cc742047bc68ec24c07d2a84acda04d8cb33a13970a0e9",
+        "scripts/ci/productivity-browser-contract.mjs": "00a5f9af13078aa98d1a19610b26555888760a72abcf1e82c89d016dd0979283",
+        "scripts/ci/productivity-merge.mjs": "cae10683f716f5f6ad14563be837d811ce02abaacc37052b3c1b6a2c2589508b",
+        "scripts/ci/productivity-report-layout.mjs": "838b1b72436e2c680ae590f2b160dcb277c3ba27fd0ff617f0e3a78a49f6fbad",
+        "scripts/ci/productivity-shard-contract.mjs": "95f81d9800ad51a2df89dacb5e5208e97bd5b1fb6951f069e0a705a0273230a6",
+        "scripts/ci/run-productivity-browser.mjs": "a54a31eee9e82e420b022a9be253ef16c06858b6778bc5fb3458cd8cfe298391",
+        "scripts/ci/write-evidence.mjs": "196e10ffb0c3318bbff4fc1ab02e104e95dd9beb7c8cacbbe90c836ac4c05c1f",
+        "scripts/ci/write-productivity-browser-evidence.mjs": "8be01c697a12313c5da39f760298d70364385e6c5f43dcbf7cc127928a3140da",
+        "scripts/windows/release-productivity-browser-files.mjs": "eacd162cd51c7ed7b4226785640b20d7e752dcfcd29ecaeb24ab023d35582174",
+        "scripts/windows/release-productivity-source-policy.mjs": "d86017cf7eddf6da40f1a3afaf14ca3ed0c40597555d84360f00d0f6bc59465f",
+        "tests/evidence.test.ts": "5942c9c652d5af34dad7a3dd4d95fc2969d423f75b3c7c42c8b1f771512cd369",
+        "tests/helpers/release-productivity-browser-fixture.ts": "39875c18dca4aeea69ec93e80485868d6a6fbc878a0261b4542d60a315fc731a",
+        "tests/productivity-browser-evidence.test.ts": "19ad2fa1b107fe1ca44352c13f778f3c88f1a87002f268121c2eb854c9a93b42",
+        "tests/productivity-ci-layout.test.ts": "242c385865b6f1900f79ba666db26a16814bb0c8ed2398233952ca894dc9b5ac",
+        "tests/productivity-merge.test.ts": "3708de35a0e59a6a6d9e54871d5f22f609641094a6d7d259930d8be3f6666477",
+        "tests/productivity-report-layout.test.ts": "883d7b13559e9d0a3250361759a2fe2303d30d7c01ca62bf5cc694702497c8e6",
+        "tests/productivity-shards.test.ts": "437eaf8ada2fffec65a8a45dda087f63fcec3d1e6d37bceb5c8d1c0c6189949a",
+        "tests/release-productivity-profile.test.ts": "46824c2ce4044798151f09680c70617c1b744fd242983027cc78b372fd935170"
+      },
+      "coverage": [
+        "three actual Windows producers in existing topology, independent fixture/cwd/SQLite/server and same SHA/run/attempt",
+        "unchanged 63 case bodies, native touch and 45 legacy cases, no timeout increases or retries",
+        "official pinned blob merge and strict original JSON/JUnit first-attempt inventories",
+        "official aggregate config defaults versus each original forbidOnly=true/workers=1/retries=0",
+        "native install/build/browser/merge exit checks and closed/offline preservation facts",
+        "target Git literal capability parsing without execution, legacy6 and single-process9 admission unchanged",
+        "raw shard receipt/hash equality and original blob hashes, missing/foreign evidence rejection",
+        "fixed paths, bounded copies, no symlink input, stale aggregate refused",
+        "four mandatory suite omission regressions and retained original assertion inventory"
+      ],
+      "verificationFindingsBeforeSelf": [
+        "fixture setup initially omitted independent evidence; corrected test setup",
+        "native merge reports summed workers=3 and default forbidOnly=false; original leaf settings remain mandatory and aggregate pinned shape is bound to target capability1",
+        "missing-file negative setup initially recreated file during save; corrected fixture setup",
+        "shard receipt hash loop must exclude its own evidence file, whose bytes are self-referential by design; all original raw leaf hashes remain mandatory"
+      ],
+      "remaining": [
+        "new exact HEAD Windows CI and complete independent artifact/log verification",
+        "read-only candidate/preparation qualification for actual new sharded profile",
+        "dependent P09-f menu branch composition and remainder of master plan"
+      ],
+      "publicationAllowed": false
+    },
+    "failureEvidence": "p09e-main118-watchdog-failure.json",
+    "previousPrGreen": "p09e-pre-isolation-windows.json",
+    "cloudGreen": {
+      "tests": 4834,
+      "passed": 4834,
+      "files": 264,
+      "junitCases": 4834,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "lintExit": 0,
+      "buildExit": 0,
+      "platform": "linux"
+    },
+    "mandatoryOmissionRed": {
+      "tests": 306,
+      "passed": 302,
+      "failed": 4
+    },
+    "mandatoryOmissionGreen": {
+      "tests": 306,
+      "passed": 306,
+      "failed": 0
+    },
+    "originalCaseFileByteEqual": true,
+    "dependenciesUnchanged": true,
+    "casesPerEngine": 21,
+    "nativeTouchCases": 1,
+    "reports": {
+      "p09e-isolation-layout.json": "a0c2929f43b43886469d85243891d4c932d1c08386700469fa5ad7dba7df2a37",
+      "p09e-isolation-review-rulings.json": "c3e71873d3940da0a438182474d8f87a1af3b407912b723b3b2b5d80df64c50b",
+      "p09e-isolation-assembly-first.json": "f8b7595a7f5ea1b8bd3bb9c1a1c49ad1740c4352a44d37784ac4569dfb1f18ac",
+      "p09e-isolation-first.json": "a555b2bc66c150d84caaf74a31b86e8438202b3db640e049776510304ad48a70",
+      "p09e-isolation-profile-current.json": "0b91c780521ffd20ee1c55b4ad5979377a90d98a2a9f85094bd87bc02b8740c4",
+      "p09e-isolation-target-final.log": "5cad3181d74d1d5cabb9028818deea5d5c66da99365dd02bf67b70479555bdf9",
+      "p09e-isolation-contract.json": "b353c0c8574d4af0f6bec90a792338fc635f4e66af2b308b57d265ec51051b62",
+      "p09e-isolation-assembly-first.log": "ee7c1aa1eed52cd93dad4a1322c5a94750a34c5df4001824f3a966129c67f4f6",
+      "p09e-isolation-full.json": "1734f82d31d258dd26752cfb0f98e9da86c22c567d89004b74acc540ca58094c",
+      "p09e-isolation-profile-current.log": "2a79ba1494a567d7dca05831db68d8db8111821f4f13a70af76efb766ec34af5",
+      "p09e-isolation-lint-first.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09e-isolation-merge-first.log": "832e4ffdb823ffe8a5f2394bee7fb2310d5929314183b1bd7f2d8e0aacfb675f",
+      "p09e-isolation-lint-current.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09e-isolation-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09e-isolation-merge-current.json": "68fd3dfeae65e7717b5ca30b88839a0d1450bbeb15b1dbfce92a65059ce6712a",
+      "p09e-isolation-full.junit.xml": "f0cd4b9df9c552fe70c75c495302337190113bf962328ad605b5664485480a65",
+      "p09e-isolation-corrected.json": "abe7cb745bdd43cce2b432797184edb16dccc7c73661c0a039cf4c9b95b97b30",
+      "p09e-isolation-target-final.json": "023bf9fc4b150194803fb2d34f17e522ad2ac2fb5237ca0471bd6a631daff116",
+      "p09e-isolation-gate-green.log": "7331d9fd6ebc26785d6afc2c0c081e3974c055f4a7ee0ea03de5624a6f8a86a7",
+      "p09e-isolation-gate-red.json": "560e46a36ed052001587acc2918eb03f9bf537c3fbb6a84fa21b656864478924",
+      "p09e-isolation-full.log": "ce0199a283dbc2bebb42c768f5c6ae87b7b22d90c63d4e0c58bdf953a62a24c4",
+      "p09e-isolation-build.log": "6e2c76ad799931a764948f5ef485f49c2d39a2235fafb314bf38b251442b0245",
+      "p09e-isolation-gate-green.json": "74120c937a545a40ba5ad7ea72c8a8cb0325e2a0ed5464346098af1de5f70604",
+      "p09e-isolation-contract.log": "73a7ea9bcbbaf6d559c8a6b64a92ac9b15c135de181051ed2d100b50c70f2c18",
+      "p09e-isolation-target-current.log": "34cc65b793ec7938287ea4ba2062c822a8735803a282efeeb36e80ad2b2a6d25",
+      "p09e-isolation-merge-current.log": "4e9eda4d3d6623a9553c0db75a229cbd0ee120a6b26599ab87798510fbf59443",
+      "p09e-isolation-merge-first.json": "a0f7160966efe8ebf8d45de3ce039bca1bc25d267d8b8d378ac524bd0322c8d9",
+      "p09e-isolation-corrected.log": "e1f6823b83948aa666e710e61c007432514dce01c551ec382140beff449ea3f3",
+      "p09e-isolation-layout.log": "4f447ee42947a012542a80029227953eb3794d5a690db95ea3f6c2c76e38f45a",
+      "p09e-isolation-first.log": "bd27b711ae8605010fe1874e8f4aa9da8328eff7e118eed1be60529c6c3b0c28",
+      "p09e-isolation-gate-red.log": "f150b1cbc2e664d5a3784fdb1d108ec2fd8e30b9c452cb9281aad622e4a2c76e",
+      "p09e-isolation-target-current.json": "cbb01209f981b37ef766e2c3cfbafe64139c821bdad181091ea2f3c96a0ec9af"
+    },
+    "windowsAcceptance": "pending",
+    "publicationAllowed": false
+  },
+  "ciProfiler": {
+    "review": {
+      "task": "P09-e native browser verification correction",
+      "kind": "ONE SELF of new8-file launch mitigation only; original owner/CI isolation reviews stay closed",
+      "reviewClosed": true,
+      "findings": {
+        "critical": 0,
+        "important": 0,
+        "minor": 0
+      },
+      "allFindingsGradedBeforeCorrection": true,
+      "correctionPasses": 0,
+      "rereview": false,
+      "importantRemaining": 0,
+      "sourceHashes": {
+        "playwright.config.ts": "1cadd166345aaa142caea824003fb6ae2a2dc12bb94c70ec9d60b7ed6af77c8d",
+        "playwright.matrix-touch.config.ts": "d6a17a839ed07563c5787f6e7bdc521851863f8bebe3ec06dbde6a1ef4b24b2e",
+        "scripts/ci/browser-launch-policy.mjs": "280433d4a785bd5530b58ae08845cca86f0b53c06398654b83f6293c2f3785e2",
+        "scripts/ci/browser-protocol.mjs": "e0bb7ff02eed813f2afee918a0971730aa89deae6016b9311e452be61ca4ddcc",
+        "scripts/ci/write-evidence.mjs": "b2a808b1d2a87e449e3ca0ba7e8b2345c8d57386dffd155865b3ae3faf64b493",
+        "tests/browser-launch-policy.test.ts": "7c514205e63c394e87cd1fc23dfbc2653e3bd0cdf061b7c99d27f5d6a2a978ec",
+        "tests/browser-protocol.test.ts": "4825d69ef46ca97990591e0428fffa28d4ebfc2ab19c865f5baf3409456b6203",
+        "tests/evidence.test.ts": "4d56ddc6529a530e0f90f631a8231df1801ca6fbcfcff807b52688b434bd7d85"
+      },
+      "coverage": [
+        "Windows Chromium only --disable-stack-profiler; same pinned executable, no application/runtime/dependency change",
+        "upstream43327 exact Chrome156.0.8078.4/native0xC0000005 evidence; local native stack explicitly unconfirmed",
+        "ordinary and Productivity configurations consume the same policy",
+        "native touch inherits explicitly pinned Chromium executable/policy with all device properties retained",
+        "launch diagnostics expose only exact mitigation boolean, redact commands/paths/private args and reject lookalike flags",
+        "no browser crash catch/suppression, no retry/skip/assertion/deadline/video/trace weakening",
+        "new mandatory suite omission307/306/1RED, original browser protocol/native exit assertions retained",
+        "original legacy45 and Productivity63 case sources byte-identical"
+      ],
+      "developmentCorrectionsBeforeSelf": [
+        {
+          "lintExit": 2,
+          "cause": "synthetic platform test iteration inferred string rather than NodeJS.Platform",
+          "correction": "literal platform tuple; all three platform/engine assertions retained"
+        }
+      ],
+      "remaining": [
+        "complete Cloud verification and actual explicit-pinned native-touch run",
+        "new exact HEAD Windows8checks/11raw/full logs",
+        "exact native stack not available from old failed runner; no stack-cause confirmation claim",
+        "parent/dependent P09-f/g composition and remaining master tasks"
+      ],
+      "publicationAllowed": false
+    },
+    "failureEvidence": "p09e-isolation-first-windows-failure.json",
+    "upstream": "https://github.com/microsoft/playwright/issues/43327",
+    "localNativeStackConfirmed": false,
+    "target": {
+      "tests": 343,
+      "passed": 343
+    },
+    "mandatoryOmissionRed": {
+      "tests": 307,
+      "passed": 306,
+      "failed": 1
+    },
+    "cloudGreen": {
+      "tests": 4843,
+      "passed": 4843,
+      "files": 265,
+      "junitCases": 4843,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "lintExit": 0,
+      "buildExit": 0,
+      "platform": "linux"
+    },
+    "scopedChromium": "running; does not establish Windows acceptance",
+    "reports": {
+      "p09e-profiler-full.junit.xml": "810f7d7ecf7c57ea257aa0f0de7cc67ecdae8511d635523fd2def74aae66703f",
+      "p09e-profiler-lint-first.log": "09cb6e2b3c0c90103c3686c44a9cc0b54cff4b4c622e9f2b3c7f9a5c860227ed",
+      "p09e-profiler-full.log": "08a9971ee2c19ac5da14235a3dc019c4fca39639de4799c06e024eab2feb6227",
+      "p09e-profiler-full.json": "cb4e2b23e27003855935a126271dd10eef25f7734a630b30ada744daa267975d",
+      "p09e-profiler-review-rulings.json": "32be2f7dcf695ac2852bcc37444ad09df3bb6284a1ac9f318bf0da9461615854",
+      "p09e-profiler-target-current.log": "2a910ad5acd96eeb930e8561930f6af148ea700a78291408c0468f325dcb0ed6",
+      "p09e-profiler-target-current.json": "a1ba53a65012c090178e4633f553568f390133af7c4d8ee36c44e17bec7a038e",
+      "p09e-profiler-gate-red.json": "dd9ddef583ca07fed85faa91ab30f4a2fef6122dcce301d493b544ffee55d824",
+      "p09e-profiler-gate-red.log": "6c2eed30262e9a8208f8cb260446352e4285638fc300b2404eee8f5dbeace7e7",
+      "p09e-profiler-lint-current.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09e-profiler-build.log": "2a162d8765f3cd8977e4a3291eb45eed80a23e774ef1394782261dc54aaedef6"
+    },
+    "nativeSpecsByteEqual": true,
+    "dependenciesUnchanged": true,
+    "windowsAcceptance": "pending new exact HEAD",
+    "publicationAllowed": false,
+    "reportCollectionCorrection": {
+      "originalCollectionEmpty": true,
+      "cause": "chained Python comparison in metadata writer instead of explicit not-in predicate",
+      "correction": "bind all completed raw verification report hashes; in-progress browser report excluded",
+      "sourceOrTestsChanged": false
+    }
+  },
+  "composedVerification": {
+    "menuSource": "d728909",
+    "includedCiCandidate": "ddf88044a40196a0a44ed1ce20f6001093323040",
+    "compositionCommit": "c77d5aafa0d2c83a58027893c18c1e768f0b5217",
+    "original3SourceHashesUnchanged": true,
+    "rereview": false,
+    "cloudGreen": {
+      "tests": 4886,
+      "files": 266,
+      "junitCases": 4886,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "lintExit": 0,
+      "buildExit": 0,
+      "platform": "linux"
+    },
+    "groupedUiActivated": false
+  }
 }
