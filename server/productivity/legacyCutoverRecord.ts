@@ -21,7 +21,7 @@ export function validateLegacyCutovers(input:{cutovers:Record<string,any>[];task
    const task=input.tasks.get(member.taskId as string);if(!task)fail();const legacy=JSON.parse(task!.legacy_json),changed=member.recurrenceType!=='none';if(changed)stopped++;
    if((legacy.recurrenceType??'none')!=='none'||(legacy.sourceRecurringTaskId??null)!==member.sourceTaskId||task!.revision<(member.revision as number)+(changed?1:0))fail();members.set(member.taskId as string,{sourceId:member.sourceTaskId as string|null,type:member.recurrenceType as string});
   }
-  if(!stopped||!members.has(row.selected_task_id)||!members.has(row.legacy_root_task_id)||members.get(row.legacy_root_task_id)!.sourceId!==null)fail();
+  if((!stopped&&members.size<2)||!members.has(row.selected_task_id)||!members.has(row.legacy_root_task_id)||members.get(row.legacy_root_task_id)!.sourceId!==null)fail();
   const connected=new Set<string>([row.legacy_root_task_id]),queue=[row.legacy_root_task_id];for(let index=0;index<queue.length;index++)for(const child of children.get(queue[index])??[]){if(connected.has(child))fail();connected.add(child);queue.push(child);if(!members.has(child)&&owned.get(child)!==row.series_id)fail();}
   if([...members.keys()].some(id=>!connected.has(id)))fail();
  }

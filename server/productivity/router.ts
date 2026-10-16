@@ -54,7 +54,7 @@ export function taskRouter(ports:ProductivityPorts,requireAuth:RequestHandler,ev
  router.post('/legacy-recurrence/:id/cutover',handler(req=>{
   if(!ports.legacyCutover)throw new AppStoreError('Kho chuyển lịch lặp chưa sẵn sàng.',409);
   const body=completionBody(req,['input']),result=ports.legacyCutover.apply(taskCommandContext(req,body.expectedRevision),req.params.id,body.input);
-  for(const id of result.changedTaskIds)events.emit(id);return result;
+  for(const id of new Set([result.series.taskId,...result.changedTaskIds]))events.emit(id);return result;
  }));
  router.post('/series',handler(req=>{
   if(!ports.series)throw new AppStoreError('Kho lịch lặp chưa sẵn sàng.',409);

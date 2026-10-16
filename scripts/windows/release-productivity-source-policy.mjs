@@ -14,11 +14,12 @@ export function parseProductivityBrowserSourcePolicy(contract,touchContract,proj
  requireFact(JSON.stringify(projects)===JSON.stringify(['chromium','firefox','webkit']));const source=syntax(contract,'productivity-browser-contract.mjs'),value=exportedValue(source,'productivityBrowserCases');requireFact(value&&ts.isArrayLiteralExpression(value)&&value.elements.length>0&&value.elements.length<=99);
  const cases=value.elements.map(node=>literal(source,node));requireFact(new Set(cases).size===cases.length&&cases.every((name,index)=>/^P[0-9]{2} C[0-9]{2} [^\r\n]{1,300}$/.test(name)&&name.slice(4,7)==='C'+String(index+1).padStart(2,'0')));
  const declarations=source.statements.flatMap(statement=>ts.isVariableStatement(statement)?statement.declarationList.declarations.filter(d=>ts.isIdentifier(d.name)&&d.name.text==='productivityFixtureVersion'):[]);let fixtureVersion;
- if(declarations.length){const version=exportedValue(source,'productivityFixtureVersion');requireFact(ts.isNumericLiteral(version)&&['9','12'].includes(version.getText(source)));fixtureVersion=Number(version.getText(source));}
- requireFact(!cases.some(name=>name.startsWith('P09 '))||[9,12].includes(fixtureVersion));
- requireFact(!cases.some(name=>name.startsWith('P10 '))||fixtureVersion===12);
+ if(declarations.length){const version=exportedValue(source,'productivityFixtureVersion');requireFact(ts.isNumericLiteral(version)&&['9','12','13'].includes(version.getText(source)));fixtureVersion=Number(version.getText(source));}
+ requireFact(!cases.some(name=>name.startsWith('P09 '))||[9,12,13].includes(fixtureVersion));
+ requireFact(!cases.some(name=>name.startsWith('P10 '))||[12,13].includes(fixtureVersion));
+ requireFact(!cases.some(name=>/^P10 C(31|32) /.test(name))||fixtureVersion===13);
  const shardDeclarations=source.statements.flatMap(statement=>ts.isVariableStatement(statement)?statement.declarationList.declarations.filter(d=>ts.isIdentifier(d.name)&&d.name.text==='productivityBrowserShardFormat'):[]);let shardFormat;
- if(shardDeclarations.length){const format=exportedValue(source,'productivityBrowserShardFormat');requireFact([9,12].includes(fixtureVersion)&&ts.isNumericLiteral(format)&&format.getText(source)==='1');shardFormat=1;}
+ if(shardDeclarations.length){const format=exportedValue(source,'productivityBrowserShardFormat');requireFact([9,12,13].includes(fixtureVersion)&&ts.isNumericLiteral(format)&&format.getText(source)==='1');shardFormat=1;}
  const touchSource=syntax(touchContract,'matrix-touch-contract.mjs'),touchCase=literal(touchSource,exportedValue(touchSource,'matrixTouchCase'));requireFact(/^P[0-9]{2} touch [^\r\n]{1,300}$/.test(touchCase));
- return {projects:[...projects],cases,...(shardFormat===1?{shardFormat}:{}),...([9,12].includes(fixtureVersion)?{fixtureVersion}:{}),contractSha256:hash(contract),touch:{project:'chromium',case:touchCase,contractSha256:hash(touchContract)}};
+ return {projects:[...projects],cases,...(shardFormat===1?{shardFormat}:{}),...([9,12,13].includes(fixtureVersion)?{fixtureVersion}:{}),contractSha256:hash(contract),touch:{project:'chromium',case:touchCase,contractSha256:hash(touchContract)}};
 }
