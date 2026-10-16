@@ -129,7 +129,11 @@
     "notASecondFormalReview": true,
     "deadlineChanges": false,
     "retriesAdded": false,
-    "semanticAssertionsRemoved": false
+    "semanticAssertionsRemoved": false,
+    "regressionRegistration": {
+      "tests": 4,
+      "exit": 0
+    }
   },
   "casePreservation": {
     "acceptedParent": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
@@ -1109,7 +1113,42 @@
       "normalization": "Only actual recoveryRetention checkout/temp prefixes; all other titles and all multiplicities exact"
     },
     "linuxOnly": true,
-    "firefoxWebkit": "not-run locally; mandatory Windows pending"
+    "firefoxWebkit": "not-run locally; mandatory Windows pending",
+    "coverageSummary": {
+      "sha256": "e8329cbd63ec77692d3a16d7b4a3fd16fed988b3b351f47526d8f7bf985df015",
+      "total": {
+        "lines": {
+          "total": 14689,
+          "covered": 7414,
+          "skipped": 0,
+          "pct": 50.47
+        },
+        "statements": {
+          "total": 26754,
+          "covered": 15345,
+          "skipped": 0,
+          "pct": 57.35
+        },
+        "functions": {
+          "total": 5430,
+          "covered": 2749,
+          "skipped": 0,
+          "pct": 50.62
+        },
+        "branches": {
+          "total": 21323,
+          "covered": 11172,
+          "skipped": 0,
+          "pct": 52.39
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      }
+    }
   },
   "priorDevelopment": {
     "compositionInput": {

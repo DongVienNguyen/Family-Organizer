@@ -6,34 +6,42 @@
   "jobs": [
     {
       "name": "Windows production browsers",
+      "status": "completed",
       "conclusion": "success"
     },
     {
       "name": "Windows package producer",
+      "status": "completed",
       "conclusion": "success"
     },
     {
       "name": "Windows Node22 baseline",
+      "status": "completed",
       "conclusion": "success"
     },
     {
       "name": "Windows productivity browsers",
+      "status": "completed",
       "conclusion": "failure"
     },
     {
       "name": "Windows Node24 baseline",
+      "status": "completed",
       "conclusion": "success"
     },
     {
       "name": "Windows package clean consumer",
+      "status": "completed",
       "conclusion": "success"
     },
     {
       "name": "Windows disposable service",
+      "status": "completed",
       "conclusion": "success"
     },
     {
       "name": "ci-gate",
+      "status": "in_progress",
       "conclusion": null
     }
   ],
@@ -614,5 +622,6 @@
   },
   "fullMasterPlanAccepted": false,
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "gateSnapshot": "pending in jobs API despite run-level failure; never counted as success"
 }
