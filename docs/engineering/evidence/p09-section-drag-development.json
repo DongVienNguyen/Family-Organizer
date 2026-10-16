@@ -17,7 +17,7 @@
     "src/i18n/locales/vi.json": "54cb857c60b3932a5b45413679746303683d6c22db526442b4f5e584f7e79205",
     "src/i18n/locales/zh.json": "19a0a6e6b9a3bc02b5372710e12afad1979799eb3b63bc779f69003b3da6c3e5",
     "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b",
-    "tests/e2e/productivity.spec.ts": "6ea0ff47e602a552d4e59333111b30cbf6f746e2ef5863c7cc3d728f537fab8f",
+    "tests/e2e/productivity.spec.ts": "7ca96d335722e33a7dfcf923de3899aad13df29eae8517ce45c523f719e8f81c",
     "tests/helpers/release-productivity-browser-fixture.ts": "e83b7537b0322a79ef9e1634d712266711809be2dcbf99ddce863831c3abbec8",
     "tests/helpers/section-touch-fixture.ts": "fed1fcd617b476e891ae91b8d1487210142370e78a20f89b28b10b39a0eab7d6",
     "tests/kanban-touch-evidence.test.ts": "af3a2485903e9af6f75caea972e7574f353c6130ee10517a96cad765060ddf1e",
@@ -144,7 +144,8 @@
     "C35 active drag clone plus placeholder locator ambiguity, trace retained and active clone selected",
     "11 native touch evidence RED before strict contract",
     "1 raw source capability binding RED before fail-closed guard",
-    "2 stale-target revision RED before current target guard"
+    "2 stale-target revision RED before current target guard",
+    "Windows checkpoint e9d9bdb/38949667730 C35 shared-view fixture error; HTTP422 and actual due/title config recovered from trace"
   ],
   "dependenciesChanged": false,
   "migrationDefinitionsChanged": false,
@@ -154,5 +155,29 @@
   "fullP08P09P10M1": false,
   "fullMasterPlan": false,
   "server2019Acceptance": "not-run",
-  "publicationAllowed": false
+  "publicationAllowed": false,
+  "postReviewValidationRepair": {
+    "observedHeadSha": "e9d9bdb05059b7491142d159e68f4ec9fa42f4d0",
+    "observedRun": "38949667730",
+    "observedFailure": "Windows Firefox/WebKit C35: previous C25 deliberately left shared view group=due/sort=title; direct canonical projection returned422",
+    "file": "tests/e2e/productivity.spec.ts",
+    "beforeSha256": "6ea0ff47e602a552d4e59333111b30cbf6f746e2ef5863c7cc3d728f537fab8f",
+    "afterSha256": "7ca96d335722e33a7dfcf923de3899aad13df29eae8517ce45c523f719e8f81c",
+    "repair": "C35 creates its own actor-owned canonical Sections/rank view using the surviving board reference; checks projection HTTP200 explicitly",
+    "cloudC25ThenC35": 2,
+    "nativeTouch": 1,
+    "nativeExit": 0,
+    "runtimeBuildUnchanged": true,
+    "original34AssertionsPreserved": true,
+    "rereview": false,
+    "failedTraceRetained": true,
+    "lintExit": 0,
+    "failedChecks": [
+      "Windows Node24 baseline",
+      "Windows production browsers",
+      "Windows productivity browsers",
+      "ci-gate"
+    ],
+    "unchanged34CasesPassedEachEngine": true
+  }
 }
