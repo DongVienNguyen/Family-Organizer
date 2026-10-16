@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {Columns3,Clock3,CircleCheck,Tag,UserRound,CalendarDays} from 'lucide-react';
 import type {TaskRecord} from './contracts.js';
 import type {BoardPage,GroupedBoardPage} from './boardClient.js';
-type Props=({kind:'canonical';page:BoardPage}|{kind:'grouped';page:GroupedBoardPage})&{onOpen(id:string):void;onReload():void;onLoadMore():void;disabled?:boolean;loading?:boolean;error?:string;users?:{id:string;fullName:string}[];tags?:{id:string;name:string}[]};
+type Props=({kind:'canonical';page:BoardPage}|{kind:'grouped';page:GroupedBoardPage})&{onOpen(id:string):void;onMove?(id:string):void;onReload():void;onLoadMore():void;disabled?:boolean;loading?:boolean;error?:string;users?:{id:string;fullName:string}[];tags?:{id:string;name:string}[]};
 const button='bg-slate-900 neu-btn rounded-xl px-4 py-2.5 text-xs font-bold text-slate-200 cursor-pointer disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-sky-500/40';
 /** Presentation for already authorized, validated pages. The owner controls
  * async/session lifetime and routes open to the existing shared Task drawer. */
@@ -22,7 +22,7 @@ export function Kanban(props:Props){
      <summary className="cursor-pointer rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/40"><span className="inline-flex items-center gap-2 text-sm font-bold text-slate-100"><Icon aria-hidden="true" className="w-4 h-4 text-sky-400"/>{title}<span className="font-mono tabular-nums text-xs text-slate-400">{column.visibleCardCount}</span></span></summary>
      <div className="space-y-3 mt-3"><p className="text-[10px] text-slate-500">{canonical?t('productivityKanban.'+(props.kind==='canonical'&&props.page.mode==='sections'?'sections':'workflow')):t('productivityKanban.grouped')}</p>
       {wip.policy!=='off'&&<p className="text-[10px] text-amber-400 font-mono tabular-nums">{wip.visibility==='complete'?t('productivityKanban.wipCount',{count:wip.activeRootCount,limit:wip.limit}):t('productivityKanban.wipLimit',{limit:wip.limit})}</p>}
-      {cards.map(card=><KanbanTaskCard key={card.projectionId} {...card} disabled={props.disabled===true||props.loading===true} onOpen={props.onOpen}/>)}
+      {cards.map(card=><React.Fragment key={card.projectionId}><KanbanTaskCard {...card} disabled={props.disabled===true||props.loading===true} onOpen={props.onOpen}/>{props.onMove&&props.kind==='canonical'&&props.page.mode==='sections'&&<button type="button" className={button+' w-full text-left'} disabled={props.disabled||props.loading} aria-label={t('productivityKanbanMove.move',{title:card.task.title})} onClick={()=>props.onMove!(card.task.id)}>{t('productivityKanbanMove.dialog')}</button>}</React.Fragment>)}
      </div>
     </details>;
    })}

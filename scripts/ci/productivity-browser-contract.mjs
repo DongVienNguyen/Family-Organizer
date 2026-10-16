@@ -24,6 +24,8 @@ export const productivityBrowserCases=[
  'P07 C19 custom choices require a fresh preview and Escape restores the keyboard trigger',
  'P09 C20 canonical and multi-tag Kanban share drawer drafts across saved boards',
  'P09 C21 actor switch clears private Kanban rows and keeps workflow read-only',
+ 'P09 C22 keyboard section preview cancel apply preserves canonical draft lifecycle deadline and rewards',
+ 'P09 C23 authorization refresh discards a held section preview without any late apply',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases}),...validateMatrixTouchReports(input)];
