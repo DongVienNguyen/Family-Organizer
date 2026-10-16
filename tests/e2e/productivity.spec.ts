@@ -1,3 +1,3 @@
 import{createProductivityTest}from'./productivity-test.js';
-import{registerProductivityCore}from'./productivity-core-cases.js';
-registerProductivityCore(createProductivityTest());
+import{registerProductivityCoreWithSupplemental}from'./productivity-cases.js';
+registerProductivityCoreWithSupplemental(createProductivityTest());

@@ -42,6 +42,13 @@ export const productivityBrowserCases=[
  'P08 C33 workflow completion keeps cancel read-only and renders actual child Review before one adult grant',
  'P08 C34 workflow conflict reload keeps unsent proof and requires a fresh read-only confirmation',
  'P09 C35 section drag shares explicit preview cancel and apply while preserving lifecycle deadline and rewards',
+ 'P08 C36 active workflow keyboard preview cancel and apply preserve task deadline proof and rewards',
+ 'P09 C37 pending Review hides child commands and adult rejection requires reason while cancel preserves proof and points',
+ 'P09 C38 adult Review confirmation preserves proof deadline and a native UUID replay grants points once',
+ 'P09 C39 unknown review send retains reason and UUID across an unrelated authorized board refresh',
+ 'P09 C40 keyboard column create rename and ordering preserve Task proof deadline and points',
+ 'P09 C41 archive preview covers off-filter Tasks cancel writes nothing and native replay preserves one classification change',
+ 'P09 C42 uncertain column creation retains its original request after actual delivery and an unrelated authorized refresh',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat,workers:productivityBrowserWorkers,fixtureVersion:productivityFixtureVersion}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases,{workers:productivityBrowserWorkers})];

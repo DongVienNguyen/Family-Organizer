@@ -1842,5 +1842,32 @@
     "conflict": "Quyền hoặc dữ liệu cột đã thay đổi. Đọc lại rồi xác nhận yêu cầu mới.",
     "failed": "Chưa xác nhận được kết quả. Bạn có thể đọc lại cột hoặc kiểm tra yêu cầu đang chờ.",
     "pendingAffected": "Yêu cầu đang chờ dùng bản xem trước với {{count}} công việc."
+  },
+  "productivityTransition": {
+    "dialog": "Chuyển trạng thái công việc",
+    "action": "Đổi trạng thái: {{title}}",
+    "policy": "Chỉ đổi Cần làm / Đang làm / Đang chờ. Hoàn thành và duyệt dùng lệnh riêng; không đổi hạn hoặc điểm.",
+    "target": "Trạng thái đích",
+    "choose": "Chọn trạng thái",
+    "preview": "Xem trước trạng thái",
+    "apply": "Áp dụng trạng thái",
+    "conflict": "Task hoặc bảng đã thay đổi. Xem trước lại.",
+    "refused": "Không thể chuyển trạng thái. Kiểm tra quyền và giới hạn WIP.",
+    "failed": "Lỗi chuyển trạng thái. Tải lại bảng và kiểm tra kết quả trước khi thử lại."
+  },
+  "productivityReview": {
+    "approveAction": "Duyệt: {{title}}",
+    "rejectAction": "Trả lại: {{title}}",
+    "approveTitle": "Duyệt công việc",
+    "rejectTitle": "Trả lại công việc",
+    "approvePolicy": "Xác nhận duyệt theo quy định gia đình. Điểm chỉ được cấp một lần; hạn và bằng chứng được giữ nguyên.",
+    "rejectPolicy": "Nêu lý do để người nhận làm lại. Không cấp điểm và giữ nguyên bằng chứng.",
+    "reason": "Lý do trả lại",
+    "approveConfirm": "Xác nhận duyệt",
+    "rejectConfirm": "Xác nhận trả lại",
+    "unknown": "Kết quả gửi chưa rõ. Giữ nguyên nội dung khi thử lại hoặc tải lại bảng để kiểm tra.",
+    "failed": "Chưa xác nhận được kết quả. Kiểm tra lại bảng trước khi thử lại.",
+    "conflict": "Công việc hoặc quyền đã thay đổi. Tải lại bảng để xem trạng thái hiện tại.",
+    "reload": "Tải lại bảng"
   }
 }

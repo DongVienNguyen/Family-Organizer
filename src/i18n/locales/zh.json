@@ -1842,5 +1842,32 @@
     "conflict": "权限或列数据已更改。请重新读取后确认新请求。",
     "failed": "尚未确认结果。可以重新读取列，或检查待确认请求。",
     "pendingAffected": "待确认的请求使用先前包含 {{count}} 个任务的预览。"
+  },
+  "productivityTransition": {
+    "dialog": "更改任务状态",
+    "action": "更改状态：{{title}}",
+    "policy": "仅更改待办、进行中或等待状态。完成和审批使用单独操作；截止日期和积分保持不变。",
+    "target": "目标状态",
+    "choose": "选择状态",
+    "preview": "预览状态",
+    "apply": "应用状态",
+    "conflict": "任务或看板已更改。请重新预览。",
+    "refused": "无法更改状态。请检查权限和在制品限制。",
+    "failed": "状态更改失败。请刷新看板并检查结果，然后再试。"
+  },
+  "productivityReview": {
+    "approveAction": "批准：{{title}}",
+    "rejectAction": "退回：{{title}}",
+    "approveTitle": "批准任务",
+    "rejectTitle": "退回任务",
+    "approvePolicy": "按家庭规则确认批准。积分只发放一次；截止日期和证据保留。",
+    "rejectPolicy": "填写退回原因，让负责人重做。不会发放积分，并保留证据。",
+    "reason": "退回原因",
+    "approveConfirm": "确认批准",
+    "rejectConfirm": "确认退回",
+    "unknown": "发送结果未知。重试时保留相同内容，或刷新看板检查。",
+    "failed": "尚未确认结果。重试前请检查看板。",
+    "conflict": "任务或权限已更改。请刷新看板查看当前状态。",
+    "reload": "刷新看板"
   }
 }
