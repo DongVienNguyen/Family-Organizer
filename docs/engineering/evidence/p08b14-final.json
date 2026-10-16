@@ -1,0 +1,162 @@
+{
+  "taskId": "P08-b14",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/114",
+  "testedHeadSha": "133563443c0f0d15451b9564c93476219fe563bb",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38846139817",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "f4b6d50f7c1b9c7343a8de01768f686d87fb2859aaa0fbc5d8a813575940efc4",
+    "coverage": "a2e26f4435592eeb6cb0857f8000364aa949beca3e3f4ca4871f580adde9a0d8",
+    "package": "3d24b03d0682a7e4b751c7a103ff9223962ebec69d2f879733ddcd39a06c4f18",
+    "service": "6bee561a72e4945cc17add747482008b4689d984e9aff4598241d45b3218aa01",
+    "caddy": "b7f67a283f8f3943082ab36520d6ad5effc40fc02a735cf2dad18b7c6be43cf1",
+    "extraction-sdk": "7ef8004e8be48cd273fd77ae7bd59697739a89889205ff5d5d73a0c35d4fc013",
+    "inner-native": "85ce360c6ced6092e916a6d2265597f2d0fcdd3e3a2b99d5e170c54c4bcae6b4",
+    "browser": "22d840f3261c8a2e97a4fdb216d39ce49a87145ef81f248b37339f246af36ceb",
+    "productivity-browser": "b246fdeed16b8d3f9b263ba20b3ff4ede7681be7a13aa12781cb9696238c06e1",
+    "board-package": "fca5f7e76308c7d0644d3ad2d2bce4ef4120bc1cc8589fb8c28ba5cc65233d92",
+    "port-policy": "99d327b910a681a55c70e75c7822a5af471867716763eaf2aa1c374f6985362f"
+  },
+  "qualityEach": 4574,
+  "qualityFilesEach": 252,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "zipSha256": "8df6ca63748ffb429bff7f94a33ef70c40033dc887ac415c71a56f3637c93bd1",
+  "fullCiLogZipSha256": "fd7e883f187674229cd36ac4ab50c02f5e9d027e7ad6c9f0634051c7a74277e9",
+  "review": {
+    "task": "P08-b14",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "a43ad9a4d117c3933213be058932e551e02a31af1b9e5c0005d9b05df1460296",
+      "scripts/windows/board-package-contract.mjs": "7e1cb6bca5da2ccdbeb9f599bf2d812385c8dc53686e8a8c3147de9dbc0c6074",
+      "scripts/windows/probe-board-package.mjs": "08ff51f77ba59a7d11e786eeb97bd54f34e7d0d64be7178bbb3a58d16ff8efd3",
+      "scripts/windows/release-board-source-policy.mjs": "b4dba59e618408db4529440b1ca40737a66e008919a291fbb5579f8c53d67333",
+      "scripts/windows/release-consumer-reports.mjs": "16dbd8231494642985f43d54f70543c547435e9e5ae28cf4a55e3a73677e5f93",
+      "server/productivity/boardRouter.ts": "61cfaeb77c22b8a131f2dadbd3cd55a433a7680f87bb39e3cb34910f32d46174",
+      "server/productivity/grouped-board-atomic.api.test.ts": "f9b6ba8cc7787e15b957a3b6204f4edd73a910d28ec7f0c122db5faa0a34f714",
+      "server/productivity/grouped-board-atomic.test.ts": "c2edd28eef72664b8e9245411565ad3a5e7df4b72b4aa732ba01d19372402098",
+      "server/productivity/groupedBoardMoves.ts": "412c57c63678826cd3d907b2594844c3cee0ec2286ebe24b1a3ee49733b05986",
+      "tests/board-package-evidence.test.ts": "f22e0912748e46361cf07e2404fe0f8497d35a398200e6eac5e8231ad4cfa0a6",
+      "tests/evidence.test.ts": "b2cfe0a32c49c12ac2414ec7f598539dbe10b0204926fd8883613cde2346be45",
+      "tests/grouped-rank-import.test.ts": "463344a357b5d2a6a83b2413c0e5a8ebfc127999cefce3661dafef5608a4794d",
+      "tests/helpers/board-package-fixture.ts": "475fc165213feb2aa63c61deac8cac2f2b42b55a5d4982f0f0adbb69e8078d1b",
+      "tests/release-consumer-reports.test.ts": "999a500d2d0a0b8caa3189d486e10faae15f873b2b88f8b02b45c0ea3b17a8b2",
+      "tests/release-source-policy.test.ts": "7463918fd2091bf85f81bb8a70dc8077b24c0b56c45fe15191a89c4cf4d22a74"
+    },
+    "focus": [
+      "Current actor/list/Task/tag authorization before cached UUID and inside I01",
+      "Scalar admission before preview Task decoding; exact owned view and rank sort",
+      "Server-derived destination and visible anchor; filtered-out rank refusal",
+      "Task/view/all-visible-facts/rank fingerprints, board revision and current day",
+      "Canonical writer plus complete rank rebalance in one transaction; current board revision once",
+      "Preserved physical columns and canonical shared order; no lifecycle/rewards/notifications",
+      "HTTP catalog-only signal for rank-only writes; post-failure no event",
+      "Exact22/23/24 target-Git capabilities and strict current24 default, no target execution",
+      "Native ZIP actual atomic write/clock/UUID/restart/restore and child-private refusal"
+    ],
+    "rulings": [],
+    "developmentErrorsPreserved": [
+      "Original10-case RED includes one invalid rootsOnly fixture and a tag intent missing source; do not claim all10 causal. Other8 new cases rejected old unknown beforeTaskId400, including positive atomicity/rollback/digest cases.",
+      "Initial HTTP expectations assumed before-anchor must change numeric rank; fixture used already-correct physical order. New actual append fixture checks effective rank change without weakening production assertions",
+      "First contract edit script asserted mismatching source text before any writes; no source mutation on failure",
+      "First contract target fixture lacked independent24th check; corrected fixture inventory, retained old22/23 cases",
+      "First lint lacked required rootsOnly in two NEW fixtures; fixed fixtures only"
+    ],
+    "remaining": [
+      "Exact-HEAD Windows8checks/11raw/24native checks/29HTTP/103firstattempt and full logs pending",
+      "Full P08 UI integration/multi-group drag and later master tasks unfinished",
+      "Server2019/R02 unrun; publication/release/tag/VPS forbidden"
+    ],
+    "verificationFinding": {
+      "severity": "Important",
+      "source": "first complete Cloud run:4530tests/4528passed/2failed",
+      "finding": "collector normalizer positive fixture supplies current24 inventory without atomic capability; old22 fixture now pops only24->23 while claiming groupedRanks false",
+      "decision": "One fixture-only correction: bind current24 atomic capability; keep exact old22 via explicit splice22 with no new capability; add distinct23 normalization and atomic receipt mismatch rejection. Preserve every original normalizer assertion and production failclosed checks.",
+      "allFindingsGradedBeforeCorrection": true,
+      "correctionPasses": 1,
+      "rereview": false,
+      "correctionGreen": {
+        "tests": 412,
+        "allPassed": true
+      }
+    },
+    "postVerificationCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "a43ad9a4d117c3933213be058932e551e02a31af1b9e5c0005d9b05df1460296",
+      "scripts/windows/board-package-contract.mjs": "7e1cb6bca5da2ccdbeb9f599bf2d812385c8dc53686e8a8c3147de9dbc0c6074",
+      "scripts/windows/probe-board-package.mjs": "08ff51f77ba59a7d11e786eeb97bd54f34e7d0d64be7178bbb3a58d16ff8efd3",
+      "scripts/windows/release-board-source-policy.mjs": "b4dba59e618408db4529440b1ca40737a66e008919a291fbb5579f8c53d67333",
+      "scripts/windows/release-consumer-reports.mjs": "16dbd8231494642985f43d54f70543c547435e9e5ae28cf4a55e3a73677e5f93",
+      "server/productivity/boardRouter.ts": "61cfaeb77c22b8a131f2dadbd3cd55a433a7680f87bb39e3cb34910f32d46174",
+      "server/productivity/grouped-board-atomic.api.test.ts": "f9b6ba8cc7787e15b957a3b6204f4edd73a910d28ec7f0c122db5faa0a34f714",
+      "server/productivity/grouped-board-atomic.test.ts": "c2edd28eef72664b8e9245411565ad3a5e7df4b72b4aa732ba01d19372402098",
+      "server/productivity/groupedBoardMoves.ts": "412c57c63678826cd3d907b2594844c3cee0ec2286ebe24b1a3ee49733b05986",
+      "tests/board-package-evidence.test.ts": "f22e0912748e46361cf07e2404fe0f8497d35a398200e6eac5e8231ad4cfa0a6",
+      "tests/evidence.test.ts": "b2cfe0a32c49c12ac2414ec7f598539dbe10b0204926fd8883613cde2346be45",
+      "tests/grouped-rank-import.test.ts": "463344a357b5d2a6a83b2413c0e5a8ebfc127999cefce3661dafef5608a4794d",
+      "tests/helpers/board-package-fixture.ts": "475fc165213feb2aa63c61deac8cac2f2b42b55a5d4982f0f0adbb69e8078d1b",
+      "tests/release-collector-evidence.test.ts": "74a71b4f8a145476ec948ee1c342e74f3d902134c6d613d562c22ddeb76f760a",
+      "tests/release-consumer-reports.test.ts": "999a500d2d0a0b8caa3189d486e10faae15f873b2b88f8b02b45c0ea3b17a8b2",
+      "tests/release-source-policy.test.ts": "7463918fd2091bf85f81bb8a70dc8077b24c0b56c45fe15191a89c4cf4d22a74"
+    }
+  },
+  "atomicGroupRanksAccepted": true,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "f281fd5f23fd22582b3c5dbc7b0dfbd823983da2",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "133563443c0f0d15451b9564c93476219fe563bb": "73d9a61017fbc6298803769a551c1e21cfae19e6",
+    "f281fd5f23fd22582b3c5dbc7b0dfbd823983da2": "73d9a61017fbc6298803769a551c1e21cfae19e6"
+  },
+  "fullLogs": {
+    "files": 132,
+    "lines": 24190,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

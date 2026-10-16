@@ -1,3 +1,4 @@
+import {createBoardReadApi} from './boardClient.js';
 import {createMatrixApi} from './matrixClient.js';
 import type {SavedTaskView,SaveViewInput} from '../../../server/productivity/views.js';
 import {assertTaskView,type TaskQueryInput,type TaskQueryPage,type TaskSelection,type QueryClock} from './contracts.js';
@@ -50,6 +51,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
   ...createMatrixApi(read,{task:taskValue,clock:clockValue}),
+  ...createBoardReadApi(read,{task:taskValue,clock:clockValue}),
   async query(input:TaskQueryInput,options:{signal?:AbortSignal}={}):Promise<TaskQueryPage>{queryInput(input);return queryValue(await read('/api/productivity/query','POST',input,crypto.randomUUID(),options.signal));},
   async selectQuery(queryId:string):Promise<TaskSelection>{text(queryId,256);const data=await read('/api/productivity/query/'+encodeURIComponent(queryId)+'/selection','POST',{},crypto.randomUUID());text(data.id,256);if(!Array.isArray(data.taskIds)||data.taskIds.length>100000)throw Error('Invalid selection IDs');for(const id of data.taskIds)text(id,256);integer(data.totalUnique);utcInstant(data.expiresAt as string);if(data.taskIds.length!==data.totalUnique||new Set(data.taskIds).size!==data.taskIds.length)throw Error('Invalid selection IDs');return {id:data.id,taskIds:data.taskIds,totalUnique:data.totalUnique,expiresAt:data.expiresAt,clock:clockValue(data.clock)};},
   async resolveSelection(id:string):Promise<{id:string;revision:number}[]>{text(id,256);const data=await read('/api/productivity/selections/'+encodeURIComponent(id)+'/resolve','POST',{},crypto.randomUUID());if(!Array.isArray(data.rows))throw Error('Invalid selection revisions');const rows=data.rows.map(value=>{const row=object(value);text(row.id,256);integer(row.revision,1);return {id:row.id as string,revision:row.revision as number};});if(new Set(rows.map(row=>row.id)).size!==rows.length)throw Error('Duplicate selection IDs');return rows;},

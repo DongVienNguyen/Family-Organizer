@@ -1,0 +1,201 @@
+{
+  "taskId": "P09-a",
+  "baseSha": "f281fd5f23fd22582b3c5dbc7b0dfbd823983da2",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/115",
+  "scope": "validated canonical/grouped private Kanban GET client; no rendering or mutation activation",
+  "cloudGreen": {
+    "tests": 4626,
+    "passed": 4626,
+    "files": 253,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4626,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4626,
+    "files": 253
+  },
+  "review": {
+    "task": "P09-a",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 2,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceHashes": {
+      "src/features/productivity/api.ts": "c68c9e68968a4035322f781371e4dd0d67d5ced063eb5feb42d5222c45249b7d",
+      "src/features/productivity/boardClient.ts": "348ad066fe6b7882c7a78cdd4a73318b75a8e213ba83d3868db9612ca5510b14",
+      "src/features/productivity/boardClient.test.ts": "f5641d3aab60e2d3ec9b3af3fdcc7b795e8d06445f94c692e238abe56c365486",
+      "scripts/ci/write-evidence.mjs": "20698a44ba48079057c2ff891ffb7ee75acfaa21d9dc88f218d51df98b1519ca",
+      "tests/evidence.test.ts": "1363b62fe276f6064235e5c9a17124ea66f1ea76124c6f9ea52c28efaf142709"
+    },
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Page claiming positive total can contain no returned cards even though server cursors either return nonempty data or409",
+        "decision": "Refuse empty positive-total canonical/grouped pages; keep genuine zero-total empty pages valid."
+      },
+      {
+        "severity": "Important",
+        "finding": "Valid but different response timezone is not bound to explicitly requested timezone",
+        "decision": "Require parsed response timezone to match request; fix new positive UTC fixture to actually return UTC and keep all transport/abort assertions."
+      }
+    ],
+    "correctionRed": {
+      "tests": 51,
+      "passed": 47,
+      "failed": 4
+    },
+    "focus": [
+      "Internal Bearer/no-store GET transport, proper URL encoding/cursor/abort/no retries",
+      "Bounded page/column/task/reference inventories and canonical unique Task bodies",
+      "Actual sections/workflow placement and priority/assignee/due/tag group semantics",
+      "WIP redaction/count contracts; no use of counts as write authority",
+      "Strict current view/revisions/clocks, task metadata stripping and detached result",
+      "No UI mutation/cache/offline queue/server imports/crypto/node storage side effects"
+    ],
+    "remaining": [
+      "Exact-HEAD Windows acceptance/all8/11raw/103browserfirstattempt pending",
+      "No Kanban UI/render/drag activation yet; fullP09/master unfinished",
+      "Server2019/R02 unrun; no release/tag/VPS"
+    ],
+    "importantRemaining": 0,
+    "correctionGreen": {
+      "tests": 353,
+      "passed": 353,
+      "files": 3
+    },
+    "postCorrectionSourceHashes": {
+      "src/features/productivity/api.ts": "c68c9e68968a4035322f781371e4dd0d67d5ced063eb5feb42d5222c45249b7d",
+      "src/features/productivity/boardClient.ts": "ea0db35cd009ced66070af81a533b1c823ee69f2ca8da25937b1eef58cd0a45f",
+      "src/features/productivity/boardClient.test.ts": "291ceb997c054872f1e5c4ba2ff3c8b50a80c22c28ec411a35250fb1acfd37d9",
+      "scripts/ci/write-evidence.mjs": "20698a44ba48079057c2ff891ffb7ee75acfaa21d9dc88f218d51df98b1519ca",
+      "tests/evidence.test.ts": "1363b62fe276f6064235e5c9a17124ea66f1ea76124c6f9ea52c28efaf142709"
+    }
+  },
+  "composition": {
+    "parentCandidateSha": "133563443c0f0d15451b9564c93476219fe563bb",
+    "acceptedMainSha": "f281fd5f23fd22582b3c5dbc7b0dfbd823983da2",
+    "parentAcceptance": "PR114 accepted CI38846139817 all8/11raw/4574/252/103first/24boardchecks29HTTP; API/GitTreeequal",
+    "acceptedMainCompositionTreeUnchanged": true,
+    "reviewedClientSourceUnchanged": true
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "20698a44ba48079057c2ff891ffb7ee75acfaa21d9dc88f218d51df98b1519ca",
+      "src/features/productivity/api.ts": "c68c9e68968a4035322f781371e4dd0d67d5ced063eb5feb42d5222c45249b7d",
+      "src/features/productivity/boardClient.test.ts": "291ceb997c054872f1e5c4ba2ff3c8b50a80c22c28ec411a35250fb1acfd37d9",
+      "src/features/productivity/boardClient.ts": "ea0db35cd009ced66070af81a533b1c823ee69f2ca8da25937b1eef58cd0a45f",
+      "tests/evidence.test.ts": "1363b62fe276f6064235e5c9a17124ea66f1ea76124c6f9ea52c28efaf142709"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "f47ab299325c6d88cf29fb727ef502bca6c82ce67fcd803006621f4c122da44d",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p09a-full.json": "702bbc51b95bc8aa6feb876683201c17cd14e3c4ea4beb79b95e9c88851c4998",
+      "p09a-full.junit.xml": "b178230ececb01ef57c3fe86fa55c4dd49060f30ccbb99f230ae3f9904b8d533",
+      "p09a-full.log": "9f70b4c0078c065413054990756e2aabd25fdbc14c6c561f66f35069b7ac566c",
+      "p09a-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09a-build.log": "a89d7a9043c42a2dcb4bc30d482a301fa5144f79b4c8ebc60aec62ae135b5800"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/ELEVENraw/retained24ZIPchecks/29HTTP/100IPC/103firstattempt"
+  },
+  "reports": [
+    {
+      "file": "p09a-client-first.json",
+      "sha256": "36ad7bebe49d586385ce88192b29123c61b3bb96583088f612cb73e8bdc8693d",
+      "tests": 45,
+      "passed": 45,
+      "failed": 0,
+      "files": 2
+    },
+    {
+      "file": "p09a-client-normalized.json",
+      "sha256": "00d6503a55a36540ea63247233c3bfac13f6e8199ad5c316d91714d0efaabb0f",
+      "tests": 45,
+      "passed": 45,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p09a-client-red.json",
+      "sha256": "564c1e7ef6a858f1bba8d5a3f037d4df17538e21467b63b05795bbe900bf522b",
+      "tests": 38,
+      "passed": 0,
+      "failed": 38,
+      "files": 1
+    },
+    {
+      "file": "p09a-full.json",
+      "sha256": "702bbc51b95bc8aa6feb876683201c17cd14e3c4ea4beb79b95e9c88851c4998",
+      "tests": 4626,
+      "passed": 4626,
+      "failed": 0,
+      "files": 253
+    },
+    {
+      "file": "p09a-gate-red.json",
+      "sha256": "fb78ebf44d023c1329b9485cca3dc419f352f26e705e871e6a7e01c30637c353",
+      "tests": 295,
+      "passed": 294,
+      "failed": 1,
+      "files": 1
+    },
+    {
+      "file": "p09a-review-boundary-red.json",
+      "sha256": "61af2f5337f8422e1410af0df5258dfede3a32e00dad4206661dbd1432d1a5fb",
+      "tests": 51,
+      "passed": 47,
+      "failed": 4,
+      "files": 1
+    },
+    {
+      "file": "p09a-review-corrected-target.json",
+      "sha256": "ec63daea4976fc11e30174e5cbbe7d0f79ce593b4ff0845180787b88e2665ec8",
+      "tests": 353,
+      "passed": 353,
+      "failed": 0,
+      "files": 3
+    }
+  ],
+  "redRulings": {
+    "unimplementedMethods": {
+      "tests": 38,
+      "passed": 0,
+      "failed": 38,
+      "ruling": "missing method scaffold failures, not independent malformed-response causal proof; original positive UTC fixture needed UTC response before identity/timezone guard"
+    },
+    "reviewBoundaries": {
+      "tests": 51,
+      "passed": 47,
+      "failed": 4
+    },
+    "mandatoryGate": {
+      "tests": 295,
+      "passed": 294,
+      "failed": 1
+    }
+  },
+  "remaining": [
+    "Exact-HEAD Windows acceptance/all8/11raw/103browserfirstattempt pending",
+    "No Kanban UI/render/drag activation yet; fullP09/master unfinished",
+    "Server2019/R02 unrun; no release/tag/VPS"
+  ],
+  "fullP09Accepted": false,
+  "runtimeWiringChanged": false,
+  "schemaMigrationDefaultActivationDependenciesChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}
