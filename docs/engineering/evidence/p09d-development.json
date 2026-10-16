@@ -1,9 +1,9 @@
 {
   "taskId": "P09-d",
-  "prUrl": "pending parent117 acceptance",
-  "baseSha": "f0baa680d1b8b1942dd50cfc04335f0567af35fe",
-  "acceptedMainSha": "66aec855c30761a59d4beb4c65ba84fbc6c6b28d",
-  "parentWindowsAcceptance": "pending",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/118",
+  "baseSha": "ba293a6f332754be73758129cd231560e9269b0c",
+  "acceptedMainSha": "ba293a6f332754be73758129cd231560e9269b0c",
+  "parentWindowsAcceptance": "accepted117 exactHEADf0baa68/CI38853608953, all8checks/11raw/4706x2/109firstattempt/complete132logs0unexpected",
   "scope": "internal physical/grouped Kanban preview/apply client; exact browser-safe helper extraction, no UI writes enabled",
   "cloudGreen": {
     "tests": 4750,
@@ -76,11 +76,16 @@
     "sourceWorkCommit": "799a6a0",
     "parentP09cTestedCandidate": "f0baa680d1b8b1942dd50cfc04335f0567af35fe",
     "parentP09cRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953",
-    "parentP09cAcceptance": "pending",
+    "parentP09cAcceptance": "accepted",
     "actualMergeCommit": "7d8d113d89703ed71fe8c75407d89cc281a13f95",
     "sourceComposition": "ort merge without conflicts, retains personal-pin schema compatibility correction and original command client work",
     "parentAcceptedMain": "66aec855c30761a59d4beb4c65ba84fbc6c6b28d",
-    "reviewedIndependentSourceRereviewed": false
+    "reviewedIndependentSourceRereviewed": false,
+    "acceptedMainSha": "ba293a6f332754be73758129cd231560e9269b0c",
+    "acceptedMainCompositionTreeUnchanged": true,
+    "historyMergeSha": "8f944b41d5af00a03ac03729d295f20f465d4ebb",
+    "treeBeforeHistoryMerge": "04298bc74c29942dab59be5be49c0c5b2204c221",
+    "treeAfterHistoryMerge": "04298bc74c29942dab59be5be49c0c5b2204c221"
   },
   "nativeVerification": {
     "sourceHashes": {
