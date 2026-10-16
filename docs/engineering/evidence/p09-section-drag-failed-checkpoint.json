@@ -1,0 +1,146 @@
+{
+  "taskId": "P09-section-drag",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38949667730",
+  "exactHeadSha": "e9d9bdb05059b7491142d159e68f4ec9fa42f4d0",
+  "accepted": false,
+  "conclusion": "failure",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "rawArtifacts": [
+    {
+      "name": "windows-service-tests-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "14e065e237e90967c534d29275b704a9b7f8edbd943e90a6ae72e71ff63ae9b0",
+      "files": 66
+    },
+    {
+      "name": "windows-browsers-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "581c6c37096c3e460ae516b15bf3eb6396b49e59de98c624146bd6f59a2c60d2",
+      "files": 82
+    },
+    {
+      "name": "windows-productivity-browsers-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "78a4a847378a4130085897cc3d89e4d701b967c6cb974a024c968ce3185fac1f",
+      "files": 61
+    },
+    {
+      "name": "windows-node22-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "dc5a8819d797e11c5abf643995591daeab7c2f5f5bb6807e9213f4991c5c8572",
+      "files": 588
+    },
+    {
+      "name": "windows-node24-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "1a447f5ce7b3151e48b1b355692ee03b756e15c900ea320520e867e283dfa075",
+      "files": 639
+    },
+    {
+      "name": "windows-package-harness-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "f7df1f9cd9e14733d74d42b146e49b5648c7c534897991dace54140be45cdd72",
+      "files": 40
+    },
+    {
+      "name": "windows-package-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "5fdbf53069e04ded8aef2010602cca532d31d5f79bc230d53fb9ae3c7ac4db50",
+      "files": 12
+    },
+    {
+      "name": "windows-package-tests-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "sha256": "c60488bf8cd4d82a30d04d27f4b4ac3e90f2e00fd426c5b93ea57a008ae7f297",
+      "files": 14
+    }
+  ],
+  "unitQuality": [
+    {
+      "artifact": "windows-node22-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "tests": 5647,
+      "files": 309,
+      "passed": true
+    },
+    {
+      "artifact": "windows-node24-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "tests": 5647,
+      "files": 309,
+      "passed": true
+    }
+  ],
+  "browserResults": [
+    {
+      "artifact": "windows-browsers-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "file": "productivity-shards/firefox/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T18:53:03.845Z",
+        "duration": 215822.019,
+        "expected": 34,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "nativeTouch": "not-run after C35 browser failure"
+    },
+    {
+      "artifact": "windows-productivity-browsers-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "file": "productivity-shards/webkit/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T18:45:59.378Z",
+        "duration": 669587.8879999999,
+        "expected": 34,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "nativeTouch": "not-run after C35 browser failure"
+    },
+    {
+      "artifact": "windows-node24-e9d9bdb05059b7491142d159e68f4ec9fa42f4d0-1",
+      "file": "productivity-shards/chromium/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T18:56:00.790Z",
+        "duration": 227421.908,
+        "expected": 34,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "nativeTouch": "not-run after C35 browser failure"
+    }
+  ],
+  "allLogFilesRead": 128,
+  "logLines": 27570,
+  "cause": "All engines: C25 left shared saved view group=due/sort=title; C35 direct canonical request returned422 before drag. Trace resources and response recovered. No runtime failure was established by this fixture error.",
+  "repairHeadSha": "7e269a27203cf3fe465aa735441026b732c37d15",
+  "repairRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38951751434",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false,
+  "repairAcceptanceAtArchive": "pending"
+}

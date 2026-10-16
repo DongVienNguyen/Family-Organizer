@@ -1821,5 +1821,20 @@
     "conflict": "The task or board changed. Preview again.",
     "refused": "Cannot change status. Check permissions and WIP limits.",
     "failed": "Status change failed. Reload the board and check the result before trying again."
+  },
+  "productivityReview": {
+    "approveAction": "Approve: {{title}}",
+    "rejectAction": "Return: {{title}}",
+    "approveTitle": "Approve task",
+    "rejectTitle": "Return task",
+    "approvePolicy": "Confirm approval under family rules. Points are granted once; the deadline and evidence are retained.",
+    "rejectPolicy": "Give a reason for the assignee to redo the task. No points are granted and evidence is retained.",
+    "reason": "Reason for returning",
+    "approveConfirm": "Confirm approval",
+    "rejectConfirm": "Confirm return",
+    "unknown": "The send result is unknown. Keep the same content when retrying, or reload the board to check.",
+    "failed": "The result is not confirmed. Check the board before retrying.",
+    "conflict": "The task or permissions changed. Reload the board to see the current state.",
+    "reload": "Reload board"
   }
 }
