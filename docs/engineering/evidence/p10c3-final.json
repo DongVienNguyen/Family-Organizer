@@ -1,0 +1,130 @@
+{
+  "taskId": "P10-c3",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/113",
+  "testedHeadSha": "91a61734987fa56388b2e15debb54b5437153c32",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38844853923",
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "356898e52000db1895fe0f32eed6d5bdbd6f9710743d5e6d0973c0e120384f6a",
+    "coverage": "d65a2d78c8b5a9384363c5ff3ff82e01905af453863542b82314bcbce4938f36",
+    "package": "39f649f2ecf41cf899ab22b2e19ab90dad5f12d0caba61d257947b0273f905e0",
+    "service": "141cdd95b0ce223470320dbb3bdbfc3db2466f786f125b50f713e7f1a54a17ee",
+    "caddy": "32324e15b0041f7ed1b3188796acb093695dbc54c20d2c4a690977e539983b26",
+    "extraction-sdk": "828c6c73c2d7272550ca659ec8afd14ab23cee88faa939394369a7b53ba4abc4",
+    "inner-native": "146e39ca1fc21f8209aafffda051a905b5b121698a1ffa3cff28655238440aa4",
+    "browser": "aa0454f710ac039cfd2e409e515a76c6c413d3db07f3062b589b90e4f4b9386d",
+    "productivity-browser": "b681271907da27095185aec71cbd152614a0be25398557596020cf6d91a24949",
+    "board-package": "c26c55fff43cd58acf1360e00d483add3928d0773299c0fa572b5b69aa5c42ef",
+    "port-policy": "eb137b8dec8416b682152f335df166f2c21ea5a6eb7327e6928d4f803af9563d"
+  },
+  "qualityEach": 4531,
+  "qualityFilesEach": 250,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "zipSha256": "8e4e3e10b731fbb081c9053fcb7fcc4073837fc600fdde7006c4c149474e1c7a",
+  "fullCiLogZipSha256": "f3e6b86dc4dc06cbeade083141f6d0a7dae43fdf2d2f864ca28aa50a89e4c779",
+  "review": {
+    "task": "P10-c3",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "8a69e612c78bdd22359d9d0b6963e9913ec2bfec954a26b695cc8819d4cbc898",
+      "server/productivity/recurrence-policy.test.ts": "5b79553d00a74f08c46e0c5e71c0eb3a7410de934b11f89fd09bf4c73c805d1c",
+      "server/productivity/recurrencePolicy.ts": "952db94b090a250ffe1168bd8801aae67dc90c40407e34178cef02f3e4b57769",
+      "tests/evidence.test.ts": "714fec67216428027b4fd9a2b44e7715fe1e3324737a437ed1a96e4cba35dd32",
+      "tests/recurrence-calendar-import.test.ts": "0c17471ecb1cc9ded07fb3283ede0d3ce86ebbbf24abc94aeddff637303cd12a"
+    },
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Empty rotation members require cursor0, so disabling a previously-used rotation would either reject or force history cursor rewind",
+        "decision": "Preserve any valid nonnegative safe cursor when rotation is disabled. Add all-five-transition regression cases; reclassify the old empty-members/cursor1 invalid fixture to truly invalid NaN, retaining all six invalid-state assertions."
+      }
+    ],
+    "focus": [
+      "strict bounded recurrence policy/unknown fields/timezone/calendar/specificdates/end/count/missed variants",
+      "detached normalized config without Task/series persistence or scheduling authority",
+      "accepted-occurrence claim requirement before cursor advance; overflow guard",
+      "skip/pending/reject/reopen and disabled rotation preserve monotonic cursor",
+      "cold import, synthetic data and mandatory omission evidence"
+    ],
+    "remaining": [
+      "durable unique occurrence claims/cursor storage and actual user/ACL validation belong to future writer",
+      "null assignee means disabled rotation, not authority to clear Task assignee",
+      "end/count/missed policy normalized only; no materialization or default activation",
+      "full P10/P08/P09/master/R02 unfinished; no release/tag/VPS"
+    ],
+    "importantRemaining": 0,
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "8a69e612c78bdd22359d9d0b6963e9913ec2bfec954a26b695cc8819d4cbc898",
+      "server/productivity/recurrence-policy.test.ts": "acd4298ac234c727525d6d2027660c5ccffcdbff1d71cbc92410caac4c596556",
+      "server/productivity/recurrencePolicy.ts": "cc3ec1c9bca37840a36ce144b8fe35900c9a157dab130d026c937cdb2525a016",
+      "tests/evidence.test.ts": "714fec67216428027b4fd9a2b44e7715fe1e3324737a437ed1a96e4cba35dd32",
+      "tests/recurrence-calendar-import.test.ts": "0c17471ecb1cc9ded07fb3283ede0d3ce86ebbbf24abc94aeddff637303cd12a"
+    },
+    "correctionGreen": {
+      "tests": 334,
+      "passed": 334,
+      "files": 3
+    }
+  },
+  "recurrencePolicyContractAccepted": true,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "91a61734987fa56388b2e15debb54b5437153c32": "4076589d59f9e8c6e3abe9a429d62eb0eb601d7f",
+    "33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28": "4076589d59f9e8c6e3abe9a429d62eb0eb601d7f"
+  },
+  "fullLogs": {
+    "files": 132,
+    "lines": 24072,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}
