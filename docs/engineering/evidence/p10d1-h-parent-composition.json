@@ -1,0 +1,265 @@
+{
+  "base": "fe551bb1fde6d48f7a3b5b76c3cfb91b521ad6e1",
+  "acceptedParent": "a51f9a0ce12148f1a053ee9a3c5fea03c85f8ebf",
+  "p10BeforeComposition": "fb47ea33588c366d159b3b04c86239b4f08c77a9",
+  "files": [
+    {
+      "path": "docs/engineering/evidence/f08-current27-live-candidate.json",
+      "strategy": "accepted-only",
+      "sha256": "fdb87ab4250c291b862e8dd2017afedba311cc714885fd038f14b2bf8b35fd2f"
+    },
+    {
+      "path": "docs/engineering/evidence/f08-current27-live-promotion.json",
+      "strategy": "accepted-only",
+      "sha256": "342e31725435c87313972f3b4d3fcba3940aade2f955c40bd61a56c64816ced7"
+    },
+    {
+      "path": "docs/engineering/evidence/main120-final.json",
+      "strategy": "accepted-only",
+      "sha256": "c2d2d2010fb76e246a28a4fd8b64387191f60f1af34e764818e7663d3982befa"
+    },
+    {
+      "path": "docs/engineering/evidence/main121-final.json",
+      "strategy": "already-identical",
+      "sha256": "bfd136848dfb711c26fad40d92f7f0b98ad3c183b40c9eccd2fa897bad35b480"
+    },
+    {
+      "path": "docs/engineering/evidence/p09g-final.json",
+      "strategy": "accepted-only",
+      "sha256": "fda6d1718fed4fab7e565b7e421ab28fb3f2be425124bc7729ad28574c75794e"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-body-drain-browser-green.json",
+      "strategy": "accepted-only",
+      "sha256": "ea0ac750e3c0c8867a981fa6a4f8d0c42cb7e39011388aef0eeba62dc3d20cc3"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-body-drain-review-rulings.json",
+      "strategy": "accepted-only",
+      "sha256": "955b3c251b021a0cd18f42754a55381b21d7863ce2b01628bef0dc537d31ac28"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-c25-abort-stack.json",
+      "strategy": "accepted-only",
+      "sha256": "b5452f75fc0bcb7748083d0ab3dcf7ac6c865dd887f1e9dcfb870575fae5544e"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-clone-observer-failure.json",
+      "strategy": "accepted-only",
+      "sha256": "81bfb8723d27f2d4e21582e75eabc283dc3910c5b7698b5b856f90dc3c3e4aa5"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-development.json",
+      "strategy": "accepted-only",
+      "sha256": "481b7fdff24933c819f50a3c2b62a464e21fb2f7f9e64b0f7d4bb5c079b94826"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-failure-writer-junit-classification.json",
+      "strategy": "accepted-only",
+      "sha256": "9c62ac144f19c0083722295cc7b1a37fc6da8daa91d5e70f3b3030ceffb54681"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-first-browser-failure.json",
+      "strategy": "accepted-only",
+      "sha256": "193e544a8827d97971f852c7e7382464958ef1a0db2006e41777b352342d6125"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-first-windows-failure.json",
+      "strategy": "accepted-only",
+      "sha256": "56d2b5c2213626908e594448bcae3623cc5293530f6c1443075ce8816ff7845a"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-fourth-browser-failure.json",
+      "strategy": "accepted-only",
+      "sha256": "0385238cd4d5a4fe31cd90b8fe565c2f4f1e3b79d1d5df540af98e26d5a4e099"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-native-read-observer-failure.json",
+      "strategy": "accepted-only",
+      "sha256": "44d564cfe3172d832bb288d04fdc1b6c10828530eb83950c01b93009e8f50c1c"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-parent-composition.json",
+      "strategy": "accepted-only",
+      "sha256": "983b468bbaf5e468af988512956a5f95840da650f75665f8113f7172b72c3b16"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-review-rulings.json",
+      "strategy": "accepted-only",
+      "sha256": "87ee949d100cfac4cdce6a0b44920d6908e87d0f79d6268a697e83b34de5cf51"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-second-browser-failure.json",
+      "strategy": "accepted-only",
+      "sha256": "520ce34491ec7e786a5dec7855eb949857a00e13e538725f8a4b5ab4c57fbe93"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-third-browser-failure.json",
+      "strategy": "accepted-only",
+      "sha256": "f8faab234db9f8cc63e101bd0f505f90d226426f51b71bce527aa3dc4b66e0a1"
+    },
+    {
+      "path": "docs/engineering/implementation-status.md",
+      "strategy": "both-appendices",
+      "sha256": "fc315c992068c56df372c51206f8231b1d0eb9059312e33c21935500e0cea4c4"
+    },
+    {
+      "path": "docs/engineering/kanban-group-command-state.md",
+      "strategy": "accepted-only",
+      "sha256": "2c3a9f17c023f339deeabc84710fe0f5eac59ef5f5dae3407f957948d7939b0c"
+    },
+    {
+      "path": "docs/engineering/kanban-group-menu.md",
+      "strategy": "accepted-only",
+      "sha256": "a658a8308942733df7efef187b4e4191187ac0906e857df07a4a7bfb66aa090b"
+    },
+    {
+      "path": "docs/engineering/kanban-section-menu.md",
+      "strategy": "accepted-only",
+      "sha256": "cd4e06d87ac1b584111cec9e1ee6c556036fdd548cf20ff1cf1f568e196f72c1"
+    },
+    {
+      "path": "scripts/ci/productivity-browser-contract.mjs",
+      "strategy": "accepted-only",
+      "sha256": "ecd89dda4253ecf96fe05c96a241b010d80dc00d2cc68fccd5f4d4995cdddcc2"
+    },
+    {
+      "path": "scripts/ci/productivity-merge.mjs",
+      "strategy": "accepted-only",
+      "sha256": "2bd0ffe549e4b5b73edc26f1fe5e6f5e6dfe7c310402b86fb7f96215f30c56ba"
+    },
+    {
+      "path": "scripts/ci/write-evidence.mjs",
+      "strategy": "union-mandatory-suites",
+      "sha256": "4992bbc4177ec56e389e9adad875d221d31b55868ad9f37e92e979d88aa24134"
+    },
+    {
+      "path": "src/features/productivity/Kanban.tsx",
+      "strategy": "accepted-only",
+      "sha256": "b2de789de4af00859536ba56ee218ea5c2112dbc7d560f9458906fe814498abb"
+    },
+    {
+      "path": "src/features/productivity/KanbanGroupActions.tsx",
+      "strategy": "accepted-only",
+      "sha256": "f82ad30c87399d7ec832f6d42087029dde6279589dea904287c98cd37fcc0362"
+    },
+    {
+      "path": "src/features/productivity/KanbanGroupDialog.tsx",
+      "strategy": "accepted-only",
+      "sha256": "7bbbe2f4e792619184d22bc8ae3734a2c4b8afd6be7d8bd0a81a33868c10b619"
+    },
+    {
+      "path": "src/features/productivity/KanbanWorkspace.tsx",
+      "strategy": "accepted-only",
+      "sha256": "977447e04aa1f7fc5c1d7590f26904c205bc6e536fa5eca5527070709a1dbe64"
+    },
+    {
+      "path": "src/features/productivity/kanban-group-ui.test.tsx",
+      "strategy": "accepted-only",
+      "sha256": "6e8701e9dc52262b6fbeadf9b776ff2714fcac0ee40d8f4c1f81623d146ee248"
+    },
+    {
+      "path": "src/features/productivity/kanban-ui.test.tsx",
+      "strategy": "accepted-only",
+      "sha256": "8dc0374a857d2e41c6a791ed4459fed96aba5bd3156d3e7a038a1f691e2c5b34"
+    },
+    {
+      "path": "src/features/productivity/kanbanCommandState.test.ts",
+      "strategy": "accepted-only",
+      "sha256": "f8e8e95b9d1fc3cd7cd67e6753b311cf5b8fc94d871be9eec1d27851e30c0696"
+    },
+    {
+      "path": "src/features/productivity/kanbanCommandState.ts",
+      "strategy": "accepted-only",
+      "sha256": "dc6ef46adb25710501defd4a3cd7c0c1eecefaa9593ec84a23a6bfa2da97834d"
+    },
+    {
+      "path": "src/features/productivity/kanbanGroupMenu.test.ts",
+      "strategy": "accepted-only",
+      "sha256": "084be3904990eba6261c554adfe86bcb6716142d29199b7ec9c9f225cc00402f"
+    },
+    {
+      "path": "src/features/productivity/kanbanGroupMenu.ts",
+      "strategy": "accepted-only",
+      "sha256": "f4fefe29fc11d895b5bdec385ebf31ee41cf3ec1768a7568ef001ec3d946d5c5"
+    },
+    {
+      "path": "src/features/productivity/useKanbanWorkspace.ts",
+      "strategy": "accepted-only",
+      "sha256": "05498324ddabc2e77882ff754dbc7ca7078175f5b9c3a5324529e714be332d17"
+    },
+    {
+      "path": "src/i18n/locales/en.json",
+      "strategy": "accepted-only",
+      "sha256": "fd32c7160627aa995521b3e85f84da27fab0ec83a4978dc87de3ee22b4f164a3"
+    },
+    {
+      "path": "src/i18n/locales/vi.json",
+      "strategy": "accepted-only",
+      "sha256": "16a9dbe8ec799e206830f64f02a9f4081be8511b39c8914f974be6e039dd5fc6"
+    },
+    {
+      "path": "src/i18n/locales/zh.json",
+      "strategy": "accepted-only",
+      "sha256": "126c36957ad1eeaa6c42dd9f8a7beaf17e0e9cbc30a6fcd9fbc62dbfecaf3f98"
+    },
+    {
+      "path": "tests/e2e/productivity.spec.ts",
+      "strategy": "accepted-only",
+      "sha256": "aa453d05153281918b22345373ff867810ba494ecc7ab4b2ea9aaba0ab3ea3bb"
+    },
+    {
+      "path": "tests/evidence.test.ts",
+      "strategy": "union-mandatory-fixtures-and-negative-assertions",
+      "sha256": "0df25fa7672b82374d9cd1cb0b92e156dc57236df35fb42637848321c9f83f40"
+    },
+    {
+      "path": "tests/grouped-rank-import.test.ts",
+      "strategy": "accepted-only",
+      "sha256": "9c400219e64dfb8fea01eb1d21458d12533169e54c7e2fab992e88d7f1d93b25"
+    },
+    {
+      "path": "tests/helpers/release-productivity-browser-fixture.ts",
+      "strategy": "accepted-only",
+      "sha256": "88a14b4a80412ae1cd09ac933ff0bcf6bf8aba2ae058f08813f7be9b9b381597"
+    },
+    {
+      "path": "tests/productivity-merge.test.ts",
+      "strategy": "accepted-only",
+      "sha256": "49a189d505054932d1d804113c7123f27960f182e9b884657322d42bad879dc3"
+    },
+    {
+      "path": "tests/release-productivity-profile.test.ts",
+      "strategy": "accepted-only",
+      "sha256": "a3b6c4fb40d6cdaace7d2a628995c50db6f2e7eabb272ce9dc741b9b652b247e"
+    }
+  ],
+  "semanticSourceChanges": false,
+  "composedHead": "ba83ca54a509dfb304c6b9a4681f690f026b8639",
+  "historyMergeTreeEqual": true,
+  "preservedAfterCorrectionSourceHashes": {
+    "scripts/ci/write-evidence.mjs": "4992bbc4177ec56e389e9adad875d221d31b55868ad9f37e92e979d88aa24134",
+    "server/productivity/adapter.ts": "1f493313f71f076bfdde649c14ae33489ff55c369bd85e9857bb37219deb86a4",
+    "server/productivity/boardCatalog.ts": "e6a4c75a910964aaac74a78ce750d49d6a79b6707668cc693b819239dd10e024",
+    "server/productivity/boardViewSchema.ts": "f94fcc5a812c3953501db6f60bfb562bb9466aacf0048086bc373895d4386b72",
+    "server/productivity/bootstrap.ts": "9f066f07bd9bcb92f7dee149c1b3708134f5193bbf439fa0418e255d80ffeb74",
+    "server/productivity/groupedBoard.ts": "0f1f03aa38e757be2d293f944c6a72a19942e0bab7b7c1795a6db6a0ceff5d5c",
+    "server/productivity/inspection.ts": "1a66f300100d178efeb7e8ff7012f48bc10fbb5c4d0185d5a8f45c0718a0d416",
+    "server/productivity/matrix.ts": "18194d9a58170e138b61dbfae0bd13491a3dd670bab11620c306d4ddd1a58d38",
+    "server/productivity/pins.ts": "7cb74a535e12836bb4fcbe01fca98f58929a57bd9d7035c71185f773e10c3cdf",
+    "server/productivity/sectionBoards.ts": "c6c56872a2e2a13f9ced8cf6a16b24ee8448e32ce6ab9f120fc7e90ad400e89a",
+    "server/productivity/series-record.test.ts": "2a4b6d5b60eaed47fee11a0c3db9d8afa097094e42562f8bea3cd21687b9afd6",
+    "server/productivity/series-store.test.ts": "bcc820b27c49482f5e0a2047c9fc54842ef2e75fc43b3e60fcf8d5cb7e08ce13",
+    "server/productivity/seriesRecord.ts": "a6573ba4bb0ec7ccabfe7f5c83779e95efe622d319a83b904a7d728e56f32daf",
+    "server/productivity/seriesSchema.ts": "5947bd05df43ff9741d4e4618a917d076b0722144ddd5b4ff61cf7b5d94f35da",
+    "server/productivity/seriesStore.ts": "3f85d4817a29dea6fa144f37809390f74a26fea3e2e35e8e3bbdf463fe27f637",
+    "server/productivity/snapshot.ts": "b4d50bdc0be0c5afd83e9aacc9a6fc760a554b4752c059803d1e61f265de4372",
+    "server/productivity/structure.ts": "8579a810e40168cc89c95eff1557bf124c3bfdfdae2545855d4614bf590eec9a",
+    "server/productivity/structureInvariant.ts": "a2080cb3a3e4daf5e3e29baa02684be05297bf2f47f3ce83b5f355232eb5e56c",
+    "server/productivity/structureSchema.ts": "99d18c149010313791e9c6c252e1e7aea9566455ce03d6e2f42b4d72482cc0be",
+    "server/productivity/views.ts": "6cea0ff296e30b7bb646f8e63f1b54e3efc0e32853e97475fbda4449ddfb05e5",
+    "tests/evidence.test.ts": "0df25fa7672b82374d9cd1cb0b92e156dc57236df35fb42637848321c9f83f40",
+    "tests/recurrence-calendar-import.test.ts": "5febf606da5c5ffd7c5626587e38eb405bd7b430927ee799c1261482e5db5ee2",
+    "tests/series-recovery-native.test.ts": "d2ff5471343c5e0b603dbc94d5fef09a4c7d7e5f0bb5a449903b4e2066dad4ee"
+  }
+}
