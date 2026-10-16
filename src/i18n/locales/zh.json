@@ -290,6 +290,7 @@
     "statusTodo": "待处理",
     "statusInProgress": "进行中",
     "statusCompleted": "已完成",
+    "statusWontDo": "已停止",
     "statusOverdue": "已逾期",
     "priorityHigh": "紧急",
     "priorityMedium": "中等",

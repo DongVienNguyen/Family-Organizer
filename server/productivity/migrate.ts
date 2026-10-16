@@ -30,7 +30,7 @@ export function migrateTasks(tx:AppWriteTx,legacy:Task[]):MigrationReport {
    const latest=[...old.history].sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).find(row=>transition.test(row.action));
    const prior=latest?.action.match(transition)?.[1];
    lifecycle=prior==='in_progress'?'in_progress':'todo';warnings.push(prior==='in_progress'?'Legacy overdue mapped in_progress from explicit history':'Legacy overdue mapped todo; prior active state unproven');
-  }else if(old.status==='todo'||old.status==='in_progress'||old.status==='completed')lifecycle=old.status;
+  }else if(old.status==='todo'||old.status==='in_progress'||old.status==='completed'||old.status==='wont_do')lifecycle=old.status;
   else throw new Error('Unsupported legacy task status');
   const row:StoredTask={id:old.id,listId:'legacy-family',sectionId:null,parentId:null,title:old.title,body:old.description,lifecycle,priority:old.priority,due:parsed.due,scheduledStart:null,scheduledEnd:null,creatorId:old.creatorId,assigneeId:old.assigneeId,isShared:old.isShared,tagIds:[...new Set(old.tags)],blocked:false,blockedReason:null,pendingApproval:old.pendingApproval??false,rewardPoints:old.rewardPoints??0,revision:1,deletedAt:null,legacy:structuredClone(old),rank:(index+1)*1024};
   savePilotTask(tx,row);report.inserted++;if(warnings.length)report.warnings.push({taskId:old.id,rawDue:old.dueDate,warnings});

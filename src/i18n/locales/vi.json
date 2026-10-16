@@ -429,6 +429,7 @@
     "statusTodo": "Chưa làm",
     "statusInProgress": "Đang làm",
     "statusCompleted": "Hoàn thành",
+    "statusWontDo": "Ngừng thực hiện",
     "statusOverdue": "Quá hạn",
     "priorityHigh": "Khẩn cấp",
     "priorityMedium": "Trung bình",

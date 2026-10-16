@@ -290,6 +290,7 @@
     "statusTodo": "To do",
     "statusInProgress": "In progress",
     "statusCompleted": "Completed",
+    "statusWontDo": "Stopped",
     "statusOverdue": "Overdue",
     "priorityHigh": "Urgent",
     "priorityMedium": "Medium",

@@ -57,8 +57,7 @@ function legacyDueString(task:StoredTask):string {
  return task.due.instantUtc;
 }
 export function toLegacyTask(task:StoredTask):Task {
- const status=task.lifecycle==='in_progress'?TaskStatus.IN_PROGRESS:task.lifecycle==='completed'?TaskStatus.COMPLETED:TaskStatus.TODO;
- if(task.lifecycle==='wont_do')throw new Error('Legacy runtime cannot represent wont_do before cutover');
+ const status=task.lifecycle==='wont_do'?TaskStatus.WONT_DO:task.lifecycle==='in_progress'?TaskStatus.IN_PROGRESS:task.lifecycle==='completed'?TaskStatus.COMPLETED:TaskStatus.TODO;
  const priority=task.priority==='high'?TaskPriority.HIGH:task.priority==='medium'?TaskPriority.MEDIUM:TaskPriority.LOW;
  return {...structuredClone(task.legacy),id:task.id,title:task.title,description:task.body,status,priority,dueDate:legacyDueString(task),creatorId:task.creatorId,assigneeId:task.assigneeId,isShared:task.isShared,tags:[...task.tagIds],pendingApproval:task.pendingApproval,rewardPoints:task.rewardPoints};
 }

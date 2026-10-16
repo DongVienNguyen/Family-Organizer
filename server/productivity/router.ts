@@ -1,3 +1,4 @@
+import type {createSeriesCommands} from './seriesCommands.js';
 import type {createRecurrenceSeriesStore} from './seriesStore.js';
 import type {createRecurrencePreviews} from './recurrencePreview.js';
 import type {createGroupedBoardRanks} from './groupedBoardRanks.js';
@@ -24,7 +25,7 @@ import type {createTaskCommands} from './tasks.js';
 import type {StoredTask} from './store.js';
 import type {createStructureCommands} from './structure.js';
 import type {createStructureEventScope} from './structureEvents.js';
-export interface ProductivityPorts {series?:ReturnType<typeof createRecurrenceSeriesStore>;recurrencePreview?:ReturnType<typeof createRecurrencePreviews>;groupedRanks?:ReturnType<typeof createGroupedBoardRanks>;groupedMoves?:ReturnType<typeof createGroupedBoardMoves>;groupedBoard?:ReturnType<typeof createGroupedBoardProjection>;completion?:ReturnType<typeof createCompletionCommands>;boardLayout?:ReturnType<typeof createBoardLayout>;boardMoves?:ReturnType<typeof createBoardMoves>;boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
+export interface ProductivityPorts {seriesCommands?:ReturnType<typeof createSeriesCommands>;series?:ReturnType<typeof createRecurrenceSeriesStore>;recurrencePreview?:ReturnType<typeof createRecurrencePreviews>;groupedRanks?:ReturnType<typeof createGroupedBoardRanks>;groupedMoves?:ReturnType<typeof createGroupedBoardMoves>;groupedBoard?:ReturnType<typeof createGroupedBoardProjection>;completion?:ReturnType<typeof createCompletionCommands>;boardLayout?:ReturnType<typeof createBoardLayout>;boardMoves?:ReturnType<typeof createBoardMoves>;boardProjection?:ReturnType<typeof createBoardProjection>;boards?:ReturnType<typeof createBoardCatalog>;matrix?:ReturnType<typeof createMatrixCommands>;query?:ReturnType<typeof createTaskQueryHttp>;views?:ReturnType<typeof createTaskViews>;pins?:ReturnType<typeof createTaskPins>;active():boolean;access:ReturnType<typeof createTaskAccess>;commands:ReturnType<typeof createTaskCommands>;structure?:ReturnType<typeof createStructureCommands>;structureEvents?:ReturnType<typeof createStructureEventScope>}
 export interface TaskRequest extends Request {userSession?:AppActor}
 export const taskDto=(row:StoredTask)=>projectTaskRecord(row);
 function requestBody(req:Request,field:'input'|'patch'):Record<string,any>{
@@ -52,6 +53,18 @@ export function taskRouter(ports:ProductivityPorts,requireAuth:RequestHandler,ev
  router.get('/series/:id/preview',handler(req=>{
   if(!ports.recurrencePreview)throw new AppStoreError('Kho xem lịch lặp chưa sẵn sàng.',409);
   return {occurrences:ports.recurrencePreview.previewOccurrences(req.userSession!,req.params.id,req.query)};
+ }));
+ router.post('/series/:id/edit',handler(req=>{
+  if(!ports.seriesCommands)throw new AppStoreError('Lệnh lịch lặp chưa sẵn sàng.',409);
+  const body=completionBody(req,['scope','patch']),result=ports.seriesCommands.editSeries(taskCommandContext(req,body.expectedRevision),req.params.id,body.scope,body.patch);
+  for(const id of new Set([result.series.taskId,...result.changedTaskIds]))events.emit(id);
+  return result;
+ }));
+ router.post('/occurrences/:id/skip',handler(req=>{
+  if(!ports.seriesCommands)throw new AppStoreError('Lệnh lịch lặp chưa sẵn sàng.',409);
+  const body=completionBody(req,['input']),ctx=taskCommandContext(req,body.expectedRevision);ports.access.assertTaskCommand(ctx.actor,req.params.id,'update');
+  const previous=events.previous(req.params.id),result=ports.seriesCommands.skipOccurrence(ctx,req.params.id,body.input);
+  events.emit(result.task.id,previous);for(const id of ports.seriesCommands.spawnedForEvents(result))events.emit(id);return result;
  }));
  for(const operation of ['complete','approve','reject','reopen']as const)router.post('/:id/'+operation,handler(req=>{if(!ports.completion)throw new AppStoreError('Kho hoàn thành công việc chưa sẵn sàng.',409);const body=completionBody(req,operation==='complete'?['proof']:operation==='reject'?['reason']:[]),ctx=taskCommandContext(req,body.expectedRevision);if(!ports.access.getTask(ctx.actor,req.params.id))throw new AppStoreError('Không tìm thấy công việc.',404);const previous=events.previous(req.params.id),result=operation==='complete'?ports.completion.requestCompletion(ctx,req.params.id,body.proof as TaskCompletionProof):operation==='approve'?ports.completion.approveCompletion(ctx,req.params.id):operation==='reopen'?ports.completion.reopenTask(ctx,req.params.id):ports.completion.rejectCompletion(ctx,req.params.id,body.reason);events.emit(result.task.id,previous);for(const id of ports.completion.spawnedForEvents(result))events.emit(id);if(result.task.lifecycle==='completed'||operation==='reopen')events.rewards?.(result.task.id);return result;}));
  router.get('/',handler(req=>{const tasks=ports.access.listTasks(req.userSession!);return {tasks:tasks.map(taskDto),totalUnique:tasks.length};}));

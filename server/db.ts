@@ -1,3 +1,4 @@
+import {isActiveLegacyTask} from '../src/utils/taskLifecycle.js';
 import {acceptRecurringOccurrence,isDurableOccurrenceTask} from './productivity/recurrenceAccepted.js';
 import {completionPolicy,markAcceptedCompletion,linkedCompletionGrant,reverseAcceptedCompletion,withCompletionPolicy} from './completionPolicy.js';
 import {hashPassword,verifyPassword} from './passwords.js';
@@ -469,6 +470,8 @@ export class FamilyDB {
   // Trusted outbox port resolves a canonical reference; HTTP only sees projected IDs.
   public static getQueuedNotificationForActor(id:string,userId:string) {
     const db=this.readRaw(),actor=legacyReader(db,userId),notification=db.notifications.find(row=>row.id===id);
+    const source=notification?.sourceRef;
+    if(source?.domain==='task'&&db.tasks.find(task=>task.id===source.id)?.status===TaskStatus.WONT_DO&&['notif_taskdue1d_','notif_taskdue1h_','notif_taskoverdue_'].some(prefix=>notification!.id===prefix+source.id))return undefined;
     return notification?projectNotification(db,actor,notification,getSessionSecret()):undefined;
   }
   public static getActivityLogsForActor(userId:string) {
@@ -783,7 +786,8 @@ export class FamilyDB {
       const oldTask = db.tasks[idx];
       requireTaskEdit(oldTask,actor);
       assertEditVersion(oldTask, baseUpdatedAt);
-      taskData = validateTaskPayload(taskData,oldTask,actor,db);
+      taskData = validateTaskPayload(taskData,oldTask,actor,db,{allowWontDo:completionPolicy(currentAppWriteTx()!,oldTask.id)?.operation==='skip'});
+      if(oldTask.status===TaskStatus.WONT_DO&&taskData.status!==undefined&&taskData.status!==TaskStatus.WONT_DO)throw new AppStoreError('Kỳ đã bỏ qua không được mở lại bằng cập nhật trạng thái.',422);
       validateTaskProofUrl(taskData.proofImage);
       const isCompleting = taskData.status === "completed" && oldTask.status !== "completed";
       // Registered durable occurrences share the semantic grant/reversal owner
@@ -2797,7 +2801,7 @@ export class FamilyDB {
     };
 
     db.tasks.forEach(t => {
-      if (t.status === "completed") return;
+      if (!isActiveLegacyTask(t)) return;
       const due = parse(t.dueDate);
       if (due === null) return;
       const diffMin = (due - now) / 60000;

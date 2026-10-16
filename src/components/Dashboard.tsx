@@ -1,3 +1,4 @@
+import {isActiveLegacyTask} from '../utils/taskLifecycle.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -332,11 +333,11 @@ export function Dashboard({
   }, [tasks, currentUser.id]);
 
   const urgentTasksCount = useMemo(() => {
-    return tasks.filter(t => t.status !== TaskStatus.COMPLETED && t.priority === "high").length;
+    return tasks.filter(t => isActiveLegacyTask(t) && t.priority === "high").length;
   }, [tasks]);
 
   const myRemainingTasks = useMemo(() => {
-    return myTasks.filter(t => t.status !== TaskStatus.COMPLETED);
+    return myTasks.filter(t => isActiveLegacyTask(t));
   }, [myTasks]);
 
   // 2. Financial calculations (this month)

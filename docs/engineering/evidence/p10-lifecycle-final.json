@@ -1,0 +1,132 @@
+{
+  "taskId": "P10-d3",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/126",
+  "testedHeadSha": "827debc7c51f2a2fd71f6ce80d9a6a336588e9b0",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38894287722",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "466ec2bf1f99a81e27513c9a792d7414e0acb52af93f573e7773724d4edd001c",
+    "coverage": "88d1d2ca73212753436b0a6ac70cdd36cceb924efa60529d7d32258d1b1aa0a0",
+    "package": "b0f5a5fa99d788446bd47b4bb2fabb64232ada5ceca8487ae0a25a1698e38b1d",
+    "service": "e32bf924a711ae8792f63482469bad487abe816ba921c54f52652234cdb32afb",
+    "caddy": "5ab750e4bca70aff52a916c4fc8a9a174ddff5ef876dbdd637c919e89acdbbb0",
+    "extraction-sdk": "74cf94964ae045cad0623cdfa03cc0947fadc808b4129944d62f87b05a8c73ea",
+    "inner-native": "a531f8457ee990501eb6bcb54451e01a91ba7ebd5e1f1b2e1283659a895d35e1",
+    "browser": "8b51d2b8410ff456e1feefb2fc81cacbca8f07ab2cda23fb954d5516b8842219",
+    "productivity-browser": "09d24fb72e72f18fcf89667f28d5b9bdd9e04f8bdc72cbd63d46b2789d2dfc7f",
+    "board-package": "00d97bb9ca306d4a7ebca1eefa335099b9a8f4d699cf4a19c37acca728cb45f5",
+    "port-policy": "7e7d8b18e2a2d1ca7f1f15f170dd6ff7a146161fa054f599dc76f2e17cd9bbd0"
+  },
+  "qualityEach": 5170,
+  "qualityFilesEach": 280,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 78,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "review": {
+    "reviewedSha": "98cfcce0a7e62127c00c99da34907fe152a2d6c3",
+    "kind": "fresh-whole-branch",
+    "reviewClosed": true,
+    "allFindingsGradedBeforeCorrection": true,
+    "findings": {
+      "critical": 0,
+      "important": 2,
+      "minor": 0
+    },
+    "correctionPasses": 1,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorDeferred": [],
+    "closedHistoricalMinorDeferred": [
+      "PR125:M1"
+    ],
+    "rereview": false,
+    "reportSha256": "0a09a01c897d9ad5040a7300c38df8d45b2cb149725299fa1269d3875b1d4a4b",
+    "gradingSha256": "b67da82bcab3a8adb1003aa956b16861a26f0d2b0f7086a15de45136ed2e43ac"
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "f85b60d6b5b6b90f3035e3e167f61869e620b81a8d83cf44db769b5479744a35",
+    "server/db.ts": "12673dc02b3bb8311ec7a4cca2d0028c52c78b9e5746c7d4dea1ca8a2aa1e161",
+    "server/mediaPolicy.ts": "595fcf00d747a7e668ad00a749e944209c317ed06d58a6c7b89dbd057f87f2cd",
+    "server/productivity/adapter.ts": "049d24b675d30ced3a3dda30c3ee84d09907c1f5841507c2d6c72af44f51e125",
+    "server/productivity/boardCatalog.ts": "b1771ea3fabd788a76e7a95bda725c152990694d4974315daf16300dbb745715",
+    "server/productivity/boardViewSchema.ts": "5cce4890c52825c233b80c90f212aa406ffdfc3ee3ffc4a7e70b934fa21857db",
+    "server/productivity/groupedBoard.ts": "b6919215974540560de12a7cfbfbd5bcc713bc999034dc4b85fa58074bdd2252",
+    "server/productivity/inspection.ts": "ea67c11cfbe13fbadaf362d118d67f33f74da2b79b1cb9f5f3628c0f48b8b583",
+    "server/productivity/matrix.ts": "f8929046c133211291e6fa972a66576006ee43490f7ec8bf06f77306cee90108",
+    "server/productivity/occurrence-migration.test.ts": "6e325c09daae7c61f649f24f64c68e2aa83aa8dd83aebfd3c491315d38a1b04d",
+    "server/productivity/occurrence-record.test.ts": "e942da20d86bbee69b359c4953ac765f41a8dfbe7ed2585edb9aed283b69c94e",
+    "server/productivity/occurrence-schema.test.ts": "bfb07584d354fe7eb04eef953733ab40c4eaa7711400d79d69ec0091da3543b4",
+    "server/productivity/occurrenceRecord.ts": "3d28002bf475d7a5aa37d0061f4489dfb078d2f88dc0fe25062f2757e0f4fa96",
+    "server/productivity/occurrenceSchema.ts": "518d01711b8ccfe77c1bdfaee9b27b1e16848223dae51fdf1a80c6cd7e49f983",
+    "server/productivity/pins.ts": "92df3e3e9e50433a04a3cf5548f6fa56b2caea53eb5e391e0b9865a5779d2f23",
+    "server/productivity/recurrence-accepted.test.ts": "c781f01befae5683f5cd0771ff3b29b76bdd8aaeedc6f432e178d3b9ab5aa439",
+    "server/productivity/recurrence-slots.test.ts": "78481f5b09db621dd89e60e1a2ec8814f091a01dfbbe5af0a5d1af0186d8f26e",
+    "server/productivity/recurrenceAccepted.ts": "707aa27f532e21dff2558f394f01d5220b3ce53dcccecb4f854f0f11a480489d",
+    "server/productivity/recurrencePreview.ts": "200981a2547a047ef6804a5dd52b0b197d0d94608e6ded82bac1076bf095f9ad",
+    "server/productivity/recurrenceSlots.ts": "f5008ef813043786183608ec80982995c4949763083d166bf0ae0d5e72a9b5a1",
+    "server/productivity/sectionBoards.ts": "ae3ae41de4b1092761e89450ee4d29bb71f07f11c876d14319cf2ed8f8953d16",
+    "server/productivity/seriesRecord.ts": "9970154e99c840804d76749f88b76c047ffe343134e83ae843a77b2459bf90a5",
+    "server/productivity/seriesStore.ts": "3066cf008ac3a1f2f6a7aae60bb4996b79d3dee804da3416732e6670c6f31a00",
+    "server/productivity/snapshot.ts": "502ef7d1e69857c57d3fff12fd56cbbded2b0af658b893b64933574c92020147",
+    "server/productivity/structure.ts": "5055834a3e35f2b8edeac78b2de52e57cb7877431ac83b5d256e4c8b5bcc4ed3",
+    "server/productivity/structureInvariant.ts": "0edf1a0418532319d34352d2b3270d9a00f20f1c7850072dbfbda1d06ff719a5",
+    "server/productivity/structureSchema.ts": "d5169e45b08f3a8a1c5153a622945c2d86655f194794dc62f413976b6ff432db",
+    "server/productivity/views.ts": "b0f09b6ed35c92199d644b345900fb1b553a442748e3e6bba751760d57306acb",
+    "tests/evidence.test.ts": "0fe6faf8cfad53740de90bfa5056b2e1285b0877122ed50fb116139732d99a56",
+    "tests/occurrence-recovery-native.test.ts": "d8848044b8517eb889aea52df98cd107ef2a803d7350f46122e87ba71cd39e77",
+    "tests/recurrence-calendar-import.test.ts": "c97c1393565530088598abf28564cef452fe7b13847fefc4a673b9b5a3e6ccdd"
+  },
+  "mandatoryNewSuites": 5,
+  "defaultPilotMigration": 6,
+  "explicitOccurrenceMigration": 11,
+  "seriesEnabledByDefault": false,
+  "fullP10Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "18dc0a669fe847679a73fec7ebed1c5959e207f3",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "827debc7c51f2a2fd71f6ce80d9a6a336588e9b0": "ffa7e90409afae9b63346055f918cd6576dc6b3e",
+    "18dc0a669fe847679a73fec7ebed1c5959e207f3": "ffa7e90409afae9b63346055f918cd6576dc6b3e"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 25852,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

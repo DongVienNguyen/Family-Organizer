@@ -17,7 +17,7 @@ function validated(input:SaveViewInput,ownerId:string,version:number):void {
 }
 function decode(row:any,version:number):SavedTaskView {
  const value={id:row.id,ownerId:row.owner_id,title:row.title,revision:row.revision,filter:JSON.parse(row.filter_json),kind:row.kind,config:JSON.parse(row.config_json),...(version>=9?{formatVersion:9 as const}:{})};
- text(value.title,500);integer(value.revision,1);assertTaskView(value,[10,11].includes(version)?9:version);return value;
+ text(value.title,500);integer(value.revision,1);assertTaskView(value,[10,11,12].includes(version)?9:version);return value;
 }
 function authorize(reader:TaskReader,actor:AppActor):void {
  assertContext({actor,requestId:'view:read',expectedRevision:0},reader);

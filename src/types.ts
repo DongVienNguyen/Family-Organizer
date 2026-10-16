@@ -97,7 +97,8 @@ export enum TaskStatus {
   TODO = "todo",          // Chưa làm
   IN_PROGRESS = "in_progress", // Đang làm
   COMPLETED = "completed",   // Hoàn thành
-  OVERDUE = "overdue"      // Quá hạn
+  OVERDUE = "overdue",     // Quá hạn
+  WONT_DO = "wont_do"      // Ngừng thực hiện qua command có kiểm soát
 }
 
 export enum TaskPriority {

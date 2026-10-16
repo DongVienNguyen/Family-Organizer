@@ -34,7 +34,7 @@ function validImage(value:unknown):boolean {
  const match=/^data:(image\/(?:png|jpeg|jpg|webp|gif));base64,([A-Za-z0-9+/]*={0,2})$/.exec(value);if(!match)return false;
  const bytes=Buffer.from(match[2],'base64');return bytes.length>0&&bytes.length<=4*1024*1024&&bytes.toString('base64')===match[2]&&detectedMediaType(bytes)===match[1].replace('image/jpg','image/jpeg');
 }
-export function validateTaskPayload(input:Record<string,any>,old:Task|undefined,actor:LegacyActor,db:FamilyOrganizerDB):Partial<Task>&{baseUpdatedAt?:string} {
+export function validateTaskPayload(input:Record<string,any>,old:Task|undefined,actor:LegacyActor,db:FamilyOrganizerDB,options:{allowWontDo?:boolean}={}):Partial<Task>&{baseUpdatedAt?:string} {
  requireTaskEdit(old,actor);const result:Record<string,any>={};
  const liveId=(value:unknown)=>text(value,256,false)&&db.users.some(u=>u.id===value&&!u.isDeleted&&Object.values(UserRole).includes(u.role));
  for(const [key,value] of Object.entries(input)){
@@ -48,7 +48,7 @@ export function validateTaskPayload(input:Record<string,any>,old:Task|undefined,
    case 'baseUpdatedAt':valid=text(value,64);break;
    case 'title':valid=text(value,500,false);break;
    case 'description':if(canonicalTaskPolicyActive()&&old&&same(value,old.description))continue;valid=text(value,20000);break;
-   case 'status':valid=Object.values(TaskStatus).includes(value)&&Boolean(old||value===TaskStatus.TODO||value===TaskStatus.IN_PROGRESS);break;
+   case 'status':if(value===TaskStatus.WONT_DO&&value!==old?.status&&(!options.allowWontDo||!isAdult(actor)))throw forbidden();valid=Object.values(TaskStatus).includes(value)&&Boolean(old||value===TaskStatus.TODO||value===TaskStatus.IN_PROGRESS);break;
    case 'priority':valid=Object.values(TaskPriority).includes(value);break;
    case 'dueDate':if(canonicalTaskPolicyActive()&&old&&same(value,old.dueDate))continue;valid=validDate(value,true);break;
    case 'assigneeId':if(old&&same(value,old.assigneeId))continue;valid=value===null||liveId(value);break;
