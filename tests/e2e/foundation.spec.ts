@@ -1,3 +1,4 @@
+import {installOfflineNetworkBoundary} from './offline-network-boundary.js';
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import { test as base, expect, type Page } from '@playwright/test';
@@ -9,13 +10,7 @@ const test = base.extend<{ networkBoundary: void }>({
     if (!baseURL) throw new Error('Owned production server URL is required');
     const external: string[] = [], errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
-    await context.route('**/*', async route => {
-      const url = new URL(route.request().url());
-      if (url.origin === baseURL) return route.continue();
-      if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') return route.fulfill({ status: 200, contentType: 'text/css', body: '/* synthetic offline font fallback */' });
-      external.push(url.origin + url.pathname);
-      await route.abort('blockedbyclient');
-    });
+    await installOfflineNetworkBoundary(context,baseURL,external);
     await context.addInitScript(() => localStorage.setItem('family_lang', 'vi'));
     await use();
     expect(external, 'unexpected browser network destination').toEqual([]);
