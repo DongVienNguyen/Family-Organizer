@@ -8,7 +8,7 @@ import {object,keys,integer,text} from '../../src/features/productivity/validati
 import {taskCommandContext,type TaskRequest,type ProductivityPorts} from './router.js';
 import type {BoardMovePreviewInput,BoardMoveApplyInput} from './boardMoves.js';
 import type {BoardConfigureInput} from './boardCatalog.js';
-import type {BoardSectionCreateInput,BoardColumnReorderInput,BoardArchivePreviewInput,BoardArchiveApplyInput} from './boardLayout.js';
+import type {BoardSectionCreateInput,BoardSectionRenameInput,BoardColumnReorderInput,BoardArchivePreviewInput,BoardArchiveApplyInput} from './boardLayout.js';
 /** Application-internal sessions and the existing I01 command/request owner. */
 export function boardRouter(ports:ProductivityPorts,requireAuth:RequestHandler,events:{catalog(audience:Set<string>):void;previous(id:string):Set<string>;emit(id:string,previous?:Set<string>):void;rewards?(id:string):void}){
  const router=Router();router.use('/boards',requireAuth,(_req,res,next)=>{if(!ports.active()||!ports.boards){res.status(409).json({error:'Kho bảng chưa sẵn sàng.'});return;}next();});
@@ -18,6 +18,8 @@ export function boardRouter(ports:ProductivityPorts,requireAuth:RequestHandler,e
  const layoutHandler=(work:(req:TaskRequest)=>unknown):RequestHandler=>(req,res)=>{try{if(!ports.boardLayout)throw new AppStoreError('Kho cột bảng chưa sẵn sàng.',409);res.json(work(req));}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status===500?'Không xử lý được cột bảng.':error instanceof AppStoreError?error.message:'Dữ liệu cột bảng không hợp lệ.'});}};
  const layoutBody=(req:TaskRequest)=>{try{const body=object(req.body);keys(body,['expectedRevision','input']);integer(body.expectedRevision);object(body.input);return body as {expectedRevision:number;input:Record<string,any>};}catch{throw new AppStoreError('Dữ liệu cột bảng không hợp lệ.',400);}};
  const publishLayout=(actorId:string,result:{listId:string;taskIds?:string[]})=>{for(const id of result.taskIds??[])events.emit(id,events.previous(id));const audience=ports.structureEvents?.catalogAudience({listId:result.listId})??new Set<string>();audience.add(actorId);events.catalog(audience);};
+ router.get('/boards/:id/layout',layoutHandler(req=>{try{keys(object(req.query),[]);}catch{throw new AppStoreError('Tham số cột bảng không hợp lệ.',400);}return {layout:ports.boardLayout!.read(req.userSession!,{viewId:req.params.id})};}));
+ router.post('/boards/columns/rename',layoutHandler(req=>{const body=layoutBody(req),ctx=taskCommandContext(req,body.expectedRevision),result=ports.boardLayout!.renameSection(ctx,body.input as BoardSectionRenameInput);publishLayout(ctx.actor.userId,result);return result;}));
  router.post('/boards/sections',layoutHandler(req=>{const body=layoutBody(req),ctx=taskCommandContext(req,body.expectedRevision),result=ports.boardLayout!.createSection(ctx,body.input as BoardSectionCreateInput);publishLayout(ctx.actor.userId,result);return result;}));
  router.post('/boards/columns/reorder',layoutHandler(req=>{const body=layoutBody(req),ctx=taskCommandContext(req,body.expectedRevision),result=ports.boardLayout!.reorder(ctx,body.input as BoardColumnReorderInput);publishLayout(ctx.actor.userId,result);return result;}));
  router.post('/boards/columns/archive/preview',layoutHandler(req=>({plan:ports.boardLayout!.previewArchive(req.userSession!,req.body as BoardArchivePreviewInput)})));

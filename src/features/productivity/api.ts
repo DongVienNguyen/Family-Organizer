@@ -1,3 +1,4 @@
+import {createBoardLayoutApi}from'./boardLayoutApi.js';
 import {createWorkflowApi}from'./workflowApi.js';
 import {createSeriesApi} from './seriesApi.js';
 import {createBoardCommandApi} from './boardCommandsClient.js';
@@ -54,6 +55,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
   ...createWorkflowApi(read,{task:taskValue,clock:clockValue}),
+  ...createBoardLayoutApi(read),
   ...createSeriesApi(read,taskValue),
   ...createMatrixApi(read,{task:taskValue,clock:clockValue}),
   ...createBoardReadApi(read,{task:taskValue,clock:clockValue}),
