@@ -20,6 +20,7 @@ export const browserCases = [
 export function validateBrowserReports(input, policy) {
   const requiredProjects=policy?.projects??browserProjects,requiredFlows=policy?.cases??browserCases;
   if(!Array.isArray(requiredProjects)||JSON.stringify(requiredProjects)!==JSON.stringify(browserProjects)||!Array.isArray(requiredFlows)||requiredFlows.length===0||requiredFlows.length>99||new Set(requiredFlows).size!==requiredFlows.length||!requiredFlows.every(name=>typeof name==='string'&&name.length>0))return ['invalid target browser policy'];
+  if(policy?.workers!==undefined&&!(policy.workers===2&&policy.shardFormat===1&&policy.fixtureVersion===13))return ['invalid target worker capability'];
   const errors = [];
   const requiredCases = requiredProjects.length * requiredFlows.length;
   const { report, junit, manifest, engines, exits, native, files, checks, expected } = input;
@@ -47,8 +48,8 @@ export function validateBrowserReports(input, policy) {
   require(seen.size === requiredCases && report?.stats?.expected === requiredCases && ['unexpected', 'flaky', 'skipped'].every(k => report?.stats?.[k] === 0), 'JSON totals contradict required cases');
   require(Array.isArray(report?.errors) && report.errors.length === 0, 'global browser error');
   // Pinned Playwright merge sums workers and defaults forbidOnly=false.
-  // Capability1 callers also require every original producer's forbidOnly=true/workers=1.
-  require(report?.config?.forbidOnly === (policy?.shardFormat===1?false:true) && report.config.workers === (policy?.shardFormat===1?3:1), 'browser configuration changed');
+  // Sharded callers also require every original producer's declared worker count and forbidOnly=true.
+  require(report?.config?.forbidOnly === (policy?.shardFormat===1?false:true) && report.config.workers === (policy?.shardFormat===1?3*(policy.workers??1):1), 'browser configuration changed');
   require(report?.config?.projects?.length === 3 && requiredProjects.every(name => report.config.projects.some(p => p.name === name && p.retries === 0)), 'required browser projects or zero-retry policy missing');
   try{
     const tree=parseReleaseJUnit(junit),identities=[];
