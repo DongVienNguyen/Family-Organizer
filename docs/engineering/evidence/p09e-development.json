@@ -1,7 +1,7 @@
 {
   "taskId": "P09-e",
-  "prUrl": "not created; parent117 exact-head Windows verification blocked by HTTP401",
-  "baseSha": "0c5b2e1da805d3919c62e99b7e6d8daf70e3d1ce",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/119",
+  "baseSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24",
   "scope": "unmounted physical Kanban confirmation owner only; no UI/drag/grouped interaction activation",
   "cloudGreen": {
     "tests": 4773,
@@ -148,10 +148,10 @@
       "assertionsRetained": true
     }
   },
-  "parentPr": "https://github.com/DongVienNguyen/Family-Organizer/pull/117",
-  "parentHead": "f0baa680d1b8b1942dd50cfc04335f0567af35fe",
-  "parentRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953",
-  "parentConclusion": "unknown after API credential failure; not accepted",
+  "parentPr": "https://github.com/DongVienNguyen/Family-Organizer/pull/118",
+  "parentHead": "96c992d6cb862b692f158b4dc69d20a411e84473",
+  "parentRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855090309",
+  "parentConclusion": "accepted exactHEAD/all8checks/11raw/4750x2/109firstattempt/complete132logs0unexpected",
   "noNewBrowserCasesRun": true,
   "uiMounted": false,
   "runtimeSchemaDefaultActivationDependenciesChanged": false,
@@ -160,5 +160,13 @@
   "releaseCreated": false,
   "tagCreated": false,
   "vpsAccessed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "composition": {
+    "acceptedMainSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24",
+    "acceptedMainCompositionTreeUnchanged": true,
+    "historyMergeSha": "0c6cdcfb1da702f7b50aa9bcbb74cf8aeecb16ea",
+    "treeBeforeHistoryMerge": "1b012e33e626a0b742b42d515396ff8fc371e5e4",
+    "treeAfterHistoryMerge": "1b012e33e626a0b742b42d515396ff8fc371e5e4",
+    "parentCandidateTreeEqualsAcceptedMain": true
+  }
 }
