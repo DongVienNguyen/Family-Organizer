@@ -1,3 +1,4 @@
+import {decodeSeries,decodeSeriesException} from './seriesRecord.js';
 import {validateBoardViewSnapshot} from './boardViewSchema.js';
 import {validateBoardSnapshot} from './boardSnapshot.js';
 import {taskSearchContent,searchGrams} from './viewSchema.js';
@@ -45,6 +46,13 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  for(const row of tables.productivity_list_grants){if(!lists.has(row.list_id))fail();text(row.user_id,256);choice(row.permission,['read','write','manage']);}
  for(const row of tables.productivity_matrix_pins){if(!tasks.has(row.task_id))fail();text(row.view_id,256);choice(row.quadrant,['q1','q2','q3','q4']);}
  for(const row of tables.productivity_occurrences){if(!tasks.has(row.task_id))fail();text(row.id,256);text(row.series_id,256);text(row.occurrence_key,256);integer(row.ordinal);JSON.parse(row.payload_json);}
+ if(snapshot.manifest.domains.productivity>=10){
+  if(!tables.productivity_series||!tables.productivity_series_exceptions)fail();
+  const users=new Set(snapshot.legacy.users.map(user=>user.id));
+  const series=new Map(tables.productivity_series.map(row=>{const value=decodeSeries(row);if(!tasks.has(value.taskId)||value.policy.rotationMembers.some(id=>!users.has(id)))fail();return [value.id,value];}));
+  if(new Set([...series.values()].map(value=>value.taskId)).size!==series.size)fail();
+  for(const row of tables.productivity_series_exceptions){const value=decodeSeriesException(row),owner=series.get(value.seriesId);if(!owner||value.revision>owner.revision||owner.policy.end.kind==='count'&&value.ordinal>=owner.policy.end.count||value.kind==='due'&&value.due.kind!=='none'&&value.due.timezone!==owner.policy.timezone)fail();}
+ }
  if(snapshot.manifest.domains.productivity>=2){
   assertTaskTree(tables.productivity_tasks.map(edge));
   if(!tables.productivity_catalog_revisions||!tables.productivity_check_items)fail();
@@ -57,7 +65,7 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  if(snapshot.manifest.domains.productivity>=5){
   const views=tables.productivity_views,documents=tables.productivity_search_documents,grams=tables.productivity_search_grams;
   if(!views||!documents||!grams)fail();const users=new Set(snapshot.legacy.users.map(user=>user.id));
-  for(const row of views){text(row.title,500);integer(row.revision,1);if(!users.has(row.owner_id))fail();assertTaskView({id:row.id,ownerId:row.owner_id,revision:row.revision,filter:JSON.parse(row.filter_json),kind:row.kind,config:JSON.parse(row.config_json)},snapshot.manifest.domains.productivity);}
+  for(const row of views){text(row.title,500);integer(row.revision,1);if(!users.has(row.owner_id))fail();assertTaskView({id:row.id,ownerId:row.owner_id,revision:row.revision,filter:JSON.parse(row.filter_json),kind:row.kind,config:JSON.parse(row.config_json)},snapshot.manifest.domains.productivity===10?9:snapshot.manifest.domains.productivity);}
   const indexed=new Map(documents.map(row=>[row.task_id,row.content])),actual=new Map<string,Set<string>>();
   for(const row of grams){const values=actual.get(row.task_id)??new Set<string>();values.add(row.gram);actual.set(row.task_id,values);if(!indexed.has(row.task_id))throw new Error('Invalid productivity search snapshot');}
   if(indexed.size!==tasks.size)throw new Error('Invalid productivity search snapshot');
