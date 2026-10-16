@@ -1660,5 +1660,31 @@
       "q4": "Q4"
     },
     "applied": "Move applied."
+  },
+  "productivityKanban": {
+    "board": "Kanban board",
+    "columns": "Task columns",
+    "total": "{{count}} tasks",
+    "reload": "Reload",
+    "loading": "Loading board…",
+    "empty": "No tasks in this view.",
+    "more": "Load more",
+    "sections": "Classification",
+    "workflow": "Workflow",
+    "grouped": "Task group",
+    "wipCount": "{{count}} / {{limit}}",
+    "wipLimit": "Limit {{limit}}",
+    "open": "Open task {{title}}",
+    "review": "Awaiting approval",
+    "completed": "Completed",
+    "priorityhigh": "High priority",
+    "prioritymedium": "Medium priority",
+    "prioritylow": "Low priority",
+    "prioritynone": "No priority",
+    "unassigned": "Unassigned",
+    "unavailableMember": "Member unavailable",
+    "untagged": "Untagged",
+    "unavailableTag": "Tag unavailable",
+    "noDue": "No due date"
   }
 }

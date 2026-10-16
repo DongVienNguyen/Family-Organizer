@@ -1,0 +1,182 @@
+{
+  "taskId": "P09-b",
+  "baseSha": "e757f830163c5aa5d1bb3b48659ac2e47feefa7f",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/116",
+  "scope": "presentational Kanban cards/columns and exact page-snapshot append; no app entry/async/mutation activation",
+  "cloudGreen": {
+    "tests": 4661,
+    "passed": 4661,
+    "files": 255,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4661,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4661,
+    "files": 255
+  },
+  "review": {
+    "task": "P09-b",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "a64486c9b2da368cddd72f47b6c7e1224b773e104a563bdf182995c3b6c5f406",
+      "src/features/productivity/Kanban.tsx": "beba85b3ea4231e2f4ad21aff6b2f1ccf9df30e215b8ddbd3054eaaa9f23c119",
+      "src/features/productivity/kanban-ui.test.tsx": "2774d0ee7d71a84aa618fd8b3d40efabb05c2aea830e018b42b5c939e167f66d",
+      "src/features/productivity/kanbanPages.test.ts": "fdf7e9ed6b3fba6014b967ccb783d47b9e447e0e0eb15736976eb35b7a1cbc79",
+      "src/features/productivity/kanbanPages.ts": "52d73c1c750ca04b83ac6000a31b7c12c87b8bb13aa7cd21bb4167fb79051522",
+      "src/i18n/locales/en.json": "66962c136144c768dc3cd9840db908d3d955ca4ef1c822f034a7fb9af9086f63",
+      "src/i18n/locales/vi.json": "725c10df36b059d6df5e8b951fcdfffba1f88b06ba691e5f7ed1beac36457781",
+      "src/i18n/locales/zh.json": "1c660ea19e293e7d895def8ccac78ea02a7b9d0ec2bee1ee6b25a36de4e93016",
+      "tests/evidence.test.ts": "90b3c21666ac5a0ba648fad557ab3012b366afd6270cc44b1b56ce2ff112b366"
+    },
+    "focus": [
+      "Combine validated pages only with exact view/board/revisions/clock/count/column/WIP agreement and expected cursor",
+      "Unique canonical IDs and tag visual/semantic refs; identical shared Task facts; exact final coverage and scope bounds",
+      "Readonly native details/summary columns, correct sections vs workflow/Review/completed distinction",
+      "Private-safe WIP counts and unavailable names; escaped text; same Task ID on open; pending auth disables actions",
+      "Existing theme tokens/mobile bounded horizontal scroll/visible keyboard focus; en/vi/zh same keys and all old locale values retained",
+      "No fetch/writer/cache/offline/session authority or production UI entry activation"
+    ],
+    "rulings": [],
+    "developmentRulings": [
+      "First22 pagination tests implemented together with helper, not a causal RED claim",
+      "Original10 UI RED cases collected and failed missing-module scaffold; not actual UI-behavior RED proof",
+      "Corrected new synthetic multi-tag fixture carries its actual tags; empty0 and nonempty partial/load-more fixtures are separate valid pages",
+      "SSR/static handler tests are not native pointer/touch/collapse/visual verification; no new browser probe claimed"
+    ],
+    "remaining": [
+      "Exact-HEAD Windows8checks/11raw/103firstattempt pending",
+      "App entry/load/reconcile/session state and actual Kanban browser fixture not implemented in this slice",
+      "DnD/column editing/virtualization and remaining P08/P09/P10/master unfinished",
+      "Server2019/R02 unrun; no release/tag/VPS"
+    ]
+  },
+  "composition": {
+    "parentCandidateSha": "91ca15be96f5b1805f10a37a8b6856fadb44e19c",
+    "parentAcceptance": "PR115 accepted CI38847539527; API/GitTreeequal; accepted-main history composition entire tested tree unchanged",
+    "parentUpdateDocsAndHistoryOnly": true,
+    "reviewedClientSourceUnchanged": true,
+    "currentHead": "2ec7decdb145ac3289afff54088fa17748f0b770",
+    "acceptedMainSha": "e757f830163c5aa5d1bb3b48659ac2e47feefa7f",
+    "acceptedMainCompositionTreeUnchanged": true
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "a64486c9b2da368cddd72f47b6c7e1224b773e104a563bdf182995c3b6c5f406",
+      "src/features/productivity/Kanban.tsx": "beba85b3ea4231e2f4ad21aff6b2f1ccf9df30e215b8ddbd3054eaaa9f23c119",
+      "src/features/productivity/kanban-ui.test.tsx": "2774d0ee7d71a84aa618fd8b3d40efabb05c2aea830e018b42b5c939e167f66d",
+      "src/features/productivity/kanbanPages.test.ts": "fdf7e9ed6b3fba6014b967ccb783d47b9e447e0e0eb15736976eb35b7a1cbc79",
+      "src/features/productivity/kanbanPages.ts": "52d73c1c750ca04b83ac6000a31b7c12c87b8bb13aa7cd21bb4167fb79051522",
+      "src/i18n/locales/en.json": "66962c136144c768dc3cd9840db908d3d955ca4ef1c822f034a7fb9af9086f63",
+      "src/i18n/locales/vi.json": "725c10df36b059d6df5e8b951fcdfffba1f88b06ba691e5f7ed1beac36457781",
+      "src/i18n/locales/zh.json": "1c660ea19e293e7d895def8ccac78ea02a7b9d0ec2bee1ee6b25a36de4e93016",
+      "tests/evidence.test.ts": "90b3c21666ac5a0ba648fad557ab3012b366afd6270cc44b1b56ce2ff112b366"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "f47ab299325c6d88cf29fb727ef502bca6c82ce67fcd803006621f4c122da44d",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p09b-full.json": "92665f04de875c8d71a4245c10f3e98933d7fca10f2f9ca122624d74c2acfae3",
+      "p09b-full.junit.xml": "6c76bc8828ec7a428c3fcbeadb7ce457c1223e05257fc9db80e3ada5f3de811c",
+      "p09b-full.log": "e305e2b709507f09452752daf643445834199bb32b644fa53cdadf11e4d96d6e",
+      "p09b-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09b-build.log": "0871f9da2093fad2dd04c331fa1f8cb81d3a49e321e3e444f68741c78b3d804e"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/ELEVENraw/retained24ZIPchecks/29HTTP/100IPC/103firstattempt"
+  },
+  "reports": [
+    {
+      "file": "p09b-full.json",
+      "sha256": "92665f04de875c8d71a4245c10f3e98933d7fca10f2f9ca122624d74c2acfae3",
+      "tests": 4661,
+      "passed": 4661,
+      "failed": 0,
+      "files": 255
+    },
+    {
+      "file": "p09b-gate-red.json",
+      "sha256": "98f933ad6f9a7c9b4e28e73a3659a35f684d339722e3710c6ec2df81ed3f6632",
+      "tests": 297,
+      "passed": 295,
+      "failed": 2,
+      "files": 1
+    },
+    {
+      "file": "p09b-pages-first.json",
+      "sha256": "2134b1695d87001b33813ff4b4efa60546b0533cb561f9b88511303db18ec50c",
+      "tests": 22,
+      "passed": 22,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p09b-ui-scaffold-red.json",
+      "sha256": "5e3dce8d39e63b050e8173d844fe12cf189ad7fefa964eaa2e2d9feafb04313c",
+      "tests": 10,
+      "passed": 0,
+      "failed": 10,
+      "files": 1
+    },
+    {
+      "file": "p09b-view-first.json",
+      "sha256": "734b79b3f82ea55af1a9f2ef723c6a53fc37fbd8b539e8f57ff7619da10e9a0b",
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "files": 2
+    },
+    {
+      "file": "p09b-view-target.json",
+      "sha256": "c2861f1ba03ca3f353aa563ebc1fbfa80dc05b64bc89d169d75977567e8cae6b",
+      "tests": 330,
+      "passed": 330,
+      "failed": 0,
+      "files": 3
+    }
+  ],
+  "redRulings": {
+    "uiScaffold": {
+      "tests": 10,
+      "passed": 0,
+      "failed": 10,
+      "ruling": "collected missing-module scaffold failures, not UI-behavior causal proof"
+    },
+    "mandatoryGate": {
+      "tests": 297,
+      "passed": 295,
+      "failed": 2
+    },
+    "paginationFirst": {
+      "tests": 22,
+      "passed": 22,
+      "ruling": "tests and helper implemented together; not a RED claim"
+    }
+  },
+  "remaining": [
+    "Exact-HEAD Windows8checks/11raw/103firstattempt pending",
+    "App entry/load/reconcile/session state and actual Kanban browser fixture not implemented in this slice",
+    "DnD/column editing/virtualization and remaining P08/P09/P10/master unfinished",
+    "Server2019/R02 unrun; no release/tag/VPS"
+  ],
+  "fullP09Accepted": false,
+  "runtimeWiringChanged": false,
+  "schemaMigrationDefaultActivationDependenciesChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}

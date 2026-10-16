@@ -1,0 +1,141 @@
+{
+  "taskId": "P09-a",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/115",
+  "testedHeadSha": "91ca15be96f5b1805f10a37a8b6856fadb44e19c",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38847539527",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "6c5fa7bb3a79977095de2d9a7b8da8f22b213ef42bef82e39a309cad75bb8c02",
+    "coverage": "1693bdd1df7e4b81929c40a4dbe8213e156122d234abd6b085ea5a3a443b6827",
+    "package": "0026e3c2a869e62d2c35247c2ee88e5ad9bf7dad85f15d335eb10748777834d6",
+    "service": "8fc2c1ea5abe006161c79b7b91da33fc48768e68976b80bfc0a5b6028de942fe",
+    "caddy": "b05f4b7752dd570c775ec8b0c164290c369088bf2f142c5490f02b1aed297e83",
+    "extraction-sdk": "e6184be0b4ee3ae1cca7d4cfb2ac682376ade1f5fae42a7de78252f90d51cf0f",
+    "inner-native": "23aa5963000387b1f2c6ee549f2ed4dbb5701a41001f105a4978326dacdd23b8",
+    "browser": "5aadda002b7d24b239603f55392d24585a4ac96d44c8d475f7143f10fbf409aa",
+    "productivity-browser": "a9aae5703ec5e6a00cae1c5e6f81ec72e50538b440ed68bc0fa1315c1f3382a9",
+    "board-package": "f71d70af731271ba922496265e93c07e3a4ad7b7371dde77de670929f3668917",
+    "port-policy": "235564935138516824557ae1dc88a9bac0693029b584f2bf2f3a8e5926ad346f"
+  },
+  "qualityEach": 4626,
+  "qualityFilesEach": 253,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "zipSha256": "9f459035a1c1fb2dafc2ad62518d4739767e4fd4a53cc030cfef502d32bd75f8",
+  "fullCiLogZipSha256": "eadf0cf9ec5b23a510aa80bad686420155a4e32cb922654b1f92a75a3e8498b3",
+  "review": {
+    "task": "P09-a",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 2,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceHashes": {
+      "src/features/productivity/api.ts": "c68c9e68968a4035322f781371e4dd0d67d5ced063eb5feb42d5222c45249b7d",
+      "src/features/productivity/boardClient.ts": "348ad066fe6b7882c7a78cdd4a73318b75a8e213ba83d3868db9612ca5510b14",
+      "src/features/productivity/boardClient.test.ts": "f5641d3aab60e2d3ec9b3af3fdcc7b795e8d06445f94c692e238abe56c365486",
+      "scripts/ci/write-evidence.mjs": "20698a44ba48079057c2ff891ffb7ee75acfaa21d9dc88f218d51df98b1519ca",
+      "tests/evidence.test.ts": "1363b62fe276f6064235e5c9a17124ea66f1ea76124c6f9ea52c28efaf142709"
+    },
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Page claiming positive total can contain no returned cards even though server cursors either return nonempty data or409",
+        "decision": "Refuse empty positive-total canonical/grouped pages; keep genuine zero-total empty pages valid."
+      },
+      {
+        "severity": "Important",
+        "finding": "Valid but different response timezone is not bound to explicitly requested timezone",
+        "decision": "Require parsed response timezone to match request; fix new positive UTC fixture to actually return UTC and keep all transport/abort assertions."
+      }
+    ],
+    "correctionRed": {
+      "tests": 51,
+      "passed": 47,
+      "failed": 4
+    },
+    "focus": [
+      "Internal Bearer/no-store GET transport, proper URL encoding/cursor/abort/no retries",
+      "Bounded page/column/task/reference inventories and canonical unique Task bodies",
+      "Actual sections/workflow placement and priority/assignee/due/tag group semantics",
+      "WIP redaction/count contracts; no use of counts as write authority",
+      "Strict current view/revisions/clocks, task metadata stripping and detached result",
+      "No UI mutation/cache/offline queue/server imports/crypto/node storage side effects"
+    ],
+    "remaining": [
+      "Exact-HEAD Windows acceptance/all8/11raw/103browserfirstattempt pending",
+      "No Kanban UI/render/drag activation yet; fullP09/master unfinished",
+      "Server2019/R02 unrun; no release/tag/VPS"
+    ],
+    "importantRemaining": 0,
+    "correctionGreen": {
+      "tests": 353,
+      "passed": 353,
+      "files": 3
+    },
+    "postCorrectionSourceHashes": {
+      "src/features/productivity/api.ts": "c68c9e68968a4035322f781371e4dd0d67d5ced063eb5feb42d5222c45249b7d",
+      "src/features/productivity/boardClient.ts": "ea0db35cd009ced66070af81a533b1c823ee69f2ca8da25937b1eef58cd0a45f",
+      "src/features/productivity/boardClient.test.ts": "291ceb997c054872f1e5c4ba2ff3c8b50a80c22c28ec411a35250fb1acfd37d9",
+      "scripts/ci/write-evidence.mjs": "20698a44ba48079057c2ff891ffb7ee75acfaa21d9dc88f218d51df98b1519ca",
+      "tests/evidence.test.ts": "1363b62fe276f6064235e5c9a17124ea66f1ea76124c6f9ea52c28efaf142709"
+    }
+  },
+  "kanbanReadClientAccepted": true,
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "e757f830163c5aa5d1bb3b48659ac2e47feefa7f",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "91ca15be96f5b1805f10a37a8b6856fadb44e19c": "753d320571ee25e1be0c11682e8e6a8a1c720552",
+    "e757f830163c5aa5d1bb3b48659ac2e47feefa7f": "753d320571ee25e1be0c11682e8e6a8a1c720552"
+  },
+  "fullLogs": {
+    "files": 132,
+    "lines": 24182,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

@@ -1660,5 +1660,31 @@
       "q4": "Q4"
     },
     "applied": "移动已应用。"
+  },
+  "productivityKanban": {
+    "board": "看板",
+    "columns": "任务列",
+    "total": "{{count}} 个任务",
+    "reload": "重新加载",
+    "loading": "正在加载看板…",
+    "empty": "此视图中没有任务。",
+    "more": "加载更多",
+    "sections": "分类",
+    "workflow": "工作流程",
+    "grouped": "任务分组",
+    "wipCount": "{{count}} / {{limit}}",
+    "wipLimit": "上限 {{limit}}",
+    "open": "打开任务 {{title}}",
+    "review": "等待审批",
+    "completed": "已完成",
+    "priorityhigh": "高优先级",
+    "prioritymedium": "中优先级",
+    "prioritylow": "低优先级",
+    "prioritynone": "无优先级",
+    "unassigned": "未分配",
+    "unavailableMember": "成员不可用",
+    "untagged": "无标签",
+    "unavailableTag": "标签不可用",
+    "noDue": "无截止日期"
   }
 }

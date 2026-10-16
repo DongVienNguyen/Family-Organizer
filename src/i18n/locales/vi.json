@@ -1660,5 +1660,31 @@
       "q4": "Q4"
     },
     "applied": "Đã áp dụng di chuyển."
+  },
+  "productivityKanban": {
+    "board": "Bảng Kanban",
+    "columns": "Các cột công việc",
+    "total": "{{count}} công việc",
+    "reload": "Tải lại",
+    "loading": "Đang tải bảng…",
+    "empty": "Chưa có công việc trong góc nhìn này.",
+    "more": "Xem thêm",
+    "sections": "Phân loại",
+    "workflow": "Quy trình",
+    "grouped": "Nhóm công việc",
+    "wipCount": "{{count}} / {{limit}}",
+    "wipLimit": "Giới hạn {{limit}}",
+    "open": "Mở công việc {{title}}",
+    "review": "Chờ duyệt",
+    "completed": "Hoàn thành",
+    "priorityhigh": "Ưu tiên cao",
+    "prioritymedium": "Ưu tiên vừa",
+    "prioritylow": "Ưu tiên thấp",
+    "prioritynone": "Không ưu tiên",
+    "unassigned": "Chưa phân công",
+    "unavailableMember": "Thành viên không còn khả dụng",
+    "untagged": "Chưa có nhãn",
+    "unavailableTag": "Nhãn không còn khả dụng",
+    "noDue": "Chưa có hạn"
   }
 }

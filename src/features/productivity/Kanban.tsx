@@ -1,0 +1,38 @@
+import React from 'react';
+import {useTranslation} from 'react-i18next';
+import {Columns3,Clock3,CircleCheck,Tag,UserRound,CalendarDays} from 'lucide-react';
+import type {TaskRecord} from './contracts.js';
+import type {BoardPage,GroupedBoardPage} from './boardClient.js';
+type Props=({kind:'canonical';page:BoardPage}|{kind:'grouped';page:GroupedBoardPage})&{onOpen(id:string):void;onReload():void;onLoadMore():void;disabled?:boolean;loading?:boolean;error?:string;users?:{id:string;fullName:string}[];tags?:{id:string;name:string}[]};
+const button='bg-slate-900 neu-btn rounded-xl px-4 py-2.5 text-xs font-bold text-slate-200 cursor-pointer disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-sky-500/40';
+/** Presentation for already authorized, validated pages. The owner controls
+ * async/session lifetime and routes open to the existing shared Task drawer. */
+export function Kanban(props:Props){
+ const {t}=useTranslation(),{page}=props,byId=new Map((props.kind==='grouped'?props.page.tasks:[]).map(task=>[task.id,task]));
+ const label=(group:GroupedBoardPage['columns'][number]['group'])=>group.kind==='priority'?t('productivityKanban.priority'+group.value):group.kind==='assignee'?group.value===null?t('productivityKanban.unassigned'):props.users?.find(u=>u.id===group.value)?.fullName??t('productivityKanban.unavailableMember'):group.kind==='tag'?group.value===null?t('productivityKanban.untagged'):props.tags?.find(tag=>tag.id===group.value)?.name??t('productivityKanban.unavailableTag'):group.value??t('productivityKanban.noDue');
+ const groupedCards=(column:GroupedBoardPage['columns'][number])=>{if(props.kind!=='grouped')return [];return props.page.cards.filter(card=>card.group.kind===column.group.kind&&card.group.value===column.group.value).map(card=>{const task=byId.get(card.taskId);if(!task)throw Error('Missing validated Kanban Task reference');return {task:task!,projectionId:card.projectionId};});};
+ return <section aria-label={t('productivityKanban.board')} className="space-y-3 min-w-0 max-w-full" aria-busy={props.loading===true}>
+  <div className="flex flex-wrap items-center justify-between gap-2"><p className="text-xs text-slate-400 font-mono tabular-nums">{t('productivityKanban.total',{count:page.totalUnique})}</p><button type="button" className={button} disabled={props.disabled||props.loading} onClick={props.onReload}>{t('productivityKanban.reload')}</button></div>
+  {props.error&&<p role="alert" className="text-[11px] text-rose-400">{props.error}</p>}{props.loading&&<p aria-live="polite" className="text-xs text-slate-400">{t('productivityKanban.loading')}</p>}
+  {page.totalUnique===0&&<p className="bg-slate-900/40 rounded-2xl py-12 text-center text-sm text-slate-500">{t('productivityKanban.empty')}</p>}
+  <div className="flex gap-3 overflow-x-auto overscroll-x-contain pb-3 max-w-full" aria-label={t('productivityKanban.columns')}>
+   {page.columns.map(column=>{const canonical=props.kind==='canonical'?column as BoardPage['columns'][number]:null,grouped=props.kind==='grouped'?column as GroupedBoardPage['columns'][number]:null,cards=canonical?canonical.cards.map(c=>({task:c.task,projectionId:c.task.id})):groupedCards(grouped!),title=canonical?canonical.title:label(grouped!.group),wip=column.wip;
+    const Icon=grouped?.group.kind==='tag'?Tag:grouped?.group.kind==='assignee'?UserRound:grouped?.group.kind==='due'?CalendarDays:Columns3;
+    return <details key={column.id} open className="bg-slate-950/40 neu-pressed-sm rounded-2xl p-3 w-72 max-w-[calc(100vw-3rem)] shrink-0" data-kanban-column={column.id}>
+     <summary className="cursor-pointer rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/40"><span className="inline-flex items-center gap-2 text-sm font-bold text-slate-100"><Icon aria-hidden="true" className="w-4 h-4 text-sky-400"/>{title}<span className="font-mono tabular-nums text-xs text-slate-400">{column.visibleCardCount}</span></span></summary>
+     <div className="space-y-3 mt-3"><p className="text-[10px] text-slate-500">{canonical?t('productivityKanban.'+(props.kind==='canonical'&&props.page.mode==='sections'?'sections':'workflow')):t('productivityKanban.grouped')}</p>
+      {wip.policy!=='off'&&<p className="text-[10px] text-amber-400 font-mono tabular-nums">{wip.visibility==='complete'?t('productivityKanban.wipCount',{count:wip.activeRootCount,limit:wip.limit}):t('productivityKanban.wipLimit',{limit:wip.limit})}</p>}
+      {cards.map(card=><KanbanTaskCard key={card.projectionId} {...card} disabled={props.disabled===true||props.loading===true} onOpen={props.onOpen}/>)}
+     </div>
+    </details>;
+   })}
+  </div>
+  {page.nextCursor!==null&&<button type="button" className={button} disabled={props.disabled||props.loading} onClick={props.onLoadMore}>{props.loading?t('productivityKanban.loading'):t('productivityKanban.more')}</button>}
+ </section>;
+}
+export function KanbanTaskCard({task,projectionId,onOpen,disabled}:{task:TaskRecord;projectionId:string;onOpen(id:string):void;disabled:boolean}){
+ const {t}=useTranslation();return <button type="button" aria-label={t('productivityKanban.open',{title:task.title})} className="w-full text-left bg-slate-900 neu-raised-sm rounded-2xl p-3 space-y-2 cursor-pointer disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-sky-500/40" disabled={disabled} onClick={()=>onOpen(task.id)} data-kanban-task={task.id} data-kanban-projection={projectionId} data-kanban-completed={task.lifecycle==='completed'}>
+  <span className="block text-sm font-bold text-slate-100 break-words">{task.title}</span>
+  {task.pendingApproval?<span className="inline-flex gap-1 items-center text-[10px] text-amber-400"><Clock3 aria-hidden="true" className="w-3 h-3"/>{t('productivityKanban.review')}</span>:task.lifecycle==='completed'?<span className="inline-flex gap-1 items-center text-[10px] text-emerald-400"><CircleCheck aria-hidden="true" className="w-3 h-3"/>{t('productivityKanban.completed')}</span>:null}
+ </button>;
+}
