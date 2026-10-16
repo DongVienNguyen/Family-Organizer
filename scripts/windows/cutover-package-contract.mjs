@@ -10,6 +10,7 @@ export function validateCutoverPackageReport(report,expected){
  const errors=[],need=(value,message)=>{if(!value)errors.push(message);};
  need(/^[a-f0-9]{40}$/.test(expected?.commitSha??'')&&report?.format===1&&report?.commitSha===expected.commitSha,'cutover source mismatch');
  need(hash(expected?.zipSha256)&&report?.zipSha256===expected.zipSha256,'cutover ZIP mismatch');
+ need(report?.provenance==='exact-verified-zip-v1','cutover scenario lacks actual ZIP provenance');
  need(report?.platform==='win32'&&report?.architecture==='x64'&&report?.nodeVersion==='v24.21.0'&&report?.abi==='137'&&report?.napi==='10'&&report?.nativeVersion==='13.0.3','cutover Windows native runtime mismatch');
  need(typeof expected?.nodeExecutable==='string'&&report?.nodeExecutable===expected.nodeExecutable&&hash(expected?.nodeBinarySha256)&&report?.nodeBinarySha256===expected.nodeBinarySha256&&hash(expected?.nativeBinarySha256)&&report?.nativeBinarySha256===expected.nativeBinarySha256,'cutover executable/addon mismatch');
  need(hash(report?.fixtureSha256)&&report?.fixtureCommitSha===expected?.commitSha&&report?.fixtureProducerPlatform==='win32'&&report?.fixtureProducerArchitecture==='x64'&&report?.fixtureProducerNodeVersion==='v24.21.0','cutover fixture mismatch');
