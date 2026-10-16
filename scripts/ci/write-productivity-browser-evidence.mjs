@@ -5,7 +5,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import {browserProjects} from './browser-contract.mjs';
-import {productivityBrowserCases as browserCases,validateProductivityBrowserReports as validateBrowserReports} from './productivity-browser-contract.mjs';
+import {productivityBrowserCases as browserCases,productivityBrowserWorkers,validateProductivityBrowserReports as validateBrowserReports} from './productivity-browser-contract.mjs';
 
 fs.mkdirSync('reports', { recursive: true });
 const errors = [];
@@ -28,7 +28,7 @@ const files=Object.keys(mappedFiles).filter(name=>fs.existsSync(path.join('repor
 const junit = fs.existsSync('reports/productivity-browser.junit.xml') ? fs.readFileSync('reports/productivity-browser.junit.xml', 'utf8') : '';
 if (commitSha !== process.env.TEST_COMMIT_SHA || process.version !== `v${process.env.EXPECTED_NODE}` || process.platform !== 'win32' || process.arch !== 'x64') errors.push('requested HEAD/runtime differs from actual Windows checkout');
 const touch={report:read('productivity-browser-touch.json'),runtime:read('productivity-browser-touch-runtime.json'),junit:fs.existsSync('reports/productivity-browser-touch.junit.xml')?fs.readFileSync('reports/productivity-browser-touch.junit.xml','utf8'):''};
-let shards;try{shards=readProductivityShardInputs(openReleaseReportFiles(path.resolve('reports')));}catch{errors.push('missing independent productivity project evidence');}
+let shards;try{shards=readProductivityShardInputs(openReleaseReportFiles(path.resolve('reports')),{workers:productivityBrowserWorkers});}catch{errors.push('missing independent productivity project evidence');}
 errors.push(...validateBrowserReports({ shards, report, junit, manifest, engines, exits, native, checks, files, expected, touch }));
 const hashes = {};
 function record(directory) {

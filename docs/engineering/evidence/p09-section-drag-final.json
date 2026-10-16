@@ -1,0 +1,204 @@
+{
+  "taskId": "P09-section-drag",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/133",
+  "testedHeadSha": "7e269a27203cf3fe465aa735441026b732c37d15",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38951751434",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "998a442c430054e1830526f4faadc33a5b7e89cfe5a42591cb1d6441b37efba9",
+    "coverage": "40f4014975abaecfce6042fcb975674c123c4795d7b254458e756924614b5ca5",
+    "package": "4484c2aa9346f169fd51b99307fd914180a63c96a12af2a24d633d2ffa8d9782",
+    "service": "a14586909a2f7be310c213a967985d078014f86bc9ccd4f368fbe9e87c1f29ec",
+    "caddy": "c8cc3fb094c79d55ec482be9d4e901251e1ec3beab5c2439536ff51f1b67e486",
+    "extraction-sdk": "7eddb60d0941ff326b25d71da45bd75aea94a465a0f643d681aa151d9afb16da",
+    "inner-native": "b81483a2b6dcda25ada5da36fd027b9f01a935a45a13ab5b6d5b9b81d0a6f820",
+    "browser": "93f15a72dab0e3193c351a081014132f49906582a7eac51b07709b3e8e871c75",
+    "productivity-browser": "7e2ffa254988dc7e37c8e66bf5ef0a7950515d27eb2663ffa181f979656af4fb",
+    "board-package": "8eeb67e48e0adbf2ed0dd743c055c4934c5cfa7a09b067397bdea4fd158d42d5",
+    "port-policy": "7da6d18c9ef294d60fba66e32213066a12b96340b8af780c65b75262623f45e7",
+    "cutover-package": "63de1894483e1458326df6b5b976a8675c262375d8384a0c129275ac0898fa75"
+  },
+  "qualityEach": 5647,
+  "qualityFilesEach": 309,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 105,
+  "matrixTouchFirstAttempt": 1,
+  "kanbanSectionTouchVerified": true,
+  "postReviewValidationRepair": {
+    "observedHeadSha": "e9d9bdb05059b7491142d159e68f4ec9fa42f4d0",
+    "observedRun": "38949667730",
+    "observedFailure": "Windows Firefox/WebKit C35: previous C25 deliberately left shared view group=due/sort=title; direct canonical projection returned422",
+    "file": "tests/e2e/productivity.spec.ts",
+    "beforeSha256": "6ea0ff47e602a552d4e59333111b30cbf6f746e2ef5863c7cc3d728f537fab8f",
+    "afterSha256": "7ca96d335722e33a7dfcf923de3899aad13df29eae8517ce45c523f719e8f81c",
+    "repair": "C35 creates its own actor-owned canonical Sections/rank view using the surviving board reference; checks projection HTTP200 explicitly",
+    "cloudC25ThenC35": 2,
+    "nativeTouch": 1,
+    "nativeExit": 0,
+    "runtimeBuildUnchanged": true,
+    "original34AssertionsPreserved": true,
+    "rereview": false,
+    "failedTraceRetained": true,
+    "lintExit": 0,
+    "failedChecks": [
+      "Windows Node24 baseline",
+      "Windows production browsers",
+      "Windows productivity browsers",
+      "ci-gate"
+    ],
+    "unchanged34CasesPassedEachEngine": true
+  },
+  "rawValidators": 12,
+  "review": {
+    "taskId": "P09-section-drag",
+    "mode": "LOCAL whole-branch SELF; not independent",
+    "baseSha": "d70bd692540625490bd6f8cee5f015acedb342b4",
+    "reviewedAtUtc": "2026-10-16T18:40:00.611975+00:00",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceFiles": {
+      "scripts/ci/matrix-touch-contract.mjs": "e4f00f84dc295e1185eaefec75d40ac9ca6081f6d39c310d248719c24ab28a0e",
+      "scripts/ci/productivity-browser-contract.mjs": "c5d38c8d7705c3e68b7918fc8a71fdf772ff736691778221aa4c114d2767006a",
+      "scripts/windows/release-collector-evidence.mjs": "1489f23b3c89a0eba2faa8ddcafd0ac9643d3983f8892e6791cc1accb9d85c77",
+      "scripts/windows/release-productivity-browser-files.mjs": "e6b96ce85f4d53a93df19ff761f4d2dafc85f68ff45397ae12da3f1cf9104feb",
+      "scripts/windows/release-productivity-source-policy.mjs": "79d839a4abe7c317b17bfb0469c2f9dd7d9e6be4a36b3efa0f6d19385589d8df",
+      "src/features/productivity/Kanban.tsx": "ecb8fc5bca0d58b445009b0b110c2206d2e091dab90c1ab419f9ab34fbd886d6",
+      "src/features/productivity/KanbanSectionActions.tsx": "ff4b2a0e407d1d8d87bf1f39825fd62f0247e04e9359adaecaa1996c34f07d09",
+      "src/features/productivity/drag.ts": "4eb600a7f7de73b6f66b9f3fd3de3df1a600df0bec17680965fe481fe7bac056",
+      "src/features/productivity/kanban-drag-ui.test.tsx": "2424475a58392ecaff4dd2d6d5a1d96506b8ebe4596f31d8ffafb5286c7ac756",
+      "src/features/productivity/kanban-drag.test.ts": "a94ce21d178a854024c1d7f16fa61b9b70642ad87e69e8a6aeb6e58214e2ca08",
+      "src/i18n/locales/en.json": "1739e8597ba8da9e506f1182f693800d56e601a251b3a0701cf3739cfddf5ac8",
+      "src/i18n/locales/vi.json": "54cb857c60b3932a5b45413679746303683d6c22db526442b4f5e584f7e79205",
+      "src/i18n/locales/zh.json": "19a0a6e6b9a3bc02b5372710e12afad1979799eb3b63bc779f69003b3da6c3e5",
+      "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b",
+      "tests/e2e/productivity.spec.ts": "6ea0ff47e602a552d4e59333111b30cbf6f746e2ef5863c7cc3d728f537fab8f",
+      "tests/helpers/release-productivity-browser-fixture.ts": "e83b7537b0322a79ef9e1634d712266711809be2dcbf99ddce863831c3abbec8",
+      "tests/helpers/section-touch-fixture.ts": "fed1fcd617b476e891ae91b8d1487210142370e78a20f89b28b10b39a0eab7d6",
+      "tests/kanban-touch-evidence.test.ts": "af3a2485903e9af6f75caea972e7574f353c6130ee10517a96cad765060ddf1e",
+      "tests/productivity-browser-evidence.test.ts": "1f13f9ed98d5f3a7de4f07ce8e6fdef7610fa26a9d13bf8689253c0bf0dcc4b0",
+      "tests/release-collector-evidence.test.ts": "9c3fcf0898f672ea81738f147828f63597aac2f4481759da0edeb9d3e8a0c043",
+      "tests/release-productivity-profile.test.ts": "0de1686f7e594a4ce0093a9d48995a4f6c54d48b55c0c090c6e13298726889f8"
+    },
+    "scope": [
+      "native DnD event maps only current visible source/target view/board/revisions to existing read-only preview",
+      "dedicated sibling grip/no nested controls and readonly/terminal/group/workflow exclusion",
+      "explicit preview/cancel/apply via existing I01 section owner, no new writer or lifecycle semantics",
+      "real pointer Escape/preview/cancel/apply and trusted mobile touch without Task/reward mutation",
+      "new source-bound touch capability required by CI/raw reader/normalizer while historical Matrix-only scopes stay distinct",
+      "original34 browser source prefix and original Matrix/checkbox native test assertions retained"
+    ],
+    "original34BrowserSourcePrefixPreserved": true,
+    "originalMatrixTouchAssertionsPreserved": true,
+    "frozenMigrationDefinitionsVerified": 15,
+    "dependenciesChanged": false,
+    "defaultStorageVersion": 6,
+    "server2019Acceptance": "not-run",
+    "publicationAllowed": false
+  },
+  "sourceHashes": {
+    "scripts/ci/matrix-touch-contract.mjs": "e4f00f84dc295e1185eaefec75d40ac9ca6081f6d39c310d248719c24ab28a0e",
+    "scripts/ci/productivity-browser-contract.mjs": "c5d38c8d7705c3e68b7918fc8a71fdf772ff736691778221aa4c114d2767006a",
+    "scripts/windows/release-collector-evidence.mjs": "1489f23b3c89a0eba2faa8ddcafd0ac9643d3983f8892e6791cc1accb9d85c77",
+    "scripts/windows/release-productivity-browser-files.mjs": "e6b96ce85f4d53a93df19ff761f4d2dafc85f68ff45397ae12da3f1cf9104feb",
+    "scripts/windows/release-productivity-source-policy.mjs": "79d839a4abe7c317b17bfb0469c2f9dd7d9e6be4a36b3efa0f6d19385589d8df",
+    "src/features/productivity/Kanban.tsx": "ecb8fc5bca0d58b445009b0b110c2206d2e091dab90c1ab419f9ab34fbd886d6",
+    "src/features/productivity/KanbanSectionActions.tsx": "ff4b2a0e407d1d8d87bf1f39825fd62f0247e04e9359adaecaa1996c34f07d09",
+    "src/features/productivity/drag.ts": "4eb600a7f7de73b6f66b9f3fd3de3df1a600df0bec17680965fe481fe7bac056",
+    "src/features/productivity/kanban-drag-ui.test.tsx": "2424475a58392ecaff4dd2d6d5a1d96506b8ebe4596f31d8ffafb5286c7ac756",
+    "src/features/productivity/kanban-drag.test.ts": "a94ce21d178a854024c1d7f16fa61b9b70642ad87e69e8a6aeb6e58214e2ca08",
+    "src/i18n/locales/en.json": "1739e8597ba8da9e506f1182f693800d56e601a251b3a0701cf3739cfddf5ac8",
+    "src/i18n/locales/vi.json": "54cb857c60b3932a5b45413679746303683d6c22db526442b4f5e584f7e79205",
+    "src/i18n/locales/zh.json": "19a0a6e6b9a3bc02b5372710e12afad1979799eb3b63bc779f69003b3da6c3e5",
+    "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b",
+    "tests/e2e/productivity.spec.ts": "7ca96d335722e33a7dfcf923de3899aad13df29eae8517ce45c523f719e8f81c",
+    "tests/helpers/release-productivity-browser-fixture.ts": "e83b7537b0322a79ef9e1634d712266711809be2dcbf99ddce863831c3abbec8",
+    "tests/helpers/section-touch-fixture.ts": "fed1fcd617b476e891ae91b8d1487210142370e78a20f89b28b10b39a0eab7d6",
+    "tests/kanban-touch-evidence.test.ts": "af3a2485903e9af6f75caea972e7574f353c6130ee10517a96cad765060ddf1e",
+    "tests/productivity-browser-evidence.test.ts": "1f13f9ed98d5f3a7de4f07ce8e6fdef7610fa26a9d13bf8689253c0bf0dcc4b0",
+    "tests/release-collector-evidence.test.ts": "9c3fcf0898f672ea81738f147828f63597aac2f4481759da0edeb9d3e8a0c043",
+    "tests/release-productivity-profile.test.ts": "0de1686f7e594a4ce0093a9d48995a4f6c54d48b55c0c090c6e13298726889f8"
+  },
+  "changedSuitesIndependentlyRead": {
+    "src/features/productivity/kanban-drag-ui.test.tsx": 8,
+    "src/features/productivity/kanban-drag.test.ts": 17,
+    "tests/kanban-touch-evidence.test.ts": 13,
+    "tests/productivity-browser-evidence.test.ts": 70,
+    "tests/release-collector-evidence.test.ts": 89,
+    "tests/release-productivity-profile.test.ts": 50
+  },
+  "frozenMigrationDefinitionsVerified": 15,
+  "acceptedParentSha": "d70bd692540625490bd6f8cee5f015acedb342b4",
+  "defaultPilotMigration": 6,
+  "explicitPilotMigration": 13,
+  "actual13ZipQualification": {
+    "commitSha": "7e269a27203cf3fe465aa735441026b732c37d15",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38951751434",
+    "zipSha256": "d756b5c100357b15fe6d34fcc94cf28dc9f4355e44ae906057de3249b0d940a9",
+    "rawReportSha256": "0d02b43df5f508d11ad084ceb3ef5f532e90eb3aa7a6520a02177741cd2e6cb7",
+    "fixtureSha256": "8778731aa51123e1ea4148f4745daa21aaaf9b48e0e6f859b14303028cb47b33",
+    "checks": 14,
+    "serverPhases": 9,
+    "nativePhases": 9,
+    "refusals": 3,
+    "positiveAndDisabledFamilies": true,
+    "ordinaryAndEncryptedRestore": true,
+    "approvalExactlyOnce": true,
+    "exactZip13": true,
+    "server2019Acceptance": "not-run",
+    "publicationAllowed": false
+  },
+  "automaticUpgrade": false,
+  "fullP10Accepted": false,
+  "fullMasterPlanAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "0cbcebaf01870a3658568289637ebb99e113e63f",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "7e269a27203cf3fe465aa735441026b732c37d15": "b2677fe00e65897764ac4af84027afd02d9c6d23",
+    "0cbcebaf01870a3658568289637ebb99e113e63f": "b2677fe00e65897764ac4af84027afd02d9c6d23"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 27276,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

@@ -29,9 +29,9 @@ switch ($Check) {
     lint { $program = 'npm.cmd'; $arguments = @('run', 'lint') }
     test {
         $program = 'npm.cmd'
-        # Run native/coverage suites serially on the fixed hosted runner.
+        # Use two isolated fork processes on the fixed hosted runner.
         # Preserve all data, assertions, coverage and test/hook deadlines.
-        $arguments = @('test', '--', '--maxWorkers=1', '--coverage', '--reporter=default', '--reporter=junit',
+        $arguments = @('test', '--', '--maxWorkers=2', '--coverage', '--reporter=default', '--reporter=junit',
             '--outputFile.junit=reports/junit.xml', '--reporter=json', '--outputFile.json=reports/vitest.json')
     }
     build { $program = 'npm.cmd'; $arguments = @('run', 'build') }
