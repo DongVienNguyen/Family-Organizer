@@ -1,0 +1,64 @@
+{
+  "taskId": "main120",
+  "testedHeadSha": "407b892fba30a7b97c1a3c27bfa08d95e433ebea",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38868241539",
+  "qualityEach": 4863,
+  "qualityFilesEach": 266,
+  "rawValidators": 11,
+  "summaryHashes": {
+    "quality": "14873a98d234b764a485b2bebeebe736afcf141ce9915b77a07b0d95b26d106b",
+    "coverage": "8098adcbe203d8290a64a1b3a66d22c2c3bde050f54eb8da704bfaca3556e4c2",
+    "package": "d6e5b53772bee6b82132474f580423b7d40c20bdd538016fa55f4537d5700ca4",
+    "service": "8b863b25f7ac1139a01cfe5bc704cfced56675ac83a44a43184a55ff450d8da5",
+    "caddy": "3b696fc0cac5bdceef2bff90f50bb6aedd14bdd2ca6273b33bf1964082925c5c",
+    "extraction-sdk": "ad9eeee6e541db4f46364539a9b8b38fc0ba95c306e220edb29ad32d225ec163",
+    "inner-native": "9c45dc73e30a80373688c1b17cd0fb4ae99b19aeaee6d155cf312c90fc99adef",
+    "browser": "0b9284b36cc34ea7d1d3bcd497483c95c0eeda0218d3808081f3bcb453708a71",
+    "productivity-browser": "aacbe14955421eb9859d58df859bfa4ff765ca86712e8948a37f4a462cff13ce",
+    "board-package": "a15f97ba0484f4e5a4dc115807ed94f0f64c5b40f2bcddf81ed3bf093e762d61",
+    "port-policy": "3027923c733ed1e345effda41e1cfeab107b70dbc3f51747b28e9fadb3e106ce"
+  },
+  "fullLogs": {
+    "files": 137,
+    "lines": 25122,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  },
+  "fullCiLogZipSha256": "1e23a4f8754a110a8f2dbc76d461c904cbbb47ec19a289b2a998b9f76b7ba8bd",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

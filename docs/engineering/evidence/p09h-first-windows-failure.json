@@ -1,0 +1,118 @@
+{
+  "taskId": "P09-h-Windows-body-observer-failure",
+  "testedHeadSha": "3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38872944564",
+  "conclusion": "failure",
+  "runtimesEach": {
+    "tests": 4923,
+    "files": 268
+  },
+  "independentFamiliesVerified": [
+    "quality",
+    "coverage",
+    "package",
+    "service",
+    "caddy",
+    "extraction-sdk",
+    "inner-native",
+    "browser",
+    "board-package",
+    "port-policy"
+  ],
+  "summaryHashes": {
+    "quality": "9615e33bb4d825c8eac39c5339361537fe1b0e08a8280b01435087f8f01956e0",
+    "coverage": "637b570bf69e761285d62e4725a161804f67f2d293863a0531f254ff6b031d2a",
+    "package": "34044addc75bd3c359b8e8360cc7e5ed50a38fde8139e45605f5f5136e4d2b5c",
+    "service": "56c8edada36d8ff1cbb82387d76294adaf25e511fc295595d8e5ddd80cefa088",
+    "caddy": "ff642140bec31ee9bf9115f100a20239945271c582b8055efc2cb00dbc25e52b",
+    "extraction-sdk": "cbfbde563fa89bc1634a96db50adb7df0c306aa1d9ca936fb4dc048c2aa719b5",
+    "inner-native": "f193ed3971f230f2860fb6dfdce2dc3dfdea360440769e5958a7135c51a7dc35",
+    "browser": "f49f0897af37ee4c193d0b96a636f514aa10e9bef101d5db828f861f04ba3eac",
+    "board-package": "210b7bebef5095049173d1624bc5753b12be3d8757711dd958a2202ece25a8f6",
+    "port-policy": "fe923b4c40a66573000636d56e2acea038a424392ab33e6e7602e51d60264a88"
+  },
+  "legacyBrowserFirstAttempt": 45,
+  "firefoxProductivityFirstAttempt": 26,
+  "chromiumProductivity": {
+    "passed": 25,
+    "failed": 1,
+    "skipped": 0,
+    "retries": 0,
+    "junitFailures": 0,
+    "junitErrors": 1,
+    "case": "C25 second assignee apply",
+    "error": "Network.getResponseBody: No data found for resource with given identifier"
+  },
+  "webKitProductivity": "not-run: dependency quality failed",
+  "nativeTouch": "not-run after Chromium assertion failure",
+  "allSevenArchivesRetained": true,
+  "fullLogs": {
+    "files": 114,
+    "lines": 24044,
+    "sha256": "dcbd8b53b45f902ca3dc58a26331f4dcc3928ede3af10b15a62c39b593cf92a4",
+    "errorMarkers": 22,
+    "allMarkersRetained": true
+  },
+  "chromiumManifest": {
+    "commitSha": "3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a",
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "lockSha256": "793a962b0fbc5e471c0646942c5542006f4dff378ae4414f66ef024e25f87e11",
+    "productionBuild": {
+      "serverSha256": "f5a1874b814d3921562c8114983395ad645408b99737dc39b5e97e65582580cb",
+      "indexSha256": "56991412a0ac903e531c142f1b9504d56c158e63b967ac880e2cd8c9703a2ccd"
+    },
+    "synthetic": true,
+    "project": "chromium",
+    "executionJob": "quality",
+    "productivityVersion": 9,
+    "fixtureRemoved": true,
+    "nativeHandlesClosed": true,
+    "networkAttempts": [],
+    "externalAttempts": [],
+    "legacyPreserved": true,
+    "integrity": "ok",
+    "databaseClosed": true,
+    "cliExitCode": 1,
+    "cliSignal": null,
+    "serverExitCode": 0,
+    "serverSignal": null,
+    "browserExitCode": 1,
+    "browserSignal": null,
+    "kanbanFixture": {
+      "taskRowsPreserved": true,
+      "boards": 2,
+      "views": 9
+    },
+    "addonSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+  },
+  "traceFacts": {
+    "applyStatus": 200,
+    "sameFrameForBothApplies": true,
+    "documentResources": 1,
+    "additionalDocumentNavigationObserved": false,
+    "driverBodyReadMsAfterRequestStart": 281,
+    "applicationCatalogAndTasksReadsAfterApply": true,
+    "serverDataOrNativeCrashCauseConfirmed": false
+  },
+  "rawHashes": {
+    "windows-node24-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/chromium/reports/productivity-browser.junit.xml": "7483f1ddafb0a200ad6217c22c013cbc381f900e571bbcb936c88e076897b876",
+    "windows-node24-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/chromium/reports/productivity-browser-native.log": "9023e8f04b47808d52dfd3ae10ee37e5ba501e732b673d7dcb7310b5af3fc113",
+    "windows-node24-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/chromium/reports/productivity-browser.json": "6d6988077ae884c4d3ddd98319749d30a5db91288d3a7ae4661a1f15113835ee",
+    "windows-node24-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/chromium/reports/productivity-browser-runtime-chromium.json": "4926570e8fde51a21826fd8cab538ae554dbf29d857230e54f7a387dd887df92",
+    "windows-node24-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/chromium/reports/productivity-browser-fixture.json": "afff3a38589fd9f943d48abbbd894fa6109043bafb552d7a87180a2630ef8105",
+    "windows-node24-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/chromium/reports/productivity-browser-results/productivity-P09-C25-non-r-48eea-e-only-their-selected-field-chromium/error-context.md": "945c78ed5e4668ee9a7c4c6fba4a056c4abb9494d7425fd16d9b0019ea753385",
+    "windows-node24-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/chromium/reports/productivity-browser-results/productivity-P09-C25-non-r-48eea-e-only-their-selected-field-chromium/trace.zip": "1c7aae0265416b785f5944c0832cc4c4d74663453905740d465869d88f31b8b8",
+    "windows-browsers-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/firefox/reports/productivity-browser.junit.xml": "67b46d907b501da973b215650a7a92a049242208bebefdaf9e991ed879a0840f",
+    "windows-browsers-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/firefox/reports/productivity-browser-runtime-firefox.json": "d0d527387e71c75e1edc0450a7786a77c24c782ad13e6f7460e463c6c166ecc6",
+    "windows-browsers-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/firefox/reports/productivity-browser-native.log": "c9e510d13cb578c3a8b11741002a5bd1b86542b73cabc99850870c9099825cfa",
+    "windows-browsers-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/firefox/reports/productivity-browser.json": "35893f4c1c18f0a64385bc9ce649a4733e9e5f160a76914887c5f9c570a51229",
+    "windows-browsers-3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a-1/productivity-shards/firefox/reports/productivity-browser-fixture.json": "d74b2820f1fee4a94619debe330a23414a3732c9aada504cadf416d4ffff419e"
+  },
+  "correction": "Observe clone of original native page Response while keeping driver HTTP200, matching UUID, original request/init/signal and exact canonical/fresh-state assertions. No second request, response replacement, delay, retries, timeout change or CI rerun.",
+  "publicationAllowed": false,
+  "fullMasterAccepted": false,
+  "server2019Acceptance": "not-run"
+}

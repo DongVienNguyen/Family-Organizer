@@ -1,0 +1,139 @@
+{
+  "taskId": "P09-g",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/121",
+  "testedHeadSha": "106329dffc46a3567d7cd08d18a7a3e43046cddd",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38868805762",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "f127bfdbf944b4c7e45da5bd4fa3835f7236b3b0b74adcea5f8e3137e47fc9f7",
+    "coverage": "5fd34e7c02cdf3e22c153e5a8dabd2135502a86a0f7b59091f6d68b2d1914430",
+    "package": "112ed420a05db6cccdcfd989a9dc8634174f95afaf81c8f1852b569b3dd1bfa0",
+    "service": "dab85752017a6309910cd7d23693df0f4798559f5e1082cb50f532e722600a01",
+    "caddy": "e9fb0714628c2b7411a84bda57a7b117653fa4cf68081b5706bfa9aea90576fc",
+    "extraction-sdk": "27586ae9c9deda6078cecbceadf2b7386a031f8ded0b329c36f9be5fae9ab256",
+    "inner-native": "bcc12938ce1d64b02bf51851bf371b7e5b7464039d36ab18c81e23fffa5772f5",
+    "browser": "9f70c7a562b0226da5202f8d360a4e6d6d3ae25cc6bf564ad0149e694f74fbdf",
+    "productivity-browser": "32dd55ef2bfddd84c0dd1e5df6cd76c2a9373d7ec6a00f5be1f9052697d9c270",
+    "board-package": "3266abac208519bec713e3e8c3111ab78209d77cd0132c990adc7399d5128549",
+    "port-policy": "6da776ac884cb541ad87d170f3abf0e84739ce02d5109ea6b1987f64c867abab"
+  },
+  "qualityEach": 4886,
+  "qualityFilesEach": 266,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 69,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "isolatedProjects": 3,
+  "shardFormat": 1,
+  "windowsStackProfilerDisabled": true,
+  "zipSha256": "78534d2bef7511b87ee4d9c002985a3986da1d7af0e96799e0b1a12521228251",
+  "fullCiLogZipSha256": "ab204f4a489d35266603e1fe76107bb4ec2b2cff3bf870de795baa1eda354369",
+  "review": {
+    "task": "P09-g",
+    "kind": "ONE whole-branch SELF against independently prepared P09-f94d10b9; no current PR/Windows acceptance",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "importantRemaining": 0,
+    "sourceHashes": {
+      "src/features/productivity/KanbanSectionActions.tsx": "c45ff9679e88328bc9120a74802a182b56232f834beb53866a486f6591e45f1c",
+      "src/features/productivity/kanbanCommandState.test.ts": "3c5c48cb1e0750ddc7bfe66113af0a2e965af755fbaaa80bde58d4a60ba99535",
+      "src/features/productivity/kanbanCommandState.ts": "3cf6d1abaf97b317a880156fea192bf48176dd7fb82f774389d8ec7341255d85"
+    },
+    "coverage": [
+      "original physical path assertions and private plan/UUID behavior retained",
+      "grouped visibility, view/kind/timezone and tag source projection binding",
+      "shared selected-field patch validation; atomic anchors require rank sort and visible derived target group",
+      "due anchors resolve in selected view timezone; explicit all-tags add/replace only",
+      "grouped versus physical apply dispatch and shared singleflight/explicit retry/HTTP error retirement",
+      "generation checks before API calls after synchronous subscriber publication and after acknowledgements",
+      "no optimistic Task authority, historical receipts trigger fresh authorized read only",
+      "physical UI type narrowing only, grouped controls not mounted",
+      "no server/dependency/schema/default/approval/reward activation"
+    ],
+    "developmentCorrectionsBeforeSelf": [
+      {
+        "cause": "subscriber revokes owner synchronously during loading/writing publication but old API call still starts",
+        "causalRed": {
+          "tests": 38,
+          "passed": 36,
+          "failed": 2
+        },
+        "correction": "check owner generation/sequence immediately after state publication before any preview/write call",
+        "assertionsRetained": true
+      },
+      {
+        "cause": "new date test fixtures omitted timezone and used instant rather than existing instantUtc contract",
+        "tests": 44,
+        "passed": 41,
+        "failed": 3,
+        "correction": "use existing all_day/timed due contract; production unchanged",
+        "causalFeatureFailure": false
+      }
+    ],
+    "remaining": [
+      "new CI isolation PR119 exact-HEAD Windows acceptance",
+      "physical menu parent PR publication and acceptance after119",
+      "compose independently reviewed parent sources and run complete checks",
+      "new exact-HEAD Windows proof for future grouped controller PR",
+      "grouped UI/drag/settings/P08/P10/Wallet/master remain"
+    ],
+    "publicationAllowed": false
+  },
+  "groupedConfirmationOwnerAccepted": true,
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "fe551bb1fde6d48f7a3b5b76c3cfb91b521ad6e1",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "106329dffc46a3567d7cd08d18a7a3e43046cddd": "295c0817933892525bd622f3a7330ef3943645fc",
+    "fe551bb1fde6d48f7a3b5b76c3cfb91b521ad6e1": "295c0817933892525bd622f3a7330ef3943645fc"
+  },
+  "fullLogs": {
+    "files": 137,
+    "lines": 25110,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

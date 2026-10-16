@@ -1708,5 +1708,21 @@
     "semantic": "无法执行此移动，请检查 WIP 限制和当前权限。",
     "failed": "无法处理，请重新加载以检查当前数据和权限。",
     "expires": "过期时间"
+  },
+  "productivityKanbanGroup": {
+    "dialog": "更改分组",
+    "move": "从{{group}}更改{{title}}的分组",
+    "selectedField": "仅更改所选分组属性；保留完成状态、奖励和计划时间。",
+    "target": "目标分组",
+    "scope": "标签范围",
+    "source": "仅此列的标签",
+    "add": "添加到现有标签",
+    "replace": "替换全部标签",
+    "allDay": "指定日期（全天）",
+    "date": "新的截止日期",
+    "dueChange": "更改日期分组会将截止时间更改为所选时区的全天日期；预览并确认后才应用。",
+    "preview": "预览分组更改",
+    "apply": "应用分组更改",
+    "invalidTarget": "请选择有效目标。要清除任务的多个标签，请明确选择“替换全部标签”。"
   }
 }
