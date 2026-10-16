@@ -1,0 +1,66 @@
+{
+  "taskId": "F08-o2",
+  "testedHeadSha": "b22aefde0dd7e7f3ad5971c80b9e69e95a86035c",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38824905861",
+  "conclusion": "failure",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "qualityBoth": {
+    "tests": 4293,
+    "passed": 4293,
+    "files": 239,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "findings": [
+    {
+      "severity": "Important",
+      "cause": "Native PowerShell extractor retained seven-count and omitted Productivity name despite JS inventory updating to eight. Actual native probe fails both runtimes.",
+      "correction": "Exact eight-count/full prefix regex; preserve all bounds and before-write aggregate refusal."
+    },
+    {
+      "severity": "Important",
+      "cause": "Synthetic Caddy fixture reserved TCP only; Windows UDP QUIC bindEACCES on same port63153 atNode22 startup. Node24 same sixTLS/proxy/refusal/stop phases pass.",
+      "correction": "One-shot UDP-first+sameTCP loopback ownership before assertions, hold both until Caddyspawn; preserve defaultHTTP3 and all assertions/deadlines; no retries."
+    }
+  ],
+  "allFindingsGraded": true,
+  "correctionPassesPlanned": 1,
+  "rereview": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullLogSha256": "a9a862fed55d9e027dd69925199600cc7dd8c14fb3592184d1334dcc911cb0de"
+}
