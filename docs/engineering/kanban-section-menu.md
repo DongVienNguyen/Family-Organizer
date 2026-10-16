@@ -17,8 +17,11 @@ server rank plan. Menu drag/reorder-before and grouped moves remain future work.
 
 The current API instance owns the confirmation controller. Dialog choice carries
 that controller's identity and resolves the Task only in the current projection.
-Changed view/board/clock keys remount the owner; read/auth clearing unmounts it and
-aborts late requests. The current generation is checked again before the reread
+Changed view/board/clock keys remount the owner. Unmount immediately retires its
+generation and callbacks; a dispatched mutation response may drain under the
+existing session and timeout guards so its own SSE refresh cannot abort its body.
+Preview disposal and explicit clear/selection changes still abort requests;
+session revocation independently aborts native transport and guarded body reads. The current generation is checked again before the reread
 callback. A successful apply refreshes current authorized Task/cache/projection
 facts; a historical receipt never seeds cache. HTTP401/403/404 triggers a fresh
 read of authority while clearing the old projection. Drafts stay in the existing

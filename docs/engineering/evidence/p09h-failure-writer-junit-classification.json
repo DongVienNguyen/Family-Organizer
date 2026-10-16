@@ -1,0 +1,18 @@
+{
+  "firstWriter": "rejected own incorrect expectation failures1/errors0",
+  "actualChromiumJUnit": {
+    "tests": 26,
+    "failures": 0,
+    "errors": 1,
+    "skipped": 0
+  },
+  "actualFirefoxJUnit": {
+    "tests": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "correction": "explicitly record one driver error, never a green qualification",
+  "rawReportsChanged": false,
+  "testsRerun": false
+}

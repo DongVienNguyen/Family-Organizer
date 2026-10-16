@@ -1708,5 +1708,21 @@
     "semantic": "Không thể chuyển theo lựa chọn này. Kiểm tra giới hạn WIP và quyền hiện tại.",
     "failed": "Không xử lý được. Tải lại để kiểm tra lại dữ liệu và quyền.",
     "expires": "Hết hạn"
+  },
+  "productivityKanbanGroup": {
+    "dialog": "Đổi nhóm",
+    "move": "Đổi nhóm {{title}} từ {{group}}",
+    "selectedField": "Chỉ đổi thuộc tính của nhóm đã chọn; không hoàn thành việc, đổi điểm hay lịch hẹn.",
+    "target": "Nhóm đích",
+    "scope": "Phạm vi thẻ",
+    "source": "Chỉ thẻ tại cột này",
+    "add": "Thêm vào tất cả thẻ hiện có",
+    "replace": "Thay toàn bộ thẻ",
+    "allDay": "Ngày cụ thể (cả ngày)",
+    "date": "Ngày đến hạn mới",
+    "dueChange": "Đổi nhóm ngày sẽ đổi hạn chót thành cả ngày theo múi giờ đang chọn; chỉ áp dụng sau khi xem trước và xác nhận.",
+    "preview": "Xem trước đổi nhóm",
+    "apply": "Áp dụng đổi nhóm",
+    "invalidTarget": "Chọn đích hợp lệ. Để bỏ hết thẻ của việc có nhiều thẻ, chọn “Thay toàn bộ thẻ”."
   }
 }
