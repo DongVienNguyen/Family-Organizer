@@ -1,0 +1,111 @@
+{
+  "task": "F05-port-policy actual CI correction",
+  "sourceSha": "c7397c6c6bfe1149f769b87633ea7c499b30482a",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38838856133",
+  "all8ArtifactsPreserved": true,
+  "allChecks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "node22": {
+    "blockedAt": "Prepare pinned local native builder SDK",
+    "curlExitCode": 56,
+    "error": "schannel: server closed abruptly (missing close_notify)",
+    "npmCiLintTestsBuildAuditCoverage": "not-run",
+    "assertionSkipsAdded": false
+  },
+  "node24": {
+    "tests": 4451,
+    "passed": 4451,
+    "files": 247,
+    "junitCases": 4451,
+    "nativeCaddyPolicy": {
+      "port": 63603,
+      "tcpExclusionRanges": 6,
+      "udpExclusionRanges": 2,
+      "busyPorts": 51,
+      "nativeExitCodes": {
+        "tcpExcluded": 0,
+        "udpExcluded": 0,
+        "endpoints": 0
+      },
+      "allSixPhasesPassed": true
+    }
+  },
+  "allFindingsGraded": true,
+  "critical": 0,
+  "important": [
+    {
+      "finding": "curl default --retry does not cover premature TLS/socket termination; actual56 ended before npm or tests",
+      "correction": "add bounded --retry-all-errors to the two SDK file GETs, retain existing two retries/60s transfer/180s overall budget, HTTPS/certificate/checksum/extraction checks and testRetries0; verify clean output-file truncation under actual synthetic partial-transfer faults"
+    }
+  ],
+  "correctionPasses": 1,
+  "rereview": false,
+  "fullLogs": {
+    "files": 116,
+    "lines": 15884,
+    "sha256": "44878f16e06adc4f7b1fadc046af4ee9fd2e3ae7251fd8d7b177cc9c70194294",
+    "errorMarkers": 14
+  },
+  "newRegressionRed": {
+    "tests": 4,
+    "passed": 2,
+    "failed": 2,
+    "ruling": "original two timeout cases passed; new headers/library partial-transfer cases fail without --retry-all-errors"
+  },
+  "noCiRetryOnSameSha": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "sourceHashes": {
+    "scripts/ci/Prepare-NodeSdk.ps1": "2bb51d0c37ea33dd31a28c31edd2133f6aa2bd969e97839d06a71b4e147dd248",
+    "scripts/ci/write-evidence.mjs": "33d38d4bbbe74d0f505aa3e19886ac6466f99550a5768ef62e4e9c156d27ca1f",
+    "scripts/windows/probe-caddy-native.mjs": "80bcb4bc3f714a2ca6c854c9407490524595b955dd06ac1fe9f4229ceec71675",
+    "scripts/windows/synthetic-port-policy.mjs": "d68cd39600b6fdeb2e400976e1caa89ca60fe29fcc3b052579028424d116c43b",
+    "scripts/windows/synthetic-proxy-port.mjs": "ab54e2af00e45756f1151484e2c52e5020a2ef7d1c6f3bb440f574308dd45f7e",
+    "tests/evidence.test.ts": "119f487fc6dcac37197019e49eb6d126a4f1cdce53c8f6a916285161eec0ec52",
+    "tests/sdk-transfer-retry.test.ts": "455f050953fbbb2e245a951f2b70d9796694d2ea92d5a269b4b62e0d73266e0d",
+    "tests/synthetic-port-policy.test.ts": "bbaa5bdce7404c5f7733726e1a1430a58354afa0cd35dd1560f822b5eda4c592",
+    "tests/synthetic-proxy-port.test.ts": "b290da30a35ae0b5a56b1e14219031db72f0127446381876414a94af3d69739f"
+  },
+  "regressionGreen": {
+    "tests": 37,
+    "passed": 37,
+    "files": 2,
+    "failed": 0,
+    "headersAndLibraryPartialFileCases": 2,
+    "oldTimeoutCasesRetained": 2
+  },
+  "testsRetried": false,
+  "checksumsOrTlsWeakened": false
+}
