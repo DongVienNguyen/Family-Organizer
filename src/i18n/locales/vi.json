@@ -1685,6 +1685,13 @@
     "unavailableMember": "Thành viên không còn khả dụng",
     "untagged": "Chưa có nhãn",
     "unavailableTag": "Nhãn không còn khả dụng",
-    "noDue": "Chưa có hạn"
+    "noDue": "Chưa có hạn",
+    "view": "Kanban",
+    "workspace": "Góc nhìn Kanban",
+    "picker": "Chọn bảng Kanban",
+    "choose": "Chọn bảng",
+    "timezone": "Múi giờ bảng",
+    "noViews": "Chưa có góc nhìn Kanban được lưu.",
+    "failed": "Không tải được bảng hiện tại. Tải lại để kiểm tra dữ liệu và quyền truy cập."
   }
 }

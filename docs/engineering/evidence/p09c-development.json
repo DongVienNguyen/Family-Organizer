@@ -1,0 +1,469 @@
+{
+  "taskId": "P09-c",
+  "baseSha": "66aec855c30761a59d4beb4c65ba84fbc6c6b28d",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/117",
+  "scope": "actor-owned readonly Kanban app entry/shared drawer, explicit offline9 fixture, and personal-pin compatibility4..9; startup/default migrations unchanged",
+  "cloudGreen": {
+    "tests": 4706,
+    "passed": 4706,
+    "files": 258,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4706,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4706,
+    "files": 258
+  },
+  "review": {
+    "task": "P09-c",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "1e7ee2df53068104641bcf649f3b22847d6fda75e74ddb792f601fae86fc5164",
+      "scripts/ci/run-productivity-browser.mjs": "a302b6d6e3c16f35c2666a6faa18603b0497ecb7006c74e4e0dd50f6b2bb4ad6",
+      "scripts/ci/write-evidence.mjs": "bef58d8f438c6866333f0b31eef92c523a39af41e39ba7080b6557428dc2d386",
+      "scripts/ci/write-productivity-browser-fixture.ts": "79d051e7adfac190a7ed7bc2d1391045ce6a10d44f746adaec8bfe5a28da0216",
+      "scripts/windows/release-collector-evidence.mjs": "278488a213b8be231de4e938cd5d2cb947eda314936f501b9f2a3b595de3871a",
+      "scripts/windows/release-productivity-browser-files.mjs": "9c9287d0159b2096e330cc477bacfe4b7c4811930b9ad50440e9a9b975000790",
+      "scripts/windows/release-productivity-source-policy.mjs": "9c8c3932ea96184f6ab976b6d6e1517d785a741901c19d336f8ea860658725d3",
+      "src/components/Tasks.tsx": "e5a926e33e094bc1b4b5e3ae745782da60d9b890fa260e1c91d6c4089f4f635a",
+      "src/features/productivity/KanbanWorkspace.tsx": "c1916f7222cd403e88ecaf0de3418af638be366fd02228a6191e5eb1e914d0b8",
+      "src/features/productivity/kanbanState.test.ts": "50450e75f591e22242ad3a3c70395fce71b0b67bb8ff764beb7279a5f65cd257",
+      "src/features/productivity/kanbanState.ts": "e89ebc3a34b0acadf9b6d99e4eafc75fcfcba3e7dbf53be00bd832bbbeba60be",
+      "src/features/productivity/useKanbanWorkspace.ts": "59209a07438b54a6ecfbe66938e62d8de5ad36c20053f1a291785a8591587f78",
+      "src/i18n/locales/en.json": "910f1de3a6f658441748820afcfe34ad4a635657a08c750071d506b082c51a55",
+      "src/i18n/locales/vi.json": "5fd7d5347f9aa9e1ca23a1c587d8b19a0ef8456e8375f90993542ce5217001a3",
+      "src/i18n/locales/zh.json": "3e85f5f87c6789825ceefceb06f57ea99f3711efd0f4b4e4165dc972b721b12f",
+      "tests/e2e/productivity.spec.ts": "7fbfe9ce64dacd1c285b032aeafce3afc3dbdb7262db6e6c41a625d209bd2994",
+      "tests/evidence.test.ts": "44c688806451f2ed665fd571e5520678370ddf1df51e2d777e09044b99ec7e19",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f3f300f79d7496b7141de5cd36b1582600347d4e8eddb300a257f9773b6c4c2e",
+      "tests/kanban-browser-fixture.test.ts": "ff27a459f068835aaa941763171ad3d9fc2347ba9ab55506ae890bcf385d492c",
+      "tests/productivity-browser-evidence.test.ts": "e6e3bf05a62512411f1937bc12111ada6b0e9ffffd174289c0c1d7ca34c75b39",
+      "tests/release-collector-evidence.test.ts": "73c1ad11ed65e6c7731ad1138726600d8c49c8a0803384c7a00f1d683c749a8f",
+      "tests/release-productivity-profile.test.ts": "8154cb87be9494b2c5c713bf2195d748a51e74ef1b45d3b2127139d28729d629"
+    },
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Actual new C21 browser diagnostic: selected saved view becomes a List, Kanban rows clear but stale selected ID renders Ch\u1ecdn... and a dead reload control",
+        "decision": "Derive active selection only from current controller-owned visible saved rows. Retain both expected empty-choice label and no-dead-reload assertions; rerun expanded new C20/C21 on a fresh synthetic fixture without retry/deadline changes."
+      }
+    ],
+    "focus": [
+      "Internal existing auth/TaskProvider sessionKey API ownership; response generations/abort/singleflight and no cache/draft writes",
+      "Current owned view selection, async metadata races and no cross-actor labels/rows",
+      "Existing shared canonical drawer authority/open guard and retained legacy board choice",
+      "Explicit synthetic-only schema9 upgrade preserving preexisting Task/tag facts; production/default/package6-9-1generators unchanged",
+      "All19 old browser cases/assertions byte-preserved; addC20-C21 on3engines plus six light/phone-dark images",
+      "Target-Git AST fixture9 capability with implicit6 historical compatibility; old6 cannot qualify9; raw receipts/screenshots/normalizer agree",
+      "Offline fixture native exits/handle close/integrity and mandatory suites; no external providers/tokens/public API/VPS"
+    ],
+    "developmentRulings": [
+      "Controller first12 missing-module REDs are scaffold, not independent async causal proof; actual async/grouped/error tests now cover the behavior",
+      "Fixture profile first11/2passed/9failed includes actual ignored-capability/invalid-literal/missing9/current9-vs-old6 behavior; historical implicit6 and decoys already passed",
+      "Pre-correction Cloud Linux Chromium old newC20/C21 passed2 only;61otherProductivity/45legacy/native touch not run. Expanded C21 live-view-change failed actual selection label with old getter, server stopped0; report retained",
+      "Source UI/controller/fixture/profile stages remain one whole-branch review; no repeated source review"
+    ],
+    "remaining": [
+      "Post-correction fullCloud/JUnit/lint/build and exact-HEAD Windows8checks/11raw/63Productivity+45legacy+1touch pending",
+      "No Windows/native touch acceptance from Cloud Chromium diagnostic",
+      "P09 editing/drag/menu/virtualization/clock refresh and P08 workflow/P10 durable series/master unfinished",
+      "No production default/schema/runtime activation/release/tag/VPS or Server2019/R02 acceptance"
+    ],
+    "postCorrectionSourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "1e7ee2df53068104641bcf649f3b22847d6fda75e74ddb792f601fae86fc5164",
+      "scripts/ci/run-productivity-browser.mjs": "a302b6d6e3c16f35c2666a6faa18603b0497ecb7006c74e4e0dd50f6b2bb4ad6",
+      "scripts/ci/write-evidence.mjs": "bef58d8f438c6866333f0b31eef92c523a39af41e39ba7080b6557428dc2d386",
+      "scripts/ci/write-productivity-browser-fixture.ts": "79d051e7adfac190a7ed7bc2d1391045ce6a10d44f746adaec8bfe5a28da0216",
+      "scripts/windows/release-collector-evidence.mjs": "278488a213b8be231de4e938cd5d2cb947eda314936f501b9f2a3b595de3871a",
+      "scripts/windows/release-productivity-browser-files.mjs": "9c9287d0159b2096e330cc477bacfe4b7c4811930b9ad50440e9a9b975000790",
+      "scripts/windows/release-productivity-source-policy.mjs": "9c8c3932ea96184f6ab976b6d6e1517d785a741901c19d336f8ea860658725d3",
+      "src/components/Tasks.tsx": "e5a926e33e094bc1b4b5e3ae745782da60d9b890fa260e1c91d6c4089f4f635a",
+      "src/features/productivity/KanbanWorkspace.tsx": "c1916f7222cd403e88ecaf0de3418af638be366fd02228a6191e5eb1e914d0b8",
+      "src/features/productivity/kanbanState.test.ts": "50450e75f591e22242ad3a3c70395fce71b0b67bb8ff764beb7279a5f65cd257",
+      "src/features/productivity/kanbanState.ts": "e89ebc3a34b0acadf9b6d99e4eafc75fcfcba3e7dbf53be00bd832bbbeba60be",
+      "src/features/productivity/useKanbanWorkspace.ts": "a5b7aa97d0105ceaea57067ed8c0ac4400230d3dad0c56dfa3a1af65fae2554f",
+      "src/i18n/locales/en.json": "910f1de3a6f658441748820afcfe34ad4a635657a08c750071d506b082c51a55",
+      "src/i18n/locales/vi.json": "5fd7d5347f9aa9e1ca23a1c587d8b19a0ef8456e8375f90993542ce5217001a3",
+      "src/i18n/locales/zh.json": "3e85f5f87c6789825ceefceb06f57ea99f3711efd0f4b4e4165dc972b721b12f",
+      "tests/e2e/productivity.spec.ts": "7fbfe9ce64dacd1c285b032aeafce3afc3dbdb7262db6e6c41a625d209bd2994",
+      "tests/evidence.test.ts": "44c688806451f2ed665fd571e5520678370ddf1df51e2d777e09044b99ec7e19",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f3f300f79d7496b7141de5cd36b1582600347d4e8eddb300a257f9773b6c4c2e",
+      "tests/kanban-browser-fixture.test.ts": "ff27a459f068835aaa941763171ad3d9fc2347ba9ab55506ae890bcf385d492c",
+      "tests/productivity-browser-evidence.test.ts": "e6e3bf05a62512411f1937bc12111ada6b0e9ffffd174289c0c1d7ca34c75b39",
+      "tests/release-collector-evidence.test.ts": "73c1ad11ed65e6c7731ad1138726600d8c49c8a0803384c7a00f1d683c749a8f",
+      "tests/release-productivity-profile.test.ts": "8154cb87be9494b2c5c713bf2195d748a51e74ef1b45d3b2127139d28729d629"
+    },
+    "importantRemaining": 0,
+    "correctionGreen": {
+      "targetTests": 586,
+      "allPassed": true,
+      "freshChromiumCases": 2,
+      "matchingBrowserJUnit": true,
+      "expandedViewChangeAssertionsRetained": true,
+      "serverStopExit": 0
+    }
+  },
+  "composition": {
+    "parentCandidateSha": "06cbd4578b3ad4e4bdfbc7fff216e358a397040a",
+    "acceptedMainSha": "66aec855c30761a59d4beb4c65ba84fbc6c6b28d",
+    "parentAcceptance": "PR116 accepted CI38848893020 all8/11raw/4661/255/103first; API/GitTreeequal",
+    "acceptedMainCompositionTreeUnchanged": true,
+    "reviewedWorkspaceSourceUnchanged": true,
+    "sourceCommit": "7bb05b4344a3f0e42c9c36e7a3288c52fddfec92"
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "1e7ee2df53068104641bcf649f3b22847d6fda75e74ddb792f601fae86fc5164",
+      "scripts/ci/run-productivity-browser.mjs": "8e6ca21de73b6f2a441461acdb68f209cf5ced7b921234c2ebb04e6761c74872",
+      "scripts/ci/write-evidence.mjs": "bef58d8f438c6866333f0b31eef92c523a39af41e39ba7080b6557428dc2d386",
+      "scripts/ci/write-productivity-browser-fixture.ts": "79d051e7adfac190a7ed7bc2d1391045ce6a10d44f746adaec8bfe5a28da0216",
+      "scripts/windows/release-collector-evidence.mjs": "278488a213b8be231de4e938cd5d2cb947eda314936f501b9f2a3b595de3871a",
+      "scripts/windows/release-productivity-browser-files.mjs": "9c9287d0159b2096e330cc477bacfe4b7c4811930b9ad50440e9a9b975000790",
+      "scripts/windows/release-productivity-source-policy.mjs": "9c8c3932ea96184f6ab976b6d6e1517d785a741901c19d336f8ea860658725d3",
+      "src/components/Tasks.tsx": "e5a926e33e094bc1b4b5e3ae745782da60d9b890fa260e1c91d6c4089f4f635a",
+      "src/features/productivity/KanbanWorkspace.tsx": "c1916f7222cd403e88ecaf0de3418af638be366fd02228a6191e5eb1e914d0b8",
+      "src/features/productivity/kanbanState.test.ts": "50450e75f591e22242ad3a3c70395fce71b0b67bb8ff764beb7279a5f65cd257",
+      "src/features/productivity/kanbanState.ts": "e89ebc3a34b0acadf9b6d99e4eafc75fcfcba3e7dbf53be00bd832bbbeba60be",
+      "src/features/productivity/useKanbanWorkspace.ts": "a5b7aa97d0105ceaea57067ed8c0ac4400230d3dad0c56dfa3a1af65fae2554f",
+      "src/i18n/locales/en.json": "910f1de3a6f658441748820afcfe34ad4a635657a08c750071d506b082c51a55",
+      "src/i18n/locales/vi.json": "5fd7d5347f9aa9e1ca23a1c587d8b19a0ef8456e8375f90993542ce5217001a3",
+      "src/i18n/locales/zh.json": "3e85f5f87c6789825ceefceb06f57ea99f3711efd0f4b4e4165dc972b721b12f",
+      "tests/e2e/productivity.spec.ts": "7fbfe9ce64dacd1c285b032aeafce3afc3dbdb7262db6e6c41a625d209bd2994",
+      "tests/evidence.test.ts": "44c688806451f2ed665fd571e5520678370ddf1df51e2d777e09044b99ec7e19",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f3f300f79d7496b7141de5cd36b1582600347d4e8eddb300a257f9773b6c4c2e",
+      "tests/kanban-browser-fixture.test.ts": "ff27a459f068835aaa941763171ad3d9fc2347ba9ab55506ae890bcf385d492c",
+      "tests/productivity-browser-evidence.test.ts": "e6e3bf05a62512411f1937bc12111ada6b0e9ffffd174289c0c1d7ca34c75b39",
+      "tests/release-collector-evidence.test.ts": "73c1ad11ed65e6c7731ad1138726600d8c49c8a0803384c7a00f1d683c749a8f",
+      "tests/release-productivity-profile.test.ts": "8154cb87be9494b2c5c713bf2195d748a51e74ef1b45d3b2127139d28729d629",
+      "server/productivity/pins.ts": "353980290f5f9c75e195a363db1c0006255dec6f37a40db370fba5960fc27e6f",
+      "server/productivity/pins.test.ts": "bde49c61a4bcc5c7bbfe6a9cb875a61831c6734040a9e7983cffc817b73405ec"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "028a45e3f01f1214c816f99906010d8319acd7b352bcba10b5c00c8acd3d1d0f",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "frontendIndexSha256": "c134e5052c1efec35df36585ed684993a3ce5e8636b2b11b8fb0371850f4c93c",
+    "reports": {
+      "p09c-full.json": "944fa625202b32ed8c829c4b0ac9d0725f3714ccf5d5767926b0932255aaa9ed",
+      "p09c-full.junit.xml": "0fd3359a981d8844c1661bfbbc2344dbfce548b7bbf6cb0dd18e91fe8fdccbba",
+      "p09c-full.log": "fef7cbe56a03607212f6a0580cc0aef3939c01003f6fee48c35ff936e8218ae7",
+      "p09c-lint-corrected.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09c-build-corrected.log": "2f4371aa34796f90b56f5853d1b6cc386641fefeb2d4fc5238cc276d42176f1e",
+      "p09c-chromium-corrected-final.json": "5f4134f1e3949a6800f6664e9b4a5097e310af51d95ad1769e71373f45a03964"
+    },
+    "windowsAcceptance": "pending new exact HEAD; failed83a84ce run retained; all8/11raw/4706x2/109browser first attempt still mandatory"
+  },
+  "reports": [
+    {
+      "file": "p09c-corrected-target.json",
+      "sha256": "912626edabba3b909e8d5ee64998abbd3a524928a2b1fd8c2866f964f7afe229",
+      "tests": 586,
+      "passed": 586,
+      "failed": 0,
+      "files": 8
+    },
+    {
+      "file": "p09c-fixture-target.json",
+      "sha256": "c7ab5cb63667abd8f5ad90194fc106b4eaba956107c5c2ee4006fd1c53b10b5f",
+      "tests": 149,
+      "passed": 149,
+      "failed": 0,
+      "files": 4
+    },
+    {
+      "file": "p09c-full.json",
+      "sha256": "944fa625202b32ed8c829c4b0ac9d0725f3714ccf5d5767926b0932255aaa9ed",
+      "tests": 4703,
+      "passed": 4703,
+      "failed": 0,
+      "files": 258
+    },
+    {
+      "file": "p09c-gate-red.json",
+      "sha256": "29f280f9932272a6907e3ffa00e792ac5f09a80839a3ab15995b3247080d43a7",
+      "tests": 300,
+      "passed": 297,
+      "failed": 3,
+      "files": 1
+    },
+    {
+      "file": "p09c-normalizer-state-target.json",
+      "sha256": "ceb186c84642056d202fd30a5596181c24b1fdb909ab0b029b2ea0cd67357f15",
+      "tests": 100,
+      "passed": 100,
+      "failed": 0,
+      "files": 3
+    },
+    {
+      "file": "p09c-profile-first.json",
+      "sha256": "77691d4a3d39c96f9a661a215acbde66994055ae29bf2686e77ecae8f3d27225",
+      "tests": 261,
+      "passed": 261,
+      "failed": 0,
+      "files": 5
+    },
+    {
+      "file": "p09c-profile-red.json",
+      "sha256": "91dd2dcc7641504afce2baa6928b37989a6ac7ee6172094d0b5ad6323202cfe2",
+      "tests": 11,
+      "passed": 2,
+      "failed": 9,
+      "files": 1
+    },
+    {
+      "file": "p09c-profile-state-target.json",
+      "sha256": "1bae8b71e59004a97d775b958260f10c68115baf3709d9eefc137fc6324546c4",
+      "tests": 274,
+      "passed": 274,
+      "failed": 0,
+      "files": 6
+    },
+    {
+      "file": "p09c-state-first.json",
+      "sha256": "fb734ba4f6d702adc8077d6fc8c7dfa4a2dd76ab5c473b1eb4a0c664baf9a2fa",
+      "tests": 12,
+      "passed": 12,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p09c-state-scaffold-red.json",
+      "sha256": "a7d3ffee8794070ecc3c6f5faeb1d4094a0eac22c1e333af27c6b436b40079cd",
+      "tests": 12,
+      "passed": 0,
+      "failed": 12,
+      "files": 1
+    }
+  ],
+  "browserDiagnostic": {
+    "scope": "Cloud Linux Chromium P09 C20-C21 diagnostic ONLY; not full browser or Windows acceptance",
+    "sourceKind": "uncommitted working tree",
+    "buildHashes": {
+      "dist/server.cjs": "f47ab299325c6d88cf29fb727ef502bca6c82ce67fcd803006621f4c122da44d",
+      "dist/index.html": "c134e5052c1efec35df36585ed684993a3ce5e8636b2b11b8fb0371850f4c93c"
+    },
+    "nativeTouchRun": false,
+    "legacyBrowserRun": false,
+    "otherProductivityCasesRun": false,
+    "otherBrowserEnginesRun": false,
+    "publicationAllowed": false,
+    "server2019Acceptance": "not-run",
+    "browserExit": {
+      "code": 0,
+      "signal": null
+    },
+    "serverExit": {
+      "code": 0,
+      "signal": null
+    },
+    "failure": null,
+    "completed": true,
+    "cases": 2,
+    "matchingJUnit": true,
+    "reportsRoot": "/workspace/family-evidence/p09c-corrected-fixture-ZA2Vsr/browser-diagnostic",
+    "otherProductivityCasesUnrun": 61,
+    "nativeTouchUnrun": true,
+    "legacy45Unrun": true
+  },
+  "oldBrowserPreservation": {
+    "oldFileSha256": "7f4701bade97e2195df50fa04ea656f0dae916803f79aa2f4834035aa1526959",
+    "newFileSha256": "ac01bb78a240e312a72b00d16d3da2da56bf7c9dc1d5022988e2a1d7966686cf",
+    "old19CasesAndAssertionsBytePreserved": true,
+    "newCases": 2,
+    "oldOtherBrowserFilesChanged": false,
+    "newKanbanScreenshotsExpected": 6
+  },
+  "redRulings": {
+    "stateScaffold": {
+      "tests": 12,
+      "passed": 0,
+      "failed": 12,
+      "ruling": "missing module scaffold, not independent async causal proof"
+    },
+    "profile": {
+      "tests": 11,
+      "passed": 2,
+      "failed": 9,
+      "ruling": "actual missing/ignored/invalid target9 capability and old6 raw qualifying9; two already-compatible legacy/decoy cases not causal"
+    },
+    "mandatoryGate": {
+      "tests": 300,
+      "passed": 297,
+      "failed": 3
+    },
+    "expandedChromiumC21": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "failure": "stale selected ID renders Ch\u1ecdn... after owned view becomes List; unchanged10s assertion",
+      "serverStopExit": 0
+    }
+  },
+  "remaining": [
+    "Post-correction fullCloud/JUnit/lint/build and exact-HEAD Windows8checks/11raw/63Productivity+45legacy+1touch pending",
+    "No Windows/native touch acceptance from Cloud Chromium diagnostic",
+    "P09 editing/drag/menu/virtualization/clock refresh and P08 workflow/P10 durable series/master unfinished",
+    "No production default/schema/runtime activation/release/tag/VPS or Server2019/R02 acceptance"
+  ],
+  "fullP09Accepted": false,
+  "frontendRuntimeWiringChanged": true,
+  "backendRuntimeSchemaDefaultActivationDependenciesChanged": false,
+  "packageFixtureVersionsUnchanged": [
+    6,
+    9,
+    1
+  ],
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run",
+  "preWindowsCorrection": {
+    "cloudGreen": {
+      "tests": 4703,
+      "passed": 4703,
+      "files": 258,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "junitCases": 4703,
+      "lintExit": 0,
+      "buildExit": 0,
+      "platform": "linux"
+    },
+    "nativeVerification": {
+      "sourceHashes": {
+        "scripts/ci/productivity-browser-contract.mjs": "1e7ee2df53068104641bcf649f3b22847d6fda75e74ddb792f601fae86fc5164",
+        "scripts/ci/run-productivity-browser.mjs": "a302b6d6e3c16f35c2666a6faa18603b0497ecb7006c74e4e0dd50f6b2bb4ad6",
+        "scripts/ci/write-evidence.mjs": "bef58d8f438c6866333f0b31eef92c523a39af41e39ba7080b6557428dc2d386",
+        "scripts/ci/write-productivity-browser-fixture.ts": "79d051e7adfac190a7ed7bc2d1391045ce6a10d44f746adaec8bfe5a28da0216",
+        "scripts/windows/release-collector-evidence.mjs": "278488a213b8be231de4e938cd5d2cb947eda314936f501b9f2a3b595de3871a",
+        "scripts/windows/release-productivity-browser-files.mjs": "9c9287d0159b2096e330cc477bacfe4b7c4811930b9ad50440e9a9b975000790",
+        "scripts/windows/release-productivity-source-policy.mjs": "9c8c3932ea96184f6ab976b6d6e1517d785a741901c19d336f8ea860658725d3",
+        "src/components/Tasks.tsx": "e5a926e33e094bc1b4b5e3ae745782da60d9b890fa260e1c91d6c4089f4f635a",
+        "src/features/productivity/KanbanWorkspace.tsx": "c1916f7222cd403e88ecaf0de3418af638be366fd02228a6191e5eb1e914d0b8",
+        "src/features/productivity/kanbanState.test.ts": "50450e75f591e22242ad3a3c70395fce71b0b67bb8ff764beb7279a5f65cd257",
+        "src/features/productivity/kanbanState.ts": "e89ebc3a34b0acadf9b6d99e4eafc75fcfcba3e7dbf53be00bd832bbbeba60be",
+        "src/features/productivity/useKanbanWorkspace.ts": "a5b7aa97d0105ceaea57067ed8c0ac4400230d3dad0c56dfa3a1af65fae2554f",
+        "src/i18n/locales/en.json": "910f1de3a6f658441748820afcfe34ad4a635657a08c750071d506b082c51a55",
+        "src/i18n/locales/vi.json": "5fd7d5347f9aa9e1ca23a1c587d8b19a0ef8456e8375f90993542ce5217001a3",
+        "src/i18n/locales/zh.json": "3e85f5f87c6789825ceefceb06f57ea99f3711efd0f4b4e4165dc972b721b12f",
+        "tests/e2e/productivity.spec.ts": "7fbfe9ce64dacd1c285b032aeafce3afc3dbdb7262db6e6c41a625d209bd2994",
+        "tests/evidence.test.ts": "44c688806451f2ed665fd571e5520678370ddf1df51e2d777e09044b99ec7e19",
+        "tests/helpers/release-productivity-browser-fixture.ts": "f3f300f79d7496b7141de5cd36b1582600347d4e8eddb300a257f9773b6c4c2e",
+        "tests/kanban-browser-fixture.test.ts": "ff27a459f068835aaa941763171ad3d9fc2347ba9ab55506ae890bcf385d492c",
+        "tests/productivity-browser-evidence.test.ts": "e6e3bf05a62512411f1937bc12111ada6b0e9ffffd174289c0c1d7ca34c75b39",
+        "tests/release-collector-evidence.test.ts": "73c1ad11ed65e6c7731ad1138726600d8c49c8a0803384c7a00f1d683c749a8f",
+        "tests/release-productivity-profile.test.ts": "8154cb87be9494b2c5c713bf2195d748a51e74ef1b45d3b2127139d28729d629"
+      },
+      "compiledHashes": {
+        "dist/server.cjs": "f47ab299325c6d88cf29fb727ef502bca6c82ce67fcd803006621f4c122da44d",
+        "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+      },
+      "frontendIndexSha256": "c134e5052c1efec35df36585ed684993a3ce5e8636b2b11b8fb0371850f4c93c",
+      "reports": {
+        "p09c-full.json": "944fa625202b32ed8c829c4b0ac9d0725f3714ccf5d5767926b0932255aaa9ed",
+        "p09c-full.junit.xml": "0fd3359a981d8844c1661bfbbc2344dbfce548b7bbf6cb0dd18e91fe8fdccbba",
+        "p09c-full.log": "fef7cbe56a03607212f6a0580cc0aef3939c01003f6fee48c35ff936e8218ae7",
+        "p09c-lint-corrected.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+        "p09c-build-corrected.log": "2f4371aa34796f90b56f5853d1b6cc386641fefeb2d4fc5238cc276d42176f1e",
+        "p09c-chromium-corrected-final.json": "5f4134f1e3949a6800f6664e9b4a5097e310af51d95ad1769e71373f45a03964"
+      },
+      "windowsAcceptance": "pending exact HEAD/all8/ELEVENraw/retained24ZIPchecks/29HTTP/100IPC/63Productivity+45legacy+1touch firstattempt; six Kanban PNGs"
+    },
+    "scope": "actor-owned readonly Kanban app entry/shared drawer and explicit offline9 browser fixture; no backend activation"
+  },
+  "ciVerificationCorrection": {
+    "separateFromClosedWholeBranchSelf": true,
+    "importantFindings": 2,
+    "correctionPasses": 1,
+    "rereview": false,
+    "failedRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38851540203",
+    "failedHead": "83a84ce358d095db7fa3e93d61053261c5021dcf",
+    "failureEvidence": "p09c-first-windows-failure.json",
+    "causalRegression": {
+      "tests": 11,
+      "passed": 8,
+      "failed": 3,
+      "reportSha256": "c3c4c8f595eb73f6024fe411c14d9cc5a06cfed0270c1f9194e8c7f720acd379"
+    },
+    "sourceHashes": {
+      "server/productivity/pins.ts": "353980290f5f9c75e195a363db1c0006255dec6f37a40db370fba5960fc27e6f",
+      "server/productivity/pins.test.ts": "bde49c61a4bcc5c7bbfe6a9cb875a61831c6734040a9e7983cffc817b73405ec",
+      "scripts/ci/run-productivity-browser.mjs": "8e6ca21de73b6f2a441461acdb68f209cf5ced7b921234c2ebb04e6761c74872"
+    },
+    "reports": {
+      "p09c-ci-fix-full.json": "d99d144d9eb41c3744181944155349c058f918188675cf00bbaaf3dba5cf342c",
+      "p09c-ci-fix-full.junit.xml": "8254b169465e8c7ea8157c6936b27f65b149308de6b8805e7a8141463892f801",
+      "p09c-ci-fix-full.log": "763cd7b04bf9db9510d677f46307e5e4409c81bd234ae22667627f56ae899dbe",
+      "p09c-ci-fix-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09c-ci-fix-build.log": "9fda3c57c3154e9c19f1230632c2ec539d5ffb31a40a2d1762fd8f5f51156699",
+      "p09c-pins-schema-causal-red.json": "c3c4c8f595eb73f6024fe411c14d9cc5a06cfed0270c1f9194e8c7f720acd379",
+      "p09c-pins-schema-green.json": "b2449ccfd1df50fcc61354c0a4f96ec57e17775da8d79495e0c3665929951d48",
+      "p09c-ci-fix-chromium-runner.log": "585581b58d620cb25b5319a75b9fb6c2cf23e29fb4b9f40c73742703b26ff60b"
+    },
+    "cloudBrowserDiagnostic": {
+      "scope": "Linux Chromium all21Productivity +1nativeTouch, first attempt; Firefox/WebKit and45legacy not run",
+      "productivityCases": 21,
+      "nativeTouchCases": 1,
+      "matchingJUnit": true,
+      "manifest": {
+        "commitSha": "83a84ce358d095db7fa3e93d61053261c5021dcf",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+        "productionBuild": {
+          "serverSha256": "028a45e3f01f1214c816f99906010d8319acd7b352bcba10b5c00c8acd3d1d0f",
+          "indexSha256": "c134e5052c1efec35df36585ed684993a3ce5e8636b2b11b8fb0371850f4c93c"
+        },
+        "synthetic": true,
+        "productivityVersion": 9,
+        "fixtureRemoved": true,
+        "nativeHandlesClosed": true,
+        "networkAttempts": [],
+        "externalAttempts": [],
+        "legacyPreserved": true,
+        "integrity": "ok",
+        "databaseClosed": true,
+        "cliExitCode": 0,
+        "cliSignal": null,
+        "serverExitCode": 0,
+        "serverSignal": null,
+        "browserExitCode": 0,
+        "browserSignal": null,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "touchExitCode": 0,
+        "touchSignal": null,
+        "nativeTouchVerified": true,
+        "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+        "error": null
+      },
+      "reportHashes": {
+        "productivity-browser.json": "a48c43edd5a617f854ca548f2c3737648cf51d062844b5abb7c43cac93c08a04",
+        "productivity-browser.junit.xml": "cbee37ca7066b3c571f570f02e2d097fc8701c0fe7effa3605ca60934e5b5159",
+        "productivity-browser-touch.json": "75dd56ad0fd4213c6b4c05e54e70b76d5bd44e8b1f1b2e18aafcc28c212d1503",
+        "productivity-browser-touch.junit.xml": "d32f71ab496447b66fe01a528fb097b47d134fd2c842db26fc41b261681815d0",
+        "productivity-browser-fixture.json": "804ca38d13aaca57411afc9e34312f72f99c800d21d06fca650bc313da326b47"
+      }
+    }
+  },
+  "backendPinCompatibilityChanged": true
+}
