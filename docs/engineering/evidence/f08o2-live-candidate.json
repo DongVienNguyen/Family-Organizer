@@ -1,0 +1,100 @@
+{
+  "taskId": "F08-o2-live-candidate",
+  "workflowSourceSha": "180c64a491e726ada29cc686d37c8c2228dba750",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38830095228",
+  "explicitTargetSha": "180c64a491e726ada29cc686d37c8c2228dba750",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38828671336",
+  "archives": 8,
+  "qualityEach": 4297,
+  "qualityFilesEach": 240,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "nativeTouchFirstAttempt": 1,
+  "generatedFixtures": [
+    {
+      "sourcePath": "scripts/ci/write-productivity-fixture.ts",
+      "path": "productivity-fixture.json",
+      "sourceSha256": "d6089e192d0d3c16449e9d59b46899f9f6b17a4194db04d83ba46e7a7e345cd1",
+      "format": 1,
+      "version": 6,
+      "rows": 87,
+      "sha256": "d2ddc48032e51d3d1ee1bac65f4e320bcc5f7a3c72eea6aa60af1bcacd4b3ce2"
+    },
+    {
+      "sourcePath": "scripts/ci/write-board-package-fixture.ts",
+      "path": "board-fixture.json",
+      "sourceSha256": "3f9c7acc55d4c538b94f7cc8ba8540c7706a835a951db90bcc9aef0d2a6ee512",
+      "format": 1,
+      "version": 9,
+      "rows": 135,
+      "sha256": "d7897dbb23155594a89a6aed8e15c7f6b5968ec98289d49e8e034fe01622327b"
+    },
+    {
+      "sourcePath": "scripts/ci/write-wallet-fixture.ts",
+      "path": "wallet-fixture.json",
+      "sourceSha256": "9f708f553f9476b129640a9805efb42a73411197cdc94271f5d9297e54292b8f",
+      "format": 1,
+      "version": 1,
+      "rows": 5,
+      "sha256": "dae8ea0c3d326aafa9403e377112b6ccc40d43a03b5cf01507ae162b542c5523"
+    }
+  ],
+  "archiveBytes": 66928256,
+  "expandedBytes": 120461234,
+  "receiptHashes": {
+    "release-metadata.json": "78f3357330b9383a6d0588d8d5cb72f3ef01c1572bfce9b8ca19ba1d7d16a81b",
+    "release-archives.json": "c52cdb49bdca990b698fbc583ba788d30fd64cb3bd565c6390b47f1c5235cbe9",
+    "release-report-preflight.json": "4152e0a721950ccad81d4ac14ed847b7cce1473e9c10ce0ed8dd702118c80e01",
+    "release-evidence.json": "bcc776c44105dc7d11413a06bf526783cb6f469a47822bf8a86ae052fd7e45f1",
+    "candidate-handoff.json": "6b5f10876599f3607cdbba9318cacb1739e04ac119de724974b1c271c751b972"
+  },
+  "reportsVerified": true,
+  "consumerFunctionalVerified": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "handoff": {
+    "format": 1,
+    "kind": "publication-disabled-candidate-handoff",
+    "request": {
+      "repository": "DongVienNguyen/Family-Organizer",
+      "commitSha": "180c64a491e726ada29cc686d37c8c2228dba750",
+      "version": "1.1.0",
+      "tag": "v1.1.0",
+      "runId": 38828671336
+    },
+    "package": {
+      "commitSha": "180c64a491e726ada29cc686d37c8c2228dba750",
+      "appVersion": "1.1.0",
+      "zipSha256": "bbee99ac4074a7071427ef2c6571f8cd2bf923949cf4bb86e4f8163df1b1f346",
+      "zipSize": 54754052,
+      "manifestSha256": "399a2d72d70d27deedd07c5aaa19682558e9e68097242331150e7ff8b2927df4"
+    },
+    "assets": {
+      "zip": {
+        "name": "family-organizer-1.1.0-180c64a491e726ada29cc686d37c8c2228dba750-win-x64.zip",
+        "sha256": "bbee99ac4074a7071427ef2c6571f8cd2bf923949cf4bb86e4f8163df1b1f346",
+        "bytes": 54754052
+      },
+      "manifest": {
+        "name": "release-manifest.json",
+        "sha256": "399a2d72d70d27deedd07c5aaa19682558e9e68097242331150e7ff8b2927df4"
+      }
+    },
+    "candidatePublication": "blocked-source-lock",
+    "promotion": "blocked-source-lock-and-actual-server2019-acceptance",
+    "publicationAllowed": false,
+    "releaseCreated": false,
+    "tagCreated": false,
+    "server2019Acceptance": "not-run"
+  },
+  "fullMasterAccepted": false,
+  "fullWorkflowLogSha256": "6276f57a3ec65d4e05e43a483513d18d488e873a9c7211375267890631099508",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 13,
+    "lines": 784,
+    "fullWorkflowLogSha256": "6276f57a3ec65d4e05e43a483513d18d488e873a9c7211375267890631099508",
+    "unexpectedMarkers": []
+  },
+  "verifierWriterRuling": "First candidate independent-verifier reached final output with all assertions passed, then failed only PosixPath+str output joining; fixed writer and reread same immutable run, no CI/test retry."
+}

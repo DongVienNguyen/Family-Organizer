@@ -1,7 +1,7 @@
 {
   "taskId": "P08-b12",
   "baseSourceSha": "b22aefde0dd7e7f3ad5971c80b9e69e95a86035c",
-  "baseAcceptance": "PR106 exactCI38829115526 pending; update after verified merge/treeequal before PR107",
+  "baseAcceptance": "PR106/exactWindows38829115526 all8/TENraw/4298-240/132logs0unexpected; acceptedmain4cb077b independentlyGitAPI/localtreeequal3b4ebcd",
   "cloudGreen": {
     "tests": 4330,
     "passed": 4330,
@@ -152,5 +152,11 @@
       "p08b12-clock-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
       "p08b12-clock-composed-build.log": "c6eaf30a27f5fe485e4712ca50b4d2c41f3c2f1cc51a2830a45cd1f4ef9e1a29"
     }
+  },
+  "baseSha": "4cb077b8b5d81b05690d88d9649e985a0fdf3d60",
+  "acceptedBaseComposition": {
+    "sourceTreeUnchanged": true,
+    "testedSource": "9588234/3dc2ac9",
+    "sameTree": "98cd53daa733c9cfbfb1bfb36a81de52389682ae"
   }
 }
