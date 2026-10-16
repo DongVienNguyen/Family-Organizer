@@ -1,0 +1,193 @@
+{
+  "taskId": "P08-workflow-completion",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/132",
+  "testedHeadSha": "acdf589d9f589db43f8abb7f0e03dfe3deb663bb",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38945750669",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "ac62ca649a079a0c3d5994655204a6455cd4cf2a8ae4ee29d82c36c5e919293d",
+    "coverage": "7a357aeddf42a4f237da24d816d58502b9bc2a39812743ca905d34453c3e635c",
+    "package": "36d61eb05d2b2a14559c405d7f5dedcaef77b72cdb416daf616e61562750ec09",
+    "service": "7957c06af8c0368c5b2a0edda14f94c5788c3c8ced27b258b0ac8541d289e9be",
+    "caddy": "473968ad94c633f17e643729780c60ff602ea0c18d0ff1401afc746899f71323",
+    "extraction-sdk": "f43d75f267f16841e35fd72a7c727a9feadc7d9a34fb0e9da1688a9a52eed775",
+    "inner-native": "be1c7c36cfde2b4162d6cd0a3a3346c6e5f88059f127ce7c52d28f73e9269f57",
+    "browser": "d8b96e5dbe41f66d7b0a1b75b8dcd6dfcb4c19259def3cc35737cd23b82d6e7e",
+    "productivity-browser": "308b7c1bfa828b88280a392fe2a0c7e6dd4cef1e87e37852fc601c13f496f713",
+    "board-package": "910dcf701155a2b906f3901145a28c2bc168e989c9cd90c66d6918d1e0d419b2",
+    "port-policy": "0e3c90fca73d28e4c95fb6c662e8c9549d44df319eba542870990630b74b26d9",
+    "cutover-package": "4746d7ab10aaf906c8026ef145a64d638ab0bf608021d78e41c75c32090c48f4"
+  },
+  "qualityEach": 5597,
+  "qualityFilesEach": 306,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 102,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 12,
+  "review": {
+    "taskId": "P08-workflow-completion",
+    "mode": "LOCAL whole-branch SELF; not independent",
+    "baseSha": "d99d83e6ec80ebc90528b68ce96375b26d4fc9b3",
+    "reviewedAtUtc": "2026-10-16T18:09:34.191132+00:00",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "scope": [
+      "existing P10 owner in one I01 transaction and canonical actual-column WIP",
+      "live actor/view/task scope before cached UUID response; hidden successor projection and trusted SSE",
+      "readonly bounded previews and stale/expired/unknown-plan refusal",
+      "strict session SDK and proof-preserving explicit network retry",
+      "controlled actor/view-owned draft surviving projection reload with immediate denied-authority hiding",
+      "accessible confirmation and real browser cancel/pending/approval/conflict/no-effects assertions",
+      "literal13 source capability and all102raw browser attempts with historical96 retained"
+    ],
+    "sourceFiles": {
+      "scripts/ci/productivity-browser-contract.mjs": "cbc58ce101171a8fbbd180aaec15aea30e0d4f5545899a29b6dfe5bddbf11415",
+      "scripts/windows/release-productivity-source-policy.mjs": "b7fdb4254a3c028eadbcf59e049dcc4b8fb3a05838ed0eeb0d247bc28a19c747",
+      "server/app.ts": "966fbe94c205b7402bec403ccf26574bc1b9cb6f10705cdcb8bb78c19fae9d71",
+      "server/productivity/boardRouter.ts": "128100baaeec12edd8ff654de8275e93b77aa301e1c4aae19c13eef72e023721",
+      "server/productivity/ports.ts": "bd846b437f976ebd99185142a8f2f48bde57b5b51ba0d9ce7ee0b08fcba0c5b8",
+      "server/productivity/router.ts": "eae73a43f29fcc51718c67e5c365be91f4030da78a8a2d5327aae05a185952ee",
+      "server/productivity/workflow-moves.api.test.ts": "9350e309d386a91c35d63fd4308a753c4268114a8a5b4a9af85efaaeb0f0cdb5",
+      "server/productivity/workflow-moves.test.ts": "0f0e36942d4e3aaced08c122c0d99aab24aa98397b6376734ff36de15df731a6",
+      "server/productivity/workflowMoves.ts": "3e239a2d19c1bd818b07f7c0cbe29d2f31405240b0ad18d6c97afc93d9bfffb2",
+      "src/components/Tasks.tsx": "40cfbbcd18f87e38a6fcf9717da1bc30b900712b5affc6c8d58a281a81347c0a",
+      "src/features/productivity/Kanban.tsx": "01b1606d4ab3a2b98840e78d64ca9fadabad51599794b7a5c3b316a1e7a7cb12",
+      "src/features/productivity/KanbanWorkflowActions.tsx": "d7e216c3f2fc47092e3ba52ea3b0a14356f8f7cb0ebe58670a92651bcb980998",
+      "src/features/productivity/KanbanWorkflowDialog.tsx": "b312452e4e8567ab90583a6ff2164fbc3ccc2ada95c15f63cfea9edc4f7162ba",
+      "src/features/productivity/KanbanWorkspace.tsx": "597fa5be5ec1cc4868ed8fdd9df682bac17659251309c37ac5eb173690af0a03",
+      "src/features/productivity/api.ts": "13869527be9afe69a01ca99d5a693d62055b96ee8d581a39cf91aae911e66177",
+      "src/features/productivity/kanban-workflow-ui.test.tsx": "59a08b9bf0a60a9514f899766a784fde51a5ebc1ed298eb5650ca42acd6d381d",
+      "src/features/productivity/kanbanCommandState.ts": "6c1a4e9278e6baacd44fca808c441d9633f35323f1103c31b4850269bca5fd53",
+      "src/features/productivity/workflow-api.test.ts": "e27dfa89e935c1d8030d1ee4f1213816694f1af36a84b0b63487400fd3a92954",
+      "src/features/productivity/workflow-command-state.test.ts": "9fcf3d814ad15064fbabc564c65a10c314b2156f8dc43396ee7180408f052998",
+      "src/features/productivity/workflowApi.ts": "8597d2603624d9862fd8547b5439592d013a595fab7fb13251e6bc3939e1125f",
+      "src/i18n/locales/en.json": "c111d1c938f7c475461303194fc40dc70344a69f097a142d58acce49baca9bdb",
+      "src/i18n/locales/vi.json": "8e45f0cb744f22a3f472bbc35dbd03e8106b1b4273317e5c8768aa0c15b577dd",
+      "src/i18n/locales/zh.json": "c8bcb5c42c14e14bc842709d104ad05daddb0cd45d2c915d83ddfa0cc757db2b",
+      "tests/e2e/productivity.spec.ts": "a9cc115dc47823c31c269bc51ca507fff1e9013893b187486839299d34cc5d2a",
+      "tests/helpers/release-productivity-browser-fixture.ts": "99fb62c805c5c54bf1d98ca0595cfa500d109f65b86256f764db713b1e5910a4",
+      "tests/release-productivity-profile.test.ts": "05568d98fb9b02d2d2c280ad0b6588ee82ec9916fe9db500b05a53a073465f7f"
+    },
+    "original32BrowserSourcePrefixPreserved": true,
+    "frozenMigrationDefinitionsVerified": 15,
+    "dependenciesChanged": false,
+    "defaultStorageVersion": 6,
+    "explicitFixtureVersion": 13,
+    "fullM1Accepted": false,
+    "fullMasterPlanAccepted": false,
+    "server2019Acceptance": "not-run",
+    "publicationAllowed": false
+  },
+  "sourceHashes": {
+    "scripts/ci/productivity-browser-contract.mjs": "cbc58ce101171a8fbbd180aaec15aea30e0d4f5545899a29b6dfe5bddbf11415",
+    "scripts/windows/release-productivity-source-policy.mjs": "b7fdb4254a3c028eadbcf59e049dcc4b8fb3a05838ed0eeb0d247bc28a19c747",
+    "server/app.ts": "966fbe94c205b7402bec403ccf26574bc1b9cb6f10705cdcb8bb78c19fae9d71",
+    "server/productivity/boardRouter.ts": "128100baaeec12edd8ff654de8275e93b77aa301e1c4aae19c13eef72e023721",
+    "server/productivity/ports.ts": "bd846b437f976ebd99185142a8f2f48bde57b5b51ba0d9ce7ee0b08fcba0c5b8",
+    "server/productivity/router.ts": "eae73a43f29fcc51718c67e5c365be91f4030da78a8a2d5327aae05a185952ee",
+    "server/productivity/workflow-moves.api.test.ts": "9350e309d386a91c35d63fd4308a753c4268114a8a5b4a9af85efaaeb0f0cdb5",
+    "server/productivity/workflow-moves.test.ts": "0f0e36942d4e3aaced08c122c0d99aab24aa98397b6376734ff36de15df731a6",
+    "server/productivity/workflowMoves.ts": "3e239a2d19c1bd818b07f7c0cbe29d2f31405240b0ad18d6c97afc93d9bfffb2",
+    "src/components/Tasks.tsx": "40cfbbcd18f87e38a6fcf9717da1bc30b900712b5affc6c8d58a281a81347c0a",
+    "src/features/productivity/Kanban.tsx": "01b1606d4ab3a2b98840e78d64ca9fadabad51599794b7a5c3b316a1e7a7cb12",
+    "src/features/productivity/KanbanWorkflowActions.tsx": "d7e216c3f2fc47092e3ba52ea3b0a14356f8f7cb0ebe58670a92651bcb980998",
+    "src/features/productivity/KanbanWorkflowDialog.tsx": "b312452e4e8567ab90583a6ff2164fbc3ccc2ada95c15f63cfea9edc4f7162ba",
+    "src/features/productivity/KanbanWorkspace.tsx": "597fa5be5ec1cc4868ed8fdd9df682bac17659251309c37ac5eb173690af0a03",
+    "src/features/productivity/api.ts": "13869527be9afe69a01ca99d5a693d62055b96ee8d581a39cf91aae911e66177",
+    "src/features/productivity/kanban-workflow-ui.test.tsx": "59a08b9bf0a60a9514f899766a784fde51a5ebc1ed298eb5650ca42acd6d381d",
+    "src/features/productivity/kanbanCommandState.ts": "6c1a4e9278e6baacd44fca808c441d9633f35323f1103c31b4850269bca5fd53",
+    "src/features/productivity/workflow-api.test.ts": "e27dfa89e935c1d8030d1ee4f1213816694f1af36a84b0b63487400fd3a92954",
+    "src/features/productivity/workflow-command-state.test.ts": "9fcf3d814ad15064fbabc564c65a10c314b2156f8dc43396ee7180408f052998",
+    "src/features/productivity/workflowApi.ts": "8597d2603624d9862fd8547b5439592d013a595fab7fb13251e6bc3939e1125f",
+    "src/i18n/locales/en.json": "c111d1c938f7c475461303194fc40dc70344a69f097a142d58acce49baca9bdb",
+    "src/i18n/locales/vi.json": "8e45f0cb744f22a3f472bbc35dbd03e8106b1b4273317e5c8768aa0c15b577dd",
+    "src/i18n/locales/zh.json": "c8bcb5c42c14e14bc842709d104ad05daddb0cd45d2c915d83ddfa0cc757db2b",
+    "tests/e2e/productivity.spec.ts": "a9cc115dc47823c31c269bc51ca507fff1e9013893b187486839299d34cc5d2a",
+    "tests/helpers/release-productivity-browser-fixture.ts": "99fb62c805c5c54bf1d98ca0595cfa500d109f65b86256f764db713b1e5910a4",
+    "tests/release-productivity-profile.test.ts": "05568d98fb9b02d2d2c280ad0b6588ee82ec9916fe9db500b05a53a073465f7f"
+  },
+  "changedSuitesIndependentlyRead": {
+    "tests/productivity-browser-evidence.test.ts": 69,
+    "tests/release-productivity-profile.test.ts": 43,
+    "server/productivity/workflow-moves.api.test.ts": 6,
+    "server/productivity/workflow-moves.test.ts": 22,
+    "src/features/productivity/kanban-workflow-ui.test.tsx": 11,
+    "src/features/productivity/workflow-api.test.ts": 30,
+    "src/features/productivity/workflow-command-state.test.ts": 15
+  },
+  "frozenMigrationDefinitionsVerified": 15,
+  "acceptedParentSha": "d99d83e6ec80ebc90528b68ce96375b26d4fc9b3",
+  "defaultPilotMigration": 6,
+  "explicitPilotMigration": 13,
+  "actual13ZipQualification": {
+    "commitSha": "acdf589d9f589db43f8abb7f0e03dfe3deb663bb",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38945750669",
+    "zipSha256": "9f07e36bb92319a0239dbf2a29f76bb2659bee0dca3df4eeb7e0f7ad6e99f550",
+    "rawReportSha256": "dab73c6eeca70835447e4e1e623cf377e55811888b0847f974103ac294969aea",
+    "fixtureSha256": "09646c1fbe557db6e9fb517a0df8ea44fb0a1841aad038fc6d405b1b63332ab5",
+    "checks": 14,
+    "serverPhases": 9,
+    "nativePhases": 9,
+    "refusals": 3,
+    "positiveAndDisabledFamilies": true,
+    "ordinaryAndEncryptedRestore": true,
+    "approvalExactlyOnce": true,
+    "exactZip13": true,
+    "server2019Acceptance": "not-run",
+    "publicationAllowed": false
+  },
+  "automaticUpgrade": false,
+  "fullP10Accepted": false,
+  "fullMasterPlanAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "d70bd692540625490bd6f8cee5f015acedb342b4",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "acdf589d9f589db43f8abb7f0e03dfe3deb663bb": "3d5ed95c949bffc5fbb31379e9d17142f8d32ee7",
+    "d70bd692540625490bd6f8cee5f015acedb342b4": "3d5ed95c949bffc5fbb31379e9d17142f8d32ee7"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 27244,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

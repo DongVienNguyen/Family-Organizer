@@ -1809,5 +1809,6 @@
     "refused": "暂时无法完成。请检查子任务、在制任务容量和审核要求后重试。",
     "failed": "尚未确认结果。请检查或重试同一请求。",
     "reload": "刷新看板并保留备注"
-  }
+  },
+  "productivityKanbanDrag": {"handle": "拖动任务：{{title}}"}
 }
