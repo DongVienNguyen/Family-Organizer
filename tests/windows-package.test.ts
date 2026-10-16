@@ -72,3 +72,4 @@ it('advertises registered Wallet1 storage together with current productivity wit
  const f=fixture();f.schema.domains.wallet={min:1,max:1};expect(validateManifest(f,{commitSha:sha,appVersion:'1.1.0'})).toEqual([]);
  f.schema.domains.wallet.max=2;expect(validateManifest(f,{commitSha:sha,appVersion:'1.1.0'})).toContain('unsupported domain schema bounds');
 });
+it('admits explicit13 package bounds while retaining historical9 and rejecting partial or future capability claims',()=>{const f=fixture();f.schema.domains.productivity.max=13;expect(validateManifest(f,{commitSha:sha,appVersion:'1.1.0'})).toEqual([]);for(const max of [10,11,12,14]){f.schema.domains.productivity.max=max;expect(validateManifest(f,{commitSha:sha,appVersion:'1.1.0'})).toContain('unsupported domain schema bounds');}});

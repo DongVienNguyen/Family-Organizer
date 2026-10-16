@@ -88,5 +88,39 @@ export const generatedFixtureContracts=Object.freeze({
     "columnsSha256": "9d2cae10ba9a7c045e7ff667c9439ed0c7253a81377dfb2d3338c7290a41da88",
     "migrationsSha256": "328b65fa2bd8a8b05e9c79fe3981e50b5f55715616f013a478438449b2b93a5b",
     "moneyColumnsSha256": "762f8d2e519624c328eb8d60e61b86e7da11d375e76c0fc0e63847c5b3b66458"
+  },
+  "cutover-fixture.json": {
+    "format": 1,
+    "version": 13,
+    "rootKeys": [
+      "boardId",
+      "columns",
+      "commitSha",
+      "cutoverFamilies",
+      "format",
+      "matrixViewId",
+      "migrations",
+      "moneyColumns",
+      "privateTaskId",
+      "producerArchitecture",
+      "producerNodeVersion",
+      "producerPlatform",
+      "schemaSql",
+      "sectionId",
+      "tables",
+      "tagIds",
+      "tagViewId",
+      "taskIds",
+      "users",
+      "version",
+      "viewId",
+      "walletVersion"
+    ],
+    "sqlHashes": {
+      "schemaSql": "e6d0d235404fc965c65608ecd1fcec30ddc5c30e3378fa2d556254691b6f096d"
+    },
+    "columnsSha256": "908f9ccfbac8e4c91325f639eb6499dc2965cae19bb096dde2a2f00730e8f3e1",
+    "moneyColumnsSha256": "762f8d2e519624c328eb8d60e61b86e7da11d375e76c0fc0e63847c5b3b66458",
+    "migrationsSha256": "562dc7112e13875a7ef0e8262c88c506912385cf5dc63e0776e2202cef05feab"
   }
 });

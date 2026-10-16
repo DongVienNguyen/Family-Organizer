@@ -1,3 +1,4 @@
+import {parseCutoverPackageSourcePolicy} from './release-cutover-source-policy.mjs';
 import {parseBoardPackageSourcePolicy} from './release-board-source-policy.mjs';
 import {parseProductivityBrowserSourcePolicy} from './release-productivity-source-policy.mjs';
 import {createHash} from 'node:crypto';
@@ -37,6 +38,7 @@ export function readTrustedReleasePolicy(request,authority){
   // Preflight every mode before reading any source through a possible symlink.
   for(const name of [...inventoryNames,...requiredSuites]){const file=files.get(name);requireFact(file.type==='blob'&&['100644','100755'].includes(file.mode));}
   const boardPackagePolicy=parseBoardPackageSourcePolicy(read('scripts/windows/board-package-contract.mjs'));
+  const cutoverPackagePolicy=files.has('scripts/windows/cutover-package-contract.mjs')?parseCutoverPackageSourcePolicy(read('scripts/windows/cutover-package-contract.mjs')):undefined;
   const browserContract=read('scripts/ci/browser-contract.mjs');
   // The pinned builder parser reads syntax only; target code is never executed.
   const syntax=ts.createSourceFile('browser-contract.mjs',browserContract,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);
@@ -66,7 +68,8 @@ export function readTrustedReleasePolicy(request,authority){
   const matches=job.steps.filter(step=>step?.name==='Prepare independent consumer harness');requireFact(matches.length===1);
   const step=matches[0];requireFact(Object.keys(step).sort().join(',')==='name,run'&&typeof step.run==='string');
   const commands=step.run.replaceAll('\r\n','\n').split('\n');requireFact(commands.pop()==='');
-  requireFact([4,13].includes(commands.length)&&commands[0]==="$ErrorActionPreference = 'Stop'"&&commands[1]==='New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null');
+  requireFact([4,13,16].includes(commands.length)&&commands[0]==="$ErrorActionPreference = 'Stop'"&&commands[1]==='New-Item -ItemType Directory -Path reports/package-harness -Force | Out-Null');
+  requireFact(cutoverPackagePolicy?commands.length===16:commands.length!==16);
   const flattened=new Set(),harnessSources=[];
   for(const command of commands.slice(2,4)){
    const match=command.match(/^Copy-Item ([A-Za-z0-9/_. ,\-]+) reports\/package-harness$/);requireFact(match);
@@ -80,15 +83,16 @@ export function readTrustedReleasePolicy(request,authority){
   // Generators run only in the reviewed Windows producer. The pinned collector
   // reads their target Git bytes as data; it never imports/executes target TS.
   const generators=[];
-  if(commands.length===13){
+  if([13,16].includes(commands.length)){
    const definitions=[
     ['write-productivity-fixture','productivity-fixture.json','fixtureExit','Canonical synthetic fixture generation failed'],
     ['write-board-package-fixture','board-fixture.json','boardFixtureExit','Semantic9 board synthetic fixture generation failed'],
     ['write-wallet-fixture','wallet-fixture.json','walletFixtureExit','Wallet synthetic fixture generation failed'],
+    ...(cutoverPackagePolicy?[['write-board-package-fixture','cutover-fixture.json','cutoverFixtureExit','Controlled13 synthetic fixture generation failed']]:[]),
    ];
    for(const [index,[name,path,exitVariable,message]]of definitions.entries()){
     const sourcePath='scripts/ci/'+name+'.ts',offset=4+index*3;
-    requireFact(commands[offset]==='& node --import tsx '+sourcePath+' reports/package-harness/'+path&&commands[offset+1]==='$'+exitVariable+' = $LASTEXITCODE'&&commands[offset+2]==='if ($'+exitVariable+" -ne 0) { throw '"+message+"' }");
+    requireFact(commands[offset]==='& node --import tsx '+sourcePath+' reports/package-harness/'+path+(path==='cutover-fixture.json'?' 13':'')&&commands[offset+1]==='$'+exitVariable+' = $LASTEXITCODE'&&commands[offset+2]==='if ($'+exitVariable+" -ne 0) { throw '"+message+"' }");
     requireFact(!flattened.has(path.toLowerCase()));flattened.add(path.toLowerCase());
     generators.push({sourcePath,path,sourceSha256:hash(windowsBytes(read(sourcePath)))});
    }
@@ -97,6 +101,6 @@ export function readTrustedReleasePolicy(request,authority){
   const harnessPolicy={workflowSha256:hash(windowsBytes(workflowText)),files:harnessSources.sort((a,b)=>a.sourcePath.localeCompare(b.sourcePath,'en')),...(generators.length?{generators}:{})};
   const sourceInventory=inventoryNames.sort((a,b)=>a.localeCompare(b,'en')).map(name=>{const text=read(name);requireFact(!/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(text));return {path:name,sha256:hash(windowsBytes(text))};});
   requireFact(Date.now()-started<=120000);
-  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,productivityBrowserPolicy,boardPackagePolicy,harnessPolicy};
+  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,productivityBrowserPolicy,boardPackagePolicy,...(cutoverPackagePolicy?{cutoverPackagePolicy}:{}),harnessPolicy};
  }catch{reject();}
 }

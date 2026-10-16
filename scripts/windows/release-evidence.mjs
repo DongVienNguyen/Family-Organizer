@@ -28,7 +28,9 @@ export function validateReleaseEvidence(value){
  for(const major of [22,24]){const q=quality.find(q=>q?.major===major);require(positive(q?.tests)&&q?.passed===q?.tests&&positive(q?.files)&&q?.failed===0&&q?.pending===0&&q?.todo===0,`Node${major} incomplete tests`);}
  require(positive(e?.browsers?.passed)&&e?.browsers?.failed===0&&e?.browsers?.skipped===0&&e?.browsers?.retries===0,'browser incomplete tests');
  const productivity=e?.productivityBrowsers;require(positive(productivity?.passed)&&productivity?.failed===0&&productivity?.skipped===0&&productivity?.retries===0&&productivity?.touchPassed===1&&productivity?.touchFailed===0&&productivity?.touchSkipped===0&&productivity?.touchRetries===0,'Productivity browser/native touch incomplete tests');
- require(e?.generatedFixtures?.verified===true&&e?.generatedFixtures?.files===3,'generated fixture proof incomplete');
+ const cutover=p?.productivitySchemaMax===13;require([9,13].includes(p?.productivitySchemaMax??9),'unsupported package schema qualification');
+ require(e?.generatedFixtures?.verified===true&&e?.generatedFixtures?.files===(cutover?4:3),'generated fixture proof incomplete');
+ require(cutover?e?.cutoverPackage?.verified===true&&e.cutoverPackage.fixtureVersion===13&&e.cutoverPackage.checks===14&&hex(e.cutoverPackage.contractSha256,64)&&hex(e.cutoverPackage.reportSha256,64):e?.cutoverPackage===undefined,'cutover package proof incomplete');
  require(e?.consumer?.passed===true&&e?.consumer?.fixtureCleanup===true,'consumer incomplete');
  require(e?.service?.passed===true&&e?.service?.serviceRemoved===true&&e?.service?.fixtureCleanup===true,'service incomplete');
  return errors;

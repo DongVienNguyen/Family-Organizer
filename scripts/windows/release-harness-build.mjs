@@ -1,3 +1,4 @@
+import {validateCutoverSourcePolicy}from'./release-cutover-source-policy.mjs';
 import {validateGeneratedFixture} from './release-generated-fixtures.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,7 +16,8 @@ export function readReleaseHarnessAndBuild(directory,policy,packageProof,browser
   requireFact(packageProof.packageReportAgreement===true&&browserProof.rawBrowserVerified===true&&hash(packageProof.zipSha256));
   const declaration=policy.harnessPolicy;requireFact(hash(declaration?.workflowSha256)&&Array.isArray(declaration?.files)&&declaration.files.length>0&&declaration.files.length<=100);
   const names=new Set();for(const row of declaration.files){requireFact(typeof row?.sourcePath==='string'&&/^scripts\/(?:windows|ci)\/[A-Za-z0-9_-]+\.(?:mjs|cjs|ps1)$/.test(row.sourcePath)&&safeArchivePath(row.sourcePath)&&row.path===path.posix.basename(row.sourcePath)&&hash(row.sha256)&&!names.has(row.path.toLowerCase()));names.add(row.path.toLowerCase());}
-  const generators=declaration.generators??[],definitions=[['scripts/ci/write-productivity-fixture.ts','productivity-fixture.json'],['scripts/ci/write-board-package-fixture.ts','board-fixture.json'],['scripts/ci/write-wallet-fixture.ts','wallet-fixture.json']];requireFact(Array.isArray(generators)&&(generators.length===0||generators.length===3)&&declaration.files.length+generators.length<=100);
+  const cutover=policy.cutoverPackagePolicy;requireFact(cutover===undefined||validateCutoverSourcePolicy(cutover));
+  const generators=declaration.generators??[],definitions=[['scripts/ci/write-productivity-fixture.ts','productivity-fixture.json'],['scripts/ci/write-board-package-fixture.ts','board-fixture.json'],['scripts/ci/write-wallet-fixture.ts','wallet-fixture.json'],...(cutover?[['scripts/ci/write-board-package-fixture.ts','cutover-fixture.json']]:[])];requireFact(Array.isArray(generators)&&(cutover?generators.length===4:generators.length===0||generators.length===3)&&declaration.files.length+generators.length<=100);
   if(generators.length){requireFact(consumerProof?.commitSha===expected.commitSha&&consumerProof?.runId===expected.runId&&consumerProof?.zipSha256===packageProof.zipSha256&&consumerProof?.rawConsumerFunctionalReportsVerified===true&&JSON.stringify(Object.keys(consumerProof.fixtureHashes??{}).sort())===JSON.stringify(definitions.map(row=>row[1]).sort()));for(const [i,row]of generators.entries()){requireFact(row?.sourcePath===definitions[i][0]&&row?.path===definitions[i][1]&&hash(row.sourceSha256)&&!names.has(row.path.toLowerCase())&&hash(consumerProof.fixtureHashes[row.path]));names.add(row.path.toLowerCase());}}
   const declared=[...declaration.files,...generators],reader=openReleaseReportFiles(directory,{maxFileBytes:4*1024*1024,maxTotalBytes:12*1024*1024});
   const snapshots=new Map(),same=(a,b)=>['dev','ino','size','mtimeNs','ctimeNs'].every(key=>a[key]===b[key]);
