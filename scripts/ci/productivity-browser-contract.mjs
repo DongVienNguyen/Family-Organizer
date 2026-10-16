@@ -1,6 +1,8 @@
 import {isDeepStrictEqual} from 'node:util';
 export const productivityFixtureVersion=13;
 export const productivityBrowserShardFormat=1;
+/** @type {{chromium:1,firefox:2,webkit:2}} */
+export const productivityBrowserWorkers={chromium:1,firefox:2,webkit:2};
 import {validateProductivityShards} from './productivity-shard-contract.mjs';
 import {validateMatrixTouchReports,kanbanSectionTouchVersion} from './matrix-touch-contract.mjs';
 import {validateBrowserReports,browserProjects} from './browser-contract.mjs';
@@ -46,7 +48,7 @@ export const productivityBrowserCases=[
  'P09 C39 unknown review send retains reason and UUID across an unrelated authorized board refresh',
 ];
 export function validateProductivityBrowserReports(input){
- const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases)];
+ const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat,workers:productivityBrowserWorkers,fixtureVersion:productivityFixtureVersion}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases,{workers:productivityBrowserWorkers})];
  if(!isDeepStrictEqual(input.manifest?.kanbanFixture,{taskRowsPreserved:true,boards:2,views:9}))errors.push('missing explicit synthetic9 Kanban fixture preservation');
  if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==productivityFixtureVersion||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
 }

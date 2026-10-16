@@ -65,3 +65,23 @@ One correction moves command lifetime into the persistent workspace; pending
 facts remain hidden, actor/explicit-view changes retire it, and native retry
 retains the original UUID and payload. C39 and seven interacting browser flows
 then pass, together with trusted Matrix/Section touch; no rereview is claimed.
+
+
+CI135 composition uses accepted parent943d958 (tested31568c0/run38977366988),
+with Chromium1 and Firefox/WebKit2. The supplementaryC36–C39 registrar stays on
+the lighter Firefox/WebKit core entry; Chromium registers C01..C39 in original
+order through one hook owner. Every39original test call and23fixture helper
+bodies, offline/zero-error hooks and the complete native-touch file are verified
+unchanged from17e4291. All27application/source-test/locale hashes remain exact.
+No feature logic or deadline was changed to resolve CI integration conflicts.
+
+Composition Cloud qualification passes5911tests/321files/matchingJUnit/coverage,
+661related checks/lint/build0 and39Chromium+1nativeTouch/matchingJUnit/native0.
+The unit-case multiset retains both previously passing suites: four identical
+13Task fixture regressions shared by135/134 are counted once, plus a new complete
+registration check. Current source/parent overlays/report hashes are recorded in
+`evidence/p08-active-workflow-ci135-composition.json`; original review/I1 and prior
+failed Windows checkpoints remain historical. Fresh exact-HEAD Windows still
+must pass5911/321perNode/all39cases on three engines/163first attempts. Main135
+runs independently; its result is not assumed. FullM1/P08/P09/P10 andServer2019
+remain incomplete; no release/tag/VPS.
