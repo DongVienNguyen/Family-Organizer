@@ -1,0 +1,456 @@
+{
+  "task": "main109 exact accepted source qualification",
+  "sourceSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38838276184",
+  "checks": "all8success",
+  "rawValidators": 10,
+  "qualityEach": 4431,
+  "qualityFilesEach": 246,
+  "junitEach": 4431,
+  "failedSkippedTodoEach": 0,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "nativeTouchFirstAttempt": 1,
+  "summaryHashes": {
+    "quality": "04e64ba415112262f68c9c1097a0a55215a14a55ced63ca45e19cdf4107452bb",
+    "coverage": "8a6f3d6a68e6df7939c5b64bf90e39efc1c9ae5c667e8bb0d968df4afb4d1ac1",
+    "package": "31b55c8975ebe098393c8e6f4ec7a53e9597c6d9cd016c4223499cf3c206c1ac",
+    "service": "cab43b448f7d9b6e5e2389e28b3860c8e76076d56fe607c4daaa6ed28ac33aa4",
+    "caddy": "4f006c20b51c94a82dd62971efbe982189d6a6baeeae1626824c896a41e4e111",
+    "extraction-sdk": "f4df89d7d1b8185be2e6de8a3806e56b92824c523574cde0f13aa650683167f0",
+    "inner-native": "66af467a51896a03fea0b0bac20c70569d47a95298721912004cd94db221dc2c",
+    "browser": "37c0a0f12178bc1c0dcd2e9ec4bf3f5305b5a0e2d83108347838820427fa4173",
+    "productivity-browser": "85a7c7a85142a3831791f07304943f96edc27da67e2a0868d89cffdac0216f69",
+    "board-package": "6e0d6ad4b128abc8123f0e65a84eefed4d0ccb9035ea33c0fee24eb6a3796d15"
+  },
+  "fullLogs": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 23410,
+    "zipSha256": "b18fbec23b35c7ca839612a1eba953b3aa32239967b4254ce7134d29e99aaf71",
+    "expectedSyntheticMarkers": [
+      {
+        "file": "4_Windows Node22 baseline.txt",
+        "line": 601,
+        "text": "2026-10-16T02:03:53.3798466Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "4_Windows Node22 baseline.txt",
+        "line": 1056,
+        "text": "2026-10-16T02:06:26.2661810Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "4_Windows Node22 baseline.txt",
+        "line": 1092,
+        "text": "2026-10-16T02:06:35.1623950Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "4_Windows Node22 baseline.txt",
+        "line": 1263,
+        "text": "2026-10-16T02:07:20.5751360Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 88,
+        "text": "2026-10-16T02:03:53.3798436Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 543,
+        "text": "2026-10-16T02:06:26.2661785Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 579,
+        "text": "2026-10-16T02:06:35.1623916Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 750,
+        "text": "2026-10-16T02:07:20.5751353Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "5_Windows Node24 baseline.txt",
+        "line": 626,
+        "text": "2026-10-16T02:04:39.1894597Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "5_Windows Node24 baseline.txt",
+        "line": 1106,
+        "text": "2026-10-16T02:08:25.6786532Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "5_Windows Node24 baseline.txt",
+        "line": 1147,
+        "text": "2026-10-16T02:08:39.7690148Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "5_Windows Node24 baseline.txt",
+        "line": 1323,
+        "text": "2026-10-16T02:09:47.8444509Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 102,
+        "text": "2026-10-16T02:04:39.1894560Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 582,
+        "text": "2026-10-16T02:08:25.6786503Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 623,
+        "text": "2026-10-16T02:08:39.7690134Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 799,
+        "text": "2026-10-16T02:09:47.8444490Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      }
+    ],
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  },
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run",
+  "limitation": "exact run qualification only; historical native allocation and browser routing defects remain tracked separately",
+  "packageSummary": {
+    "task": "F07-g",
+    "commitSha": "f41081aa77ddfb6533a4e746fb148d9c0031ca96",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38838276184",
+    "zipSha256": "8eaf2f84eab108c6f86a334a5b5ef0d493b7a8763fa50fea26e60c46d6e9b3a3",
+    "zipSize": 54756949,
+    "files": 4604,
+    "dependencies": 236,
+    "nativeSha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+    "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+    "manifestHash": "003e3406ad9f1771f3b266f0829ce2af4bcbb684f9fcda7565ab8f493aa46d6c",
+    "consumerNoCheckoutInstallBuild": true,
+    "consumerBundledNodeOnly": true,
+    "producerCleanup": true,
+    "consumerCleanup": true,
+    "archiveFixtures": 26,
+    "archiveSafeUnicode": true,
+    "producerExpectedRefusalExitCode": 1,
+    "compiledProofs": 23,
+    "additionalFunctionalProofs": [
+      "legacy-migration-source-preserved",
+      "finance-create-read-update",
+      "task-reward-once",
+      "restart-preserves-finance-reward",
+      "finance-delete",
+      "ordinary-backup-excludes-credentials",
+      "restore-requires-explicit-credential-reentry",
+      "compiled-offline-reentry-preserves-user-ids",
+      "shared-snapshot-restore",
+      "restore-revokes-session",
+      "restore-preserves-reward-no-replay",
+      "snapshot-core-rows-preserved",
+      "offline-providers",
+      "native-handles-closed",
+      "compiled-canonical-task-http-restart-snapshot-recovery",
+      "compiled-canonical-unsupported-migration-refusal"
+    ],
+    "licenseAudit": {
+      "policyVersion": 1,
+      "dependencies": 236,
+      "embeddedReadmeNotices": [
+        "cookie-signature",
+        "data-uri-to-buffer",
+        "isarray"
+      ],
+      "mplSourceFiles": 8,
+      "termsVerified": true,
+      "originalCopyrightPreserved": true
+    },
+    "reviewedOriginalNoticePinsVerified": true,
+    "rawReportHashes": {
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/build.log": "95b950a3939ac970598e6d49eb09002bfc1f406b8ce59f6f780de68bb461a0bd",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/family-organizer-win-x64.zip": "8eaf2f84eab108c6f86a334a5b5ef0d493b7a8763fa50fea26e60c46d6e9b3a3",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/producer-exit.json": "86b82e307c0df943560afa1e623103d5f081a089a74c37805b8f1a264e419c1c",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/release-manifest.json": "003e3406ad9f1771f3b266f0829ce2af4bcbb684f9fcda7565ab8f493aa46d6c",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/native-syntax.json": "9ed65ae5d5591c40b857ad4b0a5d6337b01c834c977cb2f0288abde4fae2445b",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/manifest-validation.log": "919148c50a96e5681b57856057fb3b6c5dc0e3364d36523da29245d44ca9d247",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/install.log": "69241ae5f84656d9a613f5707293357e928d862ce537ec7d964c9041b9ad1a0f",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/production-install.log": "4b6971743fab2be35869350b74bb6249ec5e24bd21247dfaec4251c7c00f4a0a",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/producer-evidence.json": "1228e11c272d1e99ab0748216d1d158c2d5e20c6930575a32cb1fe38cb13e59b",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/archive-contract.json": "95823fd144c523ed14e4efa367ce90b80359aa98a87ace3117245a52af327398",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/producer-refusal.log": "28edf6ad2d687f31e4af359f0cb565b0992dc2b299448bf8ce174c7536c3bada",
+      "windows-package-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/negative-producer/producer-exit.json": "6d1b1a173d0c92eba582fcea61449934d928f7f541fe0789caea7bb25bdaa3b3",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-functional.json": "a67ebc288fbe984ca6cb728ce07d107d57e642abcee939f84e597de1b11c99c7",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-validation.json": "1370fd62c1d5b7ed73a03e8514d7098695123661c06dcb6ac555be7d39ebb4ef",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/production.json": "6a66ac36361a2b8c39bc0f8fcf78fdc9823f1d17097a14e948a4160240d81954",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/production-server.log": "af2eff2aff48a934519a3c089e6bee3979139d93571a06b64a32f133981b63a2",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/production.log": "3b8caf6d0688e085e9bb87ffe323208f8267885ad100664a7456915ce9db5a83",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-provider-env.json": "deb0e09dbab2f3e1d50c6c41d2e4d43d917cf46d4735877316e957abf7531946",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-online-recovery.json": "6d4c85d48405ddee496b3619943b5ffa7685d30528f896cc960f1f4ba75194f7",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-recovery.json": "12e3818edc4673d2405d22b74d7070663bf8c3c7f95962805f6481d605ad0f42",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-exit.json": "e947a86dc9587e613df4c15f74056d4f066487eeeb3e2d29d53ffb4fd7f497c9",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-functional-server.log": "a9e29573329bdb738a5b0c324a94cd7c45019baadbd528b5d07f53674bb390fe",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-board.json": "7fed2791f94cc59a3b5674fb8e66b9eba2f250c78eae4e3de5d7523521d7eb8d",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-signing-key.json": "5eb08c00dda9145716ddc9112bc6897e85a7ebb83819a4a648fab26ae1b32a75",
+      "windows-package-tests-f41081aa77ddfb6533a4e746fb148d9c0031ca96-1/package-private-settings.json": "1340221c38180204e2b342fdddeb5929c82a1cb0c2cb4cf2ad71812f8db27bdd"
+    },
+    "serviceCompatibilityManifest": {
+      "version": "2.12.0",
+      "asset": "WinSW.NET461.exe",
+      "sha256": "b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f",
+      "licenseSha256": "1cdf703c10a70e5973bf3acf2a5eeabe7746237155b92db2034aeae26fdf7802",
+      "frameworkMinRelease": 528040,
+      "framework": "NET Framework 4.8 or later",
+      "nodeExeSha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32"
+    },
+    "actualWrapperConfigLicenseBytesVerified": true,
+    "onlineRecoveryChecks": [
+      "compiled-online-live-wal-selected-secrets-encrypted",
+      "compiled-online-failed-capture-keeps-runtime-and-prior-output",
+      "compiled-online-native-denied-output-keeps-runtime",
+      "compiled-online-concurrent-exclusive-publication",
+      "compiled-online-later-http-write-owner-retained",
+      "compiled-online-shutdown-fence-drained",
+      "compiled-online-shared-offline-restore-point-in-time-claims-config-sessions",
+      "compiled-online-overlapping-live-writer-snapshot-consistent",
+      "compiled-online-offline-network-closed-handles"
+    ],
+    "onlineRecoveryNativeExitCodes": [
+      {
+        "phase": "online-live-capture",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-offline-restore",
+        "exitCode": 0
+      },
+      {
+        "phase": "online-overlap-restore",
+        "exitCode": 0
+      }
+    ],
+    "providerEnvChecks": [
+      "compiled-explicit-provider-env-encrypted-no-plaintext",
+      "compiled-provider-env-wrong-key-missing-selection-no-mutation",
+      "compiled-unselected-provider-env-bytes-retained",
+      "compiled-provider-env-subset-vapid-pair-host-text-preserved",
+      "compiled-provider-env-business-claims-sessions-source-preserved",
+      "compiled-selected-provider-env-removal-unselected-values-retained",
+      "compiled-provider-env-offline-closed-handles"
+    ],
+    "providerEnvNativeExitCodes": [
+      {
+        "phase": "env-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "env-raw-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "env-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-gemini-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-vapid-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-absent-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "env-absent-restore",
+        "exitCode": 0
+      }
+    ],
+    "signingKeyChecks": [
+      "compiled-explicit-signing-key-encrypted-no-plaintext",
+      "compiled-signing-key-wrong-key-missing-selection-no-mutation",
+      "compiled-unselected-signing-key-retained",
+      "compiled-selected-signing-key-business-claims-sessions-preserved",
+      "compiled-selected-signing-key-removal-provider-env-retained",
+      "compiled-signing-key-offline-source-retained-closed-handles"
+    ],
+    "signingKeyNativeExitCodes": [
+      {
+        "phase": "signing-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-raw-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-missing-group",
+        "exitCode": 1
+      },
+      {
+        "phase": "signing-omitted",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-selected",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "signing-absent-restore",
+        "exitCode": 0
+      }
+    ],
+    "privateSettingsChecks": [
+      "compiled-explicit-settings-encrypted-no-plaintext",
+      "compiled-selected-settings-wrong-key-no-mutation",
+      "compiled-authenticated-invalid-snapshot-unwarmed-schema-rows-journal-files-preserved",
+      "compiled-selected-subset-unselected-settings-retained",
+      "compiled-private-settings-business-claims-session-preserved",
+      "compiled-private-settings-offline-source-retained-closed-handles"
+    ],
+    "privateSettingsNativeExitCodes": [
+      {
+        "phase": "selected-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-manifest",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-checksum",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-primary-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-migrations",
+        "exitCode": 1
+      },
+      {
+        "phase": "invalid-snapshot-credentials",
+        "exitCode": 1
+      },
+      {
+        "phase": "selected-restore",
+        "exitCode": 0
+      }
+    ],
+    "recoveryChecks": [
+      "compiled-recovery-whole-release-excluded",
+      "compiled-recovery-encrypted-no-key-plaintext",
+      "compiled-recovery-authentication-before-mutation",
+      "compiled-portable-restore-ids-finance-reward-media",
+      "compiled-recovery-no-claim-command-replay",
+      "compiled-recovery-native-handles-closed"
+    ],
+    "recoveryNativeExitCodes": [
+      {
+        "phase": "release-root-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "release-bin-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "release-ops-refusal",
+        "exitCode": 1
+      },
+      {
+        "phase": "encrypted-backup",
+        "exitCode": 0
+      },
+      {
+        "phase": "target-initialize",
+        "exitCode": 0
+      },
+      {
+        "phase": "wrong-key",
+        "exitCode": 1
+      },
+      {
+        "phase": "tampered-ciphertext",
+        "exitCode": 1
+      },
+      {
+        "phase": "portable-restore",
+        "exitCode": 0
+      }
+    ],
+    "encryptedRecoverySha256": "139b04c81dab85849f75cce5107a09edace25716bae3d012fcd05ba67eca3774"
+  }
+}

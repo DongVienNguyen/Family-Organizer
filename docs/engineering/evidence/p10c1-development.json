@@ -1,0 +1,241 @@
+{
+  "taskId": "P10-c1",
+  "baseSha": "8cf5ab0ad6dd656ae55edb525fe68a3f23cb26f8",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/109",
+  "scope": "pure bounded all-day calendar recurrence arithmetic/explicit-date normalization; no runtime writer wiring",
+  "cloudGreen": {
+    "tests": 4431,
+    "passed": 4431,
+    "files": 246,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4431,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4431,
+    "files": 246
+  },
+  "review": {
+    "task": "P10-c1",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "97743f9362a9076922d0eda90fa843565915acb1d4c73be316c0bc2e61c6ff5f",
+      "server/productivity/recurrence-calendar.test.ts": "5917a2d6f1ec31adc1a0dbb4c7f2e8901c83c6123fd286dc6fa1c2657ba0f29e",
+      "server/productivity/recurrenceCalendar.ts": "f8c9b6834d0f10e750f71e7c1e4f5cb3ad1a4d458e1867439c42039f275abb10",
+      "tests/evidence.test.ts": "2867cb498a7eafb171047da5025fbe22ee45eee7f8bf9332e1f2b795087cbce0",
+      "tests/recurrence-calendar-import.test.ts": "6a184e58c6ae9f6b808d7cc38a1eeac9d65669c76fde9fd963fe9ae64a6d2074"
+    },
+    "scope": "pure all-day calendar arithmetic and explicit date normalization; no persistence/wiring/activation",
+    "focus": [
+      "immutable ordinal anchor preserves cadence after clamp/skip",
+      "accepted UTC instant converted to named timezone for completion base",
+      "strict calendar/UTC/timezone/key/interval/ordinal bounds and supported years",
+      "local-day DST/skipped dates, finite expansion, no ambient clock",
+      "explicit dates sorted/deduplicated after bounded validation without mutation",
+      "cold import no storage/network; mandatory suite omissions fail gate"
+    ],
+    "remaining": [
+      "timed recurrence and DST wall-time policy",
+      "series/occurrence persistence, range previews, count/end/missed policies",
+      "skip/edit/rotation/durable materialization and completion writer cutover",
+      "full P10/P08/P09/later master tasks",
+      "no release/tag/VPS/Server2019 acceptance"
+    ],
+    "allFindingsGradedBeforeCorrection": true,
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Vitest array table destructuring did not pass explicit date arrays as intended, including oversized list",
+        "decision": "Correct table rows to objects; retain all invalid-input assertions. Original5REDs do not establish oversized-array rejection. No production logic change required."
+      }
+    ],
+    "importantRemaining": 0,
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "97743f9362a9076922d0eda90fa843565915acb1d4c73be316c0bc2e61c6ff5f",
+      "server/productivity/recurrence-calendar.test.ts": "2d3d5e3af2d6de373c404c3b2d38309948f507c0849050a98b5fe0ed2e7f82bf",
+      "server/productivity/recurrenceCalendar.ts": "f8c9b6834d0f10e750f71e7c1e4f5cb3ad1a4d458e1867439c42039f275abb10",
+      "tests/evidence.test.ts": "2867cb498a7eafb171047da5025fbe22ee45eee7f8bf9332e1f2b795087cbce0",
+      "tests/recurrence-calendar-import.test.ts": "6a184e58c6ae9f6b808d7cc38a1eeac9d65669c76fde9fd963fe9ae64a6d2074"
+    }
+  },
+  "composition": {
+    "sourceParentCandidateSha": "bb2ad2baaef4e9b5bbc47a84e434e4e887b502ae",
+    "p10SourceSha": "874347d",
+    "parentAcceptance": "PR108 merged after exactCI38835521046 all8/TENraw/132logs0unexpected",
+    "resolved": [
+      "tests/evidence.test.ts"
+    ],
+    "bothMandatoryInventoriesAndOmissionAssertionsPreserved": true,
+    "sourceUnion": "exact candidate files plus reviewed P10 helper/tests and two mandatory suites; no runtime source change",
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "6d7e51792edefbe691e3e5fdb38aa9b676a904b1791d1f40f95102aae615401a",
+      "tests/evidence.test.ts": "8f5085c0bc6294085267018330695f662c0e3ab17853f505d6975a5e6e0aa08b"
+    },
+    "acceptedMainSha": "8cf5ab0ad6dd656ae55edb525fe68a3f23cb26f8",
+    "acceptedMainTreeEqualsSourceParentCandidate": true,
+    "historyComposition": "ours strategy only after proving accepted main tree equals already included candidate and candidate is ancestor",
+    "beforeTree": "191686999ad5fb6b8d1c98838891a7ef2ccaf501",
+    "afterTree": "191686999ad5fb6b8d1c98838891a7ef2ccaf501",
+    "entireTreeUnchanged": true
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "6d7e51792edefbe691e3e5fdb38aa9b676a904b1791d1f40f95102aae615401a",
+      "server/productivity/recurrence-calendar.test.ts": "2d3d5e3af2d6de373c404c3b2d38309948f507c0849050a98b5fe0ed2e7f82bf",
+      "server/productivity/recurrenceCalendar.ts": "f8c9b6834d0f10e750f71e7c1e4f5cb3ad1a4d458e1867439c42039f275abb10",
+      "tests/evidence.test.ts": "8f5085c0bc6294085267018330695f662c0e3ab17853f505d6975a5e6e0aa08b",
+      "tests/recurrence-calendar-import.test.ts": "6a184e58c6ae9f6b808d7cc38a1eeac9d65669c76fde9fd963fe9ae64a6d2074"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "222c116f47d654f0e214e39428a508c0c295ecdcab6e9808a6e7876d9d493682",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p10c1-full.json": "756664dc85921492cd47a3b2264619926c528196f825f8c233e73f0ebc9c5e86",
+      "p10c1-full.junit.xml": "71ee770a5e4b85fcff96da27ad96d370b58becae408e77a9dafef4f481797030",
+      "p10c1-full.log": "0fbc449abaf8da7460a7c2edf68dbf0b8318b0a106fc24acf01809aaab37b2d4",
+      "p10c1-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "p10c1-build.log": "306bde4abe69e370776d98260f996ba7be344bee24ada508cb0e6ab33d5e63ef"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/TENraw/retained23ZIPchecks/28HTTP/100IPC/103firstattempt; no new native recurrence probe"
+  },
+  "reports": [
+    {
+      "file": "p10c1-calendar-green-first.json",
+      "sha256": "fe7e9bebcf6f1b149e4971696f0e1501d1d3343ddb59629905d0f02805f97cb3",
+      "tests": 26,
+      "passed": 26,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p10c1-calendar-red.json",
+      "sha256": "bf3e2010ca6c6b53854bf6a0065801d27dc0b41fa477669919f20d0eef124fdf",
+      "tests": 26,
+      "passed": 0,
+      "failed": 26,
+      "files": 1
+    },
+    {
+      "file": "p10c1-complete-target.json",
+      "sha256": "0f3a65267185a0164ba9f650f881458c236b9890b56e4e9312fc7a58fd24a05b",
+      "tests": 319,
+      "passed": 319,
+      "failed": 0,
+      "files": 3
+    },
+    {
+      "file": "p10c1-corrected-date-arrays.json",
+      "sha256": "8aa12fc606abfad09a97cc5afd9f7b51b4a17171d338c1644af9ca36ef4c2d41",
+      "tests": 33,
+      "passed": 33,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p10c1-explicit-dates-red.json",
+      "sha256": "d306e40df366f29c8af34f02bfe4146664da55fc6658ca0c5b459f34d28e473d",
+      "tests": 33,
+      "passed": 28,
+      "failed": 5,
+      "files": 1
+    },
+    {
+      "file": "p10c1-full.json",
+      "sha256": "756664dc85921492cd47a3b2264619926c528196f825f8c233e73f0ebc9c5e86",
+      "tests": 4431,
+      "passed": 4431,
+      "failed": 0,
+      "files": 246
+    },
+    {
+      "file": "p10c1-gate-corrected-fixture-red.json",
+      "sha256": "2df34a7d93ce760587b817d8bc083e4b38165b486ebddca464d1a9452f85d1ca",
+      "tests": 285,
+      "passed": 283,
+      "failed": 2,
+      "files": 1
+    },
+    {
+      "file": "p10c1-gate-red.json",
+      "sha256": "1ebaf882b581582442faad560e4af647e5670b00257642959a35b0d2fe80eb38",
+      "tests": 286,
+      "passed": 283,
+      "failed": 3,
+      "files": 2
+    },
+    {
+      "file": "p10c1-precomposition-full.json",
+      "sha256": "f6d4ec63bc25617256d9d18bcf90ee175b76082cade7f7006098262cae7878eb",
+      "tests": 4366,
+      "passed": 4366,
+      "failed": 0,
+      "files": 243
+    },
+    {
+      "file": "p10c1-target-green.json",
+      "sha256": "23b00427f551bb5ea2acf43096a7ad8d4eaed66de34480e100e43e48aff12b9b",
+      "tests": 312,
+      "passed": 312,
+      "failed": 0,
+      "files": 3
+    }
+  ],
+  "redRulings": {
+    "calendar": {
+      "tests": 26,
+      "passed": 0,
+      "failed": 26
+    },
+    "explicitDates": {
+      "tests": 33,
+      "passed": 28,
+      "failed": 5,
+      "limitation": "array table destructuring issue; these five REDs do not establish oversized-array rejection; corrected actual-array cases pass"
+    },
+    "initialGate": {
+      "tests": 286,
+      "passed": 283,
+      "failed": 3,
+      "fixtureMistake": "first suite changed broke existing ICS path assertion; retained assertion/order restored"
+    },
+    "correctedGate": {
+      "tests": 285,
+      "passed": 283,
+      "failed": 2,
+      "ruling": "actual omitted mandatory arithmetic/cold suite errors"
+    },
+    "precompositionFull": {
+      "tests": 4366,
+      "passed": 4366,
+      "files": 243,
+      "basis": "acceptedmainPR107 before PR108 source composition; not the current combined proof"
+    }
+  },
+  "remaining": [
+    "timed recurrence and DST wall-time policy",
+    "series/occurrence persistence, range previews, count/end/missed policies",
+    "skip/edit/rotation/durable materialization and completion writer cutover",
+    "full P10/P08/P09/later master tasks",
+    "no release/tag/VPS/Server2019 acceptance"
+  ],
+  "fullP10Accepted": false,
+  "runtimeWiringChanged": false,
+  "schemaMigrationDefaultActivationDependenciesChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}
