@@ -1,0 +1,22 @@
+{
+  "acceptedParentSha": "4c241d688a6c3a641f6fe0928d77646e42254227",
+  "acceptedParentPrUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/128",
+  "acceptedParentTestedSha": "fdbcd7adcfb63244fa7679c7f16b4ccfc1b477e3",
+  "acceptedParentRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38920813368",
+  "normalMergeSha": "e2e9570d9f6c4cab189445b7cd295237d92acefc",
+  "mergeStrategy": "ort; no conflicts, resets, force push or ours strategy",
+  "inheritedEditorChanges": [
+    "server/productivity/router.ts",
+    "server/productivity/seriesCommands.ts"
+  ],
+  "extraCompositionAssertion": "Real schema13 HTTP conversion resolves the selectedTask through the accepted editor GETseries contract with ordinal0",
+  "postCompositionQualification": "288tests/16files/matchingJUnit/native0/lint0/build0; complete newWindows still pending",
+  "extraCompositionAssertionPassed": true,
+  "allOther32ReviewedSourceHashesPreservedBeforeExtraAssertion": true,
+  "finalUnchangedReviewedSourceHashes": 31,
+  "finalChangedReviewedPaths": [
+    "server/productivity/legacy-cutover.api.test.ts",
+    "server/productivity/router.ts",
+    "server/productivity/seriesCommands.ts"
+  ]
+}

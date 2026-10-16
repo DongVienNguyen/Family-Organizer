@@ -1,6 +1,6 @@
 # Controlled legacy recurrence cutover — P10-d4c backend
 
-This is an explicit administrator pilot operation, not startup migration or production rollout. Default Productivity migration remains6. Frozen1–12 migrations/checksums/DDL stay unchanged; explicit13 adds `productivity_legacy_cutovers`. Full P10, the cutover UI and exact Windows qualification are still pending at this development checkpoint.
+This is an explicit administrator pilot operation, not startup migration or production rollout. Default Productivity migration remains6. Frozen1–12 migrations/checksums/DDL stay unchanged; explicit13 adds `productivity_legacy_cutovers`. Full P10, the cutover UI and exact Windows qualification are still pending at this development checkpoint. The accepted editor parent isPR128/main4c241d6; backend fullCloud5348/295 and post-composition288/16/matchingJUnit/native0/lint/build0 are recorded in the accompanying development evidence.
 
 The operator must first enable the complete pilot migration chain in a disposable synthetic installation. The runtime admits an already migrated13 installation without applying13 to older storage. Unknown14, checksum mismatch and drifted DDL fail closed. No release/tag, real family conversion, VPS or Server2019 qualification is authorized here.
 

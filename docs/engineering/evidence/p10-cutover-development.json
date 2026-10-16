@@ -11,7 +11,7 @@
     "server/productivity/groupedBoard.ts": "b18b7f9a3595efb51983215b8f401a26165613638c17a4c534393beaa8fd6a47",
     "server/productivity/inspection.ts": "d7fb44a2e4da48202842a14657ef4667a71d818bc092537333ad7041cede776c",
     "server/productivity/legacy-cutover-migration.test.ts": "4a0246fab177c9a38c8a20e436b82e3851af03e4c7d2f8d1a5ef726d45b27c6b",
-    "server/productivity/legacy-cutover.api.test.ts": "97e3b076714adc45d4df2c7fa730bd0bf072175179256f9bd2eaac28785dbe2e",
+    "server/productivity/legacy-cutover.api.test.ts": "27710aea240e47b5414e00edb9ec90e24d0a7333cf21ad4cfb281ed49ccf67fd",
     "server/productivity/legacy-cutover.test.ts": "05d72ebf30cb2ad410262be01324db09d6bd44333a6a9d9ba170d3232cc3fe7b",
     "server/productivity/legacyCutoverRecord.ts": "677788f4bd2fa2163405f9ffbe74d163e326c12f0088dfc23b720958b93e2f09",
     "server/productivity/legacyCutoverSchema.ts": "ed4210091b32600d3fe8eb6064c18f1fc07ae9da1f18e421236ca44d6b77002b",
@@ -23,9 +23,9 @@
     "server/productivity/recurrenceAccepted.ts": "d6a3139720661171b1a9a3d5591e03980dadfddb7557070ed4f2cafa48906518",
     "server/productivity/recurrenceMaterialize.ts": "9e85d137b1151c630e9ef7e56ef4075f571352c3e315270e8a32a9f1dbdf4fad",
     "server/productivity/recurrencePreview.ts": "717f2613ff947edfd205d15e7612248585150bc1653facd73265e56bbed86627",
-    "server/productivity/router.ts": "9062b34a6038758588d791765235456e3463c1a40aff01ddcd26f6a0c465cc88",
+    "server/productivity/router.ts": "60da24936fd6795a43aa038e3850d8e321a3d2d081bb4e48de9aefc32f67aa46",
     "server/productivity/sectionBoards.ts": "188923940a06a03470f42f40c99463af2fe564846c79a0be38dac5b7040e724e",
-    "server/productivity/seriesCommands.ts": "f088444806556d92b7f39f766f217fc5322c2213d98b3fa1f24e8b29e7a6ee7b",
+    "server/productivity/seriesCommands.ts": "000d96f427c6108756089dbfcc8523262f45996c4dd79b2caa9bdc5114381745",
     "server/productivity/seriesRecord.ts": "0ec30551f44e9aa214670456ef5398c08163ae552d969dd235e8bb55289c0b82",
     "server/productivity/seriesStore.ts": "c3d93cc0ae50cbf423ee38dc4378df137f39011ee6c57403e012c8e983a797cc",
     "server/productivity/snapshot.ts": "8cd7adc772f92d7fabd6063b842d956240b65a6775e9ac53eb58f94733bdd2d9",
@@ -38,7 +38,7 @@
     "server/sqlite.ts": "185f6de8a8edc41d37bc75eb3535bc8b075a071a62f64fc971474d4164f5f74d",
     "tests/legacy-cutover-recovery-native.test.ts": "66188e856142f2852eafd04c4b300627aa97bce6aac0a8464e784f8099b1554a"
   },
-  "sourceAggregateSha256": "24659e480e5c099ef83e0011ad0b1ff27044a8ccce1ada8a061c05f6298a875e",
+  "sourceAggregateSha256": "54b630d4da88bba0d0bbd04d72b9f8dff51536c699754a2f53cfa1cf3abba1c3",
   "review": {
     "kind": "LOCAL whole-branch SELF-review; no fresh independent reviewer claimed",
     "critical": 0,
@@ -171,13 +171,33 @@
     "buildExit": 0,
     "qualityNativeExitSha256": "3a138c39aa1682122eb7e24ad41169de97daf595d93dacfda51696243e18d179"
   },
-  "compositionChangedPaths": [],
-  "compositionQualification": "pending accepted editor merge; no parent from an unaccepted branch",
+  "compositionChangedPaths": [
+    "server/productivity/legacy-cutover.api.test.ts",
+    "server/productivity/router.ts",
+    "server/productivity/seriesCommands.ts"
+  ],
+  "compositionQualification": {
+    "tests": 288,
+    "passed": 288,
+    "files": 16,
+    "junitTests": 288,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "nativeNpmExit": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "jsonSha256": "60b42eb222bbbb1f9992d65b9889d885bdea50cefd29d12923b73e16576322cc",
+    "junitSha256": "52c82c49642897dc3915b80b602e22b375f902016c3a7b3ffdf4de8f7fc2e848",
+    "logSha256": "e11d156d7f2cbeecee016631077b83038859f726999c9591684e6331e11e42f4",
+    "lintLogSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "buildLogSha256": "761ec67c71a9b47a631fe3104402a013c9001d806a190796ae071892dfa88080"
+  },
   "defaultMigration": 6,
   "explicitPilotMigration": 13,
   "frozen1Through12Preserved": true,
   "automaticUpgrade": false,
-  "browserFixtureVersion": 9,
+  "browserFixtureVersion": 12,
   "expectedPostEditorWindows": {
     "qualityEach": 5387,
     "filesEach": 297,
@@ -198,5 +218,8 @@
   "controlledCutoverUi": "pending follow-on slice",
   "actual13ZipQualification": "not-run",
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "acceptedParentSha": "4c241d688a6c3a641f6fe0928d77646e42254227",
+  "acceptedParentPrUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/128",
+  "acceptedParentRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38920813368"
 }
