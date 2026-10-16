@@ -1,0 +1,63 @@
+{
+  "taskId": "F09-main111",
+  "testedHeadSha": "1f539ac9fcd75372e6f9d44b143b1f5093fa7c74",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38843401022",
+  "qualityEach": 4467,
+  "qualityFilesEach": 248,
+  "rawValidators": 11,
+  "summaryHashes": {
+    "quality": "d82fa95a7b2f655410484e282d09c24f552e25517b7569a8104f97dbd5d55326",
+    "coverage": "a80c9a460d07992e39fc5b31888a61f2bf1a0a13fd61a8fced8243408c027ca6",
+    "package": "ed6d4dde7b369676c82eb72ddbd1bc2625dc43f8a8bdc13871ab8280acc62109",
+    "service": "bf11cb466a835996927b92ed8cc81ec54816b13e132d17828f1c41a35d138302",
+    "caddy": "7421a6a24317c95f6852eaebe4063ffd7f2174882fcc3f728c46cbac125e8dcc",
+    "extraction-sdk": "d8aa6614520b2c02e8af968e3acd06ac6195dce11795814c60957bae78a619ff",
+    "inner-native": "e716aba5b609e57fb132bc3c294384827a32e0b9c8b3520127e0a48be8dd276f",
+    "browser": "44e7e21cd1aaff68a79a69543765dd2e179bb45bafb97edecdd84dab9073d007",
+    "productivity-browser": "515f790ab5cc77fce9c171493c02148d21b8ae0313815dbee90d7631c49f2b96",
+    "board-package": "ff5e1842388f6645b44db19be2232e0cd44b248996c229c67a4f5902be5b42be",
+    "port-policy": "6cd65d96371835f34c7b0bc58385ec4f1d64f76ac4ea32b99f004a3cb0643b33"
+  },
+  "fullLogs": {
+    "files": 132,
+    "lines": 23936,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  },
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ]
+}

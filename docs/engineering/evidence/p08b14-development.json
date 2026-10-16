@@ -1,0 +1,291 @@
+{
+  "taskId": "P08-b14",
+  "baseSha": "33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/114",
+  "scope": "one selected-field + optional grouped rank plan committed atomically under I01",
+  "cloudGreen": {
+    "tests": 4574,
+    "passed": 4574,
+    "files": 252,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4574,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4574,
+    "files": 252
+  },
+  "review": {
+    "task": "P08-b14",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "a43ad9a4d117c3933213be058932e551e02a31af1b9e5c0005d9b05df1460296",
+      "scripts/windows/board-package-contract.mjs": "7e1cb6bca5da2ccdbeb9f599bf2d812385c8dc53686e8a8c3147de9dbc0c6074",
+      "scripts/windows/probe-board-package.mjs": "08ff51f77ba59a7d11e786eeb97bd54f34e7d0d64be7178bbb3a58d16ff8efd3",
+      "scripts/windows/release-board-source-policy.mjs": "b4dba59e618408db4529440b1ca40737a66e008919a291fbb5579f8c53d67333",
+      "scripts/windows/release-consumer-reports.mjs": "16dbd8231494642985f43d54f70543c547435e9e5ae28cf4a55e3a73677e5f93",
+      "server/productivity/boardRouter.ts": "61cfaeb77c22b8a131f2dadbd3cd55a433a7680f87bb39e3cb34910f32d46174",
+      "server/productivity/grouped-board-atomic.api.test.ts": "f9b6ba8cc7787e15b957a3b6204f4edd73a910d28ec7f0c122db5faa0a34f714",
+      "server/productivity/grouped-board-atomic.test.ts": "c2edd28eef72664b8e9245411565ad3a5e7df4b72b4aa732ba01d19372402098",
+      "server/productivity/groupedBoardMoves.ts": "412c57c63678826cd3d907b2594844c3cee0ec2286ebe24b1a3ee49733b05986",
+      "tests/board-package-evidence.test.ts": "f22e0912748e46361cf07e2404fe0f8497d35a398200e6eac5e8231ad4cfa0a6",
+      "tests/evidence.test.ts": "b2cfe0a32c49c12ac2414ec7f598539dbe10b0204926fd8883613cde2346be45",
+      "tests/grouped-rank-import.test.ts": "463344a357b5d2a6a83b2413c0e5a8ebfc127999cefce3661dafef5608a4794d",
+      "tests/helpers/board-package-fixture.ts": "475fc165213feb2aa63c61deac8cac2f2b42b55a5d4982f0f0adbb69e8078d1b",
+      "tests/release-consumer-reports.test.ts": "999a500d2d0a0b8caa3189d486e10faae15f873b2b88f8b02b45c0ea3b17a8b2",
+      "tests/release-source-policy.test.ts": "7463918fd2091bf85f81bb8a70dc8077b24c0b56c45fe15191a89c4cf4d22a74"
+    },
+    "focus": [
+      "Current actor/list/Task/tag authorization before cached UUID and inside I01",
+      "Scalar admission before preview Task decoding; exact owned view and rank sort",
+      "Server-derived destination and visible anchor; filtered-out rank refusal",
+      "Task/view/all-visible-facts/rank fingerprints, board revision and current day",
+      "Canonical writer plus complete rank rebalance in one transaction; current board revision once",
+      "Preserved physical columns and canonical shared order; no lifecycle/rewards/notifications",
+      "HTTP catalog-only signal for rank-only writes; post-failure no event",
+      "Exact22/23/24 target-Git capabilities and strict current24 default, no target execution",
+      "Native ZIP actual atomic write/clock/UUID/restart/restore and child-private refusal"
+    ],
+    "rulings": [],
+    "developmentErrorsPreserved": [
+      "Original10-case RED includes one invalid rootsOnly fixture and a tag intent missing source; do not claim all10 causal. Other8 new cases rejected old unknown beforeTaskId400, including positive atomicity/rollback/digest cases.",
+      "Initial HTTP expectations assumed before-anchor must change numeric rank; fixture used already-correct physical order. New actual append fixture checks effective rank change without weakening production assertions",
+      "First contract edit script asserted mismatching source text before any writes; no source mutation on failure",
+      "First contract target fixture lacked independent24th check; corrected fixture inventory, retained old22/23 cases",
+      "First lint lacked required rootsOnly in two NEW fixtures; fixed fixtures only"
+    ],
+    "remaining": [
+      "Exact-HEAD Windows8checks/11raw/24native checks/29HTTP/103firstattempt and full logs pending",
+      "Full P08 UI integration/multi-group drag and later master tasks unfinished",
+      "Server2019/R02 unrun; publication/release/tag/VPS forbidden"
+    ],
+    "verificationFinding": {
+      "severity": "Important",
+      "source": "first complete Cloud run:4530tests/4528passed/2failed",
+      "finding": "collector normalizer positive fixture supplies current24 inventory without atomic capability; old22 fixture now pops only24->23 while claiming groupedRanks false",
+      "decision": "One fixture-only correction: bind current24 atomic capability; keep exact old22 via explicit splice22 with no new capability; add distinct23 normalization and atomic receipt mismatch rejection. Preserve every original normalizer assertion and production failclosed checks.",
+      "allFindingsGradedBeforeCorrection": true,
+      "correctionPasses": 1,
+      "rereview": false,
+      "correctionGreen": {
+        "tests": 412,
+        "allPassed": true
+      }
+    },
+    "postVerificationCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "a43ad9a4d117c3933213be058932e551e02a31af1b9e5c0005d9b05df1460296",
+      "scripts/windows/board-package-contract.mjs": "7e1cb6bca5da2ccdbeb9f599bf2d812385c8dc53686e8a8c3147de9dbc0c6074",
+      "scripts/windows/probe-board-package.mjs": "08ff51f77ba59a7d11e786eeb97bd54f34e7d0d64be7178bbb3a58d16ff8efd3",
+      "scripts/windows/release-board-source-policy.mjs": "b4dba59e618408db4529440b1ca40737a66e008919a291fbb5579f8c53d67333",
+      "scripts/windows/release-consumer-reports.mjs": "16dbd8231494642985f43d54f70543c547435e9e5ae28cf4a55e3a73677e5f93",
+      "server/productivity/boardRouter.ts": "61cfaeb77c22b8a131f2dadbd3cd55a433a7680f87bb39e3cb34910f32d46174",
+      "server/productivity/grouped-board-atomic.api.test.ts": "f9b6ba8cc7787e15b957a3b6204f4edd73a910d28ec7f0c122db5faa0a34f714",
+      "server/productivity/grouped-board-atomic.test.ts": "c2edd28eef72664b8e9245411565ad3a5e7df4b72b4aa732ba01d19372402098",
+      "server/productivity/groupedBoardMoves.ts": "412c57c63678826cd3d907b2594844c3cee0ec2286ebe24b1a3ee49733b05986",
+      "tests/board-package-evidence.test.ts": "f22e0912748e46361cf07e2404fe0f8497d35a398200e6eac5e8231ad4cfa0a6",
+      "tests/evidence.test.ts": "b2cfe0a32c49c12ac2414ec7f598539dbe10b0204926fd8883613cde2346be45",
+      "tests/grouped-rank-import.test.ts": "463344a357b5d2a6a83b2413c0e5a8ebfc127999cefce3661dafef5608a4794d",
+      "tests/helpers/board-package-fixture.ts": "475fc165213feb2aa63c61deac8cac2f2b42b55a5d4982f0f0adbb69e8078d1b",
+      "tests/release-collector-evidence.test.ts": "74a71b4f8a145476ec948ee1c342e74f3d902134c6d613d562c22ddeb76f760a",
+      "tests/release-consumer-reports.test.ts": "999a500d2d0a0b8caa3189d486e10faae15f873b2b88f8b02b45c0ea3b17a8b2",
+      "tests/release-source-policy.test.ts": "7463918fd2091bf85f81bb8a70dc8077b24c0b56c45fe15191a89c4cf4d22a74"
+    }
+  },
+  "composition": {
+    "parentCandidateSha": "91a61734987fa56388b2e15debb54b5437153c32",
+    "parentAcceptance": "PR113 accepted CI38844853923; API/Git trees equal; entire tested tree unchanged after history composition",
+    "sourceCommit": "6641f23cc75168123d12c1fa7852e4483518a199",
+    "gateUnionPreservesBothInventoriesAndOmissionAssertions": true,
+    "conflicts": [
+      "tests/evidence.test.ts"
+    ],
+    "compositionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "95819309604fee54fb8242c6ad0e77cd70a5600b33d3640a53788af2b7810aba",
+      "tests/evidence.test.ts": "378933e60a320401005159793fd1b788e9d9775d8f202a0db225c186fa699e33"
+    },
+    "independentlyReviewedSourceUnchanged": true,
+    "acceptedMainSha": "33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28",
+    "acceptedMainCompositionTreeUnchanged": true
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "95819309604fee54fb8242c6ad0e77cd70a5600b33d3640a53788af2b7810aba",
+      "scripts/windows/board-package-contract.mjs": "7e1cb6bca5da2ccdbeb9f599bf2d812385c8dc53686e8a8c3147de9dbc0c6074",
+      "scripts/windows/probe-board-package.mjs": "08ff51f77ba59a7d11e786eeb97bd54f34e7d0d64be7178bbb3a58d16ff8efd3",
+      "scripts/windows/release-board-source-policy.mjs": "b4dba59e618408db4529440b1ca40737a66e008919a291fbb5579f8c53d67333",
+      "scripts/windows/release-consumer-reports.mjs": "16dbd8231494642985f43d54f70543c547435e9e5ae28cf4a55e3a73677e5f93",
+      "server/productivity/boardRouter.ts": "61cfaeb77c22b8a131f2dadbd3cd55a433a7680f87bb39e3cb34910f32d46174",
+      "server/productivity/grouped-board-atomic.api.test.ts": "f9b6ba8cc7787e15b957a3b6204f4edd73a910d28ec7f0c122db5faa0a34f714",
+      "server/productivity/grouped-board-atomic.test.ts": "c2edd28eef72664b8e9245411565ad3a5e7df4b72b4aa732ba01d19372402098",
+      "server/productivity/groupedBoardMoves.ts": "412c57c63678826cd3d907b2594844c3cee0ec2286ebe24b1a3ee49733b05986",
+      "tests/board-package-evidence.test.ts": "f22e0912748e46361cf07e2404fe0f8497d35a398200e6eac5e8231ad4cfa0a6",
+      "tests/evidence.test.ts": "378933e60a320401005159793fd1b788e9d9775d8f202a0db225c186fa699e33",
+      "tests/grouped-rank-import.test.ts": "463344a357b5d2a6a83b2413c0e5a8ebfc127999cefce3661dafef5608a4794d",
+      "tests/helpers/board-package-fixture.ts": "475fc165213feb2aa63c61deac8cac2f2b42b55a5d4982f0f0adbb69e8078d1b",
+      "tests/release-collector-evidence.test.ts": "74a71b4f8a145476ec948ee1c342e74f3d902134c6d613d562c22ddeb76f760a",
+      "tests/release-consumer-reports.test.ts": "999a500d2d0a0b8caa3189d486e10faae15f873b2b88f8b02b45c0ea3b17a8b2",
+      "tests/release-source-policy.test.ts": "7463918fd2091bf85f81bb8a70dc8077b24c0b56c45fe15191a89c4cf4d22a74"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "f47ab299325c6d88cf29fb727ef502bca6c82ce67fcd803006621f4c122da44d",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p08b14-full.json": "7ed843f1ffc88194daa3a872fb4eabacd925c3605fb834049a8b2119b52d4c28",
+      "p08b14-full.junit.xml": "f1e89dfcf9e188b294062fce48baaa6ff982ed8da6a6267de1bbe3f380edab13",
+      "p08b14-full.log": "ce74af38954c66f0de4db275f4728692cf1c2a503044918ca21201584cc242f3",
+      "p08b14-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p08b14-build.log": "3a0c5132ede497e4a8bb302328cfbf5e35ec838a3eb0a4abaaba6bf95b69fcf9"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/ELEVENraw/24ZIPchecks/29HTTP/100IPC/103firstattempt"
+  },
+  "reports": [
+    {
+      "file": "p08b14-atomic-first-green.json",
+      "sha256": "873cc16398284dc314ad5ace719f0c900c2217d89d1bf2ad8d4911ca7b86d0eb",
+      "tests": 32,
+      "passed": 31,
+      "failed": 1,
+      "files": 2
+    },
+    {
+      "file": "p08b14-atomic-red.json",
+      "sha256": "fc1c106fe39f9ca8e6610096fb16a150a0f32402fc6a819bb0ac9cefd3797498",
+      "tests": 10,
+      "passed": 0,
+      "failed": 10,
+      "files": 1
+    },
+    {
+      "file": "p08b14-atomic-target.json",
+      "sha256": "f36f555fccbece7e31bf294ff78f4db9f8b084e68a75748ee8799b939636a8ac",
+      "tests": 55,
+      "passed": 55,
+      "failed": 0,
+      "files": 3
+    },
+    {
+      "file": "p08b14-collector-correction.json",
+      "sha256": "5407830a458790076536de91c7ea4d1f851043802cad37a999117c77551f1995",
+      "tests": 412,
+      "passed": 412,
+      "failed": 0,
+      "files": 4
+    },
+    {
+      "file": "p08b14-contract-new-target.json",
+      "sha256": "4c006377c4e241a07aeecfeb9ddb6a9058fb0b8f8a0dc1524d8a3dfca6166e74",
+      "tests": 342,
+      "passed": 339,
+      "failed": 3,
+      "files": 3
+    },
+    {
+      "file": "p08b14-contract-target.json",
+      "sha256": "ce41c3bce133e2cfcfe116bcbe432814b19741daa31ca1411d9d5337475b25d6",
+      "tests": 325,
+      "passed": 325,
+      "failed": 0,
+      "files": 3
+    },
+    {
+      "file": "p08b14-first-full-failure.json",
+      "sha256": "7ea2e340f9e3af0127155e283e9001d9e3ea683ce002778a3d30a3ab1b7f7a8b",
+      "tests": 4530,
+      "passed": 4528,
+      "failed": 2,
+      "files": 251
+    },
+    {
+      "file": "p08b14-full.json",
+      "sha256": "7ed843f1ffc88194daa3a872fb4eabacd925c3605fb834049a8b2119b52d4c28",
+      "tests": 4574,
+      "passed": 4574,
+      "failed": 0,
+      "files": 252
+    },
+    {
+      "file": "p08b14-gate-red.json",
+      "sha256": "1cf341e999a938a78795fd063a94e8b6118631de1665d6d8a66d2dad23b93771",
+      "tests": 293,
+      "passed": 291,
+      "failed": 2,
+      "files": 1
+    },
+    {
+      "file": "p08b14-http-contract.json",
+      "sha256": "e2f9e30c959892fb23438e664eefe209c5f2fd65ba9e224cd8a08b217eec0652",
+      "tests": 350,
+      "passed": 349,
+      "failed": 1,
+      "files": 5
+    },
+    {
+      "file": "p08b14-http-green.json",
+      "sha256": "a14270326470312259ee69bf8af2cfe8269b26a7ed0d0979477f89c9839791c4",
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p08b14-old-proof-red.json",
+      "sha256": "1519611b821676ea650b644a0a28e69844aec4a4bae8153ec6e7dd6cd771de0b",
+      "tests": 117,
+      "passed": 116,
+      "failed": 1,
+      "files": 1
+    },
+    {
+      "file": "p08b14-target-combined.json",
+      "sha256": "7033427c0ec26cc08fe597f26878829ff0de0ffa00012551cc29f8331aa9f4b3",
+      "tests": 657,
+      "passed": 656,
+      "failed": 1,
+      "files": 7
+    }
+  ],
+  "redRulings": {
+    "initialDomain": {
+      "tests": 10,
+      "passed": 0,
+      "failed": 10,
+      "invalidFixtures": 2,
+      "ruling": "Do not claim all10 causal; valid remaining8 reject unknown beforeTaskId400 before new behavior. New tag source/rootOnly fixtures corrected before SELF review."
+    },
+    "mandatoryGate": {
+      "tests": 293,
+      "passed": 291,
+      "failed": 2
+    },
+    "oldReportCannotQualifyCurrent": {
+      "tests": 117,
+      "passed": 116,
+      "failed": 1
+    }
+  },
+  "remaining": [
+    "Exact-HEAD Windows8checks/11raw/24native checks/29HTTP/103firstattempt and full logs pending",
+    "Full P08 UI integration/multi-group drag and later master tasks unfinished",
+    "Server2019/R02 unrun; publication/release/tag/VPS forbidden"
+  ],
+  "fullP08Accepted": false,
+  "schemaMigrationDefaultActivationDependenciesChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}
