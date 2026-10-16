@@ -1,3 +1,4 @@
+import {hasLegacyRecurrenceLineage} from './legacyRecurrenceFamily.js';
 import {utcInstant} from '../../src/features/productivity/dates.js';
 import {createHash,randomUUID} from 'node:crypto';
 import {UserRole} from '../../src/types.js';
@@ -18,7 +19,7 @@ export function createRecurrenceSeriesStore(ports:{reader:TaskReader;write:typeo
  const context=(reader:TaskReader,ctx:AppCommand)=>{
   const user=assertContext(ctx,reader);
   if(![UserRole.ADMIN,UserRole.MEMBER].includes(user.role))fail(403,'Cần người lớn quản lý lịch lặp.');
-  if(![10,11,12].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration series trước khi dùng.');
+  if(![10,11,12,13].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration series trước khi dùng.');
  };
  const task=(reader:TaskReader,ctx:AppCommand,id:string)=>{context(reader,ctx);return createTaskAccess(reader).assertTaskCommand(ctx.actor,id,'update');};
  const series=(reader:TaskReader,ctx:AppCommand,id:string)=>{
@@ -37,10 +38,11 @@ export function createRecurrenceSeriesStore(ports:{reader:TaskReader;write:typeo
    const result=run(ctx,'create',{taskId,expectedTaskRevision:ctx.expectedRevision,policy},tx=>{
     const source=task(tx,ctx,taskId);
     if(source.revision!==ctx.expectedRevision)fail(409,'Công việc vừa thay đổi.');
+    if(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version===13&&hasLegacyRecurrenceLineage(tx,taskId))fail(409,'Cần chuyển lịch lặp cũ qua quy trình nghiệm thu riêng.');
     if(source.parentId!==null||source.pendingApproval||!['todo','in_progress'].includes(source.lifecycle))fail(422,'Chỉ tạo lịch lặp từ công việc gốc đang thực hiện.');
     if(source.legacy.recurrenceType&&source.legacy.recurrenceType!=='none')fail(409,'Cần chuyển lịch lặp cũ qua quy trình nghiệm thu riêng.');
     if(tx.get('SELECT id FROM productivity_series WHERE task_id=?',taskId))fail(409,'Công việc đã có lịch lặp.');
-    if([11,12].includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)&&tx.get('SELECT task_id FROM productivity_series_occurrences WHERE task_id=?',taskId))fail(409,'Kỳ đã thuộc một lịch lặp.');
+    if([11,12,13].includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)&&tx.get('SELECT task_id FROM productivity_series_occurrences WHERE task_id=?',taskId))fail(409,'Kỳ đã thuộc một lịch lặp.');
     if(policy.base==='due'&&source.due.kind==='none'||source.due.kind!=='none'&&source.due.timezone!==policy.timezone)fail(422,'Mốc hạn chót và múi giờ không khớp.');
     for(const id of policy.rotationMembers)if(!tx.legacy.users.some(user=>user.id===id&&!user.isDeleted&&Object.values(UserRole).includes(user.role)))fail(422,'Thành viên luân phiên không hợp lệ.');
     const origin=policy.rotationMembers.findIndex(id=>id===source.assigneeId),rotationCursor=origin>=0?origin:Math.max(0,policy.rotationMembers.length-1);

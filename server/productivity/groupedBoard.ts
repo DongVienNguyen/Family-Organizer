@@ -27,7 +27,7 @@ export function createGroupedBoardProjection(ports:{reader:TaskReader;views:{get
   const config=view.config;if(config.kind!=='kanban'||config.boardId===undefined) return fail(422,'Góc nhìn chưa liên kết bảng chuẩn.');
   const board=resolveBoardReference(reader,actor,config.boardId,config.mode);
   if(!['priority','assignee','due','tag'].includes(config.group))return fail(422,'Cách nhóm hoặc sắp xếp chưa được hỗ trợ.');
-  if(config.group==='tag'&&![9,10,11,12].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration nhóm thẻ trước khi đọc.');
+  if(config.group==='tag'&&![9,10,11,12,13].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration nhóm thẻ trước khi đọc.');
   const kind=config.group as BoardGroupKind,current=now(),prior=input.cursor===undefined?null:open(input.cursor),clock=prior?.clock??{nowUtc:new Date(current).toISOString(),timezone:input.timezone??'Asia/Saigon'};
   if(prior&&(utcInstant(clock.nowUtc)>current||utcInstant(clock.nowUtc)+boardReadLimits.ttlMs<=current||input.timezone!==undefined&&input.timezone!==clock.timezone))fail(409,'Trang nhóm đã hết hạn; tải lại bảng.');
   const {revision,rows,tasksById,ordering}=admitted.read(actor,view,board,kind,clock,{maxRows,maxBytes});

@@ -78,8 +78,8 @@ const recurringMedia=new WeakMap<AppWriteTx,Map<string,{sourceId:string;urls:Set
  * create this permission. Proof images are deliberately not inherited. */
 export function allowRecurringTaskMedia(tx:AppWriteTx,source:Task,successor:Task,actor:LegacyActor,durableSeriesId?:string):void {
  const version=durableSeriesId===undefined?0:tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version;
- const accepted=durableSeriesId!==undefined&&[11,12].includes(version)&&!!tx.get("SELECT task_id FROM productivity_series_occurrences WHERE series_id=? AND task_id=? AND state='accepted'",durableSeriesId,source.id);
- const skipped=durableSeriesId!==undefined&&version===12&&!!tx.get('SELECT task_id FROM productivity_occurrence_skips WHERE series_id=? AND task_id=?',durableSeriesId,source.id),durable=accepted||skipped;
+ const accepted=durableSeriesId!==undefined&&[11,12,13].includes(version)&&!!tx.get("SELECT task_id FROM productivity_series_occurrences WHERE series_id=? AND task_id=? AND state='accepted'",durableSeriesId,source.id);
+ const skipped=durableSeriesId!==undefined&&[12,13].includes(version)&&!!tx.get('SELECT task_id FROM productivity_occurrence_skips WHERE series_id=? AND task_id=?',durableSeriesId,source.id),durable=accepted||skipped;
  if(!canEditLegacyTask(source,actor)||!(source.status==='completed'||skipped&&source.status==='wont_do')||(!durable&&(!source.recurrenceType||source.recurrenceType==='none'))||source.description!==successor.description||successor.proofImage||successor.id===source.id||tx.legacy.tasks.some(task=>task.id===successor.id))throw new AppStoreError('Không được gắn tệp này.',403);
  const permits=recurringMedia.get(tx)??new Map();permits.set(successor.id,{sourceId:source.id,urls:new Set(managedMarkdownUrls(String(source.description??'')))});recurringMedia.set(tx,permits);
 }

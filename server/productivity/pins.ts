@@ -8,7 +8,7 @@ import {createTaskAccess,taskScope,type TaskReader} from './access.js';
 import {assertContext} from './tasks.js';
 export interface TaskPin {taskId:string;pinned:boolean;revision:number}
 function context(ctx:AppCommand,reader:TaskReader,id?:string):void {
- assertContext(ctx,reader);if(![4,5,6,7,8,9,10,11,12].includes(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Cần migration ghim công việc trước khi dùng.',409,'task-pins-inactive');
+ assertContext(ctx,reader);if(![4,5,6,7,8,9,10,11,12,13].includes(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Cần migration ghim công việc trước khi dùng.',409,'task-pins-inactive');
  if(id!==undefined){try{text(id,256);}catch{throw new AppStoreError('Mã công việc không hợp lệ.',400,'task-pin');}if(!createTaskAccess(reader).getTask(ctx.actor,id))throw new AppStoreError('Không tìm thấy công việc.',404,'task-not-found');}
 }
 function current(reader:TaskReader,actor:AppActor,id:string):TaskPin {const row=reader.get('SELECT is_pinned,revision FROM productivity_task_pins WHERE user_id=? AND task_id=?',actor.userId,id);return {taskId:id,pinned:!!row?.is_pinned,revision:row?.revision??0};}

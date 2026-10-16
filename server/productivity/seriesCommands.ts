@@ -22,7 +22,7 @@ export interface SkipResult {task:TaskRecord;actualColumn:'wont_do';approvalNeed
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'series-command');};
 export function createSeriesCommands(ports:{reader:TaskReader;write:typeof withAppWriteTransaction;legacy:Pick<typeof FamilyDB,'saveTask'>;now?:()=>number;afterWrite?():void}){
  const eventReferences=new WeakMap<SkipResult,string[]>();
- const authority=(reader:TaskReader,ctx:AppCommand,id:string)=>{const user=assertContext(ctx,reader);if(![UserRole.ADMIN,UserRole.MEMBER].includes(user.role))fail(403,'Cần người lớn quản lý kỳ lặp.');try{text(id,256);}catch{fail(400,'Mã kỳ lặp không hợp lệ.');}if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version!==12)fail(409,'Cần migration quyết định kỳ lặp.');return {user,task:createTaskAccess(reader).assertTaskCommand(ctx.actor,id,'update')};};
+ const authority=(reader:TaskReader,ctx:AppCommand,id:string)=>{const user=assertContext(ctx,reader);if(![UserRole.ADMIN,UserRole.MEMBER].includes(user.role))fail(403,'Cần người lớn quản lý kỳ lặp.');try{text(id,256);}catch{fail(400,'Mã kỳ lặp không hợp lệ.');}if(![12,13].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration quyết định kỳ lặp.');return {user,task:createTaskAccess(reader).assertTaskCommand(ctx.actor,id,'update')};};
  return {
   spawnedForEvents(result:SkipResult):string[]{return [...(eventReferences.get(result)??[])];},
   editSeries(ctx:AppCommand,id:string,scope:'this'|'future'|'all',input:unknown):SeriesEditResult {
