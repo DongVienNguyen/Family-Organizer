@@ -1,0 +1,132 @@
+{
+  "taskId": "CI-OPT-01",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/123",
+  "testedHeadSha": "bb89464940bb8745cb435792a7d36c0d54d1431f",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38882651606",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "50deda7199bafbe5c2f413814e4abe20fb3dcd6971232a7beac7fca91638b639",
+    "coverage": "854a94e91830fda44bc6705d4b04b79b9c2eb27aad8858d11d81ab4a394f8919",
+    "package": "7e58c907897d16c2be5f206e2ae59bda6e17556d90cc45e73792e4421bed1ece",
+    "service": "051f9763da445387d780042a594d7af9494b6b0e2ab08e754bed78e6754b5edd",
+    "caddy": "26b18be2178518a2479522793b68d1d6beec072b582325c9083ae4ce3dace366",
+    "extraction-sdk": "4b9ce81949a82be75468388535639aefa04aa16a0c3234d8bb6b37eb37b85fe5",
+    "inner-native": "1bb9557f4fb68950ffb26d7678186bc4ba6e5537d81deade5140ccc2425ad5ac",
+    "browser": "744c1fb1c82332e3d0beb912834279e9227c03b38814cd010522e75c7138192b",
+    "productivity-browser": "bb26f7d18f62b45ae7a5ffeb39a85d43ea7c5f58ed869720ca9f7c68957738b5",
+    "board-package": "b96e16ac5e0b4e4cf4e0d68013e5ae07c554f41b89c0d938df3e3dd3abb8d537",
+    "port-policy": "26129f15bcfbf41aacaaa58a01c74b56b9a9e3110c3cb79e94fac1fcf096ce8c"
+  },
+  "qualityEach": 4938,
+  "qualityFilesEach": 268,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 78,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "review": {
+    "taskId": "CI-OPT-01",
+    "review": "ONE SELF",
+    "status": "closed",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "scope": [
+      ".github/workflows/ci.yml",
+      "scripts/ci/wait-productivity-producers.mjs",
+      "tests/productivity-ci-layout.test.ts"
+    ],
+    "sourceHashes": {
+      ".github/workflows/ci.yml": "bda69faa4391590f6b012b932cec2fcb748e30d015195d95f68eb31289bdb476",
+      "scripts/ci/wait-productivity-producers.mjs": "34a30467102a26dfa67c1e9ff00e596ccf9967a5af4cc950a3222cafd230c982",
+      "tests/productivity-ci-layout.test.ts": "52899926d40c09e0e37de1c232c407cce4fc134b62ba4743f3035fc4410f9944"
+    },
+    "checks": [
+      "Independent WebKit start; all original job/artifact names retained",
+      "Read-only same repository/run/SHA/attempt producer barrier; terminal non-success fails closed",
+      "No workflow dispatch/retry/mutation endpoint; token scoped to single step and never logged",
+      "Immediate native exit capture; original test and job deadlines and mandatory ci-gate unchanged",
+      "Original blob/JSON/JUnit provenance, reports, native cleanup and offline tests retained"
+    ],
+    "cloudTarget": 193
+  },
+  "barrier": {
+    "runId": "38882651606",
+    "sha": "bb89464940bb8745cb435792a7d36c0d54d1431f",
+    "attempt": 1,
+    "repository": "DongVienNguyen/Family-Organizer",
+    "ready": true,
+    "jobs": [
+      {
+        "name": "Windows Node22 baseline",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows Node24 baseline",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Windows production browsers",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "waitedMs": 432687
+  },
+  "measuredJobCriticalPathSeconds": 953,
+  "baselineJobCriticalPathSeconds": 1365,
+  "secondsSaved": 412,
+  "percentSaved": 30.2,
+  "performanceComparisonIsSingleRun": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "2d5094fdc8fa91ad34299bc434fa77a0ff87af5b",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "bb89464940bb8745cb435792a7d36c0d54d1431f": "8456aa433f37640e3af14c73c8abdb5a9f6214ba",
+    "2d5094fdc8fa91ad34299bc434fa77a0ff87af5b": "8456aa433f37640e3af14c73c8abdb5a9f6214ba"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 25358,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

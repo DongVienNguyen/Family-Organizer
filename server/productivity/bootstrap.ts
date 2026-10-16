@@ -1,3 +1,4 @@
+import {validateSeriesStorage} from './seriesRecord.js';
 import {validateBoardViewStorage} from './boardViewSchema.js';
 import {validateBoardStorage} from './boardSchema.js';
 import type * as Sqlite from '../sqlite.js';
@@ -9,6 +10,7 @@ import {assertCurrentTaskTree} from './structureInvariant.js';
 export async function configureTaskStorage(sqlite:typeof Sqlite,options:{validateCurrentTasks?:boolean}={}):Promise<void> {
  const connection=sqlite.sqliteConnection();
  const hasProductivity=inspectProductivityStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
+ if(options.validateCurrentTasks!==false&&hasProductivity)validateSeriesStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  if(options.validateCurrentTasks!==false)assertCurrentTaskTree({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  if(options.validateCurrentTasks!==false&&hasProductivity&&(connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=7)validateBoardStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  if(options.validateCurrentTasks!==false&&hasProductivity)validateBoardViewStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)},(connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version);

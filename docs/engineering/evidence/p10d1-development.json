@@ -1,0 +1,323 @@
+{
+  "taskId": "P10-d1",
+  "sourceChecksHead": "ba83ca54a509dfb304c6b9a4681f690f026b8639",
+  "acceptedParentSha": "a51f9a0ce12148f1a053ee9a3c5fea03c85f8ebf",
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "4992bbc4177ec56e389e9adad875d221d31b55868ad9f37e92e979d88aa24134",
+    "server/productivity/adapter.ts": "1f493313f71f076bfdde649c14ae33489ff55c369bd85e9857bb37219deb86a4",
+    "server/productivity/boardCatalog.ts": "e6a4c75a910964aaac74a78ce750d49d6a79b6707668cc693b819239dd10e024",
+    "server/productivity/boardViewSchema.ts": "f94fcc5a812c3953501db6f60bfb562bb9466aacf0048086bc373895d4386b72",
+    "server/productivity/bootstrap.ts": "9f066f07bd9bcb92f7dee149c1b3708134f5193bbf439fa0418e255d80ffeb74",
+    "server/productivity/groupedBoard.ts": "0f1f03aa38e757be2d293f944c6a72a19942e0bab7b7c1795a6db6a0ceff5d5c",
+    "server/productivity/inspection.ts": "1a66f300100d178efeb7e8ff7012f48bc10fbb5c4d0185d5a8f45c0718a0d416",
+    "server/productivity/matrix.ts": "18194d9a58170e138b61dbfae0bd13491a3dd670bab11620c306d4ddd1a58d38",
+    "server/productivity/pins.ts": "7cb74a535e12836bb4fcbe01fca98f58929a57bd9d7035c71185f773e10c3cdf",
+    "server/productivity/sectionBoards.ts": "c6c56872a2e2a13f9ced8cf6a16b24ee8448e32ce6ab9f120fc7e90ad400e89a",
+    "server/productivity/series-record.test.ts": "2a4b6d5b60eaed47fee11a0c3db9d8afa097094e42562f8bea3cd21687b9afd6",
+    "server/productivity/series-store.test.ts": "bcc820b27c49482f5e0a2047c9fc54842ef2e75fc43b3e60fcf8d5cb7e08ce13",
+    "server/productivity/seriesRecord.ts": "a6573ba4bb0ec7ccabfe7f5c83779e95efe622d319a83b904a7d728e56f32daf",
+    "server/productivity/seriesSchema.ts": "5947bd05df43ff9741d4e4618a917d076b0722144ddd5b4ff61cf7b5d94f35da",
+    "server/productivity/seriesStore.ts": "3f85d4817a29dea6fa144f37809390f74a26fea3e2e35e8e3bbdf463fe27f637",
+    "server/productivity/snapshot.ts": "b4d50bdc0be0c5afd83e9aacc9a6fc760a554b4752c059803d1e61f265de4372",
+    "server/productivity/structure.ts": "8579a810e40168cc89c95eff1557bf124c3bfdfdae2545855d4614bf590eec9a",
+    "server/productivity/structureInvariant.ts": "a2080cb3a3e4daf5e3e29baa02684be05297bf2f47f3ce83b5f355232eb5e56c",
+    "server/productivity/structureSchema.ts": "99d18c149010313791e9c6c252e1e7aea9566455ce03d6e2f42b4d72482cc0be",
+    "server/productivity/views.ts": "6cea0ff296e30b7bb646f8e63f1b54e3efc0e32853e97475fbda4449ddfb05e5",
+    "tests/evidence.test.ts": "0df25fa7672b82374d9cd1cb0b92e156dc57236df35fb42637848321c9f83f40",
+    "tests/recurrence-calendar-import.test.ts": "5febf606da5c5ffd7c5626587e38eb405bd7b430927ee799c1261482e5db5ee2",
+    "tests/series-recovery-native.test.ts": "d2ff5471343c5e0b603dbc94d5fef09a4c7d7e5f0bb5a449903b4e2066dad4ee"
+  },
+  "review": {
+    "task": "P10-d1",
+    "kind": "ONE whole-branch SELF against accepted main121; independently reviewed futureH parent composition separate",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 2,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "importantRemaining": 0,
+    "sourceHashesBeforeCorrection": {
+      "scripts/ci/write-evidence.mjs": "0c81b9a120be3093fa4a484968a8ec01482a7ead325750b923ae016b9bca9087",
+      "server/productivity/adapter.ts": "1f493313f71f076bfdde649c14ae33489ff55c369bd85e9857bb37219deb86a4",
+      "server/productivity/boardCatalog.ts": "e6a4c75a910964aaac74a78ce750d49d6a79b6707668cc693b819239dd10e024",
+      "server/productivity/boardViewSchema.ts": "f94fcc5a812c3953501db6f60bfb562bb9466aacf0048086bc373895d4386b72",
+      "server/productivity/bootstrap.ts": "9f066f07bd9bcb92f7dee149c1b3708134f5193bbf439fa0418e255d80ffeb74",
+      "server/productivity/groupedBoard.ts": "0f1f03aa38e757be2d293f944c6a72a19942e0bab7b7c1795a6db6a0ceff5d5c",
+      "server/productivity/inspection.ts": "1a66f300100d178efeb7e8ff7012f48bc10fbb5c4d0185d5a8f45c0718a0d416",
+      "server/productivity/matrix.ts": "18194d9a58170e138b61dbfae0bd13491a3dd670bab11620c306d4ddd1a58d38",
+      "server/productivity/pins.ts": "7cb74a535e12836bb4fcbe01fca98f58929a57bd9d7035c71185f773e10c3cdf",
+      "server/productivity/sectionBoards.ts": "c6c56872a2e2a13f9ced8cf6a16b24ee8448e32ce6ab9f120fc7e90ad400e89a",
+      "server/productivity/series-record.test.ts": "2a4b6d5b60eaed47fee11a0c3db9d8afa097094e42562f8bea3cd21687b9afd6",
+      "server/productivity/series-store.test.ts": "ad0a2ad9ab7e2ba46f17e43d8372aa88118cfc73cf9e3cc51132ba3af9e04796",
+      "server/productivity/seriesRecord.ts": "a6573ba4bb0ec7ccabfe7f5c83779e95efe622d319a83b904a7d728e56f32daf",
+      "server/productivity/seriesSchema.ts": "5947bd05df43ff9741d4e4618a917d076b0722144ddd5b4ff61cf7b5d94f35da",
+      "server/productivity/seriesStore.ts": "4607f46d27fa29f4a6f0cbe0f81169b56c768ef6083010878726cab5a39f05df",
+      "server/productivity/snapshot.ts": "b4d50bdc0be0c5afd83e9aacc9a6fc760a554b4752c059803d1e61f265de4372",
+      "server/productivity/structure.ts": "8579a810e40168cc89c95eff1557bf124c3bfdfdae2545855d4614bf590eec9a",
+      "server/productivity/structureInvariant.ts": "a2080cb3a3e4daf5e3e29baa02684be05297bf2f47f3ce83b5f355232eb5e56c",
+      "server/productivity/structureSchema.ts": "99d18c149010313791e9c6c252e1e7aea9566455ce03d6e2f42b4d72482cc0be",
+      "server/productivity/views.ts": "6cea0ff296e30b7bb646f8e63f1b54e3efc0e32853e97475fbda4449ddfb05e5",
+      "tests/evidence.test.ts": "84045767a451e3b0603d9cff9c8777e4ac9b80bec58e9f68f3711597023954d2",
+      "tests/recurrence-calendar-import.test.ts": "5febf606da5c5ffd7c5626587e38eb405bd7b430927ee799c1261482e5db5ee2",
+      "tests/series-recovery-native.test.ts": "d2ff5471343c5e0b603dbc94d5fef09a4c7d7e5f0bb5a449903b4e2066dad4ee"
+    },
+    "gradedFindings": [
+      {
+        "id": "D1-SELF-1",
+        "severity": "important",
+        "file": "server/productivity/seriesStore.ts",
+        "finding": "saveException gateway work returns undefined; the retained command receipt has no series/ordinal or config revision link for audit.",
+        "correction": "Return a detached internal receipt with series ID, ordinal, canonical intent, series and exception revisions; public method continues a fresh current authorized series read."
+      },
+      {
+        "id": "D1-SELF-2",
+        "severity": "important",
+        "file": "server/productivity/seriesStore.ts",
+        "finding": "initial rotation_cursor always0 ignores current Task assignee; first future acceptance can select a different recipient from characterized legacy next-member behavior.",
+        "correction": "Capture current roster index; if assignee absent use the final roster index as nonnegative predecessor so the next accepted transition chooses first. Empty rotation remains0. Preserve selected member order and every Task field."
+      }
+    ],
+    "coverage": [
+      "explicit schema10 and frozen1-9/default6, exactDDL/knownversion inspection/bootstrap registration",
+      "all existing Matrix/board/view/pin/structure consumers accept10 without inventing view format10",
+      "canonical detached policy/anchor/counter/time bounds, sourceTask/no-date/timezone rules and typedfutureexception intents",
+      "currentSQLadult/role/object authority before cachedread and inside transaction, uniform404/no read-only leakage",
+      "single gateway revision/idempotency/rollback, currentmetadata response not historicalreceipt authority",
+      "shared startup/snapshot row semantics, historical soft-deleted users, uniqueTaskroots/exception identities",
+      "nativecompiled encrypted10 recovery/restart/UUID/Walletint64 agreement, old9/drift10/future11 refusals and corrupt-live-data repair",
+      "offline coldimports, nativeerror/signal/status checks, immutable existingtest assertions and literalmandatory3suites"
+    ],
+    "remaining": [
+      "one correction pass for both Important findings and meaningfulregressions",
+      "compose accepted122 after its exactWindows acceptance, fullCloud/lint/build/newexactWindows",
+      "actual occurrence generation/completion/skip/edit/jobs/rotation cutover and fullP10/master unfinished"
+    ],
+    "publicationAllowed": false,
+    "gradedCorrection": {
+      "targetTests": 394,
+      "targetFiles": 5,
+      "reportSha256": "507b8da788c064029ef649dd01daf4d56f944bc0050d2f22fb7ee98adb4810c1",
+      "redTests": 47,
+      "redPassed": 43,
+      "redFailed": 4,
+      "resolved": [
+        "D1-SELF-1: audited exception receipt binds id, ordinal, canonical intent and both revisions",
+        "D1-SELF-2: initial cursor preserves current assignee origin and next-member legacy semantics"
+      ],
+      "fixtureAlignment": "Retain existing zero-cursor assertions using explicit child assignment; four new origins still cover child/member/unassigned/outside roster",
+      "rereview": false
+    },
+    "sourceHashesAfterCorrection": {
+      "scripts/ci/write-evidence.mjs": "0c81b9a120be3093fa4a484968a8ec01482a7ead325750b923ae016b9bca9087",
+      "server/productivity/adapter.ts": "1f493313f71f076bfdde649c14ae33489ff55c369bd85e9857bb37219deb86a4",
+      "server/productivity/boardCatalog.ts": "e6a4c75a910964aaac74a78ce750d49d6a79b6707668cc693b819239dd10e024",
+      "server/productivity/boardViewSchema.ts": "f94fcc5a812c3953501db6f60bfb562bb9466aacf0048086bc373895d4386b72",
+      "server/productivity/bootstrap.ts": "9f066f07bd9bcb92f7dee149c1b3708134f5193bbf439fa0418e255d80ffeb74",
+      "server/productivity/groupedBoard.ts": "0f1f03aa38e757be2d293f944c6a72a19942e0bab7b7c1795a6db6a0ceff5d5c",
+      "server/productivity/inspection.ts": "1a66f300100d178efeb7e8ff7012f48bc10fbb5c4d0185d5a8f45c0718a0d416",
+      "server/productivity/matrix.ts": "18194d9a58170e138b61dbfae0bd13491a3dd670bab11620c306d4ddd1a58d38",
+      "server/productivity/pins.ts": "7cb74a535e12836bb4fcbe01fca98f58929a57bd9d7035c71185f773e10c3cdf",
+      "server/productivity/sectionBoards.ts": "c6c56872a2e2a13f9ced8cf6a16b24ee8448e32ce6ab9f120fc7e90ad400e89a",
+      "server/productivity/series-record.test.ts": "2a4b6d5b60eaed47fee11a0c3db9d8afa097094e42562f8bea3cd21687b9afd6",
+      "server/productivity/series-store.test.ts": "bcc820b27c49482f5e0a2047c9fc54842ef2e75fc43b3e60fcf8d5cb7e08ce13",
+      "server/productivity/seriesRecord.ts": "a6573ba4bb0ec7ccabfe7f5c83779e95efe622d319a83b904a7d728e56f32daf",
+      "server/productivity/seriesSchema.ts": "5947bd05df43ff9741d4e4618a917d076b0722144ddd5b4ff61cf7b5d94f35da",
+      "server/productivity/seriesStore.ts": "3f85d4817a29dea6fa144f37809390f74a26fea3e2e35e8e3bbdf463fe27f637",
+      "server/productivity/snapshot.ts": "b4d50bdc0be0c5afd83e9aacc9a6fc760a554b4752c059803d1e61f265de4372",
+      "server/productivity/structure.ts": "8579a810e40168cc89c95eff1557bf124c3bfdfdae2545855d4614bf590eec9a",
+      "server/productivity/structureInvariant.ts": "a2080cb3a3e4daf5e3e29baa02684be05297bf2f47f3ce83b5f355232eb5e56c",
+      "server/productivity/structureSchema.ts": "99d18c149010313791e9c6c252e1e7aea9566455ce03d6e2f42b4d72482cc0be",
+      "server/productivity/views.ts": "6cea0ff296e30b7bb646f8e63f1b54e3efc0e32853e97475fbda4449ddfb05e5",
+      "tests/evidence.test.ts": "84045767a451e3b0603d9cff9c8777e4ac9b80bec58e9f68f3711597023954d2",
+      "tests/recurrence-calendar-import.test.ts": "5febf606da5c5ffd7c5626587e38eb405bd7b430927ee799c1261482e5db5ee2",
+      "tests/series-recovery-native.test.ts": "d2ff5471343c5e0b603dbc94d5fef09a4c7d7e5f0bb5a449903b4e2066dad4ee"
+    }
+  },
+  "actualCheckpoints": {
+    "p10d1-core-current.json": {
+      "tests": 68,
+      "passed": 68,
+      "failed": 0,
+      "pending": 0,
+      "files": 2,
+      "sha256": "5cce8b401258dd2418999b1b25c157ec97456ccf2560ab52d5df655fc8f6bbfa"
+    },
+    "p10d1-corrected.json": {
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "pending": 0,
+      "files": 1,
+      "sha256": "58c4da932f754a2ed68627e8bef7a6bbe87fc292a9662a45db879093e06a0a33"
+    },
+    "p10d1-first.json": {
+      "tests": 31,
+      "passed": 30,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "fca538b38a023a2537e9fd023f1ac9efa6509a84cf7bcb6b7b6028754f3a1ec8"
+    },
+    "p10d1-functional-current.json": {
+      "tests": 77,
+      "passed": 77,
+      "failed": 0,
+      "pending": 0,
+      "files": 4,
+      "sha256": "f5d48b5bf7180e66d2dc01745551be848716784b0493bbb9fd8a4a8809ee6924"
+    },
+    "p10d1-gate-red.json": {
+      "tests": 308,
+      "passed": 307,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "4fe8afcc3fd07d5b565b574896274809a3fbb1f26021699742e8532125cf32a0"
+    },
+    "p10d1-graded-correction.json": {
+      "tests": 394,
+      "passed": 394,
+      "failed": 0,
+      "pending": 0,
+      "files": 5,
+      "sha256": "507b8da788c064029ef649dd01daf4d56f944bc0050d2f22fb7ee98adb4810c1"
+    },
+    "p10d1-mandatory-suites-green.json": {
+      "tests": 311,
+      "passed": 311,
+      "failed": 0,
+      "pending": 0,
+      "files": 1,
+      "sha256": "2d66293be985689e611d8278e872e20d74f013f0def3b676abb7fafc3ee2403c"
+    },
+    "p10d1-mandatory-suites-red.json": {
+      "tests": 311,
+      "passed": 308,
+      "failed": 3,
+      "pending": 0,
+      "files": 1,
+      "sha256": "ad5df4f9091b7600378b8509704885897a88379613bde1ddb16aec34a7156508"
+    },
+    "p10d1-native-corrected.json": {
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "pending": 0,
+      "files": 2,
+      "sha256": "a9d42ee5f4411612e5c342a4983704574c5c6a2f2cb5ac3ee8ad1babb538cbaf"
+    },
+    "p10d1-native-first.json": {
+      "tests": 7,
+      "passed": 6,
+      "failed": 1,
+      "pending": 0,
+      "files": 2,
+      "sha256": "527a3a55fb2c12587b1615563899b755dcf41632ec0892bad8c39d473b03273e"
+    },
+    "p10d1-privacy-restore-red.json": {
+      "tests": 34,
+      "passed": 32,
+      "failed": 2,
+      "pending": 0,
+      "files": 1,
+      "sha256": "31b3061940d1dd39ffdfecf6a824363dc501ba31c062175394a5c19bd710c9b5"
+    },
+    "p10d1-readonly-config-red.json": {
+      "tests": 42,
+      "passed": 41,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "cfaeed88878cce0502661f4e6db92c40b678322a886d2019a5e5a20c0e0d75fe"
+    },
+    "p10d1-review-red.json": {
+      "tests": 47,
+      "passed": 43,
+      "failed": 4,
+      "pending": 0,
+      "files": 1,
+      "sha256": "8c07b2a17595b9508dc979aae3f55a682ed41a1312f13bf32e51fbe238461ab0"
+    },
+    "p10d1-root-uniqueness-red.json": {
+      "tests": 35,
+      "passed": 34,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "098ab4b27ecaebbe049840e865a9c40dc9e6868d9f8e52fce7bea3ba090bc1d5"
+    },
+    "p10d1-startup-corrected.json": {
+      "tests": 76,
+      "passed": 76,
+      "failed": 0,
+      "pending": 0,
+      "files": 4,
+      "sha256": "a5e22f3267488f6b897db8f3aab6065d892761b91b75696d7fa29e4a390f0e66"
+    },
+    "p10d1-startup-red.json": {
+      "tests": 76,
+      "passed": 74,
+      "failed": 2,
+      "pending": 0,
+      "files": 4,
+      "sha256": "78583f364444361c3352270368f7687d3de47546ebd20ed20b27746290171516"
+    },
+    "p10d1-target-final.json": {
+      "tests": 389,
+      "passed": 389,
+      "failed": 0,
+      "pending": 0,
+      "files": 5,
+      "sha256": "9e8357ce915c944c4ed14148c29e231158b6049b4919739de45b08b1727686b7"
+    },
+    "p10d1-view-boundary-red.json": {
+      "tests": 32,
+      "passed": 30,
+      "failed": 2,
+      "pending": 0,
+      "files": 1,
+      "sha256": "ef8f29425861c3934afe331459cc8b5ad7fecf650663a650b33e9567dafa31f7"
+    }
+  },
+  "fullCloudPending": false,
+  "windowsPending": true,
+  "seriesEnabledByDefault": false,
+  "occurrenceGenerationImplemented": false,
+  "fullP10Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "cloudGreen": {
+    "tests": 5009,
+    "files": 271,
+    "junitTests": 5009,
+    "failed": 0,
+    "skipped": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "hashes": {
+      "p10d1-composed-full.json": "8cf68d8975a5b6a329247f8708a1f76610e04d6a93d31b9895fec3383606c329",
+      "p10d1-composed-full.junit.xml": "c61c988fcc2fe1217a1743a1152b9743a4fbe0e114eed04620d9d5042860da42",
+      "p10d1-composed-full.log": "add2e580a59c134024c26fe74474e5a21089e00b7bdbde6ab41ec91f272d10a5",
+      "p10d1-composed-build.log": "aa6d42c05521970cd430534ef4413825fe75e8268d60d811e1bacb9a1a2d0a4f",
+      "p10d1-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    }
+  },
+  "expectedWindowsQuality": {
+    "tests": 5021,
+    "files": 271
+  },
+  "acceptedSchedulingParentSha": "2d5094fdc8fa91ad34299bc434fa77a0ff87af5b",
+  "combinedCiTarget": {
+    "tests": 328,
+    "files": 2,
+    "failed": 0,
+    "skipped": 0,
+    "jsonSha256": "8c9d988511045db4b594b6475f9e8e7cca94047c4093a5f988d6cf318824f313",
+    "lintExit": 0
+  },
+  "qualificationScope": "All23P10 hashes unchanged after accepted scheduling composition; Cloud full5009/271 on application-identical source plus328combined CI target. Accepted scheduling adds12tests; exact Windows full5021/271 required."
+}

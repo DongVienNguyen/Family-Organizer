@@ -46,3 +46,17 @@ the measured outcome. An unsuccessful run is retained as unsuccessful evidence.
   required families and final producer success before accepting the PR.
 - Preserve the separate post-merge main run and Windows Server2019 R02 boundary.
   Keep synthetic data, offline providers, cleanup and native exit checks.
+
+## First measured result
+
+[PR123](https://github.com/DongVienNguyen/Family-Organizer/pull/123),
+HEADbb89464940bb8745cb435792a7d36c0d54d1431f,
+[run38882651606](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38882651606):
+job critical path15m53s versus22m45s baseline, saving6m52s (30.2%).
+All8checks/11raw families, both4938tests/268files/JUnit,124browser/touch
+first attempts and138logs25358lines with0unexpected markers passed.
+WebKit actually executed before the other producers completed; the barrier then
+observed all three original successes before the unchanged aggregate steps.
+This is a single-run comparison with runner variation, not a guaranteed percentile.
+Merge2d5094fdc8fa91ad34299bc434fa77a0ff87af5b has API/local tree equality.
+Machine-readable final proof: evidence/ci-overlap-final.json.
