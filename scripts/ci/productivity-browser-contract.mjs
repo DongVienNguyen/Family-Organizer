@@ -2,7 +2,7 @@ import {isDeepStrictEqual} from 'node:util';
 export const productivityFixtureVersion=13;
 export const productivityBrowserShardFormat=1;
 import {validateProductivityShards} from './productivity-shard-contract.mjs';
-import {validateMatrixTouchReports} from './matrix-touch-contract.mjs';
+import {validateMatrixTouchReports,kanbanSectionTouchVersion} from './matrix-touch-contract.mjs';
 import {validateBrowserReports,browserProjects} from './browser-contract.mjs';
 export const productivityBrowserCases=[
  'P04 C01 shared drawer keeps no-date/none and dirty draft across close and view changes',
@@ -39,9 +39,10 @@ export const productivityBrowserCases=[
  'P10 C32 denied legacy conversion erases only recurrence metadata and retains unsent Task inputs',
  'P08 C33 workflow completion keeps cancel read-only and renders actual child Review before one adult grant',
  'P08 C34 workflow conflict reload keeps unsent proof and requires a fresh read-only confirmation',
+ 'P09 C35 section drag shares explicit preview cancel and apply while preserving lifecycle deadline and rewards',
 ];
 export function validateProductivityBrowserReports(input){
- const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports(input),...validateProductivityShards(input,productivityBrowserCases)];
+ const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases)];
  if(!isDeepStrictEqual(input.manifest?.kanbanFixture,{taskRowsPreserved:true,boards:2,views:9}))errors.push('missing explicit synthetic9 Kanban fixture preservation');
  if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==productivityFixtureVersion||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
 }

@@ -1810,6 +1810,7 @@
     "failed": "尚未确认结果。请检查或重试同一请求。",
     "reload": "刷新看板并保留备注"
   },
+  "productivityKanbanDrag": {"handle": "拖动任务：{{title}}"},
   "productivityTransition": {
     "dialog": "更改任务状态",
     "action": "更改状态：{{title}}",
