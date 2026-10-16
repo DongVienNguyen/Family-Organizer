@@ -1,0 +1,164 @@
+{
+  "taskId": "P09-e",
+  "prUrl": "not created; parent117 exact-head Windows verification blocked by HTTP401",
+  "baseSha": "0c5b2e1da805d3919c62e99b7e6d8daf70e3d1ce",
+  "scope": "unmounted physical Kanban confirmation owner only; no UI/drag/grouped interaction activation",
+  "cloudGreen": {
+    "tests": 4773,
+    "passed": 4773,
+    "files": 260,
+    "junitCases": 4773,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4773,
+    "files": 260
+  },
+  "review": {
+    "task": "P09-e",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "490808b1c129b89bc750bb0830e215ce7be722f70482404bdc78f89bb6852513",
+      "src/features/productivity/kanbanCommandState.test.ts": "d99a2f652ee504914e987160aeed77026a4b7b6253eb8870519a0705dbd1adae",
+      "src/features/productivity/kanbanCommandState.ts": "460b1efd2661b8da55b92e8589f8a3e876cb4269d609d7aa8cb98694e706f71c",
+      "tests/evidence.test.ts": "5d3a6cd007ed6cd68ba0f7ca2887555a142f9884ea5b5e7bae1f317523a7767a",
+      "tests/grouped-rank-import.test.ts": "c9109158e1a3de21829387ae7c4f1f4e91281cc1af7577cb26d691b7bb035cbb"
+    },
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "490808b1c129b89bc750bb0830e215ce7be722f70482404bdc78f89bb6852513",
+      "src/features/productivity/kanbanCommandState.test.ts": "d99a2f652ee504914e987160aeed77026a4b7b6253eb8870519a0705dbd1adae",
+      "src/features/productivity/kanbanCommandState.ts": "460b1efd2661b8da55b92e8589f8a3e876cb4269d609d7aa8cb98694e706f71c",
+      "tests/evidence.test.ts": "5d3a6cd007ed6cd68ba0f7ca2887555a142f9884ea5b5e7bae1f317523a7767a",
+      "tests/grouped-rank-import.test.ts": "c9109158e1a3de21829387ae7c4f1f4e91281cc1af7577cb26d691b7bb035cbb"
+    },
+    "reviewCoverage": [
+      "all5 source/test/mandatory-inventory changes against P09d0c5b2e1",
+      "actor/API owner contract and clear/dispose abortion/late result boundaries",
+      "current visible section/rank selection and returned plan revision binding",
+      "singleflight, explicit-only retry with retained private plan/UUID, no automatic write retry",
+      "HTTP4xx invalidates plan, 5xx/network failure retains identity, no raw error text",
+      "acknowledged write retires before owner reread; callback rechecked after subscriber notifications",
+      "no optimistic facts/cache replacement or runtime/UI/schema/default activation",
+      "original six cold-import cases and both evidence inventories/assertions retained"
+    ],
+    "developmentCorrectionsBeforeSelf": [
+      {
+        "cause": "subscriber clears owner after write acknowledgement before refresh callback",
+        "causalRed": {
+          "tests": 21,
+          "passed": 20,
+          "failed": 1
+        },
+        "correction": "recheck generation/sequence immediately before callback",
+        "assertionsRetained": true
+      },
+      {
+        "cause": "test forged ID literal did not satisfy inferred UUID template type",
+        "lintExit": 2,
+        "correction": "use a syntactically valid distinct UUID; original private-plan assertion retained"
+      }
+    ],
+    "remaining": [
+      "PR117 exact-head Actions/log/artifact acceptance blocked by HTTP401",
+      "P09d parent acceptance/new PR/Windows CI",
+      "fullCloud/lint/build and new exact-head Windows acceptance for this branch",
+      "physical menu and actual pointer/keyboard/touch UI not mounted",
+      "grouped commands/settings/drag/clock refresh/large lists/P08/P10/master tasks remain"
+    ],
+    "publicationAllowed": false
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "490808b1c129b89bc750bb0830e215ce7be722f70482404bdc78f89bb6852513",
+      "src/features/productivity/kanbanCommandState.test.ts": "d99a2f652ee504914e987160aeed77026a4b7b6253eb8870519a0705dbd1adae",
+      "src/features/productivity/kanbanCommandState.ts": "460b1efd2661b8da55b92e8589f8a3e876cb4269d609d7aa8cb98694e706f71c",
+      "tests/evidence.test.ts": "5d3a6cd007ed6cd68ba0f7ca2887555a142f9884ea5b5e7bae1f317523a7767a",
+      "tests/grouped-rank-import.test.ts": "c9109158e1a3de21829387ae7c4f1f4e91281cc1af7577cb26d691b7bb035cbb"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "f5a1874b814d3921562c8114983395ad645408b99737dc39b5e97e65582580cb",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "frontendIndexSha256": "39d57d1f9ac5441efaf62aa52a2e1c7f0803c0f2493d9c0508602034a1575a73",
+    "reports": {
+      "p09e-full.json": "1b79105ce8bf251abc7c8dad1fe67684c41372d19090a852d49dfc0148d9badb",
+      "p09e-full.junit.xml": "c170123d932bd0b211733b9c8b9708389bbda7d6cb7412320891e6eed73b18fd",
+      "p09e-full.log": "281ed4b05613f002fab60cdfcb3878d6e3f354cba6a21278fa6cc776026183d2",
+      "p09e-lint-first.log": "948930f2da8f6cc2647cb46fcbf7670976fa339c5bb9de8628e59e52ddb31a57",
+      "p09e-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09e-build-final.log": "f259b4b90efafb588295c5c01cdcf6e05420eacf42f2fd191a9c1316dd9396d0",
+      "p09e-state-scaffold-red.json": "42e673f5e4a7e7da555d71d5fbf9ce951b3b0455557f566ff4a546084a0ae184",
+      "p09e-state-first.json": "17cf7fc52b2941468ddfb7fd8e6a25e3881cac0831295af021d324aa11df7c91",
+      "p09e-state-expanded-red.json": "ce1eb8ecac36bcd75b67844925789e878d523943bc5a7168a341932a645317a5",
+      "p09e-state-expanded-green.json": "85aa999da38391f069f982f9ec73e0f2d9c681aee4b9d4152db5642c383ffb25",
+      "p09e-gate-red.json": "26f278892da8d3e2254c640303d07bb4449a860657dac24ce5043c05be6165be",
+      "p09e-target-final.json": "f4e8e2e34da8f483fbebc05e51cd58672c2f6efb9edf0b6b0142c19dba447605"
+    },
+    "windowsAcceptance": "not run for this branch; must follow parent117 and P09d acceptance"
+  },
+  "reportsRulings": {
+    "initialScaffold": {
+      "collectedTests": 0,
+      "failedSuites": 1,
+      "causalValidationProof": false
+    },
+    "firstState": {
+      "tests": 18,
+      "passed": 18
+    },
+    "realCallbackRaceRed": {
+      "tests": 21,
+      "passed": 20,
+      "failed": 1,
+      "cause": "subscriber clears authority after acknowledgement before old-owner reread callback"
+    },
+    "expandedState": {
+      "tests": 21,
+      "passed": 21
+    },
+    "mandatoryOmission": {
+      "tests": 302,
+      "passed": 301,
+      "failed": 1
+    },
+    "target": {
+      "tests": 330,
+      "passed": 330,
+      "suites": 3,
+      "scope": "before typed forged-UUID fixture correction; final full4773 verifies final source"
+    },
+    "initialLint": {
+      "exitCode": 2,
+      "cause": "invalid forged literal violates inferred UUID template type",
+      "assertionsRetained": true
+    }
+  },
+  "parentPr": "https://github.com/DongVienNguyen/Family-Organizer/pull/117",
+  "parentHead": "f0baa680d1b8b1942dd50cfc04335f0567af35fe",
+  "parentRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953",
+  "parentConclusion": "unknown after API credential failure; not accepted",
+  "noNewBrowserCasesRun": true,
+  "uiMounted": false,
+  "runtimeSchemaDefaultActivationDependenciesChanged": false,
+  "fullP09Accepted": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "vpsAccessed": false,
+  "server2019Acceptance": "not-run"
+}
