@@ -1,4 +1,4 @@
-import {decodeSeries,decodeSeriesException} from './seriesRecord.js';
+import {validateSeriesRows} from './seriesRecord.js';
 import {validateBoardViewSnapshot} from './boardViewSchema.js';
 import {validateBoardSnapshot} from './boardSnapshot.js';
 import {taskSearchContent,searchGrams} from './viewSchema.js';
@@ -48,10 +48,7 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  for(const row of tables.productivity_occurrences){if(!tasks.has(row.task_id))fail();text(row.id,256);text(row.series_id,256);text(row.occurrence_key,256);integer(row.ordinal);JSON.parse(row.payload_json);}
  if(snapshot.manifest.domains.productivity>=10){
   if(!tables.productivity_series||!tables.productivity_series_exceptions)fail();
-  const users=new Set(snapshot.legacy.users.map(user=>user.id));
-  const series=new Map(tables.productivity_series.map(row=>{const value=decodeSeries(row);if(!tasks.has(value.taskId)||value.policy.rotationMembers.some(id=>!users.has(id)))fail();return [value.id,value];}));
-  if(new Set([...series.values()].map(value=>value.taskId)).size!==series.size)fail();
-  for(const row of tables.productivity_series_exceptions){const value=decodeSeriesException(row),owner=series.get(value.seriesId);if(!owner||value.revision>owner.revision||owner.policy.end.kind==='count'&&value.ordinal>=owner.policy.end.count||value.kind==='due'&&value.due.kind!=='none'&&value.due.timezone!==owner.policy.timezone)fail();}
+  validateSeriesRows({series:tables.productivity_series,exceptions:tables.productivity_series_exceptions,taskIds:new Set(tasks.keys()),userIds:new Set(snapshot.legacy.users.map(user=>user.id))});
  }
  if(snapshot.manifest.domains.productivity>=2){
   assertTaskTree(tables.productivity_tasks.map(edge));

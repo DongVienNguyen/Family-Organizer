@@ -24,7 +24,7 @@ export function createRecurrenceSeriesStore(ports:{reader:TaskReader;write:typeo
  const series=(reader:TaskReader,ctx:AppCommand,id:string)=>{
   context(reader,ctx);try{text(id,256);}catch{fail(400,'Mã lịch lặp không hợp lệ.');}
   const row=reader.get('SELECT * FROM productivity_series WHERE id=?',id);if(!row)fail(404,'Không tìm thấy lịch lặp.');
-  try{task(reader,ctx,row.task_id);}catch(error){if(error instanceof AppStoreError&&error.status===404)fail(404,'Không tìm thấy lịch lặp.');throw error;}return decodeSeries(row);
+  try{task(reader,ctx,row.task_id);}catch(error){if(error instanceof AppStoreError&&[403,404].includes(error.status))fail(404,'Không tìm thấy lịch lặp.');throw error;}return decodeSeries(row);
  };
  const run=<T>(ctx:AppCommand,command:string,payload:unknown,work:(tx:AppWriteTx)=>T)=>ports.write({actorId:ctx.actor.userId,command:'productivity:series:'+command,requestId:ctx.requestId,payloadHash:createHash('sha256').update(JSON.stringify(payload)).digest('hex')},work);
  const readContext=(actor:AppActor):AppCommand=>({actor,requestId:'recurrence:read',expectedRevision:0});
@@ -56,7 +56,7 @@ export function createRecurrenceSeriesStore(ports:{reader:TaskReader;write:typeo
     const current=series(tx,ctx,id);if(current.revision!==ctx.expectedRevision)fail(409,'Lịch lặp vừa thay đổi.');
     if(current.endedAt!==null||ordinal<current.nextOrdinal)fail(422,'Không sửa lại kỳ đã phát sinh qua cấu hình tương lai.');
     if(current.policy.end.kind==='count'&&ordinal>=current.policy.end.count)fail(422,'Kỳ vượt giới hạn số lần lặp.');
-    if(value.kind==='due'&&value.due!.kind!=='none'&&value.due!.timezone!==current.policy.timezone)fail(422,'Múi giờ ngoại lệ không khớp.');
+    if(value.kind==='due'&&value.due.kind!=='none'&&value.due.timezone!==current.policy.timezone)fail(422,'Múi giờ ngoại lệ không khớp.');
     const before=tx.get('SELECT revision FROM productivity_series_exceptions WHERE series_id=? AND ordinal=?',id,ordinal),revision=(before?.revision??0)+1;
     if(!Number.isSafeInteger(revision)||current.revision===Number.MAX_SAFE_INTEGER)fail(422,'Phiên bản lịch lặp đã đạt giới hạn.');
     const time=now();if(utcInstant(time)<utcInstant(current.updatedAt))fail(409,'Đồng hồ lịch lặp đã lùi.');

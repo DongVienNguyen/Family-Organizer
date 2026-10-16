@@ -3,6 +3,7 @@ import {normalizeRecurrencePolicy,type RecurrencePolicy} from './recurrencePolic
 import {assertDue,utcInstant} from '../../src/features/productivity/dates.js';
 import {integer,text,choice,keys,object} from '../../src/features/productivity/validation.js';
 import type {TaskRecord} from '../../src/features/productivity/contracts.js';
+import type {TaskReader} from './access.js';
 
 export interface RecurrenceSeries {
  id:string;taskId:string;revision:number;policy:RecurrencePolicy;anchor:TaskRecord['due'];
@@ -25,7 +26,24 @@ export function decodeSeriesException(row:Record<string,unknown>):SeriesExceptio
  if(row.kind==='skip'){if(row.due_json!==null)throw Error('Skip cannot carry a deadline override');return {...base,kind:'skip'};}
  const due=JSON.parse(row.due_json as string);assertDue(due);return {...base,kind:'due',due:structuredClone(due)};
 }
-export function normalizeSeriesException(input:unknown):Pick<SeriesException,'kind'>&{due?:TaskRecord['due']} {
+export type SeriesExceptionIntent={kind:'skip'}|{kind:'due';due:TaskRecord['due']};
+export function normalizeSeriesException(input:unknown):SeriesExceptionIntent {
  const value=object(input);choice(value.kind,['skip','due']);keys(value,value.kind==='skip'?['kind']:['kind','due']);
  if(value.kind==='skip')return {kind:'skip'};assertDue(value.due);return {kind:'due',due:structuredClone(value.due)};
+}
+/** Shared semantic inspection for persisted rows and replacement snapshots.
+ * Historical deleted users remain valid references; new commands separately
+ * require live rotation members. This function never opens or changes storage. */
+export function validateSeriesRows(input:{series:Record<string,unknown>[];exceptions:Record<string,unknown>[];taskIds:ReadonlySet<string>;userIds:ReadonlySet<string>}):void {
+ const fail=():never=>{throw Error('Invalid recurrence series reference');},series=new Map(input.series.map(row=>{const value=decodeSeries(row);if(!input.taskIds.has(value.taskId)||value.policy.rotationMembers.some(id=>!input.userIds.has(id)))fail();return [value.id,value];}));
+ if(series.size!==input.series.length||new Set([...series.values()].map(value=>value.taskId)).size!==series.size)fail();
+ const seen=new Set<string>();
+ for(const row of input.exceptions){
+  const value=decodeSeriesException(row),owner=series.get(value.seriesId),key=JSON.stringify([value.seriesId,value.ordinal]);
+  if(seen.has(key)||!owner||value.revision>owner.revision||owner.policy.end.kind==='count'&&value.ordinal>=owner.policy.end.count||value.kind==='due'&&value.due.kind!=='none'&&value.due.timezone!==owner.policy.timezone)fail();seen.add(key);
+ }
+}
+export function validateSeriesStorage(reader:TaskReader):void {
+ if((reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version??0)<10)return;
+ validateSeriesRows({series:reader.all('SELECT * FROM productivity_series'),exceptions:reader.all('SELECT * FROM productivity_series_exceptions'),taskIds:new Set(reader.all('SELECT id FROM productivity_tasks').map(row=>row.id)),userIds:new Set(reader.all('SELECT id FROM users').map(row=>row.id))});
 }

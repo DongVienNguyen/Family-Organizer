@@ -17,6 +17,8 @@ import {inspectProductivityStorage} from './inspection.js';
 import {inspectRecoverySnapshot} from '../recoverySnapshotInspection.js';
 import {createTaskViews} from './views.js';
 import {createBoardCatalog} from './boardCatalog.js';
+import {configureTaskStorage} from './bootstrap.js';
+import {transitionRotation} from './recurrencePolicy.js';
 
 const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args)as any,all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)as any[]};
 const write=<T>(fn:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:synthetic',command:'synthetic:series',requestId:randomUUID(),payloadHash:'synthetic'},fn);
@@ -99,4 +101,22 @@ it.each(['foreign-key','unique-task','negative-revision','skip-deadline'])('nati
   else if(cause==='negative-revision')tx.run('UPDATE productivity_series SET revision=0 WHERE id=?',f.series.id);
   else tx.run('INSERT INTO productivity_series SELECT ?,task_id,revision,policy_json,anchor_json,next_ordinal,accepted_count,rotation_cursor,ended_at,created_at,updated_at FROM productivity_series WHERE id=?',randomUUID(),f.series.id);
  })).toThrow();expect(allRows()).toEqual(before);
+});
+it('normal startup refuses malformed persisted series before jobs or commands can consume it',async()=>{
+ const f=fixture(),row=reader.get('SELECT policy_json FROM productivity_series WHERE id=?',f.series.id);write(tx=>tx.run('UPDATE productivity_series SET policy_json=? WHERE id=?','{}',f.series.id));const before=allRows();
+ try{await expect(configureTaskStorage(sqlite)).rejects.toThrow();expect(allRows()).toEqual(before);}finally{write(tx=>tx.run('UPDATE productivity_series SET policy_json=? WHERE id=?',row.policy_json,f.series.id));}
+});
+it('soft-deleted rotation members remain historical references while new registration requires live members',()=>{
+ const f=fixture(),original=JSON.parse(reader.get('SELECT data FROM users WHERE id=?',UserRole.CHILD).data);write(tx=>{tx.legacy.users.find(user=>user.id===UserRole.CHILD)!.isDeleted=true;});
+ try{expect(store.get(actor(),f.series.id)).toEqual(f.series);const saved=write(tx=>snapshots.collectAppSnapshot(tx));expect(()=>snapshots.validateAppSnapshot(saved)).not.toThrow();const next=task();expect(()=>store.create(ctx(next.revision),next.id,policy())).toThrow(expect.objectContaining({status:422}));expect(store.get(actor(),f.series.id).rotationCursor).toBe(0);}finally{write(tx=>{const index=tx.legacy.users.findIndex(user=>user.id===UserRole.CHILD);tx.legacy.users[index]=original;});}
+});
+it('a read-only Task grant cannot reveal private series configuration through status or message',()=>{
+ const source=task({isShared:false}),value=store.create(ctx(source.revision),source.id,policy());write(tx=>tx.run('UPDATE productivity_list_grants SET permission=? WHERE list_id=? AND user_id=?','read','legacy-family',UserRole.MEMBER));
+ try{const denied=(id:string)=>{try{store.get(actor(UserRole.MEMBER),id);throw Error('expected denial');}catch(error){return {status:(error as any).status,code:(error as any).code,message:(error as Error).message};}};const missing=denied(randomUUID());expect(missing.status).toBe(404);expect(denied(value.id)).toEqual(missing);const before=allRows();expect(()=>store.saveException(ctx(1,UserRole.MEMBER),value.id,1,{kind:'skip'})).toThrow(expect.objectContaining({status:404}));expect(allRows()).toEqual(before);}finally{write(tx=>tx.run('UPDATE productivity_list_grants SET permission=? WHERE list_id=? AND user_id=?','manage','legacy-family',UserRole.MEMBER));}
+});
+it('a future exception receipt binds the audited object intent and both revision numbers',()=>{
+ const f=fixture(),request=ctx(f.series.revision),intent={kind:'due',due:{kind:'all_day',date:'2027-02-28',timezone:'Asia/Saigon'}};store.saveException(request,f.series.id,1,intent);const row=reader.get('SELECT actor_id,result FROM app_commands WHERE command=? AND request_id=?','productivity:series:exception',request.requestId);expect(row.actor_id).toBe(UserRole.ADMIN);expect(JSON.parse(row.result).value).toEqual({id:f.series.id,ordinal:1,input:intent,seriesRevision:2,exceptionRevision:1});
+});
+it.each([{assignee:UserRole.CHILD,cursor:0,next:UserRole.MEMBER},{assignee:UserRole.MEMBER,cursor:1,next:UserRole.CHILD},{assignee:null,cursor:1,next:UserRole.CHILD},{assignee:UserRole.ADMIN,cursor:1,next:UserRole.CHILD}])('captures legacy rotation origin for $assignee without assigning or accepting a Task',({assignee,cursor,next})=>{
+ const source=task({assigneeId:assignee}),before=reader.get('SELECT * FROM productivity_tasks WHERE id=?',source.id),value=store.create(ctx(source.revision),source.id,policy());expect(value.rotationCursor).toBe(cursor);expect(value.acceptedCount).toBe(0);expect(transitionRotation({members:value.policy.rotationMembers,cursor:value.rotationCursor,transition:'accepted'}).assigneeId).toBe(next);expect(reader.get('SELECT * FROM productivity_tasks WHERE id=?',source.id)).toEqual(before);
 });
