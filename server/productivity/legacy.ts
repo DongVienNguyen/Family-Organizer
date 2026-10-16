@@ -5,7 +5,7 @@ import {object,text,strings,choice,integer,boolean} from '../../src/features/pro
  */
 export function assertLegacyTask(value:unknown):asserts value is Task {
  const t=object(value);for(const key of ['id','creatorId'])text(t[key],256);text(t.title,500);text(t.description,100000,false);text(t.dueDate,100000,false);
- choice(t.status,['todo','in_progress','completed','overdue']);choice(t.priority,['high','medium','low']);boolean(t.isShared);strings(t.tags);
+ choice(t.status,['todo','in_progress','completed','overdue','wont_do']);choice(t.priority,['high','medium','low']);boolean(t.isShared);strings(t.tags);
  if(t.assigneeId!==null)text(t.assigneeId,256);text(t.createdAt,128);text(t.updatedAt,128);
  for(const key of ['comments','history']){
   if(!Array.isArray(t[key]))throw new Error('Invalid legacy '+key);

@@ -3,7 +3,7 @@ import type {AppWriteTx} from './appStore.js';
 import {AppStoreError} from './appErrors.js';
 import {RewardStoreTx} from './rewardStore.js';
 import type {RewardPointEntry} from '../src/types.js';
-interface Policy {taskId:string;revision:number;operation:'complete'|'reopen'}
+interface Policy {taskId:string;revision:number;operation:'complete'|'reopen'|'skip'}
 const policies=new WeakMap<AppWriteTx,Readonly<Policy>>();
 export const completionClaimKey=(id:string)=>completionMarkerPrefix+id;
 /** Trusted synchronous semantic calls only; never derived from a Task payload. */

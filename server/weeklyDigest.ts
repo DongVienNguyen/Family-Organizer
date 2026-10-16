@@ -1,3 +1,4 @@
+import {isActiveLegacyTask} from '../src/utils/taskLifecycle.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -110,7 +111,7 @@ function buildDigestData(now: Date, actor:LegacyActor): DigestData {
   for (const u of db.users) userMap[u.id] = u.fullName;
 
   const activeTasks = db.tasks.filter(
-    t => t.status !== TaskStatus.COMPLETED && t.dueDate
+    t => isActiveLegacyTask(t) && t.dueDate
   );
 
   const overdue = activeTasks

@@ -21,7 +21,7 @@ function authorize(reader:TaskReader,ctx:AppCommand,listId:string):void {
  assertContext(ctx,reader);
  if(ctx.actor.role===UserRole.CHILD||ctx.actor.role===UserRole.GUEST)fail(403,'Bạn không có quyền cấu hình bảng.');
  if(!reader.get("SELECT l.id FROM productivity_lists l LEFT JOIN productivity_catalog_revisions m ON m.entity_kind='list' AND m.entity_id=l.id WHERE l.id=? AND m.archived_at IS NULL",listId)||ctx.actor.role!==UserRole.ADMIN&&listPermission(reader,ctx.actor,listId)!=='manage')fail(404,'Không tìm thấy danh sách.');
- if(![7,8,9,10,11].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration bảng trước khi cấu hình.');
+ if(![7,8,9,10,11,12].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration bảng trước khi cấu hình.');
 }
 function projection(tx:TaskReader,id:string):SharedBoardConfig {
  const board=tx.get('SELECT id,list_id,mode,revision FROM productivity_boards WHERE id=?',id);

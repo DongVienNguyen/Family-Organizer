@@ -1,3 +1,4 @@
+import {registerOccurrenceSkipMigration,productivityOccurrenceSkipChecksum} from './occurrenceSkipSchema.js';
 import {registerOccurrenceMigration,productivityOccurrenceChecksum} from './occurrenceSchema.js';
 import {registerSeriesMigration,productivitySeriesChecksum} from './seriesSchema.js';
 import {registerGroupedViewMigration,productivityGroupedViewChecksum} from './groupViewSchema.js';
@@ -24,7 +25,7 @@ export type BridgePorts={sqlite:typeof Sqlite;gateway:typeof Gateway;migrations:
 const configured=new WeakSet<object>();
 function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  const migrations=reader.all("SELECT version,checksum FROM app_migrations WHERE namespace='productivity' ORDER BY version");
- if(![1,2,3,4,5,6,7,8,9,10,11].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length>=2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
+ if(![1,2,3,4,5,6,7,8,9,10,11,12].includes(migrations.length)||migrations[0].version!==1||migrations[0].checksum!==productivityMigrationChecksum||(migrations.length>=2&&(migrations[1].version!==2||migrations[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=3&&(migrations[2].version!==3||migrations[2].checksum!==productivityTagChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=4&&(migrations[3].version!==4||migrations[3].checksum!==productivityPinChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=5&&(migrations[4].version!==5||migrations[4].checksum!==productivityViewChecksum))throw new Error('Unsupported productivity migration before activation');
@@ -34,6 +35,7 @@ function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  if(migrations.length>=9&&(migrations[8].version!==9||migrations[8].checksum!==productivityGroupedViewChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=10&&(migrations[9].version!==10||migrations[9].checksum!==productivitySeriesChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=11&&(migrations[10].version!==11||migrations[10].checksum!==productivityOccurrenceChecksum))throw new Error('Unsupported productivity migration before activation');
+ if(migrations.length>=12&&(migrations[11].version!==12||migrations[11].checksum!==productivityOccurrenceSkipChecksum))throw new Error('Unsupported productivity migration before activation');
 }
 function active(reader:Pick<Gateway.AppWriteTx,'get'|'all'>):boolean {
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
@@ -48,6 +50,7 @@ export function configureCanonicalTaskBridge(ports:BridgePorts):void {
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=9)registerGroupedViewMigration(ports.migrations.registerDomainMigration);
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=10)registerSeriesMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=11)registerOccurrenceMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
+ if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=12)registerOccurrenceSkipMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
  const reader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args),all:(sql:string,...args:any[])=>connection.prepare(sql).all(...args)};
  let synchronizing=false;
  ports.sqlite.installLegacyTaskStorageAdapter({enabled:()=>active(reader),read:()=>loadTasks(reader).filter(row=>row.deletedAt===null).map(projection),write(rows){const tx=ports.gateway.currentAppWriteTx();if(!tx)throw new Error('Canonical tasks require the application gateway');synchronizing=true;try{syncLegacyTasks(tx,rows);}finally{synchronizing=false;}}});

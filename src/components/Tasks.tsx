@@ -1,3 +1,4 @@
+import {isActiveLegacyTask} from '../utils/taskLifecycle.js';
 import {KanbanWorkspace} from '../features/productivity/KanbanWorkspace.js';
 import {MatrixWorkspace} from '../features/productivity/MatrixWorkspace.js';
 import {Productivity} from '../features/productivity/Productivity.js';
@@ -56,7 +57,7 @@ const parseTaskDate = (value?: string | null) => {
 
 // Task được coi là quá hạn nếu: status đã là overdue, hoặc chưa hoàn thành mà đã qua dueDate
 const isTaskOverdue = (task: Task) => {
-  if (task.status === TaskStatus.COMPLETED) return false;
+  if (!isActiveLegacyTask(task)) return false;
   if (task.status === TaskStatus.OVERDUE) return true;
   const due = parseTaskDate(task.dueDate);
   return due !== null && due.getTime() < Date.now();
@@ -619,12 +620,14 @@ export function Tasks({
       case TaskStatus.TODO: return t("tasks.statusTodo");
       case TaskStatus.IN_PROGRESS: return t("tasks.statusInProgress");
       case TaskStatus.COMPLETED: return t("tasks.statusCompleted");
+      case TaskStatus.WONT_DO: return t("tasks.statusWontDo");
       case TaskStatus.OVERDUE: return t("tasks.statusOverdue");
     }
   };
 
   const statusColor = (s: TaskStatus) => {
     switch (s) {
+      case TaskStatus.WONT_DO: return "bg-slate-800 text-slate-400 border-slate-800";
       case TaskStatus.TODO: return "bg-slate-800 text-slate-400 border-slate-700";
       case TaskStatus.IN_PROGRESS: return "bg-sky-500/10 text-sky-400 border-sky-500/20";
       case TaskStatus.COMPLETED: return "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20";
@@ -690,7 +693,7 @@ export function Tasks({
   }, [filteredTasks, completedWindowDays]);
 
   const boardStats = useMemo(() => {
-    const active = boardTasks.filter(t => t.status !== TaskStatus.COMPLETED);
+    const active = boardTasks.filter(isActiveLegacyTask);
     return {
       total: boardTasks.length,
       active: active.length,
@@ -750,7 +753,7 @@ export function Tasks({
       {(canonical.enabled||canonical.error)&&<>
        <div className="flex flex-wrap gap-2"><button type="button" aria-pressed={taskProjection==='list'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('list')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.listView')}</button><button type="button" aria-pressed={taskProjection==='board'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('board')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivity.retainedBoard')}</button><button type="button" aria-pressed={taskProjection==='matrix'} disabled={canonical.enabled&&(canonical.loading||!!canonical.error)} onClick={()=>setTaskProjection('matrix')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('matrixUi.view')}</button><button type="button" aria-pressed={taskProjection==='kanban'} disabled={canonical.loading||!!canonical.error} onClick={()=>setTaskProjection('kanban')} className="bg-slate-900 neu-btn rounded-xl px-4 py-2 text-xs font-bold">{t('productivityKanban.view')}</button></div>
        <div><Productivity showList={taskProjection==='list'} overlayActive={!!submitTaskTarget||!!rejectTaskTarget} user={currentUser} users={users} tasks={tasks} onComment={onAddComment} onAdvanced={handleOpenEditTask} actions={(task,disabled)=><div className="flex flex-wrap gap-2">
-        {canEditTask(task)&&!task.pendingApproval&&<><button type="button" disabled={disabled} onClick={()=>void handleUpdateStatus(task,TaskStatus.IN_PROGRESS)} className="text-xs text-sky-400">{t('productivity.start')}</button><button type="button" disabled={disabled} onClick={()=>childNeedsApproval(task)?openSubmitModal(task):void handleUpdateStatus(task,TaskStatus.COMPLETED)} className="text-xs text-emerald-400">{t('productivity.complete')}</button></>}
+        {canEditTask(task)&&task.status!==TaskStatus.WONT_DO&&!task.pendingApproval&&<><button type="button" disabled={disabled} onClick={()=>void handleUpdateStatus(task,TaskStatus.IN_PROGRESS)} className="text-xs text-sky-400">{t('productivity.start')}</button><button type="button" disabled={disabled} onClick={()=>childNeedsApproval(task)?openSubmitModal(task):void handleUpdateStatus(task,TaskStatus.COMPLETED)} className="text-xs text-emerald-400">{t('productivity.complete')}</button></>}
         {task.pendingApproval&&canApproveTasks&&<><button type="button" disabled={disabled} onClick={()=>void handleApprove(task)} className="text-xs text-emerald-400">{t('productivity.approve')}</button><button type="button" disabled={disabled} onClick={()=>setRejectTaskTarget(task)} className="text-xs text-rose-400">{t('productivity.reject')}</button></>}
        </div>}/></div>
        {taskProjection==='matrix'&&<MatrixWorkspace user={currentUser} users={users}/>}
@@ -1216,7 +1219,7 @@ export function Tasks({
                                 exit={{ opacity: 0, y: 6 }}
                                 whileHover={{ y: -2 }}
                                 transition={{ duration: 0.15 }}
-                                className={`rounded-xl border bg-slate-950/80 p-3 shadow-sm space-y-3 hover:shadow-lg hover:shadow-sky-500/5 transition-[box-shadow,border-color] duration-300 ${task.priority === TaskPriority.HIGH && task.status !== TaskStatus.COMPLETED ? "border-rose-500/35" : "border-slate-800 hover:border-sky-500/25"} ${savingId === task.id ? "opacity-60 pointer-events-none" : ""}`}
+                                className={`rounded-xl border bg-slate-950/80 p-3 shadow-sm space-y-3 hover:shadow-lg hover:shadow-sky-500/5 transition-[box-shadow,border-color] duration-300 ${task.priority === TaskPriority.HIGH && isActiveLegacyTask(task) ? "border-rose-500/35" : "border-slate-800 hover:border-sky-500/25"} ${savingId === task.id ? "opacity-60 pointer-events-none" : ""}`}
                               >
                                 <div className="flex items-start justify-between gap-2">
                                   <span className={`text-[10px] font-bold px-2 py-0.5 border rounded-lg ${priorityColor(task.priority)}`}>
