@@ -1956,3 +1956,10 @@ Main109 push [CI38838276184](https://github.com/DongVienNguyen/Family-Organizer/
 - Capability literal từ targetGit phân biệt fixture6/fixture9single lịch sử với fixture9sharded; không execute target source, không nhận bằng chứng thiếu hoặc khác profile. Giữ publication khóa.
 - Cloud mới:4834/4834tests/264files/JUnit4834/0failed-skipped-todo; lint/build0. Native merger+assembler chạy blob thật từ tests synthetic không khởi động browser. Gate omission306/302/4RED→306/306GREEN; original Productivity spec byte-equal; dependencies/lockfile không đổi. ONE SELF mới cho23sourcefiles:0Critical/0Important/0Minor, không correction/rereview; review P09-e gốc giữ lịch sử.
 - CI Windows cho HEAD mới: chờ push/run, chưa tuyên bố pass. Sau nghiệm thu: merge119, compose P09-f menu và kiểm profile69cases; tiếp tục grouped interactions/P08/P10/Wallet/master. Qualification read-only cho profile sharded thực còn chờ. Server2019/R02, release/tag/VPS chưa chạy.
+
+
+## P09-f composition with isolated browser reports (2026-10-16)
+
+- Prepared branch now includes reviewed119 candidate44d2ff6 and original reviewed18-file menu source. Append-only source conflicts retain both assertion inventories/history; historical21-case fixture option and new3-shard option are composed. One additional regression requires69sharded cases and refuses63for the expanded target. No repeated source review.
+- New composition Cloud4854tests/265files/JUnit4854/0failed-skipped-todo/lintbuild0. Actual new scoped-cwd production runner:23Chromium+1nativeTouch first attempt, exact JSON/JUnit inventory, offline/clean native exits and fixture cleanup; Linux only. Original reports retained externally with hash summary in p09f-development.json.
+- No new PR/Windows acceptance. Parent119 run38860865067 failed one legacy Chromium B01 context teardown with native0xC0000005; original assertions retained. Its21Firefox Productivity cases pass; aggregate WebKit was not run due upstream failure. Investigate actual driver evidence before accepting119; later compose the correction and verify this branch again. No release/tag/VPS/Server2019 acceptance.

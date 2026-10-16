@@ -282,5 +282,93 @@
   "releaseCreated": false,
   "tagCreated": false,
   "vpsAccessed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "beforeIsolationComposition": {
+    "cloudGreen": {
+      "tests": 4792,
+      "passed": 4792,
+      "files": 261,
+      "junitCases": 4792,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "lintExit": 0,
+      "buildExit": 0,
+      "platform": "linux"
+    },
+    "expectedWindowsQuality": {
+      "tests": 4792,
+      "files": 261
+    }
+  },
+  "isolationComposition": {
+    "includedReviewedParent": "44d2ff6ef9a49a3efb6ab79c0d9ca510aa800f3b",
+    "compositionCommit": "942d5bfb7bdb25647885746c243d9c4e343e85c6",
+    "sourceReviewRepeated": false,
+    "appendOnlyAssertionsRetained": true,
+    "helperOptionsComposed": [
+      "historical kanban-read21",
+      "current menu23",
+      "independent shard capability1"
+    ],
+    "new69ShardedInventoryRegression": true,
+    "cloudGreen": {
+      "tests": 4854,
+      "files": 265,
+      "junitCases": 4854,
+      "failed": 0,
+      "skipped": 0,
+      "lintExit": 0,
+      "buildExit": 0
+    },
+    "chromiumScoped": {
+      "platform": "linux",
+      "cases": 23,
+      "touch": 1,
+      "configProjects": [
+        "chromium"
+      ],
+      "firstAttempt": true,
+      "cleanup": true,
+      "networkAttempts": 0,
+      "reportsRoot": "/workspace/family-evidence/p09f-isolated-chromium-8kw5sf6g/reports",
+      "rawHashes": {
+        "productivity-browser-touch.json": "d1fe2732576cf6f6fcc3d5188e55f0ee019fdfbfefdd1d2ad7ba4e0a89926629",
+        "productivity-browser-kanban-light-1280-chromium.png": "d76fe1c9aea29ccba48ab3b78f4ace0281e5473c57e7a7a089eedd41a46e0bfb",
+        "productivity-browser-server.log": "5b0c557af6ffaeb405c58b0affd817f505405a3ce1166641ca98fa52ab36026e",
+        "productivity-browser.junit.xml": "ba7927faf36a4d1fe2cd56b83a358696ab3ead641426bc1cc7ab3c072289fcc3",
+        "productivity-browser-matrix-dark-390-chromium.png": "91f969a9a65b37c19c0ba015a7140901c30e29d6fbff11ff7927073300cb9e7a",
+        "productivity-browser-touch.junit.xml": "9c1ee96175c325a5ac9ce663c0921efcfbaf23efc58850cafa7bf1b00baf52fd",
+        "productivity-browser-kanban-dark-390-chromium.png": "e9b4b16d606bb3867b3193685b63c39994b7f8eb284c2d66989ca1e6b248e307",
+        "productivity-browser-matrix-dark-768-chromium.png": "e2662586653373afe636896b694aa6e8964b72a63a8695dc17526d8c849aecbb",
+        "productivity-browser-matrix-dark-1280-chromium.png": "f3c05144f521d32319fd261ae4c9744e45d27ec50dd58fabe8f1642ec411e4ea",
+        "productivity-browser-matrix-light-1280-chromium.png": "477198728b286292f43e79b08e9603f460cec56840aad1808bad4c69172e3630",
+        "productivity-browser.json": "aeadc5b6c60eb3991247461fa1bb4ae7e22ae9acbced7f2b26ea194332a4ea8c",
+        "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser-run.log": "e4766d6991946895112f5d3656998b09ab4854ac6ae94a38b8c37a2ac2f023c1",
+        "productivity-browser-touch-runtime.json": "8a52585ebf66047b6e894d4f7c1dfeb00387dea696726260470adef83791ee5e",
+        "productivity-browser-fixture.json": "3a3fb3a751226629c89db6f93838ffccfa6cb8a363f9071c82bd621c01cd78ae",
+        "productivity-browser-touch-html/index.html": "dabb693fb3175826899fa34e66faf4c88e5c97cf001abb5bc3dd02cb1caeddb2",
+        "productivity-browser-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+        "blob/report-chromium.zip": "0f1fa52946307475aba09289d8c896c597d042486cff0464242d4ee7cbda0947",
+        "productivity-browser-html/index.html": "a6a50c053c6141286e3c8e9152e7817d3cdfb8f75d263b2ed65f3a736b1d89c9",
+        "productivity-browser-touch-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+      },
+      "windowsAcceptance": false
+    },
+    "reports": {
+      "p09f-isolation-full.junit.xml": "7a88b3b716e999acf005700a32c66042cc6cb0bc8a8ddda35de0ba0a065ce087",
+      "p09f-isolation-composed-target.json": "a18498f21846d6ccdddc407600abe2d1dcf37e447524cdc18828fea9b2ee093b",
+      "p09f-isolation-chromium-first.log": "cd130050f4e071fd9546cad46379f8494bb6b6527350a1cdfe12c12a4d630dea",
+      "p09f-isolation-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09f-isolation-chromium-final.json": "77a319c482ebc6dc64da6115b44189adf2df6e714921f9a22917759ab23928d5",
+      "p09f-isolation-profile-current.log": "4b46b780fd6558342b62bac1aeffe0e59c1f81d0fa25da8864d4823ec7576742",
+      "p09f-isolation-build.log": "d376d6d37d812d0e29782c626da497d7cb36ba9a71a194f11aac29fc31abe919",
+      "p09f-isolation-composed-target.log": "7863926fd31d165f15e0fb014bad066f51be681b24a91fb45d38337a6a5aa4ec",
+      "p09f-isolation-full.json": "3e4e6d6b66ffc6fbac255b6543ee8e771d6607769950308d5c8bf49adb44b7dc",
+      "p09f-isolation-full.log": "1f28756f0e8ff3fb947e68fa4626d686851806c147213595f3b21a3d644c8067",
+      "p09f-isolation-profile-current.json": "422dbaf1e360e87754b102154cb9bb0a599e482e0fe4cd697861966215830989"
+    },
+    "windowsAcceptance": "pending parent119 driver-crash investigation; no PR created"
+  }
 }
