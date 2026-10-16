@@ -1,3 +1,5 @@
+import {isDeepStrictEqual} from 'node:util';
+export const productivityFixtureVersion=9;
 import {validateMatrixTouchReports} from './matrix-touch-contract.mjs';
 import {validateBrowserReports,browserProjects} from './browser-contract.mjs';
 export const productivityBrowserCases=[
@@ -20,8 +22,11 @@ export const productivityBrowserCases=[
  'P07 C17 custom rule preview overlap unmatched saved config conflict and preset changes never edit tasks',
  'P07 C18 pointer deadline preview stale SSE and shared drawer draft survive phone dark reduced motion',
  'P07 C19 custom choices require a fresh preview and Escape restores the keyboard trigger',
+ 'P09 C20 canonical and multi-tag Kanban share drawer drafts across saved boards',
+ 'P09 C21 actor switch clears private Kanban rows and keeps workflow read-only',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases}),...validateMatrixTouchReports(input)];
- if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==6||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
+ if(!isDeepStrictEqual(input.manifest?.kanbanFixture,{taskRowsPreserved:true,boards:2,views:9}))errors.push('missing explicit synthetic9 Kanban fixture preservation');
+ if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==productivityFixtureVersion||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
 }
