@@ -29,6 +29,18 @@ A failure after position update rolls back Task, legacy projection, board,
 positions, notifications, rewards and command receipt. Successful HTTP emits
 scoped Task/catalog invalidation and no reward invalidation.
 
+Pending Review also offers explicit adult approve/return confirmations through
+P10's existing Task commands. Return requires a nonblank reason; cancelling
+writes nothing. The SDK retains Task revisions and validates the actual P10
+receipt. A separate Task-owned controller keeps the original operation, reason
+and UUID after an unknown network result, never retries automatically, requires
+a fresh read after HTTP4xx and drains old-owner responses without publication.
+Review command ownership lives in the persistent API-session workspace, above
+ready/page guards and board-revision keyed projection components,
+so unrelated board refreshes do not discard an unresolved command. Draft reasons
+are owned by actor/API/view, retained across an explicit reload, and erased on
+authority denial or terminal Task state. No board-specific reward writer exists.
+
 The SDK rejects unknown fields, changed immutable Task facts, fabricated counts,
 wrong columns/revisions, terminal/approval results and non-workflow patches. The
 shared command controller suppresses stale or old-actor results, serializes
@@ -43,6 +55,13 @@ Windows qualification. No dependency, migration, default storage activation,
 public API, release, VPS or Server2019 acceptance changes here.
 
 Remaining M1 work includes Workflow and grouped pointer/touch drag, precise rank
-controls, board settings/quick-add/large-list UX, approval/rejection controls,
-filtered-out move feedback/semantic undo and the remaining P10/rollout checks.
+controls, board settings/quick-add/large-list UX, filtered-out move feedback/semantic undo and the remaining P10/rollout checks.
 These remain explicit gaps until their own implementation and Windows evidence.
+
+One LOCAL whole-branch SELF review found I1: an ordinary board reread disposed
+the unknown Review UUID despite retaining its reason. C39 first failed after a
+real authorized board GET200 because the reason unexpectedly became editable.
+One correction moves command lifetime into the persistent workspace; pending
+facts remain hidden, actor/explicit-view changes retire it, and native retry
+retains the original UUID and payload. C39 and seven interacting browser flows
+then pass, together with trusted Matrix/Section touch; no rereview is claimed.
