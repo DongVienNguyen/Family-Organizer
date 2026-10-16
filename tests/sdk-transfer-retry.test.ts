@@ -33,3 +33,10 @@ it.each(['headers','library'])('SDK %s retries a timed-out transfer within the c
     server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));
   }
 });
+
+it.each(['headers','library'])('SDK %s retries a prematurely closed transfer into a clean output file',async asset=>{
+ const script=fs.readFileSync(new URL('../scripts/ci/Prepare-NodeSdk.ps1',import.meta.url),'utf8'),line=script.split(/\r?\n/).find(row=>row.startsWith('& curl.exe ')&&row.includes('--output $'+asset+' '))!,os=await import('node:os'),path=await import('node:path'),root=fs.mkdtempSync(path.join(os.tmpdir(),'family-sdk-short-transfer-')),file=path.join(root,'synthetic.bin');let requests=0;
+ const server=http.createServer((_request,response)=>{requests++;if(requests===1){response.writeHead(200,{'Content-Length':1000});response.flushHeaders();response.write('synthetic partial');setImmediate(()=>response.socket?.destroy());}else response.end('synthetic complete payload');});await new Promise<void>((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});
+ try{const address=server.address();if(!address||typeof address==='string')throw Error('Owned fixture missing');const child=spawn(process.platform==='win32'?'curl.exe':'curl',['--disable','--fail','--noproxy','*','--max-time','1','--retry','2','--retry-delay','1','--retry-max-time','3',...(line.includes('--retry-all-errors')?['--retry-all-errors']:[]),'--silent','--show-error','--output',file,'http://127.0.0.1:'+address.port],{stdio:['ignore','pipe','pipe'],windowsHide:true});child.stdout.resume();child.stderr.resume();const guard=setTimeout(()=>child.kill(),8000);try{const result=await new Promise<{code:number|null;signal:string|null}>((resolve,reject)=>{child.once('error',reject);child.once('close',(code,signal)=>resolve({code,signal}));});expect(result).toEqual({code:0,signal:null});expect(requests).toBe(2);expect(fs.readFileSync(file,'utf8')).toBe('synthetic complete payload');}finally{clearTimeout(guard);}}
+ finally{server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));fs.rmSync(root,{recursive:true,force:true});}
+});
