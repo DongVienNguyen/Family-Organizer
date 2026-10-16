@@ -734,14 +734,13 @@
   "windowsPrUrl": null,
   "windowsRunUrl": null,
   "githubBlocker": {
-    "status": "HTTP401",
-    "diagnostic": "gh auth status: GH_TOKEN invalid",
-    "affected": [
-      "read exact post-merge main127 raw Actions reports",
-      "push branch and create editor PR"
-    ],
-    "userRefreshQuestionPending": true,
-    "secretsPrinted": false
+    "status": "resolved after initial HTTP401",
+    "initialDiagnostic": "gh auth status GH_TOKEN invalid; no credential helper",
+    "readinessEvidence": "p10-editor-github-readiness.json",
+    "authenticatedActionsReadReady": true,
+    "humanRefreshRequired": false,
+    "tokenPrinted": false,
+    "currentMainRawVerification": "pending separate exact-run read"
   },
   "defaultPilotMigration": 6,
   "explicitBrowserFixtureMigration": 12,

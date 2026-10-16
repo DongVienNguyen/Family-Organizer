@@ -1,0 +1,13 @@
+{
+  "command": "gh api repos/DongVienNguyen/Family-Organizer/actions/runs/38902417275",
+  "exitCode": 0,
+  "authenticatedRead": true,
+  "tokenPrinted": false,
+  "run": {
+    "conclusion": "success",
+    "head_sha": "c6880052719912a955e52cf339d0f8c796d20a2c",
+    "html_url": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38902417275",
+    "id": 38902417275,
+    "status": "completed"
+  }
+}
