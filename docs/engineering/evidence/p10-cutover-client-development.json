@@ -23,7 +23,7 @@
     "src/i18n/locales/en.json": "c8db8a57a28016fe4d351b57d2f52849d13b685fdb58545e939d1549a90d6b6d",
     "src/i18n/locales/vi.json": "7a438d22623f8d36bcec288139baaa83f0593707ba3dea82233d8cc0aa7ff4f9",
     "src/i18n/locales/zh.json": "0bfbdb3bc306902bb77f60ad95a12b37278c19534fb133c6d78279512471662c",
-    "tests/e2e/productivity.spec.ts": "d90fa4448b755435b47cf3b8bed9df492ae017ee8202555f28a5a37f12e45e90",
+    "tests/e2e/productivity.spec.ts": "c8dc73988ff127ad240b8c98508549ab8e411e4fa2ab418af94d00b4a09a15b5",
     "tests/helpers/release-productivity-browser-fixture.ts": "88a948042137a5fdca206fc0e4729e25023e78cc2e80a077b79d297ca365ab31",
     "tests/kanban-browser-fixture.test.ts": "7cd6e51cdceb3bbdd03d07ad92ef9e7deffc746e9da7d2720e0a40d23044e1e4",
     "tests/legacy-cutover-recovery-native.test.ts": "129d9eca7d20fd6621ed7656ebc249658f0f5b4199ff61c448bf0184b87e1aa7",
@@ -53,7 +53,7 @@
       "lint": 0,
       "build": 0
     },
-    "chromium": 32,
+    "chromium": 1,
     "nativeTouch": 1,
     "firefox": "not-run for this slice: host launch failure already preserved; Windows mandatory",
     "webkit": "not-run in Cloud; Windows mandatory",
@@ -63,39 +63,9 @@
       "indexSha256": "7f806fbc38b3d8e0b714373fb6d924b83c3c35ef47a4fb0c2826913839aaa7cd"
     },
     "browserFirstAttempts": [
-      "P04 C01 shared drawer keeps no-date/none and dirty draft across close and view changes",
-      "P04 C02 drawer keyboard popup Escape preserves dialog and phone layout has no overflow",
-      "P04 C03 actual checklist/subtask/personal pin preserve root identity and no reward side effect",
-      "P04 C04 child has no private member rows and logout clears the shared draft",
-      "P04 C05 delayed checklist read cannot delete existing items",
-      "P04 C06 conflict reload reads the current authorized server revision",
-      "P04 C07 retained board refuses opening while authorization refresh is pending",
-      "P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh",
-      "P04 C09 inactive bootstrap keeps legacy workspace without canonical requests",
-      "P04 C10 active workspace survives reload and clears drafts across actor switches",
-      "P05 C11 smart views retain the shared task identity and unsaved drawer draft",
-      "P05 C12 Vietnamese tag any-all saved filters survive reload with the same task IDs",
-      "P05 C13 Trash detail is readonly with Escape focus and no private child hits",
-      "P05 C14 GlobalSearch opens the same canonical task with normalized Vietnamese text",
-      "P05 C15 completed windows7-30-90-all use real canonical rows on phone and dark theme",
-      "P07 C16 keyboard preview cancel apply and private pin reset retain one canonical task and deadline",
-      "P07 C17 custom rule preview overlap unmatched saved config conflict and preset changes never edit tasks",
-      "P07 C18 pointer deadline preview stale SSE and shared drawer draft survive phone dark reduced motion",
-      "P07 C19 custom choices require a fresh preview and Escape restores the keyboard trigger",
-      "P09 C20 canonical and multi-tag Kanban share drawer drafts across saved boards",
-      "P09 C21 actor switch clears private Kanban rows and keeps workflow read-only",
-      "P09 C22 keyboard section preview cancel apply preserves canonical draft lifecycle deadline and rewards",
-      "P09 C23 authorization refresh discards a held section preview without any late apply",
-      "P09 C24 tag projection preview cancel apply preserves other tags draft and canonical lifecycle",
-      "P09 C25 non-rank grouped priority assignee and explicit all-day due moves change only their selected field",
-      "P09 C26 all-tags add and replace require fresh previews and preserve canonical deadline lifecycle and rewards",
-      "P10 C27 recurrence editor creates previews and edits one virtual slot while retaining a keyboard phone draft",
-      "P10 C28 completion-based skip requires explicit deadline and keeps stopped proof without points or rotation",
-      "P10 C29 an existing current deadline cannot silently become the next deadline of a first completion-based skip",
-      "P10 C30 denied series authority removes only its private editor draft while retaining the readable Task",
-      "P10 C31 explicit legacy conversion preserves pending proof family history and exactly-once approval",
       "P10 C32 denied legacy conversion erases only recurrence metadata and retains unsent Task inputs"
-    ]
+    ],
+    "browserQualificationScope": "CurrentC32 live-SSE fixture + trusted native touch only. Full Windows32perengine remains mandatory; previous full32Cloud preserved separately."
   },
   "developmentCheckpoints": {
     "p10-cutover-client-api-red": {
@@ -230,5 +200,132 @@
   "windowsAcceptance": "pending exact published HEAD; require5407/297each+142first attempts/all8checks/11raw",
   "server2019Acceptance": "not-run",
   "releaseTagVps": "not authorized/performed",
-  "fullMasterPlan": "incomplete"
+  "fullMasterPlan": "incomplete",
+  "historicalFullCloudBrowserBeforeWindowsFixtureCorrection": {
+    "tests": 5407,
+    "files": 297,
+    "failed": 0,
+    "skipped": 0,
+    "junitMatched": true,
+    "nativeExits": {
+      "tests": 0,
+      "lint": 0,
+      "build": 0
+    },
+    "chromium": 32,
+    "nativeTouch": 1,
+    "firefox": "not-run for this slice: host launch failure already preserved; Windows mandatory",
+    "webkit": "not-run in Cloud; Windows mandatory",
+    "fixtureVersion": 13,
+    "productionBuild": {
+      "serverSha256": "4f661a36c35cbc1e27ffa4ab10f6f800418d8c7ea09c91ebb4c053d6c21b2a52",
+      "indexSha256": "7f806fbc38b3d8e0b714373fb6d924b83c3c35ef47a4fb0c2826913839aaa7cd"
+    },
+    "browserFirstAttempts": [
+      "P04 C01 shared drawer keeps no-date/none and dirty draft across close and view changes",
+      "P04 C02 drawer keyboard popup Escape preserves dialog and phone layout has no overflow",
+      "P04 C03 actual checklist/subtask/personal pin preserve root identity and no reward side effect",
+      "P04 C04 child has no private member rows and logout clears the shared draft",
+      "P04 C05 delayed checklist read cannot delete existing items",
+      "P04 C06 conflict reload reads the current authorized server revision",
+      "P04 C07 retained board refuses opening while authorization refresh is pending",
+      "P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh",
+      "P04 C09 inactive bootstrap keeps legacy workspace without canonical requests",
+      "P04 C10 active workspace survives reload and clears drafts across actor switches",
+      "P05 C11 smart views retain the shared task identity and unsaved drawer draft",
+      "P05 C12 Vietnamese tag any-all saved filters survive reload with the same task IDs",
+      "P05 C13 Trash detail is readonly with Escape focus and no private child hits",
+      "P05 C14 GlobalSearch opens the same canonical task with normalized Vietnamese text",
+      "P05 C15 completed windows7-30-90-all use real canonical rows on phone and dark theme",
+      "P07 C16 keyboard preview cancel apply and private pin reset retain one canonical task and deadline",
+      "P07 C17 custom rule preview overlap unmatched saved config conflict and preset changes never edit tasks",
+      "P07 C18 pointer deadline preview stale SSE and shared drawer draft survive phone dark reduced motion",
+      "P07 C19 custom choices require a fresh preview and Escape restores the keyboard trigger",
+      "P09 C20 canonical and multi-tag Kanban share drawer drafts across saved boards",
+      "P09 C21 actor switch clears private Kanban rows and keeps workflow read-only",
+      "P09 C22 keyboard section preview cancel apply preserves canonical draft lifecycle deadline and rewards",
+      "P09 C23 authorization refresh discards a held section preview without any late apply",
+      "P09 C24 tag projection preview cancel apply preserves other tags draft and canonical lifecycle",
+      "P09 C25 non-rank grouped priority assignee and explicit all-day due moves change only their selected field",
+      "P09 C26 all-tags add and replace require fresh previews and preserve canonical deadline lifecycle and rewards",
+      "P10 C27 recurrence editor creates previews and edits one virtual slot while retaining a keyboard phone draft",
+      "P10 C28 completion-based skip requires explicit deadline and keeps stopped proof without points or rotation",
+      "P10 C29 an existing current deadline cannot silently become the next deadline of a first completion-based skip",
+      "P10 C30 denied series authority removes only its private editor draft while retaining the readable Task",
+      "P10 C31 explicit legacy conversion preserves pending proof family history and exactly-once approval",
+      "P10 C32 denied legacy conversion erases only recurrence metadata and retains unsent Task inputs"
+    ],
+    "scope": "Historical32Chromium+touch passed on4e before live-SSE fixture correction; not the current browser inventory proof"
+  },
+  "windowsFixtureCorrection": {
+    "baseSha": "4eae64447793c90577172b4048d6c5a49d63e690",
+    "changedSourcePaths": [
+      "tests/e2e/productivity.spec.ts"
+    ],
+    "baseDevelopmentEvidenceSha256": "214ca2eca865b63c1559c2c172e0da6762b5c36945511988f43b28f78aa25865",
+    "baseBrowserSourceSha256": "d90fa4448b755435b47cf3b8bed9df492ae017ee8202555f28a5a37f12e45e90",
+    "currentBrowserSourceSha256": "c8dc73988ff127ad240b8c98508549ab8e411e4fa2ab418af94d00b4a09a15b5",
+    "cause": "WindowsWebKit old-document views fetch raised pageError21ms after active-page reload; business assertions passed, zero-pageerrorguard correctly failed",
+    "correction": "Install controlled stale metadata on current document and drive real rootTask/SSE refresh. No active-page navigation.",
+    "assertionPreservation": {
+      "oldSourceSha256": "d90fa4448b755435b47cf3b8bed9df492ae017ee8202555f28a5a37f12e45e90",
+      "newSourceSha256": "c8dc73988ff127ad240b8c98508549ab8e411e4fa2ab418af94d00b4a09a15b5",
+      "originalPrefixThroughC31Preserved": true,
+      "noC32ActiveReload": true,
+      "cases": {
+        "P10 C31": {
+          "before": 32,
+          "after": 32,
+          "oldAssertionsPreserved": true,
+          "added": 0,
+          "oldAssertionSha256": "206ff11c6bd4cf0efb891999029d72d7e19eb970c0e00723c1efed36f3b10a1f"
+        },
+        "P10 C32": {
+          "before": 16,
+          "after": 17,
+          "oldAssertionsPreserved": true,
+          "added": 1,
+          "oldAssertionSha256": "3549b3d5091958728dd54f30027644f2ed3ecaa05b080a1245c3c257fbd62c55"
+        }
+      }
+    },
+    "originalWholeBranchReviewUnchanged": true,
+    "reviewPassesAdded": 0,
+    "runtimeSourcesChanged": false,
+    "dependenciesChanged": false,
+    "fullCoreQualityReusedOnlyAfterExactNonE2eSourceHashMatch": true,
+    "historicalWindowsFailure": "38931077368 /4e:6success2failure, all8artifacts132logs read; never accepted or rerun",
+    "cloudCausalRed": "Removed only I1 promotion in a fresh unfixed runtime; reached conversion button then missing anchor; exact corrected source restored in finally",
+    "cloudCausalGreen": {
+      "currentC32": 1,
+      "nativeTouch": 1,
+      "nativeExit": 0,
+      "lintExit": 0,
+      "junitMatched": true,
+      "productionBuild": {
+        "serverSha256": "4f661a36c35cbc1e27ffa4ab10f6f800418d8c7ea09c91ebb4c053d6c21b2a52",
+        "indexSha256": "7f806fbc38b3d8e0b714373fb6d924b83c3c35ef47a4fb0c2826913839aaa7cd"
+      }
+    },
+    "checkpoints": {
+      "p10-cutover-ui-live-metadata": {
+        "logSha256": "75a6e2054d36e5678f4d2e007f0115686b7e8fb45db04f4f70f36f8d71ae7c04",
+        "nativeExit": 0
+      },
+      "p10-cutover-ui-live-causal-red": {
+        "logSha256": "03b5276b3e6c463302c8d9b94fcbbcc4550bb65fd86a330dbfcc2da82acd276e",
+        "nativeExit": 1
+      },
+      "p10-cutover-ui-live-causal-green": {
+        "logSha256": "fef8151254816f2380f8c501158473a4fbeef6cb6903aad78c847018ea94a4b2",
+        "nativeExit": 0
+      }
+    },
+    "jsonSha256": "b82c250f2204bca01f147100ed17940d54277d188bcfb01fecce5cba117db84c",
+    "junitSha256": "768380c32adb3b9a980ad4cc1ce2ee33c29370590ad42d1a276cfd063eda7e36",
+    "touchJsonSha256": "d2791b77031834026460f55149605ff4017bb14934c9563ccbada4d0ac13f0a6",
+    "touchJunitSha256": "a98860c33bee4398825e321a2fcdd1245e390d6ed2548733d62b5bc552e815ed",
+    "rawManifestSha256": "76496b7ee68647b33a3db1935f62724b26b8f0b1ec7089530859afa1a9dc6030",
+    "currentWindowsAcceptance": "pending newHEAD, all5407/297each and142firstattempts required"
+  }
 }
