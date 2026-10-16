@@ -1,6 +1,7 @@
 // Pure policy over authenticated API/download receipts. Callers supply facts, never approvals.
 export const releaseRepository='DongVienNguyen/Family-Organizer';
-export const releaseChecks=Object.freeze(['Windows Node22 baseline','Windows Node24 baseline','Windows production browsers','Windows package producer','Windows package clean consumer','Windows disposable service','ci-gate']);
+export const releaseChecks=Object.freeze(['Windows Node22 baseline','Windows Node24 baseline','Windows production browsers','Windows package producer','Windows package clean consumer','Windows disposable service','ci-gate','Windows productivity browsers']);
+export const releaseArtifactPrefixes=Object.freeze(['windows-node22','windows-node24','windows-browsers','windows-package','windows-package-harness','windows-package-tests','windows-service-tests','windows-productivity-browsers']);
 const hex=(value,size)=>typeof value==='string'&&new RegExp(`^[a-f0-9]{${size}}$`).test(value);
 const positive=value=>Number.isSafeInteger(value)&&value>0;
 export function isReleaseVersion(value){
@@ -26,6 +27,8 @@ export function validateReleaseEvidence(value){
  require(quality.length===2&&new Set(quality.map(q=>q?.major)).size===2,'runtime reports missing/duplicate');
  for(const major of [22,24]){const q=quality.find(q=>q?.major===major);require(positive(q?.tests)&&q?.passed===q?.tests&&positive(q?.files)&&q?.failed===0&&q?.pending===0&&q?.todo===0,`Node${major} incomplete tests`);}
  require(positive(e?.browsers?.passed)&&e?.browsers?.failed===0&&e?.browsers?.skipped===0&&e?.browsers?.retries===0,'browser incomplete tests');
+ const productivity=e?.productivityBrowsers;require(positive(productivity?.passed)&&productivity?.failed===0&&productivity?.skipped===0&&productivity?.retries===0&&productivity?.touchPassed===1&&productivity?.touchFailed===0&&productivity?.touchSkipped===0&&productivity?.touchRetries===0,'Productivity browser/native touch incomplete tests');
+ require(e?.generatedFixtures?.verified===true&&e?.generatedFixtures?.files===3,'generated fixture proof incomplete');
  require(e?.consumer?.passed===true&&e?.consumer?.fixtureCleanup===true,'consumer incomplete');
  require(e?.service?.passed===true&&e?.service?.serviceRemoved===true&&e?.service?.fixtureCleanup===true,'service incomplete');
  return errors;

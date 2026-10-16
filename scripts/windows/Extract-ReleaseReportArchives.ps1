@@ -6,12 +6,12 @@ $opened=@()
 try {
     if ((Get-Item -LiteralPath $InputFile).Length -gt 65536) { throw 'Extraction input exceeds budget' }
     $rows=@(Get-Content -LiteralPath $InputFile -Raw | ConvertFrom-Json)
-    if ($rows.Count -ne 7) { throw 'Exactly seven archive inputs required' }
+    if ($rows.Count -ne 8) { throw 'Exactly eight archive inputs required' }
     $names=@{}
     [long]$totalDeclared=0
     [long]$entryCount=0
     foreach ($row in $rows) {
-        if ($row.name -cnotmatch '^windows-(node22|node24|browsers|package|package-harness|package-tests|service-tests)-[a-f0-9]{40}-1$' -or $names.ContainsKey($row.name) -or $row.archiveSha256 -cnotmatch '^[a-f0-9]{64}$') { throw 'Archive input rejected' }
+        if ($row.name -cnotmatch '^windows-(node22|node24|browsers|package|package-harness|package-tests|service-tests|productivity-browsers)-[a-f0-9]{40}-1$' -or $names.ContainsKey($row.name) -or $row.archiveSha256 -cnotmatch '^[a-f0-9]{64}$') { throw 'Archive input rejected' }
         $names[$row.name]=$true
         # Keeping all ZipArchive streams open prevents Windows writes/deletion
         # between checksum/preflight and extraction.

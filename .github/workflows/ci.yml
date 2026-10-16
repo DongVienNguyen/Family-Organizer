@@ -137,7 +137,7 @@ jobs:
           $nativeCode = $LASTEXITCODE
           if ($nativeCode -ne 0) { exit $nativeCode }
           exit 0
-      - name: Seven native report archives and batch budget refusal
+      - name: Eight native report archives and batch budget refusal
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: |
           $ErrorActionPreference = 'Stop'

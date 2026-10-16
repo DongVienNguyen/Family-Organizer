@@ -1,13 +1,13 @@
 # F08 — bounded archive extraction and raw assertion preflight
 
 The read-only trusted-main dispatch keeps the explicit target SHA/version/main CI
-run binding. It downloads the same seven API-digest archives, derives required
+run binding. It downloads the same eight API-digest archives, derives required
 unit suites/Windows lock bytes/coverage policy from that target Git tree, then
 extracts report data and validates both runtimes' actual JSON assertions, JUnit
 identities and native quality exit files. Downloaded harness or application code
 is never executed. Publication remains disabled in source.
 
-All seven ZIPs are checksum-checked again while native ZipArchive streams remain
+All eight ZIPs are checksum-checked again while native ZipArchive streams remain
 open. Existing ZIP path/link/alias/file-parent/ratio/per-file budgets still apply.
 The whole batch is preflighted before any report file is written; declared and
 actual expansion share a 1GiB/100000-entry ceiling. Extraction directories are
@@ -22,7 +22,7 @@ share a256MiB budget per reader. SHA256 is computed from the exact bytes decoded
 and validated, not from a later reread. Larger package/archive hashes stream in
 64KiB chunks under an explicit512MiB ceiling.
 
-Windows quality CI adds a mandatory native synthetic seven-ZIP extraction and
+Windows quality CI adds a mandatory native synthetic eight-ZIP extraction and
 low-budget rejection before the first extracted file, with Unicode/space names,
 immediate native status/signal checks and owned cleanup. Source tests model
 preexisting/replaced roots and partial failures. The native probe uses trusted
@@ -55,3 +55,5 @@ targetfb11d05/mainCI38339664320. Both were staged checks, not full F08 acceptanc
 F08-f has232 targeted assertions; its new exact-HEAD Windows and post-merge live
 checks must be recorded separately. Root certificate/Caddy proof belongs to PR43.
 Server2019, release/tag and VPS are unrun and unauthorized.
+
+F08-o2 extends the current native diagnostic to eight archives/1680 expanded bytes, including Productivity browser evidence. The original1000-byte negative aggregate budget still refuses the whole batch before writing. Earlier seven-archive dispatch evidence remains historical.

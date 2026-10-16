@@ -1,3 +1,4 @@
+import {releaseArtifactPrefixes} from './release-evidence.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {openReleaseReportFiles} from './release-report-files.mjs';
@@ -10,7 +11,7 @@ export function validateReleaseReportExtractionNative(report,expected){
  const errors=[],require=(ok,name)=>{if(!ok)errors.push(name);};
  require(/^[a-f0-9]{40}$/.test(expected?.commitSha??'')&&['v22.23.3','v24.21.0'].includes(expected?.nodeVersion),'invalid expected extraction context');
  require(report?.commitSha===expected?.commitSha&&report?.nodeVersion===expected?.nodeVersion&&report?.platform==='win32'&&report?.architecture==='x64','foreign native extraction source/runtime');
- require(report?.archiveCount===7&&report?.extractedFiles===7&&report?.expandedBytes===1470&&report?.positiveNativeExit===0&&report?.negativeNativeExit===1&&report?.negativeBeforeWriteEmpty===true,'native extraction/batch refusal incomplete');
+ require(report?.archiveCount===8&&report?.extractedFiles===8&&report?.expandedBytes===1680&&report?.positiveNativeExit===0&&report?.negativeNativeExit===1&&report?.negativeBeforeWriteEmpty===true,'native extraction/batch refusal incomplete');
  require(report?.fixtureCleanup===true&&report?.scope==='synthetic-no-github-authentication'&&report?.publicationAllowed===false&&report?.server2019Acceptance==='not-run','native extraction cleanup/scope mismatch');
  return errors;
 }
@@ -18,8 +19,8 @@ export function preflightReleaseReportArchives(receipt){
  try{
   const sha=receipt?.metadata?.request?.commitSha;
   requireFact(receipt?.format===1&&receipt.kind==='github-artifact-archives'&&receipt.publicationAllowed===false&&receipt.reportsVerified===false&&/^[a-f0-9]{40}$/.test(sha??'')&&positive(receipt.metadata.request.runId));
-  const names=['windows-node22','windows-node24','windows-browsers','windows-package','windows-package-harness','windows-package-tests','windows-service-tests'].map(prefix=>prefix+'-'+sha+'-1');
-  requireFact(Array.isArray(receipt.archives)&&receipt.archives.length===7&&Array.isArray(receipt.metadata.artifacts)&&receipt.metadata.artifacts.length===7);
+  const names=releaseArtifactPrefixes.map(prefix=>prefix+'-'+sha+'-1');
+  requireFact(Array.isArray(receipt.archives)&&receipt.archives.length===releaseArtifactPrefixes.length&&Array.isArray(receipt.metadata.artifacts)&&receipt.metadata.artifacts.length===releaseArtifactPrefixes.length);
   const ids=new Set();let total=0;
   const rows=names.map(name=>{
    const matches=receipt.archives.filter(a=>a?.name===name),metadata=receipt.metadata.artifacts.filter(a=>a?.name===name);requireFact(matches.length===1&&metadata.length===1);
@@ -44,7 +45,7 @@ export function extractReleaseReportArchives(receipt,directory,{execute}){
   fs.writeFileSync(input,inputContent,{flag:'wx'});const inputIdentity=fs.lstatSync(input,{bigint:true});
   const result=execute({inputFile:input,directory});requireFact(result?.status===0&&result.signal===null&&!result.error);fixed();
   requireFact(result.stdout instanceof Uint8Array||typeof result.stdout==='string');const bytes=typeof result.stdout==='string'?Buffer.from(result.stdout):result.stdout;requireFact(bytes.length<=65536);
-  const observed=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));requireFact(observed.exitCode===0&&Array.isArray(observed.archives)&&observed.archives.length===7);
+  const observed=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));requireFact(observed.exitCode===0&&Array.isArray(observed.archives)&&observed.archives.length===releaseArtifactPrefixes.length);
   let total=0,files=0;
   for(const row of rows){
    const matches=observed.archives.filter(a=>a?.artifactId===row.artifactId&&a.name===row.name);requireFact(matches.length===1);

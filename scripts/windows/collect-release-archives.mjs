@@ -1,3 +1,4 @@
+import {readReleaseProductivityBrowserFiles} from './release-productivity-browser-files.mjs';
 import {prepareCandidateHandoff} from './release-candidate-handoff.mjs';
 import fs from 'node:fs';
 import {normalizeReleaseCollectorEvidence} from './release-collector-evidence.mjs';
@@ -32,15 +33,17 @@ try{
  const auxiliaryReports=[22,24].map(major=>{const directory=extraction.archives.find(row=>row.name==='windows-node'+major+'-'+request.commitSha+'-1')?.directory;return readReleaseAuxiliaryFiles(directory,{commitSha:request.commitSha,nodeVersion:major===22?'v22.23.3':'v24.21.0'});});
  const browserDirectory=extraction.archives.find(row=>row.name==='windows-browsers-'+request.commitSha+'-1')?.directory;
  const browser=readReleaseBrowserFiles(browserDirectory,policy,{commitSha:request.commitSha,runId:request.runId,nodeVersion:'v24.21.0'});
+ const productivityDirectory=extraction.archives.find(row=>row.name==='windows-productivity-browsers-'+request.commitSha+'-1')?.directory;
+ const productivityBrowser=readReleaseProductivityBrowserFiles(productivityDirectory,policy,{commitSha:request.commitSha,runId:request.runId,nodeVersion:'v24.21.0'});
  const packageDirectory=extraction.archives.find(row=>row.name==='windows-package-'+request.commitSha+'-1')?.directory,consumerDirectory=extraction.archives.find(row=>row.name==='windows-package-tests-'+request.commitSha+'-1')?.directory;
  const packageReports=readReleasePackageReportFiles(packageDirectory,consumerDirectory,{commitSha:request.commitSha,runId:request.runId,appVersion:policy.source.packageVersion});
  const consumerReports=readReleaseConsumerReportFiles(consumerDirectory,packageReports,{commitSha:request.commitSha,runId:request.runId});
  const serviceDirectory=extraction.archives.find(row=>row.name==='windows-service-tests-'+request.commitSha+'-1')?.directory;
  const serviceReports=readReleaseServiceReportFiles(serviceDirectory,{commitSha:request.commitSha,runId:request.runId,zipSha256:packageReports.zipSha256,packageReportAgreement:packageReports.packageReportAgreement});
  const harnessDirectory=extraction.archives.find(row=>row.name==='windows-package-harness-'+request.commitSha+'-1')?.directory;
- const harnessAndBuild=readReleaseHarnessAndBuild(harnessDirectory,policy,packageReports,browser,{commitSha:request.commitSha,runId:request.runId});
+ const harnessAndBuild=readReleaseHarnessAndBuild(harnessDirectory,policy,packageReports,browser,{commitSha:request.commitSha,runId:request.runId},consumerReports);
  const innerPackage=extractReleaseInnerPackage(packageDirectory,path.resolve('reports/inner-package'),packageReports,{commitSha:request.commitSha,runId:request.runId,appVersion:policy.source.packageVersion,lockSha256:policy.lockSha256},{execute:({archivePath,archiveSha256,archiveBytes,destination})=>spawnSync(process.env.FO_PWSH_PATH,['-NoLogo','-NoProfile','-NonInteractive','-File',fileURLToPath(new URL('./Extract-ReleaseInnerPackage.ps1',import.meta.url)),'-ArchivePath',archivePath,'-ArchiveSha256',archiveSha256,'-ArchiveBytes',String(archiveBytes),'-Destination',destination],{timeout:120000,maxBuffer:65536,windowsHide:true})});
- const preflight={format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,rawServiceReportsVerified:true,rawAuxiliaryReportsVerified:true,rawHarnessFilesVerified:true,packageBuildAgreement:true,innerPackageAgreement:true,licenseInventoryVerified:true,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,packageReports,consumerReports,serviceReports,auxiliaryReports,harnessAndBuild,innerPackage};
+ const preflight={format:1,publicationAllowed:false,reportsVerified:false,rawQualityAssertionsVerified:true,runtimeProductionAuditVerified:true,rawCoverageVerified:true,rawBrowserVerified:true,rawProductivityBrowserVerified:true,nativeTouchVerified:true,packageReportAgreement:true,rawConsumerFunctionalReportsVerified:true,rawServiceReportsVerified:true,rawAuxiliaryReportsVerified:true,rawHarnessFilesVerified:true,packageBuildAgreement:true,innerPackageAgreement:true,licenseInventoryVerified:true,consumerFunctionalVerified:false,commitSha:request.commitSha,runId:request.runId,sourcePolicy:policy,extraction,quality,runtimeAndCoverage,browser,productivityBrowser,packageReports,consumerReports,serviceReports,auxiliaryReports,harnessAndBuild,innerPackage};
  const evidence=normalizeReleaseCollectorEvidence(receipt,preflight);
  const handoff=prepareCandidateHandoff(evidence);
  fs.writeFileSync('reports/release-report-preflight.json',JSON.stringify(preflight,null,2)+'\n');

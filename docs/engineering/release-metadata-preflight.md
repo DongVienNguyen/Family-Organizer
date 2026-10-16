@@ -19,8 +19,8 @@ Errors expose neither credentials nor response bodies. Offline tests use synthet
 transports and never call real providers.
 
 The policy requires the explicit successful first-attempt main push, CI workflow
-381168350 at .github/workflows/ci.yml, seven distinct GitHub Actions checks
-(app15368) and corresponding successful jobs, and seven unique unexpired artifact
+381168350 at .github/workflows/ci.yml, eight distinct GitHub Actions checks
+(app15368) and corresponding successful jobs, and eight unique unexpired artifact
 identities/digests bound to the same run/SHA, including the package harness used
 by both consumers. Unknown, duplicate and missing artifacts fail closed. It never searches for latest success.
 
@@ -52,3 +52,5 @@ One fresh whole-branch review found the original six-artifact inventory rejected
 every successful real CI run. The seven-artifact fixture reproduced three failing
 positive assertions; explicit harness validation fixes the single underlying defect.
 Negative tests retain complete inventory, unique ID/name and identity/digest checks.
+
+Current F08-o2 protocol also requires the Productivity browser/native touch family and three generated fixtures bound to consumer-recorded SHA256 values. See [generated fixture policy](release-generated-fixture-policy.md). Historical receipts remain historical; publication stays disabled.

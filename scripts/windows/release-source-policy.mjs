@@ -1,3 +1,4 @@
+import {parseProductivityBrowserSourcePolicy} from './release-productivity-source-policy.mjs';
 import {createHash} from 'node:crypto';
 import ts from 'typescript';
 import {parseDocument,visit,isAlias} from 'yaml';
@@ -49,6 +50,7 @@ export function readTrustedReleasePolicy(request,authority){
   const projects=literalArray('browserProjects'),cases=literalArray('browserCases');
   requireFact(JSON.stringify(projects)===JSON.stringify(['chromium','firefox','webkit'])&&new Set(cases).size===cases.length&&cases.every((name,index)=>/^B[0-9]{2} [A-Za-z0-9][A-Za-z0-9 _-]{0,120}$/.test(name)&&name.startsWith('B'+String(index+1).padStart(2,'0')+' ')));
   const browserPolicy={projects,cases,contractSha256:hash(windowsBytes(browserContract))};
+  const productivityBrowserPolicy=parseProductivityBrowserSourcePolicy(read('scripts/ci/productivity-browser-contract.mjs'),read('scripts/ci/matrix-touch-contract.mjs'),projects);
   const workflowText=read('.github/workflows/ci.yml');
   // Parse data only. Literal text in env/run blocks never declares a step.
   // Refuse unsupported contexts instead of interpreting target expressions.
@@ -93,6 +95,6 @@ export function readTrustedReleasePolicy(request,authority){
   const harnessPolicy={workflowSha256:hash(windowsBytes(workflowText)),files:harnessSources.sort((a,b)=>a.sourcePath.localeCompare(b.sourcePath,'en')),...(generators.length?{generators}:{})};
   const sourceInventory=inventoryNames.sort((a,b)=>a.localeCompare(b,'en')).map(name=>{const text=read(name);requireFact(!/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(text));return {path:name,sha256:hash(windowsBytes(text))};});
   requireFact(Date.now()-started<=120000);
-  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,harnessPolicy};
+  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,productivityBrowserPolicy,harnessPolicy};
  }catch{reject();}
 }
