@@ -510,10 +510,28 @@
       "platform": "linux"
     },
     "scopedChromium": "running; does not establish Windows acceptance",
-    "reports": {},
+    "reports": {
+      "p09e-profiler-full.junit.xml": "810f7d7ecf7c57ea257aa0f0de7cc67ecdae8511d635523fd2def74aae66703f",
+      "p09e-profiler-lint-first.log": "09cb6e2b3c0c90103c3686c44a9cc0b54cff4b4c622e9f2b3c7f9a5c860227ed",
+      "p09e-profiler-full.log": "08a9971ee2c19ac5da14235a3dc019c4fca39639de4799c06e024eab2feb6227",
+      "p09e-profiler-full.json": "cb4e2b23e27003855935a126271dd10eef25f7734a630b30ada744daa267975d",
+      "p09e-profiler-review-rulings.json": "32be2f7dcf695ac2852bcc37444ad09df3bb6284a1ac9f318bf0da9461615854",
+      "p09e-profiler-target-current.log": "2a910ad5acd96eeb930e8561930f6af148ea700a78291408c0468f325dcb0ed6",
+      "p09e-profiler-target-current.json": "a1ba53a65012c090178e4633f553568f390133af7c4d8ee36c44e17bec7a038e",
+      "p09e-profiler-gate-red.json": "dd9ddef583ca07fed85faa91ab30f4a2fef6122dcce301d493b544ffee55d824",
+      "p09e-profiler-gate-red.log": "6c2eed30262e9a8208f8cb260446352e4285638fc300b2404eee8f5dbeace7e7",
+      "p09e-profiler-lint-current.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09e-profiler-build.log": "2a162d8765f3cd8977e4a3291eb45eed80a23e774ef1394782261dc54aaedef6"
+    },
     "nativeSpecsByteEqual": true,
     "dependenciesUnchanged": true,
     "windowsAcceptance": "pending new exact HEAD",
-    "publicationAllowed": false
+    "publicationAllowed": false,
+    "reportCollectionCorrection": {
+      "originalCollectionEmpty": true,
+      "cause": "chained Python comparison in metadata writer instead of explicit not-in predicate",
+      "correction": "bind all completed raw verification report hashes; in-progress browser report excluded",
+      "sourceOrTestsChanged": false
+    }
   }
 }
