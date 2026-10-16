@@ -1,0 +1,62 @@
+{
+  "task": "P09-h-body-drain",
+  "kind": "ONE new3-source-file SELF after actual Windows38872944564; originalH21-file and parentG reviews stay closed",
+  "reviewClosed": true,
+  "findings": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "allFindingsGradedBeforeCorrection": true,
+  "correctionPasses": 0,
+  "rereview": false,
+  "importantRemaining": 0,
+  "sourceHashes": {
+    "src/features/productivity/kanbanCommandState.ts": "dc6ef46adb25710501defd4a3cd7c0c1eecefaa9593ec84a23a6bfa2da97834d",
+    "src/features/productivity/kanbanCommandState.test.ts": "f8e8e95b9d1fc3cd7cd67e6753b311cf5b8fc94d871be9eec1d27851e30c0696",
+    "tests/e2e/productivity.spec.ts": "aa453d05153281918b22345373ff867810ba494ecc7ab4b2ea9aaba0ab3ea3bb"
+  },
+  "authSupportSourceHashes": {
+    "src/App.tsx": "a042e3e89f4c2317aef647bc63cfd9d3b7e1317808ed1f61ac03a9c99d65494d",
+    "src/utils/browserSession.ts": "e73cd31bf5a50827ac11102253c7419471e601626c8d02b72a556ceefd4b3c5a",
+    "src/utils/sessionBoundary.ts": "a802b3d3c0b440d0cec63a6ecec31cb6326d7bffe3acd2c14982f591f9f6f4ae",
+    "src/utils/abortSignals.ts": "3a8b0a5ebf22d7f981c70a366163bb2957439672aa3c1052b96903e0d52fc0ae"
+  },
+  "causalRed": {
+    "tests": 47,
+    "passed": 44,
+    "failed": 3
+  },
+  "correctedTarget": {
+    "tests": 118,
+    "passed": 118,
+    "files": 3
+  },
+  "browser": {
+    "cases": 26,
+    "nativeTouch": 1,
+    "failed": 0
+  },
+  "rootCause": "p09h-c25-abort-stack.json confirms Object.dispose cancels original native JSON body afterHTTP200",
+  "sourcePreservation": {
+    "allOriginal44UnitLinesExactAndInOrder": true,
+    "original23BrowserPrefixByteIdentical": true,
+    "newUnitCasesInsertedBeforeExistingFinalCase": true,
+    "initialWriterContiguousPrefixAssumptionRejected": true,
+    "rawReportsOrTestsChangedForWriterCorrection": false
+  },
+  "coverage": [
+    "passive UI disposal retires generation/private plan/UUID/listeners immediately; dispatched mutation drains without stale publication or callbacks",
+    "previews and explicit clear/selection/cancel keep original abort semantics and singleflight; all old assertions retained",
+    "real SessionBoundary revocation aborts transport/body after UI disposal; existing120second deadline unchanged",
+    "original native Response.json called once by app; original parsed value/input/init/signal/Response returned unchanged, only observation detached",
+    "driver/nativeHTTP200, sameUUID, no-store/Authboolean/signal, one request/read, exactrevision and unchanged Task/draft/freshAPI assertions",
+    "diagnostic prototype instrumentation removed; failure attachments never include bearer contents",
+    "no retries, extra mutation, response fulfillment, optimistic cache authority, provider/dependency/backend/schema/default change"
+  ],
+  "remaining": [
+    "fresh fullCloud4926/268 and exactWindows8checks/11raw/124firstattempt/alllogs",
+    "fullP08/P09/P10/Wallet/master incomplete"
+  ],
+  "publicationAllowed": false
+}

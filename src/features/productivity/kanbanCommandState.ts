@@ -51,6 +51,11 @@ export function createKanbanCommandState(ports:Ports){
    if(!current(generation,seq))return;
    try{await ports.onCommitted();}catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'refresh')});}
   },
-  dispose(){if(disposed)return;disposed=true;epoch++;sequence++;request?.abort();request=undefined;active=null;commandKey=undefined;selection=null;signature='';state=empty();listeners.clear();},
+  dispose(){if(disposed)return;disposed=true;epoch++;sequence++;
+   // A dispatched mutation may already be committed when its SSE refresh
+   // unmounts the UI. Drain its bounded, session-guarded response; retiring this
+   // owner still prevents every late publication/callback. Explicit clear or
+   // selection changes retain cancellation, and previews are always aborted.
+   if(!state.writing)request?.abort();request=undefined;active=null;commandKey=undefined;selection=null;signature='';state=empty();listeners.clear();},
  };
 }
