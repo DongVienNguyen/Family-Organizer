@@ -1797,5 +1797,17 @@
     "nextDeadline": "Hạn kỳ tiếp theo",
     "nextTime": "Giờ kỳ tiếp theo (không bắt buộc)",
     "nextExactUtc": "Thời điểm UTC kỳ tiếp theo (nếu cần)"
+  },
+  "productivityWorkflow": {
+    "dialog": "Hoàn thành từ bảng trạng thái",
+    "action": "Báo hoàn thành: {{title}}",
+    "preview": "Xem trước yêu cầu hoàn thành",
+    "apply": "Gửi yêu cầu hoàn thành",
+    "proof": "Ghi chú bằng chứng (tùy chọn)",
+    "policy": "Kết quả có thể là Hoàn thành hoặc Chờ duyệt theo quy định gia đình. Điểm chỉ được cộng khi việc hoàn thành được chấp nhận.",
+    "conflict": "Công việc hoặc bảng đã thay đổi. Xem trước lại trước khi gửi.",
+    "refused": "Chưa thể hoàn thành. Kiểm tra việc con, giới hạn WIP và điều kiện duyệt rồi thử lại.",
+    "failed": "Chưa xác nhận được kết quả. Kiểm tra lại hoặc thử lại cùng yêu cầu.",
+    "reload": "Tải lại bảng, giữ ghi chú"
   }
 }

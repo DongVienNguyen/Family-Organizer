@@ -37,6 +37,8 @@ export const productivityBrowserCases=[
  'P10 C30 denied series authority removes only its private editor draft while retaining the readable Task',
  'P10 C31 explicit legacy conversion preserves pending proof family history and exactly-once approval',
  'P10 C32 denied legacy conversion erases only recurrence metadata and retains unsent Task inputs',
+ 'P08 C33 workflow completion keeps cancel read-only and renders actual child Review before one adult grant',
+ 'P08 C34 workflow conflict reload keeps unsent proof and requires a fresh read-only confirmation',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports(input),...validateProductivityShards(input,productivityBrowserCases)];

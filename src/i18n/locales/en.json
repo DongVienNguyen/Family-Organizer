@@ -1797,5 +1797,17 @@
     "nextDeadline": "Next occurrence deadline",
     "nextTime": "Next occurrence local time (optional)",
     "nextExactUtc": "Next occurrence explicit UTC instant (if needed)"
+  },
+  "productivityWorkflow": {
+    "dialog": "Complete from workflow board",
+    "action": "Request completion: {{title}}",
+    "preview": "Preview completion request",
+    "apply": "Send completion request",
+    "proof": "Proof note (optional)",
+    "policy": "The result may be Done or Review under your family policy. Points are granted only after completion is accepted.",
+    "conflict": "The task or board changed. Preview again before sending.",
+    "refused": "Completion is unavailable. Check subtasks, WIP capacity and approval requirements, then try again.",
+    "failed": "The result could not be confirmed. Check again or retry the same request.",
+    "reload": "Reload board, keep note"
   }
 }

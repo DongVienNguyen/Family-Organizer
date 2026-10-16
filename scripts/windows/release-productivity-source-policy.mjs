@@ -17,7 +17,7 @@ export function parseProductivityBrowserSourcePolicy(contract,touchContract,proj
  if(declarations.length){const version=exportedValue(source,'productivityFixtureVersion');requireFact(ts.isNumericLiteral(version)&&['9','12','13'].includes(version.getText(source)));fixtureVersion=Number(version.getText(source));}
  requireFact(!cases.some(name=>name.startsWith('P09 '))||[9,12,13].includes(fixtureVersion));
  requireFact(!cases.some(name=>name.startsWith('P10 '))||[12,13].includes(fixtureVersion));
- requireFact(!cases.some(name=>/^P10 C(31|32) /.test(name))||fixtureVersion===13);
+ requireFact(!cases.some(name=>/^P10 C(31|32) /.test(name)||/^P08 C3[34] /.test(name))||fixtureVersion===13);
  const shardDeclarations=source.statements.flatMap(statement=>ts.isVariableStatement(statement)?statement.declarationList.declarations.filter(d=>ts.isIdentifier(d.name)&&d.name.text==='productivityBrowserShardFormat'):[]);let shardFormat;
  if(shardDeclarations.length){const format=exportedValue(source,'productivityBrowserShardFormat');requireFact([9,12,13].includes(fixtureVersion)&&ts.isNumericLiteral(format)&&format.getText(source)==='1');shardFormat=1;}
  const touchSource=syntax(touchContract,'matrix-touch-contract.mjs'),touchCase=literal(touchSource,exportedValue(touchSource,'matrixTouchCase'));requireFact(/^P[0-9]{2} touch [^\r\n]{1,300}$/.test(touchCase));

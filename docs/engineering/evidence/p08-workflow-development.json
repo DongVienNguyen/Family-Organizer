@@ -1,0 +1,333 @@
+{
+  "taskId": "P08-workflow-completion",
+  "baseSha": "d99d83e6ec80ebc90528b68ce96375b26d4fc9b3",
+  "developmentHead": "674f1888bd9026a49fd361598f447cd41bd77b44",
+  "sourceFiles": {
+    "scripts/ci/productivity-browser-contract.mjs": "cbc58ce101171a8fbbd180aaec15aea30e0d4f5545899a29b6dfe5bddbf11415",
+    "scripts/windows/release-productivity-source-policy.mjs": "b7fdb4254a3c028eadbcf59e049dcc4b8fb3a05838ed0eeb0d247bc28a19c747",
+    "server/app.ts": "966fbe94c205b7402bec403ccf26574bc1b9cb6f10705cdcb8bb78c19fae9d71",
+    "server/productivity/boardRouter.ts": "128100baaeec12edd8ff654de8275e93b77aa301e1c4aae19c13eef72e023721",
+    "server/productivity/ports.ts": "bd846b437f976ebd99185142a8f2f48bde57b5b51ba0d9ce7ee0b08fcba0c5b8",
+    "server/productivity/router.ts": "eae73a43f29fcc51718c67e5c365be91f4030da78a8a2d5327aae05a185952ee",
+    "server/productivity/workflow-moves.api.test.ts": "9350e309d386a91c35d63fd4308a753c4268114a8a5b4a9af85efaaeb0f0cdb5",
+    "server/productivity/workflow-moves.test.ts": "0f0e36942d4e3aaced08c122c0d99aab24aa98397b6376734ff36de15df731a6",
+    "server/productivity/workflowMoves.ts": "3e239a2d19c1bd818b07f7c0cbe29d2f31405240b0ad18d6c97afc93d9bfffb2",
+    "src/components/Tasks.tsx": "40cfbbcd18f87e38a6fcf9717da1bc30b900712b5affc6c8d58a281a81347c0a",
+    "src/features/productivity/Kanban.tsx": "01b1606d4ab3a2b98840e78d64ca9fadabad51599794b7a5c3b316a1e7a7cb12",
+    "src/features/productivity/KanbanWorkflowActions.tsx": "d7e216c3f2fc47092e3ba52ea3b0a14356f8f7cb0ebe58670a92651bcb980998",
+    "src/features/productivity/KanbanWorkflowDialog.tsx": "b312452e4e8567ab90583a6ff2164fbc3ccc2ada95c15f63cfea9edc4f7162ba",
+    "src/features/productivity/KanbanWorkspace.tsx": "597fa5be5ec1cc4868ed8fdd9df682bac17659251309c37ac5eb173690af0a03",
+    "src/features/productivity/api.ts": "13869527be9afe69a01ca99d5a693d62055b96ee8d581a39cf91aae911e66177",
+    "src/features/productivity/kanban-workflow-ui.test.tsx": "59a08b9bf0a60a9514f899766a784fde51a5ebc1ed298eb5650ca42acd6d381d",
+    "src/features/productivity/kanbanCommandState.ts": "6c1a4e9278e6baacd44fca808c441d9633f35323f1103c31b4850269bca5fd53",
+    "src/features/productivity/workflow-api.test.ts": "e27dfa89e935c1d8030d1ee4f1213816694f1af36a84b0b63487400fd3a92954",
+    "src/features/productivity/workflow-command-state.test.ts": "9fcf3d814ad15064fbabc564c65a10c314b2156f8dc43396ee7180408f052998",
+    "src/features/productivity/workflowApi.ts": "8597d2603624d9862fd8547b5439592d013a595fab7fb13251e6bc3939e1125f",
+    "src/i18n/locales/en.json": "c111d1c938f7c475461303194fc40dc70344a69f097a142d58acce49baca9bdb",
+    "src/i18n/locales/vi.json": "8e45f0cb744f22a3f472bbc35dbd03e8106b1b4273317e5c8768aa0c15b577dd",
+    "src/i18n/locales/zh.json": "c8bcb5c42c14e14bc842709d104ad05daddb0cd45d2c915d83ddfa0cc757db2b",
+    "tests/e2e/productivity.spec.ts": "a9cc115dc47823c31c269bc51ca507fff1e9013893b187486839299d34cc5d2a",
+    "tests/helpers/release-productivity-browser-fixture.ts": "99fb62c805c5c54bf1d98ca0595cfa500d109f65b86256f764db713b1e5910a4",
+    "tests/release-productivity-profile.test.ts": "05568d98fb9b02d2d2c280ad0b6588ee82ec9916fe9db500b05a53a073465f7f"
+  },
+  "wholeBranchReview": {
+    "taskId": "P08-workflow-completion",
+    "mode": "LOCAL whole-branch SELF; not independent",
+    "baseSha": "d99d83e6ec80ebc90528b68ce96375b26d4fc9b3",
+    "reviewedAtUtc": "2026-10-16T18:09:34.191132+00:00",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "scope": [
+      "existing P10 owner in one I01 transaction and canonical actual-column WIP",
+      "live actor/view/task scope before cached UUID response; hidden successor projection and trusted SSE",
+      "readonly bounded previews and stale/expired/unknown-plan refusal",
+      "strict session SDK and proof-preserving explicit network retry",
+      "controlled actor/view-owned draft surviving projection reload with immediate denied-authority hiding",
+      "accessible confirmation and real browser cancel/pending/approval/conflict/no-effects assertions",
+      "literal13 source capability and all102raw browser attempts with historical96 retained"
+    ],
+    "sourceFiles": {
+      "scripts/ci/productivity-browser-contract.mjs": "cbc58ce101171a8fbbd180aaec15aea30e0d4f5545899a29b6dfe5bddbf11415",
+      "scripts/windows/release-productivity-source-policy.mjs": "b7fdb4254a3c028eadbcf59e049dcc4b8fb3a05838ed0eeb0d247bc28a19c747",
+      "server/app.ts": "966fbe94c205b7402bec403ccf26574bc1b9cb6f10705cdcb8bb78c19fae9d71",
+      "server/productivity/boardRouter.ts": "128100baaeec12edd8ff654de8275e93b77aa301e1c4aae19c13eef72e023721",
+      "server/productivity/ports.ts": "bd846b437f976ebd99185142a8f2f48bde57b5b51ba0d9ce7ee0b08fcba0c5b8",
+      "server/productivity/router.ts": "eae73a43f29fcc51718c67e5c365be91f4030da78a8a2d5327aae05a185952ee",
+      "server/productivity/workflow-moves.api.test.ts": "9350e309d386a91c35d63fd4308a753c4268114a8a5b4a9af85efaaeb0f0cdb5",
+      "server/productivity/workflow-moves.test.ts": "0f0e36942d4e3aaced08c122c0d99aab24aa98397b6376734ff36de15df731a6",
+      "server/productivity/workflowMoves.ts": "3e239a2d19c1bd818b07f7c0cbe29d2f31405240b0ad18d6c97afc93d9bfffb2",
+      "src/components/Tasks.tsx": "40cfbbcd18f87e38a6fcf9717da1bc30b900712b5affc6c8d58a281a81347c0a",
+      "src/features/productivity/Kanban.tsx": "01b1606d4ab3a2b98840e78d64ca9fadabad51599794b7a5c3b316a1e7a7cb12",
+      "src/features/productivity/KanbanWorkflowActions.tsx": "d7e216c3f2fc47092e3ba52ea3b0a14356f8f7cb0ebe58670a92651bcb980998",
+      "src/features/productivity/KanbanWorkflowDialog.tsx": "b312452e4e8567ab90583a6ff2164fbc3ccc2ada95c15f63cfea9edc4f7162ba",
+      "src/features/productivity/KanbanWorkspace.tsx": "597fa5be5ec1cc4868ed8fdd9df682bac17659251309c37ac5eb173690af0a03",
+      "src/features/productivity/api.ts": "13869527be9afe69a01ca99d5a693d62055b96ee8d581a39cf91aae911e66177",
+      "src/features/productivity/kanban-workflow-ui.test.tsx": "59a08b9bf0a60a9514f899766a784fde51a5ebc1ed298eb5650ca42acd6d381d",
+      "src/features/productivity/kanbanCommandState.ts": "6c1a4e9278e6baacd44fca808c441d9633f35323f1103c31b4850269bca5fd53",
+      "src/features/productivity/workflow-api.test.ts": "e27dfa89e935c1d8030d1ee4f1213816694f1af36a84b0b63487400fd3a92954",
+      "src/features/productivity/workflow-command-state.test.ts": "9fcf3d814ad15064fbabc564c65a10c314b2156f8dc43396ee7180408f052998",
+      "src/features/productivity/workflowApi.ts": "8597d2603624d9862fd8547b5439592d013a595fab7fb13251e6bc3939e1125f",
+      "src/i18n/locales/en.json": "c111d1c938f7c475461303194fc40dc70344a69f097a142d58acce49baca9bdb",
+      "src/i18n/locales/vi.json": "8e45f0cb744f22a3f472bbc35dbd03e8106b1b4273317e5c8768aa0c15b577dd",
+      "src/i18n/locales/zh.json": "c8bcb5c42c14e14bc842709d104ad05daddb0cd45d2c915d83ddfa0cc757db2b",
+      "tests/e2e/productivity.spec.ts": "a9cc115dc47823c31c269bc51ca507fff1e9013893b187486839299d34cc5d2a",
+      "tests/helpers/release-productivity-browser-fixture.ts": "99fb62c805c5c54bf1d98ca0595cfa500d109f65b86256f764db713b1e5910a4",
+      "tests/release-productivity-profile.test.ts": "05568d98fb9b02d2d2c280ad0b6588ee82ec9916fe9db500b05a53a073465f7f"
+    },
+    "original32BrowserSourcePrefixPreserved": true,
+    "frozenMigrationDefinitionsVerified": 15,
+    "dependenciesChanged": false,
+    "defaultStorageVersion": 6,
+    "explicitFixtureVersion": 13,
+    "fullM1Accepted": false,
+    "fullMasterPlanAccepted": false,
+    "server2019Acceptance": "not-run",
+    "publicationAllowed": false
+  },
+  "cloud": {
+    "platform": "linux",
+    "nodeVersion": "v24.21.0",
+    "tests": 5597,
+    "files": 306,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "qualityExit": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "jsonSha256": "abaea20a19ea2eaeefc8f96d34c4be91a3c4d3f1d507aaef495bdab9642ae8ce",
+    "junitSha256": "3f54f2748bca6225cf87ea4a65cd7eb7cd7997895e71275ec18b30fab97cebad",
+    "targetedChromium": 2,
+    "nativeTouch": 1,
+    "browserNativeExit": 0,
+    "targetReportHashes": {
+      "productivity-browser-touch.json": "0f307cd24771771a3e2acb954a392553c4f0a54671752cbf58699230ee63add6",
+      "productivity-browser-server.log": "95cc880c9850c7e6bc529ba4dfabb1adbaf4fdce0793787caa92615934482057",
+      "productivity-browser.junit.xml": "3e96dbc9bb061c04cbeac934acfd2f1beb5191a056c4acd624afa3584eeb209a",
+      "productivity-browser-touch.junit.xml": "555f147546674495bec96b1d6c2012be650a4f7c57b9e726bed0ef39b4458fa5",
+      "productivity-browser.json": "7c312d0709e7e438086cd22681732231d9720f9db60824c93020b2d2ce8dd425",
+      "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+      "productivity-browser-run.log": "59dc15ba778e7286826bd4827479e51166a9d0be9deec0f15c029ab372b597c3",
+      "productivity-browser-touch-runtime.json": "8a52585ebf66047b6e894d4f7c1dfeb00387dea696726260470adef83791ee5e",
+      "productivity-browser-fixture.json": "bbba7ee9b7ecd68d745ef81dff6f068c61fa3e488a2ce1ab0efb9ee3ff78c844"
+    },
+    "build": {
+      "serverSha256": "970528adb699d751ccf0a092ceb79f75bddebd96e078e706a6497fba306a8ce6",
+      "indexSha256": "d7b66be07ce31c5de1f0155138e7441363bc5c879e16b4909d04f871de15e08e"
+    },
+    "buildInputsAggregate": "970b68aeee03ae8399767b50eb9d06785dd7593bf457ba7a0e9033a28731c93a",
+    "browserFixtureInputs": {
+      "tests/e2e/foundation.spec.ts": "18325951e3edce628b709bafb370d830296cb5c0cbb2623af93d75c5ca3180a8",
+      "tests/e2e/matrix-touch.spec.ts": "0cc72e12a972eca6b3867edd4643eddb129b6dbcf961f0c70be64ba09730b3e5",
+      "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66",
+      "tests/e2e/offline-network-boundary.ts": "eacca7883bb5440c474b0dc867add6663b1180663f731640aa9fc8f570ab69ee",
+      "tests/e2e/platform-probe.ts": "d0fac1fbb5e9bd7d1bb5ac1e8641f43f536bb6cf44d4c0172ecbd18d7103f5d7",
+      "tests/e2e/productivity.spec.ts": "a9cc115dc47823c31c269bc51ca507fff1e9013893b187486839299d34cc5d2a"
+    },
+    "full34CloudBrowser": "not-run; current C33/C34+touch pass, all34/3engines mandatory on Windows"
+  },
+  "changedSuiteCounts": {
+    "tests/productivity-browser-evidence.test.ts": 69,
+    "tests/release-productivity-profile.test.ts": 43,
+    "server/productivity/workflow-moves.api.test.ts": 6,
+    "server/productivity/workflow-moves.test.ts": 22,
+    "src/features/productivity/kanban-workflow-ui.test.tsx": 11,
+    "src/features/productivity/workflow-api.test.ts": 30,
+    "src/features/productivity/workflow-command-state.test.ts": 15
+  },
+  "developmentCheckpoints": [
+    {
+      "file": "p08-workflow-browser-first-build.log",
+      "sha256": "3f5546176f371dd5f357725fd9a8eca4de39eb00e5f260561ae5c4fc6f12fa52"
+    },
+    {
+      "file": "p08-workflow-browser-first.log",
+      "sha256": "e2afe5c03a57b86b98775166cf5b9218658cee45f5212a09bb0e7b61bfccdc87"
+    },
+    {
+      "file": "p08-workflow-browser-full-build.log",
+      "sha256": "aecb1b8b204bf7a241c431df035972e1de58aa9cb3bd95c9b3d5ed80f1d0ca08"
+    },
+    {
+      "file": "p08-workflow-browser-full.log",
+      "sha256": "10d8ddaae475948820f0e05ffc5f7be769d92a05b64adf7e49cf42c6453baa35"
+    },
+    {
+      "file": "p08-workflow-browser-policy-red.log",
+      "sha256": "3b126b2d2198cbe4b85145384ccaebee65d33a717c74f2438762058987615a7f"
+    },
+    {
+      "file": "p08-workflow-client-state-lint.log",
+      "sha256": "760d014ba3b9cbbba3fdd0c03664fe7a2e5aaa75d66f26570c8aa5a1ad82a89a"
+    },
+    {
+      "file": "p08-workflow-client-state-tests.log",
+      "sha256": "19e4708c6dc621b03e585219b01e75e321d654f7600e96fd64e7bd1c89595606"
+    },
+    {
+      "file": "p08-workflow-conflict-causal-red-build.log",
+      "sha256": "7ab5905feddc04bb510161e308f4def1eebfef775f7cbfddca8e349e10aa13b3"
+    },
+    {
+      "file": "p08-workflow-conflict-causal-red.log",
+      "sha256": "09c6000d66e3f05e7a3bce513095c3ee154eae2807ffa221f2b223e6fc3ed878"
+    },
+    {
+      "file": "p08-workflow-conflict-closed-red.log",
+      "sha256": "598c026e1d85254967ecaa9bf6b0b6cecd90cda1f24a64e9355ba65bb9d63b3e"
+    },
+    {
+      "file": "p08-workflow-conflict-final-browser.log",
+      "sha256": "86f69889255397f9ddcf7a3f2bc514d8b2d1d8767e9bff22773c7b556618c365"
+    },
+    {
+      "file": "p08-workflow-conflict-final-lint.log",
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    {
+      "file": "p08-workflow-conflict-final-quality.log",
+      "sha256": "78836e6004079cb5a98212003761a06bb94391f6e1c7639c04e8ef8d49a07895"
+    },
+    {
+      "file": "p08-workflow-conflict-green-build.log",
+      "sha256": "8b41da60b46b4b462da3d63fed742ee36aa83738276fd0b2e54d45157f11aaff"
+    },
+    {
+      "file": "p08-workflow-conflict-green.log",
+      "sha256": "96acfdc32712cbd44b1c0315f45e653c05c26618f50a679219ab468e18c532e2"
+    },
+    {
+      "file": "p08-workflow-domain-first-lint.log",
+      "sha256": "0140e170c17c8a92b8a127660c5cc2c85872888814439d3b1607d1fd5fe9a786"
+    },
+    {
+      "file": "p08-workflow-domain-first-tests.log",
+      "sha256": "4c09a6258ef95941aa86ee9b1e3343648f3a1a5fa05dc008b9528405dbc89de1"
+    },
+    {
+      "file": "p08-workflow-domain-guarded-lint.log",
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    {
+      "file": "p08-workflow-domain-guarded-tests.log",
+      "sha256": "77c1c823adcd2d9b18052d264c77fc4331d0fca7fe0aa25bb08d3ed559e0dcc3"
+    },
+    {
+      "file": "p08-workflow-domain-red.log",
+      "sha256": "5c36afaa88eff0d98b5f952c5a54a3069d042f8f32dfef51406cab51da5812ca"
+    },
+    {
+      "file": "p08-workflow-full-browser.log",
+      "sha256": "fd1f93c17077b5048cd1be726473563a7eb83725b363c2877aa49f6fa537460c"
+    },
+    {
+      "file": "p08-workflow-full-lint.log",
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    {
+      "file": "p08-workflow-full-quality.log",
+      "sha256": "6c17b1165ccad31e1b414f771d204e7ad46a264c721129de922ef72a773f0c41"
+    },
+    {
+      "file": "p08-workflow-http-red.log",
+      "sha256": "2c202ef5674120513237addd98531d8df526feffb67b42d5a45e1c50d60cdb71"
+    },
+    {
+      "file": "p08-workflow-http-wired.log",
+      "sha256": "f48a75854fdb044a66b0e927783e3f4568cadb331c47eb5009d97d8d412f7130"
+    },
+    {
+      "file": "p08-workflow-owned-view.log",
+      "sha256": "8e013ef73f6aed868a796a4a5349a511ef148ea62d719c031b3feef4378d1d18"
+    },
+    {
+      "file": "p08-workflow-proof-helper-red.log",
+      "sha256": "e7d690b9ef1da03d2cc2df1be7957ad9e53f1111dccbb646685d5de3b17cd1d9"
+    },
+    {
+      "file": "p08-workflow-sdk-red.log",
+      "sha256": "4184ba75d6889af68aebb7cc1f5a2f6fd7820127402ba3c0b90051da67f5fe58"
+    },
+    {
+      "file": "p08-workflow-sdk-wired-lint.log",
+      "sha256": "be6842897909a56aabb4b35c85ebe009651199941ddac62e31c31c31699647fa"
+    },
+    {
+      "file": "p08-workflow-sdk-wired-tests.log",
+      "sha256": "8a568964f23ffae83888b47a90a053e96fae01e52ef123bd2265a49f7bb56dc5"
+    },
+    {
+      "file": "p08-workflow-ui-red.log",
+      "sha256": "404a2c37aec4a9dc7f9e698bf3a2cd1e44a452893b815f2575fde7d52d2a96d6"
+    },
+    {
+      "file": "p08-workflow-ui-wired-lint.log",
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    {
+      "file": "p08-workflow-ui-wired-tests.log",
+      "sha256": "79315195bdceeb09877a7262297c7d87ca389fb8ef11b4031a9b2bfc034ac2eb"
+    }
+  ],
+  "historicalFullBeforeConflict": {
+    "tests": 5595,
+    "files": 306,
+    "qualityExit": 0,
+    "lintExit": 0,
+    "cloudChromium": {
+      "passed": 32,
+      "failed": 1,
+      "failedCase": "C33 reused view deliberately converted to List by C21; fixed dedicated real API view"
+    },
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "2fbf1c373eaaef903743a0e07848640ffb41ae38260619d994862756534710bd",
+      "scripts/windows/release-productivity-source-policy.mjs": "e4aadafeb04050f7d826893e803d8bd4ed69b28a6b3841a081b582570990bc3c",
+      "server/app.ts": "966fbe94c205b7402bec403ccf26574bc1b9cb6f10705cdcb8bb78c19fae9d71",
+      "server/productivity/boardRouter.ts": "128100baaeec12edd8ff654de8275e93b77aa301e1c4aae19c13eef72e023721",
+      "server/productivity/ports.ts": "bd846b437f976ebd99185142a8f2f48bde57b5b51ba0d9ce7ee0b08fcba0c5b8",
+      "server/productivity/router.ts": "eae73a43f29fcc51718c67e5c365be91f4030da78a8a2d5327aae05a185952ee",
+      "server/productivity/workflow-moves.api.test.ts": "9350e309d386a91c35d63fd4308a753c4268114a8a5b4a9af85efaaeb0f0cdb5",
+      "server/productivity/workflow-moves.test.ts": "0f0e36942d4e3aaced08c122c0d99aab24aa98397b6376734ff36de15df731a6",
+      "server/productivity/workflowMoves.ts": "3e239a2d19c1bd818b07f7c0cbe29d2f31405240b0ad18d6c97afc93d9bfffb2",
+      "src/components/Tasks.tsx": "40cfbbcd18f87e38a6fcf9717da1bc30b900712b5affc6c8d58a281a81347c0a",
+      "src/features/productivity/Kanban.tsx": "01b1606d4ab3a2b98840e78d64ca9fadabad51599794b7a5c3b316a1e7a7cb12",
+      "src/features/productivity/KanbanWorkflowActions.tsx": "f0aaa22afc6c42291d3989343f8d2f09b988f16b1119cb28084fbf57e16764f8",
+      "src/features/productivity/KanbanWorkflowDialog.tsx": "32bf399561bb5fa9da8335cad5a2d9c1e1fce8dbaed0d187512bc777f36b0f34",
+      "src/features/productivity/KanbanWorkspace.tsx": "481569e72af8a06fbe1d7387eab920727e89c1e034bae1dcbb18e31c9152a1c0",
+      "src/features/productivity/api.ts": "13869527be9afe69a01ca99d5a693d62055b96ee8d581a39cf91aae911e66177",
+      "src/features/productivity/kanban-workflow-ui.test.tsx": "e18de994ddfa96181e0bfd52c6971220a42972b710ddc50d9011d6a84c9eb231",
+      "src/features/productivity/kanbanCommandState.ts": "6c1a4e9278e6baacd44fca808c441d9633f35323f1103c31b4850269bca5fd53",
+      "src/features/productivity/workflow-api.test.ts": "e27dfa89e935c1d8030d1ee4f1213816694f1af36a84b0b63487400fd3a92954",
+      "src/features/productivity/workflow-command-state.test.ts": "9fcf3d814ad15064fbabc564c65a10c314b2156f8dc43396ee7180408f052998",
+      "src/features/productivity/workflowApi.ts": "8597d2603624d9862fd8547b5439592d013a595fab7fb13251e6bc3939e1125f",
+      "src/i18n/locales/en.json": "06f01ae9c04c56d359afbff053d36c6cd8e7b58d4208faabefccb8a8884bf4e4",
+      "src/i18n/locales/vi.json": "169a961b0d984e678e21ce9a515a28876d3c2723fc4d43b1efaecee4b2bafbf4",
+      "src/i18n/locales/zh.json": "33719ad47a98b3ee0b172408304df3816871124abd263bed2fa193acf707d8af",
+      "tests/e2e/productivity.spec.ts": "f9328169c9f413390460ba3ade7b19b452a68c61c9b820728cd10f111940737e",
+      "tests/helpers/release-productivity-browser-fixture.ts": "99fb62c805c5c54bf1d98ca0595cfa500d109f65b86256f764db713b1e5910a4",
+      "tests/release-productivity-profile.test.ts": "83d3af2f0649f835652b730728b9ef8bc2de650c4e864c9580887476f6755827"
+    },
+    "jsonSha256": "8548e4746e29361bf3833105e86fc046bf5c119ca4937b0565aa755cebfb6306",
+    "junitSha256": "a32632e64f17479a4ea64c598f03ded5dcf38837ebc6b4ce9311269959269e07"
+  },
+  "conflictRegression": {
+    "initialSetupFailure": "legacy synthetic creation400; corrected canonical create and permitted reward edit; noncausal",
+    "closedCausalRed": "actual409/no Task or point mutation, retained note, absent reload button",
+    "correction": "API/view-owned draft above projection; read-only reload and fresh preview preserve note",
+    "correctedBrowserCases": 2
+  },
+  "original32BrowserSourcePrefixPreserved": true,
+  "dependenciesChanged": false,
+  "migrationDefinitionsChanged": false,
+  "defaultStorageVersion": 6,
+  "explicitFixtureVersion": 13,
+  "windowsAcceptance": "pending exact HEAD all8/12raw/148first attempts",
+  "fullP08P09P10M1": "incomplete",
+  "fullMasterPlan": "incomplete",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}

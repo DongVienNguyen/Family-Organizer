@@ -1,0 +1,53 @@
+import http from 'node:http';
+import {once}from'node:events';
+import {createAuth}from'../auth.js';
+import {NativeSessionStore}from'../authStore.js';
+import {createApp}from'../app.js';
+import * as db from'../db.js';
+import {syntheticDependencies}from'../../tests/app-fixture.js';
+import {createProductivityPorts}from'./ports.js';
+import {beforeAll,expect,it}from'vitest';
+import {randomUUID}from'node:crypto';
+import * as sqlite from'../sqlite.js';
+import * as gateway from'../appStore.js';
+import * as migrations from'../appMigrations.js';
+import * as snapshot from'../appSnapshot.js';
+import {FamilyDB,setAppSetting}from'../db.js';
+import {UserRole}from'../../src/types.js';
+import {legacyTask}from'../../tests/fixtures/productivity.js';
+import {configureCanonicalTaskBridge,activateCanonicalTasks,legacyTaskDigest}from'./adapter.js';
+import {registerBoardMigration}from'./boardMigration.js';
+import {registerBoardViewMigration}from'./boardViewSchema.js';
+import {createStructureCommands}from'./structure.js';
+import {createTaskViews}from'./views.js';
+import {createTaskAccess}from'./access.js';
+import {createBoardCatalog}from'./boardCatalog.js';
+import {createCompletionCommands}from'./completion.js';
+import {createWorkflowMoves}from'./workflowMoves.js';
+const reader={get:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).get(...args)as any,all:(sql:string,...args:any[])=>sqlite.sqliteConnection().prepare(sql).all(...args)as any[]};
+const write=<T>(work:Parameters<typeof gateway.withAppWriteTransaction<T>>[1])=>gateway.withAppWriteTransaction({actorId:'system:synthetic',command:'synthetic:workflow-move',requestId:randomUUID(),payloadHash:'synthetic'},work);
+const actor=(role=UserRole.ADMIN)=>({userId:role,role}),ctx=(revision=0,role=UserRole.ADMIN)=>({actor:actor(role),expectedRevision:revision,requestId:randomUUID()});
+const access=createTaskAccess(reader),structure=createStructureCommands({reader,write:gateway.withAppWriteTransaction}),views=createTaskViews({reader,write:gateway.withAppWriteTransaction}),catalog=createBoardCatalog({reader,write:gateway.withAppWriteTransaction});
+let now=Date.parse('2026-10-16T12:00:00Z');
+beforeAll(()=>{write(tx=>{tx.legacy.users=Object.values(UserRole).map(role=>({id:role,role,username:'synthetic-'+role,fullName:'Synthetic '+role,passwordHash:'offline-only',avatarColor:'blue',createdAt:'2026-10-16T00:00:00Z'}));tx.legacy.tasks=[];tx.legacy.rewardLedger=[];tx.legacy.notifications=[];});setAppSetting('rewardApprovalThreshold','5');configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});write(tx=>activateCanonicalTasks(tx,legacyTaskDigest(tx.legacy.tasks)));registerBoardMigration({registerMigration:migrations.registerDomainMigration,registerSnapshot:snapshot.registerSnapshotTable});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});registerBoardViewMigration(migrations.registerDomainMigration);migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});});
+function fixture(points=10,mode:'workflow'|'sections'='workflow'){
+ const list=structure.saveList(ctx(),{title:'Synthetic workflow scope',isShared:true}),id=randomUUID();write(tx=>tx.legacy.tasks.unshift(legacyTask(id,{creatorId:UserRole.ADMIN,assigneeId:UserRole.CHILD,rewardPoints:points,recurrenceType:'none',rotationMemberIds:[],sourceRecurringTaskId:null,proofImage:null,proofNote:null})));structure.moveTaskToList(ctx(access.getTask(actor(),id)!.revision),id,list.id,null);
+ const board=catalog.configure(ctx(),{listId:list.id,mode,policies:[]}),view=views.saveView(ctx(),{title:'Synthetic workflow',kind:'kanban',filter:{rootsOnly:true},config:{kind:'kanban',mode,group:'none',sort:'rank',columns:[],boardId:board.id}}),childView=views.saveView(ctx(0,UserRole.CHILD),{title:'Synthetic child workflow',kind:'kanban',filter:{rootsOnly:true},config:{kind:'kanban',mode,group:'none',sort:'rank',columns:[],boardId:board.id}}),ports={reader,views,write:gateway.withAppWriteTransaction,legacy:FamilyDB,now:()=>now},moves=createWorkflowMoves(ports),done=board.columns.find(c=>c.columnKey==='done')??board.columns[0];return {list,id,board,view,childView,done,ports,moves};
+}
+const facts=()=>Object.fromEntries(['productivity_tasks','productivity_boards','productivity_board_positions','reward_ledger','app_reward_claims','notifications','app_commands'].map(name=>[name,reader.all('SELECT * FROM '+name+' ORDER BY 1,2')]));
+const preview=(f:ReturnType<typeof fixture>,role=UserRole.CHILD)=>f.moves.preview(actor(role),{viewId:(role===UserRole.CHILD?f.childView:f.view).id,taskId:f.id,targetColumnId:f.done.id});
+const packet=(p:any)=>({viewId:p.viewId,taskId:p.taskId,previewId:p.id,targetColumnId:p.targetColumnId,expectedViewRevision:p.viewRevision,expectedBoardRevision:p.boardRevision});
+
+async function httpFixture(work:(f:any)=>Promise<void>){const f=fixture(),deps:any=syntheticDependencies({phase:'ready',storageWritable:true});deps.db=db;deps.sqlite=sqlite;deps.productivity=createProductivityPorts(sqlite,gateway,{legacyCompletion:FamilyDB});deps.auth=createAuth({store:new NativeSessionStore(),getUsers:()=>FamilyDB.getUsers(),getSecret:()=> 'synthetic-workflow-http-session-key'});const tokens=Object.fromEntries(FamilyDB.getUsers().map(u=>[u.id,deps.auth.issue(u)])),handle=await createApp({production:true,codeRoot:process.cwd(),dataRoot:process.env.DATA_DIR!}as any,deps),server=http.createServer(handle.app).listen(0,'127.0.0.1');await once(server,'listening');const streams:http.IncomingMessage[]=[];
+ const post=(route:string,body:any,role:string|null=UserRole.CHILD,requestId=randomUUID())=>new Promise<any>((resolve,reject)=>{const text=JSON.stringify(body),req=http.request({hostname:'127.0.0.1',port:(server.address()as any).port,path:'/api/productivity'+route,method:'POST',agent:false,headers:{...(role?{Authorization:'Bearer '+tokens[role]}:{}),'content-type':'application/json','content-length':Buffer.byteLength(text),'x-request-id':requestId}},res=>{let raw='';res.on('data',p=>raw+=String(p));res.on('end',()=>{let body;try{body=JSON.parse(raw);}catch{body={unexpectedNonJson:true};}resolve({status:res.statusCode,body,headers:res.headers});});});req.on('error',reject);req.end(text);});
+ const open=(role:UserRole)=>new Promise<{text:string}>((resolve,reject)=>{const req=http.get({hostname:'127.0.0.1',port:(server.address()as any).port,path:'/api/realtime',agent:false,headers:{Authorization:'Bearer '+tokens[role]}},res=>{streams.push(res);const stream={text:''};res.on('data',p=>stream.text+=String(p));resolve(stream);});req.on('error',reject);});
+ try{await work({...f,deps,post,open});}finally{streams.forEach(s=>s.destroy());handle.endStreams();server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));await handle.drainHandlers();await handle.dispose();}}
+const previewInput=(f:any,role=UserRole.CHILD)=>({viewId:(role===UserRole.CHILD?f.childView:f.view).id,taskId:f.id,targetColumnId:f.done.id});
+const plan=async(f:any,role=UserRole.CHILD)=>{const r=await f.post('/boards/workflow/preview',previewInput(f,role),role);expect(r.status,JSON.stringify(r.body)).toBe(200);expect(r.body.plan).toBeDefined();return r.body.plan;};
+const body=(p:any,proof:any={})=>({expectedRevision:p.taskRevision,input:packet(p),proof});
+it('workflow HTTP requires a real current session and read-only actor-owned preview',()=>httpFixture(async f=>{const before=facts();expect((await f.post('/boards/workflow/preview',previewInput(f),null)).status).toBe(401);const p=await plan(f);expect(p.before.id).toBe(f.id);expect(facts()).toEqual(before);expect((await f.post('/boards/workflow/preview',previewInput(f,UserRole.ADMIN))).status).toBe(404);}));
+it('real child Done intent returns Review and adult semantic approval grants once',()=>httpFixture(async f=>{const p=await plan(f),r=await f.post('/boards/workflow/apply',body(p,{proofNote:'Synthetic HTTP workflow proof'}));expect(r.status,JSON.stringify(r.body)).toBe(200);expect(r.body).toMatchObject({actualColumn:'review',approvalNeeded:true,task:{id:f.id,pendingApproval:true,lifecycle:'in_progress'}});expect(FamilyDB.getRewardLedger().filter(x=>x.taskId===f.id)).toEqual([]);const a=await f.post('/tasks/'+f.id+'/approve',{expectedRevision:r.body.task.revision},UserRole.ADMIN);expect(a.status).toBe(200);expect(a.body.actualColumn).toBe('done');expect(FamilyDB.getRewardLedger().filter(x=>x.taskId===f.id).map(x=>x.points)).toEqual([10]);}));
+it('concurrent HTTP workflow UUID retries preserve one completion and one reward',()=>httpFixture(async f=>{const p=await plan(f,UserRole.ADMIN),id=randomUUID(),input=body(p),[a,b]=await Promise.all([f.post('/boards/workflow/apply',input,UserRole.ADMIN,id),f.post('/boards/workflow/apply',input,UserRole.ADMIN,id)]);expect(a.status,JSON.stringify(a.body)).toBe(200);expect(b.body).toEqual(a.body);expect(b.status).toBe(200);expect(FamilyDB.getRewardLedger().filter(x=>x.taskId===f.id).map(x=>x.points)).toEqual([10]);}));
+it('HTTP cannot forge proof reward/actor/target or stale board guards',()=>httpFixture(async f=>{const p=await plan(f),before=facts();for(const patch of [{actor:actor()},{proof:{rewardPoints:999}},{input:{...packet(p),operation:'complete'}}])expect((await f.post('/boards/workflow/apply',{...body(p),...patch})).status).toBe(400);expect((await f.post('/boards/workflow/apply',{...body(p),input:{...packet(p),expectedBoardRevision:p.boardRevision+1}})).status).toBe(409);expect(facts()).toEqual(before);}));
+it('failed workflow HTTP rolls back all rows and emits no successful Task event',()=>httpFixture(async f=>{f.deps.productivity.workflowMoves=createWorkflowMoves({...f.ports,afterWrite:()=>{throw Error('synthetic workflow HTTP rollback');}});const p=await plan(f,UserRole.ADMIN),before=facts(),r=await f.post('/boards/workflow/apply',body(p),UserRole.ADMIN);expect(r.status).toBe(500);expect(facts()).toEqual(before);}));
+it('committed workflow HTTP emits scoped Task, catalog and reward invalidation',()=>httpFixture(async f=>{const stream=await f.open(UserRole.ADMIN),p=await plan(f,UserRole.ADMIN),r=await f.post('/boards/workflow/apply',body(p),UserRole.ADMIN);expect(r.status).toBe(200);for(const type of ['TASKS_UPDATE','PRODUCTIVITY_CATALOG_UPDATE','REWARDS_UPDATE'])await expect.poll(()=>stream.text.includes('"type":"'+type+'"')).toBe(true);expect(stream.text).not.toContain('Synthetic workflow scope');expect(stream.text).not.toContain('Synthetic task '+f.id);}));
