@@ -36,7 +36,7 @@ beforeAll(()=>{
 });
 function upgrade(){registerSeriesMigration({registerMigration:migrations.registerDomainMigration,registerSnapshot:snapshots.registerSnapshotTable});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});}
 function task(extra:any={}){return tasks.createTask(ctx(),{listId:'legacy-family',title:'Synthetic durable series '+randomUUID(),due:{kind:'all_day',date:'2027-01-31',timezone:'Asia/Saigon'},isShared:true,...extra});}
-function fixture(){const source=task();return {source,series:store.create(ctx(source.revision),source.id,policy())};}
+function fixture(){const source=task({assigneeId:UserRole.CHILD});return {source,series:store.create(ctx(source.revision),source.id,policy())};}
 const allRows=()=>Object.fromEntries(['productivity_tasks','productivity_task_tags','productivity_occurrences','productivity_series','productivity_series_exceptions','reward_ledger','notifications','app_commands'].map(name=>[name,reader.all('SELECT * FROM '+name)]));
 
 it('keeps default6 and requires explicit10 without modifying frozen1–9 or any prior table DDL',()=>{
@@ -45,7 +45,7 @@ it('keeps default6 and requires explicit10 without modifying frozen1–9 or any 
  const ddl=reader.all("SELECT name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' AND name NOT IN('productivity_series','productivity_series_exceptions') ORDER BY name");expect(ddl).toEqual(frozenDdl);expect(inspectProductivityStorage(reader)).toBe(true);
 });
 it('stores detached canonical policy and anchor without Task, points, notification or occurrence mutation',()=>{
- const source=task(),before=allRows(),input=policy(),value=store.create(ctx(source.revision),source.id,input);input.rotationMembers.push('foreign');value.policy.rotationMembers.push('mutated-result');
+ const source=task({assigneeId:UserRole.CHILD}),before=allRows(),input=policy(),value=store.create(ctx(source.revision),source.id,input);input.rotationMembers.push('foreign');value.policy.rotationMembers.push('mutated-result');
  const current=store.get(actor(),value.id);expect(current).toMatchObject({taskId:source.id,revision:1,anchor:source.due,nextOrdinal:1,acceptedCount:0,rotationCursor:0,endedAt:null,createdAt:new Date(clock).toISOString(),updatedAt:new Date(clock).toISOString()});expect(current.policy).toEqual(policy());
  for(const name of ['productivity_tasks','productivity_task_tags','productivity_occurrences','reward_ledger','notifications'])expect(reader.all('SELECT * FROM '+name),name).toEqual(before[name]);
 });

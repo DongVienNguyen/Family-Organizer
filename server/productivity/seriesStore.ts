@@ -42,7 +42,8 @@ export function createRecurrenceSeriesStore(ports:{reader:TaskReader;write:typeo
     if(tx.get('SELECT id FROM productivity_series WHERE task_id=?',taskId))fail(409,'Công việc đã có lịch lặp.');
     if(policy.base==='due'&&source.due.kind==='none'||source.due.kind!=='none'&&source.due.timezone!==policy.timezone)fail(422,'Mốc hạn chót và múi giờ không khớp.');
     for(const id of policy.rotationMembers)if(!tx.legacy.users.some(user=>user.id===id&&!user.isDeleted&&Object.values(UserRole).includes(user.role)))fail(422,'Thành viên luân phiên không hợp lệ.');
-    const id=randomUUID(),time=now();tx.run('INSERT INTO productivity_series VALUES(?,?,?,?,?,?,?,?,?,?,?)',id,taskId,1,JSON.stringify(policy),JSON.stringify(source.due),1,0,0,null,time,time);ports.afterWrite?.();return {id};
+    const origin=policy.rotationMembers.findIndex(id=>id===source.assigneeId),rotationCursor=origin>=0?origin:Math.max(0,policy.rotationMembers.length-1);
+    const id=randomUUID(),time=now();tx.run('INSERT INTO productivity_series VALUES(?,?,?,?,?,?,?,?,?,?,?)',id,taskId,1,JSON.stringify(policy),JSON.stringify(source.due),1,0,rotationCursor,null,time,time);ports.afterWrite?.();return {id};
    });
    return series(ports.reader,ctx,result.id);
   },
@@ -61,7 +62,7 @@ export function createRecurrenceSeriesStore(ports:{reader:TaskReader;write:typeo
     if(!Number.isSafeInteger(revision)||current.revision===Number.MAX_SAFE_INTEGER)fail(422,'Phiên bản lịch lặp đã đạt giới hạn.');
     const time=now();if(utcInstant(time)<utcInstant(current.updatedAt))fail(409,'Đồng hồ lịch lặp đã lùi.');
     tx.run('INSERT INTO productivity_series_exceptions VALUES(?,?,?,?,?) ON CONFLICT(series_id,ordinal)DO UPDATE SET kind=excluded.kind,due_json=excluded.due_json,revision=excluded.revision',id,ordinal,value.kind,value.kind==='due'?JSON.stringify(value.due):null,revision);
-    tx.run('UPDATE productivity_series SET revision=revision+1,updated_at=? WHERE id=?',time,id);ports.afterWrite?.();
+    tx.run('UPDATE productivity_series SET revision=revision+1,updated_at=? WHERE id=?',time,id);ports.afterWrite?.();return {id,ordinal,input:value,seriesRevision:current.revision+1,exceptionRevision:revision};
    });
    return series(ports.reader,ctx,id);
   },
