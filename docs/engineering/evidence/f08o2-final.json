@@ -1,0 +1,300 @@
+{
+  "taskId": "F08-o2",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/105",
+  "testedHeadSha": "86ce9c0328fb2e963e9719aa06ce284d984d6bb8",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38827263260",
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "d0178bd586fe0a3c8ecaae8d7394c15e2f7a6caa8d95db901568be5467f5be16",
+    "coverage": "76d2c2c8aa9adb52dc3dd0236a736aeead2ae6a289a19aaee02dafa04adb2a96",
+    "package": "5186bc5a0376e0e4fc77399fa2e8e712c6a40018ca11616ade95bfb304c0d725",
+    "service": "005559d695979a3355cac8675ef49dee8461f981466e28a5bd9934f84703226c",
+    "caddy": "38ee532122ba590c09b03f730398dea06755105f9214dd26c5195e08cfd2938d",
+    "extraction-sdk": "8af4abc358b4eac3d82808498c0b5e7d1a10c634295647e48393ac98cc24a0a2",
+    "inner-native": "790ea96756dc3fb2d3621c81b34031ffae975970c837273408309b587605b246",
+    "browser": "481d541e10d2a1b3e937fa3cfb511f5a2c1ce681a46b48e185a11b5776a23c9b",
+    "productivity-browser": "c97526e49baa0efe38c08b6aaabf7a38f678ef9079357440f63875a788a50dfc",
+    "board-package": "b588eeb605138d5892e552f56e44523040f1f9504d8031454171d9f5829067d7"
+  },
+  "qualityEach": 4297,
+  "qualityFilesEach": 240,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 10,
+  "zipSha256": "d0e6c900ef86869e460d8028a7cde6d960113e8b691feaceb08f0888748bec39",
+  "fullCiLogZipSha256": "e7b5738d702138c74669a7fde1b34dfe1b2e660d38c7c987b4fc7f38707c70fe",
+  "review": {
+    "taskId": "F08-o2",
+    "type": "whole-branch-self-review",
+    "base": "99dfd12a24875947553711ee7fde045ea70c332b",
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "correctionPasses": 0,
+    "rereview": false,
+    "scope": [
+      "all changed collector transport/metadata/eight-archive extraction",
+      "Productivity 57 cases/native touch first attempt + exact source AST policy and raw JSON/JUnit/hash/build binding",
+      "generated fixture static source provenance + consumed byte hashes + frozen SQL/columns/migration contracts + bounded data-only parsing",
+      "mandatory suites/complete synthetic negative scaffolds, no skipped assertions or weakened budgets",
+      "publication source lock and Server2019 external acceptance remain required"
+    ],
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "121ac48be8d74c4b7816b2b6aeead7e4d5472e85d2b32e4fa84da8d5d34557b6",
+      "scripts/windows/collect-release-archives.mjs": "f776a06aa58586f4d820a48007ae26812ff7f00fd74d7c091f60fe0315034bc4",
+      "scripts/windows/probe-package-functional.mjs": "206b015fc0964255690fe3a671f3a71e8d809e614902c5da7dcd46aeaa61207c",
+      "scripts/windows/probe-productivity-package.mjs": "dbac2e9607ba237b5186f3e870614e1ec28e09a3c0827dd91c8171385a5ca474",
+      "scripts/windows/probe-release-report-extraction.mjs": "ca66f3566703e0d14612d2390b3fa808689b7747d7b8de44c9c8e8c12e7168cb",
+      "scripts/windows/release-collector-evidence.mjs": "9015720efaa771700b37505bd0f6e6144e3cc1c498d83e3a7353247e4c12f485",
+      "scripts/windows/release-consumer-reports.mjs": "aa41676a6ba014e857e9b3a2b035f423063fb7915f5b16aa3a369572f650ec8d",
+      "scripts/windows/release-evidence.mjs": "e27d44ab11aa9ad7d632dee1222776e78b1271fd37e43a234ef9fbbab618ada1",
+      "scripts/windows/release-generated-fixture-contract.mjs": "dee66dfeca47952eb3b49ca3df4233b6d3178e1afab4f2b2ab4c21248c6768fc",
+      "scripts/windows/release-generated-fixtures.mjs": "41202b1d1d5efeeb948af3aa4f85e8f9612aa6f26157c9d99f980308aa006f23",
+      "scripts/windows/release-harness-build.mjs": "d1888fc4e4276fc6dd09b0b0286c9b8f923d224c49489d2a9b496173622f5eb9",
+      "scripts/windows/release-metadata.mjs": "6c7bfca337f7374dbc8f7db4ec481bc7e1dccd2c4ba4a64ced703ab4def484e5",
+      "scripts/windows/release-productivity-browser-files.mjs": "9be96705def253e5420228e3532728a0095eef296eec30015b149e15ca7277c0",
+      "scripts/windows/release-productivity-source-policy.mjs": "8c43d479573ab9777ab4b82a3cf592eef7eb1cf62c7d5b5258a605ec4e65e444",
+      "scripts/windows/release-report-extraction.mjs": "6815982a11a827413a32e63e9f8a2e808feb863c562c465bf6dc15f4d1b6c4dc",
+      "scripts/windows/release-source-policy.mjs": "07850efce69a50152f1523c12b1b4d7e8d1afa8a6ba71f99c29bb6234dff9f22",
+      "tests/evidence.test.ts": "da4bad76355bfc0d3927d2c687a7825559e5d9acbea7ddc05c15ed33aa548a3d",
+      "tests/fixtures/release-generated/board-fixture.json": "ddf38ac880209bcfb1ee744b2c8a204f814d9d43087d64ee82a57f15f9e82366",
+      "tests/fixtures/release-generated/productivity-fixture.json": "41377c767c524788146f06ea65d20064f6b2c890cf5775acf8af53deb176f60a",
+      "tests/fixtures/release-generated/wallet-fixture.json": "c6465f26b7fca12b466abb21fc426465046c4eb2170e810cceddf6a977451017",
+      "tests/helpers/release-auxiliary-fixture.ts": "81789141774c66da08832bfc10dcfcfa0707fb931d022e4ff60c15659ce439a2",
+      "tests/helpers/release-consumer-fixture.ts": "2aad6d1c14c7c0ae45a7d260aa36a9907096eebf00499917cb3deeeaeed5a8e8",
+      "tests/helpers/release-productivity-browser-fixture.ts": "bbba9db9b4b7b6cd31d48bc189a4ee65c3816cc1bfdf761f415bcea662bd2d65",
+      "tests/release-archives.test.ts": "888cc61a47998bfaebdf56bc2a434682398e68ccc8f532a3ee32839d7125dde8",
+      "tests/release-candidate-handoff.test.ts": "1f79f58e93729b99b6e596680904b16262f77d11c5b71e3013dc01c447ca0013",
+      "tests/release-collector-evidence.test.ts": "9544c33cce80f77cf5fb6afa293a8b12a06a53c342fec4e09e0f8a5ddb426ef4",
+      "tests/release-consumer-reports.test.ts": "1534f69653c2b91b79d45d9d0a130b86428b0975ec34ffa7fc9ff4e9b3c49b66",
+      "tests/release-evidence.test.ts": "0e81b0faa4c85245212b3286d0caff6751aaf2440238ba90d7894e484817c2af",
+      "tests/release-generated-fixtures.test.ts": "72248f5410478e899896bdeda6a9aed169b134a1dc7e049cfe31d789deefa7c1",
+      "tests/release-harness-build.test.ts": "ef36192946071d68bab28819fc25e7e8a3c237e11178228a3d5ccf807e8d0a6c",
+      "tests/release-metadata.test.ts": "703f8eea2fbb99e40886919fc3267d0b6f039de82d84b09e1e0aa1e2e84e8866",
+      "tests/release-productivity-browser-files.test.ts": "fa36caa88c3198e26262d65c7838e8b1ea4a7ea23803b87c7059190923d6acac",
+      "tests/release-report-extraction.test.ts": "8facbebf4f0a27607a80b108ee343a38e17e69f67e1ecf359239b02a5a3418fe",
+      "tests/release-source-policy.test.ts": "36c8de561e67496bce46f7d57dbe0127596ade8d4d3a6ec953cd80c699bda7e9",
+      "tests/windows/New-SyntheticReportArchives.ps1": "654c0681de5e6af43a85f584b0f7cf4c544a58324252b2ac67d8b4d31fd61a90"
+    },
+    "actualWindowsArtifactDiagnostics": {
+      "runId": 38820965949,
+      "productivityCases": 57,
+      "touchCases": 1,
+      "generatedFixtureVersions": [
+        6,
+        9,
+        1
+      ],
+      "scope": "read-only independently accepted prior artifact diagnostics; not current full authenticated collector acceptance"
+    }
+  },
+  "ciCorrection": {
+    "taskId": "F08-o2",
+    "type": "actual-Windows-CI-error-correction",
+    "allFindingsGraded": true,
+    "findingsBeforeCorrection": [
+      {
+        "severity": "Important",
+        "cause": "Native PowerShell extractor retained seven-count and omitted Productivity name despite JS inventory updating to eight. Actual native probe fails both runtimes.",
+        "correction": "Exact eight-count/full prefix regex; preserve all bounds and before-write aggregate refusal."
+      },
+      {
+        "severity": "Important",
+        "cause": "Synthetic Caddy fixture reserved TCP only; Windows UDP QUIC bindEACCES on same port63153 atNode22 startup. Node24 same sixTLS/proxy/refusal/stop phases pass.",
+        "correction": "One-shot UDP-first+sameTCP loopback ownership before assertions, hold both until Caddyspawn; preserve defaultHTTP3 and all assertions/deadlines; no retries."
+      }
+    ],
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceHashes": {
+      ".github/workflows/ci.yml": "3fff1111f544c14cbc84df48a8aa082fb36c4ae28cb89a8c431b15fdafb3a3e3",
+      "scripts/ci/write-evidence.mjs": "48cdf103fbe0da898e88237b07ee7635fc72d2e385f1e2b8d93ffdcfe16d5a53",
+      "scripts/windows/Extract-ReleaseReportArchives.ps1": "77ec663e164fb0d619bac03d7e051edd851c0b04d17efc8ca0c79e5321d0016a",
+      "scripts/windows/probe-caddy-native.mjs": "1f4ff6ce30c0da16237236f0428935d31347902630e0b86084bad2987f741ed4",
+      "scripts/windows/synthetic-proxy-port.mjs": "1d164b890dec7e2ab21623b1723cb2b645435ff038eb45bfe54f6be3cf86f233",
+      "tests/evidence.test.ts": "e1967758b564546ca53dc201fe47c67dc7e22e003aa8ee8ac7382613fb9da5f7",
+      "tests/synthetic-proxy-port.test.ts": "6be0680ae6c4c304871104908c42ad95c4d13b66110e72aa9114e0a5e591ab95"
+    },
+    "targetedTests": {
+      "passed": 481,
+      "files": 7,
+      "failed": 0
+    },
+    "mandatoryOmissionRed": {
+      "tests": 285,
+      "passed": 284,
+      "failed": 1
+    },
+    "scope": "One-shot UDP-first and same-TCP-port exclusive reservation/cleanup; Caddy defaultHTTP3/allTLSproxyrefusalstopassertions/deadlines unchanged/no retry. ActualPS8/prefix inventory fixed witholdbefore-writebudget unchanged.",
+    "fullCorrectedWindows": "pending newHEAD",
+    "fullMasterAccepted": false
+  },
+  "currentEightFamilyPolicyAccepted": true,
+  "fullLiveCollectorReplayAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeCommitSha": "180c64a491e726ada29cc686d37c8c2228dba750",
+  "mergeTreeEqualsTestedTree": true,
+  "testedTree": "f49828befa6913286353a28a03b3179a270c69bc",
+  "proofCommentUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/105#issuecomment-6205062000",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 23178,
+    "zipSha256": "e7b5738d702138c74669a7fde1b34dfe1b2e660d38c7c987b4fc7f38707c70fe",
+    "expectedSyntheticMarkers": [
+      {
+        "file": "5_Windows Node22 baseline.txt",
+        "line": 607,
+        "text": "2026-10-16T00:07:16.1510243Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "5_Windows Node22 baseline.txt",
+        "line": 1074,
+        "text": "2026-10-16T00:11:08.9496918Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "5_Windows Node22 baseline.txt",
+        "line": 1111,
+        "text": "2026-10-16T00:11:24.0852087Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "5_Windows Node22 baseline.txt",
+        "line": 1291,
+        "text": "2026-10-16T00:12:36.4551099Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 96,
+        "text": "2026-10-16T00:07:16.1510218Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 563,
+        "text": "2026-10-16T00:11:08.9496897Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 600,
+        "text": "2026-10-16T00:11:24.0852076Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 780,
+        "text": "2026-10-16T00:12:36.4551083Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "7_Windows Node24 baseline.txt",
+        "line": 617,
+        "text": "2026-10-16T00:06:03.0747251Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "7_Windows Node24 baseline.txt",
+        "line": 1068,
+        "text": "2026-10-16T00:08:53.9704587Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "7_Windows Node24 baseline.txt",
+        "line": 1105,
+        "text": "2026-10-16T00:09:05.2866660Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "7_Windows Node24 baseline.txt",
+        "line": 1278,
+        "text": "2026-10-16T00:09:59.2590674Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 93,
+        "text": "2026-10-16T00:06:03.0747213Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 544,
+        "text": "2026-10-16T00:08:53.9704583Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 581,
+        "text": "2026-10-16T00:09:05.2866248Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 754,
+        "text": "2026-10-16T00:09:59.2590666Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      }
+    ],
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  }
+}
