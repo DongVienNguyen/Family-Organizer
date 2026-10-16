@@ -15,7 +15,7 @@ const lockHash=createHash('sha256').update(lockText).digest('hex');
 const coverageFloor={lines:1,statements:1,functions:1,branches:1};
 const coveragePolicyText=JSON.stringify({schema:1,providerVersion:'4.1.11',floors:{'v24.21.0':coverageFloor}});
 const suiteNames = [
-  'server/icsFeed.test.ts', 'src/utils/pushSubscription.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
+  'server/icsFeed.test.ts', 'server/productivity/recurrence-calendar.test.ts','tests/recurrence-calendar-import.test.ts', 'src/utils/pushSubscription.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
   'src/features/wallet/money.test.ts', 'src/features/wallet/dates.test.ts', 'src/features/wallet/filter.test.ts',
   'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts', 'tests/browser-providers.test.ts',
@@ -407,3 +407,5 @@ it('requires the canonical board sort regression suite',()=>{const suite='server
 it('requires exclusive synthetic TCP and UDP reservation regression suite',()=>{const suite='tests/synthetic-proxy-port.test.ts',result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it.each(['server/productivity/grouped-board-ranks.test.ts','server/productivity/grouped-board-ranks.api.test.ts','tests/grouped-rank-import.test.ts'])('requires grouped rank owner/HTTP regression suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it.each(['server/productivity/recurrence-calendar.test.ts','tests/recurrence-calendar-import.test.ts'])('requires calendar recurrence arithmetic/cold-import suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
