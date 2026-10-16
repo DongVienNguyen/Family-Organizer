@@ -1,7 +1,8 @@
 import {isDeepStrictEqual} from 'node:util';
 export const productivityFixtureVersion=13;
 export const productivityBrowserShardFormat=1;
-export const productivityBrowserWorkers=2;
+/** @type {{chromium:1,firefox:2,webkit:2}} */
+export const productivityBrowserWorkers={chromium:1,firefox:2,webkit:2};
 import {validateProductivityShards} from './productivity-shard-contract.mjs';
 import {validateMatrixTouchReports,kanbanSectionTouchVersion} from './matrix-touch-contract.mjs';
 import {validateBrowserReports,browserProjects} from './browser-contract.mjs';

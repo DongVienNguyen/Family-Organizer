@@ -13,7 +13,7 @@ export function mergeProductivityBlobs(blobs,output){
   const log=execFileSync(process.execPath,[require.resolve('@playwright/test/cli'),'merge-reports','--config',config,input],{encoding:'utf8',timeout:60000,maxBuffer:1024*1024,env:{...process.env,FO_PRODUCTIVITY_PROJECT:''}});return {exitCode:0,signal:null,log};
  }finally{fs.rmSync(work,{recursive:true,force:true});}
 }
-export function assembleProductivityReports({inputs,output,expected,native,engines,cases,workers=1}){
+export function assembleProductivityReports({inputs,output,expected,native,engines,cases,workers=undefined}){
  if(!path.isAbsolute(output)||new Set(inputs.map(x=>x.project)).size!==3||inputs.length!==3)fail('isolated inputs required');const target=path.join(output,'shards');if(fs.existsSync(target))fail('stale aggregate project directory');fs.mkdirSync(target,{recursive:true});
  for(const project of productivityShardProjects){const source=inputs.find(x=>x.project===project);if(!source||!path.isAbsolute(source.directory))fail('project report root missing');openReleaseReportFiles(source.directory);const directory=path.join(target,project);ownedCopy(source.directory,directory);const blobDir=path.join(directory,'blob'),blobs=fs.readdirSync(blobDir).filter(n=>n.endsWith('.zip'));if(blobs.length!==1)fail('exactly one original blob per project required');fs.copyFileSync(path.join(blobDir,blobs[0]),path.join(directory,'report.zip'));}
  const reader=openReleaseReportFiles(output),shards=readProductivityShardInputs(reader,{workers}),chrome=shards.find(s=>s.project==='chromium'),manifest={...structuredClone(chrome.manifest),browserShards:{format:1,projects:[...productivityShardProjects]}};delete manifest.project;delete manifest.executionJob;

@@ -1,0 +1,81 @@
+{
+  "taskId": "F05-F09-CI-isolated-test-concurrency",
+  "headSha": "ac1957b02bbb47093962df9cf14dbdaa3a0f2080",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38971855661",
+  "accepted": false,
+  "ciConclusion": "cancelled",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "cancelled"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "allArtifactsRetained": 8,
+  "allLogsRead": {
+    "files": 131,
+    "lines": 27794,
+    "errorMarkers": 24
+  },
+  "quality": {
+    "windows-node22-ac1957b02bbb47093962df9cf14dbdaa3a0f2080-1": {
+      "tests": 5706,
+      "files": 311,
+      "matchingJUnit": true,
+      "failedSkipped": 0
+    },
+    "windows-node24-ac1957b02bbb47093962df9cf14dbdaa3a0f2080-1": {
+      "tests": 5706,
+      "files": 311,
+      "matchingJUnit": true,
+      "failedSkipped": 0
+    }
+  },
+  "qualifiedPartialProducers": {
+    "firefox": {
+      "passed": 35,
+      "matchingJUnit": true,
+      "nativeProducerStep": "success; final aggregate not accepted"
+    },
+    "webkit": {
+      "passed": 35,
+      "matchingJUnit": true,
+      "nativeProducerStep": "success; final aggregate not accepted"
+    }
+  },
+  "chromium": "14 explicit failed first attempts in streamed log before20minute job cancellation; no final35JSON/JUnit/fixture/nativeTouch proof. Every failure consumed approx45s test plus context teardown. Existing one-worker accepted133 remains positive baseline.",
+  "interpretation": "Two-worker Chromium unusable on two independent Windows checkpoints. Underlying native-driver cause is unproven; do not speculate about selectors/auth or raise bounds.",
+  "nextRepair": "Explicit trusted literal counts Chromium1/Firefox2/WebKit2. Chrome registers all cases once in original order on one production store; other engines keep independent stores. Source/raw/normalized evidence must match exact per-engine counts.",
+  "assertionsRemoved": false,
+  "timeoutsChanged": false,
+  "rereview": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
