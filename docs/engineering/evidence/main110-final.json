@@ -1,0 +1,187 @@
+{
+  "task": "main110 exact source qualification",
+  "sourceSha": "37a9a8ef49985b519d389517cc88ad85f16421be",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38841787576",
+  "checks": "all8success",
+  "rawValidators": 11,
+  "qualityEach": 4453,
+  "qualityFilesEach": 247,
+  "junitEach": 4453,
+  "failedSkippedTodoEach": 0,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "nativeTouchFirstAttempt": 1,
+  "summaryHashes": {
+    "quality": "bfc150e3b551693f1a27f147e3bb5a1e023f78ccf9e5a729bef6efba50a0f069",
+    "coverage": "83663ea107c345a0b3eb714a7008d96f342e6fa2ec855227eca6e6eb650e91ea",
+    "package": "fc9350f28ac948efcf586797e7dd9744bc985377884e25f9ba01d0619e3f9ab2",
+    "service": "c665dd3b977f4071c3f26c276021728cc7dc59eb7d2c16ce39c58e766b65b7b3",
+    "caddy": "8ee5658632febe1af256fb3b7b32417640e9118543468a2604fec440348ab61f",
+    "extraction-sdk": "01ced20ef67eac7dae7f13dfeb0d575fc1d2ca80f88f42107322778dda7a7953",
+    "inner-native": "4cc7262e025499d5334b6464f83b2434ed6c1fde7db172b427cf45f0c9498ff2",
+    "browser": "207e1d93dd30546bc6d59d268f418fa81f88aba1cf2280374a869248640c37b5",
+    "productivity-browser": "d05feff954c4d65ab70b1a7d2489dc3569f76ef6c219f5c1cbe26735d79a42a5",
+    "board-package": "f65b8519edc8413ad76797024642b0f440a880d84d7381342f7237b640c93161",
+    "port-policy": "1a80c98853830a1fa366cf0d28b34f895bb8c192b4d1453a622852ade4848999"
+  },
+  "nativePortPolicy": {
+    "commitSha": "37a9a8ef49985b519d389517cc88ad85f16421be",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38841787576",
+    "nativeWindowsPortPoliciesVerified": true,
+    "snapshots": [
+      {
+        "major": 22,
+        "selectedPort": 47936,
+        "tcpExclusionRanges": 6,
+        "udpExclusionRanges": 2,
+        "busyPorts": 51,
+        "rawSha256": "3cbdfad99834dd122946be77ad3242ce69beeb95465675b85183db8a770c205c"
+      },
+      {
+        "major": 24,
+        "selectedPort": 19053,
+        "tcpExclusionRanges": 6,
+        "udpExclusionRanges": 2,
+        "busyPorts": 60,
+        "rawSha256": "19f97696e2a4e1eeb9a2dd4d8bd79aefcc3e170532911574cbfd872ce283f7f5"
+      }
+    ],
+    "nativeCommandsPerSnapshot": 3,
+    "allocationRetries": 0,
+    "nativeCaddyPhasesEach": 6,
+    "existingSocketAndCleanupAssertionsRetained": true,
+    "sourceHashes": {
+      "synthetic-port-policy.mjs": "d68cd39600b6fdeb2e400976e1caa89ca60fe29fcc3b052579028424d116c43b",
+      "synthetic-proxy-port.mjs": "ab54e2af00e45756f1151484e2c52e5020a2ef7d1c6f3bb440f574308dd45f7e",
+      "probe-caddy-native.mjs": "80bcb4bc3f714a2ca6c854c9407490524595b955dd06ac1fe9f4229ceec71675"
+    },
+    "publicationAllowed": false,
+    "server2019Acceptance": "not-run"
+  },
+  "fullLogs": {
+    "readAllLogFiles": true,
+    "files": 132,
+    "lines": 23990,
+    "zipSha256": "5f91ca8f48a4b3ce5468b61a0ea89d7cb084efbd0e8174485a87f9e72e558eea",
+    "expectedSyntheticMarkers": [
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 623,
+        "text": "2026-10-16T02:45:15.0409025Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 1097,
+        "text": "2026-10-16T02:48:48.2595655Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 1138,
+        "text": "2026-10-16T02:49:01.9314649Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "4_Windows Node24 baseline.txt",
+        "line": 1314,
+        "text": "2026-10-16T02:50:04.7161736Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 99,
+        "text": "2026-10-16T02:45:15.0409003Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 573,
+        "text": "2026-10-16T02:48:48.2593910Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 614,
+        "text": "2026-10-16T02:49:01.9314613Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 790,
+        "text": "2026-10-16T02:50:04.7161726Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "7_Windows Node22 baseline.txt",
+        "line": 618,
+        "text": "2026-10-16T02:45:57.5691479Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "7_Windows Node22 baseline.txt",
+        "line": 1111,
+        "text": "2026-10-16T02:50:16.3862617Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "7_Windows Node22 baseline.txt",
+        "line": 1151,
+        "text": "2026-10-16T02:50:32.1876299Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "7_Windows Node22 baseline.txt",
+        "line": 1331,
+        "text": "2026-10-16T02:51:47.7631197Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 107,
+        "text": "2026-10-16T02:45:57.5691437Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 600,
+        "text": "2026-10-16T02:50:16.3862598Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 640,
+        "text": "2026-10-16T02:50:32.1876246Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 820,
+        "text": "2026-10-16T02:51:47.7631174Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      }
+    ],
+    "unexpectedMarkers": [],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  },
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}

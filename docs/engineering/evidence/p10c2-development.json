@@ -1,0 +1,193 @@
+{
+  "taskId": "P10-c2",
+  "baseSha": "1f539ac9fcd75372e6f9d44b143b1f5093fa7c74",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/112",
+  "scope": "pure timed recurrence with explicit unique-instant resolution; no runtime/persistence/activation",
+  "cloudGreen": {
+    "tests": 4490,
+    "passed": 4490,
+    "files": 249,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4490,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4490,
+    "files": 249
+  },
+  "review": {
+    "task": "P10-c2",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "e76faf5bf8471c93e4bf30732364d99148156b87b8349e11ef686db7f41caef8",
+      "server/productivity/recurrence-timed.test.ts": "083b6636304a0371ef80e17aa0eb6a9042930935f0a3fc68a4d5750138066ed0",
+      "server/productivity/recurrenceTimed.ts": "2de3584970c5235b54dcdf3516c4656019833b730ef804e91e642194a8bc73b3",
+      "tests/evidence.test.ts": "532ee22488418b5c605779eb4fa90b825363d58a7e4139c277ca7014754ac792",
+      "tests/recurrence-calendar-import.test.ts": "c343f6ec9e6cbc0abf79a3ab19f19d5e5d77fa0bddc98ec385869ebb766e613f"
+    },
+    "sourceParent": "41c9eb3",
+    "focus": [
+      "strict object/base/UTC/timezone and shared calendar resource bounds",
+      "immutable original or accepted completion wall time; millisecond preservation",
+      "existing unique local resolver, no guessed gap/fold or out-of-range instant",
+      "explicit skip and resolution-required results; no persistence or authority",
+      "half-hour DST, quarter-hour timezone, midnight and year bounds",
+      "offline cold import + mandatory omission evidence; no runtime/dependency/schema changes"
+    ],
+    "remaining": [
+      "durable series/occurrences and edit/skip/rotation/scheduler completion integration",
+      "no actual timed recurrence runtime or native ZIP proof yet",
+      "full P10/P08/P09/later master tasks incomplete",
+      "no release/tag/VPS or Server2019 acceptance"
+    ]
+  },
+  "composition": {
+    "sourceParentCandidateSha": "d1dc6a04647b2e52035290bf098251ca6abaa566",
+    "parentAcceptance": "PR111 accepted exactCI38842163083/all8/11raw/both4467/248/103first/132logs24048/0unexpected",
+    "timedSourceSha": "99be65ee2ca6ecd8e5312fe2e3f5e3ce648a2b83",
+    "resolved": [
+      "docs/engineering/implementation-status.md",
+      "scripts/ci/write-evidence.mjs",
+      "tests/evidence.test.ts",
+      "tests/recurrence-calendar-import.test.ts"
+    ],
+    "bothRequiredInventoriesAndAllOmissionAssertionsRetained": true,
+    "priorColdAssertionsRetained": true,
+    "reviewedTimedSourceUnchanged": true,
+    "expectedQuality": {
+      "tests": 4490,
+      "files": 249
+    },
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "33f0ecdbf48ec76c31565edcbac71b3157efabd443945756e10de21dd93ae67b",
+      "tests/evidence.test.ts": "2cbfa92c930fe337f3deed9676020aff89f10b3d435c98822fda347fdc2a363d"
+    },
+    "latestSourceParentCandidateSha": "e67dd625266d2583064536c78d05181130cada80",
+    "latestParentAcceptance": "PR111 exactCI38842163083 pending, no P10PRuntilaccepted",
+    "parentUpdateDocsAndHistoryOnly": true,
+    "timedFullSourceUnchanged": true,
+    "currentHead": "c63fa54dd426b60968f40169b35b1423d7dcba58",
+    "acceptedMainSha": "1f539ac9fcd75372e6f9d44b143b1f5093fa7c74",
+    "acceptedMainTreeEqualsLatestCandidate": true,
+    "entireTreeUnchanged": true,
+    "beforeTree": "7213baf2dfb6710c75416d36760e437cdded2207",
+    "afterTree": "7213baf2dfb6710c75416d36760e437cdded2207",
+    "historyComposition": "ours only after mainTREE==includedE67 and E67ancestor proved"
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "33f0ecdbf48ec76c31565edcbac71b3157efabd443945756e10de21dd93ae67b",
+      "server/productivity/recurrence-timed.test.ts": "083b6636304a0371ef80e17aa0eb6a9042930935f0a3fc68a4d5750138066ed0",
+      "server/productivity/recurrenceTimed.ts": "2de3584970c5235b54dcdf3516c4656019833b730ef804e91e642194a8bc73b3",
+      "tests/evidence.test.ts": "2cbfa92c930fe337f3deed9676020aff89f10b3d435c98822fda347fdc2a363d",
+      "tests/recurrence-calendar-import.test.ts": "c343f6ec9e6cbc0abf79a3ab19f19d5e5d77fa0bddc98ec385869ebb766e613f"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "222c116f47d654f0e214e39428a508c0c295ecdcab6e9808a6e7876d9d493682",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p10c2-foundation-full.json": "439606fd48613c3a11c0ce4fd5878ffa21e93da96679327739a160129ba021b4",
+      "p10c2-foundation-full.junit.xml": "b75597bebab6f283d9b9d0c792e0abd36a2431bbbdc574fd8f3c9dccae47c8f1",
+      "p10c2-foundation-full.log": "94279bc36a47e27fc5f9fdec522860ea33ec0f666ef543ee5293a6c3c81f4847",
+      "p10c2-foundation-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p10c2-foundation-build.log": "07ee4fc778296e0bcb6adb52fda24d69e70a81dd5474c5862c51b38274219505"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/TENraw/retained23ZIPchecks/28HTTP/100IPC/103firstattempt; no native recurrence probe"
+  },
+  "reports": [
+    {
+      "file": "p10c2-foundation-full.json",
+      "sha256": "439606fd48613c3a11c0ce4fd5878ffa21e93da96679327739a160129ba021b4",
+      "tests": 4490,
+      "passed": 4490,
+      "failed": 0,
+      "files": 249
+    },
+    {
+      "file": "p10c2-full.json",
+      "sha256": "5a29a44759a290b2268d3b1bfaee6a98fd075b5ab2f2247077c8e14b01fb48da",
+      "tests": 4454,
+      "passed": 4454,
+      "failed": 0,
+      "files": 247
+    },
+    {
+      "file": "p10c2-gate-red.json",
+      "sha256": "1ac2a911afdbe8054379a718b87b1b2261848ee7fb61c7ce6656b1a1e6d9e6db",
+      "tests": 291,
+      "passed": 290,
+      "failed": 1,
+      "files": 2
+    },
+    {
+      "file": "p10c2-target-green.json",
+      "sha256": "b267552e3e3cba080f06d9f403d0038d3b3e0ea83362ee74222883d93226ef1e",
+      "tests": 378,
+      "passed": 378,
+      "failed": 0,
+      "files": 5
+    },
+    {
+      "file": "p10c2-timed-boundaries.json",
+      "sha256": "0ef76971b83280ede33179c18192049183d04d8a293d2541e03d2b3eb1ffceb1",
+      "tests": 21,
+      "passed": 21,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p10c2-timed-green-first.json",
+      "sha256": "29f2cf9b007c3f946686504cec03d28ee920a608889b3e3fd9dd8c5bd4c40596",
+      "tests": 19,
+      "passed": 19,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p10c2-timed-red.json",
+      "sha256": "e6f28e956285881b4cca68b06bea28d76f4695f1177bc24e9d8b07734aa9c068",
+      "tests": 19,
+      "passed": 0,
+      "failed": 19,
+      "files": 1
+    }
+  ],
+  "redRulings": {
+    "timedArithmetic": {
+      "tests": 19,
+      "passed": 0,
+      "failed": 19
+    },
+    "mandatoryGate": {
+      "tests": 291,
+      "passed": 290,
+      "failed": 1
+    }
+  },
+  "remaining": [
+    "durable series/occurrences and edit/skip/rotation/scheduler completion integration",
+    "no actual timed recurrence runtime or native ZIP proof yet",
+    "full P10/P08/P09/later master tasks incomplete",
+    "no release/tag/VPS or Server2019 acceptance"
+  ],
+  "fullP10Accepted": false,
+  "runtimeWiringChanged": false,
+  "schemaMigrationDefaultActivationDependenciesChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}
