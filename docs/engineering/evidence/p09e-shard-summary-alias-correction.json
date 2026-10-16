@@ -1,0 +1,20 @@
+{
+  "cause": "external per-engine loop cleared the same list referenced by the one-touch summary, replacing summary identity with last engine21cases",
+  "correction": "assign a fresh local per-engine list; preserve original independently parsed one-touch identity",
+  "assertionsRetained": true,
+  "rawReportsChanged": false,
+  "workflowOrTestsRerun": false,
+  "originalDerivedSummarySha256": "fe0a73607bab9cb1c7bb801f4760343639e7e21c5fd1da97b5aacc79706eb067",
+  "helpers": [
+    {
+      "helper": "verify-productivity-browser-p09e-isolated.py",
+      "beforeSha256": "ecc83abfc3d4a8ec1508cf08fc3ca0f50b8446abff389988b5f9221f46aa524b",
+      "afterSha256": "86b8fd4a420953d0f7855391ad4d000dc9f53e7760517bb9e983374323fa650b"
+    },
+    {
+      "helper": "verify-productivity-browser-p09f-isolated.py",
+      "beforeSha256": "f3056c04b2e633c32e91865cc84870db06d5943b575e670f24f072df4461b3f0",
+      "afterSha256": "08b6afd59b90baefb5bcfc3a4eed018b0e64351c3c0a813dd6735551d733f39e"
+    }
+  ]
+}
