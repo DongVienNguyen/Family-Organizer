@@ -1,0 +1,132 @@
+{
+  "taskId": "F08-builder24-target23-live-candidate",
+  "workflowSourceSha": "f281fd5f23fd22582b3c5dbc7b0dfbd823983da2",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38847864451",
+  "explicitTargetSha": "33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38846044949",
+  "archives": 8,
+  "qualityEach": 4531,
+  "qualityFilesEach": 250,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "nativeTouchFirstAttempt": 1,
+  "generatedFixtures": [
+    {
+      "sourcePath": "scripts/ci/write-productivity-fixture.ts",
+      "path": "productivity-fixture.json",
+      "sourceSha256": "d6089e192d0d3c16449e9d59b46899f9f6b17a4194db04d83ba46e7a7e345cd1",
+      "format": 1,
+      "version": 6,
+      "rows": 87,
+      "sha256": "40f9b84c7bc2ddc67fa4edcebef6c39212d4a87b8c5e88d8b7c47b450fd2df69"
+    },
+    {
+      "sourcePath": "scripts/ci/write-board-package-fixture.ts",
+      "path": "board-fixture.json",
+      "sourceSha256": "3f9c7acc55d4c538b94f7cc8ba8540c7706a835a951db90bcc9aef0d2a6ee512",
+      "format": 1,
+      "version": 9,
+      "rows": 135,
+      "sha256": "db5157d407be98e5e9dbe3272650bec7524dd7f5c5b2b08ef854af18dd3720d5"
+    },
+    {
+      "sourcePath": "scripts/ci/write-wallet-fixture.ts",
+      "path": "wallet-fixture.json",
+      "sourceSha256": "9f708f553f9476b129640a9805efb42a73411197cdc94271f5d9297e54292b8f",
+      "format": 1,
+      "version": 1,
+      "rows": 5,
+      "sha256": "01fae50e245971017389295cbc60a7f420d0516317575052a00a059a61b38610"
+    }
+  ],
+  "boardPackagePolicy": {
+    "checks": [
+      "exact-bundled-node-addon",
+      "explicit9-fixture-identity",
+      "current9-http-config-and-reference",
+      "canonical-hard-wip-no-task-write",
+      "child-private-task-exclusion",
+      "ordinary9-snapshot-restore",
+      "credential-reentry-preserves-ids",
+      "encrypted9-independent-restore",
+      "wallet-matrix-board-references-preserved",
+      "old7-no-auto-upgrade",
+      "old7-refusal-preserves-bytes",
+      "future10-refusal-preserves-bytes",
+      "index-refusal-preserves-bytes",
+      "offline-handles-cleanup",
+      "private-safe-board-http-projection",
+      "transactional-board-move-and-audit",
+      "canonical-column-layout-and-archive",
+      "normalized-private-safe-grouped-board",
+      "selected-dimension-grouped-board-move",
+      "old8-no-auto-upgrade",
+      "old8-refusal-preserves-bytes",
+      "semantic9-multi-tag-view-and-moves",
+      "semantic9-grouped-rank-metadata"
+    ],
+    "groupedRanks": true,
+    "contractSha256": "a563d5f943a3849bdf91dff7bc5c173bb9361c8c6c6a103cfd1bfd6245af2109"
+  },
+  "nativeBoardChecks": 23,
+  "strictHttpClockIntervals": 28,
+  "archiveBytes": 67116063,
+  "expandedBytes": 121352328,
+  "receiptHashes": {
+    "release-metadata.json": "ea418dc422ec0be4d800d1a92e39abb27ff04051e9258a7e2eb750184f7d4301",
+    "release-archives.json": "25335e7428ee0be0e150bee76e0529991c623ed7f12035098ca25e79296f68df",
+    "release-report-preflight.json": "6ce90ab9e1cecd2cf204d17f1fa4d57071d9a7b3de2e48d921b787b4cf6ea871",
+    "release-evidence.json": "072b986168b1b00484e1f9fa79b2c91d5ff626411e50873ca048b413955ec232",
+    "candidate-handoff.json": "ad103c56ef64e34f4675f3399a54f8aac0405727a7355c7a70147c49042060e6"
+  },
+  "reportsVerified": true,
+  "consumerFunctionalVerified": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "handoff": {
+    "format": 1,
+    "kind": "publication-disabled-candidate-handoff",
+    "request": {
+      "repository": "DongVienNguyen/Family-Organizer",
+      "commitSha": "33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28",
+      "version": "1.1.0",
+      "tag": "v1.1.0",
+      "runId": 38846044949
+    },
+    "package": {
+      "commitSha": "33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28",
+      "appVersion": "1.1.0",
+      "zipSha256": "c1281bd0fb18e6117f58cdbf0d2f7cbc413c8f7b3d81aa63d70dcef3acb77da3",
+      "zipSize": 54756944,
+      "manifestSha256": "8cbd9461081796526b2b0a9e4e291e6ce63b0e376a9145f8ea25f87679187d7c"
+    },
+    "assets": {
+      "zip": {
+        "name": "family-organizer-1.1.0-33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28-win-x64.zip",
+        "sha256": "c1281bd0fb18e6117f58cdbf0d2f7cbc413c8f7b3d81aa63d70dcef3acb77da3",
+        "bytes": 54756944
+      },
+      "manifest": {
+        "name": "release-manifest.json",
+        "sha256": "8cbd9461081796526b2b0a9e4e291e6ce63b0e376a9145f8ea25f87679187d7c"
+      }
+    },
+    "candidatePublication": "blocked-source-lock",
+    "promotion": "blocked-source-lock-and-actual-server2019-acceptance",
+    "publicationAllowed": false,
+    "releaseCreated": false,
+    "tagCreated": false,
+    "server2019Acceptance": "not-run"
+  },
+  "fullMasterAccepted": false,
+  "fullWorkflowLogSha256": "4319beac902c19dc344f1ab06361896e8475fa9e12629e11b129d8cc2c18fc70",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 13,
+    "lines": 802,
+    "fullWorkflowLogSha256": "4319beac902c19dc344f1ab06361896e8475fa9e12629e11b129d8cc2c18fc70",
+    "unexpectedMarkers": []
+  },
+  "verifierWriterRuling": "A new external writer name records the current24 builder reading an independently accepted23 target; historical helper/evidence untouched",
+  "writerMetadataCorrection": "Task label updated to distinguish current24 builder from legacy23 target; source/target/raw receipts/log proof unchanged"
+}
