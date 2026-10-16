@@ -1,0 +1,35 @@
+{
+  "taskId": "P09-c",
+  "observedAt": "2026-10-16T05:08:40Z",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/117",
+  "headSha": "f0baa680d1b8b1942dd50cfc04335f0567af35fe",
+  "ciRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953",
+  "blockedStep": "read completed Actions status/jobs/logs/artifacts before exact-head acceptance and merge",
+  "httpStatus": 401,
+  "message": "Bad credentials",
+  "watchExit": 1,
+  "watchExitIsCiConclusion": false,
+  "cloudEnvironment": {
+    "connectivity": "connected",
+    "phase": "running",
+    "specRevision": 8,
+    "failure": null
+  },
+  "lastObservedSuccess": [
+    "Windows package producer",
+    "Windows package clean consumer"
+  ],
+  "lastObservedPending": [
+    "Windows production browsers",
+    "Windows productivity browsers",
+    "Windows Node22 baseline",
+    "Windows Node24 baseline",
+    "Windows disposable service"
+  ],
+  "ciConclusion": "unknown after credential failure; not accepted",
+  "credentialsPrinted": false,
+  "sourceWorkContinues": true,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "vpsAccessed": false
+}
