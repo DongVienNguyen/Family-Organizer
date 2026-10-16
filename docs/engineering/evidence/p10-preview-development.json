@@ -1,0 +1,243 @@
+{
+  "taskId": "P10-d2",
+  "baseSha": "dd1407a85f81105af7de03107afde3a8d333fcd3",
+  "actualCheckpoints": {
+    "p10-preview-slots-red": {
+      "tests": 24,
+      "passed": 0,
+      "failed": 24,
+      "pending": 0,
+      "files": 1,
+      "sha256": "082e6959bb80e518002f8240253a3472bb99bd8eca29146bb6293b915bd7a4f8"
+    },
+    "p10-preview-slots-green": {
+      "tests": 117,
+      "passed": 117,
+      "failed": 0,
+      "pending": 0,
+      "files": 4,
+      "sha256": "da7f3685b6d1de281653753466f3d6755fdf27025b4d4131d9b90677d0525ed4"
+    },
+    "p10-preview-service-red": {
+      "tests": 17,
+      "passed": 0,
+      "failed": 17,
+      "pending": 0,
+      "files": 1,
+      "sha256": "24707ed2159b14db922303cdab13375244f75fa808482528d7a9ebf6f34bd511"
+    },
+    "p10-preview-service-first": {
+      "tests": 41,
+      "passed": 40,
+      "failed": 1,
+      "pending": 0,
+      "files": 2,
+      "sha256": "ce9301ed8d37c727e618b06f73cb2a0ee445195e0ad0d88f3136c32007b6ef79"
+    },
+    "p10-preview-cache-corrected": {
+      "tests": 97,
+      "passed": 97,
+      "failed": 0,
+      "pending": 0,
+      "files": 5,
+      "sha256": "30f295d9a2bb05536fb808ef0ab6a9a3f3de6ae8c0599770b40047c96ff462d7"
+    },
+    "p10-preview-api-red": {
+      "tests": 7,
+      "passed": 0,
+      "failed": 7,
+      "pending": 0,
+      "files": 1,
+      "sha256": "0ab782a90ddbd69609c069b9c75d00ccbfce67d581d63a379f4eb20aa10a693b"
+    },
+    "p10-preview-api-causal-red": {
+      "tests": 7,
+      "passed": 0,
+      "failed": 7,
+      "pending": 0,
+      "files": 1,
+      "sha256": "3df7ece51d11d3ce2821499e8e1b617a9b097d2396373f8884910f724cb851c9"
+    },
+    "p10-preview-api-first": {
+      "tests": 48,
+      "passed": 47,
+      "failed": 1,
+      "pending": 0,
+      "files": 3,
+      "sha256": "95c6d7a79d9e18fd430d92bd06b4a1c98ca674bc73ff135b48749f46eb6a6842"
+    },
+    "p10-preview-api-corrected": {
+      "tests": 7,
+      "passed": 6,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "6481dc212d7ef07f0114691bd1896268da776b739d260ff27a87470f90377f59"
+    },
+    "p10-preview-api-boundary-diagnostic": {
+      "tests": 8,
+      "passed": 7,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "2d1d9cd3f0e95ae61afd4138a102f182a0c82aa3b1b32d6d481cfc5a85bff739"
+    },
+    "p10-preview-api-boundary-green": {
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "pending": 0,
+      "files": 1,
+      "sha256": "fa41b1673fe997b70db1a0e981abfd358cc0e7d9d0f228ac3a3870c0853ae833"
+    },
+    "p10-preview-gate-red": {
+      "tests": 317,
+      "passed": 313,
+      "failed": 4,
+      "pending": 0,
+      "files": 1,
+      "sha256": "27cc1c4572a2731d769f0a460c2319810ae9027e324a71c47daeb1fbec4434f1"
+    },
+    "p10-preview-target-final": {
+      "tests": 470,
+      "passed": 470,
+      "failed": 0,
+      "pending": 0,
+      "files": 9,
+      "sha256": "e9e812515fb26927b144dbbe248d1d7995c05e56aa5d67e9ef94c7d0bb3634eb"
+    },
+    "p10-preview-review-red": {
+      "tests": 21,
+      "passed": 18,
+      "failed": 3,
+      "pending": 0,
+      "files": 1,
+      "sha256": "4086f0eef08214ddaa2f511540ba38358f4f17a670de330d0bd276c80aa45f21"
+    },
+    "p10-preview-planner-red": {
+      "tests": 25,
+      "passed": 24,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "9b0751b1e7901768bcbb15cbe88832ddddd4c63f403ebb620857ed6908782b20"
+    },
+    "p10-preview-review-green": {
+      "tests": 474,
+      "passed": 474,
+      "failed": 0,
+      "pending": 0,
+      "files": 9,
+      "sha256": "04145d8e4dd93b365eb1b52435a814611507337ac4637aa5eb189e47018d5b7d"
+    },
+    "p10-preview-reviewed-full": {
+      "tests": 5083,
+      "passed": 5083,
+      "failed": 0,
+      "pending": 0,
+      "files": 275,
+      "sha256": "49b190c1af831e17997f388871d6022db067bbc55ac319dd9843a6435b5268fc"
+    }
+  },
+  "cpuProfile": {
+    "candidates": 1001,
+    "beforeMs": 8693,
+    "afterMs": 726,
+    "sameCpuProfilingMode": true,
+    "windowsBenchmark": false
+  },
+  "fullSuitePending": false,
+  "reviewPending": false,
+  "windowsPending": true,
+  "fullP10Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "cloudGreen": {
+    "tests": 5083,
+    "files": 275,
+    "junitTests": 5083,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "hashes": {
+      "p10-preview-reviewed-full.json": "49b190c1af831e17997f388871d6022db067bbc55ac319dd9843a6435b5268fc",
+      "p10-preview-reviewed-full.junit.xml": "b0c077db676066f39607673d5146d53fe377dc5d5f8a9a4097b5b15dff4d7277",
+      "p10-preview-reviewed-full.log": "bd5ffe5dd0c59012944d72001bb9e7cc7edc03de2e262980a2dfff2e1430109a",
+      "p10-preview-reviewed-build.log": "83350c58c558badef78b66539fe456ac09bc5aa79971be785af886955246a03e",
+      "p10-preview-reviewed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p10-preview-review-green.json": "04145d8e4dd93b365eb1b52435a814611507337ac4637aa5eb189e47018d5b7d"
+    }
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "56418b8e52be3c1f1567c9b418f447fcebffc1ea8bd1b19ea083a72be80300f3",
+    "server/productivity/ports.ts": "6412ea36ac35d0cb04190fd4fdff22e21844fa3ea8d7454d6adf1f83bbe144bf",
+    "server/productivity/recurrence-preview.api.test.ts": "2d6c2440f57fb9b75160cd102fc310d7dd5c8f8b805ebcf2229d3f36fe5b2123",
+    "server/productivity/recurrence-preview.test.ts": "1bfc75f61e5f931872791fd666e3c7408ca1cad60d5f534c2d396ce8264c5269",
+    "server/productivity/recurrence-slots.test.ts": "ffc86080c09cf9ab59201adbeab857e3b3868e3b44547070cbc420d550a38586",
+    "server/productivity/recurrencePreview.ts": "cfc3037b9ac3af426e744fa02ab0f90942143b6d7acc008739045b0b2429d934",
+    "server/productivity/recurrenceSlots.ts": "7f91870cc7866daf648c6c9952e945c2ffb655afc262d2ff2334c4fae88d1a0d",
+    "server/productivity/recurrenceTimed.ts": "85b4c2b1598d67e5f370b349770d634f08c7e603939e6b227a2779060cd5ac86",
+    "server/productivity/router.ts": "42433827f6adcac95684771c8bb8c4cca771f6fe27d6ff59ad652ba5ee1668d1",
+    "src/features/productivity/date-formatter-isolation.test.ts": "1e11765ffc236e587131abcbfcab1165d45545d135914b7558d763158c1ed6ad",
+    "src/features/productivity/dates.ts": "6ef5fc603b899d201fc447b8ebc3cacc324320671adb80645fe67d46a050d13e",
+    "tests/evidence.test.ts": "eb86b0dea4ce05ba0d86a6248efe42e13af6fb10b40e1d3966070138e5ce2bb7",
+    "tests/recurrence-calendar-import.test.ts": "316df1deb71a3502bf448e049dbba51364eff4280a6283b553d2cba549bc3b58"
+  },
+  "expectedWindowsQuality": {
+    "tests": 5083,
+    "files": 275
+  },
+  "rulings": [
+    "Existing approved P10 design/plan cover preview; no duplicate approval or worktree",
+    "Ordinal0 is root; count includes root; explicit-date successor list starts at ordinal1 without silently dropping selected dates",
+    "HTTP409/no-upgrade uses supported pre-series9; unsupported11 is separately refused before handler by existing auth/storage guard",
+    "Unavailable skill wrappers/templates replaced by explicit ledger/test/review packages, not claimed executed",
+    "Fresh whole-branch0C2I1M graded before ONE correction; M1 extreme nominal horizon deferred; exact Windows and fullP10 later-owner boundaries retained"
+  ],
+  "preReviewCloudGreen": {
+    "tests": 5079,
+    "files": 275,
+    "junitTests": 5079,
+    "failed": 0,
+    "skipped": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "hashes": {
+      "p10-preview-full.json": "f180b9a33414435e01c2735fc6f2edfcc5098a6da48d23698013c26656ee8f0e",
+      "p10-preview-full.junit.xml": "939bbfd39dc7c53e6f5db04305e99683263db1fe40c889b009d25f767b9dca86",
+      "p10-preview-full.log": "4870fc4f099c14790c44916732727f48b3c9c318647b132df9927d6dabcab485",
+      "p10-preview-build.log": "50e4cf166f5649b2094b39f050726868974910e57e6d3f34362a2537a5e1f459",
+      "p10-preview-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p10-preview-target-final.json": "e9e812515fb26927b144dbbe248d1d7995c05e56aa5d67e9ef94c7d0bb3634eb"
+    }
+  },
+  "review": {
+    "reviewedSha": "2f0ab90a04f0490f8c8d88e287d1f319e7f13877",
+    "kind": "fresh-whole-branch",
+    "reviewClosed": true,
+    "allFindingsGradedBeforeCorrection": true,
+    "findings": {
+      "critical": 0,
+      "important": 2,
+      "minor": 1
+    },
+    "correctionPasses": 1,
+    "importantRemaining": 0,
+    "minorDeferred": [
+      "M1"
+    ],
+    "rereview": false,
+    "reportSha256": "d475268b70c489f0dbfc7f4786e56dfbe3c872611c56ecb1055d78d3d69ee1b6",
+    "gradingSha256": "b241742584a98bbcc4e78e6a78d6e85b8316e8e94db2617015e1f99637d6258e"
+  },
+  "reviewTarget": {
+    "tests": 474,
+    "passed": 474,
+    "failed": 0,
+    "pending": 0,
+    "files": 9,
+    "sha256": "04145d8e4dd93b365eb1b52435a814611507337ac4637aa5eb189e47018d5b7d"
+  }
+}
