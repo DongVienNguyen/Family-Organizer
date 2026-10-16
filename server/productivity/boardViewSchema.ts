@@ -20,7 +20,7 @@ export function assertBoardViewReference(reader:TaskReader,actor:AppActor,config
 }
 export function resolveBoardReference(reader:TaskReader,actor:AppActor,boardId:string,mode:'sections'|'workflow'):{id:string;list_id:string;mode:'sections'|'workflow'} {
  assertContext({actor,expectedRevision:0,requestId:'board:reference'},reader);
- if(![8,9,10].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration tham chiếu bảng trước khi dùng.');
+ if(![8,9,10,11].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration tham chiếu bảng trước khi dùng.');
  text(boardId,256);
  const board=reader.get("SELECT b.id,b.list_id,b.mode,l.is_shared FROM productivity_boards b JOIN productivity_lists l ON l.id=b.list_id LEFT JOIN productivity_catalog_revisions m ON m.entity_kind='list' AND m.entity_id=l.id WHERE b.id=? AND m.archived_at IS NULL",boardId);
  if(!board||!(actor.role===UserRole.ADMIN||board.is_shared||actor.role===UserRole.MEMBER&&listPermission(reader,actor,board.list_id)!==undefined))fail(404,'Không tìm thấy bảng.');

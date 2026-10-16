@@ -1,3 +1,4 @@
+import {ownedOccurrenceTables,ownedOccurrenceSchemaSql} from './occurrenceSchema.js';
 import {seriesTables,seriesSchemaSql} from './seriesSchema.js';
 import {boardTables,boardSchemaSql} from './boardSchema.js';
 import {matrixTables,matrixPinSchemaSql} from './matrixSchema.js';
@@ -24,8 +25,8 @@ CREATE TABLE productivity_check_items(
 CREATE INDEX productivity_tasks_parent ON productivity_tasks(parent_id,deleted_at);
 CREATE INDEX productivity_check_items_task ON productivity_check_items(task_id,rank,id);
 `;
-export function productivityTablesAt(version:number){return version>=2?{...productivityTables,...structureTables,...(version>=3?tagOwnershipTables:{}),...(version>=4?taskPinTables:{}),...(version>=5?viewTables:{}),...(version>=6?matrixTables:{}),...(version>=7?boardTables:{}),...(version>=10?seriesTables:{})}:productivityTables;}
-export function productivitySchemaAt(version:number):string{return schemaSql+(version>=2?structureSchemaSql:'')+(version>=3?tagOwnershipSchemaSql:'')+(version>=4?taskPinSchemaSql:'')+(version>=5?viewSchemaSql:'')+(version>=6?matrixPinSchemaSql:'')+(version>=7?boardSchemaSql:'')+(version>=10?seriesSchemaSql:'');}
+export function productivityTablesAt(version:number){return version>=2?{...productivityTables,...structureTables,...(version>=3?tagOwnershipTables:{}),...(version>=4?taskPinTables:{}),...(version>=5?viewTables:{}),...(version>=6?matrixTables:{}),...(version>=7?boardTables:{}),...(version>=10?seriesTables:{}),...(version>=11?ownedOccurrenceTables:{})}:productivityTables;}
+export function productivitySchemaAt(version:number):string{return schemaSql+(version>=2?structureSchemaSql:'')+(version>=3?tagOwnershipSchemaSql:'')+(version>=4?taskPinSchemaSql:'')+(version>=5?viewSchemaSql:'')+(version>=6?matrixPinSchemaSql:'')+(version>=7?boardSchemaSql:'')+(version>=10?seriesSchemaSql:'')+(version>=11?ownedOccurrenceSchemaSql:'');}
 export function migrateStructure(tx:AppWriteTx):void {
  assertTaskTree(tx.all('SELECT id,list_id,parent_id,creator_id,assignee_id,is_shared,deleted_at FROM productivity_tasks').map(edge));
  tx.exec(structureSchemaSql);

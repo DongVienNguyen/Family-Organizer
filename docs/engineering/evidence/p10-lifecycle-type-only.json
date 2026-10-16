@@ -1,0 +1,7 @@
+{
+  "file": "server/productivity/recurrence-accepted.test.ts",
+  "beforeEmittedSha256": "a96d2b69747a81c2643b56431d1104e3d91684fc0dbf993204a892e3d096e7a9",
+  "afterEmittedSha256": "a96d2b69747a81c2643b56431d1104e3d91684fc0dbf993204a892e3d096e7a9",
+  "emittedRuntimeIdentical": true,
+  "reason": "Node events dynamic-import type definition omits actual once named export; test fixture cast only"
+}

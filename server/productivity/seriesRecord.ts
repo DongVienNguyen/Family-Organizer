@@ -1,3 +1,4 @@
+import {validateOwnedOccurrenceRows} from './occurrenceRecord.js';
 import {isDeepStrictEqual} from 'node:util';
 import {normalizeRecurrencePolicy,type RecurrencePolicy} from './recurrencePolicy.js';
 import {assertDue,utcInstant} from '../../src/features/productivity/dates.js';
@@ -46,4 +47,5 @@ export function validateSeriesRows(input:{series:Record<string,unknown>[];except
 export function validateSeriesStorage(reader:TaskReader):void {
  if((reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version??0)<10)return;
  validateSeriesRows({series:reader.all('SELECT * FROM productivity_series'),exceptions:reader.all('SELECT * FROM productivity_series_exceptions'),taskIds:new Set(reader.all('SELECT id FROM productivity_tasks').map(row=>row.id)),userIds:new Set(reader.all('SELECT id FROM users').map(row=>row.id))});
+ if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version===11)validateOwnedOccurrenceRows({occurrences:reader.all('SELECT * FROM productivity_series_occurrences'),series:reader.all('SELECT * FROM productivity_series').map(decodeSeries),tasks:new Map(reader.all('SELECT id,revision FROM productivity_tasks').map(row=>[row.id,{revision:row.revision}]))});
 }
