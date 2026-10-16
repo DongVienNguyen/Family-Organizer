@@ -24,7 +24,7 @@ export function validateOwnedOccurrenceRows(input:{occurrences:Record<string,unk
   const owners=new Map(input.series.map(series=>[series.id,series])),seenTasks=new Set<string>(),seenSlots=new Set<string>(),counts=new Map<string,{accepted:number;open:number;root:boolean}>();
   for(const row of input.occurrences){
    const value=decodeSeriesOccurrence(row),series=owners.get(value.seriesId),task=input.tasks.get(value.taskId),key=JSON.stringify([value.seriesId,value.ordinal]);
-   if(!series||!task||seenTasks.has(value.taskId)||seenSlots.has(key)||value.ordinal>=series.nextOrdinal||value.ordinal===0&&value.taskId!==series.taskId||value.ordinal!==0&&value.taskId===series.taskId)throw Error('Owner');
+   if(!series||!task||seenTasks.has(value.taskId)||seenSlots.has(key)||value.ordinal>=series.nextOrdinal||value.state==='open'&&value.ordinal!==series.nextOrdinal-1||value.ordinal===0&&value.taskId!==series.taskId||value.ordinal!==0&&value.taskId===series.taskId)throw Error('Owner');
    if(value.acceptedRevision!==null&&value.acceptedRevision>task.revision||utcInstant(value.createdAt)>utcInstant(series.updatedAt)||value.acceptedAt!==null&&utcInstant(value.acceptedAt)>utcInstant(series.updatedAt))throw Error('History');
    if(value.policy.end.kind==='count'&&value.ordinal>=value.policy.end.count||value.ordinal>0&&value.policy.cadence.kind==='dates'&&value.ordinal>value.policy.cadence.dates.length)throw Error('Policy bounds');
    seenTasks.add(value.taskId);seenSlots.add(key);const count=counts.get(value.seriesId)??{accepted:0,open:0,root:false};count[value.state]++;count.root||=value.ordinal===0;counts.set(value.seriesId,count);

@@ -21,7 +21,7 @@ it.each([
 
 const coherence=()=>({occurrences:[row({ordinal:0,state:'accepted',accepted_at:'2027-02-01T00:00:00.000Z',accepted_revision:1}),row({ordinal:1,task_id:'synthetic-next'})],series:[{id:'synthetic-series',taskId:'synthetic-task',revision:2,policy,anchor:{kind:'all_day',date:'2027-01-31',timezone:'Asia/Saigon'},nextOrdinal:2,acceptedCount:1,rotationCursor:1,endedAt:null,createdAt:'2027-01-31T00:00:00.000Z',updatedAt:'2027-02-01T00:00:00.000Z'}],tasks:new Map([['synthetic-task',{revision:2}],['synthetic-next',{revision:1}]])});
 it('validates root and open successor ownership while retaining immutable accepted revision below current Task revision',()=>{expect(()=>validateOwnedOccurrenceRows(coherence()as any)).not.toThrow();});
-it.each(['unknown-series','missing-task','duplicate-ordinal','duplicate-task','wrong-root','missing-root','accepted-count','cursor-behind','future-accepted-revision','future-history-time','two-open'])('refuses inconsistent owned recurrence history %# %s',damage=>{
+it.each(['unknown-series','missing-task','duplicate-ordinal','duplicate-task','wrong-root','missing-root','accepted-count','cursor-behind','cursor-ahead','future-accepted-revision','future-history-time','two-open'])('refuses inconsistent owned recurrence history %# %s',damage=>{
  const value=coherence();
  if(damage==='unknown-series')value.occurrences[1].series_id='missing';
  if(damage==='missing-task')value.tasks.delete('synthetic-next');
@@ -31,6 +31,7 @@ it.each(['unknown-series','missing-task','duplicate-ordinal','duplicate-task','w
  if(damage==='missing-root')value.occurrences.shift();
  if(damage==='accepted-count')value.series[0].acceptedCount=2;
  if(damage==='cursor-behind')value.series[0].nextOrdinal=1;
+ if(damage==='cursor-ahead')value.series[0].nextOrdinal=3;
  if(damage==='future-accepted-revision')value.occurrences[0].accepted_revision=3;
  if(damage==='future-history-time')value.occurrences[0].accepted_at='2027-03-01T00:00:00.000Z';
  if(damage==='two-open'){value.occurrences.push(row({ordinal:2,task_id:'synthetic-other'}));value.tasks.set('synthetic-other',{revision:1});value.series[0].nextOrdinal=3;}

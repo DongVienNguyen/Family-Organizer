@@ -31,7 +31,10 @@ its new linked grant but does not rewind or advance the already accepted slot.
 An owned successor cannot be registered as a second series root.
 
 Due-based dates use the original anchor; completion-based dates use the trusted
-actual acceptance time. Explicit dates/count/end, skip and no-date exceptions
+actual acceptance time. While searching past skipped virtual calendar cycles, a
+separate validated relative offset advances from that same actual acceptance;
+it never multiplies the global ordinal or invents another accepted event. Ordinary
+completion successors still start exactly one interval later. Explicit dates/count/end, skip and no-date exceptions
 are honored. Skipping a virtual cycle or moving one outside the effective end
 advances no reward/rotation; a later valid successor is retained. Count includes
 rootordinal0. Unresolved DST refuses the entire transition422 until an explicit
@@ -42,7 +45,7 @@ delivery runs here, and no client can supply acceptance time or rotation authori
 
 Owned-history coherence is checked on normal bootstrap and shared snapshot/restore:
 known series/Task references, unique Task/slot identities, accepted root, cursor,
-accepted count, at most one open occurrence, recorded policy bounds and accepted
+accepted count, at most one open occurrence exactly at nextOrdinal−1, recorded policy bounds and accepted
 revision/time must agree. Historical accepted revision can be lower than the
 current reopened Task revision. Authenticated repair can replace corrupted data;
 it cannot bypass unknown or drifted schema. Arbitrary old opaque occurrences
@@ -61,3 +64,11 @@ restart/missed-cycle policy, editor/UI and controlled legacy recurring-task cuto
 remain later owners. The closed preview MinorM1 extreme historical-anchor horizon
 refusal remains deferred. No default feature activation, release/tag/VPS or
 Server2019/R02 qualification is implied.
+
+Fresh whole-branch review0Critical/2Important/0Minor was fully graded before one
+correction pass, with no rereview. Actual finite-count/end/never/monthly/leap-day
+skip and pure/bootstrap/snapshot/compiled-cursor regressions verify those two
+fixes. The original snapshot RED fixture first hit the unchanged content-checksum
+guard; recomputing its checksum exposed the intended semantic admission failure.
+No checksum or authentication guard was weakened. Windows acceptance remains
+separate from corrected Cloud results.

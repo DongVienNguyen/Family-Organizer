@@ -1,4 +1,7 @@
-import {beforeAll,expect,it} from 'vitest';import {randomUUID} from 'node:crypto';
+import {beforeAll,expect,it,vi} from 'vitest';
+import * as recurrenceSlots from './recurrenceSlots.js';
+import {configureTaskStorage} from './bootstrap.js';
+import {checksum} from '../snapshotValidation.js';import {randomUUID} from 'node:crypto';
 import * as sqlite from '../sqlite.js';import * as gateway from '../appStore.js';import * as migrations from '../appMigrations.js';import * as snapshot from '../appSnapshot.js';
 import {FamilyDB,setAppSetting} from '../db.js';import {UserRole} from '../../src/types.js';import {legacyTask} from '../../tests/fixtures/productivity.js';
 import {createCompletionCommands} from './completion.js';import {createTaskAccess} from './access.js';import {loadTask,savePilotTask} from './store.js';import {createRecurrenceSeriesStore} from './seriesStore.js';
@@ -62,3 +65,17 @@ it('real authenticated semantic HTTP approval concurrency claims one occurrence;
 it('real legacy HTTP child-submit adult-approve follows the same durable claim and reversal without a parallel reward writer',()=>httpFixture(async send=>{
  const f=fixture(),pending=await send('/api/tasks',UserRole.CHILD,{id:f.id,status:'completed',proofNote:'Synthetic legacy HTTP proof'});expect(pending.status,pending.text).toBe(200);expect(pending.body.task.pendingApproval).toBe(true);expect(earned(f.id)).toEqual([]);const accepted=await send('/api/tasks/'+f.id+'/approve',UserRole.ADMIN,{});expect(accepted.status,accepted.text).toBe(200);expect(occurrences(f.series.id)).toHaveLength(2);expect(earned(f.id)).toEqual([10]);const rows=occurrences(f.series.id);expect((await send('/api/tasks',UserRole.ADMIN,{id:f.id,status:'todo'})).status).toBe(200);expect(earned(f.id)).toEqual([-10,10]);expect(occurrences(f.series.id)).toEqual(rows);
 }));
+
+it.each([{kind:'count',count:5},{kind:'date',date:'2027-04-30'},{kind:'never'}])('completion-based invalid monthly virtual cycles advance to March once without exhausting %j',end=>{
+ const prepare=recurrenceSlots.createRecurrenceSlotPlanner;let calls=0;const spy=vi.spyOn(recurrenceSlots,'createRecurrenceSlotPlanner').mockImplementation(input=>{const plan=prepare(input);return (...args)=>{if(++calls>8)throw Error('Synthetic candidate budget: repeated skipped date');return plan(...args);};});
+ vi.useFakeTimers({toFake:['Date']});vi.setSystemTime(new Date('2027-01-31T03:15:00.123Z'));
+ try{const f=fixture(policy({base:'completion',cadence:{kind:'calendar',frequency:'monthly',interval:1,invalidDate:'skip'},end})),result=commands.requestCompletion(ctx(f.id),f.id);expect(result.spawnedTaskIds).toHaveLength(1);expect(current(result.spawnedTaskIds[0]).due).toEqual({kind:'all_day',date:'2027-03-31',timezone:'Asia/Saigon'});expect(occurrences(f.series.id).map(r=>[r.ordinal,r.state])).toEqual([[0,'accepted'],[2,'open']]);expect(series.get(actor(),f.series.id)).toMatchObject({acceptedCount:1,rotationCursor:1,nextOrdinal:3,endedAt:null});expect(earned(f.id)).toEqual([10]);expect(calls).toBeLessThanOrEqual(8);}finally{spy.mockRestore();vi.useRealTimers();}
+});
+it('completion-based leap-day skips advance from the same actual acceptance to the next leap year without extra accepted rotation',()=>{
+ vi.useFakeTimers({toFake:['Date']});vi.setSystemTime(new Date('2028-02-29T03:15:00.123Z'));try{const f=fixture(policy({base:'completion',cadence:{kind:'calendar',frequency:'yearly',interval:1,invalidDate:'skip'},end:{kind:'count',count:5}})),result=commands.requestCompletion(ctx(f.id),f.id);expect(result.spawnedTaskIds).toHaveLength(1);expect(current(result.spawnedTaskIds[0]).due).toEqual({kind:'all_day',date:'2032-02-29',timezone:'Asia/Saigon'});expect(occurrences(f.series.id).map(r=>r.ordinal)).toEqual([0,4]);expect(series.get(actor(),f.series.id)).toMatchObject({acceptedCount:1,rotationCursor:1,nextOrdinal:5,endedAt:null});expect(earned(f.id)).toEqual([10]);}finally{vi.useRealTimers();}
+});
+it('snapshot admission and normal bootstrap refuse a cursor ahead of the existing open row without rejecting valid replacement history',async()=>{
+ const f=fixture();commands.requestCompletion(ctx(f.id),f.id);const saved=write(tx=>snapshot.collectAppSnapshot(tx)),damaged=structuredClone(saved),row=damaged.tables.productivity_series.find(row=>row.id===f.series.id)!;row.next_ordinal++;damaged.manifest.checksum=checksum(damaged);
+ expect(()=>snapshot.validateAppSnapshot(damaged)).toThrow(/Invalid owned recurrence coherence/);expect(()=>snapshot.validateAppSnapshot(saved)).not.toThrow();const db=sqlite.sqliteConnection();db.prepare('UPDATE productivity_series SET next_ordinal=next_ordinal+1 WHERE id=?').run(f.series.id);const before=tables();try{await expect(configureTaskStorage(sqlite)).rejects.toThrow(/Invalid owned recurrence coherence/);expect(tables()).toEqual(before);}finally{db.prepare('UPDATE productivity_series SET next_ordinal=next_ordinal-1 WHERE id=?').run(f.series.id);}
+ await expect(configureTaskStorage(sqlite)).resolves.toBeUndefined();
+});

@@ -38,7 +38,7 @@ export function acceptRecurringOccurrence(tx:AppWriteTx,task:Task,actorId:string
   for(;nextOrdinal<=100000;nextOrdinal++){
    if(series.policy.end.kind==='count'&&nextOrdinal>=series.policy.end.count){endedAt=acceptedAt;break;}
    const exception=exceptions.get(nextOrdinal);if(exception?.kind==='skip')continue;
-   const slot=plan(nextOrdinal);if(slot.kind==='end'){endedAt=acceptedAt;break;}
+   const slot=plan(nextOrdinal,series.policy.base==='completion'?nextOrdinal-series.nextOrdinal+1:1);if(slot.kind==='end'){endedAt=acceptedAt;break;}
    if(slot.kind==='awaiting-acceptance')fail('Thiếu thời điểm chấp nhận kỳ lặp.');
    if(!exception&&slot.kind==='skipped')continue;
    if(!exception&&slot.kind==='time-resolution-required')fail('Cần chọn thời điểm rõ ràng cho giờ DST.');
