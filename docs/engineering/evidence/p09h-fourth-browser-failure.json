@@ -52,5 +52,16 @@
     "productivity-browser-html/trace/assets/urlMatch-L3liM589.js": "1bc6321e32d11c31a452bc75896f0b344e6153321854d9f1658818be7f845c16",
     "productivity-browser-html/trace/assets/defaultSettingsView-D-g2vrvf.js": "554bdef910d18e763118f1221667b809edafba46e29e3f8de4b9dcf21c6b7d79",
     "productivity-browser-html/trace/assets/codeMirrorModule-BEB2e8M3.js": "0da75d228abc1d8b940aa04ec086570dace7b2e7b2ccc5f4bc16f05e79bdb7d7"
-  }
+  },
+  "investigation": {
+    "sameFrameForBothApplies": true,
+    "documentNavigationObserved": false,
+    "firstNativeApplyStatus": 200,
+    "secondNativeApplyStatus": 200,
+    "firstBodyReadDelayedMs": 170,
+    "secondBodyReadDelayedMs": 229,
+    "secondDriverBodyMissing": true,
+    "localNativeCrashStackConfirmed": false
+  },
+  "correction": "Start response status assertion and body parsing immediately in waitForResponse.then, before waiting for click action completion; review correction observes both promises with Promise.all; native response/mutation unchanged, no retry"
 }
