@@ -1,0 +1,111 @@
+{
+  "taskId": "P10-d1",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/124",
+  "testedHeadSha": "24ae6d7394640a4f1947a9fc9fc95f62187fb713",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38884766924",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "f0cc3e422ced643240e1e25cfdd08413035506f295f006bee4f09f2bada00bb1",
+    "coverage": "6ec8d17164d80250d59db243d53db6a0ee93a2f46ff5f7364f75cf47000b75ff",
+    "package": "b67406ce1ca4cbcf4e85203a22d9dfe3cfff8da4d9b81fefaf4bffde39bbad7b",
+    "service": "18735630f9dc736e5032ee455efa1b200697a6c9d817b0f568abcc5b7e0f2331",
+    "caddy": "e4c6f345d7ac30cd02aee28e62726133ae3792810723a4235720772d3ae0af43",
+    "extraction-sdk": "14db335b8a6249679b883c379fe21bac981a560e1d269df2de4e1c045c14a11e",
+    "inner-native": "89dc499c607e47a9cce82a58cf83e56cfece0a28e517579a144823944dc74f49",
+    "browser": "bd6151e4e8e4f05e4ba8968c60939c13e100e0405c98ea7d46c82c409e8fa9da",
+    "productivity-browser": "6302352260e7768845a1143d2dedd548ed10c8ef2109430a2e317d2ffb43924a",
+    "board-package": "522c0bb905b8cac61ef50abba5c1cfc87c7c789093259cd1c55b83b3a328c9c6",
+    "port-policy": "e7491eb3b64211d02f8e98b080e8267c3f989f01b96b9653a389417936880105"
+  },
+  "qualityEach": 5021,
+  "qualityFilesEach": 271,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 78,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "review": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0,
+    "remaining": 0,
+    "correctionPasses": 1,
+    "rereview": false
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "4992bbc4177ec56e389e9adad875d221d31b55868ad9f37e92e979d88aa24134",
+    "server/productivity/adapter.ts": "1f493313f71f076bfdde649c14ae33489ff55c369bd85e9857bb37219deb86a4",
+    "server/productivity/boardCatalog.ts": "e6a4c75a910964aaac74a78ce750d49d6a79b6707668cc693b819239dd10e024",
+    "server/productivity/boardViewSchema.ts": "f94fcc5a812c3953501db6f60bfb562bb9466aacf0048086bc373895d4386b72",
+    "server/productivity/bootstrap.ts": "9f066f07bd9bcb92f7dee149c1b3708134f5193bbf439fa0418e255d80ffeb74",
+    "server/productivity/groupedBoard.ts": "0f1f03aa38e757be2d293f944c6a72a19942e0bab7b7c1795a6db6a0ceff5d5c",
+    "server/productivity/inspection.ts": "1a66f300100d178efeb7e8ff7012f48bc10fbb5c4d0185d5a8f45c0718a0d416",
+    "server/productivity/matrix.ts": "18194d9a58170e138b61dbfae0bd13491a3dd670bab11620c306d4ddd1a58d38",
+    "server/productivity/pins.ts": "7cb74a535e12836bb4fcbe01fca98f58929a57bd9d7035c71185f773e10c3cdf",
+    "server/productivity/sectionBoards.ts": "c6c56872a2e2a13f9ced8cf6a16b24ee8448e32ce6ab9f120fc7e90ad400e89a",
+    "server/productivity/series-record.test.ts": "2a4b6d5b60eaed47fee11a0c3db9d8afa097094e42562f8bea3cd21687b9afd6",
+    "server/productivity/series-store.test.ts": "bcc820b27c49482f5e0a2047c9fc54842ef2e75fc43b3e60fcf8d5cb7e08ce13",
+    "server/productivity/seriesRecord.ts": "a6573ba4bb0ec7ccabfe7f5c83779e95efe622d319a83b904a7d728e56f32daf",
+    "server/productivity/seriesSchema.ts": "5947bd05df43ff9741d4e4618a917d076b0722144ddd5b4ff61cf7b5d94f35da",
+    "server/productivity/seriesStore.ts": "3f85d4817a29dea6fa144f37809390f74a26fea3e2e35e8e3bbdf463fe27f637",
+    "server/productivity/snapshot.ts": "b4d50bdc0be0c5afd83e9aacc9a6fc760a554b4752c059803d1e61f265de4372",
+    "server/productivity/structure.ts": "8579a810e40168cc89c95eff1557bf124c3bfdfdae2545855d4614bf590eec9a",
+    "server/productivity/structureInvariant.ts": "a2080cb3a3e4daf5e3e29baa02684be05297bf2f47f3ce83b5f355232eb5e56c",
+    "server/productivity/structureSchema.ts": "99d18c149010313791e9c6c252e1e7aea9566455ce03d6e2f42b4d72482cc0be",
+    "server/productivity/views.ts": "6cea0ff296e30b7bb646f8e63f1b54e3efc0e32853e97475fbda4449ddfb05e5",
+    "tests/evidence.test.ts": "0df25fa7672b82374d9cd1cb0b92e156dc57236df35fb42637848321c9f83f40",
+    "tests/recurrence-calendar-import.test.ts": "5febf606da5c5ffd7c5626587e38eb405bd7b430927ee799c1261482e5db5ee2",
+    "tests/series-recovery-native.test.ts": "d2ff5471343c5e0b603dbc94d5fef09a4c7d7e5f0bb5a449903b4e2066dad4ee"
+  },
+  "mandatoryNewSuites": 3,
+  "defaultPilotMigration": 6,
+  "explicitSeriesMigration": 10,
+  "seriesEnabledByDefault": false,
+  "fullP10Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "dd1407a85f81105af7de03107afde3a8d333fcd3",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "24ae6d7394640a4f1947a9fc9fc95f62187fb713": "6cda491c9d446afcd8cd22894d576113ef80df70",
+    "dd1407a85f81105af7de03107afde3a8d333fcd3": "6cda491c9d446afcd8cd22894d576113ef80df70"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 25428,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

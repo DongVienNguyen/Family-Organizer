@@ -17,6 +17,7 @@ const coveragePolicyText=JSON.stringify({schema:1,providerVersion:'4.1.11',floor
 const suiteNames = [
   'server/icsFeed.test.ts', 'server/productivity/recurrence-calendar.test.ts','tests/recurrence-calendar-import.test.ts','server/productivity/recurrence-timed.test.ts','server/productivity/recurrence-policy.test.ts', 'src/utils/pushSubscription.test.ts', 'server/updater.test.ts', 'server/sqlite.test.ts', 'server/sqliteCompatibility.test.ts', 'tests/windows-package.test.ts', 'tests/package-licenses.test.ts', 'tests/windows-service.test.ts',
   'server/productivity/series-store.test.ts','server/productivity/series-record.test.ts','tests/series-recovery-native.test.ts',
+  'server/productivity/recurrence-slots.test.ts','server/productivity/recurrence-preview.test.ts','server/productivity/recurrence-preview.api.test.ts','src/features/productivity/date-formatter-isolation.test.ts',
   'src/features/wallet/money.test.ts', 'src/features/wallet/dates.test.ts', 'src/features/wallet/filter.test.ts',
   'tests/coverage-evidence.test.ts', 'tests/coverage-input.test.ts',
   'tests/browser-evidence.test.ts','tests/browser-network-boundary.test.ts', 'tests/browser-providers.test.ts',
@@ -439,3 +440,5 @@ it('requires the pinned native browser launch regression suite',()=>{const suite
 it.each(['src/features/productivity/kanbanGroupMenu.test.ts','src/features/productivity/kanban-group-ui.test.tsx'])('requires grouped menu regression suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 
 it.each(['server/productivity/series-store.test.ts','server/productivity/series-record.test.ts','tests/series-recovery-native.test.ts'])('requires durable recurrence storage and native recovery suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it.each(['server/productivity/recurrence-slots.test.ts', 'server/productivity/recurrence-preview.test.ts', 'server/productivity/recurrence-preview.api.test.ts', 'src/features/productivity/date-formatter-isolation.test.ts'])('requires virtual recurrence and formatter isolation suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});

@@ -1,6 +1,15 @@
 import type {Due, QueryClock} from './contracts.js';
 import {object,keys,text} from './validation.js';
 const dayMs=86_400_000;
+// Private bounded formatters avoid constructing ICU state at every binary-search
+// probe. Keep public timezoneFormatter instances fresh and caller-owned.
+const localDateFormatters=new Map<string,Intl.DateTimeFormat>();
+function localDateFormatter(timezone:string):Intl.DateTimeFormat {
+ const existing=localDateFormatters.get(timezone);if(existing)return existing;
+ const formatter=timezoneFormatter(timezone);
+ if(localDateFormatters.size>=32){const oldest=localDateFormatters.keys().next().value;if(oldest!==undefined)localDateFormatters.delete(oldest);}
+ localDateFormatters.set(timezone,formatter);return formatter;
+}
 // ICU supplies timezone rules on Node22/24 and browsers; every conversion
 // specifies a timezone and Gregorian calendar instead of the host locale.
 export function timezoneFormatter(timezone:string):Intl.DateTimeFormat {
@@ -9,7 +18,7 @@ export function timezoneFormatter(timezone:string):Intl.DateTimeFormat {
  return new Intl.DateTimeFormat('en-US',{timeZone:timezone,calendar:'gregory',numberingSystem:'latn',year:'numeric',month:'2-digit',day:'2-digit'});
 }
 export function localDateAt(instant:number,timezone:string):string {
- const parts=timezoneFormatter(timezone).formatToParts(new Date(instant));
+ const parts=localDateFormatter(timezone).formatToParts(new Date(instant));
  const part=(key:string)=>parts.find(item=>item.type===key)!.value;
  return `${part('year').padStart(4,'0')}-${part('month')}-${part('day')}`;
 }
@@ -34,7 +43,7 @@ export function utcInstant(raw:string):number {
  */
 export function localDayStart(date:string,timezone:string):number {
  const base=calendarDate(date);
- timezoneFormatter(timezone);
+ localDateFormatter(timezone);
  let low=base-2*dayMs,high=base+2*dayMs;
  while(low<high){const mid=Math.floor((low+high)/2);if(localDateAt(mid,timezone)<date)low=mid+1;else high=mid;}
  if(localDateAt(low,timezone)!==date)throw new Error('Local date does not exist in timezone');
