@@ -1,6 +1,6 @@
 {
   "taskId": "P09-g",
-  "baseSha": "94d10b9743562fedb52b28d92c1e215175094a03",
+  "baseSha": "407b892fba30a7b97c1a3c27bfa08d95e433ebea",
   "scope": "grouped command ownership only; physical menu typed union narrowing; grouped controls not activated",
   "cloudGreen": {
     "tests": 4886,
@@ -122,7 +122,7 @@
     "cause": "new synthetic date fixture used wrong existing due shape",
     "productionCorrection": false
   },
-  "prUrl": null,
+  "prUrl": "pending creation after accepted-menu parent composition",
   "windowsAcceptance": "not run; parent119 and physical menu candidate acceptance/source composition required",
   "publicationAllowed": false,
   "beforeComposedVerification": {
@@ -198,7 +198,7 @@
       "p09g-composed-build.log": "1d81b0ed8eb2d6e8ce37e9be14b4dbc678ce7853d515796647c7d8a6576a748e",
       "p09g-composed-full.log": "f69e09902a17e09d00ca49c73f68b90c8bbf11f6974afd49fc30f36defcc9307"
     },
-    "windowsAcceptance": "not run;119 and menu parent acceptance required"
+    "windowsAcceptance": "not run for new grouped owner PR; parent120 has passed"
   },
   "ciIsolation": {
     "review": {
@@ -443,5 +443,33 @@
       "platform": "linux"
     },
     "groupedUiActivated": false
+  },
+  "beforeAcceptedMenuParent": {
+    "baseSha": "94d10b9743562fedb52b28d92c1e215175094a03",
+    "prUrl": null
+  },
+  "parentWindowsAcceptance": {
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/120",
+    "testedHeadSha": "0e1091ac416857e527dd9b564d84c076239e8dd7",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38865945150",
+    "mergeSha": "407b892fba30a7b97c1a3c27bfa08d95e433ebea",
+    "all8Checks": true,
+    "rawFamilies": 11,
+    "browsers": 115,
+    "fullLogs": {
+      "files": 137,
+      "lines": 25122,
+      "expectedSynthetic": 16,
+      "unexpected": 0
+    }
+  },
+  "acceptedMainHistoryComposition": {
+    "acceptedMain": "407b892fba30a7b97c1a3c27bfa08d95e433ebea",
+    "includedTestedCandidate": "0e1091ac416857e527dd9b564d84c076239e8dd7",
+    "acceptedMainTreeEqualsTestedCandidate": true,
+    "candidateAncestorOfPreparedSource": true,
+    "beforeAfterWholeTreeEqual": true,
+    "tree": "d1b9e5cdaffb3e112f7183a331533c66d61cd082",
+    "historyCommit": "41ec03d64169604cf60fc7e06c06eeadde12b504"
   }
 }
