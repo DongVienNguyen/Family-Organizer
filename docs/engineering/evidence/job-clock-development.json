@@ -1,0 +1,91 @@
+{
+  "taskId": "F05-job-clock",
+  "baseSourceSha": "86ce9c0328fb2e963e9719aa06ce284d984d6bb8",
+  "baseAcceptance": "PR105/exactWindows38827263260 all8/TENraw/4297-240/132logs0unexpected; accepted merge180c64a GitAPI/localtreeequal86ce9c0",
+  "scope": "Firsttick durablejob claim uses clockafterenqueue, preserving stable occurrence payload/timeouts/allstartupassertions; no DDL/dependency/policy/default change.",
+  "cloudGreen": {
+    "tests": 4298,
+    "passed": 4298,
+    "files": 240,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4298,
+    "maxWorkers": 1,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "expectedWindowsQuality": {
+    "tests": 4298,
+    "files": 240
+  },
+  "review": {
+    "taskId": "F05-job-clock",
+    "type": "whole-branch-self-review",
+    "baseSourceSha": "86ce9c0328fb2e963e9719aa06ce284d984d6bb8",
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "server/appJobs.ts": "efdb7c75d9686afcc91d52ee2b87941fd6ba92659273945eded18c3330055fd5",
+      "server/appJobs.durable.test.ts": "46dfc66112be25e3f3af8dae800095c336837224969f4aa9dbc33df24b9fb55f"
+    },
+    "scope": [
+      "claim uses fresh clock after enqueue; no changed occurrence payload/idempotency identity/DDL",
+      "lease renewal/fail/stop/restart and future job scheduling unchanged",
+      "deterministic1ms enqueue clock advance proves first claim eligible; actual4/3/1RED\u219238/5GREEN",
+      "original startup100ms assertion/deadlines unchanged; no test retry/skip/tolerance",
+      "P08 composed full4329/4328/1 missing-keynever failure preserved; it prompted investigation; exact sole cause not claimed without original timing trace"
+    ]
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "server/appJobs.ts": "efdb7c75d9686afcc91d52ee2b87941fd6ba92659273945eded18c3330055fd5",
+      "server/appJobs.durable.test.ts": "46dfc66112be25e3f3af8dae800095c336837224969f4aa9dbc33df24b9fb55f"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "6db11627ee98802350d474595cc389f550a85540c966c84a3e437379aff7119d",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "f05-job-clock-full.json": "bac299a3a6f43bb6f2643670a0d6b47ebee08e09dc533fba23343da5b2959a67",
+      "f05-job-clock-full.junit.xml": "c1a44a558480c72dd44954184849ac3ed2f39ee8f567b9c1d78ee1d2e4f0fceb",
+      "f05-job-clock-full.log": "798b818f4e71ffc79a72f137a118318d9ad1a1460bd00c02b8b5966fa48723be",
+      "f05-job-clock-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "f05-job-clock-build.log": "fae7e56dc269c2e6290e23d60c0c504d7054713a279bf64f574c9503d1427c73",
+      "f05-job-clock-red.json": "021bc126d7c2a493a28b245bbcb4050d27eaaa3e1a79ab9e65729bb01e45e6d1",
+      "f05-job-clock-first.json": "ea3cacf83d9ecf8ee34fc27ff79c5cd4850e55f0463afd466d924e6db36a6e60"
+    }
+  },
+  "regression": {
+    "redTests": 4,
+    "redPassed": 3,
+    "redFailed": 1,
+    "firstClaim": 1767225600000,
+    "availableAt": 1767225600001,
+    "correctedTargetPassed": 38,
+    "targetFiles": 5,
+    "originalStartupSleepMs": 100,
+    "deadlineChanged": false,
+    "retriesAdded": false
+  },
+  "triggeringFailure": {
+    "scope": "P08preacceptancecomposition full",
+    "tests": 4329,
+    "passed": 4328,
+    "failed": 1,
+    "case": "managed startup backup schedule missing-key preserves readiness and storage owner",
+    "actual": "never",
+    "expected": "failed",
+    "ruling": "Investigationtrigger; no original fulltimingtrace so do not claim proven sole cause."
+  },
+  "nativeWindowsAcceptance": "pending exactPR106HEAD/all8/TENraw/22ZIP/27HTTP/100IPC/103browserfirst",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "fullMasterAccepted": false,
+  "baseSha": "180c64a491e726ada29cc686d37c8c2228dba750"
+}

@@ -60,3 +60,11 @@ it('retries an acknowledged failure with the same command ID and no duplicate po
   await vi.advanceTimersByTimeAsync(999); expect(row(id).status).toBe('completed'); expect(row(id).attempts).toBe(2);
   expect(FamilyDB.getRewardLedger()).toHaveLength(before + 1); expect(calls).toBe(2); expect(errors).toHaveLength(1);
 });
+
+it('claims a newly enqueued scheduled command on its first tick when the clock advances during enqueue',async()=>{
+ const store=new AppJobStore(),enqueue=store.enqueue.bind(store),claim=store.claim.bind(store),errors:unknown[]=[],observations:{at:number;available:number;claimed:boolean}[]=[];let calls=0;
+ vi.spyOn(store,'enqueue').mockImplementation(input=>{vi.setSystemTime(Date.now()+1);return enqueue(input);});
+ vi.spyOn(store,'claim').mockImplementation((namespace,type,at,leaseMs)=>{const available=(sqliteConnection().prepare('SELECT available_at FROM app_jobs WHERE namespace=? AND type=?').get(namespace,type)as any).available_at;const result=claim(namespace,type,at,leaseMs);observations.push({at,available,claimed:!!result});return result;});
+ const registry=new AppJobs(error=>errors.push(error),store);registries.push(registry);registry.registerAppJob('synthetic','enqueue-clock-'+randomUUID().replaceAll('-',''),()=>{calls++;},{everyMs:12*3600000,initialMs:0});registry.start();await vi.advanceTimersByTimeAsync(1);
+ expect(observations.length).toBeGreaterThan(0);expect(observations[0].at).toBeGreaterThanOrEqual(observations[0].available);expect(observations[0].claimed).toBe(true);expect(calls).toBe(1);expect(errors).toEqual([]);
+});
