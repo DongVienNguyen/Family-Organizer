@@ -1,0 +1,714 @@
+{
+  "taskId": "F05-F09-CI-isolated-test-concurrency",
+  "baseSha": "0cbcebaf01870a3658568289637ebb99e113e63f",
+  "sourceFiles": {
+    "playwright.productivity.config.ts": "b582c38a2c2a8dbcb0939824d0621c59f1d37d9527abc668532b932d892e157c",
+    "scripts/ci/Invoke-Check.ps1": "0490fc92b707d4e68d07e1f2c32a5a9e284c50f297faf80debc6292d392d7523",
+    "scripts/ci/browser-contract.mjs": "3c8a88f69bf8e0ecee34cc59aee3017abcc77e3a7a9dcb8826662fa975cb8861",
+    "scripts/ci/merge-productivity-browser.mjs": "32abc1d78c3136f6866f6e95f26538a5c663adc4edc35c14256cc306377c4b3f",
+    "scripts/ci/productivity-browser-contract.mjs": "627c0e3e370898e4af5c65f05b5d3261113b7ad8dd1c731caf524ffbb88b38ee",
+    "scripts/ci/productivity-merge.mjs": "824863b501db9c2023a3be795e09275c00ae8c076fe263974503e0ead55d9919",
+    "scripts/ci/productivity-shard-contract.mjs": "17ffa9dfcefc517550d00995eb5ccfbfe44997f06a135e980a69de80cb6dad55",
+    "scripts/ci/productivity-worker-contract.mjs": "069db45f1bb402ac78a06ea64fadb2a6ec46411338da18813dfb3020b89a78b1",
+    "scripts/ci/run-productivity-browser.mjs": "44f7c06e17d0ad05c7c14a46ba801eb72da6016ffcaa58544e4a912e39b00a5e",
+    "scripts/ci/write-productivity-browser-evidence.mjs": "be8c544ec1becc27278d1340afa68f60de80f6b65b03717f1fefb2640504e2f1",
+    "scripts/ci/write-productivity-browser-fixture.ts": "bbccbed9d7f568c62d65f377c9db314bbfcdec2813110d9a2e31dfbcfad95ff0",
+    "scripts/windows/release-collector-evidence.mjs": "eac6d6cd8b924b9cdd5b7d1dfbc22af0028455a8d00b1e9ecda019058d05b37f",
+    "scripts/windows/release-productivity-browser-files.mjs": "2a4353c6f9fe01f5d6598edbc9441b4a1db26115bde43f3d4781d725599bf393",
+    "scripts/windows/release-productivity-source-policy.mjs": "6dd796fbb990403cf94dcca2f0d390e630990df67097729131adce12d3367f72",
+    "tests/e2e/productivity-advanced-cases.ts": "adc27c32b06dac19ecb8185e48fd18c855d2ef9da04f8ad675d8903b102cd9bd",
+    "tests/e2e/productivity-advanced.spec.ts": "4fad1217d4b6c9a969da23a1a9e5dfecdb02c30bccfa329592e62bb9336f2c8b",
+    "tests/e2e/productivity-cases.ts": "d541ef313ccac9247139979983946d417875b8effa95fed42c551110e1ce47c0",
+    "tests/e2e/productivity-chromium.spec.ts": "0bc9ce21252033e36ae5504ae1b5f5d2c3b8acd6042b57ed6331c274f1eba9f0",
+    "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+    "tests/e2e/productivity-test.ts": "eec342248c754a603a129e23b17c55564c2b55e0aaa8b6e65bf48dfb0fc2d7ce",
+    "tests/e2e/productivity.spec.ts": "15a05ca2f69758199da92eb033b423453e670d95f2a4d5a6836dbcb69cd11b1d",
+    "tests/helpers/productivity-worker-fixture.ts": "9282c12de4cacca5cd21d7aca08036eb8ca99747830820f0fa3f7e1cbf8b3cc0",
+    "tests/helpers/release-productivity-browser-fixture.ts": "2c3ed2906e7e1a1434fe858a3762964ca7e5951cbf893e56ac2488c71afaf57a",
+    "tests/kanban-browser-fixture.test.ts": "88d0681ac615ca584145c256980a1675dd014d893bab009fac435611de80d240",
+    "tests/productivity-browser-evidence.test.ts": "e1e18600924402d214729a7fc53f5cdc865a0ddb654e8a6e306b561ef52c5961",
+    "tests/productivity-registration.test.ts": "8d88431bfd4a4e966d8ea4aa8b86f0118ac4f91293bee4a922678f0079b08793",
+    "tests/productivity-worker-policy.test.ts": "7dc6e67eca0c17a42db1917241951234ed50ba817c90a83dcdba225ec6696bf0",
+    "tests/productivity-workers.test.ts": "e8ead04945f42a3aab8a2d803cedf202e1a7b971384a5af66eba9865fe634437",
+    "tests/release-collector-evidence.test.ts": "6110b15756d6eb65f8840ff50543c02bb48eae9069401c35ddbaa1d934e191e3"
+  },
+  "wholeBranchReview": {
+    "mode": "LOCAL whole-branch SELF; not independent",
+    "reviewedAtUtc": "2026-10-16T21:02:31.066460+00:00",
+    "baseSha": "0cbcebaf01870a3658568289637ebb99e113e63f",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceFiles": {
+      "playwright.productivity.config.ts": "22b2824311b8ffa4e8eaf4c0e4795fcf109cf93770b1e53de3e15ff8cc78b1a0",
+      "scripts/ci/Invoke-Check.ps1": "0490fc92b707d4e68d07e1f2c32a5a9e284c50f297faf80debc6292d392d7523",
+      "scripts/ci/browser-contract.mjs": "b8117110fdd0266694399c2a9ee06b68f7423d220db1efeb54b140f53fac5c54",
+      "scripts/ci/merge-productivity-browser.mjs": "32abc1d78c3136f6866f6e95f26538a5c663adc4edc35c14256cc306377c4b3f",
+      "scripts/ci/productivity-browser-contract.mjs": "d1d18a60707794ba86272ba874f9b8e3455b3a3ba701bfda16af0a40ce12922d",
+      "scripts/ci/productivity-merge.mjs": "810b8005a8cfa5938c653af6a8e5822d9cb1d802c138936fcd0a3e0e8dc834a6",
+      "scripts/ci/productivity-shard-contract.mjs": "ea4157945318291bcd665fb0f397fbbbb5c1668ceed7634c033e2df99c779c78",
+      "scripts/ci/productivity-worker-contract.mjs": "4d7daf45bffe8c4c4b6585d7b5b8fd1a2d66267c55548238cc05ffb69c2d2af7",
+      "scripts/ci/run-productivity-browser.mjs": "b639d464d913bd33cd1b6aa9a97615338ceca0b7350a9083a0804a0d992737a6",
+      "scripts/ci/write-productivity-browser-evidence.mjs": "be8c544ec1becc27278d1340afa68f60de80f6b65b03717f1fefb2640504e2f1",
+      "scripts/ci/write-productivity-browser-fixture.ts": "bbccbed9d7f568c62d65f377c9db314bbfcdec2813110d9a2e31dfbcfad95ff0",
+      "scripts/windows/release-collector-evidence.mjs": "b95a3e498aabbb35eb97f7b9d2d6fc973ce94736278bd92d8188b924818cf340",
+      "scripts/windows/release-productivity-browser-files.mjs": "c3c69a2abece2c60baadc585d5224c268bc9549aa6c7fc05b786e6e4c8df66ac",
+      "scripts/windows/release-productivity-source-policy.mjs": "34380ee14bc19f6872b938df6f327fe8184c8779f258b5ade2c109225831cbea",
+      "tests/e2e/productivity-advanced.spec.ts": "fa0fe2523667ebd00a5509ee629d467bb96adc892d62a258b2c3a1008e04b102",
+      "tests/e2e/productivity-test.ts": "0749688a3e4ecb3ffbc0197bf03d055b2482aeddba31b627dae11973473e0b96",
+      "tests/e2e/productivity.spec.ts": "5b500b1edb61c4354641d74214306fca8a702aa26c53136ea44e3342d9c87762",
+      "tests/helpers/productivity-worker-fixture.ts": "c5d79d6b6803872098cc427f0f70864bf781611e9a9f94965825c50150298185",
+      "tests/helpers/release-productivity-browser-fixture.ts": "1c70a2a733eefa97a82227ece79aaccdc459e332ff75ca6bd1d7e3e48a39f998",
+      "tests/kanban-browser-fixture.test.ts": "88d0681ac615ca584145c256980a1675dd014d893bab009fac435611de80d240",
+      "tests/productivity-browser-evidence.test.ts": "a7a686b1c290f3ab59cfbb0817fa8c3e0ac94b08c3a8021283eae224768cd426",
+      "tests/productivity-worker-policy.test.ts": "ac96b6e3db9afc22556b9b6dea4f61f9b2ce5eb590ea0bbb04cdeaf87583cbea",
+      "tests/productivity-workers.test.ts": "916af130378cb92aa6c385e3e842e1ac466356be39d59877e23bfe3611b2e792",
+      "tests/release-collector-evidence.test.ts": "ef5c78b77b7f4aea9ad4b5ebf85b0d6c64c1f964adf7ccc98766d843470e3072"
+    },
+    "focus": [
+      "Actual independent per-worker DATA_DIR/config/cwd/port and process lifetime; both handles/storage/fixtures/offline logs mandatory, root cannot synthesize a healthy missing part.",
+      "Original35test call texts, shared helper bodies and zero-error/offline afterEach hooks preserved; nativeMatrix/Section touch file unchanged. Two default-mode files run sequentially within each worker, with no serial-failure skips.",
+      "Literal source-bound2worker capability, explicit original producer workers2/aggregate6, per-part hashes/unique fixture IDs/ports/legacy bytes/closedSQLite/cleanup and separate case-group indices. Missing or old1worker evidence refuses under current2worker target.",
+      "Historical1worker target evidence remains readable only under its original absent-capability profile; nativeTouch retains1worker/trusted pointer and all assertions. Raw reader and collector fail closed on missing/unbound worker proof.",
+      "Quality forks remain OS processes with per-file synthetic cwd/storage setup and teardown; maxWorkers2 changes no assertions, coverage floors or deadlines. Every native command exit remains checked.",
+      "No application/source/dependency/migration/default/workflow/runnerOS change; no publication/release/VPS authority."
+    ],
+    "beforeReviewDevelopmentEvidence": {
+      "integratedTests": 456,
+      "files": 10,
+      "lintExit": 0,
+      "workerContractRed": {
+        "passed": 2,
+        "failed": 36
+      },
+      "sourcePolicyRed": {
+        "passed": 0,
+        "failed": 6
+      },
+      "collectorRed": {
+        "passed": 89,
+        "failed": 7
+      },
+      "smokeCases": 2,
+      "nativeTouchCases": 1,
+      "smokeNativeExit": 0,
+      "full35Cloud": "not-run yet",
+      "Windows": "not-run yet"
+    }
+  },
+  "postReviewValidationRepair": {
+    "observedHeadSha": "03cadf61cf888712cc5045918204f4d90bc50a61",
+    "observedRun": "38968002316",
+    "changedPaths": [
+      "scripts/ci/productivity-worker-contract.mjs",
+      "scripts/ci/run-productivity-browser.mjs",
+      "tests/e2e/productivity-advanced.spec.ts",
+      "tests/e2e/productivity.spec.ts",
+      "tests/helpers/productivity-worker-fixture.ts"
+    ],
+    "targetTests": 456,
+    "chromiumCases": 35,
+    "nativeTouchCases": 1,
+    "lintExit": 0,
+    "nativeExit": 0,
+    "assertionsPreserved": true,
+    "deadlinesChanged": false,
+    "rereview": false,
+    "repair": "Move unchangedMatrixC16\u201319/helpers to advanced suite, strictgroupboundary15; stream boundedoutput live",
+    "retainedFailures": [
+      "run38968002316/all8artifacts/130logs27806lines",
+      "first post-repair lintTS2304 missing Page type import; restored",
+      "wrong-build local35run preserved, explicitly not accepted; rebuilt from actual CI source before final35"
+    ],
+    "matchingBrowserAndTouchJunit": {
+      "productivity-browser.junit.xml": 35,
+      "productivity-browser-touch.junit.xml": 1
+    }
+  },
+  "postReviewEngineRepair": {
+    "observedHeadSha": "ac1957b02bbb47093962df9cf14dbdaa3a0f2080",
+    "observedRun": "38971855661",
+    "changedPaths": [
+      "playwright.productivity.config.ts",
+      "scripts/ci/browser-contract.mjs",
+      "scripts/ci/productivity-browser-contract.mjs",
+      "scripts/ci/productivity-merge.mjs",
+      "scripts/ci/productivity-shard-contract.mjs",
+      "scripts/ci/productivity-worker-contract.mjs",
+      "scripts/ci/run-productivity-browser.mjs",
+      "scripts/windows/release-collector-evidence.mjs",
+      "scripts/windows/release-productivity-browser-files.mjs",
+      "scripts/windows/release-productivity-source-policy.mjs",
+      "tests/e2e/productivity-advanced-cases.ts",
+      "tests/e2e/productivity-advanced.spec.ts",
+      "tests/e2e/productivity-cases.ts",
+      "tests/e2e/productivity-chromium.spec.ts",
+      "tests/e2e/productivity-core-cases.ts",
+      "tests/e2e/productivity-test.ts",
+      "tests/e2e/productivity.spec.ts",
+      "tests/helpers/productivity-worker-fixture.ts",
+      "tests/helpers/release-productivity-browser-fixture.ts",
+      "tests/productivity-browser-evidence.test.ts",
+      "tests/productivity-registration.test.ts",
+      "tests/productivity-worker-policy.test.ts",
+      "tests/productivity-workers.test.ts",
+      "tests/release-collector-evidence.test.ts"
+    ],
+    "sourceHashChanges": {
+      "playwright.productivity.config.ts": {
+        "beforeSha256": "22b2824311b8ffa4e8eaf4c0e4795fcf109cf93770b1e53de3e15ff8cc78b1a0",
+        "afterSha256": "b582c38a2c2a8dbcb0939824d0621c59f1d37d9527abc668532b932d892e157c"
+      },
+      "scripts/ci/browser-contract.mjs": {
+        "beforeSha256": "b8117110fdd0266694399c2a9ee06b68f7423d220db1efeb54b140f53fac5c54",
+        "afterSha256": "3c8a88f69bf8e0ecee34cc59aee3017abcc77e3a7a9dcb8826662fa975cb8861"
+      },
+      "scripts/ci/productivity-browser-contract.mjs": {
+        "beforeSha256": "d1d18a60707794ba86272ba874f9b8e3455b3a3ba701bfda16af0a40ce12922d",
+        "afterSha256": "627c0e3e370898e4af5c65f05b5d3261113b7ad8dd1c731caf524ffbb88b38ee"
+      },
+      "scripts/ci/productivity-merge.mjs": {
+        "beforeSha256": "810b8005a8cfa5938c653af6a8e5822d9cb1d802c138936fcd0a3e0e8dc834a6",
+        "afterSha256": "824863b501db9c2023a3be795e09275c00ae8c076fe263974503e0ead55d9919"
+      },
+      "scripts/ci/productivity-shard-contract.mjs": {
+        "beforeSha256": "ea4157945318291bcd665fb0f397fbbbb5c1668ceed7634c033e2df99c779c78",
+        "afterSha256": "17ffa9dfcefc517550d00995eb5ccfbfe44997f06a135e980a69de80cb6dad55"
+      },
+      "scripts/ci/productivity-worker-contract.mjs": {
+        "beforeSha256": "d5405e015d7c8a6d38bad96fcf0ee15cd89bf0b268deddc67b1b00968fe8c6ad",
+        "afterSha256": "069db45f1bb402ac78a06ea64fadb2a6ec46411338da18813dfb3020b89a78b1"
+      },
+      "scripts/ci/run-productivity-browser.mjs": {
+        "beforeSha256": "72f71cee8420348aa4443e76df251829cc2a3d758e533cfcc0acfa1b744b69ae",
+        "afterSha256": "44f7c06e17d0ad05c7c14a46ba801eb72da6016ffcaa58544e4a912e39b00a5e"
+      },
+      "scripts/windows/release-collector-evidence.mjs": {
+        "beforeSha256": "b95a3e498aabbb35eb97f7b9d2d6fc973ce94736278bd92d8188b924818cf340",
+        "afterSha256": "eac6d6cd8b924b9cdd5b7d1dfbc22af0028455a8d00b1e9ecda019058d05b37f"
+      },
+      "scripts/windows/release-productivity-browser-files.mjs": {
+        "beforeSha256": "c3c69a2abece2c60baadc585d5224c268bc9549aa6c7fc05b786e6e4c8df66ac",
+        "afterSha256": "2a4353c6f9fe01f5d6598edbc9441b4a1db26115bde43f3d4781d725599bf393"
+      },
+      "scripts/windows/release-productivity-source-policy.mjs": {
+        "beforeSha256": "34380ee14bc19f6872b938df6f327fe8184c8779f258b5ade2c109225831cbea",
+        "afterSha256": "6dd796fbb990403cf94dcca2f0d390e630990df67097729131adce12d3367f72"
+      },
+      "tests/e2e/productivity-advanced-cases.ts": {
+        "beforeSha256": null,
+        "afterSha256": "adc27c32b06dac19ecb8185e48fd18c855d2ef9da04f8ad675d8903b102cd9bd"
+      },
+      "tests/e2e/productivity-advanced.spec.ts": {
+        "beforeSha256": "6f446b837bd7e9f1773dac2818559205d9d184640a9519f0f7c526eee177cff4",
+        "afterSha256": "4fad1217d4b6c9a969da23a1a9e5dfecdb02c30bccfa329592e62bb9336f2c8b"
+      },
+      "tests/e2e/productivity-cases.ts": {
+        "beforeSha256": null,
+        "afterSha256": "d541ef313ccac9247139979983946d417875b8effa95fed42c551110e1ce47c0"
+      },
+      "tests/e2e/productivity-chromium.spec.ts": {
+        "beforeSha256": null,
+        "afterSha256": "0bc9ce21252033e36ae5504ae1b5f5d2c3b8acd6042b57ed6331c274f1eba9f0"
+      },
+      "tests/e2e/productivity-core-cases.ts": {
+        "beforeSha256": null,
+        "afterSha256": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a"
+      },
+      "tests/e2e/productivity-test.ts": {
+        "beforeSha256": "0749688a3e4ecb3ffbc0197bf03d055b2482aeddba31b627dae11973473e0b96",
+        "afterSha256": "eec342248c754a603a129e23b17c55564c2b55e0aaa8b6e65bf48dfb0fc2d7ce"
+      },
+      "tests/e2e/productivity.spec.ts": {
+        "beforeSha256": "f8d1720737540bda598b10796634044c5bea6ec16b9765f6d653afc9821e512e",
+        "afterSha256": "15a05ca2f69758199da92eb033b423453e670d95f2a4d5a6836dbcb69cd11b1d"
+      },
+      "tests/helpers/productivity-worker-fixture.ts": {
+        "beforeSha256": "0e2538c685cd9be24942580323d327c3ef0acaef5901c0e5cd06dd70a2b66aa6",
+        "afterSha256": "9282c12de4cacca5cd21d7aca08036eb8ca99747830820f0fa3f7e1cbf8b3cc0"
+      },
+      "tests/helpers/release-productivity-browser-fixture.ts": {
+        "beforeSha256": "1c70a2a733eefa97a82227ece79aaccdc459e332ff75ca6bd1d7e3e48a39f998",
+        "afterSha256": "2c3ed2906e7e1a1434fe858a3762964ca7e5951cbf893e56ac2488c71afaf57a"
+      },
+      "tests/productivity-browser-evidence.test.ts": {
+        "beforeSha256": "a7a686b1c290f3ab59cfbb0817fa8c3e0ac94b08c3a8021283eae224768cd426",
+        "afterSha256": "e1e18600924402d214729a7fc53f5cdc865a0ddb654e8a6e306b561ef52c5961"
+      },
+      "tests/productivity-registration.test.ts": {
+        "beforeSha256": null,
+        "afterSha256": "8d88431bfd4a4e966d8ea4aa8b86f0118ac4f91293bee4a922678f0079b08793"
+      },
+      "tests/productivity-worker-policy.test.ts": {
+        "beforeSha256": "ac96b6e3db9afc22556b9b6dea4f61f9b2ce5eb590ea0bbb04cdeaf87583cbea",
+        "afterSha256": "7dc6e67eca0c17a42db1917241951234ed50ba817c90a83dcdba225ec6696bf0"
+      },
+      "tests/productivity-workers.test.ts": {
+        "beforeSha256": "916af130378cb92aa6c385e3e842e1ac466356be39d59877e23bfe3611b2e792",
+        "afterSha256": "e8ead04945f42a3aab8a2d803cedf202e1a7b971384a5af66eba9865fe634437"
+      },
+      "tests/release-collector-evidence.test.ts": {
+        "beforeSha256": "ef5c78b77b7f4aea9ad4b5ebf85b0d6c64c1f964adf7ccc98766d843470e3072",
+        "afterSha256": "6110b15756d6eb65f8840ff50543c02bb48eae9069401c35ddbaa1d934e191e3"
+      }
+    },
+    "newSourcePaths": [
+      "tests/e2e/productivity-advanced-cases.ts",
+      "tests/e2e/productivity-cases.ts",
+      "tests/e2e/productivity-chromium.spec.ts",
+      "tests/e2e/productivity-core-cases.ts",
+      "tests/productivity-registration.test.ts"
+    ],
+    "rereview": false,
+    "reason": "Two separate Windows checkpoints made two-worker Chromium fail; explicit per-engine workers restore accepted serial Chromium and preserve two independent Firefox/WebKit stores. Register all35Chromium scenarios once/inoriginalorder/onehookowner; original test calls/helpers/hooks/touch are unchanged.",
+    "sourceWorkerPolicy": {
+      "chromium": 1,
+      "firefox": 2,
+      "webkit": 2
+    },
+    "officialMergedWorkers": 5,
+    "rawSourceMapRequired": true,
+    "targetTests": 477,
+    "chromiumCases": 35,
+    "nativeTouchCases": 1,
+    "lintExit": 0,
+    "buildExit": 0,
+    "nativeExit": 0,
+    "assertionsPreserved": true,
+    "deadlinesChanged": false,
+    "causalPolicyRed": {
+      "passed": 151,
+      "failed": 4
+    },
+    "browserAndTouchJunit": {
+      "productivity-browser.junit.xml": 35,
+      "productivity-browser-touch.junit.xml": 1
+    },
+    "typeOnlyAnnotationDuringFullQualification": "The literal1/2/2 received a JSDoc literal type for TypeScript fixture compatibility; runtime values did not change. Final lint0 and fresh exactHEAD Windows remain mandatory."
+  },
+  "cloud": {
+    "tests": 5727,
+    "files": 312,
+    "qualityExit": 0,
+    "junitMatched": true,
+    "qualityMaxWorkers": 2,
+    "coverageEnabled": true,
+    "lintExit": 0,
+    "buildExit": 0,
+    "chromiumCases": 35,
+    "nativeTouchCases": 1,
+    "browserNativeExit": 0,
+    "workerProofErrors": [],
+    "productionBuild": {
+      "serverSha256": "970528adb699d751ccf0a092ceb79f75bddebd96e078e706a6497fba306a8ce6",
+      "indexSha256": "f9915e896151acf3b27ed676bde19f9e237e59f945b372d334e937134bbe3418"
+    },
+    "browserDurationMs": 446382.094,
+    "browserWorkerPolicy": {
+      "chromium": 1,
+      "firefox": 2,
+      "webkit": 2
+    },
+    "matchingBrowserAndTouchJunit": {
+      "productivity-browser.junit.xml": 35,
+      "productivity-browser-touch.junit.xml": 1
+    },
+    "firefox": "35listed only, native not-run in Cloud",
+    "webkit": "35listed only, native not-run in Cloud",
+    "windows": "pending fresh exactHEAD; previous03/ac failed"
+  },
+  "casePreservation": {
+    "baseline": "0cbcebaf01870a3658568289637ebb99e113e63f",
+    "originalCases": 35,
+    "allCaseCallTextsUnchanged": true,
+    "sharedHelperBodiesUnchanged": true,
+    "helperNamesVerified": [
+      "login",
+      "matrixChoose",
+      "matrixMoveMenu",
+      "matrixRequest",
+      "matrixSeed",
+      "togglePin"
+    ],
+    "offlineAndZeroErrorHookCallTextsUnchanged": true,
+    "entireNativeTouchFileUnchanged": true,
+    "files": {
+      "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+      "tests/e2e/productivity-advanced-cases.ts": "adc27c32b06dac19ecb8185e48fd18c855d2ef9da04f8ad675d8903b102cd9bd",
+      "tests/e2e/productivity-test.ts": "eec342248c754a603a129e23b17c55564c2b55e0aaa8b6e65bf48dfb0fc2d7ce"
+    }
+  },
+  "changedAndRelatedSuiteCounts": {
+    "tests/productivity-workers.test.ts": 46,
+    "tests/productivity-worker-policy.test.ts": 20,
+    "tests/productivity-registration.test.ts": 2,
+    "tests/productivity-shards.test.ts": 23,
+    "tests/productivity-browser-evidence.test.ts": 70,
+    "tests/release-productivity-profile.test.ts": 50,
+    "tests/productivity-merge.test.ts": 2,
+    "tests/kanban-browser-fixture.test.ts": 5,
+    "tests/release-collector-evidence.test.ts": 97,
+    "tests/release-evidence.test.ts": 61,
+    "tests/release-source-policy.test.ts": 101
+  },
+  "baselineWindowsTimings": {
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38951751434",
+    "headSha": "7e269a27203cf3fe465aa735441026b732c37d15",
+    "wholeRunSeconds": 1107.0,
+    "qualityTestsEach": 5647,
+    "productivityCasesEach": 35,
+    "qualityForks": 1,
+    "browserWorkersEach": 1,
+    "metrics": [
+      {
+        "job": "Windows production browsers",
+        "step": "Offline browser regression",
+        "startedAt": "2026-10-16T19:02:09Z",
+        "completedAt": "2026-10-16T19:11:17Z",
+        "seconds": 548.0,
+        "conclusion": "success"
+      },
+      {
+        "job": "Windows production browsers",
+        "step": "Isolated Firefox productivity",
+        "startedAt": "2026-10-16T19:11:17Z",
+        "completedAt": "2026-10-16T19:17:15Z",
+        "seconds": 358.0,
+        "conclusion": "success"
+      },
+      {
+        "job": "Windows productivity browsers",
+        "step": "Offline browser regression",
+        "startedAt": "2026-10-16T19:02:24Z",
+        "completedAt": "2026-10-16T19:14:01Z",
+        "seconds": 697.0,
+        "conclusion": "success"
+      },
+      {
+        "job": "Windows Node24 baseline",
+        "step": "Unit and SQLite regression tests",
+        "startedAt": "2026-10-16T19:02:27Z",
+        "completedAt": "2026-10-16T19:12:46Z",
+        "seconds": 619.0,
+        "conclusion": "success"
+      },
+      {
+        "job": "Windows Node24 baseline",
+        "step": "Isolated Chromium productivity and native touch",
+        "startedAt": "2026-10-16T19:13:12Z",
+        "completedAt": "2026-10-16T19:18:50Z",
+        "seconds": 338.0,
+        "conclusion": "success"
+      },
+      {
+        "job": "Windows Node22 baseline",
+        "step": "Unit and SQLite regression tests",
+        "startedAt": "2026-10-16T19:03:07Z",
+        "completedAt": "2026-10-16T19:15:28Z",
+        "seconds": 741.0,
+        "conclusion": "success"
+      },
+      {
+        "job": "Windows Node22 baseline",
+        "step": "Isolated Chromium productivity and native touch",
+        "startedAt": "2026-10-16T19:15:51Z",
+        "completedAt": "2026-10-16T19:15:51Z",
+        "seconds": 0.0,
+        "conclusion": "skipped"
+      }
+    ],
+    "comparisonLimit": "The candidate adds regression tests and changes fixture layout; runner variation and queue/setup time mean this is an observed comparison, not an isolated hardware benchmark."
+  },
+  "previousWindowsFailures": [
+    {
+      "headSha": "03cadf61cf888712cc5045918204f4d90bc50a61",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38968002316",
+      "accepted": false,
+      "jobs": [
+        {
+          "name": "Windows package producer",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows Node24 baseline",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "Windows production browsers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows productivity browsers",
+          "conclusion": "failure"
+        },
+        {
+          "name": "Windows Node22 baseline",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows package clean consumer",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows disposable service",
+          "conclusion": "success"
+        },
+        {
+          "name": "ci-gate",
+          "conclusion": "failure"
+        }
+      ],
+      "artifacts": 8,
+      "quality": {
+        "windows-node22-03cadf61cf888712cc5045918204f4d90bc50a61-1": {
+          "tests": 5706,
+          "passed": 5706,
+          "files": 311,
+          "failed": 0,
+          "pending": 0
+        },
+        "windows-node24-03cadf61cf888712cc5045918204f4d90bc50a61-1": {
+          "tests": 5706,
+          "passed": 5706,
+          "files": 311,
+          "failed": 0,
+          "pending": 0
+        }
+      },
+      "allLogsRead": {
+        "files": 130,
+        "lines": 27806,
+        "errorMarkers": 26
+      },
+      "failures": {
+        "webkit": "34 passed, C31 cumulative45s budget at final Close;7.8minute native producer, not12minute limit",
+        "node24": "Job cancelled at20minute job limit. No final browserJSON/JUnit/fixture;16 readable partial Chromium traces reveal slow fill/context teardown and native test/hook deadlines. Not accepted or counted as success."
+      },
+      "postReviewCiRepair": {
+        "paths": [
+          "tests/e2e/productivity.spec.ts",
+          "tests/e2e/productivity-advanced.spec.ts",
+          "scripts/ci/productivity-worker-contract.mjs",
+          "tests/helpers/productivity-worker-fixture.ts",
+          "scripts/ci/run-productivity-browser.mjs"
+        ],
+        "changes": "Move unchangedC16\u201319 to advanced file, boundary15; stream bounded native output immediately instead of buffering only. No assertion/deadline/retry/job limit change.",
+        "notClaimedRootCause": "No proven cause for unusual Chromium runner latency; revised HEAD must independently qualify it."
+      },
+      "publicationAllowed": false,
+      "observedTimings": {
+        "run": "38968002316",
+        "sha": "03cadf61cf888712cc5045918204f4d90bc50a61",
+        "accepted": false,
+        "metrics": [
+          {
+            "job": "Windows Node24 baseline",
+            "step": "Unit and SQLite regression tests",
+            "seconds": 386.0,
+            "conclusion": "success",
+            "baselineSeconds": 619.0,
+            "comparisonQualifiesOnlyThisStep": true
+          },
+          {
+            "job": "Windows Node24 baseline",
+            "step": "Isolated Chromium productivity and native touch",
+            "seconds": 757.0,
+            "conclusion": "cancelled",
+            "baselineSeconds": 338.0,
+            "comparisonQualifiesOnlyThisStep": false
+          },
+          {
+            "job": "Windows production browsers",
+            "step": "Offline browser regression",
+            "seconds": 553.0,
+            "conclusion": "success",
+            "baselineSeconds": 548.0,
+            "comparisonQualifiesOnlyThisStep": true
+          },
+          {
+            "job": "Windows production browsers",
+            "step": "Isolated Firefox productivity",
+            "seconds": 264.0,
+            "conclusion": "success",
+            "baselineSeconds": 358.0,
+            "comparisonQualifiesOnlyThisStep": true
+          },
+          {
+            "job": "Windows productivity browsers",
+            "step": "Offline browser regression",
+            "seconds": 482.0,
+            "conclusion": "failure",
+            "baselineSeconds": 697.0,
+            "comparisonQualifiesOnlyThisStep": false
+          },
+          {
+            "job": "Windows Node22 baseline",
+            "step": "Unit and SQLite regression tests",
+            "seconds": 503.0,
+            "conclusion": "success",
+            "baselineSeconds": 741.0,
+            "comparisonQualifiesOnlyThisStep": true
+          },
+          {
+            "job": "Windows Node22 baseline",
+            "step": "Isolated Chromium productivity and native touch",
+            "seconds": 0.0,
+            "conclusion": "skipped",
+            "baselineSeconds": 0.0,
+            "comparisonQualifiesOnlyThisStep": false
+          }
+        ],
+        "ruling": "Observed step timings only;5,706 vs5,647 tests and different hosted machines. Failed/cancelled browser steps are not speed acceptance."
+      }
+    },
+    {
+      "taskId": "F05-F09-CI-isolated-test-concurrency",
+      "headSha": "ac1957b02bbb47093962df9cf14dbdaa3a0f2080",
+      "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38971855661",
+      "accepted": false,
+      "ciConclusion": "cancelled",
+      "checks": [
+        {
+          "name": "Windows package producer",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows Node24 baseline",
+          "conclusion": "cancelled"
+        },
+        {
+          "name": "Windows Node22 baseline",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows productivity browsers",
+          "conclusion": "failure"
+        },
+        {
+          "name": "Windows production browsers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows package clean consumer",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows disposable service",
+          "conclusion": "success"
+        },
+        {
+          "name": "ci-gate",
+          "conclusion": "failure"
+        }
+      ],
+      "allArtifactsRetained": 8,
+      "allLogsRead": {
+        "files": 131,
+        "lines": 27794,
+        "errorMarkers": 24
+      },
+      "quality": {
+        "windows-node22-ac1957b02bbb47093962df9cf14dbdaa3a0f2080-1": {
+          "tests": 5706,
+          "files": 311,
+          "matchingJUnit": true,
+          "failedSkipped": 0
+        },
+        "windows-node24-ac1957b02bbb47093962df9cf14dbdaa3a0f2080-1": {
+          "tests": 5706,
+          "files": 311,
+          "matchingJUnit": true,
+          "failedSkipped": 0
+        }
+      },
+      "qualifiedPartialProducers": {
+        "firefox": {
+          "passed": 35,
+          "matchingJUnit": true,
+          "nativeProducerStep": "success; final aggregate not accepted"
+        },
+        "webkit": {
+          "passed": 35,
+          "matchingJUnit": true,
+          "nativeProducerStep": "success; final aggregate not accepted"
+        }
+      },
+      "chromium": "14 explicit failed first attempts in streamed log before20minute job cancellation; no final35JSON/JUnit/fixture/nativeTouch proof. Every failure consumed approx45s test plus context teardown. Existing one-worker accepted133 remains positive baseline.",
+      "interpretation": "Two-worker Chromium unusable on two independent Windows checkpoints. Underlying native-driver cause is unproven; do not speculate about selectors/auth or raise bounds.",
+      "nextRepair": "Explicit trusted literal counts Chromium1/Firefox2/WebKit2. Chrome registers all cases once in original order on one production store; other engines keep independent stores. Source/raw/normalized evidence must match exact per-engine counts.",
+      "assertionsRemoved": false,
+      "timeoutsChanged": false,
+      "rereview": false,
+      "publicationAllowed": false,
+      "server2019Acceptance": "not-run"
+    }
+  ],
+  "developmentFailuresRetained": [
+    "worker origin/report scaffold2pass36RED before strict two-part proof",
+    "source capability parser/old raw profile0pass6RED before literal source binding",
+    "first integrated target197pass1failure from old3lifecycle count and TSmissing togglePin shared import; corrected without weaker checks",
+    "collector89pass7RED before explicit source-bound normalized worker proof",
+    "Actual03/ac failures remain unaccepted",
+    "first mixed integration475pass2FAIL: old uniform mock and explicit legacy assembler workers=1 default; corrected",
+    "TypeScript missing optional workers default then widened map type; defaultundefined and literal JSDoc corrected",
+    "wrong-build local development success excluded; final actual rebuilt application hashes matched"
+  ],
+  "reportHashes": {
+    "ci-workers-engine-full.json": "f43fa25c79773f51bcb3525c931b4b6b062894c59287ec111950c752f9660359",
+    "ci-workers-engine-full.xml": "015286b54794a2cb8490ccda23712321c45292944d8a85d3735b4f964006cf5d",
+    "ci-workers-engine-full-quality.log": "441ab73be6902eaf98b8bcfeb202e03d20106f15c3a26edc594e4d3a5a7a19b8",
+    "ci-workers-engine-full-exits.json": "06f2a35f01e077ea2805f4e3f233d72c0d7ddb161a3e6cee7d4bd779f1c0be75",
+    "ci-workers-engine-final-lint-exit.json": "ac23851762152d175c78b611065a3ef2b38b7b93de74ec564aeb2d0630037a60",
+    "ci-workers-engine-final-lint.log": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe",
+    "ci-workers-engine-integrated-corrected.json": "14fa09e1fc7d6d0b51cfbe00cace6fe746fae358637ded3b3577d38e23ba98be",
+    "ci-workers-engine-integrated-corrected-exits.json": "a10ef026d2d09017bdd29e4929b1a35e29c8f17167434fb43180322b060385dd",
+    "ci-workers-engine-integrated-corrected-build.log": "0290f6a0346a44d44419b03181d039e8b6753c50724110ee3f6833f6deb3fe6a",
+    "ci-workers-engine-full35-exit.json": "9a762558105c180a4b61cc8aa3a4e56ea88ff8a097531049a68a10db36b27356",
+    "ci-workers-engine-browser-validation.json": "a56aefcd3b5eb911b0b7a70f55ff7db0fcafbf85e15b790577ac31f84e2b0e0f",
+    "ci-workers-engine-policy-red.json": "628d40713db76a8d9ea1c878dbcaed07f5c50317c4571e9c5a6c84b8bf3b5734",
+    "ci-workers-engine-policy-red.log": "9840edec3be2dae16149a31b4df8316ea9a699323efb0d2b9a69d7588bd97d8c",
+    "ci-workers-engine-integrated.json": "156a6f36119e7d98051b8b0fc7e67f7a974b9e0871bc11df3c67d667fbb1a9c8",
+    "ci-workers-engine-integrated-exits.json": "c1f62a74d57b18e2be1292892600ab3db45829f3f6e9de2c894c17adf91ee5b5",
+    "ci-workers-engine-discovery.json": "8cb54ef9a7eaf8a9318791091506ca0f14776462d68375d495b85f7a590c9186",
+    "ci-workers-engine-corrected-lint.log": "dd54f92843dcf1078c971a21eb92f761034ab0c5aebd0ca4a1c773c19b79258f",
+    "ci-workers-engine-case-preservation.json": "a54d5458d3a2dc8bbdc0deef347c628228ead31bb58839b422e0358cbae6c3d2",
+    "ci-workers-engine-real-merge-probe.json": "b107c640f3a22b371c5a46fa8111990468f1ec8e023dcb238467404128bb9459"
+  },
+  "applicationSourceChanged": false,
+  "dependenciesChanged": false,
+  "migrationDefinitionsChanged": false,
+  "defaultStorageVersion": 6,
+  "explicitFixtureVersion": 13,
+  "originalBrowserCaseCount": 35,
+  "nativeTouchWorkers": 1,
+  "timeoutsChanged": false,
+  "retriesAdded": false,
+  "ciJobsChanged": false,
+  "windowsAcceptance": "pending fresh exactHEAD",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false,
+  "fullMasterPlan": false,
+  "officialMergeProtocolProbe": {
+    "pinnedPlaywright": "1.64.0",
+    "nativeExits": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "originalProducerWorkers": {
+      "chromium": 1,
+      "firefox": 2,
+      "webkit": 2
+    },
+    "officialMergedWorkers": 5,
+    "protocolControlCases": 3,
+    "matchingJUnit": true,
+    "browserExecuted": false,
+    "notApplicationAcceptance": true,
+    "ownedEvidenceRoot": "/workspace/family-evidence/ci-engine-merge-probe-0v135bi9"
+  }
+}

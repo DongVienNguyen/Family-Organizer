@@ -1,15 +1,19 @@
+import{validateProductivityWorkers,productivityProjectWorkerCounts}from'./productivity-worker-contract.mjs';
 import {isDeepStrictEqual} from 'node:util';
 import {parseReleaseJUnit} from '../windows/release-quality-reports.mjs';
 export const productivityShardProjects=['chromium','firefox','webkit'];
 const hash=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
 /** Each input is a separately executed runner; never fabricate missing engines. */
-export function validateProductivityShards(input,cases){
+export function validateProductivityShards(input,cases,options={}){
  try{
+  const counts=productivityProjectWorkerCounts(options.workers),modern=options.workers!==undefined;
   const {shards,manifest,expected}=input,require=(value,message)=>{if(!value)throw Error(message);};
   require(isDeepStrictEqual(manifest?.browserShards,{format:1,projects:productivityShardProjects}),'isolated project declaration missing');
   require(Array.isArray(shards)&&shards.length===3&&Array.isArray(cases)&&cases.length>0&&new Set(cases).size===cases.length,'all three isolated projects required');
   require(new Set(shards.map(s=>s.project)).size===3&&productivityShardProjects.every(name=>shards.some(s=>s.project===name)),'duplicate or missing isolated project');
   for(const shard of shards){
+   const workers=counts[shard.project];if(modern)require(validateProductivityWorkers(shard,workers).length===0,'isolated two-worker proof missing or invalid');
+   else require(!Object.hasOwn(shard.manifest??{},'workerFormat'),'worker evidence requires its explicit target capability');
    const {project,report,junit,manifest:m,engine,native,exits,serverLog}=shard;
    require(m?.executionJob===({chromium:'quality',firefox:'browser',webkit:'productivity-browser'})[project],'isolated producer job mismatch');
    require(m?.project===project&&m.commitSha===expected.commitSha&&m.lockSha256===expected.lockSha256&&m.nodeVersion===expected.nodeVersion&&m.platform==='win32'&&m.architecture==='x64'&&isDeepStrictEqual(m.productionBuild,expected.productionBuild),'isolated project source/runtime/build mismatch');
@@ -19,9 +23,9 @@ export function validateProductivityShards(input,cases){
    require(['install','native','build','browsers-install','browser'].every(name=>exits?.[name]?.exitCode===0),'isolated native step missing or failed');
    require(native?.platform==='win32'&&native.architecture==='x64'&&native.nodeVersion===expected.nodeVersion&&native.addonVersion==='13.0.3'&&hash(native.binarySha256)&&native.binarySha256===m.addonSha256&&native.binarySha256===input.native?.binarySha256,'isolated native addon mismatch');
    require(engine?.browserName===project&&engine.platform==='win32'&&engine.architecture==='x64'&&engine.nodeVersion===expected.nodeVersion&&hash(engine.executableSha256)&&typeof engine.browserVersion==='string'&&engine.browserVersion.length>0&&isDeepStrictEqual(engine,input.engines?.find(e=>e?.browserName===project)),'isolated browser runtime mismatch');
-   require(typeof serverLog==='string'&&(serverLog.match(/Server is running/g)??[]).length===1&&(serverLog.match(/Shutdown complete/g)??[]).length===1,'isolated server lifecycle log missing');
+   require(typeof serverLog==='string'&&(serverLog.match(/Server is running/g)??[]).length===workers&&(serverLog.match(/Shutdown complete/g)??[]).length===workers,'isolated server lifecycle log missing');
    require(hash(shard.blobSha256),'isolated Playwright blob missing');
-   require(report?.config?.forbidOnly===true&&report.config.workers===1&&report.config.projects?.length===1&&report.config.projects[0].name===project&&report.config.projects[0].retries===0,'isolated configuration/retry policy mismatch');
+   require(report?.config?.forbidOnly===true&&report.config.workers===workers&&report.config.projects?.length===1&&report.config.projects[0].name===project&&report.config.projects[0].retries===0,'isolated configuration/retry policy mismatch');
    const seen=[];const walk=suites=>{require(Array.isArray(suites),'isolated suites missing');for(const suite of suites){for(const spec of suite.specs??[]){require(spec.ok===true&&cases.includes(spec.title)&&spec.tests?.length===1,'isolated undeclared/failed case');const test=spec.tests[0],result=test.results?.[0];require(test.projectName===project&&test.expectedStatus==='passed'&&test.status==='expected'&&test.results.length===1&&result.status==='passed'&&result.retry===0&&Array.isArray(result.errors)&&result.errors.length===0,'isolated failed/skipped/retried case');seen.push(spec.title);}if(suite.suites)walk(suite.suites);}};walk(report.suites);
    require(seen.length===cases.length&&new Set(seen).size===cases.length&&cases.every(name=>seen.includes(name))&&report.stats?.expected===cases.length&&['unexpected','flaky','skipped'].every(k=>report.stats[k]===0)&&Array.isArray(report.errors)&&report.errors.length===0,'isolated JSON inventory/totals mismatch');
    const tree=parseReleaseJUnit(junit),identities=[],number=(a,k,n)=>/^[0-9]+$/.test(a[k]??'')&&Number(a[k])===n;
@@ -35,4 +39,4 @@ export function validateProductivityShards(input,cases){
  }catch(error){return ['isolated productivity projects rejected: '+(error instanceof Error?error.message:'invalid data')];}
 }
 /** Read only fixed project paths from an authenticated/extracted report root. */
-export function readProductivityShardInputs(reader){return productivityShardProjects.map(project=>{const root='shards/'+project+'/',json=name=>reader.json(root+name),text=name=>reader.text(root+name);return {project,report:json('productivity-browser.json'),junit:text('productivity-browser.junit.xml'),manifest:json('productivity-browser-fixture.json'),engine:json('productivity-browser-runtime-'+project+'.json'),native:json('native.json'),exits:Object.fromEntries(['install','native','build','browsers-install','browser'].map(name=>[name,json(name+'-exit.json')])),serverLog:text('productivity-browser-server.log'),blobSha256:reader.hash(root+'report.zip')};});}
+export function readProductivityShardInputs(reader,options={}){const counts=productivityProjectWorkerCounts(options.workers);return productivityShardProjects.map(project=>{const root='shards/'+project+'/',json=name=>reader.json(root+name),text=name=>reader.text(root+name);return {...(options.workers!==undefined?{workerLogs:Array.from({length:counts[project]},(_,i)=>text('productivity-browser-server-worker'+i+'.log')),workerRuntimes:Array.from({length:counts[project]},(_,i)=>text('productivity-browser-runtime-'+project+'-worker'+i+'.json'))}:{}),project,report:json('productivity-browser.json'),junit:text('productivity-browser.junit.xml'),manifest:json('productivity-browser-fixture.json'),engine:json('productivity-browser-runtime-'+project+'.json'),native:json('native.json'),exits:Object.fromEntries(['install','native','build','browsers-install','browser'].map(name=>[name,json(name+'-exit.json')])),serverLog:text('productivity-browser-server.log'),blobSha256:reader.hash(root+'report.zip')};});}
