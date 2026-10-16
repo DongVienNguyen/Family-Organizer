@@ -1,0 +1,147 @@
+{
+  "taskId": "P09-d",
+  "prUrl": "pending parent117 acceptance",
+  "baseSha": "f0baa680d1b8b1942dd50cfc04335f0567af35fe",
+  "acceptedMainSha": "66aec855c30761a59d4beb4c65ba84fbc6c6b28d",
+  "parentWindowsAcceptance": "pending",
+  "scope": "internal physical/grouped Kanban preview/apply client; exact browser-safe helper extraction, no UI writes enabled",
+  "cloudGreen": {
+    "tests": 4750,
+    "files": 259,
+    "passed": 4750,
+    "junitCases": 4750,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4750,
+    "files": 259
+  },
+  "review": {
+    "task": "P09-d",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "be6db6eed4721ec0cd8528448e191ac2a9cf376dcd2080592330f3e3807b05a8",
+      "server/productivity/grouping.ts": "5ae5977cde0fa6f6f72356f1861a60a0d1ba4aee23b36d2c72c7bc56ad9bc518",
+      "src/features/productivity/api.ts": "e9909b9eb1539987576a8a22787b60d174f9bb4421c70049e4db02d1a31954fd",
+      "src/features/productivity/boardCommandsClient.test.ts": "f4dc1e2c03726070f974d426540509459667ecdc774047f008e832017710e947",
+      "src/features/productivity/boardCommandsClient.ts": "a00156fdadab9e3fccb940ac7ca698cacad2f873d6d942b5f8e06c5282c2aba7",
+      "src/features/productivity/groupMove.ts": "5ea969a00d1d239c359e4bf269418b03d04978507428143127e48d4b08fe90ee",
+      "tests/evidence.test.ts": "0d5ea805e4ca4c792f67c6f46e7d3fbd199ed3eaa4bb2873b823d1948d383d5f",
+      "tests/grouped-rank-import.test.ts": "3d815c2ce76a74bf4e112dbd162895f74b77e3624416d82a362e2f8960874f1d"
+    },
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "be6db6eed4721ec0cd8528448e191ac2a9cf376dcd2080592330f3e3807b05a8",
+      "server/productivity/grouping.ts": "5ae5977cde0fa6f6f72356f1861a60a0d1ba4aee23b36d2c72c7bc56ad9bc518",
+      "src/features/productivity/api.ts": "e9909b9eb1539987576a8a22787b60d174f9bb4421c70049e4db02d1a31954fd",
+      "src/features/productivity/boardCommandsClient.test.ts": "f4dc1e2c03726070f974d426540509459667ecdc774047f008e832017710e947",
+      "src/features/productivity/boardCommandsClient.ts": "a00156fdadab9e3fccb940ac7ca698cacad2f873d6d942b5f8e06c5282c2aba7",
+      "src/features/productivity/groupMove.ts": "5ea969a00d1d239c359e4bf269418b03d04978507428143127e48d4b08fe90ee",
+      "tests/evidence.test.ts": "0d5ea805e4ca4c792f67c6f46e7d3fbd199ed3eaa4bb2873b823d1948d383d5f",
+      "tests/grouped-rank-import.test.ts": "3d815c2ce76a74bf4e112dbd162895f74b77e3624416d82a362e2f8960874f1d"
+    },
+    "reviewCoverage": [
+      "all8 source/test/evidence-inventory changes against current P09c candidate",
+      "browser-safe helper exact original body+comments, server reexport and cold import boundary",
+      "Bearer/no-store/AbortSignal/callerUUID and no retries via existing transport",
+      "strict input/response admission, only selected field can change, revision and canonical tag-set acknowledgements",
+      "server preview/apply payloads compared with existing actual command implementations",
+      "both existing mandatory suite inventories retained, new omission assertion failclosed",
+      "existing backend atomic/ACL/WIP/cache authority preserved, no UI writes enabled"
+    ],
+    "remaining": [
+      "parent P09c Windows acceptance and main composition",
+      "full Cloud/lint/build and new exact-head Windows acceptance",
+      "Kanban settings/menu/drag/large lists/clock refresh remain future work",
+      "full P08/P09/P10 and other master tasks incomplete"
+    ],
+    "publicationAllowed": false
+  },
+  "composition": {
+    "taskId": "P09-d",
+    "sourceWorkCommit": "799a6a0",
+    "parentP09cTestedCandidate": "f0baa680d1b8b1942dd50cfc04335f0567af35fe",
+    "parentP09cRun": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953",
+    "parentP09cAcceptance": "pending",
+    "actualMergeCommit": "7d8d113d89703ed71fe8c75407d89cc281a13f95",
+    "sourceComposition": "ort merge without conflicts, retains personal-pin schema compatibility correction and original command client work",
+    "parentAcceptedMain": "66aec855c30761a59d4beb4c65ba84fbc6c6b28d",
+    "reviewedIndependentSourceRereviewed": false
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "be6db6eed4721ec0cd8528448e191ac2a9cf376dcd2080592330f3e3807b05a8",
+      "server/productivity/grouping.ts": "5ae5977cde0fa6f6f72356f1861a60a0d1ba4aee23b36d2c72c7bc56ad9bc518",
+      "src/features/productivity/api.ts": "e9909b9eb1539987576a8a22787b60d174f9bb4421c70049e4db02d1a31954fd",
+      "src/features/productivity/boardCommandsClient.test.ts": "f4dc1e2c03726070f974d426540509459667ecdc774047f008e832017710e947",
+      "src/features/productivity/boardCommandsClient.ts": "a00156fdadab9e3fccb940ac7ca698cacad2f873d6d942b5f8e06c5282c2aba7",
+      "src/features/productivity/groupMove.ts": "5ea969a00d1d239c359e4bf269418b03d04978507428143127e48d4b08fe90ee",
+      "tests/evidence.test.ts": "0d5ea805e4ca4c792f67c6f46e7d3fbd199ed3eaa4bb2873b823d1948d383d5f",
+      "tests/grouped-rank-import.test.ts": "3d815c2ce76a74bf4e112dbd162895f74b77e3624416d82a362e2f8960874f1d"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "f5a1874b814d3921562c8114983395ad645408b99737dc39b5e97e65582580cb",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "frontendIndexSha256": "39d57d1f9ac5441efaf62aa52a2e1c7f0803c0f2493d9c0508602034a1575a73",
+    "reports": {
+      "p09d-full.json": "6138e1bb933ef10375facaed5873c3c998d6f0539e3c48495905ed21875e640a",
+      "p09d-full.junit.xml": "3c8ec1b6fe422e3db96849a876f60497742bec2d8f1a9fc1cdb02e9c0ef76cf3",
+      "p09d-full.log": "48a942fd04c5038ef41f6e76dd17d005b825079eaf36830fc95c6d4e510fec4f",
+      "p09d-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09d-build-final.log": "d766ff4327b96c74ffd75c57d08fbb0ef648d4096b4569ad3a0db29609c969be",
+      "p09d-target-final.json": "04e752f12d5729ecfd79a3fb3fd6735e8d8c98878e08fff629491c62b139cac9",
+      "p09d-gate-red.json": "fa4929120c6a27d4659585d50355c9ad12106a569f4187d7625250d82c9a6b79",
+      "p09d-shared-patch-extraction.json": "80c6e26febdfdb36af55911d8eb7304acced17c65ee99eaf90a85d8d51830e2a"
+    },
+    "windowsAcceptance": "pending new exact HEAD8checks/11raw/both4750/259/109browser first attempt/24nativeboard/29HTTP/100IPC"
+  },
+  "targetTests": {
+    "tests": 371,
+    "passed": 371,
+    "suites": 4
+  },
+  "redRulings": {
+    "clientInitial": {
+      "tests": 23,
+      "failed": 23,
+      "ruling": "missing-method scaffold; not causal validation proof"
+    },
+    "mandatoryOmission": {
+      "tests": 301,
+      "passed": 300,
+      "failed": 1
+    },
+    "gateUnchangedPreInventory": "writer precondition stopped before source edits; old300tests passed, not a RED claim"
+  },
+  "helperExtraction": {
+    "sourceParent": "83a84ce358d095db7fa3e93d61053261c5021dcf",
+    "originalFunctionAndContractBytePreserved": true,
+    "functionSha256": "ee430d2d627b499060bd5dacd66e7e90897a7f53e5031c897aef18ff070c52bc",
+    "serverReexportsSharedPatch": true,
+    "noBehaviorChangeClaimBeyondTests": true
+  },
+  "backendBehaviorChanged": false,
+  "backendBundleChangedBySharedHelperModuleExtraction": true,
+  "frontendCommandMethodsAdded": true,
+  "uiWritesActivated": false,
+  "runtimeSchemaDefaultActivationDependenciesChanged": false,
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
