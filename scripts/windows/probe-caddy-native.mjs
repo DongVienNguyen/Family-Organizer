@@ -1,3 +1,4 @@
+import {reserveSyntheticProxyPort} from './synthetic-proxy-port.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -25,11 +26,12 @@ let failure,ownedFixture,diagnosticPhase='preflight';try{
  const version=native(['version'],'version');assert.match(version,/^v2\.11\.7\b/);
  backend=http.createServer((incoming,response)=>{requests.push({pathname:incoming.url,forwardedFor:incoming.headers['x-forwarded-for'],forwardedProto:incoming.headers['x-forwarded-proto'],authorization:incoming.headers.authorization});response.writeHead(proxyReady?200:503,{'content-type':'text/plain','cache-control':'no-store'});response.end(proxyReady?'SYNTHETIC_PROXY_READY':'SYNTHETIC_PROXY_HELD');});
  backend.listen(0,'127.0.0.1');await once(backend,'listening');const backendPort=backend.address().port;
- for(let i=0;i<2;i++){const server=net.createServer();server.listen(0,'127.0.0.1');await once(server,'listening');reserves.push(server);}
- const [httpsPort,adminPort]=reserves.map(server=>server.address().port);const config=syntheticCaddyConfiguration({backendPort,httpsPort,adminPort,fixtureRoot:fixture});
+ reserves.push(await reserveSyntheticProxyPort());
+ const adminReservation=net.createServer();adminReservation.listen(0,'127.0.0.1');await once(adminReservation,'listening');reserves.push({port:adminReservation.address().port,close:()=>new Promise((resolve,reject)=>adminReservation.close(error=>error?reject(error):resolve()))});
+ const [httpsPort,adminPort]=reserves.map(reservation=>reservation.port);const config=syntheticCaddyConfiguration({backendPort,httpsPort,adminPort,fixtureRoot:fixture});
  diagnosticPhase='configuration';
  const configFile=path.join(fixture,'synthetic.json');fs.writeFileSync(configFile,JSON.stringify(config));native(['validate','--config',configFile],'validate');
- for(const server of reserves)await new Promise((resolve,reject)=>server.close(error=>error?reject(error):resolve()));reserves.length=0;
+ for(const reservation of reserves)await reservation.close();reserves.length=0;
  diagnosticPhase='startup';
  child=spawn(executable,['run','--config',configFile],{env:minimalEnv,windowsHide:true,stdio:['ignore','pipe','pipe']});
  childClose=observeSyntheticChildClose(child);
@@ -57,4 +59,4 @@ let failure,ownedFixture,diagnosticPhase='preflight';try{
  ownedFixture.dispose();assert.equal(fs.existsSync(fixture),false);
  fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify({commitSha,nodeVersion:process.version,platform:process.platform,architecture:process.arch,caddyVersion:caddyRuntime.version,binarySha256:caddyRuntime.binarySha256,phases,trustStoreObservation,fixtureCleanup:true,systemTrustInstalled:false,backend:'synthetic-loopback-only',server2019Acceptance:'not-run'},null,2)+'\n',{flag:'wx'});console.log('CADDY_SYNTHETIC_NATIVE_TLS_PROXY_STOP_VERIFIED');
 }catch(error){failure=error;throw Error('CADDY_NATIVE_REJECTED');}
-finally{for(const server of reserves)server.close();if(child&&child.exitCode===null&&child.signalCode===null){child.kill();try{await childExit;}catch{}}if(backend)await new Promise(resolve=>backend.close(resolve));if(ownedFixture)ownedFixture.dispose();if(failure){const childOutputComplete=childClose?await childClose.wait(1000):true;fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify({commitSha,phases,failed:true,childOutputComplete,diagnostic:syntheticCaddyFailureDiagnostic({phase:diagnosticPhase,error:failure,output,exitCode:child?.exitCode??null,signal:child?.signalCode??null}),fixtureCleanup:!fs.existsSync(fixture),systemTrustInstalled:false,server2019Acceptance:'not-run'},null,2)+'\n',{flag:'wx'});}}
+finally{for(const reservation of reserves)await reservation.close();if(child&&child.exitCode===null&&child.signalCode===null){child.kill();try{await childExit;}catch{}}if(backend)await new Promise(resolve=>backend.close(resolve));if(ownedFixture)ownedFixture.dispose();if(failure){const childOutputComplete=childClose?await childClose.wait(1000):true;fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify({commitSha,phases,failed:true,childOutputComplete,diagnostic:syntheticCaddyFailureDiagnostic({phase:diagnosticPhase,error:failure,output,exitCode:child?.exitCode??null,signal:child?.signalCode??null}),fixtureCleanup:!fs.existsSync(fixture),systemTrustInstalled:false,server2019Acceptance:'not-run'},null,2)+'\n',{flag:'wx'});}}
