@@ -1,15 +1,15 @@
 {
   "taskId": "P08-b12",
   "baseSourceSha": "b22aefde0dd7e7f3ad5971c80b9e69e95a86035c",
-  "baseAcceptance": "PR105 firstWindows38824905861 failed nativeCaddyUDP onNode22 and PS7inventory onboth; both4293/239 testsallpass. MustcomposeacceptedcorrectionbeforePR106.",
+  "baseAcceptance": "PR106 exactCI38829115526 pending; update after verified merge/treeequal before PR107",
   "cloudGreen": {
-    "tests": 4325,
-    "passed": 4325,
-    "files": 240,
+    "tests": 4330,
+    "passed": 4330,
+    "files": 241,
     "failed": 0,
     "pending": 0,
     "todo": 0,
-    "junitCases": 4325,
+    "junitCases": 4330,
     "maxWorkers": 1,
     "lintExit": 0,
     "buildExit": 0
@@ -78,8 +78,79 @@
     "p08b12-sort-first.json": "4475cbd13cff83e12bd4873b8ec8f8a4e7dbe5a3fd611fa5e6791e50a810f0ac"
   },
   "interruptedRedDiagnostic": "Two143interruptedCPU/RSSruns unknownresult; stressfixturelast restored original architecture. Fullcorrected58/50/8RED andall373relatedpassed. Isolatedtitle1RED with22filtereddiagnostic only notfullacceptance.",
-  "nativeWindowsAcceptance": "pending newPR106 exactHEAD/all8/TENraw/22ZIP/27HTTP/100IPC/103browserfirst",
+  "nativeWindowsAcceptance": "pending PR106 exactHEAD/all8/TENraw/22ZIP/27HTTP/100IPC/103browserfirst",
   "fullMasterAccepted": false,
   "publicationAllowed": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "intermediateFailedComposition": {
+    "tests": 4329,
+    "passed": 4328,
+    "failed": 1,
+    "files": 241,
+    "case": "missing-key startup health never; deterministic firsttickclock follow-up in PR106; original100msassertions unchanged"
+  },
+  "preCompositionCloudGreen": {
+    "tests": 4325,
+    "passed": 4325,
+    "files": 240,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4325,
+    "maxWorkers": 1,
+    "lintExit": 0,
+    "buildExit": 0
+  },
+  "composedBaselineSourceSha": "3b4ebcd49089f2eb25f37dcf58c9c4fe74c865c1",
+  "composition": {
+    "featureSource": "fedfd9c/96ad1a9",
+    "baselineSource": "3b4ebcd49089f2eb25f37dcf58c9c4fe74c865c1",
+    "conflicts": [
+      "docs/engineering/implementation-status.md"
+    ],
+    "resolution": "Keep both progress histories; all feature and first-tick clock source byte-identical to their reviewed phases; mandatory arrays unchanged from96adunion.",
+    "baseWindows": "pending PR106/38829115526",
+    "fullExpected": {
+      "tests": 4330,
+      "files": 241
+    },
+    "rereview": false
+  },
+  "compositionFailure": {
+    "badLocalMerge": "88bf0a9",
+    "error": "First automatic conflict script assertion failed but shell continued to commit because Python status was not checked. Markers committed locally; lint correctly failed. No push/PR/greenclaim. A subsequent validation assertion counted test names outside mandatory array, stopped before further mutations.",
+    "correction": "Reconstruct from exact parent objects and validate mandatory array sets/counts only, retain both omission regressions/progress; separate successful Python validation from dependent commit.",
+    "productRegression": false
+  },
+  "expectedWindowsQuality": {
+    "tests": 4330,
+    "files": 241
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "1eb6d323c9b0bceae727d2dc6000b8ec476473b6860fd9af613c2833a600e7cb",
+      "server/productivity/board-moves.test.ts": "63443e0a16f7879efbd4bfadeda0bd2e8bb17531680fb7c1c250c80d147e4bac",
+      "server/productivity/board-projection.api.test.ts": "9b14b376b528deb7d24e1f811663fce93da182467a8bb16347ddcddefd75a9ec",
+      "server/productivity/board-projection.test.ts": "c086b49684d8453451fda70e5837fcd7d5691e665a13ff39c82ecb3604e5facc",
+      "server/productivity/board-sort.test.ts": "b403359bd41db5cfc985ca61dde805b8fe7bf322aa54bb05af70cc71cab2e760",
+      "server/productivity/boardProjection.ts": "104758c0c137a259a8aacc135f929bccf382008bc1ae5c275cccbd6d14bbc650",
+      "server/productivity/boardSort.ts": "9e3cb9b4e2beafe8bb2ad82ebbcb1eef34a5306f200c3f42d595f7bdec1c6271",
+      "server/productivity/grouped-board.api.test.ts": "07d18d154a610bfbf900673884a5ff5d3cacc794db2e94d4337f7cc2d57c9600",
+      "server/productivity/grouped-board.test.ts": "eec01db4f2daa4a61d3442429cd73928c88da165c31e2cd486bf3d563096d89e",
+      "server/productivity/groupedBoard.ts": "e0d7a4f17d0faa07ba9749d8ffc66d8a602a7e725c71a04266f8234c96767565",
+      "server/productivity/tag-groups.test.ts": "36586236e0d931a9a573f8417660ddc1cb282891cc056b96c531771c01d59035",
+      "tests/evidence.test.ts": "0d0a26ffdd52b0d5cda31a020b6b7f383f572629576e9f7b638ba086c9353223"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "65263d010f0b03ac0697cf63728c4f255ac2b9236ddd83a02fb8de072039195c",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p08b12-clock-composed-full.json": "b4dbe1b96b0a9385cc1c986ab20fa1d3f9d1e9b394a3670fb6a0f5031d49b075",
+      "p08b12-clock-composed-full.junit.xml": "b1f33a2c79b47b07209ae74bf05d9b880d59dd5d9af32b01e6413d7fca44ea70",
+      "p08b12-clock-composed-full.log": "d2ea162a6c0d18907ec083742b8dcd50a5268151b721edc8254cbf1ed6b56821",
+      "p08b12-clock-composed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p08b12-clock-composed-build.log": "c6eaf30a27f5fe485e4712ca50b4d2c41f3c2f1cc51a2830a45cd1f4ef9e1a29"
+    }
+  }
 }
