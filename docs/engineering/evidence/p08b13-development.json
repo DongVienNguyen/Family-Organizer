@@ -14,10 +14,11 @@
     "lintExit": 0,
     "buildExit": 0,
     "platform": "linux",
-    "notWindowsAcceptance": true
+    "notWindowsAcceptance": true,
+    "basis": "original4394-case full suite; correction adds one targeted LF/CRLF regression, all90source-policy cases passed; no runtime source changed"
   },
   "expectedWindowsQuality": {
-    "tests": 4394,
+    "tests": 4395,
     "files": 244
   },
   "review": {
@@ -89,7 +90,7 @@
       "tests/helpers/board-package-fixture.ts": "e0510b01e09511daaf6d75dcd252ef6d6a337a9b5bcf5f85126b00efd67e3fb7",
       "tests/release-collector-evidence.test.ts": "744907463e4f1811f9ae672497498eb3058ce38054b4aa4c973753c18f30528d",
       "tests/release-consumer-reports.test.ts": "72256d1430722d51bc7005b6484b6bbdf7f7c606cf916c61d6428f6f874d845a",
-      "tests/release-source-policy.test.ts": "76bec506df56f5af118674035f7e2f54dfada816f1d69c804885426fcb6efda5"
+      "tests/release-source-policy.test.ts": "f0d00fd484b0bb8c343a70f119b11d128ef5b4d4da0e2b4a35566e0f36b30455"
     },
     "compiledHashes": {
       "dist/server.cjs": "222c116f47d654f0e214e39428a508c0c295ecdcab6e9808a6e7876d9d493682",
@@ -102,7 +103,7 @@
       "p08b13-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
       "p08b13-build.log": "bb76b32d24f301fdccf030ea48d90b2e0538168a2e4da301dc31ebfb6c8cf85d"
     },
-    "windowsAcceptance": "pending exact HEAD/all8/TENraw/23ZIPchecks/28HTTP/100IPC/103firstattempt"
+    "windowsAcceptance": "pending corrected SHA/all8/TENraw/23ZIP/28HTTP/100IPC/103firstattempt"
   },
   "composition": {
     "ours": "96e0073",
@@ -403,5 +404,69 @@
   "publicationAllowed": false,
   "releaseCreated": false,
   "tagCreated": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "ciCorrection": {
+    "task": "P08-b13 CI correction",
+    "testedHeadSha": "356dc2c8531c69c563969a2be8229d35629c30c4",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38834324443",
+    "exactExpectedWindowsContractHash": "a563d5f943a3849bdf91dff7bc5c173bb9361c8c6c6a103cfd1bfd6245af2109",
+    "incorrectFixtureExpectationHash": "aca13f2005477c7da6dbfce01cdd9d12a22097bd1d544581c041b3f79466b6ee",
+    "cause": "new fixture assertion applied LF-to-CRLF blindly to a real Windows checkout with existing CRLF; raw reader uses idempotent conversion",
+    "productionContractChangeNeeded": false,
+    "node22": {
+      "tests": 4394,
+      "passed": 4393,
+      "failed": 1,
+      "files": 244,
+      "coverage": "not run after failed unit step"
+    },
+    "important": [
+      {
+        "finding": "Windows-specific expected hash double-converts CRLF",
+        "decision": "normalize fixture expected bytes idempotently; preserve full exact hash assertion and add LF/CRLF equivalence regression"
+      }
+    ],
+    "critical": 0,
+    "importantRemaining": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "otherJobs": "first run pending; preserve all completed artifacts and read full logs before pushing correction",
+    "addedCases": 1,
+    "cloudTargeted": {
+      "tests": 90,
+      "passed": 90,
+      "failed": 0,
+      "files": 1,
+      "reportSha256": "e77f628768222cf3364815ab9bc9ab944d464a406a3812978ff8eb601c492923"
+    },
+    "changedSourcePaths": [
+      "tests/release-source-policy.test.ts"
+    ],
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "7ca9b0ebc0bb7af5d791fadebec8439edcb7c94b56d3c6288de9717b939189b9",
+      "scripts/windows/board-package-contract.mjs": "71034b6369a29685b3aa26d206026e43b1d5ec88f47062cb6074f1b31956bdfd",
+      "scripts/windows/collect-release-archives.mjs": "2ee3324a80b3ee2fc01acf94ca44aa5c54d99a3058c60b07447565467010bc73",
+      "scripts/windows/probe-board-package.mjs": "071e3d5dfa40c9e837d36527feeba70755cd02a30d90883f62cf43ba593fdb3d",
+      "scripts/windows/release-board-source-policy.mjs": "f859c61cb55842746d7883e2e4074c63932182e742a310003fb71a25dc822219",
+      "scripts/windows/release-collector-evidence.mjs": "ab2e3125f938283b83442e5788bcd4cf2f854744791e25daef368c5efcca8b33",
+      "scripts/windows/release-consumer-reports.mjs": "97078cce8277e63ddef9655d173ee315789cf264bfad3a95ad1943e1a995e67f",
+      "scripts/windows/release-source-policy.mjs": "f56f8e6ac6b985f7b6f540739aacd7b51e19525001d9b6b41b67a441b8bac296",
+      "server/productivity/boardRouter.ts": "572c8ca94fbc6239263171081f9046714fe9eaf5f8a82fba5b6d1f87886c4691",
+      "server/productivity/grouped-board-ranks.api.test.ts": "4001a11874a40fa147e331b868ea9c54c92818ff18805c00b527290517095f8d",
+      "server/productivity/grouped-board-ranks.test.ts": "cf491b361544729b6ea6c7f437c4c4c0d875e19bd3afd195b30987baf71c4930",
+      "server/productivity/groupedBoard.ts": "761b73a837f9d8a20a4fbf9424369f32cf4a95ed42a660c67fa23a1d2c5b898c",
+      "server/productivity/groupedBoardRanks.ts": "659c15e5feede12d8e4cdd1906fff9d0d6241a2b0e54d9f36bed9c561d901354",
+      "server/productivity/groupedBoardReader.ts": "624772a867c212c593438ab93b015b7bd24687ffa19e38ff358ff072fd1a4be5",
+      "server/productivity/ports.ts": "d11484c40bda96db5511f448d363af3ed28e66b7678a2cd9e8779162dc3fdca8",
+      "server/productivity/router.ts": "628f11f646914b0b5aa0669e75679dfc461f40edf08f021c71a20433e14f6ee4",
+      "tests/board-package-evidence.test.ts": "260bc23ae014a894f3899ffac6a3e51febb738e9d2ad888c8209ae6c6356351b",
+      "tests/evidence.test.ts": "19053a7d4f7851a902c808274d3f9f12b62b77d9e6eed978128e72bd16bc336c",
+      "tests/grouped-rank-import.test.ts": "a3334a490cea9d29ea6d494ee68027e2525785eded9f0ae993eed61c03a7efb7",
+      "tests/helpers/board-package-fixture.ts": "e0510b01e09511daaf6d75dcd252ef6d6a337a9b5bcf5f85126b00efd67e3fb7",
+      "tests/release-collector-evidence.test.ts": "744907463e4f1811f9ae672497498eb3058ce38054b4aa4c973753c18f30528d",
+      "tests/release-consumer-reports.test.ts": "72256d1430722d51bc7005b6484b6bbdf7f7c606cf916c61d6428f6f874d845a",
+      "tests/release-source-policy.test.ts": "f0d00fd484b0bb8c343a70f119b11d128ef5b4d4da0e2b4a35566e0f36b30455"
+    }
+  }
 }
