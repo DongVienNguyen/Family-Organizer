@@ -1,0 +1,123 @@
+{
+  "taskId": "P09-b",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/116",
+  "testedHeadSha": "06cbd4578b3ad4e4bdfbc7fff216e358a397040a",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38848893020",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "8c5c817ca9f53962dea3b42c2885da7c9fe4501ceda520c4860714c9b7b5bfb6",
+    "coverage": "b2beeca8f4e2977acb08ec87017f84aefe3cf90aa2df7bcaaafbd2d25b98596a",
+    "package": "7d979ed56764c906e487ae17bc62b4f9bbec40663879333033852566e7796286",
+    "service": "2bd58bb68e966be310aa5839aeb101e366b7aeae57f4d7675e8862ece0b41191",
+    "caddy": "fa6667c6cca1b69ef85507df90c18b013bcb80fa22ece09cba76cde8ba779f24",
+    "extraction-sdk": "07b43605121fde62d77dcce4239cf980de9ba62be6846255093d3eae0dca74c3",
+    "inner-native": "71f07eb1f27de3469d50f582c432808928bd9a4269beaaffb996280d3e3ae848",
+    "browser": "0448d7905275195fd3444ffc3ffd7589d446a3f01f238dfec2a30fa286bb3394",
+    "productivity-browser": "682963dd5058042121eba619687543d85d1b999a43aafd13364c3ff43f184371",
+    "board-package": "429f6dfdda537b716aec789b4b8968b9fe468cd7bb2fe5248727218b749cef5a",
+    "port-policy": "0640cf6af0f84997d5a8dca78fb2cdefdbbbac8f49c364072d48eea13854c66a"
+  },
+  "qualityEach": 4661,
+  "qualityFilesEach": 255,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 57,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "zipSha256": "5c06e54ebea4ad386d1d4b3ea50d4a886c4d7f762af3d5a2d49acbfbd315723e",
+  "fullCiLogZipSha256": "9dcc4b0f710bc0b9f5559528ff8c487fb381c5ef4eda848a380cd609ca30c421",
+  "review": {
+    "task": "P09-b",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "a64486c9b2da368cddd72f47b6c7e1224b773e104a563bdf182995c3b6c5f406",
+      "src/features/productivity/Kanban.tsx": "beba85b3ea4231e2f4ad21aff6b2f1ccf9df30e215b8ddbd3054eaaa9f23c119",
+      "src/features/productivity/kanban-ui.test.tsx": "2774d0ee7d71a84aa618fd8b3d40efabb05c2aea830e018b42b5c939e167f66d",
+      "src/features/productivity/kanbanPages.test.ts": "fdf7e9ed6b3fba6014b967ccb783d47b9e447e0e0eb15736976eb35b7a1cbc79",
+      "src/features/productivity/kanbanPages.ts": "52d73c1c750ca04b83ac6000a31b7c12c87b8bb13aa7cd21bb4167fb79051522",
+      "src/i18n/locales/en.json": "66962c136144c768dc3cd9840db908d3d955ca4ef1c822f034a7fb9af9086f63",
+      "src/i18n/locales/vi.json": "725c10df36b059d6df5e8b951fcdfffba1f88b06ba691e5f7ed1beac36457781",
+      "src/i18n/locales/zh.json": "1c660ea19e293e7d895def8ccac78ea02a7b9d0ec2bee1ee6b25a36de4e93016",
+      "tests/evidence.test.ts": "90b3c21666ac5a0ba648fad557ab3012b366afd6270cc44b1b56ce2ff112b366"
+    },
+    "focus": [
+      "Combine validated pages only with exact view/board/revisions/clock/count/column/WIP agreement and expected cursor",
+      "Unique canonical IDs and tag visual/semantic refs; identical shared Task facts; exact final coverage and scope bounds",
+      "Readonly native details/summary columns, correct sections vs workflow/Review/completed distinction",
+      "Private-safe WIP counts and unavailable names; escaped text; same Task ID on open; pending auth disables actions",
+      "Existing theme tokens/mobile bounded horizontal scroll/visible keyboard focus; en/vi/zh same keys and all old locale values retained",
+      "No fetch/writer/cache/offline/session authority or production UI entry activation"
+    ],
+    "rulings": [],
+    "developmentRulings": [
+      "First22 pagination tests implemented together with helper, not a causal RED claim",
+      "Original10 UI RED cases collected and failed missing-module scaffold; not actual UI-behavior RED proof",
+      "Corrected new synthetic multi-tag fixture carries its actual tags; empty0 and nonempty partial/load-more fixtures are separate valid pages",
+      "SSR/static handler tests are not native pointer/touch/collapse/visual verification; no new browser probe claimed"
+    ],
+    "remaining": [
+      "Exact-HEAD Windows8checks/11raw/103firstattempt pending",
+      "App entry/load/reconcile/session state and actual Kanban browser fixture not implemented in this slice",
+      "DnD/column editing/virtualization and remaining P08/P09/P10/master unfinished",
+      "Server2019/R02 unrun; no release/tag/VPS"
+    ]
+  },
+  "kanbanPresentationContractAccepted": true,
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "66aec855c30761a59d4beb4c65ba84fbc6c6b28d",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "06cbd4578b3ad4e4bdfbc7fff216e358a397040a": "989d7d57ad642089a828c510736f286c5234a2f8",
+    "66aec855c30761a59d4beb4c65ba84fbc6c6b28d": "989d7d57ad642089a828c510736f286c5234a2f8"
+  },
+  "fullLogs": {
+    "files": 132,
+    "lines": 24320,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}
