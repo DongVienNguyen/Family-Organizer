@@ -1727,6 +1727,18 @@
     "invalidTarget": "Chọn đích hợp lệ. Để bỏ hết thẻ của việc có nhiều thẻ, chọn “Thay toàn bộ thẻ”."
   },
   "recurrence": {
+    "legacyInspect": "Kiểm tra lịch lặp cũ",
+    "legacyAdmin": "Quản trị viên cần xem trước nhóm lịch lặp cũ trước khi chuyển.",
+    "legacyExplanation": "Lịch cũ sẽ được dừng cho cả nhóm. Giữ nguyên công việc, bằng chứng chờ duyệt và điểm; không tính các lần hoàn thành cũ vào lịch mới.",
+    "legacyAnchor": "Mốc bắt đầu lịch mới",
+    "legacyTime": "Giờ bắt đầu lịch mới",
+    "legacyExactUtc": "Thời điểm UTC bắt đầu lịch mới",
+    "legacyNoAnchor": "Chưa đặt mốc; bắt đầu từ lần hoàn thành được chấp nhận tiếp theo",
+    "legacyAcknowledge": "Tôi xác nhận chính sách và mốc bắt đầu mới đã chọn",
+    "legacyOtherActive": "Tôi xác nhận {{count}} công việc đang mở khác sẽ giữ nguyên và trở thành công việc thường",
+    "legacyConvert": "Chuyển lịch lặp cũ",
+    "legacyConfirm": "Dừng lịch lặp cũ cho cả nhóm và áp dụng chính sách mới đã chọn cho công việc này? Bằng chứng, lịch sử và điểm được giữ nguyên. Các công việc đang mở khác sẽ trở thành công việc thường.",
+    "legacyRequired": "Hãy chọn rõ chính sách, mốc bắt đầu và xác nhận các công việc đang mở khác trước khi chuyển.",
     "title": "Lịch lặp",
     "historySafe": "Giữ nguyên lịch sử, bằng chứng và điểm của các kỳ đã xử lý.",
     "scope": "Phạm vi chỉnh sửa",

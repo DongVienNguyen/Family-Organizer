@@ -1,0 +1,142 @@
+{
+  "taskId": "P10-d4c-backend",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/129",
+  "testedHeadSha": "160d45750c639d0ce053d119678aeb35572e2a0a",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38924197212",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "d4e1a8930214b738eba53d0b061510a6c23add79225d2bac3f6e6a2b93ff312e",
+    "coverage": "12ba87fbd21670b97c7878c7ad5d3a1ab7e00d93c7c0dbbf0c43265cf14f0dc3",
+    "package": "718e7aee5331d41871021a97f2473721177c964eb0e6dee04466b376eaabbde2",
+    "service": "6e5faa531222445fe385a4e961eeb5633fc24ec45e3f8c87ced7f8268551ee3a",
+    "caddy": "7b9dd310e2964d0c83868b5fec41636211d885695b1947898cf02dadb3aa12ef",
+    "extraction-sdk": "bac43884f777629dc9777a965870f8067b357f627ec0a1973386f54a772f69d0",
+    "inner-native": "4cf4d26c469532418d76e5a0a38e20bfaf6797e30b586783f8597ea88d4f57b5",
+    "browser": "aad1cd1f48b93ff916cae3a9eda811c0189b48b1ff59aed41d52b8f10ac692b0",
+    "productivity-browser": "6227746adfe251a77f0213f15784f8ac39ba615e9f94f1a06cc51845f2151bdd",
+    "board-package": "f2637e654138a5f9b6d949498f754b532083b2e75262ade38327c79bdcfab408",
+    "port-policy": "b3a502bffc5bbb13a1c473c01dc96c58e6fa9eae8cc42a95df5eb73e726a7c62"
+  },
+  "qualityEach": 5387,
+  "qualityFilesEach": 297,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 90,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "review": {
+    "kind": "LOCAL whole-branch SELF-review; no fresh independent reviewer claimed",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "reviewPasses": 1,
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "rereview": false,
+    "reportSha256": "d66e2fcb9dd5cae23498d37a85232a28eb0532b5df5044294d7b676c5a7884c3",
+    "gradingSha256": "8c1265f6700650e076c9d0dc2ab20960dc21bbe3fe9b26ee0a674e1d5733d686",
+    "reviewedSourceSha256": "452204ce186aa28bb648713fb715b8cd49f701aefc7c96c5872752f25284aaa4"
+  },
+  "sourceHashes": {
+    "server/db.ts": "e635363a3c9d476b981f1b26d75e3fb1f6a40723ae4672373a3aabe7d29a6ccc",
+    "server/mediaPolicy.ts": "407d50bca7fd874dca49e0317d09d5e523582474ab23c7c7b509f1f4c4c68745",
+    "server/productivity/adapter.ts": "fa4278f928344040b606f84ec2ed3cb5f47406aef8aef34785521a00bad9247c",
+    "server/productivity/boardCatalog.ts": "34e68d6b37ab10ca0c5f6fb01c5d1db05bb5b248e86c2eb263c65aaaf44aa5af",
+    "server/productivity/boardViewSchema.ts": "bcb71747deb3c9e3a78ead0af047bdbfc22984593731b6be81832336c6a696aa",
+    "server/productivity/groupedBoard.ts": "b18b7f9a3595efb51983215b8f401a26165613638c17a4c534393beaa8fd6a47",
+    "server/productivity/inspection.ts": "d7fb44a2e4da48202842a14657ef4667a71d818bc092537333ad7041cede776c",
+    "server/productivity/legacy-cutover-migration.test.ts": "4a0246fab177c9a38c8a20e436b82e3851af03e4c7d2f8d1a5ef726d45b27c6b",
+    "server/productivity/legacy-cutover.api.test.ts": "27710aea240e47b5414e00edb9ec90e24d0a7333cf21ad4cfb281ed49ccf67fd",
+    "server/productivity/legacy-cutover.test.ts": "05d72ebf30cb2ad410262be01324db09d6bd44333a6a9d9ba170d3232cc3fe7b",
+    "server/productivity/legacyCutoverRecord.ts": "677788f4bd2fa2163405f9ffbe74d163e326c12f0088dfc23b720958b93e2f09",
+    "server/productivity/legacyCutoverSchema.ts": "ed4210091b32600d3fe8eb6064c18f1fc07ae9da1f18e421236ca44d6b77002b",
+    "server/productivity/legacyRecurrenceCutover.ts": "52fc084e930b407fa5f11a3d2008e8f14371a80b4f9432e4838bba543501c7ce",
+    "server/productivity/legacyRecurrenceFamily.ts": "931714526be3191d7497d3693d4679cc153fd9ba54c971754da2837a54dbe798",
+    "server/productivity/matrix.ts": "321dfd562f4e0cbf473bd36391c1bdc2e478fd99abdd09d957a957ef3746172a",
+    "server/productivity/pins.ts": "33a024c62dc1130fac8e13f8ce1e0c4855902772b99563e619a271d04a6864e2",
+    "server/productivity/ports.ts": "f0e08cb20136e88d04a5f8af76858b63084c09ac1c623c3ba15f91b663c6e45c",
+    "server/productivity/recurrenceAccepted.ts": "d6a3139720661171b1a9a3d5591e03980dadfddb7557070ed4f2cafa48906518",
+    "server/productivity/recurrenceMaterialize.ts": "9e85d137b1151c630e9ef7e56ef4075f571352c3e315270e8a32a9f1dbdf4fad",
+    "server/productivity/recurrencePreview.ts": "717f2613ff947edfd205d15e7612248585150bc1653facd73265e56bbed86627",
+    "server/productivity/router.ts": "60da24936fd6795a43aa038e3850d8e321a3d2d081bb4e48de9aefc32f67aa46",
+    "server/productivity/sectionBoards.ts": "188923940a06a03470f42f40c99463af2fe564846c79a0be38dac5b7040e724e",
+    "server/productivity/seriesCommands.ts": "000d96f427c6108756089dbfcc8523262f45996c4dd79b2caa9bdc5114381745",
+    "server/productivity/seriesRecord.ts": "0ec30551f44e9aa214670456ef5398c08163ae552d969dd235e8bb55289c0b82",
+    "server/productivity/seriesStore.ts": "c3d93cc0ae50cbf423ee38dc4378df137f39011ee6c57403e012c8e983a797cc",
+    "server/productivity/snapshot.ts": "8cd7adc772f92d7fabd6063b842d956240b65a6775e9ac53eb58f94733bdd2d9",
+    "server/productivity/store.ts": "6460a06652c82605bd1b96116523b30a870eca73185feda3738e5677aa2e9a58",
+    "server/productivity/structure.ts": "99bbe22aeda9f344bc3cd637963c96aeccb935351e4e644d644ebeb2f7429277",
+    "server/productivity/structureInvariant.ts": "54afe9c15affbd3e09eb8596f26ea7087fe3cfaed01d432ac5b19f211783cfb4",
+    "server/productivity/structureSchema.ts": "ac8c8f1a2d251e2bd54bfd2cfd2814597710fdd52e907cf31afcea3616987d2b",
+    "server/productivity/user-reference-writes.test.ts": "a08a95e71f02a31b694f4a96dc5d9b7a98f70a76245eef7d89a59130669d5b72",
+    "server/productivity/views.ts": "25c2f54a06f3ea258fea7722aebc08b4b46d021c2284f95a1110546114c0a0ab",
+    "server/sqlite.ts": "185f6de8a8edc41d37bc75eb3535bc8b075a071a62f64fc971474d4164f5f74d",
+    "tests/legacy-cutover-recovery-native.test.ts": "66188e856142f2852eafd04c4b300627aa97bce6aac0a8464e784f8099b1554a"
+  },
+  "newSuitesIndependentlyRead": {
+    "server/productivity/legacy-cutover-migration.test.ts": 3,
+    "server/productivity/legacy-cutover.api.test.ts": 8,
+    "server/productivity/legacy-cutover.test.ts": 28,
+    "server/productivity/user-reference-writes.test.ts": 3,
+    "tests/legacy-cutover-recovery-native.test.ts": 1
+  },
+  "newTests": 43,
+  "frozenMigrationDefinitionFilesVerified": 14,
+  "acceptedParentSha": "4c241d688a6c3a641f6fe0928d77646e42254227",
+  "defaultPilotMigration": 6,
+  "explicitPilotMigration": 13,
+  "browserFixtureMigration": 12,
+  "automaticUpgrade": false,
+  "controlledCutoverUi": "pending",
+  "actual13ZipQualification": "not-run",
+  "fullP10Accepted": false,
+  "fullMasterPlanAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "160d45750c639d0ce053d119678aeb35572e2a0a": "f6a4811b5acd34efa5c7ca801e9cc3ed227bf06f",
+    "5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77": "f6a4811b5acd34efa5c7ca801e9cc3ed227bf06f"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 26660,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

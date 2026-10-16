@@ -1,0 +1,84 @@
+{
+  "headSha": "4eae64447793c90577172b4048d6c5a49d63e690",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38931077368",
+  "acceptance": "failed; never rerun or accepted",
+  "webkit": {
+    "passed": 31,
+    "failed": 1,
+    "case": "P10 C32",
+    "failure": "afterEach uncaught-browser-errors assertion; all business assertions passed",
+    "pageError": "same-origin /api/productivity/views due to access control checks",
+    "afterReloadMilliseconds": 21.159
+  },
+  "rawJsonSha256": "c7b432fec3314b36324b039463776cbd7bd8e5916b9dfd802a66738736413077",
+  "traceSha256": "9f7fb59a83d80361b4dc98592d4c73e8971eaed6566963267aacdb676aeca1a7",
+  "jobLogSha256": "8b34978e3f9a7b744d4ed4f088eb1892fef34d864f4b1870ae26765176853012",
+  "assertionsRemoved": false,
+  "timeoutsOrRetriesChanged": false,
+  "ruling": "Replace unnecessary navigation in stale-metadata fixture with live same-origin response transform and real Task/SSE refresh. Keep zero uncaught-browser-errors assertion.",
+  "finalChecks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "rawRead": {
+    "artifacts": 8,
+    "fullLogs": {
+      "allLogFilesRead": true,
+      "files": 132,
+      "lines": 26862,
+      "classification": "Failed Windows WebKit C32 page-error guard; aggregate/download/evidence steps consequently skipped or failed. No acceptance."
+    },
+    "unitEach": {
+      "tests": 5407,
+      "files": 297,
+      "failed": 0,
+      "skipped": 0,
+      "junitIndependentlyMatched": true
+    },
+    "browserFirstAttempts": {
+      "chromium": {
+        "passed": 32,
+        "failed": 0
+      },
+      "firefox": {
+        "passed": 32,
+        "failed": 0
+      },
+      "webkit": {
+        "passed": 31,
+        "failed": 1
+      }
+    },
+    "overallAccepted": false
+  }
+}
