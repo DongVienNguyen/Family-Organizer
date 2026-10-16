@@ -1,3 +1,5 @@
+import {validateCutoverSourcePolicy}from'./release-cutover-source-policy.mjs';
+import {validateCutoverPackageReport}from'./cutover-package-contract.mjs';
 import {validateBoardSourcePolicy} from './release-board-source-policy.mjs';
 import {validateBoardPackageReport} from './board-package-contract.mjs';
 import path from 'node:path';
@@ -259,6 +261,7 @@ export function readReleaseConsumerReportFiles(directory,packageReports,expected
  try{
   requireFact(/^[a-f0-9]{40}$/.test(expected?.commitSha??'')&&Number.isSafeInteger(expected?.runId)&&expected.runId>0&&packageReports?.packageReportAgreement===true&&packageReports.commitSha===expected.commitSha&&packageReports.runId===expected.runId&&hash(packageReports.zipSha256)&&typeof packageReports.validation?.nodeExecutable==='string');
   const boardPackagePolicy=expected.boardPackagePolicy;
+  const cutoverPackagePolicy=expected.cutoverPackagePolicy;if(cutoverPackagePolicy!==undefined)requireFact(validateCutoverSourcePolicy(cutoverPackagePolicy)&&packageReports.manifest?.schema?.domains?.productivity?.max===13&&isDeepStrictEqual(packageReports.cutoverPackagePolicy,cutoverPackagePolicy));else requireFact(packageReports.manifest?.schema?.domains?.productivity?.max!==13);
   if(boardPackagePolicy!==undefined)requireFact(validateBoardSourcePolicy(boardPackagePolicy));
   const reader=openReleaseReportFiles(directory),reports={};
   for(const [name,rule]of Object.entries(rules)){
@@ -280,10 +283,13 @@ export function readReleaseConsumerReportFiles(directory,packageReports,expected
    else requireFact(row.completed===true&&hash(row.encryptedSha256)&&isDeepStrictEqual(row.nativeExitCodes,rule.nativeExitCodes));
    if(name==='package-recovery.json')requireFact(Number.isSafeInteger(row.encryptedBytes)&&row.encryptedBytes>0&&row.encryptedBytes<=64*1024*1024);
   }
-  const board=reader.json('package-board.json');requireFact(validateBoardPackageReport(board,{groupRankRequired:boardPackagePolicy?.groupedRanks!==false,atomicGroupRankRequired:boardPackagePolicy===undefined||boardPackagePolicy.atomicGroupRanks===true,commitSha:expected.commitSha,zipSha256:packageReports.zipSha256,nodeExecutable:packageReports.validation.nodeExecutable,nodeBinarySha256:packageReports.manifest?.runtime?.nodeExeSha256,nativeBinarySha256:packageReports.manifest?.native?.sha256}).length===0);reports['package-board.json']=board;
+  const board=reader.json('package-board.json');requireFact(validateBoardPackageReport(board,{manifestBounds:packageReports.manifest?.schema?.domains,groupRankRequired:boardPackagePolicy?.groupedRanks!==false,atomicGroupRankRequired:boardPackagePolicy===undefined||boardPackagePolicy.atomicGroupRanks===true,commitSha:expected.commitSha,zipSha256:packageReports.zipSha256,nodeExecutable:packageReports.validation.nodeExecutable,nodeBinarySha256:packageReports.manifest?.runtime?.nodeExeSha256,nativeBinarySha256:packageReports.manifest?.native?.sha256}).length===0);reports['package-board.json']=board;
+  let cutover;
+  if(cutoverPackagePolicy){cutover=reader.json('package-cutover.json');requireFact(validateCutoverPackageReport(cutover,{commitSha:expected.commitSha,zipSha256:packageReports.zipSha256,nodeExecutable:packageReports.validation.nodeExecutable,nodeBinarySha256:packageReports.manifest.runtime.nodeExeSha256,nativeBinarySha256:packageReports.manifest.native.sha256}).length===0);reports['package-cutover.json']=cutover;}
+
   const production=reader.json('production.json'),node=packageReports.validation.nodeExecutable;
   const productionRoot=path.win32.join(path.win32.dirname(path.win32.dirname(node)),'app');
   requireFact(validateReleaseProductionReport(production,{commitSha:expected.commitSha,nodeVersion:'v24.21.0',productionRoot}).length===0);
-  return {commitSha:expected.commitSha,runId:expected.runId,zipSha256:packageReports.zipSha256,rawConsumerFunctionalReportsVerified:true,...(boardPackagePolicy?{boardPackagePolicy:structuredClone(boardPackagePolicy)}:{}),fixtureHashes:{'productivity-fixture.json':reports['package-functional.json'].productivity.fixtureSha256,'wallet-fixture.json':reports['package-functional.json'].wallet.fixtureSha256,'board-fixture.json':board.fixtureSha256},innerPackageAgreement:false,reportsVerified:false,publicationAllowed:false,checks:Object.fromEntries(Object.entries(reports).map(([name,row])=>[name,row.checks])),compiledProductionChecks:production.checks,incompatibleSchemaCases:production.incompatibleSchemas.map(row=>row.name),...reader.receipt()};
+  return {commitSha:expected.commitSha,runId:expected.runId,zipSha256:packageReports.zipSha256,rawConsumerFunctionalReportsVerified:true,...(boardPackagePolicy?{boardPackagePolicy:structuredClone(boardPackagePolicy)}:{}),...(cutoverPackagePolicy?{cutoverPackagePolicy:structuredClone(cutoverPackagePolicy),cutoverPackageVerified:true}:{}),fixtureHashes:{'productivity-fixture.json':reports['package-functional.json'].productivity.fixtureSha256,'wallet-fixture.json':reports['package-functional.json'].wallet.fixtureSha256,'board-fixture.json':board.fixtureSha256,...cutover?{'cutover-fixture.json':cutover.fixtureSha256}:{}},innerPackageAgreement:false,reportsVerified:false,publicationAllowed:false,checks:Object.fromEntries(Object.entries(reports).map(([name,row])=>[name,row.checks])),compiledProductionChecks:production.checks,incompatibleSchemaCases:production.incompatibleSchemas.map(row=>row.name),...reader.receipt()};
  }catch{reject();}
 }

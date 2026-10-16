@@ -36,8 +36,8 @@ try{
  const productivityDirectory=extraction.archives.find(row=>row.name==='windows-productivity-browsers-'+request.commitSha+'-1')?.directory;
  const productivityBrowser=readReleaseProductivityBrowserFiles(productivityDirectory,policy,{commitSha:request.commitSha,runId:request.runId,nodeVersion:'v24.21.0'});
  const packageDirectory=extraction.archives.find(row=>row.name==='windows-package-'+request.commitSha+'-1')?.directory,consumerDirectory=extraction.archives.find(row=>row.name==='windows-package-tests-'+request.commitSha+'-1')?.directory;
- const packageReports=readReleasePackageReportFiles(packageDirectory,consumerDirectory,{commitSha:request.commitSha,runId:request.runId,appVersion:policy.source.packageVersion});
- const consumerReports=readReleaseConsumerReportFiles(consumerDirectory,packageReports,{commitSha:request.commitSha,runId:request.runId,boardPackagePolicy:policy.boardPackagePolicy});
+ const packageReports=readReleasePackageReportFiles(packageDirectory,consumerDirectory,{commitSha:request.commitSha,runId:request.runId,appVersion:policy.source.packageVersion,...(policy.cutoverPackagePolicy?{cutoverPackagePolicy:policy.cutoverPackagePolicy}:{})});
+ const consumerReports=readReleaseConsumerReportFiles(consumerDirectory,packageReports,{commitSha:request.commitSha,runId:request.runId,boardPackagePolicy:policy.boardPackagePolicy,...(policy.cutoverPackagePolicy?{cutoverPackagePolicy:policy.cutoverPackagePolicy}:{})});
  const serviceDirectory=extraction.archives.find(row=>row.name==='windows-service-tests-'+request.commitSha+'-1')?.directory;
  const serviceReports=readReleaseServiceReportFiles(serviceDirectory,{commitSha:request.commitSha,runId:request.runId,zipSha256:packageReports.zipSha256,packageReportAgreement:packageReports.packageReportAgreement});
  const harnessDirectory=extraction.archives.find(row=>row.name==='windows-package-harness-'+request.commitSha+'-1')?.directory;

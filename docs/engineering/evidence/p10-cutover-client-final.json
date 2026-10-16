@@ -1,0 +1,203 @@
+{
+  "taskId": "P10-d4c-client",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/130",
+  "testedHeadSha": "d30074a9e2c3bb0d674e2878ce0b145ed7c0df9e",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38934187583",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "7d4190e72e54c2443c2f6d513b8e6e71d0c2daa6fdb5f67d6aaf21424f639242",
+    "coverage": "9dac37782e016ef04a10b9c7e9e56f13fff1646ac42d46ae3a26d3be0001c165",
+    "package": "8db93d9ddf5c2e290b5f0aa24b318254b6f80e79b316e8427e36b52a11d0af0a",
+    "service": "55922e17d19d858c920cb5b600588179ea530dbfef76cd37ec83f74293e47691",
+    "caddy": "61073276c87e2addab71865c507863a602f0dad63b71271c02435060417f9b97",
+    "extraction-sdk": "86d5e37bf904e5484814a19043f0414982b0963db39f49aa3a46b01b1f2dd6f7",
+    "inner-native": "803dfd0da718270df602e64c556d934be2ca85eea27fd089f8307f652dba485b",
+    "browser": "d3f8ec63eb51c089effca1420bcfe2042ea117357114dfd23d86a4f7d20785f1",
+    "productivity-browser": "9743e3aa78b0cf004d12f952db4d82b095cc72787ef0f3940451ff40f64e719f",
+    "board-package": "3ff70abbc7ff8d71b9f0443a4b77912fe48829632301ae465373936dd759eaa1",
+    "port-policy": "24aa461b60875f3fb9b1f563ff82aa46b535950f3beb5e31a6982ede4ba46f3d"
+  },
+  "qualityEach": 5407,
+  "qualityFilesEach": 297,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 96,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "review": {
+    "mode": "LOCAL SELF; not independent",
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "correctionPasses": 1,
+    "rereview": false,
+    "correctionFiles": [
+      "src/features/productivity/RecurrenceEditor.tsx"
+    ],
+    "finding": "I1 late legacy metadata attaches empty conversion draft without erasing original policy/comment"
+  },
+  "windowsFixtureCorrection": {
+    "baseSha": "4eae64447793c90577172b4048d6c5a49d63e690",
+    "changedSourcePaths": [
+      "tests/e2e/productivity.spec.ts"
+    ],
+    "baseDevelopmentEvidenceSha256": "214ca2eca865b63c1559c2c172e0da6762b5c36945511988f43b28f78aa25865",
+    "baseBrowserSourceSha256": "d90fa4448b755435b47cf3b8bed9df492ae017ee8202555f28a5a37f12e45e90",
+    "currentBrowserSourceSha256": "c8dc73988ff127ad240b8c98508549ab8e411e4fa2ab418af94d00b4a09a15b5",
+    "cause": "WindowsWebKit old-document views fetch raised pageError21ms after active-page reload; business assertions passed, zero-pageerrorguard correctly failed",
+    "correction": "Install controlled stale metadata on current document and drive real rootTask/SSE refresh. No active-page navigation.",
+    "assertionPreservation": {
+      "oldSourceSha256": "d90fa4448b755435b47cf3b8bed9df492ae017ee8202555f28a5a37f12e45e90",
+      "newSourceSha256": "c8dc73988ff127ad240b8c98508549ab8e411e4fa2ab418af94d00b4a09a15b5",
+      "originalPrefixThroughC31Preserved": true,
+      "noC32ActiveReload": true,
+      "cases": {
+        "P10 C31": {
+          "before": 32,
+          "after": 32,
+          "oldAssertionsPreserved": true,
+          "added": 0,
+          "oldAssertionSha256": "206ff11c6bd4cf0efb891999029d72d7e19eb970c0e00723c1efed36f3b10a1f"
+        },
+        "P10 C32": {
+          "before": 16,
+          "after": 17,
+          "oldAssertionsPreserved": true,
+          "added": 1,
+          "oldAssertionSha256": "3549b3d5091958728dd54f30027644f2ed3ecaa05b080a1245c3c257fbd62c55"
+        }
+      }
+    },
+    "originalWholeBranchReviewUnchanged": true,
+    "reviewPassesAdded": 0,
+    "runtimeSourcesChanged": false,
+    "dependenciesChanged": false,
+    "fullCoreQualityReusedOnlyAfterExactNonE2eSourceHashMatch": true,
+    "historicalWindowsFailure": "38931077368 /4e:6success2failure, all8artifacts132logs read; never accepted or rerun",
+    "cloudCausalRed": "Removed only I1 promotion in a fresh unfixed runtime; reached conversion button then missing anchor; exact corrected source restored in finally",
+    "cloudCausalGreen": {
+      "currentC32": 1,
+      "nativeTouch": 1,
+      "nativeExit": 0,
+      "lintExit": 0,
+      "junitMatched": true,
+      "productionBuild": {
+        "serverSha256": "4f661a36c35cbc1e27ffa4ab10f6f800418d8c7ea09c91ebb4c053d6c21b2a52",
+        "indexSha256": "7f806fbc38b3d8e0b714373fb6d924b83c3c35ef47a4fb0c2826913839aaa7cd"
+      }
+    },
+    "checkpoints": {
+      "p10-cutover-ui-live-metadata": {
+        "logSha256": "75a6e2054d36e5678f4d2e007f0115686b7e8fb45db04f4f70f36f8d71ae7c04",
+        "nativeExit": 0
+      },
+      "p10-cutover-ui-live-causal-red": {
+        "logSha256": "03b5276b3e6c463302c8d9b94fcbbcc4550bb65fd86a330dbfcc2da82acd276e",
+        "nativeExit": 1
+      },
+      "p10-cutover-ui-live-causal-green": {
+        "logSha256": "fef8151254816f2380f8c501158473a4fbeef6cb6903aad78c847018ea94a4b2",
+        "nativeExit": 0
+      }
+    },
+    "jsonSha256": "b82c250f2204bca01f147100ed17940d54277d188bcfb01fecce5cba117db84c",
+    "junitSha256": "768380c32adb3b9a980ad4cc1ce2ee33c29370590ad42d1a276cfd063eda7e36",
+    "touchJsonSha256": "d2791b77031834026460f55149605ff4017bb14934c9563ccbada4d0ac13f0a6",
+    "touchJunitSha256": "a98860c33bee4398825e321a2fcdd1245e390d6ed2548733d62b5bc552e815ed",
+    "rawManifestSha256": "76496b7ee68647b33a3db1935f62724b26b8f0b1ec7089530859afa1a9dc6030",
+    "currentWindowsAcceptance": "pending newHEAD, all5407/297each and142firstattempts required"
+  },
+  "sourceHashes": {
+    "scripts/ci/productivity-browser-contract.mjs": "87c68a002503bab0e29c9753c8258b892ee45829ad33218d756fda41f5f98a1a",
+    "scripts/ci/productivity-shard-contract.mjs": "fc5bf6025690e45fa5f563c926efba60d61d2ae6ce25620b42d9fb9c1089b202",
+    "scripts/ci/run-productivity-browser.mjs": "9ce4c432c886b89b0565448a9848928261cede03c3843d0d74d229e65face77d",
+    "scripts/ci/write-productivity-browser-fixture.ts": "8eec695f6de860d04d91618cb4feaaae3b13a494402bb26a76e34ba5c2f45577",
+    "scripts/windows/release-collector-evidence.mjs": "8bdfc9c6a49b17c4790ccdab65468f9fc3c451598c8fb3698a53b7664f2635af",
+    "scripts/windows/release-productivity-browser-files.mjs": "bf45d23ad606ba4691ab24ed722e0a8ab007c624ac1a9253db6c30885e9c48dc",
+    "scripts/windows/release-productivity-source-policy.mjs": "35fd25c45bf887a6cf44edb7e4757f0b2f518841b3b005b2480450a3e0aeb7cf",
+    "server/productivity/legacy-cutover.test.ts": "bbce64a42b5c0d7b1898e1b08adc0abedba1228fc941778e542fbf1c4904daa9",
+    "server/productivity/legacyCutoverRecord.ts": "6d4e8b3733ef28011eea0098021861dc78003eee9b4c84d06d39ddf484b7ef11",
+    "server/productivity/legacyRecurrenceCutover.ts": "fee86d4162d172dbc81319cb592d4f5599f2982a3d678463d78dbf2e27fe025b",
+    "server/productivity/router.ts": "1f9e88bf45d3da173a641665f8efe085e8a85601885e5d8823275c4e6bd221e3",
+    "src/features/productivity/RecurrenceEditor.tsx": "273f0a4a963de07e81d9a0d0b29841bed01cfaf941f842a05e8e26eb26e980df",
+    "src/features/productivity/TaskDrawer.tsx": "b78ac9b744fa1eb29c0991e29296b57fb1fa6dd31cea0fe1ba641ddd3c348c63",
+    "src/features/productivity/recurrence-editor-model.test.ts": "7dd26f2cd395f59dbc1d15aaa1adcf67eeb2e88225cc09bb2638153a1a71e4f1",
+    "src/features/productivity/recurrenceEditorModel.ts": "81ffa88008bdb9dd9cb47f1a607ae5f917338d94b9c7f59a2adcce1877e98025",
+    "src/features/productivity/series-api.test.ts": "3dd81a5f66312dc648ebe5b96164da42f6ebafd989378e1c7f5874905b5b123e",
+    "src/features/productivity/seriesApi.ts": "9a3aea133f0716220d753c74a1d920977e8591e7433e6024c6391eae84ad9180",
+    "src/i18n/locales/en.json": "c8db8a57a28016fe4d351b57d2f52849d13b685fdb58545e939d1549a90d6b6d",
+    "src/i18n/locales/vi.json": "7a438d22623f8d36bcec288139baaa83f0593707ba3dea82233d8cc0aa7ff4f9",
+    "src/i18n/locales/zh.json": "0bfbdb3bc306902bb77f60ad95a12b37278c19534fb133c6d78279512471662c",
+    "tests/e2e/productivity.spec.ts": "c8dc73988ff127ad240b8c98508549ab8e411e4fa2ab418af94d00b4a09a15b5",
+    "tests/helpers/release-productivity-browser-fixture.ts": "88a948042137a5fdca206fc0e4729e25023e78cc2e80a077b79d297ca365ab31",
+    "tests/kanban-browser-fixture.test.ts": "7cd6e51cdceb3bbdd03d07ad92ef9e7deffc746e9da7d2720e0a40d23044e1e4",
+    "tests/legacy-cutover-recovery-native.test.ts": "129d9eca7d20fd6621ed7656ebc249658f0f5b4199ff61c448bf0184b87e1aa7",
+    "tests/productivity-browser-evidence.test.ts": "894efa344df61819e5af5e7dcdf5a7c6db9f4899f2f202eb1f95693d85656fe3",
+    "tests/release-productivity-profile.test.ts": "db41e0596c5dd4eb4fb5dfca91239641178b6fe0e4be3b2e9d30d1de566b70eb"
+  },
+  "changedSuitesIndependentlyRead": {
+    "src/features/productivity/series-api.test.ts": 21,
+    "src/features/productivity/recurrence-editor-model.test.ts": 22,
+    "server/productivity/legacy-cutover.test.ts": 30,
+    "tests/release-productivity-profile.test.ts": 40,
+    "tests/legacy-cutover-recovery-native.test.ts": 1,
+    "tests/productivity-browser-evidence.test.ts": 67,
+    "tests/kanban-browser-fixture.test.ts": 1
+  },
+  "frozenMigrationDefinitionsVerified": 15,
+  "original30BrowserPrefixPreserved": true,
+  "acceptedParentSha": "5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77",
+  "defaultPilotMigration": 6,
+  "explicitPilotMigration": 13,
+  "browserFixtureMigration": 13,
+  "automaticUpgrade": false,
+  "actual13ZipQualification": "not-run",
+  "fullP10Accepted": false,
+  "fullMasterPlanAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "2ab7b68dc5d178ac457e276ce1711244dbeea00c",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "d30074a9e2c3bb0d674e2878ce0b145ed7c0df9e": "5792aa7987ed38d69977557abdbd616e89d44658",
+    "2ab7b68dc5d178ac457e276ce1711244dbeea00c": "5792aa7987ed38d69977557abdbd616e89d44658"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 26856,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

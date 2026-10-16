@@ -1,3 +1,4 @@
+import {validateCutoverSourcePolicy}from'./release-cutover-source-policy.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
@@ -17,6 +18,7 @@ export function readReleasePackageReportFiles(producerDirectory,consumerDirector
   requireFact(/^[a-f0-9]{40}$/.test(expected?.commitSha??'')&&Number.isSafeInteger(expected?.runId)&&expected.runId>0&&isReleaseVersion(expected?.appVersion));
   const producer=openReleaseReportFiles(producerDirectory),consumer=openReleaseReportFiles(consumerDirectory);
   const evidence=producer.json('producer-evidence.json'),producerExit=producer.json('producer-exit.json'),manifest=producer.json('release-manifest.json'),consumerExit=consumer.json('package-exit.json'),validation=consumer.json('package-validation.json');
+  const cutoverPackagePolicy=expected.cutoverPackagePolicy;requireFact(cutoverPackagePolicy===undefined||validateCutoverSourcePolicy(cutoverPackagePolicy));requireFact(manifest?.schema?.domains?.productivity?.max===(cutoverPackagePolicy?13:9));
   const runUrl='https://github.com/DongVienNguyen/Family-Organizer/actions/runs/'+expected.runId;
   for(const row of [evidence,producerExit,manifest,consumerExit,validation])requireFact(row.commitSha===expected.commitSha);
   for(const row of [evidence,producerExit,consumerExit])requireFact(row.runUrl===runUrl);
@@ -26,7 +28,7 @@ export function readReleasePackageReportFiles(producerDirectory,consumerDirector
   const dependency=manifest.dependencies.find(row=>row.path==='app/node_modules/better-sqlite3');
   requireFact(dependency?.name==='better-sqlite3'&&dependency.version===manifest.native.version);
   requireFact(producerExit.exitCode===0&&producerExit.fixtureCleanup===true&&producerExit.failure===null&&exits(producerExit.nativeExitCodes,['git','install','prepare','manifest'])&&exits(evidence.nativeExitCodes,['install','prepare','manifest']));
-  requireFact(consumerExit.exitCode===0&&consumerExit.fixtureCleanup===true&&consumerExit.sourceCheckoutPresent===false&&consumerExit.consumerInstall===false&&consumerExit.consumerRebuild===false&&exits(consumerExit.nativeExitCodes,['validation','launchValidation','launchWhatIf','denyAcl','production','functional','recovery','privateSettings','signingKey','providerEnv','onlineRecovery','boards','restoreAcl']));
+  requireFact(consumerExit.exitCode===0&&consumerExit.fixtureCleanup===true&&consumerExit.sourceCheckoutPresent===false&&consumerExit.consumerInstall===false&&consumerExit.consumerRebuild===false&&exits(consumerExit.nativeExitCodes,['validation','launchValidation','launchWhatIf','denyAcl','production','functional','recovery','privateSettings','signingKey','providerEnv','onlineRecovery','boards','restoreAcl',...(cutoverPackagePolicy?['cutover']:[])]));
   requireFact(validation.nodeVersion==='v24.21.0'&&validation.abi==='137'&&validation.napi==='10'&&validation.verifiedFiles===manifest.files.length&&validation.verifiedDependencies===manifest.dependencies.length&&validation.manifestVerified===true&&validation.nativeDatabaseClosed===true);
   const executable=validation.nodeExecutable;
   requireFact(typeof executable==='string'&&/^[a-z]:\\/i.test(executable)&&path.win32.normalize(executable)===executable&&safeArchivePath(executable.slice(3).replaceAll('\\','/'))&&executable.endsWith('\\bin\\node.exe'));
@@ -35,6 +37,6 @@ export function readReleasePackageReportFiles(producerDirectory,consumerDirector
   const name='family-organizer-win-x64.zip',file=path.join(producerDirectory,name),size=fs.lstatSync(file).size;
   // Current artifact is below64MiB. Larger packages require reviewed budgets.
   requireFact(Number.isSafeInteger(size)&&size>0&&size<=64*1024*1024&&size===evidence.zipSize&&hex(evidence.zipSha256)&&consumerExit.zipSha256===evidence.zipSha256&&producer.hash(name,64*1024*1024)===evidence.zipSha256&&producer.receipt().bytesHashed===size);
-  return {commitSha:expected.commitSha,runId:expected.runId,appVersion:expected.appVersion,zipSha256:evidence.zipSha256,zipSize:size,manifest,validation,packageReportAgreement:true,innerPackageAgreement:false,consumerFunctionalVerified:false,reportsVerified:false,publicationAllowed:false,producer:producer.receipt(),consumer:consumer.receipt()};
+  return {commitSha:expected.commitSha,runId:expected.runId,appVersion:expected.appVersion,zipSha256:evidence.zipSha256,zipSize:size,manifest,validation,...(cutoverPackagePolicy?{cutoverPackagePolicy:structuredClone(cutoverPackagePolicy)}:{}),packageReportAgreement:true,innerPackageAgreement:false,consumerFunctionalVerified:false,reportsVerified:false,publicationAllowed:false,producer:producer.receipt(),consumer:consumer.receipt()};
  }catch{reject();}
 }
