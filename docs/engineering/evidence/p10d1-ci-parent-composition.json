@@ -1,0 +1,50 @@
+{
+  "base": "a51f9a0ce12148f1a053ee9a3c5fea03c85f8ebf",
+  "acceptedParent": "2d5094fdc8fa91ad34299bc434fa77a0ff87af5b",
+  "p10BeforeComposition": "2bb953970c728ac73381d7515d87ce8b00887747",
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "strategy": "accepted-only",
+      "sha256": "bda69faa4391590f6b012b932cec2fcb748e30d015195d95f68eb31289bdb476"
+    },
+    {
+      "path": "docs/engineering/acceptance-performance.md",
+      "strategy": "accepted-only",
+      "sha256": "7f8212503d4627800d472016f1c806b741fe89c34d99d05fdeca3f48471c745b"
+    },
+    {
+      "path": "docs/engineering/evidence/ci-overlap-baseline.json",
+      "strategy": "accepted-only",
+      "sha256": "fd98005c16054e181c2cb9528720c907768f2c54b9c19be16aa335d88f278b2e"
+    },
+    {
+      "path": "docs/engineering/evidence/ci-overlap-review.json",
+      "strategy": "accepted-only",
+      "sha256": "8345ee0c010da063c89f32ffe7bf5495cdbfd0462265d6ae8869f345dd58af11"
+    },
+    {
+      "path": "docs/engineering/evidence/p09h-final.json",
+      "strategy": "accepted-only",
+      "sha256": "a1415ce11a42a6aebb73de075a2fed9da4b54cc66fd571dda96073014093d0f8"
+    },
+    {
+      "path": "docs/engineering/implementation-status.md",
+      "strategy": "both-appendices",
+      "sha256": "60a1d01a466dfb0ee7c035b37c408accf20dd2fed92597a88313a2e316265b45"
+    },
+    {
+      "path": "scripts/ci/wait-productivity-producers.mjs",
+      "strategy": "accepted-only",
+      "sha256": "34a30467102a26dfa67c1e9ff00e596ccf9967a5af4cc950a3222cafd230c982"
+    },
+    {
+      "path": "tests/productivity-ci-layout.test.ts",
+      "strategy": "accepted-only",
+      "sha256": "52899926d40c09e0e37de1c232c407cce4fc134b62ba4743f3035fc4410f9944"
+    }
+  ],
+  "semanticApplicationSourceChanges": false,
+  "p10SourceHashesUnchanged": true,
+  "historyMergeTreeEqual": true
+}

@@ -1,0 +1,17 @@
+{
+  "headSha": "bb89464940bb8745cb435792a7d36c0d54d1431f",
+  "tests": 4938,
+  "files": 268,
+  "failed": 0,
+  "skipped": 0,
+  "lintExit": 0,
+  "junitTests": 4938,
+  "hashes": {
+    "ci-overlap-full.json": "32f44dd9552044b7bb27960ee461c52d38592d392603b82b1ec89707a3983d05",
+    "ci-overlap-full.junit.xml": "a2b2ec1dc7281e6f3389e9e63c4c84f4802fa0a4152877cf54d045dd89d84552",
+    "ci-overlap-full.log": "f997d68d72fcf2a3d89a77cca3acf5f7f816790c718078c7f0896bc59121c261",
+    "ci-overlap-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "ci-overlap-target.json": "6988dbef4765389bc9af5a5f864c007dc76a22c99de5c39feb7aa7fcef4d2f46"
+  },
+  "verifierCorrection": "JUnit root omits skipped; verified all268 suite skipped counters instead. No raw changes or tests rerun."
+}

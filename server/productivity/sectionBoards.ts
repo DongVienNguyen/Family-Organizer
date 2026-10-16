@@ -11,7 +11,7 @@ export function assertMutableCatalogRevision(revision:number):void {
 /** Section writes and canonical board metadata share the caller's I01 transaction.
  * Candidate tables at schema6 are deliberately inactive; this never creates DDL. */
 export function syncSectionBoard(tx:AppWriteTx,section:{id:string;listId:string;archivedAt:string|null}):void {
- if(![7,8,9].includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))return;
+ if(![7,8,9,10].includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))return;
  const board=tx.get("SELECT id,revision FROM productivity_boards WHERE list_id=? AND mode='sections'",section.listId);
  if(!board)return;
  assertMutableCatalogRevision(board.revision);
