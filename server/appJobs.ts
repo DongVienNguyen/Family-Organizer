@@ -49,7 +49,9 @@ export class AppJobs {
       if (occurrence !== undefined) storage.enqueue({ namespace, type, key: occurrence, payload: {}, kind: job.kind });
       job.nextIntervalAt = now + job.everyMs;
     }
-    const lease = storage.claim(namespace, type, now, this.leaseMs);
+    // Enqueue may cross a millisecond boundary; its default available_at must
+    // be eligible on this tick without changing the stable occurrence payload.
+    const lease = storage.claim(namespace, type, Date.now(), this.leaseMs);
     if (!lease) return;
     let lost: unknown;
     const heartbeat = setInterval(() => {
