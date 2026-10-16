@@ -1,3 +1,4 @@
+import {browserLaunchOptions} from './scripts/ci/browser-launch-policy.mjs';
 import { chromium, firefox, webkit, defineConfig } from '@playwright/test';
 
 export default defineConfig({
@@ -27,5 +28,5 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   // Launch the same pinned executable whose SHA is recorded by the test harness.
-  projects: Object.entries({ chromium, firefox, webkit }).map(([name, driver]) => ({ name, use: { browserName: name as 'chromium' | 'firefox' | 'webkit', launchOptions: { executablePath: driver.executablePath() } } })),
+  projects: Object.entries({ chromium, firefox, webkit }).map(([name, driver]) => ({ name, use: { browserName: name as 'chromium' | 'firefox' | 'webkit', launchOptions: browserLaunchOptions(name,driver.executablePath()) } })),
 });

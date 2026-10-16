@@ -72,3 +72,5 @@ it('closes the diagnostic descriptor when synchronous launch fails',()=>{
   let code;try{fs.fstatSync(descriptor!);}catch(error:any){code=error.code;}expect(code).toBe('EBADF');
  }finally{spy.mockRestore();if(descriptor!==undefined){try{fs.closeSync(descriptor);}catch{/* Already closed is required above. */}}fs.rmSync(root,{recursive:true});}
 });
+
+it('retains only the exact profiler mitigation boolean while redacting all command paths and private arguments',()=>{const row=(protocol as any).redactBrowserDriverLine('pw:browser <launching> synthetic-private-command --disable-stack-profiler --token=synthetic-secret');expect(row).toEqual({diagnosticOnly:true,event:'launch-command-redacted',windowsStackProfilerDisabled:true});expect(JSON.stringify(row)).not.toContain('synthetic');for(const flag of ['--disable-stack-profiler-other','--disable-stack-profiler=false'])expect((protocol as any).redactBrowserDriverLine('pw:browser <launching> synthetic '+flag)).not.toHaveProperty('windowsStackProfilerDisabled');});

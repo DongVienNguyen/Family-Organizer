@@ -30,7 +30,7 @@ const suiteNames = [
   'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
   'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts', 'server/objectAclHttp.test.ts', 'server/mediaHttp.test.ts', 'server/mediaMetadata.test.ts', 'tests/media-cold-restore.test.ts', 'src/utils/mediaResource.test.ts', 'tests/ui/authenticated-media.test.ts', 'tests/compiled-media-policy.test.ts', 'server/taskPayload.test.ts', 'server/taskPayloadHttp.test.ts', 'tests/ui/task-reward-policy.test.ts', 'server/contentPayload.test.ts', 'server/contentPayloadHttp.test.ts', 'tests/ui/note-sharing-policy.test.ts', 'server/derivedPrivacyHttp.test.ts', 'server/derivedPrivacyNative.test.ts', 'tests/httpDependencySecurity.test.ts', 'tests/account-initialization.test.ts', 'tests/librarySecurity.test.ts', 'server/weeklyDigestPrivacy.test.ts', 'server/weeklyDigestHttp.test.ts',
 
-  'tests/browser-protocol.test.ts',
+  'tests/browser-launch-policy.test.ts','tests/browser-protocol.test.ts',
   'server/legacyCalendarHttp.test.ts',
   'server/legacyAiHttp.test.ts',
   'tests/release-collector-evidence.test.ts',
@@ -432,3 +432,5 @@ it('rejects missing P09 physical command owner state mandatory suite',()=>{const
 
 it('rejects missing P09 physical section dialog mandatory suite',()=>{const suite='src/features/productivity/kanban-section-ui.test.tsx';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
 it.each(['tests/productivity-report-layout.test.ts','tests/productivity-shards.test.ts','tests/productivity-merge.test.ts','tests/productivity-ci-layout.test.ts'])('requires independent browser execution suite %s',suite=>{const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});
+
+it('requires the pinned native browser launch regression suite',()=>{const suite='tests/browser-launch-policy.test.ts';const result=runEvidence(reports=>{reports['vitest.json'].testResults=reports['vitest.json'].testResults.filter((row:any)=>!row.name.endsWith(suite));});expect(result.evidence.errors).toContain('required suite missing: '+suite);});

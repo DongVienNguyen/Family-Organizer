@@ -61,7 +61,7 @@ const requiredSuites = [
   'server/app.test.ts', 'server/lifecycle.test.ts', 'server/appJobs.test.ts',
   'server/appEffects.test.ts', 'server/systemMetrics.test.ts', 'tests/runtime-process.test.ts', 'tests/ui/windows-version.test.tsx', 'tests/runtime-ownership.test.ts',
 
-  'tests/browser-protocol.test.ts',
+  'tests/browser-launch-policy.test.ts','tests/browser-protocol.test.ts',
   'server/legacyCalendarHttp.test.ts',
   'server/legacyAiHttp.test.ts',
   'tests/release-collector-evidence.test.ts',
