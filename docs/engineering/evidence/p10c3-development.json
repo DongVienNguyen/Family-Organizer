@@ -1,0 +1,201 @@
+{
+  "taskId": "P10-c3",
+  "baseSha": "dd70562cde2cd11d05454515331bf57ac09842d5",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/113",
+  "scope": "pure recurrence policy normalization and rotation cursor transitions; no runtime/persistence/activation",
+  "cloudGreen": {
+    "tests": 4531,
+    "passed": 4531,
+    "files": 250,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4531,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4531,
+    "files": 250
+  },
+  "review": {
+    "task": "P10-c3",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 1,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "8a69e612c78bdd22359d9d0b6963e9913ec2bfec954a26b695cc8819d4cbc898",
+      "server/productivity/recurrence-policy.test.ts": "5b79553d00a74f08c46e0c5e71c0eb3a7410de934b11f89fd09bf4c73c805d1c",
+      "server/productivity/recurrencePolicy.ts": "952db94b090a250ffe1168bd8801aae67dc90c40407e34178cef02f3e4b57769",
+      "tests/evidence.test.ts": "714fec67216428027b4fd9a2b44e7715fe1e3324737a437ed1a96e4cba35dd32",
+      "tests/recurrence-calendar-import.test.ts": "0c17471ecb1cc9ded07fb3283ede0d3ce86ebbbf24abc94aeddff637303cd12a"
+    },
+    "rulings": [
+      {
+        "severity": "Important",
+        "finding": "Empty rotation members require cursor0, so disabling a previously-used rotation would either reject or force history cursor rewind",
+        "decision": "Preserve any valid nonnegative safe cursor when rotation is disabled. Add all-five-transition regression cases; reclassify the old empty-members/cursor1 invalid fixture to truly invalid NaN, retaining all six invalid-state assertions."
+      }
+    ],
+    "focus": [
+      "strict bounded recurrence policy/unknown fields/timezone/calendar/specificdates/end/count/missed variants",
+      "detached normalized config without Task/series persistence or scheduling authority",
+      "accepted-occurrence claim requirement before cursor advance; overflow guard",
+      "skip/pending/reject/reopen and disabled rotation preserve monotonic cursor",
+      "cold import, synthetic data and mandatory omission evidence"
+    ],
+    "remaining": [
+      "durable unique occurrence claims/cursor storage and actual user/ACL validation belong to future writer",
+      "null assignee means disabled rotation, not authority to clear Task assignee",
+      "end/count/missed policy normalized only; no materialization or default activation",
+      "full P10/P08/P09/master/R02 unfinished; no release/tag/VPS"
+    ],
+    "importantRemaining": 0,
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "8a69e612c78bdd22359d9d0b6963e9913ec2bfec954a26b695cc8819d4cbc898",
+      "server/productivity/recurrence-policy.test.ts": "acd4298ac234c727525d6d2027660c5ccffcdbff1d71cbc92410caac4c596556",
+      "server/productivity/recurrencePolicy.ts": "cc3ec1c9bca37840a36ce144b8fe35900c9a157dab130d026c937cdb2525a016",
+      "tests/evidence.test.ts": "714fec67216428027b4fd9a2b44e7715fe1e3324737a437ed1a96e4cba35dd32",
+      "tests/recurrence-calendar-import.test.ts": "0c17471ecb1cc9ded07fb3283ede0d3ce86ebbbf24abc94aeddff637303cd12a"
+    },
+    "correctionGreen": {
+      "tests": 334,
+      "passed": 334,
+      "files": 3
+    }
+  },
+  "composition": {
+    "latestParentCandidateSha": "07d4276fa93f0a320a6ff3c2cee84a897dac5e74",
+    "acceptedFoundationSha": "1f539ac9fcd75372e6f9d44b143b1f5093fa7c74",
+    "parentAcceptance": "PR112 accepted CI38843614377; API/Git trees equal; history composition entire tested tree unchanged",
+    "oldSourceParentSha": "c63fa54dd426b60968f40169b35b1423d7dcba58",
+    "parentUpdateDocsAndHistoryOnly": true,
+    "policyFullSourceUnchanged": true,
+    "currentHead": "0d0c88848c94e29002e1fa774ecfd80700fcf0b1",
+    "expectedQuality": {
+      "tests": 4531,
+      "files": 250
+    },
+    "acceptedMainSha": "dd70562cde2cd11d05454515331bf57ac09842d5",
+    "acceptedParentTestedSha": "07d4276fa93f0a320a6ff3c2cee84a897dac5e74",
+    "acceptedMainCompositionTreeUnchanged": true
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "8a69e612c78bdd22359d9d0b6963e9913ec2bfec954a26b695cc8819d4cbc898",
+      "server/productivity/recurrence-policy.test.ts": "acd4298ac234c727525d6d2027660c5ccffcdbff1d71cbc92410caac4c596556",
+      "server/productivity/recurrencePolicy.ts": "cc3ec1c9bca37840a36ce144b8fe35900c9a157dab130d026c937cdb2525a016",
+      "tests/evidence.test.ts": "714fec67216428027b4fd9a2b44e7715fe1e3324737a437ed1a96e4cba35dd32",
+      "tests/recurrence-calendar-import.test.ts": "0c17471ecb1cc9ded07fb3283ede0d3ce86ebbbf24abc94aeddff637303cd12a"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "222c116f47d654f0e214e39428a508c0c295ecdcab6e9808a6e7876d9d493682",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p10c3-full.json": "51455b28ba4fd452b6e57bd713fee7dad3a9a5f6bf27fbaaeef37838e789ea96",
+      "p10c3-full.junit.xml": "d028e1234d659c0151d42107ac8538e818b5176ab256e28643ee87d5fbbd1e7c",
+      "p10c3-full.log": "72a8924e02aa1ed6e32f2cd051b77f1c03cef19c1e48c223ae13b4b2ae8018e7",
+      "p10c3-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p10c3-build.log": "005d834dcad55e29f83df7e3705c887a42f08cac68a227d5a3409d8ad10655d9"
+    },
+    "windowsAcceptance": "pending exact HEAD/all8/ELEVENraw/retained23ZIPchecks/28HTTP/100IPC/103firstattempt; no native recurrence probe"
+  },
+  "reports": [
+    {
+      "file": "p10c3-disabled-cursor-red.json",
+      "sha256": "6836d3a994351597ea7a69654d0f01c624b8c64618b9c39faf4f53887552fa55",
+      "tests": 39,
+      "passed": 34,
+      "failed": 5,
+      "files": 1
+    },
+    {
+      "file": "p10c3-full.json",
+      "sha256": "51455b28ba4fd452b6e57bd713fee7dad3a9a5f6bf27fbaaeef37838e789ea96",
+      "tests": 4531,
+      "passed": 4531,
+      "failed": 0,
+      "files": 250
+    },
+    {
+      "file": "p10c3-policy-corrected-target.json",
+      "sha256": "15edc3524dd63820c8a8a9e2a53f8a2c13546fa0e1e78a723c0e05c54e44ced2",
+      "tests": 334,
+      "passed": 334,
+      "failed": 0,
+      "files": 3
+    },
+    {
+      "file": "p10c3-policy-gate-red.json",
+      "sha256": "5be01a027e8dea27893aedbdf3a3ecf2f16180d42a6719ca3fe6e19fd450c8d6",
+      "tests": 295,
+      "passed": 294,
+      "failed": 1,
+      "files": 2
+    },
+    {
+      "file": "p10c3-policy-green-first.json",
+      "sha256": "f87a274c8aefcb2422fd712fb3da0c05d2df8ae8d4ea78803b599840db1ed617",
+      "tests": 34,
+      "passed": 34,
+      "failed": 0,
+      "files": 1
+    },
+    {
+      "file": "p10c3-policy-red.json",
+      "sha256": "092949285cb15054cda7c5122a01f2a248c701a4c8a141e4ad41c3722301335d",
+      "tests": 34,
+      "passed": 9,
+      "failed": 25,
+      "files": 1
+    },
+    {
+      "file": "p10c3-policy-target-green.json",
+      "sha256": "7a80f06e4d701cd64040a740f06af00239d7ccc8cfb47c4dc60b861618233045",
+      "tests": 383,
+      "passed": 383,
+      "failed": 0,
+      "files": 5
+    }
+  ],
+  "redRulings": {
+    "initialPolicy": {
+      "tests": 34,
+      "passed": 9,
+      "failed": 25,
+      "scaffoldFailClosedNotCausal": 9
+    },
+    "disabledCursorCorrection": {
+      "tests": 39,
+      "passed": 34,
+      "failed": 5
+    },
+    "mandatoryGate": {
+      "tests": 295,
+      "passed": 294,
+      "failed": 1
+    }
+  },
+  "remaining": [
+    "durable unique occurrence claims/cursor storage and actual user/ACL validation belong to future writer",
+    "null assignee means disabled rotation, not authority to clear Task assignee",
+    "end/count/missed policy normalized only; no materialization or default activation",
+    "full P10/P08/P09/master/R02 unfinished; no release/tag/VPS"
+  ],
+  "fullP10Accepted": false,
+  "runtimeWiringChanged": false,
+  "schemaMigrationDefaultActivationDependenciesChanged": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run"
+}
