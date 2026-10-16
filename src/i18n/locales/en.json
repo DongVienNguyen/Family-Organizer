@@ -1685,6 +1685,13 @@
     "unavailableMember": "Member unavailable",
     "untagged": "Untagged",
     "unavailableTag": "Tag unavailable",
-    "noDue": "No due date"
+    "noDue": "No due date",
+    "view": "Kanban",
+    "workspace": "Kanban workspace",
+    "picker": "Choose Kanban board",
+    "choose": "Choose board",
+    "timezone": "Board timezone",
+    "noViews": "No saved Kanban views.",
+    "failed": "Could not load the current board. Reload to check data and access."
   }
 }

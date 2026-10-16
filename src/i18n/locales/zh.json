@@ -1685,6 +1685,13 @@
     "unavailableMember": "成员不可用",
     "untagged": "无标签",
     "unavailableTag": "标签不可用",
-    "noDue": "无截止日期"
+    "noDue": "无截止日期",
+    "view": "看板",
+    "workspace": "看板工作区",
+    "picker": "选择看板",
+    "choose": "选择看板",
+    "timezone": "看板时区",
+    "noViews": "没有已保存的看板视图。",
+    "failed": "无法加载当前看板。请重新加载以检查数据和访问权限。"
   }
 }
