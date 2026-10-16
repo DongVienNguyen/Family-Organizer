@@ -4,6 +4,8 @@
   "developmentHead": "d1d70a6874ddcee56a6512ae7d74173d6b5141c3",
   "sourceFiles": {
     "scripts/ci/productivity-browser-contract.mjs": "d37d2641aa5a9fd472cfde56992931701491a9b8f67125bfed4c8377d780b200",
+    "scripts/ci/run-productivity-browser.mjs": "08d5ce5b2261424a24c4868988aa3a44373c8ecf778cf5c6bb20fff3c5bd67ab",
+    "scripts/ci/write-productivity-browser-fixture.ts": "bbccbed9d7f568c62d65f377c9db314bbfcdec2813110d9a2e31dfbcfad95ff0",
     "scripts/windows/release-productivity-source-policy.mjs": "9ad0ca889c697270dc70b60ffca25bac84e43f1561540494ba91873838326bc5",
     "server/productivity/boardRouter.ts": "cdcef27d2c7add62e16f7917a96aecc0bdec23490a8c2432c49a1af98947bef0",
     "server/productivity/ports.ts": "d7adf39f301a79646fcb5c4b0ac140276577f762d4f68ad3adcb261248bc40be",
@@ -32,8 +34,9 @@
     "src/i18n/locales/en.json": "6f9d85fb1680a87ffb2be2aa4ceda3504d2972cf19a09684d85b6d847e298ba9",
     "src/i18n/locales/vi.json": "4620c037141831c1a8ba6584e513c00216eae926bd25a78670ed512992b3317e",
     "src/i18n/locales/zh.json": "2a8d572b299b8ccaa54cb8fe14e489971fb71a95c10e3c04ce8fd7272c20af2c",
-    "tests/e2e/productivity.spec.ts": "80b7666bcaa765219ed1b910141a4df61dbcf7beb83d022508fa1d1393db47d2",
+    "tests/e2e/productivity.spec.ts": "e163662ad2f49a64f4e47970ab4f8fbe803a9adf824bf8182e789276e8f44e2b",
     "tests/helpers/release-productivity-browser-fixture.ts": "d2d36ba96623c17588c6b2aebf2be490569364fa6ebf79b3cf04e40295cb8f25",
+    "tests/kanban-browser-fixture.test.ts": "88d0681ac615ca584145c256980a1675dd014d893bab009fac435611de80d240",
     "tests/release-productivity-profile.test.ts": "d1c45f5c5c5d753fb6cfd008e649bf87e8e6d4c140406b26d43dbcfee54ff5dc"
   },
   "wholeBranchReview": {
@@ -148,6 +151,109 @@
     "verificationIsNotRereview": true
   },
   "cloud": {
+    "tests": 5834,
+    "files": 318,
+    "junitMatched": true,
+    "qualityExit": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "currentChromiumCases": 39,
+    "combinedNativeTouchCases": 1,
+    "browserNativeExit": 0,
+    "nativeTouchRuntime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "nodeVersion": "v24.21.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "maxTouchPoints": 1,
+      "nativeTouchPointer": {
+        "pointerType": "touch",
+        "trusted": true
+      },
+      "checkboxNoPreview": true,
+      "cancelNoTaskMutation": true,
+      "reducedMotion": true,
+      "previewTarget": "q2",
+      "errors": [],
+      "kanbanSectionTouch": {
+        "version": 1,
+        "pointer": {
+          "pointerType": "touch",
+          "trusted": true
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "previewNotAutomatic": true,
+        "targetPrefilled": true,
+        "previewReadOnly": true,
+        "cancelNoTaskMutation": true,
+        "noRewards": true
+      }
+    },
+    "productionBuild": {
+      "serverSha256": "202e35d0f289fd61248e690df071fa559f3c1f48492226da3ac978d2d7ae930f",
+      "indexSha256": "c14e868f1a25aa00f8dcfe4132163877462bf34706929d936a36a7f25718fc86"
+    },
+    "full39CaseCloudBrowser": "passed with original39seed and final isolated13seed; all assertions retained",
+    "firefox": "not-run on Cloud; earlier host-profile failure retained",
+    "webkit": "not-run on Cloud; earlier missing host libraries retained"
+  },
+  "changedSuiteCounts": {
+    "server/productivity/workflow-transitions.api.test.ts": 6,
+    "server/productivity/workflow-transitions.test.ts": 29,
+    "src/features/productivity/kanban-review-ui.test.tsx": 9,
+    "src/features/productivity/kanban-transition-controls.test.tsx": 8,
+    "src/features/productivity/kanban-transition-ui.test.tsx": 11,
+    "src/features/productivity/review-api.test.ts": 25,
+    "src/features/productivity/review-command-state.test.ts": 18,
+    "src/features/productivity/workflow-transition-api.test.ts": 40,
+    "src/features/productivity/workflow-transition-state.test.ts": 20,
+    "tests/release-productivity-profile.test.ts": 63,
+    "tests/productivity-browser-evidence.test.ts": 74,
+    "tests/kanban-browser-fixture.test.ts": 5
+  },
+  "preCorrectionFull": {
+    "tests": 5825,
+    "files": 318,
+    "qualityExit": 0,
+    "lintExit": 0
+  },
+  "original35BrowserSourcePrefixPreserved": true,
+  "entireMatrixAndSectionTouchSpecUnchanged": true,
+  "dependenciesChanged": false,
+  "migrationDefinitionsChanged": false,
+  "frozenMigrationDefinitionsVerified": 15,
+  "defaultStorageVersion": 6,
+  "explicitFixtureVersion": 13,
+  "developmentFailuresRetained": [
+    "25domain scaffold RED before active command",
+    "6actual HTTP404 RED before route binding",
+    "SDK missing methods/0revision caller guard RED before strict transport",
+    "UI missing modules/first wrong plan-kind type mismatch retained",
+    "4pending-terminal controller RED before source guard",
+    "2softWIP domain/UI RED before warning",
+    "5review4xx duplicate-dispatch RED before context retirement",
+    "6current C36\u2013C38 older-fixture source policy RED before explicit13 guards",
+    "C36 original direct legacy collection-envelope fixture error; assertions retained against existing direct Task endpoint",
+    "C37/C38 owned workflow-view setup failures; explicit board reference and actor-owned view repair",
+    "C39 actual post-SSE authorized-read lost-lock RED before persistent API-session command owner",
+    "Windows38957448740 Chromium/Firefox38pass1failC38 first-page fixture; WebKit35pass then native12minute SIGKILL, no rerun",
+    "Per-engine seed TDD1pass4actualRED before isolation/strict pre-filesystem project validation"
+  ],
+  "windowsAcceptance": "pending new exact-HEAD Windows CI after four-file fixture repair",
+  "fullP08P09P10M1": false,
+  "fullMasterPlan": false,
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false,
+  "previousCloudQualification": {
     "tests": 5830,
     "files": 318,
     "junitMatched": true,
@@ -203,48 +309,73 @@
     "firefox": "not-run on Cloud; earlier host-profile failure retained",
     "webkit": "not-run on Cloud; earlier missing host libraries retained"
   },
-  "changedSuiteCounts": {
-    "server/productivity/workflow-transitions.api.test.ts": 6,
-    "server/productivity/workflow-transitions.test.ts": 29,
-    "src/features/productivity/kanban-review-ui.test.tsx": 9,
-    "src/features/productivity/kanban-transition-controls.test.tsx": 8,
-    "src/features/productivity/kanban-transition-ui.test.tsx": 11,
-    "src/features/productivity/review-api.test.ts": 25,
-    "src/features/productivity/review-command-state.test.ts": 18,
-    "src/features/productivity/workflow-transition-api.test.ts": 40,
-    "src/features/productivity/workflow-transition-state.test.ts": 20,
-    "tests/release-productivity-profile.test.ts": 63,
-    "tests/productivity-browser-evidence.test.ts": 74
-  },
-  "preCorrectionFull": {
-    "tests": 5825,
-    "files": 318,
-    "qualityExit": 0,
-    "lintExit": 0
-  },
-  "original35BrowserSourcePrefixPreserved": true,
-  "entireMatrixAndSectionTouchSpecUnchanged": true,
-  "dependenciesChanged": false,
-  "migrationDefinitionsChanged": false,
-  "frozenMigrationDefinitionsVerified": 15,
-  "defaultStorageVersion": 6,
-  "explicitFixtureVersion": 13,
-  "developmentFailuresRetained": [
-    "25domain scaffold RED before active command",
-    "6actual HTTP404 RED before route binding",
-    "SDK missing methods/0revision caller guard RED before strict transport",
-    "UI missing modules/first wrong plan-kind type mismatch retained",
-    "4pending-terminal controller RED before source guard",
-    "2softWIP domain/UI RED before warning",
-    "5review4xx duplicate-dispatch RED before context retirement",
-    "6current C36–C38 older-fixture source policy RED before explicit13 guards",
-    "C36 original direct legacy collection-envelope fixture error; assertions retained against existing direct Task endpoint",
-    "C37/C38 owned workflow-view setup failures; explicit board reference and actor-owned view repair",
-    "C39 actual post-SSE authorized-read lost-lock RED before persistent API-session command owner"
-  ],
-  "windowsAcceptance": "pending exact-HEAD Windows CI",
-  "fullP08P09P10M1": false,
-  "fullMasterPlan": false,
-  "server2019Acceptance": "not-run",
-  "publicationAllowed": false
+  "postReviewCiRepair": {
+    "failedHeadSha": "34b84de912dca60f77334da0dc359f1397e18175",
+    "failedRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38957448740",
+    "mode": "CI validation repair after the closed formal review; no second formal review",
+    "rereview": false,
+    "sourceHashes": {
+      "tests/e2e/productivity.spec.ts": "e163662ad2f49a64f4e47970ab4f8fbe803a9adf824bf8182e789276e8f44e2b",
+      "scripts/ci/run-productivity-browser.mjs": "08d5ce5b2261424a24c4868988aa3a44373c8ecf778cf5c6bb20fff3c5bd67ab",
+      "scripts/ci/write-productivity-browser-fixture.ts": "bbccbed9d7f568c62d65f377c9db314bbfcdec2813110d9a2e31dfbcfad95ff0",
+      "tests/kanban-browser-fixture.test.ts": "88d0681ac615ca584145c256980a1675dd014d893bab009fac435611de80d240"
+    },
+    "applicationRuntimeSourceUnchanged": true,
+    "processTimeoutsUnchanged": true,
+    "browserAssertionsUnchanged": true,
+    "assertionComparison": {
+      "beforeSha": "34b84de912dca60f77334da0dc359f1397e18175",
+      "file": "tests/e2e/productivity.spec.ts",
+      "beforeSha256": "80b7666bcaa765219ed1b910141a4df61dbcf7beb83d022508fa1d1393db47d2",
+      "afterSha256": "e163662ad2f49a64f4e47970ab4f8fbe803a9adf824bf8182e789276e8f44e2b",
+      "assertionCalls": 1184,
+      "assertionTextSequenceUnchanged": true,
+      "original35SourcePrefixUnchanged": true
+    },
+    "old39SeedFullBrowser": {
+      "cases": 39,
+      "nativeTouchCases": 1,
+      "nativeExit": 0,
+      "durationMs": 404444.074
+    },
+    "newIsolatedSeedFullBrowser": {
+      "cases": 39,
+      "nativeTouchCases": 1,
+      "nativeExit": 0,
+      "durationMs": 498767.809,
+      "fixtureProject": "chromium",
+      "tasks": 13,
+      "views": 9,
+      "boards": 2,
+      "defaultSeedTasks": 39
+    },
+    "isolatedFixtureTdd": {
+      "redPassed": 1,
+      "redFailed": 4,
+      "greenPassed": 5,
+      "greenFailed": 0
+    },
+    "productionBuildUnchanged": {
+      "serverSha256": "202e35d0f289fd61248e690df071fa559f3c1f48492226da3ac978d2d7ae930f",
+      "indexSha256": "c14e868f1a25aa00f8dcfe4132163877462bf34706929d936a36a7f25718fc86"
+    },
+    "noClaimOfWindowsPerformanceYet": true,
+    "changes": [
+      "Dedicated Review view query includes the subject title without a lifecycle filter, keeping the approved card visible after the Done reorder.",
+      "Per-engine jobs seed exactly their own complete13Task privacy/query/checklist/recurrence/trash/completion fixtures, retaining all9views/two boards and the original39Task default mode.",
+      "Runner validates the declared fixtureProject and13/39task count. Four actual RED regressions verify project isolation and refusal before creating roots."
+    ],
+    "reportHashes": {
+      "p08-ci-fixture-final-full.json": "a6b49bcc9760cc802e3228783552de84f3b30611d407ed7bf5173042c39b154c",
+      "p08-ci-fixture-final-full.xml": "4811edcae0ed31d0decbae8133a56dde095145fbf54f451507d0a4e82f4131c2",
+      "p08-ci-fixture-final-full-quality.log": "60d3488ce696aafb2150228e1d17fc15b629dfad5982d7cb0b60dacf086cfca4",
+      "p08-ci-fixture-final-full-exits.json": "8ca75e1443819a5ab6b2431208d15214a7a78f3199236ca5cf654a8c0c87b31a",
+      "p08-isolated-seed-red.json": "5eceef6b314f608c0d2aa0528448113d846420279d9d6e32101c0a42f00071e6",
+      "p08-isolated-seed-green.json": "3ed77641ccd1b7b7db722c9963b9db58ccf86d7de9ea121af17519fd045d0f76",
+      "p08-isolated-seed-green-exits.json": "cd7991af6f87f0a70afceb56a8fdb3c21d1d041391bda3c0b31db6b4dea49eca",
+      "p08-active-workflow-ci-repair-full39-native-exit.json": "679a44edaefaec30bfc4776d7a57323675b9030ade644cb2ee90c080bbae6ad0",
+      "p08-isolated-ci-repair-full39-native-exit.json": "779ebc09be701251eb8cb91c4c6fda86c9a063d064ce40d8ba2042b3ad66b092"
+    },
+    "timingComparability": "Cloud timings are not a controlled speed comparison: final isolated browser execution overlapped the full5834-test suite; old39-seed execution did not. Windows qualification and its unchanged12minute bound remain mandatory."
+  }
 }

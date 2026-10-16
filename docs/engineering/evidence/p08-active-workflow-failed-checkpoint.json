@@ -1,0 +1,306 @@
+{
+  "exactHeadSha": "34b84de912dca60f77334da0dc359f1397e18175",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38957448740",
+  "accepted": false,
+  "artifacts": 8,
+  "allLogFilesRead": 128,
+  "logLines": 28116,
+  "logSha256": {
+    "0_ci-gate.txt": "635cbed4bd23fa9919a7eb524b319340cd4be9035a3f7e729c40b41221ddfc42",
+    "ci-gate/system.txt": "89706c6235f7a68f616324314378b9b79436b853b7dd34ba5b3a9cd751d97998",
+    "ci-gate/1_Set up job.txt": "f4bbb9d9e5a624a8e828edc48bf99c2bb214f6f9702ea628e11709d0b6d1770a",
+    "ci-gate/2_Require Windows quality, browser, package and service checks to succeed.txt": "1c56294c9e3bfc022f2882779bd3a2e1451a109d536f98e6e4a592c78767477a",
+    "ci-gate/3_Complete job.txt": "73859a9e893dfa386f3a0059f069e58e5fc92ae3bd2abc0c04af868a31f4982c",
+    "1_Windows disposable service.txt": "69202fe3c166954e94da6dbf3240c8976b42a2427c151158d04cb31895992946",
+    "Windows disposable service/system.txt": "ad3793fc8e3902f8d99a6a281d4699ef4204b1edfdece8d324558627c47a292e",
+    "Windows disposable service/1_Set up job.txt": "760c30b4c2209fdca7d8ae4d257379f6ce859fea9331b86ca0e3e0b0768d2d3e",
+    "Windows disposable service/2_Run actions_download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333.txt": "a2b572548830b097c5fe5de5a2d9eafb31696a903686eb923521617fe9cebc66",
+    "Windows disposable service/3_Run actions_download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333.txt": "e7d0eb157046a02fdd74b07cbf10fc86092e0c35c23f28c5568cf2ab76ee35f4",
+    "Windows disposable service/4_Verify early service failure produces typed cleanup evidence.txt": "9b0a606ab97c012bba299ba22acd01873d734b3975be64ffc771d31fd2dc9b49",
+    "Windows disposable service/5_Verify actual service on disposable Windows without checkout or rebuild.txt": "1cc68a031d5fa18e72e55d753e86f87c3bce7b4ac5a9f7b650b72111f86e4b6a",
+    "Windows disposable service/6_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "64d087287094c250356180b06e3fd30fc5e1a5f13e2c6000bc808d0bbec72919",
+    "Windows disposable service/7_Complete job.txt": "8d7b83e5229e9e3881ae8511759c794064981933ee92889ba471a6fa6ef73f84",
+    "2_Windows package clean consumer.txt": "61ff6e687e37ec5a29dcb0280811571aacbedd701a3f263366b0d5b5f32942a9",
+    "Windows package clean consumer/system.txt": "bc5c1aeb15f61ffc2cb4780f26dee29d2b0d8fa1dc867bd7c1f43474bb2b1300",
+    "Windows package clean consumer/1_Set up job.txt": "6513fdbcc03fcb9aa5a453b8b1c7c5c4a7f8179529ba232e52c9830fa8b95304",
+    "Windows package clean consumer/2_Run actions_download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333.txt": "947bfca5d3bdaf15bd0034badbfd671665d387d73949931c433dc0c05668953f",
+    "Windows package clean consumer/3_Run actions_download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333.txt": "f82b12a86623685e6461f82f4956f1e3c1c7b083dbc752e7d3aff7dedde2317d",
+    "Windows package clean consumer/4_Validate and exercise the downloaded ZIP without checkout or rebuild.txt": "6170a661c64310b7fd6313300ca845c9db700d29aadb05ddb98a0409312371ba",
+    "Windows package clean consumer/5_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "4b84f31bbe2c9ca4b96239e72e17bbb9a5690b2614db9ed9683a355bd3b9b126",
+    "Windows package clean consumer/6_Complete job.txt": "a1172bf93099de3fa6f9ed791d82a3623e3848ba7d9f22a54fac5f01adab77f7",
+    "3_Windows productivity browsers.txt": "fce50cef2ba64b8cfb17d168a99a50c60dffebaeceb3265176511b6111c71096",
+    "Windows productivity browsers/system.txt": "220ad2c0284d87dae809d5e6800b572d30e57e888e5be436c8074800fd995061",
+    "Windows productivity browsers/1_Set up job.txt": "72556c0565f80b4d570d29d5d32cc24ff1f9ebb32cfc49e08461bd809ecedc71",
+    "Windows productivity browsers/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "a0c82301602025ac315911f8906cd83af0faf857dcb590f657d448bdad9d2299",
+    "Windows productivity browsers/3_Run actions_setup-node@a0853c24544627f65ddf259abe73b1d18a591444.txt": "50a36096361e6366650ff3d748b8d8ad84abe24e3cc06ce19f061f94641035fe",
+    "Windows productivity browsers/4_Resolve npm cache directory.txt": "e436e59b0f3ebaa64ae278a017c1d53d83256801b9d1bea41b13ed06c5d678e4",
+    "Windows productivity browsers/5_Run actions_cache@caa296126883cff596d87d8935842f9db880ef25.txt": "87181911b34e50d063bae88c3e58fe43ed6b2cf37659ce2ecb9c2d42f4d0907f",
+    "Windows productivity browsers/6_Prepare pinned local native builder SDK.txt": "4c627c6a45d376d452b123707bee39bc81d2e3651c937ff16a5aec542a968293",
+    "Windows productivity browsers/7_Install from lockfile.txt": "c08ad48e4393e4509c0826da587a95fbf991d058989d6fa771c0a92dbfe6bf88",
+    "Windows productivity browsers/8_Native SQLite compatibility.txt": "0fe76c653a49678e44a24714f7171f376b250163a9773bda32b32cc56fd7de22",
+    "Windows productivity browsers/9_Production build.txt": "a4b8c7762148d494c3d9d37230baf7d22850a521e9df610d0826a8a2b513d5fe",
+    "Windows productivity browsers/10_Offline browser regression.txt": "45bd6e63bf47ac33a8940d86867a30efd4ab1d51187260926a3a766f9bf17e95",
+    "Windows productivity browsers/15_Validate browser evidence.txt": "1154912ae5524a09c3f52cf9592aa9eaf13ed9ed492a7192126b8344e0fb1b0c",
+    "Windows productivity browsers/16_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "f33b83f6deb419ff8d53adaeaa1669ce0afefc76980b6eec1028d823d865281a",
+    "Windows productivity browsers/32_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "629984f27af3fe18fd1637187897fe314e979f9e563b4215b5ef417bc95780a0",
+    "Windows productivity browsers/33_Complete job.txt": "5bf7a8b8cdc71ee357037fa61681d594d6778d72fa29ed6bc3acb6aad593c326",
+    "4_Windows Node24 baseline.txt": "4505478f06cbde666bf9661666f607c25e48aa30c826977ebec26df016b558c0",
+    "Windows Node24 baseline/system.txt": "3fa79bbcdaab049be525c5103f8bcf4aa4c1fc6835f64d4d9a6bdf3efe97d233",
+    "Windows Node24 baseline/1_Set up job.txt": "b3359b7f5173887f64a12d1f048a6611426059f7645e046d225318e5a1570f7c",
+    "Windows Node24 baseline/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "5ddccad8fb9be92a6574187017de340268f7f5ef84ca94475606bc8fb3423eb4",
+    "Windows Node24 baseline/3_Run actions_setup-node@a0853c24544627f65ddf259abe73b1d18a591444.txt": "686a8f6ad548006e2f4bc6c214e0294823501da574972e8ab4bf2c47a220d676",
+    "Windows Node24 baseline/4_Resolve npm cache directory.txt": "9f72e9a527b77c016c3783108410fc0b2e9347e7520e1bd3d3578fb1582e9bfc",
+    "Windows Node24 baseline/5_Run actions_cache@caa296126883cff596d87d8935842f9db880ef25.txt": "ccc39fefafd91ea4f920b85f9feecb543ac622b8583d63438dbf4f443432d29b",
+    "Windows Node24 baseline/6_Prepare pinned local native builder SDK.txt": "089c6ce9306a030aee545ae905a7039d266a9c5b79fbd68fd687082c97516163",
+    "Windows Node24 baseline/7_Install from lockfile.txt": "def1b8443f1ce827a83946f5cc03150c13777fe9f2ce32c1a354864cc63b6627",
+    "Windows Node24 baseline/8_Windows PowerShell release verifier rejects missing evidence.txt": "062475ef5b7dbf43f0a2d91987f7eda5eaa5ee8cf3d94e1ebf964598e48627d3",
+    "Windows Node24 baseline/9_Windows PowerShell handled absent sidecar exit regression.txt": "10a42ca12c9e040bdba05699a905a874ae241f2c29b9249b3d63cef3c5cbab40",
+    "Windows Node24 baseline/10_Dependency advisory audit.txt": "8c0488f5fb42f386c9167e3f5594c97a3570378fc930fab1e29dc5bb8c45f975",
+    "Windows Node24 baseline/11_Native SQLite compatibility.txt": "223261cfd5ab2e958699205247e407f64d161542d2d80308b8bf4f6bcb64503d",
+    "Windows Node24 baseline/12_Capture native fixed-file publication diagnostics.txt": "d6a085bb901dde92a9ed289b3f06dc6b39890de771fdb79aa1116cc068a6db50",
+    "Windows Node24 baseline/13_Pinned native Caddy isolated TLS proxy and graceful stop.txt": "2765dad00a0388241064b6f8f2f2aff6eb891ec03c9f25f02a488991da8450ac",
+    "Windows Node24 baseline/14_Eight native report archives and batch budget refusal.txt": "574404c28ca4e5a7cd7a41e4dc2a1a77d1aca7c59989684239083476856d437b",
+    "Windows Node24 baseline/15_Native inner ZIP extraction and unsafe entry refusal.txt": "dc09857bf1ec878725292ae519f3d758e44270cf69f5aa2dbee8d93291c444ee",
+    "Windows Node24 baseline/16_TypeScript check.txt": "496ce4318a3bf0c7574b6fb7f263f04af50607bd255ec93cd3cd4f2db9094032",
+    "Windows Node24 baseline/17_Unit and SQLite regression tests.txt": "a295401cf6ddd26215e92dd153653c04a6df16b509a8dd64401cf5f3a0aecf6f",
+    "Windows Node24 baseline/18_Production build.txt": "0e321e378ad2e6c4084a9d6f3f3ba9a8c74b5b42e1de05ca00f657bc41c15cdd",
+    "Windows Node24 baseline/19_Validate measured coverage ratchets.txt": "b95580cf3e1e64e1813bd0f84f826232acc97cd4aea32c2eb05a164353ceace5",
+    "Windows Node24 baseline/20_Production layout from System32 and denied-write startup.txt": "7f70d81ba8cab1d1e70b2e8144b9b6172f5d81448d2fcaeb204e6b434254648e",
+    "Windows Node24 baseline/21_Isolated Chromium productivity and native touch.txt": "c5a289c665e6953157cf223cfaf3b9ecb153b7e4d1ef21a51313d39a4dd158ea",
+    "Windows Node24 baseline/22_Validate and record evidence.txt": "4d0098154e7a96e4390db01446f5bc81e1ececdc7e55e1f6ef2dbf1981e838ab",
+    "Windows Node24 baseline/23_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "8145a4069db856d290c5820c081a1b0ad41c4f97b693299be091268ed3d664ec",
+    "Windows Node24 baseline/46_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "26b272c056ef5d7a4dd45186694f5e3fac56acebc1f33999850a8a38bac64b18",
+    "Windows Node24 baseline/47_Complete job.txt": "17e01a9bd0dc274f2ab1bcccdb21c7f91c10f84ae51da70d1faba62855ef70de",
+    "5_Windows production browsers.txt": "204bac5a2312cd63dfbecec66acea5fc14cae6f37d849075c28853e68a0cbd28",
+    "Windows production browsers/system.txt": "2832163147556749b20abd57b5578097a255265890e3a0b8d8ee9f26006eda2f",
+    "Windows production browsers/1_Set up job.txt": "e624552f058042cf2efd334940fd7dba8e8776696e4efc5e37698f26d27d0532",
+    "Windows production browsers/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "0c99a5021721a5d7b811122b895ebff5d2f537732c157e282d85093d45c4dfaf",
+    "Windows production browsers/3_Run actions_setup-node@a0853c24544627f65ddf259abe73b1d18a591444.txt": "731515e32f3bc356dedcc094526403dc586991427221b94fa655f8de383b0a4c",
+    "Windows production browsers/4_Resolve npm cache directory.txt": "5b1161375114d4ff914abed9ebc53d5b30eede26fb2148a032b19ef5e78c77d5",
+    "Windows production browsers/5_Run actions_cache@caa296126883cff596d87d8935842f9db880ef25.txt": "e33ac0ecdd02165f10c621db1dcdc384a661dbb1b20f2d8cb564779a651e60f2",
+    "Windows production browsers/6_Prepare pinned local native builder SDK.txt": "2f6c481de96d370ffa3dfc03a9b15f53d59a29e5a184470ec1d7a66d8e2db69c",
+    "Windows production browsers/7_Install from lockfile.txt": "5605b68ee69f312b7222e55e958a54dd8875cc771d8b754210aac9575fd59fe4",
+    "Windows production browsers/8_Native SQLite compatibility.txt": "af393471cf88e5787f7e93f52ad5511fcae98e0ced77ee842bede049f86751fd",
+    "Windows production browsers/9_Production build.txt": "0c7577a44386cc279c1cce33fc89b6e45b9986b214149e0f6fba5e81568ea5f2",
+    "Windows production browsers/10_Offline browser regression.txt": "dabbc34010215f7c3ea08edfb4b19bef21ad3011233f3fec8e1d32284b29984a",
+    "Windows production browsers/11_Isolated Firefox productivity.txt": "8c24f1224347dcd7e18949ad2f21fc4fa130b7c002b4d78ec385162ae68a451d",
+    "Windows production browsers/12_Diagnose isolated native subscription driver boundary.txt": "a6111ac56daf495eb3d25062a52a9dd6d40dfd425ed6c86abb970b04889c8362",
+    "Windows production browsers/13_Validate browser evidence.txt": "dcd9a6e969d2670f69ee9d129ea2e60dcd069fb7767ff0dfda6951ab0d17bf0e",
+    "Windows production browsers/14_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "0ca9e437e2c8ccdff004fc9128a520574e29f9fbdd96ae8c91e3dfe4946203c9",
+    "Windows production browsers/28_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "cbaf5ea022f970ad15e4e6a284d8034499d1bffcc66b95fa033d0b42334cf363",
+    "Windows production browsers/29_Complete job.txt": "5dd73a211891b1e71a42030e792c13f79abbfb0b8d4db014b5081c01b2f81eb6",
+    "6_Windows Node22 baseline.txt": "3ac33b46eb1e88369696bfa1eb0954c2dc1fbf327d416429f5d8f02c60708a08",
+    "Windows Node22 baseline/system.txt": "ab456105d772885775fccac8c9e56008791c6e11e0da8fe5b4a459bcb24295d3",
+    "Windows Node22 baseline/1_Set up job.txt": "f671ed2e62e5eb2aec1ee519998047e5d7bd06919298ac3b7c5dd72b94a16000",
+    "Windows Node22 baseline/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "0dc82ec196440f365d320fa9659a897bdcd687e47ae363e47706ae60927a9eb2",
+    "Windows Node22 baseline/3_Run actions_setup-node@a0853c24544627f65ddf259abe73b1d18a591444.txt": "73eb0ebd332930af4848b3cbd1ee2407428682230bed665e34cfced1717ff053",
+    "Windows Node22 baseline/4_Resolve npm cache directory.txt": "63976c65306fb9ac45d4d1aa4b65ee48000660d71d3b1d4708bdc978fe7e19a7",
+    "Windows Node22 baseline/5_Run actions_cache@caa296126883cff596d87d8935842f9db880ef25.txt": "e8221b9f50c710537e2509aa4663d4fca670efe6054d0322f328055afa64dfce",
+    "Windows Node22 baseline/6_Prepare pinned local native builder SDK.txt": "2feb0262fd78a9031faa4916643eae216934ece4c7ab47c06bec1a3265d22fe6",
+    "Windows Node22 baseline/7_Install from lockfile.txt": "782e5002abd1e9e2d6e543865deb6ab05176de4dc832e2e0cbf0a8abcb7f0743",
+    "Windows Node22 baseline/8_Windows PowerShell release verifier rejects missing evidence.txt": "65d6971ca60f39b6b8970248d31b06a7ca7c23d7f17c9b8e13d57d32e7d7040e",
+    "Windows Node22 baseline/9_Windows PowerShell handled absent sidecar exit regression.txt": "c0b76d6aea47de10ecdee7c6f4aa51f628251c51725fe9fa6155621b1e56dd6a",
+    "Windows Node22 baseline/10_Dependency advisory audit.txt": "dc9fdd3aa0b85160da2920718f06653604f5ba62a22844b5ca28a356e3080209",
+    "Windows Node22 baseline/11_Native SQLite compatibility.txt": "2d797dfb27b17f02dbd8c0f2ed7ada4fca51b01d6c3301b2de633843bb82718f",
+    "Windows Node22 baseline/12_Capture native fixed-file publication diagnostics.txt": "4c335f48e4fb2ad5668bbb61459c42a67f82616c8a5ed2c5cdb095e724ccdcbe",
+    "Windows Node22 baseline/13_Pinned native Caddy isolated TLS proxy and graceful stop.txt": "127f807de8b35e496213c3f1f3b5b6af6023145d012017d067fc56ad2ee02a47",
+    "Windows Node22 baseline/14_Eight native report archives and batch budget refusal.txt": "8aff7540c13c7d325605a005d9b46650d4bb699d04a38000df4092ca548eacd5",
+    "Windows Node22 baseline/15_Native inner ZIP extraction and unsafe entry refusal.txt": "46540b67af3ef98e8d3e6fed3cfc6a835892503dfc975a5e254cf51e07f6fe5b",
+    "Windows Node22 baseline/16_TypeScript check.txt": "e14527b99831f3ea4e6fd659168f17939361a4c5170d01820610aa195ca05d40",
+    "Windows Node22 baseline/17_Unit and SQLite regression tests.txt": "4ce8449ecbff461a494d9d1e33cba1ee4fb1b7797129f07b8b7cfb4e07dea728",
+    "Windows Node22 baseline/18_Production build.txt": "6e1e5e2406d079192e06f706ccda5177d4a861bacfa5d5dc325ab89945456833",
+    "Windows Node22 baseline/19_Validate measured coverage ratchets.txt": "26a6f06f1aa8ecf86bbf3dd1404f18a842e23dd03a5c9380ed413f0a17e4e291",
+    "Windows Node22 baseline/20_Production layout from System32 and denied-write startup.txt": "5a96c59c84c4b8bc01a7bc22227f40adbe1a4cb4977a959f1ace6364022c773c",
+    "Windows Node22 baseline/22_Validate and record evidence.txt": "a668e5ebce0adaae4d0995fe8da420808071fa2b18e648b156e8e682f109b36f",
+    "Windows Node22 baseline/23_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "cbc3fb6b422440044ec4fdbd71b8e00ba814bed9f590a7a65661f9c7f9b37b46",
+    "Windows Node22 baseline/44_Post Run actions_cache@caa296126883cff596d87d8935842f9db880ef25.txt": "580489afd4fd4d84283c317312fef8a19b2cc24cfdc6dacb7e4e33ffe3ae2bc6",
+    "Windows Node22 baseline/45_Post Run actions_setup-node@a0853c24544627f65ddf259abe73b1d18a591444.txt": "71969b1ebc9a75a411349ee8812497a7d70b5b19e14f058fdf00837a20ec9998",
+    "Windows Node22 baseline/46_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "6dcb5612f1d6d0f3f38a55b676d5353aa5d78562cf0406c3f99a0b381fc7fb12",
+    "Windows Node22 baseline/47_Complete job.txt": "0c914548e83a611967bd2f64aa5d0f7b5a44890230dadf3831af16a9e48c5064",
+    "7_Windows package producer.txt": "1033b3d938800e89ed255d05243417de7d6cbd4e006c67570d4d720f30517fa6",
+    "Windows package producer/system.txt": "8880ec6f1b5019e535200bafa04e4ba267f6a30aad21aafe11615df0fc1baaa9",
+    "Windows package producer/1_Set up job.txt": "9845e2716a792103d3d5b2272d91fbba035ee9cfdd758786b2ad185ee71893b2",
+    "Windows package producer/2_Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "883e474d33c864eb2d42107b09578107ff566c14742b35973423bb637d7e652d",
+    "Windows package producer/3_Run actions_setup-node@a0853c24544627f65ddf259abe73b1d18a591444.txt": "475c743fac54b8d41b16daac226ca733f510ba01e2df983706cb73d1f4debaf0",
+    "Windows package producer/4_Prepare pinned local native builder SDK.txt": "d53836e55eb7b5d1a104f42557f4bc15371bf913223d818790ef1ab877de3079",
+    "Windows package producer/5_Install and build.txt": "c37af893af3dcd32bf141721e771c7a0d70928a626e169b6d517f38afbda52c6",
+    "Windows package producer/6_Verify installer preflight with Windows PowerShell 5.1.txt": "949dd448c430ed50ccfcd7d5e0270cea9fdf9e2a059ad1819e696afafafc5304",
+    "Windows package producer/7_Parse native scripts with Windows PowerShell 5.1.txt": "97969900cf8631d1206869cfbe38320b1f06dd0dd16ea597ef3547039b2e1f2f",
+    "Windows package producer/8_Verify producer refusal and cleanup evidence.txt": "ddfb15adbd49783644d6fc5c9e9ca527751705a0318d819af36b6676cb51e702",
+    "Windows package producer/9_Build verified Windows ZIP.txt": "cd548ba6d053c54c515dc9faf969919b3a9f25fcdf7e75b602d611c7e1a60dca",
+    "Windows package producer/10_Prepare independent consumer harness.txt": "05366adbb696a5928062255e7f0922f6b53fa9d8d9e6f6d35add451eaa40df3d",
+    "Windows package producer/11_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "06ba4b16017da7c5ef79b870138e63830c26e1e31580995e5b98f4e5319a7b12",
+    "Windows package producer/12_Run actions_upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f.txt": "1308f1bba53dae0ff73e896759dfcb6958d1aae9d4973aba8d2e841df42f81a9",
+    "Windows package producer/23_Post Run actions_setup-node@a0853c24544627f65ddf259abe73b1d18a591444.txt": "4eb4321aac35f6eebfea943166d8e11bc7eff72efe526a0c450b61d12d9bdc29",
+    "Windows package producer/24_Post Run actions_checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09.txt": "32f18487056b149be8ba7c93e3ad11de58759b69757ebbd1954d36ba85c84acc",
+    "Windows package producer/25_Complete job.txt": "df54ea24b3cfd0a2f9f6b9ebac316e8a3e427ead714357cb098b8b5e19f156d4"
+  },
+  "failure": "C38 first-page fixture on Chromium/Firefox; WebKit native SIGKILL at fixed 12min deadline after C35; no rerun",
+  "checks": [
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "failure; quality tests passed, Chromium C38 failed"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "failure; Firefox C38 failed"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure; WebKit native SIGKILL at original 12 minute bound"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "qualityEach": {
+    "tests": 5830,
+    "files": 318,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "paginationCause": {
+    "exactHeadSha": "34b84de912dca60f77334da0dc359f1397e18175",
+    "run": "38957448740",
+    "approvals": [
+      {
+        "status": 200,
+        "actualColumn": "done",
+        "taskRevision": 4
+      },
+      {
+        "status": 200,
+        "actualColumn": "done",
+        "taskRevision": 4
+      }
+    ],
+    "boards": [
+      {
+        "url": "http://127.0.0.1:49732/api/productivity/boards/64666830-cb8e-42a7-b632-58d7dc250490?timezone=Asia%2FSaigon",
+        "status": 200,
+        "total": 53,
+        "loaded": 50,
+        "hasNextCursor": true,
+        "targetPresent": true,
+        "columns": [
+          {
+            "key": "todo",
+            "total": 35,
+            "loaded": 35
+          },
+          {
+            "key": "doing",
+            "total": 1,
+            "loaded": 1
+          },
+          {
+            "key": "waiting",
+            "total": 0,
+            "loaded": 0
+          },
+          {
+            "key": "review",
+            "total": 1,
+            "loaded": 1
+          },
+          {
+            "key": "done",
+            "total": 14,
+            "loaded": 13
+          },
+          {
+            "key": "wont_do",
+            "total": 2,
+            "loaded": 0
+          },
+          {
+            "key": "trash",
+            "total": 0,
+            "loaded": 0
+          }
+        ]
+      },
+      {
+        "url": "http://127.0.0.1:49732/api/productivity/boards/64666830-cb8e-42a7-b632-58d7dc250490?timezone=Asia%2FSaigon",
+        "status": 200,
+        "total": 53,
+        "loaded": 50,
+        "hasNextCursor": true,
+        "targetPresent": false,
+        "columns": [
+          {
+            "key": "todo",
+            "total": 35,
+            "loaded": 35
+          },
+          {
+            "key": "doing",
+            "total": 1,
+            "loaded": 1
+          },
+          {
+            "key": "waiting",
+            "total": 0,
+            "loaded": 0
+          },
+          {
+            "key": "review",
+            "total": 0,
+            "loaded": 0
+          },
+          {
+            "key": "done",
+            "total": 15,
+            "loaded": 14
+          },
+          {
+            "key": "wont_do",
+            "total": 2,
+            "loaded": 0
+          },
+          {
+            "key": "trash",
+            "total": 0,
+            "loaded": 0
+          }
+        ]
+      }
+    ]
+  },
+  "assertionComparison": {
+    "beforeSha": "34b84de912dca60f77334da0dc359f1397e18175",
+    "file": "tests/e2e/productivity.spec.ts",
+    "beforeSha256": "80b7666bcaa765219ed1b910141a4df61dbcf7beb83d022508fa1d1393db47d2",
+    "afterSha256": "e163662ad2f49a64f4e47970ab4f8fbe803a9adf824bf8182e789276e8f44e2b",
+    "assertionCalls": 1184,
+    "assertionTextSequenceUnchanged": true,
+    "original35SourcePrefixUnchanged": true
+  },
+  "webkitCaseResults": {
+    "passed": 35,
+    "remaining": 4,
+    "unknownOutcome": true
+  },
+  "noTimeoutIncrease": true,
+  "noRetry": true,
+  "server2019Acceptance": "not-run",
+  "fullMasterPlanAccepted": false
+}
