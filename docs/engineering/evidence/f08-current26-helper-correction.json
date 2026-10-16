@@ -1,0 +1,10 @@
+{
+  "cause": "external writer expected streamed PNG hashes in parsed-document reportHashes; actual reader binds them through hashed evidence JSON",
+  "firstError": "KeyError: productivity-browser-kanban-light-1280-chromium.png",
+  "originalWriterSha256": "a18f79456c1a2cc8b57af37b27aabc6d40d610e9341624cfec76bab8b4f469cc",
+  "correctedWriterSha256": "a143de083c7a0174bbb4e701917aa9dd590966ba0c40d307c89792c4c8e336c3",
+  "correction": "verify evidence JSON hash chain and every actual PNG byte hash against original main raw proof",
+  "allImageAssertionsRetained": true,
+  "workflowOrTestsRerun": false,
+  "rawReportsChanged": false
+}

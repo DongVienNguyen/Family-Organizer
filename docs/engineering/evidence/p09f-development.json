@@ -1,0 +1,286 @@
+{
+  "taskId": "P09-f",
+  "prUrl": "pending parent119 acceptance",
+  "baseSha": "cdd2676ac2fbd91a0b1435a5b0136f0c4c846387",
+  "acceptedMainSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24",
+  "scope": "adult physical section/rank preview/cancel/apply menu, API-bound confirmation owner, actual keyboard/draft and held-preview refresh browser regressions",
+  "parentWindowsAcceptance": "pending119 exactHEADCI38856226760",
+  "cloudGreen": {
+    "tests": 4792,
+    "passed": 4792,
+    "files": 261,
+    "junitCases": 4792,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4792,
+    "files": 261
+  },
+  "review": {
+    "task": "P09-f",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "f031da6af68a21527a2b197520e4c56c7da5840a001ae4bd940f9d069b8dd679",
+      "scripts/ci/write-evidence.mjs": "dd4680dbb9387c5637dd71c65f1b412c2e2e74db44bea3218926ff25ffd5ea93",
+      "scripts/ci/write-productivity-browser-fixture.ts": "2376d9113044386c1396ef641090520dc7785b1a4f497e58315e323218340bf0",
+      "src/components/Tasks.tsx": "0e26fe1bafe8b5fbe57fdb9616e9810068dab0a621500ddad0103148f1e8a1fe",
+      "src/features/productivity/Kanban.tsx": "7b56eaaf88a4d4436379c4de34930f6570b0e6b02d15d709d71801388d8544c5",
+      "src/features/productivity/KanbanSectionActions.tsx": "1625c4012d520e73a1e92c63a9d801daf41255427759b607c1701dbc92dd00c2",
+      "src/features/productivity/KanbanSectionDialog.tsx": "ebbd44e58043036f20dfcc090761bd6ebb737c1b41d3f2e67bf3b97b36e5724e",
+      "src/features/productivity/KanbanWorkspace.tsx": "ccc9286d52a8478502f0cd8f5f43a24ccebe9c59348fb5bd034df1b4f48d6a2e",
+      "src/features/productivity/kanban-section-ui.test.tsx": "0264d992df574da26253df8ee57fed327f2293db0aae9c15426d0fb6a0439934",
+      "src/features/productivity/kanban-ui.test.tsx": "19778bd7fcc66d9759d0c7cb359771a10acaf91a697edb0c7ccefa2aa91d4456",
+      "src/i18n/locales/en.json": "4043cf6b4d1a0acaaec1e8d41938a08ea718734368bb29e4518ffe488cd7b07b",
+      "src/i18n/locales/vi.json": "b49079342d4b3a938b0ef7d1cbe531ecad90bdef6bc4c7aee3287270fa783954",
+      "src/i18n/locales/zh.json": "c16f5b2beb66108a3fa20abe04d4db1a7e891b2b75b29b4ae146078253e042ec",
+      "tests/e2e/productivity.spec.ts": "8bb88e2faedea70447724849034d22d271de9ce5520249e633d92fc7518f65cf",
+      "tests/evidence.test.ts": "7a83e1c45bdb58574688fee829a96545482583523cc7b4e8ec7ad3c5ba0a7aff",
+      "tests/grouped-rank-import.test.ts": "8cb64c44b2b31427d8ce554124f6af5096a27e93d8bb9503dface60cc3714f26",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f5056db569a5a1f1802aa8ef1a477303dfa88e7daca099077a24cf9272063178",
+      "tests/release-productivity-profile.test.ts": "e1a937c0111475ae150b737380de0a08652394c660072bcb983ff63bbdceae06"
+    },
+    "postCorrectionSourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "f031da6af68a21527a2b197520e4c56c7da5840a001ae4bd940f9d069b8dd679",
+      "scripts/ci/write-evidence.mjs": "dd4680dbb9387c5637dd71c65f1b412c2e2e74db44bea3218926ff25ffd5ea93",
+      "scripts/ci/write-productivity-browser-fixture.ts": "2376d9113044386c1396ef641090520dc7785b1a4f497e58315e323218340bf0",
+      "src/components/Tasks.tsx": "0e26fe1bafe8b5fbe57fdb9616e9810068dab0a621500ddad0103148f1e8a1fe",
+      "src/features/productivity/Kanban.tsx": "7b56eaaf88a4d4436379c4de34930f6570b0e6b02d15d709d71801388d8544c5",
+      "src/features/productivity/KanbanSectionActions.tsx": "1625c4012d520e73a1e92c63a9d801daf41255427759b607c1701dbc92dd00c2",
+      "src/features/productivity/KanbanSectionDialog.tsx": "ebbd44e58043036f20dfcc090761bd6ebb737c1b41d3f2e67bf3b97b36e5724e",
+      "src/features/productivity/KanbanWorkspace.tsx": "ccc9286d52a8478502f0cd8f5f43a24ccebe9c59348fb5bd034df1b4f48d6a2e",
+      "src/features/productivity/kanban-section-ui.test.tsx": "0264d992df574da26253df8ee57fed327f2293db0aae9c15426d0fb6a0439934",
+      "src/features/productivity/kanban-ui.test.tsx": "19778bd7fcc66d9759d0c7cb359771a10acaf91a697edb0c7ccefa2aa91d4456",
+      "src/i18n/locales/en.json": "4043cf6b4d1a0acaaec1e8d41938a08ea718734368bb29e4518ffe488cd7b07b",
+      "src/i18n/locales/vi.json": "b49079342d4b3a938b0ef7d1cbe531ecad90bdef6bc4c7aee3287270fa783954",
+      "src/i18n/locales/zh.json": "c16f5b2beb66108a3fa20abe04d4db1a7e891b2b75b29b4ae146078253e042ec",
+      "tests/e2e/productivity.spec.ts": "8bb88e2faedea70447724849034d22d271de9ce5520249e633d92fc7518f65cf",
+      "tests/evidence.test.ts": "7a83e1c45bdb58574688fee829a96545482583523cc7b4e8ec7ad3c5ba0a7aff",
+      "tests/grouped-rank-import.test.ts": "8cb64c44b2b31427d8ce554124f6af5096a27e93d8bb9503dface60cc3714f26",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f5056db569a5a1f1802aa8ef1a477303dfa88e7daca099077a24cf9272063178",
+      "tests/release-productivity-profile.test.ts": "e1a937c0111475ae150b737380de0a08652394c660072bcb983ff63bbdceae06"
+    },
+    "reviewCoverage": [
+      "all18 changed source/test/locale/fixture/protocol/gate files against P09e candidate",
+      "only adult current canonical sections/rank view exposes physical menu; workflow/grouped and non-rank read paths preserved",
+      "canonical drawer control stays separate from physical menu; one TaskID, existing drafts/cache preserved",
+      "API-bound controller choice and latest-owner callback gates, view/board/clock remount/dispose, authorization-error projection clear/reread",
+      "explicit selected-target preview retires on change; no hard-WIP override or optimistic/receipt cache authority",
+      "modal shared focus/Escape/scroll hook and actual FancySelect tested by real Chromium C22/C23",
+      "all21 old real browser case bytes, old11presentation cases and all old locale values preserved",
+      "target-Git69 inventory admission keeps old63schema9 and57schema6 compatibility with strict current target refusal",
+      "existing package6/9/1 generators, compiled server/operator, schema/default/dependencies unchanged",
+      "all existing mandatory inventories/cold-import assertions retained, new suite omission fails"
+    ],
+    "developmentRulingsBeforeSelf": [
+      {
+        "firstStaticUI": {
+          "tests": 11,
+          "passed": 0,
+          "failed": 11
+        },
+        "cause": "browser-only FancySelect portal references document in SSR; static-only stub follows existing Matrix test pattern; real browser exercises actual component"
+      },
+      {
+        "firstComposedUI": {
+          "tests": 24,
+          "passed": 23,
+          "failed": 1
+        },
+        "cause": "new nested-button regex incorrectly matched siblings; tempered nested-button assertion retains original intent"
+      },
+      {
+        "initialLintExit": 2,
+        "cause": "ViewConfig.sort requires Kanban kind narrowing; discriminated guard corrected before final lint"
+      }
+    ],
+    "remaining": [
+      "fullCloud quality and accepted-parent composition",
+      "Windows exact-head8checks/11raw/both4792/261/69Productivity+45legacy+1touch firstattempt and complete logs",
+      "P09e parent acceptance pending",
+      "grouped/menu/drag/settings/clock/large-list and P08/P10/master dependencies incomplete"
+    ],
+    "publicationAllowed": false
+  },
+  "sourceCommit": "3ce9fe1752dd110cf92d029fc604e8046dd8e041",
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "f031da6af68a21527a2b197520e4c56c7da5840a001ae4bd940f9d069b8dd679",
+      "scripts/ci/write-evidence.mjs": "dd4680dbb9387c5637dd71c65f1b412c2e2e74db44bea3218926ff25ffd5ea93",
+      "scripts/ci/write-productivity-browser-fixture.ts": "2376d9113044386c1396ef641090520dc7785b1a4f497e58315e323218340bf0",
+      "src/components/Tasks.tsx": "0e26fe1bafe8b5fbe57fdb9616e9810068dab0a621500ddad0103148f1e8a1fe",
+      "src/features/productivity/Kanban.tsx": "7b56eaaf88a4d4436379c4de34930f6570b0e6b02d15d709d71801388d8544c5",
+      "src/features/productivity/KanbanSectionActions.tsx": "1625c4012d520e73a1e92c63a9d801daf41255427759b607c1701dbc92dd00c2",
+      "src/features/productivity/KanbanSectionDialog.tsx": "ebbd44e58043036f20dfcc090761bd6ebb737c1b41d3f2e67bf3b97b36e5724e",
+      "src/features/productivity/KanbanWorkspace.tsx": "ccc9286d52a8478502f0cd8f5f43a24ccebe9c59348fb5bd034df1b4f48d6a2e",
+      "src/features/productivity/kanban-section-ui.test.tsx": "0264d992df574da26253df8ee57fed327f2293db0aae9c15426d0fb6a0439934",
+      "src/features/productivity/kanban-ui.test.tsx": "19778bd7fcc66d9759d0c7cb359771a10acaf91a697edb0c7ccefa2aa91d4456",
+      "src/i18n/locales/en.json": "4043cf6b4d1a0acaaec1e8d41938a08ea718734368bb29e4518ffe488cd7b07b",
+      "src/i18n/locales/vi.json": "b49079342d4b3a938b0ef7d1cbe531ecad90bdef6bc4c7aee3287270fa783954",
+      "src/i18n/locales/zh.json": "c16f5b2beb66108a3fa20abe04d4db1a7e891b2b75b29b4ae146078253e042ec",
+      "tests/e2e/productivity.spec.ts": "8bb88e2faedea70447724849034d22d271de9ce5520249e633d92fc7518f65cf",
+      "tests/evidence.test.ts": "7a83e1c45bdb58574688fee829a96545482583523cc7b4e8ec7ad3c5ba0a7aff",
+      "tests/grouped-rank-import.test.ts": "8cb64c44b2b31427d8ce554124f6af5096a27e93d8bb9503dface60cc3714f26",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f5056db569a5a1f1802aa8ef1a477303dfa88e7daca099077a24cf9272063178",
+      "tests/release-productivity-profile.test.ts": "e1a937c0111475ae150b737380de0a08652394c660072bcb983ff63bbdceae06"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "f5a1874b814d3921562c8114983395ad645408b99737dc39b5e97e65582580cb",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "compiledServerOperatorEqualParent": true,
+    "frontendIndexSha256": "65eed32e469c94f6deaca3655536e5b421f58733e44e527e99863e370e630977",
+    "reports": {
+      "p09f-full.json": "f7902e5a8f83986c0a8e702de172df8d1ef32183983931fc30e279120702c0ff",
+      "p09f-full.junit.xml": "00559a7251e755b16dd834d47985c345686c53b2f32ec77b0e668ca1f357dc05",
+      "p09f-full.log": "c81144f135ff14f7163be2b04b26b4e7d4813a9cab0d72a3643242acd071ec06",
+      "p09f-lint-first.log": "900e9a0d30578ee5b5c9df313bce5df1b8b78f0179d5961b26bf222f06dc5b6b",
+      "p09f-lint-second.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09f-lint-current.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p09f-build-first.log": "672442cb5cd2582cb59f590b6ddc0c68e7406cbf36e7790c2eb894805141645d",
+      "p09f-ui-scaffold-red.json": "464a0366f4dd3c9961b625629b7039e515b10660f7deca9abbefcde8185ab133",
+      "p09f-ui-first.json": "58892f6283dc40814b02949abaff97f3f7dfc0677496225724acde9f949793ac",
+      "p09f-ui-static.json": "13caa3b8f27ccf46e86d9ad63bc63a995a6b96c2231c113ce3df88bdba0937f0",
+      "p09f-ui-composed.json": "69769ea4b3ad9c665ce78b6a4d7ace739de162965916886b849e9fb7ddc1ba0d",
+      "p09f-fixture-ui.json": "63a75e2289f4b54085d5ba970d5b0b818d643bd64cbf27487b6c52ac85ef9508",
+      "p09f-browser-profile.json": "e351cc77fc4a9c5e97acadd7cbfe9578ccfab7152bf7edc5ec65aff35bca4114",
+      "p09f-gate-red.json": "e359d901a2db5f0353c28bc586b1aa5def16e1be0eef6fff04b711945060e7d5",
+      "p09f-target-current.json": "da1500552a520a2f20f67f9c597e7875be2e71e1ae5e301b567ddf058c1dc5b6",
+      "p09f-chromium-first-runner.log": "4fb3f9086aeaf24cbc2f39c38891a1ddba8512e4c7d8d9086a1b877fcb97ebca",
+      "p09f-chromium-final.json": "7b7f3893b26df403a067d8ba392b425712dba420523b1b85d4b98837f0c80dd0",
+      "p09f-old-browser-preservation.json": "5bd3c3de0a4f74403599c080cbd3862b6acff674cea09f93715b21405654ee3f"
+    },
+    "windowsAcceptance": "pending new exactHEAD/all8/11raw/both4792/261/69Productivity+45legacy+1touch firstattempt/24nativeboard/29HTTP/100IPC/complete logs"
+  },
+  "browserDiagnostic": {
+    "scope": "Cloud Linux Chromium all23Productivity +1nativeTouch diagnostic; not Windows or full3engine acceptance",
+    "completed": true,
+    "cases": 23,
+    "touchCases": 1,
+    "matchingJUnit": true,
+    "reportsRoot": "/workspace/family-evidence/p09f-chromium-final-un9hy42p/reports",
+    "manifest": {
+      "commitSha": "3ce9fe1752dd110cf92d029fc604e8046dd8e041",
+      "nodeVersion": "v24.21.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "productionBuild": {
+        "serverSha256": "f5a1874b814d3921562c8114983395ad645408b99737dc39b5e97e65582580cb",
+        "indexSha256": "65eed32e469c94f6deaca3655536e5b421f58733e44e527e99863e370e630977"
+      },
+      "synthetic": true,
+      "productivityVersion": 9,
+      "fixtureRemoved": true,
+      "nativeHandlesClosed": true,
+      "networkAttempts": [],
+      "externalAttempts": [],
+      "legacyPreserved": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "cliExitCode": 0,
+      "cliSignal": null,
+      "serverExitCode": 0,
+      "serverSignal": null,
+      "browserExitCode": 0,
+      "browserSignal": null,
+      "kanbanFixture": {
+        "taskRowsPreserved": true,
+        "boards": 2,
+        "views": 9
+      },
+      "touchExitCode": 0,
+      "touchSignal": null,
+      "nativeTouchVerified": true,
+      "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+      "error": null
+    },
+    "reportHashes": {
+      "productivity-browser.json": "d28595b45bf834ce7f0a37f69aea07824e185bbb914ad409d4892482d6ab3146",
+      "productivity-browser.junit.xml": "8692cf80a55ee4571bf61c74d4135bd1cd72801b9821669352ffc3d61ee34789",
+      "productivity-browser-touch.json": "e2eed8c07e03a690197a5effc27aa4d3f9ace76e67471bfcc1cc869534e597d6",
+      "productivity-browser-touch.junit.xml": "a2a5c4c5a00eaa153aa684015306a86e748ec7a54458c035bc6e29f10f99a1f5",
+      "productivity-browser-fixture.json": "9a37132efe490dfe4faff75addea77a36ec129e17cf86f5507e9665a5b7e46a7"
+    },
+    "oldCasePrefixBytePreserved": true,
+    "screenshotsVisuallyInspected": [
+      "productivity-browser-kanban-dark-390-chromium.png"
+    ],
+    "otherEnginesRun": false,
+    "legacyBrowserRun": false,
+    "publicationAllowed": false,
+    "all23FirstAttemptCasesIndependentlyRead": true,
+    "allNativeExitsAndSignalsVerified": true
+  },
+  "oldBrowserPreservation": {
+    "oldCaseCount": 21,
+    "oldSpecBytePrefixPreserved": true,
+    "oldPrefixSha256": "7fbfe9ce64dacd1c285b032aeafce3afc3dbdb7262db6e6c41a625d209bd2994",
+    "newCases": [
+      22,
+      23
+    ],
+    "expectedProductivityCases": 69,
+    "legacyCases": 45,
+    "nativeTouchCases": 1,
+    "priorReports": "/workspace/family-evidence/p09f-before-browser-jeckl7we"
+  },
+  "targetTests": {
+    "tests": 413,
+    "passed": 413,
+    "files": 7
+  },
+  "redRulings": {
+    "initialMissingModule": {
+      "collectedTests": 0,
+      "failedSuites": 1,
+      "causalProof": false
+    },
+    "firstStaticSsrPortal": {
+      "tests": 11,
+      "passed": 0,
+      "failed": 11,
+      "cause": "document absent for browser-only FancySelect portal; static stub, actual component exercised in real browser"
+    },
+    "composedStaticRegex": {
+      "tests": 24,
+      "passed": 23,
+      "failed": 1,
+      "cause": "new nested-button assertion matched siblings; proper nested-button rejection preserved"
+    },
+    "mandatoryOmission": {
+      "tests": 303,
+      "passed": 302,
+      "failed": 1
+    }
+  },
+  "uiWritesActivated": true,
+  "uiScope": "adult canonical section/rank only; grouped/workflow/non-rank remain read presentation",
+  "runtimeSchemaDefaultActivationDependenciesChanged": false,
+  "packageFixtureVersionsUnchanged": [
+    6,
+    9,
+    1
+  ],
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "vpsAccessed": false,
+  "server2019Acceptance": "not-run"
+}

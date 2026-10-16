@@ -1,0 +1,135 @@
+{
+  "taskId": "F08-current26-live-candidate",
+  "workflowSourceSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24",
+  "workflowRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38856294161",
+  "explicitTargetSha": "ba293a6f332754be73758129cd231560e9269b0c",
+  "explicitTargetCiRunUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855022263",
+  "archives": 8,
+  "qualityEach": 4706,
+  "qualityFilesEach": 258,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 63,
+  "nativeTouchFirstAttempt": 1,
+  "productivityFixtureVersion": 9,
+  "kanbanScreenshots": 6,
+  "generatedFixtures": [
+    {
+      "sourcePath": "scripts/ci/write-productivity-fixture.ts",
+      "path": "productivity-fixture.json",
+      "sourceSha256": "d6089e192d0d3c16449e9d59b46899f9f6b17a4194db04d83ba46e7a7e345cd1",
+      "format": 1,
+      "version": 6,
+      "rows": 87,
+      "sha256": "8d7f523ce1e40078e5cf8c35a11589457982a2954f7d34d6371461cc59c64f28"
+    },
+    {
+      "sourcePath": "scripts/ci/write-board-package-fixture.ts",
+      "path": "board-fixture.json",
+      "sourceSha256": "3f9c7acc55d4c538b94f7cc8ba8540c7706a835a951db90bcc9aef0d2a6ee512",
+      "format": 1,
+      "version": 9,
+      "rows": 135,
+      "sha256": "28e443226b913c2521fe16177857ee1f2a4bb6f9383c224316ae33e3a8f4ed7d"
+    },
+    {
+      "sourcePath": "scripts/ci/write-wallet-fixture.ts",
+      "path": "wallet-fixture.json",
+      "sourceSha256": "9f708f553f9476b129640a9805efb42a73411197cdc94271f5d9297e54292b8f",
+      "format": 1,
+      "version": 1,
+      "rows": 5,
+      "sha256": "9f2c8812d1cb57ec766c7067e91e4a924189948c6f346e9c1646129122b1a913"
+    }
+  ],
+  "boardPackagePolicy": {
+    "checks": [
+      "exact-bundled-node-addon",
+      "explicit9-fixture-identity",
+      "current9-http-config-and-reference",
+      "canonical-hard-wip-no-task-write",
+      "child-private-task-exclusion",
+      "ordinary9-snapshot-restore",
+      "credential-reentry-preserves-ids",
+      "encrypted9-independent-restore",
+      "wallet-matrix-board-references-preserved",
+      "old7-no-auto-upgrade",
+      "old7-refusal-preserves-bytes",
+      "future10-refusal-preserves-bytes",
+      "index-refusal-preserves-bytes",
+      "offline-handles-cleanup",
+      "private-safe-board-http-projection",
+      "transactional-board-move-and-audit",
+      "canonical-column-layout-and-archive",
+      "normalized-private-safe-grouped-board",
+      "selected-dimension-grouped-board-move",
+      "old8-no-auto-upgrade",
+      "old8-refusal-preserves-bytes",
+      "semantic9-multi-tag-view-and-moves",
+      "semantic9-grouped-rank-metadata",
+      "semantic9-atomic-group-and-rank"
+    ],
+    "groupedRanks": true,
+    "atomicGroupRanks": true,
+    "contractSha256": "a12e658a3b94eba78b5c23ed9d687fea56317d69c206f1de1b3fe10b9331c55c"
+  },
+  "nativeBoardChecks": 24,
+  "strictHttpClockIntervals": 29,
+  "archiveBytes": 67964457,
+  "expandedBytes": 123138565,
+  "receiptHashes": {
+    "release-metadata.json": "cdebcadc733e02978f003b4dc2cf8a812244be15a5d1027c88726acc56bad14f",
+    "release-archives.json": "085a96aba943da15b12176e3f347b441509836ba47dc3aa1bd495c8b417e64ea",
+    "release-report-preflight.json": "c5f0c397b525c7498c918f355f11224fe3e00f38c129ad0c716aa8d06ee03587",
+    "release-evidence.json": "45f65f83dec14e11897a5738e2447773eabdbd03d0c3deced5bca57f06549cdd",
+    "candidate-handoff.json": "f07060578f36b5ff3aa491b413dc24d95cb1908fee0ae6406aed9e190837b171"
+  },
+  "reportsVerified": true,
+  "consumerFunctionalVerified": true,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "handoff": {
+    "format": 1,
+    "kind": "publication-disabled-candidate-handoff",
+    "request": {
+      "repository": "DongVienNguyen/Family-Organizer",
+      "commitSha": "ba293a6f332754be73758129cd231560e9269b0c",
+      "version": "1.1.0",
+      "tag": "v1.1.0",
+      "runId": 38855022263
+    },
+    "package": {
+      "commitSha": "ba293a6f332754be73758129cd231560e9269b0c",
+      "appVersion": "1.1.0",
+      "zipSha256": "a005d52b17583c8b874730e71695a20b6733ffe8bcd078df9315384e8c54c2c7",
+      "zipSize": 54763875,
+      "manifestSha256": "73e496ce6c44f26b739e51d20eb90ef22fd076d7313653f3eb2c8d0b05ce7561"
+    },
+    "assets": {
+      "zip": {
+        "name": "family-organizer-1.1.0-ba293a6f332754be73758129cd231560e9269b0c-win-x64.zip",
+        "sha256": "a005d52b17583c8b874730e71695a20b6733ffe8bcd078df9315384e8c54c2c7",
+        "bytes": 54763875
+      },
+      "manifest": {
+        "name": "release-manifest.json",
+        "sha256": "73e496ce6c44f26b739e51d20eb90ef22fd076d7313653f3eb2c8d0b05ce7561"
+      }
+    },
+    "candidatePublication": "blocked-source-lock",
+    "promotion": "blocked-source-lock-and-actual-server2019-acceptance",
+    "publicationAllowed": false,
+    "releaseCreated": false,
+    "tagCreated": false,
+    "server2019Acceptance": "not-run"
+  },
+  "fullMasterAccepted": false,
+  "fullWorkflowLogSha256": "285bfa3503802ceacd7842d1a9a85ee1d5f0299bfc278e40d564dc99aacaea4e",
+  "fullLogRead": {
+    "readAllLogFiles": true,
+    "files": 13,
+    "lines": 810,
+    "fullWorkflowLogSha256": "285bfa3503802ceacd7842d1a9a85ee1d5f0299bfc278e40d564dc99aacaea4e",
+    "unexpectedMarkers": []
+  },
+  "verifierWriterRuling": "A new external writer records strict current26 target acceptance; historical helpers and evidence remain unchanged"
+}
