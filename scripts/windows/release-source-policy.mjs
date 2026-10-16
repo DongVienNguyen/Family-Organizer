@@ -1,3 +1,4 @@
+import {parseBoardPackageSourcePolicy} from './release-board-source-policy.mjs';
 import {parseProductivityBrowserSourcePolicy} from './release-productivity-source-policy.mjs';
 import {createHash} from 'node:crypto';
 import ts from 'typescript';
@@ -35,6 +36,7 @@ export function readTrustedReleasePolicy(request,authority){
   requireFact(inventoryNames.length>0&&inventoryNames.length<=1500&&requiredSuites.length>0&&requiredSuites.length<=1500);
   // Preflight every mode before reading any source through a possible symlink.
   for(const name of [...inventoryNames,...requiredSuites]){const file=files.get(name);requireFact(file.type==='blob'&&['100644','100755'].includes(file.mode));}
+  const boardPackagePolicy=parseBoardPackageSourcePolicy(read('scripts/windows/board-package-contract.mjs'));
   const browserContract=read('scripts/ci/browser-contract.mjs');
   // The pinned builder parser reads syntax only; target code is never executed.
   const syntax=ts.createSourceFile('browser-contract.mjs',browserContract,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);
@@ -95,6 +97,6 @@ export function readTrustedReleasePolicy(request,authority){
   const harnessPolicy={workflowSha256:hash(windowsBytes(workflowText)),files:harnessSources.sort((a,b)=>a.sourcePath.localeCompare(b.sourcePath,'en')),...(generators.length?{generators}:{})};
   const sourceInventory=inventoryNames.sort((a,b)=>a.localeCompare(b,'en')).map(name=>{const text=read(name);requireFact(!/\/(?:\*+|\/)\s*(?:v8|c8|istanbul|node:coverage)\s+ignore\b/i.test(text));return {path:name,sha256:hash(windowsBytes(text))};});
   requireFact(Date.now()-started<=120000);
-  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,productivityBrowserPolicy,harnessPolicy};
+  return {format:1,kind:'trusted-git-release-policy',publicationAllowed:false,source,requiredSuites,sourceInventory,lockSha256,coveragePolicySha256:hash(policyBytes),coveragePolicy,browserPolicy,productivityBrowserPolicy,boardPackagePolicy,harnessPolicy};
  }catch{reject();}
 }

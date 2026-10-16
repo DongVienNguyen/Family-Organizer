@@ -1,3 +1,4 @@
+import {validateBoardSourcePolicy} from './release-board-source-policy.mjs';
 import {generatedFixtureContracts} from './release-generated-fixture-contract.mjs';
 import {isDeepStrictEqual} from 'node:util';
 import {validateReleaseEvidence,releaseArtifactPrefixes} from './release-evidence.mjs';
@@ -35,6 +36,7 @@ export function normalizeReleaseCollectorEvidence(receipt,p){
   asset(packageReports);requireFact(packageReports.packageReportAgreement===true&&packageReports.appVersion===r.version&&positive(packageReports.zipSize));
   const consumer=p.consumerReports,service=p.serviceReports,harness=p.harnessAndBuild;for(const row of [consumer,service,harness,inner])asset(row);
   requireFact(consumer.rawConsumerFunctionalReportsVerified===true&&service.rawServiceReportsVerified===true&&positive(service.shutdownCompletions)&&harness.rawHarnessFilesVerified===true&&harness.packageBuildAgreement===true&&harness.staticHarnessFiles===policy.harnessPolicy.files.length&&harness.harnessFiles===policy.harnessPolicy.files.length+3);
+  requireFact(validateBoardSourcePolicy(policy.boardPackagePolicy)&&isDeepStrictEqual(consumer.boardPackagePolicy,policy.boardPackagePolicy));
   const generators=policy.harnessPolicy.generators,fixtures=harness.generatedFixtures;
   const definitions=[['scripts/ci/write-productivity-fixture.ts','productivity-fixture.json'],['scripts/ci/write-board-package-fixture.ts','board-fixture.json'],['scripts/ci/write-wallet-fixture.ts','wallet-fixture.json']];
   requireFact(Array.isArray(generators)&&generators.length===3&&harness.generatedFixturesVerified===true&&harness.generatedFixtureFiles===3&&Array.isArray(fixtures)&&fixtures.length===3&&isDeepStrictEqual(Object.keys(consumer.fixtureHashes??{}).sort(),definitions.map(row=>row[1]).sort()));

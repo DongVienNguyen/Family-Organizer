@@ -1,0 +1,473 @@
+{
+  "taskId": "P08-b13",
+  "baseSha": "4f6e3573892dac37a016d8c5f9e1e410db3e3e8d",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/108",
+  "scope": "bounded metadata-only manual rank ordering in owned priority/assignee/due/tag views, native proof, target-Git report capability compatibility",
+  "cloudGreen": {
+    "tests": 4394,
+    "passed": 4394,
+    "files": 244,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "junitCases": 4394,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux",
+    "notWindowsAcceptance": true,
+    "basis": "original4394-case full suite; correction adds one targeted LF/CRLF regression, all90source-policy cases passed; no runtime source changed"
+  },
+  "expectedWindowsQuality": {
+    "tests": 4395,
+    "files": 244
+  },
+  "review": {
+    "kind": "ONE whole-branch SELF",
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "7ca9b0ebc0bb7af5d791fadebec8439edcb7c94b56d3c6288de9717b939189b9",
+      "scripts/windows/board-package-contract.mjs": "71034b6369a29685b3aa26d206026e43b1d5ec88f47062cb6074f1b31956bdfd",
+      "scripts/windows/collect-release-archives.mjs": "2ee3324a80b3ee2fc01acf94ca44aa5c54d99a3058c60b07447565467010bc73",
+      "scripts/windows/probe-board-package.mjs": "071e3d5dfa40c9e837d36527feeba70755cd02a30d90883f62cf43ba593fdb3d",
+      "scripts/windows/release-board-source-policy.mjs": "f859c61cb55842746d7883e2e4074c63932182e742a310003fb71a25dc822219",
+      "scripts/windows/release-collector-evidence.mjs": "ab2e3125f938283b83442e5788bcd4cf2f854744791e25daef368c5efcca8b33",
+      "scripts/windows/release-consumer-reports.mjs": "97078cce8277e63ddef9655d173ee315789cf264bfad3a95ad1943e1a995e67f",
+      "scripts/windows/release-source-policy.mjs": "f56f8e6ac6b985f7b6f540739aacd7b51e19525001d9b6b41b67a441b8bac296",
+      "server/productivity/boardRouter.ts": "572c8ca94fbc6239263171081f9046714fe9eaf5f8a82fba5b6d1f87886c4691",
+      "server/productivity/grouped-board-ranks.api.test.ts": "4001a11874a40fa147e331b868ea9c54c92818ff18805c00b527290517095f8d",
+      "server/productivity/grouped-board-ranks.test.ts": "cf491b361544729b6ea6c7f437c4c4c0d875e19bd3afd195b30987baf71c4930",
+      "server/productivity/groupedBoard.ts": "761b73a837f9d8a20a4fbf9424369f32cf4a95ed42a660c67fa23a1d2c5b898c",
+      "server/productivity/groupedBoardRanks.ts": "659c15e5feede12d8e4cdd1906fff9d0d6241a2b0e54d9f36bed9c561d901354",
+      "server/productivity/groupedBoardReader.ts": "624772a867c212c593438ab93b015b7bd24687ffa19e38ff358ff072fd1a4be5",
+      "server/productivity/ports.ts": "d11484c40bda96db5511f448d363af3ed28e66b7678a2cd9e8779162dc3fdca8",
+      "server/productivity/router.ts": "628f11f646914b0b5aa0669e75679dfc461f40edf08f021c71a20433e14f6ee4",
+      "tests/board-package-evidence.test.ts": "260bc23ae014a894f3899ffac6a3e51febb738e9d2ad888c8209ae6c6356351b",
+      "tests/evidence.test.ts": "19053a7d4f7851a902c808274d3f9f12b62b77d9e6eed978128e72bd16bc336c",
+      "tests/grouped-rank-import.test.ts": "a3334a490cea9d29ea6d494ee68027e2525785eded9f0ae993eed61c03a7efb7",
+      "tests/helpers/board-package-fixture.ts": "e0510b01e09511daaf6d75dcd252ef6d6a337a9b5bcf5f85126b00efd67e3fb7",
+      "tests/release-collector-evidence.test.ts": "744907463e4f1811f9ae672497498eb3058ce38054b4aa4c973753c18f30528d",
+      "tests/release-consumer-reports.test.ts": "72256d1430722d51bc7005b6484b6bbdf7f7c606cf916c61d6428f6f874d845a",
+      "tests/release-source-policy.test.ts": "76bec506df56f5af118674035f7e2f54dfada816f1d69c804885426fcb6efda5"
+    },
+    "focus": [
+      "fresh owned view + canonical board/list/Task grants before UUID cache and transaction",
+      "whole-list scalar admission before Task decode, shared extracted read path",
+      "bound UUID/TTL/count/bytes/day/Task+view+lane digests and revision races",
+      "rank positions only, rebalance retains physical columns, atomic I01 cache/rollback",
+      "internal session HTTP, private-safe anchors/catalogue SSE, no Task events/rewards",
+      "SQLite OS clock and cold imports without storage/network",
+      "exact 23-check compiled probe/restart/restore and retained 22 historical assertions",
+      "target-Git AST policy selects exact 22 or 23; raw report cannot select capability; normalizer binds receipt hashes"
+    ]
+  },
+  "nativeVerification": {
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "7ca9b0ebc0bb7af5d791fadebec8439edcb7c94b56d3c6288de9717b939189b9",
+      "scripts/windows/board-package-contract.mjs": "71034b6369a29685b3aa26d206026e43b1d5ec88f47062cb6074f1b31956bdfd",
+      "scripts/windows/collect-release-archives.mjs": "2ee3324a80b3ee2fc01acf94ca44aa5c54d99a3058c60b07447565467010bc73",
+      "scripts/windows/probe-board-package.mjs": "071e3d5dfa40c9e837d36527feeba70755cd02a30d90883f62cf43ba593fdb3d",
+      "scripts/windows/release-board-source-policy.mjs": "f859c61cb55842746d7883e2e4074c63932182e742a310003fb71a25dc822219",
+      "scripts/windows/release-collector-evidence.mjs": "ab2e3125f938283b83442e5788bcd4cf2f854744791e25daef368c5efcca8b33",
+      "scripts/windows/release-consumer-reports.mjs": "97078cce8277e63ddef9655d173ee315789cf264bfad3a95ad1943e1a995e67f",
+      "scripts/windows/release-source-policy.mjs": "f56f8e6ac6b985f7b6f540739aacd7b51e19525001d9b6b41b67a441b8bac296",
+      "server/productivity/boardRouter.ts": "572c8ca94fbc6239263171081f9046714fe9eaf5f8a82fba5b6d1f87886c4691",
+      "server/productivity/grouped-board-ranks.api.test.ts": "4001a11874a40fa147e331b868ea9c54c92818ff18805c00b527290517095f8d",
+      "server/productivity/grouped-board-ranks.test.ts": "cf491b361544729b6ea6c7f437c4c4c0d875e19bd3afd195b30987baf71c4930",
+      "server/productivity/groupedBoard.ts": "761b73a837f9d8a20a4fbf9424369f32cf4a95ed42a660c67fa23a1d2c5b898c",
+      "server/productivity/groupedBoardRanks.ts": "659c15e5feede12d8e4cdd1906fff9d0d6241a2b0e54d9f36bed9c561d901354",
+      "server/productivity/groupedBoardReader.ts": "624772a867c212c593438ab93b015b7bd24687ffa19e38ff358ff072fd1a4be5",
+      "server/productivity/ports.ts": "d11484c40bda96db5511f448d363af3ed28e66b7678a2cd9e8779162dc3fdca8",
+      "server/productivity/router.ts": "628f11f646914b0b5aa0669e75679dfc461f40edf08f021c71a20433e14f6ee4",
+      "tests/board-package-evidence.test.ts": "260bc23ae014a894f3899ffac6a3e51febb738e9d2ad888c8209ae6c6356351b",
+      "tests/evidence.test.ts": "19053a7d4f7851a902c808274d3f9f12b62b77d9e6eed978128e72bd16bc336c",
+      "tests/grouped-rank-import.test.ts": "a3334a490cea9d29ea6d494ee68027e2525785eded9f0ae993eed61c03a7efb7",
+      "tests/helpers/board-package-fixture.ts": "e0510b01e09511daaf6d75dcd252ef6d6a337a9b5bcf5f85126b00efd67e3fb7",
+      "tests/release-collector-evidence.test.ts": "744907463e4f1811f9ae672497498eb3058ce38054b4aa4c973753c18f30528d",
+      "tests/release-consumer-reports.test.ts": "72256d1430722d51bc7005b6484b6bbdf7f7c606cf916c61d6428f6f874d845a",
+      "tests/release-source-policy.test.ts": "f0d00fd484b0bb8c343a70f119b11d128ef5b4d4da0e2b4a35566e0f36b30455"
+    },
+    "compiledHashes": {
+      "dist/server.cjs": "222c116f47d654f0e214e39428a508c0c295ecdcab6e9808a6e7876d9d493682",
+      "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+    },
+    "reports": {
+      "p08b13-full.json": "1ebe202f9eda2cc50ff1e812170b19c38c547441ae34d1e9b9c7da4537eb455f",
+      "p08b13-full.junit.xml": "4c7318507f199a58ebdfd25dd774835ffeb09af99f45d7982f9db2867fd97f12",
+      "p08b13-full.log": "81b0289bfeff9eb00d03a366d51cc9fe9e2c596c4ec351097fc799a485089f36",
+      "p08b13-lint.log": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d",
+      "p08b13-build.log": "bb76b32d24f301fdccf030ea48d90b2e0538168a2e4da301dc31ebfb6c8cf85d"
+    },
+    "windowsAcceptance": "pending corrected SHA/all8/TENraw/23ZIP/28HTTP/100IPC/103firstattempt"
+  },
+  "composition": {
+    "ours": "96e0073",
+    "baseWithSameSource": "3dc2ac9",
+    "acceptedMain": "4f6e3573892dac37a016d8c5f9e1e410db3e3e8d",
+    "sourceTreeUnchanged": true,
+    "mainDeltaDocsOnly": [
+      "docs/engineering/evidence/f08o2-live-candidate.json",
+      "docs/engineering/evidence/f08o2-live-promotion.json",
+      "docs/engineering/evidence/job-clock-final.json",
+      "docs/engineering/evidence/p08b12-development.json",
+      "docs/engineering/implementation-status.md",
+      "docs/engineering/release-generated-fixture-policy.md"
+    ],
+    "resolved": [
+      "docs/engineering/evidence/p08b12-development.json",
+      "docs/engineering/implementation-status.md",
+      "scripts/ci/write-evidence.mjs",
+      "server/productivity/groupedBoard.ts",
+      "tests/evidence.test.ts"
+    ],
+    "noSourceAssertionsDropped": true
+  },
+  "tests": [
+    {
+      "file": "p08b13-api-red.json",
+      "sha256": "52e97ed12a2a9fe411a5eaf05f9290f915c3502e4607832a08d5666f5c78a452",
+      "tests": 5,
+      "passed": 1,
+      "failed": 4,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    {
+      "file": "p08b13-board-binding-red.json",
+      "sha256": "61032008e1725709a22a51dfe4c93a8633b03c34cf4d6c19c215c996537a0be8",
+      "tests": 66,
+      "passed": 61,
+      "failed": 5,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    {
+      "file": "p08b13-board-policy-green-first.json",
+      "sha256": "c47d23ae4b9dd66e4c7f53d67661138b63894d9db5f98e4e32cd884eeba0614d",
+      "tests": 390,
+      "passed": 390,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 4
+    },
+    {
+      "file": "p08b13-board-policy-red.json",
+      "sha256": "3a9ea15686e46294b3ed7639205341bf235a0c21d3dad8a11d9f39e098dd99e9",
+      "tests": 208,
+      "passed": 196,
+      "failed": 12,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    {
+      "file": "p08b13-cold-gate-red.json",
+      "sha256": "d3b9e07fa09a244f6ce59a0c7b71034ab9adf8c1e31e7bff82ac7b10a06a3f8f",
+      "tests": 289,
+      "passed": 288,
+      "failed": 1,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    {
+      "file": "p08b13-domain-http-first.json",
+      "sha256": "a220d6fd2ec3dad063d282429e4525134cd2b83d64f240526a81bf9d3c1e70ac",
+      "tests": 44,
+      "passed": 44,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 4
+    },
+    {
+      "file": "p08b13-full.json",
+      "sha256": "1ebe202f9eda2cc50ff1e812170b19c38c547441ae34d1e9b9c7da4537eb455f",
+      "tests": 4394,
+      "passed": 4394,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 244
+    },
+    {
+      "file": "p08b13-legacy-board-red.json",
+      "sha256": "fa9b96b4199d6fb62da7b36499c050fbff92d0eb9e1e9f2ec25c1ec99e9ada7a",
+      "tests": 116,
+      "passed": 114,
+      "failed": 2,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    {
+      "file": "p08b13-native-boundaries-first.json",
+      "sha256": "126b5e29f92544b86d996eb70beda7f152805fb11bd860e3d2b992ce119c3463",
+      "tests": 538,
+      "passed": 538,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 5
+    },
+    {
+      "file": "p08b13-native-gate-red.json",
+      "sha256": "db633f160ae72c68424607129e9dd4f45ed4d194f76fc72e4eb5ebd94df9113c",
+      "tests": 399,
+      "passed": 385,
+      "failed": 14,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    {
+      "file": "p08b13-rank-boundaries.json",
+      "sha256": "048c78b530dbcf9aee39f9586d04b0263fed5ce7c4f1b854278a96d6277b0879",
+      "tests": 22,
+      "passed": 22,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 2
+    },
+    {
+      "file": "p08b13-rank-current.json",
+      "sha256": "6bd1c6fa983fefb796f0368b88d332e7f7e786e270185af72fc2c9924b5c633a",
+      "tests": 14,
+      "passed": 14,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    {
+      "file": "p08b13-rank-first.json",
+      "sha256": "fca7a11dac0db5455837f4812dabd8700fa3688f2b69c940db546c65a9337c07",
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    {
+      "file": "p08b13-rank-red.json",
+      "sha256": "af0608d8fc81350c058f3fa6a688f4375e3a4d33f29860c13aa8334edc1d6152",
+      "tests": 13,
+      "passed": 1,
+      "failed": 12,
+      "pending": 0,
+      "todo": 0,
+      "files": 1
+    },
+    {
+      "file": "p08b13-shared-reader-first.json",
+      "sha256": "de43359644910bcb95dd642fd7100f9faef8afd1849935df232bf1819310cc07",
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 3
+    },
+    {
+      "file": "p08b13-target-first.json",
+      "sha256": "e89c517c9b69f68d7d80c1e7f2a1fa6dd186d1350acf7452620c6cb791f4bd31",
+      "tests": 576,
+      "passed": 576,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 9
+    },
+    {
+      "file": "p08b13-target-policy.json",
+      "sha256": "3a0a743918d810f98084fdf1c955295101fe99592ab9044b13bb3c3edd634780",
+      "tests": 738,
+      "passed": 738,
+      "failed": 0,
+      "pending": 0,
+      "todo": 0,
+      "files": 9
+    }
+  ],
+  "redRuling": {
+    "rankMissingImplementation": {
+      "tests": 13,
+      "passed": 1,
+      "failed": 12,
+      "alreadyFailClosedScaffold": "scalar gate pass did not prove new implementation"
+    },
+    "missingInternalRoutes": {
+      "tests": 5,
+      "passed": 1,
+      "failed": 4,
+      "alreadyFailClosedScaffold": "404 privacy pass alone did not prove route behavior"
+    },
+    "nativeAndMandatoryGate": {
+      "tests": 399,
+      "passed": 385,
+      "failed": 14
+    },
+    "coldMandatoryGate": {
+      "tests": 289,
+      "passed": 288,
+      "failed": 1
+    },
+    "legacyProfile": {
+      "tests": 116,
+      "passed": 114,
+      "failed": 2
+    },
+    "targetPolicy": {
+      "tests": 208,
+      "passed": 196,
+      "failed": 12
+    },
+    "receiptBinding": {
+      "tests": 66,
+      "passed": 61,
+      "failed": 5
+    },
+    "firstLint": "one unknown-to-Group value type error corrected after runtime validation; original log retained"
+  },
+  "actualPriorArtifactDiagnostic": {
+    "diagnosticOnly": true,
+    "authenticatedCollectorRun": false,
+    "existingIndependentlyVerifiedRun": 38828671336,
+    "targetSha": "180c64a491e726ada29cc686d37c8c2228dba750",
+    "boardPackagePolicy": {
+      "checks": [
+        "exact-bundled-node-addon",
+        "explicit9-fixture-identity",
+        "current9-http-config-and-reference",
+        "canonical-hard-wip-no-task-write",
+        "child-private-task-exclusion",
+        "ordinary9-snapshot-restore",
+        "credential-reentry-preserves-ids",
+        "encrypted9-independent-restore",
+        "wallet-matrix-board-references-preserved",
+        "old7-no-auto-upgrade",
+        "old7-refusal-preserves-bytes",
+        "future10-refusal-preserves-bytes",
+        "index-refusal-preserves-bytes",
+        "offline-handles-cleanup",
+        "private-safe-board-http-projection",
+        "transactional-board-move-and-audit",
+        "canonical-column-layout-and-archive",
+        "normalized-private-safe-grouped-board",
+        "selected-dimension-grouped-board-move",
+        "old8-no-auto-upgrade",
+        "old8-refusal-preserves-bytes",
+        "semantic9-multi-tag-view-and-moves"
+      ],
+      "groupedRanks": false,
+      "contractSha256": "5378676eda499bc72f223a1118003dc49fd3059ac52e2575672dec1bb66650ea"
+    },
+    "rawConsumerVerified": true,
+    "currentProfileRefusesOldReport": true,
+    "publicationAllowed": false,
+    "server2019Acceptance": "not-run"
+  },
+  "diagnosticScriptCorrection": "first external helper used version instead of required appVersion; corrected helper only; both logs retained; no validator weakening",
+  "contracts": {
+    "checks": 23,
+    "previousAssertionsRetained": 22,
+    "strictHttpClockIntervals": 28,
+    "serverExits": 11,
+    "nativePhases": 10,
+    "bytePreservingRefusals": 4,
+    "ipcSamples": 100,
+    "fixtureFormats": {
+      "productivity": 6,
+      "board": 9,
+      "wallet": 1
+    },
+    "schemaMigrationDefaultActivationDependenciesChanged": false
+  },
+  "remaining": [
+    "Cloud diagnostics are not Windows package proof",
+    "group rank shares canonical board order across tag references",
+    "cross-group semantic-field change plus rank anchor is not atomic in this slice",
+    "full P08/P09/P10/later master tasks unfinished",
+    "Server2019 R02 not run; publication/release/tag/VPS forbidden"
+  ],
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "releaseCreated": false,
+  "tagCreated": false,
+  "server2019Acceptance": "not-run",
+  "ciCorrection": {
+    "task": "P08-b13 CI correction",
+    "testedHeadSha": "356dc2c8531c69c563969a2be8229d35629c30c4",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38834324443",
+    "exactExpectedWindowsContractHash": "a563d5f943a3849bdf91dff7bc5c173bb9361c8c6c6a103cfd1bfd6245af2109",
+    "incorrectFixtureExpectationHash": "aca13f2005477c7da6dbfce01cdd9d12a22097bd1d544581c041b3f79466b6ee",
+    "cause": "new fixture assertion applied LF-to-CRLF blindly to a real Windows checkout with existing CRLF; raw reader uses idempotent conversion",
+    "productionContractChangeNeeded": false,
+    "node22": {
+      "tests": 4394,
+      "passed": 4393,
+      "failed": 1,
+      "files": 244,
+      "coverage": "not run after failed unit step"
+    },
+    "important": [
+      {
+        "finding": "Windows-specific expected hash double-converts CRLF",
+        "decision": "normalize fixture expected bytes idempotently; preserve full exact hash assertion and add LF/CRLF equivalence regression"
+      }
+    ],
+    "critical": 0,
+    "importantRemaining": 0,
+    "allFindingsGraded": true,
+    "correctionPasses": 1,
+    "rereview": false,
+    "otherJobs": "all five non-quality jobs passed; ci-gate failed as required; no coverage on either runtime after failed units",
+    "addedCases": 1,
+    "cloudTargeted": {
+      "tests": 90,
+      "passed": 90,
+      "failed": 0,
+      "files": 1,
+      "reportSha256": "e77f628768222cf3364815ab9bc9ab944d464a406a3812978ff8eb601c492923"
+    },
+    "changedSourcePaths": [
+      "tests/release-source-policy.test.ts"
+    ],
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "7ca9b0ebc0bb7af5d791fadebec8439edcb7c94b56d3c6288de9717b939189b9",
+      "scripts/windows/board-package-contract.mjs": "71034b6369a29685b3aa26d206026e43b1d5ec88f47062cb6074f1b31956bdfd",
+      "scripts/windows/collect-release-archives.mjs": "2ee3324a80b3ee2fc01acf94ca44aa5c54d99a3058c60b07447565467010bc73",
+      "scripts/windows/probe-board-package.mjs": "071e3d5dfa40c9e837d36527feeba70755cd02a30d90883f62cf43ba593fdb3d",
+      "scripts/windows/release-board-source-policy.mjs": "f859c61cb55842746d7883e2e4074c63932182e742a310003fb71a25dc822219",
+      "scripts/windows/release-collector-evidence.mjs": "ab2e3125f938283b83442e5788bcd4cf2f854744791e25daef368c5efcca8b33",
+      "scripts/windows/release-consumer-reports.mjs": "97078cce8277e63ddef9655d173ee315789cf264bfad3a95ad1943e1a995e67f",
+      "scripts/windows/release-source-policy.mjs": "f56f8e6ac6b985f7b6f540739aacd7b51e19525001d9b6b41b67a441b8bac296",
+      "server/productivity/boardRouter.ts": "572c8ca94fbc6239263171081f9046714fe9eaf5f8a82fba5b6d1f87886c4691",
+      "server/productivity/grouped-board-ranks.api.test.ts": "4001a11874a40fa147e331b868ea9c54c92818ff18805c00b527290517095f8d",
+      "server/productivity/grouped-board-ranks.test.ts": "cf491b361544729b6ea6c7f437c4c4c0d875e19bd3afd195b30987baf71c4930",
+      "server/productivity/groupedBoard.ts": "761b73a837f9d8a20a4fbf9424369f32cf4a95ed42a660c67fa23a1d2c5b898c",
+      "server/productivity/groupedBoardRanks.ts": "659c15e5feede12d8e4cdd1906fff9d0d6241a2b0e54d9f36bed9c561d901354",
+      "server/productivity/groupedBoardReader.ts": "624772a867c212c593438ab93b015b7bd24687ffa19e38ff358ff072fd1a4be5",
+      "server/productivity/ports.ts": "d11484c40bda96db5511f448d363af3ed28e66b7678a2cd9e8779162dc3fdca8",
+      "server/productivity/router.ts": "628f11f646914b0b5aa0669e75679dfc461f40edf08f021c71a20433e14f6ee4",
+      "tests/board-package-evidence.test.ts": "260bc23ae014a894f3899ffac6a3e51febb738e9d2ad888c8209ae6c6356351b",
+      "tests/evidence.test.ts": "19053a7d4f7851a902c808274d3f9f12b62b77d9e6eed978128e72bd16bc336c",
+      "tests/grouped-rank-import.test.ts": "a3334a490cea9d29ea6d494ee68027e2525785eded9f0ae993eed61c03a7efb7",
+      "tests/helpers/board-package-fixture.ts": "e0510b01e09511daaf6d75dcd252ef6d6a337a9b5bcf5f85126b00efd67e3fb7",
+      "tests/release-collector-evidence.test.ts": "744907463e4f1811f9ae672497498eb3058ce38054b4aa4c973753c18f30528d",
+      "tests/release-consumer-reports.test.ts": "72256d1430722d51bc7005b6484b6bbdf7f7c606cf916c61d6428f6f874d845a",
+      "tests/release-source-policy.test.ts": "f0d00fd484b0bb8c343a70f119b11d128ef5b4d4da0e2b4a35566e0f36b30455"
+    },
+    "failureEvidence": "p08b13-first-windows-failure.json"
+  }
+}
