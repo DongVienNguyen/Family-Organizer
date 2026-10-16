@@ -1,0 +1,130 @@
+{
+  "taskId": "P09-d",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/118",
+  "testedHeadSha": "96c992d6cb862b692f158b4dc69d20a411e84473",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855090309",
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "e14c4b19e979fe087b19c6e1dd34f446ea270cc9df4e28e99a919702af05c997",
+    "coverage": "4406adf4dbc7090539a73d667bd7694c2bfc1cc5abeb35e2676a33eaf8e3752c",
+    "package": "d0e1bcd82c0e49f4db6517c93bd8ef591b4669753c2371e3c94a03ed2be01a92",
+    "service": "e23f9211c8dfcf1c20d98e93997650fcc720656857ebad1df35c77bb4eddf90e",
+    "caddy": "25d817e97a9acfd0f9455dc58f86fe69b2d595cc0e7c9524adeeef1a539265c2",
+    "extraction-sdk": "20b222ef5ea1763d22fd497ff4581793ff3580401e3fb09b81b4ace8350889b3",
+    "inner-native": "80cc300fdb5d667808621c8f8327cb9d3b2afdd916caff4b8212aaabe08a3031",
+    "browser": "05a6885651b0b23e6b0564299c2968755c69d6f2c176bbe39604f6acc7834e8d",
+    "productivity-browser": "17dbae12639b45b19a548b7682a04d1a6dbbc01e83049e537f32cc9c482556aa",
+    "board-package": "cbf4a2f241a46d9976ba45ffb145ae736173285344bdf4415f302392f4436467",
+    "port-policy": "ad0449f5f02d5b3a99ce4d7fa60480da0b8a6def5d19429108a3776099fcff5a"
+  },
+  "qualityEach": 4750,
+  "qualityFilesEach": 259,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 63,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "zipSha256": "5008206b71447a6e5b87fae7bb7c5ca90c8b071e8f12c72a70ab6e0ec32b704a",
+  "fullCiLogZipSha256": "bd49c01c8d4c11923d5cfeffbf625fad165f99a1578824643cae436c20d1e6b2",
+  "review": {
+    "task": "P09-d",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "be6db6eed4721ec0cd8528448e191ac2a9cf376dcd2080592330f3e3807b05a8",
+      "server/productivity/grouping.ts": "5ae5977cde0fa6f6f72356f1861a60a0d1ba4aee23b36d2c72c7bc56ad9bc518",
+      "src/features/productivity/api.ts": "e9909b9eb1539987576a8a22787b60d174f9bb4421c70049e4db02d1a31954fd",
+      "src/features/productivity/boardCommandsClient.test.ts": "f4dc1e2c03726070f974d426540509459667ecdc774047f008e832017710e947",
+      "src/features/productivity/boardCommandsClient.ts": "a00156fdadab9e3fccb940ac7ca698cacad2f873d6d942b5f8e06c5282c2aba7",
+      "src/features/productivity/groupMove.ts": "5ea969a00d1d239c359e4bf269418b03d04978507428143127e48d4b08fe90ee",
+      "tests/evidence.test.ts": "0d5ea805e4ca4c792f67c6f46e7d3fbd199ed3eaa4bb2873b823d1948d383d5f",
+      "tests/grouped-rank-import.test.ts": "3d815c2ce76a74bf4e112dbd162895f74b77e3624416d82a362e2f8960874f1d"
+    },
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "be6db6eed4721ec0cd8528448e191ac2a9cf376dcd2080592330f3e3807b05a8",
+      "server/productivity/grouping.ts": "5ae5977cde0fa6f6f72356f1861a60a0d1ba4aee23b36d2c72c7bc56ad9bc518",
+      "src/features/productivity/api.ts": "e9909b9eb1539987576a8a22787b60d174f9bb4421c70049e4db02d1a31954fd",
+      "src/features/productivity/boardCommandsClient.test.ts": "f4dc1e2c03726070f974d426540509459667ecdc774047f008e832017710e947",
+      "src/features/productivity/boardCommandsClient.ts": "a00156fdadab9e3fccb940ac7ca698cacad2f873d6d942b5f8e06c5282c2aba7",
+      "src/features/productivity/groupMove.ts": "5ea969a00d1d239c359e4bf269418b03d04978507428143127e48d4b08fe90ee",
+      "tests/evidence.test.ts": "0d5ea805e4ca4c792f67c6f46e7d3fbd199ed3eaa4bb2873b823d1948d383d5f",
+      "tests/grouped-rank-import.test.ts": "3d815c2ce76a74bf4e112dbd162895f74b77e3624416d82a362e2f8960874f1d"
+    },
+    "reviewCoverage": [
+      "all8 source/test/evidence-inventory changes against current P09c candidate",
+      "browser-safe helper exact original body+comments, server reexport and cold import boundary",
+      "Bearer/no-store/AbortSignal/callerUUID and no retries via existing transport",
+      "strict input/response admission, only selected field can change, revision and canonical tag-set acknowledgements",
+      "server preview/apply payloads compared with existing actual command implementations",
+      "both existing mandatory suite inventories retained, new omission assertion failclosed",
+      "existing backend atomic/ACL/WIP/cache authority preserved, no UI writes enabled"
+    ],
+    "remaining": [
+      "parent P09c Windows acceptance and main composition",
+      "full Cloud/lint/build and new exact-head Windows acceptance",
+      "Kanban settings/menu/drag/large lists/clock refresh remain future work",
+      "full P08/P09/P10 and other master tasks incomplete"
+    ],
+    "publicationAllowed": false
+  },
+  "kanbanCommandClientAccepted": true,
+  "productivityFixtureVersion": 9,
+  "kanbanScreenshots": 6,
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "96c992d6cb862b692f158b4dc69d20a411e84473": "4d95242c429e4757957808b072ea7bfa178e6897",
+    "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24": "4d95242c429e4757957808b072ea7bfa178e6897"
+  },
+  "fullLogs": {
+    "files": 132,
+    "lines": 24466,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}
