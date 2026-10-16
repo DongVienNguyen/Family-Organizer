@@ -1,0 +1,113 @@
+{
+  "taskId": "P09-c",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/117",
+  "testedHead": "83a84ce358d095db7fa3e93d61053261c5021dcf",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38851540203",
+  "conclusion": "failure",
+  "allEightArtifactsDownloadedExactHead": true,
+  "fullLogs": {
+    "files": 130,
+    "lines": 25108,
+    "archiveSha256": "4244c5f7159fd258fb27aca2de97579b59b0d43e8e9bb3cb7a7b48bcea4dd38c",
+    "readAllLogFiles": true
+  },
+  "productivity": {
+    "passed": 54,
+    "failed": 9,
+    "skipped": 0,
+    "flaky": 0,
+    "newKanbanCasesPassed": 6,
+    "failedCases": [
+      {
+        "project": "chromium",
+        "case": "P04 C03 actual checklist/subtask/personal pin preserve root identity and no reward side effect",
+        "status": "timedOut",
+        "retry": 0
+      },
+      {
+        "project": "chromium",
+        "case": "P04 C07 retained board refuses opening while authorization refresh is pending",
+        "status": "failed",
+        "retry": 0
+      },
+      {
+        "project": "chromium",
+        "case": "P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh",
+        "status": "failed",
+        "retry": 0
+      },
+      {
+        "project": "firefox",
+        "case": "P04 C03 actual checklist/subtask/personal pin preserve root identity and no reward side effect",
+        "status": "timedOut",
+        "retry": 0
+      },
+      {
+        "project": "firefox",
+        "case": "P04 C07 retained board refuses opening while authorization refresh is pending",
+        "status": "failed",
+        "retry": 0
+      },
+      {
+        "project": "firefox",
+        "case": "P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh",
+        "status": "failed",
+        "retry": 0
+      },
+      {
+        "project": "webkit",
+        "case": "P04 C03 actual checklist/subtask/personal pin preserve root identity and no reward side effect",
+        "status": "timedOut",
+        "retry": 0
+      },
+      {
+        "project": "webkit",
+        "case": "P04 C07 retained board refuses opening while authorization refresh is pending",
+        "status": "failed",
+        "retry": 0
+      },
+      {
+        "project": "webkit",
+        "case": "P04 C08 unsent comment checklist and subtask text survive unrelated SSE refresh",
+        "status": "failed",
+        "retry": 0
+      }
+    ],
+    "jsonSha256": "451fb011e076950ececabe12ba7cf9a5a185a6d62c5aef49d9809c779a80b6e6",
+    "junitSha256": "1eff6197550cb441ef206350354af2ede7a488019982330a61b580ba72cbf6bf"
+  },
+  "nativeTouch": "not run; runner stopped after browser failure",
+  "causes": [
+    {
+      "severity": "Important",
+      "cause": "pins context only accepts schema4,5,6; explicit Kanban fixture9 returns409 for old pin read/write; C03/C07/C08 fail on all3 engines",
+      "correction": "bounded accepted pin versions4..9, retaining active-store/actor validation and fresh ACL; causal schema7/8/9 regressions added"
+    },
+    {
+      "severity": "Important",
+      "cause": "runner shutdown checks schema9 and an obsolete schema6 assertion on the same database",
+      "correction": "retain independent shutdown check bound to actual seed productivityVersion9; closure/cleanup assertions remain mandatory"
+    }
+  ],
+  "notWindowsAccepted": true,
+  "releaseCreated": false,
+  "vpsAccessed": false,
+  "independentlyValidatedSuccessfulRawFamilies": {
+    "quality": "c5db4896924075297a7d024f84592f277ff3db2031e9600396942861dd62d823",
+    "coverage": "247a7bc3a36ff1d800fbe6a15188659db3cdc057cd03079985fb4c5768be253f",
+    "package": "45462c0b20a80cd1e55e75478172925b480c140436e9df7475dce4aa41a28f89",
+    "service": "af5c0693ad32e3d32cde869110b1d02010e3a47e42b91852522f1f4455041e34",
+    "caddy": "675170422e88a46e1479e7aa63141edbe118dfa37c602821e3dec81f66472b12",
+    "extraction-sdk": "574505043803a380ba925765c58fee5b5c6908691192e65a1e1567565f7986b5",
+    "inner-native": "d3aeaa857a48821cb075729801eedca1f0743543824da53b1c0d07960a91d9b1",
+    "browser": "4bb9c595c10900e7e6adc8de3795ca72a2d56ef94b7407a583e3cf78d1c7d69e",
+    "board-package": "935281373fba790b270d4a53ccd0cd3c8c638e902a06615a89f0eb8d7438a2e9",
+    "port-policy": "6d35c2121d9657e819a93be19ac8f0d82306ed7b731501001b22f58868c3e5c2"
+  },
+  "qualityEach": {
+    "tests": 4703,
+    "files": 258,
+    "matchingJUnit": true,
+    "failedSkippedTodo": 0
+  }
+}

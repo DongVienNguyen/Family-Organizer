@@ -50,3 +50,16 @@ Settings, drag/menu writes, virtualization and ongoing clock refresh remain late
 P09 work. P08 workflow dispatch, durable P10 recurrence and the rest of the master
 plan are unfinished. No new public API/token/provider, schema/default activation,
 release/tag/VPS or Server2019/R02 acceptance is claimed.
+
+The first Windows run at `83a84ce358d095db7fa3e93d61053261c5021dcf`
+failed nine retained P04 cases (C03/C07/C08 on all three engines), although
+all six new Kanban cases passed. The explicit schema9 fixture exposed an old
+personal-pin gate restricted to4–6. Its bounded compatibility list now includes
+7–9, retaining the existing active-store/actor gate and fresh ACL
+checks before cached receipts and inside the transaction. Three real migrated
+schema regressions exercise pin read/list/write, UUID replay, independent actors,
+private-task/Guest refusals and unchanged Task/history/reward/notification facts.
+They failed at the old gate before its correction. The runner's independent final
+schema check also follows the actual seeded version instead of a contradictory
+leftover6 assertion. Every old browser case/assertion and timeout remains intact;
+the failed run is retained in `evidence/p09c-first-windows-failure.json`.
