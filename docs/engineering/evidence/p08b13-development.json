@@ -431,7 +431,7 @@
     "allFindingsGraded": true,
     "correctionPasses": 1,
     "rereview": false,
-    "otherJobs": "first run pending; preserve all completed artifacts and read full logs before pushing correction",
+    "otherJobs": "all five non-quality jobs passed; ci-gate failed as required; no coverage on either runtime after failed units",
     "addedCases": 1,
     "cloudTargeted": {
       "tests": 90,
@@ -467,6 +467,7 @@
       "tests/release-collector-evidence.test.ts": "744907463e4f1811f9ae672497498eb3058ce38054b4aa4c973753c18f30528d",
       "tests/release-consumer-reports.test.ts": "72256d1430722d51bc7005b6484b6bbdf7f7c606cf916c61d6428f6f874d845a",
       "tests/release-source-policy.test.ts": "f0d00fd484b0bb8c343a70f119b11d128ef5b4d4da0e2b4a35566e0f36b30455"
-    }
+    },
+    "failureEvidence": "p08b13-first-windows-failure.json"
   }
 }
