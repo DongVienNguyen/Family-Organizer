@@ -71,3 +71,8 @@ it('prepares detached validated recurrence inputs once while validating each req
  for(const ordinal of [0,1.5,100001,NaN])expect(()=>plan(ordinal)).toThrow(/candidate input/i);
  expect(()=>prepare({policy:policy(),anchor:{kind:'none'}})).toThrow(/candidate input/i);expect(()=>prepare({...shared,acceptedCompletedAt:'invalid'})).toThrow(/candidate input/i);expect(()=>prepare({...shared,ordinal:1})).toThrow(/candidate input/i);
 });
+it('keeps global completion identity separate from a validated relative offset while searching skipped calendar cycles',()=>{
+ const p=policy({base:'completion',cadence:{kind:'calendar',frequency:'monthly',interval:1,invalidDate:'skip'}}),plan=(slots as any).createRecurrenceSlotPlanner({policy:p,anchor:{kind:'all_day',date:'2026-01-31',timezone:'Asia/Saigon'},acceptedCompletedAt:'2027-01-31T03:15:00.123Z'});
+ expect(plan(7)).toMatchObject({kind:'skipped',ordinal:7,year:2027,month:2});expect(plan(8,2)).toMatchObject({kind:'due',ordinal:8,due:{date:'2027-03-31'}});expect(plan(9)).toMatchObject({kind:'skipped',ordinal:9,year:2027,month:2});
+ for(const offset of [0,-1,1.5,100001,NaN])expect(()=>plan(8,offset)).toThrow(/candidate input/i);
+});

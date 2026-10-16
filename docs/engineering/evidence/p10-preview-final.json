@@ -1,0 +1,104 @@
+{
+  "taskId": "P10-d2",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/125",
+  "testedHeadSha": "66b387d013df85c223246024c3c92dadad11b0dd",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38890078251",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "6ba3117586e82adb343bd5e6ea89e7fee46209a0034c7f1604d025ea47a65be1",
+    "coverage": "80a53ac1036c7340c5110be56ac82f28ef814251f27e0872dfc287956d0f542c",
+    "package": "12eb0d503140da101ac83bc77ef0584812132bf685e2cb2b7765dde3215c25ec",
+    "service": "fd8aeb2ecd61f5bfbe417b2e3b881522e614a5b02af69ee8954cc371f6e91ded",
+    "caddy": "4f2150b30e514c868f18a4ed9f74f22550674d35b701fde99814b7569d518b1e",
+    "extraction-sdk": "93f97237b7db97560ca05e6fb08e8d18dab137cc2ff8beafcdb411955fec84bc",
+    "inner-native": "899c3c285981cd8a2d3c6f81ed697f23cd8c5fa141d283ff52d294bb4c058b45",
+    "browser": "6d2b5b21d0acda4e12a408c3d8c4f45f26d6e7a136c55710fa1a9ff5b8242bf5",
+    "productivity-browser": "3cfb7464a713b815b54c8eb9e788462778218f80a212032a10ac3af4fba447e4",
+    "board-package": "1a2c31740ef7686acc8dc499e14ede460fc8998c173bd98e7d77692dd43533d2",
+    "port-policy": "869b34dcd78ef43ed5c3f1ab20d76dd1a9969c2d318bca26e3768d08a6ff40a5"
+  },
+  "qualityEach": 5083,
+  "qualityFilesEach": 275,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 78,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "review": {
+    "critical": 0,
+    "important": 2,
+    "minor": 1,
+    "minorDeferred": [
+      "M1"
+    ],
+    "importantRemaining": 0,
+    "correctionPasses": 1,
+    "rereview": false
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "56418b8e52be3c1f1567c9b418f447fcebffc1ea8bd1b19ea083a72be80300f3",
+    "server/productivity/ports.ts": "6412ea36ac35d0cb04190fd4fdff22e21844fa3ea8d7454d6adf1f83bbe144bf",
+    "server/productivity/recurrence-preview.api.test.ts": "2d6c2440f57fb9b75160cd102fc310d7dd5c8f8b805ebcf2229d3f36fe5b2123",
+    "server/productivity/recurrence-preview.test.ts": "1bfc75f61e5f931872791fd666e3c7408ca1cad60d5f534c2d396ce8264c5269",
+    "server/productivity/recurrence-slots.test.ts": "ffc86080c09cf9ab59201adbeab857e3b3868e3b44547070cbc420d550a38586",
+    "server/productivity/recurrencePreview.ts": "cfc3037b9ac3af426e744fa02ab0f90942143b6d7acc008739045b0b2429d934",
+    "server/productivity/recurrenceSlots.ts": "7f91870cc7866daf648c6c9952e945c2ffb655afc262d2ff2334c4fae88d1a0d",
+    "server/productivity/recurrenceTimed.ts": "85b4c2b1598d67e5f370b349770d634f08c7e603939e6b227a2779060cd5ac86",
+    "server/productivity/router.ts": "42433827f6adcac95684771c8bb8c4cca771f6fe27d6ff59ad652ba5ee1668d1",
+    "src/features/productivity/date-formatter-isolation.test.ts": "1e11765ffc236e587131abcbfcab1165d45545d135914b7558d763158c1ed6ad",
+    "src/features/productivity/dates.ts": "6ef5fc603b899d201fc447b8ebc3cacc324320671adb80645fe67d46a050d13e",
+    "tests/evidence.test.ts": "eb86b0dea4ce05ba0d86a6248efe42e13af6fb10b40e1d3966070138e5ce2bb7",
+    "tests/recurrence-calendar-import.test.ts": "316df1deb71a3502bf448e049dbba51364eff4280a6283b553d2cba549bc3b58"
+  },
+  "mandatoryNewSuites": 4,
+  "defaultPilotMigration": 6,
+  "explicitSeriesMigration": 10,
+  "seriesEnabledByDefault": false,
+  "fullP10Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "c78bd0ac443b3c2dea4185cb7a7f122fbf32a9a5",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "66b387d013df85c223246024c3c92dadad11b0dd": "24599c449ce1468997de7567cd01306bcc34649c",
+    "c78bd0ac443b3c2dea4185cb7a7f122fbf32a9a5": "24599c449ce1468997de7567cd01306bcc34649c"
+  },
+  "fullLogs": {
+    "files": 138,
+    "lines": 25642,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

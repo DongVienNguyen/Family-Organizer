@@ -1,3 +1,4 @@
+import {acceptRecurringOccurrence,isDurableOccurrenceTask} from './productivity/recurrenceAccepted.js';
 import {completionPolicy,markAcceptedCompletion,linkedCompletionGrant,reverseAcceptedCompletion,withCompletionPolicy} from './completionPolicy.js';
 import {hashPassword,verifyPassword} from './passwords.js';
 import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
@@ -785,6 +786,10 @@ export class FamilyDB {
       taskData = validateTaskPayload(taskData,oldTask,actor,db);
       validateTaskProofUrl(taskData.proofImage);
       const isCompleting = taskData.status === "completed" && oldTask.status !== "completed";
+      // Registered durable occurrences share the semantic grant/reversal owner
+      // even when an existing legacy endpoint reaches this writer directly.
+      const requestedReopen=oldTask.status===TaskStatus.COMPLETED&&taskData.status!==undefined&&taskData.status!==TaskStatus.COMPLETED;
+      if(isCompleting||requestedReopen){const tx=currentAppWriteTx()!;if(!completionPolicy(tx,oldTask.id)&&isDurableOccurrenceTask(tx,oldTask.id)){const row=tx.get('SELECT revision FROM productivity_tasks WHERE id=?',oldTask.id);return withCompletionPolicy(tx,{taskId:oldTask.id,revision:row?.revision,operation:isCompleting?'complete':'reopen'},()=>{if(requestedReopen)reverseAcceptedCompletion(tx,oldTask.id,userId);return this.saveTask(taskData,userId,username);});}}
 
       // Gating duyệt: trẻ (CHILD) tự báo hoàn thành một task có điểm > ngưỡng tự duyệt
       // của gia đình → task vào trạng thái "chờ ba mẹ duyệt" thay vì cộng điểm ngay.
@@ -910,7 +915,10 @@ export class FamilyDB {
         }
       }
 
-      if (effectiveCompleting && updatedTask.recurrenceType && updatedTask.recurrenceType !== "none") {
+      let durableOccurrence=false;
+      if(effectiveCompleting){this.writeRaw(db);durableOccurrence=acceptRecurringOccurrence(currentAppWriteTx()!,updatedTask,userId,nowStr);}
+
+      if (effectiveCompleting && !durableOccurrence && updatedTask.recurrenceType && updatedTask.recurrenceType !== "none") {
         const nextDueDate = advanceDateString(updatedTask.dueDate, updatedTask.recurrenceType, updatedTask.recurrenceInterval || 1);
         const recurrenceEnd = updatedTask.recurrenceEndDate ? parseLocalDateTime(`${updatedTask.recurrenceEndDate} 23:59`) : null;
         const nextDue = nextDueDate ? parseLocalDateTime(nextDueDate) : null;

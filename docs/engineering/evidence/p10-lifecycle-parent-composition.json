@@ -1,0 +1,43 @@
+{
+  "testedParent": "66b387d013df85c223246024c3c92dadad11b0dd",
+  "acceptedMain": "c78bd0ac443b3c2dea4185cb7a7f122fbf32a9a5",
+  "trees": {
+    "66b387d013df85c223246024c3c92dadad11b0dd": "24599c449ce1468997de7567cd01306bcc34649c",
+    "c78bd0ac443b3c2dea4185cb7a7f122fbf32a9a5": "24599c449ce1468997de7567cd01306bcc34649c"
+  },
+  "workingHashes": {
+    "docs/engineering/implementation-status.md": "6e09ddf4e449678788d54e25efbca88420d76126070c4b0232d24d0684555c97",
+    "scripts/ci/write-evidence.mjs": "f85b60d6b5b6b90f3035e3e167f61869e620b81a8d83cf44db769b5479744a35",
+    "server/db.ts": "12673dc02b3bb8311ec7a4cca2d0028c52c78b9e5746c7d4dea1ca8a2aa1e161",
+    "server/mediaPolicy.ts": "595fcf00d747a7e668ad00a749e944209c317ed06d58a6c7b89dbd057f87f2cd",
+    "server/productivity/adapter.ts": "049d24b675d30ced3a3dda30c3ee84d09907c1f5841507c2d6c72af44f51e125",
+    "server/productivity/boardCatalog.ts": "b1771ea3fabd788a76e7a95bda725c152990694d4974315daf16300dbb745715",
+    "server/productivity/boardViewSchema.ts": "5cce4890c52825c233b80c90f212aa406ffdfc3ee3ffc4a7e70b934fa21857db",
+    "server/productivity/groupedBoard.ts": "b6919215974540560de12a7cfbfbd5bcc713bc999034dc4b85fa58074bdd2252",
+    "server/productivity/inspection.ts": "ea67c11cfbe13fbadaf362d118d67f33f74da2b79b1cb9f5f3628c0f48b8b583",
+    "server/productivity/matrix.ts": "f8929046c133211291e6fa972a66576006ee43490f7ec8bf06f77306cee90108",
+    "server/productivity/pins.ts": "92df3e3e9e50433a04a3cf5548f6fa56b2caea53eb5e391e0b9865a5779d2f23",
+    "server/productivity/recurrencePreview.ts": "200981a2547a047ef6804a5dd52b0b197d0d94608e6ded82bac1076bf095f9ad",
+    "server/productivity/sectionBoards.ts": "ae3ae41de4b1092761e89450ee4d29bb71f07f11c876d14319cf2ed8f8953d16",
+    "server/productivity/seriesRecord.ts": "9970154e99c840804d76749f88b76c047ffe343134e83ae843a77b2459bf90a5",
+    "server/productivity/seriesStore.ts": "3066cf008ac3a1f2f6a7aae60bb4996b79d3dee804da3416732e6670c6f31a00",
+    "server/productivity/snapshot.ts": "502ef7d1e69857c57d3fff12fd56cbbded2b0af658b893b64933574c92020147",
+    "server/productivity/structure.ts": "5055834a3e35f2b8edeac78b2de52e57cb7877431ac83b5d256e4c8b5bcc4ed3",
+    "server/productivity/structureInvariant.ts": "0edf1a0418532319d34352d2b3270d9a00f20f1c7850072dbfbda1d06ff719a5",
+    "server/productivity/structureSchema.ts": "d5169e45b08f3a8a1c5153a622945c2d86655f194794dc62f413976b6ff432db",
+    "server/productivity/views.ts": "b0f09b6ed35c92199d644b345900fb1b553a442748e3e6bba751760d57306acb",
+    "tests/evidence.test.ts": "0fe6faf8cfad53740de90bfa5056b2e1285b0877122ed50fb116139732d99a56",
+    "tests/recurrence-calendar-import.test.ts": "c97c1393565530088598abf28564cef452fe7b13847fefc4a673b9b5a3e6ccdd",
+    "docs/engineering/evidence/p10-preview-final.json": "335c4aa5cd301135b226d90184f7eef00ded5770d9c9fec822a95e6217392ae4",
+    "docs/engineering/recurrence-accepted-lifecycle.md": "9d8fdc97532326274baa67ce6d42e5cfa3a7ab1dbdae8a4788ee55f05efed768",
+    "server/productivity/occurrence-migration.test.ts": "6e325c09daae7c61f649f24f64c68e2aa83aa8dd83aebfd3c491315d38a1b04d",
+    "server/productivity/occurrence-record.test.ts": "cc6db09c325c0bdd6948afae2e69a083a0875e04a6eaa551f5e6b567a87e0db8",
+    "server/productivity/occurrence-schema.test.ts": "bfb07584d354fe7eb04eef953733ab40c4eaa7711400d79d69ec0091da3543b4",
+    "server/productivity/occurrenceRecord.ts": "e6a9086ebb3a6f1f1b0b139c8585e28240015f8347b1493f5c383d02aa569f8e",
+    "server/productivity/occurrenceSchema.ts": "518d01711b8ccfe77c1bdfaee9b27b1e16848223dae51fdf1a80c6cd7e49f983",
+    "server/productivity/recurrence-accepted.test.ts": "6b6ee6e1ca7414391dc18052ca3f61d08bb2bb0c78fb9922c16d5e3ab244c906",
+    "server/productivity/recurrenceAccepted.ts": "9132cd83a9450e2828a279998a9ddc1cf05a68067f9bfc39f5b6d832332a365c",
+    "tests/occurrence-recovery-native.test.ts": "d237cd37b88873a638e75eb7767f885a9a528979e2b2d0d54fb8f90226081409"
+  },
+  "normalMergeLeavesWorkingSourceIdentical": true
+}

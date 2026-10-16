@@ -1,0 +1,405 @@
+{
+  "taskId": "P10-d3",
+  "baseSha": "c78bd0ac443b3c2dea4185cb7a7f122fbf32a9a5",
+  "actualCheckpoints": {
+    "record-red": {
+      "tests": 22,
+      "passed": 0,
+      "failed": 22,
+      "pending": 0,
+      "files": 1,
+      "sha256": "045aa2de82182db2b9600944f5b1e15b0500f02c147fd037a109de52a8d7a2aa"
+    },
+    "record-green": {
+      "tests": 22,
+      "passed": 22,
+      "failed": 0,
+      "pending": 0,
+      "files": 1,
+      "sha256": "92e4933c77778a5c07ba3209aaff774011882a0062f1514987394d8ac575d557"
+    },
+    "schema-red": {
+      "tests": 11,
+      "passed": 0,
+      "failed": 11,
+      "pending": 0,
+      "files": 1,
+      "sha256": "26757f79616001b4638bdbb387cfd52202d57e5f49bd8f95ccec98cc10e9a31b"
+    },
+    "schema-green": {
+      "tests": 33,
+      "passed": 33,
+      "failed": 0,
+      "pending": 0,
+      "files": 2,
+      "sha256": "cce928ae680bcf4e16cbf397a139d2b488dc8eec7e5ee38a3c5b3c1d9ce5fda4"
+    },
+    "null-red": {
+      "tests": 12,
+      "passed": 11,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "09dfe38be1e631fc698cdcb28db887ca2126b027f4d329a33e952aed705f2bce"
+    },
+    "migration-red": {
+      "tests": 3,
+      "passed": 0,
+      "failed": 1,
+      "pending": 2,
+      "files": 1,
+      "sha256": "11e1fa43a15de97a7a2fc091a043c8859f1e5d62d75aa487f2cb69f0375a5cf5"
+    },
+    "migration-green": {
+      "tests": 37,
+      "passed": 34,
+      "failed": 3,
+      "pending": 0,
+      "files": 3,
+      "sha256": "c39316d2468e501f7c5d75c8d17c7cc365ddf9f2af231776c91aea858a5d0e4e"
+    },
+    "migration-corrected": {
+      "tests": 37,
+      "passed": 37,
+      "failed": 0,
+      "pending": 0,
+      "files": 3,
+      "sha256": "5a3505bb3b3d640c3fb5c638e57a314ba362fee540df7dd324c9c98d0a471f30"
+    },
+    "accepted-red": {
+      "tests": 11,
+      "passed": 2,
+      "failed": 9,
+      "pending": 0,
+      "files": 1,
+      "sha256": "708c5094b437b7b0c4f60ece4633d3f2acfe4f8fbeb702e67d6452b774127e2f"
+    },
+    "accepted-causal-red": {
+      "tests": 11,
+      "passed": 2,
+      "failed": 9,
+      "pending": 0,
+      "files": 1,
+      "sha256": "0eccc9d0293571e3a69efc77ad38b7bdda90e3d6423b0a6d9f0794c55dface6d"
+    },
+    "accepted-first": {
+      "tests": 11,
+      "passed": 2,
+      "failed": 9,
+      "pending": 0,
+      "files": 1,
+      "sha256": "91388f009bb93f0b6810a8ac49582fa91c9f818a61f6257131b89710c5f6c386"
+    },
+    "accepted-actor-corrected": {
+      "tests": 39,
+      "passed": 38,
+      "failed": 1,
+      "pending": 0,
+      "files": 3,
+      "sha256": "eb6bdfb0c64d48e3869da3830e45aee400dc6f4ffeb6ea96a1df56e4d6bf769d"
+    },
+    "coherence-red": {
+      "tests": 34,
+      "passed": 22,
+      "failed": 12,
+      "pending": 0,
+      "files": 1,
+      "sha256": "12197b29cf3ce5a8201aa04d138cdbe0afc6f8b4e26fa4adf954455307fea190"
+    },
+    "target-first": {
+      "tests": 88,
+      "passed": 88,
+      "failed": 0,
+      "pending": 0,
+      "files": 6,
+      "sha256": "494e1fb1953c3edf513ff47ef97bcb0fc382dd0a1bee3dba1ac657400055bd47"
+    },
+    "legacy-red": {
+      "tests": 16,
+      "passed": 14,
+      "failed": 2,
+      "pending": 0,
+      "files": 1,
+      "sha256": "75c84b85a46006ec058e97dc6c2bf2925783dedf60bcb6f1f474626cb4e1dd98"
+    },
+    "target-expanded": {
+      "tests": 118,
+      "passed": 118,
+      "failed": 0,
+      "pending": 0,
+      "files": 7,
+      "sha256": "8cac1f62eb7e4d121784c619951047b4a9b90e2873b9948d24c10874b524e9bf"
+    },
+    "native-first": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "21a17a3004a7208f12643aacd326fa7a5f29546b406b2671a94d0ac23b5b8c22"
+    },
+    "native-fixture-corrected": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "cb8109efca4505512795fa7fea29674d755fa9afa2219232873a246bae296e7e"
+    },
+    "native-json-corrected": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "c3ca638675e3f4b4b4bf4e33f5e557d66e99ae24d1020bedcf5f39be13627c5c"
+    },
+    "native-facts-diagnostic": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "0e54dc4c5fa7163e8dc91010729a107dc61c32f0e554ab071340a788db81aa25"
+    },
+    "native-semantic-corrected": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "files": 1,
+      "sha256": "e60afea43f6ba93b1139dca797ab1bc6ebdac6a9dd35dc2ebd5b5dc52bd08101"
+    },
+    "gate-red": {
+      "tests": 333,
+      "passed": 328,
+      "failed": 5,
+      "pending": 0,
+      "files": 2,
+      "sha256": "6334a72e9e4623c16e8c9a1eb99ff559359a171a6babf8966dcbbe7f3f18fd1c"
+    },
+    "end-zone-red": {
+      "tests": 19,
+      "passed": 17,
+      "failed": 2,
+      "pending": 0,
+      "files": 1,
+      "sha256": "a5297f207a71f4c0791cae67343c50829a4084d3b0688ef753b139822b52bdb8"
+    },
+    "target-final": {
+      "tests": 455,
+      "passed": 455,
+      "failed": 0,
+      "pending": 0,
+      "files": 10,
+      "sha256": "edbd1dd5dc1aa2779090f123a5320c75a58cd836a837c56427fb1b21d5124ff4"
+    },
+    "generic-reopen-red": {
+      "tests": 20,
+      "passed": 19,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "17434f50a6c61397e95d64f5d30bd72961ee1d3da16d8ed02f9862e0053aef29"
+    },
+    "reopen-green": {
+      "tests": 46,
+      "passed": 46,
+      "failed": 0,
+      "pending": 0,
+      "files": 3,
+      "sha256": "a53773ea2b0246b64d1e55cae0ae5fd4b6ac0d47be8ce80f5f7620ecce04a601"
+    },
+    "http-green": {
+      "tests": 22,
+      "passed": 22,
+      "failed": 0,
+      "pending": 0,
+      "files": 1,
+      "sha256": "9659bab652e78ddeb08ed594428c14b780f493acdb5737110fefb2a83d9f4c2d"
+    },
+    "full": {
+      "tests": 5163,
+      "passed": 5163,
+      "failed": 0,
+      "pending": 0,
+      "files": 280,
+      "sha256": "446ae0657ebb190af324c87fb75a02765ef808d5f47a729124b040d180b8d85c"
+    },
+    "review-red": {
+      "tests": 63,
+      "passed": 56,
+      "failed": 7,
+      "pending": 0,
+      "files": 3,
+      "sha256": "5d04721a535af2a63b15123bdd0b74f9a958c37d06ea3e8b7c3a84f9f9095a78"
+    },
+    "offset-red": {
+      "tests": 26,
+      "passed": 25,
+      "failed": 1,
+      "pending": 0,
+      "files": 1,
+      "sha256": "16e884ebbb4e0d3a378569e9f835bb2a294aa9c9be472b07077dd96e292023fa"
+    },
+    "review-causal-red": {
+      "tests": 62,
+      "passed": 56,
+      "failed": 6,
+      "pending": 0,
+      "files": 2,
+      "sha256": "7ace77b45f76c70a90fe492317ddce864a73e09284e09f60483f9ea680ff7b2c"
+    },
+    "review-green": {
+      "tests": 459,
+      "passed": 459,
+      "failed": 0,
+      "pending": 0,
+      "files": 8,
+      "sha256": "12eb979f454dfd49134ea37799d6957f58c5ebcb81b001bab73a50cf22f07afa"
+    },
+    "reviewed-full": {
+      "tests": 5170,
+      "passed": 5170,
+      "failed": 0,
+      "pending": 0,
+      "files": 280,
+      "sha256": "1c2a85da6f77e2e832fc5af22ec19adaa9d8237505676d06d5eecba13dde4cd3"
+    }
+  },
+  "cloudGreen": {
+    "tests": 5170,
+    "files": 280,
+    "junitTests": 5170,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "hashes": {
+      "p10-lifecycle-reviewed-full.json": "1c2a85da6f77e2e832fc5af22ec19adaa9d8237505676d06d5eecba13dde4cd3",
+      "p10-lifecycle-reviewed-full.junit.xml": "26df2f3295c1e741c48497d41cc11722936f02aa62b785cd3784b71d3944bdba",
+      "p10-lifecycle-reviewed-full.log": "b9afb51c9b82e4bebe386b8763c795951926c543db4bcded139820b79f1d42be",
+      "p10-lifecycle-reviewed-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p10-lifecycle-reviewed-build.log": "48ea1ff2f602d42ef6fa073b36963651fb4735dc9179d96a63db352593257926",
+      "p10-lifecycle-review-green.json": "12eb979f454dfd49134ea37799d6957f58c5ebcb81b001bab73a50cf22f07afa"
+    }
+  },
+  "sourceHashes": {
+    "scripts/ci/write-evidence.mjs": "f85b60d6b5b6b90f3035e3e167f61869e620b81a8d83cf44db769b5479744a35",
+    "server/db.ts": "12673dc02b3bb8311ec7a4cca2d0028c52c78b9e5746c7d4dea1ca8a2aa1e161",
+    "server/mediaPolicy.ts": "595fcf00d747a7e668ad00a749e944209c317ed06d58a6c7b89dbd057f87f2cd",
+    "server/productivity/adapter.ts": "049d24b675d30ced3a3dda30c3ee84d09907c1f5841507c2d6c72af44f51e125",
+    "server/productivity/boardCatalog.ts": "b1771ea3fabd788a76e7a95bda725c152990694d4974315daf16300dbb745715",
+    "server/productivity/boardViewSchema.ts": "5cce4890c52825c233b80c90f212aa406ffdfc3ee3ffc4a7e70b934fa21857db",
+    "server/productivity/groupedBoard.ts": "b6919215974540560de12a7cfbfbd5bcc713bc999034dc4b85fa58074bdd2252",
+    "server/productivity/inspection.ts": "ea67c11cfbe13fbadaf362d118d67f33f74da2b79b1cb9f5f3628c0f48b8b583",
+    "server/productivity/matrix.ts": "f8929046c133211291e6fa972a66576006ee43490f7ec8bf06f77306cee90108",
+    "server/productivity/occurrence-migration.test.ts": "6e325c09daae7c61f649f24f64c68e2aa83aa8dd83aebfd3c491315d38a1b04d",
+    "server/productivity/occurrence-record.test.ts": "e942da20d86bbee69b359c4953ac765f41a8dfbe7ed2585edb9aed283b69c94e",
+    "server/productivity/occurrence-schema.test.ts": "bfb07584d354fe7eb04eef953733ab40c4eaa7711400d79d69ec0091da3543b4",
+    "server/productivity/occurrenceRecord.ts": "3d28002bf475d7a5aa37d0061f4489dfb078d2f88dc0fe25062f2757e0f4fa96",
+    "server/productivity/occurrenceSchema.ts": "518d01711b8ccfe77c1bdfaee9b27b1e16848223dae51fdf1a80c6cd7e49f983",
+    "server/productivity/pins.ts": "92df3e3e9e50433a04a3cf5548f6fa56b2caea53eb5e391e0b9865a5779d2f23",
+    "server/productivity/recurrence-accepted.test.ts": "c781f01befae5683f5cd0771ff3b29b76bdd8aaeedc6f432e178d3b9ab5aa439",
+    "server/productivity/recurrence-slots.test.ts": "78481f5b09db621dd89e60e1a2ec8814f091a01dfbbe5af0a5d1af0186d8f26e",
+    "server/productivity/recurrenceAccepted.ts": "707aa27f532e21dff2558f394f01d5220b3ce53dcccecb4f854f0f11a480489d",
+    "server/productivity/recurrencePreview.ts": "200981a2547a047ef6804a5dd52b0b197d0d94608e6ded82bac1076bf095f9ad",
+    "server/productivity/recurrenceSlots.ts": "f5008ef813043786183608ec80982995c4949763083d166bf0ae0d5e72a9b5a1",
+    "server/productivity/sectionBoards.ts": "ae3ae41de4b1092761e89450ee4d29bb71f07f11c876d14319cf2ed8f8953d16",
+    "server/productivity/seriesRecord.ts": "9970154e99c840804d76749f88b76c047ffe343134e83ae843a77b2459bf90a5",
+    "server/productivity/seriesStore.ts": "3066cf008ac3a1f2f6a7aae60bb4996b79d3dee804da3416732e6670c6f31a00",
+    "server/productivity/snapshot.ts": "502ef7d1e69857c57d3fff12fd56cbbded2b0af658b893b64933574c92020147",
+    "server/productivity/structure.ts": "5055834a3e35f2b8edeac78b2de52e57cb7877431ac83b5d256e4c8b5bcc4ed3",
+    "server/productivity/structureInvariant.ts": "0edf1a0418532319d34352d2b3270d9a00f20f1c7850072dbfbda1d06ff719a5",
+    "server/productivity/structureSchema.ts": "d5169e45b08f3a8a1c5153a622945c2d86655f194794dc62f413976b6ff432db",
+    "server/productivity/views.ts": "b0f09b6ed35c92199d644b345900fb1b553a442748e3e6bba751760d57306acb",
+    "tests/evidence.test.ts": "0fe6faf8cfad53740de90bfa5056b2e1285b0877122ed50fb116139732d99a56",
+    "tests/occurrence-recovery-native.test.ts": "d8848044b8517eb889aea52df98cd107ef2a803d7350f46122e87ba71cd39e77",
+    "tests/recurrence-calendar-import.test.ts": "c97c1393565530088598abf28564cef452fe7b13847fefc4a673b9b5a3e6ccdd"
+  },
+  "fullSuitePending": false,
+  "reviewPending": false,
+  "windowsPending": true,
+  "expectedWindowsQuality": {
+    "tests": 5170,
+    "files": 280
+  },
+  "fullP10Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "defaultPilotMigration": 6,
+  "explicitOccurrenceMigration": 11,
+  "typeOnlyFixtureCorrection": {
+    "file": "server/productivity/recurrence-accepted.test.ts",
+    "beforeEmittedSha256": "a96d2b69747a81c2643b56431d1104e3d91684fc0dbf993204a892e3d096e7a9",
+    "afterEmittedSha256": "a96d2b69747a81c2643b56431d1104e3d91684fc0dbf993204a892e3d096e7a9",
+    "emittedRuntimeIdentical": true,
+    "reason": "Node events dynamic-import type definition omits actual once named export; test fixture cast only"
+  },
+  "rulings": [
+    "Approved P10 design and full execution cover lifecycle; prepare during125CI but publish only after accepted-parent composition",
+    "Additive11 owned table preserves frozen1\u201310 and opaque historical occurrences; default6 unchanged",
+    "Registered durable legacy completion/reopen uses existing linked semantic grant/reversal; unrelated legacy policy unchanged",
+    "Recompletion may regrant its new event, but accepted occurrence/successor/rotation history does not advance twice",
+    "Unknown DST, root timezone drift or removed next recipient refuses422 atomically until corrected",
+    "Native collection data compared with every parsed JSON field because recovery canonicalizes keyorder; domain/opaque rows exact and refusal file hashes exact",
+    "Known VAPID-off informational prefix explicitly checked; zero offline blocker attempts",
+    "Node events dynamic-import fixture type cast has identical emitted JavaScript hash; full-suite runtime unchanged",
+    "One fresh0C2I0M all graded before one correction/no rereview; relative calendar offset for skipped cycles and exact open-slot cursor invariant; historical125M1 deferred"
+  ],
+  "preReviewCloudGreen": {
+    "tests": 5163,
+    "files": 280,
+    "junitTests": 5163,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "hashes": {
+      "p10-lifecycle-full.json": "446ae0657ebb190af324c87fb75a02765ef808d5f47a729124b040d180b8d85c",
+      "p10-lifecycle-full.junit.xml": "6ce2e59fbd986f76f69d88f7dfc11629a63db9a3e92737d0c54831d6df0eb79c",
+      "p10-lifecycle-full.log": "bbb02560487dcca58193c87a2ef33a5e28632f32504620316cc735bf6956b33f",
+      "p10-lifecycle-build.log": "9a35e09da21ca8eb5bf4a7604d387b4a1d487d4df03a7642852a46f98dec523e",
+      "p10-lifecycle-type-corrected-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "p10-lifecycle-type-only-proof.json": "69f3a937585a769e763d1b1b38ae7f239dede03aaf3f7429893df50a2d2fb492"
+    }
+  },
+  "currentNewSuiteCounts": {
+    "server/productivity/occurrence-record.test.ts": 35,
+    "server/productivity/occurrence-schema.test.ts": 12,
+    "server/productivity/occurrence-migration.test.ts": 3,
+    "server/productivity/recurrence-accepted.test.ts": 27,
+    "tests/occurrence-recovery-native.test.ts": 1
+  },
+  "review": {
+    "reviewedSha": "98cfcce0a7e62127c00c99da34907fe152a2d6c3",
+    "kind": "fresh-whole-branch",
+    "reviewClosed": true,
+    "allFindingsGradedBeforeCorrection": true,
+    "findings": {
+      "critical": 0,
+      "important": 2,
+      "minor": 0
+    },
+    "correctionPasses": 1,
+    "criticalRemaining": 0,
+    "importantRemaining": 0,
+    "minorDeferred": [],
+    "closedHistoricalMinorDeferred": [
+      "PR125:M1"
+    ],
+    "rereview": false,
+    "reportSha256": "0a09a01c897d9ad5040a7300c38df8d45b2cb149725299fa1269d3875b1d4a4b",
+    "gradingSha256": "b67da82bcab3a8adb1003aa956b16861a26f0d2b0f7086a15de45136ed2e43ac"
+  },
+  "reviewTarget": {
+    "tests": 459,
+    "passed": 459,
+    "failed": 0,
+    "pending": 0,
+    "files": 8,
+    "sha256": "12eb979f454dfd49134ea37799d6957f58c5ebcb81b001bab73a50cf22f07afa"
+  }
+}

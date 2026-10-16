@@ -76,8 +76,9 @@ const recurringMedia=new WeakMap<AppWriteTx,Map<string,{sourceId:string;urls:Set
 /** Internal lifecycle capability: only the generated successor inherits the
  * authorized source's unchanged Markdown. Payload sourceRecurringTaskId cannot
  * create this permission. Proof images are deliberately not inherited. */
-export function allowRecurringTaskMedia(tx:AppWriteTx,source:Task,successor:Task,actor:LegacyActor):void {
- if(!canEditLegacyTask(source,actor)||source.status!=='completed'||!source.recurrenceType||source.recurrenceType==='none'||source.description!==successor.description||successor.proofImage||successor.id===source.id||tx.legacy.tasks.some(task=>task.id===successor.id))throw new AppStoreError('Không được gắn tệp này.',403);
+export function allowRecurringTaskMedia(tx:AppWriteTx,source:Task,successor:Task,actor:LegacyActor,durableSeriesId?:string):void {
+ const durable=durableSeriesId!==undefined&&tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version===11&&!!tx.get("SELECT task_id FROM productivity_series_occurrences WHERE series_id=? AND task_id=? AND state='accepted'",durableSeriesId,source.id);
+ if(!canEditLegacyTask(source,actor)||source.status!=='completed'||(!durable&&(!source.recurrenceType||source.recurrenceType==='none'))||source.description!==successor.description||successor.proofImage||successor.id===source.id||tx.legacy.tasks.some(task=>task.id===successor.id))throw new AppStoreError('Không được gắn tệp này.',403);
  const permits=recurringMedia.get(tx)??new Map();permits.set(successor.id,{sourceId:source.id,urls:new Set(managedMarkdownUrls(String(source.description??'')))});recurringMedia.set(tx,permits);
 }
 export function bindMediaChanges(tx:AppWriteTx,before:Map<string,MediaBinding[]>,actorId:string):void {
