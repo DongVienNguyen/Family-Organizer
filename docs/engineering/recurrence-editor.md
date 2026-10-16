@@ -1,0 +1,15 @@
+# Recurrence editor candidate (P10-d4b)
+
+The shared Task drawer exposes recurrence configuration only to a current adult with Task/series-root edit authority and an explicitly supported12 pilot store. Default production registration stays6. This candidate is not a rollout or fullP10 acceptance; old recurrence cutover remains pending.
+
+The editor offers due/accepted-completion anchors; daily, weekly, monthly, yearly and explicit-date cadence; intervals; clamp/skip; date/count/never end; explicit missed-cycle choice; assignee rotation; and this/future/all scope. Existing accepted/history/reward facts are retained by the accepted backend owner. Preview reads the saved configuration and persists no virtual Task. Anchor and current-deadline changes require explicit controls; an ambiguous local time requires an explicit UTC choice.
+
+The first completion-based skip uses separate initially empty next-deadline fields. It cannot silently reuse the current deadline. An exhausted count/ended/cursor bound needs no fictional next deadline. Skip confirmation uses the existing shared modal and preserves stopped proof/history with no accepted points or rotation. The panel and draft survive authorized refresh/close/SSE in the session-owned cache; revoked401/403/404 authority removes only its private recurrence state. Logout/privacy removal clears that cache. Offline writes and automatic retries are absent.
+
+Shared controls keep stable geometry when opening a selector; adding a physical border previously changed40px→42px, generated drawer scroll, closed the popup and let Escape reach the drawer. A layout-neutral outline fixes that cause while retaining external-scroll close behavior and the existing neu shadow. Shared confirmations now associate their heading through a unique ID and aria-labelledby. Original keyboard/confirmation assertions remain present.
+
+Validation evidence and source hashes: `evidence/p10-editor-development.json`, local self-review/grading and validation-repairs records. Final Cloud unit/SQLite5344 tests/292 files/JUnit, lint/build and Chromium30+native-touch1 passed without retries/skips. Initial failures/traces are retained and hashed; targeted diagnostics are labeled separately from full runs. Firefox/WebKit Cloud binaries downloaded, but WebKit host libraries are absent; no complete Cloud qualification of those engines is claimed.
+
+The Windows candidate must run all8 original checks and11 raw families, each Node22/24 5344 tests/292 files/JUnit,45 legacy+90 Productivity+1 native touch=136 first attempts, offline package/service probes and full logs at the actual PR HEAD. This editor has no Windows PR/run yet: the Cloud GitHub credential returned401 after PR127 was successfully accepted/merged. The refresh question is pending; do not infer current main-run or editor Windows success.
+
+Deferred review Minors: visible roster ordering (P10/P17 before rollout) and the specific409 legacy-cutover explanation (controlled cutover). FullP08/P09/P10 and later Productivity/Wallet/integration work remain incomplete. Windows2022 does not qualify Server2019/R02. No release/tag/VPS operation is authorized or performed.

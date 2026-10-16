@@ -148,7 +148,7 @@ export function FancySelect({
         aria-label={ariaLabel}
         onClick={() => (open ? close() : openMenu())}
         onKeyDown={onKeyDown}
-        className={`w-full flex items-center justify-between gap-2 bg-slate-950 neu-pressed-sm ${open ? "border border-emerald-500" : ""} rounded-lg p-2 text-left outline-none cursor-pointer transition-colors ${className}`}
+        className={`w-full flex items-center justify-between gap-2 bg-slate-950 neu-pressed-sm ${open ? "outline-emerald-500" : "outline-transparent"} rounded-lg p-2 text-left outline outline-1 focus-visible:outline-sky-500/40 cursor-pointer transition-colors ${className}`}
       >
         <span className="flex items-center gap-2 min-w-0">
           {leading ?? selected?.leading}

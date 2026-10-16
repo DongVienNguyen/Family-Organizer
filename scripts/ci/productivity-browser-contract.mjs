@@ -1,5 +1,5 @@
 import {isDeepStrictEqual} from 'node:util';
-export const productivityFixtureVersion=9;
+export const productivityFixtureVersion=12;
 export const productivityBrowserShardFormat=1;
 import {validateProductivityShards} from './productivity-shard-contract.mjs';
 import {validateMatrixTouchReports} from './matrix-touch-contract.mjs';
@@ -31,6 +31,10 @@ export const productivityBrowserCases=[
  'P09 C24 tag projection preview cancel apply preserves other tags draft and canonical lifecycle',
  'P09 C25 non-rank grouped priority assignee and explicit all-day due moves change only their selected field',
  'P09 C26 all-tags add and replace require fresh previews and preserve canonical deadline lifecycle and rewards',
+ 'P10 C27 recurrence editor creates previews and edits one virtual slot while retaining a keyboard phone draft',
+ 'P10 C28 completion-based skip requires explicit deadline and keeps stopped proof without points or rotation',
+ 'P10 C29 an existing current deadline cannot silently become the next deadline of a first completion-based skip',
+ 'P10 C30 denied series authority removes only its private editor draft while retaining the readable Task',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports(input),...validateProductivityShards(input,productivityBrowserCases)];
