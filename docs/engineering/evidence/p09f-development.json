@@ -1,10 +1,22 @@
 {
   "taskId": "P09-f",
-  "prUrl": "pending parent119 acceptance",
-  "baseSha": "cdd2676ac2fbd91a0b1435a5b0136f0c4c846387",
-  "acceptedMainSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24",
+  "prUrl": "pending creation after accepted-main history composition",
+  "baseSha": "a0c684d3fe15802617303f291b010590a7430fae",
+  "acceptedMainSha": "a0c684d3fe15802617303f291b010590a7430fae",
   "scope": "adult physical section/rank preview/cancel/apply menu, API-bound confirmation owner, actual keyboard/draft and held-preview refresh browser regressions",
-  "parentWindowsAcceptance": "pending119 ddf88044a40196a0a44ed1ce20f6001093323040 /38863426208",
+  "parentWindowsAcceptance": {
+    "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/119",
+    "testedHeadSha": "ddf88044a40196a0a44ed1ce20f6001093323040",
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38863426208",
+    "all8Checks": true,
+    "rawFamilies": 11,
+    "fullLogs": {
+      "files": 137,
+      "lines": 24874,
+      "expectedSynthetic": 16,
+      "unexpected": 0
+    }
+  },
   "cloudGreen": {
     "tests": 4863,
     "passed": 4863,
@@ -189,7 +201,7 @@
       "p09f-chromium-final.json": "7b7f3893b26df403a067d8ba392b425712dba420523b1b85d4b98837f0c80dd0",
       "p09f-old-browser-preservation.json": "5bd3c3de0a4f74403599c080cbd3862b6acff674cea09f93715b21405654ee3f"
     },
-    "windowsAcceptance": "pending new PR after119 exactHEAD acceptance"
+    "windowsAcceptance": "pending new exact HEAD for this PR; parent119 has passed"
   },
   "browserDiagnostic": {
     "scope": "Cloud Linux Chromium all23Productivity +1nativeTouch diagnostic; not Windows or full3engine acceptance",
@@ -718,5 +730,18 @@
       "p09f-profiler-chromium-final.json": "b43b7f84892f77dba1bfeb5e6fd75fbb04712cbe320795f8ed19add76d7fa840"
     },
     "windowsAcceptance": "not run; parent119 acceptance and main history composition required"
+  },
+  "beforeAcceptedMainComposition": {
+    "baseSha": "cdd2676ac2fbd91a0b1435a5b0136f0c4c846387",
+    "acceptedMainSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24"
+  },
+  "acceptedMainHistoryComposition": {
+    "acceptedMain": "a0c684d3fe15802617303f291b010590a7430fae",
+    "includedTestedCandidate": "ddf88044a40196a0a44ed1ce20f6001093323040",
+    "acceptedMainTreeEqualsTestedCandidate": true,
+    "candidateAncestorOfPreparedSource": true,
+    "beforeAfterWholeTreeEqual": true,
+    "tree": "c542d7a262275b0b92e00ae6d47f7fbfe104a2dd",
+    "historyCommit": "aa944cb022500a6cbd8b8627b9344612203d2284"
   }
 }
