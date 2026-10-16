@@ -1,5 +1,7 @@
 import {isDeepStrictEqual} from 'node:util';
 export const productivityFixtureVersion=9;
+export const productivityBrowserShardFormat=1;
+import {validateProductivityShards} from './productivity-shard-contract.mjs';
 import {validateMatrixTouchReports} from './matrix-touch-contract.mjs';
 import {validateBrowserReports,browserProjects} from './browser-contract.mjs';
 export const productivityBrowserCases=[
@@ -28,7 +30,7 @@ export const productivityBrowserCases=[
  'P09 C23 authorization refresh discards a held section preview without any late apply',
 ];
 export function validateProductivityBrowserReports(input){
- const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases}),...validateMatrixTouchReports(input)];
+ const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports(input),...validateProductivityShards(input,productivityBrowserCases)];
  if(!isDeepStrictEqual(input.manifest?.kanbanFixture,{taskRowsPreserved:true,boards:2,views:9}))errors.push('missing explicit synthetic9 Kanban fixture preservation');
  if(input.manifest?.synthetic!==true||input.manifest?.productivityVersion!==productivityFixtureVersion||input.manifest?.nativeHandlesClosed!==true||input.manifest?.networkAttempts?.length!==0)errors.push('missing current synthetic productivity fixture/closed/offline evidence');return errors;
 }

@@ -1,0 +1,59 @@
+{
+  "task": "P09-e CI verification correction",
+  "headSha": "807ea1fa2b35ec4bfe377a817e9fd83fc099ae24",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38856121084",
+  "conclusion": "failure",
+  "cause": "unchanged 12-minute whole browser process watchdog sent SIGKILL before final WebKit C21 and final JSON/JUnit; no completed full-suite result",
+  "completedCaseLines": 62,
+  "finalProductivityJsonJunit": false,
+  "nativeTouchRun": false,
+  "nativeExits": {
+    "cliExitCode": null,
+    "cliSignal": "SIGKILL",
+    "serverExitCode": 0,
+    "serverSignal": null,
+    "browserExitCode": null,
+    "browserSignal": "SIGKILL"
+  },
+  "fixtureCleanup": true,
+  "databaseClosed": true,
+  "integrity": "ok",
+  "independentOtherFamilies": [
+    "quality",
+    "coverage",
+    "package",
+    "service",
+    "caddy",
+    "extraction-sdk",
+    "inner-native",
+    "browser",
+    "board-package",
+    "port-policy"
+  ],
+  "summaryHashes": {
+    "quality": "ce1751b0ee282ea337eb84a214297822971c025df1c0c648637b60bebdf29ddd",
+    "coverage": "2652688712cd2864f63aba5b1528b21eabf0c0f9d298ce7b47228d379e79f413",
+    "package": "421bcfdb505ac19d8519e36d044668b09724e570fad7dddd5607e7847fa8e8df",
+    "service": "d610faaf8c72e3a48020900e0270fe2a6487645114b8bb17da4d1dfb11fa27c0",
+    "caddy": "bd5bcf790251dc4c1c7c66dc62c38822d739a7fa3cd180690b5e64f374257545",
+    "extraction-sdk": "80d3f19194544be4331c7c5b945c25ca3e73bdd3df31ddc05898d436f7ce08e0",
+    "inner-native": "83741d2536ef24b6aae0ffa56fcde91e3aa3b2bfcaf6f5cdaaabb335872401d5",
+    "browser": "216a30f3ed7a865dd57fc767fa93156efa27f8a7ce42f3c2e937c9d27f8d8dbb",
+    "board-package": "c5f3934cbbfb5e79f7f4307ceb73e4563b0ccfa255c62729678c4a41ee5e79c3",
+    "port-policy": "6e0981d3ef08bf3619023e0ccf453afc241160a0f457f783ac455d6f00bc7445"
+  },
+  "fullLogRead": {
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38856121084",
+    "readAllLogFiles": true,
+    "files": 130,
+    "lines": 24698,
+    "archiveSha256": "ad7206d1fe337cf996f466e383a473615f7dd2dfdfb830d15d73fb673d9d0dc2",
+    "acceptance": "failed; never green evidence",
+    "publicationAllowed": false
+  },
+  "fullLogArchiveSha256": "ad7206d1fe337cf996f466e383a473615f7dd2dfdfb830d15d73fb673d9d0dc2",
+  "correction": "execute Chromium/native-touch in existing Node24 job, Firefox in existing legacy browser job, WebKit in existing Productivity job; validate three original reports and merge original Playwright blobs; unchanged assertions/cases/deadlines",
+  "acceptance": "failed; 62 completed stdout lines are not all tests passed",
+  "server2019Acceptance": "not-run",
+  "publicationAllowed": false
+}

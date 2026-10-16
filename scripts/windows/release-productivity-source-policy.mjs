@@ -16,6 +16,8 @@ export function parseProductivityBrowserSourcePolicy(contract,touchContract,proj
  const declarations=source.statements.flatMap(statement=>ts.isVariableStatement(statement)?statement.declarationList.declarations.filter(d=>ts.isIdentifier(d.name)&&d.name.text==='productivityFixtureVersion'):[]);let fixtureVersion;
  if(declarations.length){const version=exportedValue(source,'productivityFixtureVersion');requireFact(ts.isNumericLiteral(version)&&version.getText(source)==='9');fixtureVersion=9;}
  requireFact(!cases.some(name=>name.startsWith('P09 '))||fixtureVersion===9);
+ const shardDeclarations=source.statements.flatMap(statement=>ts.isVariableStatement(statement)?statement.declarationList.declarations.filter(d=>ts.isIdentifier(d.name)&&d.name.text==='productivityBrowserShardFormat'):[]);let shardFormat;
+ if(shardDeclarations.length){const format=exportedValue(source,'productivityBrowserShardFormat');requireFact(fixtureVersion===9&&ts.isNumericLiteral(format)&&format.getText(source)==='1');shardFormat=1;}
  const touchSource=syntax(touchContract,'matrix-touch-contract.mjs'),touchCase=literal(touchSource,exportedValue(touchSource,'matrixTouchCase'));requireFact(/^P[0-9]{2} touch [^\r\n]{1,300}$/.test(touchCase));
- return {projects:[...projects],cases,...(fixtureVersion===9?{fixtureVersion}:{}),contractSha256:hash(contract),touch:{project:'chromium',case:touchCase,contractSha256:hash(touchContract)}};
+ return {projects:[...projects],cases,...(shardFormat===1?{shardFormat}:{}),...(fixtureVersion===9?{fixtureVersion}:{}),contractSha256:hash(contract),touch:{project:'chromium',case:touchCase,contractSha256:hash(touchContract)}};
 }

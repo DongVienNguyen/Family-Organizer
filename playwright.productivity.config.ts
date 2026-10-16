@@ -1,3 +1,7 @@
 import base from './playwright.config.js';
 import {defineConfig} from '@playwright/test';
-export default defineConfig({...base,testMatch:'productivity.spec.ts',outputDir:'reports/productivity-browser-results',reporter:[['list'],['json',{outputFile:'reports/productivity-browser.json'}],['junit',{outputFile:'reports/productivity-browser.junit.xml'}],['html',{outputFolder:'reports/productivity-browser-html',open:'never'}]]});
+import {productivityReportLayout} from './scripts/ci/productivity-report-layout.mjs';
+import path from 'node:path';
+const project=process.env.FO_PRODUCTIVITY_PROJECT||undefined,{reports}=productivityReportLayout(project);
+const file=(name:string)=>path.join(reports,name);
+export default defineConfig({...base,...(project?{projects:base.projects.filter(p=>p.name===project)}:{}),testMatch:'productivity.spec.ts',outputDir:file('productivity-browser-results'),reporter:[...(project?[['blob',{outputDir:file('blob')}]]as any:[]),['list'],['json',{outputFile:file('productivity-browser.json')}],['junit',{outputFile:file('productivity-browser.junit.xml')}],['html',{outputFolder:file('productivity-browser-html'),open:'never'}]]});
