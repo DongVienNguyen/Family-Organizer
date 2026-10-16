@@ -1,0 +1,129 @@
+{
+  "taskId": "P10-d4c-backend",
+  "baseSha": "c6880052719912a955e52cf339d0f8c796d20a2c",
+  "status": "local WIP saved before returning to editor PR128 failed Firefox scroll fixture",
+  "sourceHashes": {
+    "server/db.ts": "e635363a3c9d476b981f1b26d75e3fb1f6a40723ae4672373a3aabe7d29a6ccc",
+    "server/mediaPolicy.ts": "407d50bca7fd874dca49e0317d09d5e523582474ab23c7c7b509f1f4c4c68745",
+    "server/productivity/adapter.ts": "fa4278f928344040b606f84ec2ed3cb5f47406aef8aef34785521a00bad9247c",
+    "server/productivity/boardCatalog.ts": "34e68d6b37ab10ca0c5f6fb01c5d1db05bb5b248e86c2eb263c65aaaf44aa5af",
+    "server/productivity/boardViewSchema.ts": "bcb71747deb3c9e3a78ead0af047bdbfc22984593731b6be81832336c6a696aa",
+    "server/productivity/groupedBoard.ts": "b18b7f9a3595efb51983215b8f401a26165613638c17a4c534393beaa8fd6a47",
+    "server/productivity/inspection.ts": "d7fb44a2e4da48202842a14657ef4667a71d818bc092537333ad7041cede776c",
+    "server/productivity/legacy-cutover-migration.test.ts": "4a0246fab177c9a38c8a20e436b82e3851af03e4c7d2f8d1a5ef726d45b27c6b",
+    "server/productivity/legacy-cutover.api.test.ts": "97e3b076714adc45d4df2c7fa730bd0bf072175179256f9bd2eaac28785dbe2e",
+    "server/productivity/legacy-cutover.test.ts": "05d72ebf30cb2ad410262be01324db09d6bd44333a6a9d9ba170d3232cc3fe7b",
+    "server/productivity/legacyCutoverRecord.ts": "677788f4bd2fa2163405f9ffbe74d163e326c12f0088dfc23b720958b93e2f09",
+    "server/productivity/legacyCutoverSchema.ts": "ed4210091b32600d3fe8eb6064c18f1fc07ae9da1f18e421236ca44d6b77002b",
+    "server/productivity/legacyRecurrenceCutover.ts": "52fc084e930b407fa5f11a3d2008e8f14371a80b4f9432e4838bba543501c7ce",
+    "server/productivity/legacyRecurrenceFamily.ts": "931714526be3191d7497d3693d4679cc153fd9ba54c971754da2837a54dbe798",
+    "server/productivity/matrix.ts": "321dfd562f4e0cbf473bd36391c1bdc2e478fd99abdd09d957a957ef3746172a",
+    "server/productivity/pins.ts": "33a024c62dc1130fac8e13f8ce1e0c4855902772b99563e619a271d04a6864e2",
+    "server/productivity/ports.ts": "f0e08cb20136e88d04a5f8af76858b63084c09ac1c623c3ba15f91b663c6e45c",
+    "server/productivity/recurrenceAccepted.ts": "d6a3139720661171b1a9a3d5591e03980dadfddb7557070ed4f2cafa48906518",
+    "server/productivity/recurrenceMaterialize.ts": "9e85d137b1151c630e9ef7e56ef4075f571352c3e315270e8a32a9f1dbdf4fad",
+    "server/productivity/recurrencePreview.ts": "717f2613ff947edfd205d15e7612248585150bc1653facd73265e56bbed86627",
+    "server/productivity/router.ts": "9062b34a6038758588d791765235456e3463c1a40aff01ddcd26f6a0c465cc88",
+    "server/productivity/sectionBoards.ts": "188923940a06a03470f42f40c99463af2fe564846c79a0be38dac5b7040e724e",
+    "server/productivity/seriesCommands.ts": "f088444806556d92b7f39f766f217fc5322c2213d98b3fa1f24e8b29e7a6ee7b",
+    "server/productivity/seriesRecord.ts": "0ec30551f44e9aa214670456ef5398c08163ae552d969dd235e8bb55289c0b82",
+    "server/productivity/seriesStore.ts": "c3d93cc0ae50cbf423ee38dc4378df137f39011ee6c57403e012c8e983a797cc",
+    "server/productivity/snapshot.ts": "8cd7adc772f92d7fabd6063b842d956240b65a6775e9ac53eb58f94733bdd2d9",
+    "server/productivity/store.ts": "6460a06652c82605bd1b96116523b30a870eca73185feda3738e5677aa2e9a58",
+    "server/productivity/structure.ts": "99bbe22aeda9f344bc3cd637963c96aeccb935351e4e644d644ebeb2f7429277",
+    "server/productivity/structureInvariant.ts": "54afe9c15affbd3e09eb8596f26ea7087fe3cfaed01d432ac5b19f211783cfb4",
+    "server/productivity/structureSchema.ts": "ac8c8f1a2d251e2bd54bfd2cfd2814597710fdd52e907cf31afcea3616987d2b",
+    "server/productivity/user-reference-writes.test.ts": "a08a95e71f02a31b694f4a96dc5d9b7a98f70a76245eef7d89a59130669d5b72",
+    "server/productivity/views.ts": "25c2f54a06f3ea258fea7722aebc08b4b46d021c2284f95a1110546114c0a0ab",
+    "server/sqlite.ts": "185f6de8a8edc41d37bc75eb3535bc8b075a071a62f64fc971474d4164f5f74d",
+    "tests/legacy-cutover-recovery-native.test.ts": "66188e856142f2852eafd04c4b300627aa97bce6aac0a8464e784f8099b1554a"
+  },
+  "review": "pending local whole-branch review; no fresh independent reviewer claimed",
+  "reports": {
+    "p10-cutover-initial-red": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "files": 1,
+      "sha256": "96526315f642219af3386e66c661520bb3817bea88d7ef0e2c163c8c3ccf91eb"
+    },
+    "p10-cutover-integration-red": {
+      "tests": 13,
+      "passed": 9,
+      "failed": 4,
+      "files": 1,
+      "sha256": "90018e3aa9a3bd7f0f4b74cb7be44f54c9740d33833624d253f272ef6685bbf8"
+    },
+    "p10-cutover-target": {
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "files": 1,
+      "sha256": "3a88a1091c317ca4290ba75f3fa58e09b224c8c7f5a942386fe4fb32da2f1fbf"
+    },
+    "p10-cutover-native-target": {
+      "tests": 22,
+      "passed": 22,
+      "failed": 0,
+      "files": 3,
+      "sha256": "fe93a0ec87a6807a98da5bd9d2d7ad99f85f83f972483ae17c6372c59ce217c3"
+    },
+    "p10-cutover-regressions": {
+      "tests": 111,
+      "passed": 111,
+      "failed": 0,
+      "files": 8,
+      "sha256": "77b1906255fe7c658ed065952cb50e325ee7b3593c3ec6038e7306c9927f69b0"
+    },
+    "p10-cutover-target-final": {
+      "tests": 42,
+      "passed": 42,
+      "failed": 0,
+      "files": 5,
+      "sha256": "15f70ac409e4202db55e9c39ec68d6a97538c78263fcec35f21fa17c67813fe7"
+    },
+    "p10-cutover-membership-red": {
+      "tests": 28,
+      "passed": 27,
+      "failed": 1,
+      "files": 1,
+      "sha256": "b719c1413a54e39b357457739e7be76ce04223846e36ac7c9e274de360a01a9c"
+    },
+    "p10-cutover-membership-green": {
+      "tests": 32,
+      "passed": 32,
+      "failed": 0,
+      "files": 3,
+      "sha256": "f08c6ab26a8e9b4c3e95ab59289fbbb214e25988113d3388e1681b083791cecb"
+    },
+    "p10-cutover-full-red": {
+      "tests": 5348,
+      "passed": 5334,
+      "failed": 14,
+      "files": 295,
+      "sha256": "a63c5b806d2bb87c8729c4dbaedb28b14bd25397f8338779a8aa8481aaaa86d1"
+    },
+    "p10-cutover-compatibility-green": {
+      "tests": 62,
+      "passed": 62,
+      "failed": 0,
+      "files": 5,
+      "sha256": "16ff44c839ad2e50e395c7d4ed7f49b4e35107f6b3742fb8257af287cf73a5b4"
+    }
+  },
+  "defaultMigration": 6,
+  "explicitMigration": 13,
+  "frozen1Through12Preserved": true,
+  "browserFixtureVersion": 9,
+  "fullP10Accepted": false,
+  "fullMasterPlanAccepted": false,
+  "windowsAcceptance": "not-run",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "notes": [
+    "Full5348/295 had14failures caused by partialsqliteSave objects missingusers and a bare schema lackingapp_migrations. Both compatibility causes fixed; retained tests unchanged. Latest62reporttests pass but shell tool exit1 is unaccepted pending explicit subprocess capture.",
+    "Nonempty original selectedTaskhistory fixture added.",
+    "Native13 encrypted/restart test and HTTP/transactional/membership tests passed in prior explicit qualifying runs; finalwholebranch validation pending.",
+    "No schema13UI or actual13ZIP qualification yet."
+  ]
+}

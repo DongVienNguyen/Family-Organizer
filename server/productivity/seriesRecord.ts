@@ -1,3 +1,4 @@
+import {validateLegacyCutovers} from './legacyCutoverRecord.js';
 import {validateOccurrenceResolutions} from './occurrenceResolution.js';
 import {validateOwnedOccurrenceRows} from './occurrenceRecord.js';
 import {isDeepStrictEqual} from 'node:util';
@@ -46,8 +47,9 @@ export function validateSeriesRows(input:{series:Record<string,unknown>[];except
  }
 }
 export function validateSeriesStorage(reader:TaskReader):void {
+ if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version===13)validateLegacyCutovers({cutovers:reader.all('SELECT * FROM productivity_legacy_cutovers'),occurrences:reader.all('SELECT * FROM productivity_series_occurrences'),tasks:new Map(reader.all('SELECT * FROM productivity_tasks').map(row=>[row.id,row])),series:reader.all('SELECT * FROM productivity_series').map(decodeSeries),userIds:new Set(reader.all('SELECT id FROM users').map(row=>row.id))});
  if((reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version??0)<10)return;
  validateSeriesRows({series:reader.all('SELECT * FROM productivity_series'),exceptions:reader.all('SELECT * FROM productivity_series_exceptions'),taskIds:new Set(reader.all('SELECT id FROM productivity_tasks').map(row=>row.id)),userIds:new Set(reader.all('SELECT id FROM users').map(row=>row.id))});
  if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version===11)validateOwnedOccurrenceRows({occurrences:reader.all('SELECT * FROM productivity_series_occurrences'),series:reader.all('SELECT * FROM productivity_series').map(decodeSeries),tasks:new Map(reader.all('SELECT id,revision FROM productivity_tasks').map(row=>[row.id,{revision:row.revision}]))});
- if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version===12)validateOccurrenceResolutions({occurrences:reader.all('SELECT * FROM productivity_series_occurrences'),skips:reader.all('SELECT * FROM productivity_occurrence_skips'),series:reader.all('SELECT * FROM productivity_series').map(decodeSeries),tasks:new Map(reader.all('SELECT id,revision,lifecycle FROM productivity_tasks').map(row=>[row.id,{revision:row.revision,lifecycle:row.lifecycle}])),userIds:new Set(reader.all('SELECT id FROM users').map(row=>row.id))});
+ if([12,13].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))validateOccurrenceResolutions({occurrences:reader.all('SELECT * FROM productivity_series_occurrences'),skips:reader.all('SELECT * FROM productivity_occurrence_skips'),series:reader.all('SELECT * FROM productivity_series').map(decodeSeries),tasks:new Map(reader.all('SELECT id,revision,lifecycle FROM productivity_tasks').map(row=>[row.id,{revision:row.revision,lifecycle:row.lifecycle}])),userIds:new Set(reader.all('SELECT id FROM users').map(row=>row.id))});
 }

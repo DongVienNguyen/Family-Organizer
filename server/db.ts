@@ -1,3 +1,4 @@
+import {hasManagedLegacyPolicy,assertManagedLegacyPatch} from './productivity/legacyCutoverRecord.js';
 import {isActiveLegacyTask} from '../src/utils/taskLifecycle.js';
 import {acceptRecurringOccurrence,isDurableOccurrenceTask} from './productivity/recurrenceAccepted.js';
 import {completionPolicy,markAcceptedCompletion,linkedCompletionGrant,reverseAcceptedCompletion,withCompletionPolicy} from './completionPolicy.js';
@@ -788,6 +789,8 @@ export class FamilyDB {
       assertEditVersion(oldTask, baseUpdatedAt);
       taskData = validateTaskPayload(taskData,oldTask,actor,db,{allowWontDo:completionPolicy(currentAppWriteTx()!,oldTask.id)?.operation==='skip'});
       if(oldTask.status===TaskStatus.WONT_DO&&taskData.status!==undefined&&taskData.status!==TaskStatus.WONT_DO)throw new AppStoreError('Kỳ đã bỏ qua không được mở lại bằng cập nhật trạng thái.',422);
+      const preserveManagedRecurrence = hasManagedLegacyPolicy(currentAppWriteTx()!,oldTask.id);
+      if(preserveManagedRecurrence)assertManagedLegacyPatch(currentAppWriteTx()!,oldTask,taskData);
       validateTaskProofUrl(taskData.proofImage);
       const isCompleting = taskData.status === "completed" && oldTask.status !== "completed";
       // Registered durable occurrences share the semantic grant/reversal owner
@@ -860,6 +863,14 @@ export class FamilyDB {
         history: updatedHistory,
         updatedAt: nowStr
       } as Task;
+
+      if(preserveManagedRecurrence){
+        updatedTask.recurrenceType=oldTask.recurrenceType;
+        updatedTask.recurrenceInterval=oldTask.recurrenceInterval;
+        updatedTask.recurrenceEndDate=oldTask.recurrenceEndDate;
+        updatedTask.rotationMemberIds=oldTask.rotationMemberIds;
+        updatedTask.sourceRecurringTaskId=oldTask.sourceRecurringTaskId;
+      }
 
       // Trẻ báo xong nhưng cần duyệt: giữ ở "đang làm", gắn cờ chờ duyệt, chưa cộng điểm.
       if (needsApproval) {
