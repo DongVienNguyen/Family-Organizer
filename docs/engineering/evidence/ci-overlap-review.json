@@ -1,0 +1,29 @@
+{
+  "taskId": "CI-OPT-01",
+  "review": "ONE SELF",
+  "status": "closed",
+  "critical": 0,
+  "important": 0,
+  "minor": 0,
+  "allFindingsGraded": true,
+  "correctionPasses": 0,
+  "rereview": false,
+  "scope": [
+    ".github/workflows/ci.yml",
+    "scripts/ci/wait-productivity-producers.mjs",
+    "tests/productivity-ci-layout.test.ts"
+  ],
+  "sourceHashes": {
+    ".github/workflows/ci.yml": "bda69faa4391590f6b012b932cec2fcb748e30d015195d95f68eb31289bdb476",
+    "scripts/ci/wait-productivity-producers.mjs": "34a30467102a26dfa67c1e9ff00e596ccf9967a5af4cc950a3222cafd230c982",
+    "tests/productivity-ci-layout.test.ts": "52899926d40c09e0e37de1c232c407cce4fc134b62ba4743f3035fc4410f9944"
+  },
+  "checks": [
+    "Independent WebKit start; all original job/artifact names retained",
+    "Read-only same repository/run/SHA/attempt producer barrier; terminal non-success fails closed",
+    "No workflow dispatch/retry/mutation endpoint; token scoped to single step and never logged",
+    "Immediate native exit capture; original test and job deadlines and mandatory ci-gate unchanged",
+    "Original blob/JSON/JUnit provenance, reports, native cleanup and offline tests retained"
+  ],
+  "cloudTarget": 193
+}
