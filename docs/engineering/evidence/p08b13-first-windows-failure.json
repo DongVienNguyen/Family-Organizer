@@ -1,0 +1,106 @@
+{
+  "task": "P08-b13 CI correction",
+  "testedHeadSha": "356dc2c8531c69c563969a2be8229d35629c30c4",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38834324443",
+  "exactExpectedWindowsContractHash": "a563d5f943a3849bdf91dff7bc5c173bb9361c8c6c6a103cfd1bfd6245af2109",
+  "incorrectFixtureExpectationHash": "aca13f2005477c7da6dbfce01cdd9d12a22097bd1d544581c041b3f79466b6ee",
+  "cause": "new fixture assertion applied LF-to-CRLF blindly to a real Windows checkout with existing CRLF; raw reader uses idempotent conversion",
+  "productionContractChangeNeeded": false,
+  "node22": {
+    "tests": 4394,
+    "passed": 4393,
+    "failed": 1,
+    "files": 244,
+    "coverage": "not run after failed unit step"
+  },
+  "important": [
+    {
+      "finding": "Windows-specific expected hash double-converts CRLF",
+      "decision": "normalize fixture expected bytes idempotently; preserve full exact hash assertion and add LF/CRLF equivalence regression"
+    }
+  ],
+  "critical": 0,
+  "importantRemaining": 0,
+  "allFindingsGraded": true,
+  "correctionPasses": 1,
+  "rereview": false,
+  "otherJobs": "all five non-quality jobs passed; ci-gate failed as required; no coverage on either runtime after failed units",
+  "qualityEach": [
+    {
+      "major": 22,
+      "tests": 4394,
+      "passed": 4393,
+      "failed": 1,
+      "files": 244,
+      "junitCases": 4394,
+      "case": "binds current grouped-rank requirements to exact target Git bytes",
+      "rawReportSha256": "3d14f6a0f8bd92e36afdf077b08816dc9a6152ce41c5ba75b77bacab050a822f",
+      "coverage": "not-run due failed units"
+    },
+    {
+      "major": 24,
+      "tests": 4394,
+      "passed": 4393,
+      "failed": 1,
+      "files": 244,
+      "junitCases": 4394,
+      "case": "binds current grouped-rank requirements to exact target Git bytes",
+      "rawReportSha256": "9e963a575fc614944c0ddead65900a8c09f052f07dbf017e1b8ae3723eb86c6e",
+      "coverage": "not-run due failed units"
+    }
+  ],
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "fullLogs": {
+    "files": 126,
+    "lines": 20118,
+    "sha256": "d4774de4e664694d6ac6ef81adae5573e5a90f9a8311249a9eb9638fbfd053fa",
+    "errorMarkers": 30,
+    "ruling": "16 expected synthetic negative-path duplicates; 4 failed assertion markers +8 unit/evidence exits +2 gate exits; all 30 read; no other cause"
+  },
+  "artifacts": {
+    "count": 8,
+    "allDownloaded": true
+  },
+  "rawProofHashes": {
+    "failed-quality-summary.json": "f5bd9a2c4222af2a0b55a960e54d93e44e2e0afd65090956e0515bf56f6e9f89",
+    "failed-full-log-read-summary.json": "8e985e8a931829799c699e7f31b2d4227c7aa6d3d0c55d3638390f0123b9c7d0",
+    "board-package-verified-summary.json": "4e32f70e2287483a2a9fbc2b791beb727d6946aa3898bce18b3e70af10c491a7",
+    "browser-verified-summary.json": "f9235629b7ed98e0311fa85a7ed6da01df2e3270eee4c62099ac3f562622557c",
+    "productivity-browser-verified-summary.json": "e578c9d08cf7c855df8f1a18c130ce30987a2022265158f0dedaa4e954fd0e12",
+    "service-verified-summary.json": "6cdaac86719a1b2eb67f748aab69d423abcc591d210a08f95e7cdc5bfe7dbd26"
+  },
+  "allCiAccepted": false
+}
