@@ -10,7 +10,7 @@ SQLite close/removal in `tests/setup.ts`. Worker threads are unsuitable because
 legacy fixtures change the process working directory. Coverage, assertions and
 individual test/hook deadlines stay unchanged.
 
-Each Productivity project runs two default-mode files: C01–C19 and C20 onward.
+Each Productivity project runs two default-mode files: C01–C15 and C16 onward.
 Each worker receives its own production server, SQLite database, configuration,
 foreign working directory and loopback port. Sharing one database would race
 full-collection reward assertions and saved-view mutations. Each store retains all
@@ -40,6 +40,25 @@ not qualify Windows, Firefox or WebKit. The exact-HEAD Windows run must still pa
 all eight checks, independent raw report families, package/service tests and log
 inspection. The comparison against accepted PR133 records observed durations and
 workload/runner differences; it is not an isolated hardware benchmark.
+
+The first Windows checkpoint `03cadf6` / [run38968002316](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38968002316)
+failed: both5,706/311 quality suites passed, WebKit passed34/35 beforeC31 reached
+its45-second test limit at final Close, and the Node24 job was cancelled at its
+20-minute job limit with incomplete Chromium reports. All8artifacts and130logs
+(27,806lines) were retained and read. Partial Chromium traces show slow input and
+context teardown; their cause is unproven. The successful quality steps took
+386s(Node24) and503s(Node22), versus619s/741s at accepted133, despite59more tests.
+The successful Firefox producer took264s versus358s. These are hosted-runner
+observations, not a controlled benchmark; failed/cancelled browser timings do not
+qualify a speed improvement. The whole run is not Windows acceptance.
+
+A narrow post-review CI repair moves the unchanged MatrixC16–19 calls and helpers
+to the advanced file. This removes the observed overlap of Matrix screenshots
+withC31. The strict group boundary and synthetic reader fixture move together.
+The parent also streams its existing bounded native output immediately, preserving
+progress if a job is interrupted. Neither repair increases any deadline or changes
+assertions/retries. The original single LOCAL SELF review stays closed; this is
+recorded separately as actual CI-driven validation repair, without a rereview claim.
 
 After this CI change is accepted, PR134 must compose it and independently qualify
 all 39 cases on all three Windows engines. Windows Server2019/R02, releases and

@@ -9,7 +9,7 @@ const report={commitSha:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'
 const runtimeEnv={};for(const[key,value]of Object.entries(process.env))if(['path','systemroot','windir','systemdrive','comspec','pathext','temp','tmp','localappdata','tz'].includes(key.toLowerCase()))runtimeEnv[key]=value;
 const workers=[];let browser,browserOutput='',failure;
 function observe(child,onData){const done=observeBrowserChildCompletion(child);for(const stream of[child.stdout,child.stderr])stream.on('data',bytes=>onData(bytes));return done;}
-function browserData(bytes){browserOutput+=bytes;if(Buffer.byteLength(browserOutput)>262144){failure??=Error('Native browser output limit');browser?.kill('SIGKILL');}}
+function browserData(bytes){browserOutput+=bytes;if(Buffer.byteLength(browserOutput)>262144){failure??=Error('Native browser output limit');browser?.kill('SIGKILL');return;}process.stdout.write(bytes);}
 async function runBrowser(args,env,timeout){browser=spawn(process.execPath,args,{cwd:layout.work,env,stdio:['ignore','pipe','pipe']});const done=observe(browser,browserData),timer=setTimeout(()=>browser.kill('SIGKILL'),timeout);try{return await done;}finally{clearTimeout(timer);}}
 async function reservePort(){const server=net.createServer().listen(0,'127.0.0.1');await once(server,'listening');const port=server.address().port;await new Promise(resolve=>server.close(resolve));return port;}
 try{
@@ -40,4 +40,4 @@ finally{
  try{const bindings=Object.keys(require.cache).filter(file=>file.endsWith('.node')&&file.includes('better-sqlite3'));assert.equal(bindings.length,1);report.addonSha256=fileHash(bindings[0]);}catch(error){failure??=error;}
  fs.writeFileSync(path.join(reports,'productivity-browser-server.log'),workers.map(w=>'WORKER '+w.record.index+'\n'+w.output).join('\n'));fs.writeFileSync(path.join(reports,'productivity-browser-run.log'),browserOutput);fs.writeFileSync(path.join(reports,'productivity-browser-fixture.json'),JSON.stringify({...report,error:failure?.message??null},null,2)+'\n');
 }
-console.log(browserOutput);if(failure){console.error(failure.message);process.exitCode=1;}
+if(failure){console.error(failure.message);process.exitCode=1;}

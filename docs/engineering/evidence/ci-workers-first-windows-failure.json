@@ -1,0 +1,141 @@
+{
+  "headSha": "03cadf61cf888712cc5045918204f4d90bc50a61",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38968002316",
+  "accepted": false,
+  "jobs": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "cancelled"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "artifacts": 8,
+  "quality": {
+    "windows-node22-03cadf61cf888712cc5045918204f4d90bc50a61-1": {
+      "tests": 5706,
+      "passed": 5706,
+      "files": 311,
+      "failed": 0,
+      "pending": 0
+    },
+    "windows-node24-03cadf61cf888712cc5045918204f4d90bc50a61-1": {
+      "tests": 5706,
+      "passed": 5706,
+      "files": 311,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "allLogsRead": {
+    "files": 130,
+    "lines": 27806,
+    "errorMarkers": 26
+  },
+  "failures": {
+    "webkit": "34 passed, C31 cumulative45s budget at final Close;7.8minute native producer, not12minute limit",
+    "node24": "Job cancelled at20minute job limit. No final browserJSON/JUnit/fixture;16 readable partial Chromium traces reveal slow fill/context teardown and native test/hook deadlines. Not accepted or counted as success."
+  },
+  "postReviewCiRepair": {
+    "paths": [
+      "tests/e2e/productivity.spec.ts",
+      "tests/e2e/productivity-advanced.spec.ts",
+      "scripts/ci/productivity-worker-contract.mjs",
+      "tests/helpers/productivity-worker-fixture.ts",
+      "scripts/ci/run-productivity-browser.mjs"
+    ],
+    "changes": "Move unchangedC16\u201319 to advanced file, boundary15; stream bounded native output immediately instead of buffering only. No assertion/deadline/retry/job limit change.",
+    "notClaimedRootCause": "No proven cause for unusual Chromium runner latency; revised HEAD must independently qualify it."
+  },
+  "publicationAllowed": false,
+  "observedTimings": {
+    "run": "38968002316",
+    "sha": "03cadf61cf888712cc5045918204f4d90bc50a61",
+    "accepted": false,
+    "metrics": [
+      {
+        "job": "Windows Node24 baseline",
+        "step": "Unit and SQLite regression tests",
+        "seconds": 386.0,
+        "conclusion": "success",
+        "baselineSeconds": 619.0,
+        "comparisonQualifiesOnlyThisStep": true
+      },
+      {
+        "job": "Windows Node24 baseline",
+        "step": "Isolated Chromium productivity and native touch",
+        "seconds": 757.0,
+        "conclusion": "cancelled",
+        "baselineSeconds": 338.0,
+        "comparisonQualifiesOnlyThisStep": false
+      },
+      {
+        "job": "Windows production browsers",
+        "step": "Offline browser regression",
+        "seconds": 553.0,
+        "conclusion": "success",
+        "baselineSeconds": 548.0,
+        "comparisonQualifiesOnlyThisStep": true
+      },
+      {
+        "job": "Windows production browsers",
+        "step": "Isolated Firefox productivity",
+        "seconds": 264.0,
+        "conclusion": "success",
+        "baselineSeconds": 358.0,
+        "comparisonQualifiesOnlyThisStep": true
+      },
+      {
+        "job": "Windows productivity browsers",
+        "step": "Offline browser regression",
+        "seconds": 482.0,
+        "conclusion": "failure",
+        "baselineSeconds": 697.0,
+        "comparisonQualifiesOnlyThisStep": false
+      },
+      {
+        "job": "Windows Node22 baseline",
+        "step": "Unit and SQLite regression tests",
+        "seconds": 503.0,
+        "conclusion": "success",
+        "baselineSeconds": 741.0,
+        "comparisonQualifiesOnlyThisStep": true
+      },
+      {
+        "job": "Windows Node22 baseline",
+        "step": "Isolated Chromium productivity and native touch",
+        "seconds": 0.0,
+        "conclusion": "skipped",
+        "baselineSeconds": 0.0,
+        "comparisonQualifiesOnlyThisStep": false
+      }
+    ],
+    "ruling": "Observed step timings only;5,706 vs5,647 tests and different hosted machines. Failed/cancelled browser steps are not speed acceptance."
+  }
+}
