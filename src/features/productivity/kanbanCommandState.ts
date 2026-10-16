@@ -32,20 +32,20 @@ export function createKanbanCommandState(ports:Ports){
   async previewPhysical(input:BoardMovePreviewInput){
    if(disposed||state.writing)return;sequence++;request?.abort();active=null;commandKey=undefined;const selected=selection,packet={...structuredClone(input),timezone:input.timezone??selected?.page.clock.timezone};
    if(!selected||!admitPhysical(packet)){publish({...empty(),error:{phase:'preview',status:422}});return;}
-   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});
+   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});if(!current(generation,seq))return;
    try{const plan=await ports.previewBoardMove(packet,{signal:controller.signal});if(!current(generation,seq))return;if(!bound(selected,input.taskId,plan))throw Object.assign(Error('Preview does not match current projection'),{status:409});active={kind:'physical',value:structuredClone(plan)};publish({...empty(),plan:structuredClone(active)});}
    catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'preview')});}
   },
   async previewGrouped(input:GroupMovePreviewInput){
    if(disposed||state.writing)return;sequence++;request?.abort();active=null;commandKey=undefined;const selected=selection,packet={...structuredClone(input),timezone:input.timezone??selected?.page.clock.timezone};
    if(!selected||!admitGrouped(packet)){publish({...empty(),error:{phase:'preview',status:422}});return;}
-   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});
+   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});if(!current(generation,seq))return;
    try{const plan=await ports.previewGroupedMove(packet,{signal:controller.signal});if(!current(generation,seq))return;if(!bound(selected,input.taskId,plan))throw Object.assign(Error('Preview does not match current projection'),{status:409});active={kind:'grouped',value:structuredClone(plan)};publish({...empty(),plan:structuredClone(active)});}
    catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'preview')});}
   },
   cancel(){if(disposed||state.writing)return false;sequence++;request?.abort();request=undefined;active=null;commandKey=undefined;publish(empty());return true;},
   async apply(){
-   if(disposed||state.writing||state.previewing||!active)return;const generation=epoch,seq=sequence,plan=structuredClone(active),controller=new AbortController();request=controller;publish({...state,writing:true,error:null});
+   if(disposed||state.writing||state.previewing||!active)return;const generation=epoch,seq=sequence,plan=structuredClone(active),controller=new AbortController();request=controller;publish({...state,writing:true,error:null});if(!current(generation,seq))return;
    try{commandKey??=(ports.newRequestId??(()=>crypto.randomUUID()))();if(plan.kind==='physical')await ports.applyBoardMove(plan.value,commandKey,{signal:controller.signal});else await ports.applyGroupedMove(plan.value,commandKey,{signal:controller.signal});if(!current(generation,seq))return;active=null;commandKey=undefined;publish(empty());}
    catch(error){if(current(generation,seq)){const code=status(error);if(code!==null&&code<500){active=null;commandKey=undefined;}publish({...state,plan:active?structuredClone(active):null,writing:false,error:failure(error,'write')});}return;}
    if(!current(generation,seq))return;

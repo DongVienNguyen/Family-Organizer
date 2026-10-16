@@ -1,0 +1,128 @@
+{
+  "taskId": "P09-g",
+  "baseSha": "94d10b9743562fedb52b28d92c1e215175094a03",
+  "scope": "grouped command ownership only; physical menu typed union narrowing; grouped controls not activated",
+  "cloudGreen": {
+    "tests": 4815,
+    "files": 261,
+    "junitCases": 4815,
+    "failed": 0,
+    "pending": 0,
+    "todo": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "platform": "linux"
+  },
+  "target": {
+    "controllerTests": 44,
+    "controllerPassed": 44,
+    "earlierComposedTests": 88,
+    "earlierComposedPassed": 88
+  },
+  "review": {
+    "task": "P09-g",
+    "kind": "ONE whole-branch SELF against independently prepared P09-f94d10b9; no current PR/Windows acceptance",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "correctionPasses": 0,
+    "rereview": false,
+    "importantRemaining": 0,
+    "sourceHashes": {
+      "src/features/productivity/KanbanSectionActions.tsx": "c45ff9679e88328bc9120a74802a182b56232f834beb53866a486f6591e45f1c",
+      "src/features/productivity/kanbanCommandState.test.ts": "3c5c48cb1e0750ddc7bfe66113af0a2e965af755fbaaa80bde58d4a60ba99535",
+      "src/features/productivity/kanbanCommandState.ts": "3cf6d1abaf97b317a880156fea192bf48176dd7fb82f774389d8ec7341255d85"
+    },
+    "coverage": [
+      "original physical path assertions and private plan/UUID behavior retained",
+      "grouped visibility, view/kind/timezone and tag source projection binding",
+      "shared selected-field patch validation; atomic anchors require rank sort and visible derived target group",
+      "due anchors resolve in selected view timezone; explicit all-tags add/replace only",
+      "grouped versus physical apply dispatch and shared singleflight/explicit retry/HTTP error retirement",
+      "generation checks before API calls after synchronous subscriber publication and after acknowledgements",
+      "no optimistic Task authority, historical receipts trigger fresh authorized read only",
+      "physical UI type narrowing only, grouped controls not mounted",
+      "no server/dependency/schema/default/approval/reward activation"
+    ],
+    "developmentCorrectionsBeforeSelf": [
+      {
+        "cause": "subscriber revokes owner synchronously during loading/writing publication but old API call still starts",
+        "causalRed": {
+          "tests": 38,
+          "passed": 36,
+          "failed": 2
+        },
+        "correction": "check owner generation/sequence immediately after state publication before any preview/write call",
+        "assertionsRetained": true
+      },
+      {
+        "cause": "new date test fixtures omitted timezone and used instant rather than existing instantUtc contract",
+        "tests": 44,
+        "passed": 41,
+        "failed": 3,
+        "correction": "use existing all_day/timed due contract; production unchanged",
+        "causalFeatureFailure": false
+      }
+    ],
+    "remaining": [
+      "new CI isolation PR119 exact-HEAD Windows acceptance",
+      "physical menu parent PR publication and acceptance after119",
+      "compose independently reviewed parent sources and run complete checks",
+      "new exact-HEAD Windows proof for future grouped controller PR",
+      "grouped UI/drag/settings/P08/P10/Wallet/master remain"
+    ],
+    "publicationAllowed": false
+  },
+  "sourceHashes": {
+    "src/features/productivity/KanbanSectionActions.tsx": "c45ff9679e88328bc9120a74802a182b56232f834beb53866a486f6591e45f1c",
+    "src/features/productivity/kanbanCommandState.test.ts": "3c5c48cb1e0750ddc7bfe66113af0a2e965af755fbaaa80bde58d4a60ba99535",
+    "src/features/productivity/kanbanCommandState.ts": "3cf6d1abaf97b317a880156fea192bf48176dd7fb82f774389d8ec7341255d85"
+  },
+  "compiledHashes": {
+    "dist/server.cjs": "f5a1874b814d3921562c8114983395ad645408b99737dc39b5e97e65582580cb",
+    "dist/operator.cjs": "fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b"
+  },
+  "reports": {
+    "p09g-publish-owner-red.log": "5ff9a2975ee309e7d4bb6695c36ef44f595a4d25b5c3ab7b0a9798bf23f370df",
+    "p09g-state-first.log": "575d574047ee9f7407832019b55ba7ae76de8b8ccb3359a94e8353696d5a1154",
+    "p09g-lint-final.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p09g-full.junit.xml": "af3e2200f8bce3a3d41b0e98d5e02d30331886e7957ba7ebb6a3619ff0963535",
+    "p09g-review-rulings.json": "96696aed095719b06f77a7be9eef17b05383bdeaf3cac8ed505fca6ea6a611bd",
+    "p09g-state-first.json": "965cd3c29efe3662c3811665a2bdf0cd971b5407c616875c3755de50902b9e76",
+    "p09g-full.log": "e33d800dd97c335fa1266dc7bce63115c0143028966a67becd911e7b1e9ffa38",
+    "p09g-state-expanded-current.log": "9b2d4be5667dc57b6a384bcb9e3a897f277777abc51a2b7c4e437c95b13c9b5e",
+    "p09g-lint-expanded.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p09g-state-expanded-current.json": "149d79fb33ed8c6417c56d9269f0feaed7f9e63fee45ed093979b91154d85575",
+    "p09g-full.json": "e7688df6ad2fdbf2e1e54e68f27de367418f44a9f2431ae13279a8f3935b6ae7",
+    "p09g-target-final.log": "ebb394c24080c27923da74808f254de2280f1303421da8260191b4940940dcae",
+    "p09g-state-current.log": "b001131d85d79c3c8c039c6078e84deca5cec54deafb06a4322f7429494c8794",
+    "p09g-state-current.json": "5691100260b266e1f66f7f8bda72011cdfa9d371c1ce19cfb6dc478d33284343",
+    "p09g-state-red.json": "a3143cc50f32a146c3f37091dc4f5c49b0a7e65aa3b646f9ccb40e3a56e57d3c",
+    "p09g-state-red.log": "a9a08230566cd27f599fdecff7f6bfb45f2ef3a6d422dce8c77fd142c24c20b7",
+    "p09g-state-expanded.log": "b4bfe2bc14ebe1eb8cd610914caf4e52e3377d0550330d1e4266467c31377dfd",
+    "p09g-publish-owner-red.json": "d9e0d7f3ff6713d16dd21569caca8e92740d9b848261ba7f097752c901f91162",
+    "p09g-lint-first.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "p09g-target-final.json": "b69ee77b6b1e92db40fe4915e9ac59a8a224fb4d59b98190087344fd9202b11c",
+    "p09g-state-expanded.json": "c792bca0135426def2b3a64631a800e96592ae442fc73e4e5d79d9b1fc406f4e",
+    "p09g-build-first.log": "1122ceb062f1bfa116b1d6a6eb1b6a1a9e43293a244de044797db6608d6b88a6"
+  },
+  "realRaceRed": {
+    "tests": 38,
+    "passed": 36,
+    "failed": 2
+  },
+  "fixtureCorrection": {
+    "tests": 44,
+    "passed": 41,
+    "failed": 3,
+    "cause": "new synthetic date fixture used wrong existing due shape",
+    "productionCorrection": false
+  },
+  "prUrl": null,
+  "windowsAcceptance": "not run; parent119 and physical menu candidate acceptance/source composition required",
+  "publicationAllowed": false
+}
