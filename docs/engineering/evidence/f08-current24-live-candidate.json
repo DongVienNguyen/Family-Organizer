@@ -70,8 +70,8 @@
     "atomicGroupRanks": true,
     "contractSha256": "a12e658a3b94eba78b5c23ed9d687fea56317d69c206f1de1b3fe10b9331c55c"
   },
-  "nativeBoardChecks": 23,
-  "strictHttpClockIntervals": 28,
+  "nativeBoardChecks": 24,
+  "strictHttpClockIntervals": 29,
   "archiveBytes": 67139260,
   "expandedBytes": 121521161,
   "receiptHashes": {
@@ -129,5 +129,20 @@
     "fullWorkflowLogSha256": "712ce9eca28d89873f124f780480d4f4d6d79a4224f6718f87f1ae863324386e",
     "unexpectedMarkers": []
   },
-  "verifierWriterRuling": "A new external writer records strict current24 target acceptance; historical helpers and evidence remain unchanged"
+  "verifierWriterRuling": "A new external writer records strict current24 target acceptance; historical helpers and evidence remain unchanged",
+  "summaryMetadataCorrection": {
+    "cause": "external summary writer retained historical23/28 literals although its independent raw assertions already required24/29",
+    "originalSummarySha256": "d9a1109bd070efd1abe5cba0559744f380ccc8c03e38fcc5aacf63db97b114da",
+    "originalSummaryCounts": {
+      "nativeBoardChecks": 23,
+      "strictHttpClockIntervals": 28
+    },
+    "actualPreviouslyVerifiedCounts": {
+      "nativeBoardChecks": 24,
+      "strictHttpClockIntervals": 29
+    },
+    "rawBoardReportSha256": "0d77d176448492802e86f6c2e523201befe3bed1673d0b067d44e043fdd0cf12",
+    "rawReceiptsRerunOrChanged": false,
+    "sourceAcceptanceChanged": false
+  }
 }
