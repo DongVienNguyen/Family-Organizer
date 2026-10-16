@@ -1693,5 +1693,20 @@
     "timezone": "看板时区",
     "noViews": "没有已保存的看板视图。",
     "failed": "无法加载当前看板。请重新加载以检查数据和访问权限。"
+  },
+  "productivityKanbanMove": {
+    "dialog": "移动分类列",
+    "move": "移动 {{title}} 的列",
+    "target": "目标列",
+    "choose": "选择列",
+    "preview": "预览列移动",
+    "apply": "应用列移动",
+    "classification": "仅更改分类和顺序；状态、奖励和截止时间保持不变。",
+    "wip": "目标列已达到 WIP 限制，请在确认前检查。",
+    "busy": "处理中…",
+    "conflict": "数据或权限已更改，请重新预览。",
+    "semantic": "无法执行此移动，请检查 WIP 限制和当前权限。",
+    "failed": "无法处理，请重新加载以检查当前数据和权限。",
+    "expires": "过期时间"
   }
 }

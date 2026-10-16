@@ -1693,5 +1693,20 @@
     "timezone": "Board timezone",
     "noViews": "No saved Kanban views.",
     "failed": "Could not load the current board. Reload to check data and access."
+  },
+  "productivityKanbanMove": {
+    "dialog": "Move classification column",
+    "move": "Move column for {{title}}",
+    "target": "Destination column",
+    "choose": "Choose column",
+    "preview": "Preview column move",
+    "apply": "Apply column move",
+    "classification": "Changes classification and order only; status, rewards and deadline stay the same.",
+    "wip": "The destination has reached its WIP limit. Review before confirming.",
+    "busy": "Working…",
+    "conflict": "Preview again because data or access changed.",
+    "semantic": "This move is unavailable. Check the WIP limit and current access.",
+    "failed": "Unable to process. Reload to check current data and access.",
+    "expires": "Expires"
   }
 }

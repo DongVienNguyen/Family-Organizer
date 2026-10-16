@@ -1693,5 +1693,20 @@
     "timezone": "Múi giờ bảng",
     "noViews": "Chưa có góc nhìn Kanban được lưu.",
     "failed": "Không tải được bảng hiện tại. Tải lại để kiểm tra dữ liệu và quyền truy cập."
+  },
+  "productivityKanbanMove": {
+    "dialog": "Chuyển cột phân loại",
+    "move": "Chuyển cột {{title}}",
+    "target": "Cột đích",
+    "choose": "Chọn cột",
+    "preview": "Xem trước chuyển cột",
+    "apply": "Áp dụng chuyển cột",
+    "classification": "Chỉ đổi phân loại và thứ tự; trạng thái, điểm thưởng và hạn không thay đổi.",
+    "wip": "Cột đích đã chạm giới hạn WIP. Kiểm tra trước khi xác nhận.",
+    "busy": "Đang xử lý…",
+    "conflict": "Xem trước lại vì dữ liệu hoặc quyền đã thay đổi.",
+    "semantic": "Không thể chuyển theo lựa chọn này. Kiểm tra giới hạn WIP và quyền hiện tại.",
+    "failed": "Không xử lý được. Tải lại để kiểm tra lại dữ liệu và quyền.",
+    "expires": "Hết hạn"
   }
 }

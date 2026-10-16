@@ -754,7 +754,7 @@ export function Tasks({
         {task.pendingApproval&&canApproveTasks&&<><button type="button" disabled={disabled} onClick={()=>void handleApprove(task)} className="text-xs text-emerald-400">{t('productivity.approve')}</button><button type="button" disabled={disabled} onClick={()=>setRejectTaskTarget(task)} className="text-xs text-rose-400">{t('productivity.reject')}</button></>}
        </div>}/></div>
        {taskProjection==='matrix'&&<MatrixWorkspace user={currentUser} users={users}/>}
-       {taskProjection==='kanban'&&<KanbanWorkspace users={users}/>}
+       {taskProjection==='kanban'&&<KanbanWorkspace users={users} canManageColumns={isAdultRole(currentUser.role)}/>}
 
       </>}
       <div className={(canonical.enabled||canonical.error)&&taskProjection!=='board'?'hidden':''}>
