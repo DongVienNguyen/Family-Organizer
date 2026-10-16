@@ -1,4 +1,4 @@
-import{createProductivityTest,expect,login,matrixRequest,password,togglePin}from'./productivity-test.js';
+import{createProductivityTest,expect,login,matrixRequest,password,togglePin,workflowView}from'./productivity-test.js';
 import type{Page}from'@playwright/test';
 export function registerProductivityAdvanced(test:ReturnType<typeof createProductivityTest>){
 async function matrixSeed(page:Page,title:string,preset='priority_only',priorities=['high']){const tasks=[];for(const [index,priority]of priorities.entries()){const response=await matrixRequest(page,'/tasks','POST',{expectedRevision:0,input:{listId:'legacy-family',title:title+' '+index,priority,due:{kind:'none'}}});expect(response.status).toBe(200);tasks.push(response.body.task);}const view=await matrixRequest(page,'/views','POST',{expectedRevision:0,input:{title,filter:{rootsOnly:true,query:title},kind:'matrix',config:{kind:'matrix',preset,horizonDays:1,rules:null,order:['q1','q2','q3','q4'],showCompleted:false}}});expect(view.status).toBe(200);return {tasks,view:view.body.view};}
@@ -128,7 +128,7 @@ test('P10 C32 denied legacy conversion erases only recurrence metadata and retai
 
 // C21 deliberately changes its original workflow view to a list. Each new
 // flow creates its own actor-owned view using a surviving shared-board reference.
-async function workflowView(page:Page,title:string){const listed=await matrixRequest(page,'/views');expect(listed.status).toBe(200);const source=listed.body.views.find((v:any)=>v.config.kind==='kanban'&&v.config.mode==='workflow'&&v.config.boardId);expect(source).toBeDefined();const saved=await matrixRequest(page,'/views','POST',{expectedRevision:0,input:{title,kind:'kanban',filter:{rootsOnly:true},config:{kind:'kanban',mode:'workflow',group:'none',sort:'rank',columns:[],boardId:source.config.boardId}}});expect(saved.status).toBe(200);return saved.body.view;}
+
 test('P08 C33 workflow completion keeps cancel read-only and renders actual child Review before one adult grant',async({page,browserName})=>{
  await login(page,'child');const id='ui-child-'+browserName,before=(await matrixRequest(page,'/tasks/'+id)).body.task;expect(before.pendingApproval).toBe(false);expect(before.lifecycle).toBe('todo');const view=await workflowView(page,'Synthetic workflow completion '+browserName);const projection=(await matrixRequest(page,'/boards/'+view.id)).body;
  const rewards=()=>page.evaluate(async()=>{const r=await fetch('/api/rewards',{headers:{Authorization:'Bearer '+localStorage.getItem('family_token')}});if(r.status!==200)throw Error('Synthetic workflow rewards read');return r.json();}),rewardsBefore=await rewards();expect(rewardsBefore.entries.filter((r:any)=>r.taskId===id)).toEqual([]);
