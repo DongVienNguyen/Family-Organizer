@@ -24,6 +24,11 @@ export function createSeriesCommands(ports:{reader:TaskReader;write:typeof withA
  const eventReferences=new WeakMap<SkipResult,string[]>();
  const authority=(reader:TaskReader,ctx:AppCommand,id:string)=>{const user=assertContext(ctx,reader);if(![UserRole.ADMIN,UserRole.MEMBER].includes(user.role))fail(403,'Cần người lớn quản lý kỳ lặp.');try{text(id,256);}catch{fail(400,'Mã kỳ lặp không hợp lệ.');}if(![12,13].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration quyết định kỳ lặp.');return {user,task:createTaskAccess(reader).assertTaskCommand(ctx.actor,id,'update')};};
  return {
+  seriesForTask(actor:AppCommand['actor'],taskId:string):{series:RecurrenceSeries|null;ordinal:number|null}{
+   const ctx={actor,requestId:'recurrence:editor-read',expectedRevision:0};authority(ports.reader,ctx,taskId);
+   const owned=ports.reader.get('SELECT series_id,ordinal FROM productivity_series_occurrences WHERE task_id=?',taskId),row=owned?ports.reader.get('SELECT * FROM productivity_series WHERE id=?',owned.series_id):ports.reader.get('SELECT * FROM productivity_series WHERE task_id=?',taskId);
+   if(!row)return {series:null,ordinal:null};const series=decodeSeries(row);authority(ports.reader,ctx,series.taskId);return {series,ordinal:owned?.ordinal??0};
+  },
   spawnedForEvents(result:SkipResult):string[]{return [...(eventReferences.get(result)??[])];},
   editSeries(ctx:AppCommand,id:string,scope:'this'|'future'|'all',input:unknown):SeriesEditResult {
    const authorized=(reader:TaskReader)=>{

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useId, useRef, useState } from "react";
 import { AlertTriangle, X } from "lucide-react";
 import { motion } from "motion/react";
 import { useModalA11y } from "../hooks/useModalA11y.js";
@@ -29,6 +29,7 @@ interface ConfirmOptions {
  */
 export function useConfirm() {
   const { t } = useTranslation();
+  const headingId = useId();
   const [options, setOptions] = useState<ConfirmOptions | null>(null);
   const resolverRef = useRef<((value: boolean) => void) | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
@@ -65,6 +66,7 @@ export function useConfirm() {
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
+        aria-labelledby={headingId}
         className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-5 shadow-2xl space-y-4 outline-none"
       >
         <div className="flex items-start justify-between gap-3">
@@ -72,7 +74,7 @@ export function useConfirm() {
             <div className={`p-2.5 rounded-xl shrink-0 ${isDanger ? "bg-rose-500/10 text-rose-400" : "bg-sky-500/10 text-sky-400"}`}>
               <AlertTriangle className="w-5 h-5" />
             </div>
-            <h3 className="text-md font-bold text-slate-100 leading-snug">{options.title}</h3>
+            <h3 id={headingId} className="text-md font-bold text-slate-100 leading-snug">{options.title}</h3>
           </div>
           <button
             type="button"

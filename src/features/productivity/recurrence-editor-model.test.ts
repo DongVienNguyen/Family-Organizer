@@ -1,0 +1,17 @@
+import {expect,it} from 'vitest';import {recurrenceDraft,recurrencePolicy,recurrenceDeadline,initialNextDeadlineRequired} from './recurrenceEditorModel.js';
+const policy={timezone:'Asia/Saigon',base:'due' as const,cadence:{kind:'calendar' as const,frequency:'monthly' as const,interval:2,invalidDate:'skip' as const},end:{kind:'count' as const,count:9},missed:'latest' as const,rotationMembers:['synthetic-child','synthetic-adult']};
+it('opens a detached exact policy draft without resetting its explicit missed end invalid-date or roster choices',()=>{const draft=recurrenceDraft(policy);expect(recurrencePolicy(draft)).toEqual(policy);draft.rotationMembers.reverse();expect(policy.rotationMembers).toEqual(['synthetic-child','synthetic-adult']);});
+it('new policy requires an explicit missed-cycle choice and picks completion base for a no-date source',()=>{const draft=recurrenceDraft(undefined,{kind:'none'});expect(draft.base).toBe('completion');expect(draft.missed).toBe('');expect(()=>recurrencePolicy(draft)).toThrow();draft.missed='catch_up';expect(recurrencePolicy(draft)).toMatchObject({base:'completion',missed:'catch_up'});});
+it('specific dates are normalized without losing end bounds and cannot silently become completion based',()=>{const draft=recurrenceDraft(policy);draft.frequency='dates';draft.dates='2028-02-29, 2027-12-31\n2028-02-29';expect(recurrencePolicy(draft).cadence).toEqual({kind:'dates',dates:['2027-12-31','2028-02-29']});draft.base='completion';expect(()=>recurrencePolicy(draft)).toThrow();});
+it.each(['0','1.5','1e2','366.5','367','', ' 2 '])('refuses a nonliteral or unsupported interval %s',interval=>{const draft=recurrenceDraft(policy);draft.interval=interval;expect(()=>recurrencePolicy(draft)).toThrow();});
+it('all-day no-date and unambiguous local time remain distinct deadline choices',()=>{expect(recurrenceDeadline({date:'',time:'',timezone:'Asia/Saigon'})).toEqual({kind:'none'});expect(recurrenceDeadline({date:'2027-02-28',time:'',timezone:'Asia/Saigon'})).toEqual({kind:'all_day',date:'2027-02-28',timezone:'Asia/Saigon'});expect(recurrenceDeadline({date:'2027-02-28',time:'09:30',timezone:'Asia/Saigon'})).toEqual({kind:'timed',instantUtc:'2027-02-28T02:30:00.000Z',timezone:'Asia/Saigon'});});
+it('invalid or DST-ambiguous local wall time refuses rather than turning into a no-date deadline; an explicit UTC choice resolves it',()=>{expect(()=>recurrenceDeadline({date:'2027-02-30',time:'09:30',timezone:'Asia/Saigon'})).toThrow();expect(()=>recurrenceDeadline({date:'2026-11-01',time:'01:30',timezone:'America/New_York'})).toThrow();expect(recurrenceDeadline({date:'',time:'',timezone:'America/New_York',exactUtc:'2026-11-01T05:30:00Z'})).toEqual({kind:'timed',instantUtc:'2026-11-01T05:30:00Z',timezone:'America/New_York'});});
+
+it.each([
+ [{policy:{...policy,base:'completion',end:{kind:'count',count:1}},nextOrdinal:1},false],
+ [{policy:{...policy,base:'completion',end:{kind:'count',count:2}},nextOrdinal:1},true],
+ [{policy:{...policy,base:'completion',end:{kind:'count',count:2}},nextOrdinal:2},false],
+ [{policy:{...policy,base:'completion'},endedAt:'2026-10-16T00:00:00Z'},false],
+ [{policy:{...policy,base:'completion',end:{kind:'never'}},nextOrdinal:100001},false],
+ [{policy,acceptedCount:0},false],
+]as const)('requires an initial next deadline only when a completion-based next slot actually remains %#',(extra,expected)=>{expect(initialNextDeadlineRequired({policy:{...policy,base:'completion'},acceptedCount:0,nextOrdinal:1,endedAt:null,...extra}as any)).toBe(expected);});

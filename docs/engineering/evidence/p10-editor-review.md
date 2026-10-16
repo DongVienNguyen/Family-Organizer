@@ -1,0 +1,19 @@
+# P10-d4b editor whole-branch self-review — 2026-10-16
+
+Scope: codex/p10-recurrence-editor, accepted basec6880052719912a955e52cf339d0f8c796d20a2c, normal composition102c1ca1caa004c12a33aaeb6604f20f035c99c9. All27 source/test/script hashes were captured before corrections in the local review-source evidence. This is a local self-review; no fresh independent reviewer is claimed, and the current skill catalogs are empty. No rereview.
+
+Full Cloud baseline5335/292/JUnit passed. Chromium baseline after named-region locator repair:26 original flows passed; both new flows failed after successful series creation because the panel collapsed during the refresh. Prior aggregate diagnostic26passed/4failed/54unrun and all traces remain retained; two launcher failures were absent Cloud binaries, not Windows results.
+
+All findings below are recorded and graded together before one Critical/Important TDD correction pass.
+
+| ID | Grade | Finding | Correction |
+| --- | --- | --- | --- |
+| I1 | Important | Initial completion-based skip derives nextDue from the same editor fields initialized from the current Task deadline. For a root that already has a date, clicking skip can reuse that date without the user explicitly choosing a next deadline. Editing the current deadline also changes the field used by skip. | Separate initially empty next-deadline fields from current/exception deadline fields, including independent local/exact-UTC controls. Prove with an actual existing-due completion-based root that skip refuses until an explicit next deadline is selected. |
+| I2 | Important | A401/403/404 command or preview response retains the visible series metadata and cached private editor draft. Initial metadata denial hides the component but also leaves the draft in memory. A still-readable selected Task can outlive revoked series-root authority. | Clear only recurrence metadata/draft/open state on authority denial and hide the editor immediately; preserve unrelated Task/comment drafts. Add an actual UI denied-response regression with Task/server facts unchanged and fresh authorized reload using the saved configuration. |
+| I3 | Important | Panel expansion lives only in component state. The shared authorized refresh temporarily unmounts the drawer child after create/edit; the fresh child collapses, hiding saved configuration/preview/skip. Both new actual UI flows fail at the next required action. | Keep expansion in the existing session-owned Task cache alongside the recurrence draft; retain it across refresh/close, clear it on privacy removal/session disposal. Preserve all original post-create assertions. |
+| M1 | Minor | Checkbox selection order controls the roster, but the order is not separately displayed or rearranged. | Deferred to P10/P17 UX before default rollout. Current accepted rotation semantics remain covered by server tests. |
+| M2 | Minor | All409 responses use the general conflict message, including a legacy recurrence that requires the controlled cutover. | Deferred to the P10 controlled legacy cutover slice; preserve the draft and do not enable legacy migration implicitly. |
+
+Reviewed: internal auth/read lookup; object authority and UUIDs; strict series/preview DTOs; offline writes disabled; captured revisions and retained drafts; logout/revocation cache clearing; explicit base/cadence/count/end/missed/roster/anchor/deadline intent; shared confirmation/modal focus; named-region keyboard/mobile/theme conventions and three translations; explicit fixture12/default6 separation; historical6/9 source/report compatibility; literal target12 capability; all original browser inventories, same producer barrier, raw/JUnit/cleanup/native checks and disabled publication.
+
+No Critical finding. FullP08/P09/P10, legacy cutover, later Productivity/Wallet/integration tasks and Server2019 acceptance remain incomplete. No release/tag/VPS access or deployment.

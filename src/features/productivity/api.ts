@@ -1,3 +1,4 @@
+import {createSeriesApi} from './seriesApi.js';
 import {createBoardCommandApi} from './boardCommandsClient.js';
 import {createBoardReadApi} from './boardClient.js';
 import {createMatrixApi} from './matrixClient.js';
@@ -51,6 +52,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  };
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
+  ...createSeriesApi(read,taskValue),
   ...createMatrixApi(read,{task:taskValue,clock:clockValue}),
   ...createBoardReadApi(read,{task:taskValue,clock:clockValue}),
   ...createBoardCommandApi(read,{task:taskValue,clock:clockValue}),

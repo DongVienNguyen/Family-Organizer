@@ -1,0 +1,350 @@
+{
+  "taskId": "P10-d4b",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/128",
+  "testedHeadSha": "0b867e3965a014cbe81af15ef2c5f968ebb5f015",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38914751132",
+  "conclusion": "failure",
+  "checks": [
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "originalProjectReports": [
+    {
+      "path": "windows-productivity-browsers-0b867e3965a014cbe81af15ef2c5f968ebb5f015-1/productivity-shards/webkit/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T14:20:17.637Z",
+        "duration": 548129.371,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "sha256": "37b32511b80e0125cd5b2bec4c3babb05c96a63a78311b21f024c4185d780bef"
+    },
+    {
+      "path": "windows-browsers-0b867e3965a014cbe81af15ef2c5f968ebb5f015-1/productivity-shards/firefox/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T14:31:30.089Z",
+        "duration": 282661.687,
+        "expected": 29,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "sha256": "b187335df458897d84d895ef9c45057d12ad09f83a709b7641bab16138856e63"
+    },
+    {
+      "path": "windows-node24-0b867e3965a014cbe81af15ef2c5f968ebb5f015-1/productivity-shards/chromium/reports/productivity-browser.json",
+      "stats": {
+        "startTime": "2026-10-16T14:30:03.362Z",
+        "duration": 221428.125,
+        "expected": 30,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "sha256": "95a0192bf1310af1d3a12d641dbe9ea742291fe567fb73fbd293e4d3395b4d6b"
+    }
+  ],
+  "fixtureCause": "New genuine-scroll fixture subtracts40 at Firefox drawer scrollTop0, so the request clamps to0 and anchor remains955.5; original Escape/no-movement assertions succeeded.",
+  "domEvidence": {
+    "dialogBodyClass": "p-4 overflow-y-auto space-y-5",
+    "drawerScrollTopAttribute": "absent in final snapshots; pinned snapshotter omits scrollTop0",
+    "anchorTopBeforeAndAfter": 955.5,
+    "screenshotShowsTopOfDrawer": true
+  },
+  "repair": "Choose bounded scroll target from actual current position and maximum. Require max>0,target!=before,actual anchor movement,popup closed,drawer open; attach scroll metrics. No sleeps, retries, skips or reduced assertions.",
+  "runtimeSourceChanges": false,
+  "fullRuntimeUnitQualification": "Reused explicit npm exit0 Cloud5344/292 plus both Windows quality5344/292 from this SHA; runtime source and Vitest tests unchanged by the fixture-only correction. Full Windows suite still required for next SHA.",
+  "cloudFirefoxStartup": "Both/tmp and workspaceTMPDIR refused before execution with Could not find profile folder. Each0passed/1setupfailed/3unrun; raw traces retained; no Firefox Cloud pass claimed. New exactWindowsFirefox remains mandatory.",
+  "fullMasterPlanAccepted": false,
+  "server2019Acceptance": "not-run",
+  "artifactCount": 8,
+  "fullLogs": {
+    "readAllLogFiles": true,
+    "files": 131,
+    "lines": 26562,
+    "zipSha256": "d525ddb1e531cdb1bc05a7dc5e1cca23d5ac8b901ae1ae8758fa524e095c4add",
+    "expectedSyntheticMarkers": [
+      {
+        "file": "3_Windows Node22 baseline.txt",
+        "line": 658,
+        "text": "2026-10-16T14:22:46.0826977Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "3_Windows Node22 baseline.txt",
+        "line": 1186,
+        "text": "2026-10-16T14:28:02.0126773Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "3_Windows Node22 baseline.txt",
+        "line": 1225,
+        "text": "2026-10-16T14:28:15.6894606Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "3_Windows Node22 baseline.txt",
+        "line": 1404,
+        "text": "2026-10-16T14:29:39.1965747Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 146,
+        "text": "2026-10-16T14:22:46.0826958Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 674,
+        "text": "2026-10-16T14:28:02.0126748Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 713,
+        "text": "2026-10-16T14:28:15.6894588Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node22 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 892,
+        "text": "2026-10-16T14:29:39.1965715Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "6_Windows Node24 baseline.txt",
+        "line": 655,
+        "text": "2026-10-16T14:22:03.0049689Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "6_Windows Node24 baseline.txt",
+        "line": 1154,
+        "text": "2026-10-16T14:26:04.8786846Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "6_Windows Node24 baseline.txt",
+        "line": 1192,
+        "text": "2026-10-16T14:26:16.5254042Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "6_Windows Node24 baseline.txt",
+        "line": 1368,
+        "text": "2026-10-16T14:27:23.4293375Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 131,
+        "text": "2026-10-16T14:22:03.0049667Z \u001b[31;1m\u001b[22m\u001b[39mKh\u00f4ng th\u1ec3 t\u1ea1o backup t\u1ec7p: Error: Invalid backup filename\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "constrains retention of previously persisted malicious backup metadata"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 630,
+        "text": "2026-10-16T14:26:04.8786830Z \u001b[31;1m\u001b[22m\u001b[39mAutomatic backup failed Error: Synthetic backup destination unwritable\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "backup failure does not suppress birthday generation"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 668,
+        "text": "2026-10-16T14:26:16.5254021Z \u001b[31;1m\u001b[22m\u001b[39mAssistant error: Error: Synthetic provider timeout\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "reports an offline provider timeout error without retries or legacy writes"
+      },
+      {
+        "file": "Windows Node24 baseline/17_Unit and SQLite regression tests.txt",
+        "line": 844,
+        "text": "2026-10-16T14:27:23.4293361Z \u001b[31;1m\u001b[22m\u001b[39mL\u1ed7i import backup to\u00e0n ph\u1ea7n: AppStoreError: Restore request conflicts with committed command\u001b[0m",
+        "classification": "expected synthetic negative-path stderr",
+        "passedRegression": "returns HTTP409 for changed zip restore input reusing a committed request"
+      }
+    ],
+    "unexpectedMarkers": [
+      {
+        "file": "0_ci-gate.txt",
+        "line": 62,
+        "text": "2026-10-16T14:36:57.3639707Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "ci-gate/2_Require Windows quality, browser, package and service checks to succeed.txt",
+        "line": 32,
+        "text": "2026-10-16T14:36:57.3639668Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "5_Windows production browsers.txt",
+        "line": 601,
+        "text": "2026-10-16T14:36:13.8294865Z     Error: expect(received).not.toBe(expected) // Object.is equality"
+      },
+      {
+        "file": "5_Windows production browsers.txt",
+        "line": 643,
+        "text": "2026-10-16T14:36:13.8789656Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "Windows production browsers/11_Isolated Firefox productivity.txt",
+        "line": 55,
+        "text": "2026-10-16T14:36:13.8294861Z     Error: expect(received).not.toBe(expected) // Object.is equality"
+      },
+      {
+        "file": "Windows production browsers/11_Isolated Firefox productivity.txt",
+        "line": 97,
+        "text": "2026-10-16T14:36:13.8789631Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "7_Windows productivity browsers.txt",
+        "line": 517,
+        "text": "2026-10-16T14:36:46.0633521Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "7_Windows productivity browsers.txt",
+        "line": 669,
+        "text": "2026-10-16T14:36:46.4886354Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "Windows productivity browsers/11_Wait for exact-run original producers before artifact merge.txt",
+        "line": 24,
+        "text": "2026-10-16T14:36:46.0633496Z ##[error]Process completed with exit code 1."
+      },
+      {
+        "file": "Windows productivity browsers/15_Validate browser evidence.txt",
+        "line": 152,
+        "text": "2026-10-16T14:36:46.4886330Z ##[error]Process completed with exit code 1."
+      }
+    ],
+    "markerScanRuling": "Each expected negative stderr matched surrounding regression title and passed rawJSON/JUnit; aggregate/step duplicates retained. All other errors fail acceptance."
+  },
+  "failureArtifactHashes": {
+    "browser-cli.log": "cb09fb8824c0c6c082559e6225aaa53551e3433a90bdd1a8239c5f750ea59d3c",
+    "browser-driver.jsonl": "c7d8fe4e527451ffb2f1f15c11b2cc328d5fa638198d7efa5f43a3fcc41b92bd",
+    "browser-evidence.json": "c947ee303b2fb5b912392379610b8c4acaa3a17d08437e3e0ae8979de5b72ad3",
+    "browser-exit.json": "b813b13b565e75223e8309acfe14f2f3ef03123ae570e7349a5ef23fc3b9a1cf",
+    "browser-fixture.json": "b9542069b54c40310fae269d79631a1f2f09e12efce9819c255e644da24dc5dc",
+    "browser-html/index.html": "f40e455894412773e0942037de035403b0ff519778f5de7c3b17b5914eeef36f",
+    "browser-native-push-diagnostic.json": "4e38b7fe8accb38855f594e9141104afd86ab05609211327e459c71f5276706c",
+    "browser-native-push-diagnostic.log": "77069b2690cdbd5842697a025ef819d213dd323a162928d015855dc0b7c96795",
+    "browser-provider-fixtures.log": "4692dc354af745f9a9a85ad19d768b0ed9183f4152dab4bc4c740a7d51ff7577",
+    "browser-results/.last-run.json": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+    "browser-results/foundation-B12-calendar-recurrence-edit-and-ICS-chromium/synthetic-calendar.ics": "85d1d94225fb2697b2a0836fc086baba8fd046056e3b2f43870addb90ffb9574",
+    "browser-results/foundation-B12-calendar-recurrence-edit-and-ICS-firefox/synthetic-calendar.ics": "3374ca9350c7663db67901b374a72c541a223b1038a127a535970f1440b23487",
+    "browser-results/foundation-B12-calendar-recurrence-edit-and-ICS-webkit/synthetic-calendar.ics": "322e81bb8492e1fa401c626a634fde0f61f1fe3c6f671c9c0cb58d9971c5d9cb",
+    "browser-run.log": "e1da31523e2f53f874a0ce400ba6489b983f1eb8cc47df0175a13464dbe80b6b",
+    "browser-runtime-chromium.json": "e8426a517887dc799b9cc0c7ed83750dd77c1a72cb51fad6459c4aa337a9562e",
+    "browser-runtime-firefox.json": "3fc5ac0efaa8807b364ec9906ab240544fd57b55ea7d06fec6c16bab722712bc",
+    "browser-runtime-webkit.json": "47a86e8b8d7410179978b3af2f53fbee246328337cdfd20cda965155a414c1fd",
+    "browser-server.log": "2d03f3f7a53bd437eba34ad8470321b45c9985316d6879f6cda8da1104e05ca1",
+    "browser.json": "9abc70c4373b768e635e6038a7b15592afdc6cd02ba432082363b618344378c1",
+    "browser.junit.xml": "8cbd92e33bf3a16369bc77eb90fdf472132950d1f80b1d380391d569f602d953",
+    "browsers-install-exit.json": "7aee3541b2f850bfb90a8c551fe85a13b26aa6ad7916a7e2f89a5bba16afe2c1",
+    "browsers-install.log": "57100ca87ef8ce6666a20b262720b5f1948446f9e241b912835d7c9af8f3a9f2",
+    "build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+    "build.log": "226ea092c4370ee74c06cc864a1c4901364a83f407ec7e2d6e50ccf83f548521",
+    "install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+    "install.log": "9b080b74c198750b8b1605b082c9dd6100228ec592b975fb35122df77ba06191",
+    "native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+    "native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+    "native.log": "a0c1d494ef62a5d30bf035daf39190eedfe32246fc13f1d91be0eb8137c18cc7",
+    "node-sdk.json": "236ab1e715451c60bcebb11cdf3a2f324e56c6c648858e5c6457f6dae9c431a6",
+    "productivity-shards/firefox/reports/blob/report-firefox.zip": "2d3c3148669dc7b8045dc265a0359e8d0e5d088a58666be41c63414d8bd86c3d",
+    "productivity-shards/firefox/reports/browser-exit.json": "433da21081aab85dc869de5b75f2eaf3e7faf4ab2ae70200028ae95d4cf5b3aa",
+    "productivity-shards/firefox/reports/browsers-install-exit.json": "7aee3541b2f850bfb90a8c551fe85a13b26aa6ad7916a7e2f89a5bba16afe2c1",
+    "productivity-shards/firefox/reports/browsers-install.log": "607108f1bd7ddfba8b73a3fb7383cfb9497ebf8e34b2f916f36929bc7c8f385f",
+    "productivity-shards/firefox/reports/build-exit.json": "7c9b8536ed98e65d9b6659382e608c1a29f584a06d87dda52c7a7edca47710e8",
+    "productivity-shards/firefox/reports/install-exit.json": "a1409d4ad57422aa406ade7bc71be41c19283331d010785315150a17e789b406",
+    "productivity-shards/firefox/reports/native-exit.json": "b706a02bef4b3e6d018abba8698dea9fd0d94dfb0a555541520b75e652684efc",
+    "productivity-shards/firefox/reports/native.json": "e56d468f492defa4cbbcac6638670643743d82c51eae2e50e2b964a2f633aa64",
+    "productivity-shards/firefox/reports/productivity-browser-fixture.json": "dfc6dcb45d98d2365f4e6ca3262cd31afac1e8cd432048f7aff87510db60107e",
+    "productivity-shards/firefox/reports/productivity-browser-group-dark-390-firefox.png": "4eac44cfb83c3356287f5aa648a4c08c2cdd38947dd6a5881ec8c1f3372febee",
+    "productivity-shards/firefox/reports/productivity-browser-group-light-1280-firefox.png": "00116dc31946d5478e0d9a6976f05a28a756500c5eb737e8e2a6f974a93d117f",
+    "productivity-shards/firefox/reports/productivity-browser-html/data/213ecc5fd3eacd3983ba12d2fc7d937330abd43e.zip": "c4478fa6f439ddd0fec84d26601d8b0baad1a3f56d3d5069ab420fbc8961f93b",
+    "productivity-shards/firefox/reports/productivity-browser-html/data/5822bdc88fd8e0e21153384e1fa572350e4635bd.webm": "9cf2e9b7352eb6d1ca421126f4260abe91a97ab48146ef651c1d750400cdee70",
+    "productivity-shards/firefox/reports/productivity-browser-html/data/89459ed7878eb9b4e4768e8e885aa6e699d5db07.md": "72a7366b6f75f1c0ec0867e60240524fc9375305d49d576a05f16f3843806c01",
+    "productivity-shards/firefox/reports/productivity-browser-html/data/a92fb53cfbc64c06fa66b45bcabfe7a848a0cc08.png": "2c1d20b95a9890920b219e74b5c03985ba6b7f3a08dfd0525fb529227fad29e2",
+    "productivity-shards/firefox/reports/productivity-browser-html/index.html": "aa3be6641492429cbf90e08889336f36d516f282a9c47c56ba841105d9d332e9",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/assets/codeMirrorModule-BEB2e8M3.js": "0da75d228abc1d8b940aa04ec086570dace7b2e7b2ccc5f4bc16f05e79bdb7d7",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/assets/defaultSettingsView-D-g2vrvf.js": "554bdef910d18e763118f1221667b809edafba46e29e3f8de4b9dcf21c6b7d79",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/assets/urlMatch-L3liM589.js": "1bc6321e32d11c31a452bc75896f0b344e6153321854d9f1658818be7f845c16",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/codeMirrorModule.-QdMvsKi.css": "20be824a82832b62cc04642d31da3c609fd280b23f1cdcb1e622c4f40aac5ab8",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/codicon.DCmgc-ay.ttf": "0f1d5219934e96e83b8db162d60b4d8c09b5de1e7d38031cbafe4a3c0f2889c9",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/defaultSettingsView.C8BeHuxd.css": "278101b68ab48ee6323a6afbf4e0e629324e10e96902a62a0875643a1bba3d94",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/index.7-c5LSTW.js": "ce1eb956b15739b52a45c9fc2b9a0c529448242426b2b124d5c3167915910ff1",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/index.B_TqY17P.css": "08a212fcacae1866f44f065654afcc4c7d03409c68c74b3315c5bda17a0ca003",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/index.html": "b80661d46bc580d1e7be45c2c2b0e891c466f3f67e52c33e4f111f000f3532c6",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/manifest.webmanifest": "d8540500603a32a39fe7e5a0375dc0f9ebafd11118e06a846db7efc608223ab9",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/playwright-logo.svg": "6b0a4367bdeab10995bc239278f04c68c10e48adbec15e799e01909a0d66dcb9",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/snapshot.B_Jk1wbt.js": "d4d09e05451d107d8e1a6bbd041405fe518b9fd2833890e4ebaaad83b7f554f5",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/snapshot.html": "c608c8899c95c5a74d3f556e20146c3d852b9df85ae2854c659a7cc773c9b727",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/sw.bundle.js": "d1d6fec6687eb3fd93a8990bd9daa3951422695afffae2382f97f10811cf1c30",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/uiMode.CYwC_gH1.js": "c920eaa161f65b6c0dd431a642c4bdf2e6262ae51335c02d155b187f48c0296c",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/uiMode.CyMfwkXJ.css": "fb403cf0b07007bc1d771e29737f7408924da300e2fab8b289a3ef2e8fc08d7b",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/uiMode.html": "6de2f5db7f7532c30e8b1381752a1daf23facbdef6bea130cef0cfa5a003eb22",
+    "productivity-shards/firefox/reports/productivity-browser-html/trace/xtermModule.kHJ-D0s7.css": "0dd60056134e6a2994a86b59a1e9789b9f04e92924da109aef8c923acaf08ce5",
+    "productivity-shards/firefox/reports/productivity-browser-kanban-dark-390-firefox.png": "4de309e3c7f6a3399069f6ef18ac5735038abfa85facd463714cdbcd6e1cc67c",
+    "productivity-shards/firefox/reports/productivity-browser-kanban-light-1280-firefox.png": "2ffdbaa33bc0ee8500a6bc5bffc2bf9567d678a193851002e8f1d42e7fb8f274",
+    "productivity-shards/firefox/reports/productivity-browser-matrix-dark-1280-firefox.png": "3d39c3be1baa6117a33bd083889e0bc55de1bc485904bf97f90b9b10a82ce33a",
+    "productivity-shards/firefox/reports/productivity-browser-matrix-dark-390-firefox.png": "f0892ebb1bb14d018c754978ddd7e108bad291076226679db33a87a1db2d2708",
+    "productivity-shards/firefox/reports/productivity-browser-matrix-dark-768-firefox.png": "6c76b19cef643ffdf9a0b4ab13f3529456ae42155afca45988ecbe84d8d64c0d",
+    "productivity-shards/firefox/reports/productivity-browser-matrix-light-1280-firefox.png": "c58abd97a66ab77eb29f77d2f01cf94cd8dcab6e6081f2bb34f00cc0b42ff1ba",
+    "productivity-shards/firefox/reports/productivity-browser-native.log": "0b37878e77a572c15f88ee32b34747af04debed77dd486c0e044f27577eb6fac",
+    "productivity-shards/firefox/reports/productivity-browser-results/.last-run.json": "6ed299715779d32628b8d621c039145cba35ca58739830de3602d69e709f9715",
+    "productivity-shards/firefox/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-firefox/error-context.md": "72a7366b6f75f1c0ec0867e60240524fc9375305d49d576a05f16f3843806c01",
+    "productivity-shards/firefox/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-firefox/test-failed-1.png": "2c1d20b95a9890920b219e74b5c03985ba6b7f3a08dfd0525fb529227fad29e2",
+    "productivity-shards/firefox/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-firefox/trace.zip": "c4478fa6f439ddd0fec84d26601d8b0baad1a3f56d3d5069ab420fbc8961f93b",
+    "productivity-shards/firefox/reports/productivity-browser-results/productivity-P10-C27-recur-303f9-ning-a-keyboard-phone-draft-firefox/video.webm": "9cf2e9b7352eb6d1ca421126f4260abe91a97ab48146ef651c1d750400cdee70",
+    "productivity-shards/firefox/reports/productivity-browser-run.log": "55bcb35acbf47761182a4da4e87f585faff36559dcf7b1e7b1100863ac2af4b8",
+    "productivity-shards/firefox/reports/productivity-browser-runtime-firefox.json": "d0d527387e71c75e1edc0450a7786a77c24c782ad13e6f7460e463c6c166ecc6",
+    "productivity-shards/firefox/reports/productivity-browser-server.log": "5f480d7286b308b0466c448bd7c597c0e422a7d8d3622f885dd554c1967f0b31",
+    "productivity-shards/firefox/reports/productivity-browser.json": "b187335df458897d84d895ef9c45057d12ad09f83a709b7641bab16138856e63",
+    "productivity-shards/firefox/reports/productivity-browser.junit.xml": "642912127d68ecdfe0ed2c7fd6b0d0e9f69f10b8c6096a405f9a2d9212ae5c79",
+    "toolchain.json": "9197d488a377e254a43847f25cd8b0ee4085ece6ad3a2ac98dea6137b2d2fe06"
+  }
+}

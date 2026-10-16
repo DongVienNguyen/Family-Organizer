@@ -3,7 +3,7 @@ import {keys,text} from './validation.js';
 import {createTaskDraft,editTaskDraft,changedTaskFields,type TaskDraft} from './editor.js';
 export type TaskLoader=(id:string)=>Promise<TaskRecord>;
 export type TaskSaver=(id:string,revision:number,patch:TaskPatch,requestId:string)=>Promise<TaskRecord>;
-export interface DrawerInputs {comment:string;newCheck:string;subtaskTitle:string}
+export interface DrawerInputs {comment:string;newCheck:string;subtaskTitle:string;recurrence?:string;recurrenceOpen?:'open'|'closed'}
 const emptyInputs:DrawerInputs={comment:'',newCheck:'',subtaskTitle:''};
 export interface TaskCache {
  subscribe(fn:()=>void):()=>void;snapshot():number;record(id:string):TaskRecord|undefined;draft(id:string):TaskDraft|undefined;
@@ -33,7 +33,7 @@ export function createTaskCache():TaskCache {
   async reload(id,loader){requireActive();if(busy.has(id))throw Error('Task save in progress');await this.load(id,loader);const task=allowed(id);if(!task)throw Error('Task not ready');drafts.set(id,createTaskDraft(task));inputs.delete(id);pending.delete(id);emit();},
   open(id){requireActive();const task=allowed(id);if(!task)return false;if(!drafts.has(id)){drafts.set(id,createTaskDraft(task));emit();}return true;},
   inputs(id){return allowed(id)?structuredClone(inputs.get(id)??emptyInputs):undefined;},
-  editInputs(id,patch){requireActive();if(!records.has(id))throw Error('Task not ready');keys(patch,['comment','newCheck','subtaskTitle']);for(const [key,value]of Object.entries(patch))text(value,key==='comment'?20000:key==='newCheck'?2000:500,false);inputs.set(id,{...(inputs.get(id)??emptyInputs),...patch});emit();},
+  editInputs(id,patch){requireActive();if(!records.has(id))throw Error('Task not ready');keys(patch,['comment','newCheck','subtaskTitle','recurrence','recurrenceOpen']);if(patch.recurrenceOpen!==undefined&&!['open','closed'].includes(patch.recurrenceOpen))throw Error('Invalid recurrence expansion');for(const [key,value]of Object.entries(patch))text(value,key==='comment'||key==='recurrence'?20000:key==='newCheck'?2000:500,false);inputs.set(id,{...(inputs.get(id)??emptyInputs),...patch});emit();},
   edit(id,patch){requireActive();if(busy.has(id))throw Error('Task save in progress');const draft=allowed(id)?drafts.get(id):undefined;if(!draft)throw Error('Task draft not ready');drafts.set(id,editTaskDraft(draft,patch));emit();},
   tagEditor(id,initialText){requireActive();const draft=allowed(id)?drafts.get(id):undefined;if(!draft)throw Error('Task draft not ready');if(!draft.tagEditor){drafts.set(id,{...draft,tagEditor:{originalText:initialText,text:initialText}});emit();}},
   editTagText(id,text){requireActive();if(busy.has(id))throw Error('Task save in progress');const draft=allowed(id)?drafts.get(id):undefined;if(!draft?.tagEditor)throw Error('Tag editor not ready');drafts.set(id,{...draft,tagEditor:{...draft.tagEditor,text}});emit();},

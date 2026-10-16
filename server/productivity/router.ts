@@ -65,6 +65,10 @@ export function taskRouter(ports:ProductivityPorts,requireAuth:RequestHandler,ev
   if(!ports.recurrencePreview)throw new AppStoreError('Kho xem lịch lặp chưa sẵn sàng.',409);
   return {occurrences:ports.recurrencePreview.previewOccurrences(req.userSession!,req.params.id,req.query)};
  }));
+ router.get('/:id/series',handler(req=>{
+  if(!ports.seriesCommands)throw new AppStoreError('Lệnh lịch lặp chưa sẵn sàng.',409);
+  return ports.seriesCommands.seriesForTask(req.userSession!,req.params.id);
+ }));
  router.post('/series/:id/edit',handler(req=>{
   if(!ports.seriesCommands)throw new AppStoreError('Lệnh lịch lặp chưa sẵn sàng.',409);
   const body=completionBody(req,['scope','patch']),result=ports.seriesCommands.editSeries(taskCommandContext(req,body.expectedRevision),req.params.id,body.scope,body.patch);

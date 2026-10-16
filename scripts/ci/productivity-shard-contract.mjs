@@ -13,7 +13,7 @@ export function validateProductivityShards(input,cases){
    const {project,report,junit,manifest:m,engine,native,exits,serverLog}=shard;
    require(m?.executionJob===({chromium:'quality',firefox:'browser',webkit:'productivity-browser'})[project],'isolated producer job mismatch');
    require(m?.project===project&&m.commitSha===expected.commitSha&&m.lockSha256===expected.lockSha256&&m.nodeVersion===expected.nodeVersion&&m.platform==='win32'&&m.architecture==='x64'&&isDeepStrictEqual(m.productionBuild,expected.productionBuild),'isolated project source/runtime/build mismatch');
-   require(m.synthetic===true&&m.productivityVersion===9&&isDeepStrictEqual(m.kanbanFixture,{taskRowsPreserved:true,boards:2,views:9})&&m.nativeHandlesClosed===true&&m.fixtureRemoved===true&&m.databaseClosed===true&&m.legacyPreserved===true&&m.integrity==='ok'&&m.error===null,'isolated fixture preservation/cleanup failed');
+   require(m.synthetic===true&&[9,12].includes(m.productivityVersion)&&m.productivityVersion===(manifest.productivityVersion??9)&&isDeepStrictEqual(m.kanbanFixture,{taskRowsPreserved:true,boards:2,views:9})&&m.nativeHandlesClosed===true&&m.fixtureRemoved===true&&m.databaseClosed===true&&m.legacyPreserved===true&&m.integrity==='ok'&&m.error===null,'isolated fixture preservation/cleanup failed');
    require(Array.isArray(m.networkAttempts)&&m.networkAttempts.length===0&&Array.isArray(m.externalAttempts)&&m.externalAttempts.length===0,'isolated provider network attempted');
    require(['cli','browser','server'].every(kind=>m[kind+'ExitCode']===0&&m[kind+'Signal']===null),'isolated native process failed');
    require(['install','native','build','browsers-install','browser'].every(name=>exits?.[name]?.exitCode===0),'isolated native step missing or failed');
