@@ -1,3 +1,4 @@
+import {createBoardTaskComparator} from './boardSort.js';
 import {createHash,createHmac,randomBytes,timingSafeEqual} from 'node:crypto';
 import type {AppActor,QueryClock,TaskRecord} from '../../src/features/productivity/contracts.js';
 import {integer,keys,object,text} from '../../src/features/productivity/validation.js';
@@ -33,7 +34,7 @@ export function createBoardProjection(ports:{reader:TaskReader;views:{getView(ac
   const config=view.config;if(config.kind!=='kanban')return fail(422,'Góc nhìn chưa liên kết bảng chuẩn.');
   if(config.boardId===undefined)return fail(422,'Góc nhìn chưa liên kết bảng chuẩn.');
   const board=resolveBoardReference(reader,actor,config.boardId,config.mode);
-  if(config.group!=='none'||config.sort!=='rank')fail(422,'Cách nhóm hoặc sắp xếp bảng chưa được hỗ trợ.');
+  if(config.group!=='none')fail(422,'Cách nhóm hoặc sắp xếp bảng chưa được hỗ trợ.');
   const current=now(),prior=input.cursor===undefined?null:open(input.cursor),clock=prior?.clock??{nowUtc:new Date(current).toISOString(),timezone:input.timezone??'Asia/Saigon'};
   if(prior&&(utcInstant(clock.nowUtc)>current||utcInstant(clock.nowUtc)+boardReadLimits.ttlMs<=current||input.timezone!==undefined&&input.timezone!==clock.timezone))fail(409,'Trang bảng đã hết hạn; tải lại bảng.');
   const revision=reader.get('SELECT revision FROM productivity_boards WHERE id=?',board.id).revision,scope=taskScope(actor,{includeTrash:view.filter.includeTrash===true}),condition='t.list_id=? AND ('+scope.sql+')',args=[board.list_id,...scope.args];
@@ -47,7 +48,7 @@ export function createBoardProjection(ports:{reader:TaskReader;views:{getView(ac
   const filter={...view.filter,listIds:view.filter.listIds===undefined?[board.list_id]:view.filter.listIds.filter(id=>id===board.list_id)};
   const rows=query.readFilteredTasks(actor,filter,clock),cards:{column:BoardColumnProjection;card:Card}[]=[];
   for(const task of rows){const key=board.mode==='workflow'?workflowColumn(task):task.sectionId===null?'none':'section:'+task.sectionId,column=byKey.get(key);if(!column)fail(409,'Cột bảng đã thay đổi; tải lại bảng.');const rank=ordering.get(task.id);if(!Number.isSafeInteger(rank))fail(409,'Thứ tự bảng không hợp lệ.');column.visibleCardCount++;cards.push({column,card:{task,rank:rank!}});}
-  const order=new Map(columns.map((c,i)=>[c.id,i]));cards.sort((a,b)=>order.get(a.column.id)!-order.get(b.column.id)!||a.card.rank-b.card.rank||(a.card.task.id<b.card.task.id?-1:a.card.task.id>b.card.task.id?1:0));
+  const order=new Map(columns.map((c,i)=>[c.id,i])),compare=createBoardTaskComparator(config.sort,clock);cards.sort((a,b)=>order.get(a.column.id)!-order.get(b.column.id)!||compare(a.card.task,b.card.task,a.card.rank,b.card.rank));
   if(actor.role===UserRole.ADMIN){const membership=board.mode==='workflow'?workflowSql:"CASE WHEN t.section_id IS NULL THEN 'none' ELSE 'section:'||t.section_id END";for(const row of reader.all('SELECT '+membership+" AS lane,count(*)AS n FROM productivity_tasks t WHERE t.list_id=? AND t.parent_id IS NULL AND t.deleted_at IS NULL AND t.lifecycle NOT IN('completed','wont_do') GROUP BY "+membership,board.list_id)){const column=byKey.get(row.lane);if(column)column.wip.activeRootCount=row.n;}}
   const identity=hash({actor,viewId:view.id,viewRevision:view.revision,filter:view.filter,config:view.config,boardId:board.id,revision,clock,rows:cards.map(r=>[r.card.task.id,r.card.task.revision,r.column.id,r.card.rank])});
   if(prior&&(prior.identity!==identity||prior.offset>=cards.length))fail(409,'Công việc trong bảng đã thay đổi; tải lại bảng.');

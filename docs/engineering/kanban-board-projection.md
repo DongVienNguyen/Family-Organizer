@@ -42,3 +42,5 @@ server clock and unchanged domain rows. All earlier14checks and process/refusal
 vectors remain required. Cloud checks are diagnostics; exact-HEAD Windows reports
 must pass before acceptance. Windows2022 is not Server2019/build17763 acceptance.
 No release/tag/VPS operation or default migration activation is authorized here.
+
+Current P08-b12 supports the existing persisted due/priority/title sorts in both normal and normalized grouped board reads. The earlier rank-only limitation above is historical. See [board sorts](kanban-board-sorts.md) for date/collation/tie/paging and regression evidence. Manual rank changes still require rank sort.
