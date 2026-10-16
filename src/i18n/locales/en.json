@@ -1708,5 +1708,21 @@
     "semantic": "This move is unavailable. Check the WIP limit and current access.",
     "failed": "Unable to process. Reload to check current data and access.",
     "expires": "Expires"
+  },
+  "productivityKanbanGroup": {
+    "dialog": "Change group",
+    "move": "Change group for {{title}} from {{group}}",
+    "selectedField": "Change only the selected grouping field; keep completion, rewards and scheduled time unchanged.",
+    "target": "Target group",
+    "scope": "Tag scope",
+    "source": "Only this column tag",
+    "add": "Add to existing tags",
+    "replace": "Replace all tags",
+    "allDay": "Specific date (all day)",
+    "date": "New due date",
+    "dueChange": "Changing the date group changes the deadline to an all-day date in the selected timezone; apply only after preview and confirmation.",
+    "preview": "Preview group change",
+    "apply": "Apply group change",
+    "invalidTarget": "Choose a valid target. To clear a Task with multiple tags, explicitly choose “Replace all tags”."
   }
 }

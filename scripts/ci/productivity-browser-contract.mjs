@@ -28,6 +28,9 @@ export const productivityBrowserCases=[
  'P09 C21 actor switch clears private Kanban rows and keeps workflow read-only',
  'P09 C22 keyboard section preview cancel apply preserves canonical draft lifecycle deadline and rewards',
  'P09 C23 authorization refresh discards a held section preview without any late apply',
+ 'P09 C24 tag projection preview cancel apply preserves other tags draft and canonical lifecycle',
+ 'P09 C25 non-rank grouped priority assignee and explicit all-day due moves change only their selected field',
+ 'P09 C26 all-tags add and replace require fresh previews and preserve canonical deadline lifecycle and rewards',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat}),...validateMatrixTouchReports(input),...validateProductivityShards(input,productivityBrowserCases)];
