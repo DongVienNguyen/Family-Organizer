@@ -1,0 +1,133 @@
+{
+  "taskId": "P09-e",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/119",
+  "testedHeadSha": "cdd2676ac2fbd91a0b1435a5b0136f0c4c846387",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38856226760",
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "2e4ac3a55baea452cdb46a73880384cf1dad0edd4bd5a6f5edafb7a9e97aef36",
+    "coverage": "fcfd5fe7951de6eb68b2ebb752213cbc68fcb02b71da42534bfddbefa66fbfa4",
+    "package": "94dae2238f48168e8f433177d1c7ae690beb894cfb7aa4b27ffa41a5484cf478",
+    "service": "125391c9c302d24463362a2d0e8c1422e7f3adcacbebbe65dc894049ccb3adc5",
+    "caddy": "e19ec78360e208e5b2ba8f02b3e7ccb2d006d7db2dfbc8ef6f6f348d7bcae79b",
+    "extraction-sdk": "0ca47beb724e3eca4418a47ed03d60d7a993b71168ecfb624086471561062f7f",
+    "inner-native": "1281270c91188941f657d5f436eef4b6e2f1e2ef1018ffb314a7de2f9bb4c576",
+    "browser": "46c40bc9ef4f892269ac468f948655deb787eae6b85eb5773568692504acd380",
+    "productivity-browser": "845bb390dafcf15123a4bbbd556f552d5bb334c256f651cf7fab933ff0c7b0eb",
+    "board-package": "1a661336b3df0a3b579d52f049530b6c22321951cd936e3718dc89d67c750a95",
+    "port-policy": "a562c82094dbe84662286895a1401d677269be0895686c1e37edae5043e92601"
+  },
+  "qualityEach": 4773,
+  "qualityFilesEach": 260,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 63,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "zipSha256": "f2895f7170ddda96365b82a01fd978010e4dfd4f854bb275884779b4f72c6030",
+  "fullCiLogZipSha256": "015985523af8f131b8936716a9e14249596c8d0991eb10b5506cc17a16462958",
+  "review": {
+    "task": "P09-e",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/write-evidence.mjs": "490808b1c129b89bc750bb0830e215ce7be722f70482404bdc78f89bb6852513",
+      "src/features/productivity/kanbanCommandState.test.ts": "d99a2f652ee504914e987160aeed77026a4b7b6253eb8870519a0705dbd1adae",
+      "src/features/productivity/kanbanCommandState.ts": "460b1efd2661b8da55b92e8589f8a3e876cb4269d609d7aa8cb98694e706f71c",
+      "tests/evidence.test.ts": "5d3a6cd007ed6cd68ba0f7ca2887555a142f9884ea5b5e7bae1f317523a7767a",
+      "tests/grouped-rank-import.test.ts": "c9109158e1a3de21829387ae7c4f1f4e91281cc1af7577cb26d691b7bb035cbb"
+    },
+    "postCorrectionSourceHashes": {
+      "scripts/ci/write-evidence.mjs": "490808b1c129b89bc750bb0830e215ce7be722f70482404bdc78f89bb6852513",
+      "src/features/productivity/kanbanCommandState.test.ts": "d99a2f652ee504914e987160aeed77026a4b7b6253eb8870519a0705dbd1adae",
+      "src/features/productivity/kanbanCommandState.ts": "460b1efd2661b8da55b92e8589f8a3e876cb4269d609d7aa8cb98694e706f71c",
+      "tests/evidence.test.ts": "5d3a6cd007ed6cd68ba0f7ca2887555a142f9884ea5b5e7bae1f317523a7767a",
+      "tests/grouped-rank-import.test.ts": "c9109158e1a3de21829387ae7c4f1f4e91281cc1af7577cb26d691b7bb035cbb"
+    },
+    "reviewCoverage": [
+      "all5 source/test/mandatory-inventory changes against P09d0c5b2e1",
+      "actor/API owner contract and clear/dispose abortion/late result boundaries",
+      "current visible section/rank selection and returned plan revision binding",
+      "singleflight, explicit-only retry with retained private plan/UUID, no automatic write retry",
+      "HTTP4xx invalidates plan, 5xx/network failure retains identity, no raw error text",
+      "acknowledged write retires before owner reread; callback rechecked after subscriber notifications",
+      "no optimistic facts/cache replacement or runtime/UI/schema/default activation",
+      "original six cold-import cases and both evidence inventories/assertions retained"
+    ],
+    "developmentCorrectionsBeforeSelf": [
+      {
+        "cause": "subscriber clears owner after write acknowledgement before refresh callback",
+        "causalRed": {
+          "tests": 21,
+          "passed": 20,
+          "failed": 1
+        },
+        "correction": "recheck generation/sequence immediately before callback",
+        "assertionsRetained": true
+      },
+      {
+        "cause": "test forged ID literal did not satisfy inferred UUID template type",
+        "lintExit": 2,
+        "correction": "use a syntactically valid distinct UUID; original private-plan assertion retained"
+      }
+    ],
+    "remaining": [
+      "PR117 exact-head Actions/log/artifact acceptance blocked by HTTP401",
+      "P09d parent acceptance/new PR/Windows CI",
+      "fullCloud/lint/build and new exact-head Windows acceptance for this branch",
+      "physical menu and actual pointer/keyboard/touch UI not mounted",
+      "grouped commands/settings/drag/clock refresh/large lists/P08/P10/master tasks remain"
+    ],
+    "publicationAllowed": false
+  },
+  "kanbanPhysicalConfirmationStateAccepted": true,
+  "productivityFixtureVersion": 9,
+  "kanbanScreenshots": 6,
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "acceptance": "Historical exact-head PR119 green proof before CI architecture correction; not acceptance of new source",
+  "mergeAuthorizedFromThisRecord": false
+}

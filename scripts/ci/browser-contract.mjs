@@ -46,7 +46,9 @@ export function validateBrowserReports(input, policy) {
   for (const engine of requiredProjects) for (const title of requiredFlows) require(seen.has(`${engine}/${title}`), `missing ${engine}/${title}`);
   require(seen.size === requiredCases && report?.stats?.expected === requiredCases && ['unexpected', 'flaky', 'skipped'].every(k => report?.stats?.[k] === 0), 'JSON totals contradict required cases');
   require(Array.isArray(report?.errors) && report.errors.length === 0, 'global browser error');
-  require(report?.config?.forbidOnly === true && report.config.workers === 1, 'browser configuration changed');
+  // Pinned Playwright merge sums workers and defaults forbidOnly=false.
+  // Capability1 callers also require every original producer's forbidOnly=true/workers=1.
+  require(report?.config?.forbidOnly === (policy?.shardFormat===1?false:true) && report.config.workers === (policy?.shardFormat===1?3:1), 'browser configuration changed');
   require(report?.config?.projects?.length === 3 && requiredProjects.every(name => report.config.projects.some(p => p.name === name && p.retries === 0)), 'required browser projects or zero-retry policy missing');
   try{
     const tree=parseReleaseJUnit(junit),identities=[];

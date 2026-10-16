@@ -1,0 +1,7 @@
+import {expect,it} from 'vitest';
+import path from 'node:path';
+import {productivityReportLayout,productivityProjectArgs} from '../scripts/ci/productivity-report-layout.mjs';
+it('keeps ordinary reports and cwd compatible while each isolated engine owns a separate fixed root',()=>{const normal=productivityReportLayout();expect(normal.project).toBeNull();expect(normal.work).toBe(normal.root);expect(normal.reports).toBe(path.join(normal.root,'reports'));const all=['chromium','firefox','webkit'].map(project=>productivityReportLayout(project));expect(new Set(all.map(x=>x.reports)).size).toBe(3);for(const item of all){expect(item.work).toBe(path.join(normal.root,'reports/productivity-shards',item.project!));expect(item.reports).toBe(path.join(item.work,'reports'));expect(path.isAbsolute(item.reports)).toBe(true);}});
+it.each(['../webkit','Chromium','all','','chromium/firefox','C:\\outside'])('refuses arbitrary output/project alias %s',value=>expect(()=>productivityReportLayout(value)).toThrow());
+it('accepts exactly one explicit project or legacy all-engine invocation',()=>{expect(productivityProjectArgs([])).toBeUndefined();expect(productivityProjectArgs(['--project','firefox'])).toBe('firefox');});
+it.each([['--project'],['--project','all'],['--project','chromium','--reports','outside'],['--project=webkit'],['webkit']])('rejects malformed native project arguments %j',args=>expect(()=>productivityProjectArgs(args)).toThrow());

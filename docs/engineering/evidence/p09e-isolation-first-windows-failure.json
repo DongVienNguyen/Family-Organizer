@@ -1,0 +1,119 @@
+{
+  "taskId": "P09-e CI actual verification failure",
+  "testedHead": "44d2ff6ef9a49a3efb6ab79c0d9ca510aa800f3b",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38860865067",
+  "conclusion": "failure",
+  "artifacts": 7,
+  "checks": [
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "skipped"
+    }
+  ],
+  "qualityEach": {
+    "tests": 4834,
+    "files": 264
+  },
+  "legacy": {
+    "passed": 44,
+    "failed": 1,
+    "skipped": 0,
+    "retry": 0,
+    "case": "B01 login reload logout",
+    "engine": "chromium",
+    "failure": "browserContext.close: Target page, context or browser has been closed; fixture teardown",
+    "nativeBrowserExit": {
+      "pid": 4264,
+      "exitCode": 3221225477,
+      "hex": "0xC0000005",
+      "signal": null
+    },
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "7f08161bbeb2853ffe1780a9ded4985087f52efb9725d7d8207aabdd42f7cfb9",
+      "nodeVersion": "v24.21.0",
+      "platform": "win32",
+      "architecture": "x64"
+    },
+    "driverJsonlSha256": "b837c379c60c305ec613e39e61c854a5cc169f1a0c1ad1f81b2026917fc26244"
+  },
+  "isolatedProjectsActuallyPassed": [
+    {
+      "engine": "chromium",
+      "cases": 21,
+      "firstAttempt": true,
+      "fixtureManifestSha256": "6b54d6401ec0bf603adaa4c1e62e05d407763ab1fed9b2e54aa1246066b305e5",
+      "jsonSha256": "014ae97380e12a978bc836b0cf249da6f587339522614d6a0a9a14d1d0a48175",
+      "junitSha256": "632a2474f8be74cd9300e400df301dc7dac59449238969ba2061ae8b0a30fc8a",
+      "touchFirstAttempt": 1
+    },
+    {
+      "engine": "firefox",
+      "cases": 21,
+      "firstAttempt": true,
+      "fixtureManifestSha256": "be447b9ae78e47d2a02b194ac10bd5e33a5abff9326de88fca5a2402e93770f0",
+      "jsonSha256": "dec3a3ac36379ae05bd7d683fb65407cb669c99c630f3a83410c2121b42ceb56",
+      "junitSha256": "8a16d8d425e2b89e47830edae8828f1bb3878f7ab8a7688ae10c1cfa4898ce5c"
+    }
+  ],
+  "aggregateWebKit": "not run; upstream job failed; required dependency skip causes ci-gate failure",
+  "otherVerifiedFamilies": {
+    "quality": "3c788e8ee08e245a6b2e937da46d59de96c59adb6df93fe13c91315b00e7af50",
+    "coverage": "07fb53281da2774978a933971f7c558fca6e467da7f795ad5b95f1246f6ac6c2",
+    "package": "d99bbcdd43d9d1720852be5343b6b2e63fff0d59524cd03f33bfd3f5626f5554",
+    "service": "c0ed65a985fc4cb9dc44ad38601b74bfc6f911cc13fe6d301cc52f2c8c54f0c2",
+    "caddy": "439acb4817d3755f6e19ee33fd6f064dc02c1ee366cda846b67c54d843f97681",
+    "extraction-sdk": "2638c80bc33051924b3467bc28d1e966b819b33cb7933612d35d001aa2ae5d4a",
+    "inner-native": "036fb4823a19737670fb630ab718531d70ca5633f340e62c766bb5d8bc962810",
+    "board-package": "0caa21fd0ff77e1c3582266374e8dcebb037d2f48d2144053cccad73b2bdd529",
+    "port-policy": "31dc0791890b3aef4b43f2083d3a66b0757dc8ad1fb6429579fe3106423353f6"
+  },
+  "fullLogs": {
+    "readAllLogFiles": true,
+    "files": 114,
+    "lines": 23802,
+    "archiveSha256": "50c3cd9512cab8e42ac8a00e37242d1fb32e943de658f6d281189e494c353402"
+  },
+  "upstreamEvidence": {
+    "url": "https://github.com/microsoft/playwright/issues/43327",
+    "sameBrowserVersion": "156.0.8078.4",
+    "sameNativeCode": "0xC0000005",
+    "workaround": "--disable-stack-profiler on Windows Chromium only",
+    "limitation": "no local native dump; same stack is unconfirmed",
+    "issueJsonSha256": "459932de64120ceda88f2e71c57bc085266f99efc31160aaa0a9eb3ec2980d93"
+  },
+  "assertionsPreserved": true,
+  "retryOrTimeoutIncrease": false,
+  "acceptance": "failed; partial engine passes do not qualify aggregate",
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

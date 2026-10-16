@@ -31,5 +31,11 @@
   "sourceWorkContinues": true,
   "releaseCreated": false,
   "tagCreated": false,
-  "vpsAccessed": false
+  "vpsAccessed": false,
+  "gitPushSeparatelyVerified": {
+    "branch": "codex/p09-board-command-client",
+    "headSha": "0c5b2e1da805d3919c62e99b7e6d8daf70e3d1ce",
+    "exitCode": 0,
+    "doesNotEstablishApiReadiness": true
+  }
 }

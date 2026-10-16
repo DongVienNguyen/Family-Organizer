@@ -1,0 +1,64 @@
+{
+  "taskId": "main117",
+  "testedHeadSha": "ba293a6f332754be73758129cd231560e9269b0c",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855022263",
+  "qualityEach": 4706,
+  "qualityFilesEach": 258,
+  "rawValidators": 11,
+  "summaryHashes": {
+    "quality": "131ab528b418ea64ecc9076be43d789c5a7e00d42e74dc2dab0a6418e31e4fca",
+    "coverage": "f8b5c49aabad636c31c35088ae5341d9df657affe7ea08cb1cfdf448b2694fa6",
+    "package": "f6a4634da9ba5c5fed90ae2769a98c0feabae307f6b26aec239fd0a1fd07e7eb",
+    "service": "148ca317995bbe3616b9f52603030cf5dc374f86a970911ea9a1a8efc32199a8",
+    "caddy": "e334a1a4641c61238c9e05a914e8612b1f4c348d9460d25b8210750bab62a075",
+    "extraction-sdk": "8e4739eb941c586fa11cd9c27583fe978d2b6c835f2034682c5b35f96f320219",
+    "inner-native": "c5e7568d28d49f45e490399e0aed38444b9171747c22bd981d21f83668977c77",
+    "browser": "91dd3a9bbeac36f83085430402d82502b85d856f8ed1bb5c56d7da0cc0dc381c",
+    "productivity-browser": "0af269fd0ebeb383baab44695886224ddce66eea8d1debedc0bc750cfc3b7626",
+    "board-package": "4ba6b6fda9daed8495bbb0b586e0ea849ff68567b6c4fe8cf91260badce1817d",
+    "port-policy": "de12be01c412e9372dfa457d936000563abeddecb7b63d6fa916b767133ca64a"
+  },
+  "fullLogs": {
+    "files": 132,
+    "lines": 24450,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  },
+  "fullCiLogZipSha256": "094bdc937946075c467c69757b4c9bd22da326bae5fa23e28f1d388d8bc581e0",
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}
