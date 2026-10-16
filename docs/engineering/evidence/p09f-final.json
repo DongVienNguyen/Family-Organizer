@@ -1,0 +1,176 @@
+{
+  "taskId": "P09-f",
+  "prUrl": "https://github.com/DongVienNguyen/Family-Organizer/pull/120",
+  "testedHeadSha": "0e1091ac416857e527dd9b564d84c076239e8dd7",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38865945150",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "success"
+    }
+  ],
+  "summaryHashes": {
+    "quality": "ee862a5232fc7f278889fff95ba0dbfdb0d94f0453391094a374698833c54697",
+    "coverage": "75b420aba4e4ee9f06781a65b7d26fd8cdc317db7817309723b1d2181c7e95ec",
+    "package": "cb9ec83838fc301b8ac32ea7045fa64c9dd2196494e951477daa6b913af32699",
+    "service": "0b7b9f79c88ce9eb6c4bb7adde1aae0a17e3b4b887c92980b597c2ebce3a5bb4",
+    "caddy": "57f9bdcd638108ccf1ef57b6318b38983d2ca655884596d1c9184fcb1c3047d1",
+    "extraction-sdk": "568fda56b369b7f8a06486090857313b4e81f1e2c5655213f444a1c427170f26",
+    "inner-native": "677ab965e514952f514dd40f7133d234a449404e37aa9a593ce269680aa2db5f",
+    "browser": "7dce0cb727d781d6e61179d3edd041b98e710ee733807017da25f86739962490",
+    "productivity-browser": "6f77cd04c64711ca01931a00cfd296d84f587c10151a5603b849e31ced71f57a",
+    "board-package": "f5788e94ca050c75101f47b5facd5dabc1b14bda5bc0da022c52efe1fb97566d",
+    "port-policy": "95c94d5a74a6825e5a57d0b6a702adb153ba3bfe3a4a47f464d803b6e0891075"
+  },
+  "qualityEach": 4863,
+  "qualityFilesEach": 266,
+  "browserFirstAttempt": 45,
+  "productivityBrowserFirstAttempt": 69,
+  "matrixTouchFirstAttempt": 1,
+  "rawValidators": 11,
+  "isolatedProjects": 3,
+  "shardFormat": 1,
+  "windowsStackProfilerDisabled": true,
+  "zipSha256": "9164f59a120f1141435911d45a1836d6b17da785c7af7f0fab28690c0f329640",
+  "fullCiLogZipSha256": "83f34e6234cd8c08b460e367ac50a642f9da6f50bfda2627615b2efa7dd8a257",
+  "review": {
+    "task": "P09-f",
+    "kind": "ONE whole-branch SELF",
+    "reviewClosed": true,
+    "findings": {
+      "critical": 0,
+      "important": 0,
+      "minor": 0
+    },
+    "allFindingsGradedBeforeCorrection": true,
+    "importantRemaining": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "f031da6af68a21527a2b197520e4c56c7da5840a001ae4bd940f9d069b8dd679",
+      "scripts/ci/write-evidence.mjs": "dd4680dbb9387c5637dd71c65f1b412c2e2e74db44bea3218926ff25ffd5ea93",
+      "scripts/ci/write-productivity-browser-fixture.ts": "2376d9113044386c1396ef641090520dc7785b1a4f497e58315e323218340bf0",
+      "src/components/Tasks.tsx": "0e26fe1bafe8b5fbe57fdb9616e9810068dab0a621500ddad0103148f1e8a1fe",
+      "src/features/productivity/Kanban.tsx": "7b56eaaf88a4d4436379c4de34930f6570b0e6b02d15d709d71801388d8544c5",
+      "src/features/productivity/KanbanSectionActions.tsx": "1625c4012d520e73a1e92c63a9d801daf41255427759b607c1701dbc92dd00c2",
+      "src/features/productivity/KanbanSectionDialog.tsx": "ebbd44e58043036f20dfcc090761bd6ebb737c1b41d3f2e67bf3b97b36e5724e",
+      "src/features/productivity/KanbanWorkspace.tsx": "ccc9286d52a8478502f0cd8f5f43a24ccebe9c59348fb5bd034df1b4f48d6a2e",
+      "src/features/productivity/kanban-section-ui.test.tsx": "0264d992df574da26253df8ee57fed327f2293db0aae9c15426d0fb6a0439934",
+      "src/features/productivity/kanban-ui.test.tsx": "19778bd7fcc66d9759d0c7cb359771a10acaf91a697edb0c7ccefa2aa91d4456",
+      "src/i18n/locales/en.json": "4043cf6b4d1a0acaaec1e8d41938a08ea718734368bb29e4518ffe488cd7b07b",
+      "src/i18n/locales/vi.json": "b49079342d4b3a938b0ef7d1cbe531ecad90bdef6bc4c7aee3287270fa783954",
+      "src/i18n/locales/zh.json": "c16f5b2beb66108a3fa20abe04d4db1a7e891b2b75b29b4ae146078253e042ec",
+      "tests/e2e/productivity.spec.ts": "8bb88e2faedea70447724849034d22d271de9ce5520249e633d92fc7518f65cf",
+      "tests/evidence.test.ts": "7a83e1c45bdb58574688fee829a96545482583523cc7b4e8ec7ad3c5ba0a7aff",
+      "tests/grouped-rank-import.test.ts": "8cb64c44b2b31427d8ce554124f6af5096a27e93d8bb9503dface60cc3714f26",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f5056db569a5a1f1802aa8ef1a477303dfa88e7daca099077a24cf9272063178",
+      "tests/release-productivity-profile.test.ts": "e1a937c0111475ae150b737380de0a08652394c660072bcb983ff63bbdceae06"
+    },
+    "postCorrectionSourceHashes": {
+      "scripts/ci/productivity-browser-contract.mjs": "f031da6af68a21527a2b197520e4c56c7da5840a001ae4bd940f9d069b8dd679",
+      "scripts/ci/write-evidence.mjs": "dd4680dbb9387c5637dd71c65f1b412c2e2e74db44bea3218926ff25ffd5ea93",
+      "scripts/ci/write-productivity-browser-fixture.ts": "2376d9113044386c1396ef641090520dc7785b1a4f497e58315e323218340bf0",
+      "src/components/Tasks.tsx": "0e26fe1bafe8b5fbe57fdb9616e9810068dab0a621500ddad0103148f1e8a1fe",
+      "src/features/productivity/Kanban.tsx": "7b56eaaf88a4d4436379c4de34930f6570b0e6b02d15d709d71801388d8544c5",
+      "src/features/productivity/KanbanSectionActions.tsx": "1625c4012d520e73a1e92c63a9d801daf41255427759b607c1701dbc92dd00c2",
+      "src/features/productivity/KanbanSectionDialog.tsx": "ebbd44e58043036f20dfcc090761bd6ebb737c1b41d3f2e67bf3b97b36e5724e",
+      "src/features/productivity/KanbanWorkspace.tsx": "ccc9286d52a8478502f0cd8f5f43a24ccebe9c59348fb5bd034df1b4f48d6a2e",
+      "src/features/productivity/kanban-section-ui.test.tsx": "0264d992df574da26253df8ee57fed327f2293db0aae9c15426d0fb6a0439934",
+      "src/features/productivity/kanban-ui.test.tsx": "19778bd7fcc66d9759d0c7cb359771a10acaf91a697edb0c7ccefa2aa91d4456",
+      "src/i18n/locales/en.json": "4043cf6b4d1a0acaaec1e8d41938a08ea718734368bb29e4518ffe488cd7b07b",
+      "src/i18n/locales/vi.json": "b49079342d4b3a938b0ef7d1cbe531ecad90bdef6bc4c7aee3287270fa783954",
+      "src/i18n/locales/zh.json": "c16f5b2beb66108a3fa20abe04d4db1a7e891b2b75b29b4ae146078253e042ec",
+      "tests/e2e/productivity.spec.ts": "8bb88e2faedea70447724849034d22d271de9ce5520249e633d92fc7518f65cf",
+      "tests/evidence.test.ts": "7a83e1c45bdb58574688fee829a96545482583523cc7b4e8ec7ad3c5ba0a7aff",
+      "tests/grouped-rank-import.test.ts": "8cb64c44b2b31427d8ce554124f6af5096a27e93d8bb9503dface60cc3714f26",
+      "tests/helpers/release-productivity-browser-fixture.ts": "f5056db569a5a1f1802aa8ef1a477303dfa88e7daca099077a24cf9272063178",
+      "tests/release-productivity-profile.test.ts": "e1a937c0111475ae150b737380de0a08652394c660072bcb983ff63bbdceae06"
+    },
+    "reviewCoverage": [
+      "all18 changed source/test/locale/fixture/protocol/gate files against P09e candidate",
+      "only adult current canonical sections/rank view exposes physical menu; workflow/grouped and non-rank read paths preserved",
+      "canonical drawer control stays separate from physical menu; one TaskID, existing drafts/cache preserved",
+      "API-bound controller choice and latest-owner callback gates, view/board/clock remount/dispose, authorization-error projection clear/reread",
+      "explicit selected-target preview retires on change; no hard-WIP override or optimistic/receipt cache authority",
+      "modal shared focus/Escape/scroll hook and actual FancySelect tested by real Chromium C22/C23",
+      "all21 old real browser case bytes, old11presentation cases and all old locale values preserved",
+      "target-Git69 inventory admission keeps old63schema9 and57schema6 compatibility with strict current target refusal",
+      "existing package6/9/1 generators, compiled server/operator, schema/default/dependencies unchanged",
+      "all existing mandatory inventories/cold-import assertions retained, new suite omission fails"
+    ],
+    "developmentRulingsBeforeSelf": [
+      {
+        "firstStaticUI": {
+          "tests": 11,
+          "passed": 0,
+          "failed": 11
+        },
+        "cause": "browser-only FancySelect portal references document in SSR; static-only stub follows existing Matrix test pattern; real browser exercises actual component"
+      },
+      {
+        "firstComposedUI": {
+          "tests": 24,
+          "passed": 23,
+          "failed": 1
+        },
+        "cause": "new nested-button regex incorrectly matched siblings; tempered nested-button assertion retains original intent"
+      },
+      {
+        "initialLintExit": 2,
+        "cause": "ViewConfig.sort requires Kanban kind narrowing; discriminated guard corrected before final lint"
+      }
+    ],
+    "remaining": [
+      "fullCloud quality and accepted-parent composition",
+      "Windows exact-head8checks/11raw/both4792/261/69Productivity+45legacy+1touch firstattempt and complete logs",
+      "P09e parent acceptance pending",
+      "grouped/menu/drag/settings/clock/large-list and P08/P10/master dependencies incomplete"
+    ],
+    "publicationAllowed": false
+  },
+  "physicalSectionMenuAccepted": true,
+  "fullP09Accepted": false,
+  "fullP08Accepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "mergeSha": "407b892fba30a7b97c1a3c27bfa08d95e433ebea",
+  "apiAndGitTreesEqual": true,
+  "trees": {
+    "0e1091ac416857e527dd9b564d84c076239e8dd7": "e02608823ed5418a5b401ff06b651a77b7cbf196",
+    "407b892fba30a7b97c1a3c27bfa08d95e433ebea": "e02608823ed5418a5b401ff06b651a77b7cbf196"
+  },
+  "fullLogs": {
+    "files": 137,
+    "lines": 25122,
+    "expectedSynthetic": 16,
+    "unexpected": 0
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "task": "P09-h",
+  "kind": "ONE whole-branch SELF against grouped owner e0aae43; independently reviewed parents remain closed",
+  "reviewClosed": true,
+  "findings": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "allFindingsGradedBeforeCorrection": true,
+  "correctionPasses": 1,
+  "rereview": false,
+  "importantRemaining": 0,
+  "sourceHashes": {
+    "scripts/ci/productivity-browser-contract.mjs": "ecd89dda4253ecf96fe05c96a241b010d80dc00d2cc68fccd5f4d4995cdddcc2",
+    "scripts/ci/productivity-merge.mjs": "2bd0ffe549e4b5b73edc26f1fe5e6f5e6dfe7c310402b86fb7f96215f30c56ba",
+    "scripts/ci/write-evidence.mjs": "7de8ed02735ed7e2f28a5cba0c3b3a6d0e19f60822a2a23f1a4ee30e80640399",
+    "src/features/productivity/Kanban.tsx": "b2de789de4af00859536ba56ee218ea5c2112dbc7d560f9458906fe814498abb",
+    "src/features/productivity/KanbanGroupActions.tsx": "f82ad30c87399d7ec832f6d42087029dde6279589dea904287c98cd37fcc0362",
+    "src/features/productivity/KanbanGroupDialog.tsx": "7bbbe2f4e792619184d22bc8ae3734a2c4b8afd6be7d8bd0a81a33868c10b619",
+    "src/features/productivity/KanbanWorkspace.tsx": "977447e04aa1f7fc5c1d7590f26904c205bc6e536fa5eca5527070709a1dbe64",
+    "src/features/productivity/kanban-group-ui.test.tsx": "6e8701e9dc52262b6fbeadf9b776ff2714fcac0ee40d8f4c1f81623d146ee248",
+    "src/features/productivity/kanban-ui.test.tsx": "8dc0374a857d2e41c6a791ed4459fed96aba5bd3156d3e7a038a1f691e2c5b34",
+    "src/features/productivity/kanbanGroupMenu.test.ts": "084be3904990eba6261c554adfe86bcb6716142d29199b7ec9c9f225cc00402f",
+    "src/features/productivity/kanbanGroupMenu.ts": "f4fefe29fc11d895b5bdec385ebf31ee41cf3ec1768a7568ef001ec3d946d5c5",
+    "src/features/productivity/useKanbanWorkspace.ts": "05498324ddabc2e77882ff754dbc7ca7078175f5b9c3a5324529e714be332d17",
+    "src/i18n/locales/en.json": "fd32c7160627aa995521b3e85f84da27fab0ec83a4978dc87de3ee22b4f164a3",
+    "src/i18n/locales/vi.json": "16a9dbe8ec799e206830f64f02a9f4081be8511b39c8914f974be6e039dd5fc6",
+    "src/i18n/locales/zh.json": "126c36957ad1eeaa6c42dd9f8a7beaf17e0e9cbc30a6fcd9fbc62dbfecaf3f98",
+    "tests/e2e/productivity.spec.ts": "6471857ac632e748ea2f65f34cd81952d3bb0bf30d221b383531164db6bcb39b",
+    "tests/evidence.test.ts": "4f350d0f1f68b6b2ce3fc973340447770a45ed4a09f094ae8dd81b6db52e664c",
+    "tests/grouped-rank-import.test.ts": "9c400219e64dfb8fea01eb1d21458d12533169e54c7e2fab992e88d7f1d93b25",
+    "tests/helpers/release-productivity-browser-fixture.ts": "88a14b4a80412ae1cd09ac933ff0bcf6bf8aba2ae058f08813f7be9b9b381597",
+    "tests/productivity-merge.test.ts": "49a189d505054932d1d804113c7123f27960f182e9b884657322d42bad879dc3",
+    "tests/release-productivity-profile.test.ts": "a3b6c4fb40d6cdaace7d2a628995c50db6f2e7eabb272ce9dc741b9b652b247e"
+  },
+  "gradedFindings": [
+    {
+      "id": "H-SELF-1",
+      "severity": "minor",
+      "file": "tests/e2e/productivity.spec.ts",
+      "finding": "New applyGroup starts immediate response parsing but awaits click before attaching an aggregate rejection handler; a fast body/status failure can reject before the click finishes. Observe both promises together using Promise.all, preserving exact status/body/dialog assertions.",
+      "action": "One correction after current functional checkpoint; no repeat review."
+    }
+  ],
+  "coverage": [
+    "visible canonical Task and exact source projection; explicit source-only versus all-tags add/replace and null-tag safety",
+    "due conversion explicit all-day selected timezone and exact selected field patch only",
+    "API-bound owner retirement, late callbacks, no optimistic authority or automatic retries",
+    "adult-only grouped controls, non-rank field-only moves and read-only workflow preservation",
+    "FancySelect/modal a11y/focus/mobile light-dark/escaped titles/generic errors/locale preservation",
+    "same-view reselection regression from actual DOM/network blank-board failure",
+    "actual native response observation; status/body/canonical equality retained",
+    "first26-per-engine inventory, original23case bytes, old57/63/69 target-bound profiles retained",
+    "raw group PNG root copy and all existing native blob/assembly/cleanup assertions",
+    "cold import12paths with offline native error/signal/status/storage checks and mandatory2new suites"
+  ],
+  "remaining": [
+    "One minor observation-promise correction, fullCloud and actual26+touch checkpoint",
+    "compose accepted121 history/docs without changing reviewed source",
+    "new exact-HEAD Windows PR8checks/11raw families/all logs/124firstattempt cases",
+    "fullP09/P08/P10/Wallet/master incomplete; no release/tag/VPS/Server2019 acceptance"
+  ],
+  "publicationAllowed": false,
+  "minorRemaining": 0,
+  "correction": "H-SELF-1: Promise.all observes native body/status and real click together; assertions unchanged, no retry or timeout change",
+  "correctedSourceHashes": {
+    "scripts/ci/productivity-browser-contract.mjs": "ecd89dda4253ecf96fe05c96a241b010d80dc00d2cc68fccd5f4d4995cdddcc2",
+    "scripts/ci/productivity-merge.mjs": "2bd0ffe549e4b5b73edc26f1fe5e6f5e6dfe7c310402b86fb7f96215f30c56ba",
+    "scripts/ci/write-evidence.mjs": "7de8ed02735ed7e2f28a5cba0c3b3a6d0e19f60822a2a23f1a4ee30e80640399",
+    "src/features/productivity/Kanban.tsx": "b2de789de4af00859536ba56ee218ea5c2112dbc7d560f9458906fe814498abb",
+    "src/features/productivity/KanbanGroupActions.tsx": "f82ad30c87399d7ec832f6d42087029dde6279589dea904287c98cd37fcc0362",
+    "src/features/productivity/KanbanGroupDialog.tsx": "7bbbe2f4e792619184d22bc8ae3734a2c4b8afd6be7d8bd0a81a33868c10b619",
+    "src/features/productivity/KanbanWorkspace.tsx": "977447e04aa1f7fc5c1d7590f26904c205bc6e536fa5eca5527070709a1dbe64",
+    "src/features/productivity/kanban-group-ui.test.tsx": "6e8701e9dc52262b6fbeadf9b776ff2714fcac0ee40d8f4c1f81623d146ee248",
+    "src/features/productivity/kanban-ui.test.tsx": "8dc0374a857d2e41c6a791ed4459fed96aba5bd3156d3e7a038a1f691e2c5b34",
+    "src/features/productivity/kanbanGroupMenu.test.ts": "084be3904990eba6261c554adfe86bcb6716142d29199b7ec9c9f225cc00402f",
+    "src/features/productivity/kanbanGroupMenu.ts": "f4fefe29fc11d895b5bdec385ebf31ee41cf3ec1768a7568ef001ec3d946d5c5",
+    "src/features/productivity/useKanbanWorkspace.ts": "05498324ddabc2e77882ff754dbc7ca7078175f5b9c3a5324529e714be332d17",
+    "src/i18n/locales/en.json": "fd32c7160627aa995521b3e85f84da27fab0ec83a4978dc87de3ee22b4f164a3",
+    "src/i18n/locales/vi.json": "16a9dbe8ec799e206830f64f02a9f4081be8511b39c8914f974be6e039dd5fc6",
+    "src/i18n/locales/zh.json": "126c36957ad1eeaa6c42dd9f8a7beaf17e0e9cbc30a6fcd9fbc62dbfecaf3f98",
+    "tests/e2e/productivity.spec.ts": "ed28154ba331435f1d1ca6172745026981634d8e031a6119c4628f19143eeda6",
+    "tests/evidence.test.ts": "4f350d0f1f68b6b2ce3fc973340447770a45ed4a09f094ae8dd81b6db52e664c",
+    "tests/grouped-rank-import.test.ts": "9c400219e64dfb8fea01eb1d21458d12533169e54c7e2fab992e88d7f1d93b25",
+    "tests/helpers/release-productivity-browser-fixture.ts": "88a14b4a80412ae1cd09ac933ff0bcf6bf8aba2ae058f08813f7be9b9b381597",
+    "tests/productivity-merge.test.ts": "49a189d505054932d1d804113c7123f27960f182e9b884657322d42bad879dc3",
+    "tests/release-productivity-profile.test.ts": "a3b6c4fb40d6cdaace7d2a628995c50db6f2e7eabb272ce9dc741b9b652b247e"
+  }
+}
