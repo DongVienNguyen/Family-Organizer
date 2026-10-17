@@ -101,6 +101,23 @@ export function validateAppSnapshot(input: unknown): ValidatedAppSnapshot {
   }) as ValidatedAppSnapshot;
   validated.add(result);return result;
 }
+/** Trusted domain converter inspection only. Source tables must be an additive
+ * subset of the installed registered domain. Other namespaces remain exact.
+ * The result is NOT admitted to restore: conversion must pass validateAppSnapshot. */
+export function inspectHistoricalDomainSnapshot(input:unknown,source:{namespace:'wallet'|'productivity';version:number;tables:readonly string[]}):AppSnapshot {
+ const versions=getDomainVersions(),installed=versions[source.namespace];
+ if(!['wallet','productivity'].includes(source.namespace)||!Number.isSafeInteger(source.version)||source.version<1||source.version>=installed||new Set(source.tables).size!==source.tables.length)throw Error('Unsupported historical snapshot conversion');
+ const current=tables(),allowed=new Set(source.tables);
+ for(const name of allowed)if(!current.has(name)||domainTables.get(name)?.namespace!==source.namespace)throw Error('Untrusted historical snapshot table');
+ const trusted=new Map([...current].filter(([name])=>domainTables.get(name)?.namespace!==source.namespace||allowed.has(name)));
+ return validateSnapshotPayload(input,{
+  versions:{...versions,[source.namespace]:source.version},tables:trusted,
+  primaryKeys:new Map([...trusted.keys()].map(name=>[name,(connection.prepare('PRAGMA table_info('+name+')').all() as any[]).filter(column=>column.pk).sort((a,b)=>a.pk-b.pk).map(column=>column.name)])),
+  migrations:(connection.prepare('SELECT namespace,version,checksum FROM app_migrations').all() as any[]).filter(row=>row.namespace!==source.namespace||row.version<=source.version),
+  domainValidators,
+  derivedRowTables:new Set([...domainTables].filter(([name,definition])=>definition.derived&&trusted.has(name)).map(([name])=>name)),
+ });
+}
 export function recoverAppRestore(): void {
   const journal = readJournal(); if (!journal) return;
   const marker = connection.prepare('SELECT checksum FROM app_restore_commits WHERE id=?').get(journal.id) as { checksum: string } | undefined;
