@@ -1,3 +1,4 @@
+import {createGroupRankApi}from'./groupRankApi.js';
 import {createBoardLayoutApi}from'./boardLayoutApi.js';
 import {createBoardPolicyApi}from'./boardPolicyApi.js';
 import {createBoardCreationApi}from'./boardCreationApi.js';
@@ -61,6 +62,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
   ...createWorkflowApi(read,{task:taskValue,clock:clockValue}),
   ...createBoardLayoutApi(read),
   ...createBoardPolicyApi(read),
+  ...createGroupRankApi(read),
   ...createBoardCreationApi(read,{view:savedViewValue,task:taskValue}),
   ...createReviewApi(read,{task:taskValue}),
   ...createWorkflowTransitionApi(read,{task:taskValue,clock:clockValue}),

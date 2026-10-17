@@ -1,5 +1,5 @@
 import{expect,it}from'vitest';
-import{registerProductivityCore,registerProductivityAdvanced,registerProductivityChromium,registerProductivityCoreWithSupplemental,registerProductivityColumns,registerProductivityRoster,registerProductivityPolicy,registerProductivityCreate}from'./e2e/productivity-cases.js';
+import{registerProductivityCore,registerProductivityAdvanced,registerProductivityChromium,registerProductivityCoreWithSupplemental,registerProductivityColumns,registerProductivityRoster,registerProductivityPolicy,registerProductivityCreate,registerProductivityViewEditor,registerProductivityOrdering}from'./e2e/productivity-cases.js';
 import{productivityBrowserCases}from'../scripts/ci/productivity-browser-contract.mjs';
 function names(register:typeof registerProductivityCore){const cases:string[]=[];register(((name:string)=>{cases.push(name);})as any);return cases;}
 it('registers every original Chromium scenario once in the accepted shared-store order',()=>{expect(names(registerProductivityChromium)).toEqual(productivityBrowserCases);expect(new Set(names(registerProductivityChromium)).size).toBe(productivityBrowserCases.length);});
@@ -12,4 +12,8 @@ it('appends the real ordered roster journey without omitting any previous case',
 
 it('appends the real shared WIP policy journey after every earlier scenario',()=>{expect(names(registerProductivityPolicy)).toEqual(productivityBrowserCases.slice(43,44));});
 
-it('appends board creation quick-add and manual ordering after all44previous scenarios',()=>{expect(names(registerProductivityCreate)).toEqual(productivityBrowserCases.slice(44));});
+it('appends board creation quick-add and manual ordering after all44previous scenarios',()=>{expect(names(registerProductivityCreate)).toEqual(productivityBrowserCases.slice(44,48));});
+
+it('appends four view-edit journeys without changing the original48 scenarios',()=>{expect(names(registerProductivityViewEditor)).toEqual(productivityBrowserCases.slice(48,52));expect(names(registerProductivityChromium).slice(0,48)).toEqual(productivityBrowserCases.slice(0,48));});
+
+it('appends Workflow and grouped pure ordering without changing the original52 scenarios',()=>{expect(names(registerProductivityOrdering)).toEqual(productivityBrowserCases.slice(52));expect(names(registerProductivityChromium).slice(0,52)).toEqual(productivityBrowserCases.slice(0,52));});

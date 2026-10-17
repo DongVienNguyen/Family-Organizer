@@ -1,0 +1,16 @@
+import React from 'react';import {renderToStaticMarkup} from 'react-dom/server';import {expect,it,vi} from 'vitest';
+import viMessages from '../../i18n/locales/vi.json';import enMessages from '../../i18n/locales/en.json';import zhMessages from '../../i18n/locales/zh.json';import {KanbanViewDialog} from './KanbanViewDialog.js';import {createKanbanViewDraft} from './kanbanViewDraft.js';
+vi.mock('react-i18next',()=>({useTranslation:()=>({t:(key:string)=>{let v:any=viMessages;for(const part of key.split('.'))v=v?.[part];return String(v??key);}})}));
+vi.mock('../../components/FancySelect.js',()=>({FancySelect:({ariaLabel,value,options}:any)=><button type="button" aria-label={ariaLabel}>{options.find((o:any)=>o.value===value)?.label}</button>}));
+const draft=()=>createKanbanViewDraft({id:'view',ownerId:'actor',title:'Synthetic view',revision:3,formatVersion:9,kind:'kanban',filter:{rootsOnly:true,listIds:['list'],tagIds:['kept']},config:{kind:'kanban',mode:'sections',group:'none',sort:'rank',columns:[],boardId:'board'}});
+const state=()=>({draft:draft(),writing:false,locked:false,reloading:false,conflict:false,error:null,last:null});
+const html=(extra:any={})=>renderToStaticMarkup(<KanbanViewDialog state={state()} ready onDraft={()=>{}} onApply={()=>{}} onClose={()=>{}} onReload={()=>{}} {...extra}/>);
+const disabled=(s:string)=>/data-testid="kanban-view-save"[^>]*disabled=""/.test(s);
+it('renders an accessible view-only draft with grouping sort and explicit filters',()=>{const s=html();for(const text of ['role="dialog"','aria-modal="true"','Chỉnh góc nhìn Kanban','Tên góc nhìn','Nhóm thẻ theo','Thứ tự thẻ','Tìm trong góc nhìn','Độ ưu tiên','Trạng thái'])expect(s).toContain(text);expect(s).toContain('giữ nguyên công việc và WIP');expect(disabled(s)).toBe(false);});
+it('blank title cannot be saved',()=>{const s=state();s.draft.input.title=' ';expect(disabled(html({state:s}))).toBe(true);});
+it('authority loading hides private draft metadata',()=>{expect(html({ready:false})).toBe('');});
+it('unknown write locks controls and retains manual UUID outcome checking',()=>{const s=html({state:{...state(),locked:true,error:{phase:'write',status:null}}});expect(s).toContain('<fieldset disabled=""');expect(s).toContain('Kiểm tra kết quả yêu cầu');expect(disabled(s)).toBe(false);});
+it('conflict keeps inputs visible but requires explicit refreshed rebase',()=>{const s=html({state:{...state(),conflict:true,error:{phase:'write',status:409}}});expect(s).toContain('value="Synthetic view"');expect(s).toContain('Đọc lại và giữ thay đổi nháp');expect(disabled(s)).toBe(true);});
+it('reload and pending write block duplicate submits',()=>{for(const key of ['reloading','writing'])expect(disabled(html({state:{...state(),[key]:true}}))).toBe(true);});
+it('server refusal text is never shown as private metadata',()=>{const s=html({state:{...state(),error:{phase:'write',status:403,message:'Private fixture'}}});expect(s).toContain('role="alert"');expect(s).not.toContain('Private fixture');});
+it.each([viMessages,enMessages,zhMessages])('all supported locales include new view editor controls',messages=>{for(const key of ['edit','title','group','sort','query','priority','lifecycle','hint','reload','conflict','failed','saved','rankHint'])expect((messages as any).productivityKanbanView?.[key]).toEqual(expect.any(String));});

@@ -1914,5 +1914,46 @@
     "failed": "The result is not confirmed. Check the board before retrying.",
     "conflict": "The task or permissions changed. Reload the board to see the current state.",
     "reload": "Reload board"
+  },
+  "productivityKanbanView": {
+    "edit": "Edit Kanban view",
+    "title": "View title",
+    "group": "Group cards by",
+    "sort": "Card order",
+    "query": "Search in this view",
+    "priority": "Priority",
+    "lifecycle": "Status",
+    "hint": "Confirm to save view settings; Tasks and shared board WIP stay unchanged. Clear every checkbox to include all values.",
+    "reload": "Reload and keep draft changes",
+    "conflict": "The view changed. Reload to combine your edits with current settings before saving.",
+    "failed": "The view change could not be confirmed.",
+    "saved": "View saved.",
+    "rankHint": "Automatic sorting disables manual ordering.",
+    "groups": {
+      "none": "Board columns",
+      "priority": "Priority",
+      "assignee": "Assignee",
+      "due": "Due date",
+      "tag": "Tag"
+    },
+    "sorts": {
+      "rank": "Manual order",
+      "due": "Due date",
+      "priority": "Priority",
+      "title": "Task title"
+    },
+    "states": {
+      "todo": "To do",
+      "in_progress": "In progress",
+      "completed": "Completed",
+      "wont_do": "Will not do"
+    }
+  },
+  "productivityKanbanOrder": {
+    "dialog": "Order cards within this column",
+    "hint": "Only order changes; task status, deadlines, tags, proof and reward points stay unchanged.",
+    "preview": "Preview order",
+    "apply": "Apply order",
+    "failed": "The new order could not be confirmed."
   }
 }

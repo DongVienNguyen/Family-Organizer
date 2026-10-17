@@ -1914,5 +1914,46 @@
     "failed": "Chưa xác nhận được kết quả. Kiểm tra lại bảng trước khi thử lại.",
     "conflict": "Công việc hoặc quyền đã thay đổi. Tải lại bảng để xem trạng thái hiện tại.",
     "reload": "Tải lại bảng"
+  },
+  "productivityKanbanView": {
+    "edit": "Chỉnh góc nhìn Kanban",
+    "title": "Tên góc nhìn",
+    "group": "Nhóm thẻ theo",
+    "sort": "Thứ tự thẻ",
+    "query": "Tìm trong góc nhìn",
+    "priority": "Độ ưu tiên",
+    "lifecycle": "Trạng thái",
+    "hint": "Chỉ lưu cấu hình góc nhìn sau khi xác nhận; giữ nguyên công việc và WIP của bảng. Bỏ chọn hết để hiển thị mọi giá trị.",
+    "reload": "Đọc lại và giữ thay đổi nháp",
+    "conflict": "Góc nhìn đã thay đổi. Đọc lại để ghép phần bạn sửa với thay đổi mới trước khi lưu.",
+    "failed": "Chưa xác nhận được thay đổi góc nhìn.",
+    "saved": "Đã lưu góc nhìn.",
+    "rankHint": "Sắp xếp tự động tắt điều khiển thứ tự thủ công.",
+    "groups": {
+      "none": "Các cột của bảng",
+      "priority": "Độ ưu tiên",
+      "assignee": "Người phụ trách",
+      "due": "Ngày đến hạn",
+      "tag": "Thẻ"
+    },
+    "sorts": {
+      "rank": "Thứ tự thủ công",
+      "due": "Hạn công việc",
+      "priority": "Độ ưu tiên",
+      "title": "Tên công việc"
+    },
+    "states": {
+      "todo": "Cần làm",
+      "in_progress": "Đang làm",
+      "completed": "Đã hoàn thành",
+      "wont_do": "Không làm"
+    }
+  },
+  "productivityKanbanOrder": {
+    "dialog": "Sắp xếp thẻ trong cột",
+    "hint": "Chỉ đổi thứ tự; giữ nguyên trạng thái, hạn chót, thẻ, bằng chứng và điểm thưởng của công việc.",
+    "preview": "Xem trước thứ tự",
+    "apply": "Áp dụng thứ tự",
+    "failed": "Chưa xác nhận được thứ tự mới."
   }
 }

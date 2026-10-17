@@ -55,6 +55,12 @@ export const productivityBrowserCases=[
  'P09 C46 quick add is an editable section draft cancel writes nothing and confirmed creation preserves todo no proof zero points',
  'P09 C47 manual order preview cancel apply changes only rank and noncustom sort disables reorder controls',
  'P09 C48 confirmed manager revocation erases a private quick-add draft without sending it',
+ 'P09 C49 view editing cancel is readonly and confirmed grouping sort filters persist without changing Tasks or WIP',
+ 'P09 C50 a delivered view save with lost acknowledgement retains its exact UUID across refresh and manually replays one revision',
+ 'P09 C51 view conflict reload retains local edits and remote preferences before a fresh explicit save',
+ 'P09 C52 revoked private board access erases an unsent view draft even when access is restored',
+ 'P09 C53 Workflow same-lane order preview cancel and confirm preserve lifecycle deadlines rewards and disable noncustom ordering',
+ 'P09 C54 due and multi-tag ordering use pure rank commands and UUID replay preserves timed deadlines tags and one canonical Task',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat,workers:productivityBrowserWorkers,fixtureVersion:productivityFixtureVersion}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases,{workers:productivityBrowserWorkers})];
