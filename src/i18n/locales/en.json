@@ -2027,6 +2027,8 @@
       "both": "Both"
     },
     "recordsForm": {
+      "openParent": "Open parent transfer",
+      "actionFailed": "Could not complete the action. Refresh the record before trying again.",
       "title": "Records",
       "refresh": "Refresh records",
       "create": "Create record",

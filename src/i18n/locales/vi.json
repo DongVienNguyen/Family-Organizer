@@ -2027,6 +2027,8 @@
       "both": "Cả hai"
     },
     "recordsForm": {
+      "openParent": "Mở chuyển khoản gốc",
+      "actionFailed": "Không thực hiện được thao tác. Tải lại ghi chép để kiểm tra trước khi thử lại.",
       "title": "Ghi chép",
       "refresh": "Tải lại ghi chép",
       "create": "Tạo ghi chép",

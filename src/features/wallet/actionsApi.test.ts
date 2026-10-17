@@ -1,0 +1,5 @@
+import {it,expect} from 'vitest';
+import {createWalletApi} from './api.js';
+function client(value:unknown){return createWalletApi({authHeaders:()=>({Authorization:'Bearer synthetic-only'}),request:async path=>{expect(path).toBe('/api/wallet/records/synthetic-record/actions');return new Response(JSON.stringify(value));}})as any;}
+it('decodes record-bound action capabilities without reflecting money or audit fields',async()=>{expect(await client({recordId:'synthetic-record',canEdit:false,canVoid:false,editViaTransferId:'synthetic-parent',note:'synthetic-hidden',openingMinor:'123'}).actions('synthetic-record')).toEqual({recordId:'synthetic-record',canEdit:false,canVoid:false,editViaTransferId:'synthetic-parent'});});
+it.each([{recordId:'other'},{canEdit:1},{canVoid:'yes'},{editViaTransferId:'synthetic-record'},{editViaTransferId:''},{canEdit:undefined}])('rejects malformed action capabilities %j',async patch=>{await expect(client({recordId:'synthetic-record',canEdit:false,canVoid:false,...patch}).actions('synthetic-record')).rejects.toMatchObject({code:'INVALID_RESPONSE',unknownOutcome:false});});

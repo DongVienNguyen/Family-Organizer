@@ -2027,6 +2027,8 @@
       "both": "两者"
     },
     "recordsForm": {
+      "openParent": "打开原转账",
+      "actionFailed": "无法完成操作。请刷新记录后再尝试。",
       "title": "记录",
       "refresh": "刷新记录",
       "create": "创建记录",

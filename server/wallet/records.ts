@@ -7,7 +7,7 @@ import {timezoneFormatter} from '../../src/features/productivity/dates.js';
 import {AppStoreError} from '../appErrors.js';
 import type {withAppWriteTransaction} from '../appStore.js';
 import {assertWalletCommandContext} from './accounts.js';
-import {createWalletAccess,type WalletReader} from './access.js';
+import {createWalletAccess,assertWalletActor,type WalletReader} from './access.js';
 import {openWalletStore,type WalletTx,type WalletRecord,type WalletPosting} from './store.js';
 import {walletMetadataColumns,decodeMetadata,validateMetadata,type WalletRecordMetadata} from './metadata.js';
 import type {WalletFxSnapshot} from './financial.js';
@@ -17,6 +17,7 @@ interface FeeDraft {accountId:string;money:Money;note?:string;categoryId?:string
 export type RecordDraft=CommonDraft&({kind:'income'|'expense'|'adjustment';accountId:string;money:Money}|{kind:'transfer';fromAccountId:string|null;toAccountId:string|null;debit:Money;credit:Money;fx?:FxDraft|null;fee?:FeeDraft|null});
 export type RecordPatch=Partial<CommonDraft>&{kind?:RecordDraft['kind'];accountId?:string;money?:Money;fromAccountId?:string|null;toAccountId?:string|null;debit?:Money;credit?:Money;fx?:FxDraft|null;fee?:FeeDraft|null};
 export interface WalletRecordResult {record:WalletRecord;metadata:WalletRecordMetadata;postings:WalletPosting[];fx:WalletFxSnapshot|null;feeRecordId:string|null;labelIds:string[]}
+export interface WalletRecordActions {recordId:string;canEdit:boolean;canVoid:boolean;editViaTransferId?:string}
 type Draft=RecordDraft&Required<CommonDraft>;
 const commonFields=['effectiveDate','timezone','note','occurredAt','payee','paymentMethod','reviewedAt','settlementStatus','categoryId','labelIds'];
 const singleFields=['kind','accountId','money'],transferFields=['kind','fromAccountId','toAccountId','debit','credit','fx','fee'];
@@ -96,6 +97,15 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
   return result(reader,actor,parent.record.id);
  };
  return {
+  getActions(actor:Actor,id:string):WalletRecordActions {
+   const reader=ports.reader,access=createWalletAccess(reader),guard=()=>{assertWalletActor(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value!=='1')fail(409,'Wallet chưa sẵn sàng.');};guard();text(id,256);
+   const visible=access.getRecord(actor,id);let allowed=false;
+   try{authorize(reader,actor,id);allowed=true;}catch(error){if(!(error instanceof AppStoreError)||![403,404,409].includes(error.status))throw error;}
+   const ordinary=allowed&&!visible.record.occurrenceId&&visible.record.kind!=='trade'&&visible.record.settlementStatus!=='voided';
+   const result:WalletRecordActions={recordId:id,canEdit:ordinary,canVoid:ordinary},parent=reader.get('SELECT transfer_record_id AS id FROM wallet_transfer_fees WHERE fee_record_id=?',id);
+   if(parent){try{access.getRecord(actor,parent.id);result.editViaTransferId=parent.id;}catch(error){if(!(error instanceof AppStoreError)||![403,404].includes(error.status))throw error;}}
+   guard();access.getRecord(actor,id);return result;
+  },
   createRecord(ctx:CommandContext,value:RecordDraft):WalletRecordResult {
    context(ctx,ports.reader);const draft=normalize(value);checkTargets(ports.reader,ctx.actor,draft);
    return run(ctx,'create',draft,tx=>{const reader=txReader(tx);context(ctx,reader);checkTargets(reader,ctx.actor,draft,{archive:true});const at=new Date(now()).toISOString(),parent=apply(tx,ctx.actor,draft,at),saved=setFee(tx,ctx.actor,parent,draft,at);audit(tx,ctx.actor,'create',at,null,saved);return saved;});

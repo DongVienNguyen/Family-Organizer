@@ -5,12 +5,12 @@ import type { WalletCatalog } from '../../../server/wallet/catalogView.js';
 import type { AccessibleWalletAccount } from '../../../server/wallet/access.js';
 import type { RecordFilter } from './contracts.js';
 import type { WalletRecordView } from '../../../server/wallet/query.js';
-import type { RecordDraft, RecordPatch, WalletRecordResult } from '../../../server/wallet/records.js';
+import type { RecordDraft, RecordPatch, WalletRecordResult,WalletRecordActions } from '../../../server/wallet/records.js';
 import { createWalletCommand, type WalletCommandState } from './commandState.js';
 import { recordFormDraft, recordFormInput, recordFormPatch, type RecordFormDraft, type RecordFormInitial } from './recordDraft.js';
 import { resolvePeriod } from './dates.js';
 import { normalizeFilter } from './filter.js';
-type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'createRecord' | 'updateRecord' | 'voidRecord'>;
+type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'actions' | 'createRecord' | 'updateRecord' | 'voidRecord'>;
 export interface WalletRecordForm {
     draft: RecordFormDraft;
     initial?: RecordFormInitial;
@@ -27,6 +27,7 @@ export interface RecordWorkspaceState {
     nextCursor: string | null;
     loadingMore: boolean;
     selected: WalletRecordDetail | null;
+    actions:WalletRecordActions|null;
     form: WalletRecordForm | null;
     command: WalletCommandState<never>;
     error: WalletApiError | null;
@@ -53,7 +54,7 @@ export function createRecordWorkspace(api: Api, options: {
 }) {
     const defaultFilter = () => normalizeFilter({ period: resolvePeriod({ kind: 'month', anchorDate: options.date() }, options.timezone), referenceCurrency: 'VND', statuses: ['uncleared', 'cleared', 'reconciled'] });
     let filter = defaultFilter();
-    const empty = () => ({ accounts: [], catalog: { categories: [], labels: [] }, items: [], total: 0, nextCursor: null, loadingMore: false, selected: null, form: null });
+    const empty = () => ({ accounts: [], catalog: { categories: [], labels: [] }, items: [], total: 0, nextCursor: null, loadingMore: false, selected: null, actions:null, form: null });
     let state: RecordWorkspaceState = { phase: 'checking', ...empty(), filter, filterInvalid: false, command: { phase: 'idle' }, error: null }, form: WalletRecordForm | null = null, formOpen = false, selectedId: string | null = null, selectedInitial: RecordFormInitial | undefined, generation = 0, disposed = false, addAnother = false;
     const listeners = new Set<() => void>(), publish = (patch: Partial<RecordWorkspaceState>) => { if (disposed)
         return; state = Object.freeze({ ...state, ...patch }); for (const listener of listeners)
@@ -62,7 +63,9 @@ export function createRecordWorkspace(api: Api, options: {
     const unsubscribe = command.subscribe(() => { const { result: _result, ...status } = command.snapshot(); publish({ command: status }); });
     const busy = () => ['pending', 'unknown'].includes(command.snapshot().phase), editable = () => !disposed && state.phase === 'ready' && !busy();
     const errorValue = (error: unknown) => error instanceof WalletApiError ? error : new WalletApiError(0, 'Không tải được giao dịch.', 'NETWORK_ERROR', undefined);
-    function canEdit(value: WalletRecordDetail | null, accounts = state.accounts) { const actorId = typeof options.actorId === 'function' ? options.actorId() : options.actorId; return !!value && !value.partial && !['trade'].includes(value.record.kind) && value.record.settlementStatus !== 'voided' && !value.record.occurrenceId && value.postings.every(p => { const permission = accounts.find(a => a.id === p.accountId)?.permission; return permission === 'manage' || permission === 'contribute' && value.record.creatorId === actorId; }); }
+    function localWrite(value: WalletRecordDetail | null, accounts = state.accounts) { const actorId = typeof options.actorId === 'function' ? options.actorId() : options.actorId; return !!value && !value.partial && !['trade'].includes(value.record.kind) && value.record.settlementStatus !== 'voided' && !value.record.occurrenceId && value.postings.every(p => { const permission = accounts.find(a => a.id === p.accountId)?.permission; return permission === 'manage' || permission === 'contribute' && value.record.creatorId === actorId; }); }
+    function canEdit(value:WalletRecordDetail|null,accounts=state.accounts,actions=state.actions){return !!value&&actions?.recordId===value.record.id&&actions.canEdit&&localWrite(value,accounts);}
+    function canVoid(){return !!state.selected&&state.actions?.recordId===state.selected.record.id&&state.actions.canVoid&&localWrite(state.selected);}
     function makeForm(locale: string, initial?: RecordFormInitial) { return { draft: recordFormDraft(initial, state.accounts, { locale, date: options.date(), timezone: options.timezone }), initial, invalid: null }; }
     async function refresh() {
         if (disposed)
@@ -83,31 +86,24 @@ export function createRecordWorkspace(api: Api, options: {
             const [accounts, catalog, page] = await Promise.all([api.accounts(), api.catalog(), api.query(filter, null, 50)]);
             if (disposed || current !== generation)
                 return;
-            let selected: WalletRecordDetail | null = null, initial: RecordFormInitial | undefined;
+            let selected: WalletRecordDetail | null = null, actions:WalletRecordActions|null=null, initial: RecordFormInitial | undefined;
             if (selectedId) {
-                try {
-                    selected = await api.record(selectedId);
-                    if (disposed || current !== generation)
-                        return;
-                    initial = { detail: selected };
-                    if (selected.feeRecordId)
-                        initial.fee = await api.record(selected.feeRecordId);
-                }
-                catch (error) {
-                    if (!(error instanceof WalletApiError) || ![403, 404].includes(error.status))
-                        throw error;
-                    selectedId = null;
-                    form = null;
-                    selected = null;
-                    initial = undefined;
+                try{
+                    [selected,actions]=await Promise.all([api.record(selectedId),api.actions(selectedId)]);
+                    if(disposed||current!==generation)return;
+                    initial={detail:selected};
+                    if(selected.feeRecordId)initial.fee=await api.record(selected.feeRecordId);
+                }catch(error){
+                    if(error instanceof WalletApiError&&[403,404].includes(error.status)){selectedId=null;form=null;formOpen=false;}
+                    throw error;
                 }
             }
             if (disposed || current !== generation)
                 return;
-            if (form?.initial && !canEdit(selected, accounts))
+            if (form?.initial && !canEdit(selected, accounts,actions))
                 form = null;
             selectedInitial = initial;
-            publish({ phase: 'ready', accounts, catalog, items: page.items, total: page.total, nextCursor: page.nextCursor, selected, form: formOpen ? form : null });
+            publish({ phase: 'ready', accounts, catalog, items: page.items, total: page.total, nextCursor: page.nextCursor, selected,actions, form: formOpen ? form : null });
         }
         catch (error) {
             if (disposed || current !== generation)
@@ -135,13 +131,13 @@ export function createRecordWorkspace(api: Api, options: {
         }
     }
     return {
-        snapshot: () => state, subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; }, refresh, canEdit: () => canEdit(state.selected),
+        snapshot: () => state, subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; }, refresh, canEdit: () => canEdit(state.selected),canVoid,
         async select(id: string) { if (!editable() || form)
             return; selectedId = id; await refresh(); },
         openCreate(locale: string) { if (!editable() || form || !state.accounts.some(a => a.permission !== 'read' && a.archivedAt === null))
-            return; command.reset(); selectedId = null; selectedInitial = undefined; form = makeForm(locale); formOpen = true; publish({ form, selected: null }); },
+            return; command.reset(); selectedId = null; selectedInitial = undefined; form = makeForm(locale); formOpen = true; publish({ form, selected: null,actions:null,error:null }); },
         edit(locale: string) { if (!editable() || form || !canEdit(state.selected) || !selectedInitial)
-            return; command.reset(); form = makeForm(locale, selectedInitial); formOpen = true; publish({ form }); },
+            return; command.reset(); form = makeForm(locale, selectedInitial); formOpen = true; publish({ form,error:null }); },
         change(patch: Partial<RecordFormDraft>) { if (!editable() || !form || command.snapshot().phase === 'conflict')
             return; form = { ...form, draft: { ...form.draft, ...patch }, invalid: null }; publish({ form }); },
         cancel() { if (!editable() || !form)
@@ -175,8 +171,12 @@ export function createRecordWorkspace(api: Api, options: {
         },
         async retry() { if (disposed || state.phase !== 'ready' || command.snapshot().phase !== 'unknown')
             return; await finish(() => command.retry()); },
-        async voidSelected(id: string, revision: number) { if (!editable() || form || !canEdit(state.selected) || state.selected!.record.id !== id || state.selected!.record.revision !== revision)
-            return; command.reset(); addAnother = false; await finish(() => command.submit({ kind: 'void', id, revision })); },
+        async voidSelected(id: string, revision: number) { if(disposed||busy()||form)return;
+            command.reset();if(state.phase==='checking')await refresh();
+            if(!editable()||state.selected?.record.id!==id)return;
+            if(state.selected.record.revision!==revision){publish({error:new WalletApiError(409,'Ghi chép đã thay đổi.','CONFLICT',undefined)});return;}
+            if(!canVoid()){publish({error:new WalletApiError(403,'Không có quyền hủy ghi chép.','FORBIDDEN',undefined)});return;}
+            command.reset();publish({error:null});addAnother = false; await finish(() => command.submit({ kind: 'void', id, revision })); },
         async applyFilter(value: RecordFilter) { if (!editable() || form)
             return; let next: RecordFilter; try {
             next = normalizeFilter(value);

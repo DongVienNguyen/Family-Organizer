@@ -173,3 +173,20 @@ it('catalog refuses missing entity metadata instead of quietly omitting historic
  write(tx=>{tx.run("INSERT INTO wallet_labels(id,name,archived_at) VALUES('synthetic-orphan-metadata','Synthetic retained definition',NULL)");});
  const result=await f.request('/catalog');expect(result.status).toBe(500);expect(result.body.code).toBe('INTERNAL_ERROR');expect(JSON.stringify(result.body)).not.toContain('Synthetic retained definition');
 }));
+it('record actions use current auth and hide private resources before returning capabilities',()=>fixture(async f=>{
+ const path='/records/'+f.expense.record.id+'/actions';for(const[key,status]of [[null,401],['child',403],['guest',403]]as const)expect((await f.request(path,'GET',undefined,key)).status).toBe(status);
+ expect((await f.request(path)).body).toEqual({recordId:f.expense.record.id,canEdit:true,canVoid:true});expect((await f.request('/records/'+f.secret.record.id+'/actions')).status).toBe(404);
+}));
+it('linked fee actions navigate only to a currently readable parent and never allow direct edits/voids',()=>fixture(async f=>{
+ const parent=f.ports.records.createRecord(ctx(),{...common,kind:'transfer',fromAccountId:f.cash,toAccountId:f.bank,debit:money('100'),credit:money('100'),fee:{accountId:f.cash,money:money('1')}});
+ expect((await f.request('/records/'+parent.feeRecordId+'/actions')).body).toEqual({recordId:parent.feeRecordId,canEdit:false,canVoid:false,editViaTransferId:parent.record.id});
+ expect((await f.request('/records/'+parent.record.id+'/actions')).body).toEqual({recordId:parent.record.id,canEdit:true,canVoid:true});
+}));
+it('a readable fee never discloses a wholly private parent through action navigation',()=>fixture(async f=>{
+ f.ports.accounts.setGrant(ctx('member',1),f.cash,who('other').userId,'contribute');const parent=f.ports.records.createRecord(ctx('other'),{...common,kind:'transfer',fromAccountId:f.hidden,toAccountId:null,debit:money('100','USD'),credit:money('100','USD'),fee:{accountId:f.cash,money:money('1')}});
+ const result=await f.request('/records/'+parent.feeRecordId+'/actions');expect(result.status).toBe(200);expect(result.body).toEqual({recordId:parent.feeRecordId,canEdit:false,canVoid:false});expect(JSON.stringify(result.body)).not.toContain(parent.record.id);
+}));
+it('read-only grants and voided records cannot acquire edit/void capabilities',()=>fixture(async f=>{
+ f.ports.accounts.setGrant(ctx('other',1),f.hidden,who().userId,'read');expect((await f.request('/records/'+f.secret.record.id+'/actions')).body).toEqual({recordId:f.secret.record.id,canEdit:false,canVoid:false});
+ f.ports.records.voidRecord(ctx('member',1),f.expense.record.id);expect((await f.request('/records/'+f.expense.record.id+'/actions')).body).toEqual({recordId:f.expense.record.id,canEdit:false,canVoid:false});
+}));

@@ -6,7 +6,7 @@ import { normalizeFilter } from './filter.js';
 import type { RecordFilter, Money, Page } from './contracts.js';
 import type { AccessibleWalletAccount, WalletPermission, WalletAccountGrant } from '../../../server/wallet/access.js';
 import type { AccountDraft, AccountPatch, WalletAccountResult, WalletGrantResult, WalletCreditPosition } from '../../../server/wallet/accounts.js';
-import type { RecordDraft, RecordPatch, WalletRecordResult } from '../../../server/wallet/records.js';
+import type { RecordDraft, RecordPatch, WalletRecordResult,WalletRecordActions } from '../../../server/wallet/records.js';
 import type { WalletRecordView } from '../../../server/wallet/query.js';
 import type { WalletRecordDetail } from '../../../server/wallet/read.js';
 import type {WalletCatalog,WalletCatalogItem,WalletCategoryView} from '../../../server/wallet/catalogView.js';
@@ -206,6 +206,7 @@ export function createWalletApi(ports: WalletTransportPorts) {
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
         catalog:()=>read('/api/wallet/catalog',catalogValue),
+        actions:(id:string)=>read(path('records',id)+'/actions',value=>{const v=object(value);if(v.recordId!==id)throw Error('Action record identity');boolean(v.canEdit);boolean(v.canVoid);const result:WalletRecordActions={recordId:id,canEdit:v.canEdit,canVoid:v.canVoid};if(v.editViaTransferId!==undefined){text(v.editViaTransferId,256);if(v.editViaTransferId===id)throw Error('Action parent identity');result.editViaTransferId=v.editViaTransferId;}return result;}),
         status: () => read('/api/wallet/status', value => { const v = object(value); boolean(v.active); integer(v.storageVersion); return { active: v.active, storageVersion: v.storageVersion }; }),
         accounts: () => read('/api/wallet/accounts', value => { const v = object(value); if (!Array.isArray(v.accounts))
             throw Error(); const accounts = v.accounts.map(row => accountValue(row)); if (new Set(accounts.map(a => a.id)).size !== accounts.length)
