@@ -1,5 +1,5 @@
 import {AuthenticatedImage} from './AuthenticatedMedia.js';
-import {Wallet as WalletAccounts} from '../features/wallet/Wallet.js';
+import {WalletHome} from '../features/wallet/WalletHome.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -143,7 +143,7 @@ function MonthlyTrendChart({ points }: { points: MonthlyPoint[] }) {
 }
 
 interface FinanceProps {
-  walletWorkspace?: import('../features/wallet/accountWorkspace.js').AccountWorkspace;
+  walletWorkspace?: import('../features/wallet/useWallet.js').WalletWorkspace;
   currentUser: User;
   users: User[];
   transactions: FinancialTransaction[];
@@ -976,7 +976,7 @@ export function Finance({
 
   return (
     <div className="space-y-6" id="finance-module">
-      {walletWorkspace&&<WalletAccounts workspace={walletWorkspace}/>}
+      {walletWorkspace&&<WalletHome workspace={walletWorkspace}/>}
       <Reveal className="bg-slate-950 neu-pressed-sm rounded-2xl p-1.5 flex flex-col sm:flex-row gap-1.5 text-xs font-bold">
         <button
           type="button"

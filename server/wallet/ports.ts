@@ -6,6 +6,7 @@ import { createWalletAccounts } from './accounts.js';
 import { createWalletRecords } from './records.js';
 import { createWalletQueries } from './query.js';
 import { createWalletReads } from './read.js';
+import {readWalletCatalog} from './catalogView.js';
 /** Existing installation connection/I01 writer only. Factory/import owns no
  * connection, migration, activation, schedule or external provider. */
 export function createWalletPorts(storage: typeof Sqlite, gateway: typeof Gateway, options: {
@@ -30,6 +31,6 @@ export function createWalletPorts(storage: typeof Sqlite, gateway: typeof Gatewa
                 throw error;
             }
         } return result; };
-    return { storageVersion, assertActor: (actor: Actor) => { assertWalletActor(reader, actor); }, active() { const version = storageVersion(); return [3, 4].includes(version) && reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value === '1' && (version < 4 || !reader.get("SELECT 1 AS blocked FROM wallet_legacy_runs WHERE status!='ready' LIMIT 1")); }, access, accounts: createWalletAccounts({ reader, write: gateway.withAppWriteTransaction, now: options.now }), records: createWalletRecords({ reader, write: gateway.withAppWriteTransaction, now: options.now }), queries: createWalletQueries({ reader }), read: createWalletReads(reader), accountAudience: (id: string) => audience([id], 'account'), recordAudience(id: string) { const fee = reader.get('SELECT fee_record_id AS id FROM wallet_transfer_fees WHERE transfer_record_id=?', id); return audience(fee ? [id, fee.id] : [id], 'record'); } };
+    return { catalog:(actor:Actor)=>readWalletCatalog(reader,actor), storageVersion, assertActor: (actor: Actor) => { assertWalletActor(reader, actor); }, active() { const version = storageVersion(); return [3, 4].includes(version) && reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value === '1' && (version < 4 || !reader.get("SELECT 1 AS blocked FROM wallet_legacy_runs WHERE status!='ready' LIMIT 1")); }, access, accounts: createWalletAccounts({ reader, write: gateway.withAppWriteTransaction, now: options.now }), records: createWalletRecords({ reader, write: gateway.withAppWriteTransaction, now: options.now }), queries: createWalletQueries({ reader }), read: createWalletReads(reader), accountAudience: (id: string) => audience([id], 'account'), recordAudience(id: string) { const fee = reader.get('SELECT fee_record_id AS id FROM wallet_transfer_fees WHERE transfer_record_id=?', id); return audience(fee ? [id, fee.id] : [id], 'record'); } };
 }
 export type WalletPorts = ReturnType<typeof createWalletPorts>;

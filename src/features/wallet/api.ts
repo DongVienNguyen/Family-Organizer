@@ -9,6 +9,7 @@ import type { AccountDraft, AccountPatch, WalletAccountResult, WalletGrantResult
 import type { RecordDraft, RecordPatch, WalletRecordResult } from '../../../server/wallet/records.js';
 import type { WalletRecordView } from '../../../server/wallet/query.js';
 import type { WalletRecordDetail } from '../../../server/wallet/read.js';
+import type {WalletCatalog,WalletCatalogItem,WalletCategoryView} from '../../../server/wallet/catalogView.js';
 export class WalletApiError extends Error {
     constructor(readonly status: number, message: string, readonly code: string, readonly requestId: string | undefined, readonly unknownOutcome = false) { super(message); this.name = 'WalletApiError'; }
 }
@@ -173,6 +174,21 @@ else {
             throw Error('Invalid utilization');
     }
 } return pick(v, ['currency', 'bookMinor', 'creditLimitMinor', 'debtMinor', 'availableMinor', 'utilization']) as unknown as WalletCreditPosition; }
+function catalogValue(value:unknown):WalletCatalog {
+ const raw=object(value);
+ const items=(input:unknown,category:boolean)=>{
+  if(!Array.isArray(input)||input.length>10000)throw Error('Invalid catalog size');
+  const result=input.map(entry=>{const row=object(entry);text(row.id,256);text(row.name,500);text(row.icon,256,false);text(row.color,256,false);boolean(row.hidden);integer(row.revision,1);timestamp(row.archivedAt);
+   const item={id:row.id,name:row.name,icon:row.icon,color:row.color,hidden:row.hidden,revision:row.revision,archivedAt:row.archivedAt} as WalletCatalogItem;
+   if(!category)return item;
+   if(row.parentId!==null)text(row.parentId,256);choice(row.nature,['must','need','want','unspecified']);return {...item,parentId:row.parentId,nature:row.nature} as WalletCategoryView;
+  });
+  if(new Set(result.map(item=>item.id)).size!==result.length)throw Error('Duplicate catalog ID');return result;
+ };
+ const categories=items(raw.categories,true) as WalletCategoryView[],labels=items(raw.labels,false),byId=new Map(categories.map(item=>[item.id,item])),done=new Set<string>();
+ for(const category of categories){let id:string|null=category.id;const path=new Set<string>();while(id!==null&&!done.has(id)){if(path.has(id))throw Error('Catalog cycle');path.add(id);const node=byId.get(id);if(!node)throw Error('Missing catalog parent');id=node.parentId;}for(const id of path)done.add(id);}
+ return {categories,labels};
+}
 /** DTO decoders are browser-only; server imports above are erased types. */
 export function createWalletApi(ports: WalletTransportPorts) {
     const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
@@ -189,6 +205,7 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        catalog:()=>read('/api/wallet/catalog',catalogValue),
         status: () => read('/api/wallet/status', value => { const v = object(value); boolean(v.active); integer(v.storageVersion); return { active: v.active, storageVersion: v.storageVersion }; }),
         accounts: () => read('/api/wallet/accounts', value => { const v = object(value); if (!Array.isArray(v.accounts))
             throw Error(); const accounts = v.accounts.map(row => accountValue(row)); if (new Set(accounts.map(a => a.id)).size !== accounts.length)

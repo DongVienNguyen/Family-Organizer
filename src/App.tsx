@@ -421,7 +421,7 @@ export default function App() {
   const getAuthHeader = (): Record<string, string> => {
     return authToken ? { "Authorization": `Bearer ${authToken}` } : {};
   };
-  const walletWorkspace=useWallet(getAuthHeader);
+  const walletWorkspace=useWallet(getAuthHeader,currentUser?.id);
 
   const fetchUsers = async () => {
     if (!currentUser) return;
