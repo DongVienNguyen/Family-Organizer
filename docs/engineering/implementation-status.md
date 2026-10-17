@@ -2,7 +2,24 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
-**Latest continuation — W02/W03 partial:** source `eb481df16ec10e9fd32ab80f1b87853ef0608ec7` adds
+**Latest continuation — W03 partial:** source `cccffdceafdc8bf5e5cc82e587c84d2f7cc5d5af` adds
+explicit native Wallet1/2/3→4 shared backup conversion and standalone2/3/4→5.
+I01 historical inspection is read-only and does not admit an old snapshot to
+restore; the full converted target must pass the unchanged current gate. Money,
+provenance/FX/fees, UUID receipts, legacy/settings/media stay intact; unknown facts
+remain null, unrecoverable quotes reject, converted old native Wallet stays off.
+
+Cloud6716tests/358files/matchingJUnit/0failed-skipped-todo, Wallet377/19;
+35targeted, all6681parent retained; lint/build0. LOCAL SELF4paths0C/0I/0M,
+no correction/rereview, not independent.
+[Detail](wallet-backup-conversion.md), [proof](evidence/w03-native-backup-conversion-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No conversion
+route or activation. Current browser/Windows2022/Node22/package/service/Server2019R02
+unrun. Next: pre-Wallet0 shared/legacy backup conversion, private receipts and actual
+legacy bridge before API/UI/cutover. **Full Wallet/M1/master incomplete.** No release/VPS.
+
+**Previous continuation — W02/W03 partial:** source `eb481df16ec10e9fd32ab80f1b87853ef0608ec7` adds
 explicit storage4/standalone5, durable mapping/checksums/quarantine and metadata-only
 legacy debt/savings links. Repeat import creates0; source/pilot/mapping/count/run
 drift conflicts; native failure rolls back all money/audit/receipts. A guarded

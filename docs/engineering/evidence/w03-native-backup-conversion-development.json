@@ -1,0 +1,182 @@
+{
+  "taskIds": [
+    "W03-partial"
+  ],
+  "status": "Cloud explicit native Wallet backup conversion; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "cccffdceafdc8bf5e5cc82e587c84d2f7cc5d5af",
+  "base": "a1d332cca5e527a3d694d5e3280385e42b549519",
+  "sourceSha256": {
+    "server/appSnapshot.ts": "015c8515b72231bcb54b6ac1c7c1d64cd67f6807740b148876ba4d7607e4e697",
+    "server/wallet/backupConversion.integration.test.ts": "47cb4482688e5d7b44fa85399e274b742f8d53a7747b4428cc5505cd7bc59f60",
+    "server/wallet/backupConversion.test.ts": "9300ee024f23493201c64f0554af0e1875a74ed6a33cbbf4aa9733e372bdaad7",
+    "server/wallet/backupConversion.ts": "937c0b882dc5f1bf150c081120929b05bee90376aae8f6afbf62f79a8e21da0c"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6716,
+      "files": 358,
+      "junitCases": 6716,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 142.09
+    },
+    "walletInFullSuite": {
+      "tests": 377,
+      "files": 19
+    },
+    "targetedConversion": {
+      "tests": 35,
+      "files": 2,
+      "failed": 0
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6681,
+      "currentPassed": 6716,
+      "added": 35,
+      "removed": 0,
+      "normalization": "only temporary root in five recoveryRetention names; multiplicity retained",
+      "junitCases": 6716,
+      "files": 358,
+      "wallet": {
+        "tests": 377,
+        "files": 19
+      }
+    }
+  },
+  "review": {
+    "method": "LOCAL SELF author review, not independent",
+    "reviewedPaths": [
+      "server/appSnapshot.ts",
+      "server/wallet/backupConversion.integration.test.ts",
+      "server/wallet/backupConversion.test.ts",
+      "server/wallet/backupConversion.ts"
+    ],
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "correctionPasses": 0,
+    "rereviewPasses": 0,
+    "focus": [
+      "historical source inspection uses installed trusted additive schema/checksum prefix; other namespaces remain exact",
+      "inspection does not enter restore WeakSet and normal restore gate stays version-exact",
+      "exact signed64, known provenance, FX/fees/labels/allocations/occurrences and command receipts preserved",
+      "missing facts stay null; unquoted old crosscurrency transfers reject rather than invent FX",
+      "conversion validates source and complete target before SQL/files/maintenance; old native flag always0",
+      "no activation/routes/provider/dependency/lockfile/workflow changes; wallet0/legacy JSON still unsupported"
+    ]
+  },
+  "behavior": [
+    "Standalone2/3/4 ->5 through explicit offline validation; normal restore stays version-exact",
+    "Native Wallet1/2/3 shared snapshots ->4 while retaining all other namespace versions, core claims/receipts, legacy, settings and media",
+    "Trusted historical inspection uses installed additive table/checksum prefix and never brands an old snapshot restoreable",
+    "Converted full target passes existing I01 validator before restore/maintenance; no SQL or files during conversion",
+    "Exact money/provenance/FX/fees preserved; missing metadata null/default and unrecoverable crosscurrency quote rejects",
+    "Converted old native Wallet flag always0; current4 no-op retains original bytes"
+  ],
+  "remaining": [
+    "Pre-Wallet shared manifest wallet0 and legacy JSON/ZIP require explicit coordinated conversion",
+    "Private receipt conversion/remediation/legacy write bridge/API/UI/cutover",
+    "All remaining Wallet/M1/I02/I03 and final browser/Windows/Node22/package/service/R02 acceptance"
+  ],
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "npm ci (dependencies and lockfile unchanged)",
+    "current browser",
+    "Windows2022 Node24/Node22, package/service and actual Server2019R02"
+  ],
+  "constraints": {
+    "syntheticOffline": true,
+    "noDependencyLockfileWorkflowChanges": true,
+    "walletActivated": false,
+    "noReleaseTagVps": true
+  },
+  "rawReports": [
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-qualified.json",
+      "bytes": 1935222,
+      "sha256": "10d449c4053fb9c0fba99ca5c8e473a29698fba339eba634399554142048d22c"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-qualified.junit.xml",
+      "bytes": 1353749,
+      "sha256": "bbe55986198d148ecd54461d4ff0c0f37542137be8762946206645680d27bdd8"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-qualified.log",
+      "bytes": 82708,
+      "sha256": "8dbd2ee2fbe2292f4d1832f51cd92952b42face1defb9bff538df5d8555ff94a"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-qualified.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-lint.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-build.log",
+      "bytes": 2003,
+      "sha256": "4855dcb664d2ea8639f57470b9301b74576b11aa85c11ffc2adf1a331462c1fa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-build.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-frozen.json",
+      "bytes": 668,
+      "sha256": "da1489576cddf622c291450dc6a3258f8aabd8f08c3525710e55057af542f557"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-preservation.json",
+      "bytes": 745,
+      "sha256": "b12db0d3903db0dd97f5c8dc270d3d4b288e67d5e1079b0617c8057298f39b9f"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-self-review.json",
+      "bytes": 1019,
+      "sha256": "55d78450f7523a7ad212ec76a77f2c14f95100756b7c67797bc8c0c7728c690b"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-red.json",
+      "bytes": 786,
+      "sha256": "eae449ebec167dc326c313c734664a49ca0f7769c75012f433ee38a181651dce"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-targeted-red.json",
+      "bytes": 13896,
+      "sha256": "dd03323f8e0cdc425802c6bcef3626fec924adbed1a03aab278a308a84536ca9"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-targeted-green.json",
+      "bytes": 8958,
+      "sha256": "9cc15299fd3b60cef345b3822cd329c072d07c65e997fac7c8cd65d6499c270d"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-complete-targeted.json",
+      "bytes": 13631,
+      "sha256": "704f524f213024dabb18c7b58300ba6670866db87baaf345b784eb275f38ff51"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-backup-conversion-preflight-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    }
+  ]
+}
