@@ -1,0 +1,207 @@
+{
+  "taskIds": [
+    "P08-partial",
+    "P09-partial",
+    "P17-partial",
+    "P18-partial"
+  ],
+  "status": "Cloud functional checkpoint; not full M1/master/Windows acceptance",
+  "sourceCommit": "e7c7c7d4af0e06075ef701e2caa41807c431bcbb",
+  "base": "4ab482d091744556b0a6a7fb0a8f682cf3ce1eee",
+  "sourceSha256": {
+    "scripts/ci/productivity-browser-contract.mjs": "f1734fa5732bfcf68af528a1a1450f7600583ec273993feb803f90ef789cd531",
+    "scripts/windows/release-productivity-source-policy.mjs": "32fb0aafd427231a7d5696a89d4a1e664077f5f0f5da7ad87cde409405825f0b",
+    "server/productivity/board-catalog.api.test.ts": "484344e3791ec6d1aa7c6fdd6900b7da89e7463b6b3ee6a72e45a217e0075d73",
+    "server/productivity/board-creation.test.ts": "02321c898ed75969f42dbadcbf33902ded57e215af80cbc95e228b57926aa246",
+    "server/productivity/boardCreation.ts": "a1dd52e00673c3c7cb49b42ba1f21611a4477e63c8534b84c9b571b895be5c35",
+    "server/productivity/boardRouter.ts": "64aa6387b04b3aa059cb7294398e9ac6255290331529f9c6d7097ce6151ff7aa",
+    "server/productivity/ports.ts": "ff6c18477255fbd79cce2a321287f459b99e7016a4bb6d9fb13a60f4fda54a3a",
+    "server/productivity/router.ts": "8c05772e56b7a2de423ebe60a3c56b5458a46e68008568ffbd56f541a758505e",
+    "src/features/productivity/Kanban.tsx": "fb401b31e628eae5d62a9d0f6581da94edf5168636ea4be88956f9be820f024b",
+    "src/features/productivity/KanbanCreateDialog.tsx": "48b8acbabfc9b7da6d3fbc8e333ec820898bfda0e8d40150b988c275f8374814",
+    "src/features/productivity/KanbanSectionActions.tsx": "ba37f3ef90baac8f1c108715f3f53968d8073d332061da55b152efd082722c7c",
+    "src/features/productivity/KanbanSectionDialog.tsx": "29431eaa02bae4d593ce96d5c7b221002713f4e277336903d8d70068ffec805d",
+    "src/features/productivity/KanbanWorkspace.tsx": "599e325574917638eaf1fd9806af90222d1bf790e93d38beb12f14d20a78b5ef",
+    "src/features/productivity/api.ts": "7b07cec077f751c5ed7aed2ab04cea44837f5ecb089885e0669b0276779b943d",
+    "src/features/productivity/board-creation-api.test.ts": "38b4947a7f29c859b6f4305742ee401e220f301cd2d3eab5f3616200937fea6e",
+    "src/features/productivity/boardCreationApi.ts": "ebe869b3bd5a111f015f49ba9bfecdda044057492fa4f426c9f1cd6d63edaf01",
+    "src/features/productivity/boardPolicyApi.ts": "b72e15e0b25b0aa846ca33051492f9c316347e1dd4aeb4a62a31396e506b92dd",
+    "src/features/productivity/draft-command-state.test.ts": "d2d9fd9b5449c8ff3c420c4c1025d5e5c4d5200fded4ca86b44365d845697dec",
+    "src/features/productivity/draftCommandState.ts": "e49e41cabb72797b872e3e635de2a7d4a800d80a186e656043374279d787dd14",
+    "src/features/productivity/kanban-create-ui.test.tsx": "81ac7c344f61c878a6dcb9b1c95287714c15fcfa0a69772d4769dd2851fd9f06",
+    "src/features/productivity/kanban-section-ui.test.tsx": "7d6024fceeecfc36914b5e3578a7fdf0347337c5a4f7921215e07aa8dd38a26b",
+    "src/features/productivity/kanbanCreateDraft.ts": "96e537d4477d451936f63b0b676960626928dc8cc19434ec66b3a3469c85b6f1",
+    "src/features/productivity/useKanbanCreation.ts": "1e3af87ce53871078916723e5d9ecef5076e315ebe918aedbc18551368a68f21",
+    "src/i18n/locales/en.json": "31d8e4fbaf955721553ab2396d7cb75ef1a799164a05be26efa2d85cd1affdfc",
+    "src/i18n/locales/vi.json": "156dad80a0779378d7160b3633dae69ebec53391406ee8ec86e050f144aa21d5",
+    "src/i18n/locales/zh.json": "3637d7e8b79235b0d4e6f3a1f457cf88c2ab12fbe6ae79a0cff0c8e20ccd3a4d",
+    "tests/e2e/productivity-cases.ts": "b10826e072a2139f865efb749ed0f818d2a99d8884ee31ae2e0ac7b72e86a992",
+    "tests/e2e/productivity-create-cases.ts": "a2b86fb4bd1fa1761b883af59f32683e487ec051b93c46d56fc47d1c4f902309",
+    "tests/helpers/release-productivity-browser-fixture.ts": "175e3bc624852788a4e064a38c4ddb0ac886b5566ecd4fff6c11e3362abe2d06",
+    "tests/productivity-registration.test.ts": "b4d9f62e4d9799a50729f7064d3fe27071057a1a6558787ce0b8ef1b33411767",
+    "tests/release-productivity-profile.test.ts": "94ba800d6defd13e540bb1325ea737ea6d11e1003bd9516ad6d676d757729df0"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "lintExit": 0,
+    "buildExit": 0,
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6185,
+      "files": 334,
+      "junitCases": 6185,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "browser": {
+      "exitCode": 0,
+      "project": "chromium",
+      "cases": [
+        "C22",
+        "C36",
+        "C40",
+        "C44",
+        "C45",
+        "C46",
+        "C47",
+        "C48"
+      ],
+      "nativeTouch": 1,
+      "retries": 0,
+      "skipped": 0,
+      "offline": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "nativeHandlesClosed": true,
+      "fixtureRemoved": true,
+      "runnerReportedHead": "4ab482d091744556b0a6a7fb0a8f682cf3ce1eee",
+      "sourceBinding": "working-tree source hashes and production bundle verified; no new exact-HEAD Windows run claimed",
+      "productionBuild": {
+        "serverSha256": "52f8096a9d810b03e8798a12155c6bc3dc22aac71a996f579c2e9e5968b01ca6",
+        "indexSha256": "a21c68c9a25b0326fb2229bff6d858df278e8f728e5a72543009a4b3dd2a9a4c"
+      }
+    }
+  },
+  "unitPreservation": {
+    "parentPassed": 6108,
+    "currentPassed": 6185,
+    "added": 77,
+    "missing": 0,
+    "normalization": {
+      "onlyFile": "server/recoveryRetention.test.ts",
+      "onlyPattern": "/tmp/fo test synthetic [A-Za-z0-9]+(?=/|$)",
+      "reason": "same unchanged test file receives a fresh synthetic temporary root; five generated path cases, multiplicity retained"
+    }
+  },
+  "review": {
+    "mode": "LOCAL whole-branch SELF; author review, not independent",
+    "base": "4ab482d091744556b0a6a7fb0a8f682cf3ce1eee",
+    "sourceSha256": {
+      "scripts/ci/productivity-browser-contract.mjs": "f1734fa5732bfcf68af528a1a1450f7600583ec273993feb803f90ef789cd531",
+      "scripts/windows/release-productivity-source-policy.mjs": "32fb0aafd427231a7d5696a89d4a1e664077f5f0f5da7ad87cde409405825f0b",
+      "server/productivity/board-catalog.api.test.ts": "484344e3791ec6d1aa7c6fdd6900b7da89e7463b6b3ee6a72e45a217e0075d73",
+      "server/productivity/board-creation.test.ts": "02321c898ed75969f42dbadcbf33902ded57e215af80cbc95e228b57926aa246",
+      "server/productivity/boardCreation.ts": "a1dd52e00673c3c7cb49b42ba1f21611a4477e63c8534b84c9b571b895be5c35",
+      "server/productivity/boardRouter.ts": "64aa6387b04b3aa059cb7294398e9ac6255290331529f9c6d7097ce6151ff7aa",
+      "server/productivity/ports.ts": "ff6c18477255fbd79cce2a321287f459b99e7016a4bb6d9fb13a60f4fda54a3a",
+      "server/productivity/router.ts": "8c05772e56b7a2de423ebe60a3c56b5458a46e68008568ffbd56f541a758505e",
+      "src/features/productivity/Kanban.tsx": "fb401b31e628eae5d62a9d0f6581da94edf5168636ea4be88956f9be820f024b",
+      "src/features/productivity/KanbanCreateDialog.tsx": "48b8acbabfc9b7da6d3fbc8e333ec820898bfda0e8d40150b988c275f8374814",
+      "src/features/productivity/KanbanSectionActions.tsx": "ba37f3ef90baac8f1c108715f3f53968d8073d332061da55b152efd082722c7c",
+      "src/features/productivity/KanbanSectionDialog.tsx": "29431eaa02bae4d593ce96d5c7b221002713f4e277336903d8d70068ffec805d",
+      "src/features/productivity/KanbanWorkspace.tsx": "599e325574917638eaf1fd9806af90222d1bf790e93d38beb12f14d20a78b5ef",
+      "src/features/productivity/api.ts": "7b07cec077f751c5ed7aed2ab04cea44837f5ecb089885e0669b0276779b943d",
+      "src/features/productivity/board-creation-api.test.ts": "38b4947a7f29c859b6f4305742ee401e220f301cd2d3eab5f3616200937fea6e",
+      "src/features/productivity/boardCreationApi.ts": "ebe869b3bd5a111f015f49ba9bfecdda044057492fa4f426c9f1cd6d63edaf01",
+      "src/features/productivity/boardPolicyApi.ts": "b72e15e0b25b0aa846ca33051492f9c316347e1dd4aeb4a62a31396e506b92dd",
+      "src/features/productivity/draft-command-state.test.ts": "d2d9fd9b5449c8ff3c420c4c1025d5e5c4d5200fded4ca86b44365d845697dec",
+      "src/features/productivity/draftCommandState.ts": "e49e41cabb72797b872e3e635de2a7d4a800d80a186e656043374279d787dd14",
+      "src/features/productivity/kanban-create-ui.test.tsx": "81ac7c344f61c878a6dcb9b1c95287714c15fcfa0a69772d4769dd2851fd9f06",
+      "src/features/productivity/kanban-section-ui.test.tsx": "7d6024fceeecfc36914b5e3578a7fdf0347337c5a4f7921215e07aa8dd38a26b",
+      "src/features/productivity/kanbanCreateDraft.ts": "96e537d4477d451936f63b0b676960626928dc8cc19434ec66b3a3469c85b6f1",
+      "src/features/productivity/useKanbanCreation.ts": "1e3af87ce53871078916723e5d9ecef5076e315ebe918aedbc18551368a68f21",
+      "src/i18n/locales/en.json": "31d8e4fbaf955721553ab2396d7cb75ef1a799164a05be26efa2d85cd1affdfc",
+      "src/i18n/locales/vi.json": "156dad80a0779378d7160b3633dae69ebec53391406ee8ec86e050f144aa21d5",
+      "src/i18n/locales/zh.json": "3637d7e8b79235b0d4e6f3a1f457cf88c2ab12fbe6ae79a0cff0c8e20ccd3a4d",
+      "tests/e2e/productivity-cases.ts": "b10826e072a2139f865efb749ed0f818d2a99d8884ee31ae2e0ac7b72e86a992",
+      "tests/e2e/productivity-create-cases.ts": "a2b86fb4bd1fa1761b883af59f32683e487ec051b93c46d56fc47d1c4f902309",
+      "tests/helpers/release-productivity-browser-fixture.ts": "175e3bc624852788a4e064a38c4ddb0ac886b5566ecd4fff6c11e3362abe2d06",
+      "tests/productivity-registration.test.ts": "b4d9f62e4d9799a50729f7064d3fe27071057a1a6558787ce0b8ef1b33411767",
+      "tests/release-productivity-profile.test.ts": "94ba800d6defd13e540bb1325ea737ea6d11e1003bd9516ad6d676d757729df0"
+    },
+    "findings": [],
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "correctionPasses": 0,
+    "rereview": false,
+    "focus": [
+      "one I01 owner and atomic rollback across board/view/task/positions",
+      "no resetting existing WIP or Task fields",
+      "fresh manager rights before cached creation replay",
+      "readonly draft/cancel and original body/UUID after unknown send",
+      "confirmed permission loss erases private state across restored access",
+      "Section rank-only preview identity and noncustom-sort refusal",
+      "legacy44case bytes and native offline/error guards retained"
+    ],
+    "scopeLimits": [
+      "new views start in canonical none/rank mode",
+      "quick-add is manager-only on canonical Section columns or Workflow Todo",
+      "manual order UI in this group is for rank-sorted Section boards; other rank UIs remain pending"
+    ]
+  },
+  "rawSha256": {
+    "/workspace/family-evidence/m1-kanban-full.json": "20c8c02a3234932a088974133d0112c48da0f05a7d5c5dc8f0d532a5ad099c85",
+    "/workspace/family-evidence/m1-kanban-full.junit.xml": "874064f348dc743abacf8f4d453a34dfd06a7c96d071e1f17a78b9dfaf18370d",
+    "/workspace/family-evidence/m1-kanban-full.log": "2a1c9b6167f569bd7a3e342a180887d8261c62f9834b60ac61ea390f94a6a2ba",
+    "/workspace/family-evidence/m1-kanban-lint-qualified.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "/workspace/family-evidence/m1-kanban-build-qualified.log": "a16086027cd5cb90a49507dd12435e92d3b090d9db7668c40d450e918bdfbb1f",
+    "/workspace/family-evidence/m1-kanban-final-browser.log": "b570b5755450212582f41d9583c4eafd77d72d72320fa5da445ca1e220ebb9ae",
+    "/workspace/family-evidence/m1-kanban-unit-preservation.json": "f8009f4d7ae6267f4f7e3e62e12fb59bb69937327f2c01de04ab2c49a33ac8b1",
+    "/workspace/family-evidence/m1-kanban-authority-causal-red.json": "1e4fa6591e4f82c8f7fe669374f659224c487e7ea7089fca8c501e2a1938fdb5",
+    "/workspace/family-evidence/m1-kanban-final-browser-reports/productivity-browser.json": "6bf174291b730b1582f41a001708eb5be4cd79613650a06e21ff5edaaf86d2f4",
+    "/workspace/family-evidence/m1-kanban-final-browser-reports/productivity-browser.junit.xml": "5f7715393d5eeecd6f75d5bf910fdd8ffe8bd9550eae31fde761194eb2e735de",
+    "/workspace/family-evidence/m1-kanban-final-browser-reports/productivity-browser-fixture.json": "cb1cf2d34de186364acaba5f8158565b9a434495e88593c0de7a1707924e579b",
+    "/workspace/family-evidence/m1-kanban-final-browser-reports/productivity-browser-touch.json": "965f18a84fc38659afb3bc7c9a091b50761d2dd6220875dd6e31f5c6e41b8248",
+    "/workspace/family-evidence/m1-kanban-final-browser-reports/productivity-browser-touch.junit.xml": "c10ad1325619573c7a0a899941ff77cc0653f9d07ec459670728a75db9809c22"
+  },
+  "developmentHistory": {
+    "backend": "m1-kanban-create-red.json:14not-implemented failures ->16final service tests",
+    "sdk": "m1-kanban-sdk-red.json:15missing-method failures ->15SDK tests;13realHTTP tests passed",
+    "state": "m1-kanban-draft-red.json:10fail/2pass ->12passed",
+    "ui": "m1-kanban-ui-red.json:15fail/11pass ->13newUI and13Section-dialog tests passed",
+    "sourcePolicy": "m1-kanban-contract-red.json:6real downgrade failures; authority extension2real downgrade failures; corrected strict13 guards",
+    "typescript": "literal union, live role enum, callback result narrowing and forged-input fixture typing corrected; diagnostics retained",
+    "nativeAuthority": "401control used logged-out admin token (noncausal); separate native synthetic admin login fixed fixture. Revoke-only passed; restore phase causally exposed private draft resurrection. Completed-catalog authority retirement corrected it; unchanged C48 revoke/restore/blank-new-draft assertions then passed."
+  },
+  "preserved": [
+    "original44case files byte-for-byte",
+    "offline and zero-browser-error hooks",
+    "nativeTouch test",
+    "dependencies/lockfile",
+    "migration definitions and runtime default version"
+  ],
+  "scopeLimits": [
+    "new views start in canonical none/rank mode",
+    "quick-add is manager-only on canonical Section columns or Workflow Todo",
+    "manual order UI in this group is for rank-sorted Section boards; other rank UIs remain pending"
+  ],
+  "notRun": [
+    "full48-case Chromium inventory",
+    "Firefox/WebKit for current source",
+    "Windows Node22/24 and final package/service",
+    "Server2019 R02"
+  ],
+  "publication": {
+    "developmentBranch": "codex/feature-first-acceptance",
+    "branchUrl": "https://github.com/DongVienNguyen/Family-Organizer/tree/codex/feature-first-acceptance",
+    "newPr": null,
+    "newCiRun": null,
+    "merge": false,
+    "release": false,
+    "vps": false,
+    "workflowTriggers": "CI push main only; pull_request; workflow_dispatch. Manual-only candidate/promotion. No open PR for this development branch at preflight."
+  }
+}

@@ -2,7 +2,24 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
-**Latest local feature checkpoint:** source
+**Latest continuation — P08/P09/P17/P18 partial:** source
+`e7c7c7d4af0e06075ef701e2caa41807c431bcbb` adds atomic board/view creation,
+confirmed Section/Workflow-Todo quick-add and Section manual-rank UI. Cloud
+6185tests/334files/matchingJUnit/0failed-skipped-todo; lint/build0; actual Chromium
+C22/C36/C40/C44–C48 plus native touch8+1first attempts/offline/integrity/close/cleanup.
+All6108parent cases preserved+77new. Revocation→restore privacy regression is
+causally fixed; initial401control and all development failures retained.
+One LOCAL SELF31source0C0I0M/no correction/no rereview, not independent.
+See [functional detail](kanban-creation-and-order.md) and
+[compact proof](evidence/m1-kanban-creation-development.json).
+
+Development branch: `codex/feature-first-acceptance`; new PR URL and CI run URL:
+none. Verified workflow triggers allow a feature-branch backup push without a PR
+or Windows run. No merge/release/tag/VPS. Full M1/master remains incomplete. Next:
+view editing/group/sort preferences and remaining Workflow/grouped rank/drag UX;
+complete M1 acceptance before Wallet core. Final Windows and R02 remain unrun.
+
+**Earlier local feature checkpoint:** source
 `fc8851afcc8e623f9e05853a598b0fb329fe0648` adds ordered rotation, bounded
 historical recurrence preview correction and manager WIP policy UI. Full Cloud
 6108tests/330files/matchingJUnit/0failed-skipped-todo; lint/build0; eight actual
