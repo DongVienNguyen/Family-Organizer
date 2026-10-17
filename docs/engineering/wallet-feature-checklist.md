@@ -1,16 +1,16 @@
 # Wallet feature checklist
 
-This records implementation progress, not Windows acceptance. Latest record-core
-source6837a52; see [status](implementation-status.md) and source-bound evidence.
+This records implementation progress, not Windows acceptance. Latest legacy-projection
+source9f8537a; see [status](implementation-status.md) and source-bound evidence.
 The new Wallet remains inactive and unwired; existing Finance still serves users.
 
 | Task | Current evidence | Remaining requirement |
 | --- | --- | --- |
 | W01 | Accepted exact money/date/filter contracts | Retain through final integration |
 | W02 | One I01 writer, core schema1/metadata2/FX-fee3, exact snapshots/cold compatibility | Full remaining entities/private attachment manifest and conversion |
-| W03 | Not implemented | Durable migration/quarantine/mapping, repeat safety, old backups, legacy adapter |
+| W03 | Typed scoped legacy projection/coverage; no rounding or fake timestamps | Durable migration/quarantine/mapping, repeat safety, old backups and actual write bridge |
 | W04 | Fresh adult/grant SQL ACL, partial-transfer redaction | HTTP/media/export/report enforcement and client SDK |
-| W05 | Backend account/record/transfer/edit/void core;6586full Cloud tests | API/UI wiring, legacy type-edit compatibility, linked lifecycle integration |
+| W05 | Backend account/record/transfer/edit/void and legacy type-edit core;6624full Cloud tests | API/UI wiring and linked lifecycle integration |
 | W06 | Not implemented | Account/record forms, query/filter/cursor/bulk and functional browser tests |
 | W07 | Low-level catalog metadata only | Catalog CRUD/tree, templates/clone/split and UI |
 | W08 | Exact balances/transaction FX only | Shared reporting/valuation FX/coverage/drilldown engine and charts |

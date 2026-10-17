@@ -2,7 +2,25 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
-**Latest continuation — W05 partial:** source `6837a52a20810ab7041ef3577a665054d8055e65` adds manual income/expense/
+**Latest continuation — W03/W05 partial:** source `9f8537a643a0e6253ec43b3ba2998bea7fb6f212` adds a typed legacy
+projection and fresh scoped batched reads. Only representable VND rows become old
+DTOs; visible unsupported classes have explicit coverage, corrupt shapes error,
+hidden rows never contribute counts. Known timestamps/creator/identity/revision
+are preserved; unknown time is not invented. Existing single-leg type edits now
+reverse direction correctly without reinterpreting transfer/trade records.
+
+Cloud6624tests/353files/matchingJUnit/0failed-skipped-todo, Wallet285/14 in full
+run,38targeted legacy cases; lint/build0. All6586parent retained+38. LOCAL SELF
+5paths0C/0I/0M/no correction/rereview in that review pass, not independent.
+[Detail](wallet-legacy-projection.md), [proof](evidence/w03-legacy-projection-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No actual migration,
+HTTP/UI/activation/legacy cutover. No new browser run; current Windows/Node22/
+package/service and Server2019R02 unrun. Next: durable W03 mapping/quarantine and
+old-backup conversion, private receipts and writer bridge before API/UI/cutover.
+**Full W02/W03/W04/W05/Wallet/M1/master remains incomplete.** No release/tag/VPS.
+
+**Previous continuation — W05 partial:** source `6837a52a20810ab7041ef3577a665054d8055e65` adds manual income/expense/
 adjustment and balanced/external/FX transfers with separate fees, atomic edits/voids,
 revision/idempotency and current ACL before cache/inside I01. Real shared restore
 rewinds receipts with money state; native faults roll back both transfer and fee.

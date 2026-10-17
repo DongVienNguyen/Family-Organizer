@@ -1,0 +1,139 @@
+{
+  "taskIds": [
+    "W03-partial",
+    "W05-partial"
+  ],
+  "status": "Cloud legacy projection checkpoint; full migration/Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "9f8537a643a0e6253ec43b3ba2998bea7fb6f212",
+  "base": "bd163f9f80a96dff98a9b59dc3bfa9181084db31",
+  "sourceSha256": {
+    "server/wallet/access.ts": "943cee96bf702f62f0c6279bea027131b939a2688302c3a72f50f38a1bbfac76",
+    "server/wallet/legacy.read.test.ts": "62bda8a08f64b0138d4cc89a8e665d3b351246ca66a2199299f2c14c4c42e012",
+    "server/wallet/legacy.test.ts": "c42e0662952238f5b9e67a99d88cf76018f23cf9a3686ddd4eb3306cec9cbf7b",
+    "server/wallet/legacy.ts": "1b4bdb4dea07eed741b683e2b6ecce505dc60a1e458d407ab2b064225e4e3147",
+    "server/wallet/records.ts": "2ce022757c1682782fd9229bafd469610cbc92f5b4ab8a4a0f7365cc2ae3597b"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6624,
+      "files": 353,
+      "junitCases": 6624,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 143.72
+    },
+    "walletInFullSuite": {
+      "tests": 285,
+      "files": 14
+    },
+    "targetedLegacy": {
+      "tests": 38,
+      "files": 2,
+      "failed": 0
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6586,
+      "currentPassed": 6624,
+      "added": 38,
+      "removed": 0,
+      "normalization": "only temporary root in five recoveryRetention names; multiplicity retained",
+      "junitCases": 6624,
+      "files": 353
+    }
+  },
+  "review": {
+    "method": "LOCAL SELF author review, not independent",
+    "reviewedPaths": [
+      "server/wallet/access.ts",
+      "server/wallet/legacy.read.test.ts",
+      "server/wallet/legacy.test.ts",
+      "server/wallet/legacy.ts",
+      "server/wallet/records.ts"
+    ],
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "focus": [
+      "strict exact-safe-Number VND projection without fake kinds/account/currency/time",
+      "fresh role/grant scope before batched canonical bodies and hidden-count exclusion",
+      "visible unsupported capability coverage vs corruption errors",
+      "only compatible authorized records invoke category/receipt ports",
+      "single-kind compatibility edit preserves identity/provenance and guards transfer/trade",
+      "no writer/cache/HTTP/cutover/dependency changes"
+    ],
+    "correctionPasses": 0,
+    "rereview": false,
+    "limitations": [
+      "No independent review",
+      "Full W03 durable migration/backup conversion/cutover not complete",
+      "Legacy consumers must handle partial coverage before activation"
+    ]
+  },
+  "behavior": [
+    "Explicit owned VND projection preserves original identity/creator/date/text/category/receipt/revision",
+    "Unsafe Number, USD, unsupported account or movement kinds never become fake legacy rows",
+    "Unknown creation time stays unknown; current role/grants scope batched SQL before bodies/counts",
+    "Visible-only capability coverage; corrupt shapes throw instead of being quietly skipped",
+    "Receipt/category ports run only after a compatible authorized projection",
+    "Single-leg income/expense/adjustment reclassification preserves ID/provenance and posts the correct signed direction; transfer/trade crossings refused"
+  ],
+  "developmentEvidence": {
+    "missingProjection": {
+      "failed": 35
+    },
+    "compatibilityRed": {
+      "failed": 2,
+      "passed": 36,
+      "cause": "missing invalid-status guard and legacy income/expense edit compatibility",
+      "fixed": true
+    },
+    "final": "6624pass/JUnit/lint0/build0, no skipped/assertion/deadline/retry reductions"
+  },
+  "decisions": [
+    "Original base WalletRecord lacks money/account/time; pure projection takes a typed owned bundle rather than hidden storage lookup",
+    "Legacy DTO includes createdAtKnown and walletRevision; unknown createdAt is empty string, not fabricated time",
+    "Legacy consumers must visibly handle coverage and I02 must use canonical Wallet reports before cutover"
+  ],
+  "rawEvidenceRoot": "/workspace/family-evidence",
+  "rawReports": {
+    "w03-legacy-projection-qualified.json": "a8dc0047f49798e9df293fb8c098bd1d3902e5861d6fe85bf4b79fe9cb5d4412",
+    "w03-legacy-projection-qualified.junit.xml": "fec16c74398052ee3a249921b5d9a4087b1286ee7a9f4f13cb80e49060dd92aa",
+    "w03-legacy-projection-qualified.log": "d5d59e75ecdaabc5eda93c056309f325a1efefa6dcb3697029b19b43a6665f76",
+    "w03-legacy-projection-qualified.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w03-legacy-projection-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w03-legacy-projection-lint.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w03-legacy-projection-build.log": "56605ceb2a4232582206317516d724a1d4f61f0e30d75394a9ed2900fa3d04ff",
+    "w03-legacy-projection-build.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w03-legacy-projection-frozen.json": "eccf552e535e0aa3af87b72a72a4ad8c0e1db45a3c9706e5b81c0b0a5001921d",
+    "w03-legacy-projection-preservation.json": "8253f61c0c088679cb17cdb0972f61498b5f493f2f7441725a44343060d18d05",
+    "w03-legacy-projection-red.json": "315a04205b1c7b9219aae627db619439423624c039965ab70004a9e852f6668b",
+    "w03-legacy-compat-red.json": "a9cf3f43811373ed279968e715b260670fcf76125afd57ada60c49014a06c379"
+  },
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "new browser for unwired backend-only work",
+    "current Windows2022 Node24/Node22",
+    "current Windows package/service",
+    "Windows Server2019 R02"
+  ],
+  "remaining": [
+    "W03 durable migration/quarantine/mapping/backup conversion and actual legacy write bridge",
+    "W02 remaining entities/private receipt manifest",
+    "W04 HTTP/media/export/report gates",
+    "W05 API/UI and linked lifecycle integration",
+    "W06-W18 and remaining M1/productivity/integration acceptance"
+  ],
+  "constraints": [
+    "No activation or actual legacy cutover",
+    "No HTTP/UI/provider/dependency/workflow changes",
+    "No release/tag/VPS"
+  ]
+}
