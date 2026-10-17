@@ -2,6 +2,22 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
+**Latest local feature checkpoint:** source
+`fc8851afcc8e623f9e05853a598b0fb329fe0648` adds ordered rotation, bounded
+historical recurrence preview correction and manager WIP policy UI. Full Cloud
+6108tests/330files/matchingJUnit/0failed-skipped-todo; lint/build0; eight actual
+Chromium journeys plus one native touch pass, with offline/integrity/close/cleanup
+evidence. The initial C44 pending-owner failure is retained and causally fixed.
+One LOCAL SELF31source0C0I0M/no correction/no rereview; not independent. See
+[functional checkpoint](m1-feature-development.md) and
+[compact evidence](evidence/feature-first-m1-development.json).
+
+PR/CI URLs for these new changes: none (local-only commits, no new Windows run).
+Windows/Firefox/WebKit/full44-case browser qualification is deliberately deferred
+until the feature group is ready. Required merge protection is unchanged. Next:
+remaining M1 board/view creation, quick-add and manual card ordering UX, then the
+complete M1 checklist and Wallet core. Full M1/master and R02 remain unfinished.
+
 Feature-first local development: column settings PR136 is composed by a normal
 merge, without publishing a new CI run. Ordered rotation now has numbered draft
 controls, keyboard earlier/later/removal and unavailable-member placeholders in
@@ -9,7 +25,8 @@ all three locales. Historical count-exhausted previews retain moved in-bound
 exceptions without widening the supported ordinal limit. Actual RED checkpoints
 were corrected; targeted Cloud suites, lint/build and the real C43 Chromium
 save/drawer/preservation journey plus native touch passed. Full group suite and
-final Windows qualification remain pending. No feature-group completion claim.
+final Windows qualification remained pending then; see the newer6108-test result
+above. No full-M1 completion claim.
 
 User directs feature-first development: finish and functionally test the main
 flows in Cloud, then perform comprehensive Windows qualification at the end of a
