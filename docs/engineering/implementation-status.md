@@ -2,6 +2,28 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W04/W06 partial:** source `1cd381720c9b219df6c0b07342f9da2ed750a147` adds scoped
+creator/payment-method metadata and type/status/currency/creator/payment/label
+any-all controls, named-zone period presets and normal reset. SQL ACL precedes
+facet values; partial transfer methods stay hidden. Cross-query scope changes,
+missing metadata and over-limit options fail closed. Session invalidation clears
+choices immediately; exact input/last-checkbox/default-reset semantics are tested.
+
+Cloud7173tests/387files/matchingJUnit/0failed-skipped-todo, all7130parent+43 retained;
+lint/build0. Chromium15/15 retains14 plus combined payload/results, label any/all,
+last-choice removal/reset,390px width and keyboard. Zero flaky/skipped/external
+attempts, integrityOK, legacy kept/normal stop; build bytes match. No repeated
+build/browser on unchanged source. Author18path inspection, not independent.
+[Details](wallet-filter-controls.md), [proof](evidence/w06-filter-controls-development.json),
+[full Cloud JUnit](evidence/w06-filter-controls-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch/performance, package/service and actual
+Server2019R02 remain unrun. No dependency/lock/workflow/config/release/tag/VPS change.
+Next: durable cross-page selection/atomic bulk; receipt live apply/financial
+remediation/raw backup/legacy bridge/cutover/retention; preferences/other Wallet/
+M1/I02/I03/master gates. Wallet stays off; full plan remains incomplete.
+
 **Latest continuation — W03/W04/W16 partial:** source `94222adfa3e17492bd02dc19c6111cdabb8bca9c` adds explicit
 legacy receipt backup conversion with deterministic per-record private copies,
 validated supplied replacements and explicit remote/missing/invalid pending state.
