@@ -2,6 +2,29 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W07 partial, W04/W06 integration:** source `7e871b91920f36f6922507bc7b49855f0b10f7fa` adds
+Admin-managed category/label CRUD, three-level/cycle guards, hidden/archive ancestry,
+revision/provenance/audit/I01 replay and postcommit SSE. Deletion preview/refusal
+uses full-record ACL for visible bounded counts and protects migration history.
+Catalog UI has search/pagination, metadata editor, confirmed deletion and a
+session-owned same-key unknown retry; refresh clears private views/counts.
+Historical associations and legacy mappings remain; Wallet off.
+
+Cloud7426/404files/matchingJUnit/0failed-skipped-todo,
+all7354parent+72 retained; lint/build0. Chromium23/23 retains
+all19parent plus4new, zero flaky/skipped/external, integrityOK/legacy kept/normal
+stop/closed handles and matching build bytes. Author25path inspection only.
+[Details](wallet-catalog.md), [proof](evidence/w07-catalog-development.json),
+[JUnit](evidence/w07-catalog-cloud.junit.xml.gz),
+[full log](evidence/w07-catalog-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W07 templates/clone/split, protected restore host/Admin binding,
+remediation/raw backup/legacy bridge/cutover/retention and remaining Wallet/M1/
+I02/I03/master; then final independent review and batched Windows. Full plan
+incomplete; no dependency/lock/workflow/release/tag/VPS changes.
+
 **Latest continuation — W03/W04 partial, I01 restore guard:** source `1ea64971b0c7ea602f6f904ec10358c36d607dbd` adds
 receipt prepare/apply with persisted/read-back full-private safety backup ports,
 whole-app data/file identity and actual shared maintenance/file/SQLite restore.

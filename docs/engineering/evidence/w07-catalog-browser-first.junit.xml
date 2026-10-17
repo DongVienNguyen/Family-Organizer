@@ -1,0 +1,104 @@
+<testsuites id="" name="" tests="23" failures="1" skipped="0" errors="0" time="80.032824">
+<testsuite name="wallet.spec.ts" timestamp="2026-10-17T22:45:27.469Z" hostname="chromium" tests="23" failures="1" skipped="0" time="77.05" errors="0">
+<testcase name="W06 exact balances, credit availability, scoped accounts and existing Finance remain visible" classname="wallet.spec.ts" time="2.087">
+</testcase>
+<testcase name="W06 create form validates exact money and retains the same command across lost acknowledgement and navigation" classname="wallet.spec.ts" time="2.788">
+</testcase>
+<testcase name="W06 stale revision keeps draft and requires explicit reload before editing again" classname="wallet.spec.ts" time="2.246">
+</testcase>
+<testcase name="W06 archive requires confirmation and retains account history" classname="wallet.spec.ts" time="2.909">
+</testcase>
+<testcase name="W06 phone form keyboard focus, native date and custom selectors remain usable" classname="wallet.spec.ts" time="1.404">
+</testcase>
+<testcase name="W04 grant revocation removes a live edit form and financial details through the real SSE path" classname="wallet.spec.ts" time="1.583">
+</testcase>
+<testcase name="W04 a real cross-tab logout retires the session-owned financial draft" classname="wallet.spec.ts" time="1.786">
+</testcase>
+<testcase name="W05 record income and expense use exact balances and save-and-add only clears after success" classname="wallet.spec.ts" time="3.557">
+</testcase>
+<testcase name="W05 cross-currency transfer and separate fee are one confirmed intent; parent void reverses both" classname="wallet.spec.ts" time="5.045">
+</testcase>
+<testcase name="W06 scoped filters recover explicitly from a missing valuation rate" classname="wallet.spec.ts" time="2.461">
+</testcase>
+<testcase name="W05 record edit retains conflict draft and replays the same note-only write after a lost acknowledgement" classname="wallet.spec.ts" time="2.667">
+</testcase>
+<testcase name="W05 stale void confirmation shows inline failure without silently voiding a changed record" classname="wallet.spec.ts" time="2.668">
+</testcase>
+<testcase name="W04 private receipt PDF/image attach, verified download and confirmed detach keep record money" classname="wallet.spec.ts" time="2.74">
+</testcase>
+<testcase name="W04 an unknown receipt upload survives tab navigation and retries the same committed intent" classname="wallet.spec.ts" time="2.213">
+</testcase>
+<testcase name="W06 combined scoped facets, label any/all and clearing the final choice use one shared filter" classname="wallet.spec.ts" time="3.769">
+</testcase>
+<testcase name="W06 loaded checked rows and a cross-page captured scope remain distinct; later records stay excluded from atomic metadata bulk" classname="wallet.spec.ts" time="9.581">
+</testcase>
+<testcase name="W06 an unknown bulk result survives Finance navigation and explicitly replays the identical committed selection patch and nonce" classname="wallet.spec.ts" time="2.967">
+</testcase>
+<testcase name="W06 a stale bulk confirmation keeps the independent edit and requires a fresh preview without sending a replacement write" classname="wallet.spec.ts" time="2.41">
+</testcase>
+<testcase name="W06 a held privacy refresh preserves an open confirmation so Escape can release its focus and scroll ownership" classname="wallet.spec.ts" time="2.346">
+</testcase>
+<testcase name="W07 Admin builds three-level categories, keeps a rejected fourth-level draft and manages hidden archived history on phone in both themes" classname="wallet.spec.ts" time="3.486">
+</testcase>
+<testcase name="W07 linked categories expose bounded references and offer archive while unlinked labels require explicit delete confirmation" classname="wallet.spec.ts" time="2.937">
+</testcase>
+<testcase name="W07 lost label acknowledgement keeps the exact body and nonce across navigation and explicitly retries without a duplicate" classname="wallet.spec.ts" time="12.028">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeDisabled() failed" type="expect.toBeDisabled">
+<![CDATA[  [chromium] › wallet.spec.ts:294:1 › W07 lost label acknowledgement keeps the exact body and nonce across navigation and explicitly retries without a duplicate 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator: getByTestId('wallet-catalog').getByRole('button', { name: 'Thêm nhãn', exact: true })
+    Expected: disabled
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeDisabled" getByTestId('wallet-catalog').getByRole('button', { name: 'Thêm nhãn', exact: true }) with timeout 10000ms
+      - waiting for getByTestId('wallet-catalog').getByRole('button', { name: 'Thêm nhãn', exact: true })
+
+
+      293 | });
+      294 | test('W07 lost label acknowledgement keeps the exact body and nonce across navigation and explicitly retries without a duplicate',async({page})=>{
+    > 295 |  await login(page,'admin');await catalogTab(page);await catalogPanel(page).getByRole('button',{name:'Nhãn',exact:true}).click();await catalogPanel(page).getByRole('button',{name:'Thêm nhãn',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Thêm nhãn',exact:true});await dialog.getByLabel('Tên',{exact:true}).fill('SYNTHETIC_UI_UNKNOWN_LABEL');const calls:{id:string;body:unknown}[]=[];await page.route('**/api/wallet/labels',async route=>{if(route.request().method()!=='POST')return route.continue();calls.push({id:route.request().headers()['x-request-id'],body:route.request().postDataJSON()});if(calls.length===1){const response=await route.fetch();expect(response.status()).toBe(200);await route.abort('connectionreset');}else await route.continue();});await dialog.getByRole('button',{name:'Lưu',exact:true}).click();await expect(dialog.getByRole('alert')).toContainText('Chưa xác nhận');await page.keyboard.press('Escape');await page.getByTestId('wallet-home').getByRole('button',{name:'Tài khoản',exact:true}).click();await catalogTab(page);await expect(catalogPanel(page).getByRole('alert')).toContainText('Chưa xác nhận');await expect(catalogPanel(page).getByRole('button',{name:'Thêm nhãn',exact:true})).toBeDisabled();await catalogPanel(page).getByRole('button',{name:'Thử lại cùng yêu cầu',exact:true}).click();await expect(catalogPanel(page).getByRole('alert')).toHaveCount(0);await expect(catalogPanel(page).getByRole('heading',{name:'SYNTHETIC_UI_UNKNOWN_LABEL',exact:true})).toBeVisible();expect(calls).toHaveLength(2);expect(calls[1]).toEqual(calls[0]);const catalog=await request(page,'catalog');expect(catalog.body.labels.filter((item:any)=>item.name==='SYNTHETIC_UI_UNKNOWN_LABEL')).toHaveLength(1);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+      296 | });
+      297 | test('W07 Member reads catalog and labels without management controls or mutation permission',async({page})=>{
+      298 |  await login(page);await catalogTab(page);await expect(catalogPanel(page)).toContainText('Admin quản lý danh mục và nhãn');await expect(catalogPanel(page).getByRole('button',{name:'Thêm danh mục',exact:true})).toHaveCount(0);await expect(catalogPanel(page).getByRole('button',{name:'Sửa',exact:true})).toHaveCount(0);await expect(catalogPanel(page).getByRole('button',{name:'Kiểm tra xóa',exact:true})).toHaveCount(0);await catalogPanel(page).getByRole('button',{name:'Nhãn',exact:true}).click();await expect(catalogPanel(page).getByRole('button',{name:'Thêm nhãn',exact:true})).toHaveCount(0);const denied=await request(page,'labels','POST',{expectedRevision:0,input:{name:'SYNTHETIC_MEMBER_DENIED'}});expect(denied.status).toBe(403);expect((await request(page,'catalog')).body.labels.some((item:any)=>item.name==='SYNTHETIC_MEMBER_DENIED')).toBe(false);
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:295:1229
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="W07 Member reads catalog and labels without management controls or mutation permission" classname="wallet.spec.ts" time="1.372">
+</testcase>
+</testsuite>
+</testsuites>

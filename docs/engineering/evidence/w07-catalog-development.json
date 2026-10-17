@@ -1,0 +1,563 @@
+{
+  "taskIds": [
+    "W07 partial",
+    "W04/W06 catalog integration"
+  ],
+  "sourceCommit": "7e871b91920f36f6922507bc7b49855f0b10f7fa",
+  "testedWorkingTreeParent": "40d449d62013cae5499a1bc5de1bd97077cd6c57",
+  "binding": "All 25 frozen source/test SHA256 values match committed Git blobs; Cloud development evidence, not exact-HEAD Actions acceptance",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7426,
+    "files": 404,
+    "junitCases": 7426,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7354,
+    "added": 72,
+    "removed": 0,
+    "newByFile": {
+      "server/wallet/catalog.api.test.ts": 5,
+      "server/wallet/catalog.test.ts": 30,
+      "src/features/wallet/catalogChoices.test.ts": 6,
+      "src/features/wallet/catalogMutationApi.test.ts": 17,
+      "src/features/wallet/catalogWorkspace.test.ts": 14
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "buildBytesMatchActualBrowser": true,
+    "npmCi": "not repeated; dependency/lock unchanged",
+    "fullRegressionRuns": 1
+  },
+  "browser": {
+    "parentCases": 19,
+    "cases": 23,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "40d449d62013cae5499a1bc5de1bd97077cd6c57",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "6fe8305c1aab4a2a00be3bff96ebcd635dcc9cb1694a79463d8ed86c979e477d",
+        "index": "98fcc35214bf4dd4172739a44347eed2d30a2a8c52d468a5b1883a3bfa4e5064"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 6,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "1c6cb571-cd31-4a89-bdc1-9ca93dae949d",
+        "creditId": "173e863c-8f52-4751-95d7-08616dee2294",
+        "hiddenId": "5e673678-5a4b-4383-b822-e1dc62bd223e",
+        "readId": "b4893fc4-d098-45f1-afb1-23446b402ad9",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "sourceSha256": {
+    "server/wallet/catalog.api.test.ts": "72a4aef34288b170d518032a5053ab9251ddcd21a6aaeb56afe5bc5634dd0925",
+    "server/wallet/catalog.test.ts": "a2e935865cee39286141744d8014d886993eda214cbfd6e81ff65a4e3bf69c0a",
+    "server/wallet/catalog.ts": "8e2d46ae7ef0e1b5210feb820b6afef82eab658fa0d2105acfa3399677b0aa08",
+    "server/wallet/ports.ts": "66b6ad52b429790616a082d03777600787582501bca0fd9e6f69f21ea24f9843",
+    "server/wallet/router.ts": "630ea2c343bbcd5785e3055fec141830d725665351116579a7310c09d13cf7a6",
+    "server/wallet/store.ts": "36751324eb524d50e480d1683fde7a0b40da15ce392acdafdf4cf0a757e64f9b",
+    "src/features/wallet/BulkPanel.tsx": "a5e37c2945bc6d88e92234a1373f5843c513a8eb5655f541be860d916f72dabc",
+    "src/features/wallet/Catalog.tsx": "05a439ee880081284b361e2ef28a3b3546f5ebd3944ba547e0ccf575a3050a2a",
+    "src/features/wallet/CatalogForm.tsx": "849a8fbb004517f9506c0e6a3b57c3813557e2387375d8c8209364c4219e0064",
+    "src/features/wallet/RecordForm.tsx": "9e213ede78e53c2669c6164cf9dd2e4dc77f336903c5e9125b1df9ffff571705",
+    "src/features/wallet/WalletHome.tsx": "d2e32013979dd458a4a748161b232b8ef3ee16877251841fef3b6ac6b03a6f3b",
+    "src/features/wallet/api.ts": "9922e899e340a958c06201c858bb8ce05f38f2e4d3e4002d890de3bf29026937",
+    "src/features/wallet/catalogChoices.test.ts": "d76406f7f53d468f6195a906c23406ab99987e5c18cb5e823851315716527ba5",
+    "src/features/wallet/catalogChoices.ts": "af8282092db24ce0af654880e9a43f4cae68225d945b73db6d4e1b6176b6cae7",
+    "src/features/wallet/catalogDto.ts": "489b503f9be9d1aabf5b2160ebdc235871a7e23fb1c44d9170bd0440aa3b25db",
+    "src/features/wallet/catalogMutationApi.test.ts": "37a1cfc8f9e9cdccabb8ec8032373713ac319c3964066269403de50d136f8240",
+    "src/features/wallet/catalogReferences.ts": "73bcaceb760a7af8e95d9f79c252a16678754cfad4170c6d9132fe7bbafb0c3c",
+    "src/features/wallet/catalogWorkspace.test.ts": "5e202a5b9173b2e232f75c90578a5f66281a2f83d1164ab12941059c7f2e7702",
+    "src/features/wallet/catalogWorkspace.ts": "b56024e78895d74426a6adf5af969e6aa63ce0399efbc1c2e9af868e95b7c616",
+    "src/features/wallet/contracts.ts": "e3ca56673fa5406721c9c728a99b01a144cfff93f29c13e4cc6c16499f6fa10f",
+    "src/features/wallet/useWallet.ts": "90b1320edb017d4d181acadcfa88bbee63ca97d65afbac12db4a8c104b9cb4b8",
+    "src/i18n/locales/en.json": "310e317e8ce7db92c0b3a85e039ab685f676f0c1db397971e5f55f375e831ee6",
+    "src/i18n/locales/vi.json": "91f5f3fc9cf8a47f56c7df86da4cb1df2c00db3eee17c852dea4d5505c223f9d",
+    "src/i18n/locales/zh.json": "b2221e8fb3db2338084bbe1c9828f18a34ecc79faf99978d56bd8b6681832b5f",
+    "tests/e2e/wallet.spec.ts": "6f46ccd5467954f46730a28462ddf74cce0931a64ba7a554db9fe0457f39dc34"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "reports": {
+    "/workspace/family-evidence/w07-catalog-workspace-red.log": {
+      "bytes": 290,
+      "sha256": "ea68c3f142a784f1c13cc1cb5e054d09257f0c2be9584ddccfb71f80ae7cfaf4"
+    },
+    "/workspace/family-evidence/w07-catalog-frozen.json": {
+      "bytes": 2861,
+      "sha256": "dfa6b62ab8308b382f611a426af6450e58e76bb8fca4f9a8ed9a266a4e655c4f"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified-build.log": {
+      "bytes": 1795,
+      "sha256": "91f3ce6790aadd78a8cd5d84fab4d99cb33fcb51118614a7c34e76336927d92a"
+    },
+    "/workspace/family-evidence/w07-catalog-workspace-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-admin-policy.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-admin-policy.json": {
+      "bytes": 8842,
+      "sha256": "d7b12be1888b3f09c4bd613f71367caa737abee534707e22aafb9bb68cf58331"
+    },
+    "/workspace/family-evidence/w07-catalog-choices-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-catalog-preview-race-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-catalog-final-lint.log": {
+      "bytes": 475,
+      "sha256": "fe202894de8522945aaa61a8d5408c42cc30d3eaf50fc39cc229e844f991fa8c"
+    },
+    "/workspace/family-evidence/w07-catalog-preview-race-fixed.json": {
+      "bytes": 5245,
+      "sha256": "88ba57f6e8e46a1402ccde36582b8eebad70f68d654eb8cd40170bc7d657242a"
+    },
+    "/workspace/family-evidence/w07-catalog-navigation-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified.junit.xml": {
+      "bytes": 1506349,
+      "sha256": "b5ac9bc60a5bf5d5f56bf2a39e22fd58adb8458303ead9d096cae88717e93038"
+    },
+    "/workspace/family-evidence/w07-catalog-red.log": {
+      "bytes": 429,
+      "sha256": "d5fbd3d2180bacfe0175af284e444e94c7907cd5de75f7913016f228dd3eca2d"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified-browser.log": {
+      "bytes": 4040,
+      "sha256": "0b88a64f711b34b9483cdefe7c8067a8b3ff41442e20cb8ea7f4cdaa742e7f24"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified.log": {
+      "bytes": 86105,
+      "sha256": "5af9fb40442012cbd800c4720477f9326e8c3926b47cb5e904d7f76b3f6e3e88"
+    },
+    "/workspace/family-evidence/w07-catalog-duplicates-red.json": {
+      "bytes": 11006,
+      "sha256": "d70582ae27c84930cb0db966204a1329eb04a5d37c79e8e39f54d8e8f1dd4e60"
+    },
+    "/workspace/family-evidence/w07-catalog-integrated-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-duplicates-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first.log": {
+      "bytes": 11599,
+      "sha256": "8fff2d3697d928d7c16a4802ba823660cc6d6b88bec3a9ae7ff94a2dfdaf8ffe"
+    },
+    "/workspace/family-evidence/w07-catalog-api-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-workspace-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-catalog-sdk-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-notifications-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-fixed-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-navigation-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-catalog-workspace-red.json": {
+      "bytes": 798,
+      "sha256": "d6affc0abfe3e1f8f5a03b714eed13e9d2ed49020c8bb459743594c940ffa50b"
+    },
+    "/workspace/family-evidence/w07-catalog-first.log": {
+      "bytes": 433,
+      "sha256": "8b394632cb30747f8507fea48f207afffc30f094e2eb437d8436447b04c1d467"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-first-build.log": {
+      "bytes": 2004,
+      "sha256": "83831059e2727f5b3d697feb19bed0b5e425c7d132171cf7ac25b2081b4bb39e"
+    },
+    "/workspace/family-evidence/w07-catalog-self-review.json": {
+      "bytes": 3629,
+      "sha256": "7c9a23fd98f12b3bdbd1ccde7d5a4fc9571af37ccf2aed30a7f545ff77041506"
+    },
+    "/workspace/family-evidence/w07-catalog-preview-race-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-history-first.json": {
+      "bytes": 25334,
+      "sha256": "3f238664abf26d91503b635b634078e06375480f342c372cc8164bd9818b278c"
+    },
+    "/workspace/family-evidence/w07-catalog-integrated-first.json": {
+      "bytes": 22389,
+      "sha256": "9c1484e3d93a001f2933ad2d476d124740738e6f14552d03430d81617566d300"
+    },
+    "/workspace/family-evidence/w07-catalog-integrated-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-catalog-history-first.log": {
+      "bytes": 522,
+      "sha256": "bb9b2e18600462caa1f4c76bec90c37a3393b9fb0c4e91e0214c3bf0e9fa3bc6"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-preview-race-red.log": {
+      "bytes": 293,
+      "sha256": "b08bca90fcf7fcdd8b52368221b7717f735459715813cd1e106f8ebfa0231b19"
+    },
+    "/workspace/family-evidence/w07-catalog-sdk-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-catalog-workspace-first.log": {
+      "bytes": 292,
+      "sha256": "c0dfad8283a72dffbf74dcf54fcda36362a1fb466633af904e5423d2cfc84d3c"
+    },
+    "/workspace/family-evidence/w07-catalog-development-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-fixed-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-catalog-red.json": {
+      "bytes": 759,
+      "sha256": "2f4bd1a294fcf3f90001fe6462588e993ba6bf5b7de1e9936d5a512dd680accb"
+    },
+    "/workspace/family-evidence/w07-catalog-notifications-first.json": {
+      "bytes": 14871,
+      "sha256": "0cdc8227d8e46f0fee7464107352d6e505c017877a2f17ffa0ea4e52b6fee57b"
+    },
+    "/workspace/family-evidence/w07-catalog-first.json": {
+      "bytes": 8217,
+      "sha256": "8a94cf60040de598436d612e2a7bf8fad503adc4107827ca5a3499a7a6ff713a"
+    },
+    "/workspace/family-evidence/w07-catalog-choices-red.log": {
+      "bytes": 458,
+      "sha256": "e1564c239c69a5634cf9c60678ec165c926ce0884d359ff0ae637eb070f6f11d"
+    },
+    "/workspace/family-evidence/w07-catalog-ui-lint.log": {
+      "bytes": 1209,
+      "sha256": "8f249cb8775514ff472887f70315671115d53706ee572640fe259548d7fa566a"
+    },
+    "/workspace/family-evidence/w07-catalog-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-catalog-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-duplicates-red.log": {
+      "bytes": 471,
+      "sha256": "94847f8090439627bedf58b4bbd60df3cc8383c5c86cb259f2d442a218ba4dfe"
+    },
+    "/workspace/family-evidence/w07-catalog-ui-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w07-catalog-notifications-first.log": {
+      "bytes": 532,
+      "sha256": "a451050163ddcb2cfc5940e9cd7900c7f5760768401c1e36f64e0218ec09a641"
+    },
+    "/workspace/family-evidence/w07-catalog-sdk-first.log": {
+      "bytes": 563,
+      "sha256": "5272639f76e26af5723308da31bec8fe46c44df0c539f7bf3784e7a99e8369b4"
+    },
+    "/workspace/family-evidence/w07-catalog-final-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w07-catalog-sdk-first.json": {
+      "bytes": 17760,
+      "sha256": "e84260b952939fdbeddd6f953dc2a69fa7469b53507f30706a11957734816a04"
+    },
+    "/workspace/family-evidence/w07-catalog-choices-red.json": {
+      "bytes": 792,
+      "sha256": "99dd759c6b3ca8e26e92c1063f4b23e6dc16ddcfae6d92969372e1be03652c87"
+    },
+    "/workspace/family-evidence/w07-catalog-admin-policy.log": {
+      "bytes": 447,
+      "sha256": "df9f5536731cbb5d1b779b4ee2094c0cf4a3ee9f7f8a06db4f6ddaa7acff7b94"
+    },
+    "/workspace/family-evidence/w07-catalog-first-frozen.json": {
+      "bytes": 2861,
+      "sha256": "91e1382435ecf94788a7770fac5ab7536876ba117af957098e3f8c045f3b6e14"
+    },
+    "/workspace/family-evidence/w07-catalog-navigation-fixed.json": {
+      "bytes": 4979,
+      "sha256": "cc57d86a7553098d466b5e9a414e1d65e4e3cdaa94eae5d3223a0bab788fcfce"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w07-catalog-api-first.log": {
+      "bytes": 551,
+      "sha256": "c94aea1b0b2aff8ff5b768b91c232b9e6cdde612e514d18cd90d5c47a633b4a0"
+    },
+    "/workspace/family-evidence/w07-catalog-sdk-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-preservation.json": {
+      "bytes": 19558,
+      "sha256": "b64f47a1e8655a3fefd72014d9b422291798519d3f8f467bd88c018de23bc45f"
+    },
+    "/workspace/family-evidence/w07-catalog-navigation-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-workspace-first.json": {
+      "bytes": 4656,
+      "sha256": "020a99e0eadd6c8b6d7cc4c7eab1cb945501aceb03bdff42f0a6af65aa36a392"
+    },
+    "/workspace/family-evidence/w07-catalog-preview-race-red.json": {
+      "bytes": 5585,
+      "sha256": "860e47e6e2c3f205f787c1e8158003bf5512fcc67792dcdf795055e258ec6d77"
+    },
+    "/workspace/family-evidence/w07-catalog-api-first.json": {
+      "bytes": 21944,
+      "sha256": "1d38629b1969d02e0bcc4e3299d6b4051b283889a0d2459eb05cf6977db0a219"
+    },
+    "/workspace/family-evidence/w07-catalog-history-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified-browser.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-preview-race-fixed.log": {
+      "bytes": 295,
+      "sha256": "71a52deaba033e3daba6474d1c3603cd4df48b432471d02421434ca2e74000c5"
+    },
+    "/workspace/family-evidence/w07-catalog-navigation-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-navigation-fixed.log": {
+      "bytes": 293,
+      "sha256": "59307d47f970b4a2fa50f507caa1bad92506d41b2b516c06a3a980f3d996702f"
+    },
+    "/workspace/family-evidence/w07-catalog-development-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-catalog-navigation-build.log": {
+      "bytes": 2004,
+      "sha256": "47a48570a80c101b1eb031fd7a5a7ff9899e5c32172dc1115448fde00e5bf774"
+    },
+    "/workspace/family-evidence/w07-catalog-first-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-catalog-integrated-fixed.json": {
+      "bytes": 24288,
+      "sha256": "9fd349b2f0ada8a4990463df5a30b324efaff013748baeff02c545ff1a4ff3a5"
+    },
+    "/workspace/family-evidence/w07-catalog-qualified.json": {
+      "bytes": 2159583,
+      "sha256": "13f45918f7c9e363d8a4aed3a5865563045826870dbb91222f8f7d6d7685056a"
+    },
+    "/workspace/family-evidence/w07-catalog-integrated-first.log": {
+      "bytes": 293,
+      "sha256": "c763703a00f2bb05fb4e16a81f1f4caa280c9fd32b8178d896248c95fd25fd2d"
+    },
+    "/workspace/family-evidence/w07-catalog-integrated-fixed.log": {
+      "bytes": 293,
+      "sha256": "8a7955143a8e69918f60193adbbb10863b54223c3378067fd7141590670de3c0"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first-artifacts/browser.junit.xml": {
+      "bytes": 11911,
+      "sha256": "05154c03a77bb228d1d686b99459ecf4eb658c0a01c6211d059f93aa2bb3605e"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first-artifacts/fixture.json": {
+      "bytes": 1194,
+      "sha256": "951e0a53f328f02aec01bd790ba031884f4df4677202b8c6958f2207dd9bc25e"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first-artifacts/browser.json": {
+      "bytes": 42114,
+      "sha256": "792e782f7f173ff4f5551f678e28c5ca577be9fcae10d9077040f723381ea9e9"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first-artifacts/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/error-context.md": {
+      "bytes": 49121,
+      "sha256": "f6157e791e4b4ea2ba82ed31b1c8a2a4c71e9bcc909f22441181f3458b131333"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first-artifacts/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/test-failed-1.png": {
+      "bytes": 168416,
+      "sha256": "bac5d3c49b78e2c73b0eb0c52efbc8f2bccee52a93c6b2ec09a50606d61667e6"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-first-artifacts/results/wallet-W07-lost-label-ackn-dae8c-retries-without-a-duplicate-chromium/trace.zip": {
+      "bytes": 4834597,
+      "sha256": "4c28ee3bffc0eed9ce63373a4ebe1364d4b41a76fbf4a863af708fa48d7d4332"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1146,
+      "sha256": "75f05ea8ade0468274f6891b4868dd10788a4ffb1f713a69a7248c74330af7a2"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-qualified-artifacts/browser.json": {
+      "bytes": 29579,
+      "sha256": "07db4475a030ea6609b508769690cc4172b9445a952e357b75bf0293e168be0c"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 4159,
+      "sha256": "5f7e68a48fea0f4938fc0ee2ff2d63e8146f5365987b63f6b6ab29bfb8da86f9"
+    },
+    "/workspace/family-evidence/w07-catalog-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  },
+  "developmentFailures": {
+    "browserFirst": {
+      "passed": 22,
+      "failed": 1,
+      "cause": "Catalog component-local kind reset from label to category after navigation; real DOM showed disabled Add category while an unknown label command remained",
+      "fix": "Session owner retains kind across navigation/refresh and retires stale deletion previews on kind/editor changes; all browser assertions/selectors/deadlines unchanged",
+      "regressions": "two new owner cases; preview race RED retained",
+      "junit": "docs/engineering/evidence/w07-catalog-browser-first.junit.xml"
+    },
+    "builds": "Three builds correspond to source/UI navigation and preview-race fixes, not unchanged reruns"
+  },
+  "retainedFullJUnit": {
+    "path": "docs/engineering/evidence/w07-catalog-cloud.junit.xml.gz",
+    "bytes": 205632,
+    "sha256": "2190565cab69a96b2d8050097a5a2517fefe4fc23f4b04faad0fa3796660942f"
+  },
+  "retainedFullLog": {
+    "path": "docs/engineering/evidence/w07-catalog-cloud.log.gz",
+    "bytes": 15016,
+    "sha256": "a98f4638c0955e89344a6c681768d534faa7a4dd1b795ae84bbfb90a48ae67a6"
+  },
+  "preservedBrowserArtifacts": "/workspace/family-evidence/w07-catalog-browser-qualified-artifacts",
+  "review": {
+    "kind": "LOCAL SELF author inspection; not independent whole-branch review",
+    "paths": [
+      "server/wallet/catalog.api.test.ts",
+      "server/wallet/catalog.test.ts",
+      "server/wallet/catalog.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/router.ts",
+      "server/wallet/store.ts",
+      "src/features/wallet/BulkPanel.tsx",
+      "src/features/wallet/Catalog.tsx",
+      "src/features/wallet/CatalogForm.tsx",
+      "src/features/wallet/RecordForm.tsx",
+      "src/features/wallet/WalletHome.tsx",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/catalogChoices.test.ts",
+      "src/features/wallet/catalogChoices.ts",
+      "src/features/wallet/catalogDto.ts",
+      "src/features/wallet/catalogMutationApi.test.ts",
+      "src/features/wallet/catalogReferences.ts",
+      "src/features/wallet/catalogWorkspace.test.ts",
+      "src/features/wallet/catalogWorkspace.ts",
+      "src/features/wallet/contracts.ts",
+      "src/features/wallet/useWallet.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts"
+    ],
+    "closed": [
+      "Existing legacy category management is Admin-only; shared Wallet category and label mutations retain that policy. Current undeleted adults may read/select; fresh capability query gates controls.",
+      "I01 is the sole writer/idempotency owner; revisions, native rollback, no-op receipts and postcommit-only family-adult SSE are tested. Accepted schema/dependency/lock/workflow bytes remain unchanged.",
+      "New/reparented subtrees are cycle-free and at most three levels; historical deeper trees remain valid and can receive metadata-only edits. Parent options exclude descendants iteratively.",
+      "Hidden/archive ancestry removes descendants only from new record/bulk choices; existing catalog and record associations remain available for history.",
+      "Physical deletion refuses child/record/allocation/migration history links. Visible counts require full record ACL and are bounded; restricted associations disclose no financial IDs, names, amounts or hidden count. Errors/SDK only accept the exact bounded reference shape.",
+      "Case/Unicode-normalized sibling and label names reject duplicates without rewriting historical duplicates; client permits explicit name correction, while stale revisions require explicit reload.",
+      "Session-owned drafts and exact nonce/payload survive lost acknowledgement/navigation. Unknown writes block replacement/discard, later 403 remains unknown, and session disposal retires late work.",
+      "Revalidation synchronously removes catalog/draft/reference counts; fresh Member capability hides editors. No financial response bodies are retained in public command receipts.",
+      "UI uses associated labels, FancySelect, useModalA11y, useConfirm, inline errors, existing theme tokens and vi/en/zh; bounded pagination searches the whole accepted catalog.",
+      "All parent full-suite and browser identities/assertions are retained; native browser fixture verifies no external calls, normal stop, integrity, legacy retention and closed handles."
+    ],
+    "remaining": [
+      "W07 templates, clone and split allocations; legacy canonical write bridge remains a cutover gate.",
+      "Production protected/encrypted receipt-restore host and Admin binding, financial remediation/raw legacy backup/cutover/retention.",
+      "Remaining Wallet/M1/I02/I03/master feature and acceptance work.",
+      "Final independent whole-branch review and exact-HEAD Windows CI, other engines/native touch, large performance/package/service; actual Server2019R02 separate."
+    ],
+    "noIndependentReview": true
+  },
+  "notRun": [
+    "W07 templates/clone/split not yet implemented",
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "large Windows performance acceptance",
+    "actual Server2019R02",
+    "production data/secrets/real providers (prohibited)"
+  ],
+  "releaseTagVps": "none"
+}
