@@ -1,3 +1,5 @@
+import {useBoardLayoutSettings}from'./useBoardLayoutSettings.js';
+import {KanbanLayoutSettings}from'./KanbanLayoutSettings.js';
 import {createReviewCommandState}from'./reviewCommandState.js';
 import {KanbanReviewActions,type ReviewDraft}from'./KanbanReviewActions.js';
 import {KanbanTransitionActions}from'./KanbanTransitionActions.js';
@@ -24,10 +26,12 @@ export function KanbanWorkspace({users,currentUser,canManageColumns=false}:{user
  const reviewCommands=useMemo(()=>{const api=workspace.state.api;return createReviewCommandState({...api,onCommitted:()=>reviewLatest.current.api===api&&reviewLatest.current.ready?reviewLatest.current.refresh():Promise.resolve()});},[workspace.state.api]),reviewMounted=useRef<typeof reviewCommands|null>(null);
  useEffect(()=>{reviewMounted.current=reviewCommands;return()=>{reviewMounted.current=null;queueMicrotask(()=>{if(reviewMounted.current!==reviewCommands)reviewCommands.dispose();});};},[reviewCommands]);
  useEffect(()=>{reviewCommands.select(null);setReviewDraft(null);},[reviewCommands,currentUser?.id,currentUser?.role]);
- const choose=(id:string)=>{if(id!==workspace.selected){reviewCommands.select(null);setReviewDraft(null);}workspace.choose(id);};
+ const layoutSettings=useBoardLayoutSettings({api:workspace.state.api,actorKey:JSON.stringify([currentUser?.id,currentUser?.role]),ready:workspace.ready,viewsLoaded:workspace.viewsLoaded,canManage:canManageColumns,view:saved,queryEpoch:workspace.state.queryEpoch,onCommitted:async()=>{controller.clear();await workspace.state.refresh();}});
+ const choose=(id:string)=>{if(id!==workspace.selected){layoutSettings.commands.clear();reviewCommands.select(null);setReviewDraft(null);}workspace.choose(id);};
  if(!workspace.ready)return <p aria-live="polite" className="text-sm text-slate-400">{t('productivityKanban.loading')}</p>;
  return <section className="space-y-4 min-w-0" aria-label={t('productivityKanban.workspace')}>
   <div className="grid grid-cols-1 md:grid-cols-2 gap-3"><FancySelect ariaLabel={t('productivityKanban.picker')} value={workspace.selected} options={[{value:'',label:t('productivityKanban.choose')},...workspace.views.map(v=>({value:v.id,label:v.title}))]} onChange={choose}/><FancySelect ariaLabel={t('productivityKanban.timezone')} value={workspace.timezone} options={['Asia/Saigon','UTC','Europe/London','America/New_York'].map(value=>({value,label:value}))} onChange={workspace.setTimezone}/></div>
+  {canManageColumns&&saved?.config.kind==='kanban'&&saved.config.mode==='sections'&&saved.config.group==='none'&&<KanbanLayoutSettings commands={layoutSettings.commands} state={layoutSettings.snapshot} ready={workspace.ready&&snapshot.selection?.kind==='canonical'&&snapshot.page?.viewId===saved.id&&(snapshot.page as BoardPage).boardId===saved.config.boardId&&(!layoutSettings.snapshot.layout||layoutSettings.snapshot.layout.viewId===saved.id&&layoutSettings.snapshot.layout.boardId===saved.config.boardId)} onReload={()=>{layoutSettings.reload();void controller.refresh();}}/>}
   {workspace.views.length===0&&<p className="text-sm text-slate-500">{t('productivityKanban.noViews')}</p>}
   {(workspace.error||snapshot.error)&&<p role="alert" className="text-[11px] text-rose-400">{t('productivityKanban.failed')}</p>}
   {!snapshot.page&&workspace.selected&&<button type="button" className="bg-slate-900 neu-btn rounded-xl px-4 py-2.5 text-xs text-slate-200 cursor-pointer disabled:opacity-60" disabled={snapshot.loading} onClick={()=>void controller.refresh()}>{snapshot.loading?t('productivityKanban.loading'):t('productivityKanban.reload')}</button>}

@@ -13,5 +13,5 @@ export function useKanbanWorkspace(){
  useEffect(()=>{if(!ready||!view||group===undefined){controller.clear();return;}void controller.load({viewId:view.id,kind:group==='none'?'canonical':'grouped',timezone});},[controller,ready,selected,revision,group,timezone,state.queryEpoch]);
  const choose=(id:string)=>{if(id===selection.current)return;controller.clear();setError(false);setChoice({owner:controller,id});};
  const open=async(id:string)=>{const current=latest.current,viewId=selection.current;if(!current.enabled||current.loading||current.error||!current.online||!viewId||mounted.current!==controller)return;setError(false);try{const opened=await openCanonicalTask({...current,current:()=>mounted.current===controller&&selection.current===viewId&&latest.current.enabled&&!latest.current.loading&&!latest.current.error&&latest.current.online},id);if(!opened&&mounted.current===controller)setError(true);}catch{if(mounted.current===controller)setError(true);}};
- return {state,controller,snapshot,ready,views,selected,choose,timezone,setTimezone,error,open};
+ return {state,controller,snapshot,ready,viewsLoaded:ready&&owned?.owner===controller,views,selected,choose,timezone,setTimezone,error,open};
 }

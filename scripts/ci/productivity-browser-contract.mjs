@@ -46,6 +46,9 @@ export const productivityBrowserCases=[
  'P09 C37 pending Review hides child commands and adult rejection requires reason while cancel preserves proof and points',
  'P09 C38 adult Review confirmation preserves proof deadline and a native UUID replay grants points once',
  'P09 C39 unknown review send retains reason and UUID across an unrelated authorized board refresh',
+ 'P09 C40 keyboard column create rename and ordering preserve Task proof deadline and points',
+ 'P09 C41 archive preview covers off-filter Tasks cancel writes nothing and native replay preserves one classification change',
+ 'P09 C42 uncertain column creation retains its original request after actual delivery and an unrelated authorized refresh',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat,workers:productivityBrowserWorkers,fixtureVersion:productivityFixtureVersion}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases,{workers:productivityBrowserWorkers})];
