@@ -45,8 +45,8 @@ it('read-only recovery inspection admits the same registered Wallet schema and e
  setup();seed();expect(inspectWalletStorage(reader)).toBe(true);const saved=capture();expect(()=>inspectRecoverySnapshot(saved,sqlite.sqliteConnection().name)).not.toThrow();sqlite.sqliteSave(sqlite.sqliteLoad());expect(capture().tables.wallet_postings).toEqual(saved.tables.wallet_postings);
 });
 it('future Wallet migration is refused by the pure inspector without schema changes',()=>{
- setup();sqlite.sqliteConnection().prepare("INSERT INTO app_migrations VALUES('wallet',4,'future','2026-10-15T00:00:00Z')").run();
- try{const schema=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');expect(()=>inspectWalletStorage(reader)).toThrow(/Unsupported.*[Ww]allet/);expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(schema);}finally{sqlite.sqliteConnection().prepare("DELETE FROM app_migrations WHERE namespace='wallet' AND version=4").run();}
+ setup();sqlite.sqliteConnection().prepare("INSERT INTO app_migrations VALUES('wallet',5,'future','2026-10-15T00:00:00Z')").run();
+ try{const schema=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');expect(()=>inspectWalletStorage(reader)).toThrow(/Unsupported.*[Ww]allet/);expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(schema);}finally{sqlite.sqliteConnection().prepare("DELETE FROM app_migrations WHERE namespace='wallet' AND version=5").run();}
 });
 it('registered Wallet storage survives a fresh source bootstrap without automatic migration or activation',async()=>{
  setup();seed();const {execFileSync}=await import('node:child_process');

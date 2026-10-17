@@ -1,3 +1,5 @@
+import {walletLegacyMigrationColumns} from './legacyMigrationSchema.js';
+import {validateWalletLegacyTables} from './legacyMigrationData.js';
 import type {WalletTx} from './store.js';
 import {createHash} from 'node:crypto';
 import {minorInteger,currencyExponent} from '../../src/features/wallet/money.js';
@@ -9,19 +11,19 @@ import {object,keys,text,integer,choice} from '../../src/features/productivity/v
 export const walletSnapshotColumns={
  wallet_currencies:['code','exponent'],wallet_accounts:['id','name','type','currency','owner_user_id','access_mode','opening_minor','opening_date','revision','archived_at'],wallet_account_grants:['account_id','user_id','permission'],wallet_categories:['id','parent_id','name','nature','archived_at'],wallet_labels:['id','name','archived_at'],wallet_schedules:['id','payload_json'],wallet_occurrences:['id','schedule_id','due_date'],wallet_records:['id','kind','effective_date','timezone','source','external_key','note','settlement_status','creator_id','revision','category_id','occurrence_id'],wallet_postings:['record_id','account_id','effective_date','delta_minor'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id','amount_minor'],wallet_audit:['id','record_id','actor_id','action'],
 } as const;
-export function walletTablesAt(version:number):Record<string,readonly string[]> {if(version===1)return walletSnapshotColumns;if(version===2)return {...walletSnapshotColumns,...walletMetadataColumns};if(version===3)return {...walletSnapshotColumns,...walletMetadataColumns,...walletFinancialColumns};throw Error('Unsupported Wallet storage version');}
+export function walletTablesAt(version:number):Record<string,readonly string[]> {if(version===1)return walletSnapshotColumns;if(version===2)return {...walletSnapshotColumns,...walletMetadataColumns};if(version===3)return {...walletSnapshotColumns,...walletMetadataColumns,...walletFinancialColumns};if(version===4)return {...walletSnapshotColumns,...walletMetadataColumns,...walletFinancialColumns,...walletLegacyMigrationColumns};throw Error('Unsupported Wallet storage version');}
 export const moneyColumns:Record<string,readonly string[]>={wallet_accounts:['opening_minor'],wallet_postings:['delta_minor'],wallet_allocations:['amount_minor'],wallet_account_metadata:['credit_limit_minor'],wallet_record_fx:['debit_minor','credit_minor']};
 const metadataPrimaryKeys=Object.fromEntries(Object.entries(walletMetadataColumns).map(([name,columns])=>[name,[columns[0]]]));
-const primaryKeys:Record<string,readonly string[]>={...metadataPrimaryKeys,wallet_record_fx:['record_id'],wallet_transfer_fees:['transfer_record_id'],wallet_currencies:['code'],wallet_account_grants:['account_id','user_id'],wallet_postings:['record_id','account_id'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id']};
-const nullable=new Set(['archived_at','parent_id','external_key','category_id','occurrence_id','record_id','created_at','updated_at','created_by','updated_by','occurred_at','reviewed_at','credit_limit_minor','due_day','before_json','after_json']);
+const primaryKeys:Record<string,readonly string[]>={...metadataPrimaryKeys,wallet_legacy_links:['run_id','source_kind','parent_id','legacy_id'],wallet_record_fx:['record_id'],wallet_transfer_fees:['transfer_record_id'],wallet_currencies:['code'],wallet_account_grants:['account_id','user_id'],wallet_postings:['record_id','account_id'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id']};
+const nullable=new Set(['target_id','reason','archived_at','parent_id','external_key','category_id','occurrence_id','record_id','created_at','updated_at','created_by','updated_by','occurred_at','reviewed_at','credit_limit_minor','due_day','before_json','after_json']);
 type Row=Record<string,string|number|null>;
 export interface WalletSnapshot {schemaVersion:number;tables:Record<string,Row[]>;checksum:string}
 export function walletSnapshotChecksum(snapshot:WalletSnapshot):string{return createHash('sha256').update(JSON.stringify({schemaVersion:snapshot.schemaVersion,tables:snapshot.tables})).digest('hex');}
 export function validate(value:unknown,userIds?:Set<string>):asserts value is WalletSnapshot {
- const raw=object(value);keys(raw,['schemaVersion','tables','checksum']);if(![2,3,4].includes(raw.schemaVersion as number)||typeof raw.checksum!=='string'||raw.checksum!==walletSnapshotChecksum(raw as unknown as WalletSnapshot))throw Error('Unsupported or invalid Wallet snapshot');const definitions=walletTablesAt((raw.schemaVersion as number)-1),tables=object(raw.tables);keys(tables,Object.keys(definitions));if(Object.keys(tables).length!==Object.keys(definitions).length)throw Error('Incomplete Wallet snapshot');
+ const raw=object(value);keys(raw,['schemaVersion','tables','checksum']);if(![2,3,4,5].includes(raw.schemaVersion as number)||typeof raw.checksum!=='string'||raw.checksum!==walletSnapshotChecksum(raw as unknown as WalletSnapshot))throw Error('Unsupported or invalid Wallet snapshot');const definitions=walletTablesAt((raw.schemaVersion as number)-1),tables=object(raw.tables);keys(tables,Object.keys(definitions));if(Object.keys(tables).length!==Object.keys(definitions).length)throw Error('Incomplete Wallet snapshot');
  for(const [name,columns]of Object.entries(definitions)){
   const rows=tables[name];if(!Array.isArray(rows)||rows.length>100000)throw Error('Invalid Wallet snapshot rows');const seen=new Set<string>();
-  for(const value of rows){const row=object(value);keys(row,[...columns]);if(Object.keys(row).length!==columns.length)throw Error('Incomplete Wallet snapshot row');for(const column of columns){const v=row[column];if(v===null){if(!nullable.has(column)||column==='record_id'&&name!=='wallet_audit')throw Error('Unexpected Wallet null');continue;}if(moneyColumns[name]?.includes(column)){minorInteger(v);if(column==='amount_minor'&&BigInt(v as string)<0n)throw Error('Negative allocation');}else if(['revision','exponent','due_day','hidden','excluded_from_stats'].includes(column))integer(v,column==='revision'||column==='due_day'?1:0,column==='exponent'?8:column==='due_day'?31:column==='hidden'||column==='excluded_from_stats'?1:Number.MAX_SAFE_INTEGER);else{text(v,column==='note'||column==='before_json'||column==='after_json'?100000:column==='payload_json'?20000:column==='name'||column==='action'||column==='payee'?500:256,!['note','payee','payment_method','icon','color'].includes(column));}}
+  for(const value of rows){const row=object(value);keys(row,[...columns]);if(Object.keys(row).length!==columns.length)throw Error('Incomplete Wallet snapshot row');for(const column of columns){const v=row[column];if(v===null){if(!nullable.has(column)||column==='record_id'&&name!=='wallet_audit')throw Error('Unexpected Wallet null');continue;}if(moneyColumns[name]?.includes(column)){minorInteger(v);if(column==='amount_minor'&&BigInt(v as string)<0n)throw Error('Negative allocation');}else if(['revision','exponent','due_day','hidden','excluded_from_stats','migration_version','accounts_count','categories_count','records_count','quarantined_count','unlinked_count','receipts_pending_count'].includes(column))integer(v,column==='revision'||column==='due_day'?1:0,column==='exponent'?8:column==='due_day'?31:column==='hidden'||column==='excluded_from_stats'?1:Number.MAX_SAFE_INTEGER);else{text(v,column==='note'||column==='before_json'||column==='after_json'?100000:column==='payload_json'||column==='detail_json'?20000:column==='name'||column==='action'||column==='payee'?500:256,!['note','payee','payment_method','icon','color'].includes(column));}}
    const identity=JSON.stringify((primaryKeys[name]??['id']).map(column=>row[column]));if(seen.has(identity))throw Error('Duplicate Wallet snapshot key');seen.add(identity);
   }
  }
@@ -43,12 +45,13 @@ export function validate(value:unknown,userIds?:Set<string>):asserts value is Wa
  for(const r of rows.wallet_allocations){ref(records,r.record_id);ref(categories,r.category_id);}
  for(const r of rows.wallet_audit){ref(records,r.record_id,true);user(r.actor_id);}
  if((raw.schemaVersion as number)>=3)validateWalletMetadataTables(rows,userIds);
- if(raw.schemaVersion===4)validateWalletFinancialTables(rows);
+ if((raw.schemaVersion as number)>=4)validateWalletFinancialTables(rows);
+ if(raw.schemaVersion===5)validateWalletLegacyTables(rows,userIds);
 }
 /** Full bytes are a marked read result, never a command-cache payload. */
 function storageVersion(tx:WalletTx):number {
  const names=tx.sql.all("SELECT name FROM sqlite_master WHERE type='table'").map(row=>row.name).filter(name=>name.startsWith('wallet_'));
- const version=names.some(name=>Object.hasOwn(walletFinancialColumns,name))?3:names.some(name=>Object.hasOwn(walletMetadataColumns,name))?2:1;
+ const version=names.some(name=>Object.hasOwn(walletLegacyMigrationColumns,name))?4:names.some(name=>Object.hasOwn(walletFinancialColumns,name))?3:names.some(name=>Object.hasOwn(walletMetadataColumns,name))?2:1;
  if(JSON.stringify([...names].sort())!==JSON.stringify(Object.keys(walletTablesAt(version)).sort()))throw Error('Unsupported or incomplete Wallet storage version');
  return version;
 }
