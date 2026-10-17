@@ -77,6 +77,7 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     const emit = (before: Set<string>, after: Set<string>) => changed(new Set([...before, ...after]));
     const manager = (req: WalletRequest, accountId: string) => { if (ports.access.getAccount(actor(req), accountId).permission !== 'manage')
         throw new AppStoreError('Không có quyền quản lý tài khoản.', 403); };
+    router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
     router.get('/catalog',handler(req=>ports.catalog(actor(req))));
     router.get('/accounts', handler(req => ({ accounts: ports.access.listAccounts(actor(req)) })));
     router.get('/accounts/:id', handler(req => ports.accounts.getAccount(actor(req), id(req.params.id))));

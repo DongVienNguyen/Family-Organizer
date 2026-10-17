@@ -1,3 +1,4 @@
+import type {WalletFilterOptions} from '../../../server/wallet/filterOptions.js';
 import type {WalletReceiptMetadata} from '../../../server/wallet/receiptContract.js';
 import type {ReceiptMutation} from '../../../server/wallet/receipts.js';
 import type { WalletApi } from './api.js';
@@ -12,7 +13,7 @@ import { createWalletCommand, type WalletCommandState } from './commandState.js'
 import { recordFormDraft, recordFormInput, recordFormPatch, type RecordFormDraft, type RecordFormInitial } from './recordDraft.js';
 import { resolvePeriod } from './dates.js';
 import { normalizeFilter } from './filter.js';
-type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'actions' | 'createRecord' | 'updateRecord' | 'voidRecord'>&Partial<Pick<WalletApi,'receipts'|'attachReceipt'|'detachReceipt'|'receiptFile'>>;
+type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'actions' | 'createRecord' | 'updateRecord' | 'voidRecord'>&Partial<Pick<WalletApi,'receipts'|'attachReceipt'|'detachReceipt'|'receiptFile'|'filterOptions'>>;
 export interface WalletRecordForm {
     draft: RecordFormDraft;
     initial?: RecordFormInitial;
@@ -24,6 +25,7 @@ export interface RecordWorkspaceState {
     catalog: WalletCatalog;
     filter: RecordFilter;
     filterInvalid: boolean;
+    filterOptions:WalletFilterOptions;
     items: WalletRecordView[];
     total: number;
     nextCursor: string | null;
@@ -59,7 +61,7 @@ export function createRecordWorkspace(api: Api, options: {
 }) {
     const defaultFilter = () => normalizeFilter({ period: resolvePeriod({ kind: 'month', anchorDate: options.date() }, options.timezone), referenceCurrency: 'VND', statuses: ['uncleared', 'cleared', 'reconciled'] });
     let filter = defaultFilter();
-    const empty = () => ({ accounts: [], catalog: { categories: [], labels: [] }, items: [], total: 0, nextCursor: null, loadingMore: false, selected: null, actions:null, receipts:[],receiptStorage:false, form: null });
+    const empty = () => ({ accounts: [], catalog: { categories: [], labels: [] }, items: [], total: 0, nextCursor: null, loadingMore: false, selected: null, actions:null, receipts:[],receiptStorage:false,filterOptions:{creators:[],paymentMethods:[]}, form: null });
     let state: RecordWorkspaceState = { phase: 'checking', ...empty(), filter, filterInvalid: false, command: { phase: 'idle' }, error: null }, form: WalletRecordForm | null = null, formOpen = false, selectedId: string | null = null, selectedInitial: RecordFormInitial | undefined, generation = 0, disposed = false, addAnother = false;
     const listeners = new Set<() => void>(), publish = (patch: Partial<RecordWorkspaceState>) => { if (disposed)
         return; state = Object.freeze({ ...state, ...patch }); for (const listener of listeners)
@@ -92,7 +94,7 @@ export function createRecordWorkspace(api: Api, options: {
                 publish({ phase: 'inactive' });
                 return;
             }
-            const [accounts, catalog, page] = await Promise.all([api.accounts(), api.catalog(), api.query(filter, null, 50)]);
+            const [accounts, catalog, page,filterOptions] = await Promise.all([api.accounts(), api.catalog(), api.query(filter, null, 50),api.filterOptions?api.filterOptions():Promise.resolve({creators:[],paymentMethods:[]})]);
             if (disposed || current !== generation)
                 return;
             let selected: WalletRecordDetail | null = null, actions:WalletRecordActions|null=null, initial: RecordFormInitial | undefined;
@@ -119,7 +121,7 @@ export function createRecordWorkspace(api: Api, options: {
             if (form?.initial && !canEdit(selected, accounts,actions))
                 form = null;
             selectedInitial = initial;
-            publish({ phase: 'ready', accounts, catalog, items: page.items, total: page.total, nextCursor: page.nextCursor, selected,actions,receipts,receiptStorage:status.storageVersion>=5, form: formOpen ? form : null });
+            publish({ phase: 'ready', accounts, catalog,filterOptions, items: page.items, total: page.total, nextCursor: page.nextCursor, selected,actions,receipts,receiptStorage:status.storageVersion>=5, form: formOpen ? form : null });
         }
         catch (error) {
             if (disposed || current !== generation)

@@ -1,3 +1,4 @@
+import type {WalletFilterOptions} from '../../../server/wallet/filterOptions.js';
 import type {WalletReceiptMetadata} from '../../../server/wallet/receiptContract.js';
 import { object, keys, text, integer, choice, boolean } from '../productivity/validation.js';
 import { timezoneFormatter } from '../productivity/dates.js';
@@ -225,6 +226,7 @@ export function createWalletApi(ports: WalletTransportPorts) {
             if(new Headers(ports.authHeaders()).get('Authorization')!==auth)throw new WalletApiError(401,'Phiên đăng nhập đã thay đổi.','SESSION_CHANGED',undefined);
             if(digest!==expected.sha256)throw invalid();return blob;
         },
+        filterOptions:()=>read('/api/wallet/record-filter-options',value=>{const v=object(value);if(!Array.isArray(v.creators)||!Array.isArray(v.paymentMethods)||v.creators.length>10000||v.paymentMethods.length>10000)throw Error('Invalid filter option list');const creators=v.creators.map(input=>{const row=object(input);text(row.id,256);text(row.name,500);return {id:row.id,name:row.name};}),paymentMethods=v.paymentMethods.map(input=>{text(input,256);return input;});if(new Set(creators.map(row=>row.id)).size!==creators.length||new Set(paymentMethods).size!==paymentMethods.length)throw Error('Duplicate filter options');return {creators,paymentMethods} as WalletFilterOptions;}),
         catalog:()=>read('/api/wallet/catalog',catalogValue),
         actions:(id:string)=>read(path('records',id)+'/actions',value=>{const v=object(value);if(v.recordId!==id)throw Error('Action record identity');boolean(v.canEdit);boolean(v.canVoid);const result:WalletRecordActions={recordId:id,canEdit:v.canEdit,canVoid:v.canVoid};if(v.editViaTransferId!==undefined){text(v.editViaTransferId,256);if(v.editViaTransferId===id)throw Error('Action parent identity');result.editViaTransferId=v.editViaTransferId;}return result;}),
         status: () => read('/api/wallet/status', value => { const v = object(value); boolean(v.active); integer(v.storageVersion); return { active: v.active, storageVersion: v.storageVersion }; }),

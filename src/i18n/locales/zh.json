@@ -2129,6 +2129,22 @@
       "limits": "图片会自动优化；支持 iPhone HEIC。图片最大 4 MiB，PDF 最大 10 MiB。",
       "preparing": "正在处理收据…",
       "failed": "无法处理收据。请检查文件格式和大小。"
+    },
+    "recordFilters": {
+      "period": "选择时间范围",
+      "week": "本周",
+      "month": "本月",
+      "year": "今年",
+      "kinds": "筛选记录类型",
+      "statuses": "筛选状态",
+      "currencies": "筛选货币",
+      "creatorIds": "筛选创建者",
+      "paymentMethods": "筛选付款方式",
+      "labelMatch": "标签条件",
+      "labelsAny": "任一所选标签",
+      "labelsAll": "所有所选标签",
+      "noChoices": "可查看范围内暂无选项。",
+      "allHint": "清空某组的全部选项可取消该组限制。"
     }
   }
 }

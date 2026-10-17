@@ -53,7 +53,7 @@ async function fixture(work: (f: any) => Promise<void>) {
     }
 }
 it('uses existing auth: anonymous401, Child/Guest403 on every finance route before command parsing', () => fixture(async (f) => {
-    const paths = [['GET', '/status'], ['GET', '/accounts'], ['GET', '/accounts/' + f.cash], ['GET', '/accounts/' + f.cash + '/balance?date=2026-10-17'], ['POST', '/accounts'], ['PATCH', '/accounts/' + f.cash], ['DELETE', '/accounts/' + f.cash], ['GET', '/accounts/' + f.cash + '/grants'], ['PUT', '/accounts/' + f.cash + '/grants/' + who('other').userId], ['DELETE', '/accounts/' + f.cash + '/grants/' + who('other').userId], ['POST', '/records/query'], ['GET', '/records/' + f.expense.record.id], ['POST', '/records'], ['PATCH', '/records/' + f.expense.record.id], ['DELETE', '/records/' + f.expense.record.id]];
+    const paths = [['GET', '/status'], ['GET','/record-filter-options'], ['GET', '/accounts'], ['GET', '/accounts/' + f.cash], ['GET', '/accounts/' + f.cash + '/balance?date=2026-10-17'], ['POST', '/accounts'], ['PATCH', '/accounts/' + f.cash], ['DELETE', '/accounts/' + f.cash], ['GET', '/accounts/' + f.cash + '/grants'], ['PUT', '/accounts/' + f.cash + '/grants/' + who('other').userId], ['DELETE', '/accounts/' + f.cash + '/grants/' + who('other').userId], ['POST', '/records/query'], ['GET', '/records/' + f.expense.record.id], ['POST', '/records'], ['PATCH', '/records/' + f.expense.record.id], ['DELETE', '/records/' + f.expense.record.id]];
     for (const [method, path] of paths) {
         for (const [key, status] of [[null, 401], ['child', 403], ['guest', 403]]) {
             const result = await f.request(path, method, method === 'GET' ? undefined : {}, key);
@@ -189,4 +189,11 @@ it('a readable fee never discloses a wholly private parent through action naviga
 it('read-only grants and voided records cannot acquire edit/void capabilities',()=>fixture(async f=>{
  f.ports.accounts.setGrant(ctx('other',1),f.hidden,who().userId,'read');expect((await f.request('/records/'+f.secret.record.id+'/actions')).body).toEqual({recordId:f.secret.record.id,canEdit:false,canVoid:false});
  f.ports.records.voidRecord(ctx('member',1),f.expense.record.id);expect((await f.request('/records/'+f.expense.record.id+'/actions')).body).toEqual({recordId:f.expense.record.id,canEdit:false,canVoid:false});
+}));
+
+it('filter metadata excludes private and partial transfer methods until current full read grants allow them',()=>fixture(async f=>{
+ f.ports.records.updateRecord(ctx('other',1),f.secret.record.id,{paymentMethod:'SYNTHETIC_PRIVATE_FILTER_METHOD'});
+ f.ports.records.createRecord(ctx('admin'),{...common,kind:'transfer',fromAccountId:f.cash,toAccountId:f.hidden,debit:money('25000'),credit:money('100','USD'),fx:{numerator:'1',denominator:'25000'},paymentMethod:'SYNTHETIC_PARTIAL_FILTER_METHOD'});
+ const first=await f.request('/record-filter-options');expect(first.status).toBe(200);expect(first.body.paymentMethods).toEqual([]);expect(first.body.creators.map((row:any)=>row.id)).not.toContain(who('other').userId);expect(JSON.stringify(first.body)).not.toMatch(/minor|balance|SYNTHETIC_PRIVATE|SYNTHETIC_PARTIAL/);
+ f.ports.accounts.setGrant(ctx('other',1),f.hidden,who().userId,'read');const granted=await f.request('/record-filter-options');expect(granted.status).toBe(200);expect(granted.body.paymentMethods).toEqual(['SYNTHETIC_PARTIAL_FILTER_METHOD','SYNTHETIC_PRIVATE_FILTER_METHOD']);f.ports.accounts.removeGrant(ctx('other',2),f.hidden,who().userId);expect((await f.request('/record-filter-options')).body.paymentMethods).toEqual([]);
 }));

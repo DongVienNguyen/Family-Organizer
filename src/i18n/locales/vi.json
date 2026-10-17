@@ -2129,6 +2129,22 @@
       "limits": "Ảnh được tối ưu; hỗ trợ ảnh iPhone HEIC. Ảnh tối đa 4 MiB, PDF 10 MiB.",
       "preparing": "Đang xử lý hóa đơn…",
       "failed": "Không xử lý được hóa đơn. Hãy kiểm tra định dạng và kích thước tệp."
+    },
+    "recordFilters": {
+      "period": "Chọn khoảng thời gian",
+      "week": "Tuần này",
+      "month": "Tháng này",
+      "year": "Năm nay",
+      "kinds": "Loại ghi chép lọc",
+      "statuses": "Trạng thái lọc",
+      "currencies": "Tiền tệ lọc",
+      "creatorIds": "Người tạo lọc",
+      "paymentMethods": "Phương thức thanh toán lọc",
+      "labelMatch": "Điều kiện nhãn",
+      "labelsAny": "Bất kỳ nhãn nào",
+      "labelsAll": "Tất cả nhãn đã chọn",
+      "noChoices": "Chưa có lựa chọn trong phạm vi được xem.",
+      "allHint": "Trong mỗi nhóm, bỏ chọn toàn bộ để không giới hạn nhóm lọc đó."
     }
   }
 }

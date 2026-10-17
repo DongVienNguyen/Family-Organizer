@@ -2129,6 +2129,22 @@
       "limits": "Images are optimized; iPhone HEIC supported. Images up to 4 MiB, PDF up to 10 MiB.",
       "preparing": "Processing receipt…",
       "failed": "Could not process the receipt. Check the file format and size."
+    },
+    "recordFilters": {
+      "period": "Choose period",
+      "week": "This week",
+      "month": "This month",
+      "year": "This year",
+      "kinds": "Filter record types",
+      "statuses": "Filter statuses",
+      "currencies": "Filter currencies",
+      "creatorIds": "Filter creators",
+      "paymentMethods": "Filter payment methods",
+      "labelMatch": "Label condition",
+      "labelsAny": "Any selected label",
+      "labelsAll": "All selected labels",
+      "noChoices": "No choices in your readable scope.",
+      "allHint": "Clear every choice in a group to remove that restriction."
     }
   }
 }
