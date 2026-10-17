@@ -1,0 +1,14 @@
+{
+  "synthetic": true,
+  "external": 0,
+  "nested": {
+    "exactLabel": 0,
+    "accessibleTextbox": 1,
+    "labelText": "Ghi chúSYNTHETIC_BULK_CONFLICT_DRAFT"
+  },
+  "separate": {
+    "exactLabel": 1,
+    "accessibleTextbox": 1,
+    "value": "SYNTHETIC_BULK_CONFLICT_DRAFT"
+  }
+}

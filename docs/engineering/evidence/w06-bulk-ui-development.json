@@ -1,0 +1,377 @@
+{
+  "taskIds": [
+    "W04 partial",
+    "W06 partial"
+  ],
+  "sourceCommit": "c78dde44bdfdd281cd32faf4d9f58ee4bec1c5ab",
+  "testedWorkingTreeParent": "fa3b090c661d532a4d4a7cc1432b1edd20c9ca28",
+  "binding": "All14 frozen source/test SHA256 values match committed Git blobs; final browser uses matching build bytes; Cloud development evidence, not exact-HEAD Actions acceptance",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7296,
+    "files": 395,
+    "junitCases": 7296,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7277,
+    "added": 19,
+    "removed": 0,
+    "newByFile": {
+      "src/features/wallet/bulkRecordWorkspace.test.ts": 4,
+      "src/features/wallet/bulkWorkspace.test.ts": 14,
+      "tests/wallet-browser-fixture.test.ts": 1
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "buildBytesMatchActualBrowser": true,
+    "npmCi": "not repeated; dependency/lock unchanged",
+    "fullRegressionRuns": 1,
+    "buildBrowserRepeated": "only after the actual textarea-label and confirmation-refresh fixes; no unchanged-source rerun"
+  },
+  "browser": {
+    "parentCases": 15,
+    "cases": 19,
+    "added": 4,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "fa3b090c661d532a4d4a7cc1432b1edd20c9ca28",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "216ab1e00b4fcf56b38e5562e5fc0b32d6d65b0de3aac65ad29cfda98ead3380",
+        "index": "e2aa6894aea41cab951fcd9e26143763d3e7942683b2c2b300dd24dde6f441ad"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 6,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "bf7eb14c-ab26-465c-b300-20d194bb9b6b",
+        "creditId": "6714deec-02a9-4deb-af86-c3686c290ee2",
+        "hiddenId": "6b29c5d0-3f75-4740-817d-eb1f5e3fede3",
+        "readId": "eb68d2de-8b3a-47e6-9bf8-dce1c53ce39e",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "firstBrowserAttempt": {
+    "passed": 17,
+    "failed": 1,
+    "cases": 18,
+    "all18CaseNamesRetainedAtFinal": true,
+    "failure": "Exact label lookup included nested textarea content after update although AX textbox and draft remained; native diagnostic proved0/1 before and1/1 after separating the associated label",
+    "artifactRoot": "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts"
+  },
+  "labelDiagnostic": {
+    "synthetic": true,
+    "external": 0,
+    "nested": {
+      "exactLabel": 0,
+      "accessibleTextbox": 1,
+      "labelText": "Ghi ch\u00faSYNTHETIC_BULK_CONFLICT_DRAFT"
+    },
+    "separate": {
+      "exactLabel": 1,
+      "accessibleTextbox": 1,
+      "value": "SYNTHETIC_BULK_CONFLICT_DRAFT"
+    }
+  },
+  "sourceSha256": {
+    "scripts/ci/run-wallet-browser.mjs": "d3373ec78be4e92c1df73a271e18b33865959876c6edb56fd632374109ac55c7",
+    "scripts/ci/write-wallet-browser-fixture.ts": "89f475afb2b4425d6a3f60349b3f244f53cd513a9b84ce405058070cf75a5d51",
+    "src/features/wallet/BulkPanel.tsx": "4d5993cb9711f69962b1c40dba16dee1d480c48503b0c9140a6b469add84e29f",
+    "src/features/wallet/FilterPanel.tsx": "9830172f042c350a2d00fc97c48cadc9ab3a43d3a5f84c72e1f728638d0de34f",
+    "src/features/wallet/Records.tsx": "5ad12a71946d9cfc283491f542ce70286fe4b3ad6bedb70ac8093269ce717d76",
+    "src/features/wallet/bulkRecordWorkspace.test.ts": "997f47e573eab8f913dcabab1861a08bc9453bfad9d8228a1efe1f821d3c58e0",
+    "src/features/wallet/bulkWorkspace.test.ts": "0892e2f571c231363d31fda8a31c744a40c15addb657fb6a01bb50caae5edc4b",
+    "src/features/wallet/bulkWorkspace.ts": "8002c1b68471ea5defbf099291bd440257fa0d64e0e102befca66dec04f5e8e7",
+    "src/features/wallet/recordWorkspace.ts": "3c4b636ae7fa0d73b036b12be2d521a192707dd71c58c40c6845d096fc25b8be",
+    "src/i18n/locales/en.json": "b28f8936786b2837bc3f07a2635c0967e97b0dc53e8f53e5fbb79db512da255e",
+    "src/i18n/locales/vi.json": "4ad51f3b5a40cd64599e0b8c5e5a21e3d509d22ac5b6fe8444fd98568b92eda8",
+    "src/i18n/locales/zh.json": "6c56c6af094248143b1a51688c0dfd495ebb8d8932eb6e910a4dda1db97c1267",
+    "tests/e2e/wallet.spec.ts": "f33b5156c79596baef94d8716f85d3150c6107957b3bc3ceb70e7ac20d1fa465",
+    "tests/wallet-browser-fixture.test.ts": "d9decf5cdfd5e3d1b4717916c51e247888d944f9e31d68f288659341c469e99e"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "reports": {
+    "/workspace/family-evidence/w06-bulk-ui-corrected-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-corrected-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-build-corrected.log": {
+      "bytes": 2004,
+      "sha256": "90d16d68e6f0e51f34eba745a7d7877def444cb7e95b66921ec13edd8e531fea"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-workspace-v2.log": {
+      "bytes": 647,
+      "sha256": "f9cb4d58cf653171237589612dc2f301d0fcfbfc3cf286dc780585ece05bbe3e"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-fixture-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-self-review.json": {
+      "bytes": 2917,
+      "sha256": "b64cb72538bd20f82986f80138f77763b35e4287037c2921e15c6e32d45446e3"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-workspace-v2.json": {
+      "bytes": 16489,
+      "sha256": "69b36c548439d7d46a5c17398eb4f2cc5e195f4bcd820dc43f9cb4f773035628"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-label-native-diagnostic.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-frozen.json": {
+      "bytes": 1893,
+      "sha256": "4e05c0a9115c65b8d5e1fb57ecbe3aac7820191a75023c6a9337f60ce6c9a9ae"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-corrected.log": {
+      "bytes": 3301,
+      "sha256": "0658adddb4e1dd4d5ff9c38ad237135609e61a9ee08719b20e3850cf0d09c560"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-label-native-diagnostic.json": {
+      "bytes": 281,
+      "sha256": "bd6909eecf9b763147e6f6c3b878fe679887666af6c7bfee068821412f034b1f"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-frozen.json": {
+      "bytes": 1893,
+      "sha256": "c7e27995c4c18434d78982fe86571c6140c6d714243452f32197e0fe4337e27a"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-qualified.log": {
+      "bytes": 85203,
+      "sha256": "a57f32ad76054de20d2e3f7bbc1840aa7fd5f1d166cca43ac275a361ed9960ea"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-corrected.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first.log": {
+      "bytes": 9768,
+      "sha256": "2a3b32d7a05f0a216e545549cc83daa253db281dca0e91cb14f38bc064e36633"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-fixture-first.log": {
+      "bytes": 546,
+      "sha256": "ae2c84c971a0c2b282811e058aab61ca4f1e68861c8d54441daaab05cedb14b7"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-fixture-first.json": {
+      "bytes": 8103,
+      "sha256": "7fd977782adbb67b8a122de2e94459de4953714e063cd25d9ec2b60a2d0b215b"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-qualified.json": {
+      "bytes": 2116631,
+      "sha256": "c558dc59d3ff7a75d8d7322e50cb46205d8f6997e6cef08bfc0a2096f90a0a79"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-build-first.log": {
+      "bytes": 2004,
+      "sha256": "bc42775371afea0ed6774210fc73bd93a5eab85350d6d2eda09318df3eafa9dc"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-workspace-v2.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-preservation.json": {
+      "bytes": 7570,
+      "sha256": "21f6179d42ff7da945e494013562fe3d91d54503ff52c262c743d578a464ff8f"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-qualified.junit.xml": {
+      "bytes": 1477343,
+      "sha256": "cb62ebf92b432df2e462d11265bfa4138070be9d4096cda5c07fa684d05b06b0"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-build-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-prebrowser-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-build-corrected.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-prebrowser-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-bulk-workspace-red.json": {
+      "bytes": 789,
+      "sha256": "717ab9f1ee67bada70812134aa28b2545f2a0d0d2a26d619e919641ac5da3eec"
+    },
+    "/workspace/family-evidence/w06-bulk-workspace-first.json": {
+      "bytes": 5208,
+      "sha256": "64ee192de84f324cbcebc83063f5962f0e0ebb8950e2bb1f086eea4c60906909"
+    },
+    "/workspace/family-evidence/w06-bulk-workspace-integration-first.json": {
+      "bytes": 16196,
+      "sha256": "26b738bc4a62689fb708eaeb461cb694ce165ace89c95a58dd69c551975df82b"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-qualified-artifacts/bulk-dark.png": {
+      "bytes": 77328,
+      "sha256": "d4f50badd05c66a81a3b1e48ff77809ad4d2bd0f29d64b06f93ab658f464040a"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 3408,
+      "sha256": "0eab193d43d48ac457cb4ce3ce6574ab499ebfdeacce588e3ee5018f740d5d6b"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1146,
+      "sha256": "b5c18a7ecd59f115734e96e05c53355d0e1bd01b5e882af8b34f17d274129aee"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-qualified-artifacts/browser.json": {
+      "bytes": 25112,
+      "sha256": "39c3995782e7a297f981827add6ff68b3f2da71291ca8418a704692748a4187d"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-qualified-artifacts/bulk-light.png": {
+      "bytes": 78715,
+      "sha256": "c9bad75c1636afdf934c4ad4d548017a6c16c4155a80cc42c8798e5aacc8f35d"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/bulk-dark.png": {
+      "bytes": 77943,
+      "sha256": "df97e8d950435771a956b698f127f9462124edadf5aabaa4413aca0d08526204"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/browser.junit.xml": {
+      "bytes": 10246,
+      "sha256": "3b2d0934fc5c6049682cf10db6ceb17d0b479b9eda2602d422191e6820d8d6e5"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/fixture.json": {
+      "bytes": 1194,
+      "sha256": "e9d282811ea29d508a3b5f14a80542a800fda6086e69077ac04a06e40fc780bd"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/browser.json": {
+      "bytes": 35133,
+      "sha256": "fb2eeccaf85db1660ed7a3a17152b6570037e0f316b5d4725fae51672f4d5e94"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/bulk-light.png": {
+      "bytes": 79495,
+      "sha256": "0c4f81e518d00c5ced4882485df633908fb058bd1815bb9cf03ef4313dfa872b"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/results/wallet-W06-a-stale-bulk-co-da4e3-sending-a-replacement-write-chromium/error-context.md": {
+      "bytes": 46737,
+      "sha256": "721b43e8830b35ef5b97cccf3c93e586240cc505830eb628afee0b6aea3356ff"
+    },
+    "/workspace/family-evidence/w06-bulk-ui-browser-first-failed-artifacts/results/wallet-W06-a-stale-bulk-co-da4e3-sending-a-replacement-write-chromium/trace.zip": {
+      "bytes": 6848034,
+      "sha256": "5e0e4b9c5f556572bacc897468ebded0336f474901922a0dc312306d1b435d2b"
+    }
+  },
+  "retainedFullJUnit": {
+    "path": "docs/engineering/evidence/w06-bulk-ui-cloud.junit.xml.gz",
+    "bytes": 201205,
+    "sha256": "a0aafe7170878103cd6f24c0839c1f7909184aabca4d30b92984640dfcd45f71",
+    "cases": 7296
+  },
+  "retainedFullLog": {
+    "path": "docs/engineering/evidence/w06-bulk-ui-cloud.log.gz",
+    "bytes": 14897,
+    "sha256": "3cdfbffb09c1b8593bf33ddae49cf512bcdb6f8f107c83ab7cec5a9953b63905"
+  },
+  "preservedBrowserArtifacts": "/workspace/family-evidence/w06-bulk-ui-browser-qualified-artifacts",
+  "review": {
+    "kind": "LOCAL SELF author inspection; not independent whole-branch review",
+    "paths": [
+      "scripts/ci/run-wallet-browser.mjs",
+      "scripts/ci/write-wallet-browser-fixture.ts",
+      "src/features/wallet/BulkPanel.tsx",
+      "src/features/wallet/FilterPanel.tsx",
+      "src/features/wallet/Records.tsx",
+      "src/features/wallet/bulkRecordWorkspace.test.ts",
+      "src/features/wallet/bulkWorkspace.test.ts",
+      "src/features/wallet/bulkWorkspace.ts",
+      "src/features/wallet/recordWorkspace.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts",
+      "tests/wallet-browser-fixture.test.ts"
+    ],
+    "closed": [
+      "Session-owned bulk state above Finance navigation, separate explicit checked IDs/revisions versus captured query identity and exclusions; later rows are not silently selected",
+      "Ordinary record pending/form gates block bulk; unresolved bulk blocks ordinary record writes/filter changes and selection replacement inside Records",
+      "Read revalidation clears sample bodies and page membership synchronously; generation guards drop late preview responses; permission denial retires the entire financial view",
+      "Preview pins a cloned exact selection/patch/hash; draft/selection/view changes invalidate confirmation; current revisions are never silently rebased",
+      "Unknown capture/apply retain frozen input and original nonce across navigation/revalidation; later denied retry remains unknown; only explicit replay resolves it",
+      "Successful acknowledgement clears draft/selection then refreshes; failure keeps user input; compact counts are shown without caching financial result bodies",
+      "Session disposal clears IDs/draft/preview/private intent and ignores late writes; no persisted/offline queue",
+      "Bulk form uses explicit field opt-in, blank clearing and label replacement, shared FancySelect/useConfirm, vi/en/zh, wrapped phone layout and keyboard navigation",
+      "Nested textarea label reproduced a native exact-label0/AX1 discrepancy; separate associated label yields1/1 and unchanged value, without selector/assertion/timeout/retry changes",
+      "Open confirmation remains rendered during a held privacy refresh so Escape releases focus/scroll ownership; hidden sample data stays removed",
+      "Explicit synthetic schema6 browser fixture and normal shutdown/integrity/legacy/no-external guards retain default4 and receipt5 fixture tests"
+    ],
+    "remaining": [
+      "Saved filters/preferences and remaining applicable W06/performance/touch coverage",
+      "Live receipt apply/financial remediation/raw JSON ZIP/legacy write bridge/cutover/retention",
+      "W07-W18 and remaining Wallet/M1/I02/I03/master work",
+      "Final independent whole-branch review and exact-HEAD Windows2022/Node22/other browser/package/service checks; actual Server2019R02 separate"
+    ],
+    "noIndependentReview": true
+  },
+  "notRun": [
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "100000-row Windows performance acceptance",
+    "actual Server2019R02",
+    "production data/secrets/real providers (prohibited)"
+  ],
+  "releaseTagVps": "none"
+}

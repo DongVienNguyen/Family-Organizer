@@ -2,6 +2,33 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W04/W06 partial:** source `c78dde44bdfdd281cd32faf4d9f58ee4bec1c5ab` adds Records loaded-ID
+checkboxes versus durable all-matching scope, explicit exclusions, metadata-only
+opt-in form, bounded before/after preview and exact-count confirmation. Session
+owner preserves unknown capture/apply payload/nonce across navigation; blocks
+Records writes/filter/selection changes, retains stale draft and retires private
+views on scope denial. Revalidation clears samples; disposal drops late data.
+No automatic schema migration or Wallet activation.
+
+Cloud7296/395files/matchingJUnit/0failed-skipped-todo,
+all7277parent+19 retained; lint/build0. Chromium19/19 preserves
+all15parent plus4new:51-row cross-page selection/late exclusion/exact money/phone/
+themes/keyboard, same-key lost-ack tab replay, stale confirmation and held-refresh
+Escape ownership. Initial17/18 failure retained and repaired via actual trace DOM
+and native textarea-label diagnostic; no assertion/selector/retry/deadline changes.
+Zero external/flaky/skipped; integrityOK/legacy kept/normal stop/closed handles,
+matching final build. Author14path inspection only. [Details](wallet-bulk-workflows.md),
+[proof](evidence/w06-bulk-ui-development.json),
+[JUnit](evidence/w06-bulk-ui-cloud.junit.xml.gz),
+[full log](evidence/w06-bulk-ui-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/native touch/large performance/package/service/
+actual Server2019R02 unrun. Next:live receipt apply/remediation/raw legacy backup/
+legacy bridge/cutover/retention, saved preferences and remaining Wallet/M1/I02/I03/
+master work, then final branch review/batched Windows qualification. Full plan
+incomplete; Wallet off; no dependency/lock/workflow/release/tag/VPS changes.
+
 **Latest continuation — W02/W03-compat/W04/W06 partial:** source `f324743af7cda1e79311630392d8f4a93606bf94` adds
 explicit selection schema6/standalone7, common query capture and durable actor-owned
 IDs/revisions with expiry, membership and release. Atomic metadata-only bulk
