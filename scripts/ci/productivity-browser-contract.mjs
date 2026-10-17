@@ -51,6 +51,10 @@ export const productivityBrowserCases=[
  'P09 C42 uncertain column creation retains its original request after actual delivery and an unrelated authorized refresh',
  'P10 C43 ordered rotation draft survives drawer close and saves once without changing Task proof deadline or points',
  'P09 C44 WIP settings cancel is readonly and hard soft off policies govern the whole filtered board without Task changes',
+ 'P09 C45 atomic board view creation cancel is readonly and a delivered response loss replays one UUID without resetting shared WIP',
+ 'P09 C46 quick add is an editable section draft cancel writes nothing and confirmed creation preserves todo no proof zero points',
+ 'P09 C47 manual order preview cancel apply changes only rank and noncustom sort disables reorder controls',
+ 'P09 C48 confirmed manager revocation erases a private quick-add draft without sending it',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat,workers:productivityBrowserWorkers,fixtureVersion:productivityFixtureVersion}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases,{workers:productivityBrowserWorkers})];

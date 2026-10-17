@@ -9,6 +9,7 @@ import {object,keys,integer,text} from '../../src/features/productivity/validati
 import {taskCommandContext,type TaskRequest,type ProductivityPorts} from './router.js';
 import type {BoardMovePreviewInput,BoardMoveApplyInput} from './boardMoves.js';
 import type {BoardConfigureInput} from './boardCatalog.js';
+import type {BoardViewCreateInput,BoardTaskCreateInput} from './boardCreation.js';
 import type {BoardSectionCreateInput,BoardSectionRenameInput,BoardColumnReorderInput,BoardArchivePreviewInput,BoardArchiveApplyInput} from './boardLayout.js';
 /** Application-internal sessions and the existing I01 command/request owner. */
 export function boardRouter(ports:ProductivityPorts,requireAuth:RequestHandler,events:{catalog(audience:Set<string>):void;previous(id:string):Set<string>;emit(id:string,previous?:Set<string>):void;rewards?(id:string):void}){
@@ -41,6 +42,9 @@ export function boardRouter(ports:ProductivityPorts,requireAuth:RequestHandler,e
  router.post('/boards/apply',moveHandler(req=>{let body:Record<string,any>;try{body=object(req.body);keys(body,['expectedRevision','input']);integer(body.expectedRevision);object(body.input);text(body.input.taskId,256);}catch{throw new AppStoreError('Dữ liệu di chuyển bảng không hợp lệ.',400);}
   const ctx=taskCommandContext(req,body.expectedRevision),input=body.input as BoardMoveApplyInput;if(!ports.access.getTask(ctx.actor,input.taskId))throw new AppStoreError('Không tìm thấy công việc.',404);const previous=events.previous(input.taskId),result=ports.boardMoves!.apply(ctx,input),audience=ports.structureEvents?.catalogAudience({listId:result.task.listId})??new Set<string>();audience.add(ctx.actor.userId);if(result.taskChanged)events.emit(result.task.id,previous);events.catalog(audience);return result;
  }));
+ const creationHandler=(work:(req:TaskRequest)=>unknown):RequestHandler=>(req,res)=>{try{if(!ports.boardCreation)throw new AppStoreError('Kho tạo mới trong bảng chưa sẵn sàng.',409);res.json(work(req));}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status===500?'Không tạo được trong bảng.':error instanceof AppStoreError?error.message:'Dữ liệu tạo mới không hợp lệ.'});}};
+ router.post('/boards/views',creationHandler(req=>{const body=layoutBody(req),ctx=taskCommandContext(req,body.expectedRevision),result=ports.boardCreation!.createView(ctx,body.input as unknown as BoardViewCreateInput),audience=ports.structureEvents?.catalogAudience({listId:result.board.listId})??new Set<string>();audience.add(ctx.actor.userId);events.catalog(audience);return result;}));
+ router.post('/boards/tasks',creationHandler(req=>{const body=layoutBody(req),ctx=taskCommandContext(req,body.expectedRevision),result=ports.boardCreation!.createTask(ctx,body.input as unknown as BoardTaskCreateInput),audience=ports.structureEvents?.catalogAudience({listId:result.task.listId})??new Set<string>();audience.add(ctx.actor.userId);events.emit(result.task.id);events.catalog(audience);return result;}));
  router.get('/boards/:boardId/policy',((req:TaskRequest,res)=>{
   try{try{keys(object(req.query),[]);}catch{throw new AppStoreError('Tham số cấu hình bảng không hợp lệ.',400);}res.json({board:ports.boards!.read(req.userSession!,req.params.boardId)});}
   catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status===500?'Không đọc được cấu hình bảng.':error instanceof AppStoreError?error.message:'Dữ liệu bảng không hợp lệ.'});}

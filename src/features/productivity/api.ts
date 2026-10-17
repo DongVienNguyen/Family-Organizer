@@ -1,5 +1,6 @@
 import {createBoardLayoutApi}from'./boardLayoutApi.js';
 import {createBoardPolicyApi}from'./boardPolicyApi.js';
+import {createBoardCreationApi}from'./boardCreationApi.js';
 import {createReviewApi}from'./reviewApi.js';
 import {createWorkflowTransitionApi}from'./workflowTransitionApi.js';
 import {createWorkflowApi}from'./workflowApi.js';
@@ -60,6 +61,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
   ...createWorkflowApi(read,{task:taskValue,clock:clockValue}),
   ...createBoardLayoutApi(read),
   ...createBoardPolicyApi(read),
+  ...createBoardCreationApi(read,{view:savedViewValue,task:taskValue}),
   ...createReviewApi(read,{task:taskValue}),
   ...createWorkflowTransitionApi(read,{task:taskValue,clock:clockValue}),
   ...createSeriesApi(read,taskValue),
