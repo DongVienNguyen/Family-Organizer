@@ -1,17 +1,18 @@
 # Wallet feature checklist
 
-This records implementation progress, not Windows acceptance. Latest internal-API/SDK
-source73c6743; see [status](implementation-status.md) and source-bound evidence.
-The new Wallet remains inactive and unwired; existing Finance still serves users.
+This records implementation progress, not Windows acceptance. Latest account-workflow
+source877c58b; see [status](implementation-status.md) and source-bound evidence.
+The new Wallet remains inactive by default; its gated account UI is wired. Existing
+Finance still serves users; record/filter/bulk UI and activation gates remain.
 
 | Task | Current evidence | Remaining requirement |
 | --- | --- | --- |
 | W01 | Accepted exact money/date/filter contracts | Retain through final integration |
 | W02 | One I01 writer, core1/metadata2/FX-fee3/migration4, exact snapshots/cold compatibility | Full remaining entities/private attachment manifest and conversion |
 | W03 | Scoped legacy projection, durable quarantine/mapping/checksum, repeat safety/backup service and native0/1/2/3 shared backup conversion;6726full Cloud tests | Raw legacy JSON/ZIP without shared manifest conversion, private receipt conversion, remediation/cutover and actual write bridge |
-| W04 | Fresh adult/grant SQL ACL, guarded core HTTP/grant CRUD, partial FX/fee redaction and session SDK;6824full Cloud tests | Private receipt/media, export/report/audit enforcement and full integration |
-| W05 | Backend account/record/transfer/edit/void and guarded API;6824full Cloud tests | UI wiring and linked lifecycle integration |
-| W06 | Scoped shared filters/counts/cursor/matched legs;44query cases,6770full Cloud tests | Durable selection/bulk, account/record forms and functional browser tests |
+| W04 | Fresh adult/grant SQL ACL, guarded core HTTP/grant CRUD, partial FX/fee redaction and session SDK;6824full Cloud tests | Private receipt/media, grant editing UI, export/report/audit enforcement and full integration |
+| W05 | Backend account/record/transfer/edit/void and guarded API, account UI create/edit/archive/restore;6860full Cloud +7native browser cases | Record UI and linked lifecycle integration |
+| W06 | Scoped shared query plus exact account forms/session owner;6860full Cloud tests,7Chromium functional/security cases | Record/filter/list/bulk UI, durable selection, other engines/touch and full integration |
 | W07 | Low-level catalog metadata only | Catalog CRUD/tree, templates/clone/split and UI |
 | W08 | Exact balances/transaction FX and shared matching-leg query prerequisites | Shared reporting/valuation FX/coverage/drilldown engine and charts |
 | W09 | Not implemented | Personal dashboard/filter/chart/widget preferences |

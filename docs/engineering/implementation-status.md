@@ -2,6 +2,32 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W04/W05/W06 partial:** source `877c58b640e7801a43b214241e60e12b93c69300` adds
+the gated account workspace inside Finance: create/edit/archive/restore, exact
+signed64/localized input, book/cleared/credit figures and existing shared controls.
+The session-owned command/draft survives tab navigation; unknown outcomes retain
+payload+nonce, require explicit retry and cannot become safe failures through a
+rejected replay. Conflict requires explicit reload. SSE current-grant invalidation
+and cross-tab logout retire the visible financial form. Wallet stays off by default;
+no activation endpoint, legacy write bridge or production migration was added.
+
+Cloud6860tests/366files/matchingJUnit/0failed-skipped-todo, all6824parent+36 retained;
+lint/build0. Chromium7/7 native cases, real Express/SQLite, zero flaky/skipped or
+external attempts, integrityOK, original Finance retained and normal shutdown.
+Final build bytes match the browser-tested build. Author inspection22paths, not
+independent whole-branch review. [Details](wallet-account-workflow.md),
+[proof](evidence/w06-account-workflow-development.json),
+[browser inventory](evidence/w06-account-workflow-browser.junit.xml).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance` (backup push only,
+feature-first/batched Windows). Current Windows2022/Node22, Firefox/WebKit/native
+touch, package/service and actual Server2019R02 remain unrun. No dependency/lock/
+workflow change or repeated npmci; no release/tag/VPS access/deployment. A Cloud
+restart recovered the retained checkout with pinned tools and no reinstall.
+Next: record/filter/list UI and durable selection/bulk, private receipts, bridge/
+remediation/raw legacy backup/cutover, remaining Wallet/M1 and later master gates.
+This checkpoint does not complete W06, Wallet or the full master plan.
+
 **Latest continuation — W04 partial:** source `73c6743a78654b9236e5205cdce3cea8e1af87f7` mounts
 gated internal account/record/query/balance/grant routes with existing auth and
 I01. Current ACL, private/missing404, actor-bound writes, revision/idempotency,

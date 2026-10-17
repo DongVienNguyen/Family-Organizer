@@ -1,0 +1,284 @@
+{
+  "taskIds": [
+    "W04 partial",
+    "W05 partial",
+    "W06 partial"
+  ],
+  "sourceCommit": "877c58b640e7801a43b214241e60e12b93c69300",
+  "testedWorkingTreeParent": "46b7989e75480d83f8bcc0e5a275700a2352fd0f",
+  "binding": "All 22 changed/new source and test paths matched frozen SHA256 values and committed Git blobs. This is Cloud development verification, not exact-HEAD GitHub Actions acceptance.",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "platform": "Linux x64",
+    "tests": 6860,
+    "files": 366,
+    "junitCases": 6860,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentTestsRetained": 6824,
+    "added": 36,
+    "removed": 0,
+    "newByFile": {
+      "accountDraft": 13,
+      "commandState": 7,
+      "accountWorkspace": 14,
+      "nativeFixture": 2
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "npmCi": "not repeated; dependencies and lock unchanged"
+  },
+  "browser": {
+    "cases": 7,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "46b7989e75480d83f8bcc0e5a275700a2352fd0f",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "8ce5a301a8563bede29a09f706410d43bb14de362e6f1e428a55244901c82ab7",
+        "index": "e8757f7250b37fb964778cf63160ebea22f8dd737bb098be626f2009ee7a37c9"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 4,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "b148eeb0-7867-452a-844f-30403229f884",
+        "creditId": "95c352fc-025b-4732-8264-2b2a580f20d0",
+        "hiddenId": "87ac3a7b-e4fd-427d-be64-883ab5a85ec4",
+        "readId": "2dcdb288-68fa-42c8-b02a-8559b0db43fb",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "sourceSha256": {
+    "playwright.wallet.config.ts": "0ac6f72cdebfeeed6aa4923b97e71710d40905df322eded3a560adb2f5e48e51",
+    "scripts/ci/run-wallet-browser.mjs": "9f9477f6e6485d56515d13212c18b6bb6cb0b9d07b9c0a25881e7302302b9662",
+    "scripts/ci/write-wallet-browser-fixture.ts": "aecae1f3fec1865dbd6287c30ffdda94bf7a46a7cc7f4de7577f17e4bb3e7186",
+    "src/App.tsx": "764344e2349e0476a73dce455838a5095da644a24765de619c40d6e874d77936",
+    "src/components/Finance.tsx": "7307a535513926a0de521f8bd285c1b9ec182227f91e6358694dd3ee0aa7dea1",
+    "src/features/wallet/AccountDetail.tsx": "b5a062e409cbabea4c2a7a7662d6e6406e87fda4ba6c94cf6563dfee0c7760b9",
+    "src/features/wallet/AccountForm.tsx": "54de2a8f84cc1e84935794581647eb097d4deec088157f2fcc9b7fb81e3bfa86",
+    "src/features/wallet/AccountList.tsx": "525703a753edba2afe5d510a98b8b947e198b0ec45ccded434decbc3c6bb7e19",
+    "src/features/wallet/Wallet.tsx": "92081e44099aaf674e038c44f4cd528b7e28d465d6ca7b69328336e3ca4da02f",
+    "src/features/wallet/accountDraft.test.ts": "6b0de9b741a0a5a228a4f9652541d28e5495828da730ddbe4f87309af55e9429",
+    "src/features/wallet/accountDraft.ts": "c553dc7ca3d078408191185ef4cdced7dc8dbe245a4bf4d8035a9f1ae015dc2c",
+    "src/features/wallet/accountWorkspace.test.ts": "f7c25a9b334c703742616209d79db0dc5ac5f43eed54b7c05806a9d44abf96c8",
+    "src/features/wallet/accountWorkspace.ts": "e7d808e5ee071831631031e5ba893b1c672cb2d4168ba94a431083a5f7040b1d",
+    "src/features/wallet/commandState.test.ts": "cadef03d873062e99fb22eb6f60e5e19fdea0768f75270cb78228b02c2e20075",
+    "src/features/wallet/commandState.ts": "7c0d70d752f0e0473b819c73481c7fa9249ffc536f0c6cb81081ebf0f32d39cf",
+    "src/features/wallet/money.ts": "73182cb7ffb02e5f581e0ead03c2cb024676745dd08bbd16fc462558076b6056",
+    "src/features/wallet/useWallet.ts": "cb441ca94c1246921bdd086c0c201e582e1f44ff85b0f5ffb3cbdd276d9c9d75",
+    "src/i18n/locales/en.json": "c8f7ceccd1a1ec0483b50d7a3c8df8622a7908d464a64c6c2d86e82a9b6bc8a4",
+    "src/i18n/locales/vi.json": "d505327cf6b1e12d522f2d877dfe8dadab60530c3b2553c5f4444545796ead45",
+    "src/i18n/locales/zh.json": "928015e2aa1aa6d177fd232c535293aca0bec7a0023e81f3e0d97268bde03d66",
+    "tests/e2e/wallet.spec.ts": "1ba6649455559c74438350866501ed5c0ab4d164c51eb1bb037d23c982aa421f",
+    "tests/wallet-browser-fixture.test.ts": "82ed20e40015c22c541305fc67bfea1f80edfa27b854e964d7dc13808e364b16"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "artifacts": {
+    "/workspace/family-evidence/w06-accounts-ui-qualified.json": {
+      "bytes": 1981508,
+      "sha256": "ff54b7e3d102f5549d6f0a98b3bd9d3e43e62cece3835905defbabb4d5fcd758"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-qualified.junit.xml": {
+      "bytes": 1384414,
+      "sha256": "8336a25c2eec062cb89e1b6ea62ad2304b7a3d903bf7b809d81fbbc5f37b381f"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-qualified.log": {
+      "bytes": 83730,
+      "sha256": "dd9bca378660aa3363100e8e8ee0aa7134fbee809df19a02b000929c82d047cf"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-build.log": {
+      "bytes": 2004,
+      "sha256": "7445d87f6239a10f985ca99f7b5e8480a29a94ee8f96f10ae319c8359c045cd2"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-frozen.json": {
+      "bytes": 2546,
+      "sha256": "8993deebee9ec4cf8bc8b89208ac8647f72ad5e465e5deb03f6ac7ff728ba6cd"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-preservation.json": {
+      "bytes": 11880,
+      "sha256": "340d02cf942aaf2bbc9f27613494aef5c471ef3ac51231e97f20df127b6a649c"
+    },
+    "/workspace/family-evidence/w06-accounts-ui-self-review.json": {
+      "bytes": 3280,
+      "sha256": "1bc815620906819577a602c5736cdf26afbc7fb4557a65b32eac3d3ca2de4ae9"
+    },
+    "/workspace/family-evidence/w06-accounts-browser-security.log": {
+      "bytes": 1265,
+      "sha256": "b5edc92233681de0b37a58ae90ae2a0ea3019ee9f519d4de8c53c040cb85f18a"
+    },
+    "/workspace/family-evidence/w06-accounts-browser-security.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/browser.json": {
+      "bytes": 11910,
+      "sha256": "0f0c45bea04cd133b9e1e73623bd4fe33ecb424c22ff55c1a0e7409319a843c7"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/browser.junit.xml": {
+      "bytes": 1340,
+      "sha256": "83b4b48d2e950a5a651b564a3c320b71e65ed3ae8a6334c58fb3cfb63ffa537e"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/fixture.json": {
+      "bytes": 1129,
+      "sha256": "abd2d301e5cd993c59d65e22f1069e4d3425ae01257392b0148bd1dd7a95b3e3"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/accounts-light.png": {
+      "bytes": 184557,
+      "sha256": "c262cb3f864fee071076a90b404c869f1c222faedb57d8d8ad53188016dd25e3"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/accounts-dark.png": {
+      "bytes": 189324,
+      "sha256": "58de0caeddcaf34503e68b2b3e0fe36707c001f4951aa036ad3c5f994c27d974"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/account-phone.png": {
+      "bytes": 63150,
+      "sha256": "4dd4e72cf21e9ffe784788ecb07908b597ebed5d2992c42e47d34c8bd59331ef"
+    }
+  },
+  "developmentRedEvidence": [
+    "w06-accounts-ui-red.json: missing new parser/command modules",
+    "w06-accounts-ui-first.json: signed64 minimum failed in three locales",
+    "w06-command-unknown-retry-red.json: rejected retry incorrectly resolved unknown intent",
+    "w06-hidden-draft-red.json: hidden unknown form reopened on refresh"
+  ],
+  "firstBrowserRun": {
+    "passed": 3,
+    "failed": 2,
+    "evidenceDirectory": "/workspace/family-evidence/w06-browser-first-artifacts",
+    "diagnosis": "Real DOM retained unknown request summary after navigation; final UI resumes retained draft explicitly. Archive cancel label was Hủy bỏ, not Hủy. No assertion/skip/retry/timeout relaxation."
+  },
+  "review": {
+    "kind": "LOCAL SELF author scope inspection; not independent or final whole-branch review",
+    "baseSha": "46b7989e75480d83f8bcc0e5a275700a2352fd0f",
+    "paths": [
+      "playwright.wallet.config.ts",
+      "scripts/ci/run-wallet-browser.mjs",
+      "scripts/ci/write-wallet-browser-fixture.ts",
+      "src/App.tsx",
+      "src/components/Finance.tsx",
+      "src/features/wallet/AccountDetail.tsx",
+      "src/features/wallet/AccountForm.tsx",
+      "src/features/wallet/AccountList.tsx",
+      "src/features/wallet/Wallet.tsx",
+      "src/features/wallet/accountDraft.test.ts",
+      "src/features/wallet/accountDraft.ts",
+      "src/features/wallet/accountWorkspace.test.ts",
+      "src/features/wallet/accountWorkspace.ts",
+      "src/features/wallet/commandState.test.ts",
+      "src/features/wallet/commandState.ts",
+      "src/features/wallet/money.ts",
+      "src/features/wallet/useWallet.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts",
+      "tests/wallet-browser-fixture.test.ts"
+    ],
+    "checked": [
+      "session owner survives Finance tab unmount; actual boundary disposes it",
+      "unknown writes freeze input and nonce; no automatic retry; a rejected retry does not disprove original commit",
+      "read invalidation clears public money including cached command receipt",
+      "current grant loss removes edit form through native SSE; cross-tab logout clears it",
+      "signed64 minimum and above-Number precision remain exact across three locales",
+      "archive/restore confirmation binds ID and revision; old Finance remains visible",
+      "existing locale content and Apache attribution retained; no new native select/FAB/toast",
+      "native fixture uses isolated synthetic roots, sanitized child environment, offline adapters and exit checks"
+    ],
+    "developmentFindingsClosed": [
+      {
+        "finding": "unsigned intermediate overflow rejected signed64 minimum",
+        "proof": "accountDraft tests failed in en-US/vi-VN/zh-CN, then passed after parseSignedMoney refactor"
+      },
+      {
+        "finding": "a rejected replay cannot prove earlier unknown command did not commit",
+        "proof": "w06-command-unknown-retry-red.json plus full passing suite"
+      },
+      {
+        "finding": "cached successful command receipt must not leak through invalidated view",
+        "proof": "public state strips result; dedicated regression plus native grant-revocation browser case"
+      },
+      {
+        "finding": "hidden unknown draft should remain hidden on refresh and resume explicitly",
+        "proof": "w06-hidden-draft-red.json then green; actual browser replay/navigation case"
+      }
+    ],
+    "testHarnessCorrections": [
+      "incorrect Promise invocation in new unit test fixed after tsc diagnosis",
+      "first browser run used wrong cancel translation and assumed modal auto-reopen; preserved failed traces, retained draft/nonce assertions and explicit resume flow"
+    ],
+    "remaining": [
+      "W06 incomplete: records/filter/bulk UI and durable selection remain",
+      "grants UI/private receipts/legacy bridge/remediation/raw legacy backup and cutover gates remain",
+      "current Node22/Windows2022/package/service, other engines and Server2019R02 unrun",
+      "independent whole-branch review remains before any PR merge"
+    ]
+  },
+  "notRun": [
+    "current Windows2022/Node22 CI",
+    "Firefox/WebKit and native touch for this group",
+    "package/service qualification",
+    "actual Windows Server2019 R02",
+    "real providers/production data (intentionally prohibited)"
+  ],
+  "remaining": [
+    "record/filter/bulk UI and durable selection",
+    "grant editing UI, private receipt storage/ACL",
+    "legacy write bridge, raw old backup conversion, remediation/cutover",
+    "W07-W18 and remaining M1/I02/I03/later master milestones"
+  ],
+  "releaseTagVps": "not accessed or performed"
+}
