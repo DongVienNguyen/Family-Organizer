@@ -3,6 +3,29 @@
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
 **Latest continuation — P08/P09/P17/P18 partial:** source
+`d481c2d1297c88b8155ef68b9a0593664cdd7a6f` adds owned Kanban view title/group/sort/filter
+editing, explicit conflict rebase/unknown UUID replay, same-lane active Workflow
+ordering and pure grouped rank preserving timed deadlines and secondary tags.
+Current authenticated catalog scope is published before pins so fast grant
+restoration cannot resurrect a revoked creation/view draft.
+
+Full Cloud6300tests/341files/matchingJUnit/0failed-skipped-todo, lint/build0;
+actual Chromium C22/C24/C36/C40/C44–C54 plus native touch15+1first attempts,
+offline/integrity/native-close/cleanup. All6185parent tests preserved+115new;
+original48browser bodies retained. One LOCAL SELF review0C/1I/0M; Important fixed
+after two correction iterations, no independent-review/rereview claim.
+[Functional detail](kanban-view-preferences-and-order.md),
+[compact evidence](evidence/m1-view-order-development.json) and
+[M1 remaining checklist](m1-feature-checklist.md).
+
+Development branch:`codex/feature-first-acceptance`; PR URL/CI run URL:none.
+Backup push leaves Windows deferred until feature readiness; protection unchanged.
+Full54-case browser/Firefox/WebKit/current Windows/package/service and Server2019
+R02 remain unrun. Next: grouped/Workflow drag and remaining main M1 board
+interactions, then Wallet core in master order. Full M1/master remains incomplete;
+no release/tag/VPS access/deployment.
+
+**Previous continuation — P08/P09/P17/P18 partial:** source
 `e7c7c7d4af0e06075ef701e2caa41807c431bcbb` adds atomic board/view creation,
 confirmed Section/Workflow-Todo quick-add and Section manual-rank UI. Cloud
 6185tests/334files/matchingJUnit/0failed-skipped-todo; lint/build0; actual Chromium
