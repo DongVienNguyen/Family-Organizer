@@ -85,3 +85,9 @@ it('limits one record to20 receipts while permitting same-key replay at capacity
  expect(service.list(actor(),recordId).receipts).toHaveLength(20);expect(service.attach(request,recordId,body())).toEqual(first);expect(countFiles()).toBe(before+20);
  expect(()=>service.attach(ctx(21),recordId,body())).toThrow(expect.objectContaining({status:413}));expect(countFiles()).toBe(before+20);expect(reader.get('SELECT revision FROM wallet_records WHERE id=?',recordId)).toEqual({revision:21});
 });
+
+it('receipt audits bind before/after record revisions without recording receipt bytes or raw names',()=>{
+ const service=setup(),saved=service.attach(ctx(),recordId,body());service.detach(ctx(2),recordId,saved.receipt.id);
+ const rows=reader.all('SELECT a.action,m.before_json,m.after_json FROM wallet_audit a JOIN wallet_audit_metadata m ON m.audit_id=a.id ORDER BY a.action');
+ expect(JSON.parse(rows[0].before_json)).toMatchObject({recordId,revision:1,receipt:null});expect(JSON.parse(rows[0].after_json)).toMatchObject({recordId,revision:2,receipt:{id:saved.receipt.id}});expect(JSON.parse(rows[1].before_json)).toMatchObject({recordId,revision:2,receipt:{id:saved.receipt.id}});expect(JSON.parse(rows[1].after_json)).toEqual({recordId,revision:3,receipt:null});expect(JSON.stringify(rows)).not.toContain(body().dataUrl);expect(JSON.stringify(rows)).not.toContain(body().fileName);
+});

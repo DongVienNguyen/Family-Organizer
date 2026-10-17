@@ -26,7 +26,7 @@ export function createWalletReceipts(ports:{reader:WalletReader;write:typeof wit
  const audit=(tx:AppWriteTx,ctx:CommandContext,recordId:string,name:string,at:string,metadata:WalletReceiptMetadata,revision:number)=>{
   const id=randomUUID(),state={recordId,revision,receipt:{id:metadata.id,mime:metadata.mime,size:metadata.size,sha256:metadata.sha256,fileNameSha256:createHash('sha256').update(metadata.fileName).digest('hex')}};
   tx.run('INSERT INTO wallet_audit VALUES(?,?,?,?)',id,recordId,ctx.actor.userId,'wallet:receipt:'+name);
-  tx.run('INSERT INTO wallet_audit_metadata VALUES(?,?,?,?)',id,at,name==='detach'?JSON.stringify(state):null,name==='attach'?JSON.stringify(state):null);
+  tx.run('INSERT INTO wallet_audit_metadata VALUES(?,?,?,?)',id,at,JSON.stringify(name==='detach'?{...state,revision:revision-1}:{recordId,revision:revision-1,receipt:null}),JSON.stringify(name==='attach'?state:{recordId,revision,receipt:null}));
  };
  const cleanupUnclaimed=(stage:StagedReceiptFile)=>{
   try{if(ports.reader.get('SELECT 1 AS claimed FROM wallet_receipts WHERE file_key=?',stage.fileKey))return;}catch{return;}
@@ -58,6 +58,12 @@ export function createWalletReceipts(ports:{reader:WalletReader;write:typeof wit
    writable(ports.reader,ctx,recordId);receiptIdentity(receiptId);
    return command(ctx,'detach',{recordId,receiptId,expectedRevision:ctx.expectedRevision},tx=>{
     writable(txReader(tx),ctx,recordId);const metadata=get(txReader(tx),recordId,receiptId),at=new Date(now()).toISOString(),revision=bump(tx,ctx,recordId,at);
+    const historical=tx.get("SELECT run_id,parent_id,legacy_id,detail_json FROM wallet_legacy_links WHERE source_kind='record' AND target_id=? AND json_extract(detail_json,'$.receiptId')=?",recordId,receiptId);
+    if(historical){
+     const detail=JSON.parse(historical.detail_json);if(detail.receiptConversionVersion!==1||detail.receiptPending!==false)fail(409,'Liên kết hóa đơn cũ cần đối soát.');
+     detail.receiptDetachedAt=at;detail.receiptDetachedBy=ctx.actor.userId;
+     tx.run("UPDATE wallet_legacy_links SET detail_json=? WHERE run_id=? AND source_kind='record' AND parent_id=? AND legacy_id=?",JSON.stringify(detail),historical.run_id,historical.parent_id,historical.legacy_id);
+    }
     tx.run('DELETE FROM wallet_receipts WHERE id=? AND record_id=?',receiptId,recordId);audit(tx,ctx,recordId,'detach',at,metadata,revision);
     // Retained opaque bytes remain inaccessible and available to backups. A
     // separate ownership-aware retention job can collect unclaimed files later.

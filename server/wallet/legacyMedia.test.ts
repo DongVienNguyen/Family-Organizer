@@ -1,0 +1,10 @@
+import { createHash } from 'node:crypto';
+import { it, expect, vi } from 'vitest';
+import { blocksLegacyWalletReceipt, legacyReceiptPathDigest } from './legacyMedia.js';
+const url = '/uploads/receipts/Family/synthetic.png', legacy: any = { transactions: [{ id: 'synthetic-old-record', receiptImage: url }] };
+function reader(active = true, digest?: string) { return { get: vi.fn((sql: string, ...args: any[]) => sql.includes("key='wallet_active'") ? { value: active ? '1' : '0' } : sql.includes('sqlite_master') ? { name: 'wallet_legacy_links' } : sql.includes('legacyMediaPathDigest') && args[0] === digest ? { present: 1 } : undefined), all: vi.fn(() => []) }; }
+it('inactive pilot preserves the existing media policy without consulting Wallet receipt bodies', () => { const db = reader(false); expect(blocksLegacyWalletReceipt(db, url, legacy)).toBe(false); expect(db.get).toHaveBeenCalledTimes(1); });
+it.each(['/uploads/receipts/Family/synthetic.png', '/uploads/receipts/family/SYNTHETIC.png', '/uploads/receipts/%46amily/synthetic.png'])('active Wallet blocks a former finance URL alias %s before avatar/note/staging-owner policy can grant access', candidate => { expect(blocksLegacyWalletReceipt(reader(), candidate, legacy)).toBe(true); });
+it('durable taint survives removal of the old collection reference and matches the same Windows file', () => { const digest = legacyReceiptPathDigest(url), db = reader(true, digest); expect(digest).toBe(createHash('sha256').update('receipts/family/synthetic.png').digest('hex')); expect(blocksLegacyWalletReceipt(db, '/uploads/receipts/%46amily/SYNTHETIC.png', { transactions: [] } as any)).toBe(true); });
+it('an unrelated file still uses its existing domain policy when Wallet is active', () => { expect(blocksLegacyWalletReceipt(reader(), '/uploads/notes/synthetic.png', legacy)).toBe(false); });
+it.each(['/uploads/../outside.png', '/uploads/receipts/%252e%252e/outside.png', 'https://synthetic.invalid/receipt.png'])('refuses a noncanonical managed reference %s', candidate => { expect(() => legacyReceiptPathDigest(candidate)).toThrow(); });

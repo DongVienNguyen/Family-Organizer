@@ -17,6 +17,20 @@ export function receiptFromRow(row:Record<string,any>):WalletReceiptMetadata {
 export function validateWalletReceiptTables(tables:Record<string,Record<string,any>[]>,userIds?:Set<string>):void {
  const recordIds=new Set(tables.wallet_records.map(row=>String(row.id))),keys=new Set<string>();
  for(const row of tables.wallet_receipts){const metadata=receiptFromRow(row);validateReceiptMetadata(metadata,recordIds,userIds);if(keys.has(metadata.fileKey))throw Error('Duplicate receipt file key');keys.add(metadata.fileKey);}
+ const receipts=new Map(tables.wallet_receipts.map(row=>[row.id,receiptFromRow(row)]));
+ for(const link of tables.wallet_legacy_links){
+  const detail=JSON.parse(String(link.detail_json));
+  if(detail.legacyMediaPathDigest!==undefined&&(typeof detail.legacyMediaPathDigest!=='string'||!/^[a-f0-9]{64}$/.test(detail.legacyMediaPathDigest)))throw Error('Invalid legacy media protection digest');
+  if(detail.receiptReplacement!==undefined&&typeof detail.receiptReplacement!=='boolean')throw Error('Invalid legacy receipt replacement');
+  if(detail.receiptId!==undefined||detail.receiptSha256!==undefined||detail.receiptConversionVersion!==undefined||detail.receiptReplacement!==undefined||detail.receiptDetachedAt!==undefined||detail.receiptDetachedBy!==undefined){
+   const receipt=receipts.get(detail.receiptId);
+   if(link.source_kind!=='record'||link.state!=='mapped'||detail.receiptPending!==false||detail.receiptConversionVersion!==1||typeof detail.receiptId!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(detail.receiptId)||typeof detail.receiptSha256!=='string'||!/^[a-f0-9]{64}$/.test(detail.receiptSha256)||typeof detail.receiptDigest!=='string'||!/^[a-f0-9]{64}$/.test(detail.receiptDigest))throw Error('Invalid legacy receipt manifest anchor');
+   if(detail.receiptDetachedAt!==undefined||detail.receiptDetachedBy!==undefined){
+    const at=detail.receiptDetachedAt,by=detail.receiptDetachedBy;
+    if(receipt||typeof at!=='string'||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(at)||!Number.isFinite(Date.parse(at))||new Date(at).toISOString()!==at||typeof by!=='string'||!by.trim()||by.length>256||userIds&&!userIds.has(by))throw Error('Invalid detached legacy receipt history');
+   }else if(!receipt||receipt.recordId!==link.target_id||receipt.sha256!==detail.receiptSha256)throw Error('Invalid legacy receipt manifest anchor');
+  }
+ }
 }
 export function validateWalletReceiptMedia(tables:Record<string,Record<string,any>[]>,media:Record<string,string>):void {
  for(const row of tables.wallet_receipts){

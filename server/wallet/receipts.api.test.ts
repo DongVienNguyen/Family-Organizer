@@ -87,3 +87,12 @@ it.each(['remote','traversal','mime','base64','extra'])('rejects receipt %s with
 }));
 
 it('an overlong opaque receipt ID is a400 input error rather than a native500',()=>fixture(async f=>{const result=await f.request('/records/'+f.expense.record.id+'/receipts/'+'a'.repeat(37));expect(result.status).toBe(400);expect(result.body.code).toBe('INVALID_INPUT');expect(result.body.requestId).toBe(result.headers['x-request-id']);}));
+
+it('active Wallet blocks a legacy receipt URL even when reused as an avatar; inactive pilot preserves old media behavior',()=>fixture(async f=>{
+ const url=media.saveDataUrlToFile('data:image/png;base64,'+png.toString('base64'),'receipts','SyntheticLegacy').url;
+ write(tx=>{tx.legacy.transactions=[{id:'synthetic-legacy-media',receiptImage:url} as any];tx.legacy.users.find(user=>user.id===who().userId)!.avatarImage=url;tx.run("UPDATE app_meta SET value='0' WHERE key='wallet_active'");});media.initializeMediaMetadata();
+ expect((await f.request(url)).status).toBe(200);
+ write(tx=>tx.run("UPDATE app_meta SET value='1' WHERE key='wallet_active'"));
+ for(const role of ['member','other','admin','child']){const result=await f.request(url,'GET',undefined,role);expect(result.status).toBe(404);expect(result.bytes).not.toEqual(png);expect(result.headers['cache-control']).toBe('no-store');}
+ write(tx=>tx.run("UPDATE app_meta SET value='0' WHERE key='wallet_active'"));expect((await f.request(url)).bytes).toEqual(png);
+}));
