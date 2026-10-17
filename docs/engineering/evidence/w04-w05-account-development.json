@@ -1,0 +1,140 @@
+{
+  "taskIds": [
+    "W04-partial",
+    "W05-partial"
+  ],
+  "status": "Cloud ACL and account-command checkpoint; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "372433eee99ce6d62b463deb05c09299f8e9e34c",
+  "base": "96ed4f75072a365ae9ff8e1ed4c5a200f629743b",
+  "sourceSha256": {
+    "server/wallet/access.test.ts": "901e926e5a87a08e2f365261608f6e9396586b56bf8ca2fd2418e24319bc9523",
+    "server/wallet/access.ts": "74c4a7b036b9b100c5babfd18aaa86ddd660edd6f3f2a254804b6e32bcb08ebe",
+    "server/wallet/accounts.test.ts": "5d5d089d4bdeb8537b5e219747edf18c5ac7a9bc53642e088a3f9e2bcc5ce80e",
+    "server/wallet/accounts.ts": "4fe5c034e227dbe5727a5ff06a6ca19306b94333479ceafbaf93fe924616db12",
+    "server/wallet/store.ts": "609ae49a4f17fd280315b35791dfa7c8f384db4aba810bf9b47cae8ab3f321ef"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6493,
+      "files": 347,
+      "junitCases": 6493,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 139.95
+    },
+    "walletInFullSuite": {
+      "tests": 154,
+      "files": 8
+    },
+    "newAccessCases": 29,
+    "newAccountCases": 39,
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6425,
+      "currentPassed": 6493,
+      "added": 68,
+      "removed": 0,
+      "normalization": "only temporary root in five recoveryRetention names; multiplicity retained",
+      "junitCases": 6493,
+      "files": 347
+    }
+  },
+  "review": {
+    "method": "LOCAL SELF review by author, not independent",
+    "reviewedPaths": [
+      "server/wallet/access.test.ts",
+      "server/wallet/access.ts",
+      "server/wallet/accounts.test.ts",
+      "server/wallet/accounts.ts",
+      "server/wallet/store.ts"
+    ],
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "focus": [
+      "adult role intersection before financial SQL and before command cache",
+      "SQL permissions before row decode, partial-transfer redaction and no hidden amount",
+      "manage vs contribute/read and current grants on each operation",
+      "repeat preflight inside I01, atomic audit/revision and immutable actor/clock",
+      "signed64 book/cleared math and unclamped exact credit ratio",
+      "feature remains inactive; no HTTP/media/UI/legacy cutover"
+    ],
+    "correctionPasses": 0,
+    "rereview": false,
+    "limitations": [
+      "No independent fresh-context review",
+      "Full W04/W05 and Windows acceptance not complete"
+    ]
+  },
+  "decisions": [
+    "Shared adult accounts default contribute; explicit read grant attenuates it; owner/admin manage; Child/Guest always denied",
+    "Known historical reference does not authorize live access; current role and deletion checked each time",
+    "Opening enters as-of balance on openingDate; canonical postings are never dropped by category/opening-date filters",
+    "Credit utilization is an exact rational, null with zero/unknown limit; available=limit+book without clamping",
+    "wallet_active missing/off rejects commands; no live activation or route/UI/legacy cutover"
+  ],
+  "developmentEvidence": {
+    "accessRed": {
+      "failed": 27
+    },
+    "accountRed": {
+      "failed": 27
+    },
+    "accountNullRed": {
+      "failed": 2,
+      "filteredOut": 27,
+      "cause": "null was incorrectly defaulted for nonnullable options",
+      "fixed": true
+    },
+    "creditRed": {
+      "failed": 5,
+      "filteredOut": 31
+    },
+    "initialFixtureCorrections": [
+      "Stored synthetic User type includes passwordHash",
+      "Audit obstruction trigger installed on the isolated native fixture; gateway transaction parser remains strict",
+      "Race test compares existing command count and absence of exact request receipt rather than assuming whole-file cache is empty"
+    ],
+    "final": "6493 pass, no skipped/todo/failed; no assertions removed or deadlines/retries changed"
+  },
+  "rawEvidenceRoot": "/workspace/family-evidence",
+  "rawReports": {
+    "w04-w05-qualified.json": "3f835f6cd133b50d41e17f264118d15c0442baf96190d41f6abca356997d6a6f",
+    "w04-w05-qualified.junit.xml": "4b1818cff7b42c9d1fc71fe4db0f2aea249afe8ed697266c469469ae8b607008",
+    "w04-w05-qualified.log": "c557f9fcf4404c8a6a3b2b4db317924800c33828fff29f6c7e000d09e7f0305c",
+    "w04-w05-qualified.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w04-w05-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w04-w05-lint.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w04-w05-build.log": "60471b5aba236cede334822eb56d9b3a13c2bf15c67c09075338bbd36426a452",
+    "w04-w05-build.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w04-w05-frozen.json": "75f1bbbfeaec958bcf31503e3edf67c5d7397a50055baf7651d153e74f57a1e1",
+    "w04-w05-preservation.json": "08daa3595f54205bd9e006f67586040caf054917ff69ad7820afb03728168cdd"
+  },
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "new browser for unwired backend modules",
+    "current Windows2022 Node24/Node22",
+    "current package/service",
+    "Windows Server2019 R02"
+  ],
+  "remaining": [
+    "W02 remaining entities, FX/fee relations and private receipt manifests",
+    "W03 durable migration/quarantine, old backup upgrade and canonical legacy adapter",
+    "W04 HTTP/authorized media/export/report gates",
+    "W05 income/expense/transfer/update/void commands and UI",
+    "remaining M1 UX and full browser/final Windows gates",
+    "later Wallet/productivity/integration acceptance"
+  ],
+  "constraints": [
+    "No release/tag/VPS",
+    "No live provider calls or production data",
+    "No dependencies/workflow changes"
+  ]
+}

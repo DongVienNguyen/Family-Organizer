@@ -2,6 +2,25 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
+**Latest continuation — W04/W05 partial:** source `372433eee99ce6d62b463deb05c09299f8e9e34c` adds fresh role/grant
+ACL, SQL scoping before financial bodies, partial-transfer redaction and account
+create/update/archive commands with trusted actor/time, revision/idempotency and
+atomic audit. Exact book/cleared balances and credit debt/availability/rational
+utilization handle signed64 limits and zero limits without rounding or clamping.
+
+Full Cloud6493tests/347files/matchingJUnit/0failed-skipped-todo; Wallet154cases/8files
+within full run. All6425parent retained+68 (29access/39account); lint/build0.
+LOCAL SELF5paths0C/0I/0M/no correction/rereview in that review pass, not independent.
+[Detail](wallet-account-core.md), [proof](evidence/w04-w05-account-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. GitHub read access
+works; no PR/Actions run exists on this development branch. New modules are not
+wired to HTTP/UI, no activation or legacy cutover; existing finance remains active.
+No browser run for this backend slice. Current Windows/Node22/package/service and
+Server2019R02 unrun. Next: remaining W02 financial relations, W03 migration and
+W05 records/transfer/UI, then remaining M1/Wallet/final gates.
+**Full W02/W03/W04/W05/Wallet/M1/master is not complete.** No release/tag/VPS.
+
 **Latest continuation — W02 partial:** source `43e9cdb04f6adb58d10b9714d39a3251a04aad8b` adds explicit additive migration2
 for account/record/catalog/audit metadata. Frozen migration1 and standalone protocol2
 remain supported; extended standalone protocol3 maps to Wallet domain2. I01 remains
