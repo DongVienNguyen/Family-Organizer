@@ -2,7 +2,28 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
-**Latest continuation — P08/P09/P10/P17/P18 partial:** source
+**Latest continuation — W02 partial:** source
+`2496a3b4d4ecd06a80854d5ff24017b6d8ca4f87` rejects unknown Wallet record creators,
+unknown audit actors and cyclic category graphs before restore writes; module
+export applies the same known-user provenance. Shared I01refusals occur before
+maintenance or any SQL/legacy mutation. Known deleted/restricted historical users,
+12000-category valid restore and exact signed64 money remain supported.
+
+Full Cloud6379tests/343files/matchingJUnit/0failed-skipped-todo;40targeted Wallet
+cases; lint/build0. All6369parent tests retained+10. One LOCAL SELF3paths0C/0I/0M,
+no correction/rereview, not independent. Frozen migration1/DDL/protocol2/default
+activation/dependencies/workflows/finance behavior unchanged.
+[Functional detail](wallet-snapshot-provenance.md) and
+[compact proof](evidence/w02-snapshot-provenance-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No new browser
+run for this backend validation slice; M1's last10+1browser result stays bound to
+its own3560source. Current Windows/Node22/package/service and Server2019R02 remain
+unrun. Next: W02full schema/entities/attachment manifest, W03migration, W04account
+ACL then W05core; remaining M1P09/P17/P18 and final Windows remain tracked.
+**Full Wallet/M1/master is not complete.** No release/tag/VPS.
+
+**Previous continuation — P08/P09/P10/P17/P18 partial:** source
 `3560e03693233c4542800230ff3e12a63da8e02c` adds Workflow/grouped pointer drag into the
 existing explicit P10/selected-dimension confirmations, visible-only overlay and
 retained default auto-scroll. Readonly/stale/foreign/canceled operations are

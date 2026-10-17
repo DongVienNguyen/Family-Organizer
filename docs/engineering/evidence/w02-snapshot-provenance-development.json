@@ -1,0 +1,83 @@
+{
+  "taskIds": [
+    "W02-partial"
+  ],
+  "status": "Cloud snapshot-integrity checkpoint; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "2496a3b4d4ecd06a80854d5ff24017b6d8ca4f87",
+  "base": "074a46ca5f9c8e9f90ae6ef487d6643fe7141426",
+  "sourceSha256": {
+    "server/wallet/integration.test.ts": "160692b14b9d014735f06f97d59cf016b6e48a60cc4724dd9fd76b08c7f68f5e",
+    "server/wallet/snapshot.test.ts": "defcb6a81de32b713405564a4381ad57da329f998c1397b70cd8b08d76f24c96",
+    "server/wallet/snapshot.ts": "1e1a7c9e1194e6aff4cc1b14df0ab07bc3a6b7ee81073071599599cf1fd99dec"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6379,
+      "files": 343,
+      "junitCases": 6379,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentCasePreservation": {
+      "parentPassed": 6369,
+      "currentPassed": 6379,
+      "added": 10,
+      "missing": 0,
+      "normalization": "only five unchanged server/recoveryRetention.test.ts generated synthetic temporary-root names; multiplicity retained"
+    },
+    "productionBuild": {
+      "dist/server.cjs": "d9d1e02ca7eddd34f991d96328c5fb21abad30e2880de3fda9ef12a2d2e0b37a",
+      "dist/index.html": "5cbe5e98b174df2e5484226347e08f2e711fdf3ba2f4c949c9c3855a30025f73"
+    },
+    "browser": "not rerun for this server-side validation slice; unchanged M1 frontend journeys are bound to3560e03693233c4542800230ff3e12a63da8e02c"
+  },
+  "causalTests": {
+    "restore": "unknown creator, unknown audit actor and valid-checksum category cycle3RED before fix; no SQL total_changes or legacy mutation",
+    "export": "unknown stored creator/audit actor2RED before fix; producer now rejects before returning invalid bytes",
+    "sharedCoordinator": "same3refusals before maintenance/onBoundary or any SQL/legacy write",
+    "preservation": "known deleted/restricted historical users and12000-category valid restore with exact signed64 values pass"
+  },
+  "review": {
+    "mode": "LOCAL whole-branch SELF review; not independent",
+    "paths": 3,
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "correctionPasses": 0,
+    "rereview": false
+  },
+  "unchanged": [
+    "Wallet migration1 and its frozen DDL checksum",
+    "Wallet snapshot protocol2",
+    "default activation",
+    "dependencies and lockfile",
+    "workflows",
+    "existing finance routes and UI"
+  ],
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "current-source Windows2022/Node22/package/service qualification",
+    "new browser run for this slice",
+    "Windows Server2019/R02"
+  ],
+  "next": "W02full entity/schema and attachment manifest completion, then W03migration and W04account authority before W05accounts/transactions/transfers; M1remaining UX and final Windows stay tracked",
+  "releaseTagVps": false,
+  "rawSha256": {
+    "/workspace/family-evidence/w02-snapshot-provenance-qualified.json": "1164b301ea42100d6bfe656fca8cf38004ef69a7e7e4c1ae538aaee8d42045a2",
+    "/workspace/family-evidence/w02-snapshot-provenance-qualified.junit.xml": "24e4df1307b98dec02bf55c8eba44ad8aa65035711f0214a8325b26bf3e008f5",
+    "/workspace/family-evidence/w02-snapshot-provenance-qualified.log": "2515997a42236be6deea913cf6211b11bc4b792a54e1f259226e3914fd4ae490",
+    "/workspace/family-evidence/w02-snapshot-provenance-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "/workspace/family-evidence/w02-snapshot-provenance-build.log": "d533627e7fa8117cf414dd07377f6330a95e9afcabfe998cd3294bc9e7e47687",
+    "/workspace/family-evidence/w02-snapshot-provenance-preservation.json": "36ea59d19c640903a0326eda43d29d6ae68372f79b02f3bcebcb4e0908b36fb1",
+    "/workspace/family-evidence/w02-snapshot-provenance-self-review.json": "0755d5598db19e365a0ecdc6fefd9c4f6a539cf181ed30602f7058af179ddb2d",
+    "/workspace/family-evidence/w02-snapshot-provenance-red.json": "b647e3092acddc68ce29803c983ffb2ca0c7add8274bcaf10d90d6f5caca2c9d",
+    "/workspace/family-evidence/w02-snapshot-export-provenance-red.json": "a61a8a6ff927594c44b7c014a9b86d64029692697275633d850f4911676b84ce"
+  }
+}
