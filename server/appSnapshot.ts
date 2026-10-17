@@ -166,7 +166,7 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
         tx.exec('PRAGMA defer_foreign_keys=ON');
         const definitions = [...tables()];
         for (const [name] of [...definitions].reverse()) tx.run(`DELETE FROM ${name}`);
-        for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => domainTables.get(name)?.integerText.includes(column)?BigInt(row[column]):row[column]));
+        for (const [name,columns] of definitions) for (const row of checked.tables[name]) tx.run(`INSERT INTO ${name} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`, ...columns.map(column => domainTables.get(name)?.integerText.includes(column)&&row[column]!==null?BigInt(row[column]):row[column]));
         options.onBoundary?.('sql-tables-restored');
         tx.legacy = JSON.parse(JSON.stringify(checked.legacy));
         reconcileBackupReferences(tx.legacy);

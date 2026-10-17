@@ -1,5 +1,6 @@
 import type {AppWriteTx} from '../appStore.js';
 import {createHash} from 'node:crypto';
+export {prepareWalletMetadata,walletMetadataSql,walletMetadataChecksum} from './metadataSchema.js';
 /** Trusted explicit pilot DDL. Imports never open/register another connection. */
 export const walletCoreSql=`
 CREATE TABLE IF NOT EXISTS wallet_currencies(code TEXT PRIMARY KEY,exponent INTEGER NOT NULL CHECK(exponent BETWEEN 0 AND 8));

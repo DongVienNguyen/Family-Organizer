@@ -4,7 +4,7 @@ import {inspectProductivityStorage} from './productivity/inspection.js';
 import {productivityTablesAt} from './productivity/structureSchema.js';
 import {validateProductivitySnapshotData} from './productivity/snapshot.js';
 import {inspectWalletStorage,validateSharedWalletSnapshot} from './wallet/integration.js';
-import {walletSnapshotColumns} from './wallet/snapshot.js';
+import {walletTablesAt} from './wallet/snapshot.js';
 /** Read-only compatibility context; missing runtime tables describe their supported
  * bootstrap schema without creating them in an un-warmed first-account target. */
 export function inspectRecoverySnapshot(input:unknown,file:string):void {
@@ -17,7 +17,7 @@ export function inspectRecoverySnapshot(input:unknown,file:string):void {
   const tables=new Map(snapshotCoreTables);
   if(hasProductivity)for(const [name,columns] of Object.entries(productivityTablesAt((db.prepare("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'").get() as any)?.version??1)))tables.set(name,columns);
   const hasWallet=inspectWalletStorage({get:(sql,...args)=>db.prepare(sql).get(...args),all:(sql,...args)=>db.prepare(sql).all(...args)});
-  if(hasWallet)for(const [name,columns]of Object.entries(walletSnapshotColumns))tables.set(name,columns);
+  if(hasWallet)for(const [name,columns]of Object.entries(walletTablesAt((db.prepare("SELECT max(version) AS version FROM app_migrations WHERE namespace='wallet'").get() as any).version)))tables.set(name,columns);
   const primaryKeys=new Map<string,readonly string[]>();
   const defaults:Record<string,readonly string[]>={app_meta:['key'],app_commands:['command','request_id'],app_migrations:['namespace','version'],app_reward_claims:['claim_id'],app_jobs:['id'],server_metrics:['t']};
   for(const [name,columns] of tables){

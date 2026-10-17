@@ -18,7 +18,8 @@ export async function configureTaskStorage(sqlite:typeof Sqlite,options:{validat
  const migrations=await import('../appMigrations.js');
  const snapshot=await import('../appSnapshot.js');
  configureCanonicalTaskBridge({sqlite,gateway,migrations,snapshot});
- configureWalletStorage({migrations,snapshot});
+ const walletVersion=migrations.getDomainVersions().wallet;
+ configureWalletStorage({migrations,snapshot,version:walletVersion===2?2:1});
  // Authenticated offline restoration validates replacement data in the shared
  // restore engine. Ordinary startup/capture always refuses malformed live DTOs.
  if(options.validateCurrentTasks!==false)sqlite.sqliteLoad();
