@@ -15,11 +15,12 @@ export interface WalletCreditPosition {currency:string;bookMinor:string;creditLi
 const fields=['name','type','currency','openingMinor','openingDate','accessMode','excludedFromStats','creditLimitMinor','dueDay','balanceDisplay'];
 const fail=(status:number,message:string,code='wallet-account'):never=>{throw new AppStoreError(message,status,code);};
 const txReader=(tx:WalletTx):WalletReader=>({...tx.sql,get legacy(){return tx.legacy;}});
-function context(ctx:CommandContext,reader:WalletReader,editing=false):void {
+export function assertWalletCommandContext(ctx:CommandContext,reader:WalletReader,editing=false):void {
  assertWalletActor(reader,ctx?.actor);
  try{text(ctx.idempotencyKey,256);if(editing)integer(ctx.expectedRevision,1);else if(ctx.expectedRevision!==undefined&&ctx.expectedRevision!==0)fail(409,'Phiên bản tạo mới phải bằng 0.','edit-conflict');}catch(error){if(error instanceof AppStoreError)throw error;fail(400,'Lệnh tài khoản không hợp lệ.');}
  if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value!=='1')fail(409,'Kho Wallet chưa được kích hoạt.','wallet-storage-inactive');
 }
+const context=assertWalletCommandContext;
 function input(value:unknown,patch=false):Record<string,unknown> {
  try{const v=object(value);keys(v,patch?[...fields,'archived']:fields);if(!Object.keys(v).length||Object.values(v).some(x=>x===undefined))throw Error();return structuredClone(v);}catch{fail(400,'Trường tài khoản không hợp lệ.');}
 }
@@ -39,6 +40,13 @@ function result(reader:WalletReader,actor:Actor,id:string):WalletAccountResult {
  if(!row)fail(409,'Thiếu metadata tài khoản.');return {account,metadata:decodeMetadata('wallet_account_metadata',row) as unknown as WalletAccountMetadata};
 }
 function manager(reader:WalletReader,actor:Actor,id:string):void {if(createWalletAccess(reader).getAccount(actor,id).permission!=='manage')fail(403,'Không có quyền quản lý tài khoản.');}
+function hasAccountHistory(reader:WalletReader,id:string):boolean {
+ if(reader.get('SELECT 1 AS present FROM wallet_postings WHERE account_id=? LIMIT 1',id))return true;
+ // Moving the last posting must not erase its original currency provenance.
+ // Older audit objects need not contain arrays or homogeneous element types.
+ const side=(column:'before_json'|'after_json')=>"EXISTS(SELECT 1 FROM json_each(CASE WHEN json_type(m."+column+",'$.postings')='array' THEN json_extract(m."+column+",'$.postings') ELSE '[]' END) p WHERE json_extract(CASE WHEN p.type='object' THEN p.value ELSE '{}' END,'$.accountId')=?)";
+ return !!reader.get('SELECT 1 AS present FROM wallet_audit_metadata m WHERE '+side('before_json')+' OR '+side('after_json')+' LIMIT 1',id,id);
+}
 /** Internal commands only. Explicit cutover must enable storage before wiring UI. */
 export function createWalletAccounts(ports:{reader:WalletReader;write:typeof withAppWriteTransaction;now?:()=>number}){
  const store=openWalletStore({write:ports.write}),now=ports.now??Date.now;
@@ -61,7 +69,7 @@ export function createWalletAccounts(ports:{reader:WalletReader;write:typeof wit
    return run(ctx,'update',{id,expectedRevision:ctx.expectedRevision,patch:normalized(patch)},tx=>{
     const reader=txReader(tx);context(ctx,reader,true);manager(reader,ctx.actor,id);const before=result(reader,ctx.actor,id);if(before.account.revision!==ctx.expectedRevision)fail(409,'Tài khoản vừa được thay đổi.','edit-conflict');
     const v=draft({...before.account,...settings(before.metadata),...patch});
-    if(v.currency!==before.account.currency&&tx.sql.get('SELECT 1 AS present FROM wallet_postings WHERE account_id=? LIMIT 1',id))fail(409,'Không thể đổi tiền tệ của tài khoản đã có lịch sử.','wallet-currency-history');
+    if(v.currency!==before.account.currency&&hasAccountHistory(reader,id))fail(409,'Không thể đổi tiền tệ của tài khoản đã có lịch sử.','wallet-currency-history');
     const at=stamp(),archivedAt=patch.archived===true?before.account.archivedAt??at:patch.archived===false?null:before.account.archivedAt;
     tx.sql.run('UPDATE wallet_accounts SET name=?,type=?,currency=?,access_mode=?,opening_minor=?,opening_date=?,revision=revision+1,archived_at=? WHERE id=?',v.name,v.type,v.currency,v.accessMode,minorInteger(v.openingMinor),v.openingDate,archivedAt,id);
     tx.metadata.accounts.set({...before.metadata,...settings(v),updatedAt:at,updatedBy:ctx.actor.userId});const saved=result(reader,ctx.actor,id);audit(tx,ctx.actor,'update',at,before,saved);return saved;
