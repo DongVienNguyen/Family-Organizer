@@ -24,11 +24,13 @@ export async function workflowView(page:Page,title:string){const listed=await ma
  * synthetic preconditions. Keep the same visible role/workspace checks as the
  * UI login helper; the mandatory foundation suite still exercises the form. */
 export async function loginWithSession(page:Page,role:string,canonical=true){
+ // Start on the existing Tasks deep link, preserving profile/workspace checks
+ // while avoiding an unrelated dashboard render in Productivity preconditions.
  // Finish the old logout/purge before another session can touch its storage.
  // An owned JSON document prevents storage events reaching the retired app.
  if(page.url()!=='about:blank'){await expect(page.getByPlaceholder('Nhập tên đăng nhập gia đình...')).toBeVisible();const parked=await page.goto('/api/ready');expect(parked?.status()).toBe(200);expect(parked?.headers()['content-type']).toContain('application/json');}
  const response=await page.request.post('/api/auth/login',{data:{username:'browser-'+role,password},maxRedirects:0});expect(response.status()).toBe(200);const body=await response.json();expect(body.user.id).toBe('browser-'+role);expect(body.user.role).toBe(role);expect(body.token).toMatch(/^fo1\./);
- const origin=new URL(response.url()).origin;await page.context().setStorageState({cookies:[],origins:[{origin,localStorage:[{name:'family_token',value:body.token},{name:'family_lang',value:'vi'}]}]});await page.goto('/');await expect(page.getByRole('button',{name:'Mở hồ sơ của Synthetic '+role,exact:true})).toBeVisible();await page.locator('aside nav').getByRole('button',{name:'Nhóm Task',exact:true}).click();if(canonical)await expect(page.getByRole('button',{name:'Danh sách',exact:true})).toBeVisible();
+ const origin=new URL(response.url()).origin;await page.context().setStorageState({cookies:[],origins:[{origin,localStorage:[{name:'family_token',value:body.token},{name:'family_lang',value:'vi'}]}]});await page.goto('/?tab=tasks');await expect(page.getByRole('button',{name:'Mở hồ sơ của Synthetic '+role,exact:true})).toBeVisible();await page.locator('aside nav').getByRole('button',{name:'Nhóm Task',exact:true}).click();if(canonical)await expect(page.getByRole('button',{name:'Danh sách',exact:true})).toBeVisible();
 }
 
 /** C36 permanently holds a real logout deletion event: a new session must not

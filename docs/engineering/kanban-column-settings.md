@@ -62,3 +62,17 @@ one subsequent real child login before its original workflow assertions. The
 causal diagnostic and all four affected journeys/nativeTouch passed after repair.
 No production bundle, dependency, test deadline or retry policy changed. Fresh
 exact-HEAD Windows qualification is still required; no unchanged CI rerun.
+
+
+The next exact-HEAD Windows attempt a18d207/run38985788856 passed six checks,
+both6032/326unit reports, all45legacy browsers, all42Chromium/all42Firefox and
+nativeTouch. Only WebKit C27/C31 exhausted their45-second total budgets; their
+late assertions ran after the deadline. C36/C41 session/cleanup checks passed in
+all engines. Trace measured6188ms/6865ms in initial UI login preparations. Those
+two recurrence journeys now use the existing real-session helper; it enters the
+existing Tasks PWA deep link before retaining the same profile/navigation/
+canonical checks. It avoids unrelated dashboard rendering. Every semantic
+assertion remains; no popup-selector change, deadline increase or retry is used.
+All six affected Cloud journeys plus nativeTouch/JUnit/native0 pass against the
+unchanged production bundle. This actual latency repair is separately inventoried
+without reopening the original review. New Windows qualification remains required.

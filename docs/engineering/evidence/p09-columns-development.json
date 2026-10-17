@@ -30,8 +30,9 @@
     "tests/helpers/release-productivity-browser-fixture.ts": "1209aa1927ae6134b847676a6bafbba0f2e9394601011990f899413f063bb043",
     "tests/productivity-registration.test.ts": "39d91d526391bab19cb94036e03e96f6b1e9885ec5e7da0c32a9a2e7468a883b",
     "tests/release-productivity-profile.test.ts": "e20dc02e371ee48d4aa1b24aa70509d910515f02c04cc2055afd0016ac154363",
-    "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
-    "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906"
+    "tests/e2e/productivity-test.ts": "8ef6ed4dd20ac8313cc5a328eb33144ba4ddefdd37c7b09d7171f4c2a6acf6c8",
+    "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
+    "tests/e2e/productivity-advanced-cases.ts": "f8b5d6694934cfb8ec45b155bddeb2fc84ebc5ed87b9a0f90b9fc6b6d9bdae3f"
   },
   "wholeBranchReview": {
     "taskId": "P09-section-column-settings",
@@ -138,8 +139,9 @@
   "casePreservation": {
     "acceptedParent": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
     "originalColumnSource": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
-    "original39CaseCallsUnchangedExceptC36SessionSetup": true,
-    "original38CaseCallsUnchanged": true,
+    "original39CaseCallsUnchangedExceptSessionSetup": true,
+    "original36CaseCallsUnchanged": true,
+    "c27c31OnlyFirstSyntheticSessionPreparationChanged": true,
     "c36OnlySessionPreparationChanged": true,
     "permanentHeldLogoutRegressionAdded": true,
     "allExistingAssertionsUnchanged": true,
@@ -176,9 +178,9 @@
     "entireNativeTouchFileUnchanged": true,
     "currentCases": 42,
     "sourceHashes": {
-      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+      "tests/e2e/productivity-test.ts": "8ef6ed4dd20ac8313cc5a328eb33144ba4ddefdd37c7b09d7171f4c2a6acf6c8",
       "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
-      "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
+      "tests/e2e/productivity-advanced-cases.ts": "f8b5d6694934cfb8ec45b155bddeb2fc84ebc5ed87b9a0f90b9fc6b6d9bdae3f",
       "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
       "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
       "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
@@ -1215,7 +1217,7 @@
       "browser phone-before-login/CreateTasksectionId/owned-column cleanup failures"
     ]
   },
-  "windowsAcceptance": "4dee93e/run38984107559 FAILED; new exact HEAD pending, no unchanged rerun",
+  "windowsAcceptance": "4dee/run38984107559 failed session prep; a18/run38985788856 failed WebKit C27/C31 total budgets; new changed-source exactHEAD pending",
   "plannedFirstAttemptCases": 172,
   "publicationAllowed": false,
   "fullMasterPlanAccepted": false,
@@ -1387,6 +1389,160 @@
       "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
       "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
       "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+      "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
+      "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
+    }
+  },
+  "thirdPostReviewCiRepair": {
+    "failedHead": "a18d20765382089c1721cc5362fac7e5c4a3d86d",
+    "failedRun": "38985788856",
+    "sourceBefore": {
+      "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
+      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3"
+    },
+    "sourceAfter": {
+      "tests/e2e/productivity-advanced-cases.ts": "f8b5d6694934cfb8ec45b155bddeb2fc84ebc5ed87b9a0f90b9fc6b6d9bdae3f",
+      "tests/e2e/productivity-test.ts": "8ef6ed4dd20ac8313cc5a328eb33144ba4ddefdd37c7b09d7171f4c2a6acf6c8"
+    },
+    "basis": "WebKit C27/C31 exceed45s in late assertions; Before Hooks/last-operation trace shows deadline exhausted before completion. Initial UI login spans6188ms/6865ms. C36/C41 phase cleanup now passed.",
+    "repair": "Use existing real-session helper for only C27/C31 initial adult preconditions; helper enters existing ?tab=tasks PWA deep link then retains profile/Tasks-nav/canonical assertions, avoiding unrelated dashboard render.",
+    "noAssertionsRemoved": true,
+    "noDeadlineChanges": true,
+    "noRetriesAdded": true,
+    "review": "original26sourceSELF stays closed; actualCI latency repair separately inventoried",
+    "validation": {
+      "affectedNativeCases": 6,
+      "nativeTouch": 1,
+      "junitMatched": true,
+      "nativeExit": 0,
+      "lintExit": 0,
+      "buildExit": 0,
+      "registrationTests": 4,
+      "productionBuildUnchanged": true,
+      "manifest": {
+        "commitSha": "a18d20765382089c1721cc5362fac7e5c4a3d86d",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+        "productionBuild": {
+          "serverSha256": "2ee1d6e48bb2bdb9e450fa4075e39998fed0e91a86e30992975cedc04e97248f",
+          "indexSha256": "55076387fa935e7bc85d5a8afadb682f442ee4396fbed14f75d034337b0635d1"
+        },
+        "synthetic": true,
+        "project": "chromium",
+        "fixtureProject": "chromium",
+        "executionJob": null,
+        "productivityVersion": 13,
+        "workerFormat": 1,
+        "workerCount": 1,
+        "workerFixtures": [
+          {
+            "index": 0,
+            "fixtureId": "9128dd16-b71b-4db8-840e-ab931ca7fa20",
+            "port": 38339,
+            "seedTasks": 13,
+            "legacyFileBeforeSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "legacyFileAfterSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "integrity": "ok",
+            "databaseClosed": true,
+            "nativeHandlesClosed": true,
+            "fixtureRemoved": true,
+            "serverExitCode": 0,
+            "serverSignal": null,
+            "networkAttempts": [],
+            "serverLogSha256": "e586a0e0ba32e08440d40d9769c83cd886ce337021ae2229db6c69c2f090af8e",
+            "runtimeSha256": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+            "error": null
+          }
+        ],
+        "fixtureRemoved": true,
+        "nativeHandlesClosed": true,
+        "networkAttempts": [],
+        "externalAttempts": [],
+        "legacyPreserved": true,
+        "integrity": "ok",
+        "databaseClosed": true,
+        "cliExitCode": 0,
+        "cliSignal": null,
+        "serverExitCode": 0,
+        "serverSignal": null,
+        "browserExitCode": 0,
+        "browserSignal": null,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "touchExitCode": 0,
+        "touchSignal": null,
+        "nativeTouchVerified": true,
+        "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+        "error": null
+      },
+      "reports": {
+        "p09-recurrence-latency-browser.log": "7e0a9833a6650a13f0bdae1eda8a7f999371de0102f518948f80b88108c38c14",
+        "p09-recurrence-latency-registration.json": "99c5a2357f626aab4a57f8aba1a8cb692bf76d77f8fd655346f970f4e8132d91",
+        "p09-recurrence-latency-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+        "p09-recurrence-latency-build.log": "cb48a4957483f1a62196cf267a25d2f476c181d7ff726536b133d81d328a464a"
+      },
+      "rawReports": {
+        "productivity-browser-touch.json": "7d08d855207ee284fc890f69df51510cff8c50fb091310589e4540516520f06b",
+        "productivity-browser-runtime-chromium-worker0.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser.junit.xml": "136dbbd727514b9308cc3b6e43eb3ca39b3a69cfe1a0baa851a31eab3bac53ad",
+        "productivity-browser-touch.junit.xml": "66bfbcfb56a41bc5f1b7475e9d81fec0d0eb9fbffce76e7e3f94b64d2d81d640",
+        "productivity-browser.json": "b3e6e583bfda6adbbd3ed71f7e7c5c1708111f574d53c58780268987b6391bc2",
+        "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser-touch-runtime.json": "921e04bd50c740d29a915920f54f6431a7d6d0372cce89a04c141b918fad7ee2",
+        "productivity-browser-fixture.json": "346d1e9c38a5620f95afe6837669b83589ecd5499a7c0b6b7577b87244759ef0"
+      }
+    }
+  },
+  "casePreservationAtFaileda18": {
+    "acceptedParent": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+    "originalColumnSource": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
+    "original39CaseCallsUnchangedExceptC36SessionSetup": true,
+    "original38CaseCallsUnchanged": true,
+    "c36OnlySessionPreparationChanged": true,
+    "permanentHeldLogoutRegressionAdded": true,
+    "allExistingAssertionsUnchanged": true,
+    "original39HelpersUnchanged": true,
+    "helperNames": [
+      "login",
+      "matrixRequest",
+      "createProductivityTest",
+      "togglePin",
+      "workflowView",
+      "holdFetch",
+      "matrixSeed",
+      "matrixChoose",
+      "matrixMoveMenu",
+      "sectionBoard",
+      "sectionTarget",
+      "holdSectionPreview",
+      "groupChoice",
+      "applyGroup",
+      "recurrencePanel",
+      "recurrenceChoice",
+      "recurrenceDate",
+      "legacyFamilyForCutover",
+      "cutoverDraft",
+      "pendingReviewTask",
+      "chooseWorkflowView",
+      "reviewRewards",
+      "legacyReviewTask",
+      "matrixRequestWithId"
+    ],
+    "originalColumn3CaseCallsUnchangedExceptSessionSetup": true,
+    "columnHelpersUnchangedExceptLayoutSessionSetup": true,
+    "offlineAndZeroErrorHookTextsUnchanged": true,
+    "entireNativeTouchFileUnchanged": true,
+    "currentCases": 42,
+    "sourceHashes": {
+      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+      "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+      "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
+      "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
       "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
       "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
     }
