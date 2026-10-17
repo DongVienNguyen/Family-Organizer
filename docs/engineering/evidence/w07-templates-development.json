@@ -1,0 +1,444 @@
+{
+  "taskIds": [
+    "W07 templates",
+    "W04/W06 session and catalog integration"
+  ],
+  "sourceCommit": "212e1a3d016e4525d1b12b5c0d63c2c848068ba0",
+  "testedWorkingTreeParent": "6e3947bb04f944d81ee1e6dc49ab9baf1662df70",
+  "binding": "All20 frozen source/test SHA256 hashes match committed Git blobs; full suite and final native browser use those bytes. Cloud development evidence, not exact-HEAD Windows CI.",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "sourceSha256": {
+    "server/wallet/catalog.ts": "5e1e25f70421f545b718790d2ea7b8b07f744254ab92154fa4d6af35a8353309",
+    "server/wallet/ports.ts": "fc40c859187de9f7a7791de157b87841e3beab7fee99d5ec9d1ed2f22f0bf678",
+    "server/wallet/records.ts": "ffef03f2f43563215ad909f033ffa46d02ca4b7036b2c314acf75239cf691bc3",
+    "server/wallet/router.ts": "51d1e43ceb8595bfc31cc4e38c72c610cab5080eb35e25493fe9cb40705c5325",
+    "server/wallet/templates.api.test.ts": "5103dcb712e526f723182d57fdb843ae9dda9ef8f8cab8e5da41b5d7bc71c73c",
+    "server/wallet/templates.test.ts": "e1e85b3ceee0d24a69d69821b127240fac6ac4b43fd218518eb50744136f8eae",
+    "server/wallet/templates.ts": "328a7099ae5fea351321abead2e8da0d548ac4934beff2decc5091ae62b015f7",
+    "src/features/wallet/RecordForm.tsx": "f3fde982a03fee4262bba511ce06f8afd5e3ee228053f964d2d0196a94408a3e",
+    "src/features/wallet/Records.tsx": "6d01b20e28185c671bf164e8953bf3177c9861daec3b8eadede610878ab309bb",
+    "src/features/wallet/Templates.tsx": "3018938879b762e5d369734d393a196668b1b4a41d8b6830f1b6f6b8f5700ef7",
+    "src/features/wallet/api.ts": "5c90ccd16a7d3cde601f31660ab905fa314240a3c09f75d3ad2ccf419945a507",
+    "src/features/wallet/recordWorkspace.ts": "5188cbe4b7f2cd7b6b35733937f55e149f184aaad6e52c38a92b7ad3d174aaec",
+    "src/features/wallet/templateApi.test.ts": "5c8eddae9c5589e05898c6c4a21ce4e6c084637582af3d52efe70b81b8fb55b1",
+    "src/features/wallet/templateDto.ts": "d62c7e78b92c882f19a2fac528fa91c650b95c86a119170a0f7dc7ab21c830dd",
+    "src/features/wallet/templateWorkspace.test.ts": "37b1514b5db71d7a17bc172368f81d3cb0b9072ae711c4778fa72efca1190606",
+    "src/i18n/locales/en.json": "4e0ce6cd759aaa2182512a31d6f73017a5b027488e38a1c2b97ba64f4df9e7f8",
+    "src/i18n/locales/vi.json": "c81556fce2b9ce508dceab135fe7d00b75f53ba127b7a765871546baf9f5cd7a",
+    "src/i18n/locales/zh.json": "4f0aee946349d174515dfd980c54dbc27debf382610eab2438623620fee335a9",
+    "tests/e2e/wallet.spec.ts": "90f0bd3642108c6c933cbed4a1753a680cde82ba9c0ff556b4d9a5b4d1a76de8",
+    "tests/wallet-restore-import.test.ts": "8837db0dae79bb0e80ca4c1d14cb21cc07ddb564a4b3b72e5aa245aa5495d36a"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7580,
+    "files": 418,
+    "junitCases": 7580,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7531,
+    "added": 49,
+    "removed": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullRegressionRuns": 1,
+    "npmCi": "not repeated; dependency/lock unchanged"
+  },
+  "browser": {
+    "parentCases": 28,
+    "cases": 31,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "6e3947bb04f944d81ee1e6dc49ab9baf1662df70",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "bd20cb7cba235cb1e158230cb1982d2cbb8c15fbf866846c3a5b1624f408b99b",
+        "index": "b412e5ac11947a1eb8282b726d3ff385d09d514d3ca64df03c103f3bfefae756"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 7,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "ef172c25-3bbd-4509-8dc5-7c10fd85d01e",
+        "creditId": "54474281-14f8-40ae-8dce-a4f570c52de5",
+        "hiddenId": "731a3caa-04de-4c27-b9fa-8247aeaea8f1",
+        "readId": "cc88ccfc-f665-4c10-af82-92a9e4ca23cb",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "retained": {
+    "junit.xml": {
+      "path": "docs/engineering/evidence/w07-templates-cloud.junit.xml.gz",
+      "sha256": "db723a8b7ec224282d89ce4582e02aef855886f7fb3e24917d1b578b79c9550e"
+    },
+    "log": {
+      "path": "docs/engineering/evidence/w07-templates-cloud.log.gz",
+      "sha256": "55f8df042bfb51ec1dcb858712747d3e719a460bcacfa4410cfe7913727de01c"
+    }
+  },
+  "reports": {
+    "/workspace/family-evidence/w07-templates-workspace-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-templates-integrated-first.log": {
+      "bytes": 295,
+      "sha256": "edc458c55a967e4b1df1c3075b9f6f5bf4fef4a792b9363327c8b38d61b09221"
+    },
+    "/workspace/family-evidence/w07-templates-api-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-cancel-fixed.log": {
+      "bytes": 291,
+      "sha256": "f85e8e9a708856eb97ced6f8120211ccf017f2449f84e0160caacfffc87938e5"
+    },
+    "/workspace/family-evidence/w07-templates-dto-backup-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-integrated-first.json": {
+      "bytes": 27174,
+      "sha256": "18e65b0816238a12f96ae7e2a4625ece7108a46f922163a9301e546b37963aff"
+    },
+    "/workspace/family-evidence/w07-templates-workspace-red.json": {
+      "bytes": 5697,
+      "sha256": "31d0763c4f743df8f1eb13cc5c38c1dbbc82ff4e6169d7126ff7a57bdfef8c97"
+    },
+    "/workspace/family-evidence/w07-templates-qualified.json": {
+      "bytes": 2207059,
+      "sha256": "8f52c5a29f5aff7c6952e0fdc11b145523d0d0119ff08ee013e8eeb36a0293ff"
+    },
+    "/workspace/family-evidence/w07-templates-qualified.log": {
+      "bytes": 89925,
+      "sha256": "6a5b579f322fad429225a8e24d3e834b5ea56d1708827cea5af015f946a3ed81"
+    },
+    "/workspace/family-evidence/w07-templates-ui-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w07-templates-privacy-first.log": {
+      "bytes": 292,
+      "sha256": "fa61f6e556c33f347f95f7712bc266efde671ffde81302499a1fba62adbdb100"
+    },
+    "/workspace/family-evidence/w07-templates-dto-backup-first.log": {
+      "bytes": 295,
+      "sha256": "1fb6463479d0da662bf1f9f2d9dc0f53911c73700b7214615823446761e02baa"
+    },
+    "/workspace/family-evidence/w07-templates-workspace-first.log": {
+      "bytes": 294,
+      "sha256": "459f1f58f348e2fbbb566e3fb3b0677c38368b752da46679d3b3c21f9485f34d"
+    },
+    "/workspace/family-evidence/w07-templates-privacy-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-dto-backup-first.json": {
+      "bytes": 10925,
+      "sha256": "09e3b5ae7e18e3992d2f58a31f2ae8aa28939a540f5c833b451f7aee5cb64ba9"
+    },
+    "/workspace/family-evidence/w07-templates-browser-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-templates-privacy-red.json": {
+      "bytes": 8745,
+      "sha256": "cba000d665ee4ba57cb1bd594ec023e0ed3346de982ac3367bb491e45fd558e5"
+    },
+    "/workspace/family-evidence/w07-templates-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-qualified-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w07-templates-preservation.json": {
+      "bytes": 13459,
+      "sha256": "6939a163c65265b9db5df47f4f2da8a5c39b63a53e4498374c92020c903fe36a"
+    },
+    "/workspace/family-evidence/w07-templates-cancel-fixed.json": {
+      "bytes": 14151,
+      "sha256": "69f3c83f83e38038db8a7e9b3a0cc9012c3692486dcd6ce7d04a82b5671142b9"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first.log": {
+      "bytes": 20420,
+      "sha256": "01b681da4227a11ee086a6a5fce0cc396c9d551e41c510e8c9756a7d4c38c9e8"
+    },
+    "/workspace/family-evidence/w07-templates-integrated-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-api-first.log": {
+      "bytes": 288,
+      "sha256": "4bd9b031e2f7b6d75623beb165427df7b48fd4098f7d45b69de2403f43324282"
+    },
+    "/workspace/family-evidence/w07-templates-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-first.json": {
+      "bytes": 18665,
+      "sha256": "1e85010501883b7e107f72c081d6b011bde166cb6354a2002274799b697ceea8"
+    },
+    "/workspace/family-evidence/w07-templates-first.log": {
+      "bytes": 284,
+      "sha256": "b8af50da24796d25b6bba92075292b2f782b1242166f3c8978b0694c445ea293"
+    },
+    "/workspace/family-evidence/w07-templates-browser-fixed.log": {
+      "bytes": 5534,
+      "sha256": "43eba4f0639a3c138e65278dd7b4bb7ff17fdd5b86bc6ca3d2508122946bdf85"
+    },
+    "/workspace/family-evidence/w07-templates-cancel-red.log": {
+      "bytes": 289,
+      "sha256": "70bf21159354164123028fb4f267a5faf87ff2596bf87f73df5b41942a85a491"
+    },
+    "/workspace/family-evidence/w07-templates-cancel-red.json": {
+      "bytes": 3812,
+      "sha256": "fd94d2e04a7d6913a77409dfd31ca3c35e45817ecc96f740bb0f40fcda1a5f9e"
+    },
+    "/workspace/family-evidence/w07-templates-workspace-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-browser-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-ui-final-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-templates-ui-final-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-privacy-first.json": {
+      "bytes": 18762,
+      "sha256": "45c1572f21179af69b5a82518c7c2b59c0fde42c2a884592760b56e0cd8a74f5"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-source.json": {
+      "bytes": 2290,
+      "sha256": "2ee705c58e623307663a8124c7918bfee4b0c0567b96eff7d946b4ff69f40a32"
+    },
+    "/workspace/family-evidence/w07-templates-red.json": {
+      "bytes": 765,
+      "sha256": "33c1496621ae90dea5cbac13678e06ac15da6d5f61246a468313dd6fb63f7ee0"
+    },
+    "/workspace/family-evidence/w07-templates-frozen.json": {
+      "bytes": 2290,
+      "sha256": "e0b50bdf6dd85e656d9f922ebb39d76d4703dd510b2dfb0894aaae976183d028"
+    },
+    "/workspace/family-evidence/w07-templates-privacy-red.log": {
+      "bytes": 290,
+      "sha256": "0a3b75bf4cf270fd3c6c16ef6bcb623abb00ff0ec2289292109f883395f6343d"
+    },
+    "/workspace/family-evidence/w07-templates-browser-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-templates-privacy-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-templates-red.log": {
+      "bytes": 282,
+      "sha256": "83689554acf4293a3193765e7f28f6d917f9b75e30584b8534be53829b9d5bc3"
+    },
+    "/workspace/family-evidence/w07-templates-browser-build.log": {
+      "bytes": 2004,
+      "sha256": "b7e4b41ca8cf4b68477bf730de9cd586f9b96396233a27159e9fb957f7e831ca"
+    },
+    "/workspace/family-evidence/w07-templates-workspace-red.log": {
+      "bytes": 292,
+      "sha256": "8aacea0f435b5816e488f1ed8f73515cb6fc61b863d3d66aae7910a5d2d2c306"
+    },
+    "/workspace/family-evidence/w07-templates-workspace-first.json": {
+      "bytes": 13831,
+      "sha256": "5362eb24569dc12efaf706cfe395a4caf54daf609663bc0d48706f5df33b26b5"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-templates-browser-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-cancel-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-templates-qualified.junit.xml": {
+      "bytes": 1539169,
+      "sha256": "8ff60e2cc57f346b19fc3f00e6cccefa23c7580107c986b9492186ce819f4e2d"
+    },
+    "/workspace/family-evidence/w07-templates-cancel-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-templates-ui-lint.log": {
+      "bytes": 520,
+      "sha256": "95bd159c2abbc256c038842f6cffc914f78e8556e8ee2bd19d1c0debe1530fdc"
+    },
+    "/workspace/family-evidence/w07-templates-api-first.json": {
+      "bytes": 19949,
+      "sha256": "f1fb98d4d2961519192a347621880991953cd271d1f316dd5d75387c1c7c3bbc"
+    },
+    "/workspace/family-evidence/w07-templates-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 5678,
+      "sha256": "ea312d22274268fbb47a6a9823cbafd1741b47f448f897ce2c2170855ee21bf6"
+    },
+    "/workspace/family-evidence/w07-templates-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1146,
+      "sha256": "71add47d1458a4ef98e3e80242665e57972403724ca017fabf883cefab8e2555"
+    },
+    "/workspace/family-evidence/w07-templates-browser-qualified-artifacts/browser.json": {
+      "bytes": 38533,
+      "sha256": "db400b99ebe80af39b5e5b2b35b8a09d0656b8ecda6593dcea42d0db7e4d589e"
+    },
+    "/workspace/family-evidence/w07-templates-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/browser.junit.xml": {
+      "bytes": 20941,
+      "sha256": "abd42e1e60c9941b7a5ca16887a7451f11d6e4d42bca792a5d4e428f8cb033c2"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/fixture.json": {
+      "bytes": 1194,
+      "sha256": "19835939d32510ec0881db31cf0623cf827018674e736f0f0e4eaf03dabf6d99"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/browser.json": {
+      "bytes": 51690,
+      "sha256": "a2a40f559397ebd5fa1088a28cbc7254e741bbaeade7b1072fbc94218f0b6dfa"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/error-context.md": {
+      "bytes": 97579,
+      "sha256": "1fefb0abc0cea6f4292773ac4c0a1eae10938130dcc1edc44fcc8fc1986ae801"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/test-failed-1.png": {
+      "bytes": 153014,
+      "sha256": "36d9c9e2c5ced0ba1b4be0240da61dba1c526e11058e2b47704df2d0198eb360"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/trace.zip": {
+      "bytes": 8457559,
+      "sha256": "eb5d3e8328ae2f7ab8d627ebbea5a4ac889592b8cff1f9b761ed92a32b75b4f3"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/error-context.md": {
+      "bytes": 97565,
+      "sha256": "b1cf7c267fc3eea407f288ae1e5de2114b57dde893872335250f8ca3f2e664d5"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/test-failed-1.png": {
+      "bytes": 151749,
+      "sha256": "4e2d1acfa61444b6ef437b8749cf33a02a7429efb0aa244128fee88cc99310cc"
+    },
+    "/workspace/family-evidence/w07-templates-browser-first-artifacts/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/trace.zip": {
+      "bytes": 8712947,
+      "sha256": "16abdd0df86134793cf2cf4a1a30583d34e149c8e1f95ce633e69c15617caae5"
+    }
+  },
+  "review": {
+    "kind": "Author inspection; not independent final whole-branch review",
+    "paths": [
+      "server/wallet/catalog.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/records.ts",
+      "server/wallet/router.ts",
+      "server/wallet/templates.api.test.ts",
+      "server/wallet/templates.test.ts",
+      "server/wallet/templates.ts",
+      "src/features/wallet/RecordForm.tsx",
+      "src/features/wallet/Records.tsx",
+      "src/features/wallet/Templates.tsx",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/recordWorkspace.ts",
+      "src/features/wallet/templateApi.test.ts",
+      "src/features/wallet/templateDto.ts",
+      "src/features/wallet/templateWorkspace.test.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts",
+      "tests/wallet-restore-import.test.ts"
+    ],
+    "closed": [
+      "Personal owned templates have no administrator override. Metadata-only list/write/replay does not expose financial draft bodies. Full reads and instantiation recheck current account authority.",
+      "Templates never post to the ledger. Instantiation resets date/time, cleared/reviewed status and source identity; explicit record Save remains the financial action. Labels, exact splits and historical FX defaults survive.",
+      "Writes use existing I01 owner/revision/nonce, atomic audit and postcommit owner-only notification; no-op and replay emit no duplicate event. Native failure rolls back all tables and nonce.",
+      "Metadata archive remains possible after target loss; new draft assignment requires active writable accounts and visible categories/labels. Catalog deletion sees protected template references without private owner/title/count.",
+      "Session owner keeps unknown command body/key across navigation and forbids replacement. Late readonly payloads retire on cancel/generation; refresh revalidates source revision and authority.",
+      "UI follows existing modal/FancySelect/theme/i18n; SDK validates metadata, revision and instantiated draft strictly. No new schema, dependency, runtime or workflow."
+    ],
+    "remaining": [
+      "W08-W18 and remaining Wallet/M1/I02/I03/master",
+      "Protected restore host/Admin integration, remediation/raw legacy backup/bridge/cutover/retention before Wallet activation",
+      "Final independent whole-branch review and exact-HEAD Windows; Server2019 R02 remains separate"
+    ]
+  },
+  "developmentFailures": {
+    "firstBrowser": {
+      "passed": 29,
+      "failed": 2,
+      "cause": "Two new cases requested account button label T\u00e0i kho\u1ea3n; actual existing form uses T\u00e0i kho\u1ea3n ghi ch\u00e9p. Both failed before template Save.",
+      "fix": "Correct only the two new test-helper label arguments to actual DOM. Product label, financial assertions, deadlines and retry policy unchanged.",
+      "retained": "docs/engineering/evidence/w07-templates-browser-first.junit.xml"
+    },
+    "lint": "Initial unknown spread in template input parsing failed TypeScript; typed guarded assignments fixed before final qualification."
+  },
+  "notRun": [
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "large Windows performance",
+    "actual Windows Server2019 R02",
+    "production providers/data/secrets (prohibited)"
+  ],
+  "releaseTagVps": "none"
+}

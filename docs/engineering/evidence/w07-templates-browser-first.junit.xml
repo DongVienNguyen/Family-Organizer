@@ -1,0 +1,166 @@
+<testsuites id="" name="" tests="31" failures="0" skipped="0" errors="2" time="192.32603">
+<testsuite name="wallet.spec.ts" timestamp="2026-10-17T23:44:56.230Z" hostname="chromium" tests="31" failures="0" skipped="0" time="185.89" errors="2">
+<testcase name="W06 exact balances, credit availability, scoped accounts and existing Finance remain visible" classname="wallet.spec.ts" time="2.304">
+</testcase>
+<testcase name="W06 create form validates exact money and retains the same command across lost acknowledgement and navigation" classname="wallet.spec.ts" time="2.97">
+</testcase>
+<testcase name="W06 stale revision keeps draft and requires explicit reload before editing again" classname="wallet.spec.ts" time="2.611">
+</testcase>
+<testcase name="W06 archive requires confirmation and retains account history" classname="wallet.spec.ts" time="2.989">
+</testcase>
+<testcase name="W06 phone form keyboard focus, native date and custom selectors remain usable" classname="wallet.spec.ts" time="1.487">
+</testcase>
+<testcase name="W04 grant revocation removes a live edit form and financial details through the real SSE path" classname="wallet.spec.ts" time="1.684">
+</testcase>
+<testcase name="W04 a real cross-tab logout retires the session-owned financial draft" classname="wallet.spec.ts" time="1.789">
+</testcase>
+<testcase name="W05 record income and expense use exact balances and save-and-add only clears after success" classname="wallet.spec.ts" time="3.795">
+</testcase>
+<testcase name="W05 cross-currency transfer and separate fee are one confirmed intent; parent void reverses both" classname="wallet.spec.ts" time="4.829">
+</testcase>
+<testcase name="W06 scoped filters recover explicitly from a missing valuation rate" classname="wallet.spec.ts" time="2.662">
+</testcase>
+<testcase name="W05 record edit retains conflict draft and replays the same note-only write after a lost acknowledgement" classname="wallet.spec.ts" time="3.137">
+</testcase>
+<testcase name="W05 stale void confirmation shows inline failure without silently voiding a changed record" classname="wallet.spec.ts" time="2.951">
+</testcase>
+<testcase name="W04 private receipt PDF/image attach, verified download and confirmed detach keep record money" classname="wallet.spec.ts" time="3.04">
+</testcase>
+<testcase name="W04 an unknown receipt upload survives tab navigation and retries the same committed intent" classname="wallet.spec.ts" time="2.762">
+</testcase>
+<testcase name="W06 combined scoped facets, label any/all and clearing the final choice use one shared filter" classname="wallet.spec.ts" time="4.424">
+</testcase>
+<testcase name="W06 loaded checked rows and a cross-page captured scope remain distinct; later records stay excluded from atomic metadata bulk" classname="wallet.spec.ts" time="11.976">
+</testcase>
+<testcase name="W06 an unknown bulk result survives Finance navigation and explicitly replays the identical committed selection patch and nonce" classname="wallet.spec.ts" time="3.375">
+</testcase>
+<testcase name="W06 a stale bulk confirmation keeps the independent edit and requires a fresh preview without sending a replacement write" classname="wallet.spec.ts" time="2.645">
+</testcase>
+<testcase name="W06 a held privacy refresh preserves an open confirmation so Escape can release its focus and scroll ownership" classname="wallet.spec.ts" time="2.751">
+</testcase>
+<testcase name="W07 Admin builds three-level categories, keeps a rejected fourth-level draft and manages hidden archived history on phone in both themes" classname="wallet.spec.ts" time="3.934">
+</testcase>
+<testcase name="W07 linked categories expose bounded references and offer archive while unlinked labels require explicit delete confirmation" classname="wallet.spec.ts" time="2.962">
+</testcase>
+<testcase name="W07 lost label acknowledgement keeps the exact body and nonce across navigation and explicitly retries without a duplicate" classname="wallet.spec.ts" time="2.217">
+</testcase>
+<testcase name="W07 Member reads catalog and labels without management controls or mutation permission" classname="wallet.spec.ts" time="1.354">
+</testcase>
+<testcase name="W07 clone opens a fresh draft without a write and explicit Save creates a distinct manual record with the same exact money" classname="wallet.spec.ts" time="2.9">
+</testcase>
+<testcase name="W07 revoking source access retires an open clone draft through the real SSE path before any Save" classname="wallet.spec.ts" time="2.345">
+</testcase>
+<testcase name="W07 split validates exact totals and preserves one posting, balance and source; category filters select split children only once" classname="wallet.spec.ts" time="3.671">
+</testcase>
+<testcase name="W07 an unknown split survives navigation and retries the exact confirmed rows and nonce without a second revision" classname="wallet.spec.ts" time="4.237">
+</testcase>
+<testcase name="W07 a split clone edits amount and allocations in its new draft and creates one independent posting only on Save" classname="wallet.spec.ts" time="3.231">
+</testcase>
+<testcase name="W07 templates save personal configuration without a ledger write, then apply default labels and exact splits to a reviewed new draft" classname="wallet.spec.ts" time="45.86">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="Test timeout of 45000ms exceeded." type="Error">
+<![CDATA[  [chromium] › wallet.spec.ts:317:1 › W07 templates save personal configuration without a ledger write, then apply default labels and exact splits to a reviewed new draft 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'Tạo mẫu', exact: true }).getByRole('button', { name: 'Tài khoản', exact: true })
+
+
+      314 | });
+      315 | const templatePanel=(page:Page)=>records(page).getByRole('region',{name:'Mẫu giao dịch',exact:true});
+    > 316 | async function chooseInDialog(page:Page,dialog:ReturnType<Page['getByRole']>,label:string,value:string){await dialog.getByRole('button',{name:label,exact:true}).click();await page.getByRole('option',{name:value,exact:true}).click();}
+          |                                                                                                                                                                  ^
+      317 | test('W07 templates save personal configuration without a ledger write, then apply default labels and exact splits to a reviewed new draft',async({page})=>{
+      318 |  await login(page);const account=await accountForRecord(page,'Synthetic template UI account'),admin=await page.request.post('/api/auth/login',{data:{username:'wallet-browser-admin',password:'synthetic-browser-password'},maxRedirects:0});expect(admin.status()).toBe(200);const category=await page.request.post('/api/wallet/categories',{headers:{Authorization:'Bearer '+(await admin.json()).token,'x-request-id':crypto.randomUUID()},data:{expectedRevision:0,input:{name:'SYNTHETIC_TEMPLATE_UI_CATEGORY'}},maxRedirects:0});expect(category.status()).toBe(200);const categoryId=(await category.json()).id;await recordsTab(page);let financialWrites=0;page.on('request',r=>{if(new URL(r.url()).pathname==='/api/wallet/records'&&r.method()==='POST')financialWrites++;});await templatePanel(page).getByRole('button',{name:'Tạo mẫu',exact:true}).click();const editor=page.getByRole('dialog',{name:'Tạo mẫu',exact:true});await editor.getByLabel('Tên mẫu',{exact:true}).fill('SYNTHETIC_UI_TEMPLATE');await chooseInDialog(page,editor,'Tài khoản',account.name+' · VND');await editor.getByLabel('Số tiền',{exact:true}).fill('100.000');await editor.getByLabel('Synthetic filter label A',{exact:true}).check();await editor.getByRole('button',{name:'Phân bổ danh mục',exact:true}).click();await editor.getByRole('button',{name:'Thêm dòng phân bổ',exact:true}).click();await chooseInDialog(page,editor,'Danh mục dòng 1','SYNTHETIC_TEMPLATE_UI_CATEGORY');await editor.getByLabel('Số tiền dòng 1',{exact:true}).fill('100.000');await editor.getByRole('button',{name:'Lưu mẫu',exact:true}).click();await expect(editor).toHaveCount(0);expect(financialWrites).toBe(0);const row=templatePanel(page).getByRole('listitem').filter({has:page.getByText('SYNTHETIC_UI_TEMPLATE',{exact:true})});await expect(row).toBeVisible();await row.getByRole('button',{name:'Mở bản nháp',exact:true}).click();const draft=page.getByRole('dialog',{name:'Tạo ghi chép',exact:true});await expect(draft).toContainText('nhãn mặc định');await expect(draft.getByLabel('Số tiền',{exact:true})).toHaveValue('100.000');await expect(draft.getByLabel('Synthetic filter label A',{exact:true})).toBeChecked();await expect(draft.getByLabel('Số tiền dòng 1',{exact:true})).toHaveValue('100.000');await expect(draft.getByRole('checkbox',{name:'Đã kiểm tra',exact:true})).not.toBeChecked();expect(financialWrites).toBe(0);await draft.getByLabel('Ghi chú',{exact:true}).fill('SYNTHETIC_TEMPLATE_UI_RECORD');await draft.getByRole('button',{name:'Lưu',exact:true}).click();await expect(draft).toHaveCount(0);expect(financialWrites).toBe(1);const query=await request(page,'records/query','POST',{filter:{period:{fromDate:'2026-10-01',toDateExclusive:'2026-11-01',timezone:'Asia/Ho_Chi_Minh'},referenceCurrency:'VND',query:'SYNTHETIC_TEMPLATE_UI_RECORD'},cursor:null,limit:50});expect(query.status).toBe(200);expect(query.body.total).toBe(1);const saved=query.body.items[0];expect(saved.record).toMatchObject({source:'manual',revision:1,settlementStatus:'uncleared'});expect(saved.labelIds).toEqual(['synthetic-filter-label-a']);expect(saved.postings).toHaveLength(1);expect(saved.postings[0].deltaMinor).toBe('-100000');expect((await request(page,'records/'+saved.record.id+'/allocations')).body.rows).toEqual([{categoryId,amountMinor:'100000'}]);const templates=await request(page,'templates');expect(templates.body.templates.filter((item:any)=>item.name==='SYNTHETIC_UI_TEMPLATE')).toHaveLength(1);
+      319 | });
+        at chooseInDialog (/workspace/Family-Organizer/tests/e2e/wallet.spec.ts:316:162)
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:318:995
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W07-templates-save--e7c76-its-to-a-reviewed-new-draft-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="W07 an unknown template save retries the original metadata intent across navigation without creating a financial record or duplicate template" classname="wallet.spec.ts" time="45.743">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="Test timeout of 45000ms exceeded." type="Error">
+<![CDATA[  [chromium] › wallet.spec.ts:320:1 › W07 an unknown template save retries the original metadata intent across navigation without creating a financial record or duplicate template 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'Tạo mẫu', exact: true }).getByRole('button', { name: 'Tài khoản', exact: true })
+
+
+      314 | });
+      315 | const templatePanel=(page:Page)=>records(page).getByRole('region',{name:'Mẫu giao dịch',exact:true});
+    > 316 | async function chooseInDialog(page:Page,dialog:ReturnType<Page['getByRole']>,label:string,value:string){await dialog.getByRole('button',{name:label,exact:true}).click();await page.getByRole('option',{name:value,exact:true}).click();}
+          |                                                                                                                                                                  ^
+      317 | test('W07 templates save personal configuration without a ledger write, then apply default labels and exact splits to a reviewed new draft',async({page})=>{
+      318 |  await login(page);const account=await accountForRecord(page,'Synthetic template UI account'),admin=await page.request.post('/api/auth/login',{data:{username:'wallet-browser-admin',password:'synthetic-browser-password'},maxRedirects:0});expect(admin.status()).toBe(200);const category=await page.request.post('/api/wallet/categories',{headers:{Authorization:'Bearer '+(await admin.json()).token,'x-request-id':crypto.randomUUID()},data:{expectedRevision:0,input:{name:'SYNTHETIC_TEMPLATE_UI_CATEGORY'}},maxRedirects:0});expect(category.status()).toBe(200);const categoryId=(await category.json()).id;await recordsTab(page);let financialWrites=0;page.on('request',r=>{if(new URL(r.url()).pathname==='/api/wallet/records'&&r.method()==='POST')financialWrites++;});await templatePanel(page).getByRole('button',{name:'Tạo mẫu',exact:true}).click();const editor=page.getByRole('dialog',{name:'Tạo mẫu',exact:true});await editor.getByLabel('Tên mẫu',{exact:true}).fill('SYNTHETIC_UI_TEMPLATE');await chooseInDialog(page,editor,'Tài khoản',account.name+' · VND');await editor.getByLabel('Số tiền',{exact:true}).fill('100.000');await editor.getByLabel('Synthetic filter label A',{exact:true}).check();await editor.getByRole('button',{name:'Phân bổ danh mục',exact:true}).click();await editor.getByRole('button',{name:'Thêm dòng phân bổ',exact:true}).click();await chooseInDialog(page,editor,'Danh mục dòng 1','SYNTHETIC_TEMPLATE_UI_CATEGORY');await editor.getByLabel('Số tiền dòng 1',{exact:true}).fill('100.000');await editor.getByRole('button',{name:'Lưu mẫu',exact:true}).click();await expect(editor).toHaveCount(0);expect(financialWrites).toBe(0);const row=templatePanel(page).getByRole('listitem').filter({has:page.getByText('SYNTHETIC_UI_TEMPLATE',{exact:true})});await expect(row).toBeVisible();await row.getByRole('button',{name:'Mở bản nháp',exact:true}).click();const draft=page.getByRole('dialog',{name:'Tạo ghi chép',exact:true});await expect(draft).toContainText('nhãn mặc định');await expect(draft.getByLabel('Số tiền',{exact:true})).toHaveValue('100.000');await expect(draft.getByLabel('Synthetic filter label A',{exact:true})).toBeChecked();await expect(draft.getByLabel('Số tiền dòng 1',{exact:true})).toHaveValue('100.000');await expect(draft.getByRole('checkbox',{name:'Đã kiểm tra',exact:true})).not.toBeChecked();expect(financialWrites).toBe(0);await draft.getByLabel('Ghi chú',{exact:true}).fill('SYNTHETIC_TEMPLATE_UI_RECORD');await draft.getByRole('button',{name:'Lưu',exact:true}).click();await expect(draft).toHaveCount(0);expect(financialWrites).toBe(1);const query=await request(page,'records/query','POST',{filter:{period:{fromDate:'2026-10-01',toDateExclusive:'2026-11-01',timezone:'Asia/Ho_Chi_Minh'},referenceCurrency:'VND',query:'SYNTHETIC_TEMPLATE_UI_RECORD'},cursor:null,limit:50});expect(query.status).toBe(200);expect(query.body.total).toBe(1);const saved=query.body.items[0];expect(saved.record).toMatchObject({source:'manual',revision:1,settlementStatus:'uncleared'});expect(saved.labelIds).toEqual(['synthetic-filter-label-a']);expect(saved.postings).toHaveLength(1);expect(saved.postings[0].deltaMinor).toBe('-100000');expect((await request(page,'records/'+saved.record.id+'/allocations')).body.rows).toEqual([{categoryId,amountMinor:'100000'}]);const templates=await request(page,'templates');expect(templates.body.templates.filter((item:any)=>item.name==='SYNTHETIC_UI_TEMPLATE')).toHaveLength(1);
+      319 | });
+        at chooseInDialog (/workspace/Family-Organizer/tests/e2e/wallet.spec.ts:316:162)
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:321:592
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W07-an-unknown-temp-c49e6-ecord-or-duplicate-template-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="W07 template archive is confirmed and reversible while another Admin cannot read personal template contents" classname="wallet.spec.ts" time="3.255">
+</testcase>
+</testsuite>
+</testsuites>

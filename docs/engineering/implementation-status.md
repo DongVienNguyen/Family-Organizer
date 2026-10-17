@@ -2,6 +2,25 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W07 core templates:** source `212e1a3d016e4525d1b12b5c0d63c2c848068ba0` adds personal
+create/edit/archive/restore and readonly instantiation, owner-only HTTP/SDK/UI,
+exact labels/splits/defaults and same-key unknown retry. Templates never post;
+explicit record Save is financial. Catalog protected references do not leak
+private owners/titles/counts. Wallet off; no automatic upgrade or activation.
+
+Cloud7580/418files, matchingJUnit/0failed-skipped-todo,
+all7531parent+49 retained; lint/build0; Chromium31/31,
+all28parent+3, native/offline/integrityOK/legacy retained/normal stop/closed handles/
+matchingbuild. First29/31 new-test label mismatch and DOM/trace retained; corrected
+only2 helper labels, assertions/deadlines/retries unchanged. Author20path inspection
+only. [Details](wallet-templates.md), [proof](evidence/w07-templates-development.json).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W08 reports, remaining Wallet/M1/I02/I03/master and protected restore/
+remediation/raw legacy backup/bridge/cutover/retention; final review/batched Windows.
+No release/tag/VPS. Full plan incomplete.
+
 **Latest continuation — W07 partial, W02/W04/W06 integration:** source `26c7e39fb695d2299efd7291206caa84da6456f7` adds
 new draft-only clone and exact category splits, including atomic amount/rows,
 separate fees/FX/default labels, current source grant revalidation and same-key
