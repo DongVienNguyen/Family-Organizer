@@ -10,6 +10,10 @@ import * as media from './media.js';
 import {createApp} from './app.js';
 import {syntheticDependencies} from '../tests/app-fixture.js';
 import {UserRole} from '../src/types.js';
+import {withAppWriteTransaction} from './appStore.js';
+import {mediaKey} from './mediaPolicy.js';
+import {createReceiptFiles} from './wallet/receiptFiles.js';
+import {parseReceiptUpload,receiptMediaPath} from './wallet/receiptContract.js';
 const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aT1kAAAAASUVORK5CYII=','base64');
 async function fixture(work:(f:any)=>Promise<void>,domain?:string){
  const users=[UserRole.ADMIN,UserRole.MEMBER,UserRole.CHILD,UserRole.GUEST].map(role=>({id:role,username:'synthetic-'+role,fullName:'Synthetic '+role,role,passwordHash:'synthetic'}));
@@ -24,6 +28,11 @@ async function fixture(work:(f:any)=>Promise<void>,domain?:string){
  try{await work({url,send,tokens,deps});}finally{server.closeAllConnections();await new Promise<void>(resolve=>server.close(()=>resolve()));handle.endStreams();await handle.drainHandlers();await handle.dispose();}
 }
 it('denies anonymous legacy media even with a valid token supplied only in its URL',()=>fixture(async({send,url,tokens}:any)=>{expect((await send(url)).status).toBe(401);expect((await send(url+'?token='+encodeURIComponent(tokens.member))).status).toBe(401);}));
+it('a forged staging-owner row cannot serve Wallet-private bytes through the generic upload route',()=>fixture(async({send}:any)=>{
+ const files=createReceiptFiles({dataRoot:process.env.DATA_DIR!}),staged=files.stage(parseReceiptUpload({fileName:'Synthetic private receipt.png',dataUrl:'data:image/png;base64,'+png.toString('base64')})),url='/uploads/'+receiptMediaPath(staged.fileKey);
+ withAppWriteTransaction({actorId:'system:synthetic',command:'synthetic:private-receipt-binding',requestId:randomUUID(),payloadHash:'synthetic'},tx=>{tx.run('INSERT INTO app_meta(key,value)VALUES(?,?)',mediaKey(url),JSON.stringify({version:1,ownerId:UserRole.MEMBER,createdAt:Date.now(),bindings:[]}));});files.commit(staged);
+ const result=await send(url,UserRole.MEMBER),missing=await send('/uploads/wallet-receipts/missing.png',UserRole.MEMBER);expect(result.status).toBe(404);expect(result.text).toBe(missing.text);expect(result.headers['cache-control']).toBe('no-store');expect(result.bytes).not.toEqual(png);
+}));
 it.each([UserRole.CHILD,UserRole.GUEST])('denies private note attachment to %s with the same response as missing',role=>fixture(async({send,url}:any)=>{const denied=await send(url,role),missing=await send('/uploads/notes/absent.png',role);expect(denied.status).toBe(404);expect(denied.text).toBe(missing.text);expect(denied.headers['cache-control']).toBe('no-store');}));
 it.each([UserRole.ADMIN,UserRole.MEMBER])('preserves authorized private note attachment for %s',role=>fixture(async({send,url}:any)=>{const result=await send(url,role);expect(result.status).toBe(200);expect(result.bytes).toEqual(png);expect(result.headers['cache-control']).toBe('no-store');expect(result.headers['x-content-type-options']).toBe('nosniff');}));
 it('follows sharing revocation immediately without changing the attachment URL',()=>fixture(async({send,url}:any)=>{let db=sqliteLoad();db.notes[0].isShared=true;sqliteSave(db);expect((await send(url,UserRole.CHILD)).status).toBe(200);db=sqliteLoad();db.notes[0].isShared=false;sqliteSave(db);expect((await send(url,UserRole.CHILD)).status).toBe(404);}));

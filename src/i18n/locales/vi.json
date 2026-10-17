@@ -2118,6 +2118,17 @@
       "NONEXISTENT_LOCAL_TIME": "Giờ này không tồn tại trong múi giờ đã chọn. Hãy chọn giờ khác.",
       "ACCOUNT_NOT_WRITABLE": "Tài khoản không còn cho phép ghi chép. Tải lại để kiểm tra quyền.",
       "RATE_UNAVAILABLE": "Thiếu tỷ giá định giá cho bộ lọc số tiền. Bỏ khoảng số tiền hoặc chọn tiền tệ phù hợp."
+    },
+    "receipts": {
+      "title": "Hóa đơn",
+      "empty": "Chưa có hóa đơn.",
+      "attach": "Đính kèm hóa đơn",
+      "download": "Tải hóa đơn",
+      "remove": "Gỡ hóa đơn",
+      "removeConfirm": "Gỡ hóa đơn khỏi ghi chép này?",
+      "limits": "Ảnh được tối ưu; hỗ trợ ảnh iPhone HEIC. Ảnh tối đa 4 MiB, PDF 10 MiB.",
+      "preparing": "Đang xử lý hóa đơn…",
+      "failed": "Không xử lý được hóa đơn. Hãy kiểm tra định dạng và kích thước tệp."
     }
   }
 }

@@ -9,6 +9,7 @@ import {sqliteConnection,sqliteLoad} from './sqlite.js';
 import {runLegacyCommand,currentAppWriteTx} from './appStore.js';
 import {canonicalMediaUrl,mediaPath,mediaKey,parseMediaMetadata,mayReadMedia,mediaReferences,reconcileMediaMetadata} from './mediaPolicy.js';
 import type {LegacyActor} from './legacyVisibility.js';
+import {privateReceiptMediaPrefix} from './wallet/receiptContract.js';
 export const UPLOADS_DIR=path.join(appConfig.dataRoot,'uploads');
 export const UPLOADS_URL_PREFIX='/uploads/';
 directory(appConfig.dataRoot);directory(UPLOADS_DIR,true);
@@ -56,7 +57,7 @@ export function readManagedMedia(url:string):{bytes:Buffer;mime:string} {
 }
 export function deleteMediaByUrl(url:unknown):void {
  if(!isManagedUrl(url))return;
- try{const canonical=canonicalMediaUrl(url);if(mediaReferences(sqliteLoad()).has(canonical))return;
+ try{const canonical=canonicalMediaUrl(url);if(mediaPath(canonical).toLowerCase().startsWith(privateReceiptMediaPrefix)||mediaReferences(sqliteLoad()).has(canonical))return;
   const file=location(canonical),stat=fs.lstatSync(file);if(stat.isFile()&&!stat.isSymbolicLink()&&stat.nlink===1)fs.unlinkSync(file);
  }catch(error:any){if(error.code!=='ENOENT')console.error('Managed media cleanup failed.');}
 }

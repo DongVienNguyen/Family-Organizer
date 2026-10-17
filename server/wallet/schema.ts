@@ -1,3 +1,4 @@
+export {prepareWalletReceipts,walletReceiptSql,walletReceiptChecksum} from './receiptSchema.js';
 import type {AppWriteTx} from '../appStore.js';
 import {createHash} from 'node:crypto';
 export {prepareWalletMetadata,walletMetadataSql,walletMetadataChecksum} from './metadataSchema.js';

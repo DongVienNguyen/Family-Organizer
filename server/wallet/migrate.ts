@@ -6,7 +6,7 @@ import {AppStoreError} from '../appErrors.js';
 import type {WalletTx} from './store.js';
 import {legacySourceChecksum,legacyPilotChecksum,legacyPilotChecksumNames,validateWalletLegacyTables} from './legacyMigrationData.js';
 import {buildLegacyMigrationPlan} from './migrationPlan.js';
-import {moneyColumns,walletTablesAt,restoreWalletSnapshot} from './snapshot.js';
+import {moneyColumns,walletTablesAt,restoreWalletSnapshot,walletSnapshotChecksum} from './snapshot.js';
 export interface LegacyFinanceSnapshot {transactions:unknown[];customCategories?:unknown[];hiddenBuiltinCategories?:unknown[];debts?:unknown[];savingsGoals?:unknown[]}
 export interface LegacyMigrationCounts {accounts:number;categories:number;records:number;quarantined:number;legacyUnlinked:number;pendingReceipts:number}
 export interface LegacyMigrationReceipt {version:2;runId:string;checksum:string;walletChecksum:string;mapping:{accounts:Record<string,string>;recordIdsPreserved:true};totals:LegacyMigrationCounts;created:LegacyMigrationCounts}
@@ -23,5 +23,10 @@ export function migrateLegacyFinance(tx:WalletTx,input:LegacyFinanceSnapshot,opt
  const checksum=legacySourceChecksum({version:2,timezone:options.timezone,source}),runs=tx.sql.all('SELECT * FROM wallet_legacy_runs LIMIT 2'),prior=runs[0];if(runs.length>1)fail(409,'Có nhiều lần pilot không nhất quán; cần đối soát trước khi chạy lại.');
  if(prior){const tables=dataset(tx);try{validateWalletLegacyTables({...tables,wallet_legacy_runs:[prior]},new Set(tx.legacy.users.map(user=>user.id)));}catch{fail(409,'Biên nhận di trú không còn nhất quán; cần đối soát trước khi chạy lại.');}if(prior.source_checksum!==checksum||prior.wallet_checksum!==legacyPilotChecksum(tables))fail(409,'Nguồn hoặc dữ liệu pilot đã thay đổi; cần đối soát trước khi chạy lại.');return receipt(tx,prior,zero());}
  for(const name of legacyPilotChecksumNames.filter(name=>name!=='wallet_currencies'))if(tx.sql.get('SELECT 1 AS present FROM '+name+' LIMIT 1'))fail(409,'Kho Wallet pilot chứa dữ liệu không thuộc lần di trú này.');
- const plan=buildLegacyMigrationPlan(source,tx.legacy.users,options,tx.sql.all('SELECT code,exponent FROM wallet_currencies'));restoreWalletSnapshot(tx,plan.snapshot);return plan.receipt;
+ const plan=buildLegacyMigrationPlan(source,tx.legacy.users,options,tx.sql.all('SELECT code,exponent FROM wallet_currencies'));const snapshot=plan.snapshot;
+ if(tx.sql.get("SELECT name FROM sqlite_master WHERE type='table' AND name='wallet_receipts'")){
+  if(tx.sql.get('SELECT 1 AS present FROM wallet_receipts LIMIT 1'))fail(409,'Kho hóa đơn pilot chứa dữ liệu; cần đối soát trước khi di trú.');
+  snapshot.schemaVersion=6;snapshot.tables.wallet_receipts=[];snapshot.checksum=walletSnapshotChecksum(snapshot);
+ }
+ restoreWalletSnapshot(tx,snapshot);return plan.receipt;
 }

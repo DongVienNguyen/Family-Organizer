@@ -2118,6 +2118,17 @@
       "NONEXISTENT_LOCAL_TIME": "所选时区不存在此时间。请选择其他时间。",
       "ACCOUNT_NOT_WRITABLE": "此账户已不允许记账。请刷新以检查权限。",
       "RATE_UNAVAILABLE": "金额筛选缺少估值汇率。请移除金额范围或选择适合的货币。"
+    },
+    "receipts": {
+      "title": "收据",
+      "empty": "暂无收据。",
+      "attach": "添加收据",
+      "download": "下载收据",
+      "remove": "移除收据",
+      "removeConfirm": "从此记录中移除此收据？",
+      "limits": "图片会自动优化；支持 iPhone HEIC。图片最大 4 MiB，PDF 最大 10 MiB。",
+      "preparing": "正在处理收据…",
+      "failed": "无法处理收据。请检查文件格式和大小。"
     }
   }
 }

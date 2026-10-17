@@ -13,7 +13,7 @@ export {legacyFinanceSource} from './legacyMigrationData.js';
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'wallet-legacy-migration');};
 const sourceChecksum=(source:LegacyFinanceSnapshot,timezone:string)=>legacySourceChecksum({version:2,timezone,source});
 function admin(reader:WalletReader,actor:Actor){if(assertWalletActor(reader,actor).role!==UserRole.ADMIN)fail(403,'Chỉ quản trị viên được xem hoặc chạy di trú tài chính.');}
-function inactive(reader:WalletReader,actor:Actor){admin(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value==='1')fail(409,'Kho Wallet đang hoạt động.');if(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='wallet'")?.version!==4)fail(409,'Cần kho Wallet phiên bản 4 trước khi di trú.');}
+function inactive(reader:WalletReader,actor:Actor){admin(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value==='1')fail(409,'Kho Wallet đang hoạt động.');const version=reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='wallet'")?.version;if(![4,5].includes(version))fail(409,'Cần kho Wallet phiên bản 4 hoặc 5 trước khi di trú.');return version as 4|5;}
 export type LegacyMigrationResult=LegacyMigrationReceipt&{safetyBackup:{id:string;checksum:string}};
 export interface MigrationLink {sourceKind:string;parentId:string;legacyId:string;targetId:string|null;state:string;reason:string|null;detail:Record<string,unknown>}
 type State='mapped'|'quarantined'|'legacy_unlinked';
@@ -25,13 +25,13 @@ export function createWalletLegacyMigration(ports:{reader:WalletReader;write:typ
  return {
   async migrate(context:CommandContext,options:{timezone:string}):Promise<LegacyMigrationResult>{
    // Clone the authority/request boundary before an asynchronous host callback.
-   const ctx=structuredClone(context),timezone=options.timezone;inactive(ports.reader,ctx.actor);text(ctx.idempotencyKey,256);if(ctx.expectedRevision!==undefined&&ctx.expectedRevision!==0)fail(400,'Lệnh di trú không dùng phiên bản chỉnh sửa.');timezoneFormatter(timezone);
+   const ctx=structuredClone(context),timezone=options.timezone,version=inactive(ports.reader,ctx.actor);text(ctx.idempotencyKey,256);if(ctx.expectedRevision!==undefined&&ctx.expectedRevision!==0)fail(400,'Lệnh di trú không dùng phiên bản chỉnh sửa.');timezoneFormatter(timezone);
    const source=structuredClone(ports.readSource()),expected=sourceChecksum(source,timezone),backup=await ports.backup({...ctx.actor});
    // A demotion/deletion or concurrent legacy change can happen during backup.
-   inactive(ports.reader,ctx.actor);if(sourceChecksum(ports.readSource(),timezone)!==expected)fail(409,'Nguồn thay đổi trong lúc backup; cần tạo backup mới.');text(backup.id,512);const saved=ports.validateBackup(backup.snapshot);
-   if(saved.manifest.domains.wallet!==4||saved.tables.app_meta.some(row=>row.key==='wallet_active'&&row.value==='1')||sourceChecksum(legacyFinanceSource(saved.legacy),timezone)!==expected)fail(409,'Backup không khớp nguồn di trú hiện tại.');
+   if(inactive(ports.reader,ctx.actor)!==version)fail(409,'Schema thay đổi trong lúc backup.');if(sourceChecksum(ports.readSource(),timezone)!==expected)fail(409,'Nguồn thay đổi trong lúc backup; cần tạo backup mới.');text(backup.id,512);const saved=ports.validateBackup(backup.snapshot);
+   if(saved.manifest.domains.wallet!==version||saved.tables.app_meta.some(row=>row.key==='wallet_active'&&row.value==='1')||sourceChecksum(legacyFinanceSource(saved.legacy),timezone)!==expected)fail(409,'Backup không khớp nguồn di trú hiện tại.');
    return store.transaction({actorId:ctx.actor.userId,command:'wallet:legacy:migrate',requestId:ctx.idempotencyKey,payloadHash:expected},tx=>{
-    const reader={...tx.sql,get legacy(){return tx.legacy;}};inactive(reader,ctx.actor);if(sourceChecksum(legacyFinanceSource(tx.legacy),timezone)!==expected)fail(409,'Nguồn thay đổi trước khi lấy quyền ghi.');
+    const reader={...tx.sql,get legacy(){return tx.legacy;}};if(inactive(reader,ctx.actor)!==version)fail(409,'Schema thay đổi trước khi lấy quyền ghi.');if(sourceChecksum(legacyFinanceSource(tx.legacy),timezone)!==expected)fail(409,'Nguồn thay đổi trước khi lấy quyền ghi.');
     const receipt=migrateLegacyFinance(tx,source,{actor:ctx.actor,timezone,now:new Date((ports.now??Date.now)()).toISOString()});return {...receipt,safetyBackup:{id:backup.id,checksum:saved.manifest.checksum}};
    });
   },

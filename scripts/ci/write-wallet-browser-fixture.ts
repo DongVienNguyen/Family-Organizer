@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { pbkdf2Sync, randomUUID } from 'node:crypto';
-const [data, config] = process.argv.slice(2);
-if (!data || !config || process.argv.length !== 4)
+const [data, config, receiptFlag] = process.argv.slice(2);
+const walletVersion=receiptFlag==='--receipts'?5:4;
+if (!data || !config || !(process.argv.length===4||process.argv.length===5&&receiptFlag==='--receipts'))
     throw Error('Explicit synthetic Wallet data/config roots required');
 process.env.DATA_DIR = data;
 process.env.CONFIG_DIR = config;
@@ -16,7 +17,7 @@ fs.writeFileSync(path.join(data, 'db.json'), JSON.stringify({ users, transaction
 fs.writeFileSync(path.join(config, 'app_settings.json'), '{}');
 const sqlite = await import('../../server/sqlite.js'), gateway = await import('../../server/appStore.js'), migrations = await import('../../server/appMigrations.js'), snapshot = await import('../../server/appSnapshot.js');
 const { configureWalletStorage } = await import('../../server/wallet/integration.js'), { createWalletPorts } = await import('../../server/wallet/ports.js');
-configureWalletStorage({ migrations, snapshot, version: 4 });
+configureWalletStorage({ migrations, snapshot, version: walletVersion });
 migrations.applyDomainMigrations({ enabled: ['wallet'], pilot: true });
 gateway.withAppWriteTransaction({ actorId: 'system:synthetic', command: 'synthetic:wallet-browser', requestId: randomUUID(), payloadHash: 'synthetic' }, tx => { tx.legacy.users = users as any; tx.legacy.transactions = transactions as any; tx.run("INSERT OR REPLACE INTO app_meta VALUES('wallet_active','1')"); });
 const ports = createWalletPorts(sqlite, gateway, { now: () => Date.parse('2026-10-17T00:00:00.000Z') }), ctx = (key = 'member', expectedRevision = 0) => ({ actor: { userId: 'wallet-browser-' + key, role: 'member' as const }, idempotencyKey: randomUUID(), expectedRevision });
@@ -29,4 +30,4 @@ if (!legacy || JSON.stringify(JSON.parse(legacy.data)) !== JSON.stringify(transa
 if (connection.pragma('integrity_check', { simple: true }) !== 'ok')
     throw Error('Synthetic Wallet integrity');
 sqlite.sqliteClose();
-console.log(JSON.stringify({ synthetic: true, walletVersion: 4, users: 5, accounts: 4, exactId: exact.id, creditId: credit.id, hiddenId: hidden.id, readId: read.id, legacyPreserved: true, nativeHandlesClosed: true }));
+console.log(JSON.stringify({ synthetic: true, walletVersion, users: 5, accounts: 4, exactId: exact.id, creditId: credit.id, hiddenId: hidden.id, readId: read.id, legacyPreserved: true, nativeHandlesClosed: true }));

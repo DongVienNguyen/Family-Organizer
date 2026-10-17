@@ -1,3 +1,4 @@
+import type {WalletReceiptMetadata} from '../../../server/wallet/receiptContract.js';
 import { object, keys, text, integer, choice, boolean } from '../productivity/validation.js';
 import { timezoneFormatter } from '../productivity/dates.js';
 import { parseEffectiveDate } from './dates.js';
@@ -20,6 +21,7 @@ export interface WalletTransportPorts {
 }
 export interface WalletRequestOptions extends RequestInit {
     readOnly?: boolean;
+    responseType?:'json'|'blob';
 }
 const identity = (value: unknown): value is string => typeof value === 'string' && /^[A-Za-z0-9_-]{1,128}$/.test(value);
 /** Existing auth callback is read afresh. No token store, automatic retries,
@@ -41,7 +43,7 @@ export function createWalletRequest(ports: WalletTransportPorts) {
         if (!identity(requestId))
             throw new WalletApiError(400, 'Mã yêu cầu không hợp lệ.', 'INVALID_INPUT', undefined);
         headers.set('x-request-id', requestId);
-        const { readOnly: _readOnly, ...init } = options;
+        const { readOnly: _readOnly, responseType: _responseType, ...init } = options;
         let response: Response;
         try {
             response = await ports.request(path, { ...init, method, headers, cache: 'no-store', redirect: 'error', credentials: 'same-origin' });
@@ -61,7 +63,7 @@ export function createWalletRequest(ports: WalletTransportPorts) {
         }
         let value: unknown;
         try {
-            value = await response.json();
+            value = response.ok&&options.responseType==='blob'?await response.blob():await response.json();
         }
         catch {
             throw new WalletApiError(response.status, 'Phản hồi Wallet không hợp lệ.', 'INVALID_RESPONSE', requestId, write);
@@ -189,6 +191,13 @@ function catalogValue(value:unknown):WalletCatalog {
  for(const category of categories){let id:string|null=category.id;const path=new Set<string>();while(id!==null&&!done.has(id)){if(path.has(id))throw Error('Catalog cycle');path.add(id);const node=byId.get(id);if(!node)throw Error('Missing catalog parent');id=node.parentId;}for(const id of path)done.add(id);}
  return {categories,labels};
 }
+const receiptMimes={'image/png':'png','image/jpeg':'jpg','image/webp':'webp','image/gif':'gif','application/pdf':'pdf'} as const;
+function receiptValue(value:unknown,recordId:string):WalletReceiptMetadata {
+    const v=object(value),fields=['id','recordId','fileKey','fileName','mime','size','sha256','createdAt','createdBy'];keys(v,fields);if(Object.keys(v).length!==fields.length||v.recordId!==recordId)throw Error('Receipt record identity');
+    text(v.id,36);if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(v.id))throw Error('Receipt identity');
+    choice(v.mime,Object.keys(receiptMimes) as (keyof typeof receiptMimes)[]);if(v.fileKey!==v.id+'.'+receiptMimes[v.mime])throw Error('Receipt file identity');
+    text(v.fileName,200);text(v.createdBy,256);text(v.createdAt,24);timestamp(v.createdAt);integer(v.size,1,(v.mime==='application/pdf'?10:4)*1024*1024);text(v.sha256,64);if(!/^[a-f0-9]{64}$/.test(v.sha256))throw Error('Receipt checksum');return {...v} as unknown as WalletReceiptMetadata;
+}
 /** DTO decoders are browser-only; server imports above are erased types. */
 export function createWalletApi(ports: WalletTransportPorts) {
     const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
@@ -205,6 +214,17 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        receipts:(id:string)=>read(path('records',id)+'/receipts',value=>{const v=object(value);if(v.recordId!==id||!Array.isArray(v.receipts)||v.receipts.length>20)throw Error('Receipt list identity');integer(v.revision,1);const receipts=v.receipts.map(row=>receiptValue(row,id));if(new Set(receipts.map(row=>row.id)).size!==receipts.length)throw Error('Duplicate receipts');return {recordId:id,revision:v.revision,receipts};}),
+        attachReceipt:(id:string,revision:number,input:{fileName:string;dataUrl:string},nonce:string)=>command(path('records',id)+'/receipts','POST',{expectedRevision:revision,input},nonce,value=>{const v=object(value);if(v.recordId!==id||v.revision!==revision+1)throw Error('Receipt acknowledgement');return {recordId:id,revision:v.revision,receipt:receiptValue(v.receipt,id)};}),
+        detachReceipt:(id:string,revision:number,receiptId:string,nonce:string)=>command(path('records',id)+'/receipts/'+encodeURIComponent(receiptId),'DELETE',{expectedRevision:revision},nonce,value=>{const v=object(value);if(v.recordId!==id||v.receiptId!==receiptId||v.revision!==revision+1)throw Error('Receipt acknowledgement');return {recordId:id,revision:v.revision,receiptId};}),
+        async receiptFile(id:string,metadata:WalletReceiptMetadata):Promise<Blob>{
+            const expected=receiptValue(metadata,id),auth=new Headers(ports.authHeaders()).get('Authorization'),blob=await walletRequest<Blob>(path('records',id)+'/receipts/'+encodeURIComponent(expected.id),{responseType:'blob'});
+            const invalid=()=>new WalletApiError(200,'Nội dung hóa đơn không hợp lệ.','INVALID_RESPONSE',undefined);
+            if(!(blob instanceof Blob)||blob.size!==expected.size||blob.type!==expected.mime)throw invalid();
+            const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))).map(byte=>byte.toString(16).padStart(2,'0')).join('');
+            if(new Headers(ports.authHeaders()).get('Authorization')!==auth)throw new WalletApiError(401,'Phiên đăng nhập đã thay đổi.','SESSION_CHANGED',undefined);
+            if(digest!==expected.sha256)throw invalid();return blob;
+        },
         catalog:()=>read('/api/wallet/catalog',catalogValue),
         actions:(id:string)=>read(path('records',id)+'/actions',value=>{const v=object(value);if(v.recordId!==id)throw Error('Action record identity');boolean(v.canEdit);boolean(v.canVoid);const result:WalletRecordActions={recordId:id,canEdit:v.canEdit,canVoid:v.canVoid};if(v.editViaTransferId!==undefined){text(v.editViaTransferId,256);if(v.editViaTransferId===id)throw Error('Action parent identity');result.editViaTransferId=v.editViaTransferId;}return result;}),
         status: () => read('/api/wallet/status', value => { const v = object(value); boolean(v.active); integer(v.storageVersion); return { active: v.active, storageVersion: v.storageVersion }; }),

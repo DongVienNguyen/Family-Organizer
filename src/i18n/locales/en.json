@@ -2118,6 +2118,17 @@
       "NONEXISTENT_LOCAL_TIME": "This time does not exist in the selected timezone. Choose another time.",
       "ACCOUNT_NOT_WRITABLE": "This account no longer permits writes. Refresh to check access.",
       "RATE_UNAVAILABLE": "The amount filter lacks a valuation rate. Remove the amount range or choose an appropriate currency."
+    },
+    "receipts": {
+      "title": "Receipts",
+      "empty": "No receipts yet.",
+      "attach": "Attach receipt",
+      "download": "Download receipt",
+      "remove": "Remove receipt",
+      "removeConfirm": "Remove this receipt from the record?",
+      "limits": "Images are optimized; iPhone HEIC supported. Images up to 4 MiB, PDF up to 10 MiB.",
+      "preparing": "Processing receipt…",
+      "failed": "Could not process the receipt. Check the file format and size."
     }
   }
 }

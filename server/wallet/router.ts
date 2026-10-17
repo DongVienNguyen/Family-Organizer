@@ -97,6 +97,21 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     router.delete('/accounts/:id/grants/:userId', handler(req => { const value = body(req, ['expectedRevision']), accountId = id(req.params.id), ctx = context(req, value.expectedRevision, true); manager(req, accountId); const before = ports.accountAudience(accountId), result = ports.accounts.removeGrant(ctx, accountId, id(req.params.userId)); emit(before, ports.accountAudience(accountId)); return result; }));
     const query = (req: WalletRequest) => { const value = body(req, ['filter', 'cursor', 'limit']); return ports.queries.listRecords(actor(req), value.filter, value.cursor ?? null, value.limit === undefined ? 50 : value.limit); };
     router.post('/records/query', handler(query));
+    router.get('/records/:id/receipts',handler(req=>ports.receipts.list(actor(req),id(req.params.id))));
+    router.post('/records/:id/receipts',handler(req=>{
+        const value=body(req,['expectedRevision','input']),recordId=id(req.params.id),ctx=context(req,value.expectedRevision,true),before=ports.recordAudience(recordId),result=ports.receipts.attach(ctx,recordId,value.input);
+        emit(before,ports.recordAudience(recordId));return result;
+    }));
+    router.delete('/records/:id/receipts/:receiptId',handler(req=>{
+        const value=body(req,['expectedRevision']),recordId=id(req.params.id),ctx=context(req,value.expectedRevision,true),before=ports.recordAudience(recordId),result=ports.receipts.detach(ctx,recordId,id(req.params.receiptId));
+        emit(before,ports.recordAudience(recordId));return result;
+    }));
+    router.get('/records/:id/receipts/:receiptId',(req:WalletRequest,res)=>{
+        try{
+            const file=ports.receipts.read(actor(req),id(req.params.id),id(req.params.receiptId)),name=encodeURIComponent(file.fileName).replace(/['()*]/g,char=>'%'+char.charCodeAt(0).toString(16).toUpperCase());
+            res.set('Content-Type',file.mime).set('X-Content-Type-Options','nosniff').set('Content-Security-Policy',"default-src 'none'; sandbox").set('Content-Disposition',"attachment; filename=\"receipt\"; filename*=UTF-8''"+name).send(file.bytes);
+        }catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không xử lý được yêu cầu Wallet.':error instanceof AppStoreError?error.message:'Dữ liệu hóa đơn không hợp lệ.',code:(error as any)?.code});}
+    });
     router.get('/records/:id/actions',handler(req=>ports.records.getActions(actor(req),id(req.params.id))));
     router.get('/records/:id', handler(req => ports.read.getRecord(actor(req), id(req.params.id))));
     router.post('/records', handler(req => { const value = body(req, ['expectedRevision', 'input']), result = ports.records.createRecord(context(req, value.expectedRevision, false), cleanCreator(value.input) as any); emit(new Set(), ports.recordAudience(result.record.id)); return result; }));
