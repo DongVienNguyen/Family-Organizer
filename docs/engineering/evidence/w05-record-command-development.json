@@ -1,0 +1,183 @@
+{
+  "taskIds": [
+    "W05-partial",
+    "W04-partial"
+  ],
+  "status": "Cloud manual financial-command checkpoint; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "6837a52a20810ab7041ef3577a665054d8055e65",
+  "base": "696e1de075b50e357b21d8894e355b2600e738fd",
+  "sourceSha256": {
+    "server/wallet/accounts.ts": "9eec861058b8628a857072ff460b804753426b885972537edd7a0cb8b4e2fce6",
+    "server/wallet/records.integration.test.ts": "68f989e8801f85e5da3bfe87dacd287802cb937ef6f62ecafb5b890179979651",
+    "server/wallet/records.test.ts": "de8016bdb4337b798d8b5db664eadc6fcc57652b7f876cbe88c0c53af5653048",
+    "server/wallet/records.ts": "0e7f329c33c03b2ee2463b166c83901f4b03c50dbb3462d07cf47eef915bcfa3"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6586,
+      "files": 351,
+      "junitCases": 6586,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 141.49
+    },
+    "walletInFullSuite": {
+      "tests": 247,
+      "files": 12
+    },
+    "targetedRecords": {
+      "tests": 47,
+      "files": 2,
+      "failed": 0
+    },
+    "targetedWalletBeforeReviewCase": {
+      "tests": 246,
+      "files": 12,
+      "failed": 0
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6539,
+      "currentPassed": 6586,
+      "added": 47,
+      "removed": 0,
+      "normalization": "only temporary root in five recoveryRetention names; multiplicity retained",
+      "junitCases": 6586,
+      "files": 351
+    }
+  },
+  "review": {
+    "method": "LOCAL SELF author review, not independent",
+    "reviewedPaths": [
+      "server/wallet/accounts.ts",
+      "server/wallet/records.integration.test.ts",
+      "server/wallet/records.test.ts",
+      "server/wallet/records.ts"
+    ],
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "findings": [
+      {
+        "severity": "Important",
+        "finding": "metadata-only edits discarded imported FX quote source",
+        "fixed": true,
+        "regression": "metadata-only edits preserve an imported immutable FX quote source and an explicit new quote becomes manual",
+        "redReport": "w05-records-review-fx-source-red.json",
+        "greenReport": "w05-records-review-green.json"
+      }
+    ],
+    "fixPasses": 1,
+    "rereview": false,
+    "finalVerification": {
+      "fullTests": 6586,
+      "files": 351,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "limitations": [
+      "No independent review",
+      "No HTTP/UI/legacy cutover",
+      "Split/owned schedule/debt/goal/trade integration and legacy type-edit compatibility remain pending"
+    ]
+  },
+  "behavior": [
+    "Income/expense/adjustment and balanced/external/FX transfers with separate fee expense",
+    "Trusted UUID/actor/time, current ACL before cache and inside I01, revision/idempotency",
+    "Atomic create/update/void and native second-post/fee-audit/parent-void rollback",
+    "Parent metadata edits preserve independent fee history and never revive voided fees",
+    "Original imported quote provenance retained unless quote fields change",
+    "Currency remains locked after last posting moves because financial audit history remains",
+    "Real I01 restore rewinds command receipts and data together; restored void UUID executes once again",
+    "Free text remains lossless live; audit stores SHA256/length plus complete monetary before/after"
+  ],
+  "developmentEvidence": {
+    "missingRecordCommands": {
+      "failed": 32
+    },
+    "archiveLegRed": {
+      "failed": 2,
+      "filteredOut": 32,
+      "fixed": true
+    },
+    "independentFeeHistoryRed": {
+      "failed": 3,
+      "filteredOut": 38,
+      "fixed": true
+    },
+    "historyAndNullCategoryRed": {
+      "failed": 2,
+      "passed": 1,
+      "filteredOut": 41,
+      "fixed": true
+    },
+    "initialSharedFixture": "Added required synthetic Admin to Member-owned integration fixture; shared validator unchanged",
+    "revision1": {
+      "testsPassed": 6585,
+      "files": 351,
+      "lintExit": 2,
+      "lintCause": "merged partial-fee union annotation TS2339",
+      "build": "not-run after lint failure"
+    },
+    "reviewFix": {
+      "important": 1,
+      "redFailed": 1,
+      "filteredOut": 44,
+      "greenRecordsTests": 47,
+      "fixed": true
+    },
+    "final": "6586pass/JUnit/lint0/build0; no skipped/assertion/deadline/retry reductions"
+  },
+  "decisions": [
+    "Existing fees retain their independent date/status/review/text/labels; unchanged fees get no extra revision",
+    "Linked fee changes go through parent revision; explicit removal voids/unlinks; voided fee must be removed before new charge",
+    "Audit free-text digests do not provide plaintext text undo",
+    "Single-kind compatibility edits, split/owned schedule/debt/goal/trade integration remain pending before legacy cutover"
+  ],
+  "rawEvidenceRoot": "/workspace/family-evidence",
+  "rawReports": {
+    "w05-records-qualified-v2.json": "87d3d9ac4cb74b389e650ea18c90af949402795149a2f719b8308a8d428a3f9c",
+    "w05-records-qualified-v2.junit.xml": "8dd99cb2ac335052c3a5301b523cea8fccfbcd3fb1b2bd308a3d8dc2c1b15d88",
+    "w05-records-qualified-v2.log": "42781e6d89bc9801361c97db672b6132c1ad9bed9de92e3bef7d9d49b69aabee",
+    "w05-records-qualified-v2.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w05-records-lint-v2.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w05-records-lint-v2.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w05-records-build-v2.log": "9c23c67ad3e06ec4291d21227b8ee16c9cb479a18930865a16969bda22a2f0bd",
+    "w05-records-build-v2.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w05-records-frozen-v2.json": "fba0d7b34ac5c4e3d7d7c2b4cde4182f81977ab96c361ed426ffbbc3058cab6e",
+    "w05-records-preservation-v2.json": "b64a18e5167301042b47ab7d8212653631426c4aad264ee090ec7c63db0ad2aa",
+    "w05-records-red.json": "5ae61248746da3ae54cfc909c889feca8b70c6a6ade8196d647fe0ef960ff632",
+    "w05-records-archive-red.json": "171580d04614ac2302e00350a02191f2acf652086ffdc4ed122d7938508b38ad",
+    "w05-records-fee-history-red.json": "ef95e6452057b14b4068e22a94978348fe13bbde9a540d89af7f6b8a1fbb7bd9",
+    "w05-records-history-category-red.json": "9de5b3ff06620f61602ab5cd098174987b70ab3445486dc50a9f8c0cac88b505",
+    "w05-records-review-fx-source-red.json": "f9d1745ed30856b7bcc3ac9e9a3c53bdaeaf715b553f331c50adb79d2480d199"
+  },
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "new browser for unwired backend-only work",
+    "current Windows2022 Node24/Node22",
+    "current package/service",
+    "Windows Server2019 R02"
+  ],
+  "remaining": [
+    "W02 remaining entities/private receipt manifest",
+    "W03 durable migration/quarantine/backup conversion and legacy adapter",
+    "W04 HTTP/media/export/report gates",
+    "W05 API/UI, legacy type-edit compatibility and linked lifecycle integration",
+    "W06-W18 and remaining M1/productivity/integration acceptance"
+  ],
+  "constraints": [
+    "Default inactive; no HTTP/UI/legacy cutover",
+    "No provider/notification calls",
+    "No dependencies/workflow changes",
+    "No release/tag/VPS"
+  ]
+}

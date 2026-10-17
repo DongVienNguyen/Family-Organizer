@@ -2,7 +2,27 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
-**Latest continuation — W02 partial:** source `3a44a4fd23af6aba31eaa85b6494acef5fb45bce` adds immutable per-transfer
+**Latest continuation — W05 partial:** source `6837a52a20810ab7041ef3577a665054d8055e65` adds manual income/expense/
+adjustment and balanced/external/FX transfers with separate fees, atomic edits/voids,
+revision/idempotency and current ACL before cache/inside I01. Real shared restore
+rewinds receipts with money state; native faults roll back both transfer and fee.
+Existing fee history is preserved; unchanged FX quote provenance is retained.
+
+Final Cloud6586tests/351files/matchingJUnit/0failed-skipped-todo, Wallet247/12 in
+full run,47targeted record cases; lint/build0. All6539parent retained+47. Initial
+6585run passed tests but failed lint2/build not run; final source corrects that
+and one Important LOCAL SELF finding via RED→GREEN plus full suite. Author review
+4paths0C/1I/0M, one fix pass/no rereview, not independent.
+[Detail](wallet-record-core.md), [proof](evidence/w05-record-command-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No HTTP/UI,
+activation or legacy cutover; existing finance stays active. No new browser run.
+Current Windows/Node22/package/service and Server2019R02 unrun. Next: W03 durable
+migration/adapter and W02 private receipts, then API/UI and linked lifecycle/type
+compatibility before activation. [Wallet checklist](wallet-feature-checklist.md).
+**Full W02/W03/W04/W05/Wallet/M1/master remains incomplete.** No release/tag/VPS.
+
+**Previous continuation — W02 partial:** source `3a44a4fd23af6aba31eaa85b6494acef5fb45bce` adds immutable per-transfer
 FX amounts/rational/as-of/source and FK-linked separate expense fees in explicit
 migration3. v1/v2 remain frozen/supported; standalone2/3/4 map to domain1/2/3.
 Transfer legs, rate agreement, fee shape and parent void/current consistency are
@@ -20,7 +40,7 @@ package/service and Server2019R02 unrun. Next: W05 record/transfer commands and
 remaining W02 receipts/entities/W03 migration, before API/UI/cutover and final gates.
 **Full W02/W03/W04/W05/Wallet/M1/master remains incomplete.** No release/tag/VPS.
 
-**Latest continuation — W04/W05 partial:** source `372433eee99ce6d62b463deb05c09299f8e9e34c` adds fresh role/grant
+**Previous continuation — W04/W05 partial:** source `372433eee99ce6d62b463deb05c09299f8e9e34c` adds fresh role/grant
 ACL, SQL scoping before financial bodies, partial-transfer redaction and account
 create/update/archive commands with trusted actor/time, revision/idempotency and
 atomic audit. Exact book/cleared balances and credit debt/availability/rational
@@ -39,7 +59,7 @@ Server2019R02 unrun. Next: remaining W02 financial relations, W03 migration and
 W05 records/transfer/UI, then remaining M1/Wallet/final gates.
 **Full W02/W03/W04/W05/Wallet/M1/master is not complete.** No release/tag/VPS.
 
-**Latest continuation — W02 partial:** source `43e9cdb04f6adb58d10b9714d39a3251a04aad8b` adds explicit additive migration2
+**Previous continuation — W02 partial:** source `43e9cdb04f6adb58d10b9714d39a3251a04aad8b` adds explicit additive migration2
 for account/record/catalog/audit metadata. Frozen migration1 and standalone protocol2
 remain supported; extended standalone protocol3 maps to Wallet domain2. I01 remains
 the sole transaction/restore owner. Nullable credit limits, exact signed64 amounts,
@@ -58,7 +78,7 @@ W04 account access and core commands, then remaining W02 entities/private attach
 W03 durable migration/cutover and W05 UI; remaining M1 UX/final gates still apply.
 **Full W02/Wallet/M1/master is not complete.** No release/tag/VPS.
 
-**Latest continuation — W02 partial:** source
+**Previous continuation — W02 partial:** source
 `2496a3b4d4ecd06a80854d5ff24017b6d8ca4f87` rejects unknown Wallet record creators,
 unknown audit actors and cyclic category graphs before restore writes; module
 export applies the same known-user provenance. Shared I01refusals occur before
