@@ -1,4 +1,4 @@
-import {it,expect} from 'vitest';
+import {it,expect,vi} from 'vitest';
 import {randomUUID} from 'node:crypto';
 import * as conversion from './backupConversion.js';
 import * as sqlite from '../sqlite.js';
@@ -7,6 +7,8 @@ import * as migrations from '../appMigrations.js';
 import * as snapshot from '../appSnapshot.js';
 import {configureWalletStorage} from './integration.js';
 import {walletTablesAt} from './snapshot.js';
+import {migrateLegacyFinance} from './migrate.js';
+import {legacyFinanceSource} from './migrationService.js';
 import {openWalletStore} from './store.js';
 import {checksum,type AppSnapshot} from '../snapshotValidation.js';
 import {UserRole,TransactionType,AccountType} from '../../src/types.js';
@@ -18,6 +20,7 @@ const capture=()=>write(tx=>snapshot.collectAppSnapshot(tx));
 function setup(){
  if(!initialized){
   write(tx=>{tx.legacy.users=[{id:actor.userId,role:UserRole.ADMIN,username:'synthetic-backup-conversion-admin',fullName:'Synthetic converter',passwordHash:'synthetic-offline',avatarColor:'blue',createdAt:at}];tx.legacy.transactions=[{id:'synthetic-original-source',type:TransactionType.EXPENSE,amount:123,category:'food',account:AccountType.CASH,description:'Synthetic original legacy collection',date:'2026-10-11',creatorId:actor.userId,createdAt:at}];tx.run("INSERT OR REPLACE INTO app_meta(key,value)VALUES('wallet_active','1')");});
+  saved.set(0,capture());
   for(const version of [1,2,3,4] as const){configureWalletStorage({migrations,snapshot,version});migrations.applyDomainMigrations({enabled:['wallet'],pilot:true});if(version===1)store.transaction(meta(),tx=>{tx.accounts.insert({id:'synthetic-old-native-account',name:'Synthetic old native account',type:'bank',currency:'VND',ownerUserId:actor.userId,accessMode:'private',openingMinor:'9223372036854775807',openingDate:'2026-10-11',revision:1});tx.records.insert({id:'synthetic-old-native-record',kind:'expense',effectiveDate:'2026-10-11',timezone:'Asia/Saigon',source:'manual',note:'Synthetic old native note',settlementStatus:'cleared',creatorId:actor.userId,revision:3});tx.postings.insert({recordId:'synthetic-old-native-record',accountId:'synthetic-old-native-account',deltaMinor:'-9223372036854775808'});});if(version===2)write(tx=>tx.run("UPDATE wallet_account_metadata SET credit_limit_minor=?,created_at=?,created_by=?",9007199254740993n,at,actor.userId));saved.set(version,capture());}initialized=true;
  }
  write(tx=>{for(const name of Object.keys(walletTablesAt(4)).reverse().filter(name=>name!=='wallet_currencies'))tx.run('DELETE FROM '+name);tx.run("UPDATE app_meta SET value='0' WHERE key='wallet_active'");});
@@ -47,4 +50,17 @@ it.each([
  {namespace:'wallet',version:2,tables:Object.keys(walletTablesAt(1))},
 ] as const)('historical inspection refuses invalid trusted registration %j without a write',registration=>{
  setup();const changes=reader.get('SELECT total_changes() AS n');expect(()=>snapshot.inspectHistoricalDomainSnapshot(saved.get(1),registration)).toThrow();expect(reader.get('SELECT total_changes() AS n')).toEqual(changes);
+});
+
+it('pre-Wallet shared backup restores three shared VND accounts and original IDs through the same migration rules',async()=>{
+ setup();const source=saved.get(0)!,original=structuredClone(source),changes=reader.get('SELECT total_changes() AS n'),result=conversion.convertSharedWalletBackup(source,ports(),at,{ownerUserId:actor.userId,timezone:'Asia/Saigon'});expect(reader.get('SELECT total_changes() AS n')).toEqual(changes);expect(source).toEqual(original);expect(result.conversion).toMatchObject({fromVersion:0,toVersion:4,converted:true,migration:{version:2,created:{accounts:3,records:1,quarantined:0}}});expect(result.snapshot.tables.wallet_accounts.map(row=>row.type).sort()).toEqual(['bank','cash','e_wallet']);expect(result.snapshot.tables.wallet_accounts.every(row=>row.access_mode==='shared'&&row.currency==='VND'&&row.opening_minor==='0')).toBe(true);expect(result.snapshot.tables.wallet_records[0]).toMatchObject({id:'synthetic-original-source',source:'legacy',external_key:'synthetic-original-source',effective_date:'2026-10-11',creator_id:actor.userId});expect(result.snapshot.tables.wallet_postings[0].delta_minor).toBe('-123');expect(result.snapshot.legacy).toEqual(source.legacy);expect(result.snapshot.tables.app_commands).toEqual(source.tables.app_commands);expect(result.snapshot.tables.app_meta.find(row=>row.key==='wallet_active')?.value).toBe('0');await snapshot.restoreAppSnapshot(result.snapshot,{maintenance:async fn=>fn()});const repeat=store.transaction(meta(),tx=>migrateLegacyFinance(tx,legacyFinanceSource(tx.legacy),{actor,timezone:'Asia/Saigon',now:at}));expect(repeat.runId).toBe(result.conversion.migration?.runId);expect(Object.values(repeat.created).every(n=>n===0)).toBe(true);expect(reader.all('PRAGMA foreign_key_check')).toEqual([]);
+});
+it('pre-Wallet conversion is deterministic for reviewed source, owner, timezone and explicit clock',()=>{
+ setup();const source=saved.get(0)!,options={ownerUserId:actor.userId,timezone:'Asia/Saigon'},first=conversion.convertSharedWalletBackup(source,ports(),at,options);expect(conversion.convertSharedWalletBackup(source,ports(),at,options)).toEqual(first);expect(first.conversion.migration?.walletChecksum).toMatch(/^[a-f0-9]{64}$/);
+});
+it('pre-Wallet quarantine and receipt reports never create a second posting for debt/savings or fetch media',()=>{
+ setup();const source=structuredClone(saved.get(0)!);source.legacy.transactions[0].receiptImage='https://synthetic.invalid/unfetched.png';source.legacy.transactions.push({...source.legacy.transactions[0],id:'synthetic-bad-backup-money',amount:1.5});source.legacy.debts=[{id:'synthetic-backup-debt',direction:'borrowed',counterparty:'Synthetic lender',amount:1000,isSettled:false,creatorId:actor.userId,payments:[{id:'synthetic-backup-payment',amount:100,date:'2026-10-11',byId:actor.userId,createdAt:at}],createdAt:at,updatedAt:at}];source.legacy.savingsGoals=[{id:'synthetic-backup-goal',name:'Synthetic goal',targetAmount:1000,isShared:true,creatorId:actor.userId,contributions:[{id:'synthetic-backup-contribution',amount:100,date:'2026-10-11',byId:actor.userId,createdAt:at}],createdAt:at,updatedAt:at}];source.manifest.checksum=checksum(source);const original=structuredClone(source),fetch=vi.spyOn(globalThis,'fetch').mockRejectedValue(Error('synthetic offline guard'));try{const result=conversion.convertSharedWalletBackup(source,ports(),at,{ownerUserId:actor.userId,timezone:'Asia/Saigon'});expect(result.conversion.migration?.totals).toMatchObject({records:1,quarantined:1,legacyUnlinked:2,pendingReceipts:1});expect(result.snapshot.tables.wallet_postings).toHaveLength(1);expect(result.snapshot.tables.wallet_legacy_links.filter(row=>row.state==='legacy_unlinked')).toHaveLength(2);expect(result.snapshot.tables.wallet_legacy_runs[0].status).toBe('quarantined');expect(source).toEqual(original);expect(fetch).not.toHaveBeenCalled();}finally{fetch.mockRestore();}
+});
+it.each(['missing-options','member-owner','missing-owner','timezone'])('pre-Wallet conversion rejects %s before a SQL write',kind=>{
+ setup();const source=structuredClone(saved.get(0)!);source.legacy.users.push({...source.legacy.users[0],id:'synthetic-conversion-member',username:'synthetic-conversion-member',role:UserRole.MEMBER});source.manifest.checksum=checksum(source);const options={ownerUserId:kind==='member-owner'?'synthetic-conversion-member':kind==='missing-owner'?'synthetic-missing':actor.userId,timezone:kind==='timezone'?'synthetic/invalid':'Asia/Saigon'},changes=reader.get('SELECT total_changes() AS n');expect(()=>conversion.convertSharedWalletBackup(source,ports(),at,kind==='missing-options'?undefined:options)).toThrow();expect(reader.get('SELECT total_changes() AS n')).toEqual(changes);
 });

@@ -1,4 +1,3 @@
-import type {FamilyOrganizerDB} from '../../src/types.js';
 import {UserRole} from '../../src/types.js';
 import type {Actor,CommandContext} from '../../src/features/wallet/contracts.js';
 import {text,integer,choice} from '../../src/features/productivity/validation.js';
@@ -9,9 +8,8 @@ import {AppStoreError} from '../appErrors.js';
 import {assertWalletActor,type WalletReader} from './access.js';
 import {openWalletStore} from './store.js';
 import {migrateLegacyFinance,type LegacyFinanceSnapshot,type LegacyMigrationReceipt} from './migrate.js';
-import {legacySourceChecksum} from './legacyMigrationData.js';
-type LegacySource=Pick<FamilyOrganizerDB,'transactions'|'customCategories'|'hiddenBuiltinCategories'|'debts'|'savingsGoals'>;
-export function legacyFinanceSource(legacy:LegacySource):LegacyFinanceSnapshot {return structuredClone({transactions:legacy.transactions,customCategories:legacy.customCategories,hiddenBuiltinCategories:legacy.hiddenBuiltinCategories,debts:legacy.debts,savingsGoals:legacy.savingsGoals});}
+import {legacySourceChecksum,legacyFinanceSource} from './legacyMigrationData.js';
+export {legacyFinanceSource} from './legacyMigrationData.js';
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'wallet-legacy-migration');};
 const sourceChecksum=(source:LegacyFinanceSnapshot,timezone:string)=>legacySourceChecksum({version:2,timezone,source});
 function admin(reader:WalletReader,actor:Actor){if(assertWalletActor(reader,actor).role!==UserRole.ADMIN)fail(403,'Chỉ quản trị viên được xem hoặc chạy di trú tài chính.');}

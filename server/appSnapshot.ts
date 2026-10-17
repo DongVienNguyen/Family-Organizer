@@ -106,7 +106,7 @@ export function validateAppSnapshot(input: unknown): ValidatedAppSnapshot {
  * The result is NOT admitted to restore: conversion must pass validateAppSnapshot. */
 export function inspectHistoricalDomainSnapshot(input:unknown,source:{namespace:'wallet'|'productivity';version:number;tables:readonly string[]}):AppSnapshot {
  const versions=getDomainVersions(),installed=versions[source.namespace];
- if(!['wallet','productivity'].includes(source.namespace)||!Number.isSafeInteger(source.version)||source.version<1||source.version>=installed||new Set(source.tables).size!==source.tables.length)throw Error('Unsupported historical snapshot conversion');
+ if(!['wallet','productivity'].includes(source.namespace)||!Number.isSafeInteger(source.version)||source.version<0||source.version===0&&source.tables.length!==0||source.version>=installed||new Set(source.tables).size!==source.tables.length)throw Error('Unsupported historical snapshot conversion');
  const current=tables(),allowed=new Set(source.tables);
  for(const name of allowed)if(!current.has(name)||domainTables.get(name)?.namespace!==source.namespace)throw Error('Untrusted historical snapshot table');
  const trusted=new Map([...current].filter(([name])=>domainTables.get(name)?.namespace!==source.namespace||allowed.has(name)));

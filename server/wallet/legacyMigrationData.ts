@@ -1,3 +1,5 @@
+import type {FamilyOrganizerDB} from '../../src/types.js';
+import type {LegacyFinanceSnapshot} from './migrate.js';
 import {createHash} from 'node:crypto';
 import {object,choice,text,integer} from '../../src/features/productivity/validation.js';
 import {timezoneFormatter} from '../../src/features/productivity/dates.js';
@@ -21,3 +23,6 @@ export function validateWalletLegacyTables(tables:Record<string,Row[]>,userIds?:
  }
  for(const run of runs.values()){const links=tables.wallet_legacy_links.filter(row=>row.run_id===run.id),counts=(kind:string)=>links.filter(row=>row.state==='mapped'&&row.source_kind===kind).length,q=links.filter(row=>row.state==='quarantined').length,u=links.filter(row=>row.state==='legacy_unlinked').length,p=links.filter(row=>row.state==='mapped'&&row.source_kind==='record'&&JSON.parse(String(row.detail_json)).receiptPending===true).length;if(run.accounts_count!==counts('account')||run.categories_count!==counts('category')||run.records_count!==counts('record')||run.quarantined_count!==q||run.unlinked_count!==u||run.receipts_pending_count!==p||run.status!==(q?'quarantined':p?'pending_receipts':'ready'))throw Error('Invalid Wallet legacy counts');}
 }
+
+type LegacySource=Pick<FamilyOrganizerDB,'transactions'|'customCategories'|'hiddenBuiltinCategories'|'debts'|'savingsGoals'>;
+export function legacyFinanceSource(legacy:LegacySource):LegacyFinanceSnapshot {return structuredClone({transactions:legacy.transactions,customCategories:legacy.customCategories,hiddenBuiltinCategories:legacy.hiddenBuiltinCategories,debts:legacy.debts,savingsGoals:legacy.savingsGoals});}

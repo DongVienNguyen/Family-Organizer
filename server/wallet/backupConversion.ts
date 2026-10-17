@@ -1,3 +1,8 @@
+import {createHash} from 'node:crypto';
+import {UserRole} from '../../src/types.js';
+import {buildLegacyMigrationPlan} from './migrationPlan.js';
+import type {LegacyMigrationReceipt} from './migrate.js';
+import {legacyFinanceSource} from './legacyMigrationData.js';
 import type {AppSnapshot,ValidatedAppSnapshot} from '../snapshotValidation.js';
 import {checksum} from '../snapshotValidation.js';
 import {walletCoreChecksum,walletMetadataChecksum,walletFinancialChecksum,walletLegacyMigrationChecksum} from './schema.js';
@@ -24,20 +29,28 @@ export function convertWalletBackup(value:unknown,userIds:Set<string>):WalletSna
 interface ConversionPorts {installedVersion:number;migrations:{version:number;checksum:string;applied_at:string}[];inspectHistorical:(value:unknown,source:{namespace:'wallet'|'productivity';version:number;tables:readonly string[]})=>AppSnapshot;validateTarget:(value:unknown)=>ValidatedAppSnapshot}
 function timestamp(value:string){if(typeof value!=='string'||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(value)||!Number.isFinite(Date.parse(value))||new Date(value).toISOString()!==value)throw Error('Invalid explicit backup conversion time');}
 /** Host binds trusted I01 inspection/validation and installed migration records.
- * wallet0/legacy JSON and other namespace upgrades need separate converters.
+ * Raw legacy JSON/ZIP and other namespace upgrades need separate converters.
  * This returns converted bytes only; the caller still owns restore/maintenance. */
-export function convertSharedWalletBackup(input:unknown,ports:ConversionPorts,at:string):{snapshot:ValidatedAppSnapshot;conversion:{fromVersion:number;toVersion:4;sourceChecksum:string;resultChecksum:string;at:string;converted:boolean}} {
+export function convertSharedWalletBackup(input:unknown,ports:ConversionPorts,at:string,legacy?:{ownerUserId:string;timezone:string}):{snapshot:ValidatedAppSnapshot;conversion:{fromVersion:number;toVersion:4;sourceChecksum:string;resultChecksum:string;at:string;converted:boolean;migration?:LegacyMigrationReceipt}} {
  timestamp(at);const hashes=[walletCoreChecksum,walletMetadataChecksum,walletFinancialChecksum,walletLegacyMigrationChecksum];
  if(ports.installedVersion!==4||ports.migrations.length!==4||ports.migrations.some((row,i)=>row.version!==i+1||row.checksum!==hashes[i]))throw Error('Wallet backup conversion requires the installed trusted version4 chain');for(const row of ports.migrations)timestamp(row.applied_at);
- const version=(input as AppSnapshot)?.manifest?.domains?.wallet;if(![1,2,3,4].includes(version))throw Error('Unsupported source Wallet backup version');
- const source=version===4?ports.validateTarget(input):ports.inspectHistorical(input,{namespace:'wallet',version,tables:Object.keys(walletTablesAt(version))});
+ const version=(input as AppSnapshot)?.manifest?.domains?.wallet;if(![0,1,2,3,4].includes(version))throw Error('Unsupported source Wallet backup version');
+ const source=version===4?ports.validateTarget(input):ports.inspectHistorical(input,{namespace:'wallet',version,tables:version===0?[]:Object.keys(walletTablesAt(version))});
  if(version===4)return {snapshot:source as ValidatedAppSnapshot,conversion:{fromVersion:4,toVersion:4,sourceChecksum:source.manifest.checksum,resultChecksum:source.manifest.checksum,at,converted:false}};
- const native={schemaVersion:version+1,tables:Object.fromEntries(Object.keys(walletTablesAt(version)).map(name=>[name,source.tables[name]])),checksum:''};native.checksum=walletSnapshotChecksum(native);
- const upgraded=convertWalletBackup(native,new Set(source.legacy.users.map((user:{id:string})=>user.id))),target=structuredClone(source);
+ let upgraded:WalletSnapshot,migration:LegacyMigrationReceipt|undefined;
+ if(version===0){
+  if(!legacy)throw Error('Pre-Wallet conversion requires an explicit historical owner and timezone');
+  const seed=JSON.stringify([source.manifest.checksum,legacy.ownerUserId,legacy.timezone,at]);let counter=0;
+  const newId=()=>{const chars=createHash('sha256').update(seed+':'+counter++).digest('hex').slice(0,32).split('');chars[12]='8';chars[16]=((parseInt(chars[16],16)&3)|8).toString(16);const h=chars.join('');return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20);};
+  const plan=buildLegacyMigrationPlan(legacyFinanceSource(source.legacy),source.legacy.users,{actor:{userId:legacy.ownerUserId,role:UserRole.ADMIN},timezone:legacy.timezone,now:at,newId});upgraded=plan.snapshot;migration=plan.receipt;
+ }else{
+  const native={schemaVersion:version+1,tables:Object.fromEntries(Object.keys(walletTablesAt(version)).map(name=>[name,source.tables[name]])),checksum:''};native.checksum=walletSnapshotChecksum(native);upgraded=convertWalletBackup(native,new Set(source.legacy.users.map((user:{id:string})=>user.id)));
+ }
+ const target=structuredClone(source);
  for(const name of Object.keys(target.tables))if(name.startsWith('wallet_'))delete target.tables[name];Object.assign(target.tables,upgraded.tables);
  target.manifest.domains.wallet=4;target.manifest.createdAt=at;
  const active=target.tables.app_meta.find(row=>row.key==='wallet_active');if(active)active.value='0';else target.tables.app_meta.push({key:'wallet_active',value:'0'});
  for(const row of ports.migrations.filter(row=>row.version>version))target.tables.app_migrations.push({namespace:'wallet',version:row.version,checksum:row.checksum,applied_at:at});
  target.manifest.checksum=checksum(target);const result=ports.validateTarget(target);
- return {snapshot:result,conversion:{fromVersion:version,toVersion:4,sourceChecksum:source.manifest.checksum,resultChecksum:result.manifest.checksum,at,converted:true}};
+ return {snapshot:result,conversion:{fromVersion:version,toVersion:4,sourceChecksum:source.manifest.checksum,resultChecksum:result.manifest.checksum,at,converted:true,...(migration?{migration}:{})}};
 }

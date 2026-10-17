@@ -67,3 +67,9 @@ it('durable run counts are revalidated before returning an idempotent migration 
 it('multiple durable pilot runs are a conflict instead of silently trusting the first row',()=>{
  setup();migrate();store.transaction(meta(),tx=>tx.sql.run("INSERT INTO wallet_legacy_runs SELECT ?,migration_version,?,wallet_checksum,owner_user_id,timezone,created_at,'ready',0,0,0,0,0,0 FROM wallet_legacy_runs",randomUUID(),'9'.repeat(64)));expect(()=>migrate()).toThrow(expect.objectContaining({status:409}));
 });
+it.each([{label:'string',hidden:'medical'},{label:'non-string member',hidden:[7]}])('rejects malformed hidden-catalog source $label before importing partial data',({hidden})=>{
+ setup();const data=input();data.hiddenBuiltinCategories=hidden as any;const before=reader.get('SELECT total_changes() AS n');expect(()=>migrate(data)).toThrow(expect.objectContaining({status:400}));expect(reader.get('SELECT total_changes() AS n')).toEqual(before);expect(reader.get('SELECT count(*) AS n FROM wallet_accounts')).toEqual({n:0});
+});
+it('unowned orphan legacy links are retained and rejected rather than erased by a fresh migration',()=>{
+ setup();const db=sqliteConnection();db.pragma('foreign_keys=OFF');try{db.prepare('INSERT INTO wallet_legacy_links VALUES(?,?,?,?,?,?,?,?)').run('synthetic-orphaned-run','debt_payment','synthetic-old-parent','synthetic-orphaned-child',null,'legacy_unlinked','legacy_unlinked','{}');}finally{db.pragma('foreign_keys=ON');}try{const original=reader.all('SELECT * FROM wallet_legacy_links');expect(()=>migrate()).toThrow(expect.objectContaining({status:409}));expect(reader.all('SELECT * FROM wallet_legacy_links')).toEqual(original);expect(reader.get('SELECT count(*) AS n FROM wallet_accounts')).toEqual({n:0});}finally{store.transaction(meta(),tx=>tx.sql.run("DELETE FROM wallet_legacy_links WHERE run_id='synthetic-orphaned-run'"));}
+});
