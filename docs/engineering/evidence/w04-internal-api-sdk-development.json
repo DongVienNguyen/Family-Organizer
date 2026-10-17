@@ -1,0 +1,343 @@
+{
+  "taskIds": [
+    "W04-partial",
+    "W05-API-prerequisite",
+    "W06-SDK-prerequisite"
+  ],
+  "status": "Cloud gated internal Wallet API/grant/SDK checkpoint; complete security/media/UI/legacy cutover/master and Windows acceptance incomplete",
+  "sourceCommit": "73c6743a78654b9236e5205cdce3cea8e1af87f7",
+  "base": "988fc5c0951dd24f6aac0ccdafc9464c9a1c07a2",
+  "sourceSha256": {
+    "server/app.ts": "71deedc7a222760b5b4efd98ba2e1b6f81752458c691788bf2b3bcf7d6f7d9d5",
+    "server/runtime.ts": "6e0985e6ed88382976b46916fd70db95678b0f410256d67780b0c3672c6c79c4",
+    "server/wallet/access.api.test.ts": "45a25fed08d81ddc2769bdcb33348bf96b1bd45885588eecaaa8c9f08548cbaa",
+    "server/wallet/accounts.ts": "980e3306b29f089608a4d366192b615e79efba953786472627d270836ee2c495",
+    "server/wallet/financial.ts": "ea6e74c874cbc94ee7bbf8f96bcf561b4a7b4ea16f37e2a0a280a37d37207a7e",
+    "server/wallet/grants.test.ts": "617a115cb4610440d86aaabcbe5aae2b8db9f12dd03aa572e98e6df0751ce0b9",
+    "server/wallet/ports.ts": "3d553f031f8c396bc631ac58300017e0f11abc9ea9ecf1a7ed737ad0265013fe",
+    "server/wallet/read.ts": "3e27fa0d0e5fc5233786f3f7c6a8f62dd98388760112e78175950599f15247c0",
+    "server/wallet/router.ts": "fff9272b1c28d12b68621c172d5e41e7bd84e36bf2bdf3cc674424de420e2005",
+    "src/features/wallet/api.test.ts": "f0e5699121fb770e02f3843f911442b4f05d2c45a14545785c5f558c442fdf7b",
+    "src/features/wallet/api.ts": "bf4244e204e82cf86f87c43e2ab63279996aca7b9742dd79cb4f6ac52b76b89f"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6824,
+      "files": 362,
+      "junitCases": 6824,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 143.88
+    },
+    "walletBackendInFullSuite": {
+      "tests": 461,
+      "files": 22
+    },
+    "newGroup": {
+      "tests": 54,
+      "files": 3,
+      "grantCommands": 14,
+      "actualAuthenticatedHTTP": 16,
+      "browserSDK": 24,
+      "authenticationRouteRoleGrid": {
+        "routes": 15,
+        "identities": [
+          "anonymous",
+          "Child",
+          "Guest"
+        ],
+        "expectedResponses": 45
+      }
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6770,
+      "currentPassed": 6824,
+      "added": 54,
+      "removed": 0,
+      "normalization": "only temporary root in five recoveryRetention names; multiplicity retained",
+      "junitCases": 6824,
+      "files": 362,
+      "wallet": {
+        "tests": 461,
+        "files": 22
+      }
+    }
+  },
+  "review": {
+    "method": "LOCAL SELF author review, not independent",
+    "reviewedPaths": [
+      "server/app.ts",
+      "server/runtime.ts",
+      "server/wallet/access.api.test.ts",
+      "server/wallet/accounts.ts",
+      "server/wallet/financial.ts",
+      "server/wallet/grants.test.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/read.ts",
+      "server/wallet/router.ts",
+      "src/features/wallet/api.test.ts",
+      "src/features/wallet/api.ts"
+    ],
+    "critical": 0,
+    "important": 4,
+    "minor": 4,
+    "importantFindings": [
+      {
+        "issue": "A null permission on setGrant could be dispatched as grant removal.",
+        "fix": "Separate setter/remover intent independently from the nullable permission and reject null sets before writes.",
+        "redEvidence": "w04-grant-null-archive-red.json"
+      },
+      {
+        "issue": "Headers could coerce a missing/null/numeric convenience-command nonce into a shared string key.",
+        "fix": "Validate the caller-owned string nonce before constructing Headers.",
+        "redEvidence": "w04-sdk-nonce-red.json"
+      },
+      {
+        "issue": "Credit balance response used a type cast without checking exact money.",
+        "fix": "Validate signed64 strings, currency/book identity, debt, availability and exact utilization.",
+        "redEvidence": "w04-sdk-decoder-integrity-red.json"
+      },
+      {
+        "issue": "Grant responses did not bind the expected account and target user.",
+        "fix": "Reject mismatched acknowledgements as unknown write outcome, retaining the original nonce.",
+        "redEvidence": "w04-sdk-decoder-integrity-red.json"
+      }
+    ],
+    "minorFindings": [
+      "List decoder fabricated unloaded FX/fee detail as null; remove those detail fields from list projections.",
+      "Invalid archive input became500; return typed422 without mutation.",
+      "Explicit null page limit used a default; reject400.",
+      "Maintenance503 preceded request tracing; install targeted Wallet trace before readiness/auth/parser."
+    ],
+    "fixBatches": [
+      "SDK DTO integrity",
+      "SDK nonce coercion",
+      "grant intent/archive validation",
+      "null query limit",
+      "maintenance trace"
+    ],
+    "rereviewPasses": 0,
+    "focus": [
+      "existing session auth and current adult/grant ACL; protected namespace/no integration tokens",
+      "same I01 owner for money/grants/audit/revision/idempotency; self-revocation returns compact receipt",
+      "partial record metadata/FX/fee association privacy and current invalidation audiences including previous readers",
+      "requestId/error sanitization for JSON/native/maintenance and caller nonce requirement for mutations",
+      "SDK fresh auth headers/session switch/read abort/unknown mutation outcome/no automatic retries/same-origin only",
+      "browser bundling excludes server/SQLite/Node runtime imports",
+      "gated runtime factory has no startup migration/activation/connection/job side effects",
+      "media/export/audit/legacy bridge/UI remain incomplete and are not acceptance claims"
+    ]
+  },
+  "runtime": {
+    "existingAuthOnly": true,
+    "sameI01ConnectionWriter": true,
+    "newStartupMigrationsActivationJobsProviders": false,
+    "defaultWalletActive": false,
+    "pendingOrQuarantinedPilotBlocksAPI": true,
+    "invalidation": "FINANCE_UPDATE with empty financial payload and explicit previous/current readable audiences, including linked fees",
+    "noNewIntegrationTokensOrPublicAPI": true
+  },
+  "behavior": [
+    "Authenticated current adult/grant scope for account/record CRUD/query/balance/grants and status; Child/Guest denied, private/missing404 identical",
+    "Grant changes revision/audit/metadata/idempotency atomic; target active adults only; self-revocation commits with compact receipt and blocks cached financial access",
+    "Caller-owned x-request-id required for writes; existing actor identity authoritative; forged creatorId ignored at HTTP boundary",
+    "Partial record reads redact metadata and never read hidden FX quote; inaccessible fee association not returned",
+    "Safe requestId errors including malformed JSON/native exceptions/maintenance; archive preserves history and blocks new postings",
+    "SDK fresh auth/session boundary, same-origin path guard/no-store/no redirects, read cancellation vs unknown write outcome, no auto retries",
+    "Exact money/null provenance/credit math/response identities validated; list does not fabricate unloaded FX detail",
+    "SDK browser bundle has no server/SQLite/Node runtime imports"
+  ],
+  "environmentRecovery": {
+    "block": "exec-server transport disconnected; resume recovery timed out after25s",
+    "managedObservedPhaseBefore": "starting/offline",
+    "after": "running/connected",
+    "verifiedRecoveredHead": "988fc5c0951dd24f6aac0ccdafc9464c9a1c07a2",
+    "verifiedCleanWorktree": true,
+    "nodeAfter": "v24.21.0",
+    "npmAfter": "11.19.0",
+    "reinstallOrConfigurationChanges": false
+  },
+  "developmentFailuresPreserved": [
+    "Missing grant methods12RED and API/SDK import-suite RED before implementation.",
+    "SDK DTO4RED, nonce3RED, null-grant/archive4RED, explicit null query-limit1RED and maintenance trace1RED fixed.",
+    "Grant-list3RED preceded implementation.",
+    "Final54targeted and full6824 have0skips/failures/todos; filtered RED reports are not acceptance."
+  ],
+  "remaining": [
+    "Private receipt storage/conversion/direct URL/current media ACL and legacy bridge/remediation/raw JSON/ZIP conversion",
+    "Audit/export/chart authority coverage and central aggregates; this is not full W04 acceptance",
+    "Account/record/filter/share UI, durable bulk selection and linked lifecycle integrations",
+    "Remaining Wallet/M1/I02/I03 and full browser/Windows2022 Node24/Node22/package/service/actual Server2019R02 acceptance"
+  ],
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "npm ci (dependencies and lockfile unchanged)",
+    "interactive browser for current source; SDK browser bundling is not UI E2E",
+    "Windows2022 Node24/Node22, package/service and actual Server2019R02"
+  ],
+  "constraints": {
+    "syntheticOffline": true,
+    "noDependencyLockfileWorkflowChanges": true,
+    "walletActivated": false,
+    "noProductionReleaseTagVps": true
+  },
+  "rawReports": [
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-qualified.json",
+      "bytes": 1968970,
+      "sha256": "cec21ad835b008a38ba18ce16159017666d124c1cd2615a37b4c15792a922b97"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-qualified.junit.xml",
+      "bytes": 1375600,
+      "sha256": "dcf53c371f865dfe03374e1743e4ffb4c6657ffdeaeb318b41bbd845ed597e06"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-qualified.log",
+      "bytes": 82456,
+      "sha256": "623362f0a0ded5135ac84ede2776a0a9f1473e1af0ac0be0b81aa70f7dfe3993"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-qualified.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-lint.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-build.log",
+      "bytes": 2004,
+      "sha256": "17a8d979a74d4e2920d387356a836f65a96279856f03d0cbf93f1b9dc03b27e2"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-build.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-frozen.json",
+      "bytes": 1322,
+      "sha256": "82b44b01457d246355a2f81d11b1c11f06d1ed422b7eee26cd3e189ab6ce92e4"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-preservation.json",
+      "bytes": 1399,
+      "sha256": "4a1327d2c30410053568bb75982eb5e1260a045926878fad41b8b6a2d57a1c89"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-self-review.json",
+      "bytes": 2969,
+      "sha256": "7e72257c6d02a27cf659f7de7fa656f83cc5c6b3f529475b11ddbaa60b41f950"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-grant-commands-red.json",
+      "bytes": 15636,
+      "sha256": "767153ebaae85fa5c8ca49b87f490dc0a045f690693400843cb08495a84d5123"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-grant-commands-targeted.json",
+      "bytes": 16129,
+      "sha256": "e2f5e6dde0e0f94d73d2db632fcc48a4b316ac3e4a1aa3e491a760be1195b641"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-core-api-red.json",
+      "bytes": 763,
+      "sha256": "07b2a2a0c2cf500460ecfa5b7fbbd25f1e17934bbb03130d710ddd56625f1188"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-core-api-first.json",
+      "bytes": 3733,
+      "sha256": "bba9aeb6024426aca92de20f18cac1429b28588167ac744d269ddc86a063a5de"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-wallet-sdk-red.json",
+      "bytes": 759,
+      "sha256": "9eee4665ad340ea77dff5e3b1884fa8532535c46b90d101155fa015243a9237c"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-first.json",
+      "bytes": 12686,
+      "sha256": "b0970b67c8018c6c128fce0ca4d0f7ab3d76028bc58e496ca352085b0625180b"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-sdk-decoder-integrity-red.json",
+      "bytes": 9664,
+      "sha256": "5f2367f7c92a3e7b0b836ce155e76115610a64ef58f7aee8f7245687d8362d7e"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-sdk-nonce-red.json",
+      "bytes": 10257,
+      "sha256": "e18191ec285cc5b95aae3c8b0bc9ffa45f5c02294524c33feb1ce4102cfcd90b"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-targeted-v2.json",
+      "bytes": 14914,
+      "sha256": "202fb9cb6051bc097b967f7d5d5bca18b50a2ec47a9b8255419f8dc6b30eccc0"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-grant-null-archive-red.json",
+      "bytes": 10196,
+      "sha256": "24e20e9b50c093483b04839182c3bb658c8b179620bae97734b3ca545517418b"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-query-limit-red.json",
+      "bytes": 4950,
+      "sha256": "8c58c91ed2da61d0da5ae7bb92225dffdcc8b01b639563ee02a71a6c1758fd25"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-wallet-targeted.json",
+      "bytes": 150940,
+      "sha256": "bc388c31ab6260c7ccf837d8888054a3d30b753ab289c7aeae568642c48cb068"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-grant-list-red.json",
+      "bytes": 18198,
+      "sha256": "a8c96d5b7cb2a0a5ec9e03502287c475f315f1eec2d2094da707b6d5f29a246e"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-complete-targeted.json",
+      "bytes": 17339,
+      "sha256": "06a4d0ac6673d78464a39f924eb27a5ec0b3022df1efa399d43ae38301dc595f"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-maintenance-trace-red.json",
+      "bytes": 5893,
+      "sha256": "11b209db6f53b778dc2749d84dc671bbc21ffe25f6aef9ec81894906e8ba7221"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-final-targeted.json",
+      "bytes": 17985,
+      "sha256": "e6f7e202369fb83a74e043156cdf4d7060938477aa09cd665f8599372a07f087"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-core-api-preflight-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-preflight-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    {
+      "path": "/workspace/family-evidence/w04-api-sdk-preflight-lint-v2.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    }
+  ]
+}

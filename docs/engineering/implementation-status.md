@@ -2,7 +2,26 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
-**Latest continuation — W06 partial:** source `a243c9c36ad6f7db14d461d5e5a0f085fa8df7ad` adds
+**Latest continuation — W04 partial:** source `73c6743a78654b9236e5205cdce3cea8e1af87f7` mounts
+gated internal account/record/query/balance/grant routes with existing auth and
+I01. Current ACL, private/missing404, actor-bound writes, revision/idempotency,
+partial-transfer/fee privacy, explicit invalidation audiences and safe requestId
+errors cover the core boundary. A browser-only typed SDK checks money/identity/
+session/unknown outcomes and never automatically retries. Wallet stays off; no
+startup migration/job/provider or activation endpoint was added.
+
+Cloud6824tests/362files/matchingJUnit/0failed-skipped-todo; Wallet backend461/22,
+new54cases(14grant/16HTTP/24SDK), all6770parent retained, lint/build0. LOCAL SELF
+11paths0C/4I/4M with closed findings, not independent.
+[Detail](wallet-internal-api.md), [proof](evidence/w04-internal-api-sdk-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. Next: account/
+record/filter UI and durable bulk selection while closing private receipt/media,
+legacy bridge/remediation/raw JSON/ZIP and audit/export/chart gates before cutover.
+Current interactive browser/Windows2022/Node22/package/service/Server2019R02 unrun.
+**Full W04/Wallet/M1/master incomplete.** No release/tag/VPS access or deployment.
+
+**Previous continuation — W06 partial:** source `a243c9c36ad6f7db14d461d5e5a0f085fa8df7ad` adds
 read-only shared record filtering/counts with current SQL ACL, partial-transfer
 redaction and date/occurredAt/binary-ID cursor. Matching account legs are separate
 from readable counterparts for future reports. Numeric filters require complete
