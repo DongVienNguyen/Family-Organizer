@@ -2145,6 +2145,33 @@
       "labelsAll": "所有所选标签",
       "noChoices": "可查看范围内暂无选项。",
       "allHint": "清空某组的全部选项可取消该组限制。"
+    },
+    "bulk": {
+      "title": "批量更新交易",
+      "selectAll": "选择全部 {{count}} 笔匹配交易",
+      "clear": "清除选择",
+      "loadedScope": "已勾选的已加载行：{{count}}",
+      "snapshotScope": "已捕获范围中选中的交易：{{count}}",
+      "fieldsHint": "仅更改勾选字段。空值会清除内容；标签会整体替换。",
+      "confirmTitle": "确认批量更新",
+      "confirmMessage": "匹配：{{matched}}；更改：{{updated}}；未更改：{{unchanged}}。",
+      "preview": "预览更新",
+      "apply": "确认更新",
+      "pending": "正在处理选择…",
+      "failed": "无法更新整个选择。请检查权限和版本，或重新选择。",
+      "result": "已更新 {{updated}}/{{matched}} 笔交易；{{unchanged}} 笔未更改。",
+      "none": "空",
+      "before": "之前",
+      "after": "之后",
+      "sample": "示例 {{count}}",
+      "selectRecord": "选择交易 {{id}}",
+      "change": {
+        "categoryId": "更改分类",
+        "labelIds": "替换标签",
+        "settlementStatus": "更改对账状态",
+        "payee": "更改收款人",
+        "note": "更改备注"
+      }
     }
   }
 }

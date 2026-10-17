@@ -1,3 +1,4 @@
+import {createBulkWorkspace} from './bulkWorkspace.js';
 import type {WalletFilterOptions} from '../../../server/wallet/filterOptions.js';
 import type {WalletReceiptMetadata} from '../../../server/wallet/receiptContract.js';
 import type {ReceiptMutation} from '../../../server/wallet/receipts.js';
@@ -13,7 +14,7 @@ import { createWalletCommand, type WalletCommandState } from './commandState.js'
 import { recordFormDraft, recordFormInput, recordFormPatch, type RecordFormDraft, type RecordFormInitial } from './recordDraft.js';
 import { resolvePeriod } from './dates.js';
 import { normalizeFilter } from './filter.js';
-type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'actions' | 'createRecord' | 'updateRecord' | 'voidRecord'>&Partial<Pick<WalletApi,'receipts'|'attachReceipt'|'detachReceipt'|'receiptFile'|'filterOptions'>>;
+type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'actions' | 'createRecord' | 'updateRecord' | 'voidRecord'>&Partial<Pick<WalletApi,'receipts'|'attachReceipt'|'detachReceipt'|'receiptFile'|'filterOptions'|'createSelection'|'selectionMembers'|'releaseSelection'|'bulkPreview'|'bulkMetadata'>>;
 export interface WalletRecordForm {
     draft: RecordFormDraft;
     initial?: RecordFormInitial;
@@ -72,7 +73,8 @@ export function createRecordWorkspace(api: Api, options: {
         return intent.kind === 'create' ? api.createRecord(intent.input, nonce) : intent.kind === 'update' ? api.updateRecord(intent.id, intent.revision, intent.input, nonce) : api.voidRecord(intent.id, intent.revision, nonce);
     } });
     const unsubscribe = command.subscribe(() => { const { result: _result, ...status } = command.snapshot(); publish({ command: status }); });
-    const busy = () => ['pending', 'unknown'].includes(command.snapshot().phase), editable = () => !disposed && state.phase === 'ready' && !busy();
+    const bulk=createBulkWorkspace(api,{newRequestId:options.newRequestId,canMutate:()=>!disposed&&state.phase==='ready'&&!form&&!['pending','unknown'].includes(command.snapshot().phase),onApplied:()=>refresh(),onScopeDenied:failure=>{generation++;selectedId=null;selectedInitial=undefined;form=null;formOpen=false;void bulk.setView({phase:'error',supported:false,filter,items:[],total:0});publish({phase:'error',...empty(),error:failure});}});
+    const busy = () => bulk.isBusy()||['pending', 'unknown'].includes(command.snapshot().phase), editable = () => !disposed && state.phase === 'ready' && !busy();
     const errorValue = (error: unknown) => error instanceof WalletApiError ? error : new WalletApiError(0, 'Không tải được giao dịch.', 'NETWORK_ERROR', undefined);
     function localWrite(value: WalletRecordDetail | null, accounts = state.accounts) { const actorId = typeof options.actorId === 'function' ? options.actorId() : options.actorId; return !!value && !value.partial && !['trade'].includes(value.record.kind) && value.record.settlementStatus !== 'voided' && !value.record.occurrenceId && value.postings.every(p => { const permission = accounts.find(a => a.id === p.accountId)?.permission; return permission === 'manage' || permission === 'contribute' && value.record.creatorId === actorId; }); }
     function canEdit(value:WalletRecordDetail|null,accounts=state.accounts,actions=state.actions){return !!value&&actions?.recordId===value.record.id&&actions.canEdit&&localWrite(value,accounts);}
@@ -82,6 +84,7 @@ export function createRecordWorkspace(api: Api, options: {
         if (disposed)
             return;
         const current = ++generation;
+        void bulk.setView({phase:'checking',supported:false,filter,items:[],total:0});
         publish({ phase: 'checking', ...empty(), error: null });
         try {
             const status = await api.status();
@@ -91,6 +94,7 @@ export function createRecordWorkspace(api: Api, options: {
                 form = null;
                 selectedId = null;
                 selectedInitial = undefined;
+                await bulk.setView({phase:'inactive',supported:false,filter,items:[],total:0});
                 publish({ phase: 'inactive' });
                 return;
             }
@@ -122,11 +126,13 @@ export function createRecordWorkspace(api: Api, options: {
                 form = null;
             selectedInitial = initial;
             publish({ phase: 'ready', accounts, catalog,filterOptions, items: page.items, total: page.total, nextCursor: page.nextCursor, selected,actions,receipts,receiptStorage:status.storageVersion>=5, form: formOpen ? form : null });
+            await bulk.setView({phase:'ready',supported:status.storageVersion>=6,filter,items:page.items,total:page.total});
         }
         catch (error) {
             if (disposed || current !== generation)
                 return;
             selectedInitial = undefined;
+            void bulk.setView({phase:'error',supported:false,filter,items:[],total:0});
             publish({ phase: 'error', ...empty(), error: errorValue(error) });
         }
     }
@@ -162,7 +168,7 @@ export function createRecordWorkspace(api: Api, options: {
         if([403,404].includes(command.snapshot().error?.status??0))await refresh();
     }
     return {
-        snapshot: () => state, subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; }, refresh,canManageReceipts,
+        bulk,isBusy:busy,snapshot: () => state, subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; }, refresh,canManageReceipts,
         attachReceipt:(id:string,revision:number,input:{fileName:string;dataUrl:string})=>receiptMutation(id,revision,{kind:'attach',id,revision,input}),
         detachReceipt:(id:string,revision:number,receiptId:string)=>receiptMutation(id,revision,{kind:'detach',id,revision,receiptId}),
         async downloadReceipt(receiptId:string){
@@ -224,7 +230,7 @@ export function createRecordWorkspace(api: Api, options: {
             publish({ filterInvalid: true });
             return;
         } filter = next; selectedId = null; publish({ filter, filterInvalid: false }); await refresh(); },
-        async resetFilter() { if (disposed || command.snapshot().phase === 'pending')
+        async resetFilter() { if (disposed || bulk.isBusy() || command.snapshot().phase === 'pending')
             return; filter = defaultFilter(); publish({ filter, filterInvalid: false }); await refresh(); },
         async loadMore() {
             if (!editable() || state.loadingMore || !state.nextCursor)
@@ -239,15 +245,17 @@ export function createRecordWorkspace(api: Api, options: {
                 if (page.items.some(item => ids.has(item.record.id)))
                     throw Error('Duplicate cursor page');
                 publish({ items: [...state.items, ...page.items], total: page.total, nextCursor: page.nextCursor, loadingMore: false });
+                await bulk.setView({phase:'ready',supported:bulk.snapshot().phase!=='unavailable',filter,items:state.items,total:state.total});
             }
             catch (error) {
                 if (disposed || generation !== current)
                     return;
-                publish({ phase: 'error', ...empty(), error: errorValue(error) });
+                void bulk.setView({phase:'error',supported:false,filter,items:[],total:0});
+            publish({ phase: 'error', ...empty(), error: errorValue(error) });
             }
         },
         dispose() { if (disposed)
-            return; generation++; form = null; selectedId = null; selectedInitial = undefined; filter = defaultFilter(); unsubscribe(); command.dispose(); state = { ...state, phase: 'disposed', ...empty(), filter, filterInvalid: false, command: { phase: 'disposed' }, error: null }; disposed = true; for (const listener of listeners)
+            return; generation++; bulk.dispose(); form = null; selectedId = null; selectedInitial = undefined; filter = defaultFilter(); unsubscribe(); command.dispose(); state = { ...state, phase: 'disposed', ...empty(), filter, filterInvalid: false, command: { phase: 'disposed' }, error: null }; disposed = true; for (const listener of listeners)
             listener(); listeners.clear(); },
     };
 }

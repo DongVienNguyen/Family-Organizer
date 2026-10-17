@@ -2145,6 +2145,33 @@
       "labelsAll": "Tất cả nhãn đã chọn",
       "noChoices": "Chưa có lựa chọn trong phạm vi được xem.",
       "allHint": "Trong mỗi nhóm, bỏ chọn toàn bộ để không giới hạn nhóm lọc đó."
+    },
+    "bulk": {
+      "title": "Cập nhật nhiều giao dịch",
+      "selectAll": "Chọn toàn bộ {{count}} giao dịch phù hợp",
+      "clear": "Bỏ vùng chọn",
+      "loadedScope": "Dòng đã tải được tích chọn: {{count}}",
+      "snapshotScope": "Giao dịch trong vùng đã chụp được chọn: {{count}}",
+      "fieldsHint": "Chỉ đổi các trường được tích. Giá trị trống sẽ xóa nội dung; nhãn sẽ được thay toàn bộ.",
+      "confirmTitle": "Xác nhận cập nhật hàng loạt",
+      "confirmMessage": "Phạm vi: {{matched}}; thay đổi: {{updated}}; giữ nguyên: {{unchanged}}.",
+      "preview": "Xem trước cập nhật",
+      "apply": "Xác nhận cập nhật",
+      "pending": "Đang xử lý vùng chọn…",
+      "failed": "Chưa thể cập nhật toàn bộ vùng chọn. Hãy kiểm tra quyền và phiên bản, hoặc chọn lại.",
+      "result": "Đã cập nhật {{updated}}/{{matched}} giao dịch; {{unchanged}} giữ nguyên.",
+      "none": "Trống",
+      "before": "Trước",
+      "after": "Sau",
+      "sample": "Mẫu {{count}}",
+      "selectRecord": "Chọn giao dịch {{id}}",
+      "change": {
+        "categoryId": "Đổi danh mục",
+        "labelIds": "Thay nhãn",
+        "settlementStatus": "Đổi trạng thái đối soát",
+        "payee": "Đổi người nhận",
+        "note": "Đổi ghi chú"
+      }
     }
   }
 }

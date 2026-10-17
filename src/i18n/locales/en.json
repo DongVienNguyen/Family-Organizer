@@ -2145,6 +2145,33 @@
       "labelsAll": "All selected labels",
       "noChoices": "No choices in your readable scope.",
       "allHint": "Clear every choice in a group to remove that restriction."
+    },
+    "bulk": {
+      "title": "Update multiple records",
+      "selectAll": "Select all {{count}} matching records",
+      "clear": "Clear selection",
+      "loadedScope": "Loaded rows checked: {{count}}",
+      "snapshotScope": "Records selected from the captured scope: {{count}}",
+      "fieldsHint": "Only checked fields change. Empty values clear content; labels replace the entire set.",
+      "confirmTitle": "Confirm bulk update",
+      "confirmMessage": "Matched: {{matched}}; changed: {{updated}}; unchanged: {{unchanged}}.",
+      "preview": "Preview update",
+      "apply": "Confirm update",
+      "pending": "Processing selection…",
+      "failed": "Cannot update the entire selection. Check permissions and revisions, or select again.",
+      "result": "Updated {{updated}}/{{matched}} records; {{unchanged}} unchanged.",
+      "none": "Empty",
+      "before": "Before",
+      "after": "After",
+      "sample": "Sample {{count}}",
+      "selectRecord": "Select record {{id}}",
+      "change": {
+        "categoryId": "Change category",
+        "labelIds": "Replace labels",
+        "settlementStatus": "Change settlement status",
+        "payee": "Change payee",
+        "note": "Change note"
+      }
     }
   }
 }

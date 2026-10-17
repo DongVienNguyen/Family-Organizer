@@ -2,8 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pbkdf2Sync, randomUUID } from 'node:crypto';
 const [data, config, receiptFlag] = process.argv.slice(2);
-const walletVersion=receiptFlag==='--receipts'?5:4;
-if (!data || !config || !(process.argv.length===4||process.argv.length===5&&receiptFlag==='--receipts'))
+const walletVersion=receiptFlag==='--bulk'?6:receiptFlag==='--receipts'?5:4;
+if (!data || !config || !(process.argv.length===4||process.argv.length===5&&['--receipts','--bulk'].includes(receiptFlag)))
     throw Error('Explicit synthetic Wallet data/config roots required');
 process.env.DATA_DIR = data;
 process.env.CONFIG_DIR = config;
