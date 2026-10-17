@@ -1,0 +1,759 @@
+{
+  "taskIds": [
+    "W07 partial",
+    "W02 schema7",
+    "W04/W06 query and session integration"
+  ],
+  "sourceCommit": "26c7e39fb695d2299efd7291206caa84da6456f7",
+  "testedWorkingTreeParent": "8c0f6160c9cb33bf41f440f29782da310ef2e82a",
+  "binding": "All 37 final frozen source/test SHA256 values match committed Git blobs. Full-suite application/test/build sources remain identical; only native cleanup version binding changed afterward and is exercised by final browser/syntax checks. See qualificationScopes. Cloud evidence, not exact-HEAD Actions acceptance",
+  "qualificationScopes": {
+    "fullRegression": {
+      "manifest": "/workspace/family-evidence/w07-record-workflows-unit-source.json",
+      "postRunChangeOnly": "scripts/ci/run-wallet-browser.mjs",
+      "beforeSha256": "0803cb44e38dbcfb3fc68ddec4f371941d920dcf3918bd4e578804ded72fc388",
+      "reason": "Only native browser cleanup expected-version binding changed after full suite; application, unit tests, seed writer, lock and build remain identical. Current harness is exercised by the final native browser run."
+    },
+    "finalBrowser": {
+      "manifest": "/workspace/family-evidence/w07-record-workflows-frozen.json",
+      "allFrozenPaths": 37
+    }
+  },
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7531,
+    "files": 414,
+    "junitCases": 7531,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7426,
+    "added": 105,
+    "removed": 0,
+    "newByFile": {
+      "server/wallet/allocation.api.test.ts": 2,
+      "server/wallet/allocationQuery.test.ts": 3,
+      "server/wallet/allocations.test.ts": 22,
+      "server/wallet/recordDrafts.test.ts": 16,
+      "server/wallet/workflowSchema.test.ts": 2,
+      "src/features/wallet/allocationApi.test.ts": 9,
+      "src/features/wallet/allocationWorkspace.test.ts": 6,
+      "src/features/wallet/cloneForm.test.ts": 7,
+      "src/features/wallet/cloneWorkspace.test.ts": 10,
+      "src/features/wallet/recordDraftValue.test.ts": 27,
+      "tests/wallet-browser-fixture.test.ts": 1
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "buildBytesMatchActualBrowser": true,
+    "npmCi": "not repeated; dependency/lock unchanged",
+    "fullRegressionRuns": 1,
+    "postFullSuiteRunnerOnlyChange": "Native cleanup compares installed version to verified report.seed.walletVersion instead of stale6. Node syntax and full native28-browser rerun validate current runner; application/tests/seed/build/lock unchanged."
+  },
+  "browser": {
+    "parentCases": 23,
+    "cases": 28,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "8c0f6160c9cb33bf41f440f29782da310ef2e82a",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "76b9761c127123daddada9b85791d7c20cf33f9041e5515dfd959b4ac0ecec09",
+        "index": "94ecc40597197a0cc96b5a1a97fbb5c6b6405bd4d49c802d07e84fd9c3df8c75"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 7,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "390dac1a-600a-4849-8f64-b0c093b1d97b",
+        "creditId": "498b0baf-0591-48a3-a96e-92332cab4a58",
+        "hiddenId": "e0373599-f5e3-4610-adcb-d52d9fd41a9b",
+        "readId": "658ec020-ad42-45be-a1dc-c0876264838c",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "sourceSha256": {
+    "scripts/ci/run-wallet-browser.mjs": "802c5da1303aea86d2a94d27edead860f7ba0d8127ad7447bd805c28dcc21b96",
+    "scripts/ci/write-wallet-browser-fixture.ts": "7a297edf4a9e20a3d1d57f9aafa019f144761d446f7b0c0ba4c51cea9d6c6acd",
+    "server/wallet/allocation.api.test.ts": "aa23045df28103ef6f9df7ffb155be8f6803ffa6c03950872c881c6602f7a463",
+    "server/wallet/allocationQuery.test.ts": "f8359565116598d3972415770023737db7b52f9ff61a9dd553d4006624d5e494",
+    "server/wallet/allocations.test.ts": "d40561a8f7ec30c24938a5b6b40168a212eb3c13e5ab70891bbdb45afcc7379d",
+    "server/wallet/bulk.test.ts": "54a9c28fe70df027d96408faebd766f7069a81b8eb9fa9f78dc8a9c58dae53c4",
+    "server/wallet/catalog.test.ts": "50b9e11ba80b78b8ef545beb7048d284eeb30392a3fdbb987652df6e36dfc093",
+    "server/wallet/query.ts": "39c357e2fe2aa0dd548f49ba4d53c1f92b7f0e4f2d60e28ce04944e769bbbad1",
+    "server/wallet/recordDrafts.test.ts": "ec46bea34bf3240206becfdeab96884e3cd3e9a4011f9176043eed55b65a5a4f",
+    "server/wallet/records.ts": "efd11657ff82ee7ddf6311ef9cb15fd8b75d87fb31ff3a1c8ca8557677db8ecc",
+    "server/wallet/router.ts": "1d30ba3636d0f15c498cca4603fa76ce59869596b2b674de7edef761ba17dbec",
+    "server/wallet/schema.ts": "fc32482234e9ac50ba9256e4b2101ce902cd9240df2b54e0fc1a95828037f95b",
+    "server/wallet/schemaRegistry.ts": "1095ba085b1878c91493bda240e1e45b3e063f2ee44216d5bfe78a24265e1cbf",
+    "server/wallet/selections.test.ts": "d4cccede48e23d9f03e02b47442749e743c7fbfbefbcb1d5f4f66170f717999d",
+    "server/wallet/snapshot.ts": "05ee17ff005eedcb647b7e95699b49b93bba560cc4c2259ae0e15c9b500a1c5a",
+    "server/wallet/workflowSchema.test.ts": "6439d61ca682522e9c76c01232115406220e1f34c4ebc06080c42dc004ee1a66",
+    "server/wallet/workflowSchema.ts": "a59d65e9c80257170de3c83897264ce3ea2dea83606a61b7a2e2e51c1f1caf00",
+    "src/features/wallet/AllocationEditor.tsx": "6ce454a9172ca49d60e95bc1e8585c5531a1ac7844a71c8b9a979e5ccb9afe96",
+    "src/features/wallet/AllocationForm.tsx": "725ad44a335ecc7db2745a5d04c72a3a6dc5aa5d9fe25acfc96230094b093826",
+    "src/features/wallet/RecordForm.tsx": "d91404b5fb2909acbcd55fb29f70261555990d1e8689e5750dd62309298cba47",
+    "src/features/wallet/Records.tsx": "21c1d14be2bd34a139e685e01c1cf63270488ad779c5e6ebed8273a19ddc0aa2",
+    "src/features/wallet/accountDraft.ts": "b270930110b7416fb978492f5927cc44d1e9123a2e944c2f9b5d1e11816d4a7e",
+    "src/features/wallet/allocationApi.test.ts": "270360e83dfe9405631a2a95142f9fc3da9a2da440970e81d1814363db5fd108",
+    "src/features/wallet/allocationWorkspace.test.ts": "462fbaa1485a8827bb88b6c9f62a2f127df16391d1bccb4dc2ee52ea981ca08d",
+    "src/features/wallet/allocations.ts": "00d7e0bde3d6d03e5831934d5861fe4d77ea3368f3ce3aa2114d8837fe6e83b0",
+    "src/features/wallet/api.ts": "6d5740f3a471756594ae1dbfe906ce0c081e0b04f0f2f7bc9368c63b051ee594",
+    "src/features/wallet/cloneForm.test.ts": "6f16cc5af0949a8c00ab236a280b5b57be4ae4d29fa8890e02ca5f0f1f30e425",
+    "src/features/wallet/cloneWorkspace.test.ts": "98acd8d9ef47826279c44844735523ace86f8ff7e527e658f0064761578cb0b3",
+    "src/features/wallet/recordDraft.ts": "8d141860e1eb212917cfa3c8cbf77ca32020a87000f9b77c7bfe476344175dd0",
+    "src/features/wallet/recordDraftValue.test.ts": "a4e552edf9ab408a379aab4be664b4ef374bc98ced1fb73b6148f29324bd5374",
+    "src/features/wallet/recordDraftValue.ts": "33c853d2e67fcdea69f168676d3ab745859ed07c019448acf10a5f237cee147d",
+    "src/features/wallet/recordWorkspace.ts": "580b4a796a91c81977a807c945a147ec56a07c4456fb6ae0039f2f8f96f3eac7",
+    "src/i18n/locales/en.json": "571aa04917aabdc2c280227b1cd3dd4e91351da055935eb52c976ddd837c4c03",
+    "src/i18n/locales/vi.json": "a9e74e227d9edc6da7668fd579d95904ab129ca280617804d6100edc428bb5b2",
+    "src/i18n/locales/zh.json": "7127c36000fd08edc4555a66a4f3944d667773b33edde9ee2e5c439f499f1cd7",
+    "tests/e2e/wallet.spec.ts": "048ec515949f977fd6d55cd984b37ae45d3a3be327723b967bcae0d2d82ac31f",
+    "tests/wallet-browser-fixture.test.ts": "7dcdb887c0ec60071eabf4ce545bead566a71365c3bf2abc5dc432d78b706433"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "accepted1to6DdlUnchanged": {
+    "walletCoreSql": "5571c81df88935eeb9cf0e25e94f16960b372326f08086b54617131aa7f3c530",
+    "walletMetadataSql": "2766b0a82ec0ea2c807f6000f10173f3a8e3a7a9c7a91d4ae3b0e36067289326",
+    "walletFinancialSql": "4331752c3551885bfb54d4fc268e1cb408863c00abeb701dd0286e357a8fecdd",
+    "walletLegacyMigrationSql": "a485ca7b8a4f44d072af1ee0b0f08560bb0f56b2e8f388774b7138a88a84fbb8",
+    "walletReceiptSql": "6c8fc252544ea2af7526bb47182775efa70b111b7ccc4150a2832d9ceea71372",
+    "walletSelectionSql": "74bc459a2e0473297ac9600038ad6d6671155825f5dd1214967ff66d3eabcd4c"
+  },
+  "workflow7Checksum": "4d625d4525c212af601d2e43ed13ab52a96c283e01e5315c088ee80af2ede3ed",
+  "reports": {
+    "/workspace/family-evidence/w07-split-first.log": {
+      "bytes": 280,
+      "sha256": "86dbe3ca6ef2bf37c37b5854c92350cb89cd39290b0ccb3690c83041f4b7e5fb"
+    },
+    "/workspace/family-evidence/w07-split-query-api-fixed.json": {
+      "bytes": 35115,
+      "sha256": "49459d4794930b6ffd40a99f5d1b8709057a92861b46a0a9f7476399500bef1e"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-red.log": {
+      "bytes": 291,
+      "sha256": "a498a85359f2646b4f67567cfc5a43247aeb7c09fcdac7363bf004681d1e1ea5"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-service-fixed.log": {
+      "bytes": 288,
+      "sha256": "a76772f12e9ab8e6f46dbac81caa49848112808af76ef6a9217e5fb0fb86c576"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first.log": {
+      "bytes": 11574,
+      "sha256": "62484a1c2a16e20d26ff811da79290b33ee397e224d05256cf8a31386634fc16"
+    },
+    "/workspace/family-evidence/w07-record-workflows-preservation.json": {
+      "bytes": 26707,
+      "sha256": "558f9110c93a1b3c553f7b8364d32599310baf421b52b4d033bcd7e79194fa26"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified.log": {
+      "bytes": 87463,
+      "sha256": "c57ff49febb8fa4d087101c4dffc3d02f79014788263ad76d3a7a0a2bdf4442f"
+    },
+    "/workspace/family-evidence/w07-split-query-api-fixed.log": {
+      "bytes": 290,
+      "sha256": "cec007f06420b13fad5613d423364f982617505e78e58e9b8ed6f8752b597ca0"
+    },
+    "/workspace/family-evidence/w07-split-workspace-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-split-query-red.log": {
+      "bytes": 284,
+      "sha256": "9506204c12d3f65be1a647eb0b3664a9d4abd29b1bcd26aa5f6f11c3791187e0"
+    },
+    "/workspace/family-evidence/w07-split-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-clone-dto-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-split-red.log": {
+      "bytes": 278,
+      "sha256": "32f64c9fac7b6ee112a3230ceca0023efdffb1ef57cb79d4974358b857eded09"
+    },
+    "/workspace/family-evidence/w07-clone-dto-red.json": {
+      "bytes": 798,
+      "sha256": "262d6430359c731770fc2322fee915274a3c9655a014e095b4ba37565bf97b0b"
+    },
+    "/workspace/family-evidence/w07-split-query-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-split-query-first.json": {
+      "bytes": 41551,
+      "sha256": "de7e5f995c7ebb2fc13c8ab874b615be860ec04f1ec7ca3747fd42d08d589d59"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-clone-split-rollback-fixed.json": {
+      "bytes": 15190,
+      "sha256": "043b1829ca60e76b5159559738a41903dbb8fb19e8e0540c933e3a0741c4671d"
+    },
+    "/workspace/family-evidence/w07-record-workflows-self-review.json": {
+      "bytes": 4819,
+      "sha256": "98253957adcff165467ab6d1c750867684389314438b0934c9c06a9bb9615690"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified-browser.log": {
+      "bytes": 5000,
+      "sha256": "b67af0a12c54c0f5c66956830410e29cb260442fcaa080d9248508f89a22c7ce"
+    },
+    "/workspace/family-evidence/w07-clone-ui-fixed.log": {
+      "bytes": 283,
+      "sha256": "22b9da6a7f32f911b795c158456025193c29d17a7019ba1bec8c5db513bc4724"
+    },
+    "/workspace/family-evidence/w07-clone-ui-red.log": {
+      "bytes": 281,
+      "sha256": "57071a8c6a98786aa23bfec886a16eb2feae7bcd6c1afc965aefdafcad255288"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-fixed.log": {
+      "bytes": 293,
+      "sha256": "c5e8932240b9b6f3a6e64e3b6aba286ff097887a5c51dd93d786b93ed0897f8a"
+    },
+    "/workspace/family-evidence/w07-clone-integrated.log": {
+      "bytes": 285,
+      "sha256": "a35310aaa0fb225e80929c6b4e67f88c11475d2d37f9107b8670fe1938609318"
+    },
+    "/workspace/family-evidence/w07-clone-first.log": {
+      "bytes": 280,
+      "sha256": "dae32192d6f7a6bffb94206503be54e1b1f90d89bd898e8040124681c3f614be"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-build.log": {
+      "bytes": 2004,
+      "sha256": "ba68b4c554982a971d4cf901050e52e9d84b3e8f81f7f391816fd2ffdcb37d51"
+    },
+    "/workspace/family-evidence/w07-clone-service-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-query-first.log": {
+      "bytes": 286,
+      "sha256": "60197b0435946cd52659d9f5dfeed31282d551d34e5dbe03f336c67215b634c0"
+    },
+    "/workspace/family-evidence/w07-clone-split-editor-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-ui-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-split-query-api-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-split-editor-first.log": {
+      "bytes": 293,
+      "sha256": "668b99e572c7759819e7401e4b11e7592ddb3f2b7e45eab9d9e6ca6767b19e96"
+    },
+    "/workspace/family-evidence/w07-clone-ui-red.json": {
+      "bytes": 13750,
+      "sha256": "6256451ca902de270636e9ead2fb9c33bc14c04377b851005c14da301d7e05a6"
+    },
+    "/workspace/family-evidence/w07-workflow-schema-first.log": {
+      "bytes": 290,
+      "sha256": "96c8b01ce2f0291b1e4f6580d4820de34484f2d75571086eb7860f2ce126522a"
+    },
+    "/workspace/family-evidence/w07-split-development-lint.log": {
+      "bytes": 476,
+      "sha256": "9dcfe9afc6d9c245cf6fb298149ca349b5dcc90120a2f061fb6862cc232d4b6d"
+    },
+    "/workspace/family-evidence/w07-clone-red.log": {
+      "bytes": 278,
+      "sha256": "1fd4292781cecbe04f9fee92678adf5821393134bc79ec28801e049d2dec636a"
+    },
+    "/workspace/family-evidence/w07-clone-split-rollback-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-fixed.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-record-workflows-final-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-workflow-browser-fixture.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-workspace-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-first.log": {
+      "bytes": 293,
+      "sha256": "8d0c15b1bfb074ad8e23c0f0d69b50308a4650e810678a40e1fbe6d5ef8899a2"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-first.json": {
+      "bytes": 43207,
+      "sha256": "f3c57646064b7d0f31960f956b68a2862552c3fd1b36b20d96f098b2045905f8"
+    },
+    "/workspace/family-evidence/w07-split-workspace-fixed.log": {
+      "bytes": 290,
+      "sha256": "0aff77944bde7ff67a539cbef72bda8e23b69b0d22843399fd872210c9cddaaf"
+    },
+    "/workspace/family-evidence/w07-split-development-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified-build.log": {
+      "bytes": 1795,
+      "sha256": "4d5db969d8ebea131f91f27537da92bf99909e9d001ee205f64247550aeb1f93"
+    },
+    "/workspace/family-evidence/w07-clone-dto-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-workspace-diagnostic.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-workflow-schema-first.json": {
+      "bytes": 10947,
+      "sha256": "80bcb390736921b6d02d56d87debf9eab867aeb90ce3d25ad9fce549608fc42e"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-development-source.json": {
+      "bytes": 4106,
+      "sha256": "628757eb7879ad6b1ac42c4030bb377da3c8683e25579e354a414380f6c25a64"
+    },
+    "/workspace/family-evidence/w07-clone-dto-first.log": {
+      "bytes": 284,
+      "sha256": "4966421f99de57f3c37203c54732f3cc49fee617d564a2a395e666b0502eea95"
+    },
+    "/workspace/family-evidence/w07-clone-red.json": {
+      "bytes": 20577,
+      "sha256": "002380a1fae0cb298c43a3ab3c41fad83df13a5c8df1e298682c8dad996a7382"
+    },
+    "/workspace/family-evidence/w07-split-query-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified-browser.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-record-workflows-unit-source.json": {
+      "bytes": 4195,
+      "sha256": "d03d62c149c74f58128f3322ab1ebcdd988cb953a75e041b32587528baefe064"
+    },
+    "/workspace/family-evidence/w07-clone-split-rollback-fixed.log": {
+      "bytes": 295,
+      "sha256": "141dc87727ad18172c4f9a71ac54fe071e0cccd5d803885ffc1452db0f1cb0f0"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-record-workflows-final-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-clone-ui-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-record-workflows-frozen.json": {
+      "bytes": 4864,
+      "sha256": "eeb58d3bbeb7002922c0994f1f30f4ebe32f8226f3a4617eea42d886a918b27f"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-fixed.json": {
+      "bytes": 47239,
+      "sha256": "ed1ef947b77c394da04f48fa629976338e89c0802e0720b11fe53aa4807e856b"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-workflow-browser-fixture.json": {
+      "bytes": 2253,
+      "sha256": "253b91ec4b9c5050f1a317e8dd162cab4cf6f86c74854e06ce68add80113351a"
+    },
+    "/workspace/family-evidence/w07-split-workspace-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-query-red.json": {
+      "bytes": 3553,
+      "sha256": "c12e3da78ddaefd01c238164670030b31762fd1948a5bc37e3981d234ad4ad69"
+    },
+    "/workspace/family-evidence/w07-clone-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-clone-split-editor-first.json": {
+      "bytes": 45286,
+      "sha256": "0bc82c37b7892efe578af785e948229a299a1d07543b0df6572c8ba3164cf287"
+    },
+    "/workspace/family-evidence/w07-clone-ui-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-ui-first.json": {
+      "bytes": 20436,
+      "sha256": "efc10fdde2189ae80441d1f51f8feb72c0ee2545bbdba8aaf07f3f9641165a94"
+    },
+    "/workspace/family-evidence/w07-workflow-schema-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-workflow-schema-red.log": {
+      "bytes": 288,
+      "sha256": "18244c768c42d45cca833131b579625f2ba084c2f451dfafa9bf9e48e19e1438"
+    },
+    "/workspace/family-evidence/w07-clone-development-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w07-clone-first.json": {
+      "bytes": 22215,
+      "sha256": "1153f34616c58d2a13836d877b7571455928cae376d676ea3044b4327888d1cd"
+    },
+    "/workspace/family-evidence/w07-clone-development-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-workspace-red.json": {
+      "bytes": 7579,
+      "sha256": "87193d341a2e9f7afc98a56944d0457e7d4354b9666c32b3499201acb321eeae"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-workspace-red.log": {
+      "bytes": 288,
+      "sha256": "7ee7939eba89b111feaa5e38a6e4ed29c748b0316b38aa17621c7c34e446a052"
+    },
+    "/workspace/family-evidence/w07-clone-ui-first.log": {
+      "bytes": 283,
+      "sha256": "e267e58336e7140291d193ee6d9d0c9d028f4b460f8af3c4b24f3a5354f0de0a"
+    },
+    "/workspace/family-evidence/w07-split-red.json": {
+      "bytes": 13573,
+      "sha256": "e81da4a9a64caa1c72f2126e774e2ddd71ab8ca06372c82242897ce8039a69d4"
+    },
+    "/workspace/family-evidence/w07-clone-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w07-split-first.json": {
+      "bytes": 16907,
+      "sha256": "ef688e7be0642b3af213c3b72f7b64eac1f80f77efad46d8561e8fcc26d4ec30"
+    },
+    "/workspace/family-evidence/w07-record-workflows-runner-syntax.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified.junit.xml": {
+      "bytes": 1528946,
+      "sha256": "7a2d2b3dd6690adff95de219e011b147e4aab7614e2102550b8be8f791f13014"
+    },
+    "/workspace/family-evidence/w07-clone-ui-fixed.json": {
+      "bytes": 19255,
+      "sha256": "04a67f113c6d75d788a6d93cf8b2015b9a03b5974f770ee2e650d76a8b5102ac"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-integrated.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-workspace-first.json": {
+      "bytes": 17690,
+      "sha256": "b29e119d32378ce4b3069a50ec723436ae12548c015079f7cf2434e51767d09d"
+    },
+    "/workspace/family-evidence/w07-record-workflows-runner-fixed-browser.log": {
+      "bytes": 4952,
+      "sha256": "a1bb53cb50469bd5eefa7b7fc06cd0128ab673587ff78c94726d553cf9453def"
+    },
+    "/workspace/family-evidence/w07-workflow-schema-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-clone-service-fixed.json": {
+      "bytes": 19441,
+      "sha256": "c3366d6bedf39497854425a0f895375c8e6758d9bdc6326ced92b78672e7a35a"
+    },
+    "/workspace/family-evidence/w07-clone-dto-first.json": {
+      "bytes": 20086,
+      "sha256": "de5a31888b3293bfa2de2f3b8c9555a5a7bf579724e5359e2bd19f1ad10c1d7c"
+    },
+    "/workspace/family-evidence/w07-split-workspace-first.log": {
+      "bytes": 290,
+      "sha256": "fc6cd729213fb5b90a582ae88295ec9a4d22aff0236a41904fae0c148a805760"
+    },
+    "/workspace/family-evidence/w07-clone-split-atomic-red.json": {
+      "bytes": 8068,
+      "sha256": "aa7f1165cc308cf266d204016b98f3077947f886363a33a2c9af89a655b03b84"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w07-split-workspace-fixed.json": {
+      "bytes": 30698,
+      "sha256": "a59c85b49b5785a9fd8691de42cbd3a5c36159517461d35da5a94a8bb0f0e6f3"
+    },
+    "/workspace/family-evidence/w07-clone-integrated.json": {
+      "bytes": 55516,
+      "sha256": "7594eac7d84a96274de9593083d226d21d1b4430884dd3b04fdc8e0e28b8204d"
+    },
+    "/workspace/family-evidence/w07-clone-dto-red.log": {
+      "bytes": 282,
+      "sha256": "fe0f336d9057fa6bdc3286ad5dcdd154e6a4d972863a9b7ba0ad29ff3e1e4100"
+    },
+    "/workspace/family-evidence/w07-record-workflows-runner-fixed-browser.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-workflow-browser-fixture.log": {
+      "bytes": 293,
+      "sha256": "6933d4417a04cf7829f5f21a53c23b6ba90e7df2159f48e96794cf2a82c426b1"
+    },
+    "/workspace/family-evidence/w07-record-workflows-qualified.json": {
+      "bytes": 2191679,
+      "sha256": "5404bafb16fddf5ad9ce0a7e29656aea89b38511ca8a9b7a69acb8ffddc35bd1"
+    },
+    "/workspace/family-evidence/w07-workflow-schema-red.json": {
+      "bytes": 780,
+      "sha256": "01e0ac89d00a8ade2198899ab68271b13dd64e3f5f781d3b4934e018e4b2f2a8"
+    },
+    "/workspace/family-evidence/w07-record-workflows-runner-syntax.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w07-split-workspace-diagnostic.log": {
+      "bytes": 2951,
+      "sha256": "d84333d9d6b7555f6d915919c5a9374d44fe1b1add00c0c1885def39ab97590d"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first-artifacts/browser.junit.xml": {
+      "bytes": 12051,
+      "sha256": "338e2e491667432f33c12fc80a7f1d10f98e65a3694cd807ef8035d69556de87"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first-artifacts/fixture.json": {
+      "bytes": 1195,
+      "sha256": "d77b2f31e14f6bb11f9346a3fe3cde9a98f40a4c707f34a9e76e91d5c2e5406f"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first-artifacts/browser.json": {
+      "bytes": 40165,
+      "sha256": "b46bc883f10352957b676bae93aa9a7fdccefe8f80b1a79ec7526b9456a1af53"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first-artifacts/results/wallet-W07-an-unknown-spli-bf264-e-without-a-second-revision-chromium/error-context.md": {
+      "bytes": 82442,
+      "sha256": "c923047a89737d803050ee4d031d1db7370839bbcef62c15ad18b877edae32ab"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first-artifacts/results/wallet-W07-an-unknown-spli-bf264-e-without-a-second-revision-chromium/test-failed-1.png": {
+      "bytes": 154619,
+      "sha256": "3ccdad09379e5607d667a5fdc387b90de4566a0ab2b25288a3d7a67b2b6fc210"
+    },
+    "/workspace/family-evidence/w07-clone-split-browser-first-artifacts/results/wallet-W07-an-unknown-spli-bf264-e-without-a-second-revision-chromium/trace.zip": {
+      "bytes": 12377476,
+      "sha256": "0e03cb190ff175523f9ff0619290c817cce1542e74215828e33204cca4e9cc21"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-wrapper-failed-artifacts/browser.junit.xml": {
+      "bytes": 5084,
+      "sha256": "3e141c00c329ebf47719745d8d5fae3263b2765529ee6c327fcf0cc6c6937872"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-wrapper-failed-artifacts/fixture.json": {
+      "bytes": 1195,
+      "sha256": "69a2cd89df5107f494c7ec35b5503fd92eea4dc7ca627f8660ae3d844375ea28"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-wrapper-failed-artifacts/browser.json": {
+      "bytes": 35152,
+      "sha256": "629614515e69467cc2ced6cfbb47022919d6a38198d22e57bf548343ec063143"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-wrapper-failed-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 5094,
+      "sha256": "e40a0d5fa19de0c5aa25bd7888ef8f7a3daafa589850450fba895076eeec3dc6"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1146,
+      "sha256": "45834fe63692519d2f9f6468ffed65f64c5cf91d255479fb64fbc605d2bf7811"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-qualified-artifacts/browser.json": {
+      "bytes": 35160,
+      "sha256": "49d5e3c7930032135f0920fe5edc1a1f60eeb7f561d1432769e08d4d4566cd24"
+    },
+    "/workspace/family-evidence/w07-record-workflows-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  },
+  "retainedFullJUnit": {
+    "path": "docs/engineering/evidence/w07-record-workflows-cloud.junit.xml.gz",
+    "bytes": 209297,
+    "sha256": "03095d44c0bbc94ed5dc1f84de84af63ea5b8fa94f1f219ad3601e283c9daa62"
+  },
+  "retainedFullLog": {
+    "path": "docs/engineering/evidence/w07-record-workflows-cloud.log.gz",
+    "bytes": 15219,
+    "sha256": "252f338ebf339d554270fa9994942c4ad2b915022d9a4c4574ae2231d41861f0"
+  },
+  "preservedBrowserArtifacts": "/workspace/family-evidence/w07-record-workflows-browser-qualified-artifacts",
+  "review": {
+    "kind": "LOCAL SELF author inspection; not independent whole-branch review",
+    "paths": [
+      "scripts/ci/run-wallet-browser.mjs",
+      "scripts/ci/write-wallet-browser-fixture.ts",
+      "server/wallet/allocation.api.test.ts",
+      "server/wallet/allocationQuery.test.ts",
+      "server/wallet/allocations.test.ts",
+      "server/wallet/bulk.test.ts",
+      "server/wallet/catalog.test.ts",
+      "server/wallet/query.ts",
+      "server/wallet/recordDrafts.test.ts",
+      "server/wallet/records.ts",
+      "server/wallet/router.ts",
+      "server/wallet/schema.ts",
+      "server/wallet/schemaRegistry.ts",
+      "server/wallet/selections.test.ts",
+      "server/wallet/snapshot.ts",
+      "server/wallet/workflowSchema.test.ts",
+      "server/wallet/workflowSchema.ts",
+      "src/features/wallet/AllocationEditor.tsx",
+      "src/features/wallet/AllocationForm.tsx",
+      "src/features/wallet/RecordForm.tsx",
+      "src/features/wallet/Records.tsx",
+      "src/features/wallet/accountDraft.ts",
+      "src/features/wallet/allocationApi.test.ts",
+      "src/features/wallet/allocationWorkspace.test.ts",
+      "src/features/wallet/allocations.ts",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/cloneForm.test.ts",
+      "src/features/wallet/cloneWorkspace.test.ts",
+      "src/features/wallet/recordDraft.ts",
+      "src/features/wallet/recordDraftValue.test.ts",
+      "src/features/wallet/recordDraftValue.ts",
+      "src/features/wallet/recordWorkspace.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts",
+      "tests/wallet-browser-fixture.test.ts"
+    ],
+    "closed": [
+      "Clone is a read-only current-ACL query; new local clock, uncleared/unreviewed defaults, no IDs/source key/occurrence or financial writes until Save. Current source and linked-fee authority is rechecked; new archived/hidden assignments refuse.",
+      "Exact amounts, rounded historical FX quote and original instant are retained in new form seeds. Split rows/default labels remain editable without floating point money; pending intent and session ownership use the existing command owner.",
+      "Clone read/loading blocks competing commands, rejects late generation/disposal and revalidates source before exposing a draft. Later source grant revocation purges an open cloned draft, including a changed private fee link.",
+      "Allocation replacement uses one I01 transaction, exact positive signed64 strings, distinct categories, bounded100 rows and exact sum to one income/expense posting. No second posting or amount duplication. No-ops, stale revisions and same-key replay retain original authority semantics.",
+      "Atomic create/update/clone carries allocation rows and preserves money/category/label/source policy. Native second-row failure rolls back record/postings/metadata/audit/nonce; amount and split changes either commit together or refuse.",
+      "Current read authority, matching revision and exact total are required for split manifests. Unknown split payload/key survives navigation and explicit retry; competing editors/bulk are blocked, conflicts require explicit reload and refresh synchronously drops public rows/forms.",
+      "New explicit schema7/standalone8 adds owned-template storage and strict split validation. Accepted1-6 DDL/checksum bytes and historical backup conversion remain; inconsistent legacy splits block explicit upgrade without repair. No automatic migration or activation.",
+      "Category filtering/search and cross-page selection use split children once, omit unrelated parent category and withhold private/partial split associations. Internal index IDs never enter public query DTO; cursor revision fences remain.",
+      "Existing bulk/selection/catalog fixtures are explicitly pinned6, preserving their original schema assertions after the registry gained7. Default4/receipt5/bulk6 remain; workflow7 fixture is separate and offline with closed handles.",
+      "Native browser first26/27 failed before the final financial action: its source was outside the first50 of68 rows. DOM/trace retained; new-case setup now scopes synthetic sources before selection, retaining every assertion/selector/deadline and all23 parent titles. Final28 includes split-clone atomic creation."
+    ],
+    "remaining": [
+      "W07 owned template CRUD/instantiate/UI; its schema table exists but commands/routes/UI are not implemented in this checkpoint.",
+      "W08 shared aggregate reports and all remaining Wallet/M1/I02/I03/master features.",
+      "Protected/encrypted receipt restore host/Admin binding, remediation/raw legacy backup/bridge/cutover/retention before activation.",
+      "Final independent whole-branch review and exact-HEAD Windows CI; other engines/native touch, large performance/package/service, actual Server2019R02 separate."
+    ],
+    "noIndependentReview": true
+  },
+  "developmentFailures": {
+    "firstBrowser": {
+      "passed": 26,
+      "failed": 1,
+      "cause": "Synthetic target outside first50 of68 rows; timed out before opening split, not evidence of an incorrect nonce replay",
+      "fix": "Apply existing scoped filter in new-case setup before selecting each synthetic source; assertions/selectors/retries/deadlines unchanged",
+      "retained": "docs/engineering/evidence/w07-record-workflows-browser-first.junit.xml"
+    },
+    "wrapperAfterAll28Passed": {
+      "browserPassed": 28,
+      "browserExit": 0,
+      "runnerExit": 1,
+      "cause": "Native cleanup retained expected6 while explicit workflow fixture correctly had7; legacy hash check was not reached, so that attempt is not accepted",
+      "fix": "Installed version now equals already-verified seed version7; mandatory legacy/integrity/shutdown checks remain and final runner repeats all28. No application/unit/test/build source changed.",
+      "retained": "docs/engineering/evidence/w07-record-workflows-browser-wrapper.junit.xml"
+    },
+    "other": [
+      "Missing new modules/methods RED retained",
+      "Three early clone fixtures used AppWriteTx.metadata rather than walletMetadataRepositories(tx); fixture corrected",
+      "Explicit baseline6 fixtures fixed after newly registered7 made a dynamic fixture export8; its expected7 assertion remains",
+      "TypeScript Row passed to kind contract fixed with explicit kind projection",
+      "New rollback assertion assumed0 audit entries despite3 existing account-creation audits; now compares complete pre-operation table rows, preserving those audits",
+      "Editor mutual exclusion and exact grouping were repaired with regressions; no old default editor formatting changed"
+    ]
+  },
+  "notRun": [
+    "owned template commands/routes/UI (not implemented)",
+    "aggregate reports (not implemented)",
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "large Windows performance acceptance",
+    "actual Server2019R02",
+    "production data/secrets/real providers (prohibited)"
+  ],
+  "releaseTagVps": "none"
+}

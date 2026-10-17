@@ -2,6 +2,33 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W07 partial, W02/W04/W06 integration:** source `26c7e39fb695d2299efd7291206caa84da6456f7` adds
+new draft-only clone and exact category splits, including atomic amount/rows,
+separate fees/FX/default labels, current source grant revalidation and same-key
+unknown retry. Split filters/search/selection match children once. Explicit7/
+standalone8 preserves accepted1-6 and refuses inconsistent historical splits;
+owned-template table exists, commands/UI remain next. Wallet off/no auto-upgrade.
+
+Cloud7531/414files/matchingJUnit/0failed-skipped-todo,
+all7426parent+105 retained; lint/build0. Chromium28/28 retains
+all23parent plus5, real Express/SQLite/offline/integrityOK/legacy kept/normal stop/
+closed handles/build bytes match. First26/27 pagination-fixture failure and DOM/
+trace retained; source filter added without changing assertions/selectors/deadlines.
+Runner-only cleanup7 binding was repaired after all28 first passed; final28
+reruns native integrity/legacy/stop. Full-suite application/tests/build unchanged;
+separate source manifests/qualificationScopes and Node syntax evidence retained.
+Author37path inspection only. [Details](wallet-record-workflows.md),
+[proof](evidence/w07-record-workflows-development.json),
+[JUnit](evidence/w07-record-workflows-cloud.junit.xml.gz),
+[full log](evidence/w07-record-workflows-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:templates/instantiate/UI, W08 reports, protected restore host/Admin
+binding/remediation/raw backup/legacy bridge/cutover/retention and remaining
+Wallet/M1/I02/I03/master; then independent final review/batched Windows. Full plan
+incomplete; no dependency/lock/workflow/release/tag/VPS changes.
+
 **Latest continuation — W07 partial, W04/W06 integration:** source `7e871b91920f36f6922507bc7b49855f0b10f7fa` adds
 Admin-managed category/label CRUD, three-level/cycle guards, hidden/archive ancestry,
 revision/provenance/audit/I01 replay and postcommit SSE. Deletion preview/refusal
