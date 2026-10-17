@@ -1,7 +1,7 @@
 # Wallet feature checklist
 
-This records implementation progress, not Windows acceptance. Latest pre-Wallet backup conversion
-sourcecdb2e48; see [status](implementation-status.md) and source-bound evidence.
+This records implementation progress, not Windows acceptance. Latest shared-query
+sourcea243c9c; see [status](implementation-status.md) and source-bound evidence.
 The new Wallet remains inactive and unwired; existing Finance still serves users.
 
 | Task | Current evidence | Remaining requirement |
@@ -11,9 +11,9 @@ The new Wallet remains inactive and unwired; existing Finance still serves users
 | W03 | Scoped legacy projection, durable quarantine/mapping/checksum, repeat safety/backup service and native0/1/2/3 shared backup conversion;6726full Cloud tests | Raw legacy JSON/ZIP without shared manifest conversion, private receipt conversion, remediation/cutover and actual write bridge |
 | W04 | Fresh adult/grant SQL ACL, partial-transfer redaction | HTTP/media/export/report enforcement and client SDK |
 | W05 | Backend account/record/transfer/edit/void and legacy type-edit core;6624full Cloud tests | API/UI wiring and linked lifecycle integration |
-| W06 | Not implemented | Account/record forms, query/filter/cursor/bulk and functional browser tests |
+| W06 | Scoped shared filters/counts/cursor/matched legs;44query cases,6770full Cloud tests | Durable selection/bulk, account/record forms and functional browser tests |
 | W07 | Low-level catalog metadata only | Catalog CRUD/tree, templates/clone/split and UI |
-| W08 | Exact balances/transaction FX only | Shared reporting/valuation FX/coverage/drilldown engine and charts |
+| W08 | Exact balances/transaction FX and shared matching-leg query prerequisites | Shared reporting/valuation FX/coverage/drilldown engine and charts |
 | W09 | Not implemented | Personal dashboard/filter/chart/widget preferences |
 | W10 | Not implemented | CSV/XLS/XLSX/OFX preview/commit/dedupe/undo |
 | W11 | Not implemented | Scoped exports, formula safety and previewed rule engine |

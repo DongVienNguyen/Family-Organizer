@@ -2,7 +2,25 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
-**Latest continuation — W03 partial:** source `cdb2e48b38e2bf3eb38261eb33553969835af386` adds
+**Latest continuation — W06 partial:** source `a243c9c36ad6f7db14d461d5e5a0f085fa8df7ad` adds
+read-only shared record filtering/counts with current SQL ACL, partial-transfer
+redaction and date/occurredAt/binary-ID cursor. Matching account legs are separate
+from readable counterparts for future reports. Numeric filters require complete
+eligible-leg valuation; malformed visible postings error. Body reads are limited
+to the page unless searching. No API/UI/report/bulk/activation is wired.
+
+Cloud6770tests/359files/matchingJUnit/0failed-skipped-todo, Wallet431/20;
+query44cases including10k readable+10k private and cross-phase revocation; all6726
+parent retained, lint/build0. LOCAL SELF2paths0C/2I/0M, two fix passes/no rereview,
+not independent. [Detail](wallet-query-core.md), [proof](evidence/w06-query-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. Next: private
+receipts, durable bulk selection, API/SDK/UI and central aggregates while retaining
+remediation/legacy bridge/raw JSON/ZIP/cutover gates. Current browser/Windows2022/
+Node22/package/service/Server2019R02 unrun. **Full Wallet/M1/master incomplete.**
+No release/tag/VPS access or deployment.
+
+**Previous continuation — W03 partial:** source `cdb2e48b38e2bf3eb38261eb33553969835af386` adds
 pre-Wallet shared-manifest0→Wallet4 conversion through the same pure staging used
 by live migration. Explicit active historical Admin owner/timezone and stable
 staging IDs; original IDs/legacy/UUID receipts/settings/media retained. Restored
