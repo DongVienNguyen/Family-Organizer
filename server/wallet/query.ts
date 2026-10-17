@@ -19,6 +19,7 @@ export interface WalletRecordView {
     matchedAccountIds: string[];
     partial: boolean;
 }
+export interface WalletSelectionCapture {filter:RecordFilter;entries:{id:string;revision:number}[];total:number}
 interface IndexedView extends WalletRecordView {
     searchText: string;
     accountRevisions: [
@@ -121,8 +122,7 @@ export function createWalletQueries(ports: {
 }) {
     const authority = (actor: Actor) => { const scope = walletAccountReadScope(ports.reader, actor); if (ports.reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value !== '1')
         fail(409, 'Kho Wallet chưa được kích hoạt.', 'wallet-storage-inactive'); return scope; };
-    return {
-        listRecords(actor: Actor, raw: RecordFilter, rawCursor: string | null, limit: number): Page<WalletRecordView> {
+    function evaluate(actor: Actor, raw: RecordFilter, rawCursor: string | null, limit: number, selectionOnly=false): Page<WalletRecordView>|WalletSelectionCapture {
             authority(actor);
             let f: RecordFilter;
             try {
@@ -201,6 +201,11 @@ export function createWalletQueries(ports: {
                     return true; const reference = posting.currency === f!.referenceCurrency ? { minor: posting.deltaMinor, currency: posting.currency } : ports.referenceValue?.({ recordId: record.id, accountId: posting.accountId, effectiveDate: record.effectiveDate, money: { minor: posting.deltaMinor, currency: posting.currency }, targetCurrency: f!.referenceCurrency }); if (!reference)
                     fail(422, 'Chưa có tỷ giá định giá cho bộ lọc số tiền.', 'RATE_UNAVAILABLE'); return matchesRecordFilter(record, withBounds, [], reference); }).map(posting => posting.accountId); return view.matchedAccountIds.length > 0; });
                 const signature = (view: IndexedView) => [key(view), view.record.revision, view.partial, view.accountRevisions, view.postings.map(p => [p.accountId, p.currency, p.deltaMinor])], revision = hash(matches.map(view => [signature(view), view.matchedAccountIds]));
+                if(selectionOnly){
+                    const rechecked=read(false);
+                    if(hash(selected.map(signature))!==hash(rechecked.map(signature)))fail(409,'Quyền hoặc danh sách vừa thay đổi.','CONFLICT');
+                    authority(actor);return {filter:f!,entries:matches.map(view=>({id:view.record.id,revision:view.record.revision})),total:matches.length};
+                }
                 if (position && position.revision !== revision)
                     fail(409, 'Danh sách đã thay đổi; hãy tải lại từ đầu.', 'CONFLICT');
                 const after = matches.filter(view => !position || compare(key(view), position.after) > 0), page = after.slice(0, limit), bodies = page.length ? read(true, page.map(view => view.record.id)) : [], byId = new Map(bodies.map(view => [view.record.id, view]));
@@ -214,6 +219,9 @@ export function createWalletQueries(ports: {
                     throw error;
                 fail(422, 'Dữ liệu hoặc định giá Wallet không hợp lệ.', 'INVALID_INPUT');
             }
-        },
+    }
+    return {
+        listRecords:(actor:Actor,filter:RecordFilter,cursor:string|null,limit:number)=>evaluate(actor,filter,cursor,limit) as Page<WalletRecordView>,
+        captureSelection:(actor:Actor,filter:RecordFilter)=>evaluate(actor,filter,null,100,true) as WalletSelectionCapture,
     };
 }

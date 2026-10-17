@@ -1,3 +1,4 @@
+import {walletStorageVersions} from './schemaRegistry.js';
 import { createHash } from 'node:crypto';
 import { object } from '../../src/features/productivity/validation.js';
 import { UserRole, type FinancialTransaction } from '../../src/types.js';
@@ -55,8 +56,8 @@ export function convertLegacyReceiptBackup(input: unknown, ports: {
     const source = ports.validate(input), actor = options.actor, user = source.legacy.users.find(user => user.id === actor?.userId);
     if (actor?.role !== UserRole.ADMIN || user?.role !== UserRole.ADMIN || user.isDeleted)
         throw Error('Receipt conversion requires an active administrator');
-    if (source.manifest.domains.wallet !== 5 || source.tables.app_meta.some(row => row.key === 'wallet_active' && row.value !== '0'))
-        throw Error('Receipt conversion requires inactive Wallet5');
+    if ((source.manifest.domains.wallet<5||!walletStorageVersions.includes(source.manifest.domains.wallet)) || source.tables.app_meta.some(row => row.key === 'wallet_active' && row.value !== '0'))
+        throw Error('Receipt conversion requires an inactive supported receipt schema');
     const at = options.at;
     if (typeof at !== 'string' || !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(at) || !Number.isFinite(Date.parse(at)) || new Date(at).toISOString() !== at)
         throw Error('Invalid receipt conversion time');

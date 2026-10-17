@@ -98,6 +98,11 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     router.delete('/accounts/:id/grants/:userId', handler(req => { const value = body(req, ['expectedRevision']), accountId = id(req.params.id), ctx = context(req, value.expectedRevision, true); manager(req, accountId); const before = ports.accountAudience(accountId), result = ports.accounts.removeGrant(ctx, accountId, id(req.params.userId)); emit(before, ports.accountAudience(accountId)); return result; }));
     const query = (req: WalletRequest) => { const value = body(req, ['filter', 'cursor', 'limit']); return ports.queries.listRecords(actor(req), value.filter, value.cursor ?? null, value.limit === undefined ? 50 : value.limit); };
     router.post('/records/query', handler(query));
+    router.post('/record-selections',handler(req=>{const value=body(req,['expectedRevision','input']);return ports.selections.create(context(req,value.expectedRevision,false),value.input);}));
+    router.post('/record-selections/:id/members',handler(req=>{const value=body(req,['ids']);return {ids:ports.selections.members(actor(req),id(req.params.id),value.ids)};}));
+    router.delete('/record-selections/:id',handler(req=>{const value=body(req,['expectedRevision']);return ports.selections.release(context(req,value.expectedRevision,false),id(req.params.id));}));
+    router.post('/records/bulk-preview',handler(req=>{const value=body(req,['selection','patch']);return ports.bulk.preview(actor(req),value.selection,value.patch);}));
+    router.post('/records/bulk-metadata',handler(req=>{const value=body(req,['expectedRevision','selection','patch']),ctx=context(req,value.expectedRevision,typeof value.selection?.selectionId==='string');return ports.bulk.apply(ctx,value.selection,value.patch,audience=>changed(audience));}));
     router.get('/records/:id/receipts',handler(req=>ports.receipts.list(actor(req),id(req.params.id))));
     router.post('/records/:id/receipts',handler(req=>{
         const value=body(req,['expectedRevision','input']),recordId=id(req.params.id),ctx=context(req,value.expectedRevision,true),before=ports.recordAudience(recordId),result=ports.receipts.attach(ctx,recordId,value.input);

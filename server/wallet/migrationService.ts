@@ -1,3 +1,4 @@
+import {walletStorageVersions,type WalletStorageVersion} from './schemaRegistry.js';
 import {UserRole} from '../../src/types.js';
 import type {Actor,CommandContext} from '../../src/features/wallet/contracts.js';
 import {text,integer,choice} from '../../src/features/productivity/validation.js';
@@ -13,7 +14,7 @@ export {legacyFinanceSource} from './legacyMigrationData.js';
 const fail=(status:number,message:string):never=>{throw new AppStoreError(message,status,'wallet-legacy-migration');};
 const sourceChecksum=(source:LegacyFinanceSnapshot,timezone:string)=>legacySourceChecksum({version:2,timezone,source});
 function admin(reader:WalletReader,actor:Actor){if(assertWalletActor(reader,actor).role!==UserRole.ADMIN)fail(403,'Chỉ quản trị viên được xem hoặc chạy di trú tài chính.');}
-function inactive(reader:WalletReader,actor:Actor){admin(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value==='1')fail(409,'Kho Wallet đang hoạt động.');const version=reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='wallet'")?.version;if(![4,5].includes(version))fail(409,'Cần kho Wallet phiên bản 4 hoặc 5 trước khi di trú.');return version as 4|5;}
+function inactive(reader:WalletReader,actor:Actor){admin(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value==='1')fail(409,'Kho Wallet đang hoạt động.');const version=reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='wallet'")?.version;if(!walletStorageVersions.includes(version)||version<4)fail(409,'Cần schema Wallet có hỗ trợ di trú.');return version as WalletStorageVersion;}
 export type LegacyMigrationResult=LegacyMigrationReceipt&{safetyBackup:{id:string;checksum:string}};
 export interface MigrationLink {sourceKind:string;parentId:string;legacyId:string;targetId:string|null;state:string;reason:string|null;detail:Record<string,unknown>}
 type State='mapped'|'quarantined'|'legacy_unlinked';

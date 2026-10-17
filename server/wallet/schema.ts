@@ -1,3 +1,4 @@
+export {prepareWalletSelections,walletSelectionSql,walletSelectionChecksum} from './selectionSchema.js';
 export {prepareWalletReceipts,walletReceiptSql,walletReceiptChecksum} from './receiptSchema.js';
 import type {AppWriteTx} from '../appStore.js';
 import {createHash} from 'node:crypto';

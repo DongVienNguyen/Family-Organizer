@@ -1,3 +1,4 @@
+import {walletSchemas,walletStorageVersions,type WalletStorageVersion} from './schemaRegistry.js';
 import {walletReceiptChecksum} from './receiptSchema.js';
 import {createHash} from 'node:crypto';
 import {UserRole} from '../../src/types.js';
@@ -13,8 +14,8 @@ import {walletMetadataParents} from './metadataSchema.js';
 /** Explicit offline conversion only; normal restore remains version-exact.
  * Missing historical facts remain unknown, and financial validation refuses
  * transfers whose original quote cannot be recovered from the source bytes. */
-export function convertWalletBackup(value:unknown,userIds:Set<string>,targetVersion:4|5=4):WalletSnapshot {
- if(![4,5].includes(targetVersion))throw Error('Unsupported Wallet backup target');validate(value,userIds);const source=structuredClone(value);if(source.schemaVersion>targetVersion+1)throw Error('Wallet backup downgrade is unsupported');if(source.schemaVersion===targetVersion+1)return source;
+export function convertWalletBackup(value:unknown,userIds:Set<string>,targetVersion:WalletStorageVersion=4):WalletSnapshot {
+ if(!walletStorageVersions.includes(targetVersion)||targetVersion<4)throw Error('Unsupported Wallet backup target');validate(value,userIds);const source=structuredClone(value);if(source.schemaVersion>targetVersion+1)throw Error('Wallet backup downgrade is unsupported');if(source.schemaVersion===targetVersion+1)return source;
  const tables=Object.fromEntries(Object.keys(walletTablesAt(targetVersion)).map(name=>[name,source.tables[name]??[]]));
  if(source.schemaVersion===2){
   const provenance={created_at:null,updated_at:null,created_by:null,updated_by:null};
@@ -32,9 +33,9 @@ function timestamp(value:string){if(typeof value!=='string'||!/^\d{4}-\d\d-\d\dT
 /** Host binds trusted I01 inspection/validation and installed migration records.
  * Raw legacy JSON/ZIP and other namespace upgrades need separate converters.
  * This returns converted bytes only; the caller still owns restore/maintenance. */
-export function convertSharedWalletBackup(input:unknown,ports:ConversionPorts,at:string,legacy?:{ownerUserId:string;timezone:string}):{snapshot:ValidatedAppSnapshot;conversion:{fromVersion:number;toVersion:4|5;sourceChecksum:string;resultChecksum:string;at:string;converted:boolean;migration?:LegacyMigrationReceipt}} {
- timestamp(at);const hashes=[walletCoreChecksum,walletMetadataChecksum,walletFinancialChecksum,walletLegacyMigrationChecksum,walletReceiptChecksum],targetVersion=ports.installedVersion;
- if(targetVersion!==4&&targetVersion!==5)throw Error('Unsupported installed Wallet conversion target');
+export function convertSharedWalletBackup(input:unknown,ports:ConversionPorts,at:string,legacy?:{ownerUserId:string;timezone:string}):{snapshot:ValidatedAppSnapshot;conversion:{fromVersion:number;toVersion:WalletStorageVersion;sourceChecksum:string;resultChecksum:string;at:string;converted:boolean;migration?:LegacyMigrationReceipt}} {
+ timestamp(at);const hashes=walletSchemas.map(row=>row.checksum),targetVersion=ports.installedVersion as WalletStorageVersion;
+ if(!walletStorageVersions.includes(targetVersion)||targetVersion<4)throw Error('Unsupported installed Wallet conversion target');
  if(ports.migrations.length!==targetVersion||ports.migrations.some((row,i)=>row.version!==i+1||row.checksum!==hashes[i]))throw Error('Wallet backup conversion requires the installed trusted migration chain');for(const row of ports.migrations)timestamp(row.applied_at);
  const version=(input as AppSnapshot)?.manifest?.domains?.wallet;if(!Number.isInteger(version)||version<0||version>targetVersion)throw Error('Unsupported source Wallet backup version');
  const source=version===targetVersion?ports.validateTarget(input):ports.inspectHistorical(input,{namespace:'wallet',version,tables:version===0?[]:Object.keys(walletTablesAt(version))});

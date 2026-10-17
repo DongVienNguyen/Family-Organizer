@@ -1,3 +1,6 @@
+import {selectionValue,bulkResultValue,bulkPreviewValue} from './bulkDto.js';
+import type {SelectionInput} from '../../../server/wallet/selections.js';
+import type {BulkSelection,RecordMetadataPatch} from '../../../server/wallet/bulk.js';
 import type {WalletFilterOptions} from '../../../server/wallet/filterOptions.js';
 import type {WalletReceiptMetadata} from '../../../server/wallet/receiptContract.js';
 import { object, keys, text, integer, choice, boolean } from '../productivity/validation.js';
@@ -215,6 +218,11 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        createSelection:(input:SelectionInput,nonce:string)=>command('/api/wallet/record-selections','POST',{expectedRevision:0,input},nonce,selectionValue),
+        selectionMembers:(id:string,requestedIds:string[],options:{signal?:AbortSignal}={})=>{const requested=ids(requestedIds);if(requested.length>100)throw Error('Membership page limit');return read('/api/wallet/record-selections/'+encodeURIComponent(id)+'/members',value=>{const v=object(value);keys(v,['ids']);const members=ids(v.ids);if(members.some(id=>!requested.includes(id)))throw Error('Unexpected snapshot member');return members;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({ids:requested}),signal:options.signal});},
+        releaseSelection:(id:string,nonce:string)=>command('/api/wallet/record-selections/'+encodeURIComponent(id),'DELETE',{expectedRevision:0},nonce,value=>{const v=object(value);keys(v,['released']);if(v.released!==true)throw Error('Release acknowledgement');return {released:true as const};}),
+        bulkPreview:(selection:BulkSelection,patch:RecordMetadataPatch,options:{signal?:AbortSignal}={})=>read('/api/wallet/records/bulk-preview',value=>bulkPreviewValue(value,selection),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({selection,patch}),signal:options.signal}),
+        bulkMetadata:(selection:BulkSelection,expectedRevision:number,patch:RecordMetadataPatch,nonce:string)=>command('/api/wallet/records/bulk-metadata','POST',{expectedRevision,selection,patch},nonce,value=>bulkResultValue(value,selection)),
         receipts:(id:string)=>read(path('records',id)+'/receipts',value=>{const v=object(value);if(v.recordId!==id||!Array.isArray(v.receipts)||v.receipts.length>20)throw Error('Receipt list identity');integer(v.revision,1);const receipts=v.receipts.map(row=>receiptValue(row,id));if(new Set(receipts.map(row=>row.id)).size!==receipts.length)throw Error('Duplicate receipts');return {recordId:id,revision:v.revision,receipts};}),
         attachReceipt:(id:string,revision:number,input:{fileName:string;dataUrl:string},nonce:string)=>command(path('records',id)+'/receipts','POST',{expectedRevision:revision,input},nonce,value=>{const v=object(value);if(v.recordId!==id||v.revision!==revision+1)throw Error('Receipt acknowledgement');return {recordId:id,revision:v.revision,receipt:receiptValue(v.receipt,id)};}),
         detachReceipt:(id:string,revision:number,receiptId:string,nonce:string)=>command(path('records',id)+'/receipts/'+encodeURIComponent(receiptId),'DELETE',{expectedRevision:revision},nonce,value=>{const v=object(value);if(v.recordId!==id||v.receiptId!==receiptId||v.revision!==revision+1)throw Error('Receipt acknowledgement');return {recordId:id,revision:v.revision,receiptId};}),
