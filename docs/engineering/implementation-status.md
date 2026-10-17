@@ -2,6 +2,31 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W02/W03-compat/W04/W06 partial:** source `f324743af7cda1e79311630392d8f4a93606bf94` adds
+explicit selection schema6/standalone7, common query capture and durable actor-owned
+IDs/revisions with expiry, membership and release. Atomic metadata-only bulk
+checks every row/linked fee ACL/revision/integrity/catalog before one set-based I01
+transaction. No partial skip; exact changed/no-op counts, text-digest audits,
+rollback/idempotent compact acknowledgement and postcommit scoped SSE. Existing
+money/source/creator/date/FX remain. Preview/SDK validate counts/identity and
+unknown replies; bulk UI remains the next step. No automatic migration/activation.
+
+Cloud7277/393files/matchingJUnit/0failed-skipped-todo,
+all7173parent+104 retained; lint/build0. Chromium15/15 preserves
+all existing cases with real Express/SQLite, zero external attempts, integrityOK,
+legacy kept, closed handles/normal stop and matching build bytes. The interrupted
+early full run is recorded as143, not pass. Author27path inspection is not
+independent. [Details](wallet-bulk-foundation.md),
+[proof](evidence/w06-bulk-foundation-development.json),
+[JUnit](evidence/w06-bulk-foundation-cloud.junit.xml.gz),
+[full log](evidence/w06-bulk-foundation-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02 are
+unrun. Bulk UI/new journeys, preferences, receipt live apply/remediation/raw
+backup/legacy bridge/cutover/retention and other Wallet/M1/I02/I03/master gates
+remain. Wallet stays off; no release/tag/VPS/dependency/lock/workflow changes.
+
 **Latest continuation — W04/W06 partial:** source `1cd381720c9b219df6c0b07342f9da2ed750a147` adds scoped
 creator/payment-method metadata and type/status/currency/creator/payment/label
 any-all controls, named-zone period presets and normal reset. SQL ACL precedes

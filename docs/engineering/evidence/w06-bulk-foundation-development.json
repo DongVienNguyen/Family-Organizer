@@ -1,0 +1,561 @@
+{
+  "taskIds": [
+    "W02 partial",
+    "W03 partial compatibility",
+    "W04 partial",
+    "W06 partial"
+  ],
+  "sourceCommit": "f324743af7cda1e79311630392d8f4a93606bf94",
+  "testedWorkingTreeParent": "f6846e8b16561e66cddbfb874dca3117d598c45a",
+  "binding": "All27 frozen source/test SHA256 values match committed Git blobs; Cloud development evidence, not exact-HEAD Actions acceptance",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7277,
+    "files": 393,
+    "junitCases": 7277,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7173,
+    "added": 104,
+    "removed": 0,
+    "newByFile": {
+      "server/wallet/bulk.api.test.ts": 5,
+      "server/wallet/bulk.test.ts": 41,
+      "server/wallet/query.test.ts": 4,
+      "server/wallet/selectionSchema.integration.test.ts": 17,
+      "server/wallet/selections.test.ts": 17,
+      "server/wallet/sqlFunctions.test.ts": 3,
+      "src/features/wallet/bulkApi.test.ts": 17
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "buildBytesMatchActualBrowser": true,
+    "npmCi": "not repeated; dependencies and lockfile unchanged",
+    "interruptedRun": "First full run stopped with143 before qualification after remaining TypeScript decoder errors were discovered; no pass claimed. Corrected source frozen after lint0 and then qualified."
+  },
+  "browser": {
+    "parentCases": 15,
+    "cases": 15,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "f6846e8b16561e66cddbfb874dca3117d598c45a",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "216ab1e00b4fcf56b38e5562e5fc0b32d6d65b0de3aac65ad29cfda98ead3380",
+        "index": "b2a4038f7a1529f5803177d43117dd0bd1c19e7fbe8d300754a4e7ff9731deb4"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 5,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "3070c3d0-7ec2-4e22-a818-fe675e91e08e",
+        "creditId": "37a44b5f-b537-411a-bdd2-be90dfb4c452",
+        "hiddenId": "d161da9a-a35f-4370-81c1-53fbf4d59460",
+        "readId": "0f825966-c8dc-406e-9318-9888b7ac7bc6",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "sourceSha256": {
+    "server/productivity/bootstrap.ts": "841e82c197e6c46e023ed9a716bf6bdcc5873bb6a7e762803ff093c0995ec27c",
+    "server/wallet/backupConversion.ts": "83869401a0560c1b4e13d0c1c206d98914cc21af8d9281bc33a5b6ba691c3bb3",
+    "server/wallet/bulk.api.test.ts": "6522c6bad3e46214ab683be5ba6dd3bc34ae87d19667e5b56be6a6e3d2a1c509",
+    "server/wallet/bulk.test.ts": "55511bcecea43ddb73df6a27ebc5575a869d045eaa6b8c394fe91b5b6cf4847a",
+    "server/wallet/bulk.ts": "aee5d15b728f5a9523d780b3c96fc061c4e9f54417cac1e1fa653866408553cc",
+    "server/wallet/coreColumns.ts": "97ce1de803cfe0eb2cd1de94f4edd8f9250a7177db6944b6412c66a706ef14be",
+    "server/wallet/integration.ts": "3d8fa05c2e9fcf814fdbd9adb2171100838d37bb06b7e6733f4302d227d82a4f",
+    "server/wallet/migrate.ts": "f374fa2f808ba2b7b9273e57c3bb8f076bcd944f0a824c7cac12e4b2f204723e",
+    "server/wallet/migrationService.ts": "e77bb7ae537f54c09e5ac46ba521d62951affcddde2de10074ae1d856ef008cc",
+    "server/wallet/ports.ts": "47ab3a9f89b45f68bb5f4bfb57fd48c4e9869df35f59c99e9afd484968fa7470",
+    "server/wallet/query.test.ts": "5caf5d3e1d80eb2fd47b5e13ca5bae0fa76bdb41bad1ff711b26e8840a3b27de",
+    "server/wallet/query.ts": "65e8b30a2e23c7a459782650b73d4c75bd7e1425aceafe9a5179be5175fc2c83",
+    "server/wallet/receiptMigration.ts": "fb10502dfbb07feac3d7d9ca1c66aa7a114d8e62ec9159ce648fdcb2eb7d43f3",
+    "server/wallet/records.ts": "236e74dbc18756ef39560326b7e5c4570787ac0b9a25bcc8adafce3b138eb5ce",
+    "server/wallet/router.ts": "7af57f96b9d4ab78ddc55741a2042793842792399b9f86f35aebffa0e29bfa94",
+    "server/wallet/schema.ts": "dac8a578f428fc4cb96c61263c5400cd899fb00ce61ac49b5097a1ed53637311",
+    "server/wallet/schemaRegistry.ts": "afa9a3a7a297469c5d78544af30891c61b409717d703a88838075d08a210327c",
+    "server/wallet/selectionSchema.integration.test.ts": "8695bd91c4ace3b04181bb6a5ce918a9701199380fbbb30e82329df8f7935a7a",
+    "server/wallet/selectionSchema.ts": "875052b99359e9e42ac223004bf8449b4a9af79a314f3b2183216a0016a76c95",
+    "server/wallet/selections.test.ts": "c3a96051ba43cd39f9b3167e02809993db5bd4ff3fd5d5c6d091fb9a07cb1e0b",
+    "server/wallet/selections.ts": "15f9a2fb75e92c92a34fa0b68eb59ac01f9675bf2b2f4707224035f056d4acfd",
+    "server/wallet/snapshot.ts": "75caa0c96de2f3e5ae622c6a2348b60d254d939861764e3aa3c66d2bd2b06713",
+    "server/wallet/sqlFunctions.test.ts": "c9204462317546dced88ac8ea7a5f972abf66120d44ee4b3d9c5b68e2df1fa10",
+    "server/wallet/sqlFunctions.ts": "019e5aacab8267e078ef79dc8e041c2a9bfc1a103a41ff6971dcfcaec93aa3d3",
+    "src/features/wallet/api.ts": "39e9473ac84f86032a88c715c4de44d7af9ce8627da8552aa53a1578a2b56750",
+    "src/features/wallet/bulkApi.test.ts": "306538564b29e0ea6553d6bc43599364dd00587a9e5aaac8efa156a312269e7f",
+    "src/features/wallet/bulkDto.ts": "c9adafaa2dfa3749bc61f278c87e5e65aaf0ed72894e6b57e63d2ce891633efe"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "reports": {
+    "/workspace/family-evidence/w06-selection-capture-first.log": {
+      "bytes": 466,
+      "sha256": "aca61ef493d1ee16a0e7f08575b44b67365cb3f922fade441d34a7e0a0742c2f"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-interrupted-stop.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-selection-registry-development-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-bulk-sdk-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-selection-schema-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-bulk-service-development-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-service-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-bulk-prequalification-lint-v2.log": {
+      "bytes": 685,
+      "sha256": "63c53c5e41c79d2053f031b5e029f70868509d5c38c8e6a6b7dd1e6b89a9d860"
+    },
+    "/workspace/family-evidence/w06-selection-schema-first.json": {
+      "bytes": 42259,
+      "sha256": "16f19c9875e850edfa4172c9b8a36f5ec8643577ff04f2a7356d3b8cc7f28403"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-frozen.json": {
+      "bytes": 3005,
+      "sha256": "c13d5be89fac575c12ec3950bd1ec1d3fc67d5518321a9a6fd264ca7e7233d54"
+    },
+    "/workspace/family-evidence/w06-bulk-sql-functions-red.log": {
+      "bytes": 471,
+      "sha256": "d29082bb9ec7c61bed4ef7a3dbc7ee70f788d37d0cc0e842547a8c188fee5517"
+    },
+    "/workspace/family-evidence/w06-selection-service-first.log": {
+      "bytes": 456,
+      "sha256": "8022c26bbdbfa441c77195721af4a4ddb2f7a9657462d5010361912b1dfec9c3"
+    },
+    "/workspace/family-evidence/w06-bulk-service-v2.json": {
+      "bytes": 30763,
+      "sha256": "e8ebdc42b447934d3c44a4bdbc10f62849e640aa3ee38ddd87af3e513e2dfb9a"
+    },
+    "/workspace/family-evidence/w06-selection-service-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-selection-service-red.json": {
+      "bytes": 768,
+      "sha256": "58c52908d821c4b812feac2411a56fee06b69ffd67bf1e36b14575a30032ace9"
+    },
+    "/workspace/family-evidence/w06-selection-service-v2.log": {
+      "bytes": 450,
+      "sha256": "cbab23cdba3705f7dd3251524599adbd78dbfec7cd66a26a3551dec6a5c82332"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-preservation.json": {
+      "bytes": 24581,
+      "sha256": "0361e702dff5c3049fc706b78661ae6987855ea4fff517045ff9811f08bfde8f"
+    },
+    "/workspace/family-evidence/w06-bulk-service-red.json": {
+      "bytes": 750,
+      "sha256": "b2d85c882190b55bf5c43f7e2b8d904f2d21a6f7eadd59b8fd39bdc9e0206956"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-browser.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-qualified.json": {
+      "bytes": 2110004,
+      "sha256": "916003c2052f575583366fd49061d62d0270d1cefb1a25cc6fc7420575fc02a1"
+    },
+    "/workspace/family-evidence/w06-selection-capture-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-schema6-pilot-first.json": {
+      "bytes": 17584,
+      "sha256": "93e2e5e2d8c508481f656e5b4d1aede61630f66de19ba59bd7a7fa75c269a1df"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-browser.log": {
+      "bytes": 2545,
+      "sha256": "776d0c740476808738009e3e05e8e53111367887ec622bd6c282c51efb2757a8"
+    },
+    "/workspace/family-evidence/w06-selection-schema-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-selection-capture-red.json": {
+      "bytes": 18820,
+      "sha256": "78d19f9e6cf23ac1a049b04bc0c2a57a7bb6610a430547004c67997122648269"
+    },
+    "/workspace/family-evidence/w06-selection-schema-first.log": {
+      "bytes": 614,
+      "sha256": "dc8d78f0724085a547efa82889979c6f9d66d5bc9ce8392bdb17237b3fb345ba"
+    },
+    "/workspace/family-evidence/w06-bulk-complete-development-lint.log": {
+      "bytes": 916,
+      "sha256": "1788105d257882bae31a9ae5efa1ff01dda520ea1d384c841ebb306b8203940b"
+    },
+    "/workspace/family-evidence/w06-bulk-cold-final.json": {
+      "bytes": 17903,
+      "sha256": "63c9e51b093ad3ba1ee44e94baf48d5f93fe741c854cac78fb7dd3d18d3f8dba"
+    },
+    "/workspace/family-evidence/w06-selection-service-v2.json": {
+      "bytes": 6464,
+      "sha256": "04fe90edd28cbf9f8994a0de786ecf33ecdc74810b037d9463ace81fd9349f0c"
+    },
+    "/workspace/family-evidence/w06-bulk-backup-batch-first.json": {
+      "bytes": 27929,
+      "sha256": "9fcc03d23b0b4999c5bd4a80f340b66b74066513ab168bf41496be0a2d892835"
+    },
+    "/workspace/family-evidence/w06-bulk-backup-batch-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-service-v3.log": {
+      "bytes": 532,
+      "sha256": "a91e3fd5bb780418923d166d6694d03d365afd0a7de7ce5485612a6cd87068f7"
+    },
+    "/workspace/family-evidence/w06-bulk-prequalification-lint-v3.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-bulk-api-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-prequalification-lint-v2.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w06-bulk-service-v2.log": {
+      "bytes": 532,
+      "sha256": "05207bf11071df9cba83ed1acba50225a99484c408ee41753edaa38ad39c363c"
+    },
+    "/workspace/family-evidence/w06-selection-schema-v2.json": {
+      "bytes": 29844,
+      "sha256": "dc830cf64d5d241448b8bdff0e20eee9a387386ecfea89b2b8b7c40dc6f17145"
+    },
+    "/workspace/family-evidence/w06-bulk-service-v2.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-interrupted-workers-stop.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-sdk-first.json": {
+      "bytes": 14851,
+      "sha256": "5fe43e961578ea5c1747a67ff4fa2fed6efd4c4a17b96ab211f01b3e4b4f12c2"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-interrupted-frozen.json": {
+      "bytes": 3005,
+      "sha256": "1018992db864ef7fa190797b83a785e0f085a259244c615b75a06b6f454ee4db"
+    },
+    "/workspace/family-evidence/w06-bulk-service-first.log": {
+      "bytes": 508,
+      "sha256": "5c4084cc991509ac204b95f35cf52aca205a8829645d4dab05ba6bd86b068619"
+    },
+    "/workspace/family-evidence/w06-bulk-sdk-first.log": {
+      "bytes": 504,
+      "sha256": "4ce6122f6da869379b3cfd5de2e5eb487270bb8ce8f6c6833956e2f7803fcd70"
+    },
+    "/workspace/family-evidence/w06-selection-capture-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-bulk-service-v3.json": {
+      "bytes": 32824,
+      "sha256": "0bdb07176a7f023c9ccebc80b6fb37f4a8337357749d072ffd8995ce6a7581c7"
+    },
+    "/workspace/family-evidence/w06-bulk-cold-final.log": {
+      "bytes": 484,
+      "sha256": "5fa511d930276c702c63f17a8d61d485ff4516fb091425d96c9b95e866e773c7"
+    },
+    "/workspace/family-evidence/w06-bulk-sql-functions-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-selection-capture-first.json": {
+      "bytes": 15030,
+      "sha256": "7b211e42ceb6113ed99cbc80597ee948d9a4fcf420d232f178cf6e1f5e2d253e"
+    },
+    "/workspace/family-evidence/w06-bulk-sql-functions-first.log": {
+      "bytes": 525,
+      "sha256": "30d42ded55881d3bb94ab969b49b68cd2835e71ba7b1e4714eebdd43e78c8c9b"
+    },
+    "/workspace/family-evidence/w06-selection-service-first.json": {
+      "bytes": 7475,
+      "sha256": "50679f463414dad88d137acf99fca2250d982a5ad4b8615230f4f0c33d708994"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-self-review.json": {
+      "bytes": 3211,
+      "sha256": "0b3e4b4d40681d682219126866f4273bfbc7b178b2c27ae3797a32425e8a533c"
+    },
+    "/workspace/family-evidence/w06-bulk-complete-development-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w06-bulk-prequalification-lint.log": {
+      "bytes": 918,
+      "sha256": "b2a4e590ade015699677f9ce6745aa3c284be882a5f2f7815188f1ab63384f1f"
+    },
+    "/workspace/family-evidence/w06-selection-schema-red.json": {
+      "bytes": 807,
+      "sha256": "28c56e2d87e37f8188bb5426aa5a6ccbd0f015b13d0e77bac97ff67e01ccbc04"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-service-first.json": {
+      "bytes": 17333,
+      "sha256": "37ffe8022947525f282ac9216c38de5b3ea7d9c1135945acc7aa614be196d61a"
+    },
+    "/workspace/family-evidence/w06-bulk-sql-functions-first.json": {
+      "bytes": 5977,
+      "sha256": "5b66e8573395517fbff650ce37ea47dabcb8cfcef147302987f02e1025eeca0e"
+    },
+    "/workspace/family-evidence/w06-bulk-service-red.log": {
+      "bytes": 227,
+      "sha256": "380b07a066b3e91e7b86b915c41757510b9fd58721180dc4a206e6ab40ceaf9e"
+    },
+    "/workspace/family-evidence/w06-selection-capture-red.log": {
+      "bytes": 462,
+      "sha256": "c73dedbab999cd0b1fae9a9c7e8debbda8a4a3d618d1174cfc01949331935c23"
+    },
+    "/workspace/family-evidence/w06-bulk-cold-final.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-qualified.log": {
+      "bytes": 85274,
+      "sha256": "201f10d013ec9bd7d54e6ff141ac86fcf3726a09405324c326d80558c9a6ed7c"
+    },
+    "/workspace/family-evidence/w06-selection-schema-red.log": {
+      "bytes": 482,
+      "sha256": "7596a5ca7227b7c843b157898903c983e8afc28a27ebb464ed904dcaa0958020"
+    },
+    "/workspace/family-evidence/w06-selection-schema-v2.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-selection-service-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-bulk-backup-batch-first.log": {
+      "bytes": 569,
+      "sha256": "d1e6a9e6b9449462ecd9581be12e2398572fa5d266ae978476ae3ad3521d6eef"
+    },
+    "/workspace/family-evidence/w06-selection-service-red.log": {
+      "bytes": 452,
+      "sha256": "c0ba6017fbaf8fc0a4992df6028d43d75fb1cc4220a1b75ee189d4482487e592"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-qualified.junit.xml": {
+      "bytes": 1472761,
+      "sha256": "148105193bc0447eadb555ee5469170df411f71a3bedb296126c3472c2830622"
+    },
+    "/workspace/family-evidence/w06-selection-schema-v2.log": {
+      "bytes": 687,
+      "sha256": "8e7784fdf6dda147cbd2f432208805305cca59226082b49416c0dbbab77970ed"
+    },
+    "/workspace/family-evidence/w06-bulk-api-first.log": {
+      "bytes": 469,
+      "sha256": "cf48c9e0c9bb1601e3ef771fc27fcd262104cf21627cb01520aa2974ceb6b104"
+    },
+    "/workspace/family-evidence/w06-bulk-prequalification-lint-v3.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-sql-functions-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-bulk-prequalification-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-bulk-schema6-pilot-first.log": {
+      "bytes": 502,
+      "sha256": "e01d725897ed656160fb1a8579ca3a586b835c1ac3c996887dc1868c7a76013d"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-interrupted.exit": {
+      "bytes": 4,
+      "sha256": "9d9b18720961e9b4689fd763b85e7b6f36160ccd3a8a1c9ddc5103bb0f66c396"
+    },
+    "/workspace/family-evidence/w06-bulk-service-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w06-bulk-service-development-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-selection-service-v2.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-api-first.json": {
+      "bytes": 9971,
+      "sha256": "47d849246eacd48ce607a81aedb6c55c5b17f3bd00673f8765f3e7a8aabc31a8"
+    },
+    "/workspace/family-evidence/w06-bulk-schema6-pilot-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-selection-registry-development-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-sql-functions-red.json": {
+      "bytes": 774,
+      "sha256": "d2f2b61e59e327432768396ba2e27ea46b59ec470a080776f7a99f1723758ee2"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-interrupted.log": {
+      "bytes": 528,
+      "sha256": "9b94e1c39a1ad242792bda1cba9d26a3c3c5aae6deccd37f8d096b9571334f66"
+    },
+    "/workspace/family-evidence/w06-bulk-service-v3.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-build.log": {
+      "bytes": 2004,
+      "sha256": "1fbb3bb936a1019b8e9e6945bc0f37f2cf84ca70aafd98ddf65269bd8c39fe37"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1146,
+      "sha256": "25aa62b497d52c8a92c4e14c699c2fee59f7a27a6bcc48e7347bfecebc70d660"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-browser-qualified-artifacts/browser.json": {
+      "bytes": 20628,
+      "sha256": "282ebed93b65515de555a32505b5139bfacee0226e9c4bbfb5f9e343e25f98be"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 2641,
+      "sha256": "c1e3f531d8a522ee7633d984fd3c05875de39fc28c6db2b3e604013972391329"
+    },
+    "/workspace/family-evidence/w06-bulk-foundation-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  },
+  "retainedFullJUnit": {
+    "path": "docs/engineering/evidence/w06-bulk-foundation-cloud.junit.xml.gz",
+    "bytes": 200364,
+    "sha256": "d9d94657242ddf0db13a64725ae5d51f26479fdd24f3f4a7bbd3edc099a440c8",
+    "cases": 7277
+  },
+  "retainedFullLog": {
+    "path": "docs/engineering/evidence/w06-bulk-foundation-cloud.log.gz",
+    "bytes": 14940,
+    "sha256": "0b9bf1b1a01df978b930d6bb8b9d086d86c15e20e21d79b9e87684c9506d21da"
+  },
+  "preservedBrowserArtifacts": "/workspace/family-evidence/w06-bulk-foundation-browser-qualified-artifacts",
+  "review": {
+    "kind": "LOCAL SELF author inspection; not independent whole-branch review",
+    "paths": [
+      "server/productivity/bootstrap.ts",
+      "server/wallet/backupConversion.ts",
+      "server/wallet/bulk.api.test.ts",
+      "server/wallet/bulk.test.ts",
+      "server/wallet/bulk.ts",
+      "server/wallet/coreColumns.ts",
+      "server/wallet/integration.ts",
+      "server/wallet/migrate.ts",
+      "server/wallet/migrationService.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/query.test.ts",
+      "server/wallet/query.ts",
+      "server/wallet/receiptMigration.ts",
+      "server/wallet/records.ts",
+      "server/wallet/router.ts",
+      "server/wallet/schema.ts",
+      "server/wallet/schemaRegistry.ts",
+      "server/wallet/selectionSchema.integration.test.ts",
+      "server/wallet/selectionSchema.ts",
+      "server/wallet/selections.test.ts",
+      "server/wallet/selections.ts",
+      "server/wallet/snapshot.ts",
+      "server/wallet/sqlFunctions.test.ts",
+      "server/wallet/sqlFunctions.ts",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/bulkApi.test.ts",
+      "src/features/wallet/bulkDto.ts"
+    ],
+    "closed": [
+      "Single additive schema registry preserves accepted1-5 checksums; schema6 and standalone7 are explicit only, normal restore stays version-exact",
+      "Durable selection captures shared query IDs/revisions under I01,15-minute expiry, bounded global entries, page membership excludes later records and every read requires current actor/ACL",
+      "Bulk validates all selected and linked-fee read/write permissions, creator identity, revisions, metadata integrity and catalog rules before any changes; no automatic subset/skip",
+      "One I01 set-based transaction audits text digests, updates only metadata and consumes snapshot; native second-audit obstruction rolls back rows, labels, metadata, command cache and temporary table",
+      "Compact same-actor/same-payload replay survives snapshot expiry and current-record permission loss, but always requires fresh current adult/activation gates; no financial body is cached or returned",
+      "Only changed rows increment revisions/audit; exact matched/updated/unchanged counts; financial postings/source/creator/date/FX and original creation metadata remain",
+      "Preview is read-only with bounded full-scope samples and second ACL/revision check; SDK validates coverage/identity/state and malformed write replies remain unknown",
+      "SSE audience is current readable adults after commit only, not rollback/replay; no provider effects",
+      "Exact-money applied snapshot export and explicit schema6 legacy-pilot/receipt conversion pass; cold index/future-version drift fail without repair"
+    ],
+    "remaining": [
+      "Cross-page selection/bulk UI, frozen unknown-intent/session/privacy ownership and new bulk browser journeys",
+      "Saved preferences and other W06 acceptance/performance/phone/touch cases",
+      "Live receipt apply/financial remediation/raw JSON ZIP/legacy bridge/cutover/retention",
+      "W07-W18 and remaining Wallet/M1/I02/I03/master work",
+      "Final independent whole-branch review and exact-HEAD Windows/Node22/browser/package/service qualification; separately authorized actual Server2019R02"
+    ],
+    "noIndependentReview": true
+  },
+  "notRun": [
+    "bulk selection UI/browser journeys (not implemented at this checkpoint)",
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "100000-row Windows performance acceptance",
+    "actual Server2019R02",
+    "production data/secrets/real providers (prohibited)"
+  ],
+  "releaseTagVps": "none"
+}
