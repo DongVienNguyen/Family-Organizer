@@ -7,7 +7,7 @@ export const walletFinancialColumns={wallet_record_fx:['record_id','from_currenc
 type Row=Record<string,string|number|null>;
 type TransferRecord={id:string;kind:string;settlementStatus:string};
 type Posting={accountId:string;currency:string;minor:string};
-function validateFx(value:unknown):asserts value is WalletFxSnapshot {
+export function validateFx(value:unknown):asserts value is WalletFxSnapshot {
  const fields=['recordId','fromCurrency','toCurrency','debitMinor','creditMinor','numerator','denominator','asOf','source'];
  const v=object(value);keys(v,fields);if(Object.keys(v).length!==fields.length)throw Error('Incomplete Wallet FX');
  for(const key of ['recordId','source'])text(v[key],256);for(const key of ['fromCurrency','toCurrency']){text(v[key],3);currencyExponent(v[key]);}
