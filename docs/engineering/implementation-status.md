@@ -2,6 +2,31 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W03/W04 partial, I01 restore guard:** source `1ea64971b0c7ea602f6f904ec10358c36d607dbd` adds
+receipt prepare/apply with persisted/read-back full-private safety backup ports,
+whole-app data/file identity and actual shared maintenance/file/SQLite restore.
+Fresh Admin/inactive schema/source checks run across async gaps and within I01
+against live pre-replacement state, preventing saved-role resurrection or lost
+unrelated Tasks. Readonly/expired guard handles, original lease/context, compact
+same-key acknowledgement, no-op refusal and explicit pending/replacement media
+are covered. Native rollback retains money/source/legacy URLs. Host backup
+protection/encryption and reviewed Admin UI/operator remain unwired; no activation.
+
+Cloud7354/399files/matchingJUnit/0failed-skipped-todo,
+all7296parent+58 retained; lint/build0. Chromium19/19 preserved,
+zero flaky/skipped/external, integrityOK/legacy kept/normal stop/closed handles,
+matching build. Author7path inspection only. [Details](wallet-receipt-restore.md),
+[proof](evidence/w03-receipt-restore-development.json),
+[JUnit](evidence/w03-receipt-restore-cloud.junit.xml.gz),
+[full log](evidence/w03-receipt-restore-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:catalog/labels and production host/Admin binding, financial remediation/raw backup/
+legacy bridge/cutover/retention, preferences, remaining Wallet/M1/I02/I03/master,
+then independent final review and batched Windows. Full plan incomplete; Wallet
+off; no dependency/lock/workflow/release/tag/VPS changes.
+
 **Latest continuation — W04/W06 partial:** source `c78dde44bdfdd281cd32faf4d9f58ee4bec1c5ab` adds Records loaded-ID
 checkboxes versus durable all-matching scope, explicit exclusions, metadata-only
 opt-in form, bounded before/after preview and exact-count confirmation. Session
