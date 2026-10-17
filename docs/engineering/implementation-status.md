@@ -1,6 +1,26 @@
 # Tiến độ Windows-native
 
-## Current checkpoint — 2026-10-16 (UTC)
+## Current direction — 2026-10-17 (Asia/Saigon)
+
+User directs feature-first development: finish and functionally test the main
+flows in Cloud, then perform comprehensive Windows qualification at the end of a
+feature group. Follow [feature-first validation](feature-first-validation.md).
+Do not push every intermediate commit or repeatedly qualify unchanged inputs.
+Required merge protection, all assertions and final Windows checks remain intact.
+
+Current remote main is `3d2eb8a1dc9f0aa315400925ae23ef852b003d67` (PR134 merged).
+PR136 remains open at `7e59abd0c682acf4dba80a7830e54c7e2e052a33`;
+[Windows38987528125](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38987528125)
+reports all eight checks successful. This status check did not independently
+revalidate its raw reports and does not claim final acceptance or merge. Main134's
+separate failed WebKit checkpoint is not a passing main run.
+
+Next: complete the remaining M1 Kanban/recurrence/rotation functional flows and
+their Cloud regressions, then Wallet core in approved dependency order. Preserve
+logical reviewable commits; perform Windows qualification before merge/handoff.
+Full master plan and Server2019/R02 remain unfinished. No release/tag/VPS.
+
+## Historical checkpoint — 2026-10-16 (UTC)
 
 **Toàn bộ master plan chưa hoàn thành.** F01–F09/I01, P01–P07 và W01 đã được nghiệm thu. P08/P09/P10 và W02 mới hoàn thành một phần; các milestone sau còn tiếp tục. Chưa release/tag/truy cập hoặc deploy VPS; Server2019/R02 chưa chạy.
 

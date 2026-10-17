@@ -1,5 +1,11 @@
 # Hướng dẫn Codex Cloud → GitHub Actions Windows → VPS Server 2019
 
+> **User sequencing update — 2026-10-17 (Asia/Saigon):** Develop and functionally
+> test the main feature flows in Cloud first; run comprehensive Windows checks
+> when the feature group is ready, before merge and package handoff. Do not
+> publish every intermediate commit. Required branch protection and final Windows
+> qualification remain mandatory. See [feature-first validation](../../engineering/feature-first-validation.md).
+
 > **F01 checkout verification (11/10/2026):** HEAD thực thi ban đầu là
 > `68cb753c13c35e13dd120b217040aa12365e3b40`, sau baseline
 > `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91` đúng một commit thêm7tài liệu;
