@@ -1,4 +1,5 @@
 import {TaskProvider} from './features/productivity/useTasks.js';
+import {useWallet} from './features/wallet/useWallet.js';
 import type {TagLabel} from './utils/taskTagLabels.js';
 import {completeNotificationRead} from './utils/notificationRead.js';
 import {invalidateManagedMedia} from './utils/mediaResource.js';
@@ -420,6 +421,7 @@ export default function App() {
   const getAuthHeader = (): Record<string, string> => {
     return authToken ? { "Authorization": `Bearer ${authToken}` } : {};
   };
+  const walletWorkspace=useWallet(getAuthHeader);
 
   const fetchUsers = async () => {
     if (!currentUser) return;
@@ -791,7 +793,7 @@ export default function App() {
     // Establish Server-Sent Events client loop pipeline
     let opened=false;
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
-      setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();fetchAllData();}opened=true;}
+      setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();void walletWorkspace.refresh();fetchAllData();}opened=true;}
     },onMessage:payload=>{
         if(payload.type==='PRODUCTIVITY_VIEW_UPDATE')setProductivityQueryEpoch(value=>value+1);
         if(["TASKS_UPDATE","PRODUCTIVITY_CATALOG_UPDATE","PRODUCTIVITY_PIN_UPDATE","RESTORE_COMPLETED","USERS_UPDATE"].includes(payload.type))setProductivityRefreshEpoch(value=>value+1);
@@ -816,6 +818,7 @@ export default function App() {
             fetchBackupsAndLogs();
             break;
           case "FINANCE_UPDATE":
+            void walletWorkspace.refresh();
             fetchTransactions();
             fetchFinancePlanning();
             fetchBackupsAndLogs();
@@ -847,6 +850,7 @@ export default function App() {
             fetchNotifications();
             break;
           case "USERS_UPDATE":
+            void walletWorkspace.refresh();
             fetchUsers();
             fetchBackupsAndLogs();
             break;
@@ -857,6 +861,7 @@ export default function App() {
             fetchAppVersion(); // đồng bộ cờ tính năng (vd: bật/tắt Điểm thưởng)
             break;
           case "RESTORE_COMPLETED":
+            void walletWorkspace.refresh();
             // Critical: full server reboot sync
             fetchAllData();
             break;
@@ -2021,6 +2026,7 @@ export default function App() {
 
               {activeTab === "finance" && canAccessFinance(currentUser.role) && (
                 <Finance
+                  walletWorkspace={walletWorkspace}
                   currentUser={currentUser}
                   users={users}
                   transactions={transactions}

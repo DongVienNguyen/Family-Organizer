@@ -1,4 +1,5 @@
 import {AuthenticatedImage} from './AuthenticatedMedia.js';
+import {Wallet as WalletAccounts} from '../features/wallet/Wallet.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -142,6 +143,7 @@ function MonthlyTrendChart({ points }: { points: MonthlyPoint[] }) {
 }
 
 interface FinanceProps {
+  walletWorkspace?: import('../features/wallet/accountWorkspace.js').AccountWorkspace;
   currentUser: User;
   users: User[];
   transactions: FinancialTransaction[];
@@ -349,6 +351,7 @@ function payButtonLabel(frequency: RecurringBill["frequency"]): string {
 // (thuần, có test) — file này chỉ giữ phần UI.
 
 export function Finance({
+  walletWorkspace,
   currentUser,
   users,
   transactions,
@@ -973,6 +976,7 @@ export function Finance({
 
   return (
     <div className="space-y-6" id="finance-module">
+      {walletWorkspace&&<WalletAccounts workspace={walletWorkspace}/>}
       <Reveal className="bg-slate-950 neu-pressed-sm rounded-2xl p-1.5 flex flex-col sm:flex-row gap-1.5 text-xs font-bold">
         <button
           type="button"

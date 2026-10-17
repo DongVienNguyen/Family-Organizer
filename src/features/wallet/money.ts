@@ -18,7 +18,7 @@ function separators(locale:string):{group:string;decimal:string} {
  return {group:parts.find(p=>p.type==='group')!.value,decimal:parts.find(p=>p.type==='decimal')!.value};
 }
 /** Unsigned form amount. Grouping and fractional precision follow the selected locale/currency. */
-export function parseMoney(text:string,currency:CurrencyCode,locale:string):Money {
+function parseMagnitude(text:string,currency:CurrencyCode,locale:string):bigint {
  const exponent=currencyExponent(currency),{group,decimal}=separators(locale);
  if(typeof text!=='string'||text.length>128)throw new Error('Invalid amount');
  const parts=text.trim().split(decimal);if(parts.length>2)throw new Error('Invalid decimal amount');
@@ -27,7 +27,15 @@ export function parseMoney(text:string,currency:CurrencyCode,locale:string):Mone
  else if(!/^\d{1,3}$/.test(groups[0])||groups.slice(1).some(g=>!/^\d{3}$/.test(g)))throw new Error('Invalid amount grouping');
  const fraction=parts[1]??'';
  if(parts.length===2&&(exponent===0||!/^\d+$/.test(fraction)||fraction.length>exponent))throw new Error('Invalid money precision');
- return checked(BigInt(groups.join(''))*10n**BigInt(exponent)+BigInt(fraction.padEnd(exponent,'0')||'0'),currency);
+ return BigInt(groups.join(''))*10n**BigInt(exponent)+BigInt(fraction.padEnd(exponent,'0')||'0');
+}
+export function parseMoney(text:string,currency:CurrencyCode,locale:string):Money {return checked(parseMagnitude(text,currency,locale),currency);}
+/** Opening/correction inputs may be negative, including signed64 minimum. */
+export function parseSignedMoney(text:string,currency:CurrencyCode,locale:string):Money {
+ if(typeof text!=='string'||text.length>128)throw new Error('Invalid amount');
+ const raw=text.trim(),negative=raw.startsWith('-'),magnitude=parseMagnitude(negative?raw.slice(1):raw,currency,locale);
+ if(negative&&magnitude===0n)throw new Error('Negative zero');
+ return checked(negative?-magnitude:magnitude,currency);
 }
 export function addMoney(a:Money,b:Money):Money {
  assertMoney(a);assertMoney(b);if(a.currency!==b.currency)throw new Error('Currency mismatch');return checked(minorInteger(a.minor)+minorInteger(b.minor),a.currency);
