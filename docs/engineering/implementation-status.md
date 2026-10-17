@@ -2,6 +2,27 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W04/W05/W06 partial:** source `d9e982e147fcdf8f9d0feaf5e675674657905ccf` adds
+server record-action previews and safe linked-fee parent navigation. Hidden parent
+IDs are withheld; edit/void controls require server flags, with all writes still
+reauthorized. Cross-phase selected403/404 clears the whole stale view and retires
+the selection; capability failures fail closed. Void confirmation during fresh
+reads reports stale state inline rather than silently returning.
+
+Cloud6952tests/372files/matchingJUnit/0failed-skipped-todo, all6935parent+17 retained;
+lint/build0. Chromium12/12 includes prior11 plus stale-void failure/reconfirmation,
+with real backend, zero skipped/flaky/external attempts, integrityOK, legacy kept
+and normal stop. Author inspection12paths, not independent review.
+[Details](wallet-record-actions.md), [proof](evidence/w06-record-actions-development.json),
+[browser inventory](evidence/w06-record-actions-browser.junit.xml).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun; no dependency/lock/workflow/config/release/tag/VPS change. Next:
+private receipt/legacy media ACL, durable bulk/selection and remaining filters,
+bridge/remediation/raw backup/cutover, other Wallet/M1/I02/I03/later master gates.
+This closes the prior action-preview/nonform-feedback gap, not the whole plan.
+
 **Latest continuation — W04/W05/W06 partial:** source `a41b1bd8730b1d7a73170b235b3f3af25a52a49d` adds
 Records tab, income/expense/adjustment/transfer+fee form, list/detail/shared filters
 and read-only family catalog. Money/FX snapshots remain exact; optional occurrence
