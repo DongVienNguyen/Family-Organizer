@@ -1,0 +1,134 @@
+{
+  "taskIds": [
+    "P08-partial",
+    "P09-partial",
+    "P10-partial",
+    "P17-partial",
+    "P18-partial"
+  ],
+  "status": "Cloud functional checkpoint; full M1/master and Windows acceptance incomplete",
+  "sourceCommit": "3560e03693233c4542800230ff3e12a63da8e02c",
+  "base": "ef0ed4b352e779a35e3a75f7217a9d2530f74d47",
+  "sourceSha256": {
+    "scripts/ci/productivity-browser-contract.mjs": "6cec99269fde1ec2f9f8bd425c7530188ac02f9603c9660a66ecba53909dd1be",
+    "scripts/windows/release-productivity-source-policy.mjs": "3cb401b39d5010c284d29c1ad89728624dadcbe9df51457e4bd0afd7ad34a97c",
+    "src/features/productivity/Kanban.tsx": "247c732da8d7033d617c823dc8acf98b35957c7e0beebd27faf0031e120dd555",
+    "src/features/productivity/KanbanGroupActions.tsx": "03610392ffeb7c159d7184c9f032ff7c706c2bd7b4bd8b7f1bbfe3b615c35ca8",
+    "src/features/productivity/KanbanTransitionActions.tsx": "2ec15f4582c9b969a3e18086e561d320544e688d3c50ca405086032a8c9b169c",
+    "src/features/productivity/kanban-cross-drag-ui.test.tsx": "616d3e1191058d5bee96e7cbf996692b134ac18074db7e4e57ba846827ec57a2",
+    "src/features/productivity/kanban-cross-drag.test.ts": "3e7c60d56aaa2979762ab58d2c2e0db5fde60f15cda90a0273f729f6ddbf1a84",
+    "src/features/productivity/kanban-drag-ui.test.tsx": "5d504a6bc09ca96d52a5dab9e96e9d778e48f431dde760b2dd32a9aba1ccc457",
+    "src/features/productivity/kanbanCrossDrag.ts": "e7108ef15d1939d06f7a60536f91459cbb1a859d9d2f930041817278258bd978",
+    "tests/e2e/productivity-cases.ts": "2f9abd26b52333a7935176304ba75d6ce894084c0b5acac6292a4397f2bbf32a",
+    "tests/e2e/productivity-cross-drag-cases.ts": "eb7071d3b0b3029b94f84fd0aa3d9b5a8ede5c2c1e7b28a1b07b912d4b46857c",
+    "tests/helpers/release-productivity-browser-fixture.ts": "56e252d3bd7ade73241504e5736f98416e529244c2492e9a5a30d496f84ee579",
+    "tests/productivity-registration.test.ts": "d456a1761f2bab1a5e9bdeb0bccb24b4463236db42001049b906ec60cd49728f",
+    "tests/release-productivity-profile.test.ts": "7abb404dbd9a7c96fe730a019bfe77e89764339a0cac1a4925256ee63b2f3888"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "lintExit": 0,
+    "buildExit": 0,
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6369,
+      "files": 343,
+      "junitCases": 6369,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "parentCasePreservation": {
+      "parentPassed": 6300,
+      "currentPassed": 6369,
+      "added": 69,
+      "missing": 0,
+      "normalization": {
+        "onlyFile": "server/recoveryRetention.test.ts",
+        "onlyPattern": "/tmp/fo test synthetic [A-Za-z0-9]+(?=/|$)",
+        "reason": "unchanged recovery test body with fresh synthetic temporary root; multiplicity retained"
+      }
+    },
+    "browser": {
+      "project": "chromium",
+      "exitCode": 0,
+      "cases": [
+        "18",
+        "24",
+        "35",
+        "36",
+        "48",
+        "50",
+        "53",
+        "54",
+        "55",
+        "56"
+      ],
+      "firstAttempts": 10,
+      "nativeTouch": 1,
+      "nativeTouchScope": "retained combined Matrix/Section gesture; new Workflow/group touch gestures not run",
+      "retries": 0,
+      "skipped": 0,
+      "offline": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "nativeHandlesClosed": true,
+      "fixtureRemoved": true,
+      "workflowPointer": "readonly drop confirmation/cancel; explicit active move; auto-scroll to Done; child actual Review/zero points then one adult35point grant and UUID replay",
+      "groupPointer": "exact selected source tag; canonical cancel equality/no writes; secondary tag/timed deadline/lifecycle/rewards unchanged; two canonical Tasks/three unique projections",
+      "visualScope": "Workflow light; grouped dark/reduced-motion/1280px and390px/no document overflow; mobile screenshot inspected",
+      "runnerReportedHead": "ef0ed4b352e779a35e3a75f7217a9d2530f74d47",
+      "sourceBinding": "frozen working-tree source and matching production bundle; no exact-HEAD Windows claim",
+      "productionBuild": {
+        "serverSha256": "52f8096a9d810b03e8798a12155c6bc3dc22aac71a996f579c2e9e5968b01ca6",
+        "indexSha256": "5cbe5e98b174df2e5484226347e08f2e711fdf3ba2f4c949c9c3855a30025f73"
+      }
+    }
+  },
+  "review": {
+    "mode": "LOCAL whole-branch SELF review; not independent",
+    "paths": 14,
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "correctionPasses": 0,
+    "rereview": false
+  },
+  "developmentFailures": [
+    "47 adapter scaffolding cases and5new UI behavior assertions RED before implementation;6readonly characterizations already pass",
+    "native C55/C56 first fail on the previous production bundle because drag handles do not exist",
+    "new C56 initially compares unsorted creation receipt tags with sorted canonical read; capture actual canonical baseline before the gesture, retain exact cancel/full Task assertions",
+    "derived created/modified/overdue adapter rejection3causalRED then runtime allowlist fix"
+  ],
+  "prUrl": null,
+  "ciRunUrl": null,
+  "windows": "not-run for this source; user-directed final feature-group gate",
+  "notRun": [
+    "full56-case browser inventory",
+    "Firefox",
+    "WebKit",
+    "dedicated new Workflow/group native touch gestures",
+    "current Windows2022 unit/browser/package/service qualification",
+    "Windows Server2019/R02"
+  ],
+  "remaining": "Wallet core is the next main-feature development group; remaining board pins/filtered-out feedback/semantic undo and P17/P18 acceptance stay tracked before full acceptance. No M1/master completion claim.",
+  "releaseTagVps": false,
+  "rawSha256": {
+    "/workspace/family-evidence/kanban-cross-drag-qualified.json": "0af010c46ef8f8aa7bdca16146373c1ed2d0ec395025ab9d7bad94d9c7792cff",
+    "/workspace/family-evidence/kanban-cross-drag-qualified.junit.xml": "4f306f7ec2f36f6fed066225ef1058bd21244827690d515df0278321a91bfaba",
+    "/workspace/family-evidence/kanban-cross-drag-qualified.log": "3ae5cf87f07e52a3f3b013af8172dcc9c8600ba3c6d65466e00485392a283852",
+    "/workspace/family-evidence/kanban-cross-drag-lint-qualified.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "/workspace/family-evidence/kanban-cross-drag-build-qualified.log": "d17f67a0dc6b7a96edc306b3825bf4b4f910f9c30b5e6f644a766eef92c05a4d",
+    "/workspace/family-evidence/kanban-cross-drag-browser-qualified.log": "e7da3441538789859e1fbe472232443e3ba9c52ec4b014fc4b2677ebbf695fa1",
+    "/workspace/family-evidence/kanban-cross-drag-self-review.json": "792b14dc8f1d5d5f3ffb58fe8b7ca91f837f257f651c1552dcc421bbe9f14642",
+    "/workspace/family-evidence/kanban-cross-drag-unit-preservation.json": "96d3bf2d3877933093832d6998afaa1626f170c3d74b258e30a6bb32ec55f3cf",
+    "/workspace/family-evidence/kanban-cross-drag-browser-reports/productivity-browser.json": "18f380153c28ace16508ef644795209eab258d7c0f80627f80c5fbee8f56226e",
+    "/workspace/family-evidence/kanban-cross-drag-browser-reports/productivity-browser.junit.xml": "aacb5a6afced40a836ff2b0479ed107438fffab116c473b457683712870ae622",
+    "/workspace/family-evidence/kanban-cross-drag-browser-reports/productivity-browser-touch.json": "7e4623ca597631173018ad4a8e36ca4829cc9fb75dfda3fe6d014d512557c273",
+    "/workspace/family-evidence/kanban-cross-drag-browser-reports/productivity-browser-touch.junit.xml": "3879e6ca152ac4c16cb9ee62ec9c0c397a49423c8a0d953d9c37a194b4aba18b",
+    "/workspace/family-evidence/kanban-cross-drag-browser-reports/productivity-browser-fixture.json": "cae1a1f5982add8a629a15a5e1d6ff7b1d0b658154f56ab9ea9e01f157a4e392",
+    "/workspace/family-evidence/kanban-cross-drag-browser-reports/productivity-browser-group-drag-dark-1280-chromium.png": "1b33ecd9f1f23f3a82d12dc7906dd54e40e8230d465808435ca91da5c3fb14eb",
+    "/workspace/family-evidence/kanban-cross-drag-browser-reports/productivity-browser-group-drag-dark-390-chromium.png": "d5b099c401511aba2f33fcd8b9f5f40b21ba6e8bc5777c75250674bffc5a78aa"
+  }
+}

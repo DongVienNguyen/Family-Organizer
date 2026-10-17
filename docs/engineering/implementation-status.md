@@ -2,7 +2,32 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
-**Latest continuation — P08/P09/P17/P18 partial:** source
+**Latest continuation — P08/P09/P10/P17/P18 partial:** source
+`3560e03693233c4542800230ff3e12a63da8e02c` adds Workflow/grouped pointer drag into the
+existing explicit P10/selected-dimension confirmations, visible-only overlay and
+retained default auto-scroll. Readonly/stale/foreign/canceled operations are
+rejected; multi-tag visual IDs do not duplicate Task writes.
+
+Full Cloud6369tests/343files/matchingJUnit/0failed-skipped-todo, lint/build0;
+actual Chromium C18/C24/C35/C36/C48/C50/C53–C56 plus retained native touch10+1first
+attempts/offline/integrity/native-close/cleanup. All6300parent cases retained+69.
+C55asserts native auto-scroll, cancel/no writes, child actual Review/zero points
+and one adult35point grant with UUID replay; C56preserves secondary tag/timed due/
+lifecycle/rewards, dark/reduced-motion/390px. One LOCAL SELF14paths0C/0I/0M,
+no correction/rereview, not independent. Original54case and touch bodies retained.
+[Functional detail](kanban-workflow-group-drag.md) and
+[compact proof](evidence/m1-cross-drag-development.json).
+
+Development branch:`codex/feature-first-acceptance`; PR URL/CI run URL:none.
+No new Windows run or protection changes. Full56-case browser/Firefox/WebKit,
+dedicated new-kind touch/current Windows/package/service and Server2019R02 remain
+unrun. Main M1 core is developed in Cloud; full M1/master remains incomplete.
+Next main-feature work: Wallet W02/W03/W04 then W05 core, preserving legacy finance.
+Board pins/filtered-out feedback/semantic undo and remaining P17/P18 acceptance
+stay tracked in [M1 checklist](m1-feature-checklist.md); they are not waived.
+No release/tag/VPS access/deployment.
+
+**Previous continuation — P08/P09/P17/P18 partial:** source
 `d481c2d1297c88b8155ef68b9a0593664cdd7a6f` adds owned Kanban view title/group/sort/filter
 editing, explicit conflict rebase/unknown UUID replay, same-lane active Workflow
 ordering and pure grouped rank preserving timed deadlines and secondary tags.
