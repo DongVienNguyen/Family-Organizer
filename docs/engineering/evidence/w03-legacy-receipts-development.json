@@ -1,0 +1,250 @@
+{
+  "taskIds": [
+    "W03 partial",
+    "W04 partial",
+    "W16 partial"
+  ],
+  "sourceCommit": "94222adfa3e17492bd02dc19c6111cdabb8bca9c",
+  "testedWorkingTreeParent": "01e37e8bddbe4a3fa1f2665a09cbe09a90d11133",
+  "binding": "All9 frozen source/test SHA256 values matched committed Git blobs; Cloud development verification, not exact-HEAD Actions acceptance",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7130,
+    "files": 383,
+    "junitCases": 7130,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7096,
+    "added": 34,
+    "removed": 0,
+    "newByFile": {
+      "server/wallet/legacyMedia.test.ts": 9,
+      "server/wallet/receiptMigration.test.ts": 23,
+      "server/wallet/receipts.api.test.ts": 1,
+      "server/wallet/receipts.test.ts": 1
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "buildBytesMatchActualBrowser": true,
+    "npmCi": "not repeated; dependency/lock unchanged"
+  },
+  "browser": {
+    "parentCases": 14,
+    "cases": 14,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "01e37e8bddbe4a3fa1f2665a09cbe09a90d11133",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "09bc1f5cd6c8d0b81dfb6ee13ffefeb7095ce7fb03c2b270a104ac2d5905d1fa",
+        "index": "06c4423daff161adf4d6e91af1e7e6bba565644fd46bd6f5d17f9d449ef5e94a"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 5,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "3c5fdf30-65b0-4d06-b21d-ee30bd1eb3f1",
+        "creditId": "b5c02b00-ed6c-45d3-8a76-668281dde6c1",
+        "hiddenId": "8b4df4b1-ac77-4212-8e68-aafb66ffdc7b",
+        "readId": "6834277e-7618-4463-9a67-fe793c00b3ae",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "sourceSha256": {
+    "server/media.ts": "84cc8ad8e1762839657d647275c3ed7de5f15a8548dbe5abc4aaae2b4c3cec66",
+    "server/wallet/legacyMedia.test.ts": "04f4d39dcd6e97272d939f14be7bd4235370efb11f195a5fc8425c66767c39a4",
+    "server/wallet/legacyMedia.ts": "c69d92731a608c9f2bf12b9d4a8b6ec18a09f3dd760f9458c988b3ffbbc2b1fc",
+    "server/wallet/receiptMigration.test.ts": "9fc05eb9270e515bc8be8f03d0edd1348834bebc067724d71956341335e73528",
+    "server/wallet/receiptMigration.ts": "d842d243158b2c0d015852993efc9fcbe8080ac0e62a0b497f04ba53580461eb",
+    "server/wallet/receiptSchema.ts": "b4d65e50e0c852b1b9d02dc1a6a601a22a2e79ff2c817fa2737f55e8952549fa",
+    "server/wallet/receipts.api.test.ts": "b50d93e1a9e3bfd56c02cb794b9bbaac83af3f913f565deb6803536eb4f6b799",
+    "server/wallet/receipts.test.ts": "e4f4b5f1ce95d743355a761dd54aee4b8ee692cbfac70d4807ccd44e0496e3b8",
+    "server/wallet/receipts.ts": "52ae3541d9567cac3f42b979feb031b9afd7fbe022a02d425a16668f85624519"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "reports": {
+    "/workspace/family-evidence/w03-legacy-receipt-qualified.json": {
+      "bytes": 2063814,
+      "sha256": "cbd172f56182f3fa28414b826ce31ce78b42afc5bbc0c353457e337ea1302edc"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-qualified.junit.xml": {
+      "bytes": 1441375,
+      "sha256": "56f054660fc2b5d0dd83590cf7ba0091d1a6621be1864319e939e693e9db0589"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-qualified.log": {
+      "bytes": 84246,
+      "sha256": "084e8f108d3ade38cd97db5ee10bd125923e9de65f08d796e7fa84245358944e"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-build.log": {
+      "bytes": 1795,
+      "sha256": "00226eba75b1614edc0c69196b56a23baa583b98d0e4038fa8b78a59bea88813"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-preservation.json": {
+      "bytes": 9840,
+      "sha256": "ed24a9ae56f7822f6f451647a374e171f0e2b8f2b110486063991cce1bf6d5d0"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-frozen.json": {
+      "bytes": 1214,
+      "sha256": "e889c876d6f5779f0203ad3e41011870c8682ba88308393224e39759e26abd22"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-self-review.json": {
+      "bytes": 2054,
+      "sha256": "06ff0a405c551dcc043a6b52d2fc0ae2516f556785b989dcde47a024172264d8"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-acl-red.json": {
+      "bytes": 4524,
+      "sha256": "0edce51f81740ab214e87fa9de45c2d6d1f296ca18f90f8950b040369605e990"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-conversion-red.json": {
+      "bytes": 786,
+      "sha256": "e3ba102cdb8577df4916ff7ab4de0b1f541e85a615e26bc7acced92b3ab9dcc0"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-anchors-resolution-red.json": {
+      "bytes": 16375,
+      "sha256": "962c3607ff378e1897199030b71b34af3bf2d737d52ba95dc62c9eab83620c3d"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-detach-red.json": {
+      "bytes": 7882,
+      "sha256": "6921030849e8d10cc4250cf1bd4d09d5f24797bb673a396c0e3f79f00b14fbc6"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-audit-red.json": {
+      "bytes": 6436,
+      "sha256": "a5e2c9b37a094daaa683a69bd2e982877ca981253ab79fe801c87227c32164de"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-cleanup-red.json": {
+      "bytes": 8090,
+      "sha256": "41b66c9b85eb62050707a56aa3528e905fc905190b0c17d2db1ef6e28670fb49"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-cleanup-reproduced-red.json": {
+      "bytes": 7573,
+      "sha256": "2e018a50fd8d39060c19fc5fc7492803b9d2b650e3d00e91815ea5c2fe13fd64"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-targeted.json": {
+      "bytes": 38812,
+      "sha256": "2e43533cae01c2fdead5717cfc4ba269041f637ebfd6b6be320edc14585ad73e"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-targeted-v2.json": {
+      "bytes": 37907,
+      "sha256": "3be6fb0dea0542761b2371b4b749377a601f6b24bd1819e3b480e7ff315cdcc2"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-development-lint.log": {
+      "bytes": 676,
+      "sha256": "37d0b4557ff84cea2ff4368738149d4a052090966919fa3f9f8ce54d8231a257"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-development-lint-v2.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-browser-qualified.log": {
+      "bytes": 2383,
+      "sha256": "b8b1538880f28fa18a7a758ee730d825d2086a3b378a15983ab586330359aa81"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1129,
+      "sha256": "6e3f129d44c3a8db493b9c2db69d76945796b3fd2a8bf54edc4ca25dc84e60b3"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-browser-qualified-artifacts/browser.json": {
+      "bytes": 19544,
+      "sha256": "04c794a3fc8c8e81f6145df519b69db3882895270698d0aa6b1cdbec3cdf5fae"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 2484,
+      "sha256": "51289ca2e322c11578aee1ff15b28e26c6032317db5d533ca8c47652160dde3c"
+    },
+    "/workspace/family-evidence/w03-legacy-receipt-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  },
+  "retainedFullJUnit": {
+    "path": "docs/engineering/evidence/w03-legacy-receipts-cloud.junit.xml.gz",
+    "bytes": 195758,
+    "sha256": "4bb7a412471a022ef52519e3804e5f4b11bab952dedd561425321d6343b42de0",
+    "uncompressedSha256": "56f054660fc2b5d0dd83590cf7ba0091d1a6621be1864319e939e693e9db0589",
+    "cases": 7130
+  },
+  "preservedBrowserArtifacts": "/workspace/family-evidence/w03-legacy-receipt-browser-qualified-artifacts",
+  "review": {
+    "kind": "LOCAL SELF author inspection; not independent whole-branch review",
+    "paths": [
+      "server/media.ts",
+      "server/wallet/legacyMedia.test.ts",
+      "server/wallet/legacyMedia.ts",
+      "server/wallet/receiptMigration.test.ts",
+      "server/wallet/receiptMigration.ts",
+      "server/wallet/receiptSchema.ts",
+      "server/wallet/receipts.api.test.ts",
+      "server/wallet/receipts.test.ts",
+      "server/wallet/receipts.ts"
+    ],
+    "closed": [
+      "Current raw finance reference or durable case-folded path digest denies generic serving before avatar/note/uploader policy; inactive mode unchanged",
+      "Generic cleanup retains durably protected former files even after collection/avatar references disappear",
+      "Explicit Wallet5 backup conversion verifies historical Admin/inactive state, original source and current pilot fingerprint before preparing replacement bytes",
+      "Managed/inline images become distinct opaque record files with hashes; remote/missing/invalid remain explicit pending, no fetch",
+      "Explicit validated replacement files resolve pending references without changing source text, money, IDs or activation",
+      "Snapshot manifest anchors reject missing/wrong record/file/hash/future conversion/digest; detached anchors retain valid historical user/time and deny markers",
+      "Shared native restore/pilot replay retain original money; canonical detach leaves the next shared backup restorable",
+      "Receipt audit before/after revisions are accurate; raw names and bytes are excluded",
+      "Conversion ID/file/audit lookups use maps/sets rather than repeated growing-table scans"
+    ],
+    "remaining": [
+      "Live installation apply still needs current authority/source fencing, persisted safety backup and maintenance integration",
+      "Financial quarantine remediation/legacy write bridge/raw JSON ZIP/cutover",
+      "retention/bulk/remaining filters/reports/export/audit/other Wallet M1 master gates",
+      "current Windows/Node22/other engines/touch/package/service/Server2019R02"
+    ],
+    "noIndependentReview": true
+  },
+  "notRun": [
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "actual Server2019R02",
+    "production data/secrets/real providers (prohibited)"
+  ],
+  "remaining": [
+    "Live installation apply still needs current authority/source fencing, persisted safety backup and maintenance integration",
+    "Financial quarantine remediation/legacy write bridge/raw JSON ZIP/cutover",
+    "retention/bulk/remaining filters/reports/export/audit/other Wallet M1 master gates",
+    "current Windows/Node22/other engines/touch/package/service/Server2019R02"
+  ],
+  "releaseTagVps": "none"
+}

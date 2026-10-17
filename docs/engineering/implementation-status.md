@@ -2,6 +2,32 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W03/W04/W16 partial:** source `94222adfa3e17492bd02dc19c6111cdabb8bca9c` adds explicit
+legacy receipt backup conversion with deterministic per-record private copies,
+validated supplied replacements and explicit remote/missing/invalid pending state.
+Original legacy references, money, IDs and nonce receipts remain. Source/pilot
+fingerprints fence preparation; no fetch or live SQL/filesystem mutation. Shared
+validation binds conversion/detached-history anchors to manifests. Wallet stays
+off. Live Admin/safety-backup/source-fence/maintenance apply is still unwired.
+
+Old URLs are denied after cutover before avatar/note/uploader policy; durable
+Windows-case-folded digests survive removed source references and also prevent
+generic cleanup. Canonical detach keeps the next backup restorable; audit records
+accurate before/after revisions without raw names/bytes.
+
+Cloud7130tests/383files/matchingJUnit/0failed-skipped-todo; all7096parent+34 retained.
+Lint/build0, Chromium14/14, zero skipped/flaky/external attempts, integrityOK,
+legacy kept/normal shutdown; final build matches tested bytes. Author9path
+inspection, not independent whole-branch review. [Details](wallet-legacy-receipts.md),
+[proof](evidence/w03-legacy-receipts-development.json),
+[full Cloud JUnit](evidence/w03-legacy-receipts-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun. No dependency/lock/workflow/config/release/tag/VPS change. Next:
+live apply/remediation/raw backup/legacy bridge/cutover and remaining filter/bulk,
+retention, Wallet/M1/I02/I03/master gates. Full plan remains incomplete.
+
 **Latest continuation — W02/W03/W04/W06/W16 partial:** source `57c9548a20cb3a7312fd571fbba0fcfa765ba0e2` adds
 private receipt files/manifest, authenticated full-record ACL routes, validated
 binary SDK and record attach/download/confirmed-detach UI. Images reuse HEIC
