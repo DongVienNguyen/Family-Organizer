@@ -1662,6 +1662,21 @@
     },
     "applied": "Move applied."
   },
+  "productivityKanbanPolicy": {
+      "title": "Work in progress limits",
+      "scope": "Applies to the entire shared board, including Tasks outside your filter. Lowering a limit never deletes or automatically moves existing work.",
+      "unchanged": "Keeps deadlines, proof, completion state and reward points unchanged.",
+      "off": "No limit",
+      "soft": "Warn when exceeded",
+      "hard": "Block work above the limit",
+      "policyFor": "Policy: {{title}}",
+      "limitFor": "Limit: {{title}}",
+      "apply": "Confirm limits",
+      "reload": "Reload policy and discard draft",
+      "failed": "Unable to save policy. Check your permission and reload if the board changed.",
+      "pending": "Check request outcome",
+      "unavailable": "Unavailable column"
+  },
   "productivityKanban": {
     "board": "Kanban board",
     "columns": "Task columns",

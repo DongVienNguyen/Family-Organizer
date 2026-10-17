@@ -1662,6 +1662,21 @@
     },
     "applied": "Đã áp dụng di chuyển."
   },
+  "productivityKanbanPolicy": {
+      "title": "Giới hạn việc đang làm",
+      "scope": "Áp dụng cho toàn bộ bảng dùng chung, gồm công việc ngoài bộ lọc. Giảm giới hạn không xóa hay tự chuyển công việc hiện có.",
+      "unchanged": "Không đổi hạn, bằng chứng, trạng thái hoàn thành hay điểm thưởng.",
+      "off": "Không giới hạn",
+      "soft": "Cảnh báo khi vượt",
+      "hard": "Chặn việc vượt giới hạn",
+      "policyFor": "Chính sách: {{title}}",
+      "limitFor": "Giới hạn: {{title}}",
+      "apply": "Xác nhận giới hạn",
+      "reload": "Tải lại cấu hình, bỏ bản nháp",
+      "failed": "Không lưu được cấu hình. Hãy kiểm tra quyền và tải lại nếu bảng đã thay đổi.",
+      "pending": "Kiểm tra kết quả yêu cầu",
+      "unavailable": "Cột không còn khả dụng"
+  },
   "productivityKanban": {
     "board": "Bảng Kanban",
     "columns": "Các cột công việc",

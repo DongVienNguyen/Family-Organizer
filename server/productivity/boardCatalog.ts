@@ -1,5 +1,5 @@
 import {createHash,randomUUID} from 'node:crypto';
-import type {AppCommand} from '../../src/features/productivity/contracts.js';
+import type {AppActor,AppCommand} from '../../src/features/productivity/contracts.js';
 import {object,keys,text,integer,choice} from '../../src/features/productivity/validation.js';
 import {UserRole} from '../../src/types.js';
 import {AppStoreError} from '../appErrors.js';
@@ -29,7 +29,13 @@ function projection(tx:TaskReader,id:string):SharedBoardConfig {
 }
 /** Shared configuration through the internal authenticated board router; no UI activation. */
 export function createBoardCatalog(ports:{reader:TaskReader;write:typeof withAppWriteTransaction;afterWrite?:()=>void}){
- return {configure(ctx:AppCommand,input:BoardConfigureInput):SharedBoardConfig {
+ return {read(actor:AppActor,id:string):SharedBoardConfig {
+  const ctx={actor,expectedRevision:0,requestId:'board-policy:read'};assertContext(ctx,ports.reader);
+  try{text(id,256);}catch{fail(400,'Mã bảng không hợp lệ.');}
+  if(![7,8,9,10,11,12,13].includes(ports.reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration bảng trước khi đọc cấu hình.');
+  const board=ports.reader.get('SELECT list_id FROM productivity_boards WHERE id=?',id);if(!board)fail(404,'Không tìm thấy bảng.');
+  authorize(ports.reader,ctx,board.list_id);return projection(ports.reader,id);
+ },configure(ctx:AppCommand,input:BoardConfigureInput):SharedBoardConfig {
   validate(input);authorize(ports.reader,ctx,input.listId);
   return ports.write({actorId:ctx.actor.userId,command:'productivity:board:configure',requestId:ctx.requestId,payloadHash:createHash('sha256').update(JSON.stringify({expectedRevision:ctx.expectedRevision,input})).digest('hex')},tx=>{
    authorize(tx,ctx,input.listId);

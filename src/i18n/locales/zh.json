@@ -1662,6 +1662,21 @@
     },
     "applied": "移动已应用。"
   },
+  "productivityKanbanPolicy": {
+      "title": "进行中工作限制",
+      "scope": "应用于整个共享看板，包括筛选外的任务。降低限制不会删除或自动移动现有任务。",
+      "unchanged": "保留截止日期、凭证、完成状态和奖励积分。",
+      "off": "无限制",
+      "soft": "超出时警告",
+      "hard": "阻止超出限制的工作",
+      "policyFor": "策略：{{title}}",
+      "limitFor": "限制：{{title}}",
+      "apply": "确认限制",
+      "reload": "重新加载策略并放弃草稿",
+      "failed": "无法保存策略。请检查权限；若看板已更改，请重新加载。",
+      "pending": "检查请求结果",
+      "unavailable": "列不可用"
+  },
   "productivityKanban": {
     "board": "看板",
     "columns": "任务列",
