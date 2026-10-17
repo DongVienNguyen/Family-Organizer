@@ -30,8 +30,8 @@
     "tests/helpers/release-productivity-browser-fixture.ts": "1209aa1927ae6134b847676a6bafbba0f2e9394601011990f899413f063bb043",
     "tests/productivity-registration.test.ts": "39d91d526391bab19cb94036e03e96f6b1e9885ec5e7da0c32a9a2e7468a883b",
     "tests/release-productivity-profile.test.ts": "e20dc02e371ee48d4aa1b24aa70509d910515f02c04cc2055afd0016ac154363",
-    "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
-    "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2"
+    "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+    "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906"
   },
   "wholeBranchReview": {
     "taskId": "P09-section-column-settings",
@@ -140,7 +140,8 @@
     "originalColumnSource": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
     "original39CaseCallsUnchangedExceptC36SessionSetup": true,
     "original38CaseCallsUnchanged": true,
-    "c36OnlyLoginPreconditionsChanged": true,
+    "c36OnlySessionPreparationChanged": true,
+    "permanentHeldLogoutRegressionAdded": true,
     "allExistingAssertionsUnchanged": true,
     "original39HelpersUnchanged": true,
     "helperNames": [
@@ -175,10 +176,10 @@
     "entireNativeTouchFileUnchanged": true,
     "currentCases": 42,
     "sourceHashes": {
-      "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
       "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
       "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
-      "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+      "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
       "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
       "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
     }
@@ -1214,9 +1215,180 @@
       "browser phone-before-login/CreateTasksectionId/owned-column cleanup failures"
     ]
   },
-  "windowsAcceptance": "pending exact HEAD",
+  "windowsAcceptance": "4dee93e/run38984107559 FAILED; new exact HEAD pending, no unchanged rerun",
   "plannedFirstAttemptCases": 172,
   "publicationAllowed": false,
   "fullMasterPlanAccepted": false,
-  "server2019Acceptance": "not-run"
+  "server2019Acceptance": "not-run",
+  "secondPostReviewCiRepair": {
+    "basisRun": "38984107559",
+    "basisSha": "4dee93ea8ac43a729625e46df7328e6234cf71dc",
+    "source": "tests/e2e/productivity-test.ts",
+    "beforeSha256": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+    "afterSha256": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+    "rootCause": "The helper issued a new session and mutated storage while the previous page logout/privacy purge could still persist null. Trace showed child login200, no child auth/me success, and access-control errors from the live retiring page. Held real IndexedDB deletion reproduced premature native session issuance1insteadOf0 in Cloud.",
+    "repair": "Assert old login portal after cleanup; retire the App via owned /api/ready JSON document with status/content-type assertions; then issue and seed next actual session. Original language initializer/hooks/errors remain unchanged.",
+    "wholeBranchReview": "original26source LOCAL SELF stays closed; actual validation repair only, no rereview",
+    "applicationSourceChanged": false,
+    "deadlinesChanged": false,
+    "retriesAdded": false,
+    "intermediateFailure": "Opaque about:blank retirement correctly blocked early issuance, but the existing unconditional language initializer raised a localStorage SecurityError on an opaque document. Preserved zero-error guard failed; owned JSON retirement corrects the illegal access without changing that initializer or suppressing errors.",
+    "permanentC36Regression": "C36 now holds the first real IndexedDB deletion success event after actual UI logout; asserts zero new session issuance until cleanup release, then exactly one real child session and all original workflow/proof/deadline/reward checks.",
+    "workflowBeforeSha256": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+    "workflowAfterSha256": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
+    "sourceBefore": {
+      "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+      "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2"
+    },
+    "sourceAfter": {
+      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+      "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906"
+    },
+    "causalDiagnostic": {
+      "redNativeExit": 1,
+      "redExpectedBeforeCleanup": 0,
+      "redActual": 1,
+      "ownedGreenNativeExit": 0,
+      "ownedGreenBrowserCases": 1,
+      "ownedGreenTouchCases": 1,
+      "opaqueDocumentAttemptExit": 1,
+      "zeroErrorAssertionRetained": true
+    },
+    "finalValidation": {
+      "affectedBrowserCases": 4,
+      "nativeTouch": 1,
+      "junitMatched": true,
+      "nativeExit": 0,
+      "lintExit": 0,
+      "registrationTests": 4,
+      "productionBuildUnchanged": true,
+      "manifest": {
+        "commitSha": "4dee93ea8ac43a729625e46df7328e6234cf71dc",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+        "productionBuild": {
+          "serverSha256": "2ee1d6e48bb2bdb9e450fa4075e39998fed0e91a86e30992975cedc04e97248f",
+          "indexSha256": "55076387fa935e7bc85d5a8afadb682f442ee4396fbed14f75d034337b0635d1"
+        },
+        "synthetic": true,
+        "project": "chromium",
+        "fixtureProject": "chromium",
+        "executionJob": null,
+        "productivityVersion": 13,
+        "workerFormat": 1,
+        "workerCount": 1,
+        "workerFixtures": [
+          {
+            "index": 0,
+            "fixtureId": "568c3f92-4153-4f0a-9c91-44c7880b4fbf",
+            "port": 37181,
+            "seedTasks": 13,
+            "legacyFileBeforeSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "legacyFileAfterSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "integrity": "ok",
+            "databaseClosed": true,
+            "nativeHandlesClosed": true,
+            "fixtureRemoved": true,
+            "serverExitCode": 0,
+            "serverSignal": null,
+            "networkAttempts": [],
+            "serverLogSha256": "f1161c0d14c463d2bab0f5bf7c059b51df42ae3627aa633f0154da943e9e9ec8",
+            "runtimeSha256": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+            "error": null
+          }
+        ],
+        "fixtureRemoved": true,
+        "nativeHandlesClosed": true,
+        "networkAttempts": [],
+        "externalAttempts": [],
+        "legacyPreserved": true,
+        "integrity": "ok",
+        "databaseClosed": true,
+        "cliExitCode": 0,
+        "cliSignal": null,
+        "serverExitCode": 0,
+        "serverSignal": null,
+        "browserExitCode": 0,
+        "browserSignal": null,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "touchExitCode": 0,
+        "touchSignal": null,
+        "nativeTouchVerified": true,
+        "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+        "error": null
+      },
+      "hashes": {
+        "p09-session-race-red.log": "be2c39fbb27c4eb98b6a3da1e3d1d5feeceddf6df60ba438de42775cde775081",
+        "p09-session-race-opaque-document-failed.log": "b8da01d0b597d4ad9d13b0840366210ed9be624aca72b7c1b993db4d9afec2e1",
+        "p09-session-race-owned-green.log": "bede26a3ee537b35c56388ef4cc2a59ae0b9fafd59b810d713f9c711a918ea26",
+        "p09-session-race-business.log": "16f9e51cafd82b5953871308e1d4638557f23196cf3714d00800356414ef3838",
+        "p09-session-race-final-registration.json": "730ff024edccedd0774f1dd6f873be9fa3ab3effeb7a02a7634d1778c7056b7d",
+        "p09-session-race-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+      },
+      "rawReportHashes": {
+        "productivity-browser-touch.json": "faab942ab54e72e6e9a8e4794545e183316d03cc70576022c93b210395504c68",
+        "productivity-browser-runtime-chromium-worker0.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser.junit.xml": "65f2671a6b84064c89e0f7d497ba727a2cba9a2f4a60b1634e281466f59cef21",
+        "productivity-browser-touch.junit.xml": "cf2269a65691975499b8d9cdf20953e66d229187d3f61d22330e9e7441bedaca",
+        "productivity-browser.json": "74536fbecb102e38e45362d75db12c30e0493584d3efc90344165b8056a2be4d",
+        "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser-touch-runtime.json": "921e04bd50c740d29a915920f54f6431a7d6d0372cce89a04c141b918fad7ee2",
+        "productivity-browser-fixture.json": "ef752018a3844910c89fd6ace20a94984b06f9d1dd6d168c1c210dba1510574d"
+      }
+    }
+  },
+  "casePreservationAtFailed4dee": {
+    "acceptedParent": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+    "originalColumnSource": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
+    "original39CaseCallsUnchangedExceptC36SessionSetup": true,
+    "original38CaseCallsUnchanged": true,
+    "c36OnlyLoginPreconditionsChanged": true,
+    "allExistingAssertionsUnchanged": true,
+    "original39HelpersUnchanged": true,
+    "helperNames": [
+      "login",
+      "matrixRequest",
+      "createProductivityTest",
+      "togglePin",
+      "workflowView",
+      "holdFetch",
+      "matrixSeed",
+      "matrixChoose",
+      "matrixMoveMenu",
+      "sectionBoard",
+      "sectionTarget",
+      "holdSectionPreview",
+      "groupChoice",
+      "applyGroup",
+      "recurrencePanel",
+      "recurrenceChoice",
+      "recurrenceDate",
+      "legacyFamilyForCutover",
+      "cutoverDraft",
+      "pendingReviewTask",
+      "chooseWorkflowView",
+      "reviewRewards",
+      "legacyReviewTask",
+      "matrixRequestWithId"
+    ],
+    "originalColumn3CaseCallsUnchangedExceptSessionSetup": true,
+    "columnHelpersUnchangedExceptLayoutSessionSetup": true,
+    "offlineAndZeroErrorHookTextsUnchanged": true,
+    "entireNativeTouchFileUnchanged": true,
+    "currentCases": 42,
+    "sourceHashes": {
+      "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+      "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+      "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
+      "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+      "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
+      "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
+    }
+  }
 }

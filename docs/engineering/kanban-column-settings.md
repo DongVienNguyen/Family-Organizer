@@ -45,3 +45,20 @@ and P10/M1 acceptance gaps are not marked complete. Windows2022 CI does not
 establish Windows Server2019 acceptance (R02). No release or VPS operation is part
 of this work. Exact source, review and test receipts are recorded in
 `evidence/p09-columns-development.json` and the PR's exact-HEAD CI proof.
+
+
+PR136 first Windows checkpoint4dee93e exposed a session-fixture race: the next
+session could be issued while the old page's privacy cleanup still persisted a
+null token. C36 Firefox/WebKit and C41 in all three engines failed the retained
+child-profile check. Both6032-test unit reports passed independently; the overall
+run failed. A real held IndexedDB deletion reproduced premature issuance1instead
+of0 in Cloud. The helper now waits for the old login portal, retires the App via
+an owned readiness JSON document, and then issues/seeds the next session. Parking
+at an opaque document initially triggered the unchanged language initializer's
+SecurityError, which the zero-error assertion caught; that failure is retained.
+The owned document avoids the illegal access without changing or filtering guards.
+C36 permanently exercises held logout cleanup, zero early issuance and exactly
+one subsequent real child login before its original workflow assertions. The
+causal diagnostic and all four affected journeys/nativeTouch passed after repair.
+No production bundle, dependency, test deadline or retry policy changed. Fresh
+exact-HEAD Windows qualification is still required; no unchanged CI rerun.
