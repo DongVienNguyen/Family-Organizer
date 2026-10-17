@@ -2,7 +2,25 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
-**Latest continuation — W03 partial:** source `cccffdceafdc8bf5e5cc82e587c84d2f7cc5d5af` adds
+**Latest continuation — W03 partial:** source `cdb2e48b38e2bf3eb38261eb33553969835af386` adds
+pre-Wallet shared-manifest0→Wallet4 conversion through the same pure staging used
+by live migration. Explicit active historical Admin owner/timezone and stable
+staging IDs; original IDs/legacy/UUID receipts/settings/media retained. Restored
+conversion replays live migration with0new entities. Other namespaces stay exact,
+old source remains unbranded, full target validates before I01. Wallet stays off.
+
+Cloud6726tests/358files/matchingJUnit/0failed-skipped-todo, Wallet387/19;
+all6716parent+10, lint/build0. LOCAL SELF8paths0C/1I/0M, orphan-link erasure guard
+fixed RED→GREEN/full, one fix pass/no rereview/not independent.
+[Detail](wallet-pre-wallet-backup.md), [proof](evidence/w03-pre-wallet-backup-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No route/activation.
+Next: private receipts, remediation, actual legacy bridge/API/UI; raw legacy JSON/
+ZIP without namespace/claim manifest still needs coordinated conversion. Current
+browser/Windows2022/Node22/package/service/Server2019R02 unrun. **Full Wallet/M1/master
+incomplete.** No release/tag/VPS access or deployment.
+
+**Previous continuation — W03 partial:** source `cccffdceafdc8bf5e5cc82e587c84d2f7cc5d5af` adds
 explicit native Wallet1/2/3→4 shared backup conversion and standalone2/3/4→5.
 I01 historical inspection is read-only and does not admit an old snapshot to
 restore; the full converted target must pass the unchanged current gate. Money,

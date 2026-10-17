@@ -29,3 +29,5 @@ unrun. No dependency/lockfile/workflow change. Shared pre-Wallet0 and raw legacy
 JSON/ZIP need explicit coordinated conversion; private receipts, remediation,
 legacy bridge/API/UI, parity and all later tasks remain required. Full Wallet/M1/
 master incomplete. No release/tag/VPS access or deployment.
+
+Later continuation: shared pre-Wallet0 conversion is now implemented at sourcecdb2e48; see [pre-Wallet proof](wallet-pre-wallet-backup.md). The source-specific native1/2/3 evidence above remains historical. Raw legacy JSON/ZIP without the shared manifest is still separate.

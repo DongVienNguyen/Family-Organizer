@@ -1,0 +1,200 @@
+{
+  "taskIds": [
+    "W03-partial"
+  ],
+  "status": "Cloud pre-Wallet shared-manifest backup conversion and common staging; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "cdb2e48b38e2bf3eb38261eb33553969835af386",
+  "base": "7e77bcffa92ddee8a2a8800186fd047d080b1072",
+  "sourceSha256": {
+    "server/appSnapshot.ts": "6833e3df1f43c26fcfc67d8390bce5478c9067cbd115a5f500c837a20d5c0cfa",
+    "server/wallet/backupConversion.integration.test.ts": "39556a100b6dabc1aedfd6fb400dbd97e15b0cd8079b6b99ee3e8392dfd5b38b",
+    "server/wallet/backupConversion.ts": "1efb6dbb03467305f354aad5cf25d61f17300a1cc2f690ae6103a3e17d467972",
+    "server/wallet/legacyMigrationData.ts": "d97197c6be9f55f5a50ce885307ff5472d9eb60fea17c71758df1f568550d4d3",
+    "server/wallet/migrate.test.ts": "ee29e19d6a417c437d646792d8f992ad75572898fb9380e036ae0f9fd8e7cdcf",
+    "server/wallet/migrate.ts": "e95fcb5588a3ae0858677ff0314f9493e48af6f63c7350b46d740e4e9c69e8bc",
+    "server/wallet/migrationPlan.ts": "8cef412bc594d55995afac87b203165584ee839bbe34812d29cdfc3ba943f5d7",
+    "server/wallet/migrationService.ts": "3580bd2988e125cca54be0043db4c7715e3e6f6dff24e177e37b9367f12498cc"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6726,
+      "files": 358,
+      "junitCases": 6726,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 142.53
+    },
+    "walletInFullSuite": {
+      "tests": 387,
+      "files": 19
+    },
+    "targetedWalletBeforeFinalExplicitInputTitleChange": {
+      "tests": 387,
+      "files": 19,
+      "failed": 0
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6716,
+      "currentPassed": 6726,
+      "added": 10,
+      "removed": 0,
+      "normalization": "only temporary root in five recoveryRetention names; multiplicity retained",
+      "junitCases": 6726,
+      "files": 358,
+      "wallet": {
+        "tests": 387,
+        "files": 19
+      }
+    }
+  },
+  "review": {
+    "method": "LOCAL SELF author review, not independent",
+    "reviewedPaths": [
+      "server/appSnapshot.ts",
+      "server/wallet/backupConversion.integration.test.ts",
+      "server/wallet/backupConversion.ts",
+      "server/wallet/legacyMigrationData.ts",
+      "server/wallet/migrate.test.ts",
+      "server/wallet/migrate.ts",
+      "server/wallet/migrationPlan.ts",
+      "server/wallet/migrationService.ts"
+    ],
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "finding": "An inactive fresh pilot with no run but orphan legacy links must not erase those links when applying a staged snapshot.",
+    "fix": "Include durable links in the unrelated-pilot guard; failing native-corruption fixture now must retain them and return409.",
+    "correctionPasses": 1,
+    "rereviewPasses": 0,
+    "focus": [
+      "one pure staging implementation for runtime and pre-Wallet0 offline conversion; no parallel storage owner",
+      "runtime requires empty financial/link data or a validated matching durable run; all application remains I01 atomic",
+      "owner must be a known active backup Admin; explicit timezone; original IDs/creators/dates and unknown provenance retained",
+      "deterministic UUIDv8 staging IDs use source/owner/zone/clock; no privilege derived from IDs",
+      "read-only historical0 requires no native Wallet tables/migrations; other domains remain exact; old source unbranded",
+      "quarantine and pending receipts remain explicit, no provider fetch; debt/savings children metadata-only",
+      "full source/target validation precedes any converted restore; raw legacy JSON/ZIP intentionally not bypassed"
+    ]
+  },
+  "behavior": [
+    "Explicit pre-Wallet shared manifest0 -> Wallet4 through one pure staging implementation also used by runtime migration",
+    "Historical0 inspection requires zero native Wallet tables/migrations and exact other namespace versions; source remains unbranded for restore",
+    "Explicit known active historical Admin owner and timezone; UUIDv8 IDs deterministic for reviewed source/owner/zone/clock",
+    "Preserve all original legacy and core UUID receipts; quarantine invalid money; retain pending receipt without fetch; debt/savings metadata does not post again",
+    "After I01 restore, runtime migration of restored source creates0, proving common mapping/checksum behavior",
+    "Malformed hidden catalog fails400 before SQL; unowned orphan links return409 and are retained",
+    "Target validated completely before restore; Wallet remains disabled"
+  ],
+  "developmentEvidence": [
+    "Pre-Wallet conversion initial3failed/4passed/21filtered before implementation.",
+    "Input-integrity3RED: malformed hidden source2 and orphan link erasure1; then complete targeted387/19 green.",
+    "Two newly added hidden-input titles made explicit object cases before final frozen full run; no parent identity/assertion changed."
+  ],
+  "remaining": [
+    "Raw legacy JSON/ZIP without the shared namespace/claim manifest needs coordinated conversion; normal legacySnapshot gate remains unchanged",
+    "Private receipt enforcement/conversion, quarantine remediation, actual legacy bridge/API/UI and parity/cutover",
+    "All later Wallet/M1/I02/I03 and final browser/Windows/Node22/package/service/Server2019R02 acceptance"
+  ],
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "npm ci (dependencies and lockfile unchanged)",
+    "current browser",
+    "Windows2022 Node24/Node22, package/service and actual Server2019R02"
+  ],
+  "constraints": {
+    "syntheticOffline": true,
+    "noDependencyLockfileWorkflowChanges": true,
+    "walletActivated": false,
+    "noProductionOrVpsAccess": true,
+    "noReleaseTag": true
+  },
+  "rawReports": [
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-qualified.json",
+      "bytes": 1937923,
+      "sha256": "9682f4d5b5284ca6ef6afab4b968d84b4c6b76436f864ef24e599a4dd12bd69e"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-qualified.junit.xml",
+      "bytes": 1355809,
+      "sha256": "9fe0c5f743a4e5b17fdaf2a4c7e2a1ed9ebbabe32c9ad8487ac59043c0b591fc"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-qualified.log",
+      "bytes": 82356,
+      "sha256": "86d268fac600eb070c607855dc768b93f166f59a13bdf7427189c5aaa6390315"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-qualified.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-lint.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-build.log",
+      "bytes": 2003,
+      "sha256": "699183e24784537c8bce49c2b793588c6b972305b680f5a9107c857d719dafd8"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-build.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-frozen.json",
+      "bytes": 1086,
+      "sha256": "a599e0fa4a23a667e76a9845c8def80b327483f4655ae8331de6953b94212a02"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-preservation.json",
+      "bytes": 1163,
+      "sha256": "b7802226afff29148c07d30567bca1c39c93b6c544680a529663819558c53673"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-self-review.json",
+      "bytes": 1602,
+      "sha256": "7096c6f37cf92d8395bfaa423869f8874004c830fdebcfb16189ebdd6a74abb2"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-conversion-red.json",
+      "bytes": 13671,
+      "sha256": "26025306d6937d3a95d46ff353b9197e268f2e974a94767c8fc6facfb0b2141d"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-input-integrity-red.json",
+      "bytes": 12860,
+      "sha256": "6253ac2bf1a12d17dbfd3a182cca2b1eab11fe7b179607f50cc14f84fdf67c05"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-conversion-wallet.json",
+      "bytes": 120828,
+      "sha256": "3c92560d9b8ac9139a8b9bd4bc7cc430757eaf1aef84c359d0d2370a336003bd"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-complete-targeted.json",
+      "bytes": 121682,
+      "sha256": "9e1b8d56fbc6efc44e1d25567bfa380083d73153b69e8134eed904f530024375"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-pre-wallet-conversion-preflight-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    }
+  ]
+}

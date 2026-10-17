@@ -1,14 +1,14 @@
 # Wallet feature checklist
 
-This records implementation progress, not Windows acceptance. Latest native-backup conversion
-sourcecccffdc; see [status](implementation-status.md) and source-bound evidence.
+This records implementation progress, not Windows acceptance. Latest pre-Wallet backup conversion
+sourcecdb2e48; see [status](implementation-status.md) and source-bound evidence.
 The new Wallet remains inactive and unwired; existing Finance still serves users.
 
 | Task | Current evidence | Remaining requirement |
 | --- | --- | --- |
 | W01 | Accepted exact money/date/filter contracts | Retain through final integration |
 | W02 | One I01 writer, core1/metadata2/FX-fee3/migration4, exact snapshots/cold compatibility | Full remaining entities/private attachment manifest and conversion |
-| W03 | Scoped legacy projection, durable quarantine/mapping/checksum, repeat safety/backup service and native1/2/3 backup conversion;6716full Cloud tests | Pre-Wallet0/legacy backup conversion, private receipt conversion, remediation/cutover and actual write bridge |
+| W03 | Scoped legacy projection, durable quarantine/mapping/checksum, repeat safety/backup service and native0/1/2/3 shared backup conversion;6726full Cloud tests | Raw legacy JSON/ZIP without shared manifest conversion, private receipt conversion, remediation/cutover and actual write bridge |
 | W04 | Fresh adult/grant SQL ACL, partial-transfer redaction | HTTP/media/export/report enforcement and client SDK |
 | W05 | Backend account/record/transfer/edit/void and legacy type-edit core;6624full Cloud tests | API/UI wiring and linked lifecycle integration |
 | W06 | Not implemented | Account/record forms, query/filter/cursor/bulk and functional browser tests |
