@@ -1,0 +1,274 @@
+{
+  "taskIds": [
+    "W04 partial",
+    "W05 partial",
+    "W06 partial",
+    "W07 read-only prerequisite"
+  ],
+  "sourceCommit": "a41b1bd8730b1d7a73170b235b3f3af25a52a49d",
+  "testedWorkingTreeParent": "b6deb34678cb29ba22c21ca06edfad600f003b7b",
+  "binding": "24 frozen source/test SHA256 values matched committed Git blobs; Cloud development evidence only, not exact-HEAD Actions acceptance",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 6935,
+    "files": 371,
+    "junitCases": 6935,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentTestsRetained": 6860,
+    "added": 75,
+    "removed": 0,
+    "newByFile": {
+      "HTTP": 2,
+      "catalogView": 8,
+      "catalogSDK": 9,
+      "recordDraft": 24,
+      "recordTime": 20,
+      "recordWorkspace": 12
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "buildLog": "/workspace/family-evidence/w06-record-ui-browser-build-v3.log",
+    "buildBytesMatchActualBrowser": true,
+    "npmCi": "not repeated; dependencies/lock unchanged"
+  },
+  "browser": {
+    "cases": 11,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "b6deb34678cb29ba22c21ca06edfad600f003b7b",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "69f40bf5822ac82b7b808e8ea87616616b482ae7de56a67824791ae827e5a168",
+        "index": "1c1d5c57d8d0ae5608bc5886f593ef5de1c5085d3c26a0684508a8a7f55c4fb6"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 4,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "a1328d2d-95aa-4ac0-bafe-7be1fc6e5b2c",
+        "creditId": "811d1a9c-6ff3-46c8-8fb3-c52047bd7da3",
+        "hiddenId": "30195690-2d5e-4f38-9954-78a05ecb7037",
+        "readId": "6c8e1861-9979-475f-a372-f6dc052950db",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "sourceSha256": {
+    "server/wallet/access.api.test.ts": "bea2a90305259286d0a454d00e2f9a9d8fff5b0e45a517930f8a7a159ca955c2",
+    "server/wallet/catalogView.test.ts": "4b594c2230e867bfed77f40518e1b94b42e3b546c176f1f12e67a4794cc7dd46",
+    "server/wallet/catalogView.ts": "5bc4ccf7bc6b891f4d125c533e4bd55ad840c8ad2ccd05605c7b2e2862910d73",
+    "server/wallet/ports.ts": "57f74dbeddde0bd24cbcc08161fb05724c8b6771a43287403ae95735529782f8",
+    "server/wallet/router.ts": "0564f2948d871bb40ceee7af15c35d38b331d09734464f863e2b9e819feff80b",
+    "src/App.tsx": "5dbea204fd0192238ea9d9bb9341c8af596f09659a183aa97379708c8183017d",
+    "src/components/Finance.tsx": "0635b5104ba2809a79db8eb655ca212e95d03e7eb096719866a4f60e9206863a",
+    "src/features/wallet/FilterPanel.tsx": "2fc84a16f881572f02f69c1a5c0c7007c5fac9731c202816ae43880c923de930",
+    "src/features/wallet/RecordForm.tsx": "a08599f26bd15fc663353c72bcbb71b7b529894ad7ad17329e42aff3c2426251",
+    "src/features/wallet/Records.tsx": "b0c2ca9c10287fe3564a90f6caf3bced8a5171379aa0c98a69138e7dd66de6b9",
+    "src/features/wallet/WalletHome.tsx": "82a926ae2cdbdb4d0c42199dabf28fde6aead1567330df52b2a5b4e1546a3fc0",
+    "src/features/wallet/api.ts": "1b50c3bf775d248af04b2910f88d60296d4cf0e952466133150391b6779dd40a",
+    "src/features/wallet/catalogApi.test.ts": "703d4f912ef203652f54b82fe2deae4d0418d1d70123ecc302e37104f4c48a16",
+    "src/features/wallet/recordDraft.test.ts": "78b0b2b56576e193737393f83d12a016fbb8523f3a33d8a88b8d91f4333cfccf",
+    "src/features/wallet/recordDraft.ts": "ec8d7966c59b54e95fec30f73913aa1220b1ea03d764dd598397935214b3bb4c",
+    "src/features/wallet/recordTime.test.ts": "fea1b3d1d78caf188988d6b7dc8cc46e5d8bc177843c1ba7d4f02117c8d34107",
+    "src/features/wallet/recordTime.ts": "bec03e79be5e928990f4fc932a89db22d4562c6603aa81a3359de22fc7bf5006",
+    "src/features/wallet/recordWorkspace.test.ts": "219075c3e02f4be8a745fa33648fd9c8ae26b3154edd9f7611d9b7eefe9a3a62",
+    "src/features/wallet/recordWorkspace.ts": "3780b2cfb8ca1ca06f0f828bcd2e9e3f2a776f98f551c1a3c90c1350848875b1",
+    "src/features/wallet/useWallet.ts": "06135c90435812326bc3861c898a26d8aa9eb2105c934f9d1f53d4022e0b94e7",
+    "src/i18n/locales/en.json": "1635434ef70bffa59df9a0d0043d1d15012b7095ae8e304a8038b0c66ed6697f",
+    "src/i18n/locales/vi.json": "a154dd31bfaad7b65772e98560a8d925bfa99f176cbc1408933d015e9e620ad2",
+    "src/i18n/locales/zh.json": "817b0bf63badb1090e5f855fddaae01d10de24eeb45335ae5787b01cdfca8347",
+    "tests/e2e/wallet.spec.ts": "dfa4d14e0072eca81a625e8e7f36d727abb43bd03a9a434423d20f0e72ca8d93"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "artifacts": {
+    "/workspace/family-evidence/w06-record-ui-qualified.json": {
+      "bytes": 2005594,
+      "sha256": "1fbd30d7af890b5074804ba89f91cbbcba9924e79a5cc5073006e20c9d1e6aac"
+    },
+    "/workspace/family-evidence/w06-record-ui-qualified.junit.xml": {
+      "bytes": 1400798,
+      "sha256": "b7524f68088d02afb91e50afee7a7338c832ab3e7b391d8c5aaf737b8a398533"
+    },
+    "/workspace/family-evidence/w06-record-ui-qualified.log": {
+      "bytes": 83080,
+      "sha256": "ac994269c569c7be5f6e0cdc2337d62870b0c38a1d7a0b5394414b51fd3294a7"
+    },
+    "/workspace/family-evidence/w06-record-ui-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-record-ui-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w06-record-ui-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-record-ui-browser-build-v3.log": {
+      "bytes": 2004,
+      "sha256": "373a1ae12a45e5c98063eb3b1bf6408cf1205baf23e964e3db50abfc6b092395"
+    },
+    "/workspace/family-evidence/w06-record-ui-browser-build-v3.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-record-ui-browser-qualified.log": {
+      "bytes": 1904,
+      "sha256": "e93cceb128d4965d1da82e153294b7e6d80fd93b2720ed0be13e127c95e55c69"
+    },
+    "/workspace/family-evidence/w06-record-ui-browser-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w06-record-ui-frozen.json": {
+      "bytes": 2723,
+      "sha256": "6eaa285f874b0f63afd825da9bb08b88544a06205be96442b208633c45160956"
+    },
+    "/workspace/family-evidence/w06-record-ui-preservation.json": {
+      "bytes": 19220,
+      "sha256": "fa7100b045c702ea0105e588d05a13a9eb4731d76ebf7f47f7a30e4d671f6810"
+    },
+    "/workspace/family-evidence/w06-record-ui-self-review.json": {
+      "bytes": 3012,
+      "sha256": "8e279472c9f15a2cd3c99fc2cd91eb19af9d5347c0d5608d49bd2a352fde4e20"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/browser.json": {
+      "bytes": 16260,
+      "sha256": "727fb494ca29cc970b5e890e271ae615f6a3e4d463d910c15488268dc2ae25fc"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/browser.junit.xml": {
+      "bytes": 1987,
+      "sha256": "b813ce6304b14252f8b53aff26df2c71b98eb38b9829b64d5143a6ef24868f59"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/fixture.json": {
+      "bytes": 1129,
+      "sha256": "2637b974996d689e1f5c113206d9fdea5bf950d857fd1facf3da8d2423258066"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  },
+  "redEvidence": [
+    "recordTime missing module, then3 explicit-choice/UTC-boundary failures",
+    "recordDraft/catalogView/catalogSDK/recordWorkspace missing interfaces",
+    "actual HTTP missing catalog metadata200 instead of error",
+    "private filter retained after session retirement",
+    "read-filter error recovery and unknown write/read recovery"
+  ],
+  "browserDevelopment": {
+    "first": "8pass/2fail: exiting selector menu plus unmounted filter details",
+    "second": "10pass/1fail: populated note textarea exact label lookup",
+    "focusedDiagnostic": "1fail reproduced the same populated-label boundary with a fresh fixture; not a qualification run",
+    "diagnosis": "Native trace showed textarea as child text of its wrapping label; Playwright getElementLabels uses label elementText. Separate htmlFor/id label fixed unchanged exact-match assertions. Selector helper additionally asserts old listbox is gone. FilterPanel remains mounted while ACL-derived options clear.",
+    "final": "11/11, no skips/flaky/retries/timeout/assertion relaxation",
+    "evidenceDirectories": [
+      "/workspace/family-evidence/w06-record-ui-browser-first-artifacts",
+      "/workspace/family-evidence/w06-record-ui-browser-v2-artifacts",
+      "/workspace/family-evidence/w06-record-edit-diagnostic-artifacts"
+    ]
+  },
+  "review": {
+    "kind": "LOCAL SELF author inspection, not independent/final branch review",
+    "paths": [
+      "server/wallet/access.api.test.ts",
+      "server/wallet/catalogView.test.ts",
+      "server/wallet/catalogView.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/router.ts",
+      "src/App.tsx",
+      "src/components/Finance.tsx",
+      "src/features/wallet/FilterPanel.tsx",
+      "src/features/wallet/RecordForm.tsx",
+      "src/features/wallet/Records.tsx",
+      "src/features/wallet/WalletHome.tsx",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/catalogApi.test.ts",
+      "src/features/wallet/recordDraft.test.ts",
+      "src/features/wallet/recordDraft.ts",
+      "src/features/wallet/recordTime.test.ts",
+      "src/features/wallet/recordTime.ts",
+      "src/features/wallet/recordWorkspace.test.ts",
+      "src/features/wallet/recordWorkspace.ts",
+      "src/features/wallet/useWallet.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts"
+    ],
+    "checked": [
+      "all old unit identities retained; 11 native browser cases including same-key financial replay",
+      "no native/server imports enter browser SDK; exact money and existing rounded FX snapshots retained",
+      "current actor/grants before catalog reads and after collection; missing metadata errors instead of omitted definitions",
+      "record draft and unknown intent retain payload/nonce across events; stale revision reload is explicit",
+      "session retirement purges private filter text as well as record bodies/forms; public snapshots omit monetary command results",
+      "timestamp gap/overlap/millisecond/UTC-boundary behavior and explicit ambiguity choice",
+      "existing Finance flows, attribution and all prior translations retained; shared modal/select/confirm controls"
+    ],
+    "developmentFindingsClosed": [
+      "explicit DST choice and UTC boundary candidates fixed after 3 RED cases",
+      "missing catalog metadata silent200 fixed after actual HTTP RED",
+      "private filter state after disposal fixed after RED",
+      "failed valuation query recovery and unknown-write/read coexistence fixed after RED",
+      "native filter details unmounted on refresh; kept mounted while disabling controls and clearing ACL-derived options",
+      "native full-label lookup included populated textarea text; DOM/Playwright driver diagnosis reproduced separately, then separate htmlFor/id fixed unchanged assertions"
+    ],
+    "remaining": [
+      "W06 partial: durable selection/bulk and remaining filter dimensions/preferences",
+      "record action capabilities and nonform failure feedback need tightening before rollout (linked-fee editor remains server-restricted)",
+      "catalog CRUD/tree/template/split and receipt UI are not completed by read-only catalog",
+      "private receipts/remediation/legacy bridge/raw backup/cutover and other master milestones",
+      "other browser engines/touch/current Windows2022/Node22/package/service/Server2019R02"
+    ],
+    "noIndependentReview": true
+  },
+  "notRun": [
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "actual Server2019R02",
+    "production data/secrets/real providers (prohibited)"
+  ],
+  "remaining": [
+    "record action capability/failure feedback refinement before rollout",
+    "durable selection/bulk and remaining filter controls/preferences",
+    "catalog CRUD/tree/template/split and private receipts",
+    "legacy write bridge/remediation/raw legacy backups/cutover",
+    "W08-W18, remaining M1/I02/I03/later master milestones"
+  ],
+  "releaseTagVps": "none"
+}

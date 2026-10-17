@@ -2,6 +2,30 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W04/W05/W06 partial:** source `a41b1bd8730b1d7a73170b235b3f3af25a52a49d` adds
+Records tab, income/expense/adjustment/transfer+fee form, list/detail/shared filters
+and read-only family catalog. Money/FX snapshots remain exact; optional occurrence
+time preserves null/milliseconds and handles named-zone gaps/overlaps explicitly.
+Session-owned draft/replay, conflict reload and save-and-add are exercised. Failed
+valuation filters recover without losing an unresolved write. Wallet stays off;
+existing Finance is retained, no production activation/bridge/provider added.
+
+Cloud6935tests/371files/matchingJUnit/0failed-skipped-todo, all6860parent+75 retained;
+lint/build0. Chromium11/11 includes prior7plus4record/filter cases, real backend,
+zero skipped/flaky/external attempts, integrityOK, legacy retained and normal stop.
+DOM/driver investigation reproduced the populated-note label failure before the
+htmlFor/id repair; failed reports/traces remain. Author inspection24paths, not
+independent review. [Details](wallet-record-workflow.md),
+[proof](evidence/w06-record-workflow-development.json),
+[browser inventory](evidence/w06-record-workflow-browser.junit.xml).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun; no dependency/lock/workflow/config/release/tag/VPS change. Next:
+authoritative record action capabilities/nonform failure feedback, durable bulk/
+selection, remaining filters, private receipts and legacy bridge/remediation/raw
+backup/cutover. W07–W18, remaining M1/I02/I03/later master gates remain incomplete.
+
 **Latest continuation — W04/W05/W06 partial:** source `877c58b640e7801a43b214241e60e12b93c69300` adds
 the gated account workspace inside Finance: create/edit/archive/restore, exact
 signed64/localized input, book/cleared/credit figures and existing shared controls.
