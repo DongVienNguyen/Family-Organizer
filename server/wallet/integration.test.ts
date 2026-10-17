@@ -73,3 +73,13 @@ it.each([
   expect(codeValue).toBe(1);expect(errors).toMatch(/Unsupported Wallet storage schema/);expect(fs.readFileSync(file)).toEqual(before);expect(fs.readdirSync(data)).toEqual(['family.db']);fs.renameSync(file,file+'.closed');fs.renameSync(file+'.closed',file);
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
+
+it.each(['creator','audit-actor','category-cycle'])('shared coordinator rejects Wallet %s before maintenance or any SQL/legacy write',async kind=>{
+ setup();seed();const saved=capture(),bad=structuredClone(saved);
+ if(kind==='creator')bad.tables.wallet_records[0].creator_id='synthetic-unknown-creator';
+ if(kind==='audit-actor')bad.tables.wallet_audit.push({id:'synthetic-orphan-audit',record_id:'synthetic-shared-record',actor_id:'synthetic-unknown-actor',action:'Synthetic audit'});
+ if(kind==='category-cycle')bad.tables.wallet_categories.push({id:'synthetic-cycle-a',parent_id:'synthetic-cycle-b',name:'Synthetic A',nature:'need',archived_at:null},{id:'synthetic-cycle-b',parent_id:'synthetic-cycle-a',name:'Synthetic B',nature:'want',archived_at:null});
+ bad.manifest.checksum=checksum(bad);const before=sqlite.sqliteLoad(),changes=reader.get('SELECT total_changes()AS n'),boundaries:string[]=[];
+ await expect((async()=>snapshot.restoreAppSnapshot(snapshot.validateAppSnapshot(bad),{maintenance:async fn=>{boundaries.push('maintenance');return fn();},onBoundary:b=>boundaries.push(b)}))()).rejects.toThrow();
+ expect(boundaries).toEqual([]);expect(reader.get('SELECT total_changes()AS n')).toEqual(changes);expect(sqlite.sqliteLoad()).toEqual(before);const after=capture();for(const table of ['wallet_records','wallet_audit','wallet_categories','wallet_postings'])expect(after.tables[table]).toEqual(saved.tables[table]);
+});

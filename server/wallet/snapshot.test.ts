@@ -27,3 +27,23 @@ it.each(['','   '])('an accepted optional note %j survives snapshot export and a
  setup();seed();store.transaction(meta(),tx=>tx.records.insert({id:'synthetic-empty-note-record',kind:'income',effectiveDate:'2026-10-14',timezone:'Asia/Saigon',source:'manual',note,settlementStatus:'uncleared',creatorId:'user_admin',revision:1}));
  const saved=snapshot();expect(saved.tables.wallet_records.find(row=>row.id==='synthetic-empty-note-record')!.note).toBe(note);store.transaction(meta(),tx=>restoreWalletSnapshot(tx,saved));expect(snapshot()).toEqual(saved);store.transaction(meta(),tx=>{expect(tx.records.get('synthetic-empty-note-record')!.note).toBe(note);});
 });
+
+it.each(['record-creator','audit-actor','category-cycle'])('rejects valid-checksum %s provenance before any SQLite or legacy changes',kind=>{
+ setup();seed();const saved=snapshot(),bad=structuredClone(saved);
+ if(kind==='record-creator')bad.tables.wallet_records[0].creator_id='synthetic-unknown-creator';
+ if(kind==='audit-actor')bad.tables.wallet_audit.push({id:'synthetic-unknown-actor-audit',record_id:'synthetic-snapshot-record',actor_id:'synthetic-unknown-actor',action:'Synthetic audit'});
+ if(kind==='category-cycle')bad.tables.wallet_categories.push({id:'synthetic-cycle-a',parent_id:'synthetic-cycle-b',name:'Synthetic cycle A',nature:'need',archived_at:null},{id:'synthetic-cycle-b',parent_id:'synthetic-cycle-a',name:'Synthetic cycle B',nature:'want',archived_at:null});
+ bad.checksum=walletSnapshotChecksum(bad);const before=sqliteLoad(),changes=sqliteConnection().prepare('SELECT total_changes()AS n').get();
+ expect(()=>store.transaction(meta(),tx=>restoreWalletSnapshot(tx,bad))).toThrow();
+ expect(sqliteConnection().prepare('SELECT total_changes()AS n').get()).toEqual(changes);expect(sqliteLoad()).toEqual(before);expect(snapshot()).toEqual(saved);
+});
+
+it('retains known historical creator and audit IDs when a user is now deleted or has a restricted role',()=>{
+ setup();seed();store.transaction(meta(),tx=>{tx.sql.run("INSERT INTO wallet_audit VALUES('synthetic-known-audit','synthetic-snapshot-record','user_admin','Synthetic historical write')");const user=tx.legacy.users.find(user=>user.id==='user_admin')!;user.role=UserRole.CHILD;user.isDeleted=true;});const saved=snapshot();store.transaction(meta(),tx=>restoreWalletSnapshot(tx,saved));expect(snapshot()).toEqual(saved);
+});
+it('accepts a deep valid category graph without changing amounts or requiring parent-first IDs',()=>{
+ setup();seed();store.transaction(meta(),tx=>{for(let i=11999;i>=0;i--)tx.sql.run('INSERT INTO wallet_categories VALUES(?,?,?,?,?)','synthetic-deep-'+i,i===11999?null:'synthetic-deep-'+(i+1),'Synthetic deep category '+i,'unspecified',null);});const saved=snapshot();expect(saved.tables.wallet_categories).toHaveLength(12000);store.transaction(meta(),tx=>restoreWalletSnapshot(tx,saved));expect(snapshot()).toEqual(saved);expect(saved.tables.wallet_postings[0].delta_minor).toBe('-9223372036854775808');
+});
+it.each(['creator','audit-actor'])('does not export an unrestorable snapshot with an unknown stored %s',kind=>{
+ setup();seed();store.transaction(meta(),tx=>{if(kind==='creator')tx.sql.run("UPDATE wallet_records SET creator_id='synthetic-orphan-creator'");else tx.sql.run("INSERT INTO wallet_audit VALUES('synthetic-orphan-audit','synthetic-snapshot-record','synthetic-orphan-actor','Synthetic audit')");});const changes=sqliteConnection().prepare('SELECT total_changes()AS n').get(),before=sqliteLoad();expect(()=>snapshot()).toThrow();expect(sqliteConnection().prepare('SELECT total_changes()AS n').get()).toEqual(changes);expect(sqliteLoad()).toEqual(before);
+});

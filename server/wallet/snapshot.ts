@@ -27,17 +27,21 @@ export function validate(value:unknown,userIds?:Set<string>):asserts value is Wa
  for(const r of rows.wallet_accounts){choice(r.type,['cash','bank','savings','credit','e_wallet','investment','asset','liability']);choice(r.access_mode,['shared','private']);parseEffectiveDate(String(r.opening_date));ref(currencies,r.currency);user(r.owner_user_id);}
  for(const r of rows.wallet_account_grants){ref(accounts,r.account_id);choice(r.permission,['read','contribute','manage']);user(r.user_id);}
  for(const r of rows.wallet_categories){ref(categories,r.parent_id,true);choice(r.nature,['must','need','want','unspecified']);}
+ // Validate category ancestry iteratively: large legitimate catalogs must not
+ // exhaust the call stack, and a valid checksum does not make a cycle valid.
+ const complete=new Set<Row[string]>();
+ for(const category of rows.wallet_categories){const path=new Set<Row[string]>();let id=category.id;while(id!==null&&!complete.has(id)){if(path.has(id))throw Error('Cyclic Wallet category graph');path.add(id);id=categories.get(id)!.parent_id;}for(const seen of path)complete.add(seen);}
  for(const r of rows.wallet_schedules)object(JSON.parse(String(r.payload_json)));
  const occurrenceKeys=new Set<string>();for(const r of rows.wallet_occurrences){ref(schedules,r.schedule_id);parseEffectiveDate(String(r.due_date));const key=JSON.stringify([r.schedule_id,r.due_date]);if(occurrenceKeys.has(key))throw Error('Duplicate Wallet occurrence');occurrenceKeys.add(key);}
- const external=new Set<string>(),linked=new Set<Row[string]>();for(const r of rows.wallet_records){choice(r.kind,['income','expense','transfer','adjustment','trade']);choice(r.source,['manual','import','schedule','legacy']);choice(r.settlement_status,['uncleared','cleared','reconciled','voided']);parseEffectiveDate(String(r.effective_date));timezoneFormatter(String(r.timezone));ref(categories,r.category_id,true);ref(occurrences,r.occurrence_id,true);if(r.external_key!==null){const key=JSON.stringify([r.source,r.external_key]);if(external.has(key))throw Error('Duplicate Wallet external key');external.add(key);}if(r.occurrence_id!==null){if(linked.has(r.occurrence_id))throw Error('Duplicate Wallet linked occurrence');linked.add(r.occurrence_id);}}
+ const external=new Set<string>(),linked=new Set<Row[string]>();for(const r of rows.wallet_records){user(r.creator_id);choice(r.kind,['income','expense','transfer','adjustment','trade']);choice(r.source,['manual','import','schedule','legacy']);choice(r.settlement_status,['uncleared','cleared','reconciled','voided']);parseEffectiveDate(String(r.effective_date));timezoneFormatter(String(r.timezone));ref(categories,r.category_id,true);ref(occurrences,r.occurrence_id,true);if(r.external_key!==null){const key=JSON.stringify([r.source,r.external_key]);if(external.has(key))throw Error('Duplicate Wallet external key');external.add(key);}if(r.occurrence_id!==null){if(linked.has(r.occurrence_id))throw Error('Duplicate Wallet linked occurrence');linked.add(r.occurrence_id);}}
  for(const r of rows.wallet_postings){ref(records,r.record_id);ref(accounts,r.account_id);if(r.effective_date!==records.get(r.record_id)!.effective_date)throw Error('Wallet posting date mismatch');}
  for(const r of rows.wallet_record_labels){ref(records,r.record_id);ref(labels,r.label_id);}
  for(const r of rows.wallet_allocations){ref(records,r.record_id);ref(categories,r.category_id);}
- for(const r of rows.wallet_audit)ref(records,r.record_id,true);
+ for(const r of rows.wallet_audit){ref(records,r.record_id,true);user(r.actor_id);}
 }
 /** Full bytes are a marked read result, never a command-cache payload. */
 export function exportWalletSnapshot(tx:WalletTx,mark:<T extends object>(value:T)=>T):WalletSnapshot {
- const tables=Object.fromEntries(Object.entries(walletSnapshotColumns).map(([name,columns])=>[name,tx.sql.all('SELECT '+columns.map(column=>moneyColumns[name]?.includes(column)?'CAST('+column+' AS TEXT) AS '+column:column).join(',')+' FROM '+name+' ORDER BY '+(primaryKeys[name]??['id']).join(','))]));const result={schemaVersion:2,tables,checksum:''};result.checksum=walletSnapshotChecksum(result);validate(result);return mark(result);
+ const tables=Object.fromEntries(Object.entries(walletSnapshotColumns).map(([name,columns])=>[name,tx.sql.all('SELECT '+columns.map(column=>moneyColumns[name]?.includes(column)?'CAST('+column+' AS TEXT) AS '+column:column).join(',')+' FROM '+name+' ORDER BY '+(primaryKeys[name]??['id']).join(','))]));const result={schemaVersion:2,tables,checksum:''};result.checksum=walletSnapshotChecksum(result);validate(result,new Set(tx.legacy.users.map(user=>user.id)));return mark(result);
 }
 /** Caller already owns I01's one legacy+domain transaction. Validate before writes. */
 export function restoreWalletSnapshot(tx:WalletTx,value:unknown):void {
