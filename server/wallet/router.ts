@@ -1,3 +1,4 @@
+import {catalogReferencesValue} from '../../src/features/wallet/catalogReferences.js';
 import { randomUUID } from 'node:crypto';
 import { Router, type Request, type RequestHandler, type ErrorRequestHandler } from 'express';
 import { getAppCommandContext } from '../commandContext.js';
@@ -10,7 +11,7 @@ interface WalletRequest extends Request {
     userSession?: Actor;
 }
 const codeFor = (status: number) => status === 401 ? 'UNAUTHENTICATED' : status === 403 ? 'FORBIDDEN' : status === 404 ? 'NOT_FOUND' : status === 409 ? 'CONFLICT' : status === 413 ? 'LIMIT_EXCEEDED' : status >= 500 ? 'INTERNAL_ERROR' : 'INVALID_INPUT';
-const knownCodes = new Set(['UNAUTHENTICATED', 'FORBIDDEN', 'NOT_FOUND', 'CONFLICT', 'LIMIT_EXCEEDED', 'INTERNAL_ERROR', 'INVALID_INPUT', 'RATE_UNAVAILABLE']);
+const knownCodes = new Set(['UNAUTHENTICATED', 'FORBIDDEN', 'NOT_FOUND', 'CONFLICT', 'LIMIT_EXCEEDED', 'INTERNAL_ERROR', 'INVALID_INPUT', 'RATE_UNAVAILABLE','CATALOG_NAME_CONFLICT']);
 /** Targeted internal namespace; normalize even pre-auth/parser errors without
  * logging or echoing credentials, request bodies or native SQL details. */
 export const walletRequestTrace: RequestHandler = (req, res, next) => {
@@ -25,7 +26,8 @@ export const walletRequestTrace: RequestHandler = (req, res, next) => {
     const json = res.json.bind(res);
     res.json = (body: any) => { if (res.statusCode >= 400) {
         const code = knownCodes.has(body?.code) ? body.code : codeFor(res.statusCode), safe = res.statusCode >= 500 ? 'Không xử lý được yêu cầu Wallet.' : typeof body?.error === 'string' ? body.error : 'Yêu cầu Wallet không hợp lệ.';
-        return json({ error: safe, code, requestId: id });
+        let references;try{if(body?.references!==undefined)references=catalogReferencesValue(body.references);}catch{}
+        return json({ error: safe, code, requestId: id,...(references?{references}:{}) });
     } return json(body); };
     next();
 };
@@ -68,7 +70,7 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     }
     catch (error) {
         const status = httpErrorStatus(error, 500);
-        res.status(status).json({ error: status >= 500 ? 'Không xử lý được yêu cầu Wallet.' : error instanceof AppStoreError ? error.message : 'Dữ liệu Wallet không hợp lệ.', code: (error as any)?.code });
+        res.status(status).json({ error: status >= 500 ? 'Không xử lý được yêu cầu Wallet.' : error instanceof AppStoreError ? error.message : 'Dữ liệu Wallet không hợp lệ.', code: (error as any)?.code,...((error as any)?.references?{references:(error as any).references}:{}) });
     } };
     router.use(walletRequestTrace, requireAuth, handlerMiddleware((req) => ports.assertActor(actor(req))));
     router.get('/status', handler(() => ({ active: ports.active(), storageVersion: ports.storageVersion() })));
@@ -79,6 +81,18 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
         throw new AppStoreError('Không có quyền quản lý tài khoản.', 403); };
     router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
     router.get('/catalog',handler(req=>ports.catalog(actor(req))));
+    router.get('/catalog/capabilities',handler(req=>ports.catalogCommands.capabilities(actor(req))));
+    for(const kind of ['category','label'] as const){
+        const path=kind==='category'?'/categories':'/labels',catalog=ports.catalogCommands;
+        const admin=(req:WalletRequest)=>{if(actor(req).role!=='admin')throw new AppStoreError('Chỉ quản trị viên được chỉnh sửa danh mục chung.',403);};
+        const notify=()=>changed(ports.catalogAudience());
+        router.get(path+'/:id/deletion',handler(req=>kind==='category'?catalog.categoryDeletion(actor(req),id(req.params.id)):catalog.labelDeletion(actor(req),id(req.params.id))));
+        router.get(path+'/:id',handler(req=>kind==='category'?catalog.getCategory(actor(req),id(req.params.id)):catalog.getLabel(actor(req),id(req.params.id))));
+        router.post(path,handler(req=>{admin(req);const value=body(req,['expectedRevision','input']),ctx=context(req,value.expectedRevision,false);if(value.input?.id!==undefined)throw new AppStoreError('Mã tạo mới thuộc máy chủ.',400);return kind==='category'?catalog.saveCategory(ctx,value.input,notify):catalog.saveLabel(ctx,value.input,notify);}));
+        router.patch(path+'/:id',handler(req=>{admin(req);const value=body(req,['expectedRevision','patch']),ctx=context(req,value.expectedRevision,true);let patch:Record<string,unknown>;try{patch=object(value.patch);keys(patch,['name','icon','color','hidden','archived',...(kind==='category'?['parentId','nature']:[])]);}catch{throw new AppStoreError('Trường danh mục không hợp lệ.',400);}const input={...patch,id:id(req.params.id)};return kind==='category'?catalog.saveCategory(ctx,input,notify):catalog.saveLabel(ctx,input,notify);}));
+        router.delete(path+'/:id',handler(req=>{admin(req);const value=body(req,['expectedRevision']),ctx=context(req,value.expectedRevision,true);return kind==='category'?catalog.deleteCategory(ctx,id(req.params.id),notify):catalog.deleteLabel(ctx,id(req.params.id),notify);}));
+    }
+
     router.get('/accounts', handler(req => ({ accounts: ports.access.listAccounts(actor(req)) })));
     router.get('/accounts/:id', handler(req => ports.accounts.getAccount(actor(req), id(req.params.id))));
     router.get('/accounts/:id/balance', handler(req => { const accountId = id(req.params.id); let date: string; try {
@@ -131,5 +145,5 @@ function handlerMiddleware(work: (req: WalletRequest) => void): RequestHandler {
 }
 catch (error) {
     const status = httpErrorStatus(error, 500);
-    res.status(status).json({ error: status >= 500 ? 'Không xử lý được yêu cầu Wallet.' : error instanceof Error ? error.message : 'Yêu cầu Wallet không hợp lệ.', code: (error as any)?.code });
+    res.status(status).json({ error: status >= 500 ? 'Không xử lý được yêu cầu Wallet.' : error instanceof Error ? error.message : 'Yêu cầu Wallet không hợp lệ.', code: (error as any)?.code,...((error as any)?.references?{references:(error as any).references}:{}) });
 } }; }

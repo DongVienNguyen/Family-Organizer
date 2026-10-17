@@ -1,3 +1,6 @@
+import {catalogItemValue,catalogDeletionValue,catalogDeletedValue} from './catalogDto.js';
+import {catalogReferencesValue} from './catalogReferences.js';
+import type {CategoryDraft,LabelDraft,CatalogReferences} from '../../../server/wallet/catalog.js';
 import {selectionValue,bulkResultValue,bulkPreviewValue} from './bulkDto.js';
 import type {SelectionInput} from '../../../server/wallet/selections.js';
 import type {BulkSelection,RecordMetadataPatch} from '../../../server/wallet/bulk.js';
@@ -16,7 +19,7 @@ import type { WalletRecordView } from '../../../server/wallet/query.js';
 import type { WalletRecordDetail } from '../../../server/wallet/read.js';
 import type {WalletCatalog,WalletCatalogItem,WalletCategoryView} from '../../../server/wallet/catalogView.js';
 export class WalletApiError extends Error {
-    constructor(readonly status: number, message: string, readonly code: string, readonly requestId: string | undefined, readonly unknownOutcome = false) { super(message); this.name = 'WalletApiError'; }
+    constructor(readonly status: number, message: string, readonly code: string, readonly requestId: string | undefined, readonly unknownOutcome = false,readonly references?:CatalogReferences) { super(message); this.name = 'WalletApiError'; }
 }
 export interface WalletTransportPorts {
     request: typeof fetch;
@@ -77,7 +80,8 @@ export function createWalletRequest(ports: WalletTransportPorts) {
         const data = value as any, trace = identity(data?.requestId) ? data.requestId : identity(response.headers.get('x-request-id')) ? response.headers.get('x-request-id')! : requestId;
         if (!response.ok) {
             const code = typeof data?.code === 'string' && /^[A-Z_]{1,64}$/.test(data.code) ? data.code : response.status >= 500 ? 'INTERNAL_ERROR' : 'INVALID_INPUT', message = typeof data?.error === 'string' ? data.error.slice(0, 500) : 'Không xử lý được yêu cầu Wallet.';
-            throw new WalletApiError(response.status, message, code, trace, write && response.status >= 500);
+            let references;try{if(data?.references!==undefined)references=catalogReferencesValue(data.references);}catch{}
+            throw new WalletApiError(response.status, message, code, trace, write && response.status >= 500,references);
         }
         return value as T;
     };
@@ -204,7 +208,7 @@ function receiptValue(value:unknown,recordId:string):WalletReceiptMetadata {
 }
 /** DTO decoders are browser-only; server imports above are erased types. */
 export function createWalletApi(ports: WalletTransportPorts) {
-    const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
+    const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records'|'categories'|'labels', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
     const read = async <T>(uri: string, decoder: (v: unknown) => T, options: WalletRequestOptions = {}, nonce?: string): Promise<T> => { const value = await walletRequest(uri, options); try {
         return decoder(value);
     }
@@ -218,6 +222,17 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        catalogCapabilities:()=>read('/api/wallet/catalog/capabilities',value=>{const v=object(value);keys(v,['canManage']);boolean(v.canManage);return {canManage:v.canManage};}),
+        category:(id:string)=>read(path('categories',id),value=>catalogItemValue(value,'category',id)),
+        label:(id:string)=>read(path('labels',id),value=>catalogItemValue(value,'label',id)),
+        createCategory:(input:Omit<CategoryDraft,'id'>,nonce:string)=>command('/api/wallet/categories','POST',{expectedRevision:0,input},nonce,value=>catalogItemValue(value,'category',undefined,0)),
+        updateCategory:(id:string,expectedRevision:number,patch:Omit<CategoryDraft,'id'>,nonce:string)=>command(path('categories',id),'PATCH',{expectedRevision,patch},nonce,value=>catalogItemValue(value,'category',id,expectedRevision)),
+        createLabel:(input:Omit<LabelDraft,'id'>,nonce:string)=>command('/api/wallet/labels','POST',{expectedRevision:0,input},nonce,value=>catalogItemValue(value,'label',undefined,0)),
+        updateLabel:(id:string,expectedRevision:number,patch:Omit<LabelDraft,'id'>,nonce:string)=>command(path('labels',id),'PATCH',{expectedRevision,patch},nonce,value=>catalogItemValue(value,'label',id,expectedRevision)),
+        categoryDeletion:(id:string)=>read(path('categories',id)+'/deletion',value=>catalogDeletionValue(value,id)),
+        labelDeletion:(id:string)=>read(path('labels',id)+'/deletion',value=>catalogDeletionValue(value,id)),
+        deleteCategory:(id:string,expectedRevision:number,nonce:string)=>command(path('categories',id),'DELETE',{expectedRevision},nonce,value=>catalogDeletedValue(value,id,expectedRevision)),
+        deleteLabel:(id:string,expectedRevision:number,nonce:string)=>command(path('labels',id),'DELETE',{expectedRevision},nonce,value=>catalogDeletedValue(value,id,expectedRevision)),
         createSelection:(input:SelectionInput,nonce:string)=>command('/api/wallet/record-selections','POST',{expectedRevision:0,input},nonce,selectionValue),
         selectionMembers:(id:string,requestedIds:string[],options:{signal?:AbortSignal}={})=>{const requested=ids(requestedIds);if(requested.length>100)throw Error('Membership page limit');return read('/api/wallet/record-selections/'+encodeURIComponent(id)+'/members',value=>{const v=object(value);keys(v,['ids']);const members=ids(v.ids);if(members.some(id=>!requested.includes(id)))throw Error('Unexpected snapshot member');return members;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({ids:requested}),signal:options.signal});},
         releaseSelection:(id:string,nonce:string)=>command('/api/wallet/record-selections/'+encodeURIComponent(id),'DELETE',{expectedRevision:0},nonce,value=>{const v=object(value);keys(v,['released']);if(v.released!==true)throw Error('Release acknowledgement');return {released:true as const};}),

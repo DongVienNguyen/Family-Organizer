@@ -15,6 +15,7 @@ const recordColumns='id,kind,effective_date AS effectiveDate,timezone,source,ext
 function walletTx(tx:AppWriteTx) {
  return {
   get legacy(){return tx.legacy;},
+  afterCommit:tx.afterCommit,
   sql:{get:tx.get,all:tx.all,run:tx.run},
   metadata:walletMetadataRepositories(tx),
   financial:walletFinancialRepositories(tx),

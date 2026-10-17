@@ -1,0 +1,80 @@
+import {createHash,randomUUID} from 'node:crypto';
+import type {Actor,CommandContext} from '../../src/features/wallet/contracts.js';
+import {object,keys,text,choice,boolean,integer} from '../../src/features/productivity/validation.js';
+import {UserRole} from '../../src/types.js';
+import {AppStoreError} from '../appErrors.js';
+import type {withAppWriteTransaction} from '../appStore.js';
+import {assertWalletCommandContext} from './accounts.js';
+import {assertWalletActor,walletAccountReadScope,type WalletReader} from './access.js';
+import {openWalletStore,type WalletTx} from './store.js';
+import {decodeMetadata,validateMetadata,walletMetadataColumns} from './metadata.js';
+import type {WalletCategoryView,WalletCatalogItem} from './catalogView.js';
+export interface CatalogReferences {children:number;records:number;allocations:number;history:boolean;otherRestricted:boolean}
+export class CatalogReferenceConflict extends AppStoreError {constructor(readonly references:CatalogReferences){super('Còn liên kết cần được giữ. Hãy lưu trữ thay vì xóa. ',409,'wallet-catalog-references');}}
+export interface CategoryDraft {id?:string;name?:string;parentId?:string|null;nature?:WalletCategoryView['nature'];icon?:string;color?:string;hidden?:boolean;archived?:boolean}
+export type LabelDraft=Omit<CategoryDraft,'parentId'|'nature'>;
+type Kind='category'|'label';type View=WalletCategoryView|WalletCatalogItem;
+const fail=(status:number,message:string,code='wallet-catalog'):never=>{throw new AppStoreError(message,status,code);};
+const definitions={category:{table:'wallet_categories',metadata:'wallet_category_metadata',key:'category_id'},label:{table:'wallet_labels',metadata:'wallet_label_metadata',key:'label_id'}} as const;
+const txReader=(tx:WalletTx):WalletReader=>({...tx.sql,get legacy(){return tx.legacy;}});
+function guard(reader:WalletReader,actor:Actor):void {assertWalletActor(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value!=='1'||!reader.get("SELECT name FROM sqlite_master WHERE name='wallet_category_metadata' AND type='table'"))fail(409,'Kho danh mục Wallet chưa sẵn sàng.','wallet-storage-inactive');}
+function manager(reader:WalletReader,actor:Actor):void {guard(reader,actor);if(actor.role!==UserRole.ADMIN)fail(403,'Chỉ quản trị viên được chỉnh sửa danh mục chung.');}
+function normalize(raw:unknown,kind:Kind):CategoryDraft {
+    try{const value=object(raw),allowed=['id','name',...(kind==='category'?['parentId','nature']:[]),'icon','color','hidden','archived'];keys(value,allowed);if(!Object.keys(value).length||Object.values(value).some(value=>value===undefined))throw Error();if(value.id!==undefined){text(value.id,256);if(Object.keys(value).length===1)throw Error();}else if(value.name===undefined)throw Error();
+        if(value.name!==undefined)text(value.name,500);if(value.parentId!==undefined&&value.parentId!==null)text(value.parentId,256);if(value.nature!==undefined)choice(value.nature,['must','need','want','unspecified']);for(const key of ['icon','color'])if(value[key]!==undefined)text(value[key],256,false);for(const key of ['hidden','archived'])if(value[key]!==undefined)boolean(value[key]);return Object.fromEntries(allowed.filter(key=>key in value).map(key=>[key,value[key]])) as CategoryDraft;
+    }catch{fail(400,'Trường danh mục không hợp lệ.');}
+}
+function read(reader:WalletReader,kind:Kind,id:string):View {
+    const definition=definitions[kind];let base:any,metadata:any;
+    try{text(id,256);base=reader.get('SELECT * FROM '+definition.table+' WHERE id=?',id);if(!base)fail(404,'Không tìm thấy danh mục.');const row=reader.get('SELECT '+walletMetadataColumns[definition.metadata].join(',')+' FROM '+definition.metadata+' WHERE '+definition.key+'=?',id);if(!row)throw Error();metadata=decodeMetadata(definition.metadata,row);validateMetadata(definition.metadata,metadata);text(base.name,500);if(base.archived_at!==null){text(base.archived_at,24);if(!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(base.archived_at)||!Number.isFinite(Date.parse(base.archived_at))||new Date(base.archived_at).toISOString()!==base.archived_at)throw Error();}if(kind==='category'){if(base.parent_id!==null)text(base.parent_id,256);choice(base.nature,['must','need','want','unspecified']);}}
+    catch(error){if(error instanceof AppStoreError)throw error;fail(422,'Dữ liệu danh mục không nhất quán.');}
+    const value:WalletCatalogItem={id,name:base.name,archivedAt:base.archived_at,hidden:metadata.hidden,revision:metadata.revision,icon:metadata.icon,color:metadata.color};return kind==='category'?{...value,parentId:base.parent_id,nature:base.nature}:value;
+}
+function topology(reader:WalletReader,id:string,parentId:string|null):void {
+    const rows=reader.all('SELECT id,parent_id AS parentId FROM wallet_categories'),parents=new Map<string,string|null>(rows.map(row=>[row.id,row.parentId]));if(parentId!==null&&!parents.has(parentId))fail(404,'Không tìm thấy danh mục cha.');parents.set(id,parentId);
+    const ancestors=new Set<string>();let current:string|null=id;while(current!==null){if(ancestors.has(current))fail(422,'Danh mục không được tạo vòng lặp.');ancestors.add(current);if(ancestors.size>3)fail(422,'Cây danh mục tối đa ba cấp.');current=parents.get(current)??null;}
+    const children=new Map<string,string[]>();for(const [child,parent]of parents)if(parent!==null)children.set(parent,[...(children.get(parent)??[]),child]);const stack=[{id,depth:ancestors.size}],seen=new Set<string>();while(stack.length){const node=stack.pop()!;if(seen.has(node.id)||node.depth>3)fail(422,'Cây danh mục tối đa ba cấp và không có vòng lặp.');seen.add(node.id);for(const child of children.get(node.id)??[])stack.push({id:child,depth:node.depth+1});}
+}
+function referenceRows(reader:WalletReader,actor:Actor,kind:Kind,id:string){
+    const scope=walletAccountReadScope(reader,actor),predicate=kind==='category'?'r.category_id=?':'EXISTS(SELECT 1 FROM wallet_record_labels l WHERE l.record_id=r.id AND l.label_id=?)',visible="EXISTS(SELECT 1 FROM wallet_postings p WHERE p.record_id=r.id) AND NOT EXISTS(SELECT 1 FROM wallet_postings p LEFT JOIN wallet_accounts a ON a.id=p.account_id WHERE p.record_id=r.id AND COALESCE(("+scope.sql+"),'none') NOT IN('read','contribute','manage'))";
+    const records=reader.all('SELECT r.id,('+visible+') AS visible FROM wallet_records r WHERE '+predicate+' ORDER BY r.id',...scope.args,id);
+    const allocations=kind==='category'?reader.all('SELECT r.id,('+visible+') AS visible FROM wallet_allocations x JOIN wallet_records r ON r.id=x.record_id WHERE x.category_id=? ORDER BY r.id',...scope.args,id):[];
+    const children=kind==='category'?reader.get('SELECT count(*) AS n FROM wallet_categories WHERE parent_id=?',id).n:0;
+    const history=kind==='category'&&reader.get("SELECT name FROM sqlite_master WHERE name='wallet_legacy_links' AND type='table'")?!!reader.get("SELECT 1 FROM wallet_legacy_links WHERE source_kind='category' AND target_id=? LIMIT 1",id):false;
+    return {records,allocations,children,history};
+}
+function references(reader:WalletReader,actor:Actor,kind:Kind,id:string):CatalogReferences {
+    const first=referenceRows(reader,actor,kind,id);guard(reader,actor);const second=referenceRows(reader,actor,kind,id);if(JSON.stringify(first)!==JSON.stringify(second))fail(409,'Quyền hoặc liên kết vừa thay đổi; hãy xem lại.','edit-conflict');
+    const records=first.records.filter(row=>row.visible===1).length,allocations=first.allocations.filter(row=>row.visible===1).length,admin=actor.role==='admin';return {children:first.children,records,allocations,history:admin&&first.history,otherRestricted:records<first.records.length||allocations<first.allocations.length||!admin&&first.history};
+}
+const blocked=(value:CatalogReferences)=>value.children>0||value.records>0||value.allocations>0||value.history||value.otherRestricted;
+export function createWalletCatalog(ports:{reader:WalletReader;write:typeof withAppWriteTransaction;now?:()=>number}){
+    const store=openWalletStore({write:ports.write}),now=()=>new Date((ports.now??Date.now)()).toISOString();
+    const audit=(tx:WalletTx,actor:Actor,kind:Kind,action:string,at:string,before:View|null,after:View|{id:string;revision:number;deleted:true})=>{const id=randomUUID();tx.audit.append({id,recordId:null,actorId:actor.userId,action:'wallet:catalog:'+kind+':'+action});tx.metadata.audit.set({auditId:id,occurredAt:at,before:before?{...before}:null,after:{...after}});};
+    const run=<T>(ctx:CommandContext,kind:Kind,action:string,input:unknown,work:(tx:WalletTx)=>T)=>store.transaction({actorId:ctx.actor.userId,command:'wallet:catalog:'+kind+':'+action,requestId:ctx.idempotencyKey,payloadHash:createHash('sha256').update(JSON.stringify({revision:ctx.expectedRevision??0,input})).digest('hex')},work);
+    function save(rawContext:CommandContext,raw:unknown,kind:Kind,onChanged?:()=>void):View {
+        const ctx=structuredClone(rawContext);manager(ports.reader,ctx?.actor);const value=normalize(raw,kind);assertWalletCommandContext(ctx,ports.reader,!!value.id);
+        return run(ctx,kind,'save',value,tx=>{const reader=txReader(tx);manager(reader,ctx.actor);assertWalletCommandContext(ctx,reader,!!value.id);const before=value.id?read(reader,kind,value.id):null;if(before&&before.revision!==ctx.expectedRevision)fail(409,'Danh mục vừa thay đổi.','edit-conflict');const id=before?.id??randomUUID(),at=now(),definition=definitions[kind];
+            const next:View={id,name:value.name??before?.name??'',archivedAt:value.archived===undefined?before?.archivedAt??null:value.archived?before?.archivedAt??at:null,hidden:value.hidden??before?.hidden??false,revision:before?.revision??1,icon:value.icon??before?.icon??'',color:value.color??before?.color??'',...(kind==='category'?{parentId:value.parentId===undefined?(before as WalletCategoryView|null)?.parentId??null:value.parentId,nature:value.nature??(before as WalletCategoryView|null)?.nature??'unspecified'}:{})};
+            if(kind==='category'&&(!before||(next as WalletCategoryView).parentId!==(before as WalletCategoryView).parentId))topology(reader,id,(next as WalletCategoryView).parentId);
+            if(!before||next.name!==before.name||kind==='category'&&(next as WalletCategoryView).parentId!==(before as WalletCategoryView).parentId){const name=next.name.normalize('NFKC').trim().toLowerCase(),siblings=reader.all('SELECT id,name'+(kind==='category'?',parent_id AS parentId':'')+' FROM '+definition.table+' WHERE id!=?',id);if(siblings.some(row=>row.name.normalize('NFKC').trim().toLowerCase()===name&&(kind!=='category'||row.parentId===(next as WalletCategoryView).parentId)))fail(409,'Đã có tên này trong cùng danh mục cha.','CATALOG_NAME_CONFLICT');}
+            if(before&&JSON.stringify(next)===JSON.stringify(before))return before;
+            if(before&&before.revision>=Number.MAX_SAFE_INTEGER)fail(409,'Phiên bản danh mục vượt giới hạn.');if(before)next.revision++;
+            if(!before&&reader.get('SELECT count(*) AS n FROM '+definition.table).n>=10000)fail(413,'Danh mục vượt giới hạn tải.','LIMIT_EXCEEDED');
+            if(kind==='category'){const category=next as WalletCategoryView;if(before)tx.sql.run('UPDATE wallet_categories SET parent_id=?,name=?,nature=?,archived_at=? WHERE id=?',category.parentId,category.name,category.nature,category.archivedAt,id);else tx.sql.run('INSERT INTO wallet_categories VALUES(?,?,?,?,?)',id,category.parentId,category.name,category.nature,category.archivedAt);const previous=before?tx.metadata.categories.get(id):null;tx.metadata.categories.set({categoryId:id,createdAt:previous?.createdAt??(before?null:at),createdBy:previous?.createdBy??(before?null:ctx.actor.userId),updatedAt:at,updatedBy:ctx.actor.userId,icon:next.icon,color:next.color,hidden:next.hidden,revision:next.revision});}
+            else{if(before)tx.sql.run('UPDATE wallet_labels SET name=?,archived_at=? WHERE id=?',next.name,next.archivedAt,id);else tx.sql.run('INSERT INTO wallet_labels VALUES(?,?,?)',id,next.name,next.archivedAt);const previous=before?tx.metadata.labels.get(id):null;tx.metadata.labels.set({labelId:id,createdAt:previous?.createdAt??(before?null:at),createdBy:previous?.createdBy??(before?null:ctx.actor.userId),updatedAt:at,updatedBy:ctx.actor.userId,icon:next.icon,color:next.color,hidden:next.hidden,revision:next.revision});}
+            audit(tx,ctx.actor,kind,before?'update':'create',at,before,next);if(onChanged)tx.afterCommit(onChanged);return next;
+        });
+    }
+    function deletion(actor:Actor,kind:Kind,id:string){guard(ports.reader,actor);const item=read(ports.reader,kind,id),value=references(ports.reader,actor,kind,id);guard(ports.reader,actor);if(read(ports.reader,kind,id).revision!==item.revision)fail(409,'Danh mục vừa thay đổi.','edit-conflict');return {id,revision:item.revision,canDelete:!blocked(value),references:value};}
+    function remove(rawContext:CommandContext,kind:Kind,id:string,onChanged?:()=>void){const ctx=structuredClone(rawContext);manager(ports.reader,ctx?.actor);try{text(id,256);}catch{fail(400,'Mã danh mục không hợp lệ.');}assertWalletCommandContext(ctx,ports.reader,true);return run(ctx,kind,'delete',{id},tx=>{const reader=txReader(tx);manager(reader,ctx.actor);assertWalletCommandContext(ctx,reader,true);const before=read(reader,kind,id);if(before.revision!==ctx.expectedRevision||before.revision>=Number.MAX_SAFE_INTEGER)fail(409,'Danh mục vừa thay đổi.','edit-conflict');const value=references(reader,ctx.actor,kind,id);if(blocked(value))throw new CatalogReferenceConflict(value);const definition=definitions[kind],result={id,revision:before.revision+1,deleted:true as const};tx.sql.run('DELETE FROM '+definition.metadata+' WHERE '+definition.key+'=?',id);tx.sql.run('DELETE FROM '+definition.table+' WHERE id=?',id);audit(tx,ctx.actor,kind,'delete',now(),before,result);if(onChanged)tx.afterCommit(onChanged);return result;});}
+    return {
+        capabilities(actor:Actor){guard(ports.reader,actor);return {canManage:actor.role===UserRole.ADMIN};},
+        saveCategory:(ctx:CommandContext,input:CategoryDraft,onChanged?:()=>void)=>save(ctx,input,'category',onChanged) as WalletCategoryView,
+        saveLabel:(ctx:CommandContext,input:LabelDraft,onChanged?:()=>void)=>save(ctx,input,'label',onChanged) as WalletCatalogItem,
+        getCategory(actor:Actor,id:string){guard(ports.reader,actor);const result=read(ports.reader,'category',id);guard(ports.reader,actor);return result as WalletCategoryView;},
+        getLabel(actor:Actor,id:string){guard(ports.reader,actor);const result=read(ports.reader,'label',id);guard(ports.reader,actor);return result as WalletCatalogItem;},
+        categoryDeletion:(actor:Actor,id:string)=>deletion(actor,'category',id),labelDeletion:(actor:Actor,id:string)=>deletion(actor,'label',id),
+        deleteCategory:(ctx:CommandContext,id:string,onChanged?:()=>void)=>remove(ctx,'category',id,onChanged),deleteLabel:(ctx:CommandContext,id:string,onChanged?:()=>void)=>remove(ctx,'label',id,onChanged),
+    };
+}

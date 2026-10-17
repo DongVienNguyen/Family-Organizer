@@ -1,3 +1,4 @@
+import {categorySelectability} from './catalogChoices.js';
 import { useCallback, useId, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FancySelect } from '../../components/FancySelect.js';
@@ -24,16 +25,7 @@ export function RecordForm({ workspace, state }: {
     }[], label = 'wallet.recordsForm.' + key) => <label className="text-xs text-slate-400 space-y-1.5 block">{t(label)}<FancySelect id={id + '-' + key} ariaLabel={t(label)} value={String(draft[key])} options={values} onChange={value => change({ [key]: value })}/></label>;
     const accountOptions = state.accounts.filter(account => account.permission !== 'read' && (account.archivedAt === null || initial?.postings.some(p => p.accountId === account.id) || form.initial?.fee?.postings.some(p => p.accountId === account.id))).map(account => ({ value: account.id, label: account.name + ' · ' + account.currency + (account.archivedAt ? ' · ' + t('wallet.archived') : '') }));
     const accountChoices = (key: 'accountId' | 'fromAccountId' | 'toAccountId' | 'feeAccountId', external = false) => choices(key, [...(external ? [{ value: '', label: t('wallet.recordsForm.outside') }] : []), ...accountOptions]);
-    const byId = new Map(state.catalog.categories.map(category => [category.id, category]));
-    const visibleCategory = (categoryId: string) => { let id: string | null = categoryId; const seen = new Set<string>(); while (id !== null) {
-        if (seen.has(id))
-            return false;
-        seen.add(id);
-        const category = byId.get(id);
-        if (!category || category.hidden || category.archivedAt !== null)
-            return false;
-        id = category.parentId;
-    } return true; };
+    const visibleCategory=categorySelectability(state.catalog.categories);
     const categoryOptions = [{ value: '', label: t('wallet.recordsForm.uncategorized') }, ...state.catalog.categories.filter(category => visibleCategory(category.id) || category.id === initial?.record.categoryId || category.id === form.initial?.fee?.record.categoryId).map(category => ({ value: category.id, label: category.name + (!visibleCategory(category.id) ? ' · ' + t('wallet.recordsForm.historical') : '') }))];
     const currency = (accountId: string) => state.accounts.find(account => account.id === accountId)?.currency ?? draft.externalCurrency;
     return <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={close}>
