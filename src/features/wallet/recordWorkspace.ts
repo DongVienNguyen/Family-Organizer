@@ -1,3 +1,4 @@
+import type {WalletTemplate} from '../../../server/wallet/templates.js';
 import {allocationRows,assertAllocationTotal,type AllocationDraft} from './allocations.js';
 import {parseMoney,minorInteger} from './money.js';
 import {editableAmount} from './accountDraft.js';
@@ -17,16 +18,17 @@ import { createWalletCommand, type WalletCommandState } from './commandState.js'
 import { recordFormFromInput, recordFormDraft, recordFormInput, recordFormPatch, type RecordFormDraft, type RecordFormInitial } from './recordDraft.js';
 import { resolvePeriod } from './dates.js';
 import { normalizeFilter } from './filter.js';
-type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'actions' | 'createRecord' | 'updateRecord' | 'voidRecord'>&Partial<Pick<WalletApi,'receipts'|'attachReceipt'|'detachReceipt'|'receiptFile'|'filterOptions'|'createSelection'|'selectionMembers'|'releaseSelection'|'bulkPreview'|'bulkMetadata'|'cloneRecordDraft'|'allocations'|'setAllocations'>>;
+type Api = Pick<WalletApi, 'status' | 'accounts' | 'catalog' | 'query' | 'record' | 'actions' | 'createRecord' | 'updateRecord' | 'voidRecord'>&Partial<Pick<WalletApi,'receipts'|'attachReceipt'|'detachReceipt'|'receiptFile'|'filterOptions'|'createSelection'|'selectionMembers'|'releaseSelection'|'bulkPreview'|'bulkMetadata'|'cloneRecordDraft'|'allocations'|'setAllocations'|'templates'|'template'|'createTemplate'|'updateTemplate'|'instantiateTemplate'>>;
 export interface WalletRecordForm {
-    origin?:'clone';
+    origin?:'clone'|'template'|'template-use';
+    templateName?:string;templateId?:string;templateRevision?:number;templateSourceId?:string;templateSourceAccountIds?:string[];
     cloneSource?:{recordId:string;feeRecordId:string|null};
     draft: RecordFormDraft;
     initial?: RecordFormInitial;
     invalid: string | null;
 }
 export interface WalletAllocationForm {id:string;revision:number;currency:string;kind:string;postingMinor:string;retainedCategoryIds:string[];locale:string;rows:{categoryId:string;amount:string}[];invalid:boolean}
-export interface RecordWorkspaceState {
+export interface RecordWorkspaceState {templates:WalletTemplate[];
     allocationForm:WalletAllocationForm|null;allocations:AllocationDraft[];allocationStorage:boolean;
     phase: 'checking' | 'inactive' | 'ready' | 'error' | 'disposed';
     accounts: AccessibleWalletAccount[];
@@ -59,8 +61,8 @@ type Intent = {
     kind: 'void';
     id: string;
     revision: number;
-}|{kind:'allocations';id:string;revision:number;rows:AllocationDraft[]}|{kind:'attach';id:string;revision:number;input:{fileName:string;dataUrl:string}}|{kind:'detach';id:string;revision:number;receiptId:string};
-type Result={recordId:string;revision:number;rows:AllocationDraft[]}|WalletRecordResult|ReceiptMutation|{recordId:string;revision:number;receiptId:string};
+}|{kind:'template-save';id?:string;revision:number;name:string;draft:RecordDraft}|{kind:'template-archive';id:string;revision:number;archived:boolean}|{kind:'allocations';id:string;revision:number;rows:AllocationDraft[]}|{kind:'attach';id:string;revision:number;input:{fileName:string;dataUrl:string}}|{kind:'detach';id:string;revision:number;receiptId:string};
+type Result=WalletTemplate|{recordId:string;revision:number;rows:AllocationDraft[]}|WalletRecordResult|ReceiptMutation|{recordId:string;revision:number;receiptId:string};
 export function createRecordWorkspace(api: Api, options: {
     actorId: string | (() => string);
     date: () => string;
@@ -70,12 +72,14 @@ export function createRecordWorkspace(api: Api, options: {
 }) {
     const defaultFilter = () => normalizeFilter({ period: resolvePeriod({ kind: 'month', anchorDate: options.date() }, options.timezone), referenceCurrency: 'VND', statuses: ['uncleared', 'cleared', 'reconciled'] });
     let filter = defaultFilter();
-    const empty = () => ({allocationForm:null,allocations:[],allocationStorage:false, accounts: [], catalog: { categories: [], labels: [] }, items: [], total: 0, nextCursor: null, loadingMore: false,draftLoading:false, selected: null, actions:null, receipts:[],receiptStorage:false,filterOptions:{creators:[],paymentMethods:[]}, form: null });
+    const empty = () => ({templates:[],allocationForm:null,allocations:[],allocationStorage:false, accounts: [], catalog: { categories: [], labels: [] }, items: [], total: 0, nextCursor: null, loadingMore: false,draftLoading:false, selected: null, actions:null, receipts:[],receiptStorage:false,filterOptions:{creators:[],paymentMethods:[]}, form: null });
     let state: RecordWorkspaceState = { phase: 'checking', ...empty(), filter, filterInvalid: false, command: { phase: 'idle' }, error: null },allocationForm:WalletAllocationForm|null=null, form: WalletRecordForm | null = null, formOpen = false, selectedId: string | null = null, selectedInitial: RecordFormInitial | undefined, generation = 0, disposed = false, addAnother = false;
     const listeners = new Set<() => void>(), publish = (patch: Partial<RecordWorkspaceState>) => { if (disposed)
         return; state = Object.freeze({ ...state, ...patch }); for (const listener of listeners)
         listener(); };
     const command = createWalletCommand<Intent, Result>({ newRequestId: options.newRequestId, execute: (intent, nonce) => {
+        if(intent.kind==='template-save'){if(intent.id){if(!api.updateTemplate)throw new WalletApiError(409,'Mẫu chưa sẵn sàng.','CONFLICT',nonce);return api.updateTemplate(intent.id,intent.revision,{name:intent.name,draft:intent.draft},nonce);}if(!api.createTemplate)throw new WalletApiError(409,'Mẫu chưa sẵn sàng.','CONFLICT',nonce);return api.createTemplate({name:intent.name,draft:intent.draft},nonce);}
+        if(intent.kind==='template-archive'){if(!api.updateTemplate)throw new WalletApiError(409,'Mẫu chưa sẵn sàng.','CONFLICT',nonce);return api.updateTemplate(intent.id,intent.revision,{archived:intent.archived},nonce);}
         if(intent.kind==='allocations'){if(!api.setAllocations)throw new WalletApiError(409,'Phân bổ chưa sẵn sàng.','CONFLICT',nonce);return api.setAllocations(intent.id,intent.revision,intent.rows,nonce);}
         if(intent.kind==='attach'){if(!api.attachReceipt)throw new WalletApiError(409,'Kho hóa đơn chưa sẵn sàng.','CONFLICT',nonce);return api.attachReceipt(intent.id,intent.revision,intent.input,nonce);}
         if(intent.kind==='detach'){if(!api.detachReceipt)throw new WalletApiError(409,'Kho hóa đơn chưa sẵn sàng.','CONFLICT',nonce);return api.detachReceipt(intent.id,intent.revision,intent.receiptId,nonce);}
@@ -108,7 +112,7 @@ export function createRecordWorkspace(api: Api, options: {
                 publish({ phase: 'inactive' });
                 return;
             }
-            const [accounts, catalog, page,filterOptions] = await Promise.all([api.accounts(), api.catalog(), api.query(filter, null, 50),api.filterOptions?api.filterOptions():Promise.resolve({creators:[],paymentMethods:[]})]);
+            const [accounts, catalog, page,filterOptions,templates] = await Promise.all([api.accounts(), api.catalog(), api.query(filter, null, 50),api.filterOptions?api.filterOptions():Promise.resolve({creators:[],paymentMethods:[]}),status.storageVersion>=7&&api.templates?api.templates():Promise.resolve([])]);
             if (disposed || current !== generation)
                 return;
             let selected: WalletRecordDetail | null = null, actions:WalletRecordActions|null=null, initial: RecordFormInitial | undefined;
@@ -138,8 +142,9 @@ export function createRecordWorkspace(api: Api, options: {
                 form = null;
             if(form?.cloneSource){const source=form.cloneSource;try{const currentSource=await api.record(source.recordId);if(disposed||current!==generation)return;if(currentSource.partial||currentSource.feeRecordId!==source.feeRecordId||currentSource.postings.some(posting=>!accounts.some(account=>account.id===posting.accountId)))form=null;}catch(error){if(disposed||current!==generation)return;const failure=errorValue(error);if(![403,404].includes(failure.status))throw error;form=null;}}
             if(allocationForm&&!canEdit(selected,accounts,actions))allocationForm=null;
+            if(form?.templateSourceId){const sourceId=form.templateSourceId;if(!api.template||!templates.some(row=>row.id===sourceId)||(form.templateSourceAccountIds??[]).some(id=>!accounts.some(account=>account.id===id)))form=null;else try{await api.template(sourceId);if(disposed||current!==generation)return;}catch(error){if(disposed||current!==generation)return;const failure=errorValue(error);if(![403,404].includes(failure.status))throw error;form=null;}}
             selectedInitial = initial;
-            publish({ phase: 'ready', accounts, catalog,filterOptions, items: page.items, total: page.total, nextCursor: page.nextCursor, selected,actions,receipts,receiptStorage:status.storageVersion>=5,allocationStorage:status.storageVersion>=7,allocations,allocationForm:formOpen?allocationForm:null, form: formOpen ? form : null });
+            publish({ phase: 'ready',templates, accounts, catalog,filterOptions, items: page.items, total: page.total, nextCursor: page.nextCursor, selected,actions,receipts,receiptStorage:status.storageVersion>=5,allocationStorage:status.storageVersion>=7,allocations,allocationForm:formOpen?allocationForm:null, form: formOpen ? form : null });
             await bulk.setView({phase:'ready',supported:status.storageVersion>=6,filter,items:page.items,total:page.total});
         }
         catch (error) {
@@ -157,7 +162,7 @@ export function createRecordWorkspace(api: Api, options: {
         const result = command.snapshot().result!, locale = form?.draft.locale ?? 'vi-VN', again = addAnother;
         form = null;allocationForm=null;
         formOpen = false;
-        selectedId = 'record'in result?result.record.id:result.recordId;
+        selectedId = 'record'in result?result.record.id:'recordId'in result?result.recordId:null;
         publish({ form: null,allocationForm:null });
         await refresh();
         if (!disposed && again && state.phase === 'ready') {
@@ -181,7 +186,20 @@ export function createRecordWorkspace(api: Api, options: {
         command.reset();publish({error:null});addAnother=false;await finish(()=>command.submit(intent));
         if([403,404].includes(command.snapshot().error?.status??0))await refresh();
     }
+    const templateAccounts=(draft:RecordDraft)=>draft.kind==='transfer'?[draft.fromAccountId,draft.toAccountId,draft.fee?.accountId].filter((id):id is string=>!!id):[draft.accountId];
+    async function loadTemplate(id:string,locale:string,editing:boolean,replace=false){
+        if(!editable()||allocationForm||form&&(!replace||!!form.initial||form.origin==='template'))return;const metadata=state.templates.find(row=>row.id===id);if(!metadata)return;if(!editing&&metadata.archivedAt!==null){publish({error:new WalletApiError(409,'Mẫu đã được lưu trữ.','CONFLICT',undefined)});return;}
+        if(editing&&!api.template||!editing&&!api.instantiateTemplate)return;let ownedGeneration=generation;command.reset();publish({draftLoading:true,error:null});
+        try{const result=editing?await api.template!(id):null,input=editing?result!.draft:await api.instantiateTemplate!(id,new Date((options.now??Date.now)()).toISOString());if(disposed||ownedGeneration!==generation)return;ownedGeneration++;await refresh();if(disposed||generation!==ownedGeneration||state.phase!=='ready')return;const current=state.templates.find(row=>row.id===id);if(!current||!editing&&current.archivedAt!==null||editing&&current.revision!==result!.revision)throw new WalletApiError(409,'Mẫu vừa thay đổi.','CONFLICT',undefined);const accountIds=templateAccounts(input);if(accountIds.some(id=>!state.accounts.some(account=>account.id===id)))throw new WalletApiError(404,'Quyền tài khoản vừa thay đổi.','NOT_FOUND',undefined);
+            const draft=recordFormFromInput(input,state.accounts,{locale,date:options.date(),timezone:options.timezone});form={draft,initial:undefined,origin:editing?'template':'template-use',templateName:editing?result!.name:undefined,templateId:editing?id:undefined,templateRevision:editing?result!.revision:undefined,templateSourceId:id,templateSourceAccountIds:accountIds,invalid:null};formOpen=true;selectedId=null;selectedInitial=undefined;publish({form,selected:null,actions:null,receipts:[],draftLoading:false});
+        }catch(error){if(disposed||ownedGeneration!==generation)return;const failure=errorValue(error);if([403,404].includes(failure.status))await refresh();publish({error:failure});}finally{if(!disposed&&ownedGeneration===generation)publish({draftLoading:false});}
+    }
     return {
+        openTemplateCreate(locale:string){if(!editable()||form||allocationForm||!state.allocationStorage||!api.createTemplate||!state.accounts.some(row=>row.permission!=='read'&&row.archivedAt===null))return;command.reset();selectedId=null;selectedInitial=undefined;form={...makeForm(locale),origin:'template',templateName:''};formOpen=true;publish({form,selected:null,actions:null,receipts:[],error:null});},
+        asTemplate(){if(!editable()||!form||form.initial||form.origin==='template')return;command.reset();form={...form,origin:'template',templateName:'',templateId:undefined,templateRevision:undefined,invalid:null};publish({form});},
+        changeTemplateName(name:string){if(!editable()||!form||form.origin!=='template'||command.snapshot().phase==='conflict')return;form={...form,templateName:name,invalid:null};publish({form});},
+        editTemplate:(id:string,locale:string)=>loadTemplate(id,locale,true),applyTemplate:(id:string,locale:string,replace=false)=>loadTemplate(id,locale,false,replace),
+        async archiveTemplate(id:string,revision:number,archived:boolean){if(!editable()||form||allocationForm)return;const current=state.templates.find(row=>row.id===id);if(!current)return;if(current.revision!==revision){publish({error:new WalletApiError(409,'Mẫu vừa thay đổi.','CONFLICT',undefined)});return;}command.reset();addAnother=false;await finish(()=>command.submit({kind:'template-archive',id,revision,archived}));},
         openAllocations(locale:string){if(!editable()||form||allocationForm||!state.allocationStorage||!canEdit(state.selected)||!state.selected||!['income','expense'].includes(state.selected.record.kind))return;const selected=state.selected;command.reset();addAnother=false;formOpen=true;allocationForm={id:selected.record.id,revision:selected.record.revision,currency:selected.postings[0].currency,kind:selected.record.kind,postingMinor:selected.postings[0].deltaMinor,retainedCategoryIds:state.allocations.map(row=>row.categoryId),locale,invalid:false,rows:state.allocations.map(row=>({categoryId:row.categoryId,amount:editableAmount(row.amountMinor,selected.postings[0].currency,locale,true)}))};publish({allocationForm,error:null});},
         changeAllocations(rows:{categoryId:string;amount:string}[]){if(!editable()||!allocationForm||command.snapshot().phase==='conflict')return;allocationForm={...allocationForm,rows:structuredClone(rows),invalid:false};publish({allocationForm});},
         async saveAllocations(){if(!editable()||!allocationForm||command.snapshot().phase==='conflict')return;let rows:AllocationDraft[];try{rows=allocationRows(allocationForm.rows.map(row=>({categoryId:row.categoryId,amountMinor:parseMoney(row.amount,allocationForm!.currency,allocationForm!.locale).minor})));assertAllocationTotal(rows,{kind:allocationForm.kind},[{deltaMinor:allocationForm.postingMinor}]);}catch{allocationForm={...allocationForm,invalid:true};publish({allocationForm});return;}const {id,revision}=allocationForm;await finish(()=>command.submit({kind:'allocations',id,revision,rows}));if([403,404].includes(command.snapshot().error?.status??0))await refresh();},
@@ -204,13 +222,13 @@ export function createRecordWorkspace(api: Api, options: {
             return; command.reset(); form = makeForm(locale, selectedInitial); formOpen = true; publish({ form,error:null }); },
         change(patch: Partial<RecordFormDraft>) { if (!editable() || !form || command.snapshot().phase === 'conflict')
             return; form = { ...form, draft: { ...form.draft, ...patch }, invalid: null }; publish({ form }); },
-        cancel() { if (!editable() || !form&&!allocationForm)
+        cancel() {if(!disposed&&state.draftLoading&&!['pending','unknown'].includes(command.snapshot().phase)){generation++;form=null;allocationForm=null;formOpen=false;command.reset();publish({form:null,allocationForm:null,draftLoading:false});return;} if (!editable() || !form&&!allocationForm)
             return; command.reset(); form = null;allocationForm=null; formOpen = false; publish({ form,allocationForm:null }); },
         hideForm() { if (disposed || !busy())
             return; formOpen = false; publish({ form: null,allocationForm:null }); },
         resumeForm() { if (disposed || state.phase !== 'ready' || !form&&!allocationForm)
             return; formOpen = true; publish({ form,allocationForm }); },
-        async reload() { if (!editable() || !form?.initial)
+        async reload() {if(editable()&&form?.origin==='template'&&form.templateId){const id=form.templateId,locale=form.draft.locale;form=null;formOpen=false;command.reset();await refresh();await loadTemplate(id,locale,true);return;} if (!editable() || !form?.initial)
             return; const locale = form.draft.locale; form = null; formOpen = false; command.reset(); await refresh(); if (state.phase === 'ready' && canEdit(state.selected) && selectedInitial) {
             form = makeForm(locale, selectedInitial);
             formOpen = true;
@@ -222,15 +240,15 @@ export function createRecordWorkspace(api: Api, options: {
             let intent: Intent;
             try {
                 const args = { initial: form.initial, now: options.now };
-                intent = form.initial ? { kind: 'update', id: form.initial.detail.record.id, revision: form.initial.detail.record.revision, input: recordFormPatch(form.draft, state.accounts, { ...args, initial: form.initial }) } : { kind: 'create', input: recordFormInput(form.draft, state.accounts, args) };
+                if(form.origin==='template'){if(!form.templateName?.trim()||form.templateName.length>500)throw Error('TEMPLATE_NAME_REQUIRED');intent={kind:'template-save',id:form.templateId,revision:form.templateRevision??0,name:form.templateName,draft:recordFormInput(form.draft,state.accounts,args)};}else intent = form.initial ? { kind: 'update', id: form.initial.detail.record.id, revision: form.initial.detail.record.revision, input: recordFormPatch(form.draft, state.accounts, { ...args, initial: form.initial }) } : { kind: 'create', input: recordFormInput(form.draft, state.accounts, args) };
             }
             catch (error) {
-                const code = error instanceof Error && ['AMBIGUOUS_LOCAL_TIME', 'NONEXISTENT_LOCAL_TIME', 'ACCOUNT_NOT_WRITABLE'].includes(error.message) ? error.message : 'INVALID_INPUT';
+                const code = error instanceof Error && ['TEMPLATE_NAME_REQUIRED','AMBIGUOUS_LOCAL_TIME', 'NONEXISTENT_LOCAL_TIME', 'ACCOUNT_NOT_WRITABLE'].includes(error.message) ? error.message : 'INVALID_INPUT';
                 form = { ...form, invalid: code };
                 publish({ form });
                 return;
             }
-            addAnother = another && !form.initial;
+            addAnother = another && !form.initial&&form.origin!=='template';
             await finish(() => command.submit(intent));
         },
         async retry() { if (disposed || state.phase !== 'ready' || command.snapshot().phase !== 'unknown')

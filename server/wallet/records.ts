@@ -55,6 +55,11 @@ export function checkWalletCatalog(reader:WalletReader,id:string|null,labels:str
  if(id!==null&&id!==before?.record.categoryId){const seen=new Set<string>();let next:string|null=id;while(next!==null){if(seen.has(next))fail(422,'Danh mục có vòng lặp.');seen.add(next);const row=reader.get('SELECT c.parent_id,c.archived_at,m.hidden FROM wallet_categories c LEFT JOIN wallet_category_metadata m ON m.category_id=c.id WHERE c.id=?',next);if(!row||row.archived_at!==null||row.hidden===1)fail(422,'Danh mục không thể được chọn.');next=row.parent_id;}}
  for(const label of labels)if(!before?.labelIds.includes(label)){const row=reader.get('SELECT l.archived_at,m.hidden FROM wallet_labels l LEFT JOIN wallet_label_metadata m ON m.label_id=l.id WHERE l.id=?',label);if(!row||row.archived_at!==null||row.hidden===1)fail(422,'Nhãn không thể được chọn.');}
 }
+export {normalize as normalizeWalletRecordDraft};
+/** Validate a prospective new manual draft without writing a record. */
+export function validateWalletRecordDraft(reader:WalletReader,actor:Actor,raw:unknown):RecordDraft {
+ const guard=()=>{assertWalletActor(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value!=='1')fail(409,'Wallet chưa sẵn sàng.');};guard();const value=normalize(raw);checkTargets(reader,actor,value,{archive:true});checkWalletCatalog(reader,value.categoryId,value.labelIds);for(const row of value.allocations??[])checkWalletCatalog(reader,row.categoryId,[]);if(value.kind==='transfer'&&value.fee)checkWalletCatalog(reader,value.fee.categoryId??null,[]);guard();return value;
+}
 function result(reader:WalletReader,actor:Actor,id:string):WalletRecordResult {
  const value=createWalletAccess(reader).getRecord(actor,id);if(value.partial)fail(404,'Không tìm thấy giao dịch có thể sửa.');const columns=walletMetadataColumns.wallet_record_metadata,row=reader.get('SELECT '+columns.join(',')+' FROM wallet_record_metadata WHERE record_id=?',id);if(!row)fail(409,'Thiếu metadata giao dịch.');
  let allocations:AllocationDraft[];try{allocations=allocationRows(reader.all('SELECT category_id AS categoryId,CAST(amount_minor AS TEXT) AS amountMinor FROM wallet_allocations WHERE record_id=? ORDER BY category_id LIMIT 101',id));assertAllocationTotal(allocations,value.record,value.postings);}catch{fail(422,'Phân bổ lịch sử không khớp giao dịch.');}

@@ -1,3 +1,5 @@
+import {templateValue,templateListValue} from './templateDto.js';
+import type {TemplateDraft} from '../../../server/wallet/templates.js';
 import {assertAllocationTotal,allocationRows,allocationResultValue,type AllocationDraft} from './allocations.js';
 import {recordDraftValue} from './recordDraftValue.js';
 import {catalogItemValue,catalogDeletionValue,catalogDeletedValue} from './catalogDto.js';
@@ -213,7 +215,7 @@ function receiptValue(value:unknown,recordId:string):WalletReceiptMetadata {
 }
 /** DTO decoders are browser-only; server imports above are erased types. */
 export function createWalletApi(ports: WalletTransportPorts) {
-    const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records'|'categories'|'labels', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
+    const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records'|'categories'|'labels'|'templates', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
     const read = async <T>(uri: string, decoder: (v: unknown) => T, options: WalletRequestOptions = {}, nonce?: string): Promise<T> => { const value = await walletRequest(uri, options); try {
         return decoder(value);
     }
@@ -227,6 +229,11 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        templates:()=>read('/api/wallet/templates',templateListValue),
+        template:(id:string)=>read(path('templates',id),value=>templateValue(value,id,undefined,true) as import('../../../server/wallet/templates.js').WalletTemplate&{draft:RecordDraft}),
+        createTemplate:(input:Omit<TemplateDraft,'id'>,nonce:string)=>command('/api/wallet/templates','POST',{expectedRevision:0,input},nonce,value=>templateValue(value,undefined,0)),
+        updateTemplate:(id:string,revision:number,patch:Omit<TemplateDraft,'id'>,nonce:string)=>command(path('templates',id),'PATCH',{expectedRevision:revision,patch},nonce,value=>templateValue(value,id,revision)),
+        instantiateTemplate:(id:string,now:string)=>{utcInstant(now);return read(path('templates',id)+'/draft',raw=>{const value=recordDraftValue(raw);if(value.occurredAt!==now||value.reviewedAt!==null||value.settlementStatus!=='uncleared'||value.effectiveDate!==effectiveDateAt(now,value.timezone))throw Error('Template draft clock identity');return value;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({now})});},
         allocations:(id:string)=>read(path('records',id)+'/allocations',value=>allocationResultValue(value,id)),
         setAllocations:(id:string,revision:number,rows:AllocationDraft[],nonce:string)=>command(path('records',id)+'/allocations','PUT',{expectedRevision:revision,rows},nonce,value=>{const result=allocationResultValue(value,id,revision);if(JSON.stringify(result.rows)!==JSON.stringify(allocationRows(rows)))throw Error('Allocation acknowledgement payload');return result;}),
         cloneRecordDraft:(id:string,now:string)=>{utcInstant(now);return read(path('records',id)+'/clone-draft',raw=>{const value=recordDraftValue(raw);if(value.occurredAt!==now||value.reviewedAt!==null||value.settlementStatus!=='uncleared'||value.effectiveDate!==effectiveDateAt(now,value.timezone))throw Error('Clone clock/review identity');return value;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({now})});},

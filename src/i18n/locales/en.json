@@ -1957,6 +1957,27 @@
     "failed": "The new order could not be confirmed."
   },
   "wallet": {
+    "templates": {
+      "title": "Record templates",
+      "new": "Create template",
+      "edit": "Edit template",
+      "name": "Template name",
+      "save": "Save template",
+      "hint": "Templates are your personal configuration, with no ledger entry. Applying one opens a draft; review amounts, accounts and default labels before saving a record.",
+      "applied": "Template and default labels applied to a new draft. Date/time are fresh, status is uncleared and unreviewed; Save creates the record.",
+      "choose": "Choose template",
+      "none": "No template",
+      "replace": "Replace draft with template",
+      "asTemplate": "Save draft as template",
+      "use": "Open draft",
+      "archive": "Archive template",
+      "restore": "Restore template",
+      "archiveConfirm": "Archive this template? Its configuration and previously created records are retained.",
+      "restoreConfirm": "Restore this template? Accounts and permissions will be checked when applying it.",
+      "search": "Search templates",
+      "empty": "No matching templates.",
+      "page": "Page {{page}}/{{pages}} · {{count}} templates"
+    },
     "allocations": {
       "title": "Split categories",
       "hint": "Distribute this record across categories. Its total stays the same; no extra record is created.",
@@ -2168,6 +2189,7 @@
       "only": "Transfers only"
     },
     "recordErrors": {
+      "TEMPLATE_NAME_REQUIRED": "Enter a nonempty template name of at most 500 characters.",
       "INVALID_INPUT": "Check the fields, amounts and dates. Your draft is retained.",
       "AMBIGUOUS_LOCAL_TIME": "This time occurs twice. Choose the earlier or later occurrence.",
       "NONEXISTENT_LOCAL_TIME": "This time does not exist in the selected timezone. Choose another time.",

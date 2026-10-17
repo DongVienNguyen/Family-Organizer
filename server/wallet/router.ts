@@ -80,6 +80,11 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     const manager = (req: WalletRequest, accountId: string) => { if (ports.access.getAccount(actor(req), accountId).permission !== 'manage')
         throw new AppStoreError('Không có quyền quản lý tài khoản.', 403); };
     router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
+    router.get('/templates',handler(req=>({templates:ports.templates.listTemplates(actor(req))})));
+    router.get('/templates/:id',handler(req=>ports.templates.getTemplate(actor(req),id(req.params.id))));
+    router.post('/templates/:id/draft',handler(req=>{const value=body(req,['now']);return ports.templates.instantiateTemplate(actor(req),id(req.params.id),value.now as string);}));
+    router.post('/templates',handler(req=>{const value=body(req,['expectedRevision','input']);if(value.input?.id!==undefined)throw new AppStoreError('Mã tạo mới thuộc máy chủ.',400);return ports.templates.saveTemplate(context(req,value.expectedRevision,false),value.input as any,()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/templates/:id',handler(req=>{const value=body(req,['expectedRevision','patch']);let patch:Record<string,unknown>;try{patch=object(value.patch);keys(patch,['name','draft','archived']);}catch{throw new AppStoreError('Trường mẫu không hợp lệ.',400);}return ports.templates.saveTemplate(context(req,value.expectedRevision,true),{...patch,id:id(req.params.id)},()=>changed(new Set([actor(req).userId])));}));
     router.get('/catalog',handler(req=>ports.catalog(actor(req))));
     router.get('/catalog/capabilities',handler(req=>ports.catalogCommands.capabilities(actor(req))));
     for(const kind of ['category','label'] as const){

@@ -41,11 +41,12 @@ function referenceRows(reader:WalletReader,actor:Actor,kind:Kind,id:string){
     const allocations=kind==='category'?reader.all('SELECT r.id,('+visible+') AS visible FROM wallet_allocations x JOIN wallet_records r ON r.id=x.record_id WHERE x.category_id=? ORDER BY r.id',...scope.args,id):[];
     const children=kind==='category'?reader.get('SELECT count(*) AS n FROM wallet_categories WHERE parent_id=?',id).n:0;
     const history=kind==='category'&&reader.get("SELECT name FROM sqlite_master WHERE name='wallet_legacy_links' AND type='table'")?!!reader.get("SELECT 1 FROM wallet_legacy_links WHERE source_kind='category' AND target_id=? LIMIT 1",id):false;
-    return {records,allocations,children,history};
+    const hasTemplates=!!reader.get("SELECT name FROM sqlite_master WHERE name='wallet_templates' AND type='table'"),templates=hasTemplates&&(kind==='category'?!!reader.get("SELECT 1 FROM wallet_templates WHERE json_extract(draft_json,'$.categoryId')=? OR json_extract(draft_json,'$.fee.categoryId')=? OR EXISTS(SELECT 1 FROM json_each(draft_json,'$.allocations') x WHERE json_extract(x.value,'$.categoryId')=?) LIMIT 1",id,id,id):!!reader.get("SELECT 1 FROM wallet_templates WHERE EXISTS(SELECT 1 FROM json_each(draft_json,'$.labelIds') x WHERE x.value=?) LIMIT 1",id));
+    return {records,allocations,children,history,templates};
 }
 function references(reader:WalletReader,actor:Actor,kind:Kind,id:string):CatalogReferences {
     const first=referenceRows(reader,actor,kind,id);guard(reader,actor);const second=referenceRows(reader,actor,kind,id);if(JSON.stringify(first)!==JSON.stringify(second))fail(409,'Quyền hoặc liên kết vừa thay đổi; hãy xem lại.','edit-conflict');
-    const records=first.records.filter(row=>row.visible===1).length,allocations=first.allocations.filter(row=>row.visible===1).length,admin=actor.role==='admin';return {children:first.children,records,allocations,history:admin&&first.history,otherRestricted:records<first.records.length||allocations<first.allocations.length||!admin&&first.history};
+    const records=first.records.filter(row=>row.visible===1).length,allocations=first.allocations.filter(row=>row.visible===1).length,admin=actor.role==='admin';return {children:first.children,records,allocations,history:admin&&first.history,otherRestricted:first.templates||records<first.records.length||allocations<first.allocations.length||!admin&&first.history};
 }
 const blocked=(value:CatalogReferences)=>value.children>0||value.records>0||value.allocations>0||value.history||value.otherRestricted;
 export function createWalletCatalog(ports:{reader:WalletReader;write:typeof withAppWriteTransaction;now?:()=>number}){

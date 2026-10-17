@@ -1957,6 +1957,27 @@
     "failed": "无法确认新的顺序。"
   },
   "wallet": {
+    "templates": {
+      "title": "交易模板",
+      "new": "创建模板",
+      "edit": "编辑模板",
+      "name": "模板名称",
+      "save": "保存模板",
+      "hint": "模板是你的私人配置，尚未记账。应用模板只打开草稿；保存记录前请检查金额、账户和默认标签。",
+      "applied": "模板和默认标签已应用到新草稿。日期和时间已更新，状态为未结清、未审核；保存才会创建记录。",
+      "choose": "选择模板",
+      "none": "不选模板",
+      "replace": "用模板替换草稿",
+      "asTemplate": "将草稿保存为模板",
+      "use": "打开草稿",
+      "archive": "归档模板",
+      "restore": "恢复模板",
+      "archiveConfirm": "归档此模板？配置和之前创建的记录会保留。",
+      "restoreConfirm": "恢复此模板？应用时会重新检查账户和权限。",
+      "search": "搜索模板",
+      "empty": "没有匹配的模板。",
+      "page": "第 {{page}}/{{pages}} 页 · {{count}} 个模板"
+    },
     "allocations": {
       "title": "分类分摊",
       "hint": "将本记录的金额分配到多个分类。总金额保持不变，不会创建额外记录。",
@@ -2168,6 +2189,7 @@
       "only": "仅转账"
     },
     "recordErrors": {
+      "TEMPLATE_NAME_REQUIRED": "请输入不超过500个字符的非空模板名称。",
       "INVALID_INPUT": "请检查字段、金额和日期。输入内容已保留。",
       "AMBIGUOUS_LOCAL_TIME": "此时间出现两次。请选择较早或较晚的一次。",
       "NONEXISTENT_LOCAL_TIME": "所选时区不存在此时间。请选择其他时间。",

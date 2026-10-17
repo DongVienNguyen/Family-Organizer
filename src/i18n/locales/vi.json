@@ -1957,6 +1957,27 @@
     "failed": "Chưa xác nhận được thứ tự mới."
   },
   "wallet": {
+    "templates": {
+      "title": "Mẫu giao dịch",
+      "new": "Tạo mẫu",
+      "edit": "Sửa mẫu",
+      "name": "Tên mẫu",
+      "save": "Lưu mẫu",
+      "hint": "Mẫu là cấu hình riêng của bạn, chưa ghi sổ. Áp dụng mẫu chỉ mở bản nháp; kiểm tra số tiền, tài khoản và nhãn trước khi Lưu giao dịch.",
+      "applied": "Đã áp dụng mẫu và nhãn mặc định vào bản nháp mới. Ngày/giờ mới, trạng thái chưa thanh toán và chưa kiểm tra; chỉ Lưu mới ghi giao dịch.",
+      "choose": "Chọn mẫu",
+      "none": "Không chọn mẫu",
+      "replace": "Thay bản nháp bằng mẫu",
+      "asTemplate": "Lưu bản nháp thành mẫu",
+      "use": "Mở bản nháp",
+      "archive": "Lưu trữ mẫu",
+      "restore": "Khôi phục mẫu",
+      "archiveConfirm": "Lưu trữ mẫu này? Cấu hình và các giao dịch đã tạo được giữ nguyên.",
+      "restoreConfirm": "Khôi phục mẫu này để sử dụng lại? Tài khoản và quyền sẽ được kiểm tra khi áp dụng.",
+      "search": "Tìm mẫu",
+      "empty": "Chưa có mẫu phù hợp.",
+      "page": "Trang {{page}}/{{pages}} · {{count}} mẫu"
+    },
     "allocations": {
       "title": "Phân bổ danh mục",
       "hint": "Chia số tiền giao dịch cho nhiều danh mục. Tổng tiền giữ nguyên; không tạo thêm giao dịch.",
@@ -2168,6 +2189,7 @@
       "only": "Chỉ chuyển khoản"
     },
     "recordErrors": {
+      "TEMPLATE_NAME_REQUIRED": "Nhập tên mẫu không trống, tối đa 500 ký tự.",
       "INVALID_INPUT": "Kiểm tra các trường, số tiền và ngày. Dữ liệu nhập vẫn được giữ.",
       "AMBIGUOUS_LOCAL_TIME": "Giờ này xuất hiện hai lần. Chọn lần xuất hiện trước hoặc sau.",
       "NONEXISTENT_LOCAL_TIME": "Giờ này không tồn tại trong múi giờ đã chọn. Hãy chọn giờ khác.",
