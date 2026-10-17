@@ -1727,6 +1727,11 @@
     "invalidTarget": "Choose a valid target. To clear a Task with multiple tags, explicitly choose “Replace all tags”."
   },
   "recurrence": {
+    "rotationOrder": "Rotation order",
+    "rotationEarlier": "Move {{name}} earlier",
+    "rotationLater": "Move {{name}} later",
+    "rotationRemove": "Remove {{name}} from rotation",
+    "rotationUnavailable": "Unavailable member",
     "legacyInspect": "Inspect old recurrence",
     "legacyAdmin": "An administrator must preview this old recurring family before conversion.",
     "legacyExplanation": "The old schedule will stop for the whole family. Tasks, pending proof and points remain; previous completions do not count toward the new schedule.",

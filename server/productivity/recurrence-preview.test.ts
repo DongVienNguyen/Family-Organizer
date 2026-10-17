@@ -97,3 +97,27 @@ it('projects all366 explicit successor dates without revalidating the whole poli
  const f=fixture(policy({cadence:{kind:'dates',dates}}),{due:{kind:'all_day',date:'2027-12-31',timezone:'Asia/Saigon'}}),before=allRows(),validation=vi.spyOn(recurrencePolicy,'normalizeRecurrencePolicy');
  try{const rows=preview.previewOccurrences(actor(),f.series.id,{from:'2028-01-01',toExclusive:'2029-01-01'});expect(rows.map((r:any)=>r.due.date)).toEqual(dates);expect(rows.map(r=>r.ordinal)).toEqual(dates.map((_,i)=>i+1));expect(validation.mock.calls.length).toBeLessThanOrEqual(2);expect(allRows()).toEqual(before);}finally{validation.mockRestore();}
 });
+
+it.each([1,2])('returns an empty distant preview after a historical daily series exhausted its count %i',count=>{
+ const f=fixture(policy({cadence:{kind:'calendar',frequency:'daily',interval:1,invalidDate:'clamp'},end:{kind:'count',count}}),{due:{kind:'all_day',date:'1000-01-01',timezone:'Asia/Saigon'}}),before=allRows();
+ expect(preview.previewOccurrences(actor(),f.series.id,range)).toEqual([]);expect(allRows()).toEqual(before);
+});
+it('includes an in-bound historical exception moved into a distant preview without scanning exhausted ordinals',()=>{
+ const f=fixture(policy({cadence:{kind:'calendar',frequency:'daily',interval:1,invalidDate:'clamp'},end:{kind:'count',count:2}}),{due:{kind:'all_day',date:'1000-01-01',timezone:'Asia/Saigon'}});
+ store.saveException(ctx(1),f.series.id,1,{kind:'due',due:{kind:'all_day',date:'2027-02-15',timezone:'Asia/Saigon'}});const before=allRows();
+ expect(preview.previewOccurrences(actor(),f.series.id,range)).toEqual([{kind:'virtual',seriesId:f.series.id,taskId:f.source.id,seriesRevision:2,ordinal:1,due:{kind:'all_day',date:'2027-02-15',timezone:'Asia/Saigon'}}]);expect(allRows()).toEqual(before);
+});
+it('does not revive restored exceptions beyond the exhausted historical count',()=>{
+ const f=fixture(policy({cadence:{kind:'calendar',frequency:'daily',interval:1,invalidDate:'clamp'},end:{kind:'count',count:2}}),{due:{kind:'all_day',date:'1000-01-01',timezone:'Asia/Saigon'}});
+ write(tx=>tx.run('INSERT INTO productivity_series_exceptions VALUES(?,?,?,?,?)',f.series.id,2,'due',JSON.stringify({kind:'all_day',date:'2027-02-15',timezone:'Asia/Saigon'}),1));const before=allRows();
+ expect(preview.previewOccurrences(actor(),f.series.id,range)).toEqual([]);expect(allRows()).toEqual(before);
+});
+it('retains the last supported moved exception of a maximum-count historical series',()=>{
+ const f=fixture(policy({cadence:{kind:'calendar',frequency:'daily',interval:1,invalidDate:'clamp'},end:{kind:'count',count:100000}}),{due:{kind:'all_day',date:'1000-01-01',timezone:'Asia/Saigon'}});
+ store.saveException(ctx(1),f.series.id,99999,{kind:'due',due:{kind:'all_day',date:'2027-02-15',timezone:'Asia/Saigon'}});const before=allRows();
+ expect(preview.previewOccurrences(actor(),f.series.id,range).map(row=>row.ordinal)).toEqual([99999]);expect(allRows()).toEqual(before);
+});
+it.each([{kind:'never'},{kind:'date',date:'2027-12-31'}])('retains the supported ordinal bound for a distant unexhausted $kind series',end=>{
+ const f=fixture(policy({cadence:{kind:'calendar',frequency:'daily',interval:1,invalidDate:'clamp'},end}),{due:{kind:'all_day',date:'1000-01-01',timezone:'Asia/Saigon'}}),before=allRows();
+ expect(()=>preview.previewOccurrences(actor(),f.series.id,range)).toThrow(expect.objectContaining({status:422}));expect(allRows()).toEqual(before);
+});

@@ -1727,6 +1727,11 @@
     "invalidTarget": "请选择有效目标。要清除任务的多个标签，请明确选择“替换全部标签”。"
   },
   "recurrence": {
+    "rotationOrder": "轮换顺序",
+    "rotationEarlier": "将{{name}}提前",
+    "rotationLater": "将{{name}}后移",
+    "rotationRemove": "将{{name}}移出轮换",
+    "rotationUnavailable": "成员不可用",
     "legacyInspect": "检查旧重复计划",
     "legacyAdmin": "管理员必须先预览此旧重复任务组，才能转换。",
     "legacyExplanation": "整个任务组的旧计划将停止。任务、待审核凭证和积分保持不变；历史完成记录不计入新计划。",

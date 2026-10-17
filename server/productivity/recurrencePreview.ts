@@ -53,7 +53,7 @@ export function createRecurrencePreviews(ports:{reader:TaskReader}){
    if(date<from||date>=toExclusive||series.policy.end.kind==='date'&&date>series.policy.end.date)return;
    rows.set(slot.ordinal,row);if(rows.size>1000)fail(422,'Có quá1000kỳ lặp trong khoảng đã chọn.');
   };
-  const start=firstOrdinal(series,from);if(start>100000)return fail(422,'Kỳ lặp ngoài phạm vi được hỗ trợ.');
+  const start=firstOrdinal(series,from);if(start>100000&&series.policy.end.kind!=='count')return fail(422,'Kỳ lặp ngoài phạm vi được hỗ trợ.');
   for(let ordinal=start;ordinal<=100000;ordinal++){
    const slot=candidate(ordinal);if(slot.kind==='end'||slot.kind==='awaiting-acceptance')break;
    if(nominalDate(slot)>=toExclusive)break;include(slot);if(series.policy.base==='completion')break;

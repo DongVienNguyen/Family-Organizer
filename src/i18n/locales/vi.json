@@ -1727,6 +1727,11 @@
     "invalidTarget": "Chọn đích hợp lệ. Để bỏ hết thẻ của việc có nhiều thẻ, chọn “Thay toàn bộ thẻ”."
   },
   "recurrence": {
+    "rotationOrder": "Thứ tự luân phiên",
+    "rotationEarlier": "Đưa {{name}} lên trước",
+    "rotationLater": "Đưa {{name}} xuống sau",
+    "rotationRemove": "Bỏ {{name}} khỏi luân phiên",
+    "rotationUnavailable": "Thành viên không còn khả dụng",
     "legacyInspect": "Kiểm tra lịch lặp cũ",
     "legacyAdmin": "Quản trị viên cần xem trước nhóm lịch lặp cũ trước khi chuyển.",
     "legacyExplanation": "Lịch cũ sẽ được dừng cho cả nhóm. Giữ nguyên công việc, bằng chứng chờ duyệt và điểm; không tính các lần hoàn thành cũ vào lịch mới.",

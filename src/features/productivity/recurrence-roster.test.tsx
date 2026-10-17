@@ -1,0 +1,23 @@
+import React from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
+import {expect,it,vi} from 'vitest';
+import {UserRole,type User} from '../../types.js';
+import viMessages from '../../i18n/locales/vi.json';
+import enMessages from '../../i18n/locales/en.json';
+import zhMessages from '../../i18n/locales/zh.json';
+import {RecurrenceRotation} from './RecurrenceRotation.js';
+import {moveRotationMember} from './recurrenceRoster.js';
+
+vi.mock('react-i18next',()=>({useTranslation:()=>({t:(key:string,options:any={})=>{let value:any=viMessages;for(const part of key.split('.'))value=value?.[part];return String(value??key).replace(/{{(\w+)}}/g,(_m,n)=>String(options[n]??''));}})}));
+const users=[['alpha','Alpha'],['beta','Beta'],['gamma','Gamma']].map(([id,fullName])=>({id,fullName,role:UserRole.MEMBER}))as User[];
+const html=(members:readonly string[],extra:any={})=>renderToStaticMarkup(<RecurrenceRotation users={users} members={members} disabled={false} onChange={()=>{}} {...extra}/>);
+it('moves a selected member earlier without changing the input or adding a member',()=>{const ids=Object.freeze(['alpha','beta','gamma']);expect(moveRotationMember(ids,'gamma',-1)).toEqual(['alpha','gamma','beta']);expect(ids).toEqual(['alpha','beta','gamma']);});
+it('moves a selected member later without wrapping or changing identities',()=>{expect(moveRotationMember(['alpha','beta','gamma'],'alpha',1)).toEqual(['beta','alpha','gamma']);});
+it.each([['alpha',-1],['gamma',1],['missing',1]]as const)('keeps the roster intact at the %s/%i boundary',(id,direction)=>{const ids=['alpha','beta','gamma'];expect(moveRotationMember(ids,id,direction)).toEqual(ids);expect(moveRotationMember(ids,id,direction)).not.toBe(ids);});
+it('renders numbered policy order rather than user directory order',()=>{const s=html(['gamma','alpha']);expect(s).toContain('<ol');const order=s.slice(s.indexOf('<ol'));expect(order.indexOf('Gamma')).toBeLessThan(order.indexOf('Alpha'));expect(order).toContain('1.');expect(order).toContain('2.');});
+it('provides named earlier later and remove buttons without submitting the editor',()=>{const s=html(['alpha','beta']);expect(s).toContain('aria-label="Đưa Alpha lên trước"');expect(s).toContain('aria-label="Đưa Alpha xuống sau"');expect(s).toContain('aria-label="Bỏ Alpha khỏi luân phiên"');expect(s).not.toContain('type="submit"');});
+it('disables the first earlier and last later controls',()=>{const s=html(['alpha','beta']);expect(s).toMatch(/aria-label="Đưa Alpha lên trước"[^>]*disabled=""/);expect(s).toMatch(/aria-label="Đưa Beta xuống sau"[^>]*disabled=""/);});
+it('locks the entire roster while the editor is offline busy stale or denied',()=>{expect(html(['alpha'],{disabled:true})).toContain('<fieldset disabled=""');});
+it('retains unavailable selections with an unnamed placeholder and explicit removal',()=>{const s=html(['private-deleted-id','alpha'],{users:[...users,{id:'private-deleted-id',fullName:'Hidden deleted name',role:UserRole.MEMBER,isDeleted:true}]});expect(s).toContain('Thành viên không còn khả dụng');expect(s).toContain('Bỏ Thành viên không còn khả dụng khỏi luân phiên');expect(s).not.toContain('Hidden deleted name');expect(s).not.toContain('private-deleted-id');});
+it('rendering never mutates or automatically saves the draft',()=>{const members=Object.freeze(['beta','alpha']),changed=vi.fn();html(members,{onChange:changed});expect(changed).not.toHaveBeenCalled();expect(members).toEqual(['beta','alpha']);});
+it.each([viMessages,enMessages,zhMessages])('ships all new visible roster messages in each supported locale',messages=>{for(const key of ['rotationOrder','rotationEarlier','rotationLater','rotationRemove','rotationUnavailable']){expect((messages.recurrence as any)[key]).toEqual(expect.any(String));expect((messages.recurrence as any)[key].trim()).not.toBe('');}});

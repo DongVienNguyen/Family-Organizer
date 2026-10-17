@@ -2,6 +2,15 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
+Feature-first local development: column settings PR136 is composed by a normal
+merge, without publishing a new CI run. Ordered rotation now has numbered draft
+controls, keyboard earlier/later/removal and unavailable-member placeholders in
+all three locales. Historical count-exhausted previews retain moved in-bound
+exceptions without widening the supported ordinal limit. Actual RED checkpoints
+were corrected; targeted Cloud suites, lint/build and the real C43 Chromium
+save/drawer/preservation journey plus native touch passed. Full group suite and
+final Windows qualification remain pending. No feature-group completion claim.
+
 User directs feature-first development: finish and functionally test the main
 flows in Cloud, then perform comprehensive Windows qualification at the end of a
 feature group. Follow [feature-first validation](feature-first-validation.md).

@@ -49,6 +49,7 @@ export const productivityBrowserCases=[
  'P09 C40 keyboard column create rename and ordering preserve Task proof deadline and points',
  'P09 C41 archive preview covers off-filter Tasks cancel writes nothing and native replay preserves one classification change',
  'P09 C42 uncertain column creation retains its original request after actual delivery and an unrelated authorized refresh',
+ 'P10 C43 ordered rotation draft survives drawer close and saves once without changing Task proof deadline or points',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat,workers:productivityBrowserWorkers,fixtureVersion:productivityFixtureVersion}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases,{workers:productivityBrowserWorkers})];
