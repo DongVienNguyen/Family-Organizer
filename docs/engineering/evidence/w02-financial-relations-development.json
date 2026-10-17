@@ -1,0 +1,174 @@
+{
+  "taskIds": [
+    "W02-partial"
+  ],
+  "status": "Cloud financial-relation checkpoint; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "3a44a4fd23af6aba31eaa85b6494acef5fb45bce",
+  "base": "8e0b2032e50cb2ffd732dd0d317d9bdbc89e1f13",
+  "sourceSha256": {
+    "server/productivity/bootstrap.ts": "96710210cb6795abcfdbf2ff9a6e3819b6e19447ba1a06fb571992494ff00972",
+    "server/wallet/financial.integration.test.ts": "99000fab813d84dde95fa1e692fee9e5d31ca0ccecb32d0a1eb714dcdff846c8",
+    "server/wallet/financial.test.ts": "f2fb6b189e27189d086437df361cc4bb7a7a4b98c8a7d7ff1bde12bd0be456f7",
+    "server/wallet/financial.ts": "1bb98314b5bd87e2d666d37126054de77fb0fef44f22af715d79f0cd35c4331a",
+    "server/wallet/financialSchema.ts": "d03d6471adf6e31bfe7c65c35ab7b3ce713d395f27d111310e6919f70e245a90",
+    "server/wallet/integration.test.ts": "51a617b5aa6cf08cb5dbf9e34fa57f0c5cb83dd357418f73b30f69259ce7481b",
+    "server/wallet/integration.ts": "5f26aa886d5c6648f2ed847a8c9d77f2a699ea8f908a68e677e9ed4cd6ecd1f3",
+    "server/wallet/metadata.integration.test.ts": "30fbae823352d0f0a3f2d4639b19d7fb312dc7c19e8dce9aaed9e04fa512354a",
+    "server/wallet/schema.ts": "8d1d16bee4f16f19ab9dfecec6c731b656144698462254267709e0ff0387b0a6",
+    "server/wallet/snapshot.test.ts": "de46f9da8460bfb69387286202267d77ba62c3f04b31fa6c8fa16efda3a34927",
+    "server/wallet/snapshot.ts": "3cb044e7f2a0bef3e87052b42430cbe94ff280d9c13f9939e899875e611598e8",
+    "server/wallet/store.ts": "c79a770293939b4d8169170ee0512cd723f7d88ffb99f3dcf60ed058fb48d4b1"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6539,
+      "files": 349,
+      "junitCases": 6539,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 146.1
+    },
+    "walletInFullSuite": {
+      "tests": 200,
+      "files": 10
+    },
+    "targetedWalletBeforeFinalTwoCases": {
+      "passed": 198,
+      "files": 10
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6493,
+      "currentPassed": 6539,
+      "added": 46,
+      "removed": 0,
+      "normalization": "five recoveryRetention temporary roots; one explicitly version-neutral future-migration title rename; multiplicity retained",
+      "junitCases": 6539,
+      "files": 349
+    },
+    "parentTitleRename": {
+      "file": "server/wallet/metadata.integration.test.ts",
+      "before": "refuses genuinely future migration3 and metadata DDL drift without writing schema",
+      "after": "refuses genuinely future migration and metadata DDL drift without writing schema",
+      "reason": "version3 now supported; sentinel advanced to future4, assertions retained"
+    }
+  },
+  "protocols": {
+    "storageVersions": [
+      1,
+      2,
+      3
+    ],
+    "standaloneProtocols": {
+      "2": 1,
+      "3": 2,
+      "4": 3
+    },
+    "sharedEnvelope": 1,
+    "migration3Checksum": "62dc673e1c18834975ff8477266d39a59d07641f5985a914488b3b7ef1acebf8",
+    "restore": "matching installed version; W03 cross-version converter pending"
+  },
+  "review": {
+    "method": "LOCAL SELF review by author, not independent",
+    "reviewedPaths": [
+      "server/productivity/bootstrap.ts",
+      "server/wallet/financial.integration.test.ts",
+      "server/wallet/financial.test.ts",
+      "server/wallet/financial.ts",
+      "server/wallet/financialSchema.ts",
+      "server/wallet/integration.test.ts",
+      "server/wallet/integration.ts",
+      "server/wallet/metadata.integration.test.ts",
+      "server/wallet/schema.ts",
+      "server/wallet/snapshot.test.ts",
+      "server/wallet/snapshot.ts",
+      "server/wallet/store.ts"
+    ],
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "focus": [
+      "frozen v1/v2 and explicit additive v3 without automatic activation",
+      "standalone2/3/4 matching-version codecs and future sentinels",
+      "exact positive amounts and rational-major conversion agreement",
+      "transfer leg semantics and current parent revalidation before fee links",
+      "fee FK/uniqueness/separate-expense/void consistency",
+      "pre-maintenance shared validation and readonly recovery",
+      "cold DDL affinity/FK/unique rejection with unchanged bytes/closed handles",
+      "no other writer, auth route, provider or dependency change"
+    ],
+    "correctionPasses": 0,
+    "rereview": false,
+    "limitations": [
+      "No independent review",
+      "Full W02 and W05 transfer commands/UI incomplete"
+    ]
+  },
+  "developmentEvidence": {
+    "missingFinancialSchema": {
+      "failed": 32,
+      "exitCode": 1
+    },
+    "firstImplementation": {
+      "passed": 15,
+      "failed": 17,
+      "cause": "incorrect hand-counted required FX fields; replaced with fields.length",
+      "corrected": true
+    },
+    "missingI01Migration3": {
+      "failed": 8,
+      "exitCode": 1
+    },
+    "readonlyFixtureCorrection": "Capture happened after total_changes baseline; capture now precedes measurement of readonly inspection",
+    "feeParentRed": {
+      "failed": 1,
+      "filteredOut": 32,
+      "cause": "fee link did not revalidate current parent posting/FX consistency",
+      "corrected": true
+    },
+    "final": "6539 passed, no failed/skipped/todo; no assertions/retries/timeouts reduced"
+  },
+  "rawEvidenceRoot": "/workspace/family-evidence",
+  "rawReports": {
+    "w02-financial-qualified.json": "764a1974de46a59a7e6ea9a349f78234b18463ab897e27c149b997cc49c6daf0",
+    "w02-financial-qualified.junit.xml": "dd7813d180c6c6f55e8aae1a02fd2f1c8f888d4917ba55676b343a6972052d13",
+    "w02-financial-qualified.log": "c8b9340490b499789ade9a9d4be720e9339a37904e52037c21ad1d7583ce54a2",
+    "w02-financial-qualified.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w02-financial-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+    "w02-financial-lint.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w02-financial-build.log": "cfb0ba0b738c8040119929873d231226b7b2f0775b970a68b521c0dea682c0e6",
+    "w02-financial-build.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "w02-financial-frozen.json": "008244078bb5c367efe43f2dd4e126e5a0a314d7b20734856c388e9769bd85a5",
+    "w02-financial-preservation.json": "fac4772ab77c51d28ca5b55eda1505ced4b1a6dd6beb799a0fb99c08e43c56f4",
+    "w02-financial-red.json": "bdbee6cfb80e605a8228376d2b787d1221c44a5a9131fe461981f8430b1e5969",
+    "w02-financial-integration-red.json": "008e54256284a55ffd1df29cec408bb3f0f02b5e94709d54bc989d61704be9d6",
+    "w02-financial-fee-parent-red.json": "da8c5fa02faca8ef0d37e89b8869adc634595ba42ec544855d3aafe569341433"
+  },
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "new browser for backend-only work",
+    "current Windows2022 Node24/Node22",
+    "current Windows package/service",
+    "Windows Server2019 R02"
+  ],
+  "remaining": [
+    "W02 remaining entities, private receipt manifest",
+    "W03 durable legacy migration/quarantine, old backup conversion and cutover",
+    "W04 HTTP/media/export/report gates",
+    "W05 income/expense/transfer/update/void commands and UI",
+    "remaining M1/Wallet/productivity/integration acceptance"
+  ],
+  "constraints": [
+    "No automatic migration/activation",
+    "No HTTP/UI/live provider call added",
+    "No dependency/lock/workflow change",
+    "No release/tag/VPS"
+  ]
+}

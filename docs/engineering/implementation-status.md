@@ -2,6 +2,24 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
+**Latest continuation — W02 partial:** source `3a44a4fd23af6aba31eaa85b6494acef5fb45bce` adds immutable per-transfer
+FX amounts/rational/as-of/source and FK-linked separate expense fees in explicit
+migration3. v1/v2 remain frozen/supported; standalone2/3/4 map to domain1/2/3.
+Transfer legs, rate agreement, fee shape and parent void/current consistency are
+checked before writes/maintenance; shared I01 owns the only restore transaction.
+
+Full Cloud6539tests/349files/matchingJUnit/0failed-skipped-todo; Wallet200/10 within
+full run (198targeted before two final cases), lint/build0. All6493parent retained+46;
+one future-case title made version-neutral with sentinel4, all assertions retained.
+LOCAL SELF12paths0C/0I/0M/no correction/rereview in that review pass, not independent.
+[Detail](wallet-financial-relations.md), [proof](evidence/w02-financial-relations-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No activation,
+HTTP/UI, provider or workflow change. No new browser run. Current Windows/Node22/
+package/service and Server2019R02 unrun. Next: W05 record/transfer commands and
+remaining W02 receipts/entities/W03 migration, before API/UI/cutover and final gates.
+**Full W02/W03/W04/W05/Wallet/M1/master remains incomplete.** No release/tag/VPS.
+
 **Latest continuation — W04/W05 partial:** source `372433eee99ce6d62b463deb05c09299f8e9e34c` adds fresh role/grant
 ACL, SQL scoping before financial bodies, partial-transfer redaction and account
 create/update/archive commands with trusted actor/time, revision/idempotency and
