@@ -5,6 +5,7 @@ import {parseEffectiveDate} from '../../src/features/wallet/dates.js';
 import {timezoneFormatter} from '../../src/features/productivity/dates.js';
 import {text,choice,integer} from '../../src/features/productivity/validation.js';
 import {walletMetadataRepositories,walletMetadataColumns,type WalletMetadataTable} from './metadata.js';
+import {walletFinancialRepositories} from './financial.js';
 function addMetadata(tx:AppWriteTx,table:WalletMetadataTable,id:string):void {if(tx.get("SELECT name FROM sqlite_master WHERE type='table' AND name=?",table))tx.run('INSERT INTO '+table+'('+walletMetadataColumns[table][0]+') VALUES(?)',id);}
 export interface WalletAccount {id:string;name:string;type:'cash'|'bank'|'savings'|'credit'|'e_wallet'|'investment'|'asset'|'liability';currency:string;ownerUserId:string;accessMode:'shared'|'private';openingMinor:string;openingDate:string;revision:number}
 export interface WalletRecord {id:string;kind:RecordKind;effectiveDate:string;timezone:string;source:Source;externalKey?:string;note:string;settlementStatus:Settlement;creatorId:string;revision:number;categoryId?:string;occurrenceId?:string}
@@ -16,6 +17,7 @@ function walletTx(tx:AppWriteTx) {
   get legacy(){return tx.legacy;},
   sql:{get:tx.get,all:tx.all,run:tx.run},
   metadata:walletMetadataRepositories(tx),
+  financial:walletFinancialRepositories(tx),
   accounts:{
    insert(value:WalletAccount){for(const key of ['id','name','ownerUserId'] as const)text(value[key],key==='name'?500:256);choice(value.type,['cash','bank','savings','credit','e_wallet','investment','asset','liability']);currencyExponent(value.currency);choice(value.accessMode,['shared','private']);parseEffectiveDate(value.openingDate);integer(value.revision,1);tx.run('INSERT INTO wallet_accounts(id,name,type,currency,owner_user_id,access_mode,opening_minor,opening_date,revision) VALUES(?,?,?,?,?,?,?,?,?)',value.id,value.name,value.type,value.currency,value.ownerUserId,value.accessMode,minorInteger(value.openingMinor),value.openingDate,value.revision);addMetadata(tx,'wallet_account_metadata',value.id);},
    get(id:string):WalletAccount|null{text(id,256);return tx.get('SELECT '+accountColumns+' FROM wallet_accounts WHERE id=?',id)??null;},

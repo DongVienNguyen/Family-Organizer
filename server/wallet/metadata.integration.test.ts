@@ -50,8 +50,8 @@ it.each(['orphan','missing','unknown-actor','bad-time','bad-json','credit-overfl
 it('admits matching version2 read-only recovery without altering the database',()=>{
  setup();const saved=capture(),changes=reader.get('SELECT total_changes() AS n');expect(()=>inspectRecoverySnapshot(saved,sqlite.sqliteConnection().name)).not.toThrow();expect(reader.get('SELECT total_changes() AS n')).toEqual(changes);
 });
-it('refuses genuinely future migration3 and metadata DDL drift without writing schema',()=>{
- setup();write(tx=>tx.run("INSERT INTO app_migrations VALUES('wallet',3,'synthetic-future','2026-10-17T00:00:00.000Z')"));try{const before=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');expect(()=>inspectWalletStorage(reader)).toThrow(/Unsupported.*[Ww]allet/);expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(before);}finally{write(tx=>tx.run("DELETE FROM app_migrations WHERE namespace='wallet' AND version=3"));}
+it('refuses genuinely future migration and metadata DDL drift without writing schema',()=>{
+ setup();write(tx=>tx.run("INSERT INTO app_migrations VALUES('wallet',4,'synthetic-future','2026-10-17T00:00:00.000Z')"));try{const before=reader.all('SELECT name,sql FROM sqlite_master ORDER BY name');expect(()=>inspectWalletStorage(reader)).toThrow(/Unsupported.*[Ww]allet/);expect(reader.all('SELECT name,sql FROM sqlite_master ORDER BY name')).toEqual(before);}finally{write(tx=>tx.run("DELETE FROM app_migrations WHERE namespace='wallet' AND version=4"));}
  write(tx=>tx.run('CREATE INDEX wallet_synthetic_untrusted ON wallet_record_metadata(payee)'));try{expect(()=>inspectWalletStorage(reader)).toThrow(/Unsupported Wallet storage schema/);}finally{write(tx=>tx.run('DROP INDEX wallet_synthetic_untrusted'));}expect(inspectWalletStorage(reader)).toBe(true);
 });
 it('retains version2 at fresh source bootstrap without migration, activation or money loss',()=>{
