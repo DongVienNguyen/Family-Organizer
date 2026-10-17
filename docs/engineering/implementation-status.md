@@ -1,8 +1,27 @@
 # Tiến độ Windows-native
 
-## Current direction — 2026-10-17 (Asia/Saigon)
+## Current direction — 2026-10-17 (UTC)
 
-**Latest continuation — W03/W05 partial:** source `9f8537a643a0e6253ec43b3ba2998bea7fb6f212` adds a typed legacy
+**Latest continuation — W02/W03 partial:** source `eb481df16ec10e9fd32ab80f1b87853ef0608ec7` adds
+explicit storage4/standalone5, durable mapping/checksums/quarantine and metadata-only
+legacy debt/savings links. Repeat import creates0; source/pilot/mapping/count/run
+drift conflicts; native failure rolls back all money/audit/receipts. A guarded
+internal service validates a persisted safety backup and rechecks current Admin
+and source after the async gap and inside I01; reports use bounded keyset pages.
+
+Cloud6681tests/356files/matchingJUnit/0failed-skipped-todo, Wallet342/17,57new cases;
+all6624parent retained. Lint/build0. LOCAL SELF15paths0C/1I/0M, duplicate-run finding
+fixed RED→GREEN/full, one fix pass/no rereview/not independent.
+[Detail](wallet-durable-migration.md), [proof](evidence/w03-durable-migration-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No production
+migration route/backup port, HTTP/UI, activation or cutover. Receipt refs remain
+pending. Current browser/Windows2022/Node22/package/service and Server2019R02 unrun.
+Next: explicit old-backup conversion, private receipt enforcement, quarantine
+remediation and actual legacy bridge before API/UI/cutover. **Full Wallet/M1/master
+remains incomplete.** No release/tag/VPS access or deployment.
+
+**Previous continuation — W03/W05 partial:** source `9f8537a643a0e6253ec43b3ba2998bea7fb6f212` adds a typed legacy
 projection and fresh scoped batched reads. Only representable VND rows become old
 DTOs; visible unsupported classes have explicit coverage, corrupt shapes error,
 hidden rows never contribute counts. Known timestamps/creator/identity/revision

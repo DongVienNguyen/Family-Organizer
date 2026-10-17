@@ -1,0 +1,265 @@
+{
+  "taskIds": [
+    "W02-partial",
+    "W03-partial"
+  ],
+  "status": "Cloud durable migration and safety-backup development checkpoint; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "eb481df16ec10e9fd32ab80f1b87853ef0608ec7",
+  "base": "74a288b3b7846346e7057173c9d56873fc4a8b5c",
+  "sourceSha256": {
+    "server/productivity/bootstrap.ts": "4816a928cc8bfda7fdb682c2815949a122a9931f76565ccdd018aa10bb055ed5",
+    "server/wallet/financial.integration.test.ts": "ffc21d6bae31a7e5be696d9d7525072935f6d32c86c0101bbc3ea65d713e3709",
+    "server/wallet/integration.test.ts": "8834ebe54b27848141391dc8cfdf8732c01f10808749c495356e5eeb3fc9e152",
+    "server/wallet/integration.ts": "6aab9fc6b94043fad19812357a95d165d7ebdd9e9cefc02befe83be91d145937",
+    "server/wallet/legacyMigrationData.ts": "543c415bb7a551441aa4334b278b900cb54ec427ebcb8bb97705937bcccdce1f",
+    "server/wallet/legacyMigrationSchema.ts": "4ae5c410066a5392866d1f052b7db442e2ee6621d133ef8b477513bd5fb1961d",
+    "server/wallet/metadata.integration.test.ts": "0acf5d0cf60d575c338941a5321fd16df7b44dc0f01fd62984c5c82ab58d3f82",
+    "server/wallet/migrate.integration.test.ts": "a2a4120f2e5dbe494e977a491443e9aab3eea86fb1696ebae5e6894113ba1d19",
+    "server/wallet/migrate.test.ts": "b8b16097db67f0a58f83266140c1c98419acda8ff08acbc937b0264c7ae20c63",
+    "server/wallet/migrate.ts": "21ee1e62f524f837a1261c7bf51ef58bba86c04da8009163c52220be47052a0b",
+    "server/wallet/migrationService.test.ts": "b912838949d513e10313e9b20a98b46e01cd1cea617deef76da9744c51217b1d",
+    "server/wallet/migrationService.ts": "af012dc55d4b41899fc3bf2dc28473cd2dd1f798d4c4bae334256c17fb185902",
+    "server/wallet/schema.ts": "a92e67d5ab257c2449f3f2f5ef64e4bdb5839b23dc01386d694f28c7b176fb25",
+    "server/wallet/snapshot.test.ts": "1ca53bf09bc7f542b76bf31794867196b401ed4b7f3ffe07339267941e5becab",
+    "server/wallet/snapshot.ts": "42447bcaf36bfa2dc19697ee7c97997f05838898f1c3d652da34425e8f8edeff"
+  },
+  "storage": {
+    "domainVersion": 4,
+    "standaloneVersion": 5,
+    "checksum4": "e555f82adb9fae84134835f7603d7f7ceeb567e41606a1834f963a69de3b8d39",
+    "olderDomainVersionsPreserved": [
+      1,
+      2,
+      3
+    ],
+    "olderStandaloneVersionsPreserved": [
+      2,
+      3,
+      4
+    ],
+    "automaticUpgradeOrActivation": false
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6681,
+      "files": 356,
+      "junitCases": 6681,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 139.28
+    },
+    "walletInFullSuite": {
+      "tests": 342,
+      "files": 17
+    },
+    "migrationCases": 57,
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentPreservation": {
+      "parentPassed": 6624,
+      "currentPassed": 6681,
+      "added": 57,
+      "removed": 0,
+      "normalization": "five existing recoveryRetention temporary roots; one explicitly declared financial future-sentinel title rename; multiplicity retained",
+      "declaredTitleRename": {
+        "file": "server/wallet/financial.integration.test.ts",
+        "before": "refuses genuinely future4 and an incorrect migration3 checksum without changing trusted schema",
+        "after": "refuses genuinely future migration and an incorrect migration3 checksum without changing trusted schema",
+        "reason": "migration4 now supported; future sentinel advanced to5, all original corruption assertions retained"
+      },
+      "junitCases": 6681,
+      "files": 356,
+      "wallet": {
+        "tests": 342,
+        "files": 17
+      }
+    }
+  },
+  "review": {
+    "method": "LOCAL SELF author review; not independent",
+    "reviewedPaths": [
+      "server/productivity/bootstrap.ts",
+      "server/wallet/financial.integration.test.ts",
+      "server/wallet/integration.test.ts",
+      "server/wallet/integration.ts",
+      "server/wallet/legacyMigrationData.ts",
+      "server/wallet/legacyMigrationSchema.ts",
+      "server/wallet/metadata.integration.test.ts",
+      "server/wallet/migrate.integration.test.ts",
+      "server/wallet/migrate.test.ts",
+      "server/wallet/migrate.ts",
+      "server/wallet/migrationService.test.ts",
+      "server/wallet/migrationService.ts",
+      "server/wallet/schema.ts",
+      "server/wallet/snapshot.test.ts",
+      "server/wallet/snapshot.ts"
+    ],
+    "critical": 0,
+    "important": 1,
+    "minor": 0,
+    "finding": "Replay selected the first durable run and ignored an additional pilot row. Multiple pilot rows must conflict rather than return a seemingly authoritative mapping.",
+    "fix": "Read up to two runs and reject409 when more than one; dedicated failing regression then full6681 green.",
+    "correctionPasses": 1,
+    "rereviewPasses": 0,
+    "focus": [
+      "single I01 owner, complete native rollback and no external effects inside transaction",
+      "fresh administrator/source gates before cached result and inside acquired transaction",
+      "safety backup persisted/read back by trusted port and validated by existing shared validator",
+      "frozen storage1/2/3 plus additive4 and standalone5, cold read-only rejection",
+      "pilot checksum binds mapping links without invalidating legitimate later backups",
+      "quarantine, exact money, provenance and legacy-unlinked children without duplicate postings",
+      "bounded keyset report cursor tied to run and state; no raw note payload in command receipt"
+    ]
+  },
+  "developmentFailuresPreserved": [
+    "Initial missing migration exports and later pending-receipt regression were RED before implementation.",
+    "Mapping drift1RED, malformed creation time/run-count2RED and duplicate-run1RED each fixed before final full qualification.",
+    "Initial shared integration had325passes/1failure: expected commands omitted the new core:snapshot:restore receipt. Corrected test retains every original command unchanged and asserts exactly one additional restore receipt.",
+    "Initial service suite failed import of not-yet-created implementation; final13 service cases passed.",
+    "Preflight lint exit2 had3type errors; corrected fail() narrowing, typed native test row, and legacy enum fixture. Final frozen lint/build each exit0."
+  ],
+  "backupBoundary": "Trusted backup port must persist and read back safety snapshot before resolving. Existing I01 validator checks read-back bytes/source/version; tests use fsync synthetic files. No production runtime port/route or cutover is wired.",
+  "remaining": [
+    "Legacy wallet0/JSON/ZIP and older native Wallet backup conversion into current full shared schema",
+    "Private receipt conversion and authorized media enforcement; receipt references remain pending and are never fetched",
+    "Quarantine remediation, activation/parity/rollback and actual legacy read/write bridge",
+    "W04 API/media/export/report/client SDK, W05/W06 UI and remaining W07-W18 functionality",
+    "Remaining M1, I02/I03, current browser/Windows/Node22/package/service qualification and separate Server2019R02"
+  ],
+  "prUrl": null,
+  "ciRunUrl": null,
+  "githubQueries": {
+    "headBranch": "codex/feature-first-acceptance",
+    "prs": [],
+    "runs": []
+  },
+  "notRun": [
+    "npm ci this checkpoint (dependencies/lockfile unchanged, existing pinned environment)",
+    "browser for current backend-only unwired slice",
+    "current Windows2022 Node24/Node22, package/service and Server2019R02"
+  ],
+  "constraints": {
+    "syntheticOffline": true,
+    "noDependencyOrLockfileChanges": true,
+    "noWorkflowChanges": true,
+    "walletActivated": false,
+    "noProductionData": true,
+    "noReleaseTagVps": true
+  },
+  "rawReports": [
+    {
+      "path": "/workspace/family-evidence/w03-migration-qualified.json",
+      "bytes": 1922092,
+      "sha256": "a2fa06bfda3c22d1c89204de5d2bce018fe9ac659afcb0408931dedf73f47ab4"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-qualified.junit.xml",
+      "bytes": 1344460,
+      "sha256": "00fc8bc03029b450c3671046d9c0964e0486cdd94115afa1b187ba7924c6c192"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-qualified.log",
+      "bytes": 81773,
+      "sha256": "029f601f8af654c6e580e460ea00217d092a2ec2560d42791977a69ee63a5638"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-qualified.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-lint.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-lint.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-build.log",
+      "bytes": 2003,
+      "sha256": "fdbfbd7bdd532a10c6f1f2ab82f666031f861172fbcda5c774dacd96e4178b76"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-build.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-frozen.json",
+      "bytes": 1857,
+      "sha256": "c11a858e9a19f70a06d1895946966541ea0180d276709b803cc0398c04b203c6"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-preservation.json",
+      "bytes": 2434,
+      "sha256": "9459d351d46eb7e1189350e85c32497db47b94569b4b57eebc60dde00ed00ded"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-self-review.json",
+      "bytes": 1764,
+      "sha256": "1e6dfe22b5f7fc8261fc266cceeb72047c9bac5a92dddaab9aad605af798527d"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-red.json",
+      "bytes": 31399,
+      "sha256": "4977bcf537d8043bdaef9515a9ed8a07f3d1f78f2ef9989cc82e1d7efd2a3f5d"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-receipt-red.json",
+      "bytes": 8899,
+      "sha256": "0e9369addd3c966eec5cda6821bb8a1b650b28e0addf9b0d0b06ce6debed4d5e"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-map-drift-red.json",
+      "bytes": 9215,
+      "sha256": "ff45c95d27c1867f355aa6f3d892fe231b97e408911b96dd98b218cc8a9d0048"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-run-integrity-red.json",
+      "bytes": 10817,
+      "sha256": "f15fa9db20694e9813c7859809a5050d96f738e40b2621a0977564319f266cc9"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-multiple-runs-red.json",
+      "bytes": 10091,
+      "sha256": "7c464d86b17d529d88c23cbb8cff8b0906f65417b4cdeb255c82fa5a4cf3fbdc"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-wallet.json",
+      "bytes": 100893,
+      "sha256": "3935c508138c5ec400089219530611deffa4aa22decfc299d6c35188f87c9586"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-wallet-green.json",
+      "bytes": 101237,
+      "sha256": "f7cae1c7032490e3f4bb47073f26e5cb1129ad7f120db5e6865016b7382eb482"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-service-red.json",
+      "bytes": 786,
+      "sha256": "ebfba7a7960a84fb83586941aa1b696da14158cbefdae5ba8efc526d6ef58365"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-service-green.json",
+      "bytes": 4597,
+      "sha256": "116d63e5d2125ea5a00cfba78ecafd7079364b2ec2f12d4319a7ebd4849d1799"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-preflight-lint.log",
+      "bytes": 1064,
+      "sha256": "065c48f9307a537e60fa9613b92e5fd3b850a5155bba61f6db9cb9dc050be732"
+    },
+    {
+      "path": "/workspace/family-evidence/w03-migration-preflight-lint-v2.log",
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    }
+  ]
+}

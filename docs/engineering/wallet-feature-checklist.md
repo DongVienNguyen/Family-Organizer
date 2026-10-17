@@ -1,14 +1,14 @@
 # Wallet feature checklist
 
-This records implementation progress, not Windows acceptance. Latest legacy-projection
-source9f8537a; see [status](implementation-status.md) and source-bound evidence.
+This records implementation progress, not Windows acceptance. Latest durable-migration
+sourceeb481df; see [status](implementation-status.md) and source-bound evidence.
 The new Wallet remains inactive and unwired; existing Finance still serves users.
 
 | Task | Current evidence | Remaining requirement |
 | --- | --- | --- |
 | W01 | Accepted exact money/date/filter contracts | Retain through final integration |
-| W02 | One I01 writer, core schema1/metadata2/FX-fee3, exact snapshots/cold compatibility | Full remaining entities/private attachment manifest and conversion |
-| W03 | Typed scoped legacy projection/coverage; no rounding or fake timestamps | Durable migration/quarantine/mapping, repeat safety, old backups and actual write bridge |
+| W02 | One I01 writer, core1/metadata2/FX-fee3/migration4, exact snapshots/cold compatibility | Full remaining entities/private attachment manifest and conversion |
+| W03 | Scoped legacy projection, durable quarantine/mapping/checksum, repeat safety and guarded backup service;6681full Cloud tests | Old-backup conversion, private receipt conversion, remediation/cutover and actual write bridge |
 | W04 | Fresh adult/grant SQL ACL, partial-transfer redaction | HTTP/media/export/report enforcement and client SDK |
 | W05 | Backend account/record/transfer/edit/void and legacy type-edit core;6624full Cloud tests | API/UI wiring and linked lifecycle integration |
 | W06 | Not implemented | Account/record forms, query/filter/cursor/bulk and functional browser tests |
