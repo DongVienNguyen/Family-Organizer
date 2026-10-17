@@ -30,6 +30,8 @@ function permissionScope(actor:Actor):{sql:string;args:string[]} {
  if(actor.role===UserRole.ADMIN)return {sql:"'manage'",args:[]};
  return {sql:"CASE WHEN a.owner_user_id=? THEN 'manage' ELSE COALESCE((SELECT CASE WHEN g.permission IN('read','contribute','manage') THEN g.permission ELSE 'none' END FROM wallet_account_grants g WHERE g.account_id=a.id AND g.user_id=?),CASE WHEN a.access_mode='shared' THEN 'contribute' ELSE 'none' END) END",args:[actor.userId,actor.userId]};
 }
+/** Fresh role/deletion gate plus a parameterized permission expression for alias a. */
+export function walletAccountReadScope(reader:WalletReader,actor:Actor):{sql:string;args:string[]} {assertWalletActor(reader,actor);return permissionScope(actor);}
 const allowed=(sql:string)=>'('+sql+") IN('read','contribute','manage')";
 const accountColumns='a.id,a.name,a.type,a.currency,a.owner_user_id AS ownerUserId,a.access_mode AS accessMode,CAST(a.opening_minor AS TEXT) AS openingMinor,a.opening_date AS openingDate,a.revision,a.archived_at AS archivedAt';
 const recordColumns='r.id,r.kind,r.effective_date AS effectiveDate,r.timezone,r.source,r.external_key AS externalKey,r.note,r.settlement_status AS settlementStatus,r.creator_id AS creatorId,r.revision,r.category_id AS categoryId,r.occurrence_id AS occurrenceId';
