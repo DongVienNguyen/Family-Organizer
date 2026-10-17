@@ -2,6 +2,33 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**Latest continuation — W02/W03/W04/W06/W16 partial:** source `57c9548a20cb3a7312fd571fbba0fcfa765ba0e2` adds
+private receipt files/manifest, authenticated full-record ACL routes, validated
+binary SDK and record attach/download/confirmed-detach UI. Images reuse HEIC
+conversion; PDFs retain bytes. I01 owns revision/audit/idempotency; postcommit
+acknowledgement loss cannot delete committed files. Dedicated namespace preserves
+old receipt subfolders. Storage5/standalone6 and explicit conversion retain old
+migration identities; shared restore/recovery check manifest against media bytes.
+Installed5 pilot migration keeps version-matched persisted safety backup and
+unresolved legacy media pending. Wallet stays off; no automatic migration.
+
+Cloud7096tests/381files/matchingJUnit/0failed-skipped-todo, all6952parent+144 retained;
+lint/build0. Chromium14/14 retains prior12 plus private PDF/image/download/detach
+and same-key lost-ack replay across tabs. Zero flaky/skipped/external attempts,
+integrityOK, legacy kept, closed handles and normal shutdown. Final build matches
+tested bytes. Author inspection37paths, not independent whole-branch review.
+[Details](wallet-private-receipts.md), [proof](evidence/w04-private-receipts-development.json),
+[browser JUnit](evidence/w04-private-receipts-browser.junit.xml),
+[full Cloud JUnit](evidence/w04-private-receipts-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun. No dependency/lock/workflow/config/release/tag/VPS change. Next:
+legacy receipt conversion/remediation and old-URL ACL before cutover, raw legacy
+JSON/ZIP/legacy write bridge, orphan/backup-aware retention, durable bulk/remaining
+filters and all other Wallet/M1/I02/I03/master gates. This is a receipt workflow
+checkpoint, not completed W02/W03/W04/W06/W16 or the whole plan.
+
 **Latest continuation — W04/W05/W06 partial:** source `d9e982e147fcdf8f9d0feaf5e675674657905ccf` adds
 server record-action previews and safe linked-fee parent navigation. Hidden parent
 IDs are withheld; edit/void controls require server flags, with all writes still

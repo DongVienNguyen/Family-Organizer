@@ -1,0 +1,353 @@
+{
+  "taskIds": [
+    "W02 partial",
+    "W03 partial",
+    "W04 partial",
+    "W06 partial",
+    "W16 partial"
+  ],
+  "sourceCommit": "57c9548a20cb3a7312fd571fbba0fcfa765ba0e2",
+  "testedWorkingTreeParent": "6015e393f688c23ac6e159ef5184c3e733b0b48e",
+  "binding": "All37 frozen source/test SHA256 values matched committed Git blobs; Cloud development verification, not exact-HEAD Actions acceptance",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7096,
+    "files": 381,
+    "junitCases": 7096,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 6952,
+    "added": 144,
+    "removed": 0,
+    "newByFile": {
+      "server/mediaHttp.test.ts": 1,
+      "server/wallet/receiptContract.test.ts": 34,
+      "server/wallet/receiptFiles.test.ts": 11,
+      "server/wallet/receiptNamespace.test.ts": 9,
+      "server/wallet/receipts.api.test.ts": 10,
+      "server/wallet/receipts.integration.test.ts": 28,
+      "server/wallet/receipts.test.ts": 18,
+      "src/features/wallet/receiptApi.test.ts": 15,
+      "src/features/wallet/receiptInput.test.ts": 8,
+      "src/features/wallet/receiptWorkspace.test.ts": 9,
+      "tests/wallet-browser-fixture.test.ts": 1
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "buildBytesMatchActualBrowser": true,
+    "npmCi": "not repeated; dependency/lock unchanged"
+  },
+  "browser": {
+    "parentCases": 12,
+    "cases": 14,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "6015e393f688c23ac6e159ef5184c3e733b0b48e",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "3feef72e6708d4fc932b560f6555c5a3f0b545bf4d6d0139e7ff362e576b2493",
+        "index": "06c4423daff161adf4d6e91af1e7e6bba565644fd46bd6f5d17f9d449ef5e94a"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 5,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "91b09724-2147-4c5a-a3aa-77c41988d2f5",
+        "creditId": "9f7cbf25-7c11-4649-b2e3-884f0d389f67",
+        "hiddenId": "a9593a8a-ecb7-4c4e-8f7c-afde11c0e1b3",
+        "readId": "bd1a998b-45da-4f86-90a1-5348bb86b16a",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "sourceSha256": {
+    "scripts/ci/run-wallet-browser.mjs": "da896cd4eda7caada4d1dabd40679a0adf467cf534ed9c4a579372dfe63221bf",
+    "scripts/ci/write-wallet-browser-fixture.ts": "a9c1614758665574230ce7f55f66c9c0b01ae543f268756173a9dfb6344bdb47",
+    "server/media.ts": "3125af6870fbd83973ba1089f1bbc77974011957280ddb83499e4b94b878e965",
+    "server/mediaHttp.test.ts": "5e4eb17b252c83340da945e8bb262f6ff5509d660111fcdc62ad6d43748a4d5e",
+    "server/mediaPolicy.ts": "db0221637208ac36e84cf18bcfd57e3cb083f2d504f54598a85e24dc23039733",
+    "server/productivity/bootstrap.ts": "eb81085bc2bd44ade663a0c32f97a94ab2885324eb621d1df85a988076006fc2",
+    "server/wallet/backupConversion.ts": "2816eaf66df0a3266793b94b31a650e52e62c16af6574a2d745c7bfcee037c55",
+    "server/wallet/integration.ts": "a29bbfcba1f50432999c03a1dcb41da7c2013d5b629ee7f10668d2906063db08",
+    "server/wallet/migrate.ts": "240c87a867952f43e51c81def6ff4d791966b9f3acd89f95772d9a38880995f4",
+    "server/wallet/migrationService.ts": "91620383adec1753b93ac09b00e2021997ea1c97ec68969350a7f972298984f5",
+    "server/wallet/ports.ts": "edd1468313c9c84f55195b7bcef1006173da74fc47ab6f7bbf28994c157025ef",
+    "server/wallet/receiptContract.test.ts": "19b0663573dd59fefee44f0893adb8aec34bbfed179f7ba05b2ecd88222c313a",
+    "server/wallet/receiptContract.ts": "f7497168eaa8ab36aa3d1e289f1b0def823d3b11387223b2da7d6621179d8151",
+    "server/wallet/receiptFiles.test.ts": "461f746114ac852edc0f978514123fd97f0ffd29606f574e72c5018bcb0ed77b",
+    "server/wallet/receiptFiles.ts": "b76f50423b334a9a66285e83878690e30a22e17064168132ac604e8d5940791f",
+    "server/wallet/receiptNamespace.test.ts": "ed25277921ec31d5c4e73ce4c152677601cafba325dcc7ba9f95b8f1f8eb05f2",
+    "server/wallet/receiptSchema.ts": "ebcdf856d8acb176e2645ca16865dc5d4c9b14bd320c1e929f1cc5345b7a563a",
+    "server/wallet/receipts.api.test.ts": "13dbcad10809ef9221db74e3f8c957b5ec30430ca071c855ef214943c5bd59d3",
+    "server/wallet/receipts.integration.test.ts": "a1dad91f78a82c1fe92fe44292b2ccf5a8dd64bba1ef7b150c5b3b896a39fbf1",
+    "server/wallet/receipts.test.ts": "dd70a6c06d63724fd6487e4db6f44bd2f426a631cf97172c99f63cf64da60e83",
+    "server/wallet/receipts.ts": "400e53b1eab0e8f1e6c577d64c2f435cb88bb8502a8097f57cc839261a0fa2ba",
+    "server/wallet/router.ts": "916903e0adc3e8ccda4c11477bda5838c5aef25af7c9e2451108b2bed87dbc84",
+    "server/wallet/schema.ts": "f30836204b7c417214d87182553670d7376c443fc61b07ebae8a93075c09286f",
+    "server/wallet/snapshot.ts": "a314b1cdd2e6d8e8eede230cecf30b22c4e7e7a575003ad1a9904846573506c3",
+    "src/features/wallet/ReceiptPanel.tsx": "a042db2f00a58bd59ffd4a80ae9cfff5f29fab59c70af55269d4854281a6e553",
+    "src/features/wallet/Records.tsx": "f7e8ce2dd32a3601dcbcb36d26137387853570f4bd41ecd9276681038cd0ce0c",
+    "src/features/wallet/api.ts": "1fdb8f9623827f084f30ea76c21858949491f301f8409417d9dad97be3828bd5",
+    "src/features/wallet/receiptApi.test.ts": "66c6bac7122c1c52bc1294452f6b0ec42d4c62a59bde8d6385fcbf51958dd1b6",
+    "src/features/wallet/receiptInput.test.ts": "61f626c20e616e0fe9fd4a30c3f3c9482af28b53734b8111169d50b3dffd08c8",
+    "src/features/wallet/receiptInput.ts": "07256231a510ea7219aad3309ceed012eaca4edb5c3e32297070e2d82251aa9b",
+    "src/features/wallet/receiptWorkspace.test.ts": "a5652af44d5726632e1a33a986924a6af8401a3bd733cd791ba67d7faf21e627",
+    "src/features/wallet/recordWorkspace.ts": "ac692e0d8ad2ed89ffa86ae9c2931126069e25f90e7d01bfd3888af70fc04f47",
+    "src/i18n/locales/en.json": "d9ff0bc8817e81c31b8c0d69d76329be0bf0dea13d6c95cd98ebf6a437dd721a",
+    "src/i18n/locales/vi.json": "5631e827eeee7dafa9bba373083260a877a9c90c46ef696197c7badbe86844f5",
+    "src/i18n/locales/zh.json": "99549d840c6c1ef98b892f436bc7b9ad5f5d689fb65db6e087a91fb9719dabbf",
+    "tests/e2e/wallet.spec.ts": "9aa92d8505bb4d8ee1f267d3e82df6585e95218328caafa0861712c6ee3ae558",
+    "tests/wallet-browser-fixture.test.ts": "ab31a0c513424451f8dad24afd225fce49268c32bc25647f65f0d91b1986601e"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "reports": {
+    "/workspace/family-evidence/w04-receipt-workflow-qualified.json": {
+      "bytes": 2052848,
+      "sha256": "01488b65745ad201dedf0de64636ace6da389f983987abd8f4fb9c3ce1022ba7"
+    },
+    "/workspace/family-evidence/w04-receipt-workflow-qualified.junit.xml": {
+      "bytes": 1433883,
+      "sha256": "7b2de627031d3c7be2d52d86d3878b1f94e7f00346079627ff0dc169706b0556"
+    },
+    "/workspace/family-evidence/w04-receipt-workflow-qualified.log": {
+      "bytes": 84288,
+      "sha256": "271adf39dcaab6264ce79a40717ee08d9046bf4bf8f43aea1d17a8fe61b1acad"
+    },
+    "/workspace/family-evidence/w04-receipt-workflow-build.log": {
+      "bytes": 1795,
+      "sha256": "1fa890ff553282a7519a87c9bb512f9c358d82c18d8a463cf9c06ea26e2b07db"
+    },
+    "/workspace/family-evidence/w04-receipt-workflow-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w04-receipt-workflow-preservation.json": {
+      "bytes": 32553,
+      "sha256": "d4afd2d60d6f08c98fc1271a5d5540e1a27478f5d3711c9036a1d7db9ae489fe"
+    },
+    "/workspace/family-evidence/w04-receipt-workflow-frozen.json": {
+      "bytes": 4392,
+      "sha256": "7d4fb899d748c875c8bd6d9452e6bbcda07f891e35bfb754a24fadd7bc504e42"
+    },
+    "/workspace/family-evidence/w04-private-receipts-self-review.json": {
+      "bytes": 3267,
+      "sha256": "7549d2cd7d88a90279c1710381ecbf7170a664c8943b72e7ab03838ea4e8fe27"
+    },
+    "/workspace/family-evidence/w04-receipt-contract-red.json": {
+      "bytes": 783,
+      "sha256": "58d7fe52a7df5c4b0d4d8157c708a67f176aa12f02ecd7b09943e293f08ed415"
+    },
+    "/workspace/family-evidence/w04-receipt-name-boundary-red.json": {
+      "bytes": 10897,
+      "sha256": "14ca58e0896546c8cec1b8152572c6cfdcd522cc98b96b6312ac74ad77650bd4"
+    },
+    "/workspace/family-evidence/w04-receipt-files-red.json": {
+      "bytes": 774,
+      "sha256": "c4b5d31c2ac936406964ab22ae8df207032d6d88e0fe3c69375ebd3b44873d92"
+    },
+    "/workspace/family-evidence/w04-receipt-namespace-red.json": {
+      "bytes": 10792,
+      "sha256": "f285d89ec89252a7e2527464dd0ef7017b4fc0da6a959ce6856b18a4807707b5"
+    },
+    "/workspace/family-evidence/w04-receipt-schema-red.json": {
+      "bytes": 791,
+      "sha256": "c60a2a1f7e4975028e16f33a663997d48621d111eace2bcfe251155b6bb75bf8"
+    },
+    "/workspace/family-evidence/w04-receipt-conversion-red.json": {
+      "bytes": 17224,
+      "sha256": "3abed4b775da427fec99c47373c55147fd808b4c520bb944ed4e071137319669"
+    },
+    "/workspace/family-evidence/w04-receipt-service-red.json": {
+      "bytes": 762,
+      "sha256": "2bb796fa61a1468fe505c5d2f4e877350af6a1bcbfb926119c88cd7a682b81f4"
+    },
+    "/workspace/family-evidence/w04-receipt-service-first.json": {
+      "bytes": 6215,
+      "sha256": "cdc076713022f6724c95e3503a29834c973865a960598b6e3e6f72e52b538c92"
+    },
+    "/workspace/family-evidence/w04-receipt-http-red.json": {
+      "bytes": 8019,
+      "sha256": "2974344c7394871b91a7183c7f0f8ded75e358ccef4091d0973755d06fda6ab3"
+    },
+    "/workspace/family-evidence/w04-receipt-sdk-red.json": {
+      "bytes": 18833,
+      "sha256": "2989ca9f538781af50c72627a25296e7f6cd8529beba8824607e8c435c561efc"
+    },
+    "/workspace/family-evidence/w04-receipt-workspace-red.json": {
+      "bytes": 7059,
+      "sha256": "3a4a675e4e0e875268e80b330928f30b9e4a56474a8c4143f12029782ab588c5"
+    },
+    "/workspace/family-evidence/w04-receipt-input-red.json": {
+      "bytes": 786,
+      "sha256": "610a5075b639269b4d3565e78a6ff9a842faead4aad2986b3ca2e1726b90260f"
+    },
+    "/workspace/family-evidence/w04-receipt-id-red.json": {
+      "bytes": 3626,
+      "sha256": "ec2eef2447d10ddc80cedaf3f9a2859170e64c18eb6093bd41263f1433a164e5"
+    },
+    "/workspace/family-evidence/w04-receipt-migration-red.json": {
+      "bytes": 9109,
+      "sha256": "5eb1f71d6e1de48651aac107875401cc28555244cc00b08459bcbbeb0bb6ec3e"
+    },
+    "/workspace/family-evidence/w04-receipt-browser-first.log": {
+      "bytes": 11600,
+      "sha256": "2ce42b76bde1362a2b2aba955fbbfc1246337d0fe2d778235979f6ce6d4e0195"
+    },
+    "/workspace/family-evidence/w04-receipt-browser-v2.log": {
+      "bytes": 7111,
+      "sha256": "80fe5f2f1b94fe3829a6a06ffd42018ac88c709c7eddcc0557dff1ad7f648aa9"
+    },
+    "/workspace/family-evidence/w04-receipt-browser-qualified.log": {
+      "bytes": 2383,
+      "sha256": "a2907465ef06141040d9533fc18b81b815eed710aea760a6e32be7f8316caa6d"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/fixture.json": {
+      "bytes": 1129,
+      "sha256": "c7382006c3733e1771d2de7b167505f5cc3d0a9dfea0440b9c65b1771ac39943"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/browser.json": {
+      "bytes": 19535,
+      "sha256": "76832c759db67c765589106d8c52859693b1a66c84cfb2b0b1daf5e46ec039e4"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/browser.junit.xml": {
+      "bytes": 2476,
+      "sha256": "300430785e2a6b6bd0d0043be138c46000844cdf14e4f1045de7668dd0f3c81f"
+    },
+    "/workspace/Family-Organizer/reports/wallet/chromium/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w04-receipt-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1129,
+      "sha256": "c7382006c3733e1771d2de7b167505f5cc3d0a9dfea0440b9c65b1771ac39943"
+    },
+    "/workspace/family-evidence/w04-receipt-browser-qualified-artifacts/browser.json": {
+      "bytes": 19535,
+      "sha256": "76832c759db67c765589106d8c52859693b1a66c84cfb2b0b1daf5e46ec039e4"
+    },
+    "/workspace/family-evidence/w04-receipt-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 2476,
+      "sha256": "300430785e2a6b6bd0d0043be138c46000844cdf14e4f1045de7668dd0f3c81f"
+    },
+    "/workspace/family-evidence/w04-receipt-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  },
+  "retainedFullJUnit": {
+    "path": "docs/engineering/evidence/w04-private-receipts-cloud.junit.xml.gz",
+    "sha256": "04c0e822185014eb52dcf0ba40e0a8dd77e71a14b0cbbdccf44751b2b897d85b",
+    "bytes": 194786,
+    "uncompressedSha256": "7b2de627031d3c7be2d52d86d3878b1f94e7f00346079627ff0dc169706b0556",
+    "cases": 7096
+  },
+  "review": {
+    "kind": "LOCAL SELF author inspection, not independent whole-branch review",
+    "paths": [
+      "scripts/ci/run-wallet-browser.mjs",
+      "scripts/ci/write-wallet-browser-fixture.ts",
+      "server/media.ts",
+      "server/mediaHttp.test.ts",
+      "server/mediaPolicy.ts",
+      "server/productivity/bootstrap.ts",
+      "server/wallet/backupConversion.ts",
+      "server/wallet/integration.ts",
+      "server/wallet/migrate.ts",
+      "server/wallet/migrationService.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/receiptContract.test.ts",
+      "server/wallet/receiptContract.ts",
+      "server/wallet/receiptFiles.test.ts",
+      "server/wallet/receiptFiles.ts",
+      "server/wallet/receiptNamespace.test.ts",
+      "server/wallet/receiptSchema.ts",
+      "server/wallet/receipts.api.test.ts",
+      "server/wallet/receipts.integration.test.ts",
+      "server/wallet/receipts.test.ts",
+      "server/wallet/receipts.ts",
+      "server/wallet/router.ts",
+      "server/wallet/schema.ts",
+      "server/wallet/snapshot.ts",
+      "src/features/wallet/ReceiptPanel.tsx",
+      "src/features/wallet/Records.tsx",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/receiptApi.test.ts",
+      "src/features/wallet/receiptInput.test.ts",
+      "src/features/wallet/receiptInput.ts",
+      "src/features/wallet/receiptWorkspace.test.ts",
+      "src/features/wallet/recordWorkspace.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts",
+      "tests/wallet-browser-fixture.test.ts"
+    ],
+    "closed": [
+      "New top-level private namespace preserves all old generic receipt subfolders; generic allocation/serving/cleanup cannot grant Wallet receipt access",
+      "Exclusive/fsynced file preparation and ownership-aware rollback precede I01 claims; lost postcommit acknowledgement and same-key replay retain exactly one file",
+      "Fresh full-record ACL blocks hidden/partial transfer images, stale roles/grants, read-only/other-creator writes and revoked replay",
+      "Receipt mutations increment revision/audit without altering postings; audit stores metadata/digests rather than raw receipt or filename",
+      "Additive storage5/protocol6 freezes old migration identities and validates manifest/media before shared restore or read-only recovery",
+      "Explicit historical conversions retain money/source/legacy; installed5 pilot remains compatible with version-matched persisted safety backup",
+      "Browser decoder verifies identity/bytes/session; session-owned unknown intent survives navigation and late binary reads are retired",
+      "Accessible file label separated from help text; new unknown-state browser test uses disabled-create/enabled-retry assertions without changing existing normal-state assertions",
+      "Native full PDF/image/download/detach/unknown-ack workflows and all prior12browser cases pass; final build byte hashes match"
+    ],
+    "remaining": [
+      "legacy receipt copying/remediation/old URL ACL",
+      "orphan/backup-aware file retention",
+      "raw JSON/ZIP conversion/legacy write bridge/cutover",
+      "bulk/remaining filters/reports/export/audit/full other Wallet/M1/master gates",
+      "other browser engines/touch/current Windows/Node22/package/service/Server2019R02"
+    ],
+    "noIndependentReview": true
+  },
+  "notRun": [
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "actual Server2019R02",
+    "production data/secrets/real providers (prohibited)"
+  ],
+  "remaining": [
+    "legacy receipt copying/remediation/old URL ACL",
+    "orphan/backup-aware file retention",
+    "raw JSON/ZIP conversion/legacy write bridge/cutover",
+    "bulk/remaining filters/reports/export/audit/full other Wallet/M1/master gates",
+    "other browser engines/touch/current Windows/Node22/package/service/Server2019R02"
+  ],
+  "releaseTagVps": "none",
+  "preservedBrowserArtifacts": "/workspace/family-evidence/w04-receipt-browser-qualified-artifacts"
+}
