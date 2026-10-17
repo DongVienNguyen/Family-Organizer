@@ -1957,6 +1957,18 @@
     "failed": "Chưa xác nhận được thứ tự mới."
   },
   "wallet": {
+    "allocations": {
+      "title": "Phân bổ danh mục",
+      "hint": "Chia số tiền giao dịch cho nhiều danh mục. Tổng tiền giữ nguyên; không tạo thêm giao dịch.",
+      "original": "Số tiền giao dịch",
+      "category": "Danh mục dòng {{count}}",
+      "amount": "Số tiền dòng {{count}}",
+      "remove": "Bỏ dòng {{count}}",
+      "add": "Thêm dòng phân bổ",
+      "clear": "Bỏ toàn bộ phân bổ",
+      "emptyHint": "Danh sách trống sẽ dùng lại danh mục của giao dịch. Tối đa 100 dòng, mỗi danh mục một dòng.",
+      "invalid": "Nhập số tiền dương cho từng danh mục; tổng phải khớp chính xác số tiền giao dịch."
+    },
     "catalogForm": {
       "tab": "Danh mục",
       "title": "Danh mục và nhãn",
@@ -2068,6 +2080,8 @@
       "both": "Cả hai"
     },
     "recordsForm": {
+      "clone": "Clone thành ghi chép mới",
+      "cloneHint": "Bản nháp mới chưa được ghi sổ. Ngày và giờ dùng thời điểm clone; trạng thái chưa thanh toán, chưa duyệt. Nhãn được sao chép từ nguồn; chỉ Lưu mới tạo giao dịch.",
       "openParent": "Mở chuyển khoản gốc",
       "actionFailed": "Không thực hiện được thao tác. Tải lại ghi chép để kiểm tra trước khi thử lại.",
       "title": "Ghi chép",

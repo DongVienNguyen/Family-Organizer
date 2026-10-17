@@ -1957,6 +1957,18 @@
     "failed": "The new order could not be confirmed."
   },
   "wallet": {
+    "allocations": {
+      "title": "Split categories",
+      "hint": "Distribute this record across categories. Its total stays the same; no extra record is created.",
+      "original": "Record amount",
+      "category": "Category row {{count}}",
+      "amount": "Amount row {{count}}",
+      "remove": "Remove row {{count}}",
+      "add": "Add allocation",
+      "clear": "Clear allocations",
+      "emptyHint": "An empty list uses the record category again. Up to 100 rows, one per category.",
+      "invalid": "Enter positive amounts for distinct categories; their total must equal the record amount."
+    },
     "catalogForm": {
       "tab": "Catalog",
       "title": "Categories and labels",
@@ -2068,6 +2080,8 @@
       "both": "Both"
     },
     "recordsForm": {
+      "clone": "Clone as new record",
+      "cloneHint": "This new draft has no ledger entry yet. It uses the clone date and time and is uncleared and unreviewed. Labels are copied from the source; Save creates the new record.",
       "openParent": "Open parent transfer",
       "actionFailed": "Could not complete the action. Refresh the record before trying again.",
       "title": "Records",

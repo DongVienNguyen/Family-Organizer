@@ -16,11 +16,12 @@ export interface AccountFormDraft {
 }
 export function walletLocale(language: string): string { return language.startsWith('vi') ? 'vi-VN' : language.startsWith('zh') ? 'zh-CN' : 'en-US'; }
 /** Editable decimal text without a currency symbol or a floating point conversion. */
-export function editableAmount(minor: string, currency: string, locale: string): string {
+export function editableAmount(minor: string, currency: string, locale: string,grouped=false): string {
     const value = minorInteger(minor), scale = currencyExponent(currency), absolute = value < 0n ? -value : value;
     const decimal = new Intl.NumberFormat(locale, { numberingSystem: 'latn' }).formatToParts(1.1).find(p => p.type === 'decimal')?.value ?? '.';
     const digits = absolute.toString().padStart(scale + 1, '0');
-    return (value < 0n ? '-' : '') + (scale ? digits.slice(0, -scale) + decimal + digits.slice(-scale) : digits);
+    const whole=scale?digits.slice(0,-scale):digits,integer=grouped?new Intl.NumberFormat(locale,{numberingSystem:'latn',maximumFractionDigits:0}).format(BigInt(whole)):whole;
+    return (value < 0n ? '-' : '') + integer+(scale?decimal+digits.slice(-scale):'');
 }
 export function accountDraft(initial: WalletAccountResult | undefined, locale: string, date: string): AccountFormDraft {
     if (!initial)

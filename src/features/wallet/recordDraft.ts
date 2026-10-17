@@ -1,3 +1,5 @@
+import {allocationRows,assertAllocationTotal,type AllocationDraft} from './allocations.js';
+import {recordDraftValue} from './recordDraftValue.js';
 import type { RecordDraft, RecordPatch } from '../../../server/wallet/records.js';
 import type { WalletRecordDetail } from '../../../server/wallet/read.js';
 import type { AccessibleWalletAccount } from '../../../server/wallet/access.js';
@@ -13,6 +15,10 @@ export interface RecordFormInitial {
     fee?: WalletRecordDetail;
 }
 export interface RecordFormDraft {
+    allocations?:AllocationDraft[];
+    allocationInputs?:{categoryId:string;amount:string}[];
+    seedInstant?:{instant:string;timezone:string};
+    seedFx?:{fromCurrency:string;toCurrency:string;debitMinor:string;creditMinor:string;numerator:string;denominator:string};
     locale: string;
     kind: RecordDraft['kind'];
     effectiveDate: string;
@@ -103,6 +109,18 @@ export function recordFormDraft(initial: RecordFormInitial | undefined, accounts
     }
     return form;
 }
+/** Apply a server-validated draft to a new form, without inventing an editing ID. */
+export function recordFormFromInput(raw:RecordDraft,accounts:AccessibleWalletAccount[],options:{locale:string;date:string;timezone:string}):RecordFormDraft {
+ const input=recordDraftValue(raw),form=recordFormDraft(undefined,accounts,options);if(input.allocations){form.allocations=structuredClone(input.allocations);form.allocationInputs=input.allocations.map(row=>({categoryId:row.categoryId,amount:editableAmount(row.amountMinor,input.kind==='transfer'?input.debit.currency:input.money.currency,options.locale,true)}));}
+ Object.assign(form,{kind:input.kind,effectiveDate:input.effectiveDate,timezone:input.timezone,note:input.note,payee:input.payee,paymentMethod:input.paymentMethod,occurredLocal:localRecordTime(input.occurredAt??null,input.timezone),reviewed:input.reviewedAt!==null&&input.reviewedAt!==undefined,settlementStatus:input.settlementStatus,categoryId:input.categoryId??'',labelIds:[...input.labelIds??[]]});
+ if(input.occurredAt)form.seedInstant={instant:input.occurredAt,timezone:input.timezone};
+ if(input.kind!=='transfer'){form.accountId=input.accountId;form.amount=editableAmount(input.money.minor,input.money.currency,options.locale,true);}
+ else {Object.assign(form,{fromAccountId:input.fromAccountId??'',toAccountId:input.toAccountId??'',debit:editableAmount(input.debit.minor,input.debit.currency,options.locale,true),credit:editableAmount(input.credit.minor,input.credit.currency,options.locale,true),externalCurrency:input.fromAccountId?input.credit.currency:input.debit.currency,fxAsOf:input.fx?.asOf??input.effectiveDate});
+  if(input.fx)form.seedFx={fromCurrency:input.debit.currency,toCurrency:input.credit.currency,debitMinor:input.debit.minor,creditMinor:input.credit.minor,numerator:input.fx.numerator,denominator:input.fx.denominator};
+  if(input.fee)Object.assign(form,{feeEnabled:true,feeAccountId:input.fee.accountId,feeAmount:editableAmount(input.fee.money.minor,input.fee.money.currency,options.locale,true),feeNote:input.fee.note??'',feeCategoryId:input.fee.categoryId??''});
+ }
+ return form;
+}
 /** The two explicitly entered amounts define a manual implied quote. Preserve an
  * existing rounded historical quote when neither amount/currency changed. */
 export function impliedRecordFx(debit: Money, credit: Money, asOf: string): NonNullable<Extract<RecordDraft, {
@@ -140,16 +158,19 @@ export function recordFormInput(form: RecordFormDraft, accounts: AccessibleWalle
         throw Error('ACCOUNT_NOT_WRITABLE'); return target; };
     const amount = (value: string, currency: string, signed = false) => { const money = signed ? parseSignedMoney(value, currency, form.locale) : parseMoney(value, currency, form.locale); if (minorInteger(money.minor) === 0n)
         throw Error('ZERO_RECORD_AMOUNT'); return money; };
-    const previous = old?.metadata.occurredAt ? { instant: old.metadata.occurredAt, timezone: old.record.timezone } : undefined;
+    const previous = old?.metadata.occurredAt ? { instant: old.metadata.occurredAt, timezone: old.record.timezone } : form.seedInstant;
     const occurredAt = resolveRecordTime(form.occurredLocal, form.timezone, form.timeChoice || undefined, previous);
     const reviewedAt = form.reviewed ? old?.metadata.reviewedAt ?? new Date((options.now ?? Date.now)()).toISOString() : null;
     if (reviewedAt !== null)
         utcInstant(reviewedAt);
-    const common = { effectiveDate: form.effectiveDate, timezone: form.timezone, note: form.note, payee: form.payee, paymentMethod: form.paymentMethod, settlementStatus: form.settlementStatus, categoryId: form.categoryId || null, labelIds: [...new Set(form.labelIds)], occurredAt, reviewedAt };
+    const allocationCurrency=form.kind==='transfer'?(accounts.find(row=>row.id===form.fromAccountId)?.currency??form.externalCurrency):accounts.find(row=>row.id===form.accountId)?.currency;
+    const allocations=form.allocationInputs===undefined?form.allocations:form.allocationInputs.map(row=>({categoryId:row.categoryId,amountMinor:parseMoney(row.amount,allocationCurrency!,form.locale).minor}));
+    const common = { ...(allocations===undefined?{}:{allocations:allocationRows(allocations)}),effectiveDate: form.effectiveDate, timezone: form.timezone, note: form.note, payee: form.payee, paymentMethod: form.paymentMethod, settlementStatus: form.settlementStatus, categoryId: form.categoryId || null, labelIds: [...new Set(form.labelIds)], occurredAt, reviewedAt };
     if (form.kind !== 'transfer') {
         const target = account(form.accountId);
-        return { ...common, kind: form.kind, accountId: target.id, money: amount(form.amount, target.currency, form.kind === 'adjustment') };
+        const result={ ...common, kind: form.kind, accountId: target.id, money: amount(form.amount, target.currency, form.kind === 'adjustment') };if(common.allocations)assertAllocationTotal(common.allocations,result,[{deltaMinor:(form.kind==='expense'?-minorInteger(result.money.minor):minorInteger(result.money.minor)).toString()}]);return result;
     }
+    if(common.allocations?.length)throw Error('SPLIT_REQUIRES_INCOME_OR_EXPENSE');
     if (!form.fromAccountId && !form.toAccountId || form.fromAccountId && form.fromAccountId === form.toAccountId)
         throw Error('INVALID_TRANSFER_TARGETS');
     const from = form.fromAccountId ? account(form.fromAccountId) : null, to = form.toAccountId ? account(form.toAccountId) : null;
@@ -162,7 +183,7 @@ export function recordFormInput(form: RecordFormDraft, accounts: AccessibleWalle
             throw Error('UNBALANCED_TRANSFER');
     }
     else {
-        const prior = old?.fx;
+        const prior = old?.fx??form.seedFx;
         fx = prior && prior.fromCurrency === debit.currency && prior.toCurrency === credit.currency && prior.debitMinor === debit.minor && prior.creditMinor === credit.minor ? { numerator: prior.numerator, denominator: prior.denominator, asOf: form.fxAsOf } : impliedRecordFx(debit, credit, form.fxAsOf);
         parseEffectiveDate(form.fxAsOf);
     }

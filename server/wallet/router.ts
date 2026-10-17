@@ -93,6 +93,9 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
         router.delete(path+'/:id',handler(req=>{admin(req);const value=body(req,['expectedRevision']),ctx=context(req,value.expectedRevision,true);return kind==='category'?catalog.deleteCategory(ctx,id(req.params.id),notify):catalog.deleteLabel(ctx,id(req.params.id),notify);}));
     }
 
+    router.get('/records/:id/allocations',handler(req=>ports.records.getAllocations(actor(req),id(req.params.id))));
+    router.put('/records/:id/allocations',handler(req=>{const value=body(req,['expectedRevision','rows']),recordId=id(req.params.id);return ports.records.setAllocations(context(req,value.expectedRevision,true),recordId,value.rows as any,()=>changed(ports.recordAudience(recordId)));}));
+    router.post('/records/:id/clone-draft',handler(req=>{const value=body(req,['now']);return ports.records.cloneRecordDraft(actor(req),id(req.params.id),value.now as string);}));
     router.get('/accounts', handler(req => ({ accounts: ports.access.listAccounts(actor(req)) })));
     router.get('/accounts/:id', handler(req => ports.accounts.getAccount(actor(req), id(req.params.id))));
     router.get('/accounts/:id/balance', handler(req => { const accountId = id(req.params.id); let date: string; try {

@@ -1,3 +1,4 @@
+import {AllocationEditor} from './AllocationEditor.js';
 import {categorySelectability} from './catalogChoices.js';
 import { useCallback, useId, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,11 +27,12 @@ export function RecordForm({ workspace, state }: {
     const accountOptions = state.accounts.filter(account => account.permission !== 'read' && (account.archivedAt === null || initial?.postings.some(p => p.accountId === account.id) || form.initial?.fee?.postings.some(p => p.accountId === account.id))).map(account => ({ value: account.id, label: account.name + ' · ' + account.currency + (account.archivedAt ? ' · ' + t('wallet.archived') : '') }));
     const accountChoices = (key: 'accountId' | 'fromAccountId' | 'toAccountId' | 'feeAccountId', external = false) => choices(key, [...(external ? [{ value: '', label: t('wallet.recordsForm.outside') }] : []), ...accountOptions]);
     const visibleCategory=categorySelectability(state.catalog.categories);
-    const categoryOptions = [{ value: '', label: t('wallet.recordsForm.uncategorized') }, ...state.catalog.categories.filter(category => visibleCategory(category.id) || category.id === initial?.record.categoryId || category.id === form.initial?.fee?.record.categoryId).map(category => ({ value: category.id, label: category.name + (!visibleCategory(category.id) ? ' · ' + t('wallet.recordsForm.historical') : '') }))];
+    const categoryOptions = [{ value: '', label: t('wallet.recordsForm.uncategorized') }, ...state.catalog.categories.filter(category => visibleCategory(category.id) || category.id === initial?.record.categoryId || category.id === form.initial?.fee?.record.categoryId || !!form.initial&&!!draft.allocations?.some(row=>row.categoryId===category.id)).map(category => ({ value: category.id, label: category.name + (!visibleCategory(category.id) ? ' · ' + t('wallet.recordsForm.historical') : '') }))];
     const currency = (accountId: string) => state.accounts.find(account => account.id === accountId)?.currency ?? draft.externalCurrency;
     return <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center z-50 p-4" onClick={close}>
   <div role="dialog" aria-modal="true" aria-labelledby={id + '-title'} ref={ref} tabIndex={-1} onClick={event => event.stopPropagation()} className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl p-5 shadow-2xl max-h-[90dvh] overflow-y-auto space-y-4 outline-none">
    <h3 id={id + '-title'} className="text-sm font-bold text-slate-100">{t(initial ? 'wallet.recordsForm.edit' : 'wallet.recordsForm.create')}</h3>
+   {form.origin==='clone'&&<p className="text-xs text-slate-400">{t('wallet.recordsForm.cloneHint')}</p>}
    <form onSubmit={event => { event.preventDefault(); void workspace.save(); }} className="space-y-4">
     <fieldset disabled={blocked} className="space-y-3 disabled:opacity-60">
      {choices('kind', (initial?.record.kind === 'transfer' ? ['transfer'] : initial ? ['income', 'expense', 'adjustment'] : ['income', 'expense', 'transfer', 'adjustment']).map(value => ({ value, label: t('wallet.recordKinds.' + value) })))}
@@ -50,6 +52,7 @@ export function RecordForm({ workspace, state }: {
      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{input('payee')}{input('paymentMethod')}</div>
      <div className="block space-y-1.5 text-xs text-slate-400"><label htmlFor={id + '-note'}>{t('wallet.recordsForm.note')}</label><textarea id={id + '-note'} rows={3} maxLength={100000} value={draft.note} onChange={event => change({ note: event.target.value })} className={inputClass}/></div>
      <label className="flex gap-2 text-xs text-slate-300 items-center"><input type="checkbox" checked={draft.reviewed} onChange={event => change({ reviewed: event.target.checked })}/>{t('wallet.recordsForm.reviewed')}</label>
+     {state.allocationStorage&&['income','expense'].includes(draft.kind)&&(draft.allocationInputs?<div className="space-y-3"><h4 className="text-xs font-bold text-slate-200">{t('wallet.allocations.title')}</h4><AllocationEditor rows={draft.allocationInputs} options={categoryOptions.filter(option=>!!option.value)} onChange={rows=>change({allocationInputs:rows})}/></div>:<button type="button" onClick={()=>change({allocationInputs:[]})} className="bg-slate-800 text-slate-200 rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer">{t('wallet.allocations.title')}</button>)}
     </fieldset>
     {form.invalid && <p role="alert" className="text-xs text-rose-400">{t('wallet.recordErrors.' + form.invalid)}</p>}
     {['unknown', 'conflict', 'error'].includes(phase) && <p role="alert" className="text-xs text-amber-400">{t(phase === 'unknown' ? 'wallet.unknownOutcome' : phase === 'conflict' ? 'wallet.recordsForm.conflict' : 'wallet.failed')} <span className="font-mono">{state.command.error?.requestId}</span></p>}

@@ -1,3 +1,5 @@
+import {assertAllocationTotal,allocationRows,allocationResultValue,type AllocationDraft} from './allocations.js';
+import {recordDraftValue} from './recordDraftValue.js';
 import {catalogItemValue,catalogDeletionValue,catalogDeletedValue} from './catalogDto.js';
 import {catalogReferencesValue} from './catalogReferences.js';
 import type {CategoryDraft,LabelDraft,CatalogReferences} from '../../../server/wallet/catalog.js';
@@ -8,6 +10,8 @@ import type {WalletFilterOptions} from '../../../server/wallet/filterOptions.js'
 import type {WalletReceiptMetadata} from '../../../server/wallet/receiptContract.js';
 import { object, keys, text, integer, choice, boolean } from '../productivity/validation.js';
 import { timezoneFormatter } from '../productivity/dates.js';
+import {utcInstant} from '../productivity/dates.js';
+import {effectiveDateAt} from './dates.js';
 import { parseEffectiveDate } from './dates.js';
 import { assertMoney, minorInteger, currencyExponent, convertMoney } from './money.js';
 import { normalizeFilter } from './filter.js';
@@ -151,7 +155,8 @@ function recordValue(value: unknown, detail: boolean, expected?: string): Wallet
         throw Error('FX identity');
     if (v.feeRecordId !== null)
         text(v.feeRecordId, 256);
-    const result = { record: pick(r, ['id', 'kind', 'effectiveDate', 'timezone', 'source', 'externalKey', 'note', 'settlementStatus', 'creatorId', 'revision', 'categoryId', 'occurrenceId']), metadata: pick(m, ['recordId', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'occurredAt', 'payee', 'paymentMethod', 'reviewedAt']), postings, fx, feeRecordId: v.feeRecordId, labelIds: ids(v.labelIds) };
+    const allocations=v.allocations===undefined?undefined:allocationRows(v.allocations);if(allocations)assertAllocationTotal(allocations,{kind:r.kind as string},postings as {deltaMinor:string}[]);
+    const result = { ...(allocations===undefined?{}:{allocations}),record: pick(r, ['id', 'kind', 'effectiveDate', 'timezone', 'source', 'externalKey', 'note', 'settlementStatus', 'creatorId', 'revision', 'categoryId', 'occurrenceId']), metadata: pick(m, ['recordId', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'occurredAt', 'payee', 'paymentMethod', 'reviewedAt']), postings, fx, feeRecordId: v.feeRecordId, labelIds: ids(v.labelIds) };
     if (!detail)
         return result as unknown as WalletRecordResult;
     boolean(v.partial);
@@ -222,6 +227,9 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        allocations:(id:string)=>read(path('records',id)+'/allocations',value=>allocationResultValue(value,id)),
+        setAllocations:(id:string,revision:number,rows:AllocationDraft[],nonce:string)=>command(path('records',id)+'/allocations','PUT',{expectedRevision:revision,rows},nonce,value=>{const result=allocationResultValue(value,id,revision);if(JSON.stringify(result.rows)!==JSON.stringify(allocationRows(rows)))throw Error('Allocation acknowledgement payload');return result;}),
+        cloneRecordDraft:(id:string,now:string)=>{utcInstant(now);return read(path('records',id)+'/clone-draft',raw=>{const value=recordDraftValue(raw);if(value.occurredAt!==now||value.reviewedAt!==null||value.settlementStatus!=='uncleared'||value.effectiveDate!==effectiveDateAt(now,value.timezone))throw Error('Clone clock/review identity');return value;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({now})});},
         catalogCapabilities:()=>read('/api/wallet/catalog/capabilities',value=>{const v=object(value);keys(v,['canManage']);boolean(v.canManage);return {canManage:v.canManage};}),
         category:(id:string)=>read(path('categories',id),value=>catalogItemValue(value,'category',id)),
         label:(id:string)=>read(path('labels',id),value=>catalogItemValue(value,'label',id)),

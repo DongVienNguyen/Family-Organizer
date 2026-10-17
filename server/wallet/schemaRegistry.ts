@@ -1,3 +1,4 @@
+import {prepareWalletWorkflow,walletWorkflowSql,walletWorkflowChecksum,walletWorkflowColumns} from './workflowSchema.js';
 import { walletCoreColumns } from './coreColumns.js';
 import { prepareWalletSchema, walletCoreSql, walletCoreChecksum } from './schema.js';
 import { prepareWalletMetadata, walletMetadataSql, walletMetadataChecksum } from './metadataSchema.js';
@@ -8,7 +9,7 @@ import { prepareWalletLegacyMigration, walletLegacyMigrationSql, walletLegacyMig
 import { prepareWalletReceipts, walletReceiptSql, walletReceiptChecksum, walletReceiptColumns } from './receiptSchema.js';
 import { prepareWalletSelections, walletSelectionSql, walletSelectionChecksum, walletSelectionColumns } from './selectionSchema.js';
 /** One additive descriptor chain for registration, cold inspection and snapshots.
- * Imports are pure; accepted SQL/checksum bytes1–5 stay unchanged. */
+ * Imports are pure; accepted SQL/checksum bytes1–6 stay unchanged. */
 export const walletSchemas = [
     { version: 1, columns: walletCoreColumns, sql: walletCoreSql, checksum: walletCoreChecksum, prepare: prepareWalletSchema },
     { version: 2, columns: walletMetadataColumns, sql: walletMetadataSql, checksum: walletMetadataChecksum, prepare: prepareWalletMetadata },
@@ -16,6 +17,7 @@ export const walletSchemas = [
     { version: 4, columns: walletLegacyMigrationColumns, sql: walletLegacyMigrationSql, checksum: walletLegacyMigrationChecksum, prepare: prepareWalletLegacyMigration },
     { version: 5, columns: walletReceiptColumns, sql: walletReceiptSql, checksum: walletReceiptChecksum, prepare: prepareWalletReceipts },
     { version: 6, columns: walletSelectionColumns, sql: walletSelectionSql, checksum: walletSelectionChecksum, prepare: prepareWalletSelections },
+    { version: 7, columns: walletWorkflowColumns, sql: walletWorkflowSql, checksum: walletWorkflowChecksum, prepare: prepareWalletWorkflow },
 ] as const;
 export type WalletStorageVersion = typeof walletSchemas[number]['version'];
 export const walletStorageVersions: number[] = walletSchemas.map(row => row.version);
