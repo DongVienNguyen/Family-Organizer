@@ -1,5 +1,5 @@
 import{expect,it}from'vitest';
-import{registerProductivityCore,registerProductivityAdvanced,registerProductivityChromium,registerProductivityCoreWithSupplemental,registerProductivityColumns,registerProductivityRoster,registerProductivityPolicy,registerProductivityCreate,registerProductivityViewEditor,registerProductivityOrdering}from'./e2e/productivity-cases.js';
+import{registerProductivityCore,registerProductivityAdvanced,registerProductivityChromium,registerProductivityCoreWithSupplemental,registerProductivityColumns,registerProductivityRoster,registerProductivityPolicy,registerProductivityCreate,registerProductivityViewEditor,registerProductivityOrdering,registerProductivityCrossDrag}from'./e2e/productivity-cases.js';
 import{productivityBrowserCases}from'../scripts/ci/productivity-browser-contract.mjs';
 function names(register:typeof registerProductivityCore){const cases:string[]=[];register(((name:string)=>{cases.push(name);})as any);return cases;}
 it('registers every original Chromium scenario once in the accepted shared-store order',()=>{expect(names(registerProductivityChromium)).toEqual(productivityBrowserCases);expect(new Set(names(registerProductivityChromium)).size).toBe(productivityBrowserCases.length);});
@@ -16,4 +16,6 @@ it('appends board creation quick-add and manual ordering after all44previous sce
 
 it('appends four view-edit journeys without changing the original48 scenarios',()=>{expect(names(registerProductivityViewEditor)).toEqual(productivityBrowserCases.slice(48,52));expect(names(registerProductivityChromium).slice(0,48)).toEqual(productivityBrowserCases.slice(0,48));});
 
-it('appends Workflow and grouped pure ordering without changing the original52 scenarios',()=>{expect(names(registerProductivityOrdering)).toEqual(productivityBrowserCases.slice(52));expect(names(registerProductivityChromium).slice(0,52)).toEqual(productivityBrowserCases.slice(0,52));});
+it('appends Workflow and grouped pure ordering without changing the original52 scenarios',()=>{expect(names(registerProductivityOrdering)).toEqual(productivityBrowserCases.slice(52,54));expect(names(registerProductivityChromium).slice(0,52)).toEqual(productivityBrowserCases.slice(0,52));});
+
+it('appends actual Workflow and grouped drag journeys while preserving the earlier54 scenarios',()=>{expect(names(registerProductivityCrossDrag)).toEqual(productivityBrowserCases.slice(54));expect(names(registerProductivityChromium).slice(0,54)).toEqual(productivityBrowserCases.slice(0,54));});

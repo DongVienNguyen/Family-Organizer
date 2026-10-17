@@ -61,6 +61,8 @@ export const productivityBrowserCases=[
  'P09 C52 revoked private board access erases an unsent view draft even when access is restored',
  'P09 C53 Workflow same-lane order preview cancel and confirm preserve lifecycle deadlines rewards and disable noncustom ordering',
  'P09 C54 due and multi-tag ordering use pure rank commands and UUID replay preserves timed deadlines tags and one canonical Task',
+ 'P09 C55 Workflow pointer drag opens P10 confirmation cancel writes nothing and child Done shows Review before one adult reward',
+ 'P09 C56 grouped multi-tag pointer drop previews one selected tag cancel is readonly and apply preserves the secondary tag deadline lifecycle and points',
 ];
 export function validateProductivityBrowserReports(input){
  const errors=[...validateBrowserReports(input,{projects:browserProjects,cases:productivityBrowserCases,shardFormat:productivityBrowserShardFormat,workers:productivityBrowserWorkers,fixtureVersion:productivityFixtureVersion}),...validateMatrixTouchReports({...input,kanbanSectionTouchVersion}),...validateProductivityShards(input,productivityBrowserCases,{workers:productivityBrowserWorkers})];

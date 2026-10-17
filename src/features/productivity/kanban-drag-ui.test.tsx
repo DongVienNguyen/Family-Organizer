@@ -1,7 +1,7 @@
 import React from'react';import {renderToStaticMarkup}from'react-dom/server';import {expect,it,vi}from'vitest';
 import {canonicalTaskFixture as task}from'../../../tests/fixtures/canonicalTask.js';import messages from'../../i18n/locales/vi.json';
 let handlers:any;
-vi.mock('@dnd-kit/react',()=>({DragDropProvider:(p:any)=>{handlers=p;return <>{p.children}</>;},useDraggable:()=>({ref:()=>{},handleRef:()=>{},isDragging:false}),useDroppable:()=>({ref:()=>{},isDropTarget:false})}));
+vi.mock('@dnd-kit/react',()=>({DragOverlay:()=>null,DragDropProvider:(p:any)=>{handlers=p;return <>{p.children}</>;},useDraggable:()=>({ref:()=>{},handleRef:()=>{},isDragging:false}),useDroppable:()=>({ref:()=>{},isDropTarget:false})}));
 vi.mock('react-i18next',()=>({useTranslation:()=>({t:(key:string,options:any={})=>{let v:any=messages;for(const part of key.split('.'))v=v?.[part];return String(v??key).replace(/{{(\w+)}}/g,(_m,n)=>String(options[n]??''));}})}));
 const page=()=>({viewId:'view',viewRevision:2,boardId:'board',boardRevision:3,mode:'sections',clock:{nowUtc:'2026-10-16T12:00:00.000Z',timezone:'UTC'},columns:[{id:'from',columnKey:'none',sectionId:null,title:'From',rank:1024,revision:1,visibleCardCount:1,cards:[{task,rank:1024}],wip:{policy:'off'}},{id:'to',columnKey:'section:target',sectionId:'target',title:'Target',rank:2048,revision:1,visibleCardCount:0,cards:[],wip:{policy:'off'}}],totalUnique:1,nextCursor:null})as any;
 async function html(extra:any={}){const {Kanban}=await import('./Kanban.js');return renderToStaticMarkup(<Kanban kind="canonical" page={page()} onOpen={()=>{}} onReload={()=>{}} onLoadMore={()=>{}} {...extra}/>);}
