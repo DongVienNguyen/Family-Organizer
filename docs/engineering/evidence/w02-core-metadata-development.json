@@ -1,0 +1,169 @@
+{
+  "taskIds": [
+    "W02-partial"
+  ],
+  "status": "Cloud core-metadata checkpoint; full Wallet/master and Windows acceptance incomplete",
+  "sourceCommit": "43e9cdb04f6adb58d10b9714d39a3251a04aad8b",
+  "base": "b4f48f6b8b432f50f3aa0468cc3d53b6ab4f3d6b",
+  "sourceSha256": {
+    "server/appSnapshot.ts": "6f8eb95538d6fcf2cdf8a44034938c4dc87c248852929f0361f90c16807d85dc",
+    "server/productivity/bootstrap.ts": "58478610a609fc74d3debc10e4062cd26c9196b76af85181242166480735756c",
+    "server/recoverySnapshotInspection.ts": "125f7fd3e6ead05205fd5d7617fe78a0c0668726116d92989ad8b2c893db306f",
+    "server/wallet/integration.test.ts": "4d5bde288c32f0f62a012d948506d1919078ab4d141397b24f6d07ff60898a9c",
+    "server/wallet/integration.ts": "a49cc1fa976c8bfa7b8869ff7ea186a029754c4e191b974569f118da38742925",
+    "server/wallet/metadata.integration.test.ts": "3c45cae661cb32327d2dd85732b53fe47dd7a7ba310830110cd4d929c4bbdff1",
+    "server/wallet/metadata.test.ts": "4e517be53c8d1168d8a01857a75ba7821e80b91f70bb687cc14558d7bcd36570",
+    "server/wallet/metadata.ts": "42ffdad8a6e5005c96a59e37ff2f82de2583689744ece0f45bd89f8af2647006",
+    "server/wallet/metadataSchema.ts": "f4b3dbbbea554e69fee6562cc4176525f827547d5cdf106bdd6c069dde09d0a3",
+    "server/wallet/schema.ts": "38dd99d306eecd81fc8037fcf4c673a0eab7400e5b51f2178e01cee995402c22",
+    "server/wallet/snapshot.test.ts": "4d6974480dbbed9a0e525c7f59105b8884a87f29ad017677df04df8705e70632",
+    "server/wallet/snapshot.ts": "040dbb11f032d6f0d2cbdce6b59ad6dc36519086c611806c0d74a428fad51e2d",
+    "server/wallet/store.ts": "80006de038606e3646e3ae18a76ec4ba6a9527b036598e951f50e37b4bbabd9a"
+  },
+  "cloud": {
+    "platform": "linux",
+    "node": "v24.21.0",
+    "unitIntegration": {
+      "exitCode": 0,
+      "tests": 6425,
+      "files": 345,
+      "junitCases": 6425,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationSeconds": 138.3
+    },
+    "targetedWallet": {
+      "tests": 86,
+      "files": 6,
+      "failed": 0
+    },
+    "lintExit": 0,
+    "buildExit": 0,
+    "parentCasePreservation": {
+      "parentPassed": 6379,
+      "currentPassed": 6425,
+      "added": 46,
+      "removed": 0,
+      "normalization": "only temporary root in five recoveryRetention names; multiplicity retained",
+      "junitCases": 6425,
+      "files": 345
+    },
+    "bundleSha256": {
+      "dist/server.cjs": "b9520f16b26c385d45770a0c912d98c5ab4b38d895dc277fd3cd6263013b4daf",
+      "dist/operator.cjs": "d93019d663b1772c0084068a2dfcc65f18e354f9d24aaed710c39cd2158abb03"
+    }
+  },
+  "protocols": {
+    "migration1Checksum": "5386132badbf4a5fee4331cbf0a133bd2a106ed284f80ee479ff31df4bcb1e6a",
+    "migration2Checksum": "4692c682ac0f19185de4a85bb02d9ca667441d4b355cbd6b10d446b1e332dcea",
+    "standalone": {
+      "2": "migration1 core (preserved)",
+      "3": "migration2 core plus metadata"
+    },
+    "sharedI01Envelope": 1,
+    "restore": "matching installed domain version only"
+  },
+  "review": {
+    "method": "LOCAL SELF review by author, not independent",
+    "reviewedPaths": [
+      "server/appSnapshot.ts",
+      "server/productivity/bootstrap.ts",
+      "server/recoverySnapshotInspection.ts",
+      "server/wallet/integration.test.ts",
+      "server/wallet/integration.ts",
+      "server/wallet/metadata.integration.test.ts",
+      "server/wallet/metadata.test.ts",
+      "server/wallet/metadata.ts",
+      "server/wallet/metadataSchema.ts",
+      "server/wallet/schema.ts",
+      "server/wallet/snapshot.test.ts",
+      "server/wallet/snapshot.ts",
+      "server/wallet/store.ts"
+    ],
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "focus": [
+      "frozen migration1/checksum and explicit version2 registration",
+      "single I01 writer and nullable exact-money bindings",
+      "known historical actors vs live authorization",
+      "metadata coverage, FK, shape and pre-maintenance validation",
+      "same-version protocol2/3 restore; no silent table omission",
+      "cold schema/index drift and handle/file preservation",
+      "no API, activation, media writer, dependency or workflow changes"
+    ],
+    "correctionPasses": 0,
+    "rereview": false,
+    "limitations": [
+      "No fresh-context independent review",
+      "Full W02 and Windows acceptance remain pending"
+    ]
+  },
+  "redGreen": {
+    "initialMissingMetadata": {
+      "failed": 26,
+      "exitCode": 1
+    },
+    "firstImplementation": {
+      "passed": 25,
+      "failed": 1,
+      "cause": "nullable credit limit passed to minorInteger during standalone restore",
+      "corrected": true
+    },
+    "missingSharedMigration2": {
+      "passed": 26,
+      "failed": 11,
+      "exitCode": 1
+    },
+    "silentExportOmission": {
+      "passed": 2,
+      "failed": 2,
+      "filteredOut": 27,
+      "cause": "partial metadata schema and unknown Wallet table were silently omitted",
+      "corrected": true
+    },
+    "final": "6425 passed, none skipped; no skip/retry/timeout/assertion reductions"
+  },
+  "rawEvidenceRoot": "/workspace/family-evidence",
+  "rawReportFiles": [
+    "w02-metadata-qualified.json",
+    "w02-metadata-qualified.junit.xml",
+    "w02-metadata-qualified.log",
+    "w02-metadata-qualified.exit",
+    "w02-metadata-lint.log",
+    "w02-metadata-lint.exit",
+    "w02-metadata-build.log",
+    "w02-metadata-build.exit",
+    "w02-metadata-frozen.json",
+    "w02-metadata-preservation.json",
+    "w02-metadata-self-review.json",
+    "w02-metadata-red.json",
+    "w02-metadata-integration-red.json",
+    "w02-metadata-export-red.json",
+    "w02-metadata-targeted.json"
+  ],
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "notRun": [
+    "new browser (backend-only slice)",
+    "current Windows2022 Node24/Node22",
+    "current Windows package/service",
+    "Windows Server2019 R02"
+  ],
+  "remaining": [
+    "W02 full remaining entities and private attachments manifest",
+    "W03 durable migration/quarantine and old backup upgrade",
+    "W04 live account ACL and authorized media/API",
+    "W05 core financial commands and UI",
+    "remaining M1 UX and full browser acceptance",
+    "later Wallet/productivity/integration/release qualification tasks"
+  ],
+  "constraints": [
+    "No automatic activation/migration",
+    "No HTTP finance/UI/media writer added",
+    "No dependencies/lockfile/workflow changed",
+    "No release/tag/VPS"
+  ]
+}

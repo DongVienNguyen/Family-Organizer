@@ -2,6 +2,25 @@
 
 ## Current direction — 2026-10-17 (Asia/Saigon)
 
+**Latest continuation — W02 partial:** source `43e9cdb04f6adb58d10b9714d39a3251a04aad8b` adds explicit additive migration2
+for account/record/catalog/audit metadata. Frozen migration1 and standalone protocol2
+remain supported; extended standalone protocol3 maps to Wallet domain2. I01 remains
+the sole transaction/restore owner. Nullable credit limits, exact signed64 amounts,
+unknown historical time/actors and pre-maintenance validation are preserved.
+
+Full Cloud6425tests/345files/matchingJUnit/0failed-skipped-todo;86targeted Wallet
+cases; lint/build0. All6379parent cases retained+46. LOCAL SELF13paths0C/0I/0M,
+no correction/rereview in that review pass, not independent. Development RED/GREEN
+failures and corrections are retained in evidence. No dependency/workflow change.
+[Detail](wallet-core-metadata.md), [proof](evidence/w02-core-metadata-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No new browser run
+for backend-only work; prior UI evidence keeps its own source binding. Current
+Windows/Node22/package/service and Server2019R02 remain unrun. Next: independent
+W04 account access and core commands, then remaining W02 entities/private attachments,
+W03 durable migration/cutover and W05 UI; remaining M1 UX/final gates still apply.
+**Full W02/Wallet/M1/master is not complete.** No release/tag/VPS.
+
 **Latest continuation — W02 partial:** source
 `2496a3b4d4ecd06a80854d5ff24017b6d8ca4f87` rejects unknown Wallet record creators,
 unknown audit actors and cyclic category graphs before restore writes; module
