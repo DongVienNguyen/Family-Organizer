@@ -1943,6 +1943,7 @@ export default function App() {
             >
               {activeTab === "dashboard" && (
                 <Dashboard
+                  walletWorkspace={walletWorkspace}
                   currentUser={currentUser}
                   users={users}
                   tasks={tasks}

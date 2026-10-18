@@ -1,3 +1,5 @@
+import {WalletDashboard} from '../features/wallet/Dashboard.js';
+import type {WalletWorkspace} from '../features/wallet/useWallet.js';
 import {isActiveLegacyTask} from '../utils/taskLifecycle.js';
 /**
  * @license
@@ -49,6 +51,7 @@ const expenseCatMeta = (cat: string, custom: CustomExpenseCategory[] = []) => {
 };
 
 interface DashboardProps {
+  walletWorkspace?:WalletWorkspace;
   currentUser: User;
   users: User[];
   tasks: Task[];
@@ -292,6 +295,7 @@ function TrendRow({ values }: { values: number[] }) {
 }
 
 export function Dashboard({
+  walletWorkspace,
   currentUser,
   users,
   tasks,
@@ -1004,6 +1008,8 @@ export function Dashboard({
           </motion.div>
         </div>
       </motion.div>
+
+      {walletWorkspace&&['admin','member'].includes(currentUser.role)&&<WalletDashboard workspace={walletWorkspace.dashboard} filter={walletWorkspace.records.snapshot().filter} onDrilldown={async filter=>{const ok=await walletWorkspace.openRecords(filter);if(ok)onNavigate('finance');return ok;}} onChart={async config=>{const ok=await walletWorkspace.openChart(config);if(ok)onNavigate('finance');return ok;}} onAccounts={()=>{walletWorkspace.navigation.set('accounts');onNavigate('finance');}}/>}
 
       {/* Main Dashboard Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6" id="dashboard-grid">
