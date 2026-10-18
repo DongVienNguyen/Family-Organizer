@@ -23,7 +23,8 @@ export interface RestoreOptions { assertCurrent?:(phase:RestoreGuardPhase,live:R
 const connection = sqliteConnection();
 const core = snapshotCoreTables;
 const domainTables = new Map<string, { namespace: string; columns: readonly string[]; derived: boolean; integerText:readonly string[] }>();
-const domainRestorePolicies=new Map<string,{namespace:string;minimumVersion:number;apply:(tx:AppWriteTx,now:number)=>void}>();
+export interface SnapshotRestoreContext {readonly snapshotCreatedAt:string}
+const domainRestorePolicies=new Map<string,{namespace:string;minimumVersion:number;apply:(tx:AppWriteTx,now:number,context:SnapshotRestoreContext)=>void}>();
 const domainValidators=new Map<string,(snapshot:AppSnapshot)=>void>();
 const validated = new WeakSet<object>();
 withAppWriteTransaction({ actorId: 'system:bootstrap', command: 'core:snapshot:init', requestId: 'core-snapshot-v1', payloadHash: sha256('core-snapshot-v1') }, tx => {
@@ -50,7 +51,7 @@ export function registerSnapshotValidator(namespace:string,validate:(snapshot:Ap
 }
 /** Trusted synchronous policies run inside the one replacement transaction,
  * after shared job fencing. They cannot create another restore owner. */
-export function registerSnapshotRestorePolicy(namespace:string,id:string,minimumVersion:number,apply:(tx:AppWriteTx,now:number)=>void):void {
+export function registerSnapshotRestorePolicy(namespace:string,id:string,minimumVersion:number,apply:(tx:AppWriteTx,now:number,context:SnapshotRestoreContext)=>void):void {
  if(!['wallet','productivity'].includes(namespace)||! /^[a-z][a-z0-9-]{0,79}$/.test(id)||!Number.isSafeInteger(minimumVersion)||minimumVersion<1||typeof apply!=='function'||apply.constructor.name==='AsyncFunction')throw Error('Invalid snapshot restore policy');
  const key=namespace+':'+id,prior=domainRestorePolicies.get(key);if(prior&&(prior.apply!==apply||prior.minimumVersion!==minimumVersion))throw Error('Conflicting snapshot restore policy');domainRestorePolicies.set(key,{namespace,minimumVersion,apply});
 }
@@ -214,8 +215,8 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
         reconcileBackupReferences(tx.legacy);
         reconcileMediaMetadata(tx);
         if(tx.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auth_sessions'"))tx.run('DELETE FROM auth_sessions');
-        const restoredAt=Date.now();new AppJobStore().restorePolicy(tx,restoredAt);
-        for(const policy of domainRestorePolicies.values())if((checked.manifest.domains[policy.namespace]??0)>=policy.minimumVersion)invokeSynchronousWrite(owned=>policy.apply(owned,restoredAt),tx);
+        const restoredAt=Date.now(),restoreContext:SnapshotRestoreContext=Object.freeze({snapshotCreatedAt:new Date(checked.manifest.createdAt).toISOString()});new AppJobStore().restorePolicy(tx,restoredAt);
+        for(const policy of domainRestorePolicies.values())if((checked.manifest.domains[policy.namespace]??0)>=policy.minimumVersion)invokeSynchronousWrite(owned=>policy.apply(owned,restoredAt,restoreContext),tx);
         tx.run('INSERT INTO app_restore_commits VALUES (?,?,?)',id,checked.manifest.checksum,new Date().toISOString());
         return { restoredFiles: Object.keys(checked.media).length };
       });
