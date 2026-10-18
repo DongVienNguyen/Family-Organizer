@@ -1,3 +1,4 @@
+import {TaskDataTools} from './TaskDataTools.js';
 import {TaskTemplateLibrary} from './TaskTemplates.js';
 import {useTaskViews} from './useTaskViews.js';
 import {QueryWorkspace} from './QueryWorkspace.js';
@@ -30,6 +31,7 @@ export function Productivity({user,users,tasks,onComment,onAdvanced,actions,show
    <form onSubmit={event=>{event.preventDefault();void perform(async()=>{await state.command('create-tag',{name:newTag},key=>state.api.createTag(newTag.trim(),key));setNewTag('');});}}><input aria-label={t('productivity.newTag')} value={newTag} onChange={event=>setNewTag(event.target.value)} className="w-full bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5"/><button type="submit" disabled={disabled||!newTag.trim()} className="mt-2 text-xs text-sky-400 cursor-pointer">{t('productivity.addTag')}</button></form>
   </div></details>}
   <TaskTemplateLibrary user={user}/>
+  <TaskDataTools user={user}/>
   <QueryWorkspace views={views} user={user} users={users}/>
   </div>
   {state.activeId&&<TaskDrawer key={state.activeId} user={user} users={users} legacyTasks={tasks} onComment={onComment} onAdvanced={onAdvanced} actions={actions} overlayActive={overlayActive}/>}

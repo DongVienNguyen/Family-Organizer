@@ -1,3 +1,4 @@
+import {createTaskDataApi} from './dataApi.js';
 import {createTaskAttachmentApi} from './attachmentApi.js';
 import {createTaskContentApi} from './contentApi.js';
 import {createTaskTemplateApi} from './templateApi.js';
@@ -66,6 +67,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  };
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
+  ...createTaskDataApi({read,request:ports.request,authHeaders:ports.authHeaders,error:(status,message)=>new TaskApiError(status,message)}),
   ...createTaskAttachmentApi({read,request:ports.request,authHeaders:ports.authHeaders,error:(status,message)=>new TaskApiError(status,message)}),
   ...createTaskContentApi(read),
   ...createTaskTemplateApi(read,taskValue),
