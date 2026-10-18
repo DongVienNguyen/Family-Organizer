@@ -1,3 +1,5 @@
+import {reportValue} from './reportDto.js';
+import type {ReportInput} from './reportContracts.js';
 import {templateValue,templateListValue} from './templateDto.js';
 import type {TemplateDraft} from '../../../server/wallet/templates.js';
 import {assertAllocationTotal,allocationRows,allocationResultValue,type AllocationDraft} from './allocations.js';
@@ -285,6 +287,8 @@ export function createWalletApi(ports: WalletTransportPorts) {
             throw Error('Duplicate grant'); return grants as WalletAccountGrant[]; }),
         setGrant: (id: string, userId: string, expectedRevision: number, permission: WalletPermission, nonce: string) => command(path('accounts', id) + '/grants/' + encodeURIComponent(userId), 'PUT', { expectedRevision, permission }, nonce, value => grantValue(value, id, userId)),
         removeGrant: (id: string, userId: string, expectedRevision: number, nonce: string) => command(path('accounts', id) + '/grants/' + encodeURIComponent(userId), 'DELETE', { expectedRevision }, nonce, value => grantValue(value, id, userId)),
+        report:(input:ReportInput,options:{signal?:AbortSignal}={})=>{const normalized={...input,filter:normalizeFilter(input.filter)};return read('/api/wallet/reports/query',value=>reportValue(value,normalized),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(normalized),signal:options.signal});},
+        refreshRates:(asOf:string,nonce:string)=>{parseEffectiveDate(asOf);return command('/api/wallet/fx/refresh','POST',{expectedRevision:0,asOf},nonce,value=>{const v=object(value);keys(v,['asOf','quoteAsOf','inserted']);if(v.asOf!==asOf)throw Error('FX refresh date mismatch');parseEffectiveDate(v.quoteAsOf as string);if(v.quoteAsOf>asOf||Date.parse(asOf)-Date.parse(v.quoteAsOf as string)>7*86400000)throw Error('FX refresh quote scope');integer(v.inserted,0,1);return {asOf,quoteAsOf:v.quoteAsOf as string,inserted:v.inserted as number};});},
         query: (filter: RecordFilter, cursor: string | null = null, limit = 50, options: {
             signal?: AbortSignal;
         } = {}) => { integer(limit, 1, 100); const normalized = normalizeFilter(filter); return read('/api/wallet/records/query', value => pageValue(value, limit), { method: 'POST', readOnly: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filter: normalized, cursor, limit }), signal: options.signal }); },

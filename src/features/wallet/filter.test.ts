@@ -29,3 +29,5 @@ it('invalid category cycles and records refuse rather than silently bypass filte
  expect(()=>matchesRecordFilter({...record,effectiveDate:'2028-02-30'},normalizeFilter(raw),[])).toThrow();
  expect(()=>normalizeFilter(null)).toThrow();
 });
+
+it('explicit unassigned flags select only their dimension and reject false/string/unknown policies',()=>{const f={period:{fromDate:'2026-10-01',toDateExclusive:'2026-11-01',timezone:'Asia/Saigon'},referenceCurrency:'VND'},r:any={id:'synthetic',effectiveDate:'2026-10-17',accountIds:['a'],categoryId:null,labelIds:[],currency:'VND',kind:'expense',status:'cleared',paymentMethod:'',creatorId:'u',searchText:'',minor:'-1'};expect(matchesRecordFilter(r,{...f,uncategorized:true,unlabeled:true},[])).toBe(true);expect(matchesRecordFilter({...r,categoryId:'c'},{...f,uncategorized:true},[])).toBe(false);expect(matchesRecordFilter({...r,labelIds:['l']},{...f,unlabeled:true},[])).toBe(false);for(const value of [false,'true',1])expect(()=>normalizeFilter({...f,unlabeled:value})).toThrow();});

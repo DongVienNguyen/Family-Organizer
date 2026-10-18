@@ -19,9 +19,12 @@ export interface WalletRecordView {
     matchedAccountIds: string[];
     partial: boolean;
 }
+export interface WalletReportRow {id:string;revision:number;kind:WalletRecord['kind'];effectiveDate:string;creatorId:string;categoryId:string|null;labelIds:string[];allocations:{categoryId:string;amountMinor:string}[];postings:{accountId:string;currency:string;deltaMinor:string}[];partial:boolean}
+export interface WalletReportCapture {filter:RecordFilter;rows:WalletReportRow[];total:number}
 export interface WalletSelectionCapture {filter:RecordFilter;entries:{id:string;revision:number}[];total:number}
 interface IndexedView extends WalletRecordView {
     allocationCategoryIds:string[];
+    allocationAmounts:{categoryId:string;amountMinor:string}[];
     searchText: string;
     accountRevisions: [
         string,
@@ -73,7 +76,7 @@ function cursor(raw: string | null, actor: Actor, filter: string): Cursor | null
         fail(400, 'Con trỏ không khớp người dùng hoặc bộ lọc.');
     }
 }
-function categorySelection(reader: WalletReader, selected: string[] | undefined): Set<string> | null {
+function categorySelection(reader: WalletReader, selected: string[] | undefined,exact=false): Set<string> | null {
     if (selected === undefined)
         return null;
     const rows = reader.all('SELECT id,parent_id FROM wallet_categories'), parents = new Map<string, string | null>(rows.map(row => [row.id, row.parent_id])), complete = new Set<string>();
@@ -89,6 +92,7 @@ function categorySelection(reader: WalletReader, selected: string[] | undefined)
         for (const id of path)
             complete.add(id);
     }
+    if(exact)return new Set(selected);
     const children = new Map<string, string[]>();
     for (const [id, parent] of parents)
         if (parent !== null) {
@@ -123,7 +127,7 @@ export function createWalletQueries(ports: {
 }) {
     const authority = (actor: Actor) => { const scope = walletAccountReadScope(ports.reader, actor); if (ports.reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value !== '1')
         fail(409, 'Kho Wallet chưa được kích hoạt.', 'wallet-storage-inactive'); return scope; };
-    function evaluate(actor: Actor, raw: RecordFilter, rawCursor: string | null, limit: number, selectionOnly=false): Page<WalletRecordView>|WalletSelectionCapture {
+    function evaluate(actor: Actor, raw: RecordFilter, rawCursor: string | null, limit: number, selectionOnly:boolean|'report'|'ledger'=false): Page<WalletRecordView>|WalletSelectionCapture|WalletReportCapture {
             authority(actor);
             let f: RecordFilter;
             try {
@@ -133,7 +137,7 @@ export function createWalletQueries(ports: {
             catch {
                 fail(400, 'Bộ lọc hoặc kích thước trang không hợp lệ.');
             }
-            const fingerprint = hash(canonical(f!)), position = cursor(rawCursor, actor, fingerprint), search = !!f!.query?.trim(), needsLabels = search || f!.labelIds !== undefined,needsAllocations=f!.categoryIds!==undefined;
+            const fingerprint = hash(canonical(f!)), position = cursor(rawCursor, actor, fingerprint), search = !!f!.query?.trim(), needsLabels = selectionOnly==='report' || search || f!.labelIds !== undefined || !!f!.unlabeled,needsAllocations=selectionOnly==='report' || f!.categoryIds!==undefined || !!f!.uncategorized;
             const users = new Set<string>(ports.reader.legacy ? ports.reader.legacy.users.map(user => user.id) : ports.reader.all('SELECT id FROM users').map(row => row.id));
             const read = (full: boolean, ids?: string[]): IndexedView[] => {
                 const scope = authority(actor), body = full || search, labelBodies = full || needsLabels;
@@ -143,7 +147,7 @@ export function createWalletQueries(ports: {
      m.record_id AS meta_id,m.created_at,m.updated_at,m.created_by,m.updated_by,m.occurred_at,${body ? "CASE WHEN s.partial THEN '' ELSE m.payee END" : "''"} AS payee,CASE WHEN s.partial THEN '' ELSE m.payment_method END AS payment_method,m.reviewed_at,
      ${body ? "CASE WHEN s.partial THEN '' ELSE COALESCE(c.name,'') END" : "''"} AS category_name,
      ${labelBodies ? "CASE WHEN s.partial THEN '[]' ELSE (SELECT json_group_array(json_object('id',id,'name',name)) FROM(SELECT l.id,l.name FROM wallet_record_labels rl JOIN wallet_labels l ON l.id=rl.label_id WHERE rl.record_id=r.id ORDER BY l.id)) END" : "'[]'"} AS labels,
-     ${body || needsAllocations ? "CASE WHEN s.partial THEN '[]' ELSE (SELECT json_group_array(json_object('id',id,'name',name)) FROM(SELECT c.id,c.name FROM wallet_allocations x JOIN wallet_categories c ON c.id=x.category_id WHERE x.record_id=r.id ORDER BY c.id LIMIT 101)) END" : "'[]'"} AS allocations,
+     ${body || needsAllocations ? "CASE WHEN s.partial THEN '[]' ELSE (SELECT json_group_array(json_object('id',id,'name',name,'amount',amount)) FROM(SELECT c.id,c.name,CAST(x.amount_minor AS TEXT) AS amount FROM wallet_allocations x JOIN wallet_categories c ON c.id=x.category_id WHERE x.record_id=r.id ORDER BY c.id LIMIT 101)) END" : "'[]'"} AS allocations,
      p.account_id,CAST(p.delta_minor AS TEXT) AS delta_minor,a.currency,a.name AS account_name,a.revision AS account_revision
      FROM scoped s JOIN wallet_records r ON r.id=s.id JOIN wallet_postings p ON p.record_id=r.id JOIN visible a ON a.id=p.account_id LEFT JOIN wallet_record_metadata m ON m.record_id=r.id LEFT JOIN wallet_categories c ON c.id=r.category_id
      ORDER BY r.effective_date DESC,COALESCE(m.occurred_at,'') DESC,r.id DESC,p.account_id ASC LIMIT 100001`;
@@ -172,7 +176,7 @@ export function createWalletQueries(ports: {
                         const allocations:unknown=JSON.parse(row.allocations);if(!Array.isArray(allocations)||allocations.length>100)throw Error('Invalid Wallet allocation category count');for(const item of allocations){text(item.id,256);text(item.name,500);}
                         const record: WalletRecord = { id: row.id, kind: row.kind, effectiveDate: row.effective_date, timezone: row.timezone, source: row.source, note: row.note, settlementStatus: row.settlement_status, creatorId: row.creator_id, revision: row.revision, ...(row.external_key === null ? {} : { externalKey: row.external_key }), ...(row.category_id === null ? {} : { categoryId: row.category_id }), ...(row.occurrence_id === null ? {} : { occurrenceId: row.occurrence_id }) };
                         text(record.note, 100000, false);
-                        view = { allocationCategoryIds:needsAllocations?allocations.map(item=>item.id):[],record, metadata, postings: [], labelIds: labels.map(item => item.id), matchedAccountIds: [], partial: !!row.partial, searchText: [record.note, metadata.payee, metadata.paymentMethod, row.category_name, ...labels.map(item => item.name),...allocations.map(item=>item.name)].join(' '), accountRevisions: [] };
+                        view = { allocationAmounts:selectionOnly==='report'?allocations.map(item=>{if(minorInteger(item.amount)<=0n)throw Error('Invalid split amount');return {categoryId:item.id,amountMinor:item.amount};}):[],allocationCategoryIds:needsAllocations?allocations.map(item=>item.id):[],record, metadata, postings: [], labelIds: labels.map(item => item.id), matchedAccountIds: [], partial: !!row.partial, searchText: [record.note, metadata.payee, metadata.paymentMethod, row.category_name, ...labels.map(item => item.name),...allocations.map(item=>item.name)].join(' '), accountRevisions: [] };
                         views.set(row.id, view);
                     }
                     minorInteger(row.delta_minor);
@@ -192,28 +196,30 @@ export function createWalletQueries(ports: {
                 return result;
             };
             try {
-                const allowed = categorySelection(ports.reader, f!.categoryIds), selected = read(false), base = { ...f! };
+                const allowed = categorySelection(ports.reader, f!.categoryIds,f!.categoryMatch==='exact'), selected = read(false), base = { ...f! };
                 delete base.categoryIds;
+                delete base.uncategorized;
                 delete base.absoluteMin;
                 delete base.absoluteMax;
                 const withBounds = { ...f! };
                 delete withBounds.categoryIds;
-                const matches = selected.filter(view => { if (allowed && !(view.allocationCategoryIds.length?view.allocationCategoryIds:[view.record.categoryId??'']).some(id=>allowed.has(id)))
+                delete withBounds.uncategorized;
+                const matches = selected.filter(view => { if(f!.uncategorized&&!view.partial&&(view.allocationCategoryIds.length||view.record.categoryId))return false; if (allowed && !(view.allocationCategoryIds.length?view.allocationCategoryIds:[view.record.categoryId??'']).some(id=>allowed.has(id)))
                     return false; view.matchedAccountIds = view.postings.filter(posting => { const record: FilterRecord = { id: view.record.id, effectiveDate: view.record.effectiveDate, accountIds: [posting.accountId], categoryId: view.record.categoryId ?? null, labelIds: view.labelIds, currency: posting.currency, kind: view.record.kind, status: view.record.settlementStatus, paymentMethod: view.metadata.paymentMethod, creatorId: view.record.creatorId, searchText: view.searchText, minor: posting.deltaMinor }; if (!matchesRecordFilter(record, base, []))
                     return false; if (f!.absoluteMin === undefined && f!.absoluteMax === undefined)
                     return true; const reference = posting.currency === f!.referenceCurrency ? { minor: posting.deltaMinor, currency: posting.currency } : ports.referenceValue?.({ recordId: record.id, accountId: posting.accountId, effectiveDate: record.effectiveDate, money: { minor: posting.deltaMinor, currency: posting.currency }, targetCurrency: f!.referenceCurrency }); if (!reference)
                     fail(422, 'Chưa có tỷ giá định giá cho bộ lọc số tiền.', 'RATE_UNAVAILABLE'); return matchesRecordFilter(record, withBounds, [], reference); }).map(posting => posting.accountId); return view.matchedAccountIds.length > 0; });
-                const signature = (view: IndexedView) => [key(view), view.record.revision, view.partial, view.allocationCategoryIds,view.accountRevisions, view.postings.map(p => [p.accountId, p.currency, p.deltaMinor])], revision = hash(matches.map(view => [signature(view), view.matchedAccountIds]));
+                const signature = (view: IndexedView) => [key(view), view.record.revision, view.partial, view.allocationCategoryIds,view.accountRevisions, view.postings.map(p => [p.accountId, p.currency, p.deltaMinor]),...(selectionOnly==='report'?[view.labelIds,view.allocationAmounts,view.record.categoryId,view.record.kind,view.record.settlementStatus,view.record.creatorId,view.metadata.paymentMethod]:[])], revision = hash(matches.map(view => [signature(view), view.matchedAccountIds]));
                 if(selectionOnly){
                     const rechecked=read(false);
                     if(hash(selected.map(signature))!==hash(rechecked.map(signature)))fail(409,'Quyền hoặc danh sách vừa thay đổi.','CONFLICT');
-                    authority(actor);return {filter:f!,entries:matches.map(view=>({id:view.record.id,revision:view.record.revision})),total:matches.length};
+                    authority(actor);if(selectionOnly==='report'||selectionOnly==='ledger')return {filter:f!,total:matches.length,rows:matches.map(view=>({id:view.record.id,revision:view.record.revision,kind:view.record.kind,effectiveDate:view.record.effectiveDate,creatorId:view.record.creatorId,categoryId:view.partial?null:view.record.categoryId??null,labelIds:[...view.labelIds],allocations:view.allocationAmounts,postings:view.postings.filter(p=>view.matchedAccountIds.includes(p.accountId)).map(({accountId,currency,deltaMinor})=>({accountId,currency,deltaMinor})),partial:view.partial}))};return {filter:f!,entries:matches.map(view=>({id:view.record.id,revision:view.record.revision})),total:matches.length};
                 }
                 if (position && position.revision !== revision)
                     fail(409, 'Danh sách đã thay đổi; hãy tải lại từ đầu.', 'CONFLICT');
                 const after = matches.filter(view => !position || compare(key(view), position.after) > 0), page = after.slice(0, limit), bodies = page.length ? read(true, page.map(view => view.record.id)) : [], byId = new Map(bodies.map(view => [view.record.id, view]));
                 const items = page.map(index => { const full = byId.get(index.record.id); if (!full || hash(signature(full)) !== hash(signature(index)))
-                    fail(409, 'Quyền hoặc giao dịch vừa thay đổi.', 'CONFLICT'); const {allocationCategoryIds:_allocations, searchText: _search, accountRevisions: _revisions, ...value } = full; return { ...value, matchedAccountIds: [...index.matchedAccountIds] }; });
+                    fail(409, 'Quyền hoặc giao dịch vừa thay đổi.', 'CONFLICT'); const {allocationAmounts:_amounts,allocationCategoryIds:_allocations, searchText: _search, accountRevisions: _revisions, ...value } = full; return { ...value, matchedAccountIds: [...index.matchedAccountIds] }; });
                 const last = page.at(-1), nextCursor = after.length > limit && last ? Buffer.from(JSON.stringify({ v: 1, actor: actor.userId, filter: fingerprint, revision, after: key(last) })).toString('base64url') : null;
                 return { items, total: matches.length, nextCursor };
             }
@@ -225,6 +231,8 @@ export function createWalletQueries(ports: {
     }
     return {
         listRecords:(actor:Actor,filter:RecordFilter,cursor:string|null,limit:number)=>evaluate(actor,filter,cursor,limit) as Page<WalletRecordView>,
+        captureLedger:(actor:Actor,filter:RecordFilter)=>evaluate(actor,filter,null,100,'ledger') as WalletReportCapture,
+        captureReport:(actor:Actor,filter:RecordFilter)=>evaluate(actor,filter,null,100,'report') as WalletReportCapture,
         captureSelection:(actor:Actor,filter:RecordFilter)=>evaluate(actor,filter,null,100,true) as WalletSelectionCapture,
     };
 }

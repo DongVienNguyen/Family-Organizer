@@ -5,9 +5,11 @@ import {assertPeriod} from './dates.js';
 import {currencyExponent,minorInteger,assertMoney} from './money.js';
 const kinds=['income','expense','transfer','adjustment','trade'] as const,statuses=['uncleared','cleared','reconciled','voided'] as const;
 export function normalizeFilter(raw:unknown):RecordFilter {
- const f=object(raw);keys(f,['period','accountIds','categoryIds','labelIds','labelMatch','currencies','kinds','statuses','paymentMethods','creatorIds','transferMode','query','absoluteMin','absoluteMax','referenceCurrency']);assertPeriod(f.period);currencyExponent(f.referenceCurrency as string);
+ const f=object(raw);keys(f,['categoryMatch','uncategorized','unlabeled','period','accountIds','categoryIds','labelIds','labelMatch','currencies','kinds','statuses','paymentMethods','creatorIds','transferMode','query','absoluteMin','absoluteMax','referenceCurrency']);assertPeriod(f.period);currencyExponent(f.referenceCurrency as string);
+ if(f.categoryMatch!==undefined)choice(f.categoryMatch,['exact','descendants']);
  const result={...f,period:{...f.period},labelMatch:f.labelMatch??'any',transferMode:f.transferMode??'include'} as RecordFilter;
  for(const field of ['accountIds','categoryIds','labelIds','currencies','kinds','statuses','paymentMethods','creatorIds'] as const)if(f[field]!==undefined){strings(f[field]);(result as any)[field]=[...new Set(f[field])];}
+ for(const field of ['uncategorized','unlabeled'] as const)if(result[field]!==undefined&&result[field]!==true)throw new Error('Only explicit unassigned selection allowed');
  choice(result.labelMatch,['any','all']);choice(result.transferMode,['include','exclude','only']);
  for(const code of result.currencies??[])currencyExponent(code);for(const kind of result.kinds??[])choice(kind,kinds);for(const status of result.statuses??[])choice(status,statuses);
  if(result.query!==undefined)text(result.query,500,false);
@@ -23,9 +25,10 @@ export function matchesRecordFilter(record:FilterRecord,raw:RecordFilter,categor
  if(facets.some(([values,value])=>values!==undefined&&!values.includes(value)))return false;
  if(f.accountIds!==undefined&&!f.accountIds.some(id=>record.accountIds.includes(id)))return false;
  if(f.labelIds!==undefined&&!(f.labelMatch==='all'?f.labelIds.length>0&&f.labelIds.every(id=>record.labelIds.includes(id)):f.labelIds.some(id=>record.labelIds.includes(id))))return false;
+ if(f.uncategorized&&record.categoryId!==null||f.unlabeled&&record.labelIds.length>0)return false;
  if(f.categoryIds!==undefined){
   const parents=new Map(categories.map(c=>[c.id,c.parentId])),ancestors=new Set<string>();let id=record.categoryId;
-  while(id!==null){if(ancestors.has(id))throw new Error('Category cycle');ancestors.add(id);id=parents.get(id)??null;}
+  while(id!==null){if(ancestors.has(id))throw new Error('Category cycle');ancestors.add(id);id=f.categoryMatch==='exact'?null:parents.get(id)??null;}
   if(!f.categoryIds.some(id=>ancestors.has(id)))return false;
  }
  if(f.transferMode==='exclude'&&record.kind==='transfer'||f.transferMode==='only'&&record.kind!=='transfer')return false;

@@ -1,3 +1,4 @@
+import {validateWalletFxCache} from './fxSchema.js';
 import {validateWalletWorkflowTables} from './workflowSchema.js';
 import {walletSchemas,walletTableDefinitions,walletStorageVersions} from './schemaRegistry.js';
 import {validateWalletSelectionTables} from './selectionSchema.js';
@@ -16,7 +17,7 @@ export {walletCoreColumns as walletSnapshotColumns} from './coreColumns.js';
 export function walletTablesAt(version:number):Record<string,readonly string[]> {return walletTableDefinitions(version);}
 export const moneyColumns:Record<string,readonly string[]>={wallet_accounts:['opening_minor'],wallet_postings:['delta_minor'],wallet_allocations:['amount_minor'],wallet_account_metadata:['credit_limit_minor'],wallet_record_fx:['debit_minor','credit_minor']};
 const metadataPrimaryKeys=Object.fromEntries(Object.entries(walletMetadataColumns).map(([name,columns])=>[name,[columns[0]]]));
-const primaryKeys:Record<string,readonly string[]>={...metadataPrimaryKeys,wallet_selection_records:['selection_id','record_id'],wallet_legacy_links:['run_id','source_kind','parent_id','legacy_id'],wallet_record_fx:['record_id'],wallet_transfer_fees:['transfer_record_id'],wallet_currencies:['code'],wallet_account_grants:['account_id','user_id'],wallet_postings:['record_id','account_id'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id']};
+const primaryKeys:Record<string,readonly string[]>={wallet_fx_rates:['from_currency','to_currency','as_of'],...metadataPrimaryKeys,wallet_selection_records:['selection_id','record_id'],wallet_legacy_links:['run_id','source_kind','parent_id','legacy_id'],wallet_record_fx:['record_id'],wallet_transfer_fees:['transfer_record_id'],wallet_currencies:['code'],wallet_account_grants:['account_id','user_id'],wallet_postings:['record_id','account_id'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id']};
 const nullable=new Set(['filter_json','filter_hash','applied_at','applied_request_id','target_id','reason','archived_at','parent_id','external_key','category_id','occurrence_id','record_id','created_at','updated_at','created_by','updated_by','occurred_at','reviewed_at','credit_limit_minor','due_day','before_json','after_json']);
 type Row=Record<string,string|number|null>;
 export interface WalletSnapshot {schemaVersion:number;tables:Record<string,Row[]>;checksum:string}
@@ -52,6 +53,7 @@ export function validate(value:unknown,userIds?:Set<string>):asserts value is Wa
  if((raw.schemaVersion as number)>=6)validateWalletReceiptTables(rows,userIds);
  if((raw.schemaVersion as number)>=7)validateWalletSelectionTables(rows,userIds);
  if((raw.schemaVersion as number)>=8)validateWalletWorkflowTables(rows,userIds);
+ if((raw.schemaVersion as number)>=9)validateWalletFxCache(rows);
 }
 /** Full bytes are a marked read result, never a command-cache payload. */
 export function storageVersion(tx:WalletTx):number {

@@ -79,6 +79,8 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     const emit = (before: Set<string>, after: Set<string>) => changed(new Set([...before, ...after]));
     const manager = (req: WalletRequest, accountId: string) => { if (ports.access.getAccount(actor(req), accountId).permission !== 'manage')
         throw new AppStoreError('Không có quyền quản lý tài khoản.', 403); };
+    router.post('/reports/query',handler(req=>{const value=body(req,['filter','metric','groupBy','granularity']);return ports.reports.getReport(actor(req),value as any);}));
+    router.post('/fx/refresh',async(req,res)=>{try{const value=body(req,['expectedRevision','asOf']),result=await ports.fx.refreshRates(context(req,value.expectedRevision,false),value.asOf);res.json(result);}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không cập nhật được tỷ giá.':error instanceof AppStoreError?error.message:'Yêu cầu tỷ giá không hợp lệ.',code:(error as any)?.code});}});
     router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
     router.get('/templates',handler(req=>({templates:ports.templates.listTemplates(actor(req))})));
     router.get('/templates/:id',handler(req=>ports.templates.getTemplate(actor(req),id(req.params.id))));

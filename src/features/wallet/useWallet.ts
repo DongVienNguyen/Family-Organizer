@@ -1,3 +1,5 @@
+import {createAnalyticsWorkspace,type AnalyticsWorkspace} from './analyticsWorkspace.js';
+import {resolvePeriod} from './dates.js';
 import { useEffect, useState,useRef } from 'react';
 import { browserSession } from '../../utils/browserSession.js';
 import { createWalletApi } from './api.js';
@@ -7,12 +9,12 @@ import {createCatalogWorkspace,type CatalogWorkspace} from './catalogWorkspace.j
 import {createRecordWorkspace} from './recordWorkspace.js';
 import type {AccountWorkspace} from './accountWorkspace.js';
 import type {RecordWorkspace} from './recordWorkspace.js';
-export interface WalletWorkspace {accounts:AccountWorkspace;records:RecordWorkspace;catalog:CatalogWorkspace;refresh:()=>Promise<void>;dispose:()=>void}
+export interface WalletWorkspace {accounts:AccountWorkspace;records:RecordWorkspace;catalog:CatalogWorkspace;analytics:AnalyticsWorkspace;refresh:()=>Promise<void>;dispose:()=>void}
 /** App is keyed by BrowserSessionRoot's revision. StrictMode may replay effects,
  * so the resource is retired by the actual session boundary, not effect cleanup. */
 export function useWallet(authHeaders: () => HeadersInit,actorId?:string) {
     const currentActor=useRef(actorId??'');currentActor.current=actorId??'';
-    const [owner] = useState(() => {const api=createWalletApi({request:browserSession.request,authHeaders}),date=()=>effectiveDateAt(new Date().toISOString(),'Asia/Ho_Chi_Minh'),accounts=createAccountWorkspace(api,{date}),records=createRecordWorkspace(api,{actorId:()=>currentActor.current,date,timezone:'Asia/Ho_Chi_Minh'}),catalog=createCatalogWorkspace(api);const workspace:WalletWorkspace={accounts,records,catalog,async refresh(){await Promise.all([accounts.refresh(),records.refresh(),catalog.refresh()]);},dispose(){accounts.dispose();records.dispose();catalog.dispose();}};return {session:browserSession.snapshot(),workspace};});
+    const [owner] = useState(() => {const api=createWalletApi({request:browserSession.request,authHeaders}),date=()=>effectiveDateAt(new Date().toISOString(),'Asia/Ho_Chi_Minh'),accounts=createAccountWorkspace(api,{date}),records=createRecordWorkspace(api,{actorId:()=>currentActor.current,date,timezone:'Asia/Ho_Chi_Minh'}),catalog=createCatalogWorkspace(api),analytics=createAnalyticsWorkspace(api,{filter:{period:resolvePeriod({kind:'month',anchorDate:date()},'Asia/Ho_Chi_Minh'),referenceCurrency:'VND'},metric:'incomeExpense',groupBy:'none',granularity:'month'});const workspace:WalletWorkspace={accounts,records,catalog,analytics,async refresh(){await Promise.all([accounts.refresh(),records.refresh(),catalog.refresh(),analytics.refresh()]);},dispose(){accounts.dispose();records.dispose();catalog.dispose();analytics.dispose();}};return {session:browserSession.snapshot(),workspace};});
     useEffect(() => {
         const changed = () => { const current = browserSession.snapshot(); if (current.status !== 'ready' || current.revision !== owner.session.revision || current.token !== owner.session.token)
             owner.workspace.dispose(); };

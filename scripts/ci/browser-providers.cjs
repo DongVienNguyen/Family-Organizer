@@ -15,6 +15,7 @@ globalThis.fetch = async (input, init = {}) => {
   const key = url.hostname + url.pathname;
   let payload = fixtures.get(key);
   if (key === 'www.vang.today/api/prices' && ['SJL1L10', 'XAUUSD'].includes(url.searchParams.get('type'))) payload = { type: url.searchParams.get('type'), buy: 1000000, sell: 1100000, update_time: 'synthetic fixed fixture' };
+  if(key==='api.frankfurter.dev/v2/rate/USD/VND'&&/^\d{4}-\d{2}-\d{2}$/.test(url.searchParams.get('date')??'')&&[...url.searchParams.keys()].length===1)payload={date:url.searchParams.get('date'),base:'USD',quote:'VND',rate:25000};
   if (url.protocol !== 'https:' || url.port || url.username || url.password || method !== 'GET' || !payload) return blocked(input, init);
   if (init.signal?.aborted) throw init.signal.reason;
   fs.appendFileSync(process.env.FO_BROWSER_PROVIDER_FIXTURES, key + '\n');
