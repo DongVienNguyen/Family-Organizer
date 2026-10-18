@@ -2988,5 +2988,24 @@
       "state_suppressed": "Không gửi do quyền hoặc tùy chọn",
       "state_consumed": "Đã xử lý khi khôi phục dữ liệu",
       "state_delivered": "Đã tạo mục trong hộp thư"
+  },
+  "productivityTemplates": {
+    "title": "Mẫu tác vụ cá nhân",
+    "saveTitle": "Lưu nội dung thành mẫu",
+    "save": "Lưu mẫu này",
+    "hint": "Mẫu giữ tiêu đề, mô tả, ưu tiên và các mục checklist. Bản mới chưa hoàn tất, không có hạn mặc định, người được giao hoặc điểm thưởng. Quyền đọc tác vụ gốc vẫn được kiểm tra.",
+    "empty": "Chưa có mẫu. Mở một tác vụ để lưu nội dung thành mẫu.",
+    "choose": "Chọn mẫu",
+    "destination": "Danh sách nhận tác vụ mới",
+    "create": "Tạo từ mẫu",
+    "review": "Xác nhận tác vụ mới",
+    "remove": "Xóa mẫu cá nhân",
+    "pending": "Chưa xác định kết quả. Thử lại đúng lệnh đã gửi.",
+    "retry": "Thử lại lệnh cũ",
+    "conflict": "Mẫu hoặc danh sách đã thay đổi. Tải lại để xem trước lại.",
+    "failed": "Không xử lý được mẫu tác vụ.",
+    "saved": "Đã lưu thay đổi.",
+    "refreshFailed": "Lệnh đã hoàn tất nhưng chưa tải lại được danh sách.",
+    "reload": "Tải lại"
   }
 }

@@ -2988,5 +2988,24 @@
       "state_suppressed": "因权限或设置未发送",
       "state_consumed": "数据恢复时已处理",
       "state_delivered": "已创建收件箱消息"
+  },
+  "productivityTemplates": {
+    "title": "个人任务模板",
+    "saveTitle": "将内容保存为模板",
+    "save": "保存此模板",
+    "hint": "模板保留标题、描述、优先级和清单文本。新任务未完成，没有默认截止时间、负责人或奖励。系统会重新检查源任务权限。",
+    "empty": "暂无模板。打开任务以保存其内容。",
+    "choose": "选择模板",
+    "destination": "新任务的目标列表",
+    "create": "从模板创建",
+    "review": "确认新任务",
+    "remove": "删除个人模板",
+    "pending": "结果未知。请重试原始命令。",
+    "retry": "重试原始命令",
+    "conflict": "模板或列表已更改。请重新加载并审核。",
+    "failed": "无法处理任务模板。",
+    "saved": "更改已保存。",
+    "refreshFailed": "命令已完成，但无法刷新列表。",
+    "reload": "重新加载"
   }
 }

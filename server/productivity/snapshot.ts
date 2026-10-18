@@ -1,3 +1,4 @@
+import {validateTaskTemplateRows} from './templateRecord.js';
 import {validateTaskNotificationRows} from './notificationRecord.js';
 import {productivityVersionsFrom} from './knownVersions.js';
 import {validateLegacyCutovers} from './legacyCutoverRecord.js';
@@ -58,6 +59,7 @@ export function validateProductivitySnapshotData(snapshot:AppSnapshot):void {
  if(snapshot.manifest.domains.productivity===11){if(!tables.productivity_series_occurrences)fail();validateOwnedOccurrenceRows({occurrences:tables.productivity_series_occurrences,series:tables.productivity_series.map(decodeSeries),tasks:new Map([...tasks].map(([id,row])=>[id,{revision:row.revision}]))});}
  if(snapshot.manifest.domains.productivity>=12){if(!tables.productivity_occurrence_skips||!tables.productivity_series_occurrences)fail();validateOccurrenceResolutions({occurrences:tables.productivity_series_occurrences,skips:tables.productivity_occurrence_skips,series:tables.productivity_series.map(decodeSeries),tasks:new Map([...tasks].map(([id,row])=>[id,{revision:row.revision,lifecycle:row.lifecycle}])),userIds:new Set(snapshot.legacy.users.map(user=>user.id))});}
  if(snapshot.manifest.domains.productivity>=13){if(!tables.productivity_legacy_cutovers)fail();validateLegacyCutovers({cutovers:tables.productivity_legacy_cutovers,occurrences:tables.productivity_series_occurrences,tasks,series:tables.productivity_series.map(decodeSeries),userIds:new Set(snapshot.legacy.users.map(user=>user.id))});}
+ if(snapshot.manifest.domains.productivity>=15){if(!tables.productivity_task_templates)fail();validateTaskTemplateRows(tables.productivity_task_templates,tasks,new Set(snapshot.legacy.users.map(user=>user.id)));}
  if(snapshot.manifest.domains.productivity>=14){if(!tables.productivity_task_notification_preferences||!tables.productivity_task_reminder_rules||!tables.productivity_task_reminder_claims||!tables.productivity_task_notice_deliveries)fail();validateTaskNotificationRows({preferences:tables.productivity_task_notification_preferences,rules:tables.productivity_task_reminder_rules,claims:tables.productivity_task_reminder_claims,deliveries:tables.productivity_task_notice_deliveries,taskIds:new Set(tasks.keys()),userIds:new Set(snapshot.legacy.users.map((user:any)=>user.id))});}
 
  if(snapshot.manifest.domains.productivity>=2){

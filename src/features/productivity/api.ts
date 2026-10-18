@@ -1,3 +1,4 @@
+import {createTaskTemplateApi} from './templateApi.js';
 import {createTaskNotificationApi} from './notificationApi.js';
 import {createListSharingApi} from './listSharingApi.js';
 import {createCollaborationApi} from './collaborationApi.js';
@@ -63,6 +64,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  };
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
+  ...createTaskTemplateApi(read,taskValue),
   ...createTaskNotificationApi(read),
   ...createListSharingApi(read),
   ...createCollaborationApi(read),

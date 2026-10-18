@@ -1,3 +1,4 @@
+import {validateTaskTemplateStorage} from './templateRecord.js';
 import {validateTaskNotificationStorage} from './notificationRecord.js';
 import {configureWalletSql} from '../wallet/sqlFunctions.js';
 import type {WalletStorageVersion} from '../wallet/schemaRegistry.js';
@@ -18,6 +19,7 @@ export async function configureTaskStorage(sqlite:typeof Sqlite,options:{validat
  if(options.validateCurrentTasks!==false&&hasProductivity&&(connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=7)validateBoardStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  if(options.validateCurrentTasks!==false&&hasProductivity)validateBoardViewStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)},(connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version);
  if(options.validateCurrentTasks!==false&&hasProductivity)validateTaskNotificationStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
+ if(options.validateCurrentTasks!==false&&hasProductivity)validateTaskTemplateStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  const gateway=await import('../appStore.js');
  const migrations=await import('../appMigrations.js');
  const snapshot=await import('../appSnapshot.js');

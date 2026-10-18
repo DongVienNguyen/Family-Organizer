@@ -86,6 +86,15 @@ export function allowRecurringTaskMedia(tx:AppWriteTx,source:Task,successor:Task
  if(!canEditLegacyTask(source,actor)||!(source.status==='completed'||skipped&&source.status==='wont_do')||(!durable&&(!source.recurrenceType||source.recurrenceType==='none'))||source.description!==successor.description||successor.proofImage||successor.id===source.id||tx.legacy.tasks.some(task=>task.id===successor.id))throw new AppStoreError('Không được gắn tệp này.',403);
  const permits=recurringMedia.get(tx)??new Map();permits.set(successor.id,{sourceId:source.id,urls:new Set(managedMarkdownUrls(String(source.description??'')))});recurringMedia.set(tx,permits);
 }
+const templateMedia=new WeakMap<AppWriteTx,Map<string,{sourceId:string;urls:Set<string>}>>();
+/** Trusted template instantiation only. Keep the source's current read authority
+ * and exact managed references; old templates cannot resurrect removed files. */
+export function allowTemplateTaskMedia(tx:AppWriteTx,source:Task,target:Task,actor:LegacyActor):void {
+ if(!productivityVersionsFrom(15).includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)||!canViewLegacyTask(source,actor)||target.id===source.id||target.creatorId!==actor.userId||target.status!=='todo'||target.rewardPoints!==0||target.proofImage||target.completedAt)throw new AppStoreError('Không được gắn tệp này.',403);
+ const current=tx.legacy.tasks.find(row=>row.id===source.id),sourceUrls=new Set(managedMarkdownUrls(String(current?.description??''))),urls=new Set(managedMarkdownUrls(String(target.description??'')));
+ if(!current||!canViewLegacyTask(current,actor)||[...urls].some(url=>!sourceUrls.has(url)))throw new AppStoreError('Không được gắn tệp này.',403);
+ const permits=templateMedia.get(tx)??new Map();permits.set(target.id,{sourceId:source.id,urls});templateMedia.set(tx,permits);
+}
 export function bindMediaChanges(tx:AppWriteTx,before:Map<string,MediaBinding[]>,actorId:string):void {
  if(tx.get('SELECT value FROM app_meta WHERE key=?','media_version')?.value!=='1')return;
  for(const [url,bindings] of mediaReferences(tx.legacy)){
@@ -95,7 +104,7 @@ export function bindMediaChanges(tx:AppWriteTx,before:Map<string,MediaBinding[]>
   if(metadata.bindings.length){
    for(const binding of added){
     if(metadata.bindings.some(old=>old.domain===binding.domain&&old.id===binding.id))continue;
-    const permit=binding.domain==='tasks'?recurringMedia.get(tx)?.get(binding.id):undefined;
+    const permit=binding.domain==='tasks'?(recurringMedia.get(tx)?.get(binding.id)??templateMedia.get(tx)?.get(binding.id)):undefined;
     if(!permit?.urls.has(url)||!(before.get(url)??[]).some(old=>old.domain==='tasks'&&old.id===permit.sourceId)||!metadata.bindings.some(old=>old.domain==='tasks'&&old.id===permit.sourceId))throw new AppStoreError('Không được gắn tệp này.',403);
     metadata.bindings.push(binding);
    }

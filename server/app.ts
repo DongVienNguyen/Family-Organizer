@@ -1,3 +1,4 @@
+import {taskTemplateRouter} from './productivity/templateRouter.js';
 import {taskNotificationRouter} from './productivity/notificationRouter.js';
 import {registerTaskNotificationJobs} from './productivity/notificationJobs.js';
 import {calendarRouter} from './productivity/calendarRouter.js';
@@ -763,6 +764,7 @@ if(dependencies.wallet?.budgetJobs&&jobs.durableEnabled){const wallet=dependenci
 if(dependencies.wallet?.scheduleJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletScheduleJobs(jobs,wallet.scheduleJobs,{recordChanged:id=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.recordAudience(id)),scheduleChanged:ownerId=>broadcastSyncEvent('FINANCE_UPDATE',{},new Set([ownerId])),notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
 if(dependencies.productivity?.notificationJobs&&jobs.durableEnabled)registerTaskNotificationJobs(jobs,dependencies.productivity.notificationJobs,{notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
+if(dependencies.productivity)app.use('/api/productivity',taskTemplateRouter(dependencies.productivity,requireAuth as any,{task:id=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id}),settings:id=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([id]))}));
 if(dependencies.productivity)app.use('/api/productivity',taskNotificationRouter(dependencies.productivity,requireAuth as any,{task:id=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id}),settings:id=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([id]))}));
 if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id}),mentions:ids=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:ids})}));
 if(dependencies.productivity)app.use('/api/productivity/calendar',calendarRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));

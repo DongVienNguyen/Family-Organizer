@@ -1,3 +1,4 @@
+import {taskTemplateTables,taskTemplateSchemaSql,productivityTaskTemplateChecksum} from './templateSchema.js';
 import {taskNotificationTables,taskNotificationSchemaSql,productivityTaskNotificationChecksum} from './notificationSchema.js';
 import {productivityVersionsFrom} from './knownVersions.js';
 import {legacyCutoverTables,legacyCutoverSchemaSql,productivityLegacyCutoverChecksum} from './legacyCutoverSchema.js';
@@ -23,11 +24,11 @@ type Reader=Pick<AppWriteTx,'get'|'all'>;
 export function inspectProductivityStorage(reader:Reader):boolean {
  inspectWalletStorage(reader);
  const names=new Set(reader.all("SELECT name FROM sqlite_master WHERE type='table'").map(row=>row.name));
- if([...names].some(name=>name.startsWith('productivity_')&&!Object.hasOwn({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables},name)))throw new Error('Unsupported domain storage table');
+ if([...names].some(name=>name.startsWith('productivity_')&&!Object.hasOwn({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables,...taskTemplateTables},name)))throw new Error('Unsupported domain storage table');
  const records=names.has('app_migrations')?reader.all('SELECT namespace,version,checksum FROM app_migrations ORDER BY namespace,version'):[];
  if(records.some(row=>row.namespace!=='productivity'&&row.namespace!=='wallet'))throw new Error('Unsupported domain migration namespace');
  const applied=records.filter(row=>row.namespace==='productivity');
- const present=Object.keys({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables}).filter(name=>names.has(name));
+ const present=Object.keys({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables,...taskTemplateTables}).filter(name=>names.has(name));
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
  if(!present.length&&!applied.length&&marker===undefined)return false;
  if(!productivityVersionsFrom(1).includes(applied.length)||applied[0].version!==1||applied[0].checksum!==productivityMigrationChecksum||(applied.length>=2&&(applied[1].version!==2||applied[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration');
@@ -43,6 +44,9 @@ export function inspectProductivityStorage(reader:Reader):boolean {
  if(applied.length>=12&&(applied[11].version!==12||applied[11].checksum!==productivityOccurrenceSkipChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=13&&(applied[12].version!==13||applied[12].checksum!==productivityLegacyCutoverChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=14&&(applied[13].version!==14||applied[13].checksum!==productivityTaskNotificationChecksum))throw new Error('Unsupported productivity migration');
+ if(applied.length>=15&&(applied[14].version!==15||applied[14].checksum!==productivityTaskTemplateChecksum))throw new Error('Unsupported productivity migration');
+ if(applied.length<15&&Object.keys(taskTemplateTables).some(name=>names.has(name)))throw new Error('Unsupported productivity storage schema');
+ if(applied.length>=15)for(const statement of taskTemplateSchemaSql.split(';').map(sql=>sql.trim()).filter(Boolean)){const match=statement.match(/^CREATE (TABLE|INDEX) ([a-z_]+)/),kind=match?.[1].toLowerCase(),name=match?.[2],actual=name&&reader.get("SELECT sql FROM sqlite_master WHERE type=? AND name=?",kind,name)?.sql;if(typeof actual!=='string'||actual.trim().replace(/\s+/g,' ')!==statement.replace(/\s+/g,' '))throw new Error('Unsupported task template schema');}
  if(applied.length<14&&Object.keys(taskNotificationTables).some(name=>names.has(name)))throw new Error('Unsupported productivity storage schema');
  if(applied.length>=14)for(const statement of taskNotificationSchemaSql.split(';').map(sql=>sql.trim()).filter(Boolean)){const match=statement.match(/^CREATE (TABLE|INDEX) ([a-z_]+)/),kind=match?.[1].toLowerCase(),name=match?.[2],actual=name&&reader.get("SELECT sql FROM sqlite_master WHERE type=? AND name=?",kind,name)?.sql;if(typeof actual!=='string'||actual.trim().replace(/\s+/g,' ')!==statement.replace(/\s+/g,' '))throw new Error('Unsupported task notification schema');}
  if(applied.length<13&&Object.keys(legacyCutoverTables).some(name=>names.has(name)))throw new Error('Unsupported productivity storage schema');

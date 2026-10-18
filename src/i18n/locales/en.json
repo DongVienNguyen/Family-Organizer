@@ -2989,5 +2989,24 @@
       "state_suppressed": "Not sent due to access or preferences",
       "state_consumed": "Handled during data recovery",
       "state_delivered": "Inbox item created"
+  },
+  "productivityTemplates": {
+    "title": "Personal task templates",
+    "saveTitle": "Save content as a template",
+    "save": "Save this template",
+    "hint": "Templates keep the title, description, priority and checklist labels. New tasks are unfinished, with no default due date, assignee or reward. Access to the source task is checked again.",
+    "empty": "No templates yet. Open a task to save its content.",
+    "choose": "Choose a template",
+    "destination": "Destination list for the new task",
+    "create": "Create from template",
+    "review": "Confirm new task",
+    "remove": "Delete personal template",
+    "pending": "The result is unknown. Retry the original command.",
+    "retry": "Retry original command",
+    "conflict": "The template or list changed. Reload and review again.",
+    "failed": "Could not process task templates.",
+    "saved": "Changes saved.",
+    "refreshFailed": "The command completed but the list could not refresh.",
+    "reload": "Reload"
   }
 }
