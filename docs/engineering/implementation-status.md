@@ -2,6 +2,24 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P12 durable reminders/quiet hours/digest functional core (2026-10-18):**
+source `1a4d2a32d4a07f332d6721778e201693bb8384b8` adds explicit14 rules/claims/own-user preferences and reference-
+only delivery metadata, I01 Task-save cancellation/rescheduling/assignment, shared
+AppJobs/legacy push reuse and atomic restore backlog consumption. Default6,
+frozen1–13 and package caps remain. Cloud full8560tests520files/matchingJUnit,
+zero failures/skips/todo; all8502parents +58 retained, lint/build0.
+Same-source/build Chromium Notifications4/4 + Collaboration3/3 + Calendar4/4,
+firstattempts/offline/owned14/13/13fixtures/normal-stop/integrity/closed/cleaned;
+390px light/dark inspected. Actual restore-clock/UTC-identity/job-key failures and
+fixture isolation correction retained, assertions/deadlines unchanged.
+[Details](productivity-notifications.md), [proof](evidence/p12-notification-development.json).
+Author review only. PR/CI run URLs:none for this source; backup branch.
+P12 functional core is implemented; full Windows acceptance and controlled14
+pilot/rollout remain P18/I03. Next P13 content/templates/import/export and remaining
+P/W18/M1/I02/I03, then final composed Windows including allparent suites and all
+three new feature harnesses (not yet wired). ActualServer2019R02 unrun;
+no release/tag/VPS or PC runner. Whole master is not complete.
+
 **P12 collaboration functional core (2026-10-18):** source `7a73d55ba4659d7b5641e9b346fecdde947319cf`
 adds canonical comments/history/mentions and reviewed list grants, native I01/
 outbox reuse, current-source ACL/targeted SSE and immutable unknown-request

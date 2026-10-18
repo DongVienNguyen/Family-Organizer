@@ -1,0 +1,732 @@
+{
+  "taskId": "P12 durable reminder and notification functional core",
+  "sourceCommit": "1a4d2a32d4a07f332d6721778e201693bb8384b8",
+  "baseHead": "6815cbea1c56e98fde6c34a6dac0cd7d2ca8f177",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "qualification": "Cloud functional development; Windows/I03 and rollout remain",
+  "sourceFiles": {
+    "playwright.notifications.config.ts": "f834b12894671b9192caff7fccade9d36bd60554c4496abd72c2771f71f1c7b8",
+    "scripts/ci/productivity-feature-browser.mjs": "1e677ad1fc438c43d69574ddb90e3ed67a3f50574ee2afe3bf720fb2aaad4b67",
+    "scripts/ci/run-notifications-browser.mjs": "476a565e64fbd5668be58692f3d00fa38747c5575b6c5ac33b37b9266bef54d9",
+    "scripts/ci/write-notification-browser-fixture.ts": "9a5d1698313d604399ad38ee35f8704804dc0de13d469334e8ba85f8a95d36ab",
+    "server/app.ts": "55e1e24ba9f62c614ac8213e3971987fb9803de3922d8b594bed1a882766b9a6",
+    "server/appSnapshot.ts": "7d64c783fa3de7509be7a61ce5762d1b0e0c42611f2b4cfa7b5a5493dfe24ced",
+    "server/db.ts": "aa049e02f877cba720b76cbca7d89ffe9f86b814e75ffeac91baf684c8c16723",
+    "server/derivedPrivacy.ts": "8a9eb2e1b51fab384bd000a1153917ccab796e55695e3b32076ef4aedff41efa",
+    "server/productivity/adapter.ts": "fc1b00cd31c121966033846b42a24c3e5a93e559a24d022f45a9be66ea2b8585",
+    "server/productivity/boardCatalog.ts": "c3addca35a1b66715ebf1d68585dc873bdf2a68ad2b9a652ff63144ad06135f0",
+    "server/productivity/boardCreation.ts": "7936cbe952e61c50f96a9e6dc7650b942f8341fff439aec1a5c355a0593f820d",
+    "server/productivity/boardViewSchema.ts": "03bc99ce646e4070d97cbee8c6f39b1c9e63f1a7ea5e2b7a7b40d37b65acfc81",
+    "server/productivity/bootstrap.ts": "1cf985f16f74c7c540aeb9a513897f176d89e6fc247ed1f28fefae78bbc36ba1",
+    "server/productivity/groupedBoard.ts": "70ae83018c79f700371feb5b688b4d33c7b8cf20c9196061d5665664506a85d1",
+    "server/productivity/inspection.ts": "54c5f98a20448f3378ef19a37c47b4788ef7e37632ae0b3a6f8bc2699027067a",
+    "server/productivity/knownVersions.ts": "0942255adfce2683bdbe220691c172174dceaa911bb5d0da62de261fa33bf367",
+    "server/productivity/legacyCutoverRecord.ts": "7cb7eeb91ef99f4c9d460dfde601049901644c64fe87045a254ce13ff5281d8d",
+    "server/productivity/legacyRecurrenceCutover.ts": "0a76509d010e4742a79caed800a9141a377dd8ee628a98e48ea62762e1bfaa8f",
+    "server/productivity/matrix.ts": "091e81cf5276ad148061b2d814e96859d83c5af6a8a6773b98c24816815ffe01",
+    "server/productivity/notification-jobs.test.ts": "9586b0b0ab3df2d194729bda4b58abcb92625188f7dc23f86461f4b073eb1b91",
+    "server/productivity/notification-migration.test.ts": "d46fb0c3d1386e0ee36c27cafa74689f88d238e7f90b437b33986a56be8fd035",
+    "server/productivity/notificationJobs.ts": "c7e3eb6082b477f6b1d80c012432f9e62540982c20eebf79bad5d651bdb6bf1f",
+    "server/productivity/notificationRecord.ts": "546b9688e170deb919954d4f9d7418532cfc39cd69c882460c7056b9cd0973d8",
+    "server/productivity/notificationRouter.ts": "7c8ba9416e901a82c79a294a0fcc8b408da6a566552270760f07f37df1dfad63",
+    "server/productivity/notificationSchema.ts": "ec99a4ce27a346100b8ec5a6d9ff815ee51cad1610a08d18b6f6a90141999b53",
+    "server/productivity/notifications.api.test.ts": "968afe8cb5ad195401b6f5a3f8b13e889e121fbc7b888c3fdf1a23fe288a0c1f",
+    "server/productivity/notifications.test.ts": "75efd362b75e0b59d42ec79d4415bca12af55ecb27f5effab53705fe33369c2a",
+    "server/productivity/notifications.ts": "e696351ab69d1b4f86b186ac4369a21c9bfed93327e2bf4956d994fbede3a3c8",
+    "server/productivity/pins.ts": "f4477dc32602535e6ee1dc1613191c86a71165d2e2a51ee8d267420fad342e8f",
+    "server/productivity/ports.ts": "308616758b1118b4bdf432f24a07c5547eafe1f538e15c9d38a2f42c7c8a39cf",
+    "server/productivity/recurrenceAccepted.ts": "12f32411b4814253661863c37acbaf6b552651e15ef9da471081d70324429ab1",
+    "server/productivity/recurrenceMaterialize.ts": "2593cffa01bc66590fd84310c956651b6185f8f425d161077a1a6ce598e5aa06",
+    "server/productivity/recurrencePreview.ts": "5dffa4e2481be12e5861ced83bae24d708c19c22fa3919813cbfbda09fa03d17",
+    "server/productivity/router.ts": "48e0c85eedc3f58953838f3f0066500ab766359434627aa8e264e282a6146bd7",
+    "server/productivity/sectionBoards.ts": "ad24c3facbe2815ca6e20f89e87406b7301fd0880bdd711429825956b1985533",
+    "server/productivity/seriesCommands.ts": "6c5121d05f5f35ed6042e68a71b7596d33b3625638fbf8427e1a6d5dbd8b6ad2",
+    "server/productivity/seriesRecord.ts": "4207e71e995e35605ecfbf12b37884be2161ac97a922c31434b60ef63046a9da",
+    "server/productivity/seriesStore.ts": "b5b43dc753d5334d2b86667322e447e5656d687c7916fcc7ccb7ddcae9f09062",
+    "server/productivity/snapshot.ts": "84010287023eb66a20a53553877dbe1d0a31d22d3735ba681e5ee8c84c2b7246",
+    "server/productivity/store.ts": "0c3d9c1a1ffdd33dbfcfbc13baeb6985d22615dbc3a1c419be73caa442fa9499",
+    "server/productivity/structure.ts": "707dd1d63bc61a0320c78a3332b4769c1aaeb2514abab319b4f1bb3a65cff36c",
+    "server/productivity/structureInvariant.ts": "6cd462bd8b47d590ee488ee1255a6a54c960a3a08005289388a843714abdbf0a",
+    "server/productivity/structureSchema.ts": "8e691d6cb53365e3d379c6cb7375fc981589f76e3329f1790f67780982e3fcf7",
+    "server/productivity/taskNoticeOutbox.ts": "65bf1cad71f4e068047812ce1f356127e32e95c6eef409a574cdabbb8ce9cd2e",
+    "server/productivity/views.ts": "54b8b91eb866ffb2eb93ac9cfc106528966a69d974aba686cbcdb1cfc8f6e336",
+    "server/runtime.ts": "c24902d84c692df1bec61180399b5d2f0e04f7a3cb17bbf76c72e3c0a4c5d363",
+    "src/App.tsx": "a4fc4bc60029c965dd80363c2b0822081c8f7f802ce288dbde09ae3d23bb392a",
+    "src/components/PushNotificationsCard.tsx": "344cea86ee3281392b63f5bd830b6478cfb4d1f3bb4cdafb1e7f96eb3177a5f8",
+    "src/features/productivity/TaskDrawer.tsx": "1b5308dc85bfa8e39b0a9d4af65785cf5e58ec344a458709c148559331094dd5",
+    "src/features/productivity/TaskNotificationPreferences.tsx": "bf823f58194a00a07956182bc5eb1f41481f169adddcef5f92548d9ae472c733",
+    "src/features/productivity/TaskReminders.tsx": "10e4d0e4501d5a07382a6804400ffceede323f5e51e565e67a6cd139a0f71c03",
+    "src/features/productivity/api.ts": "083a6d49edb3eeee245a96b8998a49d3bb0863d2374896444a7a40f2b62c8114",
+    "src/features/productivity/notificationApi.test.ts": "816b00991548f0ddd5b5ae1c0cab1c2cbfd69d831e7865f7ad7163f4dc5acefa",
+    "src/features/productivity/notificationApi.ts": "782cf5f09e27f11a119bf1ff108b09634a20c7857d97414708298f9eac0f9872",
+    "src/features/productivity/notificationCommandSession.test.ts": "fe1c94a567b4dd932493a5935f0b95e86fe3ded4f2d9c87cbc32a6081c2b7096",
+    "src/features/productivity/notificationCommandSession.ts": "1c8a612121e9a27f8dcf19f454e72dffa67a4e276ccd20b7576aae05959b5c0d",
+    "src/features/productivity/notificationPolicy.test.ts": "ef4567b4f509981e2c3d6f834c93f50835fd65bc4138f3156567e182212e4fcf",
+    "src/features/productivity/notificationPolicy.ts": "bc0f73a32a20b4e6f393a37882670a6380155b0c2d017814cd6fb658e9a7f298",
+    "src/features/productivity/taskCache.ts": "1e930da097f7882608a5a9be33e6e5121592bab33d823c8a2793a8be36cc46c9",
+    "src/features/productivity/useTasks.tsx": "b02b234a69f085a8ccdf4ef808e33010e3592817eed633bfe59f917f1731920c",
+    "src/i18n/locales/en.json": "ccdc905fc0b472c27da76f20a68d62d63d4d5daff26d9e42ba3b7f4854760a5b",
+    "src/i18n/locales/vi.json": "cfef23298480c2e4c34cf48e5266e7c66ffc0f10748a97de2dbf5a55a5f2c0c8",
+    "src/i18n/locales/zh.json": "217d863f726abc65386762ca39f2c98ff1a273c3c1897016973707c9aa057d28",
+    "src/types.ts": "85752a97d7be615420133734767ea18e47f5888f9c3189fb4133305a99e5bdea",
+    "tests/e2e/notifications.spec.ts": "a005dcf8b79df1f97849a69114ae6490becd626ed56fc0b88fd9e844d2ad795c",
+    "tests/notification-browser-fixture.test.ts": "11f323c8bfe34d9a6563cfce4188c1a147d9829c35fe0144b0925fab4c8910e2",
+    "tests/productivity-notification-fixture.ts": "1cf88a256e4038f362d86255b3b2c302fe5781b7458017419b6a57c836cdbd4f"
+  },
+  "unit": {
+    "passed": 8560,
+    "files": 520,
+    "junitCases": 8560,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentPassed": 8502,
+    "added": 58,
+    "removed": 0,
+    "normalization": "Only owned temporary-root token in recoveryRetention names; all names and multiplicity retained"
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "notifications": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "1a4d2a32d4a07f332d6721778e201693bb8384b8",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "cf4e1f989766de5537d8719a23e1a1761fd452f3bb5bd4972ed3381f84e90022",
+          "index": "8267d370cd779d24517fdb88b0d871bcfbc7a0d40a35b4f604948258ccbf11b0"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 14,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "collaboration": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "1a4d2a32d4a07f332d6721778e201693bb8384b8",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "cf4e1f989766de5537d8719a23e1a1761fd452f3bb5bd4972ed3381f84e90022",
+          "index": "8267d370cd779d24517fdb88b0d871bcfbc7a0d40a35b4f604948258ccbf11b0"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "calendar": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "1a4d2a32d4a07f332d6721778e201693bb8384b8",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "cf4e1f989766de5537d8719a23e1a1761fd452f3bb5bd4972ed3381f84e90022",
+          "index": "8267d370cd779d24517fdb88b0d871bcfbc7a0d40a35b4f604948258ccbf11b0"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    }
+  },
+  "schema": {
+    "newVersion": 14,
+    "explicitPilotOnly": true,
+    "defaultVersion": 6,
+    "frozen1to13Preserved": true,
+    "packageCapsChanged": false
+  },
+  "findings": [
+    "Existing comment/history/mention/list grants remain canonical. New14 rules/claims/per-user preferences/reference-only notice metadata join I01 and the shared AppJobs/legacy push outbox; no duplicate scheduler/provider gateway.",
+    "Current Task edits synchronously cancel/re-anchor pending reminders; injected observer/native faults roll back Task/claim/notice mutations. Assignment/reassignment notifications also join the Task command and stable identity.",
+    "A real restore test with deliberately different snapshot/restore clocks initially replayed a delayed digest. Shared synchronous minimum-version domain restore policies now consume pending notice references inside replacement COMMIT, preserving inbox history and fencing old epoch jobs. A failing policy rolls back replacement; this is not a timestamp-only guess.",
+    "Two review findings have three actual RED assertions: UTC spelling created distinct reminder identities/SDK acknowledgement mismatch, and256-character preserved Task IDs exceeded the shared job-key limit. Canonical millisecond UTC and bounded hashed continuation keys fix the causes; no assertion/timeout/retry relaxation.",
+    "One subsequent fixture claim-count failure was an earlier test’s synthetic restore marker surviving a clock reset. Each owned notification fixture now resets that marker; all assertions remain unchanged.",
+    "Quiet hours and daily digest use explicit named-zone real instants, including overnight/half-hour/DST gap/fold cases. External push is retryable/outcome-unknown per shared ownership; only inbox identity is deduped, never an exactly-once provider receipt promise.",
+    "Current recipient/source access is rechecked before dispatch and again before external push. Deleted recipients are suppressed without blocking live recipients. A digest stays visible only while at least one current source is readable.",
+    "Task reminder/own Settings packets retain original revisions/body/key through lost acknowledgements and navigation. Unsent own settings also survive unrelated Task SSE; Task visibility loss/logout fence late continuations. No browser offline writes or real provider/test push."
+  ],
+  "retainedEvidence": {
+    "p12-notification-assignment.exit": {
+      "path": "docs/engineering/evidence/p12-notification-assignment.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-assignment.json": {
+      "path": "docs/engineering/evidence/p12-notification-assignment.json.gz",
+      "sha256": "5d3a23802c47d29252edd2495894a81c31a607b864a4cddf5fc3eb42a81b8c84"
+    },
+    "p12-notification-assignment.log": {
+      "path": "docs/engineering/evidence/p12-notification-assignment.log.gz",
+      "sha256": "5688a6321f0cfcd915b1a665ac82e43b7f5505816e55467fd5815d7f2fcddbab"
+    },
+    "p12-notification-assignment.xml": {
+      "path": "docs/engineering/evidence/p12-notification-assignment.xml.gz",
+      "sha256": "51117a2773f3b8368ac903bacf4ea278a891659c363d7176d7c3d3d9b682690c"
+    },
+    "p12-notification-browser-final.exit": {
+      "path": "docs/engineering/evidence/p12-notification-browser-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-browser-final.log": {
+      "path": "docs/engineering/evidence/p12-notification-browser-final.log.gz",
+      "sha256": "8f9762859392ff1f57c1712c3df89b3b3079e800ffe8d5959ce0d7b33860350f"
+    },
+    "p12-notification-browser-first.exit": {
+      "path": "docs/engineering/evidence/p12-notification-browser-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-browser-first.log": {
+      "path": "docs/engineering/evidence/p12-notification-browser-first.log.gz",
+      "sha256": "0894b6ace9d85590e90c9ca79c99b9441d797e71be4b4ac184da1e03a71ccaa9"
+    },
+    "p12-notification-feature-targeted.exit": {
+      "path": "docs/engineering/evidence/p12-notification-feature-targeted.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-feature-targeted.json": {
+      "path": "docs/engineering/evidence/p12-notification-feature-targeted.json.gz",
+      "sha256": "8e056bd7890214efff83b426301cd8c9ab7edc9320342101b3bf2aec47db7b65"
+    },
+    "p12-notification-feature-targeted.log": {
+      "path": "docs/engineering/evidence/p12-notification-feature-targeted.log.gz",
+      "sha256": "5cd3fcb690adcfb4d611ba250dc5225bc0be4aba6cc63724daef221678ae58fd"
+    },
+    "p12-notification-feature-targeted.xml": {
+      "path": "docs/engineering/evidence/p12-notification-feature-targeted.xml.gz",
+      "sha256": "6b3b2ab52881af0ba3eedd6ffb6f9e231fb15b6f33ef2ceabf07ee6a58a3adb7"
+    },
+    "p12-notification-final-build.exit": {
+      "path": "docs/engineering/evidence/p12-notification-final-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-final-build.log": {
+      "path": "docs/engineering/evidence/p12-notification-final-build.log.gz",
+      "sha256": "ffac78a0f641086fc81950beb55186b438f784795603aabc45d4d12878f83579"
+    },
+    "p12-notification-final-lint.exit": {
+      "path": "docs/engineering/evidence/p12-notification-final-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-final-lint.log": {
+      "path": "docs/engineering/evidence/p12-notification-final-lint.log.gz",
+      "sha256": "e0fb59a10057d9cb1cde296a9bb83ad52f6fc8333e4f92962ff990d7e35d5a17"
+    },
+    "p12-notification-fixture-sdk.exit": {
+      "path": "docs/engineering/evidence/p12-notification-fixture-sdk.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-fixture-sdk.json": {
+      "path": "docs/engineering/evidence/p12-notification-fixture-sdk.json.gz",
+      "sha256": "aa6ed3d0cb4b58f3d7962eb79b069604386648c104b2c5f146bf5e49a45b0d33"
+    },
+    "p12-notification-fixture-sdk.log": {
+      "path": "docs/engineering/evidence/p12-notification-fixture-sdk.log.gz",
+      "sha256": "569692fd6bd7789b2eb97e5a8e93aca304d74fda0bfdd3925a7e1987249a906c"
+    },
+    "p12-notification-fixture-sdk.xml": {
+      "path": "docs/engineering/evidence/p12-notification-fixture-sdk.xml.gz",
+      "sha256": "0f7b9815a6698b99fb0b6e39d88244a4867e917a22815abb9ce0ba18656a82ce"
+    },
+    "p12-notification-full-first-470fb50.exit": {
+      "path": "docs/engineering/evidence/p12-notification-full-first-470fb50.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-full-first-470fb50.json": {
+      "path": "docs/engineering/evidence/p12-notification-full-first-470fb50.json.gz",
+      "sha256": "fe870e82144ef9738d420609cfa40d8e7f2253a52df44e31e08fe5df005572b2"
+    },
+    "p12-notification-full-first-470fb50.junit.xml": {
+      "path": "docs/engineering/evidence/p12-notification-full-first-470fb50.junit.xml.gz",
+      "sha256": "05cedbca84709405a3f1e88b5c53c313ef91271ee02bd46643a1308f97e8852d"
+    },
+    "p12-notification-full-first-470fb50.log": {
+      "path": "docs/engineering/evidence/p12-notification-full-first-470fb50.log.gz",
+      "sha256": "8b8447435e266c55401db41947a86c8ac58bd132855e68cf1e931985c598ae23"
+    },
+    "p12-notification-full.exit": {
+      "path": "docs/engineering/evidence/p12-notification-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-full.json": {
+      "path": "docs/engineering/evidence/p12-notification-full.json.gz",
+      "sha256": "874c556e370b2be48c1505c1d546f02c08ee2c48007a590c5e26f1c23d147fc5"
+    },
+    "p12-notification-full.junit.xml": {
+      "path": "docs/engineering/evidence/p12-notification-full.junit.xml.gz",
+      "sha256": "b7735b121cd26e9b2f2ea42ed00243f57202725157a25eb5405f4c317d10fc50"
+    },
+    "p12-notification-full.log": {
+      "path": "docs/engineering/evidence/p12-notification-full.log.gz",
+      "sha256": "4383a3863fd5e578697cef7963dc388e77084c4b2e5fc651ccdbf63df42d0da9"
+    },
+    "p12-notification-http-cold.exit": {
+      "path": "docs/engineering/evidence/p12-notification-http-cold.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-http-cold.json": {
+      "path": "docs/engineering/evidence/p12-notification-http-cold.json.gz",
+      "sha256": "c5e23385e28528b80a14879a8b5ca6b28851532e4d93d04a70f7cff791909871"
+    },
+    "p12-notification-http-cold.log": {
+      "path": "docs/engineering/evidence/p12-notification-http-cold.log.gz",
+      "sha256": "efe6d3eb4e6c1f0e7bbb8d306401cec64aec93a12c71c9a1e3b1b55738b96777"
+    },
+    "p12-notification-http-cold.xml": {
+      "path": "docs/engineering/evidence/p12-notification-http-cold.xml.gz",
+      "sha256": "74245b2b3066f2bfd2b99ccff2d0967be9498f81967ab9114ef7d39710c7c3fe"
+    },
+    "p12-notification-jobs-first.exit": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p12-notification-jobs-first.json": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-first.json.gz",
+      "sha256": "bf32ab938641e3f6460b9d511bba70ef76aef32ea5e28a5854a3638ea364ae8d"
+    },
+    "p12-notification-jobs-first.log": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-first.log.gz",
+      "sha256": "3202dc1c6b5e919bfe9705d3e67bf2c63c09710439e49d33a93c120be13a807f"
+    },
+    "p12-notification-jobs-first.xml": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-first.xml.gz",
+      "sha256": "de782355da855ce4f0d626232ea91223bca3e54d890f9113356adae4a7c283d8"
+    },
+    "p12-notification-jobs-second.exit": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-jobs-second.json": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-second.json.gz",
+      "sha256": "21ca41dcd8e6b684a97d394fcef7ecf1a4ffeef68d4f982342f0a33a7dad85dc"
+    },
+    "p12-notification-jobs-second.log": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-second.log.gz",
+      "sha256": "8cec4991907188335bd47a27c51adead5fa87b988739d099b34fcaf800566528"
+    },
+    "p12-notification-jobs-second.xml": {
+      "path": "docs/engineering/evidence/p12-notification-jobs-second.xml.gz",
+      "sha256": "730386af08cc37b93630b8865c959af72daa459da890b65c6a9ef4d73a463d51"
+    },
+    "p12-notification-migration-first.exit": {
+      "path": "docs/engineering/evidence/p12-notification-migration-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p12-notification-migration-first.json": {
+      "path": "docs/engineering/evidence/p12-notification-migration-first.json.gz",
+      "sha256": "0051fd3c8604cb61e3b8a28e546dd096094745832e5db2c1f6ab82f01efca69f"
+    },
+    "p12-notification-migration-first.log": {
+      "path": "docs/engineering/evidence/p12-notification-migration-first.log.gz",
+      "sha256": "788d2497e62e13802c756fc3287541393d2c300f5f3ca8d951c750d309aa3961"
+    },
+    "p12-notification-migration-first.xml": {
+      "path": "docs/engineering/evidence/p12-notification-migration-first.xml.gz",
+      "sha256": "67784b4aab4967bee461c4f484e1a09696b2f6468b961db4b0c319ce921b4bf8"
+    },
+    "p12-notification-migration-second.exit": {
+      "path": "docs/engineering/evidence/p12-notification-migration-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-migration-second.json": {
+      "path": "docs/engineering/evidence/p12-notification-migration-second.json.gz",
+      "sha256": "cf634d4ba9057847db454bef671d83855f5808a120bdee50dfc3c9126297a3d4"
+    },
+    "p12-notification-migration-second.log": {
+      "path": "docs/engineering/evidence/p12-notification-migration-second.log.gz",
+      "sha256": "44d40b3f79d418e19764f53d789e6a0b201c29d36e42e372b31cccfa62130ca4"
+    },
+    "p12-notification-migration-second.xml": {
+      "path": "docs/engineering/evidence/p12-notification-migration-second.xml.gz",
+      "sha256": "64dca8b1a761eaa3008f9e703fd22b1cda7c4f46b8a2c2f2088a4eaee01a461f"
+    },
+    "p12-notification-parent-calendar.exit": {
+      "path": "docs/engineering/evidence/p12-notification-parent-calendar.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-parent-calendar.log": {
+      "path": "docs/engineering/evidence/p12-notification-parent-calendar.log.gz",
+      "sha256": "d768e71edb60d92506bd54163e87d34a6ad26487f3cb49609f131c3a65e76234"
+    },
+    "p12-notification-parent-collaboration.exit": {
+      "path": "docs/engineering/evidence/p12-notification-parent-collaboration.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-parent-collaboration.log": {
+      "path": "docs/engineering/evidence/p12-notification-parent-collaboration.log.gz",
+      "sha256": "4b74db109c8307401176b2668a1c09fe96d32266fbb6b0ce576e850b047c8f60"
+    },
+    "p12-notification-policy-first.exit": {
+      "path": "docs/engineering/evidence/p12-notification-policy-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-policy-first.json": {
+      "path": "docs/engineering/evidence/p12-notification-policy-first.json.gz",
+      "sha256": "5c812bdf45d3c2dcb6ea5a23f331b521adbafd2de2cb1e9f8778fc52325c8dca"
+    },
+    "p12-notification-policy-first.log": {
+      "path": "docs/engineering/evidence/p12-notification-policy-first.log.gz",
+      "sha256": "4f3029f86557c3071267ed488639722f5525ebf6a8a70eda5ec7cecb28faa773"
+    },
+    "p12-notification-policy-first.xml": {
+      "path": "docs/engineering/evidence/p12-notification-policy-first.xml.gz",
+      "sha256": "eb03a2c6cb021a20134e00ee8d6110e6928cbacf704b790edfccab538360b005"
+    },
+    "p12-notification-policy-red.exit": {
+      "path": "docs/engineering/evidence/p12-notification-policy-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p12-notification-policy-red.json": {
+      "path": "docs/engineering/evidence/p12-notification-policy-red.json.gz",
+      "sha256": "5c4c470521b4179e06139d8e583bf604e945d1b8f2de42d1525d7ba5818e314a"
+    },
+    "p12-notification-policy-red.log": {
+      "path": "docs/engineering/evidence/p12-notification-policy-red.log.gz",
+      "sha256": "1fee8a2adb6f0a2a0f2300241835e16dade34b99d9a3ccdeeae8a4d034c400c1"
+    },
+    "p12-notification-prebrowser-lint.exit": {
+      "path": "docs/engineering/evidence/p12-notification-prebrowser-lint.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05"
+    },
+    "p12-notification-prebrowser-lint.log": {
+      "path": "docs/engineering/evidence/p12-notification-prebrowser-lint.log.gz",
+      "sha256": "e6e36de86c0dd734c472bc908511009bad5ae02ab1903e19d761822404e9e621"
+    },
+    "p12-notification-precommit-lint.exit": {
+      "path": "docs/engineering/evidence/p12-notification-precommit-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-precommit-lint.log": {
+      "path": "docs/engineering/evidence/p12-notification-precommit-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p12-notification-review-regressions-final.exit": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-review-regressions-final.json": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-final.json.gz",
+      "sha256": "7efcfceb6f7a71db381d99e456d7b481632a3f2ad047744d4523be694bf61215"
+    },
+    "p12-notification-review-regressions-final.log": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-final.log.gz",
+      "sha256": "94af77a62611cc4275918d0748f94d3eeee9d620a76ea628b864ebc8a1a437e4"
+    },
+    "p12-notification-review-regressions-final.xml": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-final.xml.gz",
+      "sha256": "e6b2ac5a7e804835609fd648257ef420ca5b98af89cfabc8977756a7faaa6c63"
+    },
+    "p12-notification-review-regressions-fixed.exit": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-fixed.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p12-notification-review-regressions-fixed.json": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-fixed.json.gz",
+      "sha256": "77c72cd83afbb749992ecb3da71e477c7eb2745a2189d171b477aba45a00a0f5"
+    },
+    "p12-notification-review-regressions-fixed.log": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-fixed.log.gz",
+      "sha256": "2df989c60630999b4461a3a6b7860f6ab26d82443144709cc2e73944ed32c026"
+    },
+    "p12-notification-review-regressions-fixed.xml": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-fixed.xml.gz",
+      "sha256": "f3e55f9746b2b648553604971b2c8e58e21de1d9d09033131655e4cb79bd27d2"
+    },
+    "p12-notification-review-regressions-red.exit": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p12-notification-review-regressions-red.json": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-red.json.gz",
+      "sha256": "dd7d30cdbaf3ffcea83a70a4a6e2a4239a4df282f2b310fe13af67af19f63f63"
+    },
+    "p12-notification-review-regressions-red.log": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-red.log.gz",
+      "sha256": "5b0015ed712403d797d4a7411397fc1928f03153c6c9c6bad2bab384a656c925"
+    },
+    "p12-notification-review-regressions-red.xml": {
+      "path": "docs/engineering/evidence/p12-notification-review-regressions-red.xml.gz",
+      "sha256": "95dd706d8d7754901927a7dcf543ff6851c790b565c83465244e565699a905ca"
+    },
+    "p12-notification-runtime-lint.exit": {
+      "path": "docs/engineering/evidence/p12-notification-runtime-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-runtime-lint.log": {
+      "path": "docs/engineering/evidence/p12-notification-runtime-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p12-notification-sdk-first.exit": {
+      "path": "docs/engineering/evidence/p12-notification-sdk-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-sdk-first.json": {
+      "path": "docs/engineering/evidence/p12-notification-sdk-first.json.gz",
+      "sha256": "26797436ad3313103b44a35a812e6ac4aa4bcf0d13a840f66929346b61ba9181"
+    },
+    "p12-notification-sdk-first.log": {
+      "path": "docs/engineering/evidence/p12-notification-sdk-first.log.gz",
+      "sha256": "6d805845be4f330b01fdeb81c3cdf69f0f06d7befbb0f1aa92b5145339962362"
+    },
+    "p12-notification-sdk-first.xml": {
+      "path": "docs/engineering/evidence/p12-notification-sdk-first.xml.gz",
+      "sha256": "bf1a266bd7028bb421454b57e47f0669ca5f7ac6433ee5a028088f1ac96507f5"
+    },
+    "p12-notification-source-build.exit": {
+      "path": "docs/engineering/evidence/p12-notification-source-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-source-build.log": {
+      "path": "docs/engineering/evidence/p12-notification-source-build.log.gz",
+      "sha256": "27fba8efea1555ad60bc1b72bc8f0252917e238b4edde74390465cf5c662985d"
+    },
+    "p12-notification-storage-first.exit": {
+      "path": "docs/engineering/evidence/p12-notification-storage-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-storage-first.json": {
+      "path": "docs/engineering/evidence/p12-notification-storage-first.json.gz",
+      "sha256": "ac9402885e0ee69d84265eb1da3f761f44ece547e866ecbf2e35297dc4d99f7f"
+    },
+    "p12-notification-storage-first.log": {
+      "path": "docs/engineering/evidence/p12-notification-storage-first.log.gz",
+      "sha256": "0706e0c79bdf59c6b382e74af15f57348be58256dea750a30a643b45a0da9b26"
+    },
+    "p12-notification-storage-first.xml": {
+      "path": "docs/engineering/evidence/p12-notification-storage-first.xml.gz",
+      "sha256": "6fa2dbd2c86d893afce66a027bba68cafb8f7a00dcc1c580018856f5f5c48b09"
+    },
+    "p12-notification-storage-lint.exit": {
+      "path": "docs/engineering/evidence/p12-notification-storage-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-storage-lint.log": {
+      "path": "docs/engineering/evidence/p12-notification-storage-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p12-notification-ui-lint.exit": {
+      "path": "docs/engineering/evidence/p12-notification-ui-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-ui-lint.log": {
+      "path": "docs/engineering/evidence/p12-notification-ui-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p12-notification-worker-lint.exit": {
+      "path": "docs/engineering/evidence/p12-notification-worker-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-worker-lint.log": {
+      "path": "docs/engineering/evidence/p12-notification-worker-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p12-notification-worker-regressions.exit": {
+      "path": "docs/engineering/evidence/p12-notification-worker-regressions.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-notification-worker-regressions.json": {
+      "path": "docs/engineering/evidence/p12-notification-worker-regressions.json.gz",
+      "sha256": "cf8dffdbb771e4cc98dfd0a77dafe96a1affa0b56a3e8df39700c108c482b5ea"
+    },
+    "p12-notification-worker-regressions.log": {
+      "path": "docs/engineering/evidence/p12-notification-worker-regressions.log.gz",
+      "sha256": "6cec4f5e46b66ab46ab308d0b58b8b0f0013d6d0d5aca0efce2287a72cb7261c"
+    },
+    "p12-notification-worker-regressions.xml": {
+      "path": "docs/engineering/evidence/p12-notification-worker-regressions.xml.gz",
+      "sha256": "926e00988dc9af65728e6ae4af6ebc5e84e0d8636b8ef8523cf55137e9617fe9"
+    },
+    "publish-p12-notifications.py": {
+      "path": "docs/engineering/evidence/publish-p12-notifications.py.gz",
+      "sha256": "e436e18946abc3c155eae6b4f8910677db0fda1e6450425f0b78f22cff1efc54"
+    },
+    "notifications/browser.json": {
+      "path": "docs/engineering/evidence/p12-notification-notifications-final.browser.json.gz",
+      "sha256": "a006d1decb3ac732caf87eb1594cd718d30ec69c1ea3f54ea81141b882702fe7"
+    },
+    "notifications/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p12-notification-notifications-final.browser.junit.xml.gz",
+      "sha256": "df8fd01cf308484d42bed9505a6e9be3233632f6607a80580f8d8cea43e47cae"
+    },
+    "notifications/fixture.json": {
+      "path": "docs/engineering/evidence/p12-notification-notifications-final.fixture.json.gz",
+      "sha256": "5e73d7ea125baa6cd4d17d72dbba039332dadf8371c0887509f941cf42c05d3a"
+    },
+    "notifications/runtime.json": {
+      "path": "docs/engineering/evidence/p12-notification-notifications-final.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "notifications/run.log": {
+      "path": "docs/engineering/evidence/p12-notification-notifications-final.run.log.gz",
+      "sha256": "8f9762859392ff1f57c1712c3df89b3b3079e800ffe8d5959ce0d7b33860350f"
+    },
+    "notifications/server.log": {
+      "path": "docs/engineering/evidence/p12-notification-notifications-final.server.log.gz",
+      "sha256": "791d660658a5e09b6f7036f21d5d9869a7381e855d88c7e8ced7b0feb56f09e1"
+    },
+    "collaboration/browser.json": {
+      "path": "docs/engineering/evidence/p12-notification-collaboration-final.browser.json.gz",
+      "sha256": "90663e3d8fdce10a64aa4081fd41ccca75658142d52973e52eba53cf93fd501c"
+    },
+    "collaboration/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p12-notification-collaboration-final.browser.junit.xml.gz",
+      "sha256": "ae5533f9766040a46ffa0fb777933457ef51cfafe05ca3f9214c658d215648ab"
+    },
+    "collaboration/fixture.json": {
+      "path": "docs/engineering/evidence/p12-notification-collaboration-final.fixture.json.gz",
+      "sha256": "842d6c253dfa5926d28c15c2d074e3e5c8ee9e51007a581ad8d4e8852c45a77b"
+    },
+    "collaboration/runtime.json": {
+      "path": "docs/engineering/evidence/p12-notification-collaboration-final.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "collaboration/run.log": {
+      "path": "docs/engineering/evidence/p12-notification-collaboration-final.run.log.gz",
+      "sha256": "4b74db109c8307401176b2668a1c09fe96d32266fbb6b0ce576e850b047c8f60"
+    },
+    "collaboration/server.log": {
+      "path": "docs/engineering/evidence/p12-notification-collaboration-final.server.log.gz",
+      "sha256": "f3c4358c1dd552ad15a8cdb44ebe4779e1b61292f162e78db790eed88e2e9dfd"
+    },
+    "calendar/browser.json": {
+      "path": "docs/engineering/evidence/p12-notification-calendar-final.browser.json.gz",
+      "sha256": "5e53e6555cbfa219e419843b6c0caaed94cfba88958a731b9611acf8524ab5f0"
+    },
+    "calendar/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p12-notification-calendar-final.browser.junit.xml.gz",
+      "sha256": "e8be1510d1a8a96eb02a42fd249118e5652a00295f2150cc906428650f438c86"
+    },
+    "calendar/fixture.json": {
+      "path": "docs/engineering/evidence/p12-notification-calendar-final.fixture.json.gz",
+      "sha256": "842d6c253dfa5926d28c15c2d074e3e5c8ee9e51007a581ad8d4e8852c45a77b"
+    },
+    "calendar/runtime.json": {
+      "path": "docs/engineering/evidence/p12-notification-calendar-final.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "calendar/run.log": {
+      "path": "docs/engineering/evidence/p12-notification-calendar-final.run.log.gz",
+      "sha256": "d768e71edb60d92506bd54163e87d34a6ad26487f3cb49609f131c3a65e76234"
+    },
+    "calendar/server.log": {
+      "path": "docs/engineering/evidence/p12-notification-calendar-final.server.log.gz",
+      "sha256": "c7910040281708779a2b0b0db5f297cda7c9485de89493972fc7d8ac9f7aeac8"
+    },
+    "reminders-390-light.png": {
+      "path": "docs/engineering/evidence/p12-reminders-390-light.png",
+      "sha256": "b35cc37fbf78608187af9217fc77d9ec8b92ad3b976a2aa31fa64223fe96ae50",
+      "visuallyInspected": true
+    },
+    "reminders-390-dark.png": {
+      "path": "docs/engineering/evidence/p12-reminders-390-dark.png",
+      "sha256": "2243bdf9291a24792a683b5f9d9500318c9a9c1284323d6c9cda3d05ec7aea79",
+      "visuallyInspected": true
+    }
+  },
+  "review": {
+    "independent": false,
+    "scope": "Author review of frozen migration/known-version/checksum/SQL-shape guards; I01 observer/rollback/restore-policy synchronous ownership; current ACL, source clocks, UTC identity and bounded continuation fairness; DTO/session packet privacy; all eleven native Chromium journeys and actual390px themes."
+  },
+  "remaining": [
+    "New14 is an explicit development pilot. No automatic production upgrade or package-cap promotion; controlled schema conversion/pilot/rollback and global snapshot capacity remain P18/W18/I03.",
+    "Final composed Windows must include all parent unit/browser/Wallet/three-engine/native-touch suites plus Calendar, Collaboration and Notifications; new feature harnesses are not yet wired into Windows CI.",
+    "Whole42Productivity/nativeTouch and65Wallet browser suites were not repeated for this group; no Windows acceptance inferred from Cloud.",
+    "Calendar/notes/import P13, Focus/Habits/Insights/P17–18, remainingWallet/W18/M1/I02/I03/master remain incomplete.",
+    "Node22/24 Windows2022/package/service/performance and actualServer2019R02 unrun for this source. No release/tag/VPS/PC runner."
+  ]
+}
