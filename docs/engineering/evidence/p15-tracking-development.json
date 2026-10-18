@@ -1,0 +1,1393 @@
+{
+  "taskId": "P15 reminders and optional Calendar functional slice",
+  "sourceCommit": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+  "nativeSource": "9c8d2128630d4c8d9a3b9fcf68473b4a4bec9cf0",
+  "coreEvidence": "p15-habits-core-development.json",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "qualification": "Cloud functional development only; final composed Windows acceptance pending",
+  "fullRegression": {
+    "passed": 8899,
+    "files": 569,
+    "junitCases": 8899,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentPassed": 8867,
+    "added": 32,
+    "removed": 0
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "buildSource": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+  "browser": {
+    "tracking": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 21,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          },
+          "focusFixture": {
+            "explicit": true,
+            "frozen18Preserved": true,
+            "taskRowsPreserved": true,
+            "sessionsCreated": 0
+          },
+          "habitFixture": {
+            "explicit": true,
+            "frozen19Preserved": true,
+            "taskRowsPreserved": true,
+            "habitsCreated": 0
+          },
+          "trackingFixture": {
+            "explicit": true,
+            "frozen20Preserved": true,
+            "taskRowsPreserved": true,
+            "remindersCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "habits": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 20,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          },
+          "focusFixture": {
+            "explicit": true,
+            "frozen18Preserved": true,
+            "taskRowsPreserved": true,
+            "sessionsCreated": 0
+          },
+          "habitFixture": {
+            "explicit": true,
+            "frozen19Preserved": true,
+            "taskRowsPreserved": true,
+            "habitsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "focus": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 19,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          },
+          "focusFixture": {
+            "explicit": true,
+            "frozen18Preserved": true,
+            "taskRowsPreserved": true,
+            "sessionsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "data": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 18,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "attachments": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 17,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "content": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 16,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "templates": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 15,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "notifications": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 14,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "collaboration": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "calendar": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "2c11b1d213870fdb56d0a25a5a0efd6e9da190dcca8c7172e55beb8ae4e84013",
+          "index": "84ca20bb330fa14bdadc2efe0932f9be06f384e64b4bc3d06b7817e79f43b167"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    }
+  },
+  "sourceFiles": {
+    "docs/engineering/implementation-status.md": "275c1ea55a49ba13fcaca56ba5e03d922e80426cdedc94c987690a70059ccd6a",
+    "playwright.tracking.config.ts": "d2783e0b0b0fb541450cdaf9ff80c11714ca78d0886c0fede6464c52357e6fa5",
+    "scripts/ci/productivity-feature-browser.mjs": "21cb88db8bc326c379715693e1580c7b102970c9dc81b0ba3a770d101a9fd3bc",
+    "scripts/ci/run-tracking-browser.mjs": "1b7d6ed5bb18247f3ea06e9dff18c42fbbf1b9e042a913154763890bd966638a",
+    "scripts/ci/write-tracking-browser-fixture.ts": "67d72becd4e9a64075a41c9705bdceacaf50ad828486b8403ef7cb006140f6f0",
+    "server/app.ts": "dce824df5fe77631cf51dbbb2c21e91ebdbe0d9808a5eec6bd7020399b07c411",
+    "server/db.ts": "89bbaed89df40a340a47793fe83400027a3f280fe5e504802ff3a492c5fa3889",
+    "server/productivity/adapter.ts": "6e8ccd6a7c94e7172f67b147d8a99d21389e5248224b35bd647e9c50a9d325a4",
+    "server/productivity/bootstrap.ts": "246d4f917e2e09cfa1097296d4c8808a33693dcd7d494bd10159ca37b6d0768d",
+    "server/productivity/habitRouter.ts": "aa20265a06eda80d20646065609efc13eb81f481fdbe7708f9a875a180eddcea",
+    "server/productivity/inspection.ts": "82638cb811f8ad3d2fbcc6bf029bf6abb99a4a785728a822ee7f5319e870e806",
+    "server/productivity/knownVersions.ts": "34a91273df459426522e288a661d999eda700567eb2e64bf067aa6102de79904",
+    "server/productivity/ports.ts": "9f943e489001ccf1f733ace33edfbccc4caa8bb60015efdd7d518232aed4d23b",
+    "server/productivity/router.ts": "93b19ff36c6c4b621323e4e3dd8f0252e09f883ad3f9ca36852da953e69e1eb7",
+    "server/productivity/snapshot.ts": "72dfba1ee6b1db228ad069ce86a2dc088841ca544dd349aa86c0f57465181d18",
+    "server/productivity/structureSchema.ts": "1b4a819609b6866e01a591ff171d63c2726a5059f37976731b919955825ece46",
+    "server/productivity/tracking-calendar.test.ts": "648dcf7e42cca685f7552df2b3616a77e6bb7269193f08339d003c0ae5b0b189",
+    "server/productivity/tracking-reminder-migration.test.ts": "681b0481f58de2b7bab8520be791ce72d528c55be9d7a10bf456717303feb338",
+    "server/productivity/tracking-reminders.api.test.ts": "d9db5d02794b2dd76266b83ff07834dbb46e695de8f949c5f1603d508fd8e1c7",
+    "server/productivity/tracking-reminders.test.ts": "62fea1faf114bce5feea7fe5f2c232624da02924e55b53b9de2573f074272cc7",
+    "server/productivity/trackingCalendar.ts": "040276a3baf7540c9a94cecbe784f5e703b3ad6a9c6347690de0f1018d3cd46f",
+    "server/productivity/trackingReminderJobs.ts": "d86cfdb74e3622770ebb32128526469046094bd503234cee7c05841d2c09a0bd",
+    "server/productivity/trackingReminderRecord.ts": "fd336867352b6109472a0e1fb697609cd1ef448c33ad1e5b5d3a109b91e48bea",
+    "server/productivity/trackingReminderSchema.ts": "f49ca2a08535e01821846469343b0af2554f33155c64bdd3e9f87cff117882d6",
+    "server/productivity/trackingReminders.ts": "10ec69232e22465fec08691d3c71fe72f592bd53121dc62740ba3a5927724c23",
+    "server/runtime.ts": "97eff349334a6100e40305d3b3dff10e7b39714daf74e383b3f8f7aaa35bd921",
+    "src/features/productivity/CalendarWorkspace.tsx": "fe32de8a46ec444eb3e41b038e32a4be1a8c6b6fd082e6e1cf01c91e2b063d09",
+    "src/features/productivity/HabitDetail.tsx": "290e613a93092fab47e4a7baecef5e407e2b072a1ca32f8e7cd85e08231b573f",
+    "src/features/productivity/Habits.tsx": "dbb2afa46cd1c27096183bc62ddd91d1bb8b77ebd48479b6c7d1e9aacfdf6073",
+    "src/features/productivity/TrackingCalendarLayer.tsx": "0c95e60f9fd8535e7971389f87d83764e6a1108b4a8f2f534b74f70a63c9f55c",
+    "src/features/productivity/TrackingReminderEditor.tsx": "e6eb440e4e8d445f83fbc7f8631f33c1144827ff228833664cc21156cc303ac1",
+    "src/features/productivity/countdownPolicy.ts": "31031253dbd97350283861f2dc43e82edd79c17798b0cf91f269ec887a0de4ad",
+    "src/features/productivity/habitApi.test.ts": "9e33c7c0a9befdf873c8526aba58e529cd620e6fdc9f89431d672af26b946a32",
+    "src/features/productivity/habitApi.ts": "1adc97ad499952df0569efdd6a141c4042079e45d9f7eeab55730415b58c8be5",
+    "src/features/productivity/habitWorkspace.test.ts": "6ec22f8eecfc3914bc50ebfd0d60a827bd1fd95367cd2da828668db9fa9364da",
+    "src/features/productivity/habitWorkspace.ts": "0787a22eb1d0ae93f1f40e409e67a71f47209fad84bd7002c35f6166deda49b6",
+    "src/features/productivity/trackingCalendarContract.ts": "c0f694e3c88da53861f3bc46d75cc63f43dd6c6de21dc9c86534b3212fb0cd3d",
+    "src/features/productivity/trackingReminderContract.ts": "3d69a91590e5451b1d8943124d5e97442f0d7c0919ff94bebc0ab0919e084a68",
+    "src/features/productivity/useTasks.tsx": "1cb395901af1b8e86fc35d5e8cc50c8973159dce7db6bfc2ce8427f63f374026",
+    "src/i18n/locales/en.json": "9f1608403637e5b0a1b6f4742eb95f3e4b38b5430000932380b4f5499fb2cd08",
+    "src/i18n/locales/vi.json": "98f613bce9e174eb29e72df471c104d27a3337ed39ca1f34cf9b79f583491124",
+    "src/i18n/locales/zh.json": "1f3dc4866b247e215559ce840a4d0aee18b2319cc0c71a10ae8e089a39113236",
+    "tests/e2e/tracking.spec.ts": "73ebfc79eaf1a34c175c2d9fc256a6a2285b6d4c37d63018edb42a66b9ec22b5"
+  },
+  "schema": {
+    "explicitPilotVersion": 21,
+    "defaultVersion": 6,
+    "frozen1to20Preserved": true,
+    "packageCapsChanged": false
+  },
+  "review": {
+    "independent": false,
+    "scope": "Author review only: current source/owner authority before cached receipts and inside I01, per-date claims, actual shared AppJobs bounded continuation and pause/resume, DST gap/fold/backward clock, quiet/digest/mute, completed/skip/weekly quota suppression, generic private outbox, restore consumption and explicit review, typed read-only Calendar, SDK source/revision/intent checks and pending/draft scope/logout fences."
+  },
+  "developmentFailures": [
+    "Cold missing-native-module checkpoint failed collection and is retained, not called functional coverage.",
+    "New client assertions first failed9/30 against absent reminder methods/state/permission branches; all21 existing cases passed. After implementing the SDK/controller these9 cases plus all21 passed; Focus workspace parents also passed.",
+    "Native8 then10 cases, migration2, actual HTTP/shared registry5, Calendar5 and SDK/client cases passed. No assertion/retry/timeout/skip relaxation.",
+    "The first three actual Tracking21 browser journeys passed first attempts at the qualified source, followed by all33 parent journeys at the same source/build."
+  ],
+  "scope": [
+    "Owner-only opt-in Habit/Countdown reminder rules default off. Current session/source ACL precedes receipt reuse and is checked inside the write transaction; family source does not automatically subscribe other family members. Guest writes denied.",
+    "Explicit21 owns private rules and unique(rule,localDate) delivery claims. Shared AppJobs scans10 rules and releases50 due claims per transaction with durable continuation/restore-epoch fences. Actual15-rule native HTTP execution, pause/resume and one-effect dedupe passed; full process restart/OS suspend are not claimed by those tests.",
+    "Habit selected weekdays, original dated goal/raw log, skip/completed day and met weekly quota suppress notices. Countdown reminders honor source occurrence/annual leap clamp/skip. Scans consider the current date, never backfill every missed day; queued quiet/digest claims may release the next local day and expire before the third date.",
+    "P12 mute/quiet/daily preferences are rechecked at release. Stable owner/day digest claims protect against inbox trimming. The I01 inbox/outbox adapter rechecks current rule/source/recipient and stores only generic private family notices, without labels or provider delivery in tests. No phantom Task/check-in/reward/Wallet writes.",
+    "Replacement restore disables all rules for explicit owner review, increments revisions and consumes pending claims. Old scan epochs cannot replay. Invalid owner/review/minute snapshot data fails before replacement. Frozen1–20/default6/caps13/lock preserved.",
+    "Real vi/en/zh private reminder form uses existing24-hour control. Source/rule revisions and original unknown nonce survive navigation/SSE; unsent draft retains original revisions, explicit reload resolves staleness. Scope/logout fences clear revoked drafts and late responses.",
+    "Optional Calendar layer preserves original all-day calendar dates/source timezones and distinct read-only Habit/Countdown refs, including a wholly skipped physical date in Pacific/Apia. SQL ACL precedes decoding/counting. At most1000 active sources/items, bounded1–366day range; oversize asks for a shorter range. Task filters/ICS remain the existing Task calendar and this is stated in the UI. Typed links open current source details, never fake Task IDs."
+  ],
+  "retainedEvidence": {
+    "p15-reminder-backend-commit.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-backend-commit.log.gz",
+      "sha256": "cd1773a6119ad1dd36496840bd6e24fc61e2207c26284802ae5a51f48c91cdae",
+      "uncompressedSha256": "c825c0e49247caafd534462021b08c3e8731b1375aa0783ebf151797b59acb5f"
+    },
+    "p15-reminder-backend-functional.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-backend-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-backend-functional.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-backend-functional.json.gz",
+      "sha256": "2c43d18098e273358d13d4fe3ce00f43e8a22502fdfcb19421bb69a960ce00f1",
+      "uncompressedSha256": "000f90ab418ca88817996787046acb142956310dc55da712e155ff2a5463f019"
+    },
+    "p15-reminder-backend-functional.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-backend-functional.log.gz",
+      "sha256": "5a768dcd61ee45860c1a4c124ef7b0b7bf2c410263519773653e6e33d89ddabf",
+      "uncompressedSha256": "9a72fe5fcf4afa2aba8f6f66785136a7571df6a6ae9a07902419075f34ffe510"
+    },
+    "p15-reminder-client-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-client-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-client-first.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-client-first.json.gz",
+      "sha256": "0427d7c4c152ca185e2e3266e5b6dfca67c2bf19b85af88373c3a553260fe18c",
+      "uncompressedSha256": "da6a1cb45c9e53ee1e19c22177f1c12b5d2129669906508dad124957ed47082d"
+    },
+    "p15-reminder-client-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-client-first.log.gz",
+      "sha256": "f51d987797cf355669b4e5af5b2a2268d62ba0231ecb561c8eb0a0fdba42920a",
+      "uncompressedSha256": "327b538bbad8fc57e97aacedaf324dbf1d06901928a5a41fd416f329025f9207"
+    },
+    "p15-reminder-client-red.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-client-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-reminder-client-red.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-client-red.json.gz",
+      "sha256": "43ae56ac4c443bad8cdd8ff819e57a70d22559e1e468daf55c8cbdeaacbc8bcc",
+      "uncompressedSha256": "191fbb71a93626093eb4e240f5b6b347156a6fea3ced730f8d40ba6f4c531c9c"
+    },
+    "p15-reminder-client-red.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-client-red.log.gz",
+      "sha256": "e57cc2068d17880403c32304442942061880001cd4e342220932a0d0058bc0bb",
+      "uncompressedSha256": "66b67bc2d7074190a049ea299b4f5bf997f7821848046aa94ef42841b99f185e"
+    },
+    "p15-reminder-clock-recovery.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-clock-recovery.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-clock-recovery.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-clock-recovery.json.gz",
+      "sha256": "7e0b2e52f4be2b1ebfe712f87c482bdbb3573cc03968672616d8c5990a3ba3ed",
+      "uncompressedSha256": "9693acf2175797136bbb1000cd2f8b6742df8c66b7356f02fb9cd0d946d0adb5"
+    },
+    "p15-reminder-clock-recovery.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-clock-recovery.log.gz",
+      "sha256": "c328f0da454440e667f91acfd51f49f5945629761d6192893484696701b7fd8c",
+      "uncompressedSha256": "1fb3f01430a858d46d784e6f9dcfe805e0493aac4ba9b2b0f915bb34595ae7f0"
+    },
+    "p15-reminder-http-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-http-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-http-first.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-http-first.json.gz",
+      "sha256": "8ede4fbd47619424b91e9fc37e4cc40168dde01170abcc7d4a59da6937108a63",
+      "uncompressedSha256": "5a40d5aef6d57f244ed05191d9eeca2dbae18a0907616f4f8c35d4a634bdd192"
+    },
+    "p15-reminder-http-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-http-first.log.gz",
+      "sha256": "41fea386fe559b70e4a804ad5ce14ad6dd600da06155c62d8d60e9cb489dc543",
+      "uncompressedSha256": "2a078246bf18fb1658428bbc5e748c39208dc698862381c6b3f753bc666a6b53"
+    },
+    "p15-reminder-lint-backend.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-backend.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-lint-backend.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-backend.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p15-reminder-lint-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-lint-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-first.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p15-reminder-lint-ui-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-ui-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-lint-ui-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-ui-first.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p15-reminder-lint-wired.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-wired.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-lint-wired.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-lint-wired.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p15-reminder-native-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-reminder-native-first.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-native-first.json.gz",
+      "sha256": "d81717a2b96f8297fd75c2ed0cf1e95901753eb136a4c8d98d23ee1a58eac911",
+      "uncompressedSha256": "aced4bb51dc9d37a593e7ffc0df0417a9b27eb96bbc0e374e54bcc7ab7c27336"
+    },
+    "p15-reminder-native-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-native-first.log.gz",
+      "sha256": "a52a1943f3a1550d6d830d1976c551a585dda9060e73a882727eecde1facfaaa",
+      "uncompressedSha256": "9aa1c90bf9e0ee94b83240332528f83704f0358a0de67d124b7b98f51bf1afaf"
+    },
+    "p15-reminder-native-red.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-reminder-native-red.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-native-red.json.gz",
+      "sha256": "52bbaaa7cb44c2ba44c8081b5c83524a55e86980d443581f02e0a463e1552e2c",
+      "uncompressedSha256": "70cd207dd1618b9eb31e1e9191f4635f64db6a3e9e441966e247d8b727301b6b"
+    },
+    "p15-reminder-native-red.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-reminder-native-red.log.gz",
+      "sha256": "6f6314ac690a0532af0154efc451af7b30b1b46323359237da7b0bd7ca1347fd",
+      "uncompressedSha256": "b6f792e725ea47487494517a0cdcb172c81e0171655c937f24335227607f08e6"
+    },
+    "p15-tracking-browser-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-browser-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-browser-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-browser-first.log.gz",
+      "sha256": "91dec315f8c0eda21433adbb6584c5d0b1e580f3e6ce61037812fef71656433e",
+      "uncompressedSha256": "21747f1bd50d61c60d176b2bca0579792944161cb08f0155961458b287ca3127"
+    },
+    "p15-tracking-build-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-build-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-build-first.log.gz",
+      "sha256": "a4bc2a54f30e6c3a6d7cd4286d5fd61c74d01e8f33cab2ac45f0c3fb2c5b9a67",
+      "uncompressedSha256": "42916c82f355e0d138fb3e789d260af29211b381a0e4d5ef28eb00b8a2c9ccc3"
+    },
+    "p15-tracking-calendar-first.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-calendar-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-calendar-first.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-calendar-first.json.gz",
+      "sha256": "f59912e5c9112a41dd0c0b0cae7d2ca33475d12b404cf4d787f97603a5a2cec0",
+      "uncompressedSha256": "f061283669e0c4a775189aa5f5852e99f529854237c11c02ebc779959fc52673"
+    },
+    "p15-tracking-calendar-first.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-calendar-first.log.gz",
+      "sha256": "5343f7e623265f89dbf36961871ff18fc612440cbaeb7b32fef372e66e07ac85",
+      "uncompressedSha256": "ecf3c0e5ae5085c7bafd12bfb0cc0fb1affb02227800ad9c5a18699a946bb783"
+    },
+    "p15-tracking-full.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-full.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-full.json.gz",
+      "sha256": "25c446b293ec17fbbf9e93872c41c2d59e6224cb8aca0b7aa8465259d2d19f55",
+      "uncompressedSha256": "bc5d258ebd99b778c0f1c21f5c898fe4c4b36f28350873c5daebb4f35498f8a4"
+    },
+    "p15-tracking-full.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-full.junit.xml.gz",
+      "sha256": "9d944cc76dbee9c603d6a8c1ea863e22f28488ba289dee5c6dbbfa4017dca47f",
+      "uncompressedSha256": "fd2a758c520ec8e41492c58c83c629d9292dee590ea37affd92968b18cab993e"
+    },
+    "p15-tracking-full.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-full.log.gz",
+      "sha256": "9d364265cbde1aa55d3399eab4d9b3a97bfd2b6d74bcf7dc01f551beac1e0290",
+      "uncompressedSha256": "31b44193aaf0b635149f4d0bc6149a78cb428d71053212e9abe9c29127e65bb6"
+    },
+    "p15-tracking-functional.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-functional.json": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-functional.json.gz",
+      "sha256": "6d80bf8eeebd54659c6132b85ab25012cac8c863e04023831aa382dda83c1b6f",
+      "uncompressedSha256": "1b0cab28a037584b3e3979331f1424f61b43a6e3c2f0061102c45303085cca01"
+    },
+    "p15-tracking-functional.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-functional.log.gz",
+      "sha256": "48afea676c1cd9844327331016fa991be67ce2725d707ae4ab6953f127c091e7",
+      "uncompressedSha256": "24132ab541823afee50bc581cccd855d4fa61383f39524a480da8287f1ba6448"
+    },
+    "p15-tracking-lint-browser.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-lint-browser.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-lint-browser.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-lint-browser.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p15-tracking-lint-qualified.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-lint-qualified.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-lint-qualified.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-lint-qualified.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p15-tracking-lint-wired.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-lint-wired.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-lint-wired.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-lint-wired.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p15-tracking-parent-attachments.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-attachments.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-attachments.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-attachments.log.gz",
+      "sha256": "64ebb60ee5558520653abe8993b0f95f652145ec0a8893a865300e31b32e1f5b",
+      "uncompressedSha256": "3aec2d80568158cd26013061d72b725a966f93106bf22bb13fd98fccd81aa996"
+    },
+    "p15-tracking-parent-calendar.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-calendar.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-calendar.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-calendar.log.gz",
+      "sha256": "87a59e35c1633ededbf7c629fd047b21fdde4ff62bbc7180f644df1133a9e594",
+      "uncompressedSha256": "942e97be0cf4cb2489e644e59abb8ba6f7b52196c1fdc8c1fa90b04dc468252d"
+    },
+    "p15-tracking-parent-collaboration.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-collaboration.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-collaboration.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-collaboration.log.gz",
+      "sha256": "a9a98041dade1450b365cf3cdfa1ad9d8e10dfcc0dda14a779848838dce75612",
+      "uncompressedSha256": "f3ea6ae4593c9b54620828adfb019e4a86dd95ea896f50798fc2ce6a924a750a"
+    },
+    "p15-tracking-parent-content.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-content.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-content.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-content.log.gz",
+      "sha256": "ed36c5fa24b005c8a97086e9fa8d988c7f09403d08f3ad42e696ebaadbaf8edc",
+      "uncompressedSha256": "931b5c23ad258ccdcbf2ebc20c8dfeaf8f6650775002d509ea71ba9c83530706"
+    },
+    "p15-tracking-parent-data.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-data.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-data.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-data.log.gz",
+      "sha256": "3203947b894f75a80ca37a00eae721b091619272e8aa2697ac7a97a76445f863",
+      "uncompressedSha256": "d6ed7bd72b925b76a957508ff852171b7a34afe6aca08fe38d23965b3d6b5920"
+    },
+    "p15-tracking-parent-focus.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-focus.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-focus.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-focus.log.gz",
+      "sha256": "91fbd34e701659a2f7ff7580b3a3ce67ee2c54a66e9e5608337ea6e322f23984",
+      "uncompressedSha256": "386b6c4dbb10c430cefbe3faa819485e07c7f57494a06e6ab2a7c4197a352c8c"
+    },
+    "p15-tracking-parent-habits.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-habits.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-habits.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-habits.log.gz",
+      "sha256": "15c472e2a4372350a16d8acfe41dd85218e2f156e2b02e4f873c1eee88a50e88",
+      "uncompressedSha256": "f6484483f8a336515e11fe42e77f2dace95cdb8851fbe6c2d5d2cc7c51086f4b"
+    },
+    "p15-tracking-parent-notifications.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-notifications.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-notifications.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-notifications.log.gz",
+      "sha256": "e07ccd23f9909fe8ff3184e532d24f940958ce787fb9da5f4d6b19afe5bf6e4d",
+      "uncompressedSha256": "dd8fa989407d1e5adf9f0817da055396efeaf810e33105520c47511bade24ca1"
+    },
+    "p15-tracking-parent-templates.exit": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-templates.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-tracking-parent-templates.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-parent-templates.log.gz",
+      "sha256": "ceebb7b10a907cdaf6603e6d63473a1c3736e8ee274a10d0b726373830d5c110",
+      "uncompressedSha256": "1469188c78146a32c11558b23620bc77532bcba87ebdd0e3640f58c5ee3b2a2f"
+    },
+    "p15-tracking-ui-commit.log": {
+      "path": "docs/engineering/evidence/p15-tracking/p15-tracking-ui-commit.log.gz",
+      "sha256": "a4de346b3d1c3c2b5e9ed93b024951f64590005ecf633de1f4e5c00166226229",
+      "uncompressedSha256": "2b1e8278cdcd92997bf75818903b06886fa8444e797cb1a180acec0ad6922657"
+    },
+    "tracking-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-final-browser.json.gz",
+      "sha256": "e372fc78510c7cef0cb377b83f7e38da05def5bfdf155d74be4fcc20648f8e95",
+      "uncompressedSha256": "9a82cc73ab346f210dad189619de5c9a1ad952f0044674b0c9ed66ef58f18a32"
+    },
+    "tracking-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-final-browser.junit.xml.gz",
+      "sha256": "cae133a39d1c13b4994aa8f5f46584dfc7cf15fdaa694876a97fdca7b8a50b9c",
+      "uncompressedSha256": "7a4bb7f7e37dc6679fb1c1750a9090ae2590c743de828d6a04a76a9543e5c891"
+    },
+    "tracking-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-final-fixture.json.gz",
+      "sha256": "7389376fa3892655d7583064fc1fda5f5b64509f961a728a46d3a8603dda6268",
+      "uncompressedSha256": "f4fd9831c63fd502f9b802046645b214ce95051ed0f2d511ab9859cbfb2d1594"
+    },
+    "tracking-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "tracking-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-final-run.log.gz",
+      "sha256": "91dec315f8c0eda21433adbb6584c5d0b1e580f3e6ce61037812fef71656433e",
+      "uncompressedSha256": "21747f1bd50d61c60d176b2bca0579792944161cb08f0155961458b287ca3127"
+    },
+    "tracking-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-final-server.log.gz",
+      "sha256": "f93782a334ae9d682b5c8d8158e175f1f5817d088b8ccc3491663589cdca06aa",
+      "uncompressedSha256": "bf688a617da3c258ee6f64531a378f2d600e368c759c916995652f76df05fe1a"
+    },
+    "habits-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/habits-final-browser.json.gz",
+      "sha256": "785abd9c1f50259faab972c39072b1c7c47e69f5c612f1d8ce3b237c34b1cdf7",
+      "uncompressedSha256": "729bf07bf89dbffe4660ef6fc8987ffdc4807d5b361a30f4be56dea4235c2f56"
+    },
+    "habits-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/habits-final-browser.junit.xml.gz",
+      "sha256": "b7208e2b90eb8e09a6428e52d067452e01efb2dd6de88acb10aad6dccbfa744a",
+      "uncompressedSha256": "895d2afc9a9992afec9a91c6377f1bb189a89737e075263e987c50922ee6e251"
+    },
+    "habits-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/habits-final-fixture.json.gz",
+      "sha256": "89624edda05305a84437316e8d07cd29c9a6c30c6129cafa438a4a2b419b4562",
+      "uncompressedSha256": "6d3a1576e580c28e159992263999c61c527d4ea816c64a9559c49a5dafe01ab5"
+    },
+    "habits-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/habits-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "habits-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/habits-final-run.log.gz",
+      "sha256": "15c472e2a4372350a16d8acfe41dd85218e2f156e2b02e4f873c1eee88a50e88",
+      "uncompressedSha256": "f6484483f8a336515e11fe42e77f2dace95cdb8851fbe6c2d5d2cc7c51086f4b"
+    },
+    "habits-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/habits-final-server.log.gz",
+      "sha256": "a622c007ce6ceab00d07e7c5c90e83c631a6c5885cab32a7cfd53463ab5101cf",
+      "uncompressedSha256": "e66d1702786e2beff1583c643815b86e7505d3d348e602ed23e67426aecd2456"
+    },
+    "focus-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/focus-final-browser.json.gz",
+      "sha256": "2d4caa64484cc9b5d1ebe7fb7564d5a5c019d2b6bd9c88f25dc8c1bb770be107",
+      "uncompressedSha256": "8e9c1d1879c7ec923ee4270a017331a5e5b480bc900f06c2ecddb28d1a3861d8"
+    },
+    "focus-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/focus-final-browser.junit.xml.gz",
+      "sha256": "b626c0083640e50b369ba51ee03ab5eeea338ed54b53b55a16e2e4a702d1c905",
+      "uncompressedSha256": "198cf3d4f91b23b439d0603bbd3b2113015d745dcc6951b6917b4a9326079ec2"
+    },
+    "focus-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/focus-final-fixture.json.gz",
+      "sha256": "7335729f0b3896b15ed59a83da6fb68eb380d21be8ad3b0b862cd7244da74a64",
+      "uncompressedSha256": "fa86f300745b7f01957a7cb30d9f3a5085b81a83955d2c8ec4d18fc7994b31dc"
+    },
+    "focus-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/focus-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "focus-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/focus-final-run.log.gz",
+      "sha256": "91fbd34e701659a2f7ff7580b3a3ce67ee2c54a66e9e5608337ea6e322f23984",
+      "uncompressedSha256": "386b6c4dbb10c430cefbe3faa819485e07c7f57494a06e6ab2a7c4197a352c8c"
+    },
+    "focus-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/focus-final-server.log.gz",
+      "sha256": "a0a322e15e60e9d8f2a5adcf77971e766e63d6e1e73ac4a7c399020ec95cb447",
+      "uncompressedSha256": "e41ce515db7e1c64fc713f36817d1c7d70278bee207e2f0d7402ea25c795b47b"
+    },
+    "data-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/data-final-browser.json.gz",
+      "sha256": "71446aad9cef49326da4d41768adfbeddc1f878ab80d754e4d872c51d4d8df9d",
+      "uncompressedSha256": "e9cde61dca3aee5501f4634bfb4793207384e4bd7a7fc92cdc48df15341fe640"
+    },
+    "data-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/data-final-browser.junit.xml.gz",
+      "sha256": "aad1ce322a77698d6ef74c92e04b1eb0666f22b388dac09410a067a18bb26039",
+      "uncompressedSha256": "864b88965adab7782e9e4f55fb396515cafbea2fd5a7831bab1a9f27b418139d"
+    },
+    "data-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/data-final-fixture.json.gz",
+      "sha256": "ddcb40e806582034cd3b9e08009d6839f5a0c3c5c074fc89aef8b46db6aad218",
+      "uncompressedSha256": "06311a4b9a658ddeebde52fa8ea91476b2bac2eeda4e57697c31e74a5c413aee"
+    },
+    "data-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/data-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "data-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/data-final-run.log.gz",
+      "sha256": "3203947b894f75a80ca37a00eae721b091619272e8aa2697ac7a97a76445f863",
+      "uncompressedSha256": "d6ed7bd72b925b76a957508ff852171b7a34afe6aca08fe38d23965b3d6b5920"
+    },
+    "data-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/data-final-server.log.gz",
+      "sha256": "c97dbbb42d119e5606eb2cf96a8694e04b558e4ea1ef48671997133f7f8081e1",
+      "uncompressedSha256": "33292efe439f45efe1aebcbda2a6edc851ac4a1d51805e285d5b1b987607bc88"
+    },
+    "attachments-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/attachments-final-browser.json.gz",
+      "sha256": "295207456dcf450dc7623a85cd37d45c3d10306e66997e71af37e1da78fbac56",
+      "uncompressedSha256": "99a6e7d54918aff0f10585ac64ef20c12f0e02f73ecfed6748b2af17b47f5a04"
+    },
+    "attachments-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/attachments-final-browser.junit.xml.gz",
+      "sha256": "bdbb8869b8012a4923e6614c35072dac638cb5c6f595cafb3ee5d6f79d363a0e",
+      "uncompressedSha256": "bdef4c7800ff0afa49eef8f08e1a19b89c26680eab62833c3c29d367657e26c5"
+    },
+    "attachments-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/attachments-final-fixture.json.gz",
+      "sha256": "932ee5b88a4e72d5a11b9f5d1180b852412aebe4f9c6b3ac5a05f3a0920a216f",
+      "uncompressedSha256": "8c1fe46b5787159d4b6e52d259dc8f99f139a22a2bc20b570144ae85cdb01d43"
+    },
+    "attachments-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/attachments-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "attachments-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/attachments-final-run.log.gz",
+      "sha256": "64ebb60ee5558520653abe8993b0f95f652145ec0a8893a865300e31b32e1f5b",
+      "uncompressedSha256": "3aec2d80568158cd26013061d72b725a966f93106bf22bb13fd98fccd81aa996"
+    },
+    "attachments-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/attachments-final-server.log.gz",
+      "sha256": "f2119dab236f50d291a4f1e17adebe4cb9a602312c6649741e6aa471910cc1dc",
+      "uncompressedSha256": "e365bb613bb60f8f0a6dcf7146cb0da4b94699c2a85eb6cf9ccc4b04d3f9d0f9"
+    },
+    "content-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/content-final-browser.json.gz",
+      "sha256": "dc0ecfc8bb2b43b912eac956651b2ede111124f37e744c9cb40ab41bf56e765a",
+      "uncompressedSha256": "1288d966300546e12ef83fb71c3a384b710e58a0c364ca0761512dd56e8c34e1"
+    },
+    "content-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/content-final-browser.junit.xml.gz",
+      "sha256": "1cd7bb5fef34c4b02b882c50ab5ad88f44ba74c06ada98b9cba4e8996e046a5f",
+      "uncompressedSha256": "498fca90f789ca6e55479fe8b7426a0320d7a68684dd46c4ea6465527c744bf8"
+    },
+    "content-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/content-final-fixture.json.gz",
+      "sha256": "6138e085963aa0eb4006e82b309cb6f0d781923a4aefc8d2cba45d9788ffb313",
+      "uncompressedSha256": "427a5fe288b63fe3e1b95aee9a4835a155b653f5c8e2c6671eac722432dba322"
+    },
+    "content-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/content-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "content-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/content-final-run.log.gz",
+      "sha256": "ed36c5fa24b005c8a97086e9fa8d988c7f09403d08f3ad42e696ebaadbaf8edc",
+      "uncompressedSha256": "931b5c23ad258ccdcbf2ebc20c8dfeaf8f6650775002d509ea71ba9c83530706"
+    },
+    "content-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/content-final-server.log.gz",
+      "sha256": "4de66c70e6144a0681ca0226755de75aa5143dbcce7d1158ff433d1bce5f7af4",
+      "uncompressedSha256": "815fa0866a9ee48a84d06308052d2b7983623db774a431164da0ff58ba430c65"
+    },
+    "templates-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/templates-final-browser.json.gz",
+      "sha256": "ace2b774d4aaa1883b1c7fb3a03746d3694beaf2cef0f93ff6aeaa42bf43e734",
+      "uncompressedSha256": "c160e56e800faaee1c4aafaea6419c84e857f4076780deb3b8baaf72e2b02e36"
+    },
+    "templates-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/templates-final-browser.junit.xml.gz",
+      "sha256": "4b0e05659d470e472cf0972949ba7825c555241666387a732014fa66a8c0ba7c",
+      "uncompressedSha256": "c1f1c1d898372a7ac1c10a3a8bdde39d7d583dada3f0c1e6a45bd3a1840cfe9b"
+    },
+    "templates-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/templates-final-fixture.json.gz",
+      "sha256": "4b42d32e633809543484f55b0a5abb0c63b2cc668af8e24a0050aa11b797d40d",
+      "uncompressedSha256": "ff7d404efb4d19e1811b400daaa9032193450b02f5673b5a6a2f85a8465ebc93"
+    },
+    "templates-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/templates-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "templates-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/templates-final-run.log.gz",
+      "sha256": "ceebb7b10a907cdaf6603e6d63473a1c3736e8ee274a10d0b726373830d5c110",
+      "uncompressedSha256": "1469188c78146a32c11558b23620bc77532bcba87ebdd0e3640f58c5ee3b2a2f"
+    },
+    "templates-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/templates-final-server.log.gz",
+      "sha256": "dd804bba2116a2e7b4c9d97550017e7c4a654491259445456a4ea836a23077a7",
+      "uncompressedSha256": "187dc47c96f56903fdfd13da328e651119f90ab56e5a99386ae60de99d5f987d"
+    },
+    "notifications-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/notifications-final-browser.json.gz",
+      "sha256": "842e59714fdb83831fe1ebb9c80e266bfcce0e754afa9caf6baa5e0ff1030cc0",
+      "uncompressedSha256": "58d0c4e400237e16eb2c4f2075dadbed19cbf88e4ca7ac189aa4af66fd8da87b"
+    },
+    "notifications-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/notifications-final-browser.junit.xml.gz",
+      "sha256": "dd9ee6bd96e8ca79af218ae776ef527bec622b4a929ae376b9185bfce8f82d0b",
+      "uncompressedSha256": "b18e5b62b7d6870941f5fcb9021f0a751f334d59a2b7bb3e213e3da2f140ad0c"
+    },
+    "notifications-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/notifications-final-fixture.json.gz",
+      "sha256": "12aae8cdad5bb72d7aa4db69d359071e86a986c4534b3c6602d25e05de687335",
+      "uncompressedSha256": "cc053b936424b41b1a0fa5074147c906d18fff2eaec50e1940e4aa3dfae6ffee"
+    },
+    "notifications-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/notifications-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "notifications-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/notifications-final-run.log.gz",
+      "sha256": "e07ccd23f9909fe8ff3184e532d24f940958ce787fb9da5f4d6b19afe5bf6e4d",
+      "uncompressedSha256": "dd8fa989407d1e5adf9f0817da055396efeaf810e33105520c47511bade24ca1"
+    },
+    "notifications-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/notifications-final-server.log.gz",
+      "sha256": "666ee775f63eb1bd8efff9f99567e16eb611f8d08dfe21eeecb85e863ee1659e",
+      "uncompressedSha256": "8c08ba1f89f62a3f584146339ca101474357e71878295cdf9f37f97013ad2cba"
+    },
+    "collaboration-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/collaboration-final-browser.json.gz",
+      "sha256": "8de29c92ea9b8e056b7856239b05f0d2f7fe727dbc203768c11d8663e718a5a1",
+      "uncompressedSha256": "4a8f1344e35888778a08dee4d89ea55719dabf567b39d7f364190d161ed4e9f2"
+    },
+    "collaboration-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/collaboration-final-browser.junit.xml.gz",
+      "sha256": "52be6a6f3c961dc33d64beda6024c98f65569c7f05672fd748a50f911ba4033a",
+      "uncompressedSha256": "e3d42713c63a9a364bc8d774d7af45e982f6b2af1f96f03258aaf6c2d5bf968a"
+    },
+    "collaboration-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/collaboration-final-fixture.json.gz",
+      "sha256": "2c2187430dc966e98db9ca922ae5e80c88f93d3f75f133380d3a13f1204beabf",
+      "uncompressedSha256": "b5eaef5bfb27a01657d6e17b6f9acc57eaf57303da53de93d96674a3b47b91e3"
+    },
+    "collaboration-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/collaboration-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "collaboration-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/collaboration-final-run.log.gz",
+      "sha256": "a9a98041dade1450b365cf3cdfa1ad9d8e10dfcc0dda14a779848838dce75612",
+      "uncompressedSha256": "f3ea6ae4593c9b54620828adfb019e4a86dd95ea896f50798fc2ce6a924a750a"
+    },
+    "collaboration-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/collaboration-final-server.log.gz",
+      "sha256": "2ec091febba8912f9c1cde073c1528c89a2474d3e63b32fc0e0b9f8da2aa4a0d",
+      "uncompressedSha256": "1cdff47852a2d7b1a2e0a9bb8895fe91dc138df5d9d9fb134f03ff0dc9bd318f"
+    },
+    "calendar-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-tracking/calendar-final-browser.json.gz",
+      "sha256": "fde8af91ae7bd6543f6d4f7fbe0e8893b7fc09cb2a4716a0a010f422e9786eaa",
+      "uncompressedSha256": "66e159a4f36da60bc0a4a06de1d064aa400b949cb7e4e1ed8c5c59ebcab59302"
+    },
+    "calendar-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-tracking/calendar-final-browser.junit.xml.gz",
+      "sha256": "83ac6d80b74538f11f0fba8fbe38bf109042d59e67c0adf62360396cda0be7c4",
+      "uncompressedSha256": "f68a4c2f402a42ecf4cdc59fb8805e1843f11542713b97573b945036096f501d"
+    },
+    "calendar-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-tracking/calendar-final-fixture.json.gz",
+      "sha256": "2c2187430dc966e98db9ca922ae5e80c88f93d3f75f133380d3a13f1204beabf",
+      "uncompressedSha256": "b5eaef5bfb27a01657d6e17b6f9acc57eaf57303da53de93d96674a3b47b91e3"
+    },
+    "calendar-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-tracking/calendar-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "calendar-final-run.log": {
+      "path": "docs/engineering/evidence/p15-tracking/calendar-final-run.log.gz",
+      "sha256": "87a59e35c1633ededbf7c629fd047b21fdde4ff62bbc7180f644df1133a9e594",
+      "uncompressedSha256": "942e97be0cf4cb2489e644e59abb8ba6f7b52196c1fdc8c1fa90b04dc468252d"
+    },
+    "calendar-final-server.log": {
+      "path": "docs/engineering/evidence/p15-tracking/calendar-final-server.log.gz",
+      "sha256": "203db18c456a8753245285ae18a6b0d0b1d796a43de83145b1e6f0037a5d8458",
+      "uncompressedSha256": "0c3f2176317a74db147fc94f4d2336671e9a48cd0962f90640ab5755450ebf15"
+    },
+    "reminder-390-dark.png": {
+      "path": "docs/engineering/evidence/p15-tracking/reminder-390-dark.png",
+      "sha256": "9b155ce2b0f1cbf8dc0cdd6fb77b12d94c71ac3ae3303dad44e08b3e36eac1c1",
+      "visuallyInspected": true,
+      "scope": "Actual390px private reminder and optional Calendar layer viewports in light and dark."
+    },
+    "tracking-calendar-390-light.png": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-calendar-390-light.png",
+      "sha256": "f6f3bb34aadb701d046a33be58000f2edb4b8094f0ef93ebbaa43833e0ce0034",
+      "visuallyInspected": true,
+      "scope": "Actual390px private reminder and optional Calendar layer viewports in light and dark."
+    },
+    "tracking-calendar-390-dark.png": {
+      "path": "docs/engineering/evidence/p15-tracking/tracking-calendar-390-dark.png",
+      "sha256": "8015dca862ed449515d7e4ece47fc5fe3d10b3b960f9a8f3ff0bf19d7e14e338",
+      "visuallyInspected": true,
+      "scope": "Actual390px private reminder and optional Calendar layer viewports in light and dark."
+    },
+    "reminder-390-light.png": {
+      "path": "docs/engineering/evidence/p15-tracking/reminder-390-light.png",
+      "sha256": "137b1263f2f65abbd8b03434975ea5516d152908f1cc2966d5f5a298238e4301",
+      "visuallyInspected": true,
+      "scope": "Actual390px private reminder and optional Calendar layer viewports in light and dark."
+    },
+    "publish-p15-tracking.py": {
+      "path": "docs/engineering/evidence/p15-tracking/publish-p15-tracking.py.gz",
+      "sha256": "43ddff7c969a8a8197999e0127e9ad578e1cec8e67f9cd9d54beb1439fbb65f5",
+      "uncompressedSha256": "2dc7abfbc4c2a8c5314c7b58381c3e1d73291e129a93270e99c14b77e93208d4"
+    }
+  },
+  "remaining": [
+    "P15 Cloud functional core/reminder/Calendar slices are complete; final independent review and Windows qualification remain pending. No full-master completion claim.",
+    "P16–P18, remaining Wallet/W18/M1/I02/I03 and global capacity/performance/pilot acceptance remain open.",
+    "Final composed Windows Node22/24/three engines/package/service is pending; ten feature harnesses are not yet mandatory Windows CI.",
+    "No new PR/Actions run. Actual Server2019 R02 separate/unrun; release/tag/VPS/PC runner not performed."
+  ]
+}
