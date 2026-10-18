@@ -1,0 +1,476 @@
+{
+  "taskId": "P12 collaboration functional core",
+  "sourceCommit": "7a73d55ba4659d7b5641e9b346fecdde947319cf",
+  "baseHead": "6d743622d7fd7e8dfe696ec952271e273597cb34",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "qualification": "Cloud development only; P12 reminders/quiet hours/digest and final Windows remain",
+  "sourceFiles": {
+    "playwright.collaboration.config.ts": "575359e6606f39eee82cbf609294be5b16bd04f804ebe3b0b3ea1420698bdd7d",
+    "scripts/ci/productivity-feature-browser.mjs": "a35eed4cee7c4984eebe6d64b49fed8a44977edea23e599d529add30f25f428c",
+    "scripts/ci/run-calendar-browser.mjs": "5b99ca6f83daa3694808782a8e4616a7c3a382b849edb92d2525a945831ed339",
+    "scripts/ci/run-collaboration-browser.mjs": "d5e15d80af0a3b2b0b6321e7712c4b02f2c296e4311b204f4ec330d0014af49d",
+    "server/app.ts": "55d6351f7ac2d8d9ded7a9543964217ed9bde7d5453ccb0142afb5d061ed0004",
+    "server/db.ts": "7d1445ae6cb7f9a7ef208f6966a69e1a8786972872f28db576d7076cf5169383",
+    "server/productivity/access.api.test.ts": "c6eb06854ad03ec2a49332ff1053f2573883c384e78e0989cf3ea0334f4f4fdc",
+    "server/productivity/collaboration.api.test.ts": "34b82e773c309980e45bcf3eca312f33c55256d9eda8a6bebad4d74be7135d87",
+    "server/productivity/collaboration.test.ts": "633faaae682c1c3082422c5df7f14742c73db03260a1f04b1622a68d6c9c2d7e",
+    "server/productivity/collaboration.ts": "27701f9d310f523291ccd2b66f4f7511e40679245d504c2da9dd17f5cbfff8bf",
+    "server/productivity/commentRecord.ts": "101d73daaf734480a2ab8b621ed0342149b05d8cbb6dd8966ce504984054f62b",
+    "server/productivity/ports.ts": "4c28e6889bb98fc5426cf989ac7888f8e70c3d91f6a069a2bbb04b35f0e1bf8e",
+    "server/productivity/router.ts": "59557e5bed583cd82adca4d4dd6479729f3ab02c2a4bb15fd1259889f4ca4464",
+    "server/productivity/structure.ts": "5d772e590b1eab655a1c2e3ac028e5a4864bd18e7739543a57bf86ef59251c65",
+    "server/productivity/structureRouter.ts": "836e60b04b957014e7037e8336b1c154c01a41cf2808f51214cffceeb1a3158f",
+    "server/runtime.ts": "136f7d0523e05c72db78a5720d79b3f5e535f4105d5020e9345e69de5d500943",
+    "src/features/productivity/ListSharing.tsx": "a5b8298f9280525bf50ff93fd958395ca31dea10a8eb53bbe1560e41cf88ce4d",
+    "src/features/productivity/TaskCollaboration.tsx": "135b747ad0b0d34e4ceafae1e2c70fe0fcb398dba0a1699bbab61c1f5a80818e",
+    "src/features/productivity/TaskDrawer.tsx": "a8ed297a7e70f2debd065416aa502474046aac62a02bb4d84ee0e3a8d38c50da",
+    "src/features/productivity/api.ts": "375a252aad669414fd98b16c262746b32f9eb825813f32a7edd55d53355dadb4",
+    "src/features/productivity/collaborationApi.test.ts": "d46323c2630ac3a3f1dcbe96ca56e8d8a278faf9bf4984791ae0c1e97dbe4899",
+    "src/features/productivity/collaborationApi.ts": "7ec634ae30b5f10b7cbf5ced43c877a429ad93831a36341677a53df0a8d78af7",
+    "src/features/productivity/commentCommandState.test.ts": "8960c4780e9434626096893023f8d7163e32c7c081cfb2088fd7adfb69c80f32",
+    "src/features/productivity/commentCommandState.ts": "5dc4220d53e99849e119999d97d63559fcd0e47bb8633e84a60204b57aefc7ef",
+    "src/features/productivity/commentSession.ts": "965fbf41ba09dec55c17a7ca4a682d219b9c0c394b1b7491d07f78c357d6f6ac",
+    "src/features/productivity/listGrantSession.ts": "0abac1367d49d3932dfe76dfb64d6c6b62e1cb12c2e84fb426c461f439ecb6b6",
+    "src/features/productivity/listSharing.test.ts": "5ad33b794ef5a257df555ca5db1aa9818eb4091128b9cbc910e409190ede74b4",
+    "src/features/productivity/listSharingApi.ts": "37ce1c9e495464d02f088f0e90bdbde37cde579ac388143c38244e457840fb64",
+    "src/features/productivity/taskCache.test.ts": "5ef0b21281974a1f1cd2d15e1c2bbfe2d13c50648b3c5826aecd0d6d7b929339",
+    "src/features/productivity/taskCache.ts": "6f953bd81d4f3bc0eb1633ccaa3284576209e124955c610826d11cff5d6d7f4b",
+    "src/features/productivity/useTasks.tsx": "fd159b14ef74500548b38e7d44a54d68b89927f759849a9178fc7da2a2d96357",
+    "src/i18n/locales/en.json": "532223b2e2eec839e8c836d5e71411fd7807b9b47a5ef8639c3b50446b6a735b",
+    "src/i18n/locales/vi.json": "89414b686cdb34ba800ca4348e67c2884fd6e85938382427de842bcc0f4f35aa",
+    "src/i18n/locales/zh.json": "615703bb3b79ba9a8bbcf8fe7c7950a4eb31f24588ae245aaaa38ad980a8929f",
+    "tests/e2e/collaboration.spec.ts": "4a64a7b304e822668525d91d6ca6e8d2932c9234939d2d8f10829e357f5be120"
+  },
+  "unit": {
+    "passed": 8502,
+    "files": 512,
+    "junitCases": 8502,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentPassed": 8459,
+    "added": 43,
+    "parentIdentityPolicyTransition": {
+      "file": "server/productivity/access.api.test.ts",
+      "before": "read-grant Member keeps existing semantic comments without generic edit permission",
+      "after": "P12 read grants deny comment writes; an explicit contribution grant retains existing semantic comments",
+      "reason": "Approved P12 requires comment edit scope. Original three assertions remain: generic edit403 at read scope; comment200 and exact content after a real I01 write grant. Added read-comment403 and unchanged-task assertions. No assertion deleted/skip/retry relaxation."
+    }
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "collaboration": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "7a73d55ba4659d7b5641e9b346fecdde947319cf",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "27aa17a534aa749586eb5c3d4e3d7b2cd98e7c91b8f1e15a9cea8d20d2786653",
+          "index": "61bcdb33c1e12d71dab8817bd7b0f9edd78caa5dd431421a2461145f92ad2876"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "calendar": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "7a73d55ba4659d7b5641e9b346fecdde947319cf",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "27aa17a534aa749586eb5c3d4e3d7b2cd98e7c91b8f1e15a9cea8d20d2786653",
+          "index": "61bcdb33c1e12d71dab8817bd7b0f9edd78caa5dd431421a2461145f92ad2876"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    }
+  },
+  "causalBaseline": {
+    "baselineCommit": "6d743622d7fd7e8dfe696ec952271e273597cb34",
+    "baselineDbSha256": "caa35c09857db8d4752218a3b8214fa016ff5b20efe55873fadb3a255d828c2f",
+    "synthetic": true,
+    "cases": [
+      {
+        "mode": "edit-guard",
+        "exitCode": 1,
+        "signal": null,
+        "actualAssertionFailure": true,
+        "outputSha256": "b9197d735a927259fb4218acd9b7883f2a4dd809527621e6dadf5602c9716c7f"
+      },
+      {
+        "mode": "same-millisecond-ids",
+        "exitCode": 1,
+        "signal": null,
+        "actualAssertionFailure": true,
+        "outputSha256": "56a0b206ab8aa87b7bba64f835f3f9ea2b546de3f19950d3c1c22c7974bb71a3"
+      }
+    ],
+    "fixtureRemoved": true
+  },
+  "findings": [
+    "The exact pre-change native baseline admits a nonowner shared Child comment and duplicates clock-derived comment/history IDs; both retained AssertionErrors now have direct regressions.",
+    "Actual HTTP mention failure exposed sender-bound recipient lookup. The internal adapter reads the live recipient identity separately while the caller remains the owning comment I01 command.",
+    "Actual SSE failure exposed previous-audience union with global notification invalidation. New mentions use server-owned recipient scope; wire events contain no titles, content or IDs.",
+    "First full suite8500pass/2fail retained: explicit legacy transaction ownership join added without a static allowlist, and the intentional P12 comment policy transition retains all old assertions while adding negative read-scope checks.",
+    "Comments, history and mentions share the canonical Task payload/revision and I01 receipt. No duplicate comment database, scheduler, provider call or public API.",
+    "Opaque session-owned uncertain comment and grant packets survive native SSE/navigation with unchanged body/revision/key, but fresh Task or manager-scope loss/logout retires them and fences late effects.",
+    "Three browser journeys cover Unicode comment/mention lost ACK through Calendar navigation, reviewed list grant lost ACK through drawer navigation, and real SSE revocation of private history/composer; all four parent Calendar journeys also pass."
+  ],
+  "retainedEvidence": {
+    "p12-browser-f2a46aa.exit": {
+      "path": "docs/engineering/evidence/p12-browser-f2a46aa.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-browser-f2a46aa.log": {
+      "path": "docs/engineering/evidence/p12-browser-f2a46aa.log.gz",
+      "sha256": "888ab4d7816692e4c829e0ff88e6d73484163458d4bf98e03813de2ad133b391"
+    },
+    "p12-build-f2a46aa.exit": {
+      "path": "docs/engineering/evidence/p12-build-f2a46aa.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-build-f2a46aa.log": {
+      "path": "docs/engineering/evidence/p12-build-f2a46aa.log.gz",
+      "sha256": "d7d6b00ca42d318836a208a8e958eba860e2b6d105eb95509ea44b8079758f28"
+    },
+    "p12-calendar-regression-f2a46aa.exit": {
+      "path": "docs/engineering/evidence/p12-calendar-regression-f2a46aa.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-calendar-regression-f2a46aa.log": {
+      "path": "docs/engineering/evidence/p12-calendar-regression-f2a46aa.log.gz",
+      "sha256": "d0839c10b7b7397d349fc3850ea066112dbfb3eba05e0d0de6f2ffb0a387fc16"
+    },
+    "p12-causal-baseline.json": {
+      "path": "docs/engineering/evidence/p12-causal-baseline.json.gz",
+      "sha256": "524b4bf10d5ea113019cf94c31803b93f06fa16a7af36bb7465f67810ac234cb"
+    },
+    "p12-causal-edit-guard.log": {
+      "path": "docs/engineering/evidence/p12-causal-edit-guard.log.gz",
+      "sha256": "19bb87ca05e3301ff3d03c4c743d047238fc29ce2f046ce48f145d10b54197a8"
+    },
+    "p12-causal-same-millisecond-ids.log": {
+      "path": "docs/engineering/evidence/p12-causal-same-millisecond-ids.log.gz",
+      "sha256": "e5fd381833018bd1d97e192cfc6dcadee1ddd352c4fa69c732a1465ad5cf0ba7"
+    },
+    "p12-collaboration-browser-final.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-browser-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-collaboration-browser-final.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-browser-final.log.gz",
+      "sha256": "75ef3f9ef571dec10637f94c4585719b496554c03bca7eb5b1cd5838bf6212da"
+    },
+    "p12-collaboration-calendar-final.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-calendar-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-collaboration-calendar-final.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-calendar-final.log.gz",
+      "sha256": "870851212b536c3129d27153d083ba141f6e4276765de4490e51291777222ed8"
+    },
+    "p12-collaboration-final-build.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-final-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-collaboration-final-build.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-final-build.log.gz",
+      "sha256": "9bc7e4de276b657de249898b779ad9d84c2e2d897c7bdc00d12ddf2dff46e9ac"
+    },
+    "p12-collaboration-final-lint.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-final-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-collaboration-final-lint.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-final-lint.log.gz",
+      "sha256": "e0fb59a10057d9cb1cde296a9bb83ad52f6fc8333e4f92962ff990d7e35d5a17"
+    },
+    "p12-collaboration-first.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-collaboration-first.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-first.json.gz",
+      "sha256": "e4d29705ddfb84f18c09224e44ebc76c596517259a2c75fc04c917bf8e83745a"
+    },
+    "p12-collaboration-first.junit.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-first.junit.xml.gz",
+      "sha256": "e60754706cd5fa6be868b6c8f233035406914fa9ec1154ca9e9802de12161150"
+    },
+    "p12-collaboration-first.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-first.log.gz",
+      "sha256": "41833b102f3cdba6c7bd6c3ffc206b508aa531cdf2a3bf6bb097c8ce3894d01e"
+    },
+    "p12-collaboration-full-first-f2a46aa.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-full-first-f2a46aa.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p12-collaboration-full-first-f2a46aa.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-full-first-f2a46aa.json.gz",
+      "sha256": "8b2c478b2bc0ce837237d6f2ae250e03e385c467aa2903efc3f76436277b4d4a"
+    },
+    "p12-collaboration-full-first-f2a46aa.junit.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-full-first-f2a46aa.junit.xml.gz",
+      "sha256": "5b581fc72f48abf484be5bb5a7fa64ca2a9e2c4623e63948e748ec43d3f89edd"
+    },
+    "p12-collaboration-full-first-f2a46aa.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-full-first-f2a46aa.log.gz",
+      "sha256": "084a620520d6738baf30b0b65c439229649be31a673baa281dfcab089156999e"
+    },
+    "p12-collaboration-full.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-collaboration-full.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-full.json.gz",
+      "sha256": "1533a2b9f403410f63dda93b77c2ef6ffe6b669fef468779236de03890371206"
+    },
+    "p12-collaboration-full.junit.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-full.junit.xml.gz",
+      "sha256": "0cd724e566b49bb47dabb9c68f205e03439d69f902df9d7dfa0cf5d85ddc2e7c"
+    },
+    "p12-collaboration-full.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-full.log.gz",
+      "sha256": "32e1dcee8d6690743ebe80f0726a958a255619b35910e22f3b618b6125b38eb1"
+    },
+    "p12-collaboration-http.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-http.json.gz",
+      "sha256": "f887126366ab5e4237be1f2fea1a487c83902f7bee1ffa84306070182e01616d"
+    },
+    "p12-collaboration-http.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-http.log.gz",
+      "sha256": "2a92e8e1d125ebe5e5187547b36a7edbee4c70f93c2ee6054f1dafb8973e3fa8"
+    },
+    "p12-collaboration-native-http-fixed.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-native-http-fixed.json.gz",
+      "sha256": "7f7c200b58cfc1ad3d3e588ab6f70d948c6fb0eb2dad8696ac5369a14bd86164"
+    },
+    "p12-collaboration-native-http-fixed.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-native-http-fixed.log.gz",
+      "sha256": "826257d8b6beb6a6dfefb51e0d03d5db98a546b499a51623458c673c8d66e1e9"
+    },
+    "p12-collaboration-native-http-fixed.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-native-http-fixed.xml.gz",
+      "sha256": "f01109d0d5d23c526751cbf8580ace524d84cb6ebb993958fd0af90a4ec91572"
+    },
+    "p12-collaboration-native.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-native.json.gz",
+      "sha256": "04e93f08858fa881c99b0c14ce0ff254bfc2b99ea0ee8b4db4b00e5da9557eb7"
+    },
+    "p12-collaboration-native.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-native.log.gz",
+      "sha256": "1d7230ca6c39870f89eabc3f37d20dcbd74cb5eea314fbcc1a35146db63de0dc"
+    },
+    "p12-collaboration-parent-fixes.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-parent-fixes.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p12-collaboration-parent-fixes.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-parent-fixes.json.gz",
+      "sha256": "63effca3888c23cfa6a780353d9d20c9305d1a04d0d054953386b3eaff1ad830"
+    },
+    "p12-collaboration-parent-fixes.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-parent-fixes.log.gz",
+      "sha256": "ef93583a28ba846d1ec9feeeacd4401626ad70741314a688f1954bd69567b3cb"
+    },
+    "p12-collaboration-parent-fixes.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-parent-fixes.xml.gz",
+      "sha256": "61d81c89d585fda2fc128dca8858d0006699ff1a38bbc9e5373593664893f726"
+    },
+    "p12-collaboration-red.exit": {
+      "path": "docs/engineering/evidence/p12-collaboration-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p12-collaboration-red.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-red.json.gz",
+      "sha256": "2c1d788150772191d778d9a1ee88de30269eb61b92e6f7dfb3a9ff3da4e04058"
+    },
+    "p12-collaboration-red.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-red.log.gz",
+      "sha256": "9730db896e3c6fe979e22a59e225cbc9fad521c539f20faba35693933b66600f"
+    },
+    "p12-collaboration-sdk.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-sdk.json.gz",
+      "sha256": "a4a4e08e9177e3d67ebad14d3f269def28b260c757c504651e12e606e65bff9c"
+    },
+    "p12-collaboration-sdk.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-sdk.log.gz",
+      "sha256": "08471e304adbef472188ccf332c9dabac1d0f386d5bff07a789e15512f935040"
+    },
+    "p12-collaboration-sharing.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-sharing.json.gz",
+      "sha256": "64ba90f72c11970db58c7aa060789110d0804902a5a5901f28c993b51b40c017"
+    },
+    "p12-collaboration-sharing.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-sharing.log.gz",
+      "sha256": "3f66d571767965af062e576917c798f85a51dbb4b07f1ef552ea4c7eddaa47a7"
+    },
+    "p12-collaboration-sharing.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-sharing.xml.gz",
+      "sha256": "b6b79c688239c7b4209fa4bcc98743b704b4d459ecc1422a86175cce0c77717e"
+    },
+    "p12-collaboration-sse-fixed.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-sse-fixed.json.gz",
+      "sha256": "eee808eaa92e9805a01786f77f83814abaf0baa6e7166a2fb56bbf3dcbf8b255"
+    },
+    "p12-collaboration-sse-fixed.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-sse-fixed.log.gz",
+      "sha256": "cbc0ba3b099503bdda7300e099c10a85dcaf97bbcd9cf39d2f4913437cb40744"
+    },
+    "p12-collaboration-sse-fixed.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-sse-fixed.xml.gz",
+      "sha256": "4056b7f9ae85aaccda7eb4ec8c7f664975f6ddf2c6d0d7be50c97d639ea11378"
+    },
+    "p12-lint-first.log": {
+      "path": "docs/engineering/evidence/p12-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p12-lint-fourth.log": {
+      "path": "docs/engineering/evidence/p12-lint-fourth.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p12-lint-second.log": {
+      "path": "docs/engineering/evidence/p12-lint-second.log.gz",
+      "sha256": "baa7d96b6968b507decfb794b5f65af2256a0db803dbdedeb889c82c223cf7fa"
+    },
+    "p12-lint-third.log": {
+      "path": "docs/engineering/evidence/p12-lint-third.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "publish-p12-collaboration.py": {
+      "path": "docs/engineering/evidence/publish-p12-collaboration.py.gz",
+      "sha256": "231c1b3d053631fdda1d9f9b221f423c31ba590f89bba3882d8f172e23539f93"
+    },
+    "collaboration/browser.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-final.browser.json.gz",
+      "sha256": "97676f76a3f3f1a3136d77f2e6975d0507de4d47c403641e245b684489b16d15"
+    },
+    "collaboration/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p12-collaboration-final.browser.junit.xml.gz",
+      "sha256": "e7bba6144c513582b299bb4fd7764ef15c3f0b3bc17af53fe5da57e76c745b7b"
+    },
+    "collaboration/fixture.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-final.fixture.json.gz",
+      "sha256": "ec4e4b9011aa0fcb466db063410e5a7575e0e623f48ebeac362f46c45023e751"
+    },
+    "collaboration/runtime.json": {
+      "path": "docs/engineering/evidence/p12-collaboration-final.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "collaboration/run.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-final.run.log.gz",
+      "sha256": "75ef3f9ef571dec10637f94c4585719b496554c03bca7eb5b1cd5838bf6212da"
+    },
+    "collaboration/server.log": {
+      "path": "docs/engineering/evidence/p12-collaboration-final.server.log.gz",
+      "sha256": "3b8a84ca94e841596e38fce536e469dcefce11c2dc4f0a29445937ba97dac9f9"
+    },
+    "calendar/browser.json": {
+      "path": "docs/engineering/evidence/p12-calendar-final.browser.json.gz",
+      "sha256": "80b955cdf70e7dfb834ed3fc7d71b63ded1d0e0db495bc54a894cd7ea3f68e07"
+    },
+    "calendar/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p12-calendar-final.browser.junit.xml.gz",
+      "sha256": "26b5f67db4685b734ef7b2c10e3b26d68efa13ddf8c3914d70e17affa6a38b58"
+    },
+    "calendar/fixture.json": {
+      "path": "docs/engineering/evidence/p12-calendar-final.fixture.json.gz",
+      "sha256": "ec4e4b9011aa0fcb466db063410e5a7575e0e623f48ebeac362f46c45023e751"
+    },
+    "calendar/runtime.json": {
+      "path": "docs/engineering/evidence/p12-calendar-final.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "calendar/run.log": {
+      "path": "docs/engineering/evidence/p12-calendar-final.run.log.gz",
+      "sha256": "870851212b536c3129d27153d083ba141f6e4276765de4490e51291777222ed8"
+    },
+    "calendar/server.log": {
+      "path": "docs/engineering/evidence/p12-calendar-final.server.log.gz",
+      "sha256": "37ba76f4aa82eb5865a562fb5ffada7d04a3dd57c41f92122b3002c9820f2082"
+    },
+    "comments-390-dark.png": {
+      "path": "docs/engineering/evidence/p12-comments-390-dark.png",
+      "sha256": "6a090a1ddc766bcc4aea456cbab0d8e219d1af2531cd3d55e388ef784daceb85",
+      "visuallyInspected": true
+    },
+    "comments-390-light.png": {
+      "path": "docs/engineering/evidence/p12-comments-390-light.png",
+      "sha256": "b6813046a4bc5124194b75eabec9f9ac3b435fa02df9751f9d3c53e3e0a8b9b9",
+      "visuallyInspected": true
+    }
+  },
+  "review": {
+    "independent": false,
+    "scope": "Author inspection of canonical/legacy ACL and current recipient authority, native transaction joins/rollback/receipts, reference-only outbox/restart claim, targeted SSE, immutable paging, session packet privacy and DESIGN tokens; both actual390px themes inspected."
+  },
+  "remaining": [
+    "P12 is partial: persisted reminder scheduling, quiet hours, daily digest, cancellation/rescheduling and restored notification backlog policy remain. Existing shared push retry/backoff/unknown-effect semantics are reused; external delivery is not exactly once.",
+    "Whole42Productivity/nativeTouch and65Wallet browser suites not repeated for this slice; final composed Windows must include all parents plus Calendar and Collaboration harnesses. Neither new harness is wired to Windows CI yet.",
+    "Node22/24 Windows2022/package/service/performance and actualServer2019R02 unrun for this source.",
+    "Remaining P13–P18/W18/M1/I02/I03/master are not complete. No release/tag/VPS/PC runner."
+  ]
+}

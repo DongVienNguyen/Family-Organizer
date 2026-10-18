@@ -2,6 +2,22 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P12 collaboration functional core (2026-10-18):** source `7a73d55ba4659d7b5641e9b346fecdde947319cf`
+adds canonical comments/history/mentions and reviewed list grants, native I01/
+outbox reuse, current-source ACL/targeted SSE and immutable unknown-request
+packets across navigation. Cloud full8502tests512files/JUnit, zero failures/skips/
+todo; parent8459 retained with one explicit stronger P12 policy transition,
+43 new cases; lint/build0. Whole Collaboration Chromium3/3 + parentCalendar4/4,
+first attempts/offline/owned13fixture/normal-stop/integrity/closed/cleaned and
+source/build-bound. Actual390px themes inspected. Native baseline/HTTP/SSE/full-
+suite failures retained, no assertion removal or skip. [Details](productivity-collaboration.md),
+[proof](evidence/p12-collaboration-development.json). Author review only.
+PR URL/CI run URL:none for this source; backup branch. P12 remains partial:
+reminders/quiet hours/daily digest/reschedule/restore backlog next, then remaining
+P/W18/M1/I02/I03 and final composed Windows (allparents+Calendar+Collaboration
+harnesses). Neither new harness is wired to Windows CI yet. No Windows/Server2019
+acceptance claim, release/tag/VPS or PC runner.
+
 **P09 PR136 accepted and merged (2026-10-18):** reviewed HEAD
 `7e59abd0c682acf4dba80a7830e54c7e2e052a33`,
 [PR136](https://github.com/DongVienNguyen/Family-Organizer/pull/136),
