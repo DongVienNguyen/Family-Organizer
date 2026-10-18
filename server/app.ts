@@ -1,3 +1,4 @@
+import {calendarRouter} from './productivity/calendarRouter.js';
 import {registerWalletBudgetJobs} from './wallet/budgetJobs.js';
 import {projectLinkedGoals} from '../src/features/wallet/linkProjection.js';
 import {registerWalletImportJobs} from './wallet/importJobs.js';
@@ -759,6 +760,7 @@ if(dependencies.wallet?.budgetJobs&&jobs.durableEnabled){const wallet=dependenci
 if(dependencies.wallet?.scheduleJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletScheduleJobs(jobs,wallet.scheduleJobs,{recordChanged:id=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.recordAudience(id)),scheduleChanged:ownerId=>broadcastSyncEvent('FINANCE_UPDATE',{},new Set([ownerId])),notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
 if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id})}));
+if(dependencies.productivity)app.use('/api/productivity/calendar',calendarRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));
 if(dependencies.productivity)app.use('/api/productivity',queryRouter(dependencies.productivity,requireAuth as any,{view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));
 if(dependencies.productivity)app.use('/api/productivity',matrixRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));
 if(dependencies.productivity)app.use('/api/productivity',boardRouter(dependencies.productivity,requireAuth as any,{rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id}),catalog:audience=>broadcastSyncEvent('PRODUCTIVITY_CATALOG_UPDATE',{},audience),previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));

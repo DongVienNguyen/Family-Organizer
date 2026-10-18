@@ -1,3 +1,4 @@
+import {createCalendarApi} from './calendarApi.js';
 import {createGroupRankApi}from'./groupRankApi.js';
 import {createBoardLayoutApi}from'./boardLayoutApi.js';
 import {createBoardPolicyApi}from'./boardPolicyApi.js';
@@ -59,6 +60,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  };
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
+  ...createCalendarApi(read,taskValue),
   ...createWorkflowApi(read,{task:taskValue,clock:clockValue}),
   ...createBoardLayoutApi(read),
   ...createBoardPolicyApi(read),
