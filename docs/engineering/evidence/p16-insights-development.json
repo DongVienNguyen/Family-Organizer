@@ -1,0 +1,1160 @@
+{
+  "task": "P16",
+  "scope": "Cloud functional development; targeted native/client and two real Chromium harnesses. Final composed full suite and Windows are pending.",
+  "sourceSha": "b4ce6baa4766d35b99e8aa52d6411565b6d2779e",
+  "nativeSourceSha": "8724842e3258d17d2a384f24096a826669b8842e",
+  "uiBuildSourceSha": "f3531eb",
+  "buildNote": "The only change between production build and browser source HEAD is the pending-draft readiness condition in the browser fixture. Production inputs are identical.",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "unit": {
+    "tests": 76,
+    "files": 10,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "report": "p16-functional.json.gz",
+    "junit": "p16-functional.junit.xml.gz"
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "chromium": [
+    {
+      "feature": "insights",
+      "tests": 4,
+      "fixture": {
+        "commitSha": "b4ce6baa4766d35b99e8aa52d6411565b6d2779e",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "7128ba3f22768c814da255d3c8b593970419d8613899e7039a49d5aefbb7f450",
+          "index": "c4efcc6c3ed315c6bf68b454252694cf1ffd890b7c908ba16a88adefeac8a7e5"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 22,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          },
+          "focusFixture": {
+            "explicit": true,
+            "frozen18Preserved": true,
+            "taskRowsPreserved": true,
+            "sessionsCreated": 0
+          },
+          "habitFixture": {
+            "explicit": true,
+            "frozen19Preserved": true,
+            "taskRowsPreserved": true,
+            "habitsCreated": 0
+          },
+          "trackingFixture": {
+            "explicit": true,
+            "frozen20Preserved": true,
+            "taskRowsPreserved": true,
+            "remindersCreated": 0
+          },
+          "insightFixture": {
+            "explicit": true,
+            "frozen21Preserved": true,
+            "taskRowsPreserved": true,
+            "eventsCreated": 0,
+            "notesCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    {
+      "feature": "calendar",
+      "tests": 4,
+      "fixture": {
+        "commitSha": "b4ce6baa4766d35b99e8aa52d6411565b6d2779e",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "7128ba3f22768c814da255d3c8b593970419d8613899e7039a49d5aefbb7f450",
+          "index": "c4efcc6c3ed315c6bf68b454252694cf1ffd890b7c908ba16a88adefeac8a7e5"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    }
+  ],
+  "phoneImagesInspected": [
+    "insights-390-light.png",
+    "insights-390-dark.png",
+    "review-editor-390-light.png",
+    "review-editor-390-dark.png"
+  ],
+  "failures": [
+    "Earlier native REDs retained in raw reports; actual cycle-start fabrication and old-snapshot membership expansion fixed.",
+    "First new browser attempt: 3 passed, 1 failed because helper required create-note enabled after navigation while original pending draft intentionally disables it. Trace proves boundary; readiness helper now asserts disabled in that state, keeps every semantic assertion. Second attempt 4/4; no production change for that fixture repair."
+  ],
+  "preserved": {
+    "defaultProductivityVersion": 6,
+    "frozenMigrationsThrough": 21,
+    "packageProductivityCaps": 13,
+    "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7"
+  },
+  "limits": [
+    "No P16 full aggregate run yet; last full suite 8899/569 applies to P15 source 9cfc7eb.",
+    "No current-source Windows, Node22, Firefox, WebKit, touch, package, service, performance or migration-pilot acceptance.",
+    "Review history UI lists latest100 text revisions; older native revision facts remain stored, no revision-specific report viewer.",
+    "Reports and snapshots retain explicit capacity limits; global mixed-data capacity/performance remains W18/P18.",
+    "Author review only; independent review pending. Server2019 R02 separate/unrun. No release/tag/VPS."
+  ],
+  "sources": [
+    {
+      "path": "docs/engineering/implementation-status.md",
+      "sha256": "45d0c60444f39a9bec567efc9794f683e098d458e93c3e450cc4fbd266a28b8b",
+      "gitBlob": "ea31bda616bb801d7c87656fd0cf547b78ca2c06"
+    },
+    {
+      "path": "playwright.insights.config.ts",
+      "sha256": "141e1df5f14f996d37c9d8177ed5490eb3913b8277edb34ed27b068da2626f7e",
+      "gitBlob": "e294ac29c4b723efa8f1295052c78a806e90e4c2"
+    },
+    {
+      "path": "scripts/ci/productivity-feature-browser.mjs",
+      "sha256": "35702a6f37e6f497a008998a3858cf0dc58787650e98031fa6aa66938ae746e1",
+      "gitBlob": "80532c5144377f01c6b9295c763447369163775e"
+    },
+    {
+      "path": "scripts/ci/run-insights-browser.mjs",
+      "sha256": "fab4f5ce491807ddfa09abd888af132f5231cb35d99c2c6cb6ffd490d35bff28",
+      "gitBlob": "d8ab90b288a78cea2e182aa6843f85788c3a1288"
+    },
+    {
+      "path": "scripts/ci/write-insight-browser-fixture.ts",
+      "sha256": "eda8eef5b94e61997e7b0449b4f9ef666c2809899cb01335dfcc8d0d61a2630a",
+      "gitBlob": "8bc8d59499d6cc4ba84178bb708073af4d7a3d89"
+    },
+    {
+      "path": "server/app.ts",
+      "sha256": "d634087464e8fe853d2566ffb5824f17e311daf01c8e3b4b39cf3826779618c1",
+      "gitBlob": "b84f671dd3e4ac8dde6eb53bd133735a4fff215b"
+    },
+    {
+      "path": "server/productivity/adapter.ts",
+      "sha256": "3ea3a74cb009c0b8b7f268cc29426d0ccb973c81b8beef4c781e868c94716eb3",
+      "gitBlob": "0edb18b8370717b810dc120c58454c0ca93ccad0"
+    },
+    {
+      "path": "server/productivity/bootstrap.ts",
+      "sha256": "695db9975565845c69c4a849377901ff2402741cbeb55fb4f16afaabf69f64e5",
+      "gitBlob": "e63bfccf1a24d1e711fb2325631c976c3cb6fae9"
+    },
+    {
+      "path": "server/productivity/imports.ts",
+      "sha256": "f3183fe05b3bc00ca20aca929f7452a8121d4628b885513175cfae71f4128d36",
+      "gitBlob": "8dc7e45fd9a64d3ab17e6508b52ea6689767e117"
+    },
+    {
+      "path": "server/productivity/insight-events.test.ts",
+      "sha256": "1b6df2b7777cf7c09b3fe91508364984f253efadffa94369fab7c802f8719779",
+      "gitBlob": "c938111cc6f783f791f5d4cfc47ea8b7c2767fe7"
+    },
+    {
+      "path": "server/productivity/insight-import-undo.test.ts",
+      "sha256": "e65ab561f2cb7fcf5922feab14da149ed302feed391910daec004d2eef975e88",
+      "gitBlob": "4e8d2090a433d3d4e48bb6021be28d1f32a94498"
+    },
+    {
+      "path": "server/productivity/insight-migration.test.ts",
+      "sha256": "c2052353ff24065f3ecd2ba7ee41fae905a9803e53c2d1cef40d44c90241ce4c",
+      "gitBlob": "173e3029979f7d2dd87ead9f8ec9079768634227"
+    },
+    {
+      "path": "server/productivity/insightEvents.ts",
+      "sha256": "9e39a4e3e9492bd9e0e3d7270d185e98d730e186c93667f813a6c49d8e19e22d",
+      "gitBlob": "c0a1cb4f87a8b03b12308a562631214d227e1385"
+    },
+    {
+      "path": "server/productivity/insightRecord.ts",
+      "sha256": "cd0b59df06b73469efd346754c749784091f8b1256988a7a9b5ca0b262f819b8",
+      "gitBlob": "e592a7b678d5c05fffc8f6306a67385a8b7ce9f7"
+    },
+    {
+      "path": "server/productivity/insightRouter.ts",
+      "sha256": "a8e615a31be65dec3d044027cb491dbbd012fe9a27aadb0fb52a905d164b98e3",
+      "gitBlob": "ca71f4d6df9d05c28cf0fbd62bf85a98f65046ea"
+    },
+    {
+      "path": "server/productivity/insightSchema.ts",
+      "sha256": "75f517a4d3a8be0d2275b12e16a1086b6ff5b7ebb064c07d002eebe343cc56fd",
+      "gitBlob": "892498e01b8d1c6580af55892ab5fcd8cba12395"
+    },
+    {
+      "path": "server/productivity/insights.api.test.ts",
+      "sha256": "c65949fb53e035cb607cc41b8eadd2135a7640314762f4a981a91654e5b2a542",
+      "gitBlob": "5d59d2b0ee951792915758fe3016e92b567331ff"
+    },
+    {
+      "path": "server/productivity/insights.test.ts",
+      "sha256": "e968a2f4ddcfe7fa59bffa1ae12e9cc946d0e8153c542e63f1386bac4d6f8b94",
+      "gitBlob": "dabf77939847c525acb620a99db33962b2efe967"
+    },
+    {
+      "path": "server/productivity/insights.ts",
+      "sha256": "83815b99e79eb21d3f88ccf376ebd723d2c5c94d99196534437a62481dbe6af3",
+      "gitBlob": "f28d097d2327238276e3d3ae7ffc7f5e941eb701"
+    },
+    {
+      "path": "server/productivity/inspection.ts",
+      "sha256": "4f9d010492267c04e32b893b8679db221bb42bc6ab10deffe376545f613baadc",
+      "gitBlob": "251c0698c1c0b15ee537034b20ac453fe20270b7"
+    },
+    {
+      "path": "server/productivity/knownVersions.ts",
+      "sha256": "30d18ba0fafa7e53e50134022a47d347cc3032c29dfe0ef8673ed10f80948bb4",
+      "gitBlob": "52fff80e68cf5cb111eed4f8a632e35a3bc0d5de"
+    },
+    {
+      "path": "server/productivity/ports.ts",
+      "sha256": "c54d3d339a151bd98db22e78f3f91b464a2125128b2085bddfe8e2a8818cd9ed",
+      "gitBlob": "cf912972fd7057e26cb73144e27ed7749520fd76"
+    },
+    {
+      "path": "server/productivity/router.ts",
+      "sha256": "f4b5047f26b7e762e29b9078bb5f1a8f7c2482cd34f449032b8775de18b0c763",
+      "gitBlob": "73c64d7c05d6c782864e50f4ab3458f3ef63d727"
+    },
+    {
+      "path": "server/productivity/snapshot.ts",
+      "sha256": "b577b14d2032b6bf6cc21e453b3576ab559862beed11e8cd95ed5c0d4cae7b0d",
+      "gitBlob": "c914869497660a13e78dba8a21e2b35ef26a8c62"
+    },
+    {
+      "path": "server/productivity/store.ts",
+      "sha256": "d043370b046ae09e904172f677d7066614e819ac0be1640b7ab1e5f45390ec6f",
+      "gitBlob": "945e7832d8866d7f8bc41b374b084eb52e06ec5b"
+    },
+    {
+      "path": "server/productivity/structureSchema.ts",
+      "sha256": "c3cc45492ad1484f40fbf099a32aba9027a265243f36bf08c51b77eaf9f53156",
+      "gitBlob": "037fd1566dfa8ab186cc8937942df72270d86e9a"
+    },
+    {
+      "path": "server/runtime.ts",
+      "sha256": "8948bd8bea019e41090b41d4c714f20cd70b4354c8d98653e045ce098cea488e",
+      "gitBlob": "da98f971968eaeeafaaf235e8f0774b75075f044"
+    },
+    {
+      "path": "src/App.tsx",
+      "sha256": "7c2e83c88002e174bb342a01d35a56da8ba6633b10fb520d7f59c4fd841f5323",
+      "gitBlob": "50b2cced0407d3690a370249277d3b3c2a84c5d7"
+    },
+    {
+      "path": "src/components/Tasks.tsx",
+      "sha256": "480c8780ce7d991e0d23772e56b01717cf274f854f9f52c210fa9a84cb3c0a43",
+      "gitBlob": "aab489154d49b3ce7885097e48fb8f279cf6c944"
+    },
+    {
+      "path": "src/features/productivity/Review.tsx",
+      "sha256": "7975445354fdbc8b2cedcd5cb0899c0765b234d0acb1227c5f1e70f238957a65",
+      "gitBlob": "5350540df20cc912cd0aa15d35ee76fdd25fc4d5"
+    },
+    {
+      "path": "src/features/productivity/ReviewPlanning.tsx",
+      "sha256": "deb138454cd37ba25454661d130cee5221b2cd74b1671d7e2a582b09d0da3d58",
+      "gitBlob": "6476549f0011ace0f49abad19ff9a00fe850c98f"
+    },
+    {
+      "path": "src/features/productivity/api.ts",
+      "sha256": "61d84315a4adcce498b65c3a08cadd2143606a9dec38e450c9acfc796dad9bd3",
+      "gitBlob": "f44e3b5b15efb1e539dab70df5ef39deb217e038"
+    },
+    {
+      "path": "src/features/productivity/insightApi.test.ts",
+      "sha256": "a208ac9c5d75867d708bf0e0e112fa805935c8922d5385ffb1b5deae311e11d8",
+      "gitBlob": "f1050801fae0b3a4b07b8db5b968e3cc6009cb6c"
+    },
+    {
+      "path": "src/features/productivity/insightApi.ts",
+      "sha256": "36ac58c366ffeb58dfc14c666089f8490273a7b7ac30d467360f3dbd8528b7fc",
+      "gitBlob": "3e702e9f1f1f9d6885d1c7f08c1ce90b4092b228"
+    },
+    {
+      "path": "src/features/productivity/insightPolicy.test.ts",
+      "sha256": "07248653a453a804e960b77ff9a74cd2b50e2ccaf468f08e78d0cb03f7b019b2",
+      "gitBlob": "2bda190ef88747bdac8e4940426c499a238691d1"
+    },
+    {
+      "path": "src/features/productivity/insightPolicy.ts",
+      "sha256": "98c4188b86b79406554fcc8423ecd9ce819475e94609bd31ade9b87dac772c76",
+      "gitBlob": "bc29b6ca7d28f75caa1f993985da75aa123d7325"
+    },
+    {
+      "path": "src/features/productivity/insightWorkspace.test.ts",
+      "sha256": "a62b37e772973102570eaecb48a2dd1e5caf68490d85705f5f4b7547f72437a7",
+      "gitBlob": "7c02409d25f78975fe2acb867d495fb5955f6cbb"
+    },
+    {
+      "path": "src/features/productivity/insightWorkspace.ts",
+      "sha256": "00fdeaa5e15b8f8807abe56913ea4d4ceb34af7df634e1b98f852bcdec598ff9",
+      "gitBlob": "053431e853debcc68a8d2c49f8ea91965c677387"
+    },
+    {
+      "path": "src/features/productivity/matrix.test.ts",
+      "sha256": "f42fc46794549ca6805f383bcfc35ff5d52fe3009c153e0bcc5c5249d1a3eb9c",
+      "gitBlob": "8a3a3862449c140a4c9886046232ee90be0b4109"
+    },
+    {
+      "path": "src/features/productivity/matrix.ts",
+      "sha256": "50235e42ad001ebf7e455c710907db7a5f9edd9da3e80ddc1e68c3990ea23988",
+      "gitBlob": "b5d8e23bebc7cc90009635453dd1273be881ce57"
+    },
+    {
+      "path": "src/features/productivity/planningTimebox.test.ts",
+      "sha256": "9c0002072f781ba0cc53949319b0fec6432ae7af100561126c401d96f53e6baf",
+      "gitBlob": "d46d76b4577e8c1790e839887edc559e2e7292ed"
+    },
+    {
+      "path": "src/features/productivity/planningTimebox.ts",
+      "sha256": "47e373ded539013fa0c88b927ac3ba3d3de9236d9e69fe3ade660e350c207f51",
+      "gitBlob": "5e7a747a48037582fef33619655f1a12a3d89597"
+    },
+    {
+      "path": "src/features/productivity/useTasks.tsx",
+      "sha256": "de50b05c8e40631bdf3f31cb1d4f94b9eb5e1ee55f2c900a81262c18bfd7bbeb",
+      "gitBlob": "cc1431f985ae9cfb59bbce6f6d3d0b3101a9cac5"
+    },
+    {
+      "path": "src/i18n/locales/en.json",
+      "sha256": "e4d505cae2515545b623c8558b78272ecde57303bc29d26c0a5b8f3abb9c5957",
+      "gitBlob": "50aed4c2a03a71e8017575d0695752ce698b7906"
+    },
+    {
+      "path": "src/i18n/locales/vi.json",
+      "sha256": "b92dd79310c34dc67b08613353d171c32aa88378da2b66dc1656c8ac25285936",
+      "gitBlob": "867019f63b10b61b9358bc722ede1363708d2db6"
+    },
+    {
+      "path": "src/i18n/locales/zh.json",
+      "sha256": "7b7de6819367647e4aaea3147933dbe08e1b011d1c6533d76970a1218abe8b0a",
+      "gitBlob": "a6a688a057b5a0e480fce189f72483266ffc0d60"
+    },
+    {
+      "path": "tests/e2e/insights.spec.ts",
+      "sha256": "c091074e3e159a03458058df466c9f6a8196f41cb339b98cff3d308182abd88d",
+      "gitBlob": "c850f194da829ca1e43044f5532478c0f0452fc2"
+    },
+    {
+      "path": "tests/fixtures/insight-client.ts",
+      "sha256": "4bc1f71101d561d853ce49a373bb3ce7ff6c885cd1747670f822b9989437743b",
+      "gitBlob": "1ec3dd9ffb5a9eeefe45ba62abbee01b1dd19c16"
+    },
+    {
+      "path": "tests/productivity-insight-fixture.ts",
+      "sha256": "658599ca8e0f74d75fb641c3070a718325ae85d3737ae41cc8dba63c66d7f749",
+      "gitBlob": "4dafa2055d0480935a5547a2a12a6e549b6cb163"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-actor-binding-http.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-actor-binding-http.json.gz",
+      "sha256": "635a88d77f6434424d0459b46efc099f6ad068cc65ee721401344487b89d9530",
+      "sourceBytes": 3680
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-actor-binding-http.log.gz",
+      "sha256": "9d3100b88cd66a68e76a02f67305039dc952fee972f0e59556699938a1c69dec",
+      "sourceBytes": 824
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-approval-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-approval-functional.json.gz",
+      "sha256": "22d4534f40aaf8d44b338494dec9b64c14f8a15959373ffc3f028888c133cc8c",
+      "sourceBytes": 9391
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-approval-functional.log.gz",
+      "sha256": "3aeb00b0bcf4eb7e37e095f3d3d51007d19a4501068db3bd6f4d1988de7153a6",
+      "sourceBytes": 1775
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-backend-commit.log.gz",
+      "sha256": "0830b0abb6713f5e8a53193926306998bc89d9f66205e34a3f717bee6d4f14eb",
+      "sourceBytes": 962
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-backend-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-backend-final.json.gz",
+      "sha256": "c723ab90a1fe461d8bc54cdb9e4e656e79ba7001b8f439d9fe29315b7cc7036d",
+      "sourceBytes": 27379
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-backend-final.log.gz",
+      "sha256": "25237a6f84051254e537b37d7735cb9374c93f86de359416361f96cc20c615f4",
+      "sourceBytes": 4112
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-backend-qualified.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-backend-qualified.json.gz",
+      "sha256": "e515f74082d6c868dfc8cf8840400a32c0e87f2ad48945692a7b7ebfac19c967",
+      "sourceBytes": 27046
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-backend-qualified.log.gz",
+      "sha256": "da3487fd3e2cc1cc283dcf7c5ca9cd3c9239b6dacd2fe2b582fc549db7ff9228",
+      "sourceBytes": 4119
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-browser-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-browser-first.log.gz",
+      "sha256": "28880585472be15e49d457c26627ebec5b097126db43701aff0a19f27ece2194",
+      "sourceBytes": 6951
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-browser-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-browser-second.log.gz",
+      "sha256": "89a572e448fa1ebee12409bcf8040a6e5842f937b105aaaebd36f5afa0445ed3",
+      "sourceBytes": 1011
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-client-core-commit.log.gz",
+      "sha256": "86577c197937032c758c526274800ae765af9a31451ef104f88c9f634b9b5da2",
+      "sourceBytes": 487
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-client-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-client-functional.json.gz",
+      "sha256": "a0cc83df31757def97732492e5981d3323ae6f1c1be08042fbb13843354ed755",
+      "sourceBytes": 8599
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-client-functional.log.gz",
+      "sha256": "8cad583f956c0cb00413ec7cf9224540a1c475abc3688be4a6e7c9cb44e46462",
+      "sourceBytes": 795
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-events-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-events-first.json.gz",
+      "sha256": "a3ca6a1c9af53d7958e2996855524eaad234c2e1710a5e2c0ddd5ec750802d10",
+      "sourceBytes": 7497
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-events-first.log.gz",
+      "sha256": "273f3f73af4389a1121e92b71f49ce7bdbe9b920e5d1dac1aebeaf9336b5513b",
+      "sourceBytes": 3218
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-events-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-events-second.json.gz",
+      "sha256": "3eaa72729dbbdec64bc774f2dea4e09ab76206341f9b6682168b0b8a967e5b08",
+      "sourceBytes": 5870
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-events-second.log.gz",
+      "sha256": "33f443f59eb27228f75c3fcbd27a5975c1e45aa58ff98ffd52446406cc9e5a12",
+      "sourceBytes": 957
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-functional.json.gz",
+      "sha256": "bbb4bc3a18553cf68fee60e280220cf411143ab281b13b07ba16efdbd284c8ea",
+      "sourceBytes": 29230
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-functional.junit.xml.gz",
+      "sha256": "f482291c6fcda50d9651dcb8a159ba364034b945c9ba0ec71663bcde77a8c1f0",
+      "sourceBytes": 19805
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-functional.log.gz",
+      "sha256": "fb4b541be2b9e78c622cf83628866321f235f67de5ea74699cba1111e6f78e3d",
+      "sourceBytes": 3184
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-http-and-recovery-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-http-and-recovery-first.json.gz",
+      "sha256": "3ac5f23ab6317d5f7dcc565e7890bae019149084a61853ffa4463612272dcdaa",
+      "sourceBytes": 4552
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-http-and-recovery-first.log.gz",
+      "sha256": "c27effbf97ccdf4c14f5b35b2650cdb7af54295fc134f0de543f23d7b6a715a3",
+      "sourceBytes": 1664
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-import-undo-fixed.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-import-undo-fixed.json.gz",
+      "sha256": "345ee927e6fe33e22d97462be61c0887967612e848b25cbb84cb596ecf6021cf",
+      "sourceBytes": 8499
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-import-undo-fixed.log.gz",
+      "sha256": "2c5aeaa8a20212d0941dc7c536c0b274131534b739f96b088cf1316017f923a3",
+      "sourceBytes": 4419
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-import-undo-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-import-undo-red.json.gz",
+      "sha256": "833a39730d08aca569c22c10ed26cdb02fa7c0178f781938176c24c91c20e15d",
+      "sourceBytes": 2088
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-import-undo-red.log.gz",
+      "sha256": "486112cd147e5f9ecee8b98dc0b2d2571bd2015a2e7c1f168fadc7dc72120191",
+      "sourceBytes": 1798
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-first.json.gz",
+      "sha256": "3b01a101f93ddf087ed614144b20cb13aa28a8379815dec64a24a9fe4726e56d",
+      "sourceBytes": 9748
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-first.log.gz",
+      "sha256": "cd75c8138c93575124c5234e168e2a83bd524c825b4f638cf25a198412b4146e",
+      "sourceBytes": 5187
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-second.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-second.json.gz",
+      "sha256": "879204842dd1a41771d69cef994e049dc144fd289eb8ea2681cac2f8a5a10047",
+      "sourceBytes": 14806
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-second.log.gz",
+      "sha256": "5512a2bc712da142a433bd003049e73e6da45e1640c1eaca9c782af8f1b0a513",
+      "sourceBytes": 4281
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-third.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-third.json.gz",
+      "sha256": "553b4d844f1c2d0287169a8b84b3349b16920ac52ceb8dedf52a787b6b60760e",
+      "sourceBytes": 9112
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-insights-native-third.log.gz",
+      "sha256": "56059e98882b8250e47349095d5b4e531c67a0aac872eed19880c62d42ca037a",
+      "sourceBytes": 1340
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-final.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-fixed.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-qualified.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-qualified.log.gz",
+      "sha256": "76c0a759ae10b5948138fef3764390cbb695f5850c69d54ff7100845ca014057",
+      "sourceBytes": 189
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-status.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-backend-status.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-events-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-events-first.log.gz",
+      "sha256": "d36f000a3333844c0ae83879653029777adda74a17bf1adb0cb66643e99e34f2",
+      "sourceBytes": 169
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-native-first.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-sdk-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-sdk-first.log.gz",
+      "sha256": "f4e9e5a935dea7195119fe06c4ba48974cef8484fe9344ee7eac93c4c09b3b48",
+      "sourceBytes": 284
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-sdk-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-sdk-fixed.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-ui-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-ui-first.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-wired.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-wired.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-workspace-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-lint-workspace-first.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-migration-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-migration-first.json.gz",
+      "sha256": "2e47349aed2f67ed5a563a5105dcd42ee018ef291c3f8dca2fe3c80955ab8529",
+      "sourceBytes": 1964
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-migration-first.log.gz",
+      "sha256": "6b28fec2f26682c0762d7839445362cf9ee968d06ae3306f054648b104917a96",
+      "sourceBytes": 838
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-native-core-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-native-core-functional.json.gz",
+      "sha256": "2904b9dfd9ceb62f226a7a9b1a26958b84916c4a5f06a410d149c89d0e4a4bf3",
+      "sourceBytes": 20062
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-native-core-functional.log.gz",
+      "sha256": "d0ff8eef36618e5b6d9cb257853f5640a41ddc3ed12cae17f474410c32b76163",
+      "sourceBytes": 2643
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-parent-calendar.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-parent-calendar.log.gz",
+      "sha256": "944a38abf41169f8542fc94481505ec6dc77555dcff904d18eddada22400dd4b",
+      "sourceBytes": 940
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-policy-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-policy-first.json.gz",
+      "sha256": "4f29266a42f7cbff20fe93bc2a5925e3a7454a5a444d15e73671a92dc2fe404e",
+      "sourceBytes": 3524
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-policy-first.log.gz",
+      "sha256": "892a92417bbda7da0180663313c6c930200d236f5a39933d8ff581bacdea17ea",
+      "sourceBytes": 542
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-policy-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-policy-red.json.gz",
+      "sha256": "0a1b3903420cb130b47fab0ce6052b0e46a012cdabdd96597124b26525a6a1d8",
+      "sourceBytes": 801
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-policy-red.log.gz",
+      "sha256": "4170387e7b42cf5fad31f1931304116e9b10a84b658a0503d2bf5c15ed5294e0",
+      "sourceBytes": 971
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-review-start-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-review-start-red.json.gz",
+      "sha256": "f8454c7b6112c724e20e43b61ae11fb93dc4355a94d912a969c3d0150db27fe1",
+      "sourceBytes": 7140
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-review-start-red.log.gz",
+      "sha256": "d3e86024071e1d5b612428b42b95b9e3e97b8e6ef153452b19c3ac780cc2da7a",
+      "sourceBytes": 3207
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-sdk-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-sdk-first.json.gz",
+      "sha256": "10c70c8f5a7e4c3fab0e988252840eabdc903650ee5a7e682888b2493ec5921c",
+      "sourceBytes": 4323
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-sdk-first.log.gz",
+      "sha256": "53c7272d9828bb936dd11603839b09cbd7eeacbf416dc6f6239d397e0e470dca",
+      "sourceBytes": 535
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-sdk-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-sdk-red.json.gz",
+      "sha256": "9c75892422be02232620c1043d4bfca3df0d496d494e456e250e07258180726f",
+      "sourceBytes": 14927
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-sdk-red.log.gz",
+      "sha256": "ab42675ca80c01940c5220589a95ccd495d01db0d453d25592ae776a46d7f85d",
+      "sourceBytes": 4651
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-snapshot-membership-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-snapshot-membership-fixed.json.gz",
+      "sha256": "97854ab122abbc08330f872850d62f486c71927c4e01c430b464569c0c717c3a",
+      "sourceBytes": 8006
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-snapshot-membership-fixed.log.gz",
+      "sha256": "9a2ba8cd01863e7ff6ad6eaa03c26c359e2d6b39ffd772850b3a4967ffb64493",
+      "sourceBytes": 1626
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-snapshot-membership-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-snapshot-membership-red.json.gz",
+      "sha256": "af40c0fae4bf0da641af095d9d1fcb4f0702eb8d9be7eca1ae9c1b5d7dd5e7d7",
+      "sourceBytes": 4996
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-snapshot-membership-red.log.gz",
+      "sha256": "664f7e430682fce26fb154af1a4592e6794854e437f62368390b07a7be0e2cbc",
+      "sourceBytes": 2464
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-ui-browser-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-ui-browser-lint.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "sourceBytes": 44
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-ui-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-ui-build-first.log.gz",
+      "sha256": "39deb3e3fd5953ea96a39921f86cee344a2d020ae49e44f9b88868de8de9d3ae",
+      "sourceBytes": 2084
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-ui-source.sha.gz",
+      "sha256": "951f8f1dc2f78745d5ab1ac865e2c2f8137c325dc53a4e18afb898d795cd36a2",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-workspace-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-workspace-first.json.gz",
+      "sha256": "1b52c7ffe604ebb9b50160e94558ff46c20fb3eabfba20d0dcd08bf684c43733",
+      "sourceBytes": 7380
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-workspace-first.log.gz",
+      "sha256": "20159f801b2ef86b2c580330ffe541382e74635e05966ba219f45f456a6c79d3",
+      "sourceBytes": 670
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-workspace-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-workspace-red.json.gz",
+      "sha256": "5afe67b904b3648df4997dd8506abc5aa9d802a0b306023e78208aad803ce803",
+      "sourceBytes": 4655
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/p16-workspace-red.log.gz",
+      "sha256": "f74662cffc60c5d19bdadc009d45d0b2e13a1de56ad8388b4ca77d10b82200d1",
+      "sourceBytes": 1131
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/browser.junit.xml.gz",
+      "sha256": "b2cde038f796c7fc62094c171cfc5d7cc8f9136ec457a9e5ee4e5f563f255c9b",
+      "sourceBytes": 1082
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/review-editor-390-dark.png",
+      "sha256": "8e7a5a3dacdc198bf51a1867a7c5d8d1ca2468c7b20475117ff5d7fa024ee817",
+      "sourceBytes": 103623
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/run.log.gz",
+      "sha256": "89a572e448fa1ebee12409bcf8040a6e5842f937b105aaaebd36f5afa0445ed3",
+      "sourceBytes": 1011
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/fixture.json.gz",
+      "sha256": "1bbb5e4755f2106f9dce2e157befd2393643a20fcc235cb18b7c095e03748f1c",
+      "sourceBytes": 2379
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/browser.json.gz",
+      "sha256": "60bc9b5c90ee33c337af81928a01a2bbe028beb3c2fdf63fd4d8d78986fe40b5",
+      "sourceBytes": 8877
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/server.log.gz",
+      "sha256": "c37731ec1b6ba6b18600ba7a0f2cb946ba44008469bba2bb761ddbaff534c55e",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/insights-390-light.png",
+      "sha256": "c706ebf2b4f8d815298044bca513936d9f4770f4b741ff055b2f959e9a1330ed",
+      "sourceBytes": 109300
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/insights-390-dark.png",
+      "sha256": "bfe8fda26c8687924d5e4a812b14aba5536af47c18114a1d184f6c0ac66576a5",
+      "sourceBytes": 110684
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/review-editor-390-light.png",
+      "sha256": "084f253522669897c8aa74f3c781c7007394fcfad9f4f9ba99278711b55625e8",
+      "sourceBytes": 103478
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-insights/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/browser.junit.xml.gz",
+      "sha256": "263cf3b6bf338d72847b01446b6384ae7bb70754da64f7d83d47095c4d844fd6",
+      "sourceBytes": 1011
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/calendar-390-dark.png",
+      "sha256": "431dd105e20a14111f15b097031c519c8bafd7f841b2c9534a0a5900505dfe07",
+      "sourceBytes": 80891
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/calendar-390-light.png",
+      "sha256": "ca8b9882f314d7e8d6b2d1fe572df4986149c63205eecf6f710cbdc7d52b7438",
+      "sourceBytes": 79351
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/run.log.gz",
+      "sha256": "944a38abf41169f8542fc94481505ec6dc77555dcff904d18eddada22400dd4b",
+      "sourceBytes": 940
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/fixture.json.gz",
+      "sha256": "2ce0c9383f70f3fbc072c435e4a3fe8d24fb598557d8e85682c1784d8a84c5d2",
+      "sourceBytes": 1017
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/browser.json.gz",
+      "sha256": "8a4804265c30de3b10240a2f17b274ac4c9a04dcc39b8b0ae4ea62c5d6752035",
+      "sourceBytes": 8806
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/server.log.gz",
+      "sha256": "399d7ca7a6d33086b138f3579dc14250bb4dca2ee472a97fb21793c1dec7fc68",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/browser-calendar/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/browser.junit.xml.gz",
+      "sha256": "717961122e35c6b73573c1dc045673d4b428ec0f1f82915cdf0870d82fae2412",
+      "sourceBytes": 7205
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/review-editor-390-dark.png",
+      "sha256": "b5671fb6c4008f42a9c77a5965d4b2e41e1202288d89a5be00c59ae39f4e6037",
+      "sourceBytes": 103475
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/run.log.gz",
+      "sha256": "257ce99f5fdde06f3bc5983470252dd7ba3f2277152f4d7dfa00c68b381166cd",
+      "sourceBytes": 6903
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/fixture.json.gz",
+      "sha256": "29022c37ed189f36c571c97a6a8259dbc9c84de6350b320b848727234a17e03e",
+      "sourceBytes": 2427
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/browser.json.gz",
+      "sha256": "6e7d0e07ae66e3f45c258b0c136bb19aa24e8217b23bae7890a57fe9351a687e",
+      "sourceBytes": 18565
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/server.log.gz",
+      "sha256": "b6a023a2533b9f39b9aeec6eec71d74eaf74c0d379859d174684c98cd6db2abd",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/insights-390-light.png",
+      "sha256": "0ba69ee391507a4762f97fd26ac6cbe443748b80f76f0567d4e16911126546be",
+      "sourceBytes": 109495
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/insights-390-dark.png",
+      "sha256": "25faaf392e20d0d94f7a2247e996465e974e6512247a891fd1e6dfc8258b5e8c",
+      "sourceBytes": 110737
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/review-editor-390-light.png",
+      "sha256": "a4730567609a0844c76fe9f4cd3299a4084e9e2222cb33bbbd6c8a03d5a30ddc",
+      "sourceBytes": 103227
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/results/.last-run.json.gz",
+      "sha256": "461f049cda07908526cf3010ac864e7ef79c6a303660ba5fd4235ab5b8eca9ab",
+      "sourceBytes": 96
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/results/insights-P16-review-lost-a-9f5e8-en-commits-exactly-one-note-chromium/error-context.md.gz",
+      "sha256": "30d4448b0a231c95819271e3ee46b95647584ff85a0db839864a8ffbd9f2f89d",
+      "sourceBytes": 13174
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/results/insights-P16-review-lost-a-9f5e8-en-commits-exactly-one-note-chromium/video.webm",
+      "sha256": "3c709ded582fec2197a73b8372096f5f9858cc6375217b43c66f88a069f46f24",
+      "sourceBytes": 781205
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/results/insights-P16-review-lost-a-9f5e8-en-commits-exactly-one-note-chromium/test-failed-1.png",
+      "sha256": "8442f291f985cc9ed66ce4b68cb288763510f290e11a19f60d81566540323afb",
+      "sourceBytes": 179359
+    },
+    {
+      "path": "docs/engineering/evidence/p16-insights/first-browser-failure/results/insights-P16-review-lost-a-9f5e8-en-commits-exactly-one-note-chromium/trace.zip",
+      "sha256": "752f6aeb9023b8eec3b8e1556fd366dd7d06596535f5d10f331aed630f86a458",
+      "sourceBytes": 6246285
+    }
+  ]
+}
