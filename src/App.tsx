@@ -1,3 +1,4 @@
+import {FocusWidget} from './features/productivity/Focus.js';
 import {TaskProvider} from './features/productivity/useTasks.js';
 import {useWallet} from './features/wallet/useWallet.js';
 import type {TagLabel} from './utils/taskTagLabels.js';
@@ -318,6 +319,7 @@ export default function App() {
   const [isOnline, setIsOnline] = useState(true);
   const [productivityRefreshEpoch,setProductivityRefreshEpoch]=useState(0);
   const [productivityQueryEpoch,setProductivityQueryEpoch]=useState(0);
+  const [productivityFocusEpoch,setProductivityFocusEpoch]=useState(0);
   const [productivityAvailable,setProductivityAvailable]=useState<boolean|undefined>(undefined);
 
   // PWA: network status, install prompt, and pending service-worker update
@@ -799,6 +801,7 @@ export default function App() {
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
       setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();void walletWorkspace.refresh();fetchAllData();}opened=true;}
     },onMessage:payload=>{
+        if(payload.type==='PRODUCTIVITY_FOCUS_UPDATE')setProductivityFocusEpoch(value=>value+1);
         if(['PRODUCTIVITY_VIEW_UPDATE','PLANS_UPDATE'].includes(payload.type))setProductivityQueryEpoch(value=>value+1);
         if(["TASKS_UPDATE","PRODUCTIVITY_CATALOG_UPDATE","PRODUCTIVITY_PIN_UPDATE","PRODUCTIVITY_SETTINGS_UPDATE","RESTORE_COMPLETED","USERS_UPDATE"].includes(payload.type))setProductivityRefreshEpoch(value=>value+1);
         invalidateManagedMedia();
@@ -1693,7 +1696,7 @@ export default function App() {
   ];
 
   return (
-    <TaskProvider key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} available={productivityAvailable} notes={notes} onOpenNote={handleViewNote} onOpenTasks={()=>setActiveTab("tasks")}>
+    <TaskProvider key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} focusEpoch={productivityFocusEpoch} available={productivityAvailable} notes={notes} onOpenNote={handleViewNote} onOpenTasks={()=>setActiveTab("tasks")}>
     <FabProvider>
     <div className="h-screen overflow-hidden bg-slate-950 flex text-slate-200 selection:bg-sky-200 selection:text-sky-700 font-sans relative">
 
@@ -1931,6 +1934,7 @@ export default function App() {
 
         {/* WORKSPACE VIEW CONTAINER */}
         <main className="min-h-0 flex-1 px-5 md:px-6 pt-5 md:pt-6 overflow-y-auto scrollbar-thin">
+          <FocusWidget/>
           <AnimatePresence mode="wait">
             {/*
               Bottom padding lives on the (overflowing) content, not <main>:

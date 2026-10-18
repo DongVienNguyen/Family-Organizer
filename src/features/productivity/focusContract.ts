@@ -11,3 +11,8 @@ export function focusPreferences(raw:unknown):FocusPreferences {const value=obje
  * discard time. Wall-clock rollback adds zero and a late wake never exceeds the
  * phase/24h cap. The UI uses server time and refreshes its offset after wake. */
 export function focusActiveMilliseconds(row:{status:FocusStatus;activeMilliseconds:number;plannedSeconds:number;runStartedAt:string|null},nowUtc:string):number {integer(row.activeMilliseconds,0,86400000);integer(row.plannedSeconds,1,86400);if(row.activeMilliseconds>row.plannedSeconds*1000)throw Error('Invalid Focus active time');const now=utcInstant(nowUtc);if(row.status==='running'){if(row.runStartedAt===null)throw Error('Running Focus needs a segment');return Math.min(row.plannedSeconds*1000,row.activeMilliseconds+Math.max(0,now-utcInstant(row.runStartedAt)));}return row.activeMilliseconds;}
+export interface FocusManual {targetType:FocusTargetType;targetId:string|null;seconds:number;note?:string}
+export interface FocusState {active:FocusSession|null;settings:FocusSettings;serverNowUtc:string}
+export type FocusAction='pause'|'resume'|'finish'|'extend'|'note'|'duration';
+export interface FocusAuditValue {revision:number;status:FocusStatus;plannedSeconds:number;activeMilliseconds:number;overrideSeconds:number|null;note:string;estimateSeconds:number|null}
+export interface FocusHistory {id:string;items:{id:string;action:'start'|'manual'|'pause'|'resume'|'finish'|'auto_finish'|'extend'|'note'|'edit_duration'|'restore_pause';before:FocusAuditValue|null;after:FocusAuditValue;reason:string;createdAt:string}[]}
