@@ -2,6 +2,30 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**2026-10-18 continuation — W08 core:** source `6260203a3efaf82e5515add31099e03baed37c34` adds shared report
+metrics4/groups5/buckets4, exact split/unique label totals, separate ledger balances,
+current partial-transfer ACL and exact per-point/aggregate drilldowns. Explicit8/
+standalone9 adds immutable public reference FX; Admin refresh is outside network
+transaction, fresh-role/I01 guarded, same-key replay, native rollback and preserves
+nonempty historical quotes. Accepted1-7 DDL unchanged; Wallet off/no auto-upgrade.
+Analytics has four tabs/three SVG kinds/exact table, vi/en/zh, generation/SSE privacy
+and retained unknown refresh date/key. [Details](wallet-reports.md).
+
+Cloud7645/422files/matchingJUnit/0failed-skipped-todo,
+all7580parent+65 retained; lint/build0. Final Chromium34/34,
+all31parent+3, offline/native/integrityOK/legacy retained/normal stop/closed handles/
+matchingbuild. Intermediate34 passed before final source changes, retained with
+source manifest; final rebuild34 validates frozen source. Author37path inspection
+only. [Proof](evidence/w08-reports-development.json),
+[JUnit](evidence/w08-reports-cloud.junit.xml.gz),
+[full log](evidence/w08-reports-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W09 dashboard/preferences, W10-18/remaining M1/I02/I03/master and protected
+restore/remediation/raw legacy backup/bridge/cutover/retention; final independent
+review/batched Windows. No release/tag/VPS. Full plan incomplete.
+
 **Latest continuation — W07 core templates:** source `212e1a3d016e4525d1b12b5c0d63c2c848068ba0` adds personal
 create/edit/archive/restore and readonly instantiation, owner-only HTTP/SDK/UI,
 exact labels/splits/defaults and same-key unknown retry. Templates never post;
