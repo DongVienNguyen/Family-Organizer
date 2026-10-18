@@ -2,6 +2,13 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P13 Notes identity prerequisite:** source `051955d7a21a3f7e603d03f0b92bbbedd2c0d5d0`
+replaces millisecond-only new Note IDs with UUIDs, preserving `note_` and all
+existing IDs. Actual native same-millisecond UNIQUE failure retained;175focused
+cases/6files and lint0. [Proof](evidence/p13-note-identity.json). Full/snapshot-specific/
+Windows checks not claimed; PR/CI URLs:none. Continue canonical Notes conversion
+and typed links, files/import/export; whole P13/master remain incomplete.
+
 **P13 templates functional slice:** source `3ee1d5d3c914d005abffe7699917228e4e81e018` adds owner-scoped
 explicit15 content templates, fresh unfinished Task/checklist instantiation,
 current source/destination ACL, trusted media inheritance, summary-only lists

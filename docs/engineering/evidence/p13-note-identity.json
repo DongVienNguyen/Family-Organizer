@@ -1,0 +1,62 @@
+{
+  "taskId": "P13 canonical Note identity prerequisite",
+  "sourceCommit": "051955d7a21a3f7e603d03f0b92bbbedd2c0d5d0",
+  "actualBaselineFailure": "UNIQUE constraint failed: notes.id when two creations share Date.now()",
+  "fix": "Existing note_ prefix with crypto.randomUUID(); existing IDs unchanged",
+  "focused": {
+    "passed": 175,
+    "files": 6,
+    "failures": 0,
+    "skips": 0,
+    "lintExit": 0
+  },
+  "notRun": [
+    "full suite for this source",
+    "snapshot-specific test file (requested nonexistent server/snapshot.test.ts was not selected)",
+    "Windows for this source"
+  ],
+  "prUrl": null,
+  "ciRunUrl": null,
+  "artifacts": [
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-fixed.json.gz",
+      "sha256": "b6800c2cb58708fe9d73382ba0676b2ed5e74789ece803053cf98cedda500b4c"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-fixed.log.gz",
+      "sha256": "d87a7459bb8b1a41b2812af34a68be543a79ea79edc5c02ac490e600789e9af0"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-fixed.xml.gz",
+      "sha256": "5514b6e7f82c8ad9a1164f359c19c787479711ced441351cc2c8d3c9fcdb8ec4"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-red.json.gz",
+      "sha256": "3dc1dc74511f961b052922ec8640f6d9c16c916688120a839ed9352fb0bc1de3"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-red.log.gz",
+      "sha256": "ac041ad3bc73968758aa5b5780ad34f71fb5d01f625d075135f01345291c3319"
+    },
+    {
+      "path": "docs/engineering/evidence/p13-note-identity/p13-note-identity-red.xml.gz",
+      "sha256": "2abe8e57752e1bca17ebeb155ec5374d950d3bb61d40147b07bb14151b460555"
+    }
+  ]
+}
