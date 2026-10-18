@@ -2,6 +2,21 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**W15 core (2026-10-18):** source `14a25866ed9c2699ef25338dfb4de41528a11cf0` adds exact atomic
+investment cash/cost, deterministic edits/voids, source-preserving manual and
+injected quotes, source-fenced growth, strict SDK and portfolio UI.
+Explicit storage15/standalone16; accepted1–14 unchanged, no automatic activation.
+Cloud 8350/484 JSON/JUnit, zero failures/skips/todo;
+all8252 W14 parents +98 retained (four I02 privacy +W15 cases),
+lint/build0. Focused Chromium4/4 offline/closed/cleaned/source-build-bound;
+whole Wallet56 parent browser cases and Windows deferred to final integration.
+[Details](wallet-investments.md), [proof](evidence/w15-portfolio-development.json).
+W15 partial: legacy Asset binding/unified net worth still I02/W18 gate;
+corporate actions unsupported and no production market provider selected.
+Author inspection only; PR URL/CI run URL:none, backup branch only.
+Next W16 settings/device privacy then remaining W/P/I, one final Windows batch.
+Server2019 R02 unrun; no release/tag/VPS.
+
 **I02 privacy subset (2026-10-18):** source `f2b72867afde4b3d3739b522329c2f0694fd7bd3` fixes a
 reproduced personal SavingsGoal name leak in Admin activity. New logs carry a
 current goal source; another Admin, a deleted source or revoked sharing cannot
