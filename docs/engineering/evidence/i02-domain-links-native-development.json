@@ -1,0 +1,144 @@
+{
+  "task": "I02",
+  "sourceSha": "c335687da8f3cca57ae5010d0c85f0f6991fe2fa",
+  "scope": "Native typed object link core only, not complete I02",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "tests": 23,
+  "files": 5,
+  "failed": 0,
+  "skipped": 0,
+  "todo": 0,
+  "lintExit": 0,
+  "storage": {
+    "explicitProductivityVersion": 24,
+    "frozenThrough": 23,
+    "defaultVersion": 6,
+    "packageCapsUnchanged": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-domain-contracts-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-domain-contracts-first.json.gz",
+      "sha256": "b2692f721488995117df3650c2c4346a1a32da0fa8fea4e64f2c586c6bc32ec5"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-domain-contracts-first.log.gz",
+      "sha256": "caf085ecbeb1f307aa1bf643cef6f2b92474bda7cca35c0012c74da6a9ea0c06"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-domain-contracts-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-domain-contracts-red.json.gz",
+      "sha256": "b0cbb51d103ca9ff391280bc7208b71be9c9bdbf41981fa25d273a56374f7bab"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-domain-contracts-red.log.gz",
+      "sha256": "ad9ead011a4d979661faa422b5c5d0494592540bd4580e68317bb0fdeb37beed"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-native-first.json.gz",
+      "sha256": "404d4ef2c6f6e1ebe3038f19e9df43aa937b9fd68b39ca491afb71ab24da7721"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-native-first.junit.xml.gz",
+      "sha256": "d5ba3ba20ec3170ea06ea98f7d3abd7ea8ce19314ad086ce4a64b0a8520e09ba"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-native-first.log.gz",
+      "sha256": "f9f4cba4ba97fdac9f4c63b87fb87883a6b6ef30fe1a74ad06af4f54d013a04d"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-native-red.json.gz",
+      "sha256": "6c844b2a85eca759f0b565fa4ba1983e7377d40ba2bf143f81b9c03970ed3932"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-native-red.log.gz",
+      "sha256": "9ab1b69000569ce4892589ce1d60be06513a94074553106a10e0d45f6f6be008"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-recovery-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-recovery-first.json.gz",
+      "sha256": "f77873a39b4559f98152001210a870f610ae9fc66f5afefa336cef2391f522e4"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-recovery-first.junit.xml.gz",
+      "sha256": "4c7c5adfd6dd4550a8e8bfa1845f8446883e31d0e69a71827d4a66dcc33664a6"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-recovery-first.log.gz",
+      "sha256": "94a9349964847845885f91370238346ed0fcee2377e351e7b4c6ee6de51b36a0"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-source-commit.log.gz",
+      "sha256": "8c0b0451fd35f063754a26893c91d64fa6bf8bb370678c6ef89dfcd58f3b079b"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-links-source.sha.gz",
+      "sha256": "57646569c5bec3adabfe757c02618679bbaef5fdf3ed44f7f726d86f22d7bd91"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-native-first.json.gz",
+      "sha256": "0d66f2d425861657f06f4b1febd6695e43aa19792f2adb31e1166304bdf343c5"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-native-first.log.gz",
+      "sha256": "2032bc1a2730fff1d4fda6e1565aed23aff780f487a32b39032d5c7ed4954f6f"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-native-red.json.gz",
+      "sha256": "b9bb53cbfa172bb0fc38edc5ad6f9dc7cec74316b3281388ad9485a3a30e9be9"
+    },
+    {
+      "path": "docs/engineering/evidence/i02-domain-links-native/i02-resolver-native-red.log.gz",
+      "sha256": "e48df37df8582f231e518c364be64b478381fa2f8825d3ab39590e5fcd49395e"
+    }
+  ],
+  "pending": [
+    "Actual atomic Task payment coordinator and API/SDK/UI",
+    "Typed family overview/Dashboard/Calendar/search integration",
+    "Full composed suite/build/browser/Windows qualification",
+    "Wallet Asset/networth/legacy bridge/W18/P18/M1/I03",
+    "Independent review; Server2019 R02 separate/unrun; no release/tag/VPS"
+  ]
+}
