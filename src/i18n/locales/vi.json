@@ -3539,5 +3539,21 @@
       "goal": "Mục tiêu tiết kiệm",
       "receipt": "Hóa đơn"
     }
+  },
+  "familyOverview": {
+    "title": "Tổng quan công việc gia đình",
+    "calendar": "Hạn tài chính trong lịch",
+    "active": "Công việc đang mở",
+    "myTasks": "Được giao cho tôi",
+    "q2": "Quan trọng · chưa gấp (Q2)",
+    "waitingReview": "Chờ duyệt",
+    "openTasks": "Mở List · Kanban · Matrix",
+    "rootPolicy": "Đếm công việc gốc trong quyền hiện tại; công việc con không được cộng hai lần. Q2 dùng quy tắc quan trọng/hạn chót mặc định.",
+    "due": "Hạn Wallet trong khoảng đã chọn",
+    "readOnly": "Chỉ xem lịch gốc; không tự tạo công việc hoặc ghi tiền.",
+    "overdue": "Đã qua ngày dự kiến · chưa xác nhận",
+    "empty": "Không có hạn tài chính được phép xem trong khoảng này.",
+    "failed": "Không tải được tổng quan. Hãy tải lại để kiểm quyền hiện tại.",
+    "linkedSources": "Nguồn đã liên kết"
   }
 }

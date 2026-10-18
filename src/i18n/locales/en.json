@@ -3540,5 +3540,21 @@
       "goal": "Savings goal",
       "receipt": "Receipt"
     }
+  },
+  "familyOverview": {
+    "title": "Household work overview",
+    "calendar": "Financial dates in calendar",
+    "active": "Open root Tasks",
+    "myTasks": "Assigned to me",
+    "q2": "Important · not urgent (Q2)",
+    "waitingReview": "Waiting for review",
+    "openTasks": "Open List · Kanban · Matrix",
+    "rootPolicy": "Counts use currently authorized root Tasks, without counting subtasks twice. Q2 uses the default importance/deadline policy.",
+    "due": "Wallet dates in the selected range",
+    "readOnly": "Read-only source schedule; no automatic Task or payment.",
+    "overdue": "Past planned date · unconfirmed",
+    "empty": "No authorized financial dates in this range.",
+    "failed": "Could not load overview. Refresh to check current access.",
+    "linkedSources": "Linked sources"
   }
 }

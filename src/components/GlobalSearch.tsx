@@ -1,3 +1,4 @@
+import type {DomainRef} from '../features/shared/domainLinks.js';
 import {openCanonicalTask} from '../features/productivity/openTask.js';
 import {useTasks} from '../features/productivity/useTasks.js';
 import {searchWithCanonicalTasks} from '../features/productivity/globalTaskSearch.js';
@@ -19,7 +20,8 @@ import { useModalA11y } from "../hooks/useModalA11y.js";
 import { useTranslation } from "react-i18next";
 
 interface SearchResultItem {
-  kind: "task" | "plan" | "note" | "transaction" | "document";
+  kind: "task" | "plan" | "note" | "transaction" | "document" | "familyLink";
+  domainRef?:DomainRef;
   id: string;
   title: string;
   snippet: string;
@@ -27,7 +29,7 @@ interface SearchResultItem {
   tab: string;
 }
 
-const KIND_ORDER: SearchResultItem["kind"][] = ["task", "plan", "note", "transaction", "document"];
+const KIND_ORDER: SearchResultItem["kind"][] = ["task", "plan", "note", "transaction", "document", "familyLink"];
 
 // "2026-07-18 09:30" / "2026-07-18T..." → "18/07/2026"
 function fmtDate(raw: string): string {
@@ -42,10 +44,12 @@ interface GlobalSearchProps {
 
 export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNavigate }) => {
   const { t } = useTranslation(),tasks=useTasks(),requestEpoch=useRef(0),pickEpoch=useRef(0);
-  useEffect(()=>()=>{pickEpoch.current++;},[tasks.api]);
+  useEffect(()=>{requestEpoch.current++;pickEpoch.current++;abortRef.current?.abort();setResults([]);return()=>{pickEpoch.current++;};},[tasks.api,tasks.familyEpoch,tasks.queryEpoch]);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResultItem[]>([]);
+  const [resultAuthority,setResultAuthority]=useState(''),authority=JSON.stringify([tasks.actor.userId,tasks.actor.role,tasks.familyEpoch,tasks.queryEpoch,tasks.loading]),currentAuthority=useRef(authority);currentAuthority.current=authority;
+  const visibleResults=resultAuthority===authority?results:[];
   const [loading, setLoading] = useState(false);
   const [opening,setOpening]=useState(false);
   const [searchError,setSearchError]=useState(''),[retry,setRetry]=useState(0);
@@ -61,6 +65,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
     plan:        { label: t("globalSearch.kindPlan"),        icon: Calendar,    accent: "text-amber-400" },
     note:        { label: t("globalSearch.kindNote"),        icon: FileText,    accent: "text-indigo-400" },
     transaction: { label: t("globalSearch.kindTransaction"), icon: Wallet,      accent: "text-emerald-400" },
+    familyLink: {label:t("familyOverview.linkedSources"),icon:FileText,accent:"text-sky-400"},
     document:    { label: t("globalSearch.kindDocument"),    icon: FolderLock,  accent: "text-rose-400" }
   } as Record<SearchResultItem["kind"], { label: string; icon: React.ElementType; accent: string }>), [t]);
 
@@ -111,8 +116,9 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
       const controller = new AbortController();
       abortRef.current = controller;
       try {
-        const results=await searchWithCanonicalTasks({legacy:async(query,signal)=>{const res=await fetch('/api/search?q='+encodeURIComponent(query),{headers:getAuthHeaderRef.current(),signal});if(!res.ok)throw Error('search failed');const data=await res.json();return Array.isArray(data.results)?data.results:[];},...(tasks.enabled?{canonical:(input,options)=>tasks.api.query(input,options)}:{})},q,controller.signal);
-        if(epoch!==requestEpoch.current||controller.signal.aborted)return;setResults(results);setSearchedFor(q);
+        const results:SearchResultItem[]=await searchWithCanonicalTasks({legacy:async(query,signal)=>{const res=await fetch('/api/search?q='+encodeURIComponent(query),{headers:getAuthHeaderRef.current(),signal});if(!res.ok)throw Error('search failed');const data=await res.json();return Array.isArray(data.results)?data.results:[];},...(tasks.enabled?{canonical:(input,options)=>tasks.api.query(input,options)}:{})},q,controller.signal);
+        if(tasks.enabled){try{const linked=await tasks.api.familySearch(tasks.actor.userId,q);for(const source of linked.items)if(source.title)results.push({kind:'familyLink',id:JSON.stringify([source.ref.kind,source.ref.id]),title:source.title,snippet:t('familyLinks.kind.'+source.ref.kind),date:'',tab:'',domainRef:source.ref});}catch(error){if((error as any)?.status!==409)throw error;}}
+        if(epoch!==requestEpoch.current||controller.signal.aborted)return;setResultAuthority(authority);setResults(results);setSearchedFor(q);
       } catch (err: any) {
         if (epoch===requestEpoch.current&&err?.name !== "AbortError") {
           setSearchError(t('globalSearch.error'));
@@ -124,19 +130,20 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNav
       }
     }, 250);
     return () => { if (debounceRef.current) window.clearTimeout(debounceRef.current); };
-  }, [query,open,tasks.loading,tasks.enabled,tasks.api,retry]);
+  }, [query,open,tasks.loading,tasks.enabled,tasks.api,tasks.familyEpoch,tasks.queryEpoch,tasks.actor.userId,retry]);
 
   const pick = async (item: SearchResultItem) => {
-    if(opening)return;const epoch=++pickEpoch.current;setOpening(true);setSearchError('');
+    if(opening)return;const capturedAuthority=authority,epoch=++pickEpoch.current;setOpening(true);setSearchError('');
     try{
+      if(item.domainRef){const source=await tasks.api.familySource(tasks.actor.userId,item.domainRef);if(epoch!==pickEpoch.current||capturedAuthority!==currentAuthority.current)return;const opened=await tasks.openDomain(source.navigateTo??source.ref);if(!opened)throw Error('Source unavailable');if(epoch===pickEpoch.current)close();return;}
       if(item.kind==='task'&&tasks.enabled){const opened=await openCanonicalTask({...tasks,current:()=>epoch===pickEpoch.current},item.id);if(!opened){if(epoch===pickEpoch.current)setSearchError(t('globalSearch.openError'));return;}}
-      if(epoch!==pickEpoch.current)return;onNavigate(item.tab);close();
+      if(epoch!==pickEpoch.current||capturedAuthority!==currentAuthority.current)return;onNavigate(item.tab);close();
     }catch{if(epoch===pickEpoch.current)setSearchError(t('globalSearch.openError'));}
     finally{setOpening(false);}
   };
 
   const grouped = KIND_ORDER
-    .map(kind => ({ kind, items: results.filter(r => r.kind === kind) }))
+    .map(kind => ({ kind, items: visibleResults.filter(r => r.kind === kind) }))
     .filter(g => g.items.length > 0);
 
   return (

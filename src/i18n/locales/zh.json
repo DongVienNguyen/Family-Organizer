@@ -3539,5 +3539,21 @@
       "goal": "儲蓄目標",
       "receipt": "收據"
     }
+  },
+  "familyOverview": {
+    "title": "家庭任务概览",
+    "calendar": "日历中的财务日期",
+    "active": "进行中的根任务",
+    "myTasks": "分配给我",
+    "q2": "重要 · 不紧急（Q2）",
+    "waitingReview": "等待审核",
+    "openTasks": "打开列表 · 看板 · 矩阵",
+    "rootPolicy": "仅统计当前有权访问的根任务，不重复计算子任务。Q2 使用默认的重要性与截止日期规则。",
+    "due": "所选范围内的 Wallet 日期",
+    "readOnly": "只读原始计划；不会自动创建任务或记账。",
+    "overdue": "已过计划日期 · 尚未确认",
+    "empty": "此范围内没有有权查看的财务日期。",
+    "failed": "无法加载概览。请刷新以检查当前权限。",
+    "linkedSources": "已关联的来源"
   }
 }
