@@ -33,6 +33,14 @@ guide. It does not remove assertions or authorize release, tags or VPS access.
 - Continue independent feature work while existing CI runs. Investigate an actual
   failure using its logs instead of rerunning unchanged tests or collecting the
   same evidence repeatedly.
+- Stage the full Cloud suite and a full browser batch separately when they share
+  a small CPU allocation. In the W11 four-CPU Cloud run, the unchanged12000-node
+  snapshot test took11994ms alongside Chromium and crossed its fixed10000ms
+  budget. After the browser finished, that same test took5568ms with unchanged
+  source/assertions/budget. Retain the failed full report and finish a fresh full
+  suite; a selected passing case is insufficient. GitHub jobs on separate Windows
+  VMs can still run concurrently. Avoid adding retries or extending timeouts to
+  compensate for contention in a shared Cloud host.
 
 ## Final Windows gate
 

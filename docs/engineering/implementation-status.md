@@ -2,6 +2,30 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**2026-10-18 continuation — W11 core:** source `d6906b75498d03a0588cf4817ce3d948a84df76f` adds
+CSV/XLSX/PDF export with captured selection/current ACL/exact money, verified
+file delivery and explicit confirmation; owned rules default to import/manual
+consent, preview before/after, protected manual origins, atomic fresh-revision
+apply and no-repeat audit/labels. Schema 11/standalone 12 is explicit; accepted 1–10
+SQL unchanged. Bundled existing PDF engine needs no new runtime dependency;
+original Roboto OFL/binary checks cover server and browser. [Details](wallet-exports-rules.md).
+
+Cloud: 7927 tests/446 files/full JUnit, zero failed/skipped/todo;
+all 7825 parent cases +102 retained; lint/build exit 0. Final Chromium 45/45
+retains all 42 parent cases; fixture 11 offline/integrity/legacy/normal-stop/closed/cleaned/
+build-bound. First 45/45 intermediate kept. Actual development REDs include lost
+preview receipts, metadata-only preview blocking import undo, rewritten snapshot
+rule ownership/binding and missing independent consumer font helper; fixed with
+regressions and unchanged assertions. Author 50-path inspection only.
+The first concurrent full run kept 7926 passes/one deep-graph timeout; a complete
+staged run passed with unchanged source/assertions/10s budget. Both raw reports
+are retained. [Proof](evidence/w11-export-rules-development.json).
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`.
+Windows 2022/Node 22/package/service/other engines/touch and Server 2019 R02 unrun.
+Next:W12–18/M1/I02/I03/master. PDF CJK/emoji coverage W16, nonblocking 10k import W18,
+protected restore/legacy bridge/cutover/global capacity remain before acceptance.
+No release/tag/VPS.
+
 **2026-10-18 continuation — W10 core:** source `5a885a5143874f7bda7eb839e9c90c7d4980a5bc` adds
 local CSV/XLS/XLSX/OFX staging, explicit preview/errors/exclusions, stable OFX
 source dedupe, exact I01 imported records/provenance/undo and shared durable jobs.

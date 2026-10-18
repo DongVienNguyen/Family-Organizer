@@ -1,0 +1,94 @@
+<testsuites id="" name="" tests="45" failures="0" skipped="0" errors="0" time="251.06917">
+<testsuite name="wallet.spec.ts" timestamp="2026-10-18T03:05:40.799Z" hostname="chromium" tests="45" failures="0" skipped="0" time="248.329" errors="0">
+<testcase name="W11 real CSV XLSX PDF downloads preserve the selected ID set Unicode and exact money" classname="wallet.spec.ts" time="6.801">
+</testcase>
+<testcase name="W11 rule UI previews default import exclusion explicit manual consent and repeat no-op without changing money" classname="wallet.spec.ts" time="7.266">
+</testcase>
+<testcase name="W11 lost rule apply acknowledgement survives navigation and reuses one exact body/key" classname="wallet.spec.ts" time="6.143">
+</testcase>
+<testcase name="W06 exact balances, credit availability, scoped accounts and existing Finance remain visible" classname="wallet.spec.ts" time="4.104">
+</testcase>
+<testcase name="W06 create form validates exact money and retains the same command across lost acknowledgement and navigation" classname="wallet.spec.ts" time="5.578">
+</testcase>
+<testcase name="W06 stale revision keeps draft and requires explicit reload before editing again" classname="wallet.spec.ts" time="5.266">
+</testcase>
+<testcase name="W06 archive requires confirmation and retains account history" classname="wallet.spec.ts" time="4.832">
+</testcase>
+<testcase name="W06 phone form keyboard focus, native date and custom selectors remain usable" classname="wallet.spec.ts" time="3.461">
+</testcase>
+<testcase name="W04 grant revocation removes a live edit form and financial details through the real SSE path" classname="wallet.spec.ts" time="3.601">
+</testcase>
+<testcase name="W04 a real cross-tab logout retires the session-owned financial draft" classname="wallet.spec.ts" time="3.832">
+</testcase>
+<testcase name="W05 record income and expense use exact balances and save-and-add only clears after success" classname="wallet.spec.ts" time="7.993">
+</testcase>
+<testcase name="W05 cross-currency transfer and separate fee are one confirmed intent; parent void reverses both" classname="wallet.spec.ts" time="10.688">
+</testcase>
+<testcase name="W06 scoped filters recover explicitly from a missing valuation rate" classname="wallet.spec.ts" time="5.809">
+</testcase>
+<testcase name="W05 record edit retains conflict draft and replays the same note-only write after a lost acknowledgement" classname="wallet.spec.ts" time="6.091">
+</testcase>
+<testcase name="W05 stale void confirmation shows inline failure without silently voiding a changed record" classname="wallet.spec.ts" time="6.067">
+</testcase>
+<testcase name="W04 private receipt PDF/image attach, verified download and confirmed detach keep record money" classname="wallet.spec.ts" time="6.959">
+</testcase>
+<testcase name="W04 an unknown receipt upload survives tab navigation and retries the same committed intent" classname="wallet.spec.ts" time="5.777">
+</testcase>
+<testcase name="W06 combined scoped facets, label any/all and clearing the final choice use one shared filter" classname="wallet.spec.ts" time="8.024">
+</testcase>
+<testcase name="W06 loaded checked rows and a cross-page captured scope remain distinct; later records stay excluded from atomic metadata bulk" classname="wallet.spec.ts" time="22.566">
+</testcase>
+<testcase name="W06 an unknown bulk result survives Finance navigation and explicitly replays the identical committed selection patch and nonce" classname="wallet.spec.ts" time="6.463">
+</testcase>
+<testcase name="W06 a stale bulk confirmation keeps the independent edit and requires a fresh preview without sending a replacement write" classname="wallet.spec.ts" time="5.32">
+</testcase>
+<testcase name="W06 a held privacy refresh preserves an open confirmation so Escape can release its focus and scroll ownership" classname="wallet.spec.ts" time="5.61">
+</testcase>
+<testcase name="W07 Admin builds three-level categories, keeps a rejected fourth-level draft and manages hidden archived history on phone in both themes" classname="wallet.spec.ts" time="8.019">
+</testcase>
+<testcase name="W07 linked categories expose bounded references and offer archive while unlinked labels require explicit delete confirmation" classname="wallet.spec.ts" time="6.211">
+</testcase>
+<testcase name="W07 lost label acknowledgement keeps the exact body and nonce across navigation and explicitly retries without a duplicate" classname="wallet.spec.ts" time="4.029">
+</testcase>
+<testcase name="W07 Member reads catalog and labels without management controls or mutation permission" classname="wallet.spec.ts" time="2.623">
+</testcase>
+<testcase name="W07 clone opens a fresh draft without a write and explicit Save creates a distinct manual record with the same exact money" classname="wallet.spec.ts" time="5.029">
+</testcase>
+<testcase name="W07 revoking source access retires an open clone draft through the real SSE path before any Save" classname="wallet.spec.ts" time="4.597">
+</testcase>
+<testcase name="W07 split validates exact totals and preserves one posting, balance and source; category filters select split children only once" classname="wallet.spec.ts" time="6.285">
+</testcase>
+<testcase name="W07 an unknown split survives navigation and retries the exact confirmed rows and nonce without a second revision" classname="wallet.spec.ts" time="6.556">
+</testcase>
+<testcase name="W07 a split clone edits amount and allocations in its new draft and creates one independent posting only on Save" classname="wallet.spec.ts" time="5.642">
+</testcase>
+<testcase name="W07 templates save personal configuration without a ledger write, then apply default labels and exact splits to a reviewed new draft" classname="wallet.spec.ts" time="6.401">
+</testcase>
+<testcase name="W07 an unknown template save retries the original metadata intent across navigation without creating a financial record or duplicate template" classname="wallet.spec.ts" time="3.756">
+</testcase>
+<testcase name="W07 template archive is confirmed and reversible while another Admin cannot read personal template contents" classname="wallet.spec.ts" time="2.982">
+</testcase>
+<testcase name="W08 report UI uses exact shared filters, unique label totals and navigates its drilldown back to records" classname="wallet.spec.ts" time="2.947">
+</testcase>
+<testcase name="W08 balance ignores note and category selection while missing FX remains explicit and private accounts stay absent" classname="wallet.spec.ts" time="2.354">
+</testcase>
+<testcase name="W08 Admin public rate refresh retains the original date and nonce after a lost acknowledgement and navigation" classname="wallet.spec.ts" time="1.915">
+</testcase>
+<testcase name="W09 personal dashboard uses real scoped data, keyboard layout controls persist, phone layout fits and global dashboard drilldown opens the exact list" classname="wallet.spec.ts" time="5.987">
+</testcase>
+<testcase name="W09 saved personal filters and charts reload the exact scope and chosen chart style without writing any financial record" classname="wallet.spec.ts" time="4.524">
+</testcase>
+<testcase name="W09 an unknown layout save survives navigation and retries the original revision body and key exactly once" classname="wallet.spec.ts" time="2.011">
+</testcase>
+<testcase name="W09 real grant revocation removes financial widget data through SSE while the saved filter remains configuration only" classname="wallet.spec.ts" time="1.841">
+</testcase>
+<testcase name="W10 CSV wizard preserves two identical expenses, requires explicit exclusions and safely keeps manually edited imported records on undo" classname="wallet.spec.ts" time="5.395">
+</testcase>
+<testcase name="W10 an unknown staging acknowledgement survives navigation and retries the original file body and request key without another batch" classname="wallet.spec.ts" time="2.347">
+</testcase>
+<testcase name="W10 two OFX files dedupe stable source account/FITID through the full wizard and never double the ledger" classname="wallet.spec.ts" time="4.766">
+</testcase>
+<testcase name="W10 XLSX selected Unicode sheet imports large money text exactly without reading a different sheet as ledger data" classname="wallet.spec.ts" time="3.861">
+</testcase>
+</testsuite>
+</testsuites>

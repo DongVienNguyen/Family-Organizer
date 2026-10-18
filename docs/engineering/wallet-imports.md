@@ -38,7 +38,11 @@ preview hash/revision, expiry and source keys, then applies one atomic bounded
 batch using the existing record/posting/audit code. A last-row native fault rolls
 back every row, manifest link and retry receipt. Shared worker lease fencing and
 shutdown drain apply. Progress is coarse queued/processing/completed; the ledger
-never exposes a partially applied batch. Lost replies retain an exact body/key
+never exposes a partially applied batch.
+The current10,000-row commit is synchronous inside the shared writer. Its job
+acknowledgement is asynchronous, but the commit still blocks the event loop. The
+specification’s nonblocking10k performance target remains a W18 acceptance item
+and must be resolved before activation; the current checkpoint does not meet it. Lost replies retain an exact body/key
 in the existing session command owner; there is no automatic client write retry.
 
 OFX source keys hash target account + stable source-account namespace +FITID.

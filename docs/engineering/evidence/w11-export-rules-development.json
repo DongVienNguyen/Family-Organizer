@@ -1,0 +1,1011 @@
+{
+  "taskId": "W11",
+  "status": "core Cloud qualified; remaining multilingual PDF/performance/Windows/rollout acceptance explicit",
+  "sourceSha": "d6906b75498d03a0588cf4817ce3d948a84df76f",
+  "baseHead": "be33578b274b95838c002e5cce908da8a314edc4",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "platform": "Cloud Linux x64; not Windows acceptance",
+  "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+  "dependencyChange": false,
+  "npmCi": "not repeated: final lockfile byte-identical to W10 qualified installation",
+  "tests": {
+    "passed": 7927,
+    "files": 446,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "junitCases": 7927,
+    "parentPassed": 7825,
+    "added": 102,
+    "removed": 0,
+    "identityNormalization": "only temporary root in five recoveryRetention names; multiplicity retained"
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "parentCases": 42,
+    "cases": 45,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "be33578b274b95838c002e5cce908da8a314edc4",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "5ba3097f782bb7830dcba46da8bd1cd3fe87f52fff31a2ab7ee71cb52c86e00e",
+        "index": "806711de0c5bea9fa1443248fa59c729483ab9918f659710f74dfd8cf25b0715"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 11,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "3d3e765a-6fde-4ac5-8397-0ae2f9e0b111",
+        "creditId": "135b6521-18d3-4b46-a422-b6792275c05e",
+        "hiddenId": "69f3ebff-8c98-4d8c-aedd-97775715a7f3",
+        "readId": "eff2c09d-3404-4dce-a3ff-e4d21e84fcc1",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "firstBrowser": {
+    "passed": 45,
+    "failed": 0,
+    "retained": "docs/engineering/evidence/w11-export-rules-browser-first.junit.xml",
+    "qualification": "intermediate before actual import-undo and snapshot validation findings; final compiled source rerun separately"
+  },
+  "retainedReports": {
+    "json": {
+      "path": "docs/engineering/evidence/w11-export-rules-cloud.json.gz",
+      "sha256": "06c86879f6b4ed91d922d5068118af7def727a3ff6eaf89f0ca8fc2832371eaf"
+    },
+    "junit.xml": {
+      "path": "docs/engineering/evidence/w11-export-rules-cloud.junit.xml.gz",
+      "sha256": "0bd7d7866f76504938b2d7ab273ef0d23372bc50684b7559917157268c9ef9ba"
+    },
+    "log": {
+      "path": "docs/engineering/evidence/w11-export-rules-cloud.log.gz",
+      "sha256": "ca7262ee5e428343448f1a882ed49908d2345a54ed249b7c1ca187dbdca0c2d7"
+    }
+  },
+  "firstFullSuite": {
+    "json": {
+      "path": "docs/engineering/evidence/w11-export-rules-cloud-first.json.gz",
+      "sha256": "77bdbaa382b19f40afadb99c2f13c625dd20d1427e375328ec6c0f483551e205"
+    },
+    "junit.xml": {
+      "path": "docs/engineering/evidence/w11-export-rules-cloud-first.junit.xml.gz",
+      "sha256": "c8dd89abe35e862f86f18b26ee99bb7e044d358020a8555e8b0afde752eee006"
+    },
+    "log": {
+      "path": "docs/engineering/evidence/w11-export-rules-cloud-first.log.gz",
+      "sha256": "3d85dbd0b23d35e444fd15a2f5d474a3ae81d48a633ef5b672bc462b1798816f"
+    },
+    "passed": 7926,
+    "failed": 1,
+    "files": 446,
+    "cause": "Unchanged 12000-category snapshot test exceeded fixed10000ms at11994ms while full3workers and Chromium ran together on4CPU Cloud. Retained verbatim; no source/assertion/deadline change. Final full suite is staged after browser/lint/build completion."
+  },
+  "failedDevelopmentReports": {
+    "w11-exports-format-edges": {
+      "passed": 14,
+      "failed": 2,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-exports-format-edges.json.gz",
+        "sha256": "5476b98552fa9c04d0c40734647f473dc38d1c127e8eab60e484dbb89922af43"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-exports-format-edges.log.gz",
+        "sha256": "77a1f8c657e9d12029913a00bc2c2cb00495d77f63526e5db233897016fe779d"
+      }
+    },
+    "w11-export-identity-red": {
+      "passed": 16,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-export-identity-red.json.gz",
+        "sha256": "ff68d0227fe1c842121d651e9eda224dc994ed6e22d015cdce2508f1d4acc00a"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-export-identity-red.log.gz",
+        "sha256": "8ab64e22de901ef4f45426839128c8e7c571bd0be59a8d5eec6070b2df9db260"
+      }
+    },
+    "w11-export-capture-red": {
+      "passed": 4,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-export-capture-red.json.gz",
+        "sha256": "89186145da6c3c1de9dfd4ae8a966d22593261c777d0be924af5dc473425ffb1"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-export-capture-red.log.gz",
+        "sha256": "5f96de87ac4ce3c55db836d5689151d9df87925483e595f63eefce4fc88283de"
+      }
+    },
+    "w11-export-http-encoding-red": {
+      "passed": 10,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-export-http-encoding-red.json.gz",
+        "sha256": "59c00681fd4e0c0396c312721d5a91401e52905ec3a2667ab916d98a45655b62"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-export-http-encoding-red.log.gz",
+        "sha256": "4d585660334de9a6815dba5afc663f877b4f766524129edebf8ceccae51f46a8"
+      }
+    },
+    "w11-rule-preview-replay-red": {
+      "passed": 18,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-rule-preview-replay-red.json.gz",
+        "sha256": "f5adb16271701c3437861e03173f3b3ebd99c177f91712f43f6d75251c24fefa"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-rule-preview-replay-red.log.gz",
+        "sha256": "350b2b651806cf1f315d59bd794cf3aa77ad72060907590e97fe50fda4c62f19"
+      }
+    },
+    "w11-rule-preview-undo-red": {
+      "passed": 19,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-rule-preview-undo-red.json.gz",
+        "sha256": "c54478127adff2ba0f1d605a53e8c36b242ff1414c4c080b3b9b8e2cc23cd126"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-rule-preview-undo-red.log.gz",
+        "sha256": "a13482d0c92da088fa131fed12e4dc187e1d0aed68b93defa25716ede94987e9"
+      }
+    },
+    "w11-rule-snapshot-binding-red": {
+      "passed": 21,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-rule-snapshot-binding-red.json.gz",
+        "sha256": "01ab01c0514405e7e546ac8baaf821a9823e49bdc431e677d9f69c6fa0a64001"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-rule-snapshot-binding-red.log.gz",
+        "sha256": "a3042bcabed78336d45e2d987ed9583a2cb58f2f9934268cdf982d63d908a0fd"
+      }
+    },
+    "w11-export-license-first": {
+      "passed": 83,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-export-license-first.json.gz",
+        "sha256": "4b6a76f442cd909bf504339cf02253a4738ec239039c71ee7e9fd92f860b013e"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-export-license-first.log.gz",
+        "sha256": "96e77e9a13036ef4072c415dbf06f8ef6bba6bc2378dc95e441ee782d06b7407"
+      }
+    },
+    "w11-rules-import-undo-fixed": {
+      "passed": 41,
+      "failed": 1,
+      "pending": 0,
+      "json": {
+        "path": "docs/engineering/evidence/w11-rules-import-undo-fixed.json.gz",
+        "sha256": "9a14e6e5a20f81f4a85938137c5792858e670f79d3efbac68a9943ed0757614a"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w11-rules-import-undo-fixed.log.gz",
+        "sha256": "85651fd7f92432993d2e8b1b9181b5dd7a5ac50eb1781025748c487a2c2ddded"
+      }
+    }
+  },
+  "acceptedSql1Through10": {
+    "walletCoreSql": "5571c81df88935eeb9cf0e25e94f16960b372326f08086b54617131aa7f3c530",
+    "walletMetadataSql": "2766b0a82ec0ea2c807f6000f10173f3a8e3a7a9c7a91d4ae3b0e36067289326",
+    "walletFinancialSql": "4331752c3551885bfb54d4fc268e1cb408863c00abeb701dd0286e357a8fecdd",
+    "walletLegacyMigrationSql": "a485ca7b8a4f44d072af1ee0b0f08560bb0f56b2e8f388774b7138a88a84fbb8",
+    "walletReceiptSql": "6c8fc252544ea2af7526bb47182775efa70b111b7ccc4150a2832d9ceea71372",
+    "walletSelectionSql": "74bc459a2e0473297ac9600038ad6d6671155825f5dd1214967ff66d3eabcd4c",
+    "walletWorkflowSql": "f49d44791eab64ab2fe79d63209ec32102243af40cbc7ce57047c367d56084a9",
+    "walletFxCacheSql": "1fe67b7d9626833675ab992b38a0c3f26c6c0897ecba5438379037e035b7bcd0",
+    "walletPreferenceSql": "edb14e69181d397da6a8b2395eaf7aaf5832b96645ea68d1ab6953d173111009",
+    "walletImportSql": "cc79a2e1347eac11e6af8674e4dd115e5e1eb98ed65970aaeebbd22069375e84"
+  },
+  "sourceFiles": {
+    ".github/workflows/ci.yml": "ca9021d96c9d0b0bce5b5e89b694a3bcdd17554926ffe381fe26f55b5ec31eaa",
+    "package.json": "db4983653077a998c707326adc7dfeb25b55cc5c1f1b09b03555099879571616",
+    "scripts/ci/run-wallet-browser.mjs": "28febe1019580dcd8ebe9be4e29bbbf92d92f403b042c40914e80a31fa2b596d",
+    "scripts/ci/write-wallet-browser-fixture.ts": "57530a521f22729166a3d14318db1d0c421861f1eafbde25076a25e241c7ee15",
+    "scripts/windows/ServiceCommon.ps1": "1ded107f5716e23259a711e67ba3e41fad79938d8bb825c6095dba17eb8d173b",
+    "scripts/windows/license-inventory.mjs": "fa306df329d984105e7078d45333c3ccdd5e37e252f2f98472b258bcd273b36c",
+    "scripts/windows/licenses/Roboto-OFL-1.1.txt": "061402327a96aadb0bfb694a960ed289ecd38d383e396243831ab81feb109c41",
+    "scripts/windows/licenses/Roboto-PROVENANCE.md": "bd59bbe38eb13ed0f97aa456c4d0bc5facb644585574173a8e9218574e2bcab2",
+    "scripts/windows/prepare-package.mjs": "7af668a7bb610f68f6ef248b43e6beab869138500e0e4b76f631828e70197a49",
+    "scripts/windows/wallet-pdf-license.mjs": "a97a3d2d29450890e997c47f8d8e5f41f64465bbd3a30bcd6fd6bee04ab8fa44",
+    "scripts/windows/write-manifest.mjs": "a3fb33384eb6284abae603b3db5190b0d6c9bf0028433a261d80581784812e27",
+    "server/wallet/bulk.ts": "bba9155eddcfa11aee404f7356740661125ef7a5ebcaa4e26e09a7a3da1a4106",
+    "server/wallet/catalog.ts": "ddcc122fe2ea7d68090af4dc62f781cd47041ddaac16be71135b50d6cb2633af",
+    "server/wallet/exports.api.test.ts": "642dfa420c9e60711f66b88e6842d1b6d22d9d22d764b4e41288c4528cebab64",
+    "server/wallet/exports.test.ts": "e27bf85f7fc3f373614b2209b116a8b43ae891ec185886600e8624990afa3f05",
+    "server/wallet/exports.ts": "d47a56bc540e3ef2aaa84e395dcbeb99a699b11d7f4e19e86090205c6c82e5b2",
+    "server/wallet/ports.ts": "66531ab9f46f67baed6907bd89ed725f01d111c4af5d6bb988b2761f09e3b545",
+    "server/wallet/records.ts": "a4ae39496c9dc5c73b310590abb3e853d2867853353d03bbad72287a46451369",
+    "server/wallet/router.ts": "2ddcf6e3b8977ccb0df2fec12b45df0b6bbf32bd4bf852d65a9297c58dfc8c8e",
+    "server/wallet/ruleOverrides.ts": "c06e1f4d4bc6023c34090749b9e9b575c700085c30b240d1bf180341c0d7f9ef",
+    "server/wallet/ruleSchema.ts": "13858d40c4a0187a3e1fec3fa6322232463d264a5852f3d61c667bbbb353a635",
+    "server/wallet/rules.api.test.ts": "706d187b69a8e21746a2ef7cf7e5f183aafcdd682d4310cee91b305abf5ed382",
+    "server/wallet/rules.test.ts": "3bdee27d86368080a0a7b0857b1810ec1c6ea0f903918fa22705ce976a334cda",
+    "server/wallet/rules.ts": "3d9d7a0fe33a9395c337caf2a784ab03961ce3df8b295ba42a29ae8b5decb20d",
+    "server/wallet/schemaRegistry.ts": "eacc5dc118997c153fcb6a9fc560f51b6b9a35fbe8bbe21b26732218d17f09f9",
+    "server/wallet/snapshot.ts": "43bf225768b120066d5f2e05ef4a4f4f34fdb4f799c6d97062340e9feae47971",
+    "src/features/wallet/ExportPanel.tsx": "dad8d76c88ede24742f8beec42ee89c4731e25d34e93f6f6a3e8932d0a845062",
+    "src/features/wallet/Records.tsx": "1b5ca15cc4e71c7ae09e14d15564867412ce0d80807f8039439527d718aa80f5",
+    "src/features/wallet/Rules.tsx": "37daa93443e355511f021b362f8cd0805e68edd713d779e38628b6204634a0c8",
+    "src/features/wallet/WalletHome.tsx": "8df2fed25a7176d8f9778aef17a005c91e40a449de61addde735e507afe4c842",
+    "src/features/wallet/api.ts": "4e3f2db0c15be030178caefd12aed5de2243a44cac306ce8af2745d93ca01003",
+    "src/features/wallet/bulkWorkspace.ts": "2cf985beb68f4588534d220de1a2e2700ab6a9c953aa0dbda703cda1a869016d",
+    "src/features/wallet/exportApi.test.ts": "c6cd743c89976bda3e3a2a1961434ffcbbd5cacd458431c6619d236aeb58f16d",
+    "src/features/wallet/exportWorkspace.test.ts": "6401d2e1ab3de615606bd15036de0b7e21c72768949e243baa4a0c6d985b23a4",
+    "src/features/wallet/exportWorkspace.ts": "f22ee32d881bfdfb0bfd973c219461fef3f2db5244cb8773ff283327cd1dd3f5",
+    "src/features/wallet/ruleContracts.test.ts": "8e20b1f03878dac9ef72e5dfafbdfbf456c7b0d0ec03f1f234c9bc7cc521be70",
+    "src/features/wallet/ruleContracts.ts": "941f728c6a93820a0dc451a9463d6dec10843e92e1b9466ca19d8dfa730d5529",
+    "src/features/wallet/ruleDto.test.ts": "7b33027c1123105cf859fb491d19f29fb428a0536106c46f5c09af3d49e225e9",
+    "src/features/wallet/ruleDto.ts": "f6cf1f87a4972b76ef0c8649c2d515b3de9945e2741d1a4d510ee24f94c21539",
+    "src/features/wallet/ruleWorkspace.test.ts": "78a6bed94b85302980c999787a67a1f5f773f6f2b09ac95cee913c9956a60bfc",
+    "src/features/wallet/ruleWorkspace.ts": "f603bb0e7ef0c9acd81235d1d49d07c45797f432181737feb6cef9a362463dc7",
+    "src/features/wallet/useWallet.ts": "615bf65bcf88e0de585ee02e3d8bfa11c555229e65599e91cd8c73820e7eaf35",
+    "src/i18n/locales/en.json": "6b223ff7edff19fa478b9be0cf1ee33fb8c2626e443df9e5d7f60b5fb817bc2d",
+    "src/i18n/locales/vi.json": "2683f7cc2cf0bea9c79ca08bd5b9e2941a112aa606cf22af68242e75c7655b42",
+    "src/i18n/locales/zh.json": "428b5469304411dd5ae3f222c81389213c2c6e981417cfecdb68ef271bc672c2",
+    "tests/e2e/wallet.spec.ts": "1b63ff88911add0629d1b57247a8cae72ec1bcb81b34397046ea6f5e76b272e2",
+    "tests/pdf-text-fixture.ts": "802ccd125707340479c67ada3ff2f9bd1c5de3ab55bf4cf173c87ff9e9ae16a4",
+    "tests/wallet-browser-fixture.test.ts": "4c20677f6e48cc9a24b1d3d1e51ddeb2857c7a7927221eaf71a080978924bab6",
+    "tests/wallet-pdf-bundle.test.ts": "e7f9633c9f426eddfbf571fadd0da1f80ee2e4e1a51a22ac22ecdc30e77de5d9",
+    "tests/wallet-pdf-license.test.ts": "c272b90456c845ec33c9f16cf8413433c85aa16c421ab66e59264f0f53713a89"
+  },
+  "authorInspection": {
+    "independent": false,
+    "paths": 50,
+    "scope": [
+      "shared query/filter/selection identities, current ACL and stream download byte/hash/count/type/name validation",
+      "exact money, raw CSV formula safety, literal XLSX cells and real PDF text decoding",
+      "same bundled PDF engine/no new runtime closure, pinned original font binaries/OFL, independent consumer and authenticated import closure",
+      "rule source consent/priority/literal keywords/stop, protected manual fields and zero-repeat audits",
+      "owned revisions, candidate hash, complete captured ID-set and one atomic I01 apply/rollback",
+      "metadata-only rule preview permits ordinary import undo while unknown financial FKs still block it",
+      "snapshot owner/rule/config/revision/hash validation, no automatic schema migration/activation",
+      "session memory exact unknown commands, retirement and late response fences; native navigation/retry/phone flows"
+    ]
+  },
+  "limitsAndRemaining": [
+    "PDF CJK/emoji glyph fallback acceptance in W16; Roboto Vietnamese verified, CSV/XLSX Unicode retained",
+    "W18 nonblocking10k import atomic writer/worker/capacity/retention still required; queued ACK is not responsiveness",
+    "W12-W18 and remaining M1/I02/I03/master core work",
+    "protected restore host/Admin binding, remediation/raw backup/canonical legacy bridge/cutover",
+    "final independent whole-branch review and batched exact-HEAD Windows2022/Node22/package/service/browser/touch",
+    "actual Server2019 R02; no release/tag/VPS authorization"
+  ],
+  "rawEvidence": {
+    "/workspace/family-evidence/w11-pdf-diagnostic.log": {
+      "bytes": 4842,
+      "sha256": "bbc44444d79ea4fc83341f7554aa3047977f35f54adb7b3346a96e7e7adc8809"
+    },
+    "/workspace/family-evidence/w11-bundled-pdf-lock.log": {
+      "bytes": 167,
+      "sha256": "436084a63b71163a87b5486ec89ae1658e0ba18e9299dd12b3513dbd1e7cf9fb"
+    },
+    "/workspace/family-evidence/w11-exports-first.json": {
+      "bytes": 3297,
+      "sha256": "63a9bdc9f8f17214cc063d69031c8aca142db5ee2836ae1097285682b3568e0b"
+    },
+    "/workspace/family-evidence/w11-exports-bundled.log": {
+      "bytes": 665,
+      "sha256": "7de7e42e1b2e630323ac62e22fa6e8882020bc991006c99b47d146dbed149e64"
+    },
+    "/workspace/family-evidence/w11-pdf-diagnostic.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rule-contract-first.json": {
+      "bytes": 7159,
+      "sha256": "1b67d1e32445c59278e38a419cc98f601579452f6c6d0a7f6e3e1400037a2953"
+    },
+    "/workspace/family-evidence/w11-roboto-font-metadata.json": {
+      "bytes": 1255,
+      "sha256": "48c3ade3cdd3ef13f93a190494001be5fa3de177e2a720ec46e145af8c50514b"
+    },
+    "/workspace/family-evidence/w11-review-findings-fixed.log": {
+      "bytes": 997,
+      "sha256": "6bc1293664b6f731a5b27604090d7db550d0f098e608fddb501613936b0a7dfa"
+    },
+    "/workspace/family-evidence/w11-final-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-review-findings-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rules-import-undo-fixed.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-qualified-first.log": {
+      "bytes": 100901,
+      "sha256": "65b6e2db61625ebe92ea782e1787eaed219b142e2db150d71a171d73efcafecd"
+    },
+    "/workspace/family-evidence/w11-export-owner-first.log": {
+      "bytes": 495,
+      "sha256": "b18084e42292b3233b54acf29a8611c4321fdaf893569f4c30605402b39d0c02"
+    },
+    "/workspace/family-evidence/w11-pdf-bundle-build.log": {
+      "bytes": 703,
+      "sha256": "38a0e96d9feb431db8df234e77800adafd38e3eb4d0e3612cec188b0e2d520a3"
+    },
+    "/workspace/family-evidence/w11-qualified-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-exports-red.log": {
+      "bytes": 429,
+      "sha256": "7cb0628818d395493c734de1aced98143d5ad623907038558f67242a9cc9cbfb"
+    },
+    "/workspace/family-evidence/w11-rule-preview-undo-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rule-owner-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-png-js-npm-metadata.json": {
+      "bytes": 2180,
+      "sha256": "cbc279bf110173948e2ff69f3e909046ee42ed92cea8d27998211b77ca51e24e"
+    },
+    "/workspace/family-evidence/w11-preservation.json": {
+      "bytes": 28011,
+      "sha256": "22252412fb2402a351a3511ea15589b74e20cd08e8a914ec4d71eafcc63c9e61"
+    },
+    "/workspace/family-evidence/w11-qualified-first.junit.xml": {
+      "bytes": 1617105,
+      "sha256": "86b2ec3698786ac9b24600c2fc62e2424a3ea5da8f95593621ea33d429024ae1"
+    },
+    "/workspace/family-evidence/w11-exports-bundled.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-roboto-official-OFL.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-browser-final.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rule-preview-replay-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rules-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w11-browser-final.log": {
+      "bytes": 8066,
+      "sha256": "f5233c0658892f5369fba2b4f53ae32fcae2a9b5cd7059229e6ea1604a704a0f"
+    },
+    "/workspace/family-evidence/w11-bundled-pdf-ci.log": {
+      "bytes": 888,
+      "sha256": "b10c106aa204b00a8925af45d213477de0b7712059bd51a46637198eb7fd7449"
+    },
+    "/workspace/family-evidence/w11-fontkit-upstream-tree.json": {
+      "bytes": 2634,
+      "sha256": "2e361f2295049dd26d7133689c6e3659fc58c01b1db888c438bf415264dc2bdf"
+    },
+    "/workspace/family-evidence/w11-frozen.json": {
+      "bytes": 5523,
+      "sha256": "eb44ee409bdafd103e093b03411bc3c7ebf77638834ac7f4fc0730d41cd40f73"
+    },
+    "/workspace/family-evidence/w11-rules-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-dfa-npm-metadata.json": {
+      "bytes": 2513,
+      "sha256": "a2f3f0a273f863856ae1b059c7e9f8c78d1b61ded01183e1972d8d404640720c"
+    },
+    "/workspace/family-evidence/w11-export-owner-red.log": {
+      "bytes": 453,
+      "sha256": "369e660cf482fe15808a8849f6ec3aba820c9d2ecebc685658483c412c4fcbc2"
+    },
+    "/workspace/family-evidence/w11-rule-owner-red.json": {
+      "bytes": 789,
+      "sha256": "a2ac7b0502e3b3774e88981635fb3858ad39f8b69a89b20c72eb2a3a7aa2982d"
+    },
+    "/workspace/family-evidence/w11-rules-http-first-lint.log": {
+      "bytes": 163,
+      "sha256": "7a5c3c56d4a2fed4844d588ef6a5629d08b214d99bca5d78d386d8febc187815"
+    },
+    "/workspace/family-evidence/w11-rules-import-undo-fixed.log": {
+      "bytes": 3987,
+      "sha256": "7c8cfe4cf53e98e9c368924413aed33b083ea93eb7cd7efa0d4dd9b968c95fb1"
+    },
+    "/workspace/family-evidence/w11-export-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-npm-ci.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-core-bundle-fixture-first.json": {
+      "bytes": 22426,
+      "sha256": "861031bac985921be4a9d4914f9611a37eba2a23528a5b835e168083db587d1c"
+    },
+    "/workspace/family-evidence/w11-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-exports-format-edges.log": {
+      "bytes": 4176,
+      "sha256": "2254a0d3a7ed55f35da1f047b48db54f7ff81c61acbe8987fc14322681fbca68"
+    },
+    "/workspace/family-evidence/w11-bundled-pdf-ci.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-license-first.json": {
+      "bytes": 28608,
+      "sha256": "d2ef5ea49c38d44391b22e612d4cfc709d99f114660b100ca08721f8beea587f"
+    },
+    "/workspace/family-evidence/w11-pdfmake-server-doc.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rule-contract-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rule-contract-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-export-integrated-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rules-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-pdf-bundle-build.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-export-owner-first.json": {
+      "bytes": 6253,
+      "sha256": "ae18073c6930488fc3d5183fbc0c1d92fe5606ceba496c2fd75bf10783f30fe3"
+    },
+    "/workspace/family-evidence/w11-rule-owner-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w11-brotli-npm-metadata.json": {
+      "bytes": 2507,
+      "sha256": "03215eaf7ebdddf56c0e58a673dee6323dadd502977ba68e259e3787a68d71d1"
+    },
+    "/workspace/family-evidence/w11-export-ui-limits.json": {
+      "bytes": 6631,
+      "sha256": "f63862d0f6b5c8f0625cf4633ff3f8f69390a2c38a761637ed89c68dec9d905c"
+    },
+    "/workspace/family-evidence/w11-pdfmake-promote-cache-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rules-http-first.json": {
+      "bytes": 16050,
+      "sha256": "96b57df36d9307774e4732a291ad1dda3411b3b57df86037fdafb95b6e5908fc"
+    },
+    "/workspace/family-evidence/w11-exports-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rule-preview-replay-red.json": {
+      "bytes": 6896,
+      "sha256": "ae2cf674181ead5b3778d1d6db76312c3295a5e80a7ac4129e8c5a384cd8b32a"
+    },
+    "/workspace/family-evidence/w11-core-first-build.log": {
+      "bytes": 2084,
+      "sha256": "670a2b8a7859dc44c58f2def6eb6a178e0336a47e1b5b793f64263c5ba42cb29"
+    },
+    "/workspace/family-evidence/w11-rule-owner-red.log": {
+      "bytes": 238,
+      "sha256": "ebcdce5fd767074b3574c01e00ec75f6389fe7f6c291f01ce051ff602759ce99"
+    },
+    "/workspace/family-evidence/w11-export-sdk-first.log": {
+      "bytes": 1305,
+      "sha256": "9b45f3d482509f38c4e28521fa309c74df034baaccbe67c983bb9b9fed97bc10"
+    },
+    "/workspace/family-evidence/w11-rules-integration-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-final-build.log": {
+      "bytes": 2085,
+      "sha256": "b00eec7192ee9dacab0a5fe7b1bb1f6ef103ef0d9910a321e984a263fb49eafc"
+    },
+    "/workspace/family-evidence/w11-export-ui-limits.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-pdf-diagnostic.json": {
+      "bytes": 6800,
+      "sha256": "1eac4e71981cb20d93a1e6348d90dc5c39d61a3cc9d777e6804a081dffca38e7"
+    },
+    "/workspace/family-evidence/w11-rule-preview-undo-red.json": {
+      "bytes": 6909,
+      "sha256": "55e0bb4a04667205f577e7f5f39965c7ad3de51b69a60a2cf34b41d67d43e6fb"
+    },
+    "/workspace/family-evidence/w11-rules-integrated-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-identity-red.json": {
+      "bytes": 7049,
+      "sha256": "c3575d823121e44ffc69f54adf61b49ba30e73580b59bb68c0e34693afe3fd4a"
+    },
+    "/workspace/family-evidence/w11-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-core-bundle-fixture-first.log": {
+      "bytes": 2458,
+      "sha256": "73434c666f2ad6a7f243214727df1900156a71da78845bc62daaf54140fed794"
+    },
+    "/workspace/family-evidence/w11-export-ui-limits.log": {
+      "bytes": 491,
+      "sha256": "6eb1a1987d4d2e7c87c0ec29164b25874b409e1840f2d5420d6c27fb54492663"
+    },
+    "/workspace/family-evidence/w11-export-capture-red.json": {
+      "bytes": 2896,
+      "sha256": "e9be578f8597e6e24589a2b65bd417ac7a0dd15489331cec9b91d6778f81b88d"
+    },
+    "/workspace/family-evidence/w11-pdfmake-promote-cache-fixed.log": {
+      "bytes": 252,
+      "sha256": "814b86d266e5108c77469c92ae6629c3a0a442b87a6f6b5399fe9cbecdb3d1bf"
+    },
+    "/workspace/family-evidence/w11-export-capture-red.log": {
+      "bytes": 447,
+      "sha256": "88ff1f6e340e1a0348c1dcaf497cdf6bb2f8e43eaf8053f2478c5f2ab930d809"
+    },
+    "/workspace/family-evidence/w11-export-ui-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w11-exports-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-core-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-api-first.log": {
+      "bytes": 1342,
+      "sha256": "4fd1e4423bc901e557469189b8e7c49744c61f2869f8f874df80bbe9a06f1d43"
+    },
+    "/workspace/family-evidence/w11-pdfmake-promote.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rule-owner-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-runtime-dependency-promotion.json": {
+      "bytes": 4347,
+      "sha256": "e5945d24efc52b46d454c4f117668d68bbf4435d37592acc661d875abd1237bb"
+    },
+    "/workspace/family-evidence/w11-brotli-upstream-tree.json": {
+      "bytes": 3977,
+      "sha256": "2599cc488908548a8f0e40881756786963093ee09286ad08b5395e25de6b9589"
+    },
+    "/workspace/family-evidence/w11-export-api-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rule-owner-first.json": {
+      "bytes": 12007,
+      "sha256": "cd2c10516ffca92e1185d3fd971a2d1d8e94766c50a2fa300f863c7a3cc416d1"
+    },
+    "/workspace/family-evidence/w11-pdf-license-consumer-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rule-preview-replay-red.log": {
+      "bytes": 3431,
+      "sha256": "1447c479cb657b25a2d14b42a4735099762822bdd185a7cab9a6b638f6d2ee33"
+    },
+    "/workspace/family-evidence/w11-export-ui-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-core-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w11-rule-snapshot-binding-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-export-identity-red.log": {
+      "bytes": 3446,
+      "sha256": "708461af9591fca21eb07a6135080f4524e9dd2c387750e63a073190641f7b0c"
+    },
+    "/workspace/family-evidence/w11-export-integrated-first.json": {
+      "bytes": 19283,
+      "sha256": "93e1e64053d07dfeb9ff890a54042424a7fa8f8cf322b74b5db9e4b65eadf077"
+    },
+    "/workspace/family-evidence/w11-rules-http-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rule-snapshot-binding-red.log": {
+      "bytes": 3086,
+      "sha256": "4faa9ac857b9e71493e7abe46caa94d6a0a6971857c81ff77b5b74b129af8c97"
+    },
+    "/workspace/family-evidence/w11-dfa-upstream-tree.json": {
+      "bytes": 2310,
+      "sha256": "2cb41b476c8aee623f84f914db1034e9b8958046a9b733ff4f2d28b5a34248a5"
+    },
+    "/workspace/family-evidence/w11-dependency-native-smoke.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-owner-red.json": {
+      "bytes": 795,
+      "sha256": "bd9121e6a081b126ac08c70645426174e79de9e3f48e6a0c2e6b3ba916839b4a"
+    },
+    "/workspace/family-evidence/w11-font-vfs-binding.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-capture-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-fontkit-npm-metadata.json": {
+      "bytes": 2878,
+      "sha256": "9ea7331f4966d58d4e22ce978f7c665a7715c2e45e023a758a20a98dfd2c5493"
+    },
+    "/workspace/family-evidence/w11-rules-http-first.log": {
+      "bytes": 1061,
+      "sha256": "3286bfbba97c2d7ead84952e3ce7bc38ab1fb5f7e9b1db28a835653057b8f33f"
+    },
+    "/workspace/family-evidence/w11-export-integrated-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w11-exports-red.json": {
+      "bytes": 759,
+      "sha256": "5bfe72041090bdd01ccc4eb09553b8f20666f904b08eef3b0c5fc10a8d7878f2"
+    },
+    "/workspace/family-evidence/w11-export-identity-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-pdf-license-consumer-fixed.json": {
+      "bytes": 11910,
+      "sha256": "a807d22868154147cc391be62daa2d33e1251fee0b10a924fa8d4352ab7852d9"
+    },
+    "/workspace/family-evidence/w11-export-api-first.json": {
+      "bytes": 7327,
+      "sha256": "ae6ed4593d2d8af20adf28b23b7573254cc05abb71caa7336240f3ccd2583673"
+    },
+    "/workspace/family-evidence/w11-rule-contract-red.json": {
+      "bytes": 789,
+      "sha256": "a8abd99db5a1d7366f49a8dfdf76e2cd5aa622bb83780066906b1c0f59791a83"
+    },
+    "/workspace/family-evidence/w11-rules-integration-red.log": {
+      "bytes": 238,
+      "sha256": "3e4508637f893cbc44c4c77230c027a301cb5dd7a66d9be96d23ebb1d852c823"
+    },
+    "/workspace/family-evidence/w11-export-integrated-first.log": {
+      "bytes": 1667,
+      "sha256": "174aa5fb2bc2e8a49780e3a8928a33f6e8063afc628334b386d970db00b05eeb"
+    },
+    "/workspace/family-evidence/w11-export-license-first.log": {
+      "bytes": 6520,
+      "sha256": "6bb937de9e7fd5b2f036f8ee00e9e663fe107d1efb34cfdea93e2320fac8e3f7"
+    },
+    "/workspace/family-evidence/w11-rules-integrated-second.log": {
+      "bytes": 797,
+      "sha256": "c2c3aae36b894ecfa54ee79836679f9c7759bdf2cfb70c27990f89e25a844932"
+    },
+    "/workspace/family-evidence/w11-rules-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w11-review-findings-fixed.json": {
+      "bytes": 29982,
+      "sha256": "66508c78da3bffa3ea8e8ded72116c2293d0f468627a334ccf02ad61498e6f67"
+    },
+    "/workspace/family-evidence/w11-qualified-first.json": {
+      "bytes": 2321963,
+      "sha256": "aaf3e704e128bd2f1e948c257ed04c83a9be8062cd10a3278219795bff900538"
+    },
+    "/workspace/family-evidence/w11-export-license-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-pdf-bundle-smoke.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-pdf-bundle-native-build.log": {
+      "bytes": 81,
+      "sha256": "6b4eb88872edaf8c151daee6bd6ff16927dda5ee3214e3e961a7c1c193500398"
+    },
+    "/workspace/family-evidence/w11-export-ui-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w11-pdf-bundle-native-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-exports-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w11-export-http-encoding-red.json": {
+      "bytes": 5000,
+      "sha256": "f893e5a5ce8567506a4d8dbd7e978b336c5bbac8cddc03eed06b5b650c539f0b"
+    },
+    "/workspace/family-evidence/w11-export-sdk-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-http-encoding-red.log": {
+      "bytes": 463,
+      "sha256": "bbd034ec5a2d55ad4f9783eb7a932eab2301af776ff6168464c8ffc7fa027fc5"
+    },
+    "/workspace/family-evidence/w11-pdf-license-consumer-fixed.log": {
+      "bytes": 630,
+      "sha256": "b35a41a30d2625ce833f51ede0c6c55d11db15052a7f6df1506590ed531a77d5"
+    },
+    "/workspace/family-evidence/w11-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-exports-bundled.json": {
+      "bytes": 6121,
+      "sha256": "45a2dc30d40e5d849383ee2e667fe1d9dc94f687b9649fbabe2ff8edcb3ec947"
+    },
+    "/workspace/family-evidence/w11-exports-format-edges.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rule-snapshot-binding-red.json": {
+      "bytes": 7901,
+      "sha256": "5004e30c255a7824c1856e8488a50a7aa99287ef7d025be91f9718a50279546a"
+    },
+    "/workspace/family-evidence/w11-exports-format-edges.json": {
+      "bytes": 6799,
+      "sha256": "f53314099b8c75399a5c85513e94ec1c69f42e93ebf266d149968ce6bc7239a6"
+    },
+    "/workspace/family-evidence/w11-rule-owner-first.log": {
+      "bytes": 1060,
+      "sha256": "fd3d2f3dd1a5bc08992fce76e81ab3daa3340e8c828115e09faa1838dbbfd6a6"
+    },
+    "/workspace/family-evidence/w11-rules-integration-first.log": {
+      "bytes": 3615,
+      "sha256": "46d6a667a4d7679bb0c80bfa84457d5c94c40a90cda5f1bfd397e36fcaff42a3"
+    },
+    "/workspace/family-evidence/w11-qualified.json": {
+      "bytes": 2321041,
+      "sha256": "8cd58629ac40ab19b459c219a729e698e4235e9b2d05be2498fcdbbc27373895"
+    },
+    "/workspace/family-evidence/w11-qualified.log": {
+      "bytes": 92753,
+      "sha256": "28e3e36de0971c45198389929e3fd174277f4ec84cd107e38e1f59391f3ed50a"
+    },
+    "/workspace/family-evidence/w11-export-owner-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rules-integration-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rules-ui-first-lint.log": {
+      "bytes": 557,
+      "sha256": "4ceb1c5230da55c74cdc5628915fa5815535a64ce27da5fb9f6eae349fcf8073"
+    },
+    "/workspace/family-evidence/w11-pdfmake-promote.log": {
+      "bytes": 855,
+      "sha256": "32c0b677b4cbcdd6c0367ee8fc588ad1fd8888e821ab54d3e27f26047b583f96"
+    },
+    "/workspace/family-evidence/w11-compiled-font-binding.log": {
+      "bytes": 77,
+      "sha256": "526d7e67fca33772cf41c12add55904ee5ae1b8e198882fc6ba480c4807f6646"
+    },
+    "/workspace/family-evidence/w11-rule-contract-red.log": {
+      "bytes": 244,
+      "sha256": "2262b60da7ec3e36b46b37f34c5583c095d2e3317b7abd4fbfa3af0cf96d67ea"
+    },
+    "/workspace/family-evidence/w11-npm-ci.log": {
+      "bytes": 888,
+      "sha256": "b10c106aa204b00a8925af45d213477de0b7712059bd51a46637198eb7fd7449"
+    },
+    "/workspace/family-evidence/w11-bundled-pdf-lock.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rules-integration-first.json": {
+      "bytes": 13557,
+      "sha256": "8d6e24d88b633271bc31a069b2c1a39cf22f781c975bcefb496339cc80a980b6"
+    },
+    "/workspace/family-evidence/w11-export-http-encoding-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-exports-first-lint.log": {
+      "bytes": 1068,
+      "sha256": "1620763b4e07d6d1e0136be19fb69dc474b698e587f42d6fed86d1bed635adab"
+    },
+    "/workspace/family-evidence/w11-rule-owner-first-lint.log": {
+      "bytes": 557,
+      "sha256": "4ceb1c5230da55c74cdc5628915fa5815535a64ce27da5fb9f6eae349fcf8073"
+    },
+    "/workspace/family-evidence/w11-rules-http-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w11-pdf-bundle-smoke.log": {
+      "bytes": 35,
+      "sha256": "02a511c3bb3f722d6114d8813edc6e7e834e0d4b747b99c56454d2cae24dade1"
+    },
+    "/workspace/family-evidence/w11-qualified.junit.xml": {
+      "bytes": 1616581,
+      "sha256": "093a29e3591da0a636184b8e86822dcf43b82444049360e9f5e51f4a4181cc9c"
+    },
+    "/workspace/family-evidence/w11-browser-first.log": {
+      "bytes": 8065,
+      "sha256": "68062028206821483e34ee8677cc4cfdfd9070af8634cd26edc42c0015b76e34"
+    },
+    "/workspace/family-evidence/w11-core-bundle-fixture-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-integrated-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-esbuild-api-doc.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-export-sdk-first.json": {
+      "bytes": 11095,
+      "sha256": "aa25ed28341c84b880724e9bd3f9977d8f900dfc4cd82a3a2f3a375d62258316"
+    },
+    "/workspace/family-evidence/w11-qualified-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w11-rules-integrated-second.json": {
+      "bytes": 38759,
+      "sha256": "8e7a29c77e94a1e0d9afc614cc6328d17c1a0436daa51123c8ba86dde52ad3fa"
+    },
+    "/workspace/family-evidence/w11-rule-preview-undo-red.log": {
+      "bytes": 2910,
+      "sha256": "a8c78302999fea52a8fd5f641d956f2ea484222dccdd63d78ea81c84227914a6"
+    },
+    "/workspace/family-evidence/w11-rules-import-undo-fixed.json": {
+      "bytes": 14830,
+      "sha256": "b996c280bb3c6e93e3eb9560294ca79c524afbf3d48db0b92a9fa3ddc1403172"
+    },
+    "/workspace/family-evidence/w11-export-owner-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w11-rule-contract-first.log": {
+      "bytes": 547,
+      "sha256": "e341339a5bdccc4525a52431be02c45a514a18a1dfca268b1b19774cf98078d7"
+    },
+    "/workspace/family-evidence/w11-exports-first.log": {
+      "bytes": 721,
+      "sha256": "9192228cbb34d253ecd58cce77292eb0b118241c0b28f329d958b934523e5b86"
+    },
+    "/workspace/family-evidence/w11-rules-integration-red.json": {
+      "bytes": 753,
+      "sha256": "bbf8c79df2f623006eb54b78bc6f5113ed242530716ae031d4060c237f3bb0a3"
+    },
+    "/workspace/family-evidence/w11-core-first-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-compiled-font-binding.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w11-rules-second-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w11-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 8255,
+      "sha256": "be3146293e7618e2462643742976992de84eb8ef858d8f99bc4026d6395f5e80"
+    },
+    "/workspace/family-evidence/w11-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1147,
+      "sha256": "643fe9aa5c41307934e7157c1f9b267025e365d481636a50e7cff5352c719929"
+    },
+    "/workspace/family-evidence/w11-browser-qualified-artifacts/browser.json": {
+      "bytes": 54110,
+      "sha256": "ad5c6db57a457b823b4f5856e538e9cd48121dadbe3b2144272260886e735a85"
+    },
+    "/workspace/family-evidence/w11-browser-qualified-artifacts/rules-phone.png": {
+      "bytes": 111134,
+      "sha256": "b7cfe6ae7b68775730bf687ba74167f7f297af79a72ed5235ebb0e98e64c5db9"
+    },
+    "/workspace/family-evidence/w11-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w11-browser-first-artifacts/browser.junit.xml": {
+      "bytes": 8252,
+      "sha256": "bf0510639c2d6ba3a2b418e5e129efc7c8cfb249a0f4549f1c1c28e13cd8ab8d"
+    },
+    "/workspace/family-evidence/w11-browser-first-artifacts/fixture.json": {
+      "bytes": 1147,
+      "sha256": "f2d200d9921909b0d21e98f3bb404a4ae4fd6123d2f1606a155f6fb261ebb17f"
+    },
+    "/workspace/family-evidence/w11-browser-first-artifacts/browser.json": {
+      "bytes": 54110,
+      "sha256": "298aea3c91e9c13e98e475ea2354645f47c615aac93d8b62cb62bc4ab8a249f6"
+    },
+    "/workspace/family-evidence/w11-browser-first-artifacts/rules-phone.png": {
+      "bytes": 111446,
+      "sha256": "5d11670af5888a7fd3d2cfeac70638e87ce989416f316d5ad63f9ef8a68b9e30"
+    },
+    "/workspace/family-evidence/w11-browser-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  }
+}
