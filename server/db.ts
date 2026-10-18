@@ -3061,12 +3061,14 @@ export class FamilyDB {
    * this same I01 transaction; only references enter the existing push outbox. */
   public static queueTaskMention(taskId:string,commentId:string,recipientId:string):string {
     const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc tên cần transaction bình luận.',409);
+    return runLegacyCommand('queueTaskMention',[taskId,commentId,recipientId],recipientId,()=>{
     const db=this.readRaw(),recipient=legacyReader(db,recipientId),task=db.tasks.find(row=>row.id===taskId),comment=task?.comments.find(row=>row.id===commentId);
     if(!canonicalTaskPolicyActive()||!task||!comment||!canViewLegacyTask(task,recipient))throw new AppStoreError('Không tìm thấy nguồn nhắc tên.',404);
     const id='task_mention_'+crypto.createHash('sha256').update(JSON.stringify([taskId,commentId,recipientId])).digest('hex'),sourceRef={domain:'task' as const,id:taskId},prior=db.notifications.find(row=>row.id===id);
     if(prior){if(prior.userId!==recipientId||JSON.stringify(prior.sourceRef)!==JSON.stringify(sourceRef))throw new AppStoreError('Thông báo nhắc tên xung đột.',409);return id;}
     const notification:Notification={id,userId:recipientId,title:'Bạn được nhắc trong công việc',content:comment.username+' đã nhắc bạn trong “'+task.title+'”.',type:'task',sourceRef,isRead:false,createdAt:comment.createdAt};
     db.notifications.unshift(notification);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notification);this.writeRaw(db);return id;
+    });
   }
   public static queueWalletReminder(notification:Notification):string {
     return runLegacyCommand('queueWalletReminder',[notification],notification.userId,()=>{const source=walletNotificationSource(notification.sourceRef);return this.recordWalletNotice(notification,source,walletReminderId(source.id,source.offsetDays,notification.userId));});

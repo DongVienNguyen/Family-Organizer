@@ -1,3 +1,4 @@
+import {createStructureCommands} from './structure.js';
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -191,9 +192,17 @@ it('recurring Markdown media survives approval, rotation and retry without allow
  const count=db.FamilyDB.getTasks().length;expect((await send('/api/productivity/tasks',UserRole.CHILD,{expectedRevision:0,input:{listId:'legacy-family',title:'Forbidden copied recurring image',body:'![Copied]('+image+')'}})).status).toBe(403);
  expect((await send('/api/tasks',UserRole.ADMIN,{id:next.id,description:'![Foreign]('+url+')',sourceRecurringTaskId:id})).status).toBe(403);expect(db.FamilyDB.getTasks()).toHaveLength(count);expect(db.FamilyDB.getTasks().find(task=>task.id===next.id)?.description).toBe(next.description);
 }));
-it('read-grant Member keeps existing semantic comments without generic edit permission',()=>fixture(async({send,id}:any)=>{
- const commented=await send('/api/tasks/'+id+'/comments',UserRole.MEMBER,{content:'Synthetic read-only discussion'});expect(commented.status).toBe(200);expect(commented.body.task.comments.at(-1)).toMatchObject({userId:UserRole.MEMBER,content:'Synthetic read-only discussion'});
+it('P12 read grants deny comment writes; an explicit contribution grant retains existing semantic comments',()=>fixture(async({send,id,reader}:any)=>{
+ // Preserve the original forbidden generic-edit assertion while the actor has
+ // read scope; P12 now also requires edit scope for the comment command.
  expect((await send('/api/tasks',UserRole.MEMBER,{id,title:'Forbidden field edit'})).status).toBe(403);
+ const before=structuredClone(db.FamilyDB.getTasks().find(task=>task.id===id));
+ expect((await send('/api/tasks/'+id+'/comments',UserRole.MEMBER,{content:'Synthetic read-only discussion'})).status).toBe(403);
+ expect(db.FamilyDB.getTasks().find(task=>task.id===id)).toEqual(before);
+ const structure=createStructureCommands({reader,write:gateway.withAppWriteTransaction}),actor={userId:UserRole.ADMIN,role:UserRole.ADMIN},list=structure.getCatalog(actor).lists.find(row=>row.id==='legacy-family')!;
+ structure.setListGrant({actor,expectedRevision:list.revision,requestId:randomUUID()},list.id,{userId:UserRole.MEMBER,permission:'write'});
+ // Retain both original success/content assertions after an actual I01 grant.
+ const commented=await send('/api/tasks/'+id+'/comments',UserRole.MEMBER,{content:'Synthetic read-only discussion'});expect(commented.status).toBe(200);expect(commented.body.task.comments.at(-1)).toMatchObject({userId:UserRole.MEMBER,content:'Synthetic read-only discussion'});
 },'read'));
 
 it('each HTTP fixture contains only its own live tasks, independent of earlier scenarios',()=>fixture(async({id,sharedId}:any)=>{
