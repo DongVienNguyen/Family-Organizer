@@ -1,6 +1,26 @@
 # Tiến độ Windows-native
 
-## Current direction — 2026-10-17 (UTC)
+## Current direction — 2026-10-18 (UTC)
+
+**2026-10-18 continuation — W10 core:** source `5a885a5143874f7bda7eb839e9c90c7d4980a5bc` adds
+local CSV/XLS/XLSX/OFX staging, explicit preview/errors/exclusions, stable OFX
+source dedupe, exact I01 imported records/provenance/undo and shared durable jobs.
+Five-step UI keeps unknown intent/body/key across navigation and rechecks current
+scope; a real SSE result-step race is fixed. Explicit schema 10/standalone 11 preserves
+accepted 1–9 SQL; no activation/bridge/cutover. [Details](wallet-imports.md).
+
+Cloud: 7825 tests/435 files, matching full JUnit, zero failed/skipped/todo,
+all 7704 parent cases +121 retained; lint/build exit 0, changed-lock npm ci exit 0 and
+native dependency smoke exit 0. Final Chromium 42/42 retains all 38 parent cases; real fixture 10
+is offline/integrityOK/legacy-kept/normal-stop/closed/cleaned/build-bound.
+First 40/41 SSE and second 38/42 advancing-clock TTL failures retain DOM/trace/JUnit;
+clock-derived expiry and regressions are fixed; no financial assertions/deadlines/retries
+weakened. Author inspection of 48 paths only. [Proof](evidence/w10-import-development.json).
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`.
+Current Windows 2022/Node 22/package/service/other engines/touch and actual
+Server 2019 R02 unrun. Next: W11 exports/rules and W12–W18/M1/I02/I03/master;
+protected restore/legacy bridge/cutover/global capacity before activation remain.
+No release/tag/VPS.
 
 **2026-10-18 continuation — W09 core:** source `019dde5b9d58d619141bf0ab497a1cf1e4a12e86` adds owner-only saved
 filter/chart/layout configurations and12 real-data widgets, with local keyboard

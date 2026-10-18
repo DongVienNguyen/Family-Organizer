@@ -1,0 +1,1095 @@
+{
+  "taskIds": [
+    "W10 core",
+    "W02 explicit schema10",
+    "I01 import queue/ledger/provenance/undo"
+  ],
+  "sourceCommit": "5a885a5143874f7bda7eb839e9c90c7d4980a5bc",
+  "testedWorkingTreeParent": "a3c370390460f90babfb6f590ded95af2014c5a9",
+  "binding": "All 48 frozen source/test hashes match committed Git blobs; final full suite/lint/build/native use these bytes. Cloud development evidence, not exact-HEAD Windows CI.",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "sourceSha256": {
+    "server/wallet/importFiles.test.ts": "a9e9988a85c222ff6195cd067f084b70306976ffb25d7ead3854b280dc84a33b",
+    "server/wallet/importFiles.ts": "c9e984dbb07eac257ae70576e4ae74224b44e91cdad7ac7079f8a54e7ea00912",
+    "server/wallet/importHash.ts": "1b2159763b12e870dd453974702efa23fe2f0d540c4ba434e5d91051d593c4d0",
+    "server/wallet/importJobs.ts": "e9dcdba25b4b4134f02ad921b28e4e290acd3d5eea28b32954b4f641d3b28e5d",
+    "server/wallet/importMapping.test.ts": "c97cd529ccad83dafdbd7c8361339be530c5d356cf58ad0d170cb11bb9d597f3",
+    "server/wallet/importMapping.ts": "6df491e2175a0386d8383b7f2f0ce7337944989b62f69ea4b6fdb586419993d9",
+    "server/wallet/importSchema.ts": "95d55b3ce16a8882bdc46072de33dcb9bb8e778d1b0ba3cc7d3aaec02f9254a1",
+    "server/wallet/importUpload.ts": "02185f06f0e1862bace78bcdffff620f6a2fb7318152a3e15f0e37e65715e734",
+    "server/wallet/imports.api.test.ts": "68f86ad019b0f7358f1bc5d52db469e60bb0a6e2adff39e1d99110aa8cf779ed",
+    "server/wallet/imports.test.ts": "1508f280a73d01ff4b09956859788da9f9fe774352d37f7ca09bbb23168986bd",
+    "server/wallet/imports.ts": "d797b755e3487f4207eaabdce0c4674e8d30d10a92b84e8293e2cbf3e457f108",
+    "server/wallet/parsers/common.ts": "0d2d478cd1898762094408987c3ecbb0a1f4d51fc0d2737db71b99e73a6d78d5",
+    "server/wallet/parsers/csv.ts": "08d847300f21a33e4b0b7633ba738f6a37afddf2fcb358d1d4429c5f8d9a5cec",
+    "server/wallet/parsers/importParsers.test.ts": "ff8044d207d4d2687b95a28ff2f20e6521f4a937fca7cac4dd1444492fa7de19",
+    "server/wallet/parsers/index.ts": "7002407a3dd3f7e4674f7b2b62ccc1e6b033e4a1db4567d6bbcd16942fca06ad",
+    "server/wallet/parsers/ofx.ts": "a4e15861bb864e43be56cae1a663d00c6c2593e01ea57ab2ae5adf0b4df4a400",
+    "server/wallet/parsers/spreadsheet.ts": "122526da31710a1a59c080aa9beaaad2317e814bf926a3110cf51ed21b082cfd",
+    "server/wallet/parsers/spreadsheetContainer.test.ts": "bc172011a62d4f6460c005e1d64166adaba25512bb61d7be3d2c343f190e5935",
+    "src/features/wallet/ImportWizard.tsx": "2edf7e1618c3fbcdeb513c30adb5be78f51436098cdebdbf01941e1ed4596c0b",
+    "src/features/wallet/importApi.test.ts": "2b622b4bde250be604741ecbb468afb5a6bedb20ad4e78eff2c496f6564d05d0",
+    "src/features/wallet/importContracts.ts": "038de3dbf9f4d97e70ebee401df78c1715e9e44657ac4145c511182bb3bea724",
+    "src/features/wallet/importDto.ts": "c595635ea109b4f36caef34877800e131c5a49fa7737411faa7a307438df497f",
+    "src/features/wallet/importWorkspace.test.ts": "485055bd08f86a0821d7796a187f75bd24a68c94d0dd9554242c2c3431a054cc",
+    "src/features/wallet/importWorkspace.ts": "4e72c97f29ba2a1917baa173599e11a60f09daed6b0e21874b587a2b33ef868a",
+    "package-lock.json": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+    "package.json": "106d74667abccd8f3b6906a42f434d3e4ada49446afe5e4e71a725a77456b949",
+    "scripts/ci/run-wallet-browser.mjs": "7877bc97489611c70ef927c28f7c1b576ff9ed1ac3017cf9a5ecb056d4a14c31",
+    "scripts/ci/write-wallet-browser-fixture.ts": "ae99c2c7eb66b05ea39198cd579a72e66e69669a0204dc8d382b7065edaacefd",
+    "scripts/windows/reviewed-notices.mjs": "3c06c3688bb4ef0b3df216c0eab96c154cec61786aad461f73b676f24329b5c8",
+    "server/app.ts": "e9b2159f0e1347dc2f8639f01e8553ce4910c1d86375fe5578282a728d71dd24",
+    "server/runtime.ts": "006c456446f663742cfd3a7d4409075b03cc57f0cddf446135252d71891b46d9",
+    "server/wallet/ports.ts": "25381ce4ba956cbb061aad7b8778b34aafee23ef368a93010b966be280809b99",
+    "server/wallet/records.ts": "e716c2f4e338fc2a1f76172d7d9208d7ee3a9aaafe8b0d7060e9115565332f0d",
+    "server/wallet/router.ts": "e7eec884cdfe8bbfe86fa39dfefbabd375bb56fa2d2bd13d38b5679fa7d0ef38",
+    "server/wallet/schemaRegistry.ts": "190b851ea02f6790e625e1493dc1d15e1e4c14853030ba6512e3d87633731611",
+    "server/wallet/snapshot.ts": "49540cf9ef2248c5a43e499b1705847370e1ab62e4af65915733b7e1dcbe5dcf",
+    "server/wallet/store.ts": "8b18ee8215078a1a49895777703daf886e8b1b2d944ff8f707b7fa49ac74116b",
+    "src/features/productivity/dates.test.ts": "7b38c2029c4ff419e69d05825aac4d7b913e31b4fb0cbeff4668208469f43ec6",
+    "src/features/productivity/dates.ts": "e6558f991d940d1dea0acf28309773bf0ebf4a2363b06d93e55ab878cb425b7b",
+    "src/features/wallet/WalletHome.tsx": "a1697606cffacb0a4966a6e23281ba8ae8a4cf23bb67c33e638e7c2233fde6ec",
+    "src/features/wallet/api.ts": "b517859d82b082cfb2b95a7ba974276965f3ff4ece8c01b7ea347f9f3d43c5a3",
+    "src/features/wallet/useWallet.ts": "d80afe1f4fb31e0ae68ffa26eefdc14245de3d1c651d8b65623c5d835c72fed5",
+    "src/i18n/locales/en.json": "1c2c5c16ccd391950353826e68573e3219ee60ed748b846c45d854fc94d56178",
+    "src/i18n/locales/vi.json": "f9e43496a3d85761872580c0f048dec3fc3fdc4528607076890524157a25bb0c",
+    "src/i18n/locales/zh.json": "e4b88e1549f19a8c58e3ce0b83476ddd1e7f3515e8f1f01395a9d9b4416f6194",
+    "tests/e2e/wallet.spec.ts": "4ff3ce6b3102bd4cb94aca7240ddc337ed46a2fc2f443836219a0efd158c8166",
+    "tests/wallet-browser-fixture.test.ts": "852076286a4c74a574c12beb862c200ddef49d5e8e98ec18deff7bc293472710",
+    "tests/wallet-restore-import.test.ts": "7ea5118f1561f79e25f5bd15c07f642ae3cfd8d570d37089a3227a6b6f83f0a8"
+  },
+  "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+  "accepted1to9DdlUnchanged": {
+    "walletCoreSql": "5571c81df88935eeb9cf0e25e94f16960b372326f08086b54617131aa7f3c530",
+    "walletMetadataSql": "2766b0a82ec0ea2c807f6000f10173f3a8e3a7a9c7a91d4ae3b0e36067289326",
+    "walletFinancialSql": "4331752c3551885bfb54d4fc268e1cb408863c00abeb701dd0286e357a8fecdd",
+    "walletLegacyMigrationSql": "a485ca7b8a4f44d072af1ee0b0f08560bb0f56b2e8f388774b7138a88a84fbb8",
+    "walletReceiptSql": "6c8fc252544ea2af7526bb47182775efa70b111b7ccc4150a2832d9ceea71372",
+    "walletSelectionSql": "74bc459a2e0473297ac9600038ad6d6671155825f5dd1214967ff66d3eabcd4c",
+    "walletWorkflowSql": "f49d44791eab64ab2fe79d63209ec32102243af40cbc7ce57047c367d56084a9",
+    "walletFxCacheSql": "1fe67b7d9626833675ab992b38a0c3f26c6c0897ecba5438379037e035b7bcd0",
+    "walletPreferenceSql": "edb14e69181d397da6a8b2395eaf7aaf5832b96645ea68d1ab6953d173111009"
+  },
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7825,
+    "files": 435,
+    "junitCases": 7825,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7704,
+    "added": 121,
+    "removed": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullRegressionRuns": 2,
+    "intermediateFullSuite": {
+      "passed": 7824,
+      "files": 435,
+      "sourceManifest": "w10-frozen-first.json",
+      "qualified": false,
+      "reason": "Subsequent native run exposed the advancing-clock TTL defect; final source adds its regression and fix"
+    },
+    "npmCiExit": 0,
+    "nativeDependencySmokeExit": 0,
+    "synthetic10k": [
+      {
+        "rows": 10000,
+        "previewMs": 6119.439843,
+        "commitMs": 14628.522614000001,
+        "events": 1
+      }
+    ],
+    "performanceScope": "Observed Cloud timings, not a Windows SLA"
+  },
+  "dependency": {
+    "name": "xlsx",
+    "version": "0.20.3",
+    "source": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
+    "tarballSha256": "8dc73fc3b00203e72d176e85b50938627c7b086e607c682e8d3c22c02bb99fe8",
+    "license": "Apache-2.0",
+    "originalLicenseSha256": "4d2a38ac35cda06a555c84074a819d413339cd3691b822cae50f8f322fe01f64",
+    "transitiveDependencies": 0
+  },
+  "browser": {
+    "parentCases": 38,
+    "cases": 42,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "a3c370390460f90babfb6f590ded95af2014c5a9",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "1aabc6c7f4895de6ab9da31887323bdcce043f00e58a1e7304f3a4628de0ecbd",
+        "index": "a2fa770f03b647071eca4a9cddf8718e916e857cecd2b6b7f525ef75d50e463c"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 10,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "db0c6b6c-abb9-442c-8492-bb7e7656e627",
+        "creditId": "ecf82f4d-8ba5-4384-a6cb-9112dcbd2c4c",
+        "hiddenId": "cd85db92-c9a9-4d4a-bf3b-10d30aa08dff",
+        "readId": "b83322b1-9597-4f0e-bf1e-6a1f75dfa5d1",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "retained": {
+    "junit.xml": {
+      "path": "docs/engineering/evidence/w10-import-cloud.junit.xml.gz",
+      "sha256": "8abdd3ad773db8f675c6afa303a9180240651996eafbd080edf6c3d3e0cfa728"
+    },
+    "log": {
+      "path": "docs/engineering/evidence/w10-import-cloud.log.gz",
+      "sha256": "f8ba9a661fcf73cbcf05f22ecc4dab712afbf0ef3da72bd3620d0d743fbddee0"
+    }
+  },
+  "reports": {
+    "/workspace/family-evidence/w10-imports-10k-first.json": {
+      "bytes": 5303,
+      "sha256": "a0f7aa6bc954f693b8524372728b73dcb4bce0b6e8ffbb2e4e2bcf0c712910b6"
+    },
+    "/workspace/family-evidence/w10-imports-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-zip-size-red.json": {
+      "bytes": 2606,
+      "sha256": "3fe0c16fa8d0777b3a8f2d789eb41c59f0cc5a2e291fcb966415d643042a1a33"
+    },
+    "/workspace/family-evidence/w10-owner-first.log": {
+      "bytes": 443,
+      "sha256": "b3a4ca8231626c288f6255b90be3f4ceb70c24f9d205ed38e2a719b9ceef6f8a"
+    },
+    "/workspace/family-evidence/w10-composed-targeted.log": {
+      "bytes": 2423,
+      "sha256": "e0a9273cd4c6f636952a22f99946ef5670a54352165db3fd1d3963bb6b1855e8"
+    },
+    "/workspace/family-evidence/w10-imports-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-header-limit-red.json": {
+      "bytes": 7569,
+      "sha256": "7b6c05f5c18391390ca0bbc7b732ca4010fe326f2e7295055ae29be99a6c67b6"
+    },
+    "/workspace/family-evidence/w10-imports-dedupe-fixed.json": {
+      "bytes": 36351,
+      "sha256": "af93193a3e1aefd3fa88c5a19eba4fa0d027ceaed5c93cdc5c33a075dd77f6f6"
+    },
+    "/workspace/family-evidence/w10-mapping-first.log": {
+      "bytes": 4099,
+      "sha256": "79369575db46b4fc2d674b3d5d2898ec5765b7bd52806b593f2230f7c6f637bb"
+    },
+    "/workspace/family-evidence/w10-second-build.log": {
+      "bytes": 2006,
+      "sha256": "5fe3e4199d80877bcd9363b455486137e1591d546ac337b40f14b53077203dd5"
+    },
+    "/workspace/family-evidence/w10-clock-fixed.log": {
+      "bytes": 2077,
+      "sha256": "0c4f7db8bc65f36e8d41819ccbb1be0023d1eb3ab7633f4a74847dda8d14214e"
+    },
+    "/workspace/family-evidence/w10-header-limit-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-browser-first.log": {
+      "bytes": 14560,
+      "sha256": "c89545da1a456fc186721a1eda58ff97908ab68911b29fd4b4fa4a34681a61de"
+    },
+    "/workspace/family-evidence/w10-first-build.log": {
+      "bytes": 2004,
+      "sha256": "1893b82288c2ce5f93a96a980c0b40217b37f2418056aac0f960e1102baa0218"
+    },
+    "/workspace/family-evidence/w10-sheetjs-package.json": {
+      "bytes": 4587,
+      "sha256": "aba622b3afb51b3805cdd1a3009d57344bd9d49faaed50dd99b0671f5ae748a2"
+    },
+    "/workspace/family-evidence/w10-mapping-source-edges-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-parsers-fixture-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-timezone-api-fixed.json": {
+      "bytes": 26226,
+      "sha256": "d7b606cc25c23aec8528cc1b7134fdf7edd2e0df0643d204f2113b59636df960"
+    },
+    "/workspace/family-evidence/w10-ui-first-lint.log": {
+      "bytes": 830,
+      "sha256": "f4a04a1c18c749856970f540811c6ad490df8ef9624bb89f69d7647f129f1a18"
+    },
+    "/workspace/family-evidence/w10-second-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-mapping-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-mapping-signed-fixed.log": {
+      "bytes": 859,
+      "sha256": "65b3797a4cf251ef794e3e1ef97a896e8c0ac60e136e97859e0308e7f164cb83"
+    },
+    "/workspace/family-evidence/w10-ui-translated-lint.log": {
+      "bytes": 830,
+      "sha256": "f4a04a1c18c749856970f540811c6ad490df8ef9624bb89f69d7647f129f1a18"
+    },
+    "/workspace/family-evidence/w10-browser-first-source.json": {
+      "bytes": 5095,
+      "sha256": "9817996db5ca8ef9e7b6a876db41221fa6dd5dec897586a755336998a0f2321e"
+    },
+    "/workspace/family-evidence/w10-imports-red.json": {
+      "bytes": 759,
+      "sha256": "ed33b1b57317cad38d9c1a71b82fdab02dddb21ed95975c9a2bdf9884c71a13d"
+    },
+    "/workspace/family-evidence/w10-file-flush-red.json": {
+      "bytes": 3814,
+      "sha256": "c042ff938981dd64e539a0e5163d763ed90c75598682edf7f40377b5250c8874"
+    },
+    "/workspace/family-evidence/w10-owner-sse-race-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-preservation.json": {
+      "bytes": 31812,
+      "sha256": "809cd0d962317e24c65b15ceaef0e4de3845ebcd526312eb4b341ce972bd47fe"
+    },
+    "/workspace/family-evidence/w10-mapping-signed-fixed.json": {
+      "bytes": 16569,
+      "sha256": "291e4d7f7bb197ac27fd5b4de4ec850939538baaec29c7edb16439adf88a0eeb"
+    },
+    "/workspace/family-evidence/w10-clock-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-parsers-fixture-fixed.log": {
+      "bytes": 767,
+      "sha256": "44cce3f500e8117b07d300fcbef4a3953c9657560e30d1f22d24ba7960658a54"
+    },
+    "/workspace/family-evidence/w10-imports-dedupe-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-ui-translated-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w10-api-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-imports-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-parsers-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-zip-size-red.log": {
+      "bytes": 452,
+      "sha256": "747c2d2309d38d74e577cfe062d1fa1453a023791c03d4f4413b5dba8ff4a407"
+    },
+    "/workspace/family-evidence/w10-sheetjs-node-doc.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-mapping-source-edges-red.json": {
+      "bytes": 22555,
+      "sha256": "3357a8071ff298a5cb24419e80061f7b9913dbc03f1dfbb5fbc76d2b3723d29b"
+    },
+    "/workspace/family-evidence/w10-frozen-first.json": {
+      "bytes": 5265,
+      "sha256": "4ef6d6e839e4288dc61ecb5883bdc4cfcee5a0bafa100390137f2b64fbf3ee78"
+    },
+    "/workspace/family-evidence/w10-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-frozen.json": {
+      "bytes": 5265,
+      "sha256": "6cbee78cda1ea8f0b0fc7e88e88f6e7bd84b1b84cdafb48d7c0a272275de4358"
+    },
+    "/workspace/family-evidence/w10-browser-final.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-imports-first.log": {
+      "bytes": 433,
+      "sha256": "f732d6c7e583405cb3eafe0a922a6b62f9c498f7e90dca191951cbfec8abb792"
+    },
+    "/workspace/family-evidence/w10-prebrowser-targeted.json": {
+      "bytes": 27237,
+      "sha256": "664184618e775c8203b9cdaaf8606264f7925cb5b45142d622deef4301d76f56"
+    },
+    "/workspace/family-evidence/w10-ui-sdk-first.json": {
+      "bytes": 8560,
+      "sha256": "1d2aba307fbd64b1ea512523580f52eec5bd60d90080b9203d75bafbfebb8456"
+    },
+    "/workspace/family-evidence/w10-imports-fixture-fixed.log": {
+      "bytes": 449,
+      "sha256": "f57fe96ed4f5ebda753359be946d67bfe93fc969dd46e46afb8eba08c95ec223"
+    },
+    "/workspace/family-evidence/w10-first-build-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-parsers-red.json": {
+      "bytes": 785,
+      "sha256": "53f8a540cd8e1dfda3b1686480ff008b57a25e714188f796de4f1881081c444d"
+    },
+    "/workspace/family-evidence/w10-ui-sdk-first.log": {
+      "bytes": 483,
+      "sha256": "3fbd1ae2327f2e59c8e374b050acacc378a47f4b4071b17535b21f6fb3f26508"
+    },
+    "/workspace/family-evidence/w10-zone-cache-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-clock-fixed.json": {
+      "bytes": 17431,
+      "sha256": "c87fad87eb2910bc68bc30a63340860bb91c4eb9f04fe96d452129056c2463b6"
+    },
+    "/workspace/family-evidence/w10-file-flush-red.log": {
+      "bytes": 439,
+      "sha256": "6edb4843138bdd8ed1621551fa325626794f0fec5aa4b11cce963fea03ffda74"
+    },
+    "/workspace/family-evidence/w10-parsers-first.json": {
+      "bytes": 9528,
+      "sha256": "929692bf85912675f743369f326ba0aed8196d84bde923b54cbda18be22a5833"
+    },
+    "/workspace/family-evidence/w10-owner-scope-red.json": {
+      "bytes": 4172,
+      "sha256": "5a36f5b1c3338e8207d873f59aeb9f24205bd60125e6c945b2e3b658383f3608"
+    },
+    "/workspace/family-evidence/w10-owner-first.json": {
+      "bytes": 2978,
+      "sha256": "1f62188636b3c0e9cbd9445f5ff974f48ade90f7b8318586642aaa47a7f3b265"
+    },
+    "/workspace/family-evidence/w10-imports-dedupe-red.json": {
+      "bytes": 8326,
+      "sha256": "9c9313b64ab45781dfbd802c5cff2a210774f71746b9e15449b93a9e397d20c5"
+    },
+    "/workspace/family-evidence/w10-source-edges-fixed.log": {
+      "bytes": 493,
+      "sha256": "d3b7cb83d5221d4b888a242db42bb5e748ebb28c6856f14b1b00f256292a4723"
+    },
+    "/workspace/family-evidence/w10-parsers-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-durable-first.log": {
+      "bytes": 1622,
+      "sha256": "16e04f766f22ae8c204ddeb531d0125970d2fd1bb4082972ff30a7622437c573"
+    },
+    "/workspace/family-evidence/w10-browser-final.log": {
+      "bytes": 7586,
+      "sha256": "dbdcd1fd2c1f415de5c58cdd7264e026e3ebd893fbbddbd7fccdcf3328ce3d6e"
+    },
+    "/workspace/family-evidence/w10-owner-scope-red.log": {
+      "bytes": 451,
+      "sha256": "12b37e79a462eca81cc4169dffa76f22355055cd317e21a00d97a6a6d81d9493"
+    },
+    "/workspace/family-evidence/w10-durable-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-npm-ci.log": {
+      "bytes": 888,
+      "sha256": "b10c106aa204b00a8925af45d213477de0b7712059bd51a46637198eb7fd7449"
+    },
+    "/workspace/family-evidence/w10-final-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-mapping-source-edges-red.log": {
+      "bytes": 505,
+      "sha256": "abd82f68a5237c646bf28536408fc7844d8009a6e471c65e2ea350fd1513cd16"
+    },
+    "/workspace/family-evidence/w10-mapped-formula-red.log": {
+      "bytes": 449,
+      "sha256": "9808a6555b57ef4a6c1fcd75d3afa38329f1924da2b453e7f98aa83b0ed973b6"
+    },
+    "/workspace/family-evidence/w10-qualified-first.json": {
+      "bytes": 2285316,
+      "sha256": "651de0ab8616888185e6d54ef7f6decc49df4318070ecc86d6cc437752e3fd1e"
+    },
+    "/workspace/family-evidence/w10-qualified-first.log": {
+      "bytes": 101266,
+      "sha256": "c9dcfaf8c77bc84398254192c1ea30e077bb960bfbb222ab59627eb119098228"
+    },
+    "/workspace/family-evidence/w10-clock-red.json": {
+      "bytes": 7861,
+      "sha256": "177730e4f1c821190a4ea26741b890b6fc35150ecea66197ea7add5b5721eb89"
+    },
+    "/workspace/family-evidence/w10-sse-zip-fixed.json": {
+      "bytes": 13559,
+      "sha256": "02454eaf5b1c07c98359e444753296462c9b8dca68fce20006e3a826d3d70e39"
+    },
+    "/workspace/family-evidence/w10-sheetjs-probe.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-timezone-api-fixed.log": {
+      "bytes": 517,
+      "sha256": "e02774dd3df55dfe3c3b744d4e25bc417e69d4610acf7cce303bdcd43f2d8973"
+    },
+    "/workspace/family-evidence/w10-zone-cache-red.log": {
+      "bytes": 445,
+      "sha256": "5a479b012dd353bbba93ba222219a7a7c68ea952bb7b11ed0ea54de97cfa7bfe"
+    },
+    "/workspace/family-evidence/w10-header-limit-red.log": {
+      "bytes": 4551,
+      "sha256": "e51b8ac2f1e898ca22edc69fbbb80e4ca69f6c59c5e128605744e1c432195251"
+    },
+    "/workspace/family-evidence/w10-owner-sse-race-red.json": {
+      "bytes": 4639,
+      "sha256": "7c146ff4b0102e69e7b934a417dc18f37f1abf0cc2a618673bc3eefdd2cf9ccb"
+    },
+    "/workspace/family-evidence/w10-zip-size-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-owner-red.log": {
+      "bytes": 439,
+      "sha256": "61943ced2645fc97b77f35079cd36c340370d1a7ca7bba423c71eee3c656fa0d"
+    },
+    "/workspace/family-evidence/w10-imports-fixture-fixed.json": {
+      "bytes": 9575,
+      "sha256": "ad83e6d62af0f82a89e0214c6dec15eacc99961203f6a8fc7ac44e4cb623ac19"
+    },
+    "/workspace/family-evidence/w10-timezone-api-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-imports-first.json": {
+      "bytes": 14174,
+      "sha256": "09fbfb834c156b0075cfc0e0bd529ffed42f084b07cc2b3870e305a98ed24bb5"
+    },
+    "/workspace/family-evidence/w10-mapping-signed-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-import-files-first.log": {
+      "bytes": 447,
+      "sha256": "9563ea8edcce7dd183bab6f7c853b4443d6ddd90ff142df4b9d1407be80a6e3d"
+    },
+    "/workspace/family-evidence/w10-browser-second-source.json": {
+      "bytes": 5265,
+      "sha256": "4ef6d6e839e4288dc61ecb5883bdc4cfcee5a0bafa100390137f2b64fbf3ee78"
+    },
+    "/workspace/family-evidence/w10-imports-10k-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-import-api-first.log": {
+      "bytes": 1137,
+      "sha256": "b4dd1baf2c487a8b8f7b959dd35fc2a3d84f304c8bff5447e265a4b7e829c8a7"
+    },
+    "/workspace/family-evidence/w10-native-ready-lint.log": {
+      "bytes": 624,
+      "sha256": "acabd53b2eb2a900eaad9723fc4316aad984f81ea2fe80dc283a5a7636ae1a33"
+    },
+    "/workspace/family-evidence/w10-integrated-first.json": {
+      "bytes": 16752,
+      "sha256": "535219bff59bafea0cdb0d75d5887d9f117882bc4481cc5373aab9da5a00a1b6"
+    },
+    "/workspace/family-evidence/w10-durable-first.json": {
+      "bytes": 22804,
+      "sha256": "dfb5551a7d64fb7253a859b44ed86da5ea8d624aaafb5ae8ce9db943de1314d0"
+    },
+    "/workspace/family-evidence/w10-composed-targeted.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-imports-dedupe-red.log": {
+      "bytes": 443,
+      "sha256": "395b42557d27a4f479fd4a17abd2f94c4d8e4bb252a418b17c18010abd32998d"
+    },
+    "/workspace/family-evidence/w10-imports-red.log": {
+      "bytes": 429,
+      "sha256": "917deb64fe4a31ac1c62101383d13d0db95e3143486ae6bf4a527b5e036e33a8"
+    },
+    "/workspace/family-evidence/w10-browser-first-lint.log": {
+      "bytes": 624,
+      "sha256": "54445061bf3d7b99cc2b13abaf6a3e8e887794b3dd69bd6d2f8d2f9f834a2a69"
+    },
+    "/workspace/family-evidence/w10-owner-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-parsers-fixture-fixed.json": {
+      "bytes": 9180,
+      "sha256": "ac1d404bbf7b22b9a8735a41d5251587ad6cd45294751ac2c958e108ea0fc409"
+    },
+    "/workspace/family-evidence/w10-mapping-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-dependency-native-smoke.log": {
+      "bytes": 113,
+      "sha256": "ed462ee421e0a61a8d5893e5474b87cd839add2db69bd518399da7e3ae4504af"
+    },
+    "/workspace/family-evidence/w10-import-snapshot-first.log": {
+      "bytes": 465,
+      "sha256": "41405a94284fa2d60423cb7ce28ad3702115f358dedd959b2efedeb395010029"
+    },
+    "/workspace/family-evidence/w10-owner-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-npm-install.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-biff-fixture-investigation.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-source-edges-fixed.json": {
+      "bytes": 17868,
+      "sha256": "9b9083bcf01fe807d548dc9178f3c6e42c861c07c56caf9ff1126db814cdf6b1"
+    },
+    "/workspace/family-evidence/w10-imports-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-api-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-schema-first-lint.log": {
+      "bytes": 639,
+      "sha256": "cdf019907ad8ecadf90a0a4e322c400b3c613bc1b4fbcdd673c9ddf3f5b5c8eb"
+    },
+    "/workspace/family-evidence/w10-imports-context-fixed.json": {
+      "bytes": 3189,
+      "sha256": "3a2b5493a6336d1bf85f14c2e4b8f7f8b5450594efa1e1391ff3b9aa43b4d164"
+    },
+    "/workspace/family-evidence/w10-browser-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w10-import-files-first.json": {
+      "bytes": 3158,
+      "sha256": "0027ddac86dc08742588bcd80666d1dafdf02da4ad53417871052324c1be63a0"
+    },
+    "/workspace/family-evidence/w10-imports-dedupe-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-first-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-first-build-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-jobs-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-mapped-formula-red.json": {
+      "bytes": 10351,
+      "sha256": "36c90c98d518d0b0b801ab50b75c1c3d6b05af36596ff7c6cb6a33a15061203c"
+    },
+    "/workspace/family-evidence/w10-browser-second.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-mapping-red.log": {
+      "bytes": 435,
+      "sha256": "37aea118ea8d0d1c4988835b739262a6dd57ed8ab5112413eda3b51cbf323e5f"
+    },
+    "/workspace/family-evidence/w10-imports-fixture-fixed.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-prebrowser-targeted.log": {
+      "bytes": 640,
+      "sha256": "267d65a351c4bedce02cc44508afcbe01e52a959d459c9aaafe242315a62edad"
+    },
+    "/workspace/family-evidence/w10-owner-scope-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-import-snapshot-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-npm-ci.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-native-ready-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w10-composed-targeted.json": {
+      "bytes": 35086,
+      "sha256": "7b26a4ca5316231c2e1a4a35955194aa7043b3d04224988baa88bdf55722e3f7"
+    },
+    "/workspace/family-evidence/w10-ui-sdk-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-zone-cache-red.json": {
+      "bytes": 11333,
+      "sha256": "b0b13c0d8de7e9279ae6fcab799a6479479acb96040de53c9edb178c98ab5d49"
+    },
+    "/workspace/family-evidence/w10-sheetjs-download.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-jobs-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-mapping-red.json": {
+      "bytes": 777,
+      "sha256": "e634df9184f027078e7b50f35515a0c7b29d70bba7af165be7f3658910665a5e"
+    },
+    "/workspace/family-evidence/w10-mapping-first.json": {
+      "bytes": 18507,
+      "sha256": "d2e6158bafa1e98e1cf8778684ed80537958f91bedd6eb2f34c8a91098f70421"
+    },
+    "/workspace/family-evidence/w10-owner-scope-fixed.log": {
+      "bytes": 455,
+      "sha256": "c163dcf9a58505b2bd65d94c78a084e652d33fe6536d23a66ac0979f3d76f60f"
+    },
+    "/workspace/family-evidence/w10-integrated-first.log": {
+      "bytes": 1955,
+      "sha256": "1fd00baad4656e2eadb6edfc7bf6b83a4a34ece5b52c5cc187e1c9741b48d295"
+    },
+    "/workspace/family-evidence/w10-npm-install.log": {
+      "bytes": 795,
+      "sha256": "6b1093c26d59fd5d6f5a386495068a29a702e232f86bffff4994897ae5eaa8d0"
+    },
+    "/workspace/family-evidence/w10-import-api-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-qualified-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-final-build.log": {
+      "bytes": 2004,
+      "sha256": "cdc1f8572bb9ee004b3bdca81457d008b1c076b709a05b84f625ce9856f7f327"
+    },
+    "/workspace/family-evidence/w10-qualified.log": {
+      "bytes": 103145,
+      "sha256": "a648f0236b943b50edb12cc2b0cb220476cc69a40f4a85af42d49b9c985c4914"
+    },
+    "/workspace/family-evidence/w10-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-imports-dedupe-fixed.log": {
+      "bytes": 557,
+      "sha256": "f49dfce64ba38e63ad524e75b4ebbab18b3815ed481963d3e2d5ba2b134b4bdb"
+    },
+    "/workspace/family-evidence/w10-schema-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w10-qualified.json": {
+      "bytes": 2285603,
+      "sha256": "719d61866997820dcc6d742269aaf53ed0a0701a7f52473c30a6382ed27296c5"
+    },
+    "/workspace/family-evidence/w10-dependency-native-smoke.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-prebrowser-targeted.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-file-flush-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w10-qualified-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-integrated-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-import-snapshot-first.json": {
+      "bytes": 5274,
+      "sha256": "c53c4d027887f8757a75072a30d5dc0f2501b0f7173cf7dad8f3971f97ca02e8"
+    },
+    "/workspace/family-evidence/w10-owner-scope-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-imports-context-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-clock-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-import-api-first.json": {
+      "bytes": 2077,
+      "sha256": "39f78a4bc3f3bfcec2a09691c0e3f6f8cb58bb5e9160e7d2f43cb46b33367fc8"
+    },
+    "/workspace/family-evidence/w10-final-shape-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-qualified-first.junit.xml": {
+      "bytes": 1592395,
+      "sha256": "245b40e8c5613c9bbce064de2e311d6f73a468ecc4916c016f6fcc65d4a90bac"
+    },
+    "/workspace/family-evidence/w10-browser-second.log": {
+      "bytes": 32217,
+      "sha256": "faa7cd37c3cf1838ee5421902e70ddcc7a74589b6dc6dbb6c7c33bdf05721818"
+    },
+    "/workspace/family-evidence/w10-owner-sse-race-red.log": {
+      "bytes": 457,
+      "sha256": "4d75657e79be7efa0c908be67beb786898f812051860ed251f48958616decd48"
+    },
+    "/workspace/family-evidence/w10-owner-scope-fixed.json": {
+      "bytes": 3646,
+      "sha256": "7f3631b8e21b944538ce3c7e5874b85936ddca6b726322e6e479cfd27b6171a3"
+    },
+    "/workspace/family-evidence/w10-qualified-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-parsers-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-imports-context-fixed.log": {
+      "bytes": 449,
+      "sha256": "1a2995273de46c182c13a9fa38befb141c6b072121f0c272f2fcabce0a3749c6"
+    },
+    "/workspace/family-evidence/w10-sse-zip-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-qualified-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-owner-red.json": {
+      "bytes": 795,
+      "sha256": "889944f8c093bfd5deb820ce692f3ecdfa208e5d2f871dfc22c4f0103921af45"
+    },
+    "/workspace/family-evidence/w10-mapped-formula-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-qualified.junit.xml": {
+      "bytes": 1592635,
+      "sha256": "920f7c3bfca3f012bfa6535525f7d1c1c538be6399f7b2e5cf5f2205c1a12cda"
+    },
+    "/workspace/family-evidence/w10-source-edges-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-parsers-red.log": {
+      "bytes": 443,
+      "sha256": "88c0216a9b0755c9b2e00b41fc689a918d4df3401361fa9580ee60c60da48a13"
+    },
+    "/workspace/family-evidence/w10-parsers-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w10-sse-zip-fixed.log": {
+      "bytes": 542,
+      "sha256": "c33f1ae35d05d7d193e48d8d86cbb5b29e44bad6c42dcc9aaa7c3d9bae28bf1a"
+    },
+    "/workspace/family-evidence/w10-clock-red.log": {
+      "bytes": 425,
+      "sha256": "07e9ced80b8fcfca68bf50c7c97418307a23908201b34c3cb02a4f8edadc3f14"
+    },
+    "/workspace/family-evidence/w10-import-files-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w10-final-shape-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w10-parsers-first.log": {
+      "bytes": 4037,
+      "sha256": "97b6a7ee8972db0ab2b17d95fcd3bb686d165c722b138ba90d482c9871180c4e"
+    },
+    "/workspace/family-evidence/w10-imports-10k-first.log": {
+      "bytes": 441,
+      "sha256": "f2ba894337167a8746fb86d0a171aa90d64956a36f1d54a0b95285193b8e3467"
+    },
+    "/workspace/family-evidence/w10-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 7761,
+      "sha256": "497d12e2d2a23df6cf5ff8144453f163dd7490c499cf1c73bfee7f71efb3e467"
+    },
+    "/workspace/family-evidence/w10-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1147,
+      "sha256": "e751389c56a4a954100c2e8acac3bb50d99f32f556228aacce97e45461142d3b"
+    },
+    "/workspace/family-evidence/w10-browser-qualified-artifacts/browser.json": {
+      "bytes": 50844,
+      "sha256": "af8ea92217118b58e9509061a160d60a2bad7c0c69d5abe6c092986ca69c7958"
+    },
+    "/workspace/family-evidence/w10-browser-qualified-artifacts/imports-phone.png": {
+      "bytes": 99040,
+      "sha256": "e01d1916b09c131c970bd05c333795114526aa9c9aac1e7fd9151f72f86913c5"
+    },
+    "/workspace/family-evidence/w10-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/browser.junit.xml": {
+      "bytes": 15107,
+      "sha256": "6afdc199d2427f33dee4350874b1e96903bef53b511466737b2ba65c8bcf066c"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/fixture.json": {
+      "bytes": 1195,
+      "sha256": "ec52ee76cda035a9cd5a426b90c82db106fd0cc05baa399e5970d00bf493ec18"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/browser.json": {
+      "bytes": 61947,
+      "sha256": "90247fcf580bec7ff44218110e7032c33ee322859087612fb9b4fa77a29aa8fb"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/imports-phone.png": {
+      "bytes": 98390,
+      "sha256": "49f20a14857759057262807549c34b02606e7c9b6befa0e7be85d9a61c6df792"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/error-context.md": {
+      "bytes": 76411,
+      "sha256": "cc2536029e40f7b4866024b90b95ddb73822eb10ee3e43e839be51683902ee15"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/test-failed-1.png": {
+      "bytes": 175915,
+      "sha256": "e87a569354f63af9a4237da585fbddfd7760586e147ffa21c32e35bbfb004857"
+    },
+    "/workspace/family-evidence/w10-browser-first-artifacts/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/trace.zip": {
+      "bytes": 10577088,
+      "sha256": "a3e62caf556133af0c51641e8d7db682b19f222c6c3aabbd9987a60ee16fad2b"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/browser.junit.xml": {
+      "bytes": 33525,
+      "sha256": "b66ff84500153c1bbcf579b3805ffceed310b89f77a3dce7faa81ee026186307"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/fixture.json": {
+      "bytes": 1195,
+      "sha256": "cf05089c7d5e8497be3cdcb1afc833f8a042b7b59cbbdfdef0407993aa749e14"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/browser.json": {
+      "bytes": 90761,
+      "sha256": "1b1e1de5ff8311274049b9a627e6444d61502382184b39edc33e021ca32584cc"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/imports-phone.png": {
+      "bytes": 98390,
+      "sha256": "49f20a14857759057262807549c34b02606e7c9b6befa0e7be85d9a61c6df792"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/error-context.md": {
+      "bytes": 77369,
+      "sha256": "64934b774fed6bdb00ebddfa8c0236caa4b8fbb3f22b4dc64c7c75994f84070d"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/test-failed-1.png": {
+      "bytes": 183331,
+      "sha256": "6d4364058e540282c1edd4f9aa6d2b01ba9c71dfba9dbf9f801cbe75965f7dc3"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/trace.zip": {
+      "bytes": 5253494,
+      "sha256": "9ceeb26089b60d8d8e7e8d344413f33e98fb43e124cc923844bb7a5c0eb9c51d"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/error-context.md": {
+      "bytes": 77870,
+      "sha256": "9feef9ec2fc88622fe7b8931441bba4470c83cd2dfe569b147e97a1d488870b4"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/test-failed-1.png": {
+      "bytes": 169616,
+      "sha256": "6bfeb6efe0de685c28716ce13593d81c0fcdda9747ed021fdc4f591a16ace0b1"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/trace.zip": {
+      "bytes": 5659734,
+      "sha256": "4dccbb87d23363af1899db2cff035ef019f9d0fa843d585d52c43e3ad94efb6d"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/error-context.md": {
+      "bytes": 77378,
+      "sha256": "29fd7dc63aca27b4960dd55c97696c6b865e7be1e6973e86ff9c305abda326f2"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/test-failed-1.png": {
+      "bytes": 183332,
+      "sha256": "d8b527751e3f7799b7529bcdfc1f92e6a22bdd13a804e81673bdf3924aa06bca"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/trace.zip": {
+      "bytes": 5319973,
+      "sha256": "628a2bc2de9f305670263a1c96735875f1e54e30d1c5fd8172ad650ef0385c24"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/error-context.md": {
+      "bytes": 77396,
+      "sha256": "c9b6254620b019d9345f6782549b721ad1a6c976ee67d9e3ced45e2b66313fb1"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/test-failed-1.png": {
+      "bytes": 183333,
+      "sha256": "1bee48dd28f1139e4c99667eaeaa532f19f222eb5405b079288f94a235e8818b"
+    },
+    "/workspace/family-evidence/w10-browser-second-artifacts/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/trace.zip": {
+      "bytes": 4692035,
+      "sha256": "dad0a1b6cfdd8867888270e12974e6ea564899d8937db0a810a413dd2cd3c9e4"
+    }
+  },
+  "review": {
+    "kind": "Author inspection of frozen paths; not independent final whole-branch review",
+    "paths": [
+      "server/wallet/importFiles.test.ts",
+      "server/wallet/importFiles.ts",
+      "server/wallet/importHash.ts",
+      "server/wallet/importJobs.ts",
+      "server/wallet/importMapping.test.ts",
+      "server/wallet/importMapping.ts",
+      "server/wallet/importSchema.ts",
+      "server/wallet/importUpload.ts",
+      "server/wallet/imports.api.test.ts",
+      "server/wallet/imports.test.ts",
+      "server/wallet/imports.ts",
+      "server/wallet/parsers/common.ts",
+      "server/wallet/parsers/csv.ts",
+      "server/wallet/parsers/importParsers.test.ts",
+      "server/wallet/parsers/index.ts",
+      "server/wallet/parsers/ofx.ts",
+      "server/wallet/parsers/spreadsheet.ts",
+      "server/wallet/parsers/spreadsheetContainer.test.ts",
+      "src/features/wallet/ImportWizard.tsx",
+      "src/features/wallet/importApi.test.ts",
+      "src/features/wallet/importContracts.ts",
+      "src/features/wallet/importDto.ts",
+      "src/features/wallet/importWorkspace.test.ts",
+      "src/features/wallet/importWorkspace.ts",
+      "package-lock.json",
+      "package.json",
+      "scripts/ci/run-wallet-browser.mjs",
+      "scripts/ci/write-wallet-browser-fixture.ts",
+      "scripts/windows/reviewed-notices.mjs",
+      "server/app.ts",
+      "server/runtime.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/records.ts",
+      "server/wallet/router.ts",
+      "server/wallet/schemaRegistry.ts",
+      "server/wallet/snapshot.ts",
+      "server/wallet/store.ts",
+      "src/features/productivity/dates.test.ts",
+      "src/features/productivity/dates.ts",
+      "src/features/wallet/WalletHome.tsx",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/useWallet.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts",
+      "tests/wallet-browser-fixture.test.ts",
+      "tests/wallet-restore-import.test.ts"
+    ],
+    "closed": [
+      "Official SheetJS0.20.3 pinned HTTPS package/lock integrity, original Apache2 notice, npm ci and actual native SQLite smoke; no Cloud modules enter Windows packages.",
+      "Local file20MiB/10k/24h bounds, strict UTF8/quotes/explicit dates/locales, selected sheet/range, formula/macro rejection, actual ZIP stream expansion bound, stable OFX namespace/FITID, exact signed64 strings/BigInt and CSV duplicate suggestions without loss.",
+      "Private ordinary directories/UUID files, identity/hardlink/symlink/size/checksum checks, proven staged-file rollback, owner/current-role/account access across async boundaries, same-key stage/preview receipts before IO.",
+      "Explicit schema10/standalone11 with current backup validation/provenance; accepted1-9 DDL/checksum bytes unchanged; staged raw files are ephemeral, outside public media and backups; no startup activation/cutover.",
+      "Preview writes no ledger; explicit errors/exclusions, hashes/revisions and current account/catalog/source keys gate apply. Durable queue is enqueued within I01; existing AppJobs owns lease fence, cancellation/drain and expiry. A last-row native fault rolls back all records/metadata/postings/audit/provenance/nonce.",
+      "Imports reuse server-only trusted record writers; ordinary record payloads cannot forge source/external keys. Undo voids unchanged owned imported records, keeps or rejects modifications, blocks financial FK links and retains all history; only explicit import undo releases active source identity.",
+      "Protected internal Bearer API, explicit bounded base64 upload, strict browser DTOs, five-step UI and exact request ownership across navigation. Fresh target scope/generation fences retire private views on SSE/hide/logout/revocation.",
+      "Actual SSE/queue-ack race fixed with a regression: terminal server batch states move to results even when refresh wins. Financial assertions, all parent tests, browser deadlines/retries remain."
+    ],
+    "remaining": [
+      "W11-W18/M1/I02/I03/master completion; global preview capacity hardening before activation",
+      "Protected restore host/Admin binding/remediation/raw legacy backup/canonical bridge/cutover/retention",
+      "Final independent whole-branch review, exact-HEAD Windows2022/Node22/package/service checks and separate actual Server2019 R02"
+    ]
+  },
+  "developmentFailures": {
+    "firstBrowser": {
+      "passed": 40,
+      "failed": 1,
+      "retained": "docs/engineering/evidence/w10-import-browser-first.junit.xml",
+      "cause": "Actual DOM and network trace show all-duplicate OFX batch committed0 successfully, but SSE refresh won against queue-ack scope await and left the wizard at preview step4. No duplicated ledger.",
+      "repair": "Regression reproduces the race. Publish the desired nonfinancial step before the scope await; refresh maps terminal server batch states to results. Original native assertion retained.",
+      "intermediateSource": "w10-browser-first-source.json; final also includes actual ZIP-stream validation and selected-sheet XLSX case",
+      "noRetrySkipDeadlineChange": true
+    },
+    "secondBrowser": {
+      "passed": 38,
+      "failed": 4,
+      "retained": "docs/engineering/evidence/w10-import-browser-second.junit.xml",
+      "cause": "Real stage response had createdAt2026-10-18T01:52:37.071Z and expiresAt2026-10-19T01:52:37.072Z. Two clock reads violated the exact24-hour DTO/snapshot contract by1ms. The first stage became unknown; history decoding then failed in later new cases.",
+      "repair": "Keep the strict assertions. Derive expiresAt from the single captured createdAt; advancing-clock regression reproduces86400001 before the fix and validates both SDK and snapshot afterward.",
+      "noRetrySkipDeadlineChange": true
+    },
+    "development": [
+      "Parser/mapping RED cases include note whitespace, OFX locale/+ sign/trailing fractional zeros, inherited sheet prototype, mapped formula errors and declared ZIP size mismatch.",
+      "Initial backend fixture deleted the currency seed and used wrong cleanup order; fixed fixture without weakening FK/financial checks. Trusted writer normalizes only its internal create revision to0.",
+      "Actual REDs cover all-duplicate and within-file OFX, preview replay before missing raw bytes, headerless10,001-row overflow, fsync-owned-file cleanup, late target revocation and same-target retry authority.",
+      "One development snapshot-only name selection ran1case with14unselected; it is retained but never used as suite qualification. Final full suite has zero skipped/todo.",
+      "SDK test setup expected no method while the shared transport deliberately normalizes reads to GET; its assertion now explicitly requires GET. Type-only discriminated union/disposed literals were corrected."
+    ]
+  },
+  "notRun": [
+    "Current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for W10",
+    "Actual Windows Server2019 R02",
+    "Production providers/data/secrets (prohibited)"
+  ],
+  "releaseTagVps": "none"
+}

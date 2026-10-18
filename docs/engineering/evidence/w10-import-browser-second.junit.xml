@@ -1,0 +1,308 @@
+<testsuites id="" name="" tests="42" failures="4" skipped="0" errors="0" time="290.49600799999996">
+<testsuite name="wallet.spec.ts" timestamp="2026-10-18T01:48:39.167Z" hostname="chromium" tests="42" failures="4" skipped="0" time="282.455" errors="0">
+<testcase name="W06 exact balances, credit availability, scoped accounts and existing Finance remain visible" classname="wallet.spec.ts" time="4.242">
+</testcase>
+<testcase name="W06 create form validates exact money and retains the same command across lost acknowledgement and navigation" classname="wallet.spec.ts" time="4.943">
+</testcase>
+<testcase name="W06 stale revision keeps draft and requires explicit reload before editing again" classname="wallet.spec.ts" time="4.576">
+</testcase>
+<testcase name="W06 archive requires confirmation and retains account history" classname="wallet.spec.ts" time="4.942">
+</testcase>
+<testcase name="W06 phone form keyboard focus, native date and custom selectors remain usable" classname="wallet.spec.ts" time="3.032">
+</testcase>
+<testcase name="W04 grant revocation removes a live edit form and financial details through the real SSE path" classname="wallet.spec.ts" time="3.293">
+</testcase>
+<testcase name="W04 a real cross-tab logout retires the session-owned financial draft" classname="wallet.spec.ts" time="4.495">
+</testcase>
+<testcase name="W05 record income and expense use exact balances and save-and-add only clears after success" classname="wallet.spec.ts" time="6.712">
+</testcase>
+<testcase name="W05 cross-currency transfer and separate fee are one confirmed intent; parent void reverses both" classname="wallet.spec.ts" time="9.189">
+</testcase>
+<testcase name="W06 scoped filters recover explicitly from a missing valuation rate" classname="wallet.spec.ts" time="5.239">
+</testcase>
+<testcase name="W05 record edit retains conflict draft and replays the same note-only write after a lost acknowledgement" classname="wallet.spec.ts" time="6.416">
+</testcase>
+<testcase name="W05 stale void confirmation shows inline failure without silently voiding a changed record" classname="wallet.spec.ts" time="5.476">
+</testcase>
+<testcase name="W04 private receipt PDF/image attach, verified download and confirmed detach keep record money" classname="wallet.spec.ts" time="5.139">
+</testcase>
+<testcase name="W04 an unknown receipt upload survives tab navigation and retries the same committed intent" classname="wallet.spec.ts" time="5.094">
+</testcase>
+<testcase name="W06 combined scoped facets, label any/all and clearing the final choice use one shared filter" classname="wallet.spec.ts" time="8.025">
+</testcase>
+<testcase name="W06 loaded checked rows and a cross-page captured scope remain distinct; later records stay excluded from atomic metadata bulk" classname="wallet.spec.ts" time="22.321">
+</testcase>
+<testcase name="W06 an unknown bulk result survives Finance navigation and explicitly replays the identical committed selection patch and nonce" classname="wallet.spec.ts" time="6.508">
+</testcase>
+<testcase name="W06 a stale bulk confirmation keeps the independent edit and requires a fresh preview without sending a replacement write" classname="wallet.spec.ts" time="5.86">
+</testcase>
+<testcase name="W06 a held privacy refresh preserves an open confirmation so Escape can release its focus and scroll ownership" classname="wallet.spec.ts" time="5.79">
+</testcase>
+<testcase name="W07 Admin builds three-level categories, keeps a rejected fourth-level draft and manages hidden archived history on phone in both themes" classname="wallet.spec.ts" time="8.274">
+</testcase>
+<testcase name="W07 linked categories expose bounded references and offer archive while unlinked labels require explicit delete confirmation" classname="wallet.spec.ts" time="5.665">
+</testcase>
+<testcase name="W07 lost label acknowledgement keeps the exact body and nonce across navigation and explicitly retries without a duplicate" classname="wallet.spec.ts" time="4.293">
+</testcase>
+<testcase name="W07 Member reads catalog and labels without management controls or mutation permission" classname="wallet.spec.ts" time="2.454">
+</testcase>
+<testcase name="W07 clone opens a fresh draft without a write and explicit Save creates a distinct manual record with the same exact money" classname="wallet.spec.ts" time="5.804">
+</testcase>
+<testcase name="W07 revoking source access retires an open clone draft through the real SSE path before any Save" classname="wallet.spec.ts" time="5.123">
+</testcase>
+<testcase name="W07 split validates exact totals and preserves one posting, balance and source; category filters select split children only once" classname="wallet.spec.ts" time="7.352">
+</testcase>
+<testcase name="W07 an unknown split survives navigation and retries the exact confirmed rows and nonce without a second revision" classname="wallet.spec.ts" time="6.779">
+</testcase>
+<testcase name="W07 a split clone edits amount and allocations in its new draft and creates one independent posting only on Save" classname="wallet.spec.ts" time="5.843">
+</testcase>
+<testcase name="W07 templates save personal configuration without a ledger write, then apply default labels and exact splits to a reviewed new draft" classname="wallet.spec.ts" time="7.865">
+</testcase>
+<testcase name="W07 an unknown template save retries the original metadata intent across navigation without creating a financial record or duplicate template" classname="wallet.spec.ts" time="6.288">
+</testcase>
+<testcase name="W07 template archive is confirmed and reversible while another Admin cannot read personal template contents" classname="wallet.spec.ts" time="4.506">
+</testcase>
+<testcase name="W08 report UI uses exact shared filters, unique label totals and navigates its drilldown back to records" classname="wallet.spec.ts" time="6.349">
+</testcase>
+<testcase name="W08 balance ignores note and category selection while missing FX remains explicit and private accounts stay absent" classname="wallet.spec.ts" time="4.671">
+</testcase>
+<testcase name="W08 Admin public rate refresh retains the original date and nonce after a lost acknowledgement and navigation" classname="wallet.spec.ts" time="3.971">
+</testcase>
+<testcase name="W09 personal dashboard uses real scoped data, keyboard layout controls persist, phone layout fits and global dashboard drilldown opens the exact list" classname="wallet.spec.ts" time="11.276">
+</testcase>
+<testcase name="W09 saved personal filters and charts reload the exact scope and chosen chart style without writing any financial record" classname="wallet.spec.ts" time="8.584">
+</testcase>
+<testcase name="W09 an unknown layout save survives navigation and retries the original revision body and key exactly once" classname="wallet.spec.ts" time="3.725">
+</testcase>
+<testcase name="W09 real grant revocation removes financial widget data through SSE while the saved filter remains configuration only" classname="wallet.spec.ts" time="2.905">
+</testcase>
+<testcase name="W10 CSV wizard preserves two identical expenses, requires explicit exclusions and safely keeps manually edited imported records on undo" classname="wallet.spec.ts" time="13.414">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › wallet.spec.ts:356:1 › W10 CSV wizard preserves two identical expenses, requires explicit exclusions and safely keeps manually edited imported records on undo 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByRole('button', { name: 'Tiếp theo', exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByRole('button', { name: 'Tiếp theo', exact: true }) with timeout 10000ms
+      - waiting for getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByRole('button', { name: 'Tiếp theo', exact: true })
+
+
+      353 | async function importTab(page:Page){await page.getByTestId('wallet-home').getByRole('button',{name:'Nhập dữ liệu',exact:true}).click();await expect(importPanel(page).getByRole('heading',{name:'Nhập dữ liệu',exact:true})).toBeVisible();await expect(importPanel(page).getByLabel('Tệp dữ liệu',{exact:true})).toBeVisible();}
+      354 | async function importSelect(page:Page,label:string,value:string){await importPanel(page).getByRole('button',{name:label,exact:true}).click();await page.getByRole('option',{name:value,exact:true}).click();await expect(page.getByRole('listbox')).toHaveCount(0);}
+    > 355 | async function importFile(page:Page,account:{name:string;currency:string},name:string,buffer:Buffer){await importSelect(page,'Tài khoản đích',account.name+' · '+account.currency);await importPanel(page).getByLabel('Tệp dữ liệu',{exact:true}).setInputFiles({name,mimeType:'application/octet-stream',buffer});await importPanel(page).getByRole('button',{name:'Tải tệp riêng tư',exact:true}).click();await expect(importPanel(page).getByRole('button',{name:'Tiếp theo',exact:true})).toBeVisible();}
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      356 | test('W10 CSV wizard preserves two identical expenses, requires explicit exclusions and safely keeps manually edited imported records on undo',async({page})=>{
+      357 |  await login(page);const account=await accountForRecord(page,'Synthetic W10 CSV account');await importTab(page);await importFile(page,account,'synthetic-w10-csv.csv',Buffer.from('\ufeffNgày,Số tiền,Người nhận,Ghi chú\n18/10/2026,-100.000,Cửa hàng,"  Tiếng Việt, dòng 1\ndòng 2  "\n18/10/2026,-100.000,Cửa hàng,"  Tiếng Việt, dòng 1\ndòng 2  "\n31/02/2026,-1,Lỗi,\n'));await importPanel(page).getByRole('button',{name:'Tiếp theo',exact:true}).click();await expect(importPanel(page).getByRole('button',{name:'Tạo bản xem trước',exact:true})).toBeDisabled();await importSelect(page,'Định dạng ngày bắt buộc','DD/MM/YYYY');await importPanel(page).getByRole('button',{name:'Tạo bản xem trước',exact:true}).click();await expect(importPanel(page).getByText('Hợp lệ / lỗi / đã nhập / loại trừ: 2 / 1 / 0 / 0',{exact:true})).toBeVisible();await expect(importPanel(page).getByRole('button',{name:'Xác nhận nhập vào sổ',exact:true})).toBeDisabled();expect((await request(page,'accounts/'+account.id+'/balance?date=2026-10-31')).body.book.minor).toBe('0');await importPanel(page).getByRole('checkbox',{name:'Loại trừ dòng 4',exact:true}).check();await importPanel(page).getByRole('button',{name:'Xem trước lại',exact:true}).click();await expect(importPanel(page).getByText('Hợp lệ / lỗi / đã nhập / loại trừ: 2 / 0 / 0 / 1',{exact:true})).toBeVisible();await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:`reports/wallet/${process.env.FO_WALLET_PROJECT}/imports-phone.png`});await page.setViewportSize({width:1440,height:1000});await importPanel(page).getByRole('button',{name:'Xác nhận nhập vào sổ',exact:true}).click();await expect(importPanel(page).getByText('Đã nhập thành công',{exact:true})).toBeVisible();expect((await request(page,'accounts/'+account.id+'/balance?date=2026-10-31')).body.book.minor).toBe('-200000');const query=await request(page,'records/query','POST',{filter:{period:{fromDate:'2026-10-01',toDateExclusive:'2026-11-01',timezone:'Asia/Ho_Chi_Minh'},referenceCurrency:'VND',accountIds:[account.id]},limit:100});expect(query.status).toBe(200);expect(query.body.items).toHaveLength(2);for(const item of query.body.items){expect(item.record.source).toBe('import');expect(item.record.note).toBe('  Tiếng Việt, dòng 1\ndòng 2  ');}const edited=query.body.items[0];expect((await request(page,'records/'+edited.record.id,'PATCH',{expectedRevision:1,patch:{note:'SYNTHETIC_W10_MANUAL_EDIT'}})).status).toBe(200);await importPanel(page).getByRole('button',{name:'Hoàn tác nếu tất cả chưa sửa',exact:true}).click();await page.getByRole('dialog',{name:'Hoàn tác bản nhập',exact:true}).getByRole('button',{name:'Xác nhận',exact:true}).click();await expect(importPanel(page).getByRole('alert')).toContainText('Bản nhập hoặc giao dịch đã thay đổi');await importPanel(page).getByRole('button',{name:'Tải lại bản nhập',exact:true}).click();await importPanel(page).getByRole('button',{name:'Hoàn tác phần chưa sửa',exact:true}).click();await page.getByRole('dialog',{name:'Hoàn tác bản nhập',exact:true}).getByRole('button',{name:'Xác nhận',exact:true}).click();await expect(importPanel(page).getByText('Đã hoàn tác theo chính sách',{exact:true})).toBeVisible();await expect(importPanel(page).getByText('Đã nhập / đã hoàn tác / giữ lại: 2 / 1 / 1',{exact:true})).toBeVisible();expect((await request(page,'accounts/'+account.id+'/balance?date=2026-10-31')).body.book.minor).toBe('-100000');expect((await request(page,'records/'+edited.record.id)).body.record.note).toBe('SYNTHETIC_W10_MANUAL_EDIT');
+      358 | });
+        at importFile (/workspace/Family-Organizer/tests/e2e/wallet.spec.ts:355:479)
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:357:113
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W10-CSV-wizard-pres-af782-ed-imported-records-on-undo-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="W10 an unknown staging acknowledgement survives navigation and retries the original file body and request key without another batch" classname="wallet.spec.ts" time="12.635">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › wallet.spec.ts:359:1 › W10 an unknown staging acknowledgement survives navigation and retries the original file body and request key without another batch 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true }) with timeout 10000ms
+      - waiting for getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true })
+
+
+      351 | });
+      352 | const importPanel=(page:Page)=>page.getByRole('region',{name:'Nhập dữ liệu',exact:true});
+    > 353 | async function importTab(page:Page){await page.getByTestId('wallet-home').getByRole('button',{name:'Nhập dữ liệu',exact:true}).click();await expect(importPanel(page).getByRole('heading',{name:'Nhập dữ liệu',exact:true})).toBeVisible();await expect(importPanel(page).getByLabel('Tệp dữ liệu',{exact:true})).toBeVisible();}
+          |                                                                                                                                                                                                                                                                                                                   ^
+      354 | async function importSelect(page:Page,label:string,value:string){await importPanel(page).getByRole('button',{name:label,exact:true}).click();await page.getByRole('option',{name:value,exact:true}).click();await expect(page.getByRole('listbox')).toHaveCount(0);}
+      355 | async function importFile(page:Page,account:{name:string;currency:string},name:string,buffer:Buffer){await importSelect(page,'Tài khoản đích',account.name+' · '+account.currency);await importPanel(page).getByLabel('Tệp dữ liệu',{exact:true}).setInputFiles({name,mimeType:'application/octet-stream',buffer});await importPanel(page).getByRole('button',{name:'Tải tệp riêng tư',exact:true}).click();await expect(importPanel(page).getByRole('button',{name:'Tiếp theo',exact:true})).toBeVisible();}
+      356 | test('W10 CSV wizard preserves two identical expenses, requires explicit exclusions and safely keeps manually edited imported records on undo',async({page})=>{
+        at importTab (/workspace/Family-Organizer/tests/e2e/wallet.spec.ts:353:307)
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:360:458
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W10-an-unknown-stag-7ffb2-t-key-without-another-batch-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="W10 two OFX files dedupe stable source account/FITID through the full wizard and never double the ledger" classname="wallet.spec.ts" time="11.714">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › wallet.spec.ts:362:1 › W10 two OFX files dedupe stable source account/FITID through the full wizard and never double the ledger 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true }) with timeout 10000ms
+      - waiting for getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true })
+
+
+      351 | });
+      352 | const importPanel=(page:Page)=>page.getByRole('region',{name:'Nhập dữ liệu',exact:true});
+    > 353 | async function importTab(page:Page){await page.getByTestId('wallet-home').getByRole('button',{name:'Nhập dữ liệu',exact:true}).click();await expect(importPanel(page).getByRole('heading',{name:'Nhập dữ liệu',exact:true})).toBeVisible();await expect(importPanel(page).getByLabel('Tệp dữ liệu',{exact:true})).toBeVisible();}
+          |                                                                                                                                                                                                                                                                                                                   ^
+      354 | async function importSelect(page:Page,label:string,value:string){await importPanel(page).getByRole('button',{name:label,exact:true}).click();await page.getByRole('option',{name:value,exact:true}).click();await expect(page.getByRole('listbox')).toHaveCount(0);}
+      355 | async function importFile(page:Page,account:{name:string;currency:string},name:string,buffer:Buffer){await importSelect(page,'Tài khoản đích',account.name+' · '+account.currency);await importPanel(page).getByLabel('Tệp dữ liệu',{exact:true}).setInputFiles({name,mimeType:'application/octet-stream',buffer});await importPanel(page).getByRole('button',{name:'Tải tệp riêng tư',exact:true}).click();await expect(importPanel(page).getByRole('button',{name:'Tiếp theo',exact:true})).toBeVisible();}
+      356 | test('W10 CSV wizard preserves two identical expenses, requires explicit exclusions and safely keeps manually edited imported records on undo',async({page})=>{
+        at importTab (/workspace/Family-Organizer/tests/e2e/wallet.spec.ts:353:307)
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:363:609
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W10-two-OFX-files-d-af740-and-never-double-the-ledger-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="W10 XLSX selected Unicode sheet imports large money text exactly without reading a different sheet as ledger data" classname="wallet.spec.ts" time="11.673">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › wallet.spec.ts:365:1 › W10 XLSX selected Unicode sheet imports large money text exactly without reading a different sheet as ledger data 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true }) with timeout 10000ms
+      - waiting for getByRole('region', { name: 'Nhập dữ liệu', exact: true }).getByLabel('Tệp dữ liệu', { exact: true })
+
+
+      351 | });
+      352 | const importPanel=(page:Page)=>page.getByRole('region',{name:'Nhập dữ liệu',exact:true});
+    > 353 | async function importTab(page:Page){await page.getByTestId('wallet-home').getByRole('button',{name:'Nhập dữ liệu',exact:true}).click();await expect(importPanel(page).getByRole('heading',{name:'Nhập dữ liệu',exact:true})).toBeVisible();await expect(importPanel(page).getByLabel('Tệp dữ liệu',{exact:true})).toBeVisible();}
+          |                                                                                                                                                                                                                                                                                                                   ^
+      354 | async function importSelect(page:Page,label:string,value:string){await importPanel(page).getByRole('button',{name:label,exact:true}).click();await page.getByRole('option',{name:value,exact:true}).click();await expect(page.getByRole('listbox')).toHaveCount(0);}
+      355 | async function importFile(page:Page,account:{name:string;currency:string},name:string,buffer:Buffer){await importSelect(page,'Tài khoản đích',account.name+' · '+account.currency);await importPanel(page).getByLabel('Tệp dữ liệu',{exact:true}).setInputFiles({name,mimeType:'application/octet-stream',buffer});await importPanel(page).getByRole('button',{name:'Tải tệp riêng tư',exact:true}).click();await expect(importPanel(page).getByRole('button',{name:'Tiếp theo',exact:true})).toBeVisible();}
+      356 | test('W10 CSV wizard preserves two identical expenses, requires explicit exclusions and safely keeps manually edited imported records on undo',async({page})=>{
+        at importTab (/workspace/Family-Organizer/tests/e2e/wallet.spec.ts:353:307)
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:366:466
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W10-XLSX-selected-U-c7c66-ferent-sheet-as-ledger-data-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+</testsuite>
+</testsuites>
