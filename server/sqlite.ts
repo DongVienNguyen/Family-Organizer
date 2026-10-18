@@ -1,3 +1,4 @@
+import {AppStoreError} from './appErrors.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -104,18 +105,22 @@ function initializeDatabase() {
           if(!writeScope)throw new Error('Canonical tasks require the application gateway');
           taskStorageAdapter.write(data.tasks);deleteStmts.get(table)!.run();continue;
         }
-        // Domain history references users(id) and canonical Notes. Preserve parent rows
+        // Domain history references users, canonical Notes and portfolio Assets. Preserve parent rows
         // while updating the legacy collection, rather than deleting them all.
-        if (key === 'users' || key === 'notes') {
+        if (key === 'users' || key === 'notes' || key === 'assets') {
           const rows = data[key] || [];
-          const retainedTable = key === 'users' ? 'users' : 'notes';
+          const retainedTable = table;
           if (!Array.isArray(rows)) throw new Error('Invalid legacy collection: '+key);
           const ids = new Set<string>();
           const values = rows.map((item, index) => {
             const id = item && item.id != null ? String(item.id) : `row_${index}`;
-            if (ids.has(id)) throw new Error(key==='users'?'Duplicate legacy user ID':'Duplicate legacy note ID');
+            if (ids.has(id)) throw new Error(key==='users'?'Duplicate legacy user ID':key==='notes'?'Duplicate legacy note ID':'Duplicate legacy Asset ID');
             ids.add(id); return { id, index, data: JSON.stringify(item) };
           });
+          if(key==='assets'&&db.prepare("SELECT 1 FROM sqlite_master WHERE type='table'AND name='wallet_asset_links'").get()){
+            const linked=db.prepare('SELECT a.currency FROM wallet_asset_links l JOIN wallet_accounts a ON a.id=l.account_id WHERE l.asset_id=?AND l.archived_at IS NULL');
+            for(const row of values){const account=linked.get(row.id)as {currency:string}|undefined;if(account){const asset=JSON.parse(row.data);if(asset.currency!==account.currency||asset.type!=='stock')throw new AppStoreError('Cần gỡ liên kết danh mục trước khi đổi loại hoặc đơn vị tiền của tài sản.',409,'wallet-asset-source-conflict');}}
+          }
           const upsert = db.prepare(`INSERT INTO ${retainedTable}(id,seq,data) VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET seq=excluded.seq,data=excluded.data`);
           for (const row of values) upsert.run(row.id, row.index, row.data);
           const remove = db.prepare(`DELETE FROM ${retainedTable} WHERE id=?`);

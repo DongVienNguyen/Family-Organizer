@@ -1433,7 +1433,7 @@ app.delete("/api/finance/debts/:id/payments/:pid", requireAuth, requireRole([Use
 });
 
 app.get("/api/finance/assets", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
-  res.json({ assets: FamilyDB.getAssets() });
+  const actor={userId:req.userSession!.userId,role:req.userSession!.role};res.json({ assets: FamilyDB.getAssets().filter(asset=>!dependencies.wallet?.assetLinks||dependencies.wallet.assetLinks.canRead(actor,asset.id)) });
 });
 
 app.post("/api/finance/assets", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
@@ -1449,6 +1449,7 @@ app.post("/api/finance/assets", requireAuth, requireRole([UserRole.ADMIN, UserRo
 
   if (assetData.id) {
     const existing = FamilyDB.getAssets().find(a => a.id === assetData.id);
+    if(existing&&dependencies.wallet?.assetLinks&&!dependencies.wallet.assetLinks.canRead({userId:session.userId,role:session.role},existing.id)){res.status(404).json({error:'Không tìm thấy tài sản.'});return;}
     if (existing && existing.createdById !== session.userId && session.role !== UserRole.ADMIN) {
       res.status(403).json({ error: "Bạn chỉ có thể chỉnh sửa tài sản do mình tạo. Admin có toàn quyền quản lý tài sản." });
       return;
@@ -1457,7 +1458,7 @@ app.post("/api/finance/assets", requireAuth, requireRole([UserRole.ADMIN, UserRo
 
   try {
     const asset = FamilyDB.saveAsset(assetData, session.userId, session.username);
-    broadcastSyncEvent("FINANCE_UPDATE", { assetId: asset.id });
+    broadcastSyncEvent("FINANCE_UPDATE", {},dependencies.wallet?.assetAudience(asset.id));
     res.json({ asset });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
@@ -1467,6 +1468,8 @@ app.post("/api/finance/assets", requireAuth, requireRole([UserRole.ADMIN, UserRo
 app.delete("/api/finance/assets/:id", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
   const existing = FamilyDB.getAssets().find(a => a.id === req.params.id);
+  if(existing&&dependencies.wallet?.assetLinks&&!dependencies.wallet.assetLinks.canRead({userId:session.userId,role:session.role},existing.id)){res.status(404).json({error:'Không tìm thấy tài sản.'});return;}
+  const assetAudience=existing?dependencies.wallet?.assetAudience(existing.id):undefined;
 
   if (existing && existing.createdById !== session.userId && session.role !== UserRole.ADMIN) {
     res.status(403).json({ error: "Bạn chỉ có thể xóa tài sản do mình tạo. Admin có toàn quyền quản lý tài sản." });
@@ -1475,7 +1478,7 @@ app.delete("/api/finance/assets/:id", requireAuth, requireRole([UserRole.ADMIN, 
 
   try {
     FamilyDB.deleteAsset(req.params.id, session.userId, session.username);
-    broadcastSyncEvent("FINANCE_UPDATE", { deletedAssetId: req.params.id });
+    broadcastSyncEvent("FINANCE_UPDATE", {},assetAudience);
     res.json({ success: true });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));

@@ -55,13 +55,14 @@ export function mediaReferences(legacy:FamilyOrganizerDB):Map<string,MediaBindin
  for(const row of legacy.debts??[])for(const url of row.attachments??[])add(url,'debts',row.id);
  return refs;
 }
-export function mayReadMedia(url:string,metadata:MediaMetadata|undefined,legacy:FamilyOrganizerDB,actor:LegacyActor,now=Date.now()):boolean {
+export function mayReadMedia(url:string,metadata:MediaMetadata|undefined,legacy:FamilyOrganizerDB,actor:LegacyActor,now=Date.now(),sourceReadable:(binding:MediaBinding)=>boolean=()=>true):boolean {
  try{if([privateReceiptMediaPrefix,privateTaskAttachmentMediaPrefix].some(prefix=>mediaPath(url).toLowerCase().startsWith(prefix)))return false;}catch{return false;}
  if(!Object.values(UserRole).includes(actor.role)||!metadata)return false;
  if(!metadata.bindings.length)return metadata.ownerId===actor.userId&&now>=metadata.createdAt&&now-metadata.createdAt<24*60*60*1000;
  const current=mediaReferences(legacy).get(url)??[];
  return metadata.bindings.some(binding=>{
   if(!current.some(b=>b.domain===binding.domain&&b.id===binding.id))return false;
+  if(!sourceReadable(binding))return false;
   const row=(legacy[binding.domain] as any[]).find(item=>item.id===binding.id);if(!row)return false;
   if(binding.domain==='users')return !row.isDeleted;
   if(binding.domain==='tasks')return canViewLegacyTask(row,actor);

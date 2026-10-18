@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="46" failures="0" errors="0" time="2.890457391">
+    <testsuite name="server/appStore.test.ts" timestamp="2026-10-18T23:21:48.557Z" hostname="f9214acc85ea" tests="11" failures="0" errors="0" skipped="0" time="0.190011683">
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; rolls back a task, claim, existing points and fake Wallet adjustment together" time="0.008824212">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; preserves domain rows and both serialized legacy reward writers" time="0.005243968">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; returns the committed result on a same-payload retry and rejects changed payload or actor" time="0.003076624">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; rejects nested public transactions, async callbacks and escaped transaction handles" time="0.004956092">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; does not publish effects on rollback and publishes once after a successful commit" time="0.002401027">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; only saves dirty legacy collections and refuses stale edits to the same collection" time="0.008841097">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; does not advance a loaded document baseline until its outer transaction commits" time="0.014025197">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; keeps nested activity writes and task creation in one canonical document" time="0.006671861">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; propagates SQLite write failures and rolls back activity rows" time="0.005380047">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; audits the authenticated actor and deduplicates a legacy command without storing its payload" time="0.005993932">
+        </testcase>
+        <testcase classname="server/appStore.test.ts" name="shared synchronous application write ownership &gt; audits every public legacy method that can reach a collection writer" time="0.117005027">
+        </testcase>
+    </testsuite>
+    <testsuite name="server/sqlite.test.ts" timestamp="2026-10-18T23:21:48.560Z" hostname="f9214acc85ea" tests="5" failures="0" errors="0" skipped="0" time="1.434505131">
+        <testcase classname="server/sqlite.test.ts" name="SQLite collection adapter with synthetic data &gt; round-trips collection order, Unicode and singleton fields" time="1.293003839">
+        </testcase>
+        <testcase classname="server/sqlite.test.ts" name="SQLite collection adapter with synthetic data &gt; rolls back all collections when a later collection violates its primary key" time="0.033588664">
+        </testcase>
+        <testcase classname="server/sqlite.test.ts" name="SQLite collection adapter with synthetic data &gt; backs up committed WAL contents into a database that can be reopened" time="0.035736157">
+        </testcase>
+        <testcase classname="server/sqlite.test.ts" name="SQLite collection adapter with synthetic data &gt; closes idempotently and releases the database file before deletion" time="0.029119027">
+        </testcase>
+        <testcase classname="server/sqlite.test.ts" name="SQLite collection adapter with synthetic data &gt; refuses an unsupported stored schema without resetting its version" time="0.040044936">
+        </testcase>
+    </testsuite>
+    <testsuite name="server/wallet/assetLinks.test.ts" timestamp="2026-10-18T23:21:48.561Z" hostname="f9214acc85ea" tests="9" failures="0" errors="0" skipped="0" time="0.578360043">
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 explicit Asset-to-position binding and original nonce replay create one relationship/history without changing cash, holdings or manual Asset JSON" time="0.052041784">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 a binding narrows Asset/media visibility to current account authority; unbound legacy Assets keep their existing adult visibility" time="0.024093661">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 a second Asset cannot represent the same position; currency mismatch, no holding, Child and stale revision cannot change any money or link" time="0.02892464">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 immutable relationship-history failure rolls back the current binding, Wallet audit and request receipt atomically" time="0.024800853">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 owner may explicitly retire a reference after account access is lost without recovering any private label or changing original Asset values" time="0.02785883">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 unrelated legacy Asset add/edit/reorder preserves the actual native relationship, immutable history and audit IDs" time="0.024474193">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 a legacy Asset writer cannot invalidate the active portfolio currency/type invariant or commit a partial receipt" time="0.029661646">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 shared Wallet17/Productivity23 snapshot and cold restart retain bindings, original Asset JSON and exact cash without replay" time="0.173756917">
+        </testcase>
+        <testcase classname="server/wallet/assetLinks.test.ts" name="W15 shared snapshot rejects rechecksummed missing Assets, mismatched currencies, unknown history and missing revisions before restore" time="0.132697134">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/ui/authenticated-media.test.ts" timestamp="2026-10-18T23:21:48.563Z" hostname="f9214acc85ea" tests="16" failures="0" errors="0" skipped="0" time="0.668999515">
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Avatar image paths use authenticated media ownership" time="0.017337768">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Assets image paths use authenticated media ownership" time="0.057792688">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Finance image paths use authenticated media ownership" time="0.040848825">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Documents image paths use authenticated media ownership" time="0.014795673">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual DebtTracker image paths use authenticated media ownership" time="0.010041896">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Notes image paths use authenticated media ownership" time="0.013287029">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Tasks image paths use authenticated media ownership" time="0.030240785">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Markdown image paths use authenticated media ownership" time="0.00253815">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual document PDF and original links use authenticated media ownership" time="0.011922407">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual document viewer drops stale attachment context when authoritative documents disappear" time="0.011499886">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual PDF click opens its owned viewer synchronously and navigates only to authenticated blob bytes" time="0.123979454">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual PDF denial closes the empty viewer and exposes a retry message" time="0.063096689">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual repeated PDF click fetches current authorization again" time="0.116459372">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual session switching closes a pending PDF viewer without navigating to late bytes" time="0.073180006">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual managed PDF action remains keyboard accessible before its bytes are loaded" time="0.061409171">
+        </testcase>
+        <testcase classname="tests/ui/authenticated-media.test.ts" name="actual Markdown attachment anchors delegate to authenticated click ownership while preserving external props" time="0.017702234">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/features/wallet/netWorth.test.ts" timestamp="2026-10-18T23:21:48.566Z" hostname="f9214acc85ea" tests="5" failures="0" errors="0" skipped="0" time="0.018581019">
+        <testcase classname="src/features/wallet/netWorth.test.ts" name="W15 unified valuation adds brokerage cash and holdings once and excludes only the explicitly bound Asset, without adding allocated goals" time="0.004699835">
+        </testcase>
+        <testcase classname="src/features/wallet/netWorth.test.ts" name="W15 cash, receivables and liabilities remain exact per currency and a credit limit or USD amount is never summed as VND" time="0.008641634">
+        </testcase>
+        <testcase classname="src/features/wallet/netWorth.test.ts" name="W15 missing or stale market value is unknown rather than zero; bound Asset estimates cannot conceal the missing quote" time="0.000584862">
+        </testcase>
+        <testcase classname="src/features/wallet/netWorth.test.ts" name="W15 incomplete manual estimates also remain unknown while a known closed holding is explicit zero" time="0.000380401">
+        </testcase>
+        <testcase classname="src/features/wallet/netWorth.test.ts" name="W15 malformed or duplicate representations, unmatched authority, mixed currencies, negative valuations and overflow fail rather than manufacturing totals" time="0.00200857">
+        </testcase>
+    </testsuite>
+</testsuites>

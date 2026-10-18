@@ -32,7 +32,7 @@ export function validateSharedWalletSnapshot(source:AppSnapshot):void {
  if(source.manifest.domains.wallet===0)return;
  if(!walletStorageVersions.includes(source.manifest.domains.wallet))throw Error('Unsupported Wallet snapshot version');
  const value={schemaVersion:source.manifest.domains.wallet+1,tables:Object.fromEntries(Object.keys(walletTablesAt(source.manifest.domains.wallet)).map(name=>[name,source.tables[name]])),checksum:''};
- value.checksum=walletSnapshotChecksum(value);validate(value,new Set(source.legacy.users.map(user=>user.id)));
+ value.checksum=walletSnapshotChecksum(value);validate(value,new Set(source.legacy.users.map(user=>user.id)),new Map(source.legacy.assets.map(asset=>[asset.id,{currency:asset.currency,type:asset.type}])));
  if(source.manifest.domains.wallet>=5)validateWalletReceiptMedia(value.tables,source.media);
  if(source.manifest.domains.wallet>=13)validateWalletLinkLegacy(value.tables,source.legacy);
 }

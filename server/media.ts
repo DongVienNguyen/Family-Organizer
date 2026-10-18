@@ -1,3 +1,4 @@
+import {canReadBoundAsset} from './wallet/assetLinks.js';
 import {privateTaskAttachmentMediaPrefix} from '../src/features/productivity/taskAttachmentPolicy.js';
 import {blocksLegacyWalletReceipt} from './wallet/legacyMedia.js';
 import {detectedMediaType} from './mediaContent.js';
@@ -48,7 +49,7 @@ export function uploadMedia(dataUrl:unknown,category:string,subfolder:string|und
  });}catch(error){if(created){try{fs.unlinkSync(location(created));}catch{}}throw error;}
 }
 export function authorizeMedia(url:string,actor:LegacyActor):boolean {
- try{url=canonicalMediaUrl(url);const connection=sqliteConnection(),legacy=sqliteLoad(),reader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args)};if(blocksLegacyWalletReceipt(reader,url,legacy))return false;const row=connection.prepare('SELECT value FROM app_meta WHERE key=?').get(mediaKey(url)) as any;return mayReadMedia(url,row?parseMediaMetadata(row.value):undefined,legacy,actor);}catch{return false;}
+ try{url=canonicalMediaUrl(url);const connection=sqliteConnection(),legacy=sqliteLoad(),reader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args),all:(sql:string,...args:any[])=>connection.prepare(sql).all(...args)};if(blocksLegacyWalletReceipt(reader,url,legacy))return false;const row=connection.prepare('SELECT value FROM app_meta WHERE key=?').get(mediaKey(url)) as any;return mayReadMedia(url,row?parseMediaMetadata(row.value):undefined,legacy,actor,Date.now(),binding=>binding.domain!=='assets'||canReadBoundAsset(reader,actor,binding.id));}catch{return false;}
 }
 export function readManagedMedia(url:string):{bytes:Buffer;mime:string} {
  const file=location(url),before=fs.lstatSync(file);if(!before.isFile()||before.isSymbolicLink()||before.nlink!==1||before.size>10*1024*1024)throw new Error('Media file must be ordinary');
