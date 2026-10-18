@@ -1,0 +1,389 @@
+import {normalizeWalletSettings,walletSettingsValue,type WalletUserSettings} from './settingsContracts.js';
+import {instrumentValue,instrumentsValue,investmentTradeValue,investmentReceiptValue,investmentPreviewValue,investmentVoidValue,investmentQuoteValue,investmentHistoryValue,portfolioValue,portfolioGrowthValue,type InvestmentInput,type InvestmentAccountRef} from './investmentDto.js';
+import {normalizeInvestmentDraft,normalizeInstrumentDraft,type InstrumentDraft,type InstrumentHeader} from './investmentContracts.js';
+import type {InvestmentTrade} from '../../../server/wallet/investments.js';
+import {budgetHeaderValue,budgetDetailValue,budgetsValue,budgetReportValue,budgetCarryValue,balanceForecastValue,budgetSummaryValue,assertBudgetDraftBinding,type BudgetDetail,type BalanceForecastInput} from './budgetDto.js';
+import {normalizeBudgetDraft,budgetPolicyValue,type WalletBudgetDraft} from './budgetContracts.js';
+import type {WalletBudgetHeader} from '../../../server/wallet/budgets.js';
+import {financialLinkValue,financialLinksValue,financialTargetsValue,assertFinancialBinding} from './financialDto.js';
+import type {DebtPaymentInput,GoalContributionInput,FinancialPatch} from './financialContracts.js';
+import type {WalletFinancialLink} from '../../../server/wallet/links.js';
+import {scheduleHeaderValue,scheduleDetailValue,schedulePreviewValue,occurrenceValue,occurrencesValue,occurrenceReceiptValue} from './scheduleDto.js';
+import {normalizeScheduleDraft,type ScheduleDraft} from './scheduleContracts.js';
+import {ruleHeaderValue,ruleDetailValue,rulePreviewValue,ruleRowsValue,ruleApplyValue} from './ruleDto.js';
+import {normalizeRuleDraft,type RuleDraft} from './ruleContracts.js';
+import type {RulePreviewInput,RulePreviewSummary} from '../../../server/wallet/rules.js';
+import type {RecordSelection,ExportFormat} from '../../../server/wallet/exports.js';
+import {importBatchValue,importPageValue,importHistoryValue} from './importDto.js';
+import type {ImportMapping,ImportUpload} from './importContracts.js';
+import {preferenceValue,preferencesValue} from './preferenceDto.js';
+import type {PreferenceKind,PreferenceDraft} from './preferenceContracts.js';
+import {reportValue} from './reportDto.js';
+import type {ReportInput} from './reportContracts.js';
+import {templateValue,templateListValue} from './templateDto.js';
+import type {TemplateDraft} from '../../../server/wallet/templates.js';
+import {assertAllocationTotal,allocationRows,allocationResultValue,type AllocationDraft} from './allocations.js';
+import {recordDraftValue} from './recordDraftValue.js';
+import {catalogItemValue,catalogDeletionValue,catalogDeletedValue} from './catalogDto.js';
+import {catalogReferencesValue} from './catalogReferences.js';
+import type {CategoryDraft,LabelDraft,CatalogReferences} from '../../../server/wallet/catalog.js';
+import {selectionValue,bulkResultValue,bulkPreviewValue} from './bulkDto.js';
+import type {SelectionInput} from '../../../server/wallet/selections.js';
+import type {BulkSelection,RecordMetadataPatch} from '../../../server/wallet/bulk.js';
+import type {WalletFilterOptions} from '../../../server/wallet/filterOptions.js';
+import type {WalletReceiptMetadata} from '../../../server/wallet/receiptContract.js';
+import { object, keys, text, integer, choice, boolean } from '../productivity/validation.js';
+import { timezoneFormatter } from '../productivity/dates.js';
+import {utcInstant} from '../productivity/dates.js';
+import {effectiveDateAt} from './dates.js';
+import { parseEffectiveDate } from './dates.js';
+import { assertMoney, minorInteger, currencyExponent, convertMoney } from './money.js';
+import { normalizeFilter } from './filter.js';
+import type { RecordFilter, Money, Page } from './contracts.js';
+import type { AccessibleWalletAccount, WalletPermission, WalletAccountGrant } from '../../../server/wallet/access.js';
+import type { AccountDraft, AccountPatch, WalletAccountResult, WalletGrantResult, WalletCreditPosition } from '../../../server/wallet/accounts.js';
+import type { RecordDraft, RecordPatch, WalletRecordResult,WalletRecordActions } from '../../../server/wallet/records.js';
+import type { WalletRecordView } from '../../../server/wallet/query.js';
+import type { WalletRecordDetail } from '../../../server/wallet/read.js';
+import type {WalletCatalog,WalletCatalogItem,WalletCategoryView} from '../../../server/wallet/catalogView.js';
+export class WalletApiError extends Error {
+    constructor(readonly status: number, message: string, readonly code: string, readonly requestId: string | undefined, readonly unknownOutcome = false,readonly references?:CatalogReferences) { super(message); this.name = 'WalletApiError'; }
+}
+export interface WalletTransportPorts {
+    request: typeof fetch;
+    authHeaders: () => HeadersInit;
+    newRequestId?: () => string;
+}
+export interface WalletRequestOptions extends RequestInit {
+    readOnly?: boolean;
+    responseType?:'json'|'blob';
+}
+const identity = (value: unknown): value is string => typeof value === 'string' && /^[A-Za-z0-9_-]{1,128}$/.test(value);
+/** Existing auth callback is read afresh. No token store, automatic retries,
+ * integration credential or offline financial write queue. */
+export function createWalletRequest(ports: WalletTransportPorts) {
+    return async function walletRequest<T = unknown>(path: string, options: WalletRequestOptions = {}): Promise<T> {
+        const url = new URL(path, 'https://wallet.invalid');
+        if (!path.startsWith('/api/wallet/') || url.origin !== 'https://wallet.invalid' || !url.pathname.startsWith('/api/wallet/') || url.hash || url.username || url.password)
+            throw new WalletApiError(400, 'Đường dẫn Wallet không hợp lệ.', 'INVALID_INPUT', undefined);
+        const method = (options.method ?? 'GET').toUpperCase(), write = !['GET', 'HEAD'].includes(method) && options.readOnly !== true, headers = new Headers(options.headers), auth = new Headers(ports.authHeaders()).get('Authorization');
+        if (!auth)
+            throw new WalletApiError(401, 'Cần đăng nhập.', 'UNAUTHENTICATED', undefined);
+        headers.set('Authorization', auth);
+        let requestId = headers.get('x-request-id') ?? undefined;
+        if (write && !identity(requestId))
+            throw new WalletApiError(400, 'Cần mã yêu cầu hợp lệ cho thao tác ghi.', 'INVALID_INPUT', undefined);
+        if (!identity(requestId))
+            requestId = (ports.newRequestId ?? (() => crypto.randomUUID()))();
+        if (!identity(requestId))
+            throw new WalletApiError(400, 'Mã yêu cầu không hợp lệ.', 'INVALID_INPUT', undefined);
+        headers.set('x-request-id', requestId);
+        const { readOnly: _readOnly, responseType: _responseType, ...init } = options;
+        let response: Response;
+        try {
+            response = await ports.request(path, { ...init, method, headers, cache: 'no-store', redirect: 'error', credentials: 'same-origin' });
+        }
+        catch (error) {
+            if (!write && (error as any)?.name === 'AbortError')
+                throw error;
+            throw new WalletApiError(0, 'Chưa xác nhận được phản hồi Wallet.', 'NETWORK_ERROR', requestId, write);
+        }
+        const current = () => new Headers(ports.authHeaders()).get('Authorization') === auth;
+        if (!current()) {
+            try {
+                await response.body?.cancel();
+            }
+            catch { }
+            throw new WalletApiError(401, 'Phiên đăng nhập đã thay đổi.', 'SESSION_CHANGED', requestId, write);
+        }
+        let value: unknown;
+        try {
+            value = response.ok&&options.responseType==='blob'?await response.blob():await response.json();
+        }
+        catch {
+            throw new WalletApiError(response.status, 'Phản hồi Wallet không hợp lệ.', 'INVALID_RESPONSE', requestId, write);
+        }
+        if (!current())
+            throw new WalletApiError(401, 'Phiên đăng nhập đã thay đổi.', 'SESSION_CHANGED', requestId, write);
+        const data = value as any, trace = identity(data?.requestId) ? data.requestId : identity(response.headers.get('x-request-id')) ? response.headers.get('x-request-id')! : requestId;
+        if (!response.ok) {
+            const code = typeof data?.code === 'string' && /^[A-Z_]{1,64}$/.test(data.code) ? data.code : response.status >= 500 ? 'INTERNAL_ERROR' : 'INVALID_INPUT', message = typeof data?.error === 'string' ? data.error.slice(0, 500) : 'Không xử lý được yêu cầu Wallet.';
+            let references;try{if(data?.references!==undefined)references=catalogReferencesValue(data.references);}catch{}
+            throw new WalletApiError(response.status, message, code, trace, write && response.status >= 500,references);
+        }
+        return value as T;
+    };
+}
+const pick = (value: Record<string, unknown>, fields: readonly string[]) => Object.fromEntries(fields.filter(field => value[field] !== undefined).map(field => [field, value[field]]));
+function timestamp(value: unknown) { if (value === null)
+    return; text(value, 24); if (!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(value) || !Number.isFinite(Date.parse(value)) || new Date(value).toISOString() !== value)
+    throw Error('Invalid time'); }
+function optionalId(value: unknown) { if (value !== undefined)
+    text(value, 256); }
+function provenance(value: Record<string, unknown>) { for (const key of ['createdAt', 'updatedAt'])
+    timestamp(value[key]); for (const key of ['createdBy', 'updatedBy'])
+    if (value[key] !== null)
+        text(value[key], 256); if (value.createdAt !== null && value.updatedAt !== null && String(value.updatedAt) < String(value.createdAt))
+    throw Error('Invalid chronology'); }
+function accountValue(value: unknown, id?: string): AccessibleWalletAccount { const v = object(value); for (const key of ['id', 'ownerUserId'])
+    text(v[key], 256); text(v.name, 500); choice(v.type, ['cash', 'bank', 'savings', 'credit', 'e_wallet', 'investment', 'asset', 'liability']); currencyExponent(v.currency as string); minorInteger(v.openingMinor); text(v.openingDate, 10); parseEffectiveDate(v.openingDate); integer(v.revision, 1); choice(v.accessMode, ['shared', 'private']); choice(v.permission, ['read', 'contribute', 'manage']); timestamp(v.archivedAt); if (id !== undefined && v.id !== id)
+    throw Error('Account identity'); return pick(v, ['id', 'name', 'type', 'currency', 'ownerUserId', 'accessMode', 'openingMinor', 'openingDate', 'revision', 'archivedAt', 'permission']) as unknown as AccessibleWalletAccount; }
+function accountResult(value: unknown, id?: string): WalletAccountResult { const v = object(value), account = accountValue(v.account, id), m = object(v.metadata); if (m.accountId !== account.id)
+    throw Error('Account metadata identity'); provenance(m); boolean(m.excludedFromStats); if (m.creditLimitMinor !== null && minorInteger(m.creditLimitMinor) < 0n)
+    throw Error('Invalid credit limit'); if (m.dueDay !== null)
+    integer(m.dueDay, 1, 31); choice(m.balanceDisplay, ['book', 'available', 'both']); return { account, metadata: pick(m, ['accountId', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'excludedFromStats', 'creditLimitMinor', 'dueDay', 'balanceDisplay']) as unknown as WalletAccountResult['metadata'] }; }
+function fxValue(value: unknown): WalletRecordResult['fx'] { if (value === null)
+    return null; const v = object(value); for (const key of ['recordId', 'source'])
+    text(v[key], 256); for (const key of ['fromCurrency', 'toCurrency'])
+    currencyExponent(v[key] as string); for (const key of ['debitMinor', 'creditMinor', 'numerator', 'denominator'])
+    if (minorInteger(v[key]) <= 0n)
+        throw Error('Invalid FX'); text(v.asOf, 10); parseEffectiveDate(v.asOf); if (v.fromCurrency === v.toCurrency || convertMoney({ minor: v.debitMinor as string, currency: v.fromCurrency as string }, v.toCurrency as string, { numerator: v.numerator as string, denominator: v.denominator as string }).minor !== v.creditMinor)
+    throw Error('Invalid FX amounts'); return pick(v, ['recordId', 'fromCurrency', 'toCurrency', 'debitMinor', 'creditMinor', 'numerator', 'denominator', 'asOf', 'source']) as unknown as WalletRecordResult['fx']; }
+function ids(value: unknown): string[] { if (!Array.isArray(value) || value.length > 100000)
+    throw Error('Invalid ID list'); for (const id of value)
+    text(id, 256); if (new Set(value).size !== value.length)
+    throw Error('Duplicate IDs'); return [...value]; }
+function recordValue(value: unknown, detail: boolean, expected?: string): WalletRecordResult | WalletRecordDetail {
+    const v = object(value), r = object(v.record), m = object(v.metadata);
+    for (const key of ['id', 'creatorId', 'timezone'])
+        text(r[key], 256);
+    if (expected !== undefined && r.id !== expected)
+        throw Error('Record identity');
+    choice(r.kind, ['income', 'expense', 'transfer', 'adjustment', 'trade']);
+    choice(r.source, ['manual', 'import', 'schedule', 'legacy']);
+    choice(r.settlementStatus, ['uncleared', 'cleared', 'reconciled', 'voided']);
+    text(r.effectiveDate, 10);
+    parseEffectiveDate(r.effectiveDate);
+    timezoneFormatter(r.timezone as string);
+    text(r.note, 100000, false);
+    integer(r.revision, 1);
+    for (const key of ['externalKey', 'categoryId', 'occurrenceId'])
+        optionalId(r[key]);
+    if (m.recordId !== r.id)
+        throw Error('Record metadata identity');
+    provenance(m);
+    timestamp(m.occurredAt);
+    timestamp(m.reviewedAt);
+    text(m.payee, 500, false);
+    text(m.paymentMethod, 256, false);
+    if (!Array.isArray(v.postings) || v.postings.length > 100000)
+        throw Error('Invalid postings');
+    const seen = new Set<string>(), postings = v.postings.map(input => { const p = object(input); if (p.recordId !== r.id)
+        throw Error('Posting identity'); text(p.accountId, 256); minorInteger(p.deltaMinor); if (seen.has(p.accountId))
+        throw Error('Duplicate posting'); seen.add(p.accountId); if (detail) {
+        assertMoney({ minor: p.deltaMinor, currency: p.currency });
+        text(p.accountName, 500);
+    } return pick(p, detail ? ['recordId', 'accountId', 'deltaMinor', 'currency', 'accountName'] : ['recordId', 'accountId', 'deltaMinor']); });
+    const fx = fxValue(v.fx);
+    if (fx && fx.recordId !== r.id)
+        throw Error('FX identity');
+    if (v.feeRecordId !== null)
+        text(v.feeRecordId, 256);
+    const allocations=v.allocations===undefined?undefined:allocationRows(v.allocations);if(allocations)assertAllocationTotal(allocations,{kind:r.kind as string},postings as {deltaMinor:string}[]);
+    const result = { ...(allocations===undefined?{}:{allocations}),record: pick(r, ['id', 'kind', 'effectiveDate', 'timezone', 'source', 'externalKey', 'note', 'settlementStatus', 'creatorId', 'revision', 'categoryId', 'occurrenceId']), metadata: pick(m, ['recordId', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'occurredAt', 'payee', 'paymentMethod', 'reviewedAt']), postings, fx, feeRecordId: v.feeRecordId, labelIds: ids(v.labelIds) };
+    if (!detail)
+        return result as unknown as WalletRecordResult;
+    boolean(v.partial);
+    const matched = ids(v.matchedAccountIds);
+    if (matched.some(id => !seen.has(id)))
+        throw Error('Hidden matching leg');
+    if (v.partial && (fx !== null || r.note !== '' || r.externalKey !== undefined || m.payee !== '' || m.paymentMethod !== '' || result.labelIds.length))
+        throw Error('Unredacted partial transfer');
+    return { ...result, partial: v.partial, matchedAccountIds: matched } as unknown as WalletRecordDetail;
+}
+function pageValue(value: unknown, limit: number): Page<WalletRecordView> { const v = object(value); integer(v.total); if (v.nextCursor !== null)
+    text(v.nextCursor, 4096); if (!Array.isArray(v.items) || v.items.length > limit || v.items.length > v.total)
+    throw Error('Invalid record page'); const items = v.items.map(row => { const { fx: _fx, feeRecordId: _fee, ...view } = recordValue({ ...object(row), fx: null, feeRecordId: null }, true) as WalletRecordDetail; return view; }); if (new Set(items.map(item => item.record.id)).size !== items.length)
+    throw Error('Duplicate page record'); return { items, total: v.total, nextCursor: v.nextCursor as string | null }; }
+function creditValue(value: unknown): WalletCreditPosition { const v = object(value); currencyExponent(v.currency as string); const book = minorInteger(v.bookMinor), debt = minorInteger(v.debtMinor), limit = v.creditLimitMinor === null ? null : minorInteger(v.creditLimitMinor); if (debt !== (book < 0n ? -book : 0n) || limit !== null && limit < 0n)
+    throw Error('Invalid credit position'); if (limit === null) {
+    if (v.availableMinor !== null || v.utilization !== null)
+        throw Error('Unknown credit limit');
+}
+else {
+    if (minorInteger(v.availableMinor) !== limit + book)
+        throw Error('Invalid credit availability');
+    if (limit === 0n) {
+        if (v.utilization !== null)
+            throw Error('Invalid utilization');
+    }
+    else {
+        const ratio = object(v.utilization);
+        if (minorInteger(ratio.numerator) !== debt || minorInteger(ratio.denominator) !== limit)
+            throw Error('Invalid utilization');
+    }
+} return pick(v, ['currency', 'bookMinor', 'creditLimitMinor', 'debtMinor', 'availableMinor', 'utilization']) as unknown as WalletCreditPosition; }
+function catalogValue(value:unknown):WalletCatalog {
+ const raw=object(value);
+ const items=(input:unknown,category:boolean)=>{
+  if(!Array.isArray(input)||input.length>10000)throw Error('Invalid catalog size');
+  const result=input.map(entry=>{const row=object(entry);text(row.id,256);text(row.name,500);text(row.icon,256,false);text(row.color,256,false);boolean(row.hidden);integer(row.revision,1);timestamp(row.archivedAt);
+   const item={id:row.id,name:row.name,icon:row.icon,color:row.color,hidden:row.hidden,revision:row.revision,archivedAt:row.archivedAt} as WalletCatalogItem;
+   if(!category)return item;
+   if(row.parentId!==null)text(row.parentId,256);choice(row.nature,['must','need','want','unspecified']);return {...item,parentId:row.parentId,nature:row.nature} as WalletCategoryView;
+  });
+  if(new Set(result.map(item=>item.id)).size!==result.length)throw Error('Duplicate catalog ID');return result;
+ };
+ const categories=items(raw.categories,true) as WalletCategoryView[],labels=items(raw.labels,false),byId=new Map(categories.map(item=>[item.id,item])),done=new Set<string>();
+ for(const category of categories){let id:string|null=category.id;const path=new Set<string>();while(id!==null&&!done.has(id)){if(path.has(id))throw Error('Catalog cycle');path.add(id);const node=byId.get(id);if(!node)throw Error('Missing catalog parent');id=node.parentId;}for(const id of path)done.add(id);}
+ return {categories,labels};
+}
+const receiptMimes={'image/png':'png','image/jpeg':'jpg','image/webp':'webp','image/gif':'gif','application/pdf':'pdf'} as const;
+function receiptValue(value:unknown,recordId:string):WalletReceiptMetadata {
+    const v=object(value),fields=['id','recordId','fileKey','fileName','mime','size','sha256','createdAt','createdBy'];keys(v,fields);if(Object.keys(v).length!==fields.length||v.recordId!==recordId)throw Error('Receipt record identity');
+    text(v.id,36);if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(v.id))throw Error('Receipt identity');
+    choice(v.mime,Object.keys(receiptMimes) as (keyof typeof receiptMimes)[]);if(v.fileKey!==v.id+'.'+receiptMimes[v.mime])throw Error('Receipt file identity');
+    text(v.fileName,200);text(v.createdBy,256);text(v.createdAt,24);timestamp(v.createdAt);integer(v.size,1,(v.mime==='application/pdf'?10:4)*1024*1024);text(v.sha256,64);if(!/^[a-f0-9]{64}$/.test(v.sha256))throw Error('Receipt checksum');return {...v} as unknown as WalletReceiptMetadata;
+}
+/** DTO decoders are browser-only; server imports above are erased types. */
+export function createWalletApi(ports: WalletTransportPorts) {
+    const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records'|'categories'|'labels'|'templates'|'imports', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
+    const read = async <T>(uri: string, decoder: (v: unknown) => T, options: WalletRequestOptions = {}, nonce?: string): Promise<T> => { const value = await walletRequest(uri, options); try {
+        return decoder(value);
+    }
+    catch {
+        const write = !['GET', 'HEAD'].includes((options.method ?? 'GET').toUpperCase()) && options.readOnly !== true;
+        throw new WalletApiError(200, 'Phản hồi Wallet không hợp lệ.', 'INVALID_RESPONSE', nonce, write);
+    } };
+    const command = async <T>(uri: string, method: string, payload: unknown, nonce: string, decoder: (v: unknown) => T): Promise<T> => { if (!identity(nonce))
+        throw new WalletApiError(400, 'Cần mã yêu cầu hợp lệ cho thao tác ghi.', 'INVALID_INPUT', undefined); return read(uri, decoder, { method, headers: { 'Content-Type': 'application/json', 'x-request-id': nonce }, body: JSON.stringify(payload) }, nonce); };
+    const grantValue = (value: unknown, accountId: string, userId: string): WalletGrantResult => { const v = object(value), g = object(v.grant); text(v.accountId, 256); integer(v.revision, 1); text(g.userId, 256); if (v.accountId !== accountId || g.userId !== userId)
+        throw Error('Grant identity'); if (g.permission !== null)
+        choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
+    return { walletRequest,
+        instruments:()=>read('/api/wallet/instruments',instrumentsValue),
+        saveInstrument:(input:InstrumentDraft,nonce:string)=>{const captured=normalizeInstrumentDraft(input);return command('/api/wallet/instruments','POST',{expectedRevision:0,input:captured},nonce,raw=>{const value=instrumentValue(raw),{id:_id,revision:_r,archivedAt:_a,createdAt:_c,updatedAt:_u,...draft}=value;if(JSON.stringify(draft)!==JSON.stringify(captured)||value.revision!==1||value.archivedAt!==null)throw Error('Instrument acknowledgement');return value;});},
+        investmentTrade:(id:string)=>{text(id,256);return read('/api/wallet/investment-trades/'+encodeURIComponent(id),raw=>investmentTradeValue(raw,id));},
+        saveInvestment:(input:InvestmentInput,revision:number,nonce:string,previous?:InvestmentTrade)=>{const captured={...(input.id===undefined?{}:{id:input.id}),draft:normalizeInvestmentDraft(input.draft)},before=previous?structuredClone(previous):undefined;integer(revision,captured.id?1:0);if(captured.id)text(captured.id,256);return command('/api/wallet/investment-trades'+(captured.id?'/'+encodeURIComponent(captured.id):''),captured.id?'PATCH':'POST',{expectedRevision:revision,draft:captured.draft},nonce,raw=>investmentReceiptValue(raw,captured,revision,before));},
+        previewInvestment:(input:InvestmentInput)=>{const captured={...(input.id===undefined?{}:{id:input.id}),draft:normalizeInvestmentDraft(input.draft)};if(captured.id)text(captured.id,256);return read('/api/wallet/investment-trades/preview',raw=>investmentPreviewValue(raw,captured),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(captured)});},
+        voidInvestment:(trade:InvestmentTrade,refs:{accountRevision:number;portfolioRevision:number},nonce:string)=>{const captured=structuredClone(trade),input=structuredClone(refs);integer(input.accountRevision,1);integer(input.portfolioRevision,1);return command('/api/wallet/investment-trades/'+encodeURIComponent(captured.id)+'/void','POST',{expectedRevision:captured.revision,...input},nonce,raw=>investmentVoidValue(raw,captured,input.portfolioRevision));},
+        portfolioGrowth:(account:InvestmentAccountRef,date:string,sourceFingerprint:string)=>{const captured=structuredClone(account);text(captured.id,256);parseEffectiveDate(date);if(!/^[a-f0-9]{64}$/.test(sourceFingerprint))throw Error('Growth source fingerprint');return read('/api/wallet/portfolios/'+encodeURIComponent(captured.id)+'/growth?date='+encodeURIComponent(date)+'&sourceFingerprint='+encodeURIComponent(sourceFingerprint),raw=>portfolioGrowthValue(raw,captured,date,sourceFingerprint));},
+        portfolioStatus:(id:string)=>{text(id,256);return read('/api/wallet/portfolios/'+encodeURIComponent(id)+'/status',raw=>{const v=object(raw);keys(v,['accountId','accountRevision','revision','sourceFingerprint']);if(typeof v.sourceFingerprint!=='string'||! /^[a-f0-9]{64}$/.test(v.sourceFingerprint))throw Error('Portfolio source fingerprint');if(v.accountId!==id)throw Error('Portfolio status identity');integer(v.accountRevision,1);integer(v.revision,0);return {accountId:id,accountRevision:v.accountRevision,revision:v.revision,sourceFingerprint:v.sourceFingerprint};});},
+        portfolio:(account:InvestmentAccountRef,date:string)=>{const captured=structuredClone(account);text(captured.id,256);parseEffectiveDate(date);return read('/api/wallet/portfolios/'+encodeURIComponent(captured.id)+'?date='+encodeURIComponent(date),raw=>portfolioValue(raw,captured,date));},
+        investmentHistory:(account:InvestmentAccountRef,date:string,cursor:string|null,revision:number)=>{const captured=structuredClone(account);text(captured.id,256);if(cursor!==null)text(cursor,2048);parseEffectiveDate(date);integer(revision,0);return read('/api/wallet/portfolios/'+encodeURIComponent(captured.id)+'/trade-history?date='+encodeURIComponent(date)+(cursor===null?'':'&cursor='+encodeURIComponent(cursor)),raw=>investmentHistoryValue(raw,captured,date,revision));},
+        marketDataStatus:()=>read('/api/wallet/market-data/status',raw=>{const v=object(raw);keys(v,['providerConfigured','canManageSources']);if(typeof v.providerConfigured!=='boolean'||typeof v.canManageSources!=='boolean')throw Error('Market source status');return {providerConfigured:v.providerConfigured,canManageSources:v.canManageSources};}),
+        investmentQuote:(instrument:InstrumentHeader,date:string)=>{const captured=structuredClone(instrument);return read('/api/wallet/instruments/'+encodeURIComponent(captured.id)+'/quote?date='+encodeURIComponent(date),raw=>{const v=object(raw);keys(v,['quote']);return investmentQuoteValue(v.quote,captured,date);});},
+        saveMarketQuote:(instrument:InstrumentHeader,date:string,price:Money,nonce:string)=>{const captured=structuredClone(instrument),money=structuredClone(price);assertMoney(money);parseEffectiveDate(date);return command('/api/wallet/market-data/manual','POST',{expectedRevision:0,input:{instrumentId:captured.id,date,price:money}},nonce,raw=>{const quote=investmentQuoteValue(raw,captured,date);if(!quote||quote.asOf!==date||quote.kind!=='manual'||quote.source!=='manual-user'||quote.price.minor!==money.minor||quote.price.currency!==money.currency)throw Error('Manual quote acknowledgement');return quote;});},
+        refreshMarketQuotes:(instruments:InstrumentHeader[],date:string,nonce:string)=>{const captured=structuredClone(instruments);if(!captured.length||captured.length>50||new Set(captured.map(v=>v.id)).size!==captured.length)throw Error('Quote cohort');const input={instrumentIds:captured.map(v=>v.id).sort(),date};return command('/api/wallet/market-data/refresh','POST',{expectedRevision:0,input},nonce,raw=>{const v=object(raw);keys(v,['inserted','quoteIds','quotes','missingInstrumentIds']);integer(v.inserted,0,input.instrumentIds.length);if(!Array.isArray(v.quoteIds)||!Array.isArray(v.quotes)||!Array.isArray(v.missingInstrumentIds)||v.quoteIds.length!==v.inserted||v.quotes.length!==v.inserted||v.inserted+v.missingInstrumentIds.length!==input.instrumentIds.length)throw Error('Quote refresh coverage');const quoteIds=v.quoteIds as unknown[],missing=v.missingInstrumentIds as unknown[],seen=new Set<string>();for(let n=0;n<v.quotes.length;n++){const raw=object(v.quotes[n]),i=captured.find(i=>i.id===raw.instrumentId);if(!i)throw Error('Quote cohort');const q=investmentQuoteValue(raw,i,date);if(!q||q.id!==quoteIds[n]||seen.has(i.id))throw Error('Duplicate quote');seen.add(i.id);}for(const id of missing){text(id,256);if(!input.instrumentIds.includes(id)||seen.has(id))throw Error('Missing quote cohort');seen.add(id);}if(new Set(quoteIds).size!==quoteIds.length||seen.size!==input.instrumentIds.length)throw Error('Quote cohort coverage');return structuredClone(v)as unknown as {inserted:number;quoteIds:string[];quotes:NonNullable<ReturnType<typeof investmentQuoteValue>>[];missingInstrumentIds:string[]};});},
+        budgets:()=>read('/api/wallet/budgets',budgetsValue),
+        budget:(id:string)=>{text(id,256);return read('/api/wallet/budgets/'+encodeURIComponent(id),raw=>budgetDetailValue(raw,id));},
+        saveBudget:(input:{id?:string;draft?:WalletBudgetDraft;archived?:boolean},revision:number,nonce:string,previous?:BudgetDetail)=>{const {id,...patch}=input;if(id!==undefined)text(id,256);integer(revision,id?1:0);if(patch.draft)patch.draft=normalizeBudgetDraft(patch.draft);return command('/api/wallet/budgets'+(id?'/'+encodeURIComponent(id):''),id?'PATCH':'POST',id?{expectedRevision:revision,patch}:{expectedRevision:0,draft:patch.draft},nonce,raw=>{const result=budgetHeaderValue(raw,id);if(result.revision<Math.max(1,revision)||result.revision>revision+1||!id&&result.policyRevision!==1||patch.archived!==undefined&&Boolean(result.archivedAt)!==patch.archived)throw Error('Budget save revision');if(patch.draft)assertBudgetDraftBinding(result,patch.draft);if(previous){if(previous.id!==id||previous.revision!==revision)throw Error('Budget command baseline');const changed=patch.draft&&JSON.stringify(budgetPolicyValue(previous.draft))!==JSON.stringify(budgetPolicyValue(patch.draft));if(result.policyRevision!==previous.policyRevision+(changed?1:0))throw Error('Budget policy revision');}return result;});},
+        budgetReport:(id:string,period:import('./contracts.js').Period,method:'scheduledOnly'|'historicalAverage'='scheduledOnly')=>{text(id,256);const captured=structuredClone(period);return read('/api/wallet/budgets/'+encodeURIComponent(id)+'/report',raw=>budgetReportValue(raw,id,captured,method),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({period:captured,method})});},
+        carryBudget:(budget:WalletBudgetHeader,from:import('./contracts.js').Period,to:import('./contracts.js').Period,nonce:string,sourceFingerprint?:string)=>command('/api/wallet/budgets/'+encodeURIComponent(budget.id)+'/carry','POST',{expectedRevision:budget.revision,from,to,...(sourceFingerprint===undefined?{}:{sourceFingerprint})},nonce,raw=>budgetCarryValue(raw,budget,from,to)),
+        budgetSummary:(budgetIds:string[],period:import('./contracts.js').Period,referenceCurrency:string)=>{const captured=structuredClone({budgetIds,period,referenceCurrency});return read('/api/wallet/budgets/summary',raw=>budgetSummaryValue(raw,captured.budgetIds,captured.period,referenceCurrency),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(captured)});},
+        balanceForecast:(input:BalanceForecastInput)=>{const captured=structuredClone(input);return read('/api/wallet/balance-forecast',raw=>balanceForecastValue(raw,captured),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(captured)});},
+        financialTargets:()=>read('/api/wallet/financial-targets',financialTargetsValue),
+        financialLinks:()=>read('/api/wallet/financial-links',financialLinksValue),
+        financialLink:(id:string)=>{text(id,256);return read('/api/wallet/financial-links/'+encodeURIComponent(id),raw=>financialLinkValue(raw,id));},
+        recordDebtPayment:(id:string,input:DebtPaymentInput,nonce:string)=>{text(id,256);return command('/api/wallet/debts/'+encodeURIComponent(id)+'/payments','POST',{expectedRevision:0,input},nonce,raw=>{const result=assertFinancialBinding(financialLinkValue(raw),{kind:'debt',parentId:id,mode:'payment',state:'active',revision:1,accountId:input.accountId,money:input.principal,interest:input.interest,date:input.date,timezone:input.timezone,...(input.counterAccountId===undefined?{}:{counterAccountId:input.counterAccountId}),...(input.existingPaymentId===undefined?{}:{entryId:input.existingPaymentId})});if(input.recordId!==undefined&&![result.recordId,result.interestRecordId].includes(input.recordId))throw Error('Existing debt record identity');return result;});},
+        contributeGoal:(id:string,input:GoalContributionInput,nonce:string)=>{text(id,256);return command('/api/wallet/goals/'+encodeURIComponent(id)+'/contributions','POST',{expectedRevision:0,input},nonce,raw=>{const result=assertFinancialBinding(financialLinkValue(raw),{kind:'goal',parentId:id,mode:input.mode,state:'active',revision:1,strict:input.strict===undefined?true:input.strict,accountId:input.fromAccountId,counterAccountId:input.toAccountId??null,money:input.money,interest:{minor:'0',currency:input.money.currency},date:input.date,timezone:input.timezone,...(input.existingContributionId===undefined?{}:{entryId:input.existingContributionId})});if(input.recordId!==undefined&&result.recordId!==input.recordId)throw Error('Existing goal transfer identity');return result;});},
+        updateFinancialLink:(link:WalletFinancialLink,parentHash:string,patch:FinancialPatch,nonce:string)=>command('/api/wallet/financial-links/'+encodeURIComponent(link.id),'PATCH',{expectedRevision:link.revision,input:{parentHash,patch}},nonce,raw=>{const result=assertFinancialBinding(financialLinkValue(raw,link.id),{kind:link.kind,parentId:link.parentId,entryId:link.entryId,state:'active',mode:link.mode,strict:link.strict,accountId:link.accountId,counterAccountId:link.counterAccountId,money:link.kind==='debt'?patch.principal??link.money:patch.money??link.money,interest:patch.interest??link.interest,date:patch.date??link.date,timezone:patch.timezone??link.timezone,createdAt:link.createdAt});if(result.revision<link.revision||result.revision>link.revision+1||result.money.minor!=='0'&&link.recordId&&result.recordId!==link.recordId||result.interest.minor!=='0'&&link.interestRecordId&&result.interestRecordId!==link.interestRecordId)throw Error('Financial edit revision or record identity');return result;}),
+        unlinkFinancialLink:(link:WalletFinancialLink,policy:'keep'|'void',nonce:string)=>command('/api/wallet/financial-links/'+encodeURIComponent(link.id)+'/unlink','POST',{expectedRevision:link.revision,input:{policy}},nonce,raw=>{const {updatedAt:_updated,...unchanged}=link;return assertFinancialBinding(financialLinkValue(raw,link.id),{...unchanged,revision:link.revision+1,state:policy==='keep'?'kept':'voided'});}),
+        schedules:()=>read('/api/wallet/schedules',raw=>{const v=object(raw);keys(v,['schedules']);if(!Array.isArray(v.schedules)||v.schedules.length>1000)throw Error('Schedule list');const items=v.schedules.map(r=>scheduleHeaderValue(r));if(new Set(items.map(v=>v.id)).size!==items.length)throw Error('Duplicate schedule');return items;}),
+        schedule:(id:string)=>{text(id,256);return read('/api/wallet/schedules/'+encodeURIComponent(id),raw=>scheduleDetailValue(raw,id));},
+        previewSchedule:(draft:ScheduleDraft)=>{const normalized=normalizeScheduleDraft(draft);return read('/api/wallet/schedules/preview',raw=>schedulePreviewValue(raw,normalized),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({draft:normalized})});},
+        saveSchedule:(input:{id?:string;draft?:ScheduleDraft;archived?:boolean},revision:number,nonce:string)=>{const {id,...patch}=input;if(id!==undefined)text(id,256);integer(revision,id?1:0);if(patch.draft)patch.draft=normalizeScheduleDraft(patch.draft);return command('/api/wallet/schedules'+(id?'/'+encodeURIComponent(id):''),id?'PATCH':'POST',id?{expectedRevision:revision,patch}:{expectedRevision:0,draft:patch.draft},nonce,raw=>{const result=scheduleHeaderValue(raw,id);if(result.revision<Math.max(1,revision)||result.revision>revision+1||patch.draft&&(result.name!==patch.draft.name||result.mode!==patch.draft.mode||result.paused!==patch.draft.paused)||patch.archived!==undefined&&Boolean(result.archivedAt)!==patch.archived)throw Error('Schedule save binding');return result;});},
+        materializeSchedule:(id:string,revision:number,nonce:string)=>{text(id,256);integer(revision,1);return command('/api/wallet/schedules/'+encodeURIComponent(id)+'/materialize','POST',{expectedRevision:revision},nonce,raw=>{const v=object(raw);keys(v,['id','revision','created','limited']);if(v.id!==id||v.revision!==revision)throw Error('Schedule generation binding');integer(v.created,0,100);boolean(v.limited);return {id,revision,created:v.created,limited:v.limited};});},
+        occurrences:(scheduleId:string)=>{text(scheduleId,256);return read('/api/wallet/schedules/'+encodeURIComponent(scheduleId)+'/occurrences',raw=>occurrencesValue(raw,scheduleId));},
+        occurrence:(id:string)=>{text(id,256);return read('/api/wallet/occurrences/'+encodeURIComponent(id),raw=>occurrenceValue(raw,id));},
+        confirmOccurrence:(id:string,revision:number,input:{linkRecordId?:string;recordRevision?:number},nonce:string)=>{text(id,256);integer(revision,1);keys(object(input),['linkRecordId','recordRevision']);if(input.linkRecordId!==undefined){text(input.linkRecordId,256);integer(input.recordRevision,1);}else if(input.recordRevision!==undefined)throw Error('Linked revision requires a record');return command('/api/wallet/occurrences/'+encodeURIComponent(id)+'/confirm','POST',{expectedRevision:revision,input},nonce,raw=>occurrenceReceiptValue(raw,id,revision,'confirmed',input.linkRecordId));},
+        skipOccurrence:(id:string,revision:number,nonce:string)=>{text(id,256);integer(revision,1);return command('/api/wallet/occurrences/'+encodeURIComponent(id)+'/skip','POST',{expectedRevision:revision},nonce,raw=>occurrenceReceiptValue(raw,id,revision,'skipped'));},
+        rules:()=>read('/api/wallet/rules',raw=>{const v=object(raw);keys(v,['rules']);if(!Array.isArray(v.rules)||v.rules.length>1000)throw Error();const rows=v.rules.map(r=>ruleHeaderValue(r));if(new Set(rows.map(r=>r.id)).size!==rows.length)throw Error();return rows;}),
+        rule:(id:string)=>read('/api/wallet/rules/'+encodeURIComponent(id),raw=>ruleDetailValue(raw,id)),
+        saveRule:(input:{id?:string;draft?:RuleDraft;archived?:boolean},revision:number,nonce:string)=>{const {id,...patch}=input;if(patch.draft)normalizeRuleDraft(patch.draft);return command('/api/wallet/rules'+(id?'/'+encodeURIComponent(id):''),id?'PATCH':'POST',id?{expectedRevision:revision,patch}:{expectedRevision:0,draft:patch.draft},nonce,raw=>{const result=ruleHeaderValue(raw,id);if(result.revision<Math.max(1,revision)||result.revision>revision+1)throw Error('Rule revision');if(patch.draft&&(result.name!==patch.draft.name.trim()||result.priority!==patch.draft.priority))throw Error('Rule payload');return result;});},
+        previewRules:(input:RulePreviewInput,filter:RecordFilter,nonce:string)=>command('/api/wallet/rule-previews','POST',{expectedRevision:0,input,filter:normalizeFilter(filter)},nonce,raw=>{const p=rulePreviewValue(raw);if(p.state!=='ready'||p.revision!==1)throw Error('New preview state');return p;}),
+        rulePreview:(id:string)=>read('/api/wallet/rule-previews/'+encodeURIComponent(id),raw=>rulePreviewValue(raw,id)),
+        rulePreviewRows:(preview:RulePreviewSummary)=>read('/api/wallet/rule-previews/'+encodeURIComponent(preview.id)+'/rows',raw=>ruleRowsValue(raw,preview)),
+        applyRulePreview:(preview:RulePreviewSummary,nonce:string)=>command('/api/wallet/rule-previews/'+encodeURIComponent(preview.id)+'/apply','POST',{expectedRevision:preview.revision,hash:preview.hash},nonce,raw=>ruleApplyValue(raw,preview)),
+        async exportRecords(selection:RecordSelection,format:ExportFormat,options:{signal?:AbortSignal;expectedCount:number}):Promise<{blob:Blob;fileName:string;count:number;sha256:string}>{
+            const invalid=()=>new WalletApiError(200,'Tệp xuất không hợp lệ.','INVALID_RESPONSE',undefined),auth=new Headers(ports.authHeaders()).get('Authorization');let metadata:Headers|null=null;
+            const download=createWalletRequest({...ports,request:async(input,init)=>{const response=await ports.request(input,init);metadata=new Headers(response.headers);if(!response.ok||!response.body)return response;const reader=response.body.getReader();let total=0;const body=new ReadableStream({async pull(controller){try{const next=await reader.read();if(next.done){controller.close();return;}total+=next.value.byteLength;if(total>20*1024*1024){await reader.cancel();controller.error(Error('Export byte limit'));return;}controller.enqueue(next.value);}catch(error){controller.error(error);}},cancel(reason){return reader.cancel(reason);}});return new Response(body,{status:response.status,statusText:response.statusText,headers:response.headers});}});
+            const blob=await download<Blob>('/api/wallet/exports',{method:'POST',readOnly:true,responseType:'blob',headers:{'Content-Type':'application/json'},body:JSON.stringify({selection,format}),signal:options.signal}),headers=metadata as Headers|null;
+            if(!headers||!['csv','xlsx','pdf'].includes(format)||!(blob instanceof Blob)||blob.size<1||blob.size>20*1024*1024)throw invalid();
+            const mime=format==='csv'?'text/csv':format==='xlsx'?'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':'application/pdf',count=headers.get('x-wallet-record-count'),size=headers.get('x-wallet-content-bytes'),wireSize=headers.get('content-length'),sha=headers.get('x-wallet-content-sha256'),disposition=headers.get('content-disposition'),name=/^attachment;\s*filename="(family-wallet-(\d{4}-\d\d-\d\d)\.(csv|xlsx|pdf))"$/.exec(disposition??'');
+            if(blob.type.split(';')[0]!==mime||!count||! /^(?:0|[1-9]\d{0,4})$/.test(count)||Number(count)>10000||Number(count)!==options.expectedCount||!size||!/^\d+$/.test(size)||Number(size)!==blob.size||!headers.has('content-encoding')&&wireSize!==null&&Number(wireSize)!==blob.size||!sha||! /^[a-f0-9]{64}$/.test(sha)||!name||name[3]!==format)throw invalid();
+            try{parseEffectiveDate(name[2]);}catch{throw invalid();}const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))).map(byte=>byte.toString(16).padStart(2,'0')).join('');if(new Headers(ports.authHeaders()).get('Authorization')!==auth)throw new WalletApiError(401,'Phiên đăng nhập đã thay đổi.','SESSION_CHANGED',undefined);options.signal?.throwIfAborted();if(digest!==sha)throw invalid();return {blob,fileName:name[1],count:Number(count),sha256:sha};
+        },
+        importBatch:(id:string)=>read(path('imports',id),v=>importBatchValue(v,id)),
+        importHistory:(offset=0)=>{integer(offset,0,100000);return read('/api/wallet/imports/history?offset='+offset,importHistoryValue);},
+        importRows:(id:string,offset=0)=>{integer(offset,0,10001);return read(path('imports',id)+'/rows?offset='+offset,v=>importPageValue(v,id,offset));},
+        stageImport:(file:ImportUpload,nonce:string)=>command('/api/wallet/imports/stage','POST',{expectedRevision:0,file},nonce,v=>importBatchValue(v,undefined,0,file.accountId)),
+        previewImport:(id:string,revision:number,mapping:ImportMapping,nonce:string)=>command(path('imports',id)+'/preview','POST',{expectedRevision:revision,mapping},nonce,v=>importBatchValue(v,id,revision)),
+        commitImport:(id:string,revision:number,nonce:string)=>command(path('imports',id)+'/commit','POST',{expectedRevision:revision,previewRevision:revision},nonce,v=>importBatchValue(v,id,revision)),
+        reopenImport:(id:string,revision:number,nonce:string)=>command(path('imports',id)+'/reopen','POST',{expectedRevision:revision},nonce,v=>importBatchValue(v,id,revision)),
+        undoImport:(id:string,revision:number,policy:'onlyUnmodified'|'rejectIfModified',nonce:string)=>command(path('imports',id)+'/undo','POST',{expectedRevision:revision,policy},nonce,v=>importBatchValue(v,id,revision)),
+        templates:()=>read('/api/wallet/templates',templateListValue),
+        template:(id:string)=>read(path('templates',id),value=>templateValue(value,id,undefined,true) as import('../../../server/wallet/templates.js').WalletTemplate&{draft:RecordDraft}),
+        createTemplate:(input:Omit<TemplateDraft,'id'>,nonce:string)=>command('/api/wallet/templates','POST',{expectedRevision:0,input},nonce,value=>templateValue(value,undefined,0)),
+        updateTemplate:(id:string,revision:number,patch:Omit<TemplateDraft,'id'>,nonce:string)=>command(path('templates',id),'PATCH',{expectedRevision:revision,patch},nonce,value=>templateValue(value,id,revision)),
+        instantiateTemplate:(id:string,now:string)=>{utcInstant(now);return read(path('templates',id)+'/draft',raw=>{const value=recordDraftValue(raw);if(value.occurredAt!==now||value.reviewedAt!==null||value.settlementStatus!=='uncleared'||value.effectiveDate!==effectiveDateAt(now,value.timezone))throw Error('Template draft clock identity');return value;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({now})});},
+        allocations:(id:string)=>read(path('records',id)+'/allocations',value=>allocationResultValue(value,id)),
+        setAllocations:(id:string,revision:number,rows:AllocationDraft[],nonce:string)=>command(path('records',id)+'/allocations','PUT',{expectedRevision:revision,rows},nonce,value=>{const result=allocationResultValue(value,id,revision);if(JSON.stringify(result.rows)!==JSON.stringify(allocationRows(rows)))throw Error('Allocation acknowledgement payload');return result;}),
+        cloneRecordDraft:(id:string,now:string)=>{utcInstant(now);return read(path('records',id)+'/clone-draft',raw=>{const value=recordDraftValue(raw);if(value.occurredAt!==now||value.reviewedAt!==null||value.settlementStatus!=='uncleared'||value.effectiveDate!==effectiveDateAt(now,value.timezone))throw Error('Clone clock/review identity');return value;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({now})});},
+        catalogCapabilities:()=>read('/api/wallet/catalog/capabilities',value=>{const v=object(value);keys(v,['canManage']);boolean(v.canManage);return {canManage:v.canManage};}),
+        category:(id:string)=>read(path('categories',id),value=>catalogItemValue(value,'category',id)),
+        label:(id:string)=>read(path('labels',id),value=>catalogItemValue(value,'label',id)),
+        createCategory:(input:Omit<CategoryDraft,'id'>,nonce:string)=>command('/api/wallet/categories','POST',{expectedRevision:0,input},nonce,value=>catalogItemValue(value,'category',undefined,0)),
+        updateCategory:(id:string,expectedRevision:number,patch:Omit<CategoryDraft,'id'>,nonce:string)=>command(path('categories',id),'PATCH',{expectedRevision,patch},nonce,value=>catalogItemValue(value,'category',id,expectedRevision)),
+        createLabel:(input:Omit<LabelDraft,'id'>,nonce:string)=>command('/api/wallet/labels','POST',{expectedRevision:0,input},nonce,value=>catalogItemValue(value,'label',undefined,0)),
+        updateLabel:(id:string,expectedRevision:number,patch:Omit<LabelDraft,'id'>,nonce:string)=>command(path('labels',id),'PATCH',{expectedRevision,patch},nonce,value=>catalogItemValue(value,'label',id,expectedRevision)),
+        categoryDeletion:(id:string)=>read(path('categories',id)+'/deletion',value=>catalogDeletionValue(value,id)),
+        labelDeletion:(id:string)=>read(path('labels',id)+'/deletion',value=>catalogDeletionValue(value,id)),
+        deleteCategory:(id:string,expectedRevision:number,nonce:string)=>command(path('categories',id),'DELETE',{expectedRevision},nonce,value=>catalogDeletedValue(value,id,expectedRevision)),
+        deleteLabel:(id:string,expectedRevision:number,nonce:string)=>command(path('labels',id),'DELETE',{expectedRevision},nonce,value=>catalogDeletedValue(value,id,expectedRevision)),
+        createSelection:(input:SelectionInput,nonce:string)=>command('/api/wallet/record-selections','POST',{expectedRevision:0,input},nonce,selectionValue),
+        selectionMembers:(id:string,requestedIds:string[],options:{signal?:AbortSignal}={})=>{const requested=ids(requestedIds);if(requested.length>100)throw Error('Membership page limit');return read('/api/wallet/record-selections/'+encodeURIComponent(id)+'/members',value=>{const v=object(value);keys(v,['ids']);const members=ids(v.ids);if(members.some(id=>!requested.includes(id)))throw Error('Unexpected snapshot member');return members;},{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({ids:requested}),signal:options.signal});},
+        releaseSelection:(id:string,nonce:string)=>command('/api/wallet/record-selections/'+encodeURIComponent(id),'DELETE',{expectedRevision:0},nonce,value=>{const v=object(value);keys(v,['released']);if(v.released!==true)throw Error('Release acknowledgement');return {released:true as const};}),
+        bulkPreview:(selection:BulkSelection,patch:RecordMetadataPatch,options:{signal?:AbortSignal}={})=>read('/api/wallet/records/bulk-preview',value=>bulkPreviewValue(value,selection),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({selection,patch}),signal:options.signal}),
+        bulkMetadata:(selection:BulkSelection,expectedRevision:number,patch:RecordMetadataPatch,nonce:string)=>command('/api/wallet/records/bulk-metadata','POST',{expectedRevision,selection,patch},nonce,value=>bulkResultValue(value,selection)),
+        receipts:(id:string)=>read(path('records',id)+'/receipts',value=>{const v=object(value);if(v.recordId!==id||!Array.isArray(v.receipts)||v.receipts.length>20)throw Error('Receipt list identity');integer(v.revision,1);const receipts=v.receipts.map(row=>receiptValue(row,id));if(new Set(receipts.map(row=>row.id)).size!==receipts.length)throw Error('Duplicate receipts');return {recordId:id,revision:v.revision,receipts};}),
+        attachReceipt:(id:string,revision:number,input:{fileName:string;dataUrl:string},nonce:string)=>command(path('records',id)+'/receipts','POST',{expectedRevision:revision,input},nonce,value=>{const v=object(value);if(v.recordId!==id||v.revision!==revision+1)throw Error('Receipt acknowledgement');return {recordId:id,revision:v.revision,receipt:receiptValue(v.receipt,id)};}),
+        detachReceipt:(id:string,revision:number,receiptId:string,nonce:string)=>command(path('records',id)+'/receipts/'+encodeURIComponent(receiptId),'DELETE',{expectedRevision:revision},nonce,value=>{const v=object(value);if(v.recordId!==id||v.receiptId!==receiptId||v.revision!==revision+1)throw Error('Receipt acknowledgement');return {recordId:id,revision:v.revision,receiptId};}),
+        async receiptFile(id:string,metadata:WalletReceiptMetadata):Promise<Blob>{
+            const expected=receiptValue(metadata,id),auth=new Headers(ports.authHeaders()).get('Authorization'),blob=await walletRequest<Blob>(path('records',id)+'/receipts/'+encodeURIComponent(expected.id),{responseType:'blob'});
+            const invalid=()=>new WalletApiError(200,'Nội dung hóa đơn không hợp lệ.','INVALID_RESPONSE',undefined);
+            if(!(blob instanceof Blob)||blob.size!==expected.size||blob.type!==expected.mime)throw invalid();
+            const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))).map(byte=>byte.toString(16).padStart(2,'0')).join('');
+            if(new Headers(ports.authHeaders()).get('Authorization')!==auth)throw new WalletApiError(401,'Phiên đăng nhập đã thay đổi.','SESSION_CHANGED',undefined);
+            if(digest!==expected.sha256)throw invalid();return blob;
+        },
+        filterOptions:()=>read('/api/wallet/record-filter-options',value=>{const v=object(value);if(!Array.isArray(v.creators)||!Array.isArray(v.paymentMethods)||v.creators.length>10000||v.paymentMethods.length>10000)throw Error('Invalid filter option list');const creators=v.creators.map(input=>{const row=object(input);text(row.id,256);text(row.name,500);return {id:row.id,name:row.name};}),paymentMethods=v.paymentMethods.map(input=>{text(input,256);return input;});if(new Set(creators.map(row=>row.id)).size!==creators.length||new Set(paymentMethods).size!==paymentMethods.length)throw Error('Duplicate filter options');return {creators,paymentMethods} as WalletFilterOptions;}),
+        catalog:()=>read('/api/wallet/catalog',catalogValue),
+        actions:(id:string)=>read(path('records',id)+'/actions',value=>{const v=object(value);if(v.recordId!==id)throw Error('Action record identity');boolean(v.canEdit);boolean(v.canVoid);const result:WalletRecordActions={recordId:id,canEdit:v.canEdit,canVoid:v.canVoid};if(v.editViaTransferId!==undefined){text(v.editViaTransferId,256);if(v.editViaTransferId===id)throw Error('Action parent identity');result.editViaTransferId=v.editViaTransferId;}return result;}),
+        status: () => read('/api/wallet/status', value => { const v = object(value); boolean(v.active); integer(v.storageVersion); return { active: v.active, storageVersion: v.storageVersion }; }),
+        accounts: () => read('/api/wallet/accounts', value => { const v = object(value); if (!Array.isArray(v.accounts))
+            throw Error(); const accounts = v.accounts.map(row => accountValue(row)); if (new Set(accounts.map(a => a.id)).size !== accounts.length)
+            throw Error(); return accounts; }),
+        account: (id: string) => read(path('accounts', id), value => accountResult(value, id)),
+        balance: (id: string, date: string) => { parseEffectiveDate(date); return read(path('accounts', id) + '/balance?date=' + encodeURIComponent(date), value => { const v = object(value); if (v.date !== date)
+            throw Error(); assertMoney(v.book); assertMoney(v.cleared); if (v.book.currency !== v.cleared.currency)
+            throw Error('Balance currency mismatch'); const credit = v.credit === undefined ? undefined : creditValue(v.credit); if (credit && (credit.currency !== v.book.currency || credit.bookMinor !== v.book.minor))
+            throw Error('Credit identity'); return { date, book: v.book, cleared: v.cleared, ...(credit === undefined ? {} : { credit }) }; }); },
+        createAccount: (input: AccountDraft, nonce: string) => command('/api/wallet/accounts', 'POST', { expectedRevision: 0, input }, nonce, value => accountResult(value)),
+        updateAccount: (id: string, expectedRevision: number, patch: AccountPatch, nonce: string) => command(path('accounts', id), 'PATCH', { expectedRevision, patch }, nonce, value => accountResult(value, id)),
+        archiveAccount: (id: string, expectedRevision: number, nonce: string) => command(path('accounts', id), 'DELETE', { expectedRevision }, nonce, value => accountResult(value, id)),
+        grants: (id: string) => read(path('accounts', id) + '/grants', value => { const v = object(value); if (!Array.isArray(v.grants))
+            throw Error(); const grants = v.grants.map(input => { const row = object(input); if (row.accountId !== id)
+            throw Error('Grant account'); text(row.userId, 256); choice(row.permission, ['read', 'contribute', 'manage']); return { accountId: id, userId: row.userId, permission: row.permission }; }); if (new Set(grants.map(row => row.userId)).size !== grants.length)
+            throw Error('Duplicate grant'); return grants as WalletAccountGrant[]; }),
+        setGrant: (id: string, userId: string, expectedRevision: number, permission: WalletPermission, nonce: string) => command(path('accounts', id) + '/grants/' + encodeURIComponent(userId), 'PUT', { expectedRevision, permission }, nonce, value => grantValue(value, id, userId)),
+        removeGrant: (id: string, userId: string, expectedRevision: number, nonce: string) => command(path('accounts', id) + '/grants/' + encodeURIComponent(userId), 'DELETE', { expectedRevision }, nonce, value => grantValue(value, id, userId)),
+        walletSettings:()=>read('/api/wallet/settings',walletSettingsValue),
+        saveWalletSettings:(raw:WalletUserSettings,revision:number,nonce:string)=>{const input=normalizeWalletSettings(structuredClone(raw));integer(revision,0);return command('/api/wallet/settings','PUT',{expectedRevision:revision,input},nonce,value=>{const result=walletSettingsValue(value);if(result.revision!==revision+1||JSON.stringify(result.settings)!==JSON.stringify(input))throw Error('Settings acknowledgement differs from request');return result;});},
+        preferences:()=>read('/api/wallet/preferences',preferencesValue),
+        createPreference:(kind:PreferenceKind,input:PreferenceDraft,nonce:string)=>command('/api/wallet/preferences/'+encodeURIComponent(kind),'POST',{expectedRevision:0,input},nonce,value=>{const result=preferenceValue(value,kind);if(result.revision!==1)throw Error('Wrong new preference revision');return result;}),
+        updatePreference:(kind:PreferenceKind,id:string,revision:number,patch:PreferenceDraft,nonce:string)=>command('/api/wallet/preferences/'+encodeURIComponent(kind)+'/'+encodeURIComponent(id),'PATCH',{expectedRevision:revision,patch},nonce,value=>preferenceValue(value,kind,id,revision)),
+        report:(input:ReportInput,options:{signal?:AbortSignal}={})=>{const normalized={...input,filter:normalizeFilter(input.filter)};return read('/api/wallet/reports/query',value=>reportValue(value,normalized),{method:'POST',readOnly:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(normalized),signal:options.signal});},
+        refreshRates:(asOf:string,nonce:string)=>{parseEffectiveDate(asOf);return command('/api/wallet/fx/refresh','POST',{expectedRevision:0,asOf},nonce,value=>{const v=object(value);keys(v,['asOf','quoteAsOf','inserted']);if(v.asOf!==asOf)throw Error('FX refresh date mismatch');parseEffectiveDate(v.quoteAsOf as string);if(v.quoteAsOf>asOf||Date.parse(asOf)-Date.parse(v.quoteAsOf as string)>7*86400000)throw Error('FX refresh quote scope');integer(v.inserted,0,1);return {asOf,quoteAsOf:v.quoteAsOf as string,inserted:v.inserted as number};});},
+        query: (filter: RecordFilter, cursor: string | null = null, limit = 50, options: {
+            signal?: AbortSignal;
+        } = {}) => { integer(limit, 1, 100); const normalized = normalizeFilter(filter); return read('/api/wallet/records/query', value => pageValue(value, limit), { method: 'POST', readOnly: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ filter: normalized, cursor, limit }), signal: options.signal }); },
+        record: (id: string, options: {
+            signal?: AbortSignal;
+        } = {}) => read(path('records', id), value => recordValue(value, true, id) as WalletRecordDetail, { signal: options.signal }),
+        createRecord: (input: RecordDraft, nonce: string) => command('/api/wallet/records', 'POST', { expectedRevision: 0, input }, nonce, value => recordValue(value, false) as WalletRecordResult),
+        updateRecord: (id: string, expectedRevision: number, patch: RecordPatch, nonce: string) => command(path('records', id), 'PATCH', { expectedRevision, patch }, nonce, value => recordValue(value, false, id) as WalletRecordResult),
+        voidRecord: (id: string, expectedRevision: number, nonce: string) => command(path('records', id), 'DELETE', { expectedRevision }, nonce, value => recordValue(value, false, id) as WalletRecordResult),
+    };
+}
+export type WalletApi = ReturnType<typeof createWalletApi>;

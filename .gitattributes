@@ -1,0 +1,5 @@
+# Historical shell scripts retain LF; Windows runtime does not invoke them.
+*.sh text eol=lf
+
+# Preserve verbatim upstream license byte hashes on every checkout.
+scripts/windows/licenses/*.txt text eol=lf

@@ -1,0 +1,13 @@
+import {createDraftCommandState} from './draftCommandState.js';
+import {normalizeTaskNotificationPreferences,type TaskNotificationPreferences} from './notificationPolicy.js';
+import {reminderDraft,type ReminderDraft} from './notificationApi.js';
+import {text,integer,boolean} from './validation.js';
+import type {TaskApi} from './api.js';
+type NotificationApi=Pick<TaskApi,'scheduleTaskReminder'|'setReminderEnabled'|'saveNotificationPreferences'>;
+export type TaskReminderCommand={kind:'schedule';taskId:string;revision:number;input:ReminderDraft;summary:string}|{kind:'enabled';taskId:string;ruleId:string;revision:number;enabled:boolean;summary:string};
+export function createTaskReminderCommand(ports:{api:NotificationApi;onCommitted():Promise<void>}){return createDraftCommandState<TaskReminderCommand,Awaited<ReturnType<TaskApi['scheduleTaskReminder']>>>({validate:draft=>{text(draft.taskId,256);text(draft.summary,2000);integer(draft.revision,1);if(draft.kind==='schedule')reminderDraft(draft.input);else if(draft.kind==='enabled'){text(draft.ruleId,256);boolean(draft.enabled);}else throw Error('Unsupported reminder command');},send:(draft,key)=>draft.kind==='schedule'?ports.api.scheduleTaskReminder(draft.taskId,draft.revision,draft.input,key):ports.api.setReminderEnabled(draft.ruleId,draft.taskId,draft.revision,draft.enabled,key),onCommitted:()=>ports.onCommitted()});}
+export function createNotificationCommandSession(ports:{api:NotificationApi;onCommitted():Promise<void>}){
+ const preferences=createDraftCommandState<{revision:number;input:TaskNotificationPreferences},Awaited<ReturnType<TaskApi['saveNotificationPreferences']>>>({validate:draft=>{integer(draft.revision);normalizeTaskNotificationPreferences(draft.input);},send:(draft,key)=>ports.api.saveNotificationPreferences(draft.revision,draft.input,key),onCommitted:()=>ports.onCommitted()}),tasks=new Map<string,ReturnType<typeof createTaskReminderCommand>>();let disposed=false;
+ return {preferences,forTask(id:string){if(disposed)throw Error('Notification session disposed');let state=tasks.get(id);if(!state){state=createTaskReminderCommand(ports);tasks.set(id,state);}return state;},reconcile(ids:readonly string[]){const visible=new Set(ids);for(const [id,state]of tasks)if(!visible.has(id)){state.clear();state.dispose();tasks.delete(id);}},clear(){preferences.clear();for(const state of tasks.values())state.clear();},dispose(){if(disposed)return;disposed=true;preferences.dispose();for(const state of tasks.values())state.dispose();tasks.clear();}};
+}
+export type NotificationCommandSession=ReturnType<typeof createNotificationCommandSession>;

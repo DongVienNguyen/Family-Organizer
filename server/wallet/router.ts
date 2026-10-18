@@ -1,0 +1,234 @@
+import {parseImportUpload} from './importUpload.js';
+import {catalogReferencesValue} from '../../src/features/wallet/catalogReferences.js';
+import { randomUUID } from 'node:crypto';
+import { Router, type Request, type RequestHandler, type ErrorRequestHandler } from 'express';
+import { getAppCommandContext } from '../commandContext.js';
+import { AppStoreError, httpErrorStatus } from '../appErrors.js';
+import { object, keys, text, integer } from '../../src/features/productivity/validation.js';
+import { parseEffectiveDate } from '../../src/features/wallet/dates.js';
+import type { Actor, CommandContext } from '../../src/features/wallet/contracts.js';
+import type { WalletPorts } from './ports.js';
+interface WalletRequest extends Request {
+    userSession?: Actor;
+}
+const codeFor = (status: number) => status === 401 ? 'UNAUTHENTICATED' : status === 403 ? 'FORBIDDEN' : status === 404 ? 'NOT_FOUND' : status === 409 ? 'CONFLICT' : status === 413 ? 'LIMIT_EXCEEDED' : status >= 500 ? 'INTERNAL_ERROR' : 'INVALID_INPUT';
+const knownCodes = new Set(['UNAUTHENTICATED', 'FORBIDDEN', 'NOT_FOUND', 'CONFLICT', 'LIMIT_EXCEEDED', 'INTERNAL_ERROR', 'INVALID_INPUT', 'RATE_UNAVAILABLE','CATALOG_NAME_CONFLICT']);
+/** Targeted internal namespace; normalize even pre-auth/parser errors without
+ * logging or echoing credentials, request bodies or native SQL details. */
+export const walletRequestTrace: RequestHandler = (req, res, next) => {
+    if (res.locals.walletRequestId) {
+        next();
+        return;
+    }
+    const input = req.get('x-request-id'), id = input && /^[A-Za-z0-9_-]{1,128}$/.test(input) ? input : randomUUID();
+    res.locals.walletRequestId = id;
+    res.set('x-request-id', id);
+    res.set('Cache-Control', 'no-store');
+    const json = res.json.bind(res);
+    res.json = (body: any) => { if (res.statusCode >= 400) {
+        const code = knownCodes.has(body?.code) ? body.code : codeFor(res.statusCode), safe = res.statusCode >= 500 ? 'Không xử lý được yêu cầu Wallet.' : typeof body?.error === 'string' ? body.error : 'Yêu cầu Wallet không hợp lệ.';
+        let references;try{if(body?.references!==undefined)references=catalogReferencesValue(body.references);}catch{}
+        return json({ error: safe, code, requestId: id,...(references?{references}:{}) });
+    } return json(body); };
+    next();
+};
+export const walletJsonError: ErrorRequestHandler = (error, _req, res, _next) => { const status = (error as any)?.status === 413 ? 413 : 400; res.status(status).json({ error: 'Dữ liệu Wallet không hợp lệ.', code: codeFor(status) }); };
+function actor(req: WalletRequest): Actor { if (!req.userSession)
+    throw new AppStoreError('Cần đăng nhập.', 401); return { userId: req.userSession.userId, role: req.userSession.role }; }
+function id(value: unknown): string { try {
+    text(value, 256);
+    return value;
+}
+catch {
+    throw new AppStoreError('Mã tài nguyên không hợp lệ.', 400);
+} }
+function body(req: Request, allowed: string[]): Record<string, any> { try {
+    const value = object(req.body);
+    keys(value, allowed);
+    return value;
+}
+catch {
+    throw new AppStoreError('Dữ liệu Wallet không hợp lệ.', 400);
+} }
+function context(req: WalletRequest, revision: unknown, editing: boolean): CommandContext { const current = getAppCommandContext(), input = req.get('x-request-id'); if (!input || !/^[A-Za-z0-9_-]{1,128}$/.test(input) || !current || input !== current.requestId)
+    throw new AppStoreError('Cần mã yêu cầu hợp lệ cho thao tác ghi.', 400); try {
+    integer(revision, editing ? 1 : 0);
+}
+catch {
+    throw new AppStoreError('Phiên bản bản ghi không hợp lệ.', 400);
+} return { actor: actor(req), idempotencyKey: input, expectedRevision: revision }; }
+const cleanCreator = (value: unknown) => { try {
+    const { creatorId: _creator, ...input } = object(value);
+    return input;
+}
+catch {
+    throw new AppStoreError('Dữ liệu giao dịch không hợp lệ.', 400);
+} };
+/** App-internal Bearer session routes. No integration token/public API or activation. */
+export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, changed: (audience: Set<string>) => void) {
+    const router = Router(), handler = (fn: (req: WalletRequest) => unknown): RequestHandler => (req, res) => { try {
+        res.json(fn(req));
+    }
+    catch (error) {
+        const status = httpErrorStatus(error, 500);
+        res.status(status).json({ error: status >= 500 ? 'Không xử lý được yêu cầu Wallet.' : error instanceof AppStoreError ? error.message : 'Dữ liệu Wallet không hợp lệ.', code: (error as any)?.code,...((error as any)?.references?{references:(error as any).references}:{}) });
+    } };
+    router.use(walletRequestTrace, requireAuth, handlerMiddleware((req) => ports.assertActor(actor(req))));
+    router.get('/status', handler(() => ({ active: ports.active(), storageVersion: ports.storageVersion() })));
+    router.use(handlerMiddleware(() => { if (!ports.active())
+        throw new AppStoreError('Wallet chưa sẵn sàng.', 409); }));
+    const emit = (before: Set<string>, after: Set<string>) => changed(new Set([...before, ...after]));
+    const manager = (req: WalletRequest, accountId: string) => { if (ports.access.getAccount(actor(req), accountId).permission !== 'manage')
+        throw new AppStoreError('Không có quyền quản lý tài khoản.', 403); };
+    const asyncHandler=(fn:(req:WalletRequest)=>Promise<unknown>):RequestHandler=>(req,res)=>{Promise.resolve().then(()=>fn(req)).then(value=>res.json(value)).catch(error=>{const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không xử lý được bản nhập.':error instanceof AppStoreError?error.message:'Bản nhập không hợp lệ.',code:(error as any)?.code});});};
+    router.post('/exports',async(req,res)=>{
+        const controller=new AbortController(),stop=()=>controller.abort();req.once('aborted',stop);res.once('close',stop);
+        const errorResponse=(error:unknown)=>{if(res.headersSent){res.destroy();return;}for(const name of ['Content-Length','Content-Disposition','Content-Type','X-Wallet-Record-Count','X-Wallet-Content-Sha256','X-Wallet-Content-Bytes'])res.removeHeader(name);const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không tạo được tệp xuất.':error instanceof AppStoreError?error.message:'Vùng chọn xuất không hợp lệ.',code:(error as any)?.code});};
+        try{const v=body(req,['selection','format']);try{object(v.selection);if(!['csv','xlsx','pdf'].includes(v.format))throw Error();}catch{throw new AppStoreError('Vùng chọn hoặc định dạng xuất không hợp lệ.',400);}const result=await ports.exports.exportRecords(actor(req),v.selection,v.format,{signal:controller.signal});if(controller.signal.aborted)return;res.set('Content-Type',result.mime);res.attachment(result.fileName);res.set('Content-Length',String(result.size));res.set('X-Wallet-Record-Count',String(result.rowCount));res.set('X-Wallet-Content-Sha256',result.sha256);res.set('X-Wallet-Content-Bytes',String(result.size));res.set('Cache-Control','no-store, no-transform');result.stream.once('error',errorResponse);res.once('close',()=>result.stream.destroy());result.stream.pipe(res);}catch(error){if(!controller.signal.aborted)errorResponse(error);}
+    });
+    router.get('/imports/history',handler(req=>ports.imports.history(actor(req),req.query.offset===undefined?0:Number(req.query.offset))));
+    router.post('/imports/stage',asyncHandler(req=>{const v=body(req,['expectedRevision','file']);return ports.imports.stageImport(context(req,v.expectedRevision,false),parseImportUpload(v.file));}));
+    router.get('/imports/:id',handler(req=>ports.imports.getBatch(actor(req),id(req.params.id))));
+    router.get('/imports/:id/rows',handler(req=>ports.imports.previewRows(actor(req),id(req.params.id),req.query.offset===undefined?0:Number(req.query.offset))));
+    router.post('/imports/:id/preview',asyncHandler(req=>{const v=body(req,['expectedRevision','mapping']);return ports.imports.previewImport(context(req,v.expectedRevision,true),id(req.params.id),v.mapping);}));
+    router.post('/imports/:id/commit',handler(req=>{const v=body(req,['expectedRevision','previewRevision']);return ports.imports.queueImport(context(req,v.expectedRevision,true),id(req.params.id),v.previewRevision);}));
+    router.post('/imports/:id/reopen',handler(req=>{const v=body(req,['expectedRevision']);return ports.imports.reopenImport(context(req,v.expectedRevision,true),id(req.params.id));}));
+    router.post('/imports/:id/undo',handler(req=>{const v=body(req,['expectedRevision','policy']),batchId=id(req.params.id);return ports.imports.undoImport(context(req,v.expectedRevision,true),batchId,v.policy,()=>changed(ports.importAudience(batchId)));}));
+    const preferenceKind=(raw:unknown)=>{if(!['filter','chart','layout'].includes(raw as string))throw new AppStoreError('Loại cấu hình không hợp lệ.',400);return raw as 'filter'|'chart'|'layout';};
+    router.get('/settings',handler(req=>ports.settings.getSettings(actor(req))));
+    router.put('/settings',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.settings.saveWalletSettings(context(req,v.expectedRevision,v.expectedRevision!==0),v.input,()=>changed(new Set([actor(req).userId])));}));
+    router.get('/preferences',handler(req=>ports.preferences.getPreferences(actor(req))));
+    router.post('/preferences/:kind',handler(req=>{const value=body(req,['expectedRevision','input']);if(value.input?.id!==undefined)throw new AppStoreError('Mã tạo mới thuộc máy chủ.',400);return ports.preferences.savePreference(context(req,value.expectedRevision,false),preferenceKind(req.params.kind),value.input,()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/preferences/:kind/:id',handler(req=>{const value=body(req,['expectedRevision','patch']);let patch:Record<string,unknown>;try{patch=object(value.patch);keys(patch,['name','config','archived']);}catch{throw new AppStoreError('Trường cấu hình không hợp lệ.',400);}return ports.preferences.savePreference(context(req,value.expectedRevision,true),preferenceKind(req.params.kind),{...patch,id:id(req.params.id)},()=>changed(new Set([actor(req).userId])));}));
+    router.post('/reports/query',handler(req=>{const value=body(req,['filter','metric','groupBy','granularity']);return ports.reports.getReport(actor(req),value as any);}));
+    router.post('/fx/refresh',async(req,res)=>{try{const value=body(req,['expectedRevision','asOf']),result=await ports.fx.refreshRates(context(req,value.expectedRevision,false),value.asOf);res.json(result);}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không cập nhật được tỷ giá.':error instanceof AppStoreError?error.message:'Yêu cầu tỷ giá không hợp lệ.',code:(error as any)?.code});}});
+    router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
+    const financialChanged=(_records:string[],linkId:string)=>changed(ports.linkAudience(linkId));
+    const marketHandler=(fn:(req:WalletRequest)=>Promise<unknown>):RequestHandler=>async(req,res)=>{try{res.json(await fn(req));}catch(error){const status=error instanceof AppStoreError&&[502,503,504].includes(error.status)?error.status:httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không xử lý được nguồn giá Wallet.':error instanceof AppStoreError?error.message:'Dữ liệu nguồn giá không hợp lệ.',code:(error as any)?.code});}};
+    const investmentChanged=(accountId:string)=>changed(ports.accountAudience(accountId)),quotesChanged=()=>changed(ports.catalogAudience());
+    router.get('/instruments',handler(req=>({instruments:ports.investments.instruments(actor(req))})));
+    router.post('/instruments',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.investments.saveInstrument(context(req,v.expectedRevision,false),v.input);}));
+    router.get('/instruments/:id/quote',handler(req=>({quote:ports.marketData.getQuote(actor(req),id(req.params.id),id(req.query.date))})));
+    router.get('/market-data/status',handler(req=>ports.marketData.status(actor(req))));
+    router.post('/market-data/search',marketHandler(async req=>{const v=body(req,['query','exchange']);return {instruments:await ports.marketData.search(actor(req),v.query,v.exchange)};}));
+    router.post('/market-data/manual',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.marketData.saveManualQuote(context(req,v.expectedRevision,false),v.input,quotesChanged);}));
+    router.post('/market-data/refresh',marketHandler(req=>{const v=body(req,['expectedRevision','input']);return ports.marketData.refreshQuotes(context(req,v.expectedRevision,false),v.input,quotesChanged);}));
+    router.get('/portfolios/:id/growth',marketHandler(req=>ports.investments.growth(actor(req),id(req.params.id),id(req.query.date),12,req.query.sourceFingerprint===undefined?undefined:id(req.query.sourceFingerprint))));
+    router.get('/portfolios/:id/status',handler(req=>ports.investments.portfolioStatus(actor(req),id(req.params.id))));
+    router.get('/portfolios/:id',handler(req=>ports.investments.portfolio(actor(req),id(req.params.id),id(req.query.date))));
+    router.get('/portfolios/:id/trade-history',handler(req=>ports.investments.tradeHistory(actor(req),id(req.params.id),id(req.query.date),req.query.cursor===undefined?null:req.query.cursor as string)));
+    router.post('/investment-trades/preview',handler(req=>ports.investments.previewTrade(actor(req),body(req,['id','draft']))));
+    router.get('/investment-trades/:id',handler(req=>ports.investments.trade(actor(req),id(req.params.id))));
+    router.post('/investment-trades',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.investments.recordTrade(context(req,v.expectedRevision,false),{draft:v.draft},investmentChanged);}));
+    router.patch('/investment-trades/:id',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.investments.recordTrade(context(req,v.expectedRevision,true),{id:id(req.params.id),draft:v.draft},investmentChanged);}));
+    router.post('/investment-trades/:id/void',handler(req=>{const v=body(req,['expectedRevision','accountRevision','portfolioRevision']);return ports.investments.voidTrade(context(req,v.expectedRevision,true),id(req.params.id),{accountRevision:v.accountRevision,portfolioRevision:v.portfolioRevision},investmentChanged);}));
+    const budgetChanged=(budgetId:string)=>changed(ports.budgetAudience(budgetId));
+    router.get('/budgets',handler(req=>({budgets:ports.budgets.listBudgets(actor(req))})));
+    router.get('/budgets/:id',handler(req=>ports.budgets.getBudget(actor(req),id(req.params.id))));
+    router.post('/budgets',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.budgets.saveBudget(context(req,v.expectedRevision,false),{draft:v.draft},()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/budgets/:id',handler(req=>{const v=body(req,['expectedRevision','patch']),budgetId=id(req.params.id),patch=(()=>{try{const patch=object(v.patch);keys(patch,['draft','archived']);return patch;}catch{throw new AppStoreError('Thay đổi ngân sách không hợp lệ.',400);}})();return ports.budgets.saveBudget(context(req,v.expectedRevision,true),{...patch,id:budgetId},()=>budgetChanged(budgetId));}));
+    router.post('/budgets/:id/report',handler(req=>{const v=body(req,['period','method']);return ports.budgets.calculateBudget(actor(req),id(req.params.id),v.period,v.method===undefined?'scheduledOnly':v.method);}));
+    router.post('/budgets/:id/carry',handler(req=>{const v=body(req,['expectedRevision','from','to','sourceFingerprint']),budgetId=id(req.params.id);return ports.budgets.carryBudget(context(req,v.expectedRevision,true),budgetId,v.from,v.to,()=>budgetChanged(budgetId),v.sourceFingerprint);}));
+    router.post('/budgets/summary',handler(req=>{const v=body(req,['budgetIds','period','referenceCurrency']);return ports.budgets.summarizeBudgets(actor(req),v.budgetIds,v.period,v.referenceCurrency);}));
+    router.post('/balance-forecast',handler(req=>ports.budgets.forecastBalance(actor(req),body(req,['accountIds','period','scenario','referenceCurrency']))));
+    router.get('/financial-targets',handler(req=>ports.links.targets(actor(req))));
+    router.get('/financial-links',handler(req=>({links:ports.links.listLinks(actor(req))})));
+    router.get('/financial-links/:id',handler(req=>ports.links.getLink(actor(req),id(req.params.id))));
+    router.post('/debts/:id/payments',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.recordDebtPayment(context(req,v.expectedRevision,false),id(req.params.id),v.input,financialChanged);}));
+    router.post('/goals/:id/contributions',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.contributeGoal(context(req,v.expectedRevision,false),id(req.params.id),v.input,financialChanged);}));
+    router.patch('/financial-links/:id',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.updateLink(context(req,v.expectedRevision,true),id(req.params.id),v.input,financialChanged);}));
+    router.post('/financial-links/:id/unlink',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.unlinkFinancialLink(context(req,v.expectedRevision,true),id(req.params.id),v.input,financialChanged);}));
+    router.get('/schedules',handler(req=>({schedules:ports.schedules.listSchedules(actor(req))})));
+    router.post('/schedules/preview',handler(req=>{const v=body(req,['draft']);return {items:ports.schedules.previewDraft(actor(req),v.draft)};}));
+    router.get('/schedules/:id',handler(req=>ports.schedules.getSchedule(actor(req),id(req.params.id))));
+    router.get('/schedules/:id/preview',handler(req=>({items:ports.schedules.previewSchedule(actor(req),id(req.params.id))})));
+    router.post('/schedules',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.schedules.saveSchedule(context(req,v.expectedRevision,false),{draft:v.draft},()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/schedules/:id',handler(req=>{const v=body(req,['expectedRevision','patch']);let patch:Record<string,unknown>;try{patch=object(v.patch);keys(patch,['draft','archived']);}catch{throw new AppStoreError('Trường lịch Wallet không hợp lệ.',400);}return ports.schedules.saveSchedule(context(req,v.expectedRevision,true),{...patch,id:id(req.params.id)},()=>changed(new Set([actor(req).userId])));}));
+    router.post('/schedules/:id/materialize',handler(req=>{const v=body(req,['expectedRevision']);return ports.schedules.materializeSchedule(context(req,v.expectedRevision,true),id(req.params.id),()=>changed(new Set([actor(req).userId])));}));
+    router.get('/schedules/:id/occurrences',handler(req=>({items:ports.schedules.listOccurrences(actor(req),id(req.params.id))})));
+    router.get('/occurrences/:id',handler(req=>ports.schedules.getOccurrence(actor(req),id(req.params.id))));
+    router.post('/occurrences/:id/confirm',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.schedules.confirmOccurrence(context(req,v.expectedRevision,true),id(req.params.id),v.input,recordId=>changed(ports.recordAudience(recordId)));}));
+    router.post('/occurrences/:id/skip',handler(req=>{const v=body(req,['expectedRevision']);return ports.schedules.skipOccurrence(context(req,v.expectedRevision,true),id(req.params.id),()=>changed(new Set([actor(req).userId])));}));
+    router.get('/rules',handler(req=>({rules:ports.rules.listRules(actor(req))})));
+    router.get('/rules/:id',handler(req=>ports.rules.getRule(actor(req),id(req.params.id))));
+    router.post('/rules',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.rules.saveRule(context(req,v.expectedRevision,false),{draft:v.draft},()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/rules/:id',handler(req=>{const v=body(req,['expectedRevision','patch']);let patch:Record<string,unknown>;try{patch=object(v.patch);keys(patch,['draft','archived']);}catch{throw new AppStoreError('Trường quy tắc không hợp lệ.',400);}return ports.rules.saveRule(context(req,v.expectedRevision,true),{...patch,id:id(req.params.id)},()=>changed(new Set([actor(req).userId])));}));
+    router.post('/rule-previews',asyncHandler(req=>{const v=body(req,['expectedRevision','input','filter']);return ports.rules.previewRules(context(req,v.expectedRevision,false),v.input,v.filter);}));
+    router.get('/rule-previews/:id',handler(req=>ports.rules.getPreview(actor(req),id(req.params.id))));
+    router.get('/rule-previews/:id/rows',handler(req=>({rows:ports.rules.previewRows(actor(req),id(req.params.id))})));
+    router.post('/rule-previews/:id/apply',handler(req=>{const v=body(req,['expectedRevision','hash']);return ports.rules.applyRulePreview(context(req,v.expectedRevision,true),id(req.params.id),v.hash,ids=>{const audience=new Set<string>();for(const recordId of ids)for(const userId of ports.recordAudience(recordId))audience.add(userId);changed(audience);});}));
+    router.get('/templates',handler(req=>({templates:ports.templates.listTemplates(actor(req))})));
+    router.get('/templates/:id',handler(req=>ports.templates.getTemplate(actor(req),id(req.params.id))));
+    router.post('/templates/:id/draft',handler(req=>{const value=body(req,['now']);return ports.templates.instantiateTemplate(actor(req),id(req.params.id),value.now as string);}));
+    router.post('/templates',handler(req=>{const value=body(req,['expectedRevision','input']);if(value.input?.id!==undefined)throw new AppStoreError('Mã tạo mới thuộc máy chủ.',400);return ports.templates.saveTemplate(context(req,value.expectedRevision,false),value.input as any,()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/templates/:id',handler(req=>{const value=body(req,['expectedRevision','patch']);let patch:Record<string,unknown>;try{patch=object(value.patch);keys(patch,['name','draft','archived']);}catch{throw new AppStoreError('Trường mẫu không hợp lệ.',400);}return ports.templates.saveTemplate(context(req,value.expectedRevision,true),{...patch,id:id(req.params.id)},()=>changed(new Set([actor(req).userId])));}));
+    router.get('/catalog',handler(req=>ports.catalog(actor(req))));
+    router.get('/catalog/capabilities',handler(req=>ports.catalogCommands.capabilities(actor(req))));
+    for(const kind of ['category','label'] as const){
+        const path=kind==='category'?'/categories':'/labels',catalog=ports.catalogCommands;
+        const admin=(req:WalletRequest)=>{if(actor(req).role!=='admin')throw new AppStoreError('Chỉ quản trị viên được chỉnh sửa danh mục chung.',403);};
+        const notify=()=>changed(ports.catalogAudience());
+        router.get(path+'/:id/deletion',handler(req=>kind==='category'?catalog.categoryDeletion(actor(req),id(req.params.id)):catalog.labelDeletion(actor(req),id(req.params.id))));
+        router.get(path+'/:id',handler(req=>kind==='category'?catalog.getCategory(actor(req),id(req.params.id)):catalog.getLabel(actor(req),id(req.params.id))));
+        router.post(path,handler(req=>{admin(req);const value=body(req,['expectedRevision','input']),ctx=context(req,value.expectedRevision,false);if(value.input?.id!==undefined)throw new AppStoreError('Mã tạo mới thuộc máy chủ.',400);return kind==='category'?catalog.saveCategory(ctx,value.input,notify):catalog.saveLabel(ctx,value.input,notify);}));
+        router.patch(path+'/:id',handler(req=>{admin(req);const value=body(req,['expectedRevision','patch']),ctx=context(req,value.expectedRevision,true);let patch:Record<string,unknown>;try{patch=object(value.patch);keys(patch,['name','icon','color','hidden','archived',...(kind==='category'?['parentId','nature']:[])]);}catch{throw new AppStoreError('Trường danh mục không hợp lệ.',400);}const input={...patch,id:id(req.params.id)};return kind==='category'?catalog.saveCategory(ctx,input,notify):catalog.saveLabel(ctx,input,notify);}));
+        router.delete(path+'/:id',handler(req=>{admin(req);const value=body(req,['expectedRevision']),ctx=context(req,value.expectedRevision,true);return kind==='category'?catalog.deleteCategory(ctx,id(req.params.id),notify):catalog.deleteLabel(ctx,id(req.params.id),notify);}));
+    }
+
+    router.get('/records/:id/allocations',handler(req=>ports.records.getAllocations(actor(req),id(req.params.id))));
+    router.put('/records/:id/allocations',handler(req=>{const value=body(req,['expectedRevision','rows']),recordId=id(req.params.id);return ports.records.setAllocations(context(req,value.expectedRevision,true),recordId,value.rows as any,()=>changed(ports.recordAudience(recordId)));}));
+    router.post('/records/:id/clone-draft',handler(req=>{const value=body(req,['now']);return ports.records.cloneRecordDraft(actor(req),id(req.params.id),value.now as string);}));
+    router.get('/accounts', handler(req => ({ accounts: ports.access.listAccounts(actor(req)) })));
+    router.get('/accounts/:id', handler(req => ports.accounts.getAccount(actor(req), id(req.params.id))));
+    router.get('/accounts/:id/balance', handler(req => { const accountId = id(req.params.id); let date: string; try {
+        keys(object(req.query), ['date']);
+        text(req.query.date, 10);
+        parseEffectiveDate(req.query.date);
+        date = req.query.date;
+    }
+    catch {
+        throw new AppStoreError('Ngày xem số dư không hợp lệ.', 400);
+    } const who = actor(req), account = ports.access.getAccount(who, accountId); return { date, book: ports.accounts.getBookBalance(who, accountId, date), cleared: ports.accounts.getClearedBalance(who, accountId, date), ...(account.type === 'credit' ? { credit: ports.accounts.getCreditPosition(who, accountId, date) } : {}) }; }));
+    router.post('/accounts', handler(req => { const value = body(req, ['expectedRevision', 'input']), result = ports.accounts.createAccount(context(req, value.expectedRevision, false), value.input); emit(new Set(), ports.accountAudience(result.account.id)); return result; }));
+    router.patch('/accounts/:id', handler(req => { const value = body(req, ['expectedRevision', 'patch']), accountId = id(req.params.id), ctx = context(req, value.expectedRevision, true); manager(req, accountId); const before = ports.accountAudience(accountId), result = ports.accounts.updateAccount(ctx, accountId, value.patch); emit(before, ports.accountAudience(accountId)); return result; }));
+    router.delete('/accounts/:id', handler(req => { const value = body(req, ['expectedRevision']), accountId = id(req.params.id), ctx = context(req, value.expectedRevision, true); manager(req, accountId); const before = ports.accountAudience(accountId), result = ports.accounts.updateAccount(ctx, accountId, { archived: true }); emit(before, ports.accountAudience(accountId)); return result; }));
+    router.get('/accounts/:id/grants', handler(req => ({ grants: ports.accounts.listGrants(actor(req), id(req.params.id)) })));
+    router.put('/accounts/:id/grants/:userId', handler(req => { const value = body(req, ['expectedRevision', 'permission']), accountId = id(req.params.id), ctx = context(req, value.expectedRevision, true); manager(req, accountId); const before = ports.accountAudience(accountId), result = ports.accounts.setGrant(ctx, accountId, id(req.params.userId), value.permission); emit(before, ports.accountAudience(accountId)); return result; }));
+    router.delete('/accounts/:id/grants/:userId', handler(req => { const value = body(req, ['expectedRevision']), accountId = id(req.params.id), ctx = context(req, value.expectedRevision, true); manager(req, accountId); const before = ports.accountAudience(accountId), result = ports.accounts.removeGrant(ctx, accountId, id(req.params.userId)); emit(before, ports.accountAudience(accountId)); return result; }));
+    const query = (req: WalletRequest) => { const value = body(req, ['filter', 'cursor', 'limit']); return ports.queries.listRecords(actor(req), value.filter, value.cursor ?? null, value.limit === undefined ? 50 : value.limit); };
+    router.post('/records/query', handler(query));
+    router.post('/record-selections',handler(req=>{const value=body(req,['expectedRevision','input']);return ports.selections.create(context(req,value.expectedRevision,false),value.input);}));
+    router.post('/record-selections/:id/members',handler(req=>{const value=body(req,['ids']);return {ids:ports.selections.members(actor(req),id(req.params.id),value.ids)};}));
+    router.delete('/record-selections/:id',handler(req=>{const value=body(req,['expectedRevision']);return ports.selections.release(context(req,value.expectedRevision,false),id(req.params.id));}));
+    router.post('/records/bulk-preview',handler(req=>{const value=body(req,['selection','patch']);return ports.bulk.preview(actor(req),value.selection,value.patch);}));
+    router.post('/records/bulk-metadata',handler(req=>{const value=body(req,['expectedRevision','selection','patch']),ctx=context(req,value.expectedRevision,typeof value.selection?.selectionId==='string');return ports.bulk.apply(ctx,value.selection,value.patch,audience=>changed(audience));}));
+    router.get('/records/:id/receipts',handler(req=>ports.receipts.list(actor(req),id(req.params.id))));
+    router.post('/records/:id/receipts',handler(req=>{
+        const value=body(req,['expectedRevision','input']),recordId=id(req.params.id),ctx=context(req,value.expectedRevision,true),before=ports.recordAudience(recordId),result=ports.receipts.attach(ctx,recordId,value.input);
+        emit(before,ports.recordAudience(recordId));return result;
+    }));
+    router.delete('/records/:id/receipts/:receiptId',handler(req=>{
+        const value=body(req,['expectedRevision']),recordId=id(req.params.id),ctx=context(req,value.expectedRevision,true),before=ports.recordAudience(recordId),result=ports.receipts.detach(ctx,recordId,id(req.params.receiptId));
+        emit(before,ports.recordAudience(recordId));return result;
+    }));
+    router.get('/records/:id/receipts/:receiptId',(req:WalletRequest,res)=>{
+        try{
+            const file=ports.receipts.read(actor(req),id(req.params.id),id(req.params.receiptId)),name=encodeURIComponent(file.fileName).replace(/['()*]/g,char=>'%'+char.charCodeAt(0).toString(16).toUpperCase());
+            res.set('Content-Type',file.mime).set('X-Content-Type-Options','nosniff').set('Content-Security-Policy',"default-src 'none'; sandbox").set('Content-Disposition',"attachment; filename=\"receipt\"; filename*=UTF-8''"+name).send(file.bytes);
+        }catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không xử lý được yêu cầu Wallet.':error instanceof AppStoreError?error.message:'Dữ liệu hóa đơn không hợp lệ.',code:(error as any)?.code});}
+    });
+    router.get('/records/:id/actions',handler(req=>ports.records.getActions(actor(req),id(req.params.id))));
+    router.get('/records/:id', handler(req => ports.read.getRecord(actor(req), id(req.params.id))));
+    router.post('/records', handler(req => { const value = body(req, ['expectedRevision', 'input']), result = ports.records.createRecord(context(req, value.expectedRevision, false), cleanCreator(value.input) as any); emit(new Set(), ports.recordAudience(result.record.id)); return result; }));
+    router.patch('/records/:id', handler(req => { const value = body(req, ['expectedRevision', 'patch']), recordId = id(req.params.id), ctx = context(req, value.expectedRevision, true); ports.access.authorizeRecord(actor(req), recordId, 'write'); const before = ports.recordAudience(recordId), result = ports.records.updateRecord(ctx, recordId, cleanCreator(value.patch)); emit(before, ports.recordAudience(recordId)); return result; }));
+    router.delete('/records/:id', handler(req => { const value = body(req, ['expectedRevision']), recordId = id(req.params.id), ctx = context(req, value.expectedRevision, true); ports.access.authorizeRecord(actor(req), recordId, 'write'); const before = ports.recordAudience(recordId), result = ports.records.voidRecord(ctx, recordId); emit(before, ports.recordAudience(recordId)); return result; }));
+    return router;
+}
+function handlerMiddleware(work: (req: WalletRequest) => void): RequestHandler { return (req, res, next) => { try {
+    work(req);
+    next();
+}
+catch (error) {
+    const status = httpErrorStatus(error, 500);
+    res.status(status).json({ error: status >= 500 ? 'Không xử lý được yêu cầu Wallet.' : error instanceof Error ? error.message : 'Yêu cầu Wallet không hợp lệ.', code: (error as any)?.code,...((error as any)?.references?{references:(error as any).references}:{}) });
+} }; }

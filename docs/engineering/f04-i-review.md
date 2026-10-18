@@ -1,0 +1,9 @@
+# F04-i single wholebranch review
+
+BASE621a6a2..sourcec1b2167 reviewed once read-only by a fresh most-capable reviewer. No Critical/Important; one Minor accepted before source mutation: the test-owned HTTP response helper could stay pending on a stalled/aborted response and never reach fixture cleanup. Add bounded request deadline and response error/abort settlement; destroy failed requests, clear timers, and close the fixture in finally. No production API/behavior change.
+
+Two real regressions observed RED before correction: a delayed response should reject at its deadline rather than later resolve; a socket aborted after headers should settle and release the server. The abort observer has its own bounded safety cleanup; the request deadline remains asserted separately, not a test-timeout substitute. Existing13 security regressions/four authorized characterizations and required-suite regression retained. Total16actualRED/four chars; targeted85/85, full938/93872files, zero skips. Cloud lint/build exit0 and frozen npm ci already verified against this unchanged patched lock. No dropped assertions/skips/rerun-to-hide-failure; one correction pass, no rereview.
+
+First source Windows c1b216754f7dc3cf46858123960e6d6a4a79be07 run38179696236 independently verified both Node22/24:936/93672files, zero skips, six command exits0,20 compiled production proofs/evidence/ci-gate. Hashes in evidence/f04-i-first-source.json. Final source/documentation HEAD requires its own exact run and immutable PR proof before merge.
+
+Reviewer declined pending Windows, independently reproducing Cloud/RED logs, tarball authenticity beyond recorded integrity, full F04/F05 acceptance, nine deferred audit entries, Caddy/proxy configuration, browser/coverage/enforcement/package/service/release/Server2019. No release/tag/VPS operation. No deferred Minor in this focused PR; remaining foundation gates are documented separately.

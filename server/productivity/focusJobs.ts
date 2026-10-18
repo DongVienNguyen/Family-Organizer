@@ -1,0 +1,8 @@
+import type {AppJobs} from '../appJobs.js';import type {createFocus,FocusDeadline} from './focus.js';import {object,keys,text,integer} from '../../src/features/productivity/validation.js';import {utcInstant} from '../../src/features/productivity/dates.js';
+/** One durable job per deadline/notice, rather than persisting a ticking job
+ * every second. AppJobs owns leases, polling, cancellation and shutdown drain. */
+export function registerFocusJobs(jobs:AppJobs,focus:ReturnType<typeof createFocus>,events:{focusChanged?(ownerId:string):void;notificationChanged?(ownerId:string):void}={}):void {
+ if(!jobs.durableEnabled||!focus.enabled())return;
+ jobs.registerAppJob('productivity','focus-deadline',(signal,lease)=>{if(!lease)throw Error('Durable Focus deadline lease required');const value=object(lease.payload);keys(value,['sessionId','timerGeneration','deadlineAt']);text(value.sessionId,256);integer(value.timerGeneration,1);utcInstant(value.deadlineAt as string);const payload=value as unknown as FocusDeadline,result=focus.completeDeadline(payload,signal);if(result.early){focus.rescheduleWork('focus-deadline',payload,lease.id,result.remainingMilliseconds!,signal);return;}if(!result.stale&&result.ownerId)events.focusChanged?.(result.ownerId);});
+ jobs.registerAppJob('productivity','focus-notice',(signal,lease)=>{if(!lease)throw Error('Durable Focus notice lease required');const value=object(lease.payload);keys(value,['sessionId']);text(value.sessionId,256);const payload={sessionId:value.sessionId},result=focus.deliverNotice(payload,signal);if(result.early){focus.rescheduleWork('focus-notice',payload,lease.id,result.remainingMilliseconds!,signal);return;}if(result.delivered&&result.ownerId)events.notificationChanged?.(result.ownerId);});
+}

@@ -1,0 +1,8 @@
+import type {AppActor} from '../productivity/contracts.js';
+import {calendarRange,type CalendarRange} from '../productivity/calendarContracts.js';
+import type {createFamilyApi} from './familyApi.js';
+import type {FamilyOverview} from './familyOverview.js';
+export function createFamilyOverviewWorkspace(ports:{actor:AppActor;api:Pick<ReturnType<typeof createFamilyApi>,'familyOverview'>;ready():boolean}){
+ const actor=Object.freeze({...ports.actor});let generation=0,disposed=false,range:CalendarRange|null=null,state:{value:FamilyOverview|null;loading:boolean;error:boolean;available:boolean}={value:null,loading:false,error:false,available:false};const listeners=new Set<()=>void>(),publish=(next:typeof state)=>{state=next;for(const listener of listeners)listener();};
+ return {snapshot:()=>state,subscribe(fn:()=>void){listeners.add(fn);return()=>{listeners.delete(fn);};},invalidate(){generation++;publish({value:null,loading:false,error:false,available:false});},dispose(){disposed=true;generation++;range=null;publish({value:null,loading:false,error:false,available:false});listeners.clear();},async refresh(raw?:CalendarRange){if(raw)range=calendarRange(raw);const current=++generation;publish({value:null,loading:!!range&&ports.ready(),error:false,available:false});if(disposed||!range||!ports.ready())return;try{const value=await ports.api.familyOverview(actor.userId,range);if(!disposed&&generation===current&&ports.ready())publish({value,loading:false,error:false,available:true});}catch(error){if(!disposed&&generation===current&&ports.ready())publish({value:null,loading:false,error:(error as any)?.status!==409,available:false});}}};
+}

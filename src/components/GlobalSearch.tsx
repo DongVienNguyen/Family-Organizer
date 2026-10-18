@@ -1,0 +1,260 @@
+import type {DomainRef} from '../features/shared/domainLinks.js';
+import {openCanonicalTask} from '../features/productivity/openTask.js';
+import {useTasks} from '../features/productivity/useTasks.js';
+import {searchWithCanonicalTasks} from '../features/productivity/globalTaskSearch.js';
+import {sessionFetch as fetch} from '../utils/browserSession.js';
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+// Tìm kiếm toàn cục (⌘K / Ctrl+K hoặc nút kính lúp trên header):
+// một ô nhập gõ-tới-đâu-tìm-tới-đó, gọi /api/search gộp Công việc + Lịch +
+// Ghi chú + Thu chi + Giấy tờ. Bấm kết quả → nhảy sang tab tương ứng.
+// So khớp phía server đã bỏ dấu tiếng Việt ("giay to" khớp "Giấy tờ").
+
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Search, X, CheckSquare, Calendar, FileText, Wallet, FolderLock, CornerDownLeft } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useModalA11y } from "../hooks/useModalA11y.js";
+import { useTranslation } from "react-i18next";
+
+interface SearchResultItem {
+  kind: "task" | "plan" | "note" | "transaction" | "document" | "familyLink";
+  domainRef?:DomainRef;
+  id: string;
+  title: string;
+  snippet: string;
+  date: string;
+  tab: string;
+}
+
+const KIND_ORDER: SearchResultItem["kind"][] = ["task", "plan", "note", "transaction", "document", "familyLink"];
+
+// "2026-07-18 09:30" / "2026-07-18T..." → "18/07/2026"
+function fmtDate(raw: string): string {
+  const m = String(raw || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : "";
+}
+
+interface GlobalSearchProps {
+  getAuthHeader: () => Record<string, string>;
+  onNavigate: (tab: string) => void;
+}
+
+export const GlobalSearch: React.FC<GlobalSearchProps> = ({ getAuthHeader, onNavigate }) => {
+  const { t } = useTranslation(),tasks=useTasks(),requestEpoch=useRef(0),pickEpoch=useRef(0);
+  useEffect(()=>{requestEpoch.current++;pickEpoch.current++;abortRef.current?.abort();setResults([]);return()=>{pickEpoch.current++;};},[tasks.api,tasks.familyEpoch,tasks.queryEpoch]);
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchResultItem[]>([]);
+  const [resultAuthority,setResultAuthority]=useState(''),authority=JSON.stringify([tasks.actor.userId,tasks.actor.role,tasks.familyEpoch,tasks.queryEpoch,tasks.loading]),currentAuthority=useRef(authority);currentAuthority.current=authority;
+  const visibleResults=resultAuthority===authority?results:[];
+  const [loading, setLoading] = useState(false);
+  const [opening,setOpening]=useState(false);
+  const [searchError,setSearchError]=useState(''),[retry,setRetry]=useState(0);
+  const [searchedFor, setSearchedFor] = useState(""); // query đã trả kết quả (phân biệt "chưa tìm" vs "không thấy")
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+  const debounceRef = useRef<number | null>(null);
+  const reducedMotion = useReducedMotion();
+
+  // Nhóm hiển thị: icon + nhãn + accent theo ngữ nghĩa màu của DESIGN.md
+  const KIND_META = useMemo(() => ({
+    task:        { label: t("globalSearch.kindTask"),        icon: CheckSquare, accent: "text-sky-400" },
+    plan:        { label: t("globalSearch.kindPlan"),        icon: Calendar,    accent: "text-amber-400" },
+    note:        { label: t("globalSearch.kindNote"),        icon: FileText,    accent: "text-indigo-400" },
+    transaction: { label: t("globalSearch.kindTransaction"), icon: Wallet,      accent: "text-emerald-400" },
+    familyLink: {label:t("familyOverview.linkedSources"),icon:FileText,accent:"text-sky-400"},
+    document:    { label: t("globalSearch.kindDocument"),    icon: FolderLock,  accent: "text-rose-400" }
+  } as Record<SearchResultItem["kind"], { label: string; icon: React.ElementType; accent: string }>), [t]);
+
+  // App tạo lại getAuthHeader mỗi render — giữ qua ref để effect debounce
+  // không re-run (tự tìm lại) mỗi khi App re-render vì SSE/polling.
+  const getAuthHeaderRef = useRef(getAuthHeader);
+  getAuthHeaderRef.current = getAuthHeader;
+
+  const close = useCallback(() => {
+    requestEpoch.current++;pickEpoch.current++;
+    setOpen(false);
+    setQuery("");
+    setResults([]);setSearchError('');
+    setSearchedFor("");
+    abortRef.current?.abort();
+  }, []);
+
+  useModalA11y(open, close, dialogRef);
+
+  // Phím tắt toàn cục: ⌘K (macOS/iPadOS bàn phím rời) / Ctrl+K
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setOpen(prev => !prev);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  // Gõ tới đâu tìm tới đó (debounce 250ms, hủy request cũ khi gõ tiếp)
+  useEffect(() => {
+    const epoch=++requestEpoch.current;abortRef.current?.abort();setSearchError('');
+    if (!open) return;
+    if(tasks.loading){setResults([]);setLoading(true);return;}
+    if (debounceRef.current) window.clearTimeout(debounceRef.current);
+    const q = query.trim();
+    if (q.length < 2) {
+      setResults([]);
+      setSearchedFor("");
+      setLoading(false);
+      return;
+    }
+    setLoading(true);setResults([]);
+    debounceRef.current = window.setTimeout(async () => {
+      abortRef.current?.abort();
+      const controller = new AbortController();
+      abortRef.current = controller;
+      try {
+        const results:SearchResultItem[]=await searchWithCanonicalTasks({legacy:async(query,signal)=>{const res=await fetch('/api/search?q='+encodeURIComponent(query),{headers:getAuthHeaderRef.current(),signal});if(!res.ok)throw Error('search failed');const data=await res.json();return Array.isArray(data.results)?data.results:[];},...(tasks.enabled?{canonical:(input,options)=>tasks.api.query(input,options)}:{})},q,controller.signal);
+        if(tasks.enabled){try{const linked=await tasks.api.familySearch(tasks.actor.userId,q);for(const source of linked.items)if(source.title)results.push({kind:'familyLink',id:JSON.stringify([source.ref.kind,source.ref.id]),title:source.title,snippet:t('familyLinks.kind.'+source.ref.kind),date:'',tab:'',domainRef:source.ref});}catch(error){if((error as any)?.status!==409)throw error;}}
+        if(epoch!==requestEpoch.current||controller.signal.aborted)return;setResultAuthority(authority);setResults(results);setSearchedFor(q);
+      } catch (err: any) {
+        if (epoch===requestEpoch.current&&err?.name !== "AbortError") {
+          setSearchError(t('globalSearch.error'));
+          setResults([]);
+          setSearchedFor(q);
+        }
+      } finally {
+        if (epoch===requestEpoch.current&&abortRef.current === controller) setLoading(false);
+      }
+    }, 250);
+    return () => { if (debounceRef.current) window.clearTimeout(debounceRef.current); };
+  }, [query,open,tasks.loading,tasks.enabled,tasks.api,tasks.familyEpoch,tasks.queryEpoch,tasks.actor.userId,retry]);
+
+  const pick = async (item: SearchResultItem) => {
+    if(opening)return;const capturedAuthority=authority,epoch=++pickEpoch.current;setOpening(true);setSearchError('');
+    try{
+      if(item.domainRef){const source=await tasks.api.familySource(tasks.actor.userId,item.domainRef);if(epoch!==pickEpoch.current||capturedAuthority!==currentAuthority.current)return;const opened=await tasks.openDomain(source.navigateTo??source.ref);if(!opened)throw Error('Source unavailable');if(epoch===pickEpoch.current)close();return;}
+      if(item.kind==='task'&&tasks.enabled){const opened=await openCanonicalTask({...tasks,current:()=>epoch===pickEpoch.current},item.id);if(!opened){if(epoch===pickEpoch.current)setSearchError(t('globalSearch.openError'));return;}}
+      if(epoch!==pickEpoch.current||capturedAuthority!==currentAuthority.current)return;onNavigate(item.tab);close();
+    }catch{if(epoch===pickEpoch.current)setSearchError(t('globalSearch.openError'));}
+    finally{setOpening(false);}
+  };
+
+  const grouped = KIND_ORDER
+    .map(kind => ({ kind, items: visibleResults.filter(r => r.kind === kind) }))
+    .filter(g => g.items.length > 0);
+
+  return (
+    <>
+      {/* Nút kính lúp trên header — style đồng bộ nút đổi theme */}
+      <button
+        onClick={() => setOpen(true)}
+        className="p-2.5 text-slate-400 hover:text-slate-100 bg-slate-950 neu-btn rounded-xl outline-none leading-none cursor-pointer flex items-center justify-center"
+        title={t("globalSearch.btnTitle")}
+        aria-label={t("globalSearch.btnAria")}
+      >
+        <Search className="w-4.5 h-4.5" />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <div
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 p-4 flex items-start justify-center pt-[calc(env(safe-area-inset-top)_+_3.5rem)]"
+            onClick={close}
+          >
+            <motion.div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={t("globalSearch.dialogAria")}
+              initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: -8 }}
+              animate={reducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+              exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Ô nhập */}
+              <div className="flex items-center gap-2.5 px-4 py-3 border-b border-slate-800">
+                <Search className="w-4.5 h-4.5 text-sky-400 shrink-0" />
+                <input
+                  autoFocus
+                  value={query}
+                  onChange={e => {pickEpoch.current++;setQuery(e.target.value);}}
+                  maxLength={500}
+                  placeholder={t("globalSearch.placeholder")}
+                  className="flex-1 bg-transparent text-slate-200 placeholder:text-slate-500 outline-none min-w-0"
+                />
+                {loading && (
+                  <span className="w-4 h-4 border-2 border-slate-800 border-t-sky-500 rounded-full animate-spin shrink-0" aria-label={t("globalSearch.searching")} />
+                )}
+                <button
+                  onClick={close}
+                  className="p-1.5 bg-slate-950 neu-btn rounded-lg text-slate-500 hover:text-slate-200 cursor-pointer shrink-0"
+                  aria-label={t("globalSearch.closeAria")}
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {/* Kết quả */}
+              <div className="max-h-[min(60vh,26rem)] overflow-y-auto overscroll-contain">
+                {searchError ? <div className="p-4 space-y-3"><p role="alert" className="text-xs text-rose-400">{searchError}</p><button type="button" className="bg-slate-950 neu-btn rounded-xl px-4 py-2.5 text-xs text-slate-200 cursor-pointer" onClick={()=>setRetry(value=>value+1)}>{t('globalSearch.retry')}</button></div> : query.trim().length < 2 ? (
+                  <p className="text-center text-xs text-slate-500 py-10 px-4">
+                    {t("globalSearch.hintText")}
+                  </p>
+                ) : grouped.length === 0 && !loading && searchedFor ? (
+                  <p className="text-center text-xs text-slate-500 py-10 px-4">
+                    {t("globalSearch.noResults", { q: searchedFor })}
+                  </p>
+                ) : (
+                  <div className="py-2">
+                    {grouped.map(group => {
+                      const meta = KIND_META[group.kind];
+                      const Icon = meta.icon;
+                      return (
+                        <div key={group.kind} className="px-2 pb-1.5">
+                          <div className={`flex items-center gap-1.5 px-2 pt-2 pb-1 text-[10px] font-mono font-bold uppercase tracking-widest ${meta.accent}`}>
+                            <Icon className="w-3 h-3" /> {meta.label}
+                            <span className="text-slate-500">({group.items.length})</span>
+                          </div>
+                          {group.items.map(item => (
+                            <button
+                              key={`${item.kind}_${item.id}`}
+                              disabled={opening}
+                              onClick={() => void pick(item)}
+                              className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left hover:bg-slate-800/40 focus:outline-none focus:ring-2 focus:ring-sky-500/40 cursor-pointer group"
+                            >
+                              <div className="flex-1 min-w-0">
+                                <span className="text-xs font-bold text-slate-200 block truncate">{item.title}</span>
+                                {item.snippet && (
+                                  <span className="text-[11px] text-slate-500 block truncate">{item.snippet}</span>
+                                )}
+                              </div>
+                              {item.date && (
+                                <span className="text-[10px] font-mono text-slate-500 shrink-0">{fmtDate(item.date)}</span>
+                              )}
+                              <CornerDownLeft className="w-3 h-3 text-slate-500 opacity-0 group-hover:opacity-100 shrink-0" />
+                            </button>
+                          ))}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Chân modal: gợi ý phím tắt (ẩn trên mobile) */}
+              <div className="hidden sm:flex items-center justify-end gap-3 px-4 py-2 border-t border-slate-800 text-[10px] text-slate-500 font-mono">
+                <span><kbd className="px-1 py-0.5 bg-slate-950 neu-pressed-sm rounded">Esc</kbd> {t("globalSearch.kbdClose")}</span>
+                <span><kbd className="px-1 py-0.5 bg-slate-950 neu-pressed-sm rounded">Ctrl K</kbd> {t("globalSearch.kbdToggle")}</span>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};

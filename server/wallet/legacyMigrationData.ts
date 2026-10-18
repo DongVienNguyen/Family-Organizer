@@ -1,0 +1,28 @@
+import type {FamilyOrganizerDB} from '../../src/types.js';
+import type {LegacyFinanceSnapshot} from './migrate.js';
+import {createHash} from 'node:crypto';
+import {object,choice,text,integer} from '../../src/features/productivity/validation.js';
+import {timezoneFormatter} from '../../src/features/productivity/dates.js';
+type Row=Record<string,string|number|null>;
+/** Versioned v3 dataset profile; later entity tables cannot change an old pilot digest. */
+export const legacyPilotDatasetNames=['wallet_currencies','wallet_accounts','wallet_account_grants','wallet_categories','wallet_labels','wallet_schedules','wallet_occurrences','wallet_records','wallet_postings','wallet_record_labels','wallet_allocations','wallet_audit','wallet_account_metadata','wallet_record_metadata','wallet_category_metadata','wallet_label_metadata','wallet_audit_metadata','wallet_record_fx','wallet_transfer_fees'] as const;
+function canonical(value:unknown):unknown {return Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).sort(([a],[b])=>a<b?-1:a>b?1:0).map(([k,v])=>[k,canonical(v)])):value;}
+export const legacySourceChecksum=(value:unknown)=>createHash('sha256').update(JSON.stringify(canonical(value))).digest('hex');
+export const legacyPilotChecksumNames=[...legacyPilotDatasetNames,'wallet_legacy_links'] as const;
+export function legacyPilotChecksum(tables:Record<string,Row[]>):string {return legacySourceChecksum({profile:'wallet-v3-with-legacy-links-v1',tables:Object.fromEntries(legacyPilotChecksumNames.map(name=>[name,[...tables[name]].map(canonical).sort((a,b)=>JSON.stringify(a)<JSON.stringify(b)?-1:JSON.stringify(a)>JSON.stringify(b)?1:0)]))});}
+export function validateWalletLegacyTables(tables:Record<string,Row[]>,userIds?:Set<string>):void {
+ const runs=new Map(tables.wallet_legacy_runs.map(row=>[row.id,row])),records=new Map(tables.wallet_records.map(row=>[row.id,row]));if(runs.size>1)throw Error('Multiple Wallet legacy pilot runs');
+ const targets:Record<string,Set<Row[string]>>={account:new Set(tables.wallet_accounts.map(r=>r.id)),category:new Set(tables.wallet_categories.map(r=>r.id)),record:new Set(tables.wallet_records.map(r=>r.id))};
+ for(const run of runs.values()){
+  if(run.migration_version!==2||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(String(run.created_at))||!Number.isFinite(Date.parse(String(run.created_at)))||new Date(String(run.created_at)).toISOString()!==run.created_at)throw Error('Invalid Wallet legacy migration');
+  for(const key of ['source_checksum','wallet_checksum'])if(!/^[a-f0-9]{64}$/.test(String(run[key])))throw Error('Invalid Wallet legacy checksum');if(userIds&&!userIds.has(String(run.owner_user_id)))throw Error('Invalid Wallet legacy user');timezoneFormatter(String(run.timezone));choice(run.status,['ready','quarantined','pending_receipts']);for(const key of ['accounts_count','categories_count','records_count','quarantined_count','unlinked_count','receipts_pending_count'])integer(run[key],0,100000);
+ }
+ for(const link of tables.wallet_legacy_links){if(!runs.has(link.run_id))throw Error('Invalid Wallet legacy run reference');choice(link.source_kind,['account','category','record','debt_payment','goal_contribution']);choice(link.state,['mapped','quarantined','legacy_unlinked']);text(link.parent_id,256);object(JSON.parse(String(link.detail_json)));
+  if(link.state==='mapped'){if(!targets[String(link.source_kind)]?.has(link.target_id)||link.parent_id!=='root'||link.reason!==null)throw Error('Invalid Wallet legacy target');if(link.source_kind==='record'){const record=records.get(link.target_id)!;if(record.id!==link.legacy_id||record.source!=='legacy'||record.external_key!==link.legacy_id)throw Error('Invalid Wallet legacy record identity');}}
+  else{if(link.target_id!==null)throw Error('Unexpected Wallet legacy target');text(link.reason,256);if(link.state==='legacy_unlinked'&&!['debt_payment','goal_contribution'].includes(String(link.source_kind)))throw Error('Invalid Wallet legacy unlinked type');}
+ }
+ for(const run of runs.values()){const links=tables.wallet_legacy_links.filter(row=>row.run_id===run.id),counts=(kind:string)=>links.filter(row=>row.state==='mapped'&&row.source_kind===kind).length,q=links.filter(row=>row.state==='quarantined').length,u=links.filter(row=>row.state==='legacy_unlinked').length,p=links.filter(row=>row.state==='mapped'&&row.source_kind==='record'&&JSON.parse(String(row.detail_json)).receiptPending===true).length;if(run.accounts_count!==counts('account')||run.categories_count!==counts('category')||run.records_count!==counts('record')||run.quarantined_count!==q||run.unlinked_count!==u||run.receipts_pending_count!==p||run.status!==(q?'quarantined':p?'pending_receipts':'ready'))throw Error('Invalid Wallet legacy counts');}
+}
+
+type LegacySource=Pick<FamilyOrganizerDB,'transactions'|'customCategories'|'hiddenBuiltinCategories'|'debts'|'savingsGoals'>;
+export function legacyFinanceSource(legacy:LegacySource):LegacyFinanceSnapshot {return structuredClone({transactions:legacy.transactions,customCategories:legacy.customCategories,hiddenBuiltinCategories:legacy.hiddenBuiltinCategories,debts:legacy.debts,savingsGoals:legacy.savingsGoals});}

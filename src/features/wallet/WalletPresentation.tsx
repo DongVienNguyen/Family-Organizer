@@ -1,0 +1,10 @@
+import {createContext,useContext,useSyncExternalStore,type ReactNode} from 'react';
+import {useTranslation} from 'react-i18next';
+import {defaultWalletSettings,formatWalletAmount,formatWalletDate,type WalletUserSettings} from './settingsContracts.js';
+import {walletLocale} from './accountDraft.js';
+import type {Money} from './contracts.js';
+import type {WalletSettingsWorkspace} from './settingsWorkspace.js';
+const Context=createContext<WalletUserSettings>(defaultWalletSettings);
+/** Avoid a balance flash while a saved hide-balances policy is loading. */
+export function WalletPresentation({workspace,children}:{workspace:WalletSettingsWorkspace;children:ReactNode}){const state=useSyncExternalStore(workspace.subscribe,workspace.snapshot),{t}=useTranslation();if(state.phase==='disposed')return null;if(!['ready','unavailable'].includes(state.phase))return <div role={state.phase==='error'?'alert':'status'} className="text-xs text-slate-400 space-y-3" data-testid="wallet-settings-gate"><p>{t(state.phase==='error'?'wallet.settings.loadFailed':'wallet.loading')}</p>{state.phase==='error'&&<button className="bg-slate-900 neu-btn rounded-xl px-4 py-2.5 text-xs cursor-pointer" onClick={()=>void workspace.refresh()}>{t('wallet.refresh')}</button>}</div>;const saved=state.value?.settings??defaultWalletSettings,settings=state.draft.hideBalances&&['pending','unknown'].includes(state.command.phase)?{...saved,hideBalances:true}:saved;return <Context.Provider value={settings}>{children}</Context.Provider>;}
+export function useWalletPresentation(){const settings=useContext(Context),{i18n}=useTranslation(),locale=settings.locale==='inherit'?walletLocale(i18n.resolvedLanguage??i18n.language):settings.locale;return {settings,locale,formatDate:(date:string)=>settings.locale==='inherit'?date:formatWalletDate(date,locale),formatMoney:(money:Money,requestedLocale=locale,options?:{reveal?:boolean})=>settings.hideBalances&&!options?.reveal?'••••':formatWalletAmount(money,requestedLocale,options?.reveal?false:settings.hideDecimals)};}

@@ -1,0 +1,22 @@
+node_modules/
+build/
+dist/
+coverage/
+reports/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Runtime data: family database, secrets, backups, uploads — never commit
+data/
+*.db
+*.db-wal
+*.db-shm
+# Added by code-review-graph (local dev tooling — machine-specific paths)
+.code-review-graph/
+.mcp.json
+.claude/
+
+# Script dịch vụ cập nhật (bản cài riêng tự tải về khi chạy compose)
+updater/

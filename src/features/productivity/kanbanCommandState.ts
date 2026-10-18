@@ -1,0 +1,93 @@
+import type {GroupRankPreviewInput}from'../../../server/productivity/groupedBoardRanks.js';
+import type {GroupRankPlan}from'./groupRankApi.js';
+import type {WorkflowTransitionPreviewInput}from'../../../server/productivity/workflowTransitions.js';
+import type {WorkflowTransitionPlan}from'./workflowTransitionApi.js';
+import type {TaskCompletionProof}from'../../../server/productivity/completion.js';
+import type {WorkflowPreviewInput}from'../../../server/productivity/workflowMoves.js';
+import type {WorkflowPlan}from'./workflowApi.js';
+import type {TaskApi} from './api.js';
+import type {BoardPage,GroupedBoardPage} from './boardClient.js';
+import type {BoardCommandPlan,GroupCommandPlan} from './boardCommandsClient.js';
+import type {BoardMovePreviewInput} from '../../../server/productivity/boardMoves.js';
+import type {GroupMovePreviewInput} from '../../../server/productivity/groupedBoardMoves.js';
+import {groupMovePatch} from './groupMove.js';
+import {resolveDue} from './dates.js';
+export type KanbanCommandSelection=({kind:'canonical';page:BoardPage}|{kind:'grouped';page:GroupedBoardPage})&{rankSorted:boolean};
+export type KanbanCommandPlan={kind:'physical';value:BoardCommandPlan}|{kind:'grouped';value:GroupCommandPlan}|{kind:'workflow';value:WorkflowPlan}|{kind:'active';value:WorkflowTransitionPlan}|{kind:'group-rank';value:GroupRankPlan&{before?:never;after?:never}};
+export interface KanbanCommandState {plan:KanbanCommandPlan|null;previewing:boolean;writing:boolean;error:{phase:'preview'|'write'|'refresh';status:number|null}|null}
+const empty=():KanbanCommandState=>({plan:null,previewing:false,writing:false,error:null});
+type Ports=Pick<TaskApi,'previewBoardMove'|'applyBoardMove'|'previewGroupedMove'|'applyGroupedMove'>&Partial<Pick<TaskApi,'previewWorkflowCompletion'|'applyWorkflowCompletion'|'previewWorkflowTransition'|'applyWorkflowTransition'|'previewGroupedRank'|'applyGroupedRank'>>&{newRequestId?:()=>string;onCommitted():Promise<void>};
+const status=(error:unknown)=>{const n=(error as any)?.status;return typeof n==='number'&&Number.isInteger(n)&&n>=400&&n<=599?n:null;};
+/** Owns a transient confirmation and command UUID, never optimistic Task facts.
+ * The caller clears/selects on actor, authority, view or projection changes. */
+export function createKanbanCommandState(ports:Ports){
+ let state=empty(),selection:KanbanCommandSelection|null=null,signature='',disposed=false,epoch=0,sequence=0,active:KanbanCommandPlan|null=null,commandKey:string|undefined,commandProof:TaskCompletionProof|undefined,request:AbortController|undefined;
+ const listeners=new Set<()=>void>(),publish=(next:KanbanCommandState)=>{state=next;for(const listener of listeners)listener();},current=(generation:number,seq:number)=>!disposed&&epoch===generation&&sequence===seq;
+ const invalidate=()=>{epoch++;sequence++;request?.abort();request=undefined;active=null;commandKey=undefined;commandProof=undefined;publish(empty());};
+ const failure=(error:unknown,phase:'preview'|'write'|'refresh')=>({phase,status:status(error)});
+ const clear=()=>{if(disposed)return;selection=null;signature='';invalidate();};
+ const visible=(selected:KanbanCommandSelection,id:string)=>selected.kind==='canonical'?selected.page.columns.flatMap(c=>c.cards).find(card=>card.task.id===id)?.task:selected.page.cards.some(card=>card.taskId===id)?selected.page.tasks.find(task=>task.id===id):undefined;
+ const bound=(selected:KanbanCommandSelection,taskId:string,plan:BoardCommandPlan|GroupCommandPlan|WorkflowPlan|WorkflowTransitionPlan|GroupRankPlan)=>{const page=selected.page,task=visible(selected,taskId);return !!task&&plan.viewId===page.viewId&&plan.boardId===page.boardId&&plan.viewRevision===page.viewRevision&&plan.boardRevision===page.boardRevision&&plan.taskId===task.id&&plan.taskRevision===task.revision&&plan.clock.timezone===page.clock.timezone;};
+ const admitPhysical=(input:BoardMovePreviewInput,rankOnly=false)=>{if(!selection||selection.kind!=='canonical'||!rankOnly&&selection.page.mode!=='sections'||!selection.rankSorted||input.viewId!==selection.page.viewId)return false;const page=selection.page,destination=page.columns.find(c=>c.id===input.targetColumnId),task=visible(selection,input.taskId);return !!destination&&!!task&&(!rankOnly||!task.pendingApproval&&task.deletedAt===null&&!['completed','wont_do'].includes(task.lifecycle)&&destination.cards.some(c=>c.task.id===task.id))&&input.timezone===page.clock.timezone&&(input.beforeTaskId===null||input.beforeTaskId!==input.taskId&&destination.cards.some(c=>c.task.id===input.beforeTaskId));};
+ const admitGrouped=(input:GroupMovePreviewInput)=>{try{if(!selection||selection.kind!=='grouped'||input.viewId!==selection.page.viewId||input.timezone!==selection.page.clock.timezone||input.intent.kind!==selection.page.group)return false;const page=selection.page,task=visible(selection,input.taskId);if(!task)return false;const after={...task,...groupMovePatch(task,input.intent)};
+  if(input.intent.kind==='tag'){const source=input.intent.source;if((source===null||typeof source==='string')&&!page.cards.some(card=>card.taskId===task.id&&card.group.kind==='tag'&&card.group.value===source))return false;}
+  if(Object.hasOwn(input,'beforeTaskId')){if(!selection.rankSorted)return false;const target=input.intent.kind==='priority'?after.priority:input.intent.kind==='assignee'?after.assigneeId:input.intent.kind==='due'?resolveDue(after.due,page.clock).localDate:input.intent.target;if(input.beforeTaskId!==null&&(input.beforeTaskId===task.id||!page.cards.some(card=>card.taskId===input.beforeTaskId&&card.group.kind===input.intent.kind&&card.group.value===target)))return false;}
+  return true;}catch{return false;}};
+ const previewPhysical=async(input:BoardMovePreviewInput,rankOnly=false)=>{
+   if(disposed||state.writing)return;sequence++;request?.abort();active=null;commandKey=undefined;commandProof=undefined;const selected=selection,packet={...structuredClone(input),timezone:input.timezone??selected?.page.clock.timezone};
+   if(!selected||!admitPhysical(packet,rankOnly)){publish({...empty(),error:{phase:'preview',status:422}});return;}
+   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});if(!current(generation,seq))return;
+   try{const plan=await ports.previewBoardMove(packet,{signal:controller.signal});if(!current(generation,seq))return;if(!bound(selected,input.taskId,plan)||rankOnly&&plan.operation!=='rank')throw Object.assign(Error('Preview does not match current projection'),{status:409});active={kind:'physical',value:structuredClone(plan)};publish({...empty(),plan:structuredClone(active)});}
+   catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'preview')});}
+ };
+ return {
+  snapshot:()=>state,subscribe:(listener:()=>void)=>{listeners.add(listener);return()=>{listeners.delete(listener);};},clear,
+  select(next:KanbanCommandSelection|null){if(disposed)return;const encoded=next===null?'':JSON.stringify(next);if(encoded===signature)return;invalidate();selection=next===null?null:structuredClone(next);signature=encoded;},
+  previewPhysical:(input:BoardMovePreviewInput)=>previewPhysical(input),
+  previewOrder:(input:BoardMovePreviewInput)=>previewPhysical(input,true),
+  canEditProof:()=>!disposed&&!state.writing&&commandKey===undefined,
+  async previewWorkflow(input:WorkflowPreviewInput){
+   if(disposed||state.writing)return;sequence++;request?.abort();active=null;commandKey=undefined;commandProof=undefined;const selected=selection,packet={...structuredClone(input),timezone:input.timezone??selected?.page.clock.timezone};
+   if(!selected||selected.kind!=='canonical'||selected.page.mode!=='workflow'||input.viewId!==selected.page.viewId||!visible(selected,input.taskId)||!selected.page.columns.some(c=>c.id===input.targetColumnId&&c.columnKey==='done')||!ports.previewWorkflowCompletion){publish({...empty(),error:{phase:'preview',status:422}});return;}
+   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});if(!current(generation,seq))return;
+   try{const plan=await ports.previewWorkflowCompletion(packet,{signal:controller.signal});if(!current(generation,seq))return;if(!bound(selected,input.taskId,plan))throw Object.assign(Error('Preview does not match current projection'),{status:409});active={kind:'workflow',value:structuredClone(plan)};publish({...empty(),plan:structuredClone(active)});}
+   catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'preview')});}
+  },
+  async previewTransition(input:WorkflowTransitionPreviewInput){
+   if(disposed||state.writing)return;sequence++;request?.abort();active=null;commandKey=undefined;commandProof=undefined;const selected=selection,packet={...structuredClone(input),timezone:input.timezone??selected?.page.clock.timezone};
+   if(!selected||selected.kind!=='canonical'||selected.page.mode!=='workflow'||input.viewId!==selected.page.viewId||!visible(selected,input.taskId)||visible(selected,input.taskId)!.pendingApproval||visible(selected,input.taskId)!.deletedAt!==null||!['todo','in_progress'].includes(visible(selected,input.taskId)!.lifecycle)||!selected.page.columns.some(c=>c.id===input.targetColumnId&&['todo','doing','waiting'].includes(c.columnKey??'')&&!c.cards.some(card=>card.task.id===input.taskId))||!ports.previewWorkflowTransition){publish({...empty(),error:{phase:'preview',status:422}});return;}
+   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});if(!current(generation,seq))return;
+   try{const plan=await ports.previewWorkflowTransition(packet,{signal:controller.signal});if(!current(generation,seq))return;if(!bound(selected,input.taskId,plan))throw Object.assign(Error('Preview does not match current projection'),{status:409});active={kind:'active',value:structuredClone(plan)};publish({...empty(),plan:structuredClone(active)});}
+   catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'preview')});}
+  },
+  async previewGrouped(input:GroupMovePreviewInput){
+   if(disposed||state.writing)return;sequence++;request?.abort();active=null;commandKey=undefined;commandProof=undefined;const selected=selection,packet={...structuredClone(input),timezone:input.timezone??selected?.page.clock.timezone};
+   if(!selected||!admitGrouped(packet)){publish({...empty(),error:{phase:'preview',status:422}});return;}
+   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});if(!current(generation,seq))return;
+   try{const plan=await ports.previewGroupedMove(packet,{signal:controller.signal});if(!current(generation,seq))return;if(!bound(selected,input.taskId,plan))throw Object.assign(Error('Preview does not match current projection'),{status:409});active={kind:'grouped',value:structuredClone(plan)};publish({...empty(),plan:structuredClone(active)});}
+   catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'preview')});}
+  },
+  async previewGroupedRank(input:GroupRankPreviewInput){
+   if(disposed||state.writing)return;sequence++;request?.abort();active=null;commandKey=undefined;commandProof=undefined;const selected=selection,packet={...structuredClone(input),timezone:input.timezone??selected?.page.clock.timezone};
+   const projection=selected?.kind==='grouped'?selected.page:null,sameGroup=(g:GroupRankPreviewInput['group'])=>g.kind===packet.group.kind&&g.value===packet.group.value;
+   if(!selected||!projection||!selected.rankSorted||packet.viewId!==projection.viewId||packet.timezone!==projection.clock.timezone||packet.group.kind!==projection.group||!projection.cards.some(c=>c.taskId===packet.taskId&&sameGroup(c.group))||packet.beforeTaskId!==null&&(packet.beforeTaskId===packet.taskId||!projection.cards.some(c=>c.taskId===packet.beforeTaskId&&sameGroup(c.group)))||!ports.previewGroupedRank){publish({...empty(),error:{phase:'preview',status:422}});return;}
+   const generation=epoch,seq=sequence,controller=new AbortController();request=controller;publish({...empty(),previewing:true});if(!current(generation,seq))return;
+   try{const plan=await ports.previewGroupedRank(packet,{signal:controller.signal});if(!current(generation,seq))return;if(!bound(selected,packet.taskId,plan)||!sameGroup(plan.group)||plan.beforeTaskId!==packet.beforeTaskId)throw Object.assign(Error('Rank preview does not match projection'),{status:409});active={kind:'group-rank',value:structuredClone(plan)};publish({...empty(),plan:structuredClone(active)});}
+   catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'preview')});}
+  },
+  cancel(){if(disposed||state.writing)return false;sequence++;request?.abort();request=undefined;active=null;commandKey=undefined;commandProof=undefined;publish(empty());return true;},
+  async apply(proof:TaskCompletionProof={}){
+   if(disposed||state.writing||state.previewing||!active)return;const generation=epoch,seq=sequence,plan=structuredClone(active),controller=new AbortController();request=controller;publish({...state,writing:true,error:null});if(!current(generation,seq))return;
+   try{commandKey??=(ports.newRequestId??(()=>crypto.randomUUID()))();if(plan.kind==='physical')await ports.applyBoardMove(plan.value,commandKey,{signal:controller.signal});else if(plan.kind==='grouped')await ports.applyGroupedMove(plan.value,commandKey,{signal:controller.signal});else if(plan.kind==='group-rank'){if(!ports.applyGroupedRank)throw Object.assign(Error('Group rank owner unavailable'),{status:409});await ports.applyGroupedRank(plan.value,commandKey,{signal:controller.signal});}else if(plan.kind==='active'){if(!ports.applyWorkflowTransition)throw Object.assign(Error('Active workflow owner unavailable'),{status:409});await ports.applyWorkflowTransition(plan.value,commandKey,{signal:controller.signal});}else{if(!ports.applyWorkflowCompletion)throw Object.assign(Error('Workflow owner unavailable'),{status:409});commandProof??=structuredClone(proof);await ports.applyWorkflowCompletion(plan.value,commandProof,commandKey,{signal:controller.signal});}if(!current(generation,seq))return;active=null;commandKey=undefined;commandProof=undefined;publish(empty());}
+   catch(error){if(current(generation,seq)){const code=status(error);if(code!==null&&code<500){active=null;commandKey=undefined;commandProof=undefined;}publish({...state,plan:active?structuredClone(active):null,writing:false,error:failure(error,'write')});}return;}
+   if(!current(generation,seq))return;
+   try{await ports.onCommitted();}catch(error){if(current(generation,seq))publish({...empty(),error:failure(error,'refresh')});}
+  },
+  dispose(){if(disposed)return;disposed=true;epoch++;sequence++;
+   // A dispatched mutation may already be committed when its SSE refresh
+   // unmounts the UI. Drain its bounded, session-guarded response; retiring this
+   // owner still prevents every late publication/callback. Explicit clear or
+   // selection changes retain cancellation, and previews are always aborted.
+   if(!state.writing)request?.abort();request=undefined;active=null;commandKey=undefined;commandProof=undefined;selection=null;signature='';state=empty();listeners.clear();},
+ };
+}

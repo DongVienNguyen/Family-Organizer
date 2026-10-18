@@ -1,0 +1,3319 @@
+# Tiến độ Windows-native
+
+## Current direction — 2026-10-18 (UTC)
+
+**P13 canonical Notes/Task links functional slice:** production `f9fb6989ff485ae02cacb1743ba25976f754c11e`,
+fixture-only follow-up `627b5dcb855162cfb2506d1d97a6c41d18a58f0c`. Explicit16 retains canonical Notes and original
+Task/Note content/history while creating reviewed private counterparts; current
+both-end ACL, I01 receipt/version fencing, FK-preserving Notes writes/restore,
+trusted media inheritance and real accepted-grant retention verified. Actual
+native cascade loss and browser revoked-label failures retained and fixed.
+Full8630tests532files/JUnit atf9fb698, zero failures/skips/todo, all8595parents +35;
+lint/build0. Final18/18 same627b5dc-build Chromium journeys (content4/templates3/
+notifications4/collaboration3/calendar4), first attempts/offline/owned fixtures/
+normal stop/integrity/closed/cleaned;390themes viewed. Actor-bootstrap failed
+parent run and read-only diagnostics retained; setup unloads the previous document
+before storage replacement, preserving all functional/privacy/readiness assertions.
+No full-suite claim for fixture-only627b5dc. [Details](productivity-content.md),
+[proof](evidence/p13-content-development.json). PR URL/CI run URL:none for source;
+backup branch, author review only. Next P13 files/import/export, then remaining
+P/W18/M1/I02/I03/final composed Windows. No release/tag/VPS/PC runner.
+
+**P13 Notes identity prerequisite:** source `051955d7a21a3f7e603d03f0b92bbbedd2c0d5d0`
+replaces millisecond-only new Note IDs with UUIDs, preserving `note_` and all
+existing IDs. Actual native same-millisecond UNIQUE failure retained;175focused
+cases/6files and lint0. [Proof](evidence/p13-note-identity.json). Full/snapshot-specific/
+Windows checks not claimed; PR/CI URLs:none. Continue canonical Notes conversion
+and typed links, files/import/export; whole P13/master remain incomplete.
+
+**P13 templates functional slice:** source `3ee1d5d3c914d005abffe7699917228e4e81e018` adds owner-scoped
+explicit15 content templates, fresh unfinished Task/checklist instantiation,
+current source/destination ACL, trusted media inheritance, summary-only lists
+and session-owned lost-ACK packets/library expansion. Full8595tests526files
+passed at `ceafc797038ce0471d9615dd0edb93fadcbad00b` (all8560parents +media2/template33);
+final panel fix has34focused cases/lint/build0 and14/14 same-build Chromium
+journeys (templates3/reminders4/collaboration3/calendar4), first attempts, offline,
+owned fixtures, normal stop/integrity/closed/cleaned; both390themes viewed.
+No full-suite claim for3ee1d5d. Actual browser/native panel failure retained.
+[Details](productivity-templates.md), [proof](evidence/p13-templates-development.json).
+PR URL/CI run URL:none for this source; backup branch, author review only.
+P13 remains partial: Notes/conversion/files/import/export next, then remaining
+P/W18/M1/I02/I03 and final composed Windows. No release/tag/VPS/PC runner.
+
+**P12 schema14 media follow-up:** source `cba684addd08b3f7f9f2148e0240e003be751e0e`
+fixes two shared media version gates, retaining durable recurring Markdown on
+accept/skip without loosening attachment ownership. Two actual baseline failures
+retained; focused170tests8files and lint pass. Full8560 evidence below is for
+`1a4d2a3`, not this follow-up. [Raw proof](evidence/p12-notification-media.json).
+PR/Windows run URLs:none for this source. Next P13 templates/content/data tools.
+
+**P12 durable reminders/quiet hours/digest functional core (2026-10-18):**
+source `1a4d2a32d4a07f332d6721778e201693bb8384b8` adds explicit14 rules/claims/own-user preferences and reference-
+only delivery metadata, I01 Task-save cancellation/rescheduling/assignment, shared
+AppJobs/legacy push reuse and atomic restore backlog consumption. Default6,
+frozen1–13 and package caps remain. Cloud full8560tests520files/matchingJUnit,
+zero failures/skips/todo; all8502parents +58 retained, lint/build0.
+Same-source/build Chromium Notifications4/4 + Collaboration3/3 + Calendar4/4,
+firstattempts/offline/owned14/13/13fixtures/normal-stop/integrity/closed/cleaned;
+390px light/dark inspected. Actual restore-clock/UTC-identity/job-key failures and
+fixture isolation correction retained, assertions/deadlines unchanged.
+[Details](productivity-notifications.md), [proof](evidence/p12-notification-development.json).
+Author review only. PR/CI run URLs:none for this source; backup branch.
+P12 functional core is implemented; full Windows acceptance and controlled14
+pilot/rollout remain P18/I03. Next P13 content/templates/import/export and remaining
+P/W18/M1/I02/I03, then final composed Windows including allparent suites and all
+three new feature harnesses (not yet wired). ActualServer2019R02 unrun;
+no release/tag/VPS or PC runner. Whole master is not complete.
+
+**P12 collaboration functional core (2026-10-18):** source `7a73d55ba4659d7b5641e9b346fecdde947319cf`
+adds canonical comments/history/mentions and reviewed list grants, native I01/
+outbox reuse, current-source ACL/targeted SSE and immutable unknown-request
+packets across navigation. Cloud full8502tests512files/JUnit, zero failures/skips/
+todo; parent8459 retained with one explicit stronger P12 policy transition,
+43 new cases; lint/build0. Whole Collaboration Chromium3/3 + parentCalendar4/4,
+first attempts/offline/owned13fixture/normal-stop/integrity/closed/cleaned and
+source/build-bound. Actual390px themes inspected. Native baseline/HTTP/SSE/full-
+suite failures retained, no assertion removal or skip. [Details](productivity-collaboration.md),
+[proof](evidence/p12-collaboration-development.json). Author review only.
+PR URL/CI run URL:none for this source; backup branch. P12 remains partial:
+reminders/quiet hours/daily digest/reschedule/restore backlog next, then remaining
+P/W18/M1/I02/I03 and final composed Windows (allparents+Calendar+Collaboration
+harnesses). Neither new harness is wired to Windows CI yet. No Windows/Server2019
+acceptance claim, release/tag/VPS or PC runner.
+
+**P09 PR136 accepted and merged (2026-10-18):** reviewed HEAD
+`7e59abd0c682acf4dba80a7830e54c7e2e052a33`,
+[PR136](https://github.com/DongVienNguyen/Family-Organizer/pull/136),
+[CI38987528125](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38987528125).
+All8checks success. Re-read16raw logs/14245lines and323reports from7artifacts:
+each Node22/24 has6032tests326files/matchingJUnit/no failures-skips-todo/native0;
+45legacy+126Productivity(42perengine)+1nativeTouch=172firstattempts, no retries/
+flaky/skips; actual touch pointer trusted. Package/service reports and native
+exits0 retained. Windows CRLF lock hash is derived exactly from the Git LF blob;
+artifacts remain unchanged. No package ZIP was downloaded or executed in Cloud.
+Previously closed26source SELF review +3 documented fixture repairs bind final29
+source hashes; PR has no unresolved review threads. Author review, not independent.
+Merge main `036aecb9cf4b7050c3922de4c5104cb119d37fdd` used the protected normal
+merge path with exact-head matching, no admin bypass. Feature branch then merged
+origin/main with zero tree changes. [Proof](evidence/p09-pr136-final.json).
+The new feature-first P/W/I source is NOT Windows-qualified by this older run.
+Any automatic main CI is separate; continue P12 and remaining features before the
+final composed Windows batch. FullP09/M1/master and actualServer2019R02 remain
+incomplete; no release/tag/VPS access or deployment.
+
+**P11 Calendar/Timeline core (2026-10-18):** source `c84376879fea854f5d3b03d16fb34ab6fd6aa4a0` adds four
+views, current-ACL task/FamilyPlan/virtual projection, reviewed independent
+timeboxes and one-cycle moves through I01/P10, explicit DST choices, navigation-
+safe unknown requests, readable phone month details and fresh authorized ICS
+window download. No schema/automatic activation/package-cap change.
+Cloud full8459tests507files/matching JUnit, zero failed-skipped-todo;
+all8409 parent cases +50 retained (2W17system+48P11), lint/build0.
+Whole Calendar Chromium4/4/native0/firstattempt/offline/owned13Taskfixture/
+normal-stop/integrity/closed/cleaned/source-build-bound. Actual modal navigation
+and narrow mobile-title failures corrected; original failed reports/trace kept.
+[Details](productivity-calendar.md), [proof](evidence/p11-calendar-development.json).
+Author inspection only; PR/CI URLs:none for this source; backup branch.
+P11ICSimport→P13; future/allseries edits reuse the existing task editor.
+Next P12collaboration/reminders and remainingP/W18/M1/I02/I03, then final composed
+Windows including allparents+Calendar harness. ActualServer2019R02 unrun;
+no release/tag/VPS. Separate PR136 historical greenCI is not this source's CI.
+
+**W17 protected recovery subset (2026-10-18):** source `6c60ef308d249dc49de8d09ea4af118efa62247e` adds two
+synthetic system checks and lint0, JSON/JUnit/native0. Actual live WAL encrypted
+capture → independent installation restore → runtime restart preserves every
+schema16 Wallet row, exact Money, receipts, ACL, settings, occurrences and trades;
+a pre-existing target session is revoked. Rechecksummed/reencrypted corrupt trade
+cash is rejected before target writes. Offline/owned roots/closed/cleaned.
+Test-only additions: production sources unchanged from7cae94a; prior8409/498,
+build and65Chromium remain separate evidence, no new aggregate claimed.
+[Proof](evidence/w17-system-development.json). PR/CI URLs:none; author inspection,
+backup branch only. Next W18 must address shared100000total-row backup capacity
+before claiming100k complete recovery; per-table import guard is insufficient.
+Legacy bridge/Asset/networth, remaining P/M1/I02/I03/master/final Windows remain.
+Server2019 R02 unrun; no release/tag/VPS.
+
+**W17 import subset (2026-10-18):** source `7cae94af340ac4596f1fe8f12e754d33bd548cec` adds cooperative queued
+preparation and set-based exact int64 ledger/provenance/audit writes inside one
+I01 transaction, with current ACL/catalog/preview fences and safe queued-failure
+state. Preview yields and rechecks current references before persistence.
+Benchmark rejects a preloaded installation without touching or closing its DB.
+Cloud full8409tests498files/matching JUnit/zero failed-skipped-todo,
+all8391 W16 parents +18 retained; lint/build0. Whole Wallet Chromium65/65,
+all65parent cases, offline/integrity/normal-stop/closed/cleaned/build-bound.
+Original10k commit diagnostic8758.8ms; current focused1198.6ms; queued writer
+~0.8s with heartbeats and only0/10000observable rows. These are Cloud diagnostics,
+not Windows performance acceptance. [Proof](evidence/w17-import-development.json).
+PR/CI URLs:none; author inspection only; backup branch. New system recovery
+harness remains separate development. W17 full recovery/system, W18 global
+capacity/retention/legacy bridge/networth/cutover, remaining P/M1/I02/I03/master
+and final composed Windows batch remain. Server2019 R02 unrun; no release/tag/VPS.
+
+**W17 query-performance subset (2026-10-18):** source `0c61cc602038dd77189a7b167f06b27be2998a0e`
+adds portable synthetic benchmark and reduces repeated ICU/filter/metadata
+allocation while retaining physical SQL and both ACL/data fences. Reference100k
+Cloud p95 page50 204.0ms (baseline711.9), month
+838.5ms (baseline2209.0);20samples/3warmups,
+exact totals/ID count, integrity/closed/cleaned/offline/source-bound.
+Targeted200/13 JSON/JUnit, zero failures/skips/todo; lint/build0. No new full
+aggregate/browser or Windows acceptance; W16 evidence remains separate.
+[Details](wallet-performance.md), [proof](evidence/w17-query-performance-development.json).
+PR/CI URLs:none; author inspection only; backup branch. W17 incomplete:10k
+import responsiveness and full recovery/system; W18, remaining P/M1/I02/I03/master
+and final Windows batch remain. No release/tag/VPS;Server2019 R02 unrun.
+
+**W16 core (2026-10-18):** source `925009844e680a0c3333174d2f81272724786486` adds personal
+locale/date/decimal/balance display, default periods, owned inactivity timers,
+selective Wallet device cleanup and explicit PDF glyph fallback. Settings
+storage16/standalone17 is explicit; accepted SQL1–15 and package cap unchanged.
+Cloud 8391/493 JSON/JUnit, zero failures/skips/todo;
+all8350 parent cases +41 retained, lint/build0. Whole Wallet Chromium
+65/65 retains56 W14+4 W15 parents and5 W16 cases, offline/source-build-bound/
+closed/cleaned. Actual lost-ACK privacy and missing-PDF-glyph regressions fixed;
+full CJK/emoji glyph rendering remains partial, CSV/XLSX preserve original text.
+[Details](wallet-settings.md), [proof](evidence/w16-settings-development.json).
+Author inspection only; PR/CI run URLs:none; backup branch only. Next W17/W18,
+remaining P/M1/I02/I03/master and one final Windows qualification batch.
+Server2019 R02 unrun; no release/tag/VPS.
+
+**W15 core (2026-10-18):** source `14a25866ed9c2699ef25338dfb4de41528a11cf0` adds exact atomic
+investment cash/cost, deterministic edits/voids, source-preserving manual and
+injected quotes, source-fenced growth, strict SDK and portfolio UI.
+Explicit storage15/standalone16; accepted1–14 unchanged, no automatic activation.
+Cloud 8350/484 JSON/JUnit, zero failures/skips/todo;
+all8252 W14 parents +98 retained (four I02 privacy +W15 cases),
+lint/build0. Focused Chromium4/4 offline/closed/cleaned/source-build-bound;
+whole Wallet56 parent browser cases and Windows deferred to final integration.
+[Details](wallet-investments.md), [proof](evidence/w15-portfolio-development.json).
+W15 partial: legacy Asset binding/unified net worth still I02/W18 gate;
+corporate actions unsupported and no production market provider selected.
+Author inspection only; PR URL/CI run URL:none, backup branch only.
+Next W16 settings/device privacy then remaining W/P/I, one final Windows batch.
+Server2019 R02 unrun; no release/tag/VPS.
+
+**I02 privacy subset (2026-10-18):** source `f2b72867afde4b3d3739b522329c2f0694fd7bd3` fixes a
+reproduced personal SavingsGoal name leak in Admin activity. New logs carry a
+current goal source; another Admin, a deleted source or revoked sharing cannot
+expose the body/ID. Unbound historical savings logs are generic; original audit
+history is preserved. Four real HTTP regressions failed before the fix; targeted
+114 tests/5 files/matching JUnit and lint0 now pass. No full aggregate/build/browser
+or Windows rerun for this subset; W14 prior evidence remains separate.
+[Proof](evidence/i02-goal-activity-privacy-development.json). PR URL/CI URL:none;
+backup branch only. I02 as a whole is incomplete. Next W15, remaining W/P/I and
+final Windows qualification; no release/tag/VPS.
+
+**2026-10-18 continuation — W14 core:** source `87155f887f0072bfe644af3aa5d0ec2d1ef41ac4` adds
+personal filtered budgets, distinct overlap totals, source-reviewed immutable
+carry, pending cashflow/history forecasts and private threshold alerts through
+shared I01/AppJobs/inbox. Schema14/standalone15 preserves accepted1–13 SQL;
+no automatic migration/activation or legacy budget replacement.
+[Details](wallet-budgets.md).
+
+Cloud: 8252 tests/475 files/full JUnit, zero failed/skipped/todo;
+all 8128 parent cases +124 retained, lint/build0. Final Chromium56/56
+retains all52 parents; fixture14 offline/integrity/legacy/normal-stop/closed/cleaned/
+build-bound; phone light/dark and unknown carry replay included. Earlier failed
+reports and pre-correction full8251/475 retained. [Proof](evidence/w14-budgets-development.json).
+Author inspection only. PR URL/CI run URL:none; backup branch
+`codex/feature-first-acceptance`. Final Windows2022/Node22/package/service/other
+engines/touch and Server2019 R02 unrun. Remaining: W15–18 and remaining
+Productivity/M1/I02/I03/master, legacy bridge/withdrawals/full recovery/cutover.
+Next: W15 portfolio/quotes with offline fixtures and no production provider choice.
+No release/tag/VPS.
+
+**2026-10-18 continuation — W13 core:** source `47f4ade4fd9c610741e69b6c8ed620f40a24e4b8` adds
+exact linked debt principal/interest, goal earmarks/transfers, existing history
+and imported cashflow linking, coordinated edit and explicit keep/void through
+shared I01. Current account/fee/parent privacy applies to reads, legacy goal
+mutation receipts and fresh UI views. Schema 13/standalone 14 preserves accepted
+1–12 SQL, without automatic migration/activation. [Details](wallet-financial-links.md).
+
+Cloud: 8128 tests/463 files/full JUnit, zero failed/skipped/todo;
+all 8024 parent cases +104 retained, lint/build 0. Final Chromium
+52/52 retains all 48 parents; fixture 13 offline/integrity/legacy/normal-stop/
+closed/cleaned/build-bound; phone light/dark and overflow/legacy navigation included.
+Earlier failed reports preserved. [Proof](evidence/w13-financial-links-development.json).
+Author inspection only. PR URL/CI run URL: none; backup branch
+`codex/feature-first-acceptance`. Windows 2022/Node 22/package/service/other
+engines/touch and Server 2019 R02 unrun. Remaining: unified legacy/Wallet net worth,
+coordinated goal withdrawals, full restore/pagination/retention/cutover/package
+qualification; W14–18 and remaining Productivity/M1/I02/I03/master.
+Next: W14 budgets/carry/forecast. No release/tag/VPS.
+
+**2026-10-18 continuation — W12 core:** source `0e33086d5434afa39d943dd07a2d2e29089df03e` adds
+personal scheduled income/expense/transfer with fees, original-anchor recurrence,
+manual default/explicit automatic recording, read-only next-three preview,
+bounded pending catch-up, exact existing-record linking, pause/archive and due
+reminders through shared durable AppJobs/I01/outbox. Explicit schema 12/standalone
+13 preserves accepted 1–11 SQL; no automatic migration or activation. Actual
+notification inbox/count/read/push rechecks current object permissions.
+[Details](wallet-schedules.md).
+
+Cloud: 8024 tests/453 files/full JUnit, zero failures/skips/todo;
+all 7927 parent cases +97 retained, lint/build 0. Final Chromium
+48/48 retains all 45 parents; fixture 12 offline/integrity/legacy/normal-stop/
+closed/cleaned/build-bound; phone light/dark included. Real live-SSE selection
+race fixed with regression. Both earlier browser reports (45/3 and 47/1) and
+actual development REDs retained; assertions and budgets unchanged.
+[Proof](evidence/w12-schedules-development.json). Author inspection only.
+PR URL/CI run URL: none; backup branch `codex/feature-first-acceptance`.
+Windows 2022/Node 22/package/service/other engines/touch and Server 2019 R02 unrun.
+Next: W13–18/remaining Productivity/M1/I02/I03/master; history pagination,
+retention, full restore, nonblocking 10k import, canonical legacy bridge/cutover
+and package schema qualification remain. No release/tag/VPS.
+
+**2026-10-18 continuation — W11 core:** source `d6906b75498d03a0588cf4817ce3d948a84df76f` adds
+CSV/XLSX/PDF export with captured selection/current ACL/exact money, verified
+file delivery and explicit confirmation; owned rules default to import/manual
+consent, preview before/after, protected manual origins, atomic fresh-revision
+apply and no-repeat audit/labels. Schema 11/standalone 12 is explicit; accepted 1–10
+SQL unchanged. Bundled existing PDF engine needs no new runtime dependency;
+original Roboto OFL/binary checks cover server and browser. [Details](wallet-exports-rules.md).
+
+Cloud: 7927 tests/446 files/full JUnit, zero failed/skipped/todo;
+all 7825 parent cases +102 retained; lint/build exit 0. Final Chromium 45/45
+retains all 42 parent cases; fixture 11 offline/integrity/legacy/normal-stop/closed/cleaned/
+build-bound. First 45/45 intermediate kept. Actual development REDs include lost
+preview receipts, metadata-only preview blocking import undo, rewritten snapshot
+rule ownership/binding and missing independent consumer font helper; fixed with
+regressions and unchanged assertions. Author 50-path inspection only.
+The first concurrent full run kept 7926 passes/one deep-graph timeout; a complete
+staged run passed with unchanged source/assertions/10s budget. Both raw reports
+are retained. [Proof](evidence/w11-export-rules-development.json).
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`.
+Windows 2022/Node 22/package/service/other engines/touch and Server 2019 R02 unrun.
+Next:W12–18/M1/I02/I03/master. PDF CJK/emoji coverage W16, nonblocking 10k import W18,
+protected restore/legacy bridge/cutover/global capacity remain before acceptance.
+No release/tag/VPS.
+
+**2026-10-18 continuation — W10 core:** source `5a885a5143874f7bda7eb839e9c90c7d4980a5bc` adds
+local CSV/XLS/XLSX/OFX staging, explicit preview/errors/exclusions, stable OFX
+source dedupe, exact I01 imported records/provenance/undo and shared durable jobs.
+Five-step UI keeps unknown intent/body/key across navigation and rechecks current
+scope; a real SSE result-step race is fixed. Explicit schema 10/standalone 11 preserves
+accepted 1–9 SQL; no activation/bridge/cutover. [Details](wallet-imports.md).
+
+Cloud: 7825 tests/435 files, matching full JUnit, zero failed/skipped/todo,
+all 7704 parent cases +121 retained; lint/build exit 0, changed-lock npm ci exit 0 and
+native dependency smoke exit 0. Final Chromium 42/42 retains all 38 parent cases; real fixture 10
+is offline/integrityOK/legacy-kept/normal-stop/closed/cleaned/build-bound.
+First 40/41 SSE and second 38/42 advancing-clock TTL failures retain DOM/trace/JUnit;
+clock-derived expiry and regressions are fixed; no financial assertions/deadlines/retries
+weakened. Author inspection of 48 paths only. [Proof](evidence/w10-import-development.json).
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`.
+Current Windows 2022/Node 22/package/service/other engines/touch and actual
+Server 2019 R02 unrun. Next: W11 exports/rules and W12–W18/M1/I02/I03/master;
+protected restore/legacy bridge/cutover/global capacity before activation remain.
+No release/tag/VPS.
+
+**2026-10-18 continuation — W09 core:** source `019dde5b9d58d619141bf0ab497a1cf1e4a12e86` adds owner-only saved
+filter/chart/layout configurations and12 real-data widgets, with local keyboard
+layout edits/explicit Save, retained same-key unknown intent, current financial ACL,
+final async scope fence, exact credit/FX/currency values and session/SSE retirement.
+Global Dashboard drilldown opens exact Finance Records; personal chart style/scope
+and layout survive reload. Explicit9/standalone10 preserves accepted1-8 SQL; Wallet
+off/no auto-upgrade. [Details](wallet-personal-dashboard.md).
+
+Cloud7704/427files/matchingJUnit/0failed-skipped-todo,
+all7645parent+59 retained; lint/build0. Final Chromium38/38,
+all34parent+4, native/offline/integrityOK/legacy kept/normal stop/closed handles/
+matchingbuild. First36/38 test-helper/complete-DOM-label failures and trace retained;
+no assertions skipped or deadline/retry raised. Author35path inspection only.
+[Proof](evidence/w09-dashboard-development.json),
+[JUnit](evidence/w09-dashboard-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W10 imports/undo, W11-18/M1/I02/I03/master and protected restore/
+remediation/raw backup/legacy bridge/cutover/retention; final review/batched Windows.
+No release/tag/VPS. Full plan incomplete.
+
+**2026-10-18 continuation — W08 core:** source `6260203a3efaf82e5515add31099e03baed37c34` adds shared report
+metrics4/groups5/buckets4, exact split/unique label totals, separate ledger balances,
+current partial-transfer ACL and exact per-point/aggregate drilldowns. Explicit8/
+standalone9 adds immutable public reference FX; Admin refresh is outside network
+transaction, fresh-role/I01 guarded, same-key replay, native rollback and preserves
+nonempty historical quotes. Accepted1-7 DDL unchanged; Wallet off/no auto-upgrade.
+Analytics has four tabs/three SVG kinds/exact table, vi/en/zh, generation/SSE privacy
+and retained unknown refresh date/key. [Details](wallet-reports.md).
+
+Cloud7645/422files/matchingJUnit/0failed-skipped-todo,
+all7580parent+65 retained; lint/build0. Final Chromium34/34,
+all31parent+3, offline/native/integrityOK/legacy retained/normal stop/closed handles/
+matchingbuild. Intermediate34 passed before final source changes, retained with
+source manifest; final rebuild34 validates frozen source. Author37path inspection
+only. [Proof](evidence/w08-reports-development.json),
+[JUnit](evidence/w08-reports-cloud.junit.xml.gz),
+[full log](evidence/w08-reports-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W09 dashboard/preferences, W10-18/remaining M1/I02/I03/master and protected
+restore/remediation/raw legacy backup/bridge/cutover/retention; final independent
+review/batched Windows. No release/tag/VPS. Full plan incomplete.
+
+**Latest continuation — W07 core templates:** source `212e1a3d016e4525d1b12b5c0d63c2c848068ba0` adds personal
+create/edit/archive/restore and readonly instantiation, owner-only HTTP/SDK/UI,
+exact labels/splits/defaults and same-key unknown retry. Templates never post;
+explicit record Save is financial. Catalog protected references do not leak
+private owners/titles/counts. Wallet off; no automatic upgrade or activation.
+
+Cloud7580/418files, matchingJUnit/0failed-skipped-todo,
+all7531parent+49 retained; lint/build0; Chromium31/31,
+all28parent+3, native/offline/integrityOK/legacy retained/normal stop/closed handles/
+matchingbuild. First29/31 new-test label mismatch and DOM/trace retained; corrected
+only2 helper labels, assertions/deadlines/retries unchanged. Author20path inspection
+only. [Details](wallet-templates.md), [proof](evidence/w07-templates-development.json).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W08 reports, remaining Wallet/M1/I02/I03/master and protected restore/
+remediation/raw legacy backup/bridge/cutover/retention; final review/batched Windows.
+No release/tag/VPS. Full plan incomplete.
+
+**Latest continuation — W07 partial, W02/W04/W06 integration:** source `26c7e39fb695d2299efd7291206caa84da6456f7` adds
+new draft-only clone and exact category splits, including atomic amount/rows,
+separate fees/FX/default labels, current source grant revalidation and same-key
+unknown retry. Split filters/search/selection match children once. Explicit7/
+standalone8 preserves accepted1-6 and refuses inconsistent historical splits;
+owned-template table exists, commands/UI remain next. Wallet off/no auto-upgrade.
+
+Cloud7531/414files/matchingJUnit/0failed-skipped-todo,
+all7426parent+105 retained; lint/build0. Chromium28/28 retains
+all23parent plus5, real Express/SQLite/offline/integrityOK/legacy kept/normal stop/
+closed handles/build bytes match. First26/27 pagination-fixture failure and DOM/
+trace retained; source filter added without changing assertions/selectors/deadlines.
+Runner-only cleanup7 binding was repaired after all28 first passed; final28
+reruns native integrity/legacy/stop. Full-suite application/tests/build unchanged;
+separate source manifests/qualificationScopes and Node syntax evidence retained.
+Author37path inspection only. [Details](wallet-record-workflows.md),
+[proof](evidence/w07-record-workflows-development.json),
+[JUnit](evidence/w07-record-workflows-cloud.junit.xml.gz),
+[full log](evidence/w07-record-workflows-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:templates/instantiate/UI, W08 reports, protected restore host/Admin
+binding/remediation/raw backup/legacy bridge/cutover/retention and remaining
+Wallet/M1/I02/I03/master; then independent final review/batched Windows. Full plan
+incomplete; no dependency/lock/workflow/release/tag/VPS changes.
+
+**Latest continuation — W07 partial, W04/W06 integration:** source `7e871b91920f36f6922507bc7b49855f0b10f7fa` adds
+Admin-managed category/label CRUD, three-level/cycle guards, hidden/archive ancestry,
+revision/provenance/audit/I01 replay and postcommit SSE. Deletion preview/refusal
+uses full-record ACL for visible bounded counts and protects migration history.
+Catalog UI has search/pagination, metadata editor, confirmed deletion and a
+session-owned same-key unknown retry; refresh clears private views/counts.
+Historical associations and legacy mappings remain; Wallet off.
+
+Cloud7426/404files/matchingJUnit/0failed-skipped-todo,
+all7354parent+72 retained; lint/build0. Chromium23/23 retains
+all19parent plus4new, zero flaky/skipped/external, integrityOK/legacy kept/normal
+stop/closed handles and matching build bytes. Author25path inspection only.
+[Details](wallet-catalog.md), [proof](evidence/w07-catalog-development.json),
+[JUnit](evidence/w07-catalog-cloud.junit.xml.gz),
+[full log](evidence/w07-catalog-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W07 templates/clone/split, protected restore host/Admin binding,
+remediation/raw backup/legacy bridge/cutover/retention and remaining Wallet/M1/
+I02/I03/master; then final independent review and batched Windows. Full plan
+incomplete; no dependency/lock/workflow/release/tag/VPS changes.
+
+**Latest continuation — W03/W04 partial, I01 restore guard:** source `1ea64971b0c7ea602f6f904ec10358c36d607dbd` adds
+receipt prepare/apply with persisted/read-back full-private safety backup ports,
+whole-app data/file identity and actual shared maintenance/file/SQLite restore.
+Fresh Admin/inactive schema/source checks run across async gaps and within I01
+against live pre-replacement state, preventing saved-role resurrection or lost
+unrelated Tasks. Readonly/expired guard handles, original lease/context, compact
+same-key acknowledgement, no-op refusal and explicit pending/replacement media
+are covered. Native rollback retains money/source/legacy URLs. Host backup
+protection/encryption and reviewed Admin UI/operator remain unwired; no activation.
+
+Cloud7354/399files/matchingJUnit/0failed-skipped-todo,
+all7296parent+58 retained; lint/build0. Chromium19/19 preserved,
+zero flaky/skipped/external, integrityOK/legacy kept/normal stop/closed handles,
+matching build. Author7path inspection only. [Details](wallet-receipt-restore.md),
+[proof](evidence/w03-receipt-restore-development.json),
+[JUnit](evidence/w03-receipt-restore-cloud.junit.xml.gz),
+[full log](evidence/w03-receipt-restore-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:catalog/labels and production host/Admin binding, financial remediation/raw backup/
+legacy bridge/cutover/retention, preferences, remaining Wallet/M1/I02/I03/master,
+then independent final review and batched Windows. Full plan incomplete; Wallet
+off; no dependency/lock/workflow/release/tag/VPS changes.
+
+**Latest continuation — W04/W06 partial:** source `c78dde44bdfdd281cd32faf4d9f58ee4bec1c5ab` adds Records loaded-ID
+checkboxes versus durable all-matching scope, explicit exclusions, metadata-only
+opt-in form, bounded before/after preview and exact-count confirmation. Session
+owner preserves unknown capture/apply payload/nonce across navigation; blocks
+Records writes/filter/selection changes, retains stale draft and retires private
+views on scope denial. Revalidation clears samples; disposal drops late data.
+No automatic schema migration or Wallet activation.
+
+Cloud7296/395files/matchingJUnit/0failed-skipped-todo,
+all7277parent+19 retained; lint/build0. Chromium19/19 preserves
+all15parent plus4new:51-row cross-page selection/late exclusion/exact money/phone/
+themes/keyboard, same-key lost-ack tab replay, stale confirmation and held-refresh
+Escape ownership. Initial17/18 failure retained and repaired via actual trace DOM
+and native textarea-label diagnostic; no assertion/selector/retry/deadline changes.
+Zero external/flaky/skipped; integrityOK/legacy kept/normal stop/closed handles,
+matching final build. Author14path inspection only. [Details](wallet-bulk-workflows.md),
+[proof](evidence/w06-bulk-ui-development.json),
+[JUnit](evidence/w06-bulk-ui-cloud.junit.xml.gz),
+[full log](evidence/w06-bulk-ui-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/native touch/large performance/package/service/
+actual Server2019R02 unrun. Next:live receipt apply/remediation/raw legacy backup/
+legacy bridge/cutover/retention, saved preferences and remaining Wallet/M1/I02/I03/
+master work, then final branch review/batched Windows qualification. Full plan
+incomplete; Wallet off; no dependency/lock/workflow/release/tag/VPS changes.
+
+**Latest continuation — W02/W03-compat/W04/W06 partial:** source `f324743af7cda1e79311630392d8f4a93606bf94` adds
+explicit selection schema6/standalone7, common query capture and durable actor-owned
+IDs/revisions with expiry, membership and release. Atomic metadata-only bulk
+checks every row/linked fee ACL/revision/integrity/catalog before one set-based I01
+transaction. No partial skip; exact changed/no-op counts, text-digest audits,
+rollback/idempotent compact acknowledgement and postcommit scoped SSE. Existing
+money/source/creator/date/FX remain. Preview/SDK validate counts/identity and
+unknown replies; bulk UI remains the next step. No automatic migration/activation.
+
+Cloud7277/393files/matchingJUnit/0failed-skipped-todo,
+all7173parent+104 retained; lint/build0. Chromium15/15 preserves
+all existing cases with real Express/SQLite, zero external attempts, integrityOK,
+legacy kept, closed handles/normal stop and matching build bytes. The interrupted
+early full run is recorded as143, not pass. Author27path inspection is not
+independent. [Details](wallet-bulk-foundation.md),
+[proof](evidence/w06-bulk-foundation-development.json),
+[JUnit](evidence/w06-bulk-foundation-cloud.junit.xml.gz),
+[full log](evidence/w06-bulk-foundation-cloud.log.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02 are
+unrun. Bulk UI/new journeys, preferences, receipt live apply/remediation/raw
+backup/legacy bridge/cutover/retention and other Wallet/M1/I02/I03/master gates
+remain. Wallet stays off; no release/tag/VPS/dependency/lock/workflow changes.
+
+**Latest continuation — W04/W06 partial:** source `1cd381720c9b219df6c0b07342f9da2ed750a147` adds scoped
+creator/payment-method metadata and type/status/currency/creator/payment/label
+any-all controls, named-zone period presets and normal reset. SQL ACL precedes
+facet values; partial transfer methods stay hidden. Cross-query scope changes,
+missing metadata and over-limit options fail closed. Session invalidation clears
+choices immediately; exact input/last-checkbox/default-reset semantics are tested.
+
+Cloud7173tests/387files/matchingJUnit/0failed-skipped-todo, all7130parent+43 retained;
+lint/build0. Chromium15/15 retains14 plus combined payload/results, label any/all,
+last-choice removal/reset,390px width and keyboard. Zero flaky/skipped/external
+attempts, integrityOK, legacy kept/normal stop; build bytes match. No repeated
+build/browser on unchanged source. Author18path inspection, not independent.
+[Details](wallet-filter-controls.md), [proof](evidence/w06-filter-controls-development.json),
+[full Cloud JUnit](evidence/w06-filter-controls-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch/performance, package/service and actual
+Server2019R02 remain unrun. No dependency/lock/workflow/config/release/tag/VPS change.
+Next: durable cross-page selection/atomic bulk; receipt live apply/financial
+remediation/raw backup/legacy bridge/cutover/retention; preferences/other Wallet/
+M1/I02/I03/master gates. Wallet stays off; full plan remains incomplete.
+
+**Latest continuation — W03/W04/W16 partial:** source `94222adfa3e17492bd02dc19c6111cdabb8bca9c` adds explicit
+legacy receipt backup conversion with deterministic per-record private copies,
+validated supplied replacements and explicit remote/missing/invalid pending state.
+Original legacy references, money, IDs and nonce receipts remain. Source/pilot
+fingerprints fence preparation; no fetch or live SQL/filesystem mutation. Shared
+validation binds conversion/detached-history anchors to manifests. Wallet stays
+off. Live Admin/safety-backup/source-fence/maintenance apply is still unwired.
+
+Old URLs are denied after cutover before avatar/note/uploader policy; durable
+Windows-case-folded digests survive removed source references and also prevent
+generic cleanup. Canonical detach keeps the next backup restorable; audit records
+accurate before/after revisions without raw names/bytes.
+
+Cloud7130tests/383files/matchingJUnit/0failed-skipped-todo; all7096parent+34 retained.
+Lint/build0, Chromium14/14, zero skipped/flaky/external attempts, integrityOK,
+legacy kept/normal shutdown; final build matches tested bytes. Author9path
+inspection, not independent whole-branch review. [Details](wallet-legacy-receipts.md),
+[proof](evidence/w03-legacy-receipts-development.json),
+[full Cloud JUnit](evidence/w03-legacy-receipts-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun. No dependency/lock/workflow/config/release/tag/VPS change. Next:
+live apply/remediation/raw backup/legacy bridge/cutover and remaining filter/bulk,
+retention, Wallet/M1/I02/I03/master gates. Full plan remains incomplete.
+
+**Latest continuation — W02/W03/W04/W06/W16 partial:** source `57c9548a20cb3a7312fd571fbba0fcfa765ba0e2` adds
+private receipt files/manifest, authenticated full-record ACL routes, validated
+binary SDK and record attach/download/confirmed-detach UI. Images reuse HEIC
+conversion; PDFs retain bytes. I01 owns revision/audit/idempotency; postcommit
+acknowledgement loss cannot delete committed files. Dedicated namespace preserves
+old receipt subfolders. Storage5/standalone6 and explicit conversion retain old
+migration identities; shared restore/recovery check manifest against media bytes.
+Installed5 pilot migration keeps version-matched persisted safety backup and
+unresolved legacy media pending. Wallet stays off; no automatic migration.
+
+Cloud7096tests/381files/matchingJUnit/0failed-skipped-todo, all6952parent+144 retained;
+lint/build0. Chromium14/14 retains prior12 plus private PDF/image/download/detach
+and same-key lost-ack replay across tabs. Zero flaky/skipped/external attempts,
+integrityOK, legacy kept, closed handles and normal shutdown. Final build matches
+tested bytes. Author inspection37paths, not independent whole-branch review.
+[Details](wallet-private-receipts.md), [proof](evidence/w04-private-receipts-development.json),
+[browser JUnit](evidence/w04-private-receipts-browser.junit.xml),
+[full Cloud JUnit](evidence/w04-private-receipts-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun. No dependency/lock/workflow/config/release/tag/VPS change. Next:
+legacy receipt conversion/remediation and old-URL ACL before cutover, raw legacy
+JSON/ZIP/legacy write bridge, orphan/backup-aware retention, durable bulk/remaining
+filters and all other Wallet/M1/I02/I03/master gates. This is a receipt workflow
+checkpoint, not completed W02/W03/W04/W06/W16 or the whole plan.
+
+**Latest continuation — W04/W05/W06 partial:** source `d9e982e147fcdf8f9d0feaf5e675674657905ccf` adds
+server record-action previews and safe linked-fee parent navigation. Hidden parent
+IDs are withheld; edit/void controls require server flags, with all writes still
+reauthorized. Cross-phase selected403/404 clears the whole stale view and retires
+the selection; capability failures fail closed. Void confirmation during fresh
+reads reports stale state inline rather than silently returning.
+
+Cloud6952tests/372files/matchingJUnit/0failed-skipped-todo, all6935parent+17 retained;
+lint/build0. Chromium12/12 includes prior11 plus stale-void failure/reconfirmation,
+with real backend, zero skipped/flaky/external attempts, integrityOK, legacy kept
+and normal stop. Author inspection12paths, not independent review.
+[Details](wallet-record-actions.md), [proof](evidence/w06-record-actions-development.json),
+[browser inventory](evidence/w06-record-actions-browser.junit.xml).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun; no dependency/lock/workflow/config/release/tag/VPS change. Next:
+private receipt/legacy media ACL, durable bulk/selection and remaining filters,
+bridge/remediation/raw backup/cutover, other Wallet/M1/I02/I03/later master gates.
+This closes the prior action-preview/nonform-feedback gap, not the whole plan.
+
+**Latest continuation — W04/W05/W06 partial:** source `a41b1bd8730b1d7a73170b235b3f3af25a52a49d` adds
+Records tab, income/expense/adjustment/transfer+fee form, list/detail/shared filters
+and read-only family catalog. Money/FX snapshots remain exact; optional occurrence
+time preserves null/milliseconds and handles named-zone gaps/overlaps explicitly.
+Session-owned draft/replay, conflict reload and save-and-add are exercised. Failed
+valuation filters recover without losing an unresolved write. Wallet stays off;
+existing Finance is retained, no production activation/bridge/provider added.
+
+Cloud6935tests/371files/matchingJUnit/0failed-skipped-todo, all6860parent+75 retained;
+lint/build0. Chromium11/11 includes prior7plus4record/filter cases, real backend,
+zero skipped/flaky/external attempts, integrityOK, legacy retained and normal stop.
+DOM/driver investigation reproduced the populated-note label failure before the
+htmlFor/id repair; failed reports/traces remain. Author inspection24paths, not
+independent review. [Details](wallet-record-workflow.md),
+[proof](evidence/w06-record-workflow-development.json),
+[browser inventory](evidence/w06-record-workflow-browser.junit.xml).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22, other engines/touch, package/service and actual Server2019R02
+remain unrun; no dependency/lock/workflow/config/release/tag/VPS change. Next:
+authoritative record action capabilities/nonform failure feedback, durable bulk/
+selection, remaining filters, private receipts and legacy bridge/remediation/raw
+backup/cutover. W07–W18, remaining M1/I02/I03/later master gates remain incomplete.
+
+**Latest continuation — W04/W05/W06 partial:** source `877c58b640e7801a43b214241e60e12b93c69300` adds
+the gated account workspace inside Finance: create/edit/archive/restore, exact
+signed64/localized input, book/cleared/credit figures and existing shared controls.
+The session-owned command/draft survives tab navigation; unknown outcomes retain
+payload+nonce, require explicit retry and cannot become safe failures through a
+rejected replay. Conflict requires explicit reload. SSE current-grant invalidation
+and cross-tab logout retire the visible financial form. Wallet stays off by default;
+no activation endpoint, legacy write bridge or production migration was added.
+
+Cloud6860tests/366files/matchingJUnit/0failed-skipped-todo, all6824parent+36 retained;
+lint/build0. Chromium7/7 native cases, real Express/SQLite, zero flaky/skipped or
+external attempts, integrityOK, original Finance retained and normal shutdown.
+Final build bytes match the browser-tested build. Author inspection22paths, not
+independent whole-branch review. [Details](wallet-account-workflow.md),
+[proof](evidence/w06-account-workflow-development.json),
+[browser inventory](evidence/w06-account-workflow-browser.junit.xml).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance` (backup push only,
+feature-first/batched Windows). Current Windows2022/Node22, Firefox/WebKit/native
+touch, package/service and actual Server2019R02 remain unrun. No dependency/lock/
+workflow change or repeated npmci; no release/tag/VPS access/deployment. A Cloud
+restart recovered the retained checkout with pinned tools and no reinstall.
+Next: record/filter/list UI and durable selection/bulk, private receipts, bridge/
+remediation/raw legacy backup/cutover, remaining Wallet/M1 and later master gates.
+This checkpoint does not complete W06, Wallet or the full master plan.
+
+**Latest continuation — W04 partial:** source `73c6743a78654b9236e5205cdce3cea8e1af87f7` mounts
+gated internal account/record/query/balance/grant routes with existing auth and
+I01. Current ACL, private/missing404, actor-bound writes, revision/idempotency,
+partial-transfer/fee privacy, explicit invalidation audiences and safe requestId
+errors cover the core boundary. A browser-only typed SDK checks money/identity/
+session/unknown outcomes and never automatically retries. Wallet stays off; no
+startup migration/job/provider or activation endpoint was added.
+
+Cloud6824tests/362files/matchingJUnit/0failed-skipped-todo; Wallet backend461/22,
+new54cases(14grant/16HTTP/24SDK), all6770parent retained, lint/build0. LOCAL SELF
+11paths0C/4I/4M with closed findings, not independent.
+[Detail](wallet-internal-api.md), [proof](evidence/w04-internal-api-sdk-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. Next: account/
+record/filter UI and durable bulk selection while closing private receipt/media,
+legacy bridge/remediation/raw JSON/ZIP and audit/export/chart gates before cutover.
+Current interactive browser/Windows2022/Node22/package/service/Server2019R02 unrun.
+**Full W04/Wallet/M1/master incomplete.** No release/tag/VPS access or deployment.
+
+**Previous continuation — W06 partial:** source `a243c9c36ad6f7db14d461d5e5a0f085fa8df7ad` adds
+read-only shared record filtering/counts with current SQL ACL, partial-transfer
+redaction and date/occurredAt/binary-ID cursor. Matching account legs are separate
+from readable counterparts for future reports. Numeric filters require complete
+eligible-leg valuation; malformed visible postings error. Body reads are limited
+to the page unless searching. No API/UI/report/bulk/activation is wired.
+
+Cloud6770tests/359files/matchingJUnit/0failed-skipped-todo, Wallet431/20;
+query44cases including10k readable+10k private and cross-phase revocation; all6726
+parent retained, lint/build0. LOCAL SELF2paths0C/2I/0M, two fix passes/no rereview,
+not independent. [Detail](wallet-query-core.md), [proof](evidence/w06-query-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. Next: private
+receipts, durable bulk selection, API/SDK/UI and central aggregates while retaining
+remediation/legacy bridge/raw JSON/ZIP/cutover gates. Current browser/Windows2022/
+Node22/package/service/Server2019R02 unrun. **Full Wallet/M1/master incomplete.**
+No release/tag/VPS access or deployment.
+
+**Previous continuation — W03 partial:** source `cdb2e48b38e2bf3eb38261eb33553969835af386` adds
+pre-Wallet shared-manifest0→Wallet4 conversion through the same pure staging used
+by live migration. Explicit active historical Admin owner/timezone and stable
+staging IDs; original IDs/legacy/UUID receipts/settings/media retained. Restored
+conversion replays live migration with0new entities. Other namespaces stay exact,
+old source remains unbranded, full target validates before I01. Wallet stays off.
+
+Cloud6726tests/358files/matchingJUnit/0failed-skipped-todo, Wallet387/19;
+all6716parent+10, lint/build0. LOCAL SELF8paths0C/1I/0M, orphan-link erasure guard
+fixed RED→GREEN/full, one fix pass/no rereview/not independent.
+[Detail](wallet-pre-wallet-backup.md), [proof](evidence/w03-pre-wallet-backup-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No route/activation.
+Next: private receipts, remediation, actual legacy bridge/API/UI; raw legacy JSON/
+ZIP without namespace/claim manifest still needs coordinated conversion. Current
+browser/Windows2022/Node22/package/service/Server2019R02 unrun. **Full Wallet/M1/master
+incomplete.** No release/tag/VPS access or deployment.
+
+**Previous continuation — W03 partial:** source `cccffdceafdc8bf5e5cc82e587c84d2f7cc5d5af` adds
+explicit native Wallet1/2/3→4 shared backup conversion and standalone2/3/4→5.
+I01 historical inspection is read-only and does not admit an old snapshot to
+restore; the full converted target must pass the unchanged current gate. Money,
+provenance/FX/fees, UUID receipts, legacy/settings/media stay intact; unknown facts
+remain null, unrecoverable quotes reject, converted old native Wallet stays off.
+
+Cloud6716tests/358files/matchingJUnit/0failed-skipped-todo, Wallet377/19;
+35targeted, all6681parent retained; lint/build0. LOCAL SELF4paths0C/0I/0M,
+no correction/rereview, not independent.
+[Detail](wallet-backup-conversion.md), [proof](evidence/w03-native-backup-conversion-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No conversion
+route or activation. Current browser/Windows2022/Node22/package/service/Server2019R02
+unrun. Next: pre-Wallet0 shared/legacy backup conversion, private receipts and actual
+legacy bridge before API/UI/cutover. **Full Wallet/M1/master incomplete.** No release/VPS.
+
+**Previous continuation — W02/W03 partial:** source `eb481df16ec10e9fd32ab80f1b87853ef0608ec7` adds
+explicit storage4/standalone5, durable mapping/checksums/quarantine and metadata-only
+legacy debt/savings links. Repeat import creates0; source/pilot/mapping/count/run
+drift conflicts; native failure rolls back all money/audit/receipts. A guarded
+internal service validates a persisted safety backup and rechecks current Admin
+and source after the async gap and inside I01; reports use bounded keyset pages.
+
+Cloud6681tests/356files/matchingJUnit/0failed-skipped-todo, Wallet342/17,57new cases;
+all6624parent retained. Lint/build0. LOCAL SELF15paths0C/1I/0M, duplicate-run finding
+fixed RED→GREEN/full, one fix pass/no rereview/not independent.
+[Detail](wallet-durable-migration.md), [proof](evidence/w03-durable-migration-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No production
+migration route/backup port, HTTP/UI, activation or cutover. Receipt refs remain
+pending. Current browser/Windows2022/Node22/package/service and Server2019R02 unrun.
+Next: explicit old-backup conversion, private receipt enforcement, quarantine
+remediation and actual legacy bridge before API/UI/cutover. **Full Wallet/M1/master
+remains incomplete.** No release/tag/VPS access or deployment.
+
+**Previous continuation — W03/W05 partial:** source `9f8537a643a0e6253ec43b3ba2998bea7fb6f212` adds a typed legacy
+projection and fresh scoped batched reads. Only representable VND rows become old
+DTOs; visible unsupported classes have explicit coverage, corrupt shapes error,
+hidden rows never contribute counts. Known timestamps/creator/identity/revision
+are preserved; unknown time is not invented. Existing single-leg type edits now
+reverse direction correctly without reinterpreting transfer/trade records.
+
+Cloud6624tests/353files/matchingJUnit/0failed-skipped-todo, Wallet285/14 in full
+run,38targeted legacy cases; lint/build0. All6586parent retained+38. LOCAL SELF
+5paths0C/0I/0M/no correction/rereview in that review pass, not independent.
+[Detail](wallet-legacy-projection.md), [proof](evidence/w03-legacy-projection-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No actual migration,
+HTTP/UI/activation/legacy cutover. No new browser run; current Windows/Node22/
+package/service and Server2019R02 unrun. Next: durable W03 mapping/quarantine and
+old-backup conversion, private receipts and writer bridge before API/UI/cutover.
+**Full W02/W03/W04/W05/Wallet/M1/master remains incomplete.** No release/tag/VPS.
+
+**Previous continuation — W05 partial:** source `6837a52a20810ab7041ef3577a665054d8055e65` adds manual income/expense/
+adjustment and balanced/external/FX transfers with separate fees, atomic edits/voids,
+revision/idempotency and current ACL before cache/inside I01. Real shared restore
+rewinds receipts with money state; native faults roll back both transfer and fee.
+Existing fee history is preserved; unchanged FX quote provenance is retained.
+
+Final Cloud6586tests/351files/matchingJUnit/0failed-skipped-todo, Wallet247/12 in
+full run,47targeted record cases; lint/build0. All6539parent retained+47. Initial
+6585run passed tests but failed lint2/build not run; final source corrects that
+and one Important LOCAL SELF finding via RED→GREEN plus full suite. Author review
+4paths0C/1I/0M, one fix pass/no rereview, not independent.
+[Detail](wallet-record-core.md), [proof](evidence/w05-record-command-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No HTTP/UI,
+activation or legacy cutover; existing finance stays active. No new browser run.
+Current Windows/Node22/package/service and Server2019R02 unrun. Next: W03 durable
+migration/adapter and W02 private receipts, then API/UI and linked lifecycle/type
+compatibility before activation. [Wallet checklist](wallet-feature-checklist.md).
+**Full W02/W03/W04/W05/Wallet/M1/master remains incomplete.** No release/tag/VPS.
+
+**Previous continuation — W02 partial:** source `3a44a4fd23af6aba31eaa85b6494acef5fb45bce` adds immutable per-transfer
+FX amounts/rational/as-of/source and FK-linked separate expense fees in explicit
+migration3. v1/v2 remain frozen/supported; standalone2/3/4 map to domain1/2/3.
+Transfer legs, rate agreement, fee shape and parent void/current consistency are
+checked before writes/maintenance; shared I01 owns the only restore transaction.
+
+Full Cloud6539tests/349files/matchingJUnit/0failed-skipped-todo; Wallet200/10 within
+full run (198targeted before two final cases), lint/build0. All6493parent retained+46;
+one future-case title made version-neutral with sentinel4, all assertions retained.
+LOCAL SELF12paths0C/0I/0M/no correction/rereview in that review pass, not independent.
+[Detail](wallet-financial-relations.md), [proof](evidence/w02-financial-relations-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No activation,
+HTTP/UI, provider or workflow change. No new browser run. Current Windows/Node22/
+package/service and Server2019R02 unrun. Next: W05 record/transfer commands and
+remaining W02 receipts/entities/W03 migration, before API/UI/cutover and final gates.
+**Full W02/W03/W04/W05/Wallet/M1/master remains incomplete.** No release/tag/VPS.
+
+**Previous continuation — W04/W05 partial:** source `372433eee99ce6d62b463deb05c09299f8e9e34c` adds fresh role/grant
+ACL, SQL scoping before financial bodies, partial-transfer redaction and account
+create/update/archive commands with trusted actor/time, revision/idempotency and
+atomic audit. Exact book/cleared balances and credit debt/availability/rational
+utilization handle signed64 limits and zero limits without rounding or clamping.
+
+Full Cloud6493tests/347files/matchingJUnit/0failed-skipped-todo; Wallet154cases/8files
+within full run. All6425parent retained+68 (29access/39account); lint/build0.
+LOCAL SELF5paths0C/0I/0M/no correction/rereview in that review pass, not independent.
+[Detail](wallet-account-core.md), [proof](evidence/w04-w05-account-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. GitHub read access
+works; no PR/Actions run exists on this development branch. New modules are not
+wired to HTTP/UI, no activation or legacy cutover; existing finance remains active.
+No browser run for this backend slice. Current Windows/Node22/package/service and
+Server2019R02 unrun. Next: remaining W02 financial relations, W03 migration and
+W05 records/transfer/UI, then remaining M1/Wallet/final gates.
+**Full W02/W03/W04/W05/Wallet/M1/master is not complete.** No release/tag/VPS.
+
+**Previous continuation — W02 partial:** source `43e9cdb04f6adb58d10b9714d39a3251a04aad8b` adds explicit additive migration2
+for account/record/catalog/audit metadata. Frozen migration1 and standalone protocol2
+remain supported; extended standalone protocol3 maps to Wallet domain2. I01 remains
+the sole transaction/restore owner. Nullable credit limits, exact signed64 amounts,
+unknown historical time/actors and pre-maintenance validation are preserved.
+
+Full Cloud6425tests/345files/matchingJUnit/0failed-skipped-todo;86targeted Wallet
+cases; lint/build0. All6379parent cases retained+46. LOCAL SELF13paths0C/0I/0M,
+no correction/rereview in that review pass, not independent. Development RED/GREEN
+failures and corrections are retained in evidence. No dependency/workflow change.
+[Detail](wallet-core-metadata.md), [proof](evidence/w02-core-metadata-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No new browser run
+for backend-only work; prior UI evidence keeps its own source binding. Current
+Windows/Node22/package/service and Server2019R02 remain unrun. Next: independent
+W04 account access and core commands, then remaining W02 entities/private attachments,
+W03 durable migration/cutover and W05 UI; remaining M1 UX/final gates still apply.
+**Full W02/Wallet/M1/master is not complete.** No release/tag/VPS.
+
+**Previous continuation — W02 partial:** source
+`2496a3b4d4ecd06a80854d5ff24017b6d8ca4f87` rejects unknown Wallet record creators,
+unknown audit actors and cyclic category graphs before restore writes; module
+export applies the same known-user provenance. Shared I01refusals occur before
+maintenance or any SQL/legacy mutation. Known deleted/restricted historical users,
+12000-category valid restore and exact signed64 money remain supported.
+
+Full Cloud6379tests/343files/matchingJUnit/0failed-skipped-todo;40targeted Wallet
+cases; lint/build0. All6369parent tests retained+10. One LOCAL SELF3paths0C/0I/0M,
+no correction/rereview, not independent. Frozen migration1/DDL/protocol2/default
+activation/dependencies/workflows/finance behavior unchanged.
+[Functional detail](wallet-snapshot-provenance.md) and
+[compact proof](evidence/w02-snapshot-provenance-development.json).
+
+PR URL/CI run URL:none; branch:`codex/feature-first-acceptance`. No new browser
+run for this backend validation slice; M1's last10+1browser result stays bound to
+its own3560source. Current Windows/Node22/package/service and Server2019R02 remain
+unrun. Next: W02full schema/entities/attachment manifest, W03migration, W04account
+ACL then W05core; remaining M1P09/P17/P18 and final Windows remain tracked.
+**Full Wallet/M1/master is not complete.** No release/tag/VPS.
+
+**Previous continuation — P08/P09/P10/P17/P18 partial:** source
+`3560e03693233c4542800230ff3e12a63da8e02c` adds Workflow/grouped pointer drag into the
+existing explicit P10/selected-dimension confirmations, visible-only overlay and
+retained default auto-scroll. Readonly/stale/foreign/canceled operations are
+rejected; multi-tag visual IDs do not duplicate Task writes.
+
+Full Cloud6369tests/343files/matchingJUnit/0failed-skipped-todo, lint/build0;
+actual Chromium C18/C24/C35/C36/C48/C50/C53–C56 plus retained native touch10+1first
+attempts/offline/integrity/native-close/cleanup. All6300parent cases retained+69.
+C55asserts native auto-scroll, cancel/no writes, child actual Review/zero points
+and one adult35point grant with UUID replay; C56preserves secondary tag/timed due/
+lifecycle/rewards, dark/reduced-motion/390px. One LOCAL SELF14paths0C/0I/0M,
+no correction/rereview, not independent. Original54case and touch bodies retained.
+[Functional detail](kanban-workflow-group-drag.md) and
+[compact proof](evidence/m1-cross-drag-development.json).
+
+Development branch:`codex/feature-first-acceptance`; PR URL/CI run URL:none.
+No new Windows run or protection changes. Full56-case browser/Firefox/WebKit,
+dedicated new-kind touch/current Windows/package/service and Server2019R02 remain
+unrun. Main M1 core is developed in Cloud; full M1/master remains incomplete.
+Next main-feature work: Wallet W02/W03/W04 then W05 core, preserving legacy finance.
+Board pins/filtered-out feedback/semantic undo and remaining P17/P18 acceptance
+stay tracked in [M1 checklist](m1-feature-checklist.md); they are not waived.
+No release/tag/VPS access/deployment.
+
+**Previous continuation — P08/P09/P17/P18 partial:** source
+`d481c2d1297c88b8155ef68b9a0593664cdd7a6f` adds owned Kanban view title/group/sort/filter
+editing, explicit conflict rebase/unknown UUID replay, same-lane active Workflow
+ordering and pure grouped rank preserving timed deadlines and secondary tags.
+Current authenticated catalog scope is published before pins so fast grant
+restoration cannot resurrect a revoked creation/view draft.
+
+Full Cloud6300tests/341files/matchingJUnit/0failed-skipped-todo, lint/build0;
+actual Chromium C22/C24/C36/C40/C44–C54 plus native touch15+1first attempts,
+offline/integrity/native-close/cleanup. All6185parent tests preserved+115new;
+original48browser bodies retained. One LOCAL SELF review0C/1I/0M; Important fixed
+after two correction iterations, no independent-review/rereview claim.
+[Functional detail](kanban-view-preferences-and-order.md),
+[compact evidence](evidence/m1-view-order-development.json) and
+[M1 remaining checklist](m1-feature-checklist.md).
+
+Development branch:`codex/feature-first-acceptance`; PR URL/CI run URL:none.
+Backup push leaves Windows deferred until feature readiness; protection unchanged.
+Full54-case browser/Firefox/WebKit/current Windows/package/service and Server2019
+R02 remain unrun. Next: grouped/Workflow drag and remaining main M1 board
+interactions, then Wallet core in master order. Full M1/master remains incomplete;
+no release/tag/VPS access/deployment.
+
+**Previous continuation — P08/P09/P17/P18 partial:** source
+`e7c7c7d4af0e06075ef701e2caa41807c431bcbb` adds atomic board/view creation,
+confirmed Section/Workflow-Todo quick-add and Section manual-rank UI. Cloud
+6185tests/334files/matchingJUnit/0failed-skipped-todo; lint/build0; actual Chromium
+C22/C36/C40/C44–C48 plus native touch8+1first attempts/offline/integrity/close/cleanup.
+All6108parent cases preserved+77new. Revocation→restore privacy regression is
+causally fixed; initial401control and all development failures retained.
+One LOCAL SELF31source0C0I0M/no correction/no rereview, not independent.
+See [functional detail](kanban-creation-and-order.md) and
+[compact proof](evidence/m1-kanban-creation-development.json).
+
+Development branch: `codex/feature-first-acceptance`; new PR URL and CI run URL:
+none. Verified workflow triggers allow a feature-branch backup push without a PR
+or Windows run. No merge/release/tag/VPS. Full M1/master remains incomplete. Next:
+view editing/group/sort preferences and remaining Workflow/grouped rank/drag UX;
+complete M1 acceptance before Wallet core. Final Windows and R02 remain unrun.
+
+**Earlier local feature checkpoint:** source
+`fc8851afcc8e623f9e05853a598b0fb329fe0648` adds ordered rotation, bounded
+historical recurrence preview correction and manager WIP policy UI. Full Cloud
+6108tests/330files/matchingJUnit/0failed-skipped-todo; lint/build0; eight actual
+Chromium journeys plus one native touch pass, with offline/integrity/close/cleanup
+evidence. The initial C44 pending-owner failure is retained and causally fixed.
+One LOCAL SELF31source0C0I0M/no correction/no rereview; not independent. See
+[functional checkpoint](m1-feature-development.md) and
+[compact evidence](evidence/feature-first-m1-development.json).
+
+PR/CI URLs for these new changes: none (local-only commits, no new Windows run).
+Windows/Firefox/WebKit/full44-case browser qualification is deliberately deferred
+until the feature group is ready. Required merge protection is unchanged. Next:
+remaining M1 board/view creation, quick-add and manual card ordering UX, then the
+complete M1 checklist and Wallet core. Full M1/master and R02 remain unfinished.
+
+Feature-first local development: column settings PR136 is composed by a normal
+merge, without publishing a new CI run. Ordered rotation now has numbered draft
+controls, keyboard earlier/later/removal and unavailable-member placeholders in
+all three locales. Historical count-exhausted previews retain moved in-bound
+exceptions without widening the supported ordinal limit. Actual RED checkpoints
+were corrected; targeted Cloud suites, lint/build and the real C43 Chromium
+save/drawer/preservation journey plus native touch passed. Full group suite and
+final Windows qualification remained pending then; see the newer6108-test result
+above. No full-M1 completion claim.
+
+User directs feature-first development: finish and functionally test the main
+flows in Cloud, then perform comprehensive Windows qualification at the end of a
+feature group. Follow [feature-first validation](feature-first-validation.md).
+Do not push every intermediate commit or repeatedly qualify unchanged inputs.
+Required merge protection, all assertions and final Windows checks remain intact.
+
+Current remote main is `3d2eb8a1dc9f0aa315400925ae23ef852b003d67` (PR134 merged).
+PR136 remains open at `7e59abd0c682acf4dba80a7830e54c7e2e052a33`;
+[Windows38987528125](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38987528125)
+reports all eight checks successful. This status check did not independently
+revalidate its raw reports and does not claim final acceptance or merge. Main134's
+separate failed WebKit checkpoint is not a passing main run.
+
+Next: complete the remaining M1 Kanban/recurrence/rotation functional flows and
+their Cloud regressions, then Wallet core in approved dependency order. Preserve
+logical reviewable commits; perform Windows qualification before merge/handoff.
+Full master plan and Server2019/R02 remain unfinished. No release/tag/VPS.
+
+## Historical checkpoint — 2026-10-16 (UTC)
+
+**Toàn bộ master plan chưa hoàn thành.** F01–F09/I01, P01–P07 và W01 đã được nghiệm thu. P08/P09/P10 và W02 mới hoàn thành một phần; các milestone sau còn tiếp tục. Chưa release/tag/truy cập hoặc deploy VPS; Server2019/R02 chưa chạy.
+
+- Trước đó đã merge: [PR133](https://github.com/DongVienNguyen/Family-Organizer/pull/133), tested `7e269a27203cf3fe465aa735441026b732c37d15`/[Windows38951751434](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38951751434):8checks/12raw, mỗiNode5647tests309files/JUnit/0failed-skipped,151first attempts. Merge `0cbcebaf01870a3658568289637ebb99e113e63f` có tree API/Git khớp tested source. Main133 [38954280024](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38954280024) cũng đã được đọc/nghiệm thu độc lập. `evidence/p09-section-drag-final.json`, `evidence/main133-final.json`.
+- Workflow→Done tái dùng P10 trong cùng transaction I01, kiểm Review/WIP thật, rollback Task/position/points/notification/receipt. UI giữ note và UUID sau lỗi mạng,409 reload giữ draft rồi đòi preview mới; child→Review/0points, adult approve đúng một grant. Các transition khác chưa hoàn thành. Main132 [38948365214](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38948365214) cũng đã được nghiệm thu riêng:8checks/12raw/5597tests306files mỗiNode/JUnit/148first attempts;138logs/27248lines/16expected synthetic/0unexpected. `evidence/main132-final.json`.
+- Windows ZIP schema13 accepted [PR131](https://github.com/DongVienNguyen/Family-Organizer/pull/131)/[38939939300](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38939939300):14checks/9server+9native/3refusals; positive/already-disabled, pending proof, one grant, UUID/restart, ordinary/encrypted restore, Wallet int64/board/Matrix và old12/future14/drift. Main13138942486406 cũng đã đọc độc lập. Default6,15frozen migration definitions và dependencies không đổi; bằng chứng `p10-cutover-package-final.json`, `main131-final.json`.
+- Active Workflow/Review [PR134](https://github.com/DongVienNguyen/Family-Organizer/pull/134) đã merge: tested`2926cf05485a4ec55bb9e8af65452d63b8606497`/[Windows38980734716](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38980734716), merge`3d2eb8a1dc9f0aa315400925ae23ef852b003d67` tree API/Git khớp tested. All8checks/13validators,5911tests321files/JUnit mỗiNode,163first attempts,138logs28176lines/16expected/0unexpected. Các transition Active/Doing/Waiting và child Review/adult reject/approve đã kiểm; toànP08/P09/P10 vẫn chưa hoàn thành. Main13438982351399 FAILED:6checks đạt, WebKit lỗi, ci-gate còn pending trong jobs API; haiNode5911/321 đạt,38WebKitpass/1failC36 tại45s.8artifacts/132logs28356lines đã lưu/đọc; `evidence/main134-failed-checkpoint.json`. Không nghiệm thu. Trace cho thấy tổng10API operations của haiUIlogin≈11748ms và ba transition200 trước deadline; sửa setup phiênsynthetic có giới hạn, giữ assertions/timeout/retries. `evidence/p08-active-workflow-final.json`.
+- CI concurrency [PR135](https://github.com/DongVienNguyen/Family-Organizer/pull/135) đã merge: tested`31568c033ac373b1577074a82565a53b2520d9da`/[Windows38977366988](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38977366988), merge`943d958aa09387e89de5815a454e7af26a9edb57` tree API/Git khớp.8checks/13validators/5727tests312files/JUnit mỗiNode/151first attempts. Main[38978840520](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38978840520) cũng được nghiệm thu độc lập. Chromium1/Firefox2/WebKit2 có map source/raw bắt buộc; hai checkpoint03/ac lỗi giữ lịch sử. `evidence/ci-workers-final.json`, `evidence/main135-final.json`.
+- P09 Section column settings đang chuẩn bị PR riêng: tạo/đổi tên/thứ tự/lưu trữ toànSection, bảo vệNone, giữ UUID/body sau delivered200 mất acknowledgment và đọc lại. Đã ghép accepted134/135; giữ39cases cũ và thêmC40–C42.204related tests/lint/build đạt; cleanfull6032tests326files/JUnit/coverage/0failed-skipped-todo, full42Chromium+touch trước sessionrepair và4changedjourneys+touch sau repair đều đạt; Windows4dee/run38984107559 FAILED on synthetic session setup; corrected newHEAD pending. `kanban-column-settings.md` và evidence phát triển ghi kết quả thật trước push.
+- Để giảm thời gian chờ, dùng2Vitest forks; Chromium1/Firefox2/WebKit2 với stores độc lập và đầy đủ fixtures; Windows vẫn kiểm toàn bộ42cases/engine và combinednativeTouch. Raw validators độc lập chạy tối đa4workers với logs/exit riêng và phải đạt tất cả. Thu artifacts/main độc lập trong lúc làm source tiếp; không bỏ assertions, tăng timeout, thêm test retries hoặc rerun CI nguồn không đổi.
+
+| Nhóm task | Trạng thái | Phần tiếp theo |
+| --- | --- | --- |
+| F01–F09/I01 | Đã nghiệm thu | Server2019 thuộcR02 riêng |
+| P01–P07 | Core đã nghiệm thu | Pilot/rollout toàn module thuộcP18/I03 |
+| P08/P09/P10 | Một phần đã nghiệm thu; ưu tiênM1 | Column settings đang kiểm; WIP settings/quick-add/rank/UX còn lại và tổng nghiệm thuM1 |
+| P11–P16 | Chưa nghiệm thu | Calendar/collaboration/notes/focus/habit/dashboard |
+| P17/P18 | Có kiểm tra UX/privacy/browser hỗ trợM1; toàn task chưa xong | Preferences/PWA/cross-view E2E/Windows benchmarks/rollout |
+| W01 | Đã nghiệm thu contracts | Consumers thuộcW02–W18 |
+| W02 | Storage pilot/shared recovery một phần | Entities/fields/migrations còn lại |
+| W03–W18/I02/I03 | Chưa nghiệm thu | Wallet/integration/nghiệm thu toàn hệ thống |
+| R01–R03 | Chưa nghiệm thu toànplan | Candidate sauM5; release/tag/VPS chưa được cấp quyền; R02 chưa chạy |
+
+## Historical checkpoint — 2026-10-15 (Asia/Saigon)
+
+**The complete master plan is not finished.** FoundationF01–F09/I01 andP01–P05 are accepted. P05-b2b UI completedPR84/exactWindows90browsercases; P06-a pure Matrix calculations are acceptedPR85/exactWindows38721237685. P06-b authoritative Matrix commands/schema6 are acceptedPR86/exactWindows38728596365. P07-a client transport/preview state is acceptedPR87/exactWindows38732904923. P07-b Matrix UI/editor/accessible drag is acceptedPR88/exactWindows38753326627; fullP07 core accepted. P08-a pure Kanban policies acceptedPR89/exactWindows38756565653. P08-b1 shared-board storage candidate acceptedPR90/exactWindows38759442203. P08-b2 canonical writer invariant acceptedPR91/exactWindows38761727248. P08-b3 explicit schema7/recovery acceptedPR92/exactWindows38764042491. P08-b4 shared configuration/internalHTTP acceptedPR93/exactWindows38766687039. P08-b5a semantic8 saved board references acceptedPR94/exactWindows38770160853. P08-b5b actualZIP8 proof acceptedPR95/exactWindows38779169472. P08-b6 private-safe internal board projection acceptedPR96/exactWindows38784093844. P08-b7 transactional section/rank moves and audited WIP acceptedPR97/exactWindows38791522921. P08-b8 canonical column layout/archive and native OS clock acceptedPR98/exactWindows38801246440 (3926tests217files perNode22/24/all8/TENraw). P10-a semantic completion seam acceptedPR99/exactWindows38803964672 (3959tests220files perNode22/24/all8/TENraw). P08-b9 normalized grouping acceptedPR100/Windows38807765119 andP08-b10 selectedfieldmoves acceptedPR101/Windows38811185059. P08-b11 persistedtag format9 acceptedPR102/Windows38816654445. P10-b linked semanticcompletion claims/reopen acceptedPR103/Windows38819252790. F08-o1 sourcepolicy compatibility acceptedPR104/Windows38820965949. F08-o2 currenteight-family/generatedfixture collector acceptedPR105/Windows38827263260; main readonly candidate38830095228 and promotion-preparation38830446139 independently verified without publication. F05 first-tick clock PR106 accepted; P08 saved sorts PR107 accepted. P08-b13 grouped rank ordering PR108 accepted; P10-c1 calendar arithmetic PR109 accepted; F05 Windows port-policy PR110 accepted; F09 serializable browser routing PR111 accepted; current P10-c2 timed recurrence arithmetic PR112 pending exact-HEAD Windows. FullP08/P09/P10 remain unfinished. F08 promotion source-policy grammar is updated; currenteight-family/generatedfixture adaptation passed exactWindows; livecollector replay is verified for explicitmain180c64a; newer feature artifacts require their own target-bound qualification. Publication remains failclosed. W01 contracts/W02-a pilot/W02-b1 shared runtime are accepted; fullW02 andlaterWallet tasks remain pending. R02/R03 actualServer2019/VPS/reboot/off-host/load remain unrun and unauthorized.
+
+| Work | Current evidence / remaining step |
+| --- | --- |
+| Accepted foundation | [PR66](https://github.com/DongVienNguyen/Family-Organizer/pull/66) squash `d59193b81fcd58febad4601f847b820bad4b802a`, independently same tree as tested `cd2a704e8dbdfe169c56c7b06cb92469f641ea4e` |
+| Exact PR Windows evidence | [CI38444771190](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38444771190): all7 checks/eight independently read raw report families, each Node22/24 2835 tests/139 files and45 first-attempt browser cases. Final compact evidence: `evidence/f09-n-final.json` |
+| Main push CI | [CI38446600910](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38446600910): all7success, REST14-file logZIP shows2835/139 each and45 browsers; main raw artifact families not independently revalidated |
+| F05 enforcement | `main` protected; required `ci-gate` is bound to GitHub Actions/app15368, enforcement everyone. Owner explicitly confirms required PR/up-to-date/no bypass. Detailed Administration API remains403; distinguish observed fields from owner confirmation in `evidence/f05-owner-enforcement.json` |
+| Legacy regression | Assistant/health/calendar/documents/search/dashboard/notifications/feature flags and earlier flows accepted in PR60–66. Original assertion/rerun failures and review rulings retained. Calendar uses split B12 real create/ICS/detail and B15 canonical API fixture/reload/realUI edit; continuous export→edit session not checked. Original native Caddy/context-close causes remain unknown despite later passing checks |
+| P01 accepted | [PR67](https://github.com/DongVienNguyen/Family-Organizer/pull/67) merged `7c41768fb9ca5847b8310da51824e396695a4806`, same tree as tested `1e57b8972acd69ea7ec7ffe8b316e9231c509c06`. [CI38495877156](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38495877156): all7/eight raw readers, each2899/142 and45first-attempt browser cases. ONE0C2I2M/one correction pass/no rereview; two Important3actualRED→GREEN. Historical midnight rollback and extreme9999-year Minor findings deferred. Initial3025/CI38494971189 auto-cancelled on source update, browser/servicecancelled+gatefailure; all7 artifacts/logs and6partial rawreader passes retained, overall not accepted |
+| P02-a accepted pilot slice | [PR68](https://github.com/DongVienNguyen/Family-Organizer/pull/68) merged `e5cc13c456a59f8faf2744602af4d174c64f5ea9`, same tree as tested `580fd5538a1319052dc8473c37951b0be708b064`. [CI38499969795](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38499969795): all7/eight independently read raw families, each2918/144 and45 first-attempt browsers; ONE0C4I3M/onepass10actualRED→GREEN/no rereview. FullP02 not complete |
+| P02-b1 accepted storage slice | [PR69](https://github.com/DongVienNguyen/Family-Organizer/pull/69) merged `d3209eea818ff7eaf6624b12ad6783faba826e20`, same tree as tested `8e56cb79f9a72552009fa3611418ddc2f827603f`. [CI38506513159](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38506513159) all7/eight independently read raw families/both2942/147/45first-attempt. ONE0C4I1M/allImportant fixed/one correction pass/no rereview; append-order Minor deferred. Initial9a07/CI38505132763 retained as superseded checkpoint |
+| P02-b2 accepted | [PR70](https://github.com/DongVienNguyen/Family-Organizer/pull/70) merged `82fcadd9d64f167e548bf17bd3c8d162a53eebd3`, same tree as tested `3013c43f3be389e5fa11ecb4e98aa46fdfeccb46`. [CI38511969825](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38511969825) all7/eight raw readers/both2963/147/45first-attempt. Compiled Windows consumer repaired malformed current JSON, preserved DELETE-journal bytes on3refusals and sparse2-table core; exact productivity1 bounds/fixture exclusion verified. ONE0C2I1M/one correction pass/no rereview; phase-log retention Minor deferred |
+| P02 accepted | PR71 https://github.com/DongVienNguyen/Family-Organizer/pull/71 merged3103935caf55d3df644ff99e0c672b31bbea994e, tree equals testedfb918cba9cbf1a425332a4a40e1a4c550e78be3a. CI38514157059 https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38514157059 all7/eight raw readers/both2968tests/148files/45first-attempt browsers. Four active legacy characterizations and mandatory gate; ONE0C0I2M/zero correction/no rereview. Isolated snapshot fixture and rejection audit assertion Minors deferred. Full P02 storage/compatibility accepted; controlled rollout remains P18-owned |
+| P03-a accepted | PR72 https://github.com/DongVienNguyen/Family-Organizer/pull/72 mergedb03700159a8eb8a076aeae2d140d0cc39f452d6a, same tree as tested0fef720656befa9d6f849017c8fbf7bc74a4b07f. CI38517238271 https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38517238271 all7/eight raw readers/both2997tests/151files/45first-attempt browsers. ONE0C0I3M/zero correction/no rereview; history order/internal malformed ID/null defaults Minors deferred. Internal ACL/commands accepted, P03-b surfaces still pending |
+| P03 accepted | PR73 https://github.com/DongVienNguyen/Family-Organizer/pull/73 merged5b9547724ea52745459488bcb07eca54da4ca0ad, same tree as testedcbbd5994121f2747e377833768e610e552e83ca7. CI38526387751 https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38526387751 all7/eight raw readers/both3035tests/153files/45first-attempt browsers. ONE0C3I1M/one source correction/one native fixture isolation repair/no rereview. Three Important fixes verified; original successfulf522 checkpoint, failed/cancelled19fc and interruptedCloud130 retained. Existing semantic comments/once-only grants/public balances rulings stand; literal old status row backslash-n Minor deferred. FullP03 domain/internal routes/privacy accepted; default rollout P18-owned |
+| Read-only release handoff | Historical PR61 candidate38414439837/promotion38414445312 independently read; publication/tag/release false |
+| R02/R03 | Actual Server2019/build17763/reboot/off-host/load/RPO/RTO not-run. Windows2022 is not R02. No release/tag/VPS access or deployment authorized/performed |
+
+P04-a accepted: PR74 https://github.com/DongVienNguyen/Family-Organizer/pull/74 mergedcdab57bf55471ce718d98bc0d366bb51b9f3bf32, same tree as tested722f738f6ca3409047625e38facaaa1d1f0f6ec1. CI38536131696 https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38536131696 all7 checks/eight independently read raw families, each Node22/24 3073tests/157files and45first-attempt browsers. ONE review0Critical/3Important/3Minor, all Important fixed in one pass with three native RED→GREEN regressions; no rereview. Initial733eca successful checkpoint superseded, original Cloud failures retained. Deferred tag discoverability/free-form compatibility/legacy UUID labels remain P04-b owned before new UI acceptance. Compact proof: evidence/p04a-final.json.
+
+P04-b1 accepted: PR75 https://github.com/DongVienNguyen/Family-Organizer/pull/75 mergedb0e77c78d9c662f317f4a567221784c3fc2d438a, same tree as tested94fefb3336821f789addee7a421b595aaefd965b. CI38542280289 https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38542280289 all7 checks/eight independently read raw families, each Node22/24 3114tests/158files and45first-attempt browsers. ONE0Critical/1Important/1Minor, one correction pass/no rereview; nine task-driven catalog regressions passed both runtimes. Mutable narrative hash Minor explicitly deferred; source/test integrity is intact. Compact evidence: evidence/p04b1-final.json.
+
+P04-b2 accepted: [PR76](https://github.com/DongVienNguyen/Family-Organizer/pull/76) merged `356d1cf1cda27232869b378724e77a92d8e8c348`, same tree as tested `936c47d0618adaaa4105932204fd2d300a18da25`. [CI38552567604](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38552567604) all7 checks/eight independently read raw families, each Node22/24 3142tests/161files and45first-attempt browsers. ONE0Critical/2Important/2Minor, one correction pass/no rereview; partial tag drafts preserve captured IDs across rename/catalog refresh, quoted comma names round-trip, unchanged duplicate groups retained. Initial7e7d successful CI superseded; original reports retained. Activation future3 duplicate-key regression Minor explicitly ownedP04-b3; current independent future4 inspection/compiled refusal valid. Ownership3/frozen1/2/tag role/authorized legacy labels accepted, fullP04/shared drawer/cache/keyboard/phone still pending. Compact evidence: evidence/p04b2-final.json.
+
+W01 accepted: [PR77](https://github.com/DongVienNguyen/Family-Organizer/pull/77) merged `49541772bae733815334f67f3be063810f48cb20`, same tree as tested `0fb45e3ec8be0fb47a45bebe93465de53c974aab`. [CI38554745020](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38554745020) all7 checks/eight independently read raw families, each Node22/24 3157tests/164files and45first-attempt browsers. ONE0Critical/0Important/2Minor, zero correction/no rereview. Extreme localized effective-date range Minor is W03/W12-owned; explicitnull filter default Minor W06-owned, no active Wallet consumer. Pure money/date/filter contracts accepted, no Wallet database/routes/UI/activation/dependency changes. Compact evidence: evidence/w01-final.json.
+
+Historical P04-b3 development branch codex/p04-shared-task-drawer, BASEacceptedW01 main49541772bae733815334f67f3be063810f48cb20. Shared draft/cache development target25/3 passed (16neweditor/cache and9activation guards). Six editor cases first6/5causalRED (one throw characterization already passes scaffold), cache10/10RED→16/2GREEN. Activation guard regression9/1RED→9GREEN proves guard is reached using future4 and explicit error; duplicate-key falsepositive repaired. Shared drawer/real canonical DOM/keyboard/phone/pin controls, full suite/review/exact Windows acceptance pending; fullP04/P05 remain incomplete.
+
+Deferred review Minor findings stay deferred; original failed reports are retained. P04 and W01 are accepted; P05-a is accepted below, while fullP05 continues with persisted views/index/HTTP/UI. W02 storage remains a partial pilot. P18 owns controlled rollout/flag enablement. No repeated merge permission is needed.
+
+## Earlier integration checkpoints — through PR46
+
+| Task | Current result | Evidence |
+|---|---|---|
+| F01–F03 | Reviewed, exact Windows GREEN, merged | PR1–3; historical entries below |
+| I01 | Gateway, durable jobs and shared recovery integrated | PR4–6 |
+| F04-a | Sessions/key rotation/loopback merged | PR7 HEAD8af9efe; Windows38157656295,352/352 per runtime |
+| F04-b | Reviewed, exact Windows GREEN, merged PR8 | HEADe24825d; run38161521729,436/43651files per runtime |
+| F04-c | Reviewed, exact Windows GREEN, merged PR9 | HEAD8cce8ee/run38165065503;512/51256files per runtime |
+| F04-d | Reviewed, exact Windows GREEN, merged PR10 | HEADa86857a/run38167640833;572/57257files per runtime |
+| F04-e | Reviewed, exact Windows GREEN, merged PR11 | HEADc2b0f88/run38171963503;664/66463files per runtime |
+| F04-f | Reviewed, exact Windows GREEN, merged PR12 | HEAD8aa5299/run38174580999;762/76266files per runtime |
+| F04-g | Reviewed, exact Windows GREEN, merged PR13 | HEAD7a46a62/run38177081124;860/86069files per runtime |
+| F04-h | Reviewed, exact Windows GREEN, merged PR14 | HEAD63ef3ad/run38179151696;918/91871files per runtime |
+| F04-i | Reviewed, exact Windows GREEN, merged PR15 | HEADe22b542/run38180187720;938/93872files per runtime; main26953ea |
+| F04-j | Reviewed, exact Windows GREEN, merged PR16 | HEADcc45fe8/run38182693480;978/97873files per runtime; maine41e97d |
+| F04-k | Reviewed, exact Windows GREEN, merged PR17 | HEADd614a78/run38185059520;1026/102674files per runtime; main6be5cd5 |
+| F04-l | Reviewed, exact Windows GREEN, merged PR18 | HEADcbc677bea9c0b3dc6b1f7267417290f5d6257400; run38186890169;1080/108076files per runtime; mainc24486b |
+| F04 remaining | Provider/backup/log privacy, dependency and final proxy/browser gates pending | F04 checklist remains incomplete |
+| F05-a | Reviewed, exact Windows GREEN, merged PR19 | HEAD1697bf939a57e7a463a95ea8141c30a4368822b7; run38190289782;1146/114678files per runtime,7checks0/audit0/22proof;15browser first-attempt cases, full artifact hashes verified; mainb0f9a01 |
+| F05-b | Reviewed, exact Windows GREEN, merged PR20 | HEAD27e0691f92ba6e5ccbcfa39af3fbf4d9fdaf4a04/run38193519702;1222/80 each runtime;8checks0/audit0/22compiledproof;15first-attempt browsers;104coveragefiles;main01b9a21 |
+| F06-a | Reviewed, exact Windows GREEN, merged PR21 | HEAD8271d1337e2b239d3772346edcf1754a0dc8fa50/run38195122408:1248/81 both8checks0/audit0/23proof/seven incompatible schemas;15first-attempt browsers/104coverage files;main8a898259cc1fd9d1e66921e480614c6be14c057c |
+| F06-b | Reviewed, exact Windows GREEN, merged PR22 | HEAD15081a7a99f922dd4102fcfcb73a9b983eb0bce5/run38199047306:1320/82 both8checks0/audit0/23proof/sevenincompatible schemas;15browsers/104coverage; ZIPproducer+cleanconsumer4557files/236deps/26malicious+Unicode/11functionalproofs;maind353c7b |
+| F06 current | Package producer/clean consumer/license gates pass in latest accepted PR45 | HEADc9a73b440cee3878da0757b01d1da21b30e50174; CI38346070865; package ZIP2e881f94480c7404fd709f437c51852ed0f7e7f2593461323d63deddbb313d1f; f09-d-final.json |
+| F05 enforcement | Blocked by actual Administration write denial | Latest restored-environment ruleset/protection requests403; f05-restored-environment-enforcement.json; not an approval-review rejection |
+| F07 / Caddy current | Native service/coordinator/recovery and Caddy synthetic TLS checks pass on Windows2022 | Latest PR45 all7; f09-d-final.json; reboot/offhost/real Server2019 remain unrun |
+| F08 current | Runtime/audit/raw coverage collector source reviewed, exactWindows passed and merged; live check pending | PR46 HEAD3716f8098653802e6f7672f754b24f879546e87d/CI38349619086 all7+seven rawvalidators0; fullcollector/publication incomplete |
+| F09 current | Eight existing UI flows/24 first-attempt cases accepted; other regression rows/acceptance incomplete | PR45 merged edb09e0d03a12648a6b245fef621d5ab009b7ff8; CI38346070865; full2250/114 each runtime |
+| P/W/I02–I03 | Pending foundation acceptance | No new domain features enabled |
+| R01–R03 | Preparation pending; actual release/tag and VPS actions unauthorized | No VPS access or deployment |
+
+Entries below are historical snapshots; later entries supersede earlier remaining-work lists and runtime choices. All51 master tasks are not yet complete. The user authorizes reviewed exact-HEAD Windows-GREEN PR merges without another question.
+
+## F01 — Baseline/Windows CI bootstrap
+
+- Repo: `DongVienNguyen/Family-Organizer`, base `main`, branch `codex/f01-windows-baseline`.
+- Source checkout SHA: `68cb753c13c35e13dd120b217040aa12365e3b40`;
+  planning baseline `b2c26516c6d6c6cc3edf3e83391eb84cfaa2cd91`; diff chỉ7tài liệu.
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/1 (merged theo phê duyệt riêng của user ngày11/10/2026).
+- Last verified Windows HEAD: `d9935772551d71f4e3b893772990685219360799`.
+- CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38134448734
+  (PR, attempt1, success); both Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0
+  on Windows2022/x64/image20261004.326.1: install/native/lint/tests127/build/evidence
+  success, ci-gate success, zero failed/skipped. Logs và JUnit/JSON artifacts đã đọc.
+  Immutable bootstrap summaries: `evidence/f01-bootstrap-node22.json`, `...node24.json`.
+- Native addon11.10.0/SQLite3.49.2: Node22 prebuiltABI127; Node24 compiledABI137,
+  node-gyp12.4.0, VS2022 17.14.37710.0. Runtime default được chọn/pin Node24,
+  types24.19.2 và npm11.19.0; addon giữ exact11.10.0, bỏ duplicate Vite devDependency
+  nhưng giữ production import. Lockfile cập nhật, không upgrade toàn bộ dependency.
+- Verified runtime/gate commit: `b03765da4d1fb44028d002f87bc7f908acd68a12`.
+  CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38135149119
+  (PR, attempt1, success). Both Windows jobs install/native/lint/tests138/build/evidence
+  success; ci-gate success;11test files, zero failed/skipped. VS pin và action versions
+  mới đã chạy thật. Full logs/JUnit/JSON/native reports đã download/read. Summary và
+  report SHA256: `evidence/f01-validated-toolchain.json`.
+- Các SHA/run trong file này là snapshots đã kiểm chứng trước commit cập nhật tài liệu.
+  Commit tài liệu cuối vẫn cần cùng CI trên HEAD mới; xem exact HEAD/run ở PR checks
+  và comment evidence cuối của PR. Không gán báo cáo parent SHA cho documentation HEAD.
+- Review: phát hiện gate chấp nhận native metadata sai hoặc suite rỗng.11 regression
+  tests RED→GREEN; toàn suite138/138 Cloud Node24, lint/build/native và npm ci đạt.
+  Gate giờ require mỗi baseline suite, consistent totals, native runtime/ABI/OS/addon/hash/checks.
+- Source corrections: updater đúng repo; SQLite close idempotent, fixture cleanup không
+  nuốt lock errors. Tests synthetic/temp cwd/offline fetch; Telegram delivery mocked.
+- GitHub API/log/artifact proxy requirements đã thêm vào environment draft và xác minh
+  đọc được. Không cấp thêm secrets. Cloud install/start instructions được lưu riêng;
+  draft save không phải publication hoặc nghiệm thu task mới.
+- Remaining: chunk >500kB warning (F09); DATA_DIR/scripts F02; lifecycle/Docker updater
+  F03; auth/media F04; HTTP/browser/full regression F05/F09; I01 snapshot/gateway;
+  Windows packaging/service/release F06–F08; WinSW/Caddy selection pending F07.
+- Not-run: HTTP integration, E2E, full app/service/package/restore/performance suites,
+  Server2019 acceptance R02. CI2022 không chứng minh R02. Không VPS access/deployment,
+  release/tag hoặc merge; Matrix/Kanban/Wallet features chưa bắt đầu.
+- Review finding đã sửa RED→GREEN, toàn suite138/138 đạt cả Cloud và Windows; không
+  có Critical finding. Quyết định giữ addon11.10.0 có chi phí compiler trên builder;
+  F06 phải dùng Windows binary trong ZIP. Không deferred code defect mới trong F01.
+- F01 baseline/CI/runtime pin đã được chứng minh; toàn giai đoạn F01–F09/I01 chưa xong.
+  Tool/service package checksum/compatibility phần WinSW/Caddy vẫn phải xác minh ở PR
+  service/package, không hứa Server2019-ready. Không dùng binary tải không có kiểm chứng.
+- Next sau review/merge PR này: F02 scripts/path configuration (DATA_DIR absolute,
+  Unicode/spaces/CWD cases); rồi F03 lifecycle và I01 theo dependency. Không tự bắt đầu
+  features hoặc deployment. Required-status ruleset `ci-gate` enforcement thuộc F05.
+
+## F01 — Final artifacts recovered and authorized merge
+
+- Exact final PR HEAD `198e50aee8dd7e8944ceb91bfc0d9cc384abcdcc`; run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38135532244.
+- Final JUnit/JSON/native/evidence ZIPs now downloaded and independently read:138passed tests/11files per runtime, zero failed/skipped, exact SHA. Previous proxy download blocker resolved in this environment session. Hash summaries: `evidence/f01-final-head.json`.
+- User authorized merge **only PR #1**; squash main commit `903e6401f33fa08ad8b95fc3e4865dff27fa45c0`.
+- Main CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38137109865 reports success for that exact merge SHA. No subsequent PR merge, release/tag or VPS permission granted.
+
+## F02 — Native scripts / config roots (implemented; awaiting PR review/merge)
+
+- Branch `codex/f02-native-paths`; BASE/main `903e6401f33fa08ad8b95fc3e4865dff27fa45c0`. PR #2 and verified Windows results are recorded below. Intermediate results remain historical snapshots.
+- Implemented source: stable code/data/config/log roots; production absolute external DATA_DIR; selected configRoot dotenv; actual write checks; rooted media/DB/settings/updater/static assets. Corrupt legacy JSON fails instead of silently seeding a new family.
+- Native clean/changelog scripts; old Bash release removed and release command explicitly disabled. Explicit offline copy migration has dry-run/report/backup, SQLite staging, integrity/hashes, source preservation and refusal of overlapping/existing/linked targets. See `native-paths.md`.
+- Initial implementation moved Vite and its two build plugins to devDependencies after lazy-loading development Vite. Production-only install previously retained tsx via Vite's optional peer. Subsequent native/version and i18next changes are recorded below; the final lockfile includes those changes.
+- Cloud RED: root/scripts/migration contracts; corrupt legacy import; provider .env must not change launch roots/NODE_ENV; production evidence missing/wrong SHA/checks. GREEN whole suite161tests/14files, lint/build (before final CI/reviewer updates). Do not interpret Cloud as Windows.
+- Windows CI adds production-only clean layout, System32 cwd, static/PWA/login/legacy IDs/restart, ACL-denied write startup, blocked external providers, explicit exit/log/evidence and finally process/ACL/file cleanup. Final execution results are below.
+- Real SQLite finding: readonly opens create source WAL/SHM. Migration opens only a private copied database, keeps original source untouched. This offline copier does not replace the online snapshot engine required by I01.
+- Remaining/unrun: portable ZIP F06; graceful lifecycle F03; HTTP/browser/full regression F05/F09; service/online restore F07/I01; R02 Server2019; release/VPS gates remain unauthorized. Existing chunk-size warning stays F09.
+- Next after F02 review/merge: F03 lifecycle/telemetry/remove Docker updater. Later PRs require review; do not silently merge to advance the plan.
+
+### F02 — PR/review and first actual Windows failures
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/2 (open; do not merge without review/authorization).
+- First Windows HEAD `92621a84cd7d2f6e0d622ab23511dba754ebdf98`; run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38138220750 failed. Logs read: Node24 unit worker native ObjectWrap abort (156passed of161;13of14files); both production smokes rejected retained TypeScript; ci-gate correctly failed. No pass claim for that SHA.
+- Root cause isolated: i18next optional TypeScript peers remain under production install; browser i18next packages moved to devDependencies. SQLite11.10.0/Node24.21.0 failed allocation-driven statement GC (SIGABRT), matching nodejs/node#65446. Pin13.0.3 N-API to remove the ObjectWrap path; retain Node22/24 pins. Lockfile removes obsolete native prebuild-install dependencies and adds node-addon-api; no unrelated major upgrades.
+- New deterministic native-GC regression RED on11.10.0 → GREEN13.0.3; actual loaded native binary is hashed rather than assuming old build/Release location. Cloud SQLite3.53.4. Windows startup/native/GC compatibility rerun pending.
+- Fresh review: three Important path/migration findings (Windows root-relative paths, report alias via ancestor junction, invalid JSON-only migration) addressed with RED→GREEN tests. Restart smoke strengthening also requires a post-import mutation survive restart, not merely the same legacy JSON read twice. See `f02-review-and-decisions.md`.
+- The failures above were intermediate results. Verified corrected results are below; next PRs await user review and separate merge approval. Full plan is not complete; no release or VPS access.
+
+### F02 — Verified corrected Windows implementation
+
+- Verified source HEAD: `f622ded54d3d71d02998f617edde7d0629d80420`.
+- CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139108034 (PR, attempt1, success); both Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0, `ci-gate` success.
+- Each runtime: `npm ci`, native SQLite probe, `npm run lint`, `npm test`, `npm run build`, production-only System32 smoke all success with individually recorded exit code0. JUnit and Vitest JSON independently confirm175passed/16test files, zero failures/errors/skipped/todo. No assertions removed, retry masking, continue-on-error or lowered chunk threshold.
+- Full logs and both artifacts downloaded/read. Immutable evidence/report hashes: `evidence/f02-validated-source.json`; exact documentation HEAD/run is additionally recorded in the PR evidence comment after its own CI, avoiding assigning parent-SHA reports to a newer commit.
+- Native: exact better-sqlite3 13.0.3, N-API10, SQLite3.53.4; both runtimes load `prebuilds/win32-x64.node`, SHA256 `e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a`. Allocation-driven GC regression and existing SQLite/backup/migration tests pass. Historical F01 ObjectWrap evidence remains unchanged.
+- Production fixture: no source TypeScript/dev dependencies; Unicode/spaces external roots, actual `C:\Windows\System32` cwd, static/PWA/login/legacy IDs; new task write persists after restart while legacy JSON stays unchanged. Real ACL denial yields expected EPERM/fail-fast, then ACL/process/file cleanup succeeds. External providers blocked, no attempted real delivery, only synthetic data.
+- Fresh whole-branch review findings fixed in one RED→GREEN pass; full Cloud Node24 suite175/175, lint/build/native and production-only fixture also pass. Decisions and costs: `f02-review-and-decisions.md`.
+- Remaining/unrun: F03 graceful jobs/HTTP/DB lifecycle and Docker-updater removal; I01 online snapshot/restore; F04 auth/media; F05/F09 full HTTP/browser/E2E/regression/performance; F06 actual portable ZIP; F07 service; R02 Server2019. Existing >500kB chunk warning remains for F09. No full-phase or Server2019 acceptance claim.
+- Next: review and separately authorize merge of PR #2, then F03 from the merged main SHA. Only PR #1 has merge permission. All51 master tasks remain tracked by the approved plan; F02 implementation is verified, not merged. No release/tag/VPS access or deployment.
+
+## F02 — Authorized merge / F03 baseline
+
+- User explicitly authorized merge only PR #2 and continuation to F03.
+- PR #2 final HEAD `fe6b3ece85142e650e2ac20d6806056930792940`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139609734 success. Downloaded/read both exact-HEAD artifacts:175/175tests16files each, six exit checks0, production/System32/ACL/native13 success. Final hashes recorded in PR evidence comment https://github.com/DongVienNguyen/Family-Organizer/pull/2#issuecomment-6109078173.
+- Authorized squash main SHA `d178b170838cea44a10f83014681c240239156e4`. Main CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38139931589 reports success for that merge SHA.
+- F03 branch `codex/f03-native-lifecycle`, BASE `d178b170838cea44a10f83014681c240239156e4`. No later merge/release/VPS authority.
+
+## F03 — Lifecycle / telemetry / Docker runtime removal (implemented; awaiting PR review/merge)
+
+- Factory with injected legacy dependencies; explicit storage bootstrap/bind; readiness/liveness/maintenance gates. Bounded idempotent drain handles accepted bodies, async requests after disconnect, SSE, active maintenance, jobs and detached push callbacks before native close.
+- Shared AppJobs process registry, namespaced/serial schedules and pause/resume without startup replay. I01 durable lease/retry/outbox remains pending. CLI stdin stop supports Windows graceful tests; POSIX signals retained. Actual WinSW wiring F07.
+- Native os/process/statfs(DATA_DIR) metrics, unsupported temperatures/load clearly null/UI text. App apply/restart/Immich management routes/jobs/UI/mailbox writers removed; readonly version and configured external-service links retained. Documentation updated; release remains disabled.
+- RED→GREEN: registry/metrics/factory/lifecycle/effects/readonly version/UI; maintenance ownership/partial body; required lifecycle CI evidence. Real source process stop/restart/crash preserves synthetic HTTP writes and legacy input; native files rename/clean up. Initial Cloud suite206/206 in23files and Windows run38141305196 at5f4c451 passed, but independent review subsequently found ownership defects. Do not use that result as acceptance of the corrected implementation.
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/3. Fresh review found four Important ownership and two Minor behavior errors; one RED→GREEN fix pass protects initialization handles, process ownership, independent bounded disposal/storage closure and non-mutating unavailable readiness, plus birthdays and parser status. See `f03-review-and-decisions.md`.
+- Corrected Cloud Node24 suite216/216 in24files, lint/build and compiled production-only graceful/restart/crash/offline/write-obstruction fixture pass. Local fixture is labeled working-tree-f03-review-fixed and is not Windows/exact-SHA evidence. Corrected Windows CI remains pending until the fix commit is pushed and verified. No dependencies changed in F03, so lockfile remains unchanged.
+- Unrun: I01 online snapshot/restore, full HTTP/domain/browser/performance F05/F09, portable ZIP F06, service F07, Server2019 R02. Existing >500kB bundle warning remains F09, threshold unchanged.
+- Next after F03 review/merge: I01 gateway/migration/snapshot using this same jobs/store lifecycle. Only PR #1/#2 merges approved so far; PR F03 must wait for review and separate merge approval. Full51-task plan remains incomplete; no release/tag or VPS access/deployment.
+
+### F03 — Verified corrected Windows implementation
+
+- Task F03, PR https://github.com/DongVienNguyen/Family-Organizer/pull/3, branch `codex/f03-native-lifecycle`, BASE/main `d178b170838cea44a10f83014681c240239156e4`.
+- Corrected verified source HEAD `89f99c85dbdb73545758438ef1e85cf4f5bdc293`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38142346992, attempt1, success. Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 on Windows2022 x64; `ci-gate` success.
+- Each runtime: npm ci/native SQLite/npm run lint/npm test/npm run build/compiled production smoke all success, six individually recorded exit codes0. Independent JUnit/JSON reads confirm216passed in24files, zero failed/errors/skipped/todo. Full logs and both artifact sets downloaded/read. Source snapshot and every report/log SHA256: `evidence/f03-validated-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 load/CRUD/transaction rollback/WAL backup/integrity/file cleanup and allocation-driven GC pass on both runtimes. Loaded Windows binary SHA256 remains `e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a`.
+- Real malformed-schema regression observes the native connection closed before rejection, then renames/deletes fixture files while the process remains alive on Windows. Duplicate/concurrent starts cannot dispose the running store; original owner still reads/writes/closes. Maintenance readiness never mutates its storage. Disposal reject/timeout still attempts safe native close after owner drain; undrained owners retain storage and report failed shutdown.
+- Compiled production-only layout: System32 cwd, Unicode/spaces external roots, real ACL-denied fail-fast/EPERM, preserved legacy IDs/session/settings and post-import task writes. Four launches/three graceful stdin stops plus abrupt crash/recovery; actual native files/ACLs/processes cleaned up. Providers blocked and synthetic data only. This is not a portable ZIP or WinSW/Server2019 acceptance.
+- Four Important/two Minor whole-branch review findings addressed with one RED→GREEN fix pass; no deferred review code defect. Rulings/costs: `f03-review-and-decisions.md`. Earlier206-test green run remains historical and is explicitly superseded by this correction.
+- Evidence above belongs to the source SHA, preceding this documentation commit. The final documentation HEAD must also pass the same Windows CI; its exact SHA/run and report hashes are recorded in PR checks and the final evidence comment, avoiding self-referential commits or attributing parent reports to a newer SHA.
+- Remaining/unrun: I01 online gateway/migration/snapshot/restore; F04 auth/media/privacy; F05/F09 full browser/domain/performance; F06 portable ZIP; F07 service/WinSW; R02 Server2019. Existing bundle-size warning remains F09, limit unchanged. F03 changes no dependency or lockfile.
+- Next: review PR #3 and separately authorize its merge, then I01 from merged main. Only PR #1/#2 merges have authorization. Full51-task plan is not complete; release/tag and all VPS access/deployment remain unauthorized.
+
+- Dependency audit limitation: Windows install logs report13 findings for the development install and6 for production. A separate Cloud `npm audit --omit=dev --json` returned exit1 with10 affected package entries (4 moderate/4 high/2 critical, including inherited Express severity from proxy-addr), no automatic fixes offered. Registry audit metadata differs by query time; preserve each actual result. Snapshot: `evidence/f03-production-audit.json`. F04 must triage affected paths/updates before Internet readiness; F03 CI is not security acceptance. Lockfile is unchanged by this audit.
+
+### F03 integration and I01-a in progress
+
+- F03 PR #3 final HEAD `9009a66e79c878c45a0929948429215815407a6b` passed exact Windows run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38142720657 (Node22/24, each216tests24files, all6exit checks +ci-gate). Squash merged as `06657385b15543840cee51c6da60f8fadba1daa5`.
+- User now authorizes all reviewed, exact-CI-verified PR merges without another question. Prior historical permission gates above are superseded. Release/tag and VPS access/deployment remain forbidden.
+- I01-a PR https://github.com/DongVienNguyen/Family-Organizer/pull/4; branch `codex/i01-storage-gateway`, BASE `06657385b15543840cee51c6da60f8fadba1daa5`. Twelve intentional RED tests at HEAD `27d9ee323cf2793c0fa3a4a19b42c4946c3fc4b8` failed on both Windows runtimes in https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38145312689; logs/artifacts downloaded/read. Install/native/lint/build/production passed; test/evidence/gate failed, as expected for RED.
+- Shared same-handle synchronous write gateway, idempotent results/409 conflicts, authenticated actor context, changed-collection persistence/conflict refusal, transitive audit of74legacy writers, atomic canonical reward claim/reversal adapter and explicit pilot migration registry implemented. Request bodies are hashed; retry results are stored under the existing database ACL. New domains remain absent/version0.
+- Cloud Node24 whole suite232/232tests27files passed; lint/build verification follows source commit. No dependency changed; lockfile unchanged. Additional schema/ownership and reward regressions observed RED→GREEN. This is development evidence, not Windows acceptance.
+- I01-a review/Windows GREEN pending. I01 remains incomplete: snapshots/media/filesystem recovery, persistent jobs/leases/retry/outbox and worker-aware restore belong to the next focused I01-b PR, followed by F04/F05. F06 package, F07 service, F09 browser/performance and R02 Server2019 remain unrun. Baseline dependency audit findings remain F04. Full51-task plan is not complete.
+
+### I01-a corrected implementation awaiting exact Windows verification
+
+- First source `361eeab5aaf97d1246dc3589af4a603ad665615f`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38145880020: bothNode22/24passed232/232tests27files, all6exitchecks0+gate. Full logs/two artifacts independently checked; hashes in `evidence/i01-a-first-source.json`. This evidence predates review fixes.
+- One fresh review found3Important+1Minor; typedHTTP409 was re-graded Important for the specified conflict contract. One fix pass added7failing regressions, then corrected async/thenable migration rollback, savepoint baseline publication only after the outer COMMIT, retry lookup before callback-internal task/note/document optimistic checks, and pure common HTTP4xx/error ports. Access checks remain before commands. No deferred review minors; decisions/costs in `i01-a-review-and-decisions.md`.
+- Corrected Cloud Node24:239/239tests28files, zero failed/skipped/todo, lint/build success. No dependency/lockfile change. The fixed exact source SHA/Windows run follow in the next verification entry; do not attribute first-source reports to this corrected code.
+- I01-a PR #4 remains draft pending corrected Windows checks. After verified review/merge, execute I01-b snapshots/leases/retry/outbox, then F04/F05 and remaining master milestones. Full I01 and all51tasks remain incomplete; no release/tag/VPS performed.
+
+### I01-a — verified corrected Windows source
+
+- Task I01-a, PR https://github.com/DongVienNguyen/Family-Organizer/pull/4, BASE `06657385b15543840cee51c6da60f8fadba1daa5`, corrected source HEAD `3a75f74be75f72f7196681b8b823f89bec9166db`. Windows2022 x64 run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38146607782, attempt1, success.
+- Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each passed npmci, native SQLite, lint, npmtest, build and compiled production smoke: all6individual exitcodes0. Each JUnit/JSON report239passed28files, zero failed/errors/skipped/todo. `ci-gate` success. Full logs and both complete artifact sets downloaded/read and independently validated; report hashes in `evidence/i01-a-corrected-source.json`.
+- This includes the seven review regressions and typedHTTP conflicts/authenticated retries, migration async/thenable rollback and outer rollback/retry baselines. Native13.0.3/N-API10 binary matches the previously verified Windows hash. Production-only layout, System32/Unicode roots, real ACL denied startup, preserved legacy/session/settings, post-import writes, graceful stops/restart/crash recover all pass.
+- Four Important findings fixed in one RED→GREEN pass; no deferred minors. Earlier232-test GREEN remains historical; all corrected claims refer to3a75f74. Dependency audit and bundle warnings remain F04/F09, not hidden or lowered. No dependency/lockfile change.
+- Source evidence precedes this documentation commit; final documentation HEAD also requires exact Windows CI. Its SHA/run/report hashes will be in PR checks and final evidence comment, avoiding self-referential commits. User authorizes verified/reviewed merge without another question.
+- Next immediately after PR #4 merge: I01-b consistent snapshots/worker-aware restore, file staging/recovery and persistent jobs/leases/retry/outbox. These tests remain unrun; whole I01 remains incomplete. F04–F09/domain/integration/release preparation follow master order. Server2019 R02/service/package/browser/performance remain separate unrun gates. No release/tag/VPS performed or authorized.
+
+### I01-a integrated; I01-b durable jobs starts
+
+- I01-a PR #4 squash merged as `ab83299eb91760dcdebde571ed852d14fdb0b76e`. Final PR HEAD `55b045ba2a389946b74cbb8faae1c07bd666a6b2`, exact Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38146942115: Node22/24 each239tests28files, six command exit checks0, ci-gate success. Full artifacts/logs independently read/verified. Final evidence: https://github.com/DongVienNguyen/Family-Organizer/pull/4#issuecomment-6110042686.
+- Corrected report task labels from F03 to I01-a; SHA/run/test/exit/native/production facts and report hashes are unchanged. A post-verification convenience-key lookup errored and the shell continued to the authorized merge after exact checks and independent reports had already passed. Sequential verification/mutation scripts now stop on any bookkeeping error.
+- I01-b BASE `ab83299eb91760dcdebde571ed852d14fdb0b76e`, branch `codex/i01-durable-jobs`. Separates durable namespace/key/lease/retry/outbox ownership from the subsequent I01-c snapshots/file journal/recovery/HTTP coordinator so each PR has a focused review range. No domain feature flag enabled. Whole I01 remains incomplete until I01-c acceptance.
+- Seven durable queue regressions added before implementation: atomic effect+points rollback, namespace dedupe/conflict, two lease owners/fencing, bounded retries/backoff, unknown external outcome, crash retry without duplicate reward, and restore policy preserving only future schedules. Targeted Cloud RED observed; exact Windows RED follows in draft PR.
+- Next: implement storage port on the existing AppJobs registry and legacy notification delivery; then I01-c, F04/F05 and remaining master milestones. No release/tag/VPS.
+
+### I01-b implementation, awaiting review and Windows GREEN
+
+- Task I01-b, PR https://github.com/DongVienNguyen/Family-Organizer/pull/5, branch `codex/i01-durable-jobs`, BASE `ab83299eb91760dcdebde571ed852d14fdb0b76e`. Intentional RED source `e4ccca1b990edcc8163ea8dfd1712fc9530d3f4e`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38147654737: both239existingtests passed, seven newtests failed at stub ports; lint also exposed a test-helper inferred UUID type corrected before GREEN. Logs/bothartifacts downloaded/read.
+- Persistent jobs/outbox share the existing gateway/connection/registry; canonical key dedupe, renewable fenced leases, attempts/backoff, stable command IDs and explicit unknown external outcomes. Ownership checks fence business SQL before commit. Legacy push references enqueue with their notification and delivery revalidates recipients; provider failures propagate, bounded calls and detached-alert cleanup remain owned. Restore policy drops historical work but is not yet wired to I01-c snapshots.
+- New fixtures observed RED→GREEN:8queue/fence,3durable registry,2push outbox,3bounded push provider,2scheduled provider failure tests. Cloud Node24 whole suite257/257tests33files, lint/build pass; exact Windows GREEN pending source commit. No dependency/lockfile change. No real providers, notifications or AI calls in tests.
+- One local shell-wrapper run printed7passed but exited1; direct targeted rerun exited0 and later full suite passed257. Preserve this ambiguity and final explicit exit-code/Windows proof, not an inferred success from printed tests.
+- I01-b review/Windows verification pending. Next after verified authorized merge: I01-c snapshot/recovery/coordinator, then F04/F05 and remaining milestones. Full51-task plan remains incomplete. No release/tag/VPS.
+
+### I01-b — First Windows GREEN and reviewed correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/5, base/main `ab83299eb91760dcdebde571ed852d14fdb0b76e`.
+- First source `f9bbdc00eba6f49247309a14014047d98638f3f2`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38149368740: both Windows2022 x64 Node22/24 jobs and ci-gate success. Independently downloaded/read logs, JUnit/JSON/native/production artifacts:257/257 tests33files each, no failed/skipped, npmci/native/lint/test/build/production exit0. Snapshot/hashes `evidence/i01-b-first-source.json`.
+- One review found four Important defects; one RED→GREEN pass addresses daily/weekly unknown delivery replay, cleanup certainty, cached-bootstrap compatibility and push transport total deadline/cancellation. See `i01-b-review-and-decisions.md`. Corrected Cloud265/26534files, lint/build separately; source/final exact-HEAD Windows verification pending push. No dependency change; lockfile unchanged.
+- Remaining: I01-c WAL/domain/media/version snapshot, HTTP/job drain and filesystem journal/recovery. Whole I01 remains incomplete. F04 auth/privacy/audit; F05/F09 browser/coverage/performance; F06/F07 packaging/service; R02 Server2019 are not run by this PR. No release/tag/VPS.
+- Next: exact corrected Windows checks, read artifacts, merge authorized PR #5 after acceptance; continue I01-c from merged main.
+
+### I01-b — Corrected Windows acceptance
+
+- Corrected source HEAD `79c46aec9e51126ebce03ee7031c1e003a06f362`; PR https://github.com/DongVienNguyen/Family-Organizer/pull/5; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38150238422 success.
+- Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: each265/265 tests34files, zero failed/skipped/todo, npmci/native/lint/test/build/production exit0; ci-gate success. Both full logs/artifacts downloaded and independently read; JUnit/JSON/native/production/report hashes in `evidence/i01-b-corrected-source.json`.
+- All four Important findings fixed in one RED→GREEN pass. Owned request deadline/cancellation is tested through actual synthetic loopback sockets; no real provider/AI calls. No dependency/lock change. Existing bundle warning and dependency audit remain their F04/F09 gates.
+- This documentation commit needs its own exact-HEAD run; final evidence comment on PR #5 will record that SHA/run before authorized merge. I01-c snapshot/recovery/restore remains next; no whole-I01, service, portable ZIP or Server2019 completion claim. No release/tag/VPS.
+
+### I01-b integration / I01-c RED baseline
+
+- PR #5 final HEAD `f8bf7d625292b920a24b4640b221e189d19939f7`; exact Windows CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38150500165 independently proved265/26534files per Node22/24, all6exit checks0+ci-gate. Evidence comment https://github.com/DongVienNguyen/Family-Organizer/pull/5#issuecomment-6110505226. Authorized squash merge `fb583fe82348ba5299c60d03a18c1d7b72412c1a`.
+- I01-c branch `codex/i01-shared-snapshot`, baseline/main `fb583fe82348ba5299c60d03a18c1d7b72412c1a`; baseline delta is the reviewed I01-b queue/outbox/provider implementation. No unrelated branch change.
+- Start synthetic acceptance tests for consistent WAL legacy/Wallet/points/media/version snapshot, invalid-input refusal, historical-effect restore policy, accepted-worker drain and filesystem rollback. Ports are explicit RED stubs; they are not a completed implementation. Windows RED run follows before source implementation. Whole I01 remains incomplete; release/tag/VPS forbidden.
+
+### I01-c — Snapshot/coordinator implementation for review
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/6, branch `codex/i01-shared-snapshot`, base/main `fb583fe82348ba5299c60d03a18c1d7b72412c1a`.
+- Windows RED HEAD `4d8017043cf69e64ad4673a9dd83a1c24923c6d6`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38150822113: both runtimes265existing tests pass/nine new snapshot tests fail at explicit stub. Full logs/artifacts independently read; no intentional skip or continue-on-error.
+- Same-handle WAL snapshot with legacy/domain/points/versions and immutable media; trusted table registry/checksums/path validation; named provider/session secrets excluded from settings. ZIP/JSON restores await the shared maintenance/gateway, keep their accepted owner through disconnect, use a native safety copy and self-checksummed journal/SQL marker; startup recovers before readiness. Historical effects/leases drop, explicit future schedules retained. Six process-crash boundary tests; encrypted recovery and power-loss/service acceptance remain F07/R02.
+- Snapshot read results cache only a marker, reject a mutating callback and require fresh read IDs; business/restore idempotency preserved. Original writer assertions retained with explicit awaited async-coordinator/no-local-writer audit. Public service links preserved; old ZIP/JSON accepted only pre-domain/claim cutover. See `shared-snapshots.md` for rulings/limits/costs.
+- Cloud Node24 tests300/300 in38files, zero failed/skipped; lint/build checked separately. No dependency/lock change. Exact source Windows CI and fresh whole-branch review pending push; full I01 is not yet accepted. All providers synthetic/offline; no real notifications/AI, release/tag/VPS.
+- Next: review complete branch, fix graded findings with regressions, verify exact Windows logs/artifacts and merge under existing authorization; then F04/F05 and remaining master milestones. Full51-task plan remains incomplete.
+
+### I01-c review fix pass
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/6; BASE `fb583fe82348ba5299c60d03a18c1d7b72412c1a`. First source `af8961f93ef4f000bfacb8f252b6bf8cfb366fc3` and exact Windows run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38153439050 independently verified: Node22/24 each300/300 tests38files, install/native/lint/test/build/production exit0, ci-gate success. Reports/hashes: `evidence/i01-c-first-source.json`.
+- Fresh whole-branch review found six Important issues, no Critical/Minor: imported backup traversal/deletion; incompatible journal bound; retained absent public settings; unstable legacy ZIP identity; file-backed retry relying on restored metadata; suppressed HTTP409. One fix pass adds11 regression cases, observed RED then GREEN, whole Cloud311/31138files; lint/build exit0 recorded separately. Corrected source and final documentation HEAD must pass Windows before merge.
+- Decisions and detailed regression evidence: `i01-c-review.md`. No assertion/skip/threshold change, no dependency/lock change, no real provider calls. Journal regression first failed its size precondition; expanded fixture then independently observed the actual reader rejection before implementation. Backup metadata reconciliation preserves local ordinary JSON references while rejecting imported paths.
+- I01 remains pending corrected/final exact Windows acceptance and PR integration; F04 starts immediately afterward, followed by F05–F09 and master domain milestones. Server2019 R02, browser/performance, service/encrypted recovery, package and future-domain cold restore remain unrun gates. No tag/release/VPS access or deployment.
+
+### I01-c corrected source verified on Windows
+
+- Corrected source HEAD `7473483486e7499ed169ca3208a4d3fdbabf0adc`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/6, exact Windows2022 x64 run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38154465590: Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each311/31138files, zero failed/skipped/todo, all six command exits0, ci-gate success. Full logs and both artifact sets downloaded/read; JUnit/JSON/native/production and hashes independently validated in `evidence/i01-c-corrected-source.json`.
+- All six reviewed Important findings fixed in one pass; no minors deferred or re-review. Production-only layout/System32/Unicode paths, ordinary native addon hash, real ACL denied startup, legacy preservation/restart/graceful/crash checks pass. No dependency/lock change.
+- This documentation commit still requires exact-HEAD Windows acceptance before merge; final SHA/run proof will be linked in PR evidence rather than self-referential commits. Full I01 integration remains pending that check/merge. Next F04-a internal expiring/revocable sessions and loopback binding; F04-b/c complete media/object/cache/privacy/input/dependency gates before F04 acceptance, then F05–F09 and master milestones. No release/tag or VPS access/deployment.
+
+### I01 integrated; F04-a sessions starts
+
+- I01-c PR https://github.com/DongVienNguyen/Family-Organizer/pull/6 squash merged as `ba69b09cd32d391487c67e345c76ce3bd08971d1`. Final HEAD `898a18504de14c72789938d8701696edb16108f5`, exact Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38154731628: Node22/24 each311/31138files, install/native/lint/test/build/production exit0, ci-gate success; all logs/artifacts and JUnit/JSON/native/production independently verified. Final evidence https://github.com/DongVienNguyen/Family-Organizer/pull/6#issuecomment-6111074950. Transient GitHub503 recovered; guards prevented merge until final artifacts were read.
+- I01 implementation slices a/b/c now integrated. Domain features remain off; future domain cold-restore, service/power-loss/encryption and privacy acceptance belong their declared later tasks.
+- F04-a BASE `ba69b09cd32d391487c67e345c76ce3bd08971d1`, branch `codex/f04-revocable-sessions`: internal Bearer expiry/native revocation/logout/password/role invalidation/key rotation and loopback binding. Twenty-two initial synthetic tests RED at explicit unimplemented auth/store ports; Windows RED to be observed before implementation. F04-b/c follow for media/object/cache/privacy/input/dependency acceptance; F04 is incomplete until all slices pass.
+- No integration/scoped tokens, domain features, release/tag or VPS access/deployment. Cloud startup instructions saved with current lifecycle/merge constraints; saving does not publish an environment.
+
+### F04-a implementation for review
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/7, BASE `ba69b09cd32d391487c67e345c76ce3bd08971d1`. Initial exact Windows RED `17932af41f5ef2f3ce941f4a8edf4cb824b683c9`/https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38155413684 independently read:311 existing passes22 new port failures, no skips, install/native/lint/build/production exit0 on both runtimes; gate correctly failed.
+- Pure injected internal authentication, native hashed opaque sessions/12-hour expiry/persisted revocation/user versions/key generations. Logout; password/reset/delete/role invalidation in the same gateway; committed restore revokes local sessions. Old tokens require one login again. Configured key corruption fails closed; runtime/default listener bind127.0.0.1. Client clears login immediately and attempts bounded logout; password change clears login.
+- Twenty-six auth/store tests GREEN, eight actual HTTP tests GREEN (seven observed security RED, forwarded-header throttling characterized), three client cases and two missing-production-proof gates RED→GREEN. Loopback RED→GREEN. Existing factory/gateway/retry/drain/restore assertions retained with issued-token fixtures and re-login after restore. No dependency/lock update.
+- Final source Cloud351/35142files, lint/build exit0 after the default-listener regression. Exact source/final Windows remain pending. Compiled production probe now requires token restart/isolated logout evidence. Source review must be fresh and whole-branch; no merge until final exact-SHA logs/artifacts are verified. Details/limits in `native-sessions.md`.
+- F04-a is an auth slice; F04 remains incomplete until media/object/cache/SSE/privacy/input/dependency and browser gates. No release/tag or VPS access/deployment; Server2019 R02 is separate.
+
+### F04-a first Windows verification and review correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/7; first source HEAD `54df708c4c6765cb31dda4901bbde2343d84c2e5`, exact Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38156912516 independently verified: Node22/24 each351/351 tests42files, zero failed/skipped/todo, install/native/lint/test/build/compiled-production exit0; ci-gate success. Full logs and both artifacts/JUnit/JSON/native/production/hashes read; `evidence/f04-a-first-source.json`.
+- Fresh whole-branch review found one Important idle-startup signing-key rotation defect, no Critical/Minor. One fix pass: three-process regression observed old token HTTP200 instead of401; explicit auth initialization now persists generation before readiness, GREEN401 after reverting the prior key. Pure factory construction remains free of storage/key I/O. Details/rulings: `f04-a-review.md`.
+- Corrected Cloud Node24 full suite352/35242files, zero skipped, lint/build exit0. No dependency/lock change. Corrected source/final documentation HEAD still require exact Windows verification before authorized merge; first-source evidence is historical.
+- Next F04-b/c media/object/cache/SSE/privacy/input/dependency gates plus F05 browser proof. Full F04/foundation/master plan remain incomplete; Server2019 R02/service/package/encryption/performance remain unrun. No release/tag or VPS access/deployment.
+
+### F04-a corrected Windows source acceptance
+
+- Corrected HEAD `67831edaa6f2980f05307cb485492931ae5c1fb1`; PR https://github.com/DongVienNguyen/Family-Organizer/pull/7; exact Windows2022 x64 CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38157389074 success.
+- Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: each352/352 tests42files, zero failed/skipped/todo, npmci/native/lint/test/build/compiled-production exit0; ci-gate success. Both full logs/artifacts independently read, JUnit/JSON/native/production/hashes validated in `evidence/f04-a-corrected-source.json`. The three-process idle key-rotation regression is included.
+- One Important review finding fixed in one RED→GREEN pass; no minors or dependency/lock changes. This documentation HEAD still needs exact Windows CI; final SHA/run/report proof will be in the PR evidence comment before authorized merge.
+- Next F04-b browser session/cache boundary, followed by remaining F04 media/SSE/object/input/privacy/dependency and F05 browser gates. Full F04/foundation/master plan remain incomplete; Server2019/service/encryption/package/performance are unrun. No release/tag or VPS access/deployment.
+
+### F04-a integrated; F04-b client/cache implementation for review
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/7 merged as `91d569509e537729e6d6cd373d7e4a43eeedef0c`. Final HEAD `8af9efe9b3424abf007c31eea5c33854fc3cf027`, exact Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38157656295 independently verified352/35242files per Node22/24, all six command exits0 plus ci-gate. Full logs/both artifacts/JUnit/JSON/native/production/hashes read. Final proof https://github.com/DongVienNguyen/Family-Organizer/pull/7#issuecomment-6111469048.
+- F04-b BASE `91d569509e537729e6d6cd373d7e4a43eeedef0c`, branch `codex/f04-client-session-isolation`. Internal request/session revision boundary, owned cancellation/deadlines/body+clone+stream guards and old401 isolation; React root remount purges private in-memory state. New session opens only after private cache/IndexedDB cleanup and safe controlling-worker acknowledgement. Cross-tab/restore/expired-session handling and late bootstrap/export guards. Theme/language/public shell/assets preserved; private URL-only offline fallback removed under approved privacy/no-store requirements. See `client-session-isolation.md` for limits/rulings/costs.
+- Actual worker-source tests11RED/one public characterization→12GREEN; boundary16port RED plus clone-owner/browser-signal actual regressions→18GREEN; storage/worker13GREEN (one initially weak timeout assertion strengthened), listeners4RED→GREEN, HTTP no-store RED→GREEN, logout compatibility RED→GREEN, actual App bootstrap and late PDF export RED→GREEN. Existing finance/emergency PDF delivery characterized; providers synthetic/offline. New compiled production check requires private API/denial/media no-store proof; missing evidence gate observed RED→GREEN. All previous assertions retained.
+- Final Cloud Node24 full suite406/406 tests49files, zero failed/skipped/todo, lint/build exit0. No dependencies/lock change. Exact source/final Windows CI and fresh whole-branch review remain pending; no merge claim.
+- Remaining F04 authenticated SSE/media/object/privacy/input/proxy/bootstrap/dependency and notification gates; real browser logout/switch/offline/IndexedDB acceptance F05 remains unrun. F06–F09 and full master feature milestones follow foundation acceptance. Server2019 R02 separate; no release/tag or VPS access/deployment.
+
+### F04-b first Windows proof and review correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/8; firstsource HEAD `351cf8ea60fa947abb43c2c34fefb825e233c496`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38159784805. Downloaded/read full logs and both artifacts: each Node22/24 has406/406 tests49files, zero failed/skipped/todo, install/native/lint/test/build/production exit0, ci-gate success. JUnit/JSON/native/production hashes and14 mandatory production checks independently validated; `evidence/f04-b-first-source.json`.
+- Fresh wholebranch review found three Important issues: async A callbacks adopting B credentials, successful SSE/ICS overriding no-store, and obsolete cross-tab events leaving endless cleanup retry. One TDD fix pass with actual RED→GREEN regressions, including continuation audit for batch uploads/restore confirmation/lazy PDF import. Deferred Minor: native stream cancellation/iterator owner parity; documented in `f04-b-review.md` for following streaming slice. No second review and no assertions weakened.
+- Corrected Cloud Node24 full suite435/435 tests51files, lint/build exit0, zero failed/skipped/todo. Two additional suites are mandatory in evidence validation. No dependency/lock change. Corrected source/final exact Windows CI remains required before authorized merge; firstsource proof is historical.
+- Next: authenticated SSE/media/object and remaining F04 privacy/input/proxy/bootstrap/dependencies plus F05 actual browser proof. Full F04/F01–F09/master acceptance remains incomplete. Server2019/package/service/encryption/powerloss/performance unrun; no release/tag or VPS access/deployment.
+
+### F04-b actual Windows failure and fixture correction
+
+- Corrected application HEAD `35c41a770db25af493884f9e747fe0b463aaaacc`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38160905793 **failed**. Full logs/two artifacts read: both Node22/24 install/native/lint/build/production exit0, test exit1;434passed/1failed in51files, zero skipped/todo. `ci-gate` correctly failed. Failure is the cross-tab VM fixture slicing LF-only source and executing main JSX on CRLF checkout. Exact failed reports/hashes retained in `evidence/f04-b-crlf-failure.json`; build success is not test acceptance.
+- Added explicit LF/CRLF cross-tab source cases: CRLF reproduced the same SyntaxError on Cloud, then GREEN after selecting the semantic createRoot boundary. Assertions preserved; no application change, no skip/retry masking. Final Cloud436/43651files, lint exit0; application build previously exit0 and Windows will rebuild exact HEAD. Updated source/final Windows acceptance still pending, PR8 not merged.
+
+### F04-b corrected Windows source acceptance
+
+- Corrected source HEAD `36ff534457c433ee3843cdb2512bf834d950722d`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/8, exact Windows2022 x64 CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38161262854 success.
+- Independently downloaded/read full logs and both artifacts. Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each436/436 tests51files, zero failed/skipped/todo, install/native/lint/test/build/production exits0; ci-gate success. JUnit/JSON/native/production hashes and14 mandatory production checks verified in `evidence/f04-b-corrected-source.json`. Explicit LF/CRLF cross-tab cases pass on Windows; previous failed run remains historical evidence.
+- Three Important findings fixed in one TDD pass; deferred Minor stream cancellation/iterator owner parity recorded for next authenticated realtime slice. No dependency/lock changes, real providers, skipped assertions or retry masking. This documentation HEAD still requires its own Windows execution; final SHA/run/report proof will be recorded in the PR evidence comment before authorized merge.
+- Next: F04-c authenticated realtime and owned streaming, followed by media/object/input/proxy/bootstrap/privacy/dependency gates and F05 actual browser proof. Full F04/foundation/master acceptance remains incomplete. Server2019/service/encryption/package/powerloss/performance remain unrun; no release/tag or VPS access/deployment.
+
+
+### F04-b integration / F04-c in progress
+
+- PR8 https://github.com/DongVienNguyen/Family-Organizer/pull/8 merged after fresh review and exact final HEAD Windows evidence. Final HEAD `e24825dab337e536724ab2f6f6097b09c4a879af`, run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38161521729: each Node22/24 install/native/lint/tests436/build/production14checks/evidence success, ci-gate success;51files, zero failures/skips. Full logs/JUnit/JSON/native/production artifacts independently read. Proof: https://github.com/DongVienNguyen/Family-Organizer/pull/8#issuecomment-6111965091. Squash main `f774488ea863019112a96a57f932c7676a558bb1`.
+- F04-c branch `codex/f04-authenticated-realtime`, BASE that squash SHA. Source/testing in progress, PR/run pending; see `authenticated-realtime.md`. Does not declare full F04 or browser acceptance. No dependencies/lock change.
+
+### F04-c — authenticated realtime source and review correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/9. First source HEAD `4345016c813ed49ff8587c926bbb4da3718bb7b8`; Windows run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38164217359 successful. Each Node22/24: npm ci/native/lint/tests503/build/compiled production15checks/evidence success, all six recorded exit codes0, ci-gate success. JUnit/JSON/native/production/full logs independently read,56files, zero failed/skipped/todo. Immutable source/hash summary: `evidence/f04-c-first-source.json`.
+- Fresh whole-branch review retained three Important/no Critical/Minor. One TDD pass: native stalled socket ownership1; rejected stream preconditions4 plus native loopback transports2; actual native SQLite recurring completion/approval successor recipients2. Nine actual RED cases then GREEN. Corrected Cloud512/51256files, lint/build exit0. See `f04-c-review.md`; no dependencies/lock change. Corrected source/final HEAD Windows remains pending until reports are read; first-source reports do not certify fixes.
+- Remaining: authoritative HTTP/object/search/AI/export filtering, media owner/reference/authenticated UI access, input/proxy/bootstrap/notification/backup/log privacy and dependency triage. F05 real browser acceptance unrun. Bundle >500kB warning retained for F09; no threshold change. F06–F09/P/W/I02/I03/R01–R03 incomplete; Windows2022 does not certify Server2019. No release/tag or VPS action.
+- Next after exact corrected/final Windows acceptance and authorized PR9 merge: F04-d authoritative legacy object reads/actions from actual merged main. All reviewed exact-HEAD Windows-GREEN PR merges authorized; no additional merge question required.
+
+
+### F04-c — corrected Windows implementation verified
+
+- Corrected source HEAD `c7d7ddce4115d7013aa69489c67a32b39989d929`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38164770740, attempt1, success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0: npm ci/native SQLite/lint/tests/build/compiled production all success, six exit reports0; evidence and ci-gate success. Each512passed56files, zero failures/errors/skips/todo; nine review regressions included. Full logs and both JUnit/JSON/native/production artifact sets downloaded and independently read; immutable source/report hashes in `evidence/f04-c-corrected-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 verified with unchanged Windows binary SHA256 `e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a`. Compiled production-only launch from System32/Unicode external roots validates15checks including header-authenticated SSE, anonymous/URL-token denial, no-store initialization and bounded stream cleanup. Four launches/three graceful stops/crash recovery/write-denied/offline evidence preserved. Not portable ZIP/service/Server2019 acceptance.
+- First-source503-test result is superseded by this512-test correction. Dependency audit remains13development/6production entries in the install logs; no automatic update performed in this focused PR. Input/proxy/bootstrap/privacy/dependency gates remain required before Internet readiness.
+- This evidence belongs to sourcec7d7ddc, preceding this documentation commit. The final documentation HEAD must pass the same Windows CI; exact SHA/run/report hashes are recorded in PR checks and its final proof comment, without attributing parent reports to a newer SHA. PR9 is not merged until that proof is independently read. No deferred review Minor; rulings/costs recorded in f04-c-review.md.
+- Next: authorized PR9 merge then F04-d authoritative legacy reads/actions from merged main. Remaining F04/F05–F09/productivity/wallet/integration/release-prep tasks continue; actual release/tag/VPS actions remain unauthorized. Browser F05 and Server2019 R02 unrun.
+
+
+### F04-c integration / F04-d source in progress
+
+- PR9 merged after fresh review and exact final HEAD `8cce8ee033fe6e23350483c9cf8b9e456c9c8ca5` Windows run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38165065503. Both Node22/24: install/native/lint/tests512/build/production15checks/evidence success, ci-gate success;56files, zero failed/skipped. Full logs/JUnit/JSON/native/production artifacts independently read. Proof https://github.com/DongVienNguyen/Family-Organizer/pull/9#issuecomment-6112440498. Squash main `ea72f67a59ac17335753ad2bb29d999bbc8e4326`.
+- F04-d branch `codex/f04-authoritative-reads`, BASE that squash; source/tests in progress, PR/Windows pending. Shared server helpers govern HTTP/search/AI/patient and object membership. Calendar subscription shared-only; health UI gets own choices for limited roles. Scope/rulings: `legacy-object-visibility.md`. Media/input/proxy/bootstrap/reward/notification content/backup/log privacy/dependencies and F05 browser remain incomplete; no full foundation or Internet-readiness claim.
+- F04-d source validation: Cloud Node24567/567 in57files, lint/build exit0. Actual RED→GREEN:30 object/ICS cases, four provider-session/patient-UI cases, two missing-proof/suite cases, one accidental note write-grant widening found during own diff review. Authorized behavior characterization remains alongside denials. An evidence fixture-order mistake produced one failure565/566; moving the new fixture name to the end retained the original path-normalization assertion. It is not counted as a production defect. Final source Windows567-test/16production-check proof and one fresh whole-branch review pending before merge. No dependencies/lock changes.
+
+### F04-d review correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/10, first source HEAD `bd6831296b609be607087da12a921449b46c7655`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38166641562 independently read: both Windows2022 x64 Node22/24 each567/56757files, zero failed/skipped/todo; npm ci/native/lint/tests/build/production16checks exit0, evidence and ci-gate success. Full logs and both artifact sets/JUnit/JSON/hashes retained in `evidence/f04-d-first-source.json`.
+- Fresh whole-branch review found two Important assistant authorization races, no Critical/Minor. One TDD pass: four regressions observed retry after revocation or200/private answers after object visibility loss, then GREEN. Authorized retry remains characterized. Live session/object checks precede every provider dispatch and follow its completion. Details and deferred acceptance/costs: `f04-d-review.md`.
+- Corrected-source/final HEAD Windows remains pending. First-source evidence does not validate corrections. Media/input/proxy/bootstrap/reward/notification/backup/log privacy/dependencies and browser F05 remain required; Server2019 R02 unrun. No dependency or lock changes; no release/tag/VPS actions.
+- Corrected Cloud validation:572/57257files, zero skips, lint/build exit0. Initial571/572 transport timing failure and deterministic-fixture correction retained in f04-d-review.md; production transport/deadline unchanged. All existing chunk/socket/uncertainty assertions remain.
+
+### F04-d — corrected Windows implementation verified
+
+- Corrected source HEAD `273b57c157a3366410cc96757b0c5cb3c5f59d7d`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38167343486, attempt1 success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each572/57257files, zero failed/skipped/todo. npm ci/native/lint/tests/build/compiled production16checks exit0; evidence and ci-gate success. Full logs and both JUnit/JSON/native/production artifacts independently read; hashes retained in `evidence/f04-d-corrected-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 with unchanged verified Windows binary. System32/Unicode roots, four launches/three graceful stops/crash recovery/write-denied/offline proof retained. No real provider calls. Two Important review findings fixed; no deferred Minor; deterministic transport fixture preserves assertions.
+- This report belongs to source273b57c. Final documentation HEAD requires independent exact-SHA Windows acceptance; final proof URL/SHA/report hashes will be recorded on PR10 before its authorized merge.
+- Remaining errors/gates: production audit6 entries (including one critical), development audit13, bundle >500kB warning; triage stays mandatory in F04/F09. Media/input/proxy/bootstrap/derivative and backup/log privacy pending. F05 browser/coverage/required checks and F06–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS action. Next: F04-e authenticated media from merged main.
+
+### F04-d integration / F04-e source
+
+- PR10 merged as `c2960a210570d68aa44650aacb846a23a266d63a` after exact final HEAD `a86857a79a12ddf18d6acf9fca2a7ae9cb86e024`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38167640833: both Node22/24 each572/57257files, all six exits0,16production checks/evidence/ci-gate success. Logs and artifacts independently read; proof https://github.com/DongVienNguyen/Family-Organizer/pull/10#issuecomment-6112795981.
+- F04-e `codex/f04-authenticated-media`, BASE that squash. Existing media URLs are protected by current domain ACL and versioned owner/binding metadata in the I01 gateway/snapshot; migrated shared references survive cleanup. Strict path/link/content controls replace public static files. UI uses captured header fetch/owned blob cleanup, on-demand PDF actions, keyboard activation and generic invalidation. Details and costs: `authenticated-media.md`.
+- Source Cloud642/64262files, zero skips, lint/build exit0.45 actual RED cases across HTTP/client/JSX/realtime/viewer/keyboard/evidence gates then GREEN; native rollback/migration/expiry/cold-restore and additional roles characterize preserved behavior. Initial627/628full run failed a new test's Headers-object assumption; `new Headers` normalizes the fixture while retaining the Bearer assertion. Reports retained. No dependency/lock update.
+- PR/first Windows/fresh whole-branch review pending. Compiled media proof is required with all earlier probes. Full F04 and browser F05 remain incomplete; audit13total/6production and bundle warning remain explicit. No release/tag/VPS or Server2019 acceptance. Next after this reviewed exact-HEAD PR: remaining F04 input/proxy/bootstrap/privacy/dependency slices, then F05.
+
+### F04-e — first Windows evidence and review correction
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/11, first source HEAD `55340d760cd7510cce33cbd27ce6945b91db7028`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38169379323 independently read: Windows2022 x64 Node22/24 each642/64262files, zero failed/skipped/todo; npm ci/native/lint/tests/build/compiled production17checks exit0, evidence/ci-gate success. Full logs and both JUnit/JSON/native/production artifacts read; hashes in `evidence/f04-e-first-source.json`.
+- Fresh review found two Important/no Critical/Minor. One TDD pass: seven native Markdown false attachment claims and one actual Markdown anchor regression observed RED then GREEN. Reference-style managed first-binding/copy-denial characterization remains. Details/costs: `f04-e-review.md`. Explicit already-transitive unified11.0.5/remark-parse11.0.0 dependencies declared; lockfile updated, no package versions changed.
+- Corrected-source/final Windows proof remains pending. First-source proof does not certify corrections. Real browser F05, remaining F04 input/proxy/bootstrap/privacy/dependency and later foundation tasks remain required; audit/bundle warnings retained. No release/tag/VPS/Server2019 acceptance.
+
+F04-e correction validation: frozen npm ci, lint, full Cloud651/65162files zero skipped, build all exit0. Eight review RED→GREEN plus one preserved reference-style characterization. First Windows642 independently verified; corrected Windows pending before merge.
+
+Corrected source7967efa/run38169992124 failed both Windows production startup and ci-gate: npm ci/native/lint/tests651/build succeeded, parser default-export interop in external CommonJS bundling threw "empty preset" before ready. Logs/artifacts retained in f04-e-corrected-source-failed.json; no production acceptance. Fix pass continues until green. Actual bundled CommonJS regression reproduced the same startup failure, then GREEN with named exports from existing mdast-util-from-markdown2.0.3/mdast-util-gfm3.1.0/micromark-extension-gfm3.0.0. These are now direct locked dependencies; unified/remark-parse remain transitive only. New missing compiled-suite proof observed RED then gate added. First new fixture attempts used a nonexistent preload path and omitted the production import.meta.dirname define; those were fixture setup errors, not production RED proof. No assertions weakened, no rerun unchanged and no re-review.
+
+Named-export parser corrected Cloud acceptance: frozen npm ci/lint/tests653/65363files zero skips/build all exit0. Compiled parser1 and required suite evidence1 actual RED→GREEN; Windows final proof pending.
+
+Source544c9d4/run38170534891: both Windows production17checks succeeded, but test command/ci-gate failed despite653 passed assertions because the new compiled-policy fixture teardown failed EBUSY/EPERM. The esbuild persistent service inherited fixture CWD. Source assertions and cleanup checks are retained; builder now runs in a bounded synchronous child from repo CWD, with ESBUILD_WORKER_THREADS=0 so its native process completes before return. No sleep, retry, teardown suppression or test skip. Failed reports/hashes retained in f04-e-parser-source-failed.json. Full corrected validation/Windows required before merge; no second review.
+
+Owned-builder correction Cloud lint/tests653/65363files zero skips/build all exit0; unchanged frozen lock already installed. Native builder bounded to completed subprocess, all parser/destination/auth/coldrestore/cleanup assertions retained. Windows source retry follows fixture ownership correction, never unchanged rerun.
+
+### F04-e — corrected Windows source verified
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/11. Corrected source HEAD `b2e1f370d555e2d9aa91ca534f2dcae3fef99655`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38171014457 attempt1 success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each653/65363files; zero failed/skipped/todo. npm ci/native/lint/tests/build/production17checks all recorded exits0, evidence and ci-gate success. Full logs and both JUnit/JSON/native/production artifact sets independently read, hashes in `evidence/f04-e-corrected-source.json`.
+- Native13.0.3/N-API10/SQLite3.53.4 verified unchanged binary. System32/Unicode roots, four launches/three graceful stops/crash recovery/write-denied/offline proof retained. Both previous failures are preserved with their causes, despite passed assertions/builds; no retry unchanged, skipped tests, softened assertion, teardown suppression or continue-on-error. Two Important review findings fixed in one ongoing pass until green, plus compiled parser/gate regressions; no Minor/re-review.
+- This evidence belongs to sourceb2e1f37; final documentation HEAD requires separate exact-SHA Windows acceptance. Its immutable proof comment will record final SHA/run/report hashes before authorized merge.
+- Remaining: F04 field/schema/proxy/bootstrap, reward/notification derivatives, provider/backup/log privacy and audit13total/6production entries (critical included); bundle >500kB warning retained. F05 real browsers/coverage/required-check enforcement and F06–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS action. Next: F04-f task payload/reward authority from merged main, then other remaining security slices.
+
+Follow-up within review finding1: own tracing found the old Notes cleanup regex remained a second interpretation of destinations. Eight native regressions reproduced editing/deleting external/code/literal/unused-definition text deleting another actor's unbound staging file; one reproduced leaving a reference-style PDF orphan; two reproduced duplicate definitions interpreted last instead of CommonMark first. All11 actual RED→GREEN. Authorization and cleanup now share canonical managedMarkdownUrls with first-definition semantics. No new feature or re-review; one correction pass continues until final exact-HEAD verification. Prior documentation69d173c/run38171300389 is reported green by Actions but superseded by these source fixes and is not merge authority.
+
+Canonical-destination follow-up validation: Cloud664/66463files, zero failed/skipped, lint/build exit0.11 additional regressions observed RED→GREEN. Same PR11; exact updated-source/final Windows proof pending. Prior653-test source evidence remains historical.
+
+### F04-e — canonical destination implementation verified
+
+- Source HEAD `caabd29621b4c5f1697a0735b590b21d28eda511`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/11, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38171684606 attempt1 successful. Each Windows2022 x64 Node22/24:664/66463files, zero failed/skipped/todo; npm ci/native/lint/tests/build/production17checks recorded exits0, evidence and ci-gate success. Full logs/both JUnit/JSON/native/production report sets independently read; hashes in `evidence/f04-e-canonical-source.json`.
+- Same reviewed correction pass closes both Important findings and their cleanup/parser consumers;66 total actual RED→GREEN cases, including11 canonical cleanup/duplicate-definition regressions. Existing reference ownership/tombstones/rollback/coldrestore/roles/async cleanup retained. Named parser dependencies are existing locked transitive versions, now explicit. Two failed Windows source runs remain recorded, with fixes and no assertion weakening.
+- Final documentation HEAD still requires exact-SHA Windows verification before the authorized merge; final proof comment records its SHA/run/hashes. Remaining errors/gates and next F04-f task payload/reward authority are unchanged; no fullF04, browser, Server2019, release/tag/VPS acceptance.
+
+### F04-e integration / F04-f source
+
+- PR11 merged as `b414a8165235a5aafcec5144a844fdd852e9829f` after final HEAD `c2b0f88c62766afa06ca8d31e2ad0ee12cb6a2cb`, Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38171963503: both Node22/24 each664/66463files, all six exits0,17production checks/evidence/ci-gate success. Full logs/artifacts independently read; proof https://github.com/DongVienNguyen/Family-Organizer/pull/11#issuecomment-6113386990.
+- F04-f branch `codex/f04-task-write-authority`, BASE that squash SHA. Native current actor/field/schema/approval guards preserve daily task/edit/comment/approval/recurrence/rotation/reopen and reward once. Child zero-point creation remains; adults own reward allocation/positive-reward assignment and sharing is creator/adult only. Full read-model/unchanged legacy extensions retain canonical values. Details/rulings/limits: `task-write-authority.md`.
+- Cloud755/75566files, zero skips, lint/build exit0.85 actual RED→GREEN regressions plus six preserved characterizations. Initial target136/137 exposed a synthetic fresh DTO timestamp mismatch; first full752/754 exposed a lifecycle fixture's ignored assignedToId. Fixtures now follow actual contracts; all old assertions retained, persisted assignee assertion added. Logs remain. No dependency/lock change.
+- PR/source Windows/fresh whole-branch review pending. New compiled task authority18th proof required; no claim from Cloud alone. Other F04 payloads/proxy/bootstrap/derivative/provider/backup/log privacy and audit13total/6production (critical included), bundle warning, F05 real browsers and F06–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS action.
+
+### F04-f — reviewed correction ready for Windows
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/12; source9c6a37ba9b026f9e9b1b9fc4ecceda2c4055933b, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38173723810 independently verified: both Windows2022 x64 Node22/24 each755/75566files, zero failed/skipped/todo; npm ci/native/lint/tests/build/production18 checks all exits0, evidence/ci-gate success. Full logs and both JUnit/JSON/native/production artifact sets read; hashes in evidence/f04-f-first-source.json.
+- Fresh whole-branch review one Important/one Minor accepted, no Critical; graded before mutation then one TDD fix pass/no re-review. Unchanged historical assignee/rotation now stripped and retained while newly assigned deleted IDs remain rejected. Actual native deleteUser/adult allocation plus HTTP editor-payload assertions preserve ordinary Child rewarded-task editing. Localized sharing help has actual rendered aria association. Details/costs/declined gates in f04-f-review.md.
+- Corrected Cloud frozen npm ci/lint/tests762/76266files/build exits0, zero skips.90 actual RED→GREEN plus eight characterizations total; no dependency/lock changes or lowered assertions. Corrected source/final exact Windows is pending before merge. Other F04/F05–F09/P/W/I02/I03/R01 and R02Server2019 remain incomplete; no release/tag/VPS. NextF04-g content write authority from actual merged main.
+
+### F04-f — corrected Windows source verified
+
+- Reviewed source HEAD `461e28a5b679bb72ca4ed33539990bdd1ef1ceac`, PR https://github.com/DongVienNguyen/Family-Organizer/pull/12, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38174265137 attempt1 success. Windows2022 x64 Node22.23.3/npm10.9.9 and Node24.21.0/npm11.19.0 each762/76266files, zero failed/skipped/todo; npm ci/native/lint/tests/build/production18 checks all recorded exits0, evidence/ci-gate success. Both full artifact sets and logs independently read, hashes in evidence/f04-f-corrected-source.json.
+- One Important and one Minor fixed in a single reviewed TDD pass;90 actual RED→GREEN and eight characterizations. No source assertions dropped, skipped tests, dependency/lock changes or unchanged failed-run retries. Native13.0.3/N-API10/SQLite3.53.4 retained.
+- Final documentation HEAD needs its own exact-SHA Windows verification; immutable proof comment records final SHA/run/report hashes before authorized merge. Remaining F04 payloads/proxy/bootstrap/derivative/provider/log/audit and F05–F09/P/W/I02/I03/R01 remain incomplete; browser/PWA and Server2019 R02 unrun. No release/tag/VPS action. Next focused taskF04-g content write authority from merged main.
+
+### F04-f integration / F04-g source
+
+- PR12 merged as `7efdb40ba591bdf0364cb92ab277c8ca461a57df` after final HEAD `8aa52999036c2b2232bc5a75dab11602efee06d1`. Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38174580999: both Node22/24 each762/76266files, zero skips, all six exits0,18 production checks/evidence/ci-gate. Full logs/artifacts independently read; final proof https://github.com/DongVienNguyen/Family-Organizer/pull/12#issuecomment-6113740334.
+- F04-g branch `codex/f04-content-write-authority`, BASE that squash SHA. Current live actor/context, existing role/object management, immutable creator/timestamps and changed-value schema checks now apply inside native Notes/Plans/Documents commands. Notes content grants do not delegate privacy/edit-role changes. Unchanged canonical read-model values/extensions are retained; omitted document files retain attachments. HTTP shape guards are pure, preserving F03 app construction; details/costs in legacy-content-authority.md.
+- Cloud frozen npm ci/lint/build exits0; full850/85069files with zero skips.79 regressions observed RED→GREEN and nine preservation/boundary characterizations; existing assertions retained, no dependency/lock changes. New required suites and19th compiled content authority proof. PR/source Windows/one fresh whole-branch review pending. Remaining F04 derivatives/proxy/bootstrap/provider/backup/log/audit (13 findings, critical included), bundle warning and F05–F09/P/W/I02/I03/R01 remain incomplete; Server2019 R02 unrun. No release/tag/VPS.
+
+### F05 — concrete repository enforcement blocker
+
+- Read main protected:false, rulesets:[], integration-reported admin/maintain/push:true; actual ci-gate check publisher GitHub Actions app15368 verified. Attempted POST repository rulesets and fallback PUT main protection with PR+strict required ci-gate/no bypass. Both gh exits1, HTTP403 Resource not accessible by integration. Exact requests/responses are in evidence/f05-enforcement-blocked.json. No enforcement or failing-PR merge-block proof claimed; with enforcement absent, no unsafe failing merge attempt was made.
+- Required external action: grant the integration GitHub Administration:write, or repository owner applies equivalent settings; then read back policy and verify a failing synthetic PR is blocked. This access question is pending asynchronously while independent source/CI continues. Browser/coverage and remaining F05 work are still pending. No token, production credential, PC runner, release or VPS requested.
+
+## F04-g — Content writes and historical-value preservation
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/13; BASE7efdb40, first source9730254f4b390341807684749bc5b8ff3a7f1b1b.
+- First Windows: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38176066061. Both Node22/24: npm ci/native/lint/test/build/production/evidence all successful;850/85069files, zero skips,19 compiled production proofs and ci-gate. Full logs/JUnit/JSON/native/production artifacts independently read; hashes in evidence/f04-g-first-source.json.
+- Current actor/context and native Notes/Plans/Documents management guards, typed header/changed-field validation, server-owned creator/timestamps, Notes delegated editor privacy controls/localized help, omitted attachment preservation and reserved URL roundtrip rejection. Existing role/object rights and genuine409/cache ordering retained.
+- Fresh single whole-branch review: noCritical, twoImportant accepted/fixed in one TDD pass (retained attachment historical fields; downstream canonical type/title preservation), noMinor/no rereview. Seven more actualRED regressions and three rejection characterizations; corrected Cloud lint/full860/86069files/build all exit0, zero skips. Frozen lockfile unchanged; exact corrected/final Windows pending. No dependency/lockfile changes.
+- Browser/PWA and coverage F05, other F04/privacy/provider/bootstrap/dependency work, package/service F06/F07, performance F09 and Server2019 R02 remain. F05 ruleset and branch-protection writes are actually blocked403; evidence/f05-enforcement-blocked.json contains exact requests/responses. No release/tag/VPS operation.
+- Next: corrected full Cloud validation, exact corrected/final Windows logs/artifacts, authorized merge; continue remaining F04 and independent F05–F08 preparation.
+
+- Corrected F04-g source ec772661516ad2549cb0604777b2a3a5c56e4fe6: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38176775633 independently verified both Windows Node22/24,860/86069files zero skips; all six command exits0,19 compiled proofs/evidence/ci-gate. Full logs/JUnit/JSON/native/production artifacts and SHA256 recorded in evidence/f04-g-corrected-source.json. Final documentation HEAD must pass its own run before merge; immutable PR proof comment records that exact SHA.
+
+## F04-g merge and F04-h derived privacy
+
+- PR13 final HEAD7a46a62adbb8c6175d0922f06c9038fb27e61884 independently passed exact Windows run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177081124 on Node22/24:860/86069files per runtime, all six command exits0,19 compiled proofs/evidence/gate. Full logs/JUnit/JSON/native/production artifacts/hash proof: https://github.com/DongVienNguyen/Family-Organizer/pull/13#issuecomment-6114087923. Authorized squash main67bffd8650de46d95d2d4f697ce5251f3a56954e.
+- F04-h branch codex/f04-derived-object-privacy starts from that actual merge. Current source ACL now filters/redacts task-derived reward history, notifications/read acknowledgments/push badges and private-document activity details. Family point balances/items/history data remain canonical; new optional source metadata is internal. No new Wallet functionality or API. See derived-object-privacy.md for explicit historical redaction costs.
+- TDD:24actualRED+4chars, evidence3actualRED ->27actualRED/four chars. Cloud frozen npm ci/lint/tests891/89171files/build all exit0, zero skips; no deps/lock changes. Existing mocked HTTP ACL read port updated without removing assertions.20th compiled proof added. First source PR/exact Windows and one fresh wholebranch review pending.
+- Other F04 and F05–F09 remain incomplete. Main protected:false and rulesets:[] read back after F05 writes403; negative failing-PR enforcement proof remains blocked. Browser/coverage/package/service/provider/bootstrap/dependency and Server2019 gates are not inferred from these tests. No release/tag/VPS operation.
+- Next: source commit/PR, exact Windows and fresh review; grade findings, one correction pass, final exact verification and authorized merge, then continue remaining foundation.
+
+- F04-h PR: https://github.com/DongVienNguyen/Family-Organizer/pull/14; first sourceb56de22a6860e3bddf033919498dc82a38757079 Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38177773857 independently891/89171files per runtime, all six exits0,20 compiled proofs/evidence/gate. Full logs/artifacts/hashes in evidence/f04-h-first-source.json.
+- One fresh wholebranch review found threeImportant/noCritical/noMinor: adult unproven system content, source-bearing historical IDs/extensions/push tags, frozen medication/vaccination patient markers. All accepted before mutation,25actualRED+two chars added, corrected in one pass/no rereview.110 target assertions GREEN; corrected Cloud lint/full918/91871files/build all exit0, zero skips; frozen lock unchanged. Exact corrected/final Windows pending. See f04-h-review.md for costs/limits.52actualRED/six characterizations in this focused PR.
+
+- F04-h corrected source887367f06266425947fd89b15740ea236c40c785: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38178880558 independently verified both Windows Node22/24,918/91871files zero skips, six command exits0,20 compiled proofs/evidence/ci-gate. Full logs/artifacts/JUnit/JSON/native/production hashes in evidence/f04-h-corrected-source.json. Final documentation HEAD still requires its own run; immutable PR proof records exact SHA before authorized merge.
+
+## F04-h merge and F04-i HTTP dependency security
+
+- PR14 final HEAD63ef3adad4450b9357626487ac666a4a5e6020fe independently passed Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38179151696: bothNode22/24 each918/91871files zero skips, all six command exits0,20 compiled proofs/evidence/ci-gate. Full logs/JUnit/JSON/native/production artifacts/hash proof https://github.com/DongVienNguyen/Family-Organizer/pull/14#issuecomment-6114418887. Authorized squash621a6a2213da0c35028f42fb3138788cecc46c8f; threeImportant one correction pass52actualRED/six chars, noMinor/no rereview.
+- F04-i branch codex/f04-http-dependency-security starts from that actual squash. Only four compatible HTTP package nodes updated and Express4 exact-pinned; lock updated.13 actual securityRED plus one required-suiteRED, four behavior characterizations. Cloud frozen npm ci/lint/full936/93672files/build all exit0; no dropped assertions/skips. Target83/83 including inherited login throttling. Audit13→9, critical1→0 but high5/moderate4 remain; both audit exits1. See http-dependency-security.md/evidence/f04-i-http-dependencies.json. PR/source Windows and one fresh wholebranch review pending.
+- Other F04/bootstrap/provider/backup/log and F05–F09/browser/package/service/performance remain incomplete. Main protection:false/rulesets[] still read back after APIs403; enforcement proof blocked. Server2019 R02 unrun; no release/tag/VPS. Next: source Windows/review, grade and correct once if needed, final exact Windows verification/authorized merge, continue foundation.
+
+- F04-i PR https://github.com/DongVienNguyen/Family-Organizer/pull/15; firstHEADc1b216754f7dc3cf46858123960e6d6a4a79be07 exactWindows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38179696236 independently verified both936/93672files/sixexits0/20production/evidence/gate. Full logs/artifacts/hash in evidence/f04-i-first-source.json. One fresh review noCritical/Important, oneMinor accepted and fixed once via two actualRED HTTP deadline/abort cleanup regressions. Total16actualRED/four chars; target85/85, corrected Cloud full938/93872files zero skips lint/build0. Same patched lock/frozen install; final exact Windows pending. No re-review or remaining Minor; other foundation gates remain.
+
+## F04-j — Explicit first account / credential input (in progress)
+
+BASE/main `26953ea8015ba4925bf61fd34ae4a6d942b6d7cd` verified after authorized
+PR15 squash. Prior exact HEAD `e22b542cc531b1ad1edea0df4a0de1da594cc3a4`, Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38180187720:
+938/93872files per runtime; six command exits0,20 compiled proofs, evidence and
+ci-gate verified independently; final proof PR15 comment6114591137.
+
+F04-j bounds login types/bytes and current session roles/hash shapes; preserves
+opaque sessions and historical password verification. New compiled local operator
+reads bounded stdin, creates exactly one chosen Admin through the existing gateway,
+and refuses selected legacy/partial/initialized data. No default credentials,
+public bootstrap API, guessed repair or reset. Actual SQLite/login/restart and
+unchanged logical-row regressions retained. README removes obsolete default login.
+No dependencies changed; frozen lockfile retained. See `account-initialization.md`.
+
+Observed RED:16 existing auth input/session vulnerabilities, blank default-account
+startup, stale JSON overwriting userless partial SQLite, two required-evidence
+omissions (20 actual RED). Twelve initializer tests initially failed because the
+required operator entry was absent; five auth cases characterize existing valid or
+already rejected behavior. The first implementation exposed an omitted empty
+server_metrics table; all original assertions retained when the pristine whitelist
+was corrected. Focused native/auth tests76/76 passed; frozen npm ci, lint, full975/97573files
+(zero skips), build and Linux compiled-entry smoke passed. Full-suite changes
+retain existing assertions: explicit synthetic input for media/cold/crash recovery;
+safe db.json error context. Fresh review, PR URL, exact SHA and Windows artifacts pending. No CI-pass claim yet.
+
+F05 authorized permission retry still returned HTTP403 for both ruleset POST and
+branch-protection PUT; main protected:false and rulesets:[] confirmed. User approval
+in chat does not change installation permissions. Available tools cannot grant
+Administration:write. Concrete requests/responses saved in
+`evidence/f05-enforcement-blocked.json`; external GitHub owner/integration permission
+application remains required. This was a GitHub authorization failure, not an
+automatic approval rejection. Independent foundation source work continues.
+
+Next: exact Windows Node22/24 first-account compiled proof, one fresh review and
+one correction pass if needed, then authorized merge; remaining provider/backup/log
+privacy, browser/coverage, packaging and service preparation. PowerShell initializer
+wrapper is F06; reset/encrypted recovery F07; Server2019 acceptance R02 unrun.
+No releases, tags, VPS access/deployment or new domain features.
+
+### F04-j — First Windows artifacts / single review
+
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/16, first source HEAD
+`05d24c4df334c1334f51ae01e852dfd0276c53e4`, Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38182062049.
+Both pinned runtimes:975/97573files, zero failed/skipped, npm ci/native/lint/tests/
+build/production exits0,21 compiled proofs, evidence and ci-gate successful.
+Full logs, JUnit/JSON/native/production and hashes independently read in
+`evidence/f04-j-first-source.json`. This report belongs only to that first HEAD.
+
+One fresh whole-branch review: no Critical/Minor; one Important accepted before
+mutation. Existing SQLite import changed schema/journal metadata before refusing
+foreign, incomplete or unsupported installations. Three actual native RED cases
+retain exact sqlite_master/logical rows/journal mode and closed ownership. The
+same-connection internal first-account mode now inspects under IMMEDIATE before
+DDL/meta; the final gateway guard remains. Compiled production probe adds the
+same three refusals. Total23actualRED,12initially absent operator requirements,
+five characterizations. No dropped assertions, dependencies, skip or rereview.
+Corrected Cloud lint/full978/97873files (zero skips)/build and compiled smoke
+passed; frozen lock unchanged. Final source/docs need their own exact Windows run
+before authorized merge.
+
+Broader F04/provider/backup/log/audit gates remain incomplete; F05 enforcement
+still blocked by actual GitHub403 despite authorized retry. Package, masked PS
+wrapper and normal runtime unsupported-schema acceptance are F06; service/reset/
+encrypted recovery F07; release/promotion preparation F08; full app browser/
+performance F05/F09. Server2019 R02 remains unrun; no release/tag/VPS operation.
+
+## F04-k — Remaining library advisories (in progress)
+
+BASE/main `e41e97d35f538f62f123ccfb1558425627ece3da` verified after authorized
+PR16 squash. Previous final HEAD `cc45fe894caf8e70a1f20f57af4b7b35483ffb55`, run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38182693480:
+both Node22/24 independently978/97873files, zero skips, six command exits0,
+21 compiled production/evidence/ci-gate; proof PR16 comment6114910877.
+
+F04-k fixes the remaining public advisory ranges with a scoped18-node lock update
+plus exact Vitest root pin. Seven affected libraries use published minimum fixes;
+eight Vitest ecosystem nodes stay together; three compatible browser datasets
+satisfy the patched Browserslist minimums. No package paths added/removed, native
+or Node runtime upgrade. Metadata/engines/licenses and seven downloaded tarball
+integrities verified. npm audit9(0critical,5high,4moderate)→0; actual exits1→0.
+See `library-dependency-security.md` and `evidence/f04-k-library-dependencies.json`.
+
+Actual RED19 library cases, one required-suite omission and15 audit-evidence
+refusals;9 existing safe or
+valid characterizations retained. Owned offline child processes bound heap,
+startup/execution, output and cleanup for parser/generator/brace/mapping inputs;
+PostCSS source map and indexed offset/browser stats regressions use synthetic
+fixtures. Final selected minimum-version frozen npm ci, audit exit0, lint, corrected full1026/1026
+74files (zero skips) and build passed; captured child output additionally bounded
+without changing library assertions. New Windows audit step captures native exits
+and exact HEAD/runtime/lock context; required writer rejects missing/error/nonzero/
+vulnerable or mismatched reports. First-source HEAD441fd8b19eaea12927085f30cf8fc60ed6f62344 / Windows
+run38184447965 independently verified1022/102274files per Node22/24, seven native
+command exits0,21 compiled proofs/evidence/ci-gate. Raw report and full-log hashes
+are in evidence/f04-k-first-source.json.
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/17.
+The single fresh review had no Critical/Important and one accepted Minor: validate
+nativeAuditExitCode independently of wrapper exit0. Four actual RED cases then
+GREEN; corrected targeted105/105twofiles, full1026/102674files, lint/build0.
+Total39actualRED/9chars; one correction pass, no rereview. Final corrected HEAD
+`d614a78b795a224bb5c476d49c68d471893e884d` Windows run38185059520 verified
+1026/102674files per Node22/24, no skips, seven exits0/nativeAuditExit0,21 compiled
+proofs/evidence/ci-gate. Full report/log hashes recorded in immutable proof
+https://github.com/DongVienNguyen/Family-Organizer/pull/17#issuecomment-6115228322.
+Authorized squash main6be5cd5e8a1585e43ac643542444d58591c8ce67 verified before F04-l.
+
+Remaining F04 provider/backup/log/privacy and final proxy/browser gates; F05
+browser/coverage/enforcement still incomplete, actual protection writes403 despite
+user authorization. F06 packaging/wrapper/schema, F07 service/encrypted recovery,
+F08 release preparation, F09 full regressions/performance remain. No release/tag,
+VPS access/deployment, Server2019 acceptance or new domain features.
+
+## F04-l — Weekly digest provider privacy (in progress)
+
+BASE/main6be5cd5e8a1585e43ac643542444d58591c8ce67 verified after PR17 squash;
+branchcodex/f04-digest-privacy. See provider-digest-privacy.md and
+ evidence/f04-l-digest-regressions.json for scope/RED provenance/declined limits.
+
+Current Admin saving bot/chat/weekly toggle becomes the accountable digest owner;
+legacy unbound configs require resave, with UI explanation of operator-controlled
+recipient trust. Existing task/plan/document ACL filters before summaries/top-five
+and AI context. Current role/password/deletion/session, owner/enable/bot/chat/key
+and derived visible payload are revalidated after asynchronous work before dispatch.
+Stale sends are known failures; durable unknown-outcome no-replay remains. AI owns
+15second deadline/abort/HTTP timeout/token+text bounds and safe logs/errors; actual
+SDK string text works, HTML escaped. Long legacy fallback is entity-safe shortened;
+category markup and unsafe-key lookup handled without altering canonical records.
+Validated configuration+owner written atomically via existing settings/snapshot
+helpers; failed save503 preserves prior file. Existing backup toggles/assertions
+and provider job behavior remain, explicit synthetic owner fixtures. No new API.
+
+43 unique observed RED contract cases include1new owner-binding requirement;
+5 initial valid characterizations +1 supported-SDK sanitization case. Corrected
+HTTP fixture reran13RED before source; draft blocked unexpected attempt and isn't
+counted. Category RED repeats one known failure, not counted twice. The enabled
+selected RED report has unselected cases; full suites don't skip. Two suites and
+22nd actual compiled provider privacy proof are mandatory evidence. Cloud full1074/
+107476files/lint/build and fresh production-only npmci/22proof smoke passed;
+final supported-SDK source test run1075/107576files (zero skips), targeted131/131
+4files, lint0. Build/compiled smoke0 before the test-only addition; unchanged source. No Cloud smoke claim for Windows.
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/18. First-source
+HEAD2d65f182c7f313dfd882a9065631a4d3a85fe880 / Windows38186316145
+independently1075/107576files per Node22/24, all seven command exits0/auditnative0,
+22 compiled proofs/evidence/ci-gate; raw hashes in evidence/f04-l-first-source.json.
+Single wholebranch review: no Critical; one Important/two Minor accepted before
+mutation, one TDD pass/no rereview. Lease before Gemini across import and shared
+serialized settings1MiB limits add3actualRED; supported raw/escaped string bounds
+add2alreadyGREENchars. Corrected target136/136fourfiles, full1080/108076files zero
+skips, lint/build0. Total46RED/8chars inclone newly required owner binding.
+Final corrected HEAD Windows proof pending; see f04-l-review.md.
+
+Remaining F04 ordinary backup/redaction/encrypted provider backup and log audit;
+F05 browser/coverage and actual Administration write/protection still403; F06–F09
+package/service/release-prep/full acceptance. Main protection isn't proven by a
+GREEN workflow. R02 Server2019 unrun; no release/tag/VPS or new domains.
+
+
+## F05-b — Coverage ratchet and cache identity (in progress)
+
+BASE mainb0f9a01d6160026dbb139bf5ac90549d43db612d; branchcodex/f05-coverage-ratchet;
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/20.
+Measured HEAD5b83bcadd9254c9534c4ed52c80b03c355432632 in Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38191398754:
+both Node22/24 passed1146/114678files, seven command checks0/audit0/22 compiled
+proofs;15 first-attempt browser cases. All3 artifacts/logs/raw counters/LCOV/source
+inventory independently verified. Floors31.48lines/33.73statements/31.64functions/
+28.53branches include all104 production files, no ignore pragmas. Exact matching
+coverage provider4.1.11 adds13 dev-only lock nodes; no production dependency changes.
+Caches identify OS/architecture/exactNode/npm/lockSHA and hold npm tarballs only.
+
+New gate rejects missing/malformed counters, source inventory, LCOV, runtime/HEAD,
+policy and changed raw-report bytes. Forty actual new-contract RED cases then41
+GREEN coverage tests;23 actual aggregate evidence RED cases then105 GREEN; five
+source-inventory characterizations, combined151/151 threefiles/lint0. All are new
+harness requirements, not claimed vulnerabilities in the previous application.
+Full Cloud1215/121580files, lint/build/audit0 passed. Final gated Windows run/review pending.
+Coverage is not full app acceptance; F09 legacy matrix/package/services remain unrun.
+Actual main ruleset/protection writes403 despite authorized Administration request;
+F05 enforcement is not accepted. F04 backup/log privacy and F06–F09 remain next;
+new P/W features wait foundation acceptance; no release/tag/VPS access/deployment.
+
+Single fresh F05-b review: noCritical;2Important implicitcache/provider-exclusion
+aliases and1Minor LCOVidentity accepted before one TDD correctionpass. Seven
+actualRED then correction; no rereview. Final Cloud/Windows proof pending.
+
+First gated source5722cc5/run38193135741 independently verified1215/121580files
+on both Windows runtimes, all8checks0/audit0/22proof;15 first-attempt browsers,
+all104 raw coverage/LCOV inventories and hashes match. Still superseded by review
+fixes. Corrected target158/158 threefiles, full Cloud1222/122280files/lint/build0;
+actual104file coverage validation agrees. Corrected Windows HEAD pending.
+
+
+## F06-a — Pre-DDL SQLite compatibility (in progress)
+
+BASE main01b9a210caddcaf280b4835476829d90274d51f3 verified after authorized PR20
+squash. F05-b final source27e0691/run38193519702 independently verified1222/1222
+80files on both runtimes,8checks0/audit0/22compiledproof,15 first-attempt browsers,
+104file coverage counters/LCOV/source bytes and disabled implicit cache. Immutable
+proof https://github.com/DongVienNguyen/Family-Organizer/pull/20#issuecomment-6116381748.
+F05 enforcement remains blocked by actual POST/PUT403, mainprotectedfalse/rulesets[].
+
+Branchcodex/f06-schema-compatibility; PR/Windows HEAD pending. Normal runtime
+now checks existing schema under one native write lock before DDL/WAL, initializes
+atomically and rolls back/closes failures. Supported v1 partial schemas/domain
+extensions and fresh/restart persistence remain. Eight actual native RED cases
+then GREEN; two valid characterizations. Eleven new report-gate RED cases protect
+required native suite/compiled smoke and missing/contradictory preservation reports.
+The first full diagnostic included those final9 intentionally RED gate cases:
+1234passed/9failed in81files; it is retained, not a successful full-run claim.
+Final Cloud1243/124381files, target152/152fivefiles/lint/build/audit0, fresh
+production-only npmci and five compiled preservation fixtures passed;104file
+coverage agrees with unchanged floors. Review/Windows pending. See sqlite-compatibility.md. Portable ZIP/bundled runtime/manifest remains
+F06-b; F04 backup/log/F07 encrypted recovery/services/F08 preparation/F09 full legacy
+matrix remain. No new domain features, release/tag or VPS access/deployment.
+
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/21. First-source HEAD
+a113d30327459707458b2126e47879847ad24883 Windows
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38194460620:
+quality1243/124381files on both Node22/24,8checks0/audit0/23compiledproof and
+104coveragefiles independently verified. Browser14pass1fail WebKitB05, no skips/
+flaky/retries: navigation interrupted unfinished initial-image fetches. Exact
+trace/JSON/JUnit/logs/raw hashes saved in evidence/f06-a-first-source.json. Positive
+Member private/shared image visibility/decode asserted before deliberate reload,
+all existing errors/ACL/late-response assertions retained. ci-gate correctly failed.
+Single freshreview1Important1Minor allacceptedbeforeoneTDDpass: literal internal
+SQLite prefix for normal/operator refusal and typed hash metadata. Five actualRED
+thenGREEN, target157/157 fivefiles, full1248/124881files/lint/build0 and seven
+compiled preservation fixtures passed in Cloud. Corrected exactWindows pending.
+
+## F06-a — Final verified merge
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/21
+- Exact reviewed/tested HEAD: `8271d1337e2b239d3772346edcf1754a0dc8fa50`.
+- Windows CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38195122408.
+- Both pinned runtimes:1248/1248 tests in81files, eight native checks exit0, audit0,23 compiled proofs including seven incompatible SQLite cases preserving bytes/schema/rows/journal and closed handles.
+- Browsers:15/15 first-attempt cases, no skip/retry/flaky; coverage104sources passed unchanged floors. All three artifacts/full logs independently read and hashes verified.
+- Immutable final proof: https://github.com/DongVienNguyen/Family-Organizer/pull/21#issuecomment-6116616877. Main squash `8a898259cc1fd9d1e66921e480614c6be14c057c`.
+- First failed WebKit run remains documented; assertions retained and authorized image decode readiness added before reload. No Server2019/service/package/deployment claim.
+
+## F06-b — Windows ZIP producer and clean consumer
+
+- Base main: `8a898259cc1fd9d1e66921e480614c6be14c057c`; focused branch `codex/f06-windows-package`.
+- Implementation/review/Windows evidence pending; PR, tested HEAD and CI run will be recorded after actual creation.
+- New package contract:51 initial harness RED cases plus3 license-byte/runtime-data RED cases; all observed before corresponding implementation. Disk inventory/hash/metadata drift tests added.
+- Eight frontend-only dependency classifications changed; lockfile changed dev flags only, no added/removed nodes or version upgrades. Windows build/browser/production dependency closure must pass before acceptance.
+- Initial Cloud npm ci failed because default node-gyp headers cache was outside writable workspace. Retained actual failed log; retry uses existing workspace headers cache. Linux diagnostics do not prove Windows. Corrected Cloud install/lint/build0; final1311/1311 tests in82files. New production-only installation passed all11 functional checks (finance CRUD/reward/restart/migration/shared snapshot/restore/session revocation/core rows/offline/closed handles). Earlier probe fixture errors (harness preload layout, adult completion without Child approval) retained and corrected; no assertions removed.
+- Required next proof: exact-HEAD Windows22/24 quality/coverage, browsers, ZIP producer and independent no-checkout consumer; all reports/raw hashes read before merge.
+- Remaining: F05 protection HTTP403, F06 service template/license findings, F07 service/portable encryption/update/rollback, F08 release preparation, F09 full regression/performance, R02 real Server2019. Releases/tags/VPS remain unauthorized.
+
+- F06-b PR: https://github.com/DongVienNguyen/Family-Organizer/pull/22. First HEAD `dc76fc0796cdb6dc4230c0249bcda2acc5120cf1`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38197262191. Both quality1311/82, all8checks0/audit0/23compiledproofs/sevenincompatible schemas,15first-attempt browser cases and104coverage files independently verified. Producer failed missing assembly on PS5.1; consumer skipped dependency, not accepted. Evidence `f06-b-first-source.json`.
+- Review: two Important/two Minor accepted before one correction pass; no Critical/no re-review. Six JS device cases RED then GREEN. Native Windows RED `4fb3139421f84f3c482bdd95b468297b44031697`/run38197846395:26cases+Unicode positive; six devices leave paths and forged1-byte length writes2097152bytes before rejection. A prior regression fixture empty-Sum failure is retained and corrected, not counted as the intended RED.
+- Native fixes, absolute producer reports and failure/cleanup evidence prepared; corrected full Cloud1317/1317 in82files+lint/build0. Final exact-HEAD Windows alljobs/ZIP consumer still pending. Main ruleset/protection retry after PR22 still403; readbackprotectedfalse/rulesets[]. No release/tag/VPS/Server2019 claim.
+
+## F06-b — Final verified package and authorized merge
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/22; exact HEAD `15081a7a99f922dd4102fcfcb73a9b983eb0bce5`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38199047306. All six jobs success, all artifacts/full logs independently read before merge.
+- Node22/24 each1320/1320 tests in82files, all8checks native0/audit0/23compiled proofs/seven incompatible-schema cases;15browser first-attempt cases;104coverage sources pass unchanged floors (lines31.51/statements33.78/functions31.67/branches28.61%).
+- Exact producer/consumer ZIP54,214,319bytes SHA256 `aa006fb67449e47eec3795ffc8a246e59b9dc785fa5ed4f95b3f2e5270443ad5`,4557 file hashes/236 production dependencies verified. Consumer has no checkout/install/build/global Node, uses bundled executable hash `ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32`, native prebuild `e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a`.
+-26 malicious ZIP cases rejected/Unicode positive, expected wrong-SHA refusal1 validated, all positive native codes0 and both cleanups true;23compiled+11 supplemental CRUD/reward/restart/migration/shared snapshot/restore/session-revocation/core-row/offline/closed-handle proofs. Actual forged-length/superscript RED and intermediate native fixture failures retained honestly.
+- Full logs SHA256 `69bd8babbaa292c32ef71ef39a4d322fa7053a2c95423c53ad2879172858ef8e`; immutable final proof https://github.com/DongVienNguyen/Family-Organizer/pull/22#issuecomment-6117200804. Authorized squash main `d353c7bd8b7a73ac41bde401d875fe4cfb98e56f`.
+- Metadata/README license cases: cookie-signature/data-uri-to-buffer/isarray already contain full MIT terms in README; http_ece lacks its upstream MIT notice in the npm tarball. F06-c addresses that omission and source/license policy. F06/F07 actual service/encrypted recovery/update/rollback remain pending; F05 main protection actual403, F08/F09 and R02 still incomplete. No release/tag/VPS access.
+
+## F06-c — Package license notices and policy
+
+- Base/main `d353c7bd8b7a73ac41bde401d875fe4cfb98e56f`; focused branch codex/f06-package-licenses.
+- Read-only audit of the verified package:236 production dependency declarations (198MIT,17Apache2,14BSD3,4ISC,1BSD2,1BlueOak,1MPL2). Three README notices are full original MIT texts; no replacement copyright is invented.
+- http_ece1.2.0 npm gitHead `0562510a30819f52424724a6fd5504becacd98a1`; exact upstream LICENSE blob `d6a83c0df8d8f56a8d49f0b666f2033edd26cf18`, SHA256 `717363ac0c7f0883042868db171cfed1f4b423119249eac9bce5131291017ea8`, Copyright2015MartinThomson preserved verbatim.
+- web-push3.6.7 is MPL2; original source/notice must remain unchanged and complete terms are retained. Runtime/native/dependency versions remain unchanged. Source/regression/review/Windows proof pending; no acceptance inferred.
+
+- F06-c source checks:149/149 targeted,1351/1351 full tests in83files, lint/build exit0 on Cloud Node24.21.0. Actual13 classification RED,3 declaration-mismatch RED and1 mandatory-suite RED retained; initial import errors are not counted. No dependency version/lockfile change. First Windows/review pending; source evidence `evidence/f06-c-license-source.json`.
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/23; first exact HEAD `2c20b6f15cabdd69b8c4e65403aa25eb1b0013a9`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38202337144 all6jobs success. Both1351/83,8checks0/audit0/23compiled+7schema preservation,15browser/104coverage independently verified. ZIP54,228,464bytes/4562assets/236deps and full MPL notices/source verified. Important review finding prevents merge of this source despite green CI.
+- One fresh review, oneImportant accepted before one correction pass: truncated notice families/BSD2-vs3 mismatch. Actual6RED thenGREEN; initial fixture import error not counted. Added complete-family checks and original notice byte pins for236 reviewed dependencies from verified F06-b ZIP (http_ece original upstream supplement). All236 classification/byte diagnostics pass;159target/1361full83files,lint/build0 on Cloud. Corrected exact Windows proof pending, no re-review. No versions/lockfile change.
+
+- Corrected `9153d723bf243a7af7461137a02eb2602e45e334` / https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38202918037: producer success with reviewed original notice pins, both quality success; clean consumer native validation1/cleanuptrue because independent harness omitted reviewed-notices.mjs. Later positive consumer checks did not run. Actual job log/report/hashes saved in evidence/f06-c-consumer-failure.json; overall CI not accepted.
+- Same correction pass fixes harness closure. Actual isolated workflow-defined import1RED/40pass then41GREEN;160target/1362full83files and lint/build0 on Cloud. Next exact-HEAD Windows run pending, no skipped assertions/continue-on-error/re-review.
+
+## F06-c — Final verified merge
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/23; exact reviewed/tested HEAD `1c34994de03716a76c9afc578539fdc1493e4136`; Windows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38203277836 all6jobs success. Both1362/83/all8native0/audit0/23compiled+7preservation proofs;15browser first-attempt/104coverage unchanged floors. All raw reports/JSON/JUnit/LCOV/source bytes/ZIP hashes independently read before merge.
+- ZIP54,237,390bytes/4563assets/236runtime dependencies SHA256 `8e049cf3b039a64d7f97a76e617a627a69a40683630a007c4b854ad05e5213db`; actual clean consumer verifies every reviewed original notice hash, three complete MIT README notices, original http_ece notice and full MPL/Apache terms/eight original MPL source files. Runtime/native unchanged;26archive refusals/Unicode positive/expected producer refusal1/23compiled+11functional proofs/both cleanups.
+- Full logs `f1ac09bce4c138e433a785c49ef563e06ffe42f3b9b12655277c10b15f70de5d`; immutable proof https://github.com/DongVienNguyen/Family-Organizer/pull/23#issuecomment-6117726946; authorized main squash `05a59962da1a2459e0f08fc79de94512dc1625cd`. Failed run38202918037 retained; no acceptance of unrun consumer checks.
+- Latest authorized main-policy retry still POST403/PUT403/mainprotectedfalse/rulesets[]. F05 enforcement remains blocked; no full foundation/Server2019/legal compatibility certification. Next F07 service start/stop/restart/recovery and least-privilege ACL; encrypted recovery/update/rollback/F08/F09/R02 still pending. No release/tag/VPS.
+
+## F07-a — Windows service
+
+- Base/main `05a59962da1a2459e0f08fc79de94512dc1625cd`, branch codex/f07-windows-service. Source/review/Windows evidence pending.
+- Pin official stable WinSW2.12.0 NET461 managed wrapper SHA256 `b5066b7bbdfba1293e5d15cda3caaea88fbeab35bd5b38c41c913d492aadfc4f`, asset93386826. Require supported .NET Framework4.8+ (Release>=528040), not an obsolete self-contained runtime. Exact original WinSW MIT notice retained SHA256 `1cdf703c10a70e5973bf3acf2a5eeabe7746237155b92db2034aeae26fdf7802`.
+- Target focused work: owned idempotent service installation/removal, ValidateOnly/WhatIf, LocalService plus per-service SID ACL, rotation, automatic start/recovery; disposable actualWindows start/stop/restart/crash-recovery/closed-handle/cleanup proof. Server2019/reboot acceptance stays R02; no production service or VPS access.
+
+- F07-a source:3render RED +1mandatory suite RED witnessed,23service cases/184target/1386full84files pass on Cloud, lint/build0. Service job added to requiredci-gate; native SCM/start/stop/recovery/ACL/closed handles remain unrun until actualWindows. Source and official asset/license provenance hashes in evidence/f07-a-source.json; fresh review/PR/run pending. No dependency version/lockfile change.
+
+F07-a PR https://github.com/DongVienNguyen/Family-Organizer/pull/24 first source
+16568a5a89d9a76717d1c51f4a322fd71c824cc4 / run38204750730: both Windows
+Node22/24 full1386/84,15first-attemptbrowser cases,coverage and producer/clean ZIP
+consumer independently verified; service failed manifestappVersion/native1,
+cleanuptrue, functional SCM tests unrun, ci-gate failed. Authenticated appVersion
+fixed. Fresh single review:8Important/1Minor, all accepted before one correction
+pass. Native security RED fixtures still pending after two harness failures;
+these are recorded as harness failures, not evidence of security regressions.
+Current source includes synthetic fixtures and will be retested on Windows;
+no service/Server2019 acceptance is claimed. Failure history is retained in
+`evidence/f07-a-failure-history.json`.
+
+F05 actual post-grant retry2026-10-12T04:56:35Z: POST rulesets and PUT
+branches/main/protection bothHTTP403 Resource not accessible by integration;
+main protectedfalse at05a59962, rulesets empty. User Administration:write
+authorization persists; accessible GitHub credentials still cannot apply policy.
+This blocks F05 enforcement/foundation acceptance and dependent feature work,
+while independent F07/F08/F09 preparation continues. No release/tag/VPS access.
+
+F07-a2ebf8da24f1bd112b34a5839f5d4ba3ab458f878 /
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38206260411:
+six genuine synthetic security RED failures and two passing controls witnessed
+before guards, serviceexit1, cleanuptrue/serviceRemovedtrue. The one correction
+pass now authenticates canonical XML/installed CLR config, independent uninstall
+release/hash, sanitized/restored administrative Node environment, exact protected
+DACLs with owned metadata and non-following tree preflight. It also verifies
+restart graceful completion/PID/data and preserves logs/early failure reports.
+Cloud full1386/84 + lint/build0 after corrections; corrected exactWindows still
+pending. No tests/assertions skipped or weakened; no dependency/lockfile change.
+
+F07-a completed reviewed service slice: PR https://github.com/DongVienNguyen/Family-Organizer/pull/24
+merged2026-10-12T05:50:03Z, sourcefac6dbd6cab26450f07d0e22718f24781e6045a1,
+main66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f. Exact Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38208688551:
+all7 jobsGREEN/app15368; Node22/24 each1386/84,8native0/audit0/coverage0;
+15first-attemptbrowser cases; producer/ZIPconsumer all26malicious+Unicode,
+23compiled/sevenincompatible and11functional checks/236reviewednotices.
+Actual8security+9service checks/19positive native0/threegracefulcompletions:
+restart newworker/finance andcrashrecovery persisted, exclusiveDBopening/native
+integrity passed, idempotentinstall/uninstall retaineddata, serviceRemovedtrue
+andfixtureCleanuptrue. UTF8marker andearlyPS5.1typedrefusal independentlyread.
+ZIP9b4580315145af52146cd29988df8cf0049adc9021c6536782860e4c31b739b5;
+immutable proof https://github.com/DongVienNguyen/Family-Organizer/pull/24#issuecomment-6118537588;
+fullsummary/hashes inevidence/f07-a-final.json. Earlier actual failures (including
+failedcleanup) retained; no assertions/skips/threshold relaxation. Onefreshreview,
+8Important+1Minor accepted/onepass/no rereview. AllPR1–24 attachments confirmed.
+
+Next F07-b: ordinary backup/export credential redaction and explicit offline
+credential reentry, preserving canonical users/tasks/finance/points/media,
+command IDs/results/dedupe and reward claims. Remaining F07 portable encrypted
+recovery/onebackup owner/age/diskfull/retention/offhost/Caddy/TLS/update/rollback,
+F08 preparation/F09 mapping/performance. F05 main enforcement403 still blocks
+foundation acceptance and feature work. Server2019/reboot/RPO/RTO are R02 unrun;
+no release/tag/VPS action. Work continues from cleanmain66b2caa.
+
+### F07-b — Ordinary backup credentials and explicit offline reentry (in progress)
+
+Base main SHA: `66b2caa7eaf3d844b22c3b6b24cbc85f05ade48f` (reviewed F07-a PR24).
+Branch: `codex/f07-backup-credentials`. PR URL, source HEAD and exact Windows CI URL
+will be recorded after commit/run; no Windows pass is claimed for this working tree.
+
+JSON/ZIP exports and historical ordinary imports project the shared I01 snapshot:
+credential exclusion, preserved canonical IDs/claims/non-credential command cache,
+removed push capabilities, explicit missing-password reentry on existing users.
+The compiled operator and owned stopped-service PowerShell wrapper take bounded
+UTF8 stdin, with atomic validation and safe output. See
+[ordinary-backup-credentials.md](ordinary-backup-credentials.md).
+No dependency/runtime changes; existing lockfile is retained for `npm ci`.
+
+Actual Cloud RED evidence:3 ordinary-export assertions,2 historical-restore
+assertions,1 missing CLI mode,1 push-capability/verifier assertion,1 missing required
+privacy suite and1 missing operator package asset. A malformed SQL fixture initially
+failed before the capability assertion; this harness error is not counted as RED.
+Cloud targeted51 tests/4 files and typecheck passed before the full regression run.
+Full Cloud regression1411 tests/85 files passed, including deleted/unsupported-role
+refusal; final lint and build exited0. Fresh whole-branch review and Windows
+quality/browser/ZIP/service checks are pending; reports and logs are retained outside the tracked repository.
+
+F05 enforcement retry at2026-10-12T06:28:37Z still returnedHTTP403 for ruleset and
+branch protection despite the user's Administration:write authorization. Readback:
+`main` unprotected, no rulesets. Updated evidence is in
+`docs/engineering/evidence/f05-enforcement-blocked.json`; this requirement stays
+blocked. Independent F07/F08/F09 source can proceed; foundation acceptance and new
+feature tasks remain dependent on the enforcement requirement. Encrypted recovery,
+scheduler/off-host/retention and update/rollback are next focused F07 tasks. No
+release/tag, VPS access, Server2019/reboot or RPO/RTO acceptance has occurred.
+
+F07-b first source HEAD: `39545fd2a1798fa5fd06ef1e55a60fbeb814ac7d`.
+PR: https://github.com/DongVienNguyen/Family-Organizer/pull/25 (attached).
+CI: https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38213941757.
+Consumer validation/compiled production passed; functional probe exited1 at cache
+row preservation and cleanup succeeded. Service did not run. Canonical key ordering
+caused the old string comparison to report a lost row; new tests reproduce that
+failure and retain exact checks on every column/value. This SHA is not accepted.
+
+One fresh whole-branch review found one Important issue: actual cached `jobs:claim`
+lease payloads retained push endpoints. All findings were graded ACCEPT before one
+correction pass. Real enqueue/claim regressions failed for ZIP and JSON, then passed
+with contextual cached-lease redaction. Command IDs/results, notification IDs and
+noncredential business fields remain. Review/source fixes and targeted94 tests/2
+files passed; full corrected Cloud and exact Windows rerun pending. No rereview,
+assertion removal, skipped critical suite or continue-on-error was used.
+
+Independent inspection of run38213941757 confirms both Node22/24 each1411/85,
+all8 native/check exits0, zero advisory findings and unchanged coverage floors across
+106 source files. All15 browser cases passed on first attempt across Chromium,
+Firefox and WebKit, with zero skips/retries/flakiness. Producer passed; consumer
+failed, service was skipped, ci-gate failed. The complete failure record/report hashes
+are in `docs/engineering/evidence/f07-b-initial-failure.json`.
+
+ONE correction pass completed:2 real cached-claim REDs and1 canonical row comparison
+RED now pass, with6 changed/missing-column regressions retained. Corrected full Cloud
+1420 tests/85 files, lint and build passed. Corrected exact-HEAD Windows run is the
+next gate; the first SHA must not be merged. No new dependency or lockfile changes.
+
+Corrected HEAD `3a93a4588a6090b5ff932fcad5cf93a915d94aaa`, Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38214818352:
+both runtimes1420/85 with all8 exits0/audit0/106-source coverage floors;15 first-attempt
+browser cases and independent ZIP consumer14 functional checks/23 compiled checks,
+all236 original notice pins and26 archive refusals passed. Service failed before the
+new active-service guard because Node-spawned PowerShell5 inherited PowerShell7's
+module path and could not load Get-Acl. This is a harness environment failure,
+not successful active-service rejection. Native install/start/finance and cleanup
+passed; later credential/stopped/restart/recovery tests did not run. Fixture cleanup
+and service removal are true. Full logs/reports are retained and summarized in
+`evidence/f07-b-service-harness-failure.json`.
+
+Same one-pass CI correction: constrain the probe's child PSModulePath to the Windows
+Desktop system module root and assert actual PowerShell5/Desktop/Get-Acl module
+provenance. Application/runtime source unchanged. Exact Windows rerun remains
+required; no repeated Cloud suite is needed for this Windows-only probe change.
+
+HEAD `8f0d31b1702a5a27d5accd7bcecd583610bc726c`, run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38215634042:
+Desktop5/Get-Acl system module proof and active-service refusal passed; graceful
+stop, native handles closed and integrity passed. Probe then failed before validating
+`ValidateOnly`/`WhatIf`: its label was recorded but the actual child flag was omitted,
+so empty stdin reached the real operator and was rejected with native exit1. This is
+another harness invocation failure, not proof of either no-mutation mode. Cleanup
+and service removal succeeded. Later batch/reentry/restart tests remain unrun.
+
+Same one-pass fix forwards each flag to the child, preserving all no-input/no-mutation
+assertions, and writes partial credential evidence in finally with a typed completion
+flag. No application change or repeated Cloud suite; exact Windows rerun required.
+The flag failure's actual host/active-refusal evidence and independent five green
+job reports are retained in `evidence/f07-b-validation-flag-failure.json`. The wrapper
+now forwards only whitelisted constant operator error codes; raw stdout/stderr and
+confidential input remain suppressed on failure. The invalid-batch Windows probe
+requires `CREDENTIAL_REENTRY_INVALID`, so parser/startup failure cannot masquerade
+as successful atomic batch rejection. Native exit1 is still checked explicitly.
+
+HEAD `b4a12992fe4e8ca34a61dffda96868248612b411`, Windows run
+https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38216455596:
+five independent jobs again passed. Actual Desktop module/active refusal and
+ValidateOnly/WhatIf passed without input or row changes. The strengthened negative
+batch test caught `INITIALIZATION_INPUT_INVALID` rather than
+`CREDENTIAL_REENTRY_INVALID`: the operator failed parsing before user validation.
+No atomic-batch or valid reentry pass was claimed. Cleanup/service removal succeeded.
+Raw logs and typed partial evidence are in `evidence/f07-b-utf8-failure.json`.
+
+Three genuine Cloud REDs reproduce UTF8-preamble rejection in both initialization
+and reentry plus silent malformed-byte replacement. One-pass fix uses fatal UTF8
+TextDecoder, which consumes a standard leading BOM and rejects malformed UTF8
+before opening storage. Input size/deadline, password/schema/role validation and all
+prior assertions remain. Corrected Cloud1423/85, lint and build passed. The Windows
+probe also records host input encoding/preamble without confidential input bytes;
+corrected exact-HEAD Windows evidence remains pending.
+
+F07-b final: PR25 source92e4db001b0da92299ba5f77d7194829f61b7be2, exact Windows run38217369654 all7 jobs success, independently1423/85 both runtimes/all8 checks and native exits0/audit0/106-source ratchet/15 first-attempt browsers/14 bundled functional/23 compiled/26 malicious archives/236 license pins/10 service checks/21 positive native phases. Credential nested probes0/1/0/0/1/0 and completedtrue; invalid batch reached CREDENTIAL_REENTRY_INVALID, valid reentry preserved IDs/roles/business, shutdowns3 and cleanuptrue. Proof PR25#issuecomment-6119788871; authorized squash merge7fbd536f418a416d8fb36e563161e9197e039ea3. Full evidence in evidence/f07-b-final.json; all four failed Windows runs retained. F07-c portable authenticated encrypted recovery is next. Actual fresh main enforcement POST/PUT still403 after user authorization; no F05/foundation acceptance, feature development, release/tag or VPS action.
+
+## F07-c — portable authenticated encrypted snapshot recovery (in progress)
+
+Branch codex/f07-encrypted-recovery, BASE7fbd536f418a416d8fb36e563161e9197e039ea3.
+Adds AEAD envelope + explicit bounded local compiled operator + owned Windows
+Recovery.ps1. Reuses I01 snapshots/journal/claims/migration/restore; ordinary exports
+remain excluded-v1. Key is supplied via UTF8 stdin and never embedded in backup or
+artifacts; authentication precedes target storage import. Input selects credentials
+explicitly and uses an exclusive local .fo-recovery file outside storage/code roots.
+Windows wrapper requires trusted package/owned service Stopped and closed DB handles;
+ValidateOnly/WhatIf stop before confidential stdin. No public recovery endpoint.
+
+Actual Cloud16 envelope REDs +10 operator REDs → implementation; a missing-module
+import failure and temporary diagnostic filtered run are not full-suite evidence.
+Final Cloud1459/1459 tests,87 files, zero failed/pending/todo, lint/build native exits0.
+Three mandatory-suite/package gate counterfactual REDs are retained. Windows compiled
+ZIP and actual service probes are added but not yet executed; exact-HEAD Windows
+quality/browser/package/service remains required before merge. One fresh wholebranch
+review is next, all finding grades before ONE TDD correction pass, no rereview.
+
+Provider .env/nonpublic app_settings/signing/VAPID config-file recovery, online
+backup scheduling/retention/off-host encrypted copy, update write fence/rollback
+remain subsequent F07 work. F05 Administration writes still403; Server2019/reboot/
+RPO/RTO/release/VPS unrun. See encrypted-recovery.md for current operator contract.
+
+F07-c firstsource9c8c3d2/run38222736027: both Windows1459/87/all8 exits0/audit0/108-source coverage and15 first-attempt browsers independently verified; producer success, consumer recovery1 before actual backup because claim fixture was empty, service skipped, gate failure. Original14 functional/23 compiled checks passed and cleanuptrue. Preserve full artifacts/logs and evidence/f07-c-initial-failure.json. Single review returned3Important/noCritical/noMinor, ALL accepted before ONE correction pass. Six actual interrupted-restore refusal REDs now GREEN; compiled operator really wrote into release during boundary RED, source now blocks whole executing package tree. Claim fixture is corrected without removing preservation assertions. Native owned-operation overlap regression is added before implementing the lock; Windows RED required. No rereview.
+
+F07-c correction validation: Cloud1465/87 zero failed/pending/todo; lint/build0. Compiled Cloud-only diagnostic now6 recovery proofs complete, native exits1/1/1/0/0/1/1/0, preserving all identity/finance/reward/media/claim/command assertions. No Windows claim from that diagnostic. Next exact Windows run deliberately exercises the new concurrent owned-operation regression against the still-unlocked wrapper before adding its lock; this is the remaining Important finding in the same ONE correction pass.
+
+HEAD59b682d/run38224670144: Windows ZIP consumer including6 recovery proofs/8 nested exits passed, and both quality/browser/producer passed. Actual service held-first-Backup regression failed exactly because no per-instance exclusive marker handle was held before stdin; this is the native RED for review finding3, not a harness startup failure. Service/fixture cleanup succeeded. ONE-pass fix adds protected ReadWrite/FileShare.Read marker ownership to Recovery and Reset-Credentials until child completion/cleanup, leaves validation/WhatIf before input/mutation, and releases via nested finally. Final exact-HEAD Windows rerun required; no rereview or repeated Cloud suite for this PowerShell-only native fix.
+
+F07-c final: PR26 source21c8db5b58b5575709debcad92d465441d9637a7, exact Windows run38225436299 all7 jobs success, independently1465/87 both runtimes/all8 exits0/audit0/108-source ratchet/15 first-attempt browsers/23 compiled/14 existing functional/6 portable recovery/26 archives/236 notices/11 service checks/23 positive native phases. Owned recovery nested12 phases match1/1/0/0/0/0/1/1/1/0/1/0; actual first Backup holds marker beforestdin, concurrent Backup/Restore/Reset refuse and preserve pending journal/rows, key failure does not mutate and lock probes prove release after both successful operations. Native shutdowns3, service removed/fixture cleanuptrue. Proof PR26#issuecomment-6120951621; authorized squash main0af0d579fc4dd485165790e9544afa399bcc566c. Full proof evidence/f07-c-final.json; first two failed runs retained. Next F07-d explicit private configuration recovery over the existing journal. AllF07/F09/newfeatures/Server2019/release/VPS still not complete/authorized.
+
+## F07-d — explicit private app_settings recovery (in progress)
+
+Branch codex/f07-private-recovery-config, BASE0af0d579fc4dd485165790e9544afa399bcc566c. Optional includeSettings groups Gemini/Telegram explicitly select bounded private keys, with Telegram token/chat/canonical digest owner kept together. Authenticated private payload wraps the same I01 snapshot; old snapshot-only envelopes and ordinary excluded-v1 exports remain compatible. Restore can choose a subset, preserves unselected local keys and treats selected absent values as removals. Runtime-branded patches enter the existing app_settings stage/journal; combined settings enforce1MiB before any safety copy or promotion. Read cache stores only a tombstone; restore identity hashes ciphertext+selection, not secret plaintext. No public endpoint or second engine.
+
+Actual22 helper REDs,4 operator selection REDs,1 unbranded shared-boundary RED,1 plaintext-identity RED,1 settings-byte-budget RED and2 missing-suite REDs were observed before their fixes. Final Cloud1496/1496 tests in88 files, zero failed/pending/todo; build0, lint initially2 (phantom brand widened Object.entries), corrected type-only cast lint0. All assertions retained. A separate compiled Linux-only diagnostic passed the existing14 functional probes plus5 private-settings proofs/native0,0,1,0; it is not Windows evidence. New clean-Windows ZIP and owned PS5.1 private-setting probes are added, exact Windows/review pending. .env/VAPID/session-key file recovery and online/scheduler/retention/offhost/update/rollback remain later F07 work. F05 actual403/main enforcement missing; Server2019/reboot/RPO/RTO/release/VPS unrun.
+
+F07-d PR27 HEAD4ada42c5e0f2ee0a2a41e24cd98d9b178549b7c7, initial CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38230366670 all7success independently1496/88 bothNode22/24/all8native0/audit0/109-source coverage/15browser/5privateZIPchecks and owned8recovery15nested phases. Actual results retained in evidence/f07-d-initial-green.json; this HEAD is not merged. One fresh review found1Important acceptance gap inherited from F07-c: invalid authenticated snapshots mutate un-warmed targets during storage import. ALL findings accepted before ONE correction pass; no rereview. Ten actual assertionREDs compare complete schema/rows/journal/files; shared validator plus read-only compatibility inspection fixes them, target61/2green. Existing assertions and warm test retained. New clean ZIP probe tests five invalid authenticated snapshots before first restore. Full corrected Cloud and exact corrected-HEAD Windows remain pending; F05403/remainingF07/Server2019/release/VPS unchanged.
+
+F07-d one-pass correction Cloud1506/1506 in88 files, zero failed/pending/todo (full JSON/log retained). Shared-validator extraction initially left duplicate erased type declarations: actual lint2 recorded, removed without runtime change; final lint/build verification pending. Corrected Windows ZIP private-settings probe now additionally refuses five authenticated invalid snapshots on an un-warmed target and compares all schema/rows/journal/file hashes; original selection/business assertions retained.
+
+Corrected F07-d Cloud verified1506/88 full tests, lint0/build0. Ten actual un-warmed rejection REDs→GREEN; two duplicate erased types removed after full test completion, no runtime change/full-suite repeat. Exact Windows corrected-HEAD pending; initial all7success is retained and not reused for merge.
+
+Corrected compiled Linux-only diagnostic14 existing functional plus6 private-setting proofs passed, native sequence0/0/1/1/1/1/1/1/0; five authenticated invalid snapshots preserve un-warmed schema/rows/journal/files before successful selected restore. Initial diagnostic argument-order MODULE_NOT_FOUND retained separately, not behavioral RED. Next commit/push samePR27 and exactWindows; no rereview.
+
+F07-d final PR27 https://github.com/DongVienNguyen/Family-Organizer/pull/27, HEADdf3c65cc844305343054fea86a76336a6e352ed8, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38231777792 all7success independently1506/88 bothNode22/24/all8native0/audit0/112-source coverage/15 first-attempt browsers/23 compiled/14 functional/6 private proofs9 nested exits/11 service checks23 positive native phases/8 owned recovery proofs15 nested exits/3 graceful shutdowns/serviceRemoved+fixtureCleanuptrue. Proof PR27#issuecomment-6121843612; authorized squash main39a8e92f768be5d3c44789e55b0a94459a3b40c2. Initial green without review-gap coverage retained; one review1Important10realRED→GREEN, no rereview. Final proof evidence/f07-d-final.json.
+
+## F07-e — explicit portable signing-key recovery (in progress)
+
+Branch codex/f07-signing-key-recovery BASE39a8e92f768be5d3c44789e55b0a94459a3b40c2. Explicit includeFiles sessionSigningKey selects only the fixed config key; omitted selection preserves local bytes, selected absence removes that file and next runtime generates a fresh key. Older raw/settings encrypted wrappers and old journals remain supported. Branded bounded UTF8/base64 patch extends the existing journal with fixed key staging/old paths and the same SQL commit marker, no second engine. Startup recovery precedes auth; all sessions revoked/effects quarantined. .env/VAPID not selected.
+
+Actual22 helperRED+4CLIRED+2shared boundary/promotionRED+6crashRED (2 existing rollback controls passed), followed by109 target tests/4files green. Mandatory-suite missing assertion failed before CI gate update. New bundled Windows ZIP and owned PS5.1 service probes require no checkout/install/rebuild and retain business/claims/source/session/closed-handle assertions. Full corrected Cloud/lint/build, one fresh wholebranch review and exactWindows required; no CI pass/merge claim yet. RemainingF07/F08/F09/F05 enforcement403/Server2019/reboot/RPO/RTO/release/VPS unchanged.
+
+F07-e full Cloud initial1543/1544 in89 files: unchanged native-gc test hit spawnSync ETIMEDOUT at15s; isolated test also timed out. Direct300k-allocation native probe0; standalone spawnSync both repo/temp cwd0 at7.34/7.78s. Full aggregate with maxWorkers2 passed1544/1544,89 files, zero failed/pending/todo and unchanged assertions/timeouts. CPU quota/availableParallelism both4; exact resource root cause not proven. Failed reports retained in evidence/f07-e-cloud-native-timeout.json; this is not Windows evidence. Lint/build pending.
+
+F07-e source Cloud1544/89 allpassed with2workers, zero failed/pending/todo/lint0/build0. Compiled Linux-only diagnostics14 existing functional +6 raw recovery +6 private-settings +6 signing-key proofs complete; signing nested0/0/1/0/1/0/0/0/0. Initial missing-group fixture incorrectly reused another probe encryption key, thus exact envelope refusal instead of missing-group; assertion retained, corrected same-key raw backup fixture, failed partial proof retained in evidence/f07-e-compiled-cloud.json. No application-source change/full-suite repeat for MJS harness-only correction. Startup draft instructions saved with2-worker Cloud full aggregate (not published). Next sourcecommit/PR +ONEfresh wholebranch review +exactWindows; no merge/Windows pass claim yet.
+
+F07-e initial HEAD4094b28/run38234856024 all7jobs success; initial artifacts/logs retained and independent verification pending. One fresh review0Critical/0Important/2Minor, ALL accepted before ONE correction pass: pre-journal process crash leaves plaintext key stage; failed native key reads lose buffer cleanup ownership. Actual5REDs (2 process-exit/3 read-fault)→114 target tests/4files green. Existing shared journal now publishes ownership before any plaintext staging; bounded reader clears failed buffers/EOF probe and close errors. Existing assertions/oldjournals retained, no second cleanup engine/no rereview. Corrected full Cloud/lint/build/exactWindows next; do not use initial CI SHA for merge.
+
+F07-e ONE-pass corrected full Cloud1549/1549 in89 files, maxWorkers2 unchanged assertions/timeouts, zero failed/pending/todo; lint/build0. Initial Windows4094/run38234856024 independently all7verified1544/89/all8native0/audit0/113-source coverage/15 browser/6 signing proofs9nested/10 owned recovery proofs18nested/11 service23positive/graceful3/cleanupremovedtrue, retained evidence/f07-e-initial-green.json; source not merged because corrected SHA must pass Windows. Compiled corrected bundle verification and correction commit/push next; no rereview/no new permissions/release/VPS.
+
+Corrected compiled Cloud bundle14 functional +6 raw/6 private/6 signing proofs passed, all recovery reports completed/closed handles/native expected exits. Linux diagnostic only; exact Windows corrected-HEAD next. No further source changes/test repeats after the one review correction pass.
+
+F07-e final PR28 https://github.com/DongVienNguyen/Family-Organizer/pull/28, HEADaea7e7cdf30abcda0512ac0c7e1defdd1c31be89, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38236244829 all7success independently1549/89 bothNode22/24/all8native0/audit0/113-source coverage/15firstbrowser/23compiled/14functional/6signing9nested/10ownedrecovery18nested/11service23positive/graceful3/cleanupremovedtrue. One review0Critical0Important2Minor accepted/5actualRED→GREEN/onepass/no rereview. Proof PR28#issuecomment-6122494620; authorized squash main44d0fddbf3c0dee8113365e9df7eb6d2cd0ed0fc. Final evidence/f07-e-final.json; failed Cloud native-GC and harness diagnostics retained, setupdraftrevision9 saved notpublished.
+
+## F07-f — explicit provider .env/VAPID recovery (in progress)
+
+Branch codex/f07-provider-env-recovery BASE44d0fddbf3c0dee8113365e9df7eb6d2cd0ed0fc. Independent includeEnv gemini(primary+fallback)/vapid(pair+subject), strict authenticated metadata/runtime brand, preservation of unselected target text/host entries/BOM/CRLF/multiline values and dotenv roundtrip. Shared journal optionalenvhash/size/staging/oldpaths and the same SQL marker, no second engine. Post-recovery config reconciliation happens before db -> push/provider imports and honors launch overrides/roots. Old wrappers/journals/ordinary excluded-v1 retained; sessions/effects policy unchanged.
+
+Actual26helperRED+1BOMRED+4CLIRED+1configRED+2sharedRED+2new env phaseRED, plus corrected SQLcommit counterfactualRED and actual missing APP_URL after env-old-renamed. Three initial target failures were tmp-eval dotenv MODULE_NOT_FOUND, retained separately, not product defects; dependency resolution corrected without weakening assertions. Final targeted144/5green. Native ZIP7 env proofs and owned PS5.1 probes added; mandatory missing-suite assertion RED before gate update. Full Cloud/lint/build/onefreshreview/exactWindows pending; no PR/CI pass claim yet. RemainingF07/F08/F09/F05403/Server2019/reboot/RPO/RTO/release/VPS unchanged.
+
+F07-f final Cloud1591/1591 tests/90files, maxWorkers2 unchanged assertions/timeouts, failed/pending/todo0; lint/build0. Initial lint2 serializer unknown-value narrowing fixed by erased cast after guard, no runtime change/full-suite repeat; saved in development diagnostics. Before casing integration first full1588/90 also passed and retained. Case capture/removal2 actualRED→46helper/config green, real-platform mixed host test added; exact Windows execution required. Compiled production-only Cloud diagnostic is next, then onefreshreview/exactWindows PR.
+
+F07-f compiled Cloud14 existing functional +6raw/6private/6signing/7provider-env proofs completed, env10native phases0/0/1/0/1/0/0/0/0/0, source retained/provider text/BOM/host/pair/claims/sessions/closed handles verified. Synthetic ECDH VAPID keys generated locally, no sends/AI calls. Linux diagnostic only; source full1591/90/lintbuild0 current, no dependency/lockfile/runtime change. Next sourcecommit/PR/ONEfreshreview/exactWindows; no Windows pass claim.
+
+F07-f PR [#29](https://github.com/DongVienNguyen/Family-Organizer/pull/29), initial HEAD2dbb6885d887b035837c836d6c823ae71cbbb093, [Windows run38240925041](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38240925041): all7 success independently verified, Node22/24 each1591/90,114-source coverage,15 first-attempt browsers,7 provider-env/10 nested phases,12 owned recovery/21 phases, service cleanup true. Initial green retained in f07-f-initial-green.json; not correction merge proof. One fresh review0Critical/0Important/2Minor, all accepted before one correction pass: quoted terminal backslash and quadratic multiline scanner. Five actual regression REDs→87/3 targeted green; initial harness MODULE_NOT_FOUND/E2BIG saved separately. Full corrected suite and exact-new-HEAD Windows pending. No rereview.
+
+F07-f one-pass corrected full Cloud1596/1596 tests/90files, failed/pending/todo0, maxWorkers2; lint/build0. Subsequent loader-only Windows file-URL adjustment verified34/34 helper cases, no production behavior change. ZIP provider fixture additionally preserves a quoted Windows path ending backslash plus500000-newline unselected value. Actual5 review regressions preserved; no secondreview/dependency/lock/runtime change. Updated same PR29 and exact Windows required before merge.
+
+F07-f final PR29 HEADf7008496a9aa3a3af8f2d57e7dfc69750455fef7, [CI38242353963](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38242353963): all7 independently success,1596/90 eachNode22/24,114-source coverage,15browser,7 provider-env/10 nested and12 owned recovery/21 nested; source/config/claims/session revocation/closed handles and serviceRemoved+cleanup verified. Proof [comment](https://github.com/DongVienNguyen/Family-Organizer/pull/29#issuecomment-6123386688), squash mainbb89dbf71f2554e7c865854f9147a1cf0ba3e4f5. Final proof evidence/f07-f-final.json.
+
+## F07-g — shared online encrypted capture (in progress)
+
+Branch codex/f07-online-recovery-capture BASEbb89dbf71f2554e7c865854f9147a1cf0ba3e4f5. Runtime exposes an internal borrowed-owner backup port using the same I01 collector, native IMMEDIATE transaction/WAL reads, immutable media manifest/private selections/AEAD/exclusive fsync publication. Offline operator retains closing ownership; online path leaves runtime SQLite open. Read-result tombstones retained; tracked in-flight effects and a rechecked runtime phase fence shutdown before capture. CLI exports its owning application promise for local orchestration, with service signals/stop behavior retained. No new HTTP/public API or restore engine.
+
+Actual6 absent-port REDs plus1 mandatory-suite omission RED→139/2 targeted green. Full Cloud1606/1606 tests/91files, zero failed/pending/todo/maxWorkers2, lint/build0. Three extra passing fault/concurrency/post-close cases do not claim additional REDs. Initial loopback fetch blockage was a harness issue, corrected to loopback node:http with external blockers retained. Compiled Cloud14 existing functional +8 online proofs/3 native phases0 verified, including restore through existing offline engine with point-in-time tasks/claims/17points/media/private selections/sessions/source retained. Initial standalone fixture had no claim metadata; seed from existing canonical17-point grant in closed COPY, retain assertion and partial report. POSIX denied-directory proof is not Windows DACL evidence. One fresh wholebranch review and exact-HEAD Windows pending; scheduled/actual service-account online operation, backup-age/retention/offhost/update/rollback/F08/F09/F05403/Server2019 remain pending.
+
+F07-g initial PR30 HEADf7b64fa70d92f3e33e3da6c1bbb4e5d82461209b, [Windows run38244778717](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38244778717): all7 independently verified1606/91 bothNode22/24,114-source coverage,15 browsers,8 online/3 native0, package/service cleanup true. Initial green retained in f07-g-initial-green.json; not merged because review identified whole-release path protection defect and missing overlap-writer acceptance proof.
+
+One fresh review0Critical/1Important/1Minor; all graded before one correction pass, coverage gap regraded Important acceptance requirement (no proven product race). Real compiled regression accepted all3 forbidden release-root/bin/ops outputs→loaded-bundle root guard→all3 refused with exact RECOVERY_PATH_INVALID, no files. Missing required native overlap proof RED is separate from a business race defect. TS overlap writer changes rows/settings/media in one synchronous owner; snapshot tuple is consistent. Compiled overlap HTTP writer restored snapshot has complete or absent new row, retained later source writes, unchanged claims/settings/media and revoked sessions. Corrected full Cloud1607/1607 tests/91files/maxWorkers2/zero failedpendingtodo/lintbuild0;10 targeted cases,9 compiled online checks/4 nested0 and standalone root regression0. Linux diagnostic only; exact new-HEAD Windows required. No second review/assertion weakening/dependency/lock/runtime change. Remaining scheduler/retention/offhost/update/F08/F09/F05403/Server2019/RPO/RTO unchanged.
+
+F07-g final PR30 HEAD84de62f17b9047f4df90e7f7942192d4b535c8e4, [CI38247504991](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38247504991):all7 independently success1607/91 bothNode22/24,114-source coverage,15browser,9online/4native0, owned service baseline/cleanup true. [Proof comment](https://github.com/DongVienNguyen/Family-Organizer/pull/30#issuecomment-6124143359), ZIP208ac524ad710fe92a5e7a399ab0c3710d5a54a6b7a6f6d45f019b129c366917. Initial GraphQL merge504 integrated identical source tree in02a162c but left PRopen; one REST exact-SHA reconcile confirmed closed/merged atc0705cd6f03003d747481c85e6ff706447756a2a. Both commits retained, no force push; main tree identical testedHEAD. Evidence f07-g-final.json/f07-g-merge-reconciliation.json. PR30 attachment confirmed.
+
+## F07-h — opt-in owned schedule/configuration/backup health (in progress)
+
+Branch codex/f07-owned-backup-schedule BASEc0705cd6f03003d747481c85e6ff706447756a2a. Fixed bounded recovery-backup.json/32-byte portable key in CONFIG_DIR, strict credential/private selections, disjoint protected output/release roots. One AppJobs durable core-recovery schedule: startup +12-hour VN-aligned buckets, public configuration fingerprint and local restore epoch prevent stale restored-job reuse. Random exclusive output names retain prior ciphertext on retry; no key in job payload/cache/state/logs. The same online I01 capture port and existing effect/job drains remain. Capture success timestamp/hash/name/size persisted; admin-only server stats show redacted backup age/failure/disk-full and verify latest file presence/size/non-link. This health check is not a cryptographic restore certificate. Malformed optional configuration reports failed backups while legacy runtime stays ready.
+
+Owned Configure-Backup.ps1 requires trusted manifest/service/stopped/Admin+operation guard, supports ValidateOnly/WhatIf before input/mutation, bounded confidential UTF8 stdin, keeps existing key or refuses change, durable config publication, service-SID read-only key/config and modify external backups. Runtime key file is outside backup and release; external original recovery key remains required. Package rejects instance key/config/cipher material; operator script is mandatory. PowerShell5.1/native service probe added for validation, invalid groups, idempotency/no key rotation, LocalService live encrypted capture/admin health and stopped shared restore retaining17 canonical points/claim/data/source/key, revoking sessions. Actual Windows execution pending.
+
+Actual REDs29config/key/age+10scheduler+4startup+3missing/size/link+1ENOSPC+1restored bucket+3suite omissions+3package exclusions;4 valid package fixtures simply lacked newly required ops file (not product RED). Target57/4 green. Full Cloud1661/1661 tests/94files/maxWorkers2, failed/pending/todo0, lint/build0. No dependency/lock/runtime changes or weakened assertions. One fresh review and exact-HEAD Windows required; retention/offhost/update/F08/F09/F05403/Server2019/RPO/RTO remain. No release/tag/VPS action.
+
+F07-h [PR31](https://github.com/DongVienNguyen/Family-Organizer/pull/31) initial HEADc4d4c5f1a69476224b920143dea6ef99b29962f3, [CI38254797866](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38254797866): Node22/24 quality, browser, producer and consumer succeed; disposable service/ci-gate fail. The second Enable failed at config-publish. Earlier canonical XML/CLR refusals are expected security tests. Initial reports/log hashes retained in f07-h-initial-ci.json; no merge/Windows acceptance claim.
+
+One fresh wholebranch review0Critical/5Important/1Minor, all graded before one correction pass. Reinstall reseals specialized read-only key/config and modify backup ACLs; matching existing key readers are resealed without changing bytes. Explicit public old-config filename removes null binding ambiguity in native File.Replace, with post-publication ACL verification. Confidential decoding copy is zeroed independently of file cleanup. Runtime restore epoch uses local insertion order; capture/receipt SQLITE_FULL report disk-full; format2 redacted failure/last-success metadata survives terminal-job restart, with old format1 receipts readable.
+
+Corrected source ca190e8b09e28fce6ed6169b37c977537ee2e469: five actual RED assertions→33 targetedGREEN; one epoch fixture schema failure retained separately. Cloud1666/94, failed/pending/todo0, maxWorkers2; lint/build0. Vitest reports145 describe suites but94 file results. Native regressions add extra-reader/missing-service-read resealing plus configure→reinstall→LocalService capture. No second review/dependency/lock/runtime change or release/tag/VPS. Corrected exact-HEAD Actions required before merge; retention/offhost/update/F08/F09/F05 Administration403/Server2019/RPO/RTO remain. Next F07-i after successful exact-HEAD CI/merge.
+
+F07-h CI38256696436 exact5e6f6a7 completed failure. Node24 full1666/94, browser, ZIP producer/consumer succeed. Node22 has1665pass/1fail: restore-marker fixture was seeded after startup, racing boot schedule. Service configuration now passes repeated Enable, extra-reader/missing-service-read resealing and post-configuration reinstall with exact key/config ACL checks; active harness then incorrectly slices15bytes from16byte envelope magic. Logs/proof retained in f07-h-ci-harness-correction.json. Deterministic25ms fixture-race RED retained separately from product defects. Seed valid native marker/schema before managed startup; retain exact latest-epoch assertion. Header assertion now uses actual magic byte length. Target5/5 on pinned CloudNode22 andNode24; JS syntax/diff checks0. Production source unchanged; full exact new-HEAD Windows mandatory, not merged.
+
+F07-h exact6490c01/CI38257798150: both runtime quality suites1666/94 and browser/producer/consumer succeed; service/gate fail after5 executed schedule proofs and successful native offline restore exit0. Native capture/health/readiness and ACL/reinstall succeed. The harness compares SQLite JSON text; shared validation intentionally sorts JSON keys. Actual Cloud scheduled→offline restore reproduces this false difference (same user ID/seq/all values, changed property order). Parse complete data JSON and retain strict equality of every row/ID/sequence/value, consistent with existing compiled online oracle. Expanded capture case records capture-time baseline before its intentional later source write; proves that later write survives until explicit restore and the earlier snapshot correctly excludes it. Intermediate late-row oracle failures retained as harness errors. Target5/5 on pinned CloudNode22 andNode24; source product unchanged, no assertion skip/drop/rereview. Next exact new-HEAD Windows required before merge. Evidence f07-h-canonical-restore-oracle.json.
+
+F07-h CI38259503320 exact6ba33cf: quality/browser/ZIP checks succeed; disposable service/gate fail earlier in existing overlap-lock harness. Holder exits1 while39 repeated ReadWrite probes return0. These probes can themselves conflict with startup metadata reads or nonblocking guard acquisition; exact early-exit path was not logged, so not asserted as proven. Recovery now emits a constant post-guard/pre-input readiness line; harness waits at most the existing8s, then independently proves sharing denial once. Every competing Backup/Restore/Reset refusal, journal/source no-mutation, positive/released controls remains. No retries or raised timeouts. MJS syntax/diff0; actual new native coordination proof pending. Evidence f07-h-operation-lock-coordination.json.
+
+F07-h exacta021076/CI38260599363: all quality/browser/package checks succeed; operation-lock readiness/contending operators now pass. Service reaches scheduled-active and fails because the normalized data column is parsed a second time in the17-point assertion. Access the already parsed data.points; keep exact17-point/claim/readiness/restore assertions. Product source unchanged by this correction; new exact-HEAD Windows still required. Failed log retained at /workspace/family-evidence/f07-h-a021-service-failed.log.
+
+F07-h [PR31](https://github.com/DongVienNguyen/Family-Organizer/pull/31) accepted at HEADe382679079ef13655e3ea198738c4fbbe736ad09, [CI38261499148](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38261499148): all7 checks independently success. Both runtimes1666/94, zero failed/pending/todo;115-source coverage and15 first-attempt browsers. Package baseline preserved;12 service checks/29 positive phases/8 security fixtures,6 schedule proofs/17 nested expected exits,4 graceful shutdowns, service removed/fixture cleanup true. ZIP2cea405753dae0315cb806552c1d3d632ec5e261f40a634b202888606938d531, log477936452600825637c12b0ef3444e892d6e06693d80fd35a676dd9503af2af2; [proof comment](https://github.com/DongVienNguyen/Family-Organizer/pull/31#issuecomment-6126189888). Exact-SHA REST squash merged once; REST/main independently confirm236038203f5be617a57963ac85ccec6c78603ee6, tree identical testedHEAD. Final report f07-h-final.json. No release/tag/VPS.
+
+F07-i (in progress), branch codex/f07-encrypted-backup-retention BASE236038203f5be617a57963ac85ccec6c78603ee6. Explicit operator Copy/Prune primitives reuse fixed configured key/source and shared AEAD; bounded trusted receipts/age-count floors/disjoint ordinary paths/counted reads/verified existing copies/exclusive fsync publication/verified-copy prerequisite for deletion. Unknown files/source/key/prior copies retained on faults. No SQLite writes or new scheduler/API. Actual45 core/auth REDs (first generic negatives passed a throw-only scaffold, then tightened to specific errors),5 CLI REDs and2 missing-suite REDs; targeted201/4 pass with saved npm exit0. Full/lint/build running. PowerShell source adds trusted destination DACL gate, native fixture idempotency/retention/portable shared restore; Windows execution pending. Automatic policy/catalog and actual off-host/RPO/RTO remain subsequent acceptance, not claimed complete by manual tooling.
+
+F07-i Cloud final1718/1718 tests/96files, failed/pending/todo0,2workers; lint/build0;201/4 targeted0. No source/test edits during verification. Source/database/runtime/dependency scope as documented; trusted manual receipt timestamps are not signed certificates, automatic catalog/policy still pending. Native Windows/PS5/NTFS/SCM/independent off-host unrun at this point; one fresh wholebranch review/exact new-HEAD Actions required. Evidence f07-i-development.json.
+
+F07-i initial [PR32](https://github.com/DongVienNguyen/Family-Organizer/pull/32), HEAD3e77a4522312b1abb1cfb53908e283aa13458a99, [CI38266467828](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38266467828): all7 success; independently verified Node22/24 each1718/96,116-source coverage,15 browsers, baseline ZIP and9 schedule/maintenance checks27 nested exits. Initial success is not merge acceptance: one fresh review found4 Important issues, all accepted before one correction pass. Test-only checkpoint3a0e26567a36ef9af797dcd10668a95e00f36e99 / [CI38269087123](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38269087123) exercises six native destination-file writer/owner, DeleteChild, source/protected-root8.3 aliases and hostile-ancestor refusals. Cloud physical-path seam independently reproduces3 accepted forbidden aliases (36 existing tests passed); actual Windows regressions pending. No merged/corrected-green claim. Initial proof f07-i-initial-green.json; rulings f07-i-review-rulings.json.
+
+F07-i one review correction pass: all six native regressions actually accepted forbidden operations at checkpoint3a0e265 (expected exit1, observed0); source/cipher/config retained, cleanup true. Corrected physical canonical roots/directory identity, existing destination-file owner/DACL, DeleteChild mask and ancestor replacement rights; new files sealed before success, existing trusted ACLs preserved. Dedicated ProgramData native fixture is removed in finally. Corrected Cloud1721/1721 tests/96files, zero failed/pending/todo,69/3 targeted, lint/build exit0; source/tests frozen during verification. Evidence f07-i-review-red.json and f07-i-review-development.json. Exact corrected-HEAD Windows acceptance remains pending; no second review/merge/release/VPS claim.
+
+F07-i HEAD1952830 / [CI38270553522](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38270553522) failed both quality jobs (1718passed/3failed each) and service/gate; browser/producer/consumer passed. Three physical-path mocks returned unexpanded RUNNER~1 paths while real native realpath expanded the protected/source roots. Return actual canonical paths from the mock, preserving exact refusal/no-output assertions; targeted39/39 Cloud exit0. Service refused the positive ProgramData fixture at the ancestor replacement-rights gate. Move only synthetic positive/review roots to dedicated sealed directories directly on C:, retain the gate and every security fixture, add public ancestor ACL inventory. Production source/system ACLs unchanged; service removed/cleanup true. Failed reports/logs retained in f07-i-harness-correction.json; new exact-HEAD Windows required, no merge/pass claim.
+
+F07-i final [PR32](https://github.com/DongVienNguyen/Family-Organizer/pull/32), HEAD9a5bfd34ddeccfd4c12cf469ed312f7ce1741f15, [CI38271663083](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38271663083): all7 checks independently success;1721/96 on both runtimes,116 source coverage/15 first-attempt browsers, baseline ZIP proofs and12 service checks/29 positive phases,10 scheduled/maintenance checks44 nested exits. All six new native security regressions refuse1; actual C-root owner/ACL inventory saved; four graceful shutdowns and cleanup/removed true. ZIP186629015db5878cb61721287ff24df6218f03f1dcc65be51ee5a135b44013d7, fullLog45ba207223748cad9dcd2ed2981f1c0b5a1d058f432a75115b80f26e226cc9f3. [Proof](https://github.com/DongVienNguyen/Family-Organizer/pull/32#issuecomment-6127668931); one REST exact-SHA squash merged45522657cc5bc1f553728e8c53caa2c97916bfbd, REST/main/tree independently verified. Final f07-i-final.json tracked on next branch. Next F07-j runtime startup fencing and rollback boundary, then owned coordinator F07-k; retention remains explicit operated tooling, actual independent off-host destination/R02 unrun. No release/tag/VPS.
+
+F07-j in progress, branch codex/f07-update-startup-fence BASE45522657. Optional owned lifecycle ready promise holds HTTP/jobs, aborts/drains validation before SQLite close. Fixed bounded control binds manifest before storage, requires protected native publisher/held→approve and runtime health/integrity/users/core/domain smoke; I01 metadata+command history is committed before ready. Approval remains an independent latch if DB restore loses the opened marker; unknown/published approval blocks automatic snapshot rollback, schema bounds block incompatible binary rollback. Source CLI intentional held stop actual exit1 RED→exit0, real validation failures remain exit1. Native controller/swap/rollback orchestration remains F07-k.
+
+Actual3 lifecycle REDs,20 missing-function availability REDs (not20 proven defects),4 source-runtime REDs,2 boundary/deadline REDs,1 CLI-stop RED and5 package/required-suite REDs. Cloud1756/98, failed/pending/todo0,265 target/5files, lint/build exit0. Source/tests frozen during verification; no dependencies/lock/runtime change. Native service harness adds held HTTP/jobs/stop/approve/durable boundary and strict control-reader ACL after reinstall; source only, Windows checkpoint pending. Service fixture now dedicated C-root with sealed trusted ancestors. Initial checkpoint is expected to detect missing new control-file exception in existing installer; not fixed or claimed until actual NTFS report. Evidence f07-j-development.json. No PR merge/release/VPS/Server2019 acceptance.
+
+F07-j [PR33](https://github.com/DongVienNguyen/Family-Organizer/pull/33), initial HEAD3b9fe67949962dc74343faa3d70e75ce7feda71f, [CI38279163369](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38279163369): both quality1756/98, browser, producer/consumer succeed; service/gate fail at initial readiness. Node service logs prove EPERM lstat on the newly sealed C-volume fixture parent, before any update-control regression. Grant only this installation's SID ReadAndExecute on that parent without recursion or writer grants, retain trusted ownership/protection and assert exact ACL. Control-reader-after-reinstall RED has not run; no false claim. Source lifecycle activation fault separately RED (phase ready after jobs.start throws)→failed state,42 target pass; corrected full/lint/build running. Failed reports/logs and cleanup true retained in f07-j-parent-fixture-correction.json. No review/merge/native acceptance yet.
+
+F07-j activation/fixture corrected source: Cloud1757/98, failed/pending/todo0, lint/build exit0,42 target/3files. Source/tests remained frozen during verification. Job activation failure now forces failed phase before any future HTTP readiness; intentional shutdown cancellation still exits0. Native parent grants only the unique installation SID ReadAndExecute on the owned sealed parent; exact reader ACL is asserted. Next same PR33 exact-HEAD Windows required, control-after-reinstall regression still unrun, no review/native acceptance/merge claim. Evidence f07-j-activation-correction.json.
+
+F07-j exact7e5ade3 / [CI38280590026](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38280590026): quality1757/98 both,117-source coverage/browser/ZIP succeed; service/gate fail at the new control-reader regression after all earlier service/recovery/schedule/maintenance phases pass. Actual native seal0→reinstall0→exact ACL1: recursive config grants service Modify on update-control.json. Reapply the protected read-only exception after recursive config ACLs, using the existing exact three-principal validator; preserve every assertion. No source runtime/test changes after1757 verification; PowerShell behavior requires next exact-HEAD native proof. Service removed/cleanup true; evidence f07-j-native-control-red.json. One fresh review next; no merge/fullF07/Server2019 claim.
+
+F07-j one fresh wholebranch review of79210b6:0Critical/1Important/1Minor; all findings graded accepted before one correction pass, no second review. Descriptor-only checks allowed stale approval after parent relocation; actual rename/replacement regression fails before correction. A control read crossing the monotonic deadline also accepts late approval; second actual RED. Revalidate ordinary ancestor identities/fixed pathname against the descriptor and recheck deadline after read. Both actual RED assertions (22 existing pass) now44/44 targeted/3files; full/lint/build running, corrected exact-HEAD Windows mandatory. Evidence f07-j-review-rulings.json.
+
+F07-j checkpoint79210b6 / [CI38281793387](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38281793387): all7 API checks success. Downloaded service evidence independently confirms13 checks/41 positive phases, update5 checks/7 nested native exits0, service removed/cleanup true. Actual protected control R survives reinstall; held HTTP/jobs/no-open, graceful held stop, new approval/durable-before-ready proved. This checkpoint predates the two review corrections and is not final merge acceptance. Evidence f07-j-native-control-green.json; full new-HEAD Windows still required.
+
+F07-j corrected Cloud verification:1759/1759 tests/98files, failed/pending/todo0, maxWorkers2;44/44 target/3files; lint/build exit0. Source/tests frozen during all verification. One review completed, both findings corrected with actual RED evidence, no rereview/dependency/lock/runtime changes. Push same PR33 for mandatory exact corrected-HEAD Windows; no final merge/Server2019 claim.
+
+F07-j final [PR33](https://github.com/DongVienNguyen/Family-Organizer/pull/33), HEADb0c9256c737c4c9211d2bb6b0391e04b12df02c3 / [CI38282951500](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38282951500): all7 checks independently verified success, both runtimes1759/98/no failed-pending-todo,117-source coverage/15 first-attempt browsers, baseline package/13 service checks41 positive phases/update5 checks7 nested exits0, at least6 graceful shutdowns/removed-service/cleanup true. ZIP3d133c9c45b59a1e5debdc87c46157e624425931de84ae2f03b16ce0881633e7; fullLog5613ae1b564cdce63b77233e975ac5bf4024b51bb1bfbd64e89a41e87467b27e; proof6129188339. One exact-SHA REST squash merge0b3b0aeba83a85126e1d4092c9c19c0223233086, PR/main/tree independently verified. Final proof tracked on this next branch. Next F07-k owned native update/rollback coordination. No full foundation/Server2019/release/VPS claim.
+
+F07-k in progress BASE0b3b0ae, branch codex/f07-owned-update-coordinator. Native Update/Rollback scripts authenticate distinct retained releases, share the installation operation guard with install/uninstall/recovery, stop/drain/prove closed handles, capture fresh encrypted full I01 backup, publish held canonical service configuration and flush external journal opening before approval. Read-only actual SQLite schema/opened-metadata/command inspector avoids bootstrap/version reset. Conservative preapproval restore and compatible postapproval binary rollback preserve snapshot/data; unknown/nonterminal/partial descriptor requires explicit recovery. Exact completed requests verify owner/journal/control/I01 and return idempotently; key read bounded32bytes. Native fixture injects port conflict, fresh pre-stop finance write, held failure/automatic shared restore, post-write refusal, incompatible version retained, binary rollback/new UUID preserving later write, repeat/no mutation/operation overlap/closed handles. Source only; Windows/PS5/NTFS/SCM not executed in Cloud.
+
+F07-k Cloud1788/1788 tests/100files, failed/pending/todo0, maxWorkers2,253 target/4files, lint/build exit0. Source/tests frozen during runs; later changes only PowerShell/harness idempotence/count-bounded-key checks, pending native execution. No dependency/lock/runtime changes. Evidence f07-k-development.json; next one fresh wholebranch review and exact-HEAD Windows mandatory before merge. F08/F09/F05403/full foundation/Server2019/offhost remain; no release/tag/VPS.
+
+F07-k [PR34](https://github.com/DongVienNguyen/Family-Organizer/pull/34) initial HEADe2e1eaf / [CI38287009712](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38287009712): both1788/100 quality/browser/ZIP success, service/gate failure13 at unsettled fault-socket close; baseline service flows/cleanup true. Source checkpointa9e1903 / CI38289439387 and test-onlydaa1ab6 / [CI38291959145](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38291959145) prove actual mutable executable accepted0(expected1), stale-authorized uninstall accepted0 after guarded canonical owner switch(expected1), retained snapshot ACL failed1 after reinstall(expected0). Candidate backup probe also changes source data before capture; its original missing user points field becomes null, so corrected fixture now mutates actual17-point grant+coupled claim hash, not a claimed numeric old result. All earlier baseline checks/fixture cleanup retained. CI38290708886 was superseded/cancelled, not success.
+
+F07-k ONEfresh review0Critical/9Important/1Minor ALLgraded before one pass. Protection checked before executing any candidate file; owner/SCM/XML and boundary re-read under guard; old operator captures/restores before candidate initialization; actual snapshot schema read; strict current and previous terminal control/journal/DB binding; exact I01 metadata+actor/payload/result/timestamp verification; ordinary rollback failure stops started authenticated service; install/backup configuration reapply protected journal-referenced cipher ACLs. Shared preflight validator incidentally resolves minor preview mismatch. Nine source inspection RED assertions and2new boundary-function availability RED retained; corrected1799/100/no failed-pending-todo,61 target4files,lint/build0. Source/tests frozen during runs, no deps/lock/runtime change. Native-only fixtures cover stale ownership, untrusted writer, candidate-bootstrap ordering, later opened-record failure/stop, captured fresh writes/claims/source/key/snapshots and data-preserving compatible rollback; exact corrected-HEAD Windows mandatory. No rereview/merge/fullfoundation/Server2019/release/VPS claim.
+
+F07-k corrected52fe32b / [CI38293844372](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38293844372): both1799/100 quality/118-source coverage/15 browsers/ZIP independently succeed; service/gate fail at final strict aggregate. Actual mutable executable and stale-authorized uninstall now refuse1, referenced snapshot ACL survives0; old source captures/restores17 points, all finance/claims/source/key/snapshot/idempotence/postapproval/schema/compatible binary/closed-handle assertions pass. Intended metadata fault never fired: script-line breakpoint inside a declared function produced no injection, rollback correctly succeeded0/remained running. Replace fixture hook with a command breakpoint gated on old-approved control and rollback-binary journal; assert constant hook marker before interpreting error/stop, keep every strict data/latch/exit assertion. Production source unchanged; cleanup/removed true. Native next exactHEAD required; no rereview/merge/fullfoundation/Server2019 claim. Evidence f07-k-native-fault-hook-correction.json.
+
+F07-k324fbe1 / [CI38295645133](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38295645133): five checks independently1799/100 both/118sources/15browsers/ZIP succeed; service/gate fail because required fault marker is absent. All three ownership/cipher refusals and17-point source capture/restore, update/retry/post-write/schema cases pass; nested command breakpoint also did not inject metadata fault and ordinary rollback succeeded0. Deterministic replacement is an authenticated synthetic-candidate-only inspector hook, enabled by synthetic logs sentinel, changing exact opened record only after old approval during rollback-binary and writing observed marker. Production source and ZIP have no hook; every required fault/stop/data/latch assertion remains. Cleanup/removed true; no second review or new source/dependency/runtime change. New exactHEAD Windows required; no merge/fullfoundation/Server2019/VPS/release claim.
+
+F07-k final [PR34](https://github.com/DongVienNguyen/Family-Organizer/pull/34), tested HEAD047ebbfb205f0e57b0e1692a1de9b5a2874a8724 / [CI38297423262](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38297423262): all7 checks API success and quality/coverage/browser/package/service reports independently verified. Node22/24 each1799/100, no failures/pending/todo;118 production source coverage;15 first-attempt browsers; baseline immutable package;14 service checks42 positive phases; coordinator10 checks31 native phases, five review assertions1/1/0/1/0, actual injected metadata damage observed, rollback stopped owned old service,17 points and later finance/claims/source/key/snapshot retained;11 graceful shutdowns/service removed/cleanup true. ZIPd68da6a6b4e6ab50f48a297b6ccca86c85d8d140235b3b1fd14aed43ec6efb0d; fullLog51a1c77bc3752a174c081f10169fbb63c541346b02c5660f04bc24d6cb21ff5a. Proof comment6131319837; exact-SHA squash merge595f7df1569ee637f5f62ab9b470bb71738011a3 independently PR/main/tree verified. Final proof f07-k-final.json. Actual distinct published-version/offhost/reboot/Server2019/RPO/RTO remain unrun.
+
+F08-a in progress BASE595f7df, branch codex/f08-release-evidence-gates: pure exact-SHA/run/workflow/app/artifact-digest/package/report policy, explicit Server2019 promotion binding and immutable source-level publication lock.37 new contract-availability RED assertions then37 GREEN; not historical defect regressions. Local Windows verifier checks native exit immediately. No authenticated collector or candidate/promote workflows yet: next focused F08-b implements read-only collection; no release/tag/VPS. Full Cloud/review/exact-HEAD Windows verification pending. F05 Administration403, F09 complete legacy matrix/Caddy and actual R02 acceptance still block full foundation acceptance.
+
+F08-a final pre-review Cloud1837/1837 tests101files, failed/pending/todo0;177/177 target2files; lint/build0. Actual missing mandatory policy suite regression RED1/139 existingpassed → GREEN. Source frozen throughout final full suite. One fresh wholebranch review and exact-HEAD Windows still required; evidence f08-a-development.json.
+
+F08-a ONEfresh review ofc125853:0Critical1Important2Minor. ALLgraded before one correctionpass. Important dynamic-regex runId injection hangs; isolated native Node child regression actualtimeout5s RED/37 existingpassed, corrected literal URL prefix and fixed job-digit matcher. Two Minor deferred to F08-b before candidate use: numeric prerelease leading-zero/unsupported SemVer forms, malformed quality nonarray throws but CLI safely rejects. Authentication/actual ZIP contents remain F08-b; Windows wrapper execution verified by new mandatory quality step checking actual Windows PowerShell5.1 exit1 on missing evidence, report retained; exactHEAD CI pending. No rereview/release/tag/VPS.
+
+F08-a review correction Cloud1838/1838 tests101files, failed/pending/todo0;178/178 target2files; lint/build0. Source/tests frozen during verification, no runtime/dependency/lock changes. Important fixed by actual timeoutRED→GREEN, two minors explicitly deferred; no rereview. Push same PR35 for mandatory exact newHEAD Windows and PS5.1 refusal report. No final CI/fullF08/Server2019 claim.
+
+F08-a exactd2fe3f8 / CI38300820576 Node24 quality job fails ONLY the new expected-refusal harness step: actual retained PS5.1 report records expected1/actual1;1838 tests passed and quality evidence errors empty. Outer pwsh retains LASTEXITCODE1, which GitHub uses as step exit after the strict assertion succeeds. Add explicit step exit0 after verifying required nativeCode1/report, preserve assertion/native checks/no continue-on-error. Production source/tests unchanged; next exactHEAD Windows required. Evidence f08-a-native-step-correction.json.
+
+F08-a bb7581c / CI38301539541: five quality/browser/package checks independently succeed1838/101 both,118-source coverage,15first-attempt browsers; PS5.1 missing evidence actual1 on both. Service/gate FAIL at final coordinator-closed-storage: WAL present in parent sample then removed before child Open, legal SQLite sidecar cleanup. All five review assertions1/1/0/1/0, source17points and injected failed rollback/stop/data flows pass; service removed/cleanup true. Strengthen final wait SCMStopped+zero original/candidate workers (exclude known probePID), always mainDB exclusive Open, sidecars exclusive Open at boundary and catch only FileNotFound with absent recheck; sharing/IO errors fail. Prior parent exists filter already permitted absent sidecars, no skip/assertion weakening. Runtime/source tests unchanged; new exactHEAD Windows required. Evidence f08-a-native-sidecar-correction.json.
+
+F08-a32aeea5 / CI38303275359: five quality/browser/package checks independently pass1838/101 both/118source/15browsers/PS5.1 refusal1; service/gate fail final coordinator-closed-storage exit1 with EMPTY captured output. All nine preceding coordinator checks and five review proofs/17points/faultstop/dataretained pass; removedservice/cleanup true. Typed caught absent-file empty branch can leave PowerShell -Command failed $?; add mandatory completion marker + explicitexit0 only after strict SCMStopped/zero ownedworkers/mainDB exclusive/sidecar exclusive-or-absent checks. Dedicated actual Windows PS5.1 diagnostic now asserts identical absent-file script1/empty versus marker+exit0 script0/marker on both runtimes; runtime/source tests unchanged. Next exactHEAD required, no rereview/assertion weakening/all7pass claim. Evidence f08-a-native-sidecar-status-correction.json.
+
+F09-a independent regression work branch codex/f09-shopping-meal-regression from F08-a checkpointbb7581c while PR35 native CI runs. Branch remains unpublished until PR35 accepted/merged and rebased onto main; no F09/foundation acceptance claim. Real same-millisecond shopping creation fails SQLite UNIQUEconstraint; corrected fixture1RED/4 existing characterizationpass →5GREEN after new-item timestamp+UUID suffix. Existing IDs retained. Real HTTP numeric name500 instead400 regression1RED/9pass →10GREEN after type guard. New browser flow omission gate actualRED1/55pass and two required quality suite omissions actualRED2/140pass →213 targeted tests4files GREEN. Require B06 shopping/offline meal persistence across all three engines:18 first-attempt cases/no skip/retry; browser execution pending exactHEAD Windows. Initial4fixture errors from using intentionally closed singleton are not product defects; corrected independent readonly SQLite readers preserve every persistence assertion. Full Cloud/lint/build running, one fresh review and Windows pending; no dependency/runtime/lock changes or new feature/release/VPS.
+
+F09-a final pre-review Cloud1856/1856 tests103files, failed/pending/todo0;213 target4files;lint/build exit0, source frozen throughout verification. Actual two product regressions corrected,13 old-behavior characterizations preserved,3new gate requirements RED→GREEN. Browser18 required cases unrun pending Windows. ONEfresh wholebranch review next; source branch held until35merged/rebase, no final F09/foundation acceptance. Evidence f09-a-development.json.
+
+F09-a ONEfresh reviewe21b6ff0Critical1Important1Minor ALLgraded before onepass. Important B06 coverage gap accepted: adds actual menu table/cells, grocery names/quantities and restored3-adult2-child2-day controls before/afterreload, retainsAPI proofs. Test-only coverage correction; no app UI defect/actualUIRED claimed; new DOM assertions unrun pendingWindows. Minor same-actor HTTP loops deferred cross-actor HTTP matrix beforefullF09acceptance. Reviewer213target on24.19 supplementary only; author pinned24.21 full1856 and213target/lintbuild0 retained. No rereview/foundation/Server2019/release/VPS claim.
+
+F08-a final [PR35](https://github.com/DongVienNguyen/Family-Organizer/pull/35), tested HEADe3aabe28c6f7af7ffa11726ecdd3446f1c281028 / [CI38305094997](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38305094997): all7 checks API success plus five independent quality/coverage/browser/package/service validators0. Both runtimes1838/101/no failed-pending-todo;118 source coverage;15 first-attempt browsers; ZIP1fec8f22af7a5d3de8bfaaac9f7af2a64d6bbc856b4ac2631d9b79a1a68e3a97;14 service checks42 phases/coordinator10checks31phases/five review proofs1/1/0/1/0/17points/fault-stops/data retained,11 graceful shutdowns/service removed/cleanup true. PS5.1 actual expected-refusal1 and handled-sidecar native1-empty→0-marker independently verified both runtimes; final storage marker exact. FullLog9cb1a9e82305d86fc7a8269179474b294a765d9d75d79d2a34defde109b5eaf4; proof6132342840. One exact-SHA squash4650b6cf6bd64f3e83f5dc4cadc71f26f16290cb; PR/main/source tree independently verified. Archive f08-a-final.json. Artifact attachment tool timed out; actual GitHub PR/comment/merge unaffected, no attachment success claimed. F08-b authenticated collection/workflows/fullF09/F05403/Server2019 still remain.
+
+F09-a rebased onto main4650b6c after35 accepted/merged. Only implementation-status append conflict resolved by preserving both F08 failure history and F09 progress; server/src/tests/scripts-ci bytes identical to reviewed319b0ef, no product/test changes. New HEAD/PR/exactWindows pending; source1856/103,213target/lintbuild0 and one review preserved. B06 actual rendering/control assertions still unrun until mandatory Windows18cases. No final F09/foundation/Server2019/release/VPS claim.
+
+F09-a final [PR36](https://github.com/DongVienNguyen/Family-Organizer/pull/36), tested HEAD1d974499529cf65c6778299c788ec39811f568ac / [CI38306861864](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38306861864): all7 checks success/five independent JSON/JUnit/log/hash validators0. Both runtimes1856/103/no fail-pending-todo;118-source coverage;18 first-attempt browser cases, B06 actual table/groceries/controls beforeafterreload/purchase/clear. ZIPe0c9d90bab610ff7980b73d684eb341a9190c910a22b47996fb45a67f931c332; native service14checks42phases/coordinator10checks31phases/five review proofs/faultstop/source17/dataretained,11 graceful shutdowns/service removed/cleanup true; PS5.1 native expected exits/marker verified. FullLogcf7344c1321b029de1f8e7661afa7418afd0b75f43a81dfb3cbe3894b2f8aaa5; proof6132679837. One exact-SHA squashde66d95c447a2b773e376bb55553f1cb6821d908; PR/main/source tree independently verified. Final proof f09-a-final.json. Duplicate service download refused existing files because first download already included completed service; existing complete reports independently verified, no CI result inferred from download exit. One legacy matrix row accepted; cross-actor HTTP minor and other rows/Caddy/F08fullcollector/F05403/Server2019 remain unaccepted. No release/tag/VPS.
+
+F08-b in progress branchcodex/f08-authenticated-metadata BASEde66d95 after PR36 merge. Trusted-main read-only metadata workflow/CLI, native checked Git context/origin/ancestry/version, bounded HTTPS GET/fatalUTF8/constant errors, explicit run/workflow/all7checks and jobs/all6artifactidentities. Two actual extra policy regressions corrected: unrelated preflight check on sameSHA must not self-block chosen CI, and check must match exact jobID. Query filter=all, bounded100 records and filter by explicit run; no latest-success selection, missing/duplicate/foreign mandatory CI stillfail. SourceTarget238/3 beforebase refresh; refreshed quality list retains both F09 criticalsuites and metadata suite, actual source conflicts resolved preserving every requirement. Four actual deferred F08-a Minor REDs fixed;53 new-function availability REDs, two actual check-binding REDs and mandatorysuite omissionRED retained. Old base full1896/102/lintbuild0 is historical; newbase full/lintbuild and freshwholebranch review/exactWindows pending. No artifact bytes/reports downloaded or candidate/promote/publication proof from metadata receipt; fullF08 requires remaining collector/workflows. No dispatch/release/tag/VPS.
+
+F08-b final pre-review Cloud1916/1916 tests104files, failed/pending/todo0;240 target3files;lint/build0, pinned24.21/sourcefrozen. Newbase preserves F09 regressions andallcriticalgates. Fullartifact/provenance/publication stilloutofscope; metadataworkflow notdispatched. ONEfreshwholebranch review and exactHEAD Windows required. Evidence f08-b-development.json.
+
+F08-b [PR37](https://github.com/DongVienNguyen/Family-Organizer/pull/37): one fresh whole-branch review0Critical1Important0Minor. Important accepted after actual API inventory38306861864 confirmed seven artifacts. Seven-artifact fixture gave3 positive RED assertions/54 passed for one underlying eligibility defect; require explicit harness as seventh, preserve missing/duplicate/foreign/unknown checks. Corrected frozen Cloud1918/104,242/3 target, lint/build0 on pinned24.21, zero failed/pending/todo. Review/rulings and development records tracked. Pre-review fa9f51f CI38309827292 is historical; corrected HEAD requires new Windows all7, raw report/log validation, and later read-only main dispatch. Full artifact collector/promotion/other F09/Caddy/F05403/Server2019 remain. No release/tag/VPS.
+
+F08-b final37 archived f08-b-final.json/f08-b-live.json: tested89f094d / WindowsCI38310717100 all7/five independent validators0,1918/104 both/118source/18browser/native14/42+coordinator10/31; squasha571 exacttree. Live read-onlymetadata38312563391 sourcea571/targetde66 mainCI38309067494 succeeded7/7/7, publicationfalse; no archive/report/fullcandidate proof.
+
+F07-l BASEa571 restores native baseline after main [CI38312242120](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38312242120) Node24 retention1916/1918 andserviceupdate-ready failures. Two defect-class REDs: Number-rounded64-bit directory identity1/39 and atomic controlleaf publication1/25. BigIntidentities and<=3complete same-parentcontrolreads; changedparent,manifest,foreignbinding,links,metadata,deadline/latch assertions retained. Continuous replacements close all3descriptors/noMark. Actualoldservicefailure code unconfirmed; CLI nowlogs fixedallowlistedupdatecode only, realchildforeignapproval code/exit1/shutdown contractRED→GREEN. GC trials retained: old64alone measured256MiB heap/15s timeout afterloop marker; old64+semi8 assertsactualheap<=128MiB/noexplicitGC/all300000SQL/native0/signalnull/errorundefined, original15s/20s budgets unchanged. Newpressure-receipt RED is contractavailability, notproductbug. FinalCloud1924/104 no failed/pending/todo,218/5target,lint/build0 pinned24.21/frozen/sequential1worker. Onefreshwholebranchreview/exactnewWindows pending; evidence f07-l-development.json. F09finance correctedreviewedsource heldseparatebranch7930, failedCloudGC history retained/no false1934green; rebaseafterthisrepair. F05403/fullF08collector/F09rest/Caddy/Server2019/offhost remain, no release/tag/VPS.
+
+F07-l [PR38](https://github.com/DongVienNguyen/Family-Organizer/pull/38), ECChead / [CI38314999862](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38314999862): Node22/24 each1922/1924 failed bound-leaf publication and repeated-replacement count; package producer/consumer/browser pass, servicepending. Reports downloaded once, no green claim. ONEreview0Critical1Important0Minor accepted inter-attempt parent replacement: actualRED1/27→sharedbaseline preventssecondopen/noMark/firstFDclosed;219/5targetGREEN. Native fixture/root cause needs actualerrno/oldFD/fixedleaf observations; new nativeNode/.NET diagnostic records typedobservations and cleanup, explicitlynotacceptance, allrequiredassertions unchanged. Source checkpoint tosamePR, fullnewsource/newexactWindows remainsmandatory; no rereview. Appartifact38 callhang terminated/unconfirmed, actualPR operational. No release/tag/VPS.
+
+F07-l PR38 checkpoint2eaccb786dc826bec2cd429e406c9151a6c4b001 / [CI38316300066](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38316300066): Node22/24 each1923/1925, publication fixture EPERM/rename; diagnostic child ETIMEDOUT; service worker UPDATE_CONTROL_INVALID/explicit rollback UPDATE_HEALTH_FAILED before fault hook, gatefailure. Producer/consumer/browser success. No actual retention inode rounding collision observed42/runtime, original native cause unconfirmed. Corrected fixture models namespace only using real immutable files/native identities/reads, preserving all assertions/three closes/parent refusal. Async diagnostic releases reader before waiting for publisher, original10s/nativeexit checks preserved. Added allowlisted read-stage to pinpoint service filesystem failure, no paths/private values. Cloud220/5 targeted passed; new frozen full/lint/build then samePR/newexactWindows required. One reviewed correction pass continues, no rereview/merge/Server2019/release/VPS claim.
+
+F07-l corrected namespace/diagnostic frozen Cloud verification:1926/1926 tests104files, zero failed/pending/todo;220/220 target5files;lint/build exits0 pinned24.21 sequential1worker. Preserve prior1924/1925 checkpoint reports and native failure history. NativeGC retains300000/15s and passed11.235s in full. SamePR38 newHEAD Windows mandatory; service filesystem read-stage diagnosis pending, no full Windows/merge claim.
+
+F07-l PR38 tested checkpoint7b622cc0003edeaa9f1f2d0e2361d103b7bb1ac8 / [CI38318772976](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38318772976): actual Node22/24 each1926/1926 allpassed104files, namespace/ancestor regressions nowpass Windows. Both quality jobs stillfailure ONLY diagnostic publisher SIGTERM afteroriginal10s; readerclosed yetchildnotexited, deadlock location notproven. Browser/producer/consumer success; servicepending, no gate/mergeclaim. Preserve reports, addconstant BEFORE/AFTER replace/remove markers to distinguish actualboundary withoutpaths/privateerrors; waitcompletedservice allowlistedread-stage proof before choosing nativefix. F08-c independentdraft241/3+lint0 stashed withalluntrackedfiles safely; full/newbase/review/Windows/livearchive notyetrun.
+
+F07-l7b / CI38318772976 finalfailure: actual all1926/104 both,118source coverage,18first-attempt browsers and package/native service proof pass five independent report validators0. Service14/42+coordinator10/31/fiveproofs/source17/faultinjected/11shutdowns/service removed/cleanuptrue. Overallquality/gate stillfailure ONLY addeddiagnostic child. Separate90c [diagnostic38319737827](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38319737827) intentionally cancelled AFTER diagnosticfailure toreadlogearly, partial/unrun suitesNOTpass. Constantmarkers prove .NETFile.Replacecompleted thenPowerShellRemoveItemdidnotfinish10s; readeralreadyclosed. Underlyingprovider/modulecauseunconfirmed, productionserviceRemoveItemalreadyindependentlypassed. Probe nowusesdirect.NETFile.Delete withbackup-existsbefore/absentafter/fixedapproveassertions, same10s/native0/nullsignal; node--check0. App/source1926 regressions unchanged; full newexactWindows required. F08-c independentfrozen1972/105 all0 and246target/lintbuild0 preservedstash@0, unpublishedpendingbaseline/main/review/Windows/livearchives. No rereview/merge/foundation/Server2019/release/VPS claim.
+F09-b BASEde66 independent legacy finance regression: four real sameMillis SQLiteUNIQUE REDs fixed at four newID sites with UUID inside I01callback; preserve oldIDs/replay/upsert.14 financial HTTP/SQLite cases plus cross-actor shopping deferredMinor resolved; missing criticalsuite gate1RED→GREEN,168/3target. Initial full1871/1872 had nativeGC15s child timeout under concurrentCloud load; isolated4.2s passed, unchanged workload/assertions/timeouts and serial1worker full1872/104 no failed/pending/todo. Lint/build0. Evidence f09-b-development.json retains initial failure. One fresh wholebranch review/exactHEAD Windows/newbase proof pending; no financialUI/fullF09/Caddy/F05 enforcement/Server2019 claim, release/tag/VPS prohibited.
+
+F09-b one fresh review0Critical0Important1Minor; ALLgraded before one correctionpass. Minor accepted: bill-payment replay now asserts identical responseID/fullSQLite rows+logs/one due advance, differenttargetID409. Initial extra ignorednote409 expectation was a fixture semantic mistake, not productRED; command intentionally hasno bodyfields, now require identicalcachedresponse forignorednote.168targetGREEN, production4UUID sites unchanged from1872full. Final rebase/fullnewsource/exactWindows pending, no rereview.
+
+F08-b final [PR37](https://github.com/DongVienNguyen/Family-Organizer/pull/37), tested HEAD89f094d3563b0c4f6a2cd2b3d3e4ea7a7f56e294 / [CI38310717100](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38310717100): all7API success, five independent report/JUnit/log/hash validators0. Both runtimes1918/104, zero failed/pending/todo;118-source coverage/18firstattempt browsers; ZIP9386222fd55c74016a7a83ac202458eb0a16514aa334f88449ee9dd8328144d4. Native14checks42phases/coordinator10checks31phases/fiveproofs/faultstop/source17/dataretained/11shutdown/serviceRemoved+cleanup true. PS5.1 expected-refusal/sidecar regression and final closedstorage marker verified. FullLog96484db3bb08003ea8405e5525dc2c1571371396db3eecffb72b1d04873ee87a; proof6133131586. Once exactSHA squasha571d62bc5ce8a905ffc690702dcb16bf9eb704d, PR/main/source tree independently verified. Actual authenticated ghAPI policy accepted explicit mainpush38309067494/de66 with7checks/jobs/artifacts; notfetch/nativeworkflow proof. Tracked final f08-b-final.json. MainCI38312242120 pending beforelive read-only metadata dispatch; fullcollector/promote stillpending. Appattachment37 unconfirmed, actualGitHubPR unaffected. No release/tag/VPS.
+
+F09-b rebased onto a571d62 after37 verifiedmerge. Preserve both status histories and metadata+financecriticalgates; server/db/shoppingHttp/legacyFinanceHttp bytes independently identical to reviewed correction3affc11. New full/lint/build/target required; no rereview.
+
+F08-b live [workflow38312563391](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38312563391) succeeded on reviewedmaina571d62, target explicitancestorde66 / mainCI38309067494. Actual Windows2022 Git/fetch adapter7checks/jobs/artifacts, publicationfalse; rawmetadata/log hashes archived f08-b-live.json. Outside proof initially guessedwrong marker corrected to actualsourceconstant; workflow neverfailed. No archive/fullcandidate proof. Cloud startup draftrevision10 readbackverified sequential1worker/secrets0/pending0, savednotpublished.
+
+F09-b rebased169/3 targetGREEN; new full1933/1934 across105files, one nativeGC child15s timeout even1worker, retained. No false fullgreen/newWindows claim. Mainpusha571 [CI38312242120](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38312242120) Node24 unit1916/1918 failed two recoveryRetention paths; other5known source/package/browser jobs pass, servicepending. Exactfailedartifact downloaded; ghlogs unavailable untilruncomplete. Separate F07 identity diagnosis/regression required before further merge. Finance reviewedsource held on this branch, no release/tag/VPS.
+
+F09-b provisionalrebase from7930onto38e79fdd835ba08a4e59a88fb55b8e398db33b5747. Onlyappendstatus conflict resolved preservingallF07failure/successhistory andF09progress; server/db.ts, bothlegacyHTTPsuites andcritical-gate files byteidentical to reviewed/corrected7930. NewfrozenCloud1942/1942 tests105files, zero failpendingtodo;169/3target/lintbuild0 pinned24.21 sequential1worker. Prior1933/1934 GCfailureand1871/1872 initialfailure retained; strongerGCpressure fromparentF07-l preserves300000/15s andallassertions. F09reviewone0C0I1Mpaymentreplaycoveragecorrected/no rereview. Branchunpublisheduntil38exactWindows accepted/merged, thenmainrebase/newexactCI required. FinancialUI/otherlegacyrows/F08collector/F05Admin403/Caddy/Server19 remain; no release/VPS/wholeF09claim.
+
+F07-l final [PR38](https://github.com/DongVienNguyen/Family-Organizer/pull/38) tested e79fdd835ba08a4e59a88fb55b8e398db33b5747 / [CI38320251071](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38320251071): all7 API checks/five independent report validators0; both1926/104 nofailpendingtodo,118sourcecoverage/18firstattemptbrowsers, native14/42+coordinator10/31/fiveproofs/source17/faultinjected/11shutdowns/removedcleanuptrue. ZIP6f3cac8d3e7f20a8953f8d5c6a0fb3fd56dbe966e1c688a6f3e680667d1e4bf6; fullLog6cbbd40654491797b5084615a88236e229ebb9567ca8b3745265172ff53cf310; proof6134490344. ONEexactSHA RESTsquash4e62d737b1e7e09f8c6fde2799e23214f56c1a82, PR/main/tree independentlyverified. Finalproof f07-l-final.json archivedhere. Native .NETdirectDelete0/fixedapprove andNodeopenleafrenameEPERM both arediagnosticOnly; actualdisposable service separatelyproved. Priorfailed/cancellednative/Cloudresults retained. No wholefoundation/Server19/release/VPSclaim.
+
+F09-b rebase onto mergedmain4e62: HEAD46d1973 app/source/tests/scripts/workflows/package/lock byteidentical to1942/105 fullyverified334f749; no newproduction/test changes, no repeated broadCloudrun needed. Branch readyforone smallPR/newexactWindows1942/105/118source/18browser/nativeall7, onefreshreview alreadycompleted/paymentreplaycovered/no rereview. Sourceownerhistory/roles/requestReplay/recurringpayment/debts/savings/assets andcross-actor shopping characterized; financialUI/othermatrixrows remainunproved. PR/run URL will be recorded with exactWindows finalproof aftercreation/validation; no release/tag/VPS.
+
+F08-c independent archive slice branchcodex/f08-authenticated-archive-download BASE90c926a (provisional38 app/tests baseline; helduntil38 reviewed/nativeaccepted/mainrebase). Authenticated metadata→exact7archives sameprocess, fixedAPI302/signedHTTPSstorage/noBearerforward, counted512MiB/archive120s/1GiBbatch, APIsha256 match/exclusivefiles/exactparents/descriptorrehash/ownedcleanup.39newfunctionavailabilityREDs plusactualnewcode response-bodycancel1 andsame-sizefiletamper1 fixed; mandatorysuiteomission1RED fixed. FrozenCloud1972/1972 tests105files zero failpendingtodo;246/3target/lintbuild0 pinned24.21/oneworker. JSON kindarchives reportsVerifiedfalse/publicationfalse; uploadedreceiptJSONonly, no rebuild/candidate/tag/release/VPS. Rawreport/ZIP/package/manifest/license validator andlivearchiveadapter stillnotrun. Evidencef08-c-development.json; ONEfreshwholebranchreview next, exactnewbaseWindows after38 mandatory. F05Admin403/otherF09/Caddy/Server19 unchanged; no completeF08/foundation claim.
+
+F08-c ONEfreshreviewcdc9541 reviewer0C1I1M ALLgraded beforeONEpass. Importantaccepted aggregatecheckafterdownload couldwrite1.5GiBfor1GiBbudget. Headerlessfixture MinorpromotedImportant asnecessarystreamboundregressionproof (coveragegap, nothistoricalappbug); correctedfixture trulyomitsHTTPheader/highWaterMark0. TwoactualbudgetassertionsRED/44pass→remainingallowance enforcedinreader/declaredcap, exhaustedbudgetstopsbeforethirdrequest, partial1byte cancellation+allownedcleanup;247targetGREEN. CorrectedfrozenCloud1973/1973 tests105files zero failpendingtodo,lint/build0 pinned24.21/oneworker, provisionalbasee79 appsource. No secondreview. PR38 nowmerged4e62 exactsourceproof; afterthiscommit holdF08 sourceuntilmain/finance rebase+newexactWindows/livearchive. Rawreport/ZIP/license/candidate/promote andF05/otherF09/Caddy/Server19remain. No release/tag/VPS.
+
+F09-b final [PR39](https://github.com/DongVienNguyen/Family-Organizer/pull/39), tested HEAD da508ca48a942af46fc1ab791c14e9cdefe436b2 / [CI38322040612](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38322040612): all7 exact-SHA GitHub Actions checks success and five independent report/JUnit/coverage/browser/package/service validators0. Both Node22/24:1942/105 zero failed/pending/todo;118-source coverage/18 first-attempt browser cases. Native14checks42phases/coordinator10checks31phases/five proofs/source17/11shutdowns/serviceRemoved+cleanup true. ZIP b620f378f626b577630135968efd89b42a5fca1f2c8a9a9156d6cbaa9758639f; log c8b50f9ee512aef18283f41305f7c2035917495e117a6bf826c8fc814a023b71; proof https://github.com/DongVienNguyen/Family-Organizer/pull/39#issuecomment-6134733499. Exact tested-HEAD squash f25af441163fb9b82433c5f24096e4c727461bce, PR/main/tree independently verified; archived f09-b-final.json. Financial GUI was not part of the accepted18 browser cases; F09-c21-case reviewed draft still requires correction and native execution. F08 archives/reports, remaining legacy rows/Caddy/F05 Administration403/Server2019 remain. App attachment39 called once/hung/terminated, unconfirmed; actual GitHub PR/merge works. No release/tag/VPS.
+
+F08-c rebase onto mergedmain f25af441163fb9b82433c5f24096e4c727461bce: reviewed implementation/workflow/archive tests byte-identical to corrected5ff0667, finance+archive mandatory gates union retained. Fresh pinned/frozen/sequential1worker Cloud1989/1989 tests106files, no failpendingtodo;248/3target/lint/build0. One fresh review0C1I1M, author grades2Important both accepted/one correction pass; no rereview. Rawreports/ZIP/package/licenses remain unverified, publicationfalse. Creating focused PR/new exactWindows next, then real read-only main archive dispatch. F09-c review0C1I2M fully graded/accepted; prepared one pass cancellation HTTP/full persistence, unchanged fields and fixed browser date, actual21Windows stillunrun. F05Admin403/Caddy/otherlegacy/Server19 remain; no release/tag/VPS.
+
+F09-c independent existingfinance browser smoke branchfrom39DA5: B07 GUIcreate25000/reload/edit35000/sameIDcreatorcreatedAt/visible row+expense totals/api persistence/canceldelete/confirmdelete/reload/originalrowsretained. No appUI/feature change. Mandatoryinventory7×3=21/zero retry;2actualgateRED/55pass→57GREEN. FrozenCloud1943/1943 tests105files nofailpendingtodo/build0; afteraggregate excludedE2Espec selector correctedtoactualscopeddialogrole+heading/Hủybỏ, unit/appbytesunchanged; freshlint0/discovery21 configurationONLY. Browseractualnotrun, financialUIacceptancefalse; ONEfreshreview/finalmain rebase+exact21Windows required. Evidencef09-c-development.json, legacy-finance-browser.md. OtherUI/matrix/F08/Caddy/F05/Server19remain; no newWallet/release/tag/VPS.
+
+F09-c one fresh wholebranch review071134f:0Critical1Important2Minor, all independentlygraded same andaccepted beforeonepass/no rereview. Corrected cancellation DELETE observation+zero requests/fullAPI+reload beforeintentionaldelete/exactlyone final; full transaction preservation+collection equality; fixed browser midmonth Date withadvancing timers. Static/evidence coverage correction, no actualappbug/browserRED claimed. Rebased reviewedbranch onto mainf25 preserving prior tests; lint/gate/discovery then exactWindows21 stillrequired. PR40 F08-c opened HEAD2544569db332673739adb5da20b19100aa121941, exactCIpending; appattach40 calledonce/hungterminated/unconfirmed, actualPRworks. No financeUI/F09/foundation/Server19/release/VPS acceptance.
+
+F08-c final [PR40](https://github.com/DongVienNguyen/Family-Organizer/pull/40), tested2544569db332673739adb5da20b19100aa121941 / [CI38324435747](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38324435747): all7exact-SHA GitHub Actions success/five independent rawreport validators0; both1989/106 zero failedpendingtodo,118source coverage/18firstattempt browsers/service14checks42phases+coordinator10checks31phases/five proofs/source17/11shutdowns/serviceRemoved+cleanup true. ZIP2b7d84577526f827f11cb5f80a5626650807730c6ffa6c614fe204b59884ff0b; fullLogebd60ee3dbcaff2e55d8c0533ce4e708bf13d688f83790d2519b3679dd99abfc; proof https://github.com/DongVienNguyen/Family-Organizer/pull/40#issuecomment-6135014334. ExactSHA RESTsquashff13cb6f25c88024d108b67953855cddf7917fa2; PR/main/tree independentlyverified, f08-c-final.json archived. Real read-only Windows [dispatch38325615728](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325615728) sourceff13cb6/explicitf25 mainCI38323451260:7exactauthenticated archives61188188 bytes/API SHA256 match; receipt/log hashes f08-c-live.json. Rawreports/package/license trust remains unverified/publicationfalse. F09-c nowfreshfull1990/106 no failpendingtodo/lint/build/discovery0; mainrebase app/scripts/workflows/test/dependencies byte-identical to frozen3bb6f52. One reviewed correction pass done; focusedPR/exact21 Windows next. F08-d rawquality draft separatelocal55d892d48target only/unreviewed/no fullCI. F05Admin403/Caddy/otherlegacy/Server2019/reboot/offhost remain. No release/tag/VPS.
+
+F09-c final [PR41](https://github.com/DongVienNguyen/Family-Organizer/pull/41), tested HEAD5c4815aec9f829488fc1513dcafd0996ba9997cc / [CI38325818593](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38325818593): all7exact-SHA GitHub Actions success and five independent raw JSON/JUnit/coverage/browser/package/service validators0. Both Node22/24:1990/106 zero failedpendingtodo;118source coverage and21 first-attempt cases acrossChromium/Firefox/WebKit. B07 actualfinanceUI create/edit/cancel/delete/fullAPI/reload persistence/totals/whole originalcollection passed onall3; no application/dependency changes. Service14checks42phases/coordinator10checks31phases/five proofs/source17/11shutdowns/removedcleanuptrue. ZIP069b9174543216f57a7d9db18ccdbfc25ac737d017a2bc387403d9aadb90dcdb; fullLog021596763eaa60b7626d6d43a86f491087d5cbbc112e395c39fc46350fbc09d4; proof https://github.com/DongVienNguyen/Family-Organizer/pull/41#issuecomment-6135217980. ExactSHA RESTsquash725bf8bc79dcacf8d45da8665cdf313390489665; PR/main/tree independently verified, f09-c-final.json archived. One review0C1I2M allaccepted beforeonepass/no rereview. Appartifact41 oncehung/terminated/unconfirmed, actualPRmerge works. Otherassets/debts/goals/legacyrows/fullF08collector/Caddy/F05Admin403/mainprotectedfalse/Server2019/reboot/offhost remain. F08-d216/3target anddraftlint0; full source stillrunning onprovisional41exacttree baseline, no completionclaim. No release/tag/VPS.
+
+F08-d pure rawquality+sourcepolicy source froze037c028 on provisional41tested5c4815a. Fresh pinned24.21 Cloud2061/2061 tests108files zero failedpendingtodo;216/3target,lint/build0. Gitpolicy118 native Windows source byte hashes/lock/baseline matched outsideCloud compatibility; historical1942,current1989 andnewfinance1990 raw JSON/JUnit match. No newtrusted-mainadapter/fullreport/nativehelper proof yet. Availability46+17; actualnewcode XMLhierarchy2/counter2 andgateomission2 RED→GREEN; oldreportshape assumptions corrected without application source change. One freshwholebranch review next, newexactWindows then adapter/extraction/native/production/audit/rawcoverage/browser/package/license/service stillmandatory. PR41 alreadyaccepted andmerged725bf8treeequal; rebaseafterfreeze expectedbytesidentical. No F08/foundation/Server2019/release/VPS claim.
+
+F05 read-only enforcement observation2026-10-13T00:37:04Z onmain725bf8: protectedfalse/rulesets0, savedf05-latest-readonly.json. No unchanged Administration write retry; previousPOSTruleset/PUTprotection HTTP403 integrationpermission failure retained. User merge/source authorization unchanged; sourceCIworkcontinues. Fullfoundation and dependent P/W feature gates remain unaccepted until actual enforcement, remainingF08/F09/Caddy source/native gates are satisfied. No token/PCrunner/release/VPS requested.
+
+F08-d one complete reviewf12170c:0Critical1Important2Minor; allgraded author0C2I1M/accepted beforeonepass, no rereview. Actualmalformed100KB tokenCPUchild timeout3s RED; correctedlinear scanner observed21ms/native0/nullsignal diagnostic. Strict XML declaration/characters/CDATA/attributes/self-close7new assertions:6initialRED/53oldpass plusattribute-only1RED againstfrozenoriginalsource (58 filtered out, notfullsuite/notacceptance). Final223/3target allpassed; fresh full2068/2068 tests108files zero failedpendingtodo,lint/build0 pinned24.21/frozen/sequential1worker; prereview2061historicalretained. ReviewerMinor staleCloudremaining-list corrected afternewaggregate. Sourcepolicy/nativebyte compatibility stillCloudonly; rawarchive/report/extraction/fullcollector remainsmandatory/publicationfalse. FocusedPR/newexactWindows next. Caddyseparate drafta128baf+2efa60b17availabilityRED→17policyGREEN/nodecheck0 ONLY; native/full/reviewnotrun, ownership/CLIcleanup corrections checklistoutside, no compatibilityclaim. F05mainprotectedfalse/rulesets0/Admin403/remaininglegacy/Server2019/reboot/offhost remain. No release/tag/VPS.
+
+F08-d final PR42 https://github.com/DongVienNguyen/Family-Organizer/pull/42 tested545cb4a0537c609f9e2ff1056ecd03657dc85deb, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38328475237 all7 success/five independent report validators0. Both2068/108 zero failedpendingtodo,118sourcecoverage/21firstattempt browsers/service14checks42phases+coordinator10checks31phases/five proofs/source17/11shutdowns/removedcleanuptrue. ZIPc6b5af3347d0f5e1f993608d186626010142ba76df13a906d0159fc4cee7ae5b; log8eb9adf3f8eee960912d7e2b993aac89498d532fb6f61074b528eba9a5021c54; proof https://github.com/DongVienNguyen/Family-Organizer/pull/42#issuecomment-6135649905. ExactHEAD RESTsquash66b2b209d0b74979689cc75b2a3ed5ac65a5f93c, PR/main/tree independentlyverified; archivedf08-d-final.json. One complete review0C1I2M author2I1M/one correction pass/no rereview. Helpers onWindows accepted, trustedmain extraction/fullcollector stillnotimplemented/publicationfalse. Appattach42 oncehung/terminated/unconfirmed; actualPRmerge operational. Caddybranchd2e1767 retainsallraw+native gates,206target/fullsource running, actualnative/reviewnotrun. F05 protectedfalse/rulesets0/Admin403/remaininglegacy/Server2019/reboot/offhost unresolved; no release/tag/VPS.
+
+F09-Caddy source d2e1767, base PR42tested545cb4a:206target/3, full2127/2127 tests110files no failedpendingtodo, lint/build0 pinned24.21 frozen/sequential1worker. Cloud snapshot restored samebranch/HEAD/dirtydocs and completed reports; native Caddy stillnotexecuted. Git HTTPSread/API PR42 rechecked working; no credentials requested.17policy+6ownership+32evidence availability REDs and4gate REDs retained; wrapper/probe source enforces pinnedHTTPS hashes/PE/license/native0/nullsignal/ownedcleanup/privateCA/defaulttrustrefusal/sixphase order, all old suites preserved. One fresh wholebranch review next, native Windows exactnewSHA mandatory. Specific trustStore proof gap disclosed forreview: systemTrustInstalledfalse currentlyderived frompinnedconfig andNodeCArefusal, notWindowsRootStore enumeration. F08 fullcollector/remaininglegacy/F05Admin403/Server2019/reboot/offhost remain; no release/tag/VPS.
+
+F05 restored-environment retry: both authorized ruleset POST and branch-protection PUT still HTTP403 Resource not accessible by integration. Main66b2 protectedfalse/rulesets0. Exact requests/responses archived f05-restored-environment-enforcement.json; no auto-review rejection, no new token/PC request. Whole plan notcomplete. F09 Caddy single wholebranchreview0C3I1M, all author rulings recorded before one correction pass; native notrun.
+
+F09-Caddy single-review correction source: profile persistence disabled and inherited paths isolated; one Node owner supervises native PS worker, failed/changed directory preserves tree; strict certificate error + read-only Windows CurrentUser/LocalMachine Root fingerprint observations mandatory.13profile/TLS/store REDs and3actual-worker availability REDs observed before fixes;229target assertions in full2150/2150 tests110files zero failedpendingtodo,lint/full/build0 pinned24.21 frozen1worker. Minor bounded diagnostics deferred. Exact new Windows native remainsnotrun; open focused PR next. F05403 retry archived, no foundation/Server2019/release/VPS claim.
+
+F09-Caddy final PR43 https://github.com/DongVienNguyen/Family-Organizer/pull/43 testedHEADdadcc16d29a0265dd3ea105e5891bef98a5a29a3 / CI38338582815 all7checks success; six independent validators0. BothNode22/24 actual2150/110 zero failedpendingtodo,118sourcecoverage/21firstattempt browsers; service14checks42phases+coordinator10checks31phases/fiveproofs/source17/11shutdowns/serviceRemoved+cleanuptrue. Caddy2.11.7 actualsix phases/native0/nullsignal/certificate-specific refusal; exactCA fingerprint absent in CurrentUser and LocalMachine Root/read-only inspection; inner and outer cleanuptrue. ZIP9dd6b6994c388ea55da6d440d365e1da0dda57c83bc11cb4931ef49c600c28cd; fullLogb1c09a8f485321203bedc506b5177da2950ad3fae3acc16f4ecdec2b302e6b5a; proofcomment6137237343. ExactHEAD squashfb11d05eb565375e0a00fb6feb0c15b4c2508235 independently PR/main/tree equal; appattachment43 confirmed. One complete review0C3I1M, three Important corrected in one pass/Minor diagnostics deferred/no rereview. Archivef09-caddy-final.json. Synthetic backend only: compiledExpress/prodCaddyservice/TLS/Server2019 notaccepted. Next independentF08 report extraction/reader; actualF05Administration403/fullcollector/otherlegacy rows/reboot/offhost remain, no release/tag/VPS. Wholeplan notcomplete.
+
+F08-e BASEfb11d05 independent bounded report files/extraction/raw assertion adapter.16file-reader+9quality-reader+11extraction+15native-proof availability REDs;3missing-suite+1native-report omission REDs observed.211/4target GREEN; full source frozen/sequential1worker running. Initial missing test-helper directory is fixture collection error, notproductRED; corrected before actual9RED. Hash/bodylength fixtures calculated before native. Source owns no recursive failure cleanup; readonly native extraction preflights seven archive totals and holds ZIP streams/checks hashes before writes. Existing main/source/API gates retained; reportsVerifiedfalse/publicationfalse; quality assertions only, full native/audit/coverage/browser/package/service collector still pending. One wholebranchreview/exactnewWindows/live trustedmain notrun; no Server2019/release/tag/VPS.
+
+F08-e frozen Cloud2210/2210 tests113files no failedpendingtodo,lint/full/build0 pinned24.21/sequential1worker;211target/4 assertions and gatefailures preserved. NativeWindows/live adapter notrun. One wholebranchreview next, input-leaf cleanup identity seam explicitly disclosed; full rawcollector stillincomplete/publicationfalse. Historical PR43 proof archived samebranch. No allfoundation/Server2019/release/tag/VPS claim.
+
+F08-e one complete review0Critical1Important1Minor; ALLauthorgrades/rulings accepted beforeONE correctionpass. Independent reviewer reproduced deletion of replacementinput sentinel (notauthbypass). Three actual REDs ordinaryreplacement/link/content modification (30otherspassed); missingleaf alreadyrefused preserved. Save independentBigInt inputleaf dev/ino/size/mtimeNs/ctimeNs/nlink and exactboundedcontent, recheckfixedparent/leaf beforeunlink;215target/4 GREEN. Minor literal-doc escape fixed. Corrected full source running; newnative/exactWindows/live trustedmain pending. F09-d separatebrowserdraft heldstash@0: newB08adult→childsubmit→approve/rewardonce/reload, policy1RED→57GREEN only; noactual24browserexecution claim. No rereview/release/tag/VPS.
+
+F08-e corrected frozen full2214/2214 tests113files zero failedpendingtodo,lint/full/build0 pinned24.21/1worker.215target/4. One review0C1I1M/allrulingsbeforeonepass; inputidentity+bytes preservation and docescape corrected/no rereview. Native/exactWindows and live trustedmain stillnotrun. Ready toopen focusedPR onfb11; historical2210/113 retained. ReportsVerifiedfalse/publicationfalse, fullcollector unfinished; no Server2019/release/tag/VPS.
+
+F08-e PR44 checkpoint9d16 / CI38341637506 actual Node22 installfailed: implicitbetter-sqlite3 node-gyp fetched officiallegacy /download/release Node22headers andreceivedHTTP502/native1; Node22tests/nativeCaddy/extraction/notrun, gatecannotpass. Node24/newsyntheticarchiveprobe/2214source/browser21/producer/consumer pass; servicepending. Exactjoblog115113709662 retained andhashed; failurediagnosisf08-e-node22-install-failure.json. Workflow nowsets canonicalofficial npm_config_disturl=https://nodejs.org/dist; node-gyp honors option and keepsTLS/SHA checks. OfficialNode22headerSHAeff1a7... andx64libSHA c243185... downloaded/verifiedCloud, notWindowsproof; legacySHASUMS endpoint also200/samebytes atobservation, so502 ishistoricalexternalfailure, no permanentdenialclaim. App/scripts/tests/deps/lock byteunchanged fromcorrected2214/113; no broadCloudrepeatneeded forURL-onlyworkflowchange. NewfirstattemptWindows exactHEADrequired, no unchangedrerun/skip/assertdrop/continue-on-error. F09-d separatef5c8fc6 full2151/110/58target/lintbuild0 and24discoveryONLY; awaitnewmain/review/actualnative24cases. No release/tag/VPS.
+
+F08-e second checkpointda6b / CI38342341942 overallfailure: Node22canonicalheaders200/SHASUMS200 butx64node.lib502/nativeinstall1, testsnotrun; evidencejob115115978934 preservedf08-e-sdk-correction.json. URL-onlymitigation insufficient. Newbuilder-only SDKpreparation pinsofficialheaders+libSHA, guardsWindowsx64/exactruntime/paths/version, configureslocalnodedirincludeNode+ReleaseLib beforeONE npmci. curl bounded2transfer retries only; npm/tests0 retries and allassertions/timeouts unchanged.33SDKpolicy availability REDs +2missingSDKreport/suite REDs→250target/5 GREEN. CloudofficialNode22+24 assets matchedSHA; Node22realheader3325 paths inspected, notWindowsSDKexecution. NewSDK fullsource running; actualnewWindows mandatory. Existingcompletewholebranchreview notrenewed; this nativeCI-cause correction stayssamePR/one ongoingauthorpass. No app/deps/lockchange/skip/continue-on-error/release/tag/VPS; fullcollector/F05Admin403/Server2019 remain.
+
+F08-e SDK-corrected frozen Cloud2249/2249 tests114files zero failedpendingtodo,250target/5 andlint/full/build0 pinned24.21/sequential1worker. Prior2210/2214 proofs retained. OfficialNode22+24headers/x64lib matchedfrozenSHA; realheaderinventories3325/3430 acceptedCloudinspection only. NewWindowslocalSDK/compile/firstattempttests notrun; pushsamePR44 next, previousHTTP502runs andcancelled/unrun statuses preserved. No app/deps/lockchange, no npm/testretry/assertiondrop/skip/continue-on-error/release/tag/VPS. Reviewer count remainsone originalwholebranch, nativeCIrepair authoredwithoutrereview; fullcollector/F05Admin403/remaininglegacy/Server2019 externalgates remain.
+
+F09-d independent draft BASEfb11 B08existingadultcreate/Childassignment→Childstart/submit→pendingnoReward/directChildapprove403→adultapprove→one17pointChildgrant/oldledgerpreserved/freshduplicate400/reloadbothroles. Policy1availabilityRED→58targetGREEN, frozenfull2151/110 zero failedpendingtodo,lintbuild0 pinned24.21/sequential1worker.24browserdiscoveryONLY, noactualbrowserexecution. Noapplicationchange/newdomains. Fullnewbase/review/exactWindows required after44. F08-e PR44 9d16 / CI38341637506 Node22 npmci node-gyp NodeheadersHTTP502 andallNode22testsnotrun; Node24/newsyntheticextraction/browser/producer/consumer passed; servicepending. Failure preserved; canonicalofficialdist headers/x64lib Cloud inspection matchedofficialSHA, noWindowsacceptance. Next samePR configcorrection/newfirstattemptCI, no skip/assertdrop/rereview/release/tag/VPS.
+
+F09-d single wholebranchreviewf5c8fc6 0Critical0Important1Minor; ALLauthorrulings recorded beforeone docs-onlycorrection. Exact frozen source commitf5c andGitbytehashes recorded separately fromlaterdocumentation/review commit; full2151/110/58target/lintbuild0 unchanged, no broadrepeatfortraceabilitydocs. Actual24browsercases andnewbase/fullrequired after44. No renderedrewardbalance/history/concurrency/mixedbackup/newdomain/Server2019 claim; no rereview/release/tag/VPS.
+
+F08-e final PR44 https://github.com/DongVienNguyen/Family-Organizer/pull/44 testedHEADab60f2e03574c06c6cd5476c447f8339bae81735 / CI38343957944 all7checks success andseven independent validators0. BothNode22/24 actual2249/114 zero failedpendingtodo/118sourcecoverage/21firstattempt browsers; service14checks42phases+coordinator10checks31phases/fiveproofs/source17/11shutdowns/removedcleanuptrue. SDKboth pinnedheaders/lib hashes andsixprep native0; installlogs prove localnodedir compile/noNodejsfetch; max2transfer retries/test0. Synthetic7archive1470bytes/budgetrefusalbeforewrites/cleanuptrue; Caddy6phases/twoRootStorezero/inneroutercleanuptrue. ZIPc4eb2f58c9303d85e1e5dc864876d59e6a3c2b9c970c7e327411886b0fdcb741; fullLog9e61270e650140f92443851c3776e0c0ba984f64015ac17807f059f3728c7c0e; proofcomment6138067367. ExactHEAD squash1f4cef43655b43b32ff018460fcf4b58a28cc0c1 independentlyPR/main/tree equal; attachment44confirmed. Oneoriginalreview0C1I1M/inputcorrection andnative-CI SDKrepair authoredwithoutrereview; earlierheaders502/canonicallib502/unrunNode22 preserved. Archivef08-e-final.json. Live trustedmain extraction/rawassertion adapter pending; fullcollector/otherF09/F05Admin403/Server2019/reboot/offhost remain, no release/tag/VPS. F09-d rebase onto1f4 onlyappendstatusconflict resolvedpreservingboth; allthree reviewedsourcefiles byteidentical to f5c, new full2250/114 andnative24browsercases required; no rereview.
+
+F09-d rebased frozen Cloud2250/2250 tests114files zero failedpendingtodo,lint/full/build0 pinned24.21/sequential1worker. One review0C0I1M/sourceidentitydocs corrected, allthree B08sourcefiles unchangedf5c; sourceSDK/Archive gates inheritedverified44. Actual24browsercases notrun, fullnewWindows exactHEADnext; source2151/110 historical retained. Main44 read-only reportpreflight38345761738 success source1f4/explicittargetfb11/mainCI38339664320:7archives/743files/100984074expandedbytes, bothraw2150/110 JSONJUnit/nativeexit agreement; independent receipt/log proof beingverified, reportsVerifiedfalse/publicationfalse. No fullcollector/Server2019/release/tag/VPS claim.
+F09-d final PR45: tested c9a73b440cee3878da0757b01d1da21b30e50174 / CI38346070865 all7 success and seven independent raw validators0; both2250/114 zero failed/pending/todo,24firstattempt browsers/118source coverage, package+service+Caddy+SDK/extraction verified. ExactSHA squash edb09e0d03a12648a6b245fef621d5ab009b7ff8 independently PR/main/tree equal. Evidence f09-d-final.json. Existing task assignment/Child submission/adult approval/one reward persistence only; recurrence/rotation/reward panel and other legacy rows remain. F08-e live38345761738 accepted authenticated seven archives/743 files/100984074 expanded bytes and raw2150/110 both; reportsVerified/publicationAllowedfalse, full collector unfinished. Evidence f08-e-live.json. No release/tag/VPS/Server2019 acceptance; F05Administration403 remains.
+
+F08-f staged collector source:72 component availability REDs and3critical-suite omission REDs→232target/4files GREEN. FrozenCloud2324/117 zero failed/pending/todo,lint/full/build0 pinned24.21/1worker. Actual previousPR44 Windowsnative/production/audit/rawcoverage files accepted by Cloud helpers only; no newWindows/live execution claim. Branchbase1f4; PR45 mergededb09 requiresrebase andnewfrozenfull beforefreshwholebranchreview/exactWindows/livechecks. No app/deps/lockchange; reportsVerified/publicationAllowedfalse. Browser/package/license/consumer/service/coordinator collector and otherF09 rows remain, F05Administration403/Server2019/release/VPS gates unchanged.
+
+F08-f rebased source frozenCloud2325/2325 tests117files zero failed/pending/todo,lint/full/build0 pinned24.21/sequential1worker. Allten F08 source/testfiles byteidentical throughrebase ontoedb09; inheritedB08/24browser contract included. Onefreshwholebranchreview488a32b 0Critical0Important0Minor/allscope rulings recorded/nofixes/norereview. ExactWindows/newtrustedmainlive pending; no fullcollector/publication/Server2019 acceptance. Next focusedPR opens fromedb09 with evidence f08-f-development/review-rulings.
+
+F08-f PR46 HEAD0eff5de / CI38347967630 overallfailure: both2325/117 andsixindependentquality/coverage/package/service/Caddy/SDK-extraction validators0, browser23/24 oneFirefoxB01 failure; zero skipped/retries. Trace proves MarkdownNS_BINDING_ABORTED afterreloadstarted whiletitlewasvisible; addrenderedcontentassertionsbefore/afterreload, preservepageerror/45s/zero-retry. NewmainPR45 edb09/CI38347336919 failedSDKcurl28 after60s partialdownload; Node22testsnotrun, otherfivejobs success/gatefailure. Existing60s retrywindow exhaustsfirst60s timeout, twoactualnativecurltimeoutREDs plus1missing-suite gateRED→163targetGREEN. Pinned SDK transferwindow180s/each60s/atmost2transfer retries, TLS/hash/nativeexit unchanged; npm/tests0. First testfixtureENOENT corrected beforebehavioralRED, not productbug. CorrectedfrozenCloud2328/118 zero failedpendingtodo,lint/full/build0 pinned24.21/sequential1worker. Originalwholebranchreview0C0I0M remainsone; subsequentnativeCI-cause corrections authoredwithout rereview. SamePR46 newexactWindows mandatory. F09-e independentheld43ee20f full2251/114/59target/lintbuild0 and27discoveryONLY; review0C1I1M pendingauthorrulings/member-listreadiness correction andnewbase/native27. Fullcollector/F05Admin403/Server2019/release/VPS remain.
+
+F09-e held independentbranch fromedb09: originalsource43ee20f full2251/114/59target/lintbuild0, gate2availabilityRED and27discoveryONLY. Onefreshwholebranchreview0C1I1M; author0C2I0M/allscope rulings beforeONEpass. Childnegativecontrols initiallycouldpassbeforememberrowsloaded; actualownedDOMhelper missingrows accepted1RED→readinessbeforeabsence/threeDOMfixturesGREEN, fullcorrected2251/114 zero failedpendingtodo/lintbuild0 pinned24.21/1worker. DOMhelper executedCloudLinux/Chromiumonly, not actualWindowsappacceptance. Exact correctedsource 097ff131114d4c17026c888248f0dbabc86c3fdd andfourGitbytehashes archived f09-e-development/review-rulings; sourceidentityImportant becauseuser/AGENTS requireboundevidence. Actual27Windows/newbase/full pendingafter46merge; no rereview/newdomains/Server2019/release/VPS.
+
+F08-f final PR46: tested3716f8098653802e6f7672f754b24f879546e87d / CI38349619086 all7 success andseven independent raw validators0. BothNode22/24 actual2328/118 zero failedpendingtodo/118sourcecoverage/24firstattempt browsers; nativeSDK/Caddy/extraction/package/service/coordinator evidence verified. Service14/42+coordinator10/31/fiveproofs/source17/11shutdowns/removedcleanuptrue. ZIP7feed1f9c58181bbd8f7d6dd2577abfce2f6c8ab10b81a5179410a672a56b6b7; fullLogded7c27b73c43dd38cc524518e3aade2aae0da3c203f2473497f414e9fc162a1; proofcomment6138783303. OnceexactSHA squash83aa2b7c4539764afb6abd103b257721d1d03088 independentlyPR/main/tree equal. Oneoriginalreview0C0I0M; nativeB01renderedcontent andSDKretry correction authoredafterreview/no rereview, bothfailedhistories retained. Evidence f08-f-final.json. Live read-only adapter requestedmain83aa targetexplicit1f4/mainCI38345336831; result pending. Wholecollector/publicationfalse/F05Administration403/otherlegacy/Server2019/release/VPS unchanged. F09-e rebase onto83aa onlyappendstatusconflict resolvedpreservingboth; threewholefiles+exactB09body unchanged097source, parenttwoB01renderedcontentassertions inherited. Newfrozenfull/exact27Windows mandatory.
+
+F08-f live38350593250 succeeded source83aa / explicittarget1f4/mainCI38345336831. Actualtrustedmain Windows2022 authenticated7archives/748files/101076584expandedbytes; both2249/114rawquality/nativecompiled23/sevenincompatibles/audit0/raw118sourcecoverage verified. Independent API/checkrunidentity/artifactdigests/GitWindowsbytepolicy/log validator0; outsideverifier initiallywrongly counted unrelatedpriorpreflightcheck, correctedto explicitCIrun URL (workflowneverfailed). Flags runtimeProductionAuditVerified/rawCoverageVerified/rawQualitytrue, reportsVerified/publicationAllowedfalse. Evidencef08-f-live.json; fullbrowser/package/licenses/consumer/service/coordinator/SDK/Caddycollector andcandidate/promote remain. F09-e newrebasedCloud2329/118 zero failedpendingtodo/lintfullbuild0 pinned24.21/1worker, exactfourGitbytehashes source07f97b606f8b15abc863655f7152f1e07f48c850; one originalreview0C1I1M/author0C2I0M/readinessDOMRED→GREEN/no rereview. Actual27Windowscases notrun; focusedPR next. No newdomains/F05enforcement/Server2019/release/tag/VPS acceptance.
+
+F09-e PR47 e9cf722 / CI38351043129 failure: both2329/118 source andsix independentquality/coverage/package/service/Caddy/SDK-extraction validators0, browser26/27 oneB09WebKit45s globalmemberroleclick timeout, zero skipped/retries. Lasttraceframe showsSettings/profile/membertabs visible; exactnativeUI/driver mechanism unconfirmed. Scope exactrolelookup toactualsettings-sub-header; addvisibleDOM/static-tablabel assertions+constantdiagnostic beforeclick, preservealloldflows/pageerror/network/45s/zero-retry. FrozenCloud2329/118 zero failedpendingtodo/lintfullbuild0, committedsource9cc2f8f4f9a14d5e8f3e4b125ea1c71a0d502c7c andfourGitbytehashes archived. One originalreview remains; nativeCIcausehypothesis authoredwithout rereview; newexactWindows27cases requiredbeforeclaim/merge. Failuref09-e-browser-failure.json/loghash retained. F08-g independentdraft150target/3 andlint0 (nineGitbrowser-policyavailabilityREDs plusfiveactualmalformedXMLacceptanceREDs+oneoldermatrixRED) stashedwithallfiles; no full/review/native/liveacceptance. Fullcollector/otherlegacy/F05Admin403/Server2019/release/VPS remain.
+
+F09-e secondcheckpoint6c50b2b / CI38352796269 failure: source2329/118 both+sixotherindependentvalidators0, browser26/27 B09WebKitSettingsheaderCSSabsence10s. Scopedrolelookup hypothesisfailed; newtraceUIrastershowsprofileheaderby5s whilequeryreportsmissing, actualWebKitmechanism unconfirmed. MoveallthreeownedDOMfixtures toseparate disposablecontext/finallyclose; appPage neversetContent. Alloriginal27flows/assertions/10sexpect/45stest/zero-retry preserved; no retry/skip/continue-on-error. CorrectedfrozenCloud2329/118 zero failedpendingtodo/lintfullbuild0/sourcef4202b1bcf4dcddce89f7c8180d8624d8d15b4d8/fourGitbytehashes. SamePR47 newexactWindows required; originaloneReview/no rereview. Evidence f09-e-webkit-boundary-failure.json/fullLog/trace retained. F08g draft334target/5+lint0 stashedwithallsource/untrackedfiles; nofull/review/native/liveacceptance. Fullcollector/F05Administration403/otherlegacy/Server2019/release/tag/VPS remain.
+
+### F09-e DOM/driver investigation after rejected context-isolation hypothesis
+
+PR47 HEAD7d9265c4054e72d2b6f5af39bfaa67ed14411ac4 CI38354321339 failed26/27 first-attempt browsers; WebKit cannot locate Settings header within original10s. Both source2329/118 and six independent raw validators passed; all seven artifact families/full log preserved, tracked failure receipt. Separate fixture context did not resolve boundary. User requests preserve assertions and investigate DOM/driver. Added static-only native document counts/geometry/style/real-click facts around original assertion, no speculative fix or timeout/retry changes. FrozenCloud2329/118, zero failed/pending/todo, lint/build0. New exactHEAD Windows diagnostic pending; no merge47 or acceptance claim.
+
+### F09-e native document/driver checkpoint; F08-g live proof
+
+PR47 HEAD08d9cdddf2cfff9cff6f32113598b642db3a7f1c CI38356773440 failed26/27 browsers. WebKit originalheaderCSS assertion missing; postfailure main-world evaluate hung to45s overall test deadline, while beforedocument header0 and Chromium/Firefox header1/trustedclick. No rootcause/fix claim. Sixother independent validators0/source2329/118, all7 artifacts/full log preserved. Nextprobe logs static mutation/realclick/microtask/timer/frame frominsidepage around original assertions; no retry/timeoutraise, no catch that makes failedassertion pass. Cloud2329/118/lintbuild0 before merging accepted38main changes; exactnewWindows pending.
+
+F08-g trustedmain38 native live https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38358146813 passed and independentlyverified: explicit83target/CI38350539531,7archives/101177613expandedbytes, bothrawquality2328/118, rawruntime/audit/coverage and24targetGitbrowsercases true,18browserfiles/724422hashbytes. Lockedvalidatorinstall/pinnedSDK phases0; whole reports/innerZIP/publication false, no release/package rebuild.
+F08-g sourcefrom83aa frozenCloud2367/119 zero failedpendingtodo/lintfullbuild0 pinned24.21/sequential1worker;334target/5 GREEN. NineGit-browser-policyavailabilityREDs/fiveactualmalformedXMLacceptedREDs/oneoldermatrixpolicyRED/nineteenreaderavailabilityREDs/threeforged-nativeREDswithguardremoved-restored/onecritical-suiteomissionRED. Missingmodule initialcollectionerror fixedemptybootstrapbeforeavailabilityRED, not productbug. Gitliteralbrowsercases/projects readwithout executingtargetcode; strictJUnitparser shared; actualrawfile/receipt/hash/native/fixture/shutdown checks andsameprocessadapter; innerPackageAgreement/reportsVerified/publicationfalse. Realmain83Windows24casefiles accepted byCloudhelperonly, notnewWindows/live. Onefreshreview/newbase/exactnative/live pendingafter47. F09-e PR47 newcontext-isolationWindowshead7d9265c/CI38354321339 pending, allpreviousfailedtrace/logs retained; nofoundation/newdomain/Server2019/release/VPSclaim.
+
+### F08-g review correction — Windows verification pending
+
+Reviewed source8aa66811af3b920ef592122c1094bd6e02df90b4 on base83aa2b7c4539764afb6abd103b257721d1d03088: reviewer0C3I2M, author0C5I0M. One fix pass: lexical AST declarations (no target execution), every mandatory byte hash, case-alias refusal plus aggregate512MiB hash budget, strict XML character data/whitespace, complete native probe/path.26 actual REDs→157target GREEN; fullCloud2393tests/119files, zero failed/pending/todo, lint/build0. Parser uses existing locked TypeScript; trusted-main preflight now installs locked builder tooling with pinned SDK and immediate native exits, no target package rebuild. Prior main83Windows24-case bytes revalidated by Cloud helper only; new exactHEAD Windows/live not-run. F05 still403; full collector/innerZIP/Server2019/releases/VPS remain incomplete. PR47 latest7d9265c CI38354321339 failed26/27 WebKit B09 Settings boundary; context isolation hypothesis did not resolve it. User requests preserve assertions and investigate DOM/driver; no merge47.
+
+PR47 diagnostic branch merges acceptedmain38. Both status histories and prior21/24 missing-flow regressions retained; inheritedoldermatrix fixture hardcoded8→7 caused1test-only RED after9case merge, adapted dynamically,69browsergate GREEN. B09 diagnostic/source file byteidentical0ae3a2e; new frozenCloud2394/119, zero failed/pending/todo, lint/build0. ExactnewWindows27cases required; no WebKitfix/acceptance claim.
+
+### F09-e direct mutation seen; cross-world diagnosis pending
+
+PR47 HEAD1ac8a09b4b44eadff862bf55facab0189545734b CI38359151937 failed26/27 first-attempt engines; WebKit real trustedclick + activeTabsettings + MutationObserver header/module/profile1 at1928ms, while originalCSS locator stillmissing10s. Sixother independent validators0/source2394/119, all7 artifacts/full log preserved. Rendering is demonstrated, driver/utility-world rootcause unconfirmed. Nextnativeprobe uses publicselectors.register contentScriptfalse/true for nativeCSS counts after the originalassertion (no bypass/removal/timeout/retrychange). Cloud2394/119, zero failed/pending/todo/lintbuild0; new exactHEAD Windows pending. Not merged/nofixclaim.
+### F08-g PR48 accepted; F08-h bounded package report agreement underway
+
+PR48 https://github.com/DongVienNguyen/Family-Organizer/pull/48 testedHEAD b90d59112d0f25360481a07fa8e901e3ab8ccaa7 CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38356332391 all7checks/seven independent raw validators0: both2393/119, zero failed/pending/todo,24 first-attempt browsers,118-source coverage, native package/service/Caddy/SDK/extraction proofs. ZIPf0c1303a651bd73c8ec51fdfdf062ef7df480ddec6990467005def784bac3b7f; fullLogcd47e75488a49d6f1a33a74d5e8a9f628aea0581dd3d4fb34016b1b122ff4ff7; comment6139870749. Squash38d6a3a2c166e62cc6cacf37ead6221204e68629 independently agrees PR/main/tree. Trusted-main read-only live38358146813 explicitly targets83aa/CI38350539531, pending. Full reports/innerZIP/publication false.
+
+F08-h adds bounded raw producer evidence/exit/manifest and clean consumer exit/validation reader; actual ZIP digest/size must agree, pinned runtime/native/service metadata and exact native phase exits required. Reports are data, no package code execution.34 availability REDs plus1 missing critical suite RED→34target/2428fullCloud tests/120files, zero failed/pending/todo, lint/build0. Positive unitfixture deliberately contains non-ZIP synthetic bytes; current helper asserts raw digest/metadata agreement only, not ZIP validity/executable/license/functional acceptance. Accepted48 actual Windows metadata/54558209 ZIP bytes compatible in Cloudhelper only. Native/live/review pending; next stages must verify inner ZIP/license/build and every consumer/service/coordinator family before fullreport/publication. PR47 diagnostic08d9cdd CI38356773440 failed26/27 WebKit; postclick document-evaluate also timed out, user wants retained assertions and investigation. F05Administration403, Server2019/R02/R03/releases/VPS remain incomplete.
+
+### F08-h one review correction pass
+
+Base38d6a3a2c166e62cc6cacf37ead6221204e68629, reviewedHEADdbbbc9d6b7d9164b3260a7487c0e3d95140119a2:0C4I0M, author acceptsall BEFORE fixes.5actualREDs for descriptor-size replacement/globalbinNode/missing-or-foreignwrapper/native-dependencyversion→202targetGREEN. FullCloud2433/120, zero failed/pending/todo/lintbuild0; sourcefile bytehashes retained. Bounded raw metadata/digest agreement, not innerZIP/license/functional validation; all acceptance/publicationfalse flags preserved. Correctedhelper accepts actualPR48 Windows metadata/54558209bytes inCloudonly. PR/HEAD/nativeCI/live pending; next fullZIP/consumer/service collector stage needed, F05Administration403 remains.
+
+### F09-e — bounded protocol diagnostic checkpoint
+
+PR #47 remains open: HEAD `2c2a7912bd73f9ce7994448edc601206e26560da`, [CI38361389388](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38361389388) failed browser/gate:26/27 first-attempt cases; WebKit B09 main DOM rendered, extra main selector query hung. Six independent non-browser raw validators passed; both runtimes2394/119. See `evidence/f09-e-cross-world-failure.json`.
+
+New authored post-review diagnostic source: redacted method/request/context/frame identities only, budgets1MiB line/8MiB report/50000records. Original CSS visibility assertion restored, hanging supplemental custom queries removed, all27 original functional flows/assertions/timeouts/zero retries retained. Cloud180 targeted/2451 full121files, no failed/pending/todo; lint/build0. New exact-HEAD Windows evidence pending, root cause unconfirmed. F08-i one review Important correction next; F05Administration403 and Server2019 remain unaccepted. No release/tag/VPS.
+
+F09-e follow-up:5b99b0d019ec5ced9bf4b7f4911021a2172893cb / CI38367301535 failed authored diagnostic raw-line budget after9 Chromium cases; other18 uncompleted, no WebKit diagnosis. Six independent nonbrowser validators0, both2451/121. Preserve failure `evidence/f09-e-protocol-budget-failure.json`. Correct capture window at WebKit B09 and SDK log length262144 before redaction; one actual capture-window RED→181target, frozenCloud2452/121 zerofailpendingtodo/lintbuild0. Original27flows/assertions/timeouts/zero retries retained; driver/app rootcause unconfirmed. SamePR47 newexactWindows pending.
+
+### F08-h PR49 accepted and native live proof; F08-i consumer report reader
+
+PR49 https://github.com/DongVienNguyen/Family-Organizer/pull/49 HEADe4cdf605815fee9aabda9672bc80be784297c78f CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38359761888 all7checks/seven independent raw validators0: sourceboth2433/120, zero failed/pending/todo,24firstattempt browsers,118-source coverage, package/service/Caddy/SDK/extraction. ZIPc0c33047b5ed2e8f9e3ca8734dc2fdefeb56dce945276aa298dc699786d99614, fullLog4bf5f1657bb832a94fcceb51084ae500d6ddeaa11c9aef753c7a4d40c45b57fe. Squash6f79e3cf35d5c9f1af498ca2e8e40351912a9ef0 PR/main/tree independentlyagree; comment6140435026 postedaftermerge. Outsideproofwriter initiallyshadowed digesthelper loopvariable, failed serialization after all seven validators/sourcechecks passed; shell wrongly continued to authorizedmerge beforecomment. Corrected helper/closedPR/main/tree/raw evidence reverified; no nativeCI failure claimedpass. Use set-e for all sequential verification/mutations; no remerge.
+
+F08-h native live https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38361986711 source6f explicitlytarget38/CI38358093544 verified7archives/101242387expandedbytes, sourcequality2393/119 each, raw runtime/audit/coverage/browser24 plus producer/cleanconsumermetadata/actualZIPdigest54558209bytes. Reports/innerZIP/consumerFunctional/publicationfalse. No targetrebuild/release.
+
+F08-i reads7 actual consumer JSONreports: legacyCRUD/reward/snapshot/offline, portable encrypted recovery, selected privateSettings/signingKey/providerEnv, live WAL/concurrent capture and compiledproduction23checks/sevenincompatible schemas. Source/runtime/bundlednode path/checklists/nativephaseexits/completion/checksums/offline boundaries exact. Shared compiled-production validator preserves sourcequality defaultroot and consumer-specific App root, no targetcode execution.29availabilityREDs+1 criticalsuite RED→81target/2463fullCloud tests/121files, zero failed/pending/todo/lintbuild0. Oldaccepted49 Windows rawdata compatible inCloudhelper only; review/newnative/live pending. InnerZIP/license/build and complete service/coordinator/SDK/Caddy collector stillunfinished; whole reports/publicationfalse, F05Administration403 unresolved, Server2019/R02/R03/releases/VPS unrun.
+
+### F08-i — consumer raw report reader after review
+
+One wholebranch review at dbb2a638:0Critical/1Important/0Minor, all graded before one correction pass. Actual2REDs reproduced undeclared runtime root override; legacy runtime now forwards only SHA/Node while consumer retains explicit app root. Target247/247; fullCloud2465/121, zero failed/pending/todo, lint/build0 at pinned24.21. Source hashes and proof in `evidence/f08-i-development.json`/`f08-i-review-rulings.json`. No second review. New PR/exact-HEAD Windows/live verification pending. Seven raw functional/recovery/private-settings/signing/provider/online/production reports verified as a subset; innerZIP/full service collector/publication remain false. Next innerZIP/license/build and remaining service readers. PR47 diagnostic CI38367301535 failed raw-line budget after9 Chromium cases; Firefox/WebKit incomplete, no acceptance. F05Administration403/Server2019 remain; no release/tag/VPS.
+
+F09-e bounded protocol checkpoint HEAD2d247a8d7396d5e5e2b262bad8a5dd9bdc44d3b3 / CI38368917120 failed26/27 B09WebKit, original CSS expectation10s. Protocol1304redactedrecords/377040bytes shows Runtime9317/9381/9404 no replies while screencast continues; mainmutation2192ms Settingsheader/module/profile1. Sixotherrawvalidators0, both2452/121. Evidencef09-e-protocol-runtime-failure.json. Rootcauseunconfirmed. Next controlledexperiment separatelylaunchowned sameenginebrowser for allnegative DOMfixture assertions; actualappbrowser/page/all27functionalcriteria unchanged; contexts/processclosefinally. Merge main50 source727fb2 into47 preservesbothcritical suites andhistory; Cloudfullrunning, newexactWindows notrun. No app/source/deps/assertion weakening, no release/VPS.
+
+F09-e process-isolation experiment Cloud2483/122 zero failed/pending/todo, lint/build0 after merging main727fb2. Functional app unchanged; all27cases/fixtureassertions/timeouts/zero retry retained. Separate sameengine browser is owned/closedfinally. No actual WebKit fix claim; samePR47 exactWindows next. One original review retained, no rereview; currentbase inherits reviewed50 consumer/root fixes.
+
+F09-e processisolation421fb6c/CI38370988128 failedsameB09WebKit26/27, plusnative service update-ready1/ECONNREFUSED afterUPDATE_CONTROL_INVALID/read-stage:descriptor-open; cleanremovedtrue. Fiveotherrawvalidators0, both2483/122. Evidencef09-e-process-isolation-failure.json; errno notemitted, source/race causeunconfirmed. New test-only platform getter/method markers preserveexistingreceiver/args/returns/errors, no mock/disable/extra notification APIcalls and no payload logging. Twocharacterizations addedafterinitialhelper (no initialREDclaim); actualownedChromium serializationerror __name1RED→staticauthoredJS/ownedhelperpageerrors0. FrozenCloud2485/123 all0/lintbuild0. Newsame47exactWindows pending; sourceappunchanged, all27functionalassertions/timeouts/zero retries retained. Independentsafeerrno/nativepublish investigation andremainingF08/F09/F05/Server2019 remain; no release/VPS.
+
+F08-i final PR50 https://github.com/DongVienNguyen/Family-Organizer/pull/50 testedHEADdea961a99b507847c826cfa7a619d9a439718a8d / CI38368160972 all7checks/sevenindependentrawvalidators0; both2465/121 zero failedpendingtodo/24firstattempt browser/118sourcecoverage/package/service/Caddy/SDK-extraction accepted. Proofcomment6141470840; squash727fb2d98551c9e5e42152dcb6f65e46b3fe0d9d independentlyPR/main/treeequal. One0C1I0Mreview/2actualREDs→247target/2465Cloud no rereview. Archivef08-i-final.json. Trustedmainlive38369332386 source727fb2 explicit38d6/CI38358093544 succeeded; independentlychecked7actualconsumer report hashes and source/package/runtime binding, allpreviouscollector proof families retained. innerPackageAgreement/reportsVerified/publicationAllowedfalse; archivef08-i-live.json. Next F08-j service report reader source has51availabilityRED+1suiteomissionRED→216target; frozenfull/lintbuildrunning. OtherF09/innerZIP/fullcollector/F05Administration403/Server2019/release/VPS remain.
+
+F08-j source frozen Cloud2517/122, zero failed/pending/todo;216target/lintbuild0. Eight actual raw service report families plus actual logs in authenticated collector, exact source/run/ZIP agreement, all existing native phases/refusal1/security/credentials/encryption/ownership/coordinator evidence required.51helperavailabilityRED+1mandatorysuiteRED, oldaccepted50 Windowsreports accepted Cloudhelper only (13actualfiles/11shutdowns). No new native/live acceptance. Onefreshwholebranchreview next; fullinnerZIP/license/build/SDK/Caddy collector/publication remain false. No app/deps/lock/newfeature/Server2019/reboot/release/tag/VPS.
+
+F08-j review complete reviewer0C4I2M→author0C6I0M allgradedbeforeONEpass.21actualREDs plus1ownedrotationRED→240target; finalCloud2541/122 zero failed/pending/todo lint/build0. Require scheduledownedruntime/recoveryfilename/typedACL, candidateclassification/writeIDs, canonicalDesktopmodule, service-IDlogbinding with actualWinSW2.12 .0..7 rotations, exactnativeexpectedcodes/lockprobes/refusalreasons. Corrected old50 raw13files pass Cloudhelper only. NewexactWindows/live pending; no secondreview/minorsdeferred. Falseinner/full/publication unchanged. PR47 processisolationnative421fb6c / CI38370988128 browserfailed; actualtrace/log analysis pending, no app/driverfixclaimed.
+
+F09-e PR47 merged acceptedmain51/6e54 locally, conflictresolutionkeptbothrequiredsuites/history. Cloud2560/124 zerofailpendingtodo/lintbuild0. Automatic9f1CIabsentbecausemerge-conflicting; explicitbranchdispatch38375657768 correctlytargeted9f1, browserfailedpendingboundarylogs. NewresolvedHEAD requiresfreshPRCI, no readiness/fixclaim. F07-m onefreshreview0C0I1M gettermetadataTOCTOU; authorgrading/correction pendingafterfreeze.
+
+F08-k provisionalsourceCloud2591/124 failedpendingtodo0/248target/lintbuild0.8Git-harness policyREDs+21auxiliaryavailability+18harnessavailability+2critical-suiteomissionREDs, separateNode22characterization. Native29harnessfiles277958bytes matcholdtargetGit38/CI38358093544; bothSDK/Caddy/extraction reports andbrowserBuild↔producerdeclaredhashes acceptedCloudhelpers only(simulatedworkflowcontext). No targetcodeexecution/newnativeacceptance. InnerZIP/license/fullpublicationfalse. Rebaseontoapproved52/main29ae90 thennewfull/ONEfreshreview/exactWindows/live required.
+
+F08-j final PR51 https://github.com/DongVienNguyen/Family-Organizer/pull/51 tested79391f6ee70ec1067f78e629730f0beb78715253 / CI38373438183 all7checks/sevenindependentvalidators0, both2541/122 allfailedpendingtodo0/24firstattemptbrowser/118sourcecoverage. ZIPf9ed33f9b7d91bf3e2dcba60b6bcdf8ecb2b4ff8694521a9cd760fa3039fa40c; proofcomment6142280447; squash6e54e0d37bf3eb7e76b47c609f1d9dae49b967b9 independentlyPR/main/treeequal. Onefreshreview0C4I2M→author0C6I0M/21actualRED+1rotationRED→240target, no rereview. Archivef08-j-final.json. Trustedmainlive38374824225 source6e54 explicit38d6/CI38358093544 success; independentreceipt/source/API/hash proof checks actualservice13files/11shutdowns and allpreviousreportfamilies, inner/full/publicationfalse. Archivef08-j-live.json. RemainingSDK/Caddy/harness/innerZIP-license-build/fullworkflow andF09legacy rows/F05Administration403/Server2019.
+
+F07-m source native-code diagnosis underway after actual421/CI383709 servicefailedUPDATE_CONTROL_INVALIDdescriptor-open; approved51servicepassed onunchangedappsource, doesnotfixintermittentfailure. Sixnative-diagnostic/formatterREDs→42target, fullCloudrunning. Preservefailclosed/ownership/bindings/retry/deadline; allowlistedFScodeonly, no arbitrarymessage/path logged. Onefreshreview/newexactWindows required. PR47new9f1fe6a automaticCI absentbecauseconflictingmain51; manualsamebranchWindowsdiagnostic dispatched, mergeconflict/newfinalHEAD verification stillrequired.
+
+F07-m diagnostic source frozenCloud2548/122, failedpendingtodo0/42target/lintbuild0. Sixactualnative-code/formatterREDs beforechange. Reportonlyfixedstage andallowlistedFScode, no arbitrarynativeerror message/path; originalfences/retrycounts/bindings/deadlines/failclosed unchanged. Actual421serviceerrno/rootcause stillunknown; no functionalrepairclaim. Onefreshreview/exactWindows required; appcompiledhashchanges because loggeronly. Sourceprooff07-m-development.json.
+
+F07-m review0C0I1M→author0C1I0M, allgradedbeforeONEpass; formatteraccessormetadata couldpassallowlist thenreturnarbitrarytext/throw. FouractualREDs→46target/finalCloud2552/122 failedpendingtodo0/lintbuild0. Captureownmetadata data-descriptorsonce/ignoregetters; standardnativeFSingress alreadycreatesfreshsafedata, no externalnativeexploitclaim. Originalfunctionalguards/deadlines/rereads unchanged. Oneoriginalreview/no rereview; newexactWindows pending, failingnativeerrno/rootcause stillunconfirmed.
+
+F09-e Promise settlement diagnostic: merged accepted F07-m main29ae90, both histories preserved. Two actual regression REDs → four target GREEN; full Cloud2573/124, failed/pending/todo0, lint/build0. Observe original Promise with native then, exact returned identity preserved, no payload/real notification/mock. Prior fee/CI383766 and manual9f/383756 failed26/27 browser; all7 artifacts/sixother validators0 retained. New exactWindows pending, rootcause remains unconfirmed. Original assertions/timeouts/retries unchanged. PR47 remains open; no Server2019/release/VPS claim. F07-m PR52 accepted ad3/CI383774 all7/sevenraw0, both2552/122/24browsers; squash29ae PR/main/treeequal, compact proof archived.
+
+F09-e 1df/CI38380995283 failed26/27 originalcases, both2573/124/sixotherrawvalidators0/all7artifacts/fullLogretained. WebKit getSubscription returnedwithoutsettlement beforeCSSlocatorfailure; otherenginessettle. Nextcausaldiagnostic2freshownedminimalSWpages onlytoggleexistingnative read, recordbefore/afterdriver/staticsettlement/cleanup; no Notificationpermissionrequest/send, noappnativeAPI mock. CloudChromiumhelperbothafterlocatorstrue/fulfillment/cleanup, target263GREEN/lint0; WindowsWebKitpending. Original27flows/allassertions/timeouts/zero retries retained. Sourceproof/failureJSONtracked, originalone review retained/authoreddiagnosticdisclosed. Compact52acceptedproofmaintainsoutsidefullproofhash.
+
+F09-f careHTTP BASE29ae90 provisionalCloud2558/123 all0/171target/lintbuild0. Five new realHTTP/SQLite characterization tests GREEN, one actualmandatory-suiteRED→gateGREEN. Medicationdose taken/skipped/clear/filter/fullstate invalid refusal; vaccination/growthCRUD; boundedone-per-memberemergency; child/guestactualpatientread/write403/fullstatepreserved. Noapp/dependency/runtimechange. Existing reminder/ACL/BMI mapped; UI/moduleflags/fullF09pending. Rebase ontoaccepted53 beforeONEfreshreview/exactWindows required. PR47 1df/CI383809 failed26/27, all7artifacts/sixotherraw0/both2573/124 retained; WebKit subscriptionPromise returnedwithoutsettlement beforelocatorfailure, causalminimalnativeprobe next.
+
+F08-k merged approved52/main29ae90; onlyappendstatusconflict preservedbothhistories, all10Ksource/testfiles byteidenticaltoprovisionalc6e. FrozenCloud2602/124 failedpendingtodo0/lintbuild0 afternewbase,248targetprevioussource unchanged. ONEfreshwholebranchreviewnext; newexactWindows/live required. InnerZIP/license/fullpublicationfalse.
+
+F08-k ONE correction pass completed: reviewer/author0C3I0M, ALLgradedbeforefix.18 actual REDs+2 already-refused controls→330target/fullCloud2622/124, zero failed/pending/todo/lintbuild0. Parsed YAML actualpackage-build/windowspwsh context, aliases/duplicatekeys/disabled/continued declarations refused; contradictory Caddy failed/native/HTTP/trust markers refused while intended negative proofs retained; inventory and each file metadata rechecked after each hash/finalreceipt. Pinned builder-onlyyaml2.9.1ISC/lockfile updated/audit0. Oldaccepted38Git/CI29files277958bytes+botheruntimeaux compatibleCloudhelper only; simulatedworkflowcontext, not newWindows/live. New exactHEADWindows/live pending; innerZIP/fullreports/pubfalse. No rereview/deferredminor0.
+
+F09-e1 nativecauseactual89be/CI38382888109: twoownedminimalWindowsWebKitdefaultpermissionpages onlytogglegetSubscription; bothdriverbeforetrue/timers, aftertruewithoutread/falsewithread/unsettledPromise; ownedcleanuptrue, original27failed26/27/sixotherraw0/both2573/124. Focused appfixBASEebed: mountreadonlywhenpermissiongranted, originalusergesturepermissionrequest/enable/disable/grantedreceiver/rejection preserved.5actualRED→172target/fullCloud2627/125 zerofailpendingtodo/lintbuild0. ONEfreshfixbranchreview/newexactWindows pending. SeparatePR47original27criteria unchanged andmustverifyupdatedreviewedsource; no finalprofile/F09fixclaim untilthatnativepass.
+
+F09-e1 ONEfreshappfixreviewa5a/baseebed reviewer/author0C0I0M; allrulingsacceptedbeforeaction, zero sourcefixpass/rereview. Preservegrantedreceiver/error/unmount andenable/disable/session/UI. No permissionobserver/effect/delivery redesign required. Helpercoverage cannotprovecomponentwiring; PR47original27mustverifyafterapprovedfix. Cloud2627/125 all0/sourcehashesunchanged; newexactWindowspending.
+
+PR47 integrates exactreviewedfix77823b1 fromfocused55 (app/helper/testsbyteidentical,0C0I0M) while55finalCIpending; diagnostic integration only, no merge47 untilallapprovedsource+native27 success. Criticalsuitesunionretained; Cloudcomposition2650/127 all0/lintbuild0, original27criteria untouched. Accepted54main mustbeincludedbeforefinalPRCI, newheadcounts/acceptancepending.
+
+F08-k PR53 accepted727008b5beed8c9da0b14e3bcc69f3092d63da96 / CI38381783884 all7/sevenraw0, both2622/124/24firstattemptbrowsers/118sources. ZIP97520fd0adadc514412679d5360959bf3616e1b25d5ccae67a6e2e1cce5c6d08/log10d17cd172fa5a2ac74c55e4cecd828d99c41d8219d058d564d7c1fe137c101e. Squashebeddf69934152ea9fa62c3ef570a2b826e475f4 PR/main/treeequal; compactfinal archived. Trustedmainlive38383043123 sourceebed explicitold38/CI38358093544 success, independentAPI/source/rawreceipt hashes0/7archives101242387bytes/historical2393/119/29harnessfiles277958bytes/browsermanifest agreement/aux bothruntimes/service13files11shutdowns; inner/full/pubfalse. No rebuiltcandidate/release/Server2019/VPS.
+
+F09-f rebasedontoacceptedebed53: bothcriticalF08/healthgates+statushistories retained. FinalCloud2628/125 zero failed/pending/todo/lintbuild0, fivehealthcases persistrealrows androle403. Sourceproofupdated; ONEfreshwholebranchreviewnext, no native/healthUI/fullF09acceptance claim.
+
+F09-f ONEfresh6b0693e/baseebed review0C0I2M, author ALLgraded/accepted Minor BEFORE action, no sourcefixpass/rereview. Two wording minors retained for F09finalmapping: currentgate requires healthsuiteJSON +JUnitpresence (independent acceptance parsesfullJUnit); medicationordinaryedit preserves supplied ID/createdAt, not adversarialimmutabletimestamp. ExacthealthUI/fullF09 notclaimed. FinalCloud2628/125 all0; nextnewexactWindows.
+
+F08-l innerZIP/license BASEb856accepted54 frozenCloud2683/128 all0/lintbuild0/222target.17reader+19extractor+18native/suite+1actualnative-reportomissionREDs→GREEN (lastREDselectedone/othersunrun, not fullcount). NativeheldFileStream SHA+allentrypreflight beforewrites; bounds1GiB/100000entries/nativeexit0/refusal1; actualpackedmanifest/diskinventory/eachhash/source-lock/dependencies/originalnotices/MPLsource verified with finalsnapshots. Existinghistorical38actualZIP4581files/236deps/8MPL/163018239hashbytes compatibleClouddatahelper only/simulatedpriorcontext, no execution/newnative2019acceptance. ONEfreshwholebranchreview/newexactWindows/mainlive next. Innerflagtrue onlyafteractualextract+checks; fullreports/pubfalse; no compiler/deps/app/release/VPS.
+
+F08-l ONEreview c7eded/baseb856 0C3I2M ALLauthorgradedbeforeONEfixpass; sixactualREDs→231target/frozenCloud2691/128, zero failed/pending/todo/lintbuild0. Manifestdigest re-read, completeactualapp scoped/nesteddependency roots, pinnedWinSW originallicense now required. TwoMinor deferred (nativejunction directorycreation beforelaterrefusal under concurrentlocalinterference; duplicatehealthsuiterow), no rereview. HistoricalWindows38 ZIP verifiesClouddataonly with236deps/4581files; firstcorrectlyrefusedoverbroadscope/buildnotice filter corrected/positivecontrol added. NewWindows/live pending. PR55 tested784266b/CI38387968041 all7/sevenraw0/2633/126/24browser merged eebddef/read-onlyPR/main/treeequal, finalproofarchived. PR54 tested22021e2/CI38384209953 all7/sevenraw0/2628/125/24browser finalproofarchived; healthUI remains. PR47 c099/CI38388463324 all7/sevenraw0/both2656/128/all27originalfirstattempt, reportsbounded; newmain55conflict resolution/newexactCI next. F05Admin403/Server2019/release/VPS remain.
+PR47 incorporates accepted54mainb8567d4 and exactreviewed55appfix bytes; status+everypriorcritical suite retained. NewcurrentCloudtarget278/7all0/lint0, previousfull2650/127 belongsbefore54merge (not currentfullclaim). ExactnewWindowsfull/27originalflows pending;55mustbeacceptedbeforemerge47. PR54accepted22021e2/CI38384209953 all7/sevenraw0/both2628/125/24browser; squashb8567d4 PR/main/treeequal. Two docswordingMinor deferrals stillownedF09finalmapping. No fullF09/Server2019/release/VPS.
+
+PR47 9b/CI38386294257 original27/27allfirstattempt, serverclosed0/fixtureRemovedtrue, browsergateFAIL dueDEBUGcapturedintoSDKJUnit306212812bytes+JSON~312MiB (validXML, violates64MiBboundedparser). RetiretemporaryDEBUG/DOM/platformobservercallbacks, sourceappfix unchanged; AST392exactassertion/helpercalltexts/orderpreserved, parserbudgets/assertions/timeouts/zero retries unchanged. Currenttarget158GREEN/lint0; localcleanupfirstlintcaughtbrowserNameusedinfixturepayload, parameterretainedbeforecommit. NewexactWindowsneeded; no CIpassclaimbeforeboundedrawJSON/JUnit verified.
+F09-e1 PR55 77823b1/CI38385325024 all7/sevenraw0/both2627/125/24browser acceptedprovisionalsource BEFOREmain54; not finalbaseacceptance. Acceptedb85654merged, reviewerapp/helper/testbytesunchanged/no rereview/allpriorgates preserved. RebasedCloud2633/126 all0/lintbuild0; newexactWindowsrequired. PR47current9b/CI38386294257 has27/27firstattemptcases0skipped/retries, compiledserver/fixturecleanup0, browsergateFAIL because validXMLJUnit306212812bytes exceeds64MiBstrictparser; rawbrowserJSON~312MiB fromtransientDEBUGprotocolcapture. No boundedbrowser/finalF09passclaim; remove diagnosticDEBUG aftercausalinvestigation, preserve parserbudgets/assertions, thennewnativeheadrequired.
+
+F09-g independent BASEeebddef existingcalendarHTTP/SQLite/realICS: threecharacterization initiallyGREEN/noappbugclaim; oneactualmandatorysuiteRED (169othersnotselected)→200target/frozenCloud2637/127 zero failpendingtodo/lintbuild0. Ordinaryidentity/recurrencepersist/ownerCRUD/privatevisibility/hidden404-visible403/guest403/fullstatepreservation and actualexistingtokengatedsharedICS headers/CRLF/timezone/weeklyUNTIL/duration/escaping/token401. No newAPI/token/deps/app/delivery. Firsttargetfixtureorder mismatchcorrectedbyretainingoriginalICSfirst/assertion; no assertionsremoved. CalendarUI/import/moduleflags/fullF09pending; ONEfreshreview/newbase/exactWindows next. PR47 b835/CI38391576329 sixjobsnowpass,servicepending.
+
+F09-g ONEfreshreviewe6dd8cd/baseeebddef 0C1I2M ALLgradedbeforeONEpass. Clock-boundary equality actualRED (advancingDate/1selected2unrun)→samefaultGREEN after Date-onlyfreeze+finallyrestore; everyassertion preserved. Normal200target/full2637/127 all0/lintbuild0. TwoMinor deferred: socketinactivity/responseabortdeadline, sqliteLoad completelegacy snapshot wording (not allauth/commandtables); finalmapping mustretainlimits. No rereview/newappfeature; currentnative notrun and accepted56main composition required. F08-l PR56 HEAD2b6632c7e2c26faec6d732ad6785f880e7fd1118 / https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38393561228 inprogress: Node24/producer/cleanconsumerpassed, otherchecks notyetclaimed. Oldfailed9b/CI38386294257 nowALL7archives/fullLog/sixnonbrowserraw0 archived; browser/gatefailedoversizedDEBUG report despite27functionalpasses, historicalfailure notacceptance. F05Admin403/Server2019/release/VPS/fullplans remain.
+F09-e integratedaccepted55/main eebddef: sourceapp/helper/unitbyteidentical55; original27browserfilebyteidenticalc099; ALLcriticalsuiteunionretained. Cloud2656/128 zero failedpendingtodo/lintbuild0/260target; initialconsistentreceiptRED caughtauthorfixturemergeomittingexisting.tsx suite, restoredbeforefinalruns. NewexactHEADWindows required; no extraappchange/rereview. Priorc099/CI38388463324 all7/sevenraw0/27firstattempt remainshistoricalprecomposition proof. NextpushsamePR47/nativeall27/merge thenF08-l.
+
+F09-e PR47 testedb8353ff30ae362499be531c55f56aea2702c1176 / https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38391576329 all7/sevenraw0/both2656/128/all27originalfirstattempt0fail-skips-retries; mergedb8ad908741dff9b6a5e747b17e21915ff9ab8829, independentPR/main/treeequal. Compactf09-e-final archived; originalreview+separate55appreview retained/norereview. F08-l acceptedb8main merged/allmaincriticalgates/nativefixture retained; correctedsourcefullCloud2719/131 all0/lintbuild0/254target, reviewedinnerhelper/nativeextractorbytes unchanged. Authorfixturemergeerrors collection/order retained thenfixed, nopartial63-test acceptance; no app/deps/lockupgrade. ONEreview0C3I2M/allgradedbeforeONEpass/sixREDs, twoMinor deferred. NewexactWindows/PR/mainlive required; fullreports/publicationfalse. Historicalfull55/54 proof hadcopiedtaskIdF08-j; compacterrata identifycorrectPR/SHA/run and keeporiginalbytes/hash unchanged. NextWindowsinnernative thenauthenticatedmaincollector, normalizefullreceipt/F09remaining; F05Admin403/Server2019/release/VPS remain.
+
+F09-h BASEa8accepted56 frozenCloud2726/132 zero failedpendingtodo/lintbuild0/234target. SixexistingAI HTTP/nativeSQLite/auth characterizationcases initiallyGREEN;1actualrequired-suiteRED(174othersnotselected)→gate. HoistedcompleteGoogleSDKmock/synthetickey/norealprovider; actual auth/blank/unconfigured refusal, normalizedboundedshoppingdrafts/noautomaticlegacywrites, rawfallback, mockedtimeout500/onecall, Markdown/guest/emptyrefusal, admin-onlymaskedsettingsvalidation/clear. AbsoluteHTTP5secwatchdog/responseerror+abort/finalclose/drain/dispose; snapshot claimslegacyonly, notallauthtable. ExistingobjectACL/revocation/overloadtests mapped; UI/loading/close/moduleflag/fullF09pending. Currentcheckpoint inserted atfrontforvisibility whilehistoricalfailuresretained. ONEfreshwholebranchreview/newbase/exactWindows next. PR57https://github.com/DongVienNguyen/Family-Organizer/pull/57 HEAD0fe8d4de23e2a6b94fb8a210761b6b97b67368c5 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210 inprogress. F08lmainactual383951 verification0; normalizedreports/pubstillfalse. F05Admin403/Server2019/release/VPS/fullplansremain.
+F08-l PR56 https://github.com/DongVienNguyen/Family-Organizer/pull/56 testedHEAD2b6632c7e2c26faec6d732ad6785f880e7fd1118 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38393561228 all7/eightindependentrawvalidators0/both2719/131/all27firstattempt. Bothactualsyntheticinnerextractpositive0/unsafe1/prewriteabsent/cleanup verified. Mergeda8f89c5e0d68c338c436bf6a05b27bf4b3e5bc92 independentPR/main/treeequal. Livehttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395149608 sourcea8 explicitold38/CI38358093544 SUCCESS:7outerarchives101242387expandedbytes; actualnativeinner4582files163645351bytes; all4581manifestpayloadhashes/236deps/originalnotices/8MPL/WinSWlicense verified. IndependentlyAPI/Git/receipt/source/rawmetadata/hash correspondence0, firstverifierinheritedoldtopinnerfalseassert updatedtonewtrue whileconsumer/full/pub stayfalse; no nativefailure/sourcechange/retest. Compactf08-l-final/live archived. Full normalizedcollector/promotionprep/F09UI/import/flags/F05Admin403/Server2019 remain; no release/tag/VPS. F09-g acceptedmaina8 merged, allmandatorynative/protocol/push/healthgates and sourcefixtures retained; correctedtestDate-onlyfreeze remains/ALLassertionsunchanged/no rereview. FinalCloud2723/132 zero failedpendingtodo/lintbuild0/205target; ONEreview0C1I2M/clockRED→GREEN/twoMinors deferred (5s socketinactivity and abortedresponse; legacy snapshot excludesauth/commandtables). NextPR/exactWindows/all27/merge; nofullplanscompleteclaim.
+
+F09-g PR57 https://github.com/DongVienNguyen/Family-Organizer/pull/57 tested0fe8d4de23e2a6b94fb8a210761b6b97b67368c5 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38395869210 all7/eightindependentrawvalidators0/both2723/132/all27firstattempt/no failedpendingtodo; proofcomment6145605395, merged10f70a9db627b89c1504163449eb132742350ac3 independentPR/main/treeequal. ONEreview0C1I2M/clockRED→GREEN/2Minorsdeferred/no rereview. FullF09stillpending. F08-m BASEaccepted10f same-authenticated-process normalizer32availabilityRED+1actualsuitegateRED→208target/fullCloud2756/133 all0/lintbuild0. Commonmetadata/SHA/run/ZIP/source/suite/browser/harness/rawruntime evidencehash/license/nativefamilies required thenexistingvalidateReleaseEvidence, normalizedfile reportsVerified/consumerFunctionalVerifiedtrue onlyexplicitrun; rawpreflight subset flagsretained/pubfalse. HistoricalactualreaderreceiptscompatibleClouddataonly/notnewGitHubauthority. CLIwritesnormalizedartifactafterallreaders andpolicy, lockedread-onlypermissions/no publish/release/VPS. Draftstash5754c7 preserved/appliedontoaccepted57, gateconflictsresolvedbyretainingmainfixtures+onlynewsuite; no olderstashesremoved. ONEfreshreview/newexactWindows/trustedmainlive next; nofullfoundation/Server2019claim. F09-h frozen2e9d500review0C0I1M returned, allgradesacceptbeforeactions, MinorstalefrontCloudrow deferred tonaturalintegrationupdate; allreviewsource/loghashes verified. Native/newbasepending. F05Admin403/2019/release/VPS/fullplansremain.
+
+F08-m ONEfreshc95/base10f review0C2I1M ALLregradedacceptedBEFOREONEpass. SixactualREDs:extractedartifactId/hash/bytes/file mismatch4, supplyingcoverageevidence digestmissing/foreign2→214target/fullCloud2762/133 all0/lintbuild0. Everyextracted archive original fieldnowboundtoauthenticateddownload, coverage supplyingreader capturesactualevidenceSha beforehelper thennormalizercomparesquality/runtime/aux/commonhash. Acceptedcoveragevalidator unchanged. Historicalrealreceiptsneednewcoveragebinding reconstructedfromactualoldrawfile bytes forClouddataONLY, no newauthority/nativeclaim. LogMinor oldFULL_REPORTS_UNVERIFIED afternewnormalizedmarker deferred; normalizedJSON authoritative/pubfalse. No rereview; exactnewWindows/mainlive afteracceptedHbase stillpending.
+F09-h accepted57main10f composition: ownAItestbyteidenticalreview2e9d500, allcalendar/inner/protocol/push/healthmandatorygates and VMnativefixtures retained. FinalCloud2730/133 all0/lintbuild0/235target. ONEreview0C0I1M ALLauthorgradedbeforeactions/nosourcefixpass/rereview; MinortrackerCloudrow updated during required newbase/currentcheckpoint refresh, not app change. ExactnewWindows/PR next, no UI/fullF09/Server2019/release/VPS claim. F09-g final evidence compact archived. F08-m reviewc95/base10f0C2I1M ALLgradedbeforeONEpass; extractedartifact identity/digest/size/file and coverage supplying-evidence hash needactualRED→GREEN, old finalpreflight logMinor deferred. F05Administration403/fullplans remain.
+
+F09-i BASE7640accepted58: originalnineflowbytes retained, B10 real compiledassistant no-key loading/400error/Escape/reopen/focus/nolegacywrites; only ownedrequest held thencontinuedunchanged. TwoactualbrowsergateREDs→159target/fullCloud2733/133 zero failedpendingtodo/lintbuild0. ActualCloudChromium B10 onepass is Linuxdiagnostic only; discovery30 notnativeexecution. CurrentWindowsnotrun; ONEfreshreview thenaccepted59 composition/newexactWindows/all30required. No app/deps/runtime/token/providerdelivery/newcancelbehavior; health/calendarUI/flags/fullF09/Admin403/2019/release/VPS remain.
+F09-h PR58 https://github.com/DongVienNguyen/Family-Organizer/pull/58 tested8ec0b38388cecd7ac216d361b9a19a6226af4c77 / CIhttps://github.com/DongVienNguyen/Family-Organizer/actions/runs/38399687908 all7/eightindependentrawvalidators0/both2730/133/all27firstattempt/zero failpendingtodo; proofcomment6146072651; merged7640a12aac2a25e9deacbaa1b32f8de5aeec9767 independentPR/main/treeequal. ONEreview0C0I1M/source unchanged/nosourcefixpass/norereview; trackerrefresh performed. F09-h-final compact archived; UI/flags/fullF09pending. F08-m accepted7640main merged: correctednormalizer/collector/test/workflowbytes identical713, allAI/calendar/native/protocol/push/healthgates+VMfixtures retained. FinalCloud2769/134 zero failpendingtodo/lintbuild0/215target; ONEreview0C2I1M ALLgradedbeforeONEpass/sixactualREDs, logMinor deferred, no rereview. NewexactWindows/PR/trustedmain normalizedcollectorfile proof next. No fullfoundation/newdomain/2019/release/VPS claim; F05403 remains.
+
+F08-n BASEaccepted59f6c source-locked candidatehandoff/proposalassetnames/version/SHA/hash/size/manifest aftercompleteauthenticatedcollector; puredetachedintent and actualsourcepubguard refusal. Addedread-onlypromote-release dispatch samefullcollector/windows2022/pwsh/explicitinputs/pinnedactions/checkednativeexits; evidenceartifactonly, no operatorapprovalJSON/writepublish/deploy.16actualavailabilityRED+1suitegateRED(177othersunselected)→233target/fullCloud2787/135 all0/lintbuild0. ONEreview/newbase/native/livepending; actualcandidatecreation/promotion stillblockedunauthorized, no fullF08/F09/2019claim.
+F08-m PR59 accepted48bc/CI38401974884 all7/eightraw0/2769/134/27firstattempt mergedf6c/treeequal. Actualtrustedmainlive38404316314 normalizedfullreceipt verified independently overhistorical38, pubfalse/2019notrun; rawsubsetflags retained. F09-i accepted59composition fullCloud2772/134 all0/159target/lintbuild0, ownreviewedbytesunchanged/allcriticalgatesretained. ONEreview0C0I1M/no sourcefixpass/rereview/Minorhistorical21-24negativefixture deferred; exactnewWindows30pending.
+
+F09-j provisionalBASEd7b03f0/parent60pending: originaltenbrowserflows byteprefix retained; B11 actualUI growth170cm/65kg/BMI22.5/renderedreload, ownmedicationcreate/taken→skipped→none/stablelog/reload, Childnoprivateread/write403, ownedcleanupwithfreshsyntheticadmintokenafterlogout. ActualCloudChromiumonepass12.7s/Linuxdiagnosticonly; discovery33 notnative. TwoactualmissinggateRED→162target/fullCloud2775/134 all0/lintbuild0. Initialhistorical27positivefixture JSONkeptB11actual1fail/161pass, corrected retainingassertions. No app/dependencychange; ONEreview/accepted60composition/exactWindows33pending.
+F09-i PR60HEADd7b03f0 CI38404820753 actual29/30 firstattempt, WebKitB10page.route saw0thoughtrace actualPOSTreceived400; preservedJSON/JUnit/trace/video/screenshot. Noappbugclaim. Fixtureholdmovesbeforenativefetch preservingoriginalinput/init/signal/worker/realbackend400/allB10assertions/allnineoldflowbytes/budgets/retries0. CorrectedCloudChromium1pass6.9s/lint0 diagnosticonly; originalCloudunit2772 unchanged no unitrepeat. ONEfreshreviewretained/no rereview, nativecorrectionpass1fromactualevidence; newexactWindowspending.
+
+F09-k provisionalBASEb64 reviewedhealth+parent60pending: B12actualUIcreate/dailyrecurrence/nativeHTTPpersist, agenda/monthlygrid/detail, actualclientICSfloatingtimeeventbytes/escaping (no RRULE aslegacybehavior), editprivate/reload/Childinvisible; owncleanupfreshmembertoken. Original11flowbyteprefixretained.2actualgateRED→165target/fullCloud2778/134 all0/lintbuild0/oneactualCloudChromiumB12pass12sec/discovery36; LinuxdiagnosticnotWindows. ONEfreshreview/parentacceptance/newbase/native36pending. Imports/flags/fullF09/F05403/2019/pub/VPS remain.
+F09-i1 distinctNEWappfocuscorrection BASEe417 nativeCI38406556796 allfive quality/package/consumer/servicechecksPASS/sevennonbrowserraw0 butWebKitB10originalfocusassertionFAIL29of30→ci-gateFAIL. Actualrequestgate/loadingclose nowpasses, hookstorespreviousactiveelement; launcher explicitlyfocusesnativecurrentTargetbeforeopen, noclick/testfocusinjection/assertionlowering.1actualfocusunitRED+1mandatorygateRED(177unselected)→179target/fullCloud2774/135 all0/lintbuild0; actualCloudChromiumB10pass/Linuxdiagnostic. OriginalF09-i ONEreviewretained; separateNEWappsourceONEfreshreview/nativeall30pending. Oldd7 failure/cancelledservicecleaned/preserved; allfailures retained.
+
+F09-i1 ONEfresh56146d4/basee417review0C0I0M ALLgradedbeforeactions/zero sourcefixpass/no rereview; meaningfulfocus+suiteRED→179target/full2774/135 all0/lintbuild0, actualCloudB10unchangedclick/assertions pass. Integratenewreviewedappscope samePR60 andnewexactWindows30next. e417CI38406556796 completefailure archivalall7/fullLog/sevennonbrowserraw0/29browserpass1focusfail, servicePASS+cleanup; priorcurrentfocusappsource diff reviewedseparately.
+
+F08-n provisionalreviewedparent60a9 composition: ownhandoff/collector/workflows/unit bytesidenticalfresh9e381review0C0I0M; assistantfocus/native/AI/calendar/fullcriticalgate+fixturesretained. FinalCloud2792/136 all0/234target/lintbuild0. No extra sourcefixpass/rereview; parentnativeacceptance/mainmerge/newexactWindows30/livehandoff stillpending.
+
+F09-l provisionalBASE8d reviewedN+i1+health/calendar: B13actualUIdocumentprivatecreate/edit/read/reload, globalsearchsharednote→notes, ChilddocsURL/API403/searchno finance/privateobjects, ownfreshadmincleanup. Original12flowbyteprefixretained/39expectednative.2actualcasegateRED +actualCloudbrandingRED oldPi then2subtitlecopyreplacements(no styles)=CloudChromiumB13PASS16sec/noexternal/cleanup. Target168/fullCloud2801/136 all0/lintbuild0. READMEexternalroots/settings/ordinarycredential-redaction/restore/recovery/servicecurrentlimits corrected. FirstbootmaskedPowerShellwrapper claim notfound inactualsource/packageinventory, remainsconcretefollowup gap; compiledstdinoperator exists. ONEfreshreview/parentacceptance/newbase/Windows39pending; notfullF09.
+F09-i PR60tested a9/CI38409739250 all7/eightraw0/both2774/135/30firstattempt mergedf733/treeequal. Distinctfocusappreview0C0I0M +originalbrowserreview0C0I1M retained/allassertions; bothnativefailuresarchived. Localfinalwriter numericcopy3074failureguard beforeexternalmutations correctedactual2774, no CI/sourcefailure; copiedremaining fullcollector text correctedbycompacterratum, historicalproofunchanged. F08-n accepted60main merged withall7sourcehashesbyteidentical2792/136 verifiedcomposition; onlydocs/baseidentityupdated/no sourcechange/no redundantCloudrepeat. NewexactWindows/livehandoffrequired.
+
+F09-j reviewed61/accepted60provisionalcomposition: ownB11suffix andtwogatefilesbyteidenticalde3review0C0I0M; wholeaccepted30prefixa9 retained. AllN/focus/native/AI/calendar/healthmandatorygates+VMfixturesretained. FullCloud2795/136 all0/162target/lintbuild0; no sourcefixpass/rereview. Parent61actualnative/mainthennewexactWindows33required.
+
+F09-k reviewedhealth+N/i1provisionalcomposition: ALL3ownsourcefilesbyteidentical4abfreshreview0C0I0M, health33wholeprefix retained. FullCloud2798/136 all0/165target/lintbuild0; mandatorycandidate/focus/native/AI/calendar/healthgates intact. No sourcefixpass/rereview; parenthealthnative/mainthenexactWindows36required.
+F08-n PR61tested4cf/CI38412662703 all7/eightraw0/both2792/136/30firstattempt merged509463c/treeequal, compactNfinalarchived. Actualmaincandidate/promotepreparationdispatchesstarted/read-only/pubfalse. F09-j accepted509463c compositionall3sourcehashesunchangedfrom2795/136 verifiedCloud162target/lintbuild0; ownB11+2gatefilesreviewedde3 unchanged; no redundantCloudrepeat/review/sourcefixpass. NewexactWindows33required. Maskedfirstaccountwrapper olddocpromise absent; compiledboundedstdinoperator alreadyverified andformalplan doesnotrequiremaskedwrapper, notinventedentrygate.
+
+F09-m provisionalBASE93f reviewedL+parents: B14readonlydashboardactualfinance sum/drilldown, ownstorednoticebadge/read/reload, switchChildnoprivatestaleUI/foreignread404/neutralzerofinanceplaceholder. Sixstoredsyntheticnotices (role×engine) no sendAPI/outbox/deliveryadapters.2casegateRED+actualCloudB14responseJSONtimeout45s revealed ignoredone/allackbodies;4semanticRealSessionBoundaryREDs+1mandatorysuiteRED→helperconsumeJSONbeforerefresh/bothApphandlers. Target298/fullCloud2809/137 all0/lintbuild0/actualCloudB14PASS16.8s/noexternal/cleanup. ALL13oldflowbytes+newJSON/assertions/budgets/retries preserved; ONEfreshreview/newbase/Windows42pending. NotfullF09/2019/pub/VPS.
+
+
+F09-j PR62tested71/CI38414676195 all7/eightraw0/both2795/136/33firstattempt merged0a04122/PR-main-treeequal, compactj-final archived. F08nmain509actualcandidate38414439837/promotion38414445312 independentlyfullGit/API/raw/hash/inner/license/normalizedtuple/handoffverified; pubfalse/releaseCreatedfalse/tagCreatedfalse/no actualrelease/VPS. F09-k accepted0amain integration all3ownsourcehashesunchanged2798/136/165target/lintbuild0 verifiedCloud, wholeaccepted33prefix retained; ONEreview0C0I0M/zero sourcefixpass/no rereview/no redundantCloudrepeat. ExactnewWindows36required.
+
+PR64 accepted929520f/CI38434366096 all7/eightraw0/both2812/137/42firstattempt, squash3d3bbb1 PR/main/treeequal. Originaldocumentsreview0C0I1M+distinctcalendar0C0I0M+diagnostics0C1I1M allrulingsretained; nativefourfailurecheckpoints preserved, originalCaddycauseunknown. M acceptedmain integrated with allnine own-source hashes and parentCaddy files unchanged from2820/138 verification; no redundantCloudrepeat/newreview/fixpass. NewexactWindows45required.
+
+P02-a deferred Minor findings: tag order alphabetized on canonical roundtrip; preexisting damaged pilot schema constraints trusted when columns match; registered migration discards warning report (direct helper returns it, raw provenance remains). No live adapter activation or fullP02 completion is asserted.
+
+### P04-b3 current development checkpoint
+
+Base main `49541772bae733815334f67f3be063810f48cb20` (accepted PR77). Shared session cache/editor/List/drawer, retained board entry, named tag drafts, canonical API, personal pin schema4 and atomic subtask controls implemented. Domain/cache/API/evidence target441 passed. Cloud compiled probe verifies unchanged v1/v2/v3 startup plus current4 HTTP/restart/snapshot/encrypted recovery/refusal; Chromium four first-attempt DOM flows passed, zero page errors/outbound attempts, native handles closed/fixture removed. Lint/build0. Cloud full3238tests/171files matches3238JUnit, zero failed/pending/todo; ONE whole-branch review is in progress. PR78 https://github.com/DongVienNguyen/Family-Organizer/pull/78 firstHEAD5a7a74d69ffc03b9198e444a636c0cc79ee12035 / CI38574532026 failed new productivity browser job before collection: Node absolute --import D:path required fileURL. Native cause corrected with pathToFileURL, same4 Cloud DOM cases pass; new exact-HEAD Windows pending. No CI acceptance claim yet. Prior failed/noncausal Cloud reports retained. New mandatory Windows productivity browser job/all3 engines adds12 cases alongside original45. No dependency change, automatic activation, release/tag or VPS access. Next: finish full reports/review, exact-HEAD Windows logs and independent raw checks, then authorized merge before P05.
+
+P04-b3 ONE review0Critical/4Important/1Minor, all findings graded before one correction pass/no rereview. Checklist load/revision guard, fresh conflict reload, unavailable board entry/hidden rows and session-owned unsent inputs repaired:3 cache REDs→20GREEN;4 actual DOM REDs→8Chromium GREEN, zero page errors/outbound attempts/closed cleanup. C08 initial wrong label failure retained as noncausal, corrected selector then real unsent-text loss reproduced before fix. C07 additionally hides rows during reauthorization while stable view-entry control is disabled. Mandatory native policy now24 first-attempt P04 cases; original45 unchanged. Minor organizing capability options deferred P17; separate F08 raw-family collector ingestion owned I03/R01, no candidate dispatch here. First Windows run finished failure: Node24 3237/3238 because one existing SQLite compatibility case timed out at original10s (cause unknown); Node22 all3238, producer/consumer/service/old45 passed. Full logs/all8 artifacts preserved; package/old browser/service raw independently verified. Loader fileURL cause corrected; new review-corrected source full/Windows pending.
+
+P04-b3 corrected full Cloud3245tests/171files matches3245JUnit, all passed/zero failed/pending/todo; lint/build0 and8first-attempt Chromium DOM all0. ONE0C4I1M/one correction/no rereview, all Important regressions pass; Minor/future bounds retained. New exact-HEAD Windows CI required before merge, following retained failed5a7/CI38574532026. Next dependent task remains P05 after native acceptance/merge.
+
+P04-b3 HEAD8ada14af5019a8f7deb8827fc424452d1082adaf / CI38578198645 finished failure: both Node22/24 raw3245/171, package/service and six other raw families passed; P04 actual21/24, WebKit C05/C07/C08 awaited page.route callbacks while real protected GET200 occurred. Fixture now holds before native fetch, retaining real worker/original input/init/signal/response; Cloud8DOM pass, AST104old assertions preserved+4new/no drops, lint0. Existing45 actual43/45: WebKit B01/B08 page-error access-control URL /api/productivity/tasks, cause unproven; original assertions/traces/screenshots retained. All8 artifacts/full logZIP preserved; no merge/overall CI pass. Only E2E fixture changed, source full3245/171 unchanged/no redundant full rerun or rereview; next exact native check required.
+
+P04-b3 HEAD860807fad84328e48b1d1fa54fae5bde5ce59f10 / CI38580971349 finished failure: P04 all24 first-attempt independently verified; both Node22/24 3245/171 and package/service/other seven raw validators pass. Old browser actual44/45, repeated WebKitB08 pageError `/api/productivity/tasks` access-control URL during reload/account transition. All8 artifacts/full logs retained; no overall CI pass/merge. Inactive installation currently probes canonical GETs at bootstrap; added existing authenticated version capability and frontend gate so unknown/false performs no canonical task requests or activation. Two actualHTTP REDs→65targetGREEN; actualinactive-DOM RED→10Chromium casesGREEN including active reload/account switch,0pageerrors/outbound/closedcleanup. AST108old assertions retained/126current/no drops; original45 file unchanged. Low-level WebKit access-control cause unproven, next exact native run must verify all30P04+45old. Full rerun pending because backend/frontend changed. W02 independent localbranch864a4e3 has6 pilot storage tests/lintGREEN; saved while prioritizing P04 native correction, fullW02/snapshot/compatibility not accepted.
+
+P04-b3 capability correction full Cloud3249tests/171files matches3249JUnit/allpassed/zero failedpendingtodo; lint/build0, actual10Chromiumfirstattempt/all0. Source and original/corrected reports hashed in evidence/p04b3-development.json. New exact-HEAD Windows30P04+45old required before authorized merge; P05 remains dependent/blocked by acceptance, no release/VPS.
+
+### P04 accepted — exact Windows and merge
+
+PR78 https://github.com/DongVienNguyen/Family-Organizer/pull/78 tested `d5b12f0599db89bd8345ccf9b84e88d563c29473`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38585055277 all8 checks/nine independently read raw families. Both Node22/24 3249tests/171files/3249JUnit, zero failedpendingtodo; original45+P04new30 browser cases each first attempt/no retries/skips. ZIP SHA256 `faf89ca50d70ef7ef1c3aa5a72a20e4963f274ccc20d999aeab7498e70bcfea3`. Merge `a3e4e7acf1bf72ce2c333cbaaa653d48bc0d8a8e` independently same tree as testedHEAD. Proof comment6171660460, compact evidence/p04b3-final.json. ONE0C4I1M/one correction/no rereview; allImportant regressions pass, organizing UX Minor deferredP17. Native fileURL/worker-fetch fixture/capability corrections and all prior failures retained; underlying old WebKit access-control/Node24timeout causes not fully proven. No unsupported canonical task probe when inactive; no autoactivation/newP10 workflow/release/tag/VPS. Next dependent task P05. ActualServer2019/R02 stillnotrun.
+
+### P05-a engine development
+
+Base acceptedP04 maina3e4e7a, branchcodex/p05-task-query. Authorized SQL facets/root/tag queries, canonical clock/smart filters, normalized Vietnamese search adapter, stable actor/filter/clock/dataset-bound cursor, and actor-owned selection15min/revalidation implemented. Initial5queryRED had4 noncausal stale-fixture failures; tracked projection refresh fixed fixture before genuine5/5query-not-implemented RED. Purefilter3RED and mandatorysuite1RED, typedselection-input1RED collected; current244targetGREEN, lint/build0/coldqueryimport noStorage. Completed7/30/90/all, Trash private counts and grantrevocation characterized. Full source/review/new exactWindows pending; no P05 acceptance/API/UI/search-index/activation claim. P05-b owns persisted views/index/HTTP/UI and curated completion-reference/deleted-drawer wiring. W02 prototype remains separate47f4d43,16targetGREEN/no runtime integration acceptance.
+
+P05-a fullCloud3262tests/172files matches3262JUnit/allpassed/zero failedpendingtodo,244target/lintbuild0/coldimport noStorage. Source/report hashes saved in evidence/p05a-development.json; ready ONEwholebranchreview/newexactWindows. Search currently scans authorized candidates; persistentindex/views/routes/UI belongP05-b and are not claimed.
+
+P05-a PR79 https://github.com/DongVienNguyen/Family-Organizer/pull/79 ONE wholebranch review at055ddb:0Critical/1Important/0Minor, all findings and declined boundaries graded before one correction pass/no rereview. I1 expired selections retain actor-only identity after payload pruning; owner409/foreign404 is stable. Collected10/1RED→10GREEN; target245/fullCloud3263tests/172files/3263JUnit allpassed/zero failedpendingtodo; lint/build/coldimport0. InitialCI38592840038 https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38592840038 all8/nine independently read rawfamilies/both3262/172/75firstattempt passed, but is superseded by this source correction. New exactHEAD Windows required before authorized merge; source/report/review evidence in evidence/p05a-development.json. FullP05 remains pending; next P05-b persisted views/index/HTTP/UI.
+
+### W02-a storage development
+
+Independent branch codex/w02-wallet-storage rebased on accepted P04 maina3e4e7a. Explicit trusted pilot schema/core repositories/standalone WalletSnapshot protocol2; single I01 writer, exact INTEGER/BigInt binding and money-string reads, second-posting rollback, source/external-key/occurrence uniqueness, legacy-save preservation, prewrite snapshot validation and category restore ordering. Six core and seven snapshot collected REDs retained, noncausal duplicate-fixture/shopping-field/user-fixture errors distinguished; category alphabetical restore FK causal RED fixed with deferred parent FK. Sixteen target tests passed on earlier source, final current full/review/exactWindows pending. Remaining entities/fields/shared AppSnapshot registration/startup/compiled restore/activation are W02-b-owned; fullW02 not accepted. No runtime/API/UI/provider/release/VPS changes.
+
+W02-a fullCloud3267tests/173files matched3267JUnit/allpassed/zero failedpendingtodo;231target/lintbuild/cold3imports0. Required-suite215/2 causalRED→GREEN; mandatory source suites preserved. Source/report hashes evidence/w02a-development.json. ONE wholebranch review in progress before final source correction/exactWindows. FullW02 remains incomplete.
+
+W02-a ONE review at32fad8b:0Critical/2Important/0Minor, all findings/declines graded before one correction pass/no rereview. I1 snapshot optional-note validation aligned with repository; I2 nullable native columns omitted on record reads to honor optional-string contract. Collected19/3RED; first234target/2 failures after source fix came from returning a Vitest matcher into command-result serialization, so callback changed to void without altering assertions. Current234targetGREEN/lint0/cold3imports0; full current/newexactWindows stillpending. Both original causal/noncausal reports retained; no review findings remaining once full verification completes.
+
+### P05-a accepted — exact Windows and merge
+
+PR79 https://github.com/DongVienNguyen/Family-Organizer/pull/79 tested2f4caa3b5be1916dc620a2fc84c688e1a4aca2d1 / CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38595079116 all8checks/nine independently read rawfamilies. Each Node22/24 3263tests/172files/3263JUnit, zero failedpendingtodo;45original+30P04 browser cases each firstattempt/no retry/skip. Full132logfiles read; ZIP SHA2564b5e01ed12fe1afa54f50a0b06818cc4b33ce938eea3dca815ec07e150cd3917. Merge283a6922ca6a0389b2aa932a43cf9a045710798c independently same tree as testedHEAD. Proof comment6172979908/compact evidence/p05a-final.json. ONE0C1I0M/one correction/no rereview, expiry owner regression verified. FullP05 remains incomplete; next P05-b persisted views/index/HTTP/UI/readonlyTrash. No Server2019/release/tag/VPS/provider claim.
+
+W02-a source corrections passed full3270tests/173files/3270JUnit at pre-rebase2c94377. Rebase on acceptedP05-a main283a692 required union of mandatory suite/evidence additions. Initial local resolver swallowed trailing source; detected in diff before any push/tests, restored exact main originals plus Wallet additions. All existing assertions/gates preserved by exact-source reconstruction. New integrated source full/Windows remains pending.
+
+W02-a integrated on acceptedP05-a main283a692: fullCloud3284tests/174files/3284JUnit allpassed/zero failedpendingtodo;245target/lintbuild0. All8 source hashes match current branch; integration/source/review/original causal and fixture failure evidence in evidence/w02a-development.json. Ready new exactHEAD Windows before authorized merge; fullW02 remains pending.
+
+### W02-a accepted — exact Windows and merge
+
+PR80 https://github.com/DongVienNguyen/Family-Organizer/pull/80 tested ab9b6fdcbd2109e7c6c1acf0f23e72b5004c3e99; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38598454567 all8checks/nine independently read raw report families. Node22/24 each3284tests/174files/matchingJUnit/zero failedpendingtodo,45original+30Productivity first-attempt browsers. Logs16files read, ZIP1fa1a50ae2f5d826031621c1bf63769fbd5ce00fb1b7d4772a6b634b53fd649d. Merge b7c2284e9ba57aeaa486920e4293ff7aa740bd1b has exact tested tree; proofcomment6186863266 and evidence/w02a-final.json. ONE0C2I0M/one correction/no rereview; optional notes and returned optional fields regressions fixed. PartialW02 only: remaining entityfields/sharedAppSnapshot/startup/compiledRestore/activation W02-b-owned; W03/04/05 migration/ACL/financial commands. No Wallet runtime/API/UI/activation, no release/tag/VPS; Server2019/R02 unrun.
+
+### P05-b1 persisted views/index development
+
+Branch codex/p05-saved-views from accepted P05-a main283a692; integrated accepted W02-a mainb7c2284 before final checks. Existing WIP preserved in patch/archive/stash; two evidence inventory/test conflicts resolved by retaining every Wallet assertion plus all three P05 suite requirements. Typed actor-owned saved config/revision and normalized substring/trigram SQL candidates, explicit productivity migration5/shared snapshot/compiled compatibility implemented. Earlier collected query/search/view/upgrade REDs retained; current preintegration680target/lint0, final integrated full/build/compiled proof/review/Windows pending. No HTTP/UI/activation changes; fullP05 remains incomplete, P05-b2 owns smart/saved UI/internal routes/clientDTO/readonlyTrash/GlobalSearch.
+
+P05-b1 integrated fullCloud3308tests/177files matches3308JUnit/allpassed/zero failedpendingtodo; lint/build0,11cold imports noStorage. Compiled source-development check proves allold1–4 noAutoUpgrade, current5 savedview/index/personalpin/checklist/subtask/legacy commands, restart/sharedsnapshot/encryptedrecovery/malformed-current repair/future6 checksum/unknownnamespace DELETE-byte refusal/sparsecore/offline/closedhandles. Original reports and source hashes evidence/p05b1-development.json. ONEwholebranch review in progress before one Important pass/no rereview; exactHEAD Windows stillpending. FullP05 HTTP/UI remains P05-b2-owned.
+
+P05-b1 ONEreview ataa9797e returned0Critical/3Important/0Minor, all findings and declined bounds graded before ONEcorrection/no rereview. I1 persisted revision0 now rejected before maintenance/file/SQL boundaries. I2 trusted derived gram registration has separate4million finite rows while canonical100k and256MiB remain unchanged; exact derived coherence and readonly recovery classification retained, large writes and explicit4-to5upgrade back up, canonical100001 refused. I3 index uses nativeUTF8 before gram dedup; realcanonical/legacy surrogate writes and snapshots pass. Three collected causal13/3RED→GREEN;74target and14largeupgrade suites passed. First74/1 missed checksum fixture import and typedunknown lint annotations retained/corrected without assertion changes. FinalCloud3312tests/177files/3312JUnit allpassed/zero failedpendingtodo; lint/build/cold11/currentcompiled allold andnew5 checks pass. Late source-fixture command lacked TEST_COMMIT_SHA after full/build0; affected fixture alone rerun with actualaa identity, original failure retained, no test rerun needed. Corrected source/report/review/policy evidence in evidence/p05b1-development.json. New exactHEAD Windows required before merge; fullP05 API/UI remains pending.
+
+P05-b1 PR81 https://github.com/DongVienNguyen/Family-Organizer/pull/81 HEAD460d91a45ff55cfa0f1f01f50fe06e1dbaa655c4, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38701544211: Node24 raw3311/3312 failed exactly one combined large-backup/canonical-budget regression at10946ms against original10000ms; Node22 all3312, producer/consumer/new30/old45 passed when observed, service stillrunning. Overall not accepted. Split independent positive/negative checks into two tests, retaining46/46original AST assertion calls, two60000-character positive tasks, >100kgram assertion and100001canonical-negative fixture. No timeout/retry/skip/continue-on-error changes; production source byte-identical. Current coverage target7/allpassed, lint0, fullCloud3313tests/177files/matching3313JUnit/all0. Priorbuild/cold/compiled proof reused because allproduction source hashes unchanged; originalfailure/logs retained. New exactHEAD Windows required, samePR/no rereview; W02-b independent4causalRED→23targetGREEN/lint0 saved in named branch+stash while nativefix prioritized.
+
+
+### P05-b1 accepted — exact Windows and merge
+
+PR81 https://github.com/DongVienNguyen/Family-Organizer/pull/81 tested `a32f41103fce2de16477900760036e00505a6750`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38703265127 all8 checks/nine independently read raw families. Each Node22/24 3313tests/177files/matchingJUnit, zero failed/pending/todo;45original+30Productivity browser cases first attempt. Full132logfiles read; ZIP SHA256 `4d048609b256fca7602ab008c49bb303c78c646ef29d6b1ed43faebbed0662e8`. Merge `037a748338e5d508178be196b58f0f4eef85a4a0` independently equals tested tree; proofcomment6187743755/compact evidence/p05b1-final.json. ONE0C3I0M/all findings graded before one correction/no rereview. Native fixture split retains46/46assertions and original budgets; previous failed38701544211 archived with all8artifacts/full132logs and7passing nonquality raw readers. FullP05 HTTP/UI/GlobalSearch/readonlyTrash remains P05-b2-owned; no activation/Server2019/release/tag/VPS.
+
+### W02-b1 shared runtime/recovery development
+
+Base accepted PR81 main `037a748338e5d508178be196b58f0f4eef85a4a0`, branch `codex/w02-shared-recovery`. Register original frozen Wallet schema1 with the existing I01 coordinator without applying migration or activating Wallet. Shared snapshot exports signed64 money as strings and restores BigInt/native INTEGER; startup and readonly recovery inspect the same table/version/checksum contract. Current manifest supports productivity1–5 and Wallet1. Compiled producer/consumer fixture checks restart, ordinary restore, encrypted offline restore and futureWallet2 refusal before database mutation/handle closure, retaining all prior proofs. Combined real-coordinator regression restores task IDs/search and Wallet money without rewards/notifications. Remaining Wallet entities/fields, legacy finance cutover, ACL/commands/UI and fullW02 are not claimed. Source final full/review/Windows pending; no PR/CI acceptance yet. Original causal REDs and stale integration fixture failure retained. Next: complete verification/review, same-HEAD Windows evidence and authorized merge, then P05-b2.
+
+
+W02-b1 ONE wholebranch review0Critical/1Important/0Minor, ALL findings/declined bounds graded before one correction/no rereview. I1 actual native startup admitted drifted Wallet schema with original migration checksum: four collected causal REDs (money affinity/FK/unique constraint/unique index) now pass with pre-DDL refusal, unchanged database bytes and closed handles. Gate compares frozen trusted table/index SQL, preserving original Wallet1 DDL/checksum. Strict compiled malformed-schema report requirement also has one collected causal RED. First correction lint caught an accidental extra argument from a broad import-text replacement; corrected that call without changing assertions; original failure retained. Pre-review fullCloud3331tests/179files/matchingJUnit allpassed; corrected full/build/compiled/Windows pending. No additional review/fix cycle, activation/release/VPS or fullW02 claim.
+
+
+W02-b1 corrected Cloud3336tests/179files/matching3336JUnit, zero failed/pending/todo;707target/lint/build/cold6imports0. Compiled source-development full legacy/Productivity5+Wallet1 restart/ordinary/encrypted restore/future2/four drift refusals passed, no network attempts. Synthetic harness initially hit defensive-mode refusal then an orphan autoindex; fixture corrected without changing assertions, original logs retained. Only harness changed after full suite, complete compiled probe rerun; no production unsafeMode. ONE0C1I0M/one correction/no rereview, Important remaining0. Source/review/original reports hashed in evidence/w02b-development.json. Ready exact-HEAD Windows/all8/nine raw readers/75first-attempt browsers; no current Windows acceptance yet. Next P05-b2a internal query/saved HTTP/client, then P05-b2b UI/GlobalSearch/readonlyTrash; fullW02 remaining entities deferred, not marked complete.
+
+
+W02-b1 PR82 https://github.com/DongVienNguyen/Family-Organizer/pull/82 tested firstHEAD `81b59d23f3c81d8af3227a77b5d6c035c3094e6b`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38707796230 is not accepted: clean consumer failed `historical session fixture missing` in unchanged probe-recovery.mjs; service skipped. New Wallet encrypted restore revoked all sessions and left its explicit schema in a path reused by the legacy recovery fixture. Native harness correction returns only this synthetic path to Wallet0, reauthenticates through the real compiled server, and requires session presence/domain0 before unchanged downstream probes. All previous Wallet proofs finish before fixture cleanup; no product cleanup, assertion removal or automatic domain migration is added. One new report-gate RED retained; current full/native recheck pending. Source production files remain identical to reviewed81b. P05-b2a independent HTTP WIP is preserved in branch/stash/patch/archive,18target passed after isolating soft-deleted prior fixtures; full/review not claimed.
+
+W02-b1 native fixture correction fullCloud3337tests/179files/matching3337JUnit allpassed,78consumer-target/lint0; whole compiled legacy/Productivity5/Wallet1 probe rerun0 and explicitly verifies legacy Wallet0 plus real authenticated session before downstream recovery. All production source hashes identical to reviewed81b/build reused. New strict legacyFixturePreserved proof has actual causal78/1RED→78GREEN. Original failed Windows reports/logs retained; exact newWindows stillrequired, no rereview or fullW02/Server2019/release/VPS acceptance.
+
+
+### W02-b1 accepted — exact Windows and merge
+
+PR82 https://github.com/DongVienNguyen/Family-Organizer/pull/82 tested `6e1fc3a2b6c35380d9f5e40d2c0bdb865ec2a8c3`; CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38708951406 all8checks/nine independently read raw families. Node22/24 each3337tests/179files/matchingJUnit/all0;45original+30Productivity first-attempt browsers,132full logfiles read. ZIP SHA256 `5653b0b35c090c48bb15a54811e24808d1eb731ff4ef27eef63cf61fd4bff93f`. Merge `42d7085fe70db64263902a0aee02f6aa01de5014` independently equals tested tree, proofcomment6188566215/compact evidence/w02b-final.json. ONE0C1I0M/one correction/no rereview; native fixture repair preserves all original assertions and production source. First run38707796230 cancelled on update after consumer failure; seven archives/full logs retained, six independent partial raw readers0 (quality/coverage/Caddy/extractionSDK/innernative/Productivity), oldbrowsercancelled/serviceSkipped/overallnotaccepted. FullW02 stillpending remainingentities/fields/migration/ACL/commands/UI; P05 UI stillpending. No automaticactivation/Server2019/release/tag/VPS.
+
+### P05-b2a internal query/saved consumers development
+
+Branch codex/p05-query-http began on accepted PR81 main037, composed accepted PR82 main42d7085 before final checks. Server-owned opaque query clocks/cursors, fresh SQL ACL, smart views, selections and private saved-config routes with I01 retry/revision and actor-only metadata invalidation; curated completion-reference DTO and read-only task detail plus typed existing-session client transport. Full visibility cache remains intact; UI/GlobalSearch/readonly drawer remain P05-b2b-owned, fullP05 not accepted. Added compiled consumer query/selection/saved retry/stale/read-only proof, preserving all old structural/legacy/Wallet checks. Initial8HTTP and8client causalREDs, larger-selection1/DTO1/mandatory2/compiledproof7REDs retained; soft-deleted fixture isolation and enum spelling corrections distinguished from product bugs. Pre-review Cloud3340tests/179files/matchingJUnit/all0/lintbuild/cold6/compiledprobe0 belongs before review correction and W02 composition.
+
+ONE wholebranch review0Critical/1Important/1Minor, ALL findings/declined bounds graded before one correction/no rereview. I1 newly exposed selections were unbounded; three collected causalREDs→32targetGREEN. Retention now admits at most256references including expiry identities,100000total selected rows and16MiBserialized payload; expired payload is freed at15min and owner identity retained15more minutes, then404. Recent owner409/foreign404 and fresh ACL/revision remain. HTTP capacity exercised with lowered trusted test budget. MinorM1 deferred P18: expired query references count toward4096 cap for an extra15min, so a full allocation may return429 until30min; no unlimited-capacity/performance claim. Existing assertions preserved; new capacity suite mandatory gate1RED retained. Composed-source full/lint/build/compiled and exactWindows pending; no PR/native acceptance yet. Existing WIP/stashes/patch/archive preserved through four evidence-fixture conflict resolutions, retaining every accepted Wallet assertion and adding three query suites.
+
+P05-b2a integrated corrected Cloud3369tests/182files/matching3369JUnit allpassed/zero failedpendingtodo,689target/lintbuild/cold6imports0. Entire compiled legacy/Productivity5/Wallet1 flow0, including old Wallet cleanup/legacy session, new query/count/selection/server-clock/saved-retry/stale/read-only proof. ONE0C1I1M/Important remaining0/one correction/no rereview; MinorM1 explicitly deferredP18, finite selection budgets/expiry semantics above. Source/report/review hashes saved in evidence/p05b2a-development.json. Ready exactHEAD Windows/all8/nine independent raw families/old75first-attempt cases; no current native acceptance/fullP05 or fullW02/Server2019/release/VPS claim. Next P05-b2b UI/GlobalSearch/readonly drawer, then P06.
+
+
+P05-b2a PR83 https://github.com/DongVienNguyen/Family-Organizer/pull/83 firstHEAD `5875851454be5bcdd780a18be6e1f8282fac2ecf` / CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38711672156 is not accepted: Node24 raw3368/3369, large positive backup boundary21580.9425ms exceeds original10000ms. Node22/producer/consumer/new30browser pass when observed; old45/service pending. Full original node24 artifact/log retained. Cloud coverage phase timings setup2ms/write-one331/write-two1004/count1007/capture2893/validate3872/readonly4698 show distinct cumulative costs; no claim this proves underlying Windows contention. Native fixture correction splits real capture/admission/readonly boundaries with shared two60000character native-write setup, preserves46/46original AST assertioncalls, >100000derived rows and canonical100001negative, all original10000ms hooks/tests/budgets/retries. Pins hosted quality2workers rather than auto parallelism; every suite/coverage/assertion still runs. Production sources unchanged;9targetcoverage/lint/full recheck pending. One review/one Important pass already complete, native fixture correction does not reopen review. P05-b2b independent query-controller6RED→6GREEN and refinement/abort2RED saved in branch/stash/patch/archive while fixing native83; no UI acceptance.
+
+P05-b2a native test-organization correction fullCloud3371tests/182files/matching3371JUnit allpassed/zero failedpendingtodo;9targetcoverage/lint0. All17previous source/test hashes byte-identical; only search regression organization and explicitCI2worker argument changed, build/cold/full compiled proofs reused. All46original ASTassertion calls/two60000character native writes/>100000derived assertion/100001canonical refusal and10000ms budgets unchanged. New samePR exactWindows required; prior Node24failure preserved, no pass/native-performance claim or rereview.
+
+### P05-b2a accepted — exact Windows and merge
+
+PR83 https://github.com/DongVienNguyen/Family-Organizer/pull/83 tested `596f7c99ec4dc84ad3de072cf13a6da736d24449`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38713326891 all8 checks/nine independently-read raw families. Both Node22/24 3371tests/182files/matching3371JUnit, zero failed/pending/todo;45original+30Productivity first-attempt browser cases/no retries/skips. Full132logfiles read. ZIP SHA256 `233268eab7785e4ae570aa2ddc7c6a76ebb8e78b1c0a0cd29a4c4c30538d8c3a`. Merge `5cadef54149996d6ed66b78b5c5090fe8ef2eef0` independently exact tested tree. Proof comment6189187540; compact `evidence/p05b2a-final.json`. ONE0C1I1M/allgradedbeforeonepass/no rereview; selection resources bounded. Query expired-reference capacity Minor deferredP18. InitialCI38711672156 failed Node24 existing large-search combined10s fixture; split unchanged46assertions at native operation boundaries and pinned quality workers2 without raising timeouts. All failed/raw logs preserved. Internal HTTP/saved/selection/readonly transport accepted; fullP05 UI still pending, fullW02 remainingentities pending; no automatic cutover/release/tag/VPS/Server2019 acceptance.
+
+### P05-b2b UI development
+
+Base acceptedmain `5cadef54149996d6ed66b78b5c5090fe8ef2eef0`, branch `codex/p05-smart-views-ui`. Canonical query projection/controller and smart/facet/tag-any/all/completed views, private saved filters, canonical GlobalSearch, readonly Trash detail and separate actor-only saved-view metadata epoch implemented. Full visibility cache/editor remains session-owned; query responses never establish task visibility. Existing inactive workspace and all10P04 browser assertions retained; five new production browser flows across3engines require45Productivity+45original first-attempt cases. No dependency/schema/migration/default activation change.
+
+ONE wholebranch review0Critical/3Important/2Minor; ALL findings and declined bounds graded before ONE correction/no rereview. Chosen saved-view revision is retained across SSE metadata; remote update409 preserves draft until explicit reload. Config is captured/preserved; unsupported sort/group is explicitly unavailable instead of silently rewritten. Canonical query cache-miss opens through full authorized refresh and revalidation; failures remain recoverable. Saved-view load retry and500-character search bounds also corrected. Five causal unit REDs→GREEN; actualHTTP competing-writer/cache-miss browser regressions added. Target395/lint0; pre-review full3395all0. Current corrected full/browser/compiled/native verification pending; no PR/new Windows acceptance yet. Original C11detached-popup14/15browser failure retained with DOM trace; subsequent launch failure due omitted Cloud browser-path environment is infrastructure-only, no product failure. No assertions/skips/retries/timeouts relaxed. Next finish corrected production browser/full/compiled evidence, focused PR/exactHEAD Windows then authorized merge, followed by P06Matrix engine.
+
+P05-b2b corrected full Cloud3403tests/186files matches3403JUnit/allpassed/zero failedpendingtodo,395target/lintbuild0; all15Chromium firstattempt/zero pageerrors/offline/closedhandles/fixturecleanup. Real two-writer saved-view409 and explicit reload, unsupported config refusal/readback, canonical query cache-miss/full-cache refresh and original drawer identity all pass. Original10P04 assertions preserved61/61/current106 by AST; historical original45 browser source unchanged. Compiled source diagnostic preserves all16legacy checks, Wallet1 and Productivity5/queryCommands/restart/snapshot/encrypted recovery/refusal withzerooutbound. ONE0C3I2M/onecorrection/no rereview. Source/report hashes `evidence/p05b2b-development.json`. New exactHEAD Windows/all8/nine rawfamilies/90firstattempt browsers required; fullP05 remains unaccepted until native proof/merge.
+
+P05-b2b PR84 https://github.com/DongVienNguyen/Family-Organizer/pull/84 firstHEAD `6d0310984393c65c2a72c1e8673fccde42d3f206` / CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38717564822 finished failure: bothNode22/24all3403/186/JUnit, original45firstattempt and eight partial rawfamilies passed; Productivity43/45, WebKitC13focusinactive andC14waitForResponse timeout. Full130logs/20838lines/all8artifacts retained; compact `evidence/p05b2b-native-first-failure.json`. C14trace already shows correctdrawer/nativeGET200: fixture’s first-GET-only omission allowed later bootstrap refresh to repopulate cache; driver network event is not reliable for worker-owned GET. Corrected fixture omits all pre-arm cache replies, isolates unrelated SSE with existingC06pattern, arms real refresh and verifies original/nativefetch status200 plus authorized/no-store GET before same drawer assertions. ProductList explicitly focuses row trigger before opening modal for WebKit focus restoration. Original C13Escape/focus/no-write/private and C14ID assertions retained, no retries/skips/timeout changes. Native cause/fixture corrections, not secondreviewpass; sourceunit/backend hashes unchanged apart fromListView/UIfixture, existingfull3403/compiledserver proof reused; lint/build/current15Chromium rerun pending before exactnewWindows.
+
+P05-b2b native correction lint/build0 and all15CloudChromium firstattempt/all0/offline/closedcleanup; ASToriginal61assertions retained/current108. All29 source hashes checked: onlyListViewexplicitfocus andbrowserfixture changed; domain/unit/backend sources and compiledserverSHA unchanged, so full3403/186/JUnit and compiledproof retained without redundant Cloud repeat. `evidence/p05b2b-development.json.nativeVerification` records current hashes and diagnostic reports. New exactHEAD Windows full quality/all45Productivity required; no native acceptance/merge yet.
+
+### P06-a independent calculation slice — development only
+
+Branch `codex/p06-matrix-domain` aligned to acceptedorigin/main `5cadef54149996d6ed66b78b5c5090fe8ef2eef0` (localmain ref was staleP04; caught/fast-forwarded before anyP06commit). While P05-b2b PR84 exactnative correction runs, this independent pure slice implements deterministic deadline/importance and priority-only projection, validated typedAST/once-resolved relative windows, ordered firstmatch/allmatches/unmatched/unique counts and cloned canonical rows. Untrusted inverse proposals disclose date changes/needsChoice; custom requires choice and viewpin changes no attributes. Explicitly already-authorized inputs, no newAPI/trustedpreview/apply/pinwrite/migration/UI/cutover. FullP06 remains P06-b-owned. Eleven collectedclassifier REDs→15GREEN; mandatorygate225/1omissionRED→targetGREEN; lint0. ONE wholebranchreview in progress; full integratedCloud/exactWindows/PR/acceptance pending. No release/tag/VPS/Server2019 claim. Source firstlint unionnarrowing failure and unchanged-parent noncausal gate run retained separately.
+
+P06-a ONE wholebranch review atbf26763:0Critical/0Important/1Minor, allfindings/declinedbounds graded, zero correction passes/no rereview. MinorM1 irrelevant horizon resolution rejects priority-only/custom on historical skipped-date Pacific/Apia2011-12-30; explicitly deferredP18 temporal edge/benchmark pass. Pure target304/5files/15matrix andlint0 onaccepted5cadef5. No P06-b server/apply/pin/migration orP07UI/performance/Windows/Server2019 acceptance claimed. Integrate acceptedP05-b2b base then fullCloud/newexactWindows.
+
+### P05 accepted — exact Windows and merge
+
+PR84 https://github.com/DongVienNguyen/Family-Organizer/pull/84 tested `436bb82cfb1b94823585530902a56e3bb6f226ff`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38719206272 all8checks/nine independently-read rawfamilies. EachNode22/24 3403tests/186files/matching3403JUnit/all0;45original+45Productivity firstattempt/no retry/skip. Full132logs/20656lines read withzeroerrormarkers. ZIP SHA256 `e9400be9ebd39efb0b36b594e14f6ab6d0e93a8a79b1b098d0141e849b404215`. Merge `90ef2c99a774eac2d3a9eb9676cb3de037501806` independently exact testedtree, proofcomment6189983807/compact `evidence/p05b2b-final.json`. ONE0C3I2M/allgradedbeforeonecorrection/no rereview; sourcefocus and nativecachefixture repairs also accepted. First6d03109/CI38717564822 failure43/45 retained/full130logs/all8artifacts; C14trace two full-cacheGET200 were4.54s before resultclick, explaining why another GET was unnecessary after first-only omission. Correctedfixture controls every pre-arm omission and verifies real authenticated no-storeGET200; WebKitC13focus fixed byexplicit triggerfocus. Allassertions/timeouts/retries preserved. FullP05 core nowaccepted; unsupported saved sort/group explicitly refuses UI use and preservesconfig. P05-b2a query-reference capacity Minor staysP18-owned. No defaultcutover/release/tag/VPS/Server2019 acceptance. NextP06 Matrix.
+
+P06-a integration onaccepted90ef2c9 preserved both reviewedMatrix sourcehashes exactly; two mandatory-suite files reconstructed from exact acceptedmain plusMatrixmembership/omissiontest, status combines bothhistories. Three ordinarymergeconflicts resolved, originalP05UI sources/assertions retained byte-for-byte. ONEreview remains0C0I1M/zero sourcecorrection/no rereview. Current integratedfullCloud/lint/build/targetverification inprogress beforefocusedPR/newexactWindows.
+
+P06-a corrected integratedfullCloud3419tests/187files matches3419JUnit/allpassed/zero failedpendingtodo; target308/5files,lint/build0,coldimport noStorage. BothreviewedMatrixsourcehashes unchanged afteracceptedP05integration; mandatorysuiteunion preserved. ONE0C0I1M/zero sourcecorrection/no rereview; historical skipped-date M1 deferredP18. Source/report hashes `evidence/p06a-development.json`. ReadyfocusedPR/newexactWindows/all8/ninefamilies/90firstattempt before merge. FullP06 remainspendingP06-b; no defaultcutover/release/VPS/Server2019.
+
+### P06-b authoritative Matrix — development only
+
+Independent storage work began onacceptedPR84 main90ef2c9 whileP06-a PR85/1800502 exactWindows38721237685 runs. Explicitmigration6 adds versioned/expiring productivity_matrix_overrides withview/taskFKs and strictINTEGER revisions; frozenoriginal3colmatrix_pins/versions1–5 unchanged, existingactor-ownedviewconfig remainsrule source. No I01snapshot registrationAPI change. Newtable/indexSQLidentity/read-onlyrecovery/snapshotsemantic gate, manifest1..6/Wallet1 and compiledcurrent6/old1–5startup/future7 proofs wired. No autoDDL/activation/newUI/publicintegration/provider/release/VPS. FourcausalnotimplementedREDs plusfractionalINTEGER1RED retained; current252domain/259protocol tests+lint pass. Firstcompat250/77 failures traced tostructureversiongate+currentmigrationexpectation and correctedwithoutrole/assertionrelaxation; historicalv5suite explicitlyregistersmax5, alloriginalassertions retained. Initialfuture7fixture usedgatewaywhichcorrectlyrefused invalidmetadata; directsyntheticSQLite injection fixesfixture. Cloudcompiledschema6 probe pending. Authoritativepreview/apply stillpending; no P06-b acceptance/PR/Windows claim. IntegrateacceptedP06-a beforedependentAPI PR.
+
+### P06-a accepted — exact Windows and merge
+
+PR85 https://github.com/DongVienNguyen/Family-Organizer/pull/85 tested `180050296d4a6dae939df0324411e97b8ef434ea`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38721237685 all8checks/nine independently-read rawfamilies. EachNode22/24 3419tests/187files/matching3419JUnit/all0;45original+45Productivity firstattempt/no retry/skip. Full132logs/20688lines read/zeroerrormarkers. ZIP SHA256 `6c77b4a50713e324747d9b1e480e10c5ee9424149711af15cab311c91e2053c2`. Merge `13963735ee6106d77c68efda65df2e63924f6a81` independently exacttestedtree; proofcomment6190330283/compact `evidence/p06a-final.json`. ONE0C0I1M/zero sourcecorrection/no rereview; M1historicalunusedhorizon/P18 remainsdeferred. Initialc121112/CI38721215325 superseded/cancelled after documentationtarget count correction312→actual308; source unchanged, no acceptance atthatSHA. FullP06 stillpendingP06-b; noUI/P07/performance/Server2019/release/VPSclaim.
+
+P06-b mergedacceptedP06-a1396373 without sourceconflicts; one statusconflict resolvedfromexact acceptedmain+P06-b developmentappend. Implemented scopedinternalMatrixprojection/preview/apply/reset, freshSQLACL/privateviewownership, finite5minopaqueintent/256refs/16MiB with5minexpiryidentity, revision/day/confirmation checks, I01atomic task/pin/nonce and exactdeltaaudit. ExistingTaskupdatebody lifted totrustedtransactionhelper withall originalpolicy/history guards; attributemode rechecks editrights beforecache todenywrite→read downgrade, exactsuccessfulretry afterrestartusesI01cache. Resetexpires/incrementspintombstone topreventABA, customchoicescannotbypassorderedtarget, pinsleaveTaskattributes/revisionunchanged. Sourceunit8RED/HTTP7RED/downgrade1RED/inputstatus3RED/overflow1RED andstrictsuite3RED/storageproof10RED/compiledHTTPproof11RED allretained andcorrected. Featuretarget371/5files/lint0 beforefullreview. CompiledrealHTTP/restart/retry/deadlineconfirm/staleTask/pinreset/noRewards+ordinary/encryptedrestore/current6/old1–5/future7/3malformedschemas pass/offline, priorWallet/legacyproofs retained. Newsafe-revisionguard verifiedSQLite aftercompiledrun; finalexactWindows stillrequired.
+
+P06-b firstfullCloud3476tests/190files had3475pass/1failure: combinedWallet1+Productivitycoexistence stillasserted5 whileactualsupportedcurrent6. Allsigned64money/IDs/reward/notification assertions preserved; onlycurrentdomainexpectation/title updated6, target/fullrerun inprogress. FirstCloudChromiumall15caseassertions passed, butdriverendstillassertedversion5 andexited1; originalreportsretained, normativecurrent6assertioncorrected withsamecleanup/integrity/no-network checks andnew15case rerunpending. No sourceUI assertions/timeouts/retries/skipschanged. Wholebranchreview notyetcompleted; noP06-b native/PR/acceptance claim. Next fullproof/review/oneImportantcorrection/exactWindows, thenP07actualMatrixUI.
+
+P06-b verification checkpoint atc7e24cc: correctedfullCloud3476tests/190files/matching3476JUnit allpassed/zero failedpendingtodo; all15Chromium firstattempt withschema6/integrity/offline/closedhandles/removedfixture. Lint/build0 andthree coldMatriximports inforeigncwd creatednoStorage. CurrentcompiledsourceHTTP/restart/successfulretry/deadlineconfirmation/staleTask/viewpin/reset/noRewards plusordinary/encryptedrestore/current6/old1–5/future7/threeDDLdriftrefusals passed, retainingall16legacychecks andWallet1 proofs/zerooutbound. Frozen1–5schema modules/Walletschema/pureacceptedMatrix/browsercases byte-identical toaccepted139. Initialexternalharness block-network path andreader fixtureCleanup field wereincorrect beforeprobe/acceptance; correctedonlyexternaldiagnostic setup toactualci path/fixtureRemoved, rawreports preserved. ONEwholebranchreview inprogress; no P06-b PR/Windows/merge acceptance yet.
+
+P06-b ONEwholebranchreview atc7e24cc returned0Critical/0Important/2Minor, ALLfindings/declinedbounds gradedbeforeONEcorrection/no rereview. BothMinor fixednow: malformedassignee types400beforenativebinding, changedMatrix→Listpreview409whileinitialnonMatrix422. FourrealHTTPcausalREDs(14tests/10pass/4fail) retainzero-writeassertions; current375target/lint/full/compiled verification pending. AllhistoricalfrozenDDL/pureMatrix/browserassertions unchanged; no nativeacceptanceyet.
+
+P06-b correctedverification complete: fullCloud3480tests/190files/matching3480JUnit/allpassed/zero failedpendingtodo;375target/lint/build0/cold3imports noStorage; correctedcompiledHTTP/restart/retry/old1–5/current6/future7/ordinary+encryptedrestore/threeDDLrefusals/Wallet1/all16legacychecks/offline passed. Fifteenpreviouscurrent6Chromium cases retained; twoMinor sourcecorrections concernmalformedinput/status only andall3engines mustrunonexactWindowsHEAD. Source/review/originalfailure hashes evidence/p06b-development.json; ONE0C0I2M/bothfixed/onecorrection/no rereview. ReadyfocusedPR/exactHEADWindows/all8/ninerawfamilies/90firstattempt cases; no P06-b acceptance/mergeyet.
+
+### P06 accepted — exact Windows and merge
+
+PR86 https://github.com/DongVienNguyen/Family-Organizer/pull/86 tested `320735d5c8b80c4b11ddfafa0e6320c7e127f502`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38728596365 all8checks/nine independently-read rawfamilies. BothNode22/24 3480tests/190files/matching3480JUnit/all0;45original+45Productivity firstattempt/no retries/skips. Full132logs/20886lines read:16expected syntheticnegative stderr lines (four scenarios, aggregate/step duplicates onbothruntimes), eachmatchedpassed regression; zero unexpected markers. Broad initialError scanner stoppedacceptance untilcontexts/JSON/JUnit verified; originalscan preserved. ZIP SHA256 `1d87c30eb3dc0e9b11810115e339f2bdb53ca6a1a1e0c8e15541cd4a3af4a780`. Merge `eba7b6f603048e602913617f3c9222152ebd8a1d` independently exacttestedtree; proofcomment6191377597/compact evidence/p06b-final.json. ONE0C0I2M/bothfixed/onecorrection/no rereview; alloldassertions retained. FullP06 coreaccepted; P07 owns UI andP18 historicalunusedhorizon/resource/performance bounds. Codex_app attach calledbutstalled/terminated, actualGitHubPR/CI unaffected. No defaultcutover/release/tag/VPS/Server2019acceptance. NextP07-a validatedclienttransport/previewstate thenP07-b accessibleMatrixUI/editor/drag.
+
+### P07-a Matrix client — development only
+
+BaseacceptedPR86 main `eba7b6f603048e602913617f3c9222152ebd8a1d`, branchcodex/p07-matrix-client. ExistinginternalAPItransport gains validatedMatrixprojection/preview/apply/reset andAbortSignal; canonicalDTO/count/identity/clock/pin/deadlinewarning guards. Session/viewcontroller ownsprojection/capturedintent, no optimisticmove/fullcache replacement;cancel0writes,deadlineexplicitchoice,409retainsdraft/blocksuntilnewpreview,lost-response stablepacket/key,late-generation/refusalclear/dispose.29clientRED+15controllerRED+1actualread/writeoverlapRED+2mandatorysuiteomissionRED retained;296target/allpass/lint0. SourceTaskCache/legacybrowser/server/schema/dependencies unchanged; noDnD/UI/defaultactivation. ONEwholebranchreview/fullCloud/compiledbrowser/newexactWindows pending. Registry@dnd-kit/react0.5.0 React18/19 peers andofficialDragDropProvider README/types researchedoutsidebranch forP07-b; noinstall. FullP07 pendingactualUI, noServer2019/release/VPS.
+
+P07-a ONEwholebranchreview at0ff1d0b returned0Critical/1Important/1Minor, ALLfindings/declines gradedbeforeONEcorrection/no rereview. I1 controller capturesselectedtimezone forpreview andrefusesconflicts; M1 unpinnedplacement mustequalfirstmatch/unmatchedempty, validpins/overlaps retained. FourcollectedreviewREDs50/46/4→316target/6files allGREEN/lint0, includingactualnativeHTTPclient↔controller↔server at01UTC/NewYorkpreviousdate, explicitdueconfirmation, committedresponse loss/exactretry/no secondTaskrevision, pin/resetTaskbytesunchanged. Initialfullrunner observedtwo newlyadded timezoneREDs whileotherfilesalreadycollected(3529/3527/2); retainedasfailed diagnostic, notclaimedstablegreen. Testsnowfrozenbeforecorrectedfull. Earlier15Chromium firstattempt passed; correctedbuild/full/browserpending. Externalcompiledclientprobe failedfixtureidentityc7e24ccvseba7 beforelaunch; retainednoncausal andsupersededbypermanentactualHTTPregression, nocompiledclientpassclaim. No server/schema/dependency/DnD/UIchange; P07-bUI stillpending.
+
+P07-a compiledcomparison: initialreferencep06b-current-compiled wassavedbeforePR86twoMinorfixes(c7sourcehashconfirmed), sohashinequalitywasexpectedandnoreuseclaimedfromit. CorrectcomparisonagainstactualacceptedPR86WindowsZIP `1d87c30e...` provescurrentCloud dist/server.cjs `50f4026c1bfd8106710e2cac5e264e79a3129460c74127002ce4757aea7a033a` andoperator `6700cdd4baa84161ead8fd7d4737806bc363534903cdb8ce02105ee02fa84939` byte-identical. Backendcompiled/recoveryproofretainedfromaccepted86; newclientintegrationispermanentrealHTTPtest, notfailedexternalharness.
+
+P07-a correctedverification complete: fullCloud3533tests/192files/matching3533JUnit/allpassed/zero failedpendingtodo;316target/lint/build0/cold3imports noStorage;15Chromium firstattempt/all0/offline/closedcleanup. Exactcompiledbackend/operator hashes equalacceptedPR86WindowsZIP; backendnative/recoveryproof retained, newpermanentclient/controllerrealHTTP boundary/lostresponse/pin/reset regression passes. ONE0C1I1M/allgraded/bothfixed/onecorrection/no rereview. Source/review/report hashes evidence/p07a-development.json. ReadyfocusedPR/newexactWindows/all8/ninerawfamilies/90firstattemptcases; fullP07 remainsP07-bUI-owned, no defaultactivation/Server2019/release/VPS.
+
+### P07-a accepted — exact Windows and merge
+
+PR87 https://github.com/DongVienNguyen/Family-Organizer/pull/87 tested `4ca8dc229776541716c80dcc15d9bffbc48ba91e`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38732904923 all8checks/nine independently-read rawfamilies. BothNode22/24 3533tests/192files/matching3533JUnit/all0;45original+45Productivity firstattempt/no retries/skips. Full132logs/20938lines read/16expected syntheticnegative stderr(4scenarios×2runtimes×aggregate+step), zerounexpectedmarkers. ZIP SHA256 `7fe38d88833028886148219720d6b165785ce3d495ef92c7790bddbbf1cab941`. Merge `1b844789cf4544099b20a85bf642e6d4af08dced` independently exacttestedtree; proofcomment6192018720/compact evidence/p07a-final.json. ONE0C1I1M/allgraded/bothfixed/onecorrection/no rereview. ActualnativeHTTP timezone/lostresponse/pin-reset regression passedbothruntimes. Appattachcalled/stalled/terminatedagain, actualGitHubPR/CI unaffected. FullP07 remainsP07-bUI/editor/drag-owned; noServer2019/release/tag/VPS/defaultcutover.
+
+### P07-b Matrix UI — development only
+
+BaseacceptedPR87 main1b844789, branchcodex/p07-matrix-ui. Read-onlyunsavedrulepreview reusesexistingP05querypagination/ACL/serverclock andP06classifier; noinventedTaskcounts/newbackendAPI/persistence. Initial9tests/1pass/8notimplementedRED collected(thebounds refusal alreadyfailedclosed), then9GREEN. Currentworkpins@dnd-kit/react0.5.0 afterofficialregistryReact18/19 peer/type/DragDropProvider review; lockfileupdateonlyforactualdependency. FirstinstallfailedbeforefetchbecausedefaultHOMEcacheunwritable; correctedscopednpmcachetoexistingworkspacecache, noHOMEpermissions/globalchanges. UI/code/native/reviewpending; noP07-bcompletionclaim.
+
+P07-b UIinprogress: Matrixworkspace/Card/typedRuleEditor/MatrixEditor/MovePreview/unsavedquickdraft andsharedTaskDrawer integrationimplemented; query-basedrulepreviewusesallpages/serverclock/freshACL and0writes. Existingretainedboard remains. DnD0.5.0 installedwith7newlockedpackages/existingentriesunchanged; licensebuildinputs alreadyretainedbyexistingpackager. Early21UI/rule/dragtestsGREEN; strict3newmandatorysuiteRED and16browser/touchproofREDs nowwired. FirstCloud18Chromium:17pass/1C16focusfailure; actualkeyboardtriggerdisabled duringpreviewlostfocus, correctednativefocusablearia-disabled+handlerguard. NextC16firstfocusassertpassed thenhelperclosedalready-openmenu; DOMtrace45s focuswait retained, helper nowonlyopensclosedmenu, noassertion/budgetrelaxation. C17custompreview/overlap/unmatched/409/preset0Taskwrites andC18actualpointer/deadline/SSE/unsentdrawer/mobile/dark/reducedmotion passedbothdiagnosticruns. Current18+additionalnativeChromiumtouch rerunpending; full/review/Windows/PRnotyetclaimed. OnecausalsuspendRED→GREENpreservespreviewduringauthrefreshwhileclearingrows. InitialSSRfixturefalsepositiveclassdisabledregex andbrowser-onlyFancySelectportal correctedonlytestboundary; originalreportsretained.
+
+P07-b checkpoint dd1d895: initial fullCloud3584tests/196files/matchingJUnit/all0, lint/build0 and18Chromium+1trustedCDPtouch firstattempt passed withclosedhandles/offline/removedfixture. Screenshotlight1280/dark390 visuallyinspected. InitialfullCLI argument shape failedbeforecollection; retained andcorrected toreporter-specific outputFile flags, notclaimedtestfailure/pass. Wholebranch SELF-review(no newsub-agent authorization)0C2I2M, ALLfindings/declines gradedbeforeONEcorrection/no rereview. I1 customdraftchangesmustdisableApplyuntilfreshpreview; I2 stablemodalfocus throughbusy/repreview. M1 terminaldragsensor consistentwithdisabledactions; M2 knownsuccessannouncement+localizedtouchholdhint. NewC19 causalbrowserrunpending; strictC19membership1RED retained. Correctiontarget337/7files/lint0; correctedfull/nativepending. No exactWindowsPR/acceptanceyet.
+
+P07-b reviewregression: firstC19 diagnostic stoppedatselectorbeforeassertions (customquadrantlabelsareQ2ratherthanpresetQ2·label); correctedfixturetoacceptbothvalidlabels withoutdroppingassertions. Externalfiltered diagnostic thenfailedbeforefixturebecausetsxresolutionwasrelativeoutsideRepo; correctedonlyexternalcreateRequirebase. RealC19 againstprecorrectioncompiledUI collectedI1 causalRED: editedcustomchoice leftApplyenabled; thefocusassertion and0Taskmutationalreadypassed inthisRED run, soI2 hascodeinspection/stabilityrationale, notclaimedcausalRED. Alloriginalreports/tracesretained; main18stillpassed. Correctedall19+touchbuild/browser nowrunning, testsfrozenbeforecorrectedfull3586expected(actualrawtoconfirm), no nativeacceptanceyet.
+
+P07-b corrected Cloud verification: 3586tests/196files/matching3586JUnit, zero failed/pending/todo;337target/7files/lint/build0. All19Chromium+1nativeCDPtouch firstattempt passed withschema6/integrity/offline/closedhandles/removedfixture; C19 provescustomdraftchange blocksApplyuntilnewpreview andEscape restoreskeyboardtrigger. Sixcoldimports fromforeigncwd creatednostorage; compiledbackend/operator byte-equalacceptedPR86/87nativeZIP. Sevennewlockedfrontendpackages, everyoldnonrootlockentryunchanged/licensespresent. ONEself-review0C2I2M/allgraded/onecorrection/norereview/allremaining0, originalfailures retained; I2focusassertionalreadygreenbeforecorrection isexplicitlynotcalledcausalRED. Source/report/review hashes evidence/p07b-development.json. ReadyfocusedPR/exactWindows8checks/ninerawfamilies/45legacy+57Productivity+1touch; noP07-bWindowsacceptanceyet. NextP08domainafteracceptance/merge; noServer2019/release/tag/VPS/defaultcutover.
+
+### P07-b PR88 — Windows module resolution failure, not accepted
+
+PR https://github.com/DongVienNguyen/Family-Organizer/pull/88 initial HEAD `37b0b8b1b2c6e6d16b61c656d797fb5e5a22e39e`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38744286622 failed Windows build and TypeScript. Windows resolves `Matrix.js` to existing `matrix.ts` before the new `Matrix.tsx`; Linux Cloud resolved the intended UI. Producer and both browser jobs failed before browser cases ran; consumer/service skipped. Original exact-HEAD logs/reports retained. The touch evidence reader additionally dereferenced a null engine report after build failure; this affected failure reporting, not a passing gate.
+
+Two regression REDs were collected (60 tests,58pass/2fail): null-engine failure is causal; the initial module guard instead hit an ENOENT fixture error because tests/setup changes cwd. Its source root now derives from import.meta.url;60target pass. The actual module cause is established by native TS2305/TS1149/build logs and the two candidates in the exact failed Git tree. UI source renamed `MatrixWorkspace.tsx`, import updated; pure `matrix.ts` unchanged. Evidence reader handles absent engines and returns rejection details. Assertions/retries/budgets/gates preserved. Full Cloud/lint/build/new Windows pending; no acceptance or rereview. P08-a independent40tests/18already-failclosed+22notimplementedREDs preserved in named stash while repairing PR88; no P08 completion claim. PR88 app attachment succeeded.
+
+PR88 failed-run preservation complete: five artifacts and96 full logfiles/18056lines saved for38744286622; bothNode22/24 raw3586tests/196files/allpassed, butlint/buildfailure meansoverallfailure. No browsercase wasrun andconsumer/servicewereskipped. Newmoduleregression fixture root initiallycausedoneCloudfailure(3588/3587/1); correctedtoimport.meta.url,60targetGREEN andlint/build0. Finalfrozenfull3588 rerunpending; no sourceassertion or gate relaxation.
+
+PR88 native-cause repair verification: final frozenCloud3588tests/196files/matching3588JUnit, zero failures/pending/todo;60target/lint/build0. RenamedUI contents byte-identical to reviewed source, pureclassifier/server/schema/dependencies unchanged. Updated source/raw-report hashes in nativeVerification of evidence/p07b-development.json; original3586Cloud/native tests and failedWindows37 checkpoint preserved. Exact newWindows stillrequired beforemerge; no rereview/defaultactivation/Server2019/release/VPS.
+
+### P07-b second Windows checkpoint — WebKit causes under repair
+
+PR88 HEAD `5a3e304bee4171918c4bb8aa2590200a5133cdab`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38745899606: six checks passed (Node22/24, producer, clean consumer, legacy browsers, disposable service); Productivity/ci-gate failed. Each runtime3588tests/196files/JUnit/all0;45legacy browsers passed. Productivity55/57: WebKit C16 created Task but automatic drawer did not open; C18 pointer request targetedq2 instead of intendedq1, so no deadline warning. Chromium/Firefox19each andWebKit17 passed; trusted touch did not run because main gate failed. All8artifacts/130full logs/21444lines retained. Partial independent quality/coverage/package/service readers passed; no overall acceptance.
+
+C16 trace shows two overlapping authorized GET/tasks200 responses include the created ID, but refresh promises may return after supersession before the latest refresh admits visible records. The UI now queues only the known created ID until ready, then opens only through the full authorized cache; denied/expired sessions retire it without injecting a Task. Two collected causal notimplemented REDs (5tests/3pass/2fail) exercise waiting through refresh and completed denial/session expiry. C18 native trace mouseMove(520,391.5)→mouseUp53ms later producedtargetq2; driver now waits for actualQ1drop indicator before releasing, matching the native-touch driver handshake. Every originaldeadline/draft/assertion/timeout/retry is retained. No guessed collision algorithm or source library change.
+
+Corrected84target/lint/build0; finalfrozenfull3590 and19Chromium+touch running. Source server/schema/runtime/dependencies unchanged; no rereview/defaultcutover/Server2019/release/VPS. P08-a reviewed commit4f45826 remains isolated untilP07 acceptance/composition.
+
+PR88 WebKit-cause correction Cloud verification: final3590tests/196files/matching3590JUnit/all0;84target/lint/build0;19Chromium+1trustednativeCDPtouch firstattempt passed/offline/closedhandles/removedfixture. Queuedcreated-ID open waits latestready/full-cache admission, anddriverQ1hover handshake preservesalldeadlineassertions. Backend/operator hashes remain byte-identical to acceptednativeZIP. Updated nativeVerification source/raw hashes preserve earlier module verification and bothfailedWindows checkpoints. Eightindependent partialrawfamilies passed atfailed5a; Productivityfailure meansoverallnotaccepted. ReadynewexactWindows/all8/45legacy+57Productivity+1touch beforemerge; no rerereview/defaultactivation/Server2019/release/VPS. P08-a stays isolated.
+
+### P07-b third Windows checkpoint — all browsers accepted at checkpoint, service overall failed
+
+PR88 HEAD `ef3b2e4bbe1c341b5256ea3f1269f0f6756b6b5f`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38749272176 had6checks passed, service+ci-gate failed. Node22/24 each3590tests/196files/JUnit/all0;45legacy+57Productivity+1trustedChromiumtouch allfirstattempt passed, including both previousWebKit regressions. Eightindependent successful rawfamilies exclude service; all8artifacts/132full logs21156lines retained. Service passed12earlier functional/restart/recovery/fence checks then coordinator rollback timedout: oldworker `UPDATE_CONTROL_INVALID/leaf-stat/ENOENT`. Cleanup/serviceRemoved true. ExactNTFSinterleaving unobserved; not claimed port-holder or proven transientgap cause. Overallnotaccepted.
+
+Native-cause Important1 graded before correction. Existing3complete control reads now also handle ENOENT only at fixed-leaf stat/open/after-read stages with initially pinned parents; every retry rechecks original parent identities and full ordinary file/JSON/binding. Same three-read cap, no test retries/deadline increase. Staticmissingleaf exhausts3; changedparents/links/missingimmutablemanifest still refuse. Six newcases produced46/42/4causalREDs→52target/2files/lint0. FullfrozenCloud3596tests/196files/matching3596JUnit/all0/build0. Compiled real CLI A/B fault probe: previousactualWindowsbackend rejects a one-timefixed-leaf absence; currentcompiledbackend reachesrealready at each of3stages, permanentabsence stillrefuses after3, all descriptorsclosed/offline/fixturesremoved. DiagnosticLinuxsource-development only, no package/Windows acceptance claim.
+
+Backend/operator hashes nowchanged and priorbyte-equality is historical; latestnativeVerification source/raw/compiledproof hashes recorded in evidence/p07b-development.json, preserving earlier checkpoints. NewexactWindows/all8/ninerawfamilies mandatory beforemerge. Originalwholebranchself-review closed; native security correction retainsall originalassertions/guards/no rereview. P08-a branch26f5dd3 pushed/isolated, precomposition3576/194 all0; expectedintegrated3639/198 afteracceptedP07 composition, actualtoconfirm. No defaultactivation/Server2019/release/tag/VPS.
+
+
+### P08-a pure Kanban policies — development only
+
+Independent branch codex/p08-kanban-rank began from accepted P03/P05 prerequisites on main1b844789 while PR88 runs exact Windows. Pure safe-integer rank/gap1024/rebalance and validated workflow/WIP helpers have no persistence/auth/API/activation side effects. Full P08 remains P08-b transactional SQL/config/ACL/privacy/races/recovery/HTTP, then P09 UI/P10 completion.
+
+Initial40tests:18 negative fail-closed assertions already passed scaffold,20 notimplemented causal failures and2 parameter-table fixture failures (arrays were spread into callback args). Named rows fixtures corrected without changing assertions;40domainGREEN/lint0. Mandatory gate236/233/3 includedtwo actual missing-suite REDs plusone positive fixture ordering failure; moved new fixture entries after original first normalized path, retaining that assertion. Target276/275/1 recorded before fixture ordering repair. External draft300 deterministic rank operations kept integer ordering/IDs, diagnostic only.
+
+ONE wholebranch SELF-review0C1I0M/allfindings+declines graded beforeONEcorrection/no rereview: existing member reorder in an already over-hard-limit lane must keep warning/count without using another slot. Actual23/22/1RED collected; fixed only unchanged-count admission, new entrant still blocked absent admin reason. Corrected target/lint pending. Compose accepted PR88 before final fullCloud/Windows acceptance; no P08 PR/native claim yet.
+
+P08-a corrected target277tests/3files/allpassed/lint0. ONEself-review0C1I0M/Important remaining0/onecorrection/no rereview; whole-scope authority and transactional/privacy integration explicitly pending. Reviewed pure source hashes saved before composition. FullCloud/exactWindows not yet run; await PR88 acceptance/composition without re-reviewing closed findings.
+
+P08-a frozen pre-composition Cloud3576tests/194files/matching3576JUnit/all0/build0;277target/lint0;two cold pure imports from foreigncwd creatednostorage. These results are onacceptedPR87base1b+P08purecommit4f, beforeP07-b composition; notanexactWindows/integratedfullP08claim. Bothreviewedpure source hashes preserved. AwaitP07-b acceptance, composeacceptedmain andrunfinalintegratedfull/native.
+
+
+### P07 accepted — exact Windows and merge
+
+PR88 https://github.com/DongVienNguyen/Family-Organizer/pull/88 tested `2d5696e8474afa14a5c88066d073bd813b7e286a`, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38753326627 all8checks/nine independently-read rawfamilies. Node22/24 each3596tests/196files/matchingJUnit/all0;45legacy+57Productivity+1trustedChromiumtouch firstattempt/no retries/skips. Full132logs21244lines read:16known syntheticnegative stderr lines, zerounexpected. ZIP SHA256 `6f019c26618de2fb4b647bb7f798fb6bb9ff27bdef8b8ddff95d07746d169883`. Merge `d625190bcdc7a8c40518ef2c960e5966774e42cb` independently exacttestedtree, proof https://github.com/DongVienNguyen/Family-Organizer/pull/88#issuecomment-6195083359; compact evidence/p07b-final.json.
+
+OriginalONEself-review0C2I2M/allgraded/onepass/no rereview; native module/created-drawer/drag-driver/control-read causes fixed with originalfailedruns retained. Startupcontrol read uses existing3complete reads, unchangedparents/file/bindings; permanentmissing/immutablemanifest/links/changedparent stillrefuse. ExactolderNTFSinterleaving remainsunobserved; no load/Server2019 guarantee. Finalserverhash78f973e4…, operatorhash6700cdd4… unchangedfromprior acceptedoperator (earlier “backend/operatorchanged” refers changedtuple, not both binaries). CurrentUI/server/compiled/native allacceptedatthisSHA. No defaultcutover/release/tag/VPS/physicalphone/Server2019/R02.
+
+P08-a integrated acceptedmain d625190 without pure source changes; three conflicts in status and mandatorysuite source/fixture resolved from exactacceptedmain plus twoP08requirements/tests and preservedP08history. AllacceptedMatrix suites/assertions retained. Sourcekernels retainreviewed hashes; finalintegratedfull/target/lint/build running beforefocusedPR/newexactWindows. FullP08-b andP09/P10 stillpending.
+
+P08-a final integrated verification on acceptedP07 main d625190: Cloud3639tests/198files/matching3639JUnit, zero failed/pending/todo;281target/3files/lint/build0. Both pure reviewed source hashes unchanged through composition; two coldimports create no storage. Current compiled backend/operator byte-equal actualacceptedPR88 WindowsZIP6f019c26… (server78f973e4…, operator6700cdd4…). No new runtime consumer/schema/dependency/API/activation. ONEself-review0C1I0M/onecorrection/no rereview; Important remaining0. Source/report/review hashes evidence/p08a-development.json. Ready focusedPR/newexactWindows/all8/ninerawfamilies/45legacy+57Productivity+1touch. FullP08 stillpendingP08-b transactionalsharedboard/SQLscope/privacy/races/recovery/HTTP, thenP09UI/P10completion; no fullW02/Server2019/release/VPS claim.
+
+### P08-b1 shared-board storage candidate — development only
+
+Branch codex/p08-board-storage starts from acceptedP07 main d625190 while PR89/P08-a exactWindows is pending. Explicit unconsumed schema owns canonical list/mode boards, shared columns/WIP policy shape and scoped position metadata. Native compound FKs preserve same-list identity; safe integers, occupied-column deletion refusal, Task deletion metadata cleanup, exact readonly DDL/index inspection and canonical membership validation. Runtime/registry/snapshot remain schema1–6; no version7 admission, migration, API, capacity enforcement or fullP08 acceptance yet.
+
+Initial no-op-stub21tests/4passed/17failed; four throw assertions passed on missing tables and do not prove constraints. Implemented initial21/21; expanded workflow/index/DDL rollback coverage. ONE wholebranch SELF-review0C1I1M/allfindings+declines graded beforeONEcorrection/no rereview. Important orphan empty board missed by column joins reproduced31/30/1; add owned native foreign_key_check. Minor preservation fixture now seeds and compares real canonical Task row. Separate mandatorysuite omission239/238/1 reproduced before implementation. Corrected target/full/lint/build and exactWindows pending. P08-b2 all-writer invariants/ACL/private counts/concurrent admission/migration/snapshot/recovery/HTTP remain required; P09/P10 follow. No release/tag/VPS/Server2019 claim.
+
+P08-b1 corrected verification on acceptedP07 base d625190: Cloud3628tests/197files/matching3628JUnit, failed/pending/todo0;270target/2files/lint/build0. Candidate coldimport from foreign emptycwd createsnostorage; compiledserver78f973… andoperator6700… byte-equalacceptedPR88nativeZIP. Frozen1–6/Wallet schema sources unchanged. ONEself-review0C1I1M/onecorrection/no rereview/allremaining0; originalREDs retained and hashed in evidence/p08b1-development.json. ExactWindows and focusedPR pending composition with acceptedP08-a; no fullP08/current7/API/WIPcapacity/Server2019/release/VPS claim.
+
+P08-a acceptedPR89 exactHEAD3c9429238f3a863565320477f002849e3e4a79af/CI38756565653: all8/ninerawfamilies;bothNode22/24 3639tests/198files/matchingJUnit/all0;45legacy+57Productivity+1touch firstattempt;132logs21302lines/16knownsyntheticnegative/0unexpected. ZIPbb8ac2cc4506283833c566df49799333a6ee37e3eae9fd6aa8679e182a03fccd. Proof https://github.com/DongVienNguyen/Family-Organizer/pull/89#issuecomment-6195523592; mergedmain62f6d4e3beb96424895b9ea5024ef6ab2d83cf3e verifiedtestedtreeequal. Compactevidence/p08a-final.json. No mainpushCI/Server2019 claim.
+
+P08-b1 composedacceptedP08-a main62f6d4e with no changes to either reviewed storage kernel. Conflicts instatus/gate/fixture reconstructedfromexactacceptedmain plusone requiredstorage suite/oneomissiontest andpreservedb1history. FinalCloud3671tests/199files/matching3671JUnit,failed/pending/todo0;272target/2files/lint/build0. Compiledserver78f973…/operator6700… remainbyte-equal acceptedWindowsZIP. Nativeverificationreport/sourcehashes andprecompositionhistory savedinevidence/p08b1-development.json. FocusedPR/exactWindows pending; fullP08 stillawaitsall-writer integration/SQLACL/privatecounts/adminoverride/audit/concurrency/migration7/snapshot/recovery/HTTP. No activation/release/tag/VPS.
+
+### P08-b2 canonical writer invariant — development only
+
+PR90/P08-b1 opened atHEAD9f20f765059601b43f73ba772fab85a50f0c7a4b: https://github.com/DongVienNguyen/Family-Organizer/pull/90; exactWindows https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38759442203 currentlypending. No nativeacceptance/merge claim.
+
+Independentnextbranch codex/p08-board-write-invariant consumes candidate underexplicit syntheticI01fixtures only. savePilotTask boundary reads actualwhole-scope canonicalroots, rejects newhardWIPentrants withoutimplicitoverride, retains no-increase operations, removes/reinserts compoundmetadata, consumes acceptedrank/workflow helpers, advancesaggregate revisions atomically. Existing schema1–6 withoutboardtables is inert; no migration7/HTTP/UI/defaultactivation/pointwriter. Actualcorrected initial5/2/3REDs→5/5; initialwrongmethodfixture andexpandedstate/reward7 fixture failures retained separately. Mandatorysuiteomission260/259/1reproducedbeforegatefix. Workflow/nativecompoundmove/legacyreopen/releasecapacity/subtaskpromotion/rankrebalance/rollback tests expanded. ONEwholebranchSELF-review0C0I1M/allfindings+declines gradedbeforeONEcorrection/no rereview: strengthencombinedpost-rebalance rollback includinganotheroccupiedlane. Correctionaddsregression only; no sourcebugfix/causalRED claimedforMinor. FullCloud/native pending; remainingoverride/audit/freshACL/privateDTO/config/migration/snapshot/recovery/internalHTTP stillrequiredforfullP08.
+
+P08-b2 corrected Cloud3692tests/200files/matching3692JUnit,failed/pending/todo0;262target/2files/finallint/build0. WholebranchSELF-review0C0I1M/onecorrection/no rereview/allremaining0; correctedonlycombinedrollback regression, two writer sourcekernels remainreviewedhashes. Coldimport fromemptyforeigncwd createsnostorage. Bothserver/operator bundleschanged because sharedrepository consumesnewinvariant; exactWindowspackage/consumer/service mustrerun, no unchangedbinaryclaim. Alloriginalcausal/fixture/gate failures retainedwithhashes inevidence/p08b2-development.json. AwaitacceptedPR90 composition, focusedPR/exactWindows. Candidate/runtime7/admission/API/fullP08/release/VPS/Server2019 remainunaccepted.
+
+P08-b1 acceptedPR90 exactHEAD9f20f765059601b43f73ba772fab85a50f0c7a4b/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38759442203: all8/ninerawfamilies;bothNode22/24 3671tests/199files/matchingJUnit/all0;45legacy+57Productivity+1touchfirstattempt;132logs21440lines/16knownsynthetic/0unexpected. ZIP5be7bd02d03a7c9d4fefafe5e07b668a42b1f58b3f296ec801375a6d7cc4d656. Proof https://github.com/DongVienNguyen/Family-Organizer/pull/90#issuecomment-6195917580; mergedmainbb0652e73e50cdc9b436d9bb341804bf48a46d95, verifiedtestedtreeequal. Compactevidence/p08b1-final.json. No mainpushCI/Server2019claim.
+
+P08-b2 composedacceptedmainbb0652e; three duplicate-historyconflicts(status/gatesource/fixture) resolvedtoexactpriorbranch1d8bf20, and entirecomposedtreeverifiedbyte-equalpriorbranch. Cloud3692/200/JUnit/262target/lintbuild reports reusedagainstunchangedwholecode/testtree; onlyacceptancedocs/evidencefollow. Bothreviewedwriterkernels/sourceinventoryhashespreserved. NewexactHEADWindows requiredbeforemerge. ReadyfocusedPR91; nativeacceptance/fullP08/migration7/API/Server2019/release/VPS remainpending.
+
+### P08-b3 explicit schema7/recovery — development, unreviewed
+
+PR91 P08-b2 openedHEAD0e5ed705b0627be085e335be41d5eaf69d02d1a3: https://github.com/DongVienNguyen/Family-Organizer/pull/91; native https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38761727248 pending. Newbranch codex/p08-board-upgrade startsfromunchangedreviewedP08-b2kernels. Explicitpilotregister7; defaultnewregistration1–6; startupalreadyknown7registersdefinitionsonly/noapplyDDL. Extendexactreadonlyschema/checksum/versiongate, Task/structure/Matrix7contexts, sharedsnapshot pureboardvalidation andordinarybootstrapFK/membership checks. Runtime/schema7 acceptance pending; no boardHTTP/UI/newcompletion/defaultactivation.
+
+Initialupgrade4/1/3actualREDexistingbridgerefused7→12/12inclhistoricalMatrix/structure. Mixedrestore5/5; expanded18/18 incl12badreplacementmutations/encryptedpayload/wrongkey/Wallet1extremes/Task/ACL/Matrixpins/no points/notifications. NewcompiledCommonJSoperator test1/1 provesnative7backup/independentprepared7restore/restartbackup andold6/indexdrift/future8refusalswithunchangedDBbytes/no restorejournal/offline/closedhandles/cleanup. This compiledsourceunit is notexactpromotedZIP/Server2019proof. Initialcompiledfixturebadfilter{} correctlyrefusedbyexistingrootsOnlyvalidator; originalfailsretained, fixedfixtureandnativeintegerBigIntprecision, nobusinessassertionrelaxed. Newbootstrapqueryon schema0 causallyfailed1selectedoldrecoverycase/39unselecteddiagnostic; guardhasProductivitythenall40oldrecoverycasespass0skipped. Newmandatoryomission244/242/2actualREDretainedthenfixedbothsuites. Pre-reviewfull3713/202expected/build andfinallint running; ONEwholebranchreviewnotyetperformed. P08 config/ACL/privateDTO/adminoverride/audit/HTTP/previewapply andP09/P10stillpending; nofullP08/Server2019/release/VPSclaim.
+
+P08-b3 finalCloud3713tests/202files/matching3713JUnit,failed/pending/todo0;263target/3files/lint/build0. ONEwholebranchSELF-review0C0I1M/allfindings+declinesgradedbeforeONEtestcorrection/no rereview/allremaining0: mixedrestore nowcontainsactualsyntheticmember+readgrant andassertspresence/preservation; no sourcebugfix/MinorcausalREDclaim. Allreviewedproduct/gate/native sourcesunchangedbycorrection. Two newmodulecoldimportsfromemptyforeigncwdcreateDB0. Initialsource/fixture/gate failures retainedwithhashes inevidence/p08b3-development.json. Bothserver/operatorbundleschangedagain; sourcecompilednative7proofisnotpromotedZIP/Server2019acceptance. AwaitacceptedPR91composition, focusedPR92/newexactWindows/all8/nineraw/103/fullLogs. P08 config/semanticmoves/ACL/privateDTO/adminoverride/audit/HTTP andP09/P10 stillpending; nofullP08/defaultcutover/release/tag/VPSclaim.
+
+P08-b2 acceptedPR91 exactHEAD0e5ed705b0627be085e335be41d5eaf69d02d1a3/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38761727248: all8/ninerawfamilies;bothNode22/24 3692tests/200files/matchingJUnit/all0;45legacy+57Productivity+1touchfirstattempt;132logs21436lines/16knownsynthetic/0unexpected. ZIP68d338eef2f76905b37e46eb51de1bbb442fe3acc5929d6a7a4c19de7dd25f34. Proof https://github.com/DongVienNguyen/Family-Organizer/pull/91#issuecomment-6196245210; mergede4f83d62b8b28928e833306de691a2339f1e3271 testedtreeequal. Compactevidence/p08b2-final.json. No mainpushCI/Server2019claim.
+
+P08-b3 composedacceptedmaine4f83d6; three duplicate-historyconflicts(status/gatesource/fixture) restoredexactcheckedbranch5449de1. Entirecomposedtreebyte-equalpriorbranch; all14source/gate/testhashes preserved, correctedCloud3713/202/JUnit/263target/lintbuild reports reused againstunchangedtree. Onlyacceptancedocsfollow; newexactHEADWindows required. ReadyfocusedPR92; current7sourceacceptance/fullP08/config/ACL/privateDTO/adminoverride/audit/internalHTTP/P09/P10 remainpending; no release/tag/VPS/Server2019claim.
+
+### P08-b4 shared board configuration/internal HTTP — development
+
+PR92 P08-b3 openedHEAD626772f8165d2ecf6087406ff30eef955c0eef9d https://github.com/DongVienNguyen/Family-Organizer/pull/92; native https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38764042491 nowallcheckscomplete/rawreadinprogress, noacceptance/mergeclaimyet. Branchcodex/p08-board-configuration adds sharedcanonical list/modecatalogandinternalexisting-session POSTboards/configure; managerrole/listpermission/revision/idempotency/I01seedpositions/configmetadata-only response/scopedcatalogSSE. No Taskfield/lifecycle/reward changes, privateviewweakening, calleractor/clock, newUI ordefaultactivation. Schema6realHTTP409/noautoDDL; explicit7only.
+
+Initialcatalog9/0/9notimplementedRED→9/9; policyoff10/9/1actualnativeconstraintREDfixedbefore review; expanded17/17. HTTP6/1/5missingrouteRED (member404alreadyfailclosed), then6/6andbaseline6added7/7; gate246/244/2actualomissionREDretained/fixed. Pre-reviewfullCloud3739/204/JUnit/all0/lint/build0. ONEwholebranchSELF-review0C1I0M/allfindings+declinesgradedbeforeONEcorrection/no rereview: archived parent list stillallowedconfig/cache replay. Actual18/17/1REDretained; authorizeactivecatalogcheckbeforecache+intransaction, plusactualHTTParchivedretryrefusalregression. Correctedtarget272/3 andfull3741/204expected/lint/build running. Reviewnotreopened; fullP08 readprojection/privateDTO/viewrefs/previewapply/overrideaudit/grouping/archivepreview/P09/P10 remainpending. No release/tag/VPS/Server2019claim.
+
+P08-b4 finalCloud3741tests/204files/matching3741JUnit,failed/pending/todo0;272target/3files/lint/build0. ONEwholebranchSELF-review0C1I0M/allgradedbeforeONEcorrection/no rereview/allremaining0; actual18/17/1archivedparentREDfixed withunit+realHTTPcache/newcommandrefusals. Allsource/report/review/originalfailure hashes inevidence/p08b4-development.json;2coldimportscreateDB0. Serverbundlechanged; operatorbundle measuredindependentlyinevidence (noassumedunchangedclaim). AwaitacceptedPR92composition andfocusedPR93/newexactWindows. No fullP08/boardprojection/viewrefs/previewapply/overrideaudit/grouping/archivepreview/P09/P10/Server2019/release/VPSclaim.
+
+P08-b3 acceptedPR92 exactHEAD626772f8165d2ecf6087406ff30eef955c0eef9d/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38764042491 all8/ninerawfamilies;bothNode22/24 3713tests/202files/matchingJUnit/all0;45legacy+57Productivity+1touchfirstattempt;132logs21560lines/16knownsynthetic/0unexpected. ZIPdb3fc429cc4c2a04d08048fb9a3b55223175f6d291e796a105dff753bae0f472. Proof https://github.com/DongVienNguyen/Family-Organizer/pull/92#issuecomment-6196561019; merge67473cea8224332a0337178cd885862fecc717cb verifiedtestedtreeequal. Compactevidence/p08b3-final.json. Current7compiledsource testpassedonWindowsquality; existingpromotedZIP/browserfixtures6, so current7ZIP/Server2019acceptanceunclaimed; no mainpushCIclaim.
+
+P08-b4 composedacceptedmain67473ce; three duplicate-historyconflicts(status/gatesource/fixture) restoredexactcheckedbranch0459e4c. Entirecomposedtreebyte-equalpriorbranch/all9sourcehashespreserved; correctedCloud3741/204/JUnit/272target/lintbuild reportsreusedagainstunchangedtree, onlyacceptancedocsfollow. Server109dcd28…changed; operator5c6d1835…byte-equalacceptedPR92operator. NewexactHEADWindowsmandatory; focusedPR93pending, fullP08/P09/P10/Server2019/release/VPSunaccepted.
+
+### P08-b5a semantic8 saved board references — development
+
+PR93 P08-b4 HEAD529a231b843c3e00bde7fa6a7111319b5587bd38/CI38766687039 all8/nineraw/3741tests204fileseach/103firstattempt/132logs21580lines16synthetic0unexpected independentlyread; authorizedmergeinprogress, no mergeshasavedyet. Branchrenamedcodex/p08-board-reference toreflectsource-onlyreference scope ratherthanunimplementedprojection. OptionaltypedKanbanboardId storedonlyafterexplicitsemantic8; noDDL/rewrite, frozen1–7/Wallet1 preserved. Defaultnewregistration6; known7/8startupdefinitionsonly/noapply. Activeparent/readACL/mode beforeSaveViewcache+insideI01, existinginternalviewsHTTP, childshared/foreignprivate/revoked/archive boundaries. Pre8snapshots/newrefs refuse; invalid7refs cannotbelaunderedbymigration8.
+
+Initial4/0/4reference/contract/migrationRED→28/28inclhistorical7/Matrix; expanded9/9reference/migration/snapshot and7/7actualHTTP; compiled8native1/1 hasdistinctsource/targetboardRefs, Matrixpins/Wallet64bit/independent8restore/restart/old7-index-future9DBbytepreservingrefusals/offline/closedhandles/cleanup. Original7nativeassertionsunchanged; historicalfuture8stillunsupportedchecksum, newactualunknown9caseadded. Gate249/246/3actualREDfixed. Pre-reviewCloud3761tests/207files/JUnit/all0/lint/build0. ONEwholebranchSELF-review0C0I1M/allfindings+declinesgradedbeforeONEtestcorrection/no rereview: addactualold7ordinarybackupwithnewoperator andcompare migrationrecords/nativeDDL(noauto8), notjustpre-bootstraprefusal. Correctedtarget266/4/full3761/207/lint/buildrunning. No BoardGET/projection/privateDTO/previewapply/overrideaudit/grouping/archive/UI/completion/fullP08acceptance. Actualpackagewrite-manifest.mjs/package-contract.mjs/release-manifest.schema.json stillmax6; bounds+new-schemaactualZIPfixture remainrequired, notclaimed. No release/tag/VPS/Server2019.
+
+P08-b5a finalCloud3761tests/207files/matching3761JUnit,failed/pending/todo0;266target/4files/lint/build0. ONEwholebranchSELF-review0C0I1M/allgradedbeforeONEtestcorrection/no rereview/allremaining0; ordinaryold7actualcompiledbackup nowchecksunchangedmigrationidentity/nativeDDL, no sourcebugfix/MinorcausalREDclaim. Allreviewedsourcehashesexceptrequestednativetestcorrection preserved; coldBoardViewSchemaimportforeigncwdDB0. Fullsource/report/review/native/scopehashes inevidence/p08b5a-development.json. Compiledsource8proofdoesnotcloseactualZIPmax6gap. AwaitacceptedPR93composition/focusedPR94/newexactWindows. FullP08 readprojection/privateDTO/previewapply/overrideaudit/grouping/archive/UI/completion/new-schemaZIP remainpending; no release/tag/VPS/Server2019claim.
+
+P08-b4 acceptedPR93 exactHEAD529a231b843c3e00bde7fa6a7111319b5587bd38/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38766687039 all8/nineraw;bothNode22/24 3741tests/204files/matchingJUnit/all0;45legacy+57Productivity+1touchfirstattempt;132logs21580lines/16knownsynthetic/0unexpected. ZIP7374031788252012f9e5c07ad29fb293d97083c6e37f080ef345a0a4c6254e92. Proof https://github.com/DongVienNguyen/Family-Organizer/pull/93#issuecomment-6197051688; mergeb00bc380a8a5104d1a47a78e0fc2fc80295c9363 verifiedtestedtreeequal. Compactevidence/p08b4-final.json. Actualnew-schemaZIP/Server2019/mainpushCIunclaimed.
+
+P08-b5a composedacceptedmainb00bc380; four duplicate-historyconflicts(status/gatesource/fixture/boardCatalog add-add) restoredexactcheckedbranch61448a2 includingdeliberate7/8catalogcontextsupport. Entirecomposedtreebyte-equalpriorbranch/all16sourcehashespreserved; Cloud3761/207/JUnit/266target/lintbuildreportsreusedagainstunchangedwholecode/testtree. Onlyacceptancedocsfollow; newexactHEADWindowsmandatory. FocusedPR94pending/fullP08/new-schemaZIP/P09/P10/Server2019/release/VPSunaccepted.
+
+
+P08-b5a accepted PR94 https://github.com/DongVienNguyen/Family-Organizer/pull/94 tested HEAD4668646a04d1fe5a3ca303e11c2085dba4ad7436, Windows CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38770160853: all8 checks/nine raw families; Node22/24 each3761tests/207files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt. Full132logs/21862lines/16knownsynthetic/0unexpected. ZIPceb435ad4b6208550ac14b3fe4bec7151b81299c56131067e90753919f7a9736. Proof comment6197625778, mergea4caf83f87a65a9dd4e560b772c3ef34436cbfdf tree equals testedHEAD. Saved semantic8 references/source compiled recovery accepted; package manifestmax6/new-schemaZIP still unaccepted here. No mainpushCI or Server2019/release/VPS claim.
+
+P08-b5b in progress: separate producer synthetic8/Wallet1 fixture, standalone bundled-ZIP HTTP/restart/ordinary/encrypted recovery and old7/future9/index refusal probe, manifest bounds1..8, mandatory raw consumer proof. Cloudtarget546/6 and lint pass; original bounds102/94/8, consumer114/106/8, gate253/251/2 and fixture-loader failure retained. FullCloud/wholebranchreview/exactWindows pending. F08 trusted source fixed4-command grammar predates generatedfixtures and remains failclosed; focused promotion-policy adaptation must follow before release qualification (release remains disabled). Boardprojection/privatecounts/previewapply/overrideaudit/grouping/archive/UI/completion/fullP08 and later plans remain incomplete.
+
+P08-b5b corrected Cloud3811tests/209files/matching3811JUnit/zero failed-pending-todo;547target/6/lint0/build0. Pre-reviewfull3810/209/build0 retained; application source/buildinputs unchanged by correction, compiledserverca4784d0…/operatordf323e7c… equal PR94. ONEwholebranchSELF-review0C1I1M/allgradedbeforeONEcorrection/no rereview/allremaining0: independently seeded target has distinct board reference before restore and must receive source reference after restore; mandatory raw proof/mutation added, compatibility labels corrected. Actualnative probe Windows-only, no Cloud native-RED claim. Alloriginal failures retained in evidence/p08b5b-development.json. ReadyfocusedPR/newexactWindows/TENrawfamilies/full logs; no fullP08/new-schemaZIP/Server2019/release/VPS claim until actual proof.
+
+P08-b5b composed acceptedmaina4caf83. Three duplicate-history conflicts(status/gate/fixture) restored exact checkedbrancha14e836; entire tree equals checked branch and all20 source/test/workflow hashes preserved. Corrected Cloud3811/209/JUnit/547target/lint/build reports reused against byte-identical tree; only composition docs follow. Exact newHEAD Windows mandatory.
+
+P08-b5b PR95 https://github.com/DongVienNguyen/Family-Organizer/pull/95 initialHEAD40532c5743abc1ae8e927481f1482c5fa2167032/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38774751520 NOT accepted: Node24 Wallet unique-index drift case timed out16964.5632ms (10s test/15s TSX child),3810passed/1failed/zero skipped. Node22, producer, actualnewZIP8consumer and browser jobs passed; service still running at this checkpoint. OriginalrawJSON/JUnit/joblog retained. Actualunderlyinghostdelay unobserved. Native-cause repair separate from closedwholebranchreview: compile SQLite module once, then isolated compiled freshprocess perdrift case with explicit error/signal/exit/5s native+builderbounds. Allfour DDL/byte/journal/handle assertions retained; normal freshsource-bootstrap test remains. No retry/skip/timeoutincrease/continue-on-error. Cloudtarget10/10/lint0, correctedfull running. Must preserveoriginalcompleteCI artifacts/logs and rerunnewexactHEAD beforemerge; no build-only or partialCI acceptance.
+
+P08-b5b original run38774751520 completed: six checks passed; Node24 andci-gatefailed. All8 artifacts/full logs retained; sourceZIP/new8rawproof independently read14checks/9server exits/8native phases/3refusals passed, but overall unaccepted. OriginalZIPf7a6b75a09ec27b39b64575fc134e14572d6feba85c39f9c2b798ff1778e72de. CorrectedCloudfull3811/209/matchingJUnit/zero failed-pending-todo, Wallettarget10/10/lint0. Nativefixture-onlyrepair preserves application bundles; originalwholebranchreview staysclosed/no rereview, new exactHEAD Windows rerun mandatory on samePR95. OutsideevidencevalidatorinitiallymisclassifiedJUnit system-out asfailure; corrected to rejectfailure/error/skipped while retaining all3811cases andsystem-out. No product/test assertionchanged for that tooling error.
+
+P08-b5b correctedHEADf3ee17e43a1184c6bae81761aefb06af1fe0ae6c/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38776748487 is also NOT accepted. Walletcompiledrefusal passed; a different beforeAll preparing two60000-character Tasks/>100000derivedsearch rows exceeded10s, causing3dependent testsnot-run (3808passed/3pending). Originalhook/test/native deadlines,data/assertions unchanged. New native-cause ruling recorded separatelyfromclosedreview: mandatory quality/coverage worker count2→1 onfixedWindowsrunner toremove simultaneousheavyfixture pressure; no timeoutincrease/retry/skip/continue-on-error. Cloudserialtarget19tests/2filespassedwithV8; itscoverageispartialdiagnostic, notfullcoverage acceptance. Originalrun/artifacts/fullLogs mustbe retainedbeforepush/newexactWindows. ExistingCloudfull3811/209 matches unchangedapplication+testtree; CIorchestrationscript onlychangednow.
+
+P08-b5b secondfailedrun38776748487 completedsixchecksSUCCESS/Node24+gateFAIL; all8artifacts/fullLogs retained. Node22all3811/209/JUnit0; Node243808passed/3notrun/209files,JUnit3812cases includes onehookfailure plus3skippeddependentcases. Failed-onlyretentionreader initiallyassumed3811JUnitcases; corrected to preserveandrequiretheactualhookfailure/3notrun, acceptancevalidatorsstillrequirealltests0failed-skipped. Worker1source/CIchange doesnotmodifyapplicationortestbytes(sameCloud3811/209/JUnit/lintf3ee),19serialtarget/2passedwithpartialV8diagnostic; newexactHEADWindowsmandatory. Bothfailedruns remainunaccepted and retained.
+
+
+P08-b6 independent read projection in progress: existing internal GET /api/productivity/boards/:viewId, ownedsemantic8view/freshactive-listACL, TaskScopeSQL before Taskbody/provenance/tag/position decoding. Canonical section/workflow columns and TaskIDs; allnonadmin WIP exactcountnull/redacted, adminwholeboardactive roots unaffectedbyviewfilter. ScalarSQLvisible-list budgets5000rows/16MiB/20000tags/1000columns; bounded in-memory filter/partition/page<=100, HMACstatelessserverclock15m/cursor actor-view-board-visibleTaskbinding. No SQLkeyset/P18performance claim. Canonicalpositionrank/lazyfallback/read-only/nopoints/noseeding; groupnone/sortrankonly, others422.
+Initial8/0/8actualRED→8/8, expanded13unit+6HTTP19/19;23projection testsbefore review. Mandatorygate276/273/3 includes2causalomissions+1wrongtestfixture moveTaskToList signature, corrected276/276. TypeScriptnarrowing errors retained andfixed. Pre-reviewfull3843tests/211files/JUnit/all0/lint/build0;436target/5. OneSELF-review0C1I1M/allgradedbeforeONEcorrection/no rereview: I1actualarchiveSection leftstaleemptyboardcolumn; actual18/17/1causalRED thenfiltercanonicalsectionarchivedmarker incolumncount+metadata. M1documentwholevisible-list budget/in-memorypaging/processHMACrestart/TTL limits. Correctedfull3844/211/lint/build/437target running; no nativeacceptanceyet. ActualZIP8probe extended15threquiredcheck foradmin-childownedview projections/privateWIP/foreignview404/callerclock400/unchangeddomainrows; allold14checks/processvectors kept. FullP08moves/previewapply/adminoverrideaudit/grouping/archivepreview/P09/P10/laterplans remain incomplete. F08preexisting currentCIpromotionpolicy debt failclosed/preR01; no release/tag/VPS/Server2019.
+
+P08-b6 correctedCloud3844tests/211files/matching3844JUnit/zero failed-pending-todo;437target/5/lint/build0. ONESELF-review0C1I1M/onecorrection/no rereview/allremaining0. ActualarchiveSection18/17/1causalRED fixed byfreshcanonicalsectionmetadatafilter, Tasklifecyclekept. Allreviewed13source/gate/test hashes preserved exceptgradedprojectionSQL+unit. Coldimport createsDB0. Bothbundlehashes captured in evidence/p08b6-development.json (serverchanged/operatorunchanged). No Windows projection/native acceptance yet; awaitPR95nativefix/acceptedmaincomposition beforefocusedPR96.
+
+P08-b5b acceptedPR95 https://github.com/DongVienNguyen/Family-Organizer/pull/95 testedHEAD88b9dcb382a389a34d2cc0de381217e8ec33873a/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38779169472 all8checks/TEN independently-read rawfamilies. Node22/24each3811tests/209files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touchfirstattempt. Full132logs21700lines/16knownsynthetic/0unexpected. ZIPfbd47e4ac2c5c63f12e44fb20a86e7269bf6bffc8f9fbc9473503428d4e092c9. Newactual8consumer14checks/9server exits/8native phases/3bytepreservingrefusals passed. Proof6198708154; merge211f0703ecd8575710353fa2e515af335be837b8 testedtreeequal. Bothfailedrunsretainedunaccepted. Defaultregistration6/noautoDDL/Server2019notrun/releaseVPSunauthorized. No mainpushCIclaim.
+P08-b6 composed acceptedmain211f070; eight duplicate-history conflicts resolved toall13 exactcheckedprojection source/test hashes and accepted95evidence/status. Entireapplication/testtree equalschecked e9ea29e. Onlyinherited source delta is acceptedCIworker1, withbaseline docs; Cloud3844/211/JUnit/437target/lint/build reusedforunchangedapplication/tests. NewexactHEADWindowsmandatory. FocusedPR96ready; fullP08/moves/UI/P10/laterplans remainincomplete.
+
+P08-b6 PR96 https://github.com/DongVienNguyen/Family-Organizer/pull/96 initialHEAD3e48dafc5800184bb8dc11aa2e8ba92ed810f77a/CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38781717765 NOT accepted: actualZIPprojection/auth/privateWIP checks reached strictserverclock interval assertion, whichfailed. Originalreportomitted actualtimestamps, so clockdeviation/cause unknown; consumerfailed,serviceskipped. BothNode22/24quality3844/211/JUnitpassed; browsersstillpendingatthischeckpoint. Diagnostic-onlychange retainsparent-before/serverUTC/parent-after andassertmessage, adds20moreHTTPsamplesrequiringSAMEstrictinterval, no tolerance/retry/assertionremoval orapp/testsourcechange. Clocktarget70/3passed+probesyntax0; oldCloudfull3844/211/lint/build reusedforunchangedapp/tests. Preserve7availableartifacts/fullLogs beforepushnewdiagnosticHEADsamePR96; no rootcausefixed orWindowsacceptanceclaim.
+
+
+P08-b6 accepted PR96 https://github.com/DongVienNguyen/Family-Organizer/pull/96 tested49fb64357dbc79697847d70473df3d1f557bcc6d /CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38784093844 all8/TENindependentlyreadrawfamilies; Node22/24each3844tests/211files/matchingJUnit/all0;45legacy+57Productivity+1touchfirstattempt;132logs21894lines/16knownsynthetic/0unexpected. ZIP7d7b08293a29ca0e059d84cc0b2cf1b681a54ca12188e744d842d8136e9c486c. Proofcomment6200015607, merge0439ac0f4b716477b0846a04cee157b7d769b373 remoteGitcommit/refAPItestedtreeequal(localfetchdeferredduringfrozenfull). Strictclockintervalunchanged: retainedactualinitialobservation+20additionalHTTPsamplesallpassed; original3efailureactualtimedeviationunobserved/no sourceclockfixclaim. FullP08/P09/P10/laterplans remain incomplete; no Server2019/release/VPS.
+
+Cloud setup2026-10-15: environmentrunning/connected/currentobservationsrevision8, HTTPpolicyenforcedunrestricted/VPNfalse. Node24.21.0/npm11.19.0 andofficialarchiveSHAfd8e59d5a511510f6a298afb548f18c7d2b1be404d8b4a27d94fbe49f56cb2d6 verified. Existinginstall_script retained; reusable start_skillupdated via onboarding draft6ad12263d3408193858ac814be9ecb20. Draftsave doesnotrestart/apply/publish environment. Skillsbecameavailableduringresumedwork; earlierclosedreviews/acceptedtasksarenotredone. Currentauthorizedcodingcontinueseparatelyfromsetup.
+
+P08-b7 pre-reviewfull3887tests/214files/JUnit/all0/lint/build0. ONEwholebranchSELF-review0C2I2M/allgradedbeforeONEcorrection/no rereview; fourregressioncases14/10/4actualRED retained. Corrections: server-derivedoperation(section/rank) boundtoapplyandfreshstructuralauthoritybeforecache; acceptednegativecanonicallazyranks getpositiveboardmetadatarebalancewithoutTaskchanges; clonepreviewDTOclock/Tasks; semantic422forTaskrevisionMAXwithrank-onlystillallowed. Corrected53target/4passed; finalfull3891/214/lint/buildrunning. Existingassertionsretained; currentusersourceauthorization/noassertion-removal takesprecedence overnewlyavailable skill'sMinor-deferral guideline for thesealreadywrittenfourcases. No newapproval/re-review or fullP08/nativeacceptanceclaim.
+
+P08-b7 correctedCloud3891tests/214files/matching3891JUnit/zero failed-pending-todo,53target/4/lint/build0. ONEwholebranchreview0C2I2M/allgradedbeforeONEcorrection/no rereview/allremaining0; allfour14/10/4causalREDs nowgreen withassertionsretained. Sourcehashes19andactualserver/operatorbundles capturedinevidence/p08b7-development.json. NativeWindows16checkZIPproof stillpendingnewHEAD; fullP08/P09/P10/laterplansnotcomplete. AwaitcomposedacceptedPR96mainbeforePR97.
+
+P08-b7 composed acceptedPR96 main0439ac0. Ten duplicate-history conflicts restoredexactcheckedbranchd5f8eaf; entirecomposedtreeverifiedbyte-equalcheckedbranch, all19source/test/workflowhashespreserved. CorrectedCloud3891/214/JUnit/53target/lint/buildreportsreusedagainstunchangedentiretree; onlycompositiondocsadded. NewexactHEADWindowsmandatory beforePR97acceptance/merge.
+
+
+P08-b7 accepted: [PR97](https://github.com/DongVienNguyen/Family-Organizer/pull/97), tested87959cfa1c3c80c0ad042d3f434532de6474f510, merge4b315de6d11ef22e0ccc2bae8bad7f142ebf9e8b independently tree-equal. [CI38791522921](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38791522921): all8checks/TEN independently read raw families; Node22/24 each3891tests214files, matchingJUnit/zero failures, skipped or todo;45legacy+57Productivity+1native touch firstattempt. ZIPf3d8d0aaea92932effc3150edf6518ebcc1180ae1b338ba6e225adb09fd88ac4, all132logs21896lines/16knownsynthetic/0unexpected. Whole-branch review0C2I2M, all graded before one correction/no rereview, all four regression failures resolved with assertions retained. Compact `evidence/p08b7-final.json`; next sliceP08-b8 columns/archive, then grouping/P09/P10. No release/tag/VPS orServer2019 acceptance.
+
+P08-b8 current development (not accepted): branch`codex/p08-board-layout`, base tested87959cf/acceptedmain4b315de; no newPR/Windowsrun yet. Canonical section create/order/archive-preview/apply and legacy metadata synchronization implemented, synthetic offline source/HTTP/regression/evidence tests retained. InitialfullCloud3920cases:3906pass/14fail (all stale board-revision fixtures),0skip/todo; originalJSON/JUnit retained. One review0C2I0M, all graded before one correction/no rereview. Correctedtarget67/5files/lint0/cold2importsDB0; finalfull3921/3921tests216files/3921matchingJUnit with0fail/skipped/todo andbuild0. No pending problem is concealed by skipping or changing timeouts. Source hashes and final JSON/JUnit/build are bound in`evidence/p08b8-development.json`. Next: create focusedPR and bind newHEAD; exactWindowsall8/TENraw+17actualZIPchecks before merge. P08grouping/P09/P10 andlatermilestones remain pending; Server2019/release/VPS not-run.
+
+P08-b8 [PR98](https://github.com/DongVienNguyen/Family-Organizer/pull/98), exactHEADb462c8a8cf75fab292432ab4cf8f078bcf575090/[Windows38797127519](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38797127519): clean consumer FAILED before new layout stage on strict interprocess wall-clock interval; serviceSKIPPED, otherchecks still running when recorded. Actualserver19:53:13.642Z <parentbefore19:53:13.645Z by3ms; rawpackage-board.json/job116637165220 retained. No pass claimed. Added diagnostic-only100sequentialIPC samples to bundled harness, recording parent/childDate.now, hrtime,performance epoch and SQLite direct-OS clock; native child exit/cleanup checked. Original strict assertion and all21HTTP samples unchanged. Cloud100samples: allthree interval counts0; this is Linux instrumentation validation, not Windows proof. SourceNode24.21 V8 Windows uses coarse system anchor+perprocess elapsedQPC withminute resync; this is a documented hypothesis to verify onWindows before fixing. No product clock change, retry, tolerance or timeout change. P10commands WIP independently22focusedcasespassed, no newpolicy/defaultcutover.
+
+P08-b8-clock rootcause proven by [diagnostic Windows38798885741](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38798885741)/HEADeee10d11b43d159c41135283347a60de8bc96af8:100/100 IPCDate.now interval violations; same samplesSQLiteOSclock0/sharedmonotonic0/nativechildexit0. Consumerall17passed; otherchecks pending when recorded. Corrected sourceb7a1ff45df11f69183ebb317e910e98a9794a011 (unpublished) uses owned native OSclock inProductivity/defaultports andprobeOSbounds, preservingstrictinequalities/21HTTPsamples/no retries/tolerance/deadlinechanges. Two causalregressions RED→44targetGREEN;458clock/evidencecasesGREEN/lint0. Separate fresh focused clockreview0C0I0M/no correction/no rereview; originalKanbanreview remainsclosed. Full3926expected/217files+build running; correctedexactWindowsnotrun yet. `evidence/p08b8-clock-investigation.json` pins sources/actual100sampleevidence. No release/VPS/Server2019claim.
+
+P08-b8-clock correctedCloud: full3926/3926tests217files/3926matchingJUnit,0fail/skipped/todo;lint/build0. All source/tests match reviewedb7a1ff4 across the run. Serverbundlehash in`evidence/p08b8-development.json`; operator unchanged. Diagnostic-only Windows38798885741 independently read all8/TENraw:each3921/216,103first-attempt browsercases,17ZIPchecks/100IPC evidence,132logs22180lines/16knownsynthetic/0unexpected. It remains historical diagnostic evidence, not the corrected runtime. Next pushsamePR98/correctedHEAD and requireall8/TENraw/full logs beforemerge. FullP08/P09/P10/master remainunfinished; no release/VPS/Server2019.
+
+P10-a current development: branch`codex/p10-completion-characterization`, reviewedHEAD97435e95ed5e47471a35ac3ba5b984d4923dcc4f basedacceptedmain4b315de. Existing policy characterized (10cases) and semantic request/approve/reject commands/internalHTTP implemented through the same I01+FamilyDB writer, no policy/default/schema change. Initial8commandRED/6HTTPRED/3gateomissionRED retained. Fresh review0C1I0M/allgraded beforeONEcorrection/no rereview: private rotated successor IDs leaked inresponse andcachedreplay; actual20/17/3RED→34focused/4filesGREEN. Public successor IDs now freshACL-filtered aftercache; completeinternalIDs onlyinresult-boundWeakMap for scopedSSE. Related358/7passed earlier, correctedfullCloud3924/3924tests217files/3924matchingJUnit with0fail/skipped/todo,lint/build0,coldimportDB0. NoP10PR/Windowsacceptanceyet; linkedreopenreversal, expandedrecurrence/jobs/legacycutover/workflow remainunfinished. See`completion-policy-baseline.md`; exactCIforPR98 clock/layout correction38801246440/f8b6549 currentlyrunning independently. No release/VPS/Server2019.
+
+
+P08-b8 accepted: [PR98](https://github.com/DongVienNguyen/Family-Organizer/pull/98), exact tested HEAD `f8b6549135c580ed21bf535faf48514ffc844c12`, merge `5ca1b51585b4f1b232aed9a2323688a0e26355ab` independently tree-equal. [CI38801246440](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38801246440): all8 checks/TEN independently read raw report families, Node22/24 each3926 tests217 files with matching JUnit and zero failed/skipped/todo;45legacy+57Productivity+1native touch first attempt. All132 logs22066 lines read,16expected synthetic markers/0unexpected. ZIP `46b8cadeab6dbb4ec3ebb2ca3f77f01b81297b04fe699885d89b88da39d85e24`;17native board checks and21strict HTTP clock bounds retained;100IPC samples independently checked. Proof6201724067; compact `evidence/p08b8-final.json`. Next P10-a real baseline composition/full verification, then P08 grouping/P09/later milestones. Full master incomplete; release/VPS/Server2019 not run.
+
+P10-a real composition with acceptedPR98 verified: integrated fullCloud3959/3959 tests220files/3959matchingJUnit, zero failed/skipped/todo, lint/build exit0, maxWorkers1. All original completion source/unit/HTTP files preserved exactly; accepted boardLayout/sectionBoards/nativeclock/boardRouter core byte-equal main. Union of completion+layout+clock ports and ALL mandatory suites resolved actual overlap; no ours-strategy merge. Previous3924/217 verification and all historical failures retained. New `nativeVerification` in evidence/p10a-development.json binds integrated source/report/compiled hashes; next PR99 exactWindows mandatory.
+
+P08-b9-a grouping core development: pure priority/assignee/due/tag scalar card references, stable projection IDs/canonical bulk dedupe, explicit selected-dimension patches and bounded input/reference/tag output. No persisted format, route, query/ACL/WIP boundary, default activation or UI change. Initial23cases/9pass/14missingimplementation failures;9generic failclosed scaffold passes not claimed causalRED. Mandatorysuite omission260/259/1actualRED→339related/4filesGREEN. FullCloud3950/3950tests218files/3950matchingJUnit,zero failed/skipped/todo,lint/build0,maxWorkers1,coldimport1module/storage0/files0. One completed whole-branch self-review0C0I0M/no correction/no rereview. Bothcompiledserver/operator byte-equal acceptedPR98 because helper has no runtime consumer. Evidence `evidence/p08b9-development.json`; nativeWindows/PR still pending. Next compose acceptedP10-a baseline before smallPR100, then grouping transport/versionedtag boundary/P09/fullP10/latermilestones. Masterunfinished; no release/VPS/Server2019.
+
+P10-a accepted: [PR99](https://github.com/DongVienNguyen/Family-Organizer/pull/99), exact testedHEADd2b0376f747e25d5d72fe7628d7410bb026f9465; mergee6a0bce07055c699c271881b9a62e1eb490f44c5 independentlyGitAPI/localtree-equal. [CI38803964672](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38803964672): all8checks/TENindependentlyreadrawfamilies, Node22/24each3959tests220files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouch firstattempt. All132logs22274lines/16knownsynthetic/0unexpected. ZIP6b0117982bd6b25b806ae845da61b1822cc3e570d4afcb043c7ba38b8c95bdb4;proof6202101948/compactevidence/p10a-final.json. WatcherHTTP500wasread-onlyAPIinterruption, sameActionsrunresumed/no testretry. Partialsemanticcompletion seamaccepted; fullP10reopenreversal/recurrence/legacycutover/workflowstillpending. CurrentP08-b9combinespurehelpers+ownednormalizedreadfora focusedgroupingbackendPR; originalgrouphelperreviewclosed0C0I0M, newquery/HTTPreviewpending. NativeWindows/fullintegratedverificationpending; no release/VPS/Server2019.
+
+P08-b9 combined grouping backend ready for focusedPR100: currentbranch `codex/p08-grouped-board-read`, acceptedbasee6a0bce/PR99. Pure helpers remain byte-identical to closed helper review; new priority/assignee/due read+HTTP/nativeZIP integration has a separate closed focused review0C0I0M/no correction/no rereview. Full integratedCloud4013/4013tests223files/4013matchingJUnit,zero failed/skipped/todo,lint/build0,maxWorkers1,cold2imports/storage0/files0. Nativeproof contract77/2passed; correctedrelated105/4passed. Actual monitored14/13/1RED→scalarACLgroup admission beforeTaskdecode; final1003-row/422/no-decode/countpreservation regression680ms in relatedCloudrun, unchanged10s budget. Historicalfixture and incompletegateattempt reports retained without dropping assertions. New18thZIPprobe preservesprior17/9server/8native/3refusals/21strictbounds, adds3strictgroupHTTPbounds=24 andkeeps100IPCdiagnostics. FinalnewWindowsHEADmandatory; tagpersistedformat, groupfieldpreview/apply/P09/fullP10/master remainunfinished. No release/VPS/Server2019.
+
+P08-b9 accepted: [PR100](https://github.com/DongVienNguyen/Family-Organizer/pull/100), exacttestedHEADcccc4430af3a71622f851461c0e27d321060ce36; merge2d973df74f789eb27b8a1cd941378ee4551bd016 independentlyGitAPI/localtree-equal. [CI38807765119](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38807765119): all8/TENindependentlyreadrawfamilies,Node22/24each4013tests223files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouch firstattempt. All132logs22544lines/16knownsynthetic/0unexpected. ZIPe419d42ebb6d595cffeac510f3836800ab91ba1d370d368b65f9285f8c333f26;18nativechecks/24strictHTTP/100IPCactualaccepted. Proof6202633491/compactevidence/p08b9-final.json. WatcherHTTP401wasread-onlycredentialfailure; laterfreshAPIanddirectrawreadSAMErun succeeded,no CI/testretry. NextP08-b10 selectedfieldpreview/apply usesexistingcanonicaltransactionwriter; fullP08/P09/P10/masterunfinished. No release/VPS/Server2019.
+
+P08-b10 selected-field moves ready for focusedPR101: acceptedbase2d973df/PR100, branch`codex/p08-grouped-field-moves`; onewholebranchselfreview0C0I0M/no correction/no rereview. FullCloud4053/4053tests225files/4053matchingJUnit,zero failed/skipped/todo,lint/build0,maxWorkers1;related380/4pass,Task/viewrestoreidentity28/2pass,cold3storage0files0. Existingcanonicalwriter/P10completion/app/runtime/grouphelpers/readsource preserved. RealrestoreABA21/20/1RED→Task/viewfingerprintboundpreviews; I03stillownsolderMatrix/section/paged-querygenerationcases. Newnativeproof19thcheck/25strictHTTP preservesallold18/24 plus9server/8native/3refusals/100IPC; actualnewWindowsHEADpending. Historical3implementation/5HTTP+1alreadyfailclosed/2gate/9native/1UTCformat/1viewstale/1restorefailuresretained, no assertions/timeouts/skipsweakened. NativeVerification in`evidence/p08b10-development.json`bindssource/reports/bundles. NextPRWindowsall8/TENraw/full132logs thenauthorizedmerge; persistedtag/P09/fullP10/masterremainunfinished. No release/VPS/Server2019.
+
+P08-b10 accepted: [PR101](https://github.com/DongVienNguyen/Family-Organizer/pull/101), exact tested HEAD53381f65ddad908cd0f40ec47b6b8016d3aa0bbf; merge09724d3b04ace16518df128ca7ecd5f1be8035c5 independently GitAPI/local tree-equal. [CI38811185059](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38811185059): all8/TEN independently read raw families; Node22/24 each4053tests225files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouch firstattempt. All132logs22652lines/16knownsynthetic/0unexpected. ZIPbf07459df50b5345793ace297243fca785b1d5ec5eaf0a1fdf246b4755639ce0;19nativechecks/25strictHTTP/100IPC. Proof6203048465, compactevidence/p08b10-final.json. NextP08-b11 explicit persisted tagformat/read/move/recovery, fullP08/P09/P10/master unfinished. No release/VPS/Server2019.
+
+P08-b11 ready for focusedPR102: acceptedbase09724d3/PR101; branchcodex/p08-tag-group-format. Explicit semantic9 tag format/noDDL; old8 invalidtag snapshots and unmarkedinputs remain refused/default6/no startupupgrade. CurrentSQLTask/list/view/target authority, normalizedmultireference read/scalaradmission/cardcursor and existingI01canonicaltag writer covered. FullCloud4117/4117tests231files/matchingJUnit/all0;lint/build0,maxWorkers1,cold4storage0files0. One whole-branch self-review0C0I0M/no correction/no rereview. Newnative22checks/11server/10native/4refusals/27strictHTTP/100IPC retainprevious19/25 actions; actualWindowsHEADpending. Seeevidence/p08b11-development.json andkanban-tag-groups.md forsource/report hashes,actualREDs,noncausalgeneratorfailure andbounds. Next exactWindowsall8/TENraw/full132logs thenauthorizedmerge; fullP08/P09/P10/master remainunfinished. No release/VPS/Server2019.
+
+P08-b11 accepted: [PR102](https://github.com/DongVienNguyen/Family-Organizer/pull/102), exact testedHEAD3178c5a1b17fbbe82a2610c3547731811a4cf401; merge70abd3bfd023e36b45706c5cc615f2489e71742c independently GitAPI/local tree-equal. [CI38816654445](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38816654445): all8/TEN independently read raw families, Node22/24 each4117tests231files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouch firstattempt. All132logs22866lines/16knownsynthetic/0unexpected. ZIPa3f08275876674eab549c775ae0dbfcedfa8f1f0c193ce6ed83d8d21788d8075;22nativechecks/11server/10native/4refusals/27strictHTTP/100IPC. Proof6203716148/compactevidence/p08b11-final.json. CurrentP10-b linked semanticcompletion/reopen sharedclaims; nextP08manualorder/othersorts/P09UI/fullP10/masterunfinished. No release/VPS/Server2019.
+
+P10-b development: branchcodex/p10-linked-completion-reversal acceptedbase70abd3b/PR102. Semantic completions use existingRewardStoreTx/app_reward_claims with sameFamilyDB/I01; new internal reopen reversesoriginalrecipient/amountonce, clearscompletionproofmetadata and preservesrecurringsuccessors. Oldlegacykeep-point characterization retained; historicalunlinkedrewarded completions andmixedlegacyreopen/outstandingclaim require409explicitcutover. Sharedpureclaimvalidation runtime/snapshot rejectswronghash/recipient/amount/duplicates/nullmarkercontradiction; real3reviewREDs corrected inonepass after0C1I0M review/norereview. Realcold3/1/2RED→pureAppStoreError import removesSQLiteboot. Direct/HTTP/concurrentUUID/rollback/WIP/nativeCJSrestore tests pass; originalnativeledgerJSONkey-order failure retained, restorelogicalallfields+IDs/seq equality andrawcachedretrybytes kept. Source58fe057 composedaccepted9inrealmergea463ed4;2mandatorysuitefiles conflicted, unionpreservesbothB11andP10suites/regressions. Lint/full/buildnowrunning; exactWindowsHEADpending. Sixnewsuitesmandatory; fullP10/masterstillunfinished. No pilotactivation/release/VPS/Server2019.
+
+P10-b ready for focusedPR103: acceptedbase70abd3b; source58fe057+realcompositiona463ed4. FullCloud4162/4162tests237files/matching4162JUnit/zero failed-skipped-todo,lint/build0,maxWorkers1. Related380/12pass; nativecompiledrecovery1pass/threecoldimports0storage0files. OneSELF0C1I0M/allgradedbeforeonecorrection/no rereview; three realReviewREDs corrected. Sixnewrequiredsuites; exactWindowsall8/TENraw/actualZIP22checks27clockintervals/100IPC stillpending. Seeevidence/p10b-development.json source/report/bundlehashes andsemantic-completion-reversal.md. No activation/newDDL/dependency/runtime-default change. NextWindowsproof/authorizedmerge thenremainingP08/P09/fullP10/latermaster/F08promotionpolicydebt. No release/VPS/Server2019.
+
+P10-b accepted: [PR103](https://github.com/DongVienNguyen/Family-Organizer/pull/103), exacttestedHEAD0ef2b947bfd6532392cba73f05480940bcf4ad6c; merge1ffd1bfed0ae7d67a10ceb6b98fb7b705c16312d independentlyGitAPI/localtree-equal. [CI38819252790](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38819252790): all8/TENindependentlyreadrawfamilies,Node22/24each4162tests237files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouchfirstattempt. All132logs23134lines/16knownsynthetic/0unexpected. ZIPba9abda5c9cfb7492258fb52ca3828e21843f20aac11449e6c2bb9b90fe2e09c;22nativeZIPchecks/27strictHTTP/100IPC; actualcompiledCJSlinkedreversalrecovery+3coldimports passed bothWindowsruntimes. Proof6204041572/compactevidence/p10b-final.json. OneSELF0C1I0M/onecorrection/no rereview accepted; fullP10legacy/historicalcutover/recurrence/workflow stillpending. No release/VPS/Server2019.
+
+F08-o1 ready for focusedPR104: currentbase1ffd1bf/acceptedPR103; source31f39f4+realcomposition6081a0d withoutconflicts. Fix strictsourcepolicy generatedfixture grammar/provenance andB14/B15metadataorder; allbrowsernames/assertions andpublication/2019gates preserved. OnewholebranchSELF0C0I0M/no correction/no rereview. FullCloud4131/231/JUnitall0 ranbeforecomposition onacceptedPR102base70abd3b; afteracceptedP10-bcomposition focused364/7/lint/build0 withruntime/source/serveroperatorbytes identicalaccepted103. ExactfinalWindowsfull4176/237/all8/TENraw stillpending; no claimoldCloudcountiscomposedfull. Actual64/62/2policyRED+65/64/1budgetRED corrected, original13fixtureENOENT failures retainednotcausal. NativeVerification inevidence/f08o1-development.json distinguishesallphases. NextWindowsproof/authorizedmerge thenF08-o2eightjob/artifact/ProdBrowser/touch/generatedrawfixturecollector; overallpromotionstillfailclosed/masterunfinished. No dispatch/release/VPS/Server2019.
+
+
+F08-o1 accepted: [PR104](https://github.com/DongVienNguyen/Family-Organizer/pull/104), exact testedHEAD6614ec72a059a3cca67b42af0426fc199191d1a5; merge99dfd12a24875947553711ee7fde045ea70c332b independentlyGitAPI/localtree-equal. [CI38820965949](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38820965949): all8/TENindependentlyreadrawfamilies,Node22/24each4176tests237files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouchfirstattempt. All132logs22952lines/16knownsynthetic/0unexpected. ZIP628b1bc58897f54a6ce51579db8a208d8e840fa3763413dc7def9ed79574c257;proof6204267987/compactevidence/f08o1-final.json. Cloudfull4131/231 preceded P10-b composition; finalcomposedfull acceptance is this Windows4176/237. No release/VPS/Server2019.
+
+F08-o2 development: branchcodex/f08-collector-current-windows, realcomposition39ee7cd with accepted104; base99dfd12. Eight-check/artifact/native extraction diagnostic, raw Productivity57+nativeTouch1, three typed generated JSONs/source provenance/actual consumer byte digests and normalized mandatory proof implemented. Related1229/1229tests28files, initiallint0; ONEwholebranchSELF0C0I0M/no correction/no rereview. Historical negative scaffold passes distinguished from actualREDs; allfailure reports retained. Read-only diagnostics on prior acceptedWindows104 rawartifacts passed57+1 and fixtureversions6/9/1; not full currentcandidate authentication. FullCloud/build and new exactWindowsHEAD/PR/CI stillpending. Next complete focusedPR105 exactWindows8/TEN/full132logs, authorizedmerge then realread-onlymain collector replay; remainingP08/P09/fullP10/laterP/W/I/master stillunfinished. Publication source lock remains disabled; release/tag/VPS/Server2019 not-run.
+
+F08-o2 fullCloud completed: 4293/4293tests239files/matchingJUnit/zero failed-skipped-todo,lint/build0,maxWorkers1. All35reviewedsource hashes unchanged throughout. Compiledserver/operator byte-equal accepted104; dependencies/lockfile/runtime unchanged. See evidence/f08o2-development.json. NewexactWindows/PR105/livecollector stillpending; no release/VPS/Server2019.
+
+
+F08-o2 [PR105](https://github.com/DongVienNguyen/Family-Organizer/pull/105) firstexactHEADb22aefde0dd7e7f3ad5971c80b9e69e95a86035c/[CI38824905861](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38824905861) FAILED: Node22/24each4293tests239files/JUnitall0, but actualPSextractor retained7count/prefix andNode22CaddyUDPQUICbindEACCES fromTCP-only reservation. Fiveotherchecks passed;ci-gatefailedcorrectly. Readall128logs23136lines/16known/14unexpectedfailuremarkers retained. BothImportant/allgradedbeforeONECIcorrection/norereview: exact8nativeinventory andone-shotexclusiveUDP+TCPsyntheticport ownership. DefaultHTTP3/allTLSassertions/negativebatchbudget/deadlines/firstattemptpreserved; partialfailurecleanup3regressions+mandatorysuite. Target481/7/lint0; correctedfullCloud/build/newexactWindowspending. Evidence/f08o2-first-windows-failure.json. P08b12sourcefedfd9c independentlyfull4325/240/JUnitall0/lintbuild0 saved; mustcomposeacceptedF08correction beforePR106. Fullmasterunfinished; no release/tag/VPS/Server2019.
+
+F08-o2 correctedfullCloud4297/4297tests240files/matchingJUnit/all0,lint/build0,maxWorkers1. Allcurrent40review+CIcorrection sourcehashesstable; server/operator byteequalaccepted104. Original4293/239CloudandfailedWindowsb22 retained separately. ONECIcorrectionalltwoImportantgraded/no remaining/no rereview; exactnewWindowsHEADpending. PR105 remainsopen, no merge/passclaimuntilall8/TEN/full132logs.
+
+
+
+P08-b12 development: branchcodex/p08-board-read-sorts basedsourceb22aefd/PR105 (exactWindows38824905861 stillrunning), oldacceptedmain99dfd12. Existingpersisted due/priority/title nowreadable withincanonical lanes and normalized groups; no schema/default/activation/dependency/writer change. Actual58/50/8unsupported-sort REDs→68/4GREEN; sixHTTPcases+mandatoryomission298/297/1RED→related373/8GREEN,lint0. OneSELF0C0I0M/no correction/no rereview. Twointerrupteddiagnostics retainedunknown, notclaimedRED/pass; shared1003-rowstressfixture restoredtolastwithoutassertion/deadlinechanges. FullCloud/build/exactnewWindows/PR106 remainpending. Needaccepted105realcomposition andsame-sourceverification beforePR106. P08manualgroups/P09/fullP10/laterP/W/I/master remainunfinished; no release/tag/VPS/Server2019.
+
+P08-b12 precompositionfullCloud4325/4325tests240files/matchingJUnit/zero failed-skipped-todo,lint/build0,maxWorkers1; allreviewsourcehashesstable. SourceWIPsavedwhilePR105nativeCIcorrectionrequired. No claim105baseaccepted. Evidence/p08b12-development.json recordsactualphase/hashes; realaccepted105correctioncompositionandfullverificationbeforenewPR106. No release/VPS/Server2019.
+
+F05-job-clock development: branchcodex/f05-initial-job-claim based86ce9c0/PR105 correctedWindows38827263260 stillpending. DuringseparateP08compositionfull4329/4328/1 startupmissing-keyhealthneverfailure, reproducedactualschedulerfirst-tickracewithSQLite+controlled1msenqueueclock:4/3/1RED (claim1767225600000<available1767225600001). Claimnowreadsclockafterenqueue; stableoccurrencepayloadhash/key andall100msstartup/deadline/assertionsretained. Target38/5GREEN; ONEwholebranchSELF0C0I0M/no correction/norereview. Originalstartupfailuretraceinsufficienttosaysolecause; preserveitandverifycorrectedfull. FullCloud/lint/build/newPR106/exactWindowspending. P08sortssavedfedfd9c+realcomposition96ad1a9, fullneedscorrectedbaseline; no release/tag/VPS/Server2019.
+
+
+F08-o2 accepted: [PR105](https://github.com/DongVienNguyen/Family-Organizer/pull/105), exacttestedHEAD86ce9c0328fb2e963e9719aa06ce284d984d6bb8; merge180c64a491e726ada29cc686d37c8c2228dba750 independentlyGitAPI/localtree-equal. [CI38827263260](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38827263260): all8/TENindependentlyreadrawfamilies,Node22/24each4297tests240files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouchfirstattempt. All132logs23178lines/16known/0unexpected. ZIPd0e6c900ef86869e460d8028a7cde6d960113e8b691feaceb08f0888748bec39;actual22ZIP/27HTTP/100IPC/8nativearchive1680bytes and3consumedfixturehashes preserved. Proof6205062000/compactevidence/f08o2-final.json. Initialfailedb22retained;bothImportantgradedbeforeONECIcorrection/no rereview. NewmainpushCI38828671336/HEAD180c64a isrunning, requiredbeforeactualread-onlycollector replay. First-tickjobclockfollow-up thenP08sorting/P09/fullP10/laterP/W/I/masterunfinished. Publicationlocked; no release/tag/VPS/Server2019.
+
+F05-job-clock fullCloud4298/4298tests240files/4298matchingJUnit/zero failed-skipped-todo,lint/build0,maxWorkers1; bothreviewedsourcehashesstable. Serverbundle6db11627ee98802350d474595cc389f550a85540c966c84a3e437379aff7119d/operatorunchangedfcf74ec8. AcceptedbasePR105/main180c64a treeequaltested86; newPR106/exactWindowspending. Evidence/job-clock-development.json. NextP08realcomposition/fullverificationafteracceptedclockfix; no release/tag/VPS/Server2019.
+
+P08-b12 clock-correctedcomposition9588234 (sourcefedfd9c + native86ce9c0 + clock3b4ebcd) fullCloud4330/4330tests241files/4330matchingJUnit/zero failed-skipped-todo,lint/build0,maxWorkers1. Reviewedfeature12sourcehashes stable; server65263d010f0b03ac0697cf63728c4f255ac2b9236ddd83a02fb8de072039195c/operatorunchangedfcf. Intermediate4329/4328/1startupfailure andbadlocalmerge-lint2retained separately; no assertion/100ms/deadlineweakening. Mandatoryarrays unionandallfeature/clocksourcephaseidentities verified. Evidence/p08b12-development.json updatedcurrentphase. PR106/exactWindows38829115526 stillpending; do notopenPR107untilacceptedbasecomposition. Fullmasterunfinished/no release/tag/VPS/Server2019.
+
+
+F05-job-clock accepted: [PR106](https://github.com/DongVienNguyen/Family-Organizer/pull/106), exacttestedHEAD3b4ebcd49089f2eb25f37dcf58c9c4fe74c865c1; merge4cb077b8b5d81b05690d88d9649e985a0fdf3d60 independentlyGitAPI/localtree-equal. [CI38829115526](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38829115526): all8/TENindependentlyreadrawfamilies,Node22/24each4298tests240files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1nativeTouchfirstattempt. All132logs23226lines/16known/0unexpected. ZIP6a21b9a77117ae477b50c3477cb2782e115b42ec887d2e513ef3612cd2dabdc8;proof6205308983/compactevidence/job-clock-final.json. Deterministic1msenqueuefirstclaimregression andoriginal100msstartup assertionspass; oneSELF0C0I0M/no correction/norereview. No release/VPS/Server2019.
+
+F08-o2 livecurrentprotocol: explicitmain180c64a491e726ada29cc686d37c8c2228dba750/[CI38828671336](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38828671336) passedall8/TEN/both4297-240/JUnit0; readall132logs23144lines/16known/0unexpected. [Readonlycandidate38830095228](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38830095228) and[readonlypromotionpreparation38830446139](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38830446139) bothSUCCESSfromsource180c64a. IndependentAPI/Git/8artifactdigests/qualitysourceinventories/rawreceiptSHA/45legacy+57Prod+1touch/3generatedfixtureversions6-9-1/source+consumedbytes/innerZIP/license/handoffchecks passed. Fullworkflowlogs read with0unexpected; compactevidence/f08o2-live-{candidate,promotion}.json. FirstexternalverifierfailedonlyoutputPosixPath+str afterallasserts; writerfixed/rereadsameimmutableworkflow, no CIretry/waiver. BothworkflowspublicationAllowedfalse/releaseCreatedfalse/tagCreatedfalse/R02notrun; explicitoldermaintargetprovesprotocol, notlatestapp/masteracceptance. Currentmain4cb077baddsacceptedfirsttickfix. No release/tag/VPS/Server2019.
+
+P08-b12 readyforfocusedPR107: acceptedbase4cb077b/PR106; realhistorycomposition86ae3f8 preservesentire4330testedtree (mainstatusbyteequalalreadycomposed3bbase, P08progresskept). FullCloud4330/241/JUnitall0/lintbuild0; oneclosedSELF0C0I0M/no correction/norereview, featurehashesunchanged. Sourcefedfd9c+9588234; intermediate4329/4328/1startupfailure andlocalmerge-script/lint2diagnostics retained; no assertions/deadlines weakened. PR107/exactWindowsstillpending. RemainingP08manualgroups/P09/fullP10/laterP/W/I/masterunfinished. No release/tag/VPS/Server2019.
+
+## P08-b13 — grouped manual ordering (2026-10-16)
+
+- Accepted predecessor: [PR107](https://github.com/DongVienNguyen/Family-Organizer/pull/107), tested `d5f2a0f4b63cfe6931cf905fa4501f8c60bfbbe9`, merged `4f6e3573892dac37a016d8c5f9e1e410db3e3e8d` with identical tree. [CI38830768577](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38830768577): all eight checks, ten raw report readers, Node22/24 each4330/241/matching JUnit/zero failed/skipped/todo, 45legacy+57Productivity+1touch firstattempt;132logs23366lines/16expected/0unexpected. ZIP55745e28200ef9174b5d2bc565fd9fa0d9f73abb6f77f2a9d94d580b6de6c461. Compact `evidence/p08b12-final.json`.
+- Current [PR108](https://github.com/DongVienNguyen/Family-Organizer/pull/108), final tested SHA and Windows CI URL pending creation. Task P08-b13 changes canonical position metadata only within owned rank-sorted priority/assignee/due/tag views. Task revision/lifecycle/reward rows remain unchanged. Bounded server preview, fresh grants before cache/transaction, UUID replay across restart, conflict fingerprints, rebalance/rollback and private-safe catalogue events are covered. Shared scalar read admission and three cold imports are mandatory. See [contract](kanban-group-order.md).
+- CloudLinux full4394tests/244files, matching4394JUnit cases, zero failed/pending/todo; lint/build0. ONEwhole-branch SELF0Critical/0Important/0Minor, zero correction/no rereview. Real accepted-main composition retains exactly the tested source/tests and all predecessor docs. Source/reports/RED hashes in `evidence/p08b13-development.json`; Cloud is not Windows proof.
+- Compiled Windows consumer now requires23checks/28strictHTTPclock bounds plus retained11server/10native/4refusals/100IPC. Collector parses only target Git data to select exact predecessor22 or current23 requirements and binds raw reader receipt to capability+contract digest. Actual previously verified main180 artifact passes the predecessor component reader and is refused under current requirements. This diagnostic is not a new authenticated candidate run.
+- Pending: actual Windows producer/consumer/service, both runtime quality/coverage, all103browser cases, independent TENraw reports and complete CI logs on the final PR108 SHA. No Windows pass is claimed yet. Next after reviewed green merge: atomic cross-group field+anchor ordering and remaining P08/P09/fullP10 dependencies. Full master plan remains unfinished. No release/tag/VPS or Server2019/R02 acceptance.
+
+### P08-b13 actual Windows checkpoint and correction
+
+First HEAD `356dc2c8531c69c563969a2be8229d35629c30c4`, [CI38834324443](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38834324443): Node22 ran4394tests/244files,4393passed/1failed, no skipped; coverage was not run after the unit failure. New target-board fixture expected hash doubled existing CRLF on Windows (`aca13f...`) instead of the actual idempotent Windows byte digest (`a563d5...`). Production parser and package checks use the correct conversion. Producer/consumer passed; independent actualZIP23checks/28HTTP/11server/10native/4refusals/100IPC passed, but this does not make the whole CI pass. Other jobs still pending when this checkpoint was written.
+
+One Important CI finding graded before one test-only correction: normalize the expected fixture hash through LF then CRLF, retaining the full exact hash assertion; add an explicit LF/already-CRLF target-blob equivalence case. Corrected source-policy90/90 tests pass in Cloud. No production logic, deadline or tolerance changed. Original fullCloud4394/244 remains recorded separately; corrected Windows expected4395/244 is pending. Both the exact failed digest reproduction and original artifacts/logs are retained. No CI retry on the failed SHA, skips, weakened assertions or false all-CI-pass claim.
+
+First run finished: five non-quality jobs passed (producer/consumer/service/legacy and Productivity browsers); Node22 and Node24 each4393passed/1failed of4394, and ci-gate failed. Both matchingJUnit reports confirm the same CRLF expected-hash assertion. All8artifacts downloaded;126complete log files/20118lines/30markers read and accounted for (16known synthetic duplicates,4assertion markers,8unit/evidence exits,2gate exits). Coverage not run after either failed unit step. Failure compact: `evidence/p08b13-first-windows-failure.json`. Corrected SHA will receive its own CI run; no old run cancellation/retry.
+
+## P08-b13 accepted; P10-c1 calendar arithmetic (2026-10-16)
+
+- [PR108](https://github.com/DongVienNguyen/Family-Organizer/pull/108) accepted tested `bb2ad2baaef4e9b5bbc47a84e434e4e887b502ae`, merged `8cf5ab0ad6dd656ae55edb525fe68a3f23cb26f8`. Git API/local trees equal. [CI38835521046](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38835521046): all8 checks/TENraw report readers; Node22/24 each4395tests/244files/matchingJUnit/0failed-skipped-todo;45legacy+57Productivity+1touch firstattempt. 132logs23498lines,16expected synthetic markers/0unexpected. ZIP81477e00ef1e9efa6abb2fce5b3e817037ad75d5a072b68926bf086c8b1056ed. Native23checks/28strictHTTP/11server/10native/4refusals/100IPC. Full compact `evidence/p08b13-final.json`; original failed run retained separately.
+- Current [PR109](https://github.com/DongVienNguyen/Family-Organizer/pull/109), P10-c1 pure all-day calendar recurrence arithmetic. Full Cloud4431tests/246files/matching4431JUnit, zero failed/pending/todo, lint/build0. Source combined with candidate108 before acceptance; after acceptance, history-only composition proved entire tested tree unchanged. Both compiled runtime bundles byte-equal accepted108; no runtime Task/reward/job wiring. Final PR SHA and Windows CI URL pending creation.
+- Due/completion bases, immutable ordinal anchor, Jan31 clamp/skip, leap years, local DST dates, explicit sorted/unique date lists and strict input/year/count bounds are covered. Mandatory domain/offline cold-import suites plus omission regressions retain all parent tests. Contract: [recurrence-calendar.md](recurrence-calendar.md), source/report hashes and rulings: `evidence/p10c1-development.json`.
+- ONEwhole-branch SELF0Critical/1Important/0Minor; all findings graded before one test-fixture correction, no rereview. Original explicit-date table used array rows that Vitest destructured, so its5RED failures did not establish oversized-array behavior. Corrected object rows pass actual arrays while retaining every assertion. Initial gate fixture inadvertently changed first ICS suite; original order/assertion restored, then two real omitted-suite REDs recorded. Full original26calendar REDs retained.
+- Pending109: exactHEAD Windows8checks, both4431/246, ten independent raw reports and complete logs. Existing23native board proofs retained; no new native recurrence probe claimed. After review/green merge, P10-c2 timed arithmetic is the next separate slice (Cloud4454/247/JUnit/lint/build already verified on its branch; no published PR/Windows proof yet). Durable series/occurrence/edit/skip/rotation/scheduler cutover and fullP10/P08/P09/later master tasks remain incomplete. No release/tag/VPS/R02/Server2019 acceptance.
+
+## P10-c1 accepted; F05 port policy and F09 navigation follow-ups (2026-10-16)
+
+- [PR109](https://github.com/DongVienNguyen/Family-Organizer/pull/109) accepted tested `3d42a8468ff7a1a6d115f3ad04079bb3d6e955d3`, merged `f41081aa77ddfb6533a4e746fb148d9c0031ca96` with equal GitAPI/local trees. [CI38836939266](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38836939266): all8/TENraw; both4431tests/246files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs23572lines16expected/0unexpected. ZIPf591d7af1a6a8ff082fd28bf9fd6a676521bec7f2c3dfeeabc4424047b7f0747. Compact `evidence/p10c1-final.json`. This accepts arithmetic only; fullP10 remains incomplete.
+- Historical [main107 CI38832237610](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38832237610) failed Node24 Caddy preflightEACCES and actual socket regressionEACCES at127.0.0.1:62684;4330tests/4329passed/1failed. Six other jobs passed; ci-gate failed. All8artifacts/129logs21568lines28markers retained. Exact old bind stage and OS exclusions were not recorded. See `evidence/f05-main107-port-failure.json`; no specific historical exclusion range is claimed.
+- [main108 CI38836830053](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38836830053) failed WebKitB01 browser-error boundary during reload; all other six jobs passed and ci-gate failed. BothNode22/24 had4395tests pass. All8artifacts/130logs23588lines24markers saved. Sanitized trace and checks: `evidence/f09-main108-navigation-failure.json`. Route continuation overlaps reload before the same-origin catalog pageError; later409 is normal unavailable-domain behavior. A separate F09 fixture change must remove internal request interception while preserving errors[]/all45 assertions. No application CORS/auth defect or browser fix is claimed yet.
+- Current [PR110](https://github.com/DongVienNguyen/Family-Organizer/pull/110), F05-port-policy, final HEAD and Windows run URL pending creation. Windows synthetic HTTPS allocation reads three bounded native policy/endpoint commands, chooses one common permitted unoccupied TCP/UDP candidate, and binds each once. No test/native/allocation retries, OS policy edits, HTTP3 disablement or deadline changes. Existing socket cleanup/refusal and all six Caddy assertions retained. [Contract](synthetic-proxy-ports.md).
+- Composed Cloud4451tests/247files/matching4451JUnit/zero failed-pending-todo, lint/build0; application bundles byte-equal accepted109/108. Precomposition4415/245 recorded separately; actual accepted109 source composition retained both mandatory inventories and omission assertions. ONEwhole-branch SELF0Critical/0Important/0Minor/zero correction/no rereview. Initial policy17/7/10RED includes7already-failclosed scaffold cases; mock executor/first lint fixture errors retained. Evidence and source/report hashes: `evidence/f05-port-policy-development.json`.
+- Pending110: actual Windows netsh/netstat grammar,8checks, both4451/247 and TENexisting raw validators plus NEW11thcommon-port-policy reader validating both native Caddy snapshots; complete CI logs. Main109push CI38838276184 is in progress. Failedmain108 cannot qualify a new read-only release candidate; historicalmain180 candidate proof stays historical. Next after reviewed110 merge: F09 external-only routing fixture, then deferred P10-c2 timed arithmetic and remaining master dependencies. No release/tag/VPS/R02/Server2019 acceptance.
+
+### PR110 first Windows checkpoint: SDK transport correction
+
+First HEAD `c7397c6c6bfe1149f769b87633ea7c499b30482a`, [CI38838856133](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38838856133): Node22 stopped before npm ci at pinned SDK headers download, curl56/Schannel premature TLS close without close_notify. No Node22 lint/tests/build/audit/coverage ran. Node24 passed4451/247/matchingJUnit and all native Caddy policy facts; its chosen port is outside both actual protocol exclusion sets and current busy ports, with three native exits0 and all six Caddy phases passed. All other six jobs passed; ci-gate failed. All8artifacts/116logs15884lines/14markers preserved. `evidence/f05-port-policy-first-windows-failure.json`.
+
+One Important transport finding graded before one CI correction: add --retry-all-errors only to the two bounded SDK GET transfers, preserving max2transfer retries,60s transfer/180s retry window, TLS/HTTPS/pinned hashes/archive checks and zero npm/test retries. Actual synthetic early-close regressions:4tests/2passed(oldtimeouts)/2failed(newheaders/library) RED→37/37target including clean output-file assertions. Corrected fullCloud4453/247/matchingJUnit/zero failed-pending-todo, lint/build0; runtime bundles unchanged. New Windows SHA/run pending; no CI rerun/cancellation of failed SHA.
+
+Main109 push [CI38838276184](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38838276184) independently accepted at `f41081aa77ddfb6533a4e746fb148d9c0031ca96`:8checks/TENraw/both4431/246/matchingJUnit/103firstattempt,132logs23410lines16expected/0unexpected. `evidence/main109-final.json`. This qualifies that exact run; historical socket and browser-routing failures remain tracked. No publication/release/tag or Server2019 acceptance.
+
+## F05 common-port policy accepted; F09 serializable routing pending (2026-10-16)
+
+- [PR110](https://github.com/DongVienNguyen/Family-Organizer/pull/110) accepted tested `039dd06d34e6fffeb229dbc56646da651bfbf8d5`, merged `37a9a8ef49985b519d389517cc88ad85f16421be` with equal GitAPI/local trees. [CI38840473361](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38840473361): all8/11independent raw report readers; both4453tests/247files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs23942lines16expected/0unexpected. Native port-policy snapshots for both runtimes prove chosen port outside both TCP/UDP exclusions and busy ports, all3native exits0 and all6Caddy phases pass. ZIP4c6f407132a095277896930f1da08d0cce1202b2ccb7b8f455890ec0daba90d3. `evidence/f05-port-policy-final.json`; initial SDK56 failure preserved separately.
+- F08 current23 read-only qualification succeeded at explicit target/builder `f41081aa77ddfb6533a4e746fb148d9c0031ca96`, target mainCI38838276184: [candidate38841058678](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38841058678) and [publication-disabled preparation38841090640](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38841090640). Independent API/Git/digest/raw-receipt/generated6-9-1fixture/innerZIP/license verification binds all8archives, both4431/246,45+57+1firstattempt, exact23-check board capability and contract hash to raw consumer receipt. Each13fullworkflow logs/792lines/0unexpected. Compacts `evidence/f08-current23-live-{candidate,promotion}.json`. publicationAllowed/releaseCreated/tagCreated remain false, R02 not-run; these are read-only preparation, not actual release/promotion/VPS. Initial local log-reader calls lacked a downloaded log ZIP/used an old writer filename; only the external writer/prerequisite was fixed and the same immutable runs reread, no CI/test retry.
+- Current [PR111](https://github.com/DongVienNguyen/Family-Organizer/pull/111), F09-browser-origin, final SHA and Windows run pending creation. Shared helper uses a serializable negative-origin RegExp for exact owned-loopback routing, synthetic HTTPS fonts and blocked external destinations. All571old expect expressions remain plus2explicit external-network assertions; no pageerror filtering, retry, deadline or103-case changes. [Contract](browser-owned-origin.md).
+- ONEwhole-branch SELF0Critical/1Important/0Minor, all findings graded before one correction/no rereview. Read actual pinned Playwright1.64: function matchers serialize as catch-all; RegExp is filtered by server before test-client callbacks. WebKit still enables its native interception globally and unmatched server fallback continues traffic, so zero native interception or sole engine cause is not claimed. Serialization guard13/12/1RED→303/2targetGREEN. FullCloud4467/248/matching4467JUnit/all0/lintbuild0, server/operator bytes unchanged. History-only accepted-main composition proved the entire tested tree unchanged. Source/report/review hashes in `evidence/f09-browser-origin-development.json`.
+- Pre-correction Cloudbrowser diagnostic610bf96 passed15Chromium cases, then Firefox/WebKit launch failed due missing local binaries and28cases automatically did not run. Full reports preserved; this is neither fullbrowser pass nor corrected-RegExp proof. Test config/source still runs all3engines; no test.skip or message ignore was added. Corrected native45+57+1Windows proof/8checks/11raw/full logs remains required.
+- After reviewed111 merge: deferred P10-c2 timed arithmetic (composedCloud4490/249/JUnit/lintbuild already verified on its branch; no native PR proof yet), then durable series/occurrences and remaining P08/P09/P10/master dependencies. Fullmaster remains unfinished. No release/tag/VPS/R02/Server2019 acceptance.
+
+## F09 serializable routing accepted; P10-c2 timed arithmetic (2026-10-16)
+
+- [PR111](https://github.com/DongVienNguyen/Family-Organizer/pull/111) accepted tested `e67dd625266d2583064536c78d05181130cada80`, merged `1f539ac9fcd75372e6f9d44b143b1f5093fa7c74` with equal GitAPI/local trees. [CI38842163083](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38842163083): all8/11raw; both4467tests/248files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs24048lines16expected/0unexpected. ZIP5610ee0ff451e7858b0ad6c8c00b2149326c20f06ab3c55b927aa86d4bd1759c. Compact `evidence/f09-browser-origin-final.json`. This accepts that exact corrected fixture; no claim of zero WebKit native interception or proven sole engine cause.
+- Main110 push [CI38841787576](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38841787576) independently accepted at `37a9a8ef49985b519d389517cc88ad85f16421be`: all8/11raw/both4453/247/matchingJUnit/103firstattempt;132logs23990lines16expected/0unexpected. `evidence/main110-final.json`. Historical failures and pre-correction Cloud missing-browser results remain preserved.
+- Current [PR112](https://github.com/DongVienNguyen/Family-Organizer/pull/112), P10-c2 pure timed recurrence arithmetic. Final HEAD/Windows URL pending creation. Full composedCloud4490tests/249files/matching4490JUnit/all0/lintbuild0, server/operator bytes equal accepted111/110. Accepted-main history composition proved entire tested tree unchanged; no repeat source review or extra test run after that unchanged composition. Earlier4454/247 proof remains pre-foundation evidence, not the current combined result.
+- Original/accepted-completion wall time is preserved across calendar DST, milliseconds, immutable monthly anchors and explicit skips. Unique shared local-time resolver emits an explicit instant; gaps/folds/out-of-range resolution return explicit-instant-required without guessing a deadline. Half-hour DST, quarter-hour zones, midnight, strict bounds and offline cold imports are covered. [Contract](recurrence-timed.md); source/report/review/composition hashes: `evidence/p10c2-development.json`.
+- ONEwhole-branch SELF0Critical/0Important/0Minor/zero correction/no rereview; original19causal arithmeticREDs and one mandatory omissionRED retained. Pending112 exactHEAD:8checks/11raw/both4490/249/all103firstattempt/fulllogs. Existing23native board/28HTTP/6Caddy/3port-native-command proofs retained; no new native recurrence probe is claimed.
+- Next separate slice: P10-c3 policy normalization/end/count/missed/rotation cursor contract (Cloud4531/250/JUnit/lintbuild verified on its branch after one Important disabled-cursor correction; no published/native PR yet). Durable series/occurrences/materialization/skip-edit/rotation integration/cutover and full P10/P08/P09/later master work remain unfinished. No runtime wiring/default activation/dependency change, release/tag/VPS or Server2019/R02 acceptance.
+
+## P10-c2 accepted; P10-c3 policy and rotation cursor (2026-10-16)
+
+- [PR112](https://github.com/DongVienNguyen/Family-Organizer/pull/112) accepted tested `07d4276fa93f0a320a6ff3c2cee84a897dac5e74`, merged `dd70562cde2cd11d05454515331bf57ac09842d5` with equal GitAPI/local trees. [CI38843614377](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38843614377): all8/11 independent raw report readers; both4490tests/249files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs23902lines16expected/0unexpected. ZIP1517cbaf1673232138e809c18e40e8de62b670c348c35ed6de1d559ee0bbefd9. Compact `evidence/p10c2-final.json`. Pure timed arithmetic only; fullP10 remains incomplete.
+- Current [PR113](https://github.com/DongVienNguyen/Family-Organizer/pull/113), P10-c3 recurrence policy normalization and rotation cursor contract. Final HEAD/Windows URL pending creation. FullCloud4531tests/250files/matching4531JUnit/all0/lintbuild0, runtime bundles byte-equal accepted112. Parent updates were documentation/history only; accepted-main composition proved entire tested tree unchanged. Source/report/composition/review hashes: `evidence/p10c3-development.json`; [contract](recurrence-policy.md).
+- Strict detached timezone/base/cadence/end/count/missed/rotation configuration; accepted transition requires a trusted new durable occurrence claim owned by the future caller. Pending/skip/reject/reopen preserve cursor; disabling rotation preserves any existing cursor and null does not clear Task assignee. No actual schedule materialization, end/count execution, idempotency or member ACL validation is claimed by this pure helper.
+- ONEwhole-branch SELF0Critical/1Important/0Minor, all findings graded before one correction, no rereview. Disabled rotation originally forced cursor0; five transition REDs now preserve prior history. Old positive-cursor invalid fixture reclassified to invalidNaN with all six invalid-state assertions retained. Original34tests/9passed/25failed includes9already-failclosed scaffold cases, not causal proof. Mandatory omission295/294/1RED retained.
+- Pending113 exactHEAD:8checks/11raw/both4531/250/all103firstattempt/complete logs. Existing23native board/28HTTP/6Caddy/3port-native-command proofs retained; no new native recurrence probe. Next: remaining grouped Kanban atomic semantic-field/rank command and durable recurrence series/occurrences, followed by remaining P08/P09/P10/master dependencies. Full plans remain unfinished. No runtime wiring/schema/default activation/dependency change, release/tag/VPS or Server2019/R02 acceptance.
+
+## P10-c3 accepted; P08-b14 atomic selected-field and rank (2026-10-16)
+
+- [PR113](https://github.com/DongVienNguyen/Family-Organizer/pull/113) accepted tested `91a61734987fa56388b2e15debb54b5437153c32`, merged `33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28` with equal GitAPI/local trees. [CI38844853923](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38844853923): all8/11raw; both4531tests/250files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs24072lines16expected/0unexpected. ZIP8e4e3e10b731fbb081c9053fcb7fcc4073837fc600fdde7006c4c149474e1c7a. `evidence/p10c3-final.json`. Policy/cursor contract only, no durable series/occurrence/scheduler activation; fullP10 remains incomplete.
+- Main111 push [CI38843401022](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38843401022) independently accepted at `1f539ac9fcd75372e6f9d44b143b1f5093fa7c74`: all8/11raw/both4467/248/matchingJUnit/103firstattempt;132logs23936lines16expected/0unexpected. `evidence/main111-final.json`. Historical failures remain separately preserved.
+- Current [PR114](https://github.com/DongVienNguyen/Family-Organizer/pull/114), P08-b14 selected priority/assignee/due/tag move with optional rank anchor in one I01 transaction. Source commit `6641f23cc75168123d12c1fa7852e4483518a199`; final HEAD/Windows run pending creation. Omitting beforeTaskId keeps the field-only path; explicit null appends. Owned rank-sorted view, derived target and visible anchor required; a ranked move leaving the saved filter is refused422. Shared scalar admission precedes preview decoding. Task/view/all-visible-facts/rank fingerprints/revisions/day bind apply; fresh grants precede UUID cache and the transaction. Canonical Task writer and every rebalance position commit/rollback together; current board revision advances once. Physical columns, lifecycle and rewards preserved. Catalog SSE covers rank-only changes without Task events. [Contract](grouped-board-atomic.md).
+- Composed fullCloud4574tests/252files/matching4574JUnit/zero failed-pending-todo, lint/build0. Server bundle f47ab299325c6d88cf29fb727ef502bca6c82ce67fcd803006621f4c122da44d; operator unchanged fcf74ec87713a4fe611e4bdfe617ed63bc3dc01f5f2236657a89b7bbbab78e7b. Real source composition with independently reviewed113 preserves both mandatory inventories/omission assertions; after113 acceptance, history composition proves the entire tested tree unchanged. Source/report/review/composition hashes: `evidence/p08b14-development.json`.
+- ONEwhole-branch SELF0Critical/0Important/0Minor; no rereview. First complete Cloud4530/4528/2 exposed a separate Important verification fixture issue: current24 capability missing in normalizer fixture, and old22 fixture popped only one entry. One fixture-only correction retains production failclosed checks/all original assertions; distinct23 normalization and missing/false atomic-reader cases added. Failed JSON/JUnit/full logs retained separately. Original10domain REDs include invalid rootsOnly/tag-source fixtures, so not all10 are causal proof; valid8 rejected unknown beforeTaskId400. Old23 default-proof refusal117/116/1RED and mandatory omission293/291/2RED retained. Initial new HTTP fixture already had the requested rank; revised synthetic append case exercises actual field+rank effects with assertions preserved.
+- Pending114 exactHEAD:8checks/11raw/both4574/252/all103firstattempt/complete logs. ZIP adds24th board proof: read-only atomic preview, selected-field+rank, one board advance, private-anchor refusal, UUID acknowledgement and post-restore/credential-reentry acknowledgement, no reward/notification replay. Native29strictHTTP intervals/11server/10native/4refusals/100IPC expected. Target Git data parser keeps exact22/23/24 profiles; older proof cannot qualify current capability. No schema/default/dependency change.
+- Next: remaining P08 workflow dispatch through semantic completion and P09 Kanban client/UI, plus durable P10 series/occurrences and later master tasks. Full plans remain unfinished. No release/tag/VPS or Server2019/R02 acceptance.
+
+## P08-b14 accepted; P09-a validated Kanban read client (2026-10-16)
+
+- [PR114](https://github.com/DongVienNguyen/Family-Organizer/pull/114) accepted tested `133563443c0f0d15451b9564c93476219fe563bb`, merged `f281fd5f23fd22582b3c5dbc7b0dfbd823983da2` with equal GitAPI/local trees. [CI38846139817](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38846139817): all8/11raw; both4574tests/252files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs24190lines16expected/0unexpected. ZIP8df6ca63748ffb429bff7f94a33ef70c40033dc887ac415c71a56f3637c93bd1. Native24checks/29strictHTTP/11server/10native/4refusals/100IPC. `evidence/p08b14-final.json`. This accepts atomic selected-field/rank behavior; fullP08 remains incomplete.
+- Current [PR115](https://github.com/DongVienNguyen/Family-Organizer/pull/115), P09-a canonical/grouped private Kanban GET client. Source `95b9847bcba79d3318f6b7da1da562a7ac083951` (use exact source/report hashes in development evidence); final HEAD/Windows run pending creation. Existing session/no-store/typed HTTP status/cursor encoding/abort transport retained. Bounded response validation checks view/revisions/requested timezone, sections/workflow placement, WIP redaction/counts, canonical unique Task bodies and normalized multi-tag card references matching actual Task facts. Unknown Task metadata is stripped and results detached. No new public API, mutation, UI activation, cache or offline queue. [Contract](kanban-client.md).
+- FullCloud4626tests/253files/matching4626JUnit/zero failed-pending-todo, lint/build0; both server/operator bundles byte-equal accepted114. Accepted-main history composition proves the entire tested tree unchanged. Source/report/review/composition hashes: `evidence/p09a-development.json`.
+- ONEwhole-branch SELF0Critical/2Important/0Minor, all findings graded before one correction, no rereview. Four causal review REDs cover positive-total empty pages and a response timezone differing from the request; both page kinds now refuse them, with genuine empty0 boards valid. The new positive explicit-UTC fixture now returnsUTC while preserving encoding/abort assertions. Original38missing-method scaffold failures are retained, not claimed as independent malformed-response causal proof. Mandatory omission295/294/1RED retained. Initial lint unknown-type narrowing errors in the new parser were fixed before review; original API/application assertions unchanged.
+- Pending115 exactHEAD:8checks/11raw/both4626/253/all103firstattempt/complete logs; retained24native board/29HTTP/6Caddy/3port-command facts, no new native client probe claimed. Main114 CI38847404877 in progress. Main113 CI38846044949 passed all8; independent raw reading in progress. Main112 CI38844741659 was cancelled by normal later-main concurrency, not accepted as complete evidence; exactPR112 CI remains independently accepted.
+- Next P09-b: presentational Kanban columns/cards and safe multi-page snapshot merging; currently local WIP32target tests/lint pass, no published/native PR and no UI entry activation. Then app integration/browser9fixture, settings and interactions; remaining P08 workflow dispatch/P10 durable series and later master tasks. Full plans remain unfinished. No release/tag/VPS or Server2019/R02 acceptance.
+
+## P09-a accepted; P09-b presentation and snapshot pagination (2026-10-16)
+
+- [PR115](https://github.com/DongVienNguyen/Family-Organizer/pull/115) accepted tested `91ca15be96f5b1805f10a37a8b6856fadb44e19c`, merged `e757f830163c5aa5d1bb3b48659ac2e47feefa7f` with equal GitAPI/local trees. [CI38847539527](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38847539527): all8/11raw; both4626tests/253files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs24182lines16expected/0unexpected. ZIP9f459035a1c1fb2dafc2ad62518d4739767e4fd4a53cc030cfef502d32bd75f8. `evidence/p09a-final.json`. Private read-client contract only, fullP09 remains unfinished.
+- Main113 [CI38846044949](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38846044949) independently accepted at33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28: all8/11raw/both4531/250/matchingJUnit/103firstattempt;132logs24010lines16expected/0unexpected. Main114 [CI38847404877](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38847404877) independently accepted atf281fd5f23fd22582b3c5dbc7b0dfbd823983da2: all8/11raw/both4574/252/matchingJUnit/103firstattempt;132logs24178lines16expected/0unexpected. Compacts `evidence/main113-final.json` and `evidence/main114-final.json`.
+- F08 legacy capability compatibility verified: [read-only38847864451](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38847864451), builderf281fd5f23fd22582b3c5dbc7b0dfbd823983da2 with current24-check collector reads explicit old23 target33bed2c5bf2484ea1ddaff9d3d96cc3cb0e26e28/mainCI38846044949. Independent8archive digests/sourceGit/typed6-9-1fixtures/rawreaderreceipts/innerZIP/license/handoff verification;13logs802lines/0unexpected;publication/release/tagfalse,R02not-run. `evidence/f08-builder24-target23-live-candidate.json`. One external task label corrected to distinguish builder from target; raw/source/receipt/log proof unchanged. Separate strictcurrent24 candidate and publication-disabled preparation dispatched against acceptedmain114; no result claimed yet.
+- Current [PR116](https://github.com/DongVienNguyen/Family-Organizer/pull/116), P09-b presentational Kanban and validated-page snapshot append; final HEAD/Windows run pending creation. Classification versus real workflow/Review/completed labels, private-safe WIP, scalar multi-tag visual references with canonical open IDs, native details disclosure, bounded horizontal columns and matching en/vi/zhstrings. All old locale values retained. No fetch/writer or app entry activation. [Contract](kanban-presentation.md).
+- FullCloud4661tests/255files/matching4661JUnit/zero failed-pending-todo, lint/build0; server/operator bundles byte-equal accepted115/114. ONEwhole-branch SELF0Critical/0Important/0Minor/zero correction/no rereview. Two mandatory omissionREDs297/295/2 retained. Original10UI REDs are collected missing-module scaffold failures;22pagination tests were implemented with the helper, not claimed as causal RED. SSR/direct handler tests do not establish native pointer/touch/collapse or visual themes; no new native UI probe claimed. Source/report/review/composition hashes: `evidence/p09b-development.json`.
+- Pending116 exactHEAD:8checks/11raw/both4661/255/all103firstattempt/complete logs; retained24native board/29HTTP facts. After115 acceptance, history composition proves the entire tested tree unchanged. Next P09-c app entry, actor/view async coordination and actual synthetic9 Kanban browser flow; local WIP controller/entry exists but is not included here. Settings/drag/menu/virtualization, P08 workflow dispatch/P10 durable series and later master tasks remain unfinished. No release/tag/VPS or Server2019/R02 acceptance.
+
+## P09-b accepted; P09-c Kanban app entry and explicit9 browser flows (2026-10-16)
+
+- [PR116](https://github.com/DongVienNguyen/Family-Organizer/pull/116) accepted tested `06cbd4578b3ad4e4bdfbc7fff216e358a397040a`, merged `66aec855c30761a59d4beb4c65ba84fbc6c6b28d` with equal GitAPI/local trees. [CI38848893020](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38848893020): all8/11raw; both4661tests/255files/matchingJUnit/zero failed-skipped-todo;45legacy+57Productivity+1touch firstattempt;132logs24320lines16expected/0unexpected. ZIP5c06e54ebea4ad386d1d4b3ea50d4a886c4d7f762af3d5a2d49acbfbd315723e. `evidence/p09b-final.json`. Presentation/paging only; fullP09 unfinished.
+- Main115 [CI38848744099](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38848744099) independently accepted ate757f830163c5aa5d1bb3b48659ac2e47feefa7f:8checks/11raw/both4626/253/matchingJUnit/103firstattempt;132logs24262lines16expected/0unexpected. `evidence/main115-final.json`. Main116 CI38850082798 remains in progress; no complete qualification claimed.
+- Strict F08 current24 qualification verified with builder e757f830163c5aa5d1bb3b48659ac2e47feefa7f, explicit target f281fd5f23fd22582b3c5dbc7b0dfbd823983da2/mainCI38847404877: [candidate38848863637](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38848863637) and [publication-disabled preparation38848865335](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38848865335). Each independently binds8archives, both4574/252,45+57+1firstattempt, typed6-9-1fixtures, exact24-check capability/raw receipt/29HTTP, innerZIP/license/handoff, and13logs804lines0unexpected. Compacts `evidence/f08-current24-live-{candidate,promotion}.json`. publication/release/tagfalse,R02not-run; no actual release or promotion/deployment.
+- Current [PR117](https://github.com/DongVienNguyen/Family-Organizer/pull/117), P09-c readonly app entry/shared drawer/actor-owned async reads and explicit9 offline browser fixture; source `7bb05b4344a3f0e42c9c36e7a3288c52fddfec92`, final HEAD/Windows run pending creation. FullCloud4703tests/258files/matching4703JUnit/zero failed-pending-todo, lint/build0; server/operator bytes equal accepted116/114. Accepted-main history composition proves entire tested tree unchanged. [Contract](kanban-workspace.md); source/report/review/composition hashes `evidence/p09c-development.json`.
+- ONEwhole-branch SELF0Critical/1Important/0Minor, all findings graded before one correction/no rereview. Actual expanded C21 Chromium diagnostic failed the unchanged10s empty-choice assertion: after an owned Kanban view becomes List, old selected ID showed Chọn... and a dead reload. Current selection now requires membership in current controller-owned rows; empty-choice and no-dead-reload assertions retained. Original failed report preserved. Fresh corrected2Chromium cases/JUnit/serverexit0 passed;61otherProductivity/45legacy/native-touch cases did not run in that diagnostic. Pre-correction2case pass remains separate from the subsequently expanded failure. Lightdesktop/darkphone images inspected in Cloud only.
+- Explicit synthetic browser9 fixture asserts unchanged Task/tag rows,2boards/9owned views, closed handles and blocked external attempts; new mandatory native fixture regression also checks1..9migrations/33Tasks/integrity/removable files. Runtime startup/default and package6/9/1 generators unchanged. All19old browser cases/assertions byte-preserved; addC20/C21 on3engines and six Kanban images while retaining12Matrix images. Collector AST binds target fixture9 versus implicit historical6; old6 cannot qualify9 and raw/normalized preservation/version/screenshot facts must agree. Profile RED11/2/9 includes2already-compatible legacy/decoy cases; state12missing-module scaffold not causal async proof; gate omission300/297/3RED retained.
+- Pending117 exactHEAD:8checks/11raw/both4703/258/63Productivity+45legacy+1touch firstattempt/complete logs/six Kanban PNGs; retain24native board/29HTTP. Next: P09 settings and semantic move/menu/drag integration with preview, then virtualization/clock reconciliation; P08 workflow dispatch/P10 durable series and later master work remain unfinished. No public API/token/provider, backend schema/default/dependency activation, release/tag/VPS or Server2019/R02 acceptance.
+
+## P09-c first Windows failure and schema compatibility correction (2026-10-16)
+
+- [PR117](https://github.com/DongVienNguyen/Family-Organizer/pull/117), tested HEAD `83a84ce358d095db7fa3e93d61053261c5021dcf`, [CI38851540203](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38851540203) **failed**: six non-Productivity jobs succeeded; Productivity browser and ci-gate failed. All8 exact-head artifacts downloaded; all130logs/25108lines read. Both Node22/24 quality reports independently validate4703tests/258files/matchingJUnit/zero failed-skipped-todo and coverage. Independent remaining report families validated separately; this does not make the overall run pass.
+- Productivity JSON:54passed/9failed/0skipped/0flaky. All6 new Kanban C20/C21 cases passed; retained C03/C07/C08 failed on all3 engines because personal-pin schema admission only accepted4–6 and explicit fixture9 returns409. Native touch did **not** run after this failure. The final cleanup also retained a contradictory schema6 assertion; handle evidence failed. Compact failure/log/report hashes: `evidence/p09c-first-windows-failure.json`.
+- Separate Important verification findings corrected together: extend the bounded personal-pin compatibility list to4–9 while retaining the active-store/actor gate and fresh ACL checks; bind independent shutdown schema validation to the actual seed. Three causal regression REDs (schema7/8/9) retained before correction; new regressions verify pin read/list/write/replay, personal isolation, private/Guest refusals and unchanged Task/history/reward/notifications. Original first regression scaffold had a registration gap and is recorded separately, not claimed as causal proof. All old browser assertions and deadlines preserved. Whole-branch SELF remains closed; no rereview.
+- Main116 push [CI38850082798](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38850082798) independently accepted at `66aec855c30761a59d4beb4c65ba84fbc6c6b28d`: all8checks/11raw/both4661tests/255files/matchingJUnit/103firstattempt;132logs24382lines16expected/0unexpected. `evidence/main116-final.json`.
+- Current correction HEAD/CI pending push. Full plans remain unfinished: after exact-head Windows acceptance, merge117 and continue P09 command client/interactions, remaining P08/P10 and other master dependencies. No release/tag/VPS access or Server2019/R02 acceptance.
+- Correction validation: full Cloud4706tests/258files, matching4706JUnit, zero failed/skipped/todo, lint/build0. The **actual production browser runner** then passed all21Productivity Chromium cases plus1native touch first attempt, matchingJUnit, clean native exits, schema9/integrity/legacy preservation, closed handles/removable fixture and zero provider/network attempts. Firefox/WebKit and45legacy were not run in this Cloud diagnostic. The server bundle changes only for the bounded pin gate; operator unchanged. Complete pre-correction evidence is retained separately in `evidence/p09c-development.json`; new exact-head Windows run is still required.
+
+## P09-d internal Kanban command client preparation (2026-10-16)
+
+- P09-c PR117 corrected HEAD `f0baa680d1b8b1942dd50cfc04335f0567af35fe` is running [CI38853608953](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953). It is not yet Windows-accepted/merged. Its first failed run remains preserved.
+- P09-d branch `codex/p09-board-command-client` composes the corrected117 candidate with a distinct preview/apply client. Uses existing private Bearer/no-store/AbortSignal/callerUUID transport, no automatic write retries. Strict retained preview references/revisions/tag targets and selected-field preservation; actual Task/group/revision receipt checks tolerate canonical SQL tag sorting. Backend selected-field helper extracted byte-for-byte into a browser-safe module and reexported; cold imports remain storage/network free. No UI commands enabled. [Contract](kanban-commands-client.md).
+- ONEwhole-branch SELF0Critical/0Important/0Minor, no correction/rereview; source hashes retained. Target371/371 across4suites. FullCloud4750tests/259files/matching4750JUnit/zero failed-skipped-todo/lintbuild0. Source/report/compiled hashes: `evidence/p09d-development.json`. Initial23 failures were missing-method scaffold, not independent malformed-response proof. Mandatory omission301/300/1RED retained; both old inventories/assertions preserved.
+- PR/current final HEAD/Windows run pending117 acceptance and main composition. Required: exactHEAD8checks/11raw/both4750/259,63Productivity+45legacy+1touch firstattempt, all24nativeboard/29strictHTTP/100IPC and complete logs. Full plans unfinished; remaining Kanban interaction owner/settings/menu/drag/large lists, P08 workflow/P10 durable recurrence and other master tasks follow. No release/tag/VPS/Server2019 acceptance.
+
+## GitHub credential interruption during corrected PR117 run (2026-10-16 05:08 UTC)
+
+- Corrected PR117 exact HEAD `f0baa680d1b8b1942dd50cfc04335f0567af35fe`, [CI38853608953](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953). Reading run/jobs began returning HTTP401 `Bad credentials`; the watcher exited1 because authentication failed. This is **not** evidence that the run or tests failed. Final run conclusion, logs and artifacts cannot currently be verified; no acceptance/merge was performed.
+- Last observed successful jobs: Windows package producer and clean consumer. Baseline Node22/24, legacy browsers, Productivity browsers and disposable service were still running. Cloud environment status remains connected/running, revision8, no environment failure. No credential values are included. Compact: `evidence/github-401-blocked-20261016.json`.
+- P09-d source reviewed and fullCloud4750/259/JUnit/lint/build0; source commit `8999a7e9d9e804b985d842f9db9096bbaa0e3486`, PR not created while parent acceptance is blocked. Independent P09-e physical confirmation state in a separate local branch has21target tests, including a real late-owner callback regression; full review/quality/UI activation pending. Restore the managed GitHub connection, then read117 exact-head CI/logs/artifacts, fix actual failures if any, merge only after acceptance, and publish/validate dependent PRs. Do not ask for plaintext tokens, PC runner or VPS access.
+- Follow-up verification: git push succeeds independently of the API failure. P09-d source and interruption evidence are preserved remotely at branch `codex/p09-board-command-client`, HEAD `0c5b2e1da805d3919c62e99b7e6d8daf70e3d1ce`. No dependent PR was opened and no unknown CI result accepted. Git transport success does not establish Actions/API readiness.
+
+## P09-e physical confirmation state prepared independently (2026-10-16)
+
+- Separate branch `codex/p09-kanban-command-state` based on P09-d `0c5b2e1da805d3919c62e99b7e6d8daf70e3d1ce`. The transient physical section/rank owner is **not mounted**. Current visible Task/destination/anchor, rank sort, section-board mode and preview revision/timezone binding required. Singleflight apply; no optimistic Task/cache/lifecycle/reward mutation; ambiguous failures retain the same private plan/UUID for explicit retry, HTTP4xx retires the preview. Authority/view/projection changes abort and suppress late owner responses/callbacks. [Contract](kanban-command-state.md).
+- FullCloud4773tests/260files/matching4773JUnit/zero failed-skipped-todo/lintbuild0. Server/operator bundles byte-equal P09-d. Target330/330 includes21controller cases,7native cold imports and302evidence cases. Real callback race RED21/20/1 fixed during development by rechecking owner immediately before reread; no assertion removed. Initial missing-module run collected0tests, scaffold only. Initial lint2 used an invalid forged UUID literal; typed distinct UUID retains the private-plan assertion. Mandatory omission302/301/1RED retained. Source/report/compiled/review hashes: `evidence/p09e-development.json`.
+- ONEwhole-branch SELF0Critical/0Important/0Minor, no review correction/rereview; source hashes unchanged through final checks. No new Cloud browser run, no Windows run or UI acceptance for this branch. Source is reviewable independently but PR publication/acceptance waits for117 exact-head verification and P09-d parent acceptance. Full plans remain unfinished: UI/menu/drag/grouped owner/settings/clock refresh/large lists, P08 workflow/P10 recurrence and other master dependencies remain.
+- Git transport backup succeeds while Actions/API readiness remains separate. Credential interruption evidence is retained; do not infer CI pass from watcher exit or git push. No release/tag/VPS/Server2019/R02 acceptance.
+
+## P09-c accepted after credential recovery; P09-d Windows qualification (2026-10-16)
+
+- The transient Actions/API401 recovered on bounded follow-up read; no token was printed or user PC/VPS action performed. [PR117](https://github.com/DongVienNguyen/Family-Organizer/pull/117) accepted exact HEAD `f0baa680d1b8b1942dd50cfc04335f0567af35fe`, [CI38853608953](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38853608953): all8checks/11independent raw families; bothNode22/24 each4706tests/258files/matchingJUnit/0failed-skipped-todo;45legacy+63Productivity+1nativeTouch first attempt;6Kanban+12Matrix images verified. All24board/29strictHTTP/11server/10native/4refusals/100IPC retained. Complete132logs/24476lines/16expected/0unexpected. ZIP48c4d2d0dc3d66793a853d4534f6abe69d94fb45dfee21333abda70c4a094b03. First83a84ce failure remains preserved, never rerun/cancelled/relabeled green.
+- Squash merged117 to `ba293a6f332754be73758129cd231560e9269b0c`; GitAPI/local source and merge trees equal. Compact `evidence/p09c-final.json`. Readonly app entry accepted; fullP08/P09/P10/master plans remain unfinished. Server2019/R02 not run; no release/tag/VPS.
+- Current [PR118](https://github.com/DongVienNguyen/Family-Organizer/pull/118), P09-d internal preview/apply command client. Source `8999a7e9d9e804b985d842f9db9096bbaa0e3486`; accepted-main history composition proves whole tested tree unchanged before documentation updates. FullCloud4750/259/matchingJUnit/lintbuild0/review0C0I0M retained. Final HEAD/Windows run pending PR creation; require all8/11raw/109browser first attempt/full logs. Next: independently prepared physical confirmation owner, then remaining UI/menu/drag/grouping/settings and P08/P10/master dependencies.
+
+## Evidence summary count correction and current collector qualification (2026-10-16)
+
+- The F08-current24 external summary writer retained historical23native/28HTTP literals even though its actual independent raw assertions required24native/29HTTP and the stored target policy lists all24checks with atomicGroupRanks. Both compact current24 summaries now report the actual24/29, with original summary hash/counts and unchanged raw-report hash preserved. Original workflow runs/raw receipts and acceptance are unchanged; no CI rerun or assertion change. Future writers derive these summary counts from independently checked raw facts.
+- PR117 accepted/main `ba293a6f332754be73758129cd231560e9269b0c`. Current25 collector read-only compatibility qualification dispatched from that builder against accepted historical fixture6 target `66aec855c30761a59d4beb4c65ba84fbc6c6b28d`/mainCI38850082798: candidate [CI38855173364](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855173364), publication-disabled preparation [CI38855175629](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855175629). Both require complete independent archive/raw/target-Git/handoff/log validation before acceptance. They create no release/tag/publication and perform no VPS access. A current fixture9 target remains a separate qualification after its main CI is independently verified.
+
+## P09-d accepted; P09-e confirmation owner Windows qualification (2026-10-16)
+
+- [PR118](https://github.com/DongVienNguyen/Family-Organizer/pull/118) accepted tested HEAD `96c992d6cb862b692f158b4dc69d20a411e84473`, [CI38855090309](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855090309): all8checks/11raw; both4750tests/259files/matchingJUnit/zero failed-skipped-todo;45legacy+63Productivity+1touch firstattempt;24nativeboard/29strictHTTP/11server/10native/4refusals/100IPC. Complete132logs/24466lines/16expected/0unexpected. ZIP5008206b71447a6e5b87fae7bb7c5ca90c8b071e8f12c72a70ab6e0ec32b704a. Squash `807ea1fa2b35ec4bfe377a817e9fd83fc099ae24`, GitAPI/local trees equal. `evidence/p09d-final.json`. No UI write/default schema/completion activation.
+- Current [PR119](https://github.com/DongVienNguyen/Family-Organizer/pull/119), P09-e unmounted physical section/rank confirmation owner. Source `2dd87c7a1006331bda159269fc65e16e6d869a68`; later documentation/accepted-parent composition leaves reviewed source and whole tested tree unchanged before documentation updates. FullCloud4773tests/260files/matchingJUnit/lintbuild0/review0C0I0M retained. Final HEAD/Windows run pending creation; all8/11raw/109firstattempt/full logs required. Actual UI/menu pointer/keyboard/touch behavior not established by this controller PR.
+- Current25 read-only candidate38855173364 and publication-disabled preparation38855175629 independently accepted:8archive digests/strict targetGit/typed6-9-1fixtures/raw normalization/24nativeboard/29HTTP/innerZIP/licenses/lockedhandoff, bothNode4661/255,45legacy+57Productivity+1touch. Each13logs/810lines/0unexpected. Compacts `evidence/f08-current25-live-candidate.json` and `evidence/f08-current25-live-promotion.json`. Source builder117 successfully reads historical fixture6 target116; current fixture9 remains a separate live qualification. No release/tag/VPS/Server2019 acceptance.
+- Full plans remain unfinished. Next: physical section menu/actual browser confirmation flows, remaining grouping/drag/settings/clock/large lists, P08 workflow/P10 durable recurrence and remaining master tasks. User GitHub reconnection confirmed; transient interruption history remains factual evidence.
+- Main117 push independently verified at `ba293a6f332754be73758129cd231560e9269b0c`, [CI38855022263](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38855022263): all8/11raw/both4706tests/258files/matchingJUnit/109firstattempt,132logs24450lines16expected/0unexpected. `evidence/main117-final.json`.
+
+## P09-f physical section menu prepared; current9 collector live qualification (2026-10-16)
+
+- Branch `codex/p09-kanban-section-menu` composes pending119 candidate `cdd2676ac2fbd91a0b1435a5b0136f0c4c846387`; final PR/HEAD/Windows URL awaits parent119 acceptance. Adults get a separate canonical drawer/menu button only on sections/rank views. Current API-bound confirmations preview/cancel/apply through existing internal commands, never change lifecycle/deadline/rewards optimistically or bypass hard WIP, and refresh current authorization after writes/refusals. Grouped/workflow/non-rank read presentations remain. [Contract](kanban-section-menu.md).
+- FullCloud4792tests/261files/matching4792JUnit/zero failed-skipped-todo/lintbuild0. Target413/413 across7suites. Server/operator bundles byte-equal119. ONEwhole-branch SELF0Critical/0Important/0Minor, no review correction/rereview; all18source hashes unchanged during final checks. All prior locale values and21browser/11presentation case bodies/assertions preserved. Static FancySelect is explicitly a stub for browser-only portal SSR; actual dropdown is tested in Playwright. Initial SSR11failures, nested-button regex23/24 and typed ViewConfig sort lint2 are separate development evidence, not causal feature RED claims. Mandatory omission303/302/1RED retained. `evidence/p09f-development.json`.
+- Actual production runner: all23Productivity Chromium cases +1native touch passed first attempt, matchingJUnit, clean exits/signals, schema9/integrity/legacy preservation, closed handles/removable fixture, zero provider/network attempts. C22 keyboard preview/cancel is read-only, apply changes only section/revision while retaining the shared unsaved draft; C23 holds the real native preview response across authorization refresh and proves zero late apply/unchanged Task. Visually inspected actual390dark Kanban screenshot. Firefox/WebKit and45legacy did not run in this Cloud diagnostic. Windows must require69Productivity+45legacy+1touch across current drivers and all8/11raw/full logs before merge. Explicit fixture adds one synthetic section without changing Task/tag seed facts or package6/9/1 generators. Historical63case9/57case6 profiles remain strict and cannot qualify current69 target.
+- Current26 read-only candidate [CI38856294161](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38856294161) and publication-disabled preparation [CI38856296167](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38856296167) independently accepted: builder118 `807ea1fa2b35ec4bfe377a817e9fd83fc099ae24`, explicit current9 target117 `ba293a6f332754be73758129cd231560e9269b0c`/mainCI38855022263. All8archive digests/targetGit/source inventory/typed6-9-1generators/raw normalization/innerZIP/licenses/lockedhandoff; both4706tests/258files,45legacy+63Productivity+1touch,6actualKanbanPNG hash chains,24nativeboard/29HTTP. Each13logs/810lines/0unexpected. External helper initially expected streamed PNG hashes in parsed-document receipt keys; corrected once to verify the hashed evidence JSON→PNG byte chain with every assertion retained, no workflow/tests rerun or raw change. Compacts and original/corrected writer hashes retained in `evidence/f08-current26-*`.
+- Full plans remain unfinished: after119 and this menu's exactHEAD Windows acceptance, continue grouped interaction owner/menu/drag/settings/clock/large lists, P08 workflow/P10 durable recurrence and remaining master tasks. No release/tag/publication/VPS access or Server2019/R02 acceptance.
+
+
+## P09-g grouped command owner prepared independently (2026-10-16)
+
+- Base P09-f `94d10b9743562fedb52b28d92c1e215175094a03`; source extends confirmation ownership to priority/assignee/due/tag using the existing strict internal client and shared selected-field patch contract. Visible Task/source-group binding, explicit all-tags choice, timezone-derived anchors, rank-sort requirement for anchors, singleflight and private retained UUID/plan remain mandatory. No grouped UI activation or backend/schema/default/dependency change. [Contract](kanban-group-command-state.md).
+- Two actual publication races retained38/36/2RED: subscriber clears/disposes owner synchronously while loading/writing state is published, but API call still starts. Check generation/sequence immediately after publication before preview/write. Original physical behavior/assertions remain. New invalid-date synthetic test setup44/41/3 was corrected to existing due shape, with assertions retained. Final44controller tests pass.
+- ONE whole-branch SELF0Critical/0Important/0Minor/no correction/no rereview for3source files. FullCloud4815tests/261files/matchingJUnit/0failed-skipped-todo/lintbuild0; backend/operator byte-equal acceptedP09d. Hashes and all real failed reports retained in `evidence/p09g-development.json`.
+- No PR/Windows acceptance yet. Current119 CI-isolation exactHEAD `44d2ff6ef9a49a3efb6ab79c0d9ca510aa800f3b`/https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38860865067 remains in progress. Accept119, compose and accept P09-f physical menu, then compose this reviewed source and rerun complete checks/new exactHEAD Windows CI. FullP08/P09/P10/Wallet/master remain unfinished. No release/tag/VPS/Server2019 acceptance.
+### P09-e — sửa watchdog của CI sau main118 (16/10/2026)
+
+- PR: https://github.com/DongVienNguyen/Family-Organizer/pull/119; base main `807ea1fa2b35ec4bfe377a817e9fd83fc099ae24`. HEAD mới là commit chứa mục này; chưa dùng CI của HEAD cũ để nghiệm thu.
+- Main run https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38856121084 thất bại: watchdog12phút dừng tiến trình sau62case; WebKitC21, JSON/JUnit cuối và nativeTouch chưa hoàn tất. Cả10rawfamilies khác đã kiểm độc lập; giữ full130logs/24698lines/archivehash trong `evidence/p09e-main118-watchdog-failure.json`.
+- Bản PR119 cũ `cdd2676ac2fbd91a0b1435a5b0136f0c4c846387`/run38856226760 xanh được lưu riêng; không merge dựa trên bằng chứng đó sau thay đổi source.
+- Chia Chromium/nativeTouch, Firefox, WebKit vào ba Windows job sẵn có, mỗi engine có DB/server/cwd riêng. Giữ8checks/8archives, nguyên21case/engine+45legacy+nativeTouch, mọi assertions/deadlines/retries. Ghép blob Playwright gốc, kiểm cả3rawJSON/JUnit/native exits/source/build/cleanup/offline và đối chiếu hashes. Đọc `productivity-browser-isolation.md`.
+- Capability literal từ targetGit phân biệt fixture6/fixture9single lịch sử với fixture9sharded; không execute target source, không nhận bằng chứng thiếu hoặc khác profile. Giữ publication khóa.
+- Cloud mới:4834/4834tests/264files/JUnit4834/0failed-skipped-todo; lint/build0. Native merger+assembler chạy blob thật từ tests synthetic không khởi động browser. Gate omission306/302/4RED→306/306GREEN; original Productivity spec byte-equal; dependencies/lockfile không đổi. ONE SELF mới cho23sourcefiles:0Critical/0Important/0Minor, không correction/rereview; review P09-e gốc giữ lịch sử.
+- CI Windows cho HEAD mới: chờ push/run, chưa tuyên bố pass. Sau nghiệm thu: merge119, compose P09-f menu và kiểm profile69cases; tiếp tục grouped interactions/P08/P10/Wallet/master. Qualification read-only cho profile sharded thực còn chờ. Server2019/R02, release/tag/VPS chưa chạy.
+
+
+## P09-f composition with isolated browser reports (2026-10-16)
+
+- Prepared branch now includes reviewed119 candidate44d2ff6 and original reviewed18-file menu source. Append-only source conflicts retain both assertion inventories/history; historical21-case fixture option and new3-shard option are composed. One additional regression requires69sharded cases and refuses63for the expanded target. No repeated source review.
+- New composition Cloud4854tests/265files/JUnit4854/0failed-skipped-todo/lintbuild0. Actual new scoped-cwd production runner:23Chromium+1nativeTouch first attempt, exact JSON/JUnit inventory, offline/clean native exits and fixture cleanup; Linux only. Original reports retained externally with hash summary in p09f-development.json.
+- No new PR/Windows acceptance. Parent119 run38860865067 failed one legacy Chromium B01 context teardown with native0xC0000005; original assertions retained. Its21Firefox Productivity cases pass; aggregate WebKit was not run due upstream failure. Investigate actual driver evidence before accepting119; later compose the correction and verify this branch again. No release/tag/VPS/Server2019 acceptance.
+### P09-e — native Chromium teardown failure and scoped mitigation (2026-10-16)
+
+- [PR119](https://github.com/DongVienNguyen/Family-Organizer/pull/119), failed exactHEAD `44d2ff6ef9a49a3efb6ab79c0d9ca510aa800f3b`/[run38860865067](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38860865067). Both Node22/24 passed4834/264; package producer/consumer/service passed. Legacy ChromiumB01 failed context teardown with native0xC0000005;44other cases pass. ProductivityChrome21+touch1 andFirefox21 pass independently; aggregateWebKit not run because upstream dependency failed. Full7artifacts/114logs/23802lines and9verifiedrawfamilies retained in `evidence/p09e-isolation-first-windows-failure.json`. This run is failed, not all tests passed.
+- Actual Chrome156.0.8078.4/native code match [upstream43327](https://github.com/microsoft/playwright/issues/43327). Apply its --disable-stack-profiler only to Windows Chromium, retain pinned executable and all assertion/video/trace/PWA/retry/deadline settings. No local stack dump, so identical native stack is unconfirmed. Touch now explicitly inherits same pinned Chromium executable/policy; historical receipts remain historical. [Details](windows-chromium-profiler.md).
+- New regression343/343; mandatory omission307/306/1RED retained. ONE source-scoped SELF0Critical/0Important/0Minor/no review correction/rereview for8newsourcechanges, earlier reviews stay closed. FullCloud4843tests/265files/JUnit4843/0failed-skipped-todo/lintbuild0. All3 browser spec files byte-identical to failed44d2ff6. Dependencies/lockfile/app runtime unchanged. A synthetic-platform type annotation was fixed during development; assertions retained.
+- New explicit-pinned Chromium/native-touch Cloud run is in progress. Fresh source HEAD and exactWindows CI pending push; do not use prior green or partial engine results to merge. After119 exact8/11raw/full-log acceptance: merge119, compose correction into reviewed P09-f menu and P09-g grouped owner, then continue master tasks. No release/tag/VPS/Server2019 acceptance.
+
+
+## P09-f final reviewed-parent launch composition prepared (2026-10-16)
+
+- Includes119 candidate `ddf88044a40196a0a44ed1ce20f6001093323040`, both closed CI-source reviews and original18-file menu review. Mechanical history/assertion composition retains both sides; no repeated source review. Updated source/report/compiled hash bindings in `evidence/p09f-development.json`.
+- FullCloud4863tests/266files/JUnit4863/0failed-skipped-todo/lintbuild0. Actual same-source scoped runner23Chromium+1nativeTouch first attempt with matching raw JSON/JUnit, same explicitly pinned executable hash,0outside network, clean native exits and SQLite/fixture cleanup. All reports preserved externally. Linux only. Parent21+1working-tree browser proof also retained in `evidence/p09e-profiler-cloud-browser.json`; it is not Windows acceptance.
+-119 [run38863426208](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38863426208) still in progress at this checkpoint. No new PR or merge acceptance. Next: complete1198checks/11raw/full logs, merge if all pass, record actualmain SHA/tree agreement, publish this menu PR and validate its69Productivity+45legacy+1touch Windows cases. Then compose grouped-owner branch and continue full master. No release/tag/VPS/Server2019 acceptance.
+
+
+## P09-g composed verification ready (2026-10-16)
+
+- Independently reviewed3-file grouped owner source now includes reviewed menu d728909 and Windows CI/launch candidate ddf88044a40196a0a44ed1ce20f6001093323040. Original3source hashes unchanged; append-only histories retained; no repeated source review. Grouped controls still unmounted.
+- FullCloud4886tests/266files/JUnit4886/0failed-skipped-todo/lintbuild0;44controller tests retain actual38/36/2publication-raceRED plus original physical assertions. Source/report/compiled bindings updated in `evidence/p09g-development.json`.
+- No PR/Windows acceptance for grouped owner.119 Windows legacy45+Firefox job and Node22/24/package/service checks have passed; its master WebKit/merge/evidence job still running at this checkpoint. Read complete exactHEAD artifacts/logs before119 merge. Then publish/accept menu parent, and only then this dependent owner PR with all115browser first attempts required. No release/tag/VPS/Server2019 acceptance.
+## P09-e accepted; P09-f menu ready for its Windows PR (2026-10-16)
+
+-119 merged after exactHEAD `ddf88044a40196a0a44ed1ce20f6001093323040`/[CI38863426208](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38863426208) all8checks/11independentrawfamilies. BothNode22/24:4843tests/265files/JUnit/0failed-skipped-todo. Legacy45+Productivity63+nativeTouch1 first attempt;3originalproducer/blob agreements, Windowsprofiler flag and clean firstChromeexit0 verified;6Kanban+12Matriximages. Full137logs/24874lines/16expectednegativefixturemarkers/0unexpected. Mainmerge `a0c684d3fe15802617303f291b010590a7430fae` GitAPI/localtree equals testedtree. Compact `evidence/p09e-final.json`.
+- All prior actual CI failures remain retained. External summary writer initially aliased its touch identity list with the per-engine scratch list; proofassertion caught wrongderivedtouchcount21. Assigning a fresh scratch list preserves actualrawtouch1; all assertions/rawreports unchanged and no workflow/tests rerun. Oldderivedsummary and helperhashes retained in `evidence/p09e-shard-summary-alias-correction.json`.
+- Prepared P09-f branch proves accepted-main tree equals included119candidate and candidate is its ancestor; history-only merge leaves the entire preparedtree unchanged before these documentation updates. Original menu review and composedCloud4863/266/JUnit/lintbuild0/23Chromium+1touch retain sourcehashes. No repeated source review or redundant source tests for history/docs.
+- Parent119 CI is not this menu's Windows acceptance. Create new small menu PR from this branch, require all8/11raw/115browser firstattempts at its actual finalHEAD, read all logs, fix realfailures, and merge only after acceptance. Then publish prepared grouped controller and continue groupUI/drag/settings/P08/P10/Wallet/master. New actualmain CI and read-only sharded candidate/preparation qualification remain to read. No release/tag/VPS/Server2019 acceptance.
+
+
+## P09-f PR120 Windows checkpoint (2026-10-16)
+
+- [PR120](https://github.com/DongVienNguyen/Family-Organizer/pull/120), exactHEAD `0e1091ac416857e527dd9b564d84c076239e8dd7`, [CI38865945150](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38865945150) in progress. FullCloud4863/266/JUnit/lintbuild0/23Chromium+1touch preserved. Parent119 actualmainpush [CI38865787673](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38865787673) at `a0c684d3fe15802617303f291b010590a7430fae` also in progress; do not conflate them with accepted119 PRrun.
+- Grouped owner source remains exactly the reviewed3sourcefiles after merging only parent documentation/history. Its composedCloud4886/266/JUnit/lintbuild0 remains applicable; no redundant tests for documentation-only merge, no repeated review. It still has no PR/Windows acceptance and waits120 acceptance. Next group-menu UI preparation is separate and will not qualify parent checks. No release/tag/VPS/Server2019 acceptance.
+
+
+## P09-f accepted; P09-g grouped owner Windows PR follows (2026-10-16)
+
+-120 [exactHEAD0e1091ac416857e527dd9b564d84c076239e8dd7/CI38865945150](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38865945150) all8checks/11raw. BothNode22/24:4863tests/266files/JUnit/0failed-skipped-todo. All45legacy+69Productivity+1nativeTouch first attempt,3producer/blob agreements, WindowsChromium launchguard and cleanup,6Kanban+12Matriximages. Full137logs/25122lines/16knownnegativefixtures/0unexpected. Merge `407b892fba30a7b97c1a3c27bfa08d95e433ebea` GitAPI/localtree equals tested0e1091a. `evidence/p09f-final.json`.
+-119 mainpush [CI38865787673](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38865787673), SHA a0c684d3fe15802617303f291b010590a7430fae independently passed all8/11raw/109firstbrowsercases, both4843/265/JUnit, full137logs/25002lines/16known/0unexpected. `evidence/main119-final.json`. New read-onlysharded collector qualification dispatched from that actualmain with explicitrun/SHA: candidate38868213201 and lockedpreparation38868215984; no release/tag created and no VPS operation. Results still to verify.
+- Grouped owner branch proves acceptedmain tree equals included120candidate and candidateancestor; history-only merge leaves entirepreparedtree unchanged before documentation. FullCloud4886/266/JUnit/lintbuild0/44controllercases and original3reviewedsource hashes retained, no repeated source review or redundant source tests for history/docs. Create focused owner PR, validate its actualHEAD8/11raw/115browsercases, then merge only if accepted. Grouped menus remain separate.
+- Separately prepared group-menu UI has504targettests/lintbuild0 and firstactualCloudbrowser25passed/1failed: newC25 selector matched29menus in onecolumn; nativeTouch notrun afterfailure. Rawfailure retained, allassertions kept; correction and completeverification pending on separateHbranch. FullP08/P09/P10/Wallet/master unfinished. No release/tag/VPS/Server2019 acceptance.
+
+
+## P09-g accepted; grouped Kanban menu under verification (2026-10-16)
+
+- [PR121](https://github.com/DongVienNguyen/Family-Organizer/pull/121): tested HEAD `106329dffc46a3567d7cd08d18a7a3e43046cddd`, [Windows CI38868805762](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38868805762), all8checks/11independent raw families; eachNode22/24 4886tests/266files/matchingJUnit/zero failed-skipped-todo;45legacy+69Productivity+1nativeTouch first attempt. All137logs/25110lines read,16expected synthetic negative-path markers/zero unexpected. Reviewed grouped owner source accepted; no grouped UI activation in121. Merge `fe551bb1fde6d48f7a3b5b76c3cfb91b521ad6e1` has the exact tested GitAPI/local tree. `evidence/p09g-final.json`.
+- Main120 `407b892fba30a7b97c1a3c27bfa08d95e433ebea` independently accepted [CI38868241539](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38868241539): all8/11raw, each4863/266/JUnit/all0;115first-attempt browser/touch;137logs/25122lines16expected/0unexpected. `evidence/main120-final.json`. New main121 [CI38871223405](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38871223405) still running at this checkpoint; no acceptance claimed for that separate run.
+- Read-only collector qualification current27 accepted for actual sharded main119 target/source `a0c684d3fe15802617303f291b010590a7430fae` / targetCI38865787673: [candidate38868213201](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38868213201) and [locked preparation38868215984](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38868215984). Each independently validates all8source archives, original3producer/blob hashes,63Productivity+45legacy+1touch, each4843/265, native29HTTP/24board facts, ZIP/licenses/generated6-9-1 and locked handoff. Each13logs/814lines/zero unexpected. Reports verified; publicationAllowed/releaseCreated/tagCreated remainfalse. `evidence/f08-current27-live-{candidate,promotion}.json`.
+- P09-h branch `codex/p09-kanban-group-menu` prepares the explicit grouped menu. Original23browser case bodies, all old locale values, dependencies/lockfile and deadlines/retry policy remain unchanged. Target adds26cases/engine78, plus45legacy+1touch. Actual selector, same-view clearing, unordered-tag expectation and driver body-read failures are preserved separately in four hashed failure compacts. Same-view guard fixes the reproduced blank board; exact canonical Task assertions remain. [Menu contract](kanban-group-menu.md).
+- ONE21source-file SELF closed with0Critical/0Important/1Minor, all graded before one pending correction: attach an aggregate rejection handler to both click and immediate body parsing. No repeated review. Lint passed. FullCloud/new browser checkpoint and the future PR/exactWindows acceptance are still pending, not inferred from121 or a build. FullP08/P09/P10/Wallet/master remain unfinished. Next: complete H verification/PR, then remaining drag/settings/workflow/recurrence and subsequent master tasks. No release/tag/VPS/Server2019/R02 acceptance.
+
+
+### P09-h final composed Cloud checkpoint (2026-10-16)
+
+- Source checks HEAD `710a46544a98d7e3c532900c4b53451a1edb031e`, based accepted main121 `fe551bb1fde6d48f7a3b5b76c3cfb91b521ad6e1`. All4parent documentation changes copied without altering reviewed source; tested121 and accepted-main entire trees equal. Both history-only merges leave the entire prepared tree unchanged. `evidence/p09h-parent-composition.json`.
+- FullCloud4923tests/268files/matching4923JUnit, zero failed-skipped-todo, lint/build0. Final actual production Chromium26+nativeTouch1 pass first attempt after the one graded minor correction; native exits0/signalsnull, schema9/integrity/legacy data preserved, database/handles closed, synthetic fixture removable and outside-network attempts0. Original23browser case bodies/old locale values/dependencies/lockfile/deadlines/zero retries retained. Two actual group screenshots visually inspected at1280light and390dark; mobile bounded/no horizontal overflow asserted.
+- ONE21source SELF0C0I1M, all graded before one Promise.all correction,0remaining/no rereview. All49CI/UI/test/native-verification source hashes recorded after composition; no new application bundle change from the minor test helper correction. Four earlier actual browser failures and causal null-tag19/18/1, mandatory310/308/2 and group-image assembly2/1/1 RED checkpoints retained. `evidence/p09h-development.json`.
+- NewPR/HEAD/Windows URL pending publication; all8checks/11independent raw families, both4923/268/JUnit and124browser/touch first attempts required before acceptance. Firefox/WebKit and legacy45 were not run in the Cloud diagnostic. Full P08/P09/P10/Wallet/master remain incomplete. No release/tag/VPS or Server2019/R02 acceptance.
+
+
+### P09-h PR122 publication (2026-10-16)
+
+- [PR122](https://github.com/DongVienNguyen/Family-Organizer/pull/122), branch `codex/p09-kanban-group-menu`; source-tested710a465 and initial documentation HEAD `f0e575ad2426f9387bca570f719e833253afb845`, initial [CI38872716127](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38872716127) running before this link-only commit. This commit changes documentation only and may supersede that initial run by normal workflow concurrency. All49verification source hashes and complete Cloud evidence remain unchanged. The final HEAD/run will be independently verified and recorded with the acceptance proof; no Windows acceptance claimed. All8checks/11raw/124first attempts and both4923/268/JUnit remain required. Full P09/master unfinished; no release/tag/VPS/Server2019 acceptance.
+
+
+### P09-h Windows failure, native abort stack and mutation response drain (2026-10-16)
+
+- PR122 HEAD3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a / [CI38872944564](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38872944564) remains FAILED: both4923/268 rawquality/JUnit pass;45legacy+26Firefox pass; Chromium25pass/1driver error; touchunrun/WebKit aggregate skipped. All7archives,10other raw families and114logs24044lines22markers retained. JUniterrors1/failures0 classified strictly; no raw changes or CI rerun. `evidence/p09h-first-windows-failure.json`.
+- Clone observer and original-native-JSON observer each recorded actual23pass/3AbortErrors. Targeted C25 diagnostic0pass/1fail captured Object.dispose aborting the native body afterHTTP200; its single-case profile is separate from full acceptance. This corrects the initial driver-only interpretation. `evidence/p09h-c25-abort-stack.json`.
+- Passive disposal retires generation/privateplan/UUID/listeners and all late callbacks while a dispatched mutation drains under existing bounded session guards. Preview and explicit clear/selection cancellation remain; session revocation independently aborts native transport/body. No retry/new mutation/optimistic state or deadline change. Native-body RED47/44/3 preceded correction; original44unit lines retain exact text/order, original23browser prefix byte-identical.
+- Corrected118/118 target:47owner+41strictAPI+30SessionBoundary. Fresh lint/build0; actual productionChromium26+nativeTouch1 first attempt, matchingJUnit/zero failed-skipped-flaky/retry, nativeexits0/closedhandles/removedfixture/offline. The fixture observes the app's original native JSON read, returns the same parsed value and keeps driverHTTP200+matchingUUID plus one-request/read/exactrevision assertions. Prototype diagnostic removed. ONEnew3source SELF0C0I0M/no correction/no rereview; earlier reviews stay closed. Fresh fullCloud and samePR exactWindows still pending. Fullmaster incomplete; no release/tag/VPS/Server2019 acceptance.
+
+
+### P09-h corrected source complete Cloud verification (2026-10-16)
+
+- Corrected source HEAD `d2052a0a7020ccf31cf5bed5c947d8003ee03b3e`; fullCloud4926tests/268files/matching4926JUnit/0failed-skipped-todo. Fresh lint/build0 and production26Chromium+1nativeTouch firstattempt pass on the same reviewed sources. Backend/operator bundles byte-equal the previousH checkpoint; frontend changes for the confirmed response-lifetime fix. All53verification hashes, full/target/red/native/browser reports and earlier failure hashes are bound in `evidence/p09h-development.json`; immutable3fd metadata is referenced as history.
+- Original21sourceH SELF0C0I1M/one correction stays closed. New3sourcebody-drain SELF0C0I0M/no correction/no rereview stays closed. Original44unit lines and23browser prefix retained. New exact-HEAD [PR122](https://github.com/DongVienNguyen/Family-Organizer/pull/122) Windows acceptance still requires all8checks/11independent raw families, both4926/268/JUnit and45legacy+78Productivity+1touch firstattempts. Old3fd/38872944564 is failed evidence and cannot qualify this source. Next push samePR, discover/read actualnewrun and correct only demonstrated failures. Fullmaster unfinished; no release/tag/VPS/Server2019 acceptance.
+
+### P09-h corrected PR122 Windows checkpoint (2026-10-16)
+
+- [PR122](https://github.com/DongVienNguyen/Family-Organizer/pull/122), corrected documentation HEAD `5a826ee623580bd0034e5865a9e46898ca877aa3`, [initial corrected CI38878873977](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38878873977) running. This link-only commit can supersede that run through ordinary concurrency; all53verified sources and complete4926/268 Cloud evidence remain unchanged. Only the final HEAD/run can qualify acceptance; no Windows pass claimed yet. The actual old3fd failure remains evidence, never rerun to green. Next: all8/11raw/124firstattempt/full-log acceptance on the final SHA, then remaining P09/P08/P10/Wallet/master work. No release/tag/VPS/Server2019 acceptance.
+
+### P09-h accepted; CI-OPT-01 acceptance scheduling (2026-10-16)
+
+- PR122 tested HEAD112d398b09f2a9e26afa2edffe538eddc071ce5a passed [CI38879051719](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38879051719): all8checks/11raw families, both4926tests/268files/JUnit,45legacy+78Productivity+1touch first attempts. All137logs25062lines read,16expected synthetic markers/0unexpected. Mergea51f9a0ce12148f1a053ee9a3c5fea03c85f8ebf has API/local tree equality. `evidence/p09h-final.json`.
+- CI-OPT-01 starts from that accepted main. Baseline job critical path22m45s; WebKit waited for14m26s production-browser work before its own8m11s job. Start WebKit independently and require a read-only exact-run/SHA/attempt producer barrier before the existing downloads/merge. Same eight checks, all assertions/coverage/browsers/archives/native cleanup, zero retries and unchanged deadlines. Estimated8minute saving is not yet a measured result. See `acceptance-performance.md` and `evidence/ci-overlap-baseline.json`.
+- PR/HEAD/new CI URL will be recorded in the PR acceptance comment without another metadata-only push. Cloud and Windows results pending. P10 work preserved on codex/p10-durable-series; its two graded Important findings are still open and must be corrected/tested before publication. Next: qualify scheduling on Windows, then resume P10 and remaining master tasks. Full plan incomplete; no release/tag/VPS/Server2019 R02 acceptance.
+
+
+## P10-d1 durable configuration WIP; PR122 actual Windows failure (2026-10-16)
+
+- Main121 `fe551bb1fde6d48f7a3b5b76c3cfb91b521ad6e1` independently accepted [CI38871223405](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38871223405): all8checks/11raw families, each4886tests/266files/JUnit/0failed-skipped-todo,115firstattempt browser/touch,137logs/25086lines16expected/0unexpected. `evidence/main121-final.json`.
+- Separate unpublished branch `codex/p10-durable-series` adds explicit pilot schema10 series/future exceptions, canonical policy/anchor decoding, adult/current-object ACL before cached commands, revision/idempotency, future configuration-only exception writes, mixed snapshot/recovery validation and existing Matrix/Kanban compatibility. Default registry remains6; no automatic upgrade, endpoints, scheduler, occurrence generation, Task completion, points, notification or rotation advancement. Legacy recurring Tasks require a separate cutover. These are durable configuration primitives, not completed P10 or a skipped/completed occurrence.
+- Actual targetedCloud68/68 core tests across2files and7/7 compiled native/cold-import checks across2files. Native encrypted10 recovery/restart/committedUUID replay retains int64 Wallet and Task/board/view facts, refuses old9 and drifted10/future11 without mutation, closes handles and remains offline. Original old9 recovery tests remain unchanged. Native corruption fixture first7/6/1 failed SQLite defensive mode; unsafeMode is now limited to the owned synthetic damage/repair connections, with every application constraint and refusal assertion retained.
+- Actual development failures preserved outside the checkout: first31/30/1 restore receipt expectation; expanded32/30/2 also proved DBschema10 was incorrectly used as saved-view format10; explicit mapping retains view format9 and rejects invented10. Privacy/rotation snapshot34/32/2 and duplicate-root35/34/1 REDs now validate uniform404, known historical user references and unique Task roots before restore promotion. Whole source SELF/fullCloud/build/Windows/PR still pending. No P10 acceptance claimed.
+- Parent-independent [PR122](https://github.com/DongVienNguyen/Family-Organizer/pull/122) actual [CI38872944564](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38872944564), HEAD `3fd0489c8fd2e0ecedb03e52ad60355964a0fc9a`: FAILED Chromium C25 native driver Network.getResponseBody despite HTTP200 and early parsing. Node22 and Node24 raw quality4923/268 are separately successful; WindowsjobNode24 andci-gate fail, WebKit aggregate skipped and native touch not run. All7archives and complete logs retained; no CI rerun or acceptance. Pause independent P10 source here and investigate actual Windows DOM/driver, then correct the same PR with assertions retained. Fullmaster unfinished; no release/tag/VPS/Server2019 acceptance.
+
+### P10-d1 graded correction and accepted H composition (2026-10-16)
+
+- Source correction fb47ea33588c366d159b3b04c86239b4f08c77a9; ONE SELF0C2I0M, all findings graded before one correction/no rereview. Audit receipt now binds series/ordinal/canonical intent/both revisions; initial rotation cursor preserves current-assignee origin while acceptedCount stays0 and Task remains untouched. Actual new regression47/43/4 RED then394target tests/5files GREEN; lint0. `evidence/p10d1-review-rulings.json`.
+- Accepted PR122 maina51f9a0ce12148f1a053ee9a3c5fea03c85f8ebf fully composed into this branch:46parent paths, exact parent bytes for independent files, union of mandatory suites/fixtures/all negative assertions and both status appendices. History-only merge leaves the prepared tree identical; no original H or P10 assertions dropped. `evidence/p10d1-h-parent-composition.json`.
+- Read `recurrence-series-storage.md`. Full Cloud/build and unpublished P10 Windows pending. Independent CI optimization PR123 bb89464940bb8745cb435792a7d36c0d54d1431f / [CI38882651606](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38882651606) still running:4938/268 fullCloud/JUnit and193target/lint0 already verified; no measured timing or Windows acceptance yet. Its final proof will enter a dependent change, avoiding metadata-only CI churn. P10 PR not published. Next: finish independent qualification, compose accepted scheduling, then publish this coherent storage slice. Fullmaster incomplete; no release/tag/VPS/Server2019 acceptance.
+
+### P10-d1 composed Cloud checkpoint (2026-10-16)
+
+- Composed source ba83ca54a509dfb304c6b9a4681f690f026b8639: fullCloud5009tests/271files/matchingJUnit/0failed-skipped; lint/build0. Both original H and new durable-storage assertions retained. All23P10 verification source hashes,18actual development checkpoints, one graded correction and raw report hashes recorded in `evidence/p10d1-development.json`. P10 Windows and PR remain unpublished pending the independent scheduling PR; no Windows acceptance claimed. Final combined scheduling source will be checked before publication, with all tests mandatory on Windows.
+
+### CI-OPT-01 accepted; P10-d1 final publication preparation (2026-10-16)
+
+- [PR123](https://github.com/DongVienNguyen/Family-Organizer/pull/123), testedbb89464940bb8745cb435792a7d36c0d54d1431f, [CI38882651606](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38882651606):8checks/11raw families, eachNode22/24 4938tests/268files/JUnit,124firstattempt browser/touch and138logs25358lines16expected/0unexpected. Actualjobcriticalpath15m53s versus22m45s:6m52s/30.2%saved in this single-run comparison. OneSELF0C0I0M/0correction/no rereview. Merged2d5094fdc8fa91ad34299bc434fa77a0ff87af5b, API/local tree equality. All assertions/coverage/runtime/browser/native/cleanup/deadlines unchanged. `evidence/ci-overlap-final.json`.
+- P10 composed all8accepted scheduling paths; history-only merge unchanged tree and all23P10 source hashes remain unchanged. FullCloud5009/271/JUnit/lint/build0 on identical application sources plus328combined CI/gate target/lint0; scheduling adds12tests so exactWindows must report5021tests/271files for each runtime, plusall124browser/touch and11raw families. No redundant application build/fullCloud rerun after CI-only composition. `evidence/p10d1-ci-parent-composition.json`.
+- P10 PR/HEAD/CI URL will be recorded in the PR body/comment after this single publication commit. No Windows acceptance claimed for P10. Next: publish and qualify durable series storage, then accepted-occurrence/materialization/series editing/skip/scheduler/legacy cutover and remaining master tasks. Fullplan incomplete; no release/tag/VPS/Server2019 R02 acceptance.
+
+### P10-d1 accepted; virtual preview in progress (2026-10-16)
+
+- PR124 tested24ae6d7394640a4f1947a9fc9fc95f62187fb713 / CI38884766924:8checks/11raw families, both5021tests/271files/JUnit,124browser/touch firstattempts,138logs25428lines16expected/0unexpected. Mergeddd1407a85f81105af7de03107afde3a8d333fcd3 with API/local tree equality. `evidence/p10d1-final.json`. Main123 independently accepted CI38884553471: each4938/268,8checks/11raw,138logs25370lines0unexpected. `evidence/main123-final.json`.
+- P10-d2 branchcodex/p10-virtual-preview prepared independently on accepted date/policy helpers, then cleanly merged accepted124 after proving zero shared source paths (3preview/32parent). Virtual slot planner24actualRED→117targetGREEN/lint0, original calendar/timed/policy tests retained. Range/ACL/exceptions/API/full review/Windows are still pending. No default migration, Task/reward/rotation/outbox effect or completion-acceptance authority. Fullplan incomplete; no release/tag/VPS/Server2019 acceptance.
+
+### P10-d2 virtual preview full Cloud verification (2026-10-16)
+
+- New read-only recurrence preview and authenticated internal create/preview routes; current read ACL, adult configuration, exceptions,366day/1000result refusal and no domain side effects. Source range includes only13new/changed verification files over accepteddd1407a. Actual slot24RED/service17RED/API missing-route and fixture failures retained;317/313/4mandatory gateRED then470target/9filesGREEN. FullCloud5079tests/275files/matchingJUnit/0failed-skipped; lint/build0. `evidence/p10-preview-development.json`, `recurrence-virtual-preview.md`.
+- Actual1001-exception case exceeded10s without cache; CPUprofile1001plans8693ms dominated by ICU construction. Private bounded32formatter cache preserves caller-owned public instances; same profiled probe726ms, originalcase≈729ms. No timeout/assertion change; exactly1000 and366day positive boundaries pass. This is Cloud evidence, not a Windows performance claim.
+- Fresh whole-branch review pending; no P10-d2 PR/Windows acceptance yet. FullP10 needs materialization/claims/edit/skip/jobs/cutover/UI; fullmaster incomplete. No release/tag/VPS/Server2019 R02 acceptance.
+
+### P10-d2 graded correction; Windows publication checkpoint (2026-10-16)
+
+- Frozen2f0ab90 fresh whole-branch review0Critical/2Important/1Minor; every finding/decline graded before one TDD correction, no rereview. I1 explicit completion-based due exceptions survive unknown acceptance and later ordinals without inferring completion. I2 detached validated planner normalizes shared policy once per projection, while standalone inputs/each ordinal remain validated. Actual21/18/3RED plus25/24/1RED →474target/9filesGREEN. Maximum366dates all returned; whole-policy validation count368→atmost2. No assertion/deadline/retry changes.
+- Corrected fullCloud5083tests/275files/matchingJUnit/0failed-skipped-todo, lint/build0. Updated13source hashes and all original/correction report hashes in `evidence/p10-preview-development.json`; fresh review and complete grading in `evidence/p10-preview-review{,-grading}.md`. MinorM1 extreme historical-anchor nominal horizon refusal deferred to laterP10 owner, not silently fixed. Main124 independently accepteddd1407/CI38886424232:8checks/11raw/both5021-271/124first/138logs25566lines0unexpected.
+- TaskP10-d2 publication HEAD/PR/CI URLs will be recorded in PR body/comment without a link-only push. Exact Windows still pending: both5083/275/JUnit,8checks/11raw/124firstattempts required. FullP10/master still incomplete; materialization/accepted claims/scheduler/edit/skip/cutover/UI next. No release/tag/VPS/Server2019 R02 acceptance.
+
+### P10-d2 accepted; P10-d3 lifecycle in progress (2026-10-16)
+
+- [PR125](https://github.com/DongVienNguyen/Family-Organizer/pull/125), tested66b387d013df85c223246024c3c92dadad11b0dd / [CI38890078251](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38890078251):8checks/11raw families; both5083tests/275files/matchingJUnit/0failed-skipped-todo,124browser/touch firstattempts;138logs25642lines16expected/0unexpected. Mergec78bd0ac443b3c2dea4185cb7a7f122fbf32a9a5 independently API/local tested-tree equal. Fresh0C2I1M/one correction/0Important remaining/no rereview, MinorM1 deferred. `evidence/p10-preview-final.json`. Separate main125 push CI38891853150 still pending at this checkpoint.
+- P10-d3 branchcodex/p10-occurrence-lifecycle prepared from frozen125 during Windows CI, then waits accepted-parent composition before publication. Explicit additive11 ownership/history schema and same-I01 accepted completion/successor/rotation bridge, linked grant/reversal across semantic and legacy paths, managed-media inheritance, no reinterpreting old opaque occurrences or default migration. See `recurrence-accepted-lifecycle.md`.
+- Actual decoder22RED/schema11RED/coherence34-22-12RED/gate333-328-5RED; native CHECK-null12-11-1RED; lifecycle11-2-9RED (one initial wrong-TZ fixture), causal11-2-9RED after fixture correction; legacy16-14-2RED; end/timezone19-17-2RED; generic reopen20-19-1RED. Target455/10GREEN then HTTP22/22GREEN/legacy characterization46/46GREEN. Compiled11 restart/encrypted restore/old10-no-upgrade/future12/drift/data-repair/UUID replay/opaque rows/Walletint64/offline/closed handles passed after real fixture corrections (stale expectedRevision, known VAPID-off prefix and collection JSON key order); original failures retained. Current fullCloud/lint/build/review/Windows are pending, not inferred from PR125. No fullP10/master completion, release/tag/VPS/Server2019 claim.
+
+### P10-d3 full Cloud checkpoint (2026-10-16)
+
+- FullCloud5163tests/280files/matchingJUnit/0failed-skipped-todo; lint/build0.29source hashes and28actual TDD/development/native checkpoints recorded in `evidence/p10-lifecycle-development.json`. Test-fixture Node events dynamic-import cast corrects TypeScript typing only; independently identical emitted JavaScript hash means the full-suite runtime is unchanged, `evidence/p10-lifecycle-type-only.json`.
+- Normal merge of accepted125 preserved every working file hash; tested125 and main125 entire trees independently match via API/localGit. `evidence/p10-lifecycle-parent-composition.json`. No copied/ours source resolution. Fresh whole-branch review is next; exact Windows/PR for this source remain unpublished and unaccepted. Separate main125 CI remains pending. FullP10/master and Server2019/R02 remain unfinished; no release/tag/VPS.
+
+### P10-d3 corrected full Cloud; publication checkpoint (2026-10-16)
+
+- Fresh0C2I0M allgraded/ONEcorrection/no rereview;63/56/7initialRED contains snapshot checksum fixture refusal, corrected checksum62/56/6causalRED plus26/25/1offsetRED and actual compiled cursor refusalRED. Corrected459target/8filesGREEN then fullCloud5170tests/280files/matchingJUnit/0failed-skipped-todo/lintbuild0.31source hashes and5mandatory suite counts35record/12schema/3migration/27lifecycleHTTP/1compiled native recovered from actualfull. `evidence/p10-lifecycle-development.json`, review/grading included.
+- Same actual acceptance anchors monthly/leap skip search with separate relative offset; ordinary globalordinal still advances one interval. Native malformed-cursor bootstrap is refused and authenticated recovery repairs it; valid skipped gaps/terminal/history remain. Closed125MinorM1 remains deferred. No deadlines/assertions/retries changed.
+- Source HEAD/PR/Windows run will be recorded in PR body/comment after publication without metadata-onlypush. ExactWindows still required: both5170/280/JUnit, all8/11raw/124firstattempts. FullP10/master incomplete, next skip/edit/jobs/editor/UI/legacycutover and laterP/W/I tasks. No release/tag/VPS/Server2019 qualification.
+
+
+### P10-d4c backend accepted; controlled conversion client in progress (2026-10-16)
+
+- [PR129](https://github.com/DongVienNguyen/Family-Organizer/pull/129), tested160d45750c639d0ce053d119678aeb35572e2a0a, [Windows38924197212](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38924197212): all8checks/11independent raw families, each5387tests/297files/JUnit/0failed-skipped-todo,45legacy+90Productivity+1native-touch first attempts. All138logs26660lines read,16expected synthetic markers/0unexpected. Merged5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77 with API/local tree equality. `evidence/p10-cutover-final.json`. Parent128 main38923458365 independently accepted5344/292/all136first attempts/138logs26310lines0unexpected; `evidence/main128-final.json`.
+- Client branchcodex/p10-legacy-recurrence-client composed accepted129 by normal merge171f41989a12fd30282c3ebdfb7c463ae349526b; all four prepared SDK/model source hashes were preserved. Adds strict authenticated conversion preview/command decoding and explicit, separately acknowledged anchor/policy draft. API9causalRED→60targetGREEN, model4causalRED→64targetGREEN/native0. UI/fixture additions are still under development; no client PR or Windows acceptance claimed here.
+- Validation found an admission dead end: normal schema13 series creation rejects legacy lineage, while conversion rejected families whose generators were already off. Actual51tests/49pass/2fail RED retained. Corrected eligibility admits only coherent linked historical families (at least two Tasks when none is positive), preserving the single ordinary Task path, provenance/closure validation and unchanged13DDL/checksums. Real SQLite/HTTP/compiled encrypted recovery then60tests/4files/JUnit/native0. The encrypted scenario carries both positive and already-disabled families through restart/UUID replay/approval, int64 Wallet and refusal/repair assertions.
+- Explicit browser fixture13 retains the original39Tasks/two boards/nine views and all30existing browser assertions. Adds conversion/cancel/pending proof/approval and denied-authority draft-isolation flows (32per engine; expected142total legacy/Productivity/touch first attempts). Historical6/9/12 source evidence remains readable; unknown14 remains refused. Current fixture/report contracts130tests/4files/native0. First new browser attempt failed2/2 because the synthetic helper attempted a forbidden raw source-link write; all failure reports retained. The helper now obtains linkage through the real legacy generator and semantic reopen; assertions and app authority checks stay unchanged.
+- Next: finish controlled UI regressions, whole-branch review and exact-HEAD Windows qualification; then actual13 ZIP qualification, remaining P10/P09/P08 and later master tasks. Fullmaster incomplete. R02 Server2019 not run; no release/tag/VPS access or production conversion.
+
+- Main129 independently accepted [Windows38926593948](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38926593948) at5fc6ad8dd0942212c1b05d708bdcc7229b2c0f77: all8checks/11raw, each5387/297/JUnit and136firstattempts,138logs26754lines16expected/0unexpected. `evidence/main129-final.json`.
+- Controlled UI Cloud Chromium C31–C32 and native touch now pass2+1/native0. Invalid initial policy has a specific inline correction; cancellation uses the actual owned modal label. Actual sameUUID approval replay and a newUUID/currentrevision no-op preserve one35point grant, one successor and rotation acceptedCount1/cursor1. Previous browser failures remain historical. Full Cloud and whole-branch review/Windows qualification still pending; this is not Windows acceptance.
+
+- Full Cloud development checkpoint5407tests/297files failed1new source-policy fixture (5406passed): the fixture usedcwd-relative paths under the deliberately foreign synthetic working directory. Failure JSON/JUnit/logs retained; changed to import-relativeURL, preserving all source-policy downgrade assertions. A full corrected result is still required before publication.
+
+- One LOCAL whole-branch SELF review of26sources graded0Critical/1Important/0Minor before one correction; no independent/fresh-review claim or rereview. I1 late metadata discovery retained an existing ordinary editor draft without conversion fields. Additive C32 causal RED reached a real conversion preview but lacked the anchor input; one correction attaches only the missing empty conversion draft. Policy interval2/comment/current Task remain preserved; no current deadline is inferred. Earlier pin-only probe did not refresh legacy metadata and is explicitly noncausal. Corrected fullCloud/UI checks are in progress. Original30browser cases remain byte-for-byte; all migration definitions/default registry/dependencies unchanged. Expected exactWindows5407tests/297files per runtime and142first attempts, still pending.
+
+- Corrected fullCloud5407/297/matchingJUnit/0failed-skipped now passed; native test exit0. TypeScript and full32case Chromium regression/native touch are finishing. The approved one-file I1 correction is the only post-review source delta; no rereview. No Windows client acceptance or merge yet.
+
+- Client Cloud qualification complete on all26final source hashes:5407tests/297files/matchingJUnit/0failed-skipped, lint/build/native exits0, all32Chromium cases plus trusted native touch on explicit13. All original30case bytes retained. `evidence/p10-cutover-client-development.json` binds actual reports, failed/noncausal histories, current build inputs and one I1 source correction. Client exactWindows5407/297each/142firstattempts/all8checks/11raw is pending publication; PRURL/finalHEAD/run will be recorded in the PR body and acceptance comment, then carried into the next substantive source change without metadata-only CI churn. Next: qualify Windows and actual13 ZIP. Fullmaster/P10/M1/R02 remain incomplete; no release/tag/VPS.
+
+
+### P10 controlled client PR130 Windows failure and live metadata correction (2026-10-16)
+
+- [PR130](https://github.com/DongVienNguyen/Family-Organizer/pull/130), HEAD4eae64447793c90577172b4048d6c5a49d63e690 / [Windows38931077368](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38931077368): FAILED, never rerun or accepted. Six checks succeeded; WebKit andci-gate failed. Both Node22/24 passed5407tests/297files/0failed-skipped with independently matchedJUnit. Chromium32/Firefox32 passed; WebKit31passed/1failedC32, no retries. All8artifacts and132logs26862lines read. `evidence/p10-cutover-client-webkit-failure.json`.
+- C32 completed every business assertion, then the unchanged zero-browser-errors guard failed. Raw driver trace places a same-origin `/api/productivity/views` native access-control pageError21.159ms after an active-page reload. Existing view loading handlers already catch request failures. The correction stays in the test fixture: install controlled old metadata on the current document, refresh through a real rootTask/SSE event, then expose fresh metadata through a second actual event. No reload, page-error filtering, assertion removal, timeout increase, retry or application change.
+- Exact TS assertion extraction preserves all32C31 and all16C32 assertions, adds one real-mutation status assertion and preserves the complete file prefix throughC31. Fresh unfixed-I1 runtime causally failed at the missing anchor with this live fixture; exact corrected application bytes were restored in finally. Fresh correctedC32+trustedTouch/JUnit/native0 and lint0 passed. Original fullCloud5407/297 remains qualified after exact non-E2E source hash equality; the earlier full32Cloud browser result is explicitly historical. The original oneSELF0C1I0M/oneappcorrection remains closed; this is later validation evidence, no rereview. New exactWindows5407/297each/142first attempts is still required.
+- Independent actual-ZIP13 prep is saved locally oncodex/p10-cutover-package at0d1e3d2: isolated optional13 seed preserves original9board/WIP/Wallet/Task facts and uses a separate shared list for the recurring families; unknown14 refuses. Four seed tests and159contract tests (29new+130retained) passed. It is unreviewed/unpublished, with no13ZIP probe/pipeline/Windows qualification yet. Paused that work to fix this samePR. FullP10/M1/master andServer2019 remain incomplete; no release/tag/VPS.
+
+
+### P10 controlled conversion client accepted; actual13 ZIP qualification started (2026-10-16)
+
+- [PR130](https://github.com/DongVienNguyen/Family-Organizer/pull/130), tested HEADd30074a9e2c3bb0d674e2878ce0b145ed7c0df9e / [Windows38934187583](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38934187583): all8checks/11raw families, eachNode22/24 5407tests/297files/matchingJUnit/0failed-skipped-todo;45legacy+96Productivity+1nativeTouch=142first attempts. All138logs26856lines read,16expected synthetic markers/0unexpected. Merge2ab7b68dc5d178ac457e276ce1711244dbeea00c has API/local tree equality with tested source. `evidence/p10-cutover-client-final.json`. Original4e/38931077368 remains failed evidence; no rerun or error filtering.
+- Independent actual-ZIP13 branchcodex/p10-cutover-package saved checkpoints0d1e3d2 and9555d31273933231f92f97a24508e5816b91e5d3, then normally composed accepted130. Explicit13 synthetic seed creates two historical families in a separate shared list through real commands; original9board/WIP/Wallet/Task facts remain. Seed/report contracts164tests/4files, AST capability parser8tests/1file and lint0 passed. Full new native scenario first failed a source-builder cwd fixture, then correctly refused all-none preview422 against pre130 main129. It is now rerunning against the composed accepted runtime; no native scenario or actual13ZIP acceptance claimed yet.
+- New standalone scenario covers real processes/HTTP/ordinary+encrypted recovery/UUID replay/pending approval once/Wallet int64/board refs/old12/future14/drift/repair/offline cleanup. Generic source runs always carry scenario-only provenance; strict consumer entry/report admission requires Windows x64 bundled Node24 and exact ZIP identity. Missing, computed or future capability declarations refuse without target code execution. Package manifest/admission/harness/collector integration and exactWindows qualification are still pending, as are fullP10/M1/master and Server2019R02. No release/tag/VPS.
+
+
+### P10-d5 actual13 package qualification integration (2026-10-16)
+
+- Independent main130 [Windows38936668617](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38936668617) at2ab7b68dc5d178ac457e276ce1711244dbeea00c passed all8checks/11raw families, each5407tests/297files/matchingJUnit/0failed-skipped,142first attempts. All138logs26770lines read,16expected synthetic/0unexpected; `evidence/main130-final.json`.
+- New native source scenario passed40tests/3files and matchingJUnit, preserving actual host/scenario-only provenance. Explicit Windows consumer entry is the only path to actual-ZIP13 report admission. The new package contract claims max13 while preserving legacy6 and semantic9 scenarios unchanged; unsupported intermediate/future capability claims refuse. Default runtime storage stays6; migrations/checksums/dependencies unchanged.
+- Isolated13 seed has both positive and already-disabled linked historical families, pending proof and35point approval; real ordinary/encrypted restore, restart/UUID replay, exactly-one successor/rotation, role denial, Wallet int64, board/Matrix references, old12/no-upgrade and future14/drift refusal/repair are mandatory. Windows producer creates the fourth fixture; clean consumer uses only bundled Windows Node/addon and verified ZIP, without install/rebuild/source checkout.
+- Trusted source AST policy, raw package and consumer readers, typed generated-fixture admission, harness/consumer byte binding and final evidence normalization now require the complete additive13 proof. Historical three-fixture9 evidence stays readable; source-only or missing13 reports cannot qualify13.317integrated policy/harness/normalization/typed-format tests and159consumer/report tests passed. Initial integrated5failure checkpoint was retained (four underspecified synthetic manifest stubs and one old fixture-count assertion), repaired without weakening production gates. Full Cloud/lint/build and exactWindows remain pending here.
+- ONE LOCAL whole-branch SELF review, no independent-review claim:0Critical/0Important/0Minor, all source files inventoried before publication; no correction/rereview. Actual development failures remain distinct from review. FullP10/M1/master unfinished; next exactWindows13ZIP qualification then remaining milestone tasks. No release/tag/VPS; R02 Server2019 not-run.
+
+- Final Cloud qualification:5508tests/301files/matchingJUnit/0failed-skipped-todo, native scenario0/build0/correctedlint0. Original whole-run lint2 is preserved with exact TS2554 diagnostic; final61test evidence file and fresh lint independently passed after correcting the test-only zero-argument publication-guard call. All36source hashes match the closed SELF review;13changed suites independently counted. `evidence/p10-cutover-package-development.json` binds actual report/checkpoint hashes. ExactPRHEAD/URL/run and Windows results will be posted in the PR body/acceptance proof and carried into the next substantive source PR; no metadata-only push. Actual13ZIP qualification still pending; fullP10/M1/master incomplete.
+
+
+### P08 Workflow completion development checkpoint (2026-10-16)
+
+- New service/HTTP reuses P10 inside one synchronous I01 owner and returns actual Review/Done; it acquires no child structural authority. Domain/state/SDK tests cover WIP against actual Review, two entrants/one slot, rollback including points/notifications/cache, live ACL before replay, retained proof/UUID after unknown transport and no automatic retry. One initial child-view fixture mismatch and TypeScript narrowing diagnostics were retained, repaired without broadening access. HTTP6actualRED→24targetGREEN; guarded-domain50/3GREEN/lint0; controller118/5GREEN then UI80/5GREEN/lint0. Optional blank proof now omits the field so existing evidence is not accidentally cleared.
+- First fullCloud5595tests/306files/matchingJUnit/0failed-skipped-todo/lint0 passed before the conflict reload change. Full33Chromium failed only appendedC33: all original32 passed, but C21 deliberately converted its original child view to List. Original failure reports retained under `p08-workflow-full-browser-failed-reports`; DOM contained only other surviving workflow choices. The fixture now creates a dedicated actor-owned view through real API, preserving all original32 source bytes. No timeout/retry/assertion changes.
+- C34 first failed synthetic legacy Task creation400 (setup failure, explicitly noncausal); corrected setup uses canonical creation and a real permitted reward edit. The closed case reached an actual409 after a private Task advanced the shared board without a child Task event, then causally failed at missing “reload board, keep note”. Backend target/point no-write and retained note assertions passed before that failure. All traces/JSON/JUnit/failure reports retained. Corrected UI holds draft at actor/API/view-owned Workspace scope, so keyed projection reload does not erase the note; fresh preview is still required and authority loss clears it.
+- Current contract requires34Productivity cases/engine=102plus45legacy+1touch=148first attempts; accepted historical32/96 scope remains explicit. New fullCloud/lint/build/C33–C34+touch are running, no current Windows feature acceptance claimed. ONE LOCAL whole-branch SELF26sources/15frozen definitions:0C0I0M, no correction/rereview/no independent-review claim. Development fixes above precede the formal review. Remaining Workflow transitions/DnD/P08/P09/P10/M1/master/R02 still incomplete. No release/tag/VPS.
+
+- Final Workflow Cloud source qualification passed5597tests/306files/matchingJUnit/0failed-skipped-todo/lint0/build0; currentC33–C34 Chromium and real nativeTouch passed2+1/native0. Final26source hashes match the closed LOCAL SELF review, no post-review correction. All7changed/dynamic suite counts and report/build/fixture hashes are bound in `evidence/p08-workflow-development.json`. Earlier full33 browser failure remains failed/historical, not counted as current full-browser acceptance; final all34cases on three Windows engines are mandatory. The current selected flows prove readonly cancel, pending duplicate suppression, actual Review/zero points, one adult grant, hidden private capacity stale409, retained note after reload, fresh preview and cancel/no-point effects. Source/PR/HEAD/run will be recorded in PR body and acceptance proof without a metadata-only push. FullP08/P09/P10/M1/master and Server2019 remain incomplete; no release/tag/VPS.
+
+
+### CI concurrency development; active Workflow qualification blocked (2026-10-16)
+
+- New branch `codex/ci-isolated-test-concurrency` starts at accepted133 `0cbceba`, no unaccepted feature dependency. Quality uses2fork processes with the existing per-file synthetic DATA_DIR/cwd teardown. Productivity keeps all35case call texts unchanged in two default-mode files (C01–C19/C20–C35), each worker bound to its own seeded13Task production process/DB/config/cwd/port;9views/two boards per store and original39Task default seed retained. No serial-failure skip mode or test/assertion/hook deadline increase. NativeTouch staysoneworker and its entire source file unchanged.
+- Exact trusted source declares2workers; original project reports require2 and official3project merge requires6. Raw admission requires both stores/uniqueIDs+ports/log hashes/pinned runtime bytes/legacy bytes/integrity/closed handles/cleanup/offline, with two case groups on different workers. Missing/one-worker data cannot qualify a two-worker target. Historical1worker profiles stay distinct. Collector also refuses missing or unbound worker claims, keeping publication disabled.
+- Actual TDD checkpoints: worker contract2pass36RED→38GREEN; source-bound worker policy0pass6RED; collector89pass7RED. Integrated456tests10files/lint0 passed. Actual two-process Cloud smoke C01+C20 plus combined nativeTouch passed2+1/native0; validation of both actual process/store proofs returned0errors. This is not full35 or Windows acceptance. Original35test call texts, shared helper bodies, offline/zero-error hook call texts and nativeTouchfile verified unchanged by AST/bytes.
+- ONE LOCAL whole-branch SELF24source files0Critical/0Important/0Minor, no correction/rereview or independent-review claim. Final fullCloud2forks/coverage/JUnit and all35Chromium/nativeTouch are running before publication. Source HEAD/PR/Windows result are still pending. Application files/dependencies/frozen migrations/default storage/CI job matrix/Windows2022pwsh unchanged. Fullmaster incomplete; no release/tag/VPS or Server2019 acceptance.
+- Section column settings is independently checkpointed locally on `codex/p09-column-settings` at `bb80f30`, with168target tests8files/lint0. Persistent command owner, explicit create/rename/order and whole-section archive acknowledgment are implemented but unreviewed, with no real-browser/Windows/PR acceptance. Resume after CI concurrency and134 are accepted, preserving all owned source hashes through normal merges.
+
+- Final Cloud qualification completed before publication:5706tests311files/matching5706JUnit/0failed-skipped-todo using2forks andV8coverage; lint/build/native exits0. All35Chromium cases andcombinednativeTouch passed on2actualproduction stores/processes with complete per-worker proof;335.63second browser duration is a Cloud development measurement, not a Windows claim. All24reviewed source hashes remain unchanged after the closed SELF0C0I0M. `evidence/ci-workers-development.json` binds source/review/preservation/suite/report hashes. Exact PRHEAD/URL/Windows run will be recorded in PR body and acceptance proof, then carried into the next substantive source change without metadata-only CI churn. RequiredWindows:5706/311eachruntime/all151firstattempts/all8checks/12raw families; not yet accepted.
+
+
+- PR135 first exactWindows checkpoint: `03cadf61cf888712cc5045918204f4d90bc50a61`, [PR135](https://github.com/DongVienNguyen/Family-Organizer/pull/135), [run38968002316](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38968002316). Five checks succeeded; WebKit failed, Node24 was cancelled, ci-gate failed. Both quality suites actually passed5706tests/311files/JUnit; these do not turn the cancelled Node24 job green. All8artifacts and130log files/27806lines retained/read. WebKit34/35/C31 exhausted45s at final Close (only848.844ms left); Node24 has incomplete Chromium JSON/JUnit/fixture, with slow input/context teardown in16partial traces. No accepted browser result is inferred.
+- Separate post-review CI repair on five source paths: move unchangedC16–19/Matrix helpers into advanced suite, strict case-group boundary15; stream bounded native browser output live. This removes the observed heavy Matrix screenshot/C31 overlap and preserves diagnostics on interruption. No assertion/timeout/retry/job-limit change; no proven Chromium root cause claimed. The ONE LOCAL SELF review remains closed, not repeated. AST preservation still verifies all35original case calls, all six shared/Matrix helper bodies, offline/zero-error hooks and whole nativeTouchfile. Post-repair456target tests/lint and full35Chromium/nativeTouch are being checked; fresh exactHEAD Windows remains required.
+- Column settings independent local development checkpoint is now `e8b2557` on `codex/p09-column-settings`: all three appended column settings Chromium cases and combinednativeTouch passed after cleanup of only their own empty synthetic sections. Earlier setup/nativeTouch failures retained. No formal review/PR/Windows acceptance yet; next compose accepted CI work plus activeWorkflow before publishing this separate task. Fullmaster and R02 remain incomplete; no release/tag/VPS.
+
+- Post-CI repair Cloud qualification completed:456related tests/10files; correctedlint0/build0; actual rebuiltCI application hashes match original reviewed build. All35Chromium and combinednativeTouch1passed, matching35+1JUnit/0failed-skipped, native0, two independently closed/cleaned production stores, worker-proof0errors. Browser duration251984ms is a Cloud observation only. Wrong-build development success remains excluded; original5706/311whole-quality coverage/JUnit is explicitly pre-repair and all5706must pass again on each Windows runtime. `evidence/ci-workers-development.json` binds original24-source SELF plus exactfive-path CI repair, report/build/source hashes and retained actual failures. FreshHEAD/PR135/run will be posted in PRbody/proof without a metadata-only push.
+
+
+- Actual second CI failure motivated explicit engine-specific worker policy, not another selector/context guess: Chromium1 with all35registered once/inoriginalorder/onehookowner/onefull13Taskstore; Firefox2/WebKit2 keep separate15/20case stores. Every original35case call, six helper bodies, offline/zero-error hooks and fullnativeTouchfile verified unchanged. The trusted AST parser admits only literal1/2/2 (plus historicaluniform2underitsownsource); raw and normalized proof require exact source counts, originalJSON1/2/2 and officialmerged5. Missing/extra/computed maps and mismatched stores/runtime/groups remain rejected. 151pass/4causalRED→155GREEN;477integrated tests passed after actual oldmock/default repairs. Optional-parameter lint diagnostic retained and corrected, final full2fork/V8coverage/JUnit/build/full35Chromium/nativeTouch now running. ONE originalLOCALSELF stays closed; all new CI-repair paths will be separately inventoried. No Windows acceptance/currentmerge claimed.
+- Column settings local checkpoint`81623aa` now has nonempty proof/10point fixture for both visible/off-filter archivedTasks; all3Chromium/nativeTouch1/JUnit/build/lint/native0 passed. Unreviewed/unpublished; compose accepted135/134 before final42case registration/review/Windows. Fullmaster/Server2019 incomplete; no release/tag/VPS.
+
+- Mixed-worker finalCloud qualification:5727tests312files/matchingJUnit/0failed-skipped-todo/V8coverage/twoforks, correctedlint0/build0. All35Chromium andnativeTouch1passed, matching35+1JUnit/native0/one complete13Taskstore/closed-cleaned/offline/pinnedbrowser proof. Actual app build hashes equal original reviewed CI build. Firefox/WebKit discovery35each is explicitlynotnativeexecution. Pinned Playwright real1/2/2blob-format probe independently produced officialmerged5/3control cases/JUnit/native0; these are not counted as app cases. Original24-sourceLOCALwholebranchSELF remains closed; final29source hashes include five registration/order-test files and a separately inventoried24path actualCI repair afterac1957b. AST retained every35case/sixhelper/hook/touch text. `evidence/ci-workers-development.json` binds reports and priorfailed03/ac. FreshHEAD/PR135/Windows5727/312/151first-attempt qualification remains pending; no metadata-only push, no fullmaster/Server2019/release/tag/VPS claim.
+
+
+### P08 active Workflow PR134 Windows failure and fixture repair (2026-10-16)
+
+- [PR134](https://github.com/DongVienNguyen/Family-Organizer/pull/134), HEAD `34b84de912dca60f77334da0dc359f1397e18175`, [Windows38957448740](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38957448740): FAILED, unmerged, no rerun. Both Node22/24 passed5830tests318files/matchingJUnit/0failed-skipped-todo; Chromium and Firefox each38passed/1failedC38. WebKit passedC01–C35 before the unchanged12minute native process bound killed it; C36–C39 have no accepted WebKit outcome. Producer/clean consumer/service/Node22 succeeded; Node24/browser/Productivity/ci-gate failed. All8artifacts and128logs28116lines archived/read; `evidence/p08-active-workflow-failed-checkpoint.json`.
+- Trace proves both approval and native UUID replay200, same revision4/Done and one10point grant. Board total53/firstpage50/nextCursor returned the target before approval but excluded it after moving to Done. Test fixture now uses its own title-filtered Workflow view, preserving lifecycle-unfiltered visibility and every assertion. AST comparison retains1184expect-rooted call texts in identical order and the complete original35case prefix. This is separately recorded post-review validation repair, not a second formal review. Full39Cloud Chromium/nativeTouch and remaining WebKit execution-time repair are pending; no new acceptance claim.
+- Independent Section column settings checkpoint `5dc9054` on `codex/p09-column-settings` safely retains7source files.123target tests/6files and lint passed, including2actual cross-board cached metadata REDs corrected by original-scope result binding. No column-settings UI, PR, whole-branch review or Windows acceptance yet.
+
+- Final CI repair Cloud:5834tests318files/matching5834JUnit/0failed-skipped-todo, lint/build0; isolated13seed full39Chromium+combinedtouch/native0. Original39seed full39+touch also passed before isolation, proving pagination repair independently. Runtime source and server/index bundles unchanged from34b; all1184expect-rooted texts/original35case prefix retained. Final35source hashes and four post-review repair paths are bound in development evidence. Cloud duration404.44s versus498.77s is not a controlled speed comparison (the second overlapped the full unit suite); no Windows speed/pass claim. The original12minute native/45second test/10second assertion bounds and zero retries remain. New exactHEAD Windows5834/318each/all163firstattempts/all8checks/12raw still required.
+
+
+### PR134 integration after accepted CI135 (2026-10-16)
+
+- CI135 merged943d958 from tested31568c0/run38977366988:8checks/12raw plus driver,5727tests312files/JUnit eachNode,151first attempts;138logs27712lines16expected/0unexpected, API/Git trees equal. Source proof is carried in evidence/ci-workers-final.json. Main13538978840520 runs independently while134 preparation proceeds; its success is not assumed.
+- Compose new parent through a normal merge; preserve all27src/server source/test hashes from17e4291. Reuse approved1/2/2runtime/13Task fixtures; original39case calls/helpers/guards are checked against17e. SupplementalC36–C39 goes on the lighter Firefox/WebKit core entry (19/20cases); Chromium remains39inoriginalorder throughonehookowner/store. Original35case bodies and fullnativeTouch source stay unchanged. No timeout/retry/assertion/source-app change is introduced by composition. FullCloud/exactWindows39each/163first attempts remain pending. No release/tag/VPS/Server2019 acceptance.
+
+- PR134 accepted-parent composition finalCloud:5911tests321files/matchingJUnit/0failed-skipped-todo/V8coverage/twoforks;661related tests/lint/build0. All39Chromium+nativeTouch1passed,39+1JUnit/native0/ownedclosed-cleaned/offline fixture. Unit multiset union independently confirms no previously passed case missing; four identical13Task seed regressions shared by17e/135 occur once, plusone new grouping registration check. All40feature source hashes (includingthree locales),27application/source-test hashes,39case calls/23helper bodies/guardhooks/fulltouch bytes are bound in `evidence/p08-active-workflow-ci135-composition.json`. Original feature review remains closed0C1I0M/one correction resolvedI1/no rereview; actual accepted-parent composition is inventoried separately. NewSHA/PR134/run will be recorded in PRbody/proof, withoutmetadata-onlyCI pushes. Full5911/321/39perengine/163firstattempt Windows qualification pending; nofullmaster/Server2019/release/tag/VPS claim.
+
+
+### P09 Section column settings integration (2026-10-16)
+
+- PR134 accepted: tested2926cf05485a4ec55bb9e8af65452d63b8606497/run38980734716, merged3d2eb8a1dc9f0aa315400925ae23ef852b003d67 with API/Git tree equality. All8checks/13raw validators (12families plus driver), eachNode5911tests321files/JUnit/0failed-skipped-todo,163first attempts,138logs28176lines/16expectedsynthetic/0unexpected. `evidence/p08-active-workflow-final.json`. Main135 run38978840520 independently passed all8/13raw/both5727/312/151; `evidence/main135-final.json`. Main134 run38982351399 has an actual WebKitC36 budget failure (38passed/1failed); complete logs/artifacts are collected independently, never accepted.
+- P09 column settings compose accepted135943 then1343d2eb through normal merges. Existing18application/source-test/locale files retain column behavior; Workspace/API/three locales combine both features. Persistent Review and column command owners survive transient reads independently. No dependencies, schema migration defaults, retries, deadlines or workflow permissions change.
+- Append C40–C42 after every unchanged original39case/helper/guard and full nativeTouch file; register42Chromium in original order and22/20Firefox/WebKit disjoint groups on source-bound1/2/2workers. Profile117 remains historical; current126Productivity plus45legacy plus1touch requires172first attempts. Six causal fixture-version REDs (older-version source with other capability labels removed) are corrected, rather than masked by the separate worker capability guard.204relatedtests8files and lint pass; fullCloud/build/browser/exactWindows pending at this entry. Single whole-branch LOCAL SELF review and final source/report hashes are recorded with development evidence before publication. PR URL/HEAD/run are recorded in the PR proof without a metadata-only CI push. Fullmaster/M1/Server2019 remain incomplete; no release/tag/VPS.
+
+- Validation findings after the closed26source SELF review: main134 exact3d2eb run38982351399 WebKit38passed/1failedC36 at45000ms. Trace ef129096ca863f5fce7d322ef1b167362cecb1d66f730309b2a78c241172756f shows cumulative UI actions; two login helpers use11748ms in10nativeAPI operations. No native-driver cause or broken semantic transition is claimed. Prepare synthetic sessions through the real internal login endpoint for C36 and new column fixtures only, retaining both role/profile/workspace assertions and UI logout, all preview/cancel/three-transition/proof/deadline/reward assertions, guards and deadlines. Record the actual repair separately, without reopening the original review.
+- First fullCloud attempt is FAILED despite6032passed counters:327reportfiles includes an owned generated `reports/columns-development-entry/columns.spec.ts` from the earlier dedicated browser probe; Vitest attempted to import Playwright hooks. The generated file is moved to the external evidence directory and the full suite is rerun on the same source. Original JSON/JUnit/log/nativeexit1 are retained; no tests/config exclusions or assertions are changed to hide the failure. Pending clean full report determines the accepted count.
+
+- P09 finalCloud prepublication:6032tests326files/matchingJUnit/0failed-skipped-todo/V8coverage,204related checks/lint/build0 and4post-repair registration checks. Unit multiset preserves every5911previous case and adds121, including three existing per-case evidence regressions generated by the expanded inventory. Full42Chromium+nativeTouch1/native0 passed before session setup repair; all4changedjourneys+nativeTouch1/native0 passed after, on the unchanged production build and isolated13Task store/closed-cleaned/offline. C36 observed24.5→14.8s, C40 15.1→8.8s, C41 26.9→14.0s, C42 13.2→6.1s on Cloud, not a controlled Windows benchmark. Exact28source hashes include original closed26sourceSELF0C0I0M plus three actual post-review fixture repair paths (two newly changed versus parent); all semantic assertion texts/old UIlogin helper/guards/touch retained. Two external diagnostic attempts executed0tests because external config inherited a relative testDir; both failures retained, corrected absolute testDir/list4/native4pass. `evidence/p09-columns-development.json` binds actual reports and failures. SourceSHA/PR/run qualification follows in PR proof without metadata-only pushes. Remaining WIP settings/quick-add/rank/UX/P10/M1/master incomplete; no release/tag/VPS/Server2019 acceptance.
+
+
+### P09 PR136 first Windows checkpoint and causal session repair (2026-10-17)
+
+- PR https://github.com/DongVienNguyen/Family-Organizer/pull/136, HEAD4dee93ea8ac43a729625e46df7328e6234cf71dc, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38984107559 FAILED:4checks passed/4failed. Both Node22/24 unit6032tests326files/JUnit/native0 were independently read; Node24 overall failed on Chromium. Legacy45browsercases passed; Productivity121pass/5fail (C36Firefox/WebKit andC41all3); nativeTouch not-run after failed Chromium.8artifacts/128logs29234lines archived/read. `evidence/p09-columns-session-failed-checkpoint.json`.
+- Trace plus actual held native IndexedDB deletion proves the fixture issued a new session while the previous logout/privacy cleanup still owned storage (expected0,actual1). Wait for the actual login portal and retire the old App via owned /api/ready JSON with status/content-type assertions before new session issuance/storage initialization. C36 permanently holds and releases real cleanup, asserts0early/1later issuance, then retains every original workflow/proof/deadline/reward assertion. Original UIlogin helper, all offline/zero-error hooks and nativeTouch bytes remain unchanged. An intermediate opaque-document attempt failed the unchanged zero-error guard on illegal localStorage access; retained and corrected via an owned JSON document, no error filtering.
+- Causal native diagnostic1+touch1 and finalaffected4+touch1/JUnit/native0, lint and4registration checks passed. All28source hashes and both actual post-review repairs are bound in `evidence/p09-columns-development.json`; original26sourceLOCALSELF0C0I0M remains closed without rereview/independent claim. Production bundle hashes unchanged; fullCloudunit rerun would add no app coverage for this test-fixture-only change. New exactHEAD Windows fullboth6032/326/172firstattempts/all8/13raw still required; nextSHA/run will be recorded in the PR proof withoutmetadata-only pushes. PR remains unmerged; fullmaster/M1/Server2019 incomplete; no release/tag/VPS.
+
+
+### P09 PR136 second Windows failure and bounded latency repair (2026-10-17)
+
+- PR136 HEADa18d20765382089c1721cc5362fac7e5c4a3d86d, CI https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38985788856 FAILED:6checks pass, WebKit/ci-gate fail. Both6032tests326files/JUnit/native0,45legacy,124Productivity pass/2fail, nativeTouch passed; C36/C41 now pass allthree engines. All8artifacts/132logs28814lines retained/read. `evidence/p09-columns-recurrence-latency-failed.json`.
+- Trace proves C27/C31 exhaust45seconds near late keyboard/read assertions (some actions continue in teardown), rather than proving a separate popup bug. UI login operations span6188/6865ms. Use the parent real-session helper for only their initial synthetic adult preconditions, then start at the existing ?tab=tasks deep link while retaining profile/sidebar/canonical assertions. No production app/dependency/bundle change, no selector/assertion/deadline/retry reduction. Original36of39case call texts remain exact; C27/C31/C36 only session preparations differ and every existing semantic assertion is retained.
+- Six affected Cloud journeys+nativeTouch1/matchingJUnit/native0/owned13Taskfixture/closed-cleaned/offline, lint/build and4registration checks pass. Actual29source hashes and three post-review repairs are recorded in `evidence/p09-columns-development.json`; original26sourceLOCALSELF0C0I0M stays closed, no rereview/independent claim. New exactHEAD/run will be recorded in the PR proof before any authorized merge. Fullmaster/M1/Server2019 incomplete; no release/tag/VPS.
+
+
+### P13 private Task attachments Cloud checkpoint (2026-10-18)
+
+- Source08773891665ef6eff59e7886f0aa1f56c1808c2c (backend5e471501), PR URL/CI run URL not created for this feature-first group. Explicit pilot17; default6/frozen1–16/packagecaps13 retained. Private20MiB Task file storage/raw internal routes and usable drawer upload/download/reviewed delete share I01, current Task ACL, exact-byte validation, immutable pending Blob and revocation/logout fencing. Reward/approval/due unchanged.
+- Full8675tests539files/JUnit,0failed-skipped-todo, lint/build0; all8630 parent cases plus45 retained. Chromium21/21 same-source/build firstattempts, offline/owned17/16/15/14/13/13/normalstop/integrity/closed/cleaned; both390themes inspected. Earlier OOM reporter/native cleanup/API fixture failures retained and distinguished from acceptance. No assertion removal/skip/timeout/retry relaxation. [Proof](evidence/p13-attachments-development.json).
+- Next P13 JSON/CSV/ICS staged preview/commit/conditionalundo/export, then P14–P18/remainingWallet/W18/M1/I02/I03. New six harnesses and final Windows Node22/24/three engines/package/service/performance remain pending; no new Windows/sourcePR acceptance. R02 Server2019 unrun. No release/tag/VPS/PC runner.
+
+
+### P13 Task data tools Cloud checkpoint (2026-10-18)
+
+- Backend0818db29796cbf3d2569dd9d04cebfe3eeb066d7, production19787cb and fixture follow-up40031f7e53eef4c9568a58948b71577459da8225; source PR URL/CI run URL not created for this feature-first group. Explicit pilot18/default6/frozen1–17/packagecaps13 retained. Owned20MiB/10k JSON/CSV/ICS preview/list mapping, reviewed commit/conditionalundo via shared50-row jobs and read-only authorized exports are usable in the Task workspace. Original history/creator/reward/approval/recurrence facts are retained as opaque source, not executed; no second Notes store/dependency.
+- Full8749tests549files/matchingJUnit/0failed-skipped-todo; all8675 parents+74 retained. Lint/build0, same-build Chromium25/25 firstattempts with all seven feature fixtures/offline/normalstop/integrity/closed/cleaned. Both390visible import forms/previews inspected. Actual cached-map ACL and missing-row-feedback regressions retained/fixed; first browser cancel-label fixture failure and consequent quota refusal retained, no assertions/quotas/timeouts/retries relaxed. [Evidence](evidence/p13-data-development.json).
+- Next P14 Focus/Pomodoro, then P15–P18/remainingWallet/W18/M1/I02/I03. All P13 slices are Cloud-functional, final composed Windows/pilot acceptance still pending; new seven harnesses not yet mandatoryCI. No10000-Task commit or110kTask performance qualification, source PR/Windows/package/service claim, release/tag/VPS/PC runner. R02 Server2019 separate/unrun.
+
+
+### P14 private Focus Cloud checkpoint (2026-10-18)
+
+- Sourceb3f6a6d64aee65afa92a9f285b4ce85e001db19f (backenda9dad4f/UI71de6a7), source PR URL/CI run URL not created for the feature-first group. Explicit pilot19/default6/frozen1–18/packagecaps13 preserved. Owner Pomodoro/stopwatch, segments, notes/estimates/extra/manual/audited edits, private P12 notices and capture-clock restore are usable through internal auth/API/global widget. No Task completion/reward/Wallet effects. Habit linking waits for real P15 authority.
+- Full8793tests556files/matchingJUnit/0failed-skipped-todo, all8749parent+44 retained; lint/build0. Chromium29/29 same-source/build firstattempts, owned19/18/17/16/15/14/13/13/offline/normalstop/integrity/closed/cleaned. Four actual390px form/audit viewports inspected across light/dark. Actual old18 undo fingerprint, negative early delay, restore audit DTO, backward-clock digest and equal-timestamp audit ordering failures retained/fixed. No assertion/timeout/retry reduction. [Evidence](evidence/p14-focus-development.json).
+- Next P15 Habits/Countdowns, then P16–P18/remainingWallet/W18/M1/I02/I03 and final composed Windows Node22/24/three engines/package/service/performance/pilot acceptance. New eight feature browser harnesses not yet mandatoryCI. Registry pause/resume/browser wake are not full process restart/physical OS suspend proof. No new PR/Actions/Windows/sourcepackage acceptance or full-master claim. R02 Server2019 separate/unrun; no release/tag/VPS/PC runner.
+
+
+### P15 Habit/Countdown core Cloud checkpoint (2026-10-18)
+
+- Source2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc, backendffa472d/UIbf10638; PR URL/CI run URL not created for feature-first group. Explicit20/default6/frozen1–19/packagecaps13 unchanged. Per-actor dated check-ins, policy history, raw numeric goals, heatmap/backfill/skip/archive, important dates and actual Habit–Focus link are usable. Reminders/Calendar remain open, so P15 is not complete.
+- Full8867tests565files/matchingJUnit/0failed-skipped-todo; all8793parent+74 preserved, lint/build0. Chromium33/33 same-source/build first attempts, nine owned/offline fixtures/normal stop/integrity/closed/cleaned. Six actual390px light/dark screenshots inspected. First browser3/4 exposed archive checkbox async controller race; production fix plus actual RED→GREEN unit case and failure video/DOM/trace retained. [Evidence](evidence/p15-habits-core-development.json). No assertion/timeout/retry weakening.
+- Next P15 reminders/optional Calendar and typed refs, P16–P18/remainingWallet/W18/M1/I02/I03 then final composed Windows Node22/24/three engines/package/service/performance/pilot acceptance. New nine feature harnesses not yet mandatory Windows. No new PR/Actions or Windows claim. R02 Server2019 separate/unrun; release/tag/VPS/PC runner not performed.
+
+### P15 tracking reminders and optional Calendar work in progress (2026-10-18)
+
+- Native source9c8d2128630d4c8d9a3b9fcf68473b4a4bec9cf0; PR URL/CI run URL not created for this feature-first group. Explicit21 adds owner reminder rules and dated delivery claims, preserves frozen1–20/default6/packagecaps13 and the lockfile. Internal API/current ACL, bounded shared AppJobs scans/continuations, private generic inbox/outbox, quiet/daily policy, check-in/skip/weekly-quota suppression and explicit restore review are implemented.
+- Native/backend32tests7files and lint0; actual shared AppJobs delivered15 claims through bounded continuations, pause/resume did not duplicate effects. DST gap/fold, backward clock, no missed-day replay, current unshare, synthetic snapshot validation and restore consumption passed. The earlier full8867/33browser checkpoint applies to core source2bd0bc6, not this newer21 source.
+- Client reminder API/owner/source/revision validation and original unknown command/draft retention have real9RED then39GREEN client cases. Optional read-only typed Calendar source projections, current SQL ACL and floating-date regression now pass in the latest targeted73tests8files; UI/browser composition is in progress. PR/Actions/Windows qualification pending; no complete-P15/master claim, release/tag/VPS/PC runner.
+- Next: verify real reminder/Calendar UI including390px/light/dark, retain reports and finish P15 development evidence, then P16–P18/remainingWallet/W18/M1/I02/I03 before composed Windows qualification.
+
+
+### P15 complete Cloud functional slices (2026-10-18)
+
+- Source9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3/native9c8d212, PR URL/CI run URL not created for the feature-first group. Core20 plus owner-only reminders21, P12 quiet/digest/mute, bounded actual AppJobs/continuations, capture-safe restore review and optional typed read-only Calendar are usable. Frozen1–20/default6/caps13/lock preserved. No Task/log/reward/Wallet automation effects.
+- Full8899tests569files/matchingJUnit/0failed-skipped-todo preserve all8867parent+32; lint/build0. Chromium36/36 same-source/build first attempts, ten owned/offline fixtures/normal stop/integrity/closed/cleaned. Four additional actual390px reminder/Calendar light/dark viewports inspected. Native shared registry15 claims, pause/resume, DST gap/fold, backward clock, current ACL, original unknown commands/drafts and restore no-replay passed. Raw9RED-client and successful reports retained. [Evidence](evidence/p15-tracking-development.json). Review author-only; full process restart/OS suspend not implied.
+- P15 Cloud functional scope complete, final independent review/Windows qualification still pending. Next P16–P18/remainingWallet/W18/M1/I02/I03 and global capacity/performance/pilot acceptance, then composed Windows Node22/24/three engines/package/service. Ten feature harnesses not yet mandatory Windows. No new PR/Actions/Windows or full-master claim. R02 Server2019 separate/unrun; release/tag/VPS/PC runner not performed.
+
+### P16 native Insights/review checkpoint in progress (2026-10-18)
+
+- Source8724842e3258d17d2a384f24096a826669b8842e, PR URL/CI run URL not created for this feature-first group. Explicit22/frozen1–21/default6/caps13/lock preserved. Structured Task state events join the existing I01 writer, accepted root episodes and missing-date/start coverage replace inferred text history. Own Focus Q2 uses start snapshots; family workload uses current Task/ancestor SQL authority, separate estimate coverage and paged planning facets.
+- Native70tests10files/lint0 at that source;39new cases plus31parents, no full aggregate/new build/browser qualification yet. Actual Child→Review→adult approval nonce replay records one accepted episode/one existing reward. Persisted private review membership+event cutoff/Focus audit facts freeze original data; current ACL can redact, new grants require explicit recapture. Mixed22 restore/counter recovery, invalid provenance, real HTTP/SSE, original import undo and genuine Focus references passed.
+- Retained development failures include invalid enum/nested/corruption-cleanup fixtures, an undo test initially expecting physical deletion where the existing protocol soft-retires, two real cycle-start regressions and one real historical membership expansion regression; production fixes and stronger exact retirement assertions preserve acceptance standards.
+- Client SDK/controller/UI/timeboxing/export/browser are next; actor-bound response metadata is being added for strict client validation. Insights will use a cheap native-clock feature probe and load reports when opened, avoiding report scans on app startup. New-source Windows remains pending with P17–P18/remainingWallet/W18/M1/I02/I03 and capacity/performance/pilot work. R02 Server2019 separate/unrun; no release/tag/VPS/PC runner.
+
+
+### P16 Insights/review Cloud functional slice (2026-10-18)
+
+- Sourceb4ce6baa4766d35b99e8aa52d6411565b6d2779e, native8724842/UI f3531eb; PR URL/CI run URL not created for the feature-first group. Explicit22/frozen1–21/default6/caps13/lock preserved. Structured root episodes/coverage, own start-quadrant Focus, current-authorized workload, private frozen review snapshots, planning timeboxes and fresh summary export are usable.
+- Latest targeted76tests10files/matchingJUnit/0failed-skipped-todo, lint/build0. New Chromium4/4 plus existing Calendar4/4, owned22/13/offline/normalstop/integrity/closed/cleaned; four actual390px images inspected. Original nonce/text/revision survives lostACK/navigation, current revocation clears joined counts/labels and fences an actual old HTTP response. First browser3/4 fixture readiness failure and native REDs retained; no assertion/retry/timeout relaxation. [Evidence](evidence/p16-insights-development.json).
+- Testing optimization: use changed-feature plus affected-parent checks during development; defer repeating all8899 parent tests/whole browser matrix to a composed checkpoint. Last full8899/569 remains P15 source9cfc7eb, not this source. Final full suite/Windows Node22/24/three engines/touch/package/service/performance/pilot and independent review pending.
+- Next P17 UX/preferences/smart draft confirmation, P18/remainingWallet/W18/M1/I02/I03. No full-master/Windows claim. R02 Server2019 separate/unrun; release/tag/VPS/PC runner not performed.
+
+
+### P17 preferences/capture and composed P16–P17 Cloud checkpoint (2026-10-18)
+
+- Source3a2b371c23dfa138e638ec382d1f37b8d6399cad (firsta049a0e); PR URL/CI run URL not created for feature-first group. Explicit23/frozen1–22/default6/caps13/Wallet1/lock preserved. Owner settings/history, confirmed native-clock Vietnamese capture/literal mode, current catalog/late fences, original unknown commands, inherited theme, week preference, opt-in keyboard and selective device cleanup are usable. Optional AI/offline writes/private cache stay disabled.
+- Full8999tests588files/matchingJUnit/0failed-skipped-todo, all8899 P15 parents+100 retained; lint/build0. Same-source/build Chromium20/20 (new4 plus related Calendar/Insights/Focus/Habits16), owned23/13/22/19/20/offline/normal-stop/integrity/closed/cleaned. Four390px images inspected. Actual hashtag parser and preferences-SSE editor-collapse regressions fixed with retained failures; no assertion/timeout/retry reduction. [Proof](evidence/p17-preferences-development.json). Author review only.
+- Testing cadence now uses targeted development checks and one composed full suite; unaffected Wallet/other Productivity browser parents not repeated here. New12 feature harnesses not yet mandatory Windows. No new Actions/Windows/Node22/other-engine/touch/package/service or master acceptance.
+- Next I02 typed cross-module links/overview and explicit payment draft, remaining Wallet Asset/networth/legacy bridge, P18/W18 capacity/performance/pilot, M1/I03, then composed exact-HEAD Windows. R02 Server2019 separate/unrun. No release/tag/VPS/PC runner.
+
+
+### I02 typed domain-link native core in progress (2026-10-18)
+
+- Sourcec335687da8f3cca57ae5010d0c85f0f6991fe2fa; PR URL/CI run URL not created for feature-first group. Explicit24/frozen1–23/default6/caps13/Wallet1/lock preserved. Closed typed internal references resolve current Task/list/Wallet/legacy authority without treating references as permission. Owner-only relationships/history use shared I01, current intersection before cached replay and inside writes, owner/Task/history FKs and no copied source labels. Partial transfers and lost grants hide entire derived rows/counts; owner-only archive returns no source data.
+- Targeted23tests5files/matchingJUnit/0failed-skipped-todo/lint0. Native exact nonce/equivalent intent, real permissions, history-write fault rollback, Task-FK retirement, mixed24+Wallet16 restore/cold startup and rechecksummed corrupt references/history passed. [Proof](evidence/i02-domain-links-native-development.json). No new full suite/build/browser/Windows claim; prior8999/588/20Chromium applies to P17 source3a2b371.
+- I02 is still incomplete: next actual atomic Task payment intent, API/SDK/session UI/overview and cross-module integration, then remaining Wallet/P18/W18/M1/I03 and composed Windows. No release/tag/VPS/PC runner; R02 Server2019 separate/unrun.
+
+
+### I02 explicit Task payment Cloud functional slice (2026-10-18)
+
+- Source4fd6eae751b72a522aa45e4714401084ffaebdd7; PR URL/CI run URL not created for feature-first group. Internal typed-link API/strict SDK/session-owned drawer now compose one explicit expense plus private relationship atomically. Completion/preview/cancel creates zero postings; original nonce survives lost ACK/navigation and current authorization gates replay. Default ledger memo is empty; source title stays separate. No dependency/lock or frozen migration change.
+- Targeted87tests9files/matchingJUnit/0failed-skipped-todo, lint/build0; same-source/build Chromium4/4 first attempts, owned24+Wallet16/offline/normal-stop/integrity/closed/cleaned. Four390px light/dark images inspected. Actual private-memo, invalid-editor and import-undo-reference regressions have retained RED→GREEN evidence. [Proof](evidence/i02-task-payment-development.json). No assertion/retry/timeout relaxation; review author-only.
+- Next family overview/typed Calendar/search and remaining Wallet Asset/networth/legacy bridge, P18/W18/M1/I03. Thirteen feature harnesses not yet mandatory Windows. No current full-suite/new PR/Actions/Windows claim; last full8999/588 applies to P17 source3a2b371. R02 Server2019 separate/unrun. No release/tag/VPS/PC runner.
+
+
+### I02 overview/Calendar/linked search and composed Cloud checkpoint (2026-10-18)
+
+- Source29f7b30a8f61ec739938e63a922a5a882055ca23, production/build99bc01d46b5c4bd9c29b4c676eee313bf57aea73; source trees byte-identical, only schedule and realtime VM test preparations differ. Family8 ran at9e7c49b with identical production/E2E trees; full unit/Calendar4 at this source. PR URL/CI run URL not created for feature-first group. Homepage root/current-Q2/own/review counts, typed read-only Wallet dates, current-source drilldown and owner linked-source search are usable. Frozen pending slots preserve original Money/account authority. Wallet locale overrides reach separate Task expense input. No migration/lock/packagecap change.
+- Full9052tests/598files/matchingJUnit/0failed-skipped-todo preserve all8999 P17 cases+53; lint/build0. Same-production-build Chromium12/12 (Family8/Calendar4), owned24+Wallet16/13/offline/normal-stop/integrity/closed/cleaned. Six390px images inspected, with overview-list viewport limits recorded. Actual frozen-slot RED, first full9051/9052 missing VM setter and first-browser7/8 missing Edit action retained; stronger actual-ID/selection/field/zero-money assertions pass. [Proof](evidence/i02-family-overview-development.json). Author review only.
+- Remaining: wider link management/navigation, WalletAsset/unifiednetworth/legacycanonicalbridge/delta/pilot, P18/W18 capacity/performance/M1/I03, then composed exact-HEAD Windows. Thirteen feature harnesses not yet mandatory Windows; unaffected browsers not repeated here. No new PR/Actions/Windows/Node22/other-engine/touch/package/service qualification. R02 Server2019 separate/unrun; no release/tag/VPS/PCrunner.
+
+
+### PC handoff / W15 preserved WIP (2026-10-18)
+
+- User changed the active objective: stop Cloud feature implementation and prepare a lightweight Windows PC source handoff, retaining the full Cloud version for later. This supersedes the Cloud-only development location; release/tag/VPS permission remains absent.
+- Full branch `codex/feature-first-acceptance` retains all tests/workflows/evidence. Parent proof SHA `0d335a4f80bd0238e16451bd45ad57c942c5f107`; exact handoff source commit is recorded in the generated `SOURCE-MANIFEST.json`. Separate `codex/pc-source-only-2026-10-18` is an intentionally filtered snapshot; never merge its deletions into main/full source. No source PR or new Actions run created for handoff; PR URL / CI run URL: not applicable, not run.
+- W15 WIP preserved: additive Wallet17 Asset link/history/snapshot registration, current-account ACL and stock/currency/holding guards, exact Money net-worth pure function, legacy Asset row upserts preserving binding FKs and bound type/currency invariant, initial Asset HTTP/media/SSE authorization wiring. Bind/unlink API/UI and canonical native net-worth adapter/UI remain incomplete. Current media/HTTP boundary changes have no dedicated end-to-end/browser acceptance. Frozen prior schemas/default activation/packagecaps and lockfile remain unchanged.
+- Fresh Cloud checks before checkpoint: `npm run lint` exit0; targeted real files assetLinks/netWorth/appStore/sqlite/authenticated-media: **46 tests/5 files**, JUnit0 failures/errors, exit0. Raw logs/exits/JUnit in [pc-handoff evidence](evidence/pc-handoff/). These are focused checks, not a full-suite/browser/Windows claim. An initial invocation matched only2 files/14tests because three path filters were wrong; the corrected5-file run is the reported46-test evidence.
+- Last composed9052/598 full Cloud result remains source `29f7b30a8f61ec739938e63a922a5a882055ca23`, not W15 WIP. Last qualified Windows remains PR136/run38987528125/source7e59abd, not current source. PC, Server2019, new full-suite/browser/Windows/package/service checks have not been run for this handoff.
+- Handoff instructions: [start](../handoff/START-HERE-PC.md), [plan](../superpowers/plans/2026-10-18-pc-continuation.md), [PC prompt](../handoff/pc-continuation-prompt.md), [Cloud resume](../handoff/cloud-resume.md). `scripts/handoff/export-source.py` reads an exact committed revision and emits a manifest/hash-bound source-only ZIP outside the repository; tests/raw reports/dependencies/runtime data/secrets excluded. PC AGENTS is adapted only in the export, full Cloud AGENTS retained there as reference.
+- Next: user downloads PC snapshot, follows PC01, then finishes W15, W18 canonical legacy bridge, I02/M1 gaps, P18/W17/W18 capacity/recovery/pilot and I03 final composed qualification. Keep local feature checks quick; final regression/Windows review/merge uses the full branch with all tests. Master plan is not complete; no release/tag or VPS action.

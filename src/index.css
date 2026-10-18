@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@450;600;700&display=swap');
+@import "tailwindcss";
+
+/*
+ * `dark:` variant bám theo class `.dark` trên <html> (do nút đổi theme toggle),
+ * KHÔNG theo prefers-color-scheme của HĐH. Thiếu dòng này thì mọi `dark:*`
+ * sẽ ăn theo cài đặt OS và hiện sai khi theme app khác theme OS.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * THEME CONVENTION — read before adding colors.
+ * Light/dark is implemented by REMAPPING the slate + sky scales below (the value
+ * of slate-950 is light in :root and dark in .dark, etc). Only these remapped
+ * steps are theme-aware: slate 950/900/850/800/500/450/400/300/200/100 and the
+ * full sky scale. Any OTHER color (slate-600/700, bg-white, gray-*, etc.) is the
+ * raw Tailwind value and will NOT adapt to the theme — avoid them for surfaces
+ * and text. Accent tints (emerald/rose/amber/indigo) are intentionally fixed.
+ */
+
+:root {
+  /* Báo cho trình duyệt/HĐH biết app đang ở gam sáng -> bàn phím iOS, ô cuộn,
+   * form control mặc định hiển thị nền sáng. Cặp với `.dark { color-scheme: dark }`
+   * bên dưới để bàn phím luôn đồng bộ theme app (không theo cài đặt OS). */
+  color-scheme: light;
+
+  /* NEUMORPHISM (Sáng): canvas là gam xanh-xám mềm để thẻ "nổi" nhờ bóng kép.
+   * Thẻ (slate-900) sáng hơn canvas một chút → vẫn phân biệt được kể cả khi
+   * thiếu bóng (an toàn cho ~187 chỗ dùng bg-slate-900 chưa gắn .neu-*). */
+  --slate-950: #e4e9f1;  /* Main canvas bg -> soft neumorphic base */
+  --slate-900: #eef2f8;  /* Box/card backgrounds -> raised surface */
+  --slate-850: #d7dfe9;  /* Soft borders (dịu, không chọi với bóng) */
+  --slate-800: #e0e6ef;  /* Hover and active sub-areas */
+
+  /* Cặp màu bóng cho hiệu ứng nổi/lõm — dùng trong các lớp .neu-* bên dưới */
+  --neu-hi: #ffffff;     /* nguồn sáng trên-trái */
+  --neu-lo: #c5cedb;     /* bóng đổ dưới-phải */
+
+  --slate-500: #64748b;  /* Placeholder / weak info -> Slate 500 (was 400, too light on white) */
+  --slate-450: #475569;  /* helper details -> Slate 600 for stronger contrast */
+  --slate-400: #334155;  /* Description text -> Slate 700 */
+  --slate-300: #334155;  /* Secondary text -> Slate 700 */
+  --slate-200: #1e293b;  /* Primary body text -> Slate 800 */
+  --slate-100: #0f172a;  /* Heavy heading titles -> Slate 900 */
+
+  /* Vibrant Accent Colors (Vibrant Indigo theme replacing Sky) */
+  --sky-950: #f0fdfa;    /* Light backdrop accent */
+  --sky-900: #f5f3ff;    /* Accent highlight backdrops */
+  --sky-850: #e0e7ff;
+  --sky-800: #c7d2fe;
+  --sky-700: #4338ca;    /* Indigo intense focus */
+  --sky-600: #4f46e5;    /* Action text hover color */
+  --sky-500: #4f46e5;    /* Primary Action Brand buttons (vivid Indigo) */
+  --sky-400: #6366f1;    /* Accent details - Indigo-500 */
+  --sky-300: #818cf8;    /* Muted accent details */
+  --sky-200: #c7d2fe;
+  --sky-100: #e0e7ff;
+}
+
+.dark {
+  color-scheme: dark;  /* Bàn phím iOS + form control dùng gam tối theo theme app */
+
+  /* NEUMORPHISM (Tối): canvas navy sâu, thẻ nhỉnh sáng hơn để bóng kép đọc rõ.
+   * neu-hi/neu-lo lệch ±sáng quanh màu thẻ tạo cảm giác đùn nổi. */
+  --slate-950: #171d29;  /* Deep neumorphic canvas */
+  --slate-900: #1f2735;  /* Box/card backgrounds -> raised navy card */
+  --slate-850: #2a3345;  /* Soft borders -> dark slate border */
+  --slate-800: #2f3a4e;  /* Hover and active sub-areas */
+
+  --neu-hi: #29344a;     /* nguồn sáng trên-trái (navy nhạt) */
+  --neu-lo: #0d1119;     /* bóng đổ dưới-phải (gần đen) */
+  
+  --slate-500: #8392a8;  /* Placeholder / weak info -> lighter for readability on dark cards */
+  --slate-450: #9fb0c9;  /* helper details -> brighter */
+  --slate-400: #aab8cc;  /* Description text -> brighter for readability */
+  --slate-300: #cbd5e1;  /* Secondary text -> Slate 300 */
+  --slate-200: #e2e8f0;  /* Primary body text -> Slate 200 */
+  --slate-100: #f8fafc;  /* Heavy heading titles -> Slate 100 */
+
+  /* Vibrant Indigo accents customized beautifully for dark mode */
+  --sky-950: #0f172a;
+  --sky-900: #1e1b4b;
+  --sky-850: #312e81;
+  --sky-800: #3730a3;
+  --sky-700: #4338ca;
+  --sky-600: #4f46e5;
+  --sky-500: #6366f1;    /* Lighter, brighter Neon-ish Indigo for high contrast readability */
+  --sky-400: #818cf8;
+  --sky-300: #a5b4fc;
+  --sky-200: #c7d2fe;
+  --sky-100: #e0e7ff;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-slate-950: var(--slate-950);
+  --color-slate-900: var(--slate-900);
+  --color-slate-850: var(--slate-850);
+  --color-slate-800: var(--slate-800);
+  
+  --color-slate-500: var(--slate-500);
+  --color-slate-450: var(--slate-450);
+  --color-slate-400: var(--slate-400);
+  --color-slate-300: var(--slate-300);
+  --color-slate-200: var(--slate-200);
+  --color-slate-100: var(--slate-100);
+
+  --color-sky-950: var(--sky-950);
+  --color-sky-900: var(--sky-900);
+  --color-sky-850: var(--sky-850);
+  --color-sky-800: var(--sky-800);
+  --color-sky-700: var(--sky-700);
+  --color-sky-600: var(--sky-600);
+  --color-sky-500: var(--sky-500);
+  --color-sky-400: var(--sky-400);
+  --color-sky-300: var(--sky-300);
+  --color-sky-200: var(--sky-200);
+  --color-sky-100: var(--sky-100);
+}
+
+/* ── NEUMORPHISM UTILITIES ─────────────────────────────────────────────────
+   Bóng KÉP (nổi/lõm) theme-aware qua --neu-hi/--neu-lo (đổi theo Sáng/Tối).
+   Dùng cho BỀ MẶT NẰM TRÊN canvas (thẻ, nút, ô nhập) — KHÔNG dùng cho phần
+   tử nổi trên lớp phủ (modal/dropdown/toast): ở đó nền không đồng màu nên bóng
+   kép sẽ trông sai; cứ để shadow-xl/2xl mặc định.
+   Quy ước: raised = đùn nổi, pressed = ấn lõm, flat = nổi nhẹ, inset khi :active. */
+.neu-raised     { box-shadow: 5px 5px 12px var(--neu-lo), -5px -5px 12px var(--neu-hi); }
+.neu-raised-sm  { box-shadow: 3px 3px 7px var(--neu-lo), -3px -3px 7px var(--neu-hi); }
+.neu-raised-lg  { box-shadow: 9px 9px 22px var(--neu-lo), -9px -9px 22px var(--neu-hi); }
+.neu-flat       { box-shadow: 2px 2px 6px var(--neu-lo), -2px -2px 6px var(--neu-hi); }
+.neu-pressed    { box-shadow: inset 4px 4px 9px var(--neu-lo), inset -4px -4px 9px var(--neu-hi); }
+.neu-pressed-sm { box-shadow: inset 2px 2px 5px var(--neu-lo), inset -2px -2px 5px var(--neu-hi); }
+
+/* Thẻ nổi hoàn chỉnh: nền bề mặt + bo góc + bóng nổi (tái dùng cho màn hình mới) */
+.neu-card {
+  background: var(--slate-900);
+  border-radius: 1.25rem;
+  box-shadow: 5px 5px 12px var(--neu-lo), -5px -5px 12px var(--neu-hi);
+}
+
+/* Nút bấm nổi → lõm khi nhấn (phản hồi chạm tự nhiên trên PWA iPhone). */
+.neu-btn {
+  box-shadow: 4px 4px 10px var(--neu-lo), -4px -4px 10px var(--neu-hi);
+  transition: box-shadow 0.15s ease, transform 0.12s ease;
+}
+.neu-btn:hover { box-shadow: 5px 5px 12px var(--neu-lo), -5px -5px 12px var(--neu-hi); }
+.neu-btn:active {
+  box-shadow: inset 3px 3px 7px var(--neu-lo), inset -3px -3px 7px var(--neu-hi);
+  transform: translateY(0.5px);
+}
+/* Nút ở trạng thái đang chọn (nav active, tab active) — giữ lõm cố định */
+.neu-btn-active { box-shadow: inset 3px 3px 7px var(--neu-lo), inset -3px -3px 7px var(--neu-hi); }
+
+@media (prefers-reduced-motion: reduce) {
+  .neu-btn { transition: none; }
+  .neu-btn:active { transform: none; }
+}
+
+/*
+ * Chuyển theme Sáng<->Tối MƯỢT: class `.theme-transition` được JS thêm vào <html>
+ * CHỈ trong khoảnh khắc đổi theme (~0.3s) rồi gỡ ra — nên hover/tương tác thường
+ * ngày vẫn tức thì, không bị ì. Chỉ cross-fade các thuộc tính màu rẻ (paint-only)
+ * để không giật/lag. Tự tắt khi người dùng bật "giảm chuyển động".
+ */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+              color 0.3s ease, fill 0.3s ease, stroke 0.3s ease !important;
+  transition-delay: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: none !important;
+  }
+}
+
+/*
+ * Hiệu ứng "đã mắt" khi đổi theme (trình duyệt hỗ trợ View Transitions API):
+ * theme mới lan tỏa thành vòng tròn từ nút bấm. Tắt cross-fade mặc định để chỉ
+ * còn animation clip-path do JS điều khiển (App.tsx). New nằm trên, phủ dần Old.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) { z-index: 1; }
+::view-transition-old(root) { z-index: 0; }
+
+/* Global focus overlays & custom inputs to make them premium */
+input::placeholder, textarea::placeholder {
+  color: var(--slate-500) !important;
+}
+
+/*
+ * Prevent iOS Safari from auto-zooming when a form control is focused.
+ * It only zooms when the control's font-size is < 16px, so bump it on small
+ * screens (the design keeps the same visual sizing via padding/leading).
+ */
+@media (max-width: 640px) {
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
+
+/* ── THANH CUỘN: đồng bộ theme Sáng/Tối, bo tròn, thanh thoát ───────────────
+   Mặc định áp cho TOÀN bộ scroll (trang chính + mọi panel con) qua ::-webkit
+   và Firefox (scrollbar-width/color trên html). Mẹo `border trong suốt` +
+   `background-clip: content-box` tạo đệm quanh thumb → viên thuốc mảnh, không
+   thô. Biến thể: .scrollbar-thin (mảnh hơn), .scrollbar-none (ẩn hẳn). */
+html {
+  scrollbar-width: thin;                          /* Firefox */
+  scrollbar-color: var(--slate-800) transparent;  /* thumb | track */
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--slate-800);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--slate-500);
+  background-clip: content-box;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Mảnh hơn cho panel con nhỏ (Sự kiện sắp diễn ra, Nhật ký, dropdown, danh sách…) */
+.scrollbar-thin {
+  scrollbar-width: thin;                          /* Firefox */
+  scrollbar-color: var(--slate-800) transparent;  /* thumb | track */
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--slate-800);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--slate-500);
+  background-clip: content-box;
+}
+
+/* Ẩn hẳn thanh cuộn nhưng vẫn cuộn được (bánh xe chọn giờ/ngày, hàng chip ngang) */
+.scrollbar-none {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge cũ */
+}
+.scrollbar-none::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* ── THẺ BÀI SƯU TẦM (Thẻ khẩn cấp kiểu Pokémon/Yu-Gi-Oh) ──────────────────
+   Ánh hologram chạy chéo qua mặt thẻ + lấp lánh nhẹ, THEME-AWARE:
+   - Sáng: tint màu pastel (multiply) — sheen trắng sẽ vô hình trên nền trắng
+   - Tối : dải sáng trắng-xanh (screen) như foil thật
+   Tôn trọng reduced-motion. */
+.holo-card { transform-style: preserve-3d; }
+
+.holo-sheen {
+  background: linear-gradient(
+    115deg,
+    transparent 0%, transparent 30%,
+    rgba(99, 102, 241, 0.08) 42%,
+    rgba(14, 165, 233, 0.14) 48%,
+    rgba(168, 85, 247, 0.16) 50%,
+    rgba(236, 72, 153, 0.10) 52%,
+    rgba(99, 102, 241, 0.08) 58%,
+    transparent 70%, transparent 100%
+  );
+  background-size: 250% 250%;
+  background-position: 150% 50%;
+  mix-blend-mode: multiply;
+  transition: background-position 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .holo-sheen {
+  background: linear-gradient(
+    115deg,
+    transparent 0%, transparent 30%,
+    rgba(255, 255, 255, 0.06) 42%,
+    rgba(186, 230, 253, 0.18) 48%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(233, 213, 255, 0.18) 52%,
+    rgba(255, 255, 255, 0.06) 58%,
+    transparent 70%, transparent 100%
+  );
+  background-size: 250% 250%;
+  background-position: 150% 50%;
+  mix-blend-mode: screen;
+}
+.holo-card:hover .holo-sheen,
+.holo-card:focus-within .holo-sheen {
+  background-position: -30% 50%;
+}
+
+/* Lấp lánh hạt li ti (holo foil) — Sáng: hạt màu indigo/sky; Tối: hạt trắng */
+.holo-foil {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(99,102,241,0.45) 0.5px, transparent 1px),
+    radial-gradient(circle at 70% 60%, rgba(14,165,233,0.45) 0.5px, transparent 1px),
+    radial-gradient(circle at 45% 80%, rgba(168,85,247,0.45) 0.5px, transparent 1px),
+    radial-gradient(circle at 85% 20%, rgba(236,72,153,0.35) 0.5px, transparent 1px);
+  background-size: 90px 90px, 120px 120px, 70px 70px, 100px 100px;
+  opacity: 0.35;
+  transition: opacity 0.4s ease;
+}
+.dark .holo-foil {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.5) 0.5px, transparent 1px),
+    radial-gradient(circle at 70% 60%, rgba(186,230,253,0.5) 0.5px, transparent 1px),
+    radial-gradient(circle at 45% 80%, rgba(233,213,255,0.5) 0.5px, transparent 1px),
+    radial-gradient(circle at 85% 20%, rgba(255,255,255,0.4) 0.5px, transparent 1px);
+  background-size: 90px 90px, 120px 120px, 70px 70px, 100px 100px;
+}
+.holo-card:hover .holo-foil { opacity: 0.7; }
+
+.holo-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.holo-card:hover {
+  transform: translateY(-4px) scale(1.015);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holo-card:hover { transform: none; }
+  .holo-sheen { transition: none; }
+}
+
+/* Nền "art" trong cửa sổ hình của thẻ bài: tia sáng tỏa tròn từ tâm (sunburst
+   kiểu thẻ holo) — màu theo "hệ" qua biến --ray-color, mờ dần ra rìa bằng mask. */
+.card-art-rays {
+  background: repeating-conic-gradient(
+    from 0deg at 50% 42%,
+    var(--ray-color, #94a3b8) 0deg 6deg,
+    transparent 6deg 14deg
+  );
+  -webkit-mask-image: radial-gradient(circle at 50% 42%, black 10%, transparent 74%);
+  mask-image: radial-gradient(circle at 50% 42%, black 10%, transparent 74%);
+}
+
+/* Vòng "phép" xoay chậm quanh avatar (viền đứt). Tắt khi giảm chuyển động. */
+@keyframes card-ring-spin { to { transform: rotate(360deg); } }
+.card-ring-spin { animation: card-ring-spin 28s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .card-ring-spin { animation: none; }
+}
+
+

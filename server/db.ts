@@ -1,0 +1,3197 @@
+import {localDateAt as focusDeliveryDate} from '../src/features/productivity/dates.js';
+import {defaultTaskNotificationPreferences as focusDeliveryDefaults,normalizeTaskNotificationPreferences as focusDeliveryPreferences} from '../src/features/productivity/notificationPolicy.js';
+import {productivityVersionsFrom} from './productivity/knownVersions.js';
+import {stageTaskNotice} from './productivity/taskNoticeOutbox.js';
+import {taskCommentRecord} from './productivity/commentRecord.js';
+import {walletBudgetAlertId} from './wallet/budgetJobIdentity.js';
+import {assertNoActiveFinancialHistory} from './wallet/legacyLinkGuard.js';
+import {compareTrackingAmount,formatTrackingAmount} from '../src/features/wallet/linkedMoney.js';
+import {hasManagedLegacyPolicy,assertManagedLegacyPatch} from './productivity/legacyCutoverRecord.js';
+import {isActiveLegacyTask} from '../src/utils/taskLifecycle.js';
+import {acceptRecurringOccurrence,isDurableOccurrenceTask} from './productivity/recurrenceAccepted.js';
+import {completionPolicy,markAcceptedCompletion,linkedCompletionGrant,reverseAcceptedCompletion,withCompletionPolicy} from './completionPolicy.js';
+import {hashPassword,verifyPassword} from './passwords.js';
+import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs,type WalletNotificationAccess} from './derivedPrivacy.js';
+import {walletReminderId} from './wallet/reminderIdentity.js';
+import {walletNotificationSource,walletBudgetNotificationSource} from '../src/features/wallet/notificationContract.js';
+import {currentLegacyActor} from './legacyActor.js';
+import {assertNoOpenSubtasks} from './productivity/structureInvariant.js';
+import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
+import {canViewLegacyTask,canonicalTaskPolicyActive,canonicalLegacyTaskTags} from './legacyVisibility.js';
+import {taskActor,requireTaskAdult,requireTaskEdit,taskPayloadObject,validateTaskPayload,validateTaskComment} from './taskPolicy.js';
+import {managedMarkdownUrls,canonicalMediaUrl,allowRecurringTaskMedia} from './mediaPolicy.js';
+import { collectOrdinaryAppSnapshot, ordinaryAppSnapshot, validateAppSnapshot, restoreAppSnapshot, legacySnapshot, getCommittedRestore, type RestoreOptions } from './appSnapshot.js';
+import { durableWrite, validBackupFilename, sha256, readSettings, settingsByteLimit } from './snapshotFiles.js';
+import { revokeUserSessions } from './authStore.js';
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import fs from "fs";
+import path from "path";
+import crypto from "crypto";
+import {
+  FamilyOrganizerDB,
+  User,
+  UserRole,
+  FamilyRelation,
+  Task,
+  TaskStatus,
+  FamilyPlan,
+  Note,
+  FinancialTransaction,
+  RewardPointEntry,
+  RewardItem,
+  BudgetLimit,
+  CustomExpenseCategory,
+  RecurringBill,
+  FamilyAsset,
+  MedicationReminder,
+  MedicationLog,
+  FamilyDocument,
+  DOCUMENT_TYPE_LABELS,
+  SavingsGoal,
+  SavingsContribution,
+  Debt,
+  DebtPayment,
+  VaccinationRecord,
+  GrowthRecord,
+  EmergencyProfile,
+  ShoppingItem,
+  Notification,
+  LegacySourceRef,
+  PushSubscriptionRecord,
+  StoredDish,
+  StoredMealPlan,
+  MarketHistoryPoint,
+  MealIngredient,
+  DishSlot
+} from "../src/types.js";
+import { SEED_DISHES } from "../src/utils/mealPlan.js";
+import { isDebtFullyPaid,debtRemainingAmount } from "../src/utils/debt.js";
+import { sqliteIsEmpty, sqliteHasLegacyData, sqliteLoad, sqliteSave, sqliteCheckpoint, sqliteFlushLegacyTasks } from "./sqlite.js";
+import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
+import { isPushConfigured } from "./push.js";
+import { enqueueAppJob } from "./jobStore.js";
+import { getAppCommandContext } from "./commandContext.js";
+import { AppStoreError, assertEditVersion, type EditVersionPayload } from "./appErrors.js";
+import { currentAppWriteTx, runLegacyCommand, afterAppCommit } from "./appStore.js";
+
+function validateTaskProofUrl(value:unknown):void {
+ if(typeof value==='string'&&value.startsWith('/uploads/')){try{canonicalMediaUrl(value);}catch{throw new AppStoreError('Tệp bằng chứng không hợp lệ.',400);}}
+}
+function deleteMediaByUrl(url: string | undefined | null): void {
+  afterAppCommit(() => deleteCommittedMedia(url));
+}
+
+// Queue managed references in the owning command; workers recheck recipient ACL.
+function queuePush(db: FamilyOrganizerDB, notification: Notification, excludeUserId?: string,deliveryReady=false): void {
+  const tx = currentAppWriteTx();
+  if(!deliveryReady&&tx&&stageTaskNotice(tx,notification,excludeUserId))return;
+  if (!isPushConfigured()) return;
+  if (!tx) throw new Error("Push outbox requires the current write transaction");
+  for (const subscription of db.pushSubscriptions) {
+    if ((notification.userId !== "all" && notification.userId !== subscription.userId) || subscription.userId === excludeUserId) continue;
+    enqueueAppJob(tx, { namespace: "legacy", type: "push-delivery", kind: "effect",
+      key: `${notification.id}:${crypto.createHash("sha256").update(subscription.endpoint).digest("hex")}`,
+      payload: { notificationId: notification.id, endpoint: subscription.endpoint, userId: subscription.userId, excludeUserId },
+    });
+  }
+}
+
+// Whitelist of valid asset types (mirrors AssetType in src/types.ts).
+const VALID_ASSET_TYPES = new Set<string>([
+  "crypto", "land", "gold_bar", "gold_ring", "gold_jewelry", "gold_other", "vehicle", "stock", "other"
+]);
+
+// Whitelist of valid document types (mirrors DocumentType in src/types.ts).
+const VALID_DOCUMENT_TYPES = new Set<string>([
+  "cccd", "passport", "driver_license", "vehicle_registration", "vehicle_inspection",
+  "insurance", "health_insurance", "warranty", "contract", "certificate", "other"
+]);
+
+// Collect the stored image URLs referenced by an asset's photos.
+function assetPhotoUrls(asset: { photos?: any[] } | undefined | null): string[] {
+  if (!asset || !Array.isArray(asset.photos)) return [];
+  const urls: string[] = [];
+  asset.photos.forEach(p => {
+    if (p?.fullDataUrl) urls.push(p.fullDataUrl);
+    if (p?.thumbnailDataUrl) urls.push(p.thumbnailDataUrl);
+  });
+  return urls;
+}
+
+import { appConfig } from "./config.js";
+
+const DATA_DIR = appConfig.dataRoot;
+const DB_FILE = path.join(DATA_DIR, "db.json");
+const BACKUP_DIR = path.join(DATA_DIR, "backups");
+const SECRET_FILE = path.join(appConfig.configRoot, "session_secret.key");
+// App-level config the admin can edit from the UI (e.g. Gemini API key).
+// Kept in its own file — NOT in db.json — so it never ends up in data backups.
+const SETTINGS_FILE = path.join(appConfig.configRoot, "app_settings.json");
+
+// Keep only the most recent N automatic backups (manual backups are kept indefinitely).
+const MAX_AUTO_BACKUPS = 7;
+export { hashPassword, verifyPassword } from './passwords.js';
+
+// Stable per-install secret used to sign session tokens. Generated once.
+export function getSessionSecret(): string {
+  if(fs.existsSync(SECRET_FILE)){
+    const stat=fs.lstatSync(SECRET_FILE);
+    if(!stat.isFile()||stat.isSymbolicLink()||stat.size>4096)throw new Error('Invalid session signing key');
+    const existing=fs.readFileSync(SECRET_FILE,'utf8').trim();
+    if(!existing)throw new Error('Invalid session signing key');return existing;
+  }
+  const secret=crypto.randomBytes(48).toString('hex');
+  fs.mkdirSync(appConfig.configRoot,{recursive:true});durableWrite(SECRET_FILE,secret);return secret;
+}
+
+// --- App settings (admin-editable, stored outside the DB & backups) ---
+export function getAppSettings(): Record<string, string> {
+  try {
+    if (fs.existsSync(SETTINGS_FILE)) {
+      return JSON.parse(fs.readFileSync(SETTINGS_FILE, "utf8")) || {};
+    }
+  } catch (e) {
+    console.error("Không đọc được app_settings.json:", e);
+  }
+  return {};
+}
+
+/** One synchronous atomic replacement for a validated settings command. */
+export function patchAppSettings(patch: Record<string,string|null>): void {
+  getAppCommandContext()?.assertWriteOwnership?.();
+  const temporary = SETTINGS_FILE + '.tmp-' + crypto.randomUUID();
+  try {
+    const settings = readSettings();
+    for (const [key,value] of Object.entries(patch)) {
+      if (value === null || value === '') delete settings[key];
+      else settings[key] = value;
+    }
+    const serialized = JSON.stringify(settings,null,2);
+    if (Buffer.byteLength(serialized,'utf8') > settingsByteLimit) throw new Error('Local settings size limit exceeded');
+    durableWrite(temporary, serialized);
+    getAppCommandContext()?.assertWriteOwnership?.();
+    fs.renameSync(temporary, SETTINGS_FILE);
+  } catch {
+    throw new AppStoreError('Không lưu được cấu hình Telegram. Hãy thử lại.',503);
+  } finally {
+    if (fs.existsSync(temporary)) fs.unlinkSync(temporary);
+  }
+}
+
+export function setAppSetting(key: string, value: string | null): void {
+  getAppCommandContext()?.assertWriteOwnership?.();
+  const settings = getAppSettings();
+  if (value === null || value === "") delete settings[key];
+  else settings[key] = value;
+  try {
+    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings, null, 2), "utf8");
+  } catch (e) {
+    console.error("Không ghi được app_settings.json:", e);
+  }
+}
+
+// Thay TOÀN BỘ app settings (dùng khi khôi phục từ backup toàn phần — ghi đè, không merge).
+export function replaceAppSettings(settings: Record<string, string>): void {
+  getAppCommandContext()?.assertWriteOwnership?.();
+  try {
+    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(settings || {}, null, 2), "utf8");
+  } catch (e) {
+    console.error("Không ghi được app_settings.json:", e);
+  }
+}
+
+export function normalizeDB(db: any): FamilyOrganizerDB {
+  db.users = db.users || [];
+  db.tasks = db.tasks || [];
+  db.plans = db.plans || [];
+  db.notes = db.notes || [];
+  db.transactions = db.transactions || [];
+  db.rewardLedger = db.rewardLedger || [];
+  db.rewardItems = db.rewardItems || [];
+  db.budgets = db.budgets || [];
+  db.customCategories = db.customCategories || [];
+  db.hiddenBuiltinCategories = Array.isArray(db.hiddenBuiltinCategories) ? db.hiddenBuiltinCategories : [];
+  db.recurringBills = db.recurringBills || [];
+  db.savingsGoals = db.savingsGoals || [];
+  db.debts = db.debts || [];
+  db.assets = db.assets || [];
+  db.medications = db.medications || [];
+  db.medicationLogs = db.medicationLogs || [];
+  db.vaccinations = db.vaccinations || [];
+  db.growthRecords = db.growthRecords || [];
+  db.healthProfiles = db.healthProfiles || [];
+  db.documents = db.documents || [];
+  db.shoppingItems = db.shoppingItems || [];
+  db.dishLibrary = db.dishLibrary || [];
+  db.mealPlan = db.mealPlan || null;
+  db.marketHistory = db.marketHistory || [];
+  db.notifications = db.notifications || [];
+  db.pushSubscriptions = db.pushSubscriptions || [];
+  db.activityLogs = db.activityLogs || [];
+  db.backups = db.backups || [];
+  db.tasks = db.tasks.map((task: any) => ({
+    ...task,
+    rewardPoints: Number(task.rewardPoints || 0),
+    completedById: task.completedById ?? null,
+    completedAt: task.completedAt ?? null,
+    recurrenceType: task.recurrenceType || "none",
+    recurrenceInterval: Number(task.recurrenceInterval || 1),
+    sourceRecurringTaskId: task.sourceRecurringTaskId ?? null
+  }));
+  db.plans = db.plans.map((plan: any) => ({
+    ...plan,
+    recurrenceWeekdays: Array.isArray(plan.recurrenceWeekdays)
+      ? plan.recurrenceWeekdays.map((d: any) => Number(d)).filter((d: number) => Number.isInteger(d) && d >= 0 && d <= 6)
+      : undefined
+  }));
+  return db as FamilyOrganizerDB;
+}
+
+// Ensure directories exist
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+if (!fs.existsSync(BACKUP_DIR)) {
+  fs.mkdirSync(BACKUP_DIR, { recursive: true });
+}
+
+// One-time storage bootstrap: if SQLite is empty, import the existing db.json
+// (preserving IDs), otherwise require explicit local installation initialization.
+// The original db.json is left untouched as a pre-migration rollback snapshot.
+(function bootstrapStorage() {
+  try {
+    if (!sqliteIsEmpty()) return;
+    if(sqliteHasLegacyData())throw new Error('Existing legacy business data requires explicit recovery; initialization cannot overwrite it.');
+    let seed: FamilyOrganizerDB;
+    if (fs.existsSync(DB_FILE)) {
+      try {
+        seed = normalizeDB(JSON.parse(fs.readFileSync(DB_FILE, "utf8")));
+        console.log("Đã nhập dữ liệu từ db.json sang SQLite (family.db).");
+      } catch (e) {
+        throw new Error('Cannot import selected db.json; repair or explicitly restore it before startup');
+      }
+    } else {
+      throw new Error('Installation initialization is required; use the trusted local operator command.');
+    }
+    sqliteSave(seed);
+  } catch (e) {
+    console.error("SQLite initialization failed; existing input was retained.");
+    throw new Error('Installation initialization failed; selected db.json or SQLite data requires repair or explicit initialization.');
+  }
+})();
+
+function parseLocalDateTime(value: string): Date | null {
+  if (!value) return null;
+  const d = new Date(String(value).replace(" ", "T"));
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function formatLocalDateTime(date: Date, withTime = true): string {
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  if (!withTime) return `${yyyy}-${mm}-${dd}`;
+  const hh = String(date.getHours()).padStart(2, "0");
+  const mi = String(date.getMinutes()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
+}
+
+function advanceDateString(value: string, recurrenceType: string, interval = 1, withTime = true): string | null {
+  const d = parseLocalDateTime(value);
+  if (!d || recurrenceType === "none") return null;
+  const step = Math.max(1, Number(interval || 1));
+  if (recurrenceType === "daily") d.setDate(d.getDate() + step);
+  if (recurrenceType === "weekly") d.setDate(d.getDate() + step * 7);
+  if (recurrenceType === "monthly") d.setMonth(d.getMonth() + step);
+  if (recurrenceType === "yearly") d.setFullYear(d.getFullYear() + step);
+  return formatLocalDateTime(d, withTime);
+}
+
+// Core DB operations helper
+export class FamilyDB {
+  private static readRaw(): FamilyOrganizerDB {
+    return normalizeDB(currentAppWriteTx()?.legacy ?? sqliteLoad());
+  }
+
+  private static writeRaw(db: FamilyOrganizerDB): void {
+    const tx = currentAppWriteTx();
+    if (tx) {
+      if (tx.legacy !== db) throw new Error("Legacy writer must use the current transaction document");
+      sqliteFlushLegacyTasks(db);
+      return; // Other changed collections remain staged until the outer commit.
+    }
+    sqliteSave(db);
+  }
+
+  // Activity logs helper
+  public static logActivity(userId: string, username: string, action: string, details: string, sourceRef?:LegacySourceRef) {
+    return runLegacyCommand("logActivity", [userId, username, action, details, sourceRef], userId, () => {
+    const db = this.readRaw();
+    db.activityLogs.unshift({
+      id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+      userId,
+      username,
+      action,
+      details,
+      ...(sourceRef?{sourceRef}:{}),
+      createdAt: new Date().toISOString()
+    });
+    // Cap logs at 300 to keep the activity view lightweight
+    if (db.activityLogs.length > 300) {
+      db.activityLogs = db.activityLogs.slice(0, 300);
+    }
+    this.writeRaw(db);
+
+    });
+  }
+
+  // Backup management
+  public static createBackup(type: "auto" | "manual", userId: string, username: string): { filename: string; sizeKb: number } {
+    return runLegacyCommand("createBackup", [type, userId, username], userId, () => {
+    const db = this.readRaw();
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+    const filename = `backup_${type}_${timestamp}_${crypto.randomUUID()}.json`;
+    const destPath = path.join(BACKUP_DIR, filename);
+
+    try {
+      // Snapshot the live SQLite data to a JSON file (human-readable, restore-friendly).
+      // The gateway already holds a consistent WAL read/write transaction.
+      // A checkpoint inside that transaction would fail with SQLITE_LOCKED.
+      durableWrite(destPath, JSON.stringify(collectOrdinaryAppSnapshot(currentAppWriteTx()!), null, 2));
+
+      const stats = fs.statSync(destPath);
+      const sizeKb = Math.ceil(stats.size / 1024);
+
+      // Save backup reference in memory
+      db.backups.unshift({
+        id: `backup_${Date.now()}`,
+        filename,
+        createdAt: new Date().toISOString(),
+        sizeKb,
+        type
+      });
+
+      // Retention: keep only the most recent auto backups; remove old files + metadata.
+      // db.backups is newest-first (unshift), so the filtered list is also newest-first.
+      const autoBackups = db.backups.filter(b => b.type === "auto");
+      if (autoBackups.length > MAX_AUTO_BACKUPS) {
+        const toRemove = autoBackups.slice(MAX_AUTO_BACKUPS);
+        for (const old of toRemove) {
+          try {
+            validBackupFilename(old.filename);
+            const oldPath = path.join(BACKUP_DIR, old.filename);
+            if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+          } catch (e) {
+            console.error("Không xóa được tệp backup cũ:", old.filename, e);
+          }
+        }
+        const removeIds = new Set(toRemove.map(b => b.id));
+        db.backups = db.backups.filter(b => !removeIds.has(b.id));
+      }
+
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Backup dữ liệu", `Đã tạo tệp sao lưu ${filename} thành công (${sizeKb} KB).`);
+      return { filename, sizeKb };
+    } catch (err) {
+      console.error("Không thể tạo backup tệp:", err);
+      throw new Error(`Sao lưu dữ liệu thất bại: ${err}`);
+    }
+
+    });
+  }
+
+  public static deleteBackup(backupId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteBackup", [backupId, userId, username], userId, () => {
+    const db = this.readRaw();
+    const backupIndex = db.backups.findIndex(b => b.id === backupId);
+    if (backupIndex === -1) return;
+
+    const backup = db.backups[backupIndex];
+    validBackupFilename(backup.filename);
+    const filepath = path.join(BACKUP_DIR, backup.filename);
+
+    try {
+      if (fs.existsSync(filepath)) {
+        fs.unlinkSync(filepath);
+      }
+      db.backups.splice(backupIndex, 1);
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Xử lý Backup", `Đã xóa tệp sao lưu ${backup.filename}.`);
+    } catch (err) {
+      console.error("Lỗi xóa file backup:", err);
+      throw err;
+    }
+
+    });
+  }
+
+  // Snapshot đầy đủ của DB (đã checkpoint WAL) — dùng cho backup toàn phần.
+  public static getFullSnapshot(): FamilyOrganizerDB {
+    sqliteCheckpoint();
+    return this.readRaw();
+  }
+
+  // Nạp một snapshot DB (đã parse từ tệp backup) vào SQLite — dùng cho import toàn phần.
+  public static async restoreFromSnapshot(parsedData: any, userId: string, username: string, sourceLabel: string, options: RestoreOptions): Promise<void> {
+    const identity=options.identity??sha256('json:'+JSON.stringify(parsedData));if(getCommittedRestore(identity))return;
+    const snapshot=parsedData?.manifest?.schemaVersion ? validateAppSnapshot(parsedData) : legacySnapshot(normalizeDB(parsedData));
+    await restoreAppSnapshot(ordinaryAppSnapshot(snapshot),{...options,identity});
+    this.logActivity(userId,username,"Phục hồi toàn phần",`Đã khôi phục hệ thống từ ${sourceLabel}.`);
+  }
+
+  public static async restoreBackup(backupId: string, userId: string, username: string, options: RestoreOptions): Promise<void> {
+    const identity=sha256('backup-id:'+backupId);if(getCommittedRestore(identity))return;
+    const backup=this.readRaw().backups.find(item=>item.id===backupId);
+    if (!backup) throw new Error("Không tìm thấy tệp sao lưu hợp lệ!");validBackupFilename(backup.filename);
+    const file=path.join(BACKUP_DIR,backup.filename);
+    if (!fs.lstatSync(file).isFile() || fs.lstatSync(file).isSymbolicLink() || fs.statSync(file).size > 256*1024*1024) throw new Error("Tệp sao lưu vượt giới hạn hoặc là liên kết!");
+    await this.restoreFromSnapshot(JSON.parse(fs.readFileSync(file,'utf8')),userId,username,backup.filename,{...options,identity});
+  }
+
+  // Generic Getters
+  public static getUsers() {
+    return this.readRaw().users;
+  }
+
+  public static getTasks() {
+    return this.readRaw().tasks;
+  }
+
+  public static getPlans() {
+    return this.readRaw().plans;
+  }
+
+  public static getNotes() {
+    return this.readRaw().notes;
+  }
+
+  public static getTransactions() {
+    return this.readRaw().transactions;
+  }
+
+  public static getRewardLedgerForActor(userId:string) {
+    const db=this.readRaw();return projectRewards(db,legacyReader(db,userId),canonicalTaskPolicyActive()?getSessionSecret():undefined);
+  }
+  public static getNotificationsForActor(userId:string,walletAccess?:WalletNotificationAccess) {
+    const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId),getSessionSecret(),walletAccess);
+  }
+  // Trusted outbox port resolves a canonical reference; HTTP only sees projected IDs.
+  public static getQueuedNotificationForActor(id:string,userId:string,walletAccess?:WalletNotificationAccess) {
+    const db=this.readRaw(),actor=legacyReader(db,userId),notification=db.notifications.find(row=>row.id===id);
+    const source=notification?.sourceRef;
+    if(source?.domain==='task'&&db.tasks.find(task=>task.id===source.id)?.status===TaskStatus.WONT_DO&&['notif_taskdue1d_','notif_taskdue1h_','notif_taskoverdue_'].some(prefix=>notification!.id===prefix+source.id))return undefined;
+    return notification?projectNotification(db,actor,notification,getSessionSecret(),walletAccess):undefined;
+  }
+  public static getActivityLogsForActor(userId:string) {
+    const db=this.readRaw();return projectActivityLogs(db,legacyReader(db,userId));
+  }
+  public static getRewardLedger() {
+    return this.readRaw().rewardLedger;
+  }
+
+  public static getBudgets() {
+    return this.readRaw().budgets;
+  }
+
+  public static getRecurringBills() {
+    return this.readRaw().recurringBills;
+  }
+
+  public static getAssets() {
+    return this.readRaw().assets;
+  }
+
+  public static getMedications() {
+    return this.readRaw().medications;
+  }
+
+  public static getNotifications() {
+    return this.readRaw().notifications;
+  }
+
+  public static getActivityLogs() {
+    return this.readRaw().activityLogs;
+  }
+
+  public static getBackups() {
+    return this.readRaw().backups;
+  }
+
+  // MUTATIONS (each returns the modified db items or a success state)
+  
+  // Create User (Admin Only)
+  public static createUser(u: { username: string; fullName: string; role: UserRole; passwordPlain: string; avatarColor: string; dateOfBirth?: string; gender?: "male" | "female"; phone?: string; familyRelation?: FamilyRelation }, adminId: string, adminUser: string): User {
+    return runLegacyCommand("createUser", [u, adminId, adminUser], adminId, () => {
+    const db = this.readRaw();
+    if (db.users.some(existing => existing.username === u.username.toLowerCase())) {
+      throw new Error("Tài khoản này đã tồn tại trong gia đình!");
+    }
+
+    const newUser = {
+      id: `user_${Date.now()}`,
+      username: u.username.toLowerCase().trim(),
+      fullName: u.fullName.trim(),
+      role: u.role,
+      familyRelation: u.familyRelation || undefined,
+      avatarColor: u.avatarColor || "bg-indigo-500",
+      dateOfBirth: u.dateOfBirth || undefined,
+      gender: u.gender === "male" || u.gender === "female" ? u.gender : undefined,
+      phone: u.phone ? u.phone.trim() : undefined,
+      passwordHash: hashPassword(u.passwordPlain),
+      createdAt: new Date().toISOString()
+    };
+
+    db.users.push(newUser);
+    this.writeRaw(db);
+    this.logActivity(adminId, adminUser, "Thêm thành viên", `Đã thêm thành viên mới: ${newUser.fullName} (${newUser.role}).`);
+
+    // Return safe user without secret passwordHash
+    const { passwordHash, ...safeUser } = newUser;
+    return safeUser;
+
+    });
+  }
+
+  // Update own profile (self-service personalization)
+  public static updateProfile(userId: string, data: { fullName?: string; dateOfBirth?: string; gender?: "male" | "female" | ""; phone?: string; avatarImage?: string; avatarColor?: string }): User {
+    return runLegacyCommand("updateProfile", [userId, data], userId, () => {
+    const db = this.readRaw();
+    const idx = db.users.findIndex(u => u.id === userId);
+    if (idx === -1) {
+      throw new Error("Không tìm thấy tài khoản người dùng!");
+    }
+
+    const user = db.users[idx];
+
+    if (data.fullName !== undefined) {
+      const trimmed = data.fullName.trim();
+      if (!trimmed) throw new Error("Tên hiển thị không được để trống!");
+      user.fullName = trimmed;
+    }
+    if (data.dateOfBirth !== undefined) {
+      user.dateOfBirth = data.dateOfBirth || undefined;
+    }
+    if (data.gender !== undefined) {
+      user.gender = data.gender === "male" || data.gender === "female" ? data.gender : undefined;
+    }
+    if (data.phone !== undefined) {
+      user.phone = data.phone.trim() || undefined;
+    }
+    if (data.avatarColor !== undefined && data.avatarColor) {
+      user.avatarColor = data.avatarColor;
+    }
+    if (data.avatarImage !== undefined) {
+      // Empty string clears the custom image and falls back to the color avatar.
+      // Delete the previous file if it was a stored upload and is being replaced.
+      const next = data.avatarImage || undefined;
+      if (user.avatarImage && user.avatarImage !== next) deleteMediaByUrl(user.avatarImage);
+      user.avatarImage = next;
+    }
+
+    db.users[idx] = user;
+    this.writeRaw(db);
+    this.logActivity(userId, user.username, "Cập nhật hồ sơ", `Đã cập nhật thông tin cá nhân của ${user.fullName}.`);
+
+    const { passwordHash, ...safeUser } = user;
+    return safeUser;
+
+    });
+  }
+
+  // Generate in-app notifications for birthdays happening within the next 7 days.
+  // Deduplicated per user per year so it is safe to call repeatedly.
+  public static generateBirthdayNotifications(): void {
+    return runLegacyCommand("generateBirthdayNotifications", [], "system:legacy", () => {
+    const db = this.readRaw();
+    const today = new Date();
+    const year = today.getFullYear();
+    const todayMidnight = new Date(year, today.getMonth(), today.getDate()).getTime();
+    let modified = false;
+
+    db.users.forEach(u => {
+      if (!u.dateOfBirth) return;
+      const dob = new Date(u.dateOfBirth);
+      if (isNaN(dob.getTime())) return;
+
+      // Lần sinh nhật sắp tới: nếu năm nay đã qua thì tính sang năm sau → bao luôn ca cuối/đầu năm.
+      let bdayDate = new Date(year, dob.getMonth(), dob.getDate());
+      if (bdayDate.getTime() < todayMidnight) {
+        bdayDate = new Date(year + 1, dob.getMonth(), dob.getDate());
+      }
+      const diffDays = Math.round((bdayDate.getTime() - todayMidnight) / 86400000);
+      if (diffDays > 7) return;
+
+      const occYear = bdayDate.getFullYear();
+      const notifId = `notif_bday_${u.id}_${occYear}`;
+      if (db.notifications.some(n => n.id === notifId)) return;
+
+      const age = occYear - dob.getFullYear();
+      const when = diffDays === 0 ? "hôm nay 🎉" : `trong ${diffDays} ngày nữa`;
+      const bdayNotif: Notification = {
+        id: notifId,
+        userId: "all",
+        title: "🎂 Sắp đến sinh nhật!",
+        content: `${u.fullName} sẽ tròn ${age} tuổi ${when} (ngày ${dob.getDate()}/${dob.getMonth() + 1}). Cả nhà chuẩn bị chúc mừng nhé!`,
+        type: "system",
+        sourceRef: {domain:'family'},
+        isRead: false,
+        createdAt: new Date().toISOString()
+      };
+      db.notifications.unshift(bdayNotif);
+      queuePush(db, bdayNotif);
+      modified = true;
+    });
+
+    if (db.notifications.length > 200) {
+      db.notifications = db.notifications.slice(0, 200);
+    }
+    if (modified) this.writeRaw(db);
+
+    });
+  }
+
+  // Delete User (Admin Only)
+  public static deleteUser(userId: string, adminId: string, adminUser: string): void {
+    return runLegacyCommand("deleteUser", [userId, adminId, adminUser], adminId, () => {
+    const db = this.readRaw();
+    const target = db.users.find(u => u.id === userId);
+    if (!target) {
+      throw new Error("Không tìm thấy thành viên này trong gia đình!");
+    }
+    if (userId === adminId) {
+      throw new Error("Bạn không thể tự xóa tài khoản của chính mình!");
+    }
+    // Never allow removing the very last admin, or the system becomes unmanageable
+    if (target.role === UserRole.ADMIN) {
+      const adminCount = db.users.filter(u => u.role === UserRole.ADMIN).length;
+      if (adminCount <= 1) {
+        throw new Error("Không thể xóa Quản trị viên (Admin) cuối cùng của hệ thống!");
+      }
+    }
+
+    // Soft delete: keep the record so historical name/avatar lookups still work.
+    // Clear password so the account cannot be used to log in.
+    const idx = db.users.findIndex(u => u.id === userId);
+    const avatarToDelete = db.users[idx].avatarImage;
+    db.users[idx].isDeleted = true;
+    db.users[idx].passwordHash = "";
+    db.users[idx].avatarImage = undefined;
+    this.writeRaw(db);
+    revokeUserSessions(currentAppWriteTx()!,userId);
+    if (avatarToDelete) deleteMediaByUrl(avatarToDelete);
+    this.logActivity(adminId, adminUser, "Xóa thành viên", `Đã xóa tài khoản ${target.fullName} (@${target.username}).`);
+
+    });
+  }
+
+  // Change own password (requires current password)
+  public static changePassword(userId: string, currentPassword: string, newPassword: string): void {
+    return runLegacyCommand("changePassword", [userId, currentPassword, newPassword], userId, () => {
+    const db = this.readRaw();
+    const idx = db.users.findIndex(u => u.id === userId);
+    if (idx === -1) throw new Error("Không tìm thấy tài khoản!");
+    if (!verifyPassword(currentPassword, db.users[idx].passwordHash)) {
+      throw new Error("Mật khẩu hiện tại không chính xác!");
+    }
+    if (!newPassword || newPassword.length < 4) {
+      throw new Error("Mật khẩu mới phải có ít nhất 4 ký tự!");
+    }
+    db.users[idx].passwordHash = hashPassword(newPassword);
+    this.writeRaw(db);
+    revokeUserSessions(currentAppWriteTx()!,userId);
+    this.logActivity(userId, db.users[idx].username, "Đổi mật khẩu", "Đã đổi mật khẩu đăng nhập của mình.");
+
+    });
+  }
+
+  // Admin updates another member's profile + role
+  public static adminUpdateUser(
+    targetId: string,
+    data: { fullName?: string; role?: UserRole; dateOfBirth?: string; gender?: "male" | "female" | ""; phone?: string; avatarColor?: string; familyRelation?: FamilyRelation },
+    adminId: string,
+    adminUser: string
+  ): User {
+    return runLegacyCommand("adminUpdateUser", [targetId, data, adminId, adminUser], adminId, () => {
+    const db = this.readRaw();
+    const idx = db.users.findIndex(u => u.id === targetId);
+    if (idx === -1) throw new Error("Không tìm thấy thành viên!");
+    const user = db.users[idx];
+
+    // Never demote the very last admin (would lock everyone out of management)
+    if (data.role !== undefined && data.role !== UserRole.ADMIN && user.role === UserRole.ADMIN) {
+      const adminCount = db.users.filter(u => u.role === UserRole.ADMIN).length;
+      if (adminCount <= 1) {
+        throw new Error("Không thể đổi vai trò của Quản trị viên (Admin) cuối cùng!");
+      }
+    }
+
+    if (data.fullName !== undefined) {
+      const trimmed = data.fullName.trim();
+      if (!trimmed) throw new Error("Tên hiển thị không được để trống!");
+      user.fullName = trimmed;
+    }
+    const roleChanged=data.role!==undefined&&data.role!==user.role;
+    if (data.role !== undefined) user.role = data.role;
+    if (data.familyRelation !== undefined) user.familyRelation = data.familyRelation || undefined;
+    if (data.dateOfBirth !== undefined) user.dateOfBirth = data.dateOfBirth || undefined;
+    if (data.gender !== undefined) user.gender = data.gender === "male" || data.gender === "female" ? data.gender : undefined;
+    if (data.phone !== undefined) user.phone = data.phone.trim() || undefined;
+    if (data.avatarColor !== undefined && data.avatarColor) user.avatarColor = data.avatarColor;
+
+    db.users[idx] = user;
+    this.writeRaw(db);
+    if(roleChanged)revokeUserSessions(currentAppWriteTx()!,targetId);
+    this.logActivity(adminId, adminUser, "Cập nhật thành viên", `Đã cập nhật ${user.fullName} (@${user.username}) — vai trò: ${user.role}.`);
+
+    const { passwordHash, ...safeUser } = user;
+    return safeUser;
+
+    });
+  }
+
+  // Admin resets another member's password (no current password needed)
+  public static adminResetPassword(targetId: string, newPassword: string, adminId: string, adminUser: string): void {
+    return runLegacyCommand("adminResetPassword", [targetId, newPassword, adminId, adminUser], adminId, () => {
+    const db = this.readRaw();
+    const idx = db.users.findIndex(u => u.id === targetId);
+    if (idx === -1) throw new Error("Không tìm thấy thành viên!");
+    if (!newPassword || newPassword.length < 4) {
+      throw new Error("Mật khẩu mới phải có ít nhất 4 ký tự!");
+    }
+    db.users[idx].passwordHash = hashPassword(newPassword);
+    this.writeRaw(db);
+    revokeUserSessions(currentAppWriteTx()!,targetId);
+    this.logActivity(adminId, adminUser, "Đặt lại mật khẩu", `Đã đặt lại mật khẩu cho ${db.users[idx].fullName} (@${db.users[idx].username}).`);
+
+    });
+  }
+
+  // Tasks Management
+  public static saveTask(taskData: Partial<Task> & EditVersionPayload, userId: string, username: string): Task {
+    if(canonicalTaskPolicyActive()){
+      taskPayloadObject(taskData);
+      const db=this.readRaw(),actor=taskActor(db,userId);
+      if(taskData.tags!==undefined)canonicalLegacyTaskTags(taskData.tags,actor);
+      if(taskData.id){const task=db.tasks.find(row=>row.id===taskData.id);if(!task)throw new AppStoreError("Không tìm thấy công việc",404);requireTaskEdit(task,actor);}
+      else requireTaskEdit(undefined,actor);
+    }
+    return runLegacyCommand("saveTask", [taskData, userId, username], userId, () => {
+    taskPayloadObject(taskData);
+    taskData = { ...taskData };
+    const baseUpdatedAt = taskData.baseUpdatedAt;
+    delete taskData.baseUpdatedAt;
+    const db = this.readRaw();
+    const nowStr = new Date().toISOString();
+    const actor = taskActor(db,userId);
+    if(taskData.tags!==undefined)taskData.tags=canonicalLegacyTaskTags(taskData.tags,actor,true);
+    if(baseUpdatedAt!==undefined&&(typeof baseUpdatedAt!=='string'||baseUpdatedAt.length>64))throw new AppStoreError('Phiên bản sửa không hợp lệ.',400);
+
+    if (taskData.id) {
+      // UPDATE Task
+      const idx = db.tasks.findIndex(t => t.id === taskData.id);
+      if (idx === -1) throw new AppStoreError("Không tìm thấy công việc",404);
+
+      const oldTask = db.tasks[idx];
+      requireTaskEdit(oldTask,actor);
+      assertEditVersion(oldTask, baseUpdatedAt);
+      taskData = validateTaskPayload(taskData,oldTask,actor,db,{allowWontDo:completionPolicy(currentAppWriteTx()!,oldTask.id)?.operation==='skip'});
+      if(oldTask.status===TaskStatus.WONT_DO&&taskData.status!==undefined&&taskData.status!==TaskStatus.WONT_DO)throw new AppStoreError('Kỳ đã bỏ qua không được mở lại bằng cập nhật trạng thái.',422);
+      const preserveManagedRecurrence = hasManagedLegacyPolicy(currentAppWriteTx()!,oldTask.id);
+      if(preserveManagedRecurrence)assertManagedLegacyPatch(currentAppWriteTx()!,oldTask,taskData);
+      validateTaskProofUrl(taskData.proofImage);
+      const isCompleting = taskData.status === "completed" && oldTask.status !== "completed";
+      // Registered durable occurrences share the semantic grant/reversal owner
+      // even when an existing legacy endpoint reaches this writer directly.
+      const requestedReopen=oldTask.status===TaskStatus.COMPLETED&&taskData.status!==undefined&&taskData.status!==TaskStatus.COMPLETED;
+      if(isCompleting||requestedReopen){const tx=currentAppWriteTx()!;if(!completionPolicy(tx,oldTask.id)&&isDurableOccurrenceTask(tx,oldTask.id)){const row=tx.get('SELECT revision FROM productivity_tasks WHERE id=?',oldTask.id);return withCompletionPolicy(tx,{taskId:oldTask.id,revision:row?.revision,operation:isCompleting?'complete':'reopen'},()=>{if(requestedReopen)reverseAcceptedCompletion(tx,oldTask.id,userId);return this.saveTask(taskData,userId,username);});}}
+
+      // Gating duyệt: trẻ (CHILD) tự báo hoàn thành một task có điểm > ngưỡng tự duyệt
+      // của gia đình → task vào trạng thái "chờ ba mẹ duyệt" thay vì cộng điểm ngay.
+      // Người lớn tự hoàn thành, hoặc điểm ≤ ngưỡng → hoàn thành + cộng điểm luôn.
+      const actorRole = db.users.find(u => u.id === userId)?.role;
+      // Ai sẽ nhận điểm: người được giao, nếu không có thì chính người bấm hoàn thành
+      // (khớp đúng logic cộng điểm bên dưới) — nên cổng duyệt cũng xét theo người này.
+      const rewardRecipientId = (taskData.assigneeId ?? oldTask.assigneeId) || userId;
+      const recipientRole = db.users.find(u => u.id === rewardRecipientId)?.role;
+      const rewardPts = Math.max(0, Number((taskData as any).rewardPoints ?? oldTask.rewardPoints ?? 0));
+      const approvalThreshold = Math.max(0, Number(getAppSettings().rewardApprovalThreshold || 0));
+      const needsApproval = isCompleting
+        && rewardPts > 0
+        && actorRole === UserRole.CHILD
+        && recipientRole === UserRole.CHILD
+        && rewardPts > approvalThreshold;
+      const effectiveCompleting = isCompleting && !needsApproval;
+      if(isCompleting)assertNoOpenSubtasks(currentAppWriteTx()!,oldTask.id);
+
+      // Determine history changes
+      const changelog: string[] = [];
+      if (taskData.status && taskData.status !== oldTask.status) {
+        changelog.push(`trạng thái từ '${oldTask.status}' thành '${taskData.status}'`);
+      }
+      if (taskData.assigneeId !== undefined && taskData.assigneeId !== oldTask.assigneeId) {
+        const uStore = db.users.find(u => u.id === taskData.assigneeId);
+        changelog.push(`giao việc cho ${uStore ? uStore.fullName : "Chưa phân công"}`);
+      }
+
+      const updatedHistory = [...(oldTask.history || [])];
+      if (changelog.length > 0) {
+        updatedHistory.unshift({
+          id: `h_${Date.now()}`,
+          userId,
+          username,
+          action: `Đã thay đổi: ${changelog.join(", ")}`,
+          createdAt: nowStr
+        });
+      }
+
+      const nextRecurrenceType = (taskData as any).recurrenceType ?? oldTask.recurrenceType ?? "none";
+      const nextRecurrenceEndDate = nextRecurrenceType !== "none"
+        ? ((taskData as any).recurrenceEndDate ?? oldTask.recurrenceEndDate)
+        : undefined;
+      const rawRotation = Object.prototype.hasOwnProperty.call(taskData, "rotationMemberIds")
+        ? (taskData as any).rotationMemberIds
+        : oldTask.rotationMemberIds;
+      const nextRotation = nextRecurrenceType !== "none" && Array.isArray(rawRotation)
+        ? rawRotation.map((id: unknown) => String(id || "").trim()).filter(Boolean)
+        : undefined;
+
+      const updatedTask: Task = {
+        ...oldTask,
+        ...taskData,
+        rewardPoints: Math.max(0, Number((taskData as any).rewardPoints ?? oldTask.rewardPoints ?? 0)),
+        recurrenceType: nextRecurrenceType,
+        recurrenceInterval: Math.max(1, Number((taskData as any).recurrenceInterval ?? oldTask.recurrenceInterval ?? 1)),
+        recurrenceEndDate: nextRecurrenceEndDate,
+        rotationMemberIds: nextRotation && nextRotation.length > 0 ? nextRotation : undefined,
+        sourceRecurringTaskId: (taskData as any).sourceRecurringTaskId ?? oldTask.sourceRecurringTaskId ?? null,
+        completedById: effectiveCompleting ? userId : (taskData.completedById ?? oldTask.completedById ?? null),
+        completedAt: effectiveCompleting ? nowStr : (taskData.completedAt ?? oldTask.completedAt ?? null),
+        comments: taskData.comments || oldTask.comments || [],
+        history: updatedHistory,
+        updatedAt: nowStr
+      } as Task;
+
+      if(preserveManagedRecurrence){
+        updatedTask.recurrenceType=oldTask.recurrenceType;
+        updatedTask.recurrenceInterval=oldTask.recurrenceInterval;
+        updatedTask.recurrenceEndDate=oldTask.recurrenceEndDate;
+        updatedTask.rotationMemberIds=oldTask.rotationMemberIds;
+        updatedTask.sourceRecurringTaskId=oldTask.sourceRecurringTaskId;
+      }
+
+      // Trẻ báo xong nhưng cần duyệt: giữ ở "đang làm", gắn cờ chờ duyệt, chưa cộng điểm.
+      if (needsApproval) {
+        updatedTask.status = "in_progress" as any;
+        updatedTask.pendingApproval = true;
+        updatedTask.submittedById = userId;
+        updatedTask.submittedAt = nowStr;
+        updatedTask.completedById = null;
+        updatedTask.completedAt = null;
+        updatedTask.rejectionReason = null;
+      } else if (isCompleting) {
+        updatedTask.pendingApproval = false;
+      }
+
+      db.tasks[idx] = updatedTask;
+
+      // Mở lại việc đã hoàn thành = bắt đầu một LƯỢT MỚI (dùng lại 1 task thay vì tạo mới):
+      // reset cờ chờ duyệt/bằng chứng để làm lại từ đầu. Điểm đã cộng ở lượt trước GIỮ NGUYÊN —
+      // mỗi lần hoàn thành là một lượt được thưởng riêng, cộng dồn.
+      const isReopening = oldTask.status === "completed" && updatedTask.status !== "completed";
+      if (isReopening) {
+        if(completionPolicy(currentAppWriteTx()!,updatedTask.id)?.operation==='reopen'){updatedTask.completedAt=null;updatedTask.completedById=null;}
+        updatedTask.pendingApproval = false;
+        updatedTask.submittedById = null;
+        updatedTask.submittedAt = null;
+        updatedTask.rejectionReason = null;
+        updatedTask.proofImage = null;
+        updatedTask.proofNote = null;
+      }
+
+      if (needsApproval) {
+        const submitter = db.users.find(u => u.id === userId);
+        this.notifyAdults(db, "⏳ Chờ duyệt hoàn thành", `${submitter?.fullName || "Bé"} báo đã xong "${updatedTask.title}". Vào duyệt để cộng ${updatedTask.rewardPoints} điểm nhé.`, "task", {domain:'task',id:updatedTask.id});
+      }
+
+      if(effectiveCompleting)markAcceptedCompletion(currentAppWriteTx()!,updatedTask.id);
+      if (effectiveCompleting && updatedTask.rewardPoints && updatedTask.rewardPoints > 0) {
+        // Ưu tiên trẻ đã "báo xong" (submittedById) — để khi ba mẹ duyệt, điểm về đúng
+        // trẻ đã làm chứ không phải người duyệt; nếu không có thì dùng người được giao / người bấm.
+        const awardUserId = updatedTask.submittedById || updatedTask.assigneeId || userId;
+        const awardUser = db.users.find(u => u.id === awardUserId);
+        // Mỗi lần chuyển sang "hoàn thành" là một lượt thưởng riêng (cộng dồn qua các lần
+        // mở lại). Chốt effectiveCompleting = chỉ cộng đúng lúc CHUYỂN trạng thái nên không
+        // bị cộng trùng khi chỉ sửa/lưu lại một task vốn đã hoàn thành.
+        if (awardUser?.role === UserRole.CHILD) {
+          const linked=linkedCompletionGrant(currentAppWriteTx()!,{taskId:updatedTask.id,userId:awardUserId,points:updatedTask.rewardPoints,actorId:userId,reason:`Hoan thanh: ${updatedTask.title}`});
+          if(!linked)db.rewardLedger.unshift({
+            id: `reward_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+            userId: awardUserId,
+            taskId: updatedTask.id,
+            points: updatedTask.rewardPoints,
+            reason: `Hoan thanh: ${updatedTask.title}`,
+            createdById: userId,
+            createdAt: nowStr
+          });
+          this.addNotificationInternal(db, awardUserId, "Diem thuong moi", `Con vua nhan ${updatedTask.rewardPoints} diem vi hoan thanh "${updatedTask.title}".`, "task", {domain:'task',id:updatedTask.id});
+        }
+      }
+
+      let durableOccurrence=false;
+      if(effectiveCompleting){this.writeRaw(db);durableOccurrence=acceptRecurringOccurrence(currentAppWriteTx()!,updatedTask,userId,nowStr);}
+
+      if (effectiveCompleting && !durableOccurrence && updatedTask.recurrenceType && updatedTask.recurrenceType !== "none") {
+        const nextDueDate = advanceDateString(updatedTask.dueDate, updatedTask.recurrenceType, updatedTask.recurrenceInterval || 1);
+        const recurrenceEnd = updatedTask.recurrenceEndDate ? parseLocalDateTime(`${updatedTask.recurrenceEndDate} 23:59`) : null;
+        const nextDue = nextDueDate ? parseLocalDateTime(nextDueDate) : null;
+        const rootId = updatedTask.sourceRecurringTaskId || updatedTask.id;
+        const alreadyGenerated = nextDueDate && db.tasks.some(t =>
+          (t.sourceRecurringTaskId === rootId || t.id === rootId) &&
+          t.dueDate === nextDueDate &&
+          t.status !== "completed"
+        );
+
+        if (nextDueDate && nextDue && (!recurrenceEnd || nextDue.getTime() <= recurrenceEnd.getTime()) && !alreadyGenerated) {
+          // Xoay vòng người nhận: chuyển sang thành viên kế tiếp trong danh sách (nếu có cấu hình).
+          let nextAssignee = updatedTask.assigneeId;
+          const rotation = (updatedTask.rotationMemberIds || []).filter(Boolean);
+          if (rotation.length > 0) {
+            const curIdx = rotation.indexOf(updatedTask.assigneeId || "");
+            nextAssignee = rotation[(curIdx + 1) % rotation.length];
+          }
+          const nextTask: Task = {
+            ...updatedTask,
+            id: `task_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
+            status: "todo" as any,
+            dueDate: nextDueDate,
+            assigneeId: nextAssignee,
+            sourceRecurringTaskId: rootId,
+            completedById: null,
+            completedAt: null,
+            // Bản lặp kế tiếp bắt đầu tinh khôi: xóa trạng thái duyệt/bằng chứng của lần trước.
+            pendingApproval: false,
+            submittedById: null,
+            submittedAt: null,
+            proofImage: null,
+            proofNote: null,
+            rejectionReason: null,
+            comments: [],
+            history: [{
+              id: `h_${Date.now()}_next`,
+              userId,
+              username,
+              action: "Tu tao tu task lap lai",
+              createdAt: nowStr
+            }],
+            createdAt: nowStr,
+            updatedAt: nowStr
+          };
+          allowRecurringTaskMedia(currentAppWriteTx()!,updatedTask,nextTask,actor);
+          db.tasks.push(nextTask);
+        }
+      }
+
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Cập nhật Task", `Đã sửa đổi công việc "${updatedTask.title}".`);
+      return updatedTask;
+    } else {
+      // CREATE Task
+      taskData = validateTaskPayload(taskData,undefined,actor,db);
+      validateTaskProofUrl(taskData.proofImage);
+      const newTask: Task = {
+        id: `task_${Date.now()}`,
+        title: taskData.title || "Công việc mới",
+        description: taskData.description || "",
+        status: taskData.status || ("todo" as any),
+        priority: taskData.priority || ("medium" as any),
+        dueDate: taskData.dueDate || new Date(Date.now() + 86400000).toISOString().slice(0, 10) + " 12:00",
+        creatorId: userId,
+        assigneeId: taskData.assigneeId || null,
+        isShared: taskData.isShared !== undefined ? taskData.isShared : true,
+        tags: taskData.tags || [],
+        rewardPoints: Math.max(0, Number((taskData as any).rewardPoints || 0)),
+        completedById: null,
+        completedAt: null,
+        recurrenceType: (taskData as any).recurrenceType || "none",
+        recurrenceInterval: Math.max(1, Number((taskData as any).recurrenceInterval || 1)),
+        recurrenceEndDate: (taskData as any).recurrenceEndDate || undefined,
+        rotationMemberIds: (taskData as any).rotationMemberIds || undefined,
+        sourceRecurringTaskId: null,
+        comments: [],
+        history: [{
+          id: `h_${Date.now()}`,
+          userId,
+          username,
+          action: "Đã khởi tạo công việc này",
+          createdAt: nowStr
+        }],
+        createdAt: nowStr,
+        updatedAt: nowStr
+      };
+
+      db.tasks.push(newTask);
+      this.logActivity(userId, username, "Tạo Task", `Đã lập công việc mới "${newTask.title}".`);
+
+      // Push notification to assignee
+      if (newTask.assigneeId && newTask.assigneeId !== userId) {
+        this.addNotificationInternal(db, newTask.assigneeId, "Công việc mới được giao", `Bạn vừa được giao nhiệm vụ: "${newTask.title}"`, 'task', {domain:'task',id:newTask.id});
+      } else if (newTask.isShared) {
+        this.addNotificationInternal(db, "all", "Công việc gia đình mới", `Cả nhà ơi có nhiệm vụ: "${newTask.title}"`, 'task', {domain:'task',id:newTask.id});
+      }
+
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Tạo Task", `Đã lập công việc mới "${newTask.title}".`);
+      return newTask;
+    }
+
+    });
+  }
+
+  // Gửi thông báo (in-app + push) tới mọi người lớn trong nhà (Admin + Member).
+  private static notifyAdults(db: FamilyOrganizerDB, title: string, content: string, type: Notification["type"] = "system", sourceRef:LegacySourceRef={domain:'family'}): void {
+    db.users
+      .filter(u => u.role === UserRole.ADMIN || u.role === UserRole.MEMBER)
+      .forEach(u => this.addNotificationInternal(db, u.id, title, content, type, sourceRef));
+  }
+
+  // Người lớn DUYỆT việc trẻ đã báo xong → hoàn thành + cộng điểm (tái dùng saveTask
+  // với actor là người lớn nên không bị gate lại; điểm vẫn về cho trẻ nhận việc).
+  public static approveTaskCompletion(taskId: string, approverId: string, approverName: string): Task {
+    if(canonicalTaskPolicyActive()){
+      const db=this.readRaw(),actor=taskActor(db,approverId);requireTaskAdult(actor);
+      const task=db.tasks.find(row=>row.id===taskId);if(!task)throw new AppStoreError("Không tìm thấy công việc",404);requireTaskEdit(task,actor);
+    }
+    return runLegacyCommand("approveTaskCompletion", [taskId, approverId, approverName], approverId, () => {
+    const db = this.readRaw();
+    requireTaskAdult(taskActor(db,approverId));
+    const task = db.tasks.find(t => t.id === taskId);
+    if (!task){if(canonicalTaskPolicyActive())throw new AppStoreError("Không tìm thấy công việc",404);throw new Error("Task không tồn tại");}
+    requireTaskEdit(task,taskActor(db,approverId));
+    if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
+    return this.saveTask({ id: taskId, status: "completed" as any }, approverId, approverName);
+
+    });
+  }
+
+  /** Explicit semantic policy only: the original completion grant is reversed
+   * through RewardStoreTx under the same FamilyDB/I01 owner. */
+  public static reopenTask(taskId:string,userId:string,username:string,revision:number):Task {
+    return runLegacyCommand('reopenTask',[taskId,userId,username,revision],userId,()=>{
+      const db=this.readRaw(),actor=taskActor(db,userId),task=db.tasks.find(t=>t.id===taskId);if(!task)throw new AppStoreError('Không tìm thấy công việc',404);requireTaskEdit(task,actor);
+      if(task.status!==TaskStatus.COMPLETED||task.pendingApproval)throw new AppStoreError('Chỉ mở lại công việc đã được hoàn thành.',422);
+      const tx=currentAppWriteTx()!;reverseAcceptedCompletion(tx,taskId,userId);
+      return withCompletionPolicy(tx,{taskId,revision,operation:'reopen'},()=>this.saveTask({id:taskId,status:TaskStatus.TODO},userId,username));
+    });
+  }
+
+  // Người lớn TRẢ LẠI việc → về "đang làm", ghi lý do, báo trẻ làm lại. Không cộng điểm.
+  public static rejectTaskCompletion(taskId: string, approverId: string, approverName: string, reason?: string): Task {
+    if(canonicalTaskPolicyActive()){
+      const db=this.readRaw(),actor=taskActor(db,approverId);requireTaskAdult(actor);
+      const task=db.tasks.find(row=>row.id===taskId);if(!task)throw new AppStoreError("Không tìm thấy công việc",404);requireTaskEdit(task,actor);
+    }
+    return runLegacyCommand("rejectTaskCompletion", [taskId, approverId, approverName, reason], approverId, () => {
+    const db = this.readRaw();
+    requireTaskAdult(taskActor(db,approverId));
+    if(reason!==undefined&&reason!==null&&(typeof reason!=='string'||reason.length>8000))throw new AppStoreError('Lý do không hợp lệ.',400);
+    const idx = db.tasks.findIndex(t => t.id === taskId);
+    if (idx === -1){if(canonicalTaskPolicyActive())throw new AppStoreError("Không tìm thấy công việc",404);throw new Error("Task không tồn tại");}
+    const task = db.tasks[idx];
+    requireTaskEdit(task,taskActor(db,approverId));
+    if (!task.pendingApproval) throw new Error("Công việc này không ở trạng thái chờ duyệt.");
+    const nowStr = new Date().toISOString();
+    const reasonText = (reason || "").trim();
+    task.status = "in_progress" as any;
+    task.pendingApproval = false;
+    task.rejectionReason = reasonText || null;
+    task.completedById = null;
+    task.completedAt = null;
+    task.updatedAt = nowStr;
+    task.history = [
+      {
+        id: `h_${Date.now()}`,
+        userId: approverId,
+        username: approverName,
+        action: reasonText ? `Đã trả lại để làm lại: ${reasonText}` : "Đã trả lại để làm lại",
+        createdAt: nowStr
+      },
+      ...(task.history || [])
+    ];
+    if (task.assigneeId) {
+      this.addNotificationInternal(
+        db,
+        task.assigneeId,
+        "🔁 Cần làm lại",
+        reasonText ? `Ba mẹ trả lại việc "${task.title}": ${reasonText}` : `Ba mẹ trả lại việc "${task.title}", con làm lại nhé.`,
+        "task",
+        {domain:'task',id:task.id}
+      );
+    }
+    this.writeRaw(db);
+    this.logActivity(approverId, approverName, "Trả lại Task", `Đã trả lại công việc "${task.title}" để làm lại.`);
+    return task;
+
+    });
+  }
+
+  public static addCommentToTask(taskId: string, commentContent: string, userId: string, username: string): Task {
+    if(canonicalTaskPolicyActive()){
+      const db=this.readRaw(),actor=taskActor(db,userId),task=db.tasks.find(row=>row.id===taskId);
+      if(!task||!canViewLegacyTask(task,actor))throw new AppStoreError("Không tìm thấy công việc",404);
+      requireTaskEdit(task,actor);
+    }
+    return runLegacyCommand("addCommentToTask", [taskId, commentContent, userId, username], userId, () => {
+    const db = this.readRaw();
+    const actor=taskActor(db,userId);
+    validateTaskComment(commentContent);
+    const idx = db.tasks.findIndex(t => t.id === taskId);
+    if (idx === -1 || !canViewLegacyTask(db.tasks[idx],actor)) throw new AppStoreError("Không tìm thấy công việc",404);
+
+    if(canonicalTaskPolicyActive())requireTaskEdit(db.tasks[idx],actor);
+    const {comment:newComment,activity}=taskCommentRecord(commentContent,{userId,username},new Date().toISOString());
+    const task = db.tasks[idx];
+    task.comments.push(newComment);
+    task.history.unshift(activity);
+    task.updatedAt = new Date().toISOString();
+
+    db.tasks[idx] = task;
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Bình luận Task", `Đã bình luận trong công việc "${task.title}".`);
+    return task;
+
+    });
+  }
+
+  public static deleteTask(taskId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteTask", [taskId, userId, username], userId, () => {
+    const db = this.readRaw();
+    requireTaskAdult(taskActor(db,userId));
+    const idx = db.tasks.findIndex(t => t.id === taskId);
+    if (idx === -1){if(canonicalTaskPolicyActive())throw new AppStoreError("Không tìm thấy công việc",404);return;}
+
+    requireTaskEdit(db.tasks[idx],taskActor(db,userId));
+    const taskTitle = db.tasks[idx].title;
+    db.tasks.splice(idx, 1);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Xóa Task", `Đã xóa công việc "${taskTitle}".`);
+
+    });
+  }
+
+  // Plans Management
+  public static savePlan(planData: Partial<FamilyPlan>, userId: string, username: string): FamilyPlan {
+    return runLegacyCommand("savePlan", [planData, userId, username], userId, () => {
+    validateContentHeader(planData);
+    planData={...planData};
+    const db = this.readRaw();
+    const actor=currentLegacyActor(db,userId);
+    const nowStr = new Date().toISOString();
+
+    if (planData.id) {
+      // UPDATE
+      const idx = db.plans.findIndex(p => p.id === planData.id);
+      if (idx === -1) throw new AppStoreError("Không tìm thấy sự kiện",404);
+      planData=validateContentPayload('plan',planData,db.plans[idx],actor,db);
+
+      const updated = {
+        ...db.plans[idx],
+        ...planData
+      } as FamilyPlan;
+
+      db.plans[idx] = updated;
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Cập nhật Lịch trình", `Đã cập nhật sự kiện "${updated.title}".`);
+      return updated;
+    } else {
+      // CREATE
+      planData=validateContentPayload('plan',planData,undefined,actor,db);
+      const newPlan: FamilyPlan = {
+        id: `plan_${Date.now()}`,
+        title: planData.title || "Kế hoạch mới",
+        description: planData.description || "",
+        startDate: planData.startDate || new Date().toISOString().slice(0, 16).replace("T", " "),
+        // Sự kiện lặp lại bỏ trống ngày kết thúc = lặp VÔ HẠN → giữ "" (KHÔNG ép về giờ hiện tại).
+        // Sự kiện 1 lần không có mốc kết thúc → mặc định +1 giờ để vẽ khoảng hợp lý.
+        endDate: (typeof planData.endDate === "string" && planData.endDate.trim())
+          ? planData.endDate.trim()
+          : (planData.isRecurring ? "" : new Date(Date.now() + 3600000).toISOString().slice(0, 16).replace("T", " ")),
+        isRecurring: planData.isRecurring || false,
+        recurrenceType: planData.recurrenceType || "none",
+        // Lưu các thứ trong tuần cho lịch lặp hằng tuần (vd chọn Thứ 4 dù bắt đầu Thứ 5).
+        // Thiếu dòng này thì CREATE bỏ mất → hệ thống lặp nhầm theo thứ của ngày bắt đầu.
+        recurrenceWeekdays: Array.isArray(planData.recurrenceWeekdays)
+          ? planData.recurrenceWeekdays.map((d: any) => Number(d)).filter((d: number) => Number.isInteger(d) && d >= 0 && d <= 6)
+          : undefined,
+        creatorId: userId,
+        isShared: planData.isShared !== undefined ? planData.isShared : true,
+        color: planData.color || "sky",
+        createdAt: nowStr
+      };
+
+      db.plans.push(newPlan);
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Tạo Lịch trình", `Đã lập lịch trình mới: "${newPlan.title}".`);
+
+      if (newPlan.isShared) {
+        this.addNotificationInternal(db, "all", "Sự kiện gia đình mới", `Lịch gia đình có sự kiện mới: "${newPlan.title}" vào ngày ${newPlan.startDate.substring(0, 10)}`, 'plan', {domain:'plan',id:newPlan.id});
+      }
+
+      return newPlan;
+    }
+
+    });
+  }
+
+  public static deletePlan(planId: string, userId: string, username: string): void {
+    return runLegacyCommand("deletePlan", [planId, userId, username], userId, () => {
+    const db = this.readRaw();
+    const idx = db.plans.findIndex(p => p.id === planId);
+    requireContentDelete('plan',db.plans[idx],currentLegacyActor(db,userId));
+    if (idx === -1) return;
+
+    const title = db.plans[idx].title;
+    db.plans.splice(idx, 1);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Xóa Lịch trình", `Đã xóa sự kiện "${title}".`);
+
+    });
+  }
+
+  // Notes Management
+  // Các URL ảnh do app quản lý (/uploads/notes/...) nhúng trong markdown của ghi chú.
+  private static extractNoteImageUrls(content: string | undefined): string[] {
+    return managedMarkdownUrls(String(content || ""));
+  }
+
+  public static saveNote(noteData: Partial<Note> & EditVersionPayload, userId: string, username: string): Note {
+    return runLegacyCommand("saveNote", [noteData, userId, username], userId, () => {
+    validateContentHeader(noteData);
+    noteData = { ...noteData };
+    const baseUpdatedAt = noteData.baseUpdatedAt;
+    delete noteData.baseUpdatedAt;
+    const db = this.readRaw();
+    const actor=currentLegacyActor(db,userId);
+    const nowStr = new Date().toISOString();
+
+    if (noteData.id) {
+      // UPDATE Note
+      const idx = db.notes.findIndex(n => n.id === noteData.id);
+      if (idx === -1) throw new AppStoreError("Không tìm thấy ghi chú",404);
+
+      const oldNote = db.notes[idx];
+      requireContentEdit('note',oldNote,actor);
+      assertEditVersion(oldNote, baseUpdatedAt);
+      noteData=validateContentPayload('note',noteData,oldNote,actor,db);
+
+      const updatedNote: Note = {
+        ...oldNote,
+        ...noteData,
+        updatedAt: nowStr
+      } as Note;
+
+      // Ảnh nhúng bị gỡ khỏi nội dung → xóa file mồ côi trên đĩa.
+      if (noteData.content !== undefined) {
+        const kept = new Set(this.extractNoteImageUrls(updatedNote.content));
+        this.extractNoteImageUrls(oldNote.content).forEach(url => {
+          if (!kept.has(url)) deleteMediaByUrl(url);
+        });
+      }
+
+      db.notes[idx] = updatedNote;
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Cập nhật Ghi chú", `Đã chỉnh sửa ghi chú "${updatedNote.title}".`);
+      return updatedNote;
+    } else {
+      // CREATE Note
+      noteData=validateContentPayload('note',noteData,undefined,actor,db);
+      const newNote: Note = {
+        id: `note_${crypto.randomUUID()}`,
+        title: noteData.title || "Ghi chú không tên",
+        content: noteData.content || "",
+        isPinned: noteData.isPinned || false,
+        creatorId: userId,
+        tags: noteData.tags || [],
+        isShared: noteData.isShared !== undefined ? noteData.isShared : true,
+        allowedRolesToEdit: noteData.allowedRolesToEdit || [UserRole.ADMIN, UserRole.MEMBER],
+        createdAt: nowStr,
+        updatedAt: nowStr
+      };
+
+      db.notes.push(newNote);
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Tạo Ghi chú", `Đã tạo ghi chú "${newNote.title}".`);
+
+      return newNote;
+    }
+
+    });
+  }
+
+  public static deleteNote(noteId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteNote", [noteId, userId, username], userId, () => {
+    const db = this.readRaw();
+    const idx = db.notes.findIndex(n => n.id === noteId);
+    requireContentDelete('note',db.notes[idx],currentLegacyActor(db,userId));
+    if (idx === -1) return;
+
+    const title = db.notes[idx].title;
+    // Dọn các ảnh nhúng trong ghi chú khỏi đĩa.
+    this.extractNoteImageUrls(db.notes[idx].content).forEach(url => deleteMediaByUrl(url));
+    db.notes.splice(idx, 1);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Xóa Ghi chú", `Đã xóa ghi chú "${title}".`);
+
+    });
+  }
+
+  // Nhãn tiếng Việt cho nhật ký tài chính (đồng bộ với translateCategory/translateAccount phía client).
+  // Hạng mục thu nhập là free-text tiếng Việt nên trả nguyên văn nếu không có trong map.
+  private static readonly TX_CATEGORY_LABELS: Record<string, string> = {
+    food: "Ăn uống", education2: "Học tập", utilities: "Điện nước", shopping: "Mua sắm",
+    medical: "Y tế", transport: "Đi lại", debt_bank: "Trả nợ NH", debt_personal: "Trả nợ CN",
+    funeral: "Ma chay", ceremony: "Hiếu hỉ", rent: "Thuê nhà", internet: "Cước Internet",
+    phone: "Điện thoại", insurance: "Bảo hiểm", loan: "Trả nợ NH", other: "Khác"
+  };
+  private static readonly TX_ACCOUNT_LABELS: Record<string, string> = {
+    cash: "Tiền mặt", bank: "Ngân hàng", e_wallet: "Ví điện tử"
+  };
+
+  // Liệt kê các thay đổi "cũ → mới" giữa 2 bản giao dịch — để nhật ký minh bạch từng chỉnh sửa.
+  private static describeTransactionChanges(oldTx: FinancialTransaction, newTx: FinancialTransaction): string[] {
+    const changes: string[] = [];
+    if (oldTx.type !== newTx.type)
+      changes.push(`loại ${oldTx.type === "income" ? "Thu" : "Chi"} → ${newTx.type === "income" ? "Thu" : "Chi"}`);
+    if (oldTx.amount !== newTx.amount)
+      changes.push(`số tiền ${oldTx.amount.toLocaleString()} → ${newTx.amount.toLocaleString()} VNĐ`);
+    if (oldTx.description !== newTx.description)
+      changes.push(`nội dung "${oldTx.description}" → "${newTx.description}"`);
+    if (oldTx.date !== newTx.date)
+      changes.push(`ngày ${oldTx.date} → ${newTx.date}`);
+    if (oldTx.category !== newTx.category)
+      changes.push(`hạng mục ${this.TX_CATEGORY_LABELS[oldTx.category] || oldTx.category} → ${this.TX_CATEGORY_LABELS[newTx.category] || newTx.category}`);
+    if (oldTx.account !== newTx.account)
+      changes.push(`ví ${this.TX_ACCOUNT_LABELS[oldTx.account] || oldTx.account} → ${this.TX_ACCOUNT_LABELS[newTx.account] || newTx.account}`);
+    if ((oldTx.receiptImage || "") !== (newTx.receiptImage || ""))
+      changes.push(newTx.receiptImage ? (oldTx.receiptImage ? "thay ảnh hóa đơn" : "thêm ảnh hóa đơn") : "gỡ ảnh hóa đơn");
+    return changes;
+  }
+
+  // Financial transactions management
+  public static saveTransaction(txData: Partial<FinancialTransaction>, userId: string, username: string): FinancialTransaction {
+    return runLegacyCommand("saveTransaction", [txData, userId, username], userId, () => {
+    const db = this.readRaw();
+
+    const newTx: FinancialTransaction = {
+      id: txData.id ? txData.id : `tx_${Date.now()}_${crypto.randomUUID()}`,
+      type: txData.type || ("expense" as any),
+      amount: txData.amount || 0,
+      category: txData.category || "other",
+      account: txData.account || ("bank" as any),
+      description: txData.description || "",
+      date: txData.date || new Date().toISOString().slice(0, 10),
+      creatorId: userId,
+      receiptImage: txData.receiptImage, // Base64 supported
+      createdAt: txData.createdAt || new Date().toISOString()
+    };
+
+    if (txData.id) {
+      // UPDATE — giữ nguyên người tạo & thời điểm tạo gốc (admin sửa hộ không đổi chủ bản ghi)
+      const idx = db.transactions.findIndex(t => t.id === txData.id);
+      if (idx === -1) throw new Error("Giao dịch không tồn tại");
+      const oldTx = db.transactions[idx];
+      newTx.creatorId = oldTx.creatorId;
+      newTx.createdAt = oldTx.createdAt;
+      if (oldTx.receiptImage && oldTx.receiptImage !== newTx.receiptImage) deleteMediaByUrl(oldTx.receiptImage);
+      db.transactions[idx] = newTx;
+      // Nhật ký minh bạch: ghi rõ từng trường đã đổi (cũ → mới) thay vì chỉ "đã điều chỉnh"
+      const changes = this.describeTransactionChanges(oldTx, newTx);
+      this.logActivity(
+        userId, username, "Sửa giao dịch tài chính",
+        changes.length > 0
+          ? `Đã sửa giao dịch "${oldTx.description}": ${changes.join("; ")}.`
+          : `Đã lưu lại giao dịch "${newTx.description}" (không có thay đổi).`
+      );
+    } else {
+      // CREATE
+      db.transactions.push(newTx);
+      this.logActivity(userId, username, "Ghi chép tài chính", `Đã ghi lại ${newTx.type === "expense" ? "khoản chi" : "khoản thu"} "${newTx.description}" (${newTx.amount.toLocaleString()} VNĐ)`);
+    }
+
+    this.writeRaw(db);
+    return newTx;
+
+    });
+  }
+
+  public static deleteTransaction(txId: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteTransaction", [txId, userId, username], userId, () => {
+    const db = this.readRaw();
+    const idx = db.transactions.findIndex(t => t.id === txId);
+    if (idx === -1) return;
+
+    const tx = db.transactions[idx];
+    db.transactions.splice(idx, 1);
+    this.writeRaw(db);
+    deleteMediaByUrl(tx.receiptImage); // remove the stored receipt file, if any
+    this.logActivity(userId, username, "Xóa giao dịch tài chính", `Đã xóa giao dịch "${tx.description}" (${tx.amount.toLocaleString()} VNĐ).`);
+
+    });
+  }
+
+  // --- REWARD POINTS ---
+  public static addRewardEntry(data: Partial<RewardPointEntry>, userId: string, username: string): RewardPointEntry {
+    return runLegacyCommand("addRewardEntry", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const target = db.users.find(u => u.id === data.userId);
+    if (!target) throw new Error("Không tìm thấy thành viên nhận điểm");
+    const points = Number(data.points || 0);
+    if (!points) throw new Error("Số điểm không hợp lệ");
+
+    const entry: RewardPointEntry = {
+      id: `reward_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      userId: target.id,
+      taskId: data.taskId,
+      points,
+      reason: data.reason || "Dieu chinh diem",
+      createdById: userId,
+      createdAt: new Date().toISOString()
+    };
+    db.rewardLedger.unshift(entry);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Điểm thưởng", `Đã cập nhật ${points} điểm cho ${target.fullName}.`);
+    return entry;
+
+    });
+  }
+
+  // --- CỬA HÀNG ĐỔI THƯỞNG (quà đổi bằng điểm rewardLedger) ---
+
+  public static getRewardItems(): RewardItem[] {
+    return this.readRaw().rewardItems;
+  }
+
+  public static saveRewardItem(data: Partial<RewardItem>, userId: string, username: string): RewardItem {
+    return runLegacyCommand("saveRewardItem", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    const name = String(data.name || "").trim();
+    if (!name) throw new Error("Tên món quà không được bỏ trống");
+    const cost = Math.round(Number(data.cost) || 0);
+    if (cost <= 0) throw new Error("Số điểm đổi quà phải lớn hơn 0");
+    const emoji = String(data.emoji || "").trim().slice(0, 8) || undefined;
+
+    if (data.id) {
+      const idx = db.rewardItems.findIndex(i => i.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy món quà");
+      db.rewardItems[idx] = {
+        ...db.rewardItems[idx],
+        name, cost, emoji,
+        isActive: data.isActive !== undefined ? !!data.isActive : db.rewardItems[idx].isActive,
+        updatedAt: now
+      };
+      this.writeRaw(db);
+      return db.rewardItems[idx];
+    }
+
+    const item: RewardItem = {
+      id: `rwitem_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      name, cost, emoji,
+      isActive: data.isActive !== undefined ? !!data.isActive : true,
+      createdAt: now,
+      updatedAt: now
+    };
+    db.rewardItems.unshift(item);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Đổi thưởng", `Đã thêm quà "${name}" (${cost} điểm).`);
+    return item;
+
+    });
+  }
+
+  public static deleteRewardItem(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteRewardItem", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const item = db.rewardItems.find(i => i.id === id);
+    if (!item) return;
+    db.rewardItems = db.rewardItems.filter(i => i.id !== id);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Đổi thưởng", `Đã xóa quà "${item.name}".`);
+
+    });
+  }
+
+  /**
+   * Trẻ đổi quà: kiểm tra đủ điểm rồi ghi bút toán ÂM vào rewardLedger (cùng sổ
+   * với điểm thưởng task — lịch sử cộng/trừ nằm một chỗ). Báo cả nhà biết cho vui.
+   */
+  public static redeemRewardItem(itemId: string, childId: string, byUserId: string, byUsername: string): RewardPointEntry {
+    return runLegacyCommand("redeemRewardItem", [itemId, childId, byUserId, byUsername], byUserId, () => {
+    const db = this.readRaw();
+    const item = db.rewardItems.find(i => i.id === itemId);
+    if (!item || !item.isActive) throw new Error("Món quà không tồn tại hoặc đã tắt");
+    const child = db.users.find(u => u.id === childId);
+    if (!child) throw new Error("Không tìm thấy thành viên đổi quà");
+
+    const balance = db.rewardLedger
+      .filter(e => e.userId === childId)
+      .reduce((s, e) => s + e.points, 0);
+    if (balance < item.cost) {
+      throw new Error(`Chưa đủ điểm: cần ${item.cost}, hiện có ${balance}.`);
+    }
+
+    const entry: RewardPointEntry = {
+      id: `reward_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      userId: childId,
+      points: -item.cost,
+      reason: `🎁 Đổi quà: ${item.name}`,
+      createdById: byUserId,
+      createdAt: new Date().toISOString()
+    };
+    db.rewardLedger.unshift(entry);
+    this.addNotificationInternal(db, "all", "🎁 Đổi thưởng", `${child.fullName} vừa đổi "${item.emoji ? item.emoji + " " : ""}${item.name}" (−${item.cost} điểm, còn ${balance - item.cost}).`);
+    this.writeRaw(db);
+    this.logActivity(byUserId, byUsername, "Đổi thưởng", `${child.fullName} đổi quà "${item.name}" (−${item.cost} điểm).`);
+    return entry;
+
+    });
+  }
+
+  /** Mẫu quà sẵn — chỉ thêm nếu danh sách hiện tại TRỐNG (không ghi đè quà đã có). */
+  public static seedDefaultRewardItems(userId: string, username: string): RewardItem[] {
+    return runLegacyCommand("seedDefaultRewardItems", [userId, username], userId, () => {
+    const db = this.readRaw();
+    if (db.rewardItems.length > 0) return db.rewardItems; // đã có quà, không thêm
+    const now = new Date().toISOString();
+    const defaults: Array<{ emoji: string; name: string; cost: number }> = [
+      { emoji: "🎮", name: "30 phút chơi game",                cost: 30 },
+      { emoji: "📱", name: "30 phút xem YouTube / điện thoại", cost: 30 },
+      { emoji: "📚", name: "Bố/mẹ đọc truyện 2 cuốn",         cost: 20 },
+      { emoji: "🍦", name: "Mua kem / bánh yêu thích",         cost: 50 },
+      { emoji: "🍕", name: "Chọn món ăn tối cả nhà",           cost: 60 },
+      { emoji: "🎬", name: "Xem phim cùng bố/mẹ",              cost: 40 },
+      { emoji: "🏊", name: "Đi bơi / hồ bơi",                  cost: 80 },
+      { emoji: "🎡", name: "Đi công viên vui chơi",             cost: 100 }
+    ];
+    db.rewardItems = defaults.map((d, i) => ({
+      id: `rwitem_default_${i}_${Date.now()}`,
+      name: d.name, emoji: d.emoji, cost: d.cost,
+      isActive: true, createdAt: now, updatedAt: now
+    }));
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Đổi thưởng", "Đã tạo 8 món quà mẫu mặc định.");
+    return db.rewardItems;
+
+    });
+  }
+
+  /**
+   * Đổi quà BẤT NGỜ: server chọn ngẫu nhiên 1 món trong danh sách đang bật,
+   * trừ điểm với giá mystery = ⌊trung bình × 0.7⌋ (giảm ~30% so với chọn cụ thể).
+   */
+  public static redeemMysteryItem(childId: string, byUserId: string, byUsername: string): {
+    entry: RewardPointEntry; item: RewardItem; mysteryCost: number
+  } {
+    return runLegacyCommand("redeemMysteryItem", [childId, byUserId, byUsername], byUserId, () => {
+    const db = this.readRaw();
+    const active = db.rewardItems.filter(i => i.isActive);
+    if (active.length === 0) throw new Error("Cửa hàng chưa có món quà nào để chọn ngẫu nhiên.");
+
+    const child = db.users.find(u => u.id === childId);
+    if (!child) throw new Error("Không tìm thấy thành viên đổi quà");
+
+    const avgCost = active.reduce((s, i) => s + i.cost, 0) / active.length;
+    const mysteryCost = Math.max(1, Math.floor(avgCost * 0.7));
+
+    const balance = db.rewardLedger
+      .filter(e => e.userId === childId)
+      .reduce((s, e) => s + e.points, 0);
+    if (balance < mysteryCost) {
+      throw new Error(`Chưa đủ điểm: cần ${mysteryCost} (quà bất ngờ), hiện có ${balance}.`);
+    }
+
+    const item = active[Math.floor(Math.random() * active.length)];
+    const entry: RewardPointEntry = {
+      id: `reward_mystery_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      userId: childId,
+      points: -mysteryCost,
+      reason: `🎲 Quà bất ngờ: ${item.name}`,
+      createdById: byUserId,
+      createdAt: new Date().toISOString()
+    };
+    db.rewardLedger.unshift(entry);
+    this.addNotificationInternal(db, "all", "🎲 Quà bất ngờ!", `${child.fullName} vừa quay được "${item.emoji ? item.emoji + " " : ""}${item.name}" (−${mysteryCost} điểm, còn ${balance - mysteryCost}).`);
+    this.writeRaw(db);
+    this.logActivity(byUserId, byUsername, "Đổi thưởng", `${child.fullName} đổi quà bất ngờ "${item.name}" (−${mysteryCost} điểm).`);
+    return { entry, item, mysteryCost };
+
+    });
+  }
+
+  // --- BUDGETS + RECURRING BILLS ---
+  public static saveBudget(data: Partial<BudgetLimit>, userId: string, username: string): BudgetLimit {
+    return runLegacyCommand("saveBudget", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.month || !data.category || !data.limit) throw new Error("Thiếu tháng, hạng mục hoặc hạn mức ngân sách");
+
+    if (data.id) {
+      const idx = db.budgets.findIndex(b => b.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy ngân sách");
+      const updated = { ...db.budgets[idx], ...data, limit: Number(data.limit), updatedAt: now } as BudgetLimit;
+      db.budgets[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const existingIdx = db.budgets.findIndex(b => b.month === data.month && b.category === data.category);
+    const budget: BudgetLimit = {
+      id: existingIdx >= 0 ? db.budgets[existingIdx].id : `budget_${Date.now()}_${crypto.randomUUID()}`,
+      month: data.month,
+      category: data.category,
+      limit: Number(data.limit),
+      createdAt: existingIdx >= 0 ? db.budgets[existingIdx].createdAt : now,
+      updatedAt: now
+    };
+    if (existingIdx >= 0) db.budgets[existingIdx] = budget;
+    else db.budgets.unshift(budget);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Ngân sách", `Đã đặt ngân sách ${budget.category} tháng ${budget.month}.`);
+    return budget;
+
+    });
+  }
+
+  public static deleteBudget(id: string): void {
+    return runLegacyCommand("deleteBudget", [id], "system:legacy", () => {
+    const db = this.readRaw();
+    db.budgets = db.budgets.filter(b => b.id !== id);
+    this.writeRaw(db);
+
+    });
+  }
+
+  // ─── Hạng mục CHI tùy chỉnh (Admin) ──────────────────────────────────────
+  // Cấu hình = danh sách hạng mục tự thêm + danh sách key mặc định bị ẩn.
+  public static getCategoryConfig(): { customCategories: CustomExpenseCategory[]; hiddenBuiltinCategories: string[] } {
+    const db = this.readRaw();
+    return {
+      customCategories: db.customCategories,
+      hiddenBuiltinCategories: db.hiddenBuiltinCategories
+    };
+  }
+
+  public static saveCustomCategory(data: Partial<CustomExpenseCategory>, userId: string, username: string): CustomExpenseCategory {
+    return runLegacyCommand("saveCustomCategory", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    const label = String(data.label || "").trim();
+    if (!label) throw new Error("Tên hạng mục không được để trống");
+    // Emoji/màu tùy chọn — mặc định nhãn 🏷️ + màu slate khi để trống.
+    const emoji = String(data.emoji || "").trim() || "🏷️";
+    const color = String(data.color || "").trim() || "slate";
+
+    if (data.id) {
+      const idx = db.customCategories.findIndex(c => c.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy hạng mục");
+      const updated: CustomExpenseCategory = { ...db.customCategories[idx], label, emoji, color, updatedAt: now };
+      db.customCategories[idx] = updated;
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Hạng mục chi", `Đã cập nhật hạng mục "${label}".`);
+      return updated;
+    }
+
+    // Không cho trùng tên (không phân biệt hoa/thường) với hạng mục tự thêm khác.
+    if (db.customCategories.some(c => c.label.toLowerCase() === label.toLowerCase())) {
+      throw new Error("Đã có hạng mục tự thêm trùng tên này");
+    }
+    const cat: CustomExpenseCategory = {
+      id: `cc_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      label, emoji, color, createdAt: now, updatedAt: now
+    };
+    db.customCategories.push(cat);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Hạng mục chi", `Đã thêm hạng mục "${label}".`);
+    return cat;
+
+    });
+  }
+
+  public static deleteCustomCategory(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteCustomCategory", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const cat = db.customCategories.find(c => c.id === id);
+    db.customCategories = db.customCategories.filter(c => c.id !== id);
+    this.writeRaw(db);
+    if (cat) this.logActivity(userId, username, "Hạng mục chi", `Đã xóa hạng mục "${cat.label}".`);
+
+    });
+  }
+
+  // Đặt danh sách key hạng mục MẶC ĐỊNH bị ẩn (chỉ giữ chuỗi hợp lệ, khử trùng lặp).
+  public static setHiddenBuiltinCategories(keys: string[], userId: string, username: string): string[] {
+    return runLegacyCommand("setHiddenBuiltinCategories", [keys, userId, username], userId, () => {
+    const db = this.readRaw();
+    const cleaned = Array.from(new Set((Array.isArray(keys) ? keys : []).map(k => String(k || "").trim()).filter(Boolean)));
+    db.hiddenBuiltinCategories = cleaned;
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Hạng mục chi", `Đã cập nhật danh sách hạng mục mặc định bị ẩn (${cleaned.length}).`);
+    return cleaned;
+
+    });
+  }
+
+  /**
+   * Mang ngân sách sang tháng mới: nếu targetMonth chưa có hạn mức nào thì sao
+   * chép toàn bộ từ tháng gần nhất trước đó. Idempotent — gọi lại không nhân đôi.
+   */
+  public static carryForwardBudgets(targetMonth: string, userId: string, username: string): BudgetLimit[] {
+    return runLegacyCommand("carryForwardBudgets", [targetMonth, userId, username], userId, () => {
+    if (!targetMonth || !/^\d{4}-\d{2}$/.test(targetMonth)) throw new Error("Tháng không hợp lệ");
+    const db = this.readRaw();
+    // Đã có hạn mức cho tháng đích → không làm gì
+    if (db.budgets.some(b => b.month === targetMonth)) {
+      return db.budgets.filter(b => b.month === targetMonth);
+    }
+    // Tìm tháng gần nhất TRƯỚC tháng đích có đặt ngân sách
+    const priorMonths = Array.from(new Set(db.budgets.map(b => b.month)))
+      .filter(m => m < targetMonth)
+      .sort();
+    const sourceMonth = priorMonths[priorMonths.length - 1];
+    if (!sourceMonth) return [];
+    const now = new Date().toISOString();
+    const copied: BudgetLimit[] = db.budgets
+      .filter(b => b.month === sourceMonth)
+      .map((b, i) => ({
+        id: `budget_${Date.now()}_${i}_${Math.random().toString(36).slice(2, 6)}`,
+        month: targetMonth,
+        category: b.category,
+        limit: b.limit,
+        createdAt: now,
+        updatedAt: now
+      }));
+    if (copied.length === 0) return [];
+    db.budgets.unshift(...copied);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Ngân sách", `Tự động mang ${copied.length} hạn mức từ tháng ${sourceMonth} sang ${targetMonth}.`);
+    return copied;
+
+    });
+  }
+
+  public static saveRecurringBill(data: Partial<RecurringBill>, userId: string, username: string): RecurringBill {
+    return runLegacyCommand("saveRecurringBill", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.title || !data.amount || !data.nextDueDate) throw new Error("Thiếu tên hóa đơn, số tiền hoặc ngày đến hạn");
+
+    if (data.id) {
+      const idx = db.recurringBills.findIndex(b => b.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy hóa đơn định kỳ");
+      const updated = {
+        ...db.recurringBills[idx],
+        ...data,
+        amount: Number(data.amount),
+        updatedAt: now
+      } as RecurringBill;
+      db.recurringBills[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const bill: RecurringBill = {
+      id: `bill_${Date.now()}_${crypto.randomUUID()}`,
+      title: data.title.trim(),
+      amount: Number(data.amount),
+      category: data.category || "utilities",
+      account: data.account || ("bank" as any),
+      frequency: data.frequency || "monthly",
+      nextDueDate: data.nextDueDate,
+      notes: data.notes?.trim() || "",
+      isActive: data.isActive !== undefined ? data.isActive : true,
+      lastPaidDate: data.lastPaidDate,
+      createdAt: now,
+      updatedAt: now
+    };
+    db.recurringBills.unshift(bill);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Hóa đơn định kỳ", `Đã tạo hóa đơn định kỳ "${bill.title}".`);
+    return bill;
+
+    });
+  }
+
+  public static deleteRecurringBill(id: string): void {
+    return runLegacyCommand("deleteRecurringBill", [id], "system:legacy", () => {
+    const db = this.readRaw();
+    db.recurringBills = db.recurringBills.filter(b => b.id !== id);
+    this.writeRaw(db);
+
+    });
+  }
+
+  // --- Mục tiêu tiết kiệm ---
+  public static getSavingsGoals(): SavingsGoal[] {
+    return this.readRaw().savingsGoals;
+  }
+
+  public static saveSavingsGoal(data: Partial<SavingsGoal>, userId: string, username: string): SavingsGoal {
+    return runLegacyCommand("saveSavingsGoal", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.name || !data.name.trim()) throw new Error("Thiếu tên mục tiêu tiết kiệm");
+    const target = Number(data.targetAmount) || 0;
+    if (target <= 0) throw new Error("Số tiền mục tiêu phải lớn hơn 0");
+
+    if (data.id) {
+      const idx = db.savingsGoals.findIndex(g => g.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy mục tiêu tiết kiệm");
+      const updated: SavingsGoal = {
+        ...db.savingsGoals[idx],
+        name: data.name.trim(),
+        targetAmount: target,
+        deadline: data.deadline || undefined,
+        color: data.color || db.savingsGoals[idx].color,
+        note: data.note?.trim() || undefined,
+        isShared: data.isShared !== undefined ? data.isShared : db.savingsGoals[idx].isShared,
+        updatedAt: now
+        // contributions giữ nguyên — chỉ sửa qua add/removeContribution
+      };
+      db.savingsGoals[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const goal: SavingsGoal = {
+      id: `goal_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      name: data.name.trim(),
+      targetAmount: target,
+      deadline: data.deadline || undefined,
+      color: data.color || "emerald",
+      note: data.note?.trim() || undefined,
+      isShared: data.isShared !== undefined ? data.isShared : true,
+      creatorId: userId,
+      contributions: [],
+      createdAt: now,
+      updatedAt: now
+    };
+    db.savingsGoals.unshift(goal);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Tiết kiệm", `Đã tạo mục tiêu "${goal.name}".`,{domain:'goal',id:goal.id});
+    return goal;
+
+    });
+  }
+
+  public static deleteSavingsGoal(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteSavingsGoal", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const goal = db.savingsGoals.find(g => g.id === id);
+    if (!goal) return;
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'goal',id);
+    db.savingsGoals = db.savingsGoals.filter(g => g.id !== id);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Tiết kiệm", `Đã xóa mục tiêu "${goal.name}".`,{domain:'goal',id:goal.id});
+
+    });
+  }
+
+  public static addSavingsContribution(
+    goalId: string,
+    data: { amount?: number; date?: string; note?: string },
+    userId: string
+  ): SavingsGoal {
+    return runLegacyCommand("addSavingsContribution", [goalId, data, userId], userId, () => {
+    const db = this.readRaw();
+    const goal = db.savingsGoals.find(g => g.id === goalId);
+    if (!goal) throw new Error("Không tìm thấy mục tiêu tiết kiệm");
+    const amount = Number(data.amount) || 0;
+    if (amount === 0) throw new Error("Số tiền đóng góp phải khác 0");
+    const contribution: SavingsContribution = {
+      id: `contrib_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      amount,
+      date: data.date || new Date().toISOString().slice(0, 10),
+      note: data.note?.trim() || undefined,
+      byId: userId,
+      createdAt: new Date().toISOString()
+    };
+    goal.contributions.unshift(contribution);
+    goal.updatedAt = new Date().toISOString();
+    this.writeRaw(db);
+    return goal;
+
+    });
+  }
+
+  public static removeSavingsContribution(goalId: string, contributionId: string): SavingsGoal {
+    return runLegacyCommand("removeSavingsContribution", [goalId, contributionId], "system:legacy", () => {
+    const db = this.readRaw();
+    const goal = db.savingsGoals.find(g => g.id === goalId);
+    if (!goal) throw new Error("Không tìm thấy mục tiêu tiết kiệm");
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'goal',goalId,contributionId);
+    goal.contributions = goal.contributions.filter(c => c.id !== contributionId);
+    goal.updatedAt = new Date().toISOString();
+    this.writeRaw(db);
+    return goal;
+
+    });
+  }
+
+  // --- Theo dõi vay / cho mượn (nợ) ---
+  public static getDebts(): Debt[] {
+    return this.readRaw().debts;
+  }
+
+  public static saveDebt(data: Partial<Debt>, userId: string, username: string): Debt {
+    return runLegacyCommand("saveDebt", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.counterparty || !data.counterparty.trim()) throw new Error("Thiếu tên người/ngân hàng");
+    const amount = Number(data.amount) || 0;
+    if (amount <= 0) throw new Error("Số tiền nợ phải lớn hơn 0");
+    const direction = data.direction === "lent" ? "lent" : "borrowed";
+    // Thông tin liên hệ (tùy chọn) + ảnh đính kèm (giấy tờ, biên nhận chuyển khoản)
+    const address = data.address?.trim() || undefined;
+    const phone = data.phone?.trim() || undefined;
+    const bankName = data.bankName?.trim() || undefined;
+    const loanDate = data.loanDate || undefined;
+    const attachments = Array.isArray(data.attachments)
+      ? data.attachments.filter(u => typeof u === "string" && u.trim()).slice(0, 12)
+      : undefined;
+
+    if (data.id) {
+      const idx = db.debts.findIndex(d => d.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy khoản nợ");
+      const previous=db.debts[idx];
+      if(previous.amount!==amount||previous.direction!==direction||data.isSettled!==undefined&&previous.isSettled!==data.isSettled)assertNoActiveFinancialHistory(currentAppWriteTx(),'debt',data.id);
+      const updated: Debt = {
+        ...db.debts[idx],
+        direction,
+        counterparty: data.counterparty.trim(),
+        address,
+        phone,
+        bankName,
+        attachments,
+        amount,
+        loanDate,
+        dueDate: data.dueDate || undefined,
+        note: data.note?.trim() || undefined,
+        isSettled: data.isSettled !== undefined ? data.isSettled : db.debts[idx].isSettled,
+        updatedAt: now
+        // payments giữ nguyên — chỉ sửa qua add/removeDebtPayment
+      };
+      db.debts[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const debt: Debt = {
+      id: `debt_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      direction,
+      counterparty: data.counterparty.trim(),
+      address,
+      phone,
+      bankName,
+      attachments,
+      amount,
+      loanDate,
+      dueDate: data.dueDate || undefined,
+      note: data.note?.trim() || undefined,
+      isSettled: false,
+      creatorId: userId,
+      payments: [],
+      createdAt: now,
+      updatedAt: now
+    };
+    db.debts.unshift(debt);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Nợ", `Đã thêm khoản ${direction === "lent" ? "cho mượn" : "vay"} với "${debt.counterparty}".`);
+    return debt;
+
+    });
+  }
+
+  public static deleteDebt(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteDebt", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const debt = db.debts.find(d => d.id === id);
+    if (!debt) return;
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'debt',id);
+    db.debts = db.debts.filter(d => d.id !== id);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Nợ", `Đã xóa khoản nợ với "${debt.counterparty}".`);
+
+    });
+  }
+
+  public static addDebtPayment(
+    debtId: string,
+    data: { amount?: number; date?: string; note?: string },
+    userId: string
+  ): Debt {
+    return runLegacyCommand("addDebtPayment", [debtId, data, userId], userId, () => {
+    const db = this.readRaw();
+    const debt = db.debts.find(d => d.id === debtId);
+    if (!debt) throw new Error("Không tìm thấy khoản nợ");
+    const amount = Number(data.amount) || 0;
+    if (amount <= 0) throw new Error("Số tiền trả phải lớn hơn 0");
+    const payment: DebtPayment = {
+      id: `pay_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      amount,
+      date: data.date || new Date().toISOString().slice(0, 10),
+      note: data.note?.trim() || undefined,
+      byId: userId,
+      createdAt: new Date().toISOString()
+    };
+    debt.payments.unshift(payment);
+    // Tự đánh dấu tất toán khi đã trả đủ (logic thuần ở src/utils/debt).
+    if (isDebtFullyPaid(debt)) debt.isSettled = true;
+    debt.updatedAt = new Date().toISOString();
+    this.writeRaw(db);
+    return debt;
+
+    });
+  }
+
+  public static removeDebtPayment(debtId: string, paymentId: string): Debt {
+    return runLegacyCommand("removeDebtPayment", [debtId, paymentId], "system:legacy", () => {
+    const db = this.readRaw();
+    const debt = db.debts.find(d => d.id === debtId);
+    if (!debt) throw new Error("Không tìm thấy khoản nợ");
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'debt',debtId,paymentId);
+    debt.payments = debt.payments.filter(p => p.id !== paymentId);
+    if (!isDebtFullyPaid(debt)) debt.isSettled = false; // mở lại nếu chưa đủ
+    debt.updatedAt = new Date().toISOString();
+    this.writeRaw(db);
+    return debt;
+
+    });
+  }
+
+  // --- Sức khỏe trẻ: tiêm chủng ---
+  public static getVaccinations(): VaccinationRecord[] {
+    return this.readRaw().vaccinations;
+  }
+
+  public static saveVaccination(data: Partial<VaccinationRecord>, userId: string, username: string): VaccinationRecord {
+    return runLegacyCommand("saveVaccination", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.childId) throw new Error("Thiếu thông tin trẻ");
+    if (!data.name || !data.name.trim()) throw new Error("Thiếu tên vắc-xin");
+    const status = data.status === "done" || data.status === "skipped" ? data.status : "scheduled";
+
+    if (data.id) {
+      const idx = db.vaccinations.findIndex(v => v.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy mũi tiêm");
+      const updated: VaccinationRecord = {
+        ...db.vaccinations[idx],
+        childId: data.childId,
+        name: data.name.trim(),
+        doseLabel: data.doseLabel?.trim() || undefined,
+        scheduledDate: data.scheduledDate || undefined,
+        doneDate: data.doneDate || undefined,
+        status,
+        note: data.note?.trim() || undefined,
+        updatedAt: now
+      };
+      db.vaccinations[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const rec: VaccinationRecord = {
+      id: `vac_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      childId: data.childId,
+      name: data.name.trim(),
+      doseLabel: data.doseLabel?.trim() || undefined,
+      scheduledDate: data.scheduledDate || undefined,
+      doneDate: data.doneDate || undefined,
+      status,
+      note: data.note?.trim() || undefined,
+      createdAt: now,
+      updatedAt: now
+    };
+    db.vaccinations.unshift(rec);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Tiêm chủng", `Đã thêm mũi "${rec.name}".`);
+    return rec;
+
+    });
+  }
+
+  public static deleteVaccination(id: string): void {
+    return runLegacyCommand("deleteVaccination", [id], "system:legacy", () => {
+    const db = this.readRaw();
+    db.vaccinations = db.vaccinations.filter(v => v.id !== id);
+    this.writeRaw(db);
+
+    });
+  }
+
+  // --- Sức khỏe trẻ: tăng trưởng ---
+  public static getGrowthRecords(): GrowthRecord[] {
+    return this.readRaw().growthRecords;
+  }
+
+  public static saveGrowthRecord(data: Partial<GrowthRecord>, userId: string, username: string): GrowthRecord {
+    return runLegacyCommand("saveGrowthRecord", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.childId) throw new Error("Thiếu thông tin trẻ");
+    if (!data.date) throw new Error("Thiếu ngày đo");
+    const rawHeight = (data as any).heightCm;
+    const rawWeight = (data as any).weightKg;
+    const height = rawHeight !== undefined && rawHeight !== null && rawHeight !== "" ? Number(rawHeight) : undefined;
+    const weight = rawWeight !== undefined && rawWeight !== null && rawWeight !== "" ? Number(rawWeight) : undefined;
+    if (height === undefined && weight === undefined) {
+      throw new Error("Nhập chiều cao hoặc cân nặng");
+    }
+    if (height !== undefined && (!Number.isFinite(height) || height <= 0)) {
+      throw new Error("Chiều cao phải lớn hơn 0");
+    }
+    if (weight !== undefined && (!Number.isFinite(weight) || weight <= 0)) {
+      throw new Error("Cân nặng phải lớn hơn 0");
+    }
+
+    if (data.id) {
+      const idx = db.growthRecords.findIndex(g => g.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy bản ghi");
+      const updated: GrowthRecord = {
+        ...db.growthRecords[idx],
+        childId: data.childId,
+        date: data.date,
+        heightCm: height,
+        weightKg: weight,
+        note: data.note?.trim() || undefined
+      };
+      db.growthRecords[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const rec: GrowthRecord = {
+      id: `growth_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      childId: data.childId,
+      date: data.date,
+      heightCm: height,
+      weightKg: weight,
+      note: data.note?.trim() || undefined,
+      createdAt: now
+    };
+    db.growthRecords.unshift(rec);
+    this.writeRaw(db);
+    return rec;
+
+    });
+  }
+
+  public static deleteGrowthRecord(id: string): void {
+    return runLegacyCommand("deleteGrowthRecord", [id], "system:legacy", () => {
+    const db = this.readRaw();
+    db.growthRecords = db.growthRecords.filter(g => g.id !== id);
+    this.writeRaw(db);
+
+    });
+  }
+
+  // --- Thẻ khẩn cấp / hồ sơ sức khỏe (mỗi thành viên đúng 1 hồ sơ, id = hp_<userId>) ---
+
+  public static getHealthProfiles(): EmergencyProfile[] {
+    return this.readRaw().healthProfiles || [];
+  }
+
+  public static saveHealthProfile(data: Partial<EmergencyProfile>, userId: string, username: string): EmergencyProfile {
+    return runLegacyCommand("saveHealthProfile", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.userId) throw new Error("Thiếu thông tin thành viên");
+    const member = db.users.find(u => u.id === data.userId);
+    if (!member) throw new Error("Không tìm thấy thành viên");
+
+    const clean = (v: any, max = 500) => {
+      const s = String(v ?? "").trim().slice(0, max);
+      return s || undefined;
+    };
+    const contacts = (Array.isArray(data.emergencyContacts) ? data.emergencyContacts : [])
+      .map(c => ({
+        name: String(c?.name ?? "").trim().slice(0, 80),
+        phone: String(c?.phone ?? "").trim().slice(0, 20),
+        relation: clean(c?.relation, 40)
+      }))
+      .filter(c => c.name && c.phone)
+      .slice(0, 5);
+
+    const fields = {
+      bloodType: clean(data.bloodType, 5),
+      allergies: clean(data.allergies),
+      chronicConditions: clean(data.chronicConditions),
+      currentMedications: clean(data.currentMedications),
+      healthInsuranceNumber: clean(data.healthInsuranceNumber, 30),
+      emergencyContacts: contacts,
+      notes: clean(data.notes, 1000)
+    };
+
+    const id = `hp_${data.userId}`;
+    const idx = db.healthProfiles.findIndex(p => p.id === id);
+    let profile: EmergencyProfile;
+    if (idx !== -1) {
+      profile = { ...db.healthProfiles[idx], ...fields, updatedAt: now };
+      db.healthProfiles[idx] = profile;
+    } else {
+      profile = { id, userId: data.userId, ...fields, createdAt: now, updatedAt: now };
+      db.healthProfiles.unshift(profile);
+    }
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Thẻ khẩn cấp", `Đã cập nhật hồ sơ sức khỏe của ${member.fullName}.`);
+    return profile;
+
+    });
+  }
+
+  public static payRecurringBill(id: string, userId: string, username: string): { bill: RecurringBill; transaction: FinancialTransaction } {
+    return runLegacyCommand("payRecurringBill", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const idx = db.recurringBills.findIndex(b => b.id === id);
+    if (idx === -1) throw new Error("Không tìm thấy hóa đơn định kỳ");
+    const bill = db.recurringBills[idx];
+    const paidDate = new Date().toISOString().slice(0, 10);
+    const tx: FinancialTransaction = {
+      id: `tx_${Date.now()}_${crypto.randomUUID()}`,
+      type: "expense" as any,
+      amount: bill.amount,
+      category: bill.category,
+      account: bill.account,
+      description: `Thanh toan hoa don: ${bill.title}`,
+      date: paidDate,
+      creatorId: userId,
+      createdAt: new Date().toISOString()
+    };
+    db.transactions.push(tx);
+    const nextDue = advanceDateString(`${bill.nextDueDate} 09:00`, bill.frequency, 1, false) || bill.nextDueDate;
+    bill.lastPaidDate = paidDate;
+    bill.nextDueDate = nextDue;
+    bill.updatedAt = new Date().toISOString();
+    db.recurringBills[idx] = bill;
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Thanh toán hóa đơn", `Đã thanh toán "${bill.title}" (${bill.amount.toLocaleString()} VND).`);
+    return { bill, transaction: tx };
+
+    });
+  }
+
+  // --- FAMILY ASSETS ---
+  public static saveAsset(data: Partial<FamilyAsset>, userId: string, username: string): FamilyAsset {
+    return runLegacyCommand("saveAsset", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    const safeQuantity = Number.isFinite(Number(data.quantity)) ? Number(data.quantity) : 1;
+    const safeEstimatedValue = Number.isFinite(Number(data.estimatedValue)) ? Number(data.estimatedValue) : 0;
+    const safePurchaseValue = data.purchaseValue !== undefined && Number.isFinite(Number(data.purchaseValue))
+      ? Number(data.purchaseValue)
+      : undefined;
+
+    if (data.id) {
+      const idx = db.assets.findIndex(a => a.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy tài sản");
+      const existing = db.assets[idx];
+      const nextName = data.name !== undefined ? String(data.name).trim() : existing.name;
+      const updated = {
+        ...existing,
+        ...data,
+        type: data.type && VALID_ASSET_TYPES.has(data.type) ? data.type : existing.type,
+        name: nextName || existing.name,
+        quantity: safeQuantity,
+        estimatedValue: safeEstimatedValue,
+        purchaseValue: safePurchaseValue,
+        currency: data.currency || existing.currency || "VND",
+        photos: Array.isArray(data.photos) ? data.photos : existing.photos || [],
+        createdById: existing.createdById,
+        createdAt: existing.createdAt,
+        updatedAt: now
+      } as FamilyAsset;
+      db.assets[idx] = updated;
+      this.writeRaw(db);
+      // Delete files for photos removed during this edit.
+      const keptUrls = new Set(assetPhotoUrls(updated));
+      assetPhotoUrls(existing).forEach(url => { if (!keptUrls.has(url)) deleteMediaByUrl(url); });
+      this.logActivity(userId, username, "Cập nhật tài sản", `Đã cập nhật tài sản "${updated.name}".`);
+      return updated;
+    }
+
+    const asset: FamilyAsset = {
+      id: `asset_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      type: data.type && VALID_ASSET_TYPES.has(data.type) ? data.type : "other",
+      name: (data.name || "Tài sản mới").trim(),
+      ownerId: data.ownerId || undefined,
+      quantity: safeQuantity,
+      unit: (data.unit || "mục").trim(),
+      estimatedValue: safeEstimatedValue,
+      purchaseValue: safePurchaseValue,
+      currency: data.currency || "VND",
+      purchaseDate: data.purchaseDate || undefined,
+      location: data.location?.trim() || "",
+      notes: data.notes?.trim() || "",
+      photos: Array.isArray(data.photos) ? data.photos : [],
+      symbol: data.symbol?.trim() || "",
+      network: data.network?.trim() || "",
+      walletLabel: data.walletLabel?.trim() || "",
+      walletAddressMasked: data.walletAddressMasked?.trim() || "",
+      address: data.address?.trim() || "",
+      areaM2: data.areaM2 !== undefined && Number.isFinite(Number(data.areaM2)) ? Number(data.areaM2) : undefined,
+      certificateNo: data.certificateNo?.trim() || "",
+      parcelNo: data.parcelNo?.trim() || "",
+      goldPurity: data.goldPurity?.trim() || "",
+      weight: data.weight !== undefined && Number.isFinite(Number(data.weight)) ? Number(data.weight) : undefined,
+      weightUnit: data.weightUnit?.trim() || "",
+      brand: data.brand?.trim() || "",
+      serialNo: data.serialNo?.trim() || "",
+      createdById: userId,
+      createdAt: now,
+      updatedAt: now
+    };
+    db.assets.unshift(asset);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Thêm tài sản", `Đã thêm tài sản "${asset.name}" (${asset.estimatedValue.toLocaleString()} ${asset.currency}).`);
+    return asset;
+
+    });
+  }
+
+  public static deleteAsset(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteAsset", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const idx = db.assets.findIndex(a => a.id === id);
+    if (idx === -1) return;
+    const asset = db.assets[idx];
+    db.assets.splice(idx, 1);
+    this.writeRaw(db);
+    // Remove all stored photo files for this asset.
+    assetPhotoUrls(asset).forEach(deleteMediaByUrl);
+    this.logActivity(userId, username, "Xóa tài sản", `Đã xóa tài sản "${asset.name}".`);
+
+    });
+  }
+
+  // --- SHOPPING LIST ---
+  public static getShoppingItems() {
+    return this.readRaw().shoppingItems;
+  }
+
+  public static saveShoppingItem(data: Partial<ShoppingItem>, userId: string, username: string): ShoppingItem {
+    return runLegacyCommand("saveShoppingItem", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+
+    if (data.id) {
+      const idx = db.shoppingItems.findIndex(i => i.id === data.id);
+      if (idx === -1) throw new Error("Món đồ không tồn tại");
+      const updated = { ...db.shoppingItems[idx], ...data, updatedAt: now } as ShoppingItem;
+      db.shoppingItems[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const newItem: ShoppingItem = {
+      id: `shop_${Date.now()}_${crypto.randomUUID()}`,
+      name: (data.name || "Món đồ").trim(),
+      quantity: data.quantity?.trim() || "",
+      note: data.note?.trim() || "",
+      cat: data.cat?.trim() || "",
+      isPurchased: false,
+      creatorId: userId,
+      purchasedById: null,
+      createdAt: now,
+      updatedAt: now
+    };
+    db.shoppingItems.unshift(newItem);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Thêm đồ đi chợ", `Đã thêm "${newItem.name}" vào danh sách mua sắm.`);
+    return newItem;
+
+    });
+  }
+
+  public static toggleShoppingItem(id: string, userId: string): ShoppingItem {
+    return runLegacyCommand("toggleShoppingItem", [id, userId], userId, () => {
+    const db = this.readRaw();
+    const idx = db.shoppingItems.findIndex(i => i.id === id);
+    if (idx === -1) throw new Error("Món đồ không tồn tại");
+    const item = db.shoppingItems[idx];
+    item.isPurchased = !item.isPurchased;
+    item.purchasedById = item.isPurchased ? userId : null;
+    item.updatedAt = new Date().toISOString();
+    this.writeRaw(db);
+    return item;
+
+    });
+  }
+
+  public static deleteShoppingItem(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteShoppingItem", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const idx = db.shoppingItems.findIndex(i => i.id === id);
+    if (idx === -1) return;
+    const name = db.shoppingItems[idx].name;
+    db.shoppingItems.splice(idx, 1);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Xóa đồ đi chợ", `Đã xóa "${name}" khỏi danh sách mua sắm.`);
+
+    });
+  }
+
+  public static clearPurchasedShopping(userId: string, username: string): number {
+    return runLegacyCommand("clearPurchasedShopping", [userId, username], userId, () => {
+    const db = this.readRaw();
+    const before = db.shoppingItems.length;
+    db.shoppingItems = db.shoppingItems.filter(i => !i.isPurchased);
+    const removed = before - db.shoppingItems.length;
+    if (removed > 0) {
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Dọn đồ đã mua", `Đã xóa ${removed} món đã mua khỏi danh sách đi chợ.`);
+    }
+    return removed;
+
+    });
+  }
+
+  public static clearAllShopping(userId: string, username: string): number {
+    return runLegacyCommand("clearAllShopping", [userId, username], userId, () => {
+    const db = this.readRaw();
+    const removed = db.shoppingItems.length;
+    if (removed > 0) {
+      db.shoppingItems = [];
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Xóa toàn bộ đi chợ", `Đã xóa tất cả ${removed} món khỏi danh sách đi chợ.`);
+    }
+    return removed;
+
+    });
+  }
+
+  // --- MEAL PLANNER DISH LIBRARY ---
+  // Seeded from SEED_DISHES on first use; grows as AI suggests new dishes.
+  public static getDishLibrary(): StoredDish[] {
+    return runLegacyCommand("getDishLibrary", [], "system:legacy", () => {
+    const db = this.readRaw();
+    if (!db.dishLibrary) db.dishLibrary = [];
+    // Top up any seed dishes (name+slot) the library is missing — so expanding
+    // SEED_DISHES reaches existing installs without wiping AI-learned dishes.
+    const known = new Set(db.dishLibrary.map(d => `${d.name.trim().toLowerCase()}|${d.slot}`));
+    const now = new Date().toISOString();
+    let added = 0;
+    SEED_DISHES.forEach(d => {
+      const key = `${d.name.trim().toLowerCase()}|${d.slot}`;
+      if (known.has(key)) return;
+      known.add(key);
+      // Stable, collision-free id (don't reuse numeric indices that may clash
+      // with existing dish_seed_N ids when topping up an older library).
+      const slug = d.name
+        .normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/gi, "d")
+        .toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+      db.dishLibrary.push({
+        id: `dish_seed_${d.slot}_${slug}`,
+        name: d.name,
+        slot: d.slot,
+        ingredients: d.ingredients,
+        source: "seed" as const,
+        createdAt: now
+      });
+      added++;
+    });
+    if (added > 0) this.writeRaw(db);
+    return db.dishLibrary;
+
+    });
+  }
+
+  // The single shared weekly menu shown on the shopping view.
+  public static getMealPlan(): StoredMealPlan | null {
+    return this.readRaw().mealPlan || null;
+  }
+
+  public static setMealPlan(plan: StoredMealPlan | null): void {
+    return runLegacyCommand("setMealPlan", [plan], "system:legacy", () => {
+    const db = this.readRaw();
+    db.mealPlan = plan;
+    this.writeRaw(db);
+
+    });
+  }
+
+  // --- Lịch sử giá thị trường (BTC/ETH/Vàng/USD) cho sparkline ở Tổng quan ---
+
+  public static getMarketHistory(): MarketHistoryPoint[] {
+    return this.readRaw().marketHistory || [];
+  }
+
+  /**
+   * Ghi một điểm giá mới. Bỏ qua nếu điểm gần nhất còn "tươi" (< minGapMs) để
+   * nhiều client cùng mở app không làm phình dữ liệu. Tự cắt lịch sử > 30 ngày.
+   */
+  public static appendMarketHistory(
+    point: Omit<MarketHistoryPoint, "id" | "at">,
+    minGapMs = 9 * 60 * 1000
+  ): boolean {
+    return runLegacyCommand("appendMarketHistory", [point, minGapMs], "system:legacy", () => {
+    // Không có số liệu nào thì khỏi ghi (upstream lỗi toàn bộ).
+    if (point.btcUsd === null && point.ethUsd === null && point.goldSell === null && point.usdVnd === null) {
+      return false;
+    }
+    const db = this.readRaw();
+    if (!db.marketHistory) db.marketHistory = [];
+    const last = db.marketHistory[db.marketHistory.length - 1];
+    const now = Date.now();
+    if (last && now - new Date(last.at).getTime() < minGapMs) return false;
+
+    db.marketHistory.push({
+      id: `mkt_${now}`,
+      at: new Date(now).toISOString(),
+      ...point
+    });
+    const cutoff = now - 30 * 24 * 60 * 60 * 1000;
+    db.marketHistory = db.marketHistory.filter(p => new Date(p.at).getTime() >= cutoff);
+    this.writeRaw(db);
+    return true;
+
+    });
+  }
+
+  // Add AI-suggested dishes, skipping ones already known (same name + slot).
+  public static addDishesFromAI(
+    dishes: { name: string; slot: DishSlot; ingredients: MealIngredient[] }[]
+  ): number {
+    return runLegacyCommand("addDishesFromAI", [dishes], "system:legacy", () => {
+    const db = this.readRaw();
+    if (!db.dishLibrary) db.dishLibrary = [];
+    const known = new Set(db.dishLibrary.map(d => `${d.name.trim().toLowerCase()}|${d.slot}`));
+    let added = 0;
+    const now = new Date().toISOString();
+    dishes.forEach((d, i) => {
+      const name = (d.name || "").trim();
+      if (!name) return;
+      const key = `${name.toLowerCase()}|${d.slot}`;
+      if (known.has(key)) return;
+      known.add(key);
+      db.dishLibrary.push({
+        id: `dish_ai_${Date.now()}_${i}`,
+        name,
+        slot: d.slot,
+        ingredients: Array.isArray(d.ingredients) ? d.ingredients : [],
+        source: "ai",
+        createdAt: now
+      });
+      added++;
+    });
+    if (added > 0) this.writeRaw(db);
+    return added;
+
+    });
+  }
+
+  // --- MEDICATION REMINDERS ---
+  public static saveMedication(data: Partial<MedicationReminder>, userId: string, username: string): MedicationReminder {
+    return runLegacyCommand("saveMedication", [data, userId, username], userId, () => {
+    const db = this.readRaw();
+    const now = new Date().toISOString();
+    if (!data.name || !data.patientId || !data.times || data.times.length === 0) {
+      throw new Error("Thiếu tên thuốc, người uống hoặc giờ nhắc");
+    }
+
+    if (data.id) {
+      const idx = db.medications.findIndex(m => m.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy lịch thuốc");
+      const updated = { ...db.medications[idx], ...data, updatedAt: now } as MedicationReminder;
+      db.medications[idx] = updated;
+      this.writeRaw(db);
+      return updated;
+    }
+
+    const med: MedicationReminder = {
+      id: `med_${Date.now()}`,
+      name: data.name.trim(),
+      dosage: data.dosage?.trim() || "",
+      patientId: data.patientId,
+      times: data.times.map(t => t.trim()).filter(Boolean),
+      startDate: data.startDate || new Date().toISOString().slice(0, 10),
+      endDate: data.endDate || undefined,
+      notes: data.notes?.trim() || "",
+      isActive: data.isActive !== undefined ? data.isActive : true,
+      createdAt: now,
+      updatedAt: now
+    };
+    db.medications.unshift(med);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Nhắc thuốc", `Đã tạo lịch thuốc "${med.name}".`);
+    return med;
+
+    });
+  }
+
+  public static deleteMedication(id: string): void {
+    return runLegacyCommand("deleteMedication", [id], "system:legacy", () => {
+    const db = this.readRaw();
+    db.medications = db.medications.filter(m => m.id !== id);
+    // Dọn nhật ký liều của lịch thuốc đã xoá để tránh bản ghi mồ côi.
+    db.medicationLogs = db.medicationLogs.filter(l => l.medicationId !== id);
+    this.writeRaw(db);
+
+    });
+  }
+
+  // --- Nhật ký uống thuốc (adherence) ---
+  // Trả về log gần đây (mặc định 30 ngày) để client hiển thị liều hôm nay + lịch sử ngắn.
+  public static getMedicationLogs(sinceDate?: string): MedicationLog[] {
+    const logs = this.readRaw().medicationLogs;
+    if (!sinceDate) {
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - 30);
+      sinceDate = formatLocalDateTime(cutoff, false);
+    }
+    return logs.filter(l => l.date >= sinceDate!);
+  }
+
+  // Ghi nhận một liều. status "none" => xoá bản ghi (quay về chưa đánh dấu).
+  // Định danh liều bởi (medicationId + date + time): bấm lại sẽ cập nhật, không tạo trùng.
+  public static logMedicationDose(
+    data: { medicationId?: string; date?: string; time?: string; status?: string; notes?: string },
+    userId: string
+  ): { log: MedicationLog | null; cleared: boolean } {
+    return runLegacyCommand("logMedicationDose", [data, userId], userId, () => {
+    const db = this.readRaw();
+    const med = db.medications.find(m => m.id === data.medicationId);
+    if (!med) throw new Error("Không tìm thấy lịch thuốc");
+    if (!data.date || !data.time) throw new Error("Thiếu ngày hoặc giờ của liều thuốc");
+    const status = data.status;
+    if (status !== "taken" && status !== "skipped" && status !== "none") {
+      throw new Error("Trạng thái liều thuốc không hợp lệ");
+    }
+
+    const idx = db.medicationLogs.findIndex(
+      l => l.medicationId === data.medicationId && l.date === data.date && l.time === data.time
+    );
+
+    if (status === "none") {
+      if (idx === -1) return { log: null, cleared: false };
+      db.medicationLogs.splice(idx, 1);
+      this.writeRaw(db);
+      return { log: null, cleared: true };
+    }
+
+    const now = new Date().toISOString();
+    if (idx !== -1) {
+      const updated: MedicationLog = {
+        ...db.medicationLogs[idx],
+        status,
+        loggedById: userId,
+        loggedAt: now,
+        notes: data.notes !== undefined ? data.notes : db.medicationLogs[idx].notes
+      };
+      db.medicationLogs[idx] = updated;
+      this.writeRaw(db);
+      return { log: updated, cleared: false };
+    }
+
+    const log: MedicationLog = {
+      id: `medlog_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      medicationId: med.id,
+      patientId: med.patientId,
+      date: data.date,
+      time: data.time,
+      status,
+      loggedById: userId,
+      loggedAt: now,
+      notes: data.notes
+    };
+    db.medicationLogs.unshift(log);
+    this.writeRaw(db);
+    return { log, cleared: false };
+
+    });
+  }
+
+  // --- Kho giấy tờ gia đình ---
+  public static getDocuments(): FamilyDocument[] {
+    return this.readRaw().documents;
+  }
+
+  public static saveDocument(data: Partial<FamilyDocument> & EditVersionPayload, userId: string, username: string): FamilyDocument {
+    return runLegacyCommand("saveDocument", [data, userId, username], userId, () => {
+    validateContentHeader(data);
+    data = { ...data };
+    const baseUpdatedAt = data.baseUpdatedAt;
+    delete data.baseUpdatedAt;
+    const db = this.readRaw();
+    const actor=currentLegacyActor(db,userId);
+    const previous=data.id?db.documents.find(document=>document.id===data.id):undefined;
+    if(data.id&&!previous)throw new AppStoreError('Không tìm thấy giấy tờ',404);
+    requireContentEdit('document',previous,actor);
+    if(previous)assertEditVersion(previous,baseUpdatedAt);
+    data=validateContentPayload('document',data,previous,actor,db);
+    const now = new Date().toISOString();
+    if ((!previous || data.title !== previous.title) && (!data.title || !data.title.trim())) throw new AppStoreError("Thiếu tên giấy tờ",400);
+    if ((!previous || data.type !== previous.type) && (!data.type || !VALID_DOCUMENT_TYPES.has(data.type))) throw new AppStoreError("Loại giấy tờ không hợp lệ",400);
+
+    const files = Array.isArray(data.files) ? data.files : [];
+
+    if (data.id) {
+      const idx = db.documents.findIndex(d => d.id === data.id);
+      if (idx === -1) throw new Error("Không tìm thấy giấy tờ");
+      const prev = db.documents[idx];
+      // Xoá file đính kèm đã bị gỡ khỏi danh sách mới để không để lại rác trên đĩa.
+      const newUrls = new Set(files.map(f => f.url));
+      (prev.files || []).forEach(f => { if (!newUrls.has(f.url)) deleteMediaByUrl(f.url); });
+      const updated: FamilyDocument = {
+        ...prev,
+        ...data,
+        title: data.title === prev.title ? prev.title : data.title!.trim(),
+        files,
+        updatedAt: now
+      } as FamilyDocument;
+      db.documents[idx] = updated;
+      this.writeRaw(db);
+      this.logActivity(userId, username, "Giấy tờ", `Đã cập nhật giấy tờ "${updated.title}".`, {domain:'document',id:updated.id});
+      return updated;
+    }
+
+    const doc: FamilyDocument = {
+      id: `doc_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      type: data.type,
+      title: data.title.trim(),
+      ownerId: data.ownerId || undefined,
+      documentNumber: data.documentNumber?.trim() || undefined,
+      issuer: data.issuer?.trim() || undefined,
+      issueDate: data.issueDate || undefined,
+      expiryDate: data.expiryDate || undefined,
+      notes: data.notes?.trim() || undefined,
+      files,
+      isShared: data.isShared !== undefined ? data.isShared : false,
+      creatorId: userId,
+      createdAt: now,
+      updatedAt: now
+    };
+    db.documents.unshift(doc);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Giấy tờ", `Đã thêm giấy tờ "${doc.title}".`, {domain:'document',id:doc.id});
+    return doc;
+
+    });
+  }
+
+  public static deleteDocument(id: string, userId: string, username: string): void {
+    return runLegacyCommand("deleteDocument", [id, userId, username], userId, () => {
+    const db = this.readRaw();
+    const doc = db.documents.find(d => d.id === id);
+    requireContentDelete('document',doc,currentLegacyActor(db,userId));
+    if (!doc) return;
+    // Dọn các tệp scan/ảnh đính kèm trên đĩa.
+    (doc.files || []).forEach(f => deleteMediaByUrl(f.url));
+    db.documents = db.documents.filter(d => d.id !== id);
+    this.writeRaw(db);
+    this.logActivity(userId, username, "Giấy tờ", `Đã xóa giấy tờ "${doc.title}".`, {domain:'document',id:doc.id});
+
+    });
+  }
+
+  // Pre-deadline reminders: notify before tasks are due and before plans start.
+  // Deduplicated by notification id so each window fires only once.
+  public static generateReminders(): void {
+    return runLegacyCommand("generateReminders", [], "system:legacy", () => {
+    const db = this.readRaw();
+    const now = Date.now();
+    let modified = false;
+
+    const ensure = (id: string, userId: string, title: string, content: string, type: Notification["type"], sourceRef:LegacySourceRef) => {
+      if (db.notifications.some(n => n.id === id)) return;
+      const notif: Notification = { id, userId, title, content, type, sourceRef, isRead: false, createdAt: new Date().toISOString() };
+      db.notifications.unshift(notif);
+      queuePush(db, notif);
+      modified = true;
+    };
+    const parse = (s: string): number | null => {
+      if (!s) return null;
+      const d = new Date(String(s).replace(" ", "T"));
+      return isNaN(d.getTime()) ? null : d.getTime();
+    };
+
+    db.tasks.forEach(t => {
+      if(canonicalTaskPolicyActive()&&productivityVersionsFrom(14).includes(currentAppWriteTx()?.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)&&currentAppWriteTx()!.get('SELECT 1 FROM productivity_task_reminder_rules WHERE task_id=? LIMIT 1',t.id))return;
+      if (!isActiveLegacyTask(t)) return;
+      const due = parse(t.dueDate);
+      if (due === null) return;
+      const diffMin = (due - now) / 60000;
+      const recipient = t.assigneeId || "all";
+      if (diffMin > 60 && diffMin <= 24 * 60) {
+        ensure(`notif_taskdue1d_${t.id}`, recipient, "⏰ Sắp đến hạn công việc", `"${t.title}" đến hạn lúc ${t.dueDate}.`, "task", {domain:'task',id:t.id});
+      } else if (diffMin > 0 && diffMin <= 60) {
+        ensure(`notif_taskdue1h_${t.id}`, recipient, "⏰ Công việc sắp đến hạn!", `"${t.title}" sẽ đến hạn trong vòng 1 giờ (${t.dueDate}).`, "task", {domain:'task',id:t.id});
+      } else if (diffMin <= 0) {
+        ensure(`notif_taskoverdue_${t.id}`, recipient, "🔴 Công việc đã quá hạn", `"${t.title}" đã quá hạn (${t.dueDate}) mà chưa hoàn thành.`, "task", {domain:'task',id:t.id});
+      }
+    });
+
+    db.plans.forEach(p => {
+      const start = parse(p.startDate);
+      if (start === null) return;
+      const diffMin = (start - now) / 60000;
+      const recipient = p.isShared ? "all" : p.creatorId;
+      if (diffMin > 60 && diffMin <= 24 * 60) {
+        ensure(`notif_plansoon1d_${p.id}`, recipient, "📅 Sự kiện sắp diễn ra", `"${p.title}" bắt đầu lúc ${p.startDate}.`, "plan", {domain:'plan',id:p.id});
+      } else if (diffMin > 0 && diffMin <= 60) {
+        ensure(`notif_plansoon1h_${p.id}`, recipient, "📅 Sự kiện sắp bắt đầu!", `"${p.title}" sẽ bắt đầu trong vòng 1 giờ (${p.startDate}).`, "plan", {domain:'plan',id:p.id});
+      }
+    });
+
+    // Nhắc hóa đơn định kỳ: trước 3 ngày → đúng ngày → quá hạn (quên bấm "đã trả").
+    // Dedupe theo nextDueDate nên mỗi kỳ chỉ nhắc 1 lần cho mỗi mốc.
+    const nowDate = new Date();
+    const nowMidnight = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate()).getTime();
+    db.recurringBills.forEach(b => {
+      if (!b.isActive) return;
+      const p = String(b.nextDueDate || "").split("-");
+      if (p.length < 3) return;
+      const by = Number(p[0]), bm = Number(p[1]), bd = Number(p[2]);
+      if (!by || !bm || !bd) return;
+      const dueMidnight = new Date(by, bm - 1, bd).getTime();
+      const diffDays = Math.round((dueMidnight - nowMidnight) / 86400000);
+      const amt = b.amount.toLocaleString("vi-VN");
+      if (diffDays > 0 && diffDays <= 3) {
+        ensure(`notif_billdue_${b.id}_${b.nextDueDate}`, "all", "🧾 Hóa đơn sắp đến hạn", `"${b.title}" đến hạn ngày ${b.nextDueDate} (còn ${diffDays} ngày) — ${amt} đ.`, "finance", {domain:'finance'});
+      } else if (diffDays === 0) {
+        ensure(`notif_billdue0_${b.id}_${b.nextDueDate}`, "all", "🧾 Hóa đơn đến hạn hôm nay", `"${b.title}" đến hạn thanh toán hôm nay — ${amt} đ.`, "finance", {domain:'finance'});
+      } else if (diffDays < 0) {
+        ensure(`notif_billover_${b.id}_${b.nextDueDate}`, "all", "🔴 Hóa đơn đã quá hạn", `"${b.title}" quá hạn từ ${b.nextDueDate} — ${amt} đ. Đã trả rồi thì bấm "Đã trả" để dời sang kỳ sau nhé.`, "finance", {domain:'finance'});
+      }
+    });
+
+    const today = new Date();
+    const todayKey = formatLocalDateTime(today, false);
+    db.medications.forEach(m => {
+      if (!m.isActive) return;
+      if (m.startDate && todayKey < m.startDate) return;
+      if (m.endDate && todayKey > m.endDate) return;
+      const patient = db.users.find(u => u.id === m.patientId);
+      m.times.forEach(time => {
+        const reminderAt = parse(`${todayKey} ${time}`);
+        if (reminderAt === null) return;
+        const diffMin = (reminderAt - now) / 60000;
+        if (diffMin > 0 && diffMin <= 60) {
+          ensure(
+            `notif_med_${m.id}_${todayKey}_${time.replace(":", "")}`,
+            m.patientId || "all",
+            "Den gio uong thuoc",
+            `${patient?.fullName || "Thanh vien"} can uong ${m.name}${m.dosage ? ` (${m.dosage})` : ""} luc ${time}.`,
+            "medication",
+            {domain:'medication',id:m.id}
+          );
+        }
+      });
+    });
+
+    // (Nhắc sinh nhật do generateBirthdayNotifications xử lý riêng — không lặp lại ở đây.)
+    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    // Nhắc giấy tờ hết hạn — gửi cho người lớn phụ trách (chủ sở hữu nếu là người lớn, ngược lại người tạo).
+    // Dùng KHOẢNG ngày (không phải mốc đúng) để vẫn bắn dù cron lỡ đúng ngày; dedupe theo expiryDate.
+    const adultIds = new Set(db.users.filter(u => u.role === "admin" || u.role === "member").map(u => u.id));
+    db.documents.forEach(doc => {
+      if (!doc.expiryDate) return;
+      const p = String(doc.expiryDate).split("-");
+      if (p.length < 3) return;
+      const ey = Number(p[0]), em = Number(p[1]), ed = Number(p[2]);
+      if (!ey || !em || !ed) return;
+      const expiry = new Date(ey, em - 1, ed);
+      const diffDays = Math.round((expiry.getTime() - todayMidnight.getTime()) / 86400000);
+      const recipient = (doc.ownerId && adultIds.has(doc.ownerId)) ? doc.ownerId : doc.creatorId;
+      if (!recipient) return;
+      const exp = doc.expiryDate;
+      const typeLabel = DOCUMENT_TYPE_LABELS[doc.type] || "Giấy tờ";
+      if (diffDays > 7 && diffDays <= 30) {
+        ensure(`notif_docexp30_${doc.id}_${exp}`, recipient, "📄 Giấy tờ sắp hết hạn", `"${doc.title}" (${typeLabel}) sẽ hết hạn ngày ${exp} — còn ${diffDays} ngày.`, "system", {domain:'document',id:doc.id});
+      } else if (diffDays > 0 && diffDays <= 7) {
+        ensure(`notif_docexp7_${doc.id}_${exp}`, recipient, "📄 Giấy tờ sắp hết hạn!", `"${doc.title}" (${typeLabel}) chỉ còn ${diffDays} ngày là hết hạn (${exp}).`, "system", {domain:'document',id:doc.id});
+      } else if (diffDays === 0) {
+        ensure(`notif_docexp0_${doc.id}_${exp}`, recipient, "📄 Giấy tờ hết hạn hôm nay", `"${doc.title}" (${typeLabel}) hết hạn hôm nay (${exp}).`, "system", {domain:'document',id:doc.id});
+      } else if (diffDays < 0) {
+        ensure(`notif_docexpover_${doc.id}_${exp}`, recipient, "🔴 Giấy tờ đã hết hạn", `"${doc.title}" (${typeLabel}) đã hết hạn từ ${exp}.`, "system", {domain:'document',id:doc.id});
+      }
+    });
+
+    // Nhắc khoản nợ tới hạn (chưa tất toán & còn dư nợ). Gửi cho người tạo. Dedupe theo dueDate.
+    db.debts.forEach(d => {
+      if (d.isSettled || !d.dueDate) return;
+      const remaining = debtRemainingAmount(d);
+      if (compareTrackingAmount(remaining,0)<=0) return;
+      const p = String(d.dueDate).split("-");
+      if (p.length < 3) return;
+      const y = Number(p[0]), m = Number(p[1]), dd = Number(p[2]);
+      if (!y || !m || !dd) return;
+      const due = new Date(y, m - 1, dd);
+      const diffDays = Math.round((due.getTime() - todayMidnight.getTime()) / 86400000);
+      const recipient = d.creatorId;
+      if (!recipient) return;
+      const verb = d.direction === "lent" ? "thu hồi" : "trả";
+      const who = d.counterparty;
+      const amt = typeof remaining==='number'?remaining.toLocaleString():formatTrackingAmount(remaining);
+      if (diffDays > 0 && diffDays <= 7) {
+        ensure(`notif_debtdue7_${d.id}_${d.dueDate}`, recipient, "💸 Khoản nợ sắp đến hạn", `Còn ${diffDays} ngày đến hạn ${verb} ${amt}đ với "${who}".`, "finance", {domain:'finance'});
+      } else if (diffDays === 0) {
+        ensure(`notif_debtdue0_${d.id}_${d.dueDate}`, recipient, "💸 Khoản nợ đến hạn hôm nay", `Hôm nay đến hạn ${verb} ${amt}đ với "${who}".`, "finance", {domain:'finance'});
+      } else if (diffDays < 0) {
+        ensure(`notif_debtover_${d.id}_${d.dueDate}`, recipient, "🔴 Khoản nợ đã quá hạn", `Đã quá hạn ${verb} ${amt}đ với "${who}" (hẹn ${d.dueDate}).`, "finance", {domain:'finance'});
+      }
+    });
+
+    // Nhắc lịch tiêm chủng sắp tới (mũi chưa tiêm có ngày hẹn). Gửi cả nhà, dedupe theo ngày hẹn.
+    db.vaccinations.forEach(v => {
+      if (v.status !== "scheduled" || !v.scheduledDate) return;
+      const p = String(v.scheduledDate).split("-");
+      if (p.length < 3) return;
+      const y = Number(p[0]), m = Number(p[1]), dd = Number(p[2]);
+      if (!y || !m || !dd) return;
+      const when = new Date(y, m - 1, dd);
+      const diffDays = Math.round((when.getTime() - todayMidnight.getTime()) / 86400000);
+      const child = db.users.find(u => u.id === v.childId);
+      const childName = child?.fullName || "Bé";
+      const dose = v.doseLabel ? ` (${v.doseLabel})` : "";
+      if (diffDays > 0 && diffDays <= 7) {
+        ensure(`notif_vacsoon_${v.id}_${v.scheduledDate}`, "all", "💉 Sắp đến lịch tiêm", `${childName} còn ${diffDays} ngày đến lịch tiêm "${v.name}"${dose} (${v.scheduledDate}).`, "medication", {domain:'vaccination',id:v.id});
+      } else if (diffDays === 0) {
+        ensure(`notif_vacday_${v.id}_${v.scheduledDate}`, "all", "💉 Hôm nay đến lịch tiêm", `${childName} có lịch tiêm "${v.name}"${dose} hôm nay.`, "medication", {domain:'vaccination',id:v.id});
+      } else if (diffDays < 0) {
+        ensure(`notif_vacover_${v.id}_${v.scheduledDate}`, "all", "🔴 Trễ lịch tiêm", `${childName} đã trễ lịch tiêm "${v.name}"${dose} (hẹn ${v.scheduledDate}).`, "medication", {domain:'vaccination',id:v.id});
+      }
+    });
+
+    if (db.notifications.length > 200) {
+      db.notifications = db.notifications.slice(0, 200);
+    }
+    if (modified) this.writeRaw(db);
+
+    });
+  }
+
+  // ---- Web Push subscriptions (one per device/browser) ----
+  public static getPushSubscriptions(): PushSubscriptionRecord[] {
+    return this.readRaw().pushSubscriptions;
+  }
+
+  // Upsert by endpoint so re-subscribing the same device never duplicates.
+  public static addPushSubscription(
+    userId: string,
+    subscription: PushSubscriptionRecord["subscription"],
+    userAgent?: string
+  ): void {
+    return runLegacyCommand("addPushSubscription", [userId, subscription, userAgent], userId, () => {
+    const endpoint = subscription?.endpoint;
+    if (!endpoint) throw new Error("Đăng ký thông báo không hợp lệ (thiếu endpoint).");
+    const db = this.readRaw();
+    db.pushSubscriptions = db.pushSubscriptions.filter(s => s.endpoint !== endpoint);
+    db.pushSubscriptions.unshift({
+      id: `push_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+      userId,
+      endpoint,
+      subscription,
+      userAgent: userAgent ? userAgent.slice(0, 200) : undefined,
+      createdAt: new Date().toISOString()
+    });
+    this.writeRaw(db);
+
+    });
+  }
+
+  public static removePushSubscriptionByEndpoint(endpoint: string): void {
+    return runLegacyCommand("removePushSubscriptionByEndpoint", [endpoint], "system:legacy", () => {
+    if (!endpoint) return;
+    const db = this.readRaw();
+    const before = db.pushSubscriptions.length;
+    db.pushSubscriptions = db.pushSubscriptions.filter(s => s.endpoint !== endpoint);
+    if (db.pushSubscriptions.length !== before) this.writeRaw(db);
+
+    });
+  }
+
+  // Bulk-remove expired/dead subscriptions reported by the push service (404/410).
+  public static removePushSubscriptionsByEndpoints(endpoints: string[]): void {
+    return runLegacyCommand("removePushSubscriptionsByEndpoints", [endpoints], "system:legacy", () => {
+    if (!endpoints || endpoints.length === 0) return;
+    const db = this.readRaw();
+    const dead = new Set(endpoints);
+    const before = db.pushSubscriptions.length;
+    db.pushSubscriptions = db.pushSubscriptions.filter(s => !dead.has(s.endpoint));
+    if (db.pushSubscriptions.length !== before) this.writeRaw(db);
+
+    });
+  }
+
+  // Manual person-to-person nudge: targeted in-app notification + push.
+  // Excludes the sender's own devices (so a "cả nhà" broadcast doesn't buzz them).
+  public static sendManualNotification(fromName: string, fromUserId: string, toUserId: string, message: string): void {
+    return runLegacyCommand("sendManualNotification", [fromName, fromUserId, toUserId, message], fromUserId, () => {
+    const db = this.readRaw();
+    const isBroadcast = toUserId === "all";
+    const notif: Notification = {
+      id: `notif_msg_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+      userId: toUserId,
+      title: isBroadcast ? `📣 ${fromName} nhắn cả nhà` : `📣 ${fromName} nhắc bạn`,
+      content: message,
+      type: "system",
+      sourceRef: {domain:'message'},
+      isRead: false,
+      createdAt: new Date().toISOString()
+    };
+    db.notifications.unshift(notif);
+    if (db.notifications.length > 200) {
+      db.notifications = db.notifications.slice(0, 200);
+    }
+    queuePush(db, notif, fromUserId);
+    this.writeRaw(db);
+
+    });
+  }
+
+  // Internal notification builder
+  /** Shared notification/outbox adapter. A Wallet owner has already checked its
+   * current object policy in the same I01 transaction. No network is performed. */
+  private static recordWalletNotice(notification:Notification,source:NonNullable<Notification['sourceRef']>,expectedId:string):string {
+    const db=this.readRaw(),actor=currentLegacyActor(db,notification.userId);
+    if(![UserRole.ADMIN,UserRole.MEMBER].includes(actor.role)||notification.userId==='all'||notification.type!=='finance'||notification.isRead!==false||notification.id!==expectedId||typeof notification.title!=='string'||!notification.title.trim()||notification.title.length>500||typeof notification.content!=='string'||notification.content.length>2000||typeof notification.createdAt!=='string'||new Date(notification.createdAt).toISOString()!==notification.createdAt)throw new AppStoreError('Thông báo Wallet không hợp lệ.',400);
+    const prior=db.notifications.find(row=>row.id===notification.id);
+    if(prior){if(prior.userId!==notification.userId||JSON.stringify(prior.sourceRef)!==JSON.stringify(source))throw new AppStoreError('Thông báo Wallet xung đột.',409);return prior.id;}
+    const value={...structuredClone(notification),sourceRef:source};db.notifications.unshift(value);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,value);this.writeRaw(db);return value.id;
+  }
+  /** Owner-only tracking notices share the private inbox/outbox. The owning21
+   * claim and current source/recipient are rechecked without copying labels. */
+  public static queueTrackingReminder(claimId:string,recipientId:string,digestId:string|undefined,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc theo dõi cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueTrackingReminder',[claimId,recipientId,digestId??null,createdAt],recipientId,()=>{
+      if(!productivityVersionsFrom(21).includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Nguồn nhắc theo dõi chưa sẵn sàng.',409);
+      const row=tx.get("SELECT d.*,r.habit_id,r.countdown_id,r.enabled,r.revision AS current_rule_revision FROM productivity_tracking_deliveries d JOIN productivity_tracking_reminders r ON r.id=d.reminder_id WHERE d.id=?AND d.owner_id=?AND r.owner_id=d.owner_id AND d.state='pending'",claimId,recipientId),db=this.readRaw();legacyReader(db,recipientId);
+      if(!row||!row.enabled||row.current_rule_revision!==row.rule_revision||recipientId==='all'||typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt||row.available_at===null||Date.parse(row.available_at)>Date.parse(createdAt))throw new AppStoreError('Không tìm thấy nhắc theo dõi đến hạn.',404);
+      const user=db.users.find(value=>value.id===recipientId);if(!user||user.isDeleted||user.role===UserRole.GUEST)throw new AppStoreError('Người nhận nhắc theo dõi không hợp lệ.',404);
+      const source=tx.get('SELECT owner_id,is_shared,archived_at,revision FROM '+(row.habit_id!==null?'productivity_habits':'productivity_countdowns')+' WHERE id=?',row.habit_id??row.countdown_id);if(!source||source.archived_at!==null||source.revision!==row.source_revision||source.owner_id!==recipientId&&!source.is_shared)throw new AppStoreError('Không tìm thấy mục theo dõi được phép xem.',404);
+      if(digestId){const stored=tx.get('SELECT settings_json FROM productivity_task_notification_preferences WHERE user_id=?',recipientId),prefs=stored?focusDeliveryPreferences(JSON.parse(stored.settings_json)):focusDeliveryDefaults,expected='tracking_digest_'+crypto.createHash('sha256').update(JSON.stringify([recipientId,focusDeliveryDate(Date.parse(createdAt),prefs.timezone)])).digest('hex');if(prefs.mode!=='daily'||digestId!==expected)throw new AppStoreError('Bản tổng hợp theo dõi không hợp lệ.',400);}
+      const id=digestId??'tracking_notice_'+claimId,prior=db.notifications.find(value=>value.id===id);if(prior){if(prior.userId!==recipientId||prior.type!=='system'||prior.sourceRef?.domain!=='family')throw new AppStoreError('Thông báo theo dõi xung đột.',409);return id;}
+      if(digestId&&tx.get("SELECT id FROM productivity_tracking_deliveries WHERE owner_id=?AND notification_id=?AND state='delivered'LIMIT 1",recipientId,digestId))return id;
+      const notice:Notification={id,userId:recipientId,title:digestId?'Nhắc theo dõi hằng ngày':'Đến giờ theo dõi của bạn',content:'Mở ứng dụng để xem thói quen và ngày quan trọng của bạn.',sourceRef:{domain:'family'},type:'system',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice,undefined,true);this.writeRaw(db);return id;
+    });
+  }
+  /** Focus shares the private inbox/outbox; the owning19 claim and current
+   * recipient are rechecked without copying Task titles or money. */
+  public static queueFocusEnd(sessionId:string,recipientId:string,digestId:string|undefined,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Thông báo Focus cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueFocusEnd',[sessionId,recipientId,digestId??null,createdAt],recipientId,()=>{
+      if(!productivityVersionsFrom(19).includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Nguồn Focus chưa sẵn sàng.',409);
+      const row=tx.get("SELECT n.*,s.phase FROM productivity_focus_notices n JOIN productivity_focus_sessions s ON s.id=n.session_id WHERE n.session_id=?AND n.owner_id=?AND n.state='pending'AND s.owner_id=n.owner_id AND s.status='completed'AND s.source='timer'",sessionId,recipientId);
+      const db=this.readRaw();legacyReader(db,recipientId);if(!row||recipientId==='all'||typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt||row.available_at===null||Date.parse(row.available_at)>Date.parse(createdAt))throw new AppStoreError('Không tìm thấy thông báo Focus đến hạn.',404);
+      if(digestId){const stored=tx.get('SELECT settings_json FROM productivity_task_notification_preferences WHERE user_id=?',recipientId),prefs=stored?focusDeliveryPreferences(JSON.parse(stored.settings_json)):focusDeliveryDefaults,expected='focus_digest_'+crypto.createHash('sha256').update(JSON.stringify([recipientId,focusDeliveryDate(Date.parse(createdAt),prefs.timezone)])).digest('hex');if(prefs.mode!=='daily'||digestId!==expected)throw new AppStoreError('Bản tổng hợp Focus không hợp lệ.',400);}
+      const id=digestId??'focus_notice_'+sessionId,prior=db.notifications.find(value=>value.id===id);if(prior){if(prior.userId!==recipientId||prior.type!=='system'||prior.sourceRef?.domain!=='family')throw new AppStoreError('Thông báo Focus xung đột.',409);return id;}
+      // A trimmed inbox must not cause a second daily delivery. Its durable
+      // claim remains the dedupe source even when the old message is absent.
+      if(digestId&&tx.get("SELECT session_id FROM productivity_focus_notices WHERE owner_id=?AND notification_id=?AND state='delivered'LIMIT 1",recipientId,digestId))return id;
+      const notice:Notification={id,userId:recipientId,title:digestId?'Cập nhật tập trung hằng ngày':row.phase==='focus'?'Phiên tập trung đã kết thúc':'Đã hết thời gian nghỉ',content:'Mở ứng dụng để xem các phiên của bạn.',sourceRef:{domain:'family'},type:'system',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice,undefined,true);this.writeRaw(db);return id;
+    });
+  }
+  /** Task mentions join their owning comment command in the I01 gateway. */
+  public static queueTaskMention(taskId:string,commentId:string,recipientId:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc tên cần transaction bình luận.',409);
+    return runLegacyCommand('queueTaskMention',[taskId,commentId,recipientId],recipientId,()=>{
+    const db=this.readRaw(),recipient=legacyReader(db,recipientId),task=db.tasks.find(row=>row.id===taskId),comment=task?.comments.find(row=>row.id===commentId);
+    if(!canonicalTaskPolicyActive()||!task||!comment||!canViewLegacyTask(task,recipient))throw new AppStoreError('Không tìm thấy nguồn nhắc tên.',404);
+    const id='task_mention_'+crypto.createHash('sha256').update(JSON.stringify([taskId,commentId,recipientId])).digest('hex'),sourceRef={domain:'task' as const,id:taskId},prior=db.notifications.find(row=>row.id===id);
+    if(prior){if(prior.userId!==recipientId||JSON.stringify(prior.sourceRef)!==JSON.stringify(sourceRef))throw new AppStoreError('Thông báo nhắc tên xung đột.',409);return id;}
+    const notification:Notification={id,userId:recipientId,title:'Bạn được nhắc trong công việc',content:comment.username+' đã nhắc bạn trong “'+task.title+'”.',type:'task',sourceRef,isRead:false,createdAt:comment.createdAt};
+    db.notifications.unshift(notification);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notification);this.writeRaw(db);return id;
+    });
+  }
+  public static queueTaskAssignment(taskId:string,revision:number,recipientId:string,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Giao việc cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueTaskAssignment',[taskId,revision,recipientId,createdAt],recipientId,()=>{
+      const db=this.readRaw(),task=db.tasks.find(row=>row.id===taskId),canonical=tx.get('SELECT revision,assignee_id FROM productivity_tasks WHERE id=?',taskId);
+      if(!task||!canonical||canonical.revision!==revision||recipientId==='all'&&!task.isShared||recipientId!=='all'&&(canonical.assignee_id!==recipientId||!canViewLegacyTask(task,legacyReader(db,recipientId))))throw new AppStoreError('Không tìm thấy nguồn giao việc.',404);
+      if(typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt)throw new AppStoreError('Thời điểm giao việc không hợp lệ.',400);
+      const id='task_assignment_'+crypto.createHash('sha256').update(JSON.stringify([taskId,revision,recipientId])).digest('hex'),prior=db.notifications.find(row=>row.id===id);if(prior){if(prior.userId!==recipientId||prior.sourceRef?.domain!=='task'||prior.sourceRef.id!==taskId)throw new AppStoreError('Thông báo giao việc xung đột.',409);return id;}
+      const notice:Notification={id,userId:recipientId,title:recipientId==='all'?'Công việc gia đình mới':'Được giao công việc',content:'“'+task.title+'”. Mở công việc để xem thông tin hiện tại.',sourceRef:{domain:'task',id:taskId},type:'task',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice);this.writeRaw(db);return id;
+    });
+  }
+  public static queueTaskReminder(taskId:string,claimId:string,recipientId:string,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc lịch cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueTaskReminder',[taskId,claimId,recipientId,createdAt],recipientId,()=>{
+      const db=this.readRaw(),recipient=legacyReader(db,recipientId),task=db.tasks.find(row=>row.id===taskId),claim=tx.get("SELECT * FROM productivity_task_reminder_claims WHERE id=? AND task_id=? AND recipient_id=? AND state='pending'",claimId,taskId,recipientId);
+      if(!claim||!task||!canViewLegacyTask(task,recipient))throw new AppStoreError('Không tìm thấy nguồn nhắc lịch.',404);
+      const id='task_reminder_'+claimId,prior=db.notifications.find(row=>row.id===id);if(prior){if(prior.userId!==recipientId||prior.sourceRef?.domain!=='task'||prior.sourceRef.id!==taskId)throw new AppStoreError('Thông báo nhắc lịch xung đột.',409);return id;}
+      if(typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt)throw new AppStoreError('Thời điểm nhắc không hợp lệ.',400);
+      const notice:Notification={id,userId:recipientId,title:'Nhắc công việc',content:'Đã đến mốc nhắc cho “'+task.title+'”. Mở công việc để xem lịch hiện tại.',sourceRef:{domain:'task',id:taskId},type:'task',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice);this.writeRaw(db);return id;
+    });
+  }
+  public static dispatchTaskNotice(notificationId:string,recipientId:string,digestId?:string,createdAt=new Date().toISOString()):string|null {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Gửi nhắc cần transaction đang sở hữu.',409);
+    return runLegacyCommand('dispatchTaskNotice',[notificationId,recipientId,digestId??null,createdAt],recipientId,()=>{
+      const db=this.readRaw(),actor=legacyReader(db,recipientId),notice=db.notifications.find(row=>row.id===notificationId),current=notice&&projectNotification(db,actor,notice,getSessionSecret());if(!current)return null;
+      if(digestId){let digest=db.notifications.find(row=>row.id===digestId);if(!digest){digest={id:digestId,userId:recipientId,title:'Nhắc công việc hằng ngày',content:'Bạn có cập nhật nhắc lịch công việc. Mở ứng dụng để xem các mục đang được phép truy cập.',sourceRef:{domain:'task-digest',id:digestId},type:'task',isRead:false,createdAt};db.notifications.unshift(digest);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);}queuePush(db,digest,undefined,true);this.writeRaw(db);return digestId;}
+      queuePush(db,{...current,userId:recipientId},undefined,true);return current.id;
+    });
+  }
+  public static queueWalletReminder(notification:Notification):string {
+    return runLegacyCommand('queueWalletReminder',[notification],notification.userId,()=>{const source=walletNotificationSource(notification.sourceRef);return this.recordWalletNotice(notification,source,walletReminderId(source.id,source.offsetDays,notification.userId));});
+  }
+  public static queueWalletBudgetAlert(notification:Notification):string {
+    return runLegacyCommand('queueWalletBudgetAlert',[notification],notification.userId,()=>{const source=walletBudgetNotificationSource(notification.sourceRef);return this.recordWalletNotice(notification,source,walletBudgetAlertId(source.id,notification.userId));});
+  }
+
+  private static addNotificationInternal(db: FamilyOrganizerDB, userId: string, title: string, content: string, type: Notification["type"] = "system", sourceRef:LegacySourceRef={domain:'family'}) {
+    const newNotif: Notification = {
+      id: `notif_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
+      userId,
+      title,
+      content,
+      type,
+      sourceRef,
+      isRead: false,
+      createdAt: new Date().toISOString()
+    };
+    db.notifications.unshift(newNotif);
+    // Keep max 200 notifications
+    if (db.notifications.length > 200) {
+      db.notifications = db.notifications.slice(0, 200);
+    }
+    // Deliver as a system push notification too (no-op if push unconfigured).
+    queuePush(db, newNotif);
+  }
+
+  // Read notification status mark
+  public static markNotificationRead(notifId: string, userId: string,walletAccess?:WalletNotificationAccess): void {
+    return runLegacyCommand("markNotificationRead", [notifId, userId], userId, () => {
+    const db = this.readRaw();
+    const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
+    const idx=db.notifications.findIndex(n=>projectNotification(db,actor,n,privacyKey,walletAccess)?.id===notifId);
+    if(idx===-1)throw new AppStoreError('Không tìm thấy thông báo.',404);
+    if (idx !== -1) {
+      db.notifications[idx].isRead = true;
+      this.writeRaw(db);
+    }
+
+    });
+  }
+
+  public static markAllNotificationsRead(userId: string,walletAccess?:WalletNotificationAccess): void {
+    return runLegacyCommand("markAllNotificationsRead", [userId], userId, () => {
+    const db = this.readRaw();
+    let modified = false;
+    const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
+    db.notifications.forEach(n => {
+      if (projectNotification(db,actor,n,privacyKey,walletAccess) && !n.isRead) {
+        n.isRead = true;
+        modified = true;
+      }
+    });
+    if (modified) {
+      this.writeRaw(db);
+    }
+
+    });
+  }
+}

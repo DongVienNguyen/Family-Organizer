@@ -1,0 +1,9 @@
+import { object, keys, text, integer, choice } from '../productivity/validation.js';
+import { normalizePreferenceConfig, type PreferenceKind, type WalletPreference, type WalletPreferences } from './preferenceContracts.js';
+export function preferenceValue(raw: unknown, kind?: PreferenceKind, id?: string, revision?: number): WalletPreference { const v = object(raw); keys(v, ['id', 'kind', 'name', 'revision', 'archivedAt', 'config']); if (Object.keys(v).length !== 6)
+    throw Error('Incomplete preference'); text(v.id, 256); text(v.name, 120); integer(v.revision, 1); choice(v.kind, ['filter', 'chart', 'layout']); if (kind && v.kind !== kind || id && v.id !== id || revision !== undefined && v.revision !== revision && v.revision !== revision + 1)
+    throw Error('Wrong preference identity'); if (v.archivedAt !== null && (typeof v.archivedAt !== 'string' || !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(v.archivedAt) || new Date(v.archivedAt).toISOString() !== v.archivedAt))
+    throw Error('Invalid preference archive'); return { id: v.id, kind: v.kind, name: v.name, revision: v.revision, archivedAt: v.archivedAt as string | null, config: normalizePreferenceConfig(v.kind, v.config) }; }
+export function preferencesValue(raw: unknown): WalletPreferences { const v = object(raw); keys(v, ['filters', 'charts', 'layout']); if (!Array.isArray(v.filters) || v.filters.length > 32 || !Array.isArray(v.charts) || v.charts.length > 32)
+    throw Error('Invalid preferences'); const filters = v.filters.map(r => preferenceValue(r, 'filter')), charts = v.charts.map(r => preferenceValue(r, 'chart')), layout = v.layout === null ? null : preferenceValue(v.layout, 'layout'), rows = [...filters, ...charts, ...(layout ? [layout] : [])]; if (new Set(rows.map(r => r.id)).size !== rows.length)
+    throw Error('Duplicate preferences'); return { filters, charts, layout }; }
