@@ -1,3 +1,4 @@
+import {habitTables,habitSchemaSql,productivityHabitChecksum} from './habitSchema.js';
 import {focusTables,focusSchemaSql,productivityFocusChecksum} from './focusSchema.js';
 import {taskImportTables,taskImportSchemaSql,productivityTaskImportChecksum} from './importSchema.js';
 import {taskAttachmentTables,taskAttachmentSchemaSql,productivityTaskAttachmentChecksum} from './taskAttachmentSchema.js';
@@ -28,11 +29,11 @@ type Reader=Pick<AppWriteTx,'get'|'all'>;
 export function inspectProductivityStorage(reader:Reader):boolean {
  inspectWalletStorage(reader);
  const names=new Set(reader.all("SELECT name FROM sqlite_master WHERE type='table'").map(row=>row.name));
- if([...names].some(name=>name.startsWith('productivity_')&&!Object.hasOwn({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables,...taskTemplateTables,...taskContentTables,...taskAttachmentTables,...taskImportTables,...focusTables},name)))throw new Error('Unsupported domain storage table');
+ if([...names].some(name=>name.startsWith('productivity_')&&!Object.hasOwn({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables,...taskTemplateTables,...taskContentTables,...taskAttachmentTables,...taskImportTables,...focusTables,...habitTables},name)))throw new Error('Unsupported domain storage table');
  const records=names.has('app_migrations')?reader.all('SELECT namespace,version,checksum FROM app_migrations ORDER BY namespace,version'):[];
  if(records.some(row=>row.namespace!=='productivity'&&row.namespace!=='wallet'))throw new Error('Unsupported domain migration namespace');
  const applied=records.filter(row=>row.namespace==='productivity');
- const present=Object.keys({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables,...taskTemplateTables,...taskContentTables,...taskAttachmentTables,...taskImportTables,...focusTables}).filter(name=>names.has(name));
+ const present=Object.keys({...productivityTables,...structureTables,...tagOwnershipTables,...taskPinTables,...viewTables,...matrixTables,...boardTables,...seriesTables,...ownedOccurrenceTables,...occurrenceSkipTables,...legacyCutoverTables,...taskNotificationTables,...taskTemplateTables,...taskContentTables,...taskAttachmentTables,...taskImportTables,...focusTables,...habitTables}).filter(name=>names.has(name));
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
  if(!present.length&&!applied.length&&marker===undefined)return false;
  if(!productivityVersionsFrom(1).includes(applied.length)||applied[0].version!==1||applied[0].checksum!==productivityMigrationChecksum||(applied.length>=2&&(applied[1].version!==2||applied[1].checksum!==productivityStructureChecksum)))throw new Error('Unsupported productivity migration');
@@ -53,6 +54,9 @@ export function inspectProductivityStorage(reader:Reader):boolean {
  if(applied.length>=17&&(applied[16].version!==17||applied[16].checksum!==productivityTaskAttachmentChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=18&&(applied[17].version!==18||applied[17].checksum!==productivityTaskImportChecksum))throw new Error('Unsupported productivity migration');
  if(applied.length>=19&&(applied[18].version!==19||applied[18].checksum!==productivityFocusChecksum))throw new Error('Unsupported productivity migration');
+ if(applied.length>=20&&(applied[19].version!==20||applied[19].checksum!==productivityHabitChecksum))throw new Error('Unsupported productivity migration');
+ if(applied.length<20&&Object.keys(habitTables).some(name=>names.has(name)))throw new Error('Unsupported productivity storage schema');
+ if(applied.length>=20)for(const statement of habitSchemaSql.split(';').map(sql=>sql.trim()).filter(Boolean)){const match=statement.match(/^CREATE (?:UNIQUE )?(TABLE|INDEX) ([a-z_]+)/),kind=match?.[1].toLowerCase(),name=match?.[2],actual=name&&reader.get("SELECT sql FROM sqlite_master WHERE type=? AND name=?",kind,name)?.sql;if(typeof actual!=='string'||actual.trim().replace(/\s+/g,' ')!==statement.replace(/\s+/g,' '))throw new Error('Unsupported habit/countdown schema');}
  if(applied.length<19&&Object.keys(focusTables).some(name=>names.has(name)))throw new Error('Unsupported productivity storage schema');
  if(applied.length>=19)for(const statement of focusSchemaSql.split(';').map(sql=>sql.trim()).filter(Boolean)){const match=statement.match(/^CREATE (?:UNIQUE )?(TABLE|INDEX) ([a-z_]+)/),kind=match?.[1].toLowerCase(),name=match?.[2],actual=name&&reader.get("SELECT sql FROM sqlite_master WHERE type=? AND name=?",kind,name)?.sql;if(typeof actual!=='string'||actual.trim().replace(/\s+/g,' ')!==statement.replace(/\s+/g,' '))throw new Error('Unsupported Focus schema');}
  if(applied.length<18&&Object.keys(taskImportTables).some(name=>names.has(name)))throw new Error('Unsupported productivity storage schema');

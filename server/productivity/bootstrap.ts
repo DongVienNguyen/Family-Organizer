@@ -1,3 +1,4 @@
+import {validateHabitStorage} from './habitRecord.js';
 import {validateFocusStorage} from './focusRecord.js';
 import {validateTaskImportStorage} from './importRecord.js';
 import {validateTaskAttachmentStorage} from './taskAttachmentRecord.js';
@@ -28,6 +29,7 @@ export async function configureTaskStorage(sqlite:typeof Sqlite,options:{validat
  if(options.validateCurrentTasks!==false&&hasProductivity)validateTaskAttachmentStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  if(options.validateCurrentTasks!==false&&hasProductivity)validateTaskImportStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  if(options.validateCurrentTasks!==false&&hasProductivity)validateFocusStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
+ if(options.validateCurrentTasks!==false&&hasProductivity)validateHabitStorage({get:(sql,...args)=>connection.prepare(sql).get(...args),all:(sql,...args)=>connection.prepare(sql).all(...args)});
  const gateway=await import('../appStore.js');
  const migrations=await import('../appMigrations.js');
  const snapshot=await import('../appSnapshot.js');
