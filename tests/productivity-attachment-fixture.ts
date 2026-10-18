@@ -1,0 +1,4 @@
+import {setupTaskContent,reader,gateway,migrations,snapshots} from './productivity-content-fixture.js';import {registerTaskAttachmentMigration} from '../server/productivity/taskAttachmentSchema.js';import {createTaskAttachmentFiles} from '../server/productivity/taskAttachmentFiles.js';import {createTaskAttachments} from '../server/productivity/taskAttachments.js';
+export * from './productivity-content-fixture.js';
+export const files=createTaskAttachmentFiles({dataRoot:process.env.DATA_DIR!}),attachments=createTaskAttachments({reader,write:gateway.withAppWriteTransaction,files});
+export function setupTaskAttachments(){setupTaskContent();registerTaskAttachmentMigration({registerMigration:migrations.registerDomainMigration,registerSnapshot:snapshots.registerSnapshotTable});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});}

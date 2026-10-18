@@ -1,3 +1,4 @@
+import {privateTaskAttachmentMediaPrefix} from '../src/features/productivity/taskAttachmentPolicy.js';
 import {productivityVersionsFrom} from './productivity/knownVersions.js';
 import {fromMarkdown} from 'mdast-util-from-markdown';
 import {gfmFromMarkdown} from 'mdast-util-gfm';
@@ -55,7 +56,7 @@ export function mediaReferences(legacy:FamilyOrganizerDB):Map<string,MediaBindin
  return refs;
 }
 export function mayReadMedia(url:string,metadata:MediaMetadata|undefined,legacy:FamilyOrganizerDB,actor:LegacyActor,now=Date.now()):boolean {
- try{if(mediaPath(url).toLowerCase().startsWith(privateReceiptMediaPrefix))return false;}catch{return false;}
+ try{if([privateReceiptMediaPrefix,privateTaskAttachmentMediaPrefix].some(prefix=>mediaPath(url).toLowerCase().startsWith(prefix)))return false;}catch{return false;}
  if(!Object.values(UserRole).includes(actor.role)||!metadata)return false;
  if(!metadata.bindings.length)return metadata.ownerId===actor.userId&&now>=metadata.createdAt&&now-metadata.createdAt<24*60*60*1000;
  const current=mediaReferences(legacy).get(url)??[];

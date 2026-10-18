@@ -1,3 +1,4 @@
+import {privateTaskAttachmentMediaPrefix} from '../src/features/productivity/taskAttachmentPolicy.js';
 import {blocksLegacyWalletReceipt} from './wallet/legacyMedia.js';
 import {detectedMediaType} from './mediaContent.js';
 export {detectedMediaType} from './mediaContent.js';
@@ -58,7 +59,7 @@ export function readManagedMedia(url:string):{bytes:Buffer;mime:string} {
 }
 export function deleteMediaByUrl(url:unknown):void {
  if(!isManagedUrl(url))return;
- try{const canonical=canonicalMediaUrl(url);if(mediaPath(canonical).toLowerCase().startsWith(privateReceiptMediaPrefix))return;const legacy=sqliteLoad(),connection=sqliteConnection();if(blocksLegacyWalletReceipt({get:(sql,...args)=>connection.prepare(sql).get(...args)},canonical,legacy)||mediaReferences(legacy).has(canonical))return;
+ try{const canonical=canonicalMediaUrl(url);if([privateReceiptMediaPrefix,privateTaskAttachmentMediaPrefix].some(prefix=>mediaPath(canonical).toLowerCase().startsWith(prefix)))return;const legacy=sqliteLoad(),connection=sqliteConnection();if(blocksLegacyWalletReceipt({get:(sql,...args)=>connection.prepare(sql).get(...args)},canonical,legacy)||mediaReferences(legacy).has(canonical))return;
   const file=location(canonical),stat=fs.lstatSync(file);if(stat.isFile()&&!stat.isSymbolicLink()&&stat.nlink===1)fs.unlinkSync(file);
  }catch(error:any){if(error.code!=='ENOENT')console.error('Managed media cleanup failed.');}
 }
