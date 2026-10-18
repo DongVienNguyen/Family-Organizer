@@ -2,6 +2,20 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**W16 core (2026-10-18):** source `925009844e680a0c3333174d2f81272724786486` adds personal
+locale/date/decimal/balance display, default periods, owned inactivity timers,
+selective Wallet device cleanup and explicit PDF glyph fallback. Settings
+storage16/standalone17 is explicit; accepted SQL1–15 and package cap unchanged.
+Cloud 8391/493 JSON/JUnit, zero failures/skips/todo;
+all8350 parent cases +41 retained, lint/build0. Whole Wallet Chromium
+65/65 retains56 W14+4 W15 parents and5 W16 cases, offline/source-build-bound/
+closed/cleaned. Actual lost-ACK privacy and missing-PDF-glyph regressions fixed;
+full CJK/emoji glyph rendering remains partial, CSV/XLSX preserve original text.
+[Details](wallet-settings.md), [proof](evidence/w16-settings-development.json).
+Author inspection only; PR/CI run URLs:none; backup branch only. Next W17/W18,
+remaining P/M1/I02/I03/master and one final Windows qualification batch.
+Server2019 R02 unrun; no release/tag/VPS.
+
 **W15 core (2026-10-18):** source `14a25866ed9c2699ef25338dfb4de41528a11cf0` adds exact atomic
 investment cash/cost, deterministic edits/voids, source-preserving manual and
 injected quotes, source-fenced growth, strict SDK and portfolio UI.

@@ -1,0 +1,637 @@
+{
+  "taskId": "W16 core",
+  "qualification": "Cloud functional development; final Windows and W17/W18 acceptance remain",
+  "sourceCommit": "925009844e680a0c3333174d2f81272724786486",
+  "baseHead": "4f67bef",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "platform": "Cloud Linux x64 / Node24.21.0 / npm11.19.0 / better-sqlite3 13.0.3",
+  "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+  "aggregate": {
+    "parentPassed": 8350,
+    "currentPassed": 8391,
+    "added": 41,
+    "removed": 0,
+    "junitCases": 8391,
+    "files": 493,
+    "normalization": "only temporary root in five recoveryRetention names; multiplicity retained"
+  },
+  "failed": 0,
+  "skipped": 0,
+  "todo": 0,
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "scope": "whole Wallet Chromium; Windows deferred to final integration batch",
+    "cases": 65,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "fixture": {
+      "commitSha": "925009844e680a0c3333174d2f81272724786486",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "43069740d06163f072c566c5b3d5316feecca0eb49c421e80ec1e40ae6ab4fbe",
+        "index": "222bafec2eeef1b78248d6c9e349009ed481dab02552fc73cc00e6c03bd9abb7"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 16,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "ad0284a0-bb9e-4652-b3a4-57173cc2859e",
+        "creditId": "c3952e47-b6ec-4198-b1da-02f5aed776c4",
+        "hiddenId": "f3aea5e3-9adf-42a1-aac7-6c2626af8d33",
+        "readId": "4789ef73-2d4d-47d2-9f34-e29af7ca82a5",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "browserRuns": {
+    "whole-final": {
+      "reports": {
+        "browser.json": {
+          "path": "docs/engineering/evidence/w16-settings-whole-final.browser.json.gz",
+          "sha256": "235a34bfe730b3b6d4fcb6ce3115119f20a97aa0cbbeb5da69f0ee0854f5d7b8"
+        },
+        "browser.junit.xml": {
+          "path": "docs/engineering/evidence/w16-settings-whole-final.browser.junit.xml.gz",
+          "sha256": "e571b51f4c19923fd7b057958a55c932e49089980a1f881af955fcd2b7115bb3"
+        },
+        "fixture.json": {
+          "path": "docs/engineering/evidence/w16-settings-whole-final.fixture.json.gz",
+          "sha256": "076f05beddec458aaf2a56a8c5b61883a88734e0cf2ccae926472e58e1addab4"
+        },
+        "runtime.json": {
+          "path": "docs/engineering/evidence/w16-settings-whole-final.runtime.json.gz",
+          "sha256": "676c48ed399447aa3b1e59f5aa139f415dd889ca5ed9dd21c84098c53552e1cb"
+        },
+        "run.log": {
+          "path": "docs/engineering/evidence/w16-settings-whole-final.run.log.gz",
+          "sha256": "56f7decc0589bd0bcebf698846cd9ac3284c194f3ea05712357064c913d692bd"
+        },
+        "server.log": {
+          "path": "docs/engineering/evidence/w16-settings-whole-final.server.log.gz",
+          "sha256": "07ad580da369d9f4956519da8076f5bc80393659db65e1d0471a198707b5d8e0"
+        }
+      },
+      "scope": "whole Wallet",
+      "stats": {
+        "startTime": "2026-10-18T09:14:31.280Z",
+        "duration": 249855.815,
+        "expected": 65,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    "development-failed": {
+      "reports": {
+        "browser.json": {
+          "path": "docs/engineering/evidence/w16-settings-development-failed.browser.json.gz",
+          "sha256": "590e0a18fed513a5517e9545e530ce03616dfb3b3da52a72989ad1cb25c288c0"
+        },
+        "browser.junit.xml": {
+          "path": "docs/engineering/evidence/w16-settings-development-failed.browser.junit.xml.gz",
+          "sha256": "7d82fc0828d2e1754d92faf900f717c15097631c199ec7eb59c07fcc8f9d271c"
+        },
+        "fixture.json": {
+          "path": "docs/engineering/evidence/w16-settings-development-failed.fixture.json.gz",
+          "sha256": "00728e5895d036604a6edfe46d6f38c103aabe1a57414a38ec23746b165d1c9b"
+        },
+        "runtime.json": {
+          "path": "docs/engineering/evidence/w16-settings-development-failed.runtime.json.gz",
+          "sha256": "676c48ed399447aa3b1e59f5aa139f415dd889ca5ed9dd21c84098c53552e1cb"
+        },
+        "run.log": {
+          "path": "docs/engineering/evidence/w16-settings-development-failed.run.log.gz",
+          "sha256": "d1d839beee8c741f3f12f2635752f5e9c1c5535ffb87ba5acce944d3a0345e78"
+        },
+        "server.log": {
+          "path": "docs/engineering/evidence/w16-settings-development-failed.server.log.gz",
+          "sha256": "203101f1303a61ecb663826d8639ee02cb0f3be5dddaccd68bd7e3e9a8a55257"
+        }
+      },
+      "scope": "focused W16 development only",
+      "stats": {
+        "startTime": "2026-10-18T09:04:12.578Z",
+        "duration": 25201.129,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      }
+    },
+    "focused-development": {
+      "reports": {
+        "browser.json": {
+          "path": "docs/engineering/evidence/w16-settings-focused-development.browser.json.gz",
+          "sha256": "7a239d36a99b35b1934020e4f8454fdd13fe897036dbaf1bfc63e0dc7d6f54c3"
+        },
+        "browser.junit.xml": {
+          "path": "docs/engineering/evidence/w16-settings-focused-development.browser.junit.xml.gz",
+          "sha256": "520ec320c6ae32beb4a8d69ee77c85b510aca4a485f2492657ccf2663d78b275"
+        },
+        "fixture.json": {
+          "path": "docs/engineering/evidence/w16-settings-focused-development.fixture.json.gz",
+          "sha256": "364d21621a2d199616649c3e1d43cf7a46c9c71d28ab8a8f59c622dfd0189747"
+        },
+        "runtime.json": {
+          "path": "docs/engineering/evidence/w16-settings-focused-development.runtime.json.gz",
+          "sha256": "676c48ed399447aa3b1e59f5aa139f415dd889ca5ed9dd21c84098c53552e1cb"
+        },
+        "run.log": {
+          "path": "docs/engineering/evidence/w16-settings-focused-development.run.log.gz",
+          "sha256": "ddc5f69e314df01f25fc6b3b716c757239f06eff46389f9efc59093c0de06776"
+        },
+        "server.log": {
+          "path": "docs/engineering/evidence/w16-settings-focused-development.server.log.gz",
+          "sha256": "1a0c5d021698ef9ab31e4cb959be6a5caa2ce5e6e3c853d57a12ade4dd54454f"
+        }
+      },
+      "scope": "focused W16 development only",
+      "stats": {
+        "startTime": "2026-10-18T09:08:40.148Z",
+        "duration": 18880.967999999997,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  },
+  "sourceFiles": {
+    "scripts/ci/run-wallet-browser.mjs": "8a7407265a6190e315b99c9a6a6efb3bb6adca97e8b8bee8d8b2c8d5a8400373",
+    "scripts/ci/write-wallet-browser-fixture.ts": "8668c9f44ee71318004d2076cd6e06a11bcfc9b11da31d9d63e59ab0b7136ef7",
+    "server/wallet/exports.test.ts": "d9c30a47aa760e6129405715b0f7b1d02ec320edd7bb3bfca1a8c688a0e4adfc",
+    "server/wallet/exports.ts": "2febb85d29133d1dca500657d50a024f89574023649b8caac23228bea59b7f76",
+    "server/wallet/pdfFontFallback.test.ts": "6dee3c90a71e51a7e98f4cee9dfe1400fd0299738d5a707fb29d393bf5735847",
+    "server/wallet/pdfFontFallback.ts": "7d5d157e9d8b5af4587e6bb4998409fbfbd1fc6c19c9a736f31a411a2324b5a8",
+    "server/wallet/ports.ts": "0dacfd1b7df7c84381a3f5f5466f33be7f319f2519f291c7493eca65415f427a",
+    "server/wallet/router.ts": "4f704fc2b1667243cbe4a6225681fe711ed15ddb05e9811737a19c9c5271861a",
+    "server/wallet/schemaRegistry.ts": "956f99df16bc313205dca49b61411833f6ee4e930d8eaa2c76dd77458186b79e",
+    "server/wallet/settings.api.test.ts": "9fb6e2b83bc6c35ad3da744c680f6826770386d5f37fd87ac61d2b97ecb9c9a6",
+    "server/wallet/settings.snapshot.test.ts": "efed3cc4ca8bffbadfa308607763690f9dab492c30dd07af7ba38cce6dc14f67",
+    "server/wallet/settings.test.ts": "fc625053e1a5fb112a55acb7042d98a3e29ab18790ce1abd7afe49ec39e6098c",
+    "server/wallet/settings.ts": "2d3fb49024df542a9ea5f90101d4453e58d9f684febeab3d6ea0c93f340cd296",
+    "server/wallet/settingsSchema.ts": "d7962b245068828846f3d1ac83abb10b02eb0fc0a31cbf8a75c2812979f435d6",
+    "server/wallet/snapshot.ts": "12d08b01555dba8e334c02a9d6d5f7dc2e48cba159adc3ca30be04fc5bab362d",
+    "src/components/Dashboard.tsx": "19a6658501e0997529ce67b2a31d6e58ceaa456b7bda2f211465b8e6feebe25c",
+    "src/features/wallet/AccountDetail.tsx": "85c15e29216e59b9682aaebe058bf43f28be4b82e342559f762d21a716e369df",
+    "src/features/wallet/Analytics.tsx": "a022cdbd37ae2aa6c08a9934a7a4ecedfcad77a3b0fbbb52abd6e015f66fcd4d",
+    "src/features/wallet/BudgetPlanning.tsx": "2fc0e5b114cbaac13aa97dd3b71da8073949d55d5dadb994b5b73cfb859e88ca",
+    "src/features/wallet/Charts.tsx": "02fbce8904df09651158582288dec074613054871823fe82246a8adc528501ef",
+    "src/features/wallet/ExportPanel.tsx": "1c2c5700baaad8c41347327ba318d0ddb5a8bc002570416dc26524eccb9410e7",
+    "src/features/wallet/FilterPanel.tsx": "4e3cb35c9b822cd8de9cc0be0145af4444c4f95d7ac90de804cd9430b36aacb5",
+    "src/features/wallet/FinancialLinks.tsx": "cf39e17026bd510d7f6829a07c4d2109ce2569f78e93ffcc4e01b09f91dcbde6",
+    "src/features/wallet/ImportWizard.tsx": "c96c645c71e46bd26b2471f6586a5ae6f4c7bcc341c60ea4cb44e9c593fe36ed",
+    "src/features/wallet/Planning.tsx": "68e540af6823d9e38e271d6a141da0b9aa4624f23026e0380c32261c17f8b436",
+    "src/features/wallet/Portfolio.tsx": "4b9f28c78404511504a36e448a81591bed3e28a076ab49ba3c44c9ce1d1dc9f6",
+    "src/features/wallet/Records.tsx": "ef6009495a3005ec0da2ea6a383456d600df3730e50a0de2a409921252ef4ae5",
+    "src/features/wallet/Wallet.tsx": "75c9bba0ffdacb838c17f991e0f12ea368fa3cf885a47436e2a33888e8a6f9d4",
+    "src/features/wallet/WalletHome.tsx": "bb2d1b0ea08e74a5d133c38227651035641148f3bcfd05dd89fc1ffee8c41912",
+    "src/features/wallet/WalletPresentation.tsx": "196931054efa0b2672a4ff75f21c482a181855131fda3d0daa992f3f5092ed97",
+    "src/features/wallet/WalletSettings.tsx": "39ee91d785bb8a3189f13c00e9eac4ab97cbf636d324475cddae2a9e1fb08cb8",
+    "src/features/wallet/Widget.tsx": "199c5cac1bc1d8d6fde98f84b3dbd2340d820b371de4e18046ead1e154548053",
+    "src/features/wallet/analyticsWorkspace.test.ts": "42e9d546e5af8fa01ecc200207d29bdeaadb4f382d58b3928567294733aa6169",
+    "src/features/wallet/analyticsWorkspace.ts": "1b94b72bbdbeb312a85fb4a0ac95536eec65e7c3a396a0c457396cb3b49e69eb",
+    "src/features/wallet/api.ts": "fc7d74b062636737e6d33de66e84d21a72a1e939bcd2dfc391d1018a92699b8d",
+    "src/features/wallet/deviceCache.test.ts": "2b694c0caad7d9410f425de047200910dd9434d93a64d4ca301d05a8deebfb6f",
+    "src/features/wallet/deviceCache.ts": "4b9e049f7e216ae28e2e3181afea5b86c02fef54f66022eab67db8cead5f9ad0",
+    "src/features/wallet/idleSession.test.ts": "21955bd80670ebcb2c991b622173f887bcc624e19b393cfe4b973ec6a507bd0f",
+    "src/features/wallet/idleSession.ts": "85c837209061611d45fbdf48052fc27687f188ed8a08b151d3996ac8cdc91280",
+    "src/features/wallet/recordWorkspace.test.ts": "e87279c515d2a0f74cf2523a21aa49152dc585a44f0dd49177da0411d0450ba7",
+    "src/features/wallet/recordWorkspace.ts": "952286358c774c6735cd294a7393e0d39397328e470637000dcf73b76a2018c7",
+    "src/features/wallet/settingsApi.test.ts": "8066f3d28227376349ec097c53dc968f56ba38dd914dce4b39c33cd556a8e5de",
+    "src/features/wallet/settingsContracts.test.ts": "0bd49fc52bd5610bc1e30fd7ac49e4589fe9e0b6410790fa071d1a6d24a30f06",
+    "src/features/wallet/settingsContracts.ts": "b07801f6152fc3b483281515c86eb1465aebebcb80d9eeab74c3c40ee39c7261",
+    "src/features/wallet/settingsWorkspace.test.ts": "ec1a4d0242f86454c79853ce1994b6e968d1fb5aaaecf55d9d84dbb57701f4a5",
+    "src/features/wallet/settingsWorkspace.ts": "2b75baaa9d6b963d0cb1be2170bcb825e9675f90b2de9057e72af354667f099a",
+    "src/features/wallet/useWallet.ts": "b673004d5b9dbba4e493ad0a7ff864e7435a214bcbfdc51863302dcb9b55ade9",
+    "src/i18n/locales/en.json": "f65a5b02d9326b6c6cdc48c7202583a71a1af78b96fc697ba149197c8239d088",
+    "src/i18n/locales/vi.json": "d19e8cb3e5ef2766e1624bf1e1ff02a168afc38d32dae385ed1a5840920a5a77",
+    "src/i18n/locales/zh.json": "fd323a6887cd7a13672f65fbcd5797ce54c0e5d38b1169a9a05c2de158666ee0",
+    "src/utils/privateStorage.test.ts": "ec510976d6cac73c3184998fbda5088f7c8569d000aad708dacb98ed41870fd7",
+    "src/utils/privateStorage.ts": "45f09a7bc3a2f62bc7d484ed883f82656d7055afe90a957094ee679cc7e4b7ee",
+    "tests/e2e/wallet.spec.ts": "97f24ba8806138a4ae9738f31c1919c4c15706d12ab3c9e7528728b4ffb76a4f",
+    "tests/wallet-browser-fixture.test.ts": "f60893b9d61f81e9c3a20b0dc219f3ee2e2d8fb563c61da1f2e8510146cffc1d",
+    "tests/wallet-http-fixture.ts": "7ec53f8d8a2ae5eeab828766704ac03a53ead4bfaa6d41a236e52ea77ff16c02"
+  },
+  "acceptedSql1Through15": {
+    "server/wallet/schema.ts": "fc32482234e9ac50ba9256e4b2101ce902cd9240df2b54e0fc1a95828037f95b",
+    "server/wallet/budgetSchema.ts": "5b684db074c869bbb202e658d4ef700586feb23320d42d616c2f7e0a6a6c4b15",
+    "server/wallet/financialSchema.ts": "d03d6471adf6e31bfe7c65c35ab7b3ce713d395f27d111310e6919f70e245a90",
+    "server/wallet/fxSchema.ts": "431c575256f67afc064d93a343d8b4bac9b40523ea489124a2fffbd61ba0eece",
+    "server/wallet/importSchema.ts": "95d55b3ce16a8882bdc46072de33dcb9bb8e778d1b0ba3cc7d3aaec02f9254a1",
+    "server/wallet/investmentSchema.ts": "d8a526163d403778d22015ab3856b1a79b00ce561dbca05277e9283ffe26db7a",
+    "server/wallet/legacyMigrationSchema.ts": "4ae5c410066a5392866d1f052b7db442e2ee6621d133ef8b477513bd5fb1961d",
+    "server/wallet/linkSchema.ts": "5b26a9b749cc137e166e2c2fcee753528a550f0216fc0f755951ad44a2d163eb",
+    "server/wallet/metadataSchema.ts": "f4b3dbbbea554e69fee6562cc4176525f827547d5cdf106bdd6c069dde09d0a3",
+    "server/wallet/preferenceSchema.ts": "248ffd4922d17ee08b7591097ff1d2633862a0c1a7f93e4aba7b6e5dec5e74fb",
+    "server/wallet/receiptSchema.ts": "b4d65e50e0c852b1b9d02dc1a6a601a22a2e79ff2c817fa2737f55e8952549fa",
+    "server/wallet/ruleSchema.ts": "13858d40c4a0187a3e1fec3fa6322232463d264a5852f3d61c667bbbb353a635",
+    "server/wallet/scheduleSchema.ts": "ecc5b6fc042e55d12b0462afc989b37a3468da57a2c4d0859b1a57c177e4a38d",
+    "server/wallet/selectionSchema.ts": "875052b99359e9e42ac223004bf8449b4a9af79a314f3b2183216a0016a76c95",
+    "server/wallet/workflowSchema.ts": "a59d65e9c80257170de3c83897264ce3ea2dea83606a61b7a2e2e51c1f1caf00"
+  },
+  "retainedEvidence": {
+    "w16-browser-first-lint.exit": {
+      "path": "docs/engineering/evidence/w16-browser-first-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-browser-first-lint.log": {
+      "path": "docs/engineering/evidence/w16-browser-first-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w16-browser-first.exit": {
+      "path": "docs/engineering/evidence/w16-browser-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w16-browser-first.log": {
+      "path": "docs/engineering/evidence/w16-browser-first.log.gz",
+      "sha256": "d8482165417a77f87f8c48bf937a28ce6d60bda3ac938e115686602f79293dde"
+    },
+    "w16-browser-second.exit": {
+      "path": "docs/engineering/evidence/w16-browser-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-browser-second.log": {
+      "path": "docs/engineering/evidence/w16-browser-second.log.gz",
+      "sha256": "be7b6a1267669806c467bfd29ec4b2220d63267acb661f1f15a341fcb8519e26"
+    },
+    "w16-browser-third.exit": {
+      "path": "docs/engineering/evidence/w16-browser-third.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-browser-third.log": {
+      "path": "docs/engineering/evidence/w16-browser-third.log.gz",
+      "sha256": "ddc5f69e314df01f25fc6b3b716c757239f06eff46389f9efc59093c0de06776"
+    },
+    "w16-composed-first.exit": {
+      "path": "docs/engineering/evidence/w16-composed-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-composed-first.json": {
+      "path": "docs/engineering/evidence/w16-composed-first.json.gz",
+      "sha256": "d472b7f990b1b28295b667905fbfdc112a62510007f13460f9b699696a6704b5"
+    },
+    "w16-composed-first.junit.xml": {
+      "path": "docs/engineering/evidence/w16-composed-first.junit.xml.gz",
+      "sha256": "1fdc7c303278e09c62191a3b4d191171d12c9ac36f249cdc3d9236ab522c02e3"
+    },
+    "w16-composed-first.log": {
+      "path": "docs/engineering/evidence/w16-composed-first.log.gz",
+      "sha256": "fbf280c2c53f4d5e43e5abe293e74950994310c2473043cdeb8ee9c188e70966"
+    },
+    "w16-default-period-red.exit": {
+      "path": "docs/engineering/evidence/w16-default-period-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w16-default-period-red.json": {
+      "path": "docs/engineering/evidence/w16-default-period-red.json.gz",
+      "sha256": "0927c57e5f9641e7f15c1906e9ee2f3e9a3abcbc0d63d98121f1be8d5d6e2265"
+    },
+    "w16-default-period-red.log": {
+      "path": "docs/engineering/evidence/w16-default-period-red.log.gz",
+      "sha256": "dee7cf2fca0ba25c0e89c63514c71d361a14a80d6ff8dc0dccc86e4d59552ddf"
+    },
+    "w16-defaults-first.exit": {
+      "path": "docs/engineering/evidence/w16-defaults-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-defaults-first.json": {
+      "path": "docs/engineering/evidence/w16-defaults-first.json.gz",
+      "sha256": "646f49a2c1a4e2d0e83db9b89b187f092a950b7120b81c38026b90f9fe068ec3"
+    },
+    "w16-defaults-first.log": {
+      "path": "docs/engineering/evidence/w16-defaults-first.log.gz",
+      "sha256": "5e0f00c90aee73e008f6693e50da86c7b9b94c278bc408f6856e816cefadfe81"
+    },
+    "w16-device-cache-red.exit": {
+      "path": "docs/engineering/evidence/w16-device-cache-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w16-device-cache-red.json": {
+      "path": "docs/engineering/evidence/w16-device-cache-red.json.gz",
+      "sha256": "233e3e86fc3f4518234265f868319b8e6274e5bd7dca0fe7f348d5663dfa5543"
+    },
+    "w16-device-cache-red.log": {
+      "path": "docs/engineering/evidence/w16-device-cache-red.log.gz",
+      "sha256": "611485010fb59fcc818fa48b52ea7cecbc5654dd39bf747b77b6d82fda0dd39c"
+    },
+    "w16-device-first.exit": {
+      "path": "docs/engineering/evidence/w16-device-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-device-first.json": {
+      "path": "docs/engineering/evidence/w16-device-first.json.gz",
+      "sha256": "67adf1ab912e27b40a4d750d07eee60dee16fd9bd605bee198a70318adb189f2"
+    },
+    "w16-device-first.log": {
+      "path": "docs/engineering/evidence/w16-device-first.log.gz",
+      "sha256": "07738467b9dc5fc773e55996f12c19a24e5f17b587a096ebb6460299efb20b16"
+    },
+    "w16-display-final.exit": {
+      "path": "docs/engineering/evidence/w16-display-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-display-final.json": {
+      "path": "docs/engineering/evidence/w16-display-final.json.gz",
+      "sha256": "96cb93d795c0313ae9da605230519f32fe107c82dc09f14728004fe71d90f1f0"
+    },
+    "w16-display-final.log": {
+      "path": "docs/engineering/evidence/w16-display-final.log.gz",
+      "sha256": "1899abb5da946d077f0e8535530e24feaa93dd82a65097597e9dfbcd19f7e7f7"
+    },
+    "w16-final-browser.exit": {
+      "path": "docs/engineering/evidence/w16-final-browser.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-final-browser.log": {
+      "path": "docs/engineering/evidence/w16-final-browser.log.gz",
+      "sha256": "56f7decc0589bd0bcebf698846cd9ac3284c194f3ea05712357064c913d692bd"
+    },
+    "w16-final-build.exit": {
+      "path": "docs/engineering/evidence/w16-final-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-final-build.log": {
+      "path": "docs/engineering/evidence/w16-final-build.log.gz",
+      "sha256": "5f9393b47dc2caafd7d093f53c5a5dbe6f15409c403e3b057d8d06127025ecf1"
+    },
+    "w16-final-full.exit": {
+      "path": "docs/engineering/evidence/w16-final-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-final-full.json": {
+      "path": "docs/engineering/evidence/w16-final-full.json.gz",
+      "sha256": "04d82bb170df3deb495bb7d5d5fcbd5f55e4ccb0cabd7dc0e0c989d2636b110f"
+    },
+    "w16-final-full.junit.xml": {
+      "path": "docs/engineering/evidence/w16-final-full.junit.xml.gz",
+      "sha256": "490256c8ddd728d737ffabe98bb600d79ba492a1072059f652c77aea92d470fe"
+    },
+    "w16-final-full.log": {
+      "path": "docs/engineering/evidence/w16-final-full.log.gz",
+      "sha256": "5b89a51e6d9e94fc56938b0bc1d925334836ea186043859155675563da606098"
+    },
+    "w16-final-lint.exit": {
+      "path": "docs/engineering/evidence/w16-final-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-final-lint.log": {
+      "path": "docs/engineering/evidence/w16-final-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w16-first-build.exit": {
+      "path": "docs/engineering/evidence/w16-first-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-first-build.log": {
+      "path": "docs/engineering/evidence/w16-first-build.log.gz",
+      "sha256": "538ab343f94096a027e05c580ade4aa5af8eb253dfd97bea97feee54957a9d33"
+    },
+    "w16-owner-first.exit": {
+      "path": "docs/engineering/evidence/w16-owner-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-owner-first.json": {
+      "path": "docs/engineering/evidence/w16-owner-first.json.gz",
+      "sha256": "2465183f8d26188c3c94eae3c93deb4e2e171c59ef6b1c789b05d1da6c98518f"
+    },
+    "w16-owner-first.log": {
+      "path": "docs/engineering/evidence/w16-owner-first.log.gz",
+      "sha256": "0a1d4f7ba795b7d32d16f73d9419ff6392f4d0363fb8a45ec00790a0cd7da5b0"
+    },
+    "w16-owner-red.exit": {
+      "path": "docs/engineering/evidence/w16-owner-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w16-owner-red.json": {
+      "path": "docs/engineering/evidence/w16-owner-red.json.gz",
+      "sha256": "b5503f778dc8fe837834fdd4e55fd0b76448142d8351b3a40c70c88721ab94c2"
+    },
+    "w16-owner-red.log": {
+      "path": "docs/engineering/evidence/w16-owner-red.log.gz",
+      "sha256": "8400dfecde5023563d5a3f5c840e060c812380f8cd33417905f0dd969c07a2fc"
+    },
+    "w16-pdf-first-lint.exit": {
+      "path": "docs/engineering/evidence/w16-pdf-first-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-pdf-first-lint.log": {
+      "path": "docs/engineering/evidence/w16-pdf-first-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w16-pdf-unicode-first.exit": {
+      "path": "docs/engineering/evidence/w16-pdf-unicode-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-pdf-unicode-first.json": {
+      "path": "docs/engineering/evidence/w16-pdf-unicode-first.json.gz",
+      "sha256": "b3fcdcaf5aa96cf3897a87253eda684a97103ac90a1378875ec8b8710f7cf090"
+    },
+    "w16-pdf-unicode-first.junit.xml": {
+      "path": "docs/engineering/evidence/w16-pdf-unicode-first.junit.xml.gz",
+      "sha256": "f1f4beffa9dd529579886ba4861064ac0bc88973e52cacd337434073e438916c"
+    },
+    "w16-pdf-unicode-first.log": {
+      "path": "docs/engineering/evidence/w16-pdf-unicode-first.log.gz",
+      "sha256": "f6cfc033a4e53138c9eba1258197220a2c2d48e777a75c9d1defec4f25222718"
+    },
+    "w16-pdf-unicode-red.exit": {
+      "path": "docs/engineering/evidence/w16-pdf-unicode-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w16-pdf-unicode-red.json": {
+      "path": "docs/engineering/evidence/w16-pdf-unicode-red.json.gz",
+      "sha256": "ddb216c701dc977961b66dfec05887cf754f8c630786ee5444e348563341b23b"
+    },
+    "w16-pdf-unicode-red.log": {
+      "path": "docs/engineering/evidence/w16-pdf-unicode-red.log.gz",
+      "sha256": "ff13ae5e6de178c7834dfc25d403bad3d87b4296cc57b3c9736968ef872929bb"
+    },
+    "w16-second-build.exit": {
+      "path": "docs/engineering/evidence/w16-second-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-second-build.log": {
+      "path": "docs/engineering/evidence/w16-second-build.log.gz",
+      "sha256": "96f8ebfab261f79152d099f657ce39f86f2ba10bede7aa53a859cd326fc779e4"
+    },
+    "w16-settings-first-lint.exit": {
+      "path": "docs/engineering/evidence/w16-settings-first-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-settings-first-lint.log": {
+      "path": "docs/engineering/evidence/w16-settings-first-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w16-settings-first.exit": {
+      "path": "docs/engineering/evidence/w16-settings-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w16-settings-first.json": {
+      "path": "docs/engineering/evidence/w16-settings-first.json.gz",
+      "sha256": "4c6c3e8d2ce3443ae7860e3e56b50917c230fcac35042a4ea318efc7810bfa28"
+    },
+    "w16-settings-first.junit.xml": {
+      "path": "docs/engineering/evidence/w16-settings-first.junit.xml.gz",
+      "sha256": "16aef4479e0ee3194cd25d58fce159b8c9ac67f913e1380ab49e229368d207bd"
+    },
+    "w16-settings-first.log": {
+      "path": "docs/engineering/evidence/w16-settings-first.log.gz",
+      "sha256": "8084202a731b1dee769845d2c97ea95936874d86a6333d11faa643962b5f4021"
+    },
+    "w16-settings-red.exit": {
+      "path": "docs/engineering/evidence/w16-settings-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w16-settings-red.json": {
+      "path": "docs/engineering/evidence/w16-settings-red.json.gz",
+      "sha256": "b7affc3f4fb9de4919a44d16e87247dabe1c7f8d2f79fa363ec3c398930098c5"
+    },
+    "w16-settings-red.log": {
+      "path": "docs/engineering/evidence/w16-settings-red.log.gz",
+      "sha256": "2284c3644e8b4a4cf6636f0daa9de317c13a373bdb5468c89e473603177ae947"
+    },
+    "w16-settings-second-lint.exit": {
+      "path": "docs/engineering/evidence/w16-settings-second-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-settings-second-lint.log": {
+      "path": "docs/engineering/evidence/w16-settings-second-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w16-settings-second.exit": {
+      "path": "docs/engineering/evidence/w16-settings-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-settings-second.json": {
+      "path": "docs/engineering/evidence/w16-settings-second.json.gz",
+      "sha256": "7b9e448b50da62477590a39cf65ccceb638d6fa8d7174824f1304788fa5266f5"
+    },
+    "w16-settings-second.junit.xml": {
+      "path": "docs/engineering/evidence/w16-settings-second.junit.xml.gz",
+      "sha256": "6cf226f4de9d1eaffd604905f9cfe352f58d0246bf4f05e81f4aa93bf97ca95b"
+    },
+    "w16-settings-second.log": {
+      "path": "docs/engineering/evidence/w16-settings-second.log.gz",
+      "sha256": "108807323442223941ad82bb24ec8ecf98c3b4e54d277afcde2cfde0940bed66"
+    },
+    "w16-third-build.exit": {
+      "path": "docs/engineering/evidence/w16-third-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-third-build.log": {
+      "path": "docs/engineering/evidence/w16-third-build.log.gz",
+      "sha256": "f276ef4647978d667ef31ef5df4f4100e0ced729d8517a550cb07947934daf91"
+    },
+    "w16-ui-first-lint.exit": {
+      "path": "docs/engineering/evidence/w16-ui-first-lint.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05"
+    },
+    "w16-ui-first-lint.log": {
+      "path": "docs/engineering/evidence/w16-ui-first-lint.log.gz",
+      "sha256": "df365d474dd47fae437cfec8a844d4dfa36b3b17c2a651057d3dc4714d127f9b"
+    },
+    "w16-ui-owner-first.exit": {
+      "path": "docs/engineering/evidence/w16-ui-owner-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-ui-owner-first.json": {
+      "path": "docs/engineering/evidence/w16-ui-owner-first.json.gz",
+      "sha256": "a87caaef2f4b6c6599e056aa3f828c5162390e061b51e0260cd0701f1706faaf"
+    },
+    "w16-ui-owner-first.junit.xml": {
+      "path": "docs/engineering/evidence/w16-ui-owner-first.junit.xml.gz",
+      "sha256": "7ef32958ee568267a64de3f9d8c1d4e23fdbe1f25b6053996127c135793b4e68"
+    },
+    "w16-ui-owner-first.log": {
+      "path": "docs/engineering/evidence/w16-ui-owner-first.log.gz",
+      "sha256": "b82e7c2b83c7b47508fa51a059398adba51123d10684e92b5731165420218c08"
+    },
+    "w16-ui-second-lint.exit": {
+      "path": "docs/engineering/evidence/w16-ui-second-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-ui-second-lint.log": {
+      "path": "docs/engineering/evidence/w16-ui-second-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w16-ui-third-lint.exit": {
+      "path": "docs/engineering/evidence/w16-ui-third-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w16-ui-third-lint.log": {
+      "path": "docs/engineering/evidence/w16-ui-third-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "qualify-w16.py": {
+      "path": "docs/engineering/evidence/qualify-w16.py.gz",
+      "sha256": "d2e632c105da28fa4902af2716e61d5b36c151bc3d6d98b18612e84357ae145b"
+    },
+    "w16-focused-browser.mjs": {
+      "path": "docs/engineering/evidence/w16-focused-browser.mjs.gz",
+      "sha256": "7da24be443d2f8031270b08555b5049244876cd67c45c50ad4ff3d9c650e5577"
+    },
+    "w16-frozen.json": {
+      "path": "docs/engineering/evidence/w16-frozen.json.gz",
+      "sha256": "5cb7e338db62d08c67cb445b2350fd6a78a0b9b23b196682459cb63102f13449"
+    },
+    "w16-preservation.json": {
+      "path": "docs/engineering/evidence/w16-preservation.json.gz",
+      "sha256": "16805d01ec4286c2cfe05dfeab86080b1e2f7c802599c18bb3ff5486f2e3664e"
+    }
+  },
+  "visualEvidence": [
+    {
+      "path": "docs/engineering/evidence/w16-settings-dark.png",
+      "sha256": "45a1bd29fe6d7dfc27e86aa6fb16f6ed01f340ca54e39c58ab77f4f3ae5adc57"
+    },
+    {
+      "path": "docs/engineering/evidence/w16-settings-light.png",
+      "sha256": "29bd5c537e8d39b81270d919cbc7a73e197e004f3ae99c1df20eb7cea916b929"
+    }
+  ],
+  "review": {
+    "independent": false,
+    "scope": "author inspection of actor-owned revision/nonce/audit settings, exact display and captured form locale, source-preserving PDF fallback, timer/session ownership and selective cache cleanup"
+  },
+  "findings": [
+    "Initial settings updates reused create-only context validation. The actual second-client regression now passes with explicit update context checks and unchanged expected revisions.",
+    "Lost-ACK privacy regression reproduced visible balances after an intended false-to-true hide change. Presentation now immediately tightens masking for pending/unknown intent and never loosens saved masking before fresh receipt/read.",
+    "PDF CJK/emoji regression reproduced NUL glyphs in extracted real PDF text. Bundled TTF cmap coverage now emits explicit [U+XXXX] and a fallback notice. CSV/XLSX retain original Unicode and no font binaries/licenses/dependencies changed.",
+    "An initial settings-owner disposed-state literal needed the same explicit const typing as the other session workspaces. Earlier failed lint evidence is retained."
+  ],
+  "limitsAndRemaining": [
+    "No persisted financial read cache or offline financial queue is enabled; no stale cached balance is presented as current. OCR/warranty extras remain optional/unimplemented.",
+    "PDF font fallback is explicit codepoint notation. Full CJK/emoji glyph rendering remains partial, with CSV/XLSX as the original Unicode representation.",
+    "Current supported receipt/HEIC flow is retained; whole Wallet browser parents exercise image/PDF receipt handling. No real providers or notifications are called.",
+    "No automatic migration/activation or production Wallet package-cap change. Settings storage16/standalone17 is explicit; existing SQL1–15 unchanged.",
+    "W17/W18, legacy Asset binding/unified net worth, signed goal withdrawals, canonical bridge/protected recovery/cutover, remaining Productivity/M1/I02/I03 and whole-plan acceptance remain.",
+    "Final exact-HEAD Windows2022 Node22/24 full/browser/touch/ZIP/service qualification is pending. Actual WindowsServer2019 R02 remains separate and unrun. No release/tag/VPS access/deploy."
+  ],
+  "visualInspection": {
+    "scope": "actual final whole-run390x844 viewport screenshots in light and dark",
+    "inspected": true,
+    "notes": "Policy labels controls and inline guidance are readable; no horizontal overflow. Images retained by source-bound final fixture."
+  }
+}
