@@ -2,6 +2,20 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P13 templates functional slice:** source `3ee1d5d3c914d005abffe7699917228e4e81e018` adds owner-scoped
+explicit15 content templates, fresh unfinished Task/checklist instantiation,
+current source/destination ACL, trusted media inheritance, summary-only lists
+and session-owned lost-ACK packets/library expansion. Full8595tests526files
+passed at `ceafc797038ce0471d9615dd0edb93fadcbad00b` (all8560parents +media2/template33);
+final panel fix has34focused cases/lint/build0 and14/14 same-build Chromium
+journeys (templates3/reminders4/collaboration3/calendar4), first attempts, offline,
+owned fixtures, normal stop/integrity/closed/cleaned; both390themes viewed.
+No full-suite claim for3ee1d5d. Actual browser/native panel failure retained.
+[Details](productivity-templates.md), [proof](evidence/p13-templates-development.json).
+PR URL/CI run URL:none for this source; backup branch, author review only.
+P13 remains partial: Notes/conversion/files/import/export next, then remaining
+P/W18/M1/I02/I03 and final composed Windows. No release/tag/VPS/PC runner.
+
 **P12 schema14 media follow-up:** source `cba684addd08b3f7f9f2148e0240e003be751e0e`
 fixes two shared media version gates, retaining durable recurring Markdown on
 accept/skip without loosening attachment ownership. Two actual baseline failures
