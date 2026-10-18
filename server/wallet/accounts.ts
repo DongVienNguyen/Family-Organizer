@@ -85,6 +85,7 @@ export function createWalletAccounts(ports:{reader:WalletReader;write:typeof wit
    return run(ctx,'update',{id,expectedRevision:ctx.expectedRevision,patch:normalized(patch)},tx=>{
     const reader=txReader(tx);context(ctx,reader,true);manager(reader,ctx.actor,id);const before=result(reader,ctx.actor,id);if(before.account.revision!==ctx.expectedRevision)fail(409,'Tài khoản vừa được thay đổi.','edit-conflict');
     const v=draft({...before.account,...settings(before.metadata),...patch});
+    if(v.type!=='investment'&&reader.get("SELECT 1 FROM sqlite_master WHERE name='wallet_investment_trades' AND type='table'")&&reader.get('SELECT 1 FROM wallet_investment_trades WHERE account_id=? LIMIT 1',id))fail(409,'Tài khoản có lịch sử đầu tư cần giữ kiểu đầu tư.','wallet-investment-history');
     if(v.currency!==before.account.currency&&hasAccountHistory(reader,id))fail(409,'Không thể đổi tiền tệ của tài khoản đã có lịch sử.','wallet-currency-history');
     const at=stamp(),archivedAt=patch.archived===true?before.account.archivedAt??at:patch.archived===false?null:before.account.archivedAt;
     tx.sql.run('UPDATE wallet_accounts SET name=?,type=?,currency=?,access_mode=?,opening_minor=?,opening_date=?,revision=revision+1,archived_at=? WHERE id=?',v.name,v.type,v.currency,v.accessMode,minorInteger(v.openingMinor),v.openingDate,archivedAt,id);

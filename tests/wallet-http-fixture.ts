@@ -18,7 +18,7 @@ import {createWalletPorts} from '../server/wallet/ports.js';
 export const who = (key = 'member') => ({ userId: 'synthetic-wallet-http-' + key, role: key === 'admin' ? UserRole.ADMIN : key === 'child' ? UserRole.CHILD : key === 'guest' ? UserRole.GUEST : UserRole.MEMBER }), ctx = (key = 'member', expectedRevision = 0) => ({ actor: who(key), idempotencyKey: randomUUID(), expectedRevision }), write = <T>(fn: Parameters<typeof gateway.withAppWriteTransaction<T>>[1]) => gateway.withAppWriteTransaction({ actorId: 'system:synthetic', command: 'synthetic:wallet-http', requestId: randomUUID(), payloadHash: 'synthetic' }, fn);
 const common = { effectiveDate: '2026-10-17', timezone: 'Asia/Saigon', note: 'Synthetic HTTP note', settlementStatus: 'cleared' as const }, money = (minor: string, currency = 'VND') => ({ minor, currency }), filter = { period: { fromDate: '2026-10-01', toDateExclusive: '2026-11-01', timezone: 'Asia/Saigon' }, referenceCurrency: 'VND', statuses: ['cleared'] };
 let initialized = false;
-export async function walletHttpFixture(work:(f:any)=>Promise<void>,version:12|13|14=12) {
+export async function walletHttpFixture(work:(f:any)=>Promise<void>,version:12|13|14|15=12) {
     if (!initialized) {
         configureWalletStorage({ migrations, snapshot, version });
         migrations.applyDomainMigrations({ enabled: ['wallet'], pilot: true });
