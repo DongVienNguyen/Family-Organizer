@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import type { Actor, Money, Page, RecordFilter, FilterRecord } from '../../src/features/wallet/contracts.js';
-import { normalizeFilter, matchesRecordFilter } from '../../src/features/wallet/filter.js';
+import { normalizeFilter, compileRecordFilter } from '../../src/features/wallet/filter.js';
 import { parseEffectiveDate } from '../../src/features/wallet/dates.js';
 import { minorInteger, currencyExponent } from '../../src/features/wallet/money.js';
 import { object, keys, text, integer } from '../../src/features/productivity/validation.js';
@@ -204,11 +204,12 @@ export function createWalletQueries(ports: {
                 const withBounds = { ...f! };
                 delete withBounds.categoryIds;
                 delete withBounds.uncategorized;
+                const matchesBase=compileRecordFilter(base,[]),matchesBounds=compileRecordFilter(withBounds,[]);
                 const matches = selected.filter(view => { if(f!.uncategorized&&!view.partial&&(view.allocationCategoryIds.length||view.record.categoryId))return false; if (allowed && !(view.allocationCategoryIds.length?view.allocationCategoryIds:[view.record.categoryId??'']).some(id=>allowed.has(id)))
-                    return false; view.matchedAccountIds = view.postings.filter(posting => { const record: FilterRecord = { id: view.record.id, effectiveDate: view.record.effectiveDate, accountIds: [posting.accountId], categoryId: view.record.categoryId ?? null, labelIds: view.labelIds, currency: posting.currency, kind: view.record.kind, status: view.record.settlementStatus, paymentMethod: view.metadata.paymentMethod, creatorId: view.record.creatorId, searchText: view.searchText, minor: posting.deltaMinor }; if (!matchesRecordFilter(record, base, []))
+                    return false; view.matchedAccountIds = view.postings.filter(posting => { const record: FilterRecord = { id: view.record.id, effectiveDate: view.record.effectiveDate, accountIds: [posting.accountId], categoryId: view.record.categoryId ?? null, labelIds: view.labelIds, currency: posting.currency, kind: view.record.kind, status: view.record.settlementStatus, paymentMethod: view.metadata.paymentMethod, creatorId: view.record.creatorId, searchText: view.searchText, minor: posting.deltaMinor }; if (!matchesBase(record))
                     return false; if (f!.absoluteMin === undefined && f!.absoluteMax === undefined)
                     return true; const reference = posting.currency === f!.referenceCurrency ? { minor: posting.deltaMinor, currency: posting.currency } : ports.referenceValue?.({ recordId: record.id, accountId: posting.accountId, effectiveDate: record.effectiveDate, money: { minor: posting.deltaMinor, currency: posting.currency }, targetCurrency: f!.referenceCurrency }); if (!reference)
-                    fail(422, 'Chưa có tỷ giá định giá cho bộ lọc số tiền.', 'RATE_UNAVAILABLE'); return matchesRecordFilter(record, withBounds, [], reference); }).map(posting => posting.accountId); return view.matchedAccountIds.length > 0; });
+                    fail(422, 'Chưa có tỷ giá định giá cho bộ lọc số tiền.', 'RATE_UNAVAILABLE'); return matchesBounds(record,reference); }).map(posting => posting.accountId); return view.matchedAccountIds.length > 0; });
                 const signature = (view: IndexedView) => [key(view), view.record.revision, view.partial, view.allocationCategoryIds,view.accountRevisions, view.postings.map(p => [p.accountId, p.currency, p.deltaMinor]),...(selectionOnly==='report'?[view.labelIds,view.allocationAmounts,view.record.categoryId,view.record.kind,view.record.settlementStatus,view.record.creatorId,view.metadata.paymentMethod]:[])], revision = hash(matches.map(view => [signature(view), view.matchedAccountIds]));
                 if(selectionOnly){
                     const rechecked=read(false);

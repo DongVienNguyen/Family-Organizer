@@ -20,10 +20,13 @@ export type WalletMetadataTable=keyof typeof walletMetadataColumns;
 type Row=Record<string,string|number|null>;
 const camel=(key:string)=>key.replace(/_([a-z])/g,(_all,letter:string)=>letter.toUpperCase());
 const field=(column:string)=>column==='before_json'?'before':column==='after_json'?'after':camel(column);
+// Only descriptor names are cached; every decoded value and audit JSON stays fresh.
+const descriptors=Object.fromEntries(Object.entries(walletMetadataColumns).map(([table,columns])=>[table,columns.map(column=>({column,key:field(column)}))])) as Record<WalletMetadataTable,{column:string;key:string}[]>;
+const metadataFields=Object.fromEntries(Object.entries(descriptors).map(([table,entries])=>[table,entries.map(entry=>entry.key)])) as Record<WalletMetadataTable,string[]>;
 function timestamp(value:unknown):void {if(value===null)return;text(value,24);if(!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(value)||!Number.isFinite(Date.parse(value))||new Date(value).toISOString()!==value)throw Error('Invalid Wallet metadata timestamp');}
 function json(value:unknown):string|null {if(value===null)return null;object(value);const encoded=JSON.stringify(value);text(encoded,100000);return encoded;}
 export function validateMetadata(table:WalletMetadataTable,value:unknown,userIds?:Set<string>):void {
- const v=object(value),fields=walletMetadataColumns[table].map(field);keys(v,fields);if(Object.keys(v).length!==fields.length)throw Error('Incomplete Wallet metadata');
+ const v=object(value),fields=metadataFields[table];keys(v,fields);if(Object.keys(v).length!==fields.length)throw Error('Incomplete Wallet metadata');
  for(const [key,entry]of Object.entries(v)){
   if(key.endsWith('At'))timestamp(entry);
   else if(key==='createdBy'||key==='updatedBy'){if(entry!==null){text(entry,256);if(userIds&&!userIds.has(entry))throw Error('Invalid Wallet metadata user');}}
@@ -36,7 +39,7 @@ export function validateMetadata(table:WalletMetadataTable,value:unknown,userIds
  if(table==='wallet_audit_metadata'){json(v.before);json(v.after);}
 }
 export function decodeMetadata(table:WalletMetadataTable,row:Row):Record<string,unknown> {
- return Object.fromEntries(walletMetadataColumns[table].map(column=>[field(column),column==='before_json'||column==='after_json'?row[column]===null?null:JSON.parse(String(row[column])):column==='hidden'||column==='excluded_from_stats'?row[column]===1:row[column]]));
+ const value:Record<string,unknown>={};for(const {column,key}of descriptors[table])value[key]=column==='before_json'||column==='after_json'?row[column]===null?null:JSON.parse(String(row[column])):column==='hidden'||column==='excluded_from_stats'?row[column]===1:row[column];return value;
 }
 export function validateWalletMetadataTables(tables:Record<string,Row[]>,userIds?:Set<string>):void {
  for(const [name,parent]of Object.entries(walletMetadataParents)){

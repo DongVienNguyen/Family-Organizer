@@ -18,8 +18,9 @@ export function normalizeFilter(raw:unknown):RecordFilter {
 }
 const normalized=(value:string)=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[đĐ]/g,'d').toLowerCase();
 /** Selection only, never authorization. Caller supplies already-authorized record/catalog projections. */
-export function matchesRecordFilter(record:FilterRecord,raw:RecordFilter,categories:readonly CategoryNode[],referenceValue?:Money):boolean {
- const f=normalizeFilter(raw);calendarDate(record.effectiveDate);assertMoney({minor:record.minor,currency:record.currency});choice(record.kind,kinds);choice(record.status,statuses);
+export function compileRecordFilter(raw:RecordFilter,categories:readonly CategoryNode[]):(record:FilterRecord,referenceValue?:Money)=>boolean {
+ const f=normalizeFilter(raw),parents=new Map(f.categoryIds===undefined?[]:categories.map(c=>[c.id,c.parentId])),query=f.query?normalized(f.query.trim()):null,minBound=f.absoluteMin===undefined?undefined:minorInteger(f.absoluteMin),maxBound=f.absoluteMax===undefined?undefined:minorInteger(f.absoluteMax);
+ return (record,referenceValue)=>{calendarDate(record.effectiveDate);assertMoney({minor:record.minor,currency:record.currency});choice(record.kind,kinds);choice(record.status,statuses);
  if(record.effectiveDate<f.period.fromDate||record.effectiveDate>=f.period.toDateExclusive)return false;
  const facets:[string[]|undefined,string][]=[[f.currencies,record.currency],[f.kinds,record.kind],[f.statuses,record.status],[f.paymentMethods,record.paymentMethod],[f.creatorIds,record.creatorId]];
  if(facets.some(([values,value])=>values!==undefined&&!values.includes(value)))return false;
@@ -27,17 +28,19 @@ export function matchesRecordFilter(record:FilterRecord,raw:RecordFilter,categor
  if(f.labelIds!==undefined&&!(f.labelMatch==='all'?f.labelIds.length>0&&f.labelIds.every(id=>record.labelIds.includes(id)):f.labelIds.some(id=>record.labelIds.includes(id))))return false;
  if(f.uncategorized&&record.categoryId!==null||f.unlabeled&&record.labelIds.length>0)return false;
  if(f.categoryIds!==undefined){
-  const parents=new Map(categories.map(c=>[c.id,c.parentId])),ancestors=new Set<string>();let id=record.categoryId;
+  const ancestors=new Set<string>();let id=record.categoryId;
   while(id!==null){if(ancestors.has(id))throw new Error('Category cycle');ancestors.add(id);id=f.categoryMatch==='exact'?null:parents.get(id)??null;}
   if(!f.categoryIds.some(id=>ancestors.has(id)))return false;
  }
  if(f.transferMode==='exclude'&&record.kind==='transfer'||f.transferMode==='only'&&record.kind!=='transfer')return false;
- if(f.query&&!normalized(record.searchText).includes(normalized(f.query.trim())))return false;
+ if(query!==null&&!normalized(record.searchText).includes(query))return false;
  if(f.absoluteMin!==undefined||f.absoluteMax!==undefined){
   const value=referenceValue??(record.currency===f.referenceCurrency?{minor:record.minor,currency:record.currency}:undefined);
   if(!value)throw new Error('Reference valuation unavailable');assertMoney(value);if(value.currency!==f.referenceCurrency)throw new Error('Reference currency mismatch');
   const n=minorInteger(value.minor),absolute=n<0n?-n:n;
-  if(f.absoluteMin!==undefined&&absolute<minorInteger(f.absoluteMin)||f.absoluteMax!==undefined&&absolute>minorInteger(f.absoluteMax))return false;
+  if(f.absoluteMin!==undefined&&absolute<minBound!||f.absoluteMax!==undefined&&absolute>maxBound!)return false;
  }
- return true;
+ return true;};
 }
+
+export function matchesRecordFilter(record:FilterRecord,raw:RecordFilter,categories:readonly CategoryNode[],referenceValue?:Money):boolean {return compileRecordFilter(raw,categories)(record,referenceValue);}

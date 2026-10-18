@@ -1,5 +1,5 @@
 import type {Period} from './contracts.js';
-import {calendarDate,localDateAt,utcInstant,timezoneFormatter} from '../productivity/dates.js';
+import {calendarDate,localDateAt,utcInstant,assertTimezone} from '../productivity/dates.js';
 import {object,keys,choice} from '../productivity/validation.js';
 export function parseEffectiveDate(value:string,format:'YYYY-MM-DD'|'DD/MM/YYYY'|'MM/DD/YYYY'='YYYY-MM-DD'):string {
  let date=value;
@@ -11,12 +11,12 @@ export function parseEffectiveDate(value:string,format:'YYYY-MM-DD'|'DD/MM/YYYY'
 }
 export function effectiveDateAt(instantUtc:string,timezone:string):string {return localDateAt(utcInstant(instantUtc),timezone);}
 export function assertPeriod(value:unknown):asserts value is Period {
- const p=object(value);keys(p,['fromDate','toDateExclusive','timezone']);timezoneFormatter(p.timezone as string);
+ const p=object(value);keys(p,['fromDate','toDateExclusive','timezone']);assertTimezone(p.timezone as string);
  if(calendarDate(p.fromDate as string)>=calendarDate(p.toDateExclusive as string))throw new Error('Invalid half-open period');
 }
 export function resolvePeriod(input:{kind:'week'|'month'|'year'|'custom';anchorDate:string;fromDate?:string;toDateExclusive?:string},timezone:string):Period {
  const raw=object(input);keys(raw,['kind','anchorDate','fromDate','toDateExclusive']);choice(raw.kind,['week','month','year','custom']);
- const anchor=calendarDate(input.anchorDate);timezoneFormatter(timezone);const date=new Date(anchor),year=date.getUTCFullYear(),month=date.getUTCMonth();
+ const anchor=calendarDate(input.anchorDate);assertTimezone(timezone);const date=new Date(anchor),year=date.getUTCFullYear(),month=date.getUTCMonth();
  let fromDate:string,toDateExclusive:string;
  const iso=(n:number)=>{const value=new Date(n).toISOString().slice(0,10);calendarDate(value);return value;};
  switch(input.kind){
