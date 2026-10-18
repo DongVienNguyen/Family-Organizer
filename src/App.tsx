@@ -321,6 +321,7 @@ export default function App() {
   const [productivityQueryEpoch,setProductivityQueryEpoch]=useState(0);
   const [productivityFocusEpoch,setProductivityFocusEpoch]=useState(0);
   const [productivityHabitEpoch,setProductivityHabitEpoch]=useState(0);
+  const [productivityInsightEpoch,setProductivityInsightEpoch]=useState(0);
   const [productivityAvailable,setProductivityAvailable]=useState<boolean|undefined>(undefined);
 
   // PWA: network status, install prompt, and pending service-worker update
@@ -802,6 +803,7 @@ export default function App() {
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
       setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();void walletWorkspace.refresh();fetchAllData();}opened=true;}
     },onMessage:payload=>{
+        if(['PRODUCTIVITY_INSIGHTS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivityInsightEpoch(value=>value+1);
         if(['PRODUCTIVITY_HABITS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivityHabitEpoch(value=>value+1);
         if(payload.type==='PRODUCTIVITY_FOCUS_UPDATE')setProductivityFocusEpoch(value=>value+1);
         if(['PRODUCTIVITY_VIEW_UPDATE','PLANS_UPDATE'].includes(payload.type))setProductivityQueryEpoch(value=>value+1);
@@ -1698,7 +1700,7 @@ export default function App() {
   ];
 
   return (
-    <TaskProvider actor={{userId:currentUser.id,role:currentUser.role}} habitEpoch={productivityHabitEpoch} key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} focusEpoch={productivityFocusEpoch} available={productivityAvailable} notes={notes} onOpenNote={handleViewNote} onOpenTasks={()=>setActiveTab("tasks")}>
+    <TaskProvider actor={{userId:currentUser.id,role:currentUser.role}} habitEpoch={productivityHabitEpoch} insightEpoch={productivityInsightEpoch} key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} focusEpoch={productivityFocusEpoch} available={productivityAvailable} notes={notes} onOpenNote={handleViewNote} onOpenTasks={()=>setActiveTab("tasks")}>
     <FabProvider>
     <div className="h-screen overflow-hidden bg-slate-950 flex text-slate-200 selection:bg-sky-200 selection:text-sky-700 font-sans relative">
 
