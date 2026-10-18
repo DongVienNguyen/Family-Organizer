@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { debtPaid, debtRemaining, isDebtFullyPaid, DebtLike } from "./debt.js";
+import { debtPaid, debtRemaining, debtPaidAmount, debtRemainingAmount, isDebtFullyPaid, DebtLike } from "./debt.js";
 
 const debt = (amount: number, ...paymentAmounts: number[]): DebtLike => ({
   amount,
@@ -48,4 +48,13 @@ describe("isDebtFullyPaid — luật tự tất toán / mở lại", () => {
   it("nợ 0 đồng (dữ liệu biên) coi như đã đủ", () => {
     expect(isDebtFullyPaid(debt(0))).toBe(true);
   });
+});
+
+it('linked principal remains exact alongside original legacy payments and settlement can reopen',()=>{
+ const value={amount:1000000,payments:[{amount:100000},{amount:{minor:'900000',currency:'VND'}}]};
+ expect(debtPaidAmount(value)).toEqual({minor:'1000000',currency:'VND'});expect(debtRemainingAmount(value)).toEqual({minor:'0',currency:'VND'});expect(isDebtFullyPaid(value)).toBe(true);
+ value.payments.pop();expect(debtRemainingAmount(value)).toBe(900000);expect(isDebtFullyPaid(value)).toBe(false);
+});
+it('exact debt helpers never round a one-minor-unit outstanding balance above Number precision',()=>{
+ const value={amount:{minor:'9007199254740993',currency:'VND'},payments:[{amount:{minor:'9007199254740992',currency:'VND'}}]};expect(debtRemainingAmount(value)).toEqual({minor:'1',currency:'VND'});expect(isDebtFullyPaid(value)).toBe(false);
 });

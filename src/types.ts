@@ -1,3 +1,4 @@
+import type {TrackingAmount} from './features/wallet/linkedMoney.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -286,7 +287,8 @@ export interface RecurringBill {
 // --- Mục tiêu tiết kiệm (sinking fund): để dành cho Tết, du lịch, học phí... ---
 export interface SavingsContribution {
   id: string;
-  amount: number; // dương = bỏ thêm vào quỹ, âm = rút bớt ra
+  amount: TrackingAmount; // historical number or exact linked Wallet amount
+  walletLinkId?: string;
   date: string;   // YYYY-MM-DD
   note?: string;
   byId: string;   // ai đóng góp
@@ -310,7 +312,8 @@ export interface SavingsGoal {
 // --- Theo dõi vay / cho mượn (nợ) ---
 export interface DebtPayment {
   id: string;
-  amount: number; // số tiền trả/nhận trong lần này
+  amount: TrackingAmount; // principal only; interest belongs to its ledger record
+  walletLinkId?: string;
   date: string;   // YYYY-MM-DD
   note?: string;
   byId: string;

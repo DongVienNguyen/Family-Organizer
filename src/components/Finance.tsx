@@ -1,3 +1,6 @@
+import {trackingProjection} from '../features/wallet/linkedMoney.js';
+import {walletLocale} from '../features/wallet/accountDraft.js';
+import {addTrackingAmount,subtractTrackingAmount,compareTrackingAmount,formatTrackingAmount,outsideBookSavings,type TrackingAmount} from '../features/wallet/linkedMoney.js';
 import {AuthenticatedImage} from './AuthenticatedMedia.js';
 import {WalletHome} from '../features/wallet/WalletHome.js';
 /**
@@ -60,7 +63,7 @@ import {
   periodMonths, pctDelta, calcTotals as calcTotalsUtil, accountBalances as accountBalancesUtil,
   monthlySeries, MonthlyPoint
 } from "../utils/financePeriod.js";
-import { debtRemaining } from "../utils/debt.js";
+import { debtRemainingAmount } from "../utils/debt.js";
 import { useTabFab } from "./FabHost.js";
 import { DateInputDMY, formatDateVN } from "./DateTimePicker24.js";
 import { useTranslation } from "react-i18next";
@@ -600,25 +603,23 @@ export function Finance({
   const accountBalances = useMemo(() => accountBalancesUtil(transactions), [transactions]);
 
   // Tổng quan "Giá trị ròng": gộp số dư ví + quỹ tiết kiệm + cho mượn − đang nợ.
-  // Trong app này tiết kiệm & nợ là các "hũ" ĐỘC LẬP (đóng góp/khoản trả KHÔNG ghi
-  // vào transactions), nên cộng/trừ thẳng vào bức tranh tổng — không lo trùng với ví.
+  // Historical unlinked contributions remain outside-book jars. Wallet-linked
+  // allocations/transfers already refer to existing funds and are excluded here.
   // Còn-lại của nợ dùng chung logic với DebtTracker (bỏ khoản đã tất toán / trả dư).
-  const netWorth = useMemo(() => {
+  const netWorth = useMemo(() => trackingProjection(() => {
     const walletTotal = Object.values(accountBalances).reduce((s, v) => s + v, 0);
-    const savingsTotal = savingsGoals.reduce(
-      (s, g) => s + g.contributions.reduce((a, c) => a + c.amount, 0), 0
-    );
-    let lentRemaining = 0, borrowedRemaining = 0;
+    const savingsTotal = outsideBookSavings(savingsGoals);
+    let lentRemaining:TrackingAmount=0, borrowedRemaining:TrackingAmount=0;
     debts.forEach(d => {
       if (d.isSettled) return;
-      const remaining = debtRemaining(d);
-      if (remaining <= 0) return;
-      if (d.direction === "lent") lentRemaining += remaining;
-      else borrowedRemaining += remaining;
+      const remaining = debtRemainingAmount(d);
+      if (compareTrackingAmount(remaining,0)<=0) return;
+      if (d.direction === "lent") lentRemaining=addTrackingAmount(lentRemaining,remaining);
+      else borrowedRemaining=addTrackingAmount(borrowedRemaining,remaining);
     });
-    const total = walletTotal + savingsTotal + lentRemaining - borrowedRemaining;
+    const total = subtractTrackingAmount(addTrackingAmount(addTrackingAmount(walletTotal,savingsTotal),lentRemaining),borrowedRemaining);
     return { walletTotal, savingsTotal, lentRemaining, borrowedRemaining, total };
-  }, [accountBalances, savingsGoals, debts]);
+  }), [accountBalances, savingsGoals, debts]);
 
   // Chuỗi 12 tháng gần nhất cho biểu đồ xu hướng (mọi giao dịch, không theo bộ lọc)
   const trendPoints = useMemo(() => monthlySeries(transactions, 12), [transactions]);
@@ -1422,15 +1423,15 @@ export function Finance({
       {/* Giá trị ròng — nối tiết kiệm & nợ vào bức tranh tài chính chung. Chỉ hiện
           khi có ít nhất một quỹ/khoản nợ (nếu không thì trùng với thẻ số dư ví). */}
       {(savingsGoals.length > 0 || debts.length > 0) && (
-        <Reveal delay={0.08} className="relative overflow-hidden bg-slate-900 neu-raised rounded-2xl p-5 space-y-4" id="finance-networth">
+        netWorth ? <Reveal delay={0.08} className="relative overflow-hidden bg-slate-900 neu-raised rounded-2xl p-5 space-y-4" id="finance-networth">
           <ShimmerLine accent="violet" />
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
               <span className="p-2 rounded-xl bg-violet-500/10 text-violet-400"><Scale className="w-4 h-4" /></span>
               {t("finance.netWorthTitle")}
             </h3>
-            <span className={`text-xl sm:text-2xl font-extrabold font-sans tabular-nums tracking-tight ${netWorth.total >= 0 ? "text-violet-300" : "text-rose-400"}`}>
-              {netWorth.total.toLocaleString()} đ
+            <span className={`text-xl sm:text-2xl font-extrabold font-sans tabular-nums tracking-tight ${compareTrackingAmount(netWorth.total,0)>=0 ? "text-violet-300" : "text-rose-400"}`}>
+              {formatTrackingAmount(netWorth.total)} đ
             </span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -1442,20 +1443,21 @@ export function Finance({
             ].map(row => (
               <div key={row.label} className="bg-slate-950/60 neu-pressed-sm rounded-xl p-3 min-w-0">
                 <span className="block text-[10px] text-slate-500 font-semibold truncate">{row.emoji} {row.label}</span>
-                <span className={`block mt-1 text-[13px] sm:text-base font-extrabold font-sans tabular-nums leading-tight break-words ${row.value === 0 ? "text-slate-500" : row.color}`}>
-                  {row.neg && row.value > 0 ? "-" : ""}{row.value.toLocaleString()} đ
+                <span className={`block mt-1 text-[13px] sm:text-base font-extrabold font-sans tabular-nums leading-tight break-words ${compareTrackingAmount(row.value,0)===0 ? "text-slate-500" : row.color}`}>
+                  {row.neg && compareTrackingAmount(row.value,0)>0 ? "-" : ""}{formatTrackingAmount(row.value)} đ
                 </span>
               </div>
             ))}
           </div>
           <p className="text-[10px] text-slate-500 leading-relaxed">{t("finance.netWorthHint")}</p>
-        </Reveal>
+        </Reveal> : <p role="alert" className="text-xs text-amber-400">{t("wallet.financial.remediation")}</p>
       )}
 
       {/* Mục tiêu tiết kiệm + Vay/cho mượn — desktop nằm ngang hàng cho gọn;
           items-start để mỗi thẻ cao theo nội dung riêng (danh sách dài ngắn khác nhau) */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start" id="finance-savings-debts">
         <SavingsGoals
+          onOpenWallet={walletWorkspace?((id,linkId)=>{void walletWorkspace.openFinancial('goal',id,walletLocale(i18n.resolvedLanguage??i18n.language),linkId);window.scrollTo({top:0});}):undefined}
           currentUser={currentUser}
           users={users}
           savingsGoals={savingsGoals}
@@ -1466,6 +1468,7 @@ export function Finance({
         />
 
         <DebtTracker
+          onOpenWallet={walletWorkspace?((id,linkId)=>{void walletWorkspace.openFinancial('debt',id,walletLocale(i18n.resolvedLanguage??i18n.language),linkId);window.scrollTo({top:0});}):undefined}
           currentUser={currentUser}
           users={users}
           debts={debts}

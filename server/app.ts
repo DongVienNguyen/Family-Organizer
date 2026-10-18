@@ -1,3 +1,4 @@
+import {projectLinkedGoals} from '../src/features/wallet/linkProjection.js';
 import {registerWalletImportJobs} from './wallet/importJobs.js';
 import {registerWalletScheduleJobs} from './wallet/jobs.js';
 import {walletRouter,walletRequestTrace,walletJsonError} from './wallet/router.js';
@@ -372,6 +373,7 @@ const requireRole = (roles: UserRole[]) => {
   };
 };
 
+const projectSavingsGoals=(session:NonNullable<AuthRequest['userSession']>,goals:Parameters<typeof projectLinkedGoals>[1])=>{const actor={userId:session.userId,role:session.role};return dependencies.wallet?.links?dependencies.wallet.links.projectGoals(actor,[...goals]):projectLinkedGoals(actor,goals);};
 const canViewSavingsGoal = (goal: { isShared: boolean; creatorId: string }, session: AuthRequest["userSession"]) => {
   if (!session) return false;
   return goal.isShared===true || goal.creatorId === session.userId;
@@ -1278,7 +1280,7 @@ app.delete("/api/finance/recurring-bills/:id", requireAuth, requireRole([UserRol
 // --- MỤC TIÊU TIẾT KIỆM ---
 app.get("/api/finance/savings-goals", requireAuth, requireRole([UserRole.ADMIN, UserRole.MEMBER]), (req: AuthRequest, res: Response) => {
   const session = req.userSession!;
-  const savingsGoals = FamilyDB.getSavingsGoals().filter(goal => canViewSavingsGoal(goal, session));
+  const savingsGoals = projectSavingsGoals(session,FamilyDB.getSavingsGoals());
   res.json({ savingsGoals });
 });
 
@@ -1299,7 +1301,7 @@ app.post("/api/finance/savings-goals", requireAuth, requireRole([UserRole.ADMIN,
     const previous=realtimeAudience('FINANCE_UPDATE',{savingsGoalId:req.body?.id});
     const goal = FamilyDB.saveSavingsGoal(req.body, session.userId, session.username);
     broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id },previous);
-    res.json({ goal });
+    res.json({ goal:projectSavingsGoals(session,[goal])[0] });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
@@ -1332,7 +1334,7 @@ app.post("/api/finance/savings-goals/:id/contributions", requireAuth, requireRol
   try {
     const goal = FamilyDB.addSavingsContribution(req.params.id, req.body, session.userId);
     broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id });
-    res.json({ goal });
+    res.json({ goal:projectSavingsGoals(session,[goal])[0] });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }
@@ -1349,7 +1351,7 @@ app.delete("/api/finance/savings-goals/:id/contributions/:cid", requireAuth, req
   try {
     const goal = FamilyDB.removeSavingsContribution(req.params.id, req.params.cid);
     broadcastSyncEvent("FINANCE_UPDATE", { savingsGoalId: goal.id });
-    res.json({ goal });
+    res.json({ goal:projectSavingsGoals(session,[goal])[0] });
   } catch (err: any) {
     res.status(httpErrorStatus(err)).json(httpErrorBody(err));
   }

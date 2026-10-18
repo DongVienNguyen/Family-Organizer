@@ -2,8 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pbkdf2Sync, randomUUID } from 'node:crypto';
 const [data, config, receiptFlag] = process.argv.slice(2);
-const walletVersion=receiptFlag==='--schedules'?12:receiptFlag==='--rules'?11:receiptFlag==='--imports'?10:receiptFlag==='--dashboard'?9:receiptFlag==='--analytics'?8:receiptFlag==='--workflows'?7:receiptFlag==='--bulk'?6:receiptFlag==='--receipts'?5:4;
-if (!data || !config || !(process.argv.length===4||process.argv.length===5&&['--receipts','--bulk','--workflows','--analytics','--dashboard','--imports','--rules','--schedules'].includes(receiptFlag)))
+const walletVersion=receiptFlag==='--links'?13:receiptFlag==='--schedules'?12:receiptFlag==='--rules'?11:receiptFlag==='--imports'?10:receiptFlag==='--dashboard'?9:receiptFlag==='--analytics'?8:receiptFlag==='--workflows'?7:receiptFlag==='--bulk'?6:receiptFlag==='--receipts'?5:4;
+if (!data || !config || !(process.argv.length===4||process.argv.length===5&&['--receipts','--bulk','--workflows','--analytics','--dashboard','--imports','--rules','--schedules','--links'].includes(receiptFlag)))
     throw Error('Explicit synthetic Wallet data/config roots required');
 process.env.DATA_DIR = data;
 process.env.CONFIG_DIR = config;

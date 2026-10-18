@@ -1,9 +1,11 @@
+import {trackingProjection} from '../features/wallet/linkedMoney.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useMemo, useState } from "react";
+import {addTrackingAmount,compareTrackingAmount,trackingPercent,formatTrackingAmount,type TrackingAmount} from '../features/wallet/linkedMoney.js';
 import { PiggyBank, Plus, Trash2, Target, Calendar, ChevronDown, ChevronUp, X } from "lucide-react";
 import { SavingsGoal, User, UserRole } from "../types.js";
 import { motion, AnimatePresence } from "motion/react";
@@ -13,6 +15,7 @@ import { DateInputDMY, formatDateVN } from "./DateTimePicker24.js";
 import { useTranslation } from "react-i18next";
 
 interface SavingsGoalsProps {
+  onOpenWallet?: (id:string,linkId?:string)=>void;
   currentUser: User;
   users: User[];
   savingsGoals: SavingsGoal[];
@@ -30,13 +33,13 @@ const GOAL_COLORS: Record<string, string> = {
   violet: "bg-violet-500"
 };
 
-const fmtMoney = (n: number) => n.toLocaleString("vi-VN");
+const fmtMoney = formatTrackingAmount;
 const parseMoney = (s: string) => Number(s.replace(/[^\d-]/g, "")) || 0;
 const fmtMoneyInput = (s: string) => {
   const d = s.replace(/\D/g, "");
   return d ? Number(d).toLocaleString("vi-VN") : "";
 };
-const sumContributions = (g: SavingsGoal) => g.contributions.reduce((s, c) => s + c.amount, 0);
+const sumContributions = (g: SavingsGoal) => g.contributions.reduce<TrackingAmount>((sum,c)=>addTrackingAmount(sum,c.amount),0);
 
 function daysLeft(dateStr?: string): number | null {
   if (!dateStr) return null;
@@ -50,6 +53,7 @@ function daysLeft(dateStr?: string): number | null {
 
 export function SavingsGoals({
   currentUser,
+  onOpenWallet,
   users,
   savingsGoals,
   onSaveSavingsGoal,
@@ -75,11 +79,11 @@ export function SavingsGoals({
   const canManageGoal = (goal: SavingsGoal) =>
     goal.creatorId === currentUser.id || (goal.isShared && currentUser.role === UserRole.ADMIN);
 
-  const totals = useMemo(() => {
-    let saved = 0, targetSum = 0;
-    savingsGoals.forEach(g => { saved += sumContributions(g); targetSum += g.targetAmount; });
+  const totals = useMemo(() => trackingProjection(() => {
+    let saved:TrackingAmount=0, targetSum = 0;
+    savingsGoals.forEach(g => { saved = addTrackingAmount(saved,sumContributions(g)); targetSum += g.targetAmount; });
     return { saved, targetSum };
-  }, [savingsGoals]);
+  }), [savingsGoals]);
 
   const colorOptions = useMemo(() => [
     { value: "emerald", label: t("savingsGoals.colorEmerald") },
@@ -137,7 +141,7 @@ export function SavingsGoals({
         </h3>
         <div className="flex items-center gap-2 flex-wrap">
           {savingsGoals.length > 0 && (
-            <span className="text-[10px] text-slate-500 font-mono">{fmtMoney(totals.saved)} / {fmtMoney(totals.targetSum)} đ</span>
+            totals?<span className="text-[10px] text-slate-500 font-mono">{fmtMoney(totals.saved)} / {fmtMoney(totals.targetSum)} đ</span>:<p role="alert" className="text-xs text-amber-400">{t("wallet.financial.remediation")}</p>
           )}
           <button onClick={() => setShowForm(v => !v)} className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-lg px-2.5 py-1.5 text-[11px] font-bold flex items-center gap-1 cursor-pointer">
             <Plus className="w-3.5 h-3.5" /> {t("savingsGoals.addBtn")}
@@ -171,9 +175,9 @@ export function SavingsGoals({
       ) : (
         <div className="space-y-3 max-h-[18rem] overflow-y-auto overscroll-contain scrollbar-thin pr-1">
           {savingsGoals.map(goal => {
-            const saved = sumContributions(goal);
-            const pct = Math.max(0, Math.min(100, Math.round((saved / goal.targetAmount) * 100)));
-            const achieved = saved >= goal.targetAmount;
+            const projection=trackingProjection(()=>{const saved=sumContributions(goal);return {saved,pct:trackingPercent(saved,goal.targetAmount),achieved:compareTrackingAmount(saved,goal.targetAmount)>=0};});
+            if(!projection)return <p key={goal.id} role="alert" className="text-xs text-amber-400">{goal.name}: {t("wallet.financial.remediation")}</p>;
+            const {saved,pct,achieved}=projection;
             const dleft = daysLeft(goal.deadline);
             const isOpen = expanded[goal.id];
             const bar = GOAL_COLORS[goal.color || "emerald"] || GOAL_COLORS.emerald;
@@ -195,6 +199,7 @@ export function SavingsGoals({
                   )}
                 </div>
 
+                {onOpenWallet&&<button type="button" onClick={()=>onOpenWallet(goal.id)} className="rounded-xl px-3 py-2.5 text-xs font-bold text-sky-400 bg-slate-900 neu-btn cursor-pointer">{t("wallet.financial.openWallet")}</button>}
                 <div className="h-2.5 bg-slate-900 rounded-full overflow-hidden">
                   <div className={`h-full ${achieved ? "bg-emerald-500" : bar} transition-all`} style={{ width: `${pct}%` }} />
                 </div>
@@ -236,8 +241,9 @@ export function SavingsGoals({
                           return (
                             <div key={c.id} className="flex items-center justify-between text-[10px] bg-slate-900/60 rounded-lg px-2 py-1">
                               <span className="font-mono text-slate-400">{formatDateVN(c.date)}</span>
-                              <span className={`font-bold ${c.amount >= 0 ? "text-emerald-400" : "text-rose-400"}`}>{c.amount >= 0 ? "+" : ""}{fmtMoney(c.amount)}đ</span>
+                              <span className={`font-bold ${compareTrackingAmount(c.amount,0)>=0 ? "text-emerald-400" : "text-rose-400"}`}>{compareTrackingAmount(c.amount,0)>=0 ? "+" : ""}{fmtMoney(c.amount)}đ</span>
                               <span className="text-slate-500 truncate max-w-[70px]">{by?.fullName || ""}</span>
+                              {c.walletLinkId&&onOpenWallet&&<button type="button" onClick={()=>onOpenWallet(goal.id,c.walletLinkId)} className="rounded-lg px-2 py-1 text-sky-400 bg-slate-900 neu-btn cursor-pointer">{t("wallet.financial.openWallet")}</button>}
                               {canRemove && (
                                 <button onClick={() => onRemoveSavingsContribution(goal.id, c.id)} className="text-slate-600 hover:text-rose-400 cursor-pointer" title={t("savingsGoals.contribRemoveTitle")}>
                                   <X className="w-3 h-3" />

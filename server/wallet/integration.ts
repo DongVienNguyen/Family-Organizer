@@ -1,3 +1,4 @@
+import {validateWalletLinkLegacy} from './linkValidation.js';
 import {walletSchemas,walletStorageVersions,type WalletStorageVersion} from './schemaRegistry.js';
 import {prepareWalletReceipts,walletReceiptSql,walletReceiptChecksum,validateWalletReceiptMedia} from './receiptSchema.js';
 import type * as Migrations from '../appMigrations.js';
@@ -33,6 +34,7 @@ export function validateSharedWalletSnapshot(source:AppSnapshot):void {
  const value={schemaVersion:source.manifest.domains.wallet+1,tables:Object.fromEntries(Object.keys(walletTablesAt(source.manifest.domains.wallet)).map(name=>[name,source.tables[name]])),checksum:''};
  value.checksum=walletSnapshotChecksum(value);validate(value,new Set(source.legacy.users.map(user=>user.id)));
  if(source.manifest.domains.wallet>=5)validateWalletReceiptMedia(value.tables,source.media);
+ if(source.manifest.domains.wallet>=13)validateWalletLinkLegacy(value.tables,source.legacy);
 }
 /** Registration only. The caller must explicitly apply the I01 pilot migration. */
 export function configureWalletStorage(ports:{migrations:typeof Migrations;snapshot:typeof Snapshot;version?:WalletStorageVersion}):void {

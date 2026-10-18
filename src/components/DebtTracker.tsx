@@ -1,3 +1,4 @@
+import {trackingProjection} from '../features/wallet/linkedMoney.js';
 import {AuthenticatedImage} from './AuthenticatedMedia.js';
 /**
  * @license
@@ -12,10 +13,12 @@ import { optimizeAndUpload } from "../utils/uploadImage.js";
 import { browserSession } from "../utils/browserSession.js";
 import { ShimmerLine, Reveal, IconChip } from "./Lively.js";
 import { DateInputDMY, formatDateVN } from "./DateTimePicker24.js";
-import { debtPaid, debtRemaining } from "../utils/debt.js";
+import { debtPaidAmount, debtRemainingAmount } from "../utils/debt.js";
 import { useTranslation } from "react-i18next";
+import {addTrackingAmount,compareTrackingAmount,trackingPercent,formatTrackingAmount,type TrackingAmount} from '../features/wallet/linkedMoney.js';
 
 interface DebtTrackerProps {
+  onOpenWallet?: (id:string,linkId?:string)=>void;
   currentUser: User;
   users: User[];
   debts: Debt[];
@@ -25,13 +28,13 @@ interface DebtTrackerProps {
   onRemoveDebtPayment: (debtId: string, paymentId: string) => Promise<any>;
 }
 
-const fmtMoney = (n: number) => n.toLocaleString("vi-VN");
+const fmtMoney = formatTrackingAmount;
 const parseMoney = (s: string) => Number(s.replace(/[^\d]/g, "")) || 0;
 const fmtMoneyInput = (s: string) => {
   const d = s.replace(/\D/g, "");
   return d ? Number(d).toLocaleString("vi-VN") : "";
 };
-const paidOf = debtPaid;
+const paidOf = debtPaidAmount;
 
 function daysLeft(dateStr?: string): number | null {
   if (!dateStr) return null;
@@ -45,6 +48,7 @@ function daysLeft(dateStr?: string): number | null {
 
 export function DebtTracker({
   currentUser,
+  onOpenWallet,
   users,
   debts,
   onSaveDebt,
@@ -74,16 +78,16 @@ export function DebtTracker({
   const [busy, setBusy] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<string | null>(null);
 
-  const totals = useMemo(() => {
-    let owe = 0, lent = 0;
+  const totals = useMemo(() => trackingProjection(() => {
+    let owe:TrackingAmount=0, lent:TrackingAmount=0;
     debts.forEach(d => {
       if (d.isSettled) return;
-      const remaining = debtRemaining(d);
-      if (remaining <= 0) return;
-      if (d.direction === "borrowed") owe += remaining; else lent += remaining;
+      const remaining = debtRemainingAmount(d);
+      if (compareTrackingAmount(remaining,0)<=0) return;
+      if (d.direction === "borrowed") owe=addTrackingAmount(owe,remaining); else lent=addTrackingAmount(lent,remaining);
     });
     return { owe, lent };
-  }, [debts]);
+  }), [debts]);
 
   const resetForm = () => {
     setEditingId(null);
@@ -187,10 +191,9 @@ export function DebtTracker({
   };
 
   const renderDebt = (debt: Debt) => {
-    const paid = paidOf(debt);
-    const remaining = Math.max(0, debt.amount - paid);
-    const pct = Math.min(100, Math.round((paid / debt.amount) * 100));
-    const settled = debt.isSettled || remaining <= 0;
+    const projection=trackingProjection(()=>{const paid=paidOf(debt),remaining=debtRemainingAmount(debt);return {paid,remaining,pct:trackingPercent(paid,debt.amount),settled:debt.isSettled||compareTrackingAmount(remaining,0)<=0};});
+    if(!projection)return <p key={debt.id} role="alert" className="text-xs text-amber-400">{debt.counterparty}: {t("wallet.financial.remediation")}</p>;
+    const {paid,remaining,pct,settled}=projection;
     const dleft = daysLeft(debt.dueDate);
     const isOpen = expanded[debt.id];
     const isBorrowed = debt.direction === "borrowed";
@@ -222,6 +225,7 @@ export function DebtTracker({
           </div>
         </div>
 
+        {onOpenWallet&&<button type="button" onClick={()=>onOpenWallet(debt.id)} className="rounded-xl px-3 py-2.5 text-xs font-bold text-sky-400 bg-slate-900 neu-btn cursor-pointer">{t("wallet.financial.openWallet")}</button>}
         {debt.attachments && debt.attachments.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {debt.attachments.map((url, i) => (
@@ -291,6 +295,7 @@ export function DebtTracker({
                       <span className="font-mono text-slate-400">{formatDateVN(p.date)}</span>
                       <span className="font-bold text-emerald-400">{fmtMoney(p.amount)}đ</span>
                       <span className="text-slate-500 truncate max-w-[70px]">{by?.fullName || ""}</span>
+                              {p.walletLinkId&&onOpenWallet&&<button type="button" onClick={()=>onOpenWallet(debt.id,p.walletLinkId)} className="rounded-lg px-2 py-1 text-sky-400 bg-slate-900 neu-btn cursor-pointer">{t("wallet.financial.openWallet")}</button>}
                       <button onClick={() => onRemoveDebtPayment(debt.id, p.id)} className="text-slate-600 hover:text-rose-400 cursor-pointer" title={t("common.delete")}>
                         <X className="w-3 h-3" />
                       </button>
@@ -311,12 +316,13 @@ export function DebtTracker({
   return (
     <Reveal delay={0.14} className="relative overflow-hidden bg-slate-900 neu-raised rounded-2xl p-5 space-y-4">
       <ShimmerLine accent="amber" />
+      {!totals&&<p role="alert" className="text-xs text-amber-400">{t("wallet.financial.remediation")}</p>}
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
           <IconChip accent="amber"><HandCoins className="w-4 h-4" /></IconChip> {t("debtTracker.title")}
         </h3>
         <div className="flex items-center gap-2 flex-wrap">
-          {(totals.owe > 0 || totals.lent > 0) && (
+          {totals&&(compareTrackingAmount(totals.owe,0)>0 || compareTrackingAmount(totals.lent,0)>0) && (
             <span className="text-[10px] font-mono text-slate-500">
               {t("debtTracker.totalOwed")} <span className="text-rose-400 font-bold">{fmtMoney(totals.owe)}</span> · {t("debtTracker.totalLent")} <span className="text-emerald-400 font-bold">{fmtMoney(totals.lent)}</span>
             </span>

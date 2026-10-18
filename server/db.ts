@@ -1,3 +1,5 @@
+import {assertNoActiveFinancialHistory} from './wallet/legacyLinkGuard.js';
+import {compareTrackingAmount,formatTrackingAmount} from '../src/features/wallet/linkedMoney.js';
 import {hasManagedLegacyPolicy,assertManagedLegacyPatch} from './productivity/legacyCutoverRecord.js';
 import {isActiveLegacyTask} from '../src/utils/taskLifecycle.js';
 import {acceptRecurringOccurrence,isDurableOccurrenceTask} from './productivity/recurrenceAccepted.js';
@@ -61,7 +63,7 @@ import {
   DishSlot
 } from "../src/types.js";
 import { SEED_DISHES } from "../src/utils/mealPlan.js";
-import { isDebtFullyPaid } from "../src/utils/debt.js";
+import { isDebtFullyPaid,debtRemainingAmount } from "../src/utils/debt.js";
 import { sqliteIsEmpty, sqliteHasLegacyData, sqliteLoad, sqliteSave, sqliteCheckpoint, sqliteFlushLegacyTasks } from "./sqlite.js";
 import { deleteMediaByUrl as deleteCommittedMedia } from "./media.js";
 import { isPushConfigured } from "./push.js";
@@ -1893,6 +1895,7 @@ export class FamilyDB {
     const db = this.readRaw();
     const goal = db.savingsGoals.find(g => g.id === id);
     if (!goal) return;
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'goal',id);
     db.savingsGoals = db.savingsGoals.filter(g => g.id !== id);
     this.writeRaw(db);
     this.logActivity(userId, username, "Tiết kiệm", `Đã xóa mục tiêu "${goal.name}".`);
@@ -1932,6 +1935,7 @@ export class FamilyDB {
     const db = this.readRaw();
     const goal = db.savingsGoals.find(g => g.id === goalId);
     if (!goal) throw new Error("Không tìm thấy mục tiêu tiết kiệm");
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'goal',goalId,contributionId);
     goal.contributions = goal.contributions.filter(c => c.id !== contributionId);
     goal.updatedAt = new Date().toISOString();
     this.writeRaw(db);
@@ -1965,6 +1969,8 @@ export class FamilyDB {
     if (data.id) {
       const idx = db.debts.findIndex(d => d.id === data.id);
       if (idx === -1) throw new Error("Không tìm thấy khoản nợ");
+      const previous=db.debts[idx];
+      if(previous.amount!==amount||previous.direction!==direction||data.isSettled!==undefined&&previous.isSettled!==data.isSettled)assertNoActiveFinancialHistory(currentAppWriteTx(),'debt',data.id);
       const updated: Debt = {
         ...db.debts[idx],
         direction,
@@ -2017,6 +2023,7 @@ export class FamilyDB {
     const db = this.readRaw();
     const debt = db.debts.find(d => d.id === id);
     if (!debt) return;
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'debt',id);
     db.debts = db.debts.filter(d => d.id !== id);
     this.writeRaw(db);
     this.logActivity(userId, username, "Nợ", `Đã xóa khoản nợ với "${debt.counterparty}".`);
@@ -2058,6 +2065,7 @@ export class FamilyDB {
     const db = this.readRaw();
     const debt = db.debts.find(d => d.id === debtId);
     if (!debt) throw new Error("Không tìm thấy khoản nợ");
+    assertNoActiveFinancialHistory(currentAppWriteTx(),'debt',debtId,paymentId);
     debt.payments = debt.payments.filter(p => p.id !== paymentId);
     if (!isDebtFullyPaid(debt)) debt.isSettled = false; // mở lại nếu chưa đủ
     debt.updatedAt = new Date().toISOString();
@@ -2918,8 +2926,8 @@ export class FamilyDB {
     // Nhắc khoản nợ tới hạn (chưa tất toán & còn dư nợ). Gửi cho người tạo. Dedupe theo dueDate.
     db.debts.forEach(d => {
       if (d.isSettled || !d.dueDate) return;
-      const remaining = d.amount - (d.payments || []).reduce((s, p) => s + p.amount, 0);
-      if (remaining <= 0) return;
+      const remaining = debtRemainingAmount(d);
+      if (compareTrackingAmount(remaining,0)<=0) return;
       const p = String(d.dueDate).split("-");
       if (p.length < 3) return;
       const y = Number(p[0]), m = Number(p[1]), dd = Number(p[2]);
@@ -2930,7 +2938,7 @@ export class FamilyDB {
       if (!recipient) return;
       const verb = d.direction === "lent" ? "thu hồi" : "trả";
       const who = d.counterparty;
-      const amt = remaining.toLocaleString();
+      const amt = typeof remaining==='number'?remaining.toLocaleString():formatTrackingAmount(remaining);
       if (diffDays > 0 && diffDays <= 7) {
         ensure(`notif_debtdue7_${d.id}_${d.dueDate}`, recipient, "💸 Khoản nợ sắp đến hạn", `Còn ${diffDays} ngày đến hạn ${verb} ${amt}đ với "${who}".`, "finance", {domain:'finance'});
       } else if (diffDays === 0) {

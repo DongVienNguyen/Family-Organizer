@@ -66,7 +66,8 @@ function result(reader:WalletReader,actor:Actor,id:string):WalletRecordResult {
  let allocations:AllocationDraft[];try{allocations=allocationRows(reader.all('SELECT category_id AS categoryId,CAST(amount_minor AS TEXT) AS amountMinor FROM wallet_allocations WHERE record_id=? ORDER BY category_id LIMIT 101',id));assertAllocationTotal(allocations,value.record,value.postings);}catch{fail(422,'Phân bổ lịch sử không khớp giao dịch.');}
  return {...(allocations.length?{allocations}:{}),record:value.record,metadata:decodeMetadata('wallet_record_metadata',row) as unknown as WalletRecordMetadata,postings:value.postings.map(({currency:_currency,...posting})=>posting),fx:reader.get('SELECT record_id AS recordId,from_currency AS fromCurrency,to_currency AS toCurrency,CAST(debit_minor AS TEXT) AS debitMinor,CAST(credit_minor AS TEXT) AS creditMinor,rate_numerator AS numerator,rate_denominator AS denominator,as_of AS asOf,source FROM wallet_record_fx WHERE record_id=?',id)??null,feeRecordId:reader.get('SELECT fee_record_id AS id FROM wallet_transfer_fees WHERE transfer_record_id=?',id)?.id??null,labelIds:reader.all('SELECT label_id AS id FROM wallet_record_labels WHERE record_id=? ORDER BY label_id',id).map(row=>row.id)};
 }
-function authorize(reader:WalletReader,actor:Actor,id:string):void {
+function authorize(reader:WalletReader,actor:Actor,id:string,allowFinancialLink=false):void {
+ if(!allowFinancialLink&&reader.get("SELECT 1 FROM sqlite_master WHERE type='table' AND name='wallet_financial_links'")&&reader.get("SELECT 1 FROM wallet_financial_links WHERE state='active' AND(record_id=? OR interest_record_id=?)",id,id))fail(409,'Cần quy trình sửa khoản trả nợ hoặc góp mục tiêu.','wallet-financial-link');
  const access=createWalletAccess(reader);access.authorizeRecord(actor,id,'write');if(reader.get('SELECT 1 AS linked FROM wallet_transfer_fees WHERE fee_record_id=?',id))fail(409,'Sửa phí thông qua giao dịch chuyển khoản.','wallet-linked-fee');const fee=reader.get('SELECT fee_record_id AS id FROM wallet_transfer_fees WHERE transfer_record_id=?',id);if(fee)access.authorizeRecord(actor,fee.id,'write');
 }
 function asDraft(reader:WalletReader,actor:Actor,value:WalletRecordResult):RecordDraft {
@@ -112,6 +113,20 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
   return result(reader,actor,parent.record.id);
  };
  return {
+  /** The financial-link coordinator owns both legacy history and these records
+   * in this same I01 transaction. These ports are never exposed as HTTP drafts. */
+  createFinancialWithin(tx:WalletTx,ctx:CommandContext,raw:RecordDraft):WalletRecordResult {
+   const reader=txReader(tx);context({...ctx,expectedRevision:0},reader);const draft=normalize(raw);if(!['income','expense','transfer'].includes(draft.kind))fail(422,'Dòng tiền liên kết không hợp lệ.');checkTargets(reader,ctx.actor,draft,{archive:true});const at=new Date(now()).toISOString();let saved=apply(tx,ctx.actor,draft,at);audit(tx,ctx.actor,'financial-create',at,null,saved);saved=setFee(tx,ctx.actor,saved,draft,at);return saved;
+  },
+  replaceFinancialWithin(tx:WalletTx,ctx:CommandContext,id:string,revision:number,raw:RecordDraft):WalletRecordResult {
+   const reader=txReader(tx);context({...ctx,expectedRevision:revision},reader,true);authorize(reader,ctx.actor,id,true);const before=result(reader,ctx.actor,id);if(before.record.revision!==revision||before.record.settlementStatus==='voided'||before.record.occurrenceId||before.record.kind==='trade')fail(409,'Bản ghi liên kết vừa thay đổi.','edit-conflict');const draft=normalize(raw);if(!['income','expense','transfer'].includes(draft.kind))fail(422,'Dòng tiền liên kết không hợp lệ.');checkTargets(reader,ctx.actor,draft,{archive:true});const at=new Date(now()).toISOString();let saved=apply(tx,ctx.actor,draft,at,before);audit(tx,ctx.actor,'financial-update',at,before,saved);saved=setFee(tx,ctx.actor,saved,draft,at,before);return saved;
+  },
+  markFinancialWithin(tx:WalletTx,ctx:CommandContext,id:string,revision:number):WalletRecordResult {
+   const reader=txReader(tx);context({...ctx,expectedRevision:revision},reader,true);authorize(reader,ctx.actor,id);const before=result(reader,ctx.actor,id);if(before.record.revision!==revision||before.record.settlementStatus==='voided'||before.record.occurrenceId)fail(409,'Bản ghi liên kết vừa thay đổi.','edit-conflict');const at=new Date(now()).toISOString();tx.sql.run('UPDATE wallet_records SET revision=revision+1 WHERE id=?',id);tx.metadata.records.set({...before.metadata,updatedAt:at,updatedBy:ctx.actor.userId});const saved=result(reader,ctx.actor,id);audit(tx,ctx.actor,'financial-link',at,before,saved);return saved;
+  },
+  voidFinancialWithin(tx:WalletTx,ctx:CommandContext,id:string):WalletRecordResult {
+   const reader=txReader(tx);context({...ctx,expectedRevision:1},reader,true);authorize(reader,ctx.actor,id,true);const before=result(reader,ctx.actor,id);if(before.record.settlementStatus==='voided'||before.record.occurrenceId)fail(409,'Bản ghi liên kết không thể hủy riêng.');const at=new Date(now()).toISOString(),saved=voidWithin(tx,ctx.actor,before,at);if(before.feeRecordId){const fee=result(reader,ctx.actor,before.feeRecordId);if(fee.record.settlementStatus!=='voided')voidWithin(tx,ctx.actor,fee,at);}return saved;
+  },
   /** Trusted import coordinator only: caller already owns the installation I01
    * transaction. HTTP record payloads still cannot supply provenance. */
   createImportedWithin(tx:WalletTx,ctx:CommandContext,raw:RecordDraft,externalKey:string):WalletRecordResult {

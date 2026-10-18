@@ -101,6 +101,14 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     router.post('/reports/query',handler(req=>{const value=body(req,['filter','metric','groupBy','granularity']);return ports.reports.getReport(actor(req),value as any);}));
     router.post('/fx/refresh',async(req,res)=>{try{const value=body(req,['expectedRevision','asOf']),result=await ports.fx.refreshRates(context(req,value.expectedRevision,false),value.asOf);res.json(result);}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không cập nhật được tỷ giá.':error instanceof AppStoreError?error.message:'Yêu cầu tỷ giá không hợp lệ.',code:(error as any)?.code});}});
     router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
+    const financialChanged=(_records:string[],linkId:string)=>changed(ports.linkAudience(linkId));
+    router.get('/financial-targets',handler(req=>ports.links.targets(actor(req))));
+    router.get('/financial-links',handler(req=>({links:ports.links.listLinks(actor(req))})));
+    router.get('/financial-links/:id',handler(req=>ports.links.getLink(actor(req),id(req.params.id))));
+    router.post('/debts/:id/payments',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.recordDebtPayment(context(req,v.expectedRevision,false),id(req.params.id),v.input,financialChanged);}));
+    router.post('/goals/:id/contributions',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.contributeGoal(context(req,v.expectedRevision,false),id(req.params.id),v.input,financialChanged);}));
+    router.patch('/financial-links/:id',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.updateLink(context(req,v.expectedRevision,true),id(req.params.id),v.input,financialChanged);}));
+    router.post('/financial-links/:id/unlink',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.links.unlinkFinancialLink(context(req,v.expectedRevision,true),id(req.params.id),v.input,financialChanged);}));
     router.get('/schedules',handler(req=>({schedules:ports.schedules.listSchedules(actor(req))})));
     router.post('/schedules/preview',handler(req=>{const v=body(req,['draft']);return {items:ports.schedules.previewDraft(actor(req),v.draft)};}));
     router.get('/schedules/:id',handler(req=>ports.schedules.getSchedule(actor(req),id(req.params.id))));
