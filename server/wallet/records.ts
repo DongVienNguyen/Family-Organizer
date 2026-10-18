@@ -81,6 +81,7 @@ function asDraft(reader:WalletReader,actor:Actor,value:WalletRecordResult):Recor
 }
 const canonical=(v:unknown):unknown=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([key,value])=>[key,canonical(value)])):v;
 function auditState(value:WalletRecordResult):Record<string,unknown>{const {note,...record}=value.record,{payee,paymentMethod,...metadata}=value.metadata;return {...(value.allocations?{allocations:value.allocations}:{}),record,metadata,postings:value.postings,fx:value.fx,feeRecordId:value.feeRecordId,labelIds:value.labelIds,textDigests:Object.fromEntries(Object.entries({note,payee,paymentMethod}).map(([key,text])=>[key,{length:text.length,sha256:createHash('sha256').update(text).digest('hex')}]))};}
+export {auditState as walletRecordAuditState};
 /** Only I01 writes; no lifecycle, provider, HTTP or legacy cutover on import. */
 export function createWalletRecords(ports:{reader:WalletReader;write:typeof withAppWriteTransaction;now?:()=>number}){
  const store=openWalletStore({write:ports.write}),now=ports.now??Date.now;

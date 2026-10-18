@@ -1,3 +1,5 @@
+import {setImmediate as yieldPreview} from 'node:timers/promises';
+import {prepareImportBatch,prepareImportBatchAsync,applyImportBatch,type PreparedImportBatch} from './importBatch.js';
 import { importHash as hash } from './importHash.js';
 import { createHash, randomUUID } from 'node:crypto';
 import type { Actor, CommandContext } from '../../src/features/wallet/contracts.js';
@@ -7,7 +9,7 @@ import { AppStoreError } from '../appErrors.js';
 import { assertWalletActor, createWalletAccess, type WalletReader } from './access.js';
 import { assertWalletCommandContext } from './accounts.js';
 import { openWalletStore, type WalletTx } from './store.js';
-import { createWalletRecords, validateWalletRecordDraft } from './records.js';
+import { createWalletRecords, validateWalletRecordDraft, checkWalletCatalog } from './records.js';
 import { mapImportRows, type MappedImportRow } from './importMapping.js';
 import { parseCsv, parseSpreadsheet, inspectSpreadsheet, parseOfx, type ImportMatrix } from './parsers/index.js';
 import { inputBytes } from './parsers/common.js';
@@ -68,6 +70,20 @@ export function createWalletImports(ports: {
     const rows = (reader: WalletReader, id: string): PreviewRow[] => reader.all('SELECT value_json FROM wallet_import_rows WHERE batch_id=? ORDER BY row_number LIMIT 10002', id).map(row => JSON.parse(row.value_json));
     const duplicate = (reader: WalletReader, row: PreviewRow): 'new' | 'same' | 'changed' => { const record = reader.get("SELECT id FROM wallet_records WHERE source='import' AND external_key=?", row.sourceKey); if (!record)
         return 'new'; const entry = reader.get('SELECT source_fingerprint FROM wallet_import_entries WHERE record_id=?', record.id); return entry?.source_fingerprint === row.sourceFingerprint ? 'same' : 'changed'; };
+    function queuedFailure(ctx:CommandContext,id:string,revision:number,signal:AbortSignal,error:unknown):ImportBatch {
+        // Financial writes and their nonce have rolled back. Record only a compact
+        // safe outcome in a separate short, lease-fenced I01 command for the owner.
+        if (!signal.aborted)
+            try {
+                const failed = command({ ...ctx, idempotencyKey: ctx.idempotencyKey + '-failed' }, 'failure', { id, revision }, tx => { const reader = txReader(tx), before = owned(reader, ctx.actor, id, true); if (before.state !== 'queued' || before.revision !== revision)
+                    return batchDto(before); const p = JSON.parse(before.preview_json); if (Date.parse(before.expires_at) <= now())
+                    tx.sql.run('DELETE FROM wallet_import_rows WHERE batch_id=?', id); return update(tx, ctx, before, Date.parse(before.expires_at) <= now() ? 'expired' : 'preview', { ...p, errorCode: error instanceof AppStoreError ? 'IMPORT_REVIEW_REQUIRED' : 'IMPORT_APPLY_FAILED' }); });
+                if (failed.state !== 'queued')
+                    return failed;
+            }
+            catch { /* Lease/ACL revocation must never create a substitute write. */ }
+        throw error;
+    }
     const result = {
         getBatch(actor: Actor, id: string): ImportBatch { const row = owned(ports.reader, actor, id), value = batchDto(row); if (value.jobId && ports.reader.get("SELECT name FROM sqlite_master WHERE type='table' AND name='app_jobs'"))
             value.jobStatus = ports.reader.get('SELECT status FROM app_jobs WHERE id=?', value.jobId)?.status ?? 'unavailable'; return value; },
@@ -152,7 +168,8 @@ export function createWalletImports(ports: {
             const parsed = mapImportRows(matrix, mapping, { accountId: before.account_id, currency: account.currency, batchId: id, format: before.format, categories: choices, labels, ofx });
             let allRows: PreviewRow[] = parsed.rows;
             const seen = new Map<string, string>();
-            allRows = allRows.map(row => { if (row.status !== 'valid' || !row.draft)
+            const reviewed:PreviewRow[]=[];
+            for(let index=0;index<allRows.length;index++){if(index%128===0)await yieldPreview();const row=allRows[index];reviewed.push((() => { if (row.status !== 'valid' || !row.draft)
                 return row; try {
                 validateWalletRecordDraft(ports.reader, ctx.actor, row.draft);
             }
@@ -166,22 +183,26 @@ export function createWalletImports(ports: {
                     return { ...row, status: 'duplicate' };
                 }
                 seen.set(row.sourceKey, row.sourceFingerprint);
-            } return row; });
+            } return row; })());}
+            allRows=reviewed;
             const serial = allRows.map(row => JSON.stringify(row));
             if (serial.some(row => Buffer.byteLength(row) > 512000) || serial.reduce((n, row) => n + Buffer.byteLength(row), 0) > 50 * 1024 * 1024)
                 fail(413, 'Preview vượt50MiB.', 'LIMIT_EXCEEDED');
             const summary = { ...counts, sheetNames: JSON.parse(before.preview_json).sheetNames ?? [], mapping, rowsHash: hash(allRows), validCount: allRows.filter(r => r.status === 'valid').length, errorCount: allRows.filter(r => r.status === 'error').length, duplicateCount: allRows.filter(r => r.status === 'duplicate').length, excludedCount: allRows.filter(r => r.status === 'excluded').length };
             return command(ctx, 'preview', { id, revision: ctx.expectedRevision, mapping, fileSha256: before.file_sha256 }, tx => { const reader = txReader(tx), current = owned(reader, ctx.actor, id, true); pending(current); expected(ctx, current); if (target(reader, ctx.actor, current.account_id, true).revision !== account.revision)
-                fail(409, 'Tài khoản vừa thay đổi.', 'CONFLICT'); tx.sql.run('DELETE FROM wallet_import_rows WHERE batch_id=?', id); for (let i = 0; i < allRows.length; i++)
-                tx.sql.run('INSERT INTO wallet_import_rows VALUES(?,?,?)', id, allRows[i].rowNumber, serial[i]); tx.sql.run('UPDATE wallet_import_batches SET account_revision=? WHERE id=?', account.revision, id); return update(tx, ctx, current, 'preview', summary); });
+                fail(409, 'Tài khoản vừa thay đổi.', 'CONFLICT');
+                const currentCategories=new Set<string>(),currentLabels=new Set<string>();for(const row of allRows)if(row.status==='valid'&&row.draft){if(row.draft.categoryId)currentCategories.add(row.draft.categoryId);for(const allocation of row.draft.allocations??[])currentCategories.add(allocation.categoryId);for(const label of row.draft.labelIds??[])currentLabels.add(label);}
+                for(const category of currentCategories)checkWalletCatalog(reader,category,[]);checkWalletCatalog(reader,null,[...currentLabels]);
+                tx.sql.run('DELETE FROM wallet_import_rows WHERE batch_id=?', id);tx.sql.run("INSERT INTO wallet_import_rows SELECT ?,CAST(json_extract(value,'$.rowNumber') AS INTEGER),value FROM json_each(?)",id,'['+serial.join(',')+']'); tx.sql.run('UPDATE wallet_import_batches SET account_revision=? WHERE id=?', account.revision, id); return update(tx, ctx, current, 'preview', summary); });
         },
         previewRows(actor: Actor, id: string, offset = 0): ImportPreviewPage { const batch = owned(ports.reader, actor, id); integer(offset, 0, 10001); const total = ports.reader.get('SELECT count(*) AS n FROM wallet_import_rows WHERE batch_id=?', id).n, values = ports.reader.all('SELECT value_json FROM wallet_import_rows WHERE batch_id=? ORDER BY row_number LIMIT 100 OFFSET ?', id, offset).map(row => { const v = JSON.parse(row.value_json); return { rowNumber: v.rowNumber, status: v.status, errors: v.errors, warnings: v.warnings, rawCells: v.rawCells, draft: v.draft }; }); owned(ports.reader, actor, id); return { id, revision: batch.revision, total, offset, rows: values }; },
-        commitImport(ctx: CommandContext, id: string, previewRevision: number, onChanged?: () => void, queued = false): ImportBatch {
+        commitImport(ctx: CommandContext, id: string, previewRevision: number, onChanged?: () => void, queued = false, preparedBatch?:PreparedImportBatch): ImportBatch {
             assertWalletCommandContext(ctx, ports.reader, true);
             owned(ports.reader, ctx.actor, id, true);
             integer(previewRevision, 1);
             if (ctx.expectedRevision !== previewRevision)
                 fail(409, 'Chọn đúng phiên bản preview.', 'CONFLICT');
+            const prepared=preparedBatch??prepareImportBatch(rows(ports.reader,id),{actorId:ctx.actor.userId,batchId:id,at:stamp()});
             return command(ctx, 'commit', { id, previewRevision, queued }, tx => {
                 const reader = txReader(tx), before = owned(reader, ctx.actor, id, true);
                 pending(before, queued);
@@ -204,14 +225,7 @@ export function createWalletImports(ports: {
                     else if (row.status === 'duplicate' && current !== 'same' && !(current === 'new' && earlier.get(row.sourceKey) === row.sourceFingerprint))
                         fail(409, 'Nguồn trùng đã thay đổi; cần preview lại.', 'CONFLICT');
                 }
-                let importedCount = 0;
-                for (const row of values) {
-                    if (row.status !== 'valid' || !row.draft)
-                        continue;
-                    const saved = records.createImportedWithin(tx, ctx, row.draft, row.sourceKey);
-                    tx.sql.run('INSERT INTO wallet_import_entries VALUES(?,?,?,?,?,?,NULL)', id, row.rowNumber, saved.record.id, saved.record.revision, row.sourceKey, row.sourceFingerprint);
-                    importedCount++;
-                }
+                const importedCount=applyImportBatch(tx,ctx,prepared,id,p.rowsHash);
                 if (importedCount !== p.validCount)
                     fail(409, 'Số dòng preview không khớp.', 'CONFLICT');
                 tx.sql.run('DELETE FROM wallet_import_rows WHERE batch_id=?', id);
@@ -234,7 +248,12 @@ export function createWalletImports(ports: {
                 fail(422, 'Cần xử lý các dòng lỗi trước khi nhập.'); if (target(reader, ctx.actor, before.account_id, true).revision !== before.account_revision || hash(rows(reader, id)) !== p.rowsHash)
                 fail(409, 'Preview vừa thay đổi.', 'CONFLICT'); const revision = before.revision + 1, jobId = ports.enqueue!({ key: id + ':' + revision, payload: { batchId: id, revision, actorId: ctx.actor.userId } }); return update(tx, ctx, before, 'queued', { ...p, jobId, errorCode: undefined }); });
         },
-        applyQueuedImport(actorId: string, id: string, revision: number, signal: AbortSignal, onChanged?: () => void): ImportBatch {
+        async applyQueuedImportAsync(actorId:string,id:string,revision:number,signal:AbortSignal,onChanged?:()=>void):Promise<ImportBatch>{
+            signal.throwIfAborted();const user=ports.reader.legacy?.users.find(u=>u.id===actorId)??JSON.parse(ports.reader.get('SELECT data FROM users WHERE id=?',actorId)?.data??'null');if(!user||user.isDeleted)fail(403,'Chủ bản nhập không còn quyền.');const subject={userId:actorId,role:user.role},ctx={actor:subject,idempotencyKey:'import-'+id+'-'+revision,expectedRevision:revision};owned(ports.reader,subject,id,true);let prepared:PreparedImportBatch;
+            try{prepared=await prepareImportBatchAsync(rows(ports.reader,id),{actorId,batchId:id,at:stamp()},signal);signal.throwIfAborted();}catch(error){return queuedFailure(ctx,id,revision,signal,error);}
+            return result.applyQueuedImport(actorId,id,revision,signal,onChanged,prepared);
+        },
+        applyQueuedImport(actorId: string, id: string, revision: number, signal: AbortSignal, onChanged?: () => void, preparedBatch?:PreparedImportBatch): ImportBatch {
             if (signal.aborted)
                 fail(409, 'Tác vụ nhập đã dừng.');
             const user = ports.reader.legacy?.users.find(u => u.id === actorId) ?? JSON.parse(ports.reader.get('SELECT data FROM users WHERE id=?', actorId)?.data ?? 'null');
@@ -242,22 +261,9 @@ export function createWalletImports(ports: {
                 fail(403, 'Chủ bản nhập không còn quyền.');
             const ctx = { actor: { userId: actorId, role: user.role }, idempotencyKey: 'import-' + id + '-' + revision, expectedRevision: revision };
             try {
-                return result.commitImport(ctx, id, revision, onChanged, true);
+                return result.commitImport(ctx, id, revision, onChanged, true,preparedBatch);
             }
-            catch (error) {
-                // Financial writes and their nonce have rolled back. Record only a compact
-                // safe outcome in a separate short, lease-fenced I01 command for the owner.
-                if (!signal.aborted)
-                    try {
-                        const failed = command({ ...ctx, idempotencyKey: ctx.idempotencyKey + '-failed' }, 'failure', { id, revision }, tx => { const reader = txReader(tx), before = owned(reader, ctx.actor, id, true); if (before.state !== 'queued' || before.revision !== revision)
-                            return batchDto(before); const p = JSON.parse(before.preview_json); if (Date.parse(before.expires_at) <= now())
-                            tx.sql.run('DELETE FROM wallet_import_rows WHERE batch_id=?', id); return update(tx, ctx, before, Date.parse(before.expires_at) <= now() ? 'expired' : 'preview', { ...p, errorCode: error instanceof AppStoreError ? 'IMPORT_REVIEW_REQUIRED' : 'IMPORT_APPLY_FAILED' }); });
-                        if (failed.state !== 'queued')
-                            return failed;
-                    }
-                    catch { /* Lease/ACL revocation must never create a substitute write. */ }
-                throw error;
-            }
+            catch(error){return queuedFailure(ctx,id,revision,signal,error); }
         },
         reopenImport(ctx: CommandContext, id: string): ImportBatch {
             assertWalletCommandContext(ctx, ports.reader, true);
