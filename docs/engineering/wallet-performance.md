@@ -56,3 +56,18 @@ harness remains separate development. W17 full recovery/system, W18 global
 capacity/retention/legacy bridge/networth/cutover, remaining P/M1/I02/I03/master
 and final composed Windows batch remain. Server2019 R02 unrun; no release/tag/VPS.
 
+## Complete-schema protected recovery
+
+**W17 protected recovery subset (2026-10-18):** source `6c60ef308d249dc49de8d09ea4af118efa62247e` adds two
+synthetic system checks and lint0, JSON/JUnit/native0. Actual live WAL encrypted
+capture → independent installation restore → runtime restart preserves every
+schema16 Wallet row, exact Money, receipts, ACL, settings, occurrences and trades;
+a pre-existing target session is revoked. Rechecksummed/reencrypted corrupt trade
+cash is rejected before target writes. Offline/owned roots/closed/cleaned.
+Test-only additions: production sources unchanged from7cae94a; prior8409/498,
+build and65Chromium remain separate evidence, no new aggregate claimed.
+[Proof](evidence/w17-system-development.json). PR/CI URLs:none; author inspection,
+backup branch only. Next W18 must address shared100000total-row backup capacity
+before claiming100k complete recovery; per-table import guard is insufficient.
+Legacy bridge/Asset/networth, remaining P/M1/I02/I03/master/final Windows remain.
+Server2019 R02 unrun; no release/tag/VPS.

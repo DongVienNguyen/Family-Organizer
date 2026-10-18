@@ -1,0 +1,124 @@
+{
+  "taskId": "W17 protected complete-schema recovery subset",
+  "sourceCommit": "6c60ef308d249dc49de8d09ea4af118efa62247e",
+  "qualification": "Cloud synthetic functional checks, not Windows or complete100k recovery acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "checks": {
+    "targetedTests": 2,
+    "files": 1,
+    "junitCases": 2,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "lintExitCode": 0
+  },
+  "productionSourcesUnchangedFrom": "7cae94af340ac4596f1fe8f12e754d33bd548cec",
+  "aggregate": "Prior8409/498 plus separate2system checks; no new full aggregate/browser/build run for test-only additions. Prior65Chromium and build bind unchanged production sources.",
+  "sourceFiles": {
+    "tests/wallet-system.test.ts": "4d98017ff4f0af6724656b2849d6587bc38f67679dd40c140c632ab98fa10f10",
+    "tests/wallet-system-seed.ts": "6494d0f31fec341cb813e3f7f75383404fb568e4cf12d48f791e676e55d2ceae"
+  },
+  "retainedEvidence": {
+    "publish-w17-system.py": {
+      "path": "docs/engineering/evidence/publish-w17-system.py.gz",
+      "sha256": "58dfd8410a51766b2e2e67cc9d4e91a9f4715b172dfb4a7c16b221a033856b4d"
+    },
+    "w17-system-first.exit": {
+      "path": "docs/engineering/evidence/w17-system-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-system-first.json": {
+      "path": "docs/engineering/evidence/w17-system-first.json.gz",
+      "sha256": "3b8f54beacfabf1a04e630e30433c3182d57f35a13f396c84013b6bf1775feb3"
+    },
+    "w17-system-first.junit.xml": {
+      "path": "docs/engineering/evidence/w17-system-first.junit.xml.gz",
+      "sha256": "40867fa0f363cf477f0428ae80b518a33d65305e74423da4adfad56ac1953f4c"
+    },
+    "w17-system-first.log": {
+      "path": "docs/engineering/evidence/w17-system-first.log.gz",
+      "sha256": "3af7c98a2167537a74d038649502fcaefa87e8d87739e175dd8160c28b1487a3"
+    },
+    "w17-system-lint.exit": {
+      "path": "docs/engineering/evidence/w17-system-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-system-lint.log": {
+      "path": "docs/engineering/evidence/w17-system-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-system-qualified-lint.exit": {
+      "path": "docs/engineering/evidence/w17-system-qualified-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-system-qualified-lint.log": {
+      "path": "docs/engineering/evidence/w17-system-qualified-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-system-qualified.exit": {
+      "path": "docs/engineering/evidence/w17-system-qualified.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-system-qualified.json": {
+      "path": "docs/engineering/evidence/w17-system-qualified.json.gz",
+      "sha256": "11b200596ad91d0ffc9e312153180aba38e8b890a8a9b07e0ebbc7296ced475e"
+    },
+    "w17-system-qualified.junit.xml": {
+      "path": "docs/engineering/evidence/w17-system-qualified.junit.xml.gz",
+      "sha256": "7b6be0010dafc509111081a3357f3a2d6fe3dde3f92865b0046c8ae342837530"
+    },
+    "w17-system-qualified.log": {
+      "path": "docs/engineering/evidence/w17-system-qualified.log.gz",
+      "sha256": "4f34f0bfe13c5adb4391729e1d173b49341bb4b7efe0a9be4129c3c60813c64a"
+    },
+    "w17-system-second.exit": {
+      "path": "docs/engineering/evidence/w17-system-second.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-system-second.json": {
+      "path": "docs/engineering/evidence/w17-system-second.json.gz",
+      "sha256": "ebec678c2a6bb56ecf7b4901300d6014615fa0aea02505fc3681918940775933"
+    },
+    "w17-system-second.junit.xml": {
+      "path": "docs/engineering/evidence/w17-system-second.junit.xml.gz",
+      "sha256": "397cb9e0ce5816cecdcd77a3ca75a9f09f98fb6c9a10ce7c844b7224be708a70"
+    },
+    "w17-system-second.log": {
+      "path": "docs/engineering/evidence/w17-system-second.log.gz",
+      "sha256": "1344c02c5b6593ecd2558ba8913a09e09984aa79074db921fc0f951f139c316c"
+    },
+    "w17-system-third.exit": {
+      "path": "docs/engineering/evidence/w17-system-third.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-system-third.json": {
+      "path": "docs/engineering/evidence/w17-system-third.json.gz",
+      "sha256": "9a153ad9adca6e314c186a357b6ec58607e9da0bfe19a630476266df863469ab"
+    },
+    "w17-system-third.junit.xml": {
+      "path": "docs/engineering/evidence/w17-system-third.junit.xml.gz",
+      "sha256": "f4ff3f7d82b8c28f8ea3bf16800b5c32dd2dee97e1adb9c8663d1abde09e97dc"
+    },
+    "w17-system-third.log": {
+      "path": "docs/engineering/evidence/w17-system-third.log.gz",
+      "sha256": "3cf3bc252d4287bc4298789a63a7f7d7a8e3c714451daee3f974403e52c4fe19"
+    }
+  },
+  "verified": [
+    "Explicit schema16 fixture only; no production cap/activation change.",
+    "Actual runtime captures encrypted live WAL without closing its handle, then normal shutdown closes the connection.",
+    "Independent target restore retains every Wallet table row, exact int64 Money, receipt bytes, object grants, personal settings, confirmed occurrences, imported provenance, positions and quotes; target historical native session is revoked.",
+    "Restored target runtime starts ready and closes normally; recovery envelope remains unchanged; zero external requests.",
+    "Tampered trade cash remains invalid after recomputing transport checksum and reencrypting; target database bytes remain unchanged and no restore journal appears."
+  ],
+  "review": {
+    "independent": false,
+    "scope": "author inspection of owned synthetic roots/process lifecycle/network boundary and whole-table/media comparisons"
+  },
+  "remaining": [
+    "100k complete recovery cannot be inferred from100k query benchmark: shared snapshot100000total-row budget counts ledger plus related rows. W18 capacity/retention policy must preserve backup eligibility; current per-table import guard alone is insufficient.",
+    "W18 legacy bridge, Asset binding/unified networth, remaining P/M1/I02/I03/master and final Windows qualification remain.",
+    "Server2019 R02 unrun; no release/tag/VPS access or deployment."
+  ]
+}
