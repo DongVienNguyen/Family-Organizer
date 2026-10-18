@@ -115,8 +115,8 @@ export function bindMediaChanges(tx:AppWriteTx,before:Map<string,MediaBinding[]>
    for(const binding of added){
     if(metadata.bindings.some(old=>old.domain===binding.domain&&old.id===binding.id))continue;
     const permit=binding.domain==='tasks'?(recurringMedia.get(tx)?.get(binding.id)??templateMedia.get(tx)?.get(binding.id)):undefined;
-    const contentPermit=linkedContentMedia.get(tx)?.get(JSON.stringify([binding.domain,binding.id])),origin=contentPermit?.source??(permit?{domain:'tasks',id:permit.sourceId}:null),allowed=!!contentPermit?.urls.has(url)||!!permit?.urls.has(url);
-    if(!allowed||!origin||!(before.get(url)??[]).some(old=>old.domain===origin.domain&&old.id===origin.id)||!metadata.bindings.some(old=>old.domain===origin.domain&&old.id===origin.id))throw new AppStoreError('Không được gắn tệp này.',403);
+    const contentPermit=linkedContentMedia.get(tx)?.get(JSON.stringify([binding.domain,binding.id])),permits=[...(permit?[{source:{domain:'tasks',id:permit.sourceId},urls:permit.urls}]:[]),...(contentPermit?[contentPermit]:[])];
+    if(!permits.some(value=>value.urls.has(url)&&(before.get(url)??[]).some(old=>old.domain===value.source.domain&&old.id===value.source.id)&&metadata.bindings.some(old=>old.domain===value.source.domain&&old.id===value.source.id)))throw new AppStoreError('Không được gắn tệp này.',403);
     metadata.bindings.push(binding);
    }
    tx.run('UPDATE app_meta SET value=? WHERE key=?',JSON.stringify(metadata),mediaKey(url));
