@@ -1,0 +1,1379 @@
+{
+  "task": "P17",
+  "scope": "Cloud functional preferences/capture and composed P16/P17 full regression; Windows and system acceptance pending",
+  "sourceSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+  "firstSourceSha": "a049a0e17ed9dadaed12c892cef6ccf2a608fc7b",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "unit": {
+    "tests": 8999,
+    "files": 588,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "junitTests": 8999,
+    "seconds": 220.47
+  },
+  "parentPreservation": {
+    "parentSourceSha": "9cfc7ebe4ad4ab238370a741c1a0b0608cd262f3",
+    "sourceSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+    "parentTests": 8899,
+    "currentTests": 8999,
+    "added": 100,
+    "removed": 0,
+    "normalization": "Only existing recoveryRetention synthetic temporary-root text; test source/assertions unchanged.",
+    "junitTests": 8999,
+    "failures": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "chromium": {
+    "tests": 20,
+    "firstAttemptsInQualifiedRuns": true,
+    "harnesses": [
+      {
+        "feature": "preferences",
+        "tests": 4,
+        "fixture": {
+          "commitSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+          "project": "chromium",
+          "platform": "linux",
+          "nodeVersion": "v24.21.0",
+          "synthetic": true,
+          "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+          "build": {
+            "server": "b2d80db691b83eba306c211dc7eebf5f436e2f65ace1e39dfc4d7152cd716290",
+            "index": "da7c45fff9b821df8b3cdd883866f4e7864b80e9216874966af2b16bfffa92ba"
+          },
+          "fixtureRemoved": true,
+          "databaseClosed": true,
+          "legacyPreserved": true,
+          "networkAttempts": [],
+          "serverExitCode": 0,
+          "browserExitCode": 0,
+          "error": null,
+          "seed": {
+            "synthetic": true,
+            "productivityVersion": 23,
+            "kanbanFixture": {
+              "taskRowsPreserved": true,
+              "boards": 2,
+              "views": 9
+            },
+            "fixtureProject": "chromium",
+            "users": 4,
+            "tasks": 13,
+            "nativeHandlesClosed": true,
+            "notificationFixture": {
+              "explicit": true,
+              "frozen13Preserved": true,
+              "taskRowsPreserved": true,
+              "notificationsCreated": 0
+            },
+            "templateFixture": {
+              "explicit": true,
+              "frozen14Preserved": true,
+              "taskRowsPreserved": true,
+              "templatesCreated": 0
+            },
+            "contentFixture": {
+              "explicit": true,
+              "frozen15Preserved": true,
+              "taskRowsPreserved": true,
+              "linksCreated": 0
+            },
+            "attachmentFixture": {
+              "explicit": true,
+              "frozen16Preserved": true,
+              "taskRowsPreserved": true,
+              "attachmentsCreated": 0
+            },
+            "dataFixture": {
+              "explicit": true,
+              "frozen17Preserved": true,
+              "taskRowsPreserved": true,
+              "importsCreated": 0
+            },
+            "focusFixture": {
+              "explicit": true,
+              "frozen18Preserved": true,
+              "taskRowsPreserved": true,
+              "sessionsCreated": 0
+            },
+            "habitFixture": {
+              "explicit": true,
+              "frozen19Preserved": true,
+              "taskRowsPreserved": true,
+              "habitsCreated": 0
+            },
+            "trackingFixture": {
+              "explicit": true,
+              "frozen20Preserved": true,
+              "taskRowsPreserved": true,
+              "remindersCreated": 0
+            },
+            "insightFixture": {
+              "explicit": true,
+              "frozen21Preserved": true,
+              "taskRowsPreserved": true,
+              "eventsCreated": 0,
+              "notesCreated": 0
+            },
+            "preferencesFixture": {
+              "explicit": true,
+              "frozen22Preserved": true,
+              "taskRowsPreserved": true,
+              "settingsCreated": 0
+            }
+          },
+          "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "browserSignal": null,
+          "serverSignal": null,
+          "integrity": "ok"
+        }
+      },
+      {
+        "feature": "calendar",
+        "tests": 4,
+        "fixture": {
+          "commitSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+          "project": "chromium",
+          "platform": "linux",
+          "nodeVersion": "v24.21.0",
+          "synthetic": true,
+          "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+          "build": {
+            "server": "b2d80db691b83eba306c211dc7eebf5f436e2f65ace1e39dfc4d7152cd716290",
+            "index": "da7c45fff9b821df8b3cdd883866f4e7864b80e9216874966af2b16bfffa92ba"
+          },
+          "fixtureRemoved": true,
+          "databaseClosed": true,
+          "legacyPreserved": true,
+          "networkAttempts": [],
+          "serverExitCode": 0,
+          "browserExitCode": 0,
+          "error": null,
+          "seed": {
+            "synthetic": true,
+            "productivityVersion": 13,
+            "kanbanFixture": {
+              "taskRowsPreserved": true,
+              "boards": 2,
+              "views": 9
+            },
+            "fixtureProject": "chromium",
+            "users": 4,
+            "tasks": 13,
+            "nativeHandlesClosed": true
+          },
+          "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "browserSignal": null,
+          "serverSignal": null,
+          "integrity": "ok"
+        }
+      },
+      {
+        "feature": "insights",
+        "tests": 4,
+        "fixture": {
+          "commitSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+          "project": "chromium",
+          "platform": "linux",
+          "nodeVersion": "v24.21.0",
+          "synthetic": true,
+          "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+          "build": {
+            "server": "b2d80db691b83eba306c211dc7eebf5f436e2f65ace1e39dfc4d7152cd716290",
+            "index": "da7c45fff9b821df8b3cdd883866f4e7864b80e9216874966af2b16bfffa92ba"
+          },
+          "fixtureRemoved": true,
+          "databaseClosed": true,
+          "legacyPreserved": true,
+          "networkAttempts": [],
+          "serverExitCode": 0,
+          "browserExitCode": 0,
+          "error": null,
+          "seed": {
+            "synthetic": true,
+            "productivityVersion": 22,
+            "kanbanFixture": {
+              "taskRowsPreserved": true,
+              "boards": 2,
+              "views": 9
+            },
+            "fixtureProject": "chromium",
+            "users": 4,
+            "tasks": 13,
+            "nativeHandlesClosed": true,
+            "notificationFixture": {
+              "explicit": true,
+              "frozen13Preserved": true,
+              "taskRowsPreserved": true,
+              "notificationsCreated": 0
+            },
+            "templateFixture": {
+              "explicit": true,
+              "frozen14Preserved": true,
+              "taskRowsPreserved": true,
+              "templatesCreated": 0
+            },
+            "contentFixture": {
+              "explicit": true,
+              "frozen15Preserved": true,
+              "taskRowsPreserved": true,
+              "linksCreated": 0
+            },
+            "attachmentFixture": {
+              "explicit": true,
+              "frozen16Preserved": true,
+              "taskRowsPreserved": true,
+              "attachmentsCreated": 0
+            },
+            "dataFixture": {
+              "explicit": true,
+              "frozen17Preserved": true,
+              "taskRowsPreserved": true,
+              "importsCreated": 0
+            },
+            "focusFixture": {
+              "explicit": true,
+              "frozen18Preserved": true,
+              "taskRowsPreserved": true,
+              "sessionsCreated": 0
+            },
+            "habitFixture": {
+              "explicit": true,
+              "frozen19Preserved": true,
+              "taskRowsPreserved": true,
+              "habitsCreated": 0
+            },
+            "trackingFixture": {
+              "explicit": true,
+              "frozen20Preserved": true,
+              "taskRowsPreserved": true,
+              "remindersCreated": 0
+            },
+            "insightFixture": {
+              "explicit": true,
+              "frozen21Preserved": true,
+              "taskRowsPreserved": true,
+              "eventsCreated": 0,
+              "notesCreated": 0
+            }
+          },
+          "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "browserSignal": null,
+          "serverSignal": null,
+          "integrity": "ok"
+        }
+      },
+      {
+        "feature": "focus",
+        "tests": 4,
+        "fixture": {
+          "commitSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+          "project": "chromium",
+          "platform": "linux",
+          "nodeVersion": "v24.21.0",
+          "synthetic": true,
+          "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+          "build": {
+            "server": "b2d80db691b83eba306c211dc7eebf5f436e2f65ace1e39dfc4d7152cd716290",
+            "index": "da7c45fff9b821df8b3cdd883866f4e7864b80e9216874966af2b16bfffa92ba"
+          },
+          "fixtureRemoved": true,
+          "databaseClosed": true,
+          "legacyPreserved": true,
+          "networkAttempts": [],
+          "serverExitCode": 0,
+          "browserExitCode": 0,
+          "error": null,
+          "seed": {
+            "synthetic": true,
+            "productivityVersion": 19,
+            "kanbanFixture": {
+              "taskRowsPreserved": true,
+              "boards": 2,
+              "views": 9
+            },
+            "fixtureProject": "chromium",
+            "users": 4,
+            "tasks": 13,
+            "nativeHandlesClosed": true,
+            "notificationFixture": {
+              "explicit": true,
+              "frozen13Preserved": true,
+              "taskRowsPreserved": true,
+              "notificationsCreated": 0
+            },
+            "templateFixture": {
+              "explicit": true,
+              "frozen14Preserved": true,
+              "taskRowsPreserved": true,
+              "templatesCreated": 0
+            },
+            "contentFixture": {
+              "explicit": true,
+              "frozen15Preserved": true,
+              "taskRowsPreserved": true,
+              "linksCreated": 0
+            },
+            "attachmentFixture": {
+              "explicit": true,
+              "frozen16Preserved": true,
+              "taskRowsPreserved": true,
+              "attachmentsCreated": 0
+            },
+            "dataFixture": {
+              "explicit": true,
+              "frozen17Preserved": true,
+              "taskRowsPreserved": true,
+              "importsCreated": 0
+            },
+            "focusFixture": {
+              "explicit": true,
+              "frozen18Preserved": true,
+              "taskRowsPreserved": true,
+              "sessionsCreated": 0
+            }
+          },
+          "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "browserSignal": null,
+          "serverSignal": null,
+          "integrity": "ok"
+        }
+      },
+      {
+        "feature": "habits",
+        "tests": 4,
+        "fixture": {
+          "commitSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+          "project": "chromium",
+          "platform": "linux",
+          "nodeVersion": "v24.21.0",
+          "synthetic": true,
+          "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+          "build": {
+            "server": "b2d80db691b83eba306c211dc7eebf5f436e2f65ace1e39dfc4d7152cd716290",
+            "index": "da7c45fff9b821df8b3cdd883866f4e7864b80e9216874966af2b16bfffa92ba"
+          },
+          "fixtureRemoved": true,
+          "databaseClosed": true,
+          "legacyPreserved": true,
+          "networkAttempts": [],
+          "serverExitCode": 0,
+          "browserExitCode": 0,
+          "error": null,
+          "seed": {
+            "synthetic": true,
+            "productivityVersion": 20,
+            "kanbanFixture": {
+              "taskRowsPreserved": true,
+              "boards": 2,
+              "views": 9
+            },
+            "fixtureProject": "chromium",
+            "users": 4,
+            "tasks": 13,
+            "nativeHandlesClosed": true,
+            "notificationFixture": {
+              "explicit": true,
+              "frozen13Preserved": true,
+              "taskRowsPreserved": true,
+              "notificationsCreated": 0
+            },
+            "templateFixture": {
+              "explicit": true,
+              "frozen14Preserved": true,
+              "taskRowsPreserved": true,
+              "templatesCreated": 0
+            },
+            "contentFixture": {
+              "explicit": true,
+              "frozen15Preserved": true,
+              "taskRowsPreserved": true,
+              "linksCreated": 0
+            },
+            "attachmentFixture": {
+              "explicit": true,
+              "frozen16Preserved": true,
+              "taskRowsPreserved": true,
+              "attachmentsCreated": 0
+            },
+            "dataFixture": {
+              "explicit": true,
+              "frozen17Preserved": true,
+              "taskRowsPreserved": true,
+              "importsCreated": 0
+            },
+            "focusFixture": {
+              "explicit": true,
+              "frozen18Preserved": true,
+              "taskRowsPreserved": true,
+              "sessionsCreated": 0
+            },
+            "habitFixture": {
+              "explicit": true,
+              "frozen19Preserved": true,
+              "taskRowsPreserved": true,
+              "habitsCreated": 0
+            }
+          },
+          "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "browserSignal": null,
+          "serverSignal": null,
+          "integrity": "ok"
+        }
+      }
+    ]
+  },
+  "imagesInspected": [
+    "settings-390-light.png",
+    "settings-390-dark.png",
+    "capture-390-light.png",
+    "capture-390-dark.png"
+  ],
+  "developmentFailures": [
+    "Actual parser RED: hashtag #mai/#8h was interpreted as date/time. Tags are now masked before temporal extraction, all assertions retained.",
+    "Actual first browser3/4: personal preferences shared generic import/template/reminder SSE, which reloaded Tasks and collapsed the open editor. New owner-only PREFERENCES event preserves older event semantics; disclosure is session-owned and has a regression test. Second4/4 and16affected-parent journeys passed.",
+    "Two TypeScript failures in new literal weekStart generic and test mock call tuple corrected; raw logs retained."
+  ],
+  "preserved": {
+    "defaultProductivityVersion": 6,
+    "packageProductivityCaps": 13,
+    "packageWalletCaps": 1,
+    "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+    "frozenSchemasThrough": 22,
+    "byteIdenticalSchemaModules": [
+      "server/productivity/schema.ts",
+      "server/productivity/migrate.ts",
+      "server/productivity/tagSchema.ts",
+      "server/productivity/pinSchema.ts",
+      "server/productivity/viewSchema.ts",
+      "server/productivity/matrixSchema.ts",
+      "server/productivity/boardSchema.ts",
+      "server/productivity/seriesSchema.ts",
+      "server/productivity/occurrenceSchema.ts",
+      "server/productivity/occurrenceSkipSchema.ts",
+      "server/productivity/legacyCutoverSchema.ts",
+      "server/productivity/notificationSchema.ts",
+      "server/productivity/templateSchema.ts",
+      "server/productivity/contentSchema.ts",
+      "server/productivity/taskAttachmentSchema.ts",
+      "server/productivity/importSchema.ts",
+      "server/productivity/focusSchema.ts",
+      "server/productivity/habitSchema.ts",
+      "server/productivity/trackingReminderSchema.ts"
+    ],
+    "structureSqlUnchanged": true
+  },
+  "limits": [
+    "Optional AI and offline writes remain disabled; private read caching is disabled.",
+    "This checkpoint ran20 related Chromium journeys; unaffected Wallet/other Productivity browser parents were not rerun here.",
+    "New12 feature harnesses are not yet mandatory Windows. No new PR/Actions, Node22, Firefox/WebKit/touch/package/service/performance/pilot qualification.",
+    "Review is author-only; independent review and complete I02/I03/W18/P18/M1 remain open.",
+    "Actual WindowsServer2019 is separate R02/unrun. No release/tag/VPS/PCrunner."
+  ],
+  "sources": {
+    "playwright.preferences.config.ts": {
+      "sha256": "328ebf6f31fe32ed70cb058d1d7449f337d81ca4b02e47ab02fb3747dbf2f58c",
+      "gitBlob": "619b096d220ae0ce1e10f56fdb4ceb46fb1aacfe"
+    },
+    "scripts/ci/productivity-feature-browser.mjs": {
+      "sha256": "9cc5fd64ce044c1e7b13e454864788ebef5960ac73c19885b39ce8a238c52f4a",
+      "gitBlob": "8c5a933a42070ab92894aa45eca5df58a2175b20"
+    },
+    "scripts/ci/run-preferences-browser.mjs": {
+      "sha256": "83f5d8d26f2e2539f28b81123f2012588d2a0ffaba3be3da7d41c4cf2090cbfb",
+      "gitBlob": "1ab390c69ba9d4c228927a6419c09ddc83b25abe"
+    },
+    "scripts/ci/write-preferences-browser-fixture.ts": {
+      "sha256": "93bf2e81d24d8698e00990f8543ee964a44553613157d2ef69326bc1c40018fb",
+      "gitBlob": "98dfa5adc7c5d180b30b5b6f3f39f5225719cff4"
+    },
+    "server/app.ts": {
+      "sha256": "3c7dac3f3acc18ec39d91cd0ec0dad8496fac5b3899435dfe6152255bd5f3758",
+      "gitBlob": "7c8fb94e75da52ccf16611b2bdc0822abdb6a860"
+    },
+    "server/productivity/adapter.ts": {
+      "sha256": "50ed7168a171356c45e1d7311ee0fd93af3670104d7c8643340cfd67d3f22e55",
+      "gitBlob": "0674c495c0675cda7a31b9cd92a9daf4d904ddd3"
+    },
+    "server/productivity/bootstrap.ts": {
+      "sha256": "5dddb2a346f63535b5c5b4d9eea60321d1e639fb0344753aa033870142c11349",
+      "gitBlob": "666dc05ffda9a71697f731237b29cd8bdec1e632"
+    },
+    "server/productivity/inspection.ts": {
+      "sha256": "85ae395539a3601e28313537e1c72a5f712b5f9386d3783ae58193b3bfee818f",
+      "gitBlob": "0263b7681d70a2d1830b1a6c023e8289f56eb3fe"
+    },
+    "server/productivity/knownVersions.ts": {
+      "sha256": "4e9f2bbfa7c71ea888a707b76516ed1b8a83145ed98caea9856d5b32172d5fc2",
+      "gitBlob": "5ec8f2ebc379610053b56ec7974fd7148e1adfc3"
+    },
+    "server/productivity/ports.ts": {
+      "sha256": "4bfe5a9e0928e8355870c5c3dd2920caca98aad73ba3bb485fdaa023ea99269c",
+      "gitBlob": "0cb6d20d16521dcefd6a8335b6f221bc4e201734"
+    },
+    "server/productivity/router.ts": {
+      "sha256": "357dfdecca60903fbe64ec047ecbb56c72ad35ac9d5d063204a40797079c1f5e",
+      "gitBlob": "bbe6e12f79f314c82f6972e3f6a36734edee6c42"
+    },
+    "server/productivity/settings.api.test.ts": {
+      "sha256": "0cb9b468d5e18a2232a89180f0881a301e2ba6fb2b5a99bb50c528c6791dc2b3",
+      "gitBlob": "2a300b486c1d91607921cd924da8eacf7151f7ef"
+    },
+    "server/productivity/settings.test.ts": {
+      "sha256": "900e56e1bc4776bfd267bb6b91c1413f42bed8fbf9a024413edb8564c1556182",
+      "gitBlob": "d7ac2d812c63d2a96763893763858522b2cfbc97"
+    },
+    "server/productivity/settings.ts": {
+      "sha256": "636bf2b090c3b6b0c1c90e8f0418227c11f3d62558c98e310d6508233f940804",
+      "gitBlob": "f3fa762fa3a3734ac7402ef3dd4e7da81d80ac29"
+    },
+    "server/productivity/settingsRecord.ts": {
+      "sha256": "1f6263a685f7a9901bce3aef17f0ef43cff30c81a969a33a00146a174c45d3a1",
+      "gitBlob": "b21d5305195043e767349c4ea861200bb82500ff"
+    },
+    "server/productivity/settingsRouter.ts": {
+      "sha256": "079b35e5c1003395215c07cce48d166ea5b326183702d1669f20d2f9ac9ecbe0",
+      "gitBlob": "f46f77ad7cf9ce00fb81f26516abf683f330bef7"
+    },
+    "server/productivity/settingsSchema.ts": {
+      "sha256": "d2a672a4ff6507461e401581066cb9e203776e8aa4a848eb268b7a8bd6f84546",
+      "gitBlob": "241f29dc699852eacfc030642f7fb31992ac19e1"
+    },
+    "server/productivity/snapshot.ts": {
+      "sha256": "bee2cf398306bef0533ef6bbacd42f2c8d4b1e86b034df21b8cef66a830cb1c1",
+      "gitBlob": "accb9b357c2e4d519f66e98fe55e98f67999709f"
+    },
+    "src/App.tsx": {
+      "sha256": "6697499a1bb70d0b8812691aec857410a50d344b65d90d43c331b0820db00713",
+      "gitBlob": "2ae41a31b230ceebf3de5941cffb34ba9eeaf14b"
+    },
+    "src/components/Tasks.tsx": {
+      "sha256": "309b625b35c41c5ed332c4558690d2dbc488eb8b1edcfc3bd795f834880217bd",
+      "gitBlob": "6c26697e15126ac5bae6f4dacc01a9675a203089"
+    },
+    "src/features/productivity/CalendarWorkspace.tsx": {
+      "sha256": "3501bffafcbd20f7427d8271099df0621b1e2c37accdd1e9761a7ab1f0c13ea8",
+      "gitBlob": "056685b97d670d3bf7e99bd8fe293cf6fa18c270"
+    },
+    "src/features/productivity/Focus.tsx": {
+      "sha256": "8510ee150721fbb58619d820fb8c47e2ba068a6a6a3620ba6ba084a46f3e451c",
+      "gitBlob": "b5acd824e575711ec80f51158d5c5e0c0486740c"
+    },
+    "src/features/productivity/Habits.tsx": {
+      "sha256": "51e3b242ef1a4726298b37f02c7963da91ecb4be3ba5f20b4271767be669fabd",
+      "gitBlob": "2f53a81d8757eedba60ea85960e5359c72b11384"
+    },
+    "src/features/productivity/Productivity.tsx": {
+      "sha256": "e3f5a9c0711b13717dea4e70b134ded7c216a5cb7e5e54040fe67e2fedc02dc6",
+      "gitBlob": "642ec116584236d705c04f158bb97d641f08ea97"
+    },
+    "src/features/productivity/Settings.tsx": {
+      "sha256": "cb0c709e7951aee18fc0b6b3a78f004222d234b6d658a276df692d42d4661fc4",
+      "gitBlob": "ec10263342c2e87644949e183c3ddec10216015a"
+    },
+    "src/features/productivity/TaskCapture.tsx": {
+      "sha256": "64934e8f723c1deb7bbfaf5662413ee712f3a3c477f442e0b201d0521b369577",
+      "gitBlob": "e6e059b370e71f0959139e9a71ef7e542ca3fa74"
+    },
+    "src/features/productivity/TaskReminders.tsx": {
+      "sha256": "883facfffd435aeea1a8ce1b8102e47a69393574a53baf6d7e059e0d6b1b3abc",
+      "gitBlob": "087cc6f569c337c1953ef60775457bab75921f3e"
+    },
+    "src/features/productivity/api.ts": {
+      "sha256": "6f5e7afc2c0c12d63a6665c2127681ba13f872735b3f8da996a3683eab5977fc",
+      "gitBlob": "c44a3be811900e1f288b9fe28b83124ce8157f98"
+    },
+    "src/features/productivity/calendarWeekPreference.test.ts": {
+      "sha256": "6f7dab7fa8212cbf25d0c6ef488b82eb234ca56b5b21b15ec0e295b7a4008e55",
+      "gitBlob": "bea6949687da672272708936abb4db270b552765"
+    },
+    "src/features/productivity/captureWorkspace.test.ts": {
+      "sha256": "5abe6f798e3056dd00e9339bee1dc46f1a17943e20ddb2dcf687ae57db7f74d1",
+      "gitBlob": "b23d804c4a93901e56734c52a01a0ced191b68c1"
+    },
+    "src/features/productivity/captureWorkspace.ts": {
+      "sha256": "9cac8cd98caa2642c92b53d2598786d90c5e136adf8d92361a9bc3cb3221d233",
+      "gitBlob": "e98a78043798c115aa30e5e28801d06fe3841b59"
+    },
+    "src/features/productivity/deviceCache.test.ts": {
+      "sha256": "d1c341831ac8c58e80b26aa82b06a2c884f9cba9c94318552732a3a1305e4bff",
+      "gitBlob": "92d559ea2c675f643184bc938c321f4aac294b83"
+    },
+    "src/features/productivity/deviceCache.ts": {
+      "sha256": "2c17164d3a470ad2b5d5852a17c285d9f2bd89478170fc8d7b354a437e9dd170",
+      "gitBlob": "ea1640896f77d7a4cd2d1d715d2ca6071c3ed617"
+    },
+    "src/features/productivity/parseTaskDraft.test.ts": {
+      "sha256": "8117ba3df96c6195e450b0ada31dab76495024609f3620b867e6e0fa295efde3",
+      "gitBlob": "a664f988ea41ac9489d5d7db673e547fc5e92471"
+    },
+    "src/features/productivity/parseTaskDraft.ts": {
+      "sha256": "5c16cebf074583f101737cbf44db87bda614c6de42f489f1c1ea6222f32dde52",
+      "gitBlob": "4222f476683ed07013d85cb8f923cd207d6eee41"
+    },
+    "src/features/productivity/settingsApi.test.ts": {
+      "sha256": "5daa74ada9782876a6a3a5b86a0646d96cf82c691e7324ddf352c51c83e18b44",
+      "gitBlob": "99a316d9414eb7eb9aad511eeb4c3ae1e1742bae"
+    },
+    "src/features/productivity/settingsApi.ts": {
+      "sha256": "31fd4fcda43e7e91090346e96508690f21972e766b4bfd1390fcc4e075cbca3b",
+      "gitBlob": "864cb1c05af7920e6629192414d6332e847ad472"
+    },
+    "src/features/productivity/settingsContracts.test.ts": {
+      "sha256": "d37e1ffc08193d7262e90a1fe71c9db16cc66f72ce83378b6bbaf9737c84bdcc",
+      "gitBlob": "f4f8f179e35d9b6b699a4bbc58f14258e6605e79"
+    },
+    "src/features/productivity/settingsContracts.ts": {
+      "sha256": "9bc23ce1432817ad3d0b2a77c9625b3fdbf4d1001bfbe294236db8192f425378",
+      "gitBlob": "f1951b5c425fe360c9f7d8f3082d45c8c99c1a48"
+    },
+    "src/features/productivity/settingsWorkspace.test.ts": {
+      "sha256": "93648f7bdcdde3ce107de1087c8c740962c5577ec5daad95b11279713bbbe817",
+      "gitBlob": "6f08e803e5b6dee2460e1ab689cd931e49991862"
+    },
+    "src/features/productivity/settingsWorkspace.ts": {
+      "sha256": "31d4debdfb0a2237a51a5945003c426e47dbd8f871218bccc14638c711459d95",
+      "gitBlob": "2f692d0b1d0dbcae9b808ed26e9e67284ddb42a1"
+    },
+    "src/features/productivity/shortcuts.test.ts": {
+      "sha256": "7476cce3d9355b880a8d7f17cefdd8588d78c3fc9f75ee984fe02b002adc28d9",
+      "gitBlob": "dfd081b337d6107c7144e219ed07b3d834598ae7"
+    },
+    "src/features/productivity/shortcuts.ts": {
+      "sha256": "31b5a007dc7c393adbd955062dc87adbb97947dd05635e423df31841b72bdbc8",
+      "gitBlob": "5591b37ecdb622bc5e2f89a1308b3cbef595c23f"
+    },
+    "src/features/productivity/useTasks.tsx": {
+      "sha256": "974b8ecad99add5641755b5759e1fe66af5d78ae254a5d4b82c901270292f0bb",
+      "gitBlob": "198ec2a054e1ba99546c93ee16ebcc1731487dc5"
+    },
+    "src/i18n/locales/en.json": {
+      "sha256": "542bba16c40f7ea14ba8c8a88aff62467f2df609e186360d0ed6244b9bc68508",
+      "gitBlob": "0c2ab36fead7e844616ae079b55c01ff8a6dce93"
+    },
+    "src/i18n/locales/vi.json": {
+      "sha256": "0d42e653c43056856a5b4a162fdf5aac88dabbd25cbcb922c4caed0e67773084",
+      "gitBlob": "e21cff961f82799ed0f99c18fdc3558efe5ec37e"
+    },
+    "src/i18n/locales/zh.json": {
+      "sha256": "63005faf1bded49fde33341ec4e18d7034b7d45bee832436058ebe99bad933d4",
+      "gitBlob": "c091ef17f78487b35964bda02536a6f678b7dcc0"
+    },
+    "tests/e2e/productivity-settings.spec.ts": {
+      "sha256": "98f0097e390518e09c8c82672dda94b6729149596ce15f2e2e70ff263a34d747",
+      "gitBlob": "2b22f680a38c08bb974688657d4c39e054ede3ad"
+    },
+    "tests/productivity-settings-fixture.ts": {
+      "sha256": "e8eb0b987d564dbcd4a44461c3c2e9d4017cd79b2ff4ff1af6dc9f6b10af5f78",
+      "gitBlob": "d2324b4e374c8bde1fc2d5ed1285bd2bd9e89e04"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-browser-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-browser-first.log.gz",
+      "sha256": "14994aac955d6acdbe0b88bd07d47137edb0da06d71c4ee607186c5cececf831",
+      "sourceBytes": 15731
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-browser-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-browser-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-browser-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-browser-second.log.gz",
+      "sha256": "6680ba9b7c8d8da852b6efcc0e0347a6738027edf8e7c1f48f95b9278ed36d5e",
+      "sourceBytes": 1100
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-build-first.log.gz",
+      "sha256": "60b63faa8d8ec09732049fe17f515e11f34ab6e2d671fd1ef76cdc1771ab4b13",
+      "sourceBytes": 2293
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-build-sse-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-build-sse-fixed.log.gz",
+      "sha256": "09a5f83c836669e367e8444bb4bae17573e8791d4ae2c9cdbdcd427f825767fc",
+      "sourceBytes": 2293
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-capture-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-capture-first.json.gz",
+      "sha256": "9e759d9a0241cd895b62f9d70c9e680e760eeeb8f509b0b91ab6d0f71f350781",
+      "sourceBytes": 2395
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-capture-first.log.gz",
+      "sha256": "ad06b9440b88d2bfdacad38bc05cca79bbfb1fd9cc998c060002af74aab3533a",
+      "sourceBytes": 781
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-client-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-client-first.json.gz",
+      "sha256": "81c350f380d3866776628cb700020b7f8bcdcfb2fe1d7e8e0822c0011872c3ef",
+      "sourceBytes": 2811
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-client-first.log.gz",
+      "sha256": "6c115dda6d7b3390d1a686839772c047e93d7cb9142362594d9cc1444ec66b0d",
+      "sourceBytes": 895
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-composed-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-composed-full.json.gz",
+      "sha256": "432b06f5f7306d4d487bf9defe84c5ac25ab951a1d673dc7d56a3ad51a0bc663",
+      "sourceBytes": 2697608
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-composed-full.junit.xml.gz",
+      "sha256": "8fa0449fa2d308d66b03c3aeef3e4f757a5505b9bbe6b83e3702ae47ee54699e",
+      "sourceBytes": 1880223
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-composed-full.log.gz",
+      "sha256": "63f07b2b93b0cc2303f08d2bf3f7ba262fe2c015096d7b08298714648a93fda4",
+      "sourceBytes": 122661
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-composed-source.sha.gz",
+      "sha256": "91c06b91382726420b3de48cff0203e998f1da8f35fe6c643aa6269ded86808a",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-contracts-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-contracts-first.json.gz",
+      "sha256": "88256eda9900a73d761b80fd3c4ea123e2156a7705a32cb6d31f490db1dc32ae",
+      "sourceBytes": 4881
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-contracts-first.log.gz",
+      "sha256": "3625faaa63f438781419daab24bae205a3fa92a8fd16995961da8fff0f19e820",
+      "sourceBytes": 1016
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-contracts-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-contracts-red.json.gz",
+      "sha256": "9fdda38669dca9fb5133e370cd0aa486fa762f1973acf89bee622565a6d72c34",
+      "sourceBytes": 1442
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-contracts-red.log.gz",
+      "sha256": "f027c3b304a49bff4a52552739db3a37103e850481ae938f0be913f7d688ae83",
+      "sourceBytes": 569
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-functional-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-functional-first.json.gz",
+      "sha256": "a3b451e4913352e1aae2e5504892cc03a3e7f603b6adaa9e34341cd09cef9770",
+      "sourceBytes": 14953
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-functional-first.junit.xml.gz",
+      "sha256": "d680f132866fd2f1e744ea3eabc064765804973bebf030ecda007520ce347ea3",
+      "sourceBytes": 10718
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-functional-first.log.gz",
+      "sha256": "d83dfb20d997c7a180260d1620cea90582f7129277cc78788ad4305f7e55be79",
+      "sourceBytes": 2549
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-hashtag-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-hashtag-red.json.gz",
+      "sha256": "c708ac596fade3b70ce0a14b54ed668de74ef96c82cd25a9527ff0a3a2c4fa71",
+      "sourceBytes": 4251
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-hashtag-red.log.gz",
+      "sha256": "a6af79eeec4f33e222a8a523d2b0ba854203f7bdb0178b2ea4bc142415dddc84",
+      "sourceBytes": 2209
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-native-api-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-native-api-first.json.gz",
+      "sha256": "3dc0b6491b43c6df17f43f3677b60586bb1c68960049c1b54b4a63c10735836c",
+      "sourceBytes": 8338
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-native-api-first.log.gz",
+      "sha256": "8b3436143d690adc173fb932bb583149dee6ef1422ccb40dc7433042109e7ffc",
+      "sourceBytes": 1769
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-native-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-native-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-calendar.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-calendar.log.gz",
+      "sha256": "d4940bdf060e56bc75ed626f1887def92a35ff2836b7ac68302e491f393462a5",
+      "sourceBytes": 940
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-focus.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-focus.log.gz",
+      "sha256": "1e327c0a307959716172fcb349a839b3e74098546cfdbf5196ce83b3297c84df",
+      "sourceBytes": 965
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-habits.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-habits.log.gz",
+      "sha256": "6dbc9448c919e9b6a6472b04597ba69dfb18feb81b6a730e6ddedff7dd15ba10",
+      "sourceBytes": 996
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-insights.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-insights.log.gz",
+      "sha256": "649f08fd408d413f92c12dbafd23531fa31c41b539b2c2d5621e2e523ce26335",
+      "sourceBytes": 1011
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-parent-preservation.json.gz",
+      "sha256": "baa8dc79e9f53f2a11a1cac28c8dffbed61730ea50d7c15f49ed4ebb1f6d0a7b",
+      "sourceBytes": 393
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-preferences-sse-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-preferences-sse-fixed.json.gz",
+      "sha256": "43a01b85c45e7ffbbcca2e451bb0cbfc34dac75af2e638aeac3fab327feca333",
+      "sourceBytes": 3501
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-preferences-sse-fixed.junit.xml.gz",
+      "sha256": "be495a2b4629efd000d7535ba337463577fddfa6154a6578d10af48871cd2b8b",
+      "sourceBytes": 2347
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-preferences-sse-fixed.log.gz",
+      "sha256": "883d8823d62510a7a925f30b9868e55a063528ba342fd10fe334ca1b8cc8ef86",
+      "sourceBytes": 1371
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-remote-before-push.txt.gz",
+      "sha256": "97b78178f97d54553dd220fe7a0ebb239f581e99dc8d787c810834c6822f5c0c",
+      "sourceBytes": 140
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-settings-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-settings-native-first.json.gz",
+      "sha256": "0623cc2d0dc6d31cab148c3f253bdc96cdf55e9d20f40d51a21fafb58d66c9f3",
+      "sourceBytes": 7199
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-settings-native-first.log.gz",
+      "sha256": "00dc22b208f72a761e46812e0bc34dd8303bee152d35e5fff356244ff0a9a5f3",
+      "sourceBytes": 1396
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-settings-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-settings-native-red.json.gz",
+      "sha256": "6d981778c1642b9892512c70de669b95e5e6290266a9b1894f1623d4969e6a04",
+      "sourceBytes": 803
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-settings-native-red.log.gz",
+      "sha256": "bbbf0794790c1591e8045799cb7080c0d51ca664a131568846d388d479b84f4b",
+      "sourceBytes": 458
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-source-commit.log.gz",
+      "sha256": "51b5a4c0dc621f4c147ffee630a8567e88ab1a9a3eb088640e6e8a1d8580111c",
+      "sourceBytes": 1943
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-source.sha.gz",
+      "sha256": "67f76725487eebbd7eaedaadf6fe1b8f6fc25ae419177898e4a0c0bc20fcb66d",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-sse-commit.log.gz",
+      "sha256": "8cc9f8a96d55e34caceeec4349f1128cb278c95c1537443c7aecad3d1d0f3e9f",
+      "sourceBytes": 176
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-sse-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-sse-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-ui-lint-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-ui-lint-first.log.gz",
+      "sha256": "17c0b813c1dc8df8f3380b411f6e27df5a0896ed485363aaaaed08afceefa56e",
+      "sourceBytes": 529
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-ui-lint-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-ui-lint-fixed.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-wired-lint-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/p17-wired-lint-first.log.gz",
+      "sha256": "00e3f1e80b4e35e7d65fd39ff2296088fd57e982d89fa20930c124d890b840e3",
+      "sourceBytes": 385
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/capture-390-light.png",
+      "sha256": "61e955eb0ecea1c2b68a1789163f241c9c54c6351ad78318e7e4b09fdfcfc20c",
+      "sourceBytes": 114735
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/browser.junit.xml.gz",
+      "sha256": "33312e941ae5caa5f7fb341a796ef2a80d54edfe17bb9db2fb9f766a329edb5c",
+      "sourceBytes": 1186
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/run.log.gz",
+      "sha256": "6680ba9b7c8d8da852b6efcc0e0347a6738027edf8e7c1f48f95b9278ed36d5e",
+      "sourceBytes": 1100
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/fixture.json.gz",
+      "sha256": "dc169a6ea2ee0bba9a1ca93e79384686afe52e21028a4d536e95c23b2c7ce42a",
+      "sourceBytes": 2531
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/settings-390-dark.png",
+      "sha256": "e024c4486a37e59c374580f219448fd2f131f2d014448368229b05bcfcd8ee69",
+      "sourceBytes": 103618
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/browser.json.gz",
+      "sha256": "9a90d48584936798360a120225db84e19a269dbf0e89edaa4a17f6e54512d13d",
+      "sourceBytes": 9071
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/server.log.gz",
+      "sha256": "598b20910830fcf0107df542430fd23a25eb34bddfce99828e3d6ad955425928",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/settings-390-light.png",
+      "sha256": "7a573eb02a6f2e1fc752db63c44f6f3b6a723206501baa9db8c7807fe032a0e3",
+      "sourceBytes": 105231
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/capture-390-dark.png",
+      "sha256": "238dffb1308f45233b71e37a9a41cfe1136553c506ad2b5a2a903b46abf8a6b5",
+      "sourceBytes": 115194
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-preferences/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/browser.junit.xml.gz",
+      "sha256": "4aed52702f3283de8adda5e9d6873bf3c01c24544e5c744df298c7bc0b32306f",
+      "sourceBytes": 1019
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/calendar-390-dark.png",
+      "sha256": "0434ccdfad880bfdce861f73aedbc2be3610a3ec86b3ec7df6078d1875bc733e",
+      "sourceBytes": 85664
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/calendar-390-light.png",
+      "sha256": "1c9a147818d501a3bf2b80d23a4cfbffc8bcd287683f04ec0118f6729ce3e1b5",
+      "sourceBytes": 83495
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/run.log.gz",
+      "sha256": "d4940bdf060e56bc75ed626f1887def92a35ff2836b7ac68302e491f393462a5",
+      "sourceBytes": 940
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/fixture.json.gz",
+      "sha256": "28b6f0f9fa027a08cf5e36931e42af08b7040b60f2d7db0987ecb62a53667c74",
+      "sourceBytes": 1017
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/browser.json.gz",
+      "sha256": "c540df1484dc66e8e7205686c2217102a33abbc1716cb6730459c88eca864383",
+      "sourceBytes": 8806
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/server.log.gz",
+      "sha256": "bb9eb17705036830486570f2945d9e988cdb09f3380529881bfa8958da961544",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-calendar/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/browser.junit.xml.gz",
+      "sha256": "00e68e93c6995b0d3ca70376c6bf835dac5235c8e9c2dcdecb8f38c4aaaf7401",
+      "sourceBytes": 1079
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/review-editor-390-dark.png",
+      "sha256": "fc65f7551ad18fa0213012636d5c68a44d9be2bf1b0037e3df6765334b9fb413",
+      "sourceBytes": 103648
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/run.log.gz",
+      "sha256": "649f08fd408d413f92c12dbafd23531fa31c41b539b2c2d5621e2e523ce26335",
+      "sourceBytes": 1011
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/fixture.json.gz",
+      "sha256": "d10673c6b47d17d3241394c5bb7026f6ab58d3e2c9b04f8b86d83b5eb5667cbb",
+      "sourceBytes": 2379
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/browser.json.gz",
+      "sha256": "4e91c6bbb761df38dbf62d217b0e7174342eec74e22aa78cfab8b84df79169fa",
+      "sourceBytes": 8876
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/server.log.gz",
+      "sha256": "9a7703bd79e116500add3329467a7ef5455f2c3c7cbe518d9d83fc1067b6c947",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/insights-390-light.png",
+      "sha256": "526fda0fb4c8b0f3f21553593dd1f1a8bb5d674c05173a8b72fc5f57fab9aa36",
+      "sourceBytes": 109325
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/insights-390-dark.png",
+      "sha256": "a442065abbf9c1899069e09caf28f8146cf61c5dae5c174c3a349f4683100f54",
+      "sourceBytes": 110628
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/review-editor-390-light.png",
+      "sha256": "b07ca38334da8aa6d6f744ef35c1dc6f67218cbee377c77c7c36e507a2481ffc",
+      "sourceBytes": 103438
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-insights/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/focus-audit-390-light.png",
+      "sha256": "8296657c2eea4188d28e71772772c9b1e140da4319e6da672d3267a4ff5427f9",
+      "sourceBytes": 101311
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/browser.junit.xml.gz",
+      "sha256": "84bc104aa2fe70d6616ab8920cad6c58fd5e5ae8340e4a4b5a657db2d0c4f81a",
+      "sourceBytes": 1032
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/focus-390-dark.png",
+      "sha256": "dee076a7edfddfbd71786d89ccbfbb79600bf3391e3b1c2b65b3a34594fd1c9f",
+      "sourceBytes": 85075
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/run.log.gz",
+      "sha256": "1e327c0a307959716172fcb349a839b3e74098546cfdbf5196ce83b3297c84df",
+      "sourceBytes": 965
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/fixture.json.gz",
+      "sha256": "e6fa16c07f0d48a6eff2e747a37fa47917297fb068ca28fa6d2c205aa5b743fd",
+      "sourceBytes": 1914
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/browser.json.gz",
+      "sha256": "882e0573fa4781a6285c540ad851ff810e013dad4e2967cc24965145f6e5e295",
+      "sourceBytes": 8785
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/server.log.gz",
+      "sha256": "c0b4e858d9907c5337498f4a2d9af27e03c5ad197598293fc9ea45149e582f04",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/focus-audit-390-dark.png",
+      "sha256": "0378969dbcbb1752052479eb8b7bfd9575cfc91b9355a208ee89e46c48e30874",
+      "sourceBytes": 101257
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/focus-390-light.png",
+      "sha256": "67e7e788f6b8efaeedff795fc1ce16c1dd5328427d2568fd2e99b674af204b52",
+      "sourceBytes": 86710
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-focus/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/countdown-390-light.png",
+      "sha256": "18971808bc1139d5d5a172814a544b350ff698fa990fe2e41444a31f925307a7",
+      "sourceBytes": 85937
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/browser.junit.xml.gz",
+      "sha256": "7e817baafb65ed163b34cc4a2d70e914ef5546195d73baa9e799fb36750cd174",
+      "sourceBytes": 1065
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/run.log.gz",
+      "sha256": "6dbc9448c919e9b6a6472b04597ba69dfb18feb81b6a730e6ddedff7dd15ba10",
+      "sourceBytes": 996
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/fixture.json.gz",
+      "sha256": "91472d57b3f06dbac87d22b6903a9f17b50cde36c7165bbfdb633382e5bdfe25",
+      "sourceBytes": 2058
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/browser.json.gz",
+      "sha256": "7132e0f5852740ef6e70a74ae0ea72393b9040c7acf19097b8f086d912612b20",
+      "sourceBytes": 8832
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/server.log.gz",
+      "sha256": "c48ed0b204cfad33e4b0949ebd3cba106bcd3856073e9dccd92097c0ad02c670",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/countdown-390-dark.png",
+      "sha256": "df5d8a08be82b8b35cdfced863cd1373713c4c12cd0ede3d755c72287a059de2",
+      "sourceBytes": 85640
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/habit-report-390-light.png",
+      "sha256": "baaf48c217b7ab6ba48a07ce6a2bf3ed6f3a52a3d7bbd76dec979c2bab3e0c59",
+      "sourceBytes": 95870
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/habits-390-light.png",
+      "sha256": "cb262c343db84bc62d655d04b4e0bf92a9ac5d04d31f725f81c54988c46d2a1c",
+      "sourceBytes": 103012
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/habits-390-dark.png",
+      "sha256": "4b0913c5491e7387daac3dca1c668dcd48e7a54edd2f72d80916abfff3fcb6ce",
+      "sourceBytes": 105022
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/habit-report-390-dark.png",
+      "sha256": "501f9274fb06852c66e6b2b03fde2cf7cfc974779899fcc00d3ae2258c1c50f5",
+      "sourceBytes": 94384
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/browser-habits/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/capture-390-light.png",
+      "sha256": "61e955eb0ecea1c2b68a1789163f241c9c54c6351ad78318e7e4b09fdfcfc20c",
+      "sourceBytes": 114735
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/browser.junit.xml.gz",
+      "sha256": "b9d50b6769e577e59dcc6acf981966245b8472cb29bc2ec5ff868b18cf022afc",
+      "sourceBytes": 15962
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/run.log.gz",
+      "sha256": "56a414eb6c9bb8076941921a31272bd0369b253ab4bfc13c9cf538d1ab28331f",
+      "sourceBytes": 15683
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/fixture.json.gz",
+      "sha256": "9c22455e523397d4accad98bd3459af78d3eb9318f9281b15ce9026c2e8bd128",
+      "sourceBytes": 2579
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/settings-390-dark.png",
+      "sha256": "2148ae2c4fdb90322bae8e1871e39304217d59e94ae90ed0593183768c30ada3",
+      "sourceBytes": 103672
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/browser.json.gz",
+      "sha256": "6f2ec2ebd1ea7cafd577b53a66fbd034902d8a91b7f60e22d3ab7cc49661454c",
+      "sourceBytes": 35617
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/server.log.gz",
+      "sha256": "3e8e4cccd8f844893538f9bbddc020ae62436c09b893914d30e57a30e342f1a7",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/settings-390-light.png",
+      "sha256": "a09dc6a7d33460a9e950e90173a4123fed20b3e7a7ba506f5963b370592c3b59",
+      "sourceBytes": 105275
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/capture-390-dark.png",
+      "sha256": "3913c1fb3e6238d890a87799e971b9b8a1ecc97771ea93d2268c97cb59b669b1",
+      "sourceBytes": 115197
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/results/.last-run.json.gz",
+      "sha256": "bf4080b5b468d25ecae18cd930aab7fce03189d029ce13b61db1085220ddc4e7",
+      "sourceBytes": 96
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/results/productivity-settings-P17--fc791-tors-changes-owner-defaults-chromium/error-context.md.gz",
+      "sha256": "5c9ce42b39eefdf704999b997dc96db5d28a27f7f07b51b90efcb742ef0217c8",
+      "sourceBytes": 18360
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/results/productivity-settings-P17--fc791-tors-changes-owner-defaults-chromium/video.webm",
+      "sha256": "0f068c82ae2cbf205650fa1de7987dd02238fc1cb2f51d025ab2388d4cb6d696",
+      "sourceBytes": 730605
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/results/productivity-settings-P17--fc791-tors-changes-owner-defaults-chromium/test-failed-1.png",
+      "sha256": "03ef0f83796468b624e40c9ba93704dd06d7fb06965fa3089af5d67c8251be61",
+      "sourceBytes": 164037
+    },
+    {
+      "path": "docs/engineering/evidence/p17-preferences/first-browser-failure/results/productivity-settings-P17--fc791-tors-changes-owner-defaults-chromium/trace.zip",
+      "sha256": "c061f26bb7f89315579911124c2a122200f3b0cda44d6befd698affef23ecf4e",
+      "sourceBytes": 5414931
+    }
+  ]
+}
