@@ -2,6 +2,26 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P09 PR136 accepted and merged (2026-10-18):** reviewed HEAD
+`7e59abd0c682acf4dba80a7830e54c7e2e052a33`,
+[PR136](https://github.com/DongVienNguyen/Family-Organizer/pull/136),
+[CI38987528125](https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38987528125).
+All8checks success. Re-read16raw logs/14245lines and323reports from7artifacts:
+each Node22/24 has6032tests326files/matchingJUnit/no failures-skips-todo/native0;
+45legacy+126Productivity(42perengine)+1nativeTouch=172firstattempts, no retries/
+flaky/skips; actual touch pointer trusted. Package/service reports and native
+exits0 retained. Windows CRLF lock hash is derived exactly from the Git LF blob;
+artifacts remain unchanged. No package ZIP was downloaded or executed in Cloud.
+Previously closed26source SELF review +3 documented fixture repairs bind final29
+source hashes; PR has no unresolved review threads. Author review, not independent.
+Merge main `036aecb9cf4b7050c3922de4c5104cb119d37fdd` used the protected normal
+merge path with exact-head matching, no admin bypass. Feature branch then merged
+origin/main with zero tree changes. [Proof](evidence/p09-pr136-final.json).
+The new feature-first P/W/I source is NOT Windows-qualified by this older run.
+Any automatic main CI is separate; continue P12 and remaining features before the
+final composed Windows batch. FullP09/M1/master and actualServer2019R02 remain
+incomplete; no release/tag/VPS access or deployment.
+
 **P11 Calendar/Timeline core (2026-10-18):** source `c84376879fea854f5d3b03d16fb34ab6fd6aa4a0` adds four
 views, current-ACL task/FamilyPlan/virtual projection, reviewed independent
 timeboxes and one-cycle moves through I01/P10, explicit DST choices, navigation-
