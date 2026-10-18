@@ -1,0 +1,13 @@
+import {object,keys,text,choice,integer,boolean} from '../productivity/validation.js';import {assertTimezone} from '../productivity/dates.js';import {assertMoney,minorInteger} from '../wallet/money.js';import {parseEffectiveDate} from '../wallet/dates.js';import type {Money} from '../wallet/contracts.js';
+export const domainRefKinds=['task','familyPlan','note','walletRecord','walletSchedule','debt','goal','receipt']as const;
+export type DomainRef={kind:typeof domainRefKinds[number];id:string};
+export interface DomainLinkDraft {from:DomainRef;to:DomainRef}
+export interface TaskPaymentInput {taskId:string;taskRevision:number;confirmed:true;payment:{kind:'expense';accountId:string;money:Money;effectiveDate:string;timezone:string;note:string}}
+/** References carry identities only. Display text and financial fields must be
+ * resolved after the current session's authority on BOTH ends is confirmed. */
+export function domainRefValue(raw:unknown):DomainRef {const value=object(raw);keys(value,['kind','id']);choice(value.kind,domainRefKinds);text(value.id,256);return {kind:value.kind,id:value.id};}
+export function domainRefKey(raw:DomainRef){const value=domainRefValue(raw);return JSON.stringify([value.kind,value.id]);}
+export function domainLinkDraftValue(raw:unknown):DomainLinkDraft {const value=object(raw);keys(value,['from','to']);const from=domainRefValue(value.from),to=domainRefValue(value.to);if(domainRefKey(from)===domainRefKey(to))throw Error('A source cannot link to itself');return {from,to};}
+/** A separate, explicit payment intent. Completion/timer/Habit commands cannot
+ * be decoded as a financial command; exact Money is never converted to Number. */
+export function taskPaymentInputValue(raw:unknown):TaskPaymentInput {const value=object(raw);keys(value,['taskId','taskRevision','confirmed','payment']);text(value.taskId,256);integer(value.taskRevision,1);boolean(value.confirmed);if(value.confirmed!==true)throw Error('Explicit payment confirmation required');const payment=object(value.payment);keys(payment,['kind','accountId','money','effectiveDate','timezone','note']);if(payment.kind!=='expense')throw Error('Only a reviewed expense can originate from Task payment');text(payment.accountId,256);assertMoney(payment.money);if(minorInteger(payment.money.minor)<=0n)throw Error('Payment must be positive');parseEffectiveDate(payment.effectiveDate as string);assertTimezone(payment.timezone as string);text(payment.note,100000,false);return {taskId:value.taskId,taskRevision:value.taskRevision,confirmed:true,payment:{kind:'expense',accountId:payment.accountId,money:{...payment.money},effectiveDate:payment.effectiveDate as string,timezone:payment.timezone as string,note:payment.note}};}

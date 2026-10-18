@@ -1,3 +1,4 @@
+import {registerDomainLinkMigration,domainLinkChecksum} from './domainLinkSchema.js';
 import {registerProductivitySettingsMigration,productivitySettingsChecksum} from './settingsSchema.js';
 import {registerInsightMigration,productivityInsightChecksum} from './insightSchema.js';
 import {registerTrackingReminderMigration,productivityTrackingReminderChecksum} from './trackingReminderSchema.js';
@@ -55,6 +56,7 @@ function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  if(migrations.length>=17&&(migrations[16].version!==17||migrations[16].checksum!==productivityTaskAttachmentChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=18&&(migrations[17].version!==18||migrations[17].checksum!==productivityTaskImportChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=19&&(migrations[18].version!==19||migrations[18].checksum!==productivityFocusChecksum))throw new Error('Unsupported productivity migration before activation');
+ if(migrations.length>=24&&(migrations[23].version!==24||migrations[23].checksum!==domainLinkChecksum))throw new Error('Unsupported typed-link migration before activation');
  if(migrations.length>=23&&(migrations[22].version!==23||migrations[22].checksum!==productivitySettingsChecksum))throw new Error('Unsupported productivity settings migration before activation');
  if(migrations.length>=22&&(migrations[21].version!==22||migrations[21].checksum!==productivityInsightChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=21&&(migrations[20].version!==21||migrations[20].checksum!==productivityTrackingReminderChecksum))throw new Error('Unsupported productivity migration before activation');
@@ -85,6 +87,7 @@ export function configureCanonicalTaskBridge(ports:BridgePorts):void {
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=21)registerTrackingReminderMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable,registerRestorePolicy:ports.snapshot.registerSnapshotRestorePolicy});
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=22)registerInsightMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=23)registerProductivitySettingsMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
+ if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=24)registerDomainLinkMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
  const reader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args),all:(sql:string,...args:any[])=>connection.prepare(sql).all(...args)};
  let synchronizing=false;
  ports.sqlite.installLegacyTaskStorageAdapter({enabled:()=>active(reader),read:()=>loadTasks(reader).filter(row=>row.deletedAt===null).map(projection),write(rows){const tx=ports.gateway.currentAppWriteTx();if(!tx)throw new Error('Canonical tasks require the application gateway');synchronizing=true;try{syncLegacyTasks(tx,rows);}finally{synchronizing=false;}}});
