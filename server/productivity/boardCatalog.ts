@@ -1,3 +1,4 @@
+import {productivityVersionsFrom} from './knownVersions.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {AppActor,AppCommand} from '../../src/features/productivity/contracts.js';
 import {object,keys,text,integer,choice} from '../../src/features/productivity/validation.js';
@@ -21,7 +22,7 @@ function authorize(reader:TaskReader,ctx:AppCommand,listId:string):void {
  assertContext(ctx,reader);
  if(ctx.actor.role===UserRole.CHILD||ctx.actor.role===UserRole.GUEST)fail(403,'Bạn không có quyền cấu hình bảng.');
  if(!reader.get("SELECT l.id FROM productivity_lists l LEFT JOIN productivity_catalog_revisions m ON m.entity_kind='list' AND m.entity_id=l.id WHERE l.id=? AND m.archived_at IS NULL",listId)||ctx.actor.role!==UserRole.ADMIN&&listPermission(reader,ctx.actor,listId)!=='manage')fail(404,'Không tìm thấy danh sách.');
- if(![7,8,9,10,11,12,13].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration bảng trước khi cấu hình.');
+ if(!productivityVersionsFrom(7).includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration bảng trước khi cấu hình.');
 }
 function projection(tx:TaskReader,id:string):SharedBoardConfig {
  const board=tx.get('SELECT id,list_id,mode,revision FROM productivity_boards WHERE id=?',id);
@@ -32,7 +33,7 @@ export function createBoardCatalog(ports:{reader:TaskReader;write:typeof withApp
  return {read(actor:AppActor,id:string):SharedBoardConfig {
   const ctx={actor,expectedRevision:0,requestId:'board-policy:read'};assertContext(ctx,ports.reader);
   try{text(id,256);}catch{fail(400,'Mã bảng không hợp lệ.');}
-  if(![7,8,9,10,11,12,13].includes(ports.reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration bảng trước khi đọc cấu hình.');
+  if(!productivityVersionsFrom(7).includes(ports.reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration bảng trước khi đọc cấu hình.');
   const board=ports.reader.get('SELECT list_id FROM productivity_boards WHERE id=?',id);if(!board)fail(404,'Không tìm thấy bảng.');
   authorize(ports.reader,ctx,board.list_id);return projection(ports.reader,id);
  },configure(ctx:AppCommand,input:BoardConfigureInput):SharedBoardConfig {

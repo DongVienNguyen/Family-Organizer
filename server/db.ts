@@ -1,3 +1,5 @@
+import {productivityVersionsFrom} from './productivity/knownVersions.js';
+import {stageTaskNotice} from './productivity/taskNoticeOutbox.js';
 import {taskCommentRecord} from './productivity/commentRecord.js';
 import {walletBudgetAlertId} from './wallet/budgetJobIdentity.js';
 import {assertNoActiveFinancialHistory} from './wallet/legacyLinkGuard.js';
@@ -82,9 +84,10 @@ function deleteMediaByUrl(url: string | undefined | null): void {
 }
 
 // Queue managed references in the owning command; workers recheck recipient ACL.
-function queuePush(db: FamilyOrganizerDB, notification: Notification, excludeUserId?: string): void {
-  if (!isPushConfigured()) return;
+function queuePush(db: FamilyOrganizerDB, notification: Notification, excludeUserId?: string,deliveryReady=false): void {
   const tx = currentAppWriteTx();
+  if(!deliveryReady&&tx&&stageTaskNotice(tx,notification,excludeUserId))return;
+  if (!isPushConfigured()) return;
   if (!tx) throw new Error("Push outbox requires the current write transaction");
   for (const subscription of db.pushSubscriptions) {
     if ((notification.userId !== "all" && notification.userId !== subscription.userId) || subscription.userId === excludeUserId) continue;
@@ -2813,6 +2816,7 @@ export class FamilyDB {
     };
 
     db.tasks.forEach(t => {
+      if(canonicalTaskPolicyActive()&&productivityVersionsFrom(14).includes(currentAppWriteTx()?.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)&&currentAppWriteTx()!.get('SELECT 1 FROM productivity_task_reminder_rules WHERE task_id=? LIMIT 1',t.id))return;
       if (!isActiveLegacyTask(t)) return;
       const due = parse(t.dueDate);
       if (due === null) return;
@@ -3068,6 +3072,34 @@ export class FamilyDB {
     if(prior){if(prior.userId!==recipientId||JSON.stringify(prior.sourceRef)!==JSON.stringify(sourceRef))throw new AppStoreError('Thông báo nhắc tên xung đột.',409);return id;}
     const notification:Notification={id,userId:recipientId,title:'Bạn được nhắc trong công việc',content:comment.username+' đã nhắc bạn trong “'+task.title+'”.',type:'task',sourceRef,isRead:false,createdAt:comment.createdAt};
     db.notifications.unshift(notification);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notification);this.writeRaw(db);return id;
+    });
+  }
+  public static queueTaskAssignment(taskId:string,revision:number,recipientId:string,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Giao việc cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueTaskAssignment',[taskId,revision,recipientId,createdAt],recipientId,()=>{
+      const db=this.readRaw(),task=db.tasks.find(row=>row.id===taskId),canonical=tx.get('SELECT revision,assignee_id FROM productivity_tasks WHERE id=?',taskId);
+      if(!task||!canonical||canonical.revision!==revision||recipientId==='all'&&!task.isShared||recipientId!=='all'&&(canonical.assignee_id!==recipientId||!canViewLegacyTask(task,legacyReader(db,recipientId))))throw new AppStoreError('Không tìm thấy nguồn giao việc.',404);
+      if(typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt)throw new AppStoreError('Thời điểm giao việc không hợp lệ.',400);
+      const id='task_assignment_'+crypto.createHash('sha256').update(JSON.stringify([taskId,revision,recipientId])).digest('hex'),prior=db.notifications.find(row=>row.id===id);if(prior){if(prior.userId!==recipientId||prior.sourceRef?.domain!=='task'||prior.sourceRef.id!==taskId)throw new AppStoreError('Thông báo giao việc xung đột.',409);return id;}
+      const notice:Notification={id,userId:recipientId,title:recipientId==='all'?'Công việc gia đình mới':'Được giao công việc',content:'“'+task.title+'”. Mở công việc để xem thông tin hiện tại.',sourceRef:{domain:'task',id:taskId},type:'task',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice);this.writeRaw(db);return id;
+    });
+  }
+  public static queueTaskReminder(taskId:string,claimId:string,recipientId:string,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc lịch cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueTaskReminder',[taskId,claimId,recipientId,createdAt],recipientId,()=>{
+      const db=this.readRaw(),recipient=legacyReader(db,recipientId),task=db.tasks.find(row=>row.id===taskId),claim=tx.get("SELECT * FROM productivity_task_reminder_claims WHERE id=? AND task_id=? AND recipient_id=? AND state='pending'",claimId,taskId,recipientId);
+      if(!claim||!task||!canViewLegacyTask(task,recipient))throw new AppStoreError('Không tìm thấy nguồn nhắc lịch.',404);
+      const id='task_reminder_'+claimId,prior=db.notifications.find(row=>row.id===id);if(prior){if(prior.userId!==recipientId||prior.sourceRef?.domain!=='task'||prior.sourceRef.id!==taskId)throw new AppStoreError('Thông báo nhắc lịch xung đột.',409);return id;}
+      if(typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt)throw new AppStoreError('Thời điểm nhắc không hợp lệ.',400);
+      const notice:Notification={id,userId:recipientId,title:'Nhắc công việc',content:'Đã đến mốc nhắc cho “'+task.title+'”. Mở công việc để xem lịch hiện tại.',sourceRef:{domain:'task',id:taskId},type:'task',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice);this.writeRaw(db);return id;
+    });
+  }
+  public static dispatchTaskNotice(notificationId:string,recipientId:string,digestId?:string,createdAt=new Date().toISOString()):string|null {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Gửi nhắc cần transaction đang sở hữu.',409);
+    return runLegacyCommand('dispatchTaskNotice',[notificationId,recipientId,digestId??null,createdAt],recipientId,()=>{
+      const db=this.readRaw(),actor=legacyReader(db,recipientId),notice=db.notifications.find(row=>row.id===notificationId),current=notice&&projectNotification(db,actor,notice,getSessionSecret());if(!current)return null;
+      if(digestId){let digest=db.notifications.find(row=>row.id===digestId);if(!digest){digest={id:digestId,userId:recipientId,title:'Nhắc công việc hằng ngày',content:'Bạn có cập nhật nhắc lịch công việc. Mở ứng dụng để xem các mục đang được phép truy cập.',sourceRef:{domain:'task-digest',id:digestId},type:'task',isRead:false,createdAt};db.notifications.unshift(digest);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);}queuePush(db,digest,undefined,true);this.writeRaw(db);return digestId;}
+      queuePush(db,{...current,userId:recipientId},undefined,true);return current.id;
     });
   }
   public static queueWalletReminder(notification:Notification):string {

@@ -1,3 +1,4 @@
+import {TaskNotificationPreferences} from '../features/productivity/TaskNotificationPreferences.js';
 import {browserSession,sessionFetch as fetch} from '../utils/browserSession.js';
 import {readExistingPushSubscription} from '../utils/pushSubscription.js';
 /**
@@ -211,6 +212,7 @@ export function PushNotificationsCard() {
         </>
       )}
 
+      <TaskNotificationPreferences />
       {msg && (
         <div
           className={`flex items-start gap-2 text-[11px] rounded-lg p-2.5 border ${

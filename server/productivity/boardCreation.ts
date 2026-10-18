@@ -1,3 +1,4 @@
+import {productivityVersionsFrom} from './knownVersions.js';
 import {createHash} from 'node:crypto';
 import type {AppActor,AppCommand,Due,Priority} from '../../src/features/productivity/contracts.js';
 import {object,keys,text,integer,choice,boolean} from '../../src/features/productivity/validation.js';
@@ -19,7 +20,7 @@ const hash=(value:unknown)=>createHash('sha256').update(JSON.stringify(value)).d
 const syntax=(fn:()=>void)=>{try{fn();}catch{fail(400,'Dữ liệu tạo mới trong bảng không hợp lệ.');}};
 /** Board/view and quick-add composition use one existing I01 write owner. */
 export function createBoardCreation(ports:{reader:TaskReader;write:typeof withAppWriteTransaction;afterWrite?:()=>void}){
- const ready=(r:TaskReader)=>{if(![8,9,10,11,12,13].includes(r.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration góc nhìn bảng trước khi tạo.');};
+ const ready=(r:TaskReader)=>{if(!productivityVersionsFrom(8).includes(r.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration góc nhìn bảng trước khi tạo.');};
  const manager=(r:TaskReader,actor:AppActor,listId:string)=>{assertContext({actor,requestId:'board-create:scope',expectedRevision:0},r);if(actor.role!==UserRole.ADMIN&&actor.role!==UserRole.MEMBER)fail(403,'Bạn không có quyền tạo trong bảng.');return assertTaskListManage(r,actor,listId);};
  const target=(r:TaskReader,actor:AppActor,input:BoardTaskCreateInput)=>{
   ready(r);const view=createTaskViews({reader:r,write:ports.write}).getView(actor,input.viewId),c=view.config;

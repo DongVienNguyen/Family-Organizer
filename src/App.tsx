@@ -796,7 +796,7 @@ export default function App() {
       setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();void walletWorkspace.refresh();fetchAllData();}opened=true;}
     },onMessage:payload=>{
         if(['PRODUCTIVITY_VIEW_UPDATE','PLANS_UPDATE'].includes(payload.type))setProductivityQueryEpoch(value=>value+1);
-        if(["TASKS_UPDATE","PRODUCTIVITY_CATALOG_UPDATE","PRODUCTIVITY_PIN_UPDATE","RESTORE_COMPLETED","USERS_UPDATE"].includes(payload.type))setProductivityRefreshEpoch(value=>value+1);
+        if(["TASKS_UPDATE","PRODUCTIVITY_CATALOG_UPDATE","PRODUCTIVITY_PIN_UPDATE","PRODUCTIVITY_SETTINGS_UPDATE","RESTORE_COMPLETED","USERS_UPDATE"].includes(payload.type))setProductivityRefreshEpoch(value=>value+1);
         invalidateManagedMedia();
         switch (payload.type) {
           case "PRODUCTIVITY_CATALOG_UPDATE":

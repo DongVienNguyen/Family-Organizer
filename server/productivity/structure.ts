@@ -1,3 +1,4 @@
+import {productivityVersionsFrom} from './knownVersions.js';
 import {hasTagOwnership,assertTagSelection} from './tagPolicy.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {AppActor,AppCommand} from '../../src/features/productivity/contracts.js';
@@ -16,7 +17,7 @@ export interface CheckItemInput {id?:string;text:string;done:boolean}
 const error=(status:number)=>new AppStoreError(status===404?'Không tìm thấy mục.':status===403?'Bạn không có quyền tổ chức mục này.':status===409?'Mục vừa được thay đổi.':'Cấu trúc công việc không hợp lệ.',status,status===409?'edit-conflict':'task-structure');
 function payload(input:unknown,allowed:string[]):Record<string,any>{try{const value=object(input);if(![Object.prototype,null].includes(Object.getPrototypeOf(value)))throw Error();keys(value,allowed);return value;}catch{throw error(400);}}
 function value(fn:()=>void):void{try{fn();}catch{throw error(422);}}
-function context(ctx:AppCommand,reader:TaskReader){const user=assertContext(ctx,reader);if(![2,3,4,5,6,7,8,9,10,11,12,13].includes(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Cần migration cấu trúc trước khi tổ chức công việc.',409,'task-structure-inactive');return user;}
+function context(ctx:AppCommand,reader:TaskReader){const user=assertContext(ctx,reader);if(!productivityVersionsFrom(2).includes(reader.get("SELECT max(version) AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Cần migration cấu trúc trước khi tổ chức công việc.',409,'task-structure-inactive');return user;}
 function metadata(reader:TaskReader,kind:string,id:string){return reader.get('SELECT revision,archived_at FROM productivity_catalog_revisions WHERE entity_kind=? AND entity_id=?',kind,id)??{revision:1,archived_at:null};}
 function setMetadata(tx:AppWriteTx,kind:string,id:string,revision:number,archivedAt:string|null=null){tx.run('INSERT INTO productivity_catalog_revisions VALUES(?,?,?,?) ON CONFLICT(entity_kind,entity_id) DO UPDATE SET revision=excluded.revision,archived_at=excluded.archived_at',kind,id,revision,archivedAt);}
 function list(reader:TaskReader,actor:AppActor,id:string,operation:'read'|'write'|'manage'):TaskList {

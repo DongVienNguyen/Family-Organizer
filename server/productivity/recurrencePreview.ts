@@ -1,3 +1,4 @@
+import {productivityVersionsFrom} from './knownVersions.js';
 import type {AppActor,Due} from '../../src/features/productivity/contracts.js';
 import {createTaskAccess,type TaskReader} from './access.js';
 import {assertContext} from './tasks.js';
@@ -29,7 +30,7 @@ export function createRecurrencePreviews(ports:{reader:TaskReader}){
  return {previewOccurrences(actor:AppActor,id:string,input:unknown):OccurrencePreview[]{
   const reader=ports.reader;assertContext({actor,requestId:'recurrence:preview',expectedRevision:0},reader);
   try{text(id,256);}catch{return fail(400,'Mã lịch lặp không hợp lệ.');}
-  if(![10,11,12,13].includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))return fail(409,'Cần migration lịch lặp.');
+  if(!productivityVersionsFrom(10).includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))return fail(409,'Cần migration lịch lặp.');
   const reference=reader.get('SELECT id,task_id FROM productivity_series WHERE id=?',id);
   const task=reference&&createTaskAccess(reader).getTask(actor,reference.task_id);if(!task)return fail(404,'Không tìm thấy lịch lặp.');
   let series:RecurrenceSeries,exceptions:SeriesException[];

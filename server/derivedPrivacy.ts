@@ -1,3 +1,4 @@
+import {canViewTaskDigest} from './productivity/taskNoticeOutbox.js';
 import {createHmac} from 'node:crypto';
 /** @license SPDX-License-Identifier: Apache-2.0 */
 import {UserRole,type FamilyOrganizerDB,type Notification} from '../src/types.js';
@@ -22,6 +23,7 @@ function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['
  switch(ref.domain){
   case 'medication':return db.medications.some(row=>row.id===ref.id&&canViewLegacyPatient(row.patientId,actor));
   case 'vaccination':return db.vaccinations.some(row=>row.id===ref.id&&canViewLegacyPatient(row.childId,actor));
+  case 'task-digest':return canViewTaskDigest(actor,ref.id);
   case 'task':return db.tasks.some(row=>row.id===ref.id&&canViewLegacyTask(row,actor));
   case 'plan':return db.plans.some(row=>row.id===ref.id&&canViewLegacyPlan(row,actor));
   case 'note':return db.notes.some(row=>row.id===ref.id&&canViewLegacyNote(row,actor));

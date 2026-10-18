@@ -1,3 +1,4 @@
+import {productivityVersionsFrom} from './knownVersions.js';
 import {selectRecurrenceSuccessor} from './recurrenceSuccessor.js';
 import type {Due} from '../../src/features/productivity/contracts.js';
 import {randomUUID} from 'node:crypto';
@@ -18,7 +19,7 @@ export function materializeSeriesSuccessor(tx:AppWriteTx,input:{series:Recurrenc
  let nextOrdinal=series.nextOrdinal,endedAt=series.endedAt,due:Due|undefined;
  if(endedAt!==null)return {nextOrdinal,endedAt};
  const overrides=tx.all('SELECT * FROM productivity_series_exceptions WHERE series_id=? AND ordinal>=?',series.id,series.nextOrdinal).map(decodeSeriesException);
- if([12,13].includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)){
+ if(productivityVersionsFrom(12).includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)){
   const selected=selectRecurrenceSuccessor({policy:series.policy,anchor:series.anchor,nextOrdinal,exceptions:overrides,...acceptedCompletedAt?{acceptedCompletedAt}:{},calendarOrigin,resolvedAt:createdAt});
   if(selected.kind==='end')return {nextOrdinal:selected.nextOrdinal,endedAt:createdAt};nextOrdinal=selected.ordinal;due=selected.due;
  }else {

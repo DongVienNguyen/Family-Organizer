@@ -1,3 +1,4 @@
+import {productivityVersionsFrom} from './knownVersions.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {AppActor,AppCommand,Due} from '../../src/features/productivity/contracts.js';
 import {assertDue} from '../../src/features/productivity/dates.js';
@@ -19,7 +20,7 @@ export interface LegacyCutoverInput {fingerprint:string;policy:unknown;anchor:Du
 export function createLegacyRecurrenceCutover(ports:{reader:TaskReader;write:typeof withAppWriteTransaction;now?:()=>number;afterWrite?():void}){
  const authority=(reader:TaskReader,actor:AppActor,id:string)=>{
   const user=assertContext({actor,requestId:'legacy:cutover:read',expectedRevision:0},reader);if(user.role!==UserRole.ADMIN)fail(403,'Chỉ quản trị viên được chuyển lịch lặp cũ.');
-  if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version!==13)fail(409,'Cần migration chuyển lịch lặp cũ.');
+  if(!productivityVersionsFrom(13).includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))fail(409,'Cần migration chuyển lịch lặp cũ.');
   try{text(id,256);}catch{fail(400,'Mã công việc không hợp lệ.');}return {user,selected:createTaskAccess(reader).assertTaskCommand(actor,id,'update')};
  };
  const plan=(reader:TaskReader,actor:AppActor,id:string)=>{

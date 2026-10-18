@@ -33,6 +33,11 @@ export function decodeTaskRow(r:any,tagIds:string[]):StoredTask {
  const task:StoredTask={id:r.id,listId:r.list_id,sectionId:r.section_id,parentId:r.parent_id,title:r.title,body:r.body,lifecycle:r.lifecycle,priority:r.priority,due,scheduledStart:r.scheduled_start,scheduledEnd:r.scheduled_end,creatorId:r.creator_id,assigneeId:r.assignee_id,isShared:!!r.is_shared,tagIds,blocked:!!r.blocked,blockedReason:r.blocked_reason,pendingApproval:!!r.pending_approval,rewardPoints:r.reward_points,revision:r.revision,deletedAt:r.deleted_at,rank:r.rank,legacy:JSON.parse(r.legacy_json)};
  assertTaskRecord(task);assertLegacyTask(task.legacy);if(task.legacy.id!==task.id||!Number.isSafeInteger(task.rank))throw new Error('Invalid pilot task provenance');return task;
 }
+export interface TaskNotificationPrevious {existed:boolean;assigneeId:string|null}
+let notificationObserver:((tx:AppWriteTx,task:StoredTask,previous:TaskNotificationPrevious)=>void)|undefined;
+/** Explicit runtime composition installs the one synchronous observer. It joins
+ * the existing Task command and cannot own a timer or a second transaction. */
+export function installTaskNotificationObserver(observer:NonNullable<typeof notificationObserver>):void {if(notificationObserver&&notificationObserver!==observer)throw Error('Task notification observer already installed');notificationObserver=observer;}
 /** Pilot-only repository. Production legacy writer cutover belongs to P02-b. */
 export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):void {
  assertTaskRecord(task);assertLegacyTask(task.legacy);if(task.legacy.id!==task.id||!Number.isSafeInteger(task.rank))throw new Error('Invalid pilot task provenance');
@@ -40,6 +45,7 @@ export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):voi
  assertCutoverTaskWrite(tx,task);
  assertTaskStructure(tx,task);
  if(actor)assertTagSelection(tx,actor,task.tagIds);
+ const priorNotification=notificationObserver?tx.get('SELECT assignee_id FROM productivity_tasks WHERE id=?',task.id):undefined;
  const finishBoardWrite=prepareBoardTaskWrite(tx,task);
  const values=[task.id,task.listId,task.sectionId,task.parentId,task.title,task.body,task.lifecycle,task.priority,task.due.kind,task.due.kind==='all_day'?task.due.date:null,task.due.kind==='timed'?task.due.instantUtc:null,task.due.kind==='none'?null:task.due.timezone,task.scheduledStart,task.scheduledEnd,task.creatorId,task.assigneeId,Number(task.isShared),Number(task.blocked),task.blockedReason,Number(task.pendingApproval),task.rewardPoints,task.revision,task.deletedAt,task.rank,JSON.stringify(task.legacy)];
  tx.run(`INSERT INTO productivity_tasks (${taskColumns.join(',')}) VALUES (${taskColumns.map(()=>'?').join(',')}) ON CONFLICT(id) DO UPDATE SET ${taskColumns.slice(1).map(c=>c+'=excluded.'+c).join(',')}`, ...values);
@@ -48,6 +54,7 @@ export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):voi
  for(const tag of [...new Set(task.tagIds)]){const existed=tx.get('SELECT id FROM productivity_tags WHERE id=?',tag);tx.run('INSERT OR IGNORE INTO productivity_tags(id,name) VALUES(?,?)',tag,tag);if(!existed&&actor&&hasTagOwnership(tx))tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)',tag,actor.userId);tx.run('INSERT INTO productivity_task_tags(task_id,tag_id) VALUES(?,?)',task.id,tag);}
  finishBoardWrite();
  writeHooks?.after(tx);
+ notificationObserver?.(tx,task,{existed:!!priorNotification,assigneeId:priorNotification?.assignee_id??null});
 }
 function legacyDueString(task:StoredTask):string {
  const original=parseLegacyDue(task.legacy.dueDate,'Asia/Saigon').due;

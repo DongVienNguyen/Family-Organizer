@@ -1,3 +1,4 @@
+import {productivityVersionsFrom} from './knownVersions.js';
 import {isDeepStrictEqual} from 'node:util';
 import {object,keys,text,integer,choice} from '../../src/features/productivity/validation.js';
 import {utcInstant} from '../../src/features/productivity/dates.js';
@@ -31,7 +32,7 @@ export function validateLegacyCutovers(input:{cutovers:Record<string,any>[];task
  * values remain valid so ordinary title/proof/approval edits still work. */
 export function hasManagedLegacyPolicy(reader:TaskReader,id:string):boolean {
  if(!reader.get("SELECT name FROM sqlite_master WHERE type='table'AND name='app_migrations'"))return false;
- if(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version!==13)return false;
+ if(!productivityVersionsFrom(13).includes(reader.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))return false;
  return !!(reader.get("SELECT c.series_id FROM productivity_legacy_cutovers c,json_each(c.source_json,'$.members')m WHERE json_extract(m.value,'$.taskId')=? LIMIT 1",id)||reader.get('SELECT id FROM productivity_series WHERE task_id=? UNION ALL SELECT series_id FROM productivity_series_occurrences WHERE task_id=? LIMIT 1',id,id));
 }
 const policy=(value:Record<string,any>)=>({recurrenceType:value.recurrenceType??'none',recurrenceInterval:value.recurrenceInterval??1,recurrenceEndDate:value.recurrenceEndDate??null,rotationMemberIds:value.rotationMemberIds??[],sourceRecurringTaskId:value.sourceRecurringTaskId??null});

@@ -4,7 +4,7 @@ import {applyRecoverySettings,type ValidatedSettingPatch} from './recoverySettin
 import {ordinaryBackupValue,ordinaryBackupSettings} from './backupCredentials.js';
 import type { AppWriteTx } from './appStore.js';
 import {reconcileMediaMetadata} from './mediaPolicy.js';
-import { withAppWriteTransaction, withAppSnapshotRestoreTransaction, AppStoreError, markSnapshotReadResult } from './appStore.js';
+import { withAppWriteTransaction, withAppSnapshotRestoreTransaction, AppStoreError, markSnapshotReadResult, invokeSynchronousWrite } from './appStore.js';
 import { getAppCommandContext } from './commandContext.js';
 import { sqliteConnection, sqliteBackupTo, sqliteLoad } from './sqlite.js';
 import { LEGACY_KEYS } from './legacySchema.js';
@@ -23,6 +23,7 @@ export interface RestoreOptions { assertCurrent?:(phase:RestoreGuardPhase,live:R
 const connection = sqliteConnection();
 const core = snapshotCoreTables;
 const domainTables = new Map<string, { namespace: string; columns: readonly string[]; derived: boolean; integerText:readonly string[] }>();
+const domainRestorePolicies=new Map<string,{namespace:string;minimumVersion:number;apply:(tx:AppWriteTx,now:number)=>void}>();
 const domainValidators=new Map<string,(snapshot:AppSnapshot)=>void>();
 const validated = new WeakSet<object>();
 withAppWriteTransaction({ actorId: 'system:bootstrap', command: 'core:snapshot:init', requestId: 'core-snapshot-v1', payloadHash: sha256('core-snapshot-v1') }, tx => {
@@ -46,6 +47,12 @@ export function registerSnapshotTable(namespace: string, table: string, columns:
 export function registerSnapshotValidator(namespace:string,validate:(snapshot:AppSnapshot)=>void):void {
  if(!['wallet','productivity'].includes(namespace)||typeof validate!=='function'||validate.constructor.name==='AsyncFunction')throw new Error('Invalid snapshot validator');
  const prior=domainValidators.get(namespace);if(prior&&prior!==validate)throw new Error('Conflicting snapshot validator');domainValidators.set(namespace,validate);
+}
+/** Trusted synchronous policies run inside the one replacement transaction,
+ * after shared job fencing. They cannot create another restore owner. */
+export function registerSnapshotRestorePolicy(namespace:string,id:string,minimumVersion:number,apply:(tx:AppWriteTx,now:number)=>void):void {
+ if(!['wallet','productivity'].includes(namespace)||! /^[a-z][a-z0-9-]{0,79}$/.test(id)||!Number.isSafeInteger(minimumVersion)||minimumVersion<1||typeof apply!=='function'||apply.constructor.name==='AsyncFunction')throw Error('Invalid snapshot restore policy');
+ const key=namespace+':'+id,prior=domainRestorePolicies.get(key);if(prior&&(prior.apply!==apply||prior.minimumVersion!==minimumVersion))throw Error('Conflicting snapshot restore policy');domainRestorePolicies.set(key,{namespace,minimumVersion,apply});
 }
 function tables(): Map<string, readonly string[]> {
   const result = new Map(core);
@@ -207,7 +214,8 @@ export async function restoreAppSnapshot(snapshot: ValidatedAppSnapshot, options
         reconcileBackupReferences(tx.legacy);
         reconcileMediaMetadata(tx);
         if(tx.get("SELECT name FROM sqlite_master WHERE type='table' AND name='auth_sessions'"))tx.run('DELETE FROM auth_sessions');
-        new AppJobStore().restorePolicy(tx,Date.now());
+        const restoredAt=Date.now();new AppJobStore().restorePolicy(tx,restoredAt);
+        for(const policy of domainRestorePolicies.values())if((checked.manifest.domains[policy.namespace]??0)>=policy.minimumVersion)invokeSynchronousWrite(owned=>policy.apply(owned,restoredAt),tx);
         tx.run('INSERT INTO app_restore_commits VALUES (?,?,?)',id,checked.manifest.checksum,new Date().toISOString());
         return { restoredFiles: Object.keys(checked.media).length };
       });
