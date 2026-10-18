@@ -13,8 +13,13 @@ function context(config:MatrixConfig,clock:QueryClock){
  const rules=config.preset==='custom'?Object.fromEntries(config.order.map(q=>[q,compileRule(config.rules![q],clock,date)])) as Record<Quadrant,(task:TaskRecord)=>boolean>:null;
  return {today,date,boundary:localDayStart(date(config.horizonDays+1),clock.timezone),rules};
 }
-const important=(task:TaskRecord)=>task.priority==='high'||task.priority==='medium';
-function urgent(task:TaskRecord,boundary:number):boolean {const instant=dueInstant(task.due);return task.lifecycle!=='completed'&&task.lifecycle!=='wont_do'&&instant!==null&&instant<boundary;}
+type DeadlineImportanceFact=Pick<TaskRecord,'priority'|'due'|'lifecycle'>;
+const important=(task:DeadlineImportanceFact)=>task.priority==='high'||task.priority==='medium';
+function urgent(task:DeadlineImportanceFact,boundary:number):boolean {const instant=dueInstant(task.due);return task.lifecycle!=='completed'&&task.lifecycle!=='wont_do'&&instant!==null&&instant<boundary;}
+function deadlineImportanceQuadrant(task:DeadlineImportanceFact,boundary:number):Quadrant {return important(task)?urgent(task,boundary)?'q1':'q2':urgent(task,boundary)?'q3':'q4';}
+/** Share the default planning policy without fabricating a full TaskRecord or
+ * resolving its relative clock/horizon separately for every row. */
+export function deadlineImportanceClassifier(clock:QueryClock,horizonDays=1):(task:DeadlineImportanceFact)=>Quadrant {const ctx=context({kind:'matrix',preset:'deadline_importance',horizonDays,rules:null,order:['q1','q2','q3','q4'],showCompleted:false},clock);return task=>{choice(task.priority,['high','medium','low','none']);choice(task.lifecycle,['todo','in_progress','completed','wont_do']);return deadlineImportanceQuadrant(task,ctx.boundary);};}
 /** Resolve relative windows once per projection, before visiting any task. */
 function compileRule(node:RuleNode,clock:QueryClock,date:(offset:number)=>string):(task:TaskRecord)=>boolean {
  if(node.op==='and'||node.op==='or'){const children=node.args.map(arg=>compileRule(arg,clock,date));return node.op==='and'?task=>children.every(test=>test(task)):task=>children.some(test=>test(task));}
@@ -32,7 +37,7 @@ function compileRule(node:RuleNode,clock:QueryClock,date:(offset:number)=>string
 function matches(task:TaskRecord,config:MatrixConfig,clock:QueryClock,ctx:ReturnType<typeof context>):Quadrant[]{
  if(config.preset==='custom')return config.order.filter(q=>ctx.rules![q](task));
  if(config.preset==='priority_only')return [{high:'q1',medium:'q2',low:'q3',none:'q4'}[task.priority]as Quadrant];
- return [important(task)?urgent(task,ctx.boundary)?'q1':'q2':urgent(task,ctx.boundary)?'q3':'q4'];
+ return [deadlineImportanceQuadrant(task,ctx.boundary)];
 }
 /** Pure projection of already-authorized, already-filtered rows. This grants no ACL.
  * A server adapter must query fresh authorized rows before calling this function.

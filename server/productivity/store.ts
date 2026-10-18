@@ -38,6 +38,8 @@ let notificationObserver:((tx:AppWriteTx,task:StoredTask,previous:TaskNotificati
 /** Explicit runtime composition installs the one synchronous observer. It joins
  * the existing Task command and cannot own a timer or a second transaction. */
 export function installTaskNotificationObserver(observer:NonNullable<typeof notificationObserver>):void {if(notificationObserver&&notificationObserver!==observer)throw Error('Task notification observer already installed');notificationObserver=observer;}
+let insightObserver:((tx:AppWriteTx,task:StoredTask,before:any|undefined)=>void)|undefined;
+export function installTaskInsightObserver(observer:NonNullable<typeof insightObserver>):void {if(insightObserver&&insightObserver!==observer)throw Error('Task insight observer already installed');insightObserver=observer;}
 /** Pilot-only repository. Production legacy writer cutover belongs to P02-b. */
 export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):void {
  assertTaskRecord(task);assertLegacyTask(task.legacy);if(task.legacy.id!==task.id||!Number.isSafeInteger(task.rank))throw new Error('Invalid pilot task provenance');
@@ -45,6 +47,7 @@ export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):voi
  assertCutoverTaskWrite(tx,task);
  assertTaskStructure(tx,task);
  if(actor)assertTagSelection(tx,actor,task.tagIds);
+ const priorInsight=insightObserver?tx.get('SELECT * FROM productivity_tasks WHERE id=?',task.id):undefined;
  const priorNotification=notificationObserver?tx.get('SELECT assignee_id FROM productivity_tasks WHERE id=?',task.id):undefined;
  const finishBoardWrite=prepareBoardTaskWrite(tx,task);
  const values=[task.id,task.listId,task.sectionId,task.parentId,task.title,task.body,task.lifecycle,task.priority,task.due.kind,task.due.kind==='all_day'?task.due.date:null,task.due.kind==='timed'?task.due.instantUtc:null,task.due.kind==='none'?null:task.due.timezone,task.scheduledStart,task.scheduledEnd,task.creatorId,task.assigneeId,Number(task.isShared),Number(task.blocked),task.blockedReason,Number(task.pendingApproval),task.rewardPoints,task.revision,task.deletedAt,task.rank,JSON.stringify(task.legacy)];
@@ -53,6 +56,7 @@ export function savePilotTask(tx:AppWriteTx,task:StoredTask,actor?:AppActor):voi
  tx.run('DELETE FROM productivity_task_tags WHERE task_id=?',task.id);
  for(const tag of [...new Set(task.tagIds)]){const existed=tx.get('SELECT id FROM productivity_tags WHERE id=?',tag);tx.run('INSERT OR IGNORE INTO productivity_tags(id,name) VALUES(?,?)',tag,tag);if(!existed&&actor&&hasTagOwnership(tx))tx.run('INSERT INTO productivity_tag_owners VALUES(?,?)',tag,actor.userId);tx.run('INSERT INTO productivity_task_tags(task_id,tag_id) VALUES(?,?)',task.id,tag);}
  finishBoardWrite();
+ insightObserver?.(tx,task,priorInsight);
  writeHooks?.after(tx);
  notificationObserver?.(tx,task,{existed:!!priorNotification,assigneeId:priorNotification?.assignee_id??null});
 }
