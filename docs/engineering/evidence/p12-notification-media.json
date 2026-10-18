@@ -1,0 +1,85 @@
+{
+  "task": "P12 recurring media regression on schema14",
+  "sourceSha": "cba684addd08b3f7f9f2148e0240e003be751e0e",
+  "results": {
+    "focusedTests": 170,
+    "files": 8,
+    "failures": 0,
+    "lintExit": 0
+  },
+  "actualRedCases": 2,
+  "fullSuiteForThisSha": false,
+  "windowsRun": null,
+  "artifacts": [
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-final.exit.gz",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-final.json.gz",
+      "sha256": "8c8014b66d0c9a9ca66c1f3734c5a48b3dd16da1429db60eda15c6c50f69c7fd",
+      "bytes": 52982
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-final.log.gz",
+      "sha256": "f5a9a73be8eac3f3b10ab78d4a4384583968144846272d8cd28ca7cecd1a64bf",
+      "bytes": 6057
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-final.xml.gz",
+      "sha256": "a4f845f84f7722923f9c5a179d371bb5cf8719e55c7e5fb035cf20996da805be",
+      "bytes": 35651
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-fixed.exit.gz",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "bytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-fixed.json.gz",
+      "sha256": "8efbf4b5cd3576debb1fdaae233cbcc0b075ef99fb8adbca7355b8069101cbc3",
+      "bytes": 54961
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-fixed.log.gz",
+      "sha256": "37a4e6e77a48707735a220d78002669b4c56e4e371b42e539403296ae0718903",
+      "bytes": 7771
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-fixed.xml.gz",
+      "sha256": "be45a6cf5e68f9026ca3cc504ab34e0f167971d208cf1507c210582b5b5405e8",
+      "bytes": 36787
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-lint.exit.gz",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-lint.log.gz",
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+      "bytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-red.exit.gz",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "bytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-red.json.gz",
+      "sha256": "5461ac0d6646dd76982e352c6b19dac442ec90cf6b3e3847ec8c799cf22d20d1",
+      "bytes": 3225
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-red.log.gz",
+      "sha256": "7a529a55d4d5e8eb92ca21e290b48d21db8cfc4a6a611f2c4cfba157af3d62dc",
+      "bytes": 3295
+    },
+    {
+      "path": "docs/engineering/evidence/p12-notification-media/p12-notification-media-red.xml.gz",
+      "sha256": "0132773f8272385fe6fbea8d753a0060da02de1652829894fbdab27e11d32016",
+      "bytes": 2538
+    }
+  ]
+}

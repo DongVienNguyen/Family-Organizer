@@ -2,6 +2,13 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P12 schema14 media follow-up:** source `cba684addd08b3f7f9f2148e0240e003be751e0e`
+fixes two shared media version gates, retaining durable recurring Markdown on
+accept/skip without loosening attachment ownership. Two actual baseline failures
+retained; focused170tests8files and lint pass. Full8560 evidence below is for
+`1a4d2a3`, not this follow-up. [Raw proof](evidence/p12-notification-media.json).
+PR/Windows run URLs:none for this source. Next P13 templates/content/data tools.
+
 **P12 durable reminders/quiet hours/digest functional core (2026-10-18):**
 source `1a4d2a32d4a07f332d6721778e201693bb8384b8` adds explicit14 rules/claims/own-user preferences and reference-
 only delivery metadata, I01 Task-save cancellation/rescheduling/assignment, shared
