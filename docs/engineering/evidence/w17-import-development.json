@@ -1,0 +1,436 @@
+{
+  "taskId": "W17 import responsiveness subset",
+  "qualification": "Cloud functional development, not full W17 or Windows acceptance",
+  "sourceCommit": "7cae94af340ac4596f1fe8f12e754d33bd548cec",
+  "baseHead": "847c3dfce49520e988755b15217db02fe3deec62",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "sourceFiles": {
+    "scripts/benchmark-wallet.ts": "b10bc4310d2e438b14eb2a75cfa6570e33c606a9aeb8ac8e59a58662b8deb2b8",
+    "server/wallet/importBatch.test.ts": "84eeb75de1cbd22b0f220ce8909dbe3b67e7598f8a9e4e3f9d7cdbce722402e5",
+    "server/wallet/importBatch.ts": "07f36353f2a362b5d7786ba264fb4c5848f27c17e5651a32b54e192cd732683e",
+    "server/wallet/importJobs.ts": "85fc8dd46a515eff76d94dc002d72f398c4a92daa19fe8af96c2091ae46ac7f6",
+    "server/wallet/imports.ts": "03233dca45ed126e363f532df277e81aef1b3d23c83e5341ad6374955d73b4df",
+    "server/wallet/records.ts": "91f36814bd50b739ce199b806f0e14953ac283832efc38ce97c6bc27ee62daab",
+    "tests/wallet-benchmark.test.ts": "aee51e7cd024b33d339f5f82ffac382813da961f2ea2d47d6d3784cf7de4a8d1",
+    "tests/wallet-import-native-fixture.ts": "f8f4c1280d09f491b11433e5b3c15d0cbf2a64d80d3746370d37ef02fb3df8ae"
+  },
+  "aggregate": {
+    "parentPassed": 8391,
+    "currentPassed": 8409,
+    "added": 18,
+    "removed": 0,
+    "junitCases": 8409,
+    "files": 498,
+    "newCases": [
+      {
+        "file": "tests/wallet-benchmark.test.ts",
+        "title": "refuses unbounded counts or malformed configuration before creating storage or running a native benchmark",
+        "multiplicity": 1
+      },
+      {
+        "file": "tests/wallet-benchmark.test.ts",
+        "title": "portable offline CLI creates and closes only its own synthetic fixture and reports actual samples from a foreign cwd",
+        "multiplicity": 1
+      },
+      {
+        "file": "tests/wallet-benchmark.test.ts",
+        "title": "refuses a preloaded installation before importing or closing its database and restores the caller environment",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "queued import yields before the sole writer so a current grant change rejects the whole batch without cash or provenance",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "cancellation while preparing cannot enter I01 or write a financial receipt",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "a new import cannot exceed the shared snapshot audit capacity or leave an unbackuppable partial ledger",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "a known import receipt still replays at full capacity with no extra audit record or posting",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "batched int64 Unicode metadata and manual rule origins match the canonical ledger and validated snapshot",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "a native posting failure after set-based record insertion rolls back all rows manifest audit and nonce before original-key retry",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "a real write-grant downgrade during preparation rejects the queued batch using current authority",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "10k queued preparation services heartbeats before one atomic writer without exposing partial counts",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "a queued preparation failure returns the existing safe review state instead of leaving the batch stuck queued",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/importBatch.test.ts",
+        "title": "preview yields to current archive changes and rejects stale preparation without replacing staged rows",
+        "multiplicity": 1
+      },
+      {
+        "file": "server/wallet/metadataIsolation.test.ts",
+        "title": "reused metadata descriptors never share decoded private values or nested audit objects between records",
+        "multiplicity": 1
+      },
+      {
+        "file": "src/features/wallet/compiledFilter.test.ts",
+        "title": "one filter captures reviewed scope before the caller mutates arrays dates or search text",
+        "multiplicity": 1
+      },
+      {
+        "file": "src/features/wallet/compiledFilter.test.ts",
+        "title": "compiled predicates retain exact reference Money validation and reject malformed records even when dates do not match",
+        "multiplicity": 1
+      },
+      {
+        "file": "src/features/wallet/compiledFilter.test.ts",
+        "title": "category ancestry is captured once but cycles and empty all-label selections still refuse",
+        "multiplicity": 1
+      },
+      {
+        "file": "src/features/wallet/periodValidationPerformance.test.ts",
+        "title": "repeated financial period validation bounds ICU allocations while public formatters remain caller-owned and invalid zones still fail",
+        "multiplicity": 1
+      }
+    ]
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "scope": "whole Wallet Chromium",
+    "cases": 65,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "fixture": {
+      "commitSha": "7cae94af340ac4596f1fe8f12e754d33bd548cec",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "4ac926c6b85ec7df16cbe1c5d42dc31625ee876f97d567f1d89a2706d017a01d",
+        "index": "dd9b1a85c6b1947fd0330eab9e9d5ca24e9d3a46be13a6748ee2c02b905d3ddb"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 16,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "23d53e53-5066-40c4-adef-497642c45e19",
+        "creditId": "f3903eb5-609e-41a3-b08a-6568f2bdf9b2",
+        "hiddenId": "d5ecfd2c-3907-42e7-90a7-15ea6d845c08",
+        "readId": "f58ba27c-e365-454f-9b9a-5a15e6cf7ce7",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "importMeasurementsFromFullRun": [
+    {
+      "syntheticQueuedImport10k": {
+        "rows": 10000,
+        "previewMilliseconds": 3111.9223199999997,
+        "queueMilliseconds": 105.75320300000021,
+        "totalApplyMilliseconds": 1338.7687850000002,
+        "writerMilliseconds": 844.5714660000003,
+        "heartbeats": 34,
+        "maxHeartbeatGapMilliseconds": 913.6108199999999,
+        "observedRecordCounts": [
+          0,
+          10000
+        ],
+        "events": 1
+      }
+    },
+    {
+      "syntheticImport10k": {
+        "rows": 10000,
+        "previewMs": 2808.056712,
+        "commitMs": 1300.6931800000002,
+        "events": 1
+      }
+    }
+  ],
+  "baseline": "Original unchanged21import tests passed before changes;10k synchronous commit8758.799ms. Raw baseline and subsequent failures retained. Cloud concurrent runs are diagnostics, not a controlled Windows qualification.",
+  "retainedEvidence": {
+    "publish-w17-import.py": {
+      "path": "docs/engineering/evidence/publish-w17-import.py.gz",
+      "sha256": "87632ba1cdd1c4163a03d5ad077a6352e47988d35646996d8fc8dc0a6e30cf51"
+    },
+    "w17-import-baseline.exit": {
+      "path": "docs/engineering/evidence/w17-import-baseline.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-baseline.json": {
+      "path": "docs/engineering/evidence/w17-import-baseline.json.gz",
+      "sha256": "2f92732a6af47c33f30f6eb70df212e50bb38c637a4f4c9ea39b365b4ec81f58"
+    },
+    "w17-import-baseline.junit.xml": {
+      "path": "docs/engineering/evidence/w17-import-baseline.junit.xml.gz",
+      "sha256": "8ac9bb2b4465622d248b43ae05fcf6f318a8edfc2cf96551dd2896eb6371c4b5"
+    },
+    "w17-import-baseline.log": {
+      "path": "docs/engineering/evidence/w17-import-baseline.log.gz",
+      "sha256": "527cad7f98891e14c4a20b9f64515f22cf00fa39accfa161c8480e90217621b0"
+    },
+    "w17-import-batch-first.exit": {
+      "path": "docs/engineering/evidence/w17-import-batch-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-batch-first.json": {
+      "path": "docs/engineering/evidence/w17-import-batch-first.json.gz",
+      "sha256": "2e92dbed3dcc43a8b4803eb7f65878c488ebad42e876abcdb36af9640e25b77b"
+    },
+    "w17-import-batch-first.junit.xml": {
+      "path": "docs/engineering/evidence/w17-import-batch-first.junit.xml.gz",
+      "sha256": "f581fbb1f31f043c90f9606a3b4e228bad8696a7a2eb1863be573ca4e456d722"
+    },
+    "w17-import-batch-first.log": {
+      "path": "docs/engineering/evidence/w17-import-batch-first.log.gz",
+      "sha256": "e84aa4bb82ac745e7dbbb941d4b170e8fe512c7e140ac36cc849296a1f7653b4"
+    },
+    "w17-import-batch-red.exit": {
+      "path": "docs/engineering/evidence/w17-import-batch-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-import-batch-red.json": {
+      "path": "docs/engineering/evidence/w17-import-batch-red.json.gz",
+      "sha256": "382cdb0fa45fd14ddc488fea9dfae34a4d3f02b4b8757964b1467991bdde116f"
+    },
+    "w17-import-batch-red.log": {
+      "path": "docs/engineering/evidence/w17-import-batch-red.log.gz",
+      "sha256": "20f93a00ad352030f0029e612bf188f6dbb480c3a6252a871ef81e4c740ca5af"
+    },
+    "w17-import-batch-second.exit": {
+      "path": "docs/engineering/evidence/w17-import-batch-second.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-import-batch-second.json": {
+      "path": "docs/engineering/evidence/w17-import-batch-second.json.gz",
+      "sha256": "882df0cf0b23f40c59e77e65aa8d73354cb97b0b37045c28abeabf44640f247a"
+    },
+    "w17-import-batch-second.junit.xml": {
+      "path": "docs/engineering/evidence/w17-import-batch-second.junit.xml.gz",
+      "sha256": "6fbd5c8e94b0ca8f12581bf89373b7fafff833601e9117ece4f4067081f4995c"
+    },
+    "w17-import-batch-second.log": {
+      "path": "docs/engineering/evidence/w17-import-batch-second.log.gz",
+      "sha256": "920f2d1f672d0630f5bd198c5883743b6e1a0ed2759eb2556cab10909d89633c"
+    },
+    "w17-import-batch-third.exit": {
+      "path": "docs/engineering/evidence/w17-import-batch-third.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-batch-third.json": {
+      "path": "docs/engineering/evidence/w17-import-batch-third.json.gz",
+      "sha256": "4da4137117a19fa9ad983a4ebe8395fe284e7687870ffe53a3a52d7f4e03afed"
+    },
+    "w17-import-batch-third.junit.xml": {
+      "path": "docs/engineering/evidence/w17-import-batch-third.junit.xml.gz",
+      "sha256": "cc9789eabd2d89e2736ab1c0e8d995e6710e8f239fbb9f0a13d2843ceaff0bfd"
+    },
+    "w17-import-batch-third.log": {
+      "path": "docs/engineering/evidence/w17-import-batch-third.log.gz",
+      "sha256": "7b561297f7754eef4b7fd08153703552d8ad2ac6ed41334c21a61df29c1bb334"
+    },
+    "w17-import-browser.exit": {
+      "path": "docs/engineering/evidence/w17-import-browser.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-browser.log": {
+      "path": "docs/engineering/evidence/w17-import-browser.log.gz",
+      "sha256": "2ad6d79ea300fafe5def253b7b04e8afb1b3470498a8610a0926e936e7157b7a"
+    },
+    "w17-import-build.exit": {
+      "path": "docs/engineering/evidence/w17-import-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-build.log": {
+      "path": "docs/engineering/evidence/w17-import-build.log.gz",
+      "sha256": "77c1c3c0817c9006d9167c61ecda845febef7ca4a33af49f049c04b3b635bed1"
+    },
+    "w17-import-first-lint.exit": {
+      "path": "docs/engineering/evidence/w17-import-first-lint.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05"
+    },
+    "w17-import-first-lint.log": {
+      "path": "docs/engineering/evidence/w17-import-first-lint.log.gz",
+      "sha256": "05e2d62107a72a80a3edf09d68196a03e5c9045234cfa0817867813ecaacc042"
+    },
+    "w17-import-full.exit": {
+      "path": "docs/engineering/evidence/w17-import-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-full.json": {
+      "path": "docs/engineering/evidence/w17-import-full.json.gz",
+      "sha256": "2916c2353d7da1ac0bdb9af64b09ad9c7a1c32c529a5daec88670a7e7a4c1bba"
+    },
+    "w17-import-full.junit.xml": {
+      "path": "docs/engineering/evidence/w17-import-full.junit.xml.gz",
+      "sha256": "2157a0eba73c29a82f5fc23cac002564aa0fe50a3d69f51242d2ee6d08f3be19"
+    },
+    "w17-import-full.log": {
+      "path": "docs/engineering/evidence/w17-import-full.log.gz",
+      "sha256": "4771a60a2cad6f65630df39bb30b044da06774fe8345824e87e2f13914e07d5f"
+    },
+    "w17-import-guard-green.exit": {
+      "path": "docs/engineering/evidence/w17-import-guard-green.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-guard-green.json": {
+      "path": "docs/engineering/evidence/w17-import-guard-green.json.gz",
+      "sha256": "899927d337aef22bccf301cd17a62b4b4b2628bc75328220df1a8331b03c5caa"
+    },
+    "w17-import-guard-green.junit.xml": {
+      "path": "docs/engineering/evidence/w17-import-guard-green.junit.xml.gz",
+      "sha256": "d9b93ba84e39822c5bb303aa0b7041f1715776c6da6f7a5563bcdf675a958827"
+    },
+    "w17-import-guard-green.log": {
+      "path": "docs/engineering/evidence/w17-import-guard-green.log.gz",
+      "sha256": "fc6e0c45b2a3de907acc5295a5773ffd6aa77bfe59bc5d5c02833f8046b5be70"
+    },
+    "w17-import-lint.exit": {
+      "path": "docs/engineering/evidence/w17-import-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-lint.log": {
+      "path": "docs/engineering/evidence/w17-import-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-import-preservation.json": {
+      "path": "docs/engineering/evidence/w17-import-preservation.json.gz",
+      "sha256": "1f5a731fb35c87796e9f5b3f3c9b1782acaf46b01578388a6b468d4ec19bf1b4"
+    },
+    "w17-import-second-lint.exit": {
+      "path": "docs/engineering/evidence/w17-import-second-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-second-lint.log": {
+      "path": "docs/engineering/evidence/w17-import-second-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-import-third-lint.exit": {
+      "path": "docs/engineering/evidence/w17-import-third-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-import-third-lint.log": {
+      "path": "docs/engineering/evidence/w17-import-third-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-prepare-failure-green.exit": {
+      "path": "docs/engineering/evidence/w17-prepare-failure-green.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-prepare-failure-green.json": {
+      "path": "docs/engineering/evidence/w17-prepare-failure-green.json.gz",
+      "sha256": "0e97c23c81394422299d061a619ec6256d782de04652944c4ef5c4eb4f62d69b"
+    },
+    "w17-prepare-failure-green.junit.xml": {
+      "path": "docs/engineering/evidence/w17-prepare-failure-green.junit.xml.gz",
+      "sha256": "87315ea4243d33ef452ee8a3f67b21d1d3367c2aeab2566aab63134440dfae6a"
+    },
+    "w17-prepare-failure-green.log": {
+      "path": "docs/engineering/evidence/w17-prepare-failure-green.log.gz",
+      "sha256": "0f9bec03b51f13cabc961c2b493bfb087b38303a03c6d9c573e66d713a24c448"
+    },
+    "w17-prepare-failure-red.exit": {
+      "path": "docs/engineering/evidence/w17-prepare-failure-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-prepare-failure-red.json": {
+      "path": "docs/engineering/evidence/w17-prepare-failure-red.json.gz",
+      "sha256": "44bc669bc953dcb8f61f227af2c88848c2b55609d3c2990e6582b6049bbfd559"
+    },
+    "w17-prepare-failure-red.log": {
+      "path": "docs/engineering/evidence/w17-prepare-failure-red.log.gz",
+      "sha256": "880101f9bd2f159401c82796032c356635647b139884160d0c720cf6f1c06952"
+    },
+    "w17-preview-batch-green.exit": {
+      "path": "docs/engineering/evidence/w17-preview-batch-green.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-preview-batch-green.json": {
+      "path": "docs/engineering/evidence/w17-preview-batch-green.json.gz",
+      "sha256": "d6ddcff3e50a821fc1ea860c4ccbe9492210006a5f25deb1f9d452529ab0d803"
+    },
+    "w17-preview-batch-green.junit.xml": {
+      "path": "docs/engineering/evidence/w17-preview-batch-green.junit.xml.gz",
+      "sha256": "de45118cdea3844acd3e6527c1809487e309a91e618cd8ad980e4798d8a1fea0"
+    },
+    "w17-preview-batch-green.log": {
+      "path": "docs/engineering/evidence/w17-preview-batch-green.log.gz",
+      "sha256": "176598d04e660f326f1203781267e339067d532f86bedad8ebd5ead529a57080"
+    },
+    "whole-browser/browser.json": {
+      "path": "docs/engineering/evidence/w17-import-whole.browser.json.gz",
+      "sha256": "1cd473b6290aa2cae5b49e2382273b40da12c60de0e982f5f2fd149b3cc0b229"
+    },
+    "whole-browser/browser.junit.xml": {
+      "path": "docs/engineering/evidence/w17-import-whole.browser.junit.xml.gz",
+      "sha256": "d41a1141dc5147df11bb7173499f2542fac5e70f447df63535a7284097972c38"
+    },
+    "whole-browser/fixture.json": {
+      "path": "docs/engineering/evidence/w17-import-whole.fixture.json.gz",
+      "sha256": "fd8b698a6765299c8cff37f8c4df457037fb51ee59bf82b422809a41da6076cc"
+    },
+    "whole-browser/runtime.json": {
+      "path": "docs/engineering/evidence/w17-import-whole.runtime.json.gz",
+      "sha256": "676c48ed399447aa3b1e59f5aa139f415dd889ca5ed9dd21c84098c53552e1cb"
+    },
+    "whole-browser/run.log": {
+      "path": "docs/engineering/evidence/w17-import-whole.run.log.gz",
+      "sha256": "2ad6d79ea300fafe5def253b7b04e8afb1b3470498a8610a0926e936e7157b7a"
+    },
+    "whole-browser/server.log": {
+      "path": "docs/engineering/evidence/w17-import-whole.server.log.gz",
+      "sha256": "9d75b99dce3546b8810ae306b77de81644854dc2910bb90dfce5e2b56efc3f4c"
+    }
+  },
+  "review": {
+    "independent": false,
+    "scope": "author inspection of opaque pure preparation, exact int64 JSON1 binding, one synchronous I01 writer/current ACL catalog fences, rollback and source manifest/receipt/audit preservation"
+  },
+  "remaining": [
+    "Complete protected cross-module recovery, global producer capacity/retention and W18 bridge/networth/cutover remain.",
+    "Preview yields per128validations; parser/mapping/hash and final atomic SQL still synchronous bounded work. Do not promise a zero-block event loop.",
+    "All8391 W16 parent tests are retained with18additional cases,8409total. New system harness is uncommitted test-only development outside this source and is not part of this aggregate.",
+    "No automatic schema preparation/activation or production package-cap change.",
+    "No feature PR/CI run yet. Final Windows2022 Node22/24/browser/ZIP/service performance batch and actual Server2019 R02 unrun.",
+    "Remaining Productivity/M1/I02/I03/master work incomplete; no release/tag/VPS."
+  ]
+}

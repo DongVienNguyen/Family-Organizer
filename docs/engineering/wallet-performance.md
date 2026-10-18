@@ -37,3 +37,22 @@ separate historical evidence. No PR/CI URL, backup branch only.
 Next:10k import responsiveness, complete recovery/system/Windows qualification,
 W18 legacy bridge/capacity/retention/cutover and remaining P/M1/I02/I03/master.
 No release/tag/VPS access or deployment. Actual Server2019 R02 remains separate.
+
+## Queued import development
+
+**W17 import subset (2026-10-18):** source `7cae94af340ac4596f1fe8f12e754d33bd548cec` adds cooperative queued
+preparation and set-based exact int64 ledger/provenance/audit writes inside one
+I01 transaction, with current ACL/catalog/preview fences and safe queued-failure
+state. Preview yields and rechecks current references before persistence.
+Benchmark rejects a preloaded installation without touching or closing its DB.
+Cloud full8409tests498files/matching JUnit/zero failed-skipped-todo,
+all8391 W16 parents +18 retained; lint/build0. Whole Wallet Chromium65/65,
+all65parent cases, offline/integrity/normal-stop/closed/cleaned/build-bound.
+Original10k commit diagnostic8758.8ms; current focused1198.6ms; queued writer
+~0.8s with heartbeats and only0/10000observable rows. These are Cloud diagnostics,
+not Windows performance acceptance. [Proof](evidence/w17-import-development.json).
+PR/CI URLs:none; author inspection only; backup branch. New system recovery
+harness remains separate development. W17 full recovery/system, W18 global
+capacity/retention/legacy bridge/networth/cutover, remaining P/M1/I02/I03/master
+and final composed Windows batch remain. Server2019 R02 unrun; no release/tag/VPS.
+
