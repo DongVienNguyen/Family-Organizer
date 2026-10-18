@@ -3188,5 +3188,138 @@
       "settings": "Lưu thiết lập đã chọn",
       "action": "Cập nhật phiên đã chọn"
     }
+  },
+  "productivityHabits": {
+    "workspace": "Thói quen và ngày quan trọng",
+    "policy": "Check-in ghi tiến độ riêng của từng người. Thói quen và Focus không tự hoàn thành công việc, cộng điểm hoặc ghi tiền.",
+    "offline": "Đang offline: chỉ xem dữ liệu đã tải. Kết nối lại trước khi thay đổi.",
+    "failed": "Không tải hoặc lưu được dữ liệu. Tải lại để kiểm tra trạng thái hiện tại.",
+    "new": "Tạo thói quen",
+    "editor": "Chỉnh thói quen",
+    "name": "Tên thói quen",
+    "note": "Ghi chú theo dõi",
+    "shared": "Chia sẻ với gia đình",
+    "private": "Riêng tư",
+    "startDate": "Ngày bắt đầu thói quen",
+    "frequency": "Lịch thói quen",
+    "weekdays": "Các ngày đã chọn",
+    "timesPerWeek": "Số lần mỗi tuần",
+    "goalKind": "Loại mục tiêu",
+    "goalValue": "Mục tiêu mỗi ngày",
+    "unit": "Đơn vị theo dõi",
+    "timezone": "Múi giờ theo dõi",
+    "policyChange": "Đổi lịch, mục tiêu hoặc múi giờ áp dụng từ thứ Hai kế tiếp. Check-in cũ giữ ngày và mục tiêu đã ghi; ngày bắt đầu được giữ nguyên.",
+    "save": "Lưu thói quen",
+    "reload": "Tải lại theo dõi",
+    "showArchived": "Xem mục đã lưu trữ",
+    "archiveReview": "Xác nhận lưu trữ mục",
+    "archivePolicy": "Mục sẽ dừng hoạt động và chỉ còn xem lịch sử. Các check-in, thời gian Focus và ngày gốc được giữ.",
+    "archive": "Lưu trữ mục",
+    "pending": "Chưa xác minh được kết quả thao tác. Kiểm tra thao tác đã gửi trước khi thực hiện thay đổi khác.",
+    "review": "Thao tác chưa được áp dụng; kiểm tra nội dung trước khi gửi lại.",
+    "retry": "Kiểm tra thao tác theo dõi đã gửi",
+    "conflict": "Dữ liệu đã thay đổi ở nơi khác. Bản nháp được giữ; tải dữ liệu mới để xem lại trước khi gửi thao tác mới.",
+    "invalid": "Kiểm tra ngày, lịch, mục tiêu và số tiến độ. Chọn ít nhất một ngày nếu dùng lịch cố định; mục tiêu phải lớn hơn 0.",
+    "reviewLatest": "Đọc bản mới để xem lại",
+    "list": "Thói quen của tôi và gia đình",
+    "empty": "Chưa có thói quen trong danh sách này.",
+    "previous": "100 mục trước",
+    "next": "100 mục tiếp",
+    "detail": "Chi tiết thói quen",
+    "pendingPolicy": "Lịch/mục tiêu đã chọn sẽ áp dụng từ {{date}}.",
+    "archivedHint": "Mục đã lưu trữ; lịch sử chỉ đọc và không phát sinh check-in mới.",
+    "period": "Khoảng xem tiến độ",
+    "reportAnchor": "Mốc ngày xem tiến độ",
+    "periodDays": "{{days}} ngày",
+    "subject": "Tiến độ của thành viên",
+    "ratio": "Đạt {{done}} / {{required}} mục tiêu",
+    "noSchedule": "Không có mục tiêu trong kỳ",
+    "streakPolicy": "Chuỗi chỉ tính trong kỳ đang xem. Bỏ qua không là hoàn thành và giữ chuỗi theo ngày; mục tiêu theo tuần vẫn phải đủ lượt. Ngày/tuần hiện tại chưa kết thúc không tự làm đứt chuỗi.",
+    "mixedStreak": "Lịch trong kỳ dùng cả ngày và tuần; chưa đủ cơ sở gộp thành một chuỗi.",
+    "streak": "Chuỗi trong kỳ: {{current}} {{unit}}; tốt nhất {{best}}.",
+    "heatmap": "Lịch tiến độ thói quen",
+    "partialWeek": "Một phần tuần nằm ngoài lịch sử/khoảng xem; không suy ra thiếu tiến độ cho phần chưa có dữ liệu.",
+    "checkIn": "Ghi tiến độ theo ngày",
+    "entryDate": "Ngày check-in hoặc ghi bù",
+    "originalGoal": "Mục tiêu của bản ghi: {{value}} {{unit}}",
+    "booleanDone": "Đánh dấu đã đạt mục tiêu",
+    "entryValue": "Giá trị tiến độ",
+    "entryReason": "Ghi chú check-in hoặc lý do sửa",
+    "saveProgress": "Lưu tiến độ",
+    "skipDay": "Bỏ qua ngày này",
+    "chooseValidDate": "Chọn ngày từ lúc bắt đầu đến hôm nay để xem hoặc ghi tiến độ.",
+    "pomo": "Pomodoro cho thói quen",
+    "stopwatch": "Bấm giờ cho thói quen",
+    "refreshReport": "Tải lại tiến độ",
+    "unsentEntry": "Tiến độ đang là bản nháp chưa lưu; hãy lưu trước khi chuyển sang ngày khác.",
+    "staleEntry": "Ngày hoặc lịch đã đổi ở nơi khác. Giữ nguyên bản nháp để xem lại; chưa gửi ghi đè lên dữ liệu mới.",
+    "reviewEntry": "Đọc lại bản ghi của ngày",
+    "frequencyKind": {
+      "daily": "Mỗi ngày",
+      "weekdays": "Các ngày cố định",
+      "weekly": "Số lần mỗi tuần"
+    },
+    "goal": {
+      "boolean": "Đạt / chưa đạt",
+      "number": "Mục tiêu bằng số"
+    },
+    "day": {
+      "1": "Thứ Hai",
+      "2": "Thứ Ba",
+      "3": "Thứ Tư",
+      "4": "Thứ Năm",
+      "5": "Thứ Sáu",
+      "6": "Thứ Bảy",
+      "7": "Chủ nhật"
+    },
+    "streakUnit": {
+      "scheduled-days": "ngày theo lịch",
+      "weeks": "tuần"
+    },
+    "dayState": {
+      "met": "Đã đạt",
+      "skip": "Bỏ qua",
+      "pending": "Chưa đạt",
+      "unscheduled": "Không theo lịch"
+    },
+    "command": {
+      "habit": "Lưu thói quen đã chọn",
+      "countdown": "Lưu ngày quan trọng đã chọn",
+      "log": "Lưu check-in đã chọn",
+      "archiveHabit": "Lưu trữ thói quen đã chọn",
+      "archiveCountdown": "Lưu trữ ngày quan trọng đã chọn"
+    }
+  },
+  "productivityCountdowns": {
+    "new": "Thêm ngày quan trọng",
+    "editor": "Chỉnh ngày quan trọng",
+    "name": "Tên ngày quan trọng",
+    "date": "Ngày gốc cần theo dõi",
+    "kind": "Cách theo dõi ngày",
+    "annual": "Lặp lại hằng năm",
+    "inclusive": "Tính cả ngày hiện tại",
+    "leapPolicy": "Quy tắc ngày 29/2",
+    "save": "Lưu ngày quan trọng",
+    "list": "Các ngày quan trọng",
+    "empty": "Chưa có ngày quan trọng trong danh sách này.",
+    "detail": "Chi tiết ngày quan trọng",
+    "nextDate": "Lần hằng năm tiếp theo: {{date}}",
+    "mode": {
+      "countdown": "Đếm tới ngày",
+      "anniversary": "Theo dõi kỷ niệm gốc"
+    },
+    "leap": {
+      "clamp": "Dùng 28/2 khi năm không nhuận",
+      "skip": "Chờ năm có đúng ngày 29/2"
+    },
+    "direction": {
+      "today": "Hôm nay · {{days}} ngày",
+      "remaining": "Còn {{days}} ngày",
+      "elapsed": "Đã qua {{days}} ngày"
+    },
+    "inclusiveState": {
+      "true": "Tính cả ngày hiện tại",
+      "false": "Chênh lệch ngày thông thường"
+    }
   }
 }

@@ -3189,5 +3189,138 @@
       "settings": "Save selected settings",
       "action": "Update selected session"
     }
+  },
+  "productivityHabits": {
+    "workspace": "Habits and important dates",
+    "policy": "Check-ins record each person’s progress. Habits and Focus never automatically complete Tasks, award points or post money.",
+    "offline": "Offline: viewing previously loaded data. Reconnect before making changes.",
+    "failed": "Data could not load or save. Refresh to check the current state.",
+    "new": "New habit",
+    "editor": "Habit editor",
+    "name": "Habit name",
+    "note": "Tracking note",
+    "shared": "Share with family",
+    "private": "Private",
+    "startDate": "Habit start date",
+    "frequency": "Habit schedule",
+    "weekdays": "Selected weekdays",
+    "timesPerWeek": "Times per week",
+    "goalKind": "Goal type",
+    "goalValue": "Daily target",
+    "unit": "Tracking unit",
+    "timezone": "Tracking timezone",
+    "policyChange": "Schedule, target and timezone changes apply next Monday. Existing check-ins retain their recorded date and target; the start date stays unchanged.",
+    "save": "Save habit",
+    "reload": "Refresh tracking",
+    "showArchived": "Show archived items",
+    "archiveReview": "Review archive",
+    "archivePolicy": "The item becomes inactive and its history read-only. Existing check-ins, Focus time and original dates are retained.",
+    "archive": "Archive item",
+    "pending": "The action outcome is uncertain. Check the sent action before making another change.",
+    "review": "The action was not applied; review it before sending again.",
+    "retry": "Check sent tracking action",
+    "conflict": "Data changed elsewhere. Your draft is retained; load the latest data to review before sending a new action.",
+    "invalid": "Check the date, schedule, target and progress. Select at least one weekday for a fixed schedule; targets must exceed 0.",
+    "reviewLatest": "Load latest version for review",
+    "list": "My and shared habits",
+    "empty": "No habits in this list yet.",
+    "previous": "Previous 100 items",
+    "next": "Next 100 items",
+    "detail": "Habit details",
+    "pendingPolicy": "The selected schedule/target applies from {{date}}.",
+    "archivedHint": "Archived item: history is read-only and new check-ins are disabled.",
+    "period": "Progress period",
+    "reportAnchor": "Progress anchor date",
+    "periodDays": "{{days}} days",
+    "subject": "Member progress",
+    "ratio": "Achieved {{done}} / {{required}} targets",
+    "noSchedule": "No scheduled target in this period",
+    "streakPolicy": "Streaks cover the displayed period. Skip is not completion and is neutral for day streaks; weekly quotas still require their target. An unfinished current day/week does not break the streak.",
+    "mixedStreak": "This period mixes day and week schedules; a single combined streak is unavailable.",
+    "streak": "Period streak: {{current}} {{unit}}; best {{best}}.",
+    "heatmap": "Habit progress calendar",
+    "partialWeek": "Part of a week lies outside the history or displayed range; missing coverage is not treated as failed progress.",
+    "checkIn": "Daily check-in",
+    "entryDate": "Check-in or backfill date",
+    "originalGoal": "Recorded target: {{value}} {{unit}}",
+    "booleanDone": "Mark target achieved",
+    "entryValue": "Progress value",
+    "entryReason": "Check-in note or edit reason",
+    "saveProgress": "Save progress",
+    "skipDay": "Skip this day",
+    "chooseValidDate": "Choose a date between the start date and today to view or record progress.",
+    "pomo": "Habit Pomodoro",
+    "stopwatch": "Habit stopwatch",
+    "refreshReport": "Refresh progress",
+    "unsentEntry": "This progress is an unsaved draft; save it before switching dates.",
+    "staleEntry": "The day or schedule changed elsewhere. The original draft is retained for review before replacing newer data.",
+    "reviewEntry": "Reload this day for review",
+    "frequencyKind": {
+      "daily": "Every day",
+      "weekdays": "Selected weekdays",
+      "weekly": "Times per week"
+    },
+    "goal": {
+      "boolean": "Achieved / not yet",
+      "number": "Numeric target"
+    },
+    "day": {
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday",
+      "7": "Sunday"
+    },
+    "streakUnit": {
+      "scheduled-days": "scheduled days",
+      "weeks": "weeks"
+    },
+    "dayState": {
+      "met": "Achieved",
+      "skip": "Skipped",
+      "pending": "Not yet achieved",
+      "unscheduled": "Unscheduled"
+    },
+    "command": {
+      "habit": "Save selected habit",
+      "countdown": "Save selected important date",
+      "log": "Save selected check-in",
+      "archiveHabit": "Archive selected habit",
+      "archiveCountdown": "Archive selected important date"
+    }
+  },
+  "productivityCountdowns": {
+    "new": "New important date",
+    "editor": "Important date editor",
+    "name": "Important date name",
+    "date": "Original date to track",
+    "kind": "Date tracking mode",
+    "annual": "Repeat annually",
+    "inclusive": "Count the current day inclusively",
+    "leapPolicy": "February 29 policy",
+    "save": "Save important date",
+    "list": "Important dates",
+    "empty": "No important dates in this list yet.",
+    "detail": "Important date details",
+    "nextDate": "Next annual occurrence: {{date}}",
+    "mode": {
+      "countdown": "Count down to date",
+      "anniversary": "Track original anniversary"
+    },
+    "leap": {
+      "clamp": "Use February 28 in nonleap years",
+      "skip": "Wait for a real February 29"
+    },
+    "direction": {
+      "today": "Today · {{days}} days",
+      "remaining": "{{days}} days remaining",
+      "elapsed": "{{days}} days elapsed"
+    },
+    "inclusiveState": {
+      "true": "Includes the current day",
+      "false": "Standard calendar-day difference"
+    }
   }
 }

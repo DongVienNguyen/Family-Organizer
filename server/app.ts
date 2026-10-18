@@ -1,3 +1,4 @@
+import {habitRouter} from './productivity/habitRouter.js';
 import {focusRouter} from './productivity/focusRouter.js';import {registerFocusJobs} from './productivity/focusJobs.js';
 import {taskDataRouter} from './productivity/dataRouter.js';import {registerTaskImportJobs} from './productivity/importJobs.js';
 import {taskAttachmentRouter} from './productivity/taskAttachmentRouter.js';
@@ -769,6 +770,7 @@ if(dependencies.wallet?.scheduleJobs&&jobs.durableEnabled){const wallet=dependen
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
 if(dependencies.productivity?.notificationJobs&&jobs.durableEnabled)registerTaskNotificationJobs(jobs,dependencies.productivity.notificationJobs,{notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
 if(dependencies.productivity?.focus&&jobs.durableEnabled)registerFocusJobs(jobs,dependencies.productivity.focus,{focusChanged:id=>broadcastSyncEvent('PRODUCTIVITY_FOCUS_UPDATE',{},new Set([id])),notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
+if(dependencies.productivity)app.use('/api/productivity',habitRouter(dependencies.productivity,requireAuth as any,audience=>broadcastSyncEvent('PRODUCTIVITY_HABITS_UPDATE',{},audience)));
 if(dependencies.productivity)app.use('/api/productivity/focus',focusRouter(dependencies.productivity,requireAuth as any,id=>broadcastSyncEvent('PRODUCTIVITY_FOCUS_UPDATE',{},new Set([id]))));
 if(dependencies.productivity?.imports&&jobs.durableEnabled)registerTaskImportJobs(jobs,dependencies.productivity.imports,{changed:(actorId,taskIds)=>broadcastSyncEvent('TASKS_UPDATE',{taskIds},new Set([actorId])),progress:actorId=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([actorId]))});
 if(dependencies.productivity)app.use('/api/productivity',taskDataRouter(dependencies.productivity,requireAuth as any,{progress:actorId=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([actorId]))}));

@@ -1,0 +1,2 @@
+import base from './playwright.config.js';import {defineConfig} from '@playwright/test';
+const project=process.env.FO_HABITS_PROJECT;if(project&&!['chromium','firefox','webkit'].includes(project))throw Error('Unknown Habit browser project');const reports='reports/habits/'+(project??'all');export default defineConfig({...base,testMatch:'habits.spec.ts',outputDir:reports+'/results',reporter:[['list'],['json',{outputFile:reports+'/browser.json'}],['junit',{outputFile:reports+'/browser.junit.xml'}],['html',{outputFolder:reports+'/html',open:'never'}]]});

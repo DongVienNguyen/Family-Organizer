@@ -1,3 +1,4 @@
+import {HabitWorkspacePanel} from './Habits.js';
 import {TaskDataTools} from './TaskDataTools.js';
 import {TaskTemplateLibrary} from './TaskTemplates.js';
 import {useTaskViews} from './useTaskViews.js';
@@ -17,6 +18,7 @@ export function Productivity({user,users,tasks,onComment,onAdvanced,actions,show
  if(state.loading)return <p className="text-sm text-slate-400" aria-live="polite">{t('productivity.loading')}</p>;
  if(state.error)return <div className="space-y-3"><p role="alert" className="text-sm text-rose-400">{state.error}</p><button type="button" onClick={()=>void state.refresh()}>{t('productivity.retry')}</button></div>;
  return <section className="space-y-5" aria-label={t('productivity.workspace')}>
+  <HabitWorkspacePanel user={user} users={users}/>
   <div className={showList?'space-y-5':'hidden'}>
   {error&&<p role="alert" className="text-sm text-rose-400">{error}</p>}
   {!state.online&&<p className="text-xs text-amber-400">{t('productivity.offline')}</p>}

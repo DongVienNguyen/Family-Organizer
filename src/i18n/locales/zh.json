@@ -3188,5 +3188,138 @@
       "settings": "保存所选设置",
       "action": "更新所选记录"
     }
+  },
+  "productivityHabits": {
+    "workspace": "习惯和重要日期",
+    "policy": "签到记录每个人的进度。习惯和专注不会自动完成任务、发放积分或记账。",
+    "offline": "离线：仅查看已加载的数据。更改前请重新连接。",
+    "failed": "无法加载或保存数据。请刷新以检查当前状态。",
+    "new": "新建习惯",
+    "editor": "编辑习惯",
+    "name": "习惯名称",
+    "note": "记录备注",
+    "shared": "与家人共享",
+    "private": "私密",
+    "startDate": "习惯开始日期",
+    "frequency": "习惯计划",
+    "weekdays": "选定的星期",
+    "timesPerWeek": "每周次数",
+    "goalKind": "目标类型",
+    "goalValue": "每日目标",
+    "unit": "记录单位",
+    "timezone": "记录时区",
+    "policyChange": "计划、目标和时区更改从下周一生效。已有签到保留记录的日期和目标，开始日期保持不变。",
+    "save": "保存习惯",
+    "reload": "刷新记录",
+    "showArchived": "显示已归档项目",
+    "archiveReview": "确认归档",
+    "archivePolicy": "项目将停止活动，历史记录仅供查看。已有签到、专注时间和原始日期会保留。",
+    "archive": "归档项目",
+    "pending": "操作结果尚未确认。进行其他更改前，请检查已发送的操作。",
+    "review": "操作尚未应用；重新发送前请检查内容。",
+    "retry": "检查已发送的记录操作",
+    "conflict": "数据已在其他位置更改。草稿已保留；请加载最新数据并检查后再发送新操作。",
+    "invalid": "请检查日期、计划、目标和进度。固定星期计划至少选择一天，目标必须大于0。",
+    "reviewLatest": "加载最新版本进行检查",
+    "list": "我的习惯与家庭共享习惯",
+    "empty": "此列表中尚无习惯。",
+    "previous": "前100项",
+    "next": "后100项",
+    "detail": "习惯详情",
+    "pendingPolicy": "所选计划或目标将从{{date}}开始生效。",
+    "archivedHint": "项目已归档：历史记录仅供查看，不能新增签到。",
+    "period": "进度范围",
+    "reportAnchor": "进度基准日期",
+    "periodDays": "{{days}}天",
+    "subject": "成员进度",
+    "ratio": "已达成{{done}} / {{required}}项目标",
+    "noSchedule": "此期间无计划目标",
+    "streakPolicy": "连续记录仅覆盖当前显示期间。跳过不算完成，对每日连续记录保持中立；每周目标仍须达到次数。尚未结束的当天或本周不会打断连续记录。",
+    "mixedStreak": "此期间包含每日和每周计划，无法合并为一条连续记录。",
+    "streak": "期间连续：{{current}}{{unit}}；最佳{{best}}。",
+    "heatmap": "习惯进度日历",
+    "partialWeek": "部分星期超出历史记录或显示范围；缺少覆盖的数据不视为未达成目标。",
+    "checkIn": "每日签到",
+    "entryDate": "签到或补记日期",
+    "originalGoal": "记录目标：{{value}}{{unit}}",
+    "booleanDone": "标记目标已达成",
+    "entryValue": "进度数值",
+    "entryReason": "签到备注或修改原因",
+    "saveProgress": "保存进度",
+    "skipDay": "跳过此日",
+    "chooseValidDate": "选择开始日期至今天之间的日期以查看或记录进度。",
+    "pomo": "为习惯开始番茄钟",
+    "stopwatch": "为习惯开始秒表",
+    "refreshReport": "刷新进度",
+    "unsentEntry": "此进度是未保存的草稿；切换日期前请保存。",
+    "staleEntry": "日期记录或计划已在其他位置更改。原始草稿保留供检查，请勿直接覆盖新数据。",
+    "reviewEntry": "重新加载当日记录进行检查",
+    "frequencyKind": {
+      "daily": "每天",
+      "weekdays": "固定星期",
+      "weekly": "每周次数"
+    },
+    "goal": {
+      "boolean": "达成／未达成",
+      "number": "数值目标"
+    },
+    "day": {
+      "1": "星期一",
+      "2": "星期二",
+      "3": "星期三",
+      "4": "星期四",
+      "5": "星期五",
+      "6": "星期六",
+      "7": "星期日"
+    },
+    "streakUnit": {
+      "scheduled-days": "计划日",
+      "weeks": "周"
+    },
+    "dayState": {
+      "met": "已达成",
+      "skip": "已跳过",
+      "pending": "尚未达成",
+      "unscheduled": "未计划"
+    },
+    "command": {
+      "habit": "保存所选习惯",
+      "countdown": "保存所选重要日期",
+      "log": "保存所选签到",
+      "archiveHabit": "归档所选习惯",
+      "archiveCountdown": "归档所选重要日期"
+    }
+  },
+  "productivityCountdowns": {
+    "new": "新增重要日期",
+    "editor": "编辑重要日期",
+    "name": "重要日期名称",
+    "date": "要记录的原始日期",
+    "kind": "日期记录方式",
+    "annual": "每年重复",
+    "inclusive": "包含当天计算",
+    "leapPolicy": "2月29日规则",
+    "save": "保存重要日期",
+    "list": "重要日期列表",
+    "empty": "此列表中尚无重要日期。",
+    "detail": "重要日期详情",
+    "nextDate": "下一次年度日期：{{date}}",
+    "mode": {
+      "countdown": "倒计时",
+      "anniversary": "记录原始纪念日期"
+    },
+    "leap": {
+      "clamp": "非闰年使用2月28日",
+      "skip": "等待实际存在2月29日的年份"
+    },
+    "direction": {
+      "today": "今天 · {{days}}天",
+      "remaining": "还有{{days}}天",
+      "elapsed": "已过{{days}}天"
+    },
+    "inclusiveState": {
+      "true": "包含当天",
+      "false": "标准日历日差"
+    }
   }
 }
