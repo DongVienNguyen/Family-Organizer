@@ -1,6 +1,7 @@
 // Original notice bytes from the independently verified F06-b Windows artifact.
 // http_ece notice added verbatim from its recorded npm gitHead. Review changes explicitly.
 export const reviewedNotices={
+  "xlsx@0.20.3": {"files":{"LICENSE":"4d2a38ac35cda06a555c84074a819d413339cd3691b822cae50f8f322fe01f64"},"license":"Apache-2.0"},
   "@google/genai@2.8.0": {
     "files": {
       "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"

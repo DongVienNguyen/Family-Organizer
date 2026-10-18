@@ -1,3 +1,4 @@
+import {registerWalletImportJobs} from './wallet/importJobs.js';
 import {walletRouter,walletRequestTrace,walletJsonError} from './wallet/router.js';
 import type {WalletPorts} from './wallet/ports.js';
 import {boardRouter} from './productivity/boardRouter.js';
@@ -220,6 +221,7 @@ async function geminiGenerate(ai: any, params: any, retries = 2, beforeAttempt?:
 
 // Body parser - supports rich receipt images in finances
 app.use('/api/auth',(_req,res,next)=>{res.setHeader('Cache-Control','no-store');next();});
+app.use('/api/wallet/imports/stage',walletRequestTrace,express.json({limit:'28mb'}),walletJsonError);
 app.use('/api/wallet',walletRequestTrace,express.json({limit:'15mb'}),walletJsonError);
 app.use(express.json({ limit: "15mb" }));
 // A request accepted before maintenance may still be parsing its body.
@@ -748,6 +750,7 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 });
 
 // --- TASK API ENDPOINTS ---
+if(dependencies.wallet&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletImportJobs(jobs,wallet.imports,batchId=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.importAudience(batchId)));}
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
 if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id})}));
 if(dependencies.productivity)app.use('/api/productivity',queryRouter(dependencies.productivity,requireAuth as any,{view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));

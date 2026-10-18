@@ -1,3 +1,4 @@
+import {parseImportUpload} from './importUpload.js';
 import {catalogReferencesValue} from '../../src/features/wallet/catalogReferences.js';
 import { randomUUID } from 'node:crypto';
 import { Router, type Request, type RequestHandler, type ErrorRequestHandler } from 'express';
@@ -79,6 +80,15 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     const emit = (before: Set<string>, after: Set<string>) => changed(new Set([...before, ...after]));
     const manager = (req: WalletRequest, accountId: string) => { if (ports.access.getAccount(actor(req), accountId).permission !== 'manage')
         throw new AppStoreError('Không có quyền quản lý tài khoản.', 403); };
+    const asyncHandler=(fn:(req:WalletRequest)=>Promise<unknown>):RequestHandler=>(req,res)=>{Promise.resolve().then(()=>fn(req)).then(value=>res.json(value)).catch(error=>{const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không xử lý được bản nhập.':error instanceof AppStoreError?error.message:'Bản nhập không hợp lệ.',code:(error as any)?.code});});};
+    router.get('/imports/history',handler(req=>ports.imports.history(actor(req),req.query.offset===undefined?0:Number(req.query.offset))));
+    router.post('/imports/stage',asyncHandler(req=>{const v=body(req,['expectedRevision','file']);return ports.imports.stageImport(context(req,v.expectedRevision,false),parseImportUpload(v.file));}));
+    router.get('/imports/:id',handler(req=>ports.imports.getBatch(actor(req),id(req.params.id))));
+    router.get('/imports/:id/rows',handler(req=>ports.imports.previewRows(actor(req),id(req.params.id),req.query.offset===undefined?0:Number(req.query.offset))));
+    router.post('/imports/:id/preview',asyncHandler(req=>{const v=body(req,['expectedRevision','mapping']);return ports.imports.previewImport(context(req,v.expectedRevision,true),id(req.params.id),v.mapping);}));
+    router.post('/imports/:id/commit',handler(req=>{const v=body(req,['expectedRevision','previewRevision']);return ports.imports.queueImport(context(req,v.expectedRevision,true),id(req.params.id),v.previewRevision);}));
+    router.post('/imports/:id/reopen',handler(req=>{const v=body(req,['expectedRevision']);return ports.imports.reopenImport(context(req,v.expectedRevision,true),id(req.params.id));}));
+    router.post('/imports/:id/undo',handler(req=>{const v=body(req,['expectedRevision','policy']),batchId=id(req.params.id);return ports.imports.undoImport(context(req,v.expectedRevision,true),batchId,v.policy,()=>changed(ports.importAudience(batchId)));}));
     const preferenceKind=(raw:unknown)=>{if(!['filter','chart','layout'].includes(raw as string))throw new AppStoreError('Loại cấu hình không hợp lệ.',400);return raw as 'filter'|'chart'|'layout';};
     router.get('/preferences',handler(req=>ports.preferences.getPreferences(actor(req))));
     router.post('/preferences/:kind',handler(req=>{const value=body(req,['expectedRevision','input']);if(value.input?.id!==undefined)throw new AppStoreError('Mã tạo mới thuộc máy chủ.',400);return ports.preferences.savePreference(context(req,value.expectedRevision,false),preferenceKind(req.params.kind),value.input,()=>changed(new Set([actor(req).userId])));}));

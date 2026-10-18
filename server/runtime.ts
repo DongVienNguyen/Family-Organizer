@@ -52,10 +52,10 @@ export async function startApplication(config: AppConfig = appConfig) {
     const digest = await import('./weeklyDigest.js');
     const ics = await import('./icsFeed.js');
     const push = await import('./push.js');
-    const { AppJobStore } = await import('./jobStore.js');
+    const { AppJobStore,enqueueAppJob } = await import('./jobStore.js');
     const gateway=await import('./appStore.js');const {withAppWriteTransaction}=gateway;
     const {createProductivityPorts}=await import('./productivity/ports.js');const productivity=createProductivityPorts(storage,gateway,{legacyCompletion:db.FamilyDB});
-    const {createWalletPorts}=await import('./wallet/ports.js');const wallet=createWalletPorts(storage,gateway);
+    const {createWalletPorts}=await import('./wallet/ports.js');const wallet=createWalletPorts(storage,gateway,{enqueueImport:input=>{const tx=gateway.currentAppWriteTx();if(!tx)throw Error('Import job requires I01');return enqueueAppJob(tx,{namespace:'wallet',type:'import-commit',key:input.key,payload:input.payload,kind:'command'});}});
     const jobs=new AppJobs(undefined,new AppJobStore());
     const backupRecovery=(value:unknown)=>{
       const assertReady=()=>{if(state.phase!=='ready')throw new RecoveryOperatorError('RECOVERY_RUNTIME_NOT_READY');};

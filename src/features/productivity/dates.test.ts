@@ -69,3 +69,5 @@ describe('P01 legacy parsing report',()=>{
  });
  it('an empty legacy deadline has no warning or fabricated date',()=>expect(parseLegacyDue('',zone)).toEqual({due:{kind:'none'},warnings:[]}));
 });
+
+it('validates repeated named timezones without sharing the public caller-owned formatters or accepting invalid keys',async()=>{const {assertTimezone,timezoneFormatter}=await import('./dates.js');expect(()=>assertTimezone('Asia/Ho_Chi_Minh')).not.toThrow();expect(()=>assertTimezone('Asia/Ho_Chi_Minh')).not.toThrow();expect(timezoneFormatter('Asia/Ho_Chi_Minh')).not.toBe(timezoneFormatter('Asia/Ho_Chi_Minh'));for(const value of ['+07:00','-05:00','__proto__','not/a/timezone',''])expect(()=>assertTimezone(value)).toThrow();});

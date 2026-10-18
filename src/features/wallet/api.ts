@@ -1,3 +1,5 @@
+import {importBatchValue,importPageValue,importHistoryValue} from './importDto.js';
+import type {ImportMapping,ImportUpload} from './importContracts.js';
 import {preferenceValue,preferencesValue} from './preferenceDto.js';
 import type {PreferenceKind,PreferenceDraft} from './preferenceContracts.js';
 import {reportValue} from './reportDto.js';
@@ -219,7 +221,7 @@ function receiptValue(value:unknown,recordId:string):WalletReceiptMetadata {
 }
 /** DTO decoders are browser-only; server imports above are erased types. */
 export function createWalletApi(ports: WalletTransportPorts) {
-    const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records'|'categories'|'labels'|'templates', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
+    const walletRequest = createWalletRequest(ports), path = (kind: 'accounts' | 'records'|'categories'|'labels'|'templates'|'imports', id: string) => { text(id, 256); return '/api/wallet/' + kind + '/' + encodeURIComponent(id); };
     const read = async <T>(uri: string, decoder: (v: unknown) => T, options: WalletRequestOptions = {}, nonce?: string): Promise<T> => { const value = await walletRequest(uri, options); try {
         return decoder(value);
     }
@@ -233,6 +235,14 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        importBatch:(id:string)=>read(path('imports',id),v=>importBatchValue(v,id)),
+        importHistory:(offset=0)=>{integer(offset,0,100000);return read('/api/wallet/imports/history?offset='+offset,importHistoryValue);},
+        importRows:(id:string,offset=0)=>{integer(offset,0,10001);return read(path('imports',id)+'/rows?offset='+offset,v=>importPageValue(v,id,offset));},
+        stageImport:(file:ImportUpload,nonce:string)=>command('/api/wallet/imports/stage','POST',{expectedRevision:0,file},nonce,v=>importBatchValue(v,undefined,0,file.accountId)),
+        previewImport:(id:string,revision:number,mapping:ImportMapping,nonce:string)=>command(path('imports',id)+'/preview','POST',{expectedRevision:revision,mapping},nonce,v=>importBatchValue(v,id,revision)),
+        commitImport:(id:string,revision:number,nonce:string)=>command(path('imports',id)+'/commit','POST',{expectedRevision:revision,previewRevision:revision},nonce,v=>importBatchValue(v,id,revision)),
+        reopenImport:(id:string,revision:number,nonce:string)=>command(path('imports',id)+'/reopen','POST',{expectedRevision:revision},nonce,v=>importBatchValue(v,id,revision)),
+        undoImport:(id:string,revision:number,policy:'onlyUnmodified'|'rejectIfModified',nonce:string)=>command(path('imports',id)+'/undo','POST',{expectedRevision:revision,policy},nonce,v=>importBatchValue(v,id,revision)),
         templates:()=>read('/api/wallet/templates',templateListValue),
         template:(id:string)=>read(path('templates',id),value=>templateValue(value,id,undefined,true) as import('../../../server/wallet/templates.js').WalletTemplate&{draft:RecordDraft}),
         createTemplate:(input:Omit<TemplateDraft,'id'>,nonce:string)=>command('/api/wallet/templates','POST',{expectedRevision:0,input},nonce,value=>templateValue(value,undefined,0)),

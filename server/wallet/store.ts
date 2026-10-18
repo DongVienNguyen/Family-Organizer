@@ -2,7 +2,7 @@ import type {withAppWriteTransaction,AppWriteMetadata,AppWriteTx} from '../appSt
 import type {Source,RecordKind,Settlement} from '../../src/features/wallet/contracts.js';
 import {minorInteger,currencyExponent} from '../../src/features/wallet/money.js';
 import {parseEffectiveDate} from '../../src/features/wallet/dates.js';
-import {timezoneFormatter} from '../../src/features/productivity/dates.js';
+import {assertTimezone} from '../../src/features/productivity/dates.js';
 import {text,choice,integer} from '../../src/features/productivity/validation.js';
 import {walletMetadataRepositories,walletMetadataColumns,type WalletMetadataTable} from './metadata.js';
 import {walletFinancialRepositories} from './financial.js';
@@ -25,7 +25,7 @@ function walletTx(tx:AppWriteTx) {
    all():WalletAccount[]{return tx.all('SELECT '+accountColumns+' FROM wallet_accounts ORDER BY id');},
   },
   records:{
-   insert(value:WalletRecord){text(value.id,256);text(value.creatorId,256);text(value.note,100000,false);choice(value.kind,['income','expense','transfer','adjustment','trade']);choice(value.source,['manual','import','schedule','legacy']);choice(value.settlementStatus,['uncleared','cleared','reconciled','voided']);parseEffectiveDate(value.effectiveDate);timezoneFormatter(value.timezone);integer(value.revision,1);for(const key of ['externalKey','categoryId','occurrenceId'] as const)if(value[key]!==undefined)text(value[key],256);tx.run('INSERT INTO wallet_records VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',value.id,value.kind,value.effectiveDate,value.timezone,value.source,value.externalKey??null,value.note,value.settlementStatus,value.creatorId,value.revision,value.categoryId??null,value.occurrenceId??null);addMetadata(tx,'wallet_record_metadata',value.id);},
+   insert(value:WalletRecord){text(value.id,256);text(value.creatorId,256);text(value.note,100000,false);choice(value.kind,['income','expense','transfer','adjustment','trade']);choice(value.source,['manual','import','schedule','legacy']);choice(value.settlementStatus,['uncleared','cleared','reconciled','voided']);parseEffectiveDate(value.effectiveDate);assertTimezone(value.timezone);integer(value.revision,1);for(const key of ['externalKey','categoryId','occurrenceId'] as const)if(value[key]!==undefined)text(value[key],256);tx.run('INSERT INTO wallet_records VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',value.id,value.kind,value.effectiveDate,value.timezone,value.source,value.externalKey??null,value.note,value.settlementStatus,value.creatorId,value.revision,value.categoryId??null,value.occurrenceId??null);addMetadata(tx,'wallet_record_metadata',value.id);},
    get(id:string):WalletRecord|null{text(id,256);const row=tx.get('SELECT '+recordColumns+' FROM wallet_records WHERE id=?',id);if(!row)return null;for(const key of ['externalKey','categoryId','occurrenceId'])if(row[key]===null)delete row[key];return row;},
   },
   postings:{

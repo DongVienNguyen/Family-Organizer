@@ -6,7 +6,7 @@ import {assertMoney,minorInteger,convertMoney} from '../../src/features/wallet/m
 import {utcInstant} from '../../src/features/productivity/dates.js';
 import {effectiveDateAt} from '../../src/features/wallet/dates.js';
 import {parseEffectiveDate} from '../../src/features/wallet/dates.js';
-import {timezoneFormatter} from '../../src/features/productivity/dates.js';
+import {assertTimezone} from '../../src/features/productivity/dates.js';
 import {AppStoreError} from '../appErrors.js';
 import type {withAppWriteTransaction} from '../appStore.js';
 import {assertWalletCommandContext} from './accounts.js';
@@ -32,7 +32,7 @@ function amount(value:unknown,signed=false):Money {assertMoney(value);const n=mi
 function normalize(value:unknown):Draft {
  const raw=object(value);choice(raw.kind,['income','expense','adjustment','transfer']);const v=payload(value,[...commonFields,...(raw.kind==='transfer'?transferFields:singleFields)]);
  try{
-  text(v.effectiveDate,10);parseEffectiveDate(v.effectiveDate);text(v.timezone,100);timezoneFormatter(v.timezone);const note=v.note===undefined?'':v.note; text(note,100000,false);
+  text(v.effectiveDate,10);parseEffectiveDate(v.effectiveDate);text(v.timezone,100);assertTimezone(v.timezone);const note=v.note===undefined?'':v.note; text(note,100000,false);
   const metadata={recordId:'validation-only',occurredAt:v.occurredAt===undefined?null:v.occurredAt,payee:v.payee===undefined?'':v.payee,paymentMethod:v.paymentMethod===undefined?'':v.paymentMethod,reviewedAt:v.reviewedAt===undefined?null:v.reviewedAt,createdAt:null,updatedAt:null,createdBy:null,updatedBy:null};validateMetadata('wallet_record_metadata',metadata);
   const settlementStatus=v.settlementStatus===undefined?'cleared':v.settlementStatus;choice(settlementStatus,['uncleared','cleared','reconciled']);const categoryId=v.categoryId===undefined?null:v.categoryId;if(categoryId!==null)text(categoryId,256);
   const labelIds=v.labelIds===undefined?[]:v.labelIds;if(!Array.isArray(labelIds)||labelIds.length>20||new Set(labelIds).size!==labelIds.length)throw Error('Invalid labels');for(const id of labelIds)text(id,256);
@@ -85,10 +85,10 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
  const context=(ctx:CommandContext,reader:WalletReader,editing=false)=>{assertWalletCommandContext(ctx,reader,editing);if(!reader.get("SELECT name FROM sqlite_master WHERE name='wallet_record_fx' AND type='table'"))fail(409,'Cần nâng cấp schema Wallet.','wallet-storage-inactive');};
  const run=<T>(ctx:CommandContext,command:string,input:unknown,fn:(tx:WalletTx)=>T)=>store.transaction({actorId:ctx.actor.userId,command:'wallet:record:'+command,requestId:ctx.idempotencyKey,payloadHash:createHash('sha256').update(JSON.stringify(canonical(input))).digest('hex')},fn);
  const audit=(tx:WalletTx,actor:Actor,action:string,at:string,before:WalletRecordResult|null,after:WalletRecordResult)=>{const id=randomUUID();tx.audit.append({id,recordId:after.record.id,actorId:actor.userId,action:'wallet:record:'+action});tx.metadata.audit.set({auditId:id,occurredAt:at,before:before?auditState(before):null,after:auditState(after)});};
- const apply=(tx:WalletTx,actor:Actor,draft:Draft,at:string,before?:WalletRecordResult):WalletRecordResult=>{
+ const apply=(tx:WalletTx,actor:Actor,draft:Draft,at:string,before?:WalletRecordResult,provenance?:{source:'import';externalKey:string}):WalletRecordResult=>{
   const reader=txReader(tx),id=before?.record.id??randomUUID();checkWalletCatalog(reader,draft.categoryId,draft.labelIds,before);
   if(before){if(before.record.occurrenceId)fail(409,'Cần quy trình sửa giao dịch định kỳ.');if(draft.allocations===undefined&&tx.sql.get('SELECT 1 AS present FROM wallet_allocations WHERE record_id=? LIMIT 1',id)&&JSON.stringify(before.postings)!==JSON.stringify(plannedPostings(id,draft)))fail(409,'Cần quy trình sửa phân bổ.');tx.sql.run('DELETE FROM wallet_record_fx WHERE record_id=?',id);tx.sql.run('DELETE FROM wallet_postings WHERE record_id=?',id);tx.sql.run('UPDATE wallet_records SET kind=?,effective_date=?,timezone=?,note=?,settlement_status=?,revision=revision+1,category_id=? WHERE id=?',draft.kind,draft.effectiveDate,draft.timezone,draft.note,draft.settlementStatus,draft.categoryId,id);}
-  else tx.records.insert({id,kind:draft.kind,effectiveDate:draft.effectiveDate,timezone:draft.timezone,source:'manual',note:draft.note,settlementStatus:draft.settlementStatus,creatorId:actor.userId,revision:1,...(draft.categoryId===null?{}:{categoryId:draft.categoryId})});
+  else tx.records.insert({id,kind:draft.kind,effectiveDate:draft.effectiveDate,timezone:draft.timezone,source:provenance?.source??'manual',...(provenance?{externalKey:provenance.externalKey}:{}),note:draft.note,settlementStatus:draft.settlementStatus,creatorId:actor.userId,revision:1,...(draft.categoryId===null?{}:{categoryId:draft.categoryId})});
   for(const posting of plannedPostings(id,draft))tx.postings.insert(posting);
   if(draft.allocations!==undefined){if(!reader.get("SELECT name FROM sqlite_master WHERE name='wallet_templates' AND type='table'"))fail(409,'Cần schema Wallet7 để dùng phân bổ.');const retained=new Set(before?.allocations?.map(row=>row.categoryId)??[]);for(const row of draft.allocations)checkWalletCatalog(reader,row.categoryId,[],retained.has(row.categoryId)?{record:{categoryId:row.categoryId},labelIds:[]}:undefined);tx.sql.run('DELETE FROM wallet_allocations WHERE record_id=?',id);for(const row of draft.allocations)tx.sql.run('INSERT INTO wallet_allocations VALUES(?,?,?)',id,row.categoryId,minorInteger(row.amountMinor));}
 
@@ -110,6 +110,23 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
   return result(reader,actor,parent.record.id);
  };
  return {
+  /** Trusted import coordinator only: caller already owns the installation I01
+   * transaction. HTTP record payloads still cannot supply provenance. */
+  createImportedWithin(tx:WalletTx,ctx:CommandContext,raw:RecordDraft,externalKey:string):WalletRecordResult {
+   const reader=txReader(tx);context({...ctx,expectedRevision:0},reader);text(externalKey,256);const draft=normalize(raw);if(!['income','expense'].includes(draft.kind))fail(422,'Bản nhập cần giao dịch thu/chi rõ ràng.');checkTargets(reader,ctx.actor,draft,{archive:true});const at=new Date(now()).toISOString(),saved=apply(tx,ctx.actor,draft,at,undefined,{source:'import',externalKey});audit(tx,ctx.actor,'import',at,null,saved);return saved;
+  },
+  canUndoImportedWithin(tx:WalletTx,ctx:CommandContext,id:string,revision:number,externalKey:string):boolean {
+   const reader=txReader(tx);context(ctx,reader,true);try{authorize(reader,ctx.actor,id);const before=result(reader,ctx.actor,id);if(before.record.creatorId!==ctx.actor.userId||before.record.source!=='import'||before.record.externalKey!==externalKey||before.record.revision!==revision||before.record.settlementStatus==='voided'||before.record.occurrenceId||before.feeRecordId||!['income','expense'].includes(before.record.kind))return false;
+    // Unknown future financial links require an explicit undo policy. Ordinary
+    // record metadata/audit/selection links do not own another ledger entry.
+    const safe=new Set(['wallet_postings','wallet_record_metadata','wallet_record_labels','wallet_allocations','wallet_record_fx','wallet_audit','wallet_receipts','wallet_selection_records','wallet_import_entries']);
+    for(const row of reader.all("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'wallet_%'")){if(safe.has(row.name)||!/^wallet_[a-z_]+$/.test(row.name))continue;for(const fk of reader.all('PRAGMA foreign_key_list('+row.name+')'))if(fk.table==='wallet_records'&&/^[a-z_]+$/.test(fk.from)&&reader.get('SELECT 1 AS linked FROM '+row.name+' WHERE '+fk.from+'=? LIMIT 1',id))return false;}
+    return true;
+   }catch(error){if(error instanceof AppStoreError&&[403,404,409].includes(error.status))return false;throw error;}
+  },
+  undoImportedWithin(tx:WalletTx,ctx:CommandContext,id:string,revision:number,externalKey:string):WalletRecordResult {
+   if(!this.canUndoImportedWithin(tx,ctx,id,revision,externalKey))fail(409,'Giao dịch nhập đã thay đổi hoặc có liên kết.','CONFLICT');const before=result(txReader(tx),ctx.actor,id),at=new Date(now()).toISOString();tx.sql.run('UPDATE wallet_records SET external_key=NULL WHERE id=?',id);return voidWithin(tx,ctx.actor,before,at);
+  },
   getAllocations(actor:Actor,id:string):WalletAllocationResult {
    const reader=ports.reader,guard=()=>{assertWalletActor(reader,actor);if(reader.get("SELECT value FROM app_meta WHERE key='wallet_active'")?.value!=='1'||!reader.get("SELECT name FROM sqlite_master WHERE name='wallet_templates' AND type='table'"))fail(409,'Cần schema Wallet7 để dùng phân bổ.');};guard();const before=result(reader,actor,id);
    const readRows=()=>{try{return allocationRows(reader.all('SELECT category_id AS categoryId,CAST(amount_minor AS TEXT) AS amountMinor FROM wallet_allocations WHERE record_id=? ORDER BY category_id LIMIT 101',id));}catch{fail(422,'Phân bổ lịch sử cần được xử lý trước khi sử dụng.');}},rows=readRows();try{assertAllocationTotal(rows,before.record,before.postings);}catch{fail(422,'Tổng phân bổ lịch sử không khớp giao dịch.');}guard();const after=result(reader,actor,id);if(after.record.revision!==before.record.revision||JSON.stringify(readRows())!==JSON.stringify(rows))fail(409,'Giao dịch hoặc phân bổ vừa thay đổi.');return {recordId:id,revision:before.record.revision,rows};

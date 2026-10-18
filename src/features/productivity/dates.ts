@@ -17,6 +17,14 @@ export function timezoneFormatter(timezone:string):Intl.DateTimeFormat {
  if(timezone.startsWith('+')||timezone.startsWith('-'))throw new Error('Expected named timezone');
  return new Intl.DateTimeFormat('en-US',{timeZone:timezone,calendar:'gregory',numberingSystem:'latn',year:'numeric',month:'2-digit',day:'2-digit'});
 }
+const validatedNamedTimezones=new Set<string>();
+/** Validation-only path for repeated rows; public formatters remain fresh. */
+export function assertTimezone(timezone:string):void {
+ if(validatedNamedTimezones.has(timezone))return;
+ timezoneFormatter(timezone);
+ if(validatedNamedTimezones.size>=32)validatedNamedTimezones.delete(validatedNamedTimezones.values().next().value!);
+ validatedNamedTimezones.add(timezone);
+}
 export function localDateAt(instant:number,timezone:string):string {
  const parts=localDateFormatter(timezone).formatToParts(new Date(instant));
  const part=(key:string)=>parts.find(item=>item.type===key)!.value;
