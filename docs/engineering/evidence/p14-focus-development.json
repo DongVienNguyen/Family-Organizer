@@ -1,0 +1,1445 @@
+{
+  "taskId": "P14 private Focus functional slice",
+  "sourceCommit": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+  "backendSource": "a9dad4f3fa86a5efd1c9c7126c465f5b013ed9fb",
+  "uiSource": "71de6a76388ccf4f9b4b13996554236603c4263f",
+  "fullRegressionSource": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "qualification": "Cloud functional development only; final composed Windows pending",
+  "fullRegression": {
+    "passed": 8793,
+    "files": 556,
+    "junitCases": 8793,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentPassed": 8749,
+    "added": 44,
+    "removed": 0
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "buildSource": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+  "browser": {
+    "focus": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 19,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          },
+          "focusFixture": {
+            "explicit": true,
+            "frozen18Preserved": true,
+            "taskRowsPreserved": true,
+            "sessionsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "data": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 18,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "attachments": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 17,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "content": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 16,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "templates": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 15,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "notifications": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 14,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "collaboration": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "calendar": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "b3f6a6d64aee65afa92a9f285b4ce85e001db19f",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "f36e5701ce12f9687cb33506e77acb186e609def6459a460eabfc6d9522ef86a",
+          "index": "280b18827d1c8da84db74f9bfe8a5319ecf62e0f04a5eb17cc592cf9cb5c2de8"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    }
+  },
+  "sourceFiles": {
+    "playwright.focus.config.ts": "1a04f7329dda6776e78d0e7f764a6a6108048f23ef67b2129786b3554335077b",
+    "scripts/ci/productivity-feature-browser.mjs": "4163da4834dfab1423acb09354a364d76700ea4e1e3f7a59cb0a25ff6c7568fb",
+    "scripts/ci/run-focus-browser.mjs": "34328692877b955238bf5e02aac053dff91d5018434c785e087e0a51377d2ccb",
+    "scripts/ci/write-focus-browser-fixture.ts": "b19d19a547febd16da1f6fc9d68990683e885e2f1d1da56f6b3bed68a6b7390c",
+    "server/app.ts": "3a39d808593057e043f648965469ed5d41e58c7522bf4c2297d0fb44b2e9f4d6",
+    "server/appSnapshot.ts": "8bd5898368297b8c3862df09b1a634fe06e780ce303555bdad2841a1c8b1bc4f",
+    "server/db.ts": "b7499406cdcc5cc891c63ad5f95939a5dafa51e30b0fc8cea454293ab8341eec",
+    "server/productivity/adapter.ts": "bde075b9b9d8bc1d9cf6e8ec73987b060fcbc60984a54c49bad6ffd5f60b5359",
+    "server/productivity/bootstrap.ts": "b88aee4ff82e9746d29b92a1f964707e71a072c53b9aa2b1c8649dd9b7f6fcfb",
+    "server/productivity/focus-jobs.test.ts": "d2fefbacfc5e21966c6253de0ed0ea1fa63c278fd54e37f58f997e1ed777a72a",
+    "server/productivity/focus-migration.test.ts": "34220258231abaa8873b26acfe07609e3fa170af81e6363febeeac424530a883",
+    "server/productivity/focus.api.test.ts": "2d5612a789fac77c9ad4f2a5bdba396742a4f981bec35d6b7e28856af2b609f4",
+    "server/productivity/focus.test.ts": "a20bc3f260cc37b0d66e30ca77578573d69bfc45da898b147b91bd63abaa4024",
+    "server/productivity/focus.ts": "07d9dc96f64599041e40a189e8aec69d83f1f552b472b698d9edb36bb16ea594",
+    "server/productivity/focusJobs.ts": "ea05b721b6c97358f98850767801054572f04f54a64d6360c4ac23ea08aa3703",
+    "server/productivity/focusRecord.ts": "c2551ec3cbbcde48956830e4f03846be7f67cf66dc82ade2a1360a40b6fead9e",
+    "server/productivity/focusRouter.ts": "0b6c8c94536fa041ad2a6e6c1b1c7ba0407ae8b6a607474d653e8cc883b61538",
+    "server/productivity/focusSchema.ts": "66692d86ee08cac6295c54904557fe3dc2c229d3f29cbad30f1258d36fb36479",
+    "server/productivity/imports.ts": "e9681bb61720cfd7306f6821afcec2593cffc6b5ef69f2bc7ba0b21fbf168e62",
+    "server/productivity/inspection.ts": "0f4c252acd988595374d86e386f0af7a8f2de8a09f9e6980c7b93dcd6386262c",
+    "server/productivity/knownVersions.ts": "9c9994b7a2ea134f6f27c004d82cd694288389ad0eec0be844696d55b2c2fe77",
+    "server/productivity/ports.ts": "f52463b44dfd36123232143c66e304c020b5e52f863fd87ee04461c7fd880f18",
+    "server/productivity/router.ts": "4a904d6b1d74233d53ddea985215b9df4efd31c6982c07177ef6190499edd0d4",
+    "server/productivity/snapshot.ts": "742224a79708b3b575eb80f0ffb1370fe559997e7decceed9df31d32084360da",
+    "server/productivity/structureSchema.ts": "ce94b2417ab5ef7be2b952466262e9cfcb2811922b303548cbe4997aa7ff7b40",
+    "server/runtime.ts": "1ddf8b901589bb43971efd8406dc502d816bf4f89dfcd273adc990603846ad34",
+    "server/snapshotRestoreContext.test.ts": "6751f60f9e74b50092a793948bb201238d5b596899493f7165ee6db1285acda4",
+    "src/App.tsx": "e32faa0e8138778ca0fbb797304cc6a90425b38f3c288add9b0ce51af73d17e4",
+    "src/features/productivity/Focus.tsx": "84c7c6d0735e8a09729b76e5840f48bf6e2da2180a36742ab2f44c00c7fef600",
+    "src/features/productivity/TaskDrawer.tsx": "db27e8d492a72016e09752b257260fdb40bfea02222f89027e24803ce1cda3ba",
+    "src/features/productivity/api.ts": "3ce09d6fe3251f50abb94cf1234dc76ff962f1f0c8a52e1060921d881e395449",
+    "src/features/productivity/focusApi.test.ts": "228c85e3f5a131cb21acb9b241e8f0c7dd0b1f7a5ef1939962ce7529fb693911",
+    "src/features/productivity/focusApi.ts": "fba41dc197c92cb2d1e5b688435e58773e7ee4fec2dad742501a335fe59a5c16",
+    "src/features/productivity/focusContract.ts": "c9c6d56d479aba77100852c331fa32dda31d25d8a036dbcf5cfe2480e48be7d0",
+    "src/features/productivity/focusWorkspace.test.ts": "428d9db25f7667047a39bcc488a95834c1d5b9f1be56b559f424a2518c0a8fed",
+    "src/features/productivity/focusWorkspace.ts": "fe1343f6f896e49080e7bf26460ee2ccae3d2cf4299bc1348a9ccd92f37fb6f7",
+    "src/features/productivity/useTasks.tsx": "03c4676231dcb7513bdb8b9985d56d5caae80c25be16ed6ee158a2044ecce4b0",
+    "src/i18n/locales/en.json": "5c613de37e95146f41716f5912f98cd7594d0632dd08ed7ec73107e70c2c1ad3",
+    "src/i18n/locales/vi.json": "7e1a38bae838a79df41be56b6b6cfaf1f278bfffc65922f268c139fbb1e1b688",
+    "src/i18n/locales/zh.json": "30ef1875ee5e8d7fd942df2178a1170d28463fbf494b71924ac2344f1168bbad",
+    "tests/e2e/focus.spec.ts": "cee6d92e0681548f5895095c57cfd4401d380153a2575b350eabe38991f2c3d2",
+    "tests/productivity-focus-fixture.ts": "7cc98cd59e8fc537619eb7869a116d7b607afd8f19a8a406bfb09faf0919646c"
+  },
+  "schema": {
+    "explicitPilotVersion": 19,
+    "defaultVersion": 6,
+    "frozen1to18Preserved": true,
+    "packageCapsChanged": false
+  },
+  "review": {
+    "independent": false,
+    "scope": "Author review of owner/session/current-target ACL before cached receipts, segment/cap/state invariants, real shared durable job execution, pause/resume and replacement recovery, P12 mute/quiet/digest reuse, private notice claims, stable import undo fingerprints with later references, live DTO SDK validation and pending-command/logout/revocation fences. No independent-review claim."
+  },
+  "developmentFailures": [
+    "Cold native/API/SDK/workspace checkpoints failed because modules or endpoints did not yet exist; some suites could not collect tests. Raw native exit codes and reporter status are retained, not called functional passes.",
+    "Adding empty Focus FK tables initially changed old18 import fingerprints and incorrectly kept an unchanged Task. Freeze the original18 fingerprint shape and independently protect nonempty later Task references. Both native old/new cases pass.",
+    "An early deadline read the clock twice across a millisecond boundary and produced negative requeue delay. One captured clock now controls each deadline/delivery decision.",
+    "Replacement recovery initially wrote partial audit objects that the actual SDK rejected. A shared full audit projection now covers ordinary and restore events. Native snapshot plus actual SDK regression passes.",
+    "A late completion followed by a backward clock attempted a digest with a future timestamp/local-date mismatch. Delivery defers until its persisted clock fence, then uses the current local day.",
+    "Equal-timestamp manual/correction audit entries sorted by random UUID, producing a real HTTP failure. Audit revision now determines semantic order. No assertions were removed.",
+    "TypeScript checkpoints for normalized unknown payloads, unsupported FancySelect disabled props, and a settings JSX/SQL quoting edit failed and were corrected; raw exit1/2 artifacts retained.",
+    "First four browser journeys passed at71de6a7. Final4plus25parent journeys passed first attempts at the qualified source. Historical element captures were clipped; final screenshots capture actual390px viewports. No retry/timeout/skip relaxation."
+  ],
+  "scope": [
+    "One running or paused owner session, default25/5/15 and long break after4 fully completed Pomodoros, explicit next phase, stopwatch cap24h. Integer-millisecond pause segments, live server clocks, manual0..86400 and reasoned duration overrides preserve original segments.",
+    "Focus only writes owner Focus records, never completes Tasks, awards/reverses points or posts Wallet. Current Task/root reference and immutable quadrant-at-start support later insights; revoked target labels are hidden while the owner can stop their own timer. Habit link is intentionally refused until real P15 authority/storage is implemented.",
+    "One shared AppJobs command per deadline/notice, no per-second persistent timer writes. Actual native HTTP job execution and registry pause/resume are tested. Browser reload/visibility wake is exercised; full process restart and physical OS suspend are not claimed by those cases.",
+    "P12 mute/quiet/daily preferences govern generic owner-only inbox notices. The existing I01/outbox adapter deduplicates per-session or owner/local-day digest without exposing Task titles or calling live providers.",
+    "Replacement snapshot pauses at validated capture time, credits only pre-capture elapsed and consumes historic pending notices, without auto-completion/counter/notification replay. Ordinary restart keeps durable deadlines.",
+    "Global vi/en/zh widget, Task drawer start, note/estimate, extra time, manual record, settings, paged100 history and audited corrections. Offline view is read-only; monotonic display adds elapsed since an already-live DTO exactly once; wake refreshes the native clock. Unknown ACK retains original payload/revision/nonce through navigation; scope/logout fences late effects. Audit view exposes at most the first100 changes."
+  ],
+  "retainedEvidence": {
+    "p14-focus-backend.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-backend.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-backend.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-backend.json.gz",
+      "sha256": "2b13f93605c961d8df33a348519b03de9d900d1e3608ac31b295fe73210d93a6",
+      "uncompressedSha256": "a4bba899a0f31b5c1db7c8e092a34a8952a8e64d57986d74f0c013547284e3bf"
+    },
+    "p14-focus-backend.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-backend.log.gz",
+      "sha256": "41c8c5a013c19c6c42793cca22f66470cb4e1d8643de6f5d1ce9d4755bf08c8f",
+      "uncompressedSha256": "70d8e02518f5cc5b35b56c76d7eb0386fd1d874128ed89204a014e8230bbaf3b"
+    },
+    "p14-focus-browser-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-browser-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-browser-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-browser-first.log.gz",
+      "sha256": "9b9ee9bba3adcd374f796e90c0055807b3a5e42dfa4ade6d2704dd301f47c89c",
+      "uncompressedSha256": "bf4921607527c2d19ad9099e82f96ba67c9686dca68e00269df4128d17e64053"
+    },
+    "p14-focus-build-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-build-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-build-first.log.gz",
+      "sha256": "ca78264fb8cff9b35f3d39a97376ab7e9d82cb8e7c8707f9d0baf971bd74a9c7",
+      "uncompressedSha256": "4e187d366df565aa5cd1378411255ac6918b061efb90bcf25e60e40359d70cc7"
+    },
+    "p14-focus-build-qualified.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-build-qualified.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-build-qualified.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-build-qualified.log.gz",
+      "sha256": "782dfcf8c2ec323581f0649219631434aa5cc9066bfab2850db127dc0e767ac7",
+      "uncompressedSha256": "1be18652c469dab0cc684182f06d3d2f0f5a12cab4c362bee42ac924f13461d7"
+    },
+    "p14-focus-client-functional.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-client-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-client-functional.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-client-functional.json.gz",
+      "sha256": "cd702d2d60641660318e15cbaa7382bc7d8845638f5230e79d7b056866741c9d",
+      "uncompressedSha256": "54f078d0c17ee801c8ddf9d27f055e03a14bfe1cf558b433ed1a9ea36838d71f"
+    },
+    "p14-focus-client-functional.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-client-functional.log.gz",
+      "sha256": "b817a21fd2d5f70e5d1c9e400d62cd46b506f3ce834754b819ed2341176eb428",
+      "uncompressedSha256": "ddeb0062839589a887f4278aa3a23439e7b23f525a8ab1ccdcddb7f1f66f3e51"
+    },
+    "p14-focus-clock-fixed.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-clock-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-clock-fixed.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-clock-fixed.json.gz",
+      "sha256": "21e2348e427b671fa04d7be8fb0a49e3760e354e10f5bb09a1efdc42c2b774ca",
+      "uncompressedSha256": "ff33da6cb2790af353b1397659ae01b48a93a01b5e7d44eaa94d5a6aead9c93c"
+    },
+    "p14-focus-clock-fixed.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-clock-fixed.log.gz",
+      "sha256": "6c661ec685478e05419a7468d7671b735e7e640df1d49593ecd48902cdd94aed",
+      "uncompressedSha256": "e95d683ce42e3043dc3b3c24e5978af6178d0906841ce8dbc5015758c0d6eeab"
+    },
+    "p14-focus-early-clock-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-early-clock-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-early-clock-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-early-clock-red.json.gz",
+      "sha256": "349eacd97df9a5507e48b7741daeca4fd1a44efef93f0b68e9d307f7bbd2ef05",
+      "uncompressedSha256": "aff1e879b2445db34b1e08ecf1883d4e3a8d3a078327f1ae58959f892dfae038"
+    },
+    "p14-focus-early-clock-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-early-clock-red.log.gz",
+      "sha256": "e840a84cde6be89b160232f92014fcc10924a17c7bb5be0ee9f95951f31b5762",
+      "uncompressedSha256": "f67798ff7a614bebfacb11498d91392eff02c58c45915bbbab56870a6133158e"
+    },
+    "p14-focus-full.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-full.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-full.json.gz",
+      "sha256": "5ddb9983c7e4b720586a79f1567836c03ddb6a425a9c9d97b34b38694cff46ab",
+      "uncompressedSha256": "746aa62a406a70b902b6b3a193ecd0a5daba68b6fddc6b4654c721219475a70b"
+    },
+    "p14-focus-full.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-full.junit.xml.gz",
+      "sha256": "578cd71baae8acdc8ce33424eaebc4ccc55b568fe4e12fd11c92ea595f138eb2",
+      "uncompressedSha256": "61434916334fe052bc706bdc517bd7e29e9934862d40e6444a2e26bc69875fb0"
+    },
+    "p14-focus-full.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-full.log.gz",
+      "sha256": "c0c9573ef9bf162f5eaebea62a8aef66224363d7b58f189c94df8d19678dc5ac",
+      "uncompressedSha256": "b98b538f89ad67833b1448f65d03422642d075e457fdc9f958bd5891c02eebbb"
+    },
+    "p14-focus-http-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-http-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-http-first.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-http-first.json.gz",
+      "sha256": "7218d171b0d0f80e3b2f11ac3b8d0eb7c49063dbcd65a5182c71b99f71d56f03",
+      "uncompressedSha256": "ec75769af00f0118e56561c8bf98a6e791a701e50b5ee5a98e7e74ea54885142"
+    },
+    "p14-focus-http-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-http-first.log.gz",
+      "sha256": "c49ef1a5aa33b5ee91866ceaa3d6f953536edef4b74548a254cb9f931560ef34",
+      "uncompressedSha256": "c59bdf802050185ad389ecf5d22b96249a6f134d5f50d2041ba0861d9c047487"
+    },
+    "p14-focus-http-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-http-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-http-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-http-red.json.gz",
+      "sha256": "a4835ed49870a72fbf1a55f24eaffa2e3354c02fcfe11280ac59c60707def125",
+      "uncompressedSha256": "87566e941b4489825c0f128500fb5dfc7886e32890143ab87b23b5c333da6887"
+    },
+    "p14-focus-http-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-http-red.log.gz",
+      "sha256": "a278cb17ba87829c2e80cff268d76c30a214d5b42c78fd8a22b6eb6685028763",
+      "uncompressedSha256": "17fd2b8968abc36ee25d334cf42b19bc47f3d55305705677af83ff8c5a13812c"
+    },
+    "p14-focus-lint-browser-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-browser-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-lint-browser-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-browser-first.log.gz",
+      "sha256": "d11b41c205469d829b8668ca0c895f32e119033a3119f3f374788b403508d81d",
+      "uncompressedSha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "p14-focus-lint-final.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-lint-final.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-final.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p14-focus-lint-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p14-focus-lint-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-first.log.gz",
+      "sha256": "1162536a28eed08b33fc4795dfbc0e365a86f498957c65c234789a39a4800c21",
+      "uncompressedSha256": "a437a14eb719bde19f37529c73f5e9ee84d52e83a70a9a8aec446bf00535d531"
+    },
+    "p14-focus-lint-http.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-http.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-lint-http.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-http.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p14-focus-lint-native.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-native.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-lint-native.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-native.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p14-focus-lint-qualified.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-qualified.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-lint-qualified.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-qualified.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p14-focus-lint-ui-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-ui-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p14-focus-lint-ui-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-ui-first.log.gz",
+      "sha256": "5e1cc0517a546c01c9d20ace1505669107dcfa991779321d1446f9218c7e9337",
+      "uncompressedSha256": "cebc1722b8a319619ba08aa3d35990b8c42cc280e1b411ff6583d098cdc3ddb3"
+    },
+    "p14-focus-lint-ui-v2.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-ui-v2.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p14-focus-lint-ui-v2.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-ui-v2.log.gz",
+      "sha256": "8241284213b87b5b8df1baaeba5c0ea75ab8429d90c1dc133c0c233d78eda464",
+      "uncompressedSha256": "20c7b5c02c76f03ffcb53828b1e0ae2b8064ede79163fe46e47820b3c4d112a4"
+    },
+    "p14-focus-lint-ui-v3.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-ui-v3.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-lint-ui-v3.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-lint-ui-v3.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p14-focus-native-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-native-first.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-first.json.gz",
+      "sha256": "766b54958f5a90e7a1fbe1fd3aa2e7e9c679edc37ba516583757e7d7edba1228",
+      "uncompressedSha256": "d3fefff6ee7345b60e2b2a3b3ae47ca2309f25e5d3dfa65bfef74089157a074a"
+    },
+    "p14-focus-native-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-first.log.gz",
+      "sha256": "5f2374b917af6bbd8b44aa1ec4ac8b2dae1ae4b375a56c1a706c36560c2d1ac0",
+      "uncompressedSha256": "6b55e2159684c8a0b85fd0c25e93bad3cf48fd2be7c9389cc3823bc83fa3de60"
+    },
+    "p14-focus-native-first.xml": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-first.xml.gz",
+      "sha256": "cd7decf523b5b752ca63e8c2c68c5d5ebc9dbf4c7c0d7210ff9d32aa2e205a76",
+      "uncompressedSha256": "5e9f3ceadd9066b9aef2bf5a4f2063cf29228c05ba6e6b5bf712241bf7b15445"
+    },
+    "p14-focus-native-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-native-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-red.json.gz",
+      "sha256": "c9fc67ed692d18b49a485dc848055fd2af13e932e409c22e05148aaa0156fb62",
+      "uncompressedSha256": "1ecaf7ff00aadb53e5e1231f82956ab3233712195accda298986de25d35d44f5"
+    },
+    "p14-focus-native-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-red.log.gz",
+      "sha256": "2a6d81068f9efa82829ae0372b531a4115652cbdc584774e0cfcf946e6835a6c",
+      "uncompressedSha256": "67dc7459368984f8b6a878eb42cb9f7bef11a36ae761eebc71393949a2a1c521"
+    },
+    "p14-focus-native-v2.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-v2.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-native-v2.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-v2.json.gz",
+      "sha256": "6460ca4b551f5430898e98c2dde05324eed0f3bdfd87dee79b1580f77198305a",
+      "uncompressedSha256": "1492e3b3b57b560c6ad6bb6a50eaac049a03d770eba634a16b7434aa4b8db774"
+    },
+    "p14-focus-native-v2.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-v2.log.gz",
+      "sha256": "dab43d8e274e6d0f4e2733d706a9b60e2bbe53d047ac0eeea1c53e15d1ca8b50",
+      "uncompressedSha256": "ac99251c6592a796951c27041d5635611d967435d38f70a4f147228cac46ec79"
+    },
+    "p14-focus-native-v2.xml": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-native-v2.xml.gz",
+      "sha256": "481b22ca28bb266a4942e2771104fe79add45a650f61f5b7578152d6be10e722",
+      "uncompressedSha256": "8099e5e2f43c4a4a49afb12d2fe2fdfa8be3919ac68bedfdccb8551b2f04001f"
+    },
+    "p14-focus-notice-backward-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notice-backward-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-notice-backward-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notice-backward-red.json.gz",
+      "sha256": "2e594279667fa2293fc6ccbe28329f5fe87f3c668cc7035df152fdb5e56d763a",
+      "uncompressedSha256": "4d0dd6f1b818c425e6e18b6b62215c53ceaee7602e0eb8e4204ca930acbc8a51"
+    },
+    "p14-focus-notice-backward-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notice-backward-red.log.gz",
+      "sha256": "567fc2f8d0080a2e971695dbd93f7d78fd18b1f57a31ac3212bd129628ac6e37",
+      "uncompressedSha256": "660c2923176f64ad4fdef05d5b3772a8031f31a3b5acae50627c082f78ee5a61"
+    },
+    "p14-focus-notices-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notices-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-notices-first.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notices-first.json.gz",
+      "sha256": "6883165f6069bd2610c103d2a5a4b5f610fb786936607341a047800395794258",
+      "uncompressedSha256": "d22e0323c5881b41e8e7529c5229e58670e86ecfeb20ec638e732967327f6f88"
+    },
+    "p14-focus-notices-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notices-first.log.gz",
+      "sha256": "7f234c30533ae34c4fe1ca8f2e5c24b62a8bf6526c7a020db1b3385f472ea437",
+      "uncompressedSha256": "2b8956b9e49b796cdf7acd8946fbb58a2e22ea115c64a04f960eb078be930091"
+    },
+    "p14-focus-notices-first.xml": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notices-first.xml.gz",
+      "sha256": "6cb8fa1759a0df38128477a1af4707477d992c6fcab106548c38e3ac334b31c3",
+      "uncompressedSha256": "0d546075be40d91232fc2b293caaf484eef90829cd0e233b17d59c34f0487799"
+    },
+    "p14-focus-notices-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notices-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-notices-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notices-red.json.gz",
+      "sha256": "5047e5287f9f907775410699724f095cb122b2275933ff664f13a4b82868dbec",
+      "uncompressedSha256": "4ab7ef9b1aee00668de9c36221c686cfb33456cb42872399f05c278b679fca2f"
+    },
+    "p14-focus-notices-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-notices-red.log.gz",
+      "sha256": "ef39ee582fb84798c59002a9c499b43fcfb2adfeb4cdeb9c4b8525bf0cef6070",
+      "uncompressedSha256": "683ca7283141bb5e07da085e0c916e125e1615877382d63756dc4f3b933fcd20"
+    },
+    "p14-focus-recovery-final.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-final.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-recovery-final.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-final.json.gz",
+      "sha256": "31c974eedafb486a3abc34464425c33d8c170efd7923a300dede94c1a3f75da6",
+      "uncompressedSha256": "4c8019a1180af1135f329116a3bc5627b1d53bc137faeab24fc7a0f0944473d1"
+    },
+    "p14-focus-recovery-final.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-final.log.gz",
+      "sha256": "91566357904f2a1a1a865b8d1d8564ffdfdcd5f7b153d2f48bf9626b4ce78651",
+      "uncompressedSha256": "98ec655217f34cb880f00a51956708590759a76449ae76c20cc86536d2c68f15"
+    },
+    "p14-focus-recovery-fixed.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-fixed.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-recovery-fixed.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-fixed.json.gz",
+      "sha256": "a4e3b7199dd02ee01ef5a749077da2d88ac419da4f25b4bbda7f9b291e4114f8",
+      "uncompressedSha256": "3df74e3e69c4f3cfe48cf57bc700e1f79e7595b2355ea8bceba63d169212d6ee"
+    },
+    "p14-focus-recovery-fixed.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-fixed.log.gz",
+      "sha256": "642cc80277746d899895d87c78bd3a5131b51f1718fb1df3b7b443d0412c9555",
+      "uncompressedSha256": "2c5ed5ca9a1546e031a18b704acf129f20888ad97a20c9984930edcc6aae327c"
+    },
+    "p14-focus-recovery-v3.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-v3.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-recovery-v3.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-v3.json.gz",
+      "sha256": "7f740d3bfe074a8dbecd0f33f1cbe40812d221ebcd1d622da3ae660432205f25",
+      "uncompressedSha256": "c0d94fd0317bb8645c276dedc85caef7644425d57471775a935df455276b714b"
+    },
+    "p14-focus-recovery-v3.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-recovery-v3.log.gz",
+      "sha256": "04ff90e06a8add60838d7994cd690cfcbbac3fccbfcd3ef3de37e6cfbf00ad04",
+      "uncompressedSha256": "d0674c425b26838c75fca9dab00b8206596d7fca6ac20cf718ab5de5b1eb6c26"
+    },
+    "p14-focus-restore-history-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-restore-history-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-restore-history-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-restore-history-red.json.gz",
+      "sha256": "4206161b5e1349111e1b65e9cea4887fbcc7c0f5554503a0b2bf736c32977a20",
+      "uncompressedSha256": "310434d4af53e28a9bc400065bc825d713349c9e4ef92b6f4147bbb3e27e6042"
+    },
+    "p14-focus-restore-history-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-restore-history-red.log.gz",
+      "sha256": "1ad1171bf605e74e6a4577b03e001d962e163e41b02c23b0c3d0b7283bc81a0f",
+      "uncompressedSha256": "30793e6223c52c93f5f5f2054fcd3b8efc5dc1b79d1a03f22a609613521879a5"
+    },
+    "p14-focus-sdk-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-sdk-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-sdk-first.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-sdk-first.json.gz",
+      "sha256": "e5fb4c9a512fef292f7d719e444ec8b3ace2b4b5c28581982ec7bd1461757538",
+      "uncompressedSha256": "90f30012825ad4be4f01d564338f83d90328484102d18cb3e3bed9c8429f814f"
+    },
+    "p14-focus-sdk-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-sdk-first.log.gz",
+      "sha256": "b0cbc2ea61aab7f6140f5caf709a93755bf0aa1fc68b95e1f7a8652baefe7c3c",
+      "uncompressedSha256": "09933c8384ab7b7432ab917021ee20cfe5f15220bfc5bed45a76ddb1b67b8d5d"
+    },
+    "p14-focus-sdk-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-sdk-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-sdk-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-sdk-red.json.gz",
+      "sha256": "6867eecc5476725c3a3057994c61b99a9170f1c2ddb34efcdf9758245799dbcc",
+      "uncompressedSha256": "81b3244f51621e25defa3ab4527b8d5326d7881a39dc8214d9ddb762cada30cd"
+    },
+    "p14-focus-sdk-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-sdk-red.log.gz",
+      "sha256": "9cac4390c4a15f8a02b44a9a55fca9f177bf6360589e966c6e6e5b3b4a37c69b",
+      "uncompressedSha256": "c04ef171bf25a2f1aa90d596950d1ef0f1bb460f12c33c4c1ae0709e0f020410"
+    },
+    "p14-focus-workspace-first.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-workspace-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-focus-workspace-first.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-workspace-first.json.gz",
+      "sha256": "ae5dccca24100ce262c19754fc59751ec163f133b53e899422be37164dfcfb97",
+      "uncompressedSha256": "2e26d061e6e6036340c463f4da08be6bfe67263bd43eb525546e73b2377a05e8"
+    },
+    "p14-focus-workspace-first.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-workspace-first.log.gz",
+      "sha256": "2e35a28afbde1ce10e929ea8ec6c928522b1342625b92e0af26b2ed50c53ba10",
+      "uncompressedSha256": "c802cfe2cc17ad32f259be81b2798734b29cdb81e2bb0b1a6de505b6925da41b"
+    },
+    "p14-focus-workspace-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-workspace-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-focus-workspace-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-workspace-red.json.gz",
+      "sha256": "bed3716dc250e222ab513f6c06f78053539fe108058ac74c0d3bef3d3c54bc32",
+      "uncompressedSha256": "eee57f26061cc755e8e71de4862f8f8a5a645106a39b65131c890313beaa0415"
+    },
+    "p14-focus-workspace-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-focus-workspace-red.log.gz",
+      "sha256": "f45ee2c131b8388d9d7e7394af6ce458607844eb2768ceacfd23b78cfecb06c3",
+      "uncompressedSha256": "2f17210fb6d90e5dc86951e585e6faa146f3b1c683fadfb204df8d8fb7781ca7"
+    },
+    "p14-qualified-browser-attachments.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-attachments.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-attachments.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-attachments.log.gz",
+      "sha256": "588acb64355544b0e247381cdcca386c20b7433ec4c5ee3c8286a931e5d8bd5d",
+      "uncompressedSha256": "252d072b072604d2d095b62e8be051e08994e141bc93960e4c3cf8e85e56ea95"
+    },
+    "p14-qualified-browser-calendar.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-calendar.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-calendar.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-calendar.log.gz",
+      "sha256": "7e72f001ab5f2229b0a4e1ac942b588a07502e4cd5956ad11d734c1c9d95fb20",
+      "uncompressedSha256": "5ddd37ff437a82fb1279f1f8e35484fee7ddeb44140d143e6d03de9131c2fa40"
+    },
+    "p14-qualified-browser-collaboration.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-collaboration.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-collaboration.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-collaboration.log.gz",
+      "sha256": "5c53ff3c9d9f7452b5e0cba15aba6eec4750e775946c7d273574218f9cd85dfd",
+      "uncompressedSha256": "1a3af3ca912404f2fb2f2d61089679e58ef8502a0e986fc65e6e1b98393dae8e"
+    },
+    "p14-qualified-browser-content.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-content.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-content.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-content.log.gz",
+      "sha256": "4d2cc38f7c35daa3272fcf745165f6bc34c5ff7434e96f036de921f4756bd793",
+      "uncompressedSha256": "cac69255175c60e29ad49b879180ff7db68377dbf1ae343a2ff365d36106efc5"
+    },
+    "p14-qualified-browser-data.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-data.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-data.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-data.log.gz",
+      "sha256": "03162b0ebcd14fdeb08539a67b4a3c8178a6386a065858af831c44db691bd028",
+      "uncompressedSha256": "89cb854248100786665620da7aaaf347e467185eb634da77f862f824997ad644"
+    },
+    "p14-qualified-browser-focus.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-focus.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-focus.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-focus.log.gz",
+      "sha256": "741c548713ea08ef8edf6b25e7d0545710547495bc6eaf318ef625dec1580ec4",
+      "uncompressedSha256": "e42e7eb1677c822c497a450c247bd484b18bed068144f42997bc0d44a25eaa70"
+    },
+    "p14-qualified-browser-notifications.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-notifications.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-notifications.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-notifications.log.gz",
+      "sha256": "43c834e7ad118f90f182f2d8eb1f4868ae1cb20acca0d9e293ee2613f8cc7847",
+      "uncompressedSha256": "a42eb511ad662044360906e8bda6e4a52eb308264c49209b6bca27ab763fbd6d"
+    },
+    "p14-qualified-browser-templates.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-templates.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-qualified-browser-templates.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-qualified-browser-templates.log.gz",
+      "sha256": "c56ebe5edc7a7b02f377ea65db504f5c5ceb519e8f581d783f54d15f772e1a15",
+      "uncompressedSha256": "2dde2a1e424c6b5c59c7b655a2e118bfc44833cfa1e9c86f99a8e42795ac0ede"
+    },
+    "p14-restore-clock-functional.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-restore-clock-functional.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-functional.json.gz",
+      "sha256": "c3cb4b6a6170958ca5b0c8e3e7f04eea5ef68ead75cb832282466f06061c5463",
+      "uncompressedSha256": "9501deea5cd93b16f68c8dcc0f4f792665bf87b19b57f3110a763d363d181ba7"
+    },
+    "p14-restore-clock-functional.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-functional.log.gz",
+      "sha256": "ffdfcdc76ba44868fdc6c82665d1ca14a8ddae447d46476675c65b8a7f0cfffd",
+      "uncompressedSha256": "cadd058d93604508d66641e6683f1f3f5de1a3f5a4e229ad98d4a0b35aa37f44"
+    },
+    "p14-restore-clock-functional.xml": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-functional.xml.gz",
+      "sha256": "ec6f753595aeff41b4c2768a837e2041321f3ef6b634af5cec40114450c72f5a",
+      "uncompressedSha256": "2a9f09cb28eeeb1702b8bdf88adb1d160a32e7a8773fe71483f8d9ca316bcb8a"
+    },
+    "p14-restore-clock-lint.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p14-restore-clock-lint.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p14-restore-clock-red.exit": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p14-restore-clock-red.json": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-red.json.gz",
+      "sha256": "de03c74cfefa8594ca466f28bd4d20e77417439aa5570f5f9ef6fd97671e47b0",
+      "uncompressedSha256": "e8588817eae45f9bbe32cd3b4aafc2ed737e3c13b5034a910f79ccd636637094"
+    },
+    "p14-restore-clock-red.log": {
+      "path": "docs/engineering/evidence/p14-focus/p14-restore-clock-red.log.gz",
+      "sha256": "e8b81f7403767ef6f1938dc9d15e95478e5b8e77f437ff905a67b97d43f6b6f2",
+      "uncompressedSha256": "7fccf2b645949c81f38813d76c09a8969d03c0ad65dad52ac8d352fe46d5d2bf"
+    },
+    "focus-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/focus-final-browser.json.gz",
+      "sha256": "4e8c31a023536d841ba446ce250ea8c647cb125738e2839ac54621121e9eacc8",
+      "uncompressedSha256": "38292b7dfa7697fae4a98bb89db434930cffc04df04b8613c6d7e7bb55900631"
+    },
+    "focus-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/focus-final-browser.junit.xml.gz",
+      "sha256": "c763d709e0db2c26f4eaad940cfdccb408aea2d0f976b7a470f8628222c6124d",
+      "uncompressedSha256": "8b155cc7280e53f983bbd92d431374f492d36d0114601f4e813578514d381c41"
+    },
+    "focus-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/focus-final-fixture.json.gz",
+      "sha256": "a537432cde98b3561c75604de182544d92d1f2ce5c3cda284a3f3d39812674cb",
+      "uncompressedSha256": "92927d8b8cc8fa8972c7cc109994b5235a2c15944cb700a53a29aa1363c69cbb"
+    },
+    "focus-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/focus-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "focus-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/focus-final-run.log.gz",
+      "sha256": "741c548713ea08ef8edf6b25e7d0545710547495bc6eaf318ef625dec1580ec4",
+      "uncompressedSha256": "e42e7eb1677c822c497a450c247bd484b18bed068144f42997bc0d44a25eaa70"
+    },
+    "focus-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/focus-final-server.log.gz",
+      "sha256": "33d3a7af680c63f2bd112ff3019cd3bdfffdd0a2a371d2bd7c6ab6a0f7ef5b72",
+      "uncompressedSha256": "dedaaea3415aebab8e59185106e079759504fac203791a8a6c8d2232b4ad3e8c"
+    },
+    "data-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/data-final-browser.json.gz",
+      "sha256": "3ee4d3b827ff292c6c1096319a4e3c1d1433989e95e45c118ac0d3f920108d1e",
+      "uncompressedSha256": "22e0f139e6c4953e292f8c0b260c5e1b563af7607e16240bcfd50531a07527cd"
+    },
+    "data-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/data-final-browser.junit.xml.gz",
+      "sha256": "39ba3104dc88a3a8f8bb0040392ec39ecc0e2caff5a46742fee0966512204586",
+      "uncompressedSha256": "853e8beb5c8207321d154ddc09a1146f6ccf3b89fd0e9ce90918327b8e71139f"
+    },
+    "data-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/data-final-fixture.json.gz",
+      "sha256": "52c695278d4f513dd7002ca6d213860effc997767ec5e073b3d2a95cfcdebf84",
+      "uncompressedSha256": "77dc4123626a25a7833935fe06f096665fcfa6025117f72e8ef6d5def5586fbe"
+    },
+    "data-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/data-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "data-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/data-final-run.log.gz",
+      "sha256": "03162b0ebcd14fdeb08539a67b4a3c8178a6386a065858af831c44db691bd028",
+      "uncompressedSha256": "89cb854248100786665620da7aaaf347e467185eb634da77f862f824997ad644"
+    },
+    "data-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/data-final-server.log.gz",
+      "sha256": "2a065933f13a8992962118d94d8591fb8cf15f2b1d0048ebc33074ceda5b3b2c",
+      "uncompressedSha256": "d1b9ee051a519076000d7bcabb79152666c7fa2876bd6a574aacb940fb4b3ece"
+    },
+    "attachments-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/attachments-final-browser.json.gz",
+      "sha256": "5bad0d30f3868fd3528371e679578b75d8953eb667aade4801aba05a01787de9",
+      "uncompressedSha256": "1ad1db3ecd1bd0b08e5f487562da11f2b670ea91243a557be0e2047a98b8342c"
+    },
+    "attachments-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/attachments-final-browser.junit.xml.gz",
+      "sha256": "a04658acff8052b6ec62c8d4261fe66712b8b27cfb171baa00cbc49575b04b45",
+      "uncompressedSha256": "59e1cb0f4fa17f798e7a8cc279ac8afa5a013fb698acddca46d679fa81b648c6"
+    },
+    "attachments-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/attachments-final-fixture.json.gz",
+      "sha256": "d8d0f9a9fb345823effb4c3b7f5bf14cc77a68ba8626be6f11f2aa2d5797081e",
+      "uncompressedSha256": "d46812b7d6185aa75c0708ad6a3aec50ec4f21202535ac1fe0339fe87e2a7bf8"
+    },
+    "attachments-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/attachments-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "attachments-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/attachments-final-run.log.gz",
+      "sha256": "588acb64355544b0e247381cdcca386c20b7433ec4c5ee3c8286a931e5d8bd5d",
+      "uncompressedSha256": "252d072b072604d2d095b62e8be051e08994e141bc93960e4c3cf8e85e56ea95"
+    },
+    "attachments-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/attachments-final-server.log.gz",
+      "sha256": "2794c3445f4fbbc60543d3005bedbcc5b1cda48cdb35ac3c85dc9b9df9695ab8",
+      "uncompressedSha256": "befbe628de880174ecfa347b3e53d6aaed0fafa8a283184075fae77b7f2ab7eb"
+    },
+    "content-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/content-final-browser.json.gz",
+      "sha256": "bd6293f77dd5e6eebbad09dae8e307ef2e3016d715cff6a6f36f6f8aad16d584",
+      "uncompressedSha256": "2e91958fd22853829fa3050cdb44cca04d1c466fa5e00c3581d20816f5edcdc1"
+    },
+    "content-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/content-final-browser.junit.xml.gz",
+      "sha256": "c572e1d4200f3278da14046a87c693a81aae62d05ae87fafe8d833e2f3730a65",
+      "uncompressedSha256": "70cedf96cf9081164a4fdd773a33167307ae97d06510cdc7e10543bde1f189bd"
+    },
+    "content-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/content-final-fixture.json.gz",
+      "sha256": "5911ad0c7f988527f8a7a1ce14871129501489dc6d48cab4f67482a5f117fe51",
+      "uncompressedSha256": "49737ea4745cea4ed42399945e4c353913ac11cdca75bf891185b449feb264ec"
+    },
+    "content-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/content-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "content-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/content-final-run.log.gz",
+      "sha256": "4d2cc38f7c35daa3272fcf745165f6bc34c5ff7434e96f036de921f4756bd793",
+      "uncompressedSha256": "cac69255175c60e29ad49b879180ff7db68377dbf1ae343a2ff365d36106efc5"
+    },
+    "content-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/content-final-server.log.gz",
+      "sha256": "bb251c581865eea9ea286c7f342e0374349572b55f2313e205e24689ddcbd8bd",
+      "uncompressedSha256": "522e8ec22ea61f908a28dc4bc6f80a5c7de1135292f877eee5231d4cc83a3021"
+    },
+    "templates-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/templates-final-browser.json.gz",
+      "sha256": "1e4b9094b9a1c299f1cacc4edad0ab982185fa731ae3f8662aa79c1a8a27b58d",
+      "uncompressedSha256": "fb4414dbfbb3b248f6285f02fb508e5dfbc5f2653beeef88d1902281e40a5763"
+    },
+    "templates-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/templates-final-browser.junit.xml.gz",
+      "sha256": "6ab4bf43e5dfa5874873c916e8ce0f95d7d58e0be506290bc284520183c81670",
+      "uncompressedSha256": "4ef0b559586c1925b70040462382d3845ce169b19a89427fc2ff8bd6128a99af"
+    },
+    "templates-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/templates-final-fixture.json.gz",
+      "sha256": "343538cb2a77f310e763048780736840a24403aa11bfa90dd58d422912d89b5a",
+      "uncompressedSha256": "a04cc98fa5247cec08cf1b628c3ddab92209daf6bdbfb5a3bc80314d191dbc00"
+    },
+    "templates-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/templates-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "templates-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/templates-final-run.log.gz",
+      "sha256": "c56ebe5edc7a7b02f377ea65db504f5c5ceb519e8f581d783f54d15f772e1a15",
+      "uncompressedSha256": "2dde2a1e424c6b5c59c7b655a2e118bfc44833cfa1e9c86f99a8e42795ac0ede"
+    },
+    "templates-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/templates-final-server.log.gz",
+      "sha256": "e0906c5c4989dffc7879992fa87daea0a7f370e69a0491020c78946b09000400",
+      "uncompressedSha256": "168bc706386dc38b931c2f0151a66ab659cebdf7901e1afbaf1cf7681a643e84"
+    },
+    "notifications-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/notifications-final-browser.json.gz",
+      "sha256": "6fe2d8654ede58b91a56114ad2c8dfae6992e504f0798489d5e7fb75e6a7da38",
+      "uncompressedSha256": "a929cbc48dbf6e013c776adbbfe872e288757f65228591ff3912d4de58423c62"
+    },
+    "notifications-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/notifications-final-browser.junit.xml.gz",
+      "sha256": "adbcead9ba1d628b3c9baa73c3ae1fc2c90af4c0de2cc41d86d14010ed58c8a1",
+      "uncompressedSha256": "b21d55b66980aab475b4922d031d9570f83fa549a1f5d073c529f87617e01ca9"
+    },
+    "notifications-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/notifications-final-fixture.json.gz",
+      "sha256": "2abae742d52b0d90b04e966caf22d2b004531b4fc35a775d88a22a65c69bfc5e",
+      "uncompressedSha256": "0333b6ee2d66e0606ab9d97e035b88ca4b63689b653470b07694cf7823e61998"
+    },
+    "notifications-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/notifications-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "notifications-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/notifications-final-run.log.gz",
+      "sha256": "43c834e7ad118f90f182f2d8eb1f4868ae1cb20acca0d9e293ee2613f8cc7847",
+      "uncompressedSha256": "a42eb511ad662044360906e8bda6e4a52eb308264c49209b6bca27ab763fbd6d"
+    },
+    "notifications-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/notifications-final-server.log.gz",
+      "sha256": "c1856f96aa7e92751cc46e1ee3fc4f509a9b8569edc3ed36a29d9c3e14aaee8d",
+      "uncompressedSha256": "90c5c76fd105472cd9f5bd87c8f3af618c97e4fc94e5b8aca659134dfcb5b72f"
+    },
+    "collaboration-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/collaboration-final-browser.json.gz",
+      "sha256": "07b3e4d6c1b79132f4ca877fc8325506ea5d605f78e1fe0a533812e1e68a5d63",
+      "uncompressedSha256": "9c48f43b227c3701a498b02b4b13464ef1067f26e64117bfac61053147b5b24d"
+    },
+    "collaboration-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/collaboration-final-browser.junit.xml.gz",
+      "sha256": "c9d213a12ae6f9124c10b2fa52f0174da4a275923493891648c7a9f2cb0f15fa",
+      "uncompressedSha256": "585596d986696a2071abcc8aaf7b784e1f5a2333b5185cd11f5b3ab3663751c7"
+    },
+    "collaboration-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/collaboration-final-fixture.json.gz",
+      "sha256": "8a6e341154c6d7a46092cb4d515b5560e7999f2181c6ef9043443d41e4652f7a",
+      "uncompressedSha256": "6529872d8b315bd7b6e127503861a345ba5dbf5511fc449bcdd939b051275ea0"
+    },
+    "collaboration-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/collaboration-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "collaboration-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/collaboration-final-run.log.gz",
+      "sha256": "5c53ff3c9d9f7452b5e0cba15aba6eec4750e775946c7d273574218f9cd85dfd",
+      "uncompressedSha256": "1a3af3ca912404f2fb2f2d61089679e58ef8502a0e986fc65e6e1b98393dae8e"
+    },
+    "collaboration-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/collaboration-final-server.log.gz",
+      "sha256": "15c72bf2c10d325e8a08ac824b19b5ee1a89263c32bc5f9c3ea56bb3fda990d4",
+      "uncompressedSha256": "b4db67bc1f056712cd8578ea3211683c660e74b570a67f15ece901483149b733"
+    },
+    "calendar-final-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/calendar-final-browser.json.gz",
+      "sha256": "9d681df8a85e8a3f71b0f38be52a564c1071636317c1c649ced49673b996b425",
+      "uncompressedSha256": "a0083888c859cefb8a3bf9b71d186e6f25129ac19c1b14e1caeacd97cb1fe59f"
+    },
+    "calendar-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/calendar-final-browser.junit.xml.gz",
+      "sha256": "20340415f68f9feaac4957f6347ab0df884877de4731552e2f2b2af83561fc41",
+      "uncompressedSha256": "cf5137820f856d493f92f7a3a3995dfdcb4ebd608da04d51cbd16d6fcf691d80"
+    },
+    "calendar-final-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/calendar-final-fixture.json.gz",
+      "sha256": "8a6e341154c6d7a46092cb4d515b5560e7999f2181c6ef9043443d41e4652f7a",
+      "uncompressedSha256": "6529872d8b315bd7b6e127503861a345ba5dbf5511fc449bcdd939b051275ea0"
+    },
+    "calendar-final-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/calendar-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "calendar-final-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/calendar-final-run.log.gz",
+      "sha256": "7e72f001ab5f2229b0a4e1ac942b588a07502e4cd5956ad11d734c1c9d95fb20",
+      "uncompressedSha256": "5ddd37ff437a82fb1279f1f8e35484fee7ddeb44140d143e6d03de9131c2fa40"
+    },
+    "calendar-final-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/calendar-final-server.log.gz",
+      "sha256": "39be964ed2373322abcaa7e1c5ab6f54b5e97591e47f1487b628521a4bf2b9c7",
+      "uncompressedSha256": "1df1c8eca892a952d262fae8658956d124a9c59d2e402a994e5d4955a19fb6bc"
+    },
+    "browser-first-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-browser.junit.xml.gz",
+      "sha256": "ab2fb275c29dc5d5efe37e5ef57e1fd13e4ee151e8ca6a8e3b605377294bb88b",
+      "uncompressedSha256": "f904f17a110e2ff3f5a57ee7253a33a5c16ad9bc1d9634034be56c9d3e1a9b50"
+    },
+    "browser-first-focus-390-dark.png": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-focus-390-dark.png.gz",
+      "sha256": "b557b8a19099cf00b071443cbecae5c8bcc029f910f2dc3da8715cee343cd755",
+      "uncompressedSha256": "9f6204deccd7103349e0656b9fa7607d4b4c8e9efe4dc8d08d37289a15cbd479"
+    },
+    "browser-first-run.log": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-run.log.gz",
+      "sha256": "9b9ee9bba3adcd374f796e90c0055807b3a5e42dfa4ade6d2704dd301f47c89c",
+      "uncompressedSha256": "bf4921607527c2d19ad9099e82f96ba67c9686dca68e00269df4128d17e64053"
+    },
+    "browser-first-fixture.json": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-fixture.json.gz",
+      "sha256": "490db71971a62fe9989d493e188845b724e04f5af22ee870ad26347aba5f98d2",
+      "uncompressedSha256": "af01ab948e25a0bb411a1583ada921048685a86653959473781a4e68a2ab8cc5"
+    },
+    "browser-first-browser.json": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-browser.json.gz",
+      "sha256": "c74ab340d6fed6d4c7df09e2f71655b96597c1ea03d701b58124985c0d29a934",
+      "uncompressedSha256": "e4b6650027d65705af619de00aba9b708a71d5e674b8c9d6ee0cb266a4fba88e"
+    },
+    "browser-first-server.log": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-server.log.gz",
+      "sha256": "9fa7b42dc4f87b747a274db84c162596cc1e9f1bf77853465f1ea28d8ac7f660",
+      "uncompressedSha256": "411d6409f55ccdb7bd536dbda7a29d464d36584bf41bd98affb41ec4c8b6f2ee"
+    },
+    "browser-first-focus-390-light.png": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-focus-390-light.png.gz",
+      "sha256": "3558ec935297e7a335ef50b9ae756e64e0db162e798a7f75ee864db224e93a1f",
+      "uncompressedSha256": "c251432e270808733060976d70f36c48c874e84d082f1a985b4112723d71f9f9"
+    },
+    "browser-first-runtime.json": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "browser-first-results__.last-run.json": {
+      "path": "docs/engineering/evidence/p14-focus/browser-first-results__.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "uncompressedSha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    "focus-audit-390-light.png": {
+      "path": "docs/engineering/evidence/p14-focus/focus-audit-390-light.png",
+      "sha256": "374d3db099f4d1eda400ab0a210450c050a9fdf863803c91f6e17863dd8b7098",
+      "visuallyInspected": true,
+      "scope": "Actual390px viewport at Focus form or audited correction; light and dark. First element captures were clipped by the app scroll container and remain only historical raw artifacts."
+    },
+    "focus-390-dark.png": {
+      "path": "docs/engineering/evidence/p14-focus/focus-390-dark.png",
+      "sha256": "8d0695795a3112c1b2aa4a85965e4a28a07e4e53e2077d5a7840684368d601cf",
+      "visuallyInspected": true,
+      "scope": "Actual390px viewport at Focus form or audited correction; light and dark. First element captures were clipped by the app scroll container and remain only historical raw artifacts."
+    },
+    "focus-audit-390-dark.png": {
+      "path": "docs/engineering/evidence/p14-focus/focus-audit-390-dark.png",
+      "sha256": "b85b51021d208053524a3e94608f9af9ce0ca11b201d71b9beb79396819e4b1c",
+      "visuallyInspected": true,
+      "scope": "Actual390px viewport at Focus form or audited correction; light and dark. First element captures were clipped by the app scroll container and remain only historical raw artifacts."
+    },
+    "focus-390-light.png": {
+      "path": "docs/engineering/evidence/p14-focus/focus-390-light.png",
+      "sha256": "548a1ab6454ea7b30aeeaad741c35eb564d4edb2fb221adb14bfab88a0da779c",
+      "visuallyInspected": true,
+      "scope": "Actual390px viewport at Focus form or audited correction; light and dark. First element captures were clipped by the app scroll container and remain only historical raw artifacts."
+    },
+    "publish-p14-focus.py": {
+      "path": "docs/engineering/evidence/p14-focus/publish-p14-focus.py.gz",
+      "sha256": "c4aeab43db736231709a123bee8c6d2b67fbd1961d221630c30b6216cac2a395",
+      "uncompressedSha256": "b97d91e969486001cb3ac93f95ec987004973caae069da2dcf846cf629a980db"
+    }
+  },
+  "remaining": [
+    "P15 habit integration, P15–P18, remaining Wallet/W18/M1/I02/I03 and capacity/performance are open.",
+    "Final mandatory Windows Node22/24/three browsers, all parent suites, ZIP/service/performance and explicit pilot acceptance. New eight feature harnesses are not yet wired into mandatory Windows.",
+    "No new PR/Actions run for this feature-first group. Actual Server2019 R02 separate/unrun. Release/tag/VPS/PC runner not performed."
+  ]
+}
