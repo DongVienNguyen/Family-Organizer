@@ -46,8 +46,8 @@ export function createCalendar(ports:{reader:TaskReader;write:typeof withAppWrit
  const authorize=(actor:AppActor,reader=ports.reader)=>assertContext({actor,requestId:'calendar:read',expectedRevision:0},reader);
  const editable=(actor:AppActor,id:string,reader=ports.reader)=>{authorize(actor,reader);return createTaskAccess(reader).assertTaskCommand(actor,id,'update');};
  return {
-  getCalendar(actor:AppActor,raw:unknown,clock:QueryClock={nowUtc:new Date(now()).toISOString(),timezone:'Asia/Saigon'},filter:TaskFilter={rootsOnly:true}):CalendarPage {
-   authorize(actor);let range:CalendarRange;try{range=calendarRange(raw);calendarClock(clock);}catch{return fail(422,'Khoảng lịch không hợp lệ; chọn tối đa366ngày và múi giờ hợp lệ.');}
+  getCalendar(actor:AppActor,raw:unknown,suppliedClock?:QueryClock,filter:TaskFilter={rootsOnly:true}):CalendarPage {
+   authorize(actor);let range:CalendarRange,clock:QueryClock;try{range=calendarRange(raw);clock=suppliedClock??{nowUtc:new Date(now()).toISOString(),timezone:range.timezone};calendarClock(clock);}catch{return fail(422,'Khoảng lịch không hợp lệ; chọn tối đa366ngày và múi giờ hợp lệ.');}
    // Bound current-authority source bodies before using the shared filter engine.
    const scope=taskScope(actor),budget=ports.reader.get('SELECT count(*) AS n,COALESCE(sum(length(CAST(t.body AS BLOB))+length(CAST(t.title AS BLOB))),0) AS bytes FROM productivity_tasks t WHERE '+scope.sql,...scope.args);if(budget.n>100000||budget.bytes>16*1024*1024)fail(413,'Phạm vi lịch vượt giới hạn dữ liệu.');
    const sources=query.readFilteredTasks(actor,filter,clock),items=sources.flatMap(task=>{const item=taskItem(task,range);return item?[item]:[];}),issues:CalendarPage['issues']=[];

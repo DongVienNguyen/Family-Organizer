@@ -2897,6 +2897,10 @@
     "chooseTime": "选择具体时刻",
     "legacyIssue": "现有家庭计划的时间无效，请打开家庭日历检查。",
     "export": "下载当前日历 (.ics)",
-    "exportNeedsReview": "部分时间尚需确认，请先检查再导出日历。"
+    "exportNeedsReview": "部分时间尚需确认，请先检查再导出日历。",
+    "defer": "稍后检查",
+    "resume": "继续待确认请求",
+    "before": "更改前",
+    "after": "更改后"
   }
 }

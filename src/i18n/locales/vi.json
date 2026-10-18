@@ -2897,6 +2897,10 @@
     "chooseTime": "Chọn thời điểm",
     "legacyIssue": "Một kế hoạch cũ có thời gian chưa hợp lệ; mở Lịch gia đình để kiểm tra.",
     "export": "Tải lịch đang xem (.ics)",
-    "exportNeedsReview": "Có thời gian chưa được xác định rõ. Hãy kiểm tra trước khi xuất lịch."
+    "exportNeedsReview": "Có thời gian chưa được xác định rõ. Hãy kiểm tra trước khi xuất lịch.",
+    "defer": "Để kiểm tra sau",
+    "resume": "Mở lại yêu cầu đang chờ",
+    "before": "Trước",
+    "after": "Sau"
   }
 }

@@ -2898,6 +2898,10 @@
     "chooseTime": "Choose an occurrence",
     "legacyIssue": "An existing family plan has invalid time data; open Family Calendar to review it.",
     "export": "Download visible calendar (.ics)",
-    "exportNeedsReview": "Some times need review. Resolve them before exporting the calendar."
+    "exportNeedsReview": "Some times need review. Resolve them before exporting the calendar.",
+    "defer": "Check later",
+    "resume": "Resume pending request",
+    "before": "Before",
+    "after": "After"
   }
 }
