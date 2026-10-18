@@ -1,0 +1,1692 @@
+{
+  "taskId": "P15 Habits/Countdown core functional slice; reminders/Calendar still open",
+  "sourceCommit": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+  "backendSource": "ffa472d5b79b47ca7bc0148f8571385d86a34c84",
+  "uiSource": "bf106385492d0de85fe6c9c4b471a0130f1eef94",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "qualification": "Cloud functional development only; final composed Windows pending",
+  "fullRegression": {
+    "passed": 8867,
+    "files": 565,
+    "junitCases": 8867,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentPassed": 8793,
+    "added": 74,
+    "removed": 0
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "buildSource": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+  "browser": {
+    "habits": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 20,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          },
+          "focusFixture": {
+            "explicit": true,
+            "frozen18Preserved": true,
+            "taskRowsPreserved": true,
+            "sessionsCreated": 0
+          },
+          "habitFixture": {
+            "explicit": true,
+            "frozen19Preserved": true,
+            "taskRowsPreserved": true,
+            "habitsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "focus": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 19,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          },
+          "focusFixture": {
+            "explicit": true,
+            "frozen18Preserved": true,
+            "taskRowsPreserved": true,
+            "sessionsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "data": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 18,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          },
+          "dataFixture": {
+            "explicit": true,
+            "frozen17Preserved": true,
+            "taskRowsPreserved": true,
+            "importsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "attachments": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 17,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          },
+          "attachmentFixture": {
+            "explicit": true,
+            "frozen16Preserved": true,
+            "taskRowsPreserved": true,
+            "attachmentsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "content": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 16,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "templates": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 15,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "notifications": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 14,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "collaboration": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "calendar": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "2bd0bc6568ef14d1493aabbb07fef0cdd0f63cbc",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "ef946e0f0e40be071877ea1b08a1faf70449fbd181da46b2c0a0ca6031707ddb",
+          "index": "3cdd3cc0d2ed2f695e9227e811f8c4d9b70ffc771a21b8749eb29cb5aa71212c"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    }
+  },
+  "sourceFiles": {
+    "playwright.habits.config.ts": "6431bb4eee0caad56a7986013e1b63e5ab074cbe7851f77e1a729c0fc091af68",
+    "scripts/ci/productivity-feature-browser.mjs": "8f423ddc74646c4490d0d005ef21106c0d7b4a91c5817391d4ff6e58812e697e",
+    "scripts/ci/run-habits-browser.mjs": "9b0640b65026d68912f8a279bc9008b8b1a699415a9fb699dc173be936f18980",
+    "scripts/ci/write-habit-browser-fixture.ts": "97d3efc1b4795d9557e508e496af3d105092dcfbe44411670a734141a279e13f",
+    "server/app.ts": "b86e33657468e716d15d8e3acb79ff7ccac28dbdf14fb68d02d3949aa8b51369",
+    "server/productivity/adapter.ts": "7bf9ded7c0bdc9282f26fc5dcf0b1ee051d1adc93a8df8851e7928042afec464",
+    "server/productivity/bootstrap.ts": "0a0ebc663140c3ccc9a223ea80f06bf36471c952ccf6a47c923c37612ced3542",
+    "server/productivity/countdowns.test.ts": "ccc2531b025b29855a845f82f9937117c5d05d5917c8e5251ced87dfe79c4210",
+    "server/productivity/countdowns.ts": "35929eb4a5d5858088b2f9f1dd1146d74dd09f4be3308ab9795069aa97b9462a",
+    "server/productivity/focus.ts": "617345d2f77328cd1a1533eda6b3ae2f23aa2550ab62e649f93704f9665172ab",
+    "server/productivity/habit-focus.test.ts": "f5b6d8090c183ee7c6e0c6c5f667e331a9787d1ef777685f506ab28a5d469113",
+    "server/productivity/habit-migration.test.ts": "fb9ac83aea05dc338ed6fc28a9dbf68fb843cff2b0ee9c2c1020726152b48b29",
+    "server/productivity/habitAccess.ts": "7f1eab3e50cba61604feb0b4be2496bc5305e15f1c75d6d51a38a77f4260aa43",
+    "server/productivity/habitRecord.ts": "691837562584c826708ad370c2f4892ed465618e71fc794cc6e850aafd0643a0",
+    "server/productivity/habitRouter.ts": "9cce57fdd85eceadd30624a6064ce688470d47341bcfe149884ef68d89706874",
+    "server/productivity/habitSchema.ts": "1865c998fa00a2efa7134145945bfc22da0c6fc8e42c6a6bf4c20b09781e650e",
+    "server/productivity/habits.api.test.ts": "645ca28fe4b7fb99a170f918bcf81b9fe679a07fa5f87106538bfa730a32371e",
+    "server/productivity/habits.test.ts": "32b29dea11281c10f6e98e97e7b549dd29575fadc9ac516ac2ccce41bd7d5135",
+    "server/productivity/habits.ts": "fc05c10eac8e2129c896e511d2f0f09b0544a817da515aa421876e10229bb0d9",
+    "server/productivity/inspection.ts": "a3cd6dcb7104ced45691dd2369d470a252c01fc77c05f6fd3470da5f63a587bb",
+    "server/productivity/knownVersions.ts": "a00da324a273805861dc3dd4bc81209a578e60555bc7614667bf52856c110267",
+    "server/productivity/ports.ts": "d856e71d4ea27557e715545e00e61e5d3e7870ec6a1429b35f90b9a784627f4a",
+    "server/productivity/router.ts": "a2728089f4d0ea19dbe9b45db4e508b43a9d4fc41496e1874395755c0f75ec22",
+    "server/productivity/snapshot.ts": "f63e2f690c208ac2727cfaab99671ee12d37a0f74addd0bb05efba82ae046ece",
+    "server/productivity/structureSchema.ts": "8388bc2568ec33c8888b7d40e8b97f1ba2062c9772c1ab05e2abb2533e77f94c",
+    "src/App.tsx": "83365d78206a6b0c40b2cf9deda401ea6df09c8145d2e9397e4c44de34d76b96",
+    "src/features/productivity/Focus.tsx": "aa1f1b3ad410334d2304359955cb229f1052b06ffe80cac19e89145b2b227547",
+    "src/features/productivity/HabitDetail.tsx": "30dc4bf7f583658ad4b261f3f07c78759852cd0a242220463c97ce1dffce2527",
+    "src/features/productivity/HabitEditor.tsx": "43a18947462d8e0042107d5e820f3bf479275113651b03a3cfe01d9b83ed35c9",
+    "src/features/productivity/Habits.tsx": "354d81a355783171fa011cf65a57bb1e3fae3f27dae29bccb94ac00daa7b9a01",
+    "src/features/productivity/Productivity.tsx": "f6eb0e09c98112b431d40b70e1a397dd733d2c6edac27fb788ebf39e88b3e0f7",
+    "src/features/productivity/api.ts": "d9013fc50d0478503718f967199640963e66ff01e19d1bdc5baecb572c23cc91",
+    "src/features/productivity/countdownPolicy.test.ts": "689ccefc04d93ff46a065de68cd6164082998373fdb910f25358858739ada9c7",
+    "src/features/productivity/countdownPolicy.ts": "cd584c0f53bb8a8bd50457301bedc56de2f25bbc44b6937438bb04cc09ce0406",
+    "src/features/productivity/focusWorkspace.test.ts": "3bccd7367dbdaf54839a9a5be0fef2870f452127a5ba64671abc333b7d4561c3",
+    "src/features/productivity/focusWorkspace.ts": "45e2c2af62d43b1e01a42a156293c7d157dd6970ec60c318c9f4471167ad3964",
+    "src/features/productivity/habitApi.test.ts": "ddc35c01b3ad52235077d570d759cc386607c865c8956f5ca710fd26a92b771d",
+    "src/features/productivity/habitApi.ts": "21a05275ed95c6e92b9bca4b02665c9eb1bb89731683c329e0c2128189cdff48",
+    "src/features/productivity/habitPolicy.test.ts": "a70fee62e7d97a2c8ef268f74692fbc9565b365df6c362912090be00a07c25c9",
+    "src/features/productivity/habitPolicy.ts": "74cb0f360bbed6b13d2a5d46b7cf54e8e787dc69a3572a3822e7181c2b1d88c5",
+    "src/features/productivity/habitUi.tsx": "331b40159675b0bcff0c56a02a800d9c602f4bb6b6a818a254c2400ba86a3fcd",
+    "src/features/productivity/habitWorkspace.test.ts": "7799c3b8cf6c6879b5918c1b697015d99d93a955dcc75c739731cb29d0396f67",
+    "src/features/productivity/habitWorkspace.ts": "466594ac61a639ab619054c5d9c34930b172d81e76a992b4bddbc6ec01c5036e",
+    "src/features/productivity/useTasks.tsx": "1034e2bb23e3b6c668f817231a631d0313028bbdc4a1de9d6edaccbeed7bd4ad",
+    "src/i18n/locales/en.json": "d0f2cd605fd2a428eef0e0f8d0f65f18d9d89dfa80c89ab7c746b99736157203",
+    "src/i18n/locales/vi.json": "303f41c9971dc90093ac2c08c5a8102154f04b8ddf06848626e88cddd74ecf28",
+    "src/i18n/locales/zh.json": "489d7814b6c89bbc20a2feeb8a686737af90c7100178b481ec3568e0f9af6d3c",
+    "tests/e2e/habits.spec.ts": "24f0dcc2f215d2c9f6f1506e66f3e5eed8e3c316ef0ee9f3fd7eaa81a902b039",
+    "tests/productivity-habit-fixture.ts": "23bf6b3b4563373ba07e071b45d3744b495f1f47698ab6bf5b9be3b3facda645"
+  },
+  "schema": {
+    "explicitPilotVersion": 20,
+    "defaultVersion": 6,
+    "frozen1to19Preserved": true,
+    "packageCapsChanged": false
+  },
+  "review": {
+    "independent": false,
+    "scope": "Author review only: actor-owned logs, original dated goals/timezones, current SQL ACL before receipts and inside I01, off-page references, source-bound SDK/previews, pending metadata and check-in retention, current Focus link redaction, archive history and snapshot validation."
+  },
+  "developmentFailures": [
+    "Cold missing-module/API/SDK/controller checkpoints failed or could not collect; raw native exits remain historical failures.",
+    "A new seven-day fixture report was initially compared with a one-element expectation. The correction adds explicit length7 and date/value assertions; no acceptance behavior removed.",
+    "Two TypeScript string assertion precedence errors, a seed excess property and a missing controller entry-draft/read-version initialization failed validation and were fixed.",
+    "First actual four-browser run atbf10638 had3passed/1failed: controlled Show Archived checkbox reverted before refresh published the requested filter. Production refresh now publishes the requested filter immediately; a new unit case failed before the fix and passed after. Original browser failure DOM/video/trace retained.",
+    "Second run at qualified source passed4/4 plus29parent journeys, all first attempts with no timeout, retry, skip or assertion relaxation."
+  ],
+  "scope": [
+    "Habit daily/selected ISO weekdays/weekly quotas, raw numeric values and capped display, per-user unique date logs with frozen goal/timezone and audit, next-Monday policy changes, explicit scoped streaks/partial weeks and permanent archive history.",
+    "Own or family metadata; current adult family reviewers may inspect personal logs, Children only their own. No phantom Tasks/rewards or financial effects. Internal HTTP/session only; SSE audiences checked without private labels.",
+    "Countdown today0/inclusive1, positive anniversary elapsed, stored annual Feb29 clamp/skip and original anchor/timezone.",
+    "Real Habit-linked Focus authority/current redaction, no automatic check-in. Strict SDK and provider-owned original unknown commands/nonce/revisions and unsent day drafts survive unrelated Task SSE/navigation; role/source/logout/late-response fences.",
+    "Paged100 lists, bounded current-ACL reference resolution, own/adult historical heatmap, reasoned edits/backfill/skip, vi/en/zh and inspected390px light/dark."
+  ],
+  "retainedEvidence": {
+    "p15-archive-filter-fixed.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-archive-filter-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-archive-filter-fixed.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-archive-filter-fixed.json.gz",
+      "sha256": "d9048074b1651eaa1a93968c14cdb952109f48cac872542947c9bc293ea8596c",
+      "uncompressedSha256": "afb186ccbf9a7b1c1bb7023cd80906d3d17bb4807691ee691f055bf79454713b"
+    },
+    "p15-archive-filter-fixed.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-archive-filter-fixed.log.gz",
+      "sha256": "5145a084b04289361618a8db5443df88e09bc3b56cddf4c365503a8be43f473c",
+      "uncompressedSha256": "da19c925342628ae7fbea1e802f20474992faf6a44f81afef8ac880686974e5f"
+    },
+    "p15-archive-filter-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-archive-filter-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-archive-filter-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-archive-filter-red.json.gz",
+      "sha256": "187e6b862e5d0ef647a3fbe41ce1b1beb312af39baed282e15fcc83ee2094963",
+      "uncompressedSha256": "235fdcae87ceb35bc3f43afc5a9b5e529a901fe3f32b0dcf072d4fc361dd01aa"
+    },
+    "p15-archive-filter-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-archive-filter-red.log.gz",
+      "sha256": "9d8692b2805e0ccd146fd1bccc5a8ed12f6b0a19054af4db00e696b8fc9bb757",
+      "uncompressedSha256": "0c07510490d3237686a60b4af4e81ae081a85d6bee09bd5d0b243be1fbf0e24c"
+    },
+    "p15-browser-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-browser-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-browser-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-browser-first.log.gz",
+      "sha256": "9503e2a7349d210ff443d2445def79d0cddc4a6d6bd938989f916d97a8f1cd2c",
+      "uncompressedSha256": "888fcaa18a3b2475f6960d745d13911e8312c4fc10863f8aaab50b3bdfe376b1"
+    },
+    "p15-browser-second.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-browser-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-browser-second.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-browser-second.log.gz",
+      "sha256": "7053724b01820195cff8c9691ef3bc4920a42fd6b16f5c49ee8f775b0f52c8c4",
+      "uncompressedSha256": "1ea193fc123d2ccfcc2b0a89370387403b78b41bf55ab751db12bef993bef0c5"
+    },
+    "p15-build-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-build-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-build-first.log.gz",
+      "sha256": "7edcadcd6607e8f0b4b329f610e77ce6e57ceff7ab20f0bb30de1a1c46a231da",
+      "uncompressedSha256": "136ce7d51d48b3322aeded1aa1a681a17f7d20170ca118b2759738f7e6a0667a"
+    },
+    "p15-build-second.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-build-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-build-second.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-build-second.log.gz",
+      "sha256": "569349cbf73a680415e78b7fbd2e11a530108dca9a3e7087c17c34a1f990a834",
+      "uncompressedSha256": "32b2a17c002b7fb4dce2b6f2eb61f932dbad64c38054329ce60e30d3d12e16a5"
+    },
+    "p15-core-commit.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-commit.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-core-commit.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-commit.log.gz",
+      "sha256": "73d3036cc77e06e7fccd5ca68da47751d151b88aaa3d2119c51996a9edbe3dc5",
+      "uncompressedSha256": "842fbba724528e5cf773a9867bcc6b412b40ee8d1dc9a800801485aea27d56bf"
+    },
+    "p15-core-full.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-core-full.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-full.json.gz",
+      "sha256": "6f94eb17012a3356d779e6091a502fecdbdf5bc599922edfcb25441d517378b7",
+      "uncompressedSha256": "5df5d533b21c3880820901b8fce0b63bd2603448612ba7357c716936ed5e12e5"
+    },
+    "p15-core-full.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-full.junit.xml.gz",
+      "sha256": "3c7e2f877d5c65e573daecd9674b51f041f8ad3f75979636725de1dcf22ff4ce",
+      "uncompressedSha256": "641955543b71d86b49c965772405a45b6a56a0e2b2485944f1e57c6baf242007"
+    },
+    "p15-core-full.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-full.log.gz",
+      "sha256": "331aeea947b7a94a7f41226b6909117f8c098fa18ff4d07b8fb25c2e779353f1",
+      "uncompressedSha256": "2766a87d023d7cf09de9ffca826ce4a6e250e0c162894f22612418398e14a83a"
+    },
+    "p15-core-functional.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-core-functional.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-functional.json.gz",
+      "sha256": "61144746c3d063a03c90c8821f40662885dd4e8b51cfa271ef9eebdc6e1f9038",
+      "uncompressedSha256": "550db1619a9997a1b2f55385fe46f6ed161f898c4e7b23c919bf43ab25e5f2f3"
+    },
+    "p15-core-functional.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-core-functional.log.gz",
+      "sha256": "082dcccfebe4c0a73fd89b9a929435b3711442f7d7e259580e5fb7d75dde49a6",
+      "uncompressedSha256": "a4a57bd7c257c38fe4a185a68ec8fa29bf8d231cf748b76214388a8432fc2b53"
+    },
+    "p15-entry-draft-fixed.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-entry-draft-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-entry-draft-fixed.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-entry-draft-fixed.json.gz",
+      "sha256": "faa219c1a9143d08f4b98c83d5be446469bf6584aaff09be49a0b205e52ea29f",
+      "uncompressedSha256": "4dd85705e257996483b51fccb1d939286ef096c2d6d3df4edc203b61b48378f0"
+    },
+    "p15-entry-draft-fixed.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-entry-draft-fixed.log.gz",
+      "sha256": "e3ad9b0c03bae5a575954f51cda33aafb8b24b30aab4b06ed1407d9360aeffee",
+      "uncompressedSha256": "a26ea95c7e7157cec69f192c580bae186e84ac4cb134dd1da314e325fc2717ab"
+    },
+    "p15-entry-draft-functional.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-entry-draft-functional.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-entry-draft-functional.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-entry-draft-functional.json.gz",
+      "sha256": "59d4b0edc9f416b95814c99edfc055e1a30f9ede6e8c1e6ffc7e2f95dd507ba8",
+      "uncompressedSha256": "15774fd8233176133ee2a44a4dd204edc8d4c00287cc34e98d477a8f21b4763e"
+    },
+    "p15-entry-draft-functional.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-entry-draft-functional.log.gz",
+      "sha256": "fb1956cffee29022579e42ccfaef42ea336b98252e9763704d782c48a950bad3",
+      "uncompressedSha256": "c3b646ef2750f18463aa5e7eb2500734889467948a7be7ef990d95bea07c1ec1"
+    },
+    "p15-filter-commit.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-filter-commit.log.gz",
+      "sha256": "d8271fa1ff64533f49d8f89690503e5bf779bca169e1895103e7e9a9626cbaf4",
+      "uncompressedSha256": "13ad228438b7eb768d0230aa4a4d205fbae26f5b89a7544d2e63076028852bdf"
+    },
+    "p15-focus-link-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-focus-link-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-focus-link-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-focus-link-red.json.gz",
+      "sha256": "a6d03cc0f52e23c2955371867491fdabf2a9a068d1b55fae3dee5acfba11f024",
+      "uncompressedSha256": "4c85dade5f113d35695f9a4bed61f2c7c213eeb3a83fa8ead74c6d45e2f9406a"
+    },
+    "p15-focus-link-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-focus-link-red.log.gz",
+      "sha256": "ec54dd6ae4a5726508eb845fec7b9306fa7e7be071d415ed85cda87fd5db9cc9",
+      "uncompressedSha256": "2402f0671262cb7e2c983e2a436f5ffe417c29c2de8d9598ea0c8458037b0240"
+    },
+    "p15-focus-workspace-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-focus-workspace-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-focus-workspace-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-focus-workspace-red.json.gz",
+      "sha256": "a221b3e57393d43d065464114c7e284af3a3c895a3c6331301bea7d741a5cc05",
+      "uncompressedSha256": "504e3f43d9a8394cf6c2db399ff0cd0b777d0de9fe87eba9f4ee6f403a66c28b"
+    },
+    "p15-focus-workspace-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-focus-workspace-red.log.gz",
+      "sha256": "cb40fdee68a201a175ec3af6fc56d249e2dbc18d373cc0811cd1060ba0404814",
+      "uncompressedSha256": "13fbd8e92bc3a713809f8084d00d71775139a8ace62820e06a059a3fe9c61635"
+    },
+    "p15-http-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-http-first.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-first.json.gz",
+      "sha256": "0de01af8026b665db1bf4f47d3f64391bc275d9fe3f0661f40a910104a0570cf",
+      "uncompressedSha256": "f799a7c25d38899ed0f166ca1b820fd8b1de6956bbd30b07f4c6e52f9368ef4e"
+    },
+    "p15-http-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-first.log.gz",
+      "sha256": "e35eaa23a824f5dc258ed20b2bfa73e766752ce5f4592c83277d9b922ca8bd3b",
+      "uncompressedSha256": "0569085fbdc8050a5203ce93ce26ab177026a25fe5d2906a6e8beb4c72de27fe"
+    },
+    "p15-http-functional.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-http-functional.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-functional.json.gz",
+      "sha256": "3f7fe7aa33eae488e48e1d92caf2439dd003d7fadd3176dd998244c4a368f5bc",
+      "uncompressedSha256": "b29100cb95d3e213852d81eacd75723e43eb3cb9b16b0ce7a5ba5554000c0c2f"
+    },
+    "p15-http-functional.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-functional.log.gz",
+      "sha256": "bc7f09ca12e27e81358f4c27ecbfa210a571678ef8fe7f8f018f1dfabcee4012",
+      "uncompressedSha256": "2f130af81ee7d989af81d8652997d803386f85a7118a47e1d161adb2c4507678"
+    },
+    "p15-http-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-http-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-red.json.gz",
+      "sha256": "ddaa28f38df6ededd42d95c2d8590fcf4aa93f22da89b3133c60fe6f01eeb289",
+      "uncompressedSha256": "804b63f60f8f554b9b80294015dac80c53b74edc1914d2e150c5a0782ff344e2"
+    },
+    "p15-http-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-red.log.gz",
+      "sha256": "12876a768f14f80f31f99ac2dd91471a00b716d4e210d0f48af4158390650a49",
+      "uncompressedSha256": "b6e05db31716c95d8b1f990ceb0fd01476969452cebd8e20ec51921aa46a5ce4"
+    },
+    "p15-http-source-binding.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-source-binding.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-http-source-binding.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-source-binding.json.gz",
+      "sha256": "fc0d8ca61381d67384fe1b082d2bd3ad41e16438215d841bc92c9d408d5fc4ca",
+      "uncompressedSha256": "e38d9d63eef16e4cda095723429dbce3ebc774170da35b916e0177f88719976c"
+    },
+    "p15-http-source-binding.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-http-source-binding.log.gz",
+      "sha256": "ddac33d5e337f98bb25c34bb3907269609f0c9a97301ef801ae83c3214470f07",
+      "uncompressedSha256": "5a4569cf70c2ff340ecd29ed7df9adbb54fb5890c3a9e3e239ed1bd453a89b98"
+    },
+    "p15-lint-archive-filter.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-archive-filter.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-archive-filter.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-archive-filter.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-browser-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-browser-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p15-lint-browser-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-browser-first.log.gz",
+      "sha256": "480ee1e9fa07efdf89b96a0fdb66c0c8873293388607d479f4fa62500ef2d32e",
+      "uncompressedSha256": "82102ead8ce2db1d0f2c8f8c8fa1ab9a8c9caaad165410a051d1564474865795"
+    },
+    "p15-lint-core-v2.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-core-v2.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-core-v2.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-core-v2.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-http-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-http-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-http-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-http-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-mobile-heatmap.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-mobile-heatmap.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-mobile-heatmap.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-mobile-heatmap.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-native-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-native-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p15-lint-native-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-native-first.log.gz",
+      "sha256": "28a573169566de02c27f7d6ced88d227d6bbe6ebace3470d08f032647deae5f2",
+      "uncompressedSha256": "ab3e6b699df93dedeb559584734644cbfb0912709c213ec8ddb7a66f26c9e350"
+    },
+    "p15-lint-provider-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-provider-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-provider-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-provider-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-qualified-ui.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-qualified-ui.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-qualified-ui.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-qualified-ui.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-sdk-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-sdk-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p15-lint-sdk-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-sdk-first.log.gz",
+      "sha256": "76151fdd1299bf02258cd047dc35e09dbebff8e894f41cb311ad67076c989d43",
+      "uncompressedSha256": "704667d721b12dfe6c1884b1be224941e26d92154ba714d979155324fc44494f"
+    },
+    "p15-lint-sdk-v2.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-sdk-v2.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-sdk-v2.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-sdk-v2.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-ui-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-ui-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-ui-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-ui-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-lint-ui-v2.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-ui-v2.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p15-lint-ui-v2.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-ui-v2.log.gz",
+      "sha256": "5141017a6783afb85d185b7ae1be5ab20bcf6f1cc3f83e1bbff8d09b2be5af59",
+      "uncompressedSha256": "fe4daf35501acb7b4fcd853cc0a031ccfda86f0e58970f501c88c17a5ffa7a73"
+    },
+    "p15-lint-workspace-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-workspace-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-lint-workspace-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-lint-workspace-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p15-native-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-native-first.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-first.json.gz",
+      "sha256": "b51aa3c4fab4f86e2799491cd3c7a74effe4d91c69d35c5a2c3b73e3825b0984",
+      "uncompressedSha256": "70f311f5ab9dac9a37442f2981d1ded383f1bb74d173317dab028134f5d8db9c"
+    },
+    "p15-native-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-first.log.gz",
+      "sha256": "104f907464036070e5531faec73078a9291fd27596af6b78d7f76db8dbed2ff2",
+      "uncompressedSha256": "7cac56714db8b8b6335019537cbb9348f073ef92c2ed30f390c2705e58fea4c8"
+    },
+    "p15-native-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-native-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-red.json.gz",
+      "sha256": "15b145c5279da6ee150697e0b3fa8ef3f7e274eb02523f9b50f5da5c86d0e5d0",
+      "uncompressedSha256": "039164966481d0c25d40c8267401523b20de8f7f8ef826d2934c398ef043cb87"
+    },
+    "p15-native-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-red.log.gz",
+      "sha256": "520fb4fbec843ef3831f5ad70e1ad79539d642ef099743223e10057a240b6168",
+      "uncompressedSha256": "4f2ea3d6b13d8c3e24cb1e2a1a20210c8f0ea1d41b33c82e14d8046989f6cc47"
+    },
+    "p15-native-v2.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-v2.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-native-v2.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-v2.json.gz",
+      "sha256": "b219c2fa0ffd51932e2ce7829802a285ac73fbc0eeb40328fd53eea67827e141",
+      "uncompressedSha256": "c64a45808b4b42d4add2e37a36bd42e758fb02bc1fb9dd1122936ae2ca224d67"
+    },
+    "p15-native-v2.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-native-v2.log.gz",
+      "sha256": "c1258579a91b2a393da6f9412ee4f7235cf185c3c711cf609a53605c66753260",
+      "uncompressedSha256": "2edc6713a49391cc9643ae2a87969a8ccc620b193bf502b7452218e071bc60a1"
+    },
+    "p15-policy-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-policy-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-policy-first.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-policy-first.json.gz",
+      "sha256": "db92b0fa16e5fdaac51256a2c8d0988b014b01dbc91f9a81ee35ef9ab72dfc8a",
+      "uncompressedSha256": "4fde4e35dd5cbff6cf5923f24069d792ddb158660b8bfe14edf0e83723114556"
+    },
+    "p15-policy-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-policy-first.log.gz",
+      "sha256": "ba63271f1ab689c7232f65aa63eccd5bd12b34f914bd1aab97a566a9e8b7372b",
+      "uncompressedSha256": "bc7c7ce750599ae1cb76d03d66d4dcf1dfa3b65517a1ea089cbc8e8ad1fcb81a"
+    },
+    "p15-policy-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-policy-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-policy-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-policy-red.json.gz",
+      "sha256": "876d1eaca6886b4d12bf54efcf76ec97806b23a6d18ca8d459debac8fa80d457",
+      "uncompressedSha256": "d8bb7381fd88403069e1c329a8566f13fe1e22af3ff5262dc748033e823d4afc"
+    },
+    "p15-policy-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-policy-red.log.gz",
+      "sha256": "14878e103ae52f931928deda0b9eb71e5eed3dac6e56dc6e9ec57108a090dd0a",
+      "uncompressedSha256": "659d65e726b3e8f22a059c6cbebc1ddc05cae77218289c291b155117be6ef52e"
+    },
+    "p15-qualified-browser-attachments.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-attachments.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-attachments.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-attachments.log.gz",
+      "sha256": "94fe2ace5fd60c4c0a5c59898445f710b7842a8bc312b580de7f10177135e7a6",
+      "uncompressedSha256": "940d1ca2f1b6897e19e4ac69c777717609711f8e3f8106c4d84aca3bf5c394c9"
+    },
+    "p15-qualified-browser-calendar.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-calendar.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-calendar.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-calendar.log.gz",
+      "sha256": "333291cc39c7a6c04269e0e67217a19982cba3bd2b9d5baefdf93aa01fca01f2",
+      "uncompressedSha256": "62845ec8f1afd1c3b1c27fcb021c74516b33fea0720da930093f7520c9dcf7f4"
+    },
+    "p15-qualified-browser-collaboration.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-collaboration.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-collaboration.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-collaboration.log.gz",
+      "sha256": "fefc03dafd7fb35026eb7a731b7134391d3f58e7a61e16e8fafadae6ae6302b1",
+      "uncompressedSha256": "dd2c2b2da5dbf7227a0070699bdfb64769f203b57598d869bc9fea575cd5701c"
+    },
+    "p15-qualified-browser-content.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-content.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-content.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-content.log.gz",
+      "sha256": "7f1684f3571d07146b67af73afcdeea9a3e8dbd7d8ac40664a47ddcb8e38c338",
+      "uncompressedSha256": "1f6aeef6c425e95ffebe5cd4c8e89b133e92f72c20d017928c7c5e038e3f3bb7"
+    },
+    "p15-qualified-browser-data.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-data.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-data.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-data.log.gz",
+      "sha256": "3b78ef5269a2cb97a4592398eaf0835657553c13f0355a8525100e453b2c88bc",
+      "uncompressedSha256": "27d7e33fa9ccba7a2f487a6bd7986bea9f1c09559f4e4d12281106427bc9ce8c"
+    },
+    "p15-qualified-browser-focus.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-focus.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-focus.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-focus.log.gz",
+      "sha256": "e09421e3a79b1385646ec49fc260676fa3e63e72983615afeab05bc482b4fa5f",
+      "uncompressedSha256": "e95d697e7230edb3788e5c84156aca365744ec4597824da03b214637771898ba"
+    },
+    "p15-qualified-browser-notifications.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-notifications.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-notifications.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-notifications.log.gz",
+      "sha256": "5d95c7e7724684785d2e6cb85420d2c4e638c45dcdd183857cd542772d2b4810",
+      "uncompressedSha256": "648d0a03ed67274938e66fb2f7b27a58ca8ccf37ab72241560b8eb6bdaace018"
+    },
+    "p15-qualified-browser-templates.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-templates.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-qualified-browser-templates.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-qualified-browser-templates.log.gz",
+      "sha256": "6b0e172adb1f56a72f5e55c5da882dec03f6d3805ccdd6cb6cbe83db8c4a3449",
+      "uncompressedSha256": "b93caa9ae65d32003fc7736f4498cbd520dd098de67ccceac8c95b4712491eef"
+    },
+    "p15-resolve-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-resolve-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-resolve-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-resolve-red.json.gz",
+      "sha256": "55029e7faa9c6bb4d9a97ab0748afee4fed7fc8d8e80108d39faaab03aa21073",
+      "uncompressedSha256": "409416a18df8a5f86f18b89148fea36fb34814ea272537a6a67d211bcd3bf522"
+    },
+    "p15-resolve-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-resolve-red.log.gz",
+      "sha256": "9f94553747f6f2db59b2bbd9a0a61edcadee6ff65aca86fe2cff899f823e2e30",
+      "uncompressedSha256": "3a8774710d93d3993f397071a90cdbfe75f12a3c9b995e2c274f91aedc189af0"
+    },
+    "p15-sdk-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-sdk-first.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-first.json.gz",
+      "sha256": "0464cee3ee012316d6ef0fe7c56670c8de474be876b262c4558a5d05ba622c73",
+      "uncompressedSha256": "f4c7fa9856da7585ac8bbc6f6762ca86f8bdb860b546fe375d44846e320d57ba"
+    },
+    "p15-sdk-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-first.log.gz",
+      "sha256": "8d5ebbe2973fcf87d48da4252740e0e7a727dfc78910fcb6c45ccfad44c22d55",
+      "uncompressedSha256": "70296675cf879f9656127bda6df1aa6c3924d576f3b30a6e69a44c0439455bd2"
+    },
+    "p15-sdk-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-sdk-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-red.json.gz",
+      "sha256": "db556d6a40a3846f05e427458caa5c41a3ed0e8a0261f273dcdf5278f05f3722",
+      "uncompressedSha256": "46c9533fbffc3671f0286d89e72a171a9c01477a35351ca2f962e787f33db749"
+    },
+    "p15-sdk-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-red.log.gz",
+      "sha256": "f2efc1f925ffe9ff0a83e581fb976951e0b9bac3c97568c5e52241eba6513fb0",
+      "uncompressedSha256": "73ea7d585796b62594c5ce028c40bff7e87c510e8dfd2233289d41295ac8460f"
+    },
+    "p15-sdk-resolve-functional.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-resolve-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-sdk-resolve-functional.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-resolve-functional.json.gz",
+      "sha256": "6b12cc50ae173989ccbf3ee7b2a6d829751a7278181ec4d4dd3e580ad26a7c6e",
+      "uncompressedSha256": "d2157803c357272d5ea45025ffb348cfbe880b98d56695cdf5b3fad2dd0874fa"
+    },
+    "p15-sdk-resolve-functional.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-sdk-resolve-functional.log.gz",
+      "sha256": "c6a9354968db80f2e3b90b43dc9797f42d506261928e10c8482b686a4340d317",
+      "uncompressedSha256": "592243655240125cd221d8965c176960203732cc71da75e655547b5d698c05bb"
+    },
+    "p15-ui-commit.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-ui-commit.log.gz",
+      "sha256": "395575dcb67f0711f80cdeef4ad007eb6e936aea05844e6b8fe55cb7c6729f86",
+      "uncompressedSha256": "d219212672f4d83c06c12896e1134dd5fa19e66f96e875140d192cbcd946fa8f"
+    },
+    "p15-ui-functional.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-ui-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-ui-functional.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-ui-functional.json.gz",
+      "sha256": "2313c2d5b70ef402301f103119ea100578e82a178d1ad57edf7374e6f7bad187",
+      "uncompressedSha256": "464006865e98f531106abffc839628a40c3e41d8890f6416573f579613d30d8d"
+    },
+    "p15-ui-functional.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-ui-functional.log.gz",
+      "sha256": "4541bea4c9839fe5fd180b2870beba42cf9c201e5f1c4b3b55301655b139d990",
+      "uncompressedSha256": "c2cff73f604dbe1a78ba19010f6f6e47ac575c5288c81614420d9be175cf7b6c"
+    },
+    "p15-workspace-first.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-workspace-first.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-first.json.gz",
+      "sha256": "d2a527725d8d2543363387c3f241576a0fd35d520ecf1359f5299a13cb5d1799",
+      "uncompressedSha256": "ae0b15fd5085c3b096a97c982b10e61fd693200c2663f882fed0a2282cacca44"
+    },
+    "p15-workspace-first.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-first.log.gz",
+      "sha256": "450ee563f079e5381b273abb10498a83c5511c4c34873404506de0e6f855c8a9",
+      "uncompressedSha256": "6e9e5ae252194f2440c0b592efe5c3078c99f3b2e04aae65d398eeb300be3379"
+    },
+    "p15-workspace-focus-functional.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-focus-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p15-workspace-focus-functional.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-focus-functional.json.gz",
+      "sha256": "021dbe4fa42b0a1cf7065ba26c3db67ed737ff63698afaccca9797bf242d4d25",
+      "uncompressedSha256": "3def7dfb50bc46546baffe5fbb92e83a3078ed6a0b12bc61665fc38165543509"
+    },
+    "p15-workspace-focus-functional.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-focus-functional.log.gz",
+      "sha256": "f7a5069e3b3b22d3a7ead3c129724af4cc3c2dbec6427f549e5e2038e8e173ff",
+      "uncompressedSha256": "35ec66599d51bf421bc7eeeecdb3abaf3c4b68283e75b969c067acbc1b4a4de9"
+    },
+    "p15-workspace-red.exit": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p15-workspace-red.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-red.json.gz",
+      "sha256": "e56877aff6f37574e81be7c0f00958bd1d18be45c815a7de9269a3d90921749e",
+      "uncompressedSha256": "991f7c7320373f77d07a3f82d24fa663f43c85d959e44b7e41ae41020f84452f"
+    },
+    "p15-workspace-red.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/p15-workspace-red.log.gz",
+      "sha256": "0caae4d96686ffee3ce1e03fb0e185f219e418ebde94ca0ee7e00908dcaa0062",
+      "uncompressedSha256": "0b5a54b548313162634a7d9740d3ba81235515823c3984449c9f3bab362ed3d4"
+    },
+    "habits-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-final-browser.json.gz",
+      "sha256": "55cce48b011299c92c265f61bcf5ea36112aff09a4605927df47da2a638bbd93",
+      "uncompressedSha256": "21b6799993e7114c1987578ec3c6f0f62905b99deab738ee6633ad51647feb0e"
+    },
+    "habits-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-final-browser.junit.xml.gz",
+      "sha256": "9b70981ec5aac36412b56356b913cdb3df0f9401506f9c5c3d03c59a4dc8857e",
+      "uncompressedSha256": "a9f2fd3e43502eb6d846cb8c064a406e5a339e6a9621bd5949b26329c1e6a163"
+    },
+    "habits-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-final-fixture.json.gz",
+      "sha256": "6d672579d38497729405183d6d3bc8d055d92442b8b7c3f0e203466e48516ccb",
+      "uncompressedSha256": "76fc9ee48d7ed7bd26e14967d84d23fb0a684b6fd0d78595946cd69278afe6d0"
+    },
+    "habits-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "habits-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-final-run.log.gz",
+      "sha256": "7053724b01820195cff8c9691ef3bc4920a42fd6b16f5c49ee8f775b0f52c8c4",
+      "uncompressedSha256": "1ea193fc123d2ccfcc2b0a89370387403b78b41bf55ab751db12bef993bef0c5"
+    },
+    "habits-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-final-server.log.gz",
+      "sha256": "d957164a11b355996c7203152884c9856855b93c3a4befafe685d8315d918f0c",
+      "uncompressedSha256": "5e72a3869889b261d1cb94ce6bd97f5d52a811874180e6fbe4233778cf66de6b"
+    },
+    "focus-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/focus-final-browser.json.gz",
+      "sha256": "2b5525192df53cd0d533217cb6a754b9146e98cbb3986764228eb337f8fcaad6",
+      "uncompressedSha256": "643cf45c845caed455d8baf9c476097a83198f3ed17121e9f1baf751c5a5dea6"
+    },
+    "focus-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/focus-final-browser.junit.xml.gz",
+      "sha256": "2af30a6fa913636a3dd1a724600ca1b333f4d255153347a5f0d670dd97bf53db",
+      "uncompressedSha256": "9b177947d4993b4f3f6c2765d29fbb75c69c9990cc29addc6498615a1b2435f8"
+    },
+    "focus-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/focus-final-fixture.json.gz",
+      "sha256": "aa1375002f16b817f90e50bbba6f5204985b83fd607007d5a227ec07f53c63fd",
+      "uncompressedSha256": "268b840cd27b887a0097128e142b71c4d87be1ef55fe50a3a776b05dd651470a"
+    },
+    "focus-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/focus-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "focus-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/focus-final-run.log.gz",
+      "sha256": "e09421e3a79b1385646ec49fc260676fa3e63e72983615afeab05bc482b4fa5f",
+      "uncompressedSha256": "e95d697e7230edb3788e5c84156aca365744ec4597824da03b214637771898ba"
+    },
+    "focus-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/focus-final-server.log.gz",
+      "sha256": "0bf89443a2a5ddf0f0ac0989eeef063b52611d662fbfeb425d7dbc7c48c51f02",
+      "uncompressedSha256": "0e8ae2d583a9a08289d0a5b1d18476039f4d57028b704e32ff71f43a23abba48"
+    },
+    "data-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/data-final-browser.json.gz",
+      "sha256": "29ce2841c3ed6b1b7bb2780cce2e53a0b7dae3e4bfd1718607394591b00da9f3",
+      "uncompressedSha256": "c1ccdbdafbbc74768a34a78befa495e83a033e328bc231cc8b5befe67a8d155a"
+    },
+    "data-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/data-final-browser.junit.xml.gz",
+      "sha256": "ae7f125dfa57f3e6662defbf8f2bacf92e80973231e65ff91ad12b95ec6f01e0",
+      "uncompressedSha256": "1dd1cb30166d86093faea3031a9a5db607ac2e0a72789ad3d2e9fde810c6e07b"
+    },
+    "data-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/data-final-fixture.json.gz",
+      "sha256": "a65889e5060748aa59b6c42964e9e09c3815c875cc7810f02545ec86ffb9a733",
+      "uncompressedSha256": "172547dee5d23ac0868a8b832740bceef7f4ac6de6fc3ddaf0a1c360c893ae77"
+    },
+    "data-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/data-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "data-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/data-final-run.log.gz",
+      "sha256": "3b78ef5269a2cb97a4592398eaf0835657553c13f0355a8525100e453b2c88bc",
+      "uncompressedSha256": "27d7e33fa9ccba7a2f487a6bd7986bea9f1c09559f4e4d12281106427bc9ce8c"
+    },
+    "data-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/data-final-server.log.gz",
+      "sha256": "52baf8903502d70e71bd875607e3164823831bfd0b626dd6400c6331a316a67f",
+      "uncompressedSha256": "73ecaf9eee112122f8467c0b9dc426674ded73397496355021a8d3a2db56a2b4"
+    },
+    "attachments-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/attachments-final-browser.json.gz",
+      "sha256": "615652219862c7c7870d594dbbb39016c2540d77d15a659f93fc9774475adc34",
+      "uncompressedSha256": "46d060f683b25aa49aa47060fbf829b5150877393bfd27c8ce21873f8e13b8f4"
+    },
+    "attachments-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/attachments-final-browser.junit.xml.gz",
+      "sha256": "537e3067a323f48acd1ab13868084469f1b2a6792c36b2c9ee4c043c5ca97d15",
+      "uncompressedSha256": "79f00c5d3339345af3b92c992cf043a53981017e34ab22393ec451ddf1796836"
+    },
+    "attachments-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/attachments-final-fixture.json.gz",
+      "sha256": "de4767152b9273704839fbe81a831dbf68ec95fe6fd274862cdcad1db5f23157",
+      "uncompressedSha256": "2564fd87a47b66f823f84127b901be27b6b6bf93b733ddb6ee04a5174665263c"
+    },
+    "attachments-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/attachments-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "attachments-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/attachments-final-run.log.gz",
+      "sha256": "94fe2ace5fd60c4c0a5c59898445f710b7842a8bc312b580de7f10177135e7a6",
+      "uncompressedSha256": "940d1ca2f1b6897e19e4ac69c777717609711f8e3f8106c4d84aca3bf5c394c9"
+    },
+    "attachments-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/attachments-final-server.log.gz",
+      "sha256": "692815ccbdb037ba30aeecca6396221cc4ee11edee6a2cd8bc09e3d217b12afa",
+      "uncompressedSha256": "5b3f2a1787dfe699ddc036e24a53685f4cea319e37f5e75c5c11c98c1f2eeea7"
+    },
+    "content-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/content-final-browser.json.gz",
+      "sha256": "3820c4f106f67959cbb3484c045155f9eedab3290539c934005b0eeb4a29435a",
+      "uncompressedSha256": "048500e99e3c49fd0ed3f411d7db6eb672fd3825daf2c9857cbf2da351ee231b"
+    },
+    "content-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/content-final-browser.junit.xml.gz",
+      "sha256": "089760c9e0a9eafb536457a99e521ba6aaa6e92fa3c3a437ced18e6b45188e4e",
+      "uncompressedSha256": "679530fd9491da9334e84e8cf8ee7ffeb2edd14758049a7b10259d20102670a9"
+    },
+    "content-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/content-final-fixture.json.gz",
+      "sha256": "7fd9c5566b082b27bd23256e9971cdf798972053255807633e30bfbb50a2c6c2",
+      "uncompressedSha256": "49e7a506bb0951333db78c11909da5dfd507b417354acead0cb8724965c228ce"
+    },
+    "content-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/content-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "content-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/content-final-run.log.gz",
+      "sha256": "7f1684f3571d07146b67af73afcdeea9a3e8dbd7d8ac40664a47ddcb8e38c338",
+      "uncompressedSha256": "1f6aeef6c425e95ffebe5cd4c8e89b133e92f72c20d017928c7c5e038e3f3bb7"
+    },
+    "content-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/content-final-server.log.gz",
+      "sha256": "95a606d9f9a618c9b8d59b4fd28b943a9eba91a00ac65f3d22c257aacaa51e84",
+      "uncompressedSha256": "8921e8fc1ab8dea534367c5b801c9e5f71740982f43ec2b901f7d8a1ccb475a2"
+    },
+    "templates-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/templates-final-browser.json.gz",
+      "sha256": "13f1f8a42fe50d9b948371919ef4bdf10b2b30a3c8398046d111780b81cb063f",
+      "uncompressedSha256": "5c1c38b4e205c3ef81932a0f8da3cfcf082290cd47f6536592325a5e9d55040d"
+    },
+    "templates-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/templates-final-browser.junit.xml.gz",
+      "sha256": "41c2242ca8d8d6d1f685c44c8fe25de61130602776b965e1c90d042305e030a0",
+      "uncompressedSha256": "8e1cbc5426ec85abc2d1cbe9d2372bbe68178eb3b2dbf42bd3d48628acda5959"
+    },
+    "templates-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/templates-final-fixture.json.gz",
+      "sha256": "394f1f2bc059c870b9bfbe56f24cfda1665db3346d5ac983bdc5080daf0fc935",
+      "uncompressedSha256": "d7c3be4ff74ca409d05973df98782744bdb135273e29d42fdf2be40539806fe9"
+    },
+    "templates-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/templates-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "templates-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/templates-final-run.log.gz",
+      "sha256": "6b0e172adb1f56a72f5e55c5da882dec03f6d3805ccdd6cb6cbe83db8c4a3449",
+      "uncompressedSha256": "b93caa9ae65d32003fc7736f4498cbd520dd098de67ccceac8c95b4712491eef"
+    },
+    "templates-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/templates-final-server.log.gz",
+      "sha256": "33c85f802f18597a58e2258c10ab63fb397f41f819e5ba4b76a412529f23e956",
+      "uncompressedSha256": "fc7f48c33567e552042c9f99d11ca3f9be0aa763c8d39fb8616a667ea86f2865"
+    },
+    "notifications-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/notifications-final-browser.json.gz",
+      "sha256": "42c9c78bdbbf36c7aa0ef733a42eae16657a64d984962d785dfba6837cebbc1f",
+      "uncompressedSha256": "2a58b26044af46e5ee8d21e32809ffbae28a4fa52131cf608bd3f05c968b1c0a"
+    },
+    "notifications-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/notifications-final-browser.junit.xml.gz",
+      "sha256": "882f6861988f358546fbc1407a797c8d86767cc1cd12c6e883b1934cc711b05f",
+      "uncompressedSha256": "3f15ee1c82f3966dea67d7ee5e54387e2a0f0d471d4e473ae2688102a10b93b6"
+    },
+    "notifications-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/notifications-final-fixture.json.gz",
+      "sha256": "a45ff9c80292d2af38a1b51c02f2f054b8c2422708755bb10feb456061f0f7a9",
+      "uncompressedSha256": "591f95080e8041af90a7f5c67452fcf60dca590da05b35e514e1e1ffafb49515"
+    },
+    "notifications-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/notifications-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "notifications-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/notifications-final-run.log.gz",
+      "sha256": "5d95c7e7724684785d2e6cb85420d2c4e638c45dcdd183857cd542772d2b4810",
+      "uncompressedSha256": "648d0a03ed67274938e66fb2f7b27a58ca8ccf37ab72241560b8eb6bdaace018"
+    },
+    "notifications-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/notifications-final-server.log.gz",
+      "sha256": "4c74b1cc71af350c7795e2488508fead79578c02671fff5fc06fcc1dc78d5de8",
+      "uncompressedSha256": "02e376c8f45a646a5cb724c128da94b9f02c1f379f8167dae81afd1056f3e8e9"
+    },
+    "collaboration-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/collaboration-final-browser.json.gz",
+      "sha256": "c4825868444ced53ac9bf36596e8ce39d08a5e03b9a932c1e18c40e89b28a031",
+      "uncompressedSha256": "90e488b8ef8e344b6b7a86c49b2d839ffd97696fb3b9c0e488e9405c96643e46"
+    },
+    "collaboration-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/collaboration-final-browser.junit.xml.gz",
+      "sha256": "865ab795d4596db191ef2ac172d2261fc084e45c6a59d5308b1c243d53646912",
+      "uncompressedSha256": "71e8ffc16794a5711d733e06a7599b87ac68a28d5c94ca9e10c92f2c2055eb1c"
+    },
+    "collaboration-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/collaboration-final-fixture.json.gz",
+      "sha256": "074465fa407829cf1cff989b950e1bc2e6ad31299a83ba487a62d42b184d146d",
+      "uncompressedSha256": "83886f3f011063811c40472457ef6d5333cc805cf94bc02d1be1278472a6ce29"
+    },
+    "collaboration-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/collaboration-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "collaboration-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/collaboration-final-run.log.gz",
+      "sha256": "fefc03dafd7fb35026eb7a731b7134391d3f58e7a61e16e8fafadae6ae6302b1",
+      "uncompressedSha256": "dd2c2b2da5dbf7227a0070699bdfb64769f203b57598d869bc9fea575cd5701c"
+    },
+    "collaboration-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/collaboration-final-server.log.gz",
+      "sha256": "191e0be4142f943a233ab8233c218ca4b82cc73fc0dd54e643ac44ddfc2cbaa1",
+      "uncompressedSha256": "b08ad0fd857cf3382259d39cc2fd5c3657b906864e7ae3ce91e4e1c83375e1e5"
+    },
+    "calendar-final-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/calendar-final-browser.json.gz",
+      "sha256": "f85f2a18f9cb891b1932f1a0303009f787d89ada813a746d2686cd5b312ed9c7",
+      "uncompressedSha256": "3bda83d9f0e027d998c6d65016a03f590b7b470e64d57d46a0cfd6b20e9ac69a"
+    },
+    "calendar-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/calendar-final-browser.junit.xml.gz",
+      "sha256": "f0ce85d351d4d0d4ecc4083e7a104ef470e7eccba2281fc1260c1878d022f6d2",
+      "uncompressedSha256": "66aa7455e16f55611cd491d5725e4ed860f808ef13cea1f4ae4cf24f8c579141"
+    },
+    "calendar-final-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/calendar-final-fixture.json.gz",
+      "sha256": "074465fa407829cf1cff989b950e1bc2e6ad31299a83ba487a62d42b184d146d",
+      "uncompressedSha256": "83886f3f011063811c40472457ef6d5333cc805cf94bc02d1be1278472a6ce29"
+    },
+    "calendar-final-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/calendar-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "calendar-final-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/calendar-final-run.log.gz",
+      "sha256": "333291cc39c7a6c04269e0e67217a19982cba3bd2b9d5baefdf93aa01fca01f2",
+      "uncompressedSha256": "62845ec8f1afd1c3b1c27fcb021c74516b33fea0720da930093f7520c9dcf7f4"
+    },
+    "calendar-final-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/calendar-final-server.log.gz",
+      "sha256": "dc6ba8779cc368fd8d78a81a6e51cb4ad9c0c743c99e912df90ad54e45c11f32",
+      "uncompressedSha256": "8525c1d1cb29ede4b2344e4f6775115067e057f6568ef6fcc86d037d54044fc2"
+    },
+    "browser-first-countdown-390-light.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-countdown-390-light.png.gz",
+      "sha256": "a993d5048b03fab876951f353f40105dbed0b2d880ffa6e9fc77ad63461e2eb0",
+      "uncompressedSha256": "e2cdc9350d0213208a5436175d8b56769ba799968b175d63b7306718ad6ef541"
+    },
+    "browser-first-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-browser.junit.xml.gz",
+      "sha256": "2b7d36909bacfd447f9b00a6d168dbb7629aba5a51df3a6e47abf7fe190e6efc",
+      "uncompressedSha256": "3d71bb2f8ee29705a6bdecec27d60fa3a81fd553bafdac92f0ff9b6fc0056c20"
+    },
+    "browser-first-run.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-run.log.gz",
+      "sha256": "753559698ebf3be09a6041efce717935979b8d67582c7fcdc077ec73fa1da438",
+      "uncompressedSha256": "95d5e11dbe14698045f6c1317a6d316585f25785c7a034f42cb111fcf55c55cb"
+    },
+    "browser-first-fixture.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-fixture.json.gz",
+      "sha256": "116c93f634b257a58003c75a5e761379998f211fde6ec5266e8660da0cca5a39",
+      "uncompressedSha256": "0ca1b3fc430adc4c49677b696d4186643a624331d6ba2b0dfaac3a3ca49c76cc"
+    },
+    "browser-first-browser.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-browser.json.gz",
+      "sha256": "0e598eb5e79835c1af60634b4f46c3e3abb8da678170d8c3909be137d12e65f1",
+      "uncompressedSha256": "fa2ddbb31135b164b96b46bbd163ae4a2913de9565f75809f9912db2f9e7742d"
+    },
+    "browser-first-server.log": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-server.log.gz",
+      "sha256": "e308be051e4db604ee18647dcd5883a10c9cdfb770fc2453c1715bb881e228bb",
+      "uncompressedSha256": "f20ea13c720ba4d83ac4e7090d8d3e62f278b93a317cc5aec41e70bc37bbd5da"
+    },
+    "browser-first-countdown-390-dark.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-countdown-390-dark.png.gz",
+      "sha256": "7412c28691820bd14d1690ae2dc7b9262e1b1573310e00ba374966c81137429d",
+      "uncompressedSha256": "70cc01c2a671ce1a19e889eee630cb9d4aa4e702bf1fa4f2c7f88b177e8fb6f0"
+    },
+    "browser-first-habits-390-light.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-habits-390-light.png.gz",
+      "sha256": "71fd964c87ec4bc59ba3890505b6678bef06d080fb0d967983e702170c19848a",
+      "uncompressedSha256": "61b761fbba9c55473c9320e75b76913792c289bb65da5cfdcdb1dcf5c4b199aa"
+    },
+    "browser-first-habits-390-dark.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-habits-390-dark.png.gz",
+      "sha256": "49694678d68bc637579c51e0054ca89dd399372ce1bf9ff268ab5529b240a51b",
+      "uncompressedSha256": "54ec7217dc5e1c36266dbd1cfcb87cd1750b0c09618b6d6db4766377d90141e8"
+    },
+    "browser-first-runtime.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "browser-first-results__.last-run.json": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-results__.last-run.json.gz",
+      "sha256": "54fdaab195916d3b15ada475a28089e29d9d934da3c4a70fc5c9324519013fa6",
+      "uncompressedSha256": "15c294c999e9beb7eeccfb514cbc106dcdd844bce19370d6ae489a9a1e9f43c9"
+    },
+    "browser-first-html__data__7ad91d7003d8440bd70103911c7ba12fbabb6709.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-html__data__7ad91d7003d8440bd70103911c7ba12fbabb6709.png.gz",
+      "sha256": "c112da0ee596cc3730d712776b650b1bb7a75e343818194e4503a32959fe7585",
+      "uncompressedSha256": "5e464ae3a38895aa238cfa74d1aa1765e835ef77f278fa6583798004b1dbd11b"
+    },
+    "browser-first-html__data__4a8b9d766f135a087fb012991ae55c4a9d66296c.zip": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-html__data__4a8b9d766f135a087fb012991ae55c4a9d66296c.zip.gz",
+      "sha256": "c5f1daae557fdc398fadce6f20bfacb0fbc15495f16a05ccc89849e1322d3819",
+      "uncompressedSha256": "131bb96d6b3b06ec8abc5df61e2dbbb446fc97451f4c4453ac947a9e15fbea7b"
+    },
+    "browser-first-html__data__54392573cb198f894b4ac4a1ea4da2e87b6aad3e.md": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-html__data__54392573cb198f894b4ac4a1ea4da2e87b6aad3e.md.gz",
+      "sha256": "636f3487219f768791819008b18a563cbd2a7b6cab49547751eadb97318bcfb1",
+      "uncompressedSha256": "1489e278903bd50038ce5622fb305cb8ef3d513025325183abbc30261cb2519b"
+    },
+    "browser-first-html__data__eb117a28d7375c9892cd8155fe47db6fa580dba7.webm": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-html__data__eb117a28d7375c9892cd8155fe47db6fa580dba7.webm.gz",
+      "sha256": "fc89684d29f945a7ad6cea066fbc67f8ffa12c62c62ad9fff5e9dc0bda3fc0c0",
+      "uncompressedSha256": "eb62e8ebb53bd16eb32f8244e31f6125ae75cc41d1a55074ecf7743c6f767dff"
+    },
+    "browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__error-context.md": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__error-context.md.gz",
+      "sha256": "636f3487219f768791819008b18a563cbd2a7b6cab49547751eadb97318bcfb1",
+      "uncompressedSha256": "1489e278903bd50038ce5622fb305cb8ef3d513025325183abbc30261cb2519b"
+    },
+    "browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__video.webm": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__video.webm.gz",
+      "sha256": "fc89684d29f945a7ad6cea066fbc67f8ffa12c62c62ad9fff5e9dc0bda3fc0c0",
+      "uncompressedSha256": "eb62e8ebb53bd16eb32f8244e31f6125ae75cc41d1a55074ecf7743c6f767dff"
+    },
+    "browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__test-failed-1.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__test-failed-1.png.gz",
+      "sha256": "c112da0ee596cc3730d712776b650b1bb7a75e343818194e4503a32959fe7585",
+      "uncompressedSha256": "5e464ae3a38895aa238cfa74d1aa1765e835ef77f278fa6583798004b1dbd11b"
+    },
+    "browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__trace.zip": {
+      "path": "docs/engineering/evidence/p15-habits-core/browser-first-results__habits-P15-finishing-Habit-defe1-preserves-read-only-history-chromium__trace.zip.gz",
+      "sha256": "c5f1daae557fdc398fadce6f20bfacb0fbc15495f16a05ccc89849e1322d3819",
+      "uncompressedSha256": "131bb96d6b3b06ec8abc5df61e2dbbb446fc97451f4c4453ac947a9e15fbea7b"
+    },
+    "countdown-390-light.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/countdown-390-light.png",
+      "sha256": "c2c19fdb10e91c50160e18b540118165c06a4146df6d05c7f1709d8219f8a0d3",
+      "visuallyInspected": true,
+      "scope": "Actual390px Habits, numeric heatmap and Countdown viewports in light and dark."
+    },
+    "countdown-390-dark.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/countdown-390-dark.png",
+      "sha256": "716e3f57795edce94bb69104cd666e379779bc7e629cb71b7ecdf53047fff4a7",
+      "visuallyInspected": true,
+      "scope": "Actual390px Habits, numeric heatmap and Countdown viewports in light and dark."
+    },
+    "habit-report-390-light.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/habit-report-390-light.png",
+      "sha256": "13bf25c7732b76a34679d7acda415475e3d9c22cefc69988dfd5ad60d3aaadb2",
+      "visuallyInspected": true,
+      "scope": "Actual390px Habits, numeric heatmap and Countdown viewports in light and dark."
+    },
+    "habits-390-light.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-390-light.png",
+      "sha256": "75a1f6bd77625378646baab2b8398660489515a0171350176bf68c39066591fe",
+      "visuallyInspected": true,
+      "scope": "Actual390px Habits, numeric heatmap and Countdown viewports in light and dark."
+    },
+    "habits-390-dark.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/habits-390-dark.png",
+      "sha256": "a8a41ed8499d66a37618571c0ecfe1b4afb58cd12fd246b8a997889f7cbff771",
+      "visuallyInspected": true,
+      "scope": "Actual390px Habits, numeric heatmap and Countdown viewports in light and dark."
+    },
+    "habit-report-390-dark.png": {
+      "path": "docs/engineering/evidence/p15-habits-core/habit-report-390-dark.png",
+      "sha256": "40f192be916b86503aed8b5931f863d37a885f4ccc9fec90ed4a75310db49ae2",
+      "visuallyInspected": true,
+      "scope": "Actual390px Habits, numeric heatmap and Countdown viewports in light and dark."
+    },
+    "publish-p15-core.py": {
+      "path": "docs/engineering/evidence/p15-habits-core/publish-p15-core.py.gz",
+      "sha256": "5c9e7725371bdc850ae6fe446237adf738ec4f5c81a17ceecd7ea3a5a64b0189",
+      "uncompressedSha256": "ac5358af0d039f00a01956d71564bb94c5709fe398109ede6d1b1d0ea23521cb"
+    }
+  },
+  "remaining": [
+    "P15 reminders and optional Calendar layer/typed summary refs remain open; this checkpoint does not complete all P15.",
+    "P16–P18, remaining Wallet/W18/M1/I02/I03, capacity/performance and independent review remain open.",
+    "Final composed mandatory Windows Node22/24/three engines/package/service/pilot acceptance is pending; nine feature harnesses are not yet mandatory Windows CI.",
+    "No new PR/Actions run. Actual Server2019 R02 separate/unrun; release/tag/VPS/PC runner not performed."
+  ]
+}
