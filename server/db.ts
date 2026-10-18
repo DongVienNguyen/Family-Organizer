@@ -3063,10 +3063,24 @@ export class FamilyDB {
     if(prior){if(prior.userId!==notification.userId||JSON.stringify(prior.sourceRef)!==JSON.stringify(source))throw new AppStoreError('Thông báo Wallet xung đột.',409);return prior.id;}
     const value={...structuredClone(notification),sourceRef:source};db.notifications.unshift(value);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,value);this.writeRaw(db);return value.id;
   }
-  /** Internal canonical Task mention adapter. The owning comment command joins
-   * this same I01 transaction; only references enter the existing push outbox. */
-  /** Focus shares the existing private inbox/push outbox. The owning19 claim
-   * and current recipient are rechecked here; no Task title/amount is copied. */
+  /** Owner-only tracking notices share the private inbox/outbox. The owning21
+   * claim and current source/recipient are rechecked without copying labels. */
+  public static queueTrackingReminder(claimId:string,recipientId:string,digestId:string|undefined,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc theo dõi cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueTrackingReminder',[claimId,recipientId,digestId??null,createdAt],recipientId,()=>{
+      if(!productivityVersionsFrom(21).includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Nguồn nhắc theo dõi chưa sẵn sàng.',409);
+      const row=tx.get("SELECT d.*,r.habit_id,r.countdown_id,r.enabled,r.revision AS current_rule_revision FROM productivity_tracking_deliveries d JOIN productivity_tracking_reminders r ON r.id=d.reminder_id WHERE d.id=?AND d.owner_id=?AND r.owner_id=d.owner_id AND d.state='pending'",claimId,recipientId),db=this.readRaw();legacyReader(db,recipientId);
+      if(!row||!row.enabled||row.current_rule_revision!==row.rule_revision||recipientId==='all'||typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt||row.available_at===null||Date.parse(row.available_at)>Date.parse(createdAt))throw new AppStoreError('Không tìm thấy nhắc theo dõi đến hạn.',404);
+      const user=db.users.find(value=>value.id===recipientId);if(!user||user.isDeleted||user.role===UserRole.GUEST)throw new AppStoreError('Người nhận nhắc theo dõi không hợp lệ.',404);
+      const source=tx.get('SELECT owner_id,is_shared,archived_at,revision FROM '+(row.habit_id!==null?'productivity_habits':'productivity_countdowns')+' WHERE id=?',row.habit_id??row.countdown_id);if(!source||source.archived_at!==null||source.revision!==row.source_revision||source.owner_id!==recipientId&&!source.is_shared)throw new AppStoreError('Không tìm thấy mục theo dõi được phép xem.',404);
+      if(digestId){const stored=tx.get('SELECT settings_json FROM productivity_task_notification_preferences WHERE user_id=?',recipientId),prefs=stored?focusDeliveryPreferences(JSON.parse(stored.settings_json)):focusDeliveryDefaults,expected='tracking_digest_'+crypto.createHash('sha256').update(JSON.stringify([recipientId,focusDeliveryDate(Date.parse(createdAt),prefs.timezone)])).digest('hex');if(prefs.mode!=='daily'||digestId!==expected)throw new AppStoreError('Bản tổng hợp theo dõi không hợp lệ.',400);}
+      const id=digestId??'tracking_notice_'+claimId,prior=db.notifications.find(value=>value.id===id);if(prior){if(prior.userId!==recipientId||prior.type!=='system'||prior.sourceRef?.domain!=='family')throw new AppStoreError('Thông báo theo dõi xung đột.',409);return id;}
+      if(digestId&&tx.get("SELECT id FROM productivity_tracking_deliveries WHERE owner_id=?AND notification_id=?AND state='delivered'LIMIT 1",recipientId,digestId))return id;
+      const notice:Notification={id,userId:recipientId,title:digestId?'Nhắc theo dõi hằng ngày':'Đến giờ theo dõi của bạn',content:'Mở ứng dụng để xem thói quen và ngày quan trọng của bạn.',sourceRef:{domain:'family'},type:'system',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice,undefined,true);this.writeRaw(db);return id;
+    });
+  }
+  /** Focus shares the private inbox/outbox; the owning19 claim and current
+   * recipient are rechecked without copying Task titles or money. */
   public static queueFocusEnd(sessionId:string,recipientId:string,digestId:string|undefined,createdAt:string):string {
     const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Thông báo Focus cần transaction đang sở hữu.',409);
     return runLegacyCommand('queueFocusEnd',[sessionId,recipientId,digestId??null,createdAt],recipientId,()=>{
@@ -3081,6 +3095,7 @@ export class FamilyDB {
       const notice:Notification={id,userId:recipientId,title:digestId?'Cập nhật tập trung hằng ngày':row.phase==='focus'?'Phiên tập trung đã kết thúc':'Đã hết thời gian nghỉ',content:'Mở ứng dụng để xem các phiên của bạn.',sourceRef:{domain:'family'},type:'system',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice,undefined,true);this.writeRaw(db);return id;
     });
   }
+  /** Task mentions join their owning comment command in the I01 gateway. */
   public static queueTaskMention(taskId:string,commentId:string,recipientId:string):string {
     const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc tên cần transaction bình luận.',409);
     return runLegacyCommand('queueTaskMention',[taskId,commentId,recipientId],recipientId,()=>{
