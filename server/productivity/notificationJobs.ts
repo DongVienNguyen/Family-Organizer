@@ -41,7 +41,7 @@ export function createTaskNotificationJobs(ports:{enqueue:(tx:AppWriteTx,input:A
     tx.run("UPDATE productivity_task_notice_deliveries SET state='queued',digest_key=?,available_at=?,updated_at=? WHERE notification_id=? AND recipient_id=?",digest??null,available,stamp,row.notification_id,row.recipient_id);
     const result=ports.dispatchNotice(row.notification_id,row.recipient_id,digest,stamp);if(result===null)tx.run("UPDATE productivity_task_notice_deliveries SET state='suppressed',digest_key=NULL WHERE notification_id=? AND recipient_id=?",row.notification_id,row.recipient_id);else recipients.add(row.recipient_id);
    }
-   if(tasks.length>10)ports.enqueue(tx,{namespace:'productivity',type:'task-notification-scan',kind:'command',key:p.epoch+':'+p.tick+':'+tasks[9].task_id,payload:{epoch:p.epoch,tick:p.tick,afterTaskId:tasks[9].task_id}});
+   if(tasks.length>10)ports.enqueue(tx,{namespace:'productivity',type:'task-notification-scan',kind:'command',key:'scan:'+hash([p.epoch,p.tick,tasks[9].task_id]),payload:{epoch:p.epoch,tick:p.tick,afterTaskId:tasks[9].task_id}});
    for(const id of recipients)if(events.notificationChanged)tx.afterCommit(()=>events.notificationChanged!(id));
    return {processed:released.processed+deliveries.length,stale:false};
   }));
