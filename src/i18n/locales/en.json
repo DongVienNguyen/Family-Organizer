@@ -3432,5 +3432,68 @@
     "historyLimit": "{{shown}}/{{total}} most recent content revisions, at most100",
     "notes": "My saved private reviews",
     "emptyNotes": "No saved private reviews."
+  },
+  "productivitySettings": {
+    "title": "My task preferences",
+    "policy": "Applies to your account and new drafts. Existing Tasks stay intact; app theme and motion preferences are inherited.",
+    "defaultPriority": "Default priority",
+    "defaultDue": "Default deadline without date hints",
+    "weekStart": "Calendar week starts on",
+    "monday": "Monday",
+    "sunday": "Sunday",
+    "timezone": "Default timezone",
+    "defaultReminder": "Minutes before anchor in new reminder forms",
+    "reminderHint": "Prefills the reminder form only. Choose the anchor and recipient, then confirm; reminders are never enabled automatically.",
+    "smartCapture": "Parse Vietnamese quick capture",
+    "shortcuts": "Enable task keyboard shortcuts",
+    "shortcutHint": "Outside editors: n focuses capture; 1 List, 2 Matrix, 3 Kanban, 4 Calendar. Ignored while typing, composing with IME or using a dialog.",
+    "save": "Save task preferences",
+    "reload": "Reload task preferences",
+    "reviewCurrent": "Review current version, keep my choices",
+    "conflict": "Preferences changed. Your choices keep their old revision until you explicitly review the current version.",
+    "pending": "Save outcome is unknown. Keep the original request and check it again online.",
+    "retry": "Check submitted preferences",
+    "failed": "Preferences could not be verified. Reload before editing.",
+    "offline": "Offline. Previously viewed preferences are for reference; commands are never sent in the background.",
+    "discard": "Discard unsaved choices",
+    "discardHint": "Discard this personal preferences draft? Saved data stays intact.",
+    "clearCache": "Clear task data on this device",
+    "clearCacheHint": "Deletes only task-owned caches and IndexedDB. Keeps login, static assets and Wallet data. Open drafts and server data stay intact.",
+    "cacheCleared": "Task-owned device storage cleared.",
+    "cacheFailed": "Device cleanup did not finish. Blocked storage is reported as an error; try again.",
+    "pwaPolicy": "Private Tasks are not cached for offline reading. Offline Task creation, approvals and rescheduling are disabled; reconnecting never submits commands. Existing views retain saved layouts. Hiding features keeps active Focus sessions and open drafts reachable.",
+    "due": {
+      "none": "No deadline",
+      "today": "Today (explicit default)",
+      "tomorrow": "Tomorrow (explicit default)"
+    },
+    "feature": {
+      "focus": "Show Focus",
+      "habits": "Show habits and important dates",
+      "insights": "Show weekly review"
+    }
+  },
+  "productivityCapture": {
+    "title": "Quick capture with preview",
+    "preview": "Preview Task draft",
+    "literal": "Keep literal text without parsing hints",
+    "policy": "Example: Dọn phòng mai 8h #nhà. Tags come only from your authorized catalog. Always preview and confirm; no AI calls or automatic tag creation.",
+    "review": "Review quick capture draft",
+    "create": "Confirm Task creation",
+    "reviewReady": "Draft ready for review; no Task has been written.",
+    "created": "One Task was created from the confirmed draft.",
+    "acknowledge": "I reviewed the uncertainty and accept this draft",
+    "failed": "Task could not be created. Check permissions/tags and preview again.",
+    "pending": "Creation outcome is unknown. Keep the original content and request; do not recreate it.",
+    "retry": "Check submitted Task",
+    "warning": {
+      "ambiguous": "Multiple hints or invalid time: literal text and no deadline retained.",
+      "date-required": "Time has no explicit day: literal text and no deadline retained.",
+      "time-choice": "Local date/time is missing or ambiguous: literal text and no deadline retained.",
+      "past": "The recognized time has passed; review it before confirming.",
+      "empty-title": "Only hints remain: literal text prevents an empty title.",
+      "unknown-tag": "Tag “{{name}}” is absent from the authorized catalog; no tag will be created.",
+      "ambiguous-tag": "Multiple tags are named “{{name}}”; no tag was chosen automatically."
+    }
   }
 }

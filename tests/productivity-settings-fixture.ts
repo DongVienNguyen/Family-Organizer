@@ -1,0 +1,2 @@
+import {setupInsights,migrations,snapshots} from './productivity-insight-fixture.js';import {registerProductivitySettingsMigration} from '../server/productivity/settingsSchema.js';export * from './productivity-insight-fixture.js';
+export function setupSettings(){setupInsights();registerProductivitySettingsMigration({registerMigration:migrations.registerDomainMigration,registerSnapshot:snapshots.registerSnapshotTable});migrations.applyDomainMigrations({enabled:['productivity'],pilot:true});}

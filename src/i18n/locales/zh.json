@@ -3431,5 +3431,68 @@
     "historyLimit": "最近{{shown}}/{{total}}个内容版本，最多100个",
     "notes": "我保存的私人回顾",
     "emptyNotes": "尚无保存的私人回顾。"
+  },
+  "productivitySettings": {
+    "title": "我的任務偏好",
+    "policy": "只套用至您的帳號與新草稿，不修改既有任務；沿用應用程式主題與動態設定。",
+    "defaultPriority": "預設優先級",
+    "defaultDue": "沒有日期提示時的預設期限",
+    "weekStart": "行事曆每週起始日",
+    "monday": "星期一",
+    "sunday": "星期日",
+    "timezone": "預設時區",
+    "defaultReminder": "新提醒表單的提前分鐘數",
+    "reminderHint": "只預填提醒表單。仍須選擇時間基準、收件人並確認，不會自動啟用提醒。",
+    "smartCapture": "解析越南語快速輸入",
+    "shortcuts": "啟用任務快捷鍵",
+    "shortcutHint": "輸入欄位外：n 聚焦快速輸入；1 清單、2 Matrix、3 Kanban、4 行事曆。輸入文字、使用輸入法或開啟對話框時不觸發。",
+    "save": "儲存任務偏好",
+    "reload": "重新載入任務偏好",
+    "reviewCurrent": "檢視目前版本並保留我的選擇",
+    "conflict": "偏好已變更。您的草稿保留舊版本，請先明確檢視目前版本再儲存。",
+    "pending": "儲存結果未知，保留原始要求並於連線後再次確認。",
+    "retry": "確認已提交的偏好",
+    "failed": "無法驗證偏好，請重新載入後再編輯。",
+    "offline": "目前離線，先前偏好僅供參考，不會背景提交命令。",
+    "discard": "捨棄未儲存的選擇",
+    "discardHint": "捨棄此個人偏好草稿？已儲存資料不變。",
+    "clearCache": "清除此裝置的任務儲存",
+    "clearCacheHint": "僅清除任務所屬快取與 IndexedDB，保留登入、靜態資源及 Wallet 資料；不刪除開啟的草稿或伺服器資料。",
+    "cacheCleared": "已清除任務所屬裝置儲存。",
+    "cacheFailed": "裝置清理未完成；受阻儲存會回報錯誤，請重試。",
+    "pwaPolicy": "私人任務不快取供離線閱讀。離線時不能建立任務、審批或改期；重新連線不會自動提交。既有檢視保留已儲存版面，隱藏功能仍保留進行中的 Focus 與草稿。",
+    "due": {
+      "none": "無期限",
+      "today": "今天（明確預設）",
+      "tomorrow": "明天（明確預設）"
+    },
+    "feature": {
+      "focus": "顯示 Focus",
+      "habits": "顯示習慣與重要日期",
+      "insights": "顯示每週回顧"
+    }
+  },
+  "productivityCapture": {
+    "title": "可預覽的快速輸入",
+    "preview": "預覽任務草稿",
+    "literal": "保留原文，不解析提示",
+    "policy": "例如：Dọn phòng mai 8h #nhà。標籤僅取自您獲授權的目錄；必須預覽並確認，不呼叫 AI 或自動建立標籤。",
+    "review": "檢視快速輸入草稿",
+    "create": "確認建立任務",
+    "reviewReady": "草稿已可檢視，尚未寫入任務。",
+    "created": "已從確認的草稿建立一個任務。",
+    "acknowledge": "我已檢視不確定項目並接受此草稿",
+    "failed": "無法建立任務，請檢查權限及標籤後重新預覽。",
+    "pending": "建立結果未知，保留原始內容與要求，請勿重建。",
+    "retry": "確認已提交的任務",
+    "warning": {
+      "ambiguous": "多個提示或時間無效，保留原文與無期限。",
+      "date-required": "時間沒有明確日期，保留原文與無期限。",
+      "time-choice": "本地日期時間不存在或有歧義，保留原文與無期限。",
+      "past": "辨識的時間已過，請先檢查再確認。",
+      "empty-title": "僅剩提示，保留原文以避免空白標題。",
+      "unknown-tag": "授權目錄中沒有標籤「{{name}}」，不會自動建立。",
+      "ambiguous-tag": "多個標籤名為「{{name}}」，尚未自動選擇。"
+    }
   }
 }

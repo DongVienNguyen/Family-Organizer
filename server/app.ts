@@ -1,3 +1,4 @@
+import {productivitySettingsRouter} from './productivity/settingsRouter.js';
 import {insightRouter} from './productivity/insightRouter.js';
 import {registerTrackingReminderJobs} from './productivity/trackingReminderJobs.js';
 import {habitRouter} from './productivity/habitRouter.js';
@@ -774,6 +775,7 @@ if(dependencies.productivity?.notificationJobs&&jobs.durableEnabled)registerTask
 if(dependencies.productivity?.trackingReminders&&jobs.durableEnabled)registerTrackingReminderJobs(jobs,dependencies.productivity.trackingReminders,{notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([id]))});
 if(dependencies.productivity?.focus&&jobs.durableEnabled)registerFocusJobs(jobs,dependencies.productivity.focus,{focusChanged:id=>broadcastSyncEvent('PRODUCTIVITY_FOCUS_UPDATE',{},new Set([id])),notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
 if(dependencies.productivity)app.use('/api/productivity',habitRouter(dependencies.productivity,requireAuth as any,audience=>broadcastSyncEvent('PRODUCTIVITY_HABITS_UPDATE',{},audience)));
+if(dependencies.productivity)app.use('/api/productivity',productivitySettingsRouter(dependencies.productivity,requireAuth as any,id=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([id]))));
 if(dependencies.productivity)app.use('/api/productivity',insightRouter(dependencies.productivity,requireAuth as any,id=>broadcastSyncEvent('PRODUCTIVITY_INSIGHTS_UPDATE',{},new Set([id]))));
 if(dependencies.productivity)app.use('/api/productivity/focus',focusRouter(dependencies.productivity,requireAuth as any,id=>broadcastSyncEvent('PRODUCTIVITY_FOCUS_UPDATE',{},new Set([id]))));
 if(dependencies.productivity?.imports&&jobs.durableEnabled)registerTaskImportJobs(jobs,dependencies.productivity.imports,{changed:(actorId,taskIds)=>broadcastSyncEvent('TASKS_UPDATE',{taskIds},new Set([actorId])),progress:actorId=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([actorId]))});

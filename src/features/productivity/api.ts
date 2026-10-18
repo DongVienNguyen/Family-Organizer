@@ -1,3 +1,4 @@
+import {createProductivitySettingsApi} from './settingsApi.js';
 import {createInsightApi} from './insightApi.js';
 import {createHabitApi} from './habitApi.js';
 import {createFocusApi} from './focusApi.js';
@@ -70,6 +71,7 @@ export function createTaskApi(ports:{request:typeof fetch;authHeaders:()=>Header
  };
  const writeTask=async(id:string,operation:'list'|'parent',revision:number,input:unknown,requestId:string)=>{integer(revision,1);const data=await read(idPath(id)+'/'+operation,'POST',{expectedRevision:revision,input},requestId);return taskValue(data.task,id);};
  return {
+  ...createProductivitySettingsApi(read),
   ...createInsightApi(read),
   ...createHabitApi(read),
   ...createFocusApi(read),

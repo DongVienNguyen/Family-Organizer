@@ -3431,5 +3431,68 @@
     "historyLimit": "{{shown}}/{{total}} bản nội dung gần nhất, tối đa 100 bản",
     "notes": "Các bản tổng kết riêng đã lưu",
     "emptyNotes": "Chưa có bản tổng kết riêng đã lưu."
+  },
+  "productivitySettings": {
+    "title": "Thiết lập công việc của tôi",
+    "policy": "Chỉ áp dụng cho tài khoản của bạn và các bản nháp mới. Không sửa công việc cũ; giao diện dùng theme và chuyển động của ứng dụng.",
+    "defaultPriority": "Ưu tiên mặc định",
+    "defaultDue": "Hạn mặc định khi không có từ khóa",
+    "weekStart": "Ngày đầu tuần trên lịch",
+    "monday": "Thứ Hai",
+    "sunday": "Chủ Nhật",
+    "timezone": "Múi giờ mặc định",
+    "defaultReminder": "Phút nhắc trước mốc trong form mới",
+    "reminderHint": "Chỉ điền sẵn form nhắc; bạn vẫn phải chọn mốc, người nhận và xác nhận. Không tự bật nhắc.",
+    "smartCapture": "Phân tích nhanh tiếng Việt",
+    "shortcuts": "Bật phím tắt công việc",
+    "shortcutHint": "Ngoài ô nhập: n mở nhập nhanh; 1 Danh sách, 2 Matrix, 3 Kanban, 4 Lịch. Không kích hoạt khi đang gõ, dùng IME hoặc mở hộp thoại.",
+    "save": "Lưu thiết lập công việc",
+    "reload": "Tải lại thiết lập công việc",
+    "reviewCurrent": "Duyệt phiên bản mới, giữ lựa chọn của tôi",
+    "conflict": "Thiết lập đã thay đổi. Lựa chọn riêng vẫn giữ phiên bản cũ; hãy duyệt bản hiện tại trước khi lưu.",
+    "pending": "Chưa rõ kết quả lưu. Giữ nguyên yêu cầu và kiểm tra lại khi trực tuyến.",
+    "retry": "Kiểm tra thiết lập đã gửi",
+    "failed": "Chưa xác minh được thiết lập. Tải lại trước khi sửa.",
+    "offline": "Đang ngoại tuyến. Thiết lập đã xem chỉ để tham khảo; không gửi lệnh ngầm.",
+    "discard": "Bỏ lựa chọn chưa lưu",
+    "discardHint": "Bỏ bản nháp thiết lập riêng này? Dữ liệu đã lưu không thay đổi.",
+    "clearCache": "Xóa bộ nhớ công việc trên thiết bị",
+    "clearCacheHint": "Chỉ xóa cache/IndexedDB thuộc miền công việc. Giữ phiên đăng nhập, tài sản ứng dụng và dữ liệu Wallet. Không xóa bản nháp đang mở hoặc dữ liệu trên máy chủ.",
+    "cacheCleared": "Đã xóa bộ nhớ thiết bị thuộc miền công việc.",
+    "cacheFailed": "Chưa xóa xong bộ nhớ thiết bị. Dữ liệu bị chặn được báo lỗi; hãy thử lại.",
+    "pwaPolicy": "Công việc riêng không được lưu để đọc ngoại tuyến. Ngoại tuyến không tạo công việc, duyệt điểm hoặc đổi lịch; phục hồi mạng không tự gửi lệnh. Bố cục đã lưu dùng các view hiện có. Ẩn tính năng vẫn giữ phiên Focus/nháp đang mở.",
+    "due": {
+      "none": "Không hạn",
+      "today": "Hôm nay (chọn rõ mặc định)",
+      "tomorrow": "Ngày mai (chọn rõ mặc định)"
+    },
+    "feature": {
+      "focus": "Hiện Focus",
+      "habits": "Hiện thói quen và ngày quan trọng",
+      "insights": "Hiện tổng kết tuần"
+    }
+  },
+  "productivityCapture": {
+    "title": "Nhập nhanh có xem trước",
+    "preview": "Xem bản nháp công việc",
+    "literal": "Giữ nguyên văn, không phân tích từ khóa",
+    "policy": "Ví dụ: Dọn phòng mai 8h #nhà. Nhãn chỉ lấy từ danh mục bạn đang được phép xem. Luôn xem trước rồi xác nhận; không gọi AI hoặc tự tạo nhãn.",
+    "review": "Duyệt bản nháp nhập nhanh",
+    "create": "Xác nhận tạo công việc",
+    "reviewReady": "Đã có bản nháp để duyệt; chưa ghi công việc.",
+    "created": "Đã tạo một công việc từ bản nháp được xác nhận.",
+    "acknowledge": "Tôi đã xem các điểm chưa rõ và đồng ý với bản nháp này",
+    "failed": "Chưa tạo được công việc. Kiểm tra quyền/nhãn và xem trước lại.",
+    "pending": "Chưa rõ kết quả tạo công việc. Giữ nguyên nội dung và yêu cầu; không tạo lại bản khác.",
+    "retry": "Kiểm tra công việc đã gửi",
+    "warning": {
+      "ambiguous": "Có nhiều gợi ý hoặc giờ không hợp lệ; giữ nguyên văn và Không hạn.",
+      "date-required": "Có giờ nhưng chưa rõ ngày; giữ nguyên văn và Không hạn.",
+      "time-choice": "Giờ/ngày địa phương bị thiếu hoặc có hai khả năng; giữ nguyên văn và Không hạn.",
+      "past": "Giờ được nhận diện đã qua; hãy kiểm tra trước khi xác nhận.",
+      "empty-title": "Chỉ có từ khóa; giữ nguyên văn để không tạo tiêu đề rỗng.",
+      "unknown-tag": "Nhãn “{{name}}” chưa có trong danh mục được phép xem; không tự tạo nhãn.",
+      "ambiguous-tag": "Có nhiều nhãn tên “{{name}}”; chưa tự chọn nhãn."
+    }
   }
 }
