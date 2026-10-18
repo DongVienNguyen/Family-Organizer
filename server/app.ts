@@ -1,3 +1,4 @@
+import {domainLinksRouter} from './domainLinksRouter.js';
 import {productivitySettingsRouter} from './productivity/settingsRouter.js';
 import {insightRouter} from './productivity/insightRouter.js';
 import {registerTrackingReminderJobs} from './productivity/trackingReminderJobs.js';
@@ -774,6 +775,7 @@ if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,re
 if(dependencies.productivity?.notificationJobs&&jobs.durableEnabled)registerTaskNotificationJobs(jobs,dependencies.productivity.notificationJobs,{notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
 if(dependencies.productivity?.trackingReminders&&jobs.durableEnabled)registerTrackingReminderJobs(jobs,dependencies.productivity.trackingReminders,{notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([id]))});
 if(dependencies.productivity?.focus&&jobs.durableEnabled)registerFocusJobs(jobs,dependencies.productivity.focus,{focusChanged:id=>broadcastSyncEvent('PRODUCTIVITY_FOCUS_UPDATE',{},new Set([id])),notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
+if(dependencies.productivity)app.use('/api/productivity',domainLinksRouter(dependencies.productivity,requireAuth as any,{links:ownerId=>broadcastSyncEvent('FAMILY_LINKS_UPDATE',{},new Set([ownerId])),payment:(ownerId,recordId)=>{const audience=dependencies.wallet?.recordAudience(recordId)??new Set<string>();audience.add(ownerId);broadcastSyncEvent('FAMILY_PAYMENT_UPDATE',{},audience);}}));
 if(dependencies.productivity)app.use('/api/productivity',habitRouter(dependencies.productivity,requireAuth as any,audience=>broadcastSyncEvent('PRODUCTIVITY_HABITS_UPDATE',{},audience)));
 if(dependencies.productivity)app.use('/api/productivity',productivitySettingsRouter(dependencies.productivity,requireAuth as any,id=>broadcastSyncEvent('PRODUCTIVITY_PREFERENCES_UPDATE',{},new Set([id]))));
 if(dependencies.productivity)app.use('/api/productivity',insightRouter(dependencies.productivity,requireAuth as any,id=>broadcastSyncEvent('PRODUCTIVITY_INSIGHTS_UPDATE',{},new Set([id]))));

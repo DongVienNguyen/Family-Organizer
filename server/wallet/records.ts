@@ -113,7 +113,10 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
   else if(old){if(old.record.settlementStatus!=='voided')voidWithin(tx,actor,old,at);tx.sql.run('DELETE FROM wallet_transfer_fees WHERE transfer_record_id=?',parent.record.id);}
   return result(reader,actor,parent.record.id);
  };
+ const createWithin=(tx:WalletTx,ctx:CommandContext,draft:Draft):WalletRecordResult=>{const reader=txReader(tx);context(ctx,reader);checkTargets(reader,ctx.actor,draft,{archive:true});const at=new Date(now()).toISOString(),parent=apply(tx,ctx.actor,draft,at),saved=setFee(tx,ctx.actor,parent,draft,at);audit(tx,ctx.actor,'create',at,null,saved);return saved;};
  return {
+  /** Trusted composition under an existing I01 transaction; never a second writer. */
+  createWithin(tx:WalletTx,ctx:CommandContext,raw:RecordDraft):WalletRecordResult{return createWithin(tx,ctx,normalize(raw));},
   /** The financial-link coordinator owns both legacy history and these records
    * in this same I01 transaction. These ports are never exposed as HTTP drafts. */
   createFinancialWithin(tx:WalletTx,ctx:CommandContext,raw:RecordDraft):WalletRecordResult {
@@ -153,6 +156,9 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
     // record metadata/audit/selection links do not own another ledger entry.
     const safe=new Set(['wallet_postings','wallet_record_metadata','wallet_record_labels','wallet_allocations','wallet_record_fx','wallet_audit','wallet_receipts','wallet_selection_records','wallet_rule_preview_rows','wallet_rule_overrides','wallet_import_entries']);
     for(const row of reader.all("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'wallet_%'")){if(safe.has(row.name)||!/^wallet_[a-z_]+$/.test(row.name))continue;for(const fk of reader.all('PRAGMA foreign_key_list('+row.name+')'))if(fk.table==='wallet_records'&&/^[a-z_]+$/.test(fk.from)&&reader.get('SELECT 1 AS linked FROM '+row.name+' WHERE '+fk.from+'=? LIMIT 1',id))return false;}
+    // Typed personal references in the shared Productivity domain are genuine
+    // later user work, even though the optional Wallet target has no physical FK.
+    if(reader.get("SELECT 1 FROM sqlite_master WHERE type='table' AND name='productivity_domain_links'")&&reader.get("SELECT 1 FROM productivity_domain_links WHERE archived=0 AND((from_kind='walletRecord' AND from_id=?)OR(to_kind='walletRecord' AND to_id=?)) LIMIT 1",id,id))return false;
     return true;
    }catch(error){if(error instanceof AppStoreError&&[403,404,409].includes(error.status))return false;throw error;}
   },
@@ -192,7 +198,7 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
   },
   createRecord(ctx:CommandContext,value:RecordDraft):WalletRecordResult {
    context(ctx,ports.reader);const draft=normalize(value);checkTargets(ports.reader,ctx.actor,draft);
-   return run(ctx,'create',draft,tx=>{const reader=txReader(tx);context(ctx,reader);checkTargets(reader,ctx.actor,draft,{archive:true});const at=new Date(now()).toISOString(),parent=apply(tx,ctx.actor,draft,at),saved=setFee(tx,ctx.actor,parent,draft,at);audit(tx,ctx.actor,'create',at,null,saved);return saved;});
+   return run(ctx,'create',draft,tx=>createWithin(tx,ctx,draft));
   },
   updateRecord(ctx:CommandContext,id:string,value:RecordPatch):WalletRecordResult {
    context(ctx,ports.reader,true);text(id,256);authorize(ports.reader,ctx.actor,id);const patch=payload(value,[...commonFields,...singleFields,...transferFields]);if(!Object.keys(patch).length)fail(400,'Thiếu thay đổi giao dịch.');

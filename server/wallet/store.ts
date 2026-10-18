@@ -12,7 +12,7 @@ export interface WalletRecord {id:string;kind:RecordKind;effectiveDate:string;ti
 export interface WalletPosting {recordId:string;accountId:string;deltaMinor:string}
 const accountColumns='id,name,type,currency,owner_user_id AS ownerUserId,access_mode AS accessMode,CAST(opening_minor AS TEXT) AS openingMinor,opening_date AS openingDate,revision';
 const recordColumns='id,kind,effective_date AS effectiveDate,timezone,source,external_key AS externalKey,note,settlement_status AS settlementStatus,creator_id AS creatorId,revision,category_id AS categoryId,occurrence_id AS occurrenceId';
-function walletTx(tx:AppWriteTx) {
+export function walletTransactionView(tx:AppWriteTx) {
  return {
   get legacy(){return tx.legacy;},
   afterCommit:tx.afterCommit,
@@ -37,8 +37,8 @@ function walletTx(tx:AppWriteTx) {
   occurrences:{insert(value:{id:string;scheduleId:string;dueDate:string}){text(value.id,256);text(value.scheduleId,256);parseEffectiveDate(value.dueDate);tx.run('INSERT INTO wallet_occurrences VALUES(?,?,?)',value.id,value.scheduleId,value.dueDate);}},
  };
 }
-export type WalletTx=ReturnType<typeof walletTx>;
+export type WalletTx=ReturnType<typeof walletTransactionView>;
 /** I01 remains the only transaction/idempotency owner; no direct native DB/writer. */
 export function openWalletStore(ports:{write:typeof withAppWriteTransaction}) {
- return {transaction<T>(meta:AppWriteMetadata,fn:(tx:WalletTx)=>T):T {if(fn.constructor.name==='AsyncFunction')throw Error('Wallet callback must be synchronous');return ports.write(meta,tx=>fn(walletTx(tx)));}};
+ return {transaction<T>(meta:AppWriteMetadata,fn:(tx:WalletTx)=>T):T {if(fn.constructor.name==='AsyncFunction')throw Error('Wallet callback must be synchronous');return ports.write(meta,tx=>fn(walletTransactionView(tx)));}};
 }

@@ -1,3 +1,5 @@
+import {walletLocale} from './features/wallet/accountDraft.js';
+import type {DomainRef} from './features/shared/domainLinks.js';
 import {FocusWidget} from './features/productivity/Focus.js';
 import {TaskProvider} from './features/productivity/useTasks.js';
 import {useWallet} from './features/wallet/useWallet.js';
@@ -105,7 +107,7 @@ const formatNotifTime = (iso: string): string => {
 };
 
 export default function App() {
-  const { t } = useTranslation();
+  const { t,i18n } = useTranslation();
 
   // Authentication & session status
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -321,6 +323,7 @@ export default function App() {
   const [productivityQueryEpoch,setProductivityQueryEpoch]=useState(0);
   const [productivityFocusEpoch,setProductivityFocusEpoch]=useState(0);
   const [productivityHabitEpoch,setProductivityHabitEpoch]=useState(0);
+  const [familyLinkEpoch,setFamilyLinkEpoch]=useState(0);
   const [productivitySettingsEpoch,setProductivitySettingsEpoch]=useState(0);
   const [productivityInsightEpoch,setProductivityInsightEpoch]=useState(0);
   const [productivityAvailable,setProductivityAvailable]=useState<boolean|undefined>(undefined);
@@ -804,6 +807,7 @@ export default function App() {
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
       setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();void walletWorkspace.refresh();fetchAllData();}opened=true;}
     },onMessage:payload=>{
+        if(['FAMILY_LINKS_UPDATE','FAMILY_PAYMENT_UPDATE','FINANCE_UPDATE','TASKS_UPDATE','PRODUCTIVITY_CATALOG_UPDATE','NOTES_UPDATE','PLANS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setFamilyLinkEpoch(value=>value+1);
         if(['PRODUCTIVITY_PREFERENCES_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivitySettingsEpoch(value=>value+1);
         if(['PRODUCTIVITY_INSIGHTS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivityInsightEpoch(value=>value+1);
         if(['PRODUCTIVITY_HABITS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivityHabitEpoch(value=>value+1);
@@ -830,6 +834,7 @@ export default function App() {
             fetchNotes();
             fetchBackupsAndLogs();
             break;
+          case "FAMILY_PAYMENT_UPDATE":
           case "FINANCE_UPDATE":
             void walletWorkspace.refresh();
             fetchTransactions();
@@ -1701,8 +1706,9 @@ export default function App() {
     { id: "settings", label: t("nav.settings"), icon: Settings2 }
   ];
 
+  const openFamilyDomain=async(ref:DomainRef):Promise<boolean>=>{const check=browserSession.capture();try{if(ref.kind==='familyPlan'){handleViewPlan(ref.id);return true;}if(!currentUser||!['admin','member'].includes(currentUser.role))return false;if(ref.kind==='walletRecord'){const record=walletWorkspace.records.snapshot();if(walletWorkspace.records.isBusy()||record.form||record.allocationForm)return false;await walletWorkspace.records.refresh();check();await walletWorkspace.records.select(ref.id);check();if(walletWorkspace.records.snapshot().selected?.record.id!==ref.id)return false;walletWorkspace.navigation.set('records');setActiveTab('finance');return true;}if(ref.kind==='debt'||ref.kind==='goal'){await walletWorkspace.openFinancial(ref.kind,ref.id,walletLocale(i18n.language));check();setActiveTab('finance');return true;}if(ref.kind==='walletSchedule'){await walletWorkspace.planning.show();check();await walletWorkspace.planning.select(ref.id);check();walletWorkspace.navigation.set('planning');setActiveTab('finance');return true;}return false;}catch{return false;}};
   return (
-    <TaskProvider actor={{userId:currentUser.id,role:currentUser.role}} habitEpoch={productivityHabitEpoch} settingsEpoch={productivitySettingsEpoch} insightEpoch={productivityInsightEpoch} key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} focusEpoch={productivityFocusEpoch} available={productivityAvailable} notes={notes} onOpenNote={handleViewNote} onOpenTasks={()=>setActiveTab("tasks")}>
+    <TaskProvider actor={{userId:currentUser.id,role:currentUser.role}} familyEpoch={familyLinkEpoch} onOpenDomain={openFamilyDomain} habitEpoch={productivityHabitEpoch} settingsEpoch={productivitySettingsEpoch} insightEpoch={productivityInsightEpoch} key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} focusEpoch={productivityFocusEpoch} available={productivityAvailable} notes={notes} onOpenNote={handleViewNote} onOpenTasks={()=>setActiveTab("tasks")}>
     <FabProvider>
     <div className="h-screen overflow-hidden bg-slate-950 flex text-slate-200 selection:bg-sky-200 selection:text-sky-700 font-sans relative">
 

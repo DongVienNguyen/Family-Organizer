@@ -1,0 +1,2 @@
+import base from './playwright.config.js';import {defineConfig} from '@playwright/test';
+const project=process.env.FO_FAMILY_PROJECT;if(project&&!['chromium','firefox','webkit'].includes(project))throw Error('Unknown Family browser project');const reports='reports/family/'+(project??'all');export default defineConfig({...base,testMatch:'family-links.spec.ts',outputDir:reports+'/results',reporter:[['list'],['json',{outputFile:reports+'/browser.json'}],['junit',{outputFile:reports+'/browser.junit.xml'}],['html',{outputFolder:reports+'/html',open:'never'}]]});
