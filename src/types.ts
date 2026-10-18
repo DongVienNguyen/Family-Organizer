@@ -4,7 +4,7 @@ import type {TrackingAmount} from './features/wallet/linkedMoney.js';
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type {WalletOccurrenceNotificationSource} from './features/wallet/notificationContract.js';
+import type {WalletNotificationSource} from './features/wallet/notificationContract.js';
 
 // User and Role management
 // `role` is the PERMISSION tier (what the account can do).
@@ -79,7 +79,7 @@ export interface UserSession {
 }
 
 // Internal derivative provenance; supplied by canonical writers, never clients.
-export type LegacySourceRef = {domain:'task'|'plan'|'note'|'document'|'medication'|'vaccination';id:string}|{domain:'finance'|'message'|'family';id?:string}|WalletOccurrenceNotificationSource;
+export type LegacySourceRef = {domain:'task'|'plan'|'note'|'document'|'medication'|'vaccination';id:string}|{domain:'finance'|'message'|'family';id?:string}|WalletNotificationSource;
 
 // Notification system
 export interface Notification {

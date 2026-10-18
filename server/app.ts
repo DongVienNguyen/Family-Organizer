@@ -1,3 +1,4 @@
+import {registerWalletBudgetJobs} from './wallet/budgetJobs.js';
 import {projectLinkedGoals} from '../src/features/wallet/linkProjection.js';
 import {registerWalletImportJobs} from './wallet/importJobs.js';
 import {registerWalletScheduleJobs} from './wallet/jobs.js';
@@ -754,6 +755,7 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 
 // --- TASK API ENDPOINTS ---
 if(dependencies.wallet&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletImportJobs(jobs,wallet.imports,batchId=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.importAudience(batchId)));}
+if(dependencies.wallet?.budgetJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletBudgetJobs(jobs,wallet.budgetJobs,{notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet?.scheduleJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletScheduleJobs(jobs,wallet.scheduleJobs,{recordChanged:id=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.recordAudience(id)),scheduleChanged:ownerId=>broadcastSyncEvent('FINANCE_UPDATE',{},new Set([ownerId])),notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
 if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id})}));

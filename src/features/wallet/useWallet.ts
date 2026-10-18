@@ -1,3 +1,4 @@
+import {createBudgetWorkspace,type BudgetWorkspace} from './budgetWorkspace.js';
 import {createFinancialWorkspace,type FinancialWorkspace} from './financialWorkspace.js';
 import {createPlanningWorkspace,type PlanningWorkspace} from './planningWorkspace.js';
 import {createRuleWorkspace,type RuleWorkspace} from './ruleWorkspace.js';
@@ -19,6 +20,7 @@ import type { AccountWorkspace } from './accountWorkspace.js';
 import type { RecordWorkspace } from './recordWorkspace.js';
 export type WalletTab = 'accounts' | 'records' | 'catalog' | 'analytics' | 'dashboard' | 'imports'|'rules'|'planning';
 export interface WalletWorkspace {
+    budgets:BudgetWorkspace;
     financial:FinancialWorkspace;
     openFinancial:(kind:'debt'|'goal',id:string,locale:string,linkId?:string)=>Promise<void>;
     planning:PlanningWorkspace;
@@ -48,18 +50,18 @@ export interface WalletWorkspace {
 export function useWallet(authHeaders: () => HeadersInit, actorId?: string) {
     const currentActor = useRef(actorId ?? '');
     currentActor.current = actorId ?? '';
-    const [owner] = useState(() => { const api = createWalletApi({ request: browserSession.request, authHeaders }), date = () => effectiveDateAt(new Date().toISOString(), 'Asia/Ho_Chi_Minh'), accounts = createAccountWorkspace(api, { date }), records = createRecordWorkspace(api, { actorId: () => currentActor.current, date, timezone: 'Asia/Ho_Chi_Minh' }), catalog = createCatalogWorkspace(api), analytics = createAnalyticsWorkspace(api, { filter: { period: resolvePeriod({ kind: 'month', anchorDate: date() }, 'Asia/Ho_Chi_Minh'), referenceCurrency: 'VND' }, metric: 'incomeExpense', groupBy: 'none', granularity: 'month' }), financial=createFinancialWorkspace(api,{date,timezone:'Asia/Ho_Chi_Minh'}),planning=createPlanningWorkspace(api,{date,timezone:'Asia/Ho_Chi_Minh'}),fileExports=createExportWorkspace(api),rules=createRuleWorkspace(api),imports=createImportWorkspace(api),dashboard = createDashboardWorkspace(api, { defaultFilter: () => ({ period: resolvePeriod({ kind: 'month', anchorDate: date() }, 'Asia/Ho_Chi_Minh'), referenceCurrency: 'VND' }), date }); let view: {
+    const [owner] = useState(() => { const api = createWalletApi({ request: browserSession.request, authHeaders }), date = () => effectiveDateAt(new Date().toISOString(), 'Asia/Ho_Chi_Minh'), accounts = createAccountWorkspace(api, { date }), records = createRecordWorkspace(api, { actorId: () => currentActor.current, date, timezone: 'Asia/Ho_Chi_Minh' }), catalog = createCatalogWorkspace(api), analytics = createAnalyticsWorkspace(api, { filter: { period: resolvePeriod({ kind: 'month', anchorDate: date() }, 'Asia/Ho_Chi_Minh'), referenceCurrency: 'VND' }, metric: 'incomeExpense', groupBy: 'none', granularity: 'month' }), budgets=createBudgetWorkspace(api,{date,timezone:'Asia/Ho_Chi_Minh'}),financial=createFinancialWorkspace(api,{date,timezone:'Asia/Ho_Chi_Minh'}),planning=createPlanningWorkspace(api,{date,timezone:'Asia/Ho_Chi_Minh'}),fileExports=createExportWorkspace(api),rules=createRuleWorkspace(api),imports=createImportWorkspace(api),dashboard = createDashboardWorkspace(api, { defaultFilter: () => ({ period: resolvePeriod({ kind: 'month', anchorDate: date() }, 'Asia/Ho_Chi_Minh'), referenceCurrency: 'VND' }), date }); let view: {
         tab: WalletTab;
         chart: 'line' | 'bar' | 'area';
     } = { tab: 'accounts', chart: 'line' }, retired = false; const listeners = new Set<() => void>(), navigation = { snapshot: () => view, subscribe(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn); }; }, set(tab: WalletTab, chart?: 'line' | 'bar' | 'area') { if (retired)
             return; view = { tab, chart: chart ?? view.chart }; for (const fn of listeners)
-            fn(); } }; const workspace: WalletWorkspace = { financial,async openFinancial(kind,id,locale,linkId){await financial.open(kind,id,locale,linkId);navigation.set('planning');},planning,accounts, records, catalog, analytics, dashboard,imports,exports:fileExports,rules, navigation, async openRecords(filter) { const blocked = () => records.isBusy() || !!records.snapshot().form || !!records.snapshot().allocationForm; if (blocked())
+            fn(); } }; const workspace: WalletWorkspace = { budgets,financial,async openFinancial(kind,id,locale,linkId){await financial.open(kind,id,locale,linkId);navigation.set('planning');},planning,accounts, records, catalog, analytics, dashboard,imports,exports:fileExports,rules, navigation, async openRecords(filter) { const blocked = () => records.isBusy() || !!records.snapshot().form || !!records.snapshot().allocationForm; if (blocked())
             return false; if (records.snapshot().phase !== 'ready')
             await records.refresh(); if (blocked() || records.snapshot().phase !== 'ready')
             return false; await records.applyFilter(filter); if (records.snapshot().phase !== 'ready' || records.snapshot().filterInvalid) {
             await dashboard.refresh();
             return false;
-        } navigation.set('records'); return true; }, async openChart(config) { await analytics.apply(config.input); navigation.set('analytics', config.chart); return true; }, async refresh() {fileExports.invalidate(); await Promise.all([accounts.refresh(), records.refresh(), catalog.refresh(), analytics.refresh(), dashboard.refresh(),imports.refresh(),rules.refresh(),planning.refresh(),financial.refresh()]); }, dispose() { accounts.dispose(); records.dispose(); catalog.dispose(); analytics.dispose(); dashboard.dispose();imports.dispose();fileExports.dispose();rules.dispose();planning.dispose();financial.dispose(); retired = true; listeners.clear(); } }; return { session: browserSession.snapshot(), workspace }; });
+        } navigation.set('records'); return true; }, async openChart(config) { await analytics.apply(config.input); navigation.set('analytics', config.chart); return true; }, async refresh() {fileExports.invalidate(); await Promise.all([accounts.refresh(), records.refresh(), catalog.refresh(), analytics.refresh(), dashboard.refresh(),imports.refresh(),rules.refresh(),planning.refresh(),financial.refresh(),budgets.refresh()]); }, dispose() { accounts.dispose(); records.dispose(); catalog.dispose(); analytics.dispose(); dashboard.dispose();imports.dispose();fileExports.dispose();rules.dispose();planning.dispose();financial.dispose();budgets.dispose(); retired = true; listeners.clear(); } }; return { session: browserSession.snapshot(), workspace }; });
     useEffect(() => {
         const changed = () => {
             const current = browserSession.snapshot();

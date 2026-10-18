@@ -102,6 +102,15 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     router.post('/fx/refresh',async(req,res)=>{try{const value=body(req,['expectedRevision','asOf']),result=await ports.fx.refreshRates(context(req,value.expectedRevision,false),value.asOf);res.json(result);}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không cập nhật được tỷ giá.':error instanceof AppStoreError?error.message:'Yêu cầu tỷ giá không hợp lệ.',code:(error as any)?.code});}});
     router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
     const financialChanged=(_records:string[],linkId:string)=>changed(ports.linkAudience(linkId));
+    const budgetChanged=(budgetId:string)=>changed(ports.budgetAudience(budgetId));
+    router.get('/budgets',handler(req=>({budgets:ports.budgets.listBudgets(actor(req))})));
+    router.get('/budgets/:id',handler(req=>ports.budgets.getBudget(actor(req),id(req.params.id))));
+    router.post('/budgets',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.budgets.saveBudget(context(req,v.expectedRevision,false),{draft:v.draft},()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/budgets/:id',handler(req=>{const v=body(req,['expectedRevision','patch']),budgetId=id(req.params.id),patch=(()=>{try{const patch=object(v.patch);keys(patch,['draft','archived']);return patch;}catch{throw new AppStoreError('Thay đổi ngân sách không hợp lệ.',400);}})();return ports.budgets.saveBudget(context(req,v.expectedRevision,true),{...patch,id:budgetId},()=>budgetChanged(budgetId));}));
+    router.post('/budgets/:id/report',handler(req=>{const v=body(req,['period','method']);return ports.budgets.calculateBudget(actor(req),id(req.params.id),v.period,v.method===undefined?'scheduledOnly':v.method);}));
+    router.post('/budgets/:id/carry',handler(req=>{const v=body(req,['expectedRevision','from','to','sourceFingerprint']),budgetId=id(req.params.id);return ports.budgets.carryBudget(context(req,v.expectedRevision,true),budgetId,v.from,v.to,()=>budgetChanged(budgetId),v.sourceFingerprint);}));
+    router.post('/budgets/summary',handler(req=>{const v=body(req,['budgetIds','period','referenceCurrency']);return ports.budgets.summarizeBudgets(actor(req),v.budgetIds,v.period,v.referenceCurrency);}));
+    router.post('/balance-forecast',handler(req=>ports.budgets.forecastBalance(actor(req),body(req,['accountIds','period','scenario','referenceCurrency']))));
     router.get('/financial-targets',handler(req=>ports.links.targets(actor(req))));
     router.get('/financial-links',handler(req=>({links:ports.links.listLinks(actor(req))})));
     router.get('/financial-links/:id',handler(req=>ports.links.getLink(actor(req),id(req.params.id))));

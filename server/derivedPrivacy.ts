@@ -2,21 +2,21 @@ import {createHmac} from 'node:crypto';
 /** @license SPDX-License-Identifier: Apache-2.0 */
 import {UserRole,type FamilyOrganizerDB,type Notification} from '../src/types.js';
 import {AppStoreError} from './appErrors.js';
-import {walletNotificationSource,type WalletOccurrenceNotificationSource} from '../src/features/wallet/notificationContract.js';
+import {walletDerivedNotificationSource,type WalletNotificationSource} from '../src/features/wallet/notificationContract.js';
 import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canonicalTaskPolicyActive,type LegacyActor} from './legacyVisibility.js';
 export function legacyReader(db:FamilyOrganizerDB,userId:string):LegacyActor {
  const user=db.users.find(row=>row.id===userId&&!row.isDeleted&&Object.values(UserRole).includes(row.role));
  if(!user)throw new AppStoreError('Bạn không có quyền truy cập dữ liệu này.',403);
  return {userId:user.id,role:user.role};
 }
-export type WalletNotificationAccess=(actor:LegacyActor,source:WalletOccurrenceNotificationSource,notification:Notification)=>boolean;
+export type WalletNotificationAccess=(actor:LegacyActor,source:WalletNotificationSource,notification:Notification)=>boolean;
 function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['sourceRef'],walletAccess?:WalletNotificationAccess,notification?:Notification):boolean {
  if(!ref||typeof ref!=='object'||Array.isArray(ref))return false;
  if(ref.domain==='message'||ref.domain==='family')return true;
  if(ref.domain==='finance')return isAdult(actor);
- if(ref.domain==='wallet-occurrence'){
+ if(ref.domain==='wallet-occurrence'||ref.domain==='wallet-budget'){
   if(!isAdult(actor)||!walletAccess||!notification)return false;
-  try{return walletAccess(actor,walletNotificationSource(ref),notification)===true;}catch{return false;}
+  try{return walletAccess(actor,walletDerivedNotificationSource(ref),notification)===true;}catch{return false;}
  }
  if(typeof ref.id!=='string'||!ref.id)return false;
  switch(ref.domain){

@@ -1,3 +1,4 @@
+import {walletBudgetAlertId} from './wallet/budgetJobIdentity.js';
 import {assertNoActiveFinancialHistory} from './wallet/legacyLinkGuard.js';
 import {compareTrackingAmount,formatTrackingAmount} from '../src/features/wallet/linkedMoney.js';
 import {hasManagedLegacyPolicy,assertManagedLegacyPatch} from './productivity/legacyCutoverRecord.js';
@@ -7,7 +8,7 @@ import {completionPolicy,markAcceptedCompletion,linkedCompletionGrant,reverseAcc
 import {hashPassword,verifyPassword} from './passwords.js';
 import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs,type WalletNotificationAccess} from './derivedPrivacy.js';
 import {walletReminderId} from './wallet/reminderIdentity.js';
-import {walletNotificationSource} from '../src/features/wallet/notificationContract.js';
+import {walletNotificationSource,walletBudgetNotificationSource} from '../src/features/wallet/notificationContract.js';
 import {currentLegacyActor} from './legacyActor.js';
 import {assertNoOpenSubtasks} from './productivity/structureInvariant.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
@@ -3059,14 +3060,18 @@ export class FamilyDB {
   // Internal notification builder
   /** Shared notification/outbox adapter. A Wallet owner has already checked its
    * current object policy in the same I01 transaction. No network is performed. */
+  private static recordWalletNotice(notification:Notification,source:NonNullable<Notification['sourceRef']>,expectedId:string):string {
+    const db=this.readRaw(),actor=currentLegacyActor(db,notification.userId);
+    if(![UserRole.ADMIN,UserRole.MEMBER].includes(actor.role)||notification.userId==='all'||notification.type!=='finance'||notification.isRead!==false||notification.id!==expectedId||typeof notification.title!=='string'||!notification.title.trim()||notification.title.length>500||typeof notification.content!=='string'||notification.content.length>2000||typeof notification.createdAt!=='string'||new Date(notification.createdAt).toISOString()!==notification.createdAt)throw new AppStoreError('Thông báo Wallet không hợp lệ.',400);
+    const prior=db.notifications.find(row=>row.id===notification.id);
+    if(prior){if(prior.userId!==notification.userId||JSON.stringify(prior.sourceRef)!==JSON.stringify(source))throw new AppStoreError('Thông báo Wallet xung đột.',409);return prior.id;}
+    const value={...structuredClone(notification),sourceRef:source};db.notifications.unshift(value);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,value);this.writeRaw(db);return value.id;
+  }
   public static queueWalletReminder(notification:Notification):string {
-    return runLegacyCommand('queueWalletReminder',[notification],notification.userId,()=>{
-      const db=this.readRaw(),actor=currentLegacyActor(db,notification.userId),source=walletNotificationSource(notification.sourceRef);
-      if(![UserRole.ADMIN,UserRole.MEMBER].includes(actor.role)||notification.userId==='all'||notification.type!=='finance'||notification.isRead!==false||notification.id!==walletReminderId(source.id,source.offsetDays,notification.userId)||typeof notification.title!=='string'||!notification.title.trim()||notification.title.length>500||typeof notification.content!=='string'||notification.content.length>2000||typeof notification.createdAt!=='string'||new Date(notification.createdAt).toISOString()!==notification.createdAt)throw new AppStoreError('Thông báo Wallet không hợp lệ.',400);
-      const prior=db.notifications.find(row=>row.id===notification.id);
-      if(prior){if(prior.userId!==notification.userId||JSON.stringify(prior.sourceRef)!==JSON.stringify(source))throw new AppStoreError('Thông báo Wallet xung đột.',409);return prior.id;}
-      const value={...structuredClone(notification),sourceRef:source};db.notifications.unshift(value);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,value);this.writeRaw(db);return value.id;
-    });
+    return runLegacyCommand('queueWalletReminder',[notification],notification.userId,()=>{const source=walletNotificationSource(notification.sourceRef);return this.recordWalletNotice(notification,source,walletReminderId(source.id,source.offsetDays,notification.userId));});
+  }
+  public static queueWalletBudgetAlert(notification:Notification):string {
+    return runLegacyCommand('queueWalletBudgetAlert',[notification],notification.userId,()=>{const source=walletBudgetNotificationSource(notification.sourceRef);return this.recordWalletNotice(notification,source,walletBudgetAlertId(source.id,notification.userId));});
   }
 
   private static addNotificationInternal(db: FamilyOrganizerDB, userId: string, title: string, content: string, type: Notification["type"] = "system", sourceRef:LegacySourceRef={domain:'family'}) {
