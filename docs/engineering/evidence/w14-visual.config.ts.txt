@@ -1,0 +1,2 @@
+import base from '/workspace/Family-Organizer/playwright.wallet.config.ts';
+export default {...base,testDir:'/workspace/family-evidence',testMatch:'w14-visual.spec.ts',outputDir:'/workspace/family-evidence/w14-visual-artifacts/results',reporter:[['list'],['json',{outputFile:'/workspace/family-evidence/w14-visual-artifacts/browser.json'}],['junit',{outputFile:'/workspace/family-evidence/w14-visual-artifacts/browser.junit.xml'}]]};

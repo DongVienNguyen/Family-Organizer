@@ -2,6 +2,25 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**2026-10-18 continuation — W14 core:** source `87155f887f0072bfe644af3aa5d0ec2d1ef41ac4` adds
+personal filtered budgets, distinct overlap totals, source-reviewed immutable
+carry, pending cashflow/history forecasts and private threshold alerts through
+shared I01/AppJobs/inbox. Schema14/standalone15 preserves accepted1–13 SQL;
+no automatic migration/activation or legacy budget replacement.
+[Details](wallet-budgets.md).
+
+Cloud: 8252 tests/475 files/full JUnit, zero failed/skipped/todo;
+all 8128 parent cases +124 retained, lint/build0. Final Chromium56/56
+retains all52 parents; fixture14 offline/integrity/legacy/normal-stop/closed/cleaned/
+build-bound; phone light/dark and unknown carry replay included. Earlier failed
+reports and pre-correction full8251/475 retained. [Proof](evidence/w14-budgets-development.json).
+Author inspection only. PR URL/CI run URL:none; backup branch
+`codex/feature-first-acceptance`. Final Windows2022/Node22/package/service/other
+engines/touch and Server2019 R02 unrun. Remaining: W15–18 and remaining
+Productivity/M1/I02/I03/master, legacy bridge/withdrawals/full recovery/cutover.
+Next: W15 portfolio/quotes with offline fixtures and no production provider choice.
+No release/tag/VPS.
+
 **2026-10-18 continuation — W13 core:** source `47f4ade4fd9c610741e69b6c8ed620f40a24e4b8` adds
 exact linked debt principal/interest, goal earmarks/transfers, existing history
 and imported cashflow linking, coordinated edit and explicit keep/void through
