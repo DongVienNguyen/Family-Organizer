@@ -1307,7 +1307,7 @@ export class FamilyDB {
       // CREATE Note
       noteData=validateContentPayload('note',noteData,undefined,actor,db);
       const newNote: Note = {
-        id: `note_${Date.now()}`,
+        id: `note_${crypto.randomUUID()}`,
         title: noteData.title || "Ghi chú không tên",
         content: noteData.content || "",
         isPinned: noteData.isPinned || false,

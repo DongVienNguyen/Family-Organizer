@@ -1,0 +1,5 @@
+import {beforeAll,it,expect,vi} from 'vitest';
+import {setupTaskTemplates,UserRole} from '../../tests/productivity-template-fixture.js';
+import {FamilyDB} from '../db.js';
+beforeAll(setupTaskTemplates);
+it('canonical Notes retain two separate creations in the same millisecond without losing the first body',()=>{const clock=vi.spyOn(Date,'now').mockReturnValue(1893456000000);try{const before=FamilyDB.getNotes().length,first=FamilyDB.saveNote({title:'Synthetic first Note at one millisecond',content:'FIRST_SYNTHETIC_CANONICAL_BODY',isShared:false},UserRole.ADMIN,UserRole.ADMIN),second=FamilyDB.saveNote({title:'Synthetic second Note at one millisecond',content:'SECOND_SYNTHETIC_CANONICAL_BODY',isShared:false},UserRole.ADMIN,UserRole.ADMIN);expect(second.id).not.toBe(first.id);const notes=FamilyDB.getNotes();expect(notes).toHaveLength(before+2);expect(notes.find(row=>row.id===first.id)?.content).toBe(first.content);expect(notes.find(row=>row.id===second.id)?.content).toBe(second.content);}finally{clock.mockRestore();}});
