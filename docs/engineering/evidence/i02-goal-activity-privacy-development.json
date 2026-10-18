@@ -1,0 +1,84 @@
+{
+  "taskId": "I02",
+  "scope": "SavingsGoal activity privacy subset; not full I02",
+  "sourceCommit": "f2b72867afde4b3d3739b522329c2f0694fd7bd3",
+  "baseHead": "dbb72c82963806ae9712e54c6435270347cd8ce7",
+  "sourceFiles": {
+    "server/app.ts": "10d375764bb85f046a0534e89ea63332fbffe2c27446d2b8f165f1e42e7e7a90",
+    "server/db.ts": "caa35c09857db8d4752218a3b8214fa016ff5b20efe55873fadb3a255d828c2f",
+    "server/derivedPrivacy.ts": "7cb4a3a5223eb7b87db9dd06b127b467de4eddc76b01514b659b5c04b9c94085",
+    "server/derivedPrivacyHttp.test.ts": "c91ed803dd5f3a56100349719701732279737c7e6f7021577a6e9bb94959070f",
+    "server/legacyVisibility.ts": "1c797a64654552c88d9a6e512274558ba5126f4b7508afaf609acadc2bacbcf6",
+    "src/types.ts": "4e5739c3ae54f5718f63e3628053967ea44596dfee9610d8e2a0f2bb2f369959"
+  },
+  "platform": "Cloud Linux x64",
+  "tests": {
+    "passed": 114,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "files": [
+      "server/appSnapshot.test.ts",
+      "server/derivedPrivacyHttp.test.ts",
+      "server/derivedPrivacyNative.test.ts",
+      "server/legacyFinanceHttp.test.ts",
+      "server/wallet/links.api.test.ts"
+    ],
+    "junitCases": 114
+  },
+  "regressionBefore": {
+    "passed": 29,
+    "failed": 4
+  },
+  "lintExit": 0,
+  "build": "not rerun for this subset",
+  "browser": "not rerun for this subset; W14 prior 56/56 remains separate",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "authorReview": "six-path author inspection; not independent review",
+  "reports": {
+    "i02-goal-activity-red.json.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-red.json.gz",
+      "sha256": "a49919795ec09635f6f4f52c7a3271c8424fb61e55648f3811dca481b35ec5ba"
+    },
+    "i02-goal-activity-red.log.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-red.log.gz",
+      "sha256": "bf4e19041aafbc56523fb63bdddf57dd1629d6be67e547583bb4e3dc87521655"
+    },
+    "i02-goal-activity-red.exit.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "i02-goal-activity-green.json.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-green.json.gz",
+      "sha256": "2ef4c163a15c9f675970d6d584908c4a0c1f9aff02b7bc935e42200281a491c8"
+    },
+    "i02-goal-activity-green.junit.xml.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-green.junit.xml.gz",
+      "sha256": "81e1ca34058ec498821c65430d93cace7812c5046fd51a0911f55f8597c7a585"
+    },
+    "i02-goal-activity-green.log.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-green.log.gz",
+      "sha256": "cb249d89161c4ae1bf53e01165b0b4d9604296ba3f623c39fb3e0c0ff85121d0"
+    },
+    "i02-goal-activity-green.exit.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-green.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "i02-goal-activity-lint.log.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "i02-goal-activity-lint.exit.gz": {
+      "path": "docs/engineering/evidence/i02-goal-activity-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    }
+  },
+  "behavior": [
+    "Current object visibility shared with existing internal SavingsGoal route; no Admin bypass for another owner personal goal.",
+    "New create/delete activity has canonical goal source; deletion or sharing revocation redacts source/name.",
+    "Unbound historical savings logs cannot establish source authorization and expose generic details only.",
+    "Projection leaves original audit history unchanged."
+  ],
+  "remaining": "Full I02 dashboard/calendar/task-finance joins, final aggregate/Windows/package/service/Server2019 qualification and remaining master scope. No release/tag/VPS."
+}

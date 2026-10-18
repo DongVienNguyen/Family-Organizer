@@ -2,6 +2,17 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**I02 privacy subset (2026-10-18):** source `f2b72867afde4b3d3739b522329c2f0694fd7bd3` fixes a
+reproduced personal SavingsGoal name leak in Admin activity. New logs carry a
+current goal source; another Admin, a deleted source or revoked sharing cannot
+expose the body/ID. Unbound historical savings logs are generic; original audit
+history is preserved. Four real HTTP regressions failed before the fix; targeted
+114 tests/5 files/matching JUnit and lint0 now pass. No full aggregate/build/browser
+or Windows rerun for this subset; W14 prior evidence remains separate.
+[Proof](evidence/i02-goal-activity-privacy-development.json). PR URL/CI URL:none;
+backup branch only. I02 as a whole is incomplete. Next W15, remaining W/P/I and
+final Windows qualification; no release/tag/VPS.
+
 **2026-10-18 continuation — W14 core:** source `87155f887f0072bfe644af3aa5d0ec2d1ef41ac4` adds
 personal filtered budgets, distinct overlap totals, source-reviewed immutable
 carry, pending cashflow/history forecasts and private threshold alerts through
