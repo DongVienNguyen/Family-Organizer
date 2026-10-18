@@ -1,0 +1,1185 @@
+{
+  "taskId": "W12",
+  "status": "core Cloud qualified; final Windows/recovery/rollout and larger history qualification remain explicit",
+  "sourceSha": "0e33086d5434afa39d943dd07a2d2e29089df03e",
+  "baseHead": "c63309eaf264a5ad42c0fc9e21f02688cbd9e755",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "platform": "Cloud Linux x64; not Windows acceptance",
+  "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+  "dependencyChange": false,
+  "npmCi": "not repeated: exact installed lockfile unchanged from qualified W10/W11",
+  "tests": {
+    "passed": 8024,
+    "files": 453,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "junitCases": 8024,
+    "parentPassed": 7927,
+    "added": 97,
+    "removed": 0,
+    "identityNormalization": "only temporary root in five recoveryRetention names; multiplicity retained"
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "parentCases": 45,
+    "cases": 48,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "c63309eaf264a5ad42c0fc9e21f02688cbd9e755",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "b99c00897e055fa1342bbb8965aac69845fb8ff3c324b071a556ac26fca0c0a4",
+        "index": "27c1acea401cd99f60c31420e58ef87332d90775401da413740f477b26240c0f"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 12,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "c36dcedd-482e-4276-824c-7b7e0c1f4e16",
+        "creditId": "a76a9e99-99a6-4b03-a7c2-78c5bdef1d50",
+        "hiddenId": "b685f803-7330-4721-92b5-3329c305d7d0",
+        "readId": "7edb6de1-1963-403f-bc97-60a1521132bd",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "browserDevelopmentRuns": {
+    "final": {
+      "stats": {
+        "startTime": "2026-10-18T04:34:20.916Z",
+        "duration": 164947.04,
+        "expected": 48,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "fixture": {
+        "commitSha": "c63309eaf264a5ad42c0fc9e21f02688cbd9e755",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "b99c00897e055fa1342bbb8965aac69845fb8ff3c324b071a556ac26fca0c0a4",
+          "index": "27c1acea401cd99f60c31420e58ef87332d90775401da413740f477b26240c0f"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 12,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "c36dcedd-482e-4276-824c-7b7e0c1f4e16",
+          "creditId": "a76a9e99-99a6-4b03-a7c2-78c5bdef1d50",
+          "hiddenId": "b685f803-7330-4721-92b5-3329c305d7d0",
+          "readId": "7edb6de1-1963-403f-bc97-60a1521132bd",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-final.junit.xml.gz",
+          "sha256": "2a6d1cf9ebce8ee13c8ce6edb2c40fcc489f54a195013022bbe7e474eb228eb1"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-final.json.gz",
+          "sha256": "c5e14d166014a796d0e316d9695e79727a1ee87dff57ad3b04c1101fd8b74957"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-final.log.gz",
+          "sha256": "bb7c1e016720f4b9f52e42e4c4e77cbfe7584df8d2202a7c6a106815025907e9"
+        }
+      }
+    },
+    "first": {
+      "stats": {
+        "startTime": "2026-10-18T04:21:54.392Z",
+        "duration": 199804.938,
+        "expected": 45,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "fixture": {
+        "commitSha": "c63309eaf264a5ad42c0fc9e21f02688cbd9e755",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "b99c00897e055fa1342bbb8965aac69845fb8ff3c324b071a556ac26fca0c0a4",
+          "index": "4fdce431dbbfe5c470fd14f78b814d64897ada61d664899486acfd89d1b8199b"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 1,
+        "error": "Expected values to be strictly equal:\n\n1 !== 0\n",
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 12,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "10f7c81b-dd31-4031-b57c-5032260366ef",
+          "creditId": "f3a1f4bb-0a93-476f-945e-6a5dce7aebe3",
+          "hiddenId": "83089aa3-0caf-4543-9c08-ccdd97776a4f",
+          "readId": "b4ec2aef-8808-4cd4-9fbf-7c09c4823710",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-first.junit.xml.gz",
+          "sha256": "daa9b13564001c2c7d855dc2d90503d3e842e6f12f9aa83bc29241799f79fd7d"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-first.json.gz",
+          "sha256": "20d80512ac3df55613d52d43e0dff3b7128bac2278d40aaa3b076e2401a1b0cb"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-first.log.gz",
+          "sha256": "54fc24247cc57504f90b541864bd96093f41d3921dc053b69a46b8444a0bb9d9"
+        }
+      }
+    },
+    "second": {
+      "stats": {
+        "startTime": "2026-10-18T04:26:03.512Z",
+        "duration": 213873.07799999998,
+        "expected": 47,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "fixture": {
+        "commitSha": "c63309eaf264a5ad42c0fc9e21f02688cbd9e755",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "b99c00897e055fa1342bbb8965aac69845fb8ff3c324b071a556ac26fca0c0a4",
+          "index": "27c1acea401cd99f60c31420e58ef87332d90775401da413740f477b26240c0f"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 1,
+        "error": "Expected values to be strictly equal:\n\n1 !== 0\n",
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 12,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "f93ef3ac-df1e-480f-ae22-a21c3375a1bc",
+          "creditId": "cfd05890-282a-45fc-9a3b-589726e56b4f",
+          "hiddenId": "e26bf832-4f43-420b-b6ed-f8eff5b8cf14",
+          "readId": "b0b9e90b-ed6f-4a77-a77a-3bc62cab222f",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-second.junit.xml.gz",
+          "sha256": "f6e62dd256ec2a27b150b74423a95872651a0d9645aaf9a233fd3ebbfd262d68"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-second.json.gz",
+          "sha256": "cc939fe3f94328d0a1491ed6cc1ad57b3c925d5511d0c6dbf7e3fc7e8af0d2ac"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w12-schedules-browser-second.log.gz",
+          "sha256": "4c568dc5ae83766e83d1162750ea17f1788724c611432f5b8248810a2df507cd"
+        }
+      }
+    }
+  },
+  "retainedReports": {
+    "json": {
+      "path": "docs/engineering/evidence/w12-schedules-cloud.json.gz",
+      "sha256": "d69ae2eaa525bf7e2fd51a5ffa5306a5091b3d6d252022134ba0edab8c6f7e08"
+    },
+    "junit.xml": {
+      "path": "docs/engineering/evidence/w12-schedules-cloud.junit.xml.gz",
+      "sha256": "08445fc4c1e386842d323d52cca4a3b3ace29cba15407c657dfcfcc209879018"
+    },
+    "log": {
+      "path": "docs/engineering/evidence/w12-schedules-cloud.log.gz",
+      "sha256": "dfd53b329f14a87f359ad473fcfac8c00eaaeb68d6035a61a7062b4a137cdcbb"
+    }
+  },
+  "failedDevelopmentReports": {
+    "w12-job-owner-red": {
+      "passed": 0,
+      "failed": 0,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-job-owner-red.json.gz",
+        "sha256": "f2877ab5710d0b7d7acb3677c8e99c22e2e33e5651ad969176cd660a0d3e1499"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-job-owner-red.log.gz",
+        "sha256": "293341d213cb4a11d0fda8993fee1eb0a5d95f525e75798912afca680c108be1"
+      }
+    },
+    "w12-native-fixture-red": {
+      "passed": 0,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 9,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-native-fixture-red.json.gz",
+        "sha256": "f72f43efa1d1621affd4188c184bf2cd4ffbffba4ff7a0353879d438198a6432"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-native-fixture-red.log.gz",
+        "sha256": "2cd8495680857e6085de03d58c9908e4c0c67f0cb0f577665dea883c664f9c10"
+      }
+    },
+    "w12-notification-scope-red": {
+      "passed": 5,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-notification-scope-red.json.gz",
+        "sha256": "88128d9d9880ffac9ebdd600c922737ce888cbdabb74e0410dae2219c6f63ae7"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-notification-scope-red.log.gz",
+        "sha256": "3e06bd46d63ea37d18daa6aa38043aaebc28008699122f30f8ef94b8c201eeb1"
+      }
+    },
+    "w12-null-config-red": {
+      "passed": 30,
+      "failed": 3,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-null-config-red.json.gz",
+        "sha256": "711c229fa935adb55829dcb5c3aee7404092eef35c823c703b647f1e374e9776"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-null-config-red.log.gz",
+        "sha256": "3f9a4528f27dc8c29d43e8a091f0915f57d50e654ab815216ac6af2f7263250a"
+      }
+    },
+    "w12-occurrence-plan-red": {
+      "passed": 0,
+      "failed": 0,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-occurrence-plan-red.json.gz",
+        "sha256": "c3708601691f2e3a99a2baa7b8b429fc6d44757fa47b99ae3c40dcd0df35bb32"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-occurrence-plan-red.log.gz",
+        "sha256": "dd99c008afea5f45a90312b760b7d34e5c26269af89b8564a91b244f48df6365"
+      }
+    },
+    "w12-planning-owner-first": {
+      "passed": 29,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-planning-owner-first.json.gz",
+        "sha256": "1cd4b8fb4a91f0cbffd571b71e1b723a1bfad520aa231ed14ef11adf64398577"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-planning-owner-first.log.gz",
+        "sha256": "e21485406a2b64733c10df6b5030550d52109a0a2e0a6881bb753e0a764bc8ef"
+      }
+    },
+    "w12-planning-owner-red": {
+      "passed": 0,
+      "failed": 0,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-planning-owner-red.json.gz",
+        "sha256": "3e5104cd5aa9f6d5d76ec61639deb0609c2c68836e055fed86dbeeb398fd2471"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-planning-owner-red.log.gz",
+        "sha256": "ba908e9a22d60ca541e6821075e2c116857e2d432dc33a1a54344c72646ff3cc"
+      }
+    },
+    "w12-planning-sse-red": {
+      "passed": 8,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-planning-sse-red.json.gz",
+        "sha256": "5099426b55a66537d161f4f0b583b70321874a44b31811e8b077332e23ba567e"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-planning-sse-red.log.gz",
+        "sha256": "6ff0d2e89cd1f83946ef8d1c3a600e1bb01c1d52309bf53f49ea27433e98abc2"
+      }
+    },
+    "w12-reminder-policy-history-red": {
+      "passed": 17,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-reminder-policy-history-red.json.gz",
+        "sha256": "c509aaa4200ee850a096988cb7bb08ac8cb595de65fd6aff3e78b2dc84a1c8b6"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-reminder-policy-history-red.log.gz",
+        "sha256": "c2c0fd864f232cb24f8ae98b43eb0c3b33e08525a52f535dd45dae1920109182"
+      }
+    },
+    "w12-schedule-catalog-snapshot-red": {
+      "passed": 15,
+      "failed": 2,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-schedule-catalog-snapshot-red.json.gz",
+        "sha256": "8c01512d8a42cba6397fabfca24dcace0b1e05c15fe61b96771abffa3b943815"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-schedule-catalog-snapshot-red.log.gz",
+        "sha256": "eaf276dcbaf8c3fde87bc02f0a0e012d52dd04ee86fe01f21a6a1831c83fba65"
+      }
+    },
+    "w12-schedule-sdk-red": {
+      "passed": 0,
+      "failed": 15,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-schedule-sdk-red.json.gz",
+        "sha256": "481c876622ede8b5ce5559602164faaf3c752d111ffa135e58136df0751746ad"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-schedule-sdk-red.log.gz",
+        "sha256": "7f0986bdf38e3f6b8e0d63c3c244f6ae5ad158084d8b2cad3ba16927808f30c1"
+      }
+    },
+    "w12-schedule-store-first": {
+      "passed": 111,
+      "failed": 2,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-schedule-store-first.json.gz",
+        "sha256": "97b34401e61366a0236eac441a9bc3460e2d73f7ad6e0f31fc235520aa7cc615"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-schedule-store-first.log.gz",
+        "sha256": "e042aa8e85110314954c545b3286be6ccc0b3eb1e09ca7d416e85d43af67fc6b"
+      }
+    },
+    "w12-schedule-store-red": {
+      "passed": 0,
+      "failed": 13,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-schedule-store-red.json.gz",
+        "sha256": "7bad65c7482bd9aa951effdfbe98efce76e9ecf969639d6750980693ba433353"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-schedule-store-red.log.gz",
+        "sha256": "513418fcf8cfdc37cf5f9856ccabd02d550b96070b4b8f9e0de07592ec3896d0"
+      }
+    },
+    "w12-wallet-inbox-scope-first": {
+      "passed": 21,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic; not the final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w12-wallet-inbox-scope-first.json.gz",
+        "sha256": "05e515f59d94aad1585ecf8c3fa3ced544a0714b908ea59dcec2dcf54ea142c4"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w12-wallet-inbox-scope-first.log.gz",
+        "sha256": "d25958e27d06f51151c4c17a23b729e6decf4a3207d1a2ec2cecb045da22c138"
+      }
+    }
+  },
+  "developmentFindings": [
+    "Explicit null mode/pause/reminder policy rejected rather than defaulted.",
+    "Frozen current schedule and canonical signed money/fee links validated in snapshots; historical reminder claims retain their original policy.",
+    "Current and frozen private schedule references prevent destructive catalog deletion.",
+    "Actual inbox/count/mark/push rechecks object ACL after revocation; missing Wallet policy denies.",
+    "Shared worker actor context retains the existing durable lease fence; one commit across two registries/restart.",
+    "Actual live SSE refresh could retire post-save selection before acknowledgement. A deterministic owner regression reproduces it; current source restores only an ID target after fresh scope reads, without replaying commands.",
+    "Development-only fixture errors corrected: supported en-US money locale, read-only sqlite getter, nested locator scope, explicit unknown-state wait and complete FancySelect close; financial assertions and original budgets retained."
+  ],
+  "acceptedSql1Through11": {
+    "walletCoreSql": "5571c81df88935eeb9cf0e25e94f16960b372326f08086b54617131aa7f3c530",
+    "walletMetadataSql": "2766b0a82ec0ea2c807f6000f10173f3a8e3a7a9c7a91d4ae3b0e36067289326",
+    "walletFinancialSql": "4331752c3551885bfb54d4fc268e1cb408863c00abeb701dd0286e357a8fecdd",
+    "walletLegacyMigrationSql": "a485ca7b8a4f44d072af1ee0b0f08560bb0f56b2e8f388774b7138a88a84fbb8",
+    "walletReceiptSql": "6c8fc252544ea2af7526bb47182775efa70b111b7ccc4150a2832d9ceea71372",
+    "walletSelectionSql": "74bc459a2e0473297ac9600038ad6d6671155825f5dd1214967ff66d3eabcd4c",
+    "walletWorkflowSql": "f49d44791eab64ab2fe79d63209ec32102243af40cbc7ce57047c367d56084a9",
+    "walletFxCacheSql": "1fe67b7d9626833675ab992b38a0c3f26c6c0897ecba5438379037e035b7bcd0",
+    "walletPreferenceSql": "edb14e69181d397da6a8b2395eaf7aaf5832b96645ea68d1ab6953d173111009",
+    "walletImportSql": "cc79a2e1347eac11e6af8674e4dd115e5e1eb98ed65970aaeebbd22069375e84",
+    "walletRuleSql": "479b8c0b366450aca2598125613f9c5bf31c2886e7d9ceccc467fd6a0e3ad0f7"
+  },
+  "sourceFiles": {
+    "scripts/ci/run-wallet-browser.mjs": "038b8e6fa81b64da653bf759f011433e5174db4f77ed336a0a6d4e2d79544f33",
+    "scripts/ci/write-wallet-browser-fixture.ts": "a72bf439f8a826f4e7407157a27547051f4d4e2ae3ed1812bea3e59c824b0175",
+    "server/app.ts": "ba021426271c86ecaf39e3e7eb3025e180a33669ab66388a471021f12618a6ef",
+    "server/db.ts": "fd32d7b1675441a2fa1e20a6c54a7f8855706b08f7a1ea89308a2be7ae08486d",
+    "server/derivedPrivacy.ts": "7bc3f551de923cda612a4befa00fab7edb492229857e1bfe5e1703e8d9133503",
+    "server/registerOutbox.ts": "a28a9fc1e0ee81328e66a8522fb8c5d621593b83baaec5e4a5f8d5bfc7f71178",
+    "server/runtime.ts": "7ffe63ac7a45d54a265194a34afbaa8c8c20b3f1c2278ac46b3bf09233e9f93f",
+    "server/wallet/catalog.ts": "72aea0bebc43f166f693b0144cb5048dd3629ef510dc7be7d55c2897788b90d4",
+    "server/wallet/jobIdentity.ts": "974462953975b3aa2fe212fa11977bea7611c004f5402c5e167e4d604753683b",
+    "server/wallet/jobs.test.ts": "8cee6bd8249cf31c349773cbd54e737f5b4fd8e2098caa6510cc4213beebe98f",
+    "server/wallet/jobs.ts": "2b84dea5df48603623605a64479e051127a3e955e80962c68ce4d01b6bb81981",
+    "server/wallet/notificationAccess.test.ts": "3b861e21bdf22dca73c3cadf43a36aab87c54c06f60c9d5ec4dc75a16f411c70",
+    "server/wallet/notificationAccess.ts": "d175072cf3e8f749fb55925965443086872334d2c3036289dc5d3cbee65f48c7",
+    "server/wallet/occurrencePlan.ts": "0843359d169c49a030b232b77b896cd90547dfd28b8e1fa8dbb6d261a7c57d3c",
+    "server/wallet/ports.ts": "17b8f3bc32ed535599124ab53a0f5320b3e866cb1670008222f9cecd1dab8811",
+    "server/wallet/records.ts": "6c7e0a57a70088ed8479d9d4f8692e74458e10e23f57bd9ad56b7e2878055c69",
+    "server/wallet/reminderIdentity.ts": "21ce114db5062547a4a97e3af61083685153d21af5273ba031113a7e729ed3c3",
+    "server/wallet/router.ts": "0b76dcc4c8ca003dc88e211525e1d7881194cf9a8675bbd073b83ae3482bf7c1",
+    "server/wallet/rules.test.ts": "a6076f7ce9695d8c0ee6a09f06b5874c5b71f0379c35d626fbaf8883ddc56faf",
+    "server/wallet/scheduleCommands.ts": "05653703926b4293da207164d186c462fc141f332e408e5885e7480739f318f0",
+    "server/wallet/scheduleSchema.ts": "ecc5b6fc042e55d12b0462afc989b37a3468da57a2c4d0859b1a57c177e4a38d",
+    "server/wallet/schedules.api.test.ts": "fd414c208ef20efa79ed94b13129af87512b5c917bbfdc53b8ad336ad82f41f4",
+    "server/wallet/schedules.store.test.ts": "03989910464fbc12bd85d9cc5d471f3315e2dc77aaedd51126a6b164d1b2bc21",
+    "server/wallet/schedules.test.ts": "7bf5fbde3eb2ad39bd93760c3ee3c5f57ea858575959f6c8aac2d6e3ec1898eb",
+    "server/wallet/schedules.ts": "2d8780e55b81e28e53e668f4874b76efbe0c3d58f3047127c248bc7ba1dc0615",
+    "server/wallet/schemaRegistry.ts": "9500524c7d3414001f2a5aa65ced32121e742e2f8f0b63cf13eeaffda3405e91",
+    "server/wallet/snapshot.ts": "485b5bef8deaf11e0f89bd1a457f4882641136b165874d649b60b4685eb3cd99",
+    "src/features/wallet/Planning.tsx": "2cdea0f037d9e49866c93f02e6ae44e19041895230927f46a7976a3c63b01bc4",
+    "src/features/wallet/WalletHome.tsx": "95b3e61f34d1dbed2ef5498aaa26c59d40fb462286b79695d0bcdb00e2610a9f",
+    "src/features/wallet/api.ts": "1026e41fb04ad4962f9214cdce318f67d85f27e213a265eee7c87129b997566b",
+    "src/features/wallet/notificationContract.ts": "b49299a197c985fe145dbb94af74a89347dbd12501a5e334c22445b56945f096",
+    "src/features/wallet/planningWorkspace.test.ts": "d3ec09e7e888aa217108f49574f07745aa6ae9cf5ab8aa43c24125d98f395702",
+    "src/features/wallet/planningWorkspace.ts": "8b7c3edb600e8227fbcfd1987ab80132756a025e1ec6c1bbc79e995a9933adb7",
+    "src/features/wallet/scheduleApi.test.ts": "edf10939256696322df29a0c28f84f400b73444f46bfe88f8538bcf969edd3bd",
+    "src/features/wallet/scheduleContracts.ts": "c3a99b5bcaa45dbc952a0a917a0ea20826af04a6257ce42f9693011656626f7e",
+    "src/features/wallet/scheduleDto.ts": "c1607ebfb93fdc8eb017672298985f97af33046b40ed17c2ff1efc0d760f43f7",
+    "src/features/wallet/useWallet.ts": "e57a99b970799fb134f3d5a2ca6527e4d9399957dc6378fcd60fa021185be089",
+    "src/i18n/locales/en.json": "30c1c9ecffc05bae5ca8af702ff5926b3122b918bfb805f2f6dfd5f5d30779f0",
+    "src/i18n/locales/vi.json": "4c0f0218f8a4ae8cee569adb842c524f578c47c367b72a01f958c81a222c9652",
+    "src/i18n/locales/zh.json": "168d26e3df7d6cb6f11ae71808ae8c3ffe7e44790ef4de7374b77e09ff2e56ba",
+    "src/types.ts": "bf1992d07db56c3c0335c9974277c6f1f01e5f8c633cc10670729d74034380a6",
+    "tests/e2e/wallet.spec.ts": "3843b245cac41a804fa56db28c06e9e4957815b0446b22e8c176c44961581bda",
+    "tests/wallet-browser-fixture.test.ts": "d11c9f456366619c3168de8399e9140757d703aad4b8c7adc2a574761788c9cc",
+    "tests/wallet-schedule-fixture.ts": "0484cb3cef8769c65fe94f2dc3b584ac6393794914f25618a97e27dd11994081"
+  },
+  "authorInspection": {
+    "independent": false,
+    "sourcePathCount": 44,
+    "scope": [
+      "calendar/frozen definition and snapshot money/policy binding",
+      "trusted same-I01 record create/link/fee, current role/account scope and replay",
+      "shared durable job lease/context/restore epoch and cursor fairness",
+      "source-specific notification inbox/mark/push privacy and native rollback",
+      "session-owned exact command, fresh-read fences, live SSE race, candidate selection and phone flows"
+    ]
+  },
+  "limitsAndRemaining": [
+    "1,000 occurrence history list bound is explicit; date/cursor pagination and global byte/retention qualification in W18.",
+    "Ordinary confirmed occurrence edit/void remains guarded; future coupled workflow must preserve settlement and ledger invariants.",
+    "Restore epoch proven via common marker; actual offline/native/protected receipt restore remains W17/I03.",
+    "W13-W18 and remaining Productivity/M1/I02/I03/master work.",
+    "W10 nonblocking10k import, global preview capacity, cross-batch duplicate hints remain W18; queued ACK is not responsiveness.",
+    "W16 PDF CJK/emoji fallback and settings; current reminder prose follows the existing Vietnamese notification style.",
+    "Wallet Windows package max-schema integration, final independent whole-branch review and batched exact-HEAD Windows2022/Node22/package/service/browser/touch.",
+    "Actual Server2019 R02 unrun; no release/tag/VPS authorization."
+  ],
+  "rawEvidence": {
+    "/workspace/family-evidence/w12-planning-native-second-build.log": {
+      "bytes": 2293,
+      "sha256": "c6636d2950a3f581754f8ee07495646d28886e5e46e8baf00fe2d07cb8e6d23a"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-native-fixture-red.log": {
+      "bytes": 479,
+      "sha256": "21ac7113b8ce175efc0b33e535612ff33a67c2b2f62f0314161e731e5334f1ca"
+    },
+    "/workspace/family-evidence/w12-schedule-store-first-lint.log": {
+      "bytes": 902,
+      "sha256": "4ab4704ed9372929ac14ad200a705689a434f3500ec1859b51276c15c2ac9025"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-first.json": {
+      "bytes": 12250,
+      "sha256": "88c654690aefd54a43b9649912d9520e7deafc419f49ce57e3cca0260f3c3e40"
+    },
+    "/workspace/family-evidence/w12-planning-sse-candidates-first.json": {
+      "bytes": 7817,
+      "sha256": "ee6bd59e0d538fb142b1711f87392a7aa2e708a78b257184eca3eaa7bcb01163"
+    },
+    "/workspace/family-evidence/w12-native-fixture-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-null-config-red.json": {
+      "bytes": 16750,
+      "sha256": "6169ed91b62059ecf55bd187a957ad1c5710d820b4e814d65ea15f89bd3a53bb"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-second.log": {
+      "bytes": 1239,
+      "sha256": "cf0857c09b21c375b2da5dd6421789ecbd9b63828d48f710b75a5072e286a20f"
+    },
+    "/workspace/family-evidence/w12-null-config-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-schedule-store-second-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-planning-sse-candidates-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-job-scope-lifecycle-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-notification-scope-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-strict-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-runtime-jobs-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-strict-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-planning-sse-candidates-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-planning-native-preflight-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-job-scope-lifecycle-first.log": {
+      "bytes": 2291,
+      "sha256": "0a204684dba2fb24c1aaa5b2225d67ae1237f7e7d2e34769e4272a5fa113f714"
+    },
+    "/workspace/family-evidence/w12-native-fixture-red.json": {
+      "bytes": 5531,
+      "sha256": "a5fc3bc386a344a06ada9d41b5ebbe17b38f74d3c65eb54b14d13a574728d441"
+    },
+    "/workspace/family-evidence/w12-frozen.json": {
+      "bytes": 4807,
+      "sha256": "d958e3db877c146ae7647ee61e6bd216c02e289dec8e2290ada3a40681435a52"
+    },
+    "/workspace/family-evidence/w12-final-build.log": {
+      "bytes": 2230,
+      "sha256": "45594a1395fe5378f02882782b0063aedc2f36aa0e23da1601cbb4d9802128e8"
+    },
+    "/workspace/family-evidence/w12-browser-first.log": {
+      "bytes": 26923,
+      "sha256": "f813056b17040ef2e57643903e2290ae7185b62c107d333e3938eb2297de1581"
+    },
+    "/workspace/family-evidence/w12-job-owner-red.json": {
+      "bytes": 750,
+      "sha256": "78e8c2824cf5e34840af6db79ac95d14ea4f95b025100fa7584fe4cb3da1018f"
+    },
+    "/workspace/family-evidence/w12-planning-owner-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-job-owner-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-schedule-store-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-strict.json": {
+      "bytes": 22291,
+      "sha256": "d0897d9b56386b5e195e235317a7a3d9bb8d8467108f260ed398a216ae683e45"
+    },
+    "/workspace/family-evidence/w12-browser-second.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-red.json": {
+      "bytes": 765,
+      "sha256": "485309d4c5341907edce497a5d89ee6bf23ee1a44e83ba0cfda62aa1d10e9ec5"
+    },
+    "/workspace/family-evidence/w12-planning-owner-red.log": {
+      "bytes": 459,
+      "sha256": "b8e2fb74b43e1fc7be72175c7f3dc1329e0ba8de10d68ab3a06605ea7ceb1051"
+    },
+    "/workspace/family-evidence/w12-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-browser-second.log": {
+      "bytes": 13882,
+      "sha256": "d845acabd8e98292dd9769f1686f1319e4a722bfb1aae40101773a829b29524c"
+    },
+    "/workspace/family-evidence/w12-schedule-store-third.log": {
+      "bytes": 875,
+      "sha256": "5c0a6d04f9c0e146b1c3c45d8ce6532da03efdc7a0eed094ec57f08befcb329b"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-first.log": {
+      "bytes": 651,
+      "sha256": "ecb7bcd2fc530e3607b84ed4a0a9042bbab78545024df26ba9244c32d42475b0"
+    },
+    "/workspace/family-evidence/w12-job-owner-first.log": {
+      "bytes": 948,
+      "sha256": "71d90c156db7dc70c444171c142cfc68f0a8fda8224ea5423c3882a6796da8b2"
+    },
+    "/workspace/family-evidence/w12-final-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-schedule-http-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-qualified-lint.log": {
+      "bytes": 190,
+      "sha256": "91ae1d949c3faa6b77e486fe54fecc87a82d20864195b70643791730b86e9c3d"
+    },
+    "/workspace/family-evidence/w12-planning-native-preflight-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w12-planning-sse-red.log": {
+      "bytes": 455,
+      "sha256": "385de65d21d6742e6bd9a12ba95bce8837f85c3668415f99c28a62711068a34c"
+    },
+    "/workspace/family-evidence/w12-schedule-http-first.json": {
+      "bytes": 7871,
+      "sha256": "31e4c236476c487f436aa82627bba3f570bbdd82570dadb690d56667ccde756c"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-job-scope-lifecycle-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-second.json": {
+      "bytes": 8681,
+      "sha256": "2e1d8fe146dcc18d760c0827d679c34b23e76d540fdecbac5495272ad494d50c"
+    },
+    "/workspace/family-evidence/w12-planning-native-preflight.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-browser-final.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-notification-scope-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-job-owner-red.log": {
+      "bytes": 1184,
+      "sha256": "1401adc5fa5aa3261b6acc530c53afe295b164f55c391390e3eed27631ac93c2"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-first-lint.log": {
+      "bytes": 166,
+      "sha256": "4375502a87d1a0eab6c056ed22ad8b68426f6c45b4f63bde0abedeedcf509f4f"
+    },
+    "/workspace/family-evidence/w12-planning-owner-second.json": {
+      "bytes": 9717,
+      "sha256": "1b653a547cd0612ba8540f76b36c0493b1ea4435b022b5f9ed251f25203682a0"
+    },
+    "/workspace/family-evidence/w12-reminder-policy-history-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-schedule-http-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-planning-sse-candidates-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w12-job-owner-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-schedule-store-third.json": {
+      "bytes": 50828,
+      "sha256": "27fc689a918e16b2d71cd5dd001fa23e79df59ea144e6ea386f0e5b20acd89dc"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-schedule-store-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-planning-native-first-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-schedule-store-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-schedule-store-second.json": {
+      "bytes": 50502,
+      "sha256": "ea202f146cba1b0030eaa8969c1c87a5df97abc3a53b0dd36b50b836026d42a5"
+    },
+    "/workspace/family-evidence/w12-job-owner-first.json": {
+      "bytes": 21749,
+      "sha256": "539b1cd6b96999fb321880fab953153558b229fda2f32b286611e0ef2845910e"
+    },
+    "/workspace/family-evidence/w12-runtime-jobs-first.json": {
+      "bytes": 30682,
+      "sha256": "5d59de90bf426a1f45d713c56e058892ae4e896e4592634d4519861276d21571"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-red.log": {
+      "bytes": 449,
+      "sha256": "f41eed6b418adcd3a783d07d3d832358328e04ea1eccb030ad776900062b525b"
+    },
+    "/workspace/family-evidence/w12-schedule-store-third-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-job-owner-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-planning-owner-first.json": {
+      "bytes": 10038,
+      "sha256": "2e87b099ea07a1f9ee19b400844449d2d44ac18b3ae5edb42ecbc4b3e7ddc7ab"
+    },
+    "/workspace/family-evidence/w12-preservation.json": {
+      "bytes": 26926,
+      "sha256": "8fb5f9b28c7cd22438cd74b2f444ca4242085f512f4e367871b40390fc15f1ee"
+    },
+    "/workspace/family-evidence/w12-schedule-store-third-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-strict.log": {
+      "bytes": 654,
+      "sha256": "ea131c7a8a4af74f0e895c0ab1df805cbe87ad1f5a78f8562d3ec4c40f73499f"
+    },
+    "/workspace/family-evidence/w12-planning-owner-first.log": {
+      "bytes": 2205,
+      "sha256": "fd823512c56b08736f3f44c32571fcbe7bf81975fb38db714eaa038bc9a28dd1"
+    },
+    "/workspace/family-evidence/w12-planning-owner-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-reminder-policy-history-red.json": {
+      "bytes": 7411,
+      "sha256": "d63eef139bcfa7f7e6f344a9e6341b277728214b76b8f56d931a6c539e3af658"
+    },
+    "/workspace/family-evidence/w12-planning-sse-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-qualified.json": {
+      "bytes": 2354560,
+      "sha256": "5f5f5b73cb914baa6302650c7b5aa18a5679965853fa6f4be653ccd565d24081"
+    },
+    "/workspace/family-evidence/w12-runtime-jobs-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-planning-owner-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w12-schedule-store-first.json": {
+      "bytes": 40666,
+      "sha256": "cb53549480793ad5a9660d3e50367e3a5e6d84736cb145dcbc0ae60dfa566491"
+    },
+    "/workspace/family-evidence/w12-schedule-http-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-job-owner-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-notification-scope-first.json": {
+      "bytes": 24255,
+      "sha256": "ed40c721aeaf4770d87e5bfe175a803f01084c8475d1773614d45a660f8c2187"
+    },
+    "/workspace/family-evidence/w12-qualified.log": {
+      "bytes": 94010,
+      "sha256": "750f36dfdf9267ba7b7fcc133b3dbb8689f9f63f96d000e822e1a5c13282a880"
+    },
+    "/workspace/family-evidence/w12-schedule-http-first.log": {
+      "bytes": 907,
+      "sha256": "5ea519fd79c76c25d70d90118d1a79198b5429b4a01cbf37f469d4c2c5544f25"
+    },
+    "/workspace/family-evidence/w12-planning-native-preflight.log": {
+      "bytes": 2751,
+      "sha256": "c282d786a722b24974ee213643e8a76fa0d739db1dbf9d747d22d0c18ba191c7"
+    },
+    "/workspace/family-evidence/w12-schedule-catalog-snapshot-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-schedule-catalog-snapshot-red.json": {
+      "bytes": 8103,
+      "sha256": "2a33923559aa14ce69539dbf133aad5b8aa710cf2b410bd021a9a1e91228d15f"
+    },
+    "/workspace/family-evidence/w12-planning-native-second-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-browser-final.log": {
+      "bytes": 8583,
+      "sha256": "ea085e61d5cdfde3ba9f5a20facfcfcbfe8f480c01d6a0055e6bb085880ef150"
+    },
+    "/workspace/family-evidence/w12-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-reminder-policy-history-red.log": {
+      "bytes": 2945,
+      "sha256": "32f417f6e010a085a44e6250d03f4a153e105f9a6a7b27e890c55581f4c1ccd0"
+    },
+    "/workspace/family-evidence/w12-planning-owner-second.log": {
+      "bytes": 974,
+      "sha256": "c6344112b79fb3f28318a8d9b794ae4d896572067a4b141f36d90cc02db91e73"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-first.log": {
+      "bytes": 2297,
+      "sha256": "dbb61eca452a045bbb46651c32665e5f5966436bd6e26933f5a3c96cbaac6108"
+    },
+    "/workspace/family-evidence/w12-schedule-store-second.log": {
+      "bytes": 877,
+      "sha256": "4cb223561ce9a3f891d7a46c1aad0735498f4574fc138194b396ac8e9e75af2a"
+    },
+    "/workspace/family-evidence/w12-notification-scope-red.log": {
+      "bytes": 1909,
+      "sha256": "95ad77b6052ae63c031bfa6376e64716e6b6a4591e3bad9d5a9e7fb431b6e965"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-planning-sse-candidates-first.log": {
+      "bytes": 890,
+      "sha256": "251620dd0aa3c8ef247206eb40751675eb1ba0b426dee1ac8c95e4cc1c9e499c"
+    },
+    "/workspace/family-evidence/w12-schedule-store-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-schedule-store-red.log": {
+      "bytes": 6004,
+      "sha256": "fc040d5485e890ea9bd036e68770bafb76c55a371d1b28750d98a1605b79db0f"
+    },
+    "/workspace/family-evidence/w12-planning-owner-red.json": {
+      "bytes": 801,
+      "sha256": "8335624189199ff985a1a9c5b56d943fd8f4c26d997b9adbd75188f180182e61"
+    },
+    "/workspace/family-evidence/w12-qualified.junit.xml": {
+      "bytes": 1640102,
+      "sha256": "4090418ecbfd5cf98615638285e2bc1140d48fd019bdb7d3dc4a08985afc2a43"
+    },
+    "/workspace/family-evidence/w12-schedule-store-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w12-runtime-jobs-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-notification-scope-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-planning-native-first-build.log": {
+      "bytes": 2293,
+      "sha256": "d0a63baf9cb70aed344d3f43251f3124736397cf3378ed888080bc9c87ad769f"
+    },
+    "/workspace/family-evidence/w12-wallet-inbox-scope-first.json": {
+      "bytes": 9092,
+      "sha256": "cb0be77aa100d93488eed403896b7a619a0504d8fccd0ea3694f6381ec9b4ab7"
+    },
+    "/workspace/family-evidence/w12-notification-scope-red.json": {
+      "bytes": 3350,
+      "sha256": "bdd4ee5f26c0e678290fa947bb3178dc9c0c7d6b1d3f9844977ed4c75b96372a"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-strict.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-schedule-catalog-snapshot-red.log": {
+      "bytes": 3280,
+      "sha256": "3aad14e5a76f2fc7a239cc32034755ce747962636fa77fcbec70b596828e0a25"
+    },
+    "/workspace/family-evidence/w12-schedule-store-red.json": {
+      "bytes": 17107,
+      "sha256": "d0aa2ea2eee70d5c7ee7f406cb1d091e98724c533fbd4ee0d0f84561222fe56d"
+    },
+    "/workspace/family-evidence/w12-planning-sse-red.json": {
+      "bytes": 3830,
+      "sha256": "eabc4366c4d4981be6dbf896ab8593f9ca605d41d35e79fc18c65ab7e209bb6f"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-first.json": {
+      "bytes": 21448,
+      "sha256": "6f29028f0ad9f3268605b37a5f0c5c29421148ed88eb83b413f38e355380d669"
+    },
+    "/workspace/family-evidence/w12-planning-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-notification-scope-first.log": {
+      "bytes": 1965,
+      "sha256": "61ef154cf809ce6b640d03e53a97aef7e4046d7ac99d81d6aeea541721a1d0f5"
+    },
+    "/workspace/family-evidence/w12-null-config-red.log": {
+      "bytes": 5495,
+      "sha256": "057dc332ec246fcfe3b90208531ed69f5778cd50655f38ca25289e1b32b31c50"
+    },
+    "/workspace/family-evidence/w12-planning-native-preflight.json": {
+      "bytes": 15092,
+      "sha256": "94ca6861f379dd7984f0b6137f6af361ceff6e3db65895b0a2f06b15d4f889d0"
+    },
+    "/workspace/family-evidence/w12-planning-owner-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-red.json": {
+      "bytes": 18816,
+      "sha256": "e4b8a744d29372b2e5c73110d04936d6494a6f1fd850f9bf812766d4a1dcba21"
+    },
+    "/workspace/family-evidence/w12-planning-owner-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-occurrence-plan-red.log": {
+      "bytes": 1188,
+      "sha256": "f62ebad5187f10fa4942751357c81f68da80d77d93500c8792984a71d4e0a1ae"
+    },
+    "/workspace/family-evidence/w12-notification-scope-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w12-runtime-jobs-first.log": {
+      "bytes": 2276,
+      "sha256": "40213a4501e9ddfc88ecd8b3b97d1b33e6f1d54280d5f4070515299324262c0e"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w12-schedule-store-third.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w12-job-scope-lifecycle-first-lint.log": {
+      "bytes": 44,
+      "sha256": "3ed14547c65ba1b32a3e68e0cec679e28e79f622e42fed59d5cb498cd60e97fe"
+    },
+    "/workspace/family-evidence/w12-schedule-sdk-first.log": {
+      "bytes": 839,
+      "sha256": "1a4917bea3f8a2ab430e88f80fcf9dc6cd1135bcc24592a3560256ebbebaa567"
+    },
+    "/workspace/family-evidence/w12-job-scope-lifecycle-first.json": {
+      "bytes": 20616,
+      "sha256": "df5d7297d517946bc668926768388d76a6ba6d970b2815e79a06faf2dde5ba8e"
+    },
+    "/workspace/family-evidence/w12-schedule-store-first.log": {
+      "bytes": 2822,
+      "sha256": "5f5652316d853d2c5b3d04f9899998a73b64e8358003a2924f76981bafd28fa5"
+    },
+    "/workspace/family-evidence/w12-planning-ui-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w12-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 8785,
+      "sha256": "90ca408d6089486aca442b495482c6d09fc96b8ce236e21b537abbc86ec6b5a9"
+    },
+    "/workspace/family-evidence/w12-browser-qualified-artifacts/planning-phone-dark.png": {
+      "bytes": 104891,
+      "sha256": "85a047f86d2a3068de0f01e7e26fe8133201776a9632dc520c1484b3a7251e31"
+    },
+    "/workspace/family-evidence/w12-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1147,
+      "sha256": "faa0d2fd0ffc6e67c13ef9a4ab4bb9197d6b6f9b24642dcf6092b30722a0fea5"
+    },
+    "/workspace/family-evidence/w12-browser-qualified-artifacts/browser.json": {
+      "bytes": 57423,
+      "sha256": "c78ee472a1de9e9ac365ecef219c57aa2cde0a6027d0adc9634400db22b99779"
+    },
+    "/workspace/family-evidence/w12-browser-qualified-artifacts/planning-phone-light.png": {
+      "bytes": 103618,
+      "sha256": "f9ceccf1c2c58a4b3cae26860820f11c6e315d57ec18f96d679552ee6b4f9bbb"
+    },
+    "/workspace/family-evidence/w12-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w12-browser-first-artifacts/browser.junit.xml": {
+      "bytes": 27990,
+      "sha256": "6c2c7ac2201435a66cea28af77baff85d4f4e3ec8b981fc660db398ab82e510c"
+    },
+    "/workspace/family-evidence/w12-browser-first-artifacts/fixture.json": {
+      "bytes": 1195,
+      "sha256": "02ee21a8bc5610efcda846983f80c85004cb032499c629bdf8b9d6af7719b2f6"
+    },
+    "/workspace/family-evidence/w12-browser-first-artifacts/browser.json": {
+      "bytes": 87274,
+      "sha256": "f90f515f89f149d2aa5ed677e225ff4a1e1fb9b44d8429346a919cf1c960914b"
+    },
+    "/workspace/family-evidence/w12-browser-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w12-browser-second-artifacts/browser.junit.xml": {
+      "bytes": 14275,
+      "sha256": "612e967615dbc70562b6330bcf73fd07c786fb0551f21953bfdcabf235414c95"
+    },
+    "/workspace/family-evidence/w12-browser-second-artifacts/planning-phone-dark.png": {
+      "bytes": 105457,
+      "sha256": "8808d0f8aad81c770ae94b61ba39afc9599e40cb3f446151494b11a2433738bf"
+    },
+    "/workspace/family-evidence/w12-browser-second-artifacts/fixture.json": {
+      "bytes": 1195,
+      "sha256": "12a9d646f5a3b8520c629b821210a7a9a395e6cc1dc5ff9f97fc1b894f0d7952"
+    },
+    "/workspace/family-evidence/w12-browser-second-artifacts/browser.json": {
+      "bytes": 61908,
+      "sha256": "ada142db65197773c6c7558831518a0db11439a287ae874f26d8aa6970ca9e0a"
+    },
+    "/workspace/family-evidence/w12-browser-second-artifacts/planning-phone-light.png": {
+      "bytes": 104146,
+      "sha256": "aafc657cb8b03fcb3fb8a7f70995e674a0bc5462cd6e8bc8964dae803bba481a"
+    },
+    "/workspace/family-evidence/w12-browser-second-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    }
+  }
+}

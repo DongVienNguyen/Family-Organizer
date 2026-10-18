@@ -2,6 +2,28 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**2026-10-18 continuation — W12 core:** source `0e33086d5434afa39d943dd07a2d2e29089df03e` adds
+personal scheduled income/expense/transfer with fees, original-anchor recurrence,
+manual default/explicit automatic recording, read-only next-three preview,
+bounded pending catch-up, exact existing-record linking, pause/archive and due
+reminders through shared durable AppJobs/I01/outbox. Explicit schema 12/standalone
+13 preserves accepted 1–11 SQL; no automatic migration or activation. Actual
+notification inbox/count/read/push rechecks current object permissions.
+[Details](wallet-schedules.md).
+
+Cloud: 8024 tests/453 files/full JUnit, zero failures/skips/todo;
+all 7927 parent cases +97 retained, lint/build 0. Final Chromium
+48/48 retains all 45 parents; fixture 12 offline/integrity/legacy/normal-stop/
+closed/cleaned/build-bound; phone light/dark included. Real live-SSE selection
+race fixed with regression. Both earlier browser reports (45/3 and 47/1) and
+actual development REDs retained; assertions and budgets unchanged.
+[Proof](evidence/w12-schedules-development.json). Author inspection only.
+PR URL/CI run URL: none; backup branch `codex/feature-first-acceptance`.
+Windows 2022/Node 22/package/service/other engines/touch and Server 2019 R02 unrun.
+Next: W13–18/remaining Productivity/M1/I02/I03/master; history pagination,
+retention, full restore, nonblocking 10k import, canonical legacy bridge/cutover
+and package schema qualification remain. No release/tag/VPS.
+
 **2026-10-18 continuation — W11 core:** source `d6906b75498d03a0588cf4817ce3d948a84df76f` adds
 CSV/XLSX/PDF export with captured selection/current ACL/exact money, verified
 file delivery and explicit confirmation; owned rules default to import/manual

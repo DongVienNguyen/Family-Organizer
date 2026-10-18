@@ -85,8 +85,24 @@ limit error. Date/cursor pagination and retention require W18 qualification.
 
 ## Evidence boundary
 
-Development reports are retained under `/workspace/family-evidence/w12-*`.
-Final frozen-source Cloud aggregate, browser evidence and exact source SHA will
-be recorded in the implementation status and versioned evidence after they run.
-Windows 2022/Node 22/package/service/multiple engines/touch and actual Windows
-Server 2019 remain separate qualification; no release or deployment is implied.
+Source `0e33086d5434afa39d943dd07a2d2e29089df03e` is bound to all 44 frozen source/test/script inputs. Full Cloud
+suite: **8024 tests/453 files**, matching full JUnit with
+zero failed/skipped/todo. All 7927 parent identities plus
+97 cases are retained with multiplicity. Lint/build exit 0. Final
+Chromium **48/48**, all 45 parent cases retained, no retries/skips/flaky cases;
+fixture 12 is offline, integrity OK, original Finance retained, normal stop,
+closed/cleaned and bound to the tested build. Phone light/dark flows are included.
+
+The first browser run retained 45 passes/3 failures; the second retained
+47 passes/1 test locator failure. The real live-update selection race has a
+regression and source fix; malformed fixture/helper issues were corrected without
+weakening assertions or time budgets. The final full suite and browser run are
+staged on the four-CPU Cloud host. Author inspection is not independent review.
+
+[Proof](evidence/w12-schedules-development.json),
+[full JUnit](evidence/w12-schedules-cloud.junit.xml.gz),
+[full log](evidence/w12-schedules-cloud.log.gz),
+[final browser JUnit](evidence/w12-schedules-browser-final.junit.xml.gz).
+PR URL/CI run URL: none; backup development branch only. Windows 2022/Node 22/
+package/service/other engines/touch and actual Server 2019 R02 remain unrun.
+Next: W13 debts/goals, then the remaining approved scope above. No release/tag/VPS.
