@@ -1,6 +1,6 @@
 export interface PrivateStorageDependencies {caches?:CacheStorage;indexedDB?:IDBFactory;ensureWorker:()=>Promise<void>}
-const privateCache=(name:string)=>name.startsWith('family-api-')||name.startsWith('family-private-');
-const privateDatabase=(name:string)=>name==='family-organizer'||name==='family-private'||name.startsWith('family-organizer-')||name.startsWith('family-private-');
+const privateCache=(name:string)=>name.startsWith('family-api-')||name.startsWith('family-private-')||name==='family-wallet'||name.startsWith('family-wallet-');
+const privateDatabase=(name:string)=>name==='family-organizer'||name==='family-private'||name.startsWith('family-organizer-')||name.startsWith('family-private-')||name==='family-wallet'||name.startsWith('family-wallet-');
 export async function purgePrivateStorage(deps:PrivateStorageDependencies):Promise<void>{
   await deps.ensureWorker(); // An old controlling worker must not refill the caches.
   if(deps.caches){

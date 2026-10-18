@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import { useEffect, useId, useState, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FancySelect } from '../../components/FancySelect.js';
@@ -11,7 +12,7 @@ const field = 'mt-1 w-full min-w-0 bg-slate-950 neu-pressed-sm rounded-xl px-3 p
 export function ImportWizard({ workspace }: {
     workspace: ImportWorkspace;
 }) {
-    const { t, i18n } = useTranslation(), id = useId(), state = useSyncExternalStore(workspace.subscribe, workspace.snapshot), [account, setAccount] = useState(''), [file, setFile] = useState<File | null>(null), [format, setFormat] = useState<ImportFormat>('csv'), [preparing, setPreparing] = useState(false), [fileError, setFileError] = useState(false), { confirm, ConfirmDialog } = useConfirm(), locale = walletLocale(i18n.resolvedLanguage ?? i18n.language), label = (key: string) => t('wallet.imports.' + key), batch = state.batch, mapping = state.mapping, busy = preparing || ['pending', 'unknown', 'conflict'].includes(state.command.phase), writable = state.accounts.filter(a => a.permission !== 'read' && a.archivedAt === null), selected = account || writable[0]?.id || '';
+    const { t, i18n } = useTranslation(), id = useId(), state = useSyncExternalStore(workspace.subscribe, workspace.snapshot), [account, setAccount] = useState(''), [file, setFile] = useState<File | null>(null), [format, setFormat] = useState<ImportFormat>('csv'), [preparing, setPreparing] = useState(false), [fileError, setFileError] = useState(false), { confirm, ConfirmDialog } = useConfirm(), locale = useWalletPresentation().locale, label = (key: string) => t('wallet.imports.' + key), batch = state.batch, mapping = state.mapping, busy = preparing || ['pending', 'unknown', 'conflict'].includes(state.command.phase), writable = state.accounts.filter(a => a.permission !== 'read' && a.archivedAt === null), selected = account || writable[0]?.id || '';
     useEffect(() => { void workspace.show(); return () => workspace.hide(); }, [workspace]);
     useEffect(() => { if (batch?.state !== 'queued')
         return; const timer = setInterval(() => { void workspace.poll(); }, 2000); return () => clearInterval(timer); }, [workspace, batch?.state]);

@@ -1,0 +1,14 @@
+import {parseEffectiveDate} from './dates.js';
+import {object,keys,choice,boolean,integer} from '../productivity/validation.js';
+import {assertMoney,minorInteger,currencyExponent,formatMoney} from './money.js';
+import type {Money} from './contracts.js';
+export interface WalletUserSettings {locale:'inherit'|'vi-VN'|'en-US'|'zh-CN';defaultPeriod:'week'|'month'|'year';hideDecimals:boolean;hideBalances:boolean;sessionIdleMinutes:5|15|30|60}
+export interface WalletSettingsValue {revision:number;settings:WalletUserSettings;updatedAt:string|null}
+export const defaultWalletSettings:Readonly<WalletUserSettings>=Object.freeze({locale:'inherit',defaultPeriod:'month',hideDecimals:false,hideBalances:false,sessionIdleMinutes:5});
+export function normalizeWalletSettings(raw:unknown):WalletUserSettings {const v=object(raw);keys(v,['locale','defaultPeriod','hideDecimals','hideBalances','sessionIdleMinutes']);choice(v.locale,['inherit','vi-VN','en-US','zh-CN']);choice(v.defaultPeriod,['week','month','year']);boolean(v.hideDecimals);boolean(v.hideBalances);integer(v.sessionIdleMinutes,5,60);if(![5,15,30,60].includes(v.sessionIdleMinutes))throw Error('Unsupported idle policy');return {locale:v.locale,defaultPeriod:v.defaultPeriod,hideDecimals:v.hideDecimals,hideBalances:v.hideBalances,sessionIdleMinutes:v.sessionIdleMinutes as WalletUserSettings['sessionIdleMinutes']};}
+/** Display rounding never mutates/round-trips a command amount. Input forms
+ * retain the precise minor string and the locale captured when opened. */
+export function formatWalletAmount(m:Money,locale:string,hideDecimals=false):string {assertMoney(m);if(!hideDecimals||currencyExponent(m.currency)===0)return formatMoney(m,locale);formatMoney(m,locale);const value=minorInteger(m.minor),scale=10n**BigInt(currencyExponent(m.currency)),absolute=value<0n?-value:value,whole=absolute/scale+(absolute%scale*2n>=scale?1n:0n);return new Intl.NumberFormat(locale,{style:'currency',currency:m.currency,numberingSystem:'latn',minimumFractionDigits:0,maximumFractionDigits:0}).format(value<0n?(whole===0n?-0:-whole):whole);}
+export function walletSettingsValue(raw:unknown):WalletSettingsValue {const v=object(raw);keys(v,['revision','settings','updatedAt']);integer(v.revision,0);if(v.revision===0){if(v.updatedAt!==null)throw Error('Unexpected initial settings timestamp');}else if(typeof v.updatedAt!=='string'||new Date(v.updatedAt).toISOString()!==v.updatedAt)throw Error('Invalid settings timestamp');return {revision:v.revision,settings:normalizeWalletSettings(v.settings),updatedAt:v.updatedAt as string|null};}
+
+export function formatWalletDate(date:string,locale:string):string {parseEffectiveDate(date);choice(locale,['vi-VN','en-US','zh-CN']);return new Intl.DateTimeFormat(locale,{year:'numeric',month:'2-digit',day:'2-digit',timeZone:'UTC'}).format(new Date(date+'T12:00:00.000Z'));}

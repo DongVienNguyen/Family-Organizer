@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import {useEffect,useId,useSyncExternalStore} from 'react';
 import {useTranslation} from 'react-i18next';
 import {FancySelect} from '../../components/FancySelect.js';
@@ -12,7 +13,7 @@ import type {WalletOccurrence} from '../../../server/wallet/scheduleCommands.js'
 const button='rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60';
 const inputClass='w-full min-w-0 box-border bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5 text-slate-200 outline-none focus:ring-2 focus:ring-sky-500/40';
 function OccurrenceRow({slot,state,workspace,locked,confirm}:{slot:WalletOccurrence;state:PlanningState;workspace:PlanningWorkspace;locked:boolean;confirm:ReturnType<typeof useConfirm>['confirm']}){
- const {t,i18n}=useTranslation(),locale=walletLocale(i18n.resolvedLanguage??i18n.language),draft=slot.draft,link=state.link?.occurrenceId===slot.id?state.link:null;
+ const {t,i18n}=useTranslation(),locale=useWalletPresentation().locale,draft=slot.draft,link=state.link?.occurrenceId===slot.id?state.link:null;
  async function act(kind:'create'|'link'|'skip'){
   const accepted=await confirm({title:t('wallet.planning.'+(kind==='skip'?'skipTitle':'confirmTitle')),message:t('wallet.planning.'+(kind==='skip'?'skipWarning':kind==='link'?'linkWarning':'createWarning')),tone:kind==='skip'?'danger':'default'});
   const current=workspace.snapshot();if(!accepted||current.occurrences.find(v=>v.id===slot.id)!==slot||kind==='link'&&current.link!==link)return;
@@ -34,7 +35,7 @@ function OccurrenceRow({slot,state,workspace,locked,confirm}:{slot:WalletOccurre
  </li>;
 }
 export function Planning({workspace}:{workspace:PlanningWorkspace}){
- const {t,i18n}=useTranslation(),locale=walletLocale(i18n.resolvedLanguage??i18n.language),state=useSyncExternalStore(workspace.subscribe,workspace.snapshot),{confirm,ConfirmDialog}=useConfirm(),id=useId();
+ const {t,i18n}=useTranslation(),locale=useWalletPresentation().locale,state=useSyncExternalStore(workspace.subscribe,workspace.snapshot),{confirm,ConfirmDialog}=useConfirm(),id=useId();
  useEffect(()=>{void workspace.show();return()=>workspace.hide();},[workspace]);
  const locked=state.phase!=='ready'||state.loading||['pending','unknown'].includes(state.command.phase),form=state.form,record=form?.record;
  const field=(key:keyof RecordFormDraft,type='text')=><label htmlFor={id+'-'+key} className="block text-xs text-slate-400 space-y-1.5">{t('wallet.recordsForm.'+key)}<input id={id+'-'+key} type={type} inputMode={['amount','debit','credit','feeAmount'].includes(key)?'decimal':undefined} maxLength={key==='note'||key==='feeNote'?100000:500} value={String(record![key])} onChange={e=>workspace.changeRecord({[key]:e.target.value})} className={inputClass+(['amount','debit','credit','feeAmount','effectiveDate'].includes(key)?' font-mono':'')+(type==='date'?' appearance-none':'')}/></label>;

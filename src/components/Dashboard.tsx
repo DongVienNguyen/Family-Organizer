@@ -1,3 +1,4 @@
+import {WalletPresentation} from '../features/wallet/WalletPresentation.js';
 import {WalletDashboard} from '../features/wallet/Dashboard.js';
 import type {WalletWorkspace} from '../features/wallet/useWallet.js';
 import {isActiveLegacyTask} from '../utils/taskLifecycle.js';
@@ -1009,7 +1010,7 @@ export function Dashboard({
         </div>
       </motion.div>
 
-      {walletWorkspace&&['admin','member'].includes(currentUser.role)&&<WalletDashboard workspace={walletWorkspace.dashboard} filter={walletWorkspace.records.snapshot().filter} onDrilldown={async filter=>{const ok=await walletWorkspace.openRecords(filter);if(ok)onNavigate('finance');return ok;}} onChart={async config=>{const ok=await walletWorkspace.openChart(config);if(ok)onNavigate('finance');return ok;}} onAccounts={()=>{walletWorkspace.navigation.set('accounts');onNavigate('finance');}}/>}
+      {walletWorkspace&&['admin','member'].includes(currentUser.role)&&<WalletPresentation workspace={walletWorkspace.settings}><WalletDashboard workspace={walletWorkspace.dashboard} filter={walletWorkspace.records.snapshot().filter} onDrilldown={async filter=>{const ok=await walletWorkspace.openRecords(filter);if(ok)onNavigate('finance');return ok;}} onChart={async config=>{const ok=await walletWorkspace.openChart(config);if(ok)onNavigate('finance');return ok;}} onAccounts={()=>{walletWorkspace.navigation.set('accounts');onNavigate('finance');}}/></WalletPresentation>}
 
       {/* Main Dashboard Bento Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6" id="dashboard-grid">

@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import { useEffect, useSyncExternalStore } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, RefreshCw } from 'lucide-react';
@@ -12,7 +13,7 @@ export function Wallet({ workspace }: {
 }) {
     const { t, i18n } = useTranslation(), state = useSyncExternalStore(workspace.subscribe, workspace.snapshot), { confirm, ConfirmDialog } = useConfirm();
     useEffect(() => { void workspace.refresh(); }, [workspace]);
-    const locked = state.phase !== 'ready' || ['pending', 'unknown'].includes(state.command.phase), locale = walletLocale(i18n.resolvedLanguage ?? i18n.language);
+    const locked = state.phase !== 'ready' || ['pending', 'unknown'].includes(state.command.phase), locale = useWalletPresentation().locale;
     async function archive(restoring = false) { const account = state.selected?.account; if (!account)
         return; const accepted = await confirm({ title: t(restoring ? 'wallet.restore' : 'wallet.archive'), message: t(restoring ? 'wallet.restoreConfirm' : 'wallet.archiveConfirm', { name: account.name }), tone: restoring ? 'default' : 'danger' }); if (accepted)
         await (restoring ? workspace.restore(account.id, account.revision) : workspace.archive(account.id, account.revision)); }

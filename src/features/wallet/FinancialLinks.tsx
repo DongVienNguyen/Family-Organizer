@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import {useEffect,useId,useSyncExternalStore} from 'react';
 import {useTranslation} from 'react-i18next';
 import {FancySelect} from '../../components/FancySelect.js';
@@ -8,7 +9,7 @@ import type {FinancialWorkspace,FinancialForm} from './financialWorkspace.js';
 const button='rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60';
 const input='w-full min-w-0 box-border bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5 text-slate-200 outline-none focus:ring-2 focus:ring-sky-500/40';
 export function FinancialLinks({workspace}:{workspace:FinancialWorkspace}){
- const {t,i18n}=useTranslation(),state=useSyncExternalStore(workspace.subscribe,workspace.snapshot),locale=walletLocale(i18n.resolvedLanguage??i18n.language),{confirm,ConfirmDialog}=useConfirm(),id=useId();
+ const {t,i18n}=useTranslation(),presentation=useWalletPresentation(),formatMoney=(money:Parameters<typeof presentation.formatMoney>[0],locale:string)=>presentation.formatMoney(money,locale,{reveal:!!state.form||!!state.preview}),state=useSyncExternalStore(workspace.subscribe,workspace.snapshot),locale=presentation.locale,{confirm,ConfirmDialog}=useConfirm(),id=useId();
  useEffect(()=>{void workspace.show();return()=>workspace.hide();},[workspace]);
  if(state.phase==='unavailable'||state.phase==='disposed'||state.phase==='idle')return null;
  const locked=state.phase!=='ready'||state.loading||['pending','unknown'].includes(state.command.phase),form=state.form,selected=state.selected,preview=state.preview;

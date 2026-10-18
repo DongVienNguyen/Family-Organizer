@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import {formatCreditUtilization} from './widgetData.js';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +17,7 @@ export function Widget({ config, data, loading, error, filter, onDrilldown, onAc
     onDrilldown: (filter: RecordFilter) => Promise<boolean>;
     onAccounts: () => void;
 }) {
-    const { t, i18n } = useTranslation(), locale = walletLocale(i18n.resolvedLanguage ?? i18n.language), [page, setPage] = useState(0), [blocked, setBlocked] = useState(false);
+    const { t, i18n } = useTranslation(), presentation=useWalletPresentation(),formatMoney=presentation.formatMoney, locale = presentation.locale, [page, setPage] = useState(0), [blocked, setBlocked] = useState(false);
     useEffect(() => { setPage(0); setBlocked(false); }, [data]);
     const money = (minor: string, currency = filter.referenceCurrency) => formatMoney({ minor, currency }, locale), view = (f: RecordFilter) => { void onDrilldown(f).then(ok => setBlocked(!ok)); };
     if (loading)

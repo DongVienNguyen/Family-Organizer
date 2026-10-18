@@ -61,6 +61,7 @@
     "settings": "设置"
   },
   "settings": {
+      "hiddenChart": "图表已按余额隐私设置隐藏。",
     "tabs": {
       "profile": "我的资料",
       "members": "成员与权限",
@@ -2629,6 +2630,7 @@
       }
     },
     "exports": {
+      "glyphFallback": "PDF 使用内置字体。缺少字形的字符（含许多中日韩字符和表情）显示为 [U+XXXX]；请选择 CSV/XLSX 保留原始 Unicode 文本。",
       "open": "导出所选记录",
       "title": "确认导出记录",
       "summary": "已选择记录：{{count}}",
@@ -2817,6 +2819,38 @@
       "savedVoid": "已撤销交易并保留历史。",
       "savedInstrument": "已保存证券。",
       "savedQuote": "已保存参考价格、来源及观测日期。"
+    },
+    "settings": {
+      "title": "Wallet 设置",
+      "personal": "当前登录账户的个人设置，在您的设备间共享。",
+      "locale": "数字和日期格式",
+      "inherit": "跟随应用语言",
+      "vi-VN": "Tiếng Việt",
+      "en-US": "English (US)",
+      "zh-CN": "中文（简体）",
+      "defaultPeriod": "默认报表周期",
+      "week": "周",
+      "month": "月",
+      "year": "年",
+      "sessionIdleMinutes": "无操作后退出登录",
+      "minutes": "{{count}} 分钟",
+      "hideDecimals": "报表中隐藏小数位",
+      "hideBalances": "隐藏余额和报表金额",
+      "displayOnly": "仅改变显示。精确金额、记账日期和原始数据保持不变。",
+      "privacyHint": "表单及确认中仍显示精确金额，供记账前核对。",
+      "themeInherited": "浅色与深色沿用应用主题。",
+      "save": "保存 Wallet 设置",
+      "saving": "正在保存设置…",
+      "saved": "个人设置已保存。",
+      "reload": "重新加载设置",
+      "applyPeriod": "将已保存周期应用到筛选",
+      "loadFailed": "无法加载 Wallet 显示设置。查看余额前请重试。",
+      "offlinePolicy": "不保存用于离线写入的金额或财务指令。断线后确认交易前请重新加载当前数据。",
+      "clearCache": "清除设备上的 Wallet 缓存",
+      "clearCacheTitle": "清除此设备的 Wallet 缓存？",
+      "clearCacheWarning": "仅删除设备上的 Wallet 缓存及数据库。保留服务器账本及其他应用数据。",
+      "cacheCleared": "已清除 Wallet 设备缓存。",
+      "cacheFailed": "未能清除部分 Wallet 存储。请关闭其他 Wallet 标签页后重试。"
     }
   }
 }

@@ -1,3 +1,4 @@
+import {normalizeWalletSettings,walletSettingsValue,type WalletUserSettings} from './settingsContracts.js';
 import {instrumentValue,instrumentsValue,investmentTradeValue,investmentReceiptValue,investmentPreviewValue,investmentVoidValue,investmentQuoteValue,investmentHistoryValue,portfolioValue,portfolioGrowthValue,type InvestmentInput,type InvestmentAccountRef} from './investmentDto.js';
 import {normalizeInvestmentDraft,normalizeInstrumentDraft,type InstrumentDraft,type InstrumentHeader} from './investmentContracts.js';
 import type {InvestmentTrade} from '../../../server/wallet/investments.js';
@@ -367,6 +368,8 @@ export function createWalletApi(ports: WalletTransportPorts) {
             throw Error('Duplicate grant'); return grants as WalletAccountGrant[]; }),
         setGrant: (id: string, userId: string, expectedRevision: number, permission: WalletPermission, nonce: string) => command(path('accounts', id) + '/grants/' + encodeURIComponent(userId), 'PUT', { expectedRevision, permission }, nonce, value => grantValue(value, id, userId)),
         removeGrant: (id: string, userId: string, expectedRevision: number, nonce: string) => command(path('accounts', id) + '/grants/' + encodeURIComponent(userId), 'DELETE', { expectedRevision }, nonce, value => grantValue(value, id, userId)),
+        walletSettings:()=>read('/api/wallet/settings',walletSettingsValue),
+        saveWalletSettings:(raw:WalletUserSettings,revision:number,nonce:string)=>{const input=normalizeWalletSettings(structuredClone(raw));integer(revision,0);return command('/api/wallet/settings','PUT',{expectedRevision:revision,input},nonce,value=>{const result=walletSettingsValue(value);if(result.revision!==revision+1||JSON.stringify(result.settings)!==JSON.stringify(input))throw Error('Settings acknowledgement differs from request');return result;});},
         preferences:()=>read('/api/wallet/preferences',preferencesValue),
         createPreference:(kind:PreferenceKind,input:PreferenceDraft,nonce:string)=>command('/api/wallet/preferences/'+encodeURIComponent(kind),'POST',{expectedRevision:0,input},nonce,value=>{const result=preferenceValue(value,kind);if(result.revision!==1)throw Error('Wrong new preference revision');return result;}),
         updatePreference:(kind:PreferenceKind,id:string,revision:number,patch:PreferenceDraft,nonce:string)=>command('/api/wallet/preferences/'+encodeURIComponent(kind)+'/'+encodeURIComponent(id),'PATCH',{expectedRevision:revision,patch},nonce,value=>preferenceValue(value,kind,id,revision)),

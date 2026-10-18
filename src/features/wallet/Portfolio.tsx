@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import {useEffect,useId,useSyncExternalStore} from 'react';
 import {useTranslation} from 'react-i18next';
 import {FancySelect} from '../../components/FancySelect.js';
@@ -9,9 +10,9 @@ import type {PortfolioWorkspace} from './portfolioWorkspace.js';
 import type {Money} from './contracts.js';
 const button='rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60',input='w-full min-w-0 box-border bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5 text-slate-200 outline-none focus:ring-2 focus:ring-sky-500/40';
 export function Portfolio({workspace,onAccounts}:{workspace:PortfolioWorkspace;onAccounts:()=>void}){
- const {t,i18n}=useTranslation(),locale=walletLocale(i18n.resolvedLanguage??i18n.language),s=useSyncExternalStore(workspace.subscribe,workspace.snapshot),{confirm,ConfirmDialog}=useConfirm(),id=useId();
+ const {t,i18n}=useTranslation(),presentation=useWalletPresentation(),formatMoney=presentation.formatMoney,locale=presentation.locale,s=useSyncExternalStore(workspace.subscribe,workspace.snapshot),{confirm,ConfirmDialog}=useConfirm(),id=useId();
  useEffect(()=>{void workspace.show();return()=>workspace.hide();},[workspace]);
- const txt=(key:string,values?:Record<string,unknown>)=>t('wallet.portfolio.'+key,values),amount=(v:Money|null|undefined)=>v?formatMoney(v,locale):'—',locked=s.phase!=='ready'||s.loading||['pending','unknown'].includes(s.command.phase),form=s.form,a=s.accounts.find(a=>a.id===s.selectedAccountId),p=s.portfolio;
+ const txt=(key:string,values?:Record<string,unknown>)=>t('wallet.portfolio.'+key,values),amount=(v:Money|null|undefined)=>v?formatMoney(v,locale,{reveal:!!s.form||!!s.voidPreview}):'—',locked=s.phase!=='ready'||s.loading||['pending','unknown'].includes(s.command.phase),form=s.form,a=s.accounts.find(a=>a.id===s.selectedAccountId),p=s.portfolio;
  const select=(label:string,value:string,options:{value:string;label:string}[],change:(v:string)=>void)=><label className="block text-xs text-slate-400 space-y-1.5">{label}<FancySelect ariaLabel={label} value={value} options={options} onChange={change}/></label>;
  const instrumentChoices=s.instruments.map(i=>({value:i.id,label:i.ticker+' · '+i.exchange+' · '+i.name+' · '+i.currency})),tradeInstruments=s.instruments.filter(i=>i.currency===a?.currency&&(!i.archivedAt||i.id===(form?.kind==='trade'?form.value.instrumentId:null))).map(i=>({value:i.id,label:i.ticker+' · '+i.exchange+' · '+i.name}));
  const rows=(values:[string,Money|null|undefined][])=> <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3">{values.map(([key,value])=><div key={key} className="bg-slate-950 neu-pressed-sm rounded-xl p-3 space-y-1.5"><dt className="text-xs text-slate-400">{txt(key)}</dt><dd data-testid={'portfolio-'+key} className="font-mono text-sm text-slate-100 break-words">{amount(value)}</dd></div>)}</dl>;
@@ -52,7 +53,7 @@ export function Portfolio({workspace,onAccounts}:{workspace:PortfolioWorkspace;o
    </fieldset></form>}
    {s.preview&&<section aria-label={txt('previewTitle')} data-testid="investment-preview" className="bg-slate-950 neu-pressed-sm rounded-xl p-3 space-y-3"><h3 className="text-xs font-bold text-slate-200">{txt('previewTitle')}</h3>{s.preview.kind==='trade'?<>{rows([['gross',s.preview.value.effect.gross],['cashChange',s.preview.value.effect.cashDelta],['allocatedCost',s.preview.value.effect.costAllocated],['tradeProfit',s.preview.value.effect.realized],['remainingCost',s.preview.value.position.cost]])}<p className="text-xs text-slate-300">{txt('allRecordedPosition')}: <span className="font-mono">{editableInvestmentQuantity(s.preview.value.position.quantity,locale)}</span></p></>:s.preview.kind==='quote'?<p className="text-xs text-slate-200 font-mono">{s.preview.instrument.ticker} · {s.preview.instrument.exchange} · {amount(s.preview.price)} · {s.preview.date}</p>:<p className="text-xs text-slate-200 break-words">{s.preview.input.name} · {s.preview.input.ticker} · {s.preview.input.exchange} · {s.preview.input.currency}</p>}<p className="text-xs text-slate-400">{txt('previewHint')}</p></section>}
    {!form&&p&&<>
-    <h3 className="text-sm font-bold text-slate-100 break-words">{a?.name} · <span className="font-mono">{p.date}</span></h3>{rows([['book',p.book],['totalValue',p.totalValue]])}
+    <h3 className="text-sm font-bold text-slate-100 break-words">{a?.name} · <time className="font-mono" dateTime={p.date}>{presentation.formatDate(p.date)}</time></h3>{rows([['book',p.book],['totalValue',p.totalValue]])}
     {!p.complete&&<p role="status" className="text-xs text-amber-400">{txt('incomplete')}</p>}
     <p className="text-xs text-slate-400">{txt('formula')}</p><p className="text-xs text-slate-400">{txt('corporateActions')}</p>
     {!p.positions.length&&<p className="text-xs text-slate-500">{txt('emptyPositions')}</p>}

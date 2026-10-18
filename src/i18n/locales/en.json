@@ -61,6 +61,7 @@
     "settings": "Settings"
   },
   "settings": {
+      "hiddenChart": "Chart hidden by balance privacy settings.",
     "tabs": {
       "profile": "My Profile",
       "members": "Members & Permissions",
@@ -2630,6 +2631,7 @@
       }
     },
     "exports": {
+      "glyphFallback": "PDF uses bundled fonts. Unsupported glyphs, including many CJK characters and emoji, appear as [U+XXXX]; choose CSV/XLSX for original Unicode text.",
       "open": "Export selection",
       "title": "Confirm record export",
       "summary": "Records selected: {{count}}",
@@ -2818,6 +2820,38 @@
       "savedVoid": "Trade voided; history retained.",
       "savedInstrument": "Instrument saved.",
       "savedQuote": "Reference price saved with its source and observation date."
+    },
+    "settings": {
+      "title": "Wallet settings",
+      "personal": "Personal settings for your signed-in account, shared across your devices.",
+      "locale": "Number and date format",
+      "inherit": "Use app language",
+      "vi-VN": "Tiếng Việt",
+      "en-US": "English (US)",
+      "zh-CN": "中文（简体）",
+      "defaultPeriod": "Default report period",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year",
+      "sessionIdleMinutes": "Sign out after inactivity",
+      "minutes": "{{count}} minutes",
+      "hideDecimals": "Hide decimal places in reports",
+      "hideBalances": "Hide balances and report amounts",
+      "displayOnly": "Display only. Exact money, effective dates and source data are preserved.",
+      "privacyHint": "Forms and confirmations still show exact amounts for review before recording.",
+      "themeInherited": "Light and dark follow the app theme.",
+      "save": "Save Wallet settings",
+      "saving": "Saving settings…",
+      "saved": "Personal settings saved.",
+      "reload": "Reload settings",
+      "applyPeriod": "Apply saved period to filters",
+      "loadFailed": "Wallet display policy could not be loaded. Retry before viewing balances.",
+      "offlinePolicy": "Money and financial commands are not stored for offline writing. Reload current data before confirming after a connection loss.",
+      "clearCache": "Clear Wallet device cache",
+      "clearCacheTitle": "Clear this device’s Wallet cache?",
+      "clearCacheWarning": "Only Wallet caches and device databases are removed. The server ledger and other application data are preserved.",
+      "cacheCleared": "Wallet device cache cleared.",
+      "cacheFailed": "Some Wallet device storage could not be removed. Close other Wallet tabs and retry."
     }
   }
 }

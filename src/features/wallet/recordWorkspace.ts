@@ -69,8 +69,9 @@ export function createRecordWorkspace(api: Api, options: {
     timezone: string;
     newRequestId?: () => string;
     now?: () => number;
+    defaultPeriod?: () => 'week'|'month'|'year';
 }) {
-    const defaultFilter = () => normalizeFilter({ period: resolvePeriod({ kind: 'month', anchorDate: options.date() }, options.timezone), referenceCurrency: 'VND', statuses: ['uncleared', 'cleared', 'reconciled'] });
+    const defaultFilter = () => normalizeFilter({ period: resolvePeriod({ kind: options.defaultPeriod?.()??'month', anchorDate: options.date() }, options.timezone), referenceCurrency: 'VND', statuses: ['uncleared', 'cleared', 'reconciled'] });
     let filter = defaultFilter();
     const empty = () => ({templates:[],allocationForm:null,allocations:[],allocationStorage:false, accounts: [], catalog: { categories: [], labels: [] }, items: [], total: 0, nextCursor: null, loadingMore: false,draftLoading:false, selected: null, actions:null, receipts:[],receiptStorage:false,filterOptions:{creators:[],paymentMethods:[]}, form: null });
     let state: RecordWorkspaceState = { phase: 'checking', ...empty(), filter, filterInvalid: false, command: { phase: 'idle' }, error: null },allocationForm:WalletAllocationForm|null=null, form: WalletRecordForm | null = null, formOpen = false, selectedId: string | null = null, selectedInitial: RecordFormInitial | undefined, generation = 0, disposed = false, addAnother = false;
@@ -259,6 +260,7 @@ export function createRecordWorkspace(api: Api, options: {
             if(state.selected.record.revision!==revision){publish({error:new WalletApiError(409,'Ghi chép đã thay đổi.','CONFLICT',undefined)});return;}
             if(!canVoid()){publish({error:new WalletApiError(403,'Không có quyền hủy ghi chép.','FORBIDDEN',undefined)});return;}
             command.reset();publish({error:null});addAnother = false; await finish(() => command.submit({ kind: 'void', id, revision })); },
+        initializeDefaultPeriod(){if(disposed||generation!==0||form||allocationForm||busy())return;filter=defaultFilter();publish({filter,filterInvalid:false});},
         async applyFilter(value: RecordFilter) { if (!editable() || form || allocationForm)
             return; let next: RecordFilter; try {
             next = normalizeFilter(value);

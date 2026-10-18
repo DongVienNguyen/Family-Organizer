@@ -1,0 +1,11 @@
+import {it,expect} from 'vitest';
+import {walletInvestmentFixture} from '../../tests/wallet-investment-fixture.js';
+import {write,ctx,meta} from '../../tests/wallet-schedule-fixture.js';
+import {withAppWriteTransaction,markSnapshotReadResult} from '../appStore.js';
+import {openWalletStore} from './store.js';
+import {prepareWalletSettings} from './settingsSchema.js';
+import {createWalletSettings} from './settings.js';
+import {defaultWalletSettings} from '../../src/features/wallet/settingsContracts.js';
+import {exportWalletSnapshot,restoreWalletSnapshot,validate,walletSnapshotChecksum} from './snapshot.js';
+const capture=()=>openWalletStore({write:withAppWriteTransaction}).transaction(meta(),tx=>exportWalletSnapshot(tx,markSnapshotReadResult));
+it('explicit settings schema16 standalone17 round-trips policy and rejects a rechecksummed owner or policy change',()=>{const f=walletInvestmentFixture();write(tx=>prepareWalletSettings(tx));const service=createWalletSettings(f.ports);service.saveWalletSettings(ctx(),{...defaultWalletSettings,hideBalances:true});const original=capture();expect(original.schemaVersion).toBe(17);openWalletStore({write:withAppWriteTransaction}).transaction(meta(),tx=>restoreWalletSnapshot(tx,original));expect(capture()).toEqual(original);for(const patch of [{owner_id:'other'},{revision:2},{value_json:JSON.stringify({...defaultWalletSettings,hideBalances:false})}]){const bad=structuredClone(original);Object.assign(bad.tables.wallet_user_settings[0],patch);bad.checksum=walletSnapshotChecksum(bad);expect(()=>validate(bad)).toThrow();expect(()=>openWalletStore({write:withAppWriteTransaction}).transaction(meta(),tx=>restoreWalletSnapshot(tx,bad))).toThrow();expect(capture()).toEqual(original);}});

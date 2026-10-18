@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FancySelect } from '../../components/FancySelect.js';
@@ -9,7 +10,7 @@ export function FilterPanel({ workspace, state }: {
     workspace: RecordWorkspace;
     state: RecordWorkspaceState;
 }) {
-    const { t, i18n } = useTranslation(), locale = walletLocale(i18n.resolvedLanguage ?? i18n.language), [filter, setFilter] = useState(state.filter), [minimum, setMinimum] = useState(''), [maximum, setMaximum] = useState(''), [invalid, setInvalid] = useState(false);
+    const { t, i18n } = useTranslation(), locale = useWalletPresentation().locale, [filter, setFilter] = useState(state.filter), [minimum, setMinimum] = useState(''), [maximum, setMaximum] = useState(''), [invalid, setInvalid] = useState(false);
     useEffect(() => { setInvalid(false);setFilter(state.filter); setMinimum(state.filter.absoluteMin === undefined ? '' : editableAmount(state.filter.absoluteMin, state.filter.referenceCurrency, locale)); setMaximum(state.filter.absoluteMax === undefined ? '' : editableAmount(state.filter.absoluteMax, state.filter.referenceCurrency, locale)); }, [state.filter, locale]);
     const blocked = state.phase !== 'ready' || !!state.form || workspace.isBusy();
     function apply() {try{const value=recordFilterDraftInput(filter,minimum,maximum,locale);setInvalid(false);void workspace.applyFilter(value);}catch{setInvalid(true);}}

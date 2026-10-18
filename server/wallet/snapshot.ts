@@ -1,3 +1,4 @@
+import {validateWalletSettingsTables} from './settingsSchema.js';
 import {validateWalletInvestmentTables} from './investmentValidation.js';
 import {validateWalletBudgetTables} from './budgetValidation.js';
 import {validateWalletLinkTables} from './linkValidation.js';
@@ -24,7 +25,7 @@ export {walletCoreColumns as walletSnapshotColumns} from './coreColumns.js';
 export function walletTablesAt(version:number):Record<string,readonly string[]> {return walletTableDefinitions(version);}
 export const moneyColumns:Record<string,readonly string[]>={wallet_investment_trades:['quantity_units','price_minor','fee_minor'],wallet_market_quotes:['price_minor'],wallet_budgets:['limit_minor'],wallet_budget_carries:['amount_minor'],wallet_financial_links:['amount_minor','interest_minor'],wallet_accounts:['opening_minor'],wallet_postings:['delta_minor'],wallet_allocations:['amount_minor'],wallet_account_metadata:['credit_limit_minor'],wallet_record_fx:['debit_minor','credit_minor']};
 const metadataPrimaryKeys=Object.fromEntries(Object.entries(walletMetadataColumns).map(([name,columns])=>[name,[columns[0]]]));
-const primaryKeys:Record<string,readonly string[]>={wallet_portfolios:['account_id'],wallet_market_quotes:['sequence'],wallet_schedule_metadata:['schedule_id'],wallet_occurrence_metadata:['occurrence_id'],wallet_schedule_reminders:['occurrence_id','offset_days','recipient_id'],wallet_rule_preview_rows:['preview_id','record_id'],wallet_rule_overrides:['record_id'],wallet_import_rows:['batch_id','row_number'],wallet_import_entries:['batch_id','row_number'],wallet_fx_rates:['from_currency','to_currency','as_of'],...metadataPrimaryKeys,wallet_selection_records:['selection_id','record_id'],wallet_legacy_links:['run_id','source_kind','parent_id','legacy_id'],wallet_record_fx:['record_id'],wallet_transfer_fees:['transfer_record_id'],wallet_currencies:['code'],wallet_account_grants:['account_id','user_id'],wallet_postings:['record_id','account_id'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id']};
+const primaryKeys:Record<string,readonly string[]>={wallet_user_settings:['owner_id'],wallet_portfolios:['account_id'],wallet_market_quotes:['sequence'],wallet_schedule_metadata:['schedule_id'],wallet_occurrence_metadata:['occurrence_id'],wallet_schedule_reminders:['occurrence_id','offset_days','recipient_id'],wallet_rule_preview_rows:['preview_id','record_id'],wallet_rule_overrides:['record_id'],wallet_import_rows:['batch_id','row_number'],wallet_import_entries:['batch_id','row_number'],wallet_fx_rates:['from_currency','to_currency','as_of'],...metadataPrimaryKeys,wallet_selection_records:['selection_id','record_id'],wallet_legacy_links:['run_id','source_kind','parent_id','legacy_id'],wallet_record_fx:['record_id'],wallet_transfer_fees:['transfer_record_id'],wallet_currencies:['code'],wallet_account_grants:['account_id','user_id'],wallet_postings:['record_id','account_id'],wallet_record_labels:['record_id','label_id'],wallet_allocations:['record_id','category_id']};
 const nullable=new Set(['counter_account_id','interest_record_id','work_cursor','last_scan_at','confirmed_at','skipped_at','file_retired_at','undone_revision','filter_json','filter_hash','applied_at','applied_request_id','target_id','reason','archived_at','parent_id','external_key','category_id','occurrence_id','record_id','created_at','updated_at','created_by','updated_by','occurred_at','reviewed_at','credit_limit_minor','due_day','before_json','after_json']);
 type Row=Record<string,string|number|null>;
 export interface WalletSnapshot {schemaVersion:number;tables:Record<string,Row[]>;checksum:string}
@@ -68,6 +69,7 @@ export function validate(value:unknown,userIds?:Set<string>):asserts value is Wa
  if((raw.schemaVersion as number)>=14)validateWalletLinkTables(tables as Record<string,Row[]>,userIds);
  if((raw.schemaVersion as number)>=15)validateWalletBudgetTables(tables as Record<string,Row[]>,userIds);
  if((raw.schemaVersion as number)>=16)validateWalletInvestmentTables(tables as Record<string,Row[]>,userIds);
+ if((raw.schemaVersion as number)>=17)validateWalletSettingsTables(tables as Record<string,Row[]>,userIds);
 }
 /** Full bytes are a marked read result, never a command-cache payload. */
 export function storageVersion(tx:WalletTx):number {

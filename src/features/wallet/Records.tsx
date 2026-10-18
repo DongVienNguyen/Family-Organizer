@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import {ExportPanel} from './ExportPanel.js';
 import type {ExportWorkspace} from './exportWorkspace.js';
 import {Templates} from './Templates.js';
@@ -17,7 +18,7 @@ export function Records({ workspace,exporter }: {
     exporter?:ExportWorkspace;
     workspace: RecordWorkspace;
 }) {
-    const { t, i18n } = useTranslation(), state = useSyncExternalStore(workspace.subscribe, workspace.snapshot), locale = walletLocale(i18n.resolvedLanguage ?? i18n.language), { confirm, ConfirmDialog } = useConfirm();
+    const { t, i18n } = useTranslation(), state = useSyncExternalStore(workspace.subscribe, workspace.snapshot), locale = useWalletPresentation().locale, { confirm, ConfirmDialog } = useConfirm();
     useEffect(() => { void workspace.refresh(); }, [workspace]);
     const bulk=useSyncExternalStore(workspace.bulk.subscribe,workspace.bulk.snapshot);
     if (['inactive', 'disposed'].includes(state.phase))

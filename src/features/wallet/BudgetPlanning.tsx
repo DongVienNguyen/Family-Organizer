@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import {useEffect,useId,useState,useSyncExternalStore} from 'react';
 import {useTranslation} from 'react-i18next';
 import {FancySelect} from '../../components/FancySelect.js';
@@ -10,10 +11,10 @@ import type {BudgetFilter} from './budgetContracts.js';
 import type {Money} from './contracts.js';
 const button='rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60',input='w-full min-w-0 box-border bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5 text-slate-200 outline-none focus:ring-2 focus:ring-sky-500/40';
 export function BudgetPlanning({workspace}:{workspace:BudgetWorkspace}){
- const {t,i18n}=useTranslation(),locale=walletLocale(i18n.resolvedLanguage??i18n.language),s=useSyncExternalStore(workspace.subscribe,workspace.snapshot),{confirm,ConfirmDialog}=useConfirm(),id=useId();
+ const {t,i18n}=useTranslation(),presentation=useWalletPresentation(),formatMoney=presentation.formatMoney,locale=presentation.locale,s=useSyncExternalStore(workspace.subscribe,workspace.snapshot),{confirm,ConfirmDialog}=useConfirm(),id=useId();
  const [summaryIds,setSummaryIds]=useState<string[]>([]),[forecastIds,setForecastIds]=useState<string[]>([]),[currency,setCurrency]=useState('VND'),[forecastMonth,setForecastMonth]=useState(s.month),[scenario,setScenario]=useState<'scheduledOnly'|'historicalAverage'>('scheduledOnly');
  useEffect(()=>{void workspace.show();return()=>workspace.hide();},[workspace]);
- const locked=s.phase!=='ready'||s.loading||['pending','unknown'].includes(s.command.phase),form=s.form,txt=(key:string,values?:Record<string,unknown>)=>t('wallet.budget.'+key,values),amount=(v:Money|null|undefined)=>v?formatMoney(v,locale):'—';
+ const locked=s.phase!=='ready'||s.loading||['pending','unknown'].includes(s.command.phase),form=s.form,txt=(key:string,values?:Record<string,unknown>)=>t('wallet.budget.'+key,values),amount=(v:Money|null|undefined)=>v?formatMoney(v,locale,{reveal:!!s.form||!!s.carryPreview}):'—';
  const toggle=(list:string[],value:string,checked:boolean)=>checked?[...new Set([...list,value])]:list.filter(id=>id!==value);
  function filter(patch:BudgetFilter,remove:(keyof BudgetFilter)[]=[]){if(!form)return;const next={...form.filter,...patch};for(const key of remove)delete next[key];workspace.change({filter:next});}
  async function save(){if(!form)return;const captured=form;if(!await confirm({title:txt('saveTitle'),message:txt('saveWarning'),tone:'default'})||workspace.snapshot().form!==captured)return;await workspace.save();}

@@ -1,3 +1,4 @@
+import {useWalletPresentation} from './WalletPresentation.js';
 import { useTranslation } from 'react-i18next';
 import type { AccountWorkspaceState } from './accountWorkspace.js';
 import { formatMoney } from './money.js';
@@ -10,14 +11,14 @@ export function AccountDetail({ account, balance, disabled, onEdit, onArchive, o
     onArchive: () => void;
     onRestore: () => void;
 }) {
-    const { t, i18n } = useTranslation(), locale = walletLocale(i18n.resolvedLanguage ?? i18n.language), a = account.account;
+    const { t, i18n } = useTranslation(), presentation=useWalletPresentation(),formatMoney=presentation.formatMoney, locale = presentation.locale, a = account.account;
     return <section aria-label={t('wallet.detail')} className="bg-slate-950/40 neu-pressed-sm rounded-xl p-4 space-y-4 min-w-0">
   <h3 className="text-sm font-bold text-slate-100 break-words">{a.name}</h3>
   <p className="text-xs text-slate-400">{t('wallet.access.' + a.accessMode)} · {t('wallet.permissions.' + a.permission)}</p>
   {balance && <dl className="space-y-3 text-xs text-slate-400">
    <div><dt>{t('wallet.book')}</dt><dd className="font-mono text-lg text-slate-100 break-words" data-testid="wallet-book">{formatMoney(balance.book, locale)}</dd></div>
    <div><dt>{t('wallet.cleared')}</dt><dd className="font-mono text-slate-200">{formatMoney(balance.cleared, locale)}</dd></div>
-   <div><dt>{t('wallet.asOf')}</dt><dd className="font-mono text-slate-200">{balance.date}</dd></div>
+   <div><dt>{t('wallet.asOf')}</dt><dd className="font-mono text-slate-200"><time dateTime={balance.date}>{presentation.formatDate(balance.date)}</time></dd></div>
    {balance.credit && <>
     <div><dt>{t('wallet.debt')}</dt><dd className="font-mono text-slate-200">{formatMoney({ minor: balance.credit.debtMinor, currency: a.currency }, locale)}</dd></div>
     <div><dt>{t('wallet.creditLimit')}</dt><dd className="font-mono text-slate-200">{balance.credit.creditLimitMinor === null ? t('wallet.unknown') : formatMoney({ minor: balance.credit.creditLimitMinor, currency: a.currency }, locale)}</dd></div>

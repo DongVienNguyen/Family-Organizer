@@ -61,6 +61,7 @@
     "settings": "Thiết lập"
   },
   "settings": {
+      "hiddenChart": "Biểu đồ đang ẩn theo thiết lập số dư.",
     "tabs": {
       "profile": "Hồ sơ của tôi",
       "members": "Thành viên và Phân quyền",
@@ -2629,6 +2630,7 @@
       }
     },
     "exports": {
+      "glyphFallback": "PDF dùng phông chữ đi kèm. Ký tự chưa có glyph (gồm nhiều chữ CJK và emoji) được ghi rõ dạng [U+XXXX]; chọn CSV/XLSX để giữ nguyên văn bản Unicode.",
       "open": "Xuất vùng chọn",
       "title": "Xác nhận xuất ghi chép",
       "summary": "Số ghi chép đã chọn: {{count}}",
@@ -2817,6 +2819,38 @@
       "savedVoid": "Đã hủy lần ghi nhận, giữ lịch sử.",
       "savedInstrument": "Đã lưu mã theo dõi.",
       "savedQuote": "Đã lưu giá tham chiếu với nguồn và ngày quan sát."
+    },
+    "settings": {
+      "title": "Thiết lập Wallet",
+      "personal": "Thiết lập riêng cho tài khoản đăng nhập, áp dụng trên các thiết bị của bạn.",
+      "locale": "Định dạng số và ngày",
+      "inherit": "Theo ngôn ngữ ứng dụng",
+      "vi-VN": "Tiếng Việt",
+      "en-US": "English (US)",
+      "zh-CN": "中文（简体）",
+      "defaultPeriod": "Kỳ báo cáo mặc định",
+      "week": "Tuần",
+      "month": "Tháng",
+      "year": "Năm",
+      "sessionIdleMinutes": "Đăng xuất khi không hoạt động",
+      "minutes": "{{count}} phút",
+      "hideDecimals": "Ẩn phần thập phân khi xem báo cáo",
+      "hideBalances": "Ẩn số dư và số tiền trong báo cáo",
+      "displayOnly": "Chỉ thay đổi cách hiển thị. Tiền chính xác, ngày ghi sổ và dữ liệu gốc được giữ nguyên.",
+      "privacyHint": "Biểu mẫu và xác nhận vẫn hiện số tiền chính xác để bạn kiểm tra trước khi ghi.",
+      "themeInherited": "Giao diện Sáng/Tối dùng chung thiết lập ứng dụng.",
+      "save": "Lưu thiết lập Wallet",
+      "saving": "Đang lưu thiết lập…",
+      "saved": "Đã lưu thiết lập cá nhân.",
+      "reload": "Tải lại thiết lập",
+      "applyPeriod": "Áp dụng kỳ đã lưu vào bộ lọc",
+      "loadFailed": "Chưa tải được chính sách hiển thị Wallet. Hãy thử lại trước khi xem số dư.",
+      "offlinePolicy": "Không lưu tiền hoặc lệnh tài chính để ghi ngoại tuyến. Khi mất mạng, hãy tải lại dữ liệu trước khi xác nhận giao dịch.",
+      "clearCache": "Xóa bộ nhớ Wallet trên thiết bị",
+      "clearCacheTitle": "Xóa bộ nhớ thiết bị của Wallet?",
+      "clearCacheWarning": "Chỉ xóa bộ nhớ đệm và cơ sở dữ liệu Wallet trên thiết bị này. Sổ tiền trên máy chủ và dữ liệu ứng dụng khác được giữ nguyên.",
+      "cacheCleared": "Đã xóa bộ nhớ Wallet trên thiết bị.",
+      "cacheFailed": "Chưa xóa được toàn bộ bộ nhớ Wallet. Hãy đóng các tab Wallet khác rồi thử lại."
     }
   }
 }
