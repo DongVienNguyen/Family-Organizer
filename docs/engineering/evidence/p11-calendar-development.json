@@ -1,0 +1,523 @@
+{
+  "taskId": "P11 Calendar/Timeline functional core",
+  "sourceCommit": "c84376879fea854f5d3b03d16fb34ab6fd6aa4a0",
+  "baseHead": "3dafd007c54cb23c4534e53c5fc97f234ffb05f1",
+  "qualification": "Cloud functional development; ICS import belongs toP13 and final Windows qualification remains",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "sourceFiles": {
+    "playwright.calendar.config.ts": "68afeb2b888691ce8d41c14b41518be9da87c44d2204e65d366ff62f5122820e",
+    "scripts/ci/run-calendar-browser.mjs": "6bf184b77cf7c6cde6ba2142ba08f804994f88384954284dd69804e469c95b48",
+    "server/app.ts": "33b9e148e231522f2f93b5e06093fa3f1f692e33038e57f7cb17d028338abecc",
+    "server/productivity/calendar.api.test.ts": "ec6ab6e88b501ae831581b3a4466db21bca8461f5956c54f4764da2d8129317a",
+    "server/productivity/calendar.test.ts": "8b13607fb5c8541cc0c850d0bfb00a69a0d686d983e0357905c994b695d26c0e",
+    "server/productivity/calendar.ts": "6f728dfe00006e88dc4476e303548dae1764be3ca4d7e935e142e40b6409531a",
+    "server/productivity/calendar.virtual.test.ts": "b20da06995e4d0eee62771626d57f6c5ca1aaeec63978d5d591b141ac0061751",
+    "server/productivity/calendarRouter.ts": "cc0da2c4dc794736382b84b6c87becdf15bf202c1b0b1d78d7a16e0513605c72",
+    "server/productivity/ports.ts": "e2829f8566e7ba57a31014b73f3610703dedf73bc305a840142c190178239992",
+    "server/productivity/router.ts": "ccc0cb2b4cfac93c315dd92f3027c90c2ce2e5d7ba35159c4ed2feef52dec2f9",
+    "src/App.tsx": "faeeaf7c7c24f7b7d5a49147d8d667169cf8e41506d615b72d796ee75e95c38b",
+    "src/components/Tasks.tsx": "f2a586c6668231266e80e712a8c3e8998fff8cf35c4d95b9181b1f3c48ca03bd",
+    "src/features/productivity/CalendarDialog.tsx": "3580f6bad4d71829dc410088e69ee2bad6ce504f56a4f25d5b1d9a3a70174474",
+    "src/features/productivity/CalendarWorkspace.tsx": "df63421eb01e5052e7b310e907b989a52c65193e4af68d9ef8c63eb763163377",
+    "src/features/productivity/api.ts": "ef9f0a57ecd7fa3429cebb48c083f9ab65867465ac954dcc0e257bec4ff91de7",
+    "src/features/productivity/calendarApi.test.ts": "945f08b54eee459e9bc2d63045902bb924008cdab02e99f56610e96e3c5b1350",
+    "src/features/productivity/calendarApi.ts": "cac76d04d7dc7948881f7f3ba547710540ee6af7d5f5be9be2e8de5b5cd75649",
+    "src/features/productivity/calendarCommandState.test.ts": "8c5a0135a70701b3c0b87e78817f1f75daf4cbaadf084637793dee508199710d",
+    "src/features/productivity/calendarCommandState.ts": "d3a5730989d9ef34208df9c84853ec36d3c823a29c8e6894831586bd3f02aa0a",
+    "src/features/productivity/calendarContracts.ts": "82ad88dd51f65f4f19188702242b188428bc93c4e386a4376b713cf451a54aad",
+    "src/features/productivity/calendarEditor.test.ts": "d7c12ede58561fc645eec7b272715f6aff4bce5ae31720ee66070505746ca55b",
+    "src/features/productivity/calendarIcs.test.ts": "7743df16efb3f003952dbd9a753802cfe22dc4bf7dc6dc7f474311b3f3766bd1",
+    "src/features/productivity/calendarIcs.ts": "27ffcaa2f222e467f082f6e6d426632a9915104613f0b487a7400b368aa3933e",
+    "src/features/productivity/calendarLocalTime.test.ts": "ccb0122b04884b232198fbfb91e6b3285ae48cfb5b3464b1b1b19f99ff1c10d6",
+    "src/features/productivity/calendarLocalTime.ts": "851f99e086b6f051ddd5957ae4aa94874c56ca337f6cefe90e263445baeb24d8",
+    "src/features/productivity/useTasks.tsx": "7e1a193a79fcc9ee4e3a877611db54a7c5107e948a036d06826661488576343c",
+    "src/i18n/locales/en.json": "947164d145597e06f585573af3d54f65b803109cb21673e89ae5069289ac23f7",
+    "src/i18n/locales/vi.json": "3a39e04ee2867cb905a80f4584b40bb2915ccb5062fd3ed475781ba4ff3f0e1d",
+    "src/i18n/locales/zh.json": "17203d176120290f45070b6d5cce0613b8610b5955e54275245127bb1afa53fe",
+    "tests/e2e/calendar.spec.ts": "12a17a2536e5de67893f92aecad35493a02a82a78f386a7c8a7835e761ac2ced"
+  },
+  "aggregate": {
+    "parentPassed": 8409,
+    "passed": 8459,
+    "files": 507,
+    "added": 50,
+    "removed": 0,
+    "junitCases": 8459,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "scope": "full Cloud;50added=2W17protectedrecovery+48P11",
+    "normalization": "only temporary root in recoveryRetention names; multiplicity retained"
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "buildSource": "691ac58c5c8a4c55403506da71695f7d91d1b4c4; only new4thbrowsercase after build, no production change",
+  "browser": {
+    "scope": "all4Calendar Chromium journeys",
+    "cases": 4,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "firstAttemptsOnly": true,
+    "fixture": {
+      "commitSha": "c84376879fea854f5d3b03d16fb34ab6fd6aa4a0",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "de87a6cd42231dea8f75262dbc544b34ba6b35c6c25586001d885b693af57b93",
+        "index": "441da77a05ff971bd4c2bcc9a5d9c9d2e77112057d6c7d86a0fae38d687b6b11"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "productivityVersion": 13,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "fixtureProject": "chromium",
+        "users": 4,
+        "tasks": 13,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "retainedEvidence": {
+    "p11-calendar-browser-first.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-browser-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p11-calendar-browser-first.log": {
+      "path": "docs/engineering/evidence/p11-calendar-browser-first.log.gz",
+      "sha256": "78e9a2626c0176ee6355916048e1b0bc9ddac0006d15825edd24a831bc7150d5"
+    },
+    "p11-calendar-browser-second.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-browser-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-browser-second.log": {
+      "path": "docs/engineering/evidence/p11-calendar-browser-second.log.gz",
+      "sha256": "5ac90f2b10ad05180dd21ce7dc08cc7243ecd32b4a0227c12f346351bab466a1"
+    },
+    "p11-calendar-browser-whole.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-browser-whole.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-browser-whole.log": {
+      "path": "docs/engineering/evidence/p11-calendar-browser-whole.log.gz",
+      "sha256": "2957115cd5be30600e909c27e659f5bf8e59a1a736f1fccfc20e6623e565428e"
+    },
+    "p11-calendar-core.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-core.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-core.json": {
+      "path": "docs/engineering/evidence/p11-calendar-core.json.gz",
+      "sha256": "1c442d70fcdf1d518c05498bee94859b153e77105a1812674fe8a3274cc08c99"
+    },
+    "p11-calendar-core.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-core.junit.xml.gz",
+      "sha256": "c5107b9c9068b29ea9abb541cef9fe79000022b006bf8b1f24a4ddeffd12d10b"
+    },
+    "p11-calendar-core.log": {
+      "path": "docs/engineering/evidence/p11-calendar-core.log.gz",
+      "sha256": "69f51caa93cbc6eac5e47f8738475201407169aeb0bb6f205907747067727483"
+    },
+    "p11-calendar-final-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-final-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-final-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-final-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-first-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-first-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-first-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-first-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-first.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-first.json": {
+      "path": "docs/engineering/evidence/p11-calendar-first.json.gz",
+      "sha256": "61d48dc96f51a025d6718895c839ca840d65f228b49114b329ee084411e810be"
+    },
+    "p11-calendar-first.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-first.junit.xml.gz",
+      "sha256": "caaadfd0c7cbd841016ba28c0d1e3db78885950d369c23e2362f820cce01e371"
+    },
+    "p11-calendar-first.log": {
+      "path": "docs/engineering/evidence/p11-calendar-first.log.gz",
+      "sha256": "2e9591c18cf235fd86da25b36aa4c566ce9c616e256d08375038fc9124a3c711"
+    },
+    "p11-calendar-full.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-full.json": {
+      "path": "docs/engineering/evidence/p11-calendar-full.json.gz",
+      "sha256": "174c989828326070864931c447efdb9d93cf1ae7008bf71d5ccdc99983e02126"
+    },
+    "p11-calendar-full.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-full.junit.xml.gz",
+      "sha256": "211cc7e0199d45909203e026d75f4f8b4558c3049b8e751a1d7bcff82cfce706"
+    },
+    "p11-calendar-full.log": {
+      "path": "docs/engineering/evidence/p11-calendar-full.log.gz",
+      "sha256": "434dff8f26685b317384027820208bf160557b9d92b41628c18085be2fcb3f98"
+    },
+    "p11-calendar-hardened-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-hardened-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-hardened-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-hardened-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-hardened.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-hardened.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-hardened.json": {
+      "path": "docs/engineering/evidence/p11-calendar-hardened.json.gz",
+      "sha256": "8d5e47e60d5284c23046434177b59c4d4fd2fea6188f7a9083835e008b2bf493"
+    },
+    "p11-calendar-hardened.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-hardened.junit.xml.gz",
+      "sha256": "221b73a5783b24d674441ad6722cdf5fa65efd805eb729e861ad94af8a821cac"
+    },
+    "p11-calendar-hardened.log": {
+      "path": "docs/engineering/evidence/p11-calendar-hardened.log.gz",
+      "sha256": "7e0e8d24fcd0e28bec560c951f7f63a382b335b7ede8b720291b6611a1749fa9"
+    },
+    "p11-calendar-http.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-http.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-http.json": {
+      "path": "docs/engineering/evidence/p11-calendar-http.json.gz",
+      "sha256": "6ccb868a8e54e6b813d648ca364579fd9342a73259db508bd3e6ac0bc8a599c9"
+    },
+    "p11-calendar-http.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-http.junit.xml.gz",
+      "sha256": "46cbdbaa67b710bea3024b5b61b5f1d88e3feb451088d35330262451c6c44fcd"
+    },
+    "p11-calendar-http.log": {
+      "path": "docs/engineering/evidence/p11-calendar-http.log.gz",
+      "sha256": "1b7ca04b1e5158e25fa119a75ff16114d120711cb613b8a2c68905f0e7d1e94d"
+    },
+    "p11-calendar-mobile-build.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-mobile-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-mobile-build.log": {
+      "path": "docs/engineering/evidence/p11-calendar-mobile-build.log.gz",
+      "sha256": "7e1df96dc4a4c56f509f978892cc4ca2f90dad231dd562258710522f6676921c"
+    },
+    "p11-calendar-mobile-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-mobile-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-mobile-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-mobile-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-prebrowser-build.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-prebrowser-build.log": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser-build.log.gz",
+      "sha256": "2e437919fe15971308a46a69c48b8b13409c11b234ea50a9e764dff51338979a"
+    },
+    "p11-calendar-prebrowser-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-prebrowser-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-prebrowser.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-prebrowser.json": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser.json.gz",
+      "sha256": "b573940d21ed61be0931172fa80a570cc14fc5eb80766d0403e6247c8b1bd381"
+    },
+    "p11-calendar-prebrowser.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser.junit.xml.gz",
+      "sha256": "27bec636deb7f88a7279a6f41ced79eb5e54a2eade32dd5f89f2e740128063e7"
+    },
+    "p11-calendar-prebrowser.log": {
+      "path": "docs/engineering/evidence/p11-calendar-prebrowser.log.gz",
+      "sha256": "29a45b9d281a25338e82d2903a815f213420f8d2a18a06d1217d82fc6f286a28"
+    },
+    "p11-calendar-red.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p11-calendar-red.json": {
+      "path": "docs/engineering/evidence/p11-calendar-red.json.gz",
+      "sha256": "ef062a80366b122ef411374209f3fd2c28cc6960353fcc1c91681a66d1a84259"
+    },
+    "p11-calendar-red.log": {
+      "path": "docs/engineering/evidence/p11-calendar-red.log.gz",
+      "sha256": "8ec725501525b7cf59254be11a93fa24f573a145597090cd4dc91ff5c1bb9ba4"
+    },
+    "p11-calendar-sdk-red.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-sdk-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p11-calendar-sdk-red.json": {
+      "path": "docs/engineering/evidence/p11-calendar-sdk-red.json.gz",
+      "sha256": "eb961388c5cb9ecbb32f10133ce2de352c6bd653f1791da87b92342664941676"
+    },
+    "p11-calendar-sdk-red.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-sdk-red.junit.xml.gz",
+      "sha256": "6772b62ff0db642184e191a53c1ebfd1467f56e2f4465697a0c33e43d46efb36"
+    },
+    "p11-calendar-sdk-red.log": {
+      "path": "docs/engineering/evidence/p11-calendar-sdk-red.log.gz",
+      "sha256": "54ca0a1f67b92212e53f4709089ab21c552419adafc9d68e5670182e1f201629"
+    },
+    "p11-calendar-second-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-second-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-second-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-second-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-second-source-build.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-second-source-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-second-source-build.log": {
+      "path": "docs/engineering/evidence/p11-calendar-second-source-build.log.gz",
+      "sha256": "e539b77109a31f6d2828335a824282c3261fdf48b77096267e1c8edd36e6e00a"
+    },
+    "p11-calendar-second-source-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-second-source-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-second-source-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-second-source-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-second.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-second.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "p11-calendar-second.json": {
+      "path": "docs/engineering/evidence/p11-calendar-second.json.gz",
+      "sha256": "05368a9664bdd52100b99f9f14714767d5eeac6f0ced0edf849106660c304f37"
+    },
+    "p11-calendar-second.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-second.junit.xml.gz",
+      "sha256": "b4af5937d9afd89f7b1f1a2da5c848164191651c36bf72fa49a03b83ae7b16fe"
+    },
+    "p11-calendar-second.log": {
+      "path": "docs/engineering/evidence/p11-calendar-second.log.gz",
+      "sha256": "76b3c2bd70d8173d92044d5fb7102d7c8c60aeff622baea9c83e3e69e61613cc"
+    },
+    "p11-calendar-source-build.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-source-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-source-build.log": {
+      "path": "docs/engineering/evidence/p11-calendar-source-build.log.gz",
+      "sha256": "8a8b03ba58c1d73a69cc32e25037c012deb4f476e7af9a86e88c14cb0222967f"
+    },
+    "p11-calendar-source-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-source-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-source-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-source-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "p11-calendar-third.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-third.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-third.json": {
+      "path": "docs/engineering/evidence/p11-calendar-third.json.gz",
+      "sha256": "4c7e92fbe75b8a3b5373ae5b371b57fbc973f78e48282fe0632138182d3e6703"
+    },
+    "p11-calendar-third.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-third.junit.xml.gz",
+      "sha256": "6d3afaaa561a49c546a8dae928db37a74713f770768fc3f3a368895003db428e"
+    },
+    "p11-calendar-third.log": {
+      "path": "docs/engineering/evidence/p11-calendar-third.log.gz",
+      "sha256": "e626ccc755d117809eff832781b848c351972ec75bdafa7384e1d8ff98b1d6e3"
+    },
+    "p11-calendar-ui-core.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-ui-core.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "p11-calendar-ui-core.json": {
+      "path": "docs/engineering/evidence/p11-calendar-ui-core.json.gz",
+      "sha256": "43ca5baaeec715af0667e3944f7589e791ac03571851c2889e131ff6d6929c7d"
+    },
+    "p11-calendar-ui-core.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-ui-core.junit.xml.gz",
+      "sha256": "30cd36a8ac3557d3c98775917554ba35fb5d6371371d66b5c0e2006617815193"
+    },
+    "p11-calendar-ui-core.log": {
+      "path": "docs/engineering/evidence/p11-calendar-ui-core.log.gz",
+      "sha256": "c0a397b387b1f3979beaf70ba7f44de30a8fa2de6e4f42c8eeeea9f081e92224"
+    },
+    "p11-calendar-ui-lint.exit": {
+      "path": "docs/engineering/evidence/p11-calendar-ui-lint.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05"
+    },
+    "p11-calendar-ui-lint.log": {
+      "path": "docs/engineering/evidence/p11-calendar-ui-lint.log.gz",
+      "sha256": "789ff02dfde8cb6e6ab440b677472981dc799296242029effbc9501e171971c0"
+    },
+    "publish-p11-calendar.py": {
+      "path": "docs/engineering/evidence/publish-p11-calendar.py.gz",
+      "sha256": "971071d1bcb65af53d22e9bdc424a9327b3eac04ea436bb70fc6ead46a36c20b"
+    },
+    "whole/browser.json": {
+      "path": "docs/engineering/evidence/p11-calendar-whole.browser.json.gz",
+      "sha256": "e34a63ba73fabed05ddff4ac522f045704b4388649518da8e002a1097e711e59"
+    },
+    "whole/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-whole.browser.junit.xml.gz",
+      "sha256": "5e167efed54b4d884adc0bda42acae7bcddfeeb330f04e9391229f1450be35b7"
+    },
+    "whole/fixture.json": {
+      "path": "docs/engineering/evidence/p11-calendar-whole.fixture.json.gz",
+      "sha256": "0a5db12731b2e2923e1b66e0343fa0bbeb7ea3ba120886d69482b9e4cdf01194"
+    },
+    "whole/runtime.json": {
+      "path": "docs/engineering/evidence/p11-calendar-whole.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "whole/run.log": {
+      "path": "docs/engineering/evidence/p11-calendar-whole.run.log.gz",
+      "sha256": "2957115cd5be30600e909c27e659f5bf8e59a1a736f1fccfc20e6623e565428e"
+    },
+    "whole/server.log": {
+      "path": "docs/engineering/evidence/p11-calendar-whole.server.log.gz",
+      "sha256": "9a0e2eba887d8098e4347e3aa2039936a745d64b54592a478c467be5c396e699"
+    },
+    "first-failed/browser.json": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed.browser.json.gz",
+      "sha256": "3bf8215f5893525e7d0a2afa0897b4017ca519c8be77d42d754a089a48ba6815"
+    },
+    "first-failed/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed.browser.junit.xml.gz",
+      "sha256": "65d6474c482a6c40986471830959f2208f830903e0964f37943892c5d009fc71"
+    },
+    "first-failed/fixture.json": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed.fixture.json.gz",
+      "sha256": "a7e8c5aa45353e7336357dccb11c6f1ba88aaa4126cb7b519b5dffc59ff67f8e"
+    },
+    "first-failed/runtime.json": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "first-failed/run.log": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed.run.log.gz",
+      "sha256": "89b468697874039e4db8d71b16d40a66a6bf5bf211f67afed460e3eb4e5d188b"
+    },
+    "first-failed/server.log": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed.server.log.gz",
+      "sha256": "61d63e7e5384eaeb33f63a405c43e1b537abe6f9afeb384c71b242ed4b2d6620"
+    },
+    "second/browser.json": {
+      "path": "docs/engineering/evidence/p11-calendar-second.browser.json.gz",
+      "sha256": "4e343dd95afc7f89cacba8590332842fe338f73882c8fe5e12609d53fecb6fec"
+    },
+    "second/browser.junit.xml": {
+      "path": "docs/engineering/evidence/p11-calendar-second.browser.junit.xml.gz",
+      "sha256": "13042b3452ba0375597dc743a4a7e2421afa2318de08f15f2b2177b043d484b5"
+    },
+    "second/fixture.json": {
+      "path": "docs/engineering/evidence/p11-calendar-second.fixture.json.gz",
+      "sha256": "53a23277ef4dc170de302d6bc944ff7312282b3b7f175a1453d17a8d2bf0e328"
+    },
+    "second/runtime.json": {
+      "path": "docs/engineering/evidence/p11-calendar-second.runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be"
+    },
+    "second/run.log": {
+      "path": "docs/engineering/evidence/p11-calendar-second.run.log.gz",
+      "sha256": "5ac90f2b10ad05180dd21ce7dc08cc7243ecd32b4a0227c12f346351bab466a1"
+    },
+    "second/server.log": {
+      "path": "docs/engineering/evidence/p11-calendar-second.server.log.gz",
+      "sha256": "e6541b13ffdb64e143a44773cd0dbbe61f3d88f227e94038130a513a158a6b09"
+    },
+    "calendar-390-dark.png": {
+      "path": "docs/engineering/evidence/p11-calendar-390-dark.png",
+      "sha256": "48737a91a5171f1ff192965d60dd23f7e06b408a96edb4520cda31c89058a755",
+      "visuallyInspected": true
+    },
+    "calendar-390-light.png": {
+      "path": "docs/engineering/evidence/p11-calendar-390-light.png",
+      "sha256": "e289a2a194f1182c9f8c32496afe089008ccacecbec1f5d5eed2e42cd9a09319",
+      "visuallyInspected": true
+    },
+    "p11-calendar-browser-first-artifacts/html/data/6cc4265308a9d426de6c1716da33a4389c1cd305.zip": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed-1323f300f0-6cc4265308a9d426de6c1716da33a4389c1cd305.zip",
+      "sha256": "daae1b30d85930e0f162e0b33ebbaf8d55a78ddc9fa495e643645b5f598d6720"
+    },
+    "p11-calendar-browser-first-artifacts/html/data/1f8c0a969c24241a8967c235b5033cc8cc38c73c.md": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed-2389e8a627-1f8c0a969c24241a8967c235b5033cc8cc38c73c.md.gz",
+      "sha256": "c863f80f3e2d5532b5f5359f59a49934195fbbc823927494d21c8e2a04e1229f"
+    },
+    "p11-calendar-browser-first-artifacts/results/calendar-P11-reviewed-time-4cd6c--deadline-or-finance-change-chromium/error-context.md": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed-52dbda7c50-error-context.md.gz",
+      "sha256": "c863f80f3e2d5532b5f5359f59a49934195fbbc823927494d21c8e2a04e1229f"
+    },
+    "p11-calendar-browser-first-artifacts/results/calendar-P11-reviewed-time-4cd6c--deadline-or-finance-change-chromium/trace.zip": {
+      "path": "docs/engineering/evidence/p11-calendar-first-failed-8604adb4b0-trace.zip",
+      "sha256": "daae1b30d85930e0f162e0b33ebbaf8d55a78ddc9fa495e643645b5f598d6720"
+    }
+  },
+  "findings": [
+    "First3-case browser run:2passed/1failed because the unknown-write review modal blocked navigation. Add explicit defer without discarding the session-owned reviewed request; native retry now retains identical body/key after actual tab navigation. No assertion/deadline/retry relaxation.",
+    "Initial390px month titles were unreadably narrow. Mobile count cells plus selected-day details preserve readable titles; inspected real light/dark390x844screens after native source/state assertions.",
+    "Seven actual SDK REDs exposed source/time/patch inconsistencies; identity/time/confirmation checks now refuse malformed confirmable results.",
+    "Calendar projection reuses canonical task filter/ACL and existing FamilyPlan policy, plans virtual slots without materialization. Timed intervals and deadline changes stay separate. One virtual drag→cancel→confirm creates one P10exception without changing currentTask/reward/cash.",
+    "Local wall times enumerate real named-zone choices including DST folds and half-hour transitions; gaps cannot silently shift.",
+    "Fresh internal query precedes bounded visible-window ICS download; UTF8folding and text escaping preserve Unicode and prevent property injection. No publicfeed credentials/provider."
+  ],
+  "review": {
+    "independent": false,
+    "scope": "author inspection of current SQL ACL/privacy retirement/session-owned immutable packet/I01 trustedseries composition/clock semantics/ICS and DESIGN tokens"
+  },
+  "remaining": [
+    "Not fullP11/P13: ICSimport and consolidatedcontent import tools remain P13. Future/allseries edits use the existing task recurrence editor; FamilyPlan editing uses the existing authorized source.",
+    "Existing42Productivity+nativeTouch and65Wallet browser suites were not repeated for this functional group; final composed Windows must include allparents and newCalendar harness.",
+    "NewCalendar browser harness is not yet wired to finalWindows CI; I03 must make it mandatory, not silently omit it.",
+    "W18 capacity/retention/legacybridge/Asset/networth/cutover, remainingP/M1/I02/I03/master remain.",
+    "Windows2022 Node22/24/otherengines/package/service and actualServer2019R02 are unrun for this source. No release/tag/VPS."
+  ]
+}

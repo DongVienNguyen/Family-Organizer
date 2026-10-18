@@ -2,6 +2,23 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P11 Calendar/Timeline core (2026-10-18):** source `c84376879fea854f5d3b03d16fb34ab6fd6aa4a0` adds four
+views, current-ACL task/FamilyPlan/virtual projection, reviewed independent
+timeboxes and one-cycle moves through I01/P10, explicit DST choices, navigation-
+safe unknown requests, readable phone month details and fresh authorized ICS
+window download. No schema/automatic activation/package-cap change.
+Cloud full8459tests507files/matching JUnit, zero failed-skipped-todo;
+all8409 parent cases +50 retained (2W17system+48P11), lint/build0.
+Whole Calendar Chromium4/4/native0/firstattempt/offline/owned13Taskfixture/
+normal-stop/integrity/closed/cleaned/source-build-bound. Actual modal navigation
+and narrow mobile-title failures corrected; original failed reports/trace kept.
+[Details](productivity-calendar.md), [proof](evidence/p11-calendar-development.json).
+Author inspection only; PR/CI URLs:none for this source; backup branch.
+P11ICSimport→P13; future/allseries edits reuse the existing task editor.
+Next P12collaboration/reminders and remainingP/W18/M1/I02/I03, then final composed
+Windows including allparents+Calendar harness. ActualServer2019R02 unrun;
+no release/tag/VPS. Separate PR136 historical greenCI is not this source's CI.
+
 **W17 protected recovery subset (2026-10-18):** source `6c60ef308d249dc49de8d09ea4af118efa62247e` adds two
 synthetic system checks and lint0, JSON/JUnit/native0. Actual live WAL encrypted
 capture → independent installation restore → runtime restart preserves every
