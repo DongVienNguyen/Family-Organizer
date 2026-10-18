@@ -14,7 +14,7 @@ import {validateTaskComment} from './taskPolicy.js';
 import {validateContentHeader} from './contentInput.js';
 import { backupOccurrence, digestOccurrence } from './providerOccurrences.js';
 import {createRealtimeHub} from './realtime.js';
-import {isAdult,canViewLegacyTask,canonicalLegacyTagNames,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canEditLegacyTask,canEditLegacyNote} from './legacyVisibility.js';
+import {isAdult,canViewLegacyTask,canonicalLegacyTagNames,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacySavingsGoal,canViewLegacyPatient,canViewLegacyNotification,canEditLegacyTask,canEditLegacyNote} from './legacyVisibility.js';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -377,7 +377,7 @@ const requireRole = (roles: UserRole[]) => {
 const projectSavingsGoals=(session:NonNullable<AuthRequest['userSession']>,goals:Parameters<typeof projectLinkedGoals>[1])=>{const actor={userId:session.userId,role:session.role};return dependencies.wallet?.links?dependencies.wallet.links.projectGoals(actor,[...goals]):projectLinkedGoals(actor,goals);};
 const canViewSavingsGoal = (goal: { isShared: boolean; creatorId: string }, session: AuthRequest["userSession"]) => {
   if (!session) return false;
-  return goal.isShared===true || goal.creatorId === session.userId;
+  return canViewLegacySavingsGoal(goal,session);
 };
 
 const canManageSavingsGoal = (goal: { isShared: boolean; creatorId: string }, session: AuthRequest["userSession"]) => {

@@ -3,7 +3,7 @@ import {createHmac} from 'node:crypto';
 import {UserRole,type FamilyOrganizerDB,type Notification} from '../src/types.js';
 import {AppStoreError} from './appErrors.js';
 import {walletDerivedNotificationSource,type WalletNotificationSource} from '../src/features/wallet/notificationContract.js';
-import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canonicalTaskPolicyActive,type LegacyActor} from './legacyVisibility.js';
+import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacySavingsGoal,canViewLegacyPatient,canViewLegacyNotification,canonicalTaskPolicyActive,type LegacyActor} from './legacyVisibility.js';
 export function legacyReader(db:FamilyOrganizerDB,userId:string):LegacyActor {
  const user=db.users.find(row=>row.id===userId&&!row.isDeleted&&Object.values(UserRole).includes(row.role));
  if(!user)throw new AppStoreError('Bạn không có quyền truy cập dữ liệu này.',403);
@@ -25,6 +25,7 @@ function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['
   case 'task':return db.tasks.some(row=>row.id===ref.id&&canViewLegacyTask(row,actor));
   case 'plan':return db.plans.some(row=>row.id===ref.id&&canViewLegacyPlan(row,actor));
   case 'note':return db.notes.some(row=>row.id===ref.id&&canViewLegacyNote(row,actor));
+  case 'goal':return db.savingsGoals.some(row=>row.id===ref.id&&canViewLegacySavingsGoal(row,actor));
   case 'document':return db.documents.some(row=>row.id===ref.id&&canViewLegacyDocument(row,actor));
   default:return false;
  }
@@ -66,7 +67,7 @@ export function projectRewards(db:FamilyOrganizerDB,actor:LegacyActor,privacyKey
 export function projectActivityLogs(db:FamilyOrganizerDB,actor:LegacyActor) {
  if(actor.role!==UserRole.ADMIN)throw new AppStoreError('Bạn không có quyền xem nhật ký.',403);
  return db.activityLogs.map(log=>{
-  const hidden=log.sourceRef?!sourceVisible(db,actor,log.sourceRef):log.action==='Giấy tờ';
+  const hidden=log.sourceRef?!sourceVisible(db,actor,log.sourceRef):['Giấy tờ','Tiết kiệm'].includes(log.action);
   if(!hidden)return {...log};
   const {sourceRef,...safe}=log;
   return {...safe,details:'Nội dung được ẩn vì không xác minh được quyền xem nguồn.'};

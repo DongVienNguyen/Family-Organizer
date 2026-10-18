@@ -1885,7 +1885,7 @@ export class FamilyDB {
     };
     db.savingsGoals.unshift(goal);
     this.writeRaw(db);
-    this.logActivity(userId, username, "Tiết kiệm", `Đã tạo mục tiêu "${goal.name}".`);
+    this.logActivity(userId, username, "Tiết kiệm", `Đã tạo mục tiêu "${goal.name}".`,{domain:'goal',id:goal.id});
     return goal;
 
     });
@@ -1899,7 +1899,7 @@ export class FamilyDB {
     assertNoActiveFinancialHistory(currentAppWriteTx(),'goal',id);
     db.savingsGoals = db.savingsGoals.filter(g => g.id !== id);
     this.writeRaw(db);
-    this.logActivity(userId, username, "Tiết kiệm", `Đã xóa mục tiêu "${goal.name}".`);
+    this.logActivity(userId, username, "Tiết kiệm", `Đã xóa mục tiêu "${goal.name}".`,{domain:'goal',id:goal.id});
 
     });
   }
