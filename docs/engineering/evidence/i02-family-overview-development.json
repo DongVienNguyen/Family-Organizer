@@ -1,0 +1,799 @@
+{
+  "task": "I02",
+  "scope": "Cloud functional family overview, typed read-only Wallet Calendar dates, current-authority linked search and explicit Wallet locale; composed I02 regression",
+  "sourceSha": "29f7b30a8f61ec739938e63a922a5a882055ca23",
+  "productionAndBuildSourceSha": "99bc01d46b5c4bd9c29b4c676eee313bf57aea73",
+  "productionTreeByteIdentical": true,
+  "prUrl": null,
+  "ciRunUrl": null,
+  "unit": {
+    "tests": 9052,
+    "files": 598,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "junitTests": 9052
+  },
+  "parentPreservation": {
+    "parentSourceSha": "3a2b371c23dfa138e638ec382d1f37b8d6399cad",
+    "sourceSha": "29f7b30a8f61ec739938e63a922a5a882055ca23",
+    "parentTests": 8999,
+    "currentTests": 9052,
+    "added": 53,
+    "removed": 0,
+    "normalization": "Only existing recoveryRetention synthetic temporary-root text; no parent assertion changes."
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "chromium": {
+    "tests": 12,
+    "firstAttemptsInQualifiedRuns": true,
+    "harnesses": [
+      {
+        "feature": "family",
+        "tests": 8,
+        "fixture": {
+          "commitSha": "9e7c49b45e2d889cb655164bad2dd6ce8f6a17bc",
+          "project": "chromium",
+          "platform": "linux",
+          "nodeVersion": "v24.21.0",
+          "synthetic": true,
+          "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+          "build": {
+            "server": "fe274d789cc94040731d4c99edbd282433a38b4b7f3811de84f312a7cd4ba4fe",
+            "index": "bf54065c441184387436432186c878efcc512aa0b8d8c365981310169ce5c9da"
+          },
+          "fixtureRemoved": true,
+          "databaseClosed": true,
+          "legacyPreserved": true,
+          "networkAttempts": [],
+          "serverExitCode": 0,
+          "browserExitCode": 0,
+          "error": null,
+          "seed": {
+            "synthetic": true,
+            "productivityVersion": 24,
+            "kanbanFixture": {
+              "taskRowsPreserved": true,
+              "boards": 2,
+              "views": 9
+            },
+            "fixtureProject": "chromium",
+            "users": 4,
+            "tasks": 13,
+            "nativeHandlesClosed": true,
+            "notificationFixture": {
+              "explicit": true,
+              "frozen13Preserved": true,
+              "taskRowsPreserved": true,
+              "notificationsCreated": 0
+            },
+            "templateFixture": {
+              "explicit": true,
+              "frozen14Preserved": true,
+              "taskRowsPreserved": true,
+              "templatesCreated": 0
+            },
+            "contentFixture": {
+              "explicit": true,
+              "frozen15Preserved": true,
+              "taskRowsPreserved": true,
+              "linksCreated": 0
+            },
+            "attachmentFixture": {
+              "explicit": true,
+              "frozen16Preserved": true,
+              "taskRowsPreserved": true,
+              "attachmentsCreated": 0
+            },
+            "dataFixture": {
+              "explicit": true,
+              "frozen17Preserved": true,
+              "taskRowsPreserved": true,
+              "importsCreated": 0
+            },
+            "focusFixture": {
+              "explicit": true,
+              "frozen18Preserved": true,
+              "taskRowsPreserved": true,
+              "sessionsCreated": 0
+            },
+            "habitFixture": {
+              "explicit": true,
+              "frozen19Preserved": true,
+              "taskRowsPreserved": true,
+              "habitsCreated": 0
+            },
+            "trackingFixture": {
+              "explicit": true,
+              "frozen20Preserved": true,
+              "taskRowsPreserved": true,
+              "remindersCreated": 0
+            },
+            "insightFixture": {
+              "explicit": true,
+              "frozen21Preserved": true,
+              "taskRowsPreserved": true,
+              "eventsCreated": 0,
+              "notesCreated": 0
+            },
+            "preferencesFixture": {
+              "explicit": true,
+              "frozen22Preserved": true,
+              "taskRowsPreserved": true,
+              "settingsCreated": 0
+            },
+            "walletVersion": 16,
+            "familyFixture": {
+              "explicit": true,
+              "frozen23Preserved": true,
+              "taskRowsPreserved": true,
+              "linksCreated": 0,
+              "cashAccountId": "34f78089-0744-41f6-85ae-634e7d4d6e3b",
+              "usdAccountId": "78fa2018-4f47-4570-ada2-93086e8de7da"
+            }
+          },
+          "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "browserSignal": null,
+          "serverSignal": null,
+          "integrity": "ok"
+        },
+        "productionAndE2eTreeIdenticalToUnitSource": true
+      },
+      {
+        "feature": "calendar",
+        "tests": 4,
+        "fixture": {
+          "commitSha": "29f7b30a8f61ec739938e63a922a5a882055ca23",
+          "project": "chromium",
+          "platform": "linux",
+          "nodeVersion": "v24.21.0",
+          "synthetic": true,
+          "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+          "build": {
+            "server": "fe274d789cc94040731d4c99edbd282433a38b4b7f3811de84f312a7cd4ba4fe",
+            "index": "bf54065c441184387436432186c878efcc512aa0b8d8c365981310169ce5c9da"
+          },
+          "fixtureRemoved": true,
+          "databaseClosed": true,
+          "legacyPreserved": true,
+          "networkAttempts": [],
+          "serverExitCode": 0,
+          "browserExitCode": 0,
+          "error": null,
+          "seed": {
+            "synthetic": true,
+            "productivityVersion": 13,
+            "kanbanFixture": {
+              "taskRowsPreserved": true,
+              "boards": 2,
+              "views": 9
+            },
+            "fixtureProject": "chromium",
+            "users": 4,
+            "tasks": 13,
+            "nativeHandlesClosed": true
+          },
+          "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "browserSignal": null,
+          "serverSignal": null,
+          "integrity": "ok"
+        },
+        "productionAndE2eTreeIdenticalToUnitSource": true
+      }
+    ]
+  },
+  "imagesInspected": [
+    "payment-editor-390-light.png",
+    "payment-editor-390-dark.png",
+    "payment-review-390-light.png",
+    "payment-review-390-dark.png",
+    "overview-390-light.png",
+    "overview-390-dark.png"
+  ],
+  "regressions": [
+    "Actual frozen-slot RED: changing schedule12345 to98765 changed an existing pending due projection. It now reads frozen slot facts and old account authority; revocation hides it.",
+    "New search import and two TypeScript annotation errors retained and fixed.",
+    "First full9051/9052: existing VM realtime fixture lacked the new real App family setter. Added an actual updater plus stronger invalidation-order/payment-refresh/noTaskReward-reload assertions; production and E2E unchanged.",
+    "First Chromium7/8: actual native source ID/selected readonly schedule was correct, but test expected an editor without pressing Edit. Repair verifies GET source ID/pressed state/selected heading, explicitly opens Edit, retains original field-value assertion and adds zero-money check. Production bundle unchanged."
+  ],
+  "limits": [
+    "Linked search covers owner relationships; this is not a replacement for all canonical Wallet search or the unfinished legacy writer bridge.",
+    "Generic link creation/archive UI and all non-Task/record/schedule source navigation are not fully browser-qualified.",
+    "Overview390 screenshots verify list/theme fit; they do not show every overview card in a single viewport.",
+    "Other browser parents were not repeated here. Thirteen feature harnesses not yet mandatory Windows.",
+    "Independent review and WalletAsset/unifiednetworth/legacybridge, P18/W18 capacity/performance/pilot, M1/I03 and final Windows remain open.",
+    "No new PR/Actions, Node22/Firefox/WebKit/touch/package/service or actual Server2019 qualification. R02 separate/unrun; no release/tag/VPS/PCrunner."
+  ],
+  "sources": {
+    "server/domainLinks.api.test.ts": "16d60fd098605b2eb6425c3d7a502ea84110fce58e7d8a2da7862fb9d6871648",
+    "server/domainLinks.test.ts": "e77b45d96ead11661d79347eaee840cab6abb1ecc9d051dde831883e2f8788cb",
+    "server/domainLinks.ts": "6cebf54f34e87cd48dde90b5751882c49627fe6d6714b130c3da967ca44a8921",
+    "server/domainLinksRouter.ts": "06e5c3fa2f92fdf38de3823fb3d0fbb316456fefa04eb4bb33935b5b152e7b93",
+    "server/familyOverview.test.ts": "c1c71ffa02166f318a2c4d1b816cd22795555699809b917af7e93c6da426af8d",
+    "server/familyOverview.ts": "f31cd33b8d230c99d516e14229efb16813729a6b2f12675a970a5566ffa90577",
+    "server/productivity/ports.ts": "469d21829b24573975dbee0ec4ad797c35e292c343ef1833f00c686f85521e98",
+    "server/productivity/router.ts": "b2f76e242943f2bd917574706972402dd67f6c208c20c97456dc7cbd4f85136f",
+    "src/App.tsx": "da83bd7bfe0780ccd268847b86acea756a0fdfda6f6ac2d0ee17197f7da6ffd3",
+    "src/components/Dashboard.tsx": "1df148ab0679532e50b5f4c924d1582824605542718d305775b7727473ee1dc8",
+    "src/components/GlobalSearch.tsx": "652e9fb959c0416d1e815b8edbcc700ef28500983d4afd6a2e98fb22b776b40e",
+    "src/features/productivity/CalendarWorkspace.tsx": "0a7e9c5c6ba0d9c51807883f93ee137a42a77f0fb142da70563e25747c5d07a0",
+    "src/features/productivity/useTasks.tsx": "332b1c0f805f6fd00e7d89f4e679a890e907230eed38260db7508b69007490b6",
+    "src/features/shared/FamilyOverviewPanel.tsx": "eccf9e0ba4bd4002abe1c3dda25109c008b9591b3da0a4aef18ae6adbcffa049",
+    "src/features/shared/TaskFamilyPanel.tsx": "9059cfc29ba34b50716da384c97c45c4b3bc0173cbd70de6c951d237715dbf6b",
+    "src/features/shared/familyApi.ts": "1d86f44f58a4eda912c5ff87bca7b2a2799ac9321b5330524cd8e51fdefc3e75",
+    "src/features/shared/familyOverview.ts": "bb407337625c461d37b99b996139983b99c1f01018b518f16dc9e2c9b065e6e7",
+    "src/features/shared/familyOverviewDto.test.ts": "0aa091f01222dee53aa9bbc5976107f6816f8656ed755d6581945e4ec4a3c898",
+    "src/features/shared/familyOverviewDto.ts": "393b60b5ccc8fa4c41e54eafd242bb45a99abff0f8263430f0258663e44963b4",
+    "src/features/shared/familyOverviewWorkspace.test.ts": "3fcdba28cbfbb6cd279ae2717c9a62a3f637bdbb555572004f5d30ec12a4adfa",
+    "src/features/shared/familyOverviewWorkspace.ts": "9417cf2d8b53246c0f94a7942202ac3da235d6704739bebfc3650d2e88354889",
+    "src/features/shared/useFamilyOverview.ts": "ca4211bda4c9f22ec8dfba6bfb42226f86396887b85113af39e0cce02b605cda",
+    "src/i18n/locales/en.json": "0893f044f1da8456509a99df06eab062fcc8ee365f00363824bf60fc3de5782a",
+    "src/i18n/locales/vi.json": "0c881364f35ca851d85e0b9abbb64b599b36652b2083e654065294f30565f6ad",
+    "src/i18n/locales/zh.json": "3fcb979170d2791732153e52526fd8d7b91c17af4cd01d4f487e3c63bd6dacd0",
+    "tests/e2e/family-links.spec.ts": "eac587474acc9bde9587eb6d8d1328857603c8c301f9ebc96432da6940ffbfd8",
+    "tests/ui/realtime-session.test.ts": "c25cb76d5c4250a86094ad9b78c951e056780a6cb7bad57faf752601564dacf7"
+  },
+  "artifacts": [
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full-first-failed.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full-first-failed.json.gz",
+      "sha256": "99da69f90dbda4a39465cf57691d10b3e0686923aaa9df073afef37ab7455e29",
+      "sourceBytes": 2719991
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full-first-failed.junit.xml.gz",
+      "sha256": "6be1ba859c7768c6311fd15fca36d0c17fdcaa279f012e56a06aa2b648c69948",
+      "sourceBytes": 1894800
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full-first-failed.log.gz",
+      "sha256": "133a307b7e14e3c44f42addf44f2c5c2b37c9bb66bc9e459e8a095e97646258a",
+      "sourceBytes": 124888
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full.json.gz",
+      "sha256": "c5c910233a0028a49d84d3eb2039a3eeecde9010b8961124172f9488c774fe59",
+      "sourceBytes": 2719140
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full.junit.xml.gz",
+      "sha256": "489fbee835479d7091ef015f1bee62b3c255c446b4606a6239d8d5ea7387e373",
+      "sourceBytes": 1894470
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-full.log.gz",
+      "sha256": "7e59d4e844c2e8c2bc8237cb7eee1dc7e9f330957eaada6e71a18d55a4071241",
+      "sourceBytes": 123552
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-composed-source.sha.gz",
+      "sha256": "3fdfa99602a70db6d32b1e41bda9c0c940f9afbe7e95a524fd5a9ee88e9a185b",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-api-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-api-first.json.gz",
+      "sha256": "be3dacc2bdb380944a3b87506fda937eb6d247ff09e9ef4d0dbc0fd968249e28",
+      "sourceBytes": 6465
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-api-first.junit.xml.gz",
+      "sha256": "88d869cf99b3b3c1160ad526c60b0ef1fffdf35efba60bafff183291c02a9892",
+      "sourceBytes": 4231
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-api-first.log.gz",
+      "sha256": "db4d31a3a7d9c1548dc02dcffccdc7c4cf34a1321ba5aa5dba54f9b0d868f2e5",
+      "sourceBytes": 1772
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-browser-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-browser-first.log.gz",
+      "sha256": "6d72b37ef8a06b45303c233787a03b003d9512c32e9bfbf847e31de8bf8186cf",
+      "sourceBytes": 8621
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-browser-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-browser-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-browser-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-browser-second.log.gz",
+      "sha256": "424ea1e63db55a2099fc19721c941461ffd9ea34c682e7731051dc86964f5ee2",
+      "sourceBytes": 1799
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-build-first.log.gz",
+      "sha256": "6c35207af456c2db4e0e653289f7a0cdcbeb9285af6084215d7ed70e9e5a3a16",
+      "sourceBytes": 2084
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-final-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-final-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-frozen-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-frozen-fixed.json.gz",
+      "sha256": "e5c1019ccfa22f0292692a361147746c78b49cbbe4bd46b47da9ad0a2ee2cbe0",
+      "sourceBytes": 3319
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-frozen-fixed.junit.xml.gz",
+      "sha256": "f737b9ee34d161db1b70c7075df543cf376c3023a870c3a0856a023e06fe668e",
+      "sourceBytes": 1948
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-frozen-fixed.log.gz",
+      "sha256": "94893cd8412264a3714493308c676c10fb9da292cc9b6d512a7f28c08b5b60f9",
+      "sourceBytes": 1202
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-frozen-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-frozen-red.json.gz",
+      "sha256": "cc6fbd8a0f46c6765a16a10441ff76f3ad9459d16d3654e7abef22e3169766f1",
+      "sourceBytes": 4386
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-frozen-red.log.gz",
+      "sha256": "bd655fd3b7805504fa130110e65551d030ee4d8a7e781592348820ff5e5cb38e",
+      "sourceBytes": 2724
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-first.json.gz",
+      "sha256": "22f6e4d5e5aa802205b51b0e2305f25176725b79dcc63b2dc942cd8fea3bc2d9",
+      "sourceBytes": 7578
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-first.junit.xml.gz",
+      "sha256": "e3d10120b4d4b1baaa258e525d15ea89617686dcf740fe86b703d057f32b054c",
+      "sourceBytes": 4554
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-first.log.gz",
+      "sha256": "f7e68e0826fff71091e1fcd4333c980bf4b9b1572372ed1e27ecedf8bef39d25",
+      "sourceBytes": 4930
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-red.json.gz",
+      "sha256": "671916885edb7e3df2c7bc0b5b065300ca7c6b2364d4c45adaf6b72baaf0b10f",
+      "sourceBytes": 766
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-red.log.gz",
+      "sha256": "5ccb44b2fc41adf3c03590803794298122fcbd4213d2dc5e1cbc1dca9fe29489",
+      "sourceBytes": 1161
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-second.json.gz",
+      "sha256": "639d491b1641e25093696fb912283ec498893027485d7739df34dd759b427338",
+      "sourceBytes": 2919
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-second.junit.xml.gz",
+      "sha256": "4615b11610272f3cbcfad465fd7b193349c57b130815507629409618c5ba6839",
+      "sourceBytes": 1707
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-native-second.log.gz",
+      "sha256": "63f74131953c6d664e6db1361340ba697f9f9acb6633dda36711a3acd5042277",
+      "sourceBytes": 1206
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-navigation-repair-commit.log.gz",
+      "sha256": "fcc02cb00e23dc3983768960a582d2714c1eb63a2d11315cb4381a2b8208614d",
+      "sourceBytes": 154
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-qualified-source.sha.gz",
+      "sha256": "ae59003cebd5cfa5ecaf3da696f6cd3feaf0519e2172583482765698d85c5562",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-ready-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-ready-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-realtime-commit.log.gz",
+      "sha256": "f888161be82086b30a174c2cf75a0555ae30e2b16d0a47083f2d7f2696a88bac",
+      "sourceBytes": 157
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-realtime-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-realtime-fixed.json.gz",
+      "sha256": "6c9b0ffeda725b0f6f8b29a879acb066cd2234ff1a5da16904126dd1fce6c915",
+      "sourceBytes": 2087
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-realtime-fixed.junit.xml.gz",
+      "sha256": "0a2fe2a244c0cb3a05709ee30bfe3a165b6c60c7fad5b40fdcdcfcdbbd5454c0",
+      "sourceBytes": 1275
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-realtime-fixed.log.gz",
+      "sha256": "b192280a7d7c17544d9682b329aef8f4b9a9f8b8273e5dde3580374d4700c65a",
+      "sourceBytes": 960
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-related.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-related.json.gz",
+      "sha256": "9947ac8a27f6cc5467c1b9ff2d69fe95c52c5291f9d394c1e4477b453a910bbf",
+      "sourceBytes": 28299
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-related.junit.xml.gz",
+      "sha256": "c83dfcd616b2046a49b69697fe35b6ce638e49a72ae42218a81a5974464be303",
+      "sourceBytes": 18750
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-related.log.gz",
+      "sha256": "50d88292be756047d9e99dafb52df3483070edcdda46b3002cdff73f13f90217",
+      "sourceBytes": 2836
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-first.json.gz",
+      "sha256": "822fbb7823c860ed69b3268220a1d6f8bd3f82131121ab8b4c87f91cacdbd8b4",
+      "sourceBytes": 14617
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-first.junit.xml.gz",
+      "sha256": "3a1423ed51da10a1a89b27b2b2d94427243a8e0264d6560345dea87565e83fa5",
+      "sourceBytes": 9286
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-first.log.gz",
+      "sha256": "7ed64771dd8e46e7a0984b44438545ed3464b32e15671ede65e68e59e173a235",
+      "sourceBytes": 4041
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-lint-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-lint-first.log.gz",
+      "sha256": "b273f9529117a916d426ec87f62cd6cdae39632e4b2c2abecb68381a13fda4fb",
+      "sourceBytes": 1025
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-lint-second.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-lint-second.log.gz",
+      "sha256": "3224e75ba3400cd4080c0c112b13a1b0aad5eec579229e062573357e47bf0ce1",
+      "sourceBytes": 948
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-second.json.gz",
+      "sha256": "a106853f092e6ab18f6316a45628573c4ed58c7bc6e54de848697312c8cb6927",
+      "sourceBytes": 13677
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-second.junit.xml.gz",
+      "sha256": "762dd12b52c74c9ef19732154ecfd0898dd048c44b0813ffbdc0ce898bb3c32d",
+      "sourceBytes": 9033
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-search-second.log.gz",
+      "sha256": "ff39c1c68a3942a9a29317b7640d6ddfc21e2fd0ed4d26c0278c9bf7138b1b55",
+      "sourceBytes": 2332
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-source-commit.log.gz",
+      "sha256": "18830a04a47a163b38f3cac26594d0a914378a12cb805b0fc2000cec32879398",
+      "sourceBytes": 708
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-source.sha.gz",
+      "sha256": "6296bb49f08966e79da1d7655de4f859d297585177ebfddf3f931b1c57845825",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-ui-lint-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-overview-ui-lint-first.log.gz",
+      "sha256": "3224e75ba3400cd4080c0c112b13a1b0aad5eec579229e062573357e47bf0ce1",
+      "sourceBytes": 948
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-parent-calendar.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-parent-calendar.log.gz",
+      "sha256": "bba8d9e77cce618428330fd4ced30d702c60c298d87155be92eaf75388d1bb0c",
+      "sourceBytes": 940
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/i02-parent-preservation.json.gz",
+      "sha256": "58c853a09825b802dffbbf51dafe5d1f98d9fbf85ab5b42fce3ac5c8b082e2da",
+      "sourceBytes": 319
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/payment-editor-390-dark.png",
+      "sha256": "20ec73a7fa558bb01f40c2dcb3b88430d9e98f02108f922c7783bdbbcb8fc47d",
+      "sourceBytes": 60234
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/browser.junit.xml.gz",
+      "sha256": "cb92578afae97cca474697edd63a6ce26c16a25d7e51a28043f82eb831fa5a74",
+      "sourceBytes": 1893
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/overview-390-dark.png",
+      "sha256": "b5547d96020ca6474a67c6ec4b89878727193c8f4fe63f7803ad1bfeedf78d9f",
+      "sourceBytes": 97516
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/run.log.gz",
+      "sha256": "424ea1e63db55a2099fc19721c941461ffd9ea34c682e7731051dc86964f5ee2",
+      "sourceBytes": 1799
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/fixture.json.gz",
+      "sha256": "4c1f1c10d2852e75d718249ad33695b02a81c391294cd63649e925d045f0af6a",
+      "sourceBytes": 2825
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/payment-review-390-light.png",
+      "sha256": "4207f6412b749f158bb24750e7c0077a2d45ca42e423af0129490f9ed9c12547",
+      "sourceBytes": 61318
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/payment-editor-390-light.png",
+      "sha256": "906ce5a623b195a73f793417c215d41314abfe4bbb52b8ea77f376fb88e2c601",
+      "sourceBytes": 60982
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/browser.json.gz",
+      "sha256": "29ef60a8914a2d1b32aabc2301dbffcd8224244ec3b0e84a0fa0a467f0169202",
+      "sourceBytes": 13403
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/server.log.gz",
+      "sha256": "024dccd3650e7d1786332f93f0bc1fc71b76404a7572871b0adad4c48317afd7",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/overview-390-light.png",
+      "sha256": "9534930c062879b276c94dcacd2611866c579fd6e98c94ff58c0422a9fa0d107",
+      "sourceBytes": 98033
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/payment-review-390-dark.png",
+      "sha256": "d7e754f1c832300ff5a8aa38d59cf720fbcf3167f3be723f7178a36f71103011",
+      "sourceBytes": 59744
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-family/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/browser.junit.xml.gz",
+      "sha256": "16af497c432828840f4abf90b82760308e678a8b455e8e54714547eed331ff59",
+      "sourceBytes": 1011
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/calendar-390-dark.png",
+      "sha256": "1ac5c66f78172d130116406a481a3f542b25cba1dd2e91f148ab0473a317ed45",
+      "sourceBytes": 85670
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/calendar-390-light.png",
+      "sha256": "dc7d87386d95dffe0ff9556bb4217eb53e52db3aac95333cde7bd13eb5f3ff9f",
+      "sourceBytes": 83443
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/run.log.gz",
+      "sha256": "bba8d9e77cce618428330fd4ced30d702c60c298d87155be92eaf75388d1bb0c",
+      "sourceBytes": 940
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/fixture.json.gz",
+      "sha256": "203b78bba24646ad5747e054868488e8d705ede55d92ff4f9ad4780c19230449",
+      "sourceBytes": 1017
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/browser.json.gz",
+      "sha256": "b8ac3877f13bb5e0e1805e3b71f16bce51d639b2f164a0a1b93a7f8028e1a4a1",
+      "sourceBytes": 8806
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/server.log.gz",
+      "sha256": "899de22041dac7f6a08236a043405147948cf9d3b334ea5df89e39e0524fe51a",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/browser-calendar/results/.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "sourceBytes": 45
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/payment-editor-390-dark.png",
+      "sha256": "20ec73a7fa558bb01f40c2dcb3b88430d9e98f02108f922c7783bdbbcb8fc47d",
+      "sourceBytes": 60234
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/browser.junit.xml.gz",
+      "sha256": "6438ae79601b0f30a29e11aac702e4e32e25f706a6e3c3ade13f751bae038c31",
+      "sourceBytes": 8906
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/overview-390-dark.png",
+      "sha256": "9365cd70865abc9d0383ee5c4b001850c5f160be85033ffedced1d2fb3a7e70a",
+      "sourceBytes": 97478
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/run.log.gz",
+      "sha256": "3c9dbedc202b41066cd44989273e8939d62d31c52e4e60a68120bdfc009bb874",
+      "sourceBytes": 8573
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/fixture.json.gz",
+      "sha256": "3250b80ffc0ae3d4e114207440fb5e8aa831bd62fd0c93b9d3889b1b782a2659",
+      "sourceBytes": 2873
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/payment-review-390-light.png",
+      "sha256": "59ca42a53dfff6382efb0be6d3d5c893abe4c9e2024060c280fa282293c5c9ec",
+      "sourceBytes": 61337
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/payment-editor-390-light.png",
+      "sha256": "60763245312a028d4add8b1ca17b6b7f9862140374e147a0a5ce7b9d9dc8862b",
+      "sourceBytes": 60986
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/browser.json.gz",
+      "sha256": "0bbb7f76329da40d35afc36c774ee7a59f5c98ef222a98c5912da16d62f4b626",
+      "sourceBytes": 24504
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/server.log.gz",
+      "sha256": "1cb32ad52085d28fde26bedfb52c96dbe92b96fc14f155418ce671be43f8c83b",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/overview-390-light.png",
+      "sha256": "417cf5066aedaa4ff36b61c7044ffefbe7593d54a370c40b405ee35747e71679",
+      "sourceBytes": 98219
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/payment-review-390-dark.png",
+      "sha256": "d7e754f1c832300ff5a8aa38d59cf720fbcf3167f3be723f7178a36f71103011",
+      "sourceBytes": 59744
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/results/.last-run.json.gz",
+      "sha256": "448d169ef00c62586f3c85a4256ff7665206fb5a39f16e1670b9695a06131e89",
+      "sourceBytes": 96
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/results/family-links-I02-household-15071-nd-open-the-actual-schedule-chromium/error-context.md.gz",
+      "sha256": "c9f1df1bba9fee09170ccaba7d03503629bd82d4ef2e69d6b01a41e0c37f05b0",
+      "sourceBytes": 31581
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/results/family-links-I02-household-15071-nd-open-the-actual-schedule-chromium/video.webm",
+      "sha256": "d1ac1df1e58c7a750dabf19a15ba2048d748d5746c3ade136a49d92343106acc",
+      "sourceBytes": 1233652
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/results/family-links-I02-household-15071-nd-open-the-actual-schedule-chromium/test-failed-1.png",
+      "sha256": "3952230c3010b0ba265ed034277b723a88d7fa4a3a6b306dd6dfa891b41a0403",
+      "sourceBytes": 188700
+    },
+    {
+      "path": "docs/engineering/evidence/i02-family-overview/first-browser-failure/results/family-links-I02-household-15071-nd-open-the-actual-schedule-chromium/trace.zip",
+      "sha256": "3a5381f9e439f67c601cc02ba25eb72eb1521bd0babf23c56cd8d122c3844efa",
+      "sourceBytes": 9158475
+    }
+  ]
+}
