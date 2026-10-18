@@ -1,0 +1,13 @@
+import {object,keys,text,integer,choice} from '../productivity/validation.js';
+import {utcInstant} from '../productivity/dates.js';
+import {normalizeRuleDraft,ruleProposalValue} from './ruleContracts.js';
+import type {WalletRuleHeader,RulePreviewSummary} from '../../../server/wallet/rules.js';
+export function ruleHeaderValue(raw:unknown,id?:string):WalletRuleHeader{
+ const v=object(raw);keys(v,['id','name','priority','revision','archivedAt']);text(v.id,256);text(v.name,500);integer(v.priority,0,1000000);integer(v.revision,1);if(id!==undefined&&v.id!==id)throw Error('Rule identity');if(v.archivedAt!==null)utcInstant(v.archivedAt as string);return {...v} as unknown as WalletRuleHeader;
+}
+export function ruleDetailValue(raw:unknown,id:string){const v=object(raw);keys(v,['id','name','priority','revision','archivedAt','draft']);const {draft,...header}=v,h=ruleHeaderValue(header,id),d=normalizeRuleDraft(draft);if(d.name!==h.name||d.priority!==h.priority)throw Error('Rule header binding');return {...h,draft:d};}
+export function rulePreviewValue(raw:unknown,id?:string):RulePreviewSummary{
+ const v=object(raw);keys(v,['id','hash','revision','state','count','changed','unchanged','createdAt','expiresAt']);text(v.id,256);if(id!==undefined&&v.id!==id||typeof v.hash!=='string'||!/^[a-f0-9]{64}$/.test(v.hash))throw Error('Rule preview identity');choice(v.state,['ready','applied']);integer(v.revision,1,2);if(v.revision!==(v.state==='ready'?1:2))throw Error('Rule preview revision');integer(v.count,0,10000);integer(v.changed,0,10000);integer(v.unchanged,0,10000);if(v.changed+v.unchanged!==v.count)throw Error('Rule preview counts');utcInstant(v.createdAt as string);utcInstant(v.expiresAt as string);if(Date.parse(v.expiresAt as string)-Date.parse(v.createdAt as string)!==900000)throw Error('Rule preview expiry');return {...v} as unknown as RulePreviewSummary;
+}
+export function ruleRowsValue(raw:unknown,preview:RulePreviewSummary){const v=object(raw);keys(v,['rows']);if(!Array.isArray(v.rows)||v.rows.length!==preview.count)throw Error('Rule row coverage');const rows=v.rows.map(ruleProposalValue);if(new Set(rows.map(r=>r.id)).size!==rows.length||rows.filter(r=>r.changed).length!==preview.changed)throw Error('Rule preview rows mismatch');return rows;}
+export function ruleApplyValue(raw:unknown,preview:RulePreviewSummary){const v=object(raw);keys(v,['id','revision','matched','updated','unchanged']);if(v.id!==preview.id||v.revision!==2||v.matched!==preview.count||v.updated!==preview.changed||v.unchanged!==preview.unchanged)throw Error('Rule apply binding');return {id:preview.id,revision:2,matched:preview.count,updated:preview.changed,unchanged:preview.unchanged};}

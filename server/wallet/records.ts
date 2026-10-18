@@ -1,3 +1,4 @@
+import {markManualRuleChanges} from './ruleOverrides.js';
 import {allocationRows,assertAllocationTotal,type AllocationDraft} from '../../src/features/wallet/allocations.js';
 import {createHash,randomUUID} from 'node:crypto';
 import type {Actor,CommandContext,Money,Settlement} from '../../src/features/wallet/contracts.js';
@@ -94,6 +95,7 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
 
   tx.metadata.records.set({recordId:id,occurredAt:draft.occurredAt,payee:draft.payee,paymentMethod:draft.paymentMethod,reviewedAt:draft.reviewedAt,createdAt:before?before.metadata.createdAt:at,createdBy:before?before.metadata.createdBy:actor.userId,updatedAt:at,updatedBy:actor.userId});tx.sql.run('DELETE FROM wallet_record_labels WHERE record_id=?',id);for(const label of draft.labelIds)tx.sql.run('INSERT INTO wallet_record_labels VALUES(?,?)',id,label);
   if(draft.kind==='transfer'&&draft.fx){const fx={recordId:id,fromCurrency:draft.debit.currency,toCurrency:draft.credit.currency,debitMinor:draft.debit.minor,creditMinor:draft.credit.minor,numerator:draft.fx.numerator,denominator:draft.fx.denominator,asOf:draft.fx.asOf??draft.effectiveDate,source:'manual'},prior=before?.fx;if(prior&&prior.fromCurrency===fx.fromCurrency&&prior.toCurrency===fx.toCurrency&&prior.numerator===fx.numerator&&prior.denominator===fx.denominator&&prior.asOf===fx.asOf)fx.source=prior.source;tx.financial.fx.insert(fx);}
+  markManualRuleChanges(tx.sql,id,before?{categoryId:before.record.categoryId??null,labelIds:before.labelIds,reviewedAt:before.metadata.reviewedAt}:null,{categoryId:draft.categoryId,labelIds:draft.labelIds,reviewedAt:draft.reviewedAt});
   return result(reader,actor,id);
  };
  const voidWithin=(tx:WalletTx,actor:Actor,before:WalletRecordResult,at:string)=>{if(before.record.occurrenceId)fail(409,'Cần quy trình hủy giao dịch định kỳ.');tx.sql.run("UPDATE wallet_records SET settlement_status='voided',revision=revision+1 WHERE id=?",before.record.id);tx.metadata.records.set({...before.metadata,updatedAt:at,updatedBy:actor.userId});const after=result(txReader(tx),actor,before.record.id);audit(tx,actor,'void',at,before,after);return after;};
@@ -119,7 +121,7 @@ export function createWalletRecords(ports:{reader:WalletReader;write:typeof with
    const reader=txReader(tx);context(ctx,reader,true);try{authorize(reader,ctx.actor,id);const before=result(reader,ctx.actor,id);if(before.record.creatorId!==ctx.actor.userId||before.record.source!=='import'||before.record.externalKey!==externalKey||before.record.revision!==revision||before.record.settlementStatus==='voided'||before.record.occurrenceId||before.feeRecordId||!['income','expense'].includes(before.record.kind))return false;
     // Unknown future financial links require an explicit undo policy. Ordinary
     // record metadata/audit/selection links do not own another ledger entry.
-    const safe=new Set(['wallet_postings','wallet_record_metadata','wallet_record_labels','wallet_allocations','wallet_record_fx','wallet_audit','wallet_receipts','wallet_selection_records','wallet_import_entries']);
+    const safe=new Set(['wallet_postings','wallet_record_metadata','wallet_record_labels','wallet_allocations','wallet_record_fx','wallet_audit','wallet_receipts','wallet_selection_records','wallet_rule_preview_rows','wallet_rule_overrides','wallet_import_entries']);
     for(const row of reader.all("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'wallet_%'")){if(safe.has(row.name)||!/^wallet_[a-z_]+$/.test(row.name))continue;for(const fk of reader.all('PRAGMA foreign_key_list('+row.name+')'))if(fk.table==='wallet_records'&&/^[a-z_]+$/.test(fk.from)&&reader.get('SELECT 1 AS linked FROM '+row.name+' WHERE '+fk.from+'=? LIMIT 1',id))return false;}
     return true;
    }catch(error){if(error instanceof AppStoreError&&[403,404,409].includes(error.status))return false;throw error;}

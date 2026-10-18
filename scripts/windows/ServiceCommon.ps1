@@ -68,7 +68,11 @@ function Get-ServiceContext {
     Assert-NoServiceReparse $node
     if ((Get-ServiceHash $node) -cne 'ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32') { throw 'Official bundled Node executable hash mismatch' }
     # Authenticate the import closure before executing any package helper code.
-    foreach ($name in @('verify-installed-service.mjs','verify-service-owner.mjs','write-service-config.mjs','package-files.mjs','package-contract.mjs','license-inventory.mjs','license-policy.mjs','reviewed-notices.mjs','service-config.mjs')) {
+    $helperNames=@('verify-installed-service.mjs','verify-service-owner.mjs','write-service-config.mjs','package-files.mjs','package-contract.mjs','license-inventory.mjs','license-policy.mjs','reviewed-notices.mjs','service-config.mjs')
+    # New packages import this helper; old authenticated packages retain their
+    # original closure for rollback. Authenticate it before module evaluation.
+    if (@($manifest.files | Where-Object { $_.path -ceq 'ops/wallet-pdf-license.mjs' }).Count -gt 0) { $helperNames+='wallet-pdf-license.mjs' }
+    foreach ($name in $helperNames) {
         $relative='ops/'+$name
         $entries=@($manifest.files | Where-Object { $_.path -ceq $relative })
         $file=Join-Path $release $relative

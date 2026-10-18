@@ -1,3 +1,5 @@
+import {ExportPanel} from './ExportPanel.js';
+import type {ExportWorkspace} from './exportWorkspace.js';
 import {Templates} from './Templates.js';
 import {AllocationForm} from './AllocationForm.js';
 import {BulkPanel} from './BulkPanel.js';
@@ -11,7 +13,8 @@ import { walletLocale } from './accountDraft.js';
 import { formatMoney, minorInteger } from './money.js';
 import { localRecordTime } from './recordTime.js';
 import type { RecordWorkspace } from './recordWorkspace.js';
-export function Records({ workspace }: {
+export function Records({ workspace,exporter }: {
+    exporter?:ExportWorkspace;
     workspace: RecordWorkspace;
 }) {
     const { t, i18n } = useTranslation(), state = useSyncExternalStore(workspace.subscribe, workspace.snapshot), locale = walletLocale(i18n.resolvedLanguage ?? i18n.language), { confirm, ConfirmDialog } = useConfirm();
@@ -20,11 +23,12 @@ export function Records({ workspace }: {
     if (['inactive', 'disposed'].includes(state.phase))
         return null;
     const busy = state.phase !== 'ready' || workspace.isBusy(), selected = state.selected;
+    async function exportSelection(){if(!exporter||busy||state.form||state.allocationForm)return;if(!workspace.bulk.snapshot().selectedCount)await workspace.bulk.selectAllMatching();const selection=workspace.bulk.exportSelection(),selected=workspace.bulk.snapshot();if(selection)exporter.open(selection,selected.selectedCount,selected.mode);}
     async function voidRecord() { const record = selected?.record; if (!record)
         return; if (await confirm({ title: t('wallet.recordsForm.void'), message: t('wallet.recordsForm.voidConfirm'), tone: 'danger' }))
         await workspace.voidSelected(record.id, record.revision); }
-    return <section aria-label={t('wallet.recordsForm.title')} className="bg-slate-900 neu-raised rounded-2xl p-5 space-y-4" data-testid="wallet-records">
-  <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="text-sm font-bold text-slate-100">{t('wallet.recordsForm.title')} <span className="font-mono">({state.total})</span></h2><div className="flex gap-2"><button type="button" disabled={state.phase === 'checking' || state.command.phase === 'pending'} onClick={() => void workspace.refresh()} className="bg-slate-950 neu-btn text-slate-300 rounded-xl px-3 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60">{t('wallet.recordsForm.refresh')}</button><button type="button" disabled={busy || !!state.form} onClick={() => workspace.openCreate(locale)} className="bg-indigo-500 text-white rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60">{t('wallet.recordsForm.create')}</button></div></div>
+    return <>{exporter&&<ExportPanel workspace={exporter}/>}<section aria-label={t('wallet.recordsForm.title')} className="bg-slate-900 neu-raised rounded-2xl p-5 space-y-4" data-testid="wallet-records">
+  <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="text-sm font-bold text-slate-100">{t('wallet.recordsForm.title')} <span className="font-mono">({state.total})</span></h2><div className="flex flex-wrap gap-2">{exporter&&bulk.phase!=='unavailable'&&<button type="button" disabled={busy||!!state.form||!!state.allocationForm||(!bulk.selectedCount&&!state.total)} onClick={()=>void exportSelection()} className="bg-slate-800 text-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-50">{t('wallet.exports.open')}</button>}<button type="button" disabled={state.phase === 'checking' || state.command.phase === 'pending'} onClick={() => void workspace.refresh()} className="bg-slate-950 neu-btn text-slate-300 rounded-xl px-3 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60">{t('wallet.recordsForm.refresh')}</button><button type="button" disabled={busy || !!state.form} onClick={() => workspace.openCreate(locale)} className="bg-indigo-500 text-white rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60">{t('wallet.recordsForm.create')}</button></div></div>
   {state.phase === 'checking' && <p role="status" className="text-xs text-slate-400">{t('wallet.loading')}</p>}
   {state.phase === 'error' && <div className="space-y-2"><p role="alert" className="text-xs text-rose-400">{t(state.error?.code === 'RATE_UNAVAILABLE' ? 'wallet.recordErrors.RATE_UNAVAILABLE' : 'wallet.loadFailed')} {state.error?.code}</p><button type="button" disabled={state.command.phase === 'pending'} onClick={() => void workspace.resetFilter()} className="bg-slate-800 text-slate-200 rounded-xl px-4 py-2.5 text-xs font-bold cursor-pointer disabled:opacity-60">{t('wallet.recordsForm.resetFilter')}</button></div>}
   {state.command.phase === 'success' && <p role="status" className="text-xs text-emerald-400">{t('wallet.saved')}</p>}
@@ -42,5 +46,5 @@ export function Records({ workspace }: {
   {state.form && <RecordForm workspace={workspace} state={state}/>}
   {state.allocationForm&&<AllocationForm workspace={workspace} state={state}/>}
   {ConfirmDialog}
- </section>;
+ </section></>;
 }

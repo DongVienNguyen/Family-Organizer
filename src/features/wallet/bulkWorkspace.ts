@@ -71,6 +71,7 @@ export function createBulkWorkspace(api:Api,options:{canMutate:()=>boolean;newRe
         }
     }
     return {
+        exportSelection:()=>!disposed&&available()&&!isBusy()?structuredClone(selection()):null,
         snapshot:()=>state,subscribe(listener:()=>void){listeners.add(listener);return ()=>{listeners.delete(listener);};},isBusy,
         async setView(next:BulkView){
             if(disposed)return;

@@ -1,3 +1,4 @@
+import {markBulkManualRuleChanges} from './ruleOverrides.js';
 import { createHash } from 'node:crypto';
 import type { Actor, CommandContext, RecordFilter, Settlement } from '../../src/features/wallet/contracts.js';
 import { normalizeFilter } from '../../src/features/wallet/filter.js';
@@ -162,6 +163,7 @@ export function createWalletBulk(options: {
                 tx.exec('CREATE TEMP TABLE fo_wallet_bulk_work(id TEXT PRIMARY KEY,audit_id TEXT NOT NULL,before_json TEXT NOT NULL,after_json TEXT NOT NULL)');
                 const stage = prefix + 'INSERT INTO temp.fo_wallet_bulk_work SELECT r.id,fo_wallet_uuid(),' + metadataState(false, value) + ',' + metadataState(true, value) + ' ' + changedFrom;
                 tx.run(stage, bind(stage, values));
+                markBulkManualRuleChanges({get:tx.get,all:tx.all,run:tx.run});
                 tx.run("INSERT INTO wallet_audit SELECT audit_id,id,?,'wallet:record:bulk-metadata' FROM temp.fo_wallet_bulk_work ORDER BY id", ctx.actor.userId);
                 tx.run('INSERT INTO wallet_audit_metadata SELECT audit_id,?,before_json,after_json FROM temp.fo_wallet_bulk_work', at);
                 const sets = ['revision=revision+1', ...('categoryId' in value ? ['category_id=@category'] : []), ...('settlementStatus' in value ? ['settlement_status=@status'] : []), ...('note' in value ? ['note=@note'] : [])], records = 'UPDATE wallet_records SET ' + sets.join(',') + ' WHERE id IN(SELECT id FROM temp.fo_wallet_bulk_work)';

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs --define:import.meta.dirname=__dirname && esbuild server/operator.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/operator.cjs --define:import.meta.dirname=__dirname",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --alias:pdfmake/build/pdfmake=./node_modules/pdfmake/build/pdfmake.js --alias:pdfmake/build/vfs_fonts=./node_modules/pdfmake/build/vfs_fonts.js --sourcemap --outfile=dist/server.cjs --define:import.meta.dirname=__dirname && esbuild server/operator.ts --bundle --platform=node --format=cjs --packages=external --alias:pdfmake/build/pdfmake=./node_modules/pdfmake/build/pdfmake.js --alias:pdfmake/build/vfs_fonts=./node_modules/pdfmake/build/vfs_fonts.js --sourcemap --outfile=dist/operator.cjs --define:import.meta.dirname=__dirname",
     "start": "node dist/server.cjs",
     "clean": "node scripts/clean.mjs",
     "lint": "tsc --noEmit",

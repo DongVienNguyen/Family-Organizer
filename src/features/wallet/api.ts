@@ -1,3 +1,7 @@
+import {ruleHeaderValue,ruleDetailValue,rulePreviewValue,ruleRowsValue,ruleApplyValue} from './ruleDto.js';
+import {normalizeRuleDraft,type RuleDraft} from './ruleContracts.js';
+import type {RulePreviewInput,RulePreviewSummary} from '../../../server/wallet/rules.js';
+import type {RecordSelection,ExportFormat} from '../../../server/wallet/exports.js';
 import {importBatchValue,importPageValue,importHistoryValue} from './importDto.js';
 import type {ImportMapping,ImportUpload} from './importContracts.js';
 import {preferenceValue,preferencesValue} from './preferenceDto.js';
@@ -235,6 +239,22 @@ export function createWalletApi(ports: WalletTransportPorts) {
         throw Error('Grant identity'); if (g.permission !== null)
         choice(g.permission, ['read', 'contribute', 'manage']); return { accountId: v.accountId, revision: v.revision, grant: { userId: g.userId, permission: g.permission as WalletPermission | null } }; };
     return { walletRequest,
+        rules:()=>read('/api/wallet/rules',raw=>{const v=object(raw);keys(v,['rules']);if(!Array.isArray(v.rules)||v.rules.length>1000)throw Error();const rows=v.rules.map(r=>ruleHeaderValue(r));if(new Set(rows.map(r=>r.id)).size!==rows.length)throw Error();return rows;}),
+        rule:(id:string)=>read('/api/wallet/rules/'+encodeURIComponent(id),raw=>ruleDetailValue(raw,id)),
+        saveRule:(input:{id?:string;draft?:RuleDraft;archived?:boolean},revision:number,nonce:string)=>{const {id,...patch}=input;if(patch.draft)normalizeRuleDraft(patch.draft);return command('/api/wallet/rules'+(id?'/'+encodeURIComponent(id):''),id?'PATCH':'POST',id?{expectedRevision:revision,patch}:{expectedRevision:0,draft:patch.draft},nonce,raw=>{const result=ruleHeaderValue(raw,id);if(result.revision<Math.max(1,revision)||result.revision>revision+1)throw Error('Rule revision');if(patch.draft&&(result.name!==patch.draft.name.trim()||result.priority!==patch.draft.priority))throw Error('Rule payload');return result;});},
+        previewRules:(input:RulePreviewInput,filter:RecordFilter,nonce:string)=>command('/api/wallet/rule-previews','POST',{expectedRevision:0,input,filter:normalizeFilter(filter)},nonce,raw=>{const p=rulePreviewValue(raw);if(p.state!=='ready'||p.revision!==1)throw Error('New preview state');return p;}),
+        rulePreview:(id:string)=>read('/api/wallet/rule-previews/'+encodeURIComponent(id),raw=>rulePreviewValue(raw,id)),
+        rulePreviewRows:(preview:RulePreviewSummary)=>read('/api/wallet/rule-previews/'+encodeURIComponent(preview.id)+'/rows',raw=>ruleRowsValue(raw,preview)),
+        applyRulePreview:(preview:RulePreviewSummary,nonce:string)=>command('/api/wallet/rule-previews/'+encodeURIComponent(preview.id)+'/apply','POST',{expectedRevision:preview.revision,hash:preview.hash},nonce,raw=>ruleApplyValue(raw,preview)),
+        async exportRecords(selection:RecordSelection,format:ExportFormat,options:{signal?:AbortSignal;expectedCount:number}):Promise<{blob:Blob;fileName:string;count:number;sha256:string}>{
+            const invalid=()=>new WalletApiError(200,'Tệp xuất không hợp lệ.','INVALID_RESPONSE',undefined),auth=new Headers(ports.authHeaders()).get('Authorization');let metadata:Headers|null=null;
+            const download=createWalletRequest({...ports,request:async(input,init)=>{const response=await ports.request(input,init);metadata=new Headers(response.headers);if(!response.ok||!response.body)return response;const reader=response.body.getReader();let total=0;const body=new ReadableStream({async pull(controller){try{const next=await reader.read();if(next.done){controller.close();return;}total+=next.value.byteLength;if(total>20*1024*1024){await reader.cancel();controller.error(Error('Export byte limit'));return;}controller.enqueue(next.value);}catch(error){controller.error(error);}},cancel(reason){return reader.cancel(reason);}});return new Response(body,{status:response.status,statusText:response.statusText,headers:response.headers});}});
+            const blob=await download<Blob>('/api/wallet/exports',{method:'POST',readOnly:true,responseType:'blob',headers:{'Content-Type':'application/json'},body:JSON.stringify({selection,format}),signal:options.signal}),headers=metadata as Headers|null;
+            if(!headers||!['csv','xlsx','pdf'].includes(format)||!(blob instanceof Blob)||blob.size<1||blob.size>20*1024*1024)throw invalid();
+            const mime=format==='csv'?'text/csv':format==='xlsx'?'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':'application/pdf',count=headers.get('x-wallet-record-count'),size=headers.get('x-wallet-content-bytes'),wireSize=headers.get('content-length'),sha=headers.get('x-wallet-content-sha256'),disposition=headers.get('content-disposition'),name=/^attachment;\s*filename="(family-wallet-(\d{4}-\d\d-\d\d)\.(csv|xlsx|pdf))"$/.exec(disposition??'');
+            if(blob.type.split(';')[0]!==mime||!count||! /^(?:0|[1-9]\d{0,4})$/.test(count)||Number(count)>10000||Number(count)!==options.expectedCount||!size||!/^\d+$/.test(size)||Number(size)!==blob.size||!headers.has('content-encoding')&&wireSize!==null&&Number(wireSize)!==blob.size||!sha||! /^[a-f0-9]{64}$/.test(sha)||!name||name[3]!==format)throw invalid();
+            try{parseEffectiveDate(name[2]);}catch{throw invalid();}const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await blob.arrayBuffer()))).map(byte=>byte.toString(16).padStart(2,'0')).join('');if(new Headers(ports.authHeaders()).get('Authorization')!==auth)throw new WalletApiError(401,'Phiên đăng nhập đã thay đổi.','SESSION_CHANGED',undefined);options.signal?.throwIfAborted();if(digest!==sha)throw invalid();return {blob,fileName:name[1],count:Number(count),sha256:sha};
+        },
         importBatch:(id:string)=>read(path('imports',id),v=>importBatchValue(v,id)),
         importHistory:(offset=0)=>{integer(offset,0,100000);return read('/api/wallet/imports/history?offset='+offset,importHistoryValue);},
         importRows:(id:string,offset=0)=>{integer(offset,0,10001);return read(path('imports',id)+'/rows?offset='+offset,v=>importPageValue(v,id,offset));},

@@ -1,0 +1,8 @@
+import {it,expect} from 'vitest';
+import {rulePreviewValue,ruleRowsValue,ruleApplyValue} from './ruleDto.js';
+const preview=()=>({id:'synthetic-preview',hash:'a'.repeat(64),revision:1,state:'ready',count:1,changed:1,unchanged:0,createdAt:'2026-10-18T00:00:00.000Z',expiresAt:'2026-10-18T00:15:00.000Z'});
+const row=()=>({id:'synthetic-record',revision:1,before:{categoryId:null,labelIds:[],reviewed:false},after:{categoryId:'synthetic-category',labelIds:[],reviewed:true},matched:[0],changed:true,reason:'changed'});
+it('binds preview count, exact fifteen-minute expiry, row coverage and apply acknowledgement',()=>{const p=rulePreviewValue(preview());expect(ruleRowsValue({rows:[row()]},p)).toHaveLength(1);expect(ruleApplyValue({id:p.id,revision:2,matched:1,updated:1,unchanged:0},p).updated).toBe(1);});
+it.each([{count:2},{revision:2},{expiresAt:'2026-10-18T00:15:00.001Z'},{hash:'forged'},{ownerId:'forged'}])('refuses corrupt preview %j',patch=>{expect(()=>rulePreviewValue({...preview(),...patch})).toThrow();});
+it('refuses incomplete, duplicate or financially expanded rows and false changed markers',()=>{const p=rulePreviewValue(preview());for(const rows of [[],[row(),row()],[{...row(),after:{...row().after,amount:'100'}}],[{...row(),changed:false}],[{...row(),before:{categoryId:null,reviewed:false}}]])expect(()=>ruleRowsValue({rows},p)).toThrow();});
+it('refuses an apply receipt for another preview or a smaller subset',()=>{const p=rulePreviewValue(preview());for(const value of [{id:'other',revision:2,matched:1,updated:1,unchanged:0},{id:p.id,revision:2,matched:0,updated:0,unchanged:0}])expect(()=>ruleApplyValue(value,p)).toThrow();});

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import {reviewedNotices} from './reviewed-notices.mjs';
 import {classifyLicenseNotice} from './license-policy.mjs';
+import {verifyWalletPdfLicense} from './wallet-pdf-license.mjs';
 export const licenseTerms=Object.freeze([
  {path:'licenses/MPL-2.0.txt',sha256:'66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172'},
  {path:'licenses/source-APACHE-2.0.txt',sha256:'cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30'},
@@ -19,6 +20,7 @@ export function sourceInventory(root){
  }}walk(path.join(root,'src'));assert.ok(result.length>0,'MPL source missing');return result.sort((a,b)=>a.path.localeCompare(b.path,'en'));
 }
 export function verifyLicenseInventory(root,manifest){
+ verifyWalletPdfLicense(root,manifest);
  assert.equal(manifest.licensePolicy?.version,1,'Missing license policy');
  assert.deepEqual(manifest.licensePolicy.terms,licenseTerms,'License terms/provenance changed');
  assert.deepEqual(manifest.licensePolicy.httpEce,httpEceNotice,'Upstream MIT provenance changed');
