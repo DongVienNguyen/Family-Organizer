@@ -3008,5 +3008,24 @@
     "saved": "Changes saved.",
     "refreshFailed": "The command completed but the list could not refresh.",
     "reload": "Reload"
+  },
+  "productivityContent": {
+    "title": "Related Notes and Tasks",
+    "retainSource": "Create a linked counterpart and retain the original content and history. The new item is private and never completes work or grants/reverses points. Active rewarded, pending or recurring Tasks cannot convert yet.",
+    "privateNote": "My private Note",
+    "toNote": "Create linked Note",
+    "toTask": "Create linked Task",
+    "review": "Confirm linked content",
+    "destination": "Destination list for the Note Task",
+    "viewNote": "View Note: {{title}}",
+    "viewTask": "View Task: {{title}}",
+    "pending": "The result is unknown. Keep the original command to check again.",
+    "retry": "Check original conversion command",
+    "conflict": "The source or list changed. Reload and review again.",
+    "failed": "Could not process content links.",
+    "ineligible": "The source is rewarded, pending, recurring or too large. No data changed.",
+    "refreshFailed": "The counterpart was created but the list could not refresh.",
+    "saved": "Linked counterpart created; original retained.",
+    "reload": "Reload"
   }
 }

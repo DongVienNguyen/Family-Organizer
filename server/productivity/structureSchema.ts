@@ -1,3 +1,4 @@
+import {taskContentTables,taskContentSchemaSql} from './contentSchema.js';
 import {taskTemplateTables,taskTemplateSchemaSql} from './templateSchema.js';
 import {taskNotificationTables,taskNotificationSchemaSql} from './notificationSchema.js';
 import {legacyCutoverTables,legacyCutoverSchemaSql} from './legacyCutoverSchema.js';
@@ -29,8 +30,8 @@ CREATE TABLE productivity_check_items(
 CREATE INDEX productivity_tasks_parent ON productivity_tasks(parent_id,deleted_at);
 CREATE INDEX productivity_check_items_task ON productivity_check_items(task_id,rank,id);
 `;
-export function productivityTablesAt(version:number){return version>=2?{...productivityTables,...structureTables,...(version>=3?tagOwnershipTables:{}),...(version>=4?taskPinTables:{}),...(version>=5?viewTables:{}),...(version>=6?matrixTables:{}),...(version>=7?boardTables:{}),...(version>=10?seriesTables:{}),...(version>=11?ownedOccurrenceTables:{}),...(version>=12?occurrenceSkipTables:{}),...(version>=13?legacyCutoverTables:{}),...(version>=14?taskNotificationTables:{}),...(version>=15?taskTemplateTables:{})}:productivityTables;}
-export function productivitySchemaAt(version:number):string{return schemaSql+(version>=2?structureSchemaSql:'')+(version>=3?tagOwnershipSchemaSql:'')+(version>=4?taskPinSchemaSql:'')+(version>=5?viewSchemaSql:'')+(version>=6?matrixPinSchemaSql:'')+(version>=7?boardSchemaSql:'')+(version>=10?seriesSchemaSql:'')+(version>=11?ownedOccurrenceSchemaSql:'')+(version>=12?occurrenceSkipSchemaSql:'')+(version>=13?legacyCutoverSchemaSql:'')+(version>=14?taskNotificationSchemaSql:'')+(version>=15?taskTemplateSchemaSql:'');}
+export function productivityTablesAt(version:number){return version>=2?{...productivityTables,...structureTables,...(version>=3?tagOwnershipTables:{}),...(version>=4?taskPinTables:{}),...(version>=5?viewTables:{}),...(version>=6?matrixTables:{}),...(version>=7?boardTables:{}),...(version>=10?seriesTables:{}),...(version>=11?ownedOccurrenceTables:{}),...(version>=12?occurrenceSkipTables:{}),...(version>=13?legacyCutoverTables:{}),...(version>=14?taskNotificationTables:{}),...(version>=15?taskTemplateTables:{}),...(version>=16?taskContentTables:{})}:productivityTables;}
+export function productivitySchemaAt(version:number):string{return schemaSql+(version>=2?structureSchemaSql:'')+(version>=3?tagOwnershipSchemaSql:'')+(version>=4?taskPinSchemaSql:'')+(version>=5?viewSchemaSql:'')+(version>=6?matrixPinSchemaSql:'')+(version>=7?boardSchemaSql:'')+(version>=10?seriesSchemaSql:'')+(version>=11?ownedOccurrenceSchemaSql:'')+(version>=12?occurrenceSkipSchemaSql:'')+(version>=13?legacyCutoverSchemaSql:'')+(version>=14?taskNotificationSchemaSql:'')+(version>=15?taskTemplateSchemaSql:'')+(version>=16?taskContentSchemaSql:'');}
 export function migrateStructure(tx:AppWriteTx):void {
  assertTaskTree(tx.all('SELECT id,list_id,parent_id,creator_id,assignee_id,is_shared,deleted_at FROM productivity_tasks').map(edge));
  tx.exec(structureSchemaSql);

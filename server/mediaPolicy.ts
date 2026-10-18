@@ -8,7 +8,7 @@ import type {AppWriteTx} from './appStore.js';
 import {AppStoreError} from './appErrors.js';
 import {privateReceiptMediaPrefix} from './wallet/receiptContract.js';
 import {validMediaPath} from './snapshotFiles.js';
-import {canViewLegacyTask,canEditLegacyTask,canViewLegacyNote,canViewLegacyDocument,isAdult,type LegacyActor} from './legacyVisibility.js';
+import {canViewLegacyTask,canEditLegacyTask,canViewLegacyNote,canEditLegacyNote,canViewLegacyDocument,isAdult,type LegacyActor} from './legacyVisibility.js';
 export interface MediaBinding {domain:'users'|'tasks'|'notes'|'documents'|'transactions'|'assets'|'debts';id:string}
 export interface MediaMetadata {version:1;ownerId:string|null;createdAt:number;bindings:MediaBinding[]}
 export const mediaKey=(url:string)=>'media:'+url;
@@ -95,6 +95,16 @@ export function allowTemplateTaskMedia(tx:AppWriteTx,source:Task,target:Task,act
  if(!current||!canViewLegacyTask(current,actor)||[...urls].some(url=>!sourceUrls.has(url)))throw new AppStoreError('Không được gắn tệp này.',403);
  const permits=templateMedia.get(tx)??new Map();permits.set(target.id,{sourceId:source.id,urls});templateMedia.set(tx,permits);
 }
+const linkedContentMedia=new WeakMap<AppWriteTx,Map<string,{source:MediaBinding;urls:Set<string>}>>();
+/** Only the current, authorized canonical source can supply managed references
+ * to a just-created private Task/Note counterpart in the same I01 command. */
+export function allowLinkedContentMedia(tx:AppWriteTx,source:MediaBinding,target:MediaBinding,actor:LegacyActor):void {
+ if(!productivityVersionsFrom(16).includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version)||!['tasks','notes'].includes(source.domain)||!['tasks','notes'].includes(target.domain)||source.domain===target.domain)throw new AppStoreError('Không được gắn tệp này.',403);
+ const before=(tx.legacy[source.domain]as any[]).find(row=>row.id===source.id),after=(tx.legacy[target.domain]as any[]).find(row=>row.id===target.id);
+ if(!before||!after||after.creatorId!==actor.userId||after.isShared||!(source.domain==='tasks'?canEditLegacyTask(before,actor):canEditLegacyNote(before,actor))||target.domain==='tasks'&&(after.status!=='todo'||after.rewardPoints!==0||after.proofImage||after.completedAt))throw new AppStoreError('Không được gắn tệp này.',403);
+ const sourceUrls=new Set(managedMarkdownUrls(String(source.domain==='tasks'?before.description:before.content))),urls=new Set(managedMarkdownUrls(String(target.domain==='tasks'?after.description:after.content)));if([...urls].some(url=>!sourceUrls.has(url)))throw new AppStoreError('Không được gắn tệp này.',403);
+ const permits=linkedContentMedia.get(tx)??new Map();permits.set(JSON.stringify([target.domain,target.id]),{source,urls});linkedContentMedia.set(tx,permits);
+}
 export function bindMediaChanges(tx:AppWriteTx,before:Map<string,MediaBinding[]>,actorId:string):void {
  if(tx.get('SELECT value FROM app_meta WHERE key=?','media_version')?.value!=='1')return;
  for(const [url,bindings] of mediaReferences(tx.legacy)){
@@ -105,7 +115,8 @@ export function bindMediaChanges(tx:AppWriteTx,before:Map<string,MediaBinding[]>
    for(const binding of added){
     if(metadata.bindings.some(old=>old.domain===binding.domain&&old.id===binding.id))continue;
     const permit=binding.domain==='tasks'?(recurringMedia.get(tx)?.get(binding.id)??templateMedia.get(tx)?.get(binding.id)):undefined;
-    if(!permit?.urls.has(url)||!(before.get(url)??[]).some(old=>old.domain==='tasks'&&old.id===permit.sourceId)||!metadata.bindings.some(old=>old.domain==='tasks'&&old.id===permit.sourceId))throw new AppStoreError('Không được gắn tệp này.',403);
+    const contentPermit=linkedContentMedia.get(tx)?.get(JSON.stringify([binding.domain,binding.id])),origin=contentPermit?.source??(permit?{domain:'tasks',id:permit.sourceId}:null),allowed=!!contentPermit?.urls.has(url)||!!permit?.urls.has(url);
+    if(!allowed||!origin||!(before.get(url)??[]).some(old=>old.domain===origin.domain&&old.id===origin.id)||!metadata.bindings.some(old=>old.domain===origin.domain&&old.id===origin.id))throw new AppStoreError('Không được gắn tệp này.',403);
     metadata.bindings.push(binding);
    }
    tx.run('UPDATE app_meta SET value=? WHERE key=?',JSON.stringify(metadata),mediaKey(url));

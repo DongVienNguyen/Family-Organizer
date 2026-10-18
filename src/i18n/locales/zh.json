@@ -3007,5 +3007,24 @@
     "saved": "更改已保存。",
     "refreshFailed": "命令已完成，但无法刷新列表。",
     "reload": "重新加载"
+  },
+  "productivityContent": {
+    "title": "关联笔记和任务",
+    "retainSource": "创建关联副本，并保留原始内容和历史。新项目为私有，不会完成任务、奖励或撤销积分。带奖励、待审核或循环中的任务暂不可转换。",
+    "privateNote": "我的私有笔记",
+    "toNote": "创建关联笔记",
+    "toTask": "创建关联任务",
+    "review": "确认关联内容",
+    "destination": "笔记任务的目标列表",
+    "viewNote": "查看笔记：{{title}}",
+    "viewTask": "查看任务：{{title}}",
+    "pending": "结果未知。请保留原始命令以重新检查。",
+    "retry": "检查原始转换命令",
+    "conflict": "来源或列表已更改。请重新加载并审核。",
+    "failed": "无法处理内容链接。",
+    "ineligible": "来源带奖励、待审核、循环或内容过大。数据未更改。",
+    "refreshFailed": "已创建关联副本，但无法刷新列表。",
+    "saved": "已创建关联副本；原件已保留。",
+    "reload": "重新加载"
   }
 }

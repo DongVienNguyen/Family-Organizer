@@ -104,21 +104,22 @@ function initializeDatabase() {
           if(!writeScope)throw new Error('Canonical tasks require the application gateway');
           taskStorageAdapter.write(data.tasks);deleteStmts.get(table)!.run();continue;
         }
-        // Domain history references users(id). Preserve retained parent rows
+        // Domain history references users(id) and canonical Notes. Preserve parent rows
         // while updating the legacy collection, rather than deleting them all.
-        if (key === 'users') {
-          const rows = data.users || [];
-          if (!Array.isArray(rows)) throw new Error('Invalid legacy collection: users');
+        if (key === 'users' || key === 'notes') {
+          const rows = data[key] || [];
+          const retainedTable = key === 'users' ? 'users' : 'notes';
+          if (!Array.isArray(rows)) throw new Error('Invalid legacy collection: '+key);
           const ids = new Set<string>();
           const values = rows.map((item, index) => {
             const id = item && item.id != null ? String(item.id) : `row_${index}`;
-            if (ids.has(id)) throw new Error('Duplicate legacy user ID');
+            if (ids.has(id)) throw new Error(key==='users'?'Duplicate legacy user ID':'Duplicate legacy note ID');
             ids.add(id); return { id, index, data: JSON.stringify(item) };
           });
-          const upsert = db.prepare('INSERT INTO users(id,seq,data) VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET seq=excluded.seq,data=excluded.data');
+          const upsert = db.prepare(`INSERT INTO ${retainedTable}(id,seq,data) VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET seq=excluded.seq,data=excluded.data`);
           for (const row of values) upsert.run(row.id, row.index, row.data);
-          const remove = db.prepare('DELETE FROM users WHERE id=?');
-          for (const row of db.prepare('SELECT id FROM users').all() as {id:string}[]) if (!ids.has(row.id)) remove.run(row.id);
+          const remove = db.prepare(`DELETE FROM ${retainedTable} WHERE id=?`);
+          for (const row of db.prepare(`SELECT id FROM ${retainedTable}`).all() as {id:string}[]) if (!ids.has(row.id)) remove.run(row.id);
           continue;
         }
         deleteStmts.get(table)!.run();

@@ -3007,5 +3007,24 @@
     "saved": "Đã lưu thay đổi.",
     "refreshFailed": "Lệnh đã hoàn tất nhưng chưa tải lại được danh sách.",
     "reload": "Tải lại"
+  },
+  "productivityContent": {
+    "title": "Ghi chú và tác vụ liên quan",
+    "retainSource": "Tạo bản mới có liên kết; giữ nguyên nội dung và lịch sử của bản gốc. Bản mới riêng tư, không tự hoàn thành hay cấp hoặc thu hồi điểm. Tác vụ đang có thưởng, chờ duyệt hoặc đang lặp chưa được chuyển.",
+    "privateNote": "Ghi chú riêng tư của tôi",
+    "toNote": "Tạo ghi chú có liên kết",
+    "toTask": "Tạo tác vụ có liên kết",
+    "review": "Xác nhận nội dung có liên kết",
+    "destination": "Danh sách cho tác vụ từ ghi chú",
+    "viewNote": "Xem ghi chú: {{title}}",
+    "viewTask": "Xem tác vụ: {{title}}",
+    "pending": "Chưa xác định kết quả. Giữ nguyên lệnh để kiểm tra lại.",
+    "retry": "Kiểm tra lệnh chuyển nội dung",
+    "conflict": "Nguồn hoặc danh sách đã thay đổi. Tải lại rồi xem trước lại.",
+    "failed": "Không xử lý được liên kết nội dung.",
+    "ineligible": "Nguồn đang có thưởng, chờ duyệt, đang lặp hoặc nội dung vượt giới hạn. Không thay đổi dữ liệu.",
+    "refreshFailed": "Đã tạo bản liên kết nhưng chưa tải lại được danh sách.",
+    "saved": "Đã tạo bản có liên kết; bản gốc được giữ nguyên.",
+    "reload": "Tải lại"
   }
 }

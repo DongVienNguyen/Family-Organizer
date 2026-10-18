@@ -310,6 +310,10 @@ export default function App() {
   // Sau khi Schedules đã mở popup, xoá id để lần điều hướng thường vào tab Lập lịch
   // (không phải do bấm sự kiện) không bị tự mở lại popup cũ.
   const handleConsumeViewPlan = () => setPlanViewRequest(prev => ({ ...prev, id: "" }));
+  const [noteViewRequest,setNoteViewRequest]=useState<{id:string;seq:number}>({id:'',seq:0});
+  const handleViewNote=(id:string)=>{setNoteViewRequest(previous=>({id,seq:previous.seq+1}));setActiveTab('notes');};
+  const handleConsumeViewNote=()=>setNoteViewRequest(previous=>({...previous,id:''}));
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
   const [productivityRefreshEpoch,setProductivityRefreshEpoch]=useState(0);
@@ -1689,7 +1693,7 @@ export default function App() {
   ];
 
   return (
-    <TaskProvider key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} available={productivityAvailable}>
+    <TaskProvider key={currentUser.id+":"+authToken} sessionKey={currentUser.id+":"+authToken} request={fetch} authHeaders={getAuthHeader} online={isOnline&&networkOnline} refreshEpoch={productivityRefreshEpoch} queryEpoch={productivityQueryEpoch} available={productivityAvailable} notes={notes} onOpenNote={handleViewNote} onOpenTasks={()=>setActiveTab("tasks")}>
     <FabProvider>
     <div className="h-screen overflow-hidden bg-slate-950 flex text-slate-200 selection:bg-sky-200 selection:text-sky-700 font-sans relative">
 
@@ -2006,6 +2010,9 @@ export default function App() {
                   currentUser={currentUser}
                   users={users}
                   notes={notes}
+                  requestedViewNoteId={noteViewRequest.id}
+                  requestedViewNoteSeq={noteViewRequest.seq}
+                  onConsumeViewNote={handleConsumeViewNote}
                   onSaveNote={handleSaveNote}
                   onDeleteNote={handleDeleteNote}
                   authHeaders={getAuthHeader()}

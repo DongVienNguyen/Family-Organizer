@@ -1,3 +1,4 @@
+import {TaskNoteLinks} from '../features/productivity/TaskNoteLinks.js';
 import {sessionFetch as fetch} from '../utils/browserSession.js';
 ﻿/**
  * @license
@@ -32,6 +33,9 @@ import { FancySelect } from "./FancySelect.js";
 import { optimizeAndUpload } from "../utils/uploadImage.js";
 
 interface NotesProps {
+  requestedViewNoteId?:string;
+  requestedViewNoteSeq?:number;
+  onConsumeViewNote?:()=>void;
   currentUser: User;
   users: User[];
   notes: Note[];
@@ -50,7 +54,8 @@ export function Notes({
   notes,
   onSaveNote,
   onDeleteNote,
-  authHeaders
+  authHeaders,
+  requestedViewNoteId,requestedViewNoteSeq,onConsumeViewNote
 }: NotesProps) {
   const { t } = useTranslation();
   const MarkdownFallback = () => <p className="text-slate-500 text-xs">{t("notes.loadingMarkdown")}</p>;
@@ -62,7 +67,12 @@ export function Notes({
   // Interaction controls
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingNote, setEditingNote] = useState<Note | null>(null);
-  const [readingNote, setReadingNote] = useState<Note | null>(null);
+  const [readingNoteId,setReadingNoteId]=useState<string|null>(null);
+  const readingNote=notes.find(note=>note.id===readingNoteId)??null;
+  const setReadingNote=(note:Note|null)=>setReadingNoteId(note?.id??null);
+  const [contentConfirming,setContentConfirming]=useState(false);
+  useEffect(()=>{if(readingNoteId&&!notes.some(note=>note.id===readingNoteId))setReadingNoteId(null);},[readingNoteId,notes]);
+  useEffect(()=>{if(!requestedViewNoteId)return;const note=notes.find(note=>note.id===requestedViewNoteId);if(note){setReadingNoteId(note.id);onConsumeViewNote?.();}},[requestedViewNoteId,requestedViewNoteSeq,notes,onConsumeViewNote]);
   const [formError, setFormError] = useState("");
   const { confirm, ConfirmDialog } = useConfirm();
 
@@ -157,7 +167,7 @@ export function Notes({
   const closeEditor = useCallback(() => setIsEditorOpen(false), []);
   const closeReader = useCallback(() => setReadingNote(null), []);
   useModalA11y(isEditorOpen, closeEditor, editorRef);
-  useModalA11y(!!readingNote, closeReader, readerRef);
+  useModalA11y(!!readingNote&&!contentConfirming, closeReader, readerRef);
 
   // Compute tags pool
   const tagsPool = useMemo(() => {
@@ -703,6 +713,7 @@ export function Notes({
               </div>
               <button 
                 onClick={() => setReadingNote(null)}
+                aria-label={t("common.close")}
                 className="text-slate-400 hover:text-slate-200 bg-slate-800 p-1.5 rounded-lg"
               >
                 <X className="w-4 h-4" />
@@ -715,6 +726,8 @@ export function Notes({
                 <MarkdownView content={readingNote.content} />
               </Suspense>
             </div>
+
+            <TaskNoteLinks kind="note" id={readingNote.id} title={readingNote.title} noteUpdatedAt={readingNote.updatedAt} user={currentUser} editable={readingNote.creatorId===currentUser.id||(readingNote.allowedRolesToEdit??[]).includes(currentUser.role)} ready={!contentConfirming} confirm={async options=>{setContentConfirming(true);try{return await confirm(options);}finally{setContentConfirming(false);}}}/>
 
             {/* Note info footer */}
             <div className="flex items-center justify-between text-xs text-slate-500 pt-1.5 border-t border-slate-800/60 font-mono">
