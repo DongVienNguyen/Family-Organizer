@@ -1,3 +1,4 @@
+import {taskCommentRecord} from './productivity/commentRecord.js';
 import {walletBudgetAlertId} from './wallet/budgetJobIdentity.js';
 import {assertNoActiveFinancialHistory} from './wallet/legacyLinkGuard.js';
 import {compareTrackingAmount,formatTrackingAmount} from '../src/features/wallet/linkedMoney.js';
@@ -1136,6 +1137,7 @@ export class FamilyDB {
     if(canonicalTaskPolicyActive()){
       const db=this.readRaw(),actor=taskActor(db,userId),task=db.tasks.find(row=>row.id===taskId);
       if(!task||!canViewLegacyTask(task,actor))throw new AppStoreError("Không tìm thấy công việc",404);
+      requireTaskEdit(task,actor);
     }
     return runLegacyCommand("addCommentToTask", [taskId, commentContent, userId, username], userId, () => {
     const db = this.readRaw();
@@ -1144,23 +1146,11 @@ export class FamilyDB {
     const idx = db.tasks.findIndex(t => t.id === taskId);
     if (idx === -1 || !canViewLegacyTask(db.tasks[idx],actor)) throw new AppStoreError("Không tìm thấy công việc",404);
 
+    if(canonicalTaskPolicyActive())requireTaskEdit(db.tasks[idx],actor);
+    const {comment:newComment,activity}=taskCommentRecord(commentContent,{userId,username},new Date().toISOString());
     const task = db.tasks[idx];
-    const newComment = {
-      id: `c_${Date.now()}`,
-      userId,
-      username,
-      content: commentContent,
-      createdAt: new Date().toISOString()
-    };
-
     task.comments.push(newComment);
-    task.history.unshift({
-      id: `h_${Date.now()}`,
-      userId,
-      username,
-      action: `Đã bình luận: "${commentContent.substring(0, 30)}${commentContent.length > 30 ? "..." : ""}"`,
-      createdAt: new Date().toISOString()
-    });
+    task.history.unshift(activity);
     task.updatedAt = new Date().toISOString();
 
     db.tasks[idx] = task;
@@ -3066,6 +3056,17 @@ export class FamilyDB {
     const prior=db.notifications.find(row=>row.id===notification.id);
     if(prior){if(prior.userId!==notification.userId||JSON.stringify(prior.sourceRef)!==JSON.stringify(source))throw new AppStoreError('Thông báo Wallet xung đột.',409);return prior.id;}
     const value={...structuredClone(notification),sourceRef:source};db.notifications.unshift(value);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,value);this.writeRaw(db);return value.id;
+  }
+  /** Internal canonical Task mention adapter. The owning comment command joins
+   * this same I01 transaction; only references enter the existing push outbox. */
+  public static queueTaskMention(taskId:string,commentId:string,recipientId:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc tên cần transaction bình luận.',409);
+    const db=this.readRaw(),recipient=legacyReader(db,recipientId),task=db.tasks.find(row=>row.id===taskId),comment=task?.comments.find(row=>row.id===commentId);
+    if(!canonicalTaskPolicyActive()||!task||!comment||!canViewLegacyTask(task,recipient))throw new AppStoreError('Không tìm thấy nguồn nhắc tên.',404);
+    const id='task_mention_'+crypto.createHash('sha256').update(JSON.stringify([taskId,commentId,recipientId])).digest('hex'),sourceRef={domain:'task' as const,id:taskId},prior=db.notifications.find(row=>row.id===id);
+    if(prior){if(prior.userId!==recipientId||JSON.stringify(prior.sourceRef)!==JSON.stringify(sourceRef))throw new AppStoreError('Thông báo nhắc tên xung đột.',409);return id;}
+    const notification:Notification={id,userId:recipientId,title:'Bạn được nhắc trong công việc',content:comment.username+' đã nhắc bạn trong “'+task.title+'”.',type:'task',sourceRef,isRead:false,createdAt:comment.createdAt};
+    db.notifications.unshift(notification);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notification);this.writeRaw(db);return id;
   }
   public static queueWalletReminder(notification:Notification):string {
     return runLegacyCommand('queueWalletReminder',[notification],notification.userId,()=>{const source=walletNotificationSource(notification.sourceRef);return this.recordWalletNotice(notification,source,walletReminderId(source.id,source.offsetDays,notification.userId));});

@@ -3,12 +3,12 @@ import {keys,text} from './validation.js';
 import {createTaskDraft,editTaskDraft,changedTaskFields,type TaskDraft} from './editor.js';
 export type TaskLoader=(id:string)=>Promise<TaskRecord>;
 export type TaskSaver=(id:string,revision:number,patch:TaskPatch,requestId:string)=>Promise<TaskRecord>;
-export interface DrawerInputs {comment:string;newCheck:string;subtaskTitle:string;recurrence?:string;recurrenceOpen?:'open'|'closed'}
+export interface DrawerInputs {comment:string;mentionUserIds?:string[];newCheck:string;subtaskTitle:string;recurrence?:string;recurrenceOpen?:'open'|'closed'}
 const emptyInputs:DrawerInputs={comment:'',newCheck:'',subtaskTitle:''};
 export interface TaskCache {
  subscribe(fn:()=>void):()=>void;snapshot():number;record(id:string):TaskRecord|undefined;draft(id:string):TaskDraft|undefined;
  load(id:string,loader:TaskLoader):Promise<void>;reload(id:string,loader:TaskLoader):Promise<void>;open(id:string):boolean;inputs(id:string):DrawerInputs|undefined;editInputs(id:string,patch:Partial<DrawerInputs>):void;edit(id:string,patch:TaskPatch):void;tagEditor(id:string,initialText:string):void;editTagText(id:string,text:string):void;discard(id:string):void;
- replaceVisible(tasks:readonly TaskRecord[]):void;save(id:string,saver:TaskSaver):Promise<void>;invalidate(id:string):void;clear():void;dispose():void;
+ acknowledgeComment(id:string):void;replaceVisible(tasks:readonly TaskRecord[]):void;save(id:string,saver:TaskSaver):Promise<void>;invalidate(id:string):void;clear():void;dispose():void;
 }
 /** One in-memory owner per authenticated session. No browser storage/offline writes. */
 export function createTaskCache():TaskCache {
@@ -33,11 +33,12 @@ export function createTaskCache():TaskCache {
   async reload(id,loader){requireActive();if(busy.has(id))throw Error('Task save in progress');await this.load(id,loader);const task=allowed(id);if(!task)throw Error('Task not ready');drafts.set(id,createTaskDraft(task));inputs.delete(id);pending.delete(id);emit();},
   open(id){requireActive();const task=allowed(id);if(!task)return false;if(!drafts.has(id)){drafts.set(id,createTaskDraft(task));emit();}return true;},
   inputs(id){return allowed(id)?structuredClone(inputs.get(id)??emptyInputs):undefined;},
-  editInputs(id,patch){requireActive();if(!records.has(id))throw Error('Task not ready');keys(patch,['comment','newCheck','subtaskTitle','recurrence','recurrenceOpen']);if(patch.recurrenceOpen!==undefined&&!['open','closed'].includes(patch.recurrenceOpen))throw Error('Invalid recurrence expansion');for(const [key,value]of Object.entries(patch))text(value,key==='comment'||key==='recurrence'?20000:key==='newCheck'?2000:500,false);inputs.set(id,{...(inputs.get(id)??emptyInputs),...patch});emit();},
+  editInputs(id,patch){requireActive();if(!records.has(id))throw Error('Task not ready');keys(patch,['comment','mentionUserIds','newCheck','subtaskTitle','recurrence','recurrenceOpen']);if(patch.recurrenceOpen!==undefined&&!['open','closed'].includes(patch.recurrenceOpen))throw Error('Invalid recurrence expansion');if(patch.mentionUserIds!==undefined){if(!Array.isArray(patch.mentionUserIds)||patch.mentionUserIds.length>20||new Set(patch.mentionUserIds).size!==patch.mentionUserIds.length)throw Error('Invalid mention recipients');for(const id of patch.mentionUserIds)text(id,256);}for(const [key,value]of Object.entries(patch).filter(([key])=>key!=='mentionUserIds'))text(value,key==='comment'||key==='recurrence'?20000:key==='newCheck'?2000:500,false);inputs.set(id,{...(inputs.get(id)??emptyInputs),...patch});emit();},
   edit(id,patch){requireActive();if(busy.has(id))throw Error('Task save in progress');const draft=allowed(id)?drafts.get(id):undefined;if(!draft)throw Error('Task draft not ready');drafts.set(id,editTaskDraft(draft,patch));emit();},
   tagEditor(id,initialText){requireActive();const draft=allowed(id)?drafts.get(id):undefined;if(!draft)throw Error('Task draft not ready');if(!draft.tagEditor){drafts.set(id,{...draft,tagEditor:{originalText:initialText,text:initialText}});emit();}},
   editTagText(id,text){requireActive();if(busy.has(id))throw Error('Task save in progress');const draft=allowed(id)?drafts.get(id):undefined;if(!draft?.tagEditor)throw Error('Tag editor not ready');drafts.set(id,{...draft,tagEditor:{...draft.tagEditor,text}});emit();},
   discard(id){requireActive();if(busy.has(id))throw Error('Task save in progress');drafts.delete(id);pending.delete(id);emit();},
+  acknowledgeComment(id){requireActive();if(!records.has(id))return;inputs.set(id,{...(inputs.get(id)??emptyInputs),comment:'',mentionUserIds:[]});if(!busy.has(id))drafts.delete(id);emit();},
   replaceVisible(tasks){
    requireActive();const ids=new Set<string>();for(const task of tasks){assertTaskRecord(task);if(ids.has(task.id))throw Error('Duplicate task IDs');ids.add(task.id);}
    for(const id of [...records.keys()])if(!ids.has(id)){next(id);wipe(id);}

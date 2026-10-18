@@ -274,7 +274,8 @@ function canReceiveRealtime(user:{id:string;role:UserRole},event:{type:string;da
     case 'MEDICATIONS_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getMedications(),data.medicationId??data.deletedId,row=>canViewLegacyPatient(row.patientId,actor));
     case 'CHILD_HEALTH_UPDATE':return isAdult(actor)||target(()=>FamilyDB.getHealthProfiles(),data.healthProfileId,row=>canViewLegacyPatient(row.userId,actor))||target(()=>FamilyDB.getVaccinations(),data.vaccinationId??data.deletedVaccinationId,row=>canViewLegacyPatient(row.childId,actor))||target(()=>FamilyDB.getGrowthRecords(),data.growthId??data.deletedGrowthId,row=>canViewLegacyPatient(row.childId,actor));
     case 'REWARDS_UPDATE':return typeof data.taskId==='string'?target(()=>FamilyDB.getTasks(),data.taskId,canViewLegacyTask):true;
-    case 'SHOPPING_UPDATE':case 'USERS_UPDATE':case 'NOTIFICATIONS_UPDATE':case 'SETTINGS_UPDATE':case 'RESTORE_COMPLETED':return true;
+    case 'NOTIFICATIONS_UPDATE':return !Object.hasOwn(data,'recipientIds')||Array.isArray(data.recipientIds)&&data.recipientIds.includes(user.id);
+    case 'SHOPPING_UPDATE':case 'USERS_UPDATE':case 'SETTINGS_UPDATE':case 'RESTORE_COMPLETED':return true;
     default:return false;
   }
 }
@@ -759,7 +760,7 @@ if(dependencies.wallet&&jobs.durableEnabled){const wallet=dependencies.wallet;re
 if(dependencies.wallet?.budgetJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletBudgetJobs(jobs,wallet.budgetJobs,{notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet?.scheduleJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletScheduleJobs(jobs,wallet.scheduleJobs,{recordChanged:id=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.recordAudience(id)),scheduleChanged:ownerId=>broadcastSyncEvent('FINANCE_UPDATE',{},new Set([ownerId])),notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
-if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id})}));
+if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id}),mentions:ids=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:ids})}));
 if(dependencies.productivity)app.use('/api/productivity/calendar',calendarRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous)}));
 if(dependencies.productivity)app.use('/api/productivity',queryRouter(dependencies.productivity,requireAuth as any,{view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));
 if(dependencies.productivity)app.use('/api/productivity',matrixRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));

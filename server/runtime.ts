@@ -54,7 +54,7 @@ export async function startApplication(config: AppConfig = appConfig) {
     const push = await import('./push.js');
     const { AppJobStore,enqueueAppJob } = await import('./jobStore.js');
     const gateway=await import('./appStore.js');const {withAppWriteTransaction}=gateway;
-    const {createProductivityPorts}=await import('./productivity/ports.js');const productivity=createProductivityPorts(storage,gateway,{legacyCompletion:db.FamilyDB});
+    const {createProductivityPorts}=await import('./productivity/ports.js');const productivity=createProductivityPorts(storage,gateway,{legacyCompletion:db.FamilyDB,recordMention:(taskId,commentId,userId)=>db.FamilyDB.queueTaskMention(taskId,commentId,userId)});
     const {createWalletPorts}=await import('./wallet/ports.js');const wallet=createWalletPorts(storage,gateway,{enqueueBudget:input=>{const tx=gateway.currentAppWriteTx();if(!tx)throw Error('Budget job requires I01');return enqueueAppJob(tx,{namespace:'wallet',type:input.type,key:input.key,payload:input.payload,kind:'command'});},recordWalletBudgetAlert:notification=>db.FamilyDB.queueWalletBudgetAlert(notification),enqueueSchedule:input=>{const tx=gateway.currentAppWriteTx();if(!tx)throw Error('Schedule job requires I01');return enqueueAppJob(tx,{namespace:'wallet',type:input.type,key:input.key,payload:input.payload,kind:'command'});},recordWalletReminder:notification=>db.FamilyDB.queueWalletReminder(notification),enqueueImport:input=>{const tx=gateway.currentAppWriteTx();if(!tx)throw Error('Import job requires I01');return enqueueAppJob(tx,{namespace:'wallet',type:'import-commit',key:input.key,payload:input.payload,kind:'command'});}});
     const jobs=new AppJobs(undefined,new AppJobStore());
     const backupRecovery=(value:unknown)=>{
