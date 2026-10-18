@@ -1,0 +1,1070 @@
+{
+  "taskId": "P13 canonical Notes and typed Task links functional slice",
+  "sourceCommit": "627b5dcb855162cfb2506d1d97a6c41d18a58f0c",
+  "productionSource": "f9fb6989ff485ae02cacb1743ba25976f754c11e",
+  "fullRegressionSource": "f9fb6989ff485ae02cacb1743ba25976f754c11e",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "qualification": "Cloud only; final composed Windows and controlled pilot remain",
+  "fullRegression": {
+    "passed": 8630,
+    "files": 532,
+    "junitCases": 8630,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentPassed": 8595,
+    "added": 35,
+    "removed": 0,
+    "note": "All8595 template-base cases retained; added template-panel1, Note-identity1 and content33. Full run is f9fb698.627b5dc changes E2E fixtures only."
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "content": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "627b5dcb855162cfb2506d1d97a6c41d18a58f0c",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "460b414ee25b93607bf486394186f6d3fb0767b20792cee93704131b936210f0",
+          "index": "9d5a50e6e5c65b5af8d1df5b947b2871b807fd8804bbd08ab1d24ddf53d1cf97"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 16,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          },
+          "contentFixture": {
+            "explicit": true,
+            "frozen15Preserved": true,
+            "taskRowsPreserved": true,
+            "linksCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "templates": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "627b5dcb855162cfb2506d1d97a6c41d18a58f0c",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "460b414ee25b93607bf486394186f6d3fb0767b20792cee93704131b936210f0",
+          "index": "9d5a50e6e5c65b5af8d1df5b947b2871b807fd8804bbd08ab1d24ddf53d1cf97"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 15,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          },
+          "templateFixture": {
+            "explicit": true,
+            "frozen14Preserved": true,
+            "taskRowsPreserved": true,
+            "templatesCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "notifications": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "627b5dcb855162cfb2506d1d97a6c41d18a58f0c",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "460b414ee25b93607bf486394186f6d3fb0767b20792cee93704131b936210f0",
+          "index": "9d5a50e6e5c65b5af8d1df5b947b2871b807fd8804bbd08ab1d24ddf53d1cf97"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 14,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true,
+          "notificationFixture": {
+            "explicit": true,
+            "frozen13Preserved": true,
+            "taskRowsPreserved": true,
+            "notificationsCreated": 0
+          }
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "collaboration": {
+      "passed": 3,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "627b5dcb855162cfb2506d1d97a6c41d18a58f0c",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "460b414ee25b93607bf486394186f6d3fb0767b20792cee93704131b936210f0",
+          "index": "9d5a50e6e5c65b5af8d1df5b947b2871b807fd8804bbd08ab1d24ddf53d1cf97"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    },
+    "calendar": {
+      "passed": 4,
+      "firstAttemptsOnly": true,
+      "fixture": {
+        "commitSha": "627b5dcb855162cfb2506d1d97a6c41d18a58f0c",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "460b414ee25b93607bf486394186f6d3fb0767b20792cee93704131b936210f0",
+          "index": "9d5a50e6e5c65b5af8d1df5b947b2871b807fd8804bbd08ab1d24ddf53d1cf97"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "productivityVersion": 13,
+          "kanbanFixture": {
+            "taskRowsPreserved": true,
+            "boards": 2,
+            "views": 9
+          },
+          "fixtureProject": "chromium",
+          "users": 4,
+          "tasks": 13,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      }
+    }
+  },
+  "sourceFiles": {
+    "playwright.content.config.ts": "20dd1527241708944f74091c903402b939dabced6b8f3a9a29f3575e62ebb46a",
+    "scripts/ci/productivity-feature-browser.mjs": "25db6c8bf8e5058307bd0cce1da1e96e305e6ff632e429cb7dd3819bd51b6725",
+    "scripts/ci/run-content-browser.mjs": "0d9e733723c5c2a1fdaca12851cf28b7b9fb22f89037ef37bb1d2327906b2673",
+    "scripts/ci/write-content-browser-fixture.ts": "d140eb0ef374ef7c0fb8fbeebf173d7bf3737c5295fa402518b6d38c01d417d4",
+    "server/app.ts": "c962f86de6c69dfc359453861868aef099deb929fa19b2069138bf44975e1d69",
+    "server/mediaPolicy.ts": "40b2214da05cd9e07294ca3f583a4bb1ead52edb7585929ae58e131971c0e4ce",
+    "server/productivity/adapter.ts": "a385b5df93873abf2e285c0e7daaf2f1f47a3b048f4c6f6a592510c3af1eb8ba",
+    "server/productivity/bootstrap.ts": "168a683458adafab3bb119bc663d381ff4ed673f1dd114cd70f199d5a9b04505",
+    "server/productivity/content-migration.test.ts": "b7ad22e7af3c50bfeab81017bf749969af204a21ecb07db45a0d550d5783a377",
+    "server/productivity/content.api.test.ts": "67e5fdfeffafef7ebd4280f9a753e09192071b814522f3af02907c4371608955",
+    "server/productivity/content.test.ts": "7744182b1599aa786cbd6bac9982b397cb3ec7261de6a63f8776ba375a6da2d5",
+    "server/productivity/content.ts": "4c154f7489195d7f65750f76323af7671312f459e305060a5699ee988dbe4672",
+    "server/productivity/contentRecord.ts": "88e903ea22d327c406602d3b65d1d45d1190440c63598bbb2b72e44dfb7b8805",
+    "server/productivity/contentRouter.ts": "9f358bd933bb3c218fa1d7d34f5e19f1e8c57b9b5636587c9c3402a2ef6acaeb",
+    "server/productivity/contentSchema.ts": "13a39dcc212649e49226f485e342a4ee26e4aadddd281031406684268866cbb3",
+    "server/productivity/inspection.ts": "c4634fdb9369dca10004eab413fcfbe4929b5752dca9a9d5d1e9569e92e3124f",
+    "server/productivity/knownVersions.ts": "47676813ccc543f4ac4f2352e3f4a9e7dba3bca26df7eafb0410cc32c7f603ca",
+    "server/productivity/ports.ts": "8b1afb768b8a831580aa24816c4b2bf927c01ffafe1f4d9420018f3194a3a2ba",
+    "server/productivity/router.ts": "65d44d6cb32ef3c5bdfe9e25a8e67e6761bbb5ccaf91744dd525a4633fd01906",
+    "server/productivity/snapshot.ts": "8339c9641c331e20f677e42921f7e80a9fb4a16a0fc103b6a0d818e11c9fb4eb",
+    "server/productivity/structureSchema.ts": "d51b675d04312ffa6d2c29b89fb2080644e26325b4e2a2e5ad952e3a70a8f4fd",
+    "server/runtime.ts": "b5b736f77a9fbbb3bc6942ab00a284e35e1e80cd9a17e970b6629ef0cc9a88fc",
+    "server/sqlite.ts": "9ae436481482fa170581933be66cf8d24249fda96b235c59362a873497ea9cf5",
+    "src/App.tsx": "adc99bdfd2552d7785efc0a9916d61e6a5a46fe37e3916f2e90eadb34ce0353a",
+    "src/components/Notes.tsx": "4314098b453aba6d0e28930cdd4b3d075f45de06b0d28fab891991834e7fa21b",
+    "src/features/productivity/TaskDrawer.tsx": "7c714685f7687f2c38fe673d4f09112c57e30b469d1f1411652e04512cb90962",
+    "src/features/productivity/TaskNoteLinks.tsx": "d6dcba48ed7feace402554f6323769151392d346428573008f7552cc5952bc59",
+    "src/features/productivity/api.ts": "455b8cce27cb5264260d61968f9241aafd0556c9a609d23993ba45801fc04e0c",
+    "src/features/productivity/content-api.test.ts": "f9a0564e4970b9687e5c5a4a70dea4db510dbcbae3ed4a392b235c75ab7969cb",
+    "src/features/productivity/content-command-session.test.ts": "6c1f8cd3231355602d7e10828e57d46e1aa85c0bc4347ed28255736f5b1d0ef7",
+    "src/features/productivity/contentApi.ts": "6d368d571217902ebb96bb654e6ff738e9719083d1d1bcf9366b1808b1cf8a21",
+    "src/features/productivity/contentCommandSession.ts": "90c6090c7cb63673a08c28fa3263ec85ca676b59ec330f4239df2339677e27a7",
+    "src/features/productivity/useTasks.tsx": "4babd327a8c4fffe840680d7ebc780318548fc1102c76352f5af172b47735878",
+    "src/i18n/locales/en.json": "67e35878b81e0522d18adde541760b33aa72513df1e0f51728c72f352b5fbbbf",
+    "src/i18n/locales/vi.json": "98b3f13ce9a892dbea2a6faa51249a2980dd489ce8b886b4a4de0e896d01c861",
+    "src/i18n/locales/zh.json": "07521e1464792d16e6818d7543a0a8303392087c622d1f1f45cf7bbaa127eacd",
+    "tests/e2e/calendar.spec.ts": "fbafa799dc4a30b43659eeec3f314b1169db4257e848b36ec89ee1cb25ed1306",
+    "tests/e2e/collaboration.spec.ts": "b47bd82f441f7f5b03c69b3f7d5cf9df98aaa32043a3dd246cac5eda18b57cf0",
+    "tests/e2e/content.spec.ts": "ee3069f03accd305210ede5ed287b9e8d8577bf049bcf939938992ccce88475c",
+    "tests/e2e/notifications.spec.ts": "0ae9805670b9481853848107ec7f0a23ceb7a9a685cc20ab6438f453771836c8",
+    "tests/e2e/productivity-actor-login.ts": "d189075ed2c0731236a2c388c8aba5954ef03c78ebe8e55b0ed14206584649d9",
+    "tests/e2e/templates.spec.ts": "69f6c067bac903eb09968e75d394b3516b423bb764dceaaee5664be0620b4ac7",
+    "tests/productivity-content-fixture.ts": "207ac16dfd74707125eb622bfba9c75a2e50bd2379d9378a3f69fc90c3150dc1"
+  },
+  "fixtureOnlyFollowup": [
+    "tests/e2e/calendar.spec.ts",
+    "tests/e2e/collaboration.spec.ts",
+    "tests/e2e/content.spec.ts",
+    "tests/e2e/notifications.spec.ts",
+    "tests/e2e/productivity-actor-login.ts",
+    "tests/e2e/templates.spec.ts"
+  ],
+  "schema": {
+    "explicitPilotVersion": 16,
+    "defaultVersion": 6,
+    "frozen1to15Preserved": true,
+    "packageCapsChanged": false
+  },
+  "review": {
+    "independent": false,
+    "scope": "Author review of canonical ownership, source/destination/current both-end ACL before receipt, retained source/history/grants, Notes FK-preserving writes/restore, trusted media source pairing, native invalid snapshot checks, session/late-confirm fencing, actual revocation DOM and eighteen final journeys."
+  },
+  "findings": [
+    "Conversion is intentionally non-destructive: create a private linked counterpart and retain the original canonical Task/Note and history. Notes remain in legacy canonical APIs; no new Markdown store or synchronization engine. This choice is explicit in confirmation/UI.",
+    "Task-to-Note refuses active rewarded/pending/recurring Tasks until a separate archive policy. Accepted past rewards are neither repeated nor reversed; a real native completion/grant fixture verifies original Task/history/ledger/users unchanged. Note-to-Task creates fresh private unfinished Task without due/assignee/reward and refuses oversized text without truncation.",
+    "Two actual native failures showed unrelated Note edits and shared snapshot restore deleting typed links through FK cascade; a third missing-row error followed that failed restoration. The existing users retained-ID write path now also upserts Notes and deletes only removed IDs, inside the same gateway. Actual canonical Note deletion still prunes only its own links.",
+    "An actual Chromium revocation test showed a disabled button still exposing a revoked Note title even though the API returned an empty authorized list. Rendering now filters current peer scope before labels and re-fetches on current Note IDs; original no-title assertion remains.",
+    "One parent Collaboration actor bootstrap stopped in privacy cleanup before Member UI, with native HTTP200 and no functional-page assertion reached. The failed DOM/network/trace and read-only diagnostic run are retained. Synthetic actor bootstrap now unloads the previous app document before replacing storage; language init is origin-bound, real privacy worker/session startup/readiness/network/privacy assertions and deadlines remain. All eighteen final journeys pass first-attempt on clean owned fixtures. This does not claim a production auth fix.",
+    "The first additional past-reward test selected a nonexistent ledger.type field; the selector now uses the actual positive points model while retaining one-grant and exact ledger/users/history assertions. The failed report is retained. No parent assertions/skips/retries/deadlines were weakened."
+  ],
+  "retainedEvidence": {
+    "p13-content-actor-assertion-audit.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-actor-assertion-audit.json.gz",
+      "sha256": "6a33b36f58b3350bd6ae8824ede523da6fd6427fec9da2b6c19ac7c96194172e",
+      "uncompressedSha256": "39fd58279da494879f28fd75d3ee144e88ccadf9ac95bb459022d106abd630e2"
+    },
+    "p13-content-api.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-api.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-api.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-api.json.gz",
+      "sha256": "86865be470120fa4c0e73d9ee7cd3aa31d48b5d425045ab2fda80e52bdaf2e8c",
+      "uncompressedSha256": "897fbde60fcd723f352cd5958db40eee74f4f9f4a6bc02b875fd5af66af6ebd1"
+    },
+    "p13-content-api.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-api.log.gz",
+      "sha256": "57bfde5ed55e4a0563a28dbad56357e4115f94683eafc4043f39ccfa927677c9",
+      "uncompressedSha256": "7d26a7c01d706fa9bd2a1ba41765b7f279408bc91eab2463e5dd42496ff5712c"
+    },
+    "p13-content-api.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-api.xml.gz",
+      "sha256": "0e1c2b129d12d14691a14fbd179fdfaf9ac8e752bb332abd8f44279d8841d7c0",
+      "uncompressedSha256": "400a22eb7ec80e5df02eab5029fe866dd74e5d7806e2ad61f7c12d8e9129fd9c"
+    },
+    "p13-content-browser-actor-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-actor-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-browser-actor-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-actor-final.log.gz",
+      "sha256": "432deb999f15e20256f04a906e0aa0b77ff7594e496b75d51181bfcb4d66a3de",
+      "uncompressedSha256": "c3d268a4ffdd73ffabe497f13b745c022d9579c3136a966ec82e88c3e3a1ebcf"
+    },
+    "p13-content-browser-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-browser-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-final.log.gz",
+      "sha256": "6f4b24a074b3b01401b912fb0c30278ded4668cd4cad5ed29f2138b2007faa9a",
+      "uncompressedSha256": "5b940877e98c4514113b36489ff9dc29a51110de9d846c52d9d525b8e9d82858"
+    },
+    "p13-content-browser-first.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p13-content-browser-first.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first.log.gz",
+      "sha256": "382cd63b46071f33dfe928df2d67baf0913c3930697a91c33d98758e0bc2a40f",
+      "uncompressedSha256": "b18c9e939393dc33717f6b3d3beaa298a65d788f2bb3a66c706ddddca43b0c3c"
+    },
+    "p13-content-build-actor-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-build-actor-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-build-actor-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-build-actor-final.log.gz",
+      "sha256": "1fd3cf0540069411621dae57f282f3522045a5bead53c496c800ed0aea3eb782",
+      "uncompressedSha256": "50344d23f131504da31ffab622603166bef56f94d4e42c134219fd3f9cd54859"
+    },
+    "p13-content-build-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-build-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-build-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-build-final.log.gz",
+      "sha256": "63fb03f863318386be5e7f6e0bfedc9ae4e75b7f62eec0be2cad37559edd9bc1",
+      "uncompressedSha256": "d86b578a52d5423124672df8f949e281dcf9a8bd63c82a472811bd95685d8132"
+    },
+    "p13-content-build-first.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-build-first.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-build-first.log.gz",
+      "sha256": "cc061af71e545d74f3cda012eb42a35630ede0afcea60356ed222cb235af282b",
+      "uncompressedSha256": "04f2c24e271b4f254c5d89c86afd3656960e511661ab92a91311464c9d2aa7ea"
+    },
+    "p13-content-collaboration-session-diagnostic.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-collaboration-session-diagnostic.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic.log.gz",
+      "sha256": "f2e8139bf7917543fb24042d099d64790da064435ea337b68905eb66cca2525e",
+      "uncompressedSha256": "d018895dcaa7e0143c5b1140f2635c256b6e9d6425fc4b0f274dd0c245c6a71e"
+    },
+    "p13-content-final-source.sha": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-final-source.sha.gz",
+      "sha256": "bd40eba70341632e37859bdf976735782553a256b5c0d06871708359d350490c",
+      "uncompressedSha256": "b4597ed02f8e8adb33d306073f3ce9b5ce4630371ec822817c622237253d653b"
+    },
+    "p13-content-first.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-first.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p13-content-first.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-first.json.gz",
+      "sha256": "d45a92cbad55f2c954e35db77dd82d54d5c05b23751214058f9076d3d34f72a0",
+      "uncompressedSha256": "206cca78cee2f1ff2efe8c1eb91adcdd64492ab3d3744f44003c2a38856dd97b"
+    },
+    "p13-content-first.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-first.log.gz",
+      "sha256": "fcc431ca2d0e114889c65a7691b714f7054e818f6c6cef460206644e42b8488b",
+      "uncompressedSha256": "def61ccafefdec2cce329c2f69e6cb834d6081072dd772580893b101653946bd"
+    },
+    "p13-content-first.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-first.xml.gz",
+      "sha256": "0ad29339eab9ba4e7e62a00a5bb96a81cbb25c03c620c4d7c5ec2ce1796b5897",
+      "uncompressedSha256": "2045b0345d99705fc25670cb6821b3c766426b0ee667b03bba2153f6fe772db4"
+    },
+    "p13-content-fixed.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-fixed.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-fixed.json.gz",
+      "sha256": "e92905e6c9c25d0391ac994f5c26793d47f2f8f0dcc2ac748021f914864a73e1",
+      "uncompressedSha256": "5286d0576842cbbccc31d530fd00e7b5b1652d27727aed88d114581d511ce3cb"
+    },
+    "p13-content-fixed.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-fixed.log.gz",
+      "sha256": "e248546d1e3a76c072dbdda5cac24089e068dbe33a060558ef3139d81c3e55b0",
+      "uncompressedSha256": "9c9b5b70adcfe7895aa303d910627cb14433ecf63f5b1d372e795a8bca7c4e3a"
+    },
+    "p13-content-fixed.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-fixed.xml.gz",
+      "sha256": "9bf425c3a3f3d9058efb5da831f2599bb35f8c841d147cf9cb8371c82242c863",
+      "uncompressedSha256": "c7b082a281e0ee130e647da77a359947db666a8479948d544ea764eeae4f8677"
+    },
+    "p13-content-full.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-full.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-full.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-full.json.gz",
+      "sha256": "b37d8d04224bad79bf2dbb90ce9542c3cadd4c9cff83ca850a7767f303bb8639",
+      "uncompressedSha256": "c2f0f555e0c0ab253e164650c44919246fd576540868df7566242333a72ca261"
+    },
+    "p13-content-full.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-full.log.gz",
+      "sha256": "86ad3a2a2571e0e7b5a3b6e5fe4b59d37c3d39b23941e9e1930a132a82e0d4ce",
+      "uncompressedSha256": "1a22c64160a589a6b17e498398a0a050c06343bc97743adf754d0eaf18a515fc"
+    },
+    "p13-content-full.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-full.xml.gz",
+      "sha256": "360e3c335ce80d895b3cc7256f7dbeaae9c93fd5eba859caab57e2c4ae9a9acb",
+      "uncompressedSha256": "3257d27b15a062ccc4f724d6670ca605935d8ef85e3e925515dfaf076993ecb2"
+    },
+    "p13-content-functional-v2.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional-v2.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-functional-v2.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional-v2.json.gz",
+      "sha256": "4f72ea877b3372f82374ff9f0db0741d009abbd9c1161da49ecf4858052e264c",
+      "uncompressedSha256": "efceb0a3c6f16f57726488228db492f31778d6b284409d9fe7f134b520674cc9"
+    },
+    "p13-content-functional-v2.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional-v2.log.gz",
+      "sha256": "d66a57924d01029cfc7c888d3301077a6b37520f675e5fe96fc3594cff20c689",
+      "uncompressedSha256": "a86dfbd6ccc353b962e9f5be570a0f3805df99afc72a1608c699ef071b5c2e7c"
+    },
+    "p13-content-functional-v2.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional-v2.xml.gz",
+      "sha256": "cdb1ef43fb61c47ce33f8f2f7f4c1b6e7fbe5e02d691878a933ac078ada85f1b",
+      "uncompressedSha256": "28526385b9055136fea0ff93ecb12d03770b90f93fb00f1be7a4df7fedd733a7"
+    },
+    "p13-content-functional.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p13-content-functional.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional.json.gz",
+      "sha256": "67690776a3c57ba8f0a4d40dbd6f52df083d649378e9678290b6984fc1bb5f39",
+      "uncompressedSha256": "469a6db14e1d8f65c86b21508b2f7b8a61a01c70ae7191c209a3799531625d4c"
+    },
+    "p13-content-functional.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional.log.gz",
+      "sha256": "b6b82b04e7b236a134869874f65ab9f935d22c6bf2c4cbbd33b95386adc5292d",
+      "uncompressedSha256": "459d85523861c1135ab37c9ca3191a3f53694cc6f1e3ba6aa5837a1834398e8a"
+    },
+    "p13-content-functional.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-functional.xml.gz",
+      "sha256": "9d9e4e6b2f941f48055fb177a25b4c0521cd99150d9883bdb9c2f74f6c52b929",
+      "uncompressedSha256": "39d3ef11464d0f8ef69cc31d5c12f42f3d0b08c4f755cc361317d58f9d09fc5d"
+    },
+    "p13-content-lint-actor-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-actor-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-lint-actor-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-actor-final.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p13-content-lint-api.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-api.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-lint-api.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-api.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p13-content-lint-browser.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-browser.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-lint-browser.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-browser.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p13-content-lint-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-lint-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-final.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p13-content-lint-first.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-lint-first.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p13-content-lint-login-fixture.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-login-fixture.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-lint-login-fixture.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-login-fixture.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p13-content-lint-ui-first.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-ui-first.exit.gz",
+      "sha256": "6e08a71af69ad2fa0122936c77c0ba1d20f2b26808cfc5ea068985fb8264bf05",
+      "uncompressedSha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "p13-content-lint-ui-first.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-ui-first.log.gz",
+      "sha256": "d33d273f052b141e5916d2c494c25b7bde0faabc09cdaad68b9afa1071d6b5fb",
+      "uncompressedSha256": "1888214f90afc2440d4045ec1b48547aeb05c5d4c2ba758373d0eebd6ab9d8f1"
+    },
+    "p13-content-lint-ui-v2.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-ui-v2.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-lint-ui-v2.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-lint-ui-v2.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "uncompressedSha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "p13-content-parent-calendar-actor-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-calendar-actor-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-parent-calendar-actor-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-calendar-actor-final.log.gz",
+      "sha256": "5f67eaa082da6980f15fa598b93a6bd8939868c5337a6f8496fb1f15b39b5a54",
+      "uncompressedSha256": "2914c9a01fb0771593bef446247b00fbd8ac3d8c0ad905db884351abe02b0f80"
+    },
+    "p13-content-parent-collaboration-actor-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-collaboration-actor-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-parent-collaboration-actor-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-collaboration-actor-final.log.gz",
+      "sha256": "47ab52d7217efea3e737194b15c53eead500ac42135eeb0a4632eedf25d8a967",
+      "uncompressedSha256": "986abc5af53acfb7f9dfea8565e4e3ab9eddee89bf5ef2bf9cf7f322a5d911af"
+    },
+    "p13-content-parent-collaboration.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-collaboration.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p13-content-parent-collaboration.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-collaboration.log.gz",
+      "sha256": "1fb4d64e258075a0a85584481bf5040d3a82d1a5cfcb0903af225497a7f5b993",
+      "uncompressedSha256": "978307e5853dfd5e3075d4157edf4bb7e364e6ecdd194ce7e5ed7d10219e22dc"
+    },
+    "p13-content-parent-notifications-actor-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-notifications-actor-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-parent-notifications-actor-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-notifications-actor-final.log.gz",
+      "sha256": "404f35bb4aa74ef7b6aadc668345fc5edddfbc550d5432d412a1bbdb427f0609",
+      "uncompressedSha256": "518934279cef88882d6390cf4a818a3cb04870379aba771caa49725fd2334f2d"
+    },
+    "p13-content-parent-notifications.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-notifications.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-parent-notifications.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-notifications.log.gz",
+      "sha256": "d91449de58760f48eb82bc1cc27f53b033530a67d132e4f732b9d70b496d4d74",
+      "uncompressedSha256": "15eb972bf7c361a3402ab64a133fd550dfa872a5651391ef16551108b256e9e2"
+    },
+    "p13-content-parent-templates-actor-final.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-templates-actor-final.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-parent-templates-actor-final.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-templates-actor-final.log.gz",
+      "sha256": "b06a6ea3b278797cde70e8075b1b10d91d07796865e4e42f1f9e0465287ab87c",
+      "uncompressedSha256": "bdf93a0262b2df123a2a456c3e438a65d252c7b095f29445d00c52f2325b54d1"
+    },
+    "p13-content-parent-templates.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-templates.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "uncompressedSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "p13-content-parent-templates.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-parent-templates.log.gz",
+      "sha256": "43fe643f6a6706251f5f252dadd0255d8668b898434d1c30254fa84e2a474c84",
+      "uncompressedSha256": "26f1bcdc81d2e59a18611b94a18e856d81292dafbb0dee7796c80aebdb6cbee3"
+    },
+    "p13-content-red.exit": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "uncompressedSha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "p13-content-red.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-red.json.gz",
+      "sha256": "c17c289216da661576e7bb7d731366ad53d5e4edde2044eda6365b95d91e701d",
+      "uncompressedSha256": "7ac6b3552b4eae35615e47e5b71947f4fce2a96d5f737e3e09e35646b5bfa79c"
+    },
+    "p13-content-red.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-red.log.gz",
+      "sha256": "438147da07cfc16ddae2cbcad0abc268b781f9cc4324070584fb5c0c058c3e30",
+      "uncompressedSha256": "a15235fbcb17209b2940195121bb6c0137254f5b6066743adb10e0b47a0f9226"
+    },
+    "p13-content-red.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-red.xml.gz",
+      "sha256": "a59b4b37025edec6599f57777820e4c141215c9b57ab9a18572bdefdc8b75950",
+      "uncompressedSha256": "f498b150b169102bd351cf1b5521f80f3f26ae744f0aca7d8c14dc38b54d9495"
+    },
+    "publish-p13-content.py": {
+      "path": "docs/engineering/evidence/p13-content/publish-p13-content.py.gz",
+      "sha256": "2e4b11fd4dca2fb336b522fd8ca04ad980528fedbfc5eeca1e96ab22fc511bb5",
+      "uncompressedSha256": "ef965004ad0c09d9558168ba7ae8aea252272a169df27cd6ec2b51fde8f6e516"
+    },
+    "content-final-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/content-final-browser.json.gz",
+      "sha256": "2110ebe3307ea8e1b2d312d476cf09cb97c3223d46d0f8ca62ada8dc96c0a8a5",
+      "uncompressedSha256": "5d7bf4da547e1d3331c26c52f6b6e77e423dfbaf2eae1c03d71481c538b8e48e"
+    },
+    "content-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/content-final-browser.junit.xml.gz",
+      "sha256": "f9ee737309e50cdff842be118f1f631cdee1a860403ae33fd5b2da430703a89c",
+      "uncompressedSha256": "1a4624f344d5faa5c8edc51098a84becac98d638e2eda108641f9a91386cdb25"
+    },
+    "content-final-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/content-final-fixture.json.gz",
+      "sha256": "05a9d047538464f7403d669f584dab92ae3ffc8c64e739308f96010247cd4fc8",
+      "uncompressedSha256": "fc6835fcc79a6e10edaf687c23bddffc01cdad9b7985c41ed626b6e22a7519b4"
+    },
+    "content-final-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/content-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "content-final-run.log": {
+      "path": "docs/engineering/evidence/p13-content/content-final-run.log.gz",
+      "sha256": "432deb999f15e20256f04a906e0aa0b77ff7594e496b75d51181bfcb4d66a3de",
+      "uncompressedSha256": "c3d268a4ffdd73ffabe497f13b745c022d9579c3136a966ec82e88c3e3a1ebcf"
+    },
+    "content-final-server.log": {
+      "path": "docs/engineering/evidence/p13-content/content-final-server.log.gz",
+      "sha256": "463ba953452e9b635bc1b101a5403351d44cb8050efde59c7a88693f10a16b12",
+      "uncompressedSha256": "9486a6fd7424b8c419d720409e6c100d32c513396a2a971408c78552243bcefd"
+    },
+    "templates-final-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/templates-final-browser.json.gz",
+      "sha256": "de40af0009fa170ea9e02fbd9c9844283c6c4ac60ae4656bb04b0cf6616618d8",
+      "uncompressedSha256": "be9e1e9cbee7ff3c95aa0dec6345f3843dfeed5a4431821b49f1f357a7dc4518"
+    },
+    "templates-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/templates-final-browser.junit.xml.gz",
+      "sha256": "806edb5521c13a186771478491c1635fcf60e8543297bdc09e7a1465537f6d5c",
+      "uncompressedSha256": "adf3ee24d97406a165d0040f6872542b3a197fb1fb73172b004c81407fe901e0"
+    },
+    "templates-final-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/templates-final-fixture.json.gz",
+      "sha256": "54b18c378a7c4477b8bdc2a505f37a1ae18ecea8f53baa84d223c45e951d8e76",
+      "uncompressedSha256": "2b8c1e53a9185b0ce15bd341c253c4e3ce57832c535bd7923136027e5334b60c"
+    },
+    "templates-final-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/templates-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "templates-final-run.log": {
+      "path": "docs/engineering/evidence/p13-content/templates-final-run.log.gz",
+      "sha256": "b06a6ea3b278797cde70e8075b1b10d91d07796865e4e42f1f9e0465287ab87c",
+      "uncompressedSha256": "bdf93a0262b2df123a2a456c3e438a65d252c7b095f29445d00c52f2325b54d1"
+    },
+    "templates-final-server.log": {
+      "path": "docs/engineering/evidence/p13-content/templates-final-server.log.gz",
+      "sha256": "2bbdd27758af22726b035a34c7502c35273e1d57c8077d92fd2b03bd50aba2bc",
+      "uncompressedSha256": "c473cf8ce8678b4779ac15832dcf94455ae6a8ff1ed2ce87ceaa77bd0c6a3886"
+    },
+    "notifications-final-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/notifications-final-browser.json.gz",
+      "sha256": "2655dadc394fd31bfb664e123ce25f97dd6ee6d5d7b3669e155c01fcfa3c4dde",
+      "uncompressedSha256": "b54181b55e46dd84a1b86b686ab1c1c98b057f21a735ca686f97b29275d9fe81"
+    },
+    "notifications-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/notifications-final-browser.junit.xml.gz",
+      "sha256": "974c1f7ed159ce1676b3c0c3643898429069f85db83e6a9735840d203871c795",
+      "uncompressedSha256": "8ffffb0ca32329008946cf74069a77ab37b71609041db3a91bcbb2e9a86fa3ca"
+    },
+    "notifications-final-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/notifications-final-fixture.json.gz",
+      "sha256": "16b12a4fd6d62902c1193c4a2d9ada1145a2058e5aa3e577aa5c674ecf7a69ac",
+      "uncompressedSha256": "2dca209db9cf97ea1fb7197fc3af37094d446ca55f6787ec35b3e006ec99021d"
+    },
+    "notifications-final-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/notifications-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "notifications-final-run.log": {
+      "path": "docs/engineering/evidence/p13-content/notifications-final-run.log.gz",
+      "sha256": "404f35bb4aa74ef7b6aadc668345fc5edddfbc550d5432d412a1bbdb427f0609",
+      "uncompressedSha256": "518934279cef88882d6390cf4a818a3cb04870379aba771caa49725fd2334f2d"
+    },
+    "notifications-final-server.log": {
+      "path": "docs/engineering/evidence/p13-content/notifications-final-server.log.gz",
+      "sha256": "c9ae632883da95d163406aac0d3401ed7f39a9dba7c461d2be8535ad51e75292",
+      "uncompressedSha256": "6df63a11013895b00dc35b71a1413ac1a16b50b361f3456c2ff1eb352040aa23"
+    },
+    "collaboration-final-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/collaboration-final-browser.json.gz",
+      "sha256": "26d266d4ec64db9daeb675441ec8f9b1de0bb111bc7b768a17bc398031421b4b",
+      "uncompressedSha256": "cd480b9e4ea8a39b998aa2f49ad16e61030e1ea8fcfc91c982d2c86cf33ca895"
+    },
+    "collaboration-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/collaboration-final-browser.junit.xml.gz",
+      "sha256": "d640414529307e7b14b7576c547e5a6acd583d59cfa3b846d49744bfec6b291e",
+      "uncompressedSha256": "4199b5ee8ba882d1efa859bdb1f64cbd0cfd5bf0a974ac825099f30c1ed0a1ce"
+    },
+    "collaboration-final-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/collaboration-final-fixture.json.gz",
+      "sha256": "4256e2b347e62bc16a05638d3faf45c2a32547dca6501d4aaff761707436713e",
+      "uncompressedSha256": "dafc82eebbcae00c1571509133cedbb65c96ba6ca7f23935ed3e7cd98701f65a"
+    },
+    "collaboration-final-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/collaboration-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "collaboration-final-run.log": {
+      "path": "docs/engineering/evidence/p13-content/collaboration-final-run.log.gz",
+      "sha256": "47ab52d7217efea3e737194b15c53eead500ac42135eeb0a4632eedf25d8a967",
+      "uncompressedSha256": "986abc5af53acfb7f9dfea8565e4e3ab9eddee89bf5ef2bf9cf7f322a5d911af"
+    },
+    "collaboration-final-server.log": {
+      "path": "docs/engineering/evidence/p13-content/collaboration-final-server.log.gz",
+      "sha256": "fe8516516176f4d01189d8fc42b2401fde4db81dedbdda8df2c38f8a67353197",
+      "uncompressedSha256": "d56100b3929be278d7c7f7db04f8c78f74073438253ba7eb73605ad328528074"
+    },
+    "calendar-final-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/calendar-final-browser.json.gz",
+      "sha256": "300cad33ba277d35afa23228d1f453a6c77f82a7c509fa85a9b2c2d4616c507a",
+      "uncompressedSha256": "ba6ea062d82b28c0a8aa7e97db040a55055f63fc46437a1fe1310685f471029f"
+    },
+    "calendar-final-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/calendar-final-browser.junit.xml.gz",
+      "sha256": "a80ccacc40ad3a52c9617eaa23ec1c59cafb8931cae3e16350cd35d0c46661ce",
+      "uncompressedSha256": "fd27a70e893e4fc877ac74b685c7d17918a5630812204c06447206f3e0ad9371"
+    },
+    "calendar-final-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/calendar-final-fixture.json.gz",
+      "sha256": "4256e2b347e62bc16a05638d3faf45c2a32547dca6501d4aaff761707436713e",
+      "uncompressedSha256": "dafc82eebbcae00c1571509133cedbb65c96ba6ca7f23935ed3e7cd98701f65a"
+    },
+    "calendar-final-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/calendar-final-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "calendar-final-run.log": {
+      "path": "docs/engineering/evidence/p13-content/calendar-final-run.log.gz",
+      "sha256": "5f67eaa082da6980f15fa598b93a6bd8939868c5337a6f8496fb1f15b39b5a54",
+      "uncompressedSha256": "2914c9a01fb0771593bef446247b00fbd8ac3d8c0ad905db884351abe02b0f80"
+    },
+    "calendar-final-server.log": {
+      "path": "docs/engineering/evidence/p13-content/calendar-final-server.log.gz",
+      "sha256": "7d187aaa766db7dea66bfb6b3f20139876a47412ee1e35075573c1c3c7f7fe5b",
+      "uncompressedSha256": "4cd57712dcbb51b55344f297602b8bcc04c965808f7a4c68dc2f9bce6445f87e"
+    },
+    "p13-content-browser-first-artifacts-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-browser.junit.xml.gz",
+      "sha256": "012afabbf07b80ae9bcfdabab3c47474e6740a7f7b402567a71fbbd57a494481",
+      "uncompressedSha256": "e06e6b8ccff3dc4d49f4a5194df8cc53d739876e86eefaa5cc15a7923423b77f"
+    },
+    "p13-content-browser-first-artifacts-run.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-run.log.gz",
+      "sha256": "3d21bbb3be7d60351abf949ede74ca01ab267e78ca652af4ea0341d39dd878a8",
+      "uncompressedSha256": "63f5b779da5d62f50845bf9474bbff2399ddf75df42031b8bdd37815590ad827"
+    },
+    "p13-content-browser-first-artifacts-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-fixture.json.gz",
+      "sha256": "2a1bb8e941cc9c442371051a048681e126f11b2a8e54eeebefe9c203cfe232cd",
+      "uncompressedSha256": "2bb58ae8f3d4fa852682ac3eb505e17e9344c94df346200fb64ffa850cc4567f"
+    },
+    "p13-content-browser-first-artifacts-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-browser.json.gz",
+      "sha256": "fd9d338bfa036e917272e8f1455dab7d7c109cd05a073ccd9cc4c9d7a9366cb9",
+      "uncompressedSha256": "13d3a77aac3f4a3c3b841f53d3f5ae52a0d6e0a45fac9b78068c7ad369341592"
+    },
+    "p13-content-browser-first-artifacts-server.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-server.log.gz",
+      "sha256": "5f240d1eb56c006e689d2d282adf35efc343e2758ef58956f95b082a97ab3c9b",
+      "uncompressedSha256": "04ab63d689cf3e5981968b0a7d5e5f71f6af5be6c0d11f308a5baf00535a6131"
+    },
+    "p13-content-browser-first-artifacts-content-390-light.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-content-390-light.png.gz",
+      "sha256": "80888af73635192346b93e15647bb253e06ef313753f4391ab53f8f7f22b62a5",
+      "uncompressedSha256": "04c97f1ad92679a7506e9b0699213d1163a0f6a6f40b0f8d09e61f458c82bd06"
+    },
+    "p13-content-browser-first-artifacts-content-390-dark.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-content-390-dark.png.gz",
+      "sha256": "0239c59aa4ec38429b2edf4fb63458ef63bbda74df78a7e778f732eea197dc18",
+      "uncompressedSha256": "a342da92f261654847e0c6c890129b642aa48cf176166f7b98fe7a8738353094"
+    },
+    "p13-content-browser-first-artifacts-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "p13-content-browser-first-artifacts-results__.last-run.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-results__.last-run.json.gz",
+      "sha256": "b88b90c4486576bd9b98f489c7ce2d3cfa37625c666b2ae8db775b5ceae75466",
+      "uncompressedSha256": "0a7b0bc0ed0436ccb3e2b9d390ff53e54d73f454539f9cadb98fe49b5cf8e34f"
+    },
+    "p13-content-browser-first-artifacts-html__data__07d2666700a5e544ba94995013dfd1a200d07659.md": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-html__data__07d2666700a5e544ba94995013dfd1a200d07659.md.gz",
+      "sha256": "b3f6a19c3ada259dd6934aba54c5448d8e8a58bbb1bfb5768e6a7b0c6d906ca4",
+      "uncompressedSha256": "d816a758d90ea1d6c2ecabcfa3888f335bfc77cd6074f49aca975ebb051b9ca2"
+    },
+    "p13-content-browser-first-artifacts-html__data__a49c0ad5aead9ebed4e72f7416cd43c2fb8144ac.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-html__data__a49c0ad5aead9ebed4e72f7416cd43c2fb8144ac.png.gz",
+      "sha256": "d103eafd6c086fda66406d51ebd32f09037c6b0187a522f352c5bbf7a5a64e4a",
+      "uncompressedSha256": "7abe8d05c0da5d30e8ad98b3bcc26bb4480f5834b4c24f8443fdd99d47db7ceb"
+    },
+    "p13-content-browser-first-artifacts-html__data__ac7417d832d1899c946f26d31cf7fcc583ee7632.zip": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-html__data__ac7417d832d1899c946f26d31cf7fcc583ee7632.zip.gz",
+      "sha256": "bb19f6418b9226b562c24cf918c87bea422fb7adc9ab1117a8480807067c964a",
+      "uncompressedSha256": "13d3b4ab885f6d984b6d29ee8b92b00be4ddc4bb126e4d1cea91c2bc18650212"
+    },
+    "p13-content-browser-first-artifacts-results__content-P13-revoking-a-sha-dde7d-tains-their-own-copied-Task-chromium__error-context.md": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-results__content-P13-revoking-a-sha-dde7d-tains-their-own-copied-Task-chromium__error-context.md.gz",
+      "sha256": "b3f6a19c3ada259dd6934aba54c5448d8e8a58bbb1bfb5768e6a7b0c6d906ca4",
+      "uncompressedSha256": "d816a758d90ea1d6c2ecabcfa3888f335bfc77cd6074f49aca975ebb051b9ca2"
+    },
+    "p13-content-browser-first-artifacts-results__content-P13-revoking-a-sha-dde7d-tains-their-own-copied-Task-chromium__test-failed-1.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-results__content-P13-revoking-a-sha-dde7d-tains-their-own-copied-Task-chromium__test-failed-1.png.gz",
+      "sha256": "d103eafd6c086fda66406d51ebd32f09037c6b0187a522f352c5bbf7a5a64e4a",
+      "uncompressedSha256": "7abe8d05c0da5d30e8ad98b3bcc26bb4480f5834b4c24f8443fdd99d47db7ceb"
+    },
+    "p13-content-browser-first-artifacts-results__content-P13-revoking-a-sha-dde7d-tains-their-own-copied-Task-chromium__trace.zip": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-browser-first-artifacts-results__content-P13-revoking-a-sha-dde7d-tains-their-own-copied-Task-chromium__trace.zip.gz",
+      "sha256": "bb19f6418b9226b562c24cf918c87bea422fb7adc9ab1117a8480807067c964a",
+      "uncompressedSha256": "13d3b4ab885f6d984b6d29ee8b92b00be4ddc4bb126e4d1cea91c2bc18650212"
+    },
+    "p13-content-collaboration-session-failure-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-browser.junit.xml.gz",
+      "sha256": "9862340b3855130aa880b22132b9fddd1383c25f594dd8a4099ac3f50daeb5f2",
+      "uncompressedSha256": "c45c9e56ac93cb28640e2d5df1ad8140342978426352b826fe2b375267092b74"
+    },
+    "p13-content-collaboration-session-failure-run.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-run.log.gz",
+      "sha256": "1b4febe38bae14f96f34afdaf3f679fdbf136a87f81588a3711a9530d2fc6baf",
+      "uncompressedSha256": "e1e61f22f880d01d952ba57199d09d6167b1224341945a2b876eaf1246571839"
+    },
+    "p13-content-collaboration-session-failure-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-fixture.json.gz",
+      "sha256": "35948b5b59dc1c7014f4cffaecb050948d83800c65387f55b01416597b55e7ad",
+      "uncompressedSha256": "73e6fd750b7df7b24bcf5370d8e25fc422637a1706cf19434c31192ba42830c7"
+    },
+    "p13-content-collaboration-session-failure-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-browser.json.gz",
+      "sha256": "79bd5b51bb2beee6811bd22f4f6b9b2a11d485873bfdcd6d774487b5b198b8da",
+      "uncompressedSha256": "6b73a7d1114a73571425778e5139cb00a0a028a2fcbf989a72bdc2f46c12caf1"
+    },
+    "p13-content-collaboration-session-failure-server.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-server.log.gz",
+      "sha256": "1595b439222b265c7dc9b109bfafde753aed1f71252f5d3b186e72b3a0960a0a",
+      "uncompressedSha256": "7ce362d58268792f27a31d667104e9f276a26c0640b1d37c85eefa9d46778054"
+    },
+    "p13-content-collaboration-session-failure-comments-390-dark.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-comments-390-dark.png.gz",
+      "sha256": "0229f87afa045c10fdc46991d4ed8c6f3768d2a59f5416e245471c6d2d7e2eec",
+      "uncompressedSha256": "e3099c1249e1ae7799df7d5086ed8b43d4674bd45b12af38dd9264dbb5910f1a"
+    },
+    "p13-content-collaboration-session-failure-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "p13-content-collaboration-session-failure-comments-390-light.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-comments-390-light.png.gz",
+      "sha256": "9ce93bc0acaf4f9cbcd56911e95b6f239bc8a987c8e121580f7024e47f86d517",
+      "uncompressedSha256": "a0cfc7fcf6739609622b90f233575e25b1b29efac3e5661b2bb7e18bef66e2f5"
+    },
+    "p13-content-collaboration-session-failure-results__.last-run.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-results__.last-run.json.gz",
+      "sha256": "0e406593efbf2beadc8d75a7ab3bbe3f2c662e4c13f704e14d73af0433decee5",
+      "uncompressedSha256": "1d9ff6454311bd398b790a2b40900995f1fc9db9ed8a1f8d07f78920e572798c"
+    },
+    "p13-content-collaboration-session-failure-html__data__85bd6ddb3a9aad01754125a1d4833ef1770ec33d.md": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-html__data__85bd6ddb3a9aad01754125a1d4833ef1770ec33d.md.gz",
+      "sha256": "f3dcc338630f9a4a2f48b27bd8379d2adf9a390820ef621bfaad46437b040f11",
+      "uncompressedSha256": "395faf648a64d94231d6b5c56b56c5e0b203f507dda54829f1e2b0393f45a770"
+    },
+    "p13-content-collaboration-session-failure-html__data__0b06290c4f33d357f35080ecadc0bb3abc87f905.zip": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-html__data__0b06290c4f33d357f35080ecadc0bb3abc87f905.zip.gz",
+      "sha256": "ceee3eb087581e1e978fb38eae0477f72694ebfbbd6d810c0ba2b9712e1c2a41",
+      "uncompressedSha256": "16e2c6e71a9a95da9e9003fc28d2acff16e6af0329feca900e0ccc722ca344a7"
+    },
+    "p13-content-collaboration-session-failure-html__data__548a3603e90ba54c6522cbded4b547b4a8ba34da.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-html__data__548a3603e90ba54c6522cbded4b547b4a8ba34da.png.gz",
+      "sha256": "2ab494a0f2035d3fb44bd27311b8e2d153832b03c5dcaf2fd29587c29ed743cb",
+      "uncompressedSha256": "e131f891b95140c2fd77e165b2448659ca206cf833c3db58245333341d52e124"
+    },
+    "p13-content-collaboration-session-failure-results__collaboration-P12-current--69794-irect-HTTP-refuses-its-body-chromium__error-context.md": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-results__collaboration-P12-current--69794-irect-HTTP-refuses-its-body-chromium__error-context.md.gz",
+      "sha256": "f3dcc338630f9a4a2f48b27bd8379d2adf9a390820ef621bfaad46437b040f11",
+      "uncompressedSha256": "395faf648a64d94231d6b5c56b56c5e0b203f507dda54829f1e2b0393f45a770"
+    },
+    "p13-content-collaboration-session-failure-results__collaboration-P12-current--69794-irect-HTTP-refuses-its-body-chromium__test-failed-1.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-results__collaboration-P12-current--69794-irect-HTTP-refuses-its-body-chromium__test-failed-1.png.gz",
+      "sha256": "2ab494a0f2035d3fb44bd27311b8e2d153832b03c5dcaf2fd29587c29ed743cb",
+      "uncompressedSha256": "e131f891b95140c2fd77e165b2448659ca206cf833c3db58245333341d52e124"
+    },
+    "p13-content-collaboration-session-failure-results__collaboration-P12-current--69794-irect-HTTP-refuses-its-body-chromium__trace.zip": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-failure-results__collaboration-P12-current--69794-irect-HTTP-refuses-its-body-chromium__trace.zip.gz",
+      "sha256": "ceee3eb087581e1e978fb38eae0477f72694ebfbbd6d810c0ba2b9712e1c2a41",
+      "uncompressedSha256": "16e2c6e71a9a95da9e9003fc28d2acff16e6af0329feca900e0ccc722ca344a7"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-browser.junit.xml": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-browser.junit.xml.gz",
+      "sha256": "5b63e527c528e5b1669a8d7ba17128eaa5e2c00b5d53f4fa41465665ef60d93e",
+      "uncompressedSha256": "8a351c95359c67c0021ceac3a5daae4d9c7a31fa914703180485dde1195cfd37"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-run.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-run.log.gz",
+      "sha256": "f2e8139bf7917543fb24042d099d64790da064435ea337b68905eb66cca2525e",
+      "uncompressedSha256": "d018895dcaa7e0143c5b1140f2635c256b6e9d6425fc4b0f274dd0c245c6a71e"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-fixture.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-fixture.json.gz",
+      "sha256": "5b4283d0fccddd85653b4a7b19e42be87a0f56ed5defd960f4309c2ee0b5264c",
+      "uncompressedSha256": "ff5361230627af2c7bf73cc400c2b1797c4cc7edc1712f54189740e0531fa6f4"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-browser.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-browser.json.gz",
+      "sha256": "7a22b48b829901b06d71f2804b605c439c68827362f7c9bc518c825230b4ab3d",
+      "uncompressedSha256": "ba35782741f842925604387fb5c0b2583e34fb8f28938447cb047c24ec1d0e28"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-server.log": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-server.log.gz",
+      "sha256": "3e167c2e5a5e98ebd8f9a2ca2af943621e23a2b4c0d8d9fc6a8aa13093abaada",
+      "uncompressedSha256": "5cd975ba1c1d23e1357f5aa7b6d562cf48331793cef9ed04ef9ff41acd847d17"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-comments-390-dark.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-comments-390-dark.png.gz",
+      "sha256": "049f467ab4f4735685cb9cf9d0e18845aaba4077a3cfde7a175b7ede0be09b2e",
+      "uncompressedSha256": "d97a7fe210137f0ebb4d74c3566e36353491d218f53ea1224911c628490f4b41"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-runtime.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "uncompressedSha256": "a07da9b9b284dd0fe48260a4dd32ec7ceff70a7931b294a21281a58f4ca72fa5"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-comments-390-light.png": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-comments-390-light.png.gz",
+      "sha256": "dba4c510b66ad9c87135b482bda98f4a65868b30e1221013385372c349bc8c4d",
+      "uncompressedSha256": "0fcc35ac921acb3a256a3283e7042896cef42e963b2db36d319e38713e3d9a5e"
+    },
+    "p13-content-collaboration-session-diagnostic-artifacts-results__.last-run.json": {
+      "path": "docs/engineering/evidence/p13-content/p13-content-collaboration-session-diagnostic-artifacts-results__.last-run.json.gz",
+      "sha256": "ef94fcdc04da4703dc723d02a781282e4b455e1b3176cc7862e6c14c9851bca9",
+      "uncompressedSha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    "content-390-light.png": {
+      "path": "docs/engineering/evidence/p13-content/content-390-light.png",
+      "sha256": "04c97f1ad92679a7506e9b0699213d1163a0f6a6f40b0f8d09e61f458c82bd06",
+      "visuallyInspected": true
+    },
+    "content-390-dark.png": {
+      "path": "docs/engineering/evidence/p13-content/content-390-dark.png",
+      "sha256": "a342da92f261654847e0c6c890129b642aa48cf176166f7b98fe7a8738353094",
+      "visuallyInspected": true
+    }
+  },
+  "remaining": [
+    "P13 files20MiB, JSON/CSV/ICS staging/commit/undo/export still pending.",
+    "P14–P18, remaining Wallet/W18/M1/I02/I03 and final comprehensive Windows are not complete.",
+    "New Calendar/Collaboration/Notifications/Templates/Content harnesses are not yet mandatory Windows CI; whole parent42Productivity/nativeTouch/65Wallet/three engines and Windows Node22/24/package/service/performance have not run for this group.",
+    "No new source PR/Actions run, release/tag/VPS/PC runner. ActualServer2019 R02 separate and unrun."
+  ]
+}

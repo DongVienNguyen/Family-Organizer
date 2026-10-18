@@ -2,6 +2,23 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**P13 canonical Notes/Task links functional slice:** production `f9fb6989ff485ae02cacb1743ba25976f754c11e`,
+fixture-only follow-up `627b5dcb855162cfb2506d1d97a6c41d18a58f0c`. Explicit16 retains canonical Notes and original
+Task/Note content/history while creating reviewed private counterparts; current
+both-end ACL, I01 receipt/version fencing, FK-preserving Notes writes/restore,
+trusted media inheritance and real accepted-grant retention verified. Actual
+native cascade loss and browser revoked-label failures retained and fixed.
+Full8630tests532files/JUnit atf9fb698, zero failures/skips/todo, all8595parents +35;
+lint/build0. Final18/18 same627b5dc-build Chromium journeys (content4/templates3/
+notifications4/collaboration3/calendar4), first attempts/offline/owned fixtures/
+normal stop/integrity/closed/cleaned;390themes viewed. Actor-bootstrap failed
+parent run and read-only diagnostics retained; setup unloads the previous document
+before storage replacement, preserving all functional/privacy/readiness assertions.
+No full-suite claim for fixture-only627b5dc. [Details](productivity-content.md),
+[proof](evidence/p13-content-development.json). PR URL/CI run URL:none for source;
+backup branch, author review only. Next P13 files/import/export, then remaining
+P/W18/M1/I02/I03/final composed Windows. No release/tag/VPS/PC runner.
+
 **P13 Notes identity prerequisite:** source `051955d7a21a3f7e603d03f0b92bbbedd2c0d5d0`
 replaces millisecond-only new Note IDs with UUIDs, preserving `note_` and all
 existing IDs. Actual native same-millisecond UNIQUE failure retained;175focused
