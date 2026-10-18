@@ -1,3 +1,4 @@
+import {focusRouter} from './productivity/focusRouter.js';import {registerFocusJobs} from './productivity/focusJobs.js';
 import {taskDataRouter} from './productivity/dataRouter.js';import {registerTaskImportJobs} from './productivity/importJobs.js';
 import {taskAttachmentRouter} from './productivity/taskAttachmentRouter.js';
 import {taskContentRouter} from './productivity/contentRouter.js';
@@ -767,6 +768,8 @@ if(dependencies.wallet?.budgetJobs&&jobs.durableEnabled){const wallet=dependenci
 if(dependencies.wallet?.scheduleJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletScheduleJobs(jobs,wallet.scheduleJobs,{recordChanged:id=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.recordAudience(id)),scheduleChanged:ownerId=>broadcastSyncEvent('FINANCE_UPDATE',{},new Set([ownerId])),notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
 if(dependencies.productivity?.notificationJobs&&jobs.durableEnabled)registerTaskNotificationJobs(jobs,dependencies.productivity.notificationJobs,{notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
+if(dependencies.productivity?.focus&&jobs.durableEnabled)registerFocusJobs(jobs,dependencies.productivity.focus,{focusChanged:id=>broadcastSyncEvent('PRODUCTIVITY_FOCUS_UPDATE',{},new Set([id])),notificationChanged:id=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{recipientIds:[id]})});
+if(dependencies.productivity)app.use('/api/productivity/focus',focusRouter(dependencies.productivity,requireAuth as any,id=>broadcastSyncEvent('PRODUCTIVITY_FOCUS_UPDATE',{},new Set([id]))));
 if(dependencies.productivity?.imports&&jobs.durableEnabled)registerTaskImportJobs(jobs,dependencies.productivity.imports,{changed:(actorId,taskIds)=>broadcastSyncEvent('TASKS_UPDATE',{taskIds},new Set([actorId])),progress:actorId=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([actorId]))});
 if(dependencies.productivity)app.use('/api/productivity',taskDataRouter(dependencies.productivity,requireAuth as any,{progress:actorId=>broadcastSyncEvent('PRODUCTIVITY_SETTINGS_UPDATE',{},new Set([actorId]))}));
 if(dependencies.productivity)app.use('/api/productivity',taskAttachmentRouter(dependencies.productivity,requireAuth as any,{task:id=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id})}));

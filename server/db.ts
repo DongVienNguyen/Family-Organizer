@@ -1,3 +1,5 @@
+import {localDateAt as focusDeliveryDate} from '../src/features/productivity/dates.js';
+import {defaultTaskNotificationPreferences as focusDeliveryDefaults,normalizeTaskNotificationPreferences as focusDeliveryPreferences} from '../src/features/productivity/notificationPolicy.js';
 import {productivityVersionsFrom} from './productivity/knownVersions.js';
 import {stageTaskNotice} from './productivity/taskNoticeOutbox.js';
 import {taskCommentRecord} from './productivity/commentRecord.js';
@@ -3063,6 +3065,22 @@ export class FamilyDB {
   }
   /** Internal canonical Task mention adapter. The owning comment command joins
    * this same I01 transaction; only references enter the existing push outbox. */
+  /** Focus shares the existing private inbox/push outbox. The owning19 claim
+   * and current recipient are rechecked here; no Task title/amount is copied. */
+  public static queueFocusEnd(sessionId:string,recipientId:string,digestId:string|undefined,createdAt:string):string {
+    const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Thông báo Focus cần transaction đang sở hữu.',409);
+    return runLegacyCommand('queueFocusEnd',[sessionId,recipientId,digestId??null,createdAt],recipientId,()=>{
+      if(!productivityVersionsFrom(19).includes(tx.get("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'")?.version))throw new AppStoreError('Nguồn Focus chưa sẵn sàng.',409);
+      const row=tx.get("SELECT n.*,s.phase FROM productivity_focus_notices n JOIN productivity_focus_sessions s ON s.id=n.session_id WHERE n.session_id=?AND n.owner_id=?AND n.state='pending'AND s.owner_id=n.owner_id AND s.status='completed'AND s.source='timer'",sessionId,recipientId);
+      const db=this.readRaw();legacyReader(db,recipientId);if(!row||recipientId==='all'||typeof createdAt!=='string'||new Date(createdAt).toISOString()!==createdAt||row.available_at===null||Date.parse(row.available_at)>Date.parse(createdAt))throw new AppStoreError('Không tìm thấy thông báo Focus đến hạn.',404);
+      if(digestId){const stored=tx.get('SELECT settings_json FROM productivity_task_notification_preferences WHERE user_id=?',recipientId),prefs=stored?focusDeliveryPreferences(JSON.parse(stored.settings_json)):focusDeliveryDefaults,expected='focus_digest_'+crypto.createHash('sha256').update(JSON.stringify([recipientId,focusDeliveryDate(Date.parse(createdAt),prefs.timezone)])).digest('hex');if(prefs.mode!=='daily'||digestId!==expected)throw new AppStoreError('Bản tổng hợp Focus không hợp lệ.',400);}
+      const id=digestId??'focus_notice_'+sessionId,prior=db.notifications.find(value=>value.id===id);if(prior){if(prior.userId!==recipientId||prior.type!=='system'||prior.sourceRef?.domain!=='family')throw new AppStoreError('Thông báo Focus xung đột.',409);return id;}
+      // A trimmed inbox must not cause a second daily delivery. Its durable
+      // claim remains the dedupe source even when the old message is absent.
+      if(digestId&&tx.get("SELECT session_id FROM productivity_focus_notices WHERE owner_id=?AND notification_id=?AND state='delivered'LIMIT 1",recipientId,digestId))return id;
+      const notice:Notification={id,userId:recipientId,title:digestId?'Cập nhật tập trung hằng ngày':row.phase==='focus'?'Phiên tập trung đã kết thúc':'Đã hết thời gian nghỉ',content:'Mở ứng dụng để xem các phiên của bạn.',sourceRef:{domain:'family'},type:'system',isRead:false,createdAt};db.notifications.unshift(notice);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,notice,undefined,true);this.writeRaw(db);return id;
+    });
+  }
   public static queueTaskMention(taskId:string,commentId:string,recipientId:string):string {
     const tx=currentAppWriteTx();if(!tx)throw new AppStoreError('Nhắc tên cần transaction bình luận.',409);
     return runLegacyCommand('queueTaskMention',[taskId,commentId,recipientId],recipientId,()=>{

@@ -1,0 +1,13 @@
+import {object,keys,integer,boolean,text} from './validation.js';import {assertTimezone,utcInstant} from './dates.js';import type {Quadrant} from './contracts.js';
+export type FocusMode='pomo'|'stopwatch';export type FocusPhase='focus'|'short_break'|'long_break';export type FocusStatus='running'|'paused'|'completed'|'cancelled';export type FocusTargetType='task'|'habit'|'none';
+export interface FocusPreferences {focusSeconds:number;shortBreakSeconds:number;longBreakSeconds:number;notifyEnd:boolean;timezone:string}
+export const defaultFocusPreferences:Readonly<FocusPreferences>=Object.freeze({focusSeconds:1500,shortBreakSeconds:300,longBreakSeconds:900,notifyEnd:true,timezone:'Asia/Saigon'});
+export interface FocusSettings extends FocusPreferences {revision:number;completedPomos:number}
+export interface FocusStart {targetType:FocusTargetType;targetId:string|null;mode:FocusMode;phase?:'focus'|'break';note?:string;estimateSeconds?:number|null}
+export interface FocusReceipt {id:string;revision:number}
+export interface FocusSession {id:string;revision:number;source:'timer'|'manual';mode:FocusMode;phase:FocusPhase;status:FocusStatus;target:{kind:'task'|'habit';id:string;title:string}|null;hiddenTarget:boolean;quadrantAtStart:Quadrant|null;plannedSeconds:number;activeMilliseconds:number;actualSeconds:number;overrideSeconds:number|null;runStartedAt:string|null;deadlineAt:string|null;startedAt:string;endedAt:string|null;note:string;estimateSeconds:number|null;cycleIndex:number;serverNowUtc:string}
+export function focusPreferences(raw:unknown):FocusPreferences {const value=object(raw);keys(value,['focusSeconds','shortBreakSeconds','longBreakSeconds','notifyEnd','timezone']);for(const key of ['focusSeconds','shortBreakSeconds','longBreakSeconds'])integer(value[key],1,86400);boolean(value.notifyEnd);text(value.timezone,128);assertTimezone(value.timezone);return {...value}as unknown as FocusPreferences;}
+/** Accumulation is in integer milliseconds; repeated subsecond pauses never
+ * discard time. Wall-clock rollback adds zero and a late wake never exceeds the
+ * phase/24h cap. The UI uses server time and refreshes its offset after wake. */
+export function focusActiveMilliseconds(row:{status:FocusStatus;activeMilliseconds:number;plannedSeconds:number;runStartedAt:string|null},nowUtc:string):number {integer(row.activeMilliseconds,0,86400000);integer(row.plannedSeconds,1,86400);if(row.activeMilliseconds>row.plannedSeconds*1000)throw Error('Invalid Focus active time');const now=utcInstant(nowUtc);if(row.status==='running'){if(row.runStartedAt===null)throw Error('Running Focus needs a segment');return Math.min(row.plannedSeconds*1000,row.activeMilliseconds+Math.max(0,now-utcInstant(row.runStartedAt)));}return row.activeMilliseconds;}

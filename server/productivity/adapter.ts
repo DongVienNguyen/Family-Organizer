@@ -1,3 +1,4 @@
+import {registerFocusMigration,productivityFocusChecksum} from './focusSchema.js';
 import {registerTaskImportMigration,productivityTaskImportChecksum} from './importSchema.js';
 import {registerTaskAttachmentMigration,productivityTaskAttachmentChecksum} from './taskAttachmentSchema.js';
 import {registerTaskContentMigration,productivityTaskContentChecksum} from './contentSchema.js';
@@ -49,6 +50,7 @@ function assertMigration(reader:Pick<Gateway.AppWriteTx,'all'>):void {
  if(migrations.length>=16&&(migrations[15].version!==16||migrations[15].checksum!==productivityTaskContentChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=17&&(migrations[16].version!==17||migrations[16].checksum!==productivityTaskAttachmentChecksum))throw new Error('Unsupported productivity migration before activation');
  if(migrations.length>=18&&(migrations[17].version!==18||migrations[17].checksum!==productivityTaskImportChecksum))throw new Error('Unsupported productivity migration before activation');
+ if(migrations.length>=19&&(migrations[18].version!==19||migrations[18].checksum!==productivityFocusChecksum))throw new Error('Unsupported productivity migration before activation');
 }
 function active(reader:Pick<Gateway.AppWriteTx,'get'|'all'>):boolean {
  const marker=reader.get("SELECT value FROM app_meta WHERE key='productivity_active'")?.value;
@@ -70,6 +72,7 @@ export function configureCanonicalTaskBridge(ports:BridgePorts):void {
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=16)registerTaskContentMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=17)registerTaskAttachmentMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable});
  if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=18)registerTaskImportMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable,registerRestorePolicy:ports.snapshot.registerSnapshotRestorePolicy});
+ if((connection.prepare("SELECT max(version)AS version FROM app_migrations WHERE namespace='productivity'").get()as any)?.version>=19)registerFocusMigration({registerMigration:ports.migrations.registerDomainMigration,registerSnapshot:ports.snapshot.registerSnapshotTable,registerRestorePolicy:ports.snapshot.registerSnapshotRestorePolicy});
  const reader={get:(sql:string,...args:any[])=>connection.prepare(sql).get(...args),all:(sql:string,...args:any[])=>connection.prepare(sql).all(...args)};
  let synchronizing=false;
  ports.sqlite.installLegacyTaskStorageAdapter({enabled:()=>active(reader),read:()=>loadTasks(reader).filter(row=>row.deletedAt===null).map(projection),write(rows){const tx=ports.gateway.currentAppWriteTx();if(!tx)throw new Error('Canonical tasks require the application gateway');synchronizing=true;try{syncLegacyTasks(tx,rows);}finally{synchronizing=false;}}});
