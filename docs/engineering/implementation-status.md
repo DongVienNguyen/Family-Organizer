@@ -2,6 +2,28 @@
 
 ## Current direction — 2026-10-17 (UTC)
 
+**2026-10-18 continuation — W09 core:** source `019dde5b9d58d619141bf0ab497a1cf1e4a12e86` adds owner-only saved
+filter/chart/layout configurations and12 real-data widgets, with local keyboard
+layout edits/explicit Save, retained same-key unknown intent, current financial ACL,
+final async scope fence, exact credit/FX/currency values and session/SSE retirement.
+Global Dashboard drilldown opens exact Finance Records; personal chart style/scope
+and layout survive reload. Explicit9/standalone10 preserves accepted1-8 SQL; Wallet
+off/no auto-upgrade. [Details](wallet-personal-dashboard.md).
+
+Cloud7704/427files/matchingJUnit/0failed-skipped-todo,
+all7645parent+59 retained; lint/build0. Final Chromium38/38,
+all34parent+4, native/offline/integrityOK/legacy kept/normal stop/closed handles/
+matchingbuild. First36/38 test-helper/complete-DOM-label failures and trace retained;
+no assertions skipped or deadline/retry raised. Author35path inspection only.
+[Proof](evidence/w09-dashboard-development.json),
+[JUnit](evidence/w09-dashboard-cloud.junit.xml.gz).
+
+PR URL/CI run URL:none; backup branch:`codex/feature-first-acceptance`. Current
+Windows2022/Node22/other engines/touch/performance/package/service/Server2019R02
+unrun. Next:W10 imports/undo, W11-18/M1/I02/I03/master and protected restore/
+remediation/raw backup/legacy bridge/cutover/retention; final review/batched Windows.
+No release/tag/VPS. Full plan incomplete.
+
 **2026-10-18 continuation — W08 core:** source `6260203a3efaf82e5515add31099e03baed37c34` adds shared report
 metrics4/groups5/buckets4, exact split/unique label totals, separate ledger balances,
 current partial-transfer ACL and exact per-point/aggregate drilldowns. Explicit8/

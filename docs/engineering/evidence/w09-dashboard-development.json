@@ -1,0 +1,633 @@
+{
+  "taskIds": [
+    "W09 core",
+    "W02 schema9",
+    "W08 calendar/reference-valuation integration"
+  ],
+  "sourceCommit": "019dde5b9d58d619141bf0ab497a1cf1e4a12e86",
+  "testedWorkingTreeParent": "c598dc5130584480021205452c6f21a47c79b16e",
+  "binding": "All35 frozen source/test SHA256 hashes match committed Git blobs; final full suite/lint/build/native browser use those bytes. Cloud development evidence, not exact-HEAD Windows CI.",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "sourceSha256": {
+    "server/wallet/preferenceSchema.ts": "248ffd4922d17ee08b7591097ff1d2633862a0c1a7f93e4aba7b6e5dec5e74fb",
+    "server/wallet/preferences.api.test.ts": "4a98e36d655385f5a6e01c389a2ae47e6638dec391f7af4a18cef18b0a20dd2d",
+    "server/wallet/preferences.test.ts": "12e95941a987ffd4060d43d5ab9ff377bb3cfc1c96dedc53b7fc7da3fd1c986e",
+    "server/wallet/preferences.ts": "6faf2018c43039d823606139be17b1d13936876544175f808cbf5820e9bf9c69",
+    "src/features/wallet/Dashboard.tsx": "eb77d4f050f0ef4b81bde9a3e1a74aa30f81fde09c0cbcdf85d6d2e804591ce4",
+    "src/features/wallet/PreferenceForm.tsx": "5020d67570afdd12e017a385a11758a0f17f93fec81f4f0d14923a2dcb7b49b2",
+    "src/features/wallet/SavedPreferences.tsx": "1ff16d7e2e21e20006488d560518a192aa6209ade46549856ee83a0b68153832",
+    "src/features/wallet/Widget.tsx": "1897bf857f221c4494e4cd57fc5e128733bef048fa65a70b223aeb3acf797d49",
+    "src/features/wallet/dashboardWorkspace.test.ts": "2a75b343ccb5c24b59d02f8199ce61f877c93326d094af0b8ca303a7777a8fed",
+    "src/features/wallet/dashboardWorkspace.ts": "11005a4ebae0e91406d62ba3887b38b7dba4562e36f2d869db0a4ae77afa6fce",
+    "src/features/wallet/preferenceApi.test.ts": "2f0b49c4a196b399aa51471b0caf2e232d3d11b7a22bab8a82ef8950c6ec4c41",
+    "src/features/wallet/preferenceContracts.ts": "0b4b0b73ceea61ce987d54ea25d29f93163b5ce8f9cd3e6bd3322ccb2b5a6602",
+    "src/features/wallet/preferenceDto.ts": "68977068171217fa78179c8b6c8b8141efa35d497837f8981cddc299a1a1d174",
+    "src/features/wallet/widgetData.test.ts": "faa8b826e05726444df7f46aa641ff2dd3bc8fbeabbd2d469226e5791ee13299",
+    "src/features/wallet/widgetData.ts": "cf1559ef57f7fca7a77abbb95b070a4aa6ec0ec0e8def44204370aa4bdc5a906",
+    "scripts/ci/run-wallet-browser.mjs": "555a7b55b62712f6a2e25fefb6ed8d02d59df62e5e99667d562db7000bf07cb7",
+    "scripts/ci/write-wallet-browser-fixture.ts": "98bf9fb76d05c5af231e25d98e5d074fbd83c73e5638c80c33b3e8a2c5244e5d",
+    "server/wallet/ports.ts": "d20e5306405c6d0bc2740fde4d0605b9b64d7349a0250c783fb0d78acd59796e",
+    "server/wallet/reports.test.ts": "7a964bdd546ee1a21590655d32cad17254d5928ac77fbffef49a579b6a333667",
+    "server/wallet/reports.ts": "769d8b8d49a750ed8ca16c2dc41beeefd0cb680bf0164f760314020a4f53e991",
+    "server/wallet/router.ts": "9ded3c85495b6f3abedaa56747519f675a760062b7a78abb2bea13ead578c23c",
+    "server/wallet/schemaRegistry.ts": "68c6b9caa5dd4be6cad754c2838fa17b1a2ee513b52ebbba625fd7eea7409d1a",
+    "server/wallet/snapshot.ts": "c648e944ddeaffda6a61f07c32c26c02e48ed81b2df46dc825c8517dd6641120",
+    "src/App.tsx": "0363b5fae93afb1f72ecafced403523b3c7e12ec0547b73652198a363cbe2c4b",
+    "src/components/Dashboard.tsx": "8b90cfbe3ed14bb79339c35cb12d601aefc3912689fddddcd61b4e6425939c19",
+    "src/features/wallet/Analytics.tsx": "c818e3bf307312452dd5c8604e7fad5578525df6b7e2ec00681bad27138dcab5",
+    "src/features/wallet/WalletHome.tsx": "5d3cce92edd3e41f0264ba2997765cce73e9978b60be15518bdf530c90efb492",
+    "src/features/wallet/api.ts": "b4c0c4c8031c449af0f97f8f6dbaa22b8dee9f220394f5e5daafea997d24236c",
+    "src/features/wallet/useWallet.ts": "cda66e8c166ebd4924305a776e06cb6e55e1d77da4974160a93a915db834f7a9",
+    "src/i18n/locales/en.json": "5746ff0dae6e3cde8b832db311766ff578dd3f9438482a9559afbfa019829037",
+    "src/i18n/locales/vi.json": "a01350c36d8f4a400d6207b3a604f6c4f009b0b852df829e013be23ee9e5109a",
+    "src/i18n/locales/zh.json": "6072446a53db9a363e12ae3d7e5436ffe92785b8ce05280d8bd58d26102fd897",
+    "tests/e2e/wallet.spec.ts": "f0d2ba8ba15482695cc1006d4243c9885010aa3e20bcd8181f6b2061983bad96",
+    "tests/wallet-browser-fixture.test.ts": "06c2a2e8db26438b50dfba0821ef42f7d10e46399de72c053f196a263dec02eb",
+    "tests/wallet-restore-import.test.ts": "41d19e96f5e8d9d675ab809a313bfe0a08795d592240a9e3eb886ca874730a43"
+  },
+  "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+  "accepted1to8DdlUnchanged": {
+    "walletCoreSql": "5571c81df88935eeb9cf0e25e94f16960b372326f08086b54617131aa7f3c530",
+    "walletMetadataSql": "2766b0a82ec0ea2c807f6000f10173f3a8e3a7a9c7a91d4ae3b0e36067289326",
+    "walletFinancialSql": "4331752c3551885bfb54d4fc268e1cb408863c00abeb701dd0286e357a8fecdd",
+    "walletLegacyMigrationSql": "a485ca7b8a4f44d072af1ee0b0f08560bb0f56b2e8f388774b7138a88a84fbb8",
+    "walletReceiptSql": "6c8fc252544ea2af7526bb47182775efa70b111b7ccc4150a2832d9ceea71372",
+    "walletSelectionSql": "74bc459a2e0473297ac9600038ad6d6671155825f5dd1214967ff66d3eabcd4c",
+    "walletWorkflowSql": "f49d44791eab64ab2fe79d63209ec32102243af40cbc7ce57047c367d56084a9",
+    "walletFxCacheSql": "1fe67b7d9626833675ab992b38a0c3f26c6c0897ecba5438379037e035b7bcd0"
+  },
+  "cloud": {
+    "platform": "Linux x64",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "tests": 7704,
+    "files": 427,
+    "junitCases": 7704,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "parentRetained": 7645,
+    "added": 59,
+    "removed": 0,
+    "lintExit": 0,
+    "buildExit": 0,
+    "fullRegressionRuns": 1,
+    "npmCi": "not repeated; dependency/lock unchanged"
+  },
+  "browser": {
+    "parentCases": 34,
+    "cases": 38,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "c598dc5130584480021205452c6f21a47c79b16e",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "build": {
+        "server": "166097f0a2835ee7768382331ca3aabff5ae2446182d45517b32a90d5376ebb4",
+        "index": "1bb0462a781f64376c6e0bfb2c7202874cfbff47c5c323712e1e1f624637beeb"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 9,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "074dea3d-c975-4279-bba7-59b07786c5be",
+        "creditId": "a3bab9b2-08dc-48b0-b31b-e798f594d67f",
+        "hiddenId": "5502c299-8ecc-4512-8c4d-96d601f6d8a0",
+        "readId": "4bca4657-5c14-478b-9ca2-0b433a395de9",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "retained": {
+    "junit.xml": {
+      "path": "docs/engineering/evidence/w09-dashboard-cloud.junit.xml.gz",
+      "sha256": "0104a0ebb608d26872c4405a20c484df80364c1975ff996b8c20ff57d671ec51"
+    },
+    "log": {
+      "path": "docs/engineering/evidence/w09-dashboard-cloud.log.gz",
+      "sha256": "e76cf632288d270f47ab1007ee65b3a5a9d8fbb9e24ea13d11886abd46e25483"
+    }
+  },
+  "reports": {
+    "/workspace/family-evidence/w09-preferences-first.log": {
+      "bytes": 812,
+      "sha256": "83a6d198b738d4c189143b99da1c644a789337ca737b74b361d0e1eca60485a9"
+    },
+    "/workspace/family-evidence/w09-preference-snapshot-limits-red.json": {
+      "bytes": 6274,
+      "sha256": "e589082ea87c7268fd585e04f1649f023c46ed348fc71dfb53f8ed1e25669095"
+    },
+    "/workspace/family-evidence/w09-qualified.json": {
+      "bytes": 2245151,
+      "sha256": "61504c9ad03d635e14f8130e6d16934b3b2cecd976c1795bcb77388a2b9a28c3"
+    },
+    "/workspace/family-evidence/w09-sibling-authority-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-current-balance-fx-red.json": {
+      "bytes": 10101,
+      "sha256": "b55adeeaab1a5a465adc642041047d6ec306d5eb46b2f0ca0e51edf9c55f70f3"
+    },
+    "/workspace/family-evidence/w09-workspace-authority-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-ui-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-red.log": {
+      "bytes": 470,
+      "sha256": "101913870397265c49227101dc785fbf57bcad06eea3e62c106910aacd436191"
+    },
+    "/workspace/family-evidence/w09-widget-data-first.json": {
+      "bytes": 7469,
+      "sha256": "adc855197220e26810c3826a3ebd1bf7db09ab84f2e86e413fdbdb7a8f72fdd0"
+    },
+    "/workspace/family-evidence/w09-sibling-authority-red.json": {
+      "bytes": 4067,
+      "sha256": "0b0b9e517d223c082cef6f28347a017b3cd44a1110fdfb6234077c19cf5d6755"
+    },
+    "/workspace/family-evidence/w09-preferences-first.json": {
+      "bytes": 8813,
+      "sha256": "cee3c9eaac72cc55bfd764f8e9fa863fbcf8851043c694962ef4fd5f181c3a05"
+    },
+    "/workspace/family-evidence/w09-browser-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w09-async-scope-fence-fixed.json": {
+      "bytes": 8848,
+      "sha256": "8cf4a1a3c05df51b4aac908e545aaa7def1ed62d450a157faabf59d6d0c816ad"
+    },
+    "/workspace/family-evidence/w09-integrated-second.log": {
+      "bytes": 2514,
+      "sha256": "73c4c7aca5974f69edb66428c50e0ab869d97db615e6f7d87578cabc1de6b943"
+    },
+    "/workspace/family-evidence/w09-preference-snapshot-limits-fixed.log": {
+      "bytes": 986,
+      "sha256": "00096b19aef37b9132e663ff9fbda1b4ba3cf7498d9a6cfaa8d8338462ecdb0d"
+    },
+    "/workspace/family-evidence/w09-browser-first-source.json": {
+      "bytes": 3943,
+      "sha256": "49ada2e18d144a16ba4f48a40926316569b12f7255340d3b3ac5ba43c3f9b376"
+    },
+    "/workspace/family-evidence/w09-preferences-red.log": {
+      "bytes": 441,
+      "sha256": "f0af7a1325a51db6f32ae380aec60b4748b58beddeb67d0ddb88b3719fa19271"
+    },
+    "/workspace/family-evidence/w09-browser-final.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-browser-first.log": {
+      "bytes": 45131,
+      "sha256": "c1ccb1ab2acf7be1b1d23cec9cca761be3ab58ab88d941fdfceec8f4f5adf418"
+    },
+    "/workspace/family-evidence/w09-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-preferences-api-first.json": {
+      "bytes": 8697,
+      "sha256": "a050f8f11eab9111865226e3ae815eba72682cf941b4f57c38409b4dc5748f28"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-second.json": {
+      "bytes": 7888,
+      "sha256": "c71e3503e267b4b58760e27ab81c7f3ee9319da34b9e6fc1397a3b36a2a0f02d"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-red.json": {
+      "bytes": 804,
+      "sha256": "16fd874368c92c8425520ec2f1d2b9abae4736849e299b9c75adc4bfa5ec154d"
+    },
+    "/workspace/family-evidence/w09-widget-data-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-async-scope-fence-fixed.log": {
+      "bytes": 877,
+      "sha256": "62be1eb648f9173da0e098124bf543437a074506a18dd716d8490fdb5e20bca7"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-first.json": {
+      "bytes": 5548,
+      "sha256": "0cd27f8ce59c474006f0af33557ad183bd2f7dcfc9f0685d91e04d07b371b3ea"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-first.log": {
+      "bytes": 5341,
+      "sha256": "0d1bc95bab0942de8258f8fc607ec712ca14a1890d99907a4a08185e362aa411"
+    },
+    "/workspace/family-evidence/w09-widget-report-final-targeted.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-preferences-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-independent-draft-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-browser-final.log": {
+      "bytes": 6830,
+      "sha256": "dee7bf71bcd42fc7b40228b0a4c573c48434ce29561826814bc8a886226869ff"
+    },
+    "/workspace/family-evidence/w09-widget-data-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-qualified.junit.xml": {
+      "bytes": 1565254,
+      "sha256": "f33595259f959b950e8390adfe12c4ee66c8507031fc13364d46ef9946d3f342"
+    },
+    "/workspace/family-evidence/w09-independent-draft-red.json": {
+      "bytes": 3690,
+      "sha256": "077af99d49b450ffb5961cd6c72b106f6a83deefc4a5f26d2539e15a9d316f8b"
+    },
+    "/workspace/family-evidence/w09-ui-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w09-independent-draft-red.log": {
+      "bytes": 466,
+      "sha256": "9ab7937924a9ebd66096cabfbb2e2a3be5f777cbc768fb6ea9c8ac4882e8d534"
+    },
+    "/workspace/family-evidence/w09-integrated-first.log": {
+      "bytes": 2955,
+      "sha256": "70d18eb868295b4dbc30291cff63acb74f20cfae37d7dbd40ded4b71765d845b"
+    },
+    "/workspace/family-evidence/w09-workspace-authority-fixed.log": {
+      "bytes": 882,
+      "sha256": "11914d7934dc1d0b0896a863f08a798c604b7e145cb9b9a7a98919ba405d2cd5"
+    },
+    "/workspace/family-evidence/w09-preference-snapshot-limits-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-workspace-authority-fixed.json": {
+      "bytes": 8517,
+      "sha256": "c87598fe313488363c8f8a733269fdbb6c346b965f4db0f7c04a5ad0aed60699"
+    },
+    "/workspace/family-evidence/w09-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w09-async-scope-fence-red.log": {
+      "bytes": 466,
+      "sha256": "f7af04aa5f9b11ab04bdac3325472a560970390d5999bb38fcb962f54ae005f1"
+    },
+    "/workspace/family-evidence/w09-preferences-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-current-balance-fx-red.log": {
+      "bytes": 451,
+      "sha256": "c309ed32335bc15dcaaedcfb1a70d20a651717928b1396234db6bd1bdb024fcc"
+    },
+    "/workspace/family-evidence/w09-browser-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-frozen.json": {
+      "bytes": 3943,
+      "sha256": "146281b3c6a27e32c8fd8175028e4531c8ebbca80670791b86c0c0e074b62863"
+    },
+    "/workspace/family-evidence/w09-final-build.log": {
+      "bytes": 2006,
+      "sha256": "48c7c21ddb32b364b4e202aa91085da0b113ef19f0823ea6abce5e7ba7c75232"
+    },
+    "/workspace/family-evidence/w09-widget-data-red.log": {
+      "bytes": 446,
+      "sha256": "ff5b3878a7e3d17b01b601bbac0814d4bfb9c493ad186d472f98791339be14ea"
+    },
+    "/workspace/family-evidence/w09-browser-build.log": {
+      "bytes": 2004,
+      "sha256": "01b5f65eb39db261a051dbfa83a492ddc31b148bc2f6e6eaf96eab1e4b7a65df"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-second.log": {
+      "bytes": 882,
+      "sha256": "dbf4507118ff5a1a3cef446333369c6dc9228f0eb31e90ae702c168a9250e3ab"
+    },
+    "/workspace/family-evidence/w09-preferences-api-first.log": {
+      "bytes": 2712,
+      "sha256": "ce7701fe06a05b469e9b2f435e16248b4498b2c99fde2425119af5232504697a"
+    },
+    "/workspace/family-evidence/w09-preference-snapshot-limits-red.log": {
+      "bytes": 471,
+      "sha256": "156e1b476890b1097a65257a1ee23887b78bfe7f86ea025e1e45fe447477cfe2"
+    },
+    "/workspace/family-evidence/w09-widget-data-first.log": {
+      "bytes": 853,
+      "sha256": "c7cf4e1d97b99f506e33849393cc8bf92203c8aaf2161f0c2138a68df66f045a"
+    },
+    "/workspace/family-evidence/w09-ui-first-lint.log": {
+      "bytes": 1111,
+      "sha256": "db24dde069d6f512ade4a12db308653f4f9db2495f119d6593f1fb185955634e"
+    },
+    "/workspace/family-evidence/w09-qualified.log": {
+      "bytes": 101458,
+      "sha256": "4ded078f6ab0ef4afed698561695ca707e809defbee38361d6b7f38f21040ff9"
+    },
+    "/workspace/family-evidence/w09-dashboard-workspace-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-integrated-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-preferences-api-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-preferences-red.json": {
+      "bytes": 771,
+      "sha256": "5fac038e762bef8ecd9913e8a926df7d3835503b3a9518cc9d08c1da10fdf3b3"
+    },
+    "/workspace/family-evidence/w09-preference-snapshot-limits-fixed.json": {
+      "bytes": 13923,
+      "sha256": "5f4a9e501605ad1156ff7aae535adb5290fc008aa69241bf0b427a0bd4add349"
+    },
+    "/workspace/family-evidence/w09-qualified-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w09-calendar-upper-bound-red.log": {
+      "bytes": 455,
+      "sha256": "1ae95fc765fe9de5316150e9d087fbc176ddc87527752712d4b351f487db36ba"
+    },
+    "/workspace/family-evidence/w09-integrated-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-widget-report-final-targeted.json": {
+      "bytes": 17823,
+      "sha256": "0f16265bb7784593e7a72ee0a479d9fef315e91c8085efaf333a5652cc48a6f2"
+    },
+    "/workspace/family-evidence/w09-preferences-first-lint.log": {
+      "bytes": 10425,
+      "sha256": "8dffb063a0a73ed67064bf2a40e3ce50e881eb2494f6ae47a06ee477d52347b2"
+    },
+    "/workspace/family-evidence/w09-integrated-second.json": {
+      "bytes": 29967,
+      "sha256": "3aa09f76e977bc7ca17b74a17835831bebb30022dd7c3ecf1d524203836e0d8a"
+    },
+    "/workspace/family-evidence/w09-async-scope-fence-fixed.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-sibling-authority-red.log": {
+      "bytes": 466,
+      "sha256": "cca72eae6beffd1f3040ad3cbf768d18a85dfea629a145eb62b71e4046e4e0b9"
+    },
+    "/workspace/family-evidence/w09-widget-report-final-targeted.log": {
+      "bytes": 970,
+      "sha256": "b4e43bfa4e6c6e39c663a8c7a4222cf9906ee29e15084ec0d670713f60585f04"
+    },
+    "/workspace/family-evidence/w09-final-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-widget-data-red.json": {
+      "bytes": 780,
+      "sha256": "fb213168d96824dce374c733cf622b3ab6666884c5e28cedadb5e1e8ddbd637f"
+    },
+    "/workspace/family-evidence/w09-preference-snapshot-limits-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-calendar-upper-bound-red.json": {
+      "bytes": 9598,
+      "sha256": "5971a72ffca5a8a1ddb6d91ba8b1a807b3dd29811af378e27f7c9f74c921aedc"
+    },
+    "/workspace/family-evidence/w09-preferences-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w09-calendar-upper-bound-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-browser-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w09-preservation.json": {
+      "bytes": 17192,
+      "sha256": "5bb97fa52e9f58098835bacb1998e70c7bc9c822ddee12c218db3c34d837664d"
+    },
+    "/workspace/family-evidence/w09-integrated-first.json": {
+      "bytes": 16612,
+      "sha256": "fa22261f4f0f851750e592a654ffb37cdc0196e2c29ac9391c7f340757639ed4"
+    },
+    "/workspace/family-evidence/w09-async-scope-fence-red.json": {
+      "bytes": 4383,
+      "sha256": "88c882bf3e6e00a7765a76de4e700d8794f40f4ecf72c8a5aa8ab23dcff8b0ed"
+    },
+    "/workspace/family-evidence/w09-async-scope-fence-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-current-balance-fx-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w09-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 7006,
+      "sha256": "883806faed9fc256f22dfca9b878895a6ef2b9542e03f401eb2fa7d33adcf0d1"
+    },
+    "/workspace/family-evidence/w09-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1146,
+      "sha256": "9cf0fbe9f1ff5250b9e8bbe3afe5e98878090ec9405a687aedf5a56e900fe3f8"
+    },
+    "/workspace/family-evidence/w09-browser-qualified-artifacts/browser.json": {
+      "bytes": 46351,
+      "sha256": "6a65b6528b8a58abdc36e1bca7376b7654778ddbdbe4e93731434ab2a25b5ae3"
+    },
+    "/workspace/family-evidence/w09-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w09-browser-qualified-artifacts/personal-dashboard-phone.png": {
+      "bytes": 94798,
+      "sha256": "45d39b61b530d574d5d7d5037c03303e2ae8625f5a6fd1d50596e3eb91821607"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/browser.junit.xml": {
+      "bytes": 45889,
+      "sha256": "a28a1d2e4f37e913c3a15a3a8a127a7030d67ae76f3a5c630bdc0774208a07b7"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/fixture.json": {
+      "bytes": 1194,
+      "sha256": "54598552b1aeda1b4423f9010743b16f5e93d85dbec1d630d15e00e11a08b80b"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/browser.json": {
+      "bytes": 88780,
+      "sha256": "731ecd1416557a4db454096f165993ba86d5c8d7bc00e9c194a8666a17b051ac"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/personal-dashboard-phone.png": {
+      "bytes": 94771,
+      "sha256": "2e8f5f6e7b4df850984a3eaa157a6e6e3c9c2209f1b1ff14c4ea39990d3e8f66"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/error-context.md": {
+      "bytes": 68312,
+      "sha256": "e8a15551c8e248645a47c86d433d6841db98e517208847a173833690384314ee"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/test-failed-1.png": {
+      "bytes": 186130,
+      "sha256": "9b26b3bdbf0c508ec7c7d95651907be73a774be6432e5738bb171afa2f74b9a2"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/trace.zip": {
+      "bytes": 5785653,
+      "sha256": "8393f3665f036e8cda3008e15acacb6951ce85e964ae1e793883af13f4a21c4b"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/error-context.md": {
+      "bytes": 13357,
+      "sha256": "653db086c345305cafbced1adf1a6cd1c51312e0a522cd021f46c95d580097ae"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/test-failed-1.png": {
+      "bytes": 155351,
+      "sha256": "7b1efa58bd5facb0680d9f1926ef79cc6936ef6d11cad12feb2dc5916d566003"
+    },
+    "/workspace/family-evidence/w09-browser-first-artifacts/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/trace.zip": {
+      "bytes": 103601413,
+      "sha256": "95d34bed7e554df7574e5355e1484cc48e891716bc030db624231ddafdab78e9"
+    }
+  },
+  "review": {
+    "kind": "Author inspection; not independent final whole-branch review",
+    "paths": [
+      "server/wallet/preferenceSchema.ts",
+      "server/wallet/preferences.api.test.ts",
+      "server/wallet/preferences.test.ts",
+      "server/wallet/preferences.ts",
+      "src/features/wallet/Dashboard.tsx",
+      "src/features/wallet/PreferenceForm.tsx",
+      "src/features/wallet/SavedPreferences.tsx",
+      "src/features/wallet/Widget.tsx",
+      "src/features/wallet/dashboardWorkspace.test.ts",
+      "src/features/wallet/dashboardWorkspace.ts",
+      "src/features/wallet/preferenceApi.test.ts",
+      "src/features/wallet/preferenceContracts.ts",
+      "src/features/wallet/preferenceDto.ts",
+      "src/features/wallet/widgetData.test.ts",
+      "src/features/wallet/widgetData.ts",
+      "scripts/ci/run-wallet-browser.mjs",
+      "scripts/ci/write-wallet-browser-fixture.ts",
+      "server/wallet/ports.ts",
+      "server/wallet/reports.test.ts",
+      "server/wallet/reports.ts",
+      "server/wallet/router.ts",
+      "server/wallet/schemaRegistry.ts",
+      "server/wallet/snapshot.ts",
+      "src/App.tsx",
+      "src/components/Dashboard.tsx",
+      "src/features/wallet/Analytics.tsx",
+      "src/features/wallet/WalletHome.tsx",
+      "src/features/wallet/api.ts",
+      "src/features/wallet/useWallet.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/wallet.spec.ts",
+      "tests/wallet-browser-fixture.test.ts",
+      "tests/wallet-restore-import.test.ts"
+    ],
+    "closed": [
+      "Personal filter/chart/layout CRUD has current owner-only authority, no Admin override. Configuration never caches balances or grants permissions; every widget resolves current financial scope.",
+      "Explicit schema9/standalone10 adds owned preferences, bounded65 rows/owner,32filters32charts1layout/1MiB and24widgets/layout. Snapshot validation matches live name/config/owner limits, chronology and exact kind/revision. Accepted1-8 DDL bytes remain.",
+      "I01 expected revision, original same-key intent, compact private audit digests, native rollback and owner-only postcommit notification; no-op/replay do not duplicate audits/events.",
+      "Dashboard read generation retires financial data on refresh/hide/logout and late responses. Known authority failures clear sibling data. A final fresh account-scope/revision fence verifies async reports/records/account/credit data before publishing.",
+      "Promise coalescing is local to one refresh of one session; no stored report cache survives actor/filter/record/quote changes. Unknown widget types remain safe unsupported placeholders. Twelve widgets use existing authenticated endpoints, exact native currency/credit values and bounded lists.",
+      "Layout move/resize/add/remove stages locally until explicit Save. Unknown write survives navigation with original config/revision/key. Stale remote layout retains local draft and requires explicit reload. Saving an independent filter does not discard dirty layout edits.",
+      "Saved filter/chart name editor, explicit archive/restore, selected chart style and scope, mobile layout and keyboard controls use existing modal/FancySelect/Confirm/theme/i18n. Global Dashboard shares session navigation and opens exact Finance records. No fake financial data or new FAB/toast.",
+      "Report integration clamps week before ISO at9999 boundary; same-length/calendar-year comparison handles leap dates and unavailable prior years. Future/current book horizon uses reference FX no later than report business asOf so quotes are not falsely aged to future month end. Ledger horizon/historical transaction FX stay unchanged."
+    ],
+    "remaining": [
+      "W10-W18 and remaining M1/I02/I03/master",
+      "Protected restore host/Admin binding, remediation/raw legacy backup/bridge/cutover/retention before Wallet activation",
+      "Final independent whole-branch review and exact-HEAD Windows; actual Server2019 R02 separate"
+    ]
+  },
+  "developmentFailures": {
+    "firstBrowser": {
+      "passed": 36,
+      "failed": 2,
+      "runnerExit": 1,
+      "retained": "docs/engineering/evidence/w09-dashboard-browser-first.junit.xml",
+      "causes": [
+        "The repeated bulkScope helper clicked an already-open details panel, closing it; the input then existed but was invisible. Actual calllog and DOM retained.",
+        "A new account widget assertion expected the name alone; actual DOM list item is NAME \u00b7 VND. Failure was before revocation."
+      ],
+      "fixes": [
+        "The same helper/locators now open only when the input is not visible. Existing query and financial assertions/deadlines remain.",
+        "New-case exact text matches the complete rendered name/currency before and after revocation; backend404/fresh-empty/config-ID checks remain."
+      ],
+      "noRetrySkipOrDeadlineChange": true
+    },
+    "development": [
+      "Missing preference/widget/session modules RED retained.",
+      "SDK metadata field count7 was corrected to6; test fixtures now clone configs and include normalizer defaults while exact equality assertions remain.",
+      "Initial async typed arrow syntax corrected; FancySelect uses disabled fieldset as existing component has no disabled prop.",
+      "Actual REDs caught independent saved-filter command losing a dirty layout, sibling authority failure publishing stale data, asynchronous grant revocation before publication, upper calendar week conversion and future-period balance rate aging. Each has a preserved regression.",
+      "Snapshot import limits now match live configuration bounds after valid-checksum malformed-name/too-many-rows RED; final build includes this source change after the first browser attempt."
+    ]
+  },
+  "notRun": [
+    "current Windows2022/Node22/package/service CI",
+    "Firefox/WebKit/native touch for current group",
+    "large Windows performance",
+    "actual Windows Server2019 R02",
+    "production providers/data/secrets (prohibited)"
+  ],
+  "releaseTagVps": "none"
+}

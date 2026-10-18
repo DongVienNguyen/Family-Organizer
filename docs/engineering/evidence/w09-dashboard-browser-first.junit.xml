@@ -1,0 +1,351 @@
+<testsuites id="" name="" tests="38" failures="1" skipped="0" errors="1" time="193.05813">
+<testsuite name="wallet.spec.ts" timestamp="2026-10-18T00:41:45.971Z" hostname="chromium" tests="38" failures="1" skipped="0" time="185.265" errors="1">
+<testcase name="W06 exact balances, credit availability, scoped accounts and existing Finance remain visible" classname="wallet.spec.ts" time="2.51">
+</testcase>
+<testcase name="W06 create form validates exact money and retains the same command across lost acknowledgement and navigation" classname="wallet.spec.ts" time="3.271">
+</testcase>
+<testcase name="W06 stale revision keeps draft and requires explicit reload before editing again" classname="wallet.spec.ts" time="2.607">
+</testcase>
+<testcase name="W06 archive requires confirmation and retains account history" classname="wallet.spec.ts" time="2.979">
+</testcase>
+<testcase name="W06 phone form keyboard focus, native date and custom selectors remain usable" classname="wallet.spec.ts" time="1.447">
+</testcase>
+<testcase name="W04 grant revocation removes a live edit form and financial details through the real SSE path" classname="wallet.spec.ts" time="1.885">
+</testcase>
+<testcase name="W04 a real cross-tab logout retires the session-owned financial draft" classname="wallet.spec.ts" time="1.841">
+</testcase>
+<testcase name="W05 record income and expense use exact balances and save-and-add only clears after success" classname="wallet.spec.ts" time="4.653">
+</testcase>
+<testcase name="W05 cross-currency transfer and separate fee are one confirmed intent; parent void reverses both" classname="wallet.spec.ts" time="5.462">
+</testcase>
+<testcase name="W06 scoped filters recover explicitly from a missing valuation rate" classname="wallet.spec.ts" time="2.843">
+</testcase>
+<testcase name="W05 record edit retains conflict draft and replays the same note-only write after a lost acknowledgement" classname="wallet.spec.ts" time="3.134">
+</testcase>
+<testcase name="W05 stale void confirmation shows inline failure without silently voiding a changed record" classname="wallet.spec.ts" time="2.925">
+</testcase>
+<testcase name="W04 private receipt PDF/image attach, verified download and confirmed detach keep record money" classname="wallet.spec.ts" time="3.424">
+</testcase>
+<testcase name="W04 an unknown receipt upload survives tab navigation and retries the same committed intent" classname="wallet.spec.ts" time="3.448">
+</testcase>
+<testcase name="W06 combined scoped facets, label any/all and clearing the final choice use one shared filter" classname="wallet.spec.ts" time="4.238">
+</testcase>
+<testcase name="W06 loaded checked rows and a cross-page captured scope remain distinct; later records stay excluded from atomic metadata bulk" classname="wallet.spec.ts" time="11.91">
+</testcase>
+<testcase name="W06 an unknown bulk result survives Finance navigation and explicitly replays the identical committed selection patch and nonce" classname="wallet.spec.ts" time="3.363">
+</testcase>
+<testcase name="W06 a stale bulk confirmation keeps the independent edit and requires a fresh preview without sending a replacement write" classname="wallet.spec.ts" time="3.154">
+</testcase>
+<testcase name="W06 a held privacy refresh preserves an open confirmation so Escape can release its focus and scroll ownership" classname="wallet.spec.ts" time="3.334">
+</testcase>
+<testcase name="W07 Admin builds three-level categories, keeps a rejected fourth-level draft and manages hidden archived history on phone in both themes" classname="wallet.spec.ts" time="4.149">
+</testcase>
+<testcase name="W07 linked categories expose bounded references and offer archive while unlinked labels require explicit delete confirmation" classname="wallet.spec.ts" time="3.119">
+</testcase>
+<testcase name="W07 lost label acknowledgement keeps the exact body and nonce across navigation and explicitly retries without a duplicate" classname="wallet.spec.ts" time="2.383">
+</testcase>
+<testcase name="W07 Member reads catalog and labels without management controls or mutation permission" classname="wallet.spec.ts" time="1.4">
+</testcase>
+<testcase name="W07 clone opens a fresh draft without a write and explicit Save creates a distinct manual record with the same exact money" classname="wallet.spec.ts" time="2.741">
+</testcase>
+<testcase name="W07 revoking source access retires an open clone draft through the real SSE path before any Save" classname="wallet.spec.ts" time="2.751">
+</testcase>
+<testcase name="W07 split validates exact totals and preserves one posting, balance and source; category filters select split children only once" classname="wallet.spec.ts" time="4.102">
+</testcase>
+<testcase name="W07 an unknown split survives navigation and retries the exact confirmed rows and nonce without a second revision" classname="wallet.spec.ts" time="4.14">
+</testcase>
+<testcase name="W07 a split clone edits amount and allocations in its new draft and creates one independent posting only on Save" classname="wallet.spec.ts" time="3.329">
+</testcase>
+<testcase name="W07 templates save personal configuration without a ledger write, then apply default labels and exact splits to a reviewed new draft" classname="wallet.spec.ts" time="4.115">
+</testcase>
+<testcase name="W07 an unknown template save retries the original metadata intent across navigation without creating a financial record or duplicate template" classname="wallet.spec.ts" time="3.237">
+</testcase>
+<testcase name="W07 template archive is confirmed and reversible while another Admin cannot read personal template contents" classname="wallet.spec.ts" time="2.938">
+</testcase>
+<testcase name="W08 report UI uses exact shared filters, unique label totals and navigates its drilldown back to records" classname="wallet.spec.ts" time="3.288">
+</testcase>
+<testcase name="W08 balance ignores note and category selection while missing FX remains explicit and private accounts stay absent" classname="wallet.spec.ts" time="2.448">
+</testcase>
+<testcase name="W08 Admin public rate refresh retains the original date and nonce after a lost acknowledgement and navigation" classname="wallet.spec.ts" time="2.02">
+</testcase>
+<testcase name="W09 personal dashboard uses real scoped data, keyboard layout controls persist, phone layout fits and global dashboard drilldown opens the exact list" classname="wallet.spec.ts" time="5.99">
+</testcase>
+<testcase name="W09 saved personal filters and charts reload the exact scope and chosen chart style without writing any financial record" classname="wallet.spec.ts" time="50.471">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="Test timeout of 45000ms exceeded." type="Error">
+<![CDATA[  [chromium] › wallet.spec.ts:342:1 › W09 saved personal filters and charts reload the exact scope and chosen chart style without writing any financial record 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.fill: Test timeout of 45000ms exceeded.
+    Browser logs:
+
+    [pid=39530][err] [39558:39579:1018/004323.113073:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004323.813978:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004323.835443:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004324.033571:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 41924: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004324.048672:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 41933: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004324.050388:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 41935: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004324.103848:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004324.224223:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 41967: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004324.260159:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004324.292665:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004324.320774:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004324.360182:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004324.782111:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004325.452072:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004325.667560:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004325.685765:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004326.463097:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004327.071620:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004327.176626:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004327.344919:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004327.938435:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004328.164596:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42001: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004328.180590:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42012: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004328.183424:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42013: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004328.206359:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004328.230024:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004328.333811:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42044: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004328.358444:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004328.387150:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004328.419015:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004328.445726:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004328.900095:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004329.395615:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004329.674569:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004329.779330:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004330.446805:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004330.807832:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004331.180269:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004331.199696:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004331.415903:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42060: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004331.431527:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42071: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004331.433287:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42073: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004331.465793:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004331.481301:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004331.595566:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42101: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004331.618689:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004331.659033:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004331.686817:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004331.705644:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004332.084590:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004332.696046:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004333.067077:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004333.460300:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004334.085448:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004334.358782:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42117: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004334.374395:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42128: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004334.375705:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42130: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004334.418949:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004334.434703:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004334.514215:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42159: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004334.550477:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004334.587922:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004334.615451:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004334.641205:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004335.035806:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004335.767958:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004335.895370:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004336.052650:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004336.316978:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004336.437689:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004337.205204:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004337.347766:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004337.665303:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42174: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004337.680388:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42183: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004337.683843:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42186: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004337.721838:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004337.746035:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004337.836202:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42211: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004337.865354:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004337.897216:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004337.921267:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004337.955144:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004338.377229:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004338.672082:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004339.131625:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004339.223000:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004340.129316:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42306: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004340.147676:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42317: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004340.150086:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42319: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004340.174084:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004340.202464:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004340.300714:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42348: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004340.329474:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004340.361933:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004340.392699:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004340.423662:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004340.823938:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004341.070873:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004341.187565:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004341.437045:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004341.601336:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004341.639711:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004341.938713:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004342.145106:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42364: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004342.164354:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42375: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004342.165765:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42377: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004342.201471:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004342.293492:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42402: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004342.325699:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004342.351806:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004342.377974:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004342.406681:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004342.844467:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004343.615183:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004343.729894:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004344.199342:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004345.069166:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004345.591384:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004345.662345:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004346.003486:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004347.132007:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004347.737814:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004347.828053:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004348.146962:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42581: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004348.162723:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42592: Read-only file system (30)
+    [pid=39530][err] [39530:39552:1018/004348.165168:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42593: Read-only file system (30)
+    [pid=39530][err] [39530:39530:1018/004348.169421:ERROR:chrome/browser/ui/views/user_education/impl/browser_user_education_interface_impl.cc:186] Attempting to show IPH IPH_ExtensionsZeroStatePromo before browser initialization complete; IPH will not be shown.
+    [pid=39530][err] [39558:39579:1018/004348.208151:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004348.224332:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39530:39552:1018/004348.305051:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 42623: Read-only file system (30)
+    [pid=39530][err] [39558:39579:1018/004348.333967:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004348.364320:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004348.388664:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004348.428442:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004348.834090:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004349.490476:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004349.588130:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004349.958486:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004350.082266:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004350.432542:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004351.228338:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004352.873667:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004356.601797:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004402.668810:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004416.420762:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004421.248320:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004422.892169:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004426.625164:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530][err] [39558:39579:1018/004432.682704:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202
+    [pid=39530] <gracefully close start>
+    Call log:
+      - waiting for getByTestId('wallet-records').getByLabel('Tìm kiếm ghi chép', { exact: true })
+        - locator resolved to <input maxlength="500" value="SYNTHETIC_SAVED_FILTER_RECORD" class="w-full min-w-0 bg-slate-950 neu-pressed-sm rounded-xl px-3 py-2.5 text-slate-200 outline-none focus:ring-2 focus:ring-sky-500/40"/>
+        - fill("SYNTHETIC_SAVED_FILTER_NO_MATCH")
+      - attempting fill action
+        2 × waiting for element to be visible, enabled and editable
+          - element is not visible
+        - retrying fill action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and editable
+          - element is not visible
+        - retrying fill action
+          - waiting 100ms
+        95 × waiting for element to be visible, enabled and editable
+           - element is not visible
+         - retrying fill action
+           - waiting 500ms
+        - waiting for element to be visible, enabled and editable
+
+
+      249 | });
+      250 | async function bulkScope(page:Page,query:string){
+    > 251 |  await records(page).getByText('Bộ lọc ghi chép',{exact:true}).click();await records(page).getByLabel('Tìm kiếm ghi chép',{exact:true}).fill(query);await records(page).getByRole('button',{name:'Áp dụng bộ lọc',exact:true}).click();await expect(records(page).getByRole('button',{name:'Tạo ghi chép',exact:true})).toBeEnabled();
+          |                                                                                                                                         ^
+      252 | }
+      253 | async function bulkNote(page:Page,note:string){const bulk=page.getByTestId('wallet-bulk');await bulk.getByLabel('Đổi ghi chú',{exact:true}).check();await bulk.getByLabel('Ghi chú',{exact:true}).fill(note);await expect(bulk.getByLabel('Ghi chú',{exact:true})).toHaveValue(note);await bulk.getByRole('button',{name:'Xem trước cập nhật',exact:true}).click();await expect(bulk.getByRole('button',{name:'Xác nhận cập nhật',exact:true})).toBeEnabled();}
+      254 | test('W06 loaded checked rows and a cross-page captured scope remain distinct; later records stay excluded from atomic metadata bulk',async({page})=>{
+        at bulkScope (/workspace/Family-Organizer/tests/e2e/wallet.spec.ts:251:137)
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:343:809
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W09-saved-personal--5cdb0-riting-any-financial-record-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="W09 an unknown layout save survives navigation and retries the original revision body and key exactly once" classname="wallet.spec.ts" time="2.338">
+</testcase>
+<testcase name="W09 real grant revocation removes financial widget data through SSE while the saved filter remains configuration only" classname="wallet.spec.ts" time="11.878">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/video.webm]]
+
+[[ATTACHMENT|results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/error-context.md]]
+
+[[ATTACHMENT|results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › wallet.spec.ts:348:1 › W09 real grant revocation removes financial widget data through SSE while the saved filter remains configuration only 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: 'Tổng quan Wallet', exact: true }).getByText('SYNTHETIC_DASHBOARD_REVOKABLE', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: 'Tổng quan Wallet', exact: true }).getByText('SYNTHETIC_DASHBOARD_REVOKABLE', { exact: true }) with timeout 10000ms
+      - waiting for getByRole('region', { name: 'Tổng quan Wallet', exact: true }).getByText('SYNTHETIC_DASHBOARD_REVOKABLE', { exact: true })
+
+
+      347 | });
+      348 | test('W09 real grant revocation removes financial widget data through SSE while the saved filter remains configuration only',async({page})=>{
+    > 349 |  await login(page);const admin=await page.request.post('/api/auth/login',{data:{username:'wallet-browser-admin',password:'synthetic-browser-password'},maxRedirects:0});expect(admin.status()).toBe(200);const headers={Authorization:'Bearer '+(await admin.json()).token,'x-request-id':crypto.randomUUID()},created=await page.request.post('/api/wallet/accounts',{headers,data:{expectedRevision:0,input:{name:'SYNTHETIC_DASHBOARD_REVOKABLE',type:'bank',currency:'VND',openingMinor:'123456789',openingDate:'2026-10-17',accessMode:'private'}},maxRedirects:0});expect(created.status()).toBe(200);const account=(await created.json()).account;const grant=await page.request.put('/api/wallet/accounts/'+account.id+'/grants/wallet-browser-member',{headers:{...headers,'x-request-id':crypto.randomUUID()},data:{expectedRevision:1,permission:'read'},maxRedirects:0});expect(grant.status()).toBe(200);const prefs=await request(page,'preferences');expect(prefs.status).toBe(200);const layout=prefs.body.layout,config={version:1,baseFilter:{period:{fromDate:'2026-10-01',toDateExclusive:'2026-11-01',timezone:'Asia/Ho_Chi_Minh'},referenceCurrency:'VND',accountIds:[account.id]},widgets:[{id:'synthetic-revocable-widget',kind:'accounts',width:1,title:'Synthetic scoped widget'}]};expect((await request(page,'preferences/layout/'+layout.id,'PATCH',{expectedRevision:layout.revision,patch:{config}})).status).toBe(200);await dashboardTab(page);await expect(personalDashboard(page).getByText('SYNTHETIC_DASHBOARD_REVOKABLE',{exact:true})).toBeVisible();const revoke=await page.request.delete('/api/wallet/accounts/'+account.id+'/grants/wallet-browser-member',{headers:{...headers,'x-request-id':crypto.randomUUID()},data:{expectedRevision:2},maxRedirects:0});expect(revoke.status()).toBe(200);await expect(personalDashboard(page).getByText('SYNTHETIC_DASHBOARD_REVOKABLE',{exact:true})).toHaveCount(0);await expect(personalDashboard(page).getByText('Chưa có dữ liệu trong phạm vi này.',{exact:true})).toBeVisible();expect((await request(page,'accounts/'+account.id)).status).toBe(404);const after=await request(page,'preferences');expect(after.status).toBe(200);expect(after.body.layout.config.baseFilter.accountIds).toEqual([account.id]);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      350 | });
+      351 |
+        at /workspace/Family-Organizer/tests/e2e/wallet.spec.ts:349:1519
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../reports/wallet/chromium/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../reports/wallet/chromium/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../reports/wallet/chromium/results/wallet-W09-real-grant-revo-0e367--remains-configuration-only-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+</testsuite>
+</testsuites>
