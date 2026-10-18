@@ -7,3 +7,6 @@ function nextAnnual(policy:CountdownPolicy,today:string):string {const sourceYea
  * retain the original anchor and expose the next annual occurrence separately;
  * elapsed wording always receives a nonnegative number. */
 export function countdownDays(raw:CountdownPolicy,clock:{nowUtc:string}):CountdownValue {const policy=normalizeCountdownPolicy(raw),today=localDateAt(utcInstant(clock.nowUtc),policy.timezone),nextAnnualDate=policy.annual?nextAnnual(policy,today):null,occurrenceDate=policy.kind==='countdown'&&policy.annual?nextAnnualDate!:policy.date,difference=(calendarDate(occurrenceDate)-calendarDate(today))/86400000;return {days:Math.abs(difference)+(policy.inclusive?1:0),direction:difference===0?'today':difference>0?'remaining':'elapsed',occurrenceDate,nextAnnualDate,today};}
+/** Floating all-day projection uses the stored calendar date directly, even
+ * when that date has no wall-clock instant in its source timezone. */
+export function countdownOccursOn(raw:CountdownPolicy,date:string):boolean {const policy=normalizeCountdownPolicy(raw);calendarDate(date);if(date<policy.date)return false;if(!policy.annual)return policy.date===date;let monthDay=policy.date.slice(5);if(monthDay==='02-29'){try{calendarDate(date.slice(0,4)+'-02-29');}catch{if(policy.leapPolicy==='skip')return false;monthDay='02-28';}}return date.slice(5)===monthDay;}

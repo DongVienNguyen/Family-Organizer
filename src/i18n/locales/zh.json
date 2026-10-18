@@ -3287,7 +3287,8 @@
       "countdown": "保存所选重要日期",
       "log": "保存所选签到",
       "archiveHabit": "归档所选习惯",
-      "archiveCountdown": "归档所选重要日期"
+      "archiveCountdown": "归档所选重要日期",
+      "reminder": "保存我的提醒"
     }
   },
   "productivityCountdowns": {
@@ -3321,5 +3322,22 @@
       "true": "包含当天",
       "false": "标准日历日差"
     }
+  },
+  "productivityTracking": {
+    "reminder": "我的私人提醒",
+    "policy": "只提醒您，使用此来源的时区并遵守现有静音和摘要设置。已完成、跳过或已达每周目标的日期不会提醒；不创建任务或奖励。不补发错过日期的提醒。",
+    "failed": "无法验证当前提醒。",
+    "restoreReview": "数据已恢复：提醒已关闭。请查看并明确保存后重新启用。",
+    "enabled": "启用我的私人提醒",
+    "time": "提醒时间（24小时）",
+    "stale": "来源或提醒已更改。草稿保留原版本；保存前请重新加载并查看。",
+    "save": "保存我的提醒",
+    "reload": "放弃草稿并查看当前设置",
+    "calendar": "显示习惯和重要日期",
+    "calendarPolicy": "只读图层，保留原始日期和来源时区。打开来源查看或打卡；不创建任务。上方任务筛选和ICS导出仅适用于现有任务日历。",
+    "calendarFailed": "无法加载跟踪图层。超过1,000项时请选择一周或更短日期范围。",
+    "calendarEmpty": "此日期范围内没有可查看的跟踪项目。",
+    "habit": "习惯 · 打开来源",
+    "countdown": "重要日期 · 打开来源"
   }
 }

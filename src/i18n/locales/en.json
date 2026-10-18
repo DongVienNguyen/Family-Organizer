@@ -3288,7 +3288,8 @@
       "countdown": "Save selected important date",
       "log": "Save selected check-in",
       "archiveHabit": "Archive selected habit",
-      "archiveCountdown": "Archive selected important date"
+      "archiveCountdown": "Archive selected important date",
+      "reminder": "Save my reminder"
     }
   },
   "productivityCountdowns": {
@@ -3322,5 +3323,22 @@
       "true": "Includes the current day",
       "false": "Standard calendar-day difference"
     }
+  },
+  "productivityTracking": {
+    "reminder": "My private reminder",
+    "policy": "Remind only you, in this source’s timezone, respecting existing quiet/digest settings. Completed, skipped or weekly-goal-met days are suppressed; no Tasks or rewards are created. Missed days are not backfilled.",
+    "failed": "Could not verify the current reminder.",
+    "restoreReview": "Data was restored: reminders are off. Review and save explicitly to enable again.",
+    "enabled": "Enable my private reminder",
+    "time": "Reminder time (24-hour)",
+    "stale": "The source or reminder changed. This draft keeps its original revision; reload and review before saving.",
+    "save": "Save my reminder",
+    "reload": "Discard draft and review current settings",
+    "calendar": "Show habits and important dates",
+    "calendarPolicy": "Read-only layer retaining original calendar dates and source timezones. Open the source to review or check in; no Tasks are created. Task filters and ICS export above apply to the existing Task calendar.",
+    "calendarFailed": "Could not load the tracking layer. If it exceeds1,000 items, select a week or shorter date range.",
+    "calendarEmpty": "No authorized tracking items in this range.",
+    "habit": "Habit · open source",
+    "countdown": "Important date · open source"
   }
 }

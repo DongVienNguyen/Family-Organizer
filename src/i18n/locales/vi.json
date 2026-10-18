@@ -3287,7 +3287,8 @@
       "countdown": "Lưu ngày quan trọng đã chọn",
       "log": "Lưu check-in đã chọn",
       "archiveHabit": "Lưu trữ thói quen đã chọn",
-      "archiveCountdown": "Lưu trữ ngày quan trọng đã chọn"
+      "archiveCountdown": "Lưu trữ ngày quan trọng đã chọn",
+      "reminder": "Lưu nhắc riêng"
     }
   },
   "productivityCountdowns": {
@@ -3321,5 +3322,22 @@
       "true": "Tính cả ngày hiện tại",
       "false": "Chênh lệch ngày thông thường"
     }
+  },
+  "productivityTracking": {
+    "reminder": "Nhắc riêng của tôi",
+    "policy": "Chỉ nhắc bạn, theo múi giờ của mục này và cài đặt im lặng/tổng hợp hiện có. Bỏ qua ngày đã hoàn thành, đã skip hoặc đủ mục tiêu tuần; không tạo công việc hay phần thưởng. Không phát bù các ngày đã lỡ.",
+    "failed": "Không xác minh được nhắc nhở hiện tại.",
+    "restoreReview": "Đã khôi phục dữ liệu: nhắc nhở đang tắt. Hãy xem lại và lưu để bật lại theo ý bạn.",
+    "enabled": "Bật nhắc riêng cho tôi",
+    "time": "Giờ nhắc (24 giờ)",
+    "stale": "Nguồn hoặc nhắc nhở đã thay đổi. Bản nháp giữ phiên bản cũ; tải lại và xem trước khi lưu.",
+    "save": "Lưu nhắc riêng",
+    "reload": "Bỏ bản nháp và xem cài đặt hiện tại",
+    "calendar": "Hiện thói quen và ngày quan trọng",
+    "calendarPolicy": "Lớp chỉ đọc, giữ ngày lịch và múi giờ gốc. Mở đúng mục để xem hoặc ghi tiến độ; không tạo công việc. Bộ lọc công việc và xuất ICS ở trên áp dụng cho lịch công việc hiện có.",
+    "calendarFailed": "Không tải được lớp theo dõi. Nếu vượt 1.000 mục, chọn tuần hoặc khoảng ngày ngắn hơn.",
+    "calendarEmpty": "Không có mục theo dõi được phép xem trong khoảng này.",
+    "habit": "Thói quen · mở nguồn",
+    "countdown": "Ngày quan trọng · mở nguồn"
   }
 }
