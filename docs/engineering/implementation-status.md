@@ -2,6 +2,19 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**W17 query-performance subset (2026-10-18):** source `0c61cc602038dd77189a7b167f06b27be2998a0e`
+adds portable synthetic benchmark and reduces repeated ICU/filter/metadata
+allocation while retaining physical SQL and both ACL/data fences. Reference100k
+Cloud p95 page50 204.0ms (baseline711.9), month
+838.5ms (baseline2209.0);20samples/3warmups,
+exact totals/ID count, integrity/closed/cleaned/offline/source-bound.
+Targeted200/13 JSON/JUnit, zero failures/skips/todo; lint/build0. No new full
+aggregate/browser or Windows acceptance; W16 evidence remains separate.
+[Details](wallet-performance.md), [proof](evidence/w17-query-performance-development.json).
+PR/CI URLs:none; author inspection only; backup branch. W17 incomplete:10k
+import responsiveness and full recovery/system; W18, remaining P/M1/I02/I03/master
+and final Windows batch remain. No release/tag/VPS;Server2019 R02 unrun.
+
 **W16 core (2026-10-18):** source `925009844e680a0c3333174d2f81272724786486` adds personal
 locale/date/decimal/balance display, default periods, owned inactivity timers,
 selective Wallet device cleanup and explicit PDF glyph fallback. Settings

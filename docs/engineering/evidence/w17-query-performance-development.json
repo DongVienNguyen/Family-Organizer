@@ -1,0 +1,546 @@
+{
+  "taskId": "W17 query-performance subset",
+  "qualification": "Cloud reference workload only; not full W17 or Windows acceptance",
+  "sourceCommit": "0c61cc602038dd77189a7b167f06b27be2998a0e",
+  "baseHead": "e80effb3d96b9c31d5d30c39960cc3e2a48e5f47",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "sourceFiles": {
+    "scripts/benchmark-wallet.ts": "699eb1fec59cce09c0fd1fb9c608013e934d92ae6e8ff4074deb2fb0f913328d",
+    "server/wallet/metadata.ts": "948f307c6e0762c0dcbb91da5c0c3d9e3c0df43d261a623caa9ed97e5289e9d2",
+    "server/wallet/metadataIsolation.test.ts": "9df84c5d34c3b3fcb7317f99f79ec8e2b0985ad2dd74199c6120865a7e37c4d0",
+    "server/wallet/query.ts": "4e48afc89bee6b750262ebca82377fe7176b34d0c487a36b98549ead19c18e03",
+    "src/features/wallet/compiledFilter.test.ts": "883ddc8466883614258b49a70f48f9f134d067a6c496ef1e2dbab656c5069f6b",
+    "src/features/wallet/dates.ts": "ddf70483b0f8de21b7da6c41b5bc9541919c2eb7e66fa6fedd44e27ed7a87f00",
+    "src/features/wallet/filter.ts": "a0ca5ec50492b693613815bf3020afb0f75508526b54ab09d05651d796e4e592",
+    "src/features/wallet/periodValidationPerformance.test.ts": "6f6ff224831db72b4d3eca81f5958fee65dd48107515ed6639f06c99e5621f03",
+    "tests/wallet-benchmark.test.ts": "650a4800f0133ec2fa26ecc993ef877d5cfd7785ae1b0361cc999d2f7cef2c6d"
+  },
+  "benchmark": {
+    "synthetic": true,
+    "qualification": "Cloud diagnostic, not Windows performance acceptance",
+    "sourceCommit": "0c61cc602038dd77189a7b167f06b27be2998a0e",
+    "platform": "linux",
+    "osRelease": "6.18.55",
+    "osVersion": "#1 SMP Wed Oct 14 19:45:18 UTC 2026",
+    "architecture": "x64",
+    "node": "v24.21.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logicalCpus": 4,
+    "memoryBytes": 35743760384,
+    "addon": "13.0.3",
+    "records": 100000,
+    "iterations": 20,
+    "warmupIterations": 3,
+    "workingTreeDirty": false,
+    "sourceFiles": {
+      "scripts/benchmark-wallet.ts": "699eb1fec59cce09c0fd1fb9c608013e934d92ae6e8ff4074deb2fb0f913328d",
+      "src/features/wallet/dates.ts": "ddf70483b0f8de21b7da6c41b5bc9541919c2eb7e66fa6fedd44e27ed7a87f00",
+      "src/features/wallet/filter.ts": "a0ca5ec50492b693613815bf3020afb0f75508526b54ab09d05651d796e4e592",
+      "src/features/productivity/dates.ts": "e6558f991d940d1dea0acf28309773bf0ebf4a2363b06d93e55ab878cb425b7b",
+      "server/wallet/query.ts": "4e48afc89bee6b750262ebca82377fe7176b34d0c487a36b98549ead19c18e03",
+      "server/wallet/reports.ts": "43bdb72efab962541b33c8c9ba4f0c2c8202405dcf2593f3177b2f9fd7343c35",
+      "server/wallet/metadata.ts": "948f307c6e0762c0dcbb91da5c0c3d9e3c0df43d261a623caa9ed97e5289e9d2"
+    },
+    "errors": [],
+    "databaseClosed": true,
+    "fixtureRemoved": true,
+    "seedMilliseconds": 802.89644,
+    "expectedMonth": {
+      "records": 8494,
+      "incomeMinor": "42470000",
+      "expenseMinor": "42470000",
+      "netMinor": "0"
+    },
+    "metrics": {
+      "page50": {
+        "p50Milliseconds": 170.30786400000034,
+        "p95Milliseconds": 203.99347899999702,
+        "minMilliseconds": 157.51215199999933,
+        "maxMilliseconds": 211.56246800000008,
+        "samplesMilliseconds": [
+          167.11658499999976,
+          197.0534950000001,
+          162.887068,
+          195.2898949999999,
+          169.29193300000043,
+          176.55472199999895,
+          157.97974900000008,
+          167.44434499999988,
+          170.30786400000034,
+          159.94236099999944,
+          159.60426300000108,
+          192.757685999999,
+          172.58505999999943,
+          174.5567579999988,
+          175.43351500000063,
+          211.56246800000008,
+          169.794801,
+          203.99347899999702,
+          157.51215199999933,
+          194.42799999999988
+        ]
+      },
+      "monthReport": {
+        "p50Milliseconds": 798.150354999998,
+        "p95Milliseconds": 838.4783150000003,
+        "minMilliseconds": 742.0224290000006,
+        "maxMilliseconds": 862.1435959999999,
+        "samplesMilliseconds": [
+          772.7001270000001,
+          800.6297570000006,
+          826.410828,
+          862.1435959999999,
+          801.1657610000002,
+          755.4161449999992,
+          742.0224290000006,
+          817.6183180000007,
+          766.1324060000006,
+          766.9829689999988,
+          775.1306850000001,
+          815.8776169999983,
+          756.3846690000009,
+          798.150354999998,
+          802.0310229999995,
+          838.4783150000003,
+          812.3831879999998,
+          807.529344999999,
+          767.9860359999984,
+          768.7423509999971
+        ]
+      }
+    },
+    "rssBytes": 558682112,
+    "count": 100000,
+    "integrity": "ok",
+    "networkBoundaryConfigured": true,
+    "networkAttempts": 0,
+    "referenceWindowsTargets": {
+      "page50P95Milliseconds": 500,
+      "monthReportP95Milliseconds": 1000
+    },
+    "meetsMeasuredTargets": true,
+    "referenceDataset": true,
+    "targetNode": "24.21.0",
+    "windowsPerformanceAccepted": false
+  },
+  "baseline": {
+    "synthetic": true,
+    "qualification": "Cloud diagnostic, not Windows performance acceptance",
+    "sourceCommit": "e80effb3d96b9c31d5d30c39960cc3e2a48e5f47",
+    "platform": "linux",
+    "architecture": "x64",
+    "node": "v24.21.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logicalCpus": 4,
+    "memoryBytes": 35743760384,
+    "addon": "13.0.3",
+    "records": 100000,
+    "iterations": 20,
+    "errors": [],
+    "databaseClosed": true,
+    "fixtureRemoved": true,
+    "seedMilliseconds": 1326.459814,
+    "metrics": {
+      "page50": {
+        "p50Milliseconds": 638.8933800000013,
+        "p95Milliseconds": 711.8595260000002,
+        "minMilliseconds": 608.705490999997,
+        "maxMilliseconds": 731.1417499999989,
+        "samplesMilliseconds": [
+          711.8595260000002,
+          617.9237439999997,
+          608.705490999997,
+          672.2733819999994,
+          643.3472140000013,
+          638.8933800000013,
+          647.847429999998,
+          731.1417499999989,
+          697.7319399999978,
+          644.9435620000004,
+          660.6536320000014,
+          612.3205710000038,
+          625.2210189999969,
+          628.1049179999973,
+          651.7810399999944,
+          630.0130530000024,
+          629.5048979999992,
+          621.2012070000055,
+          628.7747660000023,
+          642.1640370000023
+        ]
+      },
+      "monthReport": {
+        "p50Milliseconds": 2078.1804580000007,
+        "p95Milliseconds": 2209.0059249999977,
+        "minMilliseconds": 2011.1958520000044,
+        "maxMilliseconds": 2218.5594679999995,
+        "samplesMilliseconds": [
+          2164.450649999999,
+          2078.1804580000007,
+          2025.5370739999998,
+          2218.5594679999995,
+          2175.149519999999,
+          2198.727315,
+          2169.8553329999995,
+          2209.0059249999977,
+          2092.1881950000025,
+          2162.6467310000007,
+          2011.1958520000044,
+          2021.2660719999985,
+          2078.1223210000026,
+          2022.707770000001,
+          2153.107154000005,
+          2061.056386000004,
+          2040.088450999996,
+          2031.870332999999,
+          2083.7728629999983,
+          2039.6568389999957
+        ]
+      }
+    },
+    "rssBytes": 778166272,
+    "count": 100000,
+    "integrity": "ok"
+  },
+  "pageP95Speedup": 3.48961902845929,
+  "reportP95Speedup": 2.6345415086852864,
+  "tests": {
+    "passed": 200,
+    "files": 13,
+    "junitCases": 200,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "scope": "targeted date/filter/query/report/budget/records/metadata/portfolio snapshot and portable benchmark CLI regressions; not full aggregate"
+  },
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "sqlTemplateUnchanged": true,
+  "bothAuthorityReadsRetained": true,
+  "retainedEvidence": {
+    "w17-benchmark-cli-first.exit": {
+      "path": "docs/engineering/evidence/w17-benchmark-cli-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-benchmark-cli-first.json": {
+      "path": "docs/engineering/evidence/w17-benchmark-cli-first.json.gz",
+      "sha256": "57ce02c8d457d59e5900f1218bc2476863cbb3154a8e788db11762dc8fe74e36"
+    },
+    "w17-benchmark-cli-first.junit.xml": {
+      "path": "docs/engineering/evidence/w17-benchmark-cli-first.junit.xml.gz",
+      "sha256": "079f905d72d5e50d484c91e1e4e9974acd00518220c52d2119fc94be12bd82c3"
+    },
+    "w17-benchmark-cli-first.log": {
+      "path": "docs/engineering/evidence/w17-benchmark-cli-first.log.gz",
+      "sha256": "ff9a371f70d889e52a028bf3746b0dc123cb2368800c6aa846bbd72a2bfc6c44"
+    },
+    "w17-benchmark-exact-lint.exit": {
+      "path": "docs/engineering/evidence/w17-benchmark-exact-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-benchmark-exact-lint.log": {
+      "path": "docs/engineering/evidence/w17-benchmark-exact-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-benchmark-exact-totals.exit": {
+      "path": "docs/engineering/evidence/w17-benchmark-exact-totals.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-benchmark-exact-totals.json": {
+      "path": "docs/engineering/evidence/w17-benchmark-exact-totals.json.gz",
+      "sha256": "3198b06bb96c2ba63e57dfe601682f4cc9a9509f9ee4e441af3b19249ba15ca0"
+    },
+    "w17-benchmark-exact-totals.junit.xml": {
+      "path": "docs/engineering/evidence/w17-benchmark-exact-totals.junit.xml.gz",
+      "sha256": "ea4bcf6ad6c206d2419d028fa9c03811cf5e8d7b3082251519904b306d6a6032"
+    },
+    "w17-benchmark-exact-totals.log": {
+      "path": "docs/engineering/evidence/w17-benchmark-exact-totals.log.gz",
+      "sha256": "6173e48b83ea7adc4accd4f8cbfd9bba4cf0f3f8400da341a5d5b2383cb63583"
+    },
+    "w17-benchmark-first-lint.exit": {
+      "path": "docs/engineering/evidence/w17-benchmark-first-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-benchmark-first-lint.log": {
+      "path": "docs/engineering/evidence/w17-benchmark-first-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-compiled-filter-first.exit": {
+      "path": "docs/engineering/evidence/w17-compiled-filter-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-compiled-filter-first.json": {
+      "path": "docs/engineering/evidence/w17-compiled-filter-first.json.gz",
+      "sha256": "865aa87ec4147cb9d86d21bfd71de670443204a036cc449cd5edd505012c30dd"
+    },
+    "w17-compiled-filter-first.junit.xml": {
+      "path": "docs/engineering/evidence/w17-compiled-filter-first.junit.xml.gz",
+      "sha256": "32b59929dffb845458a97a1d7a6451d75ade38e35527f83c7b2079e9a95f49f1"
+    },
+    "w17-compiled-filter-first.log": {
+      "path": "docs/engineering/evidence/w17-compiled-filter-first.log.gz",
+      "sha256": "8efd414a77d09be5d2874ef92285393aae3e920a2b5a7f226a27573e7e75225a"
+    },
+    "w17-compiled-filter-red.exit": {
+      "path": "docs/engineering/evidence/w17-compiled-filter-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-compiled-filter-red.json": {
+      "path": "docs/engineering/evidence/w17-compiled-filter-red.json.gz",
+      "sha256": "58418c23bc8187473c88073728606bfbd5258c9c3984821ce9dd50d7c80372a6"
+    },
+    "w17-compiled-filter-red.log": {
+      "path": "docs/engineering/evidence/w17-compiled-filter-red.log.gz",
+      "sha256": "ced287881c21e54e8fbbb994c2c1af315677642334e80bd4a4e401f9bd27c906"
+    },
+    "w17-final-query-benchmark.exit": {
+      "path": "docs/engineering/evidence/w17-final-query-benchmark.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-final-query-benchmark.json": {
+      "path": "docs/engineering/evidence/w17-final-query-benchmark.json.gz",
+      "sha256": "cfd5a208d1668776876af2b4d20cda897923d19c64232ebdf14d8a3e4ac73e01"
+    },
+    "w17-final-query-benchmark.log": {
+      "path": "docs/engineering/evidence/w17-final-query-benchmark.log.gz",
+      "sha256": "da5d8d91eb11fafdbbdf32c67b89b52cb05ffff3c1dbc3194eebcc5a47e2e49d"
+    },
+    "w17-metadata-optimized.exit": {
+      "path": "docs/engineering/evidence/w17-metadata-optimized.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-metadata-optimized.json": {
+      "path": "docs/engineering/evidence/w17-metadata-optimized.json.gz",
+      "sha256": "ac1450a23aeed7e322d5d64655ca9affa58f7945df33e2f3da1bada8182d80eb"
+    },
+    "w17-metadata-optimized.junit.xml": {
+      "path": "docs/engineering/evidence/w17-metadata-optimized.junit.xml.gz",
+      "sha256": "f68e0d4a57d63f67ecf07ea12f02688590dd195c5df2ca8687a6a0160ac8c06e"
+    },
+    "w17-metadata-optimized.log": {
+      "path": "docs/engineering/evidence/w17-metadata-optimized.log.gz",
+      "sha256": "99acd5230fab0cf6edaded53e5af51c26ad07efc1500a7df4e3f0c9419be2ee5"
+    },
+    "w17-period-icu-green.exit": {
+      "path": "docs/engineering/evidence/w17-period-icu-green.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-period-icu-green.json": {
+      "path": "docs/engineering/evidence/w17-period-icu-green.json.gz",
+      "sha256": "ee32298a2f9af4c9446c3e81165586447c1389b273c260c406805f2fba5e0bd0"
+    },
+    "w17-period-icu-green.junit.xml": {
+      "path": "docs/engineering/evidence/w17-period-icu-green.junit.xml.gz",
+      "sha256": "5f8d261df0cb74b3db871d54b683911a7b610da06d890c634b4aa55573825b1a"
+    },
+    "w17-period-icu-green.log": {
+      "path": "docs/engineering/evidence/w17-period-icu-green.log.gz",
+      "sha256": "fe113e9f5feb9ea8f1ce706a7df14ea167c639d924979b450a7f50f601585edd"
+    },
+    "w17-period-icu-red.exit": {
+      "path": "docs/engineering/evidence/w17-period-icu-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-period-icu-red.json": {
+      "path": "docs/engineering/evidence/w17-period-icu-red.json.gz",
+      "sha256": "2bfffbfb4c4088126c2f0da9da354d6f3f0212f1ad8e276f727e95eb586a7090"
+    },
+    "w17-period-icu-red.log": {
+      "path": "docs/engineering/evidence/w17-period-icu-red.log.gz",
+      "sha256": "9c8a865d4facff204f46b758959378beb969b202e5b02092c91ac32971c559f5"
+    },
+    "w17-period-icu-second.exit": {
+      "path": "docs/engineering/evidence/w17-period-icu-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-period-icu-second.json": {
+      "path": "docs/engineering/evidence/w17-period-icu-second.json.gz",
+      "sha256": "3c42357cac755fab679483ffcec1399135baf3c57a3b2cfe9fa426fa4cab9d90"
+    },
+    "w17-period-icu-second.junit.xml": {
+      "path": "docs/engineering/evidence/w17-period-icu-second.junit.xml.gz",
+      "sha256": "e7ade375a6380112256be514fc84950ae375a89abaecb72ffc2ea0eb5bac96c2"
+    },
+    "w17-period-icu-second.log": {
+      "path": "docs/engineering/evidence/w17-period-icu-second.log.gz",
+      "sha256": "15b0383bb0c2d68b030103f00436ad9f17af660c997417e02e1788a40ff76e78"
+    },
+    "w17-query-baseline-second.exit": {
+      "path": "docs/engineering/evidence/w17-query-baseline-second.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-baseline-second.json": {
+      "path": "docs/engineering/evidence/w17-query-baseline-second.json.gz",
+      "sha256": "8daafd51320549d5d0f60d5b50e2c6e3bc1237d0e083baac855cf9ee450505e8"
+    },
+    "w17-query-baseline-second.log": {
+      "path": "docs/engineering/evidence/w17-query-baseline-second.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "w17-query-baseline.exit": {
+      "path": "docs/engineering/evidence/w17-query-baseline.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75"
+    },
+    "w17-query-baseline.log": {
+      "path": "docs/engineering/evidence/w17-query-baseline.log.gz",
+      "sha256": "9e8d5ebf107ac8794c17f411d3e4e934eac43cf9d66d306475b0b34bd9a6e6cd"
+    },
+    "w17-query-compiled-optimized.exit": {
+      "path": "docs/engineering/evidence/w17-query-compiled-optimized.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-compiled-optimized.json": {
+      "path": "docs/engineering/evidence/w17-query-compiled-optimized.json.gz",
+      "sha256": "736d636e0c5141eb43807b3255fae630c1341a68955deb67b1ec783bcf81daea"
+    },
+    "w17-query-compiled-optimized.log": {
+      "path": "docs/engineering/evidence/w17-query-compiled-optimized.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "w17-query-cpu-profile.mts": {
+      "path": "docs/engineering/evidence/w17-query-cpu-profile.mts.gz",
+      "sha256": "07029cb46bab9700b8302a5613138f8c3b6c11d1cbe9dd95377e806082d483ef"
+    },
+    "w17-query-cpu-report.json": {
+      "path": "docs/engineering/evidence/w17-query-cpu-report.json.gz",
+      "sha256": "2325c145645b0700a27218a2782fc1da566648f2108dab81367000da7bd9e9c9"
+    },
+    "w17-query-cpu.exit": {
+      "path": "docs/engineering/evidence/w17-query-cpu.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-cpu.log": {
+      "path": "docs/engineering/evidence/w17-query-cpu.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "w17-query-final-build.exit": {
+      "path": "docs/engineering/evidence/w17-query-final-build.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-final-build.log": {
+      "path": "docs/engineering/evidence/w17-query-final-build.log.gz",
+      "sha256": "3f8d50f2a48bb4d8d6a226c0d9c4ff842385be30b4e8df5f8ab322a813e1fb0d"
+    },
+    "w17-query-final-lint.exit": {
+      "path": "docs/engineering/evidence/w17-query-final-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-final-lint.log": {
+      "path": "docs/engineering/evidence/w17-query-final-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d"
+    },
+    "w17-query-final-targeted.exit": {
+      "path": "docs/engineering/evidence/w17-query-final-targeted.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-final-targeted.json": {
+      "path": "docs/engineering/evidence/w17-query-final-targeted.json.gz",
+      "sha256": "a0407f925dcae7a71ad5c312d7fd90e230b5903ccaf22bc5abe764af5c0aa833"
+    },
+    "w17-query-final-targeted.junit.xml": {
+      "path": "docs/engineering/evidence/w17-query-final-targeted.junit.xml.gz",
+      "sha256": "f443275c49ee7c5fb39e357db4f015e8a261ff89805b84dd1ff41e317e82c28a"
+    },
+    "w17-query-final-targeted.log": {
+      "path": "docs/engineering/evidence/w17-query-final-targeted.log.gz",
+      "sha256": "1d781759f10f2669bb47d824229f93167839b8f3c2eba0566ab8b4cacc8c1d3d"
+    },
+    "w17-query-icu-optimized.exit": {
+      "path": "docs/engineering/evidence/w17-query-icu-optimized.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-icu-optimized.json": {
+      "path": "docs/engineering/evidence/w17-query-icu-optimized.json.gz",
+      "sha256": "6c01d18ebb9f11cc162b0d46e2d0369c91de268146fcd0789841f8e14535a730"
+    },
+    "w17-query-icu-optimized.log": {
+      "path": "docs/engineering/evidence/w17-query-icu-optimized.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "w17-query-metadata-optimized.exit": {
+      "path": "docs/engineering/evidence/w17-query-metadata-optimized.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-metadata-optimized.json": {
+      "path": "docs/engineering/evidence/w17-query-metadata-optimized.json.gz",
+      "sha256": "3df768f700ead7c1e0af0f1b22453f6dc0e7e11930eb4e4c9f747a93680b94fc"
+    },
+    "w17-query-metadata-optimized.log": {
+      "path": "docs/engineering/evidence/w17-query-metadata-optimized.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "w17-query-optimized-source.json": {
+      "path": "docs/engineering/evidence/w17-query-optimized-source.json.gz",
+      "sha256": "26dd76c65642b682d3ed496705976b0ca994627af1f269367d7b374cb5494618"
+    },
+    "w17-query-profile.mts": {
+      "path": "docs/engineering/evidence/w17-query-profile.mts.gz",
+      "sha256": "bac996e6c3d595f71e8dac36dde1e350d81b67654fa6b5180c6cc206bf48985e"
+    },
+    "w17-query-profile.ts": {
+      "path": "docs/engineering/evidence/w17-query-profile.ts.gz",
+      "sha256": "bac996e6c3d595f71e8dac36dde1e350d81b67654fa6b5180c6cc206bf48985e"
+    },
+    "w17-query-qualified-source.sha": {
+      "path": "docs/engineering/evidence/w17-query-qualified-source.sha.gz",
+      "sha256": "a8e367ef75835dbdba52bb2491dafd5c74923c88e3db8c028ecdb1ced3ff042f"
+    },
+    "w17-query-qualified-targeted.exit": {
+      "path": "docs/engineering/evidence/w17-query-qualified-targeted.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-query-qualified-targeted.json": {
+      "path": "docs/engineering/evidence/w17-query-qualified-targeted.json.gz",
+      "sha256": "c2fb03503e5828df17045f411ab01bfd03b93bbb6101deab6e4ca135d13d3886"
+    },
+    "w17-query-qualified-targeted.junit.xml": {
+      "path": "docs/engineering/evidence/w17-query-qualified-targeted.junit.xml.gz",
+      "sha256": "36df821dbcdad3bbb7db64f9b132af9c96d6a831c3eeb1d4c649ea8384b3ba78"
+    },
+    "w17-query-qualified-targeted.log": {
+      "path": "docs/engineering/evidence/w17-query-qualified-targeted.log.gz",
+      "sha256": "93ebf5ca3803bcdcfa51d430300051c8825b0ff9d3ffc1d8c39c1aaf09aaa9bb"
+    },
+    "w17-reference-query-benchmark.exit": {
+      "path": "docs/engineering/evidence/w17-reference-query-benchmark.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf"
+    },
+    "w17-reference-query-benchmark.json": {
+      "path": "docs/engineering/evidence/w17-reference-query-benchmark.json.gz",
+      "sha256": "1114324bac13ebac5719228cc5a4222cd755241acc8d42422ee401def8dad485"
+    },
+    "w17-reference-query-benchmark.log": {
+      "path": "docs/engineering/evidence/w17-reference-query-benchmark.log.gz",
+      "sha256": "8e7af9cc3d329694f0aa16801fa1378f42c675e637ec03f5435ce4dfb61fd99e"
+    },
+    "wallet-query.cpuprofile": {
+      "path": "docs/engineering/evidence/wallet-query.cpuprofile.gz",
+      "sha256": "cb8e66e84f65ecd6db3239401f8fe3a7ca303fff8eedbd8a5ff4fb987b8fc2c4"
+    },
+    "publish-w17-query.py": {
+      "path": "docs/engineering/evidence/publish-w17-query.py.gz",
+      "sha256": "bb925aad58fe055d1952d2bc4b8ca6a74c341b62cc24e9f43e168945e477ba83"
+    }
+  },
+  "review": {
+    "independent": false,
+    "scope": "author inspection of validation-only timezone reuse, captured predicates, descriptor-only cache, fresh decoded values/current ACL fences and synthetic benchmark safety"
+  },
+  "findings": [
+    "100k baseline measured page50 p95~712ms and month-report p95~2209ms on this Cloud reference host.",
+    "A new regression reproduced1000 ICU constructions for1000 period validations. Reuse the existing bounded validation-only named-zone path; public timezoneFormatter instances remain caller-owned.",
+    "An initial pass missed the other period resolver call and needed a constructor-forwarding native Intl spy; all actual failed reports are retained, then the original calendar/budget tests pass.",
+    "CPU profile identified repeated metadata descriptor conversion and full SQL reads. Physical SQL, both authority scans and exact per-record validation are retained; only immutable descriptor names are reused, with fresh values/audit JSON.",
+    "Compiled predicates snapshot input scope/category ancestry/query/bounds once per evaluation. Caller mutation cannot broaden the approved filter.",
+    "Portable benchmark checks actual unique month rows, independent exact income/expense/count totals,20measured samples plus3warmups, integrity/closed/cleanup/network policy and source/host identity. Windows reference CLI fails when its qualified runtime/source/dataset/latency conditions do not pass."
+  ],
+  "remaining": [
+    "No full aggregate/browser run for this subset; previous8391/493+65Chromium belongs to W16. Final composed checks remain required.",
+    "Current100k reference is one synthetic VND account, alternating income/expense across2026 with no FX/provider/labels/splits; this is not a claim for every filter or full100k recovery workload.",
+    "10000-row import still needs bounded writer work and responsiveness qualification; preserve every financial/nonce/audit/rollback/source-duplicate invariant.",
+    "W17 system/protected recovery/Windows package-service and W18 canonical legacy bridge/retention/capacity/cutover remain, along with remaining Productivity/M1/I02/I03/master.",
+    "No automatic migration/activation or production package-cap change. Actual Server2019 R02 remains unrun; no release/tag/VPS."
+  ]
+}
