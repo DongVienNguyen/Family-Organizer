@@ -1,0 +1,1789 @@
+{
+  "taskId": "W13",
+  "status": "core Cloud qualified; final Windows, unified valuation, signed withdrawal and cutover gates remain explicit",
+  "sourceSha": "47f4ade4fd9c610741e69b6c8ed620f40a24e4b8",
+  "baseHead": "2d27a33c109658e4a7df2e3d4160fe22e0ed1c2b",
+  "branch": "codex/feature-first-acceptance",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "platform": "Cloud Linux x64, not Windows acceptance",
+  "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+  "dependencyChange": false,
+  "npmCi": "not repeated: exact installed lockfile unchanged from qualified W10-W12",
+  "tests": {
+    "parentPassed": 8024,
+    "currentPassed": 8128,
+    "added": 104,
+    "removed": 0,
+    "junitCases": 8128,
+    "files": 463,
+    "normalization": "only temporary root in five recoveryRetention names; multiplicity retained"
+  },
+  "failed": 0,
+  "skipped": 0,
+  "todo": 0,
+  "lintExitCode": 0,
+  "buildExitCode": 0,
+  "browser": {
+    "parentCases": 48,
+    "cases": 52,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "runtime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "architecture": "x64"
+    },
+    "fixture": {
+      "commitSha": "2d27a33c109658e4a7df2e3d4160fe22e0ed1c2b",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "5ac8a7e35584c0557cb7704277015324491cd3841bd67fedb5f5fac81d5c2347",
+        "index": "9c52fe01865b7652d94349bad23c4bd80bb944793bb331ab82b183e12e66f242"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "walletVersion": 13,
+        "labels": 2,
+        "users": 5,
+        "accounts": 4,
+        "exactId": "47897f93-4fda-41fa-b266-26de841afe63",
+        "creditId": "55957e06-b1ee-478b-ad5f-9a2c477e9154",
+        "hiddenId": "56cf6c01-45ee-4d58-92bd-38e1363ab888",
+        "readId": "fb6043e1-2f3b-4559-923b-b06b52182d74",
+        "legacyPreserved": true,
+        "nativeHandlesClosed": true
+      },
+      "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "browserDevelopmentRuns": {
+    "final": {
+      "stats": {
+        "startTime": "2026-10-18T06:02:20.247Z",
+        "duration": 188481.919,
+        "expected": 52,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "fixture": {
+        "commitSha": "2d27a33c109658e4a7df2e3d4160fe22e0ed1c2b",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "5ac8a7e35584c0557cb7704277015324491cd3841bd67fedb5f5fac81d5c2347",
+          "index": "9c52fe01865b7652d94349bad23c4bd80bb944793bb331ab82b183e12e66f242"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 13,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "47897f93-4fda-41fa-b266-26de841afe63",
+          "creditId": "55957e06-b1ee-478b-ad5f-9a2c477e9154",
+          "hiddenId": "56cf6c01-45ee-4d58-92bd-38e1363ab888",
+          "readId": "fb6043e1-2f3b-4559-923b-b06b52182d74",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-final.junit.xml.gz",
+          "sha256": "70105fd11139fe91b4492becba0a42aab3fc1297db59be753e4740c01eda4467"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-final.json.gz",
+          "sha256": "b0f863643e7c7969eb3c835ade28a8a11a85250655ab6112752cb258a0655048"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-final.log.gz",
+          "sha256": "6f56c74d7469fe4b27ec5a38a4a48d1e9cbea18a780db5b1387fd68cd993011c"
+        }
+      },
+      "qualification": "full frozen-source run"
+    },
+    "first": {
+      "stats": {
+        "startTime": "2026-10-18T05:47:04.021Z",
+        "duration": 226865.907,
+        "expected": 48,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "fixture": {
+        "commitSha": "2d27a33c109658e4a7df2e3d4160fe22e0ed1c2b",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "19c5f189b37598dac18dc9f9543fcffa4c4fc29c65fa4ab4d7a01136b26b6bb3",
+          "index": "440e5a247e41ec019476d8a3b557bbf768ac0d969086c7f11b034f9f243edbb5"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 1,
+        "error": "Expected values to be strictly equal:\n\n1 !== 0\n",
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 13,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "89c121a0-11d8-44a9-8fc3-5ae8c440388c",
+          "creditId": "0b58e841-b03e-4102-9a6b-776fb0b55a4b",
+          "hiddenId": "ec83673d-6a4f-4bb1-88ac-3ffb2175ce15",
+          "readId": "aabffd56-8ece-4832-9aab-19b8137e5d73",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-first.junit.xml.gz",
+          "sha256": "fd112d78fef6a3f4d4c96cac45e30ad49876902fed5be22d925b1beeb37e6b1e"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-first.json.gz",
+          "sha256": "ba9cf6b5dceb5f0b888e65f768c19fc6d45180df91806bbc625c21c43ca49e07"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-first.log.gz",
+          "sha256": "bf0eee8e506cc33884cc21721d8ab0e059310aa9565b7dfc9b44c936c1d95fcd"
+        }
+      },
+      "qualification": "development diagnostic, not final acceptance"
+    },
+    "focused-first": {
+      "stats": {
+        "startTime": "2026-10-18T05:51:31.298Z",
+        "duration": 424.60299999999995,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "fixture": {
+        "qualification": "W13 focused diagnostic; not full browser acceptance",
+        "commitSha": "2d27a33c109658e4a7df2e3d4160fe22e0ed1c2b",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "19c5f189b37598dac18dc9f9543fcffa4c4fc29c65fa4ab4d7a01136b26b6bb3",
+          "index": "9c52fe01865b7652d94349bad23c4bd80bb944793bb331ab82b183e12e66f242"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 1,
+        "error": "Expected values to be strictly equal:\n\n1 !== 0\n",
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 13,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "509a962b-66e7-4707-99d6-e46a7feb6c9d",
+          "creditId": "8a32fe8f-6f4c-43c8-b900-db18bc90581e",
+          "hiddenId": "b4b065e8-448f-4f7a-a683-99c5ad1778c1",
+          "readId": "4a75990e-6c25-4ffa-977b-0335b0f0ceb2",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-first.junit.xml.gz",
+          "sha256": "f79d5eb61ddbf0eb2edfba34a2a0403e07ecaadde8364904ab1693680c1b03fe"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-first.json.gz",
+          "sha256": "3008d1a2c090be070eb996cb89b342aa35a20630d0660a7687a87eeb7585c8c8"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-first.log.gz",
+          "sha256": "082fb26775a4ce99092ece7e7ed55bcc044eb29138cd0653536372b5a281128f"
+        }
+      },
+      "qualification": "development diagnostic, not final acceptance"
+    },
+    "focused-second": {
+      "stats": {
+        "startTime": "2026-10-18T05:52:09.575Z",
+        "duration": 59594.469999999994,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "fixture": {
+        "qualification": "W13 focused diagnostic; not full browser acceptance",
+        "commitSha": "2d27a33c109658e4a7df2e3d4160fe22e0ed1c2b",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "19c5f189b37598dac18dc9f9543fcffa4c4fc29c65fa4ab4d7a01136b26b6bb3",
+          "index": "9c52fe01865b7652d94349bad23c4bd80bb944793bb331ab82b183e12e66f242"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 1,
+        "error": "Expected values to be strictly equal:\n\n1 !== 0\n",
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 13,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "10ca2148-8d45-4b30-b24b-b7d0c1bcba3e",
+          "creditId": "0013b61b-da90-43d7-8dc9-04400a6cc0a7",
+          "hiddenId": "930ee82a-197b-4466-84cc-aa70a9bd5d35",
+          "readId": "518ab9c9-3e5f-444f-86af-78cf49927394",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-second.junit.xml.gz",
+          "sha256": "7c93155336c195f70a5988859934e34faa823e088ab583c61fb5442adf6fb388"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-second.json.gz",
+          "sha256": "fffde43beb93e3c9772c8b756a064bd8874d8e9bec1c252c3b1e871c0b386a1d"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-second.log.gz",
+          "sha256": "1f9fddc65da80a0c30fceb7fde440bdbd2c0f1b5031f5334ff60113a6edefe9f"
+        }
+      },
+      "qualification": "development diagnostic, not final acceptance"
+    },
+    "focused-third": {
+      "stats": {
+        "startTime": "2026-10-18T05:53:40.725Z",
+        "duration": 15279.722,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "fixture": {
+        "qualification": "W13 focused diagnostic; not full browser acceptance",
+        "commitSha": "2d27a33c109658e4a7df2e3d4160fe22e0ed1c2b",
+        "project": "chromium",
+        "platform": "linux",
+        "nodeVersion": "v24.21.0",
+        "synthetic": true,
+        "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+        "build": {
+          "server": "19c5f189b37598dac18dc9f9543fcffa4c4fc29c65fa4ab4d7a01136b26b6bb3",
+          "index": "9c52fe01865b7652d94349bad23c4bd80bb944793bb331ab82b183e12e66f242"
+        },
+        "fixtureRemoved": true,
+        "databaseClosed": true,
+        "legacyPreserved": true,
+        "networkAttempts": [],
+        "serverExitCode": 0,
+        "browserExitCode": 0,
+        "error": null,
+        "seed": {
+          "synthetic": true,
+          "walletVersion": 13,
+          "labels": 2,
+          "users": 5,
+          "accounts": 4,
+          "exactId": "03352c5d-b487-4094-bf2d-cc05f05438d6",
+          "creditId": "3a64099c-7ce1-4a7c-ab25-12626b8e9f9c",
+          "hiddenId": "b6ae10d3-2053-45d9-81aa-e765cc3cc802",
+          "readId": "014cb0cb-91e3-48ea-af82-59d3667b2c03",
+          "legacyPreserved": true,
+          "nativeHandlesClosed": true
+        },
+        "legacyBefore": "1eb336ff7f317a01c972d459becb7a7a974b762ae21a2345f746e38092a8ba64",
+        "browserSignal": null,
+        "serverSignal": null,
+        "integrity": "ok"
+      },
+      "reports": {
+        "junit.xml": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-third.junit.xml.gz",
+          "sha256": "6dc1890919a5ee18aaacecaae0cb3fbae4979f19697145b027d20dfeeeda49e7"
+        },
+        "json": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-third.json.gz",
+          "sha256": "34c8fe610eb2da19e33a4c21bf2bbbfb3155db7c2d26ea0fc7e2d4dd69a76947"
+        },
+        "log": {
+          "path": "docs/engineering/evidence/w13-financial-links-browser-focused-third.log.gz",
+          "sha256": "5e0b0dda954888e197a933fa273596efe38a1bdd7c72c31b2f6447f96f7a194a"
+        }
+      },
+      "qualification": "development diagnostic, not final acceptance"
+    }
+  },
+  "retainedReports": {
+    "json": {
+      "path": "docs/engineering/evidence/w13-financial-links-cloud.json.gz",
+      "sha256": "10c75c6523894df8cb6d6ef042c8a18894fbec3fbbd2b5c12d6e5267b479300b"
+    },
+    "junit.xml": {
+      "path": "docs/engineering/evidence/w13-financial-links-cloud.junit.xml.gz",
+      "sha256": "3f4f88cea5e14da796be4be24f003568f0c0e467118636d837fc904a96d675f4"
+    },
+    "log": {
+      "path": "docs/engineering/evidence/w13-financial-links-cloud.log.gz",
+      "sha256": "07af4e1750d8f165b25345cc72f3b1471e1cc7ae194efca2e2d42d04ecd601bb"
+    }
+  },
+  "failedDevelopmentReports": {
+    "w13-debt-book-binding-red": {
+      "passed": 13,
+      "failed": 2,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-debt-book-binding-red.json.gz",
+        "sha256": "beab67bac7958e2a1ad1dbfd4465620a4570cd14dcb1e099b74261976c8d481a"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-debt-book-binding-red.log.gz",
+        "sha256": "cd437731638ffc24f46c572c073a5243d0c7a65f2f235a35ce5f608aa95d6d63"
+      }
+    },
+    "w13-detached-reservation-red": {
+      "passed": 15,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-detached-reservation-red.json.gz",
+        "sha256": "8c1b297de4ff2bda5bef7b24789f3d45a24330ebe8ae883db733d1e6bd220c96"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-detached-reservation-red.log.gz",
+        "sha256": "f738198faa361cd039d9e1510a00cb8bf9387b3d90ef2190ea50110fb5d456f0"
+      }
+    },
+    "w13-financial-edit-red": {
+      "passed": 0,
+      "failed": 6,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-financial-edit-red.json.gz",
+        "sha256": "1490e1eaf7bf9ce2d29368a08bf0d97d50642b179edf5d6f2e1fe0c2ad007db7"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-financial-edit-red.log.gz",
+        "sha256": "51d9512b9320539c2892f3beb7b45749337545481283a813a0479051682876f5"
+      }
+    },
+    "w13-financial-sdk-red": {
+      "passed": 0,
+      "failed": 10,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-financial-sdk-red.json.gz",
+        "sha256": "e5baf657b4a172ea8b7b28721b0dc3b3ee7b808825553f8641a357e821776fee"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-financial-sdk-red.log.gz",
+        "sha256": "59181b755c81a44fa66d110d7b03e953cfce8e58003dcffdc026552bc8f8874e"
+      }
+    },
+    "w13-kept-history-reuse-red": {
+      "passed": 16,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-kept-history-reuse-red.json.gz",
+        "sha256": "f64b54ce6bc33b4abc95139569b88ad44bb1561d323313ddd3c0b527d12a8807"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-kept-history-reuse-red.log.gz",
+        "sha256": "d4ef230b0f7b1120d7d1578a638720f4d1bb06bcd061ec21f5b42d1dedcb78ea"
+      }
+    },
+    "w13-legacy-link-guards-red": {
+      "passed": 12,
+      "failed": 1,
+      "failedSuites": 2,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-legacy-link-guards-red.json.gz",
+        "sha256": "30297ba1b6e31e4b48f80bc152beb3f1ad47b5f43481593fe0ac4b81832d15e0"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-legacy-link-guards-red.log.gz",
+        "sha256": "59878a9894fe2dd6b1e50208a967c3e64d70089349875efd9563d984622f905a"
+      }
+    },
+    "w13-legacy-links-binding-red": {
+      "passed": 7,
+      "failed": 3,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-legacy-links-binding-red.json.gz",
+        "sha256": "0d20d1dcada4fddce54e3801ca69dff798602efa52067385099ca31a7b6bc054"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-legacy-links-binding-red.log.gz",
+        "sha256": "69b31e3d84a6185d33310d04b300bcdad230bedb0085f0cd8ea732f024a409ea"
+      }
+    },
+    "w13-link-split-fee-scope-red": {
+      "passed": 10,
+      "failed": 2,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-link-split-fee-scope-red.json.gz",
+        "sha256": "9ba9925414203d0f877053f8bff82d3b6dd33f2628885bf65b5c8d3bd33e2f90"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-link-split-fee-scope-red.log.gz",
+        "sha256": "f5be3a7914c6c13560dab97b5eba23de085b2b9db1bc5bf60778dda2ef8d2e71"
+      }
+    },
+    "w13-linked-debt-helpers-red": {
+      "passed": 9,
+      "failed": 2,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-linked-debt-helpers-red.json.gz",
+        "sha256": "becf972cb624081c62132837bcbd2ed86200fc2d7b430c71fdd1e2fee94963ef"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-linked-debt-helpers-red.log.gz",
+        "sha256": "73baff4ed9752b699d0c56479033a9c437d9a8c92aa9d32602b49fbaff887ffe"
+      }
+    },
+    "w13-linked-money-red": {
+      "passed": 0,
+      "failed": 0,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-linked-money-red.json.gz",
+        "sha256": "66a3ef2a6784675199d2ef3ada611835e5af32e905c3532b72af2d842735aa50"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-linked-money-red.log.gz",
+        "sha256": "82f35b087119f7e22a824b255235bbb8c0157c94e8e9ac59d41a210a453db565"
+      }
+    },
+    "w13-linked-record-memo-red": {
+      "passed": 17,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-linked-record-memo-red.json.gz",
+        "sha256": "6a1657af9eeaa4717882719028a78468daf8f406a4ad0d43a0716e5a0b071454"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-linked-record-memo-red.log.gz",
+        "sha256": "be995b0573c18163afb8d0fa0672f0b2e5ffc557a91d5b9b09c36f2d97bc891a"
+      }
+    },
+    "w13-linked-reminder-red": {
+      "passed": 0,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-linked-reminder-red.json.gz",
+        "sha256": "b75258aa6ea80ec92d3b588a126c6da6aa3460265d09f1b0fc672865e758d090"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-linked-reminder-red.log.gz",
+        "sha256": "ba4ff8e253f581737cbc7c493d3cb5f20c18d6d02b38f0a9a3f0c3ab7bc85ef8"
+      }
+    },
+    "w13-links-http-first": {
+      "passed": 25,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-links-http-first.json.gz",
+        "sha256": "1004f2a815f21ac2e46e454f6134bd5a8ceda186678e9a70bc5dd364d75da7b8"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-links-http-first.log.gz",
+        "sha256": "31083726d776c43975de43b94c6499b2e9af6ce60c4ba9495f6de381c4b3e90e"
+      }
+    },
+    "w13-links-http-red": {
+      "passed": 5,
+      "failed": 4,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-links-http-red.json.gz",
+        "sha256": "835eff15a00edfc83e64b3cbfe4eef3c7010fa1a36594fc05d80559f01ccf5dd"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-links-http-red.log.gz",
+        "sha256": "459aec299122e75de4dbe47b280679520781e3a32049fa785f745a9b6ef37f76"
+      }
+    },
+    "w13-links-plan-red": {
+      "passed": 0,
+      "failed": 0,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-links-plan-red.json.gz",
+        "sha256": "5fdaf830a69cf74193a8296f7e05f4d971b5f72eddbedef576a23db2b1e20c17"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-links-plan-red.log.gz",
+        "sha256": "b80935a620ff442290ed1e6c773c35a3c22f49b961294fbff809cda35527adb5"
+      }
+    },
+    "w13-links-snapshot-first": {
+      "passed": 70,
+      "failed": 14,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-links-snapshot-first.json.gz",
+        "sha256": "4c7618e65fee0affbd7ce96434f466ff6f7a8905516f0ea2b8e6e70626f6b3c3"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-links-snapshot-first.log.gz",
+        "sha256": "f86e606efaa0a5a2b8b9bafe6e6ea0e7f9260adcff84b6b1941b48b6380fc7bd"
+      }
+    },
+    "w13-links-snapshot-red": {
+      "passed": 0,
+      "failed": 0,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-links-snapshot-red.json.gz",
+        "sha256": "9e3a9ad8cf772b8543fc6685309014968271d40c4a07b03f24ac263916693d34"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-links-snapshot-red.log.gz",
+        "sha256": "275ba0366237cb1999c8395ed69c7d6d069dbe40592a52fedac80975aaee4273"
+      }
+    },
+    "w13-links-store-first": {
+      "passed": 6,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-links-store-first.json.gz",
+        "sha256": "fa724fd251c906c8a5745fad4b4811c7e3c353d8508601af733a89e3138f502c"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-links-store-first.log.gz",
+        "sha256": "4e17be4bd3d9a659137fb3022cf7abe734187ef770ab9edf49025f053509cbd8"
+      }
+    },
+    "w13-links-store-red": {
+      "passed": 0,
+      "failed": 0,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-links-store-red.json.gz",
+        "sha256": "81d0912b2833aa719cc2371cdb7cdcf361bc64af350646156baaed0e06f9abef"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-links-store-red.log.gz",
+        "sha256": "a41301be1da22cfa69ceaa015813189aa9f15bf0c25331b59b72dca39fb75640"
+      }
+    },
+    "w13-qualified-first": {
+      "passed": 8126,
+      "failed": 1,
+      "failedSuites": 1,
+      "pending": 0,
+      "qualification": "development/focused diagnostic, not final aggregate",
+      "json": {
+        "path": "docs/engineering/evidence/w13-qualified-first.json.gz",
+        "sha256": "6a5f20318853a38d9f76a34120e7df231f5062a9b30a04d78a355b831499e767"
+      },
+      "log": {
+        "path": "docs/engineering/evidence/w13-qualified-first.log.gz",
+        "sha256": "abae595c296cb368f49bb338316b7d3619faa112be0df19877cb3fbddd505eef"
+      },
+      "junit.xml": {
+        "path": "docs/engineering/evidence/w13-qualified-first.junit.xml.gz",
+        "sha256": "afc49f3a6b6c131f511b620eb2684d03a496c8386c05b0b298c8e6fe9655ffd3"
+      }
+    }
+  },
+  "failedLintDevelopmentReports": {
+    "w13-browser-first-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-browser-first-lint.log.gz",
+        "sha256": "00518dda9a6193ae049e516d81fb5731cb9c61daddf7cf790e789f5d9e2b3c52"
+      }
+    },
+    "w13-links-store-second-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-links-store-second-lint.log.gz",
+        "sha256": "b616f098b796cee9fd572679a130aaae5a35407bac195a9cb4ffd4feb9bc8752"
+      }
+    },
+    "w13-linked-ui-types-first-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-linked-ui-types-first-lint.log.gz",
+        "sha256": "cf09e0f727a0ab335182ac06951a24863c638c42f0ab08ff7c9c4c5362c2068c"
+      }
+    },
+    "w13-financial-sdk-first-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-financial-sdk-first-lint.log.gz",
+        "sha256": "c12a899c3a36fd6726e42283b1e394b443c2885cbc8314965ffc1ed6d127b3ca"
+      }
+    },
+    "w13-ui-integration-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-ui-integration-lint.log.gz",
+        "sha256": "226465aa796a6a9916e1339c6caf065592b29c3d8ab263ec30b0d7e1fa6e04aa"
+      }
+    },
+    "w13-legacy-links-binding-first-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-legacy-links-binding-first-lint.log.gz",
+        "sha256": "9df5ea14850543680e12b280a8710c7fd25ee50cac4d913c8e2e139a10301b13"
+      }
+    },
+    "w13-kept-history-reuse-first-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-kept-history-reuse-first-lint.log.gz",
+        "sha256": "4c84a2f4756594c918657d024d08546aecf26fdd8d287fe3b0d6def56c0963d2"
+      }
+    },
+    "w13-financial-ui-first-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-financial-ui-first-lint.log.gz",
+        "sha256": "c040ce764cf1486a6213b32366a55b2d305b81fec5a575436bfdeb4c6658d57c"
+      }
+    },
+    "w13-financial-ui-second-lint": {
+      "exit": "2",
+      "report": {
+        "path": "docs/engineering/evidence/w13-financial-ui-second-lint.log.gz",
+        "sha256": "c040ce764cf1486a6213b32366a55b2d305b81fec5a575436bfdeb4c6658d57c"
+      }
+    }
+  },
+  "acceptedSql1Through12": {
+    "walletCoreSql": "5571c81df88935eeb9cf0e25e94f16960b372326f08086b54617131aa7f3c530",
+    "walletMetadataSql": "2766b0a82ec0ea2c807f6000f10173f3a8e3a7a9c7a91d4ae3b0e36067289326",
+    "walletFinancialSql": "4331752c3551885bfb54d4fc268e1cb408863c00abeb701dd0286e357a8fecdd",
+    "walletLegacyMigrationSql": "a485ca7b8a4f44d072af1ee0b0f08560bb0f56b2e8f388774b7138a88a84fbb8",
+    "walletReceiptSql": "6c8fc252544ea2af7526bb47182775efa70b111b7ccc4150a2832d9ceea71372",
+    "walletSelectionSql": "74bc459a2e0473297ac9600038ad6d6671155825f5dd1214967ff66d3eabcd4c",
+    "walletWorkflowSql": "f49d44791eab64ab2fe79d63209ec32102243af40cbc7ce57047c367d56084a9",
+    "walletFxCacheSql": "1fe67b7d9626833675ab992b38a0c3f26c6c0897ecba5438379037e035b7bcd0",
+    "walletPreferenceSql": "edb14e69181d397da6a8b2395eaf7aaf5832b96645ea68d1ab6953d173111009",
+    "walletImportSql": "cc79a2e1347eac11e6af8674e4dd115e5e1eb98ed65970aaeebbd22069375e84",
+    "walletRuleSql": "479b8c0b366450aca2598125613f9c5bf31c2886e7d9ceccc467fd6a0e3ad0f7",
+    "walletScheduleSql": "256a5d2d51cb2e25fcb2ff91885a0b402e6174095bf5557d86c579c1b5ad4aa9"
+  },
+  "sourceFiles": {
+    "scripts/ci/run-wallet-browser.mjs": "14e2304a7d88df7f2c7b817cade3315c590e686482de702b1aa459f09c96d563",
+    "scripts/ci/write-wallet-browser-fixture.ts": "ca70ef67a548d1b4dbefe52d562c96291e40b1def0ebf5410879c56493d48705",
+    "server/app.ts": "fc21fbb4df66708d3033a644bb8cf01b3b5bcbff4ed69223f14a4584bbf1407a",
+    "server/db.ts": "1fa40c68873c35a2f9e5fd3c35a15ce04e97686919663a5f4c5f15733165e293",
+    "server/wallet/integration.ts": "37ef924fc25c1896bd00c7cbd8500b1c578e6517a3660392281314b35d897595",
+    "server/wallet/legacyLinkGuard.ts": "0051cddbdc280bb88c3029bd879351835020a3abc3db02dd629ed34453ca0fa4",
+    "server/wallet/linkSchema.ts": "5b26a9b749cc137e166e2c2fcee753528a550f0216fc0f755951ad44a2d163eb",
+    "server/wallet/linkValidation.ts": "164a3d99d242a8c865c6a22c96b1b8c392c0e2ad91b91c4577a16b081e58d19e",
+    "server/wallet/linkedMoneyNative.test.ts": "f436a5a7e2857124653ab2d6b0c7247bbbf07749fb4a5ad8cf89b2834a0f9773",
+    "server/wallet/links.api.test.ts": "f1a09e9d6f0d56bfad4e52759924b00f4af201359066cbf89dfe67499c281c2f",
+    "server/wallet/links.edit.test.ts": "c52b2c8b61d261a32132b33b692ea35ccf589f7dada98640d6268aaa4914253f",
+    "server/wallet/links.snapshot.test.ts": "d3f1c97ed7630cb722398fceb64bb41436724f4f5c999f6605457f66f00b858f",
+    "server/wallet/links.store.test.ts": "f61ec6f7298e17d5c4b3f600a5c75033b7a789de673ef451d349ff410e6a276a",
+    "server/wallet/links.test.ts": "e931769ef9168148b43eb3afc81517f0e5ddf275a51781ddc7e1c40ade4f4216",
+    "server/wallet/links.ts": "e1322b144ad86934c1c6b7f1ddb77ada8a571026c7059a3621bd7c4a9b9198e7",
+    "server/wallet/linksPlan.ts": "2633973119d1f9931cd836c98fd43f9958c3c22533a3d647bf2276a9a4dfed5c",
+    "server/wallet/ports.ts": "99676f451240a947bcf2ed26500d0951feafa5a7617cf401f07b016116f3ec59",
+    "server/wallet/records.ts": "f0ce5a8b727750ec1d699b2b9805b28726698575a0c33788ce26fd1f548cddc4",
+    "server/wallet/router.ts": "27179d79f451212abfbab3fbdca1f690fbf459f3bf3980c3bdae2b9aa5370d93",
+    "server/wallet/schedules.api.test.ts": "d1c388343c527840cce0a9382114f056f37681aef5d69f2555012682b624db78",
+    "server/wallet/schemaRegistry.ts": "1fa53f2c427f4a9c6ac4c1ab67ec2cb3b8d2a837eaa5a40db1bc017b83735c5a",
+    "server/wallet/snapshot.ts": "b0d30c2e4f16acfd7018feb20381e7c57533c41d0d91deaac27556e8dd410799",
+    "src/components/DebtTracker.tsx": "196dbc5c6e54fb4692d82f42c2786c6e078087d370ed2a1c758c016e88bef344",
+    "src/components/Finance.tsx": "54c97d3fc093f0145da94d003250975a046bcbf75e96d8fe61d1a65ff9a392c2",
+    "src/components/SavingsGoals.tsx": "5649795adb5ddb7933d1ead9b4b38cd526937732f1b16dec5853f2343cd18f20",
+    "src/features/wallet/FinancialLinks.tsx": "2127271cab0efd57f8527bc9618b531c1dc419ac34530bc77904157c0b10c19c",
+    "src/features/wallet/WalletHome.tsx": "6a6102241e381fbacc72a0283efbd36a155057991bfc47ef5de738037bbf000e",
+    "src/features/wallet/api.ts": "36c68b81f02e87a293d0015291ac1b1596adb2c57c077d8a05c6aedddbdc6cc0",
+    "src/features/wallet/financialApi.test.ts": "515848a37e7abcbbb54e8046eb6f28bb6c1dbc53f9d398bdd63c5e8b81c4c5cf",
+    "src/features/wallet/financialContracts.ts": "1df15429ba34809e9cf44308dcd2a6fc4e88a35ce8d8d903ba464496f4a42378",
+    "src/features/wallet/financialDto.ts": "960fea1f9449614f3e8e18a475c7fb50ba91b01a2ea676659c4f9710dc0f29c6",
+    "src/features/wallet/financialWorkspace.test.ts": "34fa96c752c39a5c3bf6997781e2c7eb8a49675575a8e10844bb8883441d0c6d",
+    "src/features/wallet/financialWorkspace.ts": "f1c9f24056258178923f61788c289ac14ac3b397b44354e7667640d191f8eed3",
+    "src/features/wallet/linkProjection.test.ts": "af3e584ee4c3e728e764c01265225a988e25754613840ac28232ffe27a3f22b9",
+    "src/features/wallet/linkProjection.ts": "394486067bc2a89548f970fd1b560ab409dea18379b03bdc19d178b79d59b43b",
+    "src/features/wallet/linkedMoney.test.ts": "693bbb3f361809a587e8f9216cd2a4797c1c63d03a125141291ad9fc84c675d0",
+    "src/features/wallet/linkedMoney.ts": "843a18a19e3c8741d770feebcdff2f912a153e6ef0fac0c708719812285586d4",
+    "src/features/wallet/useWallet.ts": "8a52a8b3d0f9da7f4e3375040dda739be7b9c921dce9d0f70584a021062a5d4c",
+    "src/i18n/locales/en.json": "62f317d14b6227ae934124765aa0193da15c8c1d63fe1a93a7f81d9394d7e831",
+    "src/i18n/locales/vi.json": "651f9ad4c3be0cde2efd1bcdd001ff130f0644d317e5388eda11d069ce24f3b7",
+    "src/i18n/locales/zh.json": "1ff36d94663d7dd6d267cd2c3a5570294f02d554d2611e58d59be36a02102188",
+    "src/types.ts": "93cd23d1efa6931c371ca55deaafa742447f6909c2ef47095f4132613200a9fb",
+    "src/utils/debt.test.ts": "46b654e735c54b4e9e3ebfc569192c4393ce5ee95dd69e446e15ae0ce3a77889",
+    "src/utils/debt.ts": "f560aa6c23f59a15aba1a10df84914a39657630aef70b776d880b9a10bdbd2e5",
+    "tests/e2e/wallet.spec.ts": "c2b50f28ee955aa143c8535d35248488a40ffc5f9175d5d096478c71dd4e0f78",
+    "tests/wallet-browser-fixture.test.ts": "50c1811daafd5e6587ad4bf55edf37128b45b6b9536233f67f470b1936174c18",
+    "tests/wallet-http-fixture.ts": "4ebce6c5475598cf75667a94d26a99860172d41c01de2c29b5486b54341e00ea",
+    "tests/wallet-link-fixture.ts": "bbdf339595f4c68fcc3f1b94bf5c1df8f32c90cc15c6667d60008ff26914281b",
+    "tests/wallet-schedule-fixture.ts": "196a33d6ed67aeaa401e781f8fe2fd6ea32e2a8f4094118158985c7696564dfd"
+  },
+  "authorInspection": {
+    "independent": false,
+    "sourcePathCount": 49,
+    "scope": [
+      "exact principal/interest, allocation capacity, imported cash conservation and metadata retention",
+      "same I01 ledger/history/audit/nonce rollback and explicit keep/void",
+      "current full source/counter/record/fee scope and all legacy goal mutation receipts",
+      "snapshot native and shared legacy identity/money/revision/audit binding",
+      "session-owned unknown immutable commands, fresh account and parent scope, late private reads, phone themes and old UI navigation"
+    ]
+  },
+  "developmentFindings": [
+    "Full first aggregate retained 8126 passes and one original sparse-goal HTTP400 regression. Missing contribution history now reads as an empty legacy history with its private owner boundary preserved; original realtime assertions are unchanged.",
+    "Existing imported split allocations cannot silently disappear during principal reclassification.",
+    "Private contribution receipt and complete transfer fee permissions rechecked on legacy responses and link reads.",
+    "Detached allocation removal releases its claim; kept live history cannot reuse a cashflow twice.",
+    "Financial edits preserve original ledger memo, payee and fee while updating a separate tracking annotation.",
+    "Late formerly-shared goal reads require fresh parent scope, not account checks alone; retirement clears list and detail.",
+    "Unsupported mixed legacy fractions and signed64 aggregate overflow produce an inline reconciliation state, not zero or a crashed app.",
+    "Initial browser helper used an incorrect refresh label; the overflow navigation helper assumed an achieved badge was outside its name. Actual DOM/logs retained and selectors corrected without altering financial assertions or budgets.",
+    "Focused harness first used an incorrectly anchored Playwright title filter; zero discovered tests was retained as failure, never acceptance."
+  ],
+  "limitsAndRemaining": [
+    "Legacy parents remain VND. New goal commands are positive contributions; coordinated signed withdrawals remain a canonical cutover gate.",
+    "Old Finance net worth remains a legacy-book projection; I02/W18 must reconcile both books and bound debt/portfolio accounts. Account-book conservation is not unified global valuation acceptance.",
+    "History lists are bounded; date/cursor pagination and capacity/retention qualification remain W18.",
+    "Full offline/native/protected receipt restore and rollback remain W17/I03.",
+    "W14-W18 and remaining Productivity/M1/I02/I03/master work.",
+    "Nonblocking 10k import, global preview capacity and indexed cross-batch duplicate hints remain W18.",
+    "W16 PDF CJK/emoji fallback and settings.",
+    "Wallet Windows package max-schema qualification, final independent whole-branch review and batched exact-HEAD Windows2022/Node22/package/service/browser/touch remain.",
+    "Actual Server2019 R02 unrun; no release/tag/VPS authorization."
+  ],
+  "rawEvidence": {
+    "/workspace/family-evidence/w13-browser-focused-first.log": {
+      "bytes": 71,
+      "sha256": "7f291ab5af93b67b8523b6828b79044c65b801d62ee9b692dc1226976566dc39"
+    },
+    "/workspace/family-evidence/w13-linked-reminder-first.log": {
+      "bytes": 1631,
+      "sha256": "87f9d7aca2c6ef28fe8325446f23e4f9492e39ac299eeb3dac59e1c694ada1bf"
+    },
+    "/workspace/family-evidence/w13-final-build.log": {
+      "bytes": 2293,
+      "sha256": "c20426de7def38e6edc7006f26f2d6087449490bf0e00aa51e9e93b9351dab1b"
+    },
+    "/workspace/family-evidence/w13-legacy-ui-navigation-first.json": {
+      "bytes": 10953,
+      "sha256": "a9d735c4eda2159ffaeda3c88f9a909d6e243e71bd67c09be9760ccc907c8509"
+    },
+    "/workspace/family-evidence/w13-financial-edit-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-linked-debt-helpers-first.log": {
+      "bytes": 909,
+      "sha256": "0abf898bbfa2971361fec21e1ad8e44106d69d2e92f5e380c1e49294858e6566"
+    },
+    "/workspace/family-evidence/w13-sparse-legacy-projection-first.log": {
+      "bytes": 1461,
+      "sha256": "d0661e7fb2dc8dbe165a49d4f3d9f6e506a106ca33f80174fd757e8d470b8dde"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-red.json": {
+      "bytes": 6521,
+      "sha256": "73ce75433344e885f71b99d55dd9323fefe71840575078b4147d01649b0c0ada"
+    },
+    "/workspace/family-evidence/w13-linked-debt-helpers-red.log": {
+      "bytes": 446,
+      "sha256": "88dc287db0d1ad916ce40a3c95533ce48d2b45c7cb93b73ccc4cf0bd0e729a63"
+    },
+    "/workspace/family-evidence/w13-ui-fixture-first.log": {
+      "bytes": 2172,
+      "sha256": "93eab15ecf83e237f4175a48c3c19352bf6b997aaf70d4e5983ca4fc7ec72b18"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-first.log": {
+      "bytes": 1267,
+      "sha256": "bf72569f115bab6e286a132942f72acc61c27270ce6c8031693490bc792fec4b"
+    },
+    "/workspace/family-evidence/w13-browser-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-first.json": {
+      "bytes": 15245,
+      "sha256": "7ee0934a40a7b9f49628e9a4426ca7d9a19478f0de1a70c849184b5aa9e94737"
+    },
+    "/workspace/family-evidence/w13-linked-record-memo-red.json": {
+      "bytes": 7547,
+      "sha256": "badc057918ad955dc91be6beec68109e3ec740afb0ce2fcd1e363e6b2a20ceb9"
+    },
+    "/workspace/family-evidence/w13-browser-first-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-ui-fixture-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-legacy-ui-navigation-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-linked-money-ui-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-ui-final-build.log": {
+      "bytes": 2293,
+      "sha256": "8619c3f3eae40abea2f3358b33caa4058983487e99f0e13cdf746331ec9467b1"
+    },
+    "/workspace/family-evidence/w13-qualified-first.junit.xml": {
+      "bytes": 1664074,
+      "sha256": "e11d6c1f04459d3d4e200337954e063012747c3a81c85e46075984f292f458a7"
+    },
+    "/workspace/family-evidence/w13-legacy-ui-safety-first.log": {
+      "bytes": 941,
+      "sha256": "afc847d78eebeb110cc4b0e766ede72989561479fb3dadf1b65b6abf7f57b8ad"
+    },
+    "/workspace/family-evidence/w13-links-store-first.log": {
+      "bytes": 2694,
+      "sha256": "8d9285b3cb926ee30506b5b6f7adca9512f15b6cf9092ff990d66e96cb79870f"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-http-second.json": {
+      "bytes": 21422,
+      "sha256": "4534740e9a75268dbf16b313787fef54b90ace2470de3ec0ed384f16bf1fcd6d"
+    },
+    "/workspace/family-evidence/w13-ui-final-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-first.json": {
+      "bytes": 19926,
+      "sha256": "afb0344bfe8b17f4c96e68dd90b4f0e25d5b8f3e615ee43cf5ee94f64a8d0af1"
+    },
+    "/workspace/family-evidence/w13-financial-owner-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-financial-edit-red.log": {
+      "bytes": 446,
+      "sha256": "7889fd60c55f61d30f0920f7c2cdaa5246b970191b838715dc2f054ea1438e99"
+    },
+    "/workspace/family-evidence/w13-sparse-legacy-projection-first.json": {
+      "bytes": 9714,
+      "sha256": "b5bdb57a57d2d9b7699fc7dfbdea4b73c73539e7e6b6a04fb79ec5434a1842ca"
+    },
+    "/workspace/family-evidence/w13-browser-final.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-red.json": {
+      "bytes": 13065,
+      "sha256": "18342c4e8be81f96c1a6b97f0f233982b1a0e955d311d922441fe7cbb4ac89ba"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-first.json": {
+      "bytes": 29507,
+      "sha256": "929ceed1945632adf43645cb453cf80ec82358829df378cd2687694958403085"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-red.json": {
+      "bytes": 6206,
+      "sha256": "1ae8fb23821a2083e7fc421dce09fe903cb2ef13cd4133e9308530f647c48db2"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-red.json": {
+      "bytes": 6807,
+      "sha256": "cc72f624eba2c24b5d5542b5b59498a69701a7d176fcf1f178fb2e0b9045263f"
+    },
+    "/workspace/family-evidence/w13-links-store-red.json": {
+      "bytes": 765,
+      "sha256": "07d06abd0ec286d16886ec184dd077b8a9ccfd5b97e109f5327cb6d4bdbfb2d5"
+    },
+    "/workspace/family-evidence/w13-ui-integration-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-red.json": {
+      "bytes": 6594,
+      "sha256": "820b36ee220f907f16192614cfaf4ee4f3d23b5e62c5e744cadb8ac9fc5b32a1"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-linked-reminder-red.log": {
+      "bytes": 455,
+      "sha256": "9ac1f7238bead62339e1f63ca870c046f23f4fd4979aeae38ed4e78662a28733"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-linked-debt-helpers-first.json": {
+      "bytes": 13035,
+      "sha256": "17047ea1731c9eaf964b2c5cd5adad5d0c82694922088d9e7e287777e34b307b"
+    },
+    "/workspace/family-evidence/w13-financial-edit-red.json": {
+      "bytes": 8327,
+      "sha256": "bc76e98e9af5997202de8af37634d264aac37a84195c93e2f9f555226322bae6"
+    },
+    "/workspace/family-evidence/w13-links-store-red.log": {
+      "bytes": 441,
+      "sha256": "361c08f679384db7189df3fbad7f40e9b2c869a8656359e6a7385aa00c6bb838"
+    },
+    "/workspace/family-evidence/w13-linked-record-memo-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-financial-owner-first.json": {
+      "bytes": 11054,
+      "sha256": "ae5c2d5cfb82a7719e5655cea1fcfd52139e4c0253c6100d866e840d11706226"
+    },
+    "/workspace/family-evidence/w13-links-store-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-links-http-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-linked-reminder-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-linked-reminder-red.json": {
+      "bytes": 2015,
+      "sha256": "54ebd102e8672603996b5f6fa5716718acb373f1cff320df20d14a8e608b68f9"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-frozen.json": {
+      "bytes": 5608,
+      "sha256": "e882f831d86ea732b31c70daebefb0b62792b8b9df2ff9e47e0c50faa02e042d"
+    },
+    "/workspace/family-evidence/w13-financial-owner-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-http-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-qualified-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-red.log": {
+      "bytes": 450,
+      "sha256": "d71c4bcf3b69d59097d451ec1e7216b7800d0be2ea0835c1958ad4c8a859bc5e"
+    },
+    "/workspace/family-evidence/w13-legacy-ui-safety-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-red.json": {
+      "bytes": 7175,
+      "sha256": "010ea0a3e5239aeb907cf1893b9054c7bd3549d969dd1ad443eae71e0188da76"
+    },
+    "/workspace/family-evidence/w13-client-privacy-final.log": {
+      "bytes": 977,
+      "sha256": "f0e98156815f1098f22b0191c4f066f638f7035de867f541d82c5b485c4f2b63"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second.log": {
+      "bytes": 5998,
+      "sha256": "84e63e20f38347343543d0bd8f5fa8b8b79f93c7c63dc8fae67e844ba37a245d"
+    },
+    "/workspace/family-evidence/w13-qualified-first.log": {
+      "bytes": 97863,
+      "sha256": "57bc6035b04e82d9d6c2f0ae8a030f889403303b6c9aa5efc68efd502e1837c9"
+    },
+    "/workspace/family-evidence/w13-preservation.json": {
+      "bytes": 28106,
+      "sha256": "9fe6dbf71914d8697bbed1bf39a2a6d3c41f7c0ceab4685f1bd27402cdeb5e1a"
+    },
+    "/workspace/family-evidence/w13-linked-money-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-red.log": {
+      "bytes": 3395,
+      "sha256": "416023af4893a8b9d88532b15608f96eebf0e82ca0e45ab874d3cbef024cb4a8"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-red.log": {
+      "bytes": 3282,
+      "sha256": "e1e3518ff18634cf0735512f059a2bad1ba874c6f31dc43c9e63bccc5a854dc2"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-browser-focused-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-first.json": {
+      "bytes": 17747,
+      "sha256": "ddb10082315c4260957b84439ac95fce8c72911e9acbde6ddbee63566767f0f1"
+    },
+    "/workspace/family-evidence/w13-links-money-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-store-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-first.log": {
+      "bytes": 945,
+      "sha256": "fd2d65293f636668535b50eccab871b67d0d25b59015adca585a4f87b38b40a1"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-qualified.json": {
+      "bytes": 2389855,
+      "sha256": "b372ea97363f3b629fbb1d97cd45023bf4723d883a6e43ae7bde95a103dcfa94"
+    },
+    "/workspace/family-evidence/w13-browser-second-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-financial-edit-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-linked-money-red.log": {
+      "bytes": 449,
+      "sha256": "b12d01e99907f81d59e9eee23a718a2d21d97637a920e11e4bef0479f0e76b62"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-first.json": {
+      "bytes": 28048,
+      "sha256": "1c5548fc64e387845187caf6bed8e3a994297bb96aaa8b78eb7c761c9e56a844"
+    },
+    "/workspace/family-evidence/w13-qualified-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-first.log": {
+      "bytes": 946,
+      "sha256": "c93e95322c25f08c2b0f4180f6f759c9acc6efaf668dd6347112f4dba1ce4713"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-red.log": {
+      "bytes": 4243,
+      "sha256": "ec3b98ae304c5f50044fb010e7d20838aed453f1d5863cd6a4351aa0a75c3b6d"
+    },
+    "/workspace/family-evidence/w13-qualified.log": {
+      "bytes": 95177,
+      "sha256": "2f72187254af665c1892aae1b8cb4633ba4ac023708922b4a1647c065e97ae55"
+    },
+    "/workspace/family-evidence/w13-links-plan-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-links-money-first.log": {
+      "bytes": 892,
+      "sha256": "5080136fadad383ae25837547f8a29066b1a6edc680170e88286820912262348"
+    },
+    "/workspace/family-evidence/w13-linked-reminder-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-browser-final.log": {
+      "bytes": 9246,
+      "sha256": "5fdeb3798eaf4a5d43dab5f4851be2c4aa431df6b50b67075793baab53e537d1"
+    },
+    "/workspace/family-evidence/w13-qualified.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-plan-red.log": {
+      "bytes": 433,
+      "sha256": "3f62c262f21f891a6e6ea3ae22285fc96e8297011a3fddfaf8dc3de8800959ed"
+    },
+    "/workspace/family-evidence/w13-financial-edit-http-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-second.log": {
+      "bytes": 1784,
+      "sha256": "88e82c7088e349514c73f331d983d48e9df6c5991390d34d616d7a865eb73ae4"
+    },
+    "/workspace/family-evidence/w13-legacy-ui-navigation-first.log": {
+      "bytes": 949,
+      "sha256": "8988befc0e71fce9a55de9307f23b7c1b90e10efc1917a554d31a2eb17c5c0be"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-linked-ui-types-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-links-store-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-links-plan-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-first-lint.log": {
+      "bytes": 1205,
+      "sha256": "5d71c7a2a81ef4fc3d5634f527778c0a18c58407314ff6eb5ca6abff8dce166b"
+    },
+    "/workspace/family-evidence/w13-browser-first.log": {
+      "bytes": 25279,
+      "sha256": "685c0412b9f343a723a00603ec0555f61fec2b40c3fe5cd4f1c66fed35cb0b86"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-red.log": {
+      "bytes": 452,
+      "sha256": "4badafa8859d4c3b12daf6cf03c8ab1fd071c4b1fa78f57773097bb058b418f6"
+    },
+    "/workspace/family-evidence/w13-linked-debt-helpers-red.json": {
+      "bytes": 6051,
+      "sha256": "cce6cd0815ff7ffe53544808e1018d0358f4b50c219a9f7b2880a970814e3ca2"
+    },
+    "/workspace/family-evidence/w13-financial-edit-http-first.json": {
+      "bytes": 14906,
+      "sha256": "a8a0b2cf52e34d7a12e8bf300dcb8dcb1f174a87d421c81b0e7012283b4eeadf"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-legacy-ui-safety-first.json": {
+      "bytes": 10594,
+      "sha256": "c43df643f93fae19bbe65ba95f5dcc608163e3bf71c2b187c96f8d0ade0e077b"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-client-privacy-final.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-first.log": {
+      "bytes": 1515,
+      "sha256": "259886225e1f41aa76be18f876b194868a4a0115411cdbe05ba4bd73d459174e"
+    },
+    "/workspace/family-evidence/w13-browser-first-build.log": {
+      "bytes": 2293,
+      "sha256": "09de392c8bb19e8fa8b00313548d2660127c114fc2a828430a4ee76694712bac"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-links-http-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-browser-second-build.log": {
+      "bytes": 2293,
+      "sha256": "b9c0c1a0d0df5293cfe7352b3fabe4420120a368c0a3a8f92741beb1e44c85cd"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-first-lint.log": {
+      "bytes": 558,
+      "sha256": "41d076a38a3b84bb7b39c21b60f9883c13e35bcb89032fbbef141896509bdcd6"
+    },
+    "/workspace/family-evidence/w13-financial-edit-first.json": {
+      "bytes": 14574,
+      "sha256": "8846c1e0442ae07b405ed8427589b9c45d40a15279401f39f261d64e0880c696"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-first.json": {
+      "bytes": 19617,
+      "sha256": "5090f9b50dc9672069d7ce15056b3864c703532e0ae527550b61c1bb09ea348c"
+    },
+    "/workspace/family-evidence/w13-links-money-first.json": {
+      "bytes": 12416,
+      "sha256": "6ae340296e5e0d6327545e36c677a4ce1ef32fc0f49192e43d3a57c64384d114"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-first.log": {
+      "bytes": 1373,
+      "sha256": "1570f6b5efe104f62ef85badf8c1475ba95960fdc9cc7b0a04205e61a6da075a"
+    },
+    "/workspace/family-evidence/w13-browser-first-lint.log": {
+      "bytes": 1095,
+      "sha256": "e21bae095a0a3604f351b16d666bbcad73a7a667d3f9db8874652719bec07a5e"
+    },
+    "/workspace/family-evidence/w13-financial-ui-second-lint.log": {
+      "bytes": 738,
+      "sha256": "de04efdf0060869e54a2be99201a13572e4ab850c5454affcf5f030b8e9b086c"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-red.log": {
+      "bytes": 3662,
+      "sha256": "596eef73358538b17f2715c8e98f7704f2101ca4bd673592de2b342ef3b13725"
+    },
+    "/workspace/family-evidence/w13-financial-edit-http-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-store-second.log": {
+      "bytes": 1312,
+      "sha256": "739d94b5ae737cd169d564b425bc1eb0a638a4f5c411db808835d6ef76aff859"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-financial-edit-http-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-red.json": {
+      "bytes": 780,
+      "sha256": "25d1b040e8fc5b24effc78984ff8239d19918998d8564723d80ab13db16ea7bc"
+    },
+    "/workspace/family-evidence/w13-qualified-first.json": {
+      "bytes": 2389382,
+      "sha256": "8515034ac1236f1d17c62a0f37a1bd00574856e4f82a5f6840d4ab65a2e6875e"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-red.log": {
+      "bytes": 2825,
+      "sha256": "997b6ff3c2cff36d5ca9d6597fc5259dc504a944638590ecd484e0adaffdad8a"
+    },
+    "/workspace/family-evidence/w13-linked-money-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-browser-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-linked-debt-helpers-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-final-build.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-http-first.json": {
+      "bytes": 10107,
+      "sha256": "0b55a59ec03f27d2697f63ce7970f3e39879bc587ef6b78abae89dec5a9ea988"
+    },
+    "/workspace/family-evidence/w13-financial-ui-first-lint.log": {
+      "bytes": 738,
+      "sha256": "de04efdf0060869e54a2be99201a13572e4ab850c5454affcf5f030b8e9b086c"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-link-split-fee-scope-first.log": {
+      "bytes": 1321,
+      "sha256": "38eeb8dcae2cadc11f88b7ec9194d75acbfde4b5f5101adbdad55bdc6a026c03"
+    },
+    "/workspace/family-evidence/w13-linked-record-memo-red.log": {
+      "bytes": 455,
+      "sha256": "81bf8d287c595094f18d70f9b38a92cf0482337a35e474277b6acd5cff615fd4"
+    },
+    "/workspace/family-evidence/w13-financial-owner-first.log": {
+      "bytes": 990,
+      "sha256": "d85bbb44e640b7b749dee27fc68022be37a43fed0cec673872d2816d9129e59a"
+    },
+    "/workspace/family-evidence/w13-financial-edit-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-financial-sdk-first-lint.log": {
+      "bytes": 503,
+      "sha256": "9e71d6ea4ac618a75388296946cbbe0152f302517b2213c7653e4b8ee8b78bb0"
+    },
+    "/workspace/family-evidence/w13-links-plan-first.json": {
+      "bytes": 10891,
+      "sha256": "883c6d8fa7ff3d5c0c2745d952dae1ce7a6fc48d6154e414dd236b4c21649f4d"
+    },
+    "/workspace/family-evidence/w13-links-plan-first.log": {
+      "bytes": 791,
+      "sha256": "642e2f4c3473fec92d97237b9e8ec26d34ade2d053d4c02e19701106bfe26684"
+    },
+    "/workspace/family-evidence/w13-linked-reminder-first.json": {
+      "bytes": 25050,
+      "sha256": "e817cb18a752d42621c8e56ffae745140089569d2d0850e0884017d01e74e15e"
+    },
+    "/workspace/family-evidence/w13-goal-privacy-refresh-first.log": {
+      "bytes": 782,
+      "sha256": "6a8fed6f3c6d399f2b57b81214c9e0f5f533fc3b7119d007b6d79f9eeff96106"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-first.json": {
+      "bytes": 40913,
+      "sha256": "a8d1c18f2bb6db69b73125b00895b26b25abce2ee3542b1a2e8fed1a163899be"
+    },
+    "/workspace/family-evidence/w13-ui-final-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-ui-integration-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-ui-final-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-financial-owner-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-links-http-second-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-links-http-red.log": {
+      "bytes": 3861,
+      "sha256": "d288614a9c1e22b50c0b8db9035ed6eb5a69a7c5a63eac26b02771620b530798"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-first.log": {
+      "bytes": 1369,
+      "sha256": "c4789d8b7038b4dcfb4f24442dce65682c30ed8635bb2fa8b8614dd76a2f9e15"
+    },
+    "/workspace/family-evidence/w13-linked-ui-types-first-lint.log": {
+      "bytes": 361,
+      "sha256": "36b4c2f740b0a7cddce0d64d1e4e133184a54b9d27e7989d5196aa31c79f221c"
+    },
+    "/workspace/family-evidence/w13-goal-privacy-refresh-first.json": {
+      "bytes": 5805,
+      "sha256": "82c778513e0c824d335b5f9af726218b6e8592a3db0d500804abe142046bc2c3"
+    },
+    "/workspace/family-evidence/w13-links-store-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-links-plan-red.json": {
+      "bytes": 757,
+      "sha256": "54ec65a74e8fdfc48e3d085affa55457f17a8163fca935e3858626926bf48cfc"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-red.json": {
+      "bytes": 7527,
+      "sha256": "999c8fbc155f31dc0a04df73004e8bf02acbf8c359984112d29d99edba0c5e5f"
+    },
+    "/workspace/family-evidence/w13-ui-fixture-first.json": {
+      "bytes": 11662,
+      "sha256": "c693045d852ce3f8bf95c532027c23ee54e6a5b23823a2ac10f355386511e14b"
+    },
+    "/workspace/family-evidence/w13-links-store-second.json": {
+      "bytes": 30103,
+      "sha256": "70a17badc25e61443b29296f395d8bb75ef23095ced1ef9d9cb5495f6425bdae"
+    },
+    "/workspace/family-evidence/w13-qualified-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-linked-money-red.json": {
+      "bytes": 783,
+      "sha256": "afd7a79b6433c36fa277cc051ed4f3a11b7b81ed516e53559c8950a06f302cad"
+    },
+    "/workspace/family-evidence/w13-financial-owner-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-financial-edit-first.log": {
+      "bytes": 1543,
+      "sha256": "a49043c33b3d05ed68e804f16432ee19d0560d9cfb26e4c3b28fb23fb58ad8fe"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-red.log": {
+      "bytes": 3528,
+      "sha256": "5f8042584ad844e75b04de8ec37ec0eab3d302818fd6aa1144f121203c45e383"
+    },
+    "/workspace/family-evidence/w13-frozen-first.json": {
+      "bytes": 5608,
+      "sha256": "2e893e307f451ef1576bf6e8a5ab2f8c4ce65cb4b9926f6bd5c8f79b6c02f3c3"
+    },
+    "/workspace/family-evidence/w13-links-http-second.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-http-red.json": {
+      "bytes": 5908,
+      "sha256": "82acaf923ca3dc4f94e163644a996e05d149866a70f0a2de1490958170d20dc5"
+    },
+    "/workspace/family-evidence/w13-financial-edit-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-financial-edit-http-first.log": {
+      "bytes": 1553,
+      "sha256": "ca0274ee5c02ced7e8d9b2a4afed189b467cccb8870019589d15c54b4cdd3769"
+    },
+    "/workspace/family-evidence/w13-links-store-first.json": {
+      "bytes": 3906,
+      "sha256": "c859b4d206844c60dedc18b029b33a8adad7813b7f75ec45f9f6d3aac5a3bf05"
+    },
+    "/workspace/family-evidence/w13-sparse-legacy-projection-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-legacy-link-guards-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-second.json": {
+      "bytes": 27599,
+      "sha256": "45094cc66d48bd5d36558f1482ece6b90cf6ab647ebc7e2d30175423114f4cbd"
+    },
+    "/workspace/family-evidence/w13-goal-privacy-refresh-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-detached-reservation-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-ui-integration-lint.log": {
+      "bytes": 1367,
+      "sha256": "f59e4567a2a07ab87b3bb64fbf17a67a9669e5c9a04824978accb8ce31bca295"
+    },
+    "/workspace/family-evidence/w13-financial-ui-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-browser-first.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-first-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-links-http-second.log": {
+      "bytes": 2675,
+      "sha256": "620f1e57205d53e525951249f2bc2a1ad67bd86e03d10d0770f7b724012b162f"
+    },
+    "/workspace/family-evidence/w13-linked-debt-helpers-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-kept-history-reuse-red.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-debt-book-binding-first-lint.log": {
+      "bytes": 253,
+      "sha256": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+    },
+    "/workspace/family-evidence/w13-qualified.junit.xml": {
+      "bytes": 1664032,
+      "sha256": "d89189e73305d290f3dbeacd4be6a20f794dbf4db20848fb0eb253969cd849ef"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-financial-ui-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    "/workspace/family-evidence/w13-links-store-second-lint.log": {
+      "bytes": 1205,
+      "sha256": "2e76ae377bb989fd35223e2c5b45735b13af7cf5c8a94578f773475ce306ed42"
+    },
+    "/workspace/family-evidence/w13-links-snapshot-first.log": {
+      "bytes": 6666,
+      "sha256": "200589e40039844056dabfcd64a11a7c2a73b5a89810605d615a12b63cafdec1"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third.log": {
+      "bytes": 877,
+      "sha256": "3cad2930f9a4f1fe9845a03b17b1645391c644e715ccf3216dac4dbad47253ef"
+    },
+    "/workspace/family-evidence/w13-financial-owner-first.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-browser-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "/workspace/family-evidence/w13-links-http-first.log": {
+      "bytes": 2734,
+      "sha256": "e62c4cfcc124131a202df15c6d2190bb5da1834ab643ecb2b45c9b6fd15baad8"
+    },
+    "/workspace/family-evidence/w13-client-privacy-final.json": {
+      "bytes": 10653,
+      "sha256": "8b45bc80674b7118424e91379350563829aed1c1146021713c59da4bdb57a1ed"
+    },
+    "/workspace/family-evidence/w13-legacy-links-binding-first.json": {
+      "bytes": 18806,
+      "sha256": "a056dfbe5f197b66629089be6b627492994e94626b4ae852b5af2c36823af38e"
+    },
+    "/workspace/family-evidence/w13-ui-integration-second-lint.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/workspace/family-evidence/w13-browser-qualified-artifacts/browser.junit.xml": {
+      "bytes": 9457,
+      "sha256": "2fefdc4457454eca0f62874ec4c6f6d36198eca5c00020299e5966660e2abb4f"
+    },
+    "/workspace/family-evidence/w13-browser-qualified-artifacts/fixture.json": {
+      "bytes": 1147,
+      "sha256": "8732889b523210826bac7d299e8177adb6a1a6f7445a099939c3f624f4040855"
+    },
+    "/workspace/family-evidence/w13-browser-qualified-artifacts/browser.json": {
+      "bytes": 61815,
+      "sha256": "ef469c0b5306bcaad45bcdf7ec53ddb39e0f5bf2e79ea5bb18a3fdef55f9fc0c"
+    },
+    "/workspace/family-evidence/w13-browser-qualified-artifacts/w13-goal-light.png": {
+      "bytes": 94537,
+      "sha256": "b9fffcadcea7a7d32a61b0f1e0cf49f29480535b7965943243aba8511c2b63c0"
+    },
+    "/workspace/family-evidence/w13-browser-qualified-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w13-browser-qualified-artifacts/w13-goal-dark.png": {
+      "bytes": 92394,
+      "sha256": "a8094ede0f7a65a3d33356c2fa4fcd62e37343d204d43be85cf5068c28a25427"
+    },
+    "/workspace/family-evidence/w13-browser-first-artifacts/browser.junit.xml": {
+      "bytes": 26417,
+      "sha256": "8dfb2ff9ae627eac6b3f83c2cd2516c9e6172f8bff7b78c222add6e8287be3c8"
+    },
+    "/workspace/family-evidence/w13-browser-first-artifacts/fixture.json": {
+      "bytes": 1195,
+      "sha256": "ee7f6b07e6769d26bcaaafc3953207741a579062ed0ce16a1f00d9482753035f"
+    },
+    "/workspace/family-evidence/w13-browser-first-artifacts/browser.json": {
+      "bytes": 86213,
+      "sha256": "f204576f6c6809d20960005e68f4b5b54f59b78dda06895a325548b4089b2dde"
+    },
+    "/workspace/family-evidence/w13-browser-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w13-browser-focused-first-artifacts/browser.junit.xml": {
+      "bytes": 113,
+      "sha256": "cb8670a27b196a2e9dda6ab8a2759bafb320e986ef6b9120dce135f305ffa9b1"
+    },
+    "/workspace/family-evidence/w13-browser-focused-first-artifacts/fixture.json": {
+      "bytes": 1269,
+      "sha256": "6907d078a597ee98ea7f1bf7e8c4e46a22d167d03a17532af3ebadbed1c994fe"
+    },
+    "/workspace/family-evidence/w13-browser-focused-first-artifacts/browser.json": {
+      "bytes": 4136,
+      "sha256": "c683ea967b8d0f2399d15018ee0933760822f2080567ddf4b9e11508a6881cde"
+    },
+    "/workspace/family-evidence/w13-browser-focused-first-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second-artifacts/browser.junit.xml": {
+      "bytes": 6436,
+      "sha256": "4c1be06c3349398a0578f8b92486fb5d4d33c37162bd0ffc4fd37cbc5d7556f2"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second-artifacts/fixture.json": {
+      "bytes": 1269,
+      "sha256": "b4f1b7cad30e1966cb8fa4e26c8668b9ac9e8f98444d155f36e78c18cc35ec8f"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second-artifacts/browser.json": {
+      "bytes": 13231,
+      "sha256": "527eca55b73f72aac89749ca682e8156a66076e00275b5f801a1ed325c39d386"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second-artifacts/w13-goal-light.png": {
+      "bytes": 94160,
+      "sha256": "f3bb32031300a0caf84d51cf8596927f5033f08d773a3d9a652ad028300fb033"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w13-browser-focused-second-artifacts/w13-goal-dark.png": {
+      "bytes": 92259,
+      "sha256": "e5831eb8da6b90ecad4cb6f2d8480e28b3f1e5fd2a02c9e2642a6ea400fd8497"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third-artifacts/browser.junit.xml": {
+      "bytes": 942,
+      "sha256": "68433da18639a922390fb8b3b07a6cffa797f08a88d01ec42d6576bd4799a006"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third-artifacts/fixture.json": {
+      "bytes": 1221,
+      "sha256": "a20ea57e7521c6a3a2643b688fdbe4327b40c6027c9c95e43d6f8a0d05c7a219"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third-artifacts/browser.json": {
+      "bytes": 8743,
+      "sha256": "d065701d869e24fa9d37d5302ca1502ec3ec626b381c68f24ef4da7575eb9e18"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third-artifacts/w13-goal-light.png": {
+      "bytes": 94159,
+      "sha256": "7f2167772c2b33a37b7edeb8dc459d839f0deaa0dc7c48d253280d4bed781ef3"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third-artifacts/runtime.json": {
+      "bytes": 235,
+      "sha256": "5b55729523d91fd4ffe8c3b02775b88ed748ac9cebdf059501bd7f02b19af18f"
+    },
+    "/workspace/family-evidence/w13-browser-focused-third-artifacts/w13-goal-dark.png": {
+      "bytes": 92224,
+      "sha256": "7449a106cbfa85cfb74c493c82b88b3db57fe6c6f727fc26d5400a26a87d5c3a"
+    }
+  }
+}

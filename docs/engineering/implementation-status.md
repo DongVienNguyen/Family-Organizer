@@ -2,6 +2,25 @@
 
 ## Current direction — 2026-10-18 (UTC)
 
+**2026-10-18 continuation — W13 core:** source `47f4ade4fd9c610741e69b6c8ed620f40a24e4b8` adds
+exact linked debt principal/interest, goal earmarks/transfers, existing history
+and imported cashflow linking, coordinated edit and explicit keep/void through
+shared I01. Current account/fee/parent privacy applies to reads, legacy goal
+mutation receipts and fresh UI views. Schema 13/standalone 14 preserves accepted
+1–12 SQL, without automatic migration/activation. [Details](wallet-financial-links.md).
+
+Cloud: 8128 tests/463 files/full JUnit, zero failed/skipped/todo;
+all 8024 parent cases +104 retained, lint/build 0. Final Chromium
+52/52 retains all 48 parents; fixture 13 offline/integrity/legacy/normal-stop/
+closed/cleaned/build-bound; phone light/dark and overflow/legacy navigation included.
+Earlier failed reports preserved. [Proof](evidence/w13-financial-links-development.json).
+Author inspection only. PR URL/CI run URL: none; backup branch
+`codex/feature-first-acceptance`. Windows 2022/Node 22/package/service/other
+engines/touch and Server 2019 R02 unrun. Remaining: unified legacy/Wallet net worth,
+coordinated goal withdrawals, full restore/pagination/retention/cutover/package
+qualification; W14–18 and remaining Productivity/M1/I02/I03/master.
+Next: W14 budgets/carry/forecast. No release/tag/VPS.
+
 **2026-10-18 continuation — W12 core:** source `0e33086d5434afa39d943dd07a2d2e29089df03e` adds
 personal scheduled income/expense/transfer with fees, original-anchor recurrence,
 manual default/explicit automatic recording, read-only next-three preview,
