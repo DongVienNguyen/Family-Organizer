@@ -3027,5 +3027,24 @@
     "refreshFailed": "The counterpart was created but the list could not refresh.",
     "saved": "Linked counterpart created; original retained.",
     "reload": "Reload"
+  },
+  "productivityFiles": {
+    "title": "Task attachments",
+    "hint": "PNG/JPG/GIF/WebP images or PDF, up to20MiB per file. Downloads require current access to the Task.",
+    "choose": "Choose a Task file",
+    "upload": "Upload file",
+    "download": "Download file",
+    "downloading": "Checking file…",
+    "remove": "Delete attachment",
+    "reviewDelete": "Confirm Task attachment deletion",
+    "pending": "The result is unknown. Keep the original file and command to check again.",
+    "retry": "Check original file command",
+    "otherPending": "Return to the pending Task upload",
+    "conflict": "The Task changed. Reload, select and review the file again.",
+    "invalid": "Check the filename, PNG/JPG/GIF/WebP/PDF type and20MiB limit, or download the file again.",
+    "failed": "Could not process the Task file.",
+    "refreshFailed": "The command completed but the file list could not refresh.",
+    "saved": "File command processed; the current list is shown above.",
+    "reload": "Reload"
   }
 }

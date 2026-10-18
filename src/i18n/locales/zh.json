@@ -3026,5 +3026,24 @@
     "refreshFailed": "已创建关联副本，但无法刷新列表。",
     "saved": "已创建关联副本；原件已保留。",
     "reload": "重新加载"
+  },
+  "productivityFiles": {
+    "title": "任务附件",
+    "hint": "PNG/JPG/GIF/WebP 图片或 PDF，每个文件最大20MiB。下载需要当前任务访问权限。",
+    "choose": "选择任务文件",
+    "upload": "上传文件",
+    "download": "下载文件",
+    "downloading": "正在检查文件…",
+    "remove": "删除附件",
+    "reviewDelete": "确认删除任务附件",
+    "pending": "结果未知。请保留原始文件和命令以重新检查。",
+    "retry": "检查原始文件命令",
+    "otherPending": "返回正在上传文件的任务",
+    "conflict": "任务已更改。请重新加载、选择并审核文件。",
+    "invalid": "请检查文件名、PNG/JPG/GIF/WebP/PDF 格式和20MiB限制，或重新下载文件。",
+    "failed": "无法处理任务文件。",
+    "refreshFailed": "命令已完成，但无法刷新附件列表。",
+    "saved": "文件命令已处理；上方显示当前列表。",
+    "reload": "重新加载"
   }
 }

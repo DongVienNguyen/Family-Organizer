@@ -3026,5 +3026,24 @@
     "refreshFailed": "Đã tạo bản liên kết nhưng chưa tải lại được danh sách.",
     "saved": "Đã tạo bản có liên kết; bản gốc được giữ nguyên.",
     "reload": "Tải lại"
+  },
+  "productivityFiles": {
+    "title": "Tệp đính kèm của tác vụ",
+    "hint": "Ảnh PNG/JPG/GIF/WebP hoặc PDF, tối đa20MiB mỗi tệp. Chỉ người đang được xem tác vụ có thể tải tệp.",
+    "choose": "Chọn tệp cho tác vụ",
+    "upload": "Tải tệp lên",
+    "download": "Tải tệp xuống",
+    "downloading": "Đang kiểm tra tệp…",
+    "remove": "Xóa tệp đính kèm",
+    "reviewDelete": "Xác nhận xóa tệp tác vụ",
+    "pending": "Chưa xác định kết quả. Giữ nguyên tệp và lệnh để kiểm tra lại.",
+    "retry": "Kiểm tra lệnh tệp đã gửi",
+    "otherPending": "Trở lại tác vụ đang gửi tệp",
+    "conflict": "Công việc đã thay đổi. Tải lại rồi chọn và xem lại tệp.",
+    "invalid": "Kiểm tra tên tệp, định dạng PNG/JPG/GIF/WebP/PDF và giới hạn20MiB, hoặc thử tải lại tệp.",
+    "failed": "Không xử lý được tệp tác vụ.",
+    "refreshFailed": "Lệnh đã hoàn tất nhưng chưa tải lại được danh sách tệp.",
+    "saved": "Đã xử lý lệnh tệp; danh sách hiện tại hiển thị ở trên.",
+    "reload": "Tải lại"
   }
 }
