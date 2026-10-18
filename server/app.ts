@@ -1,4 +1,5 @@
 import {registerWalletImportJobs} from './wallet/importJobs.js';
+import {registerWalletScheduleJobs} from './wallet/jobs.js';
 import {walletRouter,walletRequestTrace,walletJsonError} from './wallet/router.js';
 import type {WalletPorts} from './wallet/ports.js';
 import {boardRouter} from './productivity/boardRouter.js';
@@ -62,7 +63,7 @@ export async function createApp(appConfig: AppConfig, dependencies: AppDependenc
   const { getVapidPublicKey, isPushConfigured, sendTestPush } = dependencies.push;
   const BUILD = dependencies.build;
   const { jobs, state, metrics } = dependencies;
-  registerPushDelivery(jobs, FamilyDB, dependencies.push);
+  registerPushDelivery(jobs, FamilyDB, dependencies.push,dependencies.wallet?.notificationAccess);
   let disposeAssets = async () => {};
 // Accepted permission roles for write validation
 const VALID_ROLES = new Set<string>([UserRole.ADMIN, UserRole.MEMBER, UserRole.CHILD, UserRole.GUEST]);
@@ -751,6 +752,7 @@ app.get("/api/realtime", requireAuth, (req: Request, res: Response) => {
 
 // --- TASK API ENDPOINTS ---
 if(dependencies.wallet&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletImportJobs(jobs,wallet.imports,batchId=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.importAudience(batchId)));}
+if(dependencies.wallet?.scheduleJobs&&jobs.durableEnabled){const wallet=dependencies.wallet;registerWalletScheduleJobs(jobs,wallet.scheduleJobs,{recordChanged:id=>broadcastSyncEvent('FINANCE_UPDATE',{},wallet.recordAudience(id)),scheduleChanged:ownerId=>broadcastSyncEvent('FINANCE_UPDATE',{},new Set([ownerId])),notificationChanged:ownerId=>broadcastSyncEvent('NOTIFICATIONS_UPDATE',{},new Set([ownerId]))});}
 if(dependencies.wallet)app.use('/api/wallet',walletRouter(dependencies.wallet,requireAuth as any,audience=>broadcastSyncEvent('FINANCE_UPDATE',{},audience)));
 if(dependencies.productivity)app.use('/api/productivity/tasks',taskRouter(dependencies.productivity,requireAuth as any,{previous:id=>realtimeAudience('TASKS_UPDATE',{taskId:id}),emit:(id,previous)=>broadcastSyncEvent('TASKS_UPDATE',{taskId:id},previous),rewards:id=>broadcastSyncEvent('REWARDS_UPDATE',{taskId:id})}));
 if(dependencies.productivity)app.use('/api/productivity',queryRouter(dependencies.productivity,requireAuth as any,{view:actorId=>broadcastSyncEvent('PRODUCTIVITY_VIEW_UPDATE',{},new Set([actorId]))}));
@@ -2245,22 +2247,22 @@ app.post("/api/users/:id/reset-password", requireAuth, requireRole([UserRole.ADM
 
 app.get("/api/notifications", requireAuth, (req: AuthRequest, res: Response) => {
   const userId = req.userSession!.userId;
-  const list = FamilyDB.getNotificationsForActor(userId);
+  const list = FamilyDB.getNotificationsForActor(userId,dependencies.wallet?.notificationAccess?.read);
   res.json({ notifications: list });
 });
 
 app.post("/api/notifications/:id/read", requireAuth, (req: AuthRequest, res: Response) => {
   const userId = req.userSession!.userId;
   const { id } = req.params;
-  const notification=FamilyDB.getNotificationsForActor(userId).find(row=>row.id===id);
+  const notification=FamilyDB.getNotificationsForActor(userId,dependencies.wallet?.notificationAccess?.read).find(row=>row.id===id);
   if(!notification||!canViewLegacyNotification(notification,req.userSession!)){res.status(404).json({error:'Không tìm thấy thông báo'});return;}
-  FamilyDB.markNotificationRead(id, userId);
+  FamilyDB.markNotificationRead(id, userId,dependencies.wallet?.notificationAccess?.read);
   res.json({ success: true });
 });
 
 app.post("/api/notifications/read-all", requireAuth, (req: AuthRequest, res: Response) => {
   const userId = req.userSession!.userId;
-  FamilyDB.markAllNotificationsRead(userId);
+  FamilyDB.markAllNotificationsRead(userId,dependencies.wallet?.notificationAccess?.read);
   res.json({ success: true });
 });
 

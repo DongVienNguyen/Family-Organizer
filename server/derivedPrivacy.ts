@@ -2,16 +2,22 @@ import {createHmac} from 'node:crypto';
 /** @license SPDX-License-Identifier: Apache-2.0 */
 import {UserRole,type FamilyOrganizerDB,type Notification} from '../src/types.js';
 import {AppStoreError} from './appErrors.js';
+import {walletNotificationSource,type WalletOccurrenceNotificationSource} from '../src/features/wallet/notificationContract.js';
 import {isAdult,canViewLegacyTask,canViewLegacyPlan,canViewLegacyNote,canViewLegacyDocument,canViewLegacyPatient,canViewLegacyNotification,canonicalTaskPolicyActive,type LegacyActor} from './legacyVisibility.js';
 export function legacyReader(db:FamilyOrganizerDB,userId:string):LegacyActor {
  const user=db.users.find(row=>row.id===userId&&!row.isDeleted&&Object.values(UserRole).includes(row.role));
  if(!user)throw new AppStoreError('Bạn không có quyền truy cập dữ liệu này.',403);
  return {userId:user.id,role:user.role};
 }
-function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['sourceRef']):boolean {
+export type WalletNotificationAccess=(actor:LegacyActor,source:WalletOccurrenceNotificationSource,notification:Notification)=>boolean;
+function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['sourceRef'],walletAccess?:WalletNotificationAccess,notification?:Notification):boolean {
  if(!ref||typeof ref!=='object'||Array.isArray(ref))return false;
  if(ref.domain==='message'||ref.domain==='family')return true;
  if(ref.domain==='finance')return isAdult(actor);
+ if(ref.domain==='wallet-occurrence'){
+  if(!isAdult(actor)||!walletAccess||!notification)return false;
+  try{return walletAccess(actor,walletNotificationSource(ref),notification)===true;}catch{return false;}
+ }
  if(typeof ref.id!=='string'||!ref.id)return false;
  switch(ref.domain){
   case 'medication':return db.medications.some(row=>row.id===ref.id&&canViewLegacyPatient(row.patientId,actor));
@@ -23,11 +29,11 @@ function sourceVisible(db:FamilyOrganizerDB,actor:LegacyActor,ref:Notification['
   default:return false;
  }
 }
-export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notification:Notification,privacyKey?:string):Notification|undefined {
+export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notification:Notification,privacyKey?:string,walletAccess?:WalletNotificationAccess):Notification|undefined {
  if(!canViewLegacyNotification(notification,actor))return;
  if(notification.type==='finance'&&!isAdult(actor))return;
  if(notification.sourceRef){
-  if(!sourceVisible(db,actor,notification.sourceRef))return;
+  if(!sourceVisible(db,actor,notification.sourceRef,walletAccess,notification))return;
   return {...notification};
  }
  // Historical recipient information alone cannot establish the source ACL.
@@ -42,8 +48,8 @@ export function projectNotification(db:FamilyOrganizerDB,actor:LegacyActor,notif
  }
  return {...notification};
 }
-export function projectNotifications(db:FamilyOrganizerDB,actor:LegacyActor,privacyKey?:string):Notification[] {
- return db.notifications.flatMap(notification=>{const visible=projectNotification(db,actor,notification,privacyKey);return visible?[visible]:[];});
+export function projectNotifications(db:FamilyOrganizerDB,actor:LegacyActor,privacyKey?:string,walletAccess?:WalletNotificationAccess):Notification[] {
+ return db.notifications.flatMap(notification=>{const visible=projectNotification(db,actor,notification,privacyKey,walletAccess);return visible?[visible]:[];});
 }
 export function projectRewards(db:FamilyOrganizerDB,actor:LegacyActor,privacyKey?:string) {
  return db.rewardLedger.map(entry=>{

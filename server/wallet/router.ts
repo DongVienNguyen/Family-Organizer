@@ -101,6 +101,17 @@ export function walletRouter(ports: WalletPorts, requireAuth: RequestHandler, ch
     router.post('/reports/query',handler(req=>{const value=body(req,['filter','metric','groupBy','granularity']);return ports.reports.getReport(actor(req),value as any);}));
     router.post('/fx/refresh',async(req,res)=>{try{const value=body(req,['expectedRevision','asOf']),result=await ports.fx.refreshRates(context(req,value.expectedRevision,false),value.asOf);res.json(result);}catch(error){const status=httpErrorStatus(error,500);res.status(status).json({error:status>=500?'Không cập nhật được tỷ giá.':error instanceof AppStoreError?error.message:'Yêu cầu tỷ giá không hợp lệ.',code:(error as any)?.code});}});
     router.get('/record-filter-options',handler(req=>ports.filterOptions(actor(req))));
+    router.get('/schedules',handler(req=>({schedules:ports.schedules.listSchedules(actor(req))})));
+    router.post('/schedules/preview',handler(req=>{const v=body(req,['draft']);return {items:ports.schedules.previewDraft(actor(req),v.draft)};}));
+    router.get('/schedules/:id',handler(req=>ports.schedules.getSchedule(actor(req),id(req.params.id))));
+    router.get('/schedules/:id/preview',handler(req=>({items:ports.schedules.previewSchedule(actor(req),id(req.params.id))})));
+    router.post('/schedules',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.schedules.saveSchedule(context(req,v.expectedRevision,false),{draft:v.draft},()=>changed(new Set([actor(req).userId])));}));
+    router.patch('/schedules/:id',handler(req=>{const v=body(req,['expectedRevision','patch']);let patch:Record<string,unknown>;try{patch=object(v.patch);keys(patch,['draft','archived']);}catch{throw new AppStoreError('Trường lịch Wallet không hợp lệ.',400);}return ports.schedules.saveSchedule(context(req,v.expectedRevision,true),{...patch,id:id(req.params.id)},()=>changed(new Set([actor(req).userId])));}));
+    router.post('/schedules/:id/materialize',handler(req=>{const v=body(req,['expectedRevision']);return ports.schedules.materializeSchedule(context(req,v.expectedRevision,true),id(req.params.id),()=>changed(new Set([actor(req).userId])));}));
+    router.get('/schedules/:id/occurrences',handler(req=>({items:ports.schedules.listOccurrences(actor(req),id(req.params.id))})));
+    router.get('/occurrences/:id',handler(req=>ports.schedules.getOccurrence(actor(req),id(req.params.id))));
+    router.post('/occurrences/:id/confirm',handler(req=>{const v=body(req,['expectedRevision','input']);return ports.schedules.confirmOccurrence(context(req,v.expectedRevision,true),id(req.params.id),v.input,recordId=>changed(ports.recordAudience(recordId)));}));
+    router.post('/occurrences/:id/skip',handler(req=>{const v=body(req,['expectedRevision']);return ports.schedules.skipOccurrence(context(req,v.expectedRevision,true),id(req.params.id),()=>changed(new Set([actor(req).userId])));}));
     router.get('/rules',handler(req=>({rules:ports.rules.listRules(actor(req))})));
     router.get('/rules/:id',handler(req=>ports.rules.getRule(actor(req),id(req.params.id))));
     router.post('/rules',handler(req=>{const v=body(req,['expectedRevision','draft']);return ports.rules.saveRule(context(req,v.expectedRevision,false),{draft:v.draft},()=>changed(new Set([actor(req).userId])));}));

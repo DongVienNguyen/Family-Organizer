@@ -3,7 +3,9 @@ import {isActiveLegacyTask} from '../src/utils/taskLifecycle.js';
 import {acceptRecurringOccurrence,isDurableOccurrenceTask} from './productivity/recurrenceAccepted.js';
 import {completionPolicy,markAcceptedCompletion,linkedCompletionGrant,reverseAcceptedCompletion,withCompletionPolicy} from './completionPolicy.js';
 import {hashPassword,verifyPassword} from './passwords.js';
-import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs} from './derivedPrivacy.js';
+import {legacyReader,projectRewards,projectNotifications,projectNotification,projectActivityLogs,type WalletNotificationAccess} from './derivedPrivacy.js';
+import {walletReminderId} from './wallet/reminderIdentity.js';
+import {walletNotificationSource} from '../src/features/wallet/notificationContract.js';
 import {currentLegacyActor} from './legacyActor.js';
 import {assertNoOpenSubtasks} from './productivity/structureInvariant.js';
 import {validateContentHeader,requireContentEdit,requireContentDelete,validateContentPayload} from './contentPolicy.js';
@@ -465,15 +467,15 @@ export class FamilyDB {
   public static getRewardLedgerForActor(userId:string) {
     const db=this.readRaw();return projectRewards(db,legacyReader(db,userId),canonicalTaskPolicyActive()?getSessionSecret():undefined);
   }
-  public static getNotificationsForActor(userId:string) {
-    const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId),getSessionSecret());
+  public static getNotificationsForActor(userId:string,walletAccess?:WalletNotificationAccess) {
+    const db=this.readRaw();return projectNotifications(db,legacyReader(db,userId),getSessionSecret(),walletAccess);
   }
   // Trusted outbox port resolves a canonical reference; HTTP only sees projected IDs.
-  public static getQueuedNotificationForActor(id:string,userId:string) {
+  public static getQueuedNotificationForActor(id:string,userId:string,walletAccess?:WalletNotificationAccess) {
     const db=this.readRaw(),actor=legacyReader(db,userId),notification=db.notifications.find(row=>row.id===id);
     const source=notification?.sourceRef;
     if(source?.domain==='task'&&db.tasks.find(task=>task.id===source.id)?.status===TaskStatus.WONT_DO&&['notif_taskdue1d_','notif_taskdue1h_','notif_taskoverdue_'].some(prefix=>notification!.id===prefix+source.id))return undefined;
-    return notification?projectNotification(db,actor,notification,getSessionSecret()):undefined;
+    return notification?projectNotification(db,actor,notification,getSessionSecret(),walletAccess):undefined;
   }
   public static getActivityLogsForActor(userId:string) {
     const db=this.readRaw();return projectActivityLogs(db,legacyReader(db,userId));
@@ -3047,6 +3049,18 @@ export class FamilyDB {
   }
 
   // Internal notification builder
+  /** Shared notification/outbox adapter. A Wallet owner has already checked its
+   * current object policy in the same I01 transaction. No network is performed. */
+  public static queueWalletReminder(notification:Notification):string {
+    return runLegacyCommand('queueWalletReminder',[notification],notification.userId,()=>{
+      const db=this.readRaw(),actor=currentLegacyActor(db,notification.userId),source=walletNotificationSource(notification.sourceRef);
+      if(![UserRole.ADMIN,UserRole.MEMBER].includes(actor.role)||notification.userId==='all'||notification.type!=='finance'||notification.isRead!==false||notification.id!==walletReminderId(source.id,source.offsetDays,notification.userId)||typeof notification.title!=='string'||!notification.title.trim()||notification.title.length>500||typeof notification.content!=='string'||notification.content.length>2000||typeof notification.createdAt!=='string'||new Date(notification.createdAt).toISOString()!==notification.createdAt)throw new AppStoreError('Thông báo Wallet không hợp lệ.',400);
+      const prior=db.notifications.find(row=>row.id===notification.id);
+      if(prior){if(prior.userId!==notification.userId||JSON.stringify(prior.sourceRef)!==JSON.stringify(source))throw new AppStoreError('Thông báo Wallet xung đột.',409);return prior.id;}
+      const value={...structuredClone(notification),sourceRef:source};db.notifications.unshift(value);if(db.notifications.length>200)db.notifications=db.notifications.slice(0,200);queuePush(db,value);this.writeRaw(db);return value.id;
+    });
+  }
+
   private static addNotificationInternal(db: FamilyOrganizerDB, userId: string, title: string, content: string, type: Notification["type"] = "system", sourceRef:LegacySourceRef={domain:'family'}) {
     const newNotif: Notification = {
       id: `notif_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
@@ -3068,11 +3082,11 @@ export class FamilyDB {
   }
 
   // Read notification status mark
-  public static markNotificationRead(notifId: string, userId: string): void {
+  public static markNotificationRead(notifId: string, userId: string,walletAccess?:WalletNotificationAccess): void {
     return runLegacyCommand("markNotificationRead", [notifId, userId], userId, () => {
     const db = this.readRaw();
     const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
-    const idx=db.notifications.findIndex(n=>projectNotification(db,actor,n,privacyKey)?.id===notifId);
+    const idx=db.notifications.findIndex(n=>projectNotification(db,actor,n,privacyKey,walletAccess)?.id===notifId);
     if(idx===-1)throw new AppStoreError('Không tìm thấy thông báo.',404);
     if (idx !== -1) {
       db.notifications[idx].isRead = true;
@@ -3082,13 +3096,13 @@ export class FamilyDB {
     });
   }
 
-  public static markAllNotificationsRead(userId: string): void {
+  public static markAllNotificationsRead(userId: string,walletAccess?:WalletNotificationAccess): void {
     return runLegacyCommand("markAllNotificationsRead", [userId], userId, () => {
     const db = this.readRaw();
     let modified = false;
     const actor=currentLegacyActor(db,userId),privacyKey=getSessionSecret();
     db.notifications.forEach(n => {
-      if (projectNotification(db,actor,n,privacyKey) && !n.isRead) {
+      if (projectNotification(db,actor,n,privacyKey,walletAccess) && !n.isRead) {
         n.isRead = true;
         modified = true;
       }

@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type {WalletOccurrenceNotificationSource} from './features/wallet/notificationContract.js';
+
 // User and Role management
 // `role` is the PERMISSION tier (what the account can do).
 // `familyRelation` (below) is just a display label for who the person is in the family.
@@ -76,7 +78,7 @@ export interface UserSession {
 }
 
 // Internal derivative provenance; supplied by canonical writers, never clients.
-export type LegacySourceRef = {domain:'task'|'plan'|'note'|'document'|'medication'|'vaccination';id:string}|{domain:'finance'|'message'|'family';id?:string};
+export type LegacySourceRef = {domain:'task'|'plan'|'note'|'document'|'medication'|'vaccination';id:string}|{domain:'finance'|'message'|'family';id?:string}|WalletOccurrenceNotificationSource;
 
 // Notification system
 export interface Notification {

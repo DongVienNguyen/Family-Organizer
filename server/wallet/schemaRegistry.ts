@@ -1,3 +1,4 @@
+import {prepareWalletSchedules,walletScheduleSql,walletScheduleChecksum,walletScheduleColumns} from './scheduleSchema.js';
 import {prepareWalletRules,walletRuleSql,walletRuleChecksum,walletRuleColumns} from './ruleSchema.js';
 import {prepareWalletImports,walletImportSql,walletImportChecksum,walletImportColumns} from './importSchema.js';
 import {prepareWalletPreferences,walletPreferenceSql,walletPreferenceChecksum,walletPreferenceColumns} from './preferenceSchema.js';
@@ -26,6 +27,7 @@ export const walletSchemas = [
     { version: 9, columns: walletPreferenceColumns, sql: walletPreferenceSql, checksum: walletPreferenceChecksum, prepare: prepareWalletPreferences },
     { version: 10, columns: walletImportColumns, sql: walletImportSql, checksum: walletImportChecksum, prepare: prepareWalletImports },
     { version: 11, columns: walletRuleColumns, sql: walletRuleSql, checksum: walletRuleChecksum, prepare: prepareWalletRules },
+    { version: 12, columns: walletScheduleColumns, sql: walletScheduleSql, checksum: walletScheduleChecksum, prepare: prepareWalletSchedules },
 ] as const;
 export type WalletStorageVersion = typeof walletSchemas[number]['version'];
 export const walletStorageVersions: number[] = walletSchemas.map(row => row.version);
