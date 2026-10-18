@@ -1,0 +1,814 @@
+{
+  "task": "I02",
+  "sourceSha": "4fd6eae751b72a522aa45e4714401084ffaebdd7",
+  "scope": "Typed links and explicit Task-to-Wallet payment Cloud functional slice; overview/Calendar/search and system acceptance remain open",
+  "prUrl": null,
+  "ciRunUrl": null,
+  "unit": {
+    "tests": 87,
+    "files": 9,
+    "junit": 87,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "lintExit": 0,
+  "buildExit": 0,
+  "chromium": {
+    "tests": 4,
+    "firstAttempts": true,
+    "fixture": {
+      "commitSha": "4fd6eae751b72a522aa45e4714401084ffaebdd7",
+      "project": "chromium",
+      "platform": "linux",
+      "nodeVersion": "v24.21.0",
+      "synthetic": true,
+      "lockSha256": "17e305b217c2dbd6543d66e2e600c20251425c5b4d0eb66fa903cbd13ecc6ec7",
+      "build": {
+        "server": "dd2253c303a7ebfd9226828700556dd631fd1e9fb16d101152a0a6466604d7d2",
+        "index": "80dab99ea2161ad14fffdc1b87f703cb9e854bde103333946c345ed62789bcd2"
+      },
+      "fixtureRemoved": true,
+      "databaseClosed": true,
+      "legacyPreserved": true,
+      "networkAttempts": [],
+      "serverExitCode": 0,
+      "browserExitCode": 0,
+      "error": null,
+      "seed": {
+        "synthetic": true,
+        "productivityVersion": 24,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "fixtureProject": "chromium",
+        "users": 4,
+        "tasks": 13,
+        "nativeHandlesClosed": true,
+        "notificationFixture": {
+          "explicit": true,
+          "frozen13Preserved": true,
+          "taskRowsPreserved": true,
+          "notificationsCreated": 0
+        },
+        "templateFixture": {
+          "explicit": true,
+          "frozen14Preserved": true,
+          "taskRowsPreserved": true,
+          "templatesCreated": 0
+        },
+        "contentFixture": {
+          "explicit": true,
+          "frozen15Preserved": true,
+          "taskRowsPreserved": true,
+          "linksCreated": 0
+        },
+        "attachmentFixture": {
+          "explicit": true,
+          "frozen16Preserved": true,
+          "taskRowsPreserved": true,
+          "attachmentsCreated": 0
+        },
+        "dataFixture": {
+          "explicit": true,
+          "frozen17Preserved": true,
+          "taskRowsPreserved": true,
+          "importsCreated": 0
+        },
+        "focusFixture": {
+          "explicit": true,
+          "frozen18Preserved": true,
+          "taskRowsPreserved": true,
+          "sessionsCreated": 0
+        },
+        "habitFixture": {
+          "explicit": true,
+          "frozen19Preserved": true,
+          "taskRowsPreserved": true,
+          "habitsCreated": 0
+        },
+        "trackingFixture": {
+          "explicit": true,
+          "frozen20Preserved": true,
+          "taskRowsPreserved": true,
+          "remindersCreated": 0
+        },
+        "insightFixture": {
+          "explicit": true,
+          "frozen21Preserved": true,
+          "taskRowsPreserved": true,
+          "eventsCreated": 0,
+          "notesCreated": 0
+        },
+        "preferencesFixture": {
+          "explicit": true,
+          "frozen22Preserved": true,
+          "taskRowsPreserved": true,
+          "settingsCreated": 0
+        },
+        "walletVersion": 16,
+        "familyFixture": {
+          "explicit": true,
+          "frozen23Preserved": true,
+          "taskRowsPreserved": true,
+          "linksCreated": 0,
+          "cashAccountId": "1f9df47d-5a1f-4785-834b-d139abe6af56",
+          "usdAccountId": "c6138667-c459-4a31-9817-85ce07b99d2b"
+        }
+      },
+      "legacyBefore": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+      "browserSignal": null,
+      "serverSignal": null,
+      "integrity": "ok"
+    }
+  },
+  "imagesInspected": [
+    "payment-editor-390-light.png",
+    "payment-editor-390-dark.png",
+    "payment-review-390-light.png",
+    "payment-review-390-dark.png"
+  ],
+  "regressions": [
+    "Private Task title copied to shared financial memo: fixed with separate readable sourceTitle and empty default memo.",
+    "Invalid zero preview froze editor: fixed while retaining validation and failed-command authority barriers.",
+    "Wallet import undo ignored genuine cross-domain link: fixed with native logical reference guard; unrelated imports remain undoable."
+  ],
+  "limits": [
+    "Targeted checks only; last full8999/588 applies to P17 source3a2b371.",
+    "Only Wallet-record external navigation qualified in browser; other typed targets still require integration coverage.",
+    "Application locale used for amount input; explicit Wallet locale override parity pending.",
+    "No new PR/Actions/Windows/Node22/Firefox/WebKit/touch/package/service/capacity/pilot qualification.",
+    "Thirteen feature browser harnesses not yet mandatory Windows; independent review pending.",
+    "R02 actual Server2019 separate/unrun; no release/tag/VPS/PC runner."
+  ],
+  "sources": {
+    "playwright.family.config.ts": "3e2594556e2d9242c64f13ea125371d6257fd5ecb6766fba267ff714797c82be",
+    "scripts/ci/productivity-feature-browser.mjs": "f52698e5201d529acd3ed7dc0b93818bbed515038e0312f503a1271ac9316004",
+    "scripts/ci/run-family-browser.mjs": "c269a1f39732c58de4464f2a9c54d814ec3950ac56d34718f6e9e654f0faf9a5",
+    "scripts/ci/write-family-browser-fixture.ts": "59c7ed3b8ed2c710bfc585521a7311e16df5207726c5b0cba4c4d1dde77c7602",
+    "server/app.ts": "a4353c2a7adc4cd4b6a1260d00499ecc0c676e242be09fca077b1bfcdf79d7af",
+    "server/domainLinks.api.test.ts": "10605c35b1e599aa3fbdb63392ee7c9910242f26403349c61900d41b09f073d9",
+    "server/domainLinks.ts": "778c12318a26b9cb8ffa4a1b16d9d813fe1ee84d73c3e060a247df85d6f8af56",
+    "server/domainLinksRouter.ts": "8989c9474ebf0ee53c8e85fbbe56c10645d7f721d053140c5d03514b0e6c2d31",
+    "server/domainResolver.ts": "1e8f50f429c0c2293135b62ff5bd74a229fcb529e741198d2b9f92461ff4e529",
+    "server/productivity/ports.ts": "642907b47b2f64e8ad4e3a28be1aac7521ece3eac119e73a5506581d7d474d1f",
+    "server/productivity/router.ts": "bb0f4f5acd5694d260dce548d15b1ec8cf593686b68fd204a9b2f45f2249a8a1",
+    "server/taskPayments.test.ts": "0462fc5a44dbe5ea3530046c7863fbb3dba4791abd0faad9ec9f60786bfbd725",
+    "server/taskPayments.ts": "e5e517ba17fbdaf606676acd3f22ea4b1bcb78d4b754c13e941ee42d525ffd5c",
+    "server/wallet/records.ts": "72e666d11ec33fef64260aeca52886e11b724adb26ec19180d0dfc9527235046",
+    "server/wallet/store.ts": "9cf105832f889769fa9bd0b1adcffeb4efeaad5135f894253b41de1f9058b8f0",
+    "src/App.tsx": "84e9948949f2f620729bd9ad91a576c69afaf2357b855cb844063c3846029090",
+    "src/features/productivity/TaskDrawer.tsx": "539553e76ea07e2c94e96a11344f1bb8d979ff4da51830e7ce3d49a05c0f2357",
+    "src/features/productivity/api.ts": "5417040cc720c962d02826d06d7b211348830910f7192310588d73691ad0bea8",
+    "src/features/productivity/useTasks.tsx": "b6bbabfb9ac2c9a952e644f4c00472800748ccd6b5737d4c5556cd08321d93d1",
+    "src/features/shared/TaskFamilyPanel.tsx": "2e943e1cc0d3d1e032768d27059b02c1d7551b9ff89fc4c717941a59568bd5da",
+    "src/features/shared/domainLinks.ts": "f1c0f56960745c4295a1db6fc2c6559b57980179a5f598d794c1446a0d8e1865",
+    "src/features/shared/familyApi.test.ts": "4b8ae54cffef702f9245c93eb51864923398a38c60b85ca8b96716718148defb",
+    "src/features/shared/familyApi.ts": "2a032d2a87267bd0eae7ca00e5ec07fa50ead272a7228939fee3ea034d8e2de4",
+    "src/features/shared/taskFamilyWorkspace.test.ts": "8d5d337dc3e99ce01fa680ca61a547de28acd2debabfa91b1ef4c5d0af19a7de",
+    "src/features/shared/taskFamilyWorkspace.ts": "5766cc3b5d444224afbffaf467d5978e30466862edac4680c0593152113bd924",
+    "src/i18n/locales/en.json": "f03be0481fedc98902e8d670495e325f73477a75852d579e0f7fcb89b779bb23",
+    "src/i18n/locales/vi.json": "33e601bf3294825537c26fa11410a83eb72b1c025f5889080032311fe85b0ee1",
+    "src/i18n/locales/zh.json": "5b706e24672d7b761ddba20803d77c080ae5251962437579c78cde35235ac9d7",
+    "tests/e2e/family-links.spec.ts": "9c01214126fed08899f2d74456073ddc73693d986c3a6451082296de52866d78"
+  },
+  "artifacts": [
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-chooser-sdk-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-chooser-sdk-first.json.gz",
+      "sha256": "40802f1b7adcf78f99b6b17f20bf06bb19820170a8f7828983ce79874393d4ef",
+      "sourceBytes": 8188
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-chooser-sdk-first.junit.xml.gz",
+      "sha256": "8edcf9f62ce738b78a2edc383c562d7e2124fecdc18961469e08b367d85fd934",
+      "sourceBytes": 5256
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-chooser-sdk-first.log.gz",
+      "sha256": "b2b77897f115979a0c3a250bdfc7f0d8caa4bcbc0a4e69f239cbfee643b34f07",
+      "sourceBytes": 1720
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-domain-contracts-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-domain-contracts-first.json.gz",
+      "sha256": "b2692f721488995117df3650c2c4346a1a32da0fa8fea4e64f2c586c6bc32ec5",
+      "sourceBytes": 1692
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-domain-contracts-first.log.gz",
+      "sha256": "caf085ecbeb1f307aa1bf643cef6f2b92474bda7cca35c0012c74da6a9ea0c06",
+      "sourceBytes": 761
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-domain-contracts-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-domain-contracts-red.json.gz",
+      "sha256": "b0cbb51d103ca9ff391280bc7208b71be9c9bdbf41981fa25d273a56374f7bab",
+      "sourceBytes": 783
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-domain-contracts-red.log.gz",
+      "sha256": "ad9ead011a4d979661faa422b5c5d0494592540bd4580e68317bb0fdeb37beed",
+      "sourceBytes": 463
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-browser-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-browser-first.log.gz",
+      "sha256": "0e805c4a6f47ebf961c0e4ff7119fbf3eedf5db821aabfd7037ff46fc1a74778",
+      "sourceBytes": 1063
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-browser-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-browser-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-build-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-build-first.log.gz",
+      "sha256": "1927203e8d611c85d543b152e4d37882c2291a839dd69b1cf676c36dad59d1bc",
+      "sourceBytes": 2293
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-localized-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-localized-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-sdk-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-sdk-first.json.gz",
+      "sha256": "647ad790af360a4465ea6ff6b118368b9843f1fdf1fb0a6a30b49e2213adfab6",
+      "sourceBytes": 2355
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-sdk-first.log.gz",
+      "sha256": "d665b7f82f9e343f96926e777d26054d5d78ce311c2715d3be88c6749f100536",
+      "sourceBytes": 745
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-source-commit.log.gz",
+      "sha256": "a5cabd6a33d789c36b9448d3e8f35539af9ec0ebcce0964e1e55fa2e125ceda4",
+      "sourceBytes": 886
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-ui-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-ui-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-ui-source.sha.gz",
+      "sha256": "63bf384289c0b79d563824bab871112ed17c6949987337bafe2da451146e3584",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-workspace-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-workspace-first.json.gz",
+      "sha256": "21bbba934259eb02b23f7331d6223c71a5631e1ba9de6f23bf035eed5100512c",
+      "sourceBytes": 2964
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-family-workspace-first.log.gz",
+      "sha256": "1b7926d9da375e6b499538e06398dfcc84b7f5bf90cff1f1b59b788e9d236697",
+      "sourceBytes": 778
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-frozen.json.gz",
+      "sha256": "2cbe8c1124013d8e99220895109944225550011aa8a770613000e534ba8a7167",
+      "sourceBytes": 660
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-green.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-green.json.gz",
+      "sha256": "2ef4c163a15c9f675970d6d584908c4a0c1f9aff02b7bc935e42200281a491c8",
+      "sourceBytes": 33799
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-green.junit.xml.gz",
+      "sha256": "81e1ca34058ec498821c65430d93cace7812c5046fd51a0911f55f8597c7a585",
+      "sourceBytes": 23130
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-green.log.gz",
+      "sha256": "cb249d89161c4ae1bf53e01165b0b4d9604296ba3f623c39fb3e0c0ff85121d0",
+      "sourceBytes": 3567
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-red.json.gz",
+      "sha256": "a49919795ec09635f6f4f52c7a3271c8424fb61e55648f3811dca481b35ec5ba",
+      "sourceBytes": 11638
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-red.log.gz",
+      "sha256": "bf4e19041aafbc56523fb63bdddf57dd1629d6be67e547583bb4e3dc87521655",
+      "sourceBytes": 6474
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-goal-activity-source.sha.gz",
+      "sha256": "868d3935377bf6d05d280cbe30cc5bc54f5c62173476eedf90cb64834192dac1",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-native-first.json.gz",
+      "sha256": "404d4ef2c6f6e1ebe3038f19e9df43aa937b9fd68b39ca491afb71ab24da7721",
+      "sourceBytes": 5053
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-native-first.junit.xml.gz",
+      "sha256": "d5ba3ba20ec3170ea06ea98f7d3abd7ea8ce19314ad086ce4a64b0a8520e09ba",
+      "sourceBytes": 3212
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-native-first.log.gz",
+      "sha256": "f9f4cba4ba97fdac9f4c63b87fb87883a6b6ef30fe1a74ad06af4f54d013a04d",
+      "sourceBytes": 1620
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-native-red.json.gz",
+      "sha256": "6c844b2a85eca759f0b565fa4ba1983e7377d40ba2bf143f81b9c03970ed3932",
+      "sourceBytes": 757
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-native-red.log.gz",
+      "sha256": "9ab1b69000569ce4892589ce1d60be06513a94074553106a10e0d45f6f6be008",
+      "sourceBytes": 442
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-proof-commit.log.gz",
+      "sha256": "85ebec7c60f2e4ab4de5b43ce367ffbd9d1c662c2bc2ddb84a920f2e94abdcb2",
+      "sourceBytes": 3201
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-push.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-push.log.gz",
+      "sha256": "b80886dd1903b5048d5d533cd5b2ebb0fcc9530db86e515e182dd4cc3d020b19",
+      "sourceBytes": 144
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-recovery-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-recovery-first.json.gz",
+      "sha256": "f77873a39b4559f98152001210a870f610ae9fc66f5afefa336cef2391f522e4",
+      "sourceBytes": 9766
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-recovery-first.junit.xml.gz",
+      "sha256": "4c7c5adfd6dd4550a8e8bfa1845f8446883e31d0e69a71827d4a66dcc33664a6",
+      "sourceBytes": 6358
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-recovery-first.log.gz",
+      "sha256": "94a9349964847845885f91370238346ed0fcee2377e351e7b4c6ee6de51b36a0",
+      "sourceBytes": 2406
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-source-commit.log.gz",
+      "sha256": "8c0b0451fd35f063754a26893c91d64fa6bf8bb370678c6ef89dfcd58f3b079b",
+      "sourceBytes": 622
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-links-source.sha.gz",
+      "sha256": "57646569c5bec3adabfe757c02618679bbaef5fdf3ed44f7f726d86f22d7bd91",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-current-authorization.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-current-authorization.json.gz",
+      "sha256": "e628c8bc1fbedbef794e9627d661c4e45b2d0dad344d900e25006634514743c2",
+      "sourceBytes": 24227
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-current-authorization.junit.xml.gz",
+      "sha256": "e64ea53357f4b065f9bb534d17f23cac4ce062dc4d220d74c65e2805db4cc877",
+      "sourceBytes": 15465
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-current-authorization.log.gz",
+      "sha256": "3b7c3b7cde7c93ce20e4aa2f7b06bdfdf11bd823e2c0d086519fc793e90b0eb1",
+      "sourceBytes": 2181
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-functional.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-functional.json.gz",
+      "sha256": "6b6047874c0bdfaea8eccde9e36af80866f4f828ba8f1aab95a685c48449e723",
+      "sourceBytes": 31055
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-functional.junit.xml.gz",
+      "sha256": "2c66949d476b0269f0085f0ac4ab2e2b6a3e273d2842da2046e5355984672e89",
+      "sourceBytes": 20067
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-functional.log.gz",
+      "sha256": "913d3664a317933b66dc6713c21ac2f96b61d0906a8e744fb28104b554e69cbc",
+      "sourceBytes": 2693
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-http-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-http-first.json.gz",
+      "sha256": "42c59d742357a017fbce48dc9b6a239befcbc1d83f982807441dc87f8867c0f9",
+      "sourceBytes": 4698
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-http-first.junit.xml.gz",
+      "sha256": "f6b1694c5f7bca6934d4d9e8c12a3f6ba79885e68f0c1afa69f77df998cee6d6",
+      "sourceBytes": 2856
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-http-first.log.gz",
+      "sha256": "adb6f7ce18641b4c5845fd20ddcf3153f09a79c9765fa6bd480c01fb45d5d212",
+      "sourceBytes": 1527
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-http-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-http-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-invalid-editor-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-invalid-editor-red.json.gz",
+      "sha256": "4d2bd39bf57f77ff8dbf9d11aab8799ad8b02540c079044c49cc6efce3d1a790",
+      "sourceBytes": 3645
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-invalid-editor-red.log.gz",
+      "sha256": "cd924c472d5de7efb5bec0aa01db51de66962c0a3c3fb5b48e3fc64df96412ea",
+      "sourceBytes": 2206
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-native-first.json.gz",
+      "sha256": "8db90334c31ad39f96ff2c063bcb18321f75415dce87e83ce310a89e86027a73",
+      "sourceBytes": 19450
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-native-first.junit.xml.gz",
+      "sha256": "6f711f493bf51a0b3458df1133b3466ede67592844d992024f66162e9e899139",
+      "sourceBytes": 12207
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-native-first.log.gz",
+      "sha256": "c0e0b638500523a42fd24ba11b20d10e1f2753a1bb5c80132ce9fac3d0d7512b",
+      "sourceBytes": 1602
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-native-red.json.gz",
+      "sha256": "7bc2fa8599251d8698717de2381784bdded4c08280d4aedcfb0bfbdf2ae5bccc",
+      "sourceBytes": 760
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-native-red.log.gz",
+      "sha256": "127252f4bed3064d4276b3f2a63cb1e5fb094ec7d430922b9f5ce967ed2a7d82",
+      "sourceBytes": 447
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-qualified-source.sha.gz",
+      "sha256": "63bf384289c0b79d563824bab871112ed17c6949987337bafe2da451146e3584",
+      "sourceBytes": 41
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-qualified.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-qualified.json.gz",
+      "sha256": "f6b96bf8fe9d1452e864f421add948bc4e06904727975074957b3747e5c826a0",
+      "sourceBytes": 31388
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-qualified.junit.xml.gz",
+      "sha256": "003243fe7e8678f10271fe64085406d58513fc4ac5ac9287ccac986e3956d8fa",
+      "sourceBytes": 20275
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-qualified.log.gz",
+      "sha256": "6ef415a3d624abf10474bc21de9afe5472a9a4d739c8f23e57e7d7aa9bbc120e",
+      "sourceBytes": 2690
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-sdk-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-sdk-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-workspace-lint.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-payment-workspace-lint.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-actual-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-actual-red.json.gz",
+      "sha256": "f0b16635a1ff273ea2268663aaed2965195b1f8b127e0bfc4f11f707e1b6655d",
+      "sourceBytes": 5108
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-actual-red.log.gz",
+      "sha256": "501decbb223d8f01c1a51614c36b546b87e70a773d30da17ff0d506ae0976f7f",
+      "sourceBytes": 2768
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-fixed.json.gz",
+      "sha256": "b1b067a4894738c93fe9a0c56d6cb5582ca9e02e47f0c3bb57324a3c9c56d458",
+      "sourceBytes": 11786
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-fixed.junit.xml.gz",
+      "sha256": "12db93e60b9993d52564653be6eda64b80b1e826a8491591b1dec42646bfd7ee",
+      "sourceBytes": 7493
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-fixed.log.gz",
+      "sha256": "94ea9f945a1e0e28d398d8d7cb5e0d47a03a220bed5ce5fd6e594b554cbc84f3",
+      "sourceBytes": 2051
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-red.json.gz",
+      "sha256": "5954de5fcb18f101fd119e90e0412e3e83b435ea1d9192e14fa42ae79ca298d7",
+      "sourceBytes": 5116
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-private-memo-red.log.gz",
+      "sha256": "25cb388278d218fec090814c66c02562ef8be5f144baf47672f2a99295ed20d2",
+      "sourceBytes": 2773
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-lint-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-lint-first.log.gz",
+      "sha256": "e3ebbff9c168d0edb47bed01892ff08487eeddb38f870497f22cb8f0fb0dc24d",
+      "sourceBytes": 253
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-native-first.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-native-first.json.gz",
+      "sha256": "0d66f2d425861657f06f4b1febd6695e43aa19792f2adb31e1166304bdf343c5",
+      "sourceBytes": 3290
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-native-first.log.gz",
+      "sha256": "2032bc1a2730fff1d4fda6e1565aed23aff780f487a32b39032d5c7ed4954f6f",
+      "sourceBytes": 1116
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-native-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-native-red.json.gz",
+      "sha256": "b9bb53cbfa172bb0fc38edc5ad6f9dc7cec74316b3281388ad9485a3a30e9be9",
+      "sourceBytes": 766
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-resolver-native-red.log.gz",
+      "sha256": "e48df37df8582f231e518c364be64b478381fa2f8825d3ab39590e5fcd49395e",
+      "sourceBytes": 451
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-wallet-undo-reference-fixed.exit.gz",
+      "sha256": "cabc3a30b39528db601f65ca3ced008dd775595c901102d08ac8ae8976b29bcf",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-wallet-undo-reference-fixed.json.gz",
+      "sha256": "d77df1e3963fab3a5597c37080404a57d8bdc67f0bd6ebafae55c34bf4f92f94",
+      "sourceBytes": 31386
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-wallet-undo-reference-fixed.junit.xml.gz",
+      "sha256": "634fb22b8bdf0972a2a9f65ad8735dc53a92efafdf662f25eaab91a5832c779a",
+      "sourceBytes": 20276
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-wallet-undo-reference-fixed.log.gz",
+      "sha256": "04bfba37fd8642a6d3eb8730a9cfe67e44588368ff37071d43b6000ac5b1f588",
+      "sourceBytes": 2730
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-wallet-undo-reference-red.exit.gz",
+      "sha256": "d381e5a9b7c1c71b5fb3fef202103bf4b6098ce288f148735de1ecf61d4e3b75",
+      "sourceBytes": 2
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-wallet-undo-reference-red.json.gz",
+      "sha256": "bfb5d4ee1b90c30bcaef6802be04b176f6a4e1f8dc0344b5e6906552e7428152",
+      "sourceBytes": 4773
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/i02-wallet-undo-reference-red.log.gz",
+      "sha256": "8e699e7210d87bcbb6232a8d4e9c21b88cf67113fd554c913658d6ad34021223",
+      "sourceBytes": 2804
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/payment-editor-390-dark.png",
+      "sha256": "5efb503197bab0a3a4f818718a36c79aaec30c13fe380f208950793c6669ff6b",
+      "sourceBytes": 60210
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/browser.junit.xml.gz",
+      "sha256": "7e053132efb6289f394dd9e6e038e989a3ee2161490dfc5b891dc1d5a3179ea5",
+      "sourceBytes": 1146
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/run.log.gz",
+      "sha256": "0e805c4a6f47ebf961c0e4ff7119fbf3eedf5db821aabfd7037ff46fc1a74778",
+      "sourceBytes": 1063
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/fixture.json.gz",
+      "sha256": "3c2011e5e33182380698c57b3280bc5d7b3f2bfd5a4d3f09b93f6a9f0bf18f58",
+      "sourceBytes": 2825
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/payment-review-390-light.png",
+      "sha256": "adcc06fe5fe2d4974474a42511ceba52c4d485ee589c80aa1be78c2a5790edaf",
+      "sourceBytes": 61358
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/payment-editor-390-light.png",
+      "sha256": "bfa9a08ce6efd685582604147cf4228cb60957cbfb97109e498c4963f13c22c7",
+      "sourceBytes": 60988
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/browser.json.gz",
+      "sha256": "50fde08529179b4edc1390135ebb29af3579e782883fdaf6e7ad337b4f4da5a2",
+      "sourceBytes": 8944
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/server.log.gz",
+      "sha256": "286efaeb9c368693633b2a41775b56d4c7e8b6ac515e0f065c5d9e5b477155b6",
+      "sourceBytes": 178
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/payment-review-390-dark.png",
+      "sha256": "45f59e7f50f8e61e61367bb5a1067a28d6a9f2f70ac78aa1be615a0c02ecf806",
+      "sourceBytes": 59753
+    },
+    {
+      "path": "docs/engineering/evidence/i02-task-payment/browser/runtime.json.gz",
+      "sha256": "53b67ef3b3688f3b35ea73e96a28b7cf85003c230d5686513139fa3d8d42a2be",
+      "sourceBytes": 202
+    }
+  ]
+}
