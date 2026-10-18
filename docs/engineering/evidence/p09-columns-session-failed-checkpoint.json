@@ -1,0 +1,165 @@
+{
+  "taskId": "P09-columns-failed-session-checkpoint",
+  "testedHeadSha": "4dee93ea8ac43a729625e46df7328e6234cf71dc",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38984107559",
+  "outcome": "FAILED; never accepted",
+  "checks": [
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows production browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "unitEach": 6032,
+  "unitFilesEach": 326,
+  "unitJsonJunitNativeIndependentlyRead": true,
+  "qualitySummarySha256": "9bcfbc6c7727f94e970ee53608e22a91c363917067c1d2b8fc26c247594a951c",
+  "legacyBrowserPassed": 45,
+  "productivity": [
+    {
+      "project": "chromium",
+      "stats": {
+        "startTime": "2026-10-17T00:07:07.965Z",
+        "duration": 331693.951,
+        "expected": 41,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "nativeExit": 1,
+      "rawJsonSha256": "a2204a980a74e0e5d8a50612303797a4977a0fab7f3a86e4c084732bd25d2338"
+    },
+    {
+      "project": "firefox",
+      "stats": {
+        "startTime": "2026-10-17T00:07:05.873Z",
+        "duration": 258814.16700000002,
+        "expected": 40,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "nativeExit": 1,
+      "rawJsonSha256": "b2e81388c8766f3fcf4dbba09f43f87e8b7c6031cf543b707fa3d170e9878c93"
+    },
+    {
+      "project": "webkit",
+      "stats": {
+        "startTime": "2026-10-16T23:59:22.772Z",
+        "duration": 571901.98,
+        "expected": 40,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "nativeExit": 1,
+      "rawJsonSha256": "33d40ba59287393bc597d9f43a85a9b8841385188ec9257a22d40767057fa159"
+    }
+  ],
+  "productivityPassed": 121,
+  "productivityFailed": 5,
+  "nativeTouch": "not-run after failed Chromium; not accepted",
+  "failure": "C36 Firefox/WebKit and C41 allthree failed child profile visibility after child loginHTTP200. WebKit traces also preserve zero-error-guard access-control failures; do not suppress.",
+  "traces": [
+    {
+      "scenarioFolder": "productivity-P09-C41-archi-ec688-s-one-classification-change-webkit",
+      "sha256": "368c1dadf2139d338213b18d705130690c9a5edbc9d8ef179e5f7c33f08dc6af"
+    },
+    {
+      "scenarioFolder": "productivity-P08-C36-activ-ab250--deadline-proof-and-rewards-webkit",
+      "sha256": "22e1dd223b394fa6036697190add526407dfb2668515d543da03095db5422b1c"
+    },
+    {
+      "scenarioFolder": "productivity-P08-C36-activ-ab250--deadline-proof-and-rewards-firefox",
+      "sha256": "4de425798c41c11d3a404f427d3d00e2145557deeb6e62a5fcb4cf9dce4bdc63"
+    },
+    {
+      "scenarioFolder": "productivity-P09-C41-archi-ec688-s-one-classification-change-firefox",
+      "sha256": "00614aad910cb65135cc7b78d8aa71eb326e235971dcb33726f0ad079b006e25"
+    }
+  ],
+  "causalCloudReproduction": {
+    "heldRealIndexedDbLogout": true,
+    "expectedNewSessionIssuancesBeforeCleanup": 0,
+    "actual": 1,
+    "nativeExit": 1
+  },
+  "artifacts": [
+    {
+      "name": "windows-node24-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12083260244,
+      "digest": "sha256:5dd767f34b0145c8354f11eeb4dfe66d8613317a353eb50c0638f6ec00660af9"
+    },
+    {
+      "name": "windows-service-tests-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12083190270,
+      "digest": "sha256:7f0c9eae91ed6293497d6998838415f9585d1a0e7f6fed97f1f23004681ae1a7"
+    },
+    {
+      "name": "windows-browsers-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12083006054,
+      "digest": "sha256:7f07b4eb8e1ae55fb742edb6e5d6b34e0da4b726cadbdb8e95a213d99480b52f"
+    },
+    {
+      "name": "windows-node22-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12082790715,
+      "digest": "sha256:04d96ff5675b5b7959a5c5a89d58197ef63bab34758521a0470573f7aab8cae4"
+    },
+    {
+      "name": "windows-package-tests-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12082700761,
+      "digest": "sha256:83d0073d8ab5a21323705b5d1ced4eca8c4eb226d5090de52ac5a6a407a0e59c"
+    },
+    {
+      "name": "windows-package-harness-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12082690633,
+      "digest": "sha256:b45fcadd483d5d98f989e24751a3ce71523094cfa33915f60a540fc0e7230e88"
+    },
+    {
+      "name": "windows-productivity-browsers-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12082533734,
+      "digest": "sha256:314f2847aec77f458369cb1fe63b5a1d2cbe8da33939512e5fdf4ca753ad1732"
+    },
+    {
+      "name": "windows-package-4dee93ea8ac43a729625e46df7328e6234cf71dc-1",
+      "id": 12082492315,
+      "digest": "sha256:ca8ca495c33b3683b1351eff2d1abc1a8ee443c1437cbe79cae93386642afbf9"
+    }
+  ],
+  "fullLogs": {
+    "files": 128,
+    "lines": 29234,
+    "markers": 50,
+    "sha256": "80f4b994676e851724cc9e221f1c1f1715cc980e65720f86b3105f9140b59833"
+  },
+  "fullMasterPlanAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run"
+}

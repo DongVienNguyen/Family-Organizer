@@ -1,0 +1,627 @@
+{
+  "taskId": "main134-independent-qualification",
+  "testedHeadSha": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38982351399",
+  "outcome": "FAILED; never green acceptance",
+  "jobs": [
+    {
+      "name": "Windows production browsers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ],
+  "unit": [
+    {
+      "artifact": "windows-node24-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "tests": 5911,
+      "files": 321,
+      "jsonSha256": "cbd04bea891b4df1370db0aeea3b10d25083acfc09d912615044ab9f3fc20c6d"
+    },
+    {
+      "artifact": "windows-node22-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "tests": 5911,
+      "files": 321,
+      "jsonSha256": "e894229df863bcbf153435207013c0f68b94526c19c0d78137632c1ab79f6a84"
+    }
+  ],
+  "webKit": {
+    "passed": 38,
+    "failed": 1,
+    "case": "C36",
+    "testBudgetMs": 45000
+  },
+  "trace": {
+    "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38982351399",
+    "exactHeadSha": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+    "test": "P08 C36 active workflow",
+    "outcome": "failed; 45000ms budget exhausted near final visible completion control; never accepted",
+    "traceSha256": "ef129096ca863f5fce7d322ef1b167362cecb1d66f730309b2a78c241172756f",
+    "loginApiOperationDurationMs": 11748.155,
+    "loginOperations": [
+      {
+        "durationMs": 255.961,
+        "title": "Navigate",
+        "params": {
+          "url": "/"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 78,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 6,
+            "column": 8
+          }
+        ],
+        "startTime": 244667.079,
+        "endTime": 244923.04
+      },
+      {
+        "durationMs": 229.189,
+        "title": "Fill \"browser-admin\"",
+        "params": {
+          "locator": "getByPlaceholder('Nhập tên đăng nhập gia đình...')",
+          "value": "browser-admin"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 150,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 6,
+            "column": 2
+          }
+        ],
+        "startTime": 244923.911,
+        "endTime": 245153.1
+      },
+      {
+        "durationMs": 31.909,
+        "title": "Fill \"synthetic-browser-password\"",
+        "params": {
+          "locator": "getByPlaceholder('Mật khẩu của từng thành viên...')",
+          "value": "synthetic-browser-password"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 235,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 6,
+            "column": 2
+          }
+        ],
+        "startTime": 245153.723,
+        "endTime": 245185.632
+      },
+      {
+        "durationMs": 3007.732,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('button', { name: 'Đăng nhập Gia Đình', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 320,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 6,
+            "column": 2
+          }
+        ],
+        "startTime": 245186.358,
+        "endTime": 248194.09
+      },
+      {
+        "durationMs": 2365.163,
+        "title": "Click",
+        "params": {
+          "locator": "locator('aside nav').getByRole('button', { name: 'Nhóm Task', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 512,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 6,
+            "column": 2
+          }
+        ],
+        "startTime": 248597.741,
+        "endTime": 250962.904
+      },
+      {
+        "durationMs": 382.931,
+        "title": "Navigate",
+        "params": {
+          "url": "/"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 78,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 449
+          }
+        ],
+        "startTime": 253730.109,
+        "endTime": 254113.04
+      },
+      {
+        "durationMs": 365.288,
+        "title": "Fill \"browser-child\"",
+        "params": {
+          "locator": "getByPlaceholder('Nhập tên đăng nhập gia đình...')",
+          "value": "browser-child"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 150,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 443
+          }
+        ],
+        "startTime": 254114.06,
+        "endTime": 254479.348
+      },
+      {
+        "durationMs": 81.382,
+        "title": "Fill \"synthetic-browser-password\"",
+        "params": {
+          "locator": "getByPlaceholder('Mật khẩu của từng thành viên...')",
+          "value": "synthetic-browser-password"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 235,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 443
+          }
+        ],
+        "startTime": 254480.19,
+        "endTime": 254561.572
+      },
+      {
+        "durationMs": 2525.347,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('button', { name: 'Đăng nhập Gia Đình', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 320,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 443
+          }
+        ],
+        "startTime": 254562.387,
+        "endTime": 257087.734
+      },
+      {
+        "durationMs": 2503.253,
+        "title": "Click",
+        "params": {
+          "locator": "locator('aside nav').getByRole('button', { name: 'Nhóm Task', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 512,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 443
+          }
+        ],
+        "startTime": 257637.902,
+        "endTime": 260141.155
+      }
+    ],
+    "longestOperations": [
+      {
+        "durationMs": 3007.732,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('button', { name: 'Đăng nhập Gia Đình', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 320,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 6,
+            "column": 2
+          }
+        ],
+        "startTime": 245186.358,
+        "endTime": 248194.09
+      },
+      {
+        "durationMs": 2525.347,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('button', { name: 'Đăng nhập Gia Đình', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 320,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 443
+          }
+        ],
+        "startTime": 254562.387,
+        "endTime": 257087.734
+      },
+      {
+        "durationMs": 2503.253,
+        "title": "Click",
+        "params": {
+          "locator": "locator('aside nav').getByRole('button', { name: 'Nhóm Task', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 512,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 443
+          }
+        ],
+        "startTime": 257637.902,
+        "endTime": 260141.155
+      },
+      {
+        "durationMs": 2473.484,
+        "title": "Wait for event \"response\"",
+        "params": {},
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 366
+          }
+        ],
+        "startTime": 280244.866,
+        "endTime": 282718.35
+      },
+      {
+        "durationMs": 2365.163,
+        "title": "Click",
+        "params": {
+          "locator": "locator('aside nav').getByRole('button', { name: 'Nhóm Task', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-test.ts",
+            "line": 8,
+            "column": 512,
+            "function": "login"
+          },
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 6,
+            "column": 2
+          }
+        ],
+        "startTime": 248597.741,
+        "endTime": 250962.904
+      },
+      {
+        "durationMs": 1775.277,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('dialog', { name: 'Chuyển trạng thái công việc', exact: true }).getByRole('button', { name: 'Áp dụng trạng thái', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 484
+          }
+        ],
+        "startTime": 280245.627,
+        "endTime": 282020.904
+      },
+      {
+        "durationMs": 1759.664,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('dialog', { name: 'Chuyển trạng thái công việc', exact: true }).getByRole('button', { name: 'Xem trước trạng thái', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 304
+          }
+        ],
+        "startTime": 278337.503,
+        "endTime": 280097.167
+      },
+      {
+        "durationMs": 1593.007,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('dialog', { name: 'Chuyển trạng thái công việc', exact: true }).getByRole('button', { name: 'Xem trước trạng thái', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 14,
+            "column": 315
+          }
+        ],
+        "startTime": 266768.002,
+        "endTime": 268361.009
+      },
+      {
+        "durationMs": 1529.124,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('dialog', { name: 'Chuyển trạng thái công việc', exact: true }).getByRole('button', { name: 'Xem trước trạng thái', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 304
+          }
+        ],
+        "startTime": 286376.419,
+        "endTime": 287905.543
+      },
+      {
+        "durationMs": 1454.812,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('dialog', { name: 'Chuyển trạng thái công việc', exact: true }).getByRole('button', { name: 'Xem trước trạng thái', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 304
+          }
+        ],
+        "startTime": 271723.726,
+        "endTime": 273178.538
+      },
+      {
+        "durationMs": 1336.768,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('dialog', { name: 'Chuyển trạng thái công việc', exact: true }).getByRole('button', { name: 'Trạng thái đích', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 12,
+            "column": 232
+          }
+        ],
+        "startTime": 264415.306,
+        "endTime": 265752.074
+      },
+      {
+        "durationMs": 1247.904,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('button', { name: 'Đổi trạng thái: Synthetic active workflow webkit', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 77
+          }
+        ],
+        "startTime": 274852.124,
+        "endTime": 276100.028
+      },
+      {
+        "durationMs": 1245.397,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('dialog', { name: 'Chuyển trạng thái công việc', exact: true }).getByRole('button', { name: 'Trạng thái đích', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 154
+          }
+        ],
+        "startTime": 276100.927,
+        "endTime": 277346.324
+      },
+      {
+        "durationMs": 1196.337,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('button', { name: 'Đăng xuất', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 7,
+            "column": 435
+          }
+        ],
+        "startTime": 252533.03,
+        "endTime": 253729.367
+      },
+      {
+        "durationMs": 1146.389,
+        "title": "Click",
+        "params": {
+          "locator": "getByRole('option', { name: 'Cần làm', exact: true })"
+        },
+        "stack": [
+          {
+            "file": "D:\\a\\Family-Organizer\\Family-Organizer\\tests\\e2e\\productivity-workflow-cases.ts",
+            "line": 15,
+            "column": 222
+          }
+        ],
+        "startTime": 285229.268,
+        "endTime": 286375.657
+      }
+    ],
+    "errors": [
+      {
+        "type": "error",
+        "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+        "stack": []
+      }
+    ],
+    "repairDesign": "Use real owned-server session login + context storage state only for C36 precondition. Preserve profile/canonical workspace assertions for both roles, UI logout, all existing C36 semantic assertions and zero-error/offline guards. No retries/deadline changes. UI login form remains covered by all original foundation cases.",
+    "nativeDriverRootCause": "No single selector or HTTP failure established; measured cumulative UI overhead, not a claimed native driver defect."
+  },
+  "artifacts": [
+    {
+      "name": "windows-node22-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12082420575,
+      "digest": "sha256:627b048928088866924896caec8e5a916d130f376d618c46b277a6dff9849fa0"
+    },
+    {
+      "name": "windows-package-tests-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12082295187,
+      "digest": "sha256:c0fa67f74b5324e5e65af7c90c90dcf5e0e367b551a7a2c30f03d5b5b47cbae1"
+    },
+    {
+      "name": "windows-service-tests-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12081836740,
+      "digest": "sha256:e6c42705e5d681422dec25155635edb3ad5da9c34ff6064d78c68474a4adcc92"
+    },
+    {
+      "name": "windows-package-harness-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12081737204,
+      "digest": "sha256:5203d74163dc5b8b6d50bc41b9525f3a44dce14878f0cdb72a3f6f86be1e0c71"
+    },
+    {
+      "name": "windows-node24-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12081694039,
+      "digest": "sha256:084efb84914d9e0ea8dec7258d2ca3179f2431a2ba34e3bb76fd3c605939e1a0"
+    },
+    {
+      "name": "windows-browsers-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12081628396,
+      "digest": "sha256:a64593e847c4687716286e17445f343fad6c3b1296561e755f95f8e87e729342"
+    },
+    {
+      "name": "windows-productivity-browsers-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12081423330,
+      "digest": "sha256:6ae23111673f37239c72443b4158ce37132d35a2b022962539975a3ce9753936"
+    },
+    {
+      "name": "windows-package-3d2eb8a1dc9f0aa315400925ae23ef852b003d67-1",
+      "id": 12081303927,
+      "digest": "sha256:010010894e3de7e2246e6bd56f71b45b842ba909c4ed53fbd398d28349a1a31e"
+    }
+  ],
+  "fullLogRead": {
+    "files": 132,
+    "lines": 28356,
+    "markers": 22,
+    "archiveSha256": "119fb069b874902d55a137c9a9e97fbcf8894397b60ed32025c6a86562abbe33"
+  },
+  "fullMasterPlanAccepted": false,
+  "publicationAllowed": false,
+  "server2019Acceptance": "not-run",
+  "gateSnapshot": "pending in jobs API despite run-level failure; never counted as success"
+}

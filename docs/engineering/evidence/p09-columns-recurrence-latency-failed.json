@@ -1,0 +1,170 @@
+{
+  "taskId": "P09-columns-failed-recurrence-latency-checkpoint",
+  "testedHeadSha": "a18d20765382089c1721cc5362fac7e5c4a3d86d",
+  "runUrl": "https://github.com/DongVienNguyen/Family-Organizer/actions/runs/38985788856",
+  "outcome": "FAILED; never accepted",
+  "checks": [
+    {
+      "name": "Windows production browsers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node22 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows Node24 baseline",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows package producer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows productivity browsers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Windows package clean consumer",
+      "conclusion": "success"
+    },
+    {
+      "name": "Windows disposable service",
+      "conclusion": "success"
+    },
+    {
+      "name": "ci-gate",
+      "conclusion": "failure"
+    }
+  ],
+  "unitEach": 6032,
+  "unitFilesEach": 326,
+  "unitJsonJunitNativeIndependentlyRead": true,
+  "qualitySummarySha256": "2650e6d11aa0e283c388e85b4fb571f3ce9b07837f5e63ce0a52dd41d28bc5d4",
+  "legacyBrowserPassed": 45,
+  "productivity": [
+    {
+      "engine": "chromium",
+      "stats": {
+        "startTime": "2026-10-17T00:27:45.332Z",
+        "duration": 335188.944,
+        "expected": 42,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "nativeExit": 0,
+      "rawSha256": "7ad58655ed914b053f3527a95da1496a70a57000c7947219c7786a0180860b53"
+    },
+    {
+      "engine": "firefox",
+      "stats": {
+        "startTime": "2026-10-17T00:30:30.838Z",
+        "duration": 313688.266,
+        "expected": 42,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "nativeExit": 0,
+      "rawSha256": "bc9b8aa6c6635c5fd9dad64497da95e6c8bb0145e55d067afecd0e63eee20792"
+    },
+    {
+      "engine": "webkit",
+      "stats": {
+        "startTime": "2026-10-17T00:20:35.712Z",
+        "duration": 582996.394,
+        "expected": 40,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "nativeExit": 1,
+      "rawSha256": "386d78b2dc2b92d0c0daeb5b39008307da58980c46543ebf0bf4d609b65401fa"
+    }
+  ],
+  "productivityPassed": 124,
+  "productivityFailed": 2,
+  "nativeTouch": "passed in successful Node24 Chromium job",
+  "resolvedPriorSessionFailure": "C36/C41 pass in all three engines, including permanent held-cleanup regression. No prior profile/access-control failure remains.",
+  "failure": "WebKit C27/C31 exhaust45second budgets in late recurrence UI/reads. Trace operations continue after deadline in teardown; failed assertions do not establish a separate popup bug.",
+  "traces": [
+    {
+      "folder": "productivity-advanced-P10--9fb5c-ning-a-keyboard-phone-draft-webkit",
+      "sha256": "a4a18273e09cfc1137e804ef974b594f5b186c727d9b8f9c4b52352dfa715392",
+      "beforeHooksStart": 317038.204,
+      "testBudgetMs": 45000,
+      "lastExpectStart": 363117.013,
+      "initialUiLoginFirstOperation": 317221.3,
+      "initialUiLoginLastAssertion": 323409.198,
+      "errors": [
+        "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('listbox')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" getByRole('listbox') with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('listbox')\u001b[22m\n\u001b[2m    4 \u00d7 locator resolved to 1 element\u001b[22m\n\u001b[2m      - unexpected value \"1\"\u001b[22m\n\u001b[2m  - Test timeout of 45000ms exceeded.\u001b[22m\n"
+      ]
+    },
+    {
+      "folder": "productivity-advanced-P10--12e09-y-and-exactly-once-approval-webkit",
+      "sha256": "36ed28f4ccbacf90a912f9a73dc5bd625cf41bd0d944d9f3cd9c984dcafedca4",
+      "beforeHooksStart": 425757.132,
+      "testBudgetMs": 45000,
+      "lastExpectStart": 473018.446,
+      "initialUiLoginFirstOperation": 425936.182,
+      "initialUiLoginLastAssertion": 432801.251,
+      "errors": [
+        "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+        "Error: page.evaluate: Test timeout of 45000ms exceeded."
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "windows-productivity-browsers-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12083690641,
+      "digest": "sha256:ae73afba0717340cb451861fd7c03bd587ad3321b1e832fd3fe12fb7b67eade3"
+    },
+    {
+      "name": "windows-service-tests-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12083510998,
+      "digest": "sha256:f662b14dc7ebe0db9728e5bab9e90143fe85b8949b313864364ccd96ad53c299"
+    },
+    {
+      "name": "windows-node24-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12083163785,
+      "digest": "sha256:80a86e108f4c0a033f2037ac83d1b0979cc1543b0fe0cc3bcc47c9a10c4b5b33"
+    },
+    {
+      "name": "windows-node22-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12083023593,
+      "digest": "sha256:fb10912ef44f3dbe1cbffd7381f4471134837ca6f9ead6f22c2f5465d4df701d"
+    },
+    {
+      "name": "windows-browsers-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12082973047,
+      "digest": "sha256:977002982282a8f8a517ef7763c99e88007884539a04cefc57adb8baf63e91d9"
+    },
+    {
+      "name": "windows-package-tests-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12082757213,
+      "digest": "sha256:dd92f261883d3f5d63a6ec0f4170f2be0ae162ef8443f11fba086c8f1587ccd4"
+    },
+    {
+      "name": "windows-package-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12082089706,
+      "digest": "sha256:364f2d81ac17b9f46d0bd4d98571f98964a42e0cd8b8cb2791696d7dac9487cd"
+    },
+    {
+      "name": "windows-package-harness-a18d20765382089c1721cc5362fac7e5c4a3d86d-1",
+      "id": 12081904999,
+      "digest": "sha256:8753bcd032a6592df3a7f8d0cfe1a3c70387750529ab088c9ae543ebd2e0cd57"
+    }
+  ],
+  "fullLogs": {
+    "files": 132,
+    "lines": 28814,
+    "markers": 26,
+    "sha256": "f8404e81e97c124aaf16471307584c6c7236db24bc0aa723bd1e3345d93ad505"
+  },
+  "publicationAllowed": false,
+  "fullMasterPlanAccepted": false,
+  "server2019Acceptance": "not-run"
+}

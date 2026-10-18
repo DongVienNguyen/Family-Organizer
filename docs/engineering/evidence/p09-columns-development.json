@@ -1,0 +1,1550 @@
+{
+  "taskId": "P09-section-column-settings",
+  "baseSha": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+  "originalLocalColumnHead": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
+  "ci135CompositionCheckpoint": "b9fe941f573092fbc1dfaf2be405ec9b673f26b9",
+  "sourceFiles": {
+    "scripts/ci/productivity-browser-contract.mjs": "307a3651d4e03cf413b4e831a7f0bd62b7c780186230458fda5651f2dc3e5d2f",
+    "scripts/windows/release-productivity-source-policy.mjs": "3bcd6b46f320890f0a0270710a8dc5250fbe1b5c88c42adee7c4e7b5c6fdb87f",
+    "server/productivity/board-layout-management.api.test.ts": "d31af9c0a7cadce9e436533bbba528852df8635df46774fcbcee7d0aa6e554c6",
+    "server/productivity/board-layout-management.test.ts": "74f44abcf3f324f0f12c7cabf1b47d564e866182a65bc216dffadc9894ae7084",
+    "server/productivity/boardLayout.ts": "b5b4d3c18b1e562bf7a9eefed3e79ae94195a06b7f8878831770998dca7c9d55",
+    "server/productivity/boardRouter.ts": "e8752ff0b5e912b5cdd246c5e78d279ec3e0e30f814dd8f6bd9af81505a066c4",
+    "src/features/productivity/KanbanLayoutDialog.tsx": "56dd0ab5240f90413a0b979a717dab3b93eb397d92c10614cebcb570ae969504",
+    "src/features/productivity/KanbanLayoutSettings.tsx": "60eed3a8bcaa2735b62f7a0840cdcd1888527ccf34e21235eec213a05467ad98",
+    "src/features/productivity/KanbanWorkspace.tsx": "d152b25c5c93bccfd42dd0cf3234eb0e631d64fc3aaffcb23306ce889cc4fae0",
+    "src/features/productivity/api.ts": "d5ca7b14f1dcf5954a465e3ea5fd8f32547b250f2dd8444f297bf8f1e9a955d0",
+    "src/features/productivity/board-layout-api.test.ts": "d3db479e7877d32c9f164105af7b7991be6ffd1d575e9c39ec3aae9fd992abe9",
+    "src/features/productivity/board-layout-state.test.ts": "5d4d3b71eb7d309fe039f06dde9b73593001b71b5c6a9c613b0befcf6a1fa533",
+    "src/features/productivity/boardLayoutApi.ts": "672c25f7715fcaa90b6589631599b8d2f6d76b712545291995b35fde50bb6234",
+    "src/features/productivity/boardLayoutState.ts": "cc812917a5d076bf0a9262789c5108b3702b6acb089faf4380980e299460343a",
+    "src/features/productivity/kanban-layout-ui.test.tsx": "d93541edcfe982e18cfe13f594586727d1093afbbd6e2486fbf9c2a62e19cca8",
+    "src/features/productivity/useBoardLayoutSettings.ts": "b25ab196e92ab5e979af3b7c305e1c4d5bf272480b8fd1e1b5deab2faa6d5fd7",
+    "src/features/productivity/useKanbanWorkspace.ts": "381c054501572b03ce1c601ac344db43f4ca0b21fc4cf81ac8238eb300c8efa3",
+    "src/i18n/locales/en.json": "375e037eb320c9fb8c8ac87c8df6f681ef7ff84e70bacbe197970bb67b8d4863",
+    "src/i18n/locales/vi.json": "b82afae2a0237f2608c842c96f1ddf737c84c2e1d0621865d57210cd2ee4f08d",
+    "src/i18n/locales/zh.json": "8e0ef905aa21ded85f1bab1e7efce71dd6ff0e239ec1ab3027d5e308e8c077a4",
+    "tests/e2e/productivity-cases.ts": "f4a9520cf8005212ec5783cc925ade6a8b3c1270a6ba12b04ff51bda7d71d984",
+    "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
+    "tests/e2e/productivity.spec.ts": "3261c0322636416a6b178370f078869da145193630eef5442cbc04429ceee4b3",
+    "tests/helpers/release-productivity-browser-fixture.ts": "1209aa1927ae6134b847676a6bafbba0f2e9394601011990f899413f063bb043",
+    "tests/productivity-registration.test.ts": "39d91d526391bab19cb94036e03e96f6b1e9885ec5e7da0c32a9a2e7468a883b",
+    "tests/release-productivity-profile.test.ts": "e20dc02e371ee48d4aa1b24aa70509d910515f02c04cc2055afd0016ac154363",
+    "tests/e2e/productivity-test.ts": "8ef6ed4dd20ac8313cc5a328eb33144ba4ddefdd37c7b09d7171f4c2a6acf6c8",
+    "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
+    "tests/e2e/productivity-advanced-cases.ts": "f8b5d6694934cfb8ec45b155bddeb2fc84ebc5ed87b9a0f90b9fc6b6d9bdae3f"
+  },
+  "wholeBranchReview": {
+    "taskId": "P09-section-column-settings",
+    "mode": "LOCAL whole-branch SELF; not independent",
+    "baseSha": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+    "reviewedAtUtc": "2026-10-16T23:44:45.987522+00:00",
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "findings": [],
+    "correctionPasses": 0,
+    "rereview": false,
+    "sourceFiles": {
+      "scripts/ci/productivity-browser-contract.mjs": "307a3651d4e03cf413b4e831a7f0bd62b7c780186230458fda5651f2dc3e5d2f",
+      "scripts/windows/release-productivity-source-policy.mjs": "3bcd6b46f320890f0a0270710a8dc5250fbe1b5c88c42adee7c4e7b5c6fdb87f",
+      "server/productivity/board-layout-management.api.test.ts": "d31af9c0a7cadce9e436533bbba528852df8635df46774fcbcee7d0aa6e554c6",
+      "server/productivity/board-layout-management.test.ts": "74f44abcf3f324f0f12c7cabf1b47d564e866182a65bc216dffadc9894ae7084",
+      "server/productivity/boardLayout.ts": "b5b4d3c18b1e562bf7a9eefed3e79ae94195a06b7f8878831770998dca7c9d55",
+      "server/productivity/boardRouter.ts": "e8752ff0b5e912b5cdd246c5e78d279ec3e0e30f814dd8f6bd9af81505a066c4",
+      "src/features/productivity/KanbanLayoutDialog.tsx": "56dd0ab5240f90413a0b979a717dab3b93eb397d92c10614cebcb570ae969504",
+      "src/features/productivity/KanbanLayoutSettings.tsx": "60eed3a8bcaa2735b62f7a0840cdcd1888527ccf34e21235eec213a05467ad98",
+      "src/features/productivity/KanbanWorkspace.tsx": "d152b25c5c93bccfd42dd0cf3234eb0e631d64fc3aaffcb23306ce889cc4fae0",
+      "src/features/productivity/api.ts": "d5ca7b14f1dcf5954a465e3ea5fd8f32547b250f2dd8444f297bf8f1e9a955d0",
+      "src/features/productivity/board-layout-api.test.ts": "d3db479e7877d32c9f164105af7b7991be6ffd1d575e9c39ec3aae9fd992abe9",
+      "src/features/productivity/board-layout-state.test.ts": "5d4d3b71eb7d309fe039f06dde9b73593001b71b5c6a9c613b0befcf6a1fa533",
+      "src/features/productivity/boardLayoutApi.ts": "672c25f7715fcaa90b6589631599b8d2f6d76b712545291995b35fde50bb6234",
+      "src/features/productivity/boardLayoutState.ts": "cc812917a5d076bf0a9262789c5108b3702b6acb089faf4380980e299460343a",
+      "src/features/productivity/kanban-layout-ui.test.tsx": "d93541edcfe982e18cfe13f594586727d1093afbbd6e2486fbf9c2a62e19cca8",
+      "src/features/productivity/useBoardLayoutSettings.ts": "b25ab196e92ab5e979af3b7c305e1c4d5bf272480b8fd1e1b5deab2faa6d5fd7",
+      "src/features/productivity/useKanbanWorkspace.ts": "381c054501572b03ce1c601ac344db43f4ca0b21fc4cf81ac8238eb300c8efa3",
+      "src/i18n/locales/en.json": "375e037eb320c9fb8c8ac87c8df6f681ef7ff84e70bacbe197970bb67b8d4863",
+      "src/i18n/locales/vi.json": "b82afae2a0237f2608c842c96f1ddf737c84c2e1d0621865d57210cd2ee4f08d",
+      "src/i18n/locales/zh.json": "8e0ef905aa21ded85f1bab1e7efce71dd6ff0e239ec1ab3027d5e308e8c077a4",
+      "tests/e2e/productivity-cases.ts": "f4a9520cf8005212ec5783cc925ade6a8b3c1270a6ba12b04ff51bda7d71d984",
+      "tests/e2e/productivity-column-cases.ts": "3e788e6357246fff6eafdd953cbf4227c1bcad7bdb7de66b4e2963177e6107eb",
+      "tests/e2e/productivity.spec.ts": "3261c0322636416a6b178370f078869da145193630eef5442cbc04429ceee4b3",
+      "tests/helpers/release-productivity-browser-fixture.ts": "1209aa1927ae6134b847676a6bafbba0f2e9394601011990f899413f063bb043",
+      "tests/productivity-registration.test.ts": "39d91d526391bab19cb94036e03e96f6b1e9885ec5e7da0c32a9a2e7468a883b",
+      "tests/release-productivity-profile.test.ts": "e20dc02e371ee48d4aa1b24aa70509d910515f02c04cc2055afd0016ac154363"
+    },
+    "reviewedDocuments": [
+      "docs/engineering/evidence/main135-final.json",
+      "docs/engineering/implementation-status.md",
+      "scripts/ci/productivity-browser-contract.mjs",
+      "scripts/windows/release-productivity-source-policy.mjs",
+      "server/productivity/board-layout-management.api.test.ts",
+      "server/productivity/board-layout-management.test.ts",
+      "server/productivity/boardLayout.ts",
+      "server/productivity/boardRouter.ts",
+      "src/features/productivity/KanbanLayoutDialog.tsx",
+      "src/features/productivity/KanbanLayoutSettings.tsx",
+      "src/features/productivity/KanbanWorkspace.tsx",
+      "src/features/productivity/api.ts",
+      "src/features/productivity/board-layout-api.test.ts",
+      "src/features/productivity/board-layout-state.test.ts",
+      "src/features/productivity/boardLayoutApi.ts",
+      "src/features/productivity/boardLayoutState.ts",
+      "src/features/productivity/kanban-layout-ui.test.tsx",
+      "src/features/productivity/useBoardLayoutSettings.ts",
+      "src/features/productivity/useKanbanWorkspace.ts",
+      "src/i18n/locales/en.json",
+      "src/i18n/locales/vi.json",
+      "src/i18n/locales/zh.json",
+      "tests/e2e/productivity-cases.ts",
+      "tests/e2e/productivity-column-cases.ts",
+      "tests/e2e/productivity.spec.ts",
+      "tests/helpers/release-productivity-browser-fixture.ts",
+      "tests/productivity-registration.test.ts",
+      "tests/release-productivity-profile.test.ts"
+    ],
+    "focus": [
+      "current session/list manage/view ownership and cached board result scope",
+      "transaction rollback/idempotency/stale revisions and whole Section archive digest/WIP",
+      "immutable uncertain-write UUID across authorized refresh and actor/view/API retirement",
+      "acknowledgment publication and pending native drain",
+      "DESIGN tokens/FancySelect/modal keyboard/phone/three locales",
+      "all39 original case/helper/guard and native touch source preserved; no skipped assertions",
+      "42case exact source policy/raw admission/historical39 isolation"
+    ],
+    "status": "closed; zero findings; validation may expose genuine later failures"
+  },
+  "postReviewCiRepair": {
+    "basis": "run38982351399/C36 trace ef129096ca863f5fce7d322ef1b167362cecb1d66f730309b2a78c241172756f;11748ms UIlogin operations/cumulative45s exhausted",
+    "before": {
+      "tests/e2e/productivity-test.ts": "16f128592b9b9f67fc95608a5d85db9920ebf1ca52c78291e30a9653af1caaf5",
+      "tests/e2e/productivity-workflow-cases.ts": "1615db1b473bc5de68a0d2fb6e908601dd12678fa4a9b95aacb2485b236a08bf",
+      "tests/e2e/productivity-column-cases.ts": "3e788e6357246fff6eafdd953cbf4227c1bcad7bdb7de66b4e2963177e6107eb"
+    },
+    "after": {
+      "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+      "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+      "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4"
+    },
+    "scope": "C36 and new layout fixtures only; real auth/session/profile and Task workspace assertions; legacy UI login helper unchanged",
+    "notASecondFormalReview": true,
+    "deadlineChanges": false,
+    "retriesAdded": false,
+    "semanticAssertionsRemoved": false,
+    "regressionRegistration": {
+      "tests": 4,
+      "exit": 0
+    }
+  },
+  "casePreservation": {
+    "acceptedParent": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+    "originalColumnSource": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
+    "original39CaseCallsUnchangedExceptSessionSetup": true,
+    "original36CaseCallsUnchanged": true,
+    "c27c31OnlyFirstSyntheticSessionPreparationChanged": true,
+    "c36OnlySessionPreparationChanged": true,
+    "permanentHeldLogoutRegressionAdded": true,
+    "allExistingAssertionsUnchanged": true,
+    "original39HelpersUnchanged": true,
+    "helperNames": [
+      "login",
+      "matrixRequest",
+      "createProductivityTest",
+      "togglePin",
+      "workflowView",
+      "holdFetch",
+      "matrixSeed",
+      "matrixChoose",
+      "matrixMoveMenu",
+      "sectionBoard",
+      "sectionTarget",
+      "holdSectionPreview",
+      "groupChoice",
+      "applyGroup",
+      "recurrencePanel",
+      "recurrenceChoice",
+      "recurrenceDate",
+      "legacyFamilyForCutover",
+      "cutoverDraft",
+      "pendingReviewTask",
+      "chooseWorkflowView",
+      "reviewRewards",
+      "legacyReviewTask",
+      "matrixRequestWithId"
+    ],
+    "originalColumn3CaseCallsUnchangedExceptSessionSetup": true,
+    "columnHelpersUnchangedExceptLayoutSessionSetup": true,
+    "offlineAndZeroErrorHookTextsUnchanged": true,
+    "entireNativeTouchFileUnchanged": true,
+    "currentCases": 42,
+    "sourceHashes": {
+      "tests/e2e/productivity-test.ts": "8ef6ed4dd20ac8313cc5a328eb33144ba4ddefdd37c7b09d7171f4c2a6acf6c8",
+      "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+      "tests/e2e/productivity-advanced-cases.ts": "f8b5d6694934cfb8ec45b155bddeb2fc84ebc5ed87b9a0f90b9fc6b6d9bdae3f",
+      "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
+      "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
+      "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
+    }
+  },
+  "changedAndRelatedSuiteCounts": {
+    "tests/productivity-registration.test.ts": 4,
+    "tests/productivity-worker-policy.test.ts": 20,
+    "tests/release-productivity-profile.test.ts": 73,
+    "src/features/productivity/board-layout-api.test.ts": 37,
+    "src/features/productivity/board-layout-state.test.ts": 25,
+    "src/features/productivity/kanban-layout-ui.test.tsx": 20,
+    "server/productivity/board-layout-management.api.test.ts": 6,
+    "server/productivity/board-layout-management.test.ts": 19
+  },
+  "causalVersionRegression": {
+    "redFailed": 6,
+    "redPassed": 67,
+    "redSha256": "2f22322c18eef58695a04fb5607bdffd17af1734cf764776f938755b06498199",
+    "greenTargetPassed": 204,
+    "initialMaskedProbe": {
+      "failed": 0,
+      "passed": 73,
+      "reason": "worker capability independently requires13; causal probe removes that unrelated declaration"
+    }
+  },
+  "cloud": {
+    "tests": 6032,
+    "files": 326,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "junit": 6032,
+    "coverage": true,
+    "maxWorkers": 2,
+    "lintExit": 0,
+    "buildExit": 0,
+    "chromiumCases": 42,
+    "touchCases": 1,
+    "manifest": {
+      "commitSha": "b9fe941f573092fbc1dfaf2be405ec9b673f26b9",
+      "nodeVersion": "v24.21.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+      "productionBuild": {
+        "serverSha256": "2ee1d6e48bb2bdb9e450fa4075e39998fed0e91a86e30992975cedc04e97248f",
+        "indexSha256": "55076387fa935e7bc85d5a8afadb682f442ee4396fbed14f75d034337b0635d1"
+      },
+      "synthetic": true,
+      "project": "chromium",
+      "fixtureProject": "chromium",
+      "executionJob": null,
+      "productivityVersion": 13,
+      "workerFormat": 1,
+      "workerCount": 1,
+      "workerFixtures": [
+        {
+          "index": 0,
+          "fixtureId": "59386119-5676-4361-aca8-81aa2e61a2e2",
+          "port": 39879,
+          "seedTasks": 13,
+          "legacyFileBeforeSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "legacyFileAfterSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+          "integrity": "ok",
+          "databaseClosed": true,
+          "nativeHandlesClosed": true,
+          "fixtureRemoved": true,
+          "serverExitCode": 0,
+          "serverSignal": null,
+          "networkAttempts": [],
+          "serverLogSha256": "45faf1093b37bed1da4bb664024da95858a7e7121c4db3a89cc0f2d4c1e45153",
+          "runtimeSha256": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+          "error": null
+        }
+      ],
+      "fixtureRemoved": true,
+      "nativeHandlesClosed": true,
+      "networkAttempts": [],
+      "externalAttempts": [],
+      "legacyPreserved": true,
+      "integrity": "ok",
+      "databaseClosed": true,
+      "cliExitCode": 0,
+      "cliSignal": null,
+      "serverExitCode": 0,
+      "serverSignal": null,
+      "browserExitCode": 0,
+      "browserSignal": null,
+      "kanbanFixture": {
+        "taskRowsPreserved": true,
+        "boards": 2,
+        "views": 9
+      },
+      "touchExitCode": 0,
+      "touchSignal": null,
+      "nativeTouchVerified": true,
+      "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+      "error": null
+    },
+    "nativeTouchRuntime": {
+      "browserName": "chromium",
+      "browserVersion": "156.0.8078.4",
+      "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+      "nodeVersion": "v24.21.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "maxTouchPoints": 1,
+      "nativeTouchPointer": {
+        "pointerType": "touch",
+        "trusted": true
+      },
+      "checkboxNoPreview": true,
+      "cancelNoTaskMutation": true,
+      "reducedMotion": true,
+      "previewTarget": "q2",
+      "errors": [],
+      "kanbanSectionTouch": {
+        "version": 1,
+        "pointer": {
+          "pointerType": "touch",
+          "trusted": true
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "previewNotAutomatic": true,
+        "targetPrefilled": true,
+        "previewReadOnly": true,
+        "cancelNoTaskMutation": true,
+        "noRewards": true
+      }
+    },
+    "reports": {
+      "p09-columns-composed-clean-full.json": "ade0d9ad4cebc2502109e6774047968e71d02aaeff3d140cbf8dd767e5e0af72",
+      "p09-columns-composed-clean-full.xml": "12410fcc80e7dca97fcf19fbcdd500e59df855b21e3d166a5bf6e1117ed31b57",
+      "p09-columns-composed-target.json": "eab03b6db56a6f2555cbbb71efbc0f77721298b07e97e5d0215d00798319048a"
+    },
+    "browserHashes": {
+      "productivity-browser-touch.json": "758111e7ede4deb74c1beb132154c8d9997aa4414399e9a90e4d3133bc156cb9",
+      "productivity-browser-runtime-chromium-worker0.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+      "productivity-browser.junit.xml": "e6fa79c57422e6e0d1e5d03d4cf054a7422c1007d49d925643dc41348318a116",
+      "productivity-browser-touch.junit.xml": "4c7b88564180c494d7a06372021d1dda3cc5b7153599e04f5c62872d56a714d3",
+      "productivity-browser.json": "fac9de5a73d29c5a6d5e78b9564f59cf3dea88b1cbb30dfd54e394d7c813f279",
+      "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+      "productivity-browser-touch-runtime.json": "921e04bd50c740d29a915920f54f6431a7d6d0372cce89a04c141b918fad7ee2",
+      "productivity-browser-fixture.json": "98c06fa5e1b6e4a058502ed1627c7c73812fb9fbd81a22de78978e3612d2b0d3"
+    },
+    "browserFull42": "passed before session-precondition repair; post-repair four changed journeys separately checked",
+    "sessionRepair": {
+      "cases": [
+        {
+          "title": "P08 C36 active workflow keyboard preview cancel and apply preserve task deadline proof and rewards",
+          "durationMs": 14838
+        },
+        {
+          "title": "P09 C40 keyboard column create rename and ordering preserve Task proof deadline and points",
+          "durationMs": 8792
+        },
+        {
+          "title": "P09 C41 archive preview covers off-filter Tasks cancel writes nothing and native replay preserves one classification change",
+          "durationMs": 13983
+        },
+        {
+          "title": "P09 C42 uncertain column creation retains its original request after actual delivery and an unrelated authorized refresh",
+          "durationMs": 6133
+        }
+      ],
+      "junit": 4,
+      "nativeTouch": 1,
+      "nativeExit": 0,
+      "manifest": {
+        "commitSha": "b9fe941f573092fbc1dfaf2be405ec9b673f26b9",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+        "productionBuild": {
+          "serverSha256": "2ee1d6e48bb2bdb9e450fa4075e39998fed0e91a86e30992975cedc04e97248f",
+          "indexSha256": "55076387fa935e7bc85d5a8afadb682f442ee4396fbed14f75d034337b0635d1"
+        },
+        "synthetic": true,
+        "project": "chromium",
+        "fixtureProject": "chromium",
+        "executionJob": null,
+        "productivityVersion": 13,
+        "workerFormat": 1,
+        "workerCount": 1,
+        "workerFixtures": [
+          {
+            "index": 0,
+            "fixtureId": "237aef73-81bb-4c44-9cca-1252577b5828",
+            "port": 40333,
+            "seedTasks": 13,
+            "legacyFileBeforeSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "legacyFileAfterSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "integrity": "ok",
+            "databaseClosed": true,
+            "nativeHandlesClosed": true,
+            "fixtureRemoved": true,
+            "serverExitCode": 0,
+            "serverSignal": null,
+            "networkAttempts": [],
+            "serverLogSha256": "47218de9eab14a974dd66e93c1283689f2d5746f0d51e3c7f2f924681cf29b61",
+            "runtimeSha256": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+            "error": null
+          }
+        ],
+        "fixtureRemoved": true,
+        "nativeHandlesClosed": true,
+        "networkAttempts": [],
+        "externalAttempts": [],
+        "legacyPreserved": true,
+        "integrity": "ok",
+        "databaseClosed": true,
+        "cliExitCode": 0,
+        "cliSignal": null,
+        "serverExitCode": 0,
+        "serverSignal": null,
+        "browserExitCode": 0,
+        "browserSignal": null,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "touchExitCode": 0,
+        "touchSignal": null,
+        "nativeTouchVerified": true,
+        "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+        "error": null
+      },
+      "nativeTouchRuntime": {
+        "browserName": "chromium",
+        "browserVersion": "156.0.8078.4",
+        "executableSha256": "377a9fc07b495c3b8d0ab8ec1fdfd153641759f9756fea34d8dfce4de82f5025",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "maxTouchPoints": 1,
+        "nativeTouchPointer": {
+          "pointerType": "touch",
+          "trusted": true
+        },
+        "checkboxNoPreview": true,
+        "cancelNoTaskMutation": true,
+        "reducedMotion": true,
+        "previewTarget": "q2",
+        "errors": [],
+        "kanbanSectionTouch": {
+          "version": 1,
+          "pointer": {
+            "pointerType": "touch",
+            "trusted": true
+          },
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "previewNotAutomatic": true,
+          "targetPrefilled": true,
+          "previewReadOnly": true,
+          "cancelNoTaskMutation": true,
+          "noRewards": true
+        }
+      },
+      "productionBuildUnchangedFromBeforeRepair": true,
+      "reports": {
+        "productivity-browser-touch.json": "cf6c32d3aa09101e316fdeb249d5b5f62c4ecfaed7a7886c48a9b35ba9f17729",
+        "productivity-browser-runtime-chromium-worker0.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser.junit.xml": "e52f4581792280c11f5a177dee5492582d61f9664c04da867e28edcda166c055",
+        "productivity-browser-touch.junit.xml": "27e76e256cf143a3090780157f8f2e74b137c95cbdd9c482256804203a27230b",
+        "productivity-browser.json": "eb2804adde09ea4e90cf467052534de812e33d097a87f90b9d1d210025e2664f",
+        "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser-touch-runtime.json": "921e04bd50c740d29a915920f54f6431a7d6d0372cce89a04c141b918fad7ee2",
+        "productivity-browser-fixture.json": "dad5188433b2e877028687a9975fd1e473cacc90f090a916be1f473817df224d"
+      },
+      "lintExit": 0,
+      "sourceRepair": {
+        "basis": "run38982351399/C36 trace ef129096ca863f5fce7d322ef1b167362cecb1d66f730309b2a78c241172756f;11748ms UIlogin operations/cumulative45s exhausted",
+        "before": {
+          "tests/e2e/productivity-test.ts": "16f128592b9b9f67fc95608a5d85db9920ebf1ca52c78291e30a9653af1caaf5",
+          "tests/e2e/productivity-workflow-cases.ts": "1615db1b473bc5de68a0d2fb6e908601dd12678fa4a9b95aacb2485b236a08bf",
+          "tests/e2e/productivity-column-cases.ts": "3e788e6357246fff6eafdd953cbf4227c1bcad7bdb7de66b4e2963177e6107eb"
+        },
+        "after": {
+          "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+          "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+          "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4"
+        },
+        "scope": "C36 and new layout fixtures only; real auth/session/profile and Task workspace assertions; legacy UI login helper unchanged",
+        "notASecondFormalReview": true,
+        "deadlineChanges": false,
+        "retriesAdded": false,
+        "semanticAssertionsRemoved": false
+      },
+      "failedDiagnosticDiscovery": {
+        "attempt1": 1,
+        "attempt2": 1,
+        "testsExecuted": 0,
+        "cause": "external config inherited a relative testDir outside repository; resolved absolute testDir and selected four scenario names; --list showed all four before native execution",
+        "applicationSourceChangedForDiscovery": false
+      },
+      "windowsAcceptance": "pending exact HEAD",
+      "timings": "observed same Cloud host with full unit suite overlapping; not a controlled Windows speed benchmark"
+    },
+    "initialFailedFull": {
+      "nativeExit": 1,
+      "jsonSha256": "371ec630e46a3f0c42dd7953e7da62052e9f6227f6d266fbafa8385bf3c20aa2",
+      "cause": "owned generated Playwright probe imported by Vitest; moved outside repo; no exclusions or assertions changed"
+    },
+    "unitPreservation": {
+      "parentTests": 5911,
+      "currentTests": 6032,
+      "missingPreviouslyPassedCases": [],
+      "newCases": [
+        {
+          "file": "server/productivity/board-layout-management.api.test.ts",
+          "title": "HTTP child or forged metadata cannot rename shared canonical columns",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.api.test.ts",
+          "title": "committed rename invalidates catalog without Task or reward mutation events",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.api.test.ts",
+          "title": "failed HTTP rename rolls back metadata and never emits a successful catalog event",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.api.test.ts",
+          "title": "layout metadata requires current internal session and list management, with no Task bodies or counts",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.api.test.ts",
+          "title": "metadata reads reject unknown query fields and foreign owned views",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.api.test.ts",
+          "title": "native HTTP rename keeps Task facts and replays one exact UUID after its metadata advance",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "bound rename preserves all Task proof deadline lifecycle reward and positions while advancing metadata",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "built-in None and Workflow cannot acquire section rename semantics",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "cached create receipt cannot escape its old board after the owned view is retargeted and old management revoked",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "cached rename receipt cannot escape its old board after the owned view is retargeted and old management revoked",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "fresh management authority is rechecked before a cached member rename receipt",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "malformed rename bad-section-revision is rejected before mutation",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "malformed rename blank-title is rejected before mutation",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "malformed rename missing-title is rejected before mutation",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "malformed rename section-id is rejected before mutation",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "malformed rename unknown is rejected before mutation",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "management read is current authorized metadata only and never changes storage",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "management read refuses restored oversized ordering rather than truncating its metadata",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "metadata read and rename deny child without current list management",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "metadata read and rename deny member without current list management",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "post-rename failure rolls back section list column board and command receipt together",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "rename UUID replay survives reconstructed owner and different payload with that UUID conflicts",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "stale board metadata refuses rename without effects",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "stale section metadata refuses rename without effects",
+          "count": 1
+        },
+        {
+          "file": "server/productivity/board-layout-management.test.ts",
+          "title": "stale view metadata refuses rename without effects",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "archive is explicit whole-section read-only preview followed by guarded apply",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "create and rename serialize only bound board view and section revisions with owned UUID",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "invalid callers cannot rename/archive built-in None or reorder before themselves",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "management metadata is authenticated no-store and retains only validated current owned layout",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive preview column",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive preview count",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive preview scope",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive preview view",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive receipt archived",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive receipt board-revision",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive receipt count",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive receipt duplicates",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent archive receipt section",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent management metadata builtin-revision",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent management metadata duplicate",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent management metadata overflow",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent management metadata private-count",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent management metadata revision",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent management metadata section-key",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent management metadata view",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent rename receipt section",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent rename receipt section-revision",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent rename receipt title",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent reorder missing-id",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent reorder task-fields",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent reorder wrong-order",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent section creation archived",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent section creation board-revision",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent section creation existing-column",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent section creation list",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "refuses inconsistent section creation title",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "reorder validates the complete expected ordering including a legitimate no-op",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "retains HTTP401 with one attempt and no automatic layout retry",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "retains HTTP403 with one attempt and no automatic layout retry",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "retains HTTP404 with one attempt and no automatic layout retry",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "retains HTTP409 with one attempt and no automatic layout retry",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-api.test.ts",
+          "title": "retains HTTP422 with one attempt and no automatic layout retry",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "409 retires a write until fresh metadata and a new explicit intent",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "500 retains immutable command for one manual retry without automatic dispatch",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "None refuses destructive archive before any request",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "None refuses destructive rename before any request",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "a late read cannot republish a retired view",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "a manage403 read retires a pending owner before any late commit callback",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "a pre-write read cannot republish stale metadata after acknowledgment",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "a stale archive preview cannot publish after an authorized refresh",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "acknowledgment is closed before a subscriber can request a second dispatch",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "acknowledgment refresh failure never dispatches the acknowledged write again",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "an empty create draft remains editable without a write until explicit valid confirmation",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "an uncertain create retains exact original UUID and parameters through authorized rereads",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "authority refusal clears private metadata and uncertain draft without exposing error messages",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "dispatches exactly one revision-bound archive intent then refreshes",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "dispatches exactly one revision-bound create intent then refreshes",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "dispatches exactly one revision-bound rename intent then refreshes",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "dispatches exactly one revision-bound reorder intent then refreshes",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "disposed owner drains silently without late publication or refresh",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "double apply stays single-flight and an old view drains before another write",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "layout and proposals remain read-only until explicit apply",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "owner retirement during write publication prevents the native dispatch",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "retargeted saved view refuses an old board metadata response",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "successful authorized reread clears a temporary read error without replacing the uncertain command",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "unknown archive can replay its original preview after a fresh read no longer contains the archived column",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/board-layout-state.test.ts",
+          "title": "whole-section archive cannot write before actual preview",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "HTTP403 cannot keep an enabled confirmation or leak private server text",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "HTTP409 cannot keep an enabled confirmation or leak private server text",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "HTTP422 cannot keep an enabled confirmation or leak private server text",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "all three supported locales carry the same actionable column settings vocabulary",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "archive cannot confirm across authority",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "archive cannot confirm across busy",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "archive cannot confirm across wrong-board",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "archive cannot confirm across wrong-target",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "archive cannot confirm across wrong-view",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "archive requires a real preview and separate entire-section acknowledgment",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "blank column name \"   \" cannot confirm a write",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "blank column name \"\" cannot confirm a write",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "escaped column names remain plain text",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "metadata menu protects None from rename and archive while allowing explicit ordering",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "opens an accessible explicit confirmation without claiming completion or points",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "pending authorization hides all previously loaded private metadata and proposals",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "refused metadata offers a read-only recovery control without displaying old column names",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "reorder uses FancySelect with a disabled fieldset during an unresolved result",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "unknown archived result remains checkable when its column has disappeared from fresh metadata",
+          "count": 1
+        },
+        {
+          "file": "src/features/productivity/kanban-layout-ui.test.tsx",
+          "title": "unknown create keeps the name readonly and exposes only an exact outcome check",
+          "count": 1
+        },
+        {
+          "file": "tests/productivity-browser-evidence.test.ts",
+          "title": "refuses a omitted real canonical flow P09 C40 keyboard column create rename and ordering preserve Task proof deadline and points",
+          "count": 1
+        },
+        {
+          "file": "tests/productivity-browser-evidence.test.ts",
+          "title": "refuses a omitted real canonical flow P09 C41 archive preview covers off-filter Tasks cancel writes nothing and native replay preserves one classification change",
+          "count": 1
+        },
+        {
+          "file": "tests/productivity-browser-evidence.test.ts",
+          "title": "refuses a omitted real canonical flow P09 C42 uncertain column creation retains its original request after actual delivery and an unrelated authorized refresh",
+          "count": 1
+        },
+        {
+          "file": "tests/productivity-registration.test.ts",
+          "title": "preserves the original39scenario order before all three column settings cases",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "column C40 cannot masquerade as fixture12 after earlier capability labels are removed",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "column C40 cannot masquerade as fixture9 after earlier capability labels are removed",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "column C41 cannot masquerade as fixture12 after earlier capability labels are removed",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "column C41 cannot masquerade as fixture9 after earlier capability labels are removed",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "column C42 cannot masquerade as fixture12 after earlier capability labels are removed",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "column C42 cannot masquerade as fixture9 after earlier capability labels are removed",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "refuses current raw reports missing column scenario P09 C40 ",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "refuses current raw reports missing column scenario P09 C41 ",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "refuses current raw reports missing column scenario P09 C42 ",
+          "count": 1
+        },
+        {
+          "file": "tests/release-productivity-profile.test.ts",
+          "title": "requires all126 column settings first attempts and retains historical117 only for its original target",
+          "count": 1
+        }
+      ],
+      "allCurrentStatusesPassed": true,
+      "normalization": "Only actual recoveryRetention checkout/temp prefixes; all other titles and all multiplicities exact"
+    },
+    "linuxOnly": true,
+    "firefoxWebkit": "not-run locally; mandatory Windows pending",
+    "coverageSummary": {
+      "sha256": "e8329cbd63ec77692d3a16d7b4a3fd16fed988b3b351f47526d8f7bf985df015",
+      "total": {
+        "lines": {
+          "total": 14689,
+          "covered": 7414,
+          "skipped": 0,
+          "pct": 50.47
+        },
+        "statements": {
+          "total": 26754,
+          "covered": 15345,
+          "skipped": 0,
+          "pct": 57.35
+        },
+        "functions": {
+          "total": 5430,
+          "covered": 2749,
+          "skipped": 0,
+          "pct": 50.62
+        },
+        "branches": {
+          "total": 21323,
+          "covered": 11172,
+          "skipped": 0,
+          "pct": 52.39
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      }
+    }
+  },
+  "priorDevelopment": {
+    "compositionInput": {
+      "oldHead": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
+      "acceptedParent": "943d958aa09387e89de5815a454e7af26a9edb57",
+      "applicationSourceHashes": {
+        "server/productivity/board-layout-management.api.test.ts": "d31af9c0a7cadce9e436533bbba528852df8635df46774fcbcee7d0aa6e554c6",
+        "server/productivity/board-layout-management.test.ts": "74f44abcf3f324f0f12c7cabf1b47d564e866182a65bc216dffadc9894ae7084",
+        "server/productivity/boardLayout.ts": "b5b4d3c18b1e562bf7a9eefed3e79ae94195a06b7f8878831770998dca7c9d55",
+        "server/productivity/boardRouter.ts": "56912015a576feee21b929521f0d388eba4e27af472731801781cd438e864820",
+        "src/features/productivity/KanbanLayoutDialog.tsx": "56dd0ab5240f90413a0b979a717dab3b93eb397d92c10614cebcb570ae969504",
+        "src/features/productivity/KanbanLayoutSettings.tsx": "60eed3a8bcaa2735b62f7a0840cdcd1888527ccf34e21235eec213a05467ad98",
+        "src/features/productivity/KanbanWorkspace.tsx": "b735c87348fcef4ab071c97bba94170d00e11c845f418cbdd2a98fc9a037e034",
+        "src/features/productivity/api.ts": "24fba3e8c7584d013f68058c9a0857592d5a760518432ac8304932ef3bf13056",
+        "src/features/productivity/board-layout-api.test.ts": "d3db479e7877d32c9f164105af7b7991be6ffd1d575e9c39ec3aae9fd992abe9",
+        "src/features/productivity/board-layout-state.test.ts": "5d4d3b71eb7d309fe039f06dde9b73593001b71b5c6a9c613b0befcf6a1fa533",
+        "src/features/productivity/boardLayoutApi.ts": "672c25f7715fcaa90b6589631599b8d2f6d76b712545291995b35fde50bb6234",
+        "src/features/productivity/boardLayoutState.ts": "cc812917a5d076bf0a9262789c5108b3702b6acb089faf4380980e299460343a",
+        "src/features/productivity/kanban-layout-ui.test.tsx": "d93541edcfe982e18cfe13f594586727d1093afbbd6e2486fbf9c2a62e19cca8",
+        "src/features/productivity/useBoardLayoutSettings.ts": "b25ab196e92ab5e979af3b7c305e1c4d5bf272480b8fd1e1b5deab2faa6d5fd7",
+        "src/features/productivity/useKanbanWorkspace.ts": "381c054501572b03ce1c601ac344db43f4ca0b21fc4cf81ac8238eb300c8efa3",
+        "src/i18n/locales/en.json": "7e4fff72d538113c19665928e471ddde84f6b56ea2162845982c5f7fb3a2f9e4",
+        "src/i18n/locales/vi.json": "24691184d07f438de481553386da656e18ad89b5d8a3c4c45b891d81e00d8061",
+        "src/i18n/locales/zh.json": "0b9ec9a2022c72b2886a076dfb5d76ab334d38d30b05c1546e4543d26a7464d5"
+      },
+      "suffixSha256": "e81a1cb82453dcdbf5437fa17ba9c167d9c2f889d849559594f7349cd753cb88",
+      "unpublished": true,
+      "notFormalReview": true
+    },
+    "correctedParentProbe": {
+      "tests": 0,
+      "lint": 0,
+      "build": 0,
+      "sourceInputs": {
+        "tests/e2e/foundation.spec.ts": "18325951e3edce628b709bafb370d830296cb5c0cbb2623af93d75c5ca3180a8",
+        "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b",
+        "tests/e2e/member-boundary.ts": "1e1ffe226b105ebceac6a9f7abb8c21752aa89124042ddffe71a196630598c66",
+        "tests/e2e/offline-network-boundary.ts": "eacca7883bb5440c474b0dc867add6663b1180663f731640aa9fc8f570ab69ee",
+        "tests/e2e/platform-probe.ts": "d0fac1fbb5e9bd7d1bb5ac1e8641f43f536bb6cf44d4c0172ecbd18d7103f5d7",
+        "tests/e2e/productivity-advanced-cases.ts": "adc27c32b06dac19ecb8185e48fd18c855d2ef9da04f8ad675d8903b102cd9bd",
+        "tests/e2e/productivity-advanced.spec.ts": "4fad1217d4b6c9a969da23a1a9e5dfecdb02c30bccfa329592e62bb9336f2c8b",
+        "tests/e2e/productivity-cases.ts": "d541ef313ccac9247139979983946d417875b8effa95fed42c551110e1ce47c0",
+        "tests/e2e/productivity-chromium.spec.ts": "0bc9ce21252033e36ae5504ae1b5f5d2c3b8acd6042b57ed6331c274f1eba9f0",
+        "tests/e2e/productivity-column-cases.ts": "782cce861189d0a218e3bf9feab1bd5f33300fc1ed656d1359e8a46b9f277cd4",
+        "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+        "tests/e2e/productivity-test.ts": "eec342248c754a603a129e23b17c55564c2b55e0aaa8b6e65bf48dfb0fc2d7ce",
+        "tests/e2e/productivity.spec.ts": "15a05ca2f69758199da92eb033b423453e670d95f2a4d5a6836dbcb69cd11b1d"
+      },
+      "buildHashes": {
+        "serverSha256": "5317fa7ff0f5fdf860ecd250f03121fdd5f72b7b84204f70f568b2370e097fff",
+        "indexSha256": "2d5869ef84f8c3e3a2123880b33d7695a5d5e09e086d1e8816b79e8cd18628a7"
+      },
+      "browser": 0,
+      "setupRepair": "External config.ts outside type:module parsed asCJS/import.meta syntax error before tests; config.mts fixes only probe loader",
+      "priorFailedBrowserExit": 1,
+      "ordinary35caseRegistry": "unchanged; C40\u2013C42 stay unregistered until accepted134 integration, dedicated probe only"
+    },
+    "priorFailuresRetained": [
+      "domain/API/SDK/state/UI scaffold RED reports in /workspace/family-evidence",
+      "cached cross-board result replay create/rename2REDs",
+      "persistent state lifetime4causalREDs",
+      "external config.ts CJS/import.meta parse failure before tests; corrected config.mts",
+      "browser phone-before-login/CreateTasksectionId/owned-column cleanup failures"
+    ]
+  },
+  "windowsAcceptance": "4dee/run38984107559 failed session prep; a18/run38985788856 failed WebKit C27/C31 total budgets; new changed-source exactHEAD pending",
+  "plannedFirstAttemptCases": 172,
+  "publicationAllowed": false,
+  "fullMasterPlanAccepted": false,
+  "server2019Acceptance": "not-run",
+  "secondPostReviewCiRepair": {
+    "basisRun": "38984107559",
+    "basisSha": "4dee93ea8ac43a729625e46df7328e6234cf71dc",
+    "source": "tests/e2e/productivity-test.ts",
+    "beforeSha256": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+    "afterSha256": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+    "rootCause": "The helper issued a new session and mutated storage while the previous page logout/privacy purge could still persist null. Trace showed child login200, no child auth/me success, and access-control errors from the live retiring page. Held real IndexedDB deletion reproduced premature native session issuance1insteadOf0 in Cloud.",
+    "repair": "Assert old login portal after cleanup; retire the App via owned /api/ready JSON document with status/content-type assertions; then issue and seed next actual session. Original language initializer/hooks/errors remain unchanged.",
+    "wholeBranchReview": "original26source LOCAL SELF stays closed; actual validation repair only, no rereview",
+    "applicationSourceChanged": false,
+    "deadlinesChanged": false,
+    "retriesAdded": false,
+    "intermediateFailure": "Opaque about:blank retirement correctly blocked early issuance, but the existing unconditional language initializer raised a localStorage SecurityError on an opaque document. Preserved zero-error guard failed; owned JSON retirement corrects the illegal access without changing that initializer or suppressing errors.",
+    "permanentC36Regression": "C36 now holds the first real IndexedDB deletion success event after actual UI logout; asserts zero new session issuance until cleanup release, then exactly one real child session and all original workflow/proof/deadline/reward checks.",
+    "workflowBeforeSha256": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+    "workflowAfterSha256": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
+    "sourceBefore": {
+      "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+      "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2"
+    },
+    "sourceAfter": {
+      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+      "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906"
+    },
+    "causalDiagnostic": {
+      "redNativeExit": 1,
+      "redExpectedBeforeCleanup": 0,
+      "redActual": 1,
+      "ownedGreenNativeExit": 0,
+      "ownedGreenBrowserCases": 1,
+      "ownedGreenTouchCases": 1,
+      "opaqueDocumentAttemptExit": 1,
+      "zeroErrorAssertionRetained": true
+    },
+    "finalValidation": {
+      "affectedBrowserCases": 4,
+      "nativeTouch": 1,
+      "junitMatched": true,
+      "nativeExit": 0,
+      "lintExit": 0,
+      "registrationTests": 4,
+      "productionBuildUnchanged": true,
+      "manifest": {
+        "commitSha": "4dee93ea8ac43a729625e46df7328e6234cf71dc",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+        "productionBuild": {
+          "serverSha256": "2ee1d6e48bb2bdb9e450fa4075e39998fed0e91a86e30992975cedc04e97248f",
+          "indexSha256": "55076387fa935e7bc85d5a8afadb682f442ee4396fbed14f75d034337b0635d1"
+        },
+        "synthetic": true,
+        "project": "chromium",
+        "fixtureProject": "chromium",
+        "executionJob": null,
+        "productivityVersion": 13,
+        "workerFormat": 1,
+        "workerCount": 1,
+        "workerFixtures": [
+          {
+            "index": 0,
+            "fixtureId": "568c3f92-4153-4f0a-9c91-44c7880b4fbf",
+            "port": 37181,
+            "seedTasks": 13,
+            "legacyFileBeforeSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "legacyFileAfterSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "integrity": "ok",
+            "databaseClosed": true,
+            "nativeHandlesClosed": true,
+            "fixtureRemoved": true,
+            "serverExitCode": 0,
+            "serverSignal": null,
+            "networkAttempts": [],
+            "serverLogSha256": "f1161c0d14c463d2bab0f5bf7c059b51df42ae3627aa633f0154da943e9e9ec8",
+            "runtimeSha256": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+            "error": null
+          }
+        ],
+        "fixtureRemoved": true,
+        "nativeHandlesClosed": true,
+        "networkAttempts": [],
+        "externalAttempts": [],
+        "legacyPreserved": true,
+        "integrity": "ok",
+        "databaseClosed": true,
+        "cliExitCode": 0,
+        "cliSignal": null,
+        "serverExitCode": 0,
+        "serverSignal": null,
+        "browserExitCode": 0,
+        "browserSignal": null,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "touchExitCode": 0,
+        "touchSignal": null,
+        "nativeTouchVerified": true,
+        "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+        "error": null
+      },
+      "hashes": {
+        "p09-session-race-red.log": "be2c39fbb27c4eb98b6a3da1e3d1d5feeceddf6df60ba438de42775cde775081",
+        "p09-session-race-opaque-document-failed.log": "b8da01d0b597d4ad9d13b0840366210ed9be624aca72b7c1b993db4d9afec2e1",
+        "p09-session-race-owned-green.log": "bede26a3ee537b35c56388ef4cc2a59ae0b9fafd59b810d713f9c711a918ea26",
+        "p09-session-race-business.log": "16f9e51cafd82b5953871308e1d4638557f23196cf3714d00800356414ef3838",
+        "p09-session-race-final-registration.json": "730ff024edccedd0774f1dd6f873be9fa3ab3effeb7a02a7634d1778c7056b7d",
+        "p09-session-race-final-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab"
+      },
+      "rawReportHashes": {
+        "productivity-browser-touch.json": "faab942ab54e72e6e9a8e4794545e183316d03cc70576022c93b210395504c68",
+        "productivity-browser-runtime-chromium-worker0.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser.junit.xml": "65f2671a6b84064c89e0f7d497ba727a2cba9a2f4a60b1634e281466f59cef21",
+        "productivity-browser-touch.junit.xml": "cf2269a65691975499b8d9cdf20953e66d229187d3f61d22330e9e7441bedaca",
+        "productivity-browser.json": "74536fbecb102e38e45362d75db12c30e0493584d3efc90344165b8056a2be4d",
+        "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser-touch-runtime.json": "921e04bd50c740d29a915920f54f6431a7d6d0372cce89a04c141b918fad7ee2",
+        "productivity-browser-fixture.json": "ef752018a3844910c89fd6ace20a94984b06f9d1dd6d168c1c210dba1510574d"
+      }
+    }
+  },
+  "casePreservationAtFailed4dee": {
+    "acceptedParent": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+    "originalColumnSource": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
+    "original39CaseCallsUnchangedExceptC36SessionSetup": true,
+    "original38CaseCallsUnchanged": true,
+    "c36OnlyLoginPreconditionsChanged": true,
+    "allExistingAssertionsUnchanged": true,
+    "original39HelpersUnchanged": true,
+    "helperNames": [
+      "login",
+      "matrixRequest",
+      "createProductivityTest",
+      "togglePin",
+      "workflowView",
+      "holdFetch",
+      "matrixSeed",
+      "matrixChoose",
+      "matrixMoveMenu",
+      "sectionBoard",
+      "sectionTarget",
+      "holdSectionPreview",
+      "groupChoice",
+      "applyGroup",
+      "recurrencePanel",
+      "recurrenceChoice",
+      "recurrenceDate",
+      "legacyFamilyForCutover",
+      "cutoverDraft",
+      "pendingReviewTask",
+      "chooseWorkflowView",
+      "reviewRewards",
+      "legacyReviewTask",
+      "matrixRequestWithId"
+    ],
+    "originalColumn3CaseCallsUnchangedExceptSessionSetup": true,
+    "columnHelpersUnchangedExceptLayoutSessionSetup": true,
+    "offlineAndZeroErrorHookTextsUnchanged": true,
+    "entireNativeTouchFileUnchanged": true,
+    "currentCases": 42,
+    "sourceHashes": {
+      "tests/e2e/productivity-test.ts": "e214953f4d43a35320547290000272d4884686e872d5757d55d0e13aac13b805",
+      "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+      "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
+      "tests/e2e/productivity-workflow-cases.ts": "3e8c036c01f88ab587ffa47979638b97c375dd2a800ce9e1dc68c33ad86c70e2",
+      "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
+      "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
+    }
+  },
+  "thirdPostReviewCiRepair": {
+    "failedHead": "a18d20765382089c1721cc5362fac7e5c4a3d86d",
+    "failedRun": "38985788856",
+    "sourceBefore": {
+      "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
+      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3"
+    },
+    "sourceAfter": {
+      "tests/e2e/productivity-advanced-cases.ts": "f8b5d6694934cfb8ec45b155bddeb2fc84ebc5ed87b9a0f90b9fc6b6d9bdae3f",
+      "tests/e2e/productivity-test.ts": "8ef6ed4dd20ac8313cc5a328eb33144ba4ddefdd37c7b09d7171f4c2a6acf6c8"
+    },
+    "basis": "WebKit C27/C31 exceed45s in late assertions; Before Hooks/last-operation trace shows deadline exhausted before completion. Initial UI login spans6188ms/6865ms. C36/C41 phase cleanup now passed.",
+    "repair": "Use existing real-session helper for only C27/C31 initial adult preconditions; helper enters existing ?tab=tasks PWA deep link then retains profile/Tasks-nav/canonical assertions, avoiding unrelated dashboard render.",
+    "noAssertionsRemoved": true,
+    "noDeadlineChanges": true,
+    "noRetriesAdded": true,
+    "review": "original26sourceSELF stays closed; actualCI latency repair separately inventoried",
+    "validation": {
+      "affectedNativeCases": 6,
+      "nativeTouch": 1,
+      "junitMatched": true,
+      "nativeExit": 0,
+      "lintExit": 0,
+      "buildExit": 0,
+      "registrationTests": 4,
+      "productionBuildUnchanged": true,
+      "manifest": {
+        "commitSha": "a18d20765382089c1721cc5362fac7e5c4a3d86d",
+        "nodeVersion": "v24.21.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "lockSha256": "e68edc94e6f46b652c5a54728a1a1ce7c1a91094f19c004c1dd3e3f62b1f407b",
+        "productionBuild": {
+          "serverSha256": "2ee1d6e48bb2bdb9e450fa4075e39998fed0e91a86e30992975cedc04e97248f",
+          "indexSha256": "55076387fa935e7bc85d5a8afadb682f442ee4396fbed14f75d034337b0635d1"
+        },
+        "synthetic": true,
+        "project": "chromium",
+        "fixtureProject": "chromium",
+        "executionJob": null,
+        "productivityVersion": 13,
+        "workerFormat": 1,
+        "workerCount": 1,
+        "workerFixtures": [
+          {
+            "index": 0,
+            "fixtureId": "9128dd16-b71b-4db8-840e-ab931ca7fa20",
+            "port": 38339,
+            "seedTasks": 13,
+            "legacyFileBeforeSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "legacyFileAfterSha256": "4386bbdbe26d56318982e883f9808f1a80cb1704a8d73a4035593d756a34a00c",
+            "integrity": "ok",
+            "databaseClosed": true,
+            "nativeHandlesClosed": true,
+            "fixtureRemoved": true,
+            "serverExitCode": 0,
+            "serverSignal": null,
+            "networkAttempts": [],
+            "serverLogSha256": "e586a0e0ba32e08440d40d9769c83cd886ce337021ae2229db6c69c2f090af8e",
+            "runtimeSha256": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+            "error": null
+          }
+        ],
+        "fixtureRemoved": true,
+        "nativeHandlesClosed": true,
+        "networkAttempts": [],
+        "externalAttempts": [],
+        "legacyPreserved": true,
+        "integrity": "ok",
+        "databaseClosed": true,
+        "cliExitCode": 0,
+        "cliSignal": null,
+        "serverExitCode": 0,
+        "serverSignal": null,
+        "browserExitCode": 0,
+        "browserSignal": null,
+        "kanbanFixture": {
+          "taskRowsPreserved": true,
+          "boards": 2,
+          "views": 9
+        },
+        "touchExitCode": 0,
+        "touchSignal": null,
+        "nativeTouchVerified": true,
+        "addonSha256": "6fd4292c6c5f352436cd85c9e1cb286978efa43c20ae350973f83414ced9991d",
+        "error": null
+      },
+      "reports": {
+        "p09-recurrence-latency-browser.log": "7e0a9833a6650a13f0bdae1eda8a7f999371de0102f518948f80b88108c38c14",
+        "p09-recurrence-latency-registration.json": "99c5a2357f626aab4a57f8aba1a8cb692bf76d77f8fd655346f970f4e8132d91",
+        "p09-recurrence-latency-lint.log": "6883294cf6638683c7cad0eab8001c37f28ea7dec4bdc8b2370d3ce9f2e69aab",
+        "p09-recurrence-latency-build.log": "cb48a4957483f1a62196cf267a25d2f476c181d7ff726536b133d81d328a464a"
+      },
+      "rawReports": {
+        "productivity-browser-touch.json": "7d08d855207ee284fc890f69df51510cff8c50fb091310589e4540516520f06b",
+        "productivity-browser-runtime-chromium-worker0.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser.junit.xml": "136dbbd727514b9308cc3b6e43eb3ca39b3a69cfe1a0baa851a31eab3bac53ad",
+        "productivity-browser-touch.junit.xml": "66bfbcfb56a41bc5f1b7475e9d81fec0d0eb9fbffce76e7e3f94b64d2d81d640",
+        "productivity-browser.json": "b3e6e583bfda6adbbd3ed71f7e7c5c1708111f574d53c58780268987b6391bc2",
+        "productivity-browser-runtime-chromium.json": "b3c763ccf64d1e6ca50d1ce67919a70d6a2bb6aba121b7ad989cd66f20374a2b",
+        "productivity-browser-touch-runtime.json": "921e04bd50c740d29a915920f54f6431a7d6d0372cce89a04c141b918fad7ee2",
+        "productivity-browser-fixture.json": "346d1e9c38a5620f95afe6837669b83589ecd5499a7c0b6b7577b87244759ef0"
+      }
+    }
+  },
+  "casePreservationAtFaileda18": {
+    "acceptedParent": "3d2eb8a1dc9f0aa315400925ae23ef852b003d67",
+    "originalColumnSource": "81623aa0b4a7c2fa5c06f33d1563ff2cec715da0",
+    "original39CaseCallsUnchangedExceptC36SessionSetup": true,
+    "original38CaseCallsUnchanged": true,
+    "c36OnlySessionPreparationChanged": true,
+    "permanentHeldLogoutRegressionAdded": true,
+    "allExistingAssertionsUnchanged": true,
+    "original39HelpersUnchanged": true,
+    "helperNames": [
+      "login",
+      "matrixRequest",
+      "createProductivityTest",
+      "togglePin",
+      "workflowView",
+      "holdFetch",
+      "matrixSeed",
+      "matrixChoose",
+      "matrixMoveMenu",
+      "sectionBoard",
+      "sectionTarget",
+      "holdSectionPreview",
+      "groupChoice",
+      "applyGroup",
+      "recurrencePanel",
+      "recurrenceChoice",
+      "recurrenceDate",
+      "legacyFamilyForCutover",
+      "cutoverDraft",
+      "pendingReviewTask",
+      "chooseWorkflowView",
+      "reviewRewards",
+      "legacyReviewTask",
+      "matrixRequestWithId"
+    ],
+    "originalColumn3CaseCallsUnchangedExceptSessionSetup": true,
+    "columnHelpersUnchangedExceptLayoutSessionSetup": true,
+    "offlineAndZeroErrorHookTextsUnchanged": true,
+    "entireNativeTouchFileUnchanged": true,
+    "currentCases": 42,
+    "sourceHashes": {
+      "tests/e2e/productivity-test.ts": "4006732f9b83063d9c2d0ac5b71eb95b01e8802d4b5106578c2b1640feb032d3",
+      "tests/e2e/productivity-core-cases.ts": "056f138332d3969d7492cc328dc0f3e837653c26911d421af4d5dc011899994a",
+      "tests/e2e/productivity-advanced-cases.ts": "407d65813bb024ace4dfdc3e4a2e6a5032ac5425405dafadce76bbb07adb4a10",
+      "tests/e2e/productivity-workflow-cases.ts": "e5318608d74e95f80428f488c8fe020420218f6f3598f4e7f742dc90686b8906",
+      "tests/e2e/productivity-column-cases.ts": "d38a45854055cd4e4cf4ab33d13a77f87264f66c7d79b874f427091d68bce8e4",
+      "tests/e2e/matrix-touch.spec.ts": "a6d19a0635e604cba3b50dda54f0a879afa9169a8cb95ab342c0fb7b5c11a88b"
+    }
+  }
+}
