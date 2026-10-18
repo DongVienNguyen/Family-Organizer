@@ -804,7 +804,7 @@ export default function App() {
     const sse = startAuthenticatedRealtime({token:authToken!,request:fetch,checkSession:browserSession.capture(),onOnline:online=>{
       setIsOnline(online);if(online)setProductivityRefreshEpoch(value=>value+1);if(online){if(opened){invalidateManagedMedia();void walletWorkspace.refresh();fetchAllData();}opened=true;}
     },onMessage:payload=>{
-        if(['PRODUCTIVITY_SETTINGS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivitySettingsEpoch(value=>value+1);
+        if(['PRODUCTIVITY_PREFERENCES_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivitySettingsEpoch(value=>value+1);
         if(['PRODUCTIVITY_INSIGHTS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivityInsightEpoch(value=>value+1);
         if(['PRODUCTIVITY_HABITS_UPDATE','RESTORE_COMPLETED','USERS_UPDATE'].includes(payload.type))setProductivityHabitEpoch(value=>value+1);
         if(payload.type==='PRODUCTIVITY_FOCUS_UPDATE')setProductivityFocusEpoch(value=>value+1);
